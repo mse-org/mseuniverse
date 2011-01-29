@@ -1,0 +1,333 @@
+object frmevaldialogfo: tfrmevaldialogfo
+  optionswidget = [ow_top, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousewheel, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 178
+  bounds_y = 202
+  bounds_cx = 448
+  bounds_cy = 396
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    448
+    396
+  )
+  optionswindow = [wo_message]
+  options = [fo_screencentered, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  icon.transparentcolor = -2147483642
+  icon.options = [bmo_masked]
+  icon.image = {
+    0000000002000000100000001000000028020000000000000000000000000000
+    000000000000000000000000000000000000000000000015FFD5DE01FFD7E001
+    FFD5DF02FFD7E001FFD3DD0100000009F9002401F8001D01FB001F01F2002201
+    EB001F01FC001D01F9001F01FB001101DDD1D30100000007F8001A01F9033101
+    FF002D01445F5901699E9401E31C4201FC002F01FF002901A455640100000007
+    F8001F01FB023101EB002A0177948E0100000001FA184201F9002E01FF002C01
+    8E46530100000006FE819901FF002101FF002F01C50C2D019CB3AF0100000001
+    FD001D01FF002F01FF002901675E5F0100000006FFA7A101CF2A2E01C51F2301
+    8E3A2F0100000002EB3E4301C2212501A4182C0177898501000000060001FF01
+    0028FF01002AFF010025FF010015FF010014FF010026FF01001FFF01677FA301
+    000000075D5CB6013D3E8F01423E90012F419001433C8E0140409101423F9101
+    293E950180807B0100000007FF000D01FF002501FF0020019BC5B301FF153901
+    FF002201FF001F01CE4C590100000007FBA1B101F8002201FD013001D2082D01
+    93BAB301F77C9401FA002601FB013001E6022D0100000007FB678301F8002701
+    FF003001AB183401B1C9C50100000001FA001C01F9033101FF002401A7959901
+    00000006FB295101FD002B01FF002D018D304101D2DEDC0100000001F6023001
+    FD002E01FF002B01BF3E560100000006F1184101D9002901E30025016A4D5201
+    00000002ED6A8301DB002501DC002801B90E2E01C1C9C701000000068FA8A301
+    8BA49F01BABFBE01000000039EB7B2018CA5A00195A7A301000000140000FFFF
+    E007FFFFF01FFFFFF01FFFFFF01EFFFFF81EFFFF781EFFFFF80FFFFFF80FFFFF
+    F807FFFFFC07FFFF7C0FFFFF7C0FFFFF3C1FFFFF380EFFFF0000FFFF
+  }
+  oncreate = frmevaldialogfo_oncreate
+  ondestroy = frmevaldialogfo_ondestroy
+  onstatafterread = frmevaldialogfo_onstatafterread
+  moduleclassname = 'tmseform'
+  object tlayouter2: tlayouter
+    bounds_x = 8
+    bounds_y = 363
+    bounds_cx = 432
+    bounds_cy = 26
+    anchors = [an_right, an_bottom]
+    optionslayout = [lao_placex, lao_aligny]
+    place_mindist = 10
+    place_maxdist = 10
+    place_mode = wam_end
+    object bcancel: tbutton
+      taborder = 1
+      bounds_x = 382
+      bounds_y = 4
+      bounds_cx = 50
+      bounds_cy = 22
+      state = [as_localcaption, as_localcolor]
+      caption = '&Cancel'
+      modalresult = mr_cancel
+    end
+    object bok: tbutton
+      bounds_x = 322
+      bounds_y = 4
+      bounds_cx = 50
+      bounds_cy = 22
+      state = [as_default, as_localdefault, as_localcaption, as_localcolor, as_localonexecute]
+      caption = '&OK'
+      modalresult = mr_ok
+      onexecute = bok_onexecute
+    end
+  end
+  object tsimplewidget1: tsimplewidget
+    taborder = 1
+    visible = True
+    bounds_x = 0
+    bounds_y = 104
+    bounds_cx = 448
+    bounds_cy = 258
+    anchors = [an_left, an_top, an_right, an_bottom]
+    object LItems: tstringgrid
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      frame.caption = '&Operation'
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 148
+      bounds_y = 40
+      bounds_cx = 292
+      bounds_cy = 98
+      anchors = [an_left, an_top, an_right, an_bottom]
+      optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+      datacols.count = 1
+      datacols.options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+      datacols.items = <      
+        item
+          linewidth = 0
+          width = 288
+          options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        end>
+      zebra_height = 1
+      datarowlinewidth = 0
+      datarowlinecolorfix = -2147483645
+      datarowlinecolor = -2147483642
+      datarowheight = 16
+      oncellevent = LItems_oncellevent
+      reffontheight = 14
+    end
+    object LCategory: tstringgrid
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      frame.caption = '&Category'
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 8
+      bounds_y = 40
+      bounds_cx = 136
+      bounds_cy = 98
+      anchors = [an_left, an_top, an_bottom]
+      optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+      datacols.count = 1
+      datacols.linewidth = 0
+      datacols.options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+      datacols.items = <      
+        item
+          linewidth = 0
+          width = 132
+          options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        end>
+      zebra_height = 1
+      datarowlinewidth = 0
+      datarowlinecolorfix = -2147483642
+      datarowlinecolor = -2147483642
+      datarowheight = 16
+      oncellevent = LCategory_oncellevent
+      reffontheight = 14
+    end
+    object lparams: tlabel
+      optionswidget1 = []
+      frame.caption = 'Params :'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 3
+      bounds_x = 8
+      bounds_y = 182
+      bounds_cx = 434
+      bounds_cy = 35
+      anchors = [an_left, an_bottom]
+      caption = 'tlabel1'
+      font.color = -1879048181
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      textflags = [tf_wordbreak]
+      reffontheight = 14
+    end
+    object lmodel: tlabel
+      optionswidget1 = []
+      frame.caption = 'Model :'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 4
+      bounds_x = 8
+      bounds_y = 142
+      bounds_cx = 434
+      bounds_cy = 35
+      anchors = [an_left, an_bottom]
+      caption = 'tlabel1'
+      font.color = -1879048181
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      textflags = [tf_wordbreak]
+      reffontheight = 14
+    end
+    object lhelp: tlabel
+      optionswidget1 = []
+      frame.caption = 'Hints :'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 5
+      bounds_x = 8
+      bounds_y = 221
+      bounds_cx = 434
+      bounds_cy = 35
+      anchors = [an_left, an_bottom]
+      caption = 'tlabel1'
+      font.color = -1879048181
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      textflags = [tf_wordbreak]
+      reffontheight = 14
+    end
+    object tlayouter1: tlayouter
+      bounds_x = 8
+      bounds_y = 8
+      bounds_cx = 433
+      bounds_cy = 26
+      anchors = [an_left, an_top, an_right]
+      optionslayout = [lao_placex, lao_aligny]
+      place_mindist = 10
+      place_maxdist = 10
+      place_options = [plo_scalesize]
+      object bclear: tbutton
+        optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_autoscale]
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 99
+        bounds_cy = 22
+        state = [as_localcaption, as_localcolor, as_localonexecute]
+        caption = '&Clear'
+        onexecute = bclear_onexecute
+      end
+      object bshowresult: tbutton
+        optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_autoscale]
+        taborder = 3
+        bounds_x = 327
+        bounds_y = 0
+        bounds_cx = 99
+        bounds_cy = 22
+        state = [as_localcaption, as_localcolor, as_localonexecute]
+        caption = 'Show &Result'
+        onexecute = bshowresult_onexecute
+      end
+      object bchecksyn: tbutton
+        optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_autoscale]
+        taborder = 2
+        bounds_x = 218
+        bounds_y = 0
+        bounds_cx = 99
+        bounds_cy = 22
+        state = [as_localcaption, as_localcolor, as_localonexecute]
+        caption = '&Syntax Check'
+        onexecute = bchecksyn_onexecute
+        object tbutton3: tbutton
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_autoscale]
+          bounds_x = 102
+          bounds_y = 46
+          bounds_cx = 140
+          bounds_cy = 22
+          state = [as_localcaption, as_localcolor]
+          caption = '&Add Selection'
+        end
+      end
+      object badd: tbutton
+        optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_autoscale]
+        taborder = 1
+        bounds_x = 109
+        bounds_y = 0
+        bounds_cx = 99
+        bounds_cy = 22
+        state = [as_localcaption, as_localcolor, as_localonexecute]
+        caption = '&Add Selection'
+        onexecute = badd_onexecute
+      end
+    end
+    object tsplitter2: tsplitter
+      optionswidget = [ow_destroywidgets, ow_autoscale]
+      color = -1879048189
+      frame.dummy = 0
+      taborder = 6
+      bounds_x = 144
+      bounds_y = 57
+      bounds_cx = 4
+      bounds_cy = 81
+      anchors = [an_left, an_top, an_bottom]
+      options = [spo_hmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = LCategory
+      linkright = LItems
+      grip = stb_dens50
+    end
+  end
+  object tsplitter1: tsplitter
+    optionswidget = [ow_destroywidgets, ow_autoscale]
+    color = -1879048189
+    frame.dummy = 0
+    taborder = 2
+    bounds_x = 0
+    bounds_y = 100
+    bounds_cx = 448
+    bounds_cy = 4
+    anchors = [an_top]
+    options = [spo_vmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linktop = wformula
+    linkbottom = tsimplewidget1
+    grip = stb_dens50
+  end
+  object wformula: tmemoedit
+    frame.caption = 'Formula'
+    frame.localprops = [frl_colorclient]
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 0
+    bounds_y = 3
+    bounds_cx = 448
+    bounds_cy = 97
+    anchors = [an_top]
+    optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
+  end
+end

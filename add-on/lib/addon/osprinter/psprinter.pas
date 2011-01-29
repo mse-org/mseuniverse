@@ -1,0 +1,2719 @@
+{ MSEgui Copyright (c) 2007-2008 by Martin Schreiber
+
+    See the file COPYING.MSE, included in this distribution,
+    for details about the copyright.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+}
+{*********************************************************}
+{ Original file is mseprinter.pas, msegdiprint.pas, and   }
+{ msepostscriptprinter.pas                                }
+{            Modified by : Sri Wahono '2008               }
+{             Included package with Repaz                 }
+{*********************************************************}
+{ Feel free to participate with reports bug, create new   }
+{ report template, etc with join with Repaz forum  :      }
+{                                                         }
+{              http://www.msegui.org/osprinter            }
+{                                                         }
+{*********************************************************}
+unit psprinter;
+
+{$ifdef FPC}{$mode objfpc}{$goto on}{$h+}{$endif}
+
+interface
+
+uses
+ msegraphics,mseguiglob,mseclasses,classes,msegraphutils,msestream,msestrings,msetypes,
+ msedrawtext,mserichstring,osprinter,osprinterstype,msefloattostr;
+const
+ defaultimagecachesize = 500000;
+ defaultimagecachemaxitemsize = 100000;
+
+type
+ pspointty = record
+              x: real;
+              y: real;
+             end;
+ psmatrixty = array [0..2] of array [0..1] of real;
+
+const
+ psunitymatrix: psmatrixty = ((1,0),  //1 0 0
+                              (0,1),  //0 1 0
+                              (0,0)); //0 0 1
+
+type
+ tpsprintercanvas = class;
+
+ tpsprinter = class(tprinter,icanvas)
+  private
+   fdefprinter  : string;
+   function getcanvas: tpsprintercanvas;
+   //icanvas
+   procedure gcneeded(const sender: tcanvas);
+   function getmonochrome: boolean;
+   function getprinterpapers(aprintername: string): stdpagearty; override;
+   function getprinters: printerarty; override;
+   function getdefaultprinter: string; override;
+   procedure unlinkcanvas; override;
+  public
+   constructor create(aowner: tcomponent); override;
+   destructor destroy; override;
+   procedure beginprint; override;
+   procedure endprint; override;
+   property canvas: tpsprintercanvas read getcanvas;
+ end;
+
+ psfontinfoty = record
+  handle: fontnumty;  
+  namenum: integer;
+  size: integer;
+  scalestring1: ansistring;
+  scalestringfull: ansistring;
+  rotated: boolean;
+  codepages: integerarty;
+ end; 
+ psfontinfoarty = array of psfontinfoty;
+
+ psalignty = (pa_center,pa_lefttop,pa_top,pa_righttop,pa_right,
+   pa_rightbottom,pa_bottom,pa_leftbottom,pa_left);
+ pslevelty = (psl_1,psl_2,psl_3);
+
+ imagecachekindty = (ick_1,ick_2,ick_3,ick_4);
+ imagecachety = record
+  source: tcanvas;
+  mask: tcanvas;
+  kind: imagecachekindty;
+  sourcerect: rectty;
+  bytecount: integer;
+//  rowbytes: integer;
+  statestamp: longword;
+  maskstatestamp: longword;
+ end;
+ imagecachearty = array of imagecachety;
+
+ tpsprintercanvas = class(tprintercanvas)
+  private
+   ffonts: psfontinfoarty;
+   ffontnames: stringarty;
+   fps_pagenumber: integer;
+   fmapnames: array[0..255] of string;
+   factfont,factcodepage: integer;
+   fstarted: boolean;
+   fpslevel: pslevelty;
+   fimagecache: imagecachearty;
+   fcacheorder: integerarty;
+   fimagecacheused: integer;
+   fimagecachesize: integer;
+   fimagecachemaxitemsize: integer;
+   procedure setimagecachesize(const avalue: integer);
+   procedure setimagecachemaxitemsize(const avalue: integer);
+  protected
+   fstream: ttextstream;  
+   procedure gcdestroyed(const sender: tcanvas); override;
+   procedure freeimagecache(const index: integer);
+   procedure touchimagecache(const index: integer);
+   function getimagecache(const akind: imagecachekindty; const asource: tcanvas;
+                          const asourcerect: rectty; out varname: string{;
+                          out arowbytes: integer}): boolean; 
+                                       //true if found
+   function setimagecache(const akind: imagecachekindty;
+               const asource: tcanvas;
+               const asourcerect: rectty; out varname: string;
+               const bytes: bytearty; {const arowbytes: integer;}
+               const amask: tcanvas = nil): boolean; 
+                                       //true if stored
+
+   procedure reset; override;
+   procedure streamwrite(const atext: string); //checks fstream = nil
+   procedure streamwriteln(const atext: string); //checks fstream = nil
+   function getgdifuncs: pgdifunctionaty; override;
+   procedure updatescale; override;
+   procedure initgcstate; override;
+   procedure initgcvalues; override;
+   procedure finalizegcstate; override;
+   procedure checkscale;
+   function encodefontname(const namenum,codepage: integer): string;
+   function checkfont(const afont: fontnumty; const acodepage: integer): integer;
+               //returns index in ffonts
+   function getscalestring(const astyle: fontstylesty): ansistring;
+   procedure selectfont(const afont: fontnumty; const acodepage: integer);
+   procedure definefont(const adata: fontnumty; const acodepage: integer);
+   procedure setpslinewidth(const avalue: integer);
+   function strokestr: string;
+   function rectscalestring(const arect: rectty): string; 
+                 //transform unity cell to arect
+   function imagematrixstring(const asize: sizety): string;
+   
+   function getcolorstring(const acolor: colorty): string;
+   function setcolorstring(const acolor: colorty): string;
+   procedure writebinhex(const data: bytearty);
+   function psencode(const text: pchar; const count: integer): string;
+   function getshowstring(const avalue: pmsechar; const count: integer;
+                   fontneeded: boolean = false;
+                   const acolor: colorty = cl_none;
+                   const acolorbackground: colorty = cl_none;
+                   const fontstyle: fontstylesty = []): string;
+   function createpattern(const sourcerect,destrect: rectty; 
+                   const acolorbackground,acolorforeground: colorty;
+                   const acanvas: tcanvas;
+//                   const pixmap: pixmapty; const agchandle: ptruint;
+                   const patname: string): boolean;
+              //true if ok
+   procedure handlepoly(const points: ppointty; const lastpoint: integer;
+                     const closed: boolean; const fill: boolean);
+   procedure handleellipse(const rect: rectty; const fill: boolean);
+   procedure checkcolorspace;
+   procedure ps_drawstring16;
+   procedure ps_drawarc;
+   procedure ps_destroygc;
+   procedure ps_changegc;
+   procedure ps_drawlines;
+   procedure ps_drawlinesegments;
+   
+   procedure ps_fillpolygon;
+   procedure ps_fillarc;
+   procedure ps_fillrect;
+   procedure ps_copyarea;
+   procedure textout(const text: richstringty; const dest: rectty;
+                        const flags: textflagsty; const tabdist: real); override;
+   procedure begintextclip(const arect: rectty); override;
+   procedure endtextclip; override;
+   procedure beginpage; override;
+   procedure endpage; override;
+   function registermap(const acodepage: integer): string;
+                 //returns mapname ('E00' for latin 1)  
+   procedure checkmap(const acodepage: integer);
+   function gcposstring(const apos: pointty): string;
+  public
+   constructor create(const user: tprinter; const intf: icanvas);
+
+   function devpos(const apos: pointty): pspointty;
+   function posstring(const apos: pointty): string;  
+   function matrixstring(const mat: psmatrixty): string;
+   function transrotate(const sourcecenter,destcenter: pointty;
+                                                const angle: real): string;  
+   function diststring(const adist: integer): string;
+   function rectsizestring(const asize: sizety): string;
+   function sizestring(const asize: sizety): string;
+   function rectstring(const arect: rectty): string;
+  published
+   property pslevel: pslevelty read fpslevel write fpslevel default psl_3;
+   property imagecachesize: integer read fimagecachesize write setimagecachesize 
+                                                  default defaultimagecachesize;
+   property imagecachemaxitemsize: integer read fimagecachemaxitemsize 
+                                   write setimagecachemaxitemsize 
+                                           default defaultimagecachemaxitemsize;
+ end;
+ 
+function psrealtostr(const avalue: real): string;
+procedure pstranslate(var mat: psmatrixty; const dist: pspointty);
+procedure psretranslate(var mat: psmatrixty; const dist: pspointty);
+procedure psrotate(var mat: psmatrixty; const angle: real); //radiant
+function pstransform(const mat: psmatrixty;
+              const apoint: pspointty): pspointty; overload;
+function pstransform(const mat: psmatrixty;
+              const apoint: pointty): pspointty; overload;
+function psdist(const source,dest: pspointty): pspointty; overload;
+//function psdist(const source,dest: pointty): pspointty; overload;
+function pspoint(const apoint: pointty): pspointty;
+ 
+implementation
+
+uses
+ msegui,msesys,sysutils,msedatalist,mseformatstr,mseunicodeps,
+ mseguiintf,msebits;
+type
+ tsimplebitmap1 = class(tsimplebitmap); 
+ tcanvas1 = class(tcanvas);
+var
+ gdifuncs: pgdifunctionaty;
+ 
+procedure pstranslate(var mat: psmatrixty; const dist: pspointty);
+begin
+ mat[2,0]:= mat[2,0] + dist.x;
+ mat[2,1]:= mat[2,1] + dist.y;
+end;
+
+procedure psretranslate(var mat: psmatrixty; const dist: pspointty);
+begin
+ mat[2,0]:= mat[2,0] - dist.x;
+ mat[2,1]:= mat[2,1] - dist.y;
+end;
+
+procedure psrotate(var mat: psmatrixty; const angle: real); //radiant
+var
+ si,co: real;
+ m00,m01,m10,m11,m20,m21: real;
+begin
+ si:= sin(angle);
+ co:= cos(angle);
+ m00:= mat[0,0]*co+mat[0,1]*-si;
+ m01:= mat[0,0]*si+mat[0,1]*co;
+ m10:= mat[1,0]*co+mat[1,1]*-si;
+ m11:= mat[1,0]*si+mat[1,1]*co;
+ m20:= mat[2,0]*co+mat[2,1]*-si;
+ m21:= mat[2,0]*si+mat[2,1]*co;
+ mat[0,0]:= m00;
+ mat[0,1]:= m01;
+ mat[1,0]:= m10;
+ mat[1,1]:= m11;
+ mat[2,0]:= m20;
+ mat[2,1]:= m21;
+end;
+
+function pstransform(const mat: psmatrixty; const apoint: pspointty): pspointty;
+begin
+ result.x:= mat[0,0]*apoint.x + mat[1,0]*apoint.y + mat[2,0];
+ result.y:= mat[0,1]*apoint.x + mat[1,1]*apoint.y + mat[2,1];
+end;
+
+function pstransform(const mat: psmatrixty; const apoint: pointty): pspointty;
+begin
+ result.x:= mat[0,0]*apoint.x + mat[1,0]*apoint.y + mat[2,0];
+ result.y:= mat[0,1]*apoint.x + mat[1,1]*apoint.y + mat[2,1];
+end;
+
+function psdist(const source,dest: pspointty): pspointty;
+begin
+ result.x:= dest.x - source.x;
+ result.y:= dest.y - source.y;
+end;
+{
+function psdist(const source,dest: pointty): pspointty;
+begin
+ result.x:= dest.x - source.x;
+ result.y:= dest.y - source.y;
+end;
+}
+function pspoint(const apoint: pointty): pspointty;
+begin
+ result.x:= apoint.x;
+ result.y:= apoint.y;
+end;
+
+const
+ pageorientations: array[pageorientationty] of string = ('Portrait','Landscape');
+ 
+ imagepatname = 'impat';
+ patpatname = 'pat';
+ radtodeg = 360/(2*pi);
+ nl = lineend;  
+ maxlinecharcount = 80;
+ preamble = 
+ '/rf {'+nl+        //register font: alias,encoding,origname->
+ 'findfont'+nl+         //alias,encoding,font
+ 'dup length dict '+    //alias,encoding,font,dict
+ 'begin '+nl+           //alias,encoding,font  dict is on top of dictstack
+ '{ 1 index /FID ne'+nl+  //alias,encoding,font,key,value
+ '{def}'+nl+             //alias,encoding,font
+ '{pop pop}'+nl+         //alias,encoding,font
+ 'ifelse'+nl+
+ '} forall'+nl+           //alias,encoding
+ '/Encoding exch def'+nl+ //alias
+ 'currentdict'+nl+        //alias,dict 
+ 'end'+nl+                 //alias,dict       dict is removed from dictstack
+ 'definefont '+            //dict 
+ 'pop'+nl+                 //
+ '} bind def'+nl+
+ '/sf {'+nl+         //select font:    |-> optional
+ //[alias,scale(x),scaley,rotation,underline,stroke]->
+ 'dup'+              //[bak],[alias,scale(x),scaley,rotation]
+ ' length 2 ge'   +     //[bak], length >= 2
+ ' {dup'+           //[bak][alias,scale(x),scaley]
+ ' dup length 3 ge'+nl+ //[bak],[alias,scale(x),scaley],length >= 3
+ '{1 2 getinterval aload pop}'+ //[bak],scalex,scaley
+ ' {1 get dup}'+       //[bak],scale,scale
+ ' ifelse'+nl+
+ 'matrix scale'+           //[bak],smatrix
+ ' }'+
+ ' {matrix}'+              //[bak],umatrix
+ ' ifelse'+nl+
+
+ ' 1 index'+         //[bak],smatrix,[alias,scale(x),scaley,rotation]
+ ' length 4 ge'+     //[bak],smatrix, length >= 4
+ ' {1 index'+        //[bak],smatrix,[alias,scale(x),scaley,rotation]
+ ' 3 get'+           //[bak],smatrix,rotation
+ ' matrix rotate'+   //[bak],smatrix,rmatrix
+ ' matrix concatmatrix}'+
+ ' if'+nl+   
+
+ '1 index'+             //[bak],rmatrix,[alias,scale(x),scaley,rotation,underline,stroke]
+ ' dup length 5 ge'   + //[bak],rmatrix,
+       //[alias,scale(x),scaley,rotation,underline,stroke], length >= 5
+ ' {dup 4 get}'+        //[bak],rmatrix,[bak],underline
+ ' {0} ifelse'+         //[bak],rmatrix,[bak],0
+ ' /uli exch def'+nl+
+ 'dup length 6 ge'   + //[bak],rmatrix,[bak]
+      //[alias,scale(x),scaley,rotation,underline,stroke], length >= 6
+ ' {5 get}'+           //[bak],rmatrix,strokeout
+ ' {pop 0} ifelse'+    //[bak],rmatrix,0
+ ' /sou exch def'+nl+  //
+
+ 'exch '+               //matrix,[alias]
+ ' 0 get'+              //matrix,alias
+ ' findfont'+           //matrix,font
+ ' exch makefont'+            //font
+ ' dup /FontMatrix get exch'+ //matrix,font 
+ ' dup /FontBBox get'+nl+
+       //matrix,font,bbox
+ 'aload pop'+ //matrix,font,llx,lly,urx,ury
+ ' 5 index'+   //matrix,font,llx,lly,urx,ury,matrix
+ ' transform'+ //matrix,font,llx,lly,urx',ury'
+ ' /asc exch def pop'+ //matrix,font,llx,lly
+ ' 3 index'+   //matrix,font,llx,lly,matrix
+ ' transform'+ //matrix,font,llx',lly'
+ ' -1 mul'+nl+' /desc exch def pop'+ //matrix,font
+ ' setfont pop'+nl+
+ '} bind def'+nl+
+
+ '/w {'+nl+    //[[text,[font],color,colorbackground],...]-> cx
+ //[[text,[font],color],...]-> cx
+ //[[text,[font]],...]-> cx
+ //[[text],...]-> cx
+ //calc stringwidth
+ ' currentfont exch'+            //fontbak,inputarray
+ ' 0 exch'+    //fontback,0,inputarray
+ ' {'+         //fontback,sum,[text,[font],color,colorbackground]
+ ' dup length 2 ge'+ //fontback,sum,[text,[font],color,colorbackground],length>=2
+ '{ dup 1 get sf}'+nl+
+ 'if'+    //fontback,sum,[text,[font],color,colorbackground]
+      //set font
+ ' 0 get'+              //fontback,sum,text
+ ' stringwidth pop add'+//fontback,sum
+ ' } forall'+
+ ' exch setfont'+nl+
+ '} bind def'+nl+
+
+ '/s {'+nl+    //[[text,[font],color,colorbackground],...]-> cx
+ //[[text,[font],color,colorbackground],...]-> cx
+ //[[text,[font],color],...]-> cx
+ //[[text,[font]],...]-> cx
+ //[[text],...]-> cx
+ //select font, print text, ...
+ ' {'+
+ ' currentpoint /ay exch def /ax exch def'+ //backup for underline
+ ' dup'+
+ ' dup length 3 ge'+nl+     //[bak],
+        //[text,[font],color,colorbackground],length >= 3
+ '{dup 2 get'+          //[bak],
+        //[text,[font],color,colorbackground],[color]
+ ' aload pop setcolor'+ //[bak],
+        //[text,[font],color,colorbackground]
+ ' 0 2 getinterval'+    //[bak],
+        //[text,[font]]     remove color
+ ' } if'+nl+  
+ ' dup length 2 eq'+ //array,arraylength = 5
+ ' {aload pop sf}'+  //[bak],text
+ ' {aload pop}'+     //[bak],text
+ ' ifelse '+nl+
+
+ ' exch dup length 4 eq'+ //text,[bak],length = 4
+ ' {'+ //text,[text,[font],color,colorbackground]
+ ' [currentcolor] exch'+ //text,[colbackup],[text,[font],color,colorbackground]
+ ' 3 get'+ //text,[colbackup],[colorbackground]
+ ' aload pop setcolor exch'+   //[colbackup],text
+ ' dup stringwidth pop'+nl+//[colbackup],text,width
+ ' currentpoint currentpoint asc add'+nl+ //[colbackup],text,width,x,y,x,y+asc
+ ' newpath moveto'+                    //[colbackup],text,width,x,y    
+ ' 2 index 0 rlineto'+
+ ' 0 0 asc sub desc sub rlineto'+
+ ' 0 3 index sub 0 rlineto'+nl+
+ ' closepath fill'+                    //[colbackup],text,width,x,y
+ ' moveto'+                            //[colbackup],text,width 
+ ' pop'+                               //[colbackup],text
+ ' exch aload pop setcolor'+           //text 
+ ' show'+         
+ ' }'+nl+
+ ' {'+    //text,[text,font,rot,scalex,scaley,color]
+ ' pop'+ //text
+ ' show'+
+ ' }'+
+ ' ifelse'+nl+
+ ' uli 0 ne {ul} if'+          //underline
+ ' sou 0 ne {so} if'+          //strokeout
+ ' } forall'+nl+
+ '} bind def'+nl+
+
+ '/slt {'+nl+ //print lefttop text,llx,lly,urx,ury ->
+ ' asc sub'+  //text,llx,lly,urx,ury-asc
+ ' 3 index'+  //text,llx,lly,urx,ury-asc,llx
+ ' exch moveto currentpoint /ay exch def /ax exch def'+ //backup for underline
+   //text,llx,lly,urx
+ ' pop pop pop s'+nl+
+ '} bind def'+nl+
+
+ '/cy {'+nl+      //center y text,llx,lly,urx,ury-> text,llx,lly,urx,centeredy
+ ' 2 index sub'+  //text,llx,lly,urx,ury-lly
+ ' dup 0 eq'+nl+  //text,llx,lly,urx,ury-lly,bool 
+
+ ' {pop 1 index}'+nl+  //text,llx,lly,urx,lly
+
+ ' {asc sub desc sub'+//text,llx,lly,urx,ury-lly-asc-desc
+ ' 2 div 2 index'+//text,llx,lly,urx,ury-lly-asc-desc/2,lly
+ ' add desc add}'+nl+ //text,llx,lly,urx,ury-lly-asc-desc/2+lly+desc
+
+ ' ifelse'+
+ '} bind def'+nl+
+
+ '/sl {'+nl+     //print left text,llx,lly,urx,ury
+ ' cy'+          //text,llx,lly,urx,centeredy 
+ ' 3 index exch'+ //text,llx,lly,urx,llx,ury-lly-asc-desc/2+lly+desc
+ ' moveto '+nl+
+ //' currentpoint /ay exch def /ax exch def'+ //backup for underline
+       //text,llx,lly,urx
+ ' pop pop pop s'+nl+
+ '} bind def'+nl+
+
+ '/sr {'+ //print right text: text,llx,lly,urx,ury->
+ ' cy'+          //text,llx,lly,urx,centeredy 
+ ' exch'+             //text,llx,lly,newy,urx
+ ' 4 index'+nl+       //text,llx,lly,newy,urx,text
+ ' w'+            //text,llx,lly,newy,urx,cx
+ ' sub'+          //text,llx,lly,newy,urx-cx
+ ' exch moveto'+      //text,llx,lly
+ //' currentpoint /ay exch def /ax exch def'+ //text,llx,lly
+ ' pop pop s'+nl+
+ '} bind def'+nl+
+
+ '/sc {'+nl+     //print center text: text,llx,lly,urx,ury ->
+ ' cy'+          //text,llx,lly,urx,centeredy 
+ ' 4 index'+     //text,llx,lly,urx,centeredy,text
+ ' w'+           //text,llx,lly,urx,centeredy,cx
+ ' 4 index'+     //text,llx,lly,urx,centeredy,cx,llx
+ ' 3 index'+     //text,llx,lly,urx,centeredy,cx,llx,urx
+ ' exch sub'+    //text,llx,lly,urx,centeredy,cx,urx-llx
+ ' exch sub'+    //text,llx,lly,urx,centeredy,urx-llx-cx 
+ ' 2 div'+       //text,llx,lly,urx,centeredy,(urx-llx-cx)/2
+ ' 4 index add'+nl+ //text,llx,lly,urx,centeredy,(urx-llx-cx)/2+llx
+ ' exch'+        //text,llx,lly,urx,newx,centeredy
+ ' moveto'+nl+   //text,llx,lly,urx
+ //' currentpoint /ay exch def /ax exch def'+ //text,llx,lly,urx
+ ' pop pop pop s'+nl+
+ ' } bind def'+nl+
+
+ '/slb {'+nl+ //print lefttop text,llx,lly,urx,ury ->
+ ' pop pop'+  //text,llx,lly
+ ' desc add'+ //text,llx,lly+desc
+ ' moveto'+
+ //' currentpoint /ay exch def /ax exch def'+ //backup for underline
+   //text
+ ' s'+nl+
+ '} bind def'+nl+
+
+ '/srb {'+nl+    //print rightbottom text: text,llx,lly,urx,ury ->
+ ' 4 index'+     //text,llx,lly,urx,ury,text
+ ' w'+           //text,llx,lly,urx,ury,cx
+ ' 2 index'+     //text,llx,lly,urx,ury,cx,urx
+ ' exch'+        //text,llx,lly,urx,ury,urx,cx
+ ' sub'+         //text,llx,lly,urx,ury,urx-cx
+ ' 3 index'+     //text,llx,lly,urx,ury,urx-cx,lly
+ ' desc add'+    //text,llx,lly,urx,ury,urx-cx,lly+desc
+ ' moveto'+nl+
+ //' currentpoint /ay exch def /ax exch def'+ //text,llx,lly,urx,ury
+ ' pop pop pop pop s'+
+ '} bind def'+nl+
+
+ '/srt {'+nl+ //print righttoptext: text,llx,lly,urx,ury ->
+ ' 4 index'+      //text,llx,lly,urx,ury,text
+ ' w'+            //text,llx,lly,urx,ury,cx
+ ' 2 index'+    //text,llx,lly,urx,ury,cx,urx
+ ' exch'+       //text,llx,lly,urx,ury,urx,cx
+ ' sub'+        //text,llx,lly,urx,ury,urx-cx
+ ' exch'+       //text,llx,lly,urx,urx-cx,ury
+ ' asc sub'+    //text,llx,lly,urx,urx-cx,ury-asc
+ ' moveto'+nl+
+ //' currentpoint /ay exch def /ax exch def'+ //text,llx,lly,urx
+ ' pop pop pop s'+
+ '} bind def'+nl+
+
+ '/st {'+nl+     //print top text: text,llx,lly,urx,ury ->
+ ' 4 index'+     //text,llx,lly,urx,ury,text
+ ' w'+           //text,llx,lly,urx,ury,cx
+ ' 4 index'+     //text,llx,lly,urx,ury,cx,llx
+ ' 3 index'+     //text,llx,lly,urx,ury,cx,llx,urx
+ ' exch sub'+    //text,llx,lly,urx,ury,cx,urx-llx
+ ' exch sub'+    //text,llx,lly,urx,ury,urx-llx-cx 
+ ' 2 div'+       //text,llx,lly,urx,ury,(urx-llx-cx)/2
+ ' 4 index add'+nl+//text,llx,lly,urx,ury,(urx-llx-cx)/2+llx
+ ' exch'+        //text,llx,lly,urx,newx,ury
+ ' asc sub'+     //text,llx,lly,urx,newx,ury-asc
+ ' moveto'+      //text,llx,lly,urx
+ //' currentpoint /ay exch def /ax exch def'+ //text,llx,lly,urx
+ ' pop pop pop s'+nl+
+ '} bind def'+nl+
+
+ '/sb {'+nl+     //print bottom text: text,llx,lly,urx,ury ->
+ ' 4 index'+     //text,llx,lly,urx,ury,text
+ ' w'+           //text,llx,lly,urx,ury,cx
+ ' 4 index'+     //text,llx,lly,urx,ury,cx,llx
+ ' 3 index'+     //text,llx,lly,urx,ury,cx,llx,urx
+ ' exch sub'+    //text,llx,lly,urx,ury,cx,urx-llx
+ ' exch sub'+    //text,llx,lly,urx,ury,urx-llx-cx 
+ ' 2 div'+       //text,llx,lly,urx,ury,(urx-llx-cx)/2
+ ' 4 index add'+nl+ //text,llx,lly,urx,ury,(urx-llx-cx)/2+llx
+ ' 3 index'+     //text,llx,lly,urx,ury,newx,lly
+ ' desc add'+    //text,llx,lly,urx,ury,newx,lly+desc
+ ' moveto'+      //text,llx,lly,urx,ury
+ //' currentpoint /ay exch def /ax exch def'+ //text,llx,lly,urx,ury
+ ' pop pop pop pop s'+nl+
+ '} bind def'+nl+
+
+ '/ul {'+nl+ //underline
+ ' gsave'+
+ ' desc 4 div setlinewidth'+
+ ' 0 setlinecap'+
+ ' [] 0 setdash'+
+ ' currentpoint'+    //x,y
+ ' desc 2 div sub'+nl+  //x,y-desc/2
+ ' dup'+             //x,newy,newy
+ ' 2 index exch'+    //x,newy,x,newy  
+ ' moveto'+          //x,newy
+ ' ax exch'+         //x,ax,newy
+ ' lineto stroke'+   //x
+ ' pop'+
+ ' grestore'+
+ '} bind def'+nl+
+
+ '/so {'+ //strokeout
+ ' gsave'+
+ ' desc 4 div setlinewidth'+
+ ' 0 setlinecap'+
+ ' [] 0 setdash'+
+ ' currentpoint'+nl+  //x,y
+ ' asc desc add 2 div add desc sub'+ //x,y+asc+desc/2-desc
+ ' dup'+             //x,newy,newy
+ ' 2 index exch'+    //x,newy,x,newy  
+ ' moveto'+          //x,newy
+ ' ax exch'+         //x,ax,newy
+ ' lineto stroke'+   //x
+ ' pop'+
+ ' grestore'+nl+
+ '} bind def'+nl+
+
+ '/tab {'+ //get tabulatorpos: taboffset,tabwidth -> tabx
+ ' currentpoint'+      //o,w,x,y
+ ' pop 2 index sub'+   //o,w,x-o
+ ' 1 index 0.01 add'+  //o,w,x-o,w+0.01 force overflow on equal pos
+ ' add '+              //o,w,x-o+w+0.01
+ ' 1 index div floor'+ //o,w,tabnum
+ ' mul add'+nl+        //tabbedx
+ '} bind def'+nl+
+ nl;
+
+ alignmentsubs: array[psalignty] of string = (
+ //pa_center,pa_lefttop,pa_top,pa_righttop,pa_right,
+ 'sc',     'slt',     'st',  'srt',      'sr',
+ //pa_rightbottom,pa_bottom,pa_leftbottom,pa_left
+ 'srb',         'sb',     'slb',        'sl');
+
+ tftopa: array [0..15] of psalignty = (//tf_xcentered,tf_right,tf_ycentered,tf_bottom,
+  pa_lefttop,                          //   0            0        0            0 
+  pa_top,                              //   1            0        0            0
+  pa_righttop,                         //   0            1        0            0  
+  pa_center, //invalid                 //   1            1        0            0 
+  pa_left,                             //   0            0        1            0
+  pa_center,                           //   1            0        1            0
+  pa_right,                            //   0            1        1            0
+  pa_center, //invalid                 //   1            1        1            0
+  pa_leftbottom,                       //   0            0        0            1
+  pa_bottom,                           //   1            0        0            1
+  pa_rightbottom,                      //   0            1        0            1
+  pa_center, //invalid                 //   1            1        0            1
+  pa_center, //invalid                 //   0            0        1            1
+  pa_center, //invalid                 //   1            0        1            1
+  pa_center, //invalid                 //   0            1        1            1
+  pa_center  //invalid                 //   1            1        1            1
+ );
+
+type
+ postscriptgcdty = record
+  canvas: tpsprintercanvas;
+ end;
+ postscriptgcty = record
+  case integer of
+   0: (d: postscriptgcdty);
+   1: (_bufferspace: gcpty;);
+//  res: array[1..23] of longword;
+ end;
+
+ 
+procedure gui_destroygc(var drawinfo: drawinfoty);
+begin
+ try
+  postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_destroygc;
+ except //trap for stream write errors
+ end;
+end;
+ 
+procedure gui_changegc(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_changegc;
+end;
+
+procedure gui_drawlines(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_drawlines;
+end;
+
+procedure gui_drawlinesegments(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_drawlinesegments;
+end;
+
+procedure gui_drawellipse(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.handleellipse(
+                        drawinfo.rect.rect^,false);
+end;
+
+procedure gui_drawarc(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_drawarc;
+end;
+
+procedure gui_fillrect(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_fillrect;
+end;
+
+procedure gui_fillelipse(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.handleellipse(
+                        drawinfo.rect.rect^,true);
+end;
+
+procedure gui_fillarc(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_fillarc;
+end;
+
+procedure gui_fillpolygon(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_fillpolygon;
+end;
+
+procedure gui_drawstring16(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_drawstring16;
+end;
+
+procedure gui_setcliporigin(var drawinfo: drawinfoty);
+begin
+// gdierror(gde_notimplemented);
+end;
+
+procedure gui_createemptyregion(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_createemptyregion](drawinfo);
+end;
+
+procedure gui_createrectregion(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_createrectregion](drawinfo);
+end;
+
+procedure gui_createrectsregion(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_createrectsregion](drawinfo);
+end;
+
+procedure gui_destroyregion(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_destroyregion](drawinfo);
+end;
+
+procedure gui_copyregion(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_copyregion](drawinfo);
+end;
+
+procedure gui_moveregion(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_moveregion](drawinfo);
+end;
+
+procedure gui_regionisempty(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_regionisempty](drawinfo);
+end;
+
+procedure gui_regionclipbox(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_regionclipbox](drawinfo);
+end;
+
+procedure gui_regsubrect(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_regsubrect](drawinfo);
+end;
+
+procedure gui_regsubregion(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_regsubregion](drawinfo);
+end;
+
+procedure gui_regaddrect(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_regaddrect](drawinfo);
+end;
+
+procedure gui_regaddregion(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_regaddregion](drawinfo);
+end;
+
+procedure gui_regintersectrect(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_regintersectrect](drawinfo);
+end;
+
+procedure gui_regintersectregion(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_regintersectregion](drawinfo);
+end;
+   
+procedure gui_copyarea(var drawinfo: drawinfoty);
+begin
+ postscriptgcty(drawinfo.gc.platformdata).d.canvas.ps_copyarea;
+end;
+   
+procedure gui_fonthasglyph(var drawinfo: drawinfoty);
+begin
+ gdifuncs^[gdi_fonthasglyph](drawinfo);
+end;
+
+const
+ gdifunctions: gdifunctionaty = (
+   {$ifdef FPC}@{$endif}gui_destroygc,
+   {$ifdef FPC}@{$endif}gui_changegc,
+   {$ifdef FPC}@{$endif}gui_drawlines,
+   {$ifdef FPC}@{$endif}gui_drawlinesegments,
+   {$ifdef FPC}@{$endif}gui_drawellipse,
+   {$ifdef FPC}@{$endif}gui_drawarc,
+   {$ifdef FPC}@{$endif}gui_fillrect,
+   {$ifdef FPC}@{$endif}gui_fillelipse,
+   {$ifdef FPC}@{$endif}gui_fillarc,
+   {$ifdef FPC}@{$endif}gui_fillpolygon,
+//   {$ifdef FPC}@{$endif}gui_drawstring,
+   {$ifdef FPC}@{$endif}gui_drawstring16,
+   {$ifdef FPC}@{$endif}gui_setcliporigin,
+   {$ifdef FPC}@{$endif}gui_createemptyregion,
+   {$ifdef FPC}@{$endif}gui_createrectregion,
+   {$ifdef FPC}@{$endif}gui_createrectsregion,
+   {$ifdef FPC}@{$endif}gui_destroyregion,
+   {$ifdef FPC}@{$endif}gui_copyregion,
+   {$ifdef FPC}@{$endif}gui_moveregion,
+   {$ifdef FPC}@{$endif}gui_regionisempty,
+   {$ifdef FPC}@{$endif}gui_regionclipbox,
+   {$ifdef FPC}@{$endif}gui_regsubrect,
+   {$ifdef FPC}@{$endif}gui_regsubregion,
+   {$ifdef FPC}@{$endif}gui_regaddrect,
+   {$ifdef FPC}@{$endif}gui_regaddregion,
+   {$ifdef FPC}@{$endif}gui_regintersectrect,
+   {$ifdef FPC}@{$endif}gui_regintersectregion,
+   {$ifdef FPC}@{$endif}gui_copyarea,
+   {$ifdef FPC}@{$endif}gui_fonthasglyph
+ );
+
+function psrealtostr(const avalue: real): string;
+begin
+ result:= doubletostring(avalue,-3,fsm_default,'.',#0);
+end;
+
+{ tpsprintercanvas }
+
+constructor tpsprintercanvas.create(const user: tprinter; const intf: icanvas);
+begin
+ fimagecachesize:= defaultimagecachesize;
+ fimagecachemaxitemsize:= defaultimagecachemaxitemsize;
+ fpslevel:= psl_3;
+ inherited create(user,intf);
+end;
+
+procedure tpsprintercanvas.reset;
+begin
+ inherited;
+ restore(1); //do not change the streamed values
+ save;
+ clipregion:= 0;
+ origin:= nullpoint;
+end;
+
+procedure tpsprintercanvas.streamwrite(const atext: string);
+var
+ bo1: boolean;
+begin
+ if fstream <> nil then begin
+  bo1:= false;
+  repeat
+   try 
+    fstream.write(atext);
+   except
+    on e: exception do begin
+     if fprinter.handleexception(e,bo1) then begin
+      raise;
+     end;
+    end;
+   end;
+  until not bo1;
+ end;
+end;
+
+procedure tpsprintercanvas.streamwriteln(const atext: string);
+var
+ bo1: boolean;
+begin
+ if fstream <> nil then begin
+  bo1:= false;
+  repeat
+   try 
+    fstream.writeln(atext);
+   except
+    on e: exception do begin
+     if fprinter.handleexception(e,bo1) then begin
+      raise;
+     end;
+    end;
+   end;
+  until not bo1;
+ end;
+end;
+
+function tpsprintercanvas.getgdifuncs: pgdifunctionaty;
+begin
+ result:= @gdifunctions;
+end;
+
+procedure tpsprintercanvas.checkscale;
+begin
+ if fstarted then begin
+  streamwrite('initmatrix ');
+  if printorientation = pao_landscape then begin
+   streamwrite(' 90 rotate');
+  end;
+  streamwriteln('');
+ end;
+end;
+
+procedure tpsprintercanvas.initgcstate;
+begin
+ updatescale;
+ fps_pagenumber:= 0;
+ ffonts:= nil;
+ ffontnames:= nil;
+ finalize(fmapnames);
+ with postscriptgcty(fdrawinfo.gc.platformdata).d do begin
+  canvas:= self;
+ end;
+ inherited;
+ streamwrite(
+'%!PS-Adobe-3.0'+nl+
+'%%BoundingBox: '+inttostr(fboundingbox.left)+' '+
+                  inttostr(fboundingbox.bottom)+' '+
+                  inttostr(fboundingbox.right)+' '+
+                  inttostr(fboundingbox.top)+nl+
+'%%Creator: '+application.applicationname+nl+
+'%%Title: '+ftitle+nl+
+'%%DocumentMedia: '+fprinter.printerpapername+' '+
+                  inttostr(fboundingbox.right)+' '+
+                  inttostr(fboundingbox.top)+' 0 () ()'+nl+
+'%%Pages: (atend)'+nl+
+'%%PageOrder: Ascend'+nl+
+'%%EndComments'+nl+
+'%%BeginProlog'+nl+
+ preamble+fpreamble+nl);
+ streamwrite('%%EndProlog'+nl);
+ fpreamble:= '';
+ fstarted:= true;
+ beginpage;
+end;
+
+procedure tpsprintercanvas.initgcvalues;
+begin
+ inherited;
+ fimagecache:= nil;
+end;
+
+procedure tpsprintercanvas.finalizegcstate;
+begin
+ fstarted:= false;
+ inherited;
+end;
+
+function tpsprintercanvas.encodefontname(const namenum,codepage: integer): string;
+begin
+ result:= '/F' + hextostr(longword(codepage),2)+inttostr(namenum)+' ';
+end;
+
+procedure tpsprintercanvas.definefont(const adata: fontnumty;
+ const acodepage: integer);
+var
+ str1: string;
+ int1,int2: integer;
+ rea1: real;
+begin
+ with getfontdata(adata)^ do begin
+  str1:= realfontname(name);
+  if str1 = '' then begin
+   str1:= 'Helvetica';
+  end else begin
+   str1:= psencode(pchar(str1),length(str1));
+  end;
+  if style * [fs_bold,fs_italic] <> [] then begin
+   str1:= str1 + '-';
+   if fs_bold in style then begin
+    str1:= str1 + 'Bold';
+   end;
+   if fs_italic in style then begin
+    str1:= str1 + 'Italic';
+   end;
+  end;
+  int2:= -1;
+  for int1:= 0 to high(ffontnames) do begin
+   if ffontnames[int1] = str1 then begin
+    int2:= int1;
+    break;
+   end;
+  end;
+  if int2 < 0 then begin
+   checkmap(acodepage);
+   additem(ffontnames,str1);
+   int2:= high(ffontnames);
+   //alias,encoding,origname
+   streamwrite(encodefontname(int2,acodepage)+fmapnames[acodepage]+
+    ' ('+str1+') rf' + nl);
+   //register font
+  end;
+  setlength(ffonts,high(ffonts)+2);
+  with ffonts[high(ffonts)] do begin
+   handle:= adata;
+   namenum:= int2;
+   additem(codepages,acodepage);
+   if height = 0 then begin
+    size:= round(defaultfontheight*ppmm);
+   end
+   else begin
+    size:= (height + fontsizeroundvalue) shr fontsizeshift;
+   end;
+   rea1:= (size / ppmm) * mmtoprintscale;
+   scalestring1:= psrealtostr(rea1 * xscale);     //xscale
+   scalestringfull:= scalestring1;
+   str1:= ' ' + psrealtostr(rea1);                //yscale
+   scalestringfull:= scalestringfull + str1;
+   if (xscale <> 1) or (rotation <> 0) then begin
+    scalestring1:= scalestring1 + str1;
+   end;
+   str1:= ' ' + psrealtostr(rotation*radtodeg);
+   scalestringfull:= scalestringfull + str1;
+   if rotation <> 0 then begin 
+    scalestring1:= scalestring1 + str1;
+   end;
+  end;
+ end;
+end;
+
+function tpsprintercanvas.checkfont(const afont: fontnumty;
+  const acodepage: integer): integer;
+var
+ int1,int2: integer;
+ bo1: boolean;
+begin
+ int2:= -1;
+ for int1:= 0 to high(ffonts) do begin
+  if ffonts[int1].handle = afont then begin
+   int2:= int1;
+   break;
+  end;
+ end;
+ if int2 < 0 then begin
+  definefont(afont,acodepage);
+  int2:= high(ffonts);
+ end else begin
+  with ffonts[int2] do begin
+   bo1:= false;
+   for int1:= 0 to high(codepages) do begin
+    if codepages[int1] = acodepage then begin
+     bo1:= true;
+     break;
+    end;
+   end;
+   if not bo1 then begin
+    checkmap(acodepage);
+    streamwrite(encodefontname(namenum,acodepage)+fmapnames[acodepage]+
+    ' ('+ffontnames[namenum]+') rf' + nl);
+    //register font
+    additem(codepages,acodepage);
+   end;
+  end;
+ end;
+ result:= int2;
+ factfont:= int2;
+ factcodepage:= acodepage;
+end;
+
+function tpsprintercanvas.getscalestring(const astyle: fontstylesty): ansistring;
+begin
+ with ffonts[factfont] do begin
+  if (astyle * [fs_underline,fs_strikeout] <> []) then begin
+   result:= scalestringfull;
+   if fs_underline in astyle then begin
+    result:= result + ' 1';
+   end else begin
+    result:= result + ' 0';
+   end;
+   if fs_strikeout in astyle then begin
+    result:= result + ' 1';
+   end;
+  end else begin
+   result:= scalestring1;
+  end;
+ end;
+end;
+
+procedure tpsprintercanvas.selectfont(const afont: fontnumty; const acodepage: integer);
+begin
+ checkfont(afont,acodepage);
+ streamwrite('['+encodefontname(ffonts[factfont].namenum,acodepage)+
+ getscalestring(font.style) + '] sf'+nl);
+end;
+
+procedure tpsprintercanvas.ps_destroygc;
+begin
+ endpage;
+ streamwrite(
+ '%%Trailer'+nl+
+ '%%Pages: '+inttostr(fps_pagenumber)+nl+
+ '%%EOF'+nl);
+end;
+
+procedure tpsprintercanvas.ps_changegc;
+var
+ str1: string;
+ int1,int2: integer;
+ rect1,rect2: rectty;
+ ar1: rectarty;
+begin
+ ar1:= nil; //compiler warning
+ with fdrawinfo,gcvalues^ do begin
+  if gvm_dashes in mask then begin
+   int2:= length(lineinfo.dashes);
+   if (int2 > 0) and (lineinfo.dashes[int2] = #0) then begin
+    dec(int2);
+   end;
+   str1:= '[';
+   for int1:= 1 to int2 do begin
+    str1:= str1 +
+         psrealtostr(mmtoprintscale*(byte(lineinfo.dashes[int1])/ppmm))+' ';
+   end;
+   str1:= str1+'] 0 setdash'+nl;
+   streamwrite(str1);
+  end;
+  if (self.brush <> nil) and 
+            ([gvm_brush,gvm_brushorigin] * mask <> []) then begin
+   with tsimplebitmap1(self.brush) do begin
+    rect1:= makerect(nullpoint,size);
+    rect2:= makerect(self.brushorigin,size);
+    if createpattern(rect1,rect2,acolorbackground,acolorforeground,
+                   canvas{handle,canvas.gchandle},patpatname) then begin
+     streamwrite('/bru exch def'+nl);
+    end;
+   end;
+  end;
+  if df_brush in gc.drawingflags then begin
+   streamwrite('bru setpattern'+nl);
+  end
+  else begin
+   if gvm_colorforeground in mask then begin
+    streamwrite(setcolorstring(acolorforeground)+nl);
+   end;
+  end;
+  if gvm_font in mask then begin
+   selectfont(fontnum,0);
+  end;
+  if gvm_linewidth in mask then begin
+   setpslinewidth(lineinfo.width);
+  end;
+  if gvm_capstyle in mask then begin
+   case lineinfo.capstyle of
+    cs_round: str1:= '1';
+    cs_projecting: str1:= '2';
+    else str1:= '0'; //cs_butt
+   end;
+   streamwrite(str1+' setlinecap'+nl);
+  end;
+  if gvm_joinstyle in mask then begin
+   case lineinfo.joinstyle of
+    js_round: str1:= '1';
+    js_bevel: str1:= '2';
+    else str1:= '0'; //js_miter
+   end;
+   streamwrite(str1+' setlinejoin'+nl);
+  end;
+  if gvm_clipregion in mask then begin
+   str1:= 'initclip';
+   if clipregion <> 0 then begin
+    ar1:= gui_regiontorects(clipregion);
+    str1:= str1 + ' [';
+    int2:= 3;
+    for int1:= 0 to high(ar1) do begin
+     str1:= str1 + ' '+
+      gcposstring(addpoint(ar1[int1].pos,gc.cliporigin)) +
+                   ' ' + rectsizestring(ar1[int1].size);
+     dec(int2);
+     if int2 <= 0 then begin
+      int2:= 3;
+      str1:= str1 + nl;
+     end;
+    end;
+    str1:= str1 + '] rectclip';
+   end;
+   streamwrite(str1+nl);
+  end;
+ end;
+end;
+
+function tpsprintercanvas.gcposstring(const apos: pointty): string;
+begin
+ result:= 
+  psrealtostr(apos.x*fgcscale+fgcoffsetx)+' '+
+  psrealtostr(fgcoffsety-apos.y*fgcscale);
+end;
+
+function tpsprintercanvas.devpos(const apos: pointty): pspointty;
+begin
+ if not (cs_origin in fstate) then begin
+  checkgcstate([cs_origin]);
+ end;
+ result.x:= apos.x*fgcscale+foriginx;
+ result.y:= foriginy-apos.y*fgcscale;
+end;
+
+function tpsprintercanvas.posstring(const apos: pointty): string;
+var
+ pt1: pspointty;
+begin
+ pt1:= devpos(apos);
+ result:= psrealtostr(pt1.x)+' '+ psrealtostr(pt1.y);
+end;
+
+function tpsprintercanvas.matrixstring(const mat: psmatrixty): string;
+begin
+ result:= '['+psrealtostr(mat[0,0])+' '+psrealtostr(mat[0,1])+' '+
+              psrealtostr(mat[1,0])+' '+psrealtostr(mat[1,1])+' '+
+              psrealtostr(mat[2,0])+' '+psrealtostr(mat[2,1])+']';
+end;
+
+function tpsprintercanvas.transrotate(const sourcecenter,destcenter: pointty;
+                                                const angle: real): string;
+var
+ mat1: psmatrixty;
+begin
+ mat1:= psunitymatrix;
+ psrotate(mat1,angle);
+ pstranslate(mat1,psdist(pstransform(mat1,devpos(sourcecenter)),
+                                                devpos(destcenter)));
+ result:= matrixstring(mat1) + ' concat';
+end;
+
+function tpsprintercanvas.diststring(const adist: integer): string;
+begin
+ result:= psrealtostr(adist*fgcscale);
+end;
+
+function tpsprintercanvas.sizestring(const asize: sizety): string;
+begin
+ result:= psrealtostr(asize.cx*fgcscale)+' '+psrealtostr(asize.cy*fgcscale);
+end;
+
+function tpsprintercanvas.rectsizestring(const asize: sizety): string;
+begin
+ result:= psrealtostr(asize.cx*fgcscale)+' '+psrealtostr(-asize.cy*fgcscale);
+end;
+
+function tpsprintercanvas.rectstring(const arect: rectty): string;
+begin
+ with arect do begin
+  result:= 
+   psrealtostr(x*fgcscale+foriginx)+' '+
+   psrealtostr(foriginy-y*fgcscale)+' '+
+   psrealtostr(cx*fgcscale)+' '+psrealtostr(-cy*fgcscale)
+ end;
+end;
+
+function tpsprintercanvas.getcolorstring(const acolor: colorty): string;
+var
+ co1: rgbtriplety;
+begin
+ co1:= colortorgb(acolor);
+ if fcolorspace = cos_rgb then begin
+  result:= psrealtostr(co1.red/255)+' '+psrealtostr(co1.green/255)+' '+
+             psrealtostr(co1.blue/255);
+ end
+ else begin
+  result:= psrealtostr((word(co1.red)+co1.green+co1.blue)/(3.0*255));
+ end;
+end;
+
+function tpsprintercanvas.setcolorstring(const acolor: colorty): string;
+begin
+ if fcolorspace = cos_rgb then begin
+  result:= getcolorstring(acolor)+' setrgbcolor';
+ end
+ else begin
+  result:= getcolorstring(acolor)+' setgray';
+ end;
+end;
+
+function tpsprintercanvas.psencode(const text: pchar; const count: integer): string;
+var
+ int1,int2: integer;
+ ch1: char;
+ po1: pchar;
+begin
+ setlength(result,count*4); //max
+ po1:= pchar(pointer(result));
+ int2:= 0;
+ for int1:= 0 to count-1 do begin
+  ch1:= (text+int1)^;
+  if (ch1 >= #128) or (ch1 < #32) then begin
+   if ch1 = #0 then begin
+    dec(int2);        //remove zeroes
+   end
+   else begin
+    (po1+int2)^:= '\';             //octal  
+    (po1+int2+3)^:= char((byte(ch1) and $07) + ord('0'));
+    ch1:= char(byte(ch1) shr 3);
+    (po1+int2+2)^:= char((byte(ch1) and $07) + ord('0'));
+    ch1:= char(byte(ch1) shr 3);
+    (po1+int2+1)^:= char((byte(ch1) and $03) + ord('0'));
+    inc(int2,3);
+   end;
+  end 
+  else begin
+   case ch1 of
+    '\','(',')': begin
+     (po1+int2)^:= '\';
+     inc(int2);
+     (po1+int2)^:= ch1;
+    end;
+    else begin
+     (po1+int2)^:= ch1;
+    end;
+   end;
+  end;
+  inc(int2);
+ end;
+ setlength(result,int2);
+end;
+
+function tpsprintercanvas.getshowstring(const avalue: pmsechar; 
+          const count: integer; fontneeded: boolean = false; 
+          const acolor: colorty = cl_none;
+          const acolorbackground: colorty = cl_none;
+          const fontstyle: fontstylesty = []): string;
+var
+ int1: integer;
+ wo1,wo2: word;
+ po1,po2: pchar;
+ colback: colorty;
+ 
+ procedure pushsubstring;
+ begin
+  result:= result + '[('+psencode(po2,po1-po2)+')';
+  if fontneeded then begin
+   with ffonts[factfont] do begin
+//    result:= result + ' ['+encodefontname(namenum,factcodepage) + scalestring1+']';
+    result:= result + ' ['+encodefontname(namenum,factcodepage) + 
+                                             getscalestring(fontstyle)+']';
+   end;
+  end;
+  if acolor <> cl_none then begin
+   result:= result+'['+getcolorstring(acolor)+']';
+  end;
+  if colback <> cl_transparent then begin
+   if acolor = cl_none then begin
+    result:= result + '[currentcolor]';
+   end;
+   result:= result+'['+getcolorstring(colback)+']';
+  end;
+  result:= result +']';
+  po1:= po2;
+ end;
+ 
+begin
+ if acolorbackground <> cl_none then begin
+  colback:= acolorbackground;
+ end
+ else begin
+  colback:= font.colorbackground;
+ end;
+ if (acolor <> cl_none) or (colback <> cl_transparent) then begin
+  fontneeded:= true;
+ end;
+ getmem(po1,count);
+ po2:= po1;
+ wo1:= factcodepage shl 8;
+ result:= '';
+ for int1:= 0 to count -1 do begin
+  wo2:= word(pmsecharaty(avalue)^[int1]);
+  if (wo2 xor wo1) and $ff00 <> 0 then begin
+   if int1 <> 0 then begin
+    pushsubstring;
+   end;
+   fontneeded:= true;
+   wo1:= wo2 and $ff00;
+   checkfont(ffonts[factfont].handle,wo1 shr 8);
+  end;
+  po1^:= char(wo2);
+  inc(po1);
+ end;
+ pushsubstring;
+ freemem(po2);
+end;
+
+procedure tpsprintercanvas.ps_drawstring16;
+begin
+ if active then begin
+  with fdrawinfo.text16pos do begin
+   streamwrite(posstring(pos^)+' moveto ['+getshowstring(text,count)+'] s'+nl);
+  end;
+ end;
+end;
+
+procedure tpsprintercanvas.textout(const text: richstringty; const dest: rectty;
+         const flags: textflagsty; const tabdist: real);
+const
+ fontstylemask = [ni_bold,ni_italic,ni_underline,ni_strikeout];
+ mask1 = [tf_xcentered,tf_right];
+ mask2 = [tf_ycentered,tf_bottom];
+var
+ str1: ansistring;
+ int1,int2,int3: integer;
+ co1,co2: colorty;
+ colorchanged: boolean;
+ style1: fontstylesty;
+ lastbreak: integer;
+ rect1: rectty;
+ 
+ procedure addstring(const astring: ansistring);
+ begin
+  if (length(str1) - lastbreak) + length(astring) > maxlinecharcount then begin
+   str1:= str1+ nl;
+   lastbreak:= length(str1);
+  end;
+  str1:= str1+astring;
+ end;
+var
+ pt1: pointty; 
+ rea1: real;
+begin
+ if not active {or (text.text = '')} then begin
+  exit;
+ end;
+ colorchanged:= false;
+ str1:= '';
+ if flags * [tf_rotate90,tf_rotate180] <> [] then begin
+  str1:= 'matrix currentmatrix'+nl; //backup
+  pt1:= dest.pos;
+  if tf_rotate90 in flags then begin
+   if tf_rotate180 in flags then begin
+    rea1:= pi*3.0/2.0;
+    pt1.x:= pt1.x+dest.cx;
+   end
+   else begin
+    rea1:= pi/2.0;
+    pt1.y:= pt1.y+dest.cy;
+   end;
+  end
+  else begin
+   rea1:= pi;
+   pt1.x:= pt1.x+dest.cx;
+   pt1.y:= pt1.y+dest.cy;
+  end;
+  str1:= str1+transrotate(dest.pos,pt1,rea1)+nl;
+ end;
+ lastbreak:= 0;
+ str1:= str1+'['; 
+ if (text.format = nil) or (text.text = '') then begin
+  addstring(getshowstring(pmsechar(text.text),length(text.text),
+                true,cl_none,cl_none,font.style)+'] ');
+ end
+ else begin
+  gcfonthandle1:= 0; //invalid after print
+  with text.format[0] do begin
+   if index > 0 then begin
+    addstring(getshowstring(pmsechar(pointer(text.text)),index));
+   end;
+  end;
+  co1:= cl_none;
+  co2:= cl_none;
+  style1:= font.style;
+  for int1:= 0 to high(text.format) do begin
+   with text.format[int1] do begin
+    if int1 = high(text.format) then begin
+     int3:= bigint;
+    end
+    else begin
+     int3:= text.format[int1+1].index;
+    end;
+    if int3 > length(text.text) then begin
+     int3:= length(text.text);
+    end;
+    int2:= index + 1;
+    if int2 > length(text.text) then begin
+     int2:= length(text.text);
+    end;
+    if newinfos * fontstylemask <> [] then begin
+     style1:= style1 * fontstylesty(
+           not {$ifdef FPC}longword{$else}byte{$endif}(newinfos)) + style.fontstyle;
+    end;
+    font.style:= style1;
+    checkfont(font.handle,(word(text.text[int2]) and $ff00) shr 8);
+    int2:= int3 - index;
+    if int2 > 0 then begin
+     if ni_fontcolor in newinfos then begin
+      if style.fontcolor = 0 then begin
+       co1:= font.color;
+       colorchanged:= false;
+      end
+      else begin
+       co1:= not style.fontcolor;
+       colorchanged:= true;
+      end;
+     end;
+     if ni_colorbackground in newinfos then begin
+      if style.colorbackground = 0 then begin
+       co2:= cl_none;
+      end
+      else begin
+       co2:= not style.colorbackground;
+      end;
+     end;
+     addstring(getshowstring(pmsechar(pointer(text.text))+index,int2,true,co1,co2,
+                               style1));
+    end;
+   end;   
+  end;
+  str1:= str1 + '] ';
+ end;
+ if tf_rotate90 in flags then begin
+  rect1.pos:= dest.pos;
+  rect1.cx:= dest.cy;
+  rect1.cy:= dest.cx;
+ end
+ else begin
+  rect1:= dest;
+ end;
+ if tabdist = 0 then begin
+  str1:= str1 + posstring(makepoint(rect1.x,rect1.y+rect1.cy))+' '+   //lower left
+                posstring(makepoint(rect1.x+rect1.cx,rect1.y))+ ' ';  //upper right
+ end
+ else begin
+  if tabdist < 0 then begin //last pos
+   str1:= str1 + 'currentpoint pop '; //oldx (llx)
+  end
+  else begin //defaulttab
+   str1:= str1 + psrealtostr(foriginx)+' '+psrealtostr(tabdist) + ' tab ';
+                 //tabbedx (llx)
+  end;
+  str1:= str1 + psrealtostr(foriginy-(rect1.y+rect1.cy)*fgcscale)+
+                      //llx,lly
+   ' 1 index '+       //llx,lly,urx
+   psrealtostr(foriginy-(rect1.y)*fgcscale)+' '; //llx,lly,urx,ury
+ end;
+ int1:= {$ifdef FPC}longword{$else}longword{$endif}(flags*mask1) or 
+        ({$ifdef FPC}longword{$else}longword{$endif}(flags*mask2) shr 1); 
+        //remove tf_xjustify
+ str1:= str1+alignmentsubs[tftopa[int1]];
+{
+ if fs_underline in font.style then begin
+  str1:= str1 + ' ul';
+ end;
+ if fs_strikeout in font.style then begin
+  str1:= str1 + ' so';
+ end;
+}
+ if colorchanged then begin
+  str1:= str1 + ' '+setcolorstring(font.color);
+ end;
+ if flags * [tf_rotate90,tf_rotate180] <> [] then begin
+  str1:= str1+nl+'setmatrix'; //restore CTM
+ end;
+ streamwrite(str1+nl);
+end;
+
+procedure tpsprintercanvas.begintextclip(const arect: rectty);
+begin
+ streamwrite('gsave '+rectstring(arect)+' rectclip'+nl);
+end;
+
+procedure tpsprintercanvas.endtextclip;
+begin
+ streamwrite('grestore'+nl);
+end;
+
+procedure tpsprintercanvas.setpslinewidth(const avalue: integer);
+var
+ rea1: real;
+begin
+ if avalue = 0 then begin
+  rea1:= nulllinewidth;
+ end
+ else begin
+  rea1:= avalue/(ppmm*(1 shl linewidthshift)) * mmtoprintscale;
+ end;
+ streamwrite(psrealtostr(rea1)+' setlinewidth'+nl);
+end;
+
+function tpsprintercanvas.strokestr: string;
+begin
+ if (length(dashes) > 0) and (df_opaque in fdrawinfo.gc.drawingflags) then begin 
+                                    //(dashes[length(dashes)] = #0) then begin
+  result:= 'gsave [] 0 setdash ' + setcolorstring(fdrawinfo.acolorbackground) +
+           ' stroke grestore stroke'; //draw background 
+ end
+ else begin
+  result:= 'stroke';
+ end;
+end;
+
+procedure tpsprintercanvas.handlepoly(const points: ppointty; 
+             const lastpoint: integer; const closed: boolean; const fill: boolean);
+var
+ int1: integer;
+ str1,str2: string;
+begin
+ if active then begin
+  str1:= '';
+  str2:= 'newpath '+ posstring(points^) + ' moveto '+nl;
+  for int1:= 1 to lastpoint do begin
+   if length(str1) > 80 then begin
+    str2:= str2 + str1 + nl;
+    str1:= '';
+   end;
+   str1:= str1 + posstring(ppointaty(points)^[int1])+' lineto ';
+  end;
+  str2:= str2 + str1 + nl;
+  if closed then begin
+   str2:= str2 + 'closepath ';
+  end;
+  if fill then begin
+   str2:= str2 + 'fill';
+  end
+  else begin
+   str2:= str2 + strokestr;
+  end;
+  streamwrite(str2+nl);
+ end;
+end;
+
+procedure tpsprintercanvas.handleellipse(const rect: rectty; const fill: boolean);
+var
+ str1: string;
+begin
+ with rect do begin
+  str1:= 'newpath ';
+  if cy = cx then begin
+   str1:= str1+posstring(pos)+' '+diststring(cx div 2)+' 0 360 arc ';
+  end
+  else begin
+   str1:= str1 + 'matrix currentmatrix '+ posstring(pos) + ' translate '+nl+
+              sizestring(size)+' scale 0 0 0.5 0 360 arc setmatrix ';
+  end;
+ end;
+ str1:= str1 + 'closepath ';
+ if fill then begin
+  str1:= str1 + 'fill';
+ end
+ else begin
+  str1:= str1 + strokestr;
+ end;
+ streamwrite(str1+nl);
+end;
+
+procedure tpsprintercanvas.ps_drawarc;
+var
+ str1: string;
+begin
+ with fdrawinfo.arc,rect^ do begin
+  str1:= 'newpath ';
+  if cy = cx then begin
+   str1:= str1+posstring(pos)+' '+diststring(cx div 2)+' '+
+     psrealtostr(startang*radtodeg)+' '+psrealtostr((startang+extentang)*radtodeg)+
+     ' arc ';
+  end
+  else begin
+   str1:= str1 + 'matrix currentmatrix '+ posstring(pos) + ' translate '+nl+
+              sizestring(size)+' scale 0 0 0.5 '+
+     psrealtostr(startang*radtodeg)+' '+psrealtostr((startang+extentang)*radtodeg)+
+      ' arc setmatrix ';
+  end;
+ end;
+ str1:= str1 + strokestr;
+ streamwrite(str1+nl);
+end;
+
+procedure tpsprintercanvas.ps_fillarc;
+var
+ str1: string;
+begin
+ with fdrawinfo.arc,rect^ do begin
+  str1:= 'newpath ';
+  if pieslice then begin
+   str1:= str1+posstring(pos)+' moveto ';
+  end;
+  if cy = cx then begin
+   str1:= str1+posstring(pos)+' '+diststring(cx div 2)+' '+
+     psrealtostr(startang*radtodeg)+' '+psrealtostr((startang+extentang)*radtodeg)+
+     ' arc ';
+  end
+  else begin
+   str1:= str1 + 'matrix currentmatrix '+ posstring(pos) + ' translate '+nl+
+              sizestring(size)+' scale 0 0 0.5 '+
+     psrealtostr(startang*radtodeg)+' '+psrealtostr((startang+extentang)*radtodeg)+
+      ' arc setmatrix ';
+  end;
+ end;
+ str1:= str1 + 'closepath fill';
+ streamwrite(str1+nl);
+end;
+
+procedure tpsprintercanvas.ps_drawlines;
+begin
+ with fdrawinfo.points do begin
+  handlepoly(points,count-1,closed,false);
+ end;
+end;
+
+procedure tpsprintercanvas.ps_drawlinesegments;
+var
+ int1: integer;
+begin
+ with fdrawinfo.points do begin
+  for int1:= 0 to count div 2 - 1 do begin
+   handlepoly(points,1,false,false);
+   inc(points,2);
+  end;
+ end;
+end;
+
+procedure tpsprintercanvas.ps_fillpolygon;
+begin
+ with fdrawinfo.points do begin
+  handlepoly(points,count-1,true,true);
+ end;
+end;
+
+procedure tpsprintercanvas.ps_fillrect;
+var
+ points1: array[0..3] of pointty;
+begin
+ with fdrawinfo.rect.rect^ do begin
+  points1[0].x:= x;
+  points1[0].y:= y;
+  points1[1].x:= x+cx;
+  points1[1].y:= y;
+  points1[2].x:= x+cx;
+  points1[2].y:= y+cy;
+  points1[3].x:= x;
+  points1[3].y:= y+cy;
+  handlepoly(@points1,high(points1),true,true);
+ end;
+end;
+
+procedure tpsprintercanvas.writebinhex(const data: bytearty);
+var
+ int1,int2,int3: integer;
+ po1: pbyte;
+ po2: pchar;
+ str1: string;
+begin
+ po1:= pointer(data);
+ int2:= length(data);
+ setlength(str1,80);
+ repeat
+  int1:= 40;
+  if int1 > int2 then begin
+   int1:= int2;
+   setlength(str1,2*int1);
+  end;
+  po2:= pchar(str1);
+  for int3:= int1 - 1 downto 0 do begin
+   po2^:= charhex[po1^ shr 4];
+   inc(po2);
+   po2^:= charhex[po1^ and $0f];
+   inc(po2);
+   inc(po1);
+  end;
+  dec(int2,40);
+  streamwriteln(str1);
+ until int2 <= 0;
+end;
+
+function tpsprintercanvas.rectscalestring(const arect: rectty): string; 
+                 //transform unity cell to arect
+begin
+ with arect do begin
+  result:= psrealtostr(x*fgcscale+foriginx)+' '+
+           psrealtostr(foriginy-(y+cy{-1})*fgcscale)+' translate '+ 
+           psrealtostr(cx*fgcscale)+' '+psrealtostr(cy*fgcscale)+' scale';
+ end;
+end;
+
+function tpsprintercanvas.imagematrixstring(const asize: sizety): string;
+var
+ str1: string;
+begin
+ with asize do begin
+  str1:= inttostr(cy);
+  result:= '['+inttostr(cx)+' 0 0 -'+str1+' 0 '+str1+']';
+ end;
+end;
+
+const
+ unityrectpath = 'newpath 0 0 moveto 1 0 lineto 1 1 lineto 0 1 lineto closepath';
+ 
+procedure convertrgb(const sourcerect: rectty; const image: imagety;
+                     out data: bytearty; out rowbytes: integer);
+var
+ po1: prgbtriplety;
+ po2: pbyte;
+ int1,int2: integer;
+begin
+ with sourcerect do begin
+  rowbytes:= cx*3;
+  setlength(data,rowbytes*cy);
+  po2:= pointer(data);
+  for int1:= y to y + cy - 1 do begin
+   po1:= @image.pixels^[int1*image.size.cx+x];
+   for int2:= x to x + cx - 1 do begin
+    po2^:= po1^.red;
+    inc(po2);
+    po2^:= po1^.green;
+    inc(po2);
+    po2^:= po1^.blue;
+    inc(po2);
+    inc(po1);
+   end;
+  end;
+ end;
+end;
+
+procedure convertgray(const sourcerect: rectty; const image: imagety;
+                     out data: bytearty; out rowbytes: integer);
+var
+ po1: prgbtriplety;
+ po2: pbyte;
+ int1,int2: integer;
+begin
+ with sourcerect do begin
+  rowbytes:= cx;
+  setlength(data,rowbytes*cy);
+  po2:= pointer(data);
+  for int1:= y to y + cy - 1 do begin
+   po1:= @image.pixels^[int1*image.size.cx+x];
+   for int2:= x to x + cx - 1 do begin
+    po2^:= (po1^.red + po1^.green + po1^.blue) div 3;
+    inc(po2);
+    inc(po1);
+   end;
+  end;
+ end;
+end;
+
+procedure convertmono(const sourcerect: rectty; const image: imagety;
+                      out data: bytearty; out rowbytes: integer);
+var
+ sourcerowstep: integer;
+ rowshiftleft,rowshiftright: byte;
+ po1,po2: pbyte;
+ int1,int2: integer;
+begin
+ with sourcerect do begin
+  rowbytes:= (cx + 7) div 8;
+  setlength(data,rowbytes*cy);
+  rowshiftright:= x and $7;
+  rowshiftleft:= 8-rowshiftright;
+  sourcerowstep:= ((image.size.cx + 31) div 32)*4;
+  po1:= @pbyteaty(image.pixels)^[y * sourcerowstep + x div 8];
+  sourcerowstep:= sourcerowstep - rowbytes;
+  po2:= pointer(data);
+  for int1:= cy - 1 downto 0 do begin
+   for int2:= rowbytes - 1 downto 0 do begin
+    po2^:= (po1^ shr rowshiftright);
+    inc(po1);
+    po2^:= bitreverse[po2^ or byte(po1^ shl rowshiftleft)];
+                           //byte(... needed for FPC!
+    inc(po2);
+   end;
+   inc(po1,sourcerowstep);
+  end;
+ end;
+end;
+
+procedure convertmonotogray(const sourcerect: rectty; var image: imagety;
+                      out data: bytearty; out rowbytes: integer;
+                      const colorforeground,colorbackground: colorty);
+var
+ grf,grb: byte;
+ po1: pbyte;
+ po2: pbyte;
+ int1,int2: integer;
+ ar1: bytearty;
+ rowb: integer;
+ by1: byte;
+begin
+ convertmono(sourcerect,image,ar1,rowb);
+ image.monochrome:= false;
+ with colortorgb(colorforeground) do begin
+  grf:= (red + green + blue) div 3;
+ end;
+ with colortorgb(colorbackground) do begin
+  grb:= (red + green + blue) div 3;
+ end;
+ with sourcerect do begin
+  rowbytes:= cx;
+  setlength(data,rowbytes*cy);
+  po2:= pointer(data);
+  for int1:= 0 to cy - 1 do begin
+   po1:= @ar1[int1*rowb];
+   for int2:= 0 to cx - 1 do begin
+    by1:= bytebitsreverse[int2 and $7];
+    if po1^ and by1 = 0 then begin
+     po2^:= grb;
+    end
+    else begin
+     po2^:= grf;
+    end;
+    inc(po2);
+    if by1 = $01 then begin
+     inc(po1);
+    end;
+   end;
+  end;
+ end;
+end;
+
+procedure convertmonotorgb(const sourcerect: rectty; var image: imagety;
+                      out data: bytearty; out rowbytes: integer;
+                      const colorforeground,colorbackground: colorty);
+var
+ rgbf,rgbb: rgbtriplety;
+ po1: pbyte;
+ po2: pbyte;
+ int1,int2: integer;
+ ar1: bytearty;
+ rowb: integer;
+ by1: byte;
+ po3: prgbtriplety;
+begin
+ convertmono(sourcerect,image,ar1,rowb);
+ image.monochrome:= false;
+ rgbf:= colortorgb(colorforeground);
+ rgbb:= colortorgb(colorbackground);
+ with sourcerect do begin
+  rowbytes:= cx*3;
+  setlength(data,rowbytes*cy);
+  po2:= pointer(data);
+  for int1:= 0 to cy - 1 do begin
+   po1:= @ar1[int1*rowb];
+   for int2:= 0 to cx - 1 do begin
+    by1:= bytebitsreverse[int2 and $7];
+    if po1^ and by1 = 0 then begin
+     po3:= @rgbb;
+    end
+    else begin
+     po3:= @rgbf;
+    end;
+    po2^:= po3^.red;
+    inc(po2);
+    po2^:= po3^.green;
+    inc(po2);
+    po2^:= po3^.blue;
+    inc(po2);
+    if by1 = $01 then begin
+     inc(po1);
+    end;
+   end;
+  end;
+ end;
+end;
+
+function tpsprintercanvas.createpattern(const sourcerect,destrect: rectty; 
+                   const acolorbackground,acolorforeground: colorty;
+                   const acanvas: tcanvas;
+//                   const pixmap: pixmapty; const agchandle: ptruint;
+                   const patname: string): boolean;
+         //returns pattern dict on ps stack
+var
+ ar1: bytearty;
+ str1: string;
+ components: integer;
+ rowbytes: integer;
+ varname: string;
+ image: imagety;
+ cached: boolean;
+begin
+ result:= true;
+ cached:= getimagecache(ick_3,acanvas,sourcerect,varname{,rowbytes});
+ if not cached then begin
+  gdi_lock;
+ // result:= gui_pixmaptoimage(pixmap,image,agchandle) = gde_ok;
+  result:= gui_pixmaptoimage(acanvas.paintdevice,image,acanvas.gchandle) = gde_ok;
+  gdi_unlock;
+  if not result then begin
+   exit;
+  end;
+  components:= 1;
+  if acanvas.monochrome then begin
+   convertmono(sourcerect,image,ar1,rowbytes);
+  end
+  else begin
+   if colorspace = cos_gray then begin
+    convertgray(sourcerect,image,ar1,rowbytes);
+   end
+   else begin
+    components:= 3;
+    convertrgb(sourcerect,image,ar1,rowbytes);
+   end;
+  end;
+  gui_freeimagemem(image.pixels);
+  if length(ar1) > 60000 then begin
+   result:= false;
+   exit;
+  end;
+  cached:= setimagecache(ick_3,acanvas,sourcerect,varname,ar1{,rowbytes});
+ end;
+ if cached then begin
+  str1:= '/'+patname+' '+varname+' def ';
+ end
+ else begin
+  str1:= '/'+patname+' '+inttostr(rowbytes*sourcerect.cy)+' string def'+nl+
+         'currentfile '+patname+' readhexstring'+nl;
+  streamwrite(str1);
+  writebinhex(ar1);
+  str1:= 'pop pop ';
+ end;
+ str1:= str1+'gsave '+rectscalestring(destrect)+nl+
+'<< /PatternType 1 /PaintType 1 /TilingType 1 /BBox [0 0 1 1] /XStep 1 /YStep 1'+nl+ 
+'/PaintProc {' + nl;
+ if acanvas.monochrome then begin
+  if acolorbackground <> cl_transparent then begin
+   str1:= str1 + unityrectpath + nl + 
+         setcolorstring(acolorbackground) + ' fill ';   
+  end;
+  str1:= str1 + setcolorstring(acolorforeground) + nl;
+ end;
+ str1:= str1 +
+      inttostr(sourcerect.size.cx) + ' ' + inttostr(sourcerect.size.cy);
+ if acanvas.monochrome then begin
+  str1:= str1 + ' true ';
+ end
+ else begin
+  str1:= str1 + ' 8';
+ end;
+ str1:= str1 + imagematrixstring(sourcerect.size)+ ' '+patname+' ';
+ if acanvas.monochrome then begin
+  str1:= str1 + 'imagemask';
+ end
+ else begin
+  if colorspace = cos_gray then begin
+   str1:= str1 + 'image';
+  end
+  else begin
+   str1:= str1 + 'false 3 colorimage';
+  end;
+ end;
+ str1:= str1+' } bind >> matrix makepattern grestore'+nl;
+ streamwrite(str1);
+end;
+  
+procedure tpsprintercanvas.checkcolorspace;
+begin
+ if not (cs_acolorforeground in fstate) then begin
+  streamwrite(setcolorstring(color)+nl); //init colorspace
+  include(fstate,cs_acolorforeground);
+ end;
+end;
+
+procedure tpsprintercanvas.ps_copyarea;
+var
+ mono: boolean;
+ cached: boolean;
+ varname: string;
+ 
+ function imagedict: string;
+ begin
+  with fdrawinfo.copyarea.sourcerect^ do begin
+   result:= setcolorstring(fdrawinfo.acolorforeground)+nl+
+   ' << /ImageType 1 /Width '+inttostr(size.cx)+
+   ' /Height '+inttostr(size.cy)+' /ImageMatrix '+imagematrixstring(size)+nl;
+   if cached then begin
+    result:= result + '/DataSource '+varname+nl;
+   end
+   else begin
+    result:= result + '/DataSource {currentfile picstr readhexstring pop}'+nl;
+   end;
+   result:= result + '/BitsPerComponent ';
+  end;
+  if mono{image.monochrome} then begin
+   result:= result+'1 ';
+  end
+  else begin
+   result:= result+'8 ';
+  end;
+  result:= result+'/Decode ';
+  if mono{image.monochrome} then begin
+   result:= result + '[1 0] ';
+  end
+  else begin
+   if colorspace = cos_gray then begin
+    result:= result + '[0 1] ';
+   end
+   else begin
+    result:= result + '[0 1 0 1 0 1] ';
+   end;
+  end;
+  if al_intpol in fdrawinfo.copyarea.alignment then begin
+   result:= result + '/Interpolate true ';
+  end;
+  result:= result + '>>'+nl;
+ end;
+
+var 
+ ar1,ar2,ar3: bytearty;
+ str1: string;
+ components: integer;
+ rowbytes,maskrowbytes: integer;
+ masked: boolean;
+ maskcopy: boolean;
+ maskbefore: tsimplebitmap;
+ po1,po2,po3: pbyte;
+ int1: integer;
+ image: imagety;
+label
+ endlab; 
+begin
+ with fdrawinfo,copyarea do begin
+  if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
+   exit;
+  end;
+  mono:= source.monochrome;
+  subpoint1(destrect^.pos,origin); //map to pd origin
+  maskcopy:= mono and (mask <> nil) and mask.monochrome and
+             ((acolorforeground = cl_transparent) or
+              (acolorbackground = cl_transparent));
+  maskbefore:= mask; //compiler warning
+  if maskcopy then begin
+   mask:= tsimplebitmap.create(true);
+   mask.size:= sourcerect^.size;
+   mask.canvas.copyarea(maskbefore.canvas,sourcerect^,nullpoint);
+   if acolorbackground = cl_transparent then begin
+    mask.canvas.copyarea(source,sourcerect^,nullpoint,rop_and);
+   end;
+   if acolorforeground = cl_transparent then begin
+    mask.canvas.copyarea(source,sourcerect^,nullpoint,rop_notand);
+   end;
+  end;
+  try
+   checkcolorspace;
+   masked:= (mask <> nil) and (mask.monochrome {or (fpslevel >= psl_3)});
+                                //color masks not implemented in postscript
+   if masked then begin
+    if (fpslevel >= psl_3) then begin
+     cached:= not maskcopy and getimagecache(ick_4,source,sourcerect^,varname);
+     if not cached then begin
+      with tcanvas1(source).fdrawinfo do begin
+       gdi_lock;
+       if gui_pixmaptoimage(tsimplebitmap1(mask).handle,image,
+                                     mask.canvas.gchandle) <> gde_ok then begin
+        goto endlab;   
+       end;
+       gdi_unlock;
+       if mask.monochrome then begin
+        convertmono(sourcerect^,image,ar2,maskrowbytes);
+       end
+       else begin
+        if colorspace = cos_gray then begin
+         convertgray(sourcerect^,image,ar2,maskrowbytes);
+        end
+        else begin
+         convertrgb(sourcerect^,image,ar2,maskrowbytes);
+        end;
+       end;
+       gui_freeimagemem(image.pixels);
+       gdi_lock;
+       if gui_pixmaptoimage(paintdevice,image,gc.handle) <> gde_ok then begin
+        goto endlab;
+       end;
+       gdi_unlock;
+      end;
+      if mono{image.monochrome} then begin
+       if colorspace = cos_gray then begin
+        convertmonotogray(sourcerect^,image,ar3,rowbytes,
+                   acolorforeground,acolorbackground);
+       end
+       else begin
+        convertmonotorgb(sourcerect^,image,ar3,rowbytes,
+                   acolorforeground,acolorbackground);
+       end;
+      end
+      else begin
+       if colorspace = cos_gray then begin
+        convertgray(sourcerect^,image,ar3,rowbytes);
+       end
+       else begin
+        convertrgb(sourcerect^,image,ar3,rowbytes);
+       end;
+      end;
+      gui_freeimagemem(image.pixels);
+      setlength(ar1,length(ar2)+length(ar3));
+      po1:= pointer(ar1);
+      po2:= pointer(ar2);
+      po3:= pointer(ar3);
+      for int1:= sourcerect^.cy - 1 downto 0 do begin
+       system.move(po2^,po1^,maskrowbytes);
+       inc(po1,maskrowbytes);
+       inc(po2,maskrowbytes);
+       system.move(po3^,po1^,rowbytes);
+       inc(po1,rowbytes);
+       inc(po3,rowbytes);
+      end;
+      rowbytes:= rowbytes + maskrowbytes;
+      cached:= not maskcopy and setimagecache(ick_4,source,sourcerect^,varname,
+                                                ar1,mask.canvas);
+     end;
+     mono:= false; //has been converted to color
+     str1:= 'gsave ';
+     if not cached then begin
+      str1:= str1 + '/picstr '+inttostr(rowbytes)+' string def ';
+     end;
+     str1:= str1 + rectscalestring(destrect^) + nl;
+     str1:= str1 + '/imdict '+imagedict+' def ';
+     with sourcerect^ do begin
+      str1:= str1 + '/madict  << /ImageType 1 /Width '+inttostr(size.cx)+
+      ' /Height '+inttostr(size.cy)+' /ImageMatrix '+imagematrixstring(size)+nl;
+      if mask.monochrome then begin
+       str1:= str1 + '/BitsPerComponent 1 /Decode [1 0] ';
+      end
+      else begin
+       if colorspace = cos_gray then begin
+        str1:= str1 + '/BitsPerComponent 8 /Decode [0 1] ';
+       end
+       else begin
+        str1:= str1 + '/BitsPerComponent 1 /Decode [0 1 0 1 0 1] ';
+       end;
+      end;
+     end;
+     if al_intpol in alignment then begin
+      str1:= str1 +  '/Interpolate true ';
+     end;
+     str1:= str1 + ' >> def'+nl+
+     '<< /ImageType 3 /DataDict imdict /MaskDict madict /InterleaveType 2 >>'+nl;
+     str1:= str1 + 'image';
+    end
+    else begin
+     cached:= not maskcopy and getimagecache(ick_2,mask.canvas,sourcerect^,varname);
+     gdi_lock;
+     if not (createpattern(sourcerect^,destrect^,acolorbackground,acolorforeground,
+          source,imagepatname) and 
+           (cached or (gui_pixmaptoimage(tsimplebitmap1(mask).handle,image,
+                                    mask.canvas.gchandle) = gde_ok))) then begin
+      goto endlab;
+     end;
+     gdi_unlock;
+     if not cached then begin
+      convertmono(sourcerect^,image,ar1,rowbytes);
+      gui_freeimagemem(image.pixels);
+      cached:= not maskcopy and
+                     setimagecache(ick_2,mask.canvas,sourcerect^,varname,ar1);
+     end;
+     str1:= 'gsave setpattern';
+     if cached then begin
+      str1:= str1 + ' /bo1 0 def ';
+     end
+     else begin
+      str1:= str1 + ' /picstr ' + inttostr(rowbytes) + ' string def ';
+     end;
+     str1:= str1 + rectscalestring(destrect^) + nl;
+     str1:= str1 + inttostr(sourcerect^.size.cx) + ' ' + 
+                   inttostr(sourcerect^.size.cy);
+     str1:= str1 + ' true ';
+     str1:= str1 + imagematrixstring(sourcerect^.size)+nl;
+     if cached then begin
+      str1:= str1 + '{bo1 0 ne{()}{/b1 1 def '+varname+'}ifelse} ';
+     end
+     else begin
+      str1:= str1 + '{currentfile picstr readhexstring pop} ';
+     end;
+     str1:= str1 + 'imagemask' + nl;
+     streamwrite(str1);
+     if cached then begin
+      str1:= '/bo1 null def ';
+     end
+     else begin
+      writebinhex(ar1);
+      str1:= '/picstr null def '
+     end;
+     str1:= str1+'/'+imagepatname+' null def grestore'+nl;
+     streamwrite(str1);
+     exit;
+    end;
+   end
+   else begin
+    cached:= getimagecache(ick_1,source,sourcerect^,varname{,rowbytes});
+    if not cached then begin
+     with tcanvas1(source).fdrawinfo do begin
+      gdi_lock;
+      if gui_pixmaptoimage(paintdevice,image,gc.handle) <> gde_ok then begin
+       goto endlab;
+      end;
+      gdi_unlock;
+     end;
+     components:= 1;
+     if mono{image.monochrome} then begin
+      convertmono(sourcerect^,image,ar1,rowbytes);
+     end
+     else begin
+      if colorspace = cos_gray then begin
+       convertgray(sourcerect^,image,ar1,rowbytes);
+      end
+      else begin
+       components:= 3;
+       convertrgb(sourcerect^,image,ar1,rowbytes);
+      end;
+     end;
+     gui_freeimagemem(image.pixels);
+     cached:= setimagecache(ick_1,source,sourcerect^,varname,
+                                                ar1{,rowbytes});
+    end;
+    str1:= 'gsave ';
+    if not cached then begin
+     str1:= str1 + '/picstr '+inttostr(rowbytes)+' string def ';
+    end;
+    str1:= str1 + rectscalestring(destrect^) + nl;
+    if mono{image.monochrome} then begin
+     if acolorbackground <> cl_transparent then begin
+      str1:= str1 + unityrectpath + nl + 
+            setcolorstring(acolorbackground) + ' fill ';   
+     end;
+    end;
+    if fpslevel >= psl_2 then begin
+     str1:= str1 + imagedict;
+     if mono{image.monochrome} then begin
+      str1:= str1 + 'imagemask';
+     end
+     else begin
+      str1:= str1 + 'image';
+     end;
+    end
+    else begin
+     if cached then begin
+      str1:= str1 + '/bo1 0 def ';
+     end;
+     str1:= str1 + setcolorstring(acolorforeground) + nl;
+     with sourcerect^ do begin
+      str1:= str1 +
+           inttostr(size.cx) + ' ' + inttostr(size.cy);
+      if mono{image.monochrome} then begin
+       str1:= str1 + ' true ';
+      end
+      else begin
+       str1:= str1 + ' 8';
+      end;
+      str1:= str1 + imagematrixstring(size)+nl;
+      if cached then begin
+       str1:= str1 + '{bo1 0 ne{()}{/b1 1 def '+varname+'}ifelse} ';
+      end
+      else begin
+       str1:= str1 + '{currentfile picstr readhexstring pop} ';
+      end;
+     end;
+     if mono{image.monochrome} then begin
+      str1:= str1 + 'imagemask';
+     end
+     else begin
+      if colorspace = cos_gray then begin
+       str1:= str1 + 'image';
+      end
+      else begin
+       str1:= str1 + 'false 3 colorimage';
+      end;
+     end;
+     if cached then begin
+      str1:= str1 + ' /bo1 null def';
+     end;
+    end;
+   end;
+   streamwrite(str1+nl);
+   if cached then begin
+    str1:= '';
+   end
+   else begin
+    writebinhex(ar1);
+    str1:= '/picstr null def ';
+   end;
+   str1:= str1 + 'grestore';
+   if masked then begin
+    str1:= str1 + ' /imdict null def /madict null def ';
+   end;
+   streamwrite(str1+nl);
+   exit;
+endlab:
+   gdi_unlock;
+  finally
+   addpoint1(destrect^.pos,origin); //map to origin
+   if maskcopy then begin
+    mask.free;
+    mask:= maskbefore;
+   end;
+  end;
+ end;
+end;
+
+procedure tpsprintercanvas.endpage;
+var
+ int1: integer;
+
+begin
+ inherited;
+ if active then begin
+  for int1:= 0 to high(fimagecache) do begin
+   freeimagecache(int1);
+  end;
+  streamwrite('showpage'+nl);
+  inc(fps_pagenumber);
+ end;
+end;
+
+procedure tpsprintercanvas.beginpage;
+var
+ str1: string;
+begin
+ initgcvalues; //init state on every page, necessary for gv
+ if active then begin
+  str1:= ' '+inttostr(fps_pagenumber+1);
+  streamwrite('%%Page:'+str1+str1+nl+
+              '%%PageOrientation: '+pageorientations[printorientation]+nl);
+  checkscale;
+ end;
+ inherited;
+end;
+
+function tpsprintercanvas.registermap(const acodepage: integer): string;
+
+ procedure defpage(const glyphnames: string);
+ begin
+  streamwrite('/'+result+' ['+nl+glyphnames+'] def'+nl);
+ end;
+ 
+var
+ map1: unicodepagety;
+ str1: string;
+ int1,int2,int3: integer;
+begin
+ result:= '';
+ for map1:= low(unicodepagety) to high(unicodepagety) do begin
+  with encodings[map1] do begin
+   if codepage = acodepage then begin
+    result:= name;
+    defpage(encodings[map1].glyphnames);
+    break;
+   end;
+  end;
+ end;
+ if result = '' then begin
+  result:= 'E'+hextostr(longword(acodepage),2);
+  int3:= 256*acodepage;
+  str1:= '';
+  for int1:= 0 to 31 do begin
+   for int2:= 0 to 7 do begin
+    str1:= str1 + '/uni'+hextostr(longword(int3),4)+' ';
+    inc(int3);
+   end;
+   if int1 = 31 then begin
+    setlength(str1,length(str1)-1);  //remove last comma
+   end;
+   str1:= str1 + nl;
+  end;
+  defpage(str1);
+ end;
+end;
+
+procedure tpsprintercanvas.checkmap(const acodepage: integer);
+begin
+ if fmapnames[acodepage] = '' then begin
+  fmapnames[acodepage]:= registermap(acodepage);
+ end;
+end;
+
+procedure tpsprintercanvas.updatescale;
+begin
+ inherited;
+ checkscale;
+end;
+
+procedure tpsprintercanvas.freeimagecache(const index: integer);
+begin
+ with fimagecache[index] do begin
+  if source <> nil then begin
+   streamwrite('/'+'picstr'+inttostr(index)+' null def'+nl);
+                        //delete dict entry
+   //unregistergclink(source); //need solved
+   if mask <> nil then begin
+    //unregistergclink(mask); //need solved
+    mask:= nil;
+   end;
+   source:= nil;
+   fimagecacheused:= fimagecacheused - bytecount;
+  end;
+ end;
+ removeitem(fcacheorder,index);
+end;
+
+procedure tpsprintercanvas.touchimagecache(const index: integer);
+var
+ int1: integer;
+begin
+ for int1:= high(fcacheorder) - 1 downto 0 do begin
+  if fcacheorder[int1] = index then begin
+   system.move(fcacheorder[int1+1],fcacheorder[int1],
+                  (high(fcacheorder)-index)*sizeof(integer));
+   fcacheorder[high(fcacheorder)]:= index;
+  end;
+ end;
+end;
+
+procedure tpsprintercanvas.gcdestroyed(const sender: tcanvas);
+var
+ int1: integer;
+begin
+ for int1:= 0 to high(fimagecache) do begin
+  with fimagecache[int1] do begin
+   if (source = sender) or (mask = sender) then begin
+    freeimagecache(int1);
+    break;
+   end;
+  end;
+ end;
+end;
+
+function tpsprintercanvas.getimagecache(const akind: imagecachekindty;
+               const asource: tcanvas;
+               const asourcerect: rectty; out varname: string{;
+               out arowbytes: integer}): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(fimagecache) do begin
+  with fimagecache[int1] do begin
+   if (kind = akind) and (source = asource) and 
+                                 rectisequal(sourcerect,asourcerect) then begin
+    varname:= 'picstr'+inttostr(int1);
+    result:= (statestamp = asource.statestamp) and 
+              ((mask = nil) or (maskstatestamp = mask.statestamp));
+    if not result then begin
+     freeimagecache(int1);
+    end
+    else begin
+     touchimagecache(int1);
+    end;
+   end;
+  end;
+ end;
+end;
+ 
+function tpsprintercanvas.setimagecache(const akind: imagecachekindty;
+               const asource: tcanvas;
+               const asourcerect: rectty; out varname: string;
+               const bytes: bytearty; {const arowbytes: integer;}
+               const amask: tcanvas = nil): boolean;
+var
+ int1,int2: integer;
+ str1: string;
+begin
+ result:= (fimagecachemaxitemsize > 0) and (high(bytes) < fimagecachemaxitemsize);
+ if result then begin
+  int1:= fimagecachesize - length(bytes);
+  while (fimagecacheused > int1) do begin
+   freeimagecache(fcacheorder[0]);
+  end;
+  int2:= length(fimagecache);
+  for int1:= 0 to high(fimagecache) do begin
+   if fimagecache[int1].source = nil then begin
+    int2:= int1;
+    break;
+   end;
+  end;
+  if int2 = length(fimagecache) then begin
+   setlength(fimagecache,int2 + 1);
+  end;
+  varname:= 'picstr'+inttostr(int2);
+  additem(fcacheorder,int2);
+  with fimagecache[int2] do begin
+   kind:= akind;
+   source:= asource;
+   mask:= amask;
+   sourcerect:= asourcerect;
+   statestamp:= asource.statestamp;
+   bytecount:= length(bytes);
+//   rowbytes:= arowbytes;
+   fimagecacheused:= fimagecacheused + bytecount;
+  end;
+  str1:='/'+varname+' '+inttostr(length(bytes))+' string def currentfile '+
+           varname + ' readhexstring'+nl;
+  streamwrite(str1);
+  writebinhex(bytes);
+  streamwrite('pop pop'+nl);
+ end;
+end;
+
+procedure tpsprintercanvas.setimagecachesize(const avalue: integer);
+begin
+ fimagecachesize:= avalue;
+ if fimagecachemaxitemsize < avalue then begin
+  fimagecachemaxitemsize:= avalue;
+ end;
+end;
+
+procedure tpsprintercanvas.setimagecachemaxitemsize(const avalue: integer);
+begin
+ fimagecachemaxitemsize:= avalue;
+ if fimagecachesize < avalue then begin
+  fimagecachesize:= avalue;
+ end;
+end;
+
+{ tpsprintercanvas }
+
+constructor tpsprinter.create(aowner: tcomponent);
+begin
+ fcanvas:= tpsprintercanvas.create(self,icanvas(self));
+ fpsfilename:='psoutput.ps';
+ inherited;
+end;
+
+destructor tpsprinter.destroy;
+begin
+ inherited;
+end;
+
+function tpsprinter.getcanvas: tpsprintercanvas;
+begin
+ result:= tpsprintercanvas(fcanvas);
+end;
+
+procedure tpsprinter.beginprint;
+begin
+ if not rawmode then begin
+  unlinkcanvas;
+  with tpsprintercanvas(fcanvas) do begin
+   fstream:=ttextstream.create(fpsfilename,fm_create);
+   initprinting('');
+  end;
+ end;
+end;
+
+procedure tpsprinter.unlinkcanvas;
+begin
+ if not rawmode then begin
+  with tpsprintercanvas(fcanvas) do begin
+   try
+    unlink;
+   except
+   end;
+   fstream.free;
+   fstream:=nil;
+  end;
+ end;
+end;
+
+procedure tpsprinter.endprint;
+begin
+ if not rawmode then begin
+  unlinkcanvas;
+ end;
+end;
+
+procedure tpsprinter.gcneeded(const sender: tcanvas);
+var
+ gc1: gcty;
+begin
+ if not (sender is tpsprintercanvas) then begin
+  guierror(gue_invalidcanvas);
+ end;
+ with tpsprintercanvas(sender) do begin
+  fillchar(gc1,sizeof(gc1),0);
+  gc1.handle:= invalidgchandle;
+  gc1.drawingflags:= [df_highresfont];
+  gc1.paintdevicesize:= getwindowsize;
+  linktopaintdevice(ptrint(self),gc1,{getwindowsize,}nullpoint);
+ end;
+end;
+
+function tpsprinter.getmonochrome: boolean;
+begin
+ result:= false;
+end;
+
+function tpsprinter.getdefaultprinter: string;
+begin
+ result:= fdefprinter;
+end;
+
+function tpsprinter.getprinters: printerarty;
+begin
+ result:= nil;
+ setlength(result,1);
+ result[0].printername:='Postscript Printer';
+ result[0].location:= '';
+ result[0].description:= 'Postscript Printer';
+ result[0].servername:= '';  
+ result[0].isdefault:= true;
+ fdefprinter:=result[0].printername;
+end;
+
+function tpsprinter.getprinterpapers(aprintername: string): stdpagearty;
+begin
+ result:=nil;
+ setlength(result,31);
+ result[0].name:= 'User';      result[0].width:=      0; result[0].height:=     0;result[0].paperindex:= 0;
+ result[1].name:= 'A0';        result[1].width:=    841; result[1].height:=  1189;result[1].paperindex:= 1;
+ result[2].name:= 'A1';        result[2].width:=    594; result[2].height:=   841;result[2].paperindex:= 2;
+ result[3].name:= 'A2';        result[3].width:=    420; result[3].height:=   594;result[3].paperindex:= 3;
+ result[4].name:= 'A3';        result[4].width:=    297; result[4].height:=   420;result[4].paperindex:= 4;
+ result[5].name:= 'A4';        result[5].width:=    210; result[5].height:=   297;result[5].paperindex:= 5;
+ result[6].name:= 'A5';        result[6].width:=    148; result[6].height:=   210;result[6].paperindex:= 6;
+ result[7].name:= 'A6';        result[7].width:=    105; result[7].height:=   148;result[7].paperindex:= 7;
+ result[8].name:= 'A7';        result[8].width:=     74; result[8].height:=   105;result[8].paperindex:= 8;
+ result[9].name:= 'A8';        result[9].width:=     52; result[9].height:=    74;result[9].paperindex:= 9;
+ result[10].name:= 'A9';        result[10].width:=     37; result[10].height:=    52;result[10].paperindex:= 10;
+ result[11].name:= 'B0';        result[11].width:=   1030; result[11].height:=  1456;result[11].paperindex:= 11;
+ result[12].name:= 'B1';        result[12].width:=    728; result[12].height:=  1030;result[12].paperindex:= 12;
+ result[13].name:= 'B2';        result[13].width:=    515; result[13].height:=   728;result[13].paperindex:= 13;
+ result[14].name:= 'B3';        result[14].width:=    364; result[14].height:=   515;result[14].paperindex:= 14;
+ result[15].name:= 'B4';        result[15].width:=    257; result[15].height:=   364;result[15].paperindex:= 15;
+ result[16].name:= 'B5';        result[16].width:=    182; result[16].height:=   257;result[16].paperindex:= 16;
+ result[17].name:= 'B6';        result[17].width:=    128; result[17].height:=   182;result[17].paperindex:= 17;
+ result[18].name:= 'B7';        result[18].width:=     91; result[18].height:=   128;result[18].paperindex:= 18;
+ result[19].name:= 'B8';        result[19].width:=     64; result[19].height:=    91;result[19].paperindex:= 19;
+ result[20].name:= 'B9';        result[20].width:=     45; result[20].height:=    64;result[20].paperindex:= 20;
+ result[21].name:= 'B10';       result[21].width:=     32; result[21].height:=    45;result[21].paperindex:= 21;
+ result[22].name:= 'C5E';       result[22].width:=    163; result[22].height:=   229;result[22].paperindex:= 22;
+ result[23].name:= 'Comm10E';   result[23].width:=    105; result[23].height:=   241;result[23].paperindex:= 23;
+ result[24].name:= 'DLE';       result[24].width:=    110; result[24].height:=   220;result[24].paperindex:= 24;
+ result[25].name:= 'Executive'; result[25].width:=    191; result[25].height:=   254;result[25].paperindex:= 25;
+ result[26].name:= 'Folio';     result[26].width:=    215.9; result[26].height:=   330.2;result[26].paperindex:= 26;
+ result[27].name:= 'Ledger';    result[27].width:=    279.4; result[27].height:=   431.8;result[27].paperindex:= 27;
+ result[28].name:= 'Legal';     result[28].width:=    215.9; result[28].height:=   355.6;result[28].paperindex:= 28;
+ result[29].name:= 'Letter';    result[29].width:=    215.9; result[29].height:=   279.4;result[29].paperindex:= 29;
+ result[30].name:= 'Tabloid';   result[30].width:=    279.4; result[30].height:=   431.8;result[30].paperindex:= 30;
+end;
+
+initialization
+ gdifuncs:= gui_getgdifuncs;
+end.
