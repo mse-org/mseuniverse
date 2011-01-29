@@ -1,0 +1,620 @@
+object skinblue: tskinblue
+  options = [dmo_autoreadstat]
+  bounds_cx = 311
+  bounds_cy = 548
+  oncreate = skinblue_oncreate
+  left = 388
+  top = 125
+  moduleclassname = 'tmsedatamodule'
+  object tfacemenu: tfacecomp
+    template.image.transparentcolor = -2147483642
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.33673469387755
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      14935528
+      12703477
+      11125480
+    )
+    template.fade_direction = gd_down
+    top = 8
+  end
+  object tfaceactivemenu: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612730
+      16247233
+    )
+    template.fade_direction = gd_down
+    top = 32
+  end
+  object tfacebuttontoolbar: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.5
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      15264767
+      11778015
+      8291519
+    )
+    template.fade_direction = gd_down
+    top = 250
+  end
+  object tfaceframe: tfacecomp
+    template.image.transparency = -1879048186
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      12045288
+      13689330
+    )
+    template.fade_direction = gd_down
+    top = 226
+  end
+  object tfacegridcol: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.5969387755102
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      12237567
+      14737663
+      13224447
+    )
+    top = 176
+  end
+  object tfacetabactive: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.4234693877551
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      13884648
+      15461372
+      9081855
+    )
+    template.fade_direction = gd_up
+    top = 130
+  end
+  object tfaceboolean: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.37244897959184
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      13091808
+      -1610612730
+      12106464
+    )
+    template.fade_direction = gd_down
+    top = 105
+  end
+  object tfaceform: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.50255102040816
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      11125480
+      15330546
+      12045288
+    )
+    template.fade_direction = gd_up
+    top = 81
+  end
+  object tfacepmenu: tfacecomp
+    template.image.transparentcolor = -2147483648
+    template.image.options = [bmo_masked]
+    template.fade_pos.count = 5
+    template.fade_pos.items = (
+      0
+      0.17091836734694
+      0.62244897959184
+      0.96683673469388
+      1
+    )
+    template.fade_color.count = 5
+    template.fade_color.items = (
+      14672383
+      13093887
+      14672383
+      11712255
+      11383295
+    )
+    top = 57
+  end
+  object tframetoolbar: tframecomp
+    template.framewidth = 1
+    template.colorframe = 11842008
+    template.extraspace = 2
+    template.imagedist = 3
+    left = 128
+    top = 127
+  end
+  object tframemenuactive: tframecomp
+    template.framewidth = 1
+    template.colorframe = 10856150
+    template.framei_left = 1
+    template.framei_top = 1
+    template.framei_right = 1
+    template.framei_bottom = 1
+    left = 128
+    top = 151
+  end
+  object tframegrid: tframecomp
+    template.framewidth = 1
+    template.colorframe = 1776768
+    template.colordkshadow = -1879048192
+    left = 128
+    top = 199
+  end
+  object tframeEdit: tframecomp
+    template.framewidth = 1
+    template.colorframe = 7772615
+    template.colorframeactive = 4225735
+    template.framei_left = 1
+    template.framei_right = 1
+    template.framei_bottom = 1
+    template.colorclient = 16119551
+    left = 128
+    top = 223
+  end
+  object tframeboolean: tframecomp
+    template.framewidth = 1
+    template.colorframe = 9736956
+    template.colorframeactive = 2699179
+    left = 128
+    top = 175
+  end
+  object tframeform: tframecomp
+    template.colorframe = 7772615
+    template.colorclient = -2147483647
+    left = 128
+    top = 104
+  end
+  object tframemenu: tframecomp
+    template.colorframe = 8487605
+    template.framei_left = 2
+    template.framei_top = 1
+    template.framei_right = 2
+    template.framei_bottom = 1
+    left = 128
+    top = 56
+  end
+  object tframepopupmenu: tframecomp
+    template.framewidth = 1
+    template.colorframe = 1447546
+    left = 128
+    top = 32
+  end
+  object tframepopupmenuitem: tframecomp
+    template.colorframe = -1879048188
+    template.framei_left = 4
+    template.framei_top = 3
+    template.framei_right = 4
+    template.framei_bottom = 3
+    template.imagedist = 4
+    left = 128
+    top = 8
+  end
+  object cskinblue: tskincontroller
+    extenders = 0
+    onafterupdate = cskinblue_onafterupdate
+    colors.count = 2
+    colors.colordkshadow = 5664913
+    colors.colorshadow = 8492981
+    colors.colorlight = 12309229
+    colors.colorhighlight = 15266042
+    colors.items = <    
+      item
+        color = -1879048179
+        rgb = 4410260
+      end    
+      item
+        color = -1879048180
+        rgb = 14936063
+      end>
+    sb_horz_facebutton = tfacescrollbarhorz
+    sb_horz_faceendbutton = tfacescrollbarhorzend
+    sb_horz_framebutton = tframescrollbar
+    sb_horz_frameendbutton1 = tframescrollbar
+    sb_horz_frameendbutton2 = tframescrollbar
+    sb_vert_facebutton = tfacescrollbarvert
+    sb_vert_faceendbutton = tfacescrollbarvertend
+    sb_vert_framebutton = tframescrollbar
+    sb_vert_frameendbutton1 = tframescrollbar
+    sb_vert_frameendbutton2 = tframescrollbar
+    stepbutton_frame = tframeframebutton
+    stepbutton_face = tfaceframebutton
+    widget_color = -2147483645
+    dataedit_frame = tframeEdit
+    booleanedit_face = tfaceboolean
+    booleanedit_frame = tframeboolean
+    container_face = tfaceform
+    container_ftrame = tframeform
+    groupbox_face = tfaceframe
+    groupbox_frame = tframeframe
+    grid_frame = tframegrid
+    grid_fixrows_face = tfacegridrow
+    grid_fixrows_frame = tframegridrow
+    grid_fixcols_face = tfacegridcol
+    button_face = tfacebutton
+    button_frame = tframebutton
+    framebutton_colorglyph = 130
+    framebutton_face = tfaceframebutton
+    framebutton_frame = tframeframebutton
+    tabbar_horz_tab_frame = tframetab
+    tabbar_horz_tab_face = tfacetab
+    tabbar_horz_tab_faceactive = tfacetabactive
+    tabbar_horz_tab_shift = 1
+    tabbar_horzopo_tab_frame = tframetab
+    tabbar_horzopo_tab_face = tfacetabopo
+    tabbar_horzopo_tab_faceactive = tfacetabactiveopo
+    tabbar_horzopo_tab_shift = 1
+    tabbar_vert_tab_frame = tframevtab
+    tabbar_vert_tab_face = tfacevtab
+    tabbar_vert_tab_faceactive = tfacevtabactive
+    tabbar_vert_tab_shift = 5
+    tabbar_vertopo_tab_shift = 0
+    toolbar_frame = tframetoolbar
+    toolbar_buttonface = tfacebuttontoolbar
+    tabpage_face = tfacetabpage
+    tabpage_frame = tframetabpage
+    popupmenu_face = tfacemenu
+    popupmenu_frame = tframepopupmenu
+    popupmenu_itemfaceactive = tfaceactivemenu
+    popupmenu_itemframeactive = tframemenuactive
+    mainmenu_face = tfacemenu
+    mainmenu_itemframe = tframemenu
+    mainmenu_itemfaceactive = tfaceactivemenu
+    mainmenu_itemframeactive = tframemenuactive
+    mainmenu_popupface = tfacepmenu
+    mainmenu_popupframe = tframepopupmenu
+    mainmenu_popupitemframe = tframepopupmenuitem
+    mainmenu_popupitemfaceactive = tfaceactivemenu
+    mainmenu_popupitemframeactive = tframemenuactive
+    left = 136
+    top = 424
+  end
+  object tframebutton: tframecomp
+    template.colorframe = 2960256
+    template.imagedist = 2
+    template.colordkshadow = 64
+    template.colorhighlight = 11974348
+    template.colorhlwidth = -3
+    left = 128
+    top = 247
+  end
+  object tfacegridrow: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.53316326530612
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      13750783
+      14606079
+      12237567
+    )
+    template.fade_direction = gd_down
+    top = 201
+  end
+  object tframeframe: tframecomp
+    template.levelo = 1
+    template.colorframe = 7772615
+    left = 128
+    top = 80
+  end
+  object tframescrollbar: tframecomp
+    template.framewidth = 1
+    template.colorframe = 11844320
+    left = 128
+    top = 271
+  end
+  object tfacescrollbarhorz: tfacecomp
+    template.image.transparentcolor = -2147483642
+    template.image.options = [bmo_masked]
+    template.image.alignment = [al_xcentered, al_ycentered]
+    template.image.image = {
+      00000000020000001000000010000000F8000000000000000000000000000000
+      000000000000000000000000000000000000000000000034FFDCDE0100000001
+      FFDCDE0100000001FFDCDE0100000001FFDCDE0100000009FFDCDE01FF858101
+      FFDCDE01FF858101FFDCDE01FF858101FFDCDE01FF85810100000008FFDCDE01
+      FF858101FFDCDE01FF858101FFDCDE01FF858101FFDCDE01FF85810100000008
+      FFDCDE01FF858101FFDCDE01FF858101FFDCDE01FF858101FFDCDE01FF858101
+      00000008FFDCDE01FF858101FFDCDE01FF858101FFDCDE01FF858101FFDCDE01
+      FF85810100000008FFDCDE01FF858101FFDCDE01FF858101FFDCDE01FF858101
+      FFDCDE01FF85810100000009FF85810100000001FF85810100000001FF858101
+      00000001FF858101000000640000FFFF0000FFFF0000FFFF5005FFFFF00FFFFF
+      F00FFFFFF00FFFFFF00FFFFFF00FFFFFA00AFFFF0000FFFF0000FFFF0000FFFF
+      0000FFFF0000FFFF0000FFFF
+    }
+    template.fade_pos.count = 5
+    template.fade_pos.items = (
+      0
+      0.1530612244898
+      0.5
+      0.8265306122449
+      1
+    )
+    template.fade_color.count = 5
+    template.fade_color.items = (
+      10853874
+      13685241
+      15329783
+      13421045
+      10853874
+    )
+    template.fade_direction = gd_down
+    top = 275
+  end
+  object tfacescrollbarvertend: tfacecomp
+    template.image.options = [bmo_masked]
+    template.fade_pos.count = 5
+    template.fade_pos.items = (
+      0
+      0.18877551020408
+      0.36479591836735
+      0.68367346938776
+      1
+    )
+    template.fade_color.count = 5
+    template.fade_color.items = (
+      15134460
+      13685241
+      12367863
+      13421045
+      10853874
+    )
+    top = 347
+  end
+  object tfacescrollbarhorzend: tfacecomp
+    template.fade_pos.count = 5
+    template.fade_pos.items = (
+      0
+      0.18877551020408
+      0.36479591836735
+      0.68367346938776
+      1
+    )
+    template.fade_color.count = 5
+    template.fade_color.items = (
+      15134460
+      13685241
+      12367863
+      13421045
+      10853874
+    )
+    template.fade_direction = gd_down
+    top = 323
+  end
+  object tframeframebutton: tframecomp
+    template.framewidth = 1
+    template.colorframe = 11844320
+    template.framei_left = -1
+    template.framei_top = -1
+    template.framei_right = -1
+    template.framei_bottom = -1
+    left = 128
+    top = 295
+  end
+  object tfaceframebutton: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      15526901
+      10853874
+    )
+    template.fade_direction = gd_down
+    top = 394
+  end
+  object tfacescrollbarvert: tfacecomp
+    template.image.transparentcolor = -2147483642
+    template.image.options = [bmo_masked]
+    template.image.alignment = [al_xcentered, al_ycentered]
+    template.image.image = {
+      0000000002000000100000001000000044000000000000000000000000000000
+      000000000000000000000000000000000000000000000045FF85810600000009
+      FFDCDE060000000BFF85810600000009FFDCDE060000000BFF85810600000009
+      FFDCDE060000000BFF85810600000009FFDCDE06000000460000FFFF0000FFFF
+      0000FFFF0000FFFFE007FFFFF003FFFFE007FFFFF003FFFFE007FFFFF003FFFF
+      E007FFFFF003FFFF0000FFFF0000FFFF0000FFFF0000FFFF
+    }
+    template.fade_pos.count = 5
+    template.fade_pos.items = (
+      0
+      0.13010204081633
+      0.51020408163265
+      0.875
+      1
+    )
+    template.fade_color.count = 5
+    template.fade_color.items = (
+      10853874
+      13685241
+      15329783
+      13421045
+      10853874
+    )
+    top = 299
+  end
+  object tframetab: tframecomp
+    template.colorframe = 1314137
+    template.framei_left = 1
+    template.framei_right = 1
+    template.colordkshadow = 788531
+    template.colorshadow = 2036869
+    template.colorlight = 11973839
+    template.colorhighlight = 14737384
+    left = 128
+    top = 319
+  end
+  object tfacetab: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.533
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      13750783
+      14606079
+      12237567
+    )
+    template.fade_direction = gd_down
+    top = 154
+  end
+  object tframetabpage: tframecomp
+    template.levelo = 2
+    template.colorframe = 3091289
+    template.colordkshadow = 788531
+    template.colorshadow = 4011397
+    template.colorlight = 11973839
+    template.colorhighlight = 14737384
+    left = 128
+    top = 343
+  end
+  object tfacetabpage: tfacecomp
+    template.image.transparency = -1879048186
+    template.fade_pos.count = 4
+    template.fade_pos.items = (
+      0
+      0.091836734693878
+      0.93622448979592
+      1
+    )
+    template.fade_color.count = 4
+    template.fade_color.items = (
+      13884648
+      12045288
+      13885426
+      12045288
+    )
+    template.fade_direction = gd_down
+    top = 418
+  end
+  object tframegridrow: tframecomp
+    left = 128
+    top = 366
+  end
+  object tfacetabopo: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.66071428571429
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      12105983
+      14606079
+      9737471
+    )
+    template.fade_direction = gd_up
+    top = 466
+  end
+  object tfacetabactiveopo: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.65561224489796
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      14672872
+      13948156
+      14738431
+    )
+    template.fade_direction = gd_down
+    top = 442
+  end
+  object tfacebutton: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.53316326530612
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      13750783
+      14606079
+      12237567
+    )
+    template.fade_direction = gd_down
+    top = 369
+  end
+  object tfacevtab: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.533
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      13750783
+      14606079
+      12237567
+    )
+    top = 491
+  end
+  object tfacevtabactive: tfacecomp
+    template.fade_pos.count = 3
+    template.fade_pos.items = (
+      0
+      0.4234693877551
+      1
+    )
+    template.fade_color.count = 3
+    template.fade_color.items = (
+      13884648
+      15461372
+      9081855
+    )
+    top = 514
+  end
+  object tframevtab: tframecomp
+    template.framewidth = 1
+    template.colorframe = 11844320
+    left = 128
+    top = 391
+  end
+end

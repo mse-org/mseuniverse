@@ -1,0 +1,26 @@
+1 VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+{
+ BLOCK "StringFileInfo"
+ {
+  BLOCK "040904E4"
+  {
+   VALUE "Comments", "MSE Installer\000"
+   VALUE "CompanyName", "MSE Community.\000"
+   VALUE "ENY Extra Info", "Installer for MSEide+MSEgui\000"
+   VALUE "FileDescription", "mse-installer\000"
+   VALUE "FileVersion", "1.0.0.0\000"
+   VALUE "InternalName", "mse-installer.exe\000"
+   VALUE "LegalCopyright", "MSE Community\000"
+   VALUE "LegalTrademarks", "MSE Installer\000"
+   VALUE "OriginalFilename", "mse-installer.exe\000"
+   VALUE "ProductName", "MSE Installer\000"
+   VALUE "ProductVersion", "1.0.0.0\000"
+  }
+ }
+ BLOCK "VarFileInfo"
+ {
+  VALUE "Translation", 0x0409, 0x04E4
+ }
+}

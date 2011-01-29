@@ -1,0 +1,7 @@
+- Copy all files and folder from this folder into MSEide+MSEgui folder as this folder structure.
+- Open mseide project.
+- Add -dmorecomponents in make options from menu "Project"->"options". 
+- Compile IDE
+- Copy mseide (Linux) or mseide.exe (Windows) to folder bin/win32.
+
+

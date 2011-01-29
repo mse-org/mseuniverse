@@ -1,0 +1,2019 @@
+object mainfo: tmainfo
+  bounds_x = 30
+  bounds_y = 185
+  bounds_cx = 806
+  bounds_cy = 470
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    16
+    806
+    454
+  )
+  mainmenu = tmainmenu1
+  options = [fo_main, fo_terminateonclose, fo_maximized, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  caption = 'MSE Installer'
+  icon.options = [bmo_masked]
+  icon.image = {
+    00000000020000003000000030000000440C0000000000000000000000000000
+    0000000000000000000000000000000000000000FFFFFFFFFFFFFF619E818101
+    92797901A0A0A0019A97970195959501FFFFFF28A58C8C017537370166252501
+    66282801724F4F01724949017248480174474701733E3E016F343401601F1F01
+    B3B3B301FFFFFF21AAAAAA017B41410168282801672727017C5F5F0182818101
+    868686018A8A8A018E8E8E019191910290909001919191017741410189575701
+    FFFFFF1F814B4B016929290168292901815C5C01919191069595950193939301
+    919191038776760175363601FFFFFF1C8856560168272701672626017B494901
+    9090900191919105949494019C9C9C019A9A9A01919191059090900171333301
+    FFFFFF198B6262016828280164232301723939018E8B8B019191910698989801
+    A2A2A201A1A1A1019393930191919103622121016C2C2C016021210155161601
+    4E121201632121016D2C2C018044440190676701BFBFBF01FFFFFF139C818101
+    692929019D9191019F9F9F01989898019393930191919103939393019C9C9C01
+    A6A6A601AAAAAA0198989801919191048C8989019A6C6C01FDFCFC04F9F8F801
+    C5B0B001915E5E01713232016625250165252501672626036E2C2C017F454501
+    966D6D01FFFFFF0CDFDFDF017B434301FDFCFC02F8F7F701EBEAEA01D3D2D201
+    BBBBBB01A5A5A501A9A9A901AAAAAA029F9F9F019191910587727201C0ACAC01
+    FDFCFC01FAF9F901FBFAFA01FDFCFC09F7F6F601CCBCBC019365650174373701
+    71313101723333017436360175383801753B3B017A3C3C0197656501FFFFFF06
+    783F3F01FDFCFC06BBBBBB01AAAAAA03939393019191910583606001D5D5D501
+    FDFCFC01B3B2B201A3A3A301ABABAB01BABABA01CCCCCC01DFDEDE01EFEEEE01
+    F6F5F501FCFBFB01FDFCFC0AF7F6F601CDBEBE01783A3A01601F1F019C6A6A01
+    FFFFFF047D454501B5A5A50195959501A6A6A601D7D7D701FCFBFB01FDFCFC01
+    C7C7C701AAAAAA02A6A6A601919191067A464601D2CECE01FDFCFC019F494901
+    AB303001A1414101985353019369690192848401979797019F9F9F01A9A9A901
+    B9B9B901C6C6C601D2D2D201E3E2E201F3F2F201FAF9F901FDFCFC079A686801
+    65232301FFFFFF04ABA1A1017C434301B1B0B001C8C8C801B9B9B901BDBDBD01
+    ECECEC01DBDBDB01AAAAAA02A1A1A10191919106743A3A01C8B7B701FDFCFC01
+    A3353501A9212101AC242401AF292901B02B2B02AA3232019F41410196545401
+    906969018F828201979797019F9F9F01A6A6A601B3B3B301BFBEBE01CFCFCF01
+    E6E5E501FBFAFA01FDFCFC03E0E0E001815B5B01FFFFFF05783F3F01F2F2F201
+    CCCCCC01BFBFBF01B4B4B4019F9F9F01F4F3F301AAAAAA029C9C9C0191919106
+    77414101B99E9E01FDFCFC01A22B2B01A4191903A51B1B01A8202001AA232301
+    AE272701B02A2A01B02B2B02A93232019D414101955353019069690193898901
+    9C9C9C01A7A7A701CBCBCB01FDFCFC03D5D5D50179434301FFFFFF05773D3D01
+    D6D3D301C3C2C201FAF9F901FCFBFB01FAF9F901FDFCFC01B3B3B301AAAAAA01
+    99999901919191067B4C4C01AA868601FDFCFC019F2222019C121201A2171701
+    A4191905A41A1A01A81E1E01AE292901B02B2B05A93434019C505001A1909001
+    FDFCFC03C4C4C40168272701FFFFFF059775750183525201A9A9A9019D9D9D01
+    A5A4A401D7D6D601FDFCFC01C2C2C201AAAAAA019595950191919106815A5A01
+    9E727201FDFCFC019C1C1C01950C0C029B111101A2181801A4191905A61B1B01
+    AE282801B02B2B069C545401FDFCFC03B5B5B50166242401FFFFFF06793F3F01
+    C3C3C301A5A5A502AAAAAA01BEBDBD01D6D5D501A9A9A90191919107846B6B01
+    915E5E01FDFCFC019A191901950C0C03960C0C019A111101A2171701A4191904
+    A51A1A01AD272701B02B2B059D515101FDFCFC02FBFAFA01A3A3A30174363601
+    FFFFFF06773D3D01D2D2D201D7D7D701E7E7E701C3C2C201DBDBDB01EFEFEF01
+    AAAAAA01919191078B7E7E01874F4F01FDFCFC019A171701950C0C069C121201
+    A3181801A4191903A51A1A01AC252501B02B2B049F5A5A01FDFCFC02F4F4F401
+    9491910181494901FFFFFF06845555019C7A7A01D4D4D401FDFCFC04B1B1B101
+    93939301919191068D8D8D017F454501FDFCFC019A161601950C0C07960D0D01
+    9E131301A3191901A4191902A41A1A01AC242401B02B2B02B02A2A01A3616101
+    FDFCFC02EFEEEE01815B5B019A777701FFFFFF06BCBCBC01783F3F01D2D2D201
+    B9B8B801F0EFEF01FDFCFC02BEBEBE0194949401919191068E8E8E017D454501
+    FDFCFC019A171701950C0C09980F0F01A3181801A4191903AC242401B02B2B01
+    AD272701AD818101FDFCFC02E8E7E7017A494901BABABA01FFFFFF07763C3C01
+    D2D2D201737272017D7C7C01E7E7E701FDFCFC01CFCFCF019696960191919106
+    909090017D444401FDFCFC019A181801950C0C0A990F0F01A3191901A4191903
+    AB242401AA222201C8BABA01FDFCFC02D9D9D9017A494901AAAAAA01FFFFFF07
+    7A404001B1A5A5017170700281818101F9F8F801E5E4E4019898980191919107
+    7B444401FDFCFC019D1D1D01950C0C0B99101001A4181801A4191903A41B1B01
+    E4E4E401FDFCFC02C2C2C2017A4A4A01FFFFFF08A99999017A434301AFAFAF02
+    79787801A2A2A201EAE9E9019E9E9E01919191077B454501FDFCFC019C494901
+    9C131301980D0D01950C0C0A9A101001A4191903A21D1D01F3F2F201FDFCFC02
+    B0B0B0017D4D4D01FFFFFF09773C3C01B9B9B901D2D2D201CECECE0183838301
+    E1E1E101AAAAAA01919191076D2E2E01FDFCFC01AEA0A0019B484801AC2A2A01
+    A62020019F151501990F0F01960C0C01950C0C079B111101A41919029F212101
+    FDFCFC02FAF9F9019A9A9A0183505001FFFFFF0976393901B0B0B001D2D2D202
+    908F8F01CAC9C901BDBDBD01919191075B1B1B01DDD7D701FBFAFA01DEDDDD01
+    ABA4A4019A626201A6393901AF292901A9222201A01818019B111101960D0D01
+    950C0C059D131301A41919019C262601FDFCFC02F2F1F101877070018D626201
+    FFFFFF099269690181505001C4C4C401D2D2D201B1B1B1019E9D9D01CBCBCB01
+    939393019191910683707001300808015A1B1B01C3ADAD01FBFAFA01F7F6F601
+    D5D5D501A99595019B5D5D01A53C3C01AE2A2A01AB242401A31B1B019C121201
+    970E0E01950C0C039B1111019C303001FDFCFC02E8E7E701794A4A01A6A6A601
+    FFFFFF0A773B3B01BABABA01D2D2D201CECECE018C8B8B01D2D2D2019A9A9A01
+    9191910588737301561717018F5C5C01814444015B1A1A015D1D1D0184505001
+    EBEAEA01FDFCFC01F2F2F201CCCCCC01A69898019A626201A2404001AE2B2B01
+    AC252501A61D1D019E14140199101001980F0F01A1515101FDFCFC02D6D6D601
+    78454501FFFFFF0B6C2C2C01AFACAC01C0C0C001D2D2D20188878701D2D2D201
+    A4A4A40191919104815C5C015C1C1C019B747401FFFFFF047D3E3E0159191901
+    5A1A1A01AB939301F7F6F601FDFCFC01EFEFEF01C9C9C901A49B9B0198666601
+    A0454501AE2C2C01AE272701AD262601B59B9B01FDFCFC02C1C1C10171363601
+    FFFFFF0B8246460163212101818080019190900183838301B3B3B301B4B4B401
+    919191037A47470168262601FFFFFF075D1C1C019C7C7C016F343401370A0A01
+    71343401CECACA01FBFAFA01FDFCFC01EDECEC01C7C7C701A6A1A101986E6E01
+    9A686801DEDDDD01FDFCFC01F9F8F801AEAEAE0169292901FFFFFF0C78363601
+    4D121201682A2A017170700192929201C5C5C501919191027337370176383801
+    FFFFFF07855555017E424201D2D2D201A7999901090404010303030114050501
+    4C121201875A5A01E7E7E701FCFBFB02EEEDED01E2E2E201FAF9F901FDFCFC01
+    F1F0F001937575016D2B2B01FFFFFF0E743131014E12120174373701D0D0D001
+    969696016B2C2C0180454501FFFFFF086F2E2E01D1D1D101D2D2D202AA969601
+    5D1D1D012A07070128060601885E5E016B2B2B016625250198707001F2F2F201
+    FDFCFC03E5E5E5016626260197777701FFFFFF10834848016927270165242401
+    844A4A01FFFFFF09844B4B0188585801E2E2E201D3D3D301D2D2D202CFCFCF01
+    C8C8C801D2D2D202BCB9B901400D0D015819190160212101AA8A8A01E3E3E301
+    B3ADAD015A1A1A01FFFFFF1F692828018D595901F9F8F801EAE9E901E1E1E101
+    D9D9D901D3D3D301D2D2D20288585801793F3F01FFFFFF019871710173333301
+    6F2E2E016E2E2E01B48B8B01FFFFFF20855656017B43430189535301F0F0F001
+    FDFCFC01F8F7F701AB8888016A2B2B0184585801FFFFFF29824747017E494901
+    7F464601835656018B686801C8C8C801FFFFFFFFFFFFFF8E0000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000001F000000000000E0FF0100000000
+    00FCFF010000000080FFFF0100000000E0FFFF0100000000FCFFFF3F00000000
+    FEFFFFFF1F000000FEFFFFFFFF0F0000FCFFFFFFFF3F0000FCFFFFFFFF3F0000
+    FCFFFFFFFF3F0000F8FFFFFFFF3F0000F8FFFFFFFF3F0000F8FFFFFFFF3F0000
+    F8FFFFFFFF3F0000F0FFFFFFFF3F0000F0FFFFFFFF3F0000F0FFFFFFFF3F0000
+    E0FFFFFFFF3F0000E0FFFFFFFF1F0000E0FFFFFFFF1F0000C0FFFFFFFF1F0000
+    C0FFFFFFFF1F0000C0FFFFFFFF1F000080FFFFFFFF0F000080FF1FFEFF0F0000
+    80FF0FFCFF0F000000FF03FEFF0F000000FE01FEFF0F000000F800FEFF070000
+    000000FCDF070000000000F80F000000000000E0070000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    000000000000000000000000000000000000000000000000
+  }
+  onloaded = mainfo_onloaded
+  moduleclassname = 'tmainform'
+  object ttabwidget1: ttabwidget
+    bounds_x = 0
+    bounds_y = 80
+    bounds_cx = 806
+    bounds_cy = 349
+    anchors = [an_top, an_bottom]
+    taborder = 4
+    activepageindex = 0
+    tab_captionframe_left = 4
+    tab_captionframe_right = 4
+    tab_size = 18
+    object tabinfo: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 1
+      visible = True
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 806
+      bounds_cy = 331
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '&General'
+      object appname: tstringedit
+        frame.caption = '&Application name'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 9
+        bounds_x = 8
+        bounds_y = 5
+        bounds_cx = 308
+        bounds_cy = 37
+        statfile = tstatfile2
+        reffontheight = 14
+      end
+      object appversion: tstringedit
+        frame.caption = '&Version'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        bounds_x = 320
+        bounds_y = 4
+        bounds_cx = 124
+        bounds_cy = 37
+        statfile = tstatfile2
+        reffontheight = 14
+      end
+      object apptagline: tstringedit
+        frame.caption = 'Product &tag line'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 2
+        bounds_x = 8
+        bounds_y = 45
+        bounds_cx = 790
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        statfile = tstatfile1
+        reffontheight = 14
+      end
+      object applogo: timage
+        frame.zoomwidthstep = 1
+        frame.zoomheightstep = 1
+        frame.levelo = -3
+        frame.leveli = 2
+        frame.caption = 'Application Logo'
+        frame.font.xscale = 1
+        frame.font.dummy = 0
+        frame.localprops = [frl_levelo, frl_leveli]
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 10
+        bounds_x = 635
+        bounds_y = 85
+        bounds_cx = 162
+        bounds_cy = 179
+        anchors = [an_top, an_right]
+        bitmap.alignment = [al_fit]
+      end
+      object appdescription: tmemoedit
+        frame.caption = 'Application &description'
+        frame.localprops = [frl_colorclient]
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 3
+        bounds_x = 8
+        bounds_y = 87
+        bounds_cx = 620
+        bounds_cy = 148
+        anchors = [an_left, an_top, an_right, an_bottom]
+        statfile = tstatfile1
+      end
+      object btnclear: tbutton
+        taborder = 7
+        bounds_x = 639
+        bounds_y = 270
+        bounds_cx = 154
+        bounds_cy = 20
+        anchors = [an_top, an_right]
+        state = [as_localcaption, as_localonexecute]
+        caption = '&Clear Image'
+        onexecute = btnclear_onexecute
+      end
+      object btnopen: tbutton
+        taborder = 8
+        bounds_x = 639
+        bounds_y = 294
+        bounds_cx = 154
+        bounds_cy = 20
+        anchors = [an_top, an_right]
+        state = [as_localcaption, as_localonexecute]
+        caption = '&Open Image'
+        onexecute = btnopen_onexecute
+      end
+      object copyright: tstringedit
+        frame.caption = 'Copyright'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 6
+        bounds_x = 8
+        bounds_y = 280
+        bounds_cx = 623
+        bounds_cy = 47
+        anchors = [an_left, an_right, an_bottom]
+        statfile = tstatfile2
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_shiftreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+        reffontheight = 14
+      end
+      object appwebsite: tstringedit
+        frame.caption = '&Website'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 5
+        bounds_x = 320
+        bounds_y = 239
+        bounds_cx = 308
+        bounds_cy = 37
+        anchors = [an_left, an_right, an_bottom]
+        statfile = tstatfile2
+        reffontheight = 14
+      end
+      object companyname: tstringedit
+        frame.caption = '&Company name'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 4
+        bounds_x = 8
+        bounds_y = 240
+        bounds_cx = 308
+        bounds_cy = 37
+        anchors = [an_left, an_bottom]
+        statfile = tstatfile2
+        reffontheight = 14
+      end
+      object woutputname: tstringedit
+        frame.caption = '&Output Filename'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 1
+        bounds_x = 448
+        bounds_y = 3
+        bounds_cx = 174
+        bounds_cy = 37
+        statfile = tstatfile2
+        reffontheight = 14
+      end
+    end
+    object tabforms: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 806
+      bounds_cy = 331
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Forms Installation'
+      object wforms: twidgetgrid
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 806
+        bounds_cy = 331
+        anchors = []
+        optionsgrid = [og_colsizing, og_rowsizing, og_rowinserting, og_rowdeleting, og_selectedrowsdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_rowheight, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 26
+            captions.count = 3
+            captions.items = <            
+              item
+                caption = 'Form Type'
+              end            
+              item
+                caption = 'Description'
+              end            
+              item
+                caption = 'Image'
+              end>
+          end>
+        datacols.count = 3
+        datacols.options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item
+            width = 170
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wformtype'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 371
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_autorowheight]
+            widgetname = 'wformdescription'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 258
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wformimage'
+            dataclass = tgridmsestringdatalist
+          end>
+        datarowheight = 32
+        statfile = tstatfile1
+        reffontheight = 14
+        object wformtype: tdropdownlistedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.button.width = 15
+          frame.button.color = -1879048187
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 170
+          bounds_cy = 32
+          textflags = [tf_noselect]
+          ondataentered = getsample
+          value = 'Introduction'
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+              data = (
+                'Introduction'
+                'Select Folder'
+                'Copy Files'
+                'Finished'
+              )
+            end>
+          dropdown.itemindex = 0
+          reffontheight = 14
+        end
+        object wformdescription: tmemoedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          taborder = 2
+          visible = False
+          bounds_x = 171
+          bounds_y = 0
+          bounds_cx = 371
+          bounds_cy = 32
+          optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_shiftreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate, oe_saveoptions]
+        end
+        object wformimage: tfilenameedit
+          optionswidget = [ow_mousewheel, ow_destroywidgets]
+          optionsskin = [osk_framebuttononly, osk_container]
+          frame.levelo = 0
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.button.width = 15
+          frame.button.color = -2147483646
+          frame.button.imagenr = 17
+          taborder = 3
+          visible = False
+          bounds_x = 543
+          bounds_y = 0
+          bounds_cx = 258
+          bounds_cy = 32
+          textflags = [tf_noselect]
+          textflagsactive = []
+          controller.filterlist.data = (
+            (
+              'JPEG Files'
+              '*.jpg'
+            )
+            (
+              'PNG Files'
+              '*.png'
+            )
+          )
+          controller.defaultext = 'jpg'
+          controller.captionopen = 'Open image file'
+        end
+      end
+    end
+    object tabfolder: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 5
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 806
+      bounds_cy = 331
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '&Target Folder'
+      object wlocation: twidgetgrid
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 806
+        bounds_cy = 331
+        anchors = []
+        optionsgrid = [og_colsizing, og_rowsizing, og_rowinserting, og_rowdeleting, og_selectedrowsdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 26
+            captions.count = 2
+            captions.items = <            
+              item
+                caption = 'Macro Folder'
+              end            
+              item
+                caption = 'Description'
+              end>
+          end>
+        datacols.count = 2
+        datacols.options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item
+            width = 170
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wmacrofolder'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 630
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wmacrodescription'
+            dataclass = tgridmsestringdatalist
+          end>
+        datarowheight = 23
+        statfile = tstatfile1
+        reffontheight = 14
+        object wmacrofolder: tdropdownlistedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.button.width = 15
+          frame.button.color = -1879048187
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 170
+          bounds_cy = 23
+          ondataentered = getsample
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+        object wmacrodescription: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          visible = False
+          bounds_x = 171
+          bounds_y = 0
+          bounds_cx = 630
+          bounds_cy = 23
+          reffontheight = 14
+        end
+      end
+    end
+    object tabfilescopy: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 806
+      bounds_cy = 331
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Files to &copy'
+      object wfilelist: twidgetgrid
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 806
+        bounds_cy = 331
+        anchors = []
+        optionsgrid = [og_colsizing, og_rowsizing, og_rowinserting, og_rowdeleting, og_selectedrowsdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 34
+            numstart = 1
+            numstep = 1
+          end>
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 24
+            textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
+            captions.count = 9
+            captions.items = <            
+              item
+                caption = 'Source File'
+                textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
+              end            
+              item
+                caption = 'Archieve File'
+                textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
+              end            
+              item
+                caption = 'Target Folder'
+                textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
+              end            
+              item
+                caption = 'Target Files'
+                textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
+              end            
+              item
+                caption = 'Sample Target'
+                textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
+              end            
+              item
+                caption = 'Desktop Shortcut'
+                textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
+              end            
+              item
+                caption = 'Program Group'
+                textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
+              end            
+              item
+                caption = 'Program Name'
+                textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
+              end            
+              item
+                caption = 'Icon Filename'
+              end>
+          end>
+        datacols.count = 9
+        datacols.options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item
+            width = 162
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wfilesource'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 138
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wfilestore'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 138
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wfolder'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 178
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wfiletarget'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 154
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wsample'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 106
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wdesktop'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 115
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wprogramgroup'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 98
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wprogramname'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 138
+            options = [co_mouseselect, co_keyselect, co_multiselect, co_resetselectonexit, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wiconname'
+            dataclass = tgridmsestringdatalist
+          end>
+        datarowheight = 22
+        statfile = tstatfile2
+        reffontheight = 14
+        object wfilesource: tfilenameedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.button.width = 15
+          frame.button.color = -1879048187
+          frame.button.imagenr = 17
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 162
+          bounds_cy = 22
+          textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+          ondataentered = wfilesource_ondataentered
+          reffontheight = 14
+        end
+        object wfilestore: tfilenameedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.button.width = 15
+          frame.button.color = -1879048187
+          frame.button.imagenr = 17
+          taborder = 2
+          visible = False
+          bounds_x = 163
+          bounds_y = 0
+          bounds_cx = 138
+          bounds_cy = 22
+          reffontheight = 14
+        end
+        object wfolder: tdropdownlistedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.button.width = 15
+          frame.button.color = -1879048187
+          taborder = 3
+          visible = False
+          bounds_x = 302
+          bounds_y = 0
+          bounds_cx = 138
+          bounds_cy = 22
+          onkeydown = wfolder_onkeydown
+          ondataentered = getsample
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          onbeforedropdown = wfolder_onbeforedropdown
+          reffontheight = 14
+        end
+        object wfiletarget: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 4
+          visible = False
+          bounds_x = 441
+          bounds_y = 0
+          bounds_cx = 178
+          bounds_cy = 22
+          onkeydown = wfiletarget_onkeydown
+          ondataentered = getsample
+          reffontheight = 14
+        end
+        object wsample: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 5
+          visible = False
+          bounds_x = 620
+          bounds_y = 0
+          bounds_cx = 154
+          bounds_cy = 22
+          reffontheight = 14
+        end
+        object wdesktop: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 6
+          visible = False
+          bounds_x = 775
+          bounds_y = 0
+          bounds_cx = 106
+          bounds_cy = 22
+          ondataentered = wdesktop_ondataentered
+          reffontheight = 14
+        end
+        object wprogramgroup: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 7
+          visible = False
+          bounds_x = 882
+          bounds_y = 0
+          bounds_cx = 115
+          bounds_cy = 22
+          reffontheight = 14
+        end
+        object wprogramname: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 8
+          visible = False
+          bounds_x = 998
+          bounds_y = 0
+          bounds_cx = 98
+          bounds_cy = 22
+          reffontheight = 14
+        end
+        object wiconname: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 9
+          visible = False
+          bounds_x = 1097
+          bounds_y = 0
+          bounds_cx = 138
+          bounds_cy = 22
+          reffontheight = 14
+        end
+      end
+    end
+    object tabenv: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 4
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 806
+      bounds_cy = 331
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '&Environment Variables'
+      object gridenv: twidgetgrid
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 806
+        bounds_cy = 331
+        anchors = []
+        optionsgrid = [og_rowsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+          end>
+        zebra_height = 1
+        datacols.count = 1
+        datacols.options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item
+            width = 801
+            options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'wenv'
+            dataclass = tgridmsestringdatalist
+          end>
+        datarowlinewidth = 0
+        reffontheight = 14
+        object wenv: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 801
+          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+          reffontheight = 14
+        end
+      end
+    end
+  end
+  object wstatusbar: tsimplewidget
+    optionsskin = [osk_container]
+    frame.levelo = 1
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.dummy = 0
+    taborder = 5
+    visible = True
+    bounds_x = 0
+    bounds_y = 431
+    bounds_cx = 806
+    bounds_cy = 23
+    anchors = [an_bottom]
+    object wtime: tdatetimedisp
+      frame.dummy = 0
+      bounds_x = 747
+      bounds_y = 2
+      bounds_cx = 56
+      bounds_cy = 18
+      anchors = [an_top, an_right]
+      format = 'hh:nn'
+      kind = dtk_time
+      value = -Inf
+      reffontheight = 14
+    end
+    object wdate: tdatetimedisp
+      frame.dummy = 0
+      taborder = 1
+      bounds_x = 636
+      bounds_y = 2
+      bounds_cx = 108
+      bounds_cy = 18
+      anchors = [an_top, an_right]
+      textflags = [tf_xcentered, tf_right, tf_ycentered]
+      value = -Inf
+      reffontheight = 14
+    end
+    object wfilename: tstringdisp
+      frame.dummy = 0
+      taborder = 2
+      bounds_x = 209
+      bounds_y = 3
+      bounds_cx = 424
+      bounds_cy = 18
+      anchors = [an_left, an_top, an_right]
+      reffontheight = 14
+    end
+    object www: tbutton
+      optionswidget = [ow_destroywidgets, ow_autoscale]
+      optionsskin = [osk_noskin, osk_noframe, osk_noface]
+      frame.optionsskin = [fso_flat]
+      frame.localprops = [frl_optionsskin]
+      frame.dummy = 0
+      taborder = 3
+      bounds_x = 4
+      bounds_y = 3
+      bounds_cx = 202
+      bounds_cy = 18
+      state = [as_localcaption, as_localonexecute]
+      caption = 'www.msegui.org/mse-installer'
+      font.color = -1879048181
+      font.style = [fs_bold, fs_underline]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+    end
+  end
+  object wlanglist: twidgetgrid
+    frame.caption = 'Language List'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 207
+    bounds_y = 0
+    bounds_cx = 310
+    bounds_cy = 76
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.width = 25
+    fixcols.items = <    
+      item
+        width = 25
+        numstart = 1
+        numstep = 1
+      end>
+    rowfonts.count = 2
+    rowfonts.items = <    
+      item
+        name = 'stf_default'
+        xscale = 1
+        dummy = 0
+      end    
+      item
+        color = -1879048182
+        name = 'stf_default'
+        xscale = 1
+        dummy = 0
+      end>
+    datacols.count = 2
+    datacols.colorselect = -1879048181
+    datacols.coloractive = -1879048181
+    datacols.colorfocused = -1879048181
+    datacols.fontactivenum = 1
+    datacols.fontfocusednum = 1
+    datacols.options = [co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive]
+    datacols.items = <    
+      item
+        colorselect = -1879048181
+        coloractive = -1879048181
+        colorfocused = -1879048181
+        width = 154
+        fontactivenum = 1
+        fontfocusednum = 1
+        options = [co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive]
+        widgetname = 'wlangname'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        colorselect = -1879048181
+        coloractive = -1879048181
+        colorfocused = -1879048181
+        width = 124
+        fontactivenum = 1
+        fontfocusednum = 1
+        options = [co_rowselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive]
+        widgetname = 'wlangdisplay'
+        dataclass = tgridmsestringdatalist
+      end>
+    datarowheight = 16
+    statfile = tstatfile2
+    oncellevent = wlanglist_oncellevent
+    reffontheight = 14
+    object wlangname: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 154
+      bounds_cy = 16
+      reffontheight = 14
+    end
+    object wlangdisplay: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 155
+      bounds_y = 0
+      bounds_cx = 124
+      bounds_cy = 16
+      reffontheight = 14
+    end
+  end
+  object btnadd: tbutton
+    bounds_x = 8
+    bounds_y = 10
+    bounds_cx = 186
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Add Language'
+    onexecute = btnadd_onexecute
+  end
+  object btnsave: tbutton
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 33
+    bounds_cx = 186
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Save Language'
+    onexecute = btnsave_onexecute
+  end
+  object btndel: tbutton
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 56
+    bounds_cx = 186
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Delete Language'
+    onexecute = btndel_onexecute
+  end
+  object timagelist1: timagelist
+    width = 20
+    height = 20
+    colormask = True
+    count = 15
+    left = 132
+    top = 148
+    image = {
+      00000000060000005000000050000000E83D0000000000000000000000000000
+      0000000000000000000000000000000000000000FFFFFF1200000001FFFFFF1D
+      6B4B4201886A5B018566590168494001FFFFFF0D0000000EFFFFFF1000000002
+      00200001002C000100330001FFFFFF0500000004FFFFFF0500000005FFFFFF09
+      795B4F01A1796101A57F69016D4E4301FFFFFF0C000000015F5F00016565000C
+      5E5E000100000001FFFFFF0E000000020043000100790001007D000100580001
+      FFFFFF04000000010000E7010000DA0100000003FFFFFF03000000010000C501
+      0000E1010000900100000003FFFFFF0372534801896D630163474001FFFFFF01
+      61453F0187695E019E745D01A47C67017C5D5301FFFFFF026B4D440185685E01
+      6D4E4501FFFFFF07000000016B6B00018080000C6A6A000100000001FFFFFF0D
+      00000002004B0001007B000100800001005C000100000001FFFFFF0400000001
+      0000FD010000FF0100008C0100000003FFFFFF01000000010000DE010000FD01
+      0000FF010000E10100000003FFFFFF026F4F4501BEAAA101D1BDB301AD968D01
+      7D605601A58D8401A58473019E735D01A2786301A68575018F7167017B5D5401
+      A3867901AD8878019C7F75016C4E4601FFFFFF06000000016C6C00018080000C
+      6969000100000001FFFFFF0C0000000200520001007C00010080000100680001
+      00000002FFFFFF04000000010000F9010000FF010000E801000000040000DE01
+      0000FE010000FF010000C90100006F0100000003FFFFFF026A4C4301BCA79E01
+      CFBAAF01D1BEB301D6C4BA01AD887701A1786401A3796601A47A6801A57C6A01
+      AA837301B38F8201A9817101AE887A01987C730161453F01FFFFFF0600000001
+      5A5A00015E5E00015D5D00035F5F00045E5E00016A6A00018080000269690001
+      00000001FFFFFF0B0000000200580001007E00010080000100720001000D0001
+      00000001FFFFFF05000000010000E7010000FF0200008A01000000020000DE01
+      0000FE010000FF010000B00100000004FFFFFF047E615801D0BDB401D1BDB301
+      D2BDB401BC9E9101A67E6C01A87F6F01A9807001AA827201AB837401AC847601
+      AE877901AC8F86016F514A01FFFFFF070000000100570001005D0001005B0002
+      005A00010000000560600001808000026969000100000001FFFFFF0A00000002
+      005D0001007F000100800001007800010034000100000001FFFFFF0600000002
+      0000F3010000FF010000F101000016010000C7010000FE010000FF010000B101
+      00000004FFFFFF056F504801D0BDB601D4BFB701D1BCB401AE887901BFA29701
+      B69B9201B99E9501C1A39901B0897E01B18A7F01B28C8101AE9088016E504A01
+      FFFFFF0700000001004E00010074000100800003006B0001001C000100000001
+      FFFFFF010000000160600001808000026969000100000001FFFFFF0900000002
+      0063000100800002007D0001004B000100000001FFFFFF0700000001FFFFFF01
+      0000CC010000FC010000FF010000E4010000FF010000FC010000960100000003
+      FFFFFF079E867E01D9C6C001D6C2BB01BD9D9301C0A8A201856861016B4E4701
+      6E504A018C716A01C3A9A201B6908701B7928901D1B7B201876A640161453F01
+      FFFFFF0300000005003300010071000100800003006C00010017000100000002
+      60600001808000026969000100000001FFFFFF0100000004FFFFFF0300000002
+      00670001008000030059000100000002FFFFFF0700000001FFFFFF0100000001
+      0000E3010000FF020000F70100006E0100000003FFFFFF0581645B01AD979201
+      B9A59F01D3C1BB01D6C2BC01C9ADA601C5A8A00194797301FFFFFF0361453F01
+      A38A8501CBB0AB01CBAFAA01DCC9C601CBAFAD01B1959001A58A8601785B5601
+      000000010065000600640001007D000100800003006D00010024000100000001
+      60600001808000026969000100000003006100010063000100000002FFFFFF01
+      00000001000D0001006C0001008000030067000100000002FFFFFF0800000002
+      00008E010000F1010000EA010000FF010000EE010000360100000003FFFFFF05
+      987E7801D8C4BE01D2BBB501C9ADA501C8ABA401B7918901CAAFA90176585201
+      FFFFFF0481656001D8C1C001E0CECC01D1B5B301C4A09F01C5A2A001CDAFAE01
+      81646001000000010080000C006F000100280001606000018080000269690001
+      0000000200510001007E000100800001006A00010017000100000001001C0001
+      007000010080000300710001000E000100000001FFFFFF09000000010000BA01
+      0000F7010000FA010000F1010000ED010000FF010000EB010000370100000003
+      FFFFFF047F625B01AD938D01B89B9501C1A19B01BB969001BC979101CDB1AE01
+      8B6E6A01FFFFFF049E848101E6D7D601D0B3B301C8A5A501C7AAAB01AC919001
+      A68B8A017D615D01000000010080000C006A0001002000016060000180800002
+      696900010000000100350001007B000100800003007200010037000100720001
+      00800003007800010030000100000001FFFFFF09000000010000CA010000FA01
+      0000FF010000EC0100003F0100006F010000FB010000FF010000EA0100003001
+      00000003FFFFFF0461453F016D504A01A1868201C19E9A01C19D9A01C4A3A001
+      BDA7A4017356510161453F0275585301D2C0C001E3D1D201CBAAAD01D0B0B301
+      9B7F7D0161453F01FFFFFF020000000100600001005F0004005E000100600001
+      007D000100800003006800010000000260600001808000026969000100000002
+      0063000100800004007F000100800003007D00010046000100000001FFFFFF09
+      000000010000DD010000FC010000FF010000EB0100003B01000000020000D701
+      0000FD010000FF010000EC010000540100000004FFFFFF0481646001CCADAD01
+      C6A3A301C7A4A501CEAFB001D0B8B901B29C9A01B39D9B01D9C3C501E6D5D701
+      DEC7CA01D1AFB401D4B8BB017E615E01FFFFFF04000000050046000100750001
+      008000030067000100000001FFFFFF0100000001606000018080000269690001
+      0000000300610001008000070057000100000002FFFFFF090000C6010000FD01
+      0000FF010000F00100003B01000000040000D9010000FD010000FF010000F801
+      00009E0100000D0100000003FFFFFF03684C4601BDA3A201CBA9AB01CCAAAD01
+      CEACAF01CFADB101D2B1B601D2B2B701D2B1B701E1CCD001DDC4CA01D5B5BD01
+      D3B9BE017F636101FFFFFF070000000100530001007700010080000300640001
+      00000001FFFFFF020000000160600001808000026969000100000001FFFFFF01
+      0000000200610001008000050065000100000002FFFFFF09000000010000F301
+      0000FF010000F9010000560100000003FFFFFF02000000010000D5010000F901
+      0000FF020000F20100003E0100000002FFFFFF0261453F01967C7A01D3B5B901
+      D0AFB401D2B2B801D3B2B801D4B3BA01D5B4BC01D6B6BE01DBBDC601E8D5DB01
+      E5CFD701DBBDC701DDBEC801B8A0A30172555201FFFFFF060000000100560001
+      0053000100510002005000010000000560600001808000026969000100000001
+      FFFFFF02000000020061000100800003006F000100000002FFFFFF0A00000001
+      0000F6010000FF010000880100000003FFFFFF0400000001000080010000E401
+      0000FC010000E4010000190100000002FFFFFF02775A5601CFB5B901D5B6BC01
+      C9AFB201A78D8F01D0B7BC01DDC0C801DABAC401DBBCC601DFC3CD01D2B9C001
+      A58C8E01B0979A01DFC3CD01D6BDC4017F636101FFFFFF06000000015D5D0001
+      636300016262000363630004626200016C6C0001808000026969000100000001
+      FFFFFF030000000200620001007D0001007300010029000100000001FFFFFF0C
+      0000D7010000CD0100000003FFFFFF06000000020000590100000004FFFFFF02
+      3E2C280190767401AE9597016C545201070504015B46440192787901E0C5CF01
+      DDBFCA01AC939601584442010000000137292701947B7B018B727101160F0E01
+      FFFFFF06000000016C6C00018080000C6969000100000001FFFFFF0400000002
+      0011000100000002FFFFFF0D00000004FFFFFF0900000003FFFFFF0400000001
+      21171501342623010000000360494801DCC2CA01DFC2CD018870700100000003
+      040302010604040100000001FFFFFF06000000016D6D00018080000C6A6A0001
+      00000001FFFFFF2C0000000443312E01C2A9AE01D3BBC101725A590100000004
+      FFFFFF08000000015B5B00016060000C5B5B000100000001FFFFFF304E373301
+      715652025D444001FFFFFF0D0000000EFFFFFF0153575507585C5A0176797801
+      9D9F9E01AFB1B001B3B5B401ADAFAE01A1A3A201FFFFFF15073967010F487C01
+      09437901FFFFFF0F02F3FF0106F3FF0107F3FF0105F3FF01FFFFFF1790929101
+      A5A5A50191919101888888018080800178787801717171016D6E6E0175767601
+      C7C8C801DADBDB01DCDDDD01D9DADA01B8BBBA019C9E9D01FFFFFF1307396701
+      094176010D5BA401073A6801FFFFFF04A2A2A201CDCDCD01D5D5D501D4D4D401
+      D2D2D201D1D1D101CFCFCF01CDCDCD01CBCBCB01C8C8C801A3CFD10173D9DE01
+      5BDFE60154E0E7015ED9DF012BCED60102F3FF01FFFFFF058B4F2601A4724D01
+      B3886601B4886801A4714E018E4A2201FFFFFF0A9C9E9D01A5A5A5018A8A8A01
+      80808001777777016F6F6F0168686801656565017A7A7A01E7E8E801F9FAFA01
+      FAFAFA01F9F9F901DEDFDF01AAACAB01FFFFFF12FF0000011E416401156AB801
+      083B6B01FFFFFF05A5A5A501EDEDED01E2E2E201E6E6E601E5E5E501E6E6E601
+      E5E5E501E6E6E601E7E7E701D4E8E9018BEDF10156F1F80137F3FC0141F4FD01
+      40F4FC0138D6DE010BF4FF01FFFFFF0493583301C39E8301CDA98E01CEAB9101
+      CAA68A01C8A38501BD9576019C613B01FFFFFF099D9F9F01AFAFAF0192929201
+      888888018080800177777701717171016E6E6E0182828201ECEDED01FBFBFB01
+      FCFCFC01FAFBFB01E1E2E201B0B2B101FFFFFF119A6238019D725101A87D5A01
+      98684001985E2F018D4E2401FFFFFF04A5A5A501ECECEC01DFDFDF01E3E3E301
+      E2E2E201E3E3E301E4E4E401E5E5E502ABEAED0164EFF60143F4FC017DF8FD01
+      91F9FE016AF7FE012AEAF20112F4FF0105F3FF01FFFFFF028A4E2701AD836501
+      A87958019C653E01AB7D5B01C39E8101C49C7C01C1967501BC9274018B512401
+      FFFFFF089EA09F01B6B6B6019C9C9C0192929201898989018080800179797901
+      7676760189898901EEEFEF01FBFCFC01FCFDFD01FBFBFB01E2E3E301B2B3B201
+      2E2EB4010000A801FFFFFF0F986E4F01CDA57F01C89B7201BC845001B67C4601
+      93572801FFFFFF04A2A2A201ECECEC01E0E0E001E4E4E402E5E5E502E6E6E601
+      E7E7E7019EEBEF0155F1F8015FF6FD01B2FAFE01E5FEFF0191F9FE0134EFF701
+      14F4FF0107F3FF01FFFFFF0299664401945C3801FFFFFF0396603601C49B7C01
+      BE926F01BE916E01A97A5601FFFFFF089EA09F01B8B8B8019F9F9F0198989801
+      9191910189898901818181017C7C7C018E8E8E01EFF0F001FBFCFC01FCFDFD01
+      FBFBFB01E2E3E3018E90B1014949C6010000AC01FFFFFF0E073A69017C6A6001
+      A38264019B7658019A74550196704C0191542701FFFFFF049F9F9F01EDEDED01
+      E1E1E101E6E6E601E5E5E501E6E6E601E7E7E701E8E8E802A6ECF0015DF1F801
+      52F6FD0197F9FE01B2FAFE017EF8FE0129EEF70113F4FF0106F3FF01FFFFFF01
+      993333018E542D0153535301B1B1B101CCCCCC01CBCBCB01C9C8C801B9917401
+      BB8C6801B8876101B48E7201C3C3C301C1C1C101C0C0C001B0B0B00153535301
+      FFFFFF039EA09F01B9B9B901A1A1A1019A9A9A01939393018B8B8B0184848401
+      8080800191919101EFF0F001FBFCFC01FCFDFD01FBFBFB01D2D3DE015151C801
+      9595E7010000AC01FFFFFF0D073A69010F69BE018395A701FDFDFD02FEFEFE01
+      F8F8F80192929201FFFFFF049D9D9D01EDEDED01E3E3E301E7E7E701E6E6E601
+      E7E7E701E8E8E801E9E9E901EAEAEA01C4ECEE017CF0F50144F3FB0152F6FD01
+      5FF6FD0144F5FD0131DFE7010EF4FF0102F3FF01FFFFFF028E471C017E7E7E01
+      E7E6E501B08E7501BA967D01BA977D01BC957901B8866001B5825A01BD937501
+      B9977F01BA987F01AD866B01D6D0CC018F8F8F01FFFFFF039EA09F01BBBBBB01
+      A3A3A3019C9C9C01959595018D8D8D018686860195959501A1A1A101F0F1F101
+      FBFCFC01FCFDFD01E9E9F5015A5BCA016E6EE1017979E3015E5ED1015F5FD202
+      1F1FB901FFFFFF09073A69010E61B00115599901D2D4D601FBFBFB01E7E7E701
+      DBDBDB01D7D7D701B5B5B501FFFFFF0499999901E9E9E901DEDEDE01E8E8E801
+      E7E7E701E9E9E901EAEAEA01EBEBEB02ECECEC01AEEEF1017CF1F6015EF2F901
+      56F2FA0168F2F90146C3C90106F3FF01FFFFFF0353535301C0C0C001E3E3E301
+      CCBCB101BB927401BA8A6501B8886101B4805801B27C5301B17A5101AF784D01
+      BD927101B6978201DADADA01C0C0C00153535301FFFFFF029DA09F01BCBCBC01
+      A5A5A5019E9E9E01979797018F8F8F018888880185858501AFAFAF01F0F1F101
+      FBFCFC01EAEBF7015555CC015656DC014949DB014E4EDC014F4FDC014C4CDB01
+      5858DE013030C101FFFFFF08073A69010D5AA3010E5DA90118406601DBCCBE01
+      F5EEE701D8BCA301BF9E8001B59C8501AFA49A015A5A5A01FFFFFF0396969601
+      EEEEEE01E5E5E501E9E9E902EAEAEA01EBEBEB01ECECEC01EDEDED01EEEEEE02
+      C7EFF101A9F0F301A3F0F401B3F2F50178979801FFFFFF0453535301E2E2E201
+      E3E3E301E7E7E701C7B1A201B68A6801AC724501A96E3F01A6683801A4653401
+      B3815A01B38F7501DDDDDD01DADADA01DDDDDD0167676701FFFFFF029DA09F01
+      BCBCBC01A7A7A701A0A0A00199999901919191018A8A8A01AFAFAF0196969601
+      F0F1F101EFEFF8014D4DC9013F3FD7013131D6013838D7013A3AD8012F2FD501
+      3232D6014848DB012A2ABF01FFFFFF07878C8D0177869001266CAC0107376301
+      36557201DCBD9F01EAD5C101D0A78101B4855901A0724701AB90750159595901
+      FFFFFF0392929201EEEEEE01E6E6E601EAEAEA02EBEBEB01ECECEC01EDEDED01
+      EEEEEE01EFEFEF01F0F0F003EFEFEF01F2F2F20188888801FFFFFF049F9F9F01
+      E4E4E401E1E1E101DCDCDC01D6D6D601B99F8D01B1815E01A4663501A4653401
+      B07A5101AD876B01D3D3D201D5D5D501D9D9D901DADADA01A1A1A101FFFFFF02
+      9DA09F01BCBCBC01A9A9A901A2A2A2019B9B9B01939393018C8C8C018D8D8D01
+      99999901F0F1F101F3F3F9014545C6012222D1010D0DCF010808CE010101CC01
+      0000CC021818D0011C1CBA01FFFFFF06808080019FA2A001EAEAEA017D888D01
+      12497C0177777701DCBA9B01E2C4A901CFA68001B4865B01A0724701AB8C6E01
+      6A6A6A01FFFFFF038D8D8D01EFEFEF01E6E6E601EBEBEB02ECECEC01EDEDED01
+      EFEFEF01F0F0F001F1F1F102F2F2F201F1F1F102F3F3F30186868601FFFFFF03
+      53535301CCCCCC01DDDDDD01D9D9D901D5D5D502D0D0D001AE917C01B4856101
+      AD754B01AB826501C7C5C401CDCDCD01D0D0D001D4D4D401D9D9D901CDCDCD01
+      53535301FFFFFF019DA09F01BCBCBC01ABABAB01A4A4A4019D9D9D0195959501
+      8E8E8E018A8A8A019B9B9B01F1F1F101FCFCFC01E5E6EC013E3EBF011B1BD001
+      0000CC041414D0011717B701FFFFFF069A9D9B01EBEBEB01A5A6A501999D9D01
+      818487017C7C7C01E9E3DD01EDEBE701E3E3E301D8D7D601C7BFB801C2B8AE01
+      74747401FFFFFF038A8A8A01EFEFEF01E7E7E701ECECEC01EBEBEB01EDEDED01
+      EFEFEF01F0F0F001F1F1F101F2F2F201F3F3F303F2F2F201F4F4F40186868601
+      FFFFFF0370707001E4E4E401DADADA01E1E1E101DBDBDB01D5D5D501CFCFCF01
+      CCCCCC01AC8B7301AE846601C4BFBB01CCCCCC01CFCFCF01D2D2D201DDDDDD01
+      D5D5D501D9D9D9017E7E7E01FFFFFF019EA09F01BCBCBC01ABABAB01A6A6A601
+      9E9E9E0197979701909090018D8D8D019E9E9E01EFF0F001F7F7F701E6E7E701
+      CFCFD5013232B4011818CF011B1BCF011D1DB6012020B8012222BB010909AB01
+      FFFFFF0592979401E4E5E401AAACAC019B9E9D01FFFFFF0280808001F2F2F201
+      E9E9E901C9C9C901BFBFBF01C9C9C901CFCFCF0187878701FFFFFF0386868601
+      EAEAEA01E4E4E401ECECEC02EEEEEE01EFEFEF01F1F1F101F2F2F201F4F4F401
+      F5F5F503F4F4F401F5F5F50186868601FFFFFF03B1B1B101DFDFDF01DEDEDE01
+      DBDBDB01E0E0E001E3E3E301E2E2E201DADADA01D6D6D601CEC9C601D7D7D701
+      DBDBDB01DEDEDE02D6D6D601D7D7D701D9D9D901AFAFAF01535353019FA1A101
+      BCBCBC01ABABAB01A8A8A801A0A0A0019A9A9A0195959502A6A6A601C5C6C501
+      EFF0F001EBECEB01DDDEDD01B6B6BD011414AB012323CC0100007C0100000003
+      FFFFFF033D3D3D0154545401B4B6B601B0B0B001979B9901FFFFFF0381818101
+      F5F5F501CBCBCB01BBBBBB01BABABA01B9B9B901C9C9C90199999901FFFFFF03
+      83838301EFEFEF01E8E8E801EDEDED02EEEEEE01F0F0F001F2F2F201F3F3F301
+      F5F5F501F6F6F601F7F7F701F6F6F601F5F5F50286868601FFFFFF0253535301
+      D0D0D001E1E1E105E3E3E301E6E6E601E7E7E702E5E5E501E2E2E201DEDEDE01
+      DDDDDD01DCDCDC03D6D6D60153535301A0A2A101BCBCBC01ABABAB01AAAAAA01
+      A3A3A3019F9F9F01A1A1A1019F9F9F01A3A4A301C8C9C801ECEEEE01F0F1F101
+      EBECEC01CED0D001717385010606AD010000970100000001FFFFFF0427272701
+      4E4E4E01828282014F4F4F0195979701FFFFFF048B8B8B01EEEEEE01D1D1D101
+      CCCCCC01C7C7C701C3C3C301C2C2C201A6A6A601FFFFFF0380808001EFEFEF01
+      E8E8E801EDEDED02EFEFEF01F1F1F101F2F2F201F4F4F401F6F6F601F7F7F701
+      F8F8F802F6F6F601F5F5F50186868601FFFFFF0253535301BBBBBB01C2C2C201
+      C3C3C301C1C1C101BFBFBF01BDBDBD01BCBCBC01BABABA01B8B8B801B6B6B601
+      B5B5B501B3B3B301B1B1B101AFAFAF01AEAEAE01ACACAC01ABABAB01A3A3A301
+      53535301A1A4A301BCBCBC01ACACAC01ADADAD01ABABAB01A4A5A50196979701
+      B4B6B501D9DBDB01E4E6E601E5E7E602E3E5E501D0D3D301989A99014444BC01
+      0000A401FFFFFF0300000002262626014A4A4A01414141013333330100000004
+      0E0E0E0189898901B3B3B301AFAFAF01ACACAC01A9A9A901A7A7A701A4A4A401
+      9A9A9A017B7B7B01FFFFFF027C7C7C01EFEFEF01E8E8E801EDEDED02EFEFEF01
+      F1F1F101F3F3F301F4F4F401F6F6F601F8F8F801FAFAFA01F8F8F801F7F7F701
+      F6F6F60186868601FFFFFF0253535301BABABA01BBBBBB019A9A9A0198989801
+      A1A1A101A8A8A801ACACAC01AEAEAE02ACACAC01A9A9A901B4B4B401AAAAAA01
+      A9A9A901AEAEAE02A3A3A3019F9F9F0153535301A2A6A401BCBCBC01AEAEAE01
+      B2B3B2019A9C9B01AEB2B101D0D4D301D5D8D701D5D9D801D6D9D803D4D8D701
+      C7CCCA0184878501FFFFFF050000000208080801171717011D1D1D010D0D0D01
+      0000000428282801B9B9B901E0E0E001DDDDDD01DADADA01D7D7D701D4D4D401
+      D1D1D101CECECE017C7C7C01FFFFFF0277777701EFEFEF01E8E8E801EDEDED02
+      EFEFEF01F1F1F101F2F2F201F4F4F401F6F6F601F7F7F701F8F8F802EBEBEB01
+      F5F5F50186868601FFFFFF0253535301B8B8B801BABABA01A1A1A10197979701
+      9D9D9D01A5A5A501AAAAAA01AEAEAE01ADADAD01AAAAAA01A8A8A801B4B4B401
+      AAAAAA01A9A9A901ADADAD01AFAFAF01A3A3A3019D9D9D0153535301A4A6A501
+      C4C4C401A6A9A801AEB4B201C2C9C601C4CAC701C5CBC801C5CBC905C4CAC801
+      C0C5C3016D716F01FFFFFF060000000909090901666666016A6A6A0169696901
+      68686801696969016B6B6B016D6D6D01707070015E5E5E01FFFFFF0100000001
+      6C6C6C01EFEFEF01E9E9E901EDEDED01EEEEEE01EFEFEF01F1F1F101F2F2F201
+      F3F3F301F5F5F501F6F6F601F7F7F701F6F6F601F5F5F501F6F6F60180808001
+      FFFFFF0233333301B0B0B001BCBCBC01C0C0C001C3C3C301C1C1C101BBBBBB01
+      B7B7B701B0B0B001AEAEAE01ACACAC01AAAAAA01B0B0B001A9A9A901A8A8A801
+      A9A9A901A8A8A801A2A2A20194949401464646018A8F8D01A1A5A401A4A9A701
+      A5AAA801A6AAA901A6ABA908999C9B01666A6801FFFFFF1000000006FFFFFF04
+      000000013E3E3E01AAAAAA01B0B0B002B1B1B103B2B2B202B4B4B405AEAEAE01
+      4A4A4A0100000001FFFFFF010000000162626201979797019595950192929201
+      909090018E8E8E018D8D8D018A8A8A0188888801868686018484840181818101
+      7F7F7F017D7D7D017B7B7B017A7A7A01787878015B5B5B0100000001FFFFFF2A
+      00000010FFFFFF0300000012FFFFFF088A8A8A02FFFFFF4B8A8A8A01C0C0C001
+      D4D4D401DADADA01D6D6D601CCCCCC01A1A1A1018A8A8A01FFFFFF0C93939301
+      9A9A9A0A96969601FFFFFF09AE754A01C1926D01C89F7C01CAA07D01C79C7801
+      C2946F01B47C50019F6A3501FFFFFF04A46C3801FFFFFF08E0D1C601B38B7001
+      AE836801BE9D8702AE846801B28B7001E0D1C601FFFFFF09A7A7A701DCDCDC01
+      D6C8BD01BF9D8101BB937101BD987A01CAB29F01E8E7E701BDBDBD018A8A8A01
+      FFFFFF0BC9C9C901E5E5E501E2E2E207E3E3E301E5E5E501C9C9C901FFFFFF07
+      AA555501BB8B6201DCBFA501E8D1BB01E6CEB801E5CDB501E5CAB201E4CAB101
+      E2C4AB01D0A98701B5805301AD663D01FFFFFF01AD734201B1784C01FFFFFF06
+      EADAD30198643F01BFA08B01FBF8F701FFFFFE01F2ECE701F3ECE601FFFFFE01
+      FAF9F701C0A18A0197634001EADAD301FFFFFF069B9B9B01E6E5E501C09F8301
+      D1AB8901EDDBCA01F0E1D201E9D1BC01D4AD8901BA8E6A01E1DAD501BEBEBE01
+      8A8A8A01FFFFFF0AD2D2D201DFDFDF01D0D0D003CDCDCD01C4C4C401D0D0D002
+      D5D5D501E1E1E101D1D1D101FFFFFF07BB876101E5CCB801E8D2BD01E7D0BA01
+      E7CFB801E5CCB501E4C9B001E3C7AD01E2C5AA01E1C3A701E2C5AA01CCA27F01
+      AE744401C5987201C89D7701FFFFFF05E2D4CB0190583001FFFFFF01E7DAD001
+      AA7D5C0193582C01945A2E01955B3001965A3001AE816001E8DCD201FFFFFF01
+      90593101E2D4CB01FFFFFF048A8A8A01D5D5D501C5A99301DBBA9D01F7EFE801
+      F9F2EC01F5EBE201F2E5D801EEDCCC01DAB49001BA8D6901EAEAEA01A2A2A201
+      FFFFFF0AD4D4D401E7E7E701D9D9D902D7D7D701B2B2B201A9A9A901CFCFCF01
+      D9D9D901DDDDDD01E9E9E901D3D3D301FFFFFF06A3663301D6B69901DBBCA101
+      C3967301B5815801B6825801C3946F01CBA28101DABA9E01E2C5AB01DCBA9A01
+      D8B08B01D4AA8201D5AE8801D3A77D01C99B7601FFFFFF04ECD5D7018F573001
+      FFFFFF01B994780193572D019C663D01A06A4301A16A4201A16C4301A26C4401
+      A06A4201995F3401BE9A7F01FFFFFF0190583101EBD5D801FFFFFF0394949401
+      E3E0DF01BF906801F1E3D601F5EBE101F6EDE401F4EAE001F2E5D901EEDDCE01
+      D7AF8A01C7946801CBB4A201C7C7C7018A8A8A01FFFFFF09D5D5D501EFEFEF01
+      E4E4E401E3E3E301BABABA01A7A7A702AFAFAF01DFDFDF01E7E7E701F0F0F001
+      D5D5D501FFFFFF06B47D5201D1AD8F01AF774901B67D5001AB6E3F01FFFFFF03
+      AB734201BD8B6101D4AB8701D4A98201D2A47A01D0A17601CF9F7201C89D7801
+      FFFFFF0497654001FFFFFF01B9947901965B3001A26E4701A9775101C09B7F01
+      D5BCA901D8C1AF01CBAC9501AC7A5401A7734D019C643B01BF9B8001FFFFFF01
+      98644001FFFFFF03AEAEAE01D2C3B701CFA78201EFE0D101F3E5DA01F3E8DD01
+      F3E7DC01F1E4D701EBD6C301D0A17401D09F7101BC987B01D3D3D3018A8A8A01
+      FFFFFF09D7D7D701F7F7F701ECECEC01D8D8D801B8B8B801A7A7A702AFAFAF01
+      D6D6D601F8F8F802D7D7D701FFFFFF06B7815801B57F5501C58E6401B3784A01
+      FFFFFF06AF734601C79C7701D4A98001D0A07401CF9F7201C99E7901FFFFFF03
+      E0D1C701C0A08A01E7DAD00193582D01A46F4801A5704801D3B9A401FFFFFF04
+      F3F0EE01B07F5B01A97851019C643A01EADED401C1A18C01E0D1C601FFFFFF02
+      B6B6B601CAB39F01D2A78201EDDBC901F0E0D201F1E4D701F2E4D801F0DFD101
+      D7B08C01CF9F7201CF9F7301BB927201D7D7D7018A8A8A01FFFFFF09D5D5D501
+      F4F4F402F5F5F501E2E2E201A7A7A702C2C2C201F8F8F803D7D7D701FFFFFF06
+      AF764901C0855C01CF9C7501B8825301FFFFFF06B47E5101D5AD8A01D1A27701
+      CF9F7202CA9F7B01FFFFFF03B28B7001FBF8F701AB7E5D019E694001A9765001
+      AB775001D7BDAB01F1ECE801D5BAA301E2CEBE01FCFEFF01FAFEFF01CCAD9401
+      AE7D5601A8754D01B4896801FBF8F701B28C7001FFFFFF02AAAAAA01DACFC801
+      C2926601E5CDB401ECD9C701EDDBCA01EBD5C201D6AF8901CEA07201CF9F7101
+      D09E7301BE9E8301CBCBCB0180808001FFFFFF076666660171717101BDBDBD01
+      CCCCCC02CDCDCD01C5C5C501B1B1B102BCBCBC01D0D0D002D1D1D101BDBDBD01
+      6D6D6D0169696901FFFFFF04AB6E3F01A2734501FFFFFF07AF724401CA9F7B01
+      CEA58001CEA57F01CFA47F01D0A68101C2956D01FFFFFF03AF856801FEFFFE01
+      945A2F01A6724B01AD7C5601B3835E01BC906D01BA8B6401BA896101D6BAA201
+      FCFEFF01F9FEFF01CDAB9101B4845E01AF7E5901A0693F01FFFFFF01AF866A01
+      FFFFFF028F8F8F01E7E6E601B98B6701D09E7301D0A07401CFA07301CEA07201
+      D19E7401CF9F7101D09F7201BE895E01D7CCC301B5B5B5016C6C6C01FFFFFF06
+      69696901C5C5C601F3F4F401B0B0B001ADADAD01AEAEAE01AFAFAF06B0B0B002
+      AFAFAF01E8E8E801BBBCBC0162626201FFFFFF03AE734501CFA78801CEA88701
+      CDA88601CDA78601CDA68401AF7547019D623B01FFFFFF01A5673701A6663305
+      A5673501FFFFFF03BE9D8601F2ECE701975D3201A9765001B0805B01B7896401
+      BE916E01C1957001D9BCA301FDFFFF01F9FCFF01EFE6DF01BD906A01B98D6901
+      B3835E01A36C4201F4EFEA01BF9D8701FFFFFF028A8A8A01C4C4C401D8CBC001
+      BC8C6201CFA07201D0A07301D0A07102CF9E7301C4926301C2A38901E2E2E201
+      7B7B7B01FFFFFF079A9A9A01FCFCFC02D9D9D901D1D1D104D0D0D004CFCFCF02
+      D4D4D401EFEFEF01F4F4F401A0A0A101FFFFFF03B37B4C01E2C6AB01DCB99802
+      DDBC9C01D2AB8C01AD6D3B01FFFFFF05ECCCB901DFDFBF01FFFFFF01A8693701
+      FFFFFF03BD9D8601F3ECE80199603501AB785201B2845F01BB8D6901C2967201
+      CEA98A01F9FDFF01F6F9FC01F2EAE301C89D7801C49A7701BE926E01B5876301
+      A56F4601F5EFEB01BE9E8701FFFFFF038F8F8F01DCDCDC01D9CCC201B88C6701
+      BE8A5F01C5926401BE8A5F01B8865E01C9B09C01EEEEEE01D5D5D50199999901
+      48484801FFFFFF06BDBEBE01E7E9E901E9E9E901E8EAEA01EAECEC01E9EBEB01
+      E9EAEA01E8E9E901E7E9E901E6E8E801E6E7E701E4E6E601E4E5E601E3E5E501
+      E2E4E401DCDDDD01D3D5D601B4B6B601FFFFFF03B57B4F01E2C5AA01DCB99802
+      DDBDA101AC704001FFFFFF06DEBB9D01EAD6C401D6B29701A86A3801FFFFFF03
+      AF856901FFFFFF019B623801AB795301B4856101BC8F6B01C3987501D1AE8E01
+      ECDED201EFE2D501DDBDA101CDA58201C79E7B01BF947101B6886301A7724A01
+      FFFFFF01AF876B01FFFFFF0494949401C7C7C701ECECEC01E2DAD401D1BCAA01
+      DCCFC601EAE9E801DCDCDC01B4B4B401B9B9B901949494019999990155555501
+      FFFFFF05B9B9B901C1C3C401D3D4D501BBBBBC01F5F6F70BD2D3D301B3B5B601
+      AEAFAF01FFFFFF03B47D4F01E1C4A801DCB99801DCB89701DDBB9A01D5B29101
+      B7815301AC6C3B01FFFFFF03C8804901DBAD8701EAD2BF01B57B4A01B1744101
+      FFFFFF03B28C7001FAF8F701B3886801A9754E01B4856001BC8F6B01C2987401
+      D4B29601F3F1F001F3F2F001E0C4AC01CDA68301C79D7B01BF947001B4845F01
+      BC957601FBF9F701B38B7001FFFFFF058A8A8A01A0A0A001B1B1B101C3C3C301
+      B8B8B801A4A4A4017272720178787801ABABAB01ACACAC019898980265656501
+      FFFFFF04B3B3B301D4D6D701A8A8A901B2B3B301B1B3B301B1B2B201B0B2B201
+      B0B1B101AFB1B101AFB0B001AEB0B001ADAFAF01ADAEAF01ACAEAE01ACADAE01
+      A0A1A201BBBCBD01A7A8A801FFFFFF03B47D4F01E1C3A701E0C2A401DCBA9901
+      D8B28E01CF9F7101D0A07401C4936601B0794D01A56C3D01B2744001BE7B4401
+      C38C5F01B6794801C2875201AF713E01FFFFFF03E0D1C701C1A28C01EBDED501
+      A26B4101B2835E01BA8C6901C1957101D3B39601EFF5FA01EEF4F901DEC3AC01
+      C9A07D01C49A7801BC916D01AE7A5201EEE3DA01C2A48D01DFD1C601FFFFFF06
+      0000000765656501A8A8A801A9A9A9019D9D9D01989898017171710148484801
+      FFFFFF02ACACAC01D9DBDC01D6D8D801D4D6D601D2D4D401D0D2D201CED0D001
+      CCCECE01CACCCC01C7C9CA01C5C7C801C3C5C601C1C3C401BFC1C201BDBFC001
+      BBBDBD01BABCBD01A0A0A001FFFFFF03B17B5001E4C8B001BB8B6501CCA38101
+      D4A98001CC9A6A01CB976601CB966401CB976501CC996701C8946201C48B5901
+      C48C5701C68C5701B87C48019A62350100000001FFFFFF0399664101FFFFFF01
+      C4A28801A8744C01B7896401BE916D01CAA58501E4D3C401E4D4C501D2B19301
+      C69B7801C0957101B3825B01CCAC9201FFFFFF0199664201FFFFFF0300000005
+      63636301BCBCBC01D0D0D001C5C5C50191919101000000024E4E4E01A3A3A301
+      A6A6A601A4A4A401B6B6B60171717101FFFFFF02A2A2A201D9DBDC01D6D8D801
+      D4D6D601D2D4D401D0D2D201CED0D001CCCECE01CACCCC01C7C9CA01C5C7C801
+      C3C5C601C1C3C401BFC1C201BDBFC001BBBDBD01B9BBBC0196989801FFFFFF02
+      00000001AC774D01C2967401311E0F01462D1801A5714501C8986C01CE9C6D01
+      CA956301C9936001C9915D01C8905B01C78E5901C68D5701BA7F4A01965F3401
+      00000003FFFFFF02ECD5D8019C643E01FFFFFF01C7A58C01AB784E01B7886201
+      BD916C01BF926C01C1956F01C1977201BD906C01B4835B01CDAF9501FFFFFF01
+      A36C4601F0D9DC01FFFFFF0200000006B7B7B701E2E2E201EDEDED01E6E6E601
+      C6C6C6015D5D5D0100000002373737019D9D9D01B9B9B901E0E0E00198989801
+      0000000278797901AAADAD01AFB1B101AEB1B101AEB0B002ADAEAE01ABADAD01
+      A9ACAC01A8A9A901A6A8A901A5A6A601A3A5A501A2A4A401A0A2A2019EA0A001
+      9A9B9C0171717101000000039C633701623D210100000003603D210199694001
+      B17D5101BB865701C38B5A01C1895501B3794801A56D3D017048250100000004
+      FFFFFF0385766D0191603E01FFFFFF01EFE4DB01C0997A01B17F5701B3825B01
+      B5855D01B5845D01C59F8201F1E6DE01FFFFFF019565440144372F01F3F8F901
+      FFFFFF030000000E353535018B8B8B01A8A8A8016A6A6A01FFFFFF0100000001
+      121212016163630173767701787B7C017E80820182868701808383017E808201
+      7B7F8001797C7E01777A7B017678780173777701707375016F7272016D6F7101
+      5F6060010E0E0E0100000001FFFFFF0100000001120000010000000608040401
+      382213015C391E01613B1F011C12090100000005FFFFFF037474740100000002
+      552E1201D7BAA501FFFFFF02FFFAF602FFFFFF02D7BBA601552D120100000003
+      FFFFFF050000000EFFFFFF0400000012FFFFFF040000000EFFFFFF05DBDBDB01
+      0F0F0F01000000032C0F00017E5A41018E6E58027D5A42012C10000100000004
+      73737301FFFFFF3100000006FFFFFF0BF8F8F8016A6A6A018182830100000006
+      5152530174747401BDBDBD01FFFFFF18000000082E2E2E01373737022E2E2E01
+      0000000800142101030A1201373737017272720E3B3B3B0100000002EFEFEF01
+      6C6C6C01EDEBEC01FFFFFF13A2A2A201CDCDCD01D5D5D501D4D4D401D2D2D201
+      D1D1D101CFCFCF01CDCDCD01CBCBCB01C8C8C801C7C7C701C4C4C401C2C2C201
+      BFBFBF01B9B9B90175757501FFFFFF02000000052D2D2D01B3B3B201F7F6F601
+      AFB0AF01A5A5A501A8A8A701B2B2B201F6F6F701B3B3B3012E2E2E0100000007
+      3E3E3E018080800188888801C8C8C801D0D0D00A999999014242420100000002
+      7475740151515001070006015C405601D8D3D601FFFFFF11A5A5A501EDEDED01
+      E2E2E201E6E6E601E5E5E501E6E6E601E5E5E501E6E6E601E7E7E706EDEDED01
+      8C8C8C01FFFFFF02000000047F7F7F01E6E6E5011010B3011111B6011919D701
+      1A1ADF021818D5011212BC011010B301DADADA0181818101000000063E3E3E01
+      8B868601A7999901BAB8B8019292BC017E7EBC078989C101E3E0E701A3A2A201
+      4242420100000002F5F5F5017572740161505D01311F2C0138073501C49CBB01
+      FFFFFF10A5A5A501ECECEC01DFDFDF01E3E3E301DEDEDE01D9D9D901DADADA01
+      DBDBDB06E6E6E601ECECEC018C8C8C01FFFFFF0200000003BEBEBE0198989901
+      1010B3011818D2013333E3015151E7011B1BDF011A1ADF014D4DE6013535E301
+      1818D2011010B301A1A1B401C1C1C101000000053E3E3E019A939401D2BCBD01
+      9E92930149468401373791014949A3054847A1015552A401D8D1DA01A19F9F01
+      4242420100000002FFFFFF03EDE4EB011E161B01632B540132142B012E002501
+      69466101755D6F0194618801DEDEDE01E0D2DB01FFDBE301FFFFFF08A2A2A201
+      ECECEC01E0E0E001E4E4E401DCDCDC01D0D0D003D1D1D103D2D2D202E7E7E701
+      EEEEEE018C8C8C01FFFFFF02000000027B7B7B01959596011010B3014848DB01
+      4343E1011919D801636363018A8A8A018989890114146E011A1ADF013D3DDA01
+      3C3CD9011010B301A3A3B6017F7F7F01000000043E3E3E01A3A3A301F2EFEF01
+      D4BABB019E929301B7B5B601E6E6EA01DEDEEA04DBD9E501D6CFDA01E8E0E101
+      A19F9F014242420100000002FFFFFF03FCE8FC0129162701DDCFD901A88E9E01
+      B07A95015A21430192768B01725676014427450140004401673A62014E304701
+      67315A01B7B1B601B895AF01FFE9FA01FFFFFF039F9F9F01EDEDED01E1E1E101
+      E6E6E601DFDFDF01D4D4D401D5D5D501D6D6D606E9E9E901EEEEEE018C8C8C01
+      FFFFFF02000000012D2D2D01DEDEDE011010B3011414C9011818D20126266501
+      DEDEDE01F4F4F404D6D6D6011919D6011818D2011515CB011010B301D1D1D101
+      2E2E2E01000000033E3E3E01A3A3A301F5F4F401F4F0F001D3BDBE01A99A9B01
+      6B6B8D011B1B8D041A1A8C012D2C9301D3CCD801A19F9F014242420100000002
+      FFFFFF0474455E0130092601503A62016963BC01847CC3017F6D9B01A4392601
+      8C2E1401D4DAFF01948BC7019A7387018B6074015C304E015E3C55014E3F4B01
+      FFFFFF039D9D9D01EDEDED01E3E3E301E7E7E701E1E1E101D6D6D601D7D7D701
+      D8D8D801D9D9D904D8D8D801EBEBEB01EFEFEF018B8B8B01FFFFFF0200000001
+      A1A1A1011111B3011010B4012727D5012121A601E5E5E501F4F4F406DFDFDF01
+      2828D5011818D2011313C4011010B301A4A4A401000000033E3E3E01A3A3A301
+      F5F5F501F9F9F901F2EBEC01D3C2C301998996015F5E86019994BC01A19BC302
+      9F98C001A398BC01DDD0D401A09B9B014242420100000002FFFFFF03D9DBFF01
+      887BD201322A1201211776011E098A013023B3015F436701925A2601B2670F01
+      2817B6012826F3011F1DFF01170B7B01695789014A1547015F545B01FFFFFF03
+      99999901E9E9E901DEDEDE01E8E8E801E0E0E001D5D5D501D6D6D603D5D5D501
+      D7D7D701D8D8D801D7D7D701ECECEC01F0F0F00189898901FFFFFF0200000001
+      D3D3D3011010B3011313C4012B2BD6017C7C7C01F4F4F4080F0F74011818D201
+      1313C4011010B301D3D3D301000000033E3E3E01A3A3A301EAEAF0018E8EC501
+      D6D6E901F0E7E701C5B8B9017F7F85017976AD017975B3027872B0017F75AE01
+      D1BFC6019D9797014242420100000002FFFFFF01E5E5FF010000AF010000FF02
+      0403F3011312A0012C1F7C014A50DD016D3B4B01FF9F08015B3895010000FF02
+      11039201321A1E016258A8014B37600161515A01FFFFFF0396969601EEEEEE01
+      E5E5E501E9E9E901E1E1E101D1D1D101D2D2D201BFBFBF01D3D3D301D8D5D301
+      D6D6D501C6C6C601CACACA01EEEEEE01F1F1F10189898901FFFFFF022E2E2E01
+      B0B0B0011010B3011818D2012323D401B0B0B001F4F4F4031515DC011111A301
+      F3F3F301F4F4F40276769C011A1AD2011818D2011010B301B9BAB9012E2E2E01
+      000000023E3E3E01A3A3A301DEDEEA011B1B8D017979BB01D3D2E501D4D3D301
+      7A7A82014A469601433F9901423C9601403893014D449601C3AAB5019A929201
+      4242420100000002FFFFFF02070700010000000100005D010000EC010000FF01
+      0B04CC014237680171414B011900CC010000FF010000F1014838770124190A01
+      484973015885B20139213E0164505E01FFFFFF0392929201EEEEEE01E6E6E601
+      EAEAEA01E1E1E101D4D4D401C0C0C001D5C6B901BC967601D0B29901C8A68901
+      C09E8301D5D3D201DADADA01F2F2F20188888801FFFFFF02343434018D8D8D01
+      1010B3011818D2011818D301B8B8B801F4F4F402EBEBEB011313EC02E6E6E601
+      F4F4F4028A8AA9011818D3011818D2011010B301B6B6B6013535350100000002
+      3E3E3E01A2A2A201DFDDE8012F2E9501070783017776B801D3D1D10187868701
+      C5B8C301CEBFCB01C8B6C201C2ACB901C3ACB801CBABAE01988D8E0142424201
+      00000002FFFFFF033B3B3901000000010D0000011B1773010000FF02090BF501
+      0000FF012315A90136211A0151476101513A5201506D93013C39610197868E01
+      60475A01FFFFFF038D8D8D01EFEFEF01E6E6E601EBEBEB01E5E5E501C9C9C901
+      D8CFC901C9A68A01F5EDE601F5EDE501F0E4D801E0C5AC01C19E8101C8C8C801
+      F3F3F30186868601FFFFFF02343434018C8C8C011010B3011818D3011515D801
+      AEAEAE01F4F4F402EBEBEB011212F502E6E6E601F4F4F402353580011818D701
+      1818D3011010B301B4B5B50135353501000000023E3E3E019E9A9A01E3D6D801
+      D7D2DE0143419E017776B801D3D1D10176768101242388011917890118168801
+      1715870128238A01B89BA901988D8E014242420100000002FFFFFF04F0F1F101
+      4F4744013D270F01332E87010000FF020402FB01533850018C72570170618401
+      72658F016E5FC00150264601391531016B4D6401FFFFFF038A8A8A01EFEFEF01
+      E7E7E701ECECEC01EBEBEB01C3C3C301C3A38901E8D4C201F4EAE101F4EBE201
+      F1E6DB01E1C7AF01C69E7C01D3D0CE01E5E5E50186868601FFFFFF022E2E2E01
+      A5A5A5011010B3011818D6011414E0019C9C9C01F4F4F402F0F0F0016A6A7201
+      73737301EDEDED01F4F4F4020E0E6E011515DF011818D5011010B301B3B3B301
+      2E2E2E01000000023E3E3E019D999901E4D4D401EAE0E001B8B1CD01C6C0D501
+      CDC9C901817F83018B779C018C769F0392799F01C1989F0196898A0142424201
+      00000002FFFFFF05F9F4FF012A1CBE010000FF010202E801171349010300E501
+      0000FF010D07D5013C2F500138301E0144273B014A223E01421C38016C2B6201
+      FFFFFF0386868601EAEAEA01E4E4E401ECECEC01E5E5E501B9B9B901BD9B8001
+      E5D3C101EADFD401EBE2D901E3D5C801D7C0AB01C8A48401CFC7C001D7D7D701
+      86868601FFFFFF0200000001ABABAB011010B6011212D3011313EB0177778001
+      F4F4F4080F0F9C011313EA011212D2011010B601ABABAB01000000033E3E3E01
+      9D999901E3D4D401E6D8D801E6DADA01E7DBDB01C8C0C0017E7C82016C5D9501
+      69589703725E9701BB8F9801968787014242420100000002FFFFFF04DFDFFE01
+      0000FF020606D1011E1E0F0127221601271711010D0F9E010000FF021319A401
+      492838014A2341014B184001FFFFFF0483838301EFEFEF01E8E8E801EDEDED01
+      E5E5E501B7B7B701C8AC9601D3B79D01DAC9B901D7CBBE01D6C9BC01D6C1AE01
+      BE987701CFCFCE01E5E5E50186868601FFFFFF0200000001818181011818B701
+      0E0ED3011212F1010E0E6E01F4F4F4031111C5011111D501F4F4F4031212F501
+      1313F1011111DB010F0FBB0183838301000000033E3E3E019B959501DCC8C801
+      DFCCCC01E0CDCE01DFCDCE01C3B6B6017A798101443B8C013D338D013C308A01
+      3A2D870147368901B68A9601968787014242420100000002FFFFFF037373FF01
+      0000FF020A09AF011E0F00011D05130148193E01865178013C0E190113025501
+      09015B0109004F01210C2C01340829017E406D01FFFFFF0480808001EFEFEF01
+      E8E8E801EDEDED01E4E4E401CCCCCC01D9D8D701BB947401D1B9A201D7C6B602
+      C9A98E01CDB6A301A0A0A001F4F4F40186868601FFFFFF02000000012D2D2D01
+      9B9B9B010D0DDF010F0FF1010E0E7901F1F1F101E8E8E8018888AD011212F601
+      0F0F9E01D2D2D601EAEAEA01F3F3F3011212F6010F0FF1010D0DDD019E9E9E01
+      2E2E2E01000000034141410199909001C6A9AB01D3BABB01D6BEBF02BCAAAB01
+      86848401BDA3A401C5A7A901C29EA001BF949603948687014242420100000002
+      FFFFFF02C5C5FF0100008C0100009B0100007D012A1A11010000000101060201
+      FFFFFF02E8EEE90100000004080E0901FFFFFF057C7C7C01EFEFEF01E8E8E801
+      EDEDED01E6E6E601DBDBDB01BFBFBF01DBD9D801C8AB9301BF9E8301C3A48A01
+      D9C9BD01DBDBDB01A8A8A8019191910182828201FFFFFF02000000025E5E5E01
+      878686010C0CEE011212F60A0C0CEE01A5A5A7015F5F5F01000000045A5A5A01
+      ABA9AA018F888901C6A9AA01CDADAF02B6A0A101818080018784840188858501
+      8884840188828303828181014242420100000002FFFFFF02C5C5BE0100000002
+      1400000132272F013C2E39013E2C39011B08160111000C011A071501301D2B01
+      311E2C013E2B39013B2A3601352530011E001601FBE3F401FFFFFF0377777701
+      EFEFEF01E8E8E801EDEDED02EFEFEF01F1F1F101DCDCDC01BCBCBC01C9C9C901
+      C2C2C201B3B3B30195959501B0B0B0019E9E9E018A8A8A0148484801FFFFFF01
+      0000000379797901878787010C0CEF011212F6080C0CEF01A2A1A3017A7A7901
+      000000051D1D1D015D5D5D01AAA9A9019A919101B8989901C79EA001B1969801
+      7878780132323201282828061515150100000002FFFFFF03ADADAD0141414101
+      3E3E3E01544852018D898C012B212901C8BCC501E3D7E001DFD3DD02ECE0E901
+      6A5E6801675E6502887C8601FFFFFF03000000016C6C6C01EFEFEF01E9E9E901
+      EDEDED01EEEEEE01EFEFEF01F0F0F001EEEEEE01EBEBEB01E9E9E901E7E7E702
+      E1E1E10194949401AEAEAE01A4A4A40193939301484848010000000458585801
+      818181011313E8010C0CEF011212F6040D0DF0010D0DEE018282820158595801
+      000000071D1D1D016969690198989801A2919201B3929301B091930174747401
+      0E0E0E0100000009FFFFFF0655565501CCCDCD0103040301E9EBEA01FFFFFF04
+      4B4C4B01A6A7A7018E8F8E0100000001FFFFFF03000000013E3E3E01AAAAAA01
+      B0B0B002B1B1B101ADADAD01A8A8A801A4A4A4019F9F9F019C9C9C0197979701
+      94949401999999019D9D9D0183838301BABABA01C6C6C6014444440100000005
+      2C2C2C016767670178787801808080018F8F8F01919191018585860178787801
+      676767012D2D2D01000000090D0D0D01787878018F8F8F01A1919201A28B8C01
+      747474010E0E0E0100000009FFFFFF05E2E2E201000000015454540100000001
+      E5E5E501FFFFFF04252525014C4C4C013C3C3C0104040401FFFFFF040000000F
+      4444440148484802000000082D2D2D01313131022D2D2D010000000E78787801
+      9292920174747401696969010D0D0D0100000009FFFFFF068888880166666601
+      89898901FFFFFF05DADADA01161616010C0C0C01CECECE01FFFFFF0268250000
+      00000012010101010000001D56565601C8C8C801C7C7C701393939010000000D
+      020202010303030C020202010000001001010101030303011010100117171701
+      0A0A0A0100000005020202010707070108080801030303010000000501010101
+      05050501090909010606060102020201000000099F9F9F01FFFFFF0282828201
+      0000000C02020201616161019898980B979797015C5C5C01020202010000000E
+      01010101060606013D3D3D01E8E8E801F8F8F801434343010000000402020201
+      4A4A4A01888888012C2C2C011212120103030301000000030202020130303001
+      919191015C5C5C012121210108080801010101010000000356565601BCBCBC01
+      141414010000000102020201C0C0C001FFFFFF02A8A8A801000000023C3C3C01
+      C5C5C5013B3B3B010000000704040401B7B7B701FFFFFF0CAEAEAE0104040401
+      0000000D01010101070707014B4B4B01EFEFEF01FFFFFF017777770109090901
+      0000000403030301E7E7E701FFFFFF018E8E8E01323232010B0B0B0101010101
+      000000010303030154545401F6F6F601FFFFFF01D3D3D3013C3C3C0110101001
+      01010101000000024C4C4C01F1F1F101FFFFFF01E3E3E3019F9F9F01DADADA01
+      F9F9F901FFFFFF02F7F7F701CDCDCD01AAAAAA01ECECEC01FFFFFF01E3E3E301
+      313131010000000604040401BABABA01FFFFFF0CAFAFAF01040404010000000C
+      01010101080808015A5A5A01F5F5F501FFFFFF01A5A5A5010D0D0D0101010101
+      0000000403030301C9C9C901FFFFFF01E4E4E401535353011B1B1B0104040401
+      0303030155555501F9F9F901FFFFFF01C1C1C101676767012222220108080801
+      01010101000000022C2C2C01EFEFEF01FFFFFF0CDBDBDB011212120100000006
+      020202014D4D4D0176767601777777037676760477777701B7B7B701FFFFFF02
+      AFAFAF01040404010000000B010101010A0A0A016B6B6B01F9F9F901FFFFFF01
+      CCCCCC01141414010101010100000005030303014A4A4A01FFFFFF0298989801
+      363636010F0F0F015D5D5D01F9F9F901FFFFFF01ABABAB013E3E3E0118181801
+      07070701010101010000000484848401FDFDFD01FFFFFF0AEFEFEF014E4E4E01
+      00000007010101013232320163636301656565025D5D5D010707070102020203
+      0505050180808001FFFFFF02AFAFAF01040404010000000A010101010C0C0C01
+      7E7E7E01FDFDFD01FFFFFF01E7E7E70127272701030303010000000602020201
+      03030301AEAEAE01FFFFFF01EEEEEE015E5E5E0183838301FDFDFD01FEFEFE01
+      ABABAB013D3D3D011515150104040401010101010000000564646401FDFDFD01
+      FFFFFF04F6F6F601FAFAFA01FFFFFF04F4F4F401393939010000000701010101
+      17171701D6D6D601FFFFFF03B3B3B30109090901010101010000000103030301
+      7F7F7F01FFFFFF02AFAFAF010404040100000009010101010E0E0E0190909001
+      FEFEFE01F2F2F201F7F7F7014747470105050501000000070202020100000001
+      1E1E1E01F0F0F001FFFFFF01E1E1E101FFFFFF01FAFAFA019696960137373701
+      131313010404040100000007C9C9C901FFFFFF03F9F9F901B7B7B7013E3E3E01
+      56565601BBBBBB01FDFDFD01FFFFFF03B7B7B7011D1D1D010000000303030304
+      0404040119191901D2D2D201FFFFFF03BBBBBB010B0B0B010101010103030301
+      7F7F7F01FFFFFF02AFAFAF010404040100000001010101010505050201010101
+      000000030202020110101001A3A3A301FFFFFF01EEEEEE01FEFEFE0170707001
+      0808080101010101000000070202020100000001020202016D6D6D01FFFFFF02
+      F7F7F7018B8B8B01363636011010100103030301000000056A6A6A01CDCDCD01
+      E0E0E001FAFAFA01FFFFFF03CECECE010000000304040401DBDBDB01FFFFFF04
+      F1F1F101DFDFDF0167676701030303019797970198989805A3A3A301F9F9F901
+      FFFFFF03C2C2C2010E0E0E01040404017F7F7F01FFFFFF02AFAFAF0104040401
+      0101010109090901747474017E7E7E010D0D0D01020202010000000102020201
+      14141401B5B5B501FFFFFF039F9F9F010C0C0C01010101010000000802020201
+      0101010112121201BBBBBB01FFFFFF02EDEDED01727272012E2E2E010B0B0B01
+      0101010100000005AFAFAF01FFFFFF069090900100000004A7A7A701FFFFFF06
+      9292920107070701FFFFFF0CC7C7C7010D0D0D017F7F7F01FFFFFF02AFAFAF01
+      040404010505050155555501FAFAFA01FFFFFF01ABABAB011616160105050501
+      1B1B1B01C4C4C401FFFFFF03C7C7C70112121201010101010000000904040401
+      25252501D4D4D401FFFFFF01ECECEC01E6E6E601FFFFFF01E7E7E70162626201
+      2525250108080801010101010000000496969601EBEBEB01FDFDFD01FFFFFF04
+      B5B5B50100000004C9C9C901FFFFFF03FCFCFC01E7E7E701D2D2D2016D6D6D01
+      07070701FFFFFF0CAFAFAF01080808017F7F7F01FFFFFF02AFAFAF0104040401
+      18181801EEEEEE01FFFFFF03CECECE0141414101D2D2D201FFFFFF03E4E4E401
+      252525010202020100000009020202013D3D3D01EAEAEA01FFFFFF01E8E8E801
+      6565650147474701EEEEEE01FFFFFF01E4E4E4015F5F5F012424240109090901
+      01010101000000040F0F0F0142424201DCDCDC01FFFFFF03EEEEEE015F5F5F01
+      030303010606060174747401F7F7F701FFFFFF03C6C6C6010606060100000002
+      020202017575750176767604777777018D8D8D01F9F9F901FFFFFF03A7A7A701
+      07070701030303017F7F7F01FFFFFF02AFAFAF01040404010808080189898901
+      FEFEFE01FFFFFF03FDFDFD01FFFFFF03F5F5F501424242010404040100000009
+      0101010143434301F4F4F401FFFFFF01E6E6E60163636301252525010A0A0A01
+      40404001F4F4F401FFFFFF01E8E8E8016D6D6D012A2A2A010E0E0E0103030301
+      010101010000000498989801FFFFFF04FDFDFD01DADADA01E0E0E001FEFEFE01
+      FFFFFF047D7D7D0100000004020202040404040128282801E2E2E201FFFFFF03
+      9F9F9F010606060100000001030303017F7F7F01FFFFFF02AFAFAF0104040401
+      010101010C0C0C018B8B8B01FEFEFE01FFFFFF05FEFEFE016A6A6A0108080801
+      01010101000000091B1B1B01F2F2F201FFFFFF01EDEDED016767670126262601
+      0909090101010101020202014A4A4A01F6F6F601FFFFFF01F7F7F7019B9B9B01
+      3C3C3C011A1A1A0107070701010101010000000341414101F8F8F801FFFFFF0A
+      FDFDFD0179797901000000070101010128282801E5E5E501FFFFFF0396969601
+      0606060100000002030303017F7F7F01FFFFFF02AFAFAF010404040100000001
+      010101010C0C0C018B8B8B01FEFEFE01FFFFFF04989898010B0B0B0101010101
+      00000009010101018F8F8F01FFFFFF01F6F6F601767676012B2B2B010A0A0A01
+      01010101000000020202020142424201E7E7E701FFFFFF02EDEDED015A5A5A01
+      18181801030303010000000204040401C8C8C801FFFFFF0CE6E6E60126262601
+      0000000601010101212121013D3D3D013F3F3F02363636010707070103030303
+      0606060180808001FFFFFF02AFAFAF010404040100000002010101010C0C0C01
+      8B8B8B01FEFEFE01FFFFFF02C3C3C30110101001010101010000000A01010101
+      ACACAC01FEFEFE0185858501323232010E0E0E01020202010000000402020201
+      121212018C8C8C01F7F7F701D2D2D20147474701151515010202020100000002
+      77777701FDFDFD01FFFFFF01F8F8F801E0E0E001FCFCFC01FFFFFF04FCFCFC01
+      D4D4D401E5E5E501FFFFFF01FCFCFC018D8D8D01000000060202020160606001
+      8F8F8F019090900791919101C4C4C401FFFFFF02AFAFAF010404040100000003
+      010101010C0C0C0188888801F6F6F601D4D4D4011F1F1F01020202010000000C
+      2020200157575701222222010E0E0E0102020201000000060101010104040401
+      1414140115151501101010010505050101010101000000020B0B0B01BFBFBF01
+      E6E6E6017B7B7B012D2D2D017F7F7F01D8D8D801FFFFFF02E3E3E30178787801
+      2D2D2D013E3E3E01CBCBCB01B9B9B901090909010000000604040401BDBDBD01
+      FFFFFF0CAFAFAF01040404010000000401010101070707010F0F0F010A0A0A01
+      020202010000000D010101010303030107070701020202010000000901010103
+      00000004010101011212120129292901212121012C2C2C013737370198989801
+      FFFFFF02C4C4C4013A3A3A012F2F2F01252525011B1B1B011010100104040401
+      0000000604040401BCBCBC01FFFFFF0CAEAEAE01040404010000002C06060601
+      10101001191919012121210158585801FDFDFD01FFFFFF019E9E9E0123232301
+      1B1B1B0112121201090909010000000802020201545454017F7F7F0C4C4C4C01
+      020202010000003005050501565656014E4E4E01121212010000000D02020201
+      0303030C02020201000000010808080120202006212121012727270133333301
+      3C3C3C013F3F3F013B3B3B012C2C2C0106060601010101010000001306060601
+      A7A7A7015B5B5B010000000F07070701222222012D2D2D011818180100000017
+      AFAFAF01FDFDFD06FEFEFE02F9F9F903F8F8F801EFEFEF013131310103030301
+      0000001202020201AFAFAF01EDEDED0145454501000000042C2C2C01C7C7C701
+      C8C8C808D0D0D001DDDDDD01E5E5E501E7E7E701E3E3E301727272010B0B0B01
+      0000000544444401B3B3B301DCDCDC01D5D5D501BBBBBB012D2D2D010000000A
+      B9B9B901FFFFFF0CF9F9F90146464601030303010000001101010101B0B0B001
+      FCFCFC019B9B9B010000000594949401FFFFFF0ED9D9D9015050500100000004
+      5A5A5A01C3C3C301FDFDFD01FFFFFF03EEEEEE017979790100000009B8B8B801
+      FFFFFF0CF9F9F9014A4A4A0104040401000000107C7C7C01F1F1F101FFFFFF01
+      FAFAFA01CBCBCB01313131010000000494949401FFFFFF0EEFEFEF017C7C7C01
+      18181801000000023B3B3B01AAAAAA01A5A5A50188888801B4B4B401F4F4F401
+      FFFFFF02EEEEEE013939390100000008B8B8B801FFFFFF0CF9F9F9014B4B4B01
+      15151501111111010000000FE9E9E901FFFFFF04939393010000000494949401
+      FFFFFF0EF5F5F501919191012D2D2D01000000027B7B7B015656560100000003
+      8A8A8A01FDFDFD01FFFFFF02C3C3C30100000008B8B8B801FFFFFF0CFAFAFA01
+      58585801DDDDDD01595959010000000E7E7E7E01FCFCFC01FFFFFF03FAFAFA01
+      767676010000000494949401FFFFFF0EF4F4F401878787012222220100000001
+      050505014F4F4F0120202001EBEBEB01F4F4F403FEFEFE01FFFFFF02FDFDFD01
+      F3F3F303EFEFEF012D2D2D0100000003B8B8B801FFFFFF0CFAFAFA01E1E1E101
+      FFFFFF01595959010000000D70707001F0F0F001FFFFFF04FEFEFE0189898901
+      0000000494949401FFFFFF0EE2E2E20163636301070707010000000212121201
+      9D9D9D01FDFDFD01FFFFFF0BC1C1C10100000003B8B8B801FFFFFF0CFEFEFE01
+      FFFFFF02E5E5E501E2E2E202999999010000000962626201ECECEC01FFFFFF01
+      FDFDFD01FFFFFF04E5E5E5010000000494949401FFFFFF0EC7C7C70127272701
+      0000000303030301F1F1F101FFFFFF0CF1F1F1011111110100000002B7B7B701
+      FFFFFF12ADADAD01000000070101010154545401E7E7E701FFFFFF01E6E6E601
+      FEFEFE01FFFFFF04F2F2F201111111010000000394949401FFFFFF0EA6A6A601
+      000000044A4A4A01F5F5F501FFFFFF0CF9F9F9017575750100000002B7B7B701
+      FFFFFF12ACACAC010000000741414101F4F4F401FFFFFF01F2F2F2018C8C8C01
+      FFFFFF05FEFEFE012E2E2E010000000394949401FFFFFF0E9E9E9E0100000004
+      CBCBCB01FFFFFF0EE4E4E40100000002B7B7B701FFFFFF12A7A7A70100000006
+      0A0A0A01CCCCCC01FFFFFF01F7F7F7019999990156565601FFFFFF0659595901
+      0000000394949401FFFFFF0E9E9E9E010000000312121201F4F4F401FFFFFF0E
+      EFEFEF013333330100000001B7B7B701FFFFFF12A9A9A90100000006A9A9A901
+      FFFFFF01FCFCFC01B7B7B7011E1E1E016B6B6B01FFFFFF068888880100000003
+      94949401FFFFFF0E9E9E9E010000000379797901FAFAFA01FFFFFF0FADADAD01
+      00000001B7B7B701FFFFFF0CFEFEFE01FFFFFF02DFDFDF01D7D7D701D4D4D401
+      8F8F8F01000000056E6E6E01FAFAFA01F6F6F601999999010101010100000001
+      7E7E7E01FFFFFF06A6A6A6010000000394949401FFFFFF0E9E9E9E0100000003
+      E7E7E701FFFFFF10ECECEC0109090901BABABA01FFFFFF0CFBFBFB01DBDBDB01
+      FFFFFF01686868011F1F1F011212120104040401000000031A1A1A0160606001
+      E5E5E501EFEFEF017B7B7B01000000038A8A8A01FFFFFF06BABABA0100000003
+      94949401FFFFFF0E9E9E9E010000000206060601F8F8F801FEFEFE04FDFDFD04
+      FEFEFE01FDFDFD07F6F6F60133333301BCBCBC01FFFFFF0CFAFAFA0157575701
+      D2D2D20156565601060606010000000434343401EDEDED01FFFFFF01E0E0E001
+      5B5B5B010000000493939301FFFFFF06CDCDCD010000000394949401FFFFFF0E
+      9E9E9E010000000210101001F1F1F101FFFFFF10EDEDED0138383801BFBFBF01
+      FFFFFF0CFBFBFB013C3C3C010B0B0B0106060601000000030C0C0C0131313101
+      EBEBEB01FFFFFF02DADADA012C2C2C0129292901252525011F1F1F02D9D9D901
+      FFFFFF06F3F3F301424242010000000294949401FFFFFF0E9E9E9E0100000002
+      10101001F1F1F101FFFFFF10EDEDED0138383801C0C0C001FFFFFF0CFBFBFB01
+      3535350102020201000000041F1F1F01CCCCCC01EEEEEE01E9E9E901CECECE01
+      696969013F3F3F013B3B3B0136363601393939015A5A5A01F9F9F901FFFFFF07
+      A7A7A7010000000294949401FFFFFF0E9E9E9E010000000210101001F1F1F101
+      FFFFFF10EDEDED0138383801C1C1C101FFFFFF0CFBFBFB012E2E2E0101010101
+      000000050101010105050501090909010D0D0D010F0F0F01101010010E0E0E01
+      0B0B0B01131313011E1E1E0196969601A9A9A901ABABAB01ADADAD01ABABAB01
+      A8A8A801A5A5A501A1A1A1013B3B3B0100000001020202019F9F9F01FFFFFF0E
+      A6A6A6010000000214141401F5F5F501FFFFFF10F1F1F101353535017C7C7C01
+      D5D5D501D2D2D20BCBCBCB011212120100000010010101010303030106060601
+      070707010505050102020201000000041414140166666601E1E1E101E3E3E30C
+      E1E1E101676767010B0B0B01000000010E0E0E018C8C8C01EAEAEA01ECECEC01
+      EBEBEB04EAEAEA05E9E9E904E7E7E701A3A3A3010F0F0F01000000030101010B
+      0000001C030303010D0D0D011212120B111111010B0B0B010101010100000003
+      04040401121212011A1A1A011C1C1C0C1B1B1B01121212010505050100000008
+      0D0D0D01020202010000004B2B2B2B01D6D6D601F9F9F901FFFFFF01FDFDFD01
+      EEEEEE018C8C8C01040404010000000C282828016D6D6D0A2727270100000009
+      4C4C4C01B4B4B401CFCFCF01DEDEDE01D2D2D201C2C2C2018888880118181801
+      000000043B3B3B010000000951515101A9A9A901C7C7C701C8C8C801A9A9A901
+      515151010000000A8E8E8E01FEFEFE01FFFFFF01F6F6F601E9E9E901EEEEEE01
+      FCFCFC01FEFEFE01EBEBEB01262626010000000BDADADA01FFFFFF0ADADADA01
+      0000000703030301B0B0B001F5F5F501FFFFFF06EDEDED01AFAFAF0119191901
+      000000013E3E3E01E0E0E001000000077B7B7B01FFFFFF087D7D7D0100000007
+      67676701FFFFFF01F6F6F601D2D2D201D8D8D801DDDDDD01CFCFCF01C3C3C301
+      E0E0E001FFFFFF01F0F0F001070707010000000AE0E0E001FFFFFF0AE0E0E001
+      0000000799999901FEFEFE01FFFFFF09E3E3E3018A8A8A01E0E0E001DEDEDE01
+      00000006CECECE01FFFFFF0ACECECE010000000517171701FDFDFD01FBFBFB01
+      CDCDCD01ECECEC01EFEFEF01E8E8E801E0E0E001D9D9D901B9B9B901DDDDDD01
+      FEFEFE01A6A6A6010000000AE0E0E001FFFFFF0AE0E0E0010000000619191901
+      EEEEEE01F5F5F501ECECEC01E8E8E801DFDFDF01CBCBCB01D1D1D101F5F5F501
+      FFFFFF06DCDCDC0100000005CDCDCD01FFFFFF0CCDCDCD010000000473737301
+      FFFFFF01D6D6D601DFDFDF01E5E5E501E3E3E301DCDCDC01D4D4D401CECECE01
+      AFAFAF01B7B7B701FAFAFA01FDFDFD010101010100000009E0E0E001FFFFFF0A
+      E0E0E001000000067A7A7A01F0F0F001EAEAEA01F5F5F5016D6D6D0100000003
+      49494901C3C3C301F9F9F901FFFFFF04DCDCDC01000000047B7B7B01FFFFFF0E
+      7C7C7C0100000003C3C3C301FFFFFF01CBCBCB01D8D8D801D4D4D401D0D0D001
+      C9C9C901C2C2C201B5B5B50191919101A2A2A201E7E7E701FFFFFF0124242401
+      00000009E0E0E001FFFFFF0AE0E0E00100000006AEAEAE01E8E8E801BCBCBC01
+      B2B2B201000000065F5F5F01E6E6E601FFFFFF03DBDBDB0100000004FFFFFF10
+      00000003E5E5E501FFFFFF01BDBDBD01C9C9C901C2C2C201BABABA01B1B1B101
+      A7A7A7017A7A7A018080800195959501DCDCDC01FFFFFF014747470100000009
+      E0E0E001FFFFFF0AE0E0E00100000006B7B7B7018A8A8A015555550156565601
+      0000000694949401FCFCFC01FFFFFF03DBDBDB010000000350505001FFFFFF10
+      5050500100000002BCBCBC01FFFFFF01C6C6C601B3B3B301AEAEAE019D9D9D01
+      7E7E7E01545454015E5E5E01757575018C8C8C01EDEDED01FFFFFF0122222201
+      000000071414140146464601E3E3E301FFFFFF0AE2E2E2014646460111111101
+      000000045B5B5B010B0B0B01000000077F7F7F01F4F4F401FBFBFB04DFDFDF01
+      00000003A7A7A701FFFFFF10A9A9A901000000026B6B6B01FFFFFF01DEDEDE01
+      8C8C8C01757575015B5B5B0143434301424242015A5A5A0172727201AFAFAF01
+      FDFDFD01F9F9F901010101010000000611111101E7E7E701FFFFFF0EE3E3E301
+      0D0D0D010000000377777701D5D5D501D7D7D701D8D8D801D9D9D902CACACA01
+      0D0D0D010000000125252501282828054C4C4C0100000003C7C7C701FFFFFF10
+      C8C8C8010000000210101001F9F9F901FFFFFF01BFBFBF017B7B7B0166666601
+      56565602646464018E8E8E01E9E9E901FFFFFF017070700100000007A4A4A401
+      FFFFFF10AAAAAA010000000391919101FFFFFF04E9E9E9013838380100000005
+      282828010808080100000001AAAAAA0100000003C7C7C701FFFFFF10C7C7C701
+      0000000350505001FFFFFF01FEFEFE01D8D8D801A8A8A8017F7F7F0194949401
+      BCBCBC01F3F3F301FFFFFF01FEFEFE01F8F8F8013939390100000006CCCCCC01
+      FFFFFF10CDCDCD010000000392929201FFFFFF03FDFDFD019090900100000006
+      656565014A4A4A0124242401E6E6E60100000003A7A7A701FFFFFF10A9A9A901
+      0000000466666601FDFDFD01FFFFFF02FDFDFD01FFFFFF03FDFDFD01FFFFFF02
+      FDFDFD015E5E5E0100000005CACACA01FFFFFF10CACACA010000000393939301
+      FFFFFF04F6F6F601B8B8B80134343401000000030E0E0E01B1B1B1018F8F8F01
+      CDCDCD01D7D7D7010000000350505001FFFFFF1050505001000000051B1B1B01
+      ABABAB01E6E6E601FCFCFC01F6F6F601D5D5D5014747470188888801FFFFFF03
+      FEFEFE018D8D8D0100000004C7C7C701FFFFFF10C7C7C7010000000393939301
+      FFFFFF06F1F1F101BCBCBC01A5A5A501C2C2C201E7E7E701EBEBEB01E7E7E701
+      F9F9F901A5A5A50100000004FFFFFF1000000007010101010202020103030301
+      0404040105050502040404018B8B8B01FEFEFE01FFFFFF03B9B9B90103030301
+      00000002C3C3C301FFFFFF10C3C3C3010000000398989801FFFFFF01D8D8D801
+      EAEAEA01FFFFFF0AE8E8E80149494901000000047B7B7B01FFFFFF0E7C7C7C01
+      000000030101010105050501090909010C0C0C010F0F0F011C1C1C013E3E3E01
+      565656014E4E4E0130303001161616011414140167676701FDFDFD01FFFFFF03
+      9F9F9F0100000002C7C7C701FFFFFF10C5C5C50100000002090909019E9E9E01
+      DDDDDD013434340149494901C6C6C601F9F9F901FFFFFF07F0F0F00188888801
+      151515010B0B0B0100000004CCCCCC01FFFFFF0CCCCCCC010000000302020201
+      060606010B0B0B010F0F0F0113131301181818014E4E4E018D8D8D01B2B2B201
+      A6A6A6017474740134343401202020011B1B1B014A4A4A01FAFAFA01FFFFFF02
+      ECECEC010101010105050501B4B4B401FFFFFF10AFAFAF010606060100000001
+      0B0B0B017E7E7E013F3F3F0129292901333333013D3D3D0175757501C1C1C101
+      E5E5E501F4F4F401FEFEFE01FBFBFB01E9E9E901CACACA015F5F5F0121212101
+      171717010D0D0D010202020100000004D1D1D101FFFFFF0AD2D2D20100000005
+      03030301080808010B0B0B010F0F0F011313130116161601191919011B1B1B01
+      1C1C1C021B1B1B0119191901161616011313130130303001E5E5E501F7F7F701
+      69696901000000011010100138383801D4D4D401E6E6E601E7E7E70CE6E6E601
+      D3D3D301383838011111110100000001030303010E0E0E01161616011E1E1E01
+      272727012E2E2E01353535013A3A3A013E3E3E01525252016666660164646401
+      373737012828280120202001171717010F0F0F01040404010000000411111101
+      151515019D9D9D01FFFFFF08A3A3A3011E1E1E011B1B1B010606060100000006
+      020202010404040106060601080808010A0A0A010B0B0B020A0A0A0108080801
+      060606010404040102020201000000050B0B0B011D1D1D01232323012525250C
+      232323011E1E1E010C0C0C0100000004030303010C0C0C011212120117171701
+      1C1C1C011F1F1F0121212102202020011C1C1C0118181801131313010D0D0D01
+      0505050100000006070707011A1A1A01232323013F3F3F0187878701C7C7C701
+      DCDCDC01DDDDDD01C8C8C8018A8A8A01464646012A2A2A012222220110101001
+      00000033020202010303030202020201010101010000000C0101010107070701
+      080808010A0A0A010D0D0D010E0E0E010D0D0D010B0B0B010909090104040401
+      00000021F1F1F101FFFFFF02F1F1F1010000000BFFFFFF0E0000000428282801
+      000000142C2C2C01C7C7C701C8C8C80D3232320100000007E7E7E701FFFFFF08
+      E8E8E80100000008FFFFFF0F000000023C3C3C01FFFFFF01F9F9F90182828201
+      0A0A0A010000001194949401FFFFFF0E9E9E9E0100000006FFFFFF0C00000007
+      FFFFFF0F00000003424242016B6B6B01F4F4F401D1D1D1011212120100000010
+      94949401FFFFFF0E9E9E9E0100000005FFFFFF0E00000006FFFFFF0F00000005
+      0F0F0F01FFFFFF017A7A7A01FDFDFD01B2B2B202989898014D4D4D012B2B2B01
+      0D0D0D01222222010000000894949401FFFFFF0E9E9E9E0100000004FFFFFF10
+      00000005FFFFFF0F00000006FFFFFF01191919015F5F5F01000000017A7A7A01
+      6060600189898901CFCFCF019C9C9C01FFFFFF01C3C3C301848484015A5A5A01
+      1B1B1B010000000494949401FFFFFF0E9E9E9E0100000003E7E7E701FFFFFF10
+      E9E9E90100000004FFFFFF0F0000000688888801C3C3C30198989801FFFFFF02
+      14141401E1E1E101A7A7A70132323201FFFFFF016F6F6F0143434301B1B1B101
+      9E9E9E01DEDEDE010000000394949401FFFFFF0E9E9E9E0100000003FFFFFF12
+      00000004FFFFFF0F000000062F2F2F01FFFFFF01DFDFDF01FFFFFF02CCCCCC01
+      FFFFFF01ECECEC01D7D7D701FFFFFF01B9B9B901828282019898980187878701
+      C8C8C8010000000394949401FFFFFF0E9E9E9E0100000003FFFFFF1200000004
+      FFFFFF0F0000000449494901EFEFEF01FFFFFF02F3F3F301FEFEFE01FCFCFC01
+      CECECE01FFFFFF04F1F1F101EDEDED01FFFFFF02B1B1B1010000000394949401
+      FFFFFF0E9E9E9E0100000002F1F1F101FFFFFF12F3F3F30100000003FFFFFF0F
+      000000050909090178787801FBFBFB01FFFFFF01F3F3F301D6D6D601B8B8B801
+      FFFFFF02FBFBFB01FFFFFF019E9E9E01E0E0E001FFFFFF01E1E1E101ABABAB01
+      0000000394949401FFFFFF0E9E9E9E0100000002FFFFFF1400000003FFFFFF0F
+      0000000753535301FFFFFF06F2F2F201FFFFFF01F2F2F201FFFFFF01C1C1C101
+      42424201ACACAC010000000394949401FFFFFF0E9E9E9E0100000002FFFFFF14
+      00000003FFFFFF0F00000008FAFAFA01E5E5E501FFFFFF04C5C5C501FFFFFF01
+      CFCFCF01FFFFFF01DADADA01E5E5E501949494010000000394949401FFFFFF0E
+      9E9E9E0100000002F1F1F101FFFFFF12F3F3F30100000003FFFFFF0F00000008
+      D3D3D301FFFFFF02FCFCFC01F1F1F101FFFFFF01F6F6F602F2F2F201D1D1D101
+      B3B3B301BCBCBC01616161010000000394949401FFFFFF0E9E9E9E0100000003
+      FFFFFF1200000004FFFFFF0F00000007D2D2D201FFFFFF04B9B9B901FFFFFF04
+      C4C4C401A3A3A301939393010000000494949401FFFFFF0E9E9E9E0100000003
+      FFFFFF1200000004FFFFFF0F0000000532323201FEFEFE01FFFFFF02C6C6C601
+      7D7D7D01676767016B6B6B016868680188888801ACACAC01AAAAAA0191919101
+      76767601626262010000000494949401FFFFFF0E9E9E9E0100000003E8E8E801
+      FFFFFF10EAEAEA0100000004FFFFFF0F000000040202020181818101B9B9B901
+      B5B5B501FDFDFD010C0C0C010000000E94949401FFFFFF0EA2A2A20100000004
+      FFFFFF1000000005FFFFFF0F00000006141414015B5B5B01FFFFFF0C00000004
+      94949401FFFFFF0EF8F8F8011818180100000004FFFFFF0E00000006FFFFFF07
+      00000010D2D2D201FFFFFF01C1C1C1010A0A0A01171717011818180212121201
+      2D2D2D01FFFFFF01FEFEFE013131310100000003020202019F9F9F01FFFFFF0F
+      F5F5F5010808080100000004FFFFFF0C00000008FFFFFF060000000F17171701
+      FFFFFF030B0B0B0100000004B5B5B501FFFFFF029B9B9B010000000314141401
+      66666601E1E1E101E3E3E303E4E4E402E5E5E501E6E6E602E7E7E701E8E8E801
+      E7E7E701E6E6E601F7F7F701FFFFFF01FDFDFD012222220100000005E9E9E901
+      FFFFFF08EAEAEA010000000AFFFFFF050000000F04040401FFFFFF02F1F1F101
+      000000058D8D8D01FFFFFF028181810100000004030303010D0D0D0112121204
+      14141401181818011C1C1C01202020012222220123232301222222011E1E1E01
+      1414140150505001545454010D0D0D0100000008F3F3F301FFFFFF02F3F3F301
+      0000000EFFFFFF040000001023232301868686011A1A1A010000000693939301
+      8D8D8D0100000003
+    }
+  end
+  object tmainmenu1: tmainmenu
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        submenu.count = 8
+        submenu.items = <        
+          item
+            caption = '&New'
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut, as_localonexecute]
+            imagelist = timagelist1
+            imagenr = 6
+            onexecute = shownew
+            sc = (
+              1
+              16462
+            )
+          end        
+          item
+            caption = '&Open'
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut, as_localonexecute]
+            imagelist = timagelist1
+            imagenr = 14
+            onexecute = showopen
+            sc = (
+              1
+              16467
+            )
+          end        
+          item
+            caption = '&Save'
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+            imagelist = timagelist1
+            imagenr = 7
+            onexecute = showsave
+          end        
+          item
+            caption = '&Close'
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut, as_localonexecute]
+            imagelist = timagelist1
+            imagenr = 4
+            onexecute = showclose
+            sc = (
+              1
+              16691
+            )
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
+            caption = '&Build'
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+            imagelist = timagelist1
+            imagenr = 2
+            onexecute = buildproject
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
+            caption = '&Exit'
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut]
+            imagelist = timagelist1
+            imagenr = 1
+            sc = (
+              1
+              16465
+            )
+          end>
+        caption = '&Project'
+        state = [as_localcaption]
+      end    
+      item
+        submenu.count = 2
+        submenu.items = <        
+          item
+            caption = '&Help'
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut]
+            imagelist = timagelist1
+            imagenr = 11
+            sc = (
+              1
+              304
+            )
+          end        
+          item
+            caption = '&About'
+            state = [as_localcaption, as_localimagelist, as_localimagenr]
+            imagelist = timagelist1
+            imagenr = 13
+          end>
+        caption = '&Help'
+        state = [as_localcaption]
+      end>
+    left = 408
+    top = 104
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    onstatwrite = tstatfile1_onstatwrite
+    left = 288
+    top = 232
+  end
+  object ttimer1: ttimer
+    interval = 60000000
+    ontimer = ttimer1_ontimer
+    enabled = True
+    left = 396
+    top = 244
+  end
+  object fdialog: tfiledialog
+    controller.filter = '*.msi'
+    controller.filterlist.data = (
+      (
+        'MSE Installer files'
+        '*.msi'
+      )
+      (
+        'All files'
+        '*.*'
+      )
+    )
+    controller.defaultext = 'msi'
+    controller.captionopen = 'Open existing project'
+    controller.captionsave = 'Save current project'
+    controller.captionnew = 'Create new project'
+    left = 272
+    top = 128
+  end
+  object imgdialog: tfiledialog
+    controller.filter = '*.jpg'
+    controller.filterlist.data = (
+      (
+        'JPEG Files'
+        '*.jpg'
+      )
+      (
+        'PNG Files'
+        '*.png'
+      )
+    )
+    controller.defaultext = 'jpg'
+    controller.captionopen = 'Open image file'
+    left = 272
+    top = 168
+  end
+  object builddialog: tfiledialog
+    controller.options = [fdo_directory, fdo_savelastdir]
+    controller.captionsave = 'Save built project'
+    dialogkind = fdk_save
+    left = 416
+    top = 152
+  end
+  object tstatfile2: tstatfile
+    filename = 'status.sta'
+    onstatread = tstatfile2_onstatread
+    onstatwrite = tstatfile2_onstatwrite
+    left = 512
+    top = 48
+  end
+end
