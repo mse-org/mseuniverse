@@ -1,0 +1,600 @@
+object Page2: TraPage
+  PrintOrder = 1
+  PaperSize = Letter
+  PageWidth = 215.9
+  PageHeight = 279.4
+  PixelPerUnit = 3
+  object TraChartReport2: TraChartReport
+    Page_Header_RowValues.count = 1
+    Page_Header_RowValues.items = <    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 7.33333333333333
+        Tabulators.RAW_EmptyLinesBelow = 3
+        Tabulators.DataSource = 'dscompany'
+        Tabulators.items = <        
+          item
+            DataSource = 'dscompany'
+            Expression = 'PageNumber'
+            RAW_Font = rfCondensed
+            RAW_WidthInChar = 25
+            RAW_PosInChar = 0
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 0
+            Width = 50
+            Ellipse = el_None
+            TextOptions = []
+            Format = 'Page : ##'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            DataSource = 'dscompany'
+            RAW_Font = rfRoman
+            RAW_WidthInChar = 50
+            RAW_PosInChar = 26
+            Font_Bold = True
+            Font_Size = 13
+            Margin_Left = 1
+            Margin_Right = 1
+            Alignment_Horizontal = ha_Right
+            Position = 70
+            Width = 120
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'motto'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end>
+    Page_Header_Height = 7.33333333333333
+    Page_Footer_RowValues.count = 1
+    Page_Footer_RowValues.items = <    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 7.33333333333333
+        Tabulators.DataSource = 'dscompany'
+        Tabulators.items = <        
+          item
+            DataSource = 'dscompany'
+            Text = 'Company Address :'
+            RAW_Font = rfCourier
+            RAW_WidthInChar = 15
+            RAW_PosInChar = 0
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 0
+            Width = 30
+            Ellipse = el_None
+            TextOptions = []
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            DataSource = 'dscompany'
+            RAW_Font = rfCondensed
+            RAW_WidthInChar = 50
+            RAW_PosInChar = 16
+            Font_Italic = True
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 50
+            Width = 30
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'address1'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end>
+    Page_Footer_Height = 7.33333333333333
+    Report_Header_RowValues.count = 1
+    Report_Header_RowValues.items = <    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 25
+        Tabulators.DataSource = 'dscompany'
+        Tabulators.items = <        
+          item
+            DataSource = 'dscompany'
+            Bitmap.transparentcolor = -2147483642
+            BitmapFieldAlignment = [al_stretchx, al_stretchy]
+            RAW_WidthInChar = 20
+            RAW_PosInChar = 0
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 0
+            Width = 70
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'Logo'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 1
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            DataSource = 'dscompany'
+            RAW_Font = rfRoman
+            RAW_WidthInChar = 20
+            RAW_PosInChar = 21
+            Font_Bold = True
+            Font_Italic = True
+            Font_Size = 20
+            Margin_Left = 1
+            Margin_Right = 1
+            Alignment_Vertical = va_Bottom
+            Position = 70
+            Width = 130
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'companyname'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end>
+    Report_Header_Height = 40
+    Report_ExtraHeader_Height = 7
+    Report_Footer_RowValues.count = 2
+    Report_Footer_RowValues.items = <    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 7.33333333333333
+        Tabulators.DataSource = 'dsaccount'
+        Tabulators.items = <        
+          item
+            DataSource = 'dsaccount'
+            Text = 'GRAND TOTAL'
+            RAW_WidthInChar = 6
+            RAW_PosInChar = 0
+            Font_Bold = True
+            Font_Italic = True
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 0
+            Width = 30
+            Ellipse = el_None
+            TextOptions = []
+            Border_Top_Width = 0.4
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0.5
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0.5
+            Border_Bottom_LineStyle = ls_Solid
+            SummaryType = st_None
+          end        
+          item
+            DataSource = 'dsaccount'
+            RAW_WidthInChar = 27
+            RAW_PosInChar = 7
+            Margin_Left = 1
+            Margin_Right = 1
+            Alignment_Horizontal = ha_Center
+            Position = 30
+            Width = 70
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'AccountID'
+            Format = '0.00 Items'
+            Border_Top_Width = 0.3
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0.2
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0.5
+            Border_Bottom_LineStyle = ls_Solid
+            SummaryType = st_Count
+          end>
+      end    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 7.33333333333333
+        Tabulators.items = <        
+          item
+            Text = 'Terbilang :'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 0
+            Width = 30
+            Ellipse = el_None
+            TextOptions = []
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+            SummaryType = st_None
+          end        
+          item
+            Expression = 'NumToText(ReportFooter(0,1))'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 5
+            Font_Italic = True
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 35
+            Width = 100
+            Ellipse = el_None
+            TextOptions = []
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+            SummaryType = st_None
+          end>
+      end>
+    Report_Footer_Height = 15
+    Report_Footer_Options = []
+    Position_Left = 10
+    Position_Top = 12
+    Area_Width = 194.666666666667
+    Area_Height = 256.666666666667
+    Report_Chart.DataSource = 'dschart'
+    Report_Chart.ChartType = ctBar
+    Report_Chart.X_ValueDB.DataField = 'y1'
+    Report_Chart.Y_ValuesDB.count = 2
+    Report_Chart.Y_ValuesDB.items = <    
+      item
+        Values.BackColor = -1610612717
+        Values.LineColor = -1610612729
+        Values.LineCap = cs_round
+        Values.LineJoin = js_miter
+        Values.LineStyle = ls_Solid
+        Values.LineWidth = 1
+        Values.FillPattern = stb_hatchdown4
+        Values.FillColor = -1610612724
+        Values.LabelLegend = 'Barang A'
+        Values.Font_Color = -1610612721
+        Values.Alignment_Horizontal = ha_Center
+        Values.Ellipse = el_None
+        Values.TextOptions = []
+        Values.DataField = 'y2'
+      end    
+      item
+        Values.BackColor = -1610612724
+        Values.LineColor = -1610612734
+        Values.LineCap = cs_butt
+        Values.LineJoin = js_miter
+        Values.LineStyle = ls_Solid
+        Values.LineWidth = 1
+        Values.FillPattern = stb_hatchup4
+        Values.FillColor = -1610612727
+        Values.Ellipse = el_None
+        Values.TextOptions = []
+        Values.DataField = 'y3'
+      end>
+    Report_Chart.X_AxisCaption = 'Axis X'
+    Report_Chart.X_LabelAsValue = True
+    Report_Chart.Y_AxisCaption = 'Caption Y'
+    Report_Chart.X_AxisLabel.Font_Bold = True
+    Report_Chart.X_AxisLabel.Font_Italic = True
+    Report_Chart.X_AxisLabel.Font_Size = 12
+    Report_Chart.X_AxisLabel.Font_Color = -1610612723
+    Report_Chart.X_AxisLabel.Alignment_Horizontal = ha_Center
+    Report_Chart.X_AxisLabel.Ellipse = el_None
+    Report_Chart.X_AxisLabel.TextOptions = []
+    Report_Chart.X_AxisLabel.Format = '0.0'
+    Report_Chart.Y_AxisLabel.Font_Size = 8
+    Report_Chart.Y_AxisLabel.Font_Color = -1610612727
+    Report_Chart.Y_AxisLabel.Alignment_Horizontal = ha_Right
+    Report_Chart.Y_AxisLabel.Alignment_Vertical = va_Top
+    Report_Chart.Y_AxisLabel.Ellipse = el_None
+    Report_Chart.Y_AxisLabel.TextOptions = []
+    Report_Chart.Shadow_Depth = 0
+    Report_Chart.Legend_LineColor = -1610612727
+    Report_Chart.Legend_Size = 18
+    Report_Chart.ValuePosition = vpOutside
+    Report_Chart.AxisCaption.Font_Bold = True
+    Report_Chart.AxisCaption.Font_Size = 15
+    Report_Chart.AxisCaption.Font_Color = -1610612723
+    Report_Chart.AxisCaption.Alignment_Horizontal = ha_Center
+    Report_Chart.AxisCaption.Ellipse = el_None
+    Report_Chart.AxisCaption.TextOptions = []
+    Report_Chart.ChartCaption = 'GRAFIK PERCOBAAN'
+    Report_Chart.ChartCaptionStyle.Font_Bold = True
+    Report_Chart.ChartCaptionStyle.Font_UnderLine = True
+    Report_Chart.ChartCaptionStyle.Font_Size = 20
+    Report_Chart.ChartCaptionStyle.Font_Color = -1610612729
+    Report_Chart.ChartCaptionStyle.Alignment_Horizontal = ha_Center
+    Report_Chart.ChartCaptionStyle.Ellipse = el_None
+    Report_Chart.ChartCaptionStyle.TextOptions = []
+  end
+end
+object Page1: TraPage
+  PrintOrder = 0
+  PaperSize = Letter
+  PageWidth = 215.9
+  PageHeight = 279.4
+  PixelPerUnit = 3
+  object TraChartReport1: TraChartReport
+    Page_Header_RowValues.count = 1
+    Page_Header_RowValues.items = <    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 7.33333333333333
+        Tabulators.RAW_EmptyLinesBelow = 3
+        Tabulators.DataSource = 'dscompany'
+        Tabulators.items = <        
+          item
+            DataSource = 'dscompany'
+            Expression = 'PageNumber'
+            RAW_Font = rfCondensed
+            RAW_WidthInChar = 25
+            RAW_PosInChar = 0
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 0
+            Width = 50
+            Ellipse = el_None
+            TextOptions = []
+            Format = 'Page : ##'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            DataSource = 'dscompany'
+            RAW_Font = rfRoman
+            RAW_WidthInChar = 50
+            RAW_PosInChar = 26
+            Font_Bold = True
+            Font_Size = 13
+            Margin_Left = 1
+            Margin_Right = 1
+            Alignment_Horizontal = ha_Right
+            Position = 70
+            Width = 120
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'motto'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end>
+    Page_Header_Height = 7.33333333333333
+    Page_Footer_RowValues.count = 1
+    Page_Footer_RowValues.items = <    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 7.33333333333333
+        Tabulators.DataSource = 'dscompany'
+        Tabulators.items = <        
+          item
+            DataSource = 'dscompany'
+            Text = 'Company Address :'
+            RAW_Font = rfCourier
+            RAW_WidthInChar = 15
+            RAW_PosInChar = 0
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 0
+            Width = 30
+            Ellipse = el_None
+            TextOptions = []
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            DataSource = 'dscompany'
+            RAW_Font = rfCondensed
+            RAW_WidthInChar = 50
+            RAW_PosInChar = 16
+            Font_Italic = True
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 50
+            Width = 30
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'address1'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end>
+    Page_Footer_Height = 7.33333333333333
+    Report_Header_RowValues.count = 1
+    Report_Header_RowValues.items = <    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 25
+        Tabulators.DataSource = 'dscompany'
+        Tabulators.items = <        
+          item
+            DataSource = 'dscompany'
+            Bitmap.transparentcolor = -2147483642
+            BitmapFieldAlignment = [al_stretchx, al_stretchy]
+            RAW_WidthInChar = 20
+            RAW_PosInChar = 0
+            Margin_Left = 1
+            Margin_Right = 1
+            Position = 0
+            Width = 70
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'Logo'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 1
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            DataSource = 'dscompany'
+            RAW_Font = rfRoman
+            RAW_WidthInChar = 20
+            RAW_PosInChar = 21
+            Font_Bold = True
+            Font_Italic = True
+            Font_Size = 20
+            Margin_Left = 1
+            Margin_Right = 1
+            Alignment_Vertical = va_Bottom
+            Position = 70
+            Width = 130
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'companyname'
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end>
+    Report_Header_Height = 40
+    Report_ExtraHeader_Height = 7
+    Report_Footer_Height = 15
+    Report_Footer_Options = []
+    Position_Left = 10
+    Position_Top = 10
+    Area_Width = 190.666666666667
+    Area_Height = 258.666666666667
+    Report_Chart.DataSource = 'dschart'
+    Report_Chart.ChartType = ctPie
+    Report_Chart.X_ValueDB.DataField = 'x'
+    Report_Chart.Y_ValuesDB.count = 2
+    Report_Chart.Y_ValuesDB.items = <    
+      item
+        Values.BackColor = -1610612717
+        Values.LineColor = -1610612727
+        Values.LineCap = cs_round
+        Values.LineJoin = js_miter
+        Values.LineStyle = ls_Solid
+        Values.LineWidth = 1
+        Values.FillPattern = stb_none
+        Values.FillColor = -1610612729
+        Values.LabelLegend = 'Barang A'
+        Values.Font_Color = -1610612721
+        Values.Alignment_Horizontal = ha_Center
+        Values.Ellipse = el_None
+        Values.TextOptions = []
+        Values.DataField = 'y1'
+      end    
+      item
+        Values.BackColor = -1610612715
+        Values.LineColor = -1610612729
+        Values.LineCap = cs_butt
+        Values.LineJoin = js_miter
+        Values.LineStyle = ls_Solid
+        Values.LineWidth = 0
+        Values.FillPattern = stb_dens75
+        Values.FillColor = -1610612731
+        Values.LabelLegend = 'Barang B'
+        Values.Ellipse = el_None
+        Values.TextOptions = []
+        Values.DataField = 'y2'
+      end>
+    Report_Chart.X_AxisCaption = 'Axis X'
+    Report_Chart.Y_AxisCaption = 'Caption Y'
+    Report_Chart.X_AxisLabel.Font_Bold = True
+    Report_Chart.X_AxisLabel.Font_Italic = True
+    Report_Chart.X_AxisLabel.Font_Size = 12
+    Report_Chart.X_AxisLabel.Font_Color = -1610612723
+    Report_Chart.X_AxisLabel.Alignment_Horizontal = ha_Center
+    Report_Chart.X_AxisLabel.Ellipse = el_None
+    Report_Chart.X_AxisLabel.TextOptions = []
+    Report_Chart.X_AxisLabel.Format = '0.0'
+    Report_Chart.Y_AxisLabel.Font_Size = 8
+    Report_Chart.Y_AxisLabel.Font_Color = -1610612727
+    Report_Chart.Y_AxisLabel.Alignment_Horizontal = ha_Right
+    Report_Chart.Y_AxisLabel.Alignment_Vertical = va_Top
+    Report_Chart.Y_AxisLabel.Ellipse = el_None
+    Report_Chart.Y_AxisLabel.TextOptions = []
+    Report_Chart.Shadow_Depth = 0
+    Report_Chart.Shadow_Color = -2147483645
+    Report_Chart.ShowPercentValue = [pvShowPercent, pvShowPercentOnly]
+    Report_Chart.Legend_LineColor = -1610612727
+    Report_Chart.Legend_Size = 18
+    Report_Chart.ValuePosition = vpOutside
+    Report_Chart.AxisCaption.Font_Bold = True
+    Report_Chart.AxisCaption.Font_Size = 15
+    Report_Chart.AxisCaption.Font_Color = -1610612723
+    Report_Chart.AxisCaption.Alignment_Horizontal = ha_Center
+    Report_Chart.AxisCaption.Ellipse = el_None
+    Report_Chart.AxisCaption.TextOptions = []
+    Report_Chart.ChartCaption = 'CHART TEST'
+    Report_Chart.ChartCaptionStyle.Font_Bold = True
+    Report_Chart.ChartCaptionStyle.Font_UnderLine = True
+    Report_Chart.ChartCaptionStyle.Font_Size = 20
+    Report_Chart.ChartCaptionStyle.Font_Color = -1610612729
+    Report_Chart.ChartCaptionStyle.Alignment_Horizontal = ha_Center
+    Report_Chart.ChartCaptionStyle.Ellipse = el_None
+    Report_Chart.ChartCaptionStyle.TextOptions = []
+  end
+end
