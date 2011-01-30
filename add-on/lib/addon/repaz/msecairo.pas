@@ -27,9 +27,11 @@ type
   private
    fsurface : Pcairo_surface_t;
    fcanvas: tmsecairocanvas;
+   forientation: integer; //0=portrait, 1=landscape
    function getcanvas: tmsecairocanvas;
    procedure setwidth(const avalue: real);
    procedure setheight(const avalue: real);
+   procedure setorientation(const avalue: integer);
    //icanvas
    procedure gcneeded(const sender: tcanvas);
    function getmonochrome: boolean;
@@ -47,6 +49,7 @@ type
    property outputfilename: filenamety read ffilename write ffilename;
    property width: real read fwidth write setwidth;
    property height: real read fheight write setheight;
+   property orientation: integer read forientation write setorientation;
  end;
 
  tmsecairocanvas = class(tcanvas)
@@ -332,7 +335,11 @@ begin
  with cairogcty(fdrawinfo.gc.platformdata).d do begin
   canvas:= self;
  end;
- cairo_pdf_surface_set_size(fcairo.fsurface,fcairo.width*self.ppmm,fcairo.height*self.ppmm);
+ if fcairo.orientation=0 then begin
+  cairo_pdf_surface_set_size(fcairo.fsurface,fcairo.width*self.ppmm,fcairo.height*self.ppmm);
+ end else begin
+  cairo_pdf_surface_set_size(fcairo.fsurface,fcairo.height*self.ppmm,fcairo.width*self.ppmm);
+ end;
  beginpage;
 end;
 
@@ -719,6 +726,7 @@ begin
  inherited;
  fcanvas:= tmsecairocanvas.create(self,icanvas(self));
  ffilename:='pdfoutput.pdf';
+ forientation:= 0;
 end;
 
 destructor tmsecairo.destroy;
@@ -731,15 +739,35 @@ procedure tmsecairo.setwidth(const avalue: real);
 begin
  if avalue<>fwidth then begin
   fwidth:= avalue;
-  fsize.cx:= round(avalue);
  end;
+ if forientation=0 then
+  fsize.cx:= round(fwidth)
+ else
+  fsize.cy:= round(fwidth);
 end;
 
 procedure tmsecairo.setheight(const avalue: real);
 begin
  if avalue<>fheight then begin
   fheight:= avalue;
-  fsize.cy:= round(avalue);
+ end;
+ if forientation=0 then
+  fsize.cy:= round(fheight)
+ else
+  fsize.cx:= round(fheight);
+end;
+
+procedure tmsecairo.setorientation(const avalue: integer);
+begin
+ if avalue<>forientation then begin
+  forientation:= avalue;
+ end;
+ if forientation=0 then begin
+  fsize.cx:= round(fwidth);
+  fsize.cy:= round(fheight);
+ end else begin
+  fsize.cx:= round(fheight);
+  fsize.cy:= round(fwidth);
  end;
 end;
 
@@ -754,7 +782,11 @@ var
 begin
  with tmsecairocanvas(fcanvas) do begin
   str1:= tosysfilepath(ffilename);
-  fsurface:= cairo_pdf_surface_create(pchar(str1),fwidth*fcanvas.ppmm,fheight*fcanvas.ppmm);
+  if forientation=0 then begin
+   fsurface:= cairo_pdf_surface_create(pchar(str1),fwidth*fcanvas.ppmm,fheight*fcanvas.ppmm);
+  end else begin
+   fsurface:= cairo_pdf_surface_create(pchar(str1),fheight*fcanvas.ppmm,fwidth*fcanvas.ppmm);
+  end;
   fdraw:= cairo_create(fsurface);
   tmsecairocanvas(fcanvas).beginpage;
  end;

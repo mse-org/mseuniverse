@@ -4840,11 +4840,11 @@ begin
     exit;
    end;
    tfiledialog1.free;
-   fmsecairo.canvas.ppmm:= 3; //  (1/(25.4/72));
+   fmsecairo.canvas.ppmm:= (1/(25.4/72));
    fmsecairo.height:= freppages[0].pageheight;
    fmsecairo.width:= freppages[0].pagewidth;
-   {fmsecairo.pa_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
-   fmsecairo.pa_marginleft:=0;
+   fmsecairo.orientation:= ord(freppages[0].PageOrientation);
+   {fmsecairo.pa_marginleft:=0;
    fmsecairo.pa_marginright:=0;
    fmsecairo.pa_margintop:=0;
    fmsecairo.pa_marginbottom:=0;}
