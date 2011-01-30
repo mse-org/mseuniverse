@@ -1,0 +1,128 @@
+object mainfo: tmainfo
+  bounds_x = 164
+  bounds_y = 235
+  bounds_cx = 530
+  bounds_cy = 280
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    530
+    280
+  )
+  statfile = tstatfile1
+  onloaded = mainfo_onloaded
+  moduleclassname = 'tmainform'
+  object tazvideoplayer1: tazvideoplayer
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_autoscale]
+    color = -1610612730
+    frame.levelo = 4
+    frame.leveli = -4
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.dummy = 0
+    bounds_x = 6
+    bounds_y = 32
+    bounds_cx = 517
+    bounds_cy = 218
+    anchors = [an_left, an_top, an_right, an_bottom]
+    statfile = tstatfile1
+    videoaligment = [al_xcentered, al_ycentered, al_fit]
+  end
+  object tfilenameedit1: tfilenameedit
+    frame.button.color = -2147483646
+    frame.button.imagenr = 17
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 156
+    statfile = tstatfile1
+    ondataentered = tfilenameedit1_ondataentered
+    reffontheight = 14
+  end
+  object tbutton1: tbutton
+    taborder = 2
+    bounds_x = 176
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 19
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Play'
+    onexecute = tbutton1_onexecute
+  end
+  object tbutton2: tbutton
+    taborder = 3
+    bounds_x = 230
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 19
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Pause'
+    onexecute = tbutton2_onexecute
+  end
+  object tbutton3: tbutton
+    taborder = 4
+    bounds_x = 285
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 19
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Resume'
+    onexecute = tbutton3_onexecute
+  end
+  object tbutton4: tbutton
+    taborder = 5
+    bounds_x = 341
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 19
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Stop'
+    onexecute = tbutton4_onexecute
+  end
+  object tprogressbar1: tprogressbar
+    frame.dummy = 0
+    taborder = 6
+    bounds_x = 10
+    bounds_y = 256
+    bounds_cx = 512
+    anchors = [an_left, an_right, an_bottom]
+    bar_face.fade_pos.count = 1
+    bar_face.fade_pos.items = (
+      0
+    )
+    bar_face.fade_color.count = 1
+    bar_face.fade_color.items = (
+      -1610612715
+    )
+    bar_face.dummy = 0
+    bar_frame.dummy = 0
+    valuerange = 100
+    value = 0
+    format = '0%'
+  end
+  object wfps: tintegeredit
+    frame.caption = 'FPS'
+    frame.captionpos = cp_left
+    frame.dummy = 0
+    frame.outerframe = (
+      26
+      0
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 450
+    bounds_y = 8
+    bounds_cx = 70
+    anchors = [an_top, an_right]
+    statfile = tstatfile1
+    ondataentered = wfps_ondataentered
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 248
+    top = 72
+  end
+end
