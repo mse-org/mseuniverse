@@ -3,7 +3,7 @@
 {*********************************************************}
 
 unit azvideoplayer;
-{$ifdef FPC}{$mode objfpc}{$h+}{$interfaces corba}{$endif}
+{$ifdef FPC}{$mode objfpc}{$h+}{$goto on}{$interfaces corba}{$endif}
 
 interface
 uses
