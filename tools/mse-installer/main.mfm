@@ -7,13 +7,14 @@ object mainfo: tmainfo
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
-    16
+    15
     806
-    454
+    455
   )
   mainmenu = tmainmenu1
-  options = [fo_main, fo_terminateonclose, fo_maximized, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_main, fo_terminateonclose, fo_freeonclose, fo_maximized, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   caption = 'MSE Installer'
+  icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
   icon.image = {
     00000000020000003000000030000000440C0000000000000000000000000000
@@ -115,19 +116,19 @@ object mainfo: tmainfo
     D9D9D901D3D3D301D2D2D20288585801793F3F01FFFFFF019871710173333301
     6F2E2E016E2E2E01B48B8B01FFFFFF20855656017B43430189535301F0F0F001
     FDFCFC01F8F7F701AB8888016A2B2B0184585801FFFFFF29824747017E494901
-    7F464601835656018B686801C8C8C801FFFFFFFFFFFFFF8E0000000000000000
-    0000000000000000000000000000000000000000000000000000000000000000
-    0000000000000000000000000000000000001F000000000000E0FF0100000000
-    00FCFF010000000080FFFF0100000000E0FFFF0100000000FCFFFF3F00000000
-    FEFFFFFF1F000000FEFFFFFFFF0F0000FCFFFFFFFF3F0000FCFFFFFFFF3F0000
-    FCFFFFFFFF3F0000F8FFFFFFFF3F0000F8FFFFFFFF3F0000F8FFFFFFFF3F0000
-    F8FFFFFFFF3F0000F0FFFFFFFF3F0000F0FFFFFFFF3F0000F0FFFFFFFF3F0000
-    E0FFFFFFFF3F0000E0FFFFFFFF1F0000E0FFFFFFFF1F0000C0FFFFFFFF1F0000
-    C0FFFFFFFF1F0000C0FFFFFFFF1F000080FFFFFFFF0F000080FF1FFEFF0F0000
-    80FF0FFCFF0F000000FF03FEFF0F000000FE01FEFF0F000000F800FEFF070000
-    000000FCDF070000000000F80F000000000000E0070000000000000000000000
-    0000000000000000000000000000000000000000000000000000000000000000
-    000000000000000000000000000000000000000000000000
+    7F464601835656018B686801C8C8C801FFFFFFFFFFFFFF8E000000000000FFFF
+    000000000000FFFF000000000000FFFF000000000000FFFF000000000000FFFF
+    000000000000FFFF000000000000FFFF00001F000000FFFF00E0FF010000FFFF
+    00FCFF010000FFFF80FFFF010000FFFFE0FFFF010000FFFFFCFFFF3F0000FFFF
+    FEFFFFFF1F00FFFFFEFFFFFFFF0FFFFFFCFFFFFFFF3FFFFFFCFFFFFFFF3FFFFF
+    FCFFFFFFFF3FFFFFF8FFFFFFFF3FFFFFF8FFFFFFFF3FFFFFF8FFFFFFFF3FFFFF
+    F8FFFFFFFF3FFFFFF0FFFFFFFF3FFFFFF0FFFFFFFF3FFFFFF0FFFFFFFF3FFFFF
+    E0FFFFFFFF3FFFFFE0FFFFFFFF1FFFFFE0FFFFFFFF1FFFFFC0FFFFFFFF1FFFFF
+    C0FFFFFFFF1FFFFFC0FFFFFFFF1FFFFF80FFFFFFFF0FFFFF80FF1FFEFF0FFFFF
+    80FF0FFCFF0FFFFF00FF03FEFF0FFFFF00FE01FEFF0FFFFF00F800FEFF07FFFF
+    000000FCDF07FFFF000000F80F00FFFF000000E00700FFFF000000000000FFFF
+    000000000000FFFF000000000000FFFF000000000000FFFF000000000000FFFF
+    000000000000FFFF000000000000FFFF000000000000FFFF
   }
   onloaded = mainfo_onloaded
   moduleclassname = 'tmainform'
@@ -135,22 +136,22 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 80
     bounds_cx = 806
-    bounds_cy = 349
+    bounds_cy = 350
     anchors = [an_top, an_bottom]
     taborder = 4
     activepageindex = 0
     tab_captionframe_left = 4
     tab_captionframe_right = 4
-    tab_size = 18
+    tab_size = 17
     object tabinfo: ttabpage
       frame.zoomwidthstep = 1
       frame.zoomheightstep = 1
       taborder = 1
       visible = True
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 806
-      bounds_cy = 331
+      bounds_cy = 333
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&General'
       object appname: tstringedit
@@ -158,51 +159,51 @@ object mainfo: tmainfo
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 9
         bounds_x = 8
-        bounds_y = 5
+        bounds_y = 6
         bounds_cx = 308
-        bounds_cy = 37
+        bounds_cy = 35
         statfile = tstatfile2
-        reffontheight = 14
+        reffontheight = 13
       end
       object appversion: tstringedit
         frame.caption = '&Version'
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         bounds_x = 320
-        bounds_y = 4
+        bounds_y = 5
         bounds_cx = 124
-        bounds_cy = 37
+        bounds_cy = 35
         statfile = tstatfile2
-        reffontheight = 14
+        reffontheight = 13
       end
       object apptagline: tstringedit
         frame.caption = 'Product &tag line'
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 2
         bounds_x = 8
-        bounds_y = 45
+        bounds_y = 46
         bounds_cx = 790
-        bounds_cy = 37
+        bounds_cy = 35
         anchors = [an_left, an_top, an_right]
         statfile = tstatfile1
-        reffontheight = 14
+        reffontheight = 13
       end
       object applogo: timage
         frame.zoomwidthstep = 1
@@ -215,15 +216,15 @@ object mainfo: tmainfo
         frame.localprops = [frl_levelo, frl_leveli]
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 10
         bounds_x = 635
-        bounds_y = 85
+        bounds_y = 86
         bounds_cx = 162
-        bounds_cy = 179
+        bounds_cy = 178
         anchors = [an_top, an_right]
         bitmap.alignment = [al_fit]
       end
@@ -232,15 +233,15 @@ object mainfo: tmainfo
         frame.localprops = [frl_colorclient]
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 3
         bounds_x = 8
-        bounds_y = 87
+        bounds_y = 88
         bounds_cx = 620
-        bounds_cy = 148
+        bounds_cy = 149
         anchors = [an_left, an_top, an_right, an_bottom]
         statfile = tstatfile1
       end
@@ -271,72 +272,72 @@ object mainfo: tmainfo
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 6
         bounds_x = 8
-        bounds_y = 280
+        bounds_y = 284
         bounds_cx = 623
-        bounds_cy = 47
+        bounds_cy = 45
         anchors = [an_left, an_right, an_bottom]
         statfile = tstatfile2
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_shiftreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
-        reffontheight = 14
+        reffontheight = 13
       end
       object appwebsite: tstringedit
         frame.caption = '&Website'
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 5
         bounds_x = 320
-        bounds_y = 239
+        bounds_y = 243
         bounds_cx = 308
-        bounds_cy = 37
+        bounds_cy = 35
         anchors = [an_left, an_right, an_bottom]
         statfile = tstatfile2
-        reffontheight = 14
+        reffontheight = 13
       end
       object companyname: tstringedit
         frame.caption = '&Company name'
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 4
         bounds_x = 8
-        bounds_y = 240
+        bounds_y = 244
         bounds_cx = 308
-        bounds_cy = 37
+        bounds_cy = 35
         anchors = [an_left, an_bottom]
         statfile = tstatfile2
-        reffontheight = 14
+        reffontheight = 13
       end
       object woutputname: tstringedit
         frame.caption = '&Output Filename'
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 1
         bounds_x = 448
-        bounds_y = 3
+        bounds_y = 4
         bounds_cx = 174
-        bounds_cy = 37
+        bounds_cy = 35
         statfile = tstatfile2
-        reffontheight = 14
+        reffontheight = 13
       end
     end
     object tabforms: ttabpage
@@ -344,22 +345,22 @@ object mainfo: tmainfo
       frame.zoomheightstep = 1
       taborder = 2
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 806
-      bounds_cy = 331
+      bounds_cy = 333
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Forms Installation'
       object wforms: twidgetgrid
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 806
-        bounds_cy = 331
+        bounds_cy = 333
         anchors = []
         optionsgrid = [og_colsizing, og_rowsizing, og_rowinserting, og_rowdeleting, og_selectedrowsdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_rowheight, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixrows.count = 1
         fixrows.items = <        
           item
-            height = 26
+            height = 25
             captions.count = 3
             captions.items = <            
               item
@@ -396,7 +397,7 @@ object mainfo: tmainfo
           end>
         datarowheight = 32
         statfile = tstatfile1
-        reffontheight = 14
+        reffontheight = 13
         object wformtype: tdropdownlistedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
@@ -425,7 +426,7 @@ object mainfo: tmainfo
               )
             end>
           dropdown.itemindex = 0
-          reffontheight = 14
+          reffontheight = 13
         end
         object wformdescription: tmemoedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
@@ -477,22 +478,22 @@ object mainfo: tmainfo
       frame.zoomheightstep = 1
       taborder = 5
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 806
-      bounds_cy = 331
+      bounds_cy = 333
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Target Folder'
       object wlocation: twidgetgrid
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 806
-        bounds_cy = 331
+        bounds_cy = 333
         anchors = []
         optionsgrid = [og_colsizing, og_rowsizing, og_rowinserting, og_rowdeleting, og_selectedrowsdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixrows.count = 1
         fixrows.items = <        
           item
-            height = 26
+            height = 25
             captions.count = 2
             captions.items = <            
               item
@@ -519,7 +520,7 @@ object mainfo: tmainfo
           end>
         datarowheight = 23
         statfile = tstatfile1
-        reffontheight = 14
+        reffontheight = 13
         object wmacrofolder: tdropdownlistedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
@@ -539,7 +540,7 @@ object mainfo: tmainfo
           dropdown.cols.items = <          
             item
             end>
-          reffontheight = 14
+          reffontheight = 13
         end
         object wmacrodescription: tstringedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -550,7 +551,7 @@ object mainfo: tmainfo
           bounds_y = 0
           bounds_cx = 630
           bounds_cy = 23
-          reffontheight = 14
+          reffontheight = 13
         end
       end
     end
@@ -559,16 +560,16 @@ object mainfo: tmainfo
       frame.zoomheightstep = 1
       taborder = 3
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 806
-      bounds_cy = 331
+      bounds_cy = 333
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Files to &copy'
       object wfilelist: twidgetgrid
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 806
-        bounds_cy = 331
+        bounds_cy = 333
         anchors = []
         optionsgrid = [og_colsizing, og_rowsizing, og_rowinserting, og_rowdeleting, og_selectedrowsdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -581,7 +582,7 @@ object mainfo: tmainfo
         fixrows.count = 1
         fixrows.items = <        
           item
-            height = 24
+            height = 23
             textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
             captions.count = 9
             captions.items = <            
@@ -680,7 +681,7 @@ object mainfo: tmainfo
           end>
         datarowheight = 22
         statfile = tstatfile2
-        reffontheight = 14
+        reffontheight = 13
         object wfilesource: tfilenameedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
@@ -698,7 +699,7 @@ object mainfo: tmainfo
           bounds_cy = 22
           textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
           ondataentered = wfilesource_ondataentered
-          reffontheight = 14
+          reffontheight = 13
         end
         object wfilestore: tfilenameedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -715,7 +716,7 @@ object mainfo: tmainfo
           bounds_y = 0
           bounds_cx = 138
           bounds_cy = 22
-          reffontheight = 14
+          reffontheight = 13
         end
         object wfolder: tdropdownlistedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -738,7 +739,7 @@ object mainfo: tmainfo
             item
             end>
           onbeforedropdown = wfolder_onbeforedropdown
-          reffontheight = 14
+          reffontheight = 13
         end
         object wfiletarget: tstringedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -751,7 +752,7 @@ object mainfo: tmainfo
           bounds_cy = 22
           onkeydown = wfiletarget_onkeydown
           ondataentered = getsample
-          reffontheight = 14
+          reffontheight = 13
         end
         object wsample: tstringedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -762,7 +763,7 @@ object mainfo: tmainfo
           bounds_y = 0
           bounds_cx = 154
           bounds_cy = 22
-          reffontheight = 14
+          reffontheight = 13
         end
         object wdesktop: tstringedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -774,7 +775,7 @@ object mainfo: tmainfo
           bounds_cx = 106
           bounds_cy = 22
           ondataentered = wdesktop_ondataentered
-          reffontheight = 14
+          reffontheight = 13
         end
         object wprogramgroup: tstringedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -785,7 +786,7 @@ object mainfo: tmainfo
           bounds_y = 0
           bounds_cx = 115
           bounds_cy = 22
-          reffontheight = 14
+          reffontheight = 13
         end
         object wprogramname: tstringedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -796,7 +797,7 @@ object mainfo: tmainfo
           bounds_y = 0
           bounds_cx = 98
           bounds_cy = 22
-          reffontheight = 14
+          reffontheight = 13
         end
         object wiconname: tstringedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -807,7 +808,7 @@ object mainfo: tmainfo
           bounds_y = 0
           bounds_cx = 138
           bounds_cy = 22
-          reffontheight = 14
+          reffontheight = 13
         end
       end
     end
@@ -816,22 +817,22 @@ object mainfo: tmainfo
       frame.zoomheightstep = 1
       taborder = 4
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 806
-      bounds_cy = 331
+      bounds_cy = 333
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Environment Variables'
       object gridenv: twidgetgrid
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 806
-        bounds_cy = 331
+        bounds_cy = 333
         anchors = []
         optionsgrid = [og_rowsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixrows.count = 1
         fixrows.items = <        
           item
-            height = 16
+            height = 15
           end>
         zebra_height = 1
         datacols.count = 1
@@ -844,7 +845,7 @@ object mainfo: tmainfo
             dataclass = tgridmsestringdatalist
           end>
         datarowlinewidth = 0
-        reffontheight = 14
+        reffontheight = 13
         object wenv: tstringedit
           optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
@@ -854,7 +855,7 @@ object mainfo: tmainfo
           bounds_y = 0
           bounds_cx = 801
           optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
-          reffontheight = 14
+          reffontheight = 13
         end
       end
     end
@@ -867,7 +868,7 @@ object mainfo: tmainfo
     taborder = 5
     visible = True
     bounds_x = 0
-    bounds_y = 431
+    bounds_y = 432
     bounds_cx = 806
     bounds_cy = 23
     anchors = [an_bottom]
@@ -876,12 +877,12 @@ object mainfo: tmainfo
       bounds_x = 747
       bounds_y = 2
       bounds_cx = 56
-      bounds_cy = 18
+      bounds_cy = 17
       anchors = [an_top, an_right]
       format = 'hh:nn'
       kind = dtk_time
       value = -Inf
-      reffontheight = 14
+      reffontheight = 13
     end
     object wdate: tdatetimedisp
       frame.dummy = 0
@@ -889,11 +890,11 @@ object mainfo: tmainfo
       bounds_x = 636
       bounds_y = 2
       bounds_cx = 108
-      bounds_cy = 18
+      bounds_cy = 17
       anchors = [an_top, an_right]
       textflags = [tf_xcentered, tf_right, tf_ycentered]
       value = -Inf
-      reffontheight = 14
+      reffontheight = 13
     end
     object wfilename: tstringdisp
       frame.dummy = 0
@@ -901,9 +902,9 @@ object mainfo: tmainfo
       bounds_x = 209
       bounds_y = 3
       bounds_cx = 424
-      bounds_cy = 18
+      bounds_cy = 17
       anchors = [an_left, an_top, an_right]
-      reffontheight = 14
+      reffontheight = 13
     end
     object www: tbutton
       optionswidget = [ow_destroywidgets, ow_autoscale]
@@ -929,15 +930,15 @@ object mainfo: tmainfo
     frame.caption = 'Language List'
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 3
     bounds_x = 207
-    bounds_y = 0
+    bounds_y = 1
     bounds_cx = 310
-    bounds_cy = 76
+    bounds_cy = 75
     optionsgrid = [og_colsizing, og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.width = 25
@@ -996,7 +997,7 @@ object mainfo: tmainfo
     datarowheight = 16
     statfile = tstatfile2
     oncellevent = wlanglist_oncellevent
-    reffontheight = 14
+    reffontheight = 13
     object wlangname: tstringedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
@@ -1006,7 +1007,7 @@ object mainfo: tmainfo
       bounds_y = 0
       bounds_cx = 154
       bounds_cy = 16
-      reffontheight = 14
+      reffontheight = 13
     end
     object wlangdisplay: tstringedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -1017,7 +1018,7 @@ object mainfo: tmainfo
       bounds_y = 0
       bounds_cx = 124
       bounds_cy = 16
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   object btnadd: tbutton
@@ -1917,9 +1918,10 @@ object mainfo: tmainfo
           end        
           item
             caption = '&Exit'
-            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut]
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut, as_localonexecute]
             imagelist = timagelist1
             imagenr = 1
+            onexecute = exitform
             sc = (
               1
               16465
@@ -1933,9 +1935,10 @@ object mainfo: tmainfo
         submenu.items = <        
           item
             caption = '&Help'
-            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut]
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut, as_localonexecute]
             imagelist = timagelist1
             imagenr = 11
+            onexecute = showhelp
             sc = (
               1
               304
@@ -1943,9 +1946,10 @@ object mainfo: tmainfo
           end        
           item
             caption = '&About'
-            state = [as_localcaption, as_localimagelist, as_localimagenr]
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
             imagelist = timagelist1
             imagenr = 13
+            onexecute = showabout
           end>
         caption = '&Help'
         state = [as_localcaption]

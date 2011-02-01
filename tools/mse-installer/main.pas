@@ -10,7 +10,7 @@ uses
  dateutils,classes,msefileutils,strutils,mseimage,mseeditglob,
  msegridsglob,msetextedit,mseformatjpgread,mseformatpngread,mseformatjpgwrite,
  msestringenter,mseformatpngwrite,msestream,mseformatstr,globmodul,
- msegraphedits,msedataimage;
+ msegraphedits,msedataimage,msekeyboard;
 
 type
  tmainfo = class(tmainform)
@@ -99,6 +99,9 @@ type
    procedure btndel_onexecute(const sender: TObject);
    procedure wlanglist_oncellevent(const sender: TObject;
                    var info: celleventinfoty);
+   procedure exitform(const sender: TObject);
+   procedure showabout(const sender: TObject);
+   procedure showhelp(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -421,6 +424,21 @@ begin
   tstatfile1.filename:= concatpath(filedir(tstatfile2.filename),'lang/'+wlangname.value+'.lang','/');
   tstatfile1.readstat;
  end;
+end;
+
+procedure tmainfo.exitform(const sender: TObject);
+begin
+ self.close;
+end;
+
+procedure tmainfo.showabout(const sender: TObject);
+begin
+ showmessage('MSE Installer'+c_linefeed+'Copyright : Sri Wahono (2011)','About MSE Installer');
+end;
+
+procedure tmainfo.showhelp(const sender: TObject);
+begin
+ showmessage('No yet created!');
 end;
 
 end.
