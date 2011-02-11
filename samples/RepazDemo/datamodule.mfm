@@ -1,18 +1,16 @@
 object datamo: tdatamo
   options = [dmo_autoreadstat]
-  left = 58
-  top = 196
+  bounds_cx = 311
+  bounds_cy = 491
+  left = 125
+  top = 177
   moduleclassname = 'tmsedatamodule'
-  size = (
-    311
-    491
-  )
   object tfacemenu: tfacecomp
     template.image.transparentcolor = -2147483642
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -25,8 +23,8 @@ object datamo: tdatamo
   object tfaceactivemenu: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -39,9 +37,9 @@ object datamo: tdatamo
   object tfacebuttontoolbar: tfacecomp
     template.fade_pos.count = 3
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       5.0000000000000000E-0001
-       1.0000000000000000E+0000
+      0
+      0.5
+      1
     )
     template.fade_color.count = 3
     template.fade_color.items = (
@@ -56,8 +54,8 @@ object datamo: tdatamo
     template.image.transparency = -1879048186
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -70,9 +68,9 @@ object datamo: tdatamo
   object tfacegridcol: tfacecomp
     template.fade_pos.count = 3
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       5.9693877551020413E-0001
-       1.0000000000000000E+0000
+      0
+      0.5969387755102
+      1
     )
     template.fade_color.count = 3
     template.fade_color.items = (
@@ -85,9 +83,9 @@ object datamo: tdatamo
   object tfacetabactive: tfacecomp
     template.fade_pos.count = 3
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       4.2346938775510207E-0001
-       1.0000000000000000E+0000
+      0
+      0.4234693877551
+      1
     )
     template.fade_color.count = 3
     template.fade_color.items = (
@@ -101,9 +99,9 @@ object datamo: tdatamo
   object tfaceboolean: tfacecomp
     template.fade_pos.count = 3
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       3.7244897959183676E-0001
-       1.0000000000000000E+0000
+      0
+      0.37244897959184
+      1
     )
     template.fade_color.count = 3
     template.fade_color.items = (
@@ -117,8 +115,8 @@ object datamo: tdatamo
   object tfaceform: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -132,11 +130,11 @@ object datamo: tdatamo
     template.image.options = [bmo_masked]
     template.fade_pos.count = 5
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.7091836734693877E-0001
-       6.2244897959183676E-0001
-       9.6683673469387754E-0001
-       1.0000000000000000E+0000
+      0
+      0.17091836734694
+      0.62244897959184
+      0.96683673469388
+      1
     )
     template.fade_color.count = 5
     template.fade_color.items = (
@@ -268,7 +266,7 @@ object datamo: tdatamo
     button_frame = tframebutton
     button_font.color = 16777215
     button_font.shadow_color = -1610612734
-    button_font.xscale =  1.0000000000000000E+0000
+    button_font.xscale = 1
     button_font.dummy = 0
     framebutton_colorglyph = 130
     framebutton_face = tfaceframebutton
@@ -313,9 +311,9 @@ object datamo: tdatamo
   object tfacegridrow: tfacecomp
     template.fade_pos.count = 3
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       8.6989795918367352E-0001
-       1.0000000000000000E+0000
+      0
+      0.86989795918367
+      1
     )
     template.fade_color.count = 3
     template.fade_color.items = (
@@ -335,10 +333,10 @@ object datamo: tdatamo
   object tfacebutton: tfacecomp
     template.fade_pos.count = 4
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0714285714285714E-0001
-       3.1377551020408162E-0001
-       1.0000000000000000E+0000
+      0
+      0.107142857142857
+      0.31377551020408
+      1
     )
     template.fade_color.count = 4
     template.fade_color.items = (
@@ -391,11 +389,11 @@ object datamo: tdatamo
     }
     template.fade_pos.count = 5
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.5306122448979592E-0001
-       5.0000000000000000E-0001
-       8.2653061224489799E-0001
-       1.0000000000000000E+0000
+      0
+      0.1530612244898
+      0.5
+      0.8265306122449
+      1
     )
     template.fade_color.count = 5
     template.fade_color.items = (
@@ -412,11 +410,11 @@ object datamo: tdatamo
     template.image.options = [bmo_masked]
     template.fade_pos.count = 5
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.8877551020408162E-0001
-       3.6479591836734693E-0001
-       6.8367346938775508E-0001
-       1.0000000000000000E+0000
+      0
+      0.18877551020408
+      0.36479591836735
+      0.68367346938776
+      1
     )
     template.fade_color.count = 5
     template.fade_color.items = (
@@ -431,11 +429,11 @@ object datamo: tdatamo
   object tfacescrollbarhorzend: tfacecomp
     template.fade_pos.count = 5
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.8877551020408162E-0001
-       3.6479591836734693E-0001
-       6.8367346938775508E-0001
-       1.0000000000000000E+0000
+      0
+      0.18877551020408
+      0.36479591836735
+      0.68367346938776
+      1
     )
     template.fade_color.count = 5
     template.fade_color.items = (
@@ -461,8 +459,8 @@ object datamo: tdatamo
   object tfaceframebutton: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -486,11 +484,11 @@ object datamo: tdatamo
     }
     template.fade_pos.count = 5
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.3010204081632654E-0001
-       5.1020408163265307E-0001
-       8.7500000000000000E-0001
-       1.0000000000000000E+0000
+      0
+      0.13010204081633
+      0.51020408163265
+      0.875
+      1
     )
     template.fade_color.count = 5
     template.fade_color.items = (
@@ -516,8 +514,8 @@ object datamo: tdatamo
   object tfacecaptiontab: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -529,9 +527,9 @@ object datamo: tdatamo
   object tfacetab: tfacecomp
     template.fade_pos.count = 3
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       4.2346938775510207E-0001
-       1.0000000000000000E+0000
+      0
+      0.4234693877551
+      1
     )
     template.fade_color.count = 3
     template.fade_color.items = (
@@ -556,10 +554,10 @@ object datamo: tdatamo
     template.image.transparency = -1879048186
     template.fade_pos.count = 4
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       9.1836734693877556E-0002
-       8.2908163265306123E-0001
-       1.0000000000000000E+0000
+      0
+      0.091836734693878
+      0.82908163265306
+      1
     )
     template.fade_color.count = 4
     template.fade_color.items = (

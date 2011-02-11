@@ -526,7 +526,7 @@ object Page1: TraPage
     Area_Width = 190.666666666667
     Area_Height = 258.666666666667
     Report_Chart.DataSource = 'dschart'
-    Report_Chart.ChartType = ctPie
+    Report_Chart.ChartType = ctBar
     Report_Chart.X_ValueDB.DataField = 'x'
     Report_Chart.Y_ValuesDB.count = 2
     Report_Chart.Y_ValuesDB.items = <    
@@ -536,9 +536,9 @@ object Page1: TraPage
         Values.LineCap = cs_round
         Values.LineJoin = js_miter
         Values.LineStyle = ls_Solid
-        Values.LineWidth = 1
+        Values.LineWidth = 0
         Values.FillPattern = stb_none
-        Values.FillColor = -1610612729
+        Values.FillColor = -1610612724
         Values.LabelLegend = 'Barang A'
         Values.Font_Color = -1610612721
         Values.Alignment_Horizontal = ha_Center
@@ -576,8 +576,7 @@ object Page1: TraPage
     Report_Chart.Y_AxisLabel.Alignment_Vertical = va_Top
     Report_Chart.Y_AxisLabel.Ellipse = el_None
     Report_Chart.Y_AxisLabel.TextOptions = []
-    Report_Chart.Shadow_Depth = 0
-    Report_Chart.Shadow_Color = -2147483645
+    Report_Chart.Shadow_Depth = 1
     Report_Chart.ShowPercentValue = [pvShowPercent, pvShowPercentOnly]
     Report_Chart.Legend_LineColor = -1610612727
     Report_Chart.Legend_Size = 18

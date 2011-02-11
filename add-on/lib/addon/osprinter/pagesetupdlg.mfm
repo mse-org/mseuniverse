@@ -7,6 +7,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
   bounds_cymin = 505
   bounds_cxmax = 465
   bounds_cymax = 505
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
@@ -27,9 +29,9 @@ object pagesetupdlgfo: tpagesetupdlgfo
       0
       0
     )
-    bounds_x = 8
-    bounds_y = 6
-    bounds_cx = 450
+    bounds_x = 5
+    bounds_y = 3
+    bounds_cx = 454
     bounds_cy = 155
     object cprinters: tdropdownlistedit
       frame.caption = 'Printer &Name'
@@ -43,7 +45,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
       )
       bounds_x = 7
       bounds_y = 17
-      bounds_cx = 296
+      bounds_cx = 224
       bounds_cy = 38
       dropdown.cols.count = 1
       dropdown.cols.items = <      
@@ -60,10 +62,10 @@ object pagesetupdlgfo: tpagesetupdlgfo
         0
         0
       )
-      taborder = 1
+      taborder = 2
       bounds_x = 7
-      bounds_y = 53
-      bounds_cx = 437
+      bounds_y = 55
+      bounds_cx = 440
       bounds_cy = 95
       optionsgrid = [og_colsizing, og_rowsizing, og_focuscellonenter, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
       datacols.count = 2
@@ -74,8 +76,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
           options = [co_readonly, co_mousemovefocus, co_mouseselect, co_savevalue, co_savestate, co_mousescrollrow]
         end      
         item
-          width = 287
-          options = [co_readonly, co_mousemovefocus, co_mouseselect, co_savevalue, co_savestate, co_mousescrollrow]
+          width = 306
+          options = [co_readonly, co_mousemovefocus, co_mouseselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         end>
       fixrows.count = 1
       fixrows.items = <      
@@ -104,12 +106,29 @@ object pagesetupdlgfo: tpagesetupdlgfo
         63
         2
       )
-      taborder = 2
-      bounds_x = 317
+      taborder = 3
+      bounds_x = 315
       bounds_y = 35
       bounds_cx = 76
       bounds_cy = 16
       ondataentered = boolrawmode_ondataentered
+    end
+    object wdpi: tintegeredit
+      frame.caption = 'DPI'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 235
+      bounds_y = 17
+      bounds_cx = 73
+      bounds_cy = 38
+      value = 72
+      reffontheight = 14
     end
   end
   object btnok: tbutton
@@ -133,9 +152,9 @@ object pagesetupdlgfo: tpagesetupdlgfo
     modalresult = mr_cancel
   end
   object ttabwidget1: ttabwidget
-    bounds_x = 8
-    bounds_y = 168
-    bounds_cx = 450
+    bounds_x = 5
+    bounds_y = 165
+    bounds_cx = 453
     bounds_cy = 298
     taborder = 3
     activepageindex = 0
@@ -144,6 +163,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
     tab_frame.localprops = [frl_fileft, frl_firight]
     tab_size = 18
     object ttabpage1: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
       frame.framei_left = 0
       frame.framei_top = 0
       frame.framei_right = 0
@@ -155,14 +176,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
       visible = True
       bounds_x = 0
       bounds_y = 18
-      bounds_cx = 450
+      bounds_cx = 453
       bounds_cy = 280
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&General'
       object tlayouter1: tlayouter
         bounds_x = 202
         bounds_y = 114
-        bounds_cx = 234
+        bounds_cx = 242
         bounds_cy = 154
         optionslayout = [lao_placex, lao_placey]
         place_mode = wam_center
@@ -175,7 +196,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.colorclient = -1610612730
           frame.localprops = [frl_levelo, frl_leveli, frl_framewidth, frl_colorframe, frl_colorclient]
           frame.dummy = 0
-          bounds_x = 63
+          bounds_x = 67
           bounds_y = 7
           bounds_cx = 107
           bounds_cy = 139
@@ -200,7 +221,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               anchors = [an_left, an_top, an_right]
               font.height = 7
               font.name = 'stf_default'
-              font.xscale =  1.0000000000000000E+0000
+              font.xscale = 1
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
@@ -220,7 +241,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               anchors = [an_left, an_top, an_right]
               font.height = 7
               font.name = 'stf_default'
-              font.xscale =  1.0000000000000000E+0000
+              font.xscale = 1
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
@@ -240,7 +261,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               anchors = [an_left, an_top, an_right]
               font.height = 7
               font.name = 'stf_default'
-              font.xscale =  1.0000000000000000E+0000
+              font.xscale = 1
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
@@ -260,7 +281,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               anchors = [an_left, an_top, an_right]
               font.height = 7
               font.name = 'stf_default'
-              font.xscale =  1.0000000000000000E+0000
+              font.xscale = 1
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
@@ -280,7 +301,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               anchors = [an_left, an_top, an_right]
               font.height = 7
               font.name = 'stf_default'
-              font.xscale =  1.0000000000000000E+0000
+              font.xscale = 1
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
@@ -300,7 +321,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               anchors = [an_left, an_top, an_right]
               font.height = 7
               font.name = 'stf_default'
-              font.xscale =  1.0000000000000000E+0000
+              font.xscale = 1
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
@@ -320,7 +341,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               anchors = [an_left, an_top, an_right]
               font.height = 7
               font.name = 'stf_default'
-              font.xscale =  1.0000000000000000E+0000
+              font.xscale = 1
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
@@ -356,9 +377,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
           bounds_y = 17
           bounds_cx = 74
           bounds_cy = 38
+          value = -Inf
+          valuedefault = -Inf
           formatedit = '0,00'
           formatdisp = '0.00'
-          valuerange =  1.0000000000000000E+0000
+          valuerange = 1
+          valuestart = 0
+          min = -Inf
+          max = 1E+038
           reffontheight = 14
         end
         object cright: trealedit
@@ -375,9 +401,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
           bounds_y = 18
           bounds_cx = 74
           bounds_cy = 38
+          value = -Inf
+          valuedefault = -Inf
           formatedit = '0,00'
           formatdisp = '0.00'
-          valuerange =  1.0000000000000000E+0000
+          valuerange = 1
+          valuestart = 0
+          min = -Inf
+          max = 1E+038
           reffontheight = 14
         end
         object ctop: trealedit
@@ -394,9 +425,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
           bounds_y = 60
           bounds_cx = 74
           bounds_cy = 38
+          value = -Inf
+          valuedefault = -Inf
           formatedit = '0,00'
           formatdisp = '0.00'
-          valuerange =  1.0000000000000000E+0000
+          valuerange = 1
+          valuestart = 0
+          min = -Inf
+          max = 1E+038
           reffontheight = 14
         end
         object cbottom: trealedit
@@ -413,9 +449,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
           bounds_y = 60
           bounds_cx = 74
           bounds_cy = 38
+          value = -Inf
+          valuedefault = -Inf
           formatedit = '0,00'
           formatdisp = '0.00'
-          valuerange =  1.0000000000000000E+0000
+          valuerange = 1
+          valuestart = 0
+          min = -Inf
+          max = 1E+038
           reffontheight = 14
         end
       end
@@ -477,14 +518,19 @@ object pagesetupdlgfo: tpagesetupdlgfo
           0
         )
         taborder = 3
-        bounds_x = 326
+        bounds_x = 334
         bounds_y = 72
         bounds_cx = 110
         bounds_cy = 38
         onchange = updatepaper
+        value = -Inf
+        valuedefault = -Inf
         formatedit = '0,00'
         formatdisp = '0.00'
-        valuerange =  1.0000000000000000E+0000
+        valuerange = 1
+        valuestart = 0
+        min = -Inf
+        max = 1E+038
         reffontheight = 14
       end
       object cpaperwidth: trealedit
@@ -502,9 +548,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
         bounds_cx = 110
         bounds_cy = 38
         onchange = updatepaper
+        value = -Inf
+        valuedefault = -Inf
         formatedit = '0,00'
         formatdisp = '0.00'
-        valuerange =  1.0000000000000000E+0000
+        valuerange = 1
+        valuestart = 0
+        min = -Inf
+        max = 1E+038
         reffontheight = 14
       end
       object cpapers: tdropdownlistedit
@@ -541,7 +592,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
         taborder = 6
         bounds_x = 10
         bounds_y = 6
-        bounds_cx = 428
+        bounds_cx = 436
         bounds_cy = 63
         object callpages: tbooleaneditradio
           color = -2147483645
@@ -612,20 +663,24 @@ object pagesetupdlgfo: tpagesetupdlgfo
             0
           )
           taborder = 4
-          bounds_x = 324
+          bounds_x = 334
           bounds_y = 15
           bounds_cx = 94
           bounds_cy = 21
-          valuerange =  1.0000000000000000E+0000
-          step =  1.0000000000000000E+0000
+          value = 1
+          valuedefault = -Inf
+          valuerange = 1
+          valuestart = 0
+          min = 0
+          max = 100
+          step = 1
           reffontheight = 14
-          val =  1.0000000000000000E+0000
-          mi =  0.0000000000000000E+0000
-          ma =  1.0000000000000000E+0002
         end
       end
     end
     object ttabpage2: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
       frame.framei_left = 0
       frame.framei_top = 0
       frame.framei_right = 0
@@ -636,7 +691,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
       taborder = 2
       bounds_x = 0
       bounds_y = 18
-      bounds_cx = 450
+      bounds_cx = 453
       bounds_cy = 280
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'R&AW Mode'

@@ -196,7 +196,10 @@ var
 begin
  result:=defaultvalue;
  if not libstatus then exit;
- reponse:=getcupsrequest(aprinter);
+ try
+  reponse:=getcupsrequest(aprinter);
+ except
+ end;
  if assigned(reponse) then begin
   try
    attribute:=ippfindattribute(reponse,aname, ipp_tag_zero);

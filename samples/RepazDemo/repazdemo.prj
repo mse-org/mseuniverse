@@ -1,42 +1,6 @@
 [componentpalette]
 order0=0
-order1=36
- 0
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
- 10
- 11
- 12
- 13
- 14
- 15
- 16
- 17
- 18
- 19
- 20
- 21
- 22
- 23
- 24
- 25
- 26
- 27
- 28
- 29
- 30
- 31
- 32
- 33
- 34
- 35
+order1=0
 order2=0
 order3=0
 order4=0
@@ -121,11 +85,8 @@ replacedialog=23
  [replacedialogfo.selectedonly]
  value=0
  [replacedialogfo.replacetext]
- value=ffirsttime
+ value=tmsecairo
  history=10
-  ffirsttime
-  result
-  framefinished
   tmsecairo
   fmsecairo
   gsposcairo
@@ -133,6 +94,9 @@ replacedialog=23
   fstream
   cairopos
   endrender
+  beginrender
+  tcanvas
+  ffilename
  [replacedialogfo]
  stackedunder=
  x=421
@@ -422,6 +386,7 @@ exceptclassnames=1
 exceptignore=1
  0
 settingsfile=
+settingseditor=0
 sigsettings=27
  1,1,T,F
  3,3,T,F
@@ -450,15 +415,12 @@ sigsettings=27
  28,28,T,F
  29,29,T,F
  30,30,T,F
-modulenames=2
+modulenames=1
  MAINFO
- REPAZDESIGNFO
-moduletypes=2
+moduletypes=1
  TMAINFO
- TREPAZDESIGNFO
-modulefiles=2
+modulefiles=1
  /usr/local/msegui/MSEProject/RepazDemo/main.mfm
- /usr/local/msegui/lib/addon/repaz/repazdesign.mfm
 mainfile=${PROJECTNAME}.pas
 targetfile=${PROJECTNAME}${EXEEXT}
 messageoutputfile=
@@ -703,19 +665,26 @@ newfoforms=10
  ${TEMPLATEDIR}default/pascform.mfm
  ${TEMPLATEDIR}default/inheritedform.mfm
 [breakpoints]
-on=1
+on=2
  -1
-path=1
+ -1
+path=2
  /usr/local/msegui/lib/addon/osprinter/psprinter.pas
-line=1
+ /usr/local/msegui/lib/addon/repaz/msecairo.pas
+line=2
  2129
-address=1
- 136931018
-addbkpt=1
+ 152
+address=2
+ 136930042
+ 137021003
+addbkpt=2
  0
-ignore=1
  0
-condition=1
+ignore=2
+ 0
+ 0
+condition=2
+ 
  
 panels=4
  panel2
@@ -781,24 +750,23 @@ files=
 storedir=/usr/local/msegui/apps/ide/compstore/
 filename=
 [layout]
-windowlayout=552
+windowlayout=551
  [mainfo.openfile]
- filenames=1
-  /usr/local/msegui/lib/addon/repaz/repazdesign.pas
+ filenames=0
  filehistory=10
+  /usr/local/msegui/MSEProject/RepazDemo/main.pas
+  /usr/local/msegui/lib/backup/osprinter/cairoprinter.pas
+  /usr/local/msegui/lib/common/printer/msepostscriptprinter.pas
+  /usr/local/msegui/lib/addon/osprinter/i386-win32/osprinters.pas
+  /usr/local/msegui/lib/addon/osprinter/osprinter.pas
+  /root/master/fpc-2.4.2/packages/cairo/src/cairo.pp
+  /usr/local/msegui/lib/addon/repaz/repazpreviewform.pas
   /usr/local/msegui/lib/addon/repaz/repazdesign.pas
-  /usr/local/msegui/lib/addon/aztools/azdbexim.pas
-  /C:/msegui/lib/addon/aztools/azdbexim.pas
-  /C:/msegui/lib/addon/aztools/azdbimport.pas
-  /C:/msegui/lib/addon/aztools/azdbbuttons.pas
-  /C:/msegui/lib/addon/azcsv/azcsv.pas
-  /usr/local/msegui/lib/addon/videoplayer/azvideoplayer.pas
-  /C:/msegui/lib/addon/ffmpeg/swscale.pas
-  /C:/msegui/lib/addon/ffmpeg/rational.pas
-  /C:/msegui/lib/addon/ffmpeg/opt.pas
+  /usr/local/msegui/lib/addon/repaz/repazclasses.pas
+  /home/msegui/lib/addon/repaz/repazpreviewform.pas
  filefilterindex=0
  filefilter="*.pp" "*.pas" "*.inc" "*.dpr"
- filecolwidth=198
+ filecolwidth=174
  [mainfo.basedock]
  splitdir=2
  useroptions=15488
@@ -814,48 +782,52 @@ windowlayout=552
  ncy=0
  x=4
  y=23
- cx=812
- cy=738
+ cx=845
+ cy=745
  rcx=0
  rcy=0
  children=2
-  container,0,16,802,722
-  ,0,0,802,16
+  container,0,16,835,729
+  ,0,0,835,16
  wsize=0
  active=1
  visible=1
  [targetconsolefo]
  splitdir=0
  useroptions=16489
- parent=mainfo.panel3.container
- visible=1
- mdistate=0
+ parent=
+ mdistate=3
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=0
- y=0
- cx=442
- cy=193
+ x=396
+ y=343
+ cx=876
+ cy=283
  rcx=0
  rcy=0
+ wsize=0
+ active=0
+ visible=1
  [threadsfo]
  splitdir=0
  useroptions=16489
- parent=mainfo.panel3.container
- visible=1
+ parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=0
- y=627
- cx=442
- cy=93
+ x=39
+ y=272
+ cx=345
+ cy=272
  rcx=0
  rcy=0
+ wsize=0
+ active=0
+ visible=0
  [memoryfo]
  splitdir=0
  useroptions=16507
@@ -866,10 +838,10 @@ windowlayout=552
  ny=0
  ncx=0
  ncy=0
- x=216
- y=159
- cx=453
- cy=354
+ x=102
+ y=102
+ cx=449
+ cy=350
  rcx=0
  rcy=0
  wsize=0
@@ -893,10 +865,10 @@ windowlayout=552
  ny=0
  ncx=0
  ncy=0
- x=460
- y=273
- cx=564
- cy=210
+ x=164
+ y=504
+ cx=560
+ cy=206
  rcx=0
  rcy=0
  wsize=0
@@ -905,17 +877,17 @@ windowlayout=552
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=4
- y=23
- cx=434
- cy=724
+ x=8
+ y=56
+ cx=1264
+ cy=706
  rcx=0
  rcy=0
  [projecttreefo]
@@ -929,16 +901,16 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=484
- cx=442
- cy=236
+ y=0
+ cx=330
+ cy=161
  rcx=0
  rcy=0
  [projecttreefo.grid]
- propcolwidthref=137
- width0=305
+ propcolwidthref=179
+ width0=141
  sortdescent0=0
- width1=131
+ width1=173
  sortdescent1=0
  sortcol=-1
  col=0
@@ -947,7 +919,7 @@ windowlayout=552
  [stackfo]
  splitdir=0
  useroptions=16489
- parent=mainfo.panel3.container
+ parent=mainfo.panel1.container
  visible=1
  mdistate=0
  nx=0
@@ -955,9 +927,9 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=196
- cx=442
- cy=233
+ y=470
+ cx=409
+ cy=275
  rcx=0
  rcy=0
  [watchpointsfo]
@@ -971,13 +943,13 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=92
- cx=313
- cy=103
+ y=320
+ cx=409
+ cy=147
  rcx=0
  rcy=0
  [watchpointsfo.grid]
- propcolwidthref=182
+ propcolwidthref=288
  width0=16
  sortdescent0=0
  values1=1
@@ -987,7 +959,7 @@ windowlayout=552
  sortdescent1=0
  values2=1
   longword(0xb79d1ac0^)
- width2=124
+ width2=196
  sortdescent2=0
  width4=34
  sortdescent4=0
@@ -998,12 +970,12 @@ windowlayout=552
  sortdescent5=0
  values6=1
   
- width6=48
+ width6=82
  sortdescent6=0
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- parent=mainfo.panel3.container
+ parent=mainfo.panel1.container
  visible=1
  mdistate=0
  nx=0
@@ -1011,9 +983,9 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=432
- cx=442
- cy=192
+ y=0
+ cx=409
+ cy=184
  rcx=0
  rcy=0
  [breakpointsfo.bkptson]
@@ -1021,7 +993,7 @@ windowlayout=552
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- parent=mainfo.panel2.container
+ parent=mainfo.panel4.container
  visible=1
  mdistate=0
  nx=0
@@ -1029,16 +1001,16 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=105
- cx=442
- cy=376
+ y=71
+ cx=340
+ cy=252
  rcx=0
  rcy=0
  [objectinspectorfo.grid]
- propcolwidthref=427
- width0=236
+ propcolwidthref=330
+ width0=158
  sortdescent0=0
- width1=185
+ width1=166
  sortdescent1=0
  [symbolfo]
  splitdir=0
@@ -1080,13 +1052,13 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=0
- cx=313
- cy=89
+ y=187
+ cx=409
+ cy=130
  rcx=0
  rcy=0
  [watchfo.grid]
- propcolwidthref=93
+ propcolwidthref=213
  values0=3
   -1
   -1
@@ -1105,14 +1077,14 @@ windowlayout=552
   0
   0
  values3_ci=-1
- width3=12
+ width3=13
  sortdescent3=0
  values4=3
   0
   0
   0
  values4_ci=-1
- width4=13
+ width4=15
  sortdescent4=0
  [watchfo.watchon]
  [watchfo.expression]
@@ -1129,47 +1101,47 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=607
- cx=802
- cy=95
- rcx=802
- rcy=702
+ y=543
+ cx=835
+ cy=166
+ rcx=835
+ rcy=709
  [componentstorefo]
  splitdir=0
  useroptions=24675
- stackedunder=mainfo.panel1
+ stackedunder=threadsfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=579
- y=257
- cx=445
- cy=354
+ x=8
+ y=58
+ cx=1264
+ cy=702
  rcx=0
  rcy=0
  wsize=0
  active=0
  visible=0
  [componentstorefo.grid]
- propcolwidthref=435
- width0=111
+ propcolwidthref=1254
+ width0=324
  sortdescent0=0
  sortdescent1=0
- width2=112
+ width2=466
  sortdescent2=0
- width3=185
+ width3=533
  sortdescent3=0
  [componentstorefo.storefiledialog]
  filenames=1
   /C:/MSEGUI/apps/ide/compstore/
- lastdir=/usr/local/msegui/MSEProject/Acosys/acosysv4/others/compstore/
+ lastdir=/C:/MSEGUI/apps/ide/compstore/
  filehistory=1
-  /usr/local/msegui/MSEProject/Acosys/acosysv4/others/compstore/test.sto
+  /C:/MSEGUI/apps/ide/compstore/coba.sto
  filefilterindex=0
- filefilter=*.sto
+ filefilter=
  filecolwidth=174
  [componentstorefo.groupfiledialog]
  filenames=1
@@ -1189,7 +1161,7 @@ windowlayout=552
  [componentpalettefo]
  splitdir=0
  useroptions=24683
- parent=mainfo.panel2.container
+ parent=mainfo.panel4.container
  visible=1
  mdistate=0
  nx=0
@@ -1198,12 +1170,12 @@ windowlayout=552
  ncy=0
  x=0
  y=0
- cx=442
- cy=102
+ cx=340
+ cy=68
  rcx=0
  rcy=0
  [componentpalettefo.componentpages]
- activetab=1
+ activetab=0
  [debuggerfo]
  splitdir=0
  useroptions=24683
@@ -1216,8 +1188,8 @@ windowlayout=552
  ncy=0
  x=0
  y=0
- cx=802
- cy=31
+ cx=835
+ cy=38
  rcx=0
  rcy=0
  [sourcefo]
@@ -1231,9 +1203,9 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=34
- cx=802
- cy=668
+ y=44
+ cx=835
+ cy=665
  rcx=0
  rcy=0
  [actionsmo.watchesonact]
@@ -1251,10 +1223,10 @@ windowlayout=552
  ny=0
  ncx=0
  ncy=0
- x=337
- y=295
- cx=273
- cy=207
+ x=350
+ y=297
+ cx=279
+ cy=206
  rcx=0
  rcy=0
  wsize=0
@@ -1271,29 +1243,25 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=0
- cx=442
- cy=720
+ y=326
+ cx=340
+ cy=161
  rcx=0
  rcy=0
  [mainfo.panel4]
- splitdir=3
- useroptions=33586667
- order=2
-  panel2
-  panel3
- activetab=0
- stackedunder=formdesignerfo
+ splitdir=2
+ useroptions=32235
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=824
+ x=665
  y=23
- cx=452
- cy=738
+ cx=350
+ cy=487
  rcx=0
  rcy=0
  wsize=0
@@ -1301,27 +1269,27 @@ windowlayout=552
  visible=1
  [mainfo.panel1]
  splitdir=2
- useroptions=32235
- stackedunder=formdesignerfo
+ useroptions=33586667
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=157
- y=493
- cx=323
- cy=195
+ x=857
+ y=23
+ cx=419
+ cy=745
  rcx=0
  rcy=0
  wsize=0
  active=0
- visible=0
+ visible=1
  [mainfo.panel3]
  splitdir=2
  useroptions=32235
- parent=mainfo.panel4.container
+ parent=mainfo.basedock
  visible=1
  mdistate=0
  nx=0
@@ -1329,56 +1297,106 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=0
- cx=442
- cy=720
+ y=41
+ cx=835
+ cy=0
  rcx=0
  rcy=0
 [edit]
 hintwidth=314
 hintheight=155
-finddtext=createpattern
+finddtext=copyarea
 findhistory=10
+ copyarea
+ colorspace
+ writebinhex
  createpattern
- foriginx
- fgcscale
- alpha
- source_rgb
- sourcergb
- cairo_matrix_t
- cmatrix
- fillchar
- gui_pixmaptoimage
+ reportpost
+ reportps
+ cairo
+ tcairo
+ fcairoprinter
+ area
 findoptions=1
-editpos=3
- 43,13
- 16,79
- 0,4406
+editpos=11
+ 39,4
+ 0,-1073741823
+ 0,-1073741823
+ 0,-1073741823
+ 4,771
+ 0,-1073741823
+ 0,-1073741823
+ 0,-1073741823
+ 0,-1073741823
+ 0,-1073741823
+ 16,3458
 bookmarks0=0
 bookmarks1=0
 bookmarks2=0
-sourcefiles=3
- /usr/local/msegui/lib/addon/repaz/repazdesign.pas
+bookmarks3=0
+bookmarks4=0
+bookmarks5=0
+bookmarks6=0
+bookmarks7=0
+bookmarks8=0
+bookmarks9=0
+bookmarks10=0
+sourcefiles=11
  /usr/local/msegui/MSEProject/RepazDemo/main.pas
  /usr/local/msegui/lib/addon/repaz/repazclasses.pas
-relpaths=3
- ../../lib/addon/repaz/repazdesign.pas
+ /usr/local/msegui/lib/common/kernel/i386-linux/mseguiintf.pas
+ /usr/local/msegui/lib/common/kernel/msegraphics.pas
+ /usr/local/msegui/lib/addon/repaz/msecairo.pas
+ /usr/local/msegui/lib/addon/osprinter/psprinter.pas
+ /usr/local/msegui/lib/common/kernel/msegraphutils.pas
+ /usr/local/msegui/lib/common/kernel/mseguiintf.inc
+ /usr/local/msegui/lib/common/kernel/mseguiglob.pas
+ /usr/local/msegui/lib/common/kernel/msetypes.pas
+ /usr/local/msegui/lib/common/kernel/i386-win32/mseguiintf.pas
+relpaths=11
  main.pas
  ../../lib/addon/repaz/repazclasses.pas
-ismoduletexts=3
+ ../../lib/common/kernel/i386-linux/mseguiintf.pas
+ ../../lib/common/kernel/msegraphics.pas
+ ../../lib/addon/repaz/msecairo.pas
+ ../../lib/addon/osprinter/psprinter.pas
+ ../../lib/common/kernel/msegraphutils.pas
+ ../../lib/common/kernel/mseguiintf.inc
+ ../../lib/common/kernel/mseguiglob.pas
+ ../../lib/common/kernel/msetypes.pas
+ ../../lib/common/kernel/i386-win32/mseguiintf.pas
+ismoduletexts=11
  0
  0
  0
-modules=2
- /usr/local/msegui/lib/addon/repaz/repazdesign.mfm
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+modules=1
  /usr/local/msegui/MSEProject/RepazDemo/main.mfm
-visiblemodules=2
- -1
+visiblemodules=1
  -1
 [sourcefo.tabwidget]
+order=11
+ 0
+ 1
+ 5
+ 4
+ 7
+ 8
+ 9
+ 2
+ 3
+ 10
+ 6
 tabsize=127
 firsttab=0
-index=1
+index=3
 [components]
 [selecteditpage]
 colwidth=191

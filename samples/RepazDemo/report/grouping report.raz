@@ -1049,7 +1049,7 @@ object Page1: TraPage
       end    
       item
         Tabulators.count = 6
-        Tabulators.BackColor = -1610612720
+        Tabulators.BackColor = -1610612714
         Tabulators.Height = 7
         Tabulators.DataSource = 'dsproduct'
         Tabulators.items = <        
@@ -1354,7 +1354,7 @@ object Page1: TraPage
         Border_Bottom_LineStyle = ls_Solid
       end>
     Report_Content.GroupData_DataHeader.count = 6
-    Report_Content.GroupData_DataHeader.BackColor = -1610612723
+    Report_Content.GroupData_DataHeader.BackColor = -1610612715
     Report_Content.GroupData_DataHeader.Height = 7
     Report_Content.GroupData_DataHeader.items = <    
       item
@@ -1371,7 +1371,7 @@ object Page1: TraPage
         TextOptions = []
         Border_Top_Width = 0.5
         Border_Top_Color = -1610612727
-        Border_Top_LineStyle = ls_Dash_Dot
+        Border_Top_LineStyle = ls_Solid
         Border_Left_Width = 0.5
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0

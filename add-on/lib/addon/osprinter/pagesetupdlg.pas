@@ -86,6 +86,7 @@ type
    cdopenbefore: tbooleaneditradio;
    cdopenafter: tbooleaneditradio;
    boolcutpaper: tbooleanedit;
+   wdpi: tintegeredit;
    procedure pagesetupdlgfo_oncreate(const sender: TObject);
    procedure pagesetupdlgfo_ondestroy(const sender: TObject);
    procedure cpapers_ondataentered(const sender: TObject);

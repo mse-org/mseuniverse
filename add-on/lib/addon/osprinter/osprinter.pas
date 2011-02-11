@@ -1142,6 +1142,7 @@ begin
  end;
  dia.boolcutpaper.value:= fcutpaper;
  result:= mr_cancel;
+ dia.wdpi.value:= round(canvas.ppmm*2.54*10);
  if dia.show(true)=mr_ok then begin
   result:= mr_ok;
   fprintername:= dia.cprinters.value;
@@ -1164,6 +1165,7 @@ begin
   end;
   fcutpaper:= dia.boolcutpaper.value;
   if not frawmode then begin
+   canvas.ppmm:= (dia.wdpi.value/2.54)/10;
    if dia.cportrait.value then begin
     fpa_orientation:= pao_portrait;
     canvas.printorientation:= pao_portrait;

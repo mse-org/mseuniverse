@@ -1,7 +1,7 @@
 object mainfo: tmainfo
   optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
-  bounds_x = 39
-  bounds_y = 115
+  bounds_x = 59
+  bounds_y = 101
   bounds_cx = 736
   bounds_cy = 527
   container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
@@ -70,21 +70,21 @@ object mainfo: tmainfo
     frame.caption = 'Repaz files'
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     bounds_x = 6
-    bounds_y = 231
+    bounds_y = 232
     bounds_cx = 130
-    bounds_cy = 231
+    bounds_cy = 230
     anchors = [an_left, an_top, an_bottom]
     cellwidth = 122
     cellheight = 15
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 15
         captions.count = 1
         captions.items = <        
           item
@@ -94,7 +94,7 @@ object mainfo: tmainfo
     optionsgrid = [og_rowsizing, og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
     options = [lvo_readonly, lvo_mousemoving, lvo_drawfocus, lvo_leftbuttonfocusonly, lvo_focusselect, lvo_mouseselect, lvo_casesensitive]
     filelist.options = [flo_sortname]
-    reffontheight = 14
+    reffontheight = 13
   end
   object timage1: timage
     optionsskin = [osk_noskin, osk_container]
@@ -1120,16 +1120,17 @@ object mainfo: tmainfo
     bounds_cy = 514
     anchors = [an_left, an_top, an_right, an_bottom]
     taborder = 3
-    activepageindex = 1
-    tab_size = 18
+    activepageindex = 0
+    tab_size = 17
     object ttabpage1: ttabpage
       frame.zoomwidthstep = 1
       frame.zoomheightstep = 1
       taborder = 1
+      visible = True
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 586
-      bounds_cy = 496
+      bounds_cy = 497
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Chart'
       object TRepazChart1: TRepazChart
@@ -1197,27 +1198,35 @@ object mainfo: tmainfo
         Chart.ChartCaptionStyle.Ellipse = el_None
         Chart.ChartCaptionStyle.TextOptions = []
         left = 6
-        top = 5
+        top = 29
         width = 574
-        height = 485
+        height = 462
         bounds_x = 6
-        bounds_y = 5
+        bounds_y = 29
         bounds_cx = 574
-        bounds_cy = 485
+        bounds_cy = 462
         color = -1610612730
         anchors = [an_left, an_top, an_right, an_bottom]
         hint = 'Double click this to switch chart type...'
+      end
+      object tlabel1: tlabel
+        taborder = 1
+        bounds_x = 8
+        bounds_y = 7
+        bounds_cx = 171
+        bounds_cy = 13
+        caption = 'Double click to change chart type...'
+        reffontheight = 13
       end
     end
     object ttabpage2: ttabpage
       frame.zoomwidthstep = 1
       frame.zoomheightstep = 1
       taborder = 2
-      visible = True
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 586
-      bounds_cy = 496
+      bounds_cy = 497
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Report Designer'
       object tdockpanel1: tdockpanel
@@ -1225,9 +1234,10 @@ object mainfo: tmainfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 586
-        bounds_cy = 496
+        bounds_cy = 497
         anchors = []
         dragdock.tab_options = [tabo_dragsource, tabo_dragdest, tabo_autopopup]
+        dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_tabed]
       end
     end
     object ttabpage3: ttabpage
@@ -1235,9 +1245,9 @@ object mainfo: tmainfo
       frame.zoomheightstep = 1
       taborder = 3
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 586
-      bounds_cy = 496
+      bounds_cy = 497
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Report Preview'
       object tdockpanel2: tdockpanel
@@ -1245,7 +1255,7 @@ object mainfo: tmainfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 586
-        bounds_cy = 496
+        bounds_cy = 497
         anchors = []
         dragdock.tab_options = [tabo_dragsource, tabo_dragdest, tabo_autopopup]
       end
@@ -1446,7 +1456,6 @@ object mainfo: tmainfo
     top = 80
   end
   object transread: tmsesqltransaction
-    Active = True
     Database = tsqlite3connection1
     left = 256
     top = 462
@@ -2107,7 +2116,6 @@ object mainfo: tmainfo
     top = 131
   end
   object tsqlite3connection1: tsqlite3connection
-    Connected = True
     DatabaseName = 'testrepaz.db'
     KeepConnection = True
     Transaction = transread

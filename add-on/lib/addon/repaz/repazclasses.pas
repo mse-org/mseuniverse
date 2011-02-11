@@ -77,6 +77,9 @@ type
  TraPage = class;
  TRepaz = class;
 
+ ireport = interface(inullinterface)
+  function getreport: TRepaz;
+ end;
  templatearty = array of TraReportTemplate;
  
 //event declarations
@@ -641,7 +644,7 @@ type
  TPreviewForm = class;
  TRepazDialog = class;
  
- TRepaz = class(tmsecomponent,istatfile)
+ TRepaz = class(tmsecomponent,istatfile,ireport)
   private
    funits: raunitty;
    fpixelperunit: real;
@@ -690,7 +693,6 @@ type
    fmetarect2objectcount: integer;
    fmetabitmap1objectcount: integer;
    fmetabitmap2objectcount: integer;
-   fdesigndialog: trepazdesigner;
    fpreviewdialog: TPreviewForm;
    dia: TRepazDialog;
 
@@ -736,6 +738,8 @@ type
    procedure statreading;
    procedure statread;
    function getstatvarname: msestring;
+   //ireport
+   function getreport: TRepaz;
    procedure setnewmetareportpage(const apage: TraPage);
    procedure clearmetareport;
    procedure createnewmetareport;
@@ -752,6 +756,7 @@ type
    fosprinter: tosprinter;
    fpsprinter: tpsprinter;
    fmsecairo: tmsecairo;
+   fdesigndialog: trepazdesigner;
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
    procedure freepages;
@@ -859,7 +864,7 @@ type
  
  TRepazDesigner = class(trepazdesignfo)
  private
-  freport: trepaz;
+  fintf: ireport;
  protected
   procedure updatedials; override;
   procedure newpage; override;
@@ -871,7 +876,7 @@ type
   procedure report_onclose; override;
  public
   class function hasresource: boolean; override;
-  constructor create(aowner: tcomponent); override;
+  constructor create(aowner: tcomponent; intf:ireport); reintroduce;
   destructor destroy; override;
   procedure showdesigner;
  end;  
@@ -990,17 +995,18 @@ end;
 
 { TRepazDesigner }
 
-constructor TRepazDesigner.create(aowner: tcomponent);
+constructor TRepazDesigner.create(aowner: tcomponent; intf:ireport);
 begin
- inherited;
- freport:= TRepaz(aowner);
- if freport.designpanel<>nil then begin
+ fintf:= intf;
+ inherited create(aowner);
+ if fintf.getreport.designpanel<>nil then begin
   self.statfile:= nil;
  end; 
 end;
 
 destructor TRepazDesigner.destroy;
 begin
+ release;
  inherited;
 end;
 
@@ -1017,15 +1023,15 @@ var
 begin
  try
   tmpfilename:= '';
-  fpixelperunit:= freport.pixelperunit;
-  cunit.dropdown.itemindex:= ord(freport.reportunit);
+  fpixelperunit:= fintf.getreport.pixelperunit;
+  cunit.dropdown.itemindex:= ord(fintf.getreport.reportunit);
   updatedials;
-  if freport.filename<>'' then begin
-   bo1:= isrelativepath(freport.filename);
+  if fintf.getreport.filename<>'' then begin
+   bo1:= isrelativepath(fintf.getreport.filename);
    if bo1 then begin
-    tmpfilename:= filepath(freport.filename);
+    tmpfilename:= filepath(fintf.getreport.filename);
    end else begin 
-    tmpfilename:= freport.filename;
+    tmpfilename:= fintf.getreport.filename;
    end;
    bo2:= findfile(tmpfilename);
   end else begin
@@ -1036,14 +1042,14 @@ begin
     uc(ord(rcsMsgCreateNewReport)),uc(ord(rcsCapConfirmation)),mr_ok) then begin
     if tmpfilename='' then begin
      tmpfilename:= getcurrentdir + 'repaz1.raz'; 
-     freport.filename:= '../repaz1.raz';
-     frepfilename.value:= freport.filename;
+     fintf.getreport.filename:= '../repaz1.raz';
+     frepfilename.value:= fintf.getreport.filename;
     end else begin
-     freport.filename:= tmpfilename;
-     frepfilename.value:= freport.filename;
+     fintf.getreport.filename:= tmpfilename;
+     frepfilename.value:= fintf.getreport.filename;
     end;
     reportnew;
-    if freport.designpanel<>nil then begin
+    if fintf.getreport.designpanel<>nil then begin
      activate;
     end else begin
      show(true);
@@ -1055,19 +1061,19 @@ begin
    factivepage:= '';
    frepfilename.value:= tmpfilename;
    for int1:=0 to cpaper.widgetcount-1 do begin
-    TraPage(cpaper.widgets[int1]).freport:= freport;
+    TraPage(cpaper.widgets[int1]).freport:= fintf.getreport;
     TraPage(cpaper.widgets[int1]).updatelinks;
     cpaper.widgets[int1].visible:= false;
     if TraPage(cpaper.widgets[int1]).printorder=0 then begin
-     freport.reportunit:= TraPage(cpaper.widgets[int1]).reportunit;
-     freport.pixelperunit:= TraPage(cpaper.widgets[int1]).pixelperunit;
-     cunit.dropdown.itemindex:= ord(freport.reportunit);
+     fintf.getreport.reportunit:= TraPage(cpaper.widgets[int1]).reportunit;
+     fintf.getreport.pixelperunit:= TraPage(cpaper.widgets[int1]).pixelperunit;
+     cunit.dropdown.itemindex:= ord(fintf.getreport.reportunit);
      factivepage:= cpaper.widgets[int1].name;
     end;
    end;
    showpages;
    ttoolbar1.buttons[2].enabled:= true;
-   if freport.designpanel<>nil then begin
+   if fintf.getreport.designpanel<>nil then begin
     activate;
    end else begin
     show(true);
@@ -1081,13 +1087,13 @@ procedure TRepazDesigner.updatedials;
  procedure adjustticks(const adial: tcustomdialcontroller);
  begin
   with adial do begin
-   if freport.reportunit=Milimeter then begin
+   if fintf.getreport.reportunit=Milimeter then begin
     ticks[0].intervalcount:= range/10.0;
     ticks[1].intervalcount:= range/5.0;
     ticks[2].intervalcount:= range/1.0;
     xdisp.format:= '0.0 mm';
     ydisp.format:= '0.0 mm';
-   end else if freport.reportunit=Inch then begin
+   end else if fintf.getreport.reportunit=Inch then begin
     ticks[0].intervalcount:= range; ///16.0;
     ticks[1].intervalcount:= range*2.0;
     ticks[2].intervalcount:= range*16.0;
@@ -1097,17 +1103,17 @@ procedure TRepazDesigner.updatedials;
   end;
  end; 
 begin
- if freport=nil then exit;
+ if fintf.getreport=nil then exit;
  dialh.bounds_cx:= cpaper.bounds_cx;
  dialv.bounds_cy:= cpaper.bounds_cy;
  if dialh.bounds_cx > 0 then begin
-  dialh.dial.range:= dialh.bounds_cx / freport.pixelperunit;
+  dialh.dial.range:= dialh.bounds_cx / fintf.getreport.pixelperunit;
  end;
  if dialv.bounds_cy > 0 then begin
-  dialv.dial.range:= dialv.bounds_cy / freport.pixelperunit;
+  dialv.dial.range:= dialv.bounds_cy / fintf.getreport.pixelperunit;
  end;
- dialh.dial.start:= -cpaper.clientpos.x / freport.pixelperunit;
- dialv.dial.start:= -cpaper.clientpos.y / freport.pixelperunit;
+ dialh.dial.start:= -cpaper.clientpos.x / fintf.getreport.pixelperunit;
+ dialv.dial.start:= -cpaper.clientpos.y / fintf.getreport.pixelperunit;
  adjustticks(dialh.dial);
  adjustticks(dialv.dial);
 end;
@@ -1123,7 +1129,7 @@ begin
   cpaper.loadfromfile(xx);
   for int1:=0 to cpaper.widgetcount-1 do begin
    if cpaper.widgets[int1] is TraPage then begin
-    TraPage(cpaper.widgets[int1]).freport:= freport;
+    TraPage(cpaper.widgets[int1]).freport:= fintf.getreport;
    end;
   end;
   frepfilename.value:= xx;
@@ -1137,7 +1143,7 @@ var
  bo1: boolean;
  tmpfilename: filenamety;
 begin
- ffilename:= freport.filename;
+ ffilename:= fintf.getreport.filename;
  if ffilename<>'' then begin
   bo1:= isrelativepath(ffilename);
   if bo1 then begin
@@ -1154,7 +1160,7 @@ begin
    ffilename:= tfiledialog1.controller.filename;
    if ffilename<>'' then begin
     cpaper.savetofile(ffilename);
-    freport.filename:= ffilename;
+    fintf.getreport.filename:= ffilename;
     frepfilename.value:= ffilename;
     ttoolbar1.buttons[2].enabled:= false;
    end else begin
@@ -1173,7 +1179,7 @@ begin
   cpaper.widgets[int1].free;
  end;
  fnewpage:= TraPage.create(nil);
- fnewpage.freport:= freport;
+ fnewpage.freport:= fintf.getreport;
  fnewpage.parentwidget:= cpaper;
  tcomponent1(fnewpage).setdesigning(true);
  cpaper.insertwidget(fnewpage,makepoint(0,0));
@@ -1181,18 +1187,18 @@ begin
  fnewpage.initnewwidget(1.0);
  fnewpage.visible:= true;
  factivepage:= fnewpage.name;
- frepfilename.value:= freport.filename;
+ frepfilename.value:= fintf.getreport.filename;
  showpages;
 end;
 
 procedure TRepazDesigner.reportpreview;
 begin
- if not (csdesigning in freport.componentstate) then begin
-  freport.reportpreview;
+ if not (csdesigning in fintf.getreport.componentstate) then begin
+  fintf.getreport.reportpreview;
  end else begin
-  tcomponent1(freport).setdesigning(false);
-  tcomponent1(freport).loaded;
-  freport.reportpreview;
+  tcomponent1(fintf.getreport).setdesigning(false);
+  tcomponent1(fintf.getreport).loaded;
+  fintf.getreport.reportpreview;
  end;
 end;
 
@@ -1202,7 +1208,7 @@ var
  bo1: boolean;
  tmpfilename: filenamety;
 begin
- ffilename:= freport.filename;
+ ffilename:= fintf.getreport.filename;
  if ffilename<>'' then begin
   bo1:= isrelativepath(ffilename);
   if bo1 then begin
@@ -1238,7 +1244,7 @@ begin
   fheight:=cpaper.widgets[int1].height;
  end;
  fnewpage:= TraPage.create(nil);
- fnewpage.report:= freport;
+ fnewpage.report:= fintf.getreport;
  fnewpage.parentwidget:= cpaper;
  tcomponent1(fnewpage).setdesigning(true);
  fnewpage.height:= fheight;
@@ -1254,7 +1260,9 @@ end;
 
 procedure TRepazDesigner.report_onclose;
 begin
- 
+ if fintf.getreport.designpanel<>nil then begin
+  //self.release;
+ end; 
 end;
 
 { TraTabulatorItem }
@@ -4185,7 +4193,7 @@ destructor TRepaz.destroy;
 var
  bo1: boolean;
 begin
- inherited;
+ //if fdesigndialog<>nil then fdesigndialog.free;
  bo1:= csdesigning in componentstate;
  if not bo1 then begin
   freeandnil(frootcomp);
@@ -4197,6 +4205,7 @@ begin
  if not bo1 and candestroyevent(tmethod(fondestroyed)) then begin
   fondestroyed(self);
  end;
+ inherited;
 end;
 
 procedure TRepaz.freepages;
@@ -4398,7 +4407,7 @@ begin
  if ra_design in freportactions then begin
   try
    if fdesigndialog=nil then begin
-    fdesigndialog:= trepazdesigner.create(self);
+    fdesigndialog:= trepazdesigner.create(self,ireport(self));
    end;
    fdesigndialog.visible:= true;
    fdesigndialog.freportunit:= self.reportunit;
@@ -4412,6 +4421,9 @@ begin
    isreportfinished:= false;
    result:= true;
   finally
+   if fdesignpanel=nil then begin
+    fdesigndialog.free;
+   end;
   end; 
  end else begin
   showmessage(uc(ord(rcsMsgdesignnotactive)));
@@ -5396,6 +5408,11 @@ end;
 function TRepaz.getstatvarname: msestring;
 begin
  result:= fstatvarname;
+end;
+
+function TRepaz.getreport: TRepaz;
+begin
+ result:= self;
 end;
 
 procedure TRepaz.setnewmetareportpage(const apage: TraPage);

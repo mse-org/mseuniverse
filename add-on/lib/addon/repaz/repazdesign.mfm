@@ -580,6 +580,7 @@ object repazdesignfo: trepazdesignfo
         font.dummy = 0
         textflags = [tf_ycentered]
         valuerange = 1
+        valuestart = 0
         value = -Inf
         reffontheight = 14
       end
@@ -603,6 +604,7 @@ object repazdesignfo: trepazdesignfo
         font.xscale = 1
         font.dummy = 0
         valuerange = 1
+        valuestart = 0
         format = '0.0'
         value = -Inf
         reffontheight = 14

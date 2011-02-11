@@ -57,6 +57,7 @@ type
    ttabpage3: ttabpage;
    tdockpanel1: tdockpanel;
    tdockpanel2: tdockpanel;
+   tlabel1: tlabel;
    procedure showdesign(const sender: TObject);
    procedure repexecute(const sender: TObject);
    procedure reppreview(const sender: TObject);
