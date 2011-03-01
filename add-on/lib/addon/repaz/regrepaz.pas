@@ -36,7 +36,7 @@ interface
 uses
  classes,msecomponenteditors,msedesignintf,sysutils,repazclasses,
  repazdatasources,mseglob,repazpreview,repazevaluator,frmevaldialog,
- repazconsts,repazlookupbuffers,repazchart;
+ repazconsts,repazlookupbuffers,repazchart,universalprinter;
 
 type
  trepazeditor = class(tcomponenteditor)
@@ -64,9 +64,9 @@ end;
 procedure Register;
 begin
  registercomponents('Repaz',[trepaz,trepazdatasources,trepazlookupbuffers,tpreview,
-   trepazevaluator,trepazevaldialog,TRepazChart]); 
+   trepazevaluator,trepazevaldialog,TRepazChart,tuniversalprinter]); 
  registercomponenttabhints(['Repaz'],['Repaz Component','Collection of Repaz datasources','Collection of Repaz mselookupbuffer','Repaz Preview',
-   'Expression evaluator','Dialog for expression evaluator','Repaz Chart']);
+   'Expression evaluator','Dialog for expression evaluator','Repaz Chart','Universal printer component']);
  registercomponenteditor(trepaz,trepazeditor)
 end;
 

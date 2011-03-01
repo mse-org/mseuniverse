@@ -93,7 +93,9 @@ type
 
  pprinter_info_5 = ^printer_info_5;          
 
+
 var     
+
  setworldtransform: function(_para1:hdc; var _para2:xform):winbool; stdcall;
  startdocw: function(_para1:hdc; _para2:pdocinfow):longint; stdcall;
  getdefaultprintera: function(pszbuffer: pchar;pcchbuffer: pdword): boolean; stdcall;
@@ -105,6 +107,16 @@ var
  openprinter: function (pPrinterName: PAnsiChar; var phPrinter: THandle; pDefault: PPrinterDefaultsA): boolean; stdcall;
  closeprinter: function (hPrinter: THandle): boolean; stdcall;
  startdocprinter: function (hPrinter: THandle; Level: DWORD; pDocInfo: Pointer): DWORD; stdcall;
+ StartPagePrinter: function (hPrinter:THANDLE):DWORD; stdcall;
+ EndPagePrinter: function (hprinter:THANDLE):BOOL; stdcall;
+ DocumentProperties: function (
+      hWnd          :HWND;        // handle to parent window
+      hPrinter      :THandle;     // handle to printer object
+      pDeviceName   :Pchar;       // device name
+      pDevModeOutput:PdeviceMode; // modified device mode
+      pDevModeInput :PdeviceMode; // original device mode
+      fMode         :DWORD        // mode options
+      ): Longint; stdcall;
 
 function initgdiprint: boolean;
 
@@ -138,7 +150,10 @@ begin
    'WritePrinter',
    'OpenPrinterA',
    'ClosePrinter',
-   'StartDocPrinterA'
+   'StartDocPrinterA',
+   'StartPagePrinter',
+   'EndPagePrinter',
+   'DocumentPropertiesA'
    ],[
    {$ifndef FPC}@{$endif}@GetDefaultPrinterA,
    {$ifndef FPC}@{$endif}@EnumPrinters,
@@ -146,7 +161,10 @@ begin
    {$ifndef FPC}@{$endif}@writeprinter,
    {$ifndef FPC}@{$endif}@openprinter,
    {$ifndef FPC}@{$endif}@closeprinter,
-   {$ifndef FPC}@{$endif}@startdocprinter
+   {$ifndef FPC}@{$endif}@startdocprinter,
+   {$ifndef FPC}@{$endif}@startpageprinter,
+   {$ifndef FPC}@{$endif}@endpageprinter,
+   {$ifndef FPC}@{$endif}@DocumentProperties
    ]);
   except
    haserror:= true;

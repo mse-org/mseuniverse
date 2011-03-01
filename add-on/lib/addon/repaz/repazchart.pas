@@ -156,7 +156,7 @@ type
    property LineCap: capstylety read fline.capstyle write fline.capstyle;
    property LineJoin: joinstylety read fline.joinstyle write fline.joinstyle;
    property LineStyle: linestylety read fline.linestyle write fline.linestyle;
-   property LineWidth: integer read fline.linewidth write fline.linewidth;
+   property LineWidth: real read fline.linewidth write fline.linewidth;
    property FillPattern: stockbitmapty read ffillpattern write ffillpattern;
    property FillColor: colorty read ffillcolor write ffillcolor;
    property LabelLegend: msestring read flabellegend write flabellegend;

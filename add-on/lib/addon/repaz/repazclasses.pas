@@ -40,20 +40,20 @@ uses
  msestream,msearrayprops,mseguiglob,repazdialog,repazlookupbuffers,
  msedrawtext,msestrings,msedb,db,mseobjectpicker,msestat,msestatfile,
  msepointer,mseevent,mselookupbuffer,mseformatstr,msqldb,repaztypes,
- mseglob,msesys,repazdatasources,typinfo,osprinters,msestockobjects,
- osprinter,psprinter,repazglob,repazpreviewform,msesqldb,repazchart,
+ mseglob,msesys,repazdatasources,typinfo,universalprinter,universalprintertype,msestockobjects,
+ repazglob,repazpreviewform,msesqldb,repazchart,
  variants,msebitmap,mseformatbmpicoread,mseformatjpgread,repazevaluator,mseforms,
- mseformatpngread,mseformatpngwrite,msedock,msecairo,repazdesign;
+ mseformatpngread,mseformatpngwrite,msedock,repazdesign;
  
 const
- frepazversion = '1.0.50'; //x.y.z = Major.Minor.Revision
+ frepazversion = '1.1.0'; //x.y.z = Major.Minor.Revision
  defaultreportactions = [ra_save,ra_print,ra_preview,ra_design,ra_showdialog];
- defaultreppixelpermm = 3;
- defaultreppixelperinch = 76.2;
+ defaultreppixelpermm = (1/25.4)*72;
+ defaultreppixelperinch = 72;
  defaultreppagewidth = 215.9; //mm
  defaultreppageheight = 279.4; //mm
  defaultrepfontsize = 10;
- defaultrepfontname = 'Arial';
+ defaultrepfontname = 'Tahoma';
  defaulttabsheight = 21; //pixel
  defaulttextmargin = 3; //pixel
  tabpickthreshold = 3;
@@ -79,6 +79,8 @@ type
 
  ireport = interface(inullinterface)
   function getreport: TRepaz;
+  procedure previewdestroyed(const avalue:boolean);
+  procedure designdestroyed(const avalue:boolean);
  end;
  templatearty = array of TraReportTemplate;
  
@@ -574,6 +576,7 @@ type
    fprintorder: integer;
    funits: raunitty;
    factivetemplate: integer;
+   freport: TRepaz;
    
    procedure setpageorientation(const avalue: rapageorientationty);
    procedure setpagewidth(const avalue: real);
@@ -582,11 +585,11 @@ type
    procedure updatepapersize;
    procedure updatepagesize(const avalue: real);
    procedure setunits(const avalue: raunitty);
+   procedure setreport(const avalue: TRepaz);
    procedure setpixelperunit(const avalue: real);
    procedure setprintorder(const avalue: integer);
    procedure setprintpage(const avalue: boolean);
   protected
-   freport: TRepaz;
    procedure registerchildwidget(const child: twidget); override;
    procedure unregisterchildwidget(const child: twidget); override;
    procedure sizechanged; override;
@@ -623,7 +626,7 @@ type
    function treefootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
    function lettervalue(indexrow: integer; indexcol:integer): variant;
    function groupnumber(aindex: integer): integer;
-   property report: TRepaz read freport write freport;
+   property report: TRepaz read freport write setreport;
    property pagenum: integer read fpagenum write fpagenum; 
   published
    property PrintThisPage: boolean read fprintpage write setprintpage default true;   
@@ -694,13 +697,18 @@ type
    fmetabitmap1objectcount: integer;
    fmetabitmap2objectcount: integer;
    fpreviewdialog: TPreviewForm;
+   fdesigndialog: trepazdesigner;
    dia: TRepazDialog;
+   fpages: pagerangearty;
+   fpreviewdestroyed,fdesigndestroyed,fwithdialog: boolean;
 
    procedure setprintdestination(const avalue: printdestinationty);
    procedure setunits(const avalue: raunitty);
    procedure setfilename(const avalue: filenamety);
    procedure setdatasources(const avalue: trepazdatasources);
    procedure setlookupbuffers(const avalue: trepazlookupbuffers);
+   procedure setpreviewpanel(const avalue: tdockpanel);
+   procedure setdesignpanel(const avalue: tdockpanel);
    function getevaluator: trepazevaluator;
    function getreppages(index: integer): TraPage;
    procedure setreppages(index: integer; const avalue: TraPage);
@@ -740,8 +748,9 @@ type
    function getstatvarname: msestring;
    //ireport
    function getreport: TRepaz;
+   procedure previewdestroyed(const avalue:boolean);
+   procedure designdestroyed(const avalue:boolean);
    procedure setnewmetareportpage(const apage: TraPage);
-   procedure clearmetareport;
    procedure createnewmetareport;
    procedure addtabtoreport(const ainfo: reptabinfoty);
    procedure addrect1toreport(const ainfo: reprectinfoty);
@@ -753,10 +762,7 @@ type
    function getdatasourcereport(const aname: string): tdatasource;
    function getlookupbufferreport(const aname: string): tcustomlookupbuffer;
   public
-   fosprinter: tosprinter;
-   fpsprinter: tpsprinter;
-   fmsecairo: tmsecairo;
-   fdesigndialog: trepazdesigner;
+   fuprinter: tuniversalprinter;
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
    procedure freepages;
@@ -803,9 +809,7 @@ type
    property reportowner: tcomponent read freportowner write freportowner;
    property printed : boolean read fprinted write fprinted;
    property printing : boolean read fprinting write fprinting;
-   property printeros: tosprinter read fosprinter;
-   property printerps: tpsprinter read fpsprinter;
-   property printercairo: tmsecairo read fmsecairo;
+   property universalprinter: tuniversalprinter read fuprinter;
   published
    property activepage: integer read factivepage write factivepage;
    property Version: string read fversion;
@@ -821,8 +825,8 @@ type
    property LookUpBuffers: trepazlookupbuffers read getlookupbuffers write setlookupbuffers;
    property statfile: tstatfile read fstatfile write setstatfile;
    property statvarname: msestring read fstatvarname write fstatvarname;
-   property previewpanel: tdockpanel read fpreviewpanel write fpreviewpanel;
-   property designpanel: tdockpanel read fdesignpanel write fdesignpanel;
+   property previewpanel: tdockpanel read fpreviewpanel write setpreviewpanel;
+   property designpanel: tdockpanel read fdesignpanel write setdesignpanel;
    property onreportstart: reporteventty read fonreportstart write fonreportstart;
    property onbeforebuild: reporteventty read fonbeforebuild write fonbeforebuild;
    property onafterbuild: reporteventty read fonafterbuild write fonafterbuild;
@@ -839,27 +843,32 @@ type
  end;
 
  TPreviewForm = class(trepazpreviewfo)
+ private
+  fintf: ireport;
   protected
    procedure reportprint(const sender: TObject);
    procedure reportpostscript(const sender: TObject);
    procedure reportcsv(const sender: TObject);
    procedure reportpdf(const sender: TObject);
+   procedure loaded; override;
    class function hasresource: boolean; override;
   public
-   constructor create(aowner: tcomponent); override;
+   constructor create(aowner: tcomponent; intf:ireport); reintroduce;
    destructor destroy; override;
  end;
  
  TRepazDialog = class(trepazdialogfo)
  private
-  freport: TRepaz;
+  fintf: ireport;
  protected
   procedure changesetting(const sender: TObject);
   procedure showdlgagain(const sender: TObject);
   procedure filenameentered(const sender: TObject);
   class function hasresource: boolean; override;
+  procedure dialogloaded; override;
  public
-  constructor create(aowner: tcomponent); override;
+  constructor create(aowner: tcomponent; intf:ireport); reintroduce;
+  destructor destroy; override;
  end;
  
  TRepazDesigner = class(trepazdesignfo)
@@ -888,38 +897,86 @@ uses
 type
  tcustomframe1 = class(tcustomframe);
  tcomponent1 = class(tcomponent);
+ tmsecomponent1 = class(tmsecomponent);
+ twindow1 = class(twindow);
 
-{procedure checkmemoryneeded;
+function stringtopages(const avalue: widestring): pagerangearty;
 var
- pfmetapages: pmetapages;
- fmemsize: real;
+ ar1,ar2: msestringarty;
+ int1,int2: integer;
+ ar3: pagerangearty;
 begin
- pfmetapages:= pmetapages(fmetapages);
- fmemsize:= sizeof(fmetapages)/1048576;
- showmessage(floattostr(fmemsize),'0.00');
-end;}
+ ar1:= nil; //compiler warning
+ ar2:= nil; //compiler warning
+ if avalue = '' then begin
+  result:= nil;
+ end
+ else begin
+  try
+   ar1:= splitstring(avalue,widechar(','));
+   setlength(ar3,length(avalue)); //max
+   int2:= 0;
+   for int1:= high(ar1) downto 0 do begin
+    ar2:= splitstring(ar1[int1],widechar('-'));
+    if high(ar2) = 1 then begin
+     ar3[int2].first:= strtoint(ar2[0]);
+     ar3[int2].last:= strtoint(ar2[1]);
+    end
+    else begin
+     if high(ar2) = 0 then begin
+      ar3[int2].first:= strtoint(ar2[0]);
+      ar3[int2].last:= ar3[int2].first;
+     end
+     else begin
+      raise exception.create('');
+     end;
+    end;
+    with ar3[int2] do begin
+     if (first <= 0) or (last <= 0) or (last < first) then begin
+      raise exception.create('');
+     end;
+     dec(first);
+     dec(last);
+    end;
+    inc(int2);
+   end;
+  except
+   raise exception.create('Invalid pages: '''+avalue+'''.'+lineend+
+                          'Example: ''1-5,7,9,11-13''');
+  end;
+  setlength(ar3,int2);
+  result:= ar3;
+ end;
+end;
+
+function ispageprint(const fpages: pagerangearty; fpagenumber: integer): boolean;
+var
+ int1: integer;
+begin
+ result:= fpages = nil;
+ if not result then begin
+  for int1:= high(fpages) downto 0 do begin
+   with fpages[int1] do begin
+    if (fpagenumber >= first) and (fpagenumber <= last) then begin
+     result:= true;
+     break;
+    end;
+   end;
+  end;
+ end;
+end;
 
 { TPreviewForm }
 
-constructor TPreviewForm.create(aowner: tcomponent);
+constructor TPreviewForm.create(aowner: tcomponent; intf:ireport);
 begin
- inherited;
- if not (csdesigning in self.componentstate) then begin
-  with tmainmenu1.menu.itembyname('mnurep') do begin
-   itembyname('mnurepprint').onexecute:= @reportprint;
-   itembyname('mnureppdf').onexecute:= @reportpdf;
-   itembyname('mnureptext').onexecute:= @reportcsv;
-   itembyname('mnureppostscript').onexecute:= @reportpostscript;
-  end;
-  ttoolbar2.buttons[1].onexecute:=@reportprint;
-  ttoolbar2.buttons[2].onexecute:=@reportcsv;
-  ttoolbar2.buttons[3].onexecute:=@reportpostscript;
-  ttoolbar2.buttons[4].onexecute:=@reportpdf;
- end;
+ fintf:= intf;
+ inherited create(aowner);
 end;
 
 destructor TPreviewForm.destroy;
 begin
+ fintf.previewdestroyed(true);
  inherited;
 end;
 
@@ -930,36 +987,52 @@ end;
 
 procedure TPreviewForm.reportprint(const sender: TObject);
 begin
- TRepaz(owner).reportprint(true); 
+ fintf.getreport.reportprint(true); 
 end;
 
 procedure TPreviewForm.reportpostscript(const sender: TObject);
 begin
- TRepaz(owner).reportpostscript; 
+ fintf.getreport.reportpostscript; 
 end;
 
 procedure TPreviewForm.reportcsv(const sender: TObject);
 begin
- TRepaz(owner).reportcsv; 
+ fintf.getreport.reportcsv; 
 end;
 
 procedure TPreviewForm.reportpdf(const sender: TObject);
 begin
- TRepaz(owner).reportpdf; 
+ fintf.getreport.reportpdf; 
+end;
+
+procedure TPreviewForm.loaded;
+begin
+ inherited;
+ with tmainmenu1.menu.itembyname('mnurep') do begin
+  itembyname('mnurepprint').onexecute:= @reportprint;
+  itembyname('mnureppdf').onexecute:= @reportpdf;
+  itembyname('mnureptext').onexecute:= @reportcsv;
+  itembyname('mnureppostscript').onexecute:= @reportpostscript;
+ end;
+ ttoolbar2.buttons[1].onexecute:=@reportprint;
+ ttoolbar2.buttons[2].onexecute:=@reportcsv;
+ ttoolbar2.buttons[3].onexecute:=@reportpostscript;
+ ttoolbar2.buttons[4].onexecute:=@reportpdf;
 end;
 
 { TRepazDialog }
 
-constructor TRepazDialog.create(aowner: tcomponent);
+constructor TRepazDialog.create(aowner: tcomponent; intf:ireport);
+begin
+ fintf:= intf;
+ inherited create(aowner);
+end;
+
+destructor TRepazDialog.destroy;
 begin
  inherited;
- freport:= TRepaz(aowner);
- btnsetting.onexecute:=@changesetting;
- showagain.ondataentered:=@showdlgagain;
- wfilename.ondataentered:= @filenameentered;
- cactions.dropdown.itemindex:=ord(freport.printdestination);
- cdescription.caption:= cactions.dropdown.cols[1].items[cactions.dropdown.itemindex];
 end;
+
 
 procedure TRepazDialog.changesetting(const sender: TObject);
 begin
@@ -968,11 +1041,11 @@ begin
  end else if cactions.dropdown.itemindex=1 then begin
   showmessage(uc(ord(rcsMsgprevnotconfig)));
  end else if cactions.dropdown.itemindex=2 then begin
-  freport.fosprinter.showdialog;
+  fintf.getreport.fuprinter.showdialog;
  end else if cactions.dropdown.itemindex=3 then begin
-  freport.fpsprinter.showdialog;
+  showmessage(uc(ord(rcsMsgprevnotconfig)));
  end else if cactions.dropdown.itemindex=4 then begin
-  //freport.fmsecairo.showdialog;
+  showmessage(uc(ord(rcsMsgprevnotconfig)));
  end else if cactions.dropdown.itemindex=5 then begin
   showmessage(uc(ord(rcsMsgprevnotconfig)));
  end;
@@ -980,12 +1053,21 @@ end;
 
 procedure TRepazDialog.showdlgagain(const sender: TObject);
 begin
- freport.reportaction:= freport.reportaction - [ra_showdialog];
+ fintf.getreport.reportaction:= fintf.getreport.reportaction - [ra_showdialog];
 end;
 
 procedure TRepazDialog.filenameentered(const sender: TObject);
 begin
- freport.filename:= relativepath(wfilename.value); 
+ fintf.getreport.filename:= relativepath(wfilename.value); 
+end;
+
+procedure TRepazDialog.dialogloaded;
+begin
+ btnsetting.onexecute:=@changesetting;
+ showagain.ondataentered:=@showdlgagain;
+ wfilename.ondataentered:= @filenameentered;
+ cactions.dropdown.itemindex:=ord(fintf.getreport.printdestination);
+ cdescription.caption:= cactions.dropdown.cols[1].items[cactions.dropdown.itemindex];
 end;
 
 class function TRepazDialog.hasresource: boolean;
@@ -1006,7 +1088,7 @@ end;
 
 destructor TRepazDesigner.destroy;
 begin
- release;
+ fintf.designdestroyed(true);
  inherited;
 end;
 
@@ -1061,7 +1143,7 @@ begin
    factivepage:= '';
    frepfilename.value:= tmpfilename;
    for int1:=0 to cpaper.widgetcount-1 do begin
-    TraPage(cpaper.widgets[int1]).freport:= fintf.getreport;
+    TraPage(cpaper.widgets[int1]).report:= fintf.getreport;
     TraPage(cpaper.widgets[int1]).updatelinks;
     cpaper.widgets[int1].visible:= false;
     if TraPage(cpaper.widgets[int1]).printorder=0 then begin
@@ -1260,9 +1342,6 @@ end;
 
 procedure TRepazDesigner.report_onclose;
 begin
- if fintf.getreport.designpanel<>nil then begin
-  //self.release;
- end; 
 end;
 
 { TraTabulatorItem }
@@ -1312,7 +1391,8 @@ destructor TraTabulatorItem.destroy;
 begin
  flookupbuffer:= nil;
  fdatalink.free;
- freeandnil(fbitmap);
+ fbitmap.free;
+ fbitmap:= nil;
  inherited;
 end;
 
@@ -1507,9 +1587,12 @@ begin
 end;
 
 procedure TraTabulatorItem.setbitmap(const Value: tmaskedbitmap);
+var
+ aimage: imagebufferinfoty;
 begin
  if Value<>fbitmap then begin
-  fbitmap.assign(Value);
+  Value.savetoimagebuffer(aimage);
+  fbitmap.loadfromimagebuffer(aimage);
  end;
 end;
 
@@ -1568,7 +1651,8 @@ end;
 
 function TraTabulatorItem.isstorefontname:boolean;
 begin
- result:= ffontname<>defaultrepfontname;
+ result:= true;
+ //result:= ffontname<>defaultrepfontname;
 end;
 
 procedure TraTabulatorItem.getfieldtypes(out apropertynames: stringarty;
@@ -2960,11 +3044,11 @@ end;
 
 destructor TraReportTemplate.destroy;
 begin
- freeandnil(freportheader);
- freeandnil(freportheader2);
- freeandnil(freportfooter);
- freeandnil(fpageheader);
- freeandnil(fpagefooter);
+ freportheader.free;
+ freportheader2.free;
+ freportfooter.free;
+ fpageheader.free;
+ fpagefooter.free;
  fobjectpicker.free;
  fbitmap.free;
  inherited;
@@ -3161,7 +3245,7 @@ begin
       tabulators.paint(acanvas,makerect(fwidgetrect.x,
       fwidgetrect.y+posy,fwidgetrect.cx,tabulators.pixelheight),true,false);
      end else begin
-      exit;
+      break;
      end;
      inc(posy,tabulators.pixelheight);
     end;
@@ -3184,7 +3268,7 @@ begin
       tabulators.paint(acanvas,makerect(fwidgetrect.x,
       fwidgetrect.y+posy,fwidgetrect.cx,tabulators.pixelheight),true,false);
      end else begin
-      exit;
+      break;
      end;
      inc(posy,tabulators.pixelheight);
     end;
@@ -3209,7 +3293,7 @@ begin
       tabulators.paint(acanvas,makerect(fwidgetrect.x,
       fwidgetrect.y+posy,fwidgetrect.cx,tabulators.pixelheight),true,false);
      end else begin
-      exit;
+      break;
      end;
      inc(posy,tabulators.pixelheight);
     end;
@@ -3262,7 +3346,7 @@ begin
       tabulators.paint(acanvas,makerect(fwidgetrect.x,
       posy,fwidgetrect.cx,tabulators.pixelheight),true,areset);
      end else begin
-      exit;
+      break;
      end;
      inc(posy,tabulators.pixelheight);
     end;
@@ -3279,7 +3363,7 @@ begin
       tabulators.paint(acanvas,makerect(fwidgetrect.x,
       fwidgetrect.y+posy,fwidgetrect.cx,tabulators.pixelheight),true,false);
      end else begin
-      exit;
+      break;
      end;
      inc(posy,tabulators.pixelheight);
     end;
@@ -3326,7 +3410,7 @@ begin
      tabulators.yposition:= posy;
      tabulators.paint(canvas,makerect(0,posy,fwidgetrect.cx,tabulators.pixelheight),false,false);
     end else begin
-     exit;
+     break;
     end;
     inc(posy,tabulators.pixelheight);
    end;
@@ -3346,7 +3430,7 @@ begin
      tabulators.yposition:= posy;
      tabulators.paint(canvas,makerect(0,posy,fwidgetrect.cx,tabulators.pixelheight),false,false);
     end else begin
-     exit;
+     break;
     end;
     inc(posy,tabulators.pixelheight);
    end;
@@ -3361,7 +3445,7 @@ begin
      tabulators.yposition:= posy;
      tabulators.paint(canvas,makerect(0,posy,fwidgetrect.cx,tabulators.pixelheight),false,false);
     end else begin
-     exit;
+     break;
     end;
     inc(posy,tabulators.pixelheight);
    end;
@@ -3404,7 +3488,7 @@ begin
      tabulators.yposition:= posy;
      tabulators.paint(canvas,makerect(0,posy,fwidgetrect.cx,tabulators.pixelheight),false,false);
     end else begin
-     exit;
+     break;
     end;
     inc(posy,tabulators.pixelheight);
    end;
@@ -3420,7 +3504,7 @@ begin
      tabulators.yposition:= posy;
      tabulators.paint(canvas,makerect(0,posy,fwidgetrect.cx,tabulators.pixelheight),false,false);
     end else begin
-     exit;
+     break;
     end;
     inc(posy,tabulators.pixelheight);
    end;
@@ -3736,7 +3820,8 @@ begin
  fcansetpapersize:= true;
  fprintpage:= true;
  inherited;
- freport:= TRepaz(aowner);
+ //freport:= TRepaz(aowner);
+ freport:= TRepaz.create(self);
  fwidgetstate1:= fwidgetstate1 + [ws1_nodesignhandles,ws1_nodesigndelete];
  optionswidget:= defaultoptionswidget;
  fpagewidth:= defaultreppagewidth;
@@ -3750,7 +3835,7 @@ begin
 end;
 
 destructor TraPage.destroy;
-begin
+begin 
  inherited;
 end;
 
@@ -4085,6 +4170,14 @@ begin
  end;
 end;
 
+procedure TraPage.setreport(const avalue: TRepaz);
+begin
+ if avalue<>freport then begin
+  //freport:= avalue;
+  setlinkedvar(avalue,tmsecomponent(freport));
+ end;
+end;
+
 procedure TraPage.setpixelperunit(const avalue: real);
 var
  int1: integer;
@@ -4164,6 +4257,8 @@ end;
 constructor TRepaz.create(aowner: tcomponent);
 begin
  inherited;
+ fpreviewdestroyed:= false;
+ fdesigndestroyed:= false;
  fprinting:= false;
  fprinted:= false;
  factivepage:= -1;
@@ -4180,10 +4275,12 @@ begin
  fprintdestination:= pd_Preview;
  freppages:=nil;
  isreportfinished:= false;
- fosprinter:= tosprinter.create(nil);
- fpsprinter:= tpsprinter.create(nil);
- fmsecairo:= tmsecairo.create;
+ fuprinter:= tuniversalprinter.create(self);
  frepazevaluator:= trepazevaluator.createfromreport(self);
+ fpages:= nil;
+ dia:= TRepazDialog.create(self,ireport(self));
+ fdesigndialog:= trepazdesigner.create(nil,ireport(self));
+ fpreviewdialog:= TPreviewForm.create(nil,ireport(self));
  if canevent(tmethod(foncreate)) then begin
   foncreate(self);
  end;
@@ -4193,15 +4290,21 @@ destructor TRepaz.destroy;
 var
  bo1: boolean;
 begin
- //if fdesigndialog<>nil then fdesigndialog.free;
+ if not fpreviewdestroyed then begin
+  fpreviewdialog.free;
+  fpreviewdialog:= nil;
+ end;
+ dia.free;
+ if not fdesigndestroyed then begin
+  fdesigndialog.free;
+  fdesigndialog:= nil;
+ end;
+ clearmetapages(fmetapages);
  bo1:= csdesigning in componentstate;
  if not bo1 then begin
   freeandnil(frootcomp);
-  fosprinter.free;
-  fpsprinter.free;
-  fmsecairo.free;
  end;
- clearmetareport;
+ fpages:= nil;
  if not bo1 and candestroyevent(tmethod(fondestroyed)) then begin
   fondestroyed(self);
  end;
@@ -4216,7 +4319,8 @@ begin
   freppages[int1].free;
  end;
  freppages:= nil;
- freeandnil(frootcomp);
+ frootcomp.free;
+ frootcomp:= nil;
 end;
 
 procedure TRepaz.newvariable(variablename:string;value:variant);
@@ -4382,7 +4486,7 @@ end;
 
 procedure TRepaz.assign(sender: tpersistent);
 begin
- if sender is TRepaz then begin
+ //if sender is TRepaz then begin
   self.foptions:= TRepaz(sender).foptions;
   self.freportactions:= TRepaz(sender).freportactions;
   self.reportunit:= TRepaz(sender).funits;
@@ -4392,9 +4496,9 @@ begin
   self.reportowner:= TRepaz(sender).reportowner;
   self.datasources:= TRepaz(sender).datasources;
   self.lookupbuffers:= TRepaz(sender).lookupbuffers;
- end else begin
+ {end else begin
   inherited;
- end;
+ end;}
 end;
 
 function TRepaz.getevaluator: trepazevaluator;
@@ -4406,24 +4510,17 @@ function TRepaz.reportdesign: boolean;
 begin
  if ra_design in freportactions then begin
   try
-   if fdesigndialog=nil then begin
-    fdesigndialog:= trepazdesigner.create(self,ireport(self));
-   end;
    fdesigndialog.visible:= true;
    fdesigndialog.freportunit:= self.reportunit;
    fdesigndialog.caption:= fdesigncaption;
    if fdesignpanel<>nil then begin
-    tdockform(fdesigndialog).dragdock.dock(fdesignpanel.dragdock,makepoint(
-      fdesignpanel.container.clientwidgetpos.x,
-      fdesignpanel.container.clientwidgetpos.y));
+    fdesigndialog.anchors:= [];
+    fdesigndialog.parentwidget:= fdesignpanel;
    end;
    fdesigndialog.showdesigner; 
    isreportfinished:= false;
    result:= true;
   finally
-   if fdesignpanel=nil then begin
-    fdesigndialog.free;
-   end;
   end; 
  end else begin
   showmessage(uc(ord(rcsMsgdesignnotactive)));
@@ -4440,9 +4537,6 @@ begin
   end;
   if isreportfinished then begin
    try
-    if fpreviewdialog=nil then begin
-     fpreviewdialog:= TPreviewForm.create(self);
-    end;
     fpreviewdialog.caption:= fpreviewcaption;
     fpreviewdialog.tpreview1.metapages:= fmetapages;
     fpreviewdialog.callpage.value:= length(fmetapages);
@@ -4454,15 +4548,14 @@ begin
     if fpreviewpanel=nil then begin
      fpreviewdialog.show(true);
     end else begin
-     tdockform(fpreviewdialog).dragdock.dock(fpreviewpanel.dragdock,makepoint(
-       fpreviewpanel.container.clientwidgetpos.x,
-       fpreviewpanel.container.clientwidgetpos.y));
+     fpreviewdialog.anchors:= [];
+     fpreviewdialog.parentwidget:= fpreviewpanel;
      fpreviewdialog.visible:= true;
      fpreviewdialog.activate;
     end;
     result:= true;
    finally
-    //isreportfinished:= false;
+    isreportfinished:= true;
    end; 
   end;
  end else begin
@@ -4473,9 +4566,10 @@ end;
 
 function TRepaz.reportprint(const withdialog: boolean): boolean;
 var
- int1: integer;
+ int1,int2: integer;
  bo1: boolean;
 begin
+ fwithdialog:= withdialog;
  if ra_print in freportactions then begin
   fprintdestination:= pd_Printer;
   if not isreportfinished then begin
@@ -4483,33 +4577,45 @@ begin
   end;
   if isreportfinished then begin
    if length(fmetapages)>=1 then begin
-    {if not fosprinter.rawmode then begin
-     fosprinter.canvas.ppmm:= fpixelperunit;
-    end;}
-    if funits=Inch then begin
-     fosprinter.pa_paperheight:= (freppages[0].pageheight*fpixelperunit)/defaultreppixelpermm;
-     fosprinter.pa_paperwidth:= (freppages[0].pagewidth*fpixelperunit)/defaultreppixelpermm;
+    {$IFDEF WINDOWS}
+    fuprinter.outputformat:= cai_GDIPrinter;
+    {$ENDIF}
+    {$IFDEF LINUX}
+    fuprinter.outputformat:= cai_CUPS;
+    {$ENDIF}
+    if not fuprinter.rawmode then begin
+     fuprinter.canvas.ppmm:= fpixelperunit;
     end;
-    fosprinter.pa_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
-    fosprinter.pa_marginleft:=0;
-    fosprinter.pa_marginright:=0;
-    fosprinter.pa_margintop:=0;
-    fosprinter.pa_marginbottom:=0;
+    {if funits=Inch then begin
+     fuprinter.page_paperheight:= (freppages[0].pageheight*25.4);
+     fuprinter.page_paperwidth:= (freppages[0].pagewidth*25.4);
+    end else begin
+     fuprinter.page_paperheight:= freppages[0].pageheight;
+     fuprinter.page_paperwidth:= freppages[0].pagewidth;
+    end;
+    fuprinter.page_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
+    fuprinter.page_marginleft:=0;
+    fuprinter.page_marginright:=0;
+    fuprinter.page_margintop:=0;
+    fuprinter.page_marginbottom:=0;}
     bo1:= true;
     if withdialog then begin
-     bo1:=fosprinter.showdialog=mr_ok;
+     bo1:=fuprinter.showdialog=mr_ok;
     end;
     if bo1 then begin
-     fosprinter.title:= removefileext(msefileutils.filename(ffilename));
-     if not fosprinter.rawmode then begin
-      fosprinter.beginprint;
+     fpages:= stringtopages(fuprinter.pagesstring);
+     fuprinter.title:= removefileext(msefileutils.filename(ffilename));
+     if not fuprinter.rawmode then begin
+      fuprinter.beginrender;
       for int1:=0 to length(fmetapages)-1 do begin
-       printmetapages(fosprinter.canvas,fmetapages,int1);
-       if (int1<length(fmetapages)-1) then begin
-        fosprinter.newpage;
+       if ispageprint(fpages,int1) then begin
+        for int2:=1 to fuprinter.copies do begin
+         if (int1>0) or (int2>1) then fuprinter.newpage;
+         printmetapages(fuprinter.canvas,fmetapages,int1);
+        end;
        end;
       end;
-      fosprinter.endprint;
+      fuprinter.endrender;
       fprinted:= true;
       result:= true;
       if canevent(tmethod(fonafterprinting)) then begin
@@ -4586,171 +4692,173 @@ function TRepaz.reportposprint: boolean;
  begin
   //open formatting style
   if (fs_bold in afontstyle) then begin
-   adesttext:= adesttext + fosprinter.esclist[esc_bold];
+   adesttext:= adesttext + fuprinter.esclist[esc_bold];
   end;
   if (fs_italic in afontstyle) then begin
-   adesttext:= adesttext + fosprinter.esclist[esc_italic];
+   adesttext:= adesttext + fuprinter.esclist[esc_italic];
   end;
   if (fs_underline in afontstyle) then begin
-   adesttext:= adesttext + fosprinter.esclist[esc_underline];
+   adesttext:= adesttext + fuprinter.esclist[esc_underline];
   end;
   if (fs_strikeout in afontstyle) then begin
-   adesttext:= adesttext + fosprinter.esclist[esc_strike];
+   adesttext:= adesttext + fuprinter.esclist[esc_strike];
   end;
   //draw text
   adesttext:= adesttext + atext;
   //close format style
   if (fs_bold in afontstyle) then begin
-   adesttext:= adesttext + fosprinter.esclist[esc_not_bold];
+   adesttext:= adesttext + fuprinter.esclist[esc_not_bold];
   end;
   if (fs_italic in afontstyle) then begin
-   adesttext:= adesttext + fosprinter.esclist[esc_not_italic];
+   adesttext:= adesttext + fuprinter.esclist[esc_not_italic];
   end;
   if (fs_underline in afontstyle) then begin
-   adesttext:= adesttext + fosprinter.esclist[esc_not_underline];
+   adesttext:= adesttext + fuprinter.esclist[esc_not_underline];
   end;
   if (fs_strikeout in afontstyle) then begin
-   adesttext:= adesttext + fosprinter.esclist[esc_not_strike];
+   adesttext:= adesttext + fuprinter.esclist[esc_not_strike];
   end; 
  end;
  
 var
- int1,int2,int3,int4,int5: integer;
+ int1,int2,int3,int4,int5,int6: integer;
  textline,splittext: msestringarty;
  columnwidth,columnpos: integer;
  ftext,fborderbottom,fbordertop,emptyspace,oldemptyspace: msestring;
  realborderbottom,realbordertop: boolean;
 begin
  if length(fmetapages)>=1 then begin
-  fosprinter.title:= removefileext(msefileutils.filename(ffilename));
-  fosprinter.beginprint;
+  fuprinter.title:= removefileext(msefileutils.filename(ffilename));
+  fuprinter.beginrender;
   for int1:=0 to length(fmetapages)-1 do begin
-   for int2:=0 to length(fmetapages[int1].tabobjects)-1 do begin
-    textline:= nil;
-    setlength(textline,1);
-    textline[0]:= '';
-    fborderbottom:= '';
-    fbordertop:= '';
-    realborderbottom:= false;
-    realbordertop:= false;
-    emptyspace:= '';
-    oldemptyspace:= '';
-    for int3:=0 to length(fmetapages[int1].tabobjects[int2].tabs)-1 do begin
-     with fmetapages[int1].tabobjects[int2].tabs[int3] do begin
-      columnwidth:= rawwidth;
-      if rawpos=0 then begin
-       columnpos:= rawpos;
-      end else begin
-       if int3=0 then begin
-        columnpos:= rawpos;
-       end else begin
-        columnpos:= rawpos - fmetapages[int1].tabobjects[int2].tabs[int3-1].rawpos -
-          fmetapages[int1].tabobjects[int2].tabs[int3-1].rawwidth;
-       end;
-      end;
-      //set column pos
-      if columnpos>0 then begin
-       fbordertop:= fbordertop + fosprinter.rawfontdata(rawfont) + stringfromchar(' ',columnpos);
-       fborderbottom:= fborderbottom + fosprinter.rawfontdata(rawfont) + stringfromchar(' ',columnpos);
-       for int4:=0 to high(textline) do begin
-        textline[int4]:= textline[int4] + fosprinter.rawfontdata(rawfont) + stringfromchar(' ',columnpos);
-       end;
-       emptyspace:= emptyspace + fosprinter.rawfontdata(rawfont) + stringfromchar(' ',columnpos);
-      end;
-      if borderleft.linewidth>0 then begin
-       inc(columnwidth,1);
-       fbordertop:= fbordertop + fosprinter.rawfontdata(rawfont) + stringfromchar('-',columnwidth);
-      end else begin
-       fbordertop:= fbordertop + fosprinter.rawfontdata(rawfont) + stringfromchar('-',columnwidth);
-      end;
-      if borderright.linewidth>0 then begin
-       inc(columnwidth,1);
-      end;
-      if bordertop.linewidth>0 then begin
-       realbordertop:= true;
-      end;
-      ftext:= text;
-      if ftext='' then begin
-       for int4:=0 to high(textline) do begin
-        textline[int4]:= textline[int4] + fosprinter.rawfontdata(rawfont);
-        emptyspace:= emptyspace + fosprinter.rawfontdata(rawfont);
-        if borderleft.linewidth>0 then begin
-         textline[int4]:= textline[int4] + '|';
-         emptyspace:= emptyspace + '|';
-        end;
-        textline[int4]:= textline[int4] + stringfromchar(' ',rawwidth);
-        emptyspace:= emptyspace + stringfromchar(' ',rawwidth);
-        if borderright.linewidth>0 then begin
-         textline[int4]:= textline[int4] + '|';
-         emptyspace:= emptyspace + '|';
-        end;
-       end;
-      end else begin
-       splittext:= rawalign(ftext,rawwidth,flags);
-       for int5:=0 to high(splittext) do begin
-        if int5=high(textline)+1 then begin
-         setlength(textline,int5+1);
-         textline[int5]:= oldemptyspace;
-        end;
-        textline[int5]:= textline[int5] + fosprinter.rawfontdata(rawfont);
-        emptyspace:= emptyspace + fosprinter.rawfontdata(rawfont);
-        if borderleft.linewidth>0 then begin
-         textline[int5]:= textline[int5] + '|';
-         emptyspace:= emptyspace + '|';
-        end;
-        //print text
-        printformattedtext(textline[int5],splittext[int5],fontstyle);
-        emptyspace:= emptyspace + stringfromchar(' ',length(splittext[int5])+1);
-        if borderright.linewidth>0 then begin
-         textline[int5]:= textline[int5] + '|';
-         emptyspace:= emptyspace + '|';
-        end;        
-       end;
-       if high(splittext)<high(textline) then begin
-        for int5:=high(splittext)+1 to high(textline) do begin
-         if borderleft.linewidth>0 then begin
-          textline[int5]:= textline[int5] + '|';
-         end;
-         printformattedtext(textline[int5],stringfromchar(' ',rawwidth),fontstyle);
-         if borderright.linewidth>0 then begin
-          textline[int5]:= textline[int5] + '|';
+   if ispageprint(fpages,int1) then begin
+    for int6:=1 to fuprinter.copies do begin
+     if (int1>0) or (int6>1) then fuprinter.newpage;
+     for int2:=0 to length(fmetapages[int1].tabobjects)-1 do begin
+      textline:= nil;
+      setlength(textline,1);
+      textline[0]:= '';
+      fborderbottom:= '';
+      fbordertop:= '';
+      realborderbottom:= false;
+      realbordertop:= false;
+      emptyspace:= '';
+      oldemptyspace:= '';
+      for int3:=0 to length(fmetapages[int1].tabobjects[int2].tabs)-1 do begin
+       with fmetapages[int1].tabobjects[int2].tabs[int3] do begin
+        columnwidth:= rawwidth;
+        if rawpos=0 then begin
+         columnpos:= rawpos;
+        end else begin
+         if int3=0 then begin
+          columnpos:= rawpos;
+         end else begin
+          columnpos:= rawpos - fmetapages[int1].tabobjects[int2].tabs[int3-1].rawpos -
+            fmetapages[int1].tabobjects[int2].tabs[int3-1].rawwidth;
          end;
         end;
+        //set column pos
+        if columnpos>0 then begin
+         fbordertop:= fbordertop + fuprinter.rawfontdata(rawfont) + stringfromchar(' ',columnpos);
+         fborderbottom:= fborderbottom + fuprinter.rawfontdata(rawfont) + stringfromchar(' ',columnpos);
+         for int4:=0 to high(textline) do begin
+          textline[int4]:= textline[int4] + fuprinter.rawfontdata(rawfont) + stringfromchar(' ',columnpos);
+         end;
+         emptyspace:= emptyspace + fuprinter.rawfontdata(rawfont) + stringfromchar(' ',columnpos);
+        end;
+        if borderleft.linewidth>0 then begin
+         inc(columnwidth,1);
+         fbordertop:= fbordertop + fuprinter.rawfontdata(rawfont) + stringfromchar('-',columnwidth);
+        end else begin
+         fbordertop:= fbordertop + fuprinter.rawfontdata(rawfont) + stringfromchar('-',columnwidth);
+        end;
+        if borderright.linewidth>0 then begin
+         inc(columnwidth,1);
+        end;
+        if bordertop.linewidth>0 then begin
+         realbordertop:= true;
+        end;
+        ftext:= text;
+        if ftext='' then begin
+         for int4:=0 to high(textline) do begin
+          textline[int4]:= textline[int4] + fuprinter.rawfontdata(rawfont);
+          emptyspace:= emptyspace + fuprinter.rawfontdata(rawfont);
+          if borderleft.linewidth>0 then begin
+           textline[int4]:= textline[int4] + '|';
+           emptyspace:= emptyspace + '|';
+          end;
+          textline[int4]:= textline[int4] + stringfromchar(' ',rawwidth);
+          emptyspace:= emptyspace + stringfromchar(' ',rawwidth);
+          if borderright.linewidth>0 then begin
+           textline[int4]:= textline[int4] + '|';
+           emptyspace:= emptyspace + '|';
+          end;
+         end;
+        end else begin
+         splittext:= rawalign(ftext,rawwidth,flags);
+         for int5:=0 to high(splittext) do begin
+          if int5=high(textline)+1 then begin
+           setlength(textline,int5+1);
+           textline[int5]:= oldemptyspace;
+          end;
+          textline[int5]:= textline[int5] + fuprinter.rawfontdata(rawfont);
+          emptyspace:= emptyspace + fuprinter.rawfontdata(rawfont);
+          if borderleft.linewidth>0 then begin
+           textline[int5]:= textline[int5] + '|';
+           emptyspace:= emptyspace + '|';
+          end;
+          //print text
+          printformattedtext(textline[int5],splittext[int5],fontstyle);
+          emptyspace:= emptyspace + stringfromchar(' ',length(splittext[int5])+1);
+          if borderright.linewidth>0 then begin
+           textline[int5]:= textline[int5] + '|';
+           emptyspace:= emptyspace + '|';
+          end;        
+         end;
+         if high(splittext)<high(textline) then begin
+          for int5:=high(splittext)+1 to high(textline) do begin
+           if borderleft.linewidth>0 then begin
+            textline[int5]:= textline[int5] + '|';
+           end;
+           printformattedtext(textline[int5],stringfromchar(' ',rawwidth),fontstyle);
+           if borderright.linewidth>0 then begin
+            textline[int5]:= textline[int5] + '|';
+           end;
+          end;
+         end;
+        end;
+        if borderbottom.linewidth>0 then begin
+         realborderbottom:= true;
+         fborderbottom:= fborderbottom + fuprinter.rawfontdata(rawfont) + stringfromchar('-',columnwidth);
+        end else begin
+         fborderbottom:= fborderbottom + fuprinter.rawfontdata(rawfont) + stringfromchar(' ',columnwidth);
+        end;      
+       end;
+       oldemptyspace:= emptyspace;
+       emptyspace:= '';
+      end;
+      if realbordertop then begin
+       fuprinter.writeln(fbordertop);
+      end;
+      if high(textline)>=0 then begin
+       fuprinter.writelines(textline);
+      end;
+      if realborderbottom then begin
+       fuprinter.writeln(fborderbottom);
+      end;
+      int3:= fmetapages[int1].tabobjects[int2].rawemptyrow;
+      if int3>0 then begin
+       for int4:=1 to int3 do begin
+        fuprinter.writeln('');
        end;
       end;
-      if borderbottom.linewidth>0 then begin
-       realborderbottom:= true;
-       fborderbottom:= fborderbottom + fosprinter.rawfontdata(rawfont) + stringfromchar('-',columnwidth);
-      end else begin
-       fborderbottom:= fborderbottom + fosprinter.rawfontdata(rawfont) + stringfromchar(' ',columnwidth);
-      end;      
-     end;
-     oldemptyspace:= emptyspace;
-     emptyspace:= '';
-    end;
-    if realbordertop then begin
-     fosprinter.writeln(fbordertop);
-    end;
-    if high(textline)>=0 then begin
-     fosprinter.writelines(textline);
-    end;
-    if realborderbottom then begin
-     fosprinter.writeln(fborderbottom);
-    end;
-    int3:= fmetapages[int1].tabobjects[int2].rawemptyrow;
-    if int3>0 then begin
-     for int4:=1 to int3 do begin
-      fosprinter.writeln('');
      end;
     end;
-   end;
-   if not fosprinter.raw_continuespage then begin
-    fosprinter.newpage;   
    end;
   end;
   fprinted:= true;
   result:= true;
-  fosprinter.endprint;
+  fuprinter.endrender;
   if canevent(tmethod(fonafterprinting)) then begin
    fonafterprinting(self);
   end;
@@ -4846,30 +4954,31 @@ begin
      tfiledialog1.free;
      exit;
     end;
-    fmsecairo.outputfilename:= xx;
+    fuprinter.outputfilename:= xx;
    end else begin
     tfiledialog1.free;
     exit;
    end;
    tfiledialog1.free;
-   fmsecairo.canvas.ppmm:= (1/(25.4/72));
-   fmsecairo.height:= freppages[0].pageheight;
-   fmsecairo.width:= freppages[0].pagewidth;
-   fmsecairo.orientation:= ord(freppages[0].PageOrientation);
-   {fmsecairo.pa_marginleft:=0;
-   fmsecairo.pa_marginright:=0;
-   fmsecairo.pa_margintop:=0;
-   fmsecairo.pa_marginbottom:=0;}
+   fuprinter.canvas.ppmm:= fpixelperunit;
+   fuprinter.page_height:= freppages[0].pageheight;
+   fuprinter.page_width:= freppages[0].pagewidth;
+   fuprinter.page_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
+   {fmsecairo.page_marginleft:=0;
+   fmsecairo.page_marginright:=0;
+   fmsecairo.page_margintop:=0;
+   fmsecairo.page_marginbottom:=0;}
+   fuprinter.outputformat:= cai_PDF;
    if length(fmetapages)>=1 then begin
-    fmsecairo.beginrender;
+    fuprinter.beginrender;
     for int1:=0 to length(fmetapages)-1 do begin
-     printmetapages(fmsecairo.canvas,fmetapages,int1);
+     printmetapages(fuprinter.canvas,fmetapages,int1);
      if (int1<length(fmetapages)-1) then begin
-      tmsecairocanvas(fmsecairo.canvas).nextpage;
+      tuniversalprintercanvas(fuprinter.canvas).nextpage;
      end;
     end;
     result:= true;
-    fmsecairo.endrender;
+    fuprinter.endrender;
    end;
   end;
  end else begin
@@ -4906,32 +5015,31 @@ begin
      result:= false;
      exit;
     end;
-    fpsprinter.outputfilename:= xx;
+    fuprinter.outputfilename:= xx;
    end else begin
     tfiledialog1.free;
     exit;
    end;
    tfiledialog1.free;
-   fpsprinter.canvas.imagecachesize:= 0;
-   fpsprinter.canvas.imagecachemaxitemsize:=0;
-   fpsprinter.canvas.ppmm:= 3; //(1/(25.4/72));
-   fpsprinter.pa_height:= freppages[0].pageheight;
-   fpsprinter.pa_width:= freppages[0].pagewidth;
-   fpsprinter.pa_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
-   fpsprinter.pa_marginleft:=0;
-   fpsprinter.pa_marginright:=0;
-   fpsprinter.pa_margintop:=0;
-   fpsprinter.pa_marginbottom:=0;
+   fuprinter.outputformat:= cai_PostScript;
+   fuprinter.canvas.ppmm:= fpixelperunit;
+   fuprinter.page_height:= freppages[0].pageheight;
+   fuprinter.page_width:= freppages[0].pagewidth;
+   fuprinter.page_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
+   fuprinter.page_marginleft:=0;
+   fuprinter.page_marginright:=0;
+   fuprinter.page_margintop:=0;
+   fuprinter.page_marginbottom:=0;
    if length(fmetapages)>=1 then begin
-    fpsprinter.beginprint;
+    fuprinter.beginrender;
     for int1:=0 to length(fmetapages)-1 do begin
-     printmetapages(fpsprinter.canvas,fmetapages,int1);
+     printmetapages(fuprinter.canvas,fmetapages,int1);
      if (int1<length(fmetapages)-1) then begin
-      fpsprinter.canvas.nextpage;
+      fuprinter.canvas.nextpage;
      end;
     end;
     result:= true;
-    fpsprinter.endprint;
+    fuprinter.endrender;
    end;
   end;
  end else begin
@@ -4945,7 +5053,6 @@ begin
  if usedialog then begin
   if ra_showdialog in freportactions then begin
    try
-    dia:= TRepazDialog.create(self);
     dia.cactions.dropdown.itemindex:= ord(fprintdestination);
     if isrelativepath(ffilename) then begin
      dia.wfilename.value:= filepath(ffilename);
@@ -4955,15 +5062,14 @@ begin
     if dia.show(true)=mr_ok then begin
      printdestination:= printdestinationty(dia.cactions.dropdown.itemindex);
      if printdestination=pd_Design then begin
-      //dia.close;
       result:= reportdesign;
      end else begin
-      //dia.close;
       result:= reportexec;
      end;
     end;
    finally
-    dia.free;
+    //dia.free;
+    //dia:= nil;
    end; 
   end else begin
    result:= reportexec;
@@ -5063,10 +5169,8 @@ end;
 procedure TRepaz.setdatasources(const avalue: trepazdatasources);
 begin
  if avalue<>fdatasourcesreport then begin
-  fdatasourcesreport:= avalue;
-  frepazevaluator.fevaldatasource:= avalue;
-  //setlinkedvar(avalue,tmsecomponent(fdatasourcesreport));
-  //setlinkedvar(avalue,tmsecomponent(frepazevaluator.fevaldatasource));
+  setlinkedvar(avalue,tmsecomponent(fdatasourcesreport));
+  setlinkedvar(avalue,tmsecomponent(frepazevaluator.fevaldatasource));
  end;
 end;
 
@@ -5074,6 +5178,22 @@ procedure TRepaz.setlookupbuffers(const avalue: trepazlookupbuffers);
 begin
  if flookupbufferreport<>avalue then begin
   setlinkedvar(avalue,tmsecomponent(flookupbufferreport));
+ end;
+end;
+
+procedure TRepaz.setpreviewpanel(const avalue: tdockpanel);
+begin
+ if avalue<>fpreviewpanel then begin
+  setlinkedvar(avalue,fpreviewpanel);
+  //fpreviewpanel:= avalue;
+ end;
+end;
+
+procedure TRepaz.setdesignpanel(const avalue: tdockpanel);
+begin
+ if avalue<>fdesignpanel then begin
+  setlinkedvar(avalue,fdesignpanel);
+  //fdesignpanel:= avalue;
  end;
 end;
 
@@ -5350,48 +5470,49 @@ end;
 procedure TRepaz.dostatread(const reader: tstatreader);
 begin
  with reader do begin
-  fosprinter.rawmode:= readboolean('OSPrinter_RawMode',fosprinter.rawmode);
-  fosprinter.raw_printercode:= trawprintercommand(readinteger('OSPrinter_PrinterCode',ord(fosprinter.raw_printercode)));
-  fosprinter.raw_ejectonfinish:= readboolean('OSPriter_EjectOnFinished',fosprinter.raw_ejectonfinish);
-  fosprinter.raw_continuespage:= readboolean('OSPrinter_ContinuesPage',fosprinter.raw_continuespage);
-  fosprinter.printername:= readstring('OSPrinter_PrinterName',fosprinter.printername);
-  fosprinter.pa_paperwidth:= readreal('OSPrinter_PaperWidth',fosprinter.pa_paperwidth);
-  fosprinter.pa_paperheight:= readreal('OSPrinter_PaperHeight',fosprinter.pa_paperheight);
-  fosprinter.pa_orientation:= osprinter.pageorientationty(readinteger('OSPrinter_Orientation',
-             ord(fosprinter.pa_orientation),0,ord(high(pageorientationty))));
-  fosprinter.pa_marginleft:= readreal('OSPrinter_MarginLeft',fosprinter.pa_marginleft);
-  fosprinter.pa_margintop:= readreal('OSPrinter_Margintop',fosprinter.pa_margintop);
-  fosprinter.pa_marginright:= readreal('OSPrinter_MarginRight',fosprinter.pa_marginright);
-  fosprinter.pa_marginbottom:= readreal('OSPrinter_MarginBottom',fosprinter.pa_marginbottom);
-  fosprinter.canvas.colorspace:= colorspacety(readinteger('OSPrinter_ColorSpace',
-                           ord(fosprinter.canvas.colorspace),0,ord(high(colorspacety))));
-  fosprinter.raw_cutpaperonfinish:= readboolean('OSPrinter_CutPaperOnFinish',fosprinter.raw_cutpaperonfinish);
-  fosprinter.raw_draweraction:= draweractionty(readinteger('OSPrinter_DrawerAction',ord(fosprinter.raw_draweraction)));
+  fuprinter.printtextasgraphic:= readboolean('OSPrinter_PrintTextAsGraphic',fuprinter.printtextasgraphic);
+  fuprinter.antialias:= readboolean('OSPrinter_AntiAlias',fuprinter.antialias);
+  fuprinter.rawmode:= readboolean('OSPrinter_RawMode',fuprinter.rawmode);
+  fuprinter.raw_printercode:= trawprintercommand(readinteger('OSPrinter_PrinterCode',ord(fuprinter.raw_printercode)));
+  fuprinter.raw_continuespage:= readboolean('OSPrinter_ContinuesPage',fuprinter.raw_continuespage);
+  fuprinter.printername:= readstring('OSPrinter_PrinterName',fuprinter.printername);
+  fuprinter.page_paperwidth:= readreal('OSPrinter_PaperWidth',fuprinter.page_paperwidth);
+  fuprinter.page_paperheight:= readreal('OSPrinter_PaperHeight',fuprinter.page_paperheight);
+  fuprinter.page_orientation:= pageorientationty(readinteger('OSPrinter_Orientation',
+             ord(fuprinter.page_orientation),0,ord(high(pageorientationty))));
+  fuprinter.page_marginleft:= readreal('OSPrinter_MarginLeft',fuprinter.page_marginleft);
+  fuprinter.page_margintop:= readreal('OSPrinter_Margintop',fuprinter.page_margintop);
+  fuprinter.page_marginright:= readreal('OSPrinter_MarginRight',fuprinter.page_marginright);
+  fuprinter.page_marginbottom:= readreal('OSPrinter_MarginBottom',fuprinter.page_marginbottom);
+  fuprinter.raw_cutpaperonfinish:= readboolean('OSPrinter_CutPaperOnFinish',fuprinter.raw_cutpaperonfinish);
+  fuprinter.raw_draweraction:= draweractionty(readinteger('OSPrinter_DrawerAction',ord(fuprinter.raw_draweraction)));
   fprintdestination:= printdestinationty(readinteger('PrintDestination',ord(fprintdestination)));
   ffilename:= readstring('Report_FileName',ffilename);
+  fuprinter.raw_linesperpage:= readinteger('OSPrinter_LinesPerPage',fuprinter.raw_linesperpage);
  end;
 end;
 
 procedure TRepaz.dostatwrite(const writer: tstatwriter);
 begin
  with writer do begin
-  writeboolean('OSPrinter_RawMode',fosprinter.rawmode);
-  writeinteger('OSPrinter_PrinterCode',ord(fosprinter.raw_printercode));
-  writeboolean('OSPrinter_EjectOnFinished',fosprinter.raw_ejectonfinish);
-  writeboolean('OSPrinter_ContinuesPage',fosprinter.raw_continuespage);
-  writestring('OSPrinter_PrinterName',fosprinter.printername);
-  writereal('OSPrinter_PaperWidth',fosprinter.pa_paperwidth);
-  writereal('OSPrinter_PaperHeight',fosprinter.pa_paperheight);
-  writeinteger('OSPrinter_Orientation',ord(fosprinter.pa_orientation));
-  writereal('OSPrinter_MarginLeft',fosprinter.pa_marginleft);
-  writereal('OSPrinter_MarginTop',fosprinter.pa_margintop);
-  writereal('OSPrinter_MarginRight',fosprinter.pa_marginright);
-  writereal('OSPrinter_MarginBottom',fosprinter.pa_marginbottom);
-  writeinteger('OSPrinter_ColorSpace',ord(fosprinter.canvas.colorspace));
-  writeboolean('OSPrinter_CutPaperOnFinish',fosprinter.raw_cutpaperonfinish);
-  writeinteger('OSPrinter_DrawerAction',ord(fosprinter.raw_draweraction));
+  writeboolean('OSPrinter_PrintTextAsGraphic',fuprinter.printtextasgraphic);
+  writeboolean('OSPrinter_AntiAlias',fuprinter.antialias);
+  writeboolean('OSPrinter_RawMode',fuprinter.rawmode);
+  writeinteger('OSPrinter_PrinterCode',ord(fuprinter.raw_printercode));
+  writeboolean('OSPrinter_ContinuesPage',fuprinter.raw_continuespage);
+  writestring('OSPrinter_PrinterName',fuprinter.printername);
+  writereal('OSPrinter_PaperWidth',fuprinter.page_paperwidth);
+  writereal('OSPrinter_PaperHeight',fuprinter.page_paperheight);
+  writeinteger('OSPrinter_Orientation',ord(fuprinter.page_orientation));
+  writereal('OSPrinter_MarginLeft',fuprinter.page_marginleft);
+  writereal('OSPrinter_MarginTop',fuprinter.page_margintop);
+  writereal('OSPrinter_MarginRight',fuprinter.page_marginright);
+  writereal('OSPrinter_MarginBottom',fuprinter.page_marginbottom);
+  writeboolean('OSPrinter_CutPaperOnFinish',fuprinter.raw_cutpaperonfinish);
+  writeinteger('OSPrinter_DrawerAction',ord(fuprinter.raw_draweraction));
   writeinteger('PrintDestination',ord(fprintdestination));
   writestring('Report_FileName',ffilename);
+  writeinteger('OSPrinter_LinesPerPage',fuprinter.raw_linesperpage);
  end;
 end;
 
@@ -5415,6 +5536,17 @@ begin
  result:= self;
 end;
 
+procedure TRepaz.previewdestroyed(const avalue:boolean);
+begin
+ fpreviewdestroyed:= avalue;
+end;
+
+procedure TRepaz.designdestroyed(const avalue:boolean);
+begin
+ fdesigndestroyed:= avalue;
+ //fdesigndialog:= nil;
+end;
+
 procedure TRepaz.setnewmetareportpage(const apage: TraPage);
 begin
  inc(fmetapagecount);
@@ -5428,31 +5560,9 @@ begin
  fmetabitmap2objectcount:= 0;
 end;
 
-procedure TRepaz.clearmetareport;
-var
- int1,int2: integer;
-begin
- for int1:=length(fmetapages)-1 downto 0 do begin
-  if fmetapages[int1].chartobjects<>nil then begin
-   fmetapages[int1].chartobjects.destroy;
-  end;
-  for int2:=length(fmetapages[int1].bitmap1objects)-1 downto 0 do begin
-   freeimage(fmetapages[int1].bitmap1objects[int2].bitmap.image);
-   freeimage(fmetapages[int1].bitmap1objects[int2].bitmap.mask);
-  end;
-  for int2:=length(fmetapages[int1].bitmap2objects)-1 downto 0 do begin
-   freeimage(fmetapages[int1].bitmap2objects[int2].bitmap.image);
-   freeimage(fmetapages[int1].bitmap2objects[int2].bitmap.mask);
-  end;
-  freeimage(fmetapages[int1].bitmap.image);
-  freeimage(fmetapages[int1].bitmap.mask);
- end;
- fmetapages:=nil;
-end;
-
 procedure TRepaz.createnewmetareport;
 begin
- clearmetareport;
+ clearmetapages(fmetapages);
  fmetapagecount:= 0;
  fmetatabobjectcount:= 0;
  fmetarect1objectcount:= 0;
@@ -5567,7 +5677,7 @@ begin
  end else if fprintdestination=pd_Design then begin
   reportdesign;
  end else if fprintdestination=pd_Printer then begin
-  reportprint(false);
+  reportprint(fwithdialog);
  end else if fprintdestination=pd_PostScript then begin
   reportpostscript;
  end else if fprintdestination=pd_PDF then begin
@@ -5620,7 +5730,7 @@ destructor TNormalTabsCol.destroy;
 var
  int1: integer;
 begin
- for int1:=0 to count-1 do begin
+ for int1:=count-1 downto 0 do begin
   TNormalTabsItem(items[int1]).ftabs.free;
  end;
  inherited;
@@ -5695,7 +5805,7 @@ end;
 
 destructor TNormalTabsItem.destroy;
 begin
- freeandnil(ftabs);
+ ftabs.free;
 end;
 
 procedure TNormalTabsItem.assign(source: tpersistent);
@@ -5717,7 +5827,7 @@ destructor TSummaryTabsCol.destroy;
 var
  int1: integer;
 begin
- for int1:=0 to count-1 do begin
+ for int1:=count-1 downto 0 do begin
   TSummaryTabsItem(items[int1]).ftabs.free;
  end;
  inherited;
@@ -5787,7 +5897,8 @@ end;
 
 destructor TSummaryTabsItem.destroy;
 begin
- freeandnil(ftabs);
+ ftabs.free;
+ ftabs:= nil;
 end;
 
 procedure TSummaryTabsItem.assign(source: tpersistent);

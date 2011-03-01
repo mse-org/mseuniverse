@@ -1,9 +1,10 @@
 object Page1: TraPage
   PrintOrder = 0
   PaperSize = Letter
+  PageOrientation = rpo_Landscape
   PageWidth = 215.9
   PageHeight = 279.4
-  PixelPerUnit = 3
+  PixelPerUnit = 2.83464566929134
   object TraMasterDetailReport1: TraMasterDetailReport
     Page_Header_RowValues.count = 1
     Page_Header_RowValues.items = <    
@@ -46,7 +47,7 @@ object Page1: TraPage
             Margin_Right = 1
             Alignment_Horizontal = ha_Right
             Position = 70
-            Width = 120
+            Width = 190
             Ellipse = el_None
             TextOptions = []
             DataField = 'Motto'
@@ -783,10 +784,10 @@ object Page1: TraPage
       FFFFFF94F4F4F401DEDEDE01EEEEEE40EFEFEF03F0F0F007EFEFEF04EEEEEE46
       DEDEDE01
     }
-    Position_Left = 10
-    Position_Top = 10
-    Area_Width = 189.666666666667
-    Area_Height = 259.333333333333
+    Position_Left = 9.87777777777778
+    Position_Top = 9.87777777777778
+    Area_Width = 259.644444444444
+    Area_Height = 195.791666666667
     Report_Content.Master.count = 2
     Report_Content.Master.Height = 7
     Report_Content.Master.DataSource = 'DSProductCat'

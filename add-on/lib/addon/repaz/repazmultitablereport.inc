@@ -57,7 +57,7 @@ begin
      tabulators.yposition:= posy;
      tabulators.paint(canvas,makerect(0,posy,area.cx,tabulators.pixelheight),false,false);
     end else begin
-     exit;
+     break;
     end;
     inc(posy,tabulators.pixelheight);
    end;
@@ -87,7 +87,7 @@ begin
      tabulators.yposition:= posy;
      tabulators.paint(canvas,makerect(0,posy,area.cx,tabulators.pixelheight),false,false);
     end else begin
-     exit;
+     break;
     end;
     inc(posy,tabulators.pixelheight);
    end;
@@ -137,7 +137,7 @@ function TraTable.build(const canvas: tcanvas;const area:rectty;var islastpage: 
   end;
  end;
 var
- posy,limity,int1,int2,posy2,fdelta,extheight1,extheight2,hband,tmppos: integer;
+ posy,limity,int1,int2,int3,int4,posy2,fdelta,extheight1,extheight2,hband,tmppos: integer;
  bo1,eofbefore,areset: boolean;
 begin
  if not fprintifempty then begin
@@ -181,6 +181,8 @@ begin
  end;
  if (ffooter.count>0) then begin
   extheight2:= round(ffooterheight*fowner.pixelperunit);
+ end else begin
+  extheight2:= 0;
  end;
  fdatanumber:= 0;
  if fdata.count>0 then begin
@@ -217,17 +219,37 @@ begin
       end;
      end;
     end;
+    //countingsummary(true);
     if hband+posy<=limity then begin
      inc(fdatanumber);
      for int2:=0 to fdata.count-1 do begin
       fdata.items[int2].tabulators.paint(canvas,makerect(area.x,area.y+posy,area.cx,fdata.items[int2].tabulators.pixelheight),true,false);
       inc(posy,fdata.items[int2].tabulators.pixelheight);
      end;
-     if not islastrecord then begin
+     //if not islastrecord then begin
       countingsummary(true);
-     end;
+     //end;
      fdata.items[0].tabulators.nextrecord;
     end else begin
+     if fowner.Report_Footer_Show=frs_EveryPage then begin
+      if (ffootershow=fmbs_EveryBottomOfPage) then begin       
+       limity:= limity+extheight1;
+      end else begin
+       if islastrecord then begin
+        limity:= limity+extheight1;
+       end;
+      end;
+     end else if fowner.Report_Footer_Show=frs_LastPageOnly then begin
+      if (ffootershow=fmbs_EveryBottomOfPage) then begin
+       if islastrecord then begin
+        limity:= limity+extheight1;
+       end;
+      end else begin
+       if islastrecord then begin
+        limity:= limity+extheight1;
+       end;
+      end;
+     end;
      bo1:= true;
     end;
    end else begin
@@ -236,7 +258,7 @@ begin
    if fdata.items[0].tabulators.iseof then begin
     bo1:= true;
     islastpage:= true;
-    countingsummary(true);
+    //countingsummary(true);
    end;
   end;
  end else begin
@@ -247,35 +269,25 @@ begin
   ((ffootershow=fmbs_LastRowOnly) and islastpage)) then begin
   if not eofbefore or islastpage then begin
    if ffooter.bandheight<=round(ffooterheight*fowner.pixelperunit) then begin
+    hband:= ffooter.bandheight;
     if ftableheight>0 then begin
-     posy2:= area.y+limity-posy; //-round(ffooterheight*fowner.pixelperunit);
+     //posy2:= limity-posy;
      //draw extend line
-     fdelta:= posy2-area.y;
+     fdelta:= round(ftableheight*fowner.pixelperunit)-posy-hband;
      if (fdelta>0) and (fdata.count>0) then begin
       fdata.items[fdata.count-1].tabulators.paintextend(canvas,makerect(area.x,area.y+posy,area.cx,fdelta),true,true,true,false,false);
      end;
-    end else begin
-     if fmbo_PrintOnBottomPage in ffooteroptions then begin
-      posy2:= area.y+limity-posy; //-round(ffooterheight*fowner.pixelperunit);
-      //draw extend line
-      fdelta:= posy2-area.y;
-      if (fdelta>0) and (fdata.count>0) then begin
-       fdata.items[fdata.count-1].tabulators.paintextend(canvas,makerect(area.x,area.y+posy,area.cx,fdelta),true,true,true,false,false);
-      end;
-     end else begin
-      posy2:= area.y;
-     end;
+     posy:= posy+fdelta;
     end;
     if fmbo_ResetEveryPage in ffooteroptions then begin
      areset:= true;
     end else begin
      areset:= false;
     end;
-    hband:= ffooter.bandheight;
     for int1:=0 to ffooter.count-1 do begin
      with ffooter.items[int1] do begin
       if (hband<=round(ffooterheight*fowner.fpixelperunit)) then begin
-       tabulators.paint(canvas,makerect(area.x,posy2+posy,area.cx,tabulators.pixelheight),true,false);
+       tabulators.paint(canvas,makerect(area.x,area.y+posy,area.cx,tabulators.pixelheight),true,false);
        posy:= posy+tabulators.pixelheight;
       end else begin
        exit;
@@ -286,7 +298,7 @@ begin
      for int2:=0 to fdata.count-1 do begin
       fdata.items[int2].tabulators.initpage;
      end;
-     countingsummary(false);
+     //countingsummary(false);
     end;
    end;
   end;
@@ -490,7 +502,6 @@ begin
    items[int1].table.paint(canvas,farea);
   end;
  end;
-
 end;
 
 function TraMultiTableReport.buildcontent(const acanvas: tcanvas;const contentarea:rectty;var islastpage: boolean):integer;
@@ -506,6 +517,7 @@ begin
     items[int1].table.lastybuild:= items[int1-1].table.lastybuild;
    end;
    result:= items[int1].table.build(acanvas,contentarea,islastpage);
+   if not islastpage then break;
   end;
  end;
 end;

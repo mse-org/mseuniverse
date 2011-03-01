@@ -198,6 +198,7 @@ type
    procedure repazdesignfo_onclosequery(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure cpaper_onchange(const sender: TObject);
+   procedure repazdesignfo_ondestroy(const sender: TObject);
   protected
    factivepage: string;
    fstate: raeditorstatesty;
@@ -677,6 +678,16 @@ procedure trepazdesignfo.cpaper_onchange(const sender: TObject);
 begin
  ttoolbar1.buttons[2].enabled:= true;
  ttoolbar1.buttons[3].enabled:= true;
+end;
+
+procedure trepazdesignfo.repazdesignfo_ondestroy(const sender: TObject);
+var
+ int1: integer;
+begin
+ for int1:= cpaper.widgetcount-1 downto 0 do begin
+  //TraPage(cpaper.widgets[int1]).report:= nil;
+  //cpaper.widgets[int1].free;
+ end;
 end;
 
 function getdatasourcelist(arepaz: trepaz): msestringarty;

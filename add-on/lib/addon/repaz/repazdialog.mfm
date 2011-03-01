@@ -1,4 +1,5 @@
 object repazdialogfo: trepazdialogfo
+  visible = False
   bounds_x = 248
   bounds_y = 226
   bounds_cx = 334
@@ -19,20 +20,21 @@ object repazdialogfo: trepazdialogfo
   options = [fo_screencentered, fo_autoreadstat, fo_autowritestat]
   caption = 'Repaz Dialog'
   oncreate = repazdialogfo_oncreate
+  onloaded = repazdialogfo_onloaded
   moduleclassname = 'tmseform'
   object cactions: tdropdownlistedit
     frame.caption = 'Action Type'
     frame.button.color = -2147483646
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     bounds_x = 6
-    bounds_y = 3
+    bounds_y = 4
     bounds_cx = 246
-    bounds_cy = 37
+    bounds_cy = 35
     ondataentered = cactions_ondataentered
     dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_autosavehistory]
     dropdown.cols.count = 2
@@ -42,7 +44,7 @@ object repazdialogfo: trepazdialogfo
       item
         options = [co_readonly, co_invisible, co_mousemovefocus, co_focusselect, co_rowselect, co_fill]
       end>
-    reffontheight = 14
+    reffontheight = 13
   end
   object tgroupbox1: tgroupbox
     frame.caption = 'Description'
@@ -63,9 +65,9 @@ object repazdialogfo: trepazdialogfo
       bounds_x = 6
       bounds_y = 20
       bounds_cx = 232
-      bounds_cy = 62
+      bounds_cy = 61
       textflags = [tf_wordbreak]
-      reffontheight = 14
+      reffontheight = 13
     end
     object wfilename: tfilenameedit
       frame.caption = 'Nama file report'
@@ -73,16 +75,16 @@ object repazdialogfo: trepazdialogfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
+        16
         0
         0
       )
       taborder = 1
       bounds_x = 6
-      bounds_y = 82
+      bounds_y = 83
       bounds_cx = 235
-      bounds_cy = 37
-      reffontheight = 14
+      bounds_cy = 35
+      reffontheight = 13
     end
   end
   object showagain: tbooleanedit
@@ -91,14 +93,14 @@ object repazdialogfo: trepazdialogfo
     frame.outerframe = (
       0
       1
-      275
-      2
+      247
+      1
     )
     taborder = 1
     bounds_x = 6
     bounds_y = 181
-    bounds_cx = 288
-    bounds_cy = 16
+    bounds_cx = 260
+    bounds_cy = 15
     value = True
   end
   object btnsetting: tbutton
@@ -116,12 +118,12 @@ object repazdialogfo: trepazdialogfo
     bounds_x = 266
     bounds_y = 48
     bounds_cx = 60
-    bounds_cy = 20
+    bounds_cy = 19
     anchors = [an_top, an_right]
     state = [as_default, as_localdefault, as_localcaption, as_localonexecute]
     caption = '&OK'
     modalresult = mr_ok
-    reffontheight = 14
+    reffontheight = 13
   end
   object btncancel: tbutton
     optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
@@ -129,13 +131,13 @@ object repazdialogfo: trepazdialogfo
     bounds_x = 266
     bounds_y = 73
     bounds_cx = 60
-    bounds_cy = 20
+    bounds_cy = 19
     anchors = [an_top, an_right]
     state = [as_localcaption, as_localshortcut, as_localonexecute]
     caption = '&Cancel'
     modalresult = mr_cancel
     onexecute = btncancel_onexecute
-    reffontheight = 14
+    reffontheight = 13
     sc = (
       1
       256

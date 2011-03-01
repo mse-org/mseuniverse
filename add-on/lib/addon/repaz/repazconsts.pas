@@ -383,7 +383,11 @@ type
   rcslettervalue,
   rcsplettervalue,
   rcsNotField,
-  rcsAskSave
+  rcsAskSave,
+  rcsisholiday,
+  rcspisholiday,
+  rcsisdiscountday,
+  rcspisdiscountday
   );
 
 const

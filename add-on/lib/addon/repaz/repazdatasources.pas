@@ -68,9 +68,9 @@ type
    destructor destroy; override;
    function getdatasource(aname: string): tdatasource;
    function count: integer;
-   function searchfield(aname:shortstring):tevalidentifier;
-   function searchfieldwithdataset(adataset:shortstring;aname:shortstring):tevalidentifier;
-   function searchfieldwithkey(adataset:shortstring;keyname:shortstring;keyvalue:array of const;fieldvaluename:shortstring):variant;
+   function searchfield(aname:string):tevalidentifier;
+   function searchfieldwithdataset(adataset:string;aname:string):tevalidentifier;
+   function searchfieldwithkey(adataset:string;keyname:string;keyvalue:array of const;fieldvaluename:string):variant;
    procedure fillwithfields(lines:tstrings);
   published
    property datasource: tdatasourceitems read fdatasources write setdatasource;
@@ -85,7 +85,6 @@ procedure tdatasourceitem.setdatasource(const avalue:tdatasource);
 begin
  if avalue<>fdatasource then begin
   fdatasource:= avalue;
-  //setlinkedvar(tmsecomponent(avalue),tmsecomponent(fdatasource));
  end;
 end;
 
@@ -150,7 +149,7 @@ begin
 end;
 
 // searching a field in the list
-function trepazdatasources.searchfield(aname:shortstring):tevalidentifier;
+function trepazdatasources.searchfield(aname:string):tevalidentifier;
 var 
  field:tfield;
  i,j: integer;
@@ -172,7 +171,7 @@ begin
  end;
 end;
 
-function trepazdatasources.searchfieldwithdataset(adataset:shortstring;aname:shortstring):tevalidentifier;
+function trepazdatasources.searchfieldwithdataset(adataset:string;aname:string):tevalidentifier;
 var 
  field:tfield;
  i:integer;
@@ -192,7 +191,7 @@ begin
  end;
 end;
 
-function trepazdatasources.searchfieldwithkey(adataset:shortstring;keyname:shortstring;keyvalue:array of const;fieldvaluename:shortstring):variant;
+function trepazdatasources.searchfieldwithkey(adataset:string;keyname:string;keyvalue:array of const;fieldvaluename:string):variant;
 var 
  i:integer;
 begin

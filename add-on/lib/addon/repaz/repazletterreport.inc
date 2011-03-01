@@ -29,7 +29,7 @@ begin
     if (hband<=round(fheight*fowner.pixelperunit)) then begin
      tabulators.paint(canvas,makerect(0,posy,area.cx,tabulators.pixelheight),false,false);
     end else begin
-     exit;
+     break;
     end;
     inc(posy,tabulators.pixelheight);
    end;
@@ -50,7 +50,7 @@ begin
     tabulators.paint(canvas,makerect(area.x,
     area.y+posy,area.cx,tabulators.pixelheight),true,false);
    end else begin
-    exit;
+    break;
    end;
    inc(posy,tabulators.pixelheight);
   end;

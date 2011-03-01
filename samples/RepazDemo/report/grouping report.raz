@@ -3,7 +3,7 @@ object Page1: TraPage
   PaperSize = Letter
   PageWidth = 215.9
   PageHeight = 279.4
-  PixelPerUnit = 3
+  PixelPerUnit = 2.83464566929134
   object TraGroupReport1: TraGroupReport
     Page_Header_RowValues.count = 1
     Page_Header_RowValues.items = <    
@@ -139,8 +139,8 @@ object Page1: TraPage
             Border_Left_LineStyle = ls_Solid
             Border_Right_Width = 0
             Border_Right_LineStyle = ls_Solid
-            Border_Bottom_Width = 1
-            Border_Bottom_LineStyle = ls_Solid
+            Border_Bottom_Width = 0.2
+            Border_Bottom_LineStyle = ls_Dash_Dot
           end        
           item
             DataSource = 'dscompany'
@@ -784,10 +784,10 @@ object Page1: TraPage
       FFFFFF94F4F4F401DEDEDE01EEEEEE40EFEFEF03F0F0F007EFEFEF04EEEEEE46
       DEDEDE01
     }
-    Position_Left = 10
-    Position_Top = 10
-    Area_Width = 189.666666666667
-    Area_Height = 259.333333333333
+    Position_Left = 9.87777777777777
+    Position_Top = 9.87777777777777
+    Area_Width = 189.794444444444
+    Area_Height = 259.291666666667
     Report_Content.GroupHeader.count = 2
     Report_Content.GroupHeader.items = <    
       item
@@ -901,7 +901,7 @@ object Page1: TraPage
             Margin_Right = 1
             Position = 40
             Width = 40
-            Ellipse = el_None
+            Ellipse = el_Right
             TextOptions = []
             DataField = 'supplier'
             Lookup_Buffer = 'lbsupplier'

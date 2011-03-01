@@ -344,6 +344,10 @@
   'Return the value of cell in specific row and column in letter', //rcsplettervalue
   'RowIndex is index of LetterContent, ColIndex is index of tabulator', //rcslettervalue
   'Variable should a field of database (datasource.fieldname)!', //rcsNotField
-  'Save changes?' //rcsAskSave
+  'Save changes?', //rcsAskSave
+  'To check whether today is a holiday', //rcsisholiday
+  'ADate : date to check; IncludeSunday : is Sunday included to holiday', //rcspisholiday
+  'To check whether today is a discountday', //rcsisdiscountday
+  'ADate : date to check; IncludeSunday : is Sunday included to discountday' //rcspisdiscountday
   );
 

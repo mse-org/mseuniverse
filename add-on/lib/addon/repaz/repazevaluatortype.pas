@@ -366,7 +366,10 @@ function divtevalvalue(value1,value2:variant):variant;
 begin
  try
   if not varisempty(value1) and not varisempty(value2) then begin
-   result:=value1/value2;
+   if value2=0 then
+    result:= 0
+   else
+    result:=value1/value2;
   end else begin
    result:= 0;
   end;
@@ -992,7 +995,11 @@ var
    end else begin
     if num >= hundred then begin
      if (num mod hundred) = 0 then begin
-      num2str := num2str(num div hundred) + ' Ratus';
+      if (num div hundred) = 1 then begin
+       num2str := 'Seratus';
+      end else begin
+       num2str := num2str(num div hundred) + ' Ratus';
+      end;
      end else begin
       num2str := num2str(num div  hundred) + ' Ratus ' +
                  num2str(num mod hundred);

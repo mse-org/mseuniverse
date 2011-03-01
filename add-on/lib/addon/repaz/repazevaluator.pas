@@ -111,12 +111,19 @@ type
    property withreport;
   end;
 
-
+var
+ aholidays : array of tdatetime;
+ adiscountdays : array of tdatetime;
+ 
 function evaluateexpression(aexpression:msestring):variant;
+procedure addholiday(adate: tdatetime);
+procedure removeholiday(adate: tdatetime);
+procedure adddiscountday(adate: tdatetime);
+procedure removediscountday(adate: tdatetime);
 
 implementation
 
-uses repazevaluatorfunc,repazclasses;
+uses repazevaluatorfunc,repazclasses,dateutils;
 
 { trepazcustomevaluator }
 
@@ -264,6 +271,10 @@ begin
  evalfunctions.addobject('ReplaceStr',iden);
  iden:=tidenfieldwithkey.create(self);
  evalfunctions.addobject('FieldWithKey',iden);
+ iden:=tidenisholiday.create(self);
+ evalfunctions.addobject('IsHoliday',iden);
+ iden:=tidenisdiscountday.create(self);
+ evalfunctions.addobject('IsDiscountday',iden);
  if fwithreport then begin
   iden:=tidenpagenumber.create(self);
   evalfunctions.addobject('PageNumber',iden);
@@ -1160,6 +1171,76 @@ begin
  evalfunctions:=tstringlist.create;
  evalfunctions.sorted:=true;
  evalfunctions.duplicates:=duperror;
+end;
+
+procedure addholiday(adate: tdatetime);
+var
+ int1: integer;
+ bo1: boolean;
+begin
+ bo1:= false;
+ for int1:=0 to high(aholidays) do begin
+  if dateof(adate)=dateof(aholidays[int1]) then begin
+   bo1:= true;
+   break;
+  end;
+ end;
+ if not bo1 then begin
+  setlength(aholidays,length(aholidays)+1);
+  aholidays[high(aholidays)]:= adate;
+ end;
+end;
+
+procedure removeholiday(adate: tdatetime);
+var
+ int1,int2: integer;
+begin
+ for int1:=0 to high(aholidays) do begin
+  if dateof(adate)=dateof(aholidays[int1]) then begin
+   if int1<high(aholidays) then begin
+    for int2:= int1+1 to high(aholidays) do begin
+     aholidays[int2-1]:= aholidays[int2];
+    end;
+    setlength(aholidays,length(aholidays)+1);
+    break;
+   end;
+  end;
+ end;
+end;
+
+procedure adddiscountday(adate: tdatetime);
+var
+ int1: integer;
+ bo1: boolean;
+begin
+ bo1:= false;
+ for int1:=0 to high(adiscountdays) do begin
+  if dateof(adate)=dateof(adiscountdays[int1]) then begin
+   bo1:= true;
+   break;
+  end;
+ end;
+ if not bo1 then begin
+  setlength(adiscountdays,length(adiscountdays)+1);
+  adiscountdays[high(adiscountdays)]:= adate;
+ end;
+end;
+
+procedure removediscountday(adate: tdatetime);
+var
+ int1,int2: integer;
+begin
+ for int1:=0 to high(adiscountdays) do begin
+  if dateof(adate)=dateof(adiscountdays[int1]) then begin
+   if int1<high(adiscountdays) then begin
+    for int2:= int1+1 to high(adiscountdays) do begin
+     adiscountdays[int2-1]:= adiscountdays[int2];
+    end;
+    setlength(adiscountdays,length(adiscountdays)+1);
+    break;
+   end;
+  end;
+ end;
 end;
 
 function evaluateexpression(aexpression:msestring):variant;

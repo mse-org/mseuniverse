@@ -344,6 +344,10 @@
   'Menampilkan nilai dari cell pada baris dan kolom yang ditentukan pada letter', //rcsplettervalue
   'RowIndex adalah indeks dari LetterContent, ColIndex adalah indeks dari tabulator', //rcslettervalue
   'Variable seharusnya berupa field database (datasource.fieldname)!', //rcsNotField
-  'Simpan perubahan?' //rcsAskSave
+  'Simpan perubahan?', //rcsAskSave
+  'Menguji apakah tanggal ini adalah hari libur', //rcsisholiday
+  'ADate : tanggal yang diuji; IncludeSunday : apakah hari Minggu termasuk hari libur', //rcspisholiday
+  'Menguji apakah tanggal ini adalah hari libur', //rcsisdiscountday
+  'ADate : tanggal yang diuji; IncludeSunday : apakah hari Minggu termasuk hari libur' //rcspisdiscountday
   );
 

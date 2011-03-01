@@ -1,1 +1,1 @@
-regosprinter,regrepaz,regcompdesigner,regvideoplayer,
+regrepaz,regcompdesigner,regvideoplayer,

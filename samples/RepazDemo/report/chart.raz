@@ -3,7 +3,7 @@ object Page2: TraPage
   PaperSize = Letter
   PageWidth = 215.9
   PageHeight = 279.4
-  PixelPerUnit = 3
+  PixelPerUnit = 2.83464566929134
   object TraChartReport2: TraChartReport
     Page_Header_RowValues.count = 1
     Page_Header_RowValues.items = <    
@@ -272,10 +272,10 @@ object Page2: TraPage
       end>
     Report_Footer_Height = 15
     Report_Footer_Options = []
-    Position_Left = 10
-    Position_Top = 12
-    Area_Width = 194.666666666667
-    Area_Height = 256.666666666667
+    Position_Left = 9.87777777777777
+    Position_Top = 11.99444444444444
+    Area_Width = 194.733333333333
+    Area_Height = 256.822222222222
     Report_Chart.DataSource = 'dschart'
     Report_Chart.ChartType = ctBar
     Report_Chart.X_ValueDB.DataField = 'y1'
@@ -287,7 +287,7 @@ object Page2: TraPage
         Values.LineCap = cs_round
         Values.LineJoin = js_miter
         Values.LineStyle = ls_Solid
-        Values.LineWidth = 1
+        Values.LineWidth = 0.2
         Values.FillPattern = stb_hatchdown4
         Values.FillColor = -1610612724
         Values.LabelLegend = 'Barang A'
@@ -303,7 +303,7 @@ object Page2: TraPage
         Values.LineCap = cs_butt
         Values.LineJoin = js_miter
         Values.LineStyle = ls_Solid
-        Values.LineWidth = 1
+        Values.LineWidth = 0.2
         Values.FillPattern = stb_hatchup4
         Values.FillColor = -1610612727
         Values.Ellipse = el_None
@@ -352,7 +352,7 @@ object Page1: TraPage
   PaperSize = Letter
   PageWidth = 215.9
   PageHeight = 279.4
-  PixelPerUnit = 3
+  PixelPerUnit = 2.83464566929134
   object TraChartReport1: TraChartReport
     Page_Header_RowValues.count = 1
     Page_Header_RowValues.items = <    
@@ -521,10 +521,10 @@ object Page1: TraPage
     Report_ExtraHeader_Height = 7
     Report_Footer_Height = 15
     Report_Footer_Options = []
-    Position_Left = 10
-    Position_Top = 10
-    Area_Width = 190.666666666667
-    Area_Height = 258.666666666667
+    Position_Left = 9.87777777777777
+    Position_Top = 9.87777777777777
+    Area_Width = 190.5
+    Area_Height = 258.586111111111
     Report_Chart.DataSource = 'dschart'
     Report_Chart.ChartType = ctBar
     Report_Chart.X_ValueDB.DataField = 'x'
@@ -536,8 +536,8 @@ object Page1: TraPage
         Values.LineCap = cs_round
         Values.LineJoin = js_miter
         Values.LineStyle = ls_Solid
-        Values.LineWidth = 0
-        Values.FillPattern = stb_none
+        Values.LineWidth = 0.1
+        Values.FillPattern = stb_crosshatch4
         Values.FillColor = -1610612724
         Values.LabelLegend = 'Barang A'
         Values.Font_Color = -1610612721
@@ -552,7 +552,7 @@ object Page1: TraPage
         Values.LineCap = cs_butt
         Values.LineJoin = js_miter
         Values.LineStyle = ls_Solid
-        Values.LineWidth = 0
+        Values.LineWidth = 0.1
         Values.FillPattern = stb_dens75
         Values.FillColor = -1610612731
         Values.LabelLegend = 'Barang B'

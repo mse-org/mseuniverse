@@ -130,7 +130,8 @@ end;
 
 destructor tpreview.destroy;
 begin
- fmetapages:= nil;
+ //clearmetapages(fmetapages);
+ //fmetapages:= nil;
  freeandnil(tmpstring);
  findhistory:= nil;
  inherited;

@@ -36,7 +36,7 @@ unit repazglob;
 interface
 uses
  classes,msegui,msedrawtext,msegraphutils,msegraphics,variants,repazchart,
- msestrings,sysutils,msebitmap,osprinter,mseformatpngread,mseformatbmpicoread,
+ msestrings,sysutils,msebitmap,universalprinter,universalprintertype,mseformatpngread,mseformatbmpicoread,
  mseformatjpgread,mseformatstr,repaztypes,mseglob,mselookupbuffer,msesysutils;
 
 type
@@ -144,12 +144,36 @@ type
  tmetapages = array of tmetapage;
  pmetapages = ^tmetapages;
 
+ procedure clearmetapages(var fmetapages: tmetapages);
+
  procedure printmetapages(const acanvas: tcanvas; const ametapages: tmetapages;
   const apage: integer; const ascale: real=1.0);
 
  function createrectinfo(const arect: rectty; acolor: colorty):reprectinfoty;
  
 implementation
+
+procedure clearmetapages(var fmetapages: tmetapages);
+var
+ int1,int2: integer;
+begin
+ for int1:=length(fmetapages)-1 downto 0 do begin
+  if fmetapages[int1].chartobjects<>nil then begin
+   fmetapages[int1].chartobjects.destroy;
+  end;
+  for int2:=length(fmetapages[int1].bitmap1objects)-1 downto 0 do begin
+   freeimage(fmetapages[int1].bitmap1objects[int2].bitmap.image);
+   freeimage(fmetapages[int1].bitmap1objects[int2].bitmap.mask);
+  end;
+  for int2:=length(fmetapages[int1].bitmap2objects)-1 downto 0 do begin
+   freeimage(fmetapages[int1].bitmap2objects[int2].bitmap.image);
+   freeimage(fmetapages[int1].bitmap2objects[int2].bitmap.mask);
+  end;
+  freeimage(fmetapages[int1].bitmap.image);
+  freeimage(fmetapages[int1].bitmap.mask);
+ end;
+ fmetapages:=nil;
+end;
 
 procedure printmetapages(const acanvas: tcanvas; const ametapages: tmetapages;
  const apage: integer; const ascale: real=1.0);

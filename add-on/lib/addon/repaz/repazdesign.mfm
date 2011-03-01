@@ -11,9 +11,9 @@ object repazdesignfo: trepazdesignfo
   container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
   container.bounds = (
     0
-    16
+    15
     679
-    480
+    481
   )
   dragdock.optionsdock = [od_savechildren]
   mainmenu = tmainmenu1
@@ -94,6 +94,7 @@ object repazdesignfo: trepazdesignfo
   }
   oncreate = repazdesignfo_oncreate
   onloaded = repazdesignfo_onloaded
+  ondestroy = repazdesignfo_ondestroy
   onclosequery = repazdesignfo_onclosequery
   onclose = repazdesignfo_onclose
   onshow = repazdesignfo_onshow
@@ -107,7 +108,7 @@ object repazdesignfo: trepazdesignfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 676
-    bounds_cy = 29
+    bounds_cy = 28
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky]
     dragdock.splitter_grip = stb_none
@@ -282,14 +283,14 @@ object repazdesignfo: trepazdesignfo
       bounds_x = 189
       bounds_y = 1
       bounds_cx = 64
-      bounds_cy = 27
+      bounds_cy = 26
       ondataentered = cpage_ondataentered
       dropdown.options = [deo_selectonly, deo_forceselect, deo_autodropdown, deo_keydropdown, deo_casesensitive, deo_sorted]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item
         end>
-      reffontheight = 14
+      reffontheight = 13
     end
     object cunit: tdropdownlistedit
       frame.button.width = 15
@@ -298,7 +299,7 @@ object repazdesignfo: trepazdesignfo
       bounds_x = 254
       bounds_y = 1
       bounds_cx = 48
-      bounds_cy = 27
+      bounds_cy = 26
       ondataentered = cunit_ondataentered
       value = 'mm'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown]
@@ -311,16 +312,16 @@ object repazdesignfo: trepazdesignfo
           )
         end>
       dropdown.itemindex = 0
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   object tsimplewidget1: tsimplewidget
     taborder = 1
     visible = True
     bounds_x = 0
-    bounds_y = 31
+    bounds_y = 30
     bounds_cx = 678
-    bounds_cy = 502
+    bounds_cy = 504
     anchors = [an_left, an_top, an_right, an_bottom]
     object tobjectinspector1: tobjectinspector
       frame.levelo = 0
@@ -336,14 +337,14 @@ object repazdesignfo: trepazdesignfo
       bounds_x = 393
       bounds_y = 0
       bounds_cx = 285
-      bounds_cy = 423
+      bounds_cy = 425
       anchors = [an_left, an_top, an_right, an_bottom]
       designer = cpaper
       showmethods = False
       fixrows.count = 3
       fixrows.items = <      
         item
-          height = 21
+          height = 20
           captions.count = 2
           captions.items = <          
             item
@@ -355,7 +356,7 @@ object repazdesignfo: trepazdesignfo
         end      
         item
           face.dummy = 0
-          height = 21
+          height = 20
           captions.count = 2
           captions.items = <          
             item
@@ -372,7 +373,7 @@ object repazdesignfo: trepazdesignfo
             end>
         end      
         item
-          height = 21
+          height = 20
           captions.count = 2
           captions.items = <          
             item
@@ -391,7 +392,7 @@ object repazdesignfo: trepazdesignfo
             item
             end>
         end>
-      reffontheight = 14
+      reffontheight = 13
     end
     object tsplitter1: tsplitter
       optionswidget = [ow_destroywidgets, ow_autoscale]
@@ -401,7 +402,7 @@ object repazdesignfo: trepazdesignfo
       bounds_x = 389
       bounds_y = 0
       bounds_cx = 4
-      bounds_cy = 423
+      bounds_cy = 425
       anchors = [an_top, an_right, an_bottom]
       options = [spo_hmove, spo_dockleft, spo_dockright]
       linkleft = reportcont
@@ -418,7 +419,7 @@ object repazdesignfo: trepazdesignfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 389
-      bounds_cy = 423
+      bounds_cy = 425
       anchors = [an_left, an_top, an_bottom]
       onlayout = reportcont_onchildscaled
       onscroll = reportcont_onscroll
@@ -538,7 +539,7 @@ object repazdesignfo: trepazdesignfo
       taborder = 3
       visible = True
       bounds_x = 1
-      bounds_y = 424
+      bounds_y = 426
       bounds_cx = 678
       bounds_cy = 25
       anchors = [an_left, an_right, an_bottom]
@@ -547,17 +548,17 @@ object repazdesignfo: trepazdesignfo
         frame.captionpos = cp_left
         frame.dummy = 0
         frame.outerframe = (
-          63
+          55
           0
           0
           0
         )
-        bounds_x = 150
-        bounds_y = 3
-        bounds_cx = 524
-        bounds_cy = 17
+        bounds_x = 158
+        bounds_y = 4
+        bounds_cx = 516
+        bounds_cy = 16
         anchors = [an_left, an_right, an_bottom]
-        reffontheight = 14
+        reffontheight = 13
       end
       object xdisp: trealdisp
         frame.caption = 'X:'
@@ -571,9 +572,9 @@ object repazdesignfo: trepazdesignfo
         )
         taborder = 1
         bounds_x = 7
-        bounds_y = 3
+        bounds_y = 4
         bounds_cx = 65
-        bounds_cy = 17
+        bounds_cy = 16
         anchors = [an_left, an_bottom]
         font.name = 'stf_default'
         font.xscale = 1
@@ -582,7 +583,7 @@ object repazdesignfo: trepazdesignfo
         valuerange = 1
         valuestart = 0
         value = -Inf
-        reffontheight = 14
+        reffontheight = 13
       end
       object ydisp: trealdisp
         frame.caption = 'Y:'
@@ -596,9 +597,9 @@ object repazdesignfo: trepazdesignfo
         )
         taborder = 2
         bounds_x = 78
-        bounds_y = 3
+        bounds_y = 4
         bounds_cx = 74
-        bounds_cy = 17
+        bounds_cy = 16
         anchors = [an_left, an_bottom]
         font.name = 'stf_default'
         font.xscale = 1
@@ -607,14 +608,14 @@ object repazdesignfo: trepazdesignfo
         valuestart = 0
         format = '0.0'
         value = -Inf
-        reffontheight = 14
+        reffontheight = 13
       end
     end
   end
   object tspacer1: tspacer
     taborder = 2
     bounds_x = 0
-    bounds_y = 29
+    bounds_y = 28
     bounds_cx = 677
     bounds_cy = 2
     anchors = [an_left, an_top, an_right]
@@ -1233,36 +1234,36 @@ object repazdesignfo: trepazdesignfo
       00000039D7614E01F6797505B84A27010000000824080001EE6E5B01FF838601
       FF808203FF868B01B346210100000039AF441C01BB4C2A05A43B0E0100000008
       290C0001B8451701B4482301B3472103B64924019E370701000000300000E001
-      0000E03F000E0000FC078007FC1FE07F803F0000FC0F000EFE3FE0FFC07F0000
-      FC1F001EFE3FE0FFC07F0000FC1F3C1CFE3FF8FFE0FF0000FC1FFE3FFE3FFCFF
-      E0FF0000FC1FFFFFFE3FFEFFE0FF0000FC1FFF7FFE3FFFFFC07F0000FC1FFFFF
-      FE3FFFFFC07F0000FC1FFFFFFE3FFFFFF03F0000FC1FFFFFFE3FFFFF780F0000
-      FC1FFF7FFE3FFFFF7C000000FC1FFF7FFE3FFFFF3E000000FC1FFF7FFE3FFFFF
-      1F000000FC1FFF3FFC1FFF010F0000000000FE3F0000FF0106000000FE3FFF01
-      0000000000000000FF7FFF030000FF01FE010000FF7FFF070000FF03FE030000
-      FF7FFF07C003FF87FE070000FF7FFF07E007FFC7FE070000FF7FFF07700EFF67
-      FE070000FF7FFF0F700EFF37FE070000FF7FFF1F000FFF9FFE070000FF7FFF1F
-      8007FFCFFE3F0000FF7FFF1FC003FF67FE7F0000FF7FFF3FC001FF37FE3F0000
-      FF7FFF7F0000FF1FFE070000FF7FFFFFC001FF0F00070000FF7FFFFFC001FF07
-      00070000FE3F00F00000FF070002000000000060000000000000000000000000
-      00000000FF000000FE019819981BE007FF010000FE039819981DF01FFF030000
-      FE07FE7FFE7FF01FFF030000FE07FE7FFE7FF01EFF1F0000FE079819981FF81E
-      FF3F0000FE079819981F781EFF7F0000FE67FE7FFE7FF80FFF7F0000FE77FE7F
-      FE7FF80FFF7F0000FE3F98199819F807FF7F0000FE1F98199819FC07FF7F0000
-      FE3FFE7FFE7F7C0FFF7F0000007FFE7FFE7F7C0FE07F00008073981998193C1F
-      E07F0000806198199819380EE07F00000000000000000000E07F00008000E003
-      000000007F0000008001FC1F0300033C7F0000008803FE3F070027467F000000
-      9803FE3F0E206EA17F000000B803FE3F1C18FCD9FF070000F003FE3F380CF84D
-      FF070000E003FE3F7006F047FF070000C003FE7FE003E003F0070000801FFE7F
-      C001C001F0070000803FFE7FE003E003F0FF0000C027FE7F70077007F0FF0000
-      E025FE7F3C0C3C0C00FE0000203DFE7F1E181E1800FE0000201BFE7F0E300E30
-      00FE0000E001FE7F0660066000FE0000C001FC7F00C000C000FE00007F007F00
-      FFFFFFFFFFFF00007F007F00FFFFFFFFFFFF00007F007F00FFFFFFFFFFFF0000
-      7F007F00FFFFFFFFFFFF0000FF0FFF0FFFFFFFFFFFFF0000FF0FFF0FFFFFFFFF
-      FFFF0000FF0FFF0FFFFFFFFFFFFF0000E00FE00FFFFFFFFFFFFF0000E00FF05F
-      FFFFFFFFFFFF0000E0FFE0FFFFFFFFFFFFFF0000E0FFF0FFFFFFFFFFFFFF0000
-      00FE00FEFFFFFFFFFFFF000000FE00FFFFFFFFFFFFFF000000FE00FEFFFFFFFF
-      FFFF000000FE00FFFFFFFFFFFFFF000000FE00FEFFFFFFFFFFFF0000
+      0000E03F000EFFFFFC078007FC1FE07F803FFFFFFC0F000EFE3FE0FFC07FFFFF
+      FC1F001EFE3FE0FFC07FFFFFFC1F3C1CFE3FF8FFE0FFFFFFFC1FFE3FFE3FFCFF
+      E0FFFFFFFC1FFFFFFE3FFEFFE0FFFFFFFC1FFF7FFE3FFFFFC07FFFFFFC1FFFFF
+      FE3FFFFFC07FFFFFFC1FFFFFFE3FFFFFF03FFFFFFC1FFFFFFE3FFFFF780FFFFF
+      FC1FFF7FFE3FFFFF7C00FFFFFC1FFF7FFE3FFFFF3E00FFFFFC1FFF7FFE3FFFFF
+      1F00FFFFFC1FFF3FFC1FFF010F00FFFF0000FE3F0000FF010600FFFFFE3FFF01
+      000000000000FFFFFF7FFF030000FF01FE01FFFFFF7FFF070000FF03FE03FFFF
+      FF7FFF07C003FF87FE07FFFFFF7FFF07E007FFC7FE07FFFFFF7FFF07700EFF67
+      FE07FFFFFF7FFF0F700EFF37FE07FFFFFF7FFF1F000FFF9FFE07FFFFFF7FFF1F
+      8007FFCFFE3FFFFFFF7FFF1FC003FF67FE7FFFFFFF7FFF3FC001FF37FE3FFFFF
+      FF7FFF7F0000FF1FFE07FFFFFF7FFFFFC001FF0F0007FFFFFF7FFFFFC001FF07
+      0007FFFFFE3F00F00000FF070002FFFF00000060000000000000FFFF00000000
+      00000000FF00FFFFFE019819981BE007FF01FFFFFE039819981DF01FFF03FFFF
+      FE07FE7FFE7FF01FFF03FFFFFE07FE7FFE7FF01EFF1FFFFFFE079819981FF81E
+      FF3FFFFFFE079819981F781EFF7FFFFFFE67FE7FFE7FF80FFF7FFFFFFE77FE7F
+      FE7FF80FFF7FFFFFFE3F98199819F807FF7FFFFFFE1F98199819FC07FF7FFFFF
+      FE3FFE7FFE7F7C0FFF7FFFFF007FFE7FFE7F7C0FE07FFFFF8073981998193C1F
+      E07FFFFF806198199819380EE07FFFFF0000000000000000E07FFFFF8000E003
+      000000007F00FFFF8001FC1F0300033C7F00FFFF8803FE3F070027467F00FFFF
+      9803FE3F0E206EA17F00FFFFB803FE3F1C18FCD9FF07FFFFF003FE3F380CF84D
+      FF07FFFFE003FE3F7006F047FF07FFFFC003FE7FE003E003F007FFFF801FFE7F
+      C001C001F007FFFF803FFE7FE003E003F0FFFFFFC027FE7F70077007F0FFFFFF
+      E025FE7F3C0C3C0C00FEFFFF203DFE7F1E181E1800FEFFFF201BFE7F0E300E30
+      00FEFFFFE001FE7F0660066000FEFFFFC001FC7F00C000C000FEFFFF7F007F00
+      FFFFFFFFFFFFFFFF7F007F00FFFFFFFFFFFFFFFF7F007F00FFFFFFFFFFFFFFFF
+      7F007F00FFFFFFFFFFFFFFFFFF0FFF0FFFFFFFFFFFFFFFFFFF0FFF0FFFFFFFFF
+      FFFFFFFFFF0FFF0FFFFFFFFFFFFFFFFFE00FE00FFFFFFFFFFFFFFFFFE00FF05F
+      FFFFFFFFFFFFFFFFE0FFE0FFFFFFFFFFFFFFFFFFE0FFF0FFFFFFFFFFFFFFFFFF
+      00FE00FEFFFFFFFFFFFFFFFF00FE00FFFFFFFFFFFFFFFFFF00FE00FEFFFFFFFF
+      FFFFFFFF00FE00FFFFFFFFFFFFFFFFFF00FE00FEFFFFFFFFFFFFFFFF
     }
   end
   object tpopupmenu1: tpopupmenu

@@ -3,7 +3,7 @@ object Page3: TraPage
   PaperSize = Letter
   PageWidth = 215.9
   PageHeight = 279.4
-  PixelPerUnit = 3
+  PixelPerUnit =  2.8346456692913385E+0000
   object TraSimpleReport1: TraSimpleReport
     Page_Header_RowValues.count = 1
     Page_Header_RowValues.items = <    
@@ -1275,7 +1275,7 @@ object Page2: TraPage
   PaperSize = Letter
   PageWidth = 215.9
   PageHeight = 279.4
-  PixelPerUnit = 3
+  PixelPerUnit =  2.8346456692913385E+0000
   object TraChartReport1: TraChartReport
     Page_Header_RowValues.count = 1
     Page_Header_RowValues.items = <    
@@ -1621,7 +1621,7 @@ object Page1: TraPage
   PaperSize = Letter
   PageWidth = 215.9
   PageHeight = 279.4
-  PixelPerUnit = 3
+  PixelPerUnit =  2.8346456692913385E+0000
   object TraTreeReport1: TraTreeReport
     Page_Header_RowValues.count = 1
     Page_Header_RowValues.items = <    

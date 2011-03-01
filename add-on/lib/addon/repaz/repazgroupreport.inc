@@ -390,7 +390,7 @@ begin
        end;
       end;
      end;
-     countingsummary(false);
+     //countingsummary(false);
      fdata.nextrecord;
     end;
     //end draw mod footer
@@ -469,6 +469,8 @@ begin
          end else begin
           fmodfooter:= int1;
           bo1:= true;
+          islastpage:= false;
+          break;
          end;
         end;
        end;
@@ -482,6 +484,27 @@ begin
      bo1:= true;
     end;
    end else begin
+    hband:=fdata.pixelheight;
+    if minchanged>=0 then begin
+     for int1:= minchanged to fdata.groupfields.count-1 do begin
+      if (fdata.groupfields[int1].isgroupchanged) or (fdata.datalink.dataset.recno=1) then begin
+       int2:= fdata.groupfields[int1].GroupHeaderIndex;
+       if (fheader.count>0) and (int2<fheader.count) then begin
+        inc(hband,fheader[int2].tabulators.pixelheight);
+       end;
+      end;
+     end;
+    end;
+    //begin draw mod footer in the last record
+    if (fmodfooter>=0) and (minchanged>=0) then begin
+     for int1:= fmodfooter downto minchanged do begin
+      int2:= fdata.groupfields[int1].GroupFooterIndex;
+      if (ffooter[int2].tabulators.count>0) and (int2<ffooter[int2].tabulators.count) then begin
+       ffooter[int2].tabulators.paint(canvas,makerect(area.x,area.y+posy,area.cx,ffooter[int2].tabulators.pixelheight),true,true);
+       inc(posy,ffooter[int2].tabulators.pixelheight);
+      end;
+     end;
+    end;
     islastpage:= true;
     eofbefore:= true;
    end;   

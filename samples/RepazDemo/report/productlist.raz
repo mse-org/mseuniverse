@@ -3,13 +3,13 @@ object Page1: TraPage
   PaperSize = Letter
   PageWidth = 215.9
   PageHeight = 279.4
-  PixelPerUnit = 3
+  PixelPerUnit = 2.83464566929134
   object TraSimpleReport1: TraSimpleReport
     Page_Header_RowValues.count = 1
     Page_Header_RowValues.items = <    
       item
         Tabulators.count = 2
-        Tabulators.Height = 7.33333333333333
+        Tabulators.Height = 7.33333333333346
         Tabulators.RAW_EmptyLinesBelow = 3
         Tabulators.DataSource = 'dscompany'
         Tabulators.items = <        
@@ -19,10 +19,10 @@ object Page1: TraPage
             RAW_Font = rfCondensed
             RAW_WidthInChar = 25
             RAW_PosInChar = 0
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Position = 0
-            Width = 50
+            Width = 49.9999999999999
             Ellipse = el_None
             TextOptions = []
             Format = 'Page : ##'
@@ -44,11 +44,11 @@ object Page1: TraPage
             Font_Italic = True
             Font_UnderLine = True
             Font_Size = 13
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Alignment_Horizontal = ha_Right
-            Position = 70
-            Width = 120
+            Position = 69.9999999999999
+            Width = 120.0000000000001
             Ellipse = el_None
             TextOptions = []
             DataField = 'Motto'
@@ -62,12 +62,12 @@ object Page1: TraPage
             Border_Bottom_LineStyle = ls_Solid
           end>
       end>
-    Page_Header_Height = 7.33333333333333
+    Page_Header_Height = 7.33333333333346
     Page_Footer_RowValues.count = 1
     Page_Footer_RowValues.items = <    
       item
         Tabulators.count = 2
-        Tabulators.Height = 7.33333333333333
+        Tabulators.Height = 7.33333333333346
         Tabulators.DataSource = 'dscompany'
         Tabulators.items = <        
           item
@@ -76,10 +76,10 @@ object Page1: TraPage
             RAW_Font = rfCourier
             RAW_WidthInChar = 15
             RAW_PosInChar = 0
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Position = 0
-            Width = 30
+            Width = 29.9999999999999
             Ellipse = el_None
             TextOptions = []
             Border_Top_Width = 0
@@ -97,10 +97,10 @@ object Page1: TraPage
             RAW_WidthInChar = 50
             RAW_PosInChar = 16
             Font_Italic = True
-            Margin_Left = 1
-            Margin_Right = 1
-            Position = 50
-            Width = 30
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
+            Position = 49.9999999999999
+            Width = 29.9999999999999
             Ellipse = el_None
             TextOptions = []
             DataField = 'Address1'
@@ -114,12 +114,12 @@ object Page1: TraPage
             Border_Bottom_LineStyle = ls_Solid
           end>
       end>
-    Page_Footer_Height = 7.33333333333333
+    Page_Footer_Height = 7.33333333333346
     Report_Header_RowValues.count = 2
     Report_Header_RowValues.items = <    
       item
         Tabulators.count = 2
-        Tabulators.Height = 25
+        Tabulators.Height = 25.0000000000001
         Tabulators.DataSource = 'dscompany'
         Tabulators.items = <        
           item
@@ -128,10 +128,10 @@ object Page1: TraPage
             BitmapFieldAlignment = [al_stretchx, al_stretchy]
             RAW_WidthInChar = 20
             RAW_PosInChar = 0
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Position = 0
-            Width = 70
+            Width = 69.9999999999999
             Ellipse = el_None
             TextOptions = []
             DataField = 'Logo'
@@ -141,7 +141,7 @@ object Page1: TraPage
             Border_Left_LineStyle = ls_Solid
             Border_Right_Width = 0
             Border_Right_LineStyle = ls_Solid
-            Border_Bottom_Width = 1
+            Border_Bottom_Width = 1.00000000000001
             Border_Bottom_LineStyle = ls_Solid
           end        
           item
@@ -152,10 +152,10 @@ object Page1: TraPage
             Font_Bold = True
             Font_Italic = True
             Font_Size = 20
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Alignment_Vertical = va_Bottom
-            Position = 70
+            Position = 69.9999999999999
             Width = 130
             Ellipse = el_None
             TextOptions = []
@@ -172,7 +172,7 @@ object Page1: TraPage
       end    
       item
         Tabulators.count = 1
-        Tabulators.Height = 12
+        Tabulators.Height = 12.00000000000001
         Tabulators.RAW_EmptyLinesBelow = 2
         Tabulators.items = <        
           item
@@ -183,8 +183,8 @@ object Page1: TraPage
             Font_Bold = True
             Font_UnderLine = True
             Font_Size = 15
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Alignment_Horizontal = ha_Center
             Alignment_Vertical = va_Bottom
             Position = 0
@@ -202,12 +202,12 @@ object Page1: TraPage
           end>
       end>
     Report_Header_Height = 40
-    Report_ExtraHeader_Height = 7
+    Report_ExtraHeader_Height = 6.99999999999994
     Report_Footer_RowValues.count = 2
     Report_Footer_RowValues.items = <    
       item
         Tabulators.count = 6
-        Tabulators.Height = 7.33333333333333
+        Tabulators.Height = 7.33333333333346
         Tabulators.DataSource = 'dsproduct'
         Tabulators.items = <        
           item
@@ -218,19 +218,19 @@ object Page1: TraPage
             Color = -1610612715
             Font_Bold = True
             Font_Italic = True
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Position = 0
-            Width = 30
+            Width = 29.9999999999999
             Ellipse = el_None
             TextOptions = []
-            Border_Top_Width = 0.5
+            Border_Top_Width = 0.50000000000001
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.3
             Border_Left_LineStyle = ls_Solid
             Border_Right_Width = 0
             Border_Right_LineStyle = ls_Solid
-            Border_Bottom_Width = 0.5
+            Border_Bottom_Width = 0.50000000000001
             Border_Bottom_LineStyle = ls_Solid
             SummaryType = st_None
           end        
@@ -238,22 +238,22 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 27
             RAW_PosInChar = 12
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Alignment_Horizontal = ha_Center
-            Position = 30
+            Position = 29.9999999999999
             Width = 60
             Ellipse = el_None
             TextOptions = []
             DataField = 'ProductId'
             Format = '0.00 PIECES'
-            Border_Top_Width = 0.5
+            Border_Top_Width = 0.50000000000001
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
             Border_Left_LineStyle = ls_Solid
             Border_Right_Width = 0
             Border_Right_LineStyle = ls_Solid
-            Border_Bottom_Width = 0.5
+            Border_Bottom_Width = 0.50000000000001
             Border_Bottom_LineStyle = ls_Solid
             SummaryType = st_Count
           end        
@@ -261,19 +261,19 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 5
             RAW_PosInChar = 40
-            Margin_Left = 1
-            Margin_Right = 1
-            Position = 90
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
+            Position = 89.9999999999999
             Width = 20
             Ellipse = el_None
             TextOptions = []
-            Border_Top_Width = 0.5
+            Border_Top_Width = 0.50000000000001
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
             Border_Left_LineStyle = ls_Solid
             Border_Right_Width = 0
             Border_Right_LineStyle = ls_Solid
-            Border_Bottom_Width = 0.5
+            Border_Bottom_Width = 0.50000000000001
             Border_Bottom_LineStyle = ls_Solid
             SummaryType = st_None
           end        
@@ -281,11 +281,11 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 14
             RAW_PosInChar = 46
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Alignment_Horizontal = ha_Right
-            Position = 110
-            Width = 25
+            Position = 109.9999999999999
+            Width = 25.0000000000001
             Ellipse = el_None
             TextOptions = []
             DataField = 'salesprice'
@@ -296,7 +296,7 @@ object Page1: TraPage
             Border_Left_LineStyle = ls_Solid
             Border_Right_Width = 0
             Border_Right_LineStyle = ls_Solid
-            Border_Bottom_Width = 0.5
+            Border_Bottom_Width = 0.50000000000001
             Border_Bottom_LineStyle = ls_Solid
             SummaryType = st_Sum
           end        
@@ -305,19 +305,19 @@ object Page1: TraPage
             RAW_WidthInChar = 10
             RAW_PosInChar = 61
             Color = -1610612723
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Position = 135
             Width = 20
             Ellipse = el_None
             TextOptions = []
-            Border_Top_Width = 0.5
+            Border_Top_Width = 0.50000000000001
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
             Border_Left_LineStyle = ls_Solid
             Border_Right_Width = 0
             Border_Right_LineStyle = ls_Solid
-            Border_Bottom_Width = 0.5
+            Border_Bottom_Width = 0.50000000000001
             Border_Bottom_LineStyle = ls_Solid
             SummaryType = st_None
           end        
@@ -326,37 +326,37 @@ object Page1: TraPage
             Expression = 'dsproduct.SalesPrice*2'
             RAW_WidthInChar = 14
             RAW_PosInChar = 72
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Alignment_Horizontal = ha_Right
             Position = 155
-            Width = 30
+            Width = 29.9999999999999
             Ellipse = el_None
             TextOptions = []
             Format = '#,#0.00'
-            Border_Top_Width = 0.5
+            Border_Top_Width = 0.50000000000001
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
             Border_Left_LineStyle = ls_Solid
             Border_Right_Width = 0.3
             Border_Right_LineStyle = ls_Solid
-            Border_Bottom_Width = 0.5
+            Border_Bottom_Width = 0.50000000000001
             Border_Bottom_LineStyle = ls_Solid
             SummaryType = st_Sum
           end>
       end    
       item
         Tabulators.count = 2
-        Tabulators.Height = 7.33333333333333
+        Tabulators.Height = 7.33333333333346
         Tabulators.items = <        
           item
             Text = 'Terbilang :'
             RAW_WidthInChar = 5
             RAW_PosInChar = 0
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Position = 0
-            Width = 30
+            Width = 29.9999999999999
             Ellipse = el_None
             TextOptions = []
             Border_Top_Width = 0
@@ -375,8 +375,8 @@ object Page1: TraPage
             RAW_PosInChar = 5
             Font_Italic = True
             Font_UnderLine = True
-            Margin_Left = 1
-            Margin_Right = 1
+            Margin_Left = 1.00000000000001
+            Margin_Right = 1.00000000000001
             Position = 35
             Width = 150
             Ellipse = el_None
@@ -392,7 +392,7 @@ object Page1: TraPage
             SummaryType = st_None
           end>
       end>
-    Report_Footer_Height = 15
+    Report_Footer_Height = 14.99999999999995
     Bitmap.transparentcolor = -2147483642
     Bitmap.options = [bmo_masked, bmo_colormask]
     Bitmap.alignment = [al_xcentered, al_ycentered]
@@ -810,24 +810,24 @@ object Page1: TraPage
       FFFFFF94F4F4F401DEDEDE01EEEEEE40EFEFEF03F0F0F007EFEFEF04EEEEEE46
       DEDEDE01
     }
-    Position_Left = 10
-    Position_Top = 10
-    Area_Width = 189.666666666667
-    Area_Height = 259.333333333333
+    Position_Left = 9.87777777777778
+    Position_Top = 9.87777777777778
+    Area_Width = 189.794444444444
+    Area_Height = 259.291666666667
     Report_Content.Header_Tabulators.count = 7
     Report_Content.Header_Tabulators.BackColor = -1610612715
-    Report_Content.Header_Tabulators.Height = 7.33333333333333
+    Report_Content.Header_Tabulators.Height = 7.33333333333346
     Report_Content.Header_Tabulators.items = <    
       item
         Bitmap.options = [bmo_masked]
         RAW_WidthInChar = 4
         RAW_PosInChar = 1
         Font_Bold = True
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Center
         Position = 0
-        Width = 10
+        Width = 10.00000000000013
         Ellipse = el_None
         TextOptions = []
         DataField = 'Num'
@@ -837,7 +837,7 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
       end    
       item
@@ -845,10 +845,10 @@ object Page1: TraPage
         RAW_WidthInChar = 6
         RAW_PosInChar = 5
         Font_Bold = True
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Center
-        Position = 10
+        Position = 10.00000000000013
         Width = 20
         Ellipse = el_None
         TextOptions = []
@@ -858,7 +858,7 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
       end    
       item
@@ -866,10 +866,10 @@ object Page1: TraPage
         RAW_WidthInChar = 27
         RAW_PosInChar = 12
         Font_Bold = True
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Center
-        Position = 30
+        Position = 29.9999999999999
         Width = 60
         Ellipse = el_None
         TextOptions = []
@@ -880,7 +880,7 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
       end    
       item
@@ -888,10 +888,10 @@ object Page1: TraPage
         RAW_WidthInChar = 5
         RAW_PosInChar = 40
         Font_Bold = True
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Center
-        Position = 90
+        Position = 89.9999999999999
         Width = 20
         Ellipse = el_None
         TextOptions = []
@@ -901,7 +901,7 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
       end    
       item
@@ -909,11 +909,11 @@ object Page1: TraPage
         RAW_WidthInChar = 14
         RAW_PosInChar = 46
         Font_Bold = True
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Center
-        Position = 110
-        Width = 25
+        Position = 109.9999999999999
+        Width = 25.0000000000001
         Ellipse = el_None
         TextOptions = []
         Border_Top_Width = 0.3
@@ -922,7 +922,7 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
       end    
       item
@@ -931,8 +931,8 @@ object Page1: TraPage
         RAW_PosInChar = 61
         Color = -1610612717
         Font_Bold = True
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Center
         Position = 135
         Width = 20
@@ -944,18 +944,18 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
       end    
       item
         Text = 'Sub Total'
         RAW_WidthInChar = 14
         RAW_PosInChar = 72
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Center
         Position = 155
-        Width = 30
+        Width = 29.9999999999999
         Ellipse = el_None
         TextOptions = []
         Border_Top_Width = 0.2
@@ -964,13 +964,13 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0.3
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
       end>
-    Report_Content.Header_Height = 7.33333333333333
+    Report_Content.Header_Height = 7.33333333333346
     Report_Content.Footer_Tabulators.count = 6
     Report_Content.Footer_Tabulators.BackColor = -1610612717
-    Report_Content.Footer_Tabulators.Height = 7.33333333333333
+    Report_Content.Footer_Tabulators.Height = 7.33333333333346
     Report_Content.Footer_Tabulators.DataSource = 'dsproduct'
     Report_Content.Footer_Tabulators.items = <    
       item
@@ -981,10 +981,10 @@ object Page1: TraPage
         Font_Bold = True
         Font_Italic = True
         Font_Size = 11
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Position = 0
-        Width = 30
+        Width = 29.9999999999999
         Ellipse = el_None
         TextOptions = []
         Border_Top_Width = 0.4
@@ -993,7 +993,7 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
         SummaryType = st_None
       end    
@@ -1001,10 +1001,10 @@ object Page1: TraPage
         DataSource = 'dsproduct'
         RAW_WidthInChar = 27
         RAW_PosInChar = 12
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Center
-        Position = 30
+        Position = 29.9999999999999
         Width = 60
         Ellipse = el_None
         TextOptions = []
@@ -1016,7 +1016,7 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
         SummaryType = st_Count
       end    
@@ -1024,9 +1024,9 @@ object Page1: TraPage
         DataSource = 'dsproduct'
         RAW_WidthInChar = 5
         RAW_PosInChar = 40
-        Margin_Left = 1
-        Margin_Right = 1
-        Position = 90
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
+        Position = 89.9999999999999
         Width = 20
         Ellipse = el_None
         TextOptions = []
@@ -1036,7 +1036,7 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
         SummaryType = st_None
       end    
@@ -1044,11 +1044,11 @@ object Page1: TraPage
         DataSource = 'dsproduct'
         RAW_WidthInChar = 14
         RAW_PosInChar = 46
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Right
-        Position = 110
-        Width = 25
+        Position = 109.9999999999999
+        Width = 25.0000000000001
         Ellipse = el_None
         TextOptions = []
         DataField = 'salesprice'
@@ -1059,7 +1059,7 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
         SummaryType = st_Sum
       end    
@@ -1068,8 +1068,8 @@ object Page1: TraPage
         RAW_WidthInChar = 10
         RAW_PosInChar = 61
         Color = -1610612727
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Position = 135
         Width = 20
         Ellipse = el_None
@@ -1078,9 +1078,9 @@ object Page1: TraPage
         Border_Top_LineStyle = ls_Solid
         Border_Left_Width = 0.2
         Border_Left_LineStyle = ls_Solid
-        Border_Right_Width = 0.5
+        Border_Right_Width = 0.50000000000001
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
         SummaryType = st_None
       end    
@@ -1089,11 +1089,11 @@ object Page1: TraPage
         Expression = 'dsproduct.price*2'
         RAW_WidthInChar = 14
         RAW_PosInChar = 72
-        Margin_Left = 1
-        Margin_Right = 1
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Right
         Position = 155
-        Width = 30
+        Width = 29.9999999999999
         Ellipse = el_None
         TextOptions = []
         Format = '#,#0.00'
@@ -1103,13 +1103,13 @@ object Page1: TraPage
         Border_Left_LineStyle = ls_Solid
         Border_Right_Width = 0.3
         Border_Right_LineStyle = ls_Solid
-        Border_Bottom_Width = 0.5
+        Border_Bottom_Width = 0.50000000000001
         Border_Bottom_LineStyle = ls_Solid
         SummaryType = st_Sum
       end>
-    Report_Content.Footer_Height = 7.33333333333333
+    Report_Content.Footer_Height = 7.33333333333346
     Report_Content.Data_Tabulators.count = 7
-    Report_Content.Data_Tabulators.Height = 7.33333333333333
+    Report_Content.Data_Tabulators.Height = 7.62
     Report_Content.Data_Tabulators.DataSource = 'dsproduct'
     Report_Content.Data_Tabulators.Zebra_Color = -1879048180
     Report_Content.Data_Tabulators.Zebra_Height = 1
@@ -1120,12 +1120,13 @@ object Page1: TraPage
         Expression = 'recordnumber'
         RAW_WidthInChar = 4
         RAW_PosInChar = 1
-        Margin_Left = 1
-        Margin_Right = 1
+        Font_Name = 'Courier New'
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Right
         Position = 0
-        Width = 10
-        Ellipse = el_None
+        Width = 10.00000000000013
+        Ellipse = el_Right
         TextOptions = []
         Border_Top_Width = 0
         Border_Top_LineStyle = ls_Solid
@@ -1141,11 +1142,12 @@ object Page1: TraPage
         Bitmap.transparentcolor = -2147483642
         RAW_WidthInChar = 6
         RAW_PosInChar = 5
-        Margin_Left = 1
-        Margin_Right = 1
-        Position = 10
+        Font_Name = 'Courier New'
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
+        Position = 10.00000000000013
         Width = 20
-        Ellipse = el_None
+        Ellipse = el_Right
         TextOptions = []
         DataField = 'ProductId'
         Border_Top_Width = 0
@@ -1163,9 +1165,10 @@ object Page1: TraPage
         Bitmap.options = [bmo_masked]
         RAW_WidthInChar = 27
         RAW_PosInChar = 12
-        Margin_Left = 1
-        Margin_Right = 1
-        Position = 30
+        Font_Name = 'Courier New'
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
+        Position = 29.9999999999999
         Width = 60
         Ellipse = el_Right
         TextOptions = []
@@ -1183,12 +1186,13 @@ object Page1: TraPage
         DataSource = 'dsproduct'
         RAW_WidthInChar = 5
         RAW_PosInChar = 40
-        Margin_Left = 1
-        Margin_Right = 1
+        Font_Name = 'Courier New'
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Center
-        Position = 90
+        Position = 89.9999999999999
         Width = 20
-        Ellipse = el_None
+        Ellipse = el_Right
         TextOptions = []
         DataField = 'Category'
         Border_Top_Width = 0
@@ -1204,12 +1208,13 @@ object Page1: TraPage
         DataSource = 'dsproduct'
         RAW_WidthInChar = 14
         RAW_PosInChar = 46
-        Margin_Left = 1
-        Margin_Right = 1
+        Font_Name = 'Courier New'
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Right
-        Position = 110
-        Width = 25
-        Ellipse = el_None
+        Position = 109.9999999999999
+        Width = 25.0000000000001
+        Ellipse = el_Right
         TextOptions = []
         DataField = 'salesprice'
         Format = '#,#0.00'
@@ -1229,11 +1234,12 @@ object Page1: TraPage
         RAW_WidthInChar = 10
         RAW_PosInChar = 61
         Color = -1610612716
-        Margin_Left = 1
-        Margin_Right = 1
+        Font_Name = 'Courier New'
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Position = 135
         Width = 20
-        Ellipse = el_None
+        Ellipse = el_Right
         TextOptions = []
         DataField = 'ProductImage'
         Border_Top_Width = 0
@@ -1250,12 +1256,13 @@ object Page1: TraPage
         Expression = 'dsproduct.salesprice*2'
         RAW_WidthInChar = 14
         RAW_PosInChar = 72
-        Margin_Left = 1
-        Margin_Right = 1
+        Font_Name = 'Courier New'
+        Margin_Left = 1.00000000000001
+        Margin_Right = 1.00000000000001
         Alignment_Horizontal = ha_Right
         Position = 155
-        Width = 30
-        Ellipse = el_None
+        Width = 29.9999999999999
+        Ellipse = el_Right
         TextOptions = []
         Format = '#,#0.00'
         Border_Top_Width = 0

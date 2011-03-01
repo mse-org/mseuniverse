@@ -333,6 +333,20 @@ type
   constructor create(aowner:tcomponent);override;
  end;
 
+ tidenisdiscountday=class(tidenfunction)
+ protected
+  function getevalvalue:variant;override;
+ public
+  constructor create(aowner:tcomponent);override;
+ end;
+
+ tidenisholiday=class(tidenfunction)
+ protected
+  function getevalvalue:variant;override;
+ public
+  constructor create(aowner:tcomponent);override;
+ end;
+
  { report header }
  
  tidenreportheader=class(tidenreport)
@@ -2091,6 +2105,8 @@ begin
   [rfreplaceall, rfignorecase]);
 end;
 
+{ tidenfieldwithkey }
+
 constructor tidenfieldwithkey.create(aowner:tcomponent);
 begin
  inherited create(aowner);
@@ -2116,6 +2132,80 @@ begin
  adataset2:=copy(params[2],0,pos2-1);
  afield2:=copy(params[2],pos2+1,length(params[2])-pos2);
  result:= trepazevaluator(owner).datasource.searchfieldwithkey(adataset,afield,[params[1]],afield2);
+end;
+
+{ tidenisdiscountday }
+
+constructor tidenisdiscountday.create(aowner:tcomponent);
+begin
+ inherited create(aowner);
+ fparamcount:=2;
+ idenname:='IsDiscountday';
+ help:=uc(ord(rcsisdiscountday));
+ model:='IsDiscountday(ADate:tdatetime, IncludeSunday:boolean): boolean';
+ aparams:=uc(ord(rcspisdiscountday));
+end;
+
+function tidenisdiscountday.getevalvalue:variant;
+var
+ bo1: boolean;
+ adate: tdatetime;
+ int1: integer;
+begin
+ //if (not varisnull(params[0])) then
+ //  raise tevalnamedexception.create(uc(ord(rcsevaltype)),idenname);
+ if (not varisboolean(params[1])) then
+   raise tevalnamedexception.create(uc(ord(rcsevaltype)),idenname);
+ bo1:= boolean(params[1]);
+ adate:= tdatetime(params[0]);
+ result:= false;
+ if bo1 then begin
+  result:= dayofweek(adate) = 1;
+  if result then exit;
+ end;
+ for int1:=0 to high(adiscountdays) do begin
+  if dateof(adate)=dateof(adiscountdays[int1]) then begin
+   result:= true;
+   break;
+  end;
+ end;
+end;
+
+{ tidenisholiday }
+
+constructor tidenisholiday.create(aowner:tcomponent);
+begin
+ inherited create(aowner);
+ fparamcount:=2;
+ idenname:='IsHoliday';
+ help:=uc(ord(rcsisholiday));
+ model:='IsHoliday(ADate:tdatetime, IncludeSunday:boolean): boolean';
+ aparams:=uc(ord(rcspisholiday));
+end;
+
+function tidenisholiday.getevalvalue:variant;
+var
+ bo1: boolean;
+ adate: tdatetime;
+ int1: integer;
+begin
+ //if (not varisnull(params[0])) then
+ //  raise tevalnamedexception.create(uc(ord(rcsevaltype)),idenname);
+ if (not varisboolean(params[1])) then
+   raise tevalnamedexception.create(uc(ord(rcsevaltype)),idenname);
+ bo1:= boolean(params[1]);
+ adate:= tdatetime(params[0]);
+ result:= false;
+ if bo1 then begin
+  result:= dayofweek(adate) = 1;
+  if result then exit;
+ end;
+ for int1:=0 to high(aholidays) do begin
+  if dateof(adate)=dateof(aholidays[int1]) then begin
+   result:= true;
+   break;
+  end;
+ end;
 end;
 
 constructor tidenstringtobin.create(aowner:tcomponent);

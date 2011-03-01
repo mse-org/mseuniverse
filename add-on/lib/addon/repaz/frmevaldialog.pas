@@ -207,7 +207,7 @@ end;
 
 destructor trepazevaldialog.destroy;
 begin
- fevaluator:= nil;
+ //fevaluator:= nil;
  inherited;
 end;
 

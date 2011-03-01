@@ -39,34 +39,34 @@ object pagesetupdlgfo: tpagesetupdlgfo
       frame.button.color = -2147483646
       frame.outerframe = (
         0
-        17
+        16
         0
         0
       )
       bounds_x = 7
-      bounds_y = 17
+      bounds_y = 18
       bounds_cx = 224
-      bounds_cy = 38
+      bounds_cy = 36
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item
         end>
-      reffontheight = 14
+      reffontheight = 13
     end
     object cinfo: tstringgrid
       frame.sbhorz.options = [sbo_thumbtrack]
       frame.caption = 'Printer Information'
       frame.outerframe = (
         0
-        17
+        16
         0
         0
       )
       taborder = 2
       bounds_x = 7
-      bounds_y = 55
+      bounds_y = 56
       bounds_cx = 440
-      bounds_cy = 95
+      bounds_cy = 94
       optionsgrid = [og_colsizing, og_rowsizing, og_focuscellonenter, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
       datacols.count = 2
       datacols.options = [co_readonly, co_mousemovefocus, co_mouseselect, co_savevalue, co_savestate, co_mousescrollrow]
@@ -82,7 +82,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
       fixrows.count = 1
       fixrows.items = <      
         item
-          height = 16
+          height = 15
           captions.count = 2
           captions.items = <          
             item
@@ -94,8 +94,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
         end>
       zebra_height = 1
       datarowlinewidth = 0
-      datarowheight = 16
-      reffontheight = 14
+      datarowheight = 15
+      reffontheight = 13
     end
     object boolrawmode: tbooleanedit
       frame.caption = '&RAW Mode'
@@ -103,32 +103,59 @@ object pagesetupdlgfo: tpagesetupdlgfo
       frame.outerframe = (
         0
         1
-        63
-        2
+        56
+        1
       )
       taborder = 3
-      bounds_x = 315
+      bounds_x = 360
       bounds_y = 35
-      bounds_cx = 76
-      bounds_cy = 16
-      ondataentered = boolrawmode_ondataentered
+      bounds_cx = 69
+      bounds_cy = 15
+      onchange = boolrawmode_onchange
     end
-    object wdpi: tintegeredit
-      frame.caption = 'DPI'
+    object wdpix: trealedit
+      frame.caption = 'Scale X'
       frame.dummy = 0
       frame.outerframe = (
         0
-        17
+        16
         0
         0
       )
       taborder = 1
       bounds_x = 235
+      bounds_y = 18
+      bounds_cx = 58
+      bounds_cy = 36
+      value = 1
+      valuedefault = 1
+      valuerange = 0
+      valuestart = 0
+      min = 0.1
+      max = 1E+038
+      reffontheight = 13
+    end
+    object wdpiy: trealedit
+      frame.caption = 'Scale Y'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        16
+        0
+        0
+      )
+      taborder = 4
+      bounds_x = 298
       bounds_y = 17
-      bounds_cx = 73
-      bounds_cy = 38
-      value = 72
-      reffontheight = 14
+      bounds_cx = 58
+      bounds_cy = 36
+      value = 1
+      valuedefault = 1
+      valuerange = 0
+      valuestart = 0
+      min = 0.1
+      max = 1E+038
+      reffontheight = 13
     end
   end
   object btnok: tbutton
@@ -137,9 +164,10 @@ object pagesetupdlgfo: tpagesetupdlgfo
     bounds_y = 474
     bounds_cx = 66
     bounds_cy = 22
-    state = [as_localcaption, as_localcolor, as_localonexecute]
+    state = [as_default, as_localdefault, as_localcaption, as_localcolor, as_localonexecute]
     caption = '&OK'
     modalresult = mr_ok
+    onexecute = btnok_onexecute
   end
   object btncancel: tbutton
     taborder = 2
@@ -147,9 +175,13 @@ object pagesetupdlgfo: tpagesetupdlgfo
     bounds_y = 474
     bounds_cx = 66
     bounds_cy = 22
-    state = [as_localcaption, as_localcolor]
+    state = [as_localcaption, as_localcolor, as_localshortcut]
     caption = '&Cancel'
     modalresult = mr_cancel
+    sc = (
+      1
+      256
+    )
   end
   object ttabwidget1: ttabwidget
     bounds_x = 5
@@ -161,7 +193,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
     tab_frame.framei_left = 3
     tab_frame.framei_right = 3
     tab_frame.localprops = [frl_fileft, frl_firight]
-    tab_size = 18
+    tab_size = 17
     object ttabpage1: ttabpage
       frame.zoomwidthstep = 1
       frame.zoomheightstep = 1
@@ -175,9 +207,9 @@ object pagesetupdlgfo: tpagesetupdlgfo
       taborder = 1
       visible = True
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 453
-      bounds_cy = 280
+      bounds_cy = 281
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&General'
       object tlayouter1: tlayouter
@@ -204,8 +236,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
             color = -2147483645
             bounds_x = 7
             bounds_y = 8
-            bounds_cx = 197
-            bounds_cy = 260
+            bounds_cx = 93
+            bounds_cy = 124
             anchors = [an_left, an_top, an_right, an_bottom]
             optionslayout = [lao_alignx, lao_placey]
             object tstringdisp1: tstringdisp
@@ -216,7 +248,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               frame.dummy = 0
               bounds_x = 3
               bounds_y = 0
-              bounds_cx = 92
+              bounds_cx = 90
               bounds_cy = 12
               anchors = [an_left, an_top, an_right]
               font.height = 7
@@ -225,7 +257,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
-              reffontheight = 9
+              reffontheight = 8
             end
             object tstringdisp2: tstringdisp
               optionswidget = [ow_destroywidgets, ow_fontglyphheight]
@@ -235,8 +267,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
               frame.dummy = 0
               taborder = 1
               bounds_x = 3
-              bounds_y = 248
-              bounds_cx = 92
+              bounds_y = 112
+              bounds_cx = 90
               bounds_cy = 12
               anchors = [an_left, an_top, an_right]
               font.height = 7
@@ -245,7 +277,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
-              reffontheight = 9
+              reffontheight = 8
             end
             object tstringdisp3: tstringdisp
               optionswidget = [ow_destroywidgets, ow_fontglyphheight]
@@ -255,8 +287,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
               frame.dummy = 0
               taborder = 2
               bounds_x = 3
-              bounds_y = 207
-              bounds_cx = 92
+              bounds_y = 93
+              bounds_cx = 90
               bounds_cy = 12
               anchors = [an_left, an_top, an_right]
               font.height = 7
@@ -265,7 +297,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
-              reffontheight = 9
+              reffontheight = 8
             end
             object tstringdisp4: tstringdisp
               optionswidget = [ow_destroywidgets, ow_fontglyphheight]
@@ -275,8 +307,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
               frame.dummy = 0
               taborder = 3
               bounds_x = 3
-              bounds_y = 165
-              bounds_cx = 92
+              bounds_y = 75
+              bounds_cx = 90
               bounds_cy = 12
               anchors = [an_left, an_top, an_right]
               font.height = 7
@@ -285,7 +317,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
-              reffontheight = 9
+              reffontheight = 8
             end
             object tstringdisp5: tstringdisp
               optionswidget = [ow_destroywidgets, ow_fontglyphheight]
@@ -295,8 +327,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
               frame.dummy = 0
               taborder = 4
               bounds_x = 3
-              bounds_y = 124
-              bounds_cx = 92
+              bounds_y = 56
+              bounds_cx = 90
               bounds_cy = 12
               anchors = [an_left, an_top, an_right]
               font.height = 7
@@ -305,7 +337,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
-              reffontheight = 9
+              reffontheight = 8
             end
             object tstringdisp6: tstringdisp
               optionswidget = [ow_destroywidgets, ow_fontglyphheight]
@@ -315,8 +347,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
               frame.dummy = 0
               taborder = 5
               bounds_x = 3
-              bounds_y = 83
-              bounds_cx = 92
+              bounds_y = 37
+              bounds_cx = 90
               bounds_cy = 12
               anchors = [an_left, an_top, an_right]
               font.height = 7
@@ -325,7 +357,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
-              reffontheight = 9
+              reffontheight = 8
             end
             object tstringdisp7: tstringdisp
               optionswidget = [ow_destroywidgets, ow_fontglyphheight]
@@ -335,8 +367,8 @@ object pagesetupdlgfo: tpagesetupdlgfo
               frame.dummy = 0
               taborder = 6
               bounds_x = 3
-              bounds_y = 41
-              bounds_cx = 92
+              bounds_y = 19
+              bounds_cx = 90
               bounds_cy = 12
               anchors = [an_left, an_top, an_right]
               font.height = 7
@@ -345,7 +377,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
               font.dummy = 0
               textflags = [tf_ycentered, tf_ellipseright]
               value = 'Abcdefghijklmnopqrstuvwxyz 1234567890'
-              reffontheight = 9
+              reffontheight = 8
             end
           end
         end
@@ -369,14 +401,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.dummy = 0
           frame.outerframe = (
             0
-            17
+            16
             0
             0
           )
           bounds_x = 7
-          bounds_y = 17
+          bounds_y = 18
           bounds_cx = 74
-          bounds_cy = 38
+          bounds_cy = 36
           value = -Inf
           valuedefault = -Inf
           formatedit = '0,00'
@@ -385,22 +417,22 @@ object pagesetupdlgfo: tpagesetupdlgfo
           valuestart = 0
           min = -Inf
           max = 1E+038
-          reffontheight = 14
+          reffontheight = 13
         end
         object cright: trealedit
           frame.caption = '&Right (mm)'
           frame.dummy = 0
           frame.outerframe = (
             0
-            17
+            16
             0
             0
           )
           taborder = 1
           bounds_x = 99
-          bounds_y = 18
+          bounds_y = 19
           bounds_cx = 74
-          bounds_cy = 38
+          bounds_cy = 36
           value = -Inf
           valuedefault = -Inf
           formatedit = '0,00'
@@ -409,22 +441,22 @@ object pagesetupdlgfo: tpagesetupdlgfo
           valuestart = 0
           min = -Inf
           max = 1E+038
-          reffontheight = 14
+          reffontheight = 13
         end
         object ctop: trealedit
           frame.caption = '&Top (mm)'
           frame.dummy = 0
           frame.outerframe = (
             0
-            17
+            16
             0
             0
           )
           taborder = 2
           bounds_x = 7
-          bounds_y = 60
+          bounds_y = 61
           bounds_cx = 74
-          bounds_cy = 38
+          bounds_cy = 36
           value = -Inf
           valuedefault = -Inf
           formatedit = '0,00'
@@ -433,22 +465,22 @@ object pagesetupdlgfo: tpagesetupdlgfo
           valuestart = 0
           min = -Inf
           max = 1E+038
-          reffontheight = 14
+          reffontheight = 13
         end
         object cbottom: trealedit
           frame.caption = '&Bottom (mm)'
           frame.dummy = 0
           frame.outerframe = (
             0
-            17
+            16
             0
             0
           )
           taborder = 3
           bounds_x = 98
-          bounds_y = 60
+          bounds_y = 61
           bounds_cx = 74
-          bounds_cy = 38
+          bounds_cy = 36
           value = -Inf
           valuedefault = -Inf
           formatedit = '0,00'
@@ -457,7 +489,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
           valuestart = 0
           min = -Inf
           max = 1E+038
-          reffontheight = 14
+          reffontheight = 13
         end
       end
       object tgroupbox4: tgroupbox
@@ -481,13 +513,13 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.outerframe = (
             0
             1
-            65
-            2
+            54
+            1
           )
           bounds_x = 96
           bounds_y = 17
-          bounds_cx = 78
-          bounds_cy = 16
+          bounds_cx = 67
+          bounds_cy = 15
           onchange = updatepaper
         end
         object cportrait: tbooleaneditradio
@@ -497,14 +529,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.outerframe = (
             0
             1
-            42
-            2
+            39
+            1
           )
           taborder = 1
           bounds_x = 6
           bounds_y = 17
-          bounds_cx = 55
-          bounds_cy = 16
+          bounds_cx = 52
+          bounds_cy = 15
           onchange = updatepaper
         end
       end
@@ -513,15 +545,15 @@ object pagesetupdlgfo: tpagesetupdlgfo
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 3
         bounds_x = 334
-        bounds_y = 72
+        bounds_y = 73
         bounds_cx = 110
-        bounds_cy = 38
+        bounds_cy = 36
         onchange = updatepaper
         value = -Inf
         valuedefault = -Inf
@@ -531,22 +563,22 @@ object pagesetupdlgfo: tpagesetupdlgfo
         valuestart = 0
         min = -Inf
         max = 1E+038
-        reffontheight = 14
+        reffontheight = 13
       end
       object cpaperwidth: trealedit
         frame.caption = '&Width (mm)'
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 4
         bounds_x = 202
-        bounds_y = 72
+        bounds_y = 73
         bounds_cx = 110
-        bounds_cy = 38
+        bounds_cy = 36
         onchange = updatepaper
         value = -Inf
         valuedefault = -Inf
@@ -556,7 +588,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
         valuestart = 0
         min = -Inf
         max = 1E+038
-        reffontheight = 14
+        reffontheight = 13
       end
       object cpapers: tdropdownlistedit
         frame.caption = 'Paper Si&ze'
@@ -564,21 +596,21 @@ object pagesetupdlgfo: tpagesetupdlgfo
         frame.button.color = -2147483646
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 5
         bounds_x = 9
-        bounds_y = 72
+        bounds_y = 73
         bounds_cx = 182
-        bounds_cy = 38
-        ondataentered = cpapers_ondataentered
+        bounds_cy = 36
+        onchange = cpapers_onchange
         dropdown.cols.count = 1
         dropdown.cols.items = <        
           item
           end>
-        reffontheight = 14
+        reffontheight = 13
       end
       object tgroupbox2: tgroupbox
         frame.caption = 'Pages Selection'
@@ -601,13 +633,13 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.outerframe = (
             0
             1
-            16
-            2
+            14
+            1
           )
           bounds_x = 10
           bounds_y = 19
-          bounds_cx = 29
-          bounds_cy = 16
+          bounds_cx = 27
+          bounds_cy = 15
           value = True
         end
         object crangepage: tbooleaneditradio
@@ -617,15 +649,15 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.outerframe = (
             0
             1
-            40
-            2
+            34
+            1
           )
           taborder = 1
           onfocus = crangepage_onfocus
           bounds_x = 66
           bounds_y = 19
-          bounds_cx = 53
-          bounds_cy = 16
+          bounds_cx = 47
+          bounds_cy = 15
         end
         object crangestring: tstringedit
           frame.dummy = 0
@@ -633,19 +665,18 @@ object pagesetupdlgfo: tpagesetupdlgfo
           bounds_x = 125
           bounds_y = 15
           bounds_cx = 194
-          bounds_cy = 21
           ontextedited = crangestring_ontextedited
-          reffontheight = 14
+          reffontheight = 13
         end
         object tlabel1: tlabel
           color = -2147483645
           taborder = 3
           bounds_x = 126
           bounds_y = 41
-          bounds_cx = 138
-          bounds_cy = 14
+          bounds_cx = 127
+          bounds_cy = 13
           caption = 'Example: 1, 1-5, 5-10, etc'
-          reffontheight = 14
+          reffontheight = 13
         end
         object edcopies: trealspinedit
           frame.framei_left = 1
@@ -657,16 +688,15 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
           frame.buttonsize = 15
           frame.outerframe = (
-            43
+            35
             0
             0
             0
           )
           taborder = 4
-          bounds_x = 334
+          bounds_x = 342
           bounds_y = 15
-          bounds_cx = 94
-          bounds_cy = 21
+          bounds_cx = 86
           value = 1
           valuedefault = -Inf
           valuerange = 1
@@ -674,7 +704,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
           min = 0
           max = 100
           step = 1
-          reffontheight = 14
+          reffontheight = 13
         end
       end
     end
@@ -690,9 +720,9 @@ object pagesetupdlgfo: tpagesetupdlgfo
       frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
       taborder = 2
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 453
-      bounds_cy = 280
+      bounds_cy = 281
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'R&AW Mode'
       object listprintercode: tdropdownlistedit
@@ -701,14 +731,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
         frame.button.color = -2147483646
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         bounds_x = 11
-        bounds_y = 8
+        bounds_y = 9
         bounds_cx = 140
-        bounds_cy = 38
+        bounds_cy = 36
         value = 'Epson (ESC/ESC/P2)'
         dropdown.cols.count = 1
         dropdown.cols.items = <        
@@ -721,7 +751,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
             )
           end>
         dropdown.itemindex = 0
-        reffontheight = 14
+        reffontheight = 13
       end
       object boolcontpage: tbooleanedit
         frame.caption = '&Continues Page'
@@ -729,29 +759,15 @@ object pagesetupdlgfo: tpagesetupdlgfo
         frame.outerframe = (
           0
           1
-          92
-          2
+          78
+          1
         )
         taborder = 1
         bounds_x = 11
         bounds_y = 53
-        bounds_cx = 105
-        bounds_cy = 16
-      end
-      object boolejectonfinished: tbooleanedit
-        frame.caption = '&Eject on finished'
-        frame.dummy = 0
-        frame.outerframe = (
-          0
-          1
-          94
-          2
-        )
-        taborder = 2
-        bounds_x = 11
-        bounds_y = 75
-        bounds_cx = 107
-        bounds_cy = 16
+        bounds_cx = 91
+        bounds_cy = 15
+        onchange = boolcontpage_onchange
       end
       object tgroupbox3: tgroupbox
         frame.caption = 'Cash Drawer'
@@ -773,13 +789,13 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.outerframe = (
             0
             1
-            62
-            2
+            55
+            1
           )
           bounds_x = 8
           bounds_y = 22
-          bounds_cx = 75
-          bounds_cy = 16
+          bounds_cx = 68
+          bounds_cy = 15
           value = True
         end
         object cdopenbefore: tbooleaneditradio
@@ -788,14 +804,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.outerframe = (
             0
             1
-            98
-            2
+            89
+            1
           )
           taborder = 1
           bounds_x = 8
           bounds_y = 43
-          bounds_cx = 111
-          bounds_cy = 16
+          bounds_cx = 102
+          bounds_cy = 15
         end
         object cdopenafter: tbooleaneditradio
           frame.caption = 'Open &after print'
@@ -803,14 +819,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
           frame.outerframe = (
             0
             1
-            87
-            2
+            81
+            1
           )
           taborder = 2
           bounds_x = 8
           bounds_y = 65
-          bounds_cx = 100
-          bounds_cy = 16
+          bounds_cx = 94
+          bounds_cy = 15
         end
       end
       object boolcutpaper: tbooleanedit
@@ -819,14 +835,69 @@ object pagesetupdlgfo: tpagesetupdlgfo
         frame.outerframe = (
           0
           1
-          121
-          2
+          106
+          1
+        )
+        taborder = 2
+        bounds_x = 11
+        bounds_y = 73
+        bounds_cx = 119
+        bounds_cy = 15
+      end
+      object wlinesperpage: tintegeredit
+        frame.caption = '&Lines per page'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          16
+          0
+          0
         )
         taborder = 3
         bounds_x = 11
-        bounds_y = 97
-        bounds_cx = 134
-        bounds_cy = 16
+        bounds_y = 95
+        bounds_cy = 35
+        reffontheight = 13
+      end
+    end
+    object ttabpage3: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 17
+      bounds_cx = 453
+      bounds_cy = 281
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Ad&vance'
+      object wtextasgraph: tbooleanedit
+        frame.caption = 'Print text as graphic'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          1
+          100
+          1
+        )
+        bounds_x = 11
+        bounds_y = 17
+        bounds_cx = 113
+        bounds_cy = 15
+      end
+      object wantialias: tbooleanedit
+        frame.caption = 'Use anti aliasing feature'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          1
+          119
+          1
+        )
+        taborder = 1
+        bounds_x = 11
+        bounds_y = 36
+        bounds_cx = 132
+        bounds_cy = 15
       end
     end
   end

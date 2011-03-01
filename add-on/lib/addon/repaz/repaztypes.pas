@@ -12,7 +12,7 @@ type
   linestyle: linestylety;
  end;
  chartlinety = record
-  linewidth: integer;
+  linewidth: real;
   linecolor: colorty;
   capstyle: capstylety;
   linestyle: linestylety;

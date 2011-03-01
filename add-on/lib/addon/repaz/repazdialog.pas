@@ -52,6 +52,8 @@ type
    procedure cactions_ondataentered(const sender: TObject);
    procedure repazdialogfo_oncreate(const sender: TObject);
    procedure btncancel_onexecute(const sender: TObject);
+   procedure dialogloaded;virtual;
+   procedure repazdialogfo_onloaded(const sender: TObject);
  end;
 var
  repazdialogfo: trepazdialogfo;
@@ -88,11 +90,21 @@ begin
  showagain.frame.caption:= uc(ord(rcsShowdlgagain));
  cactions.frame.caption:= uc(ord(rcsActiontype));
  tgroupbox1.frame.caption:= uc(ord(rcsDescription));
+ dialogloaded;
 end;
 
 procedure trepazdialogfo.btncancel_onexecute(const sender: TObject);
 begin
  self.close;
+end;
+
+procedure trepazdialogfo.dialogloaded;
+begin
+ //
+end;
+
+procedure trepazdialogfo.repazdialogfo_onloaded(const sender: TObject);
+begin
 end;
 
 end.

@@ -1,23 +1,21 @@
 object repazpreviewfo: trepazpreviewfo
-  optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_subfocus, ow_mousewheel, ow_destroywidgets, ow_hinton, ow_autoscale]
   visible = False
   bounds_x = 121
   bounds_y = 182
   bounds_cx = 592
   bounds_cy = 468
   anchors = []
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets, ow_autoscale]
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
-    16
+    15
     592
-    452
+    453
   )
   dragdock.optionsdock = [od_savechildren]
   mainmenu = tmainmenu1
-  options = [fo_autoreadstat, fo_autowritestat]
+  options = [fo_maximized, fo_autoreadstat, fo_autowritestat]
   caption = 'Repaz Preview'
   icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
@@ -93,6 +91,7 @@ object repazpreviewfo: trepazpreviewfo
   }
   onloaded = repazpreviewfo_onloaded
   ondestroy = repazpreviewfo_ondestroy
+  onclose = repazpreviewfo_onclose
   moduleclassname = 'tdockform'
   object tscrollbox1: tscrollbox
     frame.optionsscroll = [oscr_zoom, oscr_key, oscr_mousewheel]
@@ -103,7 +102,7 @@ object repazpreviewfo: trepazpreviewfo
     bounds_x = 0
     bounds_y = 34
     bounds_cx = 592
-    bounds_cy = 418
+    bounds_cy = 419
     anchors = [an_left, an_top, an_right, an_bottom]
     object tpreview1: tpreview
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
@@ -209,16 +208,16 @@ object repazpreviewfo: trepazpreviewfo
       frame.captionpos = cp_left
       frame.dummy = 0
       frame.outerframe = (
-        32
+        27
         0
         0
         0
       )
       taborder = 1
       hint = 'Page number'
-      bounds_x = 130
+      bounds_x = 135
       bounds_y = 0
-      bounds_cx = 76
+      bounds_cx = 71
       bounds_cy = 32
       font.height = 11
       font.style = [fs_bold]
@@ -290,16 +289,16 @@ object repazpreviewfo: trepazpreviewfo
       frame.captionpos = cp_left
       frame.dummy = 0
       frame.outerframe = (
-        31
+        27
         0
         0
         0
       )
       taborder = 2
       hint = 'Total of pages'
-      bounds_x = 204
+      bounds_x = 208
       bounds_y = 0
-      bounds_cx = 75
+      bounds_cx = 71
       bounds_cy = 32
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
       font.height = 11
