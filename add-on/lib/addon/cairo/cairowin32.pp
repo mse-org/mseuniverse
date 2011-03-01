@@ -14,7 +14,7 @@ unit CairoWin32;
 
  **********************************************************************
 
-Translation of cairo-win32.h version 1.4 by Luiz Américo Pereira Câmara 2007
+Translation of cairo-win32.h version 1.4 by Luiz Amé²©co Pereira Câ­¡ra 2007
 
 For consistency with the other cairo header files, this file is dual
 licensed LGPL-MPL see the file cairo.pp for the full license.
@@ -28,6 +28,7 @@ uses
   Cairo, windows;
 
 function cairo_win32_surface_create(hdc: HDC): Pcairo_surface_t; cdecl; external LIB_CAIRO;
+function cairo_win32_printing_surface_create(hdc: HDC): Pcairo_surface_t; cdecl; external LIB_CAIRO;
 function cairo_win32_surface_create_with_ddb(hdc: HDC; format: cairo_format_t; width, height: longint): Pcairo_surface_t; cdecl; external LIB_CAIRO;
 function cairo_win32_surface_create_with_dib(format: cairo_format_t; width, height: longint): Pcairo_surface_t; cdecl; external LIB_CAIRO;
 function cairo_win32_surface_get_dc(surface: pcairo_surface_t): HDC; cdecl; external LIB_CAIRO;
