@@ -234,7 +234,7 @@ type
 implementation
 
 uses
- msesys,msedatalist,mseformatstr,
+ msesys,msedatalist,mseformatstr,msefont,
  mseguiintf,msebits,msereal;
 type
  pdfgcdty = record
@@ -263,7 +263,7 @@ begin
  end;
 end;
 
-procedure gui_destroygc(var drawinfo: drawinfoty);
+procedure gdi_destroygc(var drawinfo: drawinfoty);
 begin
  try
   cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_destroygc;
@@ -271,174 +271,105 @@ begin
  end;
 end;
  
-procedure gui_changegc(var drawinfo: drawinfoty);
+procedure gdi_changegc(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_changegc;
 end;
 
-procedure gui_drawlines(var drawinfo: drawinfoty);
+procedure gdi_drawlines(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_drawlines;
 end;
 
-procedure gui_drawlinesegments(var drawinfo: drawinfoty);
+procedure gdi_drawlinesegments(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_drawlinesegments;
 end;
 
-procedure gui_drawellipse(var drawinfo: drawinfoty);
+procedure gdi_drawellipse(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.handleellipse(
                         drawinfo.rect.rect^,false);
 end;
 
-procedure gui_drawarc(var drawinfo: drawinfoty);
+procedure gdi_drawarc(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_drawarc;
 end;
 
-procedure gui_fillrect(var drawinfo: drawinfoty);
+procedure gdi_fillrect(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_fillrect;
 end;
 
-procedure gui_fillelipse(var drawinfo: drawinfoty);
+procedure gdi_fillelipse(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.handleellipse(
                         drawinfo.rect.rect^,true);
 end;
 
-procedure gui_fillarc(var drawinfo: drawinfoty);
+procedure gdi_fillarc(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_fillarc;
 end;
 
-procedure gui_fillpolygon(var drawinfo: drawinfoty);
+procedure gdi_fillpolygon(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_fillpolygon;
 end;
 
-procedure gui_drawstring16(var drawinfo: drawinfoty);
+procedure gdi_drawstring16(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_drawstring16;
 end;
 
-procedure gui_setcliporigin(var drawinfo: drawinfoty);
+procedure gdi_setcliporigin(var drawinfo: drawinfoty);
 begin
 // gdierror(gde_notimplemented);
 end;
 
-procedure gui_createemptyregion(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_createemptyregion](drawinfo);
-end;
-
-procedure gui_createrectregion(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_createrectregion](drawinfo);
-end;
-
-procedure gui_createrectsregion(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_createrectsregion](drawinfo);
-end;
-
-procedure gui_destroyregion(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_destroyregion](drawinfo);
-end;
-
-procedure gui_copyarea(var drawinfo: drawinfoty);
+procedure gdi_copyarea(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_copyarea;
 end;
-
-procedure gui_copyregion(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_copyregion](drawinfo);
-end;
-
-procedure gui_moveregion(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_moveregion](drawinfo);
-end;
-
-procedure gui_regionisempty(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_regionisempty](drawinfo);
-end;
-
-procedure gui_regionclipbox(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_regionclipbox](drawinfo);
-end;
-
-procedure gui_regsubrect(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_regsubrect](drawinfo);
-end;
-
-procedure gui_regsubregion(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_regsubregion](drawinfo);
-end;
-
-procedure gui_regaddrect(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_regaddrect](drawinfo);
-end;
-
-procedure gui_regaddregion(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_regaddregion](drawinfo);
-end;
-
-procedure gui_regintersectrect(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_regintersectrect](drawinfo);
-end;
-
-procedure gui_regintersectregion(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_regintersectregion](drawinfo);
-end;
       
-procedure gui_fonthasglyph(var drawinfo: drawinfoty);
-begin
- gdifuncs^[gdi_fonthasglyph](drawinfo);
-end;
-
 const
  gdifunctions: gdifunctionaty = (
-   {$ifdef FPC}@{$endif}gui_destroygc,
-   {$ifdef FPC}@{$endif}gui_changegc,
-   {$ifdef FPC}@{$endif}gui_drawlines,
-   {$ifdef FPC}@{$endif}gui_drawlinesegments,
-   {$ifdef FPC}@{$endif}gui_drawellipse,
-   {$ifdef FPC}@{$endif}gui_drawarc,
-   {$ifdef FPC}@{$endif}gui_fillrect,
-   {$ifdef FPC}@{$endif}gui_fillelipse,
-   {$ifdef FPC}@{$endif}gui_fillarc,
-   {$ifdef FPC}@{$endif}gui_fillpolygon,
-//   {$ifdef FPC}@{$endif}gui_drawstring,
-   {$ifdef FPC}@{$endif}gui_drawstring16,
-   {$ifdef FPC}@{$endif}gui_setcliporigin,
-   {$ifdef FPC}@{$endif}gui_createemptyregion,
-   {$ifdef FPC}@{$endif}gui_createrectregion,
-   {$ifdef FPC}@{$endif}gui_createrectsregion,
-   {$ifdef FPC}@{$endif}gui_destroyregion,
-   {$ifdef FPC}@{$endif}gui_copyregion,
-   {$ifdef FPC}@{$endif}gui_moveregion,
-   {$ifdef FPC}@{$endif}gui_regionisempty,
-   {$ifdef FPC}@{$endif}gui_regionclipbox,
-   {$ifdef FPC}@{$endif}gui_regsubrect,
-   {$ifdef FPC}@{$endif}gui_regsubregion,
-   {$ifdef FPC}@{$endif}gui_regaddrect,
-   {$ifdef FPC}@{$endif}gui_regaddregion,
-   {$ifdef FPC}@{$endif}gui_regintersectrect,
-   {$ifdef FPC}@{$endif}gui_regintersectregion,
-   {$ifdef FPC}@{$endif}gui_copyarea,
-   {$ifdef FPC}@{$endif}gui_fonthasglyph
+   {$ifdef FPC}@{$endif}gdi_destroygc,
+   {$ifdef FPC}@{$endif}gdi_changegc,
+   {$ifdef FPC}@{$endif}gdi_drawlines,
+   {$ifdef FPC}@{$endif}gdi_drawlinesegments,
+   {$ifdef FPC}@{$endif}gdi_drawellipse,
+   {$ifdef FPC}@{$endif}gdi_drawarc,
+   {$ifdef FPC}@{$endif}gdi_fillrect,
+   {$ifdef FPC}@{$endif}gdi_fillelipse,
+   {$ifdef FPC}@{$endif}gdi_fillarc,
+   {$ifdef FPC}@{$endif}gdi_fillpolygon,
+//   {$ifdef FPC}@{$endif}gdi_drawstring,
+   {$ifdef FPC}@{$endif}gdi_drawstring16,
+   {$ifdef FPC}@{$endif}gdi_setcliporigin,
+   {$ifdef FPC}@{$endif}gdi_createemptyregion,
+   {$ifdef FPC}@{$endif}gdi_createrectregion,
+   {$ifdef FPC}@{$endif}gdi_createrectsregion,
+   {$ifdef FPC}@{$endif}gdi_destroyregion,
+   {$ifdef FPC}@{$endif}gdi_copyregion,
+   {$ifdef FPC}@{$endif}gdi_moveregion,
+   {$ifdef FPC}@{$endif}gdi_regionisempty,
+   {$ifdef FPC}@{$endif}gdi_regionclipbox,
+   {$ifdef FPC}@{$endif}gdi_regsubrect,
+   {$ifdef FPC}@{$endif}gdi_regsubregion,
+   {$ifdef FPC}@{$endif}gdi_regaddrect,
+   {$ifdef FPC}@{$endif}gdi_regaddregion,
+   {$ifdef FPC}@{$endif}gdi_regintersectrect,
+   {$ifdef FPC}@{$endif}gdi_regintersectregion,
+   {$ifdef FPC}@{$endif}gdi_copyarea,
+   {$ifdef FPC}@{$endif}gdi_fonthasglyph,
+   {$ifdef FPC}@{$endif}gdi_getfont,
+   {$ifdef FPC}@{$endif}gdi_getfonthighres,
+   {$ifdef FPC}@{$endif}gdi_freefontdata,
+   {$ifdef FPC}@{$endif}gdi_gettext16width,
+   {$ifdef FPC}@{$endif}gdi_getchar16widths,
+   {$ifdef FPC}@{$endif}gdi_getfontmetrics
  );
 
 { tuniversalprintercanvas }
@@ -474,11 +405,12 @@ var
  po1: pointer;
  adata: plongwordaty;
 begin
- int1:= aimage.size.cx*aimage.size.cy*4;
+ stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
+ //int1:= aimage.size.cx*aimage.size.cy*4;
+ int1:= aimage.size.cy*stridewidth;
  adata:= gui_allocimagemem(int1);
  po1:= pointer(aimage.pixels);
  system.move(po1^,adata^,int1);
- stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
  result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
 end;
 
@@ -488,6 +420,8 @@ begin
 end;
 
 procedure tuniversalprintercanvas.initgcstate;
+//var
+// mat1: txform;
 begin
  inherited;
  with cairogcty(fdrawinfo.gc.platformdata).d do begin
@@ -501,6 +435,30 @@ begin
  cai_PostScript,cai_CUPS:
   begin
    cairo_ps_surface_set_size(fcairo.fsurface,fcairo.page_width*self.ppmm,fcairo.page_height*self.ppmm);
+  end;
+ cai_GDIPrinter:
+  begin
+{  fillchar(mat1,sizeof(mat1),0);
+   with mat1 do begin
+    if fcairo.page_orientation=pao_landscape then begin
+     em11:= (fcairo.dpiy/72);
+     em12:= 0;
+     em21:= 0;
+     em22:= (fcairo.dpix/72);
+     edx:= 0;
+     edy:= 0;
+    end
+    else begin
+     em11:= (fcairo.dpix/72);
+     em12:= 0;
+     em21:= 0;
+     em22:= (fcairo.dpiy/72);
+     edx:= 0;
+     edy:= 0;
+    end;
+    setworldtransform(fcairo.gdiprinterdc,mat1);
+    //setworldtransform(fdrawinfo.gc.handle,mat1);
+   end;}
   end;
  end;
  beginpage;
@@ -588,7 +546,7 @@ begin
             ([gvm_brush,gvm_brushorigin] * mask <> []) then begin
    msebitmap.tbitmap(self.brush).savetoimage(image);
    if image.length>0 then begin 
-    fsurface1:= cairoimage(image,rect1,CAIRO_FORMAT_RGB24);
+    fsurface1:= cairoimage(image,rect1,CAIRO_FORMAT_A1);
     image.pixels:= nil;
     cpattern:= nil;
     cpattern:= cairo_pattern_create_for_surface(fsurface1);
@@ -603,7 +561,7 @@ begin
    cairo_pattern_set_extend (cpattern, CAIRO_EXTEND_REPEAT);
    cairo_set_source(fcairo.context,cpattern);
    cairo_fill(fcairo.context);
-   //gui_freeimagemem(image.pixels);
+   //gdi_freeimagemem(image.pixels);
    image.pixels:= nil;
   end else begin
    if gvm_colorforeground in mask then begin
@@ -677,22 +635,46 @@ end;
 
 procedure tuniversalprintercanvas.cairo_drawstring16;
 var
- str1: msestring;
- rea1: real;
+ rea1,rea2: real;
+ int1: integer;
+ te: cairo_text_extents_t;
+ fe: cairo_font_extents_t;
+ fg: Pcairo_glyph_t;
+ str1: pchar;
+ char1: string;
+ xx,yy: real;
 begin
  if active then begin
   with fdrawinfo.text16pos do begin
    cairopos(pos^);
-   str1:= copy(text,1,count);
+   str1:= pchar(stringtoutf8(text,count));
    rea1:= tfont1(self.font).rotation;
    if rea1<>0 then begin
     cairo_rotate(fcairo.context,-rea1);
    end;
    if fcairo.printtextasgraphic then begin
-    cairo_text_path (fcairo.context, pchar(stringtolatin1(str1)));
+    cairo_text_path (fcairo.context, str1);
     cairo_fill(fcairo.context);
    end else begin
-		  cairo_show_text (fcairo.context, pchar(stringtolatin1(str1))); //bug for dot matrix printer (windows)
+    if (fcairo.outputformat=cai_GDIPrinter) and (fcairo.dpix<>fcairo.dpiy) then begin
+     xx:= pos^.x;
+     yy:= pos^.y;
+     setlength(char1,1);
+     for int1:=0 to length(str1)-1 do begin
+      char1:= str1[int1];
+      cairo_text_extents(fcairo.context, pchar(char1), @te);
+      //cairo_font_extents(fcairo.context,@fe);
+      cairo_show_text(fcairo.context, pchar(char1));
+      //rea2:= te.width;
+      //apos.x:= apos.x+round(te.width-te.x_bearing+te.x_advance);
+      xx:= xx+(te.width*(fcairo.dpix/fcairo.dpiy));
+      //rea2:= fe.max_x_advance;
+      //xx:= xx+rea2;
+      cairo_move_to(fcairo.context,xx,yy);
+     end;
+    end else begin
+		   cairo_show_text(fcairo.context, str1); 
+		  end;
    end;
    if rea1<>0 then begin
     cairo_rotate(fcairo.context,(rea1));
@@ -1344,7 +1326,7 @@ var
  pdev,pdevorig: pdevicemode;
  hDevMode: THandle;
  fformname: Array[0..31] of byte;
- mat1: txform;
+ //mat1: txform;
  {$ENDIF}
  dwret,devmodesize: integer;  
  bo1: boolean;
@@ -1444,7 +1426,7 @@ begin
       fgcprinter:= createdc('WINSPOOL',pansichar(fprintername),nil,pdev);
      GlobalUnlock(hDevMode); 
      GlobalFree(hDevMode); 
-     setmapmode(fgcprinter, MM_TEXT);
+     //setmapmode(fgcprinter, MM_TEXT);
      fillchar(info,sizeof(info),0);
      info.cbsize:= sizeof(info);
      info.lpszdocname:= pwidechar(self.title);
@@ -1454,12 +1436,6 @@ begin
      fppinchx := GetDeviceCaps(fgcprinter, LOGPIXELSX);
      fppinchy := GetDeviceCaps(fgcprinter, LOGPIXELSY);
      {fillchar(mat1,sizeof(mat1),0);
-     {xForm.eM11 = (FLOAT) 0.5;  horizontal
-     xForm.eM12 = (FLOAT) 0.0; 
-     xForm.eM21 = (FLOAT) 0.0; 
-     xForm.eM22 = (FLOAT) 0.5; vertical
-     xForm.eDx  = (FLOAT) 0.0; 
-     xForm.eDy  = (FLOAT) 0.0; }
      with mat1 do begin
       if forientation=pao_landscape then begin
        em11:= (fppinchy/72)*fscaley;
@@ -1483,7 +1459,6 @@ begin
      if forientation=pao_portrait then begin
       cairo_scale(fdraw,(fppinchx/72)*fscalex,(fppinchy/72)*fscaley);
      end else if forientation=pao_landscape then begin
-      //cairo_scale(fdraw,(fppinchx/72)*fscalex,(fppinchy/72)*fscaley);
       cairo_scale(fdraw,(fppinchx/72)*fscalex,(fppinchy/72)*fscaley);
      end;
     end else begin
