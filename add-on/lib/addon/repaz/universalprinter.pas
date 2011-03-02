@@ -406,7 +406,6 @@ var
  adata: plongwordaty;
 begin
  stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
- //int1:= aimage.size.cx*aimage.size.cy*4;
  int1:= aimage.size.cy*stridewidth;
  adata:= gui_allocimagemem(int1);
  po1:= pointer(aimage.pixels);
@@ -561,7 +560,7 @@ begin
    cairo_pattern_set_extend (cpattern, CAIRO_EXTEND_REPEAT);
    cairo_set_source(fcairo.context,cpattern);
    cairo_fill(fcairo.context);
-   //gdi_freeimagemem(image.pixels);
+   gui_freeimagemem(image.pixels);
    image.pixels:= nil;
   end else begin
    if gvm_colorforeground in mask then begin
@@ -647,7 +646,7 @@ begin
  if active then begin
   with fdrawinfo.text16pos do begin
    cairopos(pos^);
-   str1:= pchar(stringtoutf8(text,count));
+   str1:= pchar(stringtoutf8(text));
    rea1:= tfont1(self.font).rotation;
    if rea1<>0 then begin
     cairo_rotate(fcairo.context,-rea1);
