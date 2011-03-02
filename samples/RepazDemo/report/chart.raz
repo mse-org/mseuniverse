@@ -19,6 +19,7 @@ object Page2: TraPage
             RAW_Font = rfCondensed
             RAW_WidthInChar = 25
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -41,6 +42,7 @@ object Page2: TraPage
             RAW_WidthInChar = 50
             RAW_PosInChar = 26
             Font_Bold = True
+            Font_Name = 'Tahoma'
             Font_Size = 13
             Margin_Left = 1
             Margin_Right = 1
@@ -74,6 +76,7 @@ object Page2: TraPage
             RAW_Font = rfCourier
             RAW_WidthInChar = 15
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -95,6 +98,7 @@ object Page2: TraPage
             RAW_WidthInChar = 50
             RAW_PosInChar = 16
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 50
@@ -126,6 +130,7 @@ object Page2: TraPage
             BitmapFieldAlignment = [al_stretchx, al_stretchy]
             RAW_WidthInChar = 20
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -149,6 +154,7 @@ object Page2: TraPage
             RAW_PosInChar = 21
             Font_Bold = True
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Font_Size = 20
             Margin_Left = 1
             Margin_Right = 1
@@ -184,6 +190,7 @@ object Page2: TraPage
             RAW_PosInChar = 0
             Font_Bold = True
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -204,6 +211,7 @@ object Page2: TraPage
             DataSource = 'dsaccount'
             RAW_WidthInChar = 27
             RAW_PosInChar = 7
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Alignment_Horizontal = ha_Center
@@ -232,6 +240,7 @@ object Page2: TraPage
             Text = 'Terbilang :'
             RAW_WidthInChar = 5
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -253,6 +262,7 @@ object Page2: TraPage
             RAW_WidthInChar = 5
             RAW_PosInChar = 5
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 35
@@ -368,6 +378,7 @@ object Page1: TraPage
             RAW_Font = rfCondensed
             RAW_WidthInChar = 25
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -390,6 +401,7 @@ object Page1: TraPage
             RAW_WidthInChar = 50
             RAW_PosInChar = 26
             Font_Bold = True
+            Font_Name = 'Tahoma'
             Font_Size = 13
             Margin_Left = 1
             Margin_Right = 1
@@ -423,6 +435,7 @@ object Page1: TraPage
             RAW_Font = rfCourier
             RAW_WidthInChar = 15
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -444,6 +457,7 @@ object Page1: TraPage
             RAW_WidthInChar = 50
             RAW_PosInChar = 16
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 50
@@ -462,7 +476,7 @@ object Page1: TraPage
           end>
       end>
     Page_Footer_Height = 7.33333333333333
-    Report_Header_RowValues.count = 1
+    Report_Header_RowValues.count = 2
     Report_Header_RowValues.items = <    
       item
         Tabulators.count = 2
@@ -475,6 +489,7 @@ object Page1: TraPage
             BitmapFieldAlignment = [al_stretchx, al_stretchy]
             RAW_WidthInChar = 20
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -498,6 +513,7 @@ object Page1: TraPage
             RAW_PosInChar = 21
             Font_Bold = True
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Font_Size = 20
             Margin_Left = 1
             Margin_Right = 1
@@ -516,8 +532,53 @@ object Page1: TraPage
             Border_Bottom_Width = 0
             Border_Bottom_LineStyle = ls_Solid
           end>
+      end    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 7
+        Tabulators.items = <        
+          item
+            Text = 'Test UTF8'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 31.75
+            Ellipse = el_None
+            TextOptions = []
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            Text = #20844#21496#21517#31216
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 5
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 31.75
+            Width = 31.75
+            Ellipse = el_None
+            TextOptions = []
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
       end>
-    Report_Header_Height = 40
+    Report_Header_Height = 47
     Report_ExtraHeader_Height = 7
     Report_Footer_Height = 15
     Report_Footer_Options = []
