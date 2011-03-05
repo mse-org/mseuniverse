@@ -3,7 +3,7 @@
 {             Core classes and interfaces                 }
 {  Base idea from msereport written by :  Martin Schreiber}
 {*********************************************************}
-{            Copyright (c) 2011 Sri Wahono                }
+{            Copyright (c) 2008-2011 Sri Wahono           }
 {*********************************************************}
 { License Agreement:                                      }
 { This library is distributed in the hope that it will be }
@@ -4586,18 +4586,6 @@ begin
     if not fuprinter.rawmode then begin
      fuprinter.canvas.ppmm:= fpixelperunit;
     end;
-    {if funits=Inch then begin
-     fuprinter.page_paperheight:= (freppages[0].pageheight*25.4);
-     fuprinter.page_paperwidth:= (freppages[0].pagewidth*25.4);
-    end else begin
-     fuprinter.page_paperheight:= freppages[0].pageheight;
-     fuprinter.page_paperwidth:= freppages[0].pagewidth;
-    end;
-    fuprinter.page_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
-    fuprinter.page_marginleft:=0;
-    fuprinter.page_marginright:=0;
-    fuprinter.page_margintop:=0;
-    fuprinter.page_marginbottom:=0;}
     bo1:= true;
     if withdialog then begin
      bo1:=fuprinter.showdialog=mr_ok;
@@ -4610,8 +4598,9 @@ begin
       for int1:=0 to length(fmetapages)-1 do begin
        if ispageprint(fpages,int1) then begin
         for int2:=1 to fuprinter.copies do begin
-         if (int1>0) or (int2>1) then fuprinter.newpage;
+         fuprinter.newpage;
          printmetapages(fuprinter.canvas,fmetapages,int1);
+         fuprinter.endpage;
         end;
        end;
       end;
@@ -4733,7 +4722,7 @@ begin
   for int1:=0 to length(fmetapages)-1 do begin
    if ispageprint(fpages,int1) then begin
     for int6:=1 to fuprinter.copies do begin
-     if (int1>0) or (int6>1) then fuprinter.newpage;
+     fuprinter.newpage;
      for int2:=0 to length(fmetapages[int1].tabobjects)-1 do begin
       textline:= nil;
       setlength(textline,1);
@@ -4853,6 +4842,7 @@ begin
        end;
       end;
      end;
+     fuprinter.endpage;
     end;
    end;
   end;
@@ -4961,21 +4951,16 @@ begin
    end;
    tfiledialog1.free;
    fuprinter.canvas.ppmm:= fpixelperunit;
-   fuprinter.page_height:= freppages[0].pageheight;
-   fuprinter.page_width:= freppages[0].pagewidth;
+   fuprinter.page_paperheight:= freppages[0].pageheight;
+   fuprinter.page_paperwidth:= freppages[0].pagewidth;
    fuprinter.page_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
-   {fmsecairo.page_marginleft:=0;
-   fmsecairo.page_marginright:=0;
-   fmsecairo.page_margintop:=0;
-   fmsecairo.page_marginbottom:=0;}
    fuprinter.outputformat:= cai_PDF;
    if length(fmetapages)>=1 then begin
     fuprinter.beginrender;
     for int1:=0 to length(fmetapages)-1 do begin
+     fuprinter.newpage;
      printmetapages(fuprinter.canvas,fmetapages,int1);
-     if (int1<length(fmetapages)-1) then begin
-      tuniversalprintercanvas(fuprinter.canvas).nextpage;
-     end;
+     fuprinter.endpage;
     end;
     result:= true;
     fuprinter.endrender;
@@ -5023,8 +5008,8 @@ begin
    tfiledialog1.free;
    fuprinter.outputformat:= cai_PostScript;
    fuprinter.canvas.ppmm:= fpixelperunit;
-   fuprinter.page_height:= freppages[0].pageheight;
-   fuprinter.page_width:= freppages[0].pagewidth;
+   fuprinter.page_paperheight:= freppages[0].pageheight;
+   fuprinter.page_paperwidth:= freppages[0].pagewidth;
    fuprinter.page_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
    fuprinter.page_marginleft:=0;
    fuprinter.page_marginright:=0;
@@ -5033,10 +5018,9 @@ begin
    if length(fmetapages)>=1 then begin
     fuprinter.beginrender;
     for int1:=0 to length(fmetapages)-1 do begin
+     fuprinter.newpage;
      printmetapages(fuprinter.canvas,fmetapages,int1);
-     if (int1<length(fmetapages)-1) then begin
-      fuprinter.canvas.nextpage;
-     end;
+     fuprinter.endpage;
     end;
     result:= true;
     fuprinter.endrender;

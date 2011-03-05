@@ -111,8 +111,7 @@ type
    procedure readmarginleft(reader: treader);
    procedure readmargintop(reader: treader);
    procedure readmarginright(reader: treader);
-   procedure readmarginbottom(reader: treader);   //   function getcolorspace: colorspacety;
-   //   procedure setcolorspace(const avalue: colorspacety);
+   procedure readmarginbottom(reader: treader);
    procedure setstatfile(const avalue: tstatfile);
    procedure setpaperwidth(const avalue: real);
    procedure setpaperheight(const avalue: real);
@@ -157,6 +156,7 @@ type
    property esclist: esclistty read fesclist;
    procedure pagesizechanged;
    procedure newpage;
+   procedure endpage;
    property dpix: integer read fppinchx write fppinchx;
    property dpiy: integer read fppinchy write fppinchy;
    property context: Pcairo_t read fdraw;
@@ -199,6 +199,7 @@ type
    fcairo: tuniversalprinter;
    cpattern: Pcairo_pattern_t;
    fpagenum: integer;
+   fx,fy: real;
    procedure gcdestroyed(const sender: tcanvas); override;
    procedure reset; override;
    function resizeimage(const aimage: imagety; asize: sizety): imagety;
@@ -234,15 +235,15 @@ type
 implementation
 
 uses
- msesys,msedatalist,mseformatstr,msefont,
+ msesys,msedatalist,mseformatstr,msefont,msesysutils,
  mseguiintf,msebits,msereal;
 type
- pdfgcdty = record
+ cairogcdty = record
   canvas: tuniversalprintercanvas;
  end;
  cairogcty = record
   case integer of
-   0: (d: pdfgcdty);
+   0: (d: cairogcdty);
    1: (_bufferspace: gcpty;);
  end;
  pboolean = ^boolean;
@@ -261,6 +262,11 @@ begin
  if aresult <= 0 then begin
   syserror(syelasterror,atext);
  end;
+end;
+
+procedure gdi_setcliporigin(var drawinfo: drawinfoty);
+begin
+// gdierror(gde_notimplemented);
 end;
 
 procedure gdi_destroygc(var drawinfo: drawinfoty);
@@ -323,18 +329,13 @@ begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_drawstring16;
 end;
 
-procedure gdi_setcliporigin(var drawinfo: drawinfoty);
-begin
-// gdierror(gde_notimplemented);
-end;
-
 procedure gdi_copyarea(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_copyarea;
 end;
-      
+
 const
- gdifunctions: gdifunctionaty = (
+ cairo_gdifunctions: gdifunctionaty = (
    {$ifdef FPC}@{$endif}gdi_destroygc,
    {$ifdef FPC}@{$endif}gdi_changegc,
    {$ifdef FPC}@{$endif}gdi_drawlines,
@@ -371,7 +372,7 @@ const
    {$ifdef FPC}@{$endif}gdi_getchar16widths,
    {$ifdef FPC}@{$endif}gdi_getfontmetrics
  );
-
+      
 { tuniversalprintercanvas }
 
 constructor tuniversalprintercanvas.create(const user: tuniversalprinter; const intf: icanvas);
@@ -405,6 +406,7 @@ var
  po1: pointer;
  adata: plongwordaty;
 begin
+ result:= nil;
  stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
  int1:= aimage.size.cy*stridewidth;
  adata:= gui_allocimagemem(int1);
@@ -415,12 +417,10 @@ end;
 
 function tuniversalprintercanvas.getgdifuncs: pgdifunctionaty;
 begin
- result:= @gdifunctions;
+ result:= @cairo_gdifunctions;
 end;
 
 procedure tuniversalprintercanvas.initgcstate;
-//var
-// mat1: txform;
 begin
  inherited;
  with cairogcty(fdrawinfo.gc.platformdata).d do begin
@@ -435,32 +435,8 @@ begin
   begin
    cairo_ps_surface_set_size(fcairo.fsurface,fcairo.page_width*self.ppmm,fcairo.page_height*self.ppmm);
   end;
- cai_GDIPrinter:
-  begin
-{  fillchar(mat1,sizeof(mat1),0);
-   with mat1 do begin
-    if fcairo.page_orientation=pao_landscape then begin
-     em11:= (fcairo.dpiy/72);
-     em12:= 0;
-     em21:= 0;
-     em22:= (fcairo.dpix/72);
-     edx:= 0;
-     edy:= 0;
-    end
-    else begin
-     em11:= (fcairo.dpix/72);
-     em12:= 0;
-     em21:= 0;
-     em22:= (fcairo.dpiy/72);
-     edx:= 0;
-     edy:= 0;
-    end;
-    setworldtransform(fcairo.gdiprinterdc,mat1);
-    //setworldtransform(fdrawinfo.gc.handle,mat1);
-   end;}
-  end;
  end;
- beginpage;
+ //beginpage;
 end;
 
 procedure tuniversalprintercanvas.initgcvalues;
@@ -515,7 +491,6 @@ var
  fweight: cairo_font_weight_t;
  pt1: pointty;
  fmatrix,fontmatrix: cairo_matrix_t;
- fx,fy: real;
  ffontextent: cairo_font_extents_t;
  height1,width1: integer;
  image: imagety;
@@ -560,7 +535,6 @@ begin
    cairo_pattern_set_extend (cpattern, CAIRO_EXTEND_REPEAT);
    cairo_set_source(fcairo.context,cpattern);
    cairo_fill(fcairo.context);
-   gui_freeimagemem(image.pixels);
    image.pixels:= nil;
   end else begin
    if gvm_colorforeground in mask then begin
@@ -569,16 +543,6 @@ begin
    end;
   end;
   if gvm_font in mask then begin
-   if fcairo.dpix=fcairo.dpiy then begin
-    fy:= 1;
-    fx:= 1;
-   end else if fcairo.dpix>fcairo.dpiy then begin
-    fy:= 1;
-    fx:= (fcairo.dpix/fcairo.dpiy)-1;
-   end else begin
-    fy:= 1;
-    fx:= (fcairo.dpiy/fcairo.dpix)-1;
-   end;
    cairo_set_font_size (fcairo.context, self.font.height);  
    fweight:= CAIRO_FONT_WEIGHT_NORMAL;
    fslant:= CAIRO_FONT_SLANT_NORMAL;
@@ -589,13 +553,10 @@ begin
     fslant:= CAIRO_FONT_SLANT_ITALIC;
    end;
    cairo_select_font_face (fcairo.context, pchar(self.font.name),fslant,fweight);
-   if (fx<>1) or (fy<>1) then begin
+   //if (fx<>1) or (fy<>1) then begin
+   if fcairo.dpix>fcairo.dpiy then begin
     cairo_get_font_matrix(fcairo.context,@fontmatrix);
-    if fcairo.page_orientation=pao_portrait then begin
-     cairo_matrix_scale(@fontmatrix, fx, fy);
-    end else begin
-     cairo_matrix_scale(@fontmatrix, fy, fx);
-    end;
+    cairo_matrix_scale(@fontmatrix, fx, fy);
     cairo_set_font_matrix(fcairo.context,@fontmatrix);
    end;
   end;
@@ -637,41 +598,44 @@ var
  rea1,rea2: real;
  int1: integer;
  te: cairo_text_extents_t;
- fe: cairo_font_extents_t;
- fg: Pcairo_glyph_t;
  str1: pchar;
- char1: string;
+ char1: msestring;
  xx,yy: real;
+ str2: msestring;
 begin
  if active then begin
   with fdrawinfo.text16pos do begin
    cairopos(pos^);
-   str1:= pchar(stringtoutf8(text));
    rea1:= tfont1(self.font).rotation;
    if rea1<>0 then begin
     cairo_rotate(fcairo.context,-rea1);
    end;
    if fcairo.printtextasgraphic then begin
+    str2:= msestrlcopy(text,count);
+    str1:= pchar(stringtoutf8(str2));
     cairo_text_path (fcairo.context, str1);
     cairo_fill(fcairo.context);
    end else begin
     if (fcairo.outputformat=cai_GDIPrinter) and (fcairo.dpix<>fcairo.dpiy) then begin
      xx:= pos^.x;
      yy:= pos^.y;
-     setlength(char1,1);
-     for int1:=0 to length(str1)-1 do begin
-      char1:= str1[int1];
-      cairo_text_extents(fcairo.context, pchar(char1), @te);
-      //cairo_font_extents(fcairo.context,@fe);
-      cairo_show_text(fcairo.context, pchar(char1));
-      //rea2:= te.width;
-      //apos.x:= apos.x+round(te.width-te.x_bearing+te.x_advance);
-      xx:= xx+(te.width*(fcairo.dpix/fcairo.dpiy));
-      //rea2:= fe.max_x_advance;
-      //xx:= xx+rea2;
+     str2:= msestrlcopy(text,count);
+     for int1:=1 to length(str2) do begin
+      char1:= copy(str2,int1,1);
+      str1:= pchar(stringtoutf8(char1));
+      cairo_text_extents(fcairo.context, str1, @te);
+      cairo_show_text(fcairo.context, str1);
+      if fcairo.dpix>fcairo.dpiy then begin
+       rea2:= te.x_advance*(fcairo.dpix/fcairo.dpiy);
+      end else begin
+       rea2:= te.x_advance;
+      end;
+      xx:= xx+ rea2;
       cairo_move_to(fcairo.context,xx,yy);
      end;
     end else begin
+     str2:= msestrlcopy(text,count);
+     str1:= pchar(stringtoutf8(str2));
 		   cairo_show_text(fcairo.context, str1); 
 		  end;
    end;
@@ -685,14 +649,14 @@ end;
 procedure tuniversalprintercanvas.cairo_drawarc;
 begin
  with fdrawinfo.arc,rect^ do begin
-  cairo_new_sub_path(fcairo.context);
+  cairo_new_path(fcairo.context);
   if cy = cx then begin
-   cairo_arc(fcairo.context, pos.x, pos.y, cx div 2, startang*radtodeg, extentang*radtodeg);
+   cairo_arc(fcairo.context,x+origin.x,y+origin.y,cx div 2, startang*radtodeg, extentang*radtodeg);
   end
   else begin
    cairo_translate(fcairo.context,pos.x,pos.y);
    cairo_scale(fcairo.context,0,0.5);
-   cairo_arc (fcairo.context, pos.x, pos.y, cx div 2, startang*radtodeg, extentang*radtodeg);
+   cairo_arc (fcairo.context,x+origin.x,y+origin.y, cx div 2, startang*radtodeg, extentang*radtodeg);
   end;
   cairo_stroke(fcairo.context);
  end;
@@ -701,23 +665,23 @@ end;
 procedure tuniversalprintercanvas.cairo_fillarc;
 begin
  with fdrawinfo.arc,rect^ do begin
-  //cairopos(pos);
-  //cairo_new_path(fcairo.context);
-  //if pieslice then begin
+  cairo_save(fcairo.context);
+  cairo_new_sub_path(fcairo.context);
+  if pieslice then begin
    cairopos(pos);
-  //end;
+  end;
   if cy = cx then begin
-   //cairo_arc_negative (fcairo.context, pos.x, pos.y, cx div 2, startang*radtodeg, extentang*radtodeg);
-   cairo_arc (fcairo.context, pos.x, pos.y, cx div 2, startang*radtodeg, extentang*radtodeg);
+   cairo_arc(fcairo.context,x+origin.x,y+origin.y,cx div 2,startang*radtodeg,extentang*radtodeg);
   end
   else begin
    cairo_translate(fcairo.context,pos.x,pos.y);
    cairo_scale(fcairo.context,0,0.5);
-   //cairo_arc_negative (fcairo.context, pos.x, pos.y, cx div 2, startang*radtodeg, extentang*radtodeg);
-   cairo_arc (fcairo.context, pos.x, pos.y, cx div 2, startang*radtodeg, extentang*radtodeg);
+   cairo_arc (fcairo.context,x+origin.x,y+origin.y, cx div 2, startang*radtodeg, extentang*radtodeg);
   end;
   //cairo_close_path(fcairo.context);
+  //cairo_clip(fcairo.context);
   cairo_fill(fcairo.context);
+  cairo_restore(fcairo.context);
  end;
 end;
 
@@ -856,7 +820,6 @@ end;
 
 procedure tuniversalprintercanvas.endpage;
 begin
- inherited;
  if not fcairo.rawmode then begin
   cairo_show_page(fcairo.context);
  end;
@@ -888,15 +851,6 @@ begin
   cai_GDIPrinter:
    begin
     {$IFDEF WINDOWS}
-    {if fcairo.rawmode then begin
-     if fcairo.raw_continuespage then begin
-      if fpagenum=1 then begin
-       startpageprinter(fcairo.gdiprinterhandle);
-      end;
-     end else begin
-      startpageprinter(fcairo.gdiprinterhandle);
-     end;
-    end else begin}
     if not fcairo.rawmode then begin
      windows.startpage(fcairo.gdiprinterdc);
     end;
@@ -907,7 +861,16 @@ begin
  if not fcairo.rawmode then begin
   gsposcairo(makepoint(0,0));
  end;
- inherited;
+ if fcairo.dpix=fcairo.dpiy then begin
+  fy:= 1;
+  fx:= 1;
+ end else if fcairo.dpix>fcairo.dpiy then begin
+  fx:= fcairo.dpiy/fcairo.dpix;
+  fy:= 1;
+ end else begin
+  fx:= fcairo.dpiy/fcairo.dpix;
+  fy:= 1;
+ end;
 end;
 
 procedure tuniversalprintercanvas.nextpage;
@@ -958,11 +921,9 @@ begin
  fcupsoptions :=nil;
  FinalizeCups;
  {$ENDIF}
- fcanvas.unlink;   
- fcanvas.destroy;
  if not frawmode then begin
   if fsurface<>nil then begin
-   cairo_surface_finish(fsurface);
+   //cairo_surface_finish(fsurface);
    fsurface:= nil;
    cairo_surface_destroy(fsurface);
    fsurface:= nil;
@@ -972,6 +933,8 @@ begin
    cairo_destroy(fdraw);
   end;
  end;
+ fcanvas.unlink;   
+ fcanvas.destroy;
  inherited;
 end;
 
@@ -1206,7 +1169,12 @@ end;
 
 procedure tuniversalprinter.newpage;
 begin
- fcanvas.nextpage;
+ fcanvas.beginpage;
+end;
+
+procedure tuniversalprinter.endpage;
+begin
+ fcanvas.endpage;
 end;
 
 function tuniversalprinter.getprinters: printerarty;
@@ -1301,13 +1269,7 @@ procedure tuniversalprinter.setorientation(const avalue: pageorientationty);
 begin
  if avalue<>forientation then begin
   forientation:= avalue;
- end;
- if forientation=pao_portrait then begin
-  fsize.cx:= round(fwidth);
-  fsize.cy:= round(fheight);
- end else begin
-  fsize.cx:= round(fheight);
-  fsize.cy:= round(fwidth);
+  pagesizechanged;
  end;
 end;
 
@@ -1325,13 +1287,14 @@ var
  pdev,pdevorig: pdevicemode;
  hDevMode: THandle;
  fformname: Array[0..31] of byte;
- //mat1: txform;
  {$ENDIF}
  dwret,devmodesize: integer;  
  bo1: boolean;
  fpaperindex: integer;
 begin
  if ftitle='' then ftitle:='Repaz Printing';
+ fsurface:= nil;
+ fdraw:= nil;
  with tuniversalprintercanvas(fcanvas) do begin
   pagenumber:= 0;
   case foutputformat of
@@ -1344,12 +1307,6 @@ begin
     fdraw:= cairo_create(fsurface);
     fppinchx := 72;
     fppinchy := 72;
-    fpa_paperheight:= fheight*fscaley;
-    fpa_paperwidth:= fwidth*fscalex;
-    pagesizechanged;
-    if not ((fscalex=1) and (fscaley=1)) then begin
-     cairo_scale(fdraw,fscalex,fscaley);
-    end;
    end;
   cai_PostScript:
    begin
@@ -1357,15 +1314,9 @@ begin
     fantialias:= true;
     str1:= tosysfilepath(ffilename);
     fsurface:= cairo_ps_surface_create(pchar(str1),fwidth*fcanvas.ppmm,fheight*fcanvas.ppmm);
-    if forientation=pao_landscape then begin
-     cairo_rotate(fdraw,90*radtodeg);
-    end;
     fdraw:= cairo_create(fsurface);
     fppinchx := 72;
     fppinchy := 72;
-    if not ((fscalex=1) and (fscaley=1)) then begin
-     cairo_scale(fdraw,fscalex,fscaley);
-    end;
    end;
   cai_SVG:
    begin
@@ -1373,15 +1324,9 @@ begin
     fantialias:= true;
     str1:= tosysfilepath(ffilename);
     fsurface:= cairo_svg_surface_create(pchar(str1),fwidth*fcanvas.ppmm,fheight*fcanvas.ppmm);
-    if forientation=pao_landscape then begin
-     cairo_rotate(fdraw,90*radtodeg);
-    end;
     fdraw:= cairo_create(fsurface);
     fppinchx := 72;
     fppinchy := 72;
-    if not ((fscalex=1) and (fscaley=1)) then begin
-     cairo_scale(fdraw,fscalex,fscaley);
-    end;
    end;
   cai_PNG:
    begin
@@ -1389,15 +1334,9 @@ begin
     fantialias:= true;
     str1:= tosysfilepath(ffilename);
     fsurface:= cairo_image_surface_create (CAIRO_FORMAT_RGB24, round(fwidth), round(fheight));
-    if forientation=pao_landscape then begin
-     cairo_rotate(fdraw,90*radtodeg);
-    end;
     fdraw:= cairo_create(fsurface);
     fppinchx := 72;
     fppinchy := 72;
-    if not ((fscalex=1) and (fscaley=1)) then begin
-     cairo_scale(fdraw,fscalex,fscaley);
-    end;
    end;
   cai_GDIPrinter:
    begin
@@ -1422,10 +1361,10 @@ begin
      dwret := DocumentProperties(0,fprinterhandle,pchar(fprintername),pdev, 
       pdev, DM_IN_BUFFER or DM_OUT_BUFFER);
      bo1 := (dwret=idok);
-      fgcprinter:= createdc('WINSPOOL',pansichar(fprintername),nil,pdev);
+     fgcprinter:= createdc('WINSPOOL',pansichar(fprintername),nil,pdev);
      GlobalUnlock(hDevMode); 
      GlobalFree(hDevMode); 
-     //setmapmode(fgcprinter, MM_TEXT);
+     setmapmode(fgcprinter, MM_TEXT);
      fillchar(info,sizeof(info),0);
      info.cbsize:= sizeof(info);
      info.lpszdocname:= pwidechar(self.title);
@@ -1434,27 +1373,6 @@ begin
      fdraw:= cairo_create(fsurface);
      fppinchx := GetDeviceCaps(fgcprinter, LOGPIXELSX);
      fppinchy := GetDeviceCaps(fgcprinter, LOGPIXELSY);
-     {fillchar(mat1,sizeof(mat1),0);
-     with mat1 do begin
-      if forientation=pao_landscape then begin
-       em11:= (fppinchy/72)*fscaley;
-       em12:= 0;
-       em21:= 0;
-       em22:= (fppinchx/72)*fscalex;
-       edx:= 0;
-       edy:= 0;
-      end
-      else begin
-       em11:= (fppinchx/72)*fscalex;
-       em12:= 0;
-       em21:= 0;
-       em22:= (fppinchy/72)*fscaley;
-       edx:= 0;
-       edy:= 0;
-      end;
-      setworldtransform(fgcprinter,mat1);
-      //setworldtransform(fcanvas.gchandle,mat1);
-     end;}
      if forientation=pao_portrait then begin
       cairo_scale(fdraw,(fppinchx/72)*fscalex,(fppinchy/72)*fscaley);
      end else if forientation=pao_landscape then begin
@@ -1493,9 +1411,9 @@ begin
      fdraw:= cairo_create(fsurface);
      fppinchx := 72;
      fppinchy := 72;
-    if not ((fscalex=1) and (fscaley=1)) then begin
-     cairo_scale(fdraw,fscalex,fscaley);
-    end;
+     if not ((fscalex=1) and (fscaley=1)) then begin
+      cairo_scale(fdraw,fscalex,fscaley);
+     end;
     end else begin
      ffilename:= tosysfilepath(sys_gettempdir+'tmpcups.raw');
      frawstream:= nil;
@@ -1516,13 +1434,11 @@ begin
     cairo_set_antialias(fdraw,CAIRO_ANTIALIAS_NONE);
    end;
   end;
-  tuniversalprintercanvas(fcanvas).beginpage;
  end;
 end;
 
 procedure tuniversalprinter.endrender;
 begin
- tuniversalprintercanvas(fcanvas).endpage;
  case foutputformat of
  cai_GDIPrinter:
   begin
@@ -1556,9 +1472,6 @@ begin
    if raw_cutpaperonfinish then begin
     senddata(esclist[esc_cut_paper]);
    end;
-   if raw_ejectonfinish then begin
-    senddata(esclist[esc_form_feed]);   
-   end;
    if raw_draweraction=cdaOpenAfter then begin
     senddata(esclist[esc_open_drawer]);
    end;
@@ -1583,31 +1496,11 @@ begin
   guierror(gue_invalidcanvas);
  end;
  with tuniversalprintercanvas(sender) do begin
-  case foutputformat of
-  cai_PDF,cai_PostScript,cai_PNG,cai_SVG,cai_CUPS:
-   begin
-    fillchar(gc1,sizeof(gc1),0);
-    gc1.handle:= invalidgchandle;
-    gc1.drawingflags:= [df_highresfont];
-    gc1.paintdevicesize:= makesize(round(fwidth),round(fheight));
-    linktopaintdevice(ptrint(self),gc1,nullpoint);
-   end;
-  cai_GDIPrinter:
-   begin
-    {$IFDEF WINDOWS}
-    fillchar(gc1,sizeof(gc1),0);
-    gc1.paintdevicesize:= makesize(round(fwidth),round(fheight));
-    include(gc1.drawingflags,df_highresfont);
-    guierror(gui_creategc(0,gck_printer,gc1,fprintername),'for "'+fprintername+'"');
-    checkprinterror(setgraphicsmode(gc1.handle,gm_advanced));
-    if frawmode then begin
-     linktopaintdevice(ptrint(self),gc1,nullpoint);
-    end else begin
-     linktopaintdevice(fgcprinter,gc1,nullpoint);
-    end;
-    {$ENDIF}
-   end;
-  end;
+  fillchar(gc1,sizeof(gc1),0);
+  gc1.handle:= invalidgchandle;
+  gc1.drawingflags:= [df_highresfont];
+  gc1.paintdevicesize:= makesize(round(fwidth),round(fheight));
+  linktopaintdevice(ptrint(self),gc1,nullpoint);
  end;
 end;
 
