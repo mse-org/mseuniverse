@@ -256,6 +256,7 @@ const
  radtodeg = 360/(2*pi);
 var
  gdifuncs: pgdifunctionaty;
+ gdifunctions: gdifunctionaty;
 
 procedure checkprinterror(const aresult: integer; const atext: string = '');
 begin
@@ -333,45 +334,6 @@ procedure gdi_copyarea(var drawinfo: drawinfoty);
 begin
  cairogcty(drawinfo.gc.platformdata).d.canvas.cairo_copyarea;
 end;
-
-const
- cairo_gdifunctions: gdifunctionaty = (
-   {$ifdef FPC}@{$endif}gdi_destroygc,
-   {$ifdef FPC}@{$endif}gdi_changegc,
-   {$ifdef FPC}@{$endif}gdi_drawlines,
-   {$ifdef FPC}@{$endif}gdi_drawlinesegments,
-   {$ifdef FPC}@{$endif}gdi_drawellipse,
-   {$ifdef FPC}@{$endif}gdi_drawarc,
-   {$ifdef FPC}@{$endif}gdi_fillrect,
-   {$ifdef FPC}@{$endif}gdi_fillelipse,
-   {$ifdef FPC}@{$endif}gdi_fillarc,
-   {$ifdef FPC}@{$endif}gdi_fillpolygon,
-//   {$ifdef FPC}@{$endif}gdi_drawstring,
-   {$ifdef FPC}@{$endif}gdi_drawstring16,
-   {$ifdef FPC}@{$endif}gdi_setcliporigin,
-   {$ifdef FPC}@{$endif}gdi_createemptyregion,
-   {$ifdef FPC}@{$endif}gdi_createrectregion,
-   {$ifdef FPC}@{$endif}gdi_createrectsregion,
-   {$ifdef FPC}@{$endif}gdi_destroyregion,
-   {$ifdef FPC}@{$endif}gdi_copyregion,
-   {$ifdef FPC}@{$endif}gdi_moveregion,
-   {$ifdef FPC}@{$endif}gdi_regionisempty,
-   {$ifdef FPC}@{$endif}gdi_regionclipbox,
-   {$ifdef FPC}@{$endif}gdi_regsubrect,
-   {$ifdef FPC}@{$endif}gdi_regsubregion,
-   {$ifdef FPC}@{$endif}gdi_regaddrect,
-   {$ifdef FPC}@{$endif}gdi_regaddregion,
-   {$ifdef FPC}@{$endif}gdi_regintersectrect,
-   {$ifdef FPC}@{$endif}gdi_regintersectregion,
-   {$ifdef FPC}@{$endif}gdi_copyarea,
-   {$ifdef FPC}@{$endif}gdi_fonthasglyph,
-   {$ifdef FPC}@{$endif}gdi_getfont,
-   {$ifdef FPC}@{$endif}gdi_getfonthighres,
-   {$ifdef FPC}@{$endif}gdi_freefontdata,
-   {$ifdef FPC}@{$endif}gdi_gettext16width,
-   {$ifdef FPC}@{$endif}gdi_getchar16widths,
-   {$ifdef FPC}@{$endif}gdi_getfontmetrics
- );
       
 { tuniversalprintercanvas }
 
@@ -417,7 +379,7 @@ end;
 
 function tuniversalprintercanvas.getgdifuncs: pgdifunctionaty;
 begin
- result:= @cairo_gdifunctions;
+ result:= @gdifunctions;
 end;
 
 procedure tuniversalprintercanvas.initgcstate;
@@ -2179,6 +2141,20 @@ end;
 
 initialization
  gdifuncs:= gui_getgdifuncs;
+ gdifunctions:= gdifuncs^; //default
+ gdifunctions[gdf_destroygc]:= {$ifdef FPC}@{$endif}gdi_destroygc;
+ gdifunctions[gdf_changegc]:= {$ifdef FPC}@{$endif}gdi_changegc;
+ gdifunctions[gdf_drawlines]:= {$ifdef FPC}@{$endif}gdi_drawlines;
+ gdifunctions[gdf_drawlinesegments]:= {$ifdef FPC}@{$endif}gdi_drawlinesegments;
+ gdifunctions[gdf_drawellipse]:= {$ifdef FPC}@{$endif}gdi_drawellipse;
+ gdifunctions[gdf_drawarc]:= {$ifdef FPC}@{$endif}gdi_drawarc;
+ gdifunctions[gdf_fillrect]:= {$ifdef FPC}@{$endif}gdi_fillrect;
+ gdifunctions[gdf_fillelipse]:= {$ifdef FPC}@{$endif}gdi_fillelipse;
+ gdifunctions[gdf_fillarc]:= {$ifdef FPC}@{$endif}gdi_fillarc;
+ gdifunctions[gdf_fillpolygon]:= {$ifdef FPC}@{$endif}gdi_fillpolygon;
+ gdifunctions[gdf_drawstring16]:= {$ifdef FPC}@{$endif}gdi_drawstring16;
+ gdifunctions[gdf_setcliporigin]:= {$ifdef FPC}@{$endif}gdi_setcliporigin;
+ gdifunctions[gdf_copyarea]:= {$ifdef FPC}@{$endif}gdi_copyarea;
  {$IFDEF WINDOWS}
  initgdiprint;
  {$ENDIF}
