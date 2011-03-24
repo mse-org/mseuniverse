@@ -1,3 +1,254 @@
+object Page3: TraPage
+  PrintOrder = 2
+  PaperSize = Letter
+  PageWidth = 215.9
+  PageHeight = 279.4
+  PixelPerUnit = 2.83464566929134
+  object TraLetterReport1: TraLetterReport
+    Page_Header_Height = 7.40833333333333
+    Page_Footer_Height = 7.40833333333333
+    Report_Header_Height = 7.40833333333333
+    Report_ExtraHeader_Height = 7.40833333333333
+    Report_Footer_Height = 7.40833333333333
+    Position_Left = 10.58333333333333
+    Position_Top = 10.58333333333333
+    Area_Width = 195.438888888889
+    Area_Height = 172.155555555556
+    Report_Content.HeightContent = 200
+    Report_Content.LetterContent.count = 8
+    Report_Content.LetterContent.items = <    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 7.40833333333333
+        Tabulators.items = <        
+          item
+            Text = 'abcdefghijklmnopqrstuvwxyz'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_UnderLine = True
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 100
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 7.40833333333333
+        Tabulators.items = <        
+          item
+            Text = 'abcdefghijklmnopqrstuvwxyz'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Bold = True
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 100
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 7.40833333333333
+        Tabulators.items = <        
+          item
+            Text = 'abcdefghijklmnopqrstuvwxyz'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Italic = True
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 100
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 7.40833333333333
+        Tabulators.items = <        
+          item
+            Text = 'abcdefghijklmnopqrstuvwxyz'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Bold = True
+            Font_Italic = True
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 100
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 10
+        Tabulators.items = <        
+          item
+            Text = 'abcdefghijklmnopqrstuvwxyz'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
+            Font_Size = 20
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 150
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 10
+        Tabulators.items = <        
+          item
+            Text = 'abcdefghijklmnopqrstuvwxyz'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Bold = True
+            Font_Name = 'Tahoma'
+            Font_Size = 20
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 150
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 10
+        Tabulators.items = <        
+          item
+            Text = 'abcdefghijklmnopqrstuvwxyz'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Italic = True
+            Font_Name = 'Tahoma'
+            Font_Size = 20
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 150
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 10
+        Tabulators.items = <        
+          item
+            Text = 'abcdefghijklmnopqrstuvwxyz'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Bold = True
+            Font_Italic = True
+            Font_Name = 'Tahoma'
+            Font_Size = 20
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 150
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end>
+    Report_Content.dummy = 0
+  end
+end
 object Page2: TraPage
   PrintOrder = 1
   PaperSize = Letter
@@ -27,6 +278,8 @@ object Page2: TraPage
             Ellipse = el_None
             TextOptions = []
             Format = 'Page : ##'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -52,6 +305,8 @@ object Page2: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'motto'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -83,6 +338,8 @@ object Page2: TraPage
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -106,6 +363,8 @@ object Page2: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'address1'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -138,6 +397,8 @@ object Page2: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'Logo'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -164,6 +425,8 @@ object Page2: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'companyname'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -197,6 +460,8 @@ object Page2: TraPage
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.4
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.5
@@ -221,6 +486,8 @@ object Page2: TraPage
             TextOptions = []
             DataField = 'AccountID'
             Format = '0.00 Items'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.3
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -247,6 +514,8 @@ object Page2: TraPage
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -269,6 +538,8 @@ object Page2: TraPage
             Width = 100
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -386,6 +657,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             Format = 'Page : ##'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -401,6 +674,7 @@ object Page1: TraPage
             RAW_WidthInChar = 50
             RAW_PosInChar = 26
             Font_Bold = True
+            Font_UnderLine = True
             Font_Name = 'Tahoma'
             Font_Size = 13
             Margin_Left = 1
@@ -411,6 +685,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'motto'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -442,6 +718,8 @@ object Page1: TraPage
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -465,6 +743,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'address1'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -497,6 +777,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'Logo'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -523,6 +805,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'companyname'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -534,7 +818,7 @@ object Page1: TraPage
           end>
       end    
       item
-        Tabulators.count = 2
+        Tabulators.count = 6
         Tabulators.Height = 7
         Tabulators.items = <        
           item
@@ -548,6 +832,54 @@ object Page1: TraPage
             Width = 31.75
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            Text = #1053#1072#1079#1074#1072#1085#1080#1077' '#1082#1086#1084#1087#1072#1085#1080#1080
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 5
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Alignment_Horizontal = ha_Center
+            Position = 31.75
+            Width = 31.75
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            Text = #1575#1587#1605' '#1575#1604#1588#1585#1603#1577
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 9
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Alignment_Horizontal = ha_Center
+            Position = 63.5
+            Width = 31.75
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -560,14 +892,63 @@ object Page1: TraPage
           item
             Text = #20844#21496#21517#31216
             RAW_WidthInChar = 5
-            RAW_PosInChar = 5
+            RAW_PosInChar = 14
             Font_Name = 'Tahoma'
             Margin_Left = 1.05833333333333
             Margin_Right = 1.05833333333333
-            Position = 31.75
+            Alignment_Horizontal = ha_Center
+            Position = 95.25
             Width = 31.75
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            Text = #20250#31038#21517
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 18
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Alignment_Horizontal = ha_Center
+            Position = 127
+            Width = 31.75
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            Text = 'Edelwei'#223
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 23
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Alignment_Horizontal = ha_Center
+            Position = 158.75
+            Width = 31.75
+            Ellipse = el_None
+            TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -597,9 +978,9 @@ object Page1: TraPage
         Values.LineCap = cs_round
         Values.LineJoin = js_miter
         Values.LineStyle = ls_Solid
-        Values.LineWidth = 0.1
-        Values.FillPattern = stb_crosshatch4
-        Values.FillColor = -1610612724
+        Values.LineWidth = 0.2
+        Values.FillPattern = stb_crosshatch6
+        Values.FillColor = -1610612723
         Values.LabelLegend = 'Barang A'
         Values.Font_Color = -1610612721
         Values.Alignment_Horizontal = ha_Center
@@ -613,7 +994,7 @@ object Page1: TraPage
         Values.LineCap = cs_butt
         Values.LineJoin = js_miter
         Values.LineStyle = ls_Solid
-        Values.LineWidth = 0.1
+        Values.LineWidth = 0.2
         Values.FillPattern = stb_dens75
         Values.FillColor = -1610612731
         Values.LabelLegend = 'Barang B'
@@ -638,6 +1019,7 @@ object Page1: TraPage
     Report_Chart.Y_AxisLabel.Ellipse = el_None
     Report_Chart.Y_AxisLabel.TextOptions = []
     Report_Chart.Shadow_Depth = 1
+    Report_Chart.Shadow_Color = -2147483642
     Report_Chart.ShowPercentValue = [pvShowPercent, pvShowPercentOnly]
     Report_Chart.Legend_LineColor = -1610612727
     Report_Chart.Legend_Size = 18

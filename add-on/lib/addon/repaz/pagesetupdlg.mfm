@@ -782,7 +782,7 @@ object pagesetupdlgfo: tpagesetupdlgfo
         bounds_x = 191
         bounds_y = 12
         bounds_cx = 242
-        bounds_cy = 117
+        bounds_cy = 93
         object cdnotopen: tbooleaneditradio
           frame.caption = '&Don''t open'
           frame.dummy = 0
@@ -858,6 +858,79 @@ object pagesetupdlgfo: tpagesetupdlgfo
         bounds_y = 95
         bounds_cy = 35
         reffontheight = 13
+      end
+      object tgroupbox6: tgroupbox
+        frame.caption = 'Cash Drawer is connected to'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          7
+          0
+          0
+        )
+        taborder = 5
+        bounds_x = 192
+        bounds_y = 116
+        bounds_cx = 242
+        bounds_cy = 109
+        object wrj45: tbooleaneditradio
+          frame.caption = '&Printer (i.e RJ45)'
+          frame.dummy = 0
+          frame.outerframe = (
+            0
+            1
+            85
+            1
+          )
+          bounds_x = 8
+          bounds_y = 22
+          bounds_cx = 98
+          bounds_cy = 15
+          value = True
+        end
+        object wrs232: tbooleaneditradio
+          frame.caption = '&Serial (RS232)'
+          frame.dummy = 0
+          frame.outerframe = (
+            0
+            1
+            71
+            1
+          )
+          taborder = 1
+          bounds_x = 8
+          bounds_y = 43
+          bounds_cx = 84
+          bounds_cy = 15
+          onchange = wrs232_onchange
+        end
+        object wport: tcommselector
+          frame.button.color = -2147483646
+          taborder = 2
+          enabled = False
+          bounds_x = 135
+          bounds_y = 41
+          bounds_cx = 99
+          bounds_cy = 19
+          onchange = wport_onchange
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+              data = (
+                'COM1'
+                'COM2'
+                'COM3'
+                'COM4'
+                'COM5'
+                'COM6'
+                'COM7'
+                'COM8'
+                'COM9'
+              )
+            end>
+          dropdown.itemindex = 0
+          reffontheight = 13
+        end
       end
     end
     object ttabpage3: ttabpage

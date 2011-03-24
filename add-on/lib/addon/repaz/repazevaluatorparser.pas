@@ -34,7 +34,8 @@ unit repazevaluatorparser;
 
 interface
 
-uses classes,sysutils,repazevaluatortype,repazconsts,mseconsts,msestrings;
+uses classes,sysutils,repazevaluatortype,repazconsts,mseconsts,msestrings,msesysutils;
+
 type
 
   tmseevalparser = class(tobject)

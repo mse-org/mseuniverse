@@ -387,7 +387,14 @@ type
   rcsisholiday,
   rcspisholiday,
   rcsisdiscountday,
-  rcspisdiscountday
+  rcspisdiscountday,
+  rcsLinesperpage,
+  rcsCasdrawerconnection,
+  rcsRJ45,
+  rcsRS232,
+  rcsAdvance,
+  rcsPrinttextasgraphic,
+  rcsUseantialias
   );
 
 const

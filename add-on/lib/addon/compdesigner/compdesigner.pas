@@ -186,6 +186,7 @@ type
    procedure selectcomponent(const component: tcomponent; mode: selectmodety = sm_select);
    function getcomponentarty: componentarty;
    procedure sizechanged; override;
+   procedure poschanged; override;
    procedure mouseevent(var info: mouseeventinfoty); override;
   public
    fobjectinspector: tobjectinspector;
@@ -1767,6 +1768,11 @@ begin
  for int1:=0 to fselections.count-1 do begin
   result[int1]:= fselections[int1];
  end;
+end;
+
+procedure tcomponentdesigner.poschanged;
+begin
+ inherited;
 end;
 
 procedure tcomponentdesigner.sizechanged;

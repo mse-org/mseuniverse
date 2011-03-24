@@ -2,8 +2,8 @@ object datamo: tdatamo
   options = [dmo_autoreadstat]
   bounds_cx = 311
   bounds_cy = 491
-  left = 125
-  top = 177
+  left = 181
+  top = 152
   moduleclassname = 'tmsedatamodule'
   object tfacemenu: tfacecomp
     template.image.transparentcolor = -2147483642
@@ -280,8 +280,8 @@ object datamo: tdatamo
     tabbar_vert_frame = tframetab
     tabbar_vert_tab_face = tfacetabactive
     tabbar_vertopo_frame = tframetab
-    toolbar_frame = tframetoolbar
-    toolbar_buttonface = tfacebuttontoolbar
+    toolbar_horz_frame = tframetoolbar
+    toolbar_horz_buttonface = tfacebuttontoolbar
     tabpage_face = tfacetabpage
     tabpage_frame = tframetabpage
     popupmenu_face = tfacemenu

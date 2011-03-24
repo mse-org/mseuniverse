@@ -385,8 +385,13 @@ procedure tpreview.setmetapages(const avalue : tmetapages);
 begin
  fmetapages:= avalue;
  fpagecount:= length(avalue);
- origwidth:= width;
- origheight:= height;
+ if fpagecount>0 then begin
+  origwidth:= avalue[0].pagewidth;
+  origheight:= avalue[0].pageheight;
+ end else begin
+  origwidth:= width;
+  origheight:= height;
+ end;
  if canevent(tmethod(fonfileopened)) then begin
   fonfileopened(self);
  end;

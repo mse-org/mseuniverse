@@ -348,6 +348,13 @@
   'Menguji apakah tanggal ini adalah hari libur', //rcsisholiday
   'ADate : tanggal yang diuji; IncludeSunday : apakah hari Minggu termasuk hari libur', //rcspisholiday
   'Menguji apakah tanggal ini adalah hari libur', //rcsisdiscountday
-  'ADate : tanggal yang diuji; IncludeSunday : apakah hari Minggu termasuk hari libur' //rcspisdiscountday
+  'ADate : tanggal yang diuji; IncludeSunday : apakah hari Minggu termasuk hari libur', //rcspisdiscountday
+  'Baris per ha&laman', //rcsLinesperpage
+  'Cash Drawer terhubung ke', //rcsCasdrawerconnection
+  '&Printer (seperti RJ45, dll)', //rcsRJ45
+  'Serial (RS232)', //rcsRS232
+  'Ad&vance', //rcsAdvance
+  'Print teks sebagai &gambar', //rcsPrinttextasgraphic,
+  'Mengg&unakan fitur anti alias' //rcsUseantialias
   );
 

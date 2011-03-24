@@ -1,0 +1,146 @@
+object Page1: TraPage
+  PrintOrder = 0
+  PaperSize = Letter
+  PageWidth = 215.9
+  PageHeight = 279.4
+  PixelPerUnit = 2.83464566929134
+  object TraLabelReport1: TraLabelReport
+    Page_Header_Height = 7.40833333333333
+    Page_Footer_Height = 7.40833333333333
+    Report_Header_Height = 7.40833333333333
+    Report_ExtraHeader_Height = 7.40833333333333
+    Report_Footer_Height = 7.40833333333333
+    Position_Left = 5.64444444444444
+    Position_Top = 4.58611111111111
+    Area_Width = 206.022222222222
+    Area_Height = 271.638888888889
+    Report_Content.HorizontalMargin = 5
+    Report_Content.VerticalMargin = 5
+    Report_Content.Colums = 3
+    Report_Content.Rows = 11
+    Report_Content.Labels.count = 3
+    Report_Content.Labels.PaperHeight = 20
+    Report_Content.Labels.PaperWidth = 65
+    Report_Content.Labels.items = <    
+      item
+        Tabulators.count = 2
+        Tabulators.Height = 5
+        Tabulators.DataSource = 'dsproduct'
+        Tabulators.items = <        
+          item
+            DataSource = 'dsproduct'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
+            Font_Size = 8
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 30
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'ProductID'
+            Barcode_Modul = 5
+            Barcode_Ratio = 1
+            Border_Top_Width = 0.2
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0.2
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end        
+          item
+            DataSource = 'dsproduct'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 9
+            Font_Bold = True
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Alignment_Horizontal = ha_Right
+            Position = 30
+            Width = 35
+            Ellipse = el_None
+            TextOptions = []
+            DataField = 'SalesPrice'
+            Format = 'Rp. #,#0;(#,#0)'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0.2
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0.2
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 10
+        Tabulators.DataSource = 'dsproduct'
+        Tabulators.items = <        
+          item
+            DataSource = 'dsproduct'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Bold = True
+            Font_Italic = True
+            Font_Name = 'Tahoma'
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 65
+            Ellipse = el_Right
+            TextOptions = []
+            DataField = 'productid'
+            Barcode_Modul = 1
+            Barcode_Type = bcCodeEAN13
+            Barcode_Checksum = True
+            Barcode_Ratio = 3
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0.2
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0.2
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end    
+      item
+        Tabulators.count = 1
+        Tabulators.Height = 5
+        Tabulators.DataSource = 'dsproduct'
+        Tabulators.items = <        
+          item
+            DataSource = 'dsproduct'
+            RAW_WidthInChar = 5
+            RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
+            Font_Size = 8
+            Margin_Left = 1.05833333333333
+            Margin_Right = 1.05833333333333
+            Position = 0
+            Width = 65
+            Ellipse = el_Right
+            TextOptions = []
+            DataField = 'ProductName'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
+            Border_Top_Width = 0
+            Border_Top_LineStyle = ls_Solid
+            Border_Left_Width = 0.2
+            Border_Left_LineStyle = ls_Solid
+            Border_Right_Width = 0.2
+            Border_Right_LineStyle = ls_Solid
+            Border_Bottom_Width = 0.2
+            Border_Bottom_LineStyle = ls_Solid
+          end>
+      end>
+    Report_Content.dummy = 0
+  end
+end

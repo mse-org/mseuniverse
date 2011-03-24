@@ -35,7 +35,7 @@ unit repazglob;
 {$ifdef FPC}{$mode objfpc}{$h+}{$GOTO ON}{$interfaces corba}{$endif}
 interface
 uses
- classes,msegui,msedrawtext,msegraphutils,msegraphics,variants,repazchart,
+ classes,msegui,msedrawtext,msegraphutils,msegraphics,variants,repazchart,barcode,
  msestrings,sysutils,msebitmap,universalprinter,universalprintertype,mseformatpngread,mseformatbmpicoread,
  mseformatjpgread,mseformatstr,repaztypes,mseglob,mselookupbuffer,msesysutils;
 
@@ -120,6 +120,12 @@ type
   borderright: replineinfoty;
   bordertop: replineinfoty;
   borderbottom: replineinfoty;
+  barcodemodul: integer;
+  barcodetype: barcodety;
+  barcodechecksum: boolean;
+  barcoderotation: integer;
+  barcodecolor: colorty;
+  barcoderatio: double;
  end;
  
  reptabinfoty = record
@@ -150,6 +156,9 @@ type
   const apage: integer; const ascale: real=1.0);
 
  function createrectinfo(const arect: rectty; acolor: colorty):reprectinfoty;
+
+var
+ fbarcode: tBarcode;
  
 implementation
 
@@ -316,7 +325,17 @@ begin
        end;
        tmpinfo.font:= afont;
        if not ((tmpinfo.font.color=cl_none) or (tmpinfo.font.color=cl_transparent)) then begin
-        drawtext(acanvas,tmpinfo);
+        if barcodetype<>bcCodeNone then begin
+         fbarcode.BarcodeType:= barcodetype;
+         fbarcode.datastring:= text;
+         fbarcode.Checksum:= barcodechecksum;
+         fbarcode.Ratio:= barcoderatio;
+         fbarcode.modul:= barcodemodul;
+         fbarcode.Rotation:= barcoderotation;
+         fbarcode.drawbarcode(tmpinfo.dest,acanvas);
+        end else begin
+         drawtext(acanvas,tmpinfo);
+        end;
        end;
       end;
       if borderleft.linewidth>0 then begin
@@ -421,4 +440,8 @@ begin
  result.color:= acolor;
 end;
 
+initialization
+ fbarcode:= TBarcode.create;
+finalization
+ fbarcode.free;
 end.

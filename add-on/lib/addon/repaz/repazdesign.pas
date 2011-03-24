@@ -944,7 +944,7 @@ end;
 procedure texpressionpropeditor.edit;
 begin
  setvalue(decodemsestring((component as TraReportTemplate).expressiondialog(encodemsestring(getvalue))));
- modified;
+ //modified;
 end;
 
 function texpressionpropeditor.getvalue: msestring;
@@ -1246,8 +1246,8 @@ begin
 end;
 
 initialization
- registeredcomponents.regcomponents('RepazComp',[TraSimpleReport,TraMasterDetailReport,TraMultiTableReport,TraGroupReport,TraTreeReport,TraChartReport,TraLetterReport,TraPage]); 
+ registeredcomponents.regcomponents('RepazComp',[TraSimpleReport,TraMasterDetailReport,TraMultiTableReport,TraGroupReport,TraTreeReport,TraChartReport,TraLetterReport,TraPage,TraLabelReport]); 
  registeredcomponents.regcomponenttabhints(['RepazComp'],['Repaz simple report','Master-detail report','Repaz multi table report','Repaz grouping report',
-   'Repaz tree report','Repaz chart report','Repaz letter report','Repaz page']);
+   'Repaz tree report','Repaz chart report','Repaz letter report','Repaz page','Label report']);
  registeredcomponents.setinvisiblecomponents('RepazComp',[TraPage]); 
 end.

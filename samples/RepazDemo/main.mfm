@@ -91,7 +91,7 @@ object mainfo: tmainfo
             caption = 'Repaz Files'
           end>
       end>
-    optionsgrid = [og_rowsizing, og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
     options = [lvo_readonly, lvo_mousemoving, lvo_drawfocus, lvo_leftbuttonfocusonly, lvo_focusselect, lvo_mouseselect, lvo_casesensitive]
     filelist.options = [flo_sortname]
     reffontheight = 13

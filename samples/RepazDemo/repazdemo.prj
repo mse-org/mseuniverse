@@ -57,10 +57,11 @@ order18=0
 order19=0
 order20=0
 order21=0
+order22=0
 [projectoptions]
 projectdir=/C:/msegui/MSEProject/RepazDemo
 projectfilename=/C:/msegui/MSEProject/RepazDemo/repazdemo.prj
-findinfiledialog=48
+findinfiledialog=55
  [findinfileadialogfo.subdirs]
  value=1
  [findinfileadialogfo.inopenfiles]
@@ -73,36 +74,43 @@ findinfiledialog=48
  value=1
  [findinfileadialogfo.mask]
  value="*.pas" "*.pp" "*.inc"
- history=1
+ history=2
   "*.pas" "*.pp" "*.inc"
+  *.*
  [findinfileadialogfo.dir]
  filenames=1
+  /C:/Users/acer4738G/master/programming/freepascal/fpc-2.4.2/
+ filehistory=10
+  /C:/Users/acer4738G/master/programming/freepascal/fpc-2.4.2/
   /C:/msegui/lib/common/
- filehistory=8
-  /C:/msegui/lib/common/
+  /C:/Users/acer4738G/master/programming/freepascal/fpc-2.4.2/rtl/
+  /C:/Users/acer4738G/master/programming/freepascal/fpc-2.4.2/packages/fftw/src/
+  /C:/Users/acer4738G/master/programming/freepascal/fpc-2.4.2/packages/gtk2/src/
+  /C:/Users/acer4738G/master/programming/cairo-1.8.8/src/
+  /C:/Users/acer4738G/Downloads/gtk+-2.16.6/gtk+-2.16.6/
   /C:/Users/acer4738G/master/programming/freepascal/fpc-2.4.2/packages/fcl-image/src/
   /C:/Users/acer4738G/master/msegui-trunk/fpgfx/fpgfx/
   /usr/local/msegui/lib/common/
-  /C:/MSEGUI/lib/common/
-  /C:/FPC/fixes_2_2/rtl/
-  /C:/MSEGUI/apps/ide/
-  /C:/FPC/source/rtl/
- filefilterindex=-1
+ filefilterindex=1
  filefilter="*.pas" "*.pp" "*.inc"
  filecolwidth=174
+ x=389
+ y=215
+ cx=588
+ cy=307
  [findinfileadialogfo.findtext]
- value=tmsefpmemoryimage
+ value=monotorgb
  history=10
-  tmsefpmemoryimage
-  fpimage
-  resize
-  interpola
-  pixmap
-  pixel
-  stretch
-  gui_pixmaptoimage
-  ek_closeform
-  := nil;
+  monotorgb
+  mono
+  monochrome
+  underline
+  drRTL
+  direction
+  utf8
+  arab
+  righttoleft
+  rtl
  [findinfileadialogfo]
  stackedunder=
  x=268
@@ -124,18 +132,18 @@ replacedialog=23
  [replacedialogfo.selectedonly]
  value=0
  [replacedialogfo.replacetext]
- value=string
+ value=TraBarcodeReport
  history=10
-  string
-  fcairo.context
-  tmsecairo
-  fmsecairo
-  gsposcairo
-  fdraw
-  fstream
-  cairopos
-  endrender
-  beginrender
+  TraBarcodeReport
+  TraBarcodePaper
+  TraBarcodeCols
+  TBarcodeCols
+  T
+  repdigit
+  barcodety
+  procedure 
+  prcoedure 
+  (var drawinfo: drawinfoty);
  [replacedialogfo]
  stackedunder=
  x=421
@@ -208,7 +216,7 @@ options=99
  sortdescent7=0
  [projectoptionsfo.makegroupbox]
  firsttab=0
- index=2
+ index=1
  [projectoptionsfo.exceptionsgrid]
  propcolwidthref=772
  width0=47
@@ -235,7 +243,7 @@ options=99
  index=0
  [projectoptionsfo.tabwidget]
  firsttab=0
- index=1
+ index=2
  [projectoptionsfo]
  stackedunder=
  x=151
@@ -454,12 +462,15 @@ sigsettings=27
  28,28,T,F
  29,29,T,F
  30,30,T,F
-modulenames=1
+modulenames=2
  MAINFO
-moduletypes=1
+ REPAZDESIGNFO
+moduletypes=2
  TMAINFO
-modulefiles=1
+ TREPAZDESIGNFO
+modulefiles=2
  /C:/msegui/MSEProject/RepazDemo/main.mfm
+ /C:/msegui/lib/addon/repaz/repazdesign.mfm
 mainfile=${PROJECTNAME}.pas
 targetfile=${PROJECTNAME}${EXEEXT}
 messageoutputfile=
@@ -709,16 +720,16 @@ on=3
  -1
  -1
 path=3
- /usr/local/msegui/lib/addon/osprinter/psprinter.pas
- /usr/local/msegui/lib/addon/repaz/msecairo.pas
- /C:/msegui/lib/addon/repaz/universalprinter.pas
+ 
+ 
+ /C:/msegui/lib/addon/aztools/azgridtools.pas
 line=3
- 2129
- 152
- 733
+ 0
+ 0
+ 262
 address=3
- 136930042
- 137021003
+ 0
+ 0
  0
 addbkpt=3
  0
@@ -796,23 +807,49 @@ files=
 storedir=/C:/msegui/apps/ide/compstore/
 filename=
 [layout]
-windowlayout=554
+windowlayout=592
+ [mainfo.projectfiledia]
+ filenames=1
+  /C:/msegui/MSEProject/RepazDemo/repazdemo.prj
+ lastdir=/C:/msegui/MSEProject/RepazDemo/
+ filehistory=10
+  /C:/msegui/MSEProject/RepazDemo/repazdemo.prj
+  /C:/msegui/MSEProject/xxx/xxx.prj
+  /C:/msegui/MSEProject/testtime/testtime.prj
+  /C:/msegui/MSEProject/Acosys/acosysv4/Acosys.prj
+  /C:/msegui/apps/i18ndemo/i18ndemo.prj
+  /C:/msegui/tools/i18n/msei18n.prj
+  /C:/msegui/apps/ide/mseide.prj
+  /C:/msegui/MSEProject/testanim/testanim.prj
+  /C:/msegui/MSEProject/testbarcode/testbarcode.prj
+  /C:/msegui/MSEProject/testzintbarcode/barcodezint.prj
+ filefilterindex=0
+ filefilter=*.prj
+ filecolwidth=174
+ x=0
+ y=0
+ cx=0
+ cy=0
  [mainfo.openfile]
  filenames=0
  filehistory=10
-  /C:/msegui/lib/common/kernel/msestockobjects.pas
-  /C:/msegui/lib/backup/osprinter/psprinter.pas
-  /C:/msegui/lib/common/kernel/i386-win32/mseguiintf.pas
-  /C:/msegui/MSEProject/RepazDemo/main.pas
-  /C:/msegui/lib/addon/repaz/repazglob.pas
+  /C:/msegui/lib/addon/aztools/azgridtools.pas
+  /C:/msegui/lib/addon/repaz/repazdesign.pas
+  /C:/msegui/lib/common/printer/msepostscriptprinter.pas
+  /C:/Users/acer4738G/master/programming/freepascal/fpc-2.4.2/packages/fcl-image/src/fpimage.pp
+  /C:/msegui/MSEProject/RepazDemo/datamodule.pas
+  /C:/msegui/lib/addon/repaz/barcode.pas
+  /C:/msegui/lib/addon/repaz/repazbarcodereporth.inc
   /C:/msegui/lib/addon/repaz/repazchart.pas
   /C:/msegui/lib/addon/repaz/universalprinter.pas
-  /C:/msegui/lib/addon/repaz/repazevaluatorfunc.pas
   /C:/msegui/lib/addon/repaz/repazclasses.pas
-  /C:/msegui/lib/common/kernel/msegraphics.pas
  filefilterindex=0
  filefilter="*.PP" "*.PAS" "*.INC" "*.DPR"
  filecolwidth=198
+ x=389
+ y=215
+ cx=588
+ cy=307
  [mainfo.basedock]
  splitdir=2
  useroptions=15488
@@ -826,15 +863,15 @@ windowlayout=554
  ny=0
  ncx=0
  ncy=0
- x=6
+ x=7
  y=30
- cx=888
+ cx=887
  cy=700
  rcx=0
  rcy=0
  children=2
-  container,0,15,878,685
-  ,0,0,878,15
+  container,0,15,877,685
+  ,0,0,877,15
  wsize=0
  active=1
  visible=1
@@ -873,7 +910,7 @@ windowlayout=554
  [memoryfo]
  splitdir=0
  useroptions=16507
- stackedunder=formdesignerfo
+ stackedunder=repazdesignfo
  parent=
  mdistate=0
  nx=0
@@ -888,7 +925,7 @@ windowlayout=554
  rcy=0
  wsize=0
  active=0
- visible=1
+ visible=0
  [memoryfo.add]
  value=0
  [memoryfo.memon]
@@ -900,7 +937,7 @@ windowlayout=554
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=symbolfo
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -956,7 +993,7 @@ windowlayout=554
  sortdescent1=0
  sortcol=-1
  col=0
- row=1
+ row=3
  rowheight=15
  [stackfo]
  splitdir=0
@@ -1065,7 +1102,7 @@ windowlayout=554
  [symbolfo]
  splitdir=0
  useroptions=147583
- stackedunder=memoryfo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -1148,9 +1185,9 @@ windowlayout=554
  ncy=0
  x=0
  y=555
- cx=878
+ cx=877
  cy=111
- rcx=878
+ rcx=877
  rcy=666
  [componentstorefo]
  splitdir=0
@@ -1189,6 +1226,10 @@ windowlayout=554
  filefilterindex=0
  filefilter=*.sto
  filecolwidth=174
+ x=0
+ y=0
+ cx=0
+ cy=0
  [componentstorefo.groupfiledialog]
  filenames=1
   /C:/MSEGUI/apps/ide/compstore/
@@ -1197,6 +1238,10 @@ windowlayout=554
  filefilterindex=0
  filefilter=
  filecolwidth=0
+ x=0
+ y=0
+ cx=0
+ cy=0
  [componentstorefo.compfiledialog]
  filenames=0
  lastdir=
@@ -1204,6 +1249,10 @@ windowlayout=554
  filefilterindex=0
  filefilter=
  filecolwidth=0
+ x=0
+ y=0
+ cx=0
+ cy=0
  [componentpalettefo]
  splitdir=0
  useroptions=24683
@@ -1234,7 +1283,7 @@ windowlayout=554
  ncy=0
  x=0
  y=0
- cx=878
+ cx=877
  cy=28
  rcx=0
  rcy=0
@@ -1250,7 +1299,7 @@ windowlayout=554
  ncy=0
  x=0
  y=31
- cx=878
+ cx=877
  cy=635
  rcx=0
  rcy=0
@@ -1318,7 +1367,7 @@ windowlayout=554
   panel3
   findinfilefo
   panel1
- activetab=0
+ activetab=2
  stackedunder=mainfo
  parent=
  mdistate=0
@@ -1354,36 +1403,82 @@ windowlayout=554
 [edit]
 hintwidth=314
 hintheight=155
-finddtext=cairoimage
+finddtext=convertmono
 findhistory=10
+ convertmono
+ monotorgb
+ mono
  cairoimage
- createpattern
- resizeimage
- gui_pixmaptoimage
- allocimage
- adata
- fillchar
- free
- cfont_options
- tiled
+ zeropad
+ convertmonotorgb
+ convertrgb
+ cairo_set_operator
+ toolbar_frame
+ reserv
 findoptions=1
-editpos=1
- 0,0
+editpos=8
+ 9,6
+ 0,-1073741823
+ 0,-1073741823
+ 0,-1073741823
+ 0,-1073741823
+ 30,143
+ 0,-1073741823
+ 10,261
 bookmarks0=0
-sourcefiles=1
+bookmarks1=0
+bookmarks2=0
+bookmarks3=0
+bookmarks4=0
+bookmarks5=0
+bookmarks6=0
+bookmarks7=0
+sourcefiles=8
  /C:/msegui/MSEProject/RepazDemo/main.pas
-relpaths=1
+ /C:/msegui/lib/addon/repaz/repazclasses.pas
+ /C:/msegui/lib/addon/repaz/universalprinter.pas
+ /C:/msegui/lib/common/printer/msepostscriptprinter.pas
+ /C:/msegui/lib/addon/cairo/cairo.pp
+ /C:/msegui/lib/addon/repaz/repazdesign.pas
+ /c:/msegui/lib/addon/compdesigner/compdesigner.pas
+ /C:/msegui/lib/addon/aztools/azgridtools.pas
+relpaths=8
  main.pas
-ismoduletexts=1
+ ../../lib/addon/repaz/repazclasses.pas
+ ../../lib/addon/repaz/universalprinter.pas
+ ../../lib/common/printer/msepostscriptprinter.pas
+ ../../lib/addon/cairo/cairo.pp
+ ../../lib/addon/repaz/repazdesign.pas
+ ../../lib/addon/compdesigner/compdesigner.pas
+ ../../lib/addon/aztools/azgridtools.pas
+ismoduletexts=8
  0
-modules=1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+modules=2
  /C:/msegui/MSEProject/RepazDemo/main.mfm
-visiblemodules=1
+ /C:/msegui/lib/addon/repaz/repazdesign.mfm
+visiblemodules=2
+ -1
  -1
 [sourcefo.tabwidget]
+order=8
+ 0
+ 5
+ 6
+ 7
+ 1
+ 2
+ 4
+ 3
 tabsize=127
 firsttab=0
-index=0
+index=3
 [components]
 [selecteditpage]
 colwidth=191

@@ -39,7 +39,7 @@ uses
  mseclasses,mseforms,msesimplewidgets,msedataedits,mseedit,msestrings,
  msedispwidgets,msegraphedits,msetabs,classes,sysutils,universalprintertype,
  mseimage,msegrids,msesplitter,msemenus,msetypes,mseifiglob,msescrollbar,
- msewidgets;
+ msewidgets,msecommutils;
  
 type
  tpagesetupdlgfo = class(tmseform)
@@ -92,6 +92,10 @@ type
    wtextasgraph: tbooleanedit;
    wantialias: tbooleanedit;
    wlinesperpage: tintegeredit;
+   tgroupbox6: tgroupbox;
+   wrj45: tbooleaneditradio;
+   wrs232: tbooleaneditradio;
+   wport: tcommselector;
    procedure pagesetupdlgfo_oncreate(const sender: TObject);
    procedure pagesetupdlgfo_ondestroy(const sender: TObject);
    procedure cpapers_onchange(const sender: TObject);
@@ -102,6 +106,8 @@ type
    procedure boolrawmode_onchange(const sender: TObject);
    procedure btnok_onexecute(const sender: TObject);
    procedure boolcontpage_onchange(const sender: TObject);
+   procedure wrs232_onchange(const sender: TObject);
+   procedure wport_onchange(const sender: TObject);
  public
   fprinters: printerarty;     //printers names list
   fpapers  : stdpagearty;
@@ -134,6 +140,13 @@ begin
  cdnotopen.frame.caption:= uc(ord(rcsLbldontopen));
  cdopenbefore.frame.caption:= uc(ord(rcsLblopenbefore));
  cdopenafter.frame.caption:= uc(ord(rcsLblopenafter));
+ wlinesperpage.frame.caption:= uc(ord(rcsLinesperpage));
+ tgroupbox6.frame.caption:= uc(ord(rcsCasdrawerconnection));
+ wrj45.frame.caption:= uc(ord(rcsRJ45));
+ wrs232.frame.caption:= uc(ord(rcsRS232));
+ ttabpage3.caption:= uc(ord(rcsAdvance));
+ wtextasgraph.frame.caption:= uc(ord(rcsPrinttextasgraphic));
+ wantialias.frame.caption:= uc(ord(rcsUseantialias));
 end;
 
 procedure tpagesetupdlgfo.pagesetupdlgfo_ondestroy(const sender: TObject);
@@ -194,13 +207,6 @@ end;
 
 procedure tpagesetupdlgfo.boolrawmode_onchange(const sender: TObject);
 begin
- if boolrawmode.value then begin
-  ttabpage2.invisible:= false;
-  ttabpage3.invisible:= true;
- end else begin
-  ttabpage2.invisible:= true;
-  ttabpage3.invisible:= false;
- end;
 end;
 
 procedure tpagesetupdlgfo.btnok_onexecute(const sender: TObject);
@@ -215,6 +221,15 @@ begin
  end else begin
   wlinesperpage.readonly:= false;
  end;
+end;
+
+procedure tpagesetupdlgfo.wrs232_onchange(const sender: TObject);
+begin
+ wport.enabled:= wrs232.value;
+end;
+
+procedure tpagesetupdlgfo.wport_onchange(const sender: TObject);
+begin
 end;
 
 end.

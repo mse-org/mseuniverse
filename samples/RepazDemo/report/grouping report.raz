@@ -19,6 +19,7 @@ object Page1: TraPage
             RAW_Font = rfCondensed
             RAW_WidthInChar = 25
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -26,6 +27,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             Format = 'Page : ##'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -41,6 +44,7 @@ object Page1: TraPage
             RAW_WidthInChar = 50
             RAW_PosInChar = 26
             Font_Bold = True
+            Font_Name = 'Tahoma'
             Font_Size = 13
             Margin_Left = 1
             Margin_Right = 1
@@ -50,6 +54,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'Motto'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -74,12 +80,15 @@ object Page1: TraPage
             RAW_Font = rfCourier
             RAW_WidthInChar = 15
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -95,6 +104,7 @@ object Page1: TraPage
             RAW_WidthInChar = 50
             RAW_PosInChar = 16
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 50
@@ -102,6 +112,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'address1'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -126,6 +138,7 @@ object Page1: TraPage
             BitmapFieldAlignment = [al_stretchx, al_stretchy]
             RAW_WidthInChar = 20
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
@@ -133,6 +146,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'Logo'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -150,6 +165,7 @@ object Page1: TraPage
             Color = -1610612717
             Font_Bold = True
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Font_Size = 20
             Margin_Left = 1
             Margin_Right = 1
@@ -159,6 +175,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             DataField = 'CompanyName'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -181,6 +199,7 @@ object Page1: TraPage
             RAW_PosInChar = 0
             Font_Bold = True
             Font_UnderLine = True
+            Font_Name = 'Tahoma'
             Font_Size = 15
             Margin_Left = 1
             Margin_Right = 1
@@ -190,6 +209,8 @@ object Page1: TraPage
             Width = 189.666666666667
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -216,12 +237,15 @@ object Page1: TraPage
             RAW_PosInChar = 0
             Font_Bold = True
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.4
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.5
@@ -236,6 +260,7 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 27
             RAW_PosInChar = 7
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Alignment_Horizontal = ha_Center
@@ -245,6 +270,8 @@ object Page1: TraPage
             TextOptions = []
             DataField = 'ProductID'
             Format = '0.00 PIECES'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.3
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -259,12 +286,15 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 5
             RAW_PosInChar = 35
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 100
             Width = 20
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.3
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -279,6 +309,7 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 14
             RAW_PosInChar = 41
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Alignment_Horizontal = ha_Right
@@ -288,6 +319,8 @@ object Page1: TraPage
             TextOptions = []
             DataField = 'SalesPrice'
             Format = '#,#0.00'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.3
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -302,12 +335,15 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 10
             RAW_PosInChar = 56
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 145
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.3
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -327,12 +363,15 @@ object Page1: TraPage
             Text = 'Terbilang :'
             RAW_WidthInChar = 5
             RAW_PosInChar = 0
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 0
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -348,12 +387,15 @@ object Page1: TraPage
             RAW_WidthInChar = 5
             RAW_PosInChar = 5
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 35
             Width = 100
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -801,6 +843,7 @@ object Page1: TraPage
             RAW_WidthInChar = 6
             RAW_PosInChar = 0
             Font_Bold = True
+            Font_Name = 'Tahoma'
             Font_Size = 11
             Margin_Left = 1
             Margin_Right = 1
@@ -808,6 +851,8 @@ object Page1: TraPage
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -823,6 +868,7 @@ object Page1: TraPage
             RAW_PosInChar = 7
             Font_Bold = True
             Font_UnderLine = True
+            Font_Name = 'Tahoma'
             Font_Size = 11
             Font_Color = -1610612727
             Margin_Left = 1
@@ -834,6 +880,8 @@ object Page1: TraPage
             DataField = 'Category'
             Lookup_Buffer = 'lbkel'
             Lookup_ValueFieldNo = 1
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -848,12 +896,15 @@ object Page1: TraPage
             Expression = 'GroupNumber(0)'
             RAW_WidthInChar = 5
             RAW_PosInChar = 17
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 120
             Width = 15
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -875,13 +926,16 @@ object Page1: TraPage
             RAW_WidthInChar = 5
             RAW_PosInChar = 1
             Font_Bold = True
+            Font_Name = 'Tahoma'
             Font_Size = 11
             Margin_Left = 1
             Margin_Right = 1
-            Position = 10
+            Position = 5
             Width = 30
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -896,6 +950,7 @@ object Page1: TraPage
             RAW_WidthInChar = 5
             RAW_PosInChar = 6
             Font_Bold = True
+            Font_Name = 'Tahoma'
             Font_Color = -1610612729
             Margin_Left = 1
             Margin_Right = 1
@@ -906,6 +961,8 @@ object Page1: TraPage
             DataField = 'supplier'
             Lookup_Buffer = 'lbsupplier'
             Lookup_ValueFieldNo = 1
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -920,6 +977,7 @@ object Page1: TraPage
             RAW_WidthInChar = 5
             RAW_PosInChar = 12
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Font_Size = 11
             Margin_Left = 1
             Margin_Right = 1
@@ -930,6 +988,8 @@ object Page1: TraPage
             DataField = 'supplier'
             Lookup_Buffer = 'lbsupplier'
             Lookup_ValueFieldNo = 2
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -944,12 +1004,15 @@ object Page1: TraPage
             Expression = 'GroupNumber(1)'
             RAW_WidthInChar = 5
             RAW_PosInChar = 19
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 135
             Width = 15
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -972,6 +1035,7 @@ object Page1: TraPage
             RAW_WidthInChar = 5
             RAW_PosInChar = 0
             Font_Bold = True
+            Font_Name = 'Tahoma'
             Font_Size = 11
             Font_Color = -1610612727
             Margin_Left = 1
@@ -984,6 +1048,8 @@ object Page1: TraPage
             Lookup_Buffer = 'lbkel'
             Lookup_ValueFieldNo = 1
             Format = 'TOTAL '
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -1000,6 +1066,7 @@ object Page1: TraPage
             RAW_PosInChar = 13
             Font_Bold = True
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Font_Size = 11
             Margin_Left = 1
             Margin_Right = 1
@@ -1010,6 +1077,8 @@ object Page1: TraPage
             TextOptions = []
             DataField = 'ProductID'
             Format = '0.00'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -1027,6 +1096,7 @@ object Page1: TraPage
             RAW_PosInChar = 22
             Font_Bold = True
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Font_Size = 11
             Margin_Left = 1
             Margin_Right = 1
@@ -1036,6 +1106,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             Format = '#,#0.00'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0
@@ -1060,12 +1132,15 @@ object Page1: TraPage
             RAW_PosInChar = 1
             Font_Bold = True
             Font_Italic = True
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
-            Position = 10
-            Width = 20
+            Position = 5
+            Width = 25
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.4
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.5
@@ -1080,6 +1155,7 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 27
             RAW_PosInChar = 7
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 30
@@ -1089,6 +1165,8 @@ object Page1: TraPage
             DataField = 'supplier'
             Lookup_Buffer = 'lbsupplier'
             Lookup_ValueFieldNo = 1
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.3
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -1103,6 +1181,7 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 5
             RAW_PosInChar = 35
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Alignment_Horizontal = ha_Right
@@ -1112,6 +1191,8 @@ object Page1: TraPage
             TextOptions = []
             DataField = 'ProductID'
             Format = '0.00'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.3
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -1126,6 +1207,7 @@ object Page1: TraPage
             DataSource = 'dsproduct'
             RAW_WidthInChar = 14
             RAW_PosInChar = 41
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Alignment_Horizontal = ha_Right
@@ -1135,6 +1217,8 @@ object Page1: TraPage
             TextOptions = []
             DataField = 'SalesPrice'
             Format = '#,#0.00'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.3
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -1150,12 +1234,15 @@ object Page1: TraPage
             RAW_WidthInChar = 10
             RAW_PosInChar = 56
             Color = -1610612727
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Position = 135
             Width = 20
             Ellipse = el_None
             TextOptions = []
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.3
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -1171,6 +1258,7 @@ object Page1: TraPage
             Expression = 'dsproduct.SalesPrice*2'
             RAW_WidthInChar = 14
             RAW_PosInChar = 67
+            Font_Name = 'Tahoma'
             Margin_Left = 1
             Margin_Right = 1
             Alignment_Horizontal = ha_Right
@@ -1179,6 +1267,8 @@ object Page1: TraPage
             Ellipse = el_None
             TextOptions = []
             Format = '#,#0.00'
+            Barcode_Modul = 1
+            Barcode_Ratio = 1
             Border_Top_Width = 0.2
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
@@ -1210,13 +1300,16 @@ object Page1: TraPage
         DataSource = 'dsproduct'
         RAW_WidthInChar = 6
         RAW_PosInChar = 1
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
-        Position = 10
-        Width = 20
+        Position = 5
+        Width = 25
         Ellipse = el_None
         TextOptions = []
         DataField = 'productID'
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0
         Border_Top_LineStyle = ls_Solid
         Border_Left_Width = 0.5
@@ -1230,6 +1323,7 @@ object Page1: TraPage
         DataSource = 'dsproduct'
         RAW_WidthInChar = 27
         RAW_PosInChar = 7
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Position = 30
@@ -1237,6 +1331,8 @@ object Page1: TraPage
         Ellipse = el_Right
         TextOptions = [to_WordBreak]
         DataField = 'ProductName'
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0
         Border_Top_LineStyle = ls_Solid
         Border_Left_Width = 0.2
@@ -1250,6 +1346,7 @@ object Page1: TraPage
         DataSource = 'dsproduct'
         RAW_WidthInChar = 5
         RAW_PosInChar = 35
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Center
@@ -1258,6 +1355,8 @@ object Page1: TraPage
         Ellipse = el_None
         TextOptions = []
         DataField = 'Unit'
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0
         Border_Top_LineStyle = ls_Solid
         Border_Left_Width = 0.2
@@ -1271,6 +1370,7 @@ object Page1: TraPage
         DataSource = 'dsproduct'
         RAW_WidthInChar = 14
         RAW_PosInChar = 41
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Right
@@ -1280,6 +1380,8 @@ object Page1: TraPage
         TextOptions = []
         DataField = 'SalesPrice'
         Format = '#,#0.00'
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0
         Border_Top_LineStyle = ls_Solid
         Border_Left_Width = 0.2
@@ -1294,6 +1396,7 @@ object Page1: TraPage
         BitmapFieldAlignment = [al_stretchx, al_stretchy]
         RAW_WidthInChar = 10
         RAW_PosInChar = 56
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Position = 135
@@ -1301,6 +1404,8 @@ object Page1: TraPage
         Ellipse = el_None
         TextOptions = []
         DataField = 'ProductImage'
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0
         Border_Top_LineStyle = ls_Solid
         Border_Left_Width = 0.2
@@ -1315,6 +1420,7 @@ object Page1: TraPage
         Expression = 'dsproduct.salesprice*2'
         RAW_WidthInChar = 14
         RAW_PosInChar = 67
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Right
@@ -1323,6 +1429,8 @@ object Page1: TraPage
         Ellipse = el_None
         TextOptions = []
         Format = '#,#0.00'
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0
         Border_Top_LineStyle = ls_Solid
         Border_Left_Width = 0.2
@@ -1337,6 +1445,7 @@ object Page1: TraPage
         Expression = 'DataNumber'
         RAW_WidthInChar = 5
         RAW_PosInChar = 26
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Right
@@ -1344,6 +1453,8 @@ object Page1: TraPage
         Width = 15
         Ellipse = el_None
         TextOptions = []
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0
         Border_Top_LineStyle = ls_Solid
         Border_Left_Width = 0
@@ -1362,13 +1473,16 @@ object Page1: TraPage
         RAW_WidthInChar = 6
         RAW_PosInChar = 1
         Font_Bold = True
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Center
-        Position = 10
-        Width = 20
+        Position = 5
+        Width = 25
         Ellipse = el_None
         TextOptions = []
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0.5
         Border_Top_Color = -1610612727
         Border_Top_LineStyle = ls_Solid
@@ -1384,6 +1498,7 @@ object Page1: TraPage
         RAW_WidthInChar = 27
         RAW_PosInChar = 7
         Font_Bold = True
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Center
@@ -1392,6 +1507,8 @@ object Page1: TraPage
         Ellipse = el_None
         TextOptions = []
         Lookup_ValueFieldNo = 1
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0.5
         Border_Top_Color = -1610612727
         Border_Top_LineStyle = ls_Solid
@@ -1407,6 +1524,7 @@ object Page1: TraPage
         RAW_WidthInChar = 5
         RAW_PosInChar = 35
         Font_Bold = True
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Center
@@ -1414,6 +1532,8 @@ object Page1: TraPage
         Width = 20
         Ellipse = el_None
         TextOptions = []
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0.5
         Border_Top_Color = -1610612727
         Border_Top_LineStyle = ls_Solid
@@ -1429,6 +1549,7 @@ object Page1: TraPage
         RAW_WidthInChar = 14
         RAW_PosInChar = 41
         Font_Bold = True
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Center
@@ -1436,6 +1557,8 @@ object Page1: TraPage
         Width = 25
         Ellipse = el_None
         TextOptions = []
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0.5
         Border_Top_Color = -1610612727
         Border_Top_LineStyle = ls_Solid
@@ -1451,6 +1574,7 @@ object Page1: TraPage
         RAW_WidthInChar = 10
         RAW_PosInChar = 56
         Font_Bold = True
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Center
@@ -1458,6 +1582,8 @@ object Page1: TraPage
         Width = 20
         Ellipse = el_None
         TextOptions = []
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0.5
         Border_Top_Color = -1610612727
         Border_Top_LineStyle = ls_Solid
@@ -1472,6 +1598,7 @@ object Page1: TraPage
         Text = 'Sub Total'
         RAW_WidthInChar = 14
         RAW_PosInChar = 67
+        Font_Name = 'Tahoma'
         Margin_Left = 1
         Margin_Right = 1
         Alignment_Horizontal = ha_Center
@@ -1479,6 +1606,8 @@ object Page1: TraPage
         Width = 30
         Ellipse = el_None
         TextOptions = []
+        Barcode_Modul = 1
+        Barcode_Ratio = 1
         Border_Top_Width = 0.5
         Border_Top_Color = -1610612727
         Border_Top_LineStyle = ls_Solid

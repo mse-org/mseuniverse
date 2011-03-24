@@ -2157,17 +2157,25 @@ begin
  if (not varisboolean(params[1])) then
    raise tevalnamedexception.create(uc(ord(rcsevaltype)),idenname);
  bo1:= boolean(params[1]);
- adate:= tdatetime(params[0]);
  result:= false;
- if bo1 then begin
-  result:= dayofweek(adate) = 1;
-  if result then exit;
+ try
+  adate:= tdatetime(params[0]);
+ except
+  exit;
  end;
- for int1:=0 to high(adiscountdays) do begin
-  if dateof(adate)=dateof(adiscountdays[int1]) then begin
-   result:= true;
-   break;
+ try
+  if bo1 then begin
+   result:= dayofweek(adate) = 1;
+   if result then exit;
   end;
+  for int1:=0 to high(adiscountdays) do begin
+   if dateof(adate)=dateof(adiscountdays[int1]) then begin
+    result:= true;
+    break;
+   end;
+  end;
+ except
+  raise;
  end;
 end;
 

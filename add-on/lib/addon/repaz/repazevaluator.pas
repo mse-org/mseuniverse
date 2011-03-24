@@ -436,8 +436,13 @@ begin
      ferror:=uc(ord(rcsdivisiozero));
      flineerror:=repazevalparser.sourceline;
      fposerror:=repazevalparser.sourcepos;
-     raise tevalexception.create(ferror,
-       repazevalparser.tokenstring,flineerror,fposerror);
+     //raise tevalexception.create(ferror,
+     //  repazevalparser.tokenstring,flineerror,fposerror);
+     raise exception.create(ferror+
+       lineend+'token: '+repazevalparser.tokenstring+lineend+
+       'line: '+inttostr(flineerror)+lineend+
+       'position: '+inttostr(fposerror)+lineend+
+       'expression: '+fexpression);
     end;
    end;
   on e:tevalnamedexception do
@@ -446,9 +451,14 @@ begin
      ferror:=e.errormessage;
      flineerror:=repazevalparser.sourceline;
      fposerror:=repazevalparser.sourcepos;
-     raise tevalexception.create(ferror+' '''+e.elementerror+'''',
-         repazevalparser.tokenstring,flineerror,fposerror)
-    end;
+     //raise tevalexception.create(ferror+' '''+e.elementerror+'''',
+     //    repazevalparser.tokenstring,flineerror,fposerror)
+     raise exception.create(ferror+' '''+e.elementerror+''''+lineend+
+       'token: '+repazevalparser.tokenstring+lineend+
+       'line: '+inttostr(flineerror)+lineend+
+       'position: '+inttostr(fposerror)+lineend+
+       'expression: '+fexpression);
+   end;
    end;
   on eparsererror do
    begin
@@ -456,8 +466,13 @@ begin
      ferror:=uc(ord(rcsevalsyntax));
      flineerror:=repazevalparser.sourceline;
      fposerror:=repazevalparser.sourcepos;
-     raise tevalexception.create(ferror,
-        repazevalparser.tokenstring,flineerror,fposerror);
+     //raise tevalexception.create(ferror,
+     //   repazevalparser.tokenstring,flineerror,fposerror);
+     raise exception.create(ferror+lineend+
+       'token: '+repazevalparser.tokenstring+lineend+
+       'line: '+inttostr(flineerror)+lineend+
+       'position: '+inttostr(fposerror)+lineend+
+       'expression: '+fexpression);
     end;
    end;
   on e:tevalexception do
@@ -466,7 +481,11 @@ begin
      ferror:=e.errormessage;
      flineerror:=e.errorline;
      fposerror:=e.errorposition;
-     raise;
+     raise exception.create(ferror+lineend+
+       'line: '+inttostr(flineerror)+lineend+
+       'position: '+inttostr(fposerror)+lineend+
+       'expression: '+fexpression);
+     //raise;
     end;
    end;
   on e:evarianterror do
@@ -477,8 +496,13 @@ begin
       ferror:=uc(ord(rcsevaltype));
       flineerror:=repazevalparser.sourceline;
       fposerror:=repazevalparser.sourcepos;
-      raise tevalexception.create(ferror,
-          repazevalparser.tokenstring,flineerror,fposerror);
+      //raise tevalexception.create(ferror,
+      //    repazevalparser.tokenstring,flineerror,fposerror);
+      raise exception.create(ferror+lineend+
+       'token: '+repazevalparser.tokenstring+lineend+
+       'line: '+inttostr(flineerror)+lineend+
+       'position: '+inttostr(fposerror)+lineend+
+       'expression: '+fexpression);
      end
      else
       if e.message=sinvalidvarop then
@@ -486,8 +510,13 @@ begin
        ferror:=uc(ord(rcsinvalidoperation));
        flineerror:=repazevalparser.sourceline;
        fposerror:=repazevalparser.sourcepos;
-       raise tevalexception.create(ferror,
-          repazevalparser.tokenstring,flineerror,fposerror);
+       //raise tevalexception.create(ferror,
+       //   repazevalparser.tokenstring,flineerror,fposerror);
+       raise exception.create(ferror+lineend+
+       'token: '+repazevalparser.tokenstring+lineend+
+       'line: '+inttostr(flineerror)+lineend+
+       'position: '+inttostr(fposerror)+lineend+
+       'expression: '+fexpression);
       end;
     end;
    end;
@@ -496,20 +525,30 @@ begin
     ferror:=uc(ord(rcsevalsyntax));
     flineerror:=repazevalparser.sourceline;
     fposerror:=repazevalparser.sourcepos;
-    raise;
+    //raise;
+    raise exception.create(ferror+lineend+
+      'token: '+repazevalparser.tokenstring+lineend+
+      'line: '+inttostr(flineerror)+lineend+
+      'position: '+inttostr(fposerror)+lineend+
+      'expression: '+fexpression);
    end;
   end;
  end;
 
- if repazevalparser.token<>toeof then begin
+ {if repazevalparser.token<>toeof then begin
   ferror:=uc(ord(rcsevalsyntax));
   flineerror:=repazevalparser.sourceline;
   fposerror:=repazevalparser.sourcepos;
   if fwitherror then begin
-   raise tevalexception.create(uc(ord(rcsevalsyntax))+repazevalparser.tokenstring,
-        repazevalparser.tokenstring,repazevalparser.sourceline,repazevalparser.sourcepos);
+   //raise tevalexception.create(uc(ord(rcsevalsyntax))+repazevalparser.tokenstring,
+   //     repazevalparser.tokenstring,repazevalparser.sourceline,repazevalparser.sourcepos);
+   raise exception.create(uc(ord(rcsevalsyntax))+lineend+
+      'token: '+repazevalparser.tokenstring+lineend+
+      'line: '+inttostr(flineerror)+lineend+
+      'position: '+inttostr(fposerror)+lineend+
+      'expression: '+fexpression);
   end;    
- end;
+ end;}
  result:=fpartial;
 end;
 

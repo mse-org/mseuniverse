@@ -39,10 +39,56 @@ uses
  mseclasses,mseforms,msedataedits,msestrings,msesimplewidgets,msewidgets,
  msegrids,repazdatasources,repazevaluator,repazconsts,classes,mseconsts,
  repazevaluatortype,msesplitter,mseedit,msemenus,msetypes,msewidgetgrid,
- mseinplaceedit,msescrollbar,msestatfile,msegridsglob,sysutils;
+ mseinplaceedit,msescrollbar,msestatfile,msegridsglob,sysutils,mseifiglob,
+ mseeditglob,msesyntaxedit,msetextedit,msesyntaxpainter;
 
 const
  fmaxlisthelp=6;
+
+ expressionsyntax = 
+  'caseinsensitive'+lineend+
+  'styles'+lineend+
+  ' default '''''+lineend+
+  ' words ''b'' cl_dkblue'+lineend+
+  ' comment ''i'' cl_dkyellow'+lineend+
+  ' option ''b'' cl_dkgreen'+lineend+
+  ' string '''' cl_dkred'+lineend+
+  ' '+lineend+
+  'keyworddefs evaluator'+lineend+
+  ' ''TRUE'' ''FALSE'' ''TODAY'' ''TIME'' ''NOW'' ''NULL'' ''SIN'' ''MAX'''+LINEEND+
+  ' ''MIN'' ''FLOATTODATETIME'' ''STRINGTOTIME'' ''STRINGTODATETIME'' ''TIMETOSTRING'''+LINEEND+
+  ' ''DATETIMETOSTRING'' ''DAYOFWEEK'' ''ROUND'' ''ROUNDTOINTEGER'' ''INT'' ''ABS'''+LINEEND+
+  ' ''COMPAREVALUE'' ''SQRT'' ''ISINTEGER'' ''ISNUMERIC'' ''ISVALIDDATETIME'' ''CHECKEXPRESSION'''+LINEEND+
+  ' ''STRINGTOBIN'' ''STR'' ''VAL'' ''LEFT'' ''LENGTH'' ''TRIM'' ''POS'' ''MOD'''+LINEEND+
+  ' ''MONTHNAME'' ''MONTH'' ''YEAR'' ''DAY'' ''RIGHT'' ''SUBSTR'' ''FORMATSTR'' ''FORMATNUM'''+LINEEND+
+  ' ''UPPERCASE'' ''LOWERCASE'' ''EVALTEXT'' ''NUMTOTEXT'' ''REPLACESTR'' ''FIELDWITHKEY'''+LINEEND+
+  ' ''ISHOLIDAY'' ''ISDISCOUNTDAY'' ''PAGENUMBER'' ''REPORTHEADER'' ''REPORTFOOTER'' ''PAGEHEADER'''+LINEEND+
+  ' ''PAGEFOOTER'' ''CONTENTHEADER'' ''CONTENTFOOTER'' ''TABLEHEADER'' ''TABLEFOOTER'''+LINEEND+
+  ' ''CONTENTDATA'' ''GROUPHEADER'' ''GROUPFOOTER'' ''GROUPDATA'' ''RECORDNUMBER'' ''MASTERNUMBER'''+LINEEND+
+  ' ''DATANUMBER'' ''GROUPNUMBER'' ''HEADERTREEKEY'' ''FOOTERTREEKEY'' ''TREEFOOTERVALUE'' ''LETTERVALUE'''+LINEEND+
+  ' ''IIF'' ''AND'' ''OR'' ''NOT'' ''+'' ''-'' ''*'' ''/'' ''='' ''=='''+LINEEND+
+  ''+lineend+
+  'scope comment1 comment'+lineend+
+  ' endtokens'+lineend+
+  '  ''*/'''+lineend+
+  '  '+lineend+
+  'scope comment2 comment'+lineend+
+  ' endtokens'+lineend+
+  '  '''''+lineend+
+  '  '+lineend+
+  'scope string string'+lineend+
+  ' endtokens'+lineend+
+  '  '''''''' '''''+lineend+
+  '  '+lineend+
+  'scope main'+lineend+
+  ''+lineend+
+  ' keywords words'+lineend+
+  '  evaluator'+lineend+
+  ' calltokens'+lineend+
+  '  ''/*'' comment1'+lineend+
+  '  ''--'' comment2'+lineend+
+  '  '''''''' string'+lineend;
+
 type
  tevalrechelp=class(tobject)
  public
@@ -70,7 +116,9 @@ type
    tsimplewidget1: tsimplewidget;
    tsplitter1: tsplitter;
    tsplitter2: tsplitter;
-   wformula: tmemoedit;
+   wformula: twidgetgrid;
+   textedit: tsyntaxedit;
+   tsyntaxpainter1: tsyntaxpainter;
    procedure frmevaldialogfo_oncreate(const sender: tobject);
    procedure frmevaldialogfo_ondestroy(const sender: tobject);
    procedure badd_onexecute(const sender: tobject);
@@ -83,10 +131,19 @@ type
    procedure bok_onexecute(const sender: tobject);
    procedure bclear_onexecute(const sender: TObject);
    procedure frmevaldialogfo_onstatafterread(const sender: TObject);
+   procedure doasyncevent(var atag: integer); override;
+   procedure clearbrackets;
+   procedure checkbrackets;
+   procedure callcheckbrackets;
+   procedure textedit_oneditnotifcation(const sender: TObject;
+                   var info: editnotificationinfoty);
+   procedure frmevaldialogfo_onloaded(const sender: TObject);
   private
    validate:boolean;
    aresult:variant;
    fevaluator:trepazcustomevaluator;
+   fbracket1,fbracket2: gridcoordty;
+   fbracketsetting,fbracketchecking: integer;
    llistes:array[0..fmaxlisthelp-1] of tstringlist;
    procedure setevaluator(aval:trepazcustomevaluator);
   public
@@ -130,10 +187,10 @@ begin
    dia.evaluator:=trepazevaluator.create(dia)
   else
    dia.evaluator:=aval;
-  dia.wformula.value:=formul;
+  dia.textedit.settext(formul);
   result:=formul;
   if dia.show=mr_ok then
-   result:=dia.wformula.value;
+   result:=dia.textedit.gettext;
  finally
   dia.free;
  end;
@@ -149,10 +206,10 @@ begin
    dia.evaluator:=trepazevaluator.create(dia)
   else
    dia.evaluator:=aval;
-  dia.wformula.value:=formul;
+  dia.textedit.settext(formul);
   result:=formul;
   if dia.show(true)=mr_ok then
-   result:=dia.wformula.value;
+   result:=dia.textedit.gettext;
  finally
   dia.free;
  end;
@@ -170,7 +227,7 @@ begin
    dia.evaluator:=trepazevaluator.create(dia)
   else
    dia.evaluator:=aval;
-  dia.wformula.value:=formul;
+  dia.textedit.settext(formul);
   result:=dia.aresult;
   if dia.show(true)=mr_ok then
    result:=dia.aresult;
@@ -187,11 +244,11 @@ begin
   try
    frmevaldialogfo:= tfrmevaldialogfo.create(nil);
    frmevaldialogfo.evaluator:=fevaluator;
-   frmevaldialogfo.wformula.value:=expression;
+   frmevaldialogfo.textedit.settext(expression);
    result:= false;
    if frmevaldialogfo.show(true)=mr_ok then begin
     result:= true;
-    expression:=frmevaldialogfo.wformula.value;
+    expression:=frmevaldialogfo.textedit.gettext;
    end;
   finally
    frmevaldialogfo.destroy;
@@ -262,34 +319,40 @@ end;
 
 procedure tfrmevaldialogfo.badd_onexecute(const sender: tobject);
 begin
- if litems.row>-0 then begin
-  wformula.value:=wformula.value+litems[0][litems.row];
+ if litems.row>=0 then begin
+  textedit.beginupdate;
+  if textedit.gettext='' then begin
+   textedit.settext(litems[0][litems.row])
+  end else begin
+   textedit.inserttext(litems[0][litems.row]);
+  end;
+  textedit.endupdate;
  end;
 end;
 
 procedure tfrmevaldialogfo.bchecksyn_onexecute(const sender: tobject);
 begin
- evaluator.expression:=wformula.value;
+ evaluator.expression:=textedit.gettext;
  try
   evaluator.checksyntax;
   showmessage(uc(ord(rcsmsgTrueSyntax)));
  except
   wformula.setfocus;
-  wformula.editor.selstart:=evaluator.poserror;
-  wformula.editor.sellength:=0;
+  textedit.editor.selstart:=evaluator.poserror;
+  textedit.editor.sellength:=0;
   raise;
  end;
 end;
 
 procedure tfrmevaldialogfo.bshowresult_onexecute(const sender: tobject);
 begin
- evaluator.expression:=wformula.value;
+ evaluator.expression:=textedit.gettext;
  try
   evaluator.evaluate;
  except
   wformula.setfocus;
-  wformula.editor.selstart:=evaluator.poserror;
-  wformula.editor.sellength:=0;
+  textedit.editor.selstart:=evaluator.poserror;
+  textedit.editor.sellength:=0;
   raise;
  end;
  showmessage(tevalvaluetostring(evaluator.evalresult));
@@ -327,10 +390,13 @@ begin
  
  if iscellclick(info,[ccr_dblclick]) then
  begin
-  wformula.editor.beginupdate;
-  wformula.editor.inserttext(litems[0][litems.row]);
-  wformula.editor.endupdate;
-  wformula.value:= wformula.editor.text;
+  textedit.beginupdate;
+  if textedit.gettext='' then begin
+   textedit.settext(litems[0][litems.row])
+  end else begin
+   textedit.inserttext(litems[0][litems.row]);
+  end;
+  textedit.endupdate;
  end;
 end;
 
@@ -338,14 +404,14 @@ procedure tfrmevaldialogfo.bok_onexecute(const sender: tobject);
 begin
  if validate then
  begin
-  evaluator.expression:=wformula.value;
+  evaluator.expression:=textedit.gettext;
   try
    evaluator.evaluate;
    aresult:=evaluator.evalresult;
   except
    wformula.setfocus;
-   wformula.editor.selstart:=evaluator.poserror;
-   wformula.editor.sellength:=0;
+   textedit.editor.selstart:=evaluator.poserror;
+   textedit.editor.sellength:=0;
    raise;
   end;
  end;
@@ -508,12 +574,133 @@ end;
 
 procedure tfrmevaldialogfo.bclear_onexecute(const sender: TObject);
 begin
- wformula.value:='';
+ textedit.settext('');
 end;
 
 procedure tfrmevaldialogfo.frmevaldialogfo_onstatafterread(const sender: TObject);
 begin
  self.visible:= false;
+end;
+
+procedure tfrmevaldialogfo.doasyncevent(var atag: integer);
+var
+ mstr1: filenamety;
+begin
+ case atag of
+  99: begin
+   dec(fbracketchecking);
+   checkbrackets;
+  end;
+ end;
+end;
+
+procedure tfrmevaldialogfo.clearbrackets;
+begin
+ if (fbracket1.col >= 0) and (fbracketsetting = 0) then begin
+  inc(fbracketsetting);
+  try
+   with textedit do begin
+    setfontstyle(fbracket1,makegridcoord(fbracket1.col+1,fbracket1.row),
+                                   fs_bold,false);
+    setfontstyle(fbracket2,makegridcoord(fbracket2.col+1,fbracket2.row),
+                                   fs_bold,false);
+    refreshsyntax(fbracket1.row,1);
+    refreshsyntax(fbracket2.row,1);
+    fbracket1:= invalidcell;
+    fbracket2:= invalidcell;
+    if syntaxpainterhandle >= 0 then begin
+     syntaxpainter.boldchars[syntaxpainterhandle]:= nil;
+    end;
+   end;
+  finally
+   dec(fbracketsetting);
+  end;
+ end;  
+end;
+
+procedure tfrmevaldialogfo.checkbrackets;
+var
+ mch1: msechar;
+ br1,br2: bracketkindty;
+ open,open2: boolean;
+ pt1,pt2: gridcoordty;
+ ar1: gridcoordarty;
+begin
+ clearbrackets;
+ pt2:= invalidcell;
+ with textedit do begin
+  pt1:= editpos;
+  mch1:= charatpos(pt1);
+  br1:= checkbracketkind(mch1,open);
+  if (br1 <> bki_none) and (pt1.col > 0) then begin
+   dec(pt1.col);
+   br2:= checkbracketkind(charatpos(pt1),open2);
+   if (br2 = bki_none) or (open <> open2) then begin
+    inc(pt1.col);
+   end
+   else begin
+    br1:= br2;
+   end;
+   pt2:= matchbracket(pt1,br1,open);
+  end
+  else begin
+   dec(pt1.col);
+   if pt1.col >= 0 then begin
+    mch1:= charatpos(pt1);
+    br1:= checkbracketkind(mch1,open);
+    if br1 <> bki_none then begin
+     pt2:= matchbracket(pt1,br1,open);
+    end;
+   end;
+  end;
+  if pt2.col >= 0 then begin
+   fbracket1:= pt1;
+   fbracket2:= pt2;
+   inc(fbracketsetting);
+   try
+    setfontstyle(pt1,makegridcoord(pt1.col+1,pt1.row),fs_bold,true);
+    setfontstyle(pt2,makegridcoord(pt2.col+1,pt2.row),fs_bold,true);
+   finally
+    dec(fbracketsetting);
+   end;
+   if syntaxpainterhandle >= 0 then begin
+    setlength(ar1,2);
+    ar1[0]:= fbracket1;
+    ar1[1]:= fbracket2;
+    syntaxpainter.boldchars[syntaxpainterhandle]:= ar1;
+    refreshsyntax(fbracket1.row,1);
+    refreshsyntax(fbracket2.row,1);
+   end;
+  end;
+ end;
+end;
+
+procedure tfrmevaldialogfo.callcheckbrackets;
+begin
+ if (fbracketchecking = 0) then begin
+  inc(fbracketchecking);
+  asyncevent(99);
+ end;
+end;
+
+procedure tfrmevaldialogfo.textedit_oneditnotifcation(const sender: TObject;
+               var info: editnotificationinfoty);
+begin
+ if (info.action = ea_beforechange) and not textedit.syntaxchanging then begin
+  clearbrackets;
+ end
+ else begin
+  if info.action in [ea_indexmoved,ea_delchar,ea_deleteselection,ea_pasteselection,
+                     ea_textentered] then begin
+   callcheckbrackets;
+  end;
+ end;
+end;
+
+procedure tfrmevaldialogfo.frmevaldialogfo_onloaded(const sender: TObject);
+begin
+ tsyntaxpainter1.readdeffile(expressionsyntax);
+ textedit.setsyntaxdef(0);
 end;
 
 end.

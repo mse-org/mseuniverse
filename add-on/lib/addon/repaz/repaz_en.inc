@@ -348,6 +348,13 @@
   'To check whether today is a holiday', //rcsisholiday
   'ADate : date to check; IncludeSunday : is Sunday included to holiday', //rcspisholiday
   'To check whether today is a discountday', //rcsisdiscountday
-  'ADate : date to check; IncludeSunday : is Sunday included to discountday' //rcspisdiscountday
+  'ADate : date to check; IncludeSunday : is Sunday included to discountday', //rcspisdiscountday
+  '&Lines per page', //rcsLinesperpage
+  'Cash Drawer is connected to', //rcsCasdrawerconnection
+  '&Printer (i.e RJ45, etc)', //rcsRJ45
+  'Serial (RS232)', //rcsRS232
+  'Ad&vance', //rcsAdvance
+  'Print text as &graphic', //rcsPrinttextasgraphic,
+  '&Use anti alias feature' //rcsUseantialias
   );
 

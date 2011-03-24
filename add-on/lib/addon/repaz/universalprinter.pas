@@ -364,17 +364,52 @@ end;
 
 function tuniversalprintercanvas.cairoimage(aimage: imagety; destrect: rectty; aformat:cairo_format_t): Pcairo_surface_t;
 var
- int1,stridewidth: integer;
- po1: pointer;
- adata: plongwordaty;
+ sourcerowstep: integer;
+ rowshiftleft,rowshiftright: byte;
+ int1,int2,stridewidth,rowbytes: integer;
+ po1: prgbtriplety;
+ po2: pbyte;
+ adata: pbyte;
+ acolor: rgbtriplety;
 begin
- result:= nil;
- stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
- int1:= aimage.size.cy*stridewidth;
- adata:= gui_allocimagemem(int1);
- po1:= pointer(aimage.pixels);
- system.move(po1^,adata^,int1);
- result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
+ if aimage.monochrome then begin
+  result:= nil;
+  stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
+  int1:= aimage.size.cy*stridewidth;
+  adata:= pbyte(gui_allocimagemem(int1));
+  system.move(aimage.pixels^,adata^,int1);
+  {po2:= pointer(adata);
+  for int2:= 0 to aimage.length-1 do begin
+   po1:= @aimage.pixels^[int2];
+   po2^:= po1^.red and $7;
+   inc(po2);
+   po2^:= 0; //po1^.green and $7;
+   inc(po2);
+   po2^:= 0; //po1^.blue  and $7;
+   inc(po2);
+   po2^:= 0; //po1^.res;
+   inc(po2);
+  end;}
+  result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
+ end else begin
+  result:= nil;
+  stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
+  int1:= aimage.size.cy*stridewidth;
+  adata:= pbyte(gui_allocimagemem(int1));
+  po2:= pointer(adata);
+  for int2:= 0 to aimage.length-1 do begin
+   po1:= @aimage.pixels^[int2];
+   po2^:= po1^.red;
+   inc(po2);
+   po2^:= po1^.green;
+   inc(po2);
+   po2^:= po1^.blue;
+   inc(po2);
+   po2^:= po1^.res;
+   inc(po2);
+  end;
+  result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
+ end;
 end;
 
 function tuniversalprintercanvas.getgdifuncs: pgdifunctionaty;
@@ -457,6 +492,7 @@ var
  height1,width1: integer;
  image: imagety;
  fsurface1 : Pcairo_surface_t;
+ lwidth: real;
 begin
  ar1:= nil; //compiler warning
  with fdrawinfo,gcvalues^ do begin
@@ -523,7 +559,12 @@ begin
    end;
   end;
   if gvm_linewidth in mask then begin
-   cairo_set_line_width (fcairo.context, self.linewidthmm);
+   if self.linewidth = 0 then begin
+    lwidth:= 0.3;
+   end else begin
+    lwidth:= self.linewidthmm;
+   end;
+   cairo_set_line_width (fcairo.context, lwidth);
   end;
   if gvm_capstyle in mask then begin
    case lineinfo.capstyle of
@@ -555,6 +596,47 @@ begin
  end;
 end;
 
+function stringtoutf8rtl(const value: pmsechar; const count: integer): utf8string; overload;
+var
+ int1: integer;
+ po1: pchar;
+ wo1,wo2: word;
+begin
+ setlength(result,length(value)*3); //max
+ po1:= pchar(pointer(result));
+ for int1:= count-1 downto 0 do begin
+  wo1:= word(value[int1]);
+  wo2:= wo1 and $ff80;
+  if wo2 = 0 then begin
+   po1^:= char(wo1);
+   inc(po1);
+  end
+  else begin
+   wo2:= wo2 and $f800;
+   if wo2 = 0 then begin
+    po1^:= char((wo1 shr 6) or $c0);
+    inc(po1);
+    po1^:= char(wo1 and $3f or $80);
+    inc(po1);
+   end
+   else begin
+    po1^:= char((wo1 shr 12) or $e0);
+    inc(po1);
+    po1^:= char((wo1 shr 6) and $3f or $80);
+    inc(po1);
+    po1^:= char(wo1 and $3f or $80);
+    inc(po1);
+   end;
+  end;
+ end;
+ setlength(result,po1-pchar(pointer(result)));
+end;
+
+function stringtoutf8rtl(const value: msestring): utf8string;
+begin
+ result:= stringtoutf8rtl(pmsechar(value),length(value));
+end;
+
 procedure tuniversalprintercanvas.cairo_drawstring16;
 var
  rea1,rea2: real;
@@ -575,6 +657,7 @@ begin
    if fcairo.printtextasgraphic then begin
     str2:= msestrlcopy(text,count);
     str1:= pchar(stringtoutf8(str2));
+    //str1:= pchar(UTF8Encode(str2));
     cairo_text_path (fcairo.context, str1);
     cairo_fill(fcairo.context);
    end else begin
@@ -598,6 +681,7 @@ begin
     end else begin
      str2:= msestrlcopy(text,count);
      str1:= pchar(stringtoutf8(str2));
+     //str1:= pchar(UTF8Encode(str2));
 		   cairo_show_text(fcairo.context, str1); 
 		  end;
    end;

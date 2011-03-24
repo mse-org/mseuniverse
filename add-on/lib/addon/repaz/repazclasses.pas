@@ -41,7 +41,7 @@ uses
  msedrawtext,msestrings,msedb,db,mseobjectpicker,msestat,msestatfile,
  msepointer,mseevent,mselookupbuffer,mseformatstr,msqldb,repaztypes,
  mseglob,msesys,repazdatasources,typinfo,universalprinter,universalprintertype,msestockobjects,
- repazglob,repazpreviewform,msesqldb,repazchart,
+ repazglob,repazpreviewform,msesqldb,repazchart,barcode,
  variants,msebitmap,mseformatbmpicoread,mseformatjpgread,repazevaluator,mseforms,
  mseformatpngread,mseformatpngwrite,msedock,repazdesign;
  
@@ -135,6 +135,12 @@ type
    fbordertop: borderty;
    fborderbottom: borderty;
    ffontstyle: fontstylesty;
+   fmodul: integer;
+   fbarcodetype: barcodety;
+   fchecksum: boolean;
+   fbarcoderotation: integer;
+   fbarcodecolor: colorty;
+   fbarcoderatio: double;
 
    function isstorefontname:boolean;
    procedure processvalue;virtual;
@@ -246,7 +252,13 @@ type
    property Lookup_ValueType: lookupkindty read flookupkind write setlookupkind default lk_Text;
    property Lookup_KeyType: lookupkindty read fkeykind write setkeykind default lk_Text;
    property Format: msestring read fformat write setformat;
-
+   property Barcode_Modul:integer read fmodul write fmodul;
+   property Barcode_Type:barcodety read fbarcodetype write fbarcodetype default bcCodeNone;
+   property Barcode_Checksum:boolean read fchecksum write fchecksum default false;
+   property Barcode_Rotation:integer read fbarcoderotation write fbarcoderotation default 0;
+   property Barcode_Color:colorty read fbarcodecolor write fbarcodecolor default cl_black;
+   property Barcode_Ratio: double read fbarcoderatio write fbarcoderatio;
+   
    property Border_Top_Width: real read fbordertop.linewidth write setbordertopwidth;
    property Border_Top_Color: colorty read fbordertop.linecolor write setbordertopcolor default defaultbordercolor;
    property Border_Top_CapStyle: capstylety read fbordertop.capstyle write setbordertopcapstyle default defaultbordercapstyle;
@@ -561,6 +573,7 @@ type
  {$i repazchartreporth.inc}
  {$i repazletterreporth.inc}
  {$i repazmasterdetailreporth.inc}
+ {$i repazlabelreporth.inc}
  
  TraPage = class(twidget)
   private
@@ -1349,6 +1362,12 @@ end;
 constructor TraTabulatorItem.create(aowner: tobject);
 begin
  inherited;
+ fmodul:= 1;
+ fbarcoderatio:= 1.0;
+ fbarcodetype:= bcCodeNone;
+ fchecksum:= false;
+ fbarcoderotation:= 0;
+ fbarcodecolor:= cl_black;   
  ftext:= '';
  fvalue:= null;
  fbitmapstr:= '';
@@ -2365,11 +2384,13 @@ var
  linestart: pointty;
  lineend: pointty;
  reptabinfo: reptabinfoty;
- tmpfont: tfont;
  fbitmapfield: tmaskedbitmap;
  bmpstr: string;
+ tmpfont: tfont;
  ftextflags: textflagsty;
+ data: string;
 begin
+ tmpfont:= tfont.create;
  fbitmapfield:= tmaskedbitmap.create(false);
  //draw zebra or backcolor
  if count>0 then begin
@@ -2389,7 +2410,6 @@ begin
  end else begin
   acanvas.fillrect(tmprect,fbackcolor);  
  end;
- tmpfont:= tfont.create;
  if count > 0 then begin
   //draw text, background cell and picture
   setlength(reptabinfo.tabs,count);
@@ -2397,8 +2417,6 @@ begin
    with items[int1] do begin
     //draw background cell
     if (Color<>cl_none) and (Color<>cl_transparent)then begin
-     tmprect:= makerect(adest.x+round(Position*fpixelperunit),adest.y,
-     round(Width*fpixelperunit),adest.cy);
      if isbuilding then begin
       freporttemplate.reportpage.report.addrect2toreport(createrectinfo(tmprect,Color));
      end else begin
@@ -2487,8 +2505,23 @@ begin
       reptabinfo.tabs[int1].rawfont:= RAW_Font;
       reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
       reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
+      reptabinfo.tabs[int1].barcodetype:= fbarcodetype;
+      reptabinfo.tabs[int1].barcodechecksum:= fchecksum;
+      reptabinfo.tabs[int1].barcodemodul:= fmodul;
+      reptabinfo.tabs[int1].barcoderotation:= fbarcoderotation;
+      reptabinfo.tabs[int1].barcoderatio:= fbarcoderatio;
      end else begin
-      drawtext(acanvas,finfo);
+      if fbarcodetype=bcCodeNone then begin
+       drawtext(acanvas,finfo);
+      end else begin
+       fbarcode.BarcodeType:= fbarcodetype;
+       fbarcode.datastring:= Text;
+       fbarcode.Checksum:= fchecksum;
+       fbarcode.Ratio:= fbarcoderatio;
+       fbarcode.modul:= fmodul;
+       fbarcode.Rotation:= fbarcoderotation;
+       fbarcode.drawbarcode(adest,acanvas);
+      end;
      end;
     end else begin
      if isbuilding then begin
@@ -2502,6 +2535,11 @@ begin
       reptabinfo.tabs[int1].rawfont:= RAW_Font;
       reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
       reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
+      reptabinfo.tabs[int1].barcodetype:= fbarcodetype;
+      reptabinfo.tabs[int1].barcodechecksum:= fchecksum;
+      reptabinfo.tabs[int1].barcodemodul:= fmodul;
+      reptabinfo.tabs[int1].barcoderotation:= fbarcoderotation;
+      reptabinfo.tabs[int1].barcoderatio:= fbarcoderatio;
      end;
     end;
     //reset summary if needed
@@ -2605,8 +2643,8 @@ begin
    freporttemplate.reportpage.report.addtabtoreport(reptabinfo);
   end;
  end;
- tmpfont.free;
  fbitmapfield.free;
+ tmpfont.free;
 end;
 
 procedure TraTabulators.paintextend(const acanvas: tcanvas; const adest: rectty;
@@ -2654,6 +2692,10 @@ begin
      reptabinfo.tabs[int1].rawfont:= RAW_Font;
      reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
      reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
+     reptabinfo.tabs[int1].barcodetype:= fbarcodetype;
+     reptabinfo.tabs[int1].barcodechecksum:= fchecksum;
+     reptabinfo.tabs[int1].barcodemodul:= fmodul;
+     reptabinfo.tabs[int1].barcoderotation:= fbarcoderotation;
     end;
     if atop then begin
      with fbordertop do begin
@@ -5899,5 +5941,6 @@ end;
 {$i repazchartreport.inc}
 {$i repazletterreport.inc}
 {$i repazmasterdetailreport.inc}
+{$i repazlabelreport.inc}
 
 end.
