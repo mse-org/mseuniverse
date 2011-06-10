@@ -65,6 +65,8 @@
   'Number adalah angka yang akan dicari akar pangkatnya',  //rcsPSQRt
   'Menghasilkan sisa dari pembagian dua bilangan',  //rcsMod
   'Number1 adalah angka yang dibagi dan Number2 adalah pembagi',  //rcsPMod
+  'Menghasilkan bilangan bulat dari pembagian d1 dan d2 (pecahan akan dibuang)',  //rcsDiv
+  'Number1 adalah angka yang dibagi dan Number2 adalah pembagi',  //rcsPDiv
   'Menghasilkan tanggal hari ini dalam format DateTime',  //rcsToday
   'Menghasilkan tanggal dan jam hari ini dalam format DateTime',  //rcsNow
   'Menghasilkan nilai dari Header Report', //rcsReportHeader
@@ -90,8 +92,10 @@
   'Menampilkan nomor halaman dari Repaz', //rcsPageNumber,
   'Menampilkan nilai kunci header yang aktif dari TraTreeReport', //rcsHeaderTreeKey
   'Menampilkan nilai kunci footer yang aktif dari TraTreeReport', //rcsFooterTreeKey
+  'Menampilkan nilai footer terakhir (TraTreeReport)', //rcsTreeFooterValue
   '(indexrow: integer, indexcol:integer, indextree: integer=0)', //rcsPTreeFooterValue
-  'Menampilkan footer value terakhir (TraTreeReport)', //rcsTreeFooterValue
+  'Menampilkan nilai footer induk (TraTreeReport)', //rcsTreeFooterValue2
+  '(indexcol:integer, indextree: integer=0)', //rcsPTreeFooterValue2
   'Menampilkan nomor urut dari data', //rcsRecordNumber
   'Menampilkan nomor urut dari master data', //rcsMasterNumber
   'Menampilkan nomor urut dari setiap seksi/bagian', //rcsDataNumber
@@ -149,8 +153,10 @@
   'The mask can be like ##,##,##,##0.00',  //rcsPFormatNum
   'Mengganti string dalam sebuah string',  //rcsReplaceStr
   'Mencari nilai field dari datasource berdasarkan field kunci tertentu', //rcsFieldWithKey
+  'Mendapatkan jumlah (SUM) dari field', //rcsSumField
   'Strings= string sumber, OldPattern= string didalam Strings yang akan diganti, NewPattern= string baru yang akan mengganti OldPattern', //rcsPReplaceStr
   'KeyField: nama field kunci, KeyValue: nilai field kunci, ValueField: nama field yang dicari nilainya', //rcsPFieldWithKey
+  'FieldName: nama field yang akan dihitung', //rcsPSumField
   'Error on filter',  //rcsErrorFilter
   'Decode base 64 string',  //rcsDecode64
   'Converts string to binary stream',  //rcsStringToBin

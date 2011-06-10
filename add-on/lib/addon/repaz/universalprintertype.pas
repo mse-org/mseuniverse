@@ -51,6 +51,7 @@ type
  pageorientationty = (pao_portrait,pao_landscape);
  esclistty = array[0..esc_max] of string;
  draweractionty = (cdaNotOpen,cdaOpenBefore,cdaOpenAfter);
+ drawermodety = (cdmPrinter,cdmSerial);
  stdpagety = record
   paperindex: integer;
   name: string;

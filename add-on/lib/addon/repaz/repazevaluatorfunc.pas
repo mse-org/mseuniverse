@@ -234,6 +234,13 @@ type
   constructor create(aowner:tcomponent);override;
  end;
 
+ tidendivide=class(tidenfunction)
+ protected
+  function getevalvalue:variant;override;
+ public
+  constructor create(aowner:tcomponent);override;
+ end;
+
  tidensqrt=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
@@ -327,6 +334,13 @@ type
  end;
 
  tidenfieldwithkey=class(tidenfunction)
+ protected
+  function getevalvalue:variant;override;
+ public
+  constructor create(aowner:tcomponent);override;
+ end;
+
+ tidensumfield=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
  public
@@ -485,6 +499,15 @@ type
  { treefootervalue }
  
  tidentreefootervalue=class(tidenreport)
+ protected
+  function getevalvalue:variant;override;
+ public
+  constructor create(aowner:tcomponent);override;
+ end;
+
+ { treefootervalue2 }
+ 
+ tidentreefootervalue2=class(tidenreport)
  protected
   function getevalvalue:variant;override;
  public
@@ -835,6 +858,7 @@ constructor tidenround.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  idenname:='Round';
+ fparamcount:=2;
  help:=uc(ord(rcsround));
  model:='Round(Number:double,Rounded:double):double';
  aparams:=uc(ord(rcspround));
@@ -1240,6 +1264,27 @@ begin
  result:=integer(params[0]) mod integer(params[1]);
 end;
 
+constructor tidendivide.create(aowner:tcomponent);
+begin
+ inherited create(aowner);
+ fparamcount:=2;
+ idenname:='DIV';
+ help:=uc(ord(rcsdiv));
+ model:='DIV(Number1:integer,Number2:integer):integer';
+ aparams:=uc(ord(rcspdiv));
+end;
+
+function tidendivide.getevalvalue:variant;
+begin
+ if not varisnumber(params[0]) then
+  raise tevalnamedexception.create(uc(ord(rcsevaltype)),
+       idenname);
+ if not varisnumber(params[1]) then
+  raise tevalnamedexception.create(uc(ord(rcsevaltype)),
+       idenname);
+ result:=integer(params[0]) div integer(params[1]);
+end;
+
 constructor tidentoday.create(aowner:tcomponent);
 begin
  inherited create(aowner);
@@ -1354,7 +1399,7 @@ begin
  end;
 end;
 
-{ tidenfootertreekey }
+{ tidentreefootervalue }
 
 constructor tidentreefootervalue.create(aowner:tcomponent);
 begin
@@ -1375,7 +1420,28 @@ begin
  end;
 end;
 
-{ tidenfootertreekey }
+{ tidentreefootervalue2 }
+
+constructor tidentreefootervalue2.create(aowner:tcomponent);
+begin
+ inherited create(aowner);
+ fparamcount:=2;
+ aparams:=uc(ord(rcsptreefootervalue2));
+ idenname:='TreeFooterValue2';
+ help:=uc(ord(rcstreefootervalue2));
+ model:='TreeFooterValue2(IndexCol:Integer, IndexTree:Integer): variant';
+end;
+
+function tidentreefootervalue2.getevalvalue:variant;
+begin
+ if owner.owner is TRepaz then begin
+  result:= (owner.owner as TRepaz).treefootervalue2(integer(params[0]),integer(params[1]));
+ end else begin
+  result:= null;
+ end;
+end;
+
+{ tidenlettervalue }
 
 constructor tidenlettervalue.create(aowner:tcomponent);
 begin
@@ -2132,6 +2198,31 @@ begin
  adataset2:=copy(params[2],0,pos2-1);
  afield2:=copy(params[2],pos2+1,length(params[2])-pos2);
  result:= trepazevaluator(owner).datasource.searchfieldwithkey(adataset,afield,[params[1]],afield2);
+end;
+
+{ tidensumfield }
+
+constructor tidensumfield.create(aowner:tcomponent);
+begin
+ inherited create(aowner);
+ fparamcount:=1;
+ idenname:='sumfield';
+ help:=uc(ord(rcssumfield));
+ model:='sumfield(FieldName:string): variant';
+ aparams:=uc(ord(rcspsumfield));
+end;
+
+function tidensumfield.getevalvalue:variant;
+var
+ pos1,pos2: integer;
+ adataset,afield: string;
+begin
+ if (not varisstring(params[0])) then
+   raise tevalnamedexception.create(uc(ord(rcsevaltype)),idenname);
+ pos1:=pos('.',params[0]);
+ adataset:=copy(params[0],0,pos1-1);
+ afield:=copy(params[0],pos1+1,length(params[0])-pos1);
+ result:= trepazevaluator(owner).datasource.sumfield(adataset,afield);
 end;
 
 { tidenisdiscountday }

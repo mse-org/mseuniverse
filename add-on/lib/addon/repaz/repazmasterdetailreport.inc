@@ -39,9 +39,9 @@ begin
  fkeyfieldlink.fieldname:= avalue;
 end;
 
-function TMasterTabs.getdatasource(const aindex: integer): tdatasource;
+function TMasterTabs.getdataset(const aindex: integer): tdataset;
 begin
- result:= fdatalink.DataSource;
+ result:= fdatalink.datasource.dataset;
 end;
 
 procedure TMasterTabs.getfieldtypes(out apropertynames: stringarty;

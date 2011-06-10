@@ -744,7 +744,7 @@ end;
 
 function tdbfieldnamepropeditor.getdefaultstate: propertystatesty;
 var
- datasource1: tdatasource;
+ //datasource1: tdatasource;
  obj1: tobject;
  ar1: stringarty;
  ar2: fieldtypesarty;
@@ -773,7 +773,7 @@ begin
     break;
    end;
   end;
-  datasource1:= fdbeditinfointf.getdatasource(int2);
+  //datasource1:= fdbeditinfointf.getdatasource(int2);
   result:= result + [ps_valuelist,ps_sortlist];
  end;
 end;
@@ -806,13 +806,7 @@ begin
   else begin
    ft:= [];
   end;
-  dataso:= fdbeditinfointf.getdatasource(int2);
-  if dataso <> nil then begin
-   ds:= dataso.dataset;
-  end
-  else begin
-   ds:= nil;
-  end;
+  ds:= fdbeditinfointf.getdataset(int2);
   if ds <> nil then begin
    if ds.active or (ds.fields.count > 0) then begin
     for int1:= 0 to ds.fields.count -1 do begin

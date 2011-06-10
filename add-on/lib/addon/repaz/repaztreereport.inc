@@ -26,9 +26,9 @@ begin
  setparentfield(TraTreeTabulators(source).Tree_ParentField); 
 end;
 
-function TraTreeTabulators.getdatasource(const aindex: integer): tdatasource;
+function TraTreeTabulators.getdataset(const aindex: integer): tdataset;
 begin
- result:= fdatalink.DataSource;
+ result:= fdatalink.datasource.dataset;
 end;
 
 procedure TraTreeTabulators.getfieldtypes(out apropertynames: stringarty;
@@ -142,6 +142,7 @@ begin
  fheader:= TraTreeTabulators.create(fowner);
  fheader.recordarea:= ra_AllRecord;
  ffooter:= TSummaryTabs.create(fowner);
+ ffooter2:= TSummaryTabs.create(fowner);
  fdata:= TNormalTabs.create(fowner);
  fheaderdetail:= TNormalTabs.create(fowner);
  fheaderdetail.recordarea:= ra_CurrentRecord;
@@ -155,6 +156,7 @@ destructor TraTreeBand.destroy;
 begin
  freeandnil(fheader);
  freeandnil(ffooter);
+ freeandnil(ffooter2);
  freeandnil(fdata);
  freeandnil(fheaderdetail);
  inherited;
@@ -167,6 +169,7 @@ begin
   ftreegap:= TraTreeBand(source).TreeGap;
   fheader.assign(TraTreeBand(source).MasterHeader);
   ffooter.assign(TraTreeBand(source).MasterFooter);
+  ffooter2.assign(TraTreeBand(source).Footer);
   fdata.assign(TraTreeBand(source).Detail);
   fheaderdetail.assign(TraTreeBand(source).HeaderDetail);
   fkeyheader:= TraTreeBand(source).KeyFieldHeader;
@@ -174,9 +177,9 @@ begin
  end;
 end;
 
-function TraTreeBand.getdatasource(const aindex: integer): tdatasource;
+function TraTreeBand.getdataset(const aindex: integer): tdataset;
 begin
- result:= fheader.datalink.DataSource;
+ result:= fheader.datalink.datasource.dataset;
 end;
 
 procedure TraTreeBand.getfieldtypes(out apropertynames: stringarty;
@@ -252,18 +255,32 @@ var
 label emptyfooter;
  procedure drawfooter;
  var
-  int2: integer;
+  int2,int3: integer;
  begin
   with items[aindex] do begin
+   if footer.count>0 then begin
+    int3:= footer.pixelheight;
+   end else begin
+    int3:= 0;
+   end;
    if masterfooter.count>0 then begin
     for int2:=masterheader.indextree downto 0 do begin
-     if posy<=area.cy-footerarty[int2].pixelheight then begin
+     if posy<=area.cy-int3-footerarty[int2].pixelheight then begin
       footerarty[int2].yposition:= posy+area.y;
       footerarty[int2].paint(canvas,makerect(0,posy+area.y,area.cx,footerarty[int1].pixelheight),false,true);
       inc(posy,footerarty[int2].pixelheight);
      end else begin
       isfinish:= true;
      end;
+    end;
+   end;
+   if footer.count>0 then begin
+    if posy<=area.cy-int3 then begin
+     footer.yposition:= posy+area.y;
+     footer.paint(canvas,makerect(0,posy+area.y,area.cx,footer.pixelheight),false,true);
+     inc(posy,footer.pixelheight);
+    end else begin
+     isfinish:= true;
     end;
    end;
   end;
@@ -398,6 +415,10 @@ begin
     footerarty[masterheader.indextree][TreeColIndex].fwidth:= masterfooter[TreeColIndex].width-(masterheader.indextree*TreeGap);
    end;
    footerarty[masterheader.indextree].datasource:= masterfooter.datasource;
+   footerarty[masterheader.indextree].height:= masterfooter.height;
+   //footerarty[masterheader.indextree].PixelPerUnit:= masterfooter.PixelPerUnit;
+   footerarty[masterheader.indextree].backcolor:= masterfooter.backcolor;
+   footerarty[masterheader.indextree].RAW_EmptyLinesBelow:= masterfooter.RAW_EmptyLinesBelow;
   end;
   setlength(masterheader.ftreeheader,masterheader.indextree+1);
   if masterheader.parentfieldlink.active and masterheader.parentfieldlink.active then begin
@@ -446,7 +467,7 @@ var
  
  function drawfooter(astart:integer):integer;
  var
-  int3,lowerfoot: integer;
+  int3,int4,lowerfoot: integer;
  begin
   with items[aindex] do begin
    result:= -1;
@@ -455,9 +476,14 @@ var
    end else begin
     lowerfoot:= masterheader.indextree;
    end;
+   if footer.count>0 then begin
+    int4:= footer.pixelheight;
+   end else begin
+    int4:= 0;
+   end;
    if masterfooter.count>0 then begin
     for int3:=astart downto lowerfoot do begin
-     if posy<=limity-footerarty[int3].pixelheight then begin
+     if posy<=limity-int4-footerarty[int3].pixelheight then begin
       factivefooterkey:= masterheader.treeheader[int3].keystr;
       footerarty[int3].paint(canvas,makerect(area.x,posy+area.y,area.cx,footerarty[int3].pixelheight),true,false);
       inc(posy,footerarty[int3].pixelheight);
@@ -567,6 +593,7 @@ var
       for int3:=0 to masterheader.indextree do begin
        footerarty[int3].dobeforenextrecord(detail.datalink.datasource);
       end;
+      footer.dobeforenextrecord(detail.datalink.datasource);
       //process counting for report footer
       if (fowner.report_footer_rowvalues.count>0) then begin
        for int3:=0 to fowner.report_footer_rowvalues.count-1 do begin
@@ -656,8 +683,19 @@ var
      end else begin
       result:= false;
       shouldstop:= true;
+      //tmsesqlquery(detail.datalink.dataset).active:= false;
      end;
     end;
+   end;
+  end;
+ end;
+ 
+ procedure drawtreefooter;
+ begin
+  if items[aindex].footer.count>0 then begin
+   if posy<=limity-items[aindex].footer.pixelheight then begin
+    items[aindex].footer.paint(canvas,makerect(area.x,posy+area.y,area.cx,items[aindex].footer.pixelheight),true,false);
+    inc(posy,items[aindex].footer.pixelheight);
    end;
   end;
  end;
@@ -681,16 +719,18 @@ begin
   if masterheader.iseof then begin
    result:= 0;
    //draw footer
-   fmodfooter:= drawfooter(int2);
+   fmodfooter:= drawfooter(masterheader.indextree);
    if fmodfooter=-1 then begin
     updatefooter;
     updateheader;
    end;
    if TraTreeReport(fowner).indexbuild<self.count-1 then begin
+    drawtreefooter;
     inc(TraTreeReport(fowner).findexbuild);
     init(TraTreeReport(fowner).indexbuild);
     TraTreeReport(fowner).continuetree:= true;
    end else begin
+    drawtreefooter;
     islastpage:= true;
     TraTreeReport(fowner).continuetree:= false;
    end;
@@ -706,6 +746,9 @@ begin
     if masterheader.count>0 then begin
      if posy<=limity-masterheader.pixelheight then begin
       ishaschildren:= haschildren;
+      if not ishaschildren then begin
+       //tmsesqlquery(detail.datalink.dataset).active:= false;
+      end;
       if isdrawheader and ((masterheader.printifnochild) or ((not masterheader.printifnochild) and ishaschildren)) then begin
        tmppos:= masterheader[TreeColIndex].position;
        tmpwidth:= masterheader[TreeColIndex].width;
@@ -759,10 +802,12 @@ begin
         end;
         isfinish:= true;
         if TraTreeReport(fowner).indexbuild<self.count-1 then begin
+         drawtreefooter;
          inc(TraTreeReport(fowner).findexbuild);
          init(TraTreeReport(fowner).indexbuild);
          TraTreeReport(fowner).continuetree:= true;
         end else begin
+         drawtreefooter;
          islastpage:= true;
          TraTreeReport(fowner).continuetree:= false;
         end;
@@ -773,6 +818,7 @@ begin
       TraTreeReport(fowner).continuetree:= false;
      end;
     end else begin
+     drawtreefooter;
      inc(TraTreeReport(fowner).findexbuild);
      isfinish:= true;
      islastpage:= true;
@@ -790,10 +836,12 @@ begin
       if masterheader.iseof then begin
        isfinish:= true;
        if TraTreeReport(fowner).indexbuild<self.count-1 then begin
+        drawtreefooter;
         inc(TraTreeReport(fowner).findexbuild);
         init(TraTreeReport(fowner).indexbuild);
         TraTreeReport(fowner).continuetree:= true;
        end else begin
+        drawtreefooter;
         islastpage:= true;
         TraTreeReport(fowner).continuetree:= false;
        end;
@@ -948,6 +996,15 @@ begin
    if (indexcol>=0) and (indexcol<=(fcontent[indextree].footerarty[indexrow].count-1)) then begin
     result:= fcontent[indextree].footerarty[indexrow].items[indexcol].value;
    end;
+  end;
+ end;
+end;
+
+function TraTreeReport.treefootervalue2(indexcol:integer; indextree: integer=0): variant;
+begin
+ if ((indextree>=0) and (indextree<=(fcontent.count-1))) then begin
+  if (indexcol>=0) and (indexcol<=(fcontent[indextree].footer.count-1)) then begin
+   result:= fcontent[indextree].footer.items[indexcol].value;
   end;
  end;
 end;

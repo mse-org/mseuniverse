@@ -243,6 +243,8 @@ begin
  evalfunctions.addobject('Pos',iden);
  iden:=tidenmodul.create(self);
  evalfunctions.addobject('Mod',iden);
+ iden:=tidendivide.create(self);
+ evalfunctions.addobject('Div',iden);
  iden:=tidenmonthname.create(self);
  evalfunctions.addobject('MonthName',iden);
  iden:=tidenmonth.create(self);
@@ -271,6 +273,8 @@ begin
  evalfunctions.addobject('ReplaceStr',iden);
  iden:=tidenfieldwithkey.create(self);
  evalfunctions.addobject('FieldWithKey',iden);
+ iden:=tidensumfield.create(self);
+ evalfunctions.addobject('SumField',iden);
  iden:=tidenisholiday.create(self);
  evalfunctions.addobject('IsHoliday',iden);
  iden:=tidenisdiscountday.create(self);
@@ -316,6 +320,8 @@ begin
   evalfunctions.addobject('FooterTreeKey',iden); 
   iden:=tidentreefootervalue.create(self);
   evalfunctions.addobject('TreeFooterValue',iden); 
+  iden:=tidentreefootervalue2.create(self);
+  evalfunctions.addobject('TreeFooterValue2',iden); 
   iden:=tidenlettervalue.create(self);
   evalfunctions.addobject('LetterValue',iden); 
  end;

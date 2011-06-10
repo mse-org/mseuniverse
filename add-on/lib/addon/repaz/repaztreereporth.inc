@@ -61,7 +61,7 @@ type
    procedure setparentfield(const avalue: string);
    procedure setdatasource(const avalue: string);override;
    //idbeditinfo
-   function getdatasource(const aindex: integer): tdatasource; overload;
+   function getdataset(const aindex: integer): tdataset; overload;
    procedure getfieldtypes(out apropertynames: stringarty;
                            out afieldtypes: fieldtypesarty);
   protected
@@ -95,7 +95,7 @@ type
    fheader: TraTreeTabulators;
    fdata: TNormalTabs;
    fheaderdetail: TNormalTabs;
-   ffooter: TSummaryTabs;
+   ffooter,ffooter2: TSummaryTabs;
    ftreegap: real;
    ftreecol: integer;
    ffooterarty: summarytabsarty;
@@ -105,7 +105,7 @@ type
    
   protected
    //idbeditinfo
-   function getdatasource(const aindex: integer): tdatasource; overload;
+   function getdataset(const aindex: integer): tdataset; overload;
    procedure getfieldtypes(out apropertynames: stringarty;
                            out afieldtypes: fieldtypesarty);
    //idbparaminfo
@@ -120,6 +120,7 @@ type
    property TreeGap: real read ftreegap write ftreegap;
    property MasterHeader: TraTreeTabulators read fheader write fheader;
    property MasterFooter: TSummaryTabs read ffooter write ffooter;
+   property Footer: TSummaryTabs read ffooter2 write ffooter2;
    property Detail: TNormalTabs read fdata write fdata;
    property PrintDetail: boolean read fprintdetail write fprintdetail;
    property HeaderDetail: TNormalTabs read fheaderdetail write fheaderdetail;
@@ -178,6 +179,7 @@ type
    procedure setcontentpixelperunit(const avalue: real);override;
    function treeheadervalue(indexrow: integer; indexcol:integer): variant;
    function treefootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
+   function treefootervalue2(indexcol:integer; indextree: integer=0): variant;
    function treedatavalue(indexcol:integer): variant;
    function recordnumber: integer;override;
    function datanumber: integer;override;

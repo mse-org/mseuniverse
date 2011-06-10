@@ -46,7 +46,7 @@ type
    function getgroupfield: string;
    procedure setgroupfield(const avalue: string);
    //idbeditinfo
-   function getdatasource(const aindex: integer): tdatasource; overload;
+   function getdataset(const aindex: integer): tdataset; overload;
    procedure getfieldtypes(out apropertynames: stringarty;
                            out afieldtypes: fieldtypesarty);
   public

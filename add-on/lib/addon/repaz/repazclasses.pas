@@ -148,7 +148,7 @@ type
    function getdatafield: string;
    function getlookupbuffer: string;
                //idbeditinfo
-   function getdatasource(const aindex: integer): tdatasource;
+   function getdataset(const aindex: integer): tdataset;
    procedure getfieldtypes(out apropertynames: stringarty;
                            out afieldtypes: fieldtypesarty);
 
@@ -637,6 +637,7 @@ type
    function footertreekey: variant;
    function headertreekey: variant;
    function treefootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
+   function treefootervalue2(indexcol:integer; indextree: integer=0): variant;
    function lettervalue(indexrow: integer; indexcol:integer): variant;
    function groupnumber(aindex: integer): integer;
    property report: TRepaz read freport write setreport;
@@ -798,6 +799,7 @@ type
    function headertreekey: variant;
    function footertreekey: variant;
    function treefootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
+   function treefootervalue2(indexcol:integer; indextree: integer=0): variant;
    function lettervalue(indexrow: integer; indexcol:integer): variant;
    function groupnumber(aindex: integer): integer;
    procedure addpage(apage: TraPage);
@@ -905,7 +907,7 @@ type
 
 implementation
 uses
- msedatalist,sysutils,msefiledialog,msefileutils,frmevaldialog,
+ msedatalist,sysutils,msefiledialog,msefileutils,frmevaldialog,msecommport,
  repazconsts,mseconsts,msegraphicstream,msesysutils,msedial;
 type
  tcustomframe1 = class(tcustomframe);
@@ -1663,9 +1665,9 @@ begin
  fdatalink.fieldname:= avalue;
 end;
 
-function TraTabulatorItem.getdatasource(const aindex: integer): tdatasource;
+function TraTabulatorItem.getdataset(const aindex: integer): tdataset;
 begin
- result:= fdatalink.DataSource;
+ result:= fdatalink.datasource.dataset;
 end;
 
 function TraTabulatorItem.isstorefontname:boolean;
@@ -2084,62 +2086,60 @@ begin
  fvartype:= varempty;
  if adatasource=nil then exit;
  if (fsummary<>st_None) and (lowercase(fdatasourcestr) = lowercase(adatasource.name)) then begin
-  if fdatalink.active then begin
-   if fdatalink.field = nil then begin
-    inc(fsum.count);
-    if fexpression<>'' then begin
-     evalexpression(fexpression);
-     expresult:= getexpressionresult;
-     with fsum do begin
-      case vartype(expresult) of
-       varsmallint,varinteger,varshortint,varbyte,varboolean :
-        begin
-         integervalue:= integervalue + integer(expresult);
-         setvalue(integervalue);
-         fvartype:= varinteger;
-        end;
-       varword,varlongword,varint64,varqword :
-        begin
-         largeintvalue:= largeintvalue + LargeInt(expresult);
-         setvalue(largeintvalue);
-         fvartype:= varint64;
-        end;
-       varsingle,vardouble,varvariant,vardecimal:
-        begin
-         floatvalue:= floatvalue + double(expresult);
-         setvalue(floatvalue);
-         fvartype:= vardouble;
-        end;
-       varcurrency :
-        begin
-         bcdvalue:= bcdvalue + currency(expresult);
-         setvalue(bcdvalue);
-         fvartype:= varcurrency;
-        end;
-      end;
+  if fdatalink.field = nil then begin
+   inc(fsum.count);
+   if fexpression<>'' then begin
+    evalexpression(fexpression);
+    expresult:= getexpressionresult;
+    with fsum do begin
+     case vartype(expresult) of
+      varsmallint,varinteger,varshortint,varbyte,varboolean :
+       begin
+        integervalue:= integervalue + integer(expresult);
+        setvalue(integervalue);
+        fvartype:= varinteger;
+       end;
+      varword,varlongword,varint64,varqword :
+       begin
+        largeintvalue:= largeintvalue + LargeInt(expresult);
+        setvalue(largeintvalue);
+        fvartype:= varint64;
+       end;
+      varsingle,vardouble,varvariant,vardecimal:
+       begin
+        floatvalue:= floatvalue + double(expresult);
+        setvalue(floatvalue);
+        fvartype:= vardouble;
+       end;
+      varcurrency :
+       begin
+        bcdvalue:= bcdvalue + currency(expresult);
+        setvalue(bcdvalue);
+        fvartype:= varcurrency;
+       end;
      end;
     end;
-   end else begin
-    with fdatalink.field,fsum do begin
-     if not isnull then begin
-      inc(count);
-      case datatype of
-       ftinteger,ftword,ftsmallint,ftboolean: begin
-        integervalue:= integervalue + asinteger;
-        setvalue(integervalue);
-       end;
-       ftlargeint: begin
-        largeintvalue:= largeintvalue + aslargeint;
-        setvalue(largeintvalue);
-       end;
-       ftfloat,ftcurrency: begin
-        floatvalue:= floatvalue + asfloat;
-        setvalue(floatvalue);
-       end;
-       ftbcd: begin
-        bcdvalue:= bcdvalue + ascurrency;
-        setvalue(bcdvalue);
-       end;
+   end;
+  end else begin
+   with fdatalink.field,fsum do begin
+    if not isnull then begin
+     inc(count);
+     case datatype of
+      ftinteger,ftword,ftsmallint,ftboolean: begin
+       integervalue:= integervalue + asinteger;
+       setvalue(integervalue);
+      end;
+      ftlargeint: begin
+       largeintvalue:= largeintvalue + aslargeint;
+       setvalue(largeintvalue);
+      end;
+      ftfloat,ftcurrency: begin
+       floatvalue:= floatvalue + asfloat;
+       setvalue(floatvalue);
+      end;
+      ftbcd: begin
+       bcdvalue:= bcdvalue + ascurrency;
+       setvalue(bcdvalue);
       end;
      end;
     end;
@@ -2495,21 +2495,31 @@ begin
      finfo.res:= finfo.dest;
      //draw text
      if isbuilding then begin
-      reptabinfo.tabs[int1].text:= finfo.text.text;
-      reptabinfo.tabs[int1].dest:= finfo.dest;
-      reptabinfo.tabs[int1].flags:= finfo.flags;
-      reptabinfo.tabs[int1].fontname:= finfo.font.name;
-      reptabinfo.tabs[int1].fontsize:= finfo.font.height;
-      reptabinfo.tabs[int1].fontcolor:= finfo.font.color;
-      reptabinfo.tabs[int1].fontstyle:= finfo.font.style;
-      reptabinfo.tabs[int1].rawfont:= RAW_Font;
-      reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
-      reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
-      reptabinfo.tabs[int1].barcodetype:= fbarcodetype;
-      reptabinfo.tabs[int1].barcodechecksum:= fchecksum;
-      reptabinfo.tabs[int1].barcodemodul:= fmodul;
-      reptabinfo.tabs[int1].barcoderotation:= fbarcoderotation;
-      reptabinfo.tabs[int1].barcoderatio:= fbarcoderatio;
+      if fbarcodetype<>bcCodeNone then begin
+       fbitmapfield.clear;
+       fbitmapfield.alignment:= [al_stretchx,al_stretchy];
+       fbarcode.BarcodeType:= fbarcodetype;
+       fbarcode.datastring:= Text;
+       fbarcode.Checksum:= fchecksum;
+       fbarcode.Ratio:= fbarcoderatio;
+       fbarcode.modul:= fmodul;
+       fbarcode.Rotation:= fbarcoderotation;
+       fbitmapfield.clear;
+       fbarcode.drawbarcode(adest,fbitmapfield);
+       fbitmapfield.alignment:= [al_stretchx,al_stretchy];
+       freporttemplate.reportpage.report.addbitmap2toreport(tmprect,fbitmapfield);
+      end else begin
+       reptabinfo.tabs[int1].text:= finfo.text.text;
+       reptabinfo.tabs[int1].dest:= finfo.dest;
+       reptabinfo.tabs[int1].flags:= finfo.flags;
+       reptabinfo.tabs[int1].fontname:= finfo.font.name;
+       reptabinfo.tabs[int1].fontsize:= finfo.font.height;
+       reptabinfo.tabs[int1].fontcolor:= finfo.font.color;
+       reptabinfo.tabs[int1].fontstyle:= finfo.font.style;
+       reptabinfo.tabs[int1].rawfont:= RAW_Font;
+       reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
+       reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
+      end;
      end else begin
       if fbarcodetype=bcCodeNone then begin
        drawtext(acanvas,finfo);
@@ -2520,7 +2530,10 @@ begin
        fbarcode.Ratio:= fbarcoderatio;
        fbarcode.modul:= fmodul;
        fbarcode.Rotation:= fbarcoderotation;
-       fbarcode.drawbarcode(adest,acanvas);
+       fbitmapfield.clear;
+       fbarcode.drawbarcode(adest,fbitmapfield);
+       fbitmapfield.alignment:= [al_stretchx,al_stretchy];
+       fbitmapfield.paint(acanvas,adest);
       end;
      end;
     end else begin
@@ -2535,11 +2548,6 @@ begin
       reptabinfo.tabs[int1].rawfont:= RAW_Font;
       reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
       reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
-      reptabinfo.tabs[int1].barcodetype:= fbarcodetype;
-      reptabinfo.tabs[int1].barcodechecksum:= fchecksum;
-      reptabinfo.tabs[int1].barcodemodul:= fmodul;
-      reptabinfo.tabs[int1].barcoderotation:= fbarcoderotation;
-      reptabinfo.tabs[int1].barcoderatio:= fbarcoderatio;
      end;
     end;
     //reset summary if needed
@@ -2692,10 +2700,6 @@ begin
      reptabinfo.tabs[int1].rawfont:= RAW_Font;
      reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
      reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
-     reptabinfo.tabs[int1].barcodetype:= fbarcodetype;
-     reptabinfo.tabs[int1].barcodechecksum:= fchecksum;
-     reptabinfo.tabs[int1].barcodemodul:= fmodul;
-     reptabinfo.tabs[int1].barcoderotation:= fbarcoderotation;
     end;
     if atop then begin
      with fbordertop do begin
@@ -3319,13 +3323,6 @@ begin
   if (freportheader2.count>0) and 
    ((freportheader2show=hrs_EveryPage) or 
    ((freportheader2show=hrs_FirstPageOnly) and (freportpage.pagenum=1))) then begin
-   posy:= 0;
-   if fpageheader.count>0 then begin
-    posy:= posy + round(fpageheaderheight*fpixelperunit);
-   end;
-   if freportheader.count>0 then begin
-    posy:= posy + round(freportheaderheight*fpixelperunit);
-   end;
    hband:= 0;
    for int1:=0 to freportheader2.count-1 do begin
     with freportheader2.items[int1] do begin
@@ -4039,6 +4036,15 @@ begin
  end;
 end;
 
+function TraPage.treefootervalue2(indexcol:integer; indextree: integer=0): variant;
+begin
+ if factivetemplate>=0 then begin
+  if ftemplate[factivetemplate] is TraTreeReport then begin
+   result:= TraTreeReport(ftemplate[factivetemplate]).treefootervalue2(indexcol,indextree);
+  end; 
+ end;
+end;
+
 function TraPage.lettervalue(indexrow: integer; indexcol:integer): variant;
 begin
  if factivetemplate>=0 then begin
@@ -4499,6 +4505,15 @@ begin
  end;
 end;
 
+function TRepaz.treefootervalue2(indexcol:integer; indextree: integer=0): variant;
+begin
+ if factivepage>=0 then begin
+  result:= freppages[factivepage].treefootervalue2(indexcol,indextree);
+ end else begin
+  result:= '';
+ end;
+end;
+
 function TRepaz.lettervalue(indexrow: integer; indexcol:integer): variant;
 begin
  if factivepage>=0 then begin
@@ -4611,6 +4626,10 @@ var
  int1,int2: integer;
  bo1: boolean;
 begin
+ {$IFDEF DEMO_VERSION}
+  result:= false;
+  showmessage(uc(ord(rcsMsgprintnotactive)));
+ {$ELSE}
  fwithdialog:= withdialog;
  if ra_print in freportactions then begin
   fprintdestination:= pd_Printer;
@@ -4663,6 +4682,7 @@ begin
   result:= false;
   showmessage(uc(ord(rcsMsgprintnotactive)));
  end;
+ {$ENDIF}
 end;
 
 function TRepaz.reportposprint: boolean;
@@ -4758,6 +4778,10 @@ var
  ftext,fborderbottom,fbordertop,emptyspace,oldemptyspace: msestring;
  realborderbottom,realbordertop: boolean;
 begin
+ {$IFDEF DEMO_VERSION}
+  result:= false;
+  showmessage(uc(ord(rcsMsgprintnotactive)));
+ {$ELSE}
  if length(fmetapages)>=1 then begin
   fuprinter.title:= removefileext(msefileutils.filename(ffilename));
   fuprinter.beginrender;
@@ -4895,6 +4919,7 @@ begin
    fonafterprinting(self);
   end;
  end;
+ {$ENDIF}
 end;
 
 function TRepaz.reportcsv: boolean;
@@ -4905,6 +4930,10 @@ var
  xx: filenamety;
  stream: ttextdatastream;
 begin
+ {$IFDEF DEMO_VERSION}
+  result:= false;
+  showmessage(uc(ord(rcsMsgsavefilenotactive)));
+ {$ELSE}
  if ra_save in freportactions then begin
   fprintdestination:= pd_Text;
   if not isreportfinished then begin
@@ -4957,6 +4986,7 @@ begin
   result:= false;
   showmessage(uc(ord(rcsMsgsavefilenotactive)));
  end;
+ {$ENDIF}
 end;
 
 function TRepaz.reportpdf: boolean;
@@ -4965,6 +4995,10 @@ var
  tfiledialog1: tfiledialog;
  xx: filenamety;
 begin
+ {$IFDEF DEMO_VERSION}
+  result:= false;
+  showmessage(uc(ord(rcsMsgsavefilenotactive)));
+ {$ELSE}
  if ra_save in freportactions then begin
   fprintdestination:= pd_PDF;
   if not isreportfinished then begin
@@ -5012,6 +5046,7 @@ begin
   result:= false;
   showmessage(uc(ord(rcsMsgsavefilenotactive)));
  end;
+ {$ENDIF}
 end;
 
 function TRepaz.reportpostscript: boolean;
@@ -5020,6 +5055,10 @@ var
  tfiledialog1: tfiledialog;
  xx: filenamety;
 begin
+ {$IFDEF DEMO_VERSION}
+  result:= false;
+  showmessage(uc(ord(rcsMsgsavefilenotactive)));
+ {$ELSE}
  if ra_save in freportactions then begin
   fprintdestination:= pd_PostScript;
   if not isreportfinished then begin
@@ -5072,6 +5111,7 @@ begin
   result:= false;
   showmessage(uc(ord(rcsMsgsavefilenotactive)));
  end;
+ {$ENDIF}
 end;
 
 function TRepaz.reportexecute(const usedialog: boolean): boolean;
@@ -5512,6 +5552,8 @@ begin
   fuprinter.page_marginbottom:= readreal('OSPrinter_MarginBottom',fuprinter.page_marginbottom);
   fuprinter.raw_cutpaperonfinish:= readboolean('OSPrinter_CutPaperOnFinish',fuprinter.raw_cutpaperonfinish);
   fuprinter.raw_draweraction:= draweractionty(readinteger('OSPrinter_DrawerAction',ord(fuprinter.raw_draweraction)));
+  fuprinter.raw_drawermode:= drawermodety(readinteger('OSPrinter_DrawerMode',ord(fuprinter.raw_drawermode)));
+  fuprinter.raw_serialport:= commnrty(readinteger('OSPrinter_SerialPort',ord(fuprinter.raw_serialport)));
   fprintdestination:= printdestinationty(readinteger('PrintDestination',ord(fprintdestination)));
   ffilename:= readstring('Report_FileName',ffilename);
   fuprinter.raw_linesperpage:= readinteger('OSPrinter_LinesPerPage',fuprinter.raw_linesperpage);
@@ -5536,6 +5578,8 @@ begin
   writereal('OSPrinter_MarginBottom',fuprinter.page_marginbottom);
   writeboolean('OSPrinter_CutPaperOnFinish',fuprinter.raw_cutpaperonfinish);
   writeinteger('OSPrinter_DrawerAction',ord(fuprinter.raw_draweraction));
+  writeinteger('OSPrinter_DrawerMode',ord(fuprinter.raw_drawermode));
+  writeinteger('OSPrinter_SerialPort',ord(fuprinter.raw_serialport));
   writeinteger('PrintDestination',ord(fprintdestination));
   writestring('Report_FileName',ffilename);
   writeinteger('OSPrinter_LinesPerPage',fuprinter.raw_linesperpage);

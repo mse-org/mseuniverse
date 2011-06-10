@@ -120,12 +120,6 @@ type
   borderright: replineinfoty;
   bordertop: replineinfoty;
   borderbottom: replineinfoty;
-  barcodemodul: integer;
-  barcodetype: barcodety;
-  barcodechecksum: boolean;
-  barcoderotation: integer;
-  barcodecolor: colorty;
-  barcoderatio: double;
  end;
  
  reptabinfoty = record
@@ -325,17 +319,7 @@ begin
        end;
        tmpinfo.font:= afont;
        if not ((tmpinfo.font.color=cl_none) or (tmpinfo.font.color=cl_transparent)) then begin
-        if barcodetype<>bcCodeNone then begin
-         fbarcode.BarcodeType:= barcodetype;
-         fbarcode.datastring:= text;
-         fbarcode.Checksum:= barcodechecksum;
-         fbarcode.Ratio:= barcoderatio;
-         fbarcode.modul:= barcodemodul;
-         fbarcode.Rotation:= barcoderotation;
-         fbarcode.drawbarcode(tmpinfo.dest,acanvas);
-        end else begin
-         drawtext(acanvas,tmpinfo);
-        end;
+        drawtext(acanvas,tmpinfo);
        end;
       end;
       if borderleft.linewidth>0 then begin

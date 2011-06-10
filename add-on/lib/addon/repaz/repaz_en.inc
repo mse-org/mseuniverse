@@ -64,7 +64,9 @@
   'The square of a number',  //rcsSQrt
   'num is the number to square',  //rcsPSQRt
   'Returns the module that is the rest of the integer division',  //rcsMod
-  'd1 is the dividend d2 is the divisor',  //rcsPMod
+  'Number1 is the dividend Number2 is the divisor',  //rcsPMod
+  'Returns the integer part of the result of dividing Number1 and Number2 (the fractional part (remainder) is discarded)',  //rcsDiv
+  'Number1 is the dividend Number2 is the divisor',  //rcsPDiv
   'Returns today date in datetime data type',  //rcsToday
   'Returns today and time in datetime data type',  //rcsNow
   'Return the value of Report Header', //rcsReportHeader
@@ -90,8 +92,10 @@
   'Return page number of Repaz page', //rcsPageNumber
   'Return value of active key header (TraTreeReport)', //rcsHeaderTreeKey
   'Return value of active key footer (TraTreeReport)', //rcsFooterTreeKey
-  'Return value of last footer value (TraTreeReport)',  //rcsTreeFooterValue
+  'Return value of last footer (TraTreeReport)',  //rcsTreeFooterValue
   '(indexrow: integer, indexcol:integer, indextree: integer=0)', //rcsPTreeFooterValue
+  'Return value of main footer (TraTreeReport)',  //rcsTreeFooterValue2
+  '(indexcol:integer, indextree: integer=0)', //rcsPTreeFooterValue2
   'Return record number of data', //rcsRecordNumber
   'Return record number of master data', //rcsMasterNumber
   'Return data number in every section', //rcsDataNumber
@@ -149,8 +153,10 @@
   'The mask can be like ##,##,##,##0.00',  //rcsPFormatNum
   'Replace a string within a string',  //rcsReplaceStr
   'Search field value from datasource use key field criteria', //rcsFieldWithKey
+  'Get summary (SUM) of field array', //rcsSumField
   'Strings= source string, OldPattern= string within Strings will be replaced, NewPattern= new string to replace OldPattern',  //rcsPReplaceStr
   'KeyField: name of key field, KeyValue: value of key field, ValueField: field name that is searched', //rcsPFieldWithKey
+  'FieldName: name of field to be calculated', //rcsPSumField
   'Error on filter',  //rcsErrorFilter
   'Decode base 64 string',  //rcsDecode64
   'Converts string to binary stream',  //rcsStringToBin

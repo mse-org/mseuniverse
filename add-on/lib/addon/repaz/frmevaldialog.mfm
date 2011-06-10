@@ -13,7 +13,7 @@ object frmevaldialogfo: tfrmevaldialogfo
     396
   )
   optionswindow = [wo_message]
-  options = [fo_screencentered, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_screencentered, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos]
   icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
   icon.image = {
@@ -106,6 +106,8 @@ object frmevaldialogfo: tfrmevaldialogfo
           linewidth = 0
           width = 288
           options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+          valuefalse = '0'
+          valuetrue = '1'
         end>
       zebra_height = 1
       datarowlinewidth = 0
@@ -139,6 +141,8 @@ object frmevaldialogfo: tfrmevaldialogfo
           linewidth = 0
           width = 132
           options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+          valuefalse = '0'
+          valuetrue = '1'
         end>
       zebra_height = 1
       datarowlinewidth = 0

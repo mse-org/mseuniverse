@@ -38,9 +38,9 @@ begin
  end;
 end;
 
-function TGroupItem.getdatasource(const aindex: integer): tdatasource;
+function TGroupItem.getdataset(const aindex: integer): tdataset;
 begin
- result:= fdatalink.DataSource;
+ result:= fdatalink.datasource.dataset;
 end;
 
 procedure TGroupItem.getfieldtypes(out apropertynames: stringarty;

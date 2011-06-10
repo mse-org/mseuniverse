@@ -74,10 +74,14 @@ object pagesetupdlgfo: tpagesetupdlgfo
         item
           width = 128
           options = [co_readonly, co_mousemovefocus, co_mouseselect, co_savevalue, co_savestate, co_mousescrollrow]
+          valuefalse = '0'
+          valuetrue = '1'
         end      
         item
           width = 306
           options = [co_readonly, co_mousemovefocus, co_mouseselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+          valuefalse = '0'
+          valuetrue = '1'
         end>
       fixrows.count = 1
       fixrows.items = <      

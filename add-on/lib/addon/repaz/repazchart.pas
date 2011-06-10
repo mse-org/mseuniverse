@@ -205,7 +205,7 @@ type
    fdatalink: tfielddatalink;
    function getdatafield: string;
                //idbeditinfo
-   function getdatasource(const aindex: integer): tdatasource;
+   function getdataset(const aindex: integer): tdataset;
    procedure getfieldtypes(out apropertynames: stringarty;
                            out afieldtypes: fieldtypesarty);
    procedure setdatafield(const avalue: string);
@@ -221,7 +221,7 @@ type
    fdatalink: tfielddatalink;
    function getdatafield: string;
                //idbeditinfo
-   function getdatasource(const aindex: integer): tdatasource;
+   function getdataset(const aindex: integer): tdataset;
    procedure getfieldtypes(out apropertynames: stringarty;
                            out afieldtypes: fieldtypesarty);
    procedure setdatafield(const avalue: string);
@@ -739,9 +739,9 @@ begin
  result:= fdatalink.fieldname; 
 end;
 
-function TdbChartItemsX.getdatasource(const aindex: integer): tdatasource;
+function TdbChartItemsX.getdataset(const aindex: integer): tdataset;
 begin
- result:= fdatalink.DataSource; 
+ result:= fdatalink.datasource.dataset; 
 end;
 
 procedure TdbChartItemsX.getfieldtypes(out apropertynames: stringarty;
@@ -784,9 +784,9 @@ begin
  result:= fdatalink.fieldname; 
 end;
 
-function TdbChartItemsY.getdatasource(const aindex: integer): tdatasource;
+function TdbChartItemsY.getdataset(const aindex: integer): tdataset;
 begin
- result:= fdatalink.DataSource; 
+ result:= fdatalink.datasource.dataset; 
 end;
 
 procedure TdbChartItemsY.getfieldtypes(out apropertynames: stringarty;

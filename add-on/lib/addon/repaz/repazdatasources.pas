@@ -71,6 +71,7 @@ type
    function searchfield(aname:string):tevalidentifier;
    function searchfieldwithdataset(adataset:string;aname:string):tevalidentifier;
    function searchfieldwithkey(adataset:string;keyname:string;keyvalue:array of const;fieldvaluename:string):variant;
+   function sumfield(adataset:string;afieldname:string):variant;
    procedure fillwithfields(lines:tstrings);
   published
    property datasource: tdatasourceitems read fdatasources write setdatasource;
@@ -212,6 +213,32 @@ begin
      if tmsebufdataset(fdatasources[i].datasource.dataset).locate([fdatasources[i].datasource.dataset.fieldbyname(keyname)],keyvalue,[false],[],[])=loc_ok then begin
       result:=fdatasources[i].datasource.dataset.fieldbyname(fieldvaluename).asvariant;
      end;
+    end;
+    exit;
+   end;
+  end;
+ end;
+end;
+
+function trepazdatasources.sumfield(adataset:string;afieldname:string):variant;
+var 
+ i:integer;
+begin
+ result:=null;
+ if fdatasources.count>0 then begin
+  for i:=0 to fdatasources.count-1 do begin
+   if adataset<>'' then begin
+    if lowercase(adataset)=lowercase(fdatasources[i].datasource.name) then begin
+     if fdatasources[i].datasource.dataset.recordcount>0 then begin
+      result:= tmsebufdataset(fdatasources[i].datasource.dataset).sumfielddouble(
+        fdatasources[i].datasource.dataset.fieldbyname(afieldname));
+     end;
+     exit;
+    end;
+   end else begin
+    if fdatasources[i].datasource.dataset.recordcount>0 then begin
+     tmsebufdataset(fdatasources[i].datasource.dataset).sumfielddouble(
+       fdatasources[i].datasource.dataset.fieldbyname(afieldname));
     end;
     exit;
    end;

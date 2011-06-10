@@ -630,7 +630,7 @@ end;
 
 function varisnumber(avar:variant):boolean;
 begin
- result:=(vartype(avar) in [varsmallint,varinteger,varsingle,vardouble,varcurrency,
+ result:=(avar=0) or (vartype(avar) in [varsmallint,varinteger,varsingle,vardouble,varcurrency,
   varshortint,varbyte,varword,varlongword,varint64]);
 end;
 
@@ -986,23 +986,29 @@ var
    end;
   end else begin
    if num >= thousand then begin
-    if (num mod thousand) = 0 then begin
-     num2str := num2str(num div thousand) + ' Ribu';
+    if (num div thousand) = 1 then begin
+     num2str := 'Seribu ';
+     if (num mod thousand)>0 then begin
+      num2str:= num2str + num2str(num mod thousand);
+     end;
     end else begin
-     num2str := num2str(num div thousand) + ' Ribu ' +
-                num2str(num mod thousand);
+     num2str := num2str(num div thousand) + ' Ribu ';
+     if (num mod thousand)>0 then begin
+      num2str:= num2str + num2str(num mod thousand);
+     end;
     end;
    end else begin
     if num >= hundred then begin
-     if (num mod hundred) = 0 then begin
-      if (num div hundred) = 1 then begin
-       num2str := 'Seratus';
-      end else begin
-       num2str := num2str(num div hundred) + ' Ratus';
+     if (num div hundred) = 1 then begin
+      num2str := 'Seratus ';
+      if (num mod hundred)>0 then begin
+       num2str:= num2str + num2str(num mod hundred);
       end;
      end else begin
-      num2str := num2str(num div  hundred) + ' Ratus ' +
-                 num2str(num mod hundred);
+      num2str := num2str(num div hundred) + ' Ratus ';
+      if (num mod hundred)>0 then begin
+       num2str:= num2str + num2str(num mod hundred);
+      end;
      end;
     end else begin
      case (num div 10) of

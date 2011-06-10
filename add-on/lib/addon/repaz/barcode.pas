@@ -68,8 +68,9 @@ type
    function GetWidth(data:string):integer;
   public
    function  CalculateBarcode: string;
-   procedure DrawBarcode(const destrect: rectty; const acanvas:tcanvas);
+   procedure DrawBarcode(const destrect: rectty; var abmp: tmaskedbitmap);
    constructor Create;
+   destructor destroy;
   published
    property DataString: string read fbarcodetext write fbarcodetext;
    property Modul:integer read FModul  write SetModul;
@@ -165,27 +166,36 @@ begin
   Fmodul:= 1;
 end;
 
+destructor TBarcode.destroy;
+begin
+  inherited;
+end;
+
 ////////////////////////////// EAN /////////////////////////////////////////
 
 function getEAN(Nr : string) : string;
    var i,fak,sum : Integer;
        tmp   : string;
 begin
-     sum := 0;
-     tmp := copy(nr,1,Length(Nr)-1);
-     fak := Length(tmp);
-     for i:=1 to length(tmp) do
-         begin
-         if (fak mod 2) = 0 then
-            sum := sum + (StrToInt(tmp[i])*1)
-         else
-            sum := sum + (StrToInt(tmp[i])*3);
-         dec(fak);
-         end;
-     if (sum mod 10) = 0 then
-        result := tmp+'0'
-     else
-        result := tmp+IntToStr(10-(sum mod 10));
+ try
+  sum := 0;
+  tmp := copy(nr,1,Length(Nr)-1);
+  fak := Length(tmp);
+  for i:=1 to length(tmp) do
+      begin
+      if (fak mod 2) = 0 then
+         sum := sum + (StrToInt(tmp[i])*1)
+      else
+         sum := sum + (StrToInt(tmp[i])*3);
+      dec(fak);
+      end;
+  if (sum mod 10) = 0 then
+     result := tmp+'0'
+  else
+     result := tmp+IntToStr(10-(sum mod 10));
+ except
+  result:= '';
+ end;
 end;
 
 ////////////////////////////// EAN8 /////////////////////////////////////////
@@ -300,7 +310,10 @@ begin
 	end
 	else
 		tmp := fbarcodetext;
-
+ if tmp='' then begin
+  result:= '';
+  exit;
+ end;
 	LK := StrToInt(tmp[1]);
 	tmp := copy(tmp,2,12);
 
@@ -1139,7 +1152,7 @@ data[] :
 	'C'   black           150%*Ratio          2/5  (used for PostNet)
 	'D'   black           200%*Ratio          2/5  (used for PostNet)
 }
-procedure TBarcode.DrawBarcode(const destrect: rectty; const acanvas:tcanvas);
+procedure TBarcode.DrawBarcode(const destrect: rectty; var abmp:tmaskedbitmap);
 
 type
 	TLineType = (white, black, black_half);
@@ -1154,41 +1167,21 @@ var i:integer;
 	orgin : pointty;
 	alpha:double;
  PenWidth:integer;
- PenColor:colorty;
- BrushColor:colorty;
- realwidth: integer;
+ PenColor,BrushColor:colorty;
  data: string;
- needresize: boolean;
- bmp1,bmp2: tbitmap;
- tmpcanvas: tcanvas;
+ realwidth: integer;
 begin
  xadd := 0;
-	orgin.x := destrect.x;
-	orgin.y := destrect.y;
+	orgin.x := 0;
+	orgin.y := 0;
 	alpha := Rotation*pi / 180.0;
  data:= CalculateBarcode;
  PenWidth := 0;
  realwidth:= getwidth(data);
- //acanvas.save;
  if realwidth>destrect.cx then begin
-  needresize:= true;
-  bmp1:= tbitmap.create(false);
-  bmp1.colorbackground:= acanvas.colorbackground;
-  bmp1.colorforeground:= acanvas.color;
-  //bmp1.transparency:= cl_white;
-  bmp1.size:= makesize(realwidth,destrect.cy);
-  tmpcanvas:= bmp1.canvas;
-  bmp2:= tbitmap.create(false);
-  bmp2.colorbackground:= acanvas.colorbackground;
-  bmp2.colorforeground:= acanvas.color;
-  //bmp2.transparency:= cl_white;
-  //bmp2.colorforeground:= cl_black;
-  bmp2.size:= makesize(destrect.cx,destrect.cy);
- 	orgin.x := 0;
- 	orgin.y := 0;
+  abmp.size:= makesize(realwidth,destrect.cy);
  end else begin
-  needresize:= false;
-  tmpcanvas:= acanvas;
+  abmp.size:= makesize(destrect.cx,destrect.cy);
  end;
  for i:=1 to Length(data) do begin
 		case data[i] of
@@ -1206,7 +1199,7 @@ begin
 			'C': begin awidth := modules[2]; lt := black_half; end;
 			'D': begin awidth := modules[3]; lt := black_half; end;
    else begin
-			 tmpcanvas.drawstring('Wrong barcode type :'+data,orgin);
+			 abmp.canvas.drawstring('Wrong barcode type :'+data,orgin);
 			 exit;
 			end;
 		end;
@@ -1240,24 +1233,10 @@ begin
 		d := Translate2D(Rotate2D(d, alpha), orgin);
 
 		// draw the rectangle
-  tmpcanvas.linewidth:= PenWidth;
-  tmpcanvas.fillrect(makerect(a.x,a.y,c.x-a.x,c.y-a.y),BrushColor,PenColor);
+  abmp.canvas.linewidth:= PenWidth;
+  abmp.canvas.fillrect(makerect(a.x,a.y,c.x-a.x,c.y-a.y),BrushColor,PenColor);
  	xadd := xadd + awidth;
  end;
- //resize bitmap to destrect
- if needresize then begin
-  bmp2.beginupdate;
-  tcanvas1(bmp2.canvas).internalcopyarea(tmpcanvas,makerect(0,0,bmp1.size.cx,bmp1.size.cy),
-    makerect(makepoint(0,0),destrect.size),rop_copy,cl_none,nil,
-    [al_stretchx,al_stretchy],nullpoint,cl_none);
-  bmp2.endupdate;
-  bmp2.paint(acanvas,destrect);
-  acanvas.colorbackground:= bmp2.colorbackground;
-  acanvas.color:= bmp2.colorforeground;
-  freeandnil(bmp2);
-  freeandnil(bmp1);
- end;
- //acanvas.restore;
 end;
 
 function TBarcode.CalculateBarcode: string;

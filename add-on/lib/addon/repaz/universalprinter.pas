@@ -19,7 +19,7 @@ uses
  msegui,mseclasses,sysutils,classes,msegraphics,mseguiglob,msegraphutils,msestream,msestrings,msetypes,
  msedrawtext,mserichstring,cairo,universalprintertype,msefileutils,msebitmap,pagesetupdlg,msewidgets
  {$IFDEF windows},windows,gdiapi,cairowin32{$ENDIF},mseglob,msestat,msestatfile,msesysintf
- {$IFDEF LINUX},cupsapi{$ENDIF};
+ {$IFDEF LINUX},cupsapi{$ENDIF},msecommport;
 
 const
  mmtoinch = 1/25.4;
@@ -58,6 +58,8 @@ type
    ftextasgraphic: boolean;
    fcontinuespage: boolean;
    fdraweraction: draweractionty;
+   fdrawermode: drawermodety;
+   fserialport: commnrty;
    fcutpaper: boolean;
    fppinchx: integer;
    fppinchy: integer;
@@ -74,6 +76,7 @@ type
    fpagestring: msestring;
    fcopies: integer;
    cmatrix: cairo_matrix_t;
+   fcommport: tcommport;
    {$IFDEF WINDOWS}
    fgcprinter: ptruint;
    fprinterhandle: dword;
@@ -190,6 +193,8 @@ type
    property raw_cutpaperonfinish: boolean read fcutpaper write fcutpaper;
    property raw_linesperpage: integer read flinesperpage write flinesperpage;
    property raw_draweraction: draweractionty read fdraweraction write fdraweraction;
+   property raw_drawermode: drawermodety read fdrawermode write fdrawermode;
+   property raw_serialport: commnrty read fserialport write fserialport;
    property scalex: real read fscalex write fscalex;
    property scaley: real read fscaley write fscaley;
  end;
@@ -381,13 +386,13 @@ begin
   {po2:= pointer(adata);
   for int2:= 0 to aimage.length-1 do begin
    po1:= @aimage.pixels^[int2];
-   po2^:= po1^.red and $7;
+   po2^:= po1^.blue;
    inc(po2);
-   po2^:= 0; //po1^.green and $7;
+   po2^:= po1^.green;
    inc(po2);
-   po2^:= 0; //po1^.blue  and $7;
+   po2^:= po1^.red;
    inc(po2);
-   po2^:= 0; //po1^.res;
+   po2^:= po1^.res;
    inc(po2);
   end;}
   result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
@@ -399,17 +404,18 @@ begin
   po2:= pointer(adata);
   for int2:= 0 to aimage.length-1 do begin
    po1:= @aimage.pixels^[int2];
-   po2^:= po1^.red;
+   po2^:= po1^.blue;
    inc(po2);
    po2^:= po1^.green;
    inc(po2);
-   po2^:= po1^.blue;
+   po2^:= po1^.red;
    inc(po2);
    po2^:= po1^.res;
    inc(po2);
   end;
   result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
  end;
+ 
 end;
 
 function tuniversalprintercanvas.getgdifuncs: pgdifunctionaty;
@@ -815,6 +821,8 @@ var
  cimage: Pcairo_surface_t; 
  image: imagety;
  maskbefore: tsimplebitmap;
+ aresize: boolean;
+ ax,ay: double;
 begin
  with fdrawinfo,copyarea do begin
   if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
@@ -830,35 +838,66 @@ begin
    gdi_unlock;
   end;
   if (destrect^.size.cx<>image.size.cx) or (destrect^.size.cy<>image.size.cy) then begin
-   image:= resizeimage(image,destrect^.size);
+   ax:= destrect^.size.cx/image.size.cx;
+   ay:= destrect^.size.cy/image.size.cy;
+   aresize:= true;
+  end else begin
+   aresize:= false;
+   ay:= 1;
+   ax:= 1;
   end;
   cimage:= cairoimage(image,destrect^,CAIRO_FORMAT_RGB24);
-  cairo_set_source_surface(fcairo.context, cimage, destrect^.pos.x, destrect^.pos.y);
+  if aresize then begin
+   cairo_scale(fcairo.context,ax,ay);
+   cairo_set_source_surface(fcairo.context, cimage, destrect^.pos.x/ax, destrect^.pos.y/ay);
+  end else begin
+   cairo_set_source_surface(fcairo.context, cimage, destrect^.pos.x, destrect^.pos.y);
+  end;
   cairo_paint(fcairo.context);
   gui_freeimagemem(image.pixels);
   image.pixels:= nil;
   cairo_surface_destroy(cimage);
   cimage:= nil;
+  if aresize then begin
+   cairo_scale(fcairo.context,1/ax,1/ay);
+  end;
   if mask<>nil then begin
    gdi_lock;
    gui_pixmaptoimage(mask.handle,image,mask.canvas.gchandle);
    gdi_unlock;
    if image.length>0 then begin 
+    cairo_save(fcairo.context);
     if (destrect^.size.cx<>image.size.cx) or (destrect^.size.cy<>image.size.cy) then begin
-     image:= resizeimage(image,destrect^.size);
+     ax:= destrect^.size.cx/image.size.cx;
+     ay:= destrect^.size.cy/image.size.cy;
+     aresize:= true;
+    end else begin
+     aresize:= false;
+     ay:= 1;
+     ax:= 1;
     end;
     cimage:= cairoimage(image,sourcerect^,CAIRO_FORMAT_RGB24);
-    cairo_save(fcairo.context);
-    cairo_rectangle(fcairo.context,destrect^.x,destrect^.y,destrect^.cx,destrect^.cy);
-    cairo_clip(fcairo.context);
-    cairo_set_operator (fcairo.context, CAIRO_OPERATOR_ADD);
-    cairo_set_source_surface(fcairo.context,cimage,destrect^.x,destrect^.y);
+    if aresize then begin
+     cairo_scale(fcairo.context,ax,ay);
+     cairo_rectangle(fcairo.context,destrect^.x/ax,destrect^.y/ay,destrect^.cx*ax,destrect^.cy*ay);
+     cairo_clip(fcairo.context);
+     cairo_set_operator (fcairo.context, CAIRO_OPERATOR_ADD);
+     cairo_set_source_surface(fcairo.context,cimage,destrect^.x/ax,destrect^.y/ay);
+    end else begin
+     cairo_rectangle(fcairo.context,destrect^.x,destrect^.y,destrect^.cx,destrect^.cy);
+     cairo_clip(fcairo.context);
+     cairo_set_operator (fcairo.context, CAIRO_OPERATOR_ADD);
+     cairo_set_source_surface(fcairo.context,cimage,destrect^.x,destrect^.y);
+    end;
     cairo_paint(fcairo.context);
-    cairo_restore(fcairo.context);
     gui_freeimagemem(image.pixels);
     image.pixels:= nil;
     cairo_surface_destroy(cimage);
     cimage:= nil;
+    if aresize then begin
+     cairo_scale(fcairo.context,1/ax,1/ay);
+    end;
+    cairo_restore(fcairo.context);
    end;
   end;
  end; 
@@ -978,6 +1017,9 @@ begin
    fdraw:= nil;
    cairo_destroy(fdraw);
   end;
+ end;
+ if fdrawermode=cdmSerial then begin
+  fcommport:= nil;
  end;
  fcanvas.unlink;   
  fcanvas.destroy;
@@ -1139,6 +1181,11 @@ begin
  end else if fdraweraction=cdaOpenAfter then begin
   dia.cdopenafter.value:= true;
  end;
+ if fdrawermode=cdmPrinter then begin
+  dia.wrj45.value:= true;
+ end else if fdrawermode=cdmSerial then begin
+  dia.wrs232.value:= true;
+ end;
  dia.boolcutpaper.value:= fcutpaper;
  result:= mr_cancel;
  dia.wdpix.value:= fscalex;
@@ -1168,6 +1215,11 @@ begin
    fdraweraction:= cdaOpenBefore;
   end else if dia.cdopenafter.value then begin
    fdraweraction:= cdaOpenAfter;
+  end;
+  if dia.wrj45.value then begin
+   fdrawermode:= cdmPrinter;
+  end else if dia.wrs232.value then begin
+   fdrawermode:= cdmSerial;
   end;
   fcutpaper:= dia.boolcutpaper.value;
   if dia.cportrait.value then begin
@@ -1338,6 +1390,15 @@ var
  bo1: boolean;
  fpaperindex: integer;
 begin
+ if fdrawermode=cdmSerial then begin
+  if fcommport=nil then begin
+   fcommport:= tcommport.create(self);
+   fcommport.port:= fserialport;
+  end;
+  if not fcommport.active then begin
+   fcommport.active:= true;
+  end;
+ end;
  if ftitle='' then ftitle:='Repaz Printing';
  fsurface:= nil;
  fdraw:= nil;
@@ -1438,7 +1499,11 @@ begin
      end;
     end;
     if raw_draweraction=cdaOpenBefore then begin
-     senddata(esclist[esc_open_drawer]);
+     if fdrawermode=cdmSerial then begin
+      fcommport.thread.writestring(esclist[esc_open_drawer]);
+     end else if fdrawermode=cdmPrinter then begin
+      senddata(esclist[esc_open_drawer]);
+     end;
     end;
     {$ENDIF}
    end;
@@ -1470,7 +1535,11 @@ begin
      end;
     end;
     if raw_draweraction=cdaOpenBefore then begin
-     senddata(esclist[esc_open_drawer]);
+     if fdrawmode=cdmSerial then begin
+      fcommport.thread.writestring(esclist[esc_open_drawer]);
+     end else if fdrawmode=cdmPrinter then begin
+      senddata(esclist[esc_open_drawer]);
+     end;
     end;
     {$ENDIF}
    end;
@@ -1498,7 +1567,11 @@ begin
     senddata(esclist[esc_cut_paper]);
    end;
    if raw_draweraction=cdaOpenAfter then begin
-    senddata(esclist[esc_open_drawer]);
+    if fdrawermode=cdmSerial then begin
+     fcommport.thread.writestring(esclist[esc_open_drawer]);
+    end else if fdrawermode=cdmPrinter then begin
+     senddata(esclist[esc_open_drawer]);
+    end;
    end;
    if not frawmode then begin
     windows.enddoc(gdiprinterdc);
@@ -1519,7 +1592,11 @@ begin
     senddata(esclist[esc_cut_paper]);
    end;
    if raw_draweraction=cdaOpenAfter then begin
-    senddata(esclist[esc_open_drawer]);
+    if fdrawmode=cdmSerial then begin
+     fcommport.thread.writestring(esclist[esc_open_drawer]);
+    end else if fdrawmode=cdmPrinter then begin
+     senddata(esclist[esc_open_drawer]);
+    end;
    end;
    //if (frawstream<>nil) and (frawstream.size>0) then begin
     printfile(ffilename);
@@ -1780,6 +1857,8 @@ begin
   fpa_marginright:= readreal('marginright',fpa_marginright);
   fpa_marginbottom:= readreal('marginbottom',fpa_marginbottom);
   fdraweraction:= draweractionty(readinteger('draweraction',ord(fdraweraction)));
+  fdrawermode:= drawermodety(readinteger('drawmode',ord(fdrawermode)));
+  fserialport:= commnrty(readinteger('drawport',ord(fserialport)));
  end;
 end;
 
@@ -1800,6 +1879,8 @@ begin
   writereal('marginright',fpa_marginright);
   writereal('marginbottom',fpa_marginbottom);
   writeinteger('draweraction',ord(fdraweraction));
+  writeinteger('drawermode',ord(fdrawermode));
+  writeinteger('drawport',ord(fserialport));
  end;
 end;
 
