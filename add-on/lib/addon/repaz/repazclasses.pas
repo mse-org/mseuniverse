@@ -2506,7 +2506,7 @@ begin
        fbarcode.Rotation:= fbarcoderotation;
        fbitmapfield.clear;
        fbarcode.drawbarcode(adest,fbitmapfield);
-       fbitmapfield.alignment:= [al_stretchx,al_stretchy];
+       fbitmapfield.alignment:= [al_xcentered];
        freporttemplate.reportpage.report.addbitmap2toreport(tmprect,fbitmapfield);
       end else begin
        reptabinfo.tabs[int1].text:= finfo.text.text;
@@ -2532,7 +2532,7 @@ begin
        fbarcode.Rotation:= fbarcoderotation;
        fbitmapfield.clear;
        fbarcode.drawbarcode(adest,fbitmapfield);
-       fbitmapfield.alignment:= [al_stretchx,al_stretchy];
+       fbitmapfield.alignment:= [al_xcentered];
        fbitmapfield.paint(acanvas,adest);
       end;
      end;

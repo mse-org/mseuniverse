@@ -1174,6 +1174,7 @@ begin
  xadd := 0;
 	orgin.x := 0;
 	orgin.y := 0;
+	//abmp.colorbackground:= cl_white;
 	alpha := Rotation*pi / 180.0;
  data:= CalculateBarcode;
  PenWidth := 0;
@@ -1181,8 +1182,9 @@ begin
  if realwidth>destrect.cx then begin
   abmp.size:= makesize(realwidth,destrect.cy);
  end else begin
-  abmp.size:= makesize(destrect.cx,destrect.cy);
+  abmp.size:= makesize(realwidth,destrect.cy);
  end;
+ abmp.canvas.fillrect(makerect(0,0,abmp.size.cx,abmp.size.cy),cl_white,cl_white);
  for i:=1 to Length(data) do begin
 		case data[i] of
 			'0': begin awidth := modules[0]; lt := white; end;

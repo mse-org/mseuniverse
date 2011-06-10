@@ -94,13 +94,12 @@ object Page1: TraPage
             Margin_Right = 1.05833333333333
             Position = 0
             Width = 65
-            Ellipse = el_Right
+            Ellipse = el_None
             TextOptions = []
             DataField = 'productid'
             Barcode_Modul = 1
             Barcode_Type = bcCodeEAN13
-            Barcode_Checksum = True
-            Barcode_Ratio = 3
+            Barcode_Ratio = 1
             Border_Top_Width = 0
             Border_Top_LineStyle = ls_Solid
             Border_Left_Width = 0.2
