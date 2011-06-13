@@ -85,6 +85,7 @@ object Page1: TraPage
         Tabulators.items = <        
           item
             DataSource = 'dsproduct'
+            BitmapFieldAlignment = [al_xcentered]
             RAW_WidthInChar = 5
             RAW_PosInChar = 0
             Font_Bold = True

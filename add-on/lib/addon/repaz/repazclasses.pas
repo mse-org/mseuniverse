@@ -43,7 +43,7 @@ uses
  mseglob,msesys,repazdatasources,typinfo,universalprinter,universalprintertype,msestockobjects,
  repazglob,repazpreviewform,msesqldb,repazchart,barcode,
  variants,msebitmap,mseformatbmpicoread,mseformatjpgread,repazevaluator,mseforms,
- mseformatpngread,mseformatpngwrite,msedock,repazdesign;
+ mseformatpngread,mseformatpngwrite,mseformatjpgwrite,msedock,repazdesign;
  
 const
  frepazversion = '1.1.0'; //x.y.z = Major.Minor.Revision
@@ -1703,6 +1703,8 @@ var
  ikey: integer;
  i64key: integer;
  skey: msestring;
+ fbarcodebitmap: tmaskedbitmap;
+ arect: rectty;
 begin
  fbitmapstr:= '';
  fvalue:= null;
@@ -1799,6 +1801,24 @@ begin
      end;
    end;
   end;
+ end;
+ if (fbarcodetype<>bcCodeNone) and (ftext<>'') then begin
+  fbarcodebitmap:= tmaskedbitmap.create(false);
+  fbarcodebitmap.alignment:= [al_xcentered];
+  fbarcode.BarcodeType:= fbarcodetype;
+  fbarcode.datastring:= Text;
+  fbarcode.Checksum:= fchecksum;
+  fbarcode.Ratio:= fbarcoderatio;
+  fbarcode.modul:= fmodul;
+  fbarcode.Rotation:= fbarcoderotation;
+  arect:= makerect(round(fleftmargin*TraTabulators(self.fowner).pixelperunit),0,
+    round((fwidth-fleftmargin-frightmargin)*TraTabulators(self.fowner).pixelperunit),
+    TraTabulators(self.fowner).pixelheight);
+  fbarcode.drawbarcode(arect,fbarcodebitmap);
+  fbitmapstr:= fbarcodebitmap.writetostring('jpg',[]);
+  ftext:= '';
+  fvalue:= '';
+  fbarcodebitmap.free;
  end;
 end;
 
@@ -2495,46 +2515,18 @@ begin
      finfo.res:= finfo.dest;
      //draw text
      if isbuilding then begin
-      if fbarcodetype<>bcCodeNone then begin
-       fbitmapfield.clear;
-       fbitmapfield.alignment:= [al_stretchx,al_stretchy];
-       fbarcode.BarcodeType:= fbarcodetype;
-       fbarcode.datastring:= Text;
-       fbarcode.Checksum:= fchecksum;
-       fbarcode.Ratio:= fbarcoderatio;
-       fbarcode.modul:= fmodul;
-       fbarcode.Rotation:= fbarcoderotation;
-       fbitmapfield.clear;
-       fbarcode.drawbarcode(adest,fbitmapfield);
-       fbitmapfield.alignment:= [al_xcentered];
-       freporttemplate.reportpage.report.addbitmap2toreport(tmprect,fbitmapfield);
-      end else begin
-       reptabinfo.tabs[int1].text:= finfo.text.text;
-       reptabinfo.tabs[int1].dest:= finfo.dest;
-       reptabinfo.tabs[int1].flags:= finfo.flags;
-       reptabinfo.tabs[int1].fontname:= finfo.font.name;
-       reptabinfo.tabs[int1].fontsize:= finfo.font.height;
-       reptabinfo.tabs[int1].fontcolor:= finfo.font.color;
-       reptabinfo.tabs[int1].fontstyle:= finfo.font.style;
-       reptabinfo.tabs[int1].rawfont:= RAW_Font;
-       reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
-       reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
-      end;
+      reptabinfo.tabs[int1].text:= finfo.text.text;
+      reptabinfo.tabs[int1].dest:= finfo.dest;
+      reptabinfo.tabs[int1].flags:= finfo.flags;
+      reptabinfo.tabs[int1].fontname:= finfo.font.name;
+      reptabinfo.tabs[int1].fontsize:= finfo.font.height;
+      reptabinfo.tabs[int1].fontcolor:= finfo.font.color;
+      reptabinfo.tabs[int1].fontstyle:= finfo.font.style;
+      reptabinfo.tabs[int1].rawfont:= RAW_Font;
+      reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
+      reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
      end else begin
-      if fbarcodetype=bcCodeNone then begin
-       drawtext(acanvas,finfo);
-      end else begin
-       fbarcode.BarcodeType:= fbarcodetype;
-       fbarcode.datastring:= Text;
-       fbarcode.Checksum:= fchecksum;
-       fbarcode.Ratio:= fbarcoderatio;
-       fbarcode.modul:= fmodul;
-       fbarcode.Rotation:= fbarcoderotation;
-       fbitmapfield.clear;
-       fbarcode.drawbarcode(adest,fbitmapfield);
-       fbitmapfield.alignment:= [al_xcentered];
-       fbitmapfield.paint(acanvas,adest);
-      end;
+      drawtext(acanvas,finfo);
      end;
     end else begin
      if isbuilding then begin

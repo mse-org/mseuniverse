@@ -207,7 +207,6 @@ type
    fx,fy: real;
    procedure gcdestroyed(const sender: tcanvas); override;
    procedure reset; override;
-   function resizeimage(const aimage: imagety; asize: sizety): imagety;
    function cairoimage(aimage: imagety; destrect: rectty; aformat:cairo_format_t): Pcairo_surface_t;
    function getgdifuncs: pgdifunctionaty; override;
    procedure initgcstate; override;
@@ -414,8 +413,7 @@ begin
    inc(po2);
   end;
   result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
- end;
- 
+ end; 
 end;
 
 function tuniversalprintercanvas.getgdifuncs: pgdifunctionaty;
@@ -467,20 +465,6 @@ end;
 
 procedure tuniversalprintercanvas.cairo_destroygc;
 begin
-end;
-
-function tuniversalprintercanvas.resizeimage(const aimage: imagety; asize: sizety):imagety;
-var
- bmp1,bmp2: tmaskedbitmap;
-begin
- bmp1:= tmaskedbitmap.create(false);
- bmp1.loadfromimage(aimage);
- bmp2:= tmaskedbitmap.create(false);
- bmp2.size:= asize;
- bmp1.stretch(bmp2);
- bmp2.savetoimage(result);
- bmp1.free;
- bmp2.free;
 end;
 
 procedure tuniversalprintercanvas.cairo_changegc;
@@ -823,15 +807,16 @@ var
  maskbefore: tsimplebitmap;
  aresize: boolean;
  ax,ay: double;
+ fcairoop: cairo_operator_t;
 begin
  with fdrawinfo,copyarea do begin
   if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
    exit;
   end;
-  if mask<>nil then begin
+  {if mask<>nil then begin
    maskbefore:= mask;
    mask.canvas.copyarea(maskbefore.canvas,sourcerect^,nullpoint,rop_nor);
-  end;
+  end;}
   with tcanvas1(source).fdrawinfo do begin
    gdi_lock;
    gui_pixmaptoimage(paintdevice,image,gc.handle);
@@ -846,6 +831,7 @@ begin
    ay:= 1;
    ax:= 1;
   end;
+  cairo_save(fcairo.context);
   cimage:= cairoimage(image,destrect^,CAIRO_FORMAT_RGB24);
   if aresize then begin
    cairo_scale(fcairo.context,ax,ay);
@@ -854,13 +840,14 @@ begin
    cairo_set_source_surface(fcairo.context, cimage, destrect^.pos.x, destrect^.pos.y);
   end;
   cairo_paint(fcairo.context);
-  gui_freeimagemem(image.pixels);
-  image.pixels:= nil;
+  //gui_freeimagemem(image.pixels);
+  //image.pixels:= nil;
   cairo_surface_destroy(cimage);
   cimage:= nil;
   if aresize then begin
    cairo_scale(fcairo.context,1/ax,1/ay);
   end;
+  cairo_restore(fcairo.context);
   if mask<>nil then begin
    gdi_lock;
    gui_pixmaptoimage(mask.handle,image,mask.canvas.gchandle);
@@ -885,15 +872,17 @@ begin
      cairo_set_source_surface(fcairo.context,cimage,destrect^.x/ax,destrect^.y/ay);
     end else begin
      cairo_rectangle(fcairo.context,destrect^.x,destrect^.y,destrect^.cx,destrect^.cy);
+     fcairoop:= cairo_get_operator(fcairo.context);
      cairo_clip(fcairo.context);
      cairo_set_operator (fcairo.context, CAIRO_OPERATOR_ADD);
      cairo_set_source_surface(fcairo.context,cimage,destrect^.x,destrect^.y);
     end;
     cairo_paint(fcairo.context);
-    gui_freeimagemem(image.pixels);
-    image.pixels:= nil;
+    //gui_freeimagemem(image.pixels);
+    //image.pixels:= nil;
     cairo_surface_destroy(cimage);
     cimage:= nil;
+    cairo_set_operator (fcairo.context, fcairoop);
     if aresize then begin
      cairo_scale(fcairo.context,1/ax,1/ay);
     end;

@@ -1179,11 +1179,7 @@ begin
  data:= CalculateBarcode;
  PenWidth := 0;
  realwidth:= getwidth(data);
- if realwidth>destrect.cx then begin
-  abmp.size:= makesize(realwidth,destrect.cy);
- end else begin
-  abmp.size:= makesize(realwidth,destrect.cy);
- end;
+ abmp.size:= makesize(realwidth,destrect.cy);
  abmp.canvas.fillrect(makerect(0,0,abmp.size.cx,abmp.size.cy),cl_white,cl_white);
  for i:=1 to Length(data) do begin
 		case data[i] of
