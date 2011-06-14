@@ -75,7 +75,6 @@ type
    fscalex,fscaley: real;
    fpagestring: msestring;
    fcopies: integer;
-   cmatrix: cairo_matrix_t;
    fcommport: tcommport;
    {$IFDEF WINDOWS}
    fgcprinter: ptruint;
@@ -207,7 +206,7 @@ type
    fx,fy: real;
    procedure gcdestroyed(const sender: tcanvas); override;
    procedure reset; override;
-   function cairoimage(aimage: imagety; destrect: rectty; aformat:cairo_format_t): Pcairo_surface_t;
+   function cairoimage(aimage: imagety; aformat:cairo_format_t): Pcairo_surface_t;
    function getgdifuncs: pgdifunctionaty; override;
    procedure initgcstate; override;
    procedure initgcvalues; override;
@@ -366,7 +365,7 @@ begin
  origin:= nullpoint;
 end;
 
-function tuniversalprintercanvas.cairoimage(aimage: imagety; destrect: rectty; aformat:cairo_format_t): Pcairo_surface_t;
+function tuniversalprintercanvas.cairoimage(aimage: imagety; aformat:cairo_format_t): Pcairo_surface_t;
 var
  sourcerowstep: integer;
  rowshiftleft,rowshiftright: byte;
@@ -508,7 +507,7 @@ begin
             ([gvm_brush,gvm_brushorigin] * mask <> []) then begin
    msebitmap.tbitmap(self.brush).savetoimage(image);
    if image.length>0 then begin 
-    fsurface1:= cairoimage(image,rect1,CAIRO_FORMAT_A1);
+    fsurface1:= cairoimage(image,CAIRO_FORMAT_A1);
     image.pixels:= nil;
     cpattern:= nil;
     cpattern:= cairo_pattern_create_for_surface(fsurface1);
@@ -813,18 +812,30 @@ begin
   if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
    exit;
   end;
-  {if mask<>nil then begin
+  if mask<>nil then begin
    maskbefore:= mask;
    mask.canvas.copyarea(maskbefore.canvas,sourcerect^,nullpoint,rop_nor);
-  end;}
+  end;
   with tcanvas1(source).fdrawinfo do begin
    gdi_lock;
    gui_pixmaptoimage(paintdevice,image,gc.handle);
    gdi_unlock;
   end;
-  if (destrect^.size.cx<>image.size.cx) or (destrect^.size.cy<>image.size.cy) then begin
-   ax:= destrect^.size.cx/image.size.cx;
-   ay:= destrect^.size.cy/image.size.cy;
+  if alignment * [al_stretchx,al_stretchy,al_fit] <> [] then begin
+   ax:= 1;
+   ay:= 1;
+   if al_fit in alignment then begin
+    ax:= destrect^.size.cx/image.size.cx;
+    ay:= destrect^.size.cy/image.size.cy;
+    if ax>ay then 
+     ay:= ax
+    else
+     ax:= ay;
+   end else if al_stretchx in alignment then begin
+    ax:= destrect^.size.cx/image.size.cx;
+   end else if al_stretchy in alignment then begin
+    ay:= destrect^.size.cy/image.size.cy;
+   end;
    aresize:= true;
   end else begin
    aresize:= false;
@@ -832,63 +843,48 @@ begin
    ax:= 1;
   end;
   cairo_save(fcairo.context);
-  cimage:= cairoimage(image,destrect^,CAIRO_FORMAT_RGB24);
+  cimage:= cairoimage(image,CAIRO_FORMAT_RGB24);
   if aresize then begin
    cairo_scale(fcairo.context,ax,ay);
-   cairo_set_source_surface(fcairo.context, cimage, destrect^.pos.x/ax, destrect^.pos.y/ay);
+   cairo_set_source_surface (fcairo.context, cimage, (destrect^.pos.x - sourcerect^.pos.x)/ax, (destrect^.pos.y - sourcerect^.pos.y)/ay);
+   cairo_rectangle (fcairo.context, destrect^.pos.x/ax, destrect^.pos.y/ay, destrect^.size.cx/ax, destrect^.size.cy/ay);
+   cairo_fill (fcairo.context);
   end else begin
-   cairo_set_source_surface(fcairo.context, cimage, destrect^.pos.x, destrect^.pos.y);
+   cairo_set_source_surface (fcairo.context, cimage, destrect^.pos.x - sourcerect^.pos.x, destrect^.pos.y - sourcerect^.pos.y);
+   cairo_rectangle (fcairo.context, destrect^.pos.x, destrect^.pos.y, destrect^.size.cx, destrect^.size.cy);
+   cairo_fill (fcairo.context);
   end;
-  cairo_paint(fcairo.context);
-  //gui_freeimagemem(image.pixels);
-  //image.pixels:= nil;
   cairo_surface_destroy(cimage);
   cimage:= nil;
-  if aresize then begin
-   cairo_scale(fcairo.context,1/ax,1/ay);
-  end;
-  cairo_restore(fcairo.context);
   if mask<>nil then begin
    gdi_lock;
    gui_pixmaptoimage(mask.handle,image,mask.canvas.gchandle);
    gdi_unlock;
    if image.length>0 then begin 
-    cairo_save(fcairo.context);
-    if (destrect^.size.cx<>image.size.cx) or (destrect^.size.cy<>image.size.cy) then begin
-     ax:= destrect^.size.cx/image.size.cx;
-     ay:= destrect^.size.cy/image.size.cy;
-     aresize:= true;
-    end else begin
-     aresize:= false;
-     ay:= 1;
-     ax:= 1;
-    end;
-    cimage:= cairoimage(image,sourcerect^,CAIRO_FORMAT_RGB24);
+    cimage:= cairoimage(image,CAIRO_FORMAT_RGB24);
+    fcairoop:= cairo_get_operator(fcairo.context);
+    cairo_set_operator (fcairo.context, CAIRO_OPERATOR_ADD);
     if aresize then begin
-     cairo_scale(fcairo.context,ax,ay);
-     cairo_rectangle(fcairo.context,destrect^.x/ax,destrect^.y/ay,destrect^.cx*ax,destrect^.cy*ay);
+     cairo_rectangle (fcairo.context, destrect^.pos.x/ax, destrect^.pos.y/ay, destrect^.size.cx/ax, destrect^.size.cy/ay);
      cairo_clip(fcairo.context);
-     cairo_set_operator (fcairo.context, CAIRO_OPERATOR_ADD);
-     cairo_set_source_surface(fcairo.context,cimage,destrect^.x/ax,destrect^.y/ay);
+     cairo_set_source_surface (fcairo.context, cimage, (destrect^.pos.x - sourcerect^.pos.x)/ax, (destrect^.pos.y - sourcerect^.pos.y)/ay);
     end else begin
-     cairo_rectangle(fcairo.context,destrect^.x,destrect^.y,destrect^.cx,destrect^.cy);
-     fcairoop:= cairo_get_operator(fcairo.context);
+     cairo_rectangle (fcairo.context, destrect^.pos.x, destrect^.pos.y, destrect^.size.cx, destrect^.size.cy);
      cairo_clip(fcairo.context);
-     cairo_set_operator (fcairo.context, CAIRO_OPERATOR_ADD);
-     cairo_set_source_surface(fcairo.context,cimage,destrect^.x,destrect^.y);
+     cairo_set_source_surface (fcairo.context, cimage, destrect^.pos.x - sourcerect^.pos.x, destrect^.pos.y - sourcerect^.pos.y);
     end;
-    cairo_paint(fcairo.context);
+    cairo_paint (fcairo.context);
     //gui_freeimagemem(image.pixels);
     //image.pixels:= nil;
     cairo_surface_destroy(cimage);
     cimage:= nil;
     cairo_set_operator (fcairo.context, fcairoop);
-    if aresize then begin
-     cairo_scale(fcairo.context,1/ax,1/ay);
-    end;
-    cairo_restore(fcairo.context);
    end;
   end;
+  if aresize then begin
+   cairo_scale(fcairo.context,1/ax,1/ay);
+  end;
+  cairo_restore(fcairo.context);
  end; 
 end;
 
@@ -1238,8 +1234,8 @@ begin
   fwidth:= fpa_paperwidth;
   fheight:= fpa_paperheight;
   if not frawmode then begin
-   fcanvas.fdrawinfo.gc.paintdevicesize.cx:= round(fwidth);
-   fcanvas.fdrawinfo.gc.paintdevicesize.cy:= round(fheight);
+   fcanvas.fdrawinfo.gc.paintdevicesize.cx:= round(fwidth*fcanvas.ppmm);
+   fcanvas.fdrawinfo.gc.paintdevicesize.cy:= round(fheight*fcanvas.ppmm);
   end;
  end else begin
   fheight:= fpa_paperwidth;

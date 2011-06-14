@@ -1385,7 +1385,7 @@ findoptions=1
 editpos=9
  0,-1073741823
  0,-1073741823
- 0,-1073741823
+ 14,2310
  0,-1073741823
  0,-1073741823
  30,143
@@ -1414,7 +1414,7 @@ sourcefiles=9
 relpaths=9
  main.pas
  ../../lib/addon/repaz/repazclasses.pas
- ../../lib/addon/repaz/universalprinter.pas
+ ../../../../../../../../msegui/lib/addon/repaz/universalprinter.pas
  ../../lib/common/printer/msepostscriptprinter.pas
  ../../lib/addon/cairo/cairo.pp
  ../../../../../../../../msegui/lib/addon/repaz/repazdesign.pas
@@ -1450,7 +1450,7 @@ order=9
  3
 tabsize=127
 firsttab=0
-index=4
+index=6
 [components]
 [selecteditpage]
 colwidth=191
