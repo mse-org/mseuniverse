@@ -833,8 +833,14 @@ begin
      ax:= ay;
    end else if al_stretchx in alignment then begin
     ax:= destrect^.size.cx/image.size.cx;
+    if al_stretchy in alignment then begin
+     ay:= destrect^.size.cy/image.size.cy;
+    end;
    end else if al_stretchy in alignment then begin
     ay:= destrect^.size.cy/image.size.cy;
+    if al_stretchx in alignment then begin
+     ax:= destrect^.size.cx/image.size.cx;
+    end;
    end;
    aresize:= true;
   end else begin
