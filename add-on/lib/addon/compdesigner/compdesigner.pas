@@ -244,7 +244,7 @@ type
    destructor destroy; override;
    procedure updatebuttons;
    procedure componentpalettebuttonchanged(const sender: TObject;
-   const button: ttoolbutton);
+   const button: tcustomtoolbutton);
   published
    property firstbutton;
    property options;
@@ -3175,7 +3175,7 @@ begin
 end;
 
 procedure tcomponentpallete.componentpalettebuttonchanged(const sender: TObject;
-  const button: ttoolbutton);
+  const button: tcustomtoolbutton);
 begin
  if not application.terminated then begin
   with registeredcomponents do begin
