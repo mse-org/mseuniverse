@@ -811,6 +811,7 @@ type
    function reportprint(const withdialog: boolean): boolean;
    function reportposprint: boolean;
    function reportcsv: boolean;
+   function reporthtml(const extfile: string): boolean;
    function reportpdf: boolean;
    function reportpostscript: boolean;
    procedure savemetapages;
@@ -865,6 +866,9 @@ type
    procedure reportpostscript(const sender: TObject);
    procedure reportcsv(const sender: TObject);
    procedure reportpdf(const sender: TObject);
+   procedure reporthtml(const sender: TObject);
+   procedure reportexcel(const sender: TObject);
+   procedure reportopenoffice(const sender: TObject);
    procedure loaded; override;
    class function hasresource: boolean; override;
   public
@@ -1020,6 +1024,21 @@ begin
  fintf.getreport.reportpdf; 
 end;
 
+procedure TPreviewForm.reporthtml(const sender: TObject);
+begin
+ fintf.getreport.reporthtml('html'); 
+end;
+
+procedure TPreviewForm.reportexcel(const sender: TObject);
+begin
+ fintf.getreport.reporthtml('xls'); 
+end;
+
+procedure TPreviewForm.reportopenoffice(const sender: TObject);
+begin
+ fintf.getreport.reporthtml('ods'); 
+end;
+
 procedure TPreviewForm.loaded;
 begin
  inherited;
@@ -1028,11 +1047,17 @@ begin
   itembyname('mnureppdf').onexecute:= @reportpdf;
   itembyname('mnureptext').onexecute:= @reportcsv;
   itembyname('mnureppostscript').onexecute:= @reportpostscript;
+  itembyname('mnurephtml').onexecute:= @reporthtml;
+  itembyname('mnurepexcel').onexecute:= @reportexcel;
+  itembyname('mnurepopenoffice').onexecute:= @reportopenoffice;
  end;
  ttoolbar2.buttons[1].onexecute:=@reportprint;
  ttoolbar2.buttons[2].onexecute:=@reportcsv;
  ttoolbar2.buttons[3].onexecute:=@reportpostscript;
  ttoolbar2.buttons[4].onexecute:=@reportpdf;
+ ttoolbar2.buttons[5].onexecute:=@reporthtml;
+ ttoolbar2.buttons[6].onexecute:=@reportexcel;
+ ttoolbar2.buttons[7].onexecute:=@reportopenoffice;
 end;
 
 { TRepazDialog }
@@ -1481,10 +1506,10 @@ end;
 procedure TraTabulatorItem.setvalue(const avalue: variant);
 begin
  try
-  if fvalue<>avalue then begin
+  //if fvalue<>avalue then begin
    fvalue:= avalue;
    ftext:= vartoformattedtext(avalue,fformat);
-  end;
+  //end;
  except
  end;  
 end;
@@ -1651,7 +1676,9 @@ end;
 
 procedure TraTabulatorItem.updatelinks;
 begin
- setdatasource(fdatasourcestr);
+ if (fdatalink.field=nil) and (fdatasourcestr<>'') and (fdatalink.fieldname<>'') then begin
+  setdatasource(fdatasourcestr);
+ end;
  setlookupbuffer(flookupbufferstr);
 end;
 
@@ -1667,7 +1694,7 @@ end;
 
 function TraTabulatorItem.getdataset(const aindex: integer): tdataset;
 begin
- result:= fdatalink.datasource.dataset;
+ result:= fdatalink.dataset;
 end;
 
 function TraTabulatorItem.isstorefontname:boolean;
@@ -2107,6 +2134,7 @@ begin
  if adatasource=nil then exit;
  if (fsummary<>st_None) and (lowercase(fdatasourcestr) = lowercase(adatasource.name)) then begin
   if fdatalink.field = nil then begin
+  //if DataField='' then begin
    inc(fsum.count);
    if fexpression<>'' then begin
     evalexpression(fexpression);
@@ -3852,7 +3880,7 @@ begin
  fprintpage:= true;
  inherited;
  //freport:= TRepaz(aowner);
- freport:= TRepaz.create(self);
+ //freport:= TRepaz.create(self);
  fwidgetstate1:= fwidgetstate1 + [ws1_nodesignhandles,ws1_nodesigndelete];
  optionswidget:= defaultoptionswidget;
  fpagewidth:= defaultreppagewidth;
@@ -4213,8 +4241,8 @@ end;
 procedure TraPage.setreport(const avalue: TRepaz);
 begin
  if avalue<>freport then begin
-  //freport:= avalue;
-  setlinkedvar(avalue,tmsecomponent(freport));
+  freport:= avalue;
+  //setlinkedvar(avalue,tmsecomponent(freport));
  end;
 end;
 
@@ -4973,6 +5001,198 @@ begin
      fonafterprinting(self);
     end;
    end;
+  end;
+ end else begin
+  result:= false;
+  showmessage(uc(ord(rcsMsgsavefilenotactive)));
+ end;
+ {$ENDIF}
+end;
+
+function TRepaz.reporthtml(const extfile: string): boolean;
+var
+ int1,int2,int3: integer;
+ tfiledialog1: tfiledialog;
+ xx: filenamety;
+ stream: ttextstream;
+ aextfile,str1,str2: string;
+ rgb1: rgbtriplety;
+begin
+ {$IFDEF DEMO_VERSION}
+  result:= false;
+  showmessage(uc(ord(rcsMsgsavefilenotactive)));
+ {$ELSE}
+ if ra_save in freportactions then begin
+  aextfile:= lowercase(extfile);
+  if aextfile='html' then
+   fprintdestination:= pd_HTML
+  else if aextfile='xls' then
+   fprintdestination:= pd_Excel
+  else if aextfile='ods' then
+   fprintdestination:= pd_OpenOffice;
+  if not isreportfinished then begin
+   result:= reportexec;
+  end;
+  if isreportfinished then begin
+   tfiledialog1:= tfiledialog.create(nil);
+   tfiledialog1.dialogkind:= fdk_save;
+   tfiledialog1.controller.defaultext:= extfile;
+   with tfiledialog1.controller do begin
+    if aextfile='html' then begin
+     captionsave:=uc(ord(rcsCapsave2html));
+     filterlist.add(uc(ord(rcsLblhtml)),'*.html');
+    end else if aextfile='xls' then begin
+     captionsave:=uc(ord(rcsCapsave2excel));
+     filterlist.add(uc(ord(rcsLblexcel)),'*.xls');
+    end else if aextfile='ods' then begin
+     captionsave:=uc(ord(rcsCapsave2openoffice));
+     filterlist.add(uc(ord(rcsLblopenoffice)),'*.ods');
+    end;
+    filterlist.add(uc(ord(rcsLblallfiles)),'*.*');
+   end;
+   if tfiledialog1.execute=mr_ok then begin
+    xx:= tfiledialog1.controller.filename;
+    if xx='' then begin
+     showmessage(uc(ord(rcsMsgtypepsfn)));
+     tfiledialog1.free;
+     exit;
+    end;
+    stream:= ttextstream.create(xx,fm_create);
+   end else begin
+    tfiledialog1.free;
+    exit;
+   end;
+   tfiledialog1.free;
+   stream.writeln('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">');
+   stream.writeln('<html>');
+   stream.writeln('<head>');
+   stream.writeln('	<title>'+fdialogcaption+'</title>');
+   stream.writeln(' <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+   stream.writeln('	<meta name=description" content=""Repaz export" />');
+   stream.writeln('	<meta name="author" content="Sri Wahono">');
+   stream.writeln('</head>');
+   stream.writeln('<body>');
+   if length(fmetapages)>=1 then begin
+    for int1:=0 to length(fmetapages)-1 do begin
+     for int2:=0 to length(fmetapages[int1].tabobjects)-1 do begin
+      stream.writeln('<TABLE CELLPADDING=1 CELLSPACING=0>');
+      stream.writeln('<TR>');      
+      for int3:=0 to length(fmetapages[int1].tabobjects[int2].tabs)-1 do begin
+       with fmetapages[int1].tabobjects[int2].tabs[int3] do begin
+        stream.write('<TD WIDTH='+inttostr(dest.cx));
+        if tf_ycentered in flags then
+         str1:= 'CENTER'
+        else if tf_bottom in flags then
+         str1:= 'BOTTOM'
+        else
+         str1:= 'TOP';
+        stream.write(' VALIGN='+str1);
+        str1:= '';
+        with borderleft do begin
+         if linewidth>0 then begin
+          str1:= str1+'border-left-width: 1px;';
+         end else begin
+          str1:= str1+'border-left-width: 0px;';
+         end;
+         case linestyle of
+          ls_Solid: str1:= str1+'border-left-style:solid;';
+          ls_Dash: str1:= str1+'border-left-style:dashed;';
+          ls_Dot: str1:= str1+'border-left-style:dotted;';
+          ls_Dash_Dot,ls_Dash_Dot_Dot: str1:= str1+'border-left-style:groove;';
+         end;
+         rgb1:= colortorgb(linecolor);         
+         str1:= str1+'border-left-color:rgb('+inttostr(rgb1.red)+','+inttostr(rgb1.green)+','+inttostr(rgb1.blue)+');';
+        end;
+        with bordertop do begin
+         if linewidth>0 then begin
+          str1:= str1+'border-top-width: 1px;';
+         end else begin
+          str1:= str1+'border-top-width: 0px;';
+         end;
+         case linestyle of
+          ls_Solid: str1:= str1+'border-top-style:solid;';
+          ls_Dash: str1:= str1+'border-top-style:dashed;';
+          ls_Dot: str1:= str1+'border-top-style:dotted;';
+          ls_Dash_Dot,ls_Dash_Dot_Dot: str1:= str1+'border-top-style:groove;';
+         end;
+         rgb1:= colortorgb(linecolor);         
+         str1:= str1+'border-top-color:rgb('+inttostr(rgb1.red)+','+inttostr(rgb1.green)+','+inttostr(rgb1.blue)+');';
+        end;
+        with borderright do begin
+         if linewidth>0 then begin
+          str1:= str1+'border-right-width: 1px;';
+         end else begin
+          str1:= str1+'border-right-width: 0px;';
+         end;
+         case linestyle of
+          ls_Solid: str1:= str1+'border-right-style:solid;';
+          ls_Dash: str1:= str1+'border-right-style:dashed;';
+          ls_Dot: str1:= str1+'border-right-style:dotted;';
+          ls_Dash_Dot,ls_Dash_Dot_Dot: str1:= str1+'border-right-style:groove;';
+         end;
+         rgb1:= colortorgb(linecolor);         
+         str1:= str1+'border-right-color:rgb('+inttostr(rgb1.red)+','+inttostr(rgb1.green)+','+inttostr(rgb1.blue)+');';
+        end;
+        with borderbottom do begin
+         if linewidth>0 then begin
+          str1:= str1+'border-bottom-width: 1px;';
+         end else begin
+          str1:= str1+'border-bottom-width: 0px;';
+         end;
+         case linestyle of
+          ls_Solid: str1:= str1+'border-bottom-style:solid;';
+          ls_Dash: str1:= str1+'border-bottom-style:dashed;';
+          ls_Dot: str1:= str1+'border-bottom-style:dotted;';
+          ls_Dash_Dot,ls_Dash_Dot_Dot: str1:= str1+'border-bottom-style:groove;';
+         end;
+         rgb1:= colortorgb(linecolor);         
+         str1:= str1+'border-bottom-color:rgb('+inttostr(rgb1.red)+','+inttostr(rgb1.green)+','+inttostr(rgb1.blue)+');';
+        end;
+        if str1<>'' then begin
+         stream.write(' STYLE="'+str1+'"');
+        end;
+        if tf_xcentered in flags then
+         str1:= 'CENTER'
+        else if tf_right in flags then
+         str1:= 'RIGHT'
+        else
+         str1:= 'LEFT';        
+        stream.write('<P ALIGN='+str1+'>');
+        rgb1:= colortorgb(fontcolor);         
+        str1:= '<font style="font-size:'+inttostr(fontsize)+'pt; font-family:'+fontname+'" color=rgb('+inttostr(rgb1.red)+','+inttostr(rgb1.green)+','+inttostr(rgb1.blue)+')>';
+        str2:= '</font>';
+        if fs_bold in fontstyle then begin
+         str1:= str1+'<B>';
+         str2:= str2+'</B>';
+        end;
+        if fs_italic in fontstyle then begin
+         str1:= str1+'<I>';
+         str2:= str1+'</I>';
+        end;
+        if fs_underline in fontstyle then begin
+         str1:= str1+'<U>';
+         str2:= str1+'</U>';
+        end;
+        stream.write(str1);
+        stream.write(text);
+        stream.write(str2);
+        stream.write('</P>');
+        stream.write('</TD>');
+       end;
+      end;
+      stream.writeln('</TR>');
+      stream.writeln('</TABLE>');
+     end;
+    end;
+    fprinted:= true;
+    result:= true;
+    if canevent(tmethod(fonafterprinting)) then begin
+     fonafterprinting(self);
+    end;
+   end;
+   stream.writeln('</body>');
+   stream.writeln('</html>');
+   stream.Free;
   end;
  end else begin
   result:= false;
@@ -5746,6 +5966,12 @@ begin
   reportpdf;
  end else if fprintdestination=pd_text then begin
   reportcsv;
+ end else if fprintdestination=pd_HTML then begin
+  reporthtml('html');
+ end else if fprintdestination=pd_Excel then begin
+  reporthtml('xls');
+ end else if fprintdestination=pd_OpenOffice then begin
+  reporthtml('ods');
  end;
 end;
 

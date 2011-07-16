@@ -73,7 +73,6 @@ type
    procedure repazpreviewfo_ondestroy(const sender: TObject);
    procedure tscrollbox1_onbeforeevent(const sender: tcustomscrollbar;
                    var akind: scrolleventty; var avalue: Real);
-   procedure repazpreviewfo_onclose(const sender: TObject);
  end;
 
 implementation
@@ -266,10 +265,6 @@ begin
    akind := sbe_none;
   end;
  end;
-end;
-
-procedure trepazpreviewfo.repazpreviewfo_onclose(const sender: TObject);
-begin
 end;
 
 end.

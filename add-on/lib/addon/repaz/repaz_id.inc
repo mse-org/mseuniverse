@@ -193,12 +193,18 @@
   'Simpan ke file PostScript',  //rcsSavetops
   'Simpan ke file PDF',  //rcsSavetopdf
   'Simpan ke file text (CSV)',  //rcsSavetotext
+  'Simpan ke file HTML',  //rcsSavetoHTML,
+  'Simpan ke file Excel',  //rcsSavetoExcel,
+  'Simpan ke file OpenOffice',  //rcsSavetoOpenOffice,
   'Mendesain report untuk report yang akan dikustomisasi',  //rcsDesigninfo
   'Tampilkan report di layar kemudian bisa dicetak ke printer, simpan ke  Postscript, PDF, dll.',  //rcsPreviewinfo
   'Cetak report ke printer umum seperti LaserJet, InkJet, Dot Matrix, dll.',  //rcsPrintinfo
   'Save to PostScript file and than can print that is support PostScript or convert to another file format.',  //rcsSavetopsinfo
   'Simpan ke file PDF (Portable Document Format) sehingga nanti dapat dilihat dengan aplikasi PDF Reader seperti Adobe Acrobat Reader, dll.',  //rcsSavetopdfinfo
   'Simpan ke file text (CSV) sehingga nanti dapat dilihat dengan aplikasi spreadsheet seperti MS Excel, Open Office Calc, dll.',  //rcsSavetotextinfo
+  'Simpan ke file HTML sehingga nanti dapat dilihat dengan browser favorit anda',  //rcsSavetohtmlinfo,
+  'Simpan ke file Excel sehingga nanti dapat dilihat dengan aplikasi spreadsheet seperti MS Excel, Open Office Calc, dll.',  //rcsSavetoexcelinfo,
+  'Simpan ke file OpenOffice Calc sehingga nanti dapat dilihat dengan Open Office Calc, dll.',  //rcsSavetoopenofficeinfo,
   '&Tipe Aksi',  //rcsActiontype
   'Deskripsi',  //rcsDescription
   '&Tampilkan dialog ini setiap melakukan report action',  //rcsShowdlgagain
@@ -285,21 +291,27 @@
   'Simpan Desain Report Sebagai',  //rcsCapsaverepas
   'Report minimal mempunyai 1 halaman!',  //rcsMsgmin1page
   'Fitur ini tidak membutuhkan konfigurasi!',  //rcsMsgprevnotconfig
-  'Desainer report tidak diaktifkan!',  //rcsMsgdesignnotactive
-  'Preview report tidak diaktifkan!',  //rcsMsgpreviewnotactive
-  'Cetak report ke printer tidak diaktifkan!',  //rcsMsgprintnotactive
+  'Desainer report tidak diaktifkan, silakan hubungi administrator anda!',  //rcsMsgdesignnotactive
+  'Preview report tidak diaktifkan, silakan hubungi administrator anda!',  //rcsMsgpreviewnotactive
+  'Cetak report ke printer tidak diaktifkan, mungkin karena dinonaktifkan oleh administrator anda, atau software anda dalam versi DEMO!',  //rcsMsgprintnotactive
   'Simpan ke file PostScript',  //rcsCapsave2ps
   'File PostScript',  //rcsLblpostscript
   'Simpan ke file PDF (Portabel Data Document)', //rcsCapsave2pdf
   'File PDF', //rcsLblpdf,
   'Simpan ke file text (CSV)', //rcsCapsave2text,
   'File text/CSV', //rcsLbltext,
+  'Simpan ke file HTML', //rcsCapsave2html,
+  'File HTML', //rcsLblhtml,
+  'Simpan ke file Excel', //rcsCapsave2excel,
+  'File Excel', //rcsLblexcel,
+  'Simpan ke file OpenOffice', //rcsCapsave2openoffice,
+  'File OpenOffice', //rcsLblopenoffice,
   'Semua file',  //rcsLblallfiles
   'Silakan tulis nama file output untuk PostScript!',  //rcsMsgtypepsfn
   'Simpan Repaz Metafile',  //rcsCapsave2metapage
   'Repaz Metafiles',  //rcsLblmetapage
   'Silakan tulis nama file output untuk Repaz Metafile!',  //rcsMsgtypemetapagefn
-  'Simpan ke file tidak diaktifkan!',  //rcsMsgsavefilenotactive
+  'Simpan ke file tidak diaktifkan, mungkin karena dinonaktifkan oleh administrator anda, atau software anda dalam versi DEMO!',  //rcsMsgsavefilenotactive
   'Report tidak bisa dibuka!',  //rcsMsgreportnotopen
   'Class dari komponen report tidak ditemukan : ',  //rcsMsgclassnotfound  
   'Anda yakin akan menghapus halaman ini?', //rcsMsgdeletepage

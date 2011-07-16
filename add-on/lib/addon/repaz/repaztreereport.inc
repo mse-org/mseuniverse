@@ -590,10 +590,10 @@ var
        detail.paint(canvas,makerect(area.x,posy+area.y,area.cx,detail.pixelheight),true,false);
        inc(posy,detail.pixelheight);
       end;
+      items[aindex].footer.dobeforenextrecord(detail.datalink.datasource);
       for int3:=0 to masterheader.indextree do begin
        footerarty[int3].dobeforenextrecord(detail.datalink.datasource);
       end;
-      footer.dobeforenextrecord(detail.datalink.datasource);
       //process counting for report footer
       if (fowner.report_footer_rowvalues.count>0) then begin
        for int3:=0 to fowner.report_footer_rowvalues.count-1 do begin
@@ -624,68 +624,64 @@ var
  
  function haschildren: boolean;
  var
-  lastrow: integer;
+  lastrow,itree,tmptree: integer;
   shouldstop: boolean;
   fparent1,lastparent: variant;
  begin
   with items[aindex] do begin
    lastrow:= masterheader.datalink.dataset.recno;
    if lastfound>lastrow then begin
-    masterheader.datalink.dataset.recno:= lastfound;
+    result:= true;
+    exit;
+   end;
+   with tmsesqlquery(detail.datalink.dataset) do begin
+    active:= false;
+    params.parambyname(DetailParams).value:= tmsesqlquery(
+      masterheader.datalink.dataset).fieldbyname(KeyFieldHeader).value;
+    active:= true;
    end;
    if (detail.datalink.dataset.recordcount>0) then begin
     result:= true;
     lastfound:= lastrow;
    end else begin
     shouldstop:= false;
-    fparent1:= tmsesqlquery(masterheader.datalink.dataset).fieldbyname(masterheader.Tree_ParentField).value;
+    tmptree:= masterheader.indextree;
     while not shouldstop do begin
      masterheader.nextrecord;       
      if not masterheader.iseof then begin
-      lastparent:= tmsesqlquery(masterheader.datalink.dataset).fieldbyname(masterheader.Tree_ParentField).value;
-      if lastparent=fparent1 then begin
-        lastrow:= masterheader.datalink.dataset.recno;
+      with tmsesqlquery(detail.datalink.dataset) do begin
+       active:= false;
+       params.parambyname(DetailParams).value:= tmsesqlquery(
+         masterheader.datalink.dataset).fieldbyname(KeyFieldHeader).value;
+       active:= true;
       end;
-      if fparent1<>tmsesqlquery(masterheader.datalink.dataset).fieldbyname(masterheader.Tree_ParentField).value then begin
-       if detail.datalink.active then begin
-        with tmsesqlquery(detail.datalink.dataset) do begin
-         params.parambyname(DetailParams).value:= tmsesqlquery(
-           masterheader.datalink.dataset).fieldbyname(KeyFieldHeader).value;
-         refresh;
-         if detail.datalink.recordcount>0 then begin
-          result:= true;
-          lastfound:= lastrow;
-          masterheader.datalink.dataset.recno:= lastrow;
-          params.parambyname(DetailParams).value:= tmsesqlquery(
-            masterheader.datalink.dataset).fieldbyname(KeyFieldHeader).value;
-          refresh;
-          shouldstop:= true;
-         end;
-        end;
-       end;
+      itree:= masterheader.indextree;
+      masterheader.checklevel;
+      if itree>=masterheader.indextree then begin
+       result:= false;
+       lastfound:= masterheader.datalink.dataset.recno;
+       shouldstop:= true;
+       fisfinishdata:= true;
+       masterheader.datalink.dataset.recno:= lastrow;
+       tmsesqlquery(detail.datalink.dataset).active:= false;
       end else begin
-       if detail.datalink.active then begin
-        with tmsesqlquery(detail.datalink.dataset) do begin
-         params.parambyname(DetailParams).value:= tmsesqlquery(
-           masterheader.datalink.dataset).fieldbyname(KeyFieldHeader).value;
-         refresh;
-         if detail.datalink.recordcount>0 then begin
-          result:= true;
-          lastfound:= lastrow;
-          shouldstop:= true;
-          //isfinish:=true;
-          fisfinishdata:= true;
-          createfooter(aindex);
-         end;
+       with tmsesqlquery(detail.datalink.dataset) do begin
+        if recordcount>0 then begin
+         result:= true;
+         lastfound:= masterheader.datalink.dataset.recno;
+         shouldstop:= true;
+         fisfinishdata:= true;
+         masterheader.datalink.dataset.recno:= lastrow;
+         active:= false;
         end;
        end;
       end;
      end else begin
       result:= false;
       shouldstop:= true;
-      //tmsesqlquery(detail.datalink.dataset).active:= false;
      end;
     end;
+    masterheader.indextree:= tmptree;
    end;
   end;
  end;
@@ -746,9 +742,6 @@ begin
     if masterheader.count>0 then begin
      if posy<=limity-masterheader.pixelheight then begin
       ishaschildren:= haschildren;
-      if not ishaschildren then begin
-       //tmsesqlquery(detail.datalink.dataset).active:= false;
-      end;
       if isdrawheader and ((masterheader.printifnochild) or ((not masterheader.printifnochild) and ishaschildren)) then begin
        tmppos:= masterheader[TreeColIndex].position;
        tmpwidth:= masterheader[TreeColIndex].width;
@@ -761,9 +754,7 @@ begin
        masterheader[TreeColIndex].fpos:= tmppos;
        masterheader[TreeColIndex].fwidth:= tmpwidth;
        inc(posy,masterheader.pixelheight);
-       if not detail.datalink.active then begin
-        isfinish:=true;
-       end else begin
+       if detail.datalink.active then begin
         if ishaschildren then begin
          drawdetail;
         end;
@@ -771,23 +762,17 @@ begin
       end;
       isdrawheader:= true;
       if fisfinishdata and (not isfinish) then begin
-       masterheader.nextrecord;       
+       if not masterheader.iseof then masterheader.nextrecord;
        if not masterheader.iseof then begin
-        if detail.datalink.active then begin
-         with tmsesqlquery(detail.datalink.dataset) do begin
-          params.parambyname(DetailParams).value:= tmsesqlquery(
-            masterheader.datalink.dataset).fieldbyname(KeyFieldHeader).value;
-          refresh;
-          detail.datalink.dataset.disablecontrols;
-         end;
-        end;
         int2:= masterheader.indextree;
         masterheader.checklevel;
         if int2<masterheader.indextree then begin
          createfooter(aindex);
         end else begin
          //draw footer
-         fmodfooter:= drawfooter(int2);
+         if ishaschildren then begin
+          fmodfooter:= drawfooter(int2);
+         end;
          if fmodfooter=-1 then begin
           updatefooter;
           updateheader;
@@ -871,6 +856,9 @@ begin
    if (items[int1].masterfooter.count>0) and (items[int1].masterfooter.datalink.dataset <> nil) then begin
     adduniqueitem(pointerarty(adatasets),items[int1].masterfooter.datalink.dataset);
    end;
+   if (items[int1].footer.count>0) and (items[int1].footer.datalink.dataset <> nil) then begin
+    adduniqueitem(pointerarty(adatasets),items[int1].footer.datalink.dataset);
+   end;
    if (items[int1].detail.count>0) and (items[int1].detail.datalink.dataset <> nil) then begin
     adduniqueitem(pointerarty(adatasets),items[int1].detail.datalink.dataset);
    end;
@@ -893,6 +881,7 @@ begin
      refresh;
     end;
    end;
+   footer.init;
    masterfooter.init;
    detail.init;
   end;
@@ -963,6 +952,7 @@ begin
    fcontent.items[int1].masterheader.updatelinks;
    fcontent.items[int1].masterfooter.updatelinks;
    fcontent.items[int1].detail.updatelinks;
+   fcontent.items[int1].footer.updatelinks;
   end;
  end;
 end;

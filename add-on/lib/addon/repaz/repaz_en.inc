@@ -193,12 +193,18 @@
   'Save to PostScript File',  //rcsSavetops
   'Save to PDF File',  //rcsSavetopdf
   'Save to text (CSV) File',  //rcsSavetotext
+  'Save to HTML File',  //rcsSavetoHTML,
+  'Save to Excel File',  //rcsSavetoExcel,
+  'Save to OpenOffice File',  //rcsSavetoOpenOffice,
   'Design report for customized report',  //rcsDesigninfo
   'Show report on screen then can be printed on printer, save to Postscript, PDF, etc.',  //rcsPreviewinfo
   'Print report on general printer like LaserJet, InkJet, Dot Matrix, etc.',  //rcsPrintinfo
   'Save to PostScript file and than can print that is support PostScript or convert to another file format.',  //rcsSavetopsinfo
   'Save to PDF (Portable Document Format) file and than can be viewed with PDF Reader Application like Adobe Acrobat Reader, etc.',  //rcsSavetopdfinfo
   'Save to text (CSV) file and than can be viewed with spreadsheet application like MS Excel, Open Office Calc, etc.',  //rcsSavetotextinfo
+  'Save to HTML file and than can be viewed with your favourite browsers',  //rcsSavetohtmlinfo,
+  'Save to Excel file and than can be viewed with spreadsheet application like MS Excel, Open Office Calc, etc.',  //rcsSavetoexcelinfo,
+  'Save to OpenOffice Calc file and than can be viewed with Open Office Calc, etc.',  //rcsSavetoopenofficeinfo,
   'Action &Type',  //rcsActiontype
   'Description',  //rcsDescription
   'S&how this dialog again every execute report action',  //rcsShowdlgagain
@@ -294,6 +300,12 @@
   'PDF Files', //rcsLblpdf,
   'Save to text (CSV) file', //rcsCapsave2text,
   'Text/CSV files', //rcsLbltext,
+  'Save to HTML file', //rcsCapsave2html,
+  'HTML Files', //rcsLblhtml,
+  'Save to Excel file', //rcsCapsave2excel,
+  'Excel Files', //rcsLblexcel,
+  'Save to OpenOffice file', //rcsCapsave2openoffice,
+  'OpenOffice Files', //rcsLblopenoffice,
   'All files',  //rcsLblallfiles
   'Please type name of PostScript file output',  //rcsMsgtypepsfn
   'Save Repaz Metafile',  //rcsCapsave2metapage

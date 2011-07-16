@@ -752,7 +752,7 @@ var
 begin
  result:= inherited getdefaultstate;
  if fremote <> nil then begin
-  obj1:= tobject(tpropeditor1(fremote.getparenteditor).getordvalue);
+  obj1:= tobject(tpropeditor1(fremote.getparenteditor).getpointervalue);
   if obj1 <> nil then begin
    getcorbainterface(obj1,typeinfo(idbeditinfo),fdbeditinfointf);
   end;
@@ -873,7 +873,7 @@ function treptabulatoreditor.getvalue: msestring;
 var
  mstr1: msestring;
 begin
- with TraTabulatorItem(getordvalue) do begin
+ with TraTabulatorItem(getpointervalue) do begin
   if datafield = '' then begin
    if expression='' then
     mstr1:= Text
@@ -904,8 +904,8 @@ begin
      end;
     end;
    end;
-   if TraTabulatorItem(getordvalue) is TraTabulatorItemSummary then begin
-    with TraTabulatorItemSummary(getordvalue) do begin
+   if TraTabulatorItem(getpointervalue) is TraTabulatorItemSummary then begin
+    with TraTabulatorItemSummary(getpointervalue) do begin
      if summarytype<>st_None then begin
       case summarytype of
        st_Sum: mstr1:= 'SUM('+mstr1+')';

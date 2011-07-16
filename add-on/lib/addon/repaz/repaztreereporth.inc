@@ -95,7 +95,8 @@ type
    fheader: TraTreeTabulators;
    fdata: TNormalTabs;
    fheaderdetail: TNormalTabs;
-   ffooter,ffooter2: TSummaryTabs;
+   ffooter: TSummaryTabs;
+   ffooter2: TSummaryTabs;
    ftreegap: real;
    ftreecol: integer;
    ffooterarty: summarytabsarty;
@@ -116,16 +117,16 @@ type
    procedure assign(source: tpersistent);override;
    property footerarty: summarytabsarty read ffooterarty write ffooterarty;
   published
-   property TreeColIndex: integer read ftreecol write ftreecol;
-   property TreeGap: real read ftreegap write ftreegap;
-   property MasterHeader: TraTreeTabulators read fheader write fheader;
-   property MasterFooter: TSummaryTabs read ffooter write ffooter;
-   property Footer: TSummaryTabs read ffooter2 write ffooter2;
    property Detail: TNormalTabs read fdata write fdata;
-   property PrintDetail: boolean read fprintdetail write fprintdetail;
+   property DetailParams: string read fparamname write fparamname;
+   property Footer: TSummaryTabs read ffooter2 write ffooter2;
    property HeaderDetail: TNormalTabs read fheaderdetail write fheaderdetail;
    property KeyFieldHeader: string read fkeyheader write fkeyheader;
-   property DetailParams: string read fparamname write fparamname;
+   property MasterFooter: TSummaryTabs read ffooter write ffooter;
+   property MasterHeader: TraTreeTabulators read fheader write fheader;
+   property PrintDetail: boolean read fprintdetail write fprintdetail;
+   property TreeColIndex: integer read ftreecol write ftreecol;
+   property TreeGap: real read ftreegap write ftreegap;
  end;   
  
  TraTreeContent = class(tpersistentarrayprop)

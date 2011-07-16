@@ -763,7 +763,7 @@ var
  po1: pcomponentinfoty;
 begin
  {$ifdef FPC} {$checkpointer off} {$endif}
- po1:= inherited add(cardinal(comp),nil^);
+ po1:= inherited add(ptruint(comp),nil^);
  {$ifdef FPC} {$checkpointer default} {$endif}
  with po1^ do begin
   instance:= comp;
@@ -773,7 +773,7 @@ end;
 
 function tcomponents.find(const value: tobject): pcomponentinfoty;
 begin
- result:= pcomponentinfoty(inherited find(cardinal(value)));
+ result:= pcomponentinfoty(inherited find(ptruint(value)));
 end;
 
 procedure tcomponents.swapcomponent(const old,new: tcomponent);

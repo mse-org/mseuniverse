@@ -75,6 +75,9 @@ begin
   add(uc(ord(rcsSavetops)));
   add(uc(ord(rcsSavetopdf)));
   add(uc(ord(rcsSavetotext)));
+  add(uc(ord(rcsSavetoHTML)));
+  add(uc(ord(rcsSavetoExcel)));
+  add(uc(ord(rcsSavetoOpenOffice)));
  end;
  with cactions.dropdown.cols[1] do begin
   add(uc(ord(rcsDesigninfo)));
@@ -83,6 +86,9 @@ begin
   add(uc(ord(rcsSavetopsinfo)));
   add(uc(ord(rcsSavetopdfinfo)));
   add(uc(ord(rcsSavetotextinfo)));
+  add(uc(ord(rcsSavetoHTMLinfo)));
+  add(uc(ord(rcsSavetoExcelinfo)));
+  add(uc(ord(rcsSavetoOpenOfficeinfo)));
  end;
  btnsetting.caption:= uc(ord(rcsSetting));
  btnok.caption:=uc(ord(rcsok));

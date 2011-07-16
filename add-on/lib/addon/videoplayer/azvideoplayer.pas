@@ -41,6 +41,7 @@ type
    pframe: PAVFrame;
    pframeRGB: PAVFrame;
    pscalectx: PSwsContext;
+   floading: boolean;
    fvideoalignment: alignmentsty;
    procedure setstatfile(const avalue: tstatfile);
   protected
@@ -102,6 +103,7 @@ constructor tazvideoplayer.create(aowner: tcomponent);
 begin
  inherited;
  fopened:= false;
+ floading:= false;
  floop:= true;
  fdelta:= 1;
  fanimtextifempty:= true;
@@ -142,17 +144,21 @@ var
  i: integer;
  po1: plongword;
  po2: pointer;
+ //adata: pbyte;
 begin
+ fbmp.clear;
  fbmp.size:= makesize(pcodecctx^.width,pcodecctx^.height);
+ {adata:= nil;
+ for i:=0 to 3 do begin
+  j:= sizeof(pframeRGB^.data[i]);
+  move(pframeRGB^.data[i],adata,j);
+  inc(adata,j);
+ end;
+ fbmp.loaddata(fbmp.size, adata);}
  for i:= 0 to fbmp.size.cy - 1 do begin
-  {$ifdef windows}
-  copymemory(fbmp.scanline[i],pointer(integer(pframeRGB^.data[0])+fbmp.size.cx*4*i),fbmp.size.cx*4);
-  {$endif}
-  {$ifdef linux}
   po1:= pointer(integer(pframeRGB^.data[0])+fbmp.size.cx*4*i);
   po2:= fbmp.scanline[i];
   move(po1^,po2^,fbmp.size.cx*4);
-  {$endif}
  end;
 end;
 
@@ -189,7 +195,6 @@ label
 begin
  if ffirsttime then begin
   ffirsttime:= false;
-  packet.data:= nil;
  end;
  result:= false;
  while true do begin
@@ -211,10 +216,11 @@ begin
    if av_read_packet(pformatctx, packet)< 0 then begin
     goto loop_exit;
    end;
-   until packet.stream_index = videoStream;
-   bytesremaining:= packet.size;
-   arawdata:= packet.data;
-  end;
+  until packet.stream_index = videoStream;
+  bytesremaining:= packet.size;
+  arawdata:= packet.data;
+  result:= true;
+ end;
 loop_exit:
  bytesdecoded:= avcodec_decode_video(pcodecctx,pframe,framefinished,arawdata,bytesremaining);
  if packet.data <> nil then begin
@@ -234,12 +240,18 @@ begin
  if not fopened and fanimtextifempty then begin
   msedrawtext.drawtext(acanvas,finfo);
  end else begin
-  fbmp.paint(acanvas,innerclientrect,fvideoalignment);
+  if not floading then begin
+   fbmp.paint(acanvas,innerclientrect,fvideoalignment);
+  end;
  end;
 end;
 
 procedure tazvideoplayer.processtimer(const sender: TObject);
 begin
+ if floading then begin
+  exit;
+ end;
+ floading:= true;
  if not fopened and fanimtextifempty then begin
   with innerclientrect do begin
    case fanimtype of
@@ -270,12 +282,14 @@ begin
    end;
   end;
   invalidate;
+  floading:= false;
  end else begin
   if not fendframe and getnextFrame then begin
    sws_scale(pscalectx, @pframe^.data, @pframe^.linesize,
                0, pcodecctx^.height,
                @pframeRGB^.data, @pframeRGB^.linesize);
    createbitmap;
+   floading:= false;
    invalidate;
   end else begin
    if floop then begin
@@ -285,6 +299,7 @@ begin
     fendframe:= true;
     freevideo;
    end;
+   floading:= false;
   end;
  end;
 end;
@@ -496,6 +511,7 @@ begin
   if not findfile(ffilename) then exit;
  end;
  fendframe:= false;
+ ffirsttime:= true;
  fopened:= true;
  afilename:= tosysfilepath(ffilename);
  av_register_all();
@@ -569,6 +585,7 @@ begin
   freevideo;
  end;
  fendframe:= true;
+ ffirsttime:= true;
  fopened:= false;
 end;
 

@@ -1526,9 +1526,9 @@ begin
      end;
     end;
     if raw_draweraction=cdaOpenBefore then begin
-     if fdrawmode=cdmSerial then begin
+     if fdrawermode=cdmSerial then begin
       fcommport.thread.writestring(esclist[esc_open_drawer]);
-     end else if fdrawmode=cdmPrinter then begin
+     end else if fdrawermode=cdmPrinter then begin
       senddata(esclist[esc_open_drawer]);
      end;
     end;
@@ -1583,9 +1583,9 @@ begin
     senddata(esclist[esc_cut_paper]);
    end;
    if raw_draweraction=cdaOpenAfter then begin
-    if fdrawmode=cdmSerial then begin
+    if fdrawermode=cdmSerial then begin
      fcommport.thread.writestring(esclist[esc_open_drawer]);
-    end else if fdrawmode=cdmPrinter then begin
+    end else if fdrawermode=cdmPrinter then begin
      senddata(esclist[esc_open_drawer]);
     end;
    end;

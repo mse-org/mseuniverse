@@ -1,26 +1,64 @@
-{*********************************************************}
-{                 CUPS API declaration                    }
-{                                                         }
-{            Originally file is cupsdyn.pp                }
-{            written by Olivier GUILBAUD                  }
-{            Modified by : Sri Wahono '2008               }
-{             Included package with Repaz                 }
-{*********************************************************}
-{ Feel free to participate with reports bug, create new   }
-{ report template, etc with join with Repaz forum  :      }
-{                                                         }
-{              http://www.msegui.org/osprinter            }
-{                                                         }
-{*********************************************************}
+{Author: Olivier GUILBAUD
 
+  Abstract:
+    This code provide an interface with Common UNIX Printing System (CUPS).
+    it is based on cups.h version 1.47
+    This code is tested with the 1.1.19 of CUPS
+    
+  link:
+    http://www.cups.org
+    http://localhost:631/spm.html (for documentation)
+    
+  See : /usr/share/doc/cups/licence.txt
+  
+  Required
+    CUPS 1.1.19 or more
+    libCUPS
+    
+  History
+   sept 14 2003 - Create
+   nov  04 2003 - First release
+   mars 08 2005 - Dynamique link lib by Jesus Reyes (big thanks)
+                - Some modifications for work with Mdk 10.1
+------------------------------------------------------------------------------}
 unit cupsapi;
 
-{$ifdef fpc}{$mode objfpc}{$h+}{$endif}
+{$mode objfpc}{$H+}
+{.$define UseLibC}
 interface
+
+
 uses
-  Classes, SysUtils, msesys, dynlibs, Libc;
+  Classes, SysUtils, dynlibs,
+  {$ifdef UseLibC}
+  {$IFDEF darwin}
+  miniCupsLibc
+  {$ELSE}
+  Libc
+  {$ENDIF}
+  {$else}
+  baseunix, unix, sockets
+  {$endif}
+  ;
 
+{$PACKRECORDS C}
 
+{.$LINKLIB ssl}
+{.$LINKLIB crypto}
+{.$LINKLIB nsl}
+
+{$ifndef UseLibC}
+type
+  sockaddr_in = TSockAddr;
+  pfd_set = PFDSet;
+  PFILE = pointer;
+{$endif}
+
+//
+//
+// CUPS_language types & consts
+//
+//
 type
   //Message Indices
   cups_msg_t=(
@@ -189,10 +227,10 @@ type
 //
 //
 const
-  HTTP_MAX_URI    = 1024; //Max length of URI string
-  HTTP_MAX_HOST    = 256; //Max length of hostname string
-  HTTP_MAX_BUFFER  = 2048; //Max length of data buffer
-  HTTP_MAX_VALUE   = 256; //Max header field value length
+  HTTP_MAX_URI	   =	1024;	//Max length of URI string
+  HTTP_MAX_HOST	   =	256;	//Max length of hostname string
+  HTTP_MAX_BUFFER  =	2048;	//Max length of data buffer
+  HTTP_MAX_VALUE   =	256;	//Max header field value length
 
 type
   //----------------------------------------------------------------------------
@@ -213,20 +251,20 @@ type
 
   //States are server-oriented
   http_state_t=(
-    HTTP_WAITING, //Waiting for command
-    HTTP_OPTIONS, //OPTIONS command, waiting for blank line
-    HTTP_GET,  //GET command, waiting for blank line
-    HTTP_GET_SEND, //GET command, sending data
-    HTTP_HEAD,  //HEAD command, waiting for blank line
-    HTTP_POST,  //POST command, waiting for blank line
-    HTTP_POST_RECV, //POST command, receiving data
-    HTTP_POST_SEND, //POST command, sending data
-    HTTP_PUT,  //PUT command, waiting for blank line
-    HTTP_PUT_RECV, //PUT command, receiving data
-    HTTP_DELETE, //DELETE command, waiting for blank line
-    HTTP_TRACE,  //TRACE command, waiting for blank line
-    HTTP_CLOSE,  //CLOSE command, waiting for blank line
-    HTTP_STATUS  //Command complete, sending status
+    HTTP_WAITING,	//Waiting for command
+    HTTP_OPTIONS,	//OPTIONS command, waiting for blank line
+    HTTP_GET,		//GET command, waiting for blank line
+    HTTP_GET_SEND,	//GET command, sending data
+    HTTP_HEAD,		//HEAD command, waiting for blank line
+    HTTP_POST,		//POST command, waiting for blank line
+    HTTP_POST_RECV,	//POST command, receiving data
+    HTTP_POST_SEND,	//POST command, sending data
+    HTTP_PUT,		//PUT command, waiting for blank line
+    HTTP_PUT_RECV,	//PUT command, receiving data
+    HTTP_DELETE,	//DELETE command, waiting for blank line
+    HTTP_TRACE,		//TRACE command, waiting for blank line
+    HTTP_CLOSE,		//CLOSE command, waiting for blank line
+    HTTP_STATUS		//Command complete, sending status
   );
 
   //HTTP version numbers...
@@ -245,73 +283,73 @@ type
   //HTTP transfer encoding values...
   http_encoding_t=(
     HTTP_ENCODE_LENGTH,   //Data is sent with Content-Length
-    HTTP_ENCODE_CHUNKED   //Data is chunked
+    HTTP_ENCODE_CHUNKED	  //Data is chunked
   );
 
   //HTTP encryption values...
   http_encryption_t=(
-    HTTP_ENCRYPT_IF_REQUESTED, //Encrypt if requested (TLS upgrade)
-    HTTP_ENCRYPT_NEVER,  //Never encrypt
-    HTTP_ENCRYPT_REQUIRED, //Encryption is required (TLS upgrade)
-    HTTP_ENCRYPT_ALWAYS  //Always encrypt (SSL)
+    HTTP_ENCRYPT_IF_REQUESTED,	//Encrypt if requested (TLS upgrade)
+    HTTP_ENCRYPT_NEVER,		//Never encrypt
+    HTTP_ENCRYPT_REQUIRED,	//Encryption is required (TLS upgrade)
+    HTTP_ENCRYPT_ALWAYS		//Always encrypt (SSL)
   );
 
   //HTTP authentication types...
   http_auth_t=(
-    HTTP_AUTH_NONE,  //No authentication in use
-    HTTP_AUTH_BASIC,  //Basic authentication in use
-    HTTP_AUTH_MD5,  //Digest authentication in use
-    HTTP_AUTH_MD5_SESS,  //MD5-session authentication in use
-    HTTP_AUTH_MD5_INT,  //Digest authentication in use for body
-    HTTP_AUTH_MD5_SESS_INT //MD5-session authentication in use for body
+    HTTP_AUTH_NONE,		//No authentication in use
+    HTTP_AUTH_BASIC,		//Basic authentication in use
+    HTTP_AUTH_MD5,		//Digest authentication in use
+    HTTP_AUTH_MD5_SESS,		//MD5-session authentication in use
+    HTTP_AUTH_MD5_INT,		//Digest authentication in use for body
+    HTTP_AUTH_MD5_SESS_INT	//MD5-session authentication in use for body
   );
 
   //HTTP status codes...
   http_status_t=(
-    HTTP_ERROR := -1,  //An error response from httpXxxx() */
+    HTTP_ERROR := -1,		//An error response from httpXxxx() */
 
-    HTTP_CONTINUE := 100, //Everything OK, keep going... */
-    HTTP_SWITCHING_PROTOCOLS, //HTTP upgrade to TLS/SSL */
+    HTTP_CONTINUE := 100,	//Everything OK, keep going... */
+    HTTP_SWITCHING_PROTOCOLS,	//HTTP upgrade to TLS/SSL */
 
-    HTTP_OK := 200,  //OPTIONS/GET/HEAD/POST/TRACE command was successful */
-    HTTP_CREATED,  //PUT command was successful */
-    HTTP_ACCEPTED,  //DELETE command was successful */
-    HTTP_NOT_AUTHORITATIVE, //Information isn't authoritative */
-    HTTP_NO_CONTENT,  //Successful command, no new data */
-    HTTP_RESET_CONTENT,  //Content was reset/recreated */
-    HTTP_PARTIAL_CONTENT, //Only a partial file was recieved/sent */
+    HTTP_OK := 200,		//OPTIONS/GET/HEAD/POST/TRACE command was successful */
+    HTTP_CREATED,		//PUT command was successful */
+    HTTP_ACCEPTED,		//DELETE command was successful */
+    HTTP_NOT_AUTHORITATIVE,	//Information isn't authoritative */
+    HTTP_NO_CONTENT,		//Successful command, no new data */
+    HTTP_RESET_CONTENT,		//Content was reset/recreated */
+    HTTP_PARTIAL_CONTENT,	//Only a partial file was recieved/sent */
 
-    HTTP_MULTIPLE_CHOICES:=300, //Multiple files match request */
-    HTTP_MOVED_PERMANENTLY, //Document has moved permanently */
-    HTTP_MOVED_TEMPORARILY, //Document has moved temporarily */
-    HTTP_SEE_OTHER,  //See this other link... */
-    HTTP_NOT_MODIFIED,  //File not modified */
-    HTTP_USE_PROXY,  //Must use a proxy to access this URI */
+    HTTP_MULTIPLE_CHOICES:=300,	//Multiple files match request */
+    HTTP_MOVED_PERMANENTLY,	//Document has moved permanently */
+    HTTP_MOVED_TEMPORARILY,	//Document has moved temporarily */
+    HTTP_SEE_OTHER,		//See this other link... */
+    HTTP_NOT_MODIFIED,		//File not modified */
+    HTTP_USE_PROXY,		//Must use a proxy to access this URI */
 
-    HTTP_BAD_REQUEST := 400, //Bad request */
-    HTTP_UNAUTHORIZED,  //Unauthorized to access host */
-    HTTP_PAYMENT_REQUIRED, //Payment required */
-    HTTP_FORBIDDEN,  //Forbidden to access this URI */
-    HTTP_NOT_FOUND,  //URI was not found */
-    HTTP_METHOD_NOT_ALLOWED, //Method is not allowed */
-    HTTP_NOT_ACCEPTABLE, //Not Acceptable */
-    HTTP_PROXY_AUTHENTICATION, //Proxy Authentication is Required */
-    HTTP_REQUEST_TIMEOUT, //Request timed out */
-    HTTP_CONFLICT,  //Request is self-conflicting */
-    HTTP_GONE,   //Server has gone away */
-    HTTP_LENGTH_REQUIRED, //A content length or encoding is required */
-    HTTP_PRECONDITION,  //Precondition failed */
-    HTTP_REQUEST_TOO_LARGE, //Request entity too large */
-    HTTP_URI_TOO_LONG,  //URI too long */
-    HTTP_UNSUPPORTED_MEDIATYPE, //The requested media type is unsupported */
+    HTTP_BAD_REQUEST := 400,	//Bad request */
+    HTTP_UNAUTHORIZED,		//Unauthorized to access host */
+    HTTP_PAYMENT_REQUIRED,	//Payment required */
+    HTTP_FORBIDDEN,		//Forbidden to access this URI */
+    HTTP_NOT_FOUND,		//URI was not found */
+    HTTP_METHOD_NOT_ALLOWED,	//Method is not allowed */
+    HTTP_NOT_ACCEPTABLE,	//Not Acceptable */
+    HTTP_PROXY_AUTHENTICATION,	//Proxy Authentication is Required */
+    HTTP_REQUEST_TIMEOUT,	//Request timed out */
+    HTTP_CONFLICT,		//Request is self-conflicting */
+    HTTP_GONE,			//Server has gone away */
+    HTTP_LENGTH_REQUIRED,	//A content length or encoding is required */
+    HTTP_PRECONDITION,		//Precondition failed */
+    HTTP_REQUEST_TOO_LARGE,	//Request entity too large */
+    HTTP_URI_TOO_LONG,		//URI too long */
+    HTTP_UNSUPPORTED_MEDIATYPE,	//The requested media type is unsupported */
     HTTP_UPGRADE_REQUIRED:= 426,//Upgrade to SSL/TLS required */
 
-    HTTP_SERVER_ERROR := 500, //Internal server error */
-    HTTP_NOT_IMPLEMENTED, //Feature not implemented */
-    HTTP_BAD_GATEWAY,  //Bad gateway */
-    HTTP_SERVICE_UNAVAILABLE, //Service is unavailable */
-    HTTP_GATEWAY_TIMEOUT, //Gateway connection timed out */
-    HTTP_NOT_SUPPORTED  //HTTP version not supported */
+    HTTP_SERVER_ERROR := 500,	//Internal server error */
+    HTTP_NOT_IMPLEMENTED,	//Feature not implemented */
+    HTTP_BAD_GATEWAY,		//Bad gateway */
+    HTTP_SERVICE_UNAVAILABLE,	//Service is unavailable */
+    HTTP_GATEWAY_TIMEOUT,	//Gateway connection timed out */
+    HTTP_NOT_SUPPORTED		//HTTP version not supported */
   );
 
   //HTTP field names...
@@ -391,52 +429,52 @@ const
 Type
   //UI types ...
   ppd_ui_t=(
-    PPD_UI_BOOLEAN,  //True or False option
-    PPD_UI_PICKONE,  //Pick one from a list
-    PPD_UI_PICKMANY  //Pick zero or more from a list
+    PPD_UI_BOOLEAN,		//True or False option
+    PPD_UI_PICKONE,		//Pick one from a list
+    PPD_UI_PICKMANY		//Pick zero or more from a list
   );
 
   //Order dependency sections
   ppd_section_t=(
-    PPD_ORDER_ANY,  //Option code can be anywhere in the file
-    PPD_ORDER_DOCUMENT,  //... must be in the DocumentSetup section
-    PPD_ORDER_EXIT,  //... must be sent prior to the document
-    PPD_ORDER_JCL,  //... must be sent as a JCL command
-    PPD_ORDER_PAGE,  //... must be in the PageSetup section
-    PPD_ORDER_PROLOG  //... must be in the Prolog section
+    PPD_ORDER_ANY,		//Option code can be anywhere in the file
+    PPD_ORDER_DOCUMENT,		//... must be in the DocumentSetup section
+    PPD_ORDER_EXIT,		//... must be sent prior to the document
+    PPD_ORDER_JCL,		//... must be sent as a JCL command
+    PPD_ORDER_PAGE,		//... must be in the PageSetup section
+    PPD_ORDER_PROLOG		//... must be in the Prolog section
   );
 
   //Colorspaces
   ppd_cs_t=(
-    PPD_CS_CMYK := -4,  //CMYK colorspace
-    PPD_CS_CMY,   //CMY colorspace
-    PPD_CS_GRAY := 1,  //Grayscale colorspace
-    PPD_CS_RGB := 3,  //RGB colorspace
-    PPD_CS_RGBK,  //RGBK (K = gray) colorspace
-    PPD_CS_N   //DeviceN colorspace
+    PPD_CS_CMYK := -4,		//CMYK colorspace
+    PPD_CS_CMY,			//CMY colorspace
+    PPD_CS_GRAY := 1,		//Grayscale colorspace
+    PPD_CS_RGB := 3,		//RGB colorspace
+    PPD_CS_RGBK,		//RGBK (K = gray) colorspace
+    PPD_CS_N			//DeviceN colorspace
    );
 
   //Status Codes
   ppd_status_t=(
-    PPD_OK := 0,  //OK
-    PPD_FILE_OPEN_ERROR, //Unable to open PPD file
-    PPD_NULL_FILE,  //NULL PPD file pointer
-    PPD_ALLOC_ERROR,  //Memory allocation error
-    PPD_MISSING_PPDADOBE4, //Missing PPD-Adobe-4.x header
-    PPD_MISSING_VALUE,  //Missing value string
-    PPD_INTERNAL_ERROR,  //Internal error
-    PPD_BAD_OPEN_GROUP,  //Bad OpenGroup
-    PPD_NESTED_OPEN_GROUP, //openGroup without a CloseGroup first
-    PPD_BAD_OPEN_UI,  //Bad OpenUI/JCLOpenUI
-    PPD_NESTED_OPEN_UI,  //OpenUI/JCLOpenUI without a CloseUI/JCLCloseUI first
-    PPD_BAD_ORDER_DEPENDENCY, //Bad OrderDependency
-    PPD_BAD_UI_CONSTRAINTS, //Bad UIConstraints
-    PPD_MISSING_ASTERISK, //Missing asterisk in column 0
-    PPD_LINE_TOO_LONG,  //Line longer than 255 chars
-    PPD_ILLEGAL_CHARACTER, //Illegal control character
-    PPD_ILLEGAL_MAIN_KEYWORD, //Illegal main keyword string
-    PPD_ILLEGAL_OPTION_KEYWORD, //Illegal option keyword string
-    PPD_ILLEGAL_TRANSLATION //Illegal translation string
+    PPD_OK := 0,		//OK
+    PPD_FILE_OPEN_ERROR,	//Unable to open PPD file
+    PPD_NULL_FILE,		//NULL PPD file pointer
+    PPD_ALLOC_ERROR,		//Memory allocation error
+    PPD_MISSING_PPDADOBE4,	//Missing PPD-Adobe-4.x header
+    PPD_MISSING_VALUE,		//Missing value string
+    PPD_INTERNAL_ERROR,		//Internal error
+    PPD_BAD_OPEN_GROUP,		//Bad OpenGroup
+    PPD_NESTED_OPEN_GROUP,	//openGroup without a CloseGroup first
+    PPD_BAD_OPEN_UI,		//Bad OpenUI/JCLOpenUI
+    PPD_NESTED_OPEN_UI,		//OpenUI/JCLOpenUI without a CloseUI/JCLCloseUI first
+    PPD_BAD_ORDER_DEPENDENCY,	//Bad OrderDependency
+    PPD_BAD_UI_CONSTRAINTS,	//Bad UIConstraints
+    PPD_MISSING_ASTERISK,	//Missing asterisk in column 0
+    PPD_LINE_TOO_LONG,		//Line longer than 255 chars
+    PPD_ILLEGAL_CHARACTER,	//Illegal control character
+    PPD_ILLEGAL_MAIN_KEYWORD,	//Illegal main keyword string
+    PPD_ILLEGAL_OPTION_KEYWORD,	//Illegal option keyword string
+    PPD_ILLEGAL_TRANSLATION	//Illegal translation string
   );
 
   //PPD Attribute Structure
@@ -586,7 +624,7 @@ Type
 //
 //
 const
-  IPP_VERSION = #1#1;
+  IPP_VERSION =	#1#1;
    { IPP registered port number...  This is the default value - applications
     should use the ippPort() function so that you can customize things in
     /etc/services if needed!}
@@ -902,26 +940,26 @@ const
 
   //**** Printer Type/Capability Bits ********
   //not a typedef'd enum so we can OR
-  CUPS_PRINTER_LOCAL     = $0000; // Local printer or class
-  CUPS_PRINTER_CLASS     = $0001; // Printer class
-  CUPS_PRINTER_REMOTE    = $0002; // Remote printer or class
-  CUPS_PRINTER_BW        = $0004; // Can do B&W printing
-  CUPS_PRINTER_COLOR     = $0008; // Can do color printing
-  CUPS_PRINTER_DUPLEX    = $0010; // Can do duplexing
-  CUPS_PRINTER_STAPLE    = $0020; // Can staple output
-  CUPS_PRINTER_COPIES    = $0040; // Can do copies
-  CUPS_PRINTER_COLLATE   = $0080; // Can collage copies
-  CUPS_PRINTER_PUNCH     = $0100; // Can punch output
-  CUPS_PRINTER_COVER     = $0200; // Can cover output
-  CUPS_PRINTER_BIND      = $0400; // Can bind output
-  CUPS_PRINTER_SORT      = $0800; // Can sort output
-  CUPS_PRINTER_SMALL     = $1000; // Can do Letter/Legal/A4
-  CUPS_PRINTER_MEDIUM    = $2000; // Can do Tabloid/B/C/A3/A2
-  CUPS_PRINTER_LARGE     = $4000; // Can do D/E/A1/A0
-  CUPS_PRINTER_VARIABLE  = $8000; // Can do variable sizes
-  CUPS_PRINTER_IMPLICIT  = $10000; // Implicit class
-  CUPS_PRINTER_DEFAULT   = $20000; // Default printer on network
-  CUPS_PRINTER_OPTIONS   = $FFFC; // ~(CLASS | REMOTE | IMPLICIT)
+  CUPS_PRINTER_LOCAL     = $0000;	// Local printer or class
+  CUPS_PRINTER_CLASS     = $0001;	// Printer class
+  CUPS_PRINTER_REMOTE    = $0002;	// Remote printer or class
+  CUPS_PRINTER_BW        = $0004;	// Can do B&W printing
+  CUPS_PRINTER_COLOR     = $0008;	// Can do color printing
+  CUPS_PRINTER_DUPLEX    = $0010;	// Can do duplexing
+  CUPS_PRINTER_STAPLE    = $0020;	// Can staple output
+  CUPS_PRINTER_COPIES    = $0040;	// Can do copies
+  CUPS_PRINTER_COLLATE   = $0080;	// Can collage copies
+  CUPS_PRINTER_PUNCH     = $0100;	// Can punch output
+  CUPS_PRINTER_COVER     = $0200;	// Can cover output
+  CUPS_PRINTER_BIND      = $0400;	// Can bind output
+  CUPS_PRINTER_SORT      = $0800;	// Can sort output
+  CUPS_PRINTER_SMALL     = $1000;	// Can do Letter/Legal/A4
+  CUPS_PRINTER_MEDIUM    = $2000;	// Can do Tabloid/B/C/A3/A2
+  CUPS_PRINTER_LARGE     = $4000;	// Can do D/E/A1/A0
+  CUPS_PRINTER_VARIABLE  = $8000;	// Can do variable sizes
+  CUPS_PRINTER_IMPLICIT  = $10000;	// Implicit class
+  CUPS_PRINTER_DEFAULT   = $20000;	// Default printer on network
+  CUPS_PRINTER_OPTIONS   = $FFFC;	// ~(CLASS | REMOTE | IMPLICIT)
 
 type
   PPPChar = ^PPChar;
@@ -1133,6 +1171,7 @@ procedure InitializeCups;
 var i : integer;
 begin
   inc(RefCount);
+  //debugln('InitializeCups RefCount=',dbgs(RefCount));
   if RefCount = 1 then
   begin
     for i:=0 to MaxcupsLibs do
@@ -1149,10 +1188,19 @@ begin
     end;
   end;
   
+  //WriteLn('CupsLibHandle=', CupsLibHandle);
+  
+  //
+  //cups_language.pp
+  //
   pointer(cupsLangEncoding) := GetProcedureAddress(CupsLibHandle, 'cupsLangEncoding');
   pointer(cupsLangFlush) := GetProcedureAddress(CupsLibHandle, 'cupsLangFlush');
   pointer(cupsLangFree) := GetProcedureAddress(CupsLibHandle, 'cupsLangFree');
   pointer(cupsLangGet) := GetProcedureAddress(CupsLibHandle, 'cupsLangGet');
+
+  //
+  // cups_http.pp
+  //
   pointer(httpCheck) := GetProcedureAddress(CupsLibHandle, 'httpCheck');
   pointer(httpClose) := GetProcedureAddress(CupsLibHandle, 'httpClose');
   pointer(httpConnect) := GetProcedureAddress(CupsLibHandle, 'httpConnect');
@@ -1182,11 +1230,16 @@ begin
   pointer(httpUpdate) := GetProcedureAddress(CupsLibHandle, 'httpUpdate');
   pointer(httpWait) := GetProcedureAddress(CupsLibHandle, 'httpWait');
   pointer(httpWrite) := GetProcedureAddress(CupsLibHandle, 'httpWrite');
+  //pointer(httpEncode64) := GetProcedureAddress(CupsLibHandle, 'httpEncode64');
+  //pointer(httpDecode64) := GetProcedureAddress(CupsLibHandle, 'httpDecode64');
   pointer(httpGetLength) := GetProcedureAddress(CupsLibHandle, 'httpGetLength');
   pointer(httpMD5) := GetProcedureAddress(CupsLibHandle, 'httpMD5');
   pointer(httpMD5Final) := GetProcedureAddress(CupsLibHandle, 'httpMD5Final');
   pointer(httpMD5String) := GetProcedureAddress(CupsLibHandle, 'httpMD5String');
 
+  //
+  // cups_ppd
+  //
   pointer(ppdClose) := GetProcedureAddress(CupsLibHandle, 'ppdClose');
   pointer(ppdCollect) := GetProcedureAddress(CupsLibHandle, 'ppdCollect');
   pointer(ppdConflicts) := GetProcedureAddress(CupsLibHandle, 'ppdConflicts');
@@ -1211,6 +1264,9 @@ begin
   pointer(ppdFindNextAttr) := GetProcedureAddress(CupsLibHandle, 'ppdFindNextAttr');
   pointer(ppdLastError) := GetProcedureAddress(CupsLibHandle, 'ppdLastError');
   
+  //
+  // cups_ipp
+  //
   pointer(ippAddBoolean) := GetProcedureAddress(CupsLibHandle, 'ippAddBoolean');
   pointer(ippAddBooleans) := GetProcedureAddress(CupsLibHandle, 'ippAddBooleans');
   pointer(ippAddDate) := GetProcedureAddress(CupsLibHandle, 'ippAddDate');
@@ -1283,6 +1339,7 @@ begin
   Result:=False;
   if RefCount=0 then begin
     Try
+      //debugln('CUPSLibInstalled A');
       InitializeCups;
     Except
       exit;
@@ -1293,6 +1350,7 @@ end;
 
 procedure FinalizeCups;
 begin
+  //debugln('* FinalizeCups');
   if RefCount>0 then
     Dec(RefCount);
     
@@ -1320,4 +1378,3 @@ INITIALIZATION
   CupsLibHandle:= NilHandle;
   
 end.
-
