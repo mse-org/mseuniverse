@@ -146,7 +146,7 @@ var
   int1: integer;
  begin
   if (ffooter.count>0) and (ffooter.datalink.datasource<>nil) then begin
-   ffooter.dobeforenextrecord(fmaster.datalink.datasource);
+   ffooter.dobeforenextrecord(fdata.datalink.datasource);
   end;
   //process counting for report footer
   if (fowner.report_footer_rowvalues.count>0) then begin
@@ -252,13 +252,14 @@ begin
     if fdata.iseof then begin
      if (ffooter.count>0) and (fdata.datalink.dataset.recordcount>0) then begin
       if ((posy+ffooter.pixelheight)<=limity) then begin
-       ffooter.paint(canvas,makerect(area.x,posy+area.y,area.cx,ffooter.pixelheight),true,false);
+       ffooter.paint(canvas,makerect(area.x,posy+area.y,area.cx,ffooter.pixelheight),true,true);
        inc(posy,ffooter.pixelheight);
+       ffooter.resetsums(false);
       end else begin
        fmodfooter:= true;
       end;
      end;
-     countingsummarymaster;
+     //countingsummarymaster;
      fmaster.nextrecord;
      frecordnumber:= 1;
      newheader:= true;

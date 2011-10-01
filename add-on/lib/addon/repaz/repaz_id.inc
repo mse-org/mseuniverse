@@ -236,7 +236,7 @@
   'Pilih satuan report', //rcsSelectunitinfo,
   'Tampil/sembunyi grid',  //rcsShowgridinfo
   'Mati/hidup kunci grid',  //rcsSnapinfo
-  'Keluar dari report designer',  //rcsExitinfo
+  'Keluar dari form',  //rcsExitinfo
   '&Print',  //rcsMnuprint
   '&Simpan ke PostScript',  //rcsMnusavetops
   'Simpan ke &PDF',  //rcsMnusavetopdf
@@ -260,6 +260,10 @@
   'Simpan ke file text (CSV)',  //rcsSaverepinfo
   'Simpan ke file PostScript',  //rcsSave2psinfo
   'Simpan ke file PDF',  //rcsSave2pdfinfo
+  'Simpan ke file HTML',  //rcsSave2htmlinfo
+  'Simpan ke file Microsoft Excel',  //rcsSave2excelinfo
+  'Simpan ke file OpenOffice Calc',  //rcsSave2openofficeinfo
+  'Simpan ke file PNG',  //rcsSave2pnginfo
   'Cari kata dalam halaman report',  //rcsFindtextinfo
   'Tampilan',  //rcsDisplay
   'Tampilkan &Grid',  //rcsLblshowgrid
@@ -306,6 +310,8 @@
   'File Excel', //rcsLblexcel,
   'Simpan ke file OpenOffice', //rcsCapsave2openoffice,
   'File OpenOffice', //rcsLblopenoffice,
+  'Simpan ke file PNG', //rcsCapsave2png,
+  'File PNG', //rcsLblpng,
   'Semua file',  //rcsLblallfiles
   'Silakan tulis nama file output untuk PostScript!',  //rcsMsgtypepsfn
   'Simpan Repaz Metafile',  //rcsCapsave2metapage

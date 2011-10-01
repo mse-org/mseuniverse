@@ -27,10 +27,10 @@ unit compdesigner;
 
 interface
 uses
- classes,msegui,mseevent,msegraphutils,msegraphics,mseclasses,msemenus,typinfo,
- msestrings,msewidgets,mseglob,compdesignintf,msetoolbar,mseact,msegrids,msewidgetgrid,
- msedataedits,mselistbrowser,msedatanodes,mselist,msetypes,mseguiglob,
- mseedit,mseforms,msedatalist,msedropdownlist,mseeditglob,msedrag,mseobjecttext;
+ classes,TypInfo,msegui,mseevent,msegraphutils,msegraphics,mseclasses,msemenus,msedoublereallisteditor,
+ msestrings,msewidgets,mseglob,compdesignintf,msetoolbar,mseact,msegrids,msewidgetgrid,msedatalist,
+ msedataedits,mselistbrowser,msedatanodes,mselist,msetypes,mseguiglob,sysutils,msestringintlisteditor,
+ mseedit,mseforms,msearrayutils,msedropdownlist,mseeditglob,msedrag,mseobjecttext;
 
 type
  areaty = (ar_none,ar_component,ar_componentmove,ar_selectrect,ht_topleft,
@@ -49,6 +49,7 @@ const
  complabelleftmargin = 2;
  complabelrightmargin = 2 + handlesize div 2;
  movethreshold = 3;
+ numcharchar = msechar('[');
 
 type
 
@@ -319,12 +320,15 @@ type
 
  iremotepropeditor = interface(inullinterface)
   function getordvalue(const index: integer = 0): integer;
-  procedure setordvalue(const value: cardinal); overload;
-  procedure setordvalue(const index: integer; const value: cardinal); overload;
+  procedure setordvalue(const value: longword); overload;
+  procedure setordvalue(const index: integer; const value: longword); overload;
   procedure setbitvalue(const value: boolean; const bitindex: integer);
   function getint64value(const index: integer = 0): int64;
   procedure setint64value(const value: int64); overload;
   procedure setint64value(const index: integer; const value: int64); overload;
+  function getpointervalue(const index: integer = 0): pointer;
+  procedure setpointervalue(const value: pointer); overload;
+  procedure setpointervalue(const index: integer; const value: pointer); overload;
   function getfloatvalue(const index: integer = 0): extended;
   procedure setfloatvalue(const value: extended);
   function getcurrencyvalue(const index: integer = 0): currency;
@@ -333,10 +337,10 @@ type
   procedure setstringvalue(const value: string);
   function getmsestringvalue(const index: integer = 0): msestring;
   procedure setmsestringvalue(const value: msestring);
-  function getpointervalue(const index: integer = 0): pointer;
-  procedure setpointervalue(const value: pointer); overload;
-  procedure setpointervalue(const index: integer; const value: pointer); overload;
+  function getvariantvalue(const index: integer = 0): variant;
+  procedure setvariantvalue(const value: variant);
   function getparenteditor: tpropeditor;
+
   function getselected: boolean;
   procedure setselected(const avalue: boolean);
   property selected: boolean read getselected write setselected;
@@ -367,11 +371,15 @@ type
    function typedata: ptypedata;
 
    function getordvalue(const index: integer = 0): integer;
-   procedure setordvalue(const value: cardinal); overload;
-   procedure setordvalue(const index: integer; const value: cardinal); overload;
+   procedure setordvalue(const value: longword); overload;
+   procedure setordvalue(const index: integer; const value: longword); overload;
    function getint64value(const index: integer = 0): int64;
    procedure setint64value(const value: int64); overload;
    procedure setint64value(const index: integer; const value: int64); overload;
+   function getpointervalue(const index: integer = 0): pointer;
+   procedure setpointervalue(const value: pointer); overload;
+   procedure setpointervalue(const index: integer; const value: pointer); overload;
+
    procedure setbitvalue(const value: boolean; const bitindex: integer);
    function getfloatvalue(const index: integer = 0): extended;
    procedure setfloatvalue(const value: extended);
@@ -381,9 +389,8 @@ type
    procedure setstringvalue(const value: string);
    function getmsestringvalue(const index: integer = 0): msestring;
    procedure setmsestringvalue(const value: msestring);
-   function getpointervalue(const index: integer = 0): pointer;
-   procedure setpointervalue(const value: pointer); overload;
-   procedure setpointervalue(const index: integer; const value: pointer); overload;
+   function getvariantvalue(const index: integer = 0): variant;
+   procedure setvariantvalue(const value: variant);
    
    function decodemsestring(const avalue: msestring): msestring;
    function encodemsestring(const avalue: msestring): msestring;
@@ -392,6 +399,9 @@ type
 
    procedure modified; virtual;
    function getdefaultstate: propertystatesty; virtual;
+   procedure setsubprop; virtual;
+   function getvalueeditor: tpropeditor; virtual;
+
   public
    constructor create(const adesigner: tcomponentdesigner;
         const acomponent: tcomponent;
@@ -649,7 +659,9 @@ type
 
  tsetpropeditor = class(tordinalpropeditor)
   protected
+   finvisibleitems: tintegerset;
    function getdefaultstate: propertystatesty; override;
+   function getinvisibleitems: tintegerset;
   public
    function getvalue: msestring; override;
    procedure setvalue(const value: msestring); override;
@@ -697,7 +709,8 @@ type
    function getvalue: msestring; override;
  end;
 
- listeditformkindty = (lfk_none,lfk_msestring,lfk_real,lfk_integer);
+ listeditformkindty = (lfk_none,lfk_msestring,lfk_real,lfk_integer,
+                       lfk_msestringint,lfk_complex);
  
  tdatalistpropeditor = class(tdialogclasspropeditor)
   protected
@@ -705,6 +718,7 @@ type
    procedure closequery(const sender: tcustommseform;
                        var amodalresult: modalresultty);
    procedure checkformkind;
+   function getdefaultstate: propertystatesty; override;
   public
    procedure edit; override;
    function getvalue: msestring; override;
@@ -716,6 +730,7 @@ type
   protected
    procedure closequery(const sender: tcustommseform;
                        var amodalresult: modalresultty);
+   function getdefaultstate: propertystatesty; override;
  end;
 
  tdoublemsestringdatalistpropeditor = class(tdialogclasspropeditor)
@@ -724,6 +739,7 @@ type
   protected
    procedure closequery(const sender: tcustommseform;
                        var amodalresult: modalresultty);
+   function getdefaultstate: propertystatesty; override;
  end;
 
 const
@@ -745,8 +761,15 @@ type
    procedure dopaste(const sender: tobject);
 
    function getordvalue(const index: integer = 0): integer;
-   procedure setordvalue(const value: cardinal); overload;
-   procedure setordvalue(const index: integer; const value: cardinal); overload;
+   procedure setordvalue(const value: longword); overload;
+   procedure setordvalue(const index: integer; const value: longword); overload;
+   function getint64value(const index: integer = 0): int64;
+   procedure setint64value(const value: int64); overload;
+   procedure setint64value(const index: integer; const value: int64); overload;
+   function getpointervalue(const index: integer = 0): pointer;
+   procedure setpointervalue(const value: pointer); overload;
+   procedure setpointervalue(const index: integer; const value: pointer); overload;
+
    procedure setbitvalue(const value: boolean; const bitindex: integer);
    function getfloatvalue(const index: integer = 0): extended;
    procedure setfloatvalue(const value: extended);
@@ -757,6 +780,7 @@ type
    function getselectedpropinstances: objectarty; virtual;
 
    function getdefaultstate: propertystatesty; override;
+   //function getvalueeditor: tpropeditor; override;
   public
    constructor create(aindex: integer; aparenteditor: tarraypropeditor;
             aeditorclass: propeditorclassty;
@@ -792,6 +816,7 @@ type
    function getelementeditorclass: elementeditorclassty; virtual;
    procedure itemmoved(const source,dest: integer); virtual;
   public
+   function itemprefix: msestring; virtual;
    procedure move(const curindex,newindex: integer); virtual;
    function allequal: boolean; override;
    function getvalue: msestring; override;
@@ -835,7 +860,7 @@ type
   protected
    function getdefaultstate: propertystatesty; override;
    function getpointervalue(const index: integer = 0): pointer;
-   procedure setpointervalue(const value: cardinal); overload;
+   procedure setpointervalue(const value: pointer); overload;
    procedure setpointervalue(const index: integer; const value: pointer); overload;
    procedure doinsert(const sender: tobject);
    procedure doappend(const sender: tobject);
@@ -948,6 +973,7 @@ type
 //   fname: string;
   protected
    function getdefaultstate: propertystatesty; override;
+   procedure setsubprop; override;
   public
    constructor create(const adesigner: tcomponentdesigner;
             const acomponent: tcomponent;
@@ -1029,8 +1055,8 @@ type
 
  tcomponentinfos = class(torderedrecordlist)
   protected
-   procedure compare(const l,r; var result: integer);
-   function getcompareproc: compareprocty; override;
+   function compare(const l,r): integer;
+   function getcomparefunc: sortcomparemethodty; override;
    procedure finalizerecord(var item); override;
   public
    constructor create;
@@ -1147,12 +1173,14 @@ procedure regpropeditor(propertytype: ptypeinfo;
 function componenteditors: tcomponenteditors;
 procedure regcomponenteditor(componentclass: componentclassty;
                   componenteditorclass: componenteditorclassty);
+function getcomponentpropname(const acomp: tcomponent): msestring;
+
 var
  fontaliasnames: msestringarty;
  
 implementation
 uses
- msekeyboard,msepointer,msebits,sysutils,
+ msekeyboard,msepointer,msebits,
  msestockobjects,msedrawtext,mseshapes,msedatamodules,
  mseactions,msestream,msesys,
  mseformatstr,msearrayprops,msebitmap,
@@ -1172,6 +1200,7 @@ const
  truename = 'True';
 
 type
+ tdatalist1 = class(tdatalist);
  tcomponent1 = class(tcomponent);
  twidget1 = class(twidget);
  twidgetcol1 = class(twidgetcol);
@@ -1199,6 +1228,18 @@ var
  ftextpropertyfont: tfont;
  acomponenteditors: tcomponenteditors;
  
+procedure checkdatalistnostreaming(const sender: tpropeditor;
+                                var defaultstate: propertystatesty);
+var
+ datalist1: tdatalist1;
+begin
+ datalist1:= tdatalist1(sender.getpointervalue);
+ if (datalist1 = nil) {or 
+           (ilo_nostreaming in datalist1.finternaloptions)} then begin
+  exclude(defaultstate,ps_dialog);
+ end;
+end;
+
 Function  GetOrdProp1(Instance: TObject; PropInfo : PPropInfo) : Longint;
 begin
  result:= getordprop(instance,propinfo);
@@ -1243,7 +1284,7 @@ begin
  setlength(result,32);
  int2:= 0;
  for int1:= 0 to 31 do begin
-  if cardinal(value) and bits[int1] <> 0 then begin
+  if longword(value) and bits[int1] <> 0 then begin
    result[int2]:= getenumname(typeinfo,int1);
    inc(int2);
   end;
@@ -1271,7 +1312,7 @@ begin
  result:= [];
  for int1:= 0 to gettypedata(enumtype)^.MaxValue do begin
   if ar1[int1] then begin
-   result:= tintegerset(cardinal(result) or bits[int1]);
+   result:= tintegerset(longword(result) or bits[int1]);
   end;
  end;
 end;
@@ -2805,7 +2846,7 @@ begin
       if (ss1 = [ss_left,ss_shift]) and isinpaintrect then begin
        factarea:= ar_selectrect;
        fxorpicoffset:= pos;
-       fpickwidget:= sender; //widgetatpos(pos); //tanda tanya
+       fpickwidget:= widgetatpos(pos); //tanda tanya
       end;
      end;
     end;
@@ -3168,7 +3209,7 @@ begin
      imagelist:= registeredcomponents.imagelist;
      imagenr:= icon;
      hint:= classtyp.classname;
-     tag:= integer(classtyp);
+     tagpointer:= classtyp;
     end;
    end;
   end;
@@ -3283,12 +3324,12 @@ begin
  inherited create(sizeof(compinfoty),[rels_needsfinalize]);
 end;
 
-procedure tcomponentinfos.compare(const l,r; var result: integer);
+function tcomponentinfos.compare(const l,r): integer;
 begin
  result:= pchar(compinfoty(l).instance) - pchar(compinfoty(r).instance);
 end;
 
-function tcomponentinfos.getcompareproc: compareprocty;
+function tcomponentinfos.getcomparefunc: sortcomparemethodty;
 begin
  result:= {$ifdef FPC}@{$endif}compare;
 end;
@@ -4824,10 +4865,63 @@ begin
  end;
 end;
 
+procedure tpropeditor.setpointervalue(const value: pointer);
+var
+ int1: integer;
+ ar1: objectarty;
+begin
+ if fremote <> nil then begin
+  fremote.setpointervalue(value);
+ end
+ else begin
+  ar1:= queryselectedpropinstances;
+  if ar1 = nil then begin
+   for int1:= 0 to high(fprops) do begin
+    with fprops[int1] do begin
+{$ifdef CPU64}
+     setint64prop(instance, propinfo, ptrint(value));
+{$else}
+     setordprop(instance, propinfo, ptrint(value));
+{$endif}
+    end;
+   end;
+  end
+  else begin
+   for int1:= 0 to high(ar1) do begin
+{$ifdef CPU64}
+    setint64prop(ar1[int1],fprops[0].propinfo,ptrint(value));
+{$else}
+    setordprop(ar1[int1],fprops[0].propinfo,ptrint(value));
+{$endif}
+   end;
+  end;
+  updatedefaultvalue;
+  modified;
+ end;
+end;
+
+procedure tpropeditor.setpointervalue(const index: integer; const value: pointer);
+begin
+ if fremote <> nil then begin
+  fremote.setpointervalue(index,value);
+ end
+ else begin
+  with fprops[index] do begin
+{$ifdef CPU64}
+   setint64prop(instance, propinfo, ptrint(value));
+{$else}
+   setordprop(instance, propinfo, ptrint(value));
+{$endif}
+  end;
+  updatedefaultvalue;
+  modified;
+ end;
+end;
+
 procedure tpropeditor.setbitvalue(const value: boolean; const bitindex: integer);
 var
  int1: integer;
- wo1: cardinal;
+ wo1: longword;
  ar1: objectarty;
 begin
  if fremote <> nil then begin
@@ -4984,13 +5078,13 @@ begin
   po1:= pointer(result);
   for int1:= 1 to length(avalue) do begin
    case avalue[int1] of
-    c_tab: begin po1^:= '#'; inc(po1); po1^:= 't'; end;
-    c_linefeed: begin po1^:= '#'; inc(po1); po1^:= 'n'; end;
-    c_return: begin po1^:= '#'; inc(po1); po1^:= 'r'; end;
-    '#': begin po1^:= '#'; inc(po1); po1^:= '#'; end;
+    c_tab: begin po1^:= numcharchar; inc(po1); po1^:= 't'; end;
+    c_linefeed: begin po1^:= numcharchar; inc(po1); po1^:= 'n'; end;
+    c_return: begin po1^:= numcharchar; inc(po1); po1^:= 'r'; end;
+    numcharchar: begin po1^:= numcharchar; inc(po1); po1^:= numcharchar; end;
     else begin
      if avalue[int1] < widechar(32) then begin
-      mstr1:= '#'+inttostr(ord(avalue[int1]));
+      mstr1:= numcharchar+inttostr(ord(avalue[int1]));
       if (avalue[int1+1] >= '0') and (avalue[int1+1] <= '9') or 
                      (avalue[int1+1] = ' ') then begin
        mstr1:= mstr1 + ' ';
@@ -5020,9 +5114,9 @@ begin
   po1:= pointer(result);
   int1:= 1;
   while int1 <= length(avalue) do begin
-   if (avalue[int1] = '#') and (int1 < length(avalue)+1) then begin
+   if (avalue[int1] = numcharchar) and (int1 < length(avalue)+1) then begin
     case avalue[int1+1] of
-     '#': po1^:= '#';
+     numcharchar: po1^:= numcharchar;
      't': po1^:= c_tab;
      'n': po1^:= c_linefeed;
      'r': po1^:= c_return;
@@ -5037,7 +5131,7 @@ begin
       end;
       int1:= int2-2;
      end;
-     else begin po1^:= '#'; dec(int1); end;
+     else begin po1^:= numcharchar; dec(int1); end;
     end;
     inc(int1,2);
    end
@@ -5060,7 +5154,12 @@ begin
  end
  else begin
   with fprops[index] do begin
-   result:= decodemsestring(GetwidestrProp(instance,propinfo));     
+   result:= decodemsestring(getmsestringprop(instance,propinfo));
+//  {$ifdef mse_unicodestring}
+//   result:= decodemsestring(GetunicodestrProp(instance,propinfo));     
+//  {$else}
+//   result:= decodemsestring(GetwidestrProp(instance,propinfo));     
+//  {$endif}
   end;
  end;
 end;
@@ -5080,18 +5179,56 @@ begin
   if ar1 = nil then begin
    for int1:= 0 to high(fprops) do begin
     with fprops[int1] do begin
-     setwidestrprop(instance,propinfo,mstr1);  
+     setmsestringprop(instance,propinfo,mstr1);
+//    {$ifdef mse_unicodestring}
+//     setunicodestrprop(instance,propinfo,mstr1);  
+//    {$else}
+//     setwidestrprop(instance,propinfo,mstr1);  
+//    {$endif}
     end;
    end;
   end
   else begin
    for int1:= 0 to high(ar1) do begin
-    setwidestrprop(ar1[int1],fprops[0].propinfo,mstr1);  
+    setmsestringprop(ar1[int1],fprops[0].propinfo,mstr1);  
+//   {$ifdef mse_unicodestring}
+//    setunicodestrprop(ar1[int1],fprops[0].propinfo,mstr1);  
+//   {$else}
+//    setwidestrprop(ar1[int1],fprops[0].propinfo,mstr1);  
+//   {$endif}
    end;
   end;    
   modified;
  end;
 end;
+
+function tpropeditor.getvariantvalue(const index: integer = 0): variant;
+begin
+  with fprops[index] do begin
+  result:= getvariantprop(instance,propinfo);
+ end;
+end;
+
+procedure tpropeditor.setvariantvalue(const value: variant);
+var
+ int1: integer;
+ ar1: objectarty;
+begin
+  ar1:= queryselectedpropinstances;
+  if ar1 = nil then begin
+   for int1:= 0 to high(fprops) do begin
+    with fprops[int1] do begin
+    setvariantprop(instance,propinfo,value);
+    end;
+   end;
+  end
+  else begin
+   for int1:= 0 to high(ar1) do begin
+   setvariantprop(ar1[int1],fprops[0].propinfo,value);  
+   end;
+  end;
+  modified;
+ end;
 
 function tpropeditor.getpointervalue(const index: integer): pointer;
 
@@ -5107,59 +5244,6 @@ begin
    result:= pointer(GetOrdProp(instance,propinfo));
 {$endif}
   end;
- end;
-end;
-
-procedure tpropeditor.setpointervalue(const value: pointer);
-var
- int1: integer;
- ar1: objectarty;
-begin
- if fremote <> nil then begin
-  fremote.setpointervalue(value);
- end
- else begin
-  ar1:= queryselectedpropinstances;
-  if ar1 = nil then begin
-   for int1:= 0 to high(fprops) do begin
-    with fprops[int1] do begin
-{$ifdef CPU64}
-     setint64prop(instance, propinfo, ptrint(value));
-{$else}
-     setordprop(instance, propinfo, ptrint(value));
-{$endif}
-    end;
-   end;
-  end
-  else begin
-   for int1:= 0 to high(ar1) do begin
-{$ifdef CPU64}
-    setint64prop(ar1[int1],fprops[0].propinfo,ptrint(value));
-{$else}
-    setordprop(ar1[int1],fprops[0].propinfo,ptrint(value));
-{$endif}
-   end;
-  end;
-  updatedefaultvalue;
-  modified;
- end;
-end;
-
-procedure tpropeditor.setpointervalue(const index: integer; const value: pointer);
-begin
- if fremote <> nil then begin
-  fremote.setpointervalue(index,value);
- end
- else begin
-  with fprops[index] do begin
-{$ifdef CPU64}
-   setint64prop(instance, propinfo, ptrint(value));
-{$else}
-   setordprop(instance, propinfo, ptrint(value));
-{$endif}
-  end;
-  updatedefaultvalue;
-  modified;
  end;
 end;
 
@@ -5282,6 +5366,16 @@ begin
  else begin
   exclude(fstate,ps_selected);
  end;
+end;
+
+procedure tpropeditor.setsubprop;
+begin
+ include(fstate,ps_subprop);
+end;
+
+function tpropeditor.getvalueeditor: tpropeditor;
+begin
+ result:= self;
 end;
 
 { tordinalpropeditor }
@@ -5407,20 +5501,31 @@ begin
  end;
  ar1:= nil;
  splitstring(str1,ar1,',',true);
- setordvalue(cardinal(stringstoset(ar1,ftypeinfo)));
+ setordvalue(longword(stringstoset(ar1,ftypeinfo)));
 end;
 
 function tsetpropeditor.subproperties: propeditorarty;
 var
  compty: ptypeinfo;
  int1: integer;
+ int2: integer;
 begin
  compty:= gettypedata(ftypeinfo)^.comptype{$ifndef FPC}^{$endif};
  setlength(result,gettypedata(compty)^.MaxValue+1);
+ int2:= 0;
  for int1:= 0 to high(result) do begin
-  result[int1]:= tsetelementeditor.create(fdesigner,fcomponent,
+  if not (int1 in finvisibleitems) then begin
+   result[int2]:= tsetelementeditor.create(fdesigner,fcomponent,
                     fobjectinspector,fprops,compty,self,int1);
+   inc(int2);
  end;
+end;
+ setlength(result,int2);
+end;
+
+function tsetpropeditor.getinvisibleitems: tintegerset;
+begin
+ result:= [];
 end;
 
 { tsetelementeditor }
@@ -5574,7 +5679,8 @@ end;
 
 function tcomponentpropeditor.allequal: boolean;
 var
- ca1: cardinal;
+// ca1: cardinal;
+ po1: pointer;
  int1: integer;
 begin
  result:= inherited allequal;
@@ -5589,9 +5695,11 @@ begin
    end;
   end
   else begin
-   ca1:= getordvalue;
+//   ca1:= getordvalue;
+   po1:= getpointervalue;
    for int1:= 1 to high(fprops) do begin
-    if cardinal(getordvalue(int1)) <> ca1 then begin
+//    if cardinal(getordvalue(int1)) <> ca1 then begin
+    if getpointervalue(int1) <> po1 then begin
      result:= false;
      break;
     end;
@@ -5601,25 +5709,16 @@ begin
 end;
 
 function tcomponentpropeditor.getvalue: msestring;
-var
- comp1: tcomponent;
+//var
+// comp1: tcomponent;
 begin
  if issubcomponent then begin
   result:= inherited getvalue;
  end
  else begin
-  comp1:= tcomponent(getpointervalue);
-  if comp1 = nil then begin
-   result:= '<nil>'
-  end
-  else begin
-   result:= comp1.name; //fdesigner.getcomponentname(comp1);
+  result:= getcomponentpropname(tcomponent(getpointervalue));
   end;
-  if result = '' then begin
-   result:= ownernamepath(comp1);
   end;
- end;
-end;
 
 function tcomponentpropeditor.getvalues: msestringarty;
 var
@@ -6135,6 +6234,11 @@ begin
  itemmoved(curindex,newindex)
 end;
 
+function tarraypropeditor.itemprefix: msestring;
+begin
+ result:= 'Item ';
+end;
+
 { tarrayelementeditor }
 
 constructor tarrayelementeditor.create(aindex: integer;
@@ -6160,27 +6264,83 @@ end;
 function tarrayelementeditor.getordvalue(const index: integer = 0): integer;
 begin
  with fprops[index] do begin
-  result:= tintegerarrayprop(GetPointerProp1(instance,propinfo))[findex];
+  result:= tintegerarrayprop(getpointerprop1(instance,propinfo))[findex];
  end;
 end;
 
-procedure tarrayelementeditor.setordvalue(const value: cardinal);
+procedure tarrayelementeditor.setordvalue(const value: longword);
 var
  int1: integer;
 begin
  for int1:= 0 to high(fprops) do begin
   with fprops[int1] do begin
-   tintegerarrayprop(GetPointerProp1(instance,propinfo))[findex]:= value;
+   tintegerarrayprop(getpointerprop1(instance,propinfo))[findex]:= value;
   end;
  end;
  modified;
 end;
 
 procedure tarrayelementeditor.setordvalue(const index: integer; 
-                         const value: cardinal);
+                         const value: longword);
 begin
  with fprops[index] do begin
-  tintegerarrayprop(GetPointerProp1(instance,propinfo))[findex]:= value;
+  tintegerarrayprop(getpointerprop1(instance,propinfo))[findex]:= value;
+ end;
+ modified;
+end;
+
+function tarrayelementeditor.getint64value(const index: integer = 0): int64;
+begin
+ with fprops[index] do begin
+  result:= tint64arrayprop(getpointerprop1(instance,propinfo))[findex];
+ end;
+end;
+
+procedure tarrayelementeditor.setint64value(const value: int64);
+var
+ int1: integer;
+begin
+ for int1:= 0 to high(fprops) do begin
+  with fprops[int1] do begin
+   tint64arrayprop(getpointerprop1(instance,propinfo))[findex]:= value;
+  end;
+ end;
+ modified;
+end;
+
+procedure tarrayelementeditor.setint64value(const index: integer; 
+                         const value: int64);
+begin
+ with fprops[index] do begin
+  tint64arrayprop(getpointerprop1(instance,propinfo))[findex]:= value;
+ end;
+ modified;
+end;
+
+function tarrayelementeditor.getpointervalue(const index: integer = 0): pointer;
+begin
+ with fprops[index] do begin
+  result:= tpointerarrayprop(getpointerprop1(instance,propinfo))[findex];
+ end;
+end;
+
+procedure tarrayelementeditor.setpointervalue(const value: pointer);
+var
+ int1: integer;
+begin
+ for int1:= 0 to high(fprops) do begin
+  with fprops[int1] do begin
+   tpointerarrayprop(getpointerprop1(instance,propinfo))[findex]:= value;
+  end;
+ end;
+ modified;
+end;
+
+procedure tarrayelementeditor.setpointervalue(const index: integer; 
+                         const value: pointer);
+begin
+ with fprops[index] do begin
+  tpointerarrayprop(getpointerprop1(instance,propinfo))[findex]:= value;
  end;
  modified;
 end;
@@ -6189,13 +6349,13 @@ procedure tarrayelementeditor.setbitvalue(const value: boolean;
                const bitindex: integer);
 var
  int1: integer;
- wo1: cardinal;
+ wo1: longword;
 begin
  for int1:= 0 to high(fprops) do begin
   with fprops[int1] do begin
-   wo1:= cardinal(tsetarrayprop(GetPointerProp1(instance,propinfo))[findex]);
+   wo1:= longword(tsetarrayprop(getpointerprop1(instance,propinfo))[findex]);
    updatebit(wo1,bitindex,value);
-   tsetarrayprop(GetPointerProp1(instance,propinfo))[findex]:= tintegerset(wo1);
+   tsetarrayprop(getpointerprop1(instance,propinfo))[findex]:= tintegerset(wo1);
   end;
  end;
  modified;
@@ -6204,7 +6364,7 @@ end;
 function tarrayelementeditor.getfloatvalue(const index: integer = 0): extended;
 begin
  with fprops[index] do begin
-  result:= trealarrayprop(GetPointerProp1(instance,propinfo))[findex];
+  result:= trealarrayprop(getpointerprop1(instance,propinfo))[findex];
  end;
 end;
 
@@ -6214,7 +6374,7 @@ var
 begin
  for int1:= 0 to high(fprops) do begin
   with fprops[int1] do begin
-   trealarrayprop(GetPointerProp1(instance,propinfo))[findex]:= value;
+   trealarrayprop(getpointerprop1(instance,propinfo))[findex]:= value;
   end;
  end;
  modified;
@@ -6223,7 +6383,7 @@ end;
 function tarrayelementeditor.getstringvalue(const index: integer = 0): string;
 begin
  with fprops[index] do begin
-  result:= tstringarrayprop(GetPointerProp1(instance,propinfo))[findex];
+  result:= tstringarrayprop(getpointerprop1(instance,propinfo))[findex];
  end;
 end;
 
@@ -6233,7 +6393,7 @@ var
 begin
  for int1:= 0 to high(fprops) do begin
   with fprops[int1] do begin
-   tstringarrayprop(GetPointerProp1(instance,propinfo))[findex]:= value;
+   tstringarrayprop(getpointerprop1(instance,propinfo))[findex]:= value;
   end;
  end;
  modified;
@@ -6242,7 +6402,7 @@ end;
 function tarrayelementeditor.getmsestringvalue(const index: integer = 0): msestring;
 begin
  with fprops[index] do begin
-  result:= tmsestringarrayprop(GetPointerProp1(instance,propinfo))[findex];
+  result:= tmsestringarrayprop(getpointerprop1(instance,propinfo))[findex];
  end;
 end;
 
@@ -6252,7 +6412,7 @@ var
 begin
  for int1:= 0 to high(fprops) do begin
   with fprops[int1] do begin
-   tmsestringarrayprop(GetPointerProp1(instance,propinfo))[findex]:= value;
+   tmsestringarrayprop(getpointerprop1(instance,propinfo))[findex]:= value;
   end;
  end;
  modified;
@@ -6260,7 +6420,7 @@ end;
 
 function tarrayelementeditor.name: msestring;
 begin
- result:= 'Item ' + inttostr(findex);
+ result:= tarraypropeditor(fparenteditor).itemprefix + inttostr(findex);
 end;
 
 function tarrayelementeditor.subproperties: propeditorarty;
@@ -6379,6 +6539,23 @@ begin
  result:= false;
 end;
 
+{ tclasselementeditor }
+{
+function tclasselementeditor.getdefaultstate: propertystatesty;
+begin
+ result:= inherited getdefaultstate + [ps_subproperties];
+end;
+
+function tclasselementeditor.getvalue: msestring;
+begin
+ result:= '('+fprops[0].propinfo^.proptype^.name+')';
+end;
+
+function tclasselementeditor.subproperties: propertyeditorarty;
+begin
+ result:= fobjectinspector.getproperties(tobject(getclassvalue));
+end;
+}
 procedure tarrayelementeditor.edit;
 begin
  feditor.edit;
@@ -6624,13 +6801,29 @@ function tcollectionitemeditor.name: msestring;
 begin
  result:= 'Item '+inttostr(findex);
 end;
+{
+function tcollectionitemeditor.getordvalue(const index: integer = 0): integer;
+begin
+ result:= integer(tcollection(fparenteditor.getpointervalue(index)).items[findex]);
+end;
 
+procedure tcollectionitemeditor.setordvalue(const value: longword);
+begin
+ //dummy
+end;
+
+procedure tcollectionitemeditor.setordvalue(const index: integer; 
+                               const value: longword);
+begin
+ //dummy
+end;
+}
 function tcollectionitemeditor.getpointervalue(const index: integer = 0): pointer;
 begin
  result:= tcollection(fparenteditor.getpointervalue(index)).items[findex];
 end;
 
-procedure tcollectionitemeditor.setpointervalue(const value: cardinal);
+procedure tcollectionitemeditor.setpointervalue(const value: pointer);
 begin
  //dummy
 end;
@@ -6886,7 +7079,7 @@ end;
 
 function tbooleanpropeditor.getvalue: msestring;
 begin
- if getpointervalue <> nil then begin
+ if getordvalue <> 0 then begin
   result:= truename;
  end
  else begin
@@ -6935,7 +7128,7 @@ begin
     try
      bmp.loadfromfile(filename,graphicfilefilterlabel(filterindex));
      for int1:= 0 to high(fprops) do begin
-      bmp1:= tmaskedbitmap(getpointervalue(int1));
+      bmp1:= tmaskedbitmap(getordvalue(int1));
       if bmp1 <> nil then begin
        bmp.alignment:= bmp1.alignment;
        bmp.colorbackground:= bmp1.colorbackground;
@@ -7097,13 +7290,110 @@ begin
 end;
 
 function tdatetimepropeditor.getvalue: msestring;
+var
+ rea1: real;
 begin
- result:= datetimetostring(getfloatvalue,'dddddd t');
+// result:= datetimetostring(getfloatvalue,'dddddd t');
+ rea1:= getfloatvalue;
+ if rea1 = emptydatetime then  begin
+  result:= '';
+ end
+ else begin
+  if trunc(rea1) = 0 then begin
+   result:= datetimetostring(getfloatvalue,'hh:nn:ss');
+  end
+  else begin
+   if frac(rea1) = 0 then begin
+    result:= datetimetostring(getfloatvalue,'yyyy-mm-dd');
+   end
+   else begin
+    result:= datetimetostring(getfloatvalue,'yyyy-mm-dd hh:nn:ss');
+end;
+  end;
+ end;
 end;
 
 procedure tdatetimepropeditor.setvalue(const value: msestring);
+
+ function encdate(const str: msestring): real;
+ var
+  ar2: msestringarty;
+  year,month,day: word;
 begin
- setfloatvalue(stringtodatetime(value));
+  result:= 0;
+  ar2:= splitstring(str,msechar('-'));
+  if high(ar2) >= 0 then begin
+   year:= strtoint(ar2[0]);
+   month:= 1;
+   day:= 1;
+   if high(ar2) > 0 then begin
+    month:= strtoint(ar2[1]);
+    if high(ar2) > 1 then begin
+     day:= strtoint(ar2[2]);
+end;
+   end;
+  end
+  else begin
+   raise exception.create('Empty date.');
+  end;
+  result:= encodedate(year,month,day);
+ end;
+
+ function enctime(const str: msestring): real;
+ var
+  ar2: msestringarty;
+  hour,minute,second: word;
+ begin
+  result:= 0;
+  ar2:= splitstring(str,msechar(':'),true);
+  if high(ar2) >= 0 then begin
+   hour:= strtoint(ar2[0]);
+   minute:= 0;
+   second:= 0;
+   if high(ar2) > 0 then begin
+    minute:= strtoint(ar2[1]);
+    if high(ar2) > 1 then begin
+     second:= strtoint(ar2[2]);
+    end;
+   end;
+   result:= encodetime(hour,minute,second,0);
+  end
+  else begin
+   raise exception.create('Empty time.');
+  end;
+ end;
+ 
+var
+ rea1,rea2: real;
+ ar1: msestringarty;
+  
+begin
+ if value = '' then begin
+  rea1:= emptydatetime;
+ end
+ else begin
+  if value = ' ' then begin
+   rea1:= now;
+  end
+  else begin
+   rea1:= 0;
+   rea2:= 0;
+   ar1:= splitstring(value,msechar(' '),true);
+   if high(ar1) > 0 then begin
+    rea1:= encdate(ar1[0]);
+    rea2:= enctime(ar1[1]);
+   end
+   else begin
+    try
+     rea1:= encdate(ar1[0]);
+    except       
+     rea1:= enctime(ar1[0]);
+    end;
+   end;
+   rea1:= rea1 + rea2;
+  end;
+ end;
+ setfloatvalue(rea1);
 end;
 
  { tcolorpropeditorty}
@@ -7204,6 +7494,8 @@ var
  int1: integer;
  utf8: boolean;
  str1: ansistring;
+ backup: string;
+ backupm: msestringarty;
 begin
  fmodalresult:= amodalresult;
  forigtext:= nil;
@@ -7211,8 +7503,10 @@ begin
   try
    with tmsetexteditorfo(sender) do begin
     forigtext:= textedit.datalist.asmsestringarray;
+    try
     if ismsestring then begin
      with tmsestringdatalist(getpointervalue) do begin
+       backupm:= asarray;
       beginupdate;
       try
        clear;
@@ -7226,6 +7520,7 @@ begin
     end
     else begin
      with tstrings(getpointervalue) do begin
+       backup:= text;
       utf8:= getutf8;
       beginupdate;
       try
@@ -7245,11 +7540,27 @@ begin
       end;
      end;
     end;
+     doafterclosequery(amodalresult);
+    finally
+     if amodalresult = mr_canclose then begin
+      if ismsestring then begin
+       with tmsestringdatalist(getpointervalue) do begin
+        asarray:= backupm;
    end;
-   doafterclosequery(amodalresult);
+      end
+      else begin
+       with tstrings(getpointervalue) do begin
+        text:= backup;
+       end;
+      end;
+     end;
+    end;
+   end;
   except
    application.handleexception(nil);
+//   if amodalresult = mr_canclose then begin
    amodalresult:= mr_none;
+//   end;
   end;
  end;
 end;
@@ -7384,14 +7695,26 @@ begin
   else begin
    if datalist1 is tintegerdatalist then begin
     formkind:= lfk_integer;
+   end
+   else begin
+    if datalist1 is tmsestringintdatalist then begin
+     formkind:= lfk_msestringint;
+    end
+    else begin
+     if datalist1 is tcomplexdatalist then begin
+      formkind:= lfk_complex;
+     end
    end;
   end;
  end;
+end;
 end;
 
 procedure tdatalistpropeditor.edit;
 var
  editform: tcustommseform;
+ realdata: trealdatalist;
+ complexdata: tcomplexdatalist;
 begin
  checkformkind;
  case formkind of
@@ -7404,6 +7727,12 @@ begin
   lfk_integer: begin
    editform:= tintegerlisteditor.create({$ifdef FPC}@{$endif}closequery);
   end;
+  lfk_msestringint: begin
+   editform:= tmsestringintlisteditor.create({$ifdef FPC}@{$endif}closequery);
+  end;
+  lfk_complex: begin
+   editform:= tdoublereallisteditor.create({$ifdef FPC}@{$endif}closequery);
+  end;
   else begin
    editform:= nil;
   end;
@@ -7412,13 +7741,44 @@ begin
   if editform <> nil then begin
    case formkind of
     lfk_msestring: begin
-     tstringlisteditor(editform).valueedit.datalist.assign(tmsestringdatalist(getpointervalue));
+     tstringlisteditor(editform).valueedit.datalist.assign(
+                                          tmsestringdatalist(getpointervalue));
     end;
     lfk_real: begin
-     treallisteditor(editform).valueedit.griddata.assign(trealdatalist(getpointervalue));
+     realdata:= trealdatalist(getpointervalue);
+     with treallisteditor(editform).valueedit do begin
+      griddata.assign(realdata);
+      if realdata.defaultzero then begin
+       valuedefault:= 0;
+    end;
+      min:= realdata.min;
+      max:= realdata.max;
+     end;
     end;
     lfk_integer: begin
-     tintegerlisteditor(editform).valueedit.griddata.assign(tintegerdatalist(getpointervalue));
+     tintegerlisteditor(editform).valueedit.griddata.assign(
+                                          tintegerdatalist(getpointervalue));
+    end;
+    lfk_msestringint: begin
+     with tmsestringintlisteditor(editform) do begin
+      texta.assigncol(tmsestringdatalist(getpointervalue));
+      tmsestringintdatalist(getpointervalue).assigntob(textb.griddata);
+   end;
+    end;
+    lfk_complex: begin
+     complexdata:= tcomplexdatalist(getpointervalue);
+     with tdoublereallisteditor(editform) do begin
+      complexdata.assigntoa(vala.griddata);
+      complexdata.assigntob(valb.griddata);
+      if complexdata.defaultzero then begin
+       vala.valuedefault:= 0;
+       valb.valuedefault:= 0;
+      end;
+      vala.min:= complexdata.min;
+      vala.max:= complexdata.max;
+      valb.min:= vala.min;
+      valb.max:= vala.max;
+     end;
     end;
    end;
    editform.show(true,nil);
@@ -7469,6 +7829,18 @@ begin
       tintegerdatalist(datalist1).assign(
                     tintegerlisteditor(sender).valueedit.griddata);
      end;
+     lfk_msestringint: begin
+      with tmsestringintlisteditor(sender) do begin
+       tmsestringintdatalist(datalist1).assign(texta.griddata);
+       tmsestringintdatalist(datalist1).assignb(textb.griddata);
+    end;
+     end;
+     lfk_complex: begin
+      with tdoublereallisteditor(sender) do begin
+       tcomplexdatalist(datalist1).assign(vala.griddata);
+       tcomplexdatalist(datalist1).assignb(valb.griddata);
+      end;
+     end;
     end;
     modified;
    end;
@@ -7478,6 +7850,13 @@ begin
   end;
  end;
 end;
+
+function tdatalistpropeditor.getdefaultstate: propertystatesty;
+begin
+ result:= inherited getdefaultstate;
+ checkdatalistnostreaming(self,result);
+end;
+
 
 { tmsestringdatalistpropeditor }
 
@@ -7523,6 +7902,12 @@ begin
  else begin
   result:= inherited getvalue;
  end;
+end;
+
+function tmsestringdatalistpropeditor.getdefaultstate: propertystatesty;
+begin
+ result:= inherited getdefaultstate;
+ checkdatalistnostreaming(self,result);
 end;
 
 { tdoublemsestringdatalistpropeditor }
@@ -7578,6 +7963,12 @@ begin
  end;
 end;
 
+function tdoublemsestringdatalistpropeditor.getdefaultstate: propertystatesty;
+begin
+ result:= inherited getdefaultstate;
+ checkdatalistnostreaming(self,result);
+end;
+
 { trecordpropeditor }
 
 constructor trecordpropeditor.create(const adesigner: tcomponentdesigner;
@@ -7612,6 +8003,16 @@ begin
   fsubproperties[int1].Free;
  end;
  inherited;
+end;
+
+procedure trecordpropeditor.setsubprop;
+var
+ int1: integer;
+begin
+ inherited;
+ for int1:= 0 to high(fsubproperties) do begin
+  include(fsubproperties[int1].fstate,ps_subprop);
+ end;
 end;
 
 function trecordpropeditor.getdefaultstate: propertystatesty;
@@ -7795,6 +8196,19 @@ begin
   acomponenteditors:= tcomponenteditors.create;
  end;
  result:= acomponenteditors;
+end;
+
+function getcomponentpropname(const acomp: tcomponent): msestring;
+begin
+ if acomp = nil then begin
+  result:= '<nil>'
+ end;
+ //else begin
+ // result:= getcomponentname(acomp);
+ //end;
+ if result = '' then begin
+  result:= ownernamepath(acomp);
+ end;
 end;
 
 procedure regcomponenteditor(componentclass: componentclassty;

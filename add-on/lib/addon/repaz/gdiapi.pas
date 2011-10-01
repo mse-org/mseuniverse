@@ -22,7 +22,7 @@
 unit gdiapi;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
-uses windows,sysutils,msesysintf,msesys;
+uses windows,sysutils,msesysintf1,msesys,msedynload;
 
 type
  winbool = longbool;

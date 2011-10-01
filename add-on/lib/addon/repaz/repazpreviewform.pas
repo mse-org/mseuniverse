@@ -73,6 +73,7 @@ type
    procedure repazpreviewfo_ondestroy(const sender: TObject);
    procedure tscrollbox1_onbeforeevent(const sender: tcustomscrollbar;
                    var akind: scrolleventty; var avalue: Real);
+   procedure repazpreviewfo_oncreate(const sender: TObject);
  end;
 
 implementation
@@ -231,14 +232,16 @@ begin
   buttons[2].hint:= uc(ord(rcsSaverepinfo));
   buttons[3].hint:= uc(ord(rcsSave2psinfo));
   buttons[4].hint:= uc(ord(rcsSave2pdfinfo));
-  buttons[5].hint:= uc(ord(rcsFindtextinfo));
+  buttons[5].hint:= uc(ord(rcsSave2htmlinfo));
+  buttons[6].hint:= uc(ord(rcsSave2excelinfo));
+  buttons[7].hint:= uc(ord(rcsSave2openofficeinfo));
+  buttons[8].hint:= uc(ord(rcsFindtextinfo));
+  buttons[9].hint:= uc(ord(rcsExitinfo));
  end;
 end;
 
 procedure trepazpreviewfo.repazpreviewfo_onloaded(const sender: TObject);
 begin
- setlangconsts(getcurrentlangconstsname);
- updatelang;
 end;
 
 procedure trepazpreviewfo.repazpreviewfo_ondestroy(const sender: TObject);
@@ -265,6 +268,12 @@ begin
    akind := sbe_none;
   end;
  end;
+end;
+
+procedure trepazpreviewfo.repazpreviewfo_oncreate(const sender: TObject);
+begin
+ setlangconsts(getcurrentlangconstsname);
+ updatelang;
 end;
 
 end.

@@ -65,9 +65,11 @@ end;
 procedure TraTreeTabulators.init;
 begin
  inherited;
+ try
  ftreeheader:= nil;
  setlength(ftreeheader,1);
- if fparentfieldlink.active and fparentfieldlink.active then begin
+  if fparentfieldlink.active and fkeyfieldlink.active and
+   (fparentfieldlink.fieldname<>'') and (fkeyfieldlink.fieldname<>'') then begin
   if fparentfieldlink.ismsestring then begin
    ftreeheader[0].parentstr:= fparentfieldlink.asmsestring;
    ftreeheader[0].keystr:= fkeyfieldlink.asmsestring;
@@ -78,6 +80,8 @@ begin
  end;
  ftreeheader[0].indextree:= 0;
  findextree:= 0;
+ except
+end;
 end;
 
 procedure TraTreeTabulators.setdatasource(const avalue: string);
@@ -103,7 +107,7 @@ var
  found: boolean;
  res1: integer;
 begin
- //if fparentfieldlink.active and fparentfieldlink.active then begin
+ if fparentfieldlink.active and (fparentfieldlink.field<>nil) then begin
   if iseof then begin
    findextree:= 0;
    setlength(ftreeheader,0);
@@ -130,7 +134,7 @@ begin
   end else begin  
    findextree:= res1;
   end;
- //end;
+end;
 end;
 
 { TraTreeBand }
@@ -293,6 +297,7 @@ begin
  with items[aindex] do begin
   masterheader.init;
   if (not masterheader.datalink.active) or masterheader.iseof then exit;
+  if KeyFieldHeader='' then exit;
   footerarty:=nil;
   if masterheader.datalink.active and detail.datalink.active then begin
    try

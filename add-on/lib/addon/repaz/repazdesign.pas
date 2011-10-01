@@ -42,7 +42,7 @@ uses
  msesplitter,compdesigner,msedial,msedispwidgets,msereal,mseimage,
  repaz_bmp,compdesignintf,msedb,msefiledialog,msesys,sysutils,msedatalist,
  typinfo,mselookupbuffer,msestatfile,msetoolbar,repazglob,msedock,msesqldb,
- mseact,msesysutils;
+ mseact,msesysutils,msearrayutils;
 type
  raeditorstatety = (ras_tabupdating,ras_mouseinclient);
  raeditorstatesty = set of raeditorstatety;

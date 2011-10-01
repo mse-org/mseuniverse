@@ -28,7 +28,7 @@ unit compdesignintf;
 interface
 uses
  classes,msegraphutils,mselist,sysutils,typinfo,msebitmap,
- msetypes,msestrings,msegraphics,msegui,mseglob,
+ msetypes,msestrings,msegraphics,msegui,mseglob,msearrayutils,
  mseclasses,msestat,msehash,mseobjecttext;
 
 type
@@ -71,9 +71,9 @@ type
   protected
    function findpage(const pagename: msestring): integer;
    function addpage(const pagename: msestring): integer;
-   function getcompareproc: compareprocty; override;
-   procedure compare(const l,r; var result: integer);
+   function getcomparefunc: sortcomparemethodty; override;
    function componentcounts: integerarty;
+   function compare(const l,r): integer;
   public
    constructor create;
    destructor destroy; override;
@@ -194,7 +194,7 @@ function getcomponentpos(const component: tcomponent): pointty;
 
 implementation
 uses
- msestream,msedatalist,rtlconsts;
+ msestream,rtlconsts;
 type
 
  {$ifdef FPC}
@@ -500,13 +500,13 @@ begin
  filer.endlist;
 end;
 
-procedure tcomponentclasslist.compare(const l, r; var result: integer);
+function tcomponentclasslist.compare(const l,r): integer;
 begin
  result:= integer(componentclassinfoty(l).classtyp) -
               integer(componentclassinfoty(r).classtyp);
 end;
 
-function tcomponentclasslist.getcompareproc: compareprocty;
+function tcomponentclasslist.getcomparefunc: sortcomparemethodty;
 begin
  result:= {$ifdef FPC}@{$endif}compare;
 end;
@@ -848,7 +848,8 @@ begin
    dispname:= instance.name;
   end;
  end;
- sortarray(result,{$ifdef FPC}@{$endif}comparecomponentname,sizeof(componentnamety));
+ sortarray(result,sizeof(componentnamety),
+                                 {$ifdef FPC}@{$endif}comparecomponentname);
 end;
 
 function tcomponents.getlistnames: stringarty;

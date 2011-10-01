@@ -121,6 +121,7 @@ type
    procedure gcneeded(const sender: tcanvas);
    function getmonochrome: boolean;
    function getsize: sizety;
+   procedure getcanvasimage(const bgr: boolean; var aimage: maskedimagety);
    procedure setrawmode(const avalue: boolean);
    function getpaperindex(awidth: real; aheight: real): integer;
    function getprinterpapers(aprintername: string): stdpagearty;
@@ -646,7 +647,6 @@ begin
    if fcairo.printtextasgraphic then begin
     str2:= msestrlcopy(text,count);
     str1:= pchar(stringtoutf8(str2));
-    //str1:= pchar(UTF8Encode(str2));
     cairo_text_path (fcairo.context, str1);
     cairo_fill(fcairo.context);
    end else begin
@@ -895,8 +895,10 @@ begin
 end;
 
 procedure tuniversalprintercanvas.endpage;
+var
+ str1: string;
 begin
- if not fcairo.rawmode then begin
+ if (not fcairo.rawmode) and ((fcairo.outputformat<>cai_PNG) or (fcairo.outputformat<>cai_SVG)) then begin
   cairo_show_page(fcairo.context);
  end;
  case fcairo.outputformat of
@@ -915,12 +917,37 @@ begin
    end;
   cai_PNG:
    begin
-    cairo_surface_write_to_png(fcairo.fsurface,pchar(tosysfilepath(fcairo.outputfilename)+inttostr(fpagenum)));
+    str1:= tosysfilepath(removefileext(fcairo.outputfilename))+inttostr(fpagenum)+'.png';
+    cairo_surface_write_to_png(fcairo.fsurface,pchar(str1));
+    if fcairo.fsurface<>nil then begin
+     fcairo.fsurface:= nil;
+     cairo_surface_destroy(fcairo.fsurface);
+     fcairo.fsurface:= nil;
+   end;
+    if fcairo.fdraw<>nil then begin
+     fcairo.fdraw:= nil;
+     cairo_destroy(fcairo.fdraw);
+ end;
+end;
+  cai_SVG:
+   begin
+    cairo_surface_finish(fcairo.fsurface);
+    if fcairo.fsurface<>nil then begin
+     fcairo.fsurface:= nil;
+     cairo_surface_destroy(fcairo.fsurface);
+     fcairo.fsurface:= nil;
+    end;
+    if fcairo.fdraw<>nil then begin
+     fcairo.fdraw:= nil;
+     cairo_destroy(fcairo.fdraw);
+    end;
    end;
  end;
 end;
 
 procedure tuniversalprintercanvas.beginpage;
+var
+ str1: string;
 begin
  inc(fpagenum);
  case fcairo.outputformat of
@@ -931,6 +958,18 @@ begin
      windows.startpage(fcairo.gdiprinterdc);
     end;
     {$ENDIF}
+   end;
+  cai_PNG:
+   begin
+    fcairo.fsurface:= cairo_image_surface_create (CAIRO_FORMAT_RGB24, round(fcairo.page_width*self.ppmm), round(fcairo.page_height*self.ppmm));
+    fcairo.fdraw:= cairo_create(fcairo.fsurface);
+    fillrect(makerect(0,0,round(fcairo.page_width*self.ppmm),round(fcairo.page_height*self.ppmm)),cl_white,cl_black);
+ end;
+  cai_SVG:
+   begin
+    str1:= tosysfilepath(removefileext(fcairo.outputfilename))+inttostr(fpagenum)+'.svg';
+    fcairo.fsurface:= cairo_svg_surface_create(pchar(str1),fcairo.page_width*self.ppmm,fcairo.page_height*self.ppmm);
+    fcairo.fdraw:= cairo_create(fcairo.fsurface);
    end;
  end;
  initgcvalues;
@@ -1024,6 +1063,7 @@ var
 begin
  result:=-1;
  if not libstatus then exit;
+ //fcupsNumOpts:= cupsAddOption(PChar('page-top'),PChar('100'),fcupsNumOpts,@fcupsOptions);
  afilename:=expandfilename(afilename);
  if length(printers)>0 then begin
   aprintername:= printername;
@@ -1420,9 +1460,6 @@ begin
    begin
     ftextasgraphic:= false;
     fantialias:= true;
-    str1:= tosysfilepath(ffilename);
-    fsurface:= cairo_svg_surface_create(pchar(str1),fwidth*fcanvas.ppmm,fheight*fcanvas.ppmm);
-    fdraw:= cairo_create(fsurface);
     fppinchx := 72;
     fppinchy := 72;
    end;
@@ -1430,9 +1467,6 @@ begin
    begin
     ftextasgraphic:= false;
     fantialias:= true;
-    str1:= tosysfilepath(ffilename);
-    fsurface:= cairo_image_surface_create (CAIRO_FORMAT_RGB24, round(fwidth), round(fheight));
-    fdraw:= cairo_create(fsurface);
     fppinchx := 72;
     fppinchy := 72;
    end;
@@ -1628,6 +1662,12 @@ begin
  if not frawmode then begin
   result:= fcanvas.fdrawinfo.gc.paintdevicesize;
  end;
+end;
+
+procedure tuniversalprinter.getcanvasimage(const bgr: boolean;
+               var aimage: maskedimagety);
+begin
+ //dummy
 end;
 
 procedure tuniversalprinter.setprncommand(acommandtype: trawprintercommand);

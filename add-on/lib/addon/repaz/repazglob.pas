@@ -74,7 +74,7 @@ type
  reportoptionty = (reo_nodisablecontrols,
                   reo_autoreadstat,reo_autowritestat);
  reportoptionsty = set of reportoptionty;
- printdestinationty = (pd_Design,pd_Preview,pd_Printer,pd_PostScript,pd_PDF,pd_Text,pd_HTML,pd_Excel,pd_OpenOffice);
+ printdestinationty = (pd_Design,pd_Preview,pd_Printer,pd_PostScript,pd_PDF,pd_Text,pd_HTML,pd_Excel,pd_OpenOffice,pd_PNG);
 
  findtextinfoty = record
   text: msestring;

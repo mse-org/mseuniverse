@@ -1,7 +1,7 @@
 object repazpreviewfo: trepazpreviewfo
   visible = False
-  bounds_x = 121
-  bounds_y = 182
+  bounds_x = 85
+  bounds_y = 189
   bounds_cx = 672
   bounds_cy = 468
   anchors = []
@@ -89,6 +89,7 @@ object repazpreviewfo: trepazpreviewfo
     FEFFFF7FFEFFFF7FFEFFFF7FFEFFFF7FFEFFFF7FFEFFFF7FFEFFFF7FFEFFFF7F
     FCFFFF3FF8FFFF1F00000000
   }
+  oncreate = repazpreviewfo_oncreate
   onloaded = repazpreviewfo_onloaded
   ondestroy = repazpreviewfo_ondestroy
   moduleclassname = 'tdockform'
@@ -276,7 +277,8 @@ object repazpreviewfo: trepazpreviewfo
         item
           imagelist = timagelist1
           imagenr = 14
-          state = [as_localimagelist, as_localimagenr]
+          hint = 'd'
+          state = [as_localimagelist, as_localimagenr, as_localhint]
         end      
         item
           imagelist = timagelist1
@@ -293,7 +295,8 @@ object repazpreviewfo: trepazpreviewfo
         item
           imagelist = timagelist1
           imagenr = 10
-          state = [as_localimagelist, as_localimagenr, as_localonexecute]
+          hint = 'Close form'
+          state = [as_localimagelist, as_localimagenr, as_localhint, as_localonexecute]
           onexecute = mnuexitexec
         end>
       options = [tbo_novert, tbo_shortcuthint]
@@ -339,7 +342,7 @@ object repazpreviewfo: trepazpreviewfo
     menu.submenu.count = 5
     menu.submenu.items = <    
       item
-        submenu.count = 9
+        submenu.count = 10
         submenu.items = <        
           item
             caption = '&Print'
@@ -393,6 +396,12 @@ object repazpreviewfo: trepazpreviewfo
             state = [as_localcaption, as_localimagelist, as_localimagenr]
             imagelist = timagelist1
             imagenr = 15
+          end        
+          item
+            caption = 'Save to PNG'
+            name = 'mnureppng'
+            state = [as_localcaption, as_localimagelist]
+            imagelist = timagelist1
           end        
           item
             options = [mao_separator, mao_shortcutcaption]

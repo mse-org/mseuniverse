@@ -41,7 +41,7 @@ uses
  msedrawtext,msestrings,msedb,db,mseobjectpicker,msestat,msestatfile,
  msepointer,mseevent,mselookupbuffer,mseformatstr,msqldb,repaztypes,
  mseglob,msesys,repazdatasources,typinfo,universalprinter,universalprintertype,msestockobjects,
- repazglob,repazpreviewform,msesqldb,repazchart,barcode,
+ repazglob,repazpreviewform,msesqldb,repazchart,barcode,msearrayutils,
  variants,msebitmap,mseformatbmpicoread,mseformatjpgread,repazevaluator,mseforms,
  mseformatpngread,mseformatpngwrite,mseformatjpgwrite,msedock,repazdesign;
  
@@ -521,6 +521,7 @@ type
    procedure sizechanged;override;
    procedure poschanged;override;
    procedure childmouseevent(const sender: twidget; var info: mouseeventinfoty);override;
+   procedure clientmouseevent(var info: mouseeventinfoty); override;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
@@ -813,6 +814,7 @@ type
    function reportcsv: boolean;
    function reporthtml(const extfile: string): boolean;
    function reportpdf: boolean;
+   function reportpng: boolean;
    function reportpostscript: boolean;
    procedure savemetapages;
    function reppagecount: integer;
@@ -866,6 +868,7 @@ type
    procedure reportpostscript(const sender: TObject);
    procedure reportcsv(const sender: TObject);
    procedure reportpdf(const sender: TObject);
+   procedure reportpng(const sender: TObject);
    procedure reporthtml(const sender: TObject);
    procedure reportexcel(const sender: TObject);
    procedure reportopenoffice(const sender: TObject);
@@ -1024,6 +1027,11 @@ begin
  fintf.getreport.reportpdf; 
 end;
 
+procedure TPreviewForm.reportpng(const sender: TObject);
+begin
+ fintf.getreport.reportpng; 
+end;
+
 procedure TPreviewForm.reporthtml(const sender: TObject);
 begin
  fintf.getreport.reporthtml('html'); 
@@ -1050,6 +1058,7 @@ begin
   itembyname('mnurephtml').onexecute:= @reporthtml;
   itembyname('mnurepexcel').onexecute:= @reportexcel;
   itembyname('mnurepopenoffice').onexecute:= @reportopenoffice;
+  itembyname('mnureppng').onexecute:= @reportpng;
  end;
  ttoolbar2.buttons[1].onexecute:=@reportprint;
  ttoolbar2.buttons[2].onexecute:=@reportcsv;
@@ -2570,16 +2579,6 @@ begin
       reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
      end;
     end;
-    //reset summary if needed
-    if aresetsum then begin
-     if items[int1] is TraTabulatorItemSummary then begin
-      with TraTabulatorItemSummary(items[int1]) do begin
-       if fsummary<>st_None then begin
-        fsum.resetpending:= true;
-       end;
-      end;
-     end;
-    end;
     with fbordertop do begin
      if linewidth > 0 then begin
       linestart:= makepoint(adest.x+round(items[int1].position*fpixelperunit),adest.y);
@@ -2669,6 +2668,16 @@ begin
   if isbuilding then begin
    reptabinfo.rawemptyrow:= frawlinebelow;
    freporttemplate.reportpage.report.addtabtoreport(reptabinfo);
+  end;
+ end;
+ //reset summary if needed
+ if aresetsum then begin
+  if items[int1] is TraTabulatorItemSummary then begin
+   with TraTabulatorItemSummary(items[int1]) do begin
+    if fsummary<>st_None then begin
+     fsum.resetpending:= true;
+    end;
+   end;
   end;
  end;
  fbitmapfield.free;
@@ -3723,16 +3732,24 @@ end;
 procedure TraReportTemplate.getpickobjects(const sender: tobjectpicker;var objects: integerarty);
 var
  int1,int2,int3,int4: integer;
+ arect: rectty;
 begin
  fpickkind:= -1;
  fpickarrayindex:= -1;
- int3:= sender.pos.x;
+ arect:= sender.pickrect;
+ if fframe <> nil then begin
+  int3:= arect.x - frame.framei_left;
+ end
+ else begin
+  int3:= arect.x;
+ end;
  if (fpageheader.count>0) then begin
   for int1:=0 to fpageheader.count-1 do begin
    with fpageheader.items[int1] do begin
     for int2:=0 to tabulators.count-1 do begin
      if (sender.pos.y>=tabulators.yposition) and (sender.pos.y<=tabulators.yposition+tabulators.pixelheight) then begin
-      int4:= abs(int3 - round(tabulators.items[int2].Position*fpixelperunit));
+      int4:= round(tabulators.items[int2].Position*fpixelperunit);
+      int4:= abs(int3 - int4);
       if int4 < tabpickthreshold then begin
        setlength(objects,1);
        objects[0]:= int2;
@@ -3750,7 +3767,8 @@ begin
    with freportheader.items[int1] do begin
     for int2:=0 to tabulators.count-1 do begin
      if (sender.pos.y>=tabulators.yposition) and (sender.pos.y<=tabulators.yposition+tabulators.pixelheight) then begin
-      int4:= abs(int3 - round(tabulators.items[int2].Position*fpixelperunit));
+      int4:= round(tabulators.items[int2].Position*fpixelperunit);
+      int4:= abs(int3 - int4);
       if int4 < tabpickthreshold then begin
        setlength(objects,1);
        objects[0]:= int2;
@@ -3809,42 +3827,42 @@ end;
 
 procedure TraReportTemplate.endpickmove(const sender: tobjectpicker);
 begin
- if sender.selectobjects=nil then exit;
+ if sender.currentobjects=nil then exit;
  case fpickkind of
   0: begin
       with fpageheader[fpickarrayindex].tabulators do begin
-       items[sender.selectobjects[0]].position:= items[sender.selectobjects[0]].position+(sender.pickoffset.x/fpixelperunit);
-       if sender.selectobjects[0]>=1 then begin
-        items[sender.selectobjects[0]-1].width:= items[sender.selectobjects[0]-1].width+(sender.pickoffset.x/fpixelperunit);
+       items[sender.currentobjects[0]].position:= items[sender.currentobjects[0]].position+(sender.pickoffset.x/fpixelperunit);
+       if sender.currentobjects[0]>=1 then begin
+        items[sender.currentobjects[0]-1].width:= items[sender.currentobjects[0]-1].width+(sender.pickoffset.x/fpixelperunit);
        end;
       end;
      end;
   1: begin
       with freportheader[fpickarrayindex].tabulators do begin
-       items[sender.selectobjects[0]].position:= items[sender.selectobjects[0]].position+(sender.pickoffset.x/fpixelperunit);
-       if sender.selectobjects[0]>=1 then begin
-        items[sender.selectobjects[0]-1].width:= items[sender.selectobjects[0]-1].width+(sender.pickoffset.x/fpixelperunit);
+       items[sender.currentobjects[0]].position:= items[sender.currentobjects[0]].position+(sender.pickoffset.x/fpixelperunit);
+       if sender.currentobjects[0]>=1 then begin
+        items[sender.currentobjects[0]-1].width:= items[sender.currentobjects[0]-1].width+(sender.pickoffset.x/fpixelperunit);
        end;
       end;
      end;
   2: begin
       with fpagefooter[fpickarrayindex].tabulators do begin
-       items[sender.selectobjects[0]].position:= items[sender.selectobjects[0]].position+(sender.pickoffset.x/fpixelperunit);
-       if sender.selectobjects[0]>=1 then begin
-        items[sender.selectobjects[0]-1].width:= items[sender.selectobjects[0]-1].width+(sender.pickoffset.x/fpixelperunit);
+       items[sender.currentobjects[0]].position:= items[sender.currentobjects[0]].position+(sender.pickoffset.x/fpixelperunit);
+       if sender.currentobjects[0]>=1 then begin
+        items[sender.currentobjects[0]-1].width:= items[sender.currentobjects[0]-1].width+(sender.pickoffset.x/fpixelperunit);
        end;
       end;
      end;
   3: begin
       with freportfooter[fpickarrayindex].tabulators do begin
-       items[sender.selectobjects[0]].position:= items[sender.selectobjects[0]].position+(sender.pickoffset.x/fpixelperunit);
-       if sender.selectobjects[0]>=1 then begin
-        items[sender.selectobjects[0]-1].width:= items[sender.selectobjects[0]-1].width+(sender.pickoffset.x/fpixelperunit);
+       items[sender.currentobjects[0]].position:= items[sender.currentobjects[0]].position+(sender.pickoffset.x/fpixelperunit);
+       if sender.currentobjects[0]>=1 then begin
+        items[sender.currentobjects[0]-1].width:= items[sender.currentobjects[0]-1].width+(sender.pickoffset.x/fpixelperunit);
        end;
       end;
      end;
  end;
- contentendpickmove(sender.pickpos,sender.shiftstate,sender.pickoffset,sender.selectobjects);
+ contentendpickmove(sender.pickpos,sender.shiftstate,sender.pickoffset,sender.currentobjects);
  fpickkind:= -1;
  fpickarrayindex:= -1;
  designchanged;
@@ -3870,6 +3888,13 @@ begin
  inherited;
 end;
 
+procedure TraReportTemplate.clientmouseevent(var info: mouseeventinfoty);
+begin
+ if fobjectpicker <> nil then begin
+  fobjectpicker.mouseevent(info);
+ end;
+ inherited;
+end;
 { TraPage }
 
 constructor TraPage.create(aowner: tcomponent);
@@ -5261,6 +5286,66 @@ begin
  {$ENDIF}
 end;
 
+function TRepaz.reportpng: boolean;
+var
+ int1: integer;
+ tfiledialog1: tfiledialog;
+ xx: filenamety;
+begin
+ {$IFDEF DEMO_VERSION}
+  result:= false;
+  showmessage(uc(ord(rcsMsgsavefilenotactive)));
+ {$ELSE}
+ if ra_save in freportactions then begin
+  fprintdestination:= pd_PNG;
+  if not isreportfinished then begin
+   result:= reportexec;
+  end;
+  if isreportfinished then begin
+   tfiledialog1:= tfiledialog.create(nil);
+   tfiledialog1.dialogkind:= fdk_save;
+   tfiledialog1.controller.defaultext:= 'png';
+   with tfiledialog1.controller do begin
+    captionsave:=uc(ord(rcsCapsave2png));
+    filterlist.add(uc(ord(rcsLblpng)),'*.png');
+    filterlist.add(uc(ord(rcsLblallfiles)),'*.*');
+   end;
+   if tfiledialog1.execute=mr_ok then begin
+    xx:= tfiledialog1.controller.filename;
+    if xx='' then begin
+     showmessage(uc(ord(rcsMsgtypepsfn)));
+     tfiledialog1.free;
+     exit;
+    end;
+    fuprinter.outputfilename:= xx;
+   end else begin
+    tfiledialog1.free;
+    exit;
+   end;
+   tfiledialog1.free;
+   fuprinter.canvas.ppmm:= fpixelperunit;
+   fuprinter.page_paperheight:= freppages[0].pageheight;
+   fuprinter.page_paperwidth:= freppages[0].pagewidth;
+   fuprinter.page_orientation:= pageorientationty(ord(freppages[0].PageOrientation));
+   fuprinter.outputformat:= cai_PNG;
+   if length(fmetapages)>=1 then begin
+    fuprinter.beginrender;
+    for int1:=0 to length(fmetapages)-1 do begin
+     fuprinter.newpage;
+     printmetapages(fuprinter.canvas,fmetapages,int1);
+     fuprinter.endpage;
+    end;
+    result:= true;
+    fuprinter.endrender;
+   end;
+  end;
+ end else begin
+  result:= false;
+  showmessage(uc(ord(rcsMsgsavefilenotactive)));
+ end;
+ {$ENDIF}
+end;
+
 function TRepaz.reportpostscript: boolean;
 var
  int1: integer;
@@ -5380,19 +5465,19 @@ begin
    showmessage(uc(ord(rcsMsgprintnotactive)));
    exit;
   end; 
- end else if fprintdestination=pd_PostScript then begin
+ end else if ((fprintdestination=pd_PostScript) 
+   or (fprintdestination=pd_PDF)
+   or (fprintdestination=pd_HTML)
+   or (fprintdestination=pd_Excel)
+   or (fprintdestination=pd_OpenOffice)
+   or (fprintdestination=pd_PNG))
+   then begin
   if not (ra_save in freportactions) then begin
    result:= false;
    showmessage(uc(ord(rcsMsgsavefilenotactive)));
    exit;
   end; 
- end else if fprintdestination=pd_PDF then begin
-  if not (ra_save in freportactions) then begin
-   result:= false;
-   showmessage(uc(ord(rcsMsgsavefilenotactive)));
-   exit;
   end; 
- end;
  isreportfinished:= false;
  bo1:= isrelativepath(ffilename);
  if bo1 then begin
@@ -5504,11 +5589,11 @@ var
 begin
  for int1:= 0 to high(fdatasets) do begin
   with fdatasets[int1] do begin
-   //if not (reo_nodisablecontrols in foptions) then begin
+   if not (reo_nodisablecontrols in foptions) then begin
     enablecontrols;
-   //end;
   end;
  end;
+end;
 end;
 
 function TRepaz.exec: boolean;
@@ -5972,6 +6057,8 @@ begin
   reporthtml('xls');
  end else if fprintdestination=pd_OpenOffice then begin
   reporthtml('ods');
+ end else if fprintdestination=pd_PNG then begin
+  reportpng;
  end;
 end;
 

@@ -236,7 +236,7 @@
   'Select unit report', //rcsSelectunitinfo,
   'Show/hide grid',  //rcsShowgridinfo
   'On/off snap to grid',  //rcsSnapinfo
-  'Exit report designer',  //rcsExitinfo
+  'Close form',  //rcsExitinfo
   '&Print',  //rcsMnuprint
   '&Save to PostScript',  //rcsMnusavetops
   'Save to &PDF',  //rcsMnusavetopdf
@@ -260,6 +260,10 @@
   'Save to text (CSV) file',  //rcsSaverepinfo
   'Save to PostScript file',  //rcsSave2psinfo
   'Save to PDF file',  //rcsSave2pdfinfo
+  'Save to HTML file',  //rcsSave2htmlinfo
+  'Save to Microsoft Excel file',  //rcsSave2excelinfo
+  'Save to OpenOffice Calc file',  //rcsSave2openofficeinfo
+  'Save to PNG file',  //rcsSave2pnginfo
   'Find text in report',  //rcsFindtextinfo
   'Display',  //rcsDisplay
   'Show &grid',  //rcsLblshowgrid
@@ -306,6 +310,8 @@
   'Excel Files', //rcsLblexcel,
   'Save to OpenOffice file', //rcsCapsave2openoffice,
   'OpenOffice Files', //rcsLblopenoffice,
+  'Save to PNG', //rcsCapsave2png
+  'PNG Files', //rcsLblpng,
   'All files',  //rcsLblallfiles
   'Please type name of PostScript file output',  //rcsMsgtypepsfn
   'Save Repaz Metafile',  //rcsCapsave2metapage
