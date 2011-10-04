@@ -17,17 +17,8 @@ order14=0
 order15=0
 order16=0
 [projectoptions]
-projectdir=/mnt/data/projects/mse/msetune/current
-projectfilename=/mnt/data/projects/mse/msetune/current/msetune.prj
-finddialog=8
- [finddialogfo.selectedonly]
- value=0
- [finddialogfo]
- stackedunder=
- x=319
- y=205
- cx=331
- cy=116
+projectdir=/mnt/data/projects/mse/msetune/0.3
+projectfilename=/mnt/data/projects/mse/msetune/0.3/msetune.prj
 options=83
  [projectoptionsfo.twidgetgrid3]
  propcolwidthref=801
@@ -114,13 +105,24 @@ options=83
  cy=572
 settings=8
  [settingsfo]
- x=230
- y=48
+ x=100
+ y=106
  cx=358
  cy=574
  wsize=0
  active=1
  visible=1
+bmpfiledialog=10
+ [filedialog]
+ filenames=1
+  /D:/BIN/mse2.6/msegui/msegui_642.png
+ lastdir=/D:/BIN/mse2.6/msegui/
+ filehistory=2
+  /D:/BIN/mse2.6/msegui/msegui_642.png
+  /D:/BIN/mse2.6/msegui/msegui_64.png
+ filefilterindex=0
+ filefilter="*.jpg" "*.jpeg" "*.bmp" "*.ico" "*.png" "*.pnm" "*.pgm" "*.pbm" "*.tga" "*.xpm"
+ filecolwidth=174
 mainfile=${PROJECTNAME}.pas
 targetfile=${PROJECTNAME}${EXEEXT}
 messageoutputfile=
@@ -302,7 +304,7 @@ modulenames=1
 moduletypes=1
  TMAINFO
 modulefiles=1
- /mnt/data/projects/mse/msetune/current/main.mfm
+ /mnt/data/projects/mse/msetune/0.3/main.mfm
 befcommandon=0
 makeoptionson=4
  63
@@ -475,7 +477,8 @@ address=0
 addbkpt=0
 ignore=0
 condition=0
-panels=0
+panels=1
+ panel1
 units=
  (
  a=0,4132,6,Pascal Units
@@ -502,13 +505,15 @@ cy=0
 progparamhistory=0
 envvarons=0
 [layout]
-windowlayout=522
+windowlayout=540
  [mainfo.projectfiledia]
  filenames=1
-  /mnt/data/projects/mse/pacman/current/pacmanXG.prj
- lastdir=/mnt/data/projects/mse/pacman/current/
+  /mnt/data/projects/mse/msetune/0.3/msetune.prj
+ lastdir=/mnt/data/projects/mse/msetune/0.3/
  filehistory=10
+  /mnt/data/projects/mse/msetune/0.3/msetune.prj
   /mnt/data/projects/mse/pacman/current/pacmanXG.prj
+  /mnt/data/projects/mse/VideoPlayerDemo/testvideo.prj
   /mnt/data/projects/mse/msetune/current/msetune.prj
   /mnt/data/projects/mse/videosystem/alsvs.prj
   /mnt/data/projects/mse/444/hjkhk.prj
@@ -516,8 +521,6 @@ windowlayout=522
   /usr/src/msetrunk/tools/unitdep/mseunitdep.prj
   /mnt/data/projects/mse/opengl/webworld/webworld.prj
   /mnt/data/projects/mse/msetune/msetune.prj
-  /mnt/data/projects/mse/opengl/3/webworld.prj
-  /mnt/data/projects/mse/opengl/webworld2/webworld.prj
  filefilterindex=0
  filefilter=*.prj
  filecolwidth=174
@@ -526,12 +529,13 @@ windowlayout=522
  cx=0
  cy=0
  [mainfo.openfile]
- filenames=0
+ filenames=1
+  /mnt/data/projects/mse/msetune/0.3/bmp2pas.pas
  filehistory=6
-  /d:/projects/mse/msetune/msesysintf.pas
-  /usr/src/mse2.6/msegui/tools/bmp2pas.pas
-  /mnt/data/projects/mse/msetune/bmp2pas.pas
-  /mnt/data/projects/mse/imageviewer/main.pas
+  /mnt/data/projects/mse/msetune/0.3/bmp2pas.pas
+  /D:/projects/mse/msetune/current/main.pas
+  /D:/projects/mse/alsmplayer/alsmplayer/alsmplayer.pas
+  /D:/projects/mse/msetune/0.3/main.pas
   /home/mse/proj/msegui/testcase/jean-pierre/Demo/main.pas
   /D:/MSE/Livre/DemoMSE/Demo.pas
  filefilterindex=0
@@ -547,24 +551,24 @@ windowlayout=522
  [mainfo]
  splitdir=0
  useroptions=127
- stackedunder=formdesignerfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=66
- y=29
- cx=791
- cy=140
+ x=3
+ y=26
+ cx=411
+ cy=83
  rcx=0
  rcy=0
  children=2
-  container,0,16,781,124
-  ,0,0,781,16
+  container,0,16,401,67
+  ,0,0,401,16
  wsize=0
- active=0
+ active=1
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -575,13 +579,13 @@ windowlayout=522
  ny=0
  ncx=0
  ncy=0
- x=169
- y=400
- cx=800
- cy=438
+ x=248
+ y=493
+ cx=904
+ cy=347
  rcx=0
  rcy=0
- wsize=3
+ wsize=0
  active=0
  visible=0
  [threadsfo]
@@ -605,7 +609,7 @@ windowlayout=522
  [memoryfo]
  splitdir=0
  useroptions=16507
- stackedunder=cpui386fo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -632,7 +636,7 @@ windowlayout=522
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=breakpointsfo
+ stackedunder=projecttreefo
  parent=
  mdistate=0
  nx=0
@@ -651,7 +655,7 @@ windowlayout=522
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=memoryfo
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -667,7 +671,7 @@ windowlayout=522
  [projecttreefo]
  splitdir=0
  useroptions=16491
- stackedunder=disassfo
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -720,7 +724,7 @@ windowlayout=522
  ny=0
  ncx=0
  ncy=0
- x=317
+ x=537
  y=26
  cx=483
  cy=210
@@ -756,7 +760,7 @@ windowlayout=522
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- stackedunder=findinfilefo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
@@ -777,7 +781,7 @@ windowlayout=522
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=sourcefo
+ stackedunder=watchfo
  parent=
  mdistate=0
  nx=0
@@ -785,24 +789,24 @@ windowlayout=522
  ncx=0
  ncy=0
  x=836
- y=31
+ y=38
  cx=316
- cy=581
+ cy=484
  rcx=0
  rcy=0
- wsize=0
+ wsize=3
  active=0
- visible=1
+ visible=0
  [objectinspectorfo.grid]
- propcolwidthref=306
- width0=145
+ propcolwidthref=291
+ width0=153
  sortdescent0=0
- width1=155
+ width1=132
  sortdescent1=0
  [symbolfo]
  splitdir=0
  useroptions=16511
- stackedunder=messagefo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -837,7 +841,7 @@ windowlayout=522
  ny=0
  ncx=0
  ncy=0
- x=490
+ x=510
  y=325
  cx=310
  cy=245
@@ -870,26 +874,23 @@ windowlayout=522
  [messagefo]
  splitdir=0
  useroptions=49259
- stackedunder=mainfo
- parent=
+ parent=mainfo.panel1.container
+ visible=0
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=7
- y=700
- cx=1074
- cy=138
- rcx=724
- rcy=491
- wsize=0
- active=0
- visible=0
+ x=0
+ y=382
+ cx=1142
+ cy=171
+ rcx=1142
+ rcy=553
  [componentstorefo]
  splitdir=0
  useroptions=24675
- stackedunder=projecttreefo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
@@ -952,21 +953,24 @@ windowlayout=522
  [componentpalettefo]
  splitdir=0
  useroptions=24683
- parent=mainfo.basedock
- visible=1
+ stackedunder=mainfo.panel1
+ parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=0
- y=29
- cx=781
- cy=75
+ x=422
+ y=24
+ cx=594
+ cy=85
  rcx=0
  rcy=0
+ wsize=0
+ active=0
+ visible=1
  [componentpalettefo.componentpages]
- activetab=16
+ activetab=2
  [debuggerfo]
  splitdir=0
  useroptions=24683
@@ -979,28 +983,26 @@ windowlayout=522
  ncy=0
  x=0
  y=0
- cx=781
- cy=26
+ cx=401
+ cy=47
  rcx=0
  rcy=0
  [sourcefo]
  splitdir=0
  useroptions=16489
- parent=
+ parent=mainfo.panel1.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=2
- y=94
- cx=1145
- cy=611
+ x=0
+ y=0
+ cx=1142
+ cy=553
  rcx=0
  rcy=0
- wsize=0
- active=1
- visible=1
  [actionsmo.watchesonact]
  checked=1
  [actionsmo.bluedotsonact]
@@ -1009,7 +1011,7 @@ windowlayout=522
  irqoff=0
  splitdir=0
  useroptions=16491
- stackedunder=symbolfo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -1025,41 +1027,52 @@ windowlayout=522
  wsize=0
  active=0
  visible=0
+ [mainfo.panel1]
+ splitdir=2
+ useroptions=32235
+ stackedunder=formdesignerfo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=280
+ cx=1152
+ cy=553
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=1
 [edit]
-hintwidth=314
-hintheight=214
-finddtext=_icon
-findhistory=8
- _icon
- ddd_trunkdir
- prjdir
- deletefile
- apphomedir
- userhomedir
- dir
- appl
+hintwidth=0
+hintheight=0
+finddtext=
+findhistory=0
 findoptions=1
 editpos=2
- 0,-1073741823
- 53,354
+ 33,24
+ 43,4
 bookmarks0=0
 bookmarks1=0
 sourcefiles=2
- /mnt/data/projects/mse/msetune/current/msetune.pas
- /mnt/data/projects/mse/msetune/current/main.pas
+ /mnt/data/projects/mse/msetune/0.3/main.pas
+ /mnt/data/projects/mse/msetune/0.3/bmp2pas.pas
 relpaths=2
- msetune.pas
  main.pas
+ bmp2pas.pas
 ismoduletexts=2
  0
  0
 modules=1
- /mnt/data/projects/mse/msetune/current/main.mfm
+ /mnt/data/projects/mse/msetune/0.3/main.mfm
 visiblemodules=1
  -1
 nomenumodules=1
  0
 [sourcefo.tabwidget]
-tabsize=107
+tabsize=134
 firsttab=0
-index=1
+index=0

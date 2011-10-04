@@ -1,3 +1,19 @@
+{ Copyright (c) 2011 by Alexandre Minoshi
+   
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; version 2 of the License.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+}
+
 unit main;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -9,25 +25,33 @@ uses
  msesimplewidgets,mseterminal, classes, inifiles, msesysintf, process,
  msedataimage,msegraphedits,mseformatpngread, mseformatjpgread,mseformatxpmread,
  mseformatbmpicoread,mseformatpnmread, mseformattgaread,mseimage,msesplitter,
- bmp2pas, msefileutils,mseeditglob,msetextedit;
+ bmp2pas, msefileutils,mseeditglob,msetextedit, MSEPROCESS,msetimer;
 
 type
  tmainfo = class(tmainform)
-   imlist: timagelist;
-   fd: tfiledialog;
-   tw: ttabwidget;
-   ttabpage11: ttabpage;
-   ttabpage12: ttabpage;
-   tw_inslall: ttabwidget;
-   ttabpage10: ttabpage;
-   tlabel8: tlabel;
-   b01: tbutton;
-   ttabpage8: ttabpage;
+   tw_main: ttabwidget;
+   ttabpage1: ttabpage;
    ddd_msedir: tdirdropdownedit;
    fne_ppcpath: tfilenameedit;
-   tlabel1: tlabel;
-   b_2: tbutton;
-   ttabpage1: ttabpage;
+   fne_svnclient: tfilenameedit;
+   tbutton1: tbutton;
+   tbutton2: tbutton;
+   ttabpage2: ttabpage;
+   be_compile_mse: tbooleanedit;
+   tbutton3: tbutton;
+   tw_update: twidgetgrid;
+   term_update: tterminal;
+   l_update_status: tlabel;
+   tgroupbox1: tgroupbox;
+   be_update_contr: tbooleanedit;
+   be_update_mseuniverse: tbooleanedit;
+   be_update_help: tbooleanedit;
+   be_update_mse: tbooleanedit;
+   ttabpage3: ttabpage;
+   se_prj_name: tstringedit;
+   tbutton4: tbutton;
+   tstockglyphbutton2: tstockglyphbutton;
+   tstockglyphbutton1: tstockglyphbutton;
    tw_: twidgetgrid;
    fne: tfilenameedit;
    se_tab: tstringedit;
@@ -35,108 +59,225 @@ type
    se_icon: tstringedit;
    di: tdataicon;
    tdatabutton1: tdatabutton;
-   tstockglyphbutton1: tstockglyphbutton;
-   tstockglyphbutton2: tstockglyphbutton;
-   tbutton1: tbutton;
-   se_prj_name: tstringedit;
-   b_1: tbutton;
-   tlabel2: tlabel;
-   im: timage;
-   tlabel6: tlabel;
-   ttabpage6: ttabpage;
    tw_build: twidgetgrid;
    se1: tstringedit;
    se2: tstringedit;
-   twidgetgrid1: twidgetgrid;
+   tw_install: twidgetgrid;
    term: tterminal;
-   button4: tbutton;
-   bb2: tbutton;
-   tlabel3: tlabel;
-   ttabpage9: ttabpage;
-   tlabel4: tlabel;
-   tbutton2: tbutton;
-   bs2: tbutton;
-   l_inf: tlabel;
-   ttabpage2: ttabpage;
-   ttabwidget2: ttabwidget;
-   ttabpage3: ttabpage;
-   m_prj: tmemoedit;
+   fd: tfiledialog;
+   imlist: timagelist;
    ttabpage4: ttabpage;
-   m_inc: tmemoedit;
+   ttabwidget2: ttabwidget;
    ttabpage5: ttabpage;
-   m_regpas: tmemoedit;
+   m_prj: tmemoedit;
+   ttabpage6: ttabpage;
+   m_inc: tmemoedit;
    ttabpage7: ttabpage;
+   m_regpas: tmemoedit;
+   ttabpage8: ttabpage;
    m_regpas_orig: tmemoedit;
-   tbutton4: tbutton;
+   tlabel1: tlabel;
+   tlabel2: tlabel;
+   tlabel3: tlabel;
+   tlabel4: tlabel;
    tlabel5: tlabel;
-   twidgetgrid2: twidgetgrid;
-   term_update: tterminal;
-   tbutton3: tbutton;
-   ttabpage13: ttabpage;
-   tbutton5: tbutton;
-   be_insert: tbooleanedit;
-   fne_updateutility: tfilenameedit;
-   ddd_trunkdir: tdirdropdownedit;
-   fne_ppcpath2: tfilenameedit;
-   be_update_help: tbooleanedit;
-   be_update_contr: tbooleanedit;
-   be_update_mse: tbooleanedit;
-   be_compile_mse: tbooleanedit;
-   l_update_status: tlabel;
-   ddd_trunkdir3: tdirdropdownedit;
-   tlabel7: tlabel;
-   fne_ppcpath3: tfilenameedit;
+   tgroupbox2: tgroupbox;
    be_ctrl_space: tbooleanedit;
-   be_compile_mse3: tbooleanedit;
-   twidgetgrid3: twidgetgrid;
-   term_rebuild: tterminal;
+   be_insert: tbooleanedit;
+   be_pascalscript: tbooleanedit;
+   im: timage;
+   ttimer1: ttimer;
    fne_msetune: tfilenameedit;
+   procedure on_loaded(const sender: TObject);
+   procedure on_savesettings(const sender: TObject);
+   procedure on_close(const sender: TObject);
+   procedure on_update_mse(const sender: TObject);
+   procedure on_finish_update_mse(const sender: TObject);   
    procedure on_add_row(const sender: TObject);
    procedure on_delete_row(const sender: TObject);
    procedure on_compile(const sender: TObject);
-   procedure on_loaded(const sender: TObject);
-   procedure on_receive_text(const sender: TObject; var atext: AnsiString; const errorinput: Boolean);
-   procedure on_finish(const sender: TObject);
-   procedure on_step(const sender: TObject);
-   procedure on_close(const sender: TObject);
-   procedure on_run_new_mse(const sender: TObject);
-   procedure on_closepr(const sender: TObject);
    procedure on_loadicon(const sender: TObject);
-   procedure insert_msetune(const sender: TObject);
-   procedure on_update_mse(const sender: TObject);
-   procedure on_finish_update_mse(const sender: TObject);
-   procedure on_finishbuild(const sender: TObject);
+   procedure on_finishcompile(const sender: TObject);
+   procedure insert_tune_in_mse(idedir : string);
+   procedure on_timer(const sender: TObject);
  end;
  
-var
- mainfo : tmainfo;
-    __s : string;
- 
+type tstatus = (_download,_compile);
+var   mainfo : tmainfo;
+     homedir : string;
+         __s : char;
+         dir : string;
+      kernel : string;
+      status : tstatus;
 implementation
+uses  main_mfm;
 
-uses main_mfm;
+procedure tmainfo.insert_tune_in_mse(idedir : string);
+var s, n : string;  
+    i, y : integer; 
+    f : textfile; 
+    msetunepath, msetunepathnew : string;
+begin
+ if idedir[length(idedir)] <> __s then idedir := idedir + __s;
+ {$ifdef windows}for i := 0 to length(idedir) do if idedir[i] = '/' then idedir[i] := __s;{$endif}
+ if not fileexists(idedir + 'main.pas') then exit;
+ if be_insert.value then
+  begin
+     assignfile(f,idedir + 'main.pas');
+     reset(f);
+     s := '';
+     while not eof(f) do 
+      begin
+        readln(f,n);
+        s := s + n + #10;
+      end;  
+     closefile(f);
 
-//========================================================
-//                    PROGRAM
-//========================================================
+    if system.pos(#10 + ' process,' + #10 ,s) = 0 then //decide checking value
+    begin    
+     insert( #10 + ' process,' + #10, s, system.pos('uses',s) + 4); 
+
+     i := system.pos('public',s);
+     y := system.pos('end;',s);
+     repeat
+      inc(i);
+     until i > y;
+     
+     insert( #10 + ' procedure execute0(const sender : tobject);' + #10, s, i - 1); 
+
+     i := system.pos('pascform'']);',s);
+     repeat
+      inc(i);
+     until s[i] = '}';
+     
+     insert( #10 + ' mainmenu1.menu.submenu.count := 8;// mainmenu1.menu.submenu.count + 1;' + #10 +
+                   ' mainmenu1.menu.items[7].caption := ''Outside tools'';' + #10 +
+                   ' mainmenu1.menu.items[7].submenu.count := 1;' + #10 +
+                   ' mainmenu1.menu.items[7].items[0].caption := ''MSEtune ...'';' + #10 +
+                   ' mainmenu1.menu.items[7].items[0].onexecute := @execute0;' + #10 +
+                   'end;' + #10 +
+                   '' + #10 +
+                   'procedure tmainfo.execute0(const sender : tobject);' + #10 +
+                   'var p : tprocess;' + #10 +
+                   'begin' + #10 +
+                   ' p := tprocess.create(nil);' + #10 +
+                   ' p.commandline := ''' + fne_msetune.value + ''';' + #10 +
+                   ' p.execute;' + #10 +
+                   ' p.free;'
+                   + #10, 
+                   s, i + 1); 
+
+     rewrite(f);
+     writeln(f,s);
+     closefile(f);
+    end;  
+    //check msetune path
+    if system.pos('p.commandline := ',s) <> 0 then
+    begin
+    
+     i := system.pos('p.commandline := ',s) + length('p.commandline := ') + 1;
+     y := i;
+     repeat
+      inc(y);
+     until s[y] = '''';
+    
+    msetunepath := trim(copy(s,i, y - i) );
+    msetunepathnew := trim(fne_msetune.value);
+    {$ifdef windows} IF msetunepathnew > '' THEN IF msetunepathnew[1] = '/' THEN DELETE(msetunepathnew,1,1);{$endif}
+    if msetunepath <> msetunepathnew then
+      begin
+        delete(s,i, y - i);
+        insert(msetunepathnew, s, i);
+        rewrite(f);
+        writeln(f,s);
+        closefile(f);        
+      end;
+    end;
+   end //if be_insert.value then ...
+  else
+  begin //witch off
+     assignfile(f,idedir + 'main.pas');
+     reset(f);
+     s := '';
+     while not eof(f) do 
+      begin
+        readln(f,n);
+        s := s + n + #10;
+      end;  
+     closefile(f);
+
+    if system.pos(#10 + ' process,' + #10 ,s) > 0 then //decide checking value
+      delete(s, system.pos(#10 + ' process,' + #10 ,s), length(#10 + ' process,' + #10)); 
+
+    if system.pos(#10 + ' procedure execute0(const sender : tobject);' + #10, s ) > 0 then     
+      delete(s, system.pos(#10 + ' procedure execute0(const sender : tobject);' + #10, s ), 
+             length(#10 + ' procedure execute0(const sender : tobject);' + #10)); 
+
+    if system.pos(#10 + ' mainmenu1.menu.submenu.count := 8;// mainmenu1.menu.submenu.count + 1;' + #10 +
+                   ' mainmenu1.menu.items[7].caption := ''Outside tools'';' + #10 +
+                   ' mainmenu1.menu.items[7].submenu.count := 1;' + #10 +
+                   ' mainmenu1.menu.items[7].items[0].caption := ''MSEtune ...'';' + #10 +
+                   ' mainmenu1.menu.items[7].items[0].onexecute := @execute0;' + #10 +
+                   'end;' + #10 +
+                   '' + #10 +
+                   'procedure tmainfo.execute0(const sender : tobject);' + #10 +
+                   'var p : tprocess;' + #10 +
+                   'begin' + #10 +
+                   ' p := tprocess.create(nil);' + #10, s ) > 0 then     
+      delete(s, system.pos(#10 + ' mainmenu1.menu.submenu.count := 8;// mainmenu1.menu.submenu.count + 1;' + #10 +
+                   ' mainmenu1.menu.items[7].caption := ''Outside tools'';' + #10 +
+                   ' mainmenu1.menu.items[7].submenu.count := 1;' + #10 +
+                   ' mainmenu1.menu.items[7].items[0].caption := ''MSEtune ...'';' + #10 +
+                   ' mainmenu1.menu.items[7].items[0].onexecute := @execute0;' + #10 +
+                   'end;' + #10 +
+                   '' + #10 +
+                   'procedure tmainfo.execute0(const sender : tobject);' + #10 +
+                   'var p : tprocess;' + #10 +
+                   'begin' + #10 +
+                   ' p := tprocess.create(nil);' + #10, s), 
+            length(#10 + ' mainmenu1.menu.submenu.count := 8;// mainmenu1.menu.submenu.count + 1;' + #10 +
+                   ' mainmenu1.menu.items[7].caption := ''Outside tools'';' + #10 +
+                   ' mainmenu1.menu.items[7].submenu.count := 1;' + #10 +
+                   ' mainmenu1.menu.items[7].items[0].caption := ''MSEtune ...'';' + #10 +
+                   ' mainmenu1.menu.items[7].items[0].onexecute := @execute0;' + #10 +
+                   'end;' + #10 +
+                   '' + #10 +
+                   'procedure tmainfo.execute0(const sender : tobject);' + #10 +
+                   'var p : tprocess;' + #10 +
+                   'begin' + #10 +
+                   ' p := tprocess.create(nil);' + #10)); 
+
+     i := system.pos('p.commandline',s);
+     y := system.pos('p.free;',s);
+     delete(s,i,y + 7 - i);
+
+     rewrite(f);
+     writeln(f,s);
+     closefile(f);
+   end; //if be_insert.value then ... switch off
+end;
+
 procedure tmainfo.on_loaded(const sender: TObject);
 var fi : tinifile;
      s : string;
-     i : integer;
-    sl : tstringlist;
+    sl : tstringlist; 
+     I : INTEGER;
 begin
   //msetune pre settings
   se1[0] := 'Prepare directory for your MSEide version';
   se1[1] := 'Coping units';
   se1[2] := 'Prepare icons';
   se1[3] := 'Prepare templates';
-  se1[4] := 'Compilng';
+  se1[4] := 'Compilng';  
   l_update_status.caption := '';
-  tw.activepageindex := 0;
-  tw_inslall.activepageindex := 0;
-  tw_inslall.top := tw_inslall.top - tw_inslall.tab_size;
+  tw_main.activepageindex := 0;
+ {$ifdef windows} kernel := 'i386-win32'; {$endif}
+ {$ifdef linux}   kernel := 'i386-linux'; {$endif}  
   __s := {$ifdef windows}'\'{$endif}{$ifdef linux}'/'{$endif};
-
+ {$ifdef mswindows}
+ term_update.optionsprocess := term_update.optionsprocess + [pro_inactive]; // pro_inactive hide cmd.exe window in mswindows
+ {$endif}
+  
   //mseide params
   {$ifdef windows}
   s := sys_getapphomedir + '/.mseide/mseidewi.sta';
@@ -152,13 +293,24 @@ begin
         ddd_msedir.value := fi.readstring('mainfo.mainstatfile', 'msedir', '');
         fne_ppcpath.value := fi.readstring('mainfo.mainstatfile', 'compiler', '');
         fi.free;
-      end;
+      end;  
+
+  //main params
+  homedir := sys_getuserhomedir;
+  {$ifdef windows} IF homedir > '' THEN IF homedir[1] = '/' THEN DELETE(homedir,1,1);{$endif}
+  forcedirectories(homedir + '/.Almin-Soft/msetune');
+  fi := tinifile.create(homedir + '/.Almin-Soft/msetune/main_settings.conf');
+  fne_svnclient.value := fi.readstring('utils', 'svnclient', '');
+  fne_msetune.value := fi.readstring('utils', 'msetune', '');
+
+  be_insert.value := fi.readbool('tune', 'insert', false);
+  be_ctrl_space.value := fi.readbool('tune', 'ctrl_space', false);
+  be_pascalscript.value := fi.readbool('tune', 'pascalscript', false);
+  fi.free;
   
   //component params
-  S := sys_getuserhomedir;
-  {$ifdef windows} IF S > '' THEN IF S[1] = '/' THEN DELETE(S,1,1);{$endif}
-  forcedirectories(S + '/.Almin-Soft/msetune');
-  s := S + '/.Almin-Soft/msetune/msetune_components.conf';
+  forcedirectories(homedir + '/.Almin-Soft/msetune');
+  s := homedir + '/.Almin-Soft/msetune/msetune_components.conf';
   fi := tinifile.create(s);
   sl := tstringlist.create;
 
@@ -182,53 +334,26 @@ begin
     end;
   sl.free;   
   fi.free;
-
-  //update params
-  s := extractfilepath(S) + 'msetune_updatemse.conf';
-  fi := tinifile.create(s);
-  fne_updateutility.value := fi.readstring('update_mse','svn_utility','');
-  ddd_trunkdir.value := fi.readstring('update_mse','trunk_dir','');
-  fne_ppcpath2.value :=  fi.readstring('update_mse','compiler','');
-  fi.free;
-  {$ifdef linux}
-  if fne_updateutility.value = '' then fne_updateutility.value := 'svn co';
-  if ddd_trunkdir.value = '' then ddd_trunkdir.value := '/usr/src/msetrunk';
-  if fne_ppcpath2.value = '' then fne_ppcpath2.value := 'ppc386';
-  {$endif}
-  {$ifdef windows}
-  // === any ideas ? ===
-  {$endif}
-  
-  //tune mse
-  s := extractfilepath(S) + 'msetune_tunemse.conf';
-  fi := tinifile.create(s);
-  ddd_trunkdir3.value := fi.readstring('tunemse','trunk_dir','');
-  fne_ppcpath3.value :=  fi.readstring('tunemse','compiler','');
-  fne_msetune.value :=  fi.readstring('tunemse','msetune','');
-
-  be_insert.value := fi.readbool('tunemse','insert_in_menu',false);
-  be_ctrl_space.value := fi.readbool('tunemse','ctrl_space',false);
-  be_compile_mse3.value := fi.readbool('tunemse','compile_mse',false);
-  fi.free;
-  {$ifdef linux}
-  if ddd_trunkdir3.value = '' then ddd_trunkdir3.value := '/usr/src/msetrunk/apps/ide';
-  if fne_ppcpath3.value = '' then fne_ppcpath3.value := 'ppc386';
-  {$endif}
-  {$ifdef windows}
-  // === any ideas ? ===
-  {$endif}
   
 end;
 
-procedure tmainfo.on_closepr(const sender: TObject);
+procedure tmainfo.on_savesettings(const sender: TObject);
 var fi : tinifile;
-     i : integer;
-     s : string;
+     S : STRING;
+     I : INTEGER;
 begin
-  S := sys_getuserhomedir;
-  {$ifdef windows} IF S > '' THEN IF S[1] = '/' THEN DELETE(S,1,1);{$endif}
-  forcedirectories(S + '/.Almin-Soft/msetune');
-  s := S + '/.Almin-Soft/msetune/msetune_components.conf';
+  //main params
+  forcedirectories(homedir + '/.Almin-Soft/msetune');
+  fi := tinifile.create(homedir + '/.Almin-Soft/msetune/main_settings.conf');
+  fi.writestring('utils', 'svnclient', fne_svnclient.value);
+  fi.writestring('utils', 'msetune', fne_msetune.value);
+  fi.writebool('tune', 'insert', be_insert.value);
+  fi.writebool('tune', 'ctrl_space', be_ctrl_space.value);
+  fi.writebool('tune', 'pascalscript', be_pascalscript.value);
+  fi.free; 
+  
+  //COMPONENTS
+  s := homedir + '/.Almin-Soft/msetune/msetune_components.conf';
   if fileexists(s) then 
      if not deletefile(s) then
         begin
@@ -243,103 +368,129 @@ begin
       fi.writestring(se_type[i],'type',se_type[i]);
       fi.writestring(se_type[i],'icon',se_icon[i]);
     end;
-  fi.free;
-
-  s := extractfilepath(S) + 'msetune_updatemse.conf';
-  if fileexists(s) then 
-     if not deletefile(s) then
-        begin
-          showmessage('Can`t update conf file !' + #10 + s + #10 + 'Check rights!');
-          exit;
-        end;
-  fi := tinifile.create(s);
-  fi.writestring('update_mse','svn_utility',fne_updateutility.value);
-  fi.writestring('update_mse','trunk_dir',ddd_trunkdir.value);
-  fi.writestring('update_mse','compiler',fne_ppcpath2.value);
-  fi.free;
-  
-  s := extractfilepath(S) + 'msetune_tunemse.conf';
-  if fileexists(s) then 
-     if not deletefile(s) then
-        begin
-          showmessage('Can`t update conf file !' + #10 + s + #10 + 'Check rights!');
-          exit;
-        end;
-  fi := tinifile.create(s);
-  fi.writestring('tunemse','trunk_dir', ddd_trunkdir3.value);
-  fi.writestring('tunemse','compiler', fne_ppcpath3.value);
-  fi.writestring('tunemse','msetune', fne_msetune.value);
-
-  fi.writebool('tunemse','insert_in_menu', be_insert.value);
-  fi.writebool('tunemse','ctrl_space', be_ctrl_space.value);
-  fi.writebool('tunemse','compile_mse', be_compile_mse3.value);
-  fi.free;
+  fi.free;  
 end;
 
 procedure tmainfo.on_close(const sender: TObject);
 begin
   close;
 end;
-//========================================================
-//                    INSTALL COMPONENTS
-//========================================================
-//  navigate steps
-procedure tmainfo.on_step(const sender: TObject);
+
+procedure tmainfo.on_update_mse(const sender: TObject);
+var cmd : string;
+  
 begin
-  tw_inslall.activepageindex := (sender as tcomponent).tag;
+ status := _download;
+
+ // STEP 1 UPDATE
+ tw_update.clear;
+ dir := ddd_msedir.value;
+ {$ifdef windows} IF dir > '' THEN IF dir[1] = '/' THEN DELETE(dir,1,1);{$endif}
+
+
+ IF forcedirectories(dir) 
+ then setcurrentdir(dir)
+ else begin
+        term_update.addline('ERROR create directory ' + dir);
+        exit;
+      end;
+ 
+ cmd := '';
+ if be_update_mse.value 
+    then cmd := fne_svnclient.value  + ' https://mseide-msegui.svn.sourceforge.net/svnroot/mseide-msegui/trunk ' + dir;
+
+ if be_update_help.value 
+    then begin
+          if cmd = '' 
+            then cmd := cmd + fne_svnclient.value  + ' https://msedocumenting.svn.sourceforge.net/svnroot/msedocumenting/mse/trunk/help ' + dir + __s + 'help' + __s + 'trunk'
+            else cmd := cmd + ' ; ' + fne_svnclient.value  + ' https://msedocumenting.svn.sourceforge.net/svnroot/msedocumenting/mse/trunk/help ' + dir + __s + 'help' + __s + 'trunk';
+         end;            
+
+ if be_update_contr.value 
+    then begin
+          if cmd = ''
+            then cmd := fne_svnclient.value  + ' https://msedocumenting.svn.sourceforge.net/svnroot/msedocumenting/mse/trunk/contributed ' + dir + __s + 'contributed' + __s + 'trunk'
+            else cmd := cmd + ' ; ' + fne_svnclient.value  + ' https://msedocumenting.svn.sourceforge.net/svnroot/msedocumenting/mse/trunk/contributed ' + dir + __s + 'contributed' + __s + 'trunk';
+         end;
+
+ if be_update_mseuniverse.value 
+    then begin
+          if cmd = ''
+            then cmd := fne_svnclient.value  + ' http://svn.berlios.de/svnroot/repos/mseuniverse/trunk ' + dir + __s + 'mseuniverse' + __s + 'trunk'
+            else cmd := cmd + ' ; ' + fne_svnclient.value  + ' http://svn.berlios.de/svnroot/repos/mseuniverse/trunk ' + dir + __s + 'mseuniverse' + __s + 'trunk';
+         end;
+
+ if (cmd = '') and (not be_insert.value) and (not be_ctrl_space.value) and (not be_compile_mse.value)
+    then begin 
+           term_update.addline('MSEtune : Choose, what you want update, man!');
+           exit;
+         end;
+          
+ term_update.addline('MSEtune : Starting download MSEide (and components)...');
+ l_update_status.caption := 'Be patient, I still update ... ';
+ term_update.execprog(cmd);
+ setcurrentdir(dir);
 end;
 
-//add row for new component
+procedure tmainfo.on_finish_update_mse(const sender: TObject);
+var cmd : string;
+begin
+  term_update.addline('MSEtune : Finish update MSEide');
+  l_update_status.caption := 'Finished';
+  if status = _download then ttimer1.enabled := true;  
+end;
+
+procedure tmainfo.on_timer(const sender: TObject);
+var cmd : string;
+begin
+  ttimer1.enabled := false; 
+  status := _compile;
+ //STEP 2 - COMPILE
+ cmd := '';
+ if be_compile_mse.value 
+    then cmd := fne_ppcpath.value + ' -B -Fulib/common/* -Fulib/common/kernel/' + kernel + ' -Filib/common/kernel apps/ide/mseide.pas';
+ if cmd = '' then exit;
+ insert_tune_in_mse(dir + 'apps/ide/');
+ if be_ctrl_space.value then cmd := cmd + ' -dmse_with_showsourceitems';
+ if be_pascalscript.value then cmd := cmd + ' -dmse_with_pascalscript';
+
+ term_update.addline('MSEtune : Starting compile MSEide (and components)...');
+ l_update_status.caption := 'Be patient, man, I still compile ... ';
+ term_update.execprog(cmd);  
+end;
+
 procedure tmainfo.on_add_row(const sender: TObject);
 begin
  tw_.rowcount := tw_.rowcount + 1;
 end;
-//delete row for new component
+
 procedure tmainfo.on_delete_row(const sender: TObject);
 begin
  if tw_.row >= 0 then tw_.deleterow(tw_.row);
 end;
 
-procedure tmainfo.on_loadicon(const sender: TObject);
-begin
- if fd.execute = mr_ok then
-    begin
-      se_icon.value := fd.controller.filename;
-      im.bitmap.loadfromfile(fd.controller.filename);
-      imlist.addimage(im.bitmap);
-      di[tw_.row] := imlist.count - 1;
-    end;
-end;
-
-//build new ide
 procedure tmainfo.on_compile(const sender: TObject);
 var s, cmd, 
     prjdir, msedir,
     n : string;
-    i,
-    y : integer;
+    i, y : integer;
     fs:tsearchrec;
     f : textfile;
 begin
- tw_inslall.activepageindex := 3;
+ tw_install.clear;
  m_regpas.value := m_regpas_orig.value;
- button4.visible := false;
  for i := 0 to 3 do se2[i] := '';
 
  msedir := ddd_msedir.value;
  {$ifdef windows}if system.pos('/',msedir) = 1 then delete(msedir,1,1);{$endif}
+ {$ifdef windows}for i := 0 to length(msedir) do if msedir[i] = '/' then msedir[i] := __s;{$endif}
  if msedir[length(msedir)] <> __s then msedir := msedir + __s;
 
  prjdir := msedir + 'apps'+ __s + se_prj_name.value;
  if prjdir[length(prjdir)] <> __s then prjdir := prjdir + __s;
 
- {$ifdef windows}
- for i := 0 to length(msedir) do if msedir[i] = '/' then msedir[i] := __s;
- for i := 0 to length(prjdir) do if prjdir[i] = '/' then prjdir[i] := __s;
- {$endif}
- 
- l_inf.caption := prjdir + se_prj_name.value;
- 
+ {$ifdef windows}for i := 0 to length(prjdir) do if prjdir[i] = '/' then prjdir[i] := __s;{$endif}
+
  //STEP 0 - CREATE DIRECTORY FOR NEW MSEIDE BINARY
  se2[0] := 'Wait ...';
  IF forcedirectories(prjdir) 
@@ -455,8 +606,10 @@ begin
         else begin
                se2[1] := 'ERROR coping file mseide.pas';
                exit;
-             end;  
-                
+             end;        
+ //insrt in mseide
+ insert_tune_in_mse(msedir + 'apps/ide/');                
+ 
  assignfile(f, prjdir + 'mymseide.prj');
  rewrite(f);
  writeln(f,m_prj.value);
@@ -491,6 +644,8 @@ begin
     closefile(f); 
     end;   
  {$endif} 
+
+    
  
  IF (fileexists(prjdir + 'mymseide.prj'))
     and(fileexists(prjdir + 'regcomponents.inc'))
@@ -550,200 +705,35 @@ begin
 //      ' ' + msedir + 'apps/ide/mseide.pas';
       ' ' +prjdir + 'mseide.pas';
  {$endif}  
+
+ //switch on ctrl+space
+ if be_ctrl_space.value then cmd := cmd + ' -dmse_with_showsourceitems';
+ //switch on pascal script support
+ if be_pascalscript.value then cmd := cmd + ' -dmse_with_pascalscript';
+ 
+  term.addline('MSEtune : Starting compile ...');
   term.execprog(cmd);    
 end;  
 
-procedure tmainfo.on_receive_text(const sender: TObject; var atext: AnsiString;const errorinput: Boolean);
+procedure tmainfo.on_loadicon(const sender: TObject);
 begin
- if (system.pos('Fatal', atext) > 0)
-  or(system.pos('Error', atext) > 0) 
-  then se2[4] := 'ERROR compiling';
+ if fd.execute = mr_ok then
+    begin
+      se_icon.value := fd.controller.filename;
+      im.bitmap.loadfromfile(fd.controller.filename);
+      imlist.addimage(im.bitmap);
+      di[tw_.row] := imlist.count - 1;
+    end;
 end;
 
-procedure tmainfo.on_finish(const sender: TObject);
+procedure tmainfo.on_finishcompile(const sender: TObject);
 begin
  if se2[4] = 'Wait ...'
   then begin 
         se2[4] := 'Ok';
-        button4.visible := true;
-       end; 
+        term.addline('MSEtune : END process');
+       end;   
 end;
 
-procedure tmainfo.on_run_new_mse(const sender: TObject);
-var p : tprocess;
-begin
-  p := tprocess.create(nil);
-  p.commandline := l_inf.caption;
-  p.execute;
-  p.free;
-end;
-
-//========================================================
-//                    UPDATE MSE, help, contributed
-//========================================================
-procedure tmainfo.on_update_mse(const sender: TObject);
-var cmd : string;
-begin
- IF forcedirectories(ddd_trunkdir.value) 
- then chdir(ddd_trunkdir.value)
- else begin
-        term_update.addline('ERROR create directory ' + ddd_trunkdir.value);
-        exit;
-      end;
- 
- cmd := '';
- if be_update_mse.value 
-    then cmd := fne_updateutility.value  + ' https://mseide-msegui.svn.sourceforge.net/svnroot/mseide-msegui/trunk ' + ddd_trunkdir.value;
-
- if be_update_help.value 
-    then begin
-          if cmd = '' 
-            then cmd := cmd + fne_updateutility.value  + ' https://msedocumenting.svn.sourceforge.net/svnroot/msedocumenting/mse/trunk/help ' + ddd_trunkdir.value + __s + 'help' + __s + 'trunk'
-            else cmd := cmd + ' ; ' + fne_updateutility.value  + ' https://msedocumenting.svn.sourceforge.net/svnroot/msedocumenting/mse/trunk/help ' + ddd_trunkdir.value + __s + 'help' + __s + 'trunk';
-         end;            
-
- if be_update_contr.value 
-    then begin
-          if cmd = ''
-            then cmd := fne_updateutility.value  + ' https://msedocumenting.svn.sourceforge.net/svnroot/msedocumenting/mse/trunk/contributed ' + ddd_trunkdir.value + __s + 'contributed' + __s + 'trunk'
-            else cmd := cmd + ' ; ' + fne_updateutility.value  + ' https://msedocumenting.svn.sourceforge.net/svnroot/msedocumenting/mse/trunk/contributed ' + ddd_trunkdir.value + __s + 'contributed' + __s + 'trunk';
-         end;
-
- if be_compile_mse.value 
-    then begin
-          if cmd = ''
-            then cmd := fne_ppcpath2.value + ' -B -Fulib/common/* -Fulib/common/kernel/i386-linux -Filib/common/kernel apps/ide/mseide.pas'
-            else cmd := cmd + ' ; ' + fne_ppcpath2.value + ' -B -Fulib/common/* -Fulib/common/kernel/i386-linux -Filib/common/kernel apps/ide/mseide.pas';
-         end;
-
- if cmd = '' 
-    then begin 
-           term_update.addline('MSEtune : Choose what you want update, man!');
-           exit;
-         end;
-
- term_update.addline('MSEtune : Starting update/compile MSEide (and components)...');
- l_update_status.caption := 'Be patient, man, I still update ... ';
- term_update.execprog(cmd);
-end;
-
-procedure tmainfo.on_finish_update_mse(const sender: TObject);
-begin
-  term_update.addline('MSEtune : Finish update MSEide');
-  l_update_status.caption := 'Finished';
-end;
-
-
-//========================================================
-//                    UPDATE MSE, help, contributed
-//========================================================
-procedure tmainfo.insert_msetune(const sender: TObject);
-var s, cmd, 
-    prjdir, 
-    n : string;
-    i,y : integer;
-    f : textfile;
-begin
- //STEP 1 - INSERTING IN MENU
- prjdir := ddd_trunkdir3.value;
- chdir(prjdir);
- if prjdir[length(prjdir)] <> __s then prjdir := prjdir + __s;
-
- {$ifdef windows}
- for i := 0 to length(prjdir) do if prjdir[i] = '/' then prjdir[i] := __s;
- {$endif}
-
- if be_insert.value then
-  begin
-     assignfile(f,prjdir + 'main.pas');
-     reset(f);
-     s := '';
-     while not eof(f) do 
-      begin
-        readln(f,n);
-        s := s + n + #10;
-      end;  
-     closefile(f);
-     
-   if system.pos(#10 + ' process,' + #10 ,s) = 0 then
-   begin    
-     insert( #10 + ' process,' + #10, s, system.pos('uses',s) + 4); 
-
-     i := system.pos('public',s);
-     y := system.pos('end;',s);
-     repeat
-      inc(i);
-     until i > y;
-     
-     insert( #10 + ' procedure execute0(const sender : tobject);' + #10, s, i - 1); 
-
-     i := system.pos('pascform'']);',s);
-     repeat
-      inc(i);
-     until s[i] = '}';
-     
-     insert( #10 + ' mainmenu1.menu.submenu.count := 8;// mainmenu1.menu.submenu.count + 1;' + #10 +
-                   ' mainmenu1.menu.items[7].caption := ''Outside tools'';' + #10 +
-                   ' mainmenu1.menu.items[7].submenu.count := 1;' + #10 +
-                   ' mainmenu1.menu.items[7].items[0].caption := ''MSEtune ...'';' + #10 +
-                   ' mainmenu1.menu.items[7].items[0].onexecute := @execute0;' + #10 +
-                   'end;' + #10 +
-                   '' + #10 +
-                   'procedure tmainfo.execute0(const sender : tobject);' + #10 +
-                   'var p : tprocess;' + #10 +
-                   'begin' + #10 +
-                   ' p := tprocess.create(nil);' + #10 +
-                   ' p.commandline := ''' + fne_msetune.value + ''';' + #10 +
-                   ' p.execute;' + #10 +
-                   ' p.free;'
-                   + #10, 
-                   s, i + 1); 
-
-     rewrite(f);
-     writeln(f,s);
-     closefile(f);
-   end;  
-  end;
- //STEP 2 - switch on ctrl+space
- if be_ctrl_space.value then
-  begin
-     assignfile(f,prjdir + 'sourcepage.pas');
-     reset(f);
-     s := '';
-     while not eof(f) do 
-      begin
-        readln(f,n);
-        s := s + n + #10;
-      end;  
-     closefile(f);    
-     
-     if system.pos('{$ifdef mse_with_showsourceitems}',s) > 0 then
-     begin
-       i := system.pos('{$ifdef mse_with_showsourceitems}',s);
-       delete(s,i,length('{$ifdef mse_with_showsourceitems}'));
-       repeat
-         inc(i);
-       until s[i] = '{';
-     
-       delete(s,i,length('{$endif}'));
-     end;
-     
-     rewrite(f);
-     writeln(f,s);
-     closefile(f);     
-  end;   
-  //step 3 - compile mse
-  if be_compile_mse3.value then 
-    begin
-      chdir('..');
-      chdir('..');
-      term_rebuild.execprog(fne_ppcpath3.value + ' -B -Fulib/common/* -Fulib/common/kernel/i386-linux -Filib/common/kernel apps/ide/mseide.pas');
-    end;   
-end;
-
-procedure tmainfo.on_finishbuild(const sender: TObject);
-begin
-  term_update.addline('MSEtune : Finish build MSEide');  
-end;
 
 end.

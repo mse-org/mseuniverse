@@ -1,7 +1,6 @@
 object mainfo: tmainfo
-  color = -1610612731
-  bounds_x = 135
-  bounds_y = 194
+  bounds_x = 110
+  bounds_y = 157
   bounds_cx = 800
   bounds_cy = 480
   container.frame.zoomwidthstep = 1
@@ -13,69 +12,239 @@ object mainfo: tmainfo
     480
   )
   options = [fo_main, fo_terminateonclose, fo_screencentered, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
-  caption = 'Almin-Soft - MSE Tune'
+  caption = 'MSE tune 1.3 - Almin-Soft for MSE community'
   onloaded = on_loaded
-  onclose = on_closepr
+  onclose = on_savesettings
   moduleclassname = 'tmainform'
-  object tw: ttabwidget
-    bounds_x = 8
+  object tw_main: ttabwidget
+    bounds_x = 0
     bounds_y = 0
-    bounds_cx = 798
-    bounds_cy = 474
+    bounds_cx = 796
+    bounds_cy = 481
     anchors = [an_left, an_top, an_right, an_bottom]
-    activepageindex = 2
+    activepageindex = 0
     tab_options = [tabo_vertical]
     tab_frame.buttonpos = sbp_top
-    tab_size = 125
+    tab_size = 150
     tab_optionswidget1 = []
-    object ttabpage12: ttabpage
+    object ttabpage1: ttabpage
       frame.zoomwidthstep = 1
       frame.zoomheightstep = 1
-      taborder = 2
-      bounds_x = 125
+      taborder = 1
+      visible = True
+      bounds_x = 150
       bounds_y = 0
-      bounds_cx = 673
-      bounds_cy = 474
+      bounds_cx = 646
+      bounds_cy = 481
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Update'#13#10'MSEide + MSEGUI'
-      object tbutton4: tbutton
-        bounds_x = 548
-        bounds_y = 264
+      caption = 'Main'#13#10'Settings'
+      object ddd_msedir: tdirdropdownedit
+        frame.caption = 'MSEide trunk directory (you must have full ascess to it)'
+        frame.button.color = -2147483646
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        bounds_x = 20
+        bounds_y = 47
+        bounds_cx = 585
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        reffontheight = 14
+      end
+      object fne_ppcpath: tfilenameedit
+        frame.caption = 'Compiler'
+        frame.button.color = -2147483646
+        frame.button.imagenr = 17
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 1
+        bounds_x = 20
+        bounds_y = 95
+        bounds_cx = 585
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        reffontheight = 14
+      end
+      object fne_svnclient: tfilenameedit
+        frame.caption = 'SVN client (with options)'
+        frame.button.color = -2147483646
+        frame.button.imagenr = 17
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 2
+        bounds_x = 20
+        bounds_y = 151
+        bounds_cx = 585
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        reffontheight = 14
+      end
+      object tbutton1: tbutton
+        taborder = 3
+        bounds_x = 20
+        bounds_y = 392
         bounds_cx = 90
-        bounds_cy = 27
-        anchors = [an_top, an_right]
+        bounds_cy = 20
         state = [as_localcaption, as_localonexecute]
-        caption = 'Update MSE'
-        onexecute = on_update_mse
+        caption = 'Save'
+        onexecute = on_savesettings
       end
       object tlabel5: tlabel
         optionswidget1 = []
-        taborder = 1
+        taborder = 4
         bounds_x = 12
         bounds_y = 8
-        bounds_cx = 649
-        bounds_cy = 86
+        bounds_cx = 601
+        bounds_cy = 24
         anchors = [an_left, an_top, an_right]
-        caption = 'All simple, man!'#13#10#13#10'Just check paths and click "Update".'#10#10'If there are errors, read output, fix errors and try again.'
+        caption = 'Please, check main settings before all.'
         textflags = [tf_wordbreak]
         reffontheight = 14
       end
-      object twidgetgrid2: twidgetgrid
+      object tgroupbox2: tgroupbox
+        frame.caption = 'Tune options (for compile)'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          7
+          0
+          0
+        )
+        taborder = 5
+        bounds_x = 18
+        bounds_y = 232
+        bounds_cx = 623
+        bounds_cy = 137
+        object be_ctrl_space: tbooleanedit
+          frame.caption = 'Switch on CTRL+Space'
+          frame.dummy = 0
+          frame.outerframe = (
+            0
+            1
+            145
+            2
+          )
+          bounds_x = 20
+          bounds_y = 24
+          bounds_cx = 158
+          bounds_cy = 16
+        end
+        object be_insert: tbooleanedit
+          frame.caption = 'Insert  MSEtune in MSEide main menu'
+          frame.dummy = 0
+          frame.outerframe = (
+            0
+            1
+            239
+            2
+          )
+          taborder = 1
+          bounds_x = 20
+          bounds_y = 104
+          bounds_cx = 252
+          bounds_cy = 16
+        end
+        object be_pascalscript: tbooleanedit
+          frame.caption = 'Switch on pascal script support'
+          frame.dummy = 0
+          frame.outerframe = (
+            0
+            1
+            200
+            2
+          )
+          taborder = 2
+          bounds_x = 20
+          bounds_y = 56
+          bounds_cx = 213
+          bounds_cy = 16
+        end
+        object fne_msetune: tfilenameedit
+          frame.caption = 'Path to MSEtune utility'
+          frame.button.color = -2147483646
+          frame.button.imagenr = 17
+          frame.outerframe = (
+            0
+            17
+            0
+            0
+          )
+          taborder = 3
+          bounds_x = 292
+          bounds_y = 82
+          bounds_cx = 297
+          bounds_cy = 37
+          anchors = [an_left, an_top, an_right]
+          reffontheight = 14
+        end
+      end
+    end
+    object ttabpage2: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 2
+      bounds_x = 150
+      bounds_y = 0
+      bounds_cx = 646
+      bounds_cy = 481
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Update from SVVN'#13#10'MSEide, docs, etc'
+      object be_compile_mse: tbooleanedit
+        frame.caption = 'compile MSEide ( check tune options )'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          1
+          243
+          2
+        )
+        bounds_x = 31
+        bounds_y = 199
+        bounds_cx = 256
+        bounds_cy = 16
+      end
+      object tbutton3: tbutton
+        taborder = 1
+        bounds_x = 545
+        bounds_y = 200
+        bounds_cx = 90
+        bounds_cy = 20
+        anchors = [an_top, an_right]
+        state = [as_localcaption, as_localonexecute]
+        caption = 'Execute'
+        onexecute = on_update_mse
+      end
+      object tw_update: twidgetgrid
+        frame.localprops = [frl_colorclient]
         taborder = 2
         bounds_x = 12
-        bounds_y = 304
-        bounds_cx = 650
-        bounds_cy = 144
+        bounds_y = 230
+        bounds_cx = 623
+        bounds_cy = 227
         anchors = [an_left, an_top, an_right, an_bottom]
         optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         datacols.count = 1
+        datacols.linewidth = 0
         datacols.items = <        
           item
-            width = 645
+            linewidth = 0
+            width = 619
             options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
             widgetname = 'term_update'
             dataclass = tgridrichstringdatalist
           end>
+        datarowlinewidth = 0
         datarowheight = 21
         reffontheight = 14
         object term_update: tterminal
@@ -85,33 +254,170 @@ object mainfo: tmainfo
           visible = False
           bounds_x = 0
           bounds_y = 0
-          bounds_cx = 645
+          bounds_cx = 619
           bounds_cy = 21
           onprocfinished = on_finish_update_mse
           reffontheight = 14
         end
       end
-      object fne_updateutility: tfilenameedit
-        frame.caption = 'Path to svn utility with options'
-        frame.button.color = -2147483646
-        frame.button.imagenr = 17
+      object l_update_status: tlabel
+        taborder = 3
+        bounds_x = 11
+        bounds_y = 459
+        bounds_cy = 14
+        anchors = [an_left, an_bottom]
+        caption = 'l_update_status'
+        reffontheight = 14
+      end
+      object tgroupbox1: tgroupbox
+        frame.caption = 'Update'
+        frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          7
           0
           0
         )
-        taborder = 3
-        bounds_x = 19
-        bounds_y = 141
-        bounds_cx = 626
-        bounds_cy = 37
+        taborder = 4
+        bounds_x = 12
+        bounds_y = 128
+        bounds_cx = 622
+        bounds_cy = 65
         anchors = [an_left, an_top, an_right]
+        object be_update_contr: tbooleanedit
+          frame.caption = 'Update contributed'
+          frame.dummy = 0
+          frame.outerframe = (
+            0
+            1
+            126
+            2
+          )
+          bounds_x = 275
+          bounds_y = 15
+          bounds_cx = 139
+          bounds_cy = 16
+        end
+        object be_update_mseuniverse: tbooleanedit
+          frame.caption = 'Update MSEuniverse'
+          frame.dummy = 0
+          frame.outerframe = (
+            0
+            1
+            132
+            2
+          )
+          taborder = 1
+          bounds_x = 275
+          bounds_y = 39
+          bounds_cx = 145
+          bounds_cy = 16
+        end
+        object be_update_help: tbooleanedit
+          frame.caption = 'Update help'
+          frame.dummy = 0
+          frame.outerframe = (
+            0
+            1
+            80
+            2
+          )
+          taborder = 2
+          bounds_x = 19
+          bounds_y = 39
+          bounds_cx = 93
+          bounds_cy = 16
+        end
+        object be_update_mse: tbooleanedit
+          frame.caption = 'Update MSEide + MSEGUI'
+          frame.dummy = 0
+          frame.outerframe = (
+            0
+            1
+            163
+            2
+          )
+          taborder = 3
+          bounds_x = 19
+          bounds_y = 15
+          bounds_cx = 176
+          bounds_cy = 16
+        end
+      end
+      object tlabel3: tlabel
+        optionswidget1 = []
+        taborder = 5
+        bounds_x = 12
+        bounds_y = 8
+        bounds_cx = 633
+        bounds_cy = 112
+        anchors = [an_left, an_top, an_right]
+        caption = 'This utility helps you download MSE documentation, help files, contributed files and utilities of MSEuniverse team, download and some tune MSEide trunk version and compile it.'#13#10#13#10'For download you need svn client (console version). If you use GUI svn client download manually and here compile only!'#13#10#13#10'Please, check main settings.'
+        textflags = [tf_wordbreak]
         reffontheight = 14
       end
-      object ddd_trunkdir: tdirdropdownedit
-        frame.caption = 'MSEGUI trunk directory'
-        frame.button.color = -2147483646
+    end
+    object ttabpage3: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 3
+      bounds_x = 150
+      bounds_y = 0
+      bounds_cx = 646
+      bounds_cy = 481
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Install new '#13#10'components'
+      object se_prj_name: tstringedit
+        frame.caption = 'Project name : '
+        frame.captionpos = cp_left
+        frame.dummy = 0
+        frame.outerframe = (
+          98
+          0
+          0
+          0
+        )
+        bounds_x = 14
+        bounds_y = 102
+        bounds_cx = 358
+        value = 'myextendedmseide'
+        reffontheight = 14
+      end
+      object tbutton4: tbutton
+        taborder = 1
+        bounds_x = 548
+        bounds_y = 258
+        bounds_cx = 90
+        bounds_cy = 20
+        anchors = [an_top, an_right]
+        state = [as_localcaption, as_localonexecute]
+        caption = 'Compile it!'
+        onexecute = on_compile
+      end
+      object tstockglyphbutton2: tstockglyphbutton
+        taborder = 2
+        bounds_x = 80
+        bounds_y = 258
+        bounds_cx = 70
+        bounds_cy = 20
+        state = [as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
+        glyph = stg_dbdelete
+        onexecute = on_delete_row
+      end
+      object tstockglyphbutton1: tstockglyphbutton
+        taborder = 3
+        bounds_x = 8
+        bounds_y = 258
+        bounds_cx = 70
+        bounds_cy = 20
+        state = [as_localimagelist, as_localimagenr, as_localonexecute]
+        glyph = stg_dbinsert
+        onexecute = on_add_row
+      end
+      object tw_: twidgetgrid
+        frame.caption = 'Add components'
+        frame.font.xscale = 1
+        frame.font.dummy = 0
         frame.outerframe = (
           0
           17
@@ -119,152 +425,381 @@ object mainfo: tmainfo
           0
         )
         taborder = 4
-        bounds_x = 19
-        bounds_y = 96
-        bounds_cx = 626
-        bounds_cy = 37
+        bounds_x = 8
+        bounds_y = 130
+        bounds_cx = 629
+        bounds_cy = 124
         anchors = [an_left, an_top, an_right]
+        font.xscale = 1
+        font.dummy = 0
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 7
+            captions.items = <            
+              item
+                caption = 'Unit for add'
+              end            
+              item
+                caption = 'Tab name'
+              end            
+              item
+                caption = 'Type'
+              end            
+              item
+                caption = 'Icon'
+              end            
+              item
+              end            
+              item
+              end            
+              item
+              end>
+          end>
+        datacols.count = 6
+        datacols.items = <        
+          item
+            width = 327
+            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'fne'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 104
+            widgetname = 'se_tab'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 114
+            widgetname = 'se_type'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            linewidth = 0
+            width = 1
+            widgetname = 'se_icon'
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            width = 24
+            options = [co_disabled, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'di'
+            dataclass = tgridintegerdatalist
+          end        
+          item
+            color = -2147483646
+            widgetname = 'tdatabutton1'
+            dataclass = tgridintegerdatalist
+          end>
+        datarowheight = 24
         reffontheight = 14
+        object fne: tfilenameedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.button.color = -1879048187
+          frame.button.imagenr = 17
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 327
+          bounds_cy = 24
+          empty_font.color = -1610612733
+          empty_font.style = [fs_italic]
+          empty_font.name = 'stf_empty'
+          empty_font.xscale = 1
+          empty_font.dummy = 0
+          empty_text = 'click here and choose your unit'
+          value = '/usr/src/mse2.6/msegui/apps/myide/mybutton.pas'
+          controller.filename = '/usr/src/mse2.6/msegui/apps/myide/mybutton.pas'
+          controller.lastdir = '/usr/src/mse2.6/msegui/apps/myide/'
+          reffontheight = 14
+        end
+        object se_tab: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          visible = False
+          bounds_x = 328
+          bounds_y = 0
+          bounds_cx = 104
+          bounds_cy = 24
+          empty_font.color = -1610612733
+          empty_font.style = [fs_italic]
+          empty_font.name = 'stf_empty'
+          empty_font.xscale = 1
+          empty_font.dummy = 0
+          empty_text = 'tab name'
+          value = 'others'
+          reffontheight = 14
+        end
+        object se_type: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 3
+          visible = False
+          bounds_x = 433
+          bounds_y = 0
+          bounds_cx = 114
+          bounds_cy = 24
+          empty_font.color = -1610612733
+          empty_font.style = [fs_italic]
+          empty_font.name = 'stf_empty'
+          empty_font.xscale = 1
+          empty_font.dummy = 0
+          empty_text = 'component type'
+          value = 'tmybutton'
+          reffontheight = 14
+        end
+        object se_icon: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 4
+          visible = False
+          bounds_x = 548
+          bounds_y = 0
+          bounds_cx = 1
+          bounds_cy = 24
+          reffontheight = 14
+        end
+        object di: tdataicon
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+          optionsskin = [osk_framebuttononly]
+          taborder = 5
+          bounds_x = 549
+          bounds_y = 0
+          bounds_cx = 24
+          bounds_cy = 24
+          visible = False
+          enabled = False
+          imagelist = imlist
+        end
+        object tdatabutton1: tdatabutton
+          optionswidget = [ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+          optionsskin = [osk_framebuttononly]
+          taborder = 6
+          bounds_x = 574
+          bounds_y = 0
+          bounds_cx = 50
+          bounds_cy = 24
+          state = [as_invisible, as_localinvisible, as_localcaption, as_localonexecute]
+          caption = 'load'
+          onexecute = on_loadicon
+        end
       end
-      object fne_ppcpath2: tfilenameedit
-        frame.caption = 'Path to compiler'
-        frame.button.color = -2147483646
-        frame.button.imagenr = 17
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
+      object tw_build: twidgetgrid
+        frame.hiddenedges = [edg_bottom]
+        frame.localprops = [frl_levelo, frl_hiddenedges, frl_colorclient]
         taborder = 5
-        bounds_x = 19
-        bounds_y = 189
-        bounds_cx = 626
-        bounds_cy = 37
+        bounds_x = 8
+        bounds_y = 286
+        bounds_cx = 629
+        bounds_cy = 82
         anchors = [an_left, an_top, an_right]
+        rowcount = 5
+        datacols.count = 2
+        datacols.linewidth = 0
+        datacols.items = <        
+          item
+            linewidth = 0
+            width = 322
+            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'se1'
+            dataclass = tgridmsestringdatalist
+            data = (
+              (
+                ''
+                ''
+                ''
+                ''
+                ''
+              )
+            )
+          end        
+          item
+            linewidth = 0
+            width = 303
+            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'se2'
+            dataclass = tgridmsestringdatalist
+            data = (
+              (
+                ''
+                ''
+                ''
+                ''
+                ''
+              )
+            )
+          end>
+        datarowheight = 15
         reffontheight = 14
+        object se1: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 322
+          bounds_cy = 15
+          reffontheight = 14
+        end
+        object se2: tstringedit
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          visible = False
+          bounds_x = 322
+          bounds_y = 0
+          bounds_cx = 303
+          bounds_cy = 15
+          reffontheight = 14
+        end
       end
-      object be_update_help: tbooleanedit
-        frame.caption = 'Update help'
-        frame.dummy = 0
-        frame.outerframe = (
-          0
-          1
-          80
-          2
-        )
+      object tw_install: twidgetgrid
+        frame.hiddenedges = [edg_top]
+        frame.localprops = [frl_levelo, frl_hiddenedges, frl_colorclient]
         taborder = 6
-        bounds_x = 19
-        bounds_y = 255
-        bounds_cx = 93
-        bounds_cy = 16
-      end
-      object be_update_contr: tbooleanedit
-        frame.caption = 'Update contributed'
-        frame.dummy = 0
-        frame.outerframe = (
-          0
-          1
-          126
-          2
-        )
-        taborder = 7
-        bounds_x = 19
-        bounds_y = 279
-        bounds_cx = 139
-        bounds_cy = 16
-      end
-      object be_update_mse: tbooleanedit
-        frame.caption = 'Update MSEide + MSEGUI'
-        frame.dummy = 0
-        frame.outerframe = (
-          0
-          1
-          163
-          2
-        )
-        taborder = 8
-        bounds_x = 19
-        bounds_y = 231
-        bounds_cx = 176
-        bounds_cy = 16
-      end
-      object be_compile_mse: tbooleanedit
-        frame.caption = 'compile MSEide'
-        frame.dummy = 0
-        frame.outerframe = (
-          0
-          1
-          100
-          2
-        )
-        taborder = 9
-        bounds_x = 235
-        bounds_y = 231
-        bounds_cx = 113
-        bounds_cy = 16
-      end
-      object l_update_status: tlabel
-        taborder = 10
-        bounds_x = 19
-        bounds_y = 456
-        bounds_cy = 14
-        anchors = [an_left, an_bottom]
-        caption = 'l_update_status'
+        bounds_x = 8
+        bounds_y = 367
+        bounds_cx = 630
+        bounds_cy = 100
+        anchors = [an_left, an_top, an_right, an_bottom]
+        optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        datacols.count = 1
+        datacols.linewidth = 0
+        datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item
+            linewidth = 0
+            width = 626
+            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'term'
+            dataclass = tgridrichstringdatalist
+          end>
+        datarowheight = 15
         reffontheight = 14
+        object term: tterminal
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontlineheight]
+          optionsskin = [osk_framebuttononly]
+          color = -2147483645
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 626
+          bounds_cy = 15
+          onprocfinished = on_finishcompile
+          optionsprocess = [pro_output, pro_erroroutput, pro_input, pro_tty, pro_inactive]
+          reffontheight = 14
+        end
+      end
+      object tlabel4: tlabel
+        optionswidget1 = []
+        taborder = 7
+        bounds_x = 4
+        bounds_y = 8
+        bounds_cx = 633
+        bounds_cy = 88
+        anchors = [an_left, an_top, an_right]
+        caption = 'This utility helps you create your pwn version of MDSEide (with new components). Utility create new directory <mseide trunk directory>/apps/<project name> for your MDEide version.'#13#10'Path to MSEide binary is <mseide trunk directory>/apps/<project name>/<project name>.'#13#10'Remember, that "ide" is default. It isn`t recomended to use it as "project name".'#13#10'Please, check main settings.'
+        textflags = [tf_wordbreak]
+        reffontheight = 14
+      end
+      object im: timage
+        frame.zoomwidthstep = 1
+        frame.zoomheightstep = 1
+        taborder = 8
+        visible = False
+        bounds_x = 576
+        bounds_y = 88
+        bounds_cx = 50
+        bounds_cy = 50
       end
     end
-    object ttabpage11: ttabpage
+    object ttabpage4: ttabpage
       frame.zoomwidthstep = 1
       frame.zoomheightstep = 1
-      taborder = 1
-      visible = True
-      bounds_x = 125
+      taborder = 4
+      bounds_x = 150
       bounds_y = 0
-      bounds_cx = 673
-      bounds_cy = 474
+      bounds_cx = 646
+      bounds_cy = 481
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Install new '#13#10'component(s)'
-      object tw_inslall: ttabwidget
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 674
-        bounds_cy = 459
+      caption = 'About'#13#10'MSETune'
+      object ttabwidget2: ttabwidget
+        bounds_x = 12
+        bounds_y = 48
+        bounds_cx = 614
+        bounds_cy = 389
         anchors = [an_left, an_top, an_right, an_bottom]
-        activepageindex = 1
+        visible = False
+        activepageindex = 0
         tab_size = 18
-        object ttabpage10: ttabpage
+        object ttabpage5: ttabpage
           frame.zoomwidthstep = 1
           frame.zoomheightstep = 1
-          taborder = 6
+          taborder = 1
+          visible = True
           bounds_x = 0
           bounds_y = 18
-          bounds_cx = 674
-          bounds_cy = 441
+          bounds_cx = 614
+          bounds_cy = 371
           anchors = [an_left, an_top, an_right, an_bottom]
-          caption = 'hello'
-          object tlabel8: tlabel
-            optionswidget1 = []
-            bounds_x = 24
-            bounds_y = 14
-            bounds_cx = 625
-            bounds_cy = 206
-            anchors = [an_left, an_top, an_right]
-            caption = 'Hi, MSE programmer!'#13#10#13#10#13#10#13#10'This program helps you to build your own MSEide version with outside components. '#13#10#13#10'I supose you are not Martin Schrieber. Martin Schreiber needs not in this utility, he make it more quickly, of cause.'#13#13#10'But if you are not Martin this utility for you'#10#13#10'Ok, are you ready?'#13#10#13#10'Click "Next" button and let`s go!'#13#10
-            textflags = [tf_wordbreak]
-            reffontheight = 14
+          caption = '   .prj   '
+          object m_prj: tmemoedit
+            frame.localprops = [frl_colorclient]
+            bounds_x = 8
+            bounds_y = 7
+            bounds_cx = 600
+            bounds_cy = 357
+            anchors = [an_left, an_top, an_right, an_bottom]
+            value = '[componentpalette]'#10'order0=0'#10'order1=0'#10'order2=0'#10'order3=0'#10'order4=0'#10'order5=0'#10'order6=0'#10'order7=0'#10'order8=0'#10'order9=0'#10'order10=0'#10'order11=0'#10'[projectoptions]'#10'projectdir=/home/mse/packs/standard/svn/mse/trunk/apps/myide'#10'projectfilename=/home/mse/packs/standard/svn/mse/trunk/apps/myide/mymseide.prj'#10'findinfiledialog=33'#10' [findinfileadialogfo]'#10' stackedunder='#10' x=268'#10' y=415'#10' cx=331'#10' cy=249'#10' [findinfileadialogfo.findtext]'#10' value=1999-2005'#10' history=1'#10'  1999-2005'#10' [findinfileadialogfo.casesensitive]'#10' value=0'#10' [findinfileadialogfo.wholeword]'#10' value=0'#10' [findinfileadialogfo.indirectories]'#10' value=1'#10' [findinfileadialogfo.inopenfiles]'#10' value=0'#10' [findinfileadialogfo.dir]'#10' filenames=1'#10'  /home/mse/proj/msegui/'#10' lastdir=/home/mse/proj/msegui/'#10' filehistory=3'#10'  '#10'  /home/mse/proj/msegui/'#10'  /home/mse/proj/msegui/apps/myide/'#10' filefilterindex=-1'#10' filecolwidth=174'#10' [findinfileadialogfo.mask]'#10' value="*.pas" "*.pp" "*.inc"'#10' history=0'#10' [findinfileadialogfo.subdirs]'#10' value=1'#10'options=83'#10' [projectoptionsfo.twidgetgrid3]'#10' propcolwidthref=801'#10' width0=13'#10' sortdescent0=0'#10' width1=13'#10' sortdescent1=0'#10' width2=13'#10' sortdescent2=0'#10' width3=139'#10' sortdescent3=0'#10' width4=292'#10' sortdescent4=0'#10' width5=320'#10' sortdescent5=0'#10' [projectoptionsfo.newfile]'#10' firsttab=0'#10' index=2'#10' [projectoptionsfo.fontaliasgrid]'#10' propcolwidthref=541'#10' values0=0'#10' width0=98'#10' sortdescent0=0'#10' values1=0'#10' width1=531'#10' sortdescent1=0'#10' values2=0'#10' width2=30'#10' sortdescent2=0'#10' values3=0'#10' width3=50'#10' sortdescent3=0'#10' values4=0'#10' width4=50'#10' sortdescent4=0'#10' values5=0'#10' width5=50'#10' sortdescent5=0'#10' [projectoptionsfo.macrosplitter]'#10' x=0'#10' y=188'#10' xprop=0'#10' yprop=0.36223506743738'#10' [projectoptionsfo.macrogrid]'#10' propcolwidthref=595'#10' width0=13'#10' sortdescent0=0'#10' width1=13'#10' sortdescent1=0'#10' width2=13'#10' sortdescent2=0'#10' width3=13'#10' sortdescent3=0'#10' width4=13'#10' sortdescent4=0'#10' width5=13'#10' sortdescent5=0'#10' width6=146'#10' sortdescent6=0'#10' width7=583'#10' sortdescent7=0'#10' [projectoptionsfo.makegroupbox]'#10' firsttab=0'#10' index=0'#10' [projectoptionsfo.exceptionsgrid]'#10' propcolwidthref=772'#10' width0=47'#10' sortdescent0=0'#10' values1=1'#10'  EconvertError'#10' width1=766'#10' sortdescent1=0'#10' [projectoptionsfo.ttabwidget1]'#10' firsttab=0'#10' index=0'#10' [projectoptionsfo.tabwidget]'#10' firsttab=0'#10' index=2'#10' [projectoptionsfo]'#10' stackedunder='#10' x=151'#10' y=68'#10' cx=821'#10' cy=572'#10'programparameters=15'#10' [programparametersfo]'#10' stackedunder='#10' x=272'#10' y=346'#10' cx=328'#10' cy=245'#10' [programparametersfo.workingdirectory]'#10' filenames=0'#10' lastdir='#10' filehistory=0'#10' filefilterindex=0'#10' filecolwidth=0'#10' [programparametersfo.parameters]'#10' value='#10' history=0'#10'sigsettings=27'#10' 1,1,T,F'#10' 3,3,T,F'#10' 4,4,T,F'#10' 6,6,T,F'#10' 7,7,T,F'#10' 8,8,T,F'#10' 9,9,T,F'#10' 10,10,T,F'#10' 11,11,T,F'#10' 12,12,T,F'#10' 13,13,T,F'#10' 15,15,T,F'#10' 16,16,T,F'#10' 17,17,F,F'#10' 18,18,T,F'#10' 19,19,T,F'#10' 20,20,T,F'#10' 21,21,T,F'#10' 22,22,T,F'#10' 23,23,T,F'#10' 24,24,T,F'#10' 25,25,T,F'#10' 26,26,T,F'#10' 27,27,T,F'#10' 28,28,T,F'#10' 29,29,T,F'#10' 30,30,T,F'#10'gridsizex=8'#10'gridsizey=8'#10'exceptclassnames=1'#10' EconvertError'#10'exceptignore=1'#10' 0'#10'modulenames=0'#10'moduletypes=0'#10'modulefiles=0'#10'mainfile=../ide/mseide.pas'#10'targetfile=mymseide${EXEEXT}'#10'messageoutputfile='#10'copymessages=0'#10'closemessages=1'#10'checkmethods=1'#10'makecommand=${COMPILER}'#10'makedir='#10'debugcommand=${DEBUGGER}'#10'debugoptions='#10'debugtarget='#10'runcommand='#10'remoteconnection='#10'uploadcommand='#10'gdbdownload=0'#10'downloadalways=0'#10'startupbkpt=0'#10'startupbkpton=0'#10'gdbsimulator=0'#10'gdbprocessor=i386'#10'gdbservercommand='#10'gdbserverwait=0'#10'beforeload='#10'afterload='#10'beforerun='#10'defaultmake=1'#10'makeoptions=4'#10' -l -Mobjfpc -Sh -Fcutf8 -FE../myide -FU. -dmorecomponents'#10' -gl -O-'#10' -B'#10' -O2 -XX -Xs -CX'#10'makeoptionson=4'#10' 63'#10' 31'#10' 34'#10' 32'#10'macroon=0'#10'macronames=0'#10'macrovalues=0'#10'macrogroup=0'#10'groupcomments=6'#10' '#10' '#10' '#10' '#10' '#10' '#10'sourcedirs=5'#10' ${MSEDIR}lib/addon/*/'#10' ${MSELIBDIR}kernel/$TARGET/'#10' ${MSELIBDIR}*/'#10' ../ide/'#10' ./'#10'defines=0'#10'defineson=0'#10'unitdirs=5'#10' ${MSEDIR}lib/addon/*/'#10' ${MSELIBDIR}kernel/$TARGET/'#10' ${MSELIBDIR}kernel/'#10' ${MSELIBDIR}*/'#10' ../ide/'#10'unitdirson=5'#10' 196671'#10' 65599'#10' 196671'#10' 65599'#10' 196671'#10'unitpref=-Fu'#10'incpref=-Fi'#10'libpref=-Fl'#10'objpref=-Fo'#10'targpref=-o'#10'sourcefilemasks=2'#10' "*.pas" "*.dpr" "*.pp" "*.inc"'#10' "*.c" "*.cc" "*.h"'#10'syntaxdeffiles=2'#10' ${SYNTAXDEFDIR}pascal.sdef'#10' ${SYNTAXDEFDIR}cpp.sdef'#10'filemasknames=3'#10' Source'#10' Forms'#10' All Files'#10'filemasks=3'#10' "*.pp" "*.pas" "*.inc" "*.dpr"'#10' *.mfm'#10' *'#10'toolsave=0'#10'toolhide=0'#10'toolparse=0'#10'toolmenus=0'#10'toolfiles=0'#10'toolparams=0'#10'fontalias=0'#10'fontnames=0'#10'fontheights=0'#10'fontwidths=0'#10'fontoptions=0'#10'fontxscales=0'#10'usercolors=30'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10'usercolorcomment=30'#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10'showgrid=1'#10'snaptogrid=1'#10'moveonfirstclick=1'#10'autoindent=1'#10'blockindent=1'#10'rightmarginon=1'#10'rightmarginchars=80'#10'scrollheight=0'#10'tabstops=4'#10'spacetabs=0'#10'editfontname=mseide_source'#10'editfontheight=0'#10'editfontwidth=0'#10'editfontextraspace=0'#10'editfontantialiased=1'#10'editmarkbrackets=1'#10'backupfilecount=2'#10'encoding=1'#10'newprojectfiles=4'#10' ${TEMPLATEDIR}default/project.pas'#10' ${TEMPLATEDIR}default/main.pas'#10' ${TEMPLATEDIR}default/main.mfm'#10' ${TEMPLATEDIR}default/main_mfm.pas'#10'newprojectfilesdest=4'#10' ${%PROJECTNAME%}.pas'#10' '#10' '#10' '#10'expandprojectfilemacros=4'#10' 1'#10' 1'#10' 1'#10' 0'#10'loadprojectfile=4'#10' 1'#10' 1'#10' 1'#10' 0'#10'newprogramfile=${TEMPLATEDIR}default/program.pas'#10'newunitfile=${TEMPLATEDIR}default/unit.pas'#10'newmainfosource=${TEMPLATEDIR}default/mainform.pas'#10'newmainfoform=${TEMPLATEDIR}default/mainform.mfm'#10'newsimplefosource=${TEMPLATEDIR}default/simpleform.pas'#10'newsimplefoform=${TEMPLATEDIR}default/simpleform.mfm'#10'newdockingfosource=${TEMPLATEDIR}default/dockingform.pas'#10'newdockingfoform=${TEMPLATEDIR}default/dockingform.mfm'#10'newdatamodsource=${TEMPLATEDIR}default/datamodule.pas'#10'newdatamodform=${TEMPLATEDIR}default/datamodule.mfm'#10'newsubfosource=${TEMPLATEDIR}default/subform.pas'#10'newsubfoform=${TEMPLATEDIR}default/subform.mfm'#10'newreportsource=${TEMPLATEDIR}default/report.pas'#10'newreportform=${TEMPLATEDIR}default/report.mfm'#10'newinheritedsource=${TEMPLATEDIR}default/inheritedform.pas'#10'newinheritedform=${TEMPLATEDIR}default/inheritedform.mfm'#10'stoponexception=0'#10'valuehints=1'#10'activateonbreak=1'#10'showconsole=0'#10'externalconsole=0'#10'[breakpoints]'#10'on=0'#10'path=0'#10'line=0'#10'address=0'#10'addbkpt=0'#10'ignore=0'#10'condition=0'#10'panels=1'#10' panel1'#10'units='#10' ('#10' modulefilenames=0'#10' modulenames=0'#10' moduleclassnames=0'#10' a=0,4132,0,Units'#10' )'#10'files='#10' ('#10' a=0,4132,0,Text Files'#10' )'#10'[componentstore]'#10'storedir=/home/mse/test/msegui/apps/ide/compstore/'#10'filename='#10'[layout]'#10'windowlayout=392'#10' [mainfo.openfile]'#10' filenames=0'#10' filehistory=2'#10'  /home/mse/proj/msegui/testcase/jean-pierre/Demo/main.pas'#10'  /D:/MSE/Livre/DemoMSE/Demo.pas'#10' filefilterindex=2'#10' filecolwidth=174'#10' [mainfo.basedock]'#10' splitdir=2'#10' useroptions=15488'#10' [mainfo]'#10' stackedunder=componentpalettefo'#10' x=4'#10' y=24'#10' cx=286'#10' cy=74'#10' wsize=0'#10' active=0'#10' visible=1'#10' [targetconsolefo]'#10' splitdir=0'#10' useroptions=16489'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=116'#10' y=297'#10' cx=904'#10' cy=347'#10' wsize=0'#10' active=0'#10' visible=1'#10' [threadsfo]'#10' splitdir=0'#10' useroptions=16489'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=37'#10' y=270'#10' cx=349'#10' cy=276'#10' wsize=0'#10' active=0'#10' visible=0'#10' [memoryfo]'#10' splitdir=0'#10' useroptions=16507'#10' stackedunder=cpui386fo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=100'#10' y=100'#10' cx=453'#10' cy=354'#10' wsize=0'#10' active=0'#10' visible=0'#10' [memoryfo.add]'#10' value=0'#10' [memoryfo.memon]'#10' value=0'#10' [memoryfo.bitwidth]'#10' value=0'#10' [memoryfo.cnt]'#10' value=0'#10' [disassfo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=projecttreefo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=162'#10' y=502'#10' cx=564'#10' cy=210'#10' wsize=0'#10' active=0'#10' visible=0'#10' [findinfilefo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=watchfo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=548'#10' y=115'#10' cx=369'#10' cy=198'#10' [projecttreefo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=stackfo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=321'#10' y=101'#10' cx=698'#10' cy=413'#10' wsize=0'#10' active=0'#10' visible=0'#10' [stackfo]'#10' splitdir=0'#10' useroptions=16489'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=407'#10' y=349'#10' cx=254'#10' cy=180'#10' wsize=0'#10' active=0'#10' visible=0'#10' [watchpointsfo]'#10' splitdir=0'#10' useroptions=16489'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=537'#10' y=26'#10' cx=483'#10' cy=210'#10' wsize=0'#10' active=0'#10' visible=0'#10' [watchpointsfo.grid]'#10' propcolwidthref=352'#10' width0=16'#10' sortdescent0=0'#10' values1=1'#10'  0'#10' width1=33'#10' sortdescent1=0'#10' values2=1'#10'  pinteger(0x126c6b4)^'#10' width2=239'#10' sortdescent2=0'#10' width4=34'#10' sortdescent4=0'#10' values5=1'#10'  0'#10' width5=38'#10' sortdescent5=0'#10' values6=1'#10'  '#10' width6=103'#10' sortdescent6=0'#10' [breakpointsfo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=memoryfo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=107'#10' y=404'#10' cx=477'#10' cy=128'#10' wsize=0'#10' active=0'#10' visible=0'#10' [breakpointsfo.bkptson]'#10' value=1'#10' [objectinspectorfo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=componentstorefo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=670'#10' y=179'#10' cx=316'#10' cy=484'#10' wsize=0'#10' active=0'#10' visible=0'#10' [objectinspectorfo.grid]'#10' propcolwidthref=347'#10' width0=113'#10' sortdescent0=0'#10' width1=187'#10' sortdescent1=0'#10' [watchfo]'#10' splitdir=0'#10' useroptions=24681'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=510'#10' y=325'#10' cx=310'#10' cy=245'#10' wsize=0'#10' active=0'#10' visible=0'#10' [watchfo.grid]'#10' propcolwidthref=105'#10' width0=13'#10' sortdescent0=0'#10' values1=0'#10' width1=152'#10' sortdescent1=0'#10' values2=0'#10' values3=0'#10' width3=12'#10' sortdescent3=0'#10' values4=0'#10' width4=13'#10' sortdescent4=0'#10' [watchfo.watchon]'#10' [watchfo.expression]'#10' [watchfo.watcheson]'#10' value=1'#10' [messagefo]'#10' splitdir=0'#10' useroptions=49259'#10' parent=mainfo.panel1.container'#10' visible=0'#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=0'#10' y=452'#10' cx=733'#10' cy=114'#10' [componentstorefo]'#10' splitdir=0'#10' useroptions=24675'#10' stackedunder=findinfilefo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=100'#10' y=100'#10' cx=445'#10' cy=354'#10' wsize=0'#10' active=0'#10' visible=0'#10' [componentstorefo.grid]'#10' propcolwidthref=435'#10' width0=111'#10' sortdescent0=0'#10' width1=157'#10' sortdescent1=0'#10' width2=160'#10' sortdescent2=0'#10' [componentstorefo.storefiledialog]'#10' filenames=1'#10'  /home/mse/test/msegui/apps/ide/compstore/'#10' lastdir=/home/mse/test/msegui/apps/ide/compstore/'#10' filehistory=0'#10' filefilterindex=0'#10' filecolwidth=0'#10' [componentstorefo.groupfiledialog]'#10' filenames=1'#10'  /home/mse/test/msegui/apps/ide/compstore/'#10' lastdir=/home/mse/test/msegui/apps/ide/compstore/'#10' filehistory=0'#10' filefilterindex=0'#10' filecolwidth=0'#10' [componentpalettefo]'#10' splitdir=0'#10' useroptions=24683'#10' stackedunder=mainfo.panel1'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=335'#10' y=24'#10' cx=440'#10' cy=129'#10' wsize=0'#10' active=0'#10' visible=1'#10' [componentpalettefo.componentpages]'#10' activetab=5'#10' [debuggerfo]'#10' splitdir=0'#10' useroptions=24683'#10' parent=mainfo.basedock'#10' visible=1'#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=0'#10' y=0'#10' cx=286'#10' cy=36'#10' [sourcefo]'#10' splitdir=0'#10' useroptions=16489'#10' parent=mainfo.panel1.container'#10' visible=1'#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=0'#10' y=0'#10' cx=733'#10' cy=566'#10' [actionsmo.watchesonact]'#10' checked=1'#10' [actionsmo.bluedotsonact]'#10' checked=1'#10' [cpui386fo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=threadsfo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=312'#10' y=341'#10' cx=283'#10' cy=210'#10' wsize=0'#10' active=0'#10' visible=0'#10' [mainfo.panel1]'#10' splitdir=2'#10' useroptions=32233'#10' stackedunder='#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=4'#10' y=126'#10' cx=743'#10' cy=566'#10' wsize=0'#10' active=1'#10' visible=1'#10'[edit]'#10'hintwidth=0'#10'hintheight=0'#10'autoindent=1'#10'blockindent=1'#10'rightmarginon=1'#10'rightmarginchars=80'#10'tabstops=4'#10'finddtext='#10'findhistory=0'#10'findoptions=0'#10'editpos=0'#10'sourcefiles=0'#10'relpaths=0'#10'ismoduletexts=0'#10'modules=0'#10'visiblemodules=0'#10'[sourcefo.tabwidget]'#10'tabsize=102'#10'firsttab=0'#10'index=-1'#10'[components]'#10'[selecteditpage]'#10'colwidth=100'#10'x=0'#10'y=0'#10'cx=0'#10'cy=0'#10'[progparams]'#10'parameters='#10'progparamhistory=0'#10'workingdirectory='#10'envvarons=0'#10'envvarnames=0'#10'envvarvalues=0'#10
           end
-          object b01: tbutton
-            Tag = 1
-            taborder = 1
-            bounds_x = 558
-            bounds_y = 406
-            bounds_cx = 90
-            bounds_cy = 28
-            anchors = [an_right, an_bottom]
-            state = [as_localcaption, as_localonexecute]
-            caption = 'Next'
-            onexecute = on_step
+        end
+        object ttabpage6: ttabpage
+          frame.zoomwidthstep = 1
+          frame.zoomheightstep = 1
+          taborder = 2
+          bounds_x = 0
+          bounds_y = 18
+          bounds_cx = 614
+          bounds_cy = 371
+          anchors = [an_left, an_top, an_right, an_bottom]
+          caption = 'regcomponents.inc'
+          object m_inc: tmemoedit
+            frame.localprops = [frl_colorclient]
+            bounds_x = 8
+            bounds_y = 7
+            bounds_cx = 600
+            bounds_cy = 357
+            anchors = [an_left, an_top, an_right, an_bottom]
+            value = 'regmycomps,'#10
+          end
+        end
+        object ttabpage7: ttabpage
+          frame.zoomwidthstep = 1
+          frame.zoomheightstep = 1
+          taborder = 3
+          bounds_x = 0
+          bounds_y = 18
+          bounds_cx = 614
+          bounds_cy = 371
+          anchors = [an_left, an_top, an_right, an_bottom]
+          caption = 'regmycomps.pas'
+          object m_regpas: tmemoedit
+            frame.localprops = [frl_colorclient]
+            bounds_x = 8
+            bounds_y = 7
+            bounds_cx = 600
+            bounds_cy = 357
+            anchors = [an_left, an_top, an_right, an_bottom]
+            value = 'unit regmycomps;'#10'{$ifdef FPC}{$mode objfpc}{$h+}{$endif}'#10#10'interface'#10#10'implementation'#10'uses'#10' msedesignintf;'#10#10'procedure register;'#10'begin'#10'end;'#10#10'initialization'#10' register;'#10'end.'#10
           end
         end
         object ttabpage8: ttabpage
@@ -273,857 +808,88 @@ object mainfo: tmainfo
           taborder = 4
           bounds_x = 0
           bounds_y = 18
-          bounds_cx = 674
-          bounds_cy = 441
+          bounds_cx = 614
+          bounds_cy = 371
           anchors = [an_left, an_top, an_right, an_bottom]
-          caption = 'pathes'
-          object ddd_msedir: tdirdropdownedit
-            frame.caption = 'Path to MSEGUI directory'
-            frame.button.color = -2147483646
-            frame.outerframe = (
-              0
-              17
-              0
-              0
-            )
-            bounds_x = 22
-            bounds_y = 206
-            bounds_cx = 626
-            bounds_cy = 37
-            anchors = [an_left, an_top, an_right]
-            reffontheight = 14
-          end
-          object fne_ppcpath: tfilenameedit
-            frame.caption = 'Path to compiler'
-            frame.button.color = -2147483646
-            frame.button.imagenr = 17
-            frame.outerframe = (
-              0
-              17
-              0
-              0
-            )
-            taborder = 1
-            bounds_x = 24
-            bounds_y = 253
-            bounds_cx = 626
-            bounds_cy = 37
-            anchors = [an_left, an_top, an_right]
-            reffontheight = 14
-          end
-          object tlabel1: tlabel
-            optionswidget1 = []
-            taborder = 2
-            bounds_x = 24
-            bounds_y = 6
-            bounds_cx = 625
-            bounds_cy = 174
-            anchors = [an_left, an_top, an_right]
-            caption = 'Step 1  :  Check paths'#13#10#13#10#13#10'This step very simple - just check two paths.'#13#10#13#10'That`s all, you say ? '#13#10#13#10'Of cause!  And be sure you have all rights to create files in MSEGUI directory'
-            textflags = [tf_wordbreak]
-            reffontheight = 14
-          end
-          object b_2: tbutton
-            Tag = 2
-            taborder = 3
-            bounds_x = 558
-            bounds_y = 406
-            bounds_cx = 90
-            bounds_cy = 28
-            anchors = [an_right, an_bottom]
-            state = [as_localcaption, as_localonexecute]
-            caption = 'Next'
-            onexecute = on_step
-          end
-        end
-        object ttabpage1: ttabpage
-          frame.zoomwidthstep = 1
-          frame.zoomheightstep = 1
-          taborder = 1
-          visible = True
-          bounds_x = 0
-          bounds_y = 18
-          bounds_cx = 674
-          bounds_cy = 441
-          anchors = [an_left, an_top, an_right, an_bottom]
-          caption = 'prepare'
-          object tw_: twidgetgrid
-            frame.caption = 'Add components'
-            frame.font.xscale = 1
-            frame.font.dummy = 0
-            frame.outerframe = (
-              0
-              17
-              0
-              0
-            )
-            bounds_x = 24
-            bounds_y = 253
-            bounds_cx = 624
-            bounds_cy = 139
+          caption = 'regmycomps.pas - orig'
+          object m_regpas_orig: tmemoedit
+            frame.localprops = [frl_colorclient]
+            bounds_x = 8
+            bounds_y = 7
+            bounds_cx = 600
+            bounds_cy = 357
             anchors = [an_left, an_top, an_right, an_bottom]
-            font.xscale = 1
-            font.dummy = 0
-            fixrows.count = 1
-            fixrows.items = <            
-              item
-                height = 16
-                captions.count = 7
-                captions.items = <                
-                  item
-                    caption = 'Unit for add'
-                  end                
-                  item
-                    caption = 'Tab name'
-                  end                
-                  item
-                    caption = 'Type'
-                  end                
-                  item
-                  end                
-                  item
-                  end                
-                  item
-                  end                
-                  item
-                  end>
-              end>
-            datacols.count = 6
-            datacols.items = <            
-              item
-                width = 322
-                options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-                widgetname = 'fne'
-                dataclass = tgridmsestringdatalist
-              end            
-              item
-                width = 104
-                widgetname = 'se_tab'
-                dataclass = tgridmsestringdatalist
-              end            
-              item
-                width = 114
-                widgetname = 'se_type'
-                dataclass = tgridmsestringdatalist
-              end            
-              item
-                linewidth = 0
-                width = 1
-                widgetname = 'se_icon'
-                dataclass = tgridmsestringdatalist
-              end            
-              item
-                width = 24
-                options = [co_disabled, co_savevalue, co_savestate, co_mousescrollrow]
-                widgetname = 'di'
-                dataclass = tgridintegerdatalist
-              end            
-              item
-                color = -2147483646
-                widgetname = 'tdatabutton1'
-                dataclass = tgridintegerdatalist
-              end>
-            datarowheight = 24
-            reffontheight = 14
-            object fne: tfilenameedit
-              optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
-              optionsskin = [osk_framebuttononly]
-              frame.levelo = 0
-              frame.colorclient = -2147483645
-              frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-              frame.button.color = -1879048187
-              frame.button.imagenr = 17
-              taborder = 1
-              visible = False
-              bounds_x = 0
-              bounds_y = 0
-              bounds_cx = 322
-              bounds_cy = 24
-              empty_font.color = -1610612733
-              empty_font.style = [fs_italic]
-              empty_font.name = 'stf_empty'
-              empty_font.xscale = 1
-              empty_font.dummy = 0
-              empty_text = 'click here and choose your unit'
-              value = '/usr/src/mse2.6/msegui/apps/myide/mybutton.pas'
-              controller.filename = '/usr/src/mse2.6/msegui/apps/myide/mybutton.pas'
-              controller.lastdir = '/usr/src/mse2.6/msegui/apps/myide/'
-              reffontheight = 14
-            end
-            object se_tab: tstringedit
-              optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
-              optionsskin = [osk_framebuttononly]
-              taborder = 2
-              visible = False
-              bounds_x = 323
-              bounds_y = 0
-              bounds_cx = 104
-              bounds_cy = 24
-              empty_font.color = -1610612733
-              empty_font.style = [fs_italic]
-              empty_font.name = 'stf_empty'
-              empty_font.xscale = 1
-              empty_font.dummy = 0
-              empty_text = 'tab name'
-              value = 'others'
-              reffontheight = 14
-            end
-            object se_type: tstringedit
-              optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
-              optionsskin = [osk_framebuttononly]
-              taborder = 3
-              visible = False
-              bounds_x = 428
-              bounds_y = 0
-              bounds_cx = 114
-              bounds_cy = 24
-              empty_font.color = -1610612733
-              empty_font.style = [fs_italic]
-              empty_font.name = 'stf_empty'
-              empty_font.xscale = 1
-              empty_font.dummy = 0
-              empty_text = 'component type'
-              value = 'tmybutton'
-              reffontheight = 14
-            end
-            object se_icon: tstringedit
-              optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
-              optionsskin = [osk_framebuttononly]
-              taborder = 4
-              visible = False
-              bounds_x = 543
-              bounds_y = 0
-              bounds_cx = 1
-              bounds_cy = 24
-              reffontheight = 14
-            end
-            object di: tdataicon
-              optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
-              optionsskin = [osk_framebuttononly]
-              taborder = 5
-              bounds_x = 544
-              bounds_y = 0
-              bounds_cx = 24
-              bounds_cy = 24
-              visible = False
-              enabled = False
-              imagelist = imlist
-            end
-            object tdatabutton1: tdatabutton
-              optionswidget = [ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
-              optionsskin = [osk_framebuttononly]
-              taborder = 6
-              bounds_x = 569
-              bounds_y = 0
-              bounds_cx = 50
-              bounds_cy = 24
-              state = [as_invisible, as_localinvisible, as_localcaption, as_localonexecute]
-              caption = 'load'
-              onexecute = on_loadicon
-            end
-          end
-          object tstockglyphbutton1: tstockglyphbutton
-            taborder = 1
-            bounds_x = 32
-            bounds_y = 406
-            bounds_cx = 70
-            bounds_cy = 20
-            anchors = [an_left, an_bottom]
-            state = [as_localimagelist, as_localimagenr, as_localonexecute]
-            glyph = stg_dbinsert
-            onexecute = on_add_row
-          end
-          object tstockglyphbutton2: tstockglyphbutton
-            taborder = 2
-            bounds_x = 112
-            bounds_y = 406
-            bounds_cx = 70
-            bounds_cy = 20
-            anchors = [an_left, an_bottom]
-            state = [as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
-            glyph = stg_dbdelete
-            onexecute = on_delete_row
-          end
-          object tbutton1: tbutton
-            taborder = 3
-            bounds_x = 558
-            bounds_y = 406
-            bounds_cx = 90
-            bounds_cy = 28
-            anchors = [an_right, an_bottom]
-            state = [as_localcaption, as_localonexecute]
-            caption = 'Compile it!'
-            onexecute = on_compile
-          end
-          object se_prj_name: tstringedit
-            frame.caption = 'Project name : '
-            frame.captionpos = cp_left
-            frame.dummy = 0
-            frame.outerframe = (
-              98
-              0
-              0
-              0
-            )
-            taborder = 4
-            bounds_x = 30
-            bounds_y = 222
-            bounds_cx = 358
-            value = 'myextendedmseide'
-            reffontheight = 14
-          end
-          object b_1: tbutton
-            Tag = 1
-            taborder = 5
-            bounds_x = 462
-            bounds_y = 406
-            bounds_cx = 90
-            bounds_cy = 28
-            anchors = [an_right, an_bottom]
-            state = [as_localcaption, as_localonexecute]
-            caption = 'Back'
-            onexecute = on_step
-          end
-          object tlabel2: tlabel
-            optionswidget1 = []
-            taborder = 6
-            bounds_x = 24
-            bounds_y = 6
-            bounds_cx = 625
-            bounds_cy = 214
-            anchors = [an_left, an_top, an_right]
-            caption = 'Step 2  : choose new components'#13#10#13#10'It is time now to switch on your mind man, and write project name. It must be without spaces and other none leter simbols, because this name will be a name of directory and name of binary file. Remember, that "ide" is default. It isn`t recomended to use it.'#13#10#13#10'And now time to choose components for install in MSEide!  '#13#10'Click on " + " and chosse your unit. '#13#10#13#10'Then write tab name, where new component will be placed, and CORRECTLY write type of your component.'#13#10#13#10'As option, you can add own icon for new component. If you want it, just click "load" button and choose your icon. But remember, young padavan, icon must be 24x24 PNG or JPG.'
-            textflags = [tf_wordbreak]
-            reffontheight = 14
-          end
-          object im: timage
-            frame.zoomwidthstep = 1
-            frame.zoomheightstep = 1
-            taborder = 7
-            visible = False
-            bounds_x = 592
-            bounds_y = 206
-            bounds_cx = 50
-            bounds_cy = 50
-          end
-          object tlabel6: tlabel
-            taborder = 8
-            bounds_x = 290
-            bounds_y = 176
-            bounds_cx = 0
-            bounds_cy = 14
-            reffontheight = 14
-          end
-        end
-        object ttabpage6: ttabpage
-          frame.zoomwidthstep = 1
-          frame.zoomheightstep = 1
-          taborder = 3
-          bounds_x = 0
-          bounds_y = 18
-          bounds_cx = 674
-          bounds_cy = 441
-          anchors = [an_left, an_top, an_right, an_bottom]
-          caption = 'output'
-          object tw_build: twidgetgrid
-            frame.hiddenedges = [edg_bottom]
-            frame.localprops = [frl_levelo, frl_hiddenedges]
-            bounds_x = 24
-            bounds_y = 102
-            bounds_cx = 624
-            bounds_cy = 98
-            anchors = [an_left, an_top, an_right]
-            rowcount = 6
-            datacols.count = 2
-            datacols.linewidth = 0
-            datacols.items = <            
-              item
-                linewidth = 0
-                width = 322
-                options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-                widgetname = 'se1'
-                dataclass = tgridmsestringdatalist
-                data = (
-                  (
-                    ''
-                    ''
-                    ''
-                    ''
-                    ''
-                    ''
-                  )
-                )
-              end            
-              item
-                linewidth = 0
-                width = 298
-                options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-                widgetname = 'se2'
-                dataclass = tgridmsestringdatalist
-                data = (
-                  (
-                    ''
-                    ''
-                    ''
-                    ''
-                    ''
-                    ''
-                  )
-                )
-              end>
-            datarowheight = 15
-            reffontheight = 14
-            object se1: tstringedit
-              optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
-              optionsskin = [osk_framebuttononly]
-              taborder = 1
-              visible = False
-              bounds_x = 0
-              bounds_y = 0
-              bounds_cx = 322
-              bounds_cy = 15
-              reffontheight = 14
-            end
-            object se2: tstringedit
-              optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
-              optionsskin = [osk_framebuttononly]
-              taborder = 2
-              visible = False
-              bounds_x = 322
-              bounds_y = 0
-              bounds_cx = 298
-              bounds_cy = 15
-              reffontheight = 14
-            end
-          end
-          object twidgetgrid1: twidgetgrid
-            frame.hiddenedges = [edg_top]
-            frame.localprops = [frl_levelo, frl_hiddenedges]
-            taborder = 1
-            bounds_x = 24
-            bounds_y = 200
-            bounds_cx = 624
-            bounds_cy = 187
-            anchors = [an_left, an_top, an_right, an_bottom]
-            optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-            datacols.count = 1
-            datacols.linewidth = 0
-            datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-            datacols.items = <            
-              item
-                linewidth = 0
-                width = 620
-                options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-                widgetname = 'term'
-                dataclass = tgridrichstringdatalist
-              end>
-            datarowheight = 15
-            reffontheight = 14
-            object term: tterminal
-              optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontlineheight]
-              optionsskin = [osk_framebuttononly]
-              taborder = 1
-              visible = False
-              bounds_x = 0
-              bounds_y = 0
-              bounds_cx = 620
-              bounds_cy = 15
-              onprocfinished = on_finish
-              onreceivetext = on_receive_text
-              optionsprocess = [pro_output, pro_erroroutput, pro_input, pro_tty, pro_inactive]
-              reffontheight = 14
-            end
-          end
-          object button4: tbutton
-            Tag = 4
-            taborder = 2
-            bounds_x = 558
-            bounds_y = 406
-            bounds_cx = 90
-            bounds_cy = 28
-            anchors = [an_right, an_bottom]
-            state = [as_invisible, as_localinvisible, as_localcaption, as_localonexecute]
-            caption = 'Next'
-            onexecute = on_step
-          end
-          object bb2: tbutton
-            Tag = 2
-            taborder = 3
-            bounds_x = 462
-            bounds_y = 406
-            bounds_cx = 90
-            bounds_cy = 28
-            anchors = [an_right, an_bottom]
-            state = [as_localinvisible, as_localcaption, as_localonexecute]
-            caption = 'Back'
-            onexecute = on_step
-          end
-          object tlabel3: tlabel
-            optionswidget1 = []
-            taborder = 4
-            bounds_x = 24
-            bounds_y = 6
-            bounds_cx = 625
-            bounds_cy = 94
-            anchors = [an_left, an_top, an_right]
-            caption = 'Step 3'#13#10#13#10'It`s time for compiling, he-he! Drink beer (programmers are longhear and drink beer only :) ), go to the kitchen and eat some burgers (when you ate last time, man ?) and wait when process finish. '#13#10#13#10'If compile be success you will see button "Next". If there are errors, read output and fix them.'
-            textflags = [tf_wordbreak]
-            reffontheight = 14
-          end
-        end
-        object ttabpage9: ttabpage
-          frame.zoomwidthstep = 1
-          frame.zoomheightstep = 1
-          taborder = 5
-          bounds_x = 0
-          bounds_y = 18
-          bounds_cx = 674
-          bounds_cy = 441
-          anchors = [an_left, an_top, an_right, an_bottom]
-          caption = 'End'
-          object tlabel4: tlabel
-            optionswidget1 = []
-            bounds_x = 24
-            bounds_y = 6
-            bounds_cx = 625
-            bounds_cy = 134
-            anchors = [an_left, an_top, an_right]
-            caption = 'Step 4 (and last)'#13#10#13#10'Ho-ho, man!  It seems all be okay! '#13#10#13#10'Now make your choice : eat white or red tabl. .... oh! '#13#10#13#10'Of cause no! You have no choice! Now last step - click big, very big button "Run my new MSEide" and see result!'
-            textflags = [tf_wordbreak]
-            reffontheight = 14
-          end
-          object tbutton2: tbutton
-            taborder = 1
-            bounds_x = 152
-            bounds_y = 214
-            bounds_cx = 376
-            bounds_cy = 156
-            anchors = [an_left, an_top, an_right, an_bottom]
-            state = [as_localcaption, as_localonexecute]
-            caption = 'RUN'#13#10#13#10'MY'#13#10#13#10'NEW '#13#10#13#10'MSEIDE!'
-            onexecute = on_run_new_mse
-          end
-          object bs2: tbutton
-            Tag = 2
-            taborder = 2
-            bounds_x = 462
-            bounds_y = 406
-            bounds_cx = 90
-            bounds_cy = 28
-            anchors = [an_right, an_bottom]
-            state = [as_localinvisible, as_localcaption, as_localonexecute]
-            caption = 'Back'
-            onexecute = on_step
-          end
-          object l_inf: tlabel
-            optionswidget1 = []
-            frame.caption = 'Path to your new MSEide : '
-            frame.dummy = 0
-            frame.outerframe = (
-              0
-              17
-              0
-              0
-            )
-            taborder = 3
-            bounds_x = 24
-            bounds_y = 149
-            bounds_cx = 625
-            bounds_cy = 55
-            anchors = [an_left, an_top, an_right]
-            caption = 'l_inf'
-            font.style = [fs_bold]
-            font.name = 'stf_default'
-            font.xscale = 1
-            font.dummy = 0
-            reffontheight = 14
-          end
-        end
-        object ttabpage2: ttabpage
-          frame.zoomwidthstep = 1
-          frame.zoomheightstep = 1
-          taborder = 2
-          bounds_x = 0
-          bounds_y = 18
-          bounds_cx = 674
-          bounds_cy = 441
-          anchors = [an_left, an_top, an_right, an_bottom]
-          caption = 'files'
-          object ttabwidget2: ttabwidget
-            bounds_x = 24
-            bounds_y = 14
-            bounds_cx = 632
-            bounds_cy = 410
-            anchors = [an_left, an_top, an_right, an_bottom]
-            activepageindex = 0
-            tab_size = 18
-            object ttabpage3: ttabpage
-              frame.zoomwidthstep = 1
-              frame.zoomheightstep = 1
-              taborder = 1
-              visible = True
-              bounds_x = 0
-              bounds_y = 18
-              bounds_cx = 632
-              bounds_cy = 392
-              anchors = [an_left, an_top, an_right, an_bottom]
-              caption = '   .prj   '
-              object m_prj: tmemoedit
-                frame.localprops = [frl_colorclient]
-                bounds_x = 8
-                bounds_y = 7
-                bounds_cx = 618
-                bounds_cy = 378
-                anchors = [an_left, an_top, an_right, an_bottom]
-                value = '[componentpalette]'#10'order0=0'#10'order1=0'#10'order2=0'#10'order3=0'#10'order4=0'#10'order5=0'#10'order6=0'#10'order7=0'#10'order8=0'#10'order9=0'#10'order10=0'#10'order11=0'#10'[projectoptions]'#10'projectdir=/home/mse/packs/standard/svn/mse/trunk/apps/myide'#10'projectfilename=/home/mse/packs/standard/svn/mse/trunk/apps/myide/mymseide.prj'#10'findinfiledialog=33'#10' [findinfileadialogfo]'#10' stackedunder='#10' x=268'#10' y=415'#10' cx=331'#10' cy=249'#10' [findinfileadialogfo.findtext]'#10' value=1999-2005'#10' history=1'#10'  1999-2005'#10' [findinfileadialogfo.casesensitive]'#10' value=0'#10' [findinfileadialogfo.wholeword]'#10' value=0'#10' [findinfileadialogfo.indirectories]'#10' value=1'#10' [findinfileadialogfo.inopenfiles]'#10' value=0'#10' [findinfileadialogfo.dir]'#10' filenames=1'#10'  /home/mse/proj/msegui/'#10' lastdir=/home/mse/proj/msegui/'#10' filehistory=3'#10'  '#10'  /home/mse/proj/msegui/'#10'  /home/mse/proj/msegui/apps/myide/'#10' filefilterindex=-1'#10' filecolwidth=174'#10' [findinfileadialogfo.mask]'#10' value="*.pas" "*.pp" "*.inc"'#10' history=0'#10' [findinfileadialogfo.subdirs]'#10' value=1'#10'options=83'#10' [projectoptionsfo.twidgetgrid3]'#10' propcolwidthref=801'#10' width0=13'#10' sortdescent0=0'#10' width1=13'#10' sortdescent1=0'#10' width2=13'#10' sortdescent2=0'#10' width3=139'#10' sortdescent3=0'#10' width4=292'#10' sortdescent4=0'#10' width5=320'#10' sortdescent5=0'#10' [projectoptionsfo.newfile]'#10' firsttab=0'#10' index=2'#10' [projectoptionsfo.fontaliasgrid]'#10' propcolwidthref=541'#10' values0=0'#10' width0=98'#10' sortdescent0=0'#10' values1=0'#10' width1=531'#10' sortdescent1=0'#10' values2=0'#10' width2=30'#10' sortdescent2=0'#10' values3=0'#10' width3=50'#10' sortdescent3=0'#10' values4=0'#10' width4=50'#10' sortdescent4=0'#10' values5=0'#10' width5=50'#10' sortdescent5=0'#10' [projectoptionsfo.macrosplitter]'#10' x=0'#10' y=188'#10' xprop=0'#10' yprop=0.36223506743738'#10' [projectoptionsfo.macrogrid]'#10' propcolwidthref=595'#10' width0=13'#10' sortdescent0=0'#10' width1=13'#10' sortdescent1=0'#10' width2=13'#10' sortdescent2=0'#10' width3=13'#10' sortdescent3=0'#10' width4=13'#10' sortdescent4=0'#10' width5=13'#10' sortdescent5=0'#10' width6=146'#10' sortdescent6=0'#10' width7=583'#10' sortdescent7=0'#10' [projectoptionsfo.makegroupbox]'#10' firsttab=0'#10' index=0'#10' [projectoptionsfo.exceptionsgrid]'#10' propcolwidthref=772'#10' width0=47'#10' sortdescent0=0'#10' values1=1'#10'  EconvertError'#10' width1=766'#10' sortdescent1=0'#10' [projectoptionsfo.ttabwidget1]'#10' firsttab=0'#10' index=0'#10' [projectoptionsfo.tabwidget]'#10' firsttab=0'#10' index=2'#10' [projectoptionsfo]'#10' stackedunder='#10' x=151'#10' y=68'#10' cx=821'#10' cy=572'#10'programparameters=15'#10' [programparametersfo]'#10' stackedunder='#10' x=272'#10' y=346'#10' cx=328'#10' cy=245'#10' [programparametersfo.workingdirectory]'#10' filenames=0'#10' lastdir='#10' filehistory=0'#10' filefilterindex=0'#10' filecolwidth=0'#10' [programparametersfo.parameters]'#10' value='#10' history=0'#10'sigsettings=27'#10' 1,1,T,F'#10' 3,3,T,F'#10' 4,4,T,F'#10' 6,6,T,F'#10' 7,7,T,F'#10' 8,8,T,F'#10' 9,9,T,F'#10' 10,10,T,F'#10' 11,11,T,F'#10' 12,12,T,F'#10' 13,13,T,F'#10' 15,15,T,F'#10' 16,16,T,F'#10' 17,17,F,F'#10' 18,18,T,F'#10' 19,19,T,F'#10' 20,20,T,F'#10' 21,21,T,F'#10' 22,22,T,F'#10' 23,23,T,F'#10' 24,24,T,F'#10' 25,25,T,F'#10' 26,26,T,F'#10' 27,27,T,F'#10' 28,28,T,F'#10' 29,29,T,F'#10' 30,30,T,F'#10'gridsizex=8'#10'gridsizey=8'#10'exceptclassnames=1'#10' EconvertError'#10'exceptignore=1'#10' 0'#10'modulenames=0'#10'moduletypes=0'#10'modulefiles=0'#10'mainfile=../ide/mseide.pas'#10'targetfile=mymseide${EXEEXT}'#10'messageoutputfile='#10'copymessages=0'#10'closemessages=1'#10'checkmethods=1'#10'makecommand=${COMPILER}'#10'makedir='#10'debugcommand=${DEBUGGER}'#10'debugoptions='#10'debugtarget='#10'runcommand='#10'remoteconnection='#10'uploadcommand='#10'gdbdownload=0'#10'downloadalways=0'#10'startupbkpt=0'#10'startupbkpton=0'#10'gdbsimulator=0'#10'gdbprocessor=i386'#10'gdbservercommand='#10'gdbserverwait=0'#10'beforeload='#10'afterload='#10'beforerun='#10'defaultmake=1'#10'makeoptions=4'#10' -l -Mobjfpc -Sh -Fcutf8 -FE../myide -FU. -dmorecomponents'#10' -gl -O-'#10' -B'#10' -O2 -XX -Xs -CX'#10'makeoptionson=4'#10' 63'#10' 31'#10' 34'#10' 32'#10'macroon=0'#10'macronames=0'#10'macrovalues=0'#10'macrogroup=0'#10'groupcomments=6'#10' '#10' '#10' '#10' '#10' '#10' '#10'sourcedirs=5'#10' ${MSEDIR}lib/addon/*/'#10' ${MSELIBDIR}kernel/$TARGET/'#10' ${MSELIBDIR}*/'#10' ../ide/'#10' ./'#10'defines=0'#10'defineson=0'#10'unitdirs=5'#10' ${MSEDIR}lib/addon/*/'#10' ${MSELIBDIR}kernel/$TARGET/'#10' ${MSELIBDIR}kernel/'#10' ${MSELIBDIR}*/'#10' ../ide/'#10'unitdirson=5'#10' 196671'#10' 65599'#10' 196671'#10' 65599'#10' 196671'#10'unitpref=-Fu'#10'incpref=-Fi'#10'libpref=-Fl'#10'objpref=-Fo'#10'targpref=-o'#10'sourcefilemasks=2'#10' "*.pas" "*.dpr" "*.pp" "*.inc"'#10' "*.c" "*.cc" "*.h"'#10'syntaxdeffiles=2'#10' ${SYNTAXDEFDIR}pascal.sdef'#10' ${SYNTAXDEFDIR}cpp.sdef'#10'filemasknames=3'#10' Source'#10' Forms'#10' All Files'#10'filemasks=3'#10' "*.pp" "*.pas" "*.inc" "*.dpr"'#10' *.mfm'#10' *'#10'toolsave=0'#10'toolhide=0'#10'toolparse=0'#10'toolmenus=0'#10'toolfiles=0'#10'toolparams=0'#10'fontalias=0'#10'fontnames=0'#10'fontheights=0'#10'fontwidths=0'#10'fontoptions=0'#10'fontxscales=0'#10'usercolors=30'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10' 0'#10'usercolorcomment=30'#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10' '#10'showgrid=1'#10'snaptogrid=1'#10'moveonfirstclick=1'#10'autoindent=1'#10'blockindent=1'#10'rightmarginon=1'#10'rightmarginchars=80'#10'scrollheight=0'#10'tabstops=4'#10'spacetabs=0'#10'editfontname=mseide_source'#10'editfontheight=0'#10'editfontwidth=0'#10'editfontextraspace=0'#10'editfontantialiased=1'#10'editmarkbrackets=1'#10'backupfilecount=2'#10'encoding=1'#10'newprojectfiles=4'#10' ${TEMPLATEDIR}default/project.pas'#10' ${TEMPLATEDIR}default/main.pas'#10' ${TEMPLATEDIR}default/main.mfm'#10' ${TEMPLATEDIR}default/main_mfm.pas'#10'newprojectfilesdest=4'#10' ${%PROJECTNAME%}.pas'#10' '#10' '#10' '#10'expandprojectfilemacros=4'#10' 1'#10' 1'#10' 1'#10' 0'#10'loadprojectfile=4'#10' 1'#10' 1'#10' 1'#10' 0'#10'newprogramfile=${TEMPLATEDIR}default/program.pas'#10'newunitfile=${TEMPLATEDIR}default/unit.pas'#10'newmainfosource=${TEMPLATEDIR}default/mainform.pas'#10'newmainfoform=${TEMPLATEDIR}default/mainform.mfm'#10'newsimplefosource=${TEMPLATEDIR}default/simpleform.pas'#10'newsimplefoform=${TEMPLATEDIR}default/simpleform.mfm'#10'newdockingfosource=${TEMPLATEDIR}default/dockingform.pas'#10'newdockingfoform=${TEMPLATEDIR}default/dockingform.mfm'#10'newdatamodsource=${TEMPLATEDIR}default/datamodule.pas'#10'newdatamodform=${TEMPLATEDIR}default/datamodule.mfm'#10'newsubfosource=${TEMPLATEDIR}default/subform.pas'#10'newsubfoform=${TEMPLATEDIR}default/subform.mfm'#10'newreportsource=${TEMPLATEDIR}default/report.pas'#10'newreportform=${TEMPLATEDIR}default/report.mfm'#10'newinheritedsource=${TEMPLATEDIR}default/inheritedform.pas'#10'newinheritedform=${TEMPLATEDIR}default/inheritedform.mfm'#10'stoponexception=0'#10'valuehints=1'#10'activateonbreak=1'#10'showconsole=0'#10'externalconsole=0'#10'[breakpoints]'#10'on=0'#10'path=0'#10'line=0'#10'address=0'#10'addbkpt=0'#10'ignore=0'#10'condition=0'#10'panels=1'#10' panel1'#10'units='#10' ('#10' modulefilenames=0'#10' modulenames=0'#10' moduleclassnames=0'#10' a=0,4132,0,Units'#10' )'#10'files='#10' ('#10' a=0,4132,0,Text Files'#10' )'#10'[componentstore]'#10'storedir=/home/mse/test/msegui/apps/ide/compstore/'#10'filename='#10'[layout]'#10'windowlayout=392'#10' [mainfo.openfile]'#10' filenames=0'#10' filehistory=2'#10'  /home/mse/proj/msegui/testcase/jean-pierre/Demo/main.pas'#10'  /D:/MSE/Livre/DemoMSE/Demo.pas'#10' filefilterindex=2'#10' filecolwidth=174'#10' [mainfo.basedock]'#10' splitdir=2'#10' useroptions=15488'#10' [mainfo]'#10' stackedunder=componentpalettefo'#10' x=4'#10' y=24'#10' cx=286'#10' cy=74'#10' wsize=0'#10' active=0'#10' visible=1'#10' [targetconsolefo]'#10' splitdir=0'#10' useroptions=16489'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=116'#10' y=297'#10' cx=904'#10' cy=347'#10' wsize=0'#10' active=0'#10' visible=1'#10' [threadsfo]'#10' splitdir=0'#10' useroptions=16489'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=37'#10' y=270'#10' cx=349'#10' cy=276'#10' wsize=0'#10' active=0'#10' visible=0'#10' [memoryfo]'#10' splitdir=0'#10' useroptions=16507'#10' stackedunder=cpui386fo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=100'#10' y=100'#10' cx=453'#10' cy=354'#10' wsize=0'#10' active=0'#10' visible=0'#10' [memoryfo.add]'#10' value=0'#10' [memoryfo.memon]'#10' value=0'#10' [memoryfo.bitwidth]'#10' value=0'#10' [memoryfo.cnt]'#10' value=0'#10' [disassfo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=projecttreefo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=162'#10' y=502'#10' cx=564'#10' cy=210'#10' wsize=0'#10' active=0'#10' visible=0'#10' [findinfilefo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=watchfo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=548'#10' y=115'#10' cx=369'#10' cy=198'#10' [projecttreefo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=stackfo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=321'#10' y=101'#10' cx=698'#10' cy=413'#10' wsize=0'#10' active=0'#10' visible=0'#10' [stackfo]'#10' splitdir=0'#10' useroptions=16489'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=407'#10' y=349'#10' cx=254'#10' cy=180'#10' wsize=0'#10' active=0'#10' visible=0'#10' [watchpointsfo]'#10' splitdir=0'#10' useroptions=16489'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=537'#10' y=26'#10' cx=483'#10' cy=210'#10' wsize=0'#10' active=0'#10' visible=0'#10' [watchpointsfo.grid]'#10' propcolwidthref=352'#10' width0=16'#10' sortdescent0=0'#10' values1=1'#10'  0'#10' width1=33'#10' sortdescent1=0'#10' values2=1'#10'  pinteger(0x126c6b4)^'#10' width2=239'#10' sortdescent2=0'#10' width4=34'#10' sortdescent4=0'#10' values5=1'#10'  0'#10' width5=38'#10' sortdescent5=0'#10' values6=1'#10'  '#10' width6=103'#10' sortdescent6=0'#10' [breakpointsfo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=memoryfo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=107'#10' y=404'#10' cx=477'#10' cy=128'#10' wsize=0'#10' active=0'#10' visible=0'#10' [breakpointsfo.bkptson]'#10' value=1'#10' [objectinspectorfo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=componentstorefo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=670'#10' y=179'#10' cx=316'#10' cy=484'#10' wsize=0'#10' active=0'#10' visible=0'#10' [objectinspectorfo.grid]'#10' propcolwidthref=347'#10' width0=113'#10' sortdescent0=0'#10' width1=187'#10' sortdescent1=0'#10' [watchfo]'#10' splitdir=0'#10' useroptions=24681'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=510'#10' y=325'#10' cx=310'#10' cy=245'#10' wsize=0'#10' active=0'#10' visible=0'#10' [watchfo.grid]'#10' propcolwidthref=105'#10' width0=13'#10' sortdescent0=0'#10' values1=0'#10' width1=152'#10' sortdescent1=0'#10' values2=0'#10' values3=0'#10' width3=12'#10' sortdescent3=0'#10' values4=0'#10' width4=13'#10' sortdescent4=0'#10' [watchfo.watchon]'#10' [watchfo.expression]'#10' [watchfo.watcheson]'#10' value=1'#10' [messagefo]'#10' splitdir=0'#10' useroptions=49259'#10' parent=mainfo.panel1.container'#10' visible=0'#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=0'#10' y=452'#10' cx=733'#10' cy=114'#10' [componentstorefo]'#10' splitdir=0'#10' useroptions=24675'#10' stackedunder=findinfilefo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=100'#10' y=100'#10' cx=445'#10' cy=354'#10' wsize=0'#10' active=0'#10' visible=0'#10' [componentstorefo.grid]'#10' propcolwidthref=435'#10' width0=111'#10' sortdescent0=0'#10' width1=157'#10' sortdescent1=0'#10' width2=160'#10' sortdescent2=0'#10' [componentstorefo.storefiledialog]'#10' filenames=1'#10'  /home/mse/test/msegui/apps/ide/compstore/'#10' lastdir=/home/mse/test/msegui/apps/ide/compstore/'#10' filehistory=0'#10' filefilterindex=0'#10' filecolwidth=0'#10' [componentstorefo.groupfiledialog]'#10' filenames=1'#10'  /home/mse/test/msegui/apps/ide/compstore/'#10' lastdir=/home/mse/test/msegui/apps/ide/compstore/'#10' filehistory=0'#10' filefilterindex=0'#10' filecolwidth=0'#10' [componentpalettefo]'#10' splitdir=0'#10' useroptions=24683'#10' stackedunder=mainfo.panel1'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=335'#10' y=24'#10' cx=440'#10' cy=129'#10' wsize=0'#10' active=0'#10' visible=1'#10' [componentpalettefo.componentpages]'#10' activetab=5'#10' [debuggerfo]'#10' splitdir=0'#10' useroptions=24683'#10' parent=mainfo.basedock'#10' visible=1'#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=0'#10' y=0'#10' cx=286'#10' cy=36'#10' [sourcefo]'#10' splitdir=0'#10' useroptions=16489'#10' parent=mainfo.panel1.container'#10' visible=1'#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=0'#10' y=0'#10' cx=733'#10' cy=566'#10' [actionsmo.watchesonact]'#10' checked=1'#10' [actionsmo.bluedotsonact]'#10' checked=1'#10' [cpui386fo]'#10' splitdir=0'#10' useroptions=16491'#10' stackedunder=threadsfo'#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=312'#10' y=341'#10' cx=283'#10' cy=210'#10' wsize=0'#10' active=0'#10' visible=0'#10' [mainfo.panel1]'#10' splitdir=2'#10' useroptions=32233'#10' stackedunder='#10' parent='#10' mdistate=0'#10' nx=0'#10' ny=0'#10' ncx=0'#10' ncy=0'#10' x=4'#10' y=126'#10' cx=743'#10' cy=566'#10' wsize=0'#10' active=1'#10' visible=1'#10'[edit]'#10'hintwidth=0'#10'hintheight=0'#10'autoindent=1'#10'blockindent=1'#10'rightmarginon=1'#10'rightmarginchars=80'#10'tabstops=4'#10'finddtext='#10'findhistory=0'#10'findoptions=0'#10'editpos=0'#10'sourcefiles=0'#10'relpaths=0'#10'ismoduletexts=0'#10'modules=0'#10'visiblemodules=0'#10'[sourcefo.tabwidget]'#10'tabsize=102'#10'firsttab=0'#10'index=-1'#10'[components]'#10'[selecteditpage]'#10'colwidth=100'#10'x=0'#10'y=0'#10'cx=0'#10'cy=0'#10'[progparams]'#10'parameters='#10'progparamhistory=0'#10'workingdirectory='#10'envvarons=0'#10'envvarnames=0'#10'envvarvalues=0'#10
-              end
-            end
-            object ttabpage4: ttabpage
-              frame.zoomwidthstep = 1
-              frame.zoomheightstep = 1
-              taborder = 2
-              bounds_x = 0
-              bounds_y = 18
-              bounds_cx = 632
-              bounds_cy = 392
-              anchors = [an_left, an_top, an_right, an_bottom]
-              caption = 'regcomponents.inc'
-              object m_inc: tmemoedit
-                frame.localprops = [frl_colorclient]
-                bounds_x = 8
-                bounds_y = 7
-                bounds_cx = 618
-                bounds_cy = 378
-                anchors = [an_left, an_top, an_right, an_bottom]
-                value = 'regmycomps,'#10
-              end
-            end
-            object ttabpage5: ttabpage
-              frame.zoomwidthstep = 1
-              frame.zoomheightstep = 1
-              taborder = 3
-              bounds_x = 0
-              bounds_y = 18
-              bounds_cx = 632
-              bounds_cy = 392
-              anchors = [an_left, an_top, an_right, an_bottom]
-              caption = 'regmycomps.pas'
-              object m_regpas: tmemoedit
-                frame.localprops = [frl_colorclient]
-                bounds_x = 8
-                bounds_y = 7
-                bounds_cx = 618
-                bounds_cy = 378
-                anchors = [an_left, an_top, an_right, an_bottom]
-                value = 'unit regmycomps;'#10'{$ifdef FPC}{$mode objfpc}{$h+}{$endif}'#10#10'interface'#10#10'implementation'#10'uses'#10' msedesignintf;'#10#10'procedure register;'#10'begin'#10'end;'#10#10'initialization'#10' register;'#10'end.'#10
-              end
-            end
-            object ttabpage7: ttabpage
-              frame.zoomwidthstep = 1
-              frame.zoomheightstep = 1
-              taborder = 4
-              bounds_x = 0
-              bounds_y = 18
-              bounds_cx = 632
-              bounds_cy = 392
-              anchors = [an_left, an_top, an_right, an_bottom]
-              caption = 'regmycomps.pas - orig'
-              object m_regpas_orig: tmemoedit
-                frame.localprops = [frl_colorclient]
-                bounds_x = 8
-                bounds_y = 7
-                bounds_cx = 618
-                bounds_cy = 378
-                anchors = [an_left, an_top, an_right, an_bottom]
-                value = 'unit regmycomps;'#10'{$ifdef FPC}{$mode objfpc}{$h+}{$endif}'#10#10'interface'#10#10'implementation'#10'uses'#10' msedesignintf;'#10#10'procedure register;'#10'begin'#10'end;'#10#10'initialization'#10' register;'#10'end.'#10
-              end
-            end
+            value = 'unit regmycomps;'#10'{$ifdef FPC}{$mode objfpc}{$h+}{$endif}'#10#10'interface'#10#10'implementation'#10'uses'#10' msedesignintf;'#10#10'procedure register;'#10'begin'#10'end;'#10#10'initialization'#10' register;'#10'end.'#10
           end
         end
       end
-    end
-    object ttabpage13: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
-      taborder = 4
-      bounds_x = 125
-      bounds_y = 0
-      bounds_cx = 673
-      bounds_cy = 474
-      anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Tune '#10'MSEide'
-      object tbutton5: tbutton
-        bounds_x = 516
-        bounds_y = 256
-        bounds_cx = 106
-        bounds_cy = 28
-        anchors = [an_top, an_right]
-        state = [as_localcaption, as_localonexecute]
-        caption = 'Rebuild MSEide'
-        onexecute = insert_msetune
-      end
-      object be_insert: tbooleanedit
-        frame.caption = 'Insert  MSEtune in MSEide main menu'
+      object tlabel1: tlabel
+        frame.caption = '1.3'
+        frame.captionpos = cp_righttop
         frame.dummy = 0
         frame.outerframe = (
           0
-          1
-          239
-          2
+          0
+          23
+          0
         )
         taborder = 1
         bounds_x = 20
-        bounds_y = 230
-        bounds_cx = 252
-        bounds_cy = 16
+        bounds_y = 16
+        bounds_cx = 122
+        bounds_cy = 24
+        caption = 'MSE Tune'
+        font.height = 20
+        font.name = 'stf_default'
+        font.xscale = 1
+        font.dummy = 0
+        reffontheight = 24
       end
-      object ddd_trunkdir3: tdirdropdownedit
-        frame.caption = 'Your ide directory. (example, /usr/src/msetrunk/apps/ide). Use trunk, dude!'
-        frame.button.color = -2147483646
+      object tlabel2: tlabel
+        frame.caption = '2011 '
+        frame.captionpos = cp_bottomleft
+        frame.dummy = 0
         frame.outerframe = (
           0
+          0
+          0
           17
-          0
-          0
         )
         taborder = 2
-        bounds_x = 19
-        bounds_y = 96
-        bounds_cx = 626
-        bounds_cy = 37
-        anchors = [an_left, an_top, an_right]
-        reffontheight = 14
-      end
-      object tlabel7: tlabel
-        optionswidget1 = []
-        taborder = 3
         bounds_x = 12
-        bounds_y = 8
-        bounds_cx = 649
-        bounds_cy = 86
-        anchors = [an_left, an_top, an_right]
-        caption = 'All simple, man!'#13#10#13#10'Just check paths and click "Build".'#10#10'If there are errors, read output, fix errors and try again.'
-        textflags = [tf_wordbreak]
-        reffontheight = 14
-      end
-      object fne_ppcpath3: tfilenameedit
-        frame.caption = 'Path to compiler'
-        frame.button.color = -2147483646
-        frame.button.imagenr = 17
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        taborder = 4
-        bounds_x = 19
-        bounds_y = 141
-        bounds_cx = 626
-        bounds_cy = 37
-        anchors = [an_left, an_top, an_right]
-        reffontheight = 14
-      end
-      object be_ctrl_space: tbooleanedit
-        frame.caption = 'Switch On CTRL+Space'
-        frame.dummy = 0
-        frame.outerframe = (
-          0
-          1
-          146
-          2
-        )
-        taborder = 5
-        bounds_x = 20
-        bounds_y = 254
-        bounds_cx = 159
-        bounds_cy = 16
-      end
-      object be_compile_mse3: tbooleanedit
-        frame.caption = 'compile MSEide'
-        frame.dummy = 0
-        frame.outerframe = (
-          0
-          1
-          100
-          2
-        )
-        taborder = 6
-        bounds_x = 19
-        bounds_y = 279
-        bounds_cx = 113
-        bounds_cy = 16
-      end
-      object twidgetgrid3: twidgetgrid
-        taborder = 7
-        bounds_x = 12
-        bounds_y = 304
-        bounds_cx = 650
-        bounds_cy = 144
-        anchors = [an_left, an_top, an_right, an_bottom]
-        optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-        datacols.count = 1
-        datacols.items = <        
-          item
-            width = 645
-            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-            widgetname = 'term_rebuild'
-            dataclass = tgridrichstringdatalist
-          end>
-        datarowheight = 21
-        reffontheight = 14
-        object term_rebuild: tterminal
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontlineheight]
-          optionsskin = [osk_framebuttononly]
-          taborder = 1
-          visible = False
-          bounds_x = 0
-          bounds_y = 0
-          bounds_cx = 645
-          bounds_cy = 21
-          onprocfinished = on_finishbuild
-          reffontheight = 14
-        end
-      end
-      object fne_msetune: tfilenameedit
-        frame.caption = 'Path to MSEtune utility'
-        frame.button.color = -2147483646
-        frame.button.imagenr = 17
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        taborder = 8
-        bounds_x = 19
-        bounds_y = 181
-        bounds_cx = 626
-        bounds_cy = 37
-        anchors = [an_left, an_top, an_right]
+        bounds_y = 440
+        bounds_cx = 299
+        bounds_cy = 31
+        anchors = [an_left, an_bottom]
+        caption = 'Developed by Almin-Soft (www.almin-soft.nx0.ru)'
         reffontheight = 14
       end
     end
-    object tbutton3: tbutton
-      taborder = 3
-      bounds_x = 15
-      bounds_y = 430
-      bounds_cx = 90
-      bounds_cy = 28
-      anchors = [an_left, an_bottom]
-      state = [as_localinvisible, as_localcaption, as_localonexecute]
-      caption = 'Close'
-      onexecute = on_close
-    end
+  end
+  object tbutton2: tbutton
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 433
+    bounds_cx = 130
+    bounds_cy = 27
+    anchors = [an_left, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Close'
+    onexecute = on_close
+  end
+  object fd: tfiledialog
+    left = 12
+    top = 392
   end
   object imlist: timagelist
     width = 32
     height = 32
-    left = 376
-    top = 432
+    left = 12
+    top = 360
   end
-  object fd: tfiledialog
-    left = 328
-    top = 432
+  object ttimer1: ttimer
+    ontimer = on_timer
+    left = 8
+    top = 328
   end
 end

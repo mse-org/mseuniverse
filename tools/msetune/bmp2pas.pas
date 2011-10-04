@@ -13,10 +13,9 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-    
-    
-    MODIFIED BY MINOSHI 26/08/2011
 }
+// MODIFIED BY ALEXANDRE MINOSHI 26/08/2011
+
 UNIT {program} bmp2pas;
 
 // commandline: bmp2pas -oDESTFILE BITMAPFILE ...
