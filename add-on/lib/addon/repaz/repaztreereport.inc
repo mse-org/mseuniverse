@@ -66,22 +66,22 @@ procedure TraTreeTabulators.init;
 begin
  inherited;
  try
- ftreeheader:= nil;
- setlength(ftreeheader,1);
+  ftreeheader:= nil;
+  setlength(ftreeheader,1);
   if fparentfieldlink.active and fkeyfieldlink.active and
    (fparentfieldlink.fieldname<>'') and (fkeyfieldlink.fieldname<>'') then begin
-  if fparentfieldlink.ismsestring then begin
-   ftreeheader[0].parentstr:= fparentfieldlink.asmsestring;
-   ftreeheader[0].keystr:= fkeyfieldlink.asmsestring;
-  end else begin
-   ftreeheader[0].parentnum:= fparentfieldlink.aslargeint;
-   ftreeheader[0].keynum:= fkeyfieldlink.aslargeint;
+   if fparentfieldlink.ismsestring then begin
+    ftreeheader[0].parentstr:= fparentfieldlink.asmsestring;
+    ftreeheader[0].keystr:= fkeyfieldlink.asmsestring;
+   end else begin
+    ftreeheader[0].parentnum:= fparentfieldlink.aslargeint;
+    ftreeheader[0].keynum:= fkeyfieldlink.aslargeint;
+   end;
   end;
- end;
- ftreeheader[0].indextree:= 0;
- findextree:= 0;
+  ftreeheader[0].indextree:= 0;
+  findextree:= 0;
  except
-end;
+ end;
 end;
 
 procedure TraTreeTabulators.setdatasource(const avalue: string);
@@ -134,7 +134,7 @@ begin
   end else begin  
    findextree:= res1;
   end;
-end;
+ end;
 end;
 
 { TraTreeBand }

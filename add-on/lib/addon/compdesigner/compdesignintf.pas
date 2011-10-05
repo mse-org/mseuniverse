@@ -1,26 +1,27 @@
-{ MSEgui Copyright (c) 2007-2008 by Martin Schreiber
+{ MSEide Copyright (c) 1999-2011 by Martin Schreiber
 
-    See the file COPYING.MSE, included in this distribution,
-    for details about the copyright.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+   Modified 2011 by Sri Wahono
+
+   This component is used for Repaz components
+   Feel free to participate with reports bug, create new 
+   report template, etc with join with Repaz forum at : 
+   http://www.msegui.org/repaz                
 }
-{*********************************************************}
-{                     CompDesigner                        }
-{                                                         }
-{            Originally file is taken from MSEide         }
-{                and modified to tmsecomponent            }
-{                   by : Sri Wahono '2008                 }
-{             Included package with Repaz                 }
-{*********************************************************}
-{ Feel free to participate with reports bug, create new   }
-{ report template, etc with join with Repaz forum  :      }
-{                                                         }
-{              http://www.msegui.org/repaz                }
-{                                                         }
-{*********************************************************}
+
 unit compdesignintf;
 
 {$ifdef FPC}{$mode objfpc}{$h+}{$interfaces corba}{$endif}
@@ -165,9 +166,9 @@ type
                  //true if subchild of another selected component
  end;
 
- tcomponents = class(tbucketlist)
+ tcomponents = class(tptruinthashdatalist)
   protected
-   procedure freedata(var data); override;
+   //procedure freedata(var data); override;
    function find(const value: tobject): pcomponentinfoty;
    procedure swapcomponent(const old,new: tcomponent);
   public
@@ -744,6 +745,7 @@ end;
 constructor tcomponents.create;
 begin
  inherited create(sizeof(componentinfoty));
+ fstate:= fstate + [hls_needsnull,hls_needsfinalize];
 end;
 
 destructor tcomponents.destroy;
@@ -751,19 +753,19 @@ begin
  inherited;
 end;
 
-procedure tcomponents.freedata(var data);
+{procedure tcomponents.freedata(var data);
 begin
  with componentinfoty(data) do begin
   name:= '';
  end;
-end;
+end;}
 
 procedure tcomponents.add(comp: tcomponent);
 var
  po1: pcomponentinfoty;
 begin
  {$ifdef FPC} {$checkpointer off} {$endif}
- po1:= inherited add(ptruint(comp),nil^);
+ po1:= inherited add(ptruint(comp));
  {$ifdef FPC} {$checkpointer default} {$endif}
  with po1^ do begin
   instance:= comp;
@@ -790,8 +792,8 @@ function tcomponents.getcomponents: componentarty;
 var
  int1: integer;
 begin
- setlength(result,fcount);
- for int1:= 0 to fcount - 1 do begin
+ setlength(result,count);
+ for int1:= 0 to count - 1 do begin
   result[int1]:= next^.instance;
  end;
 end;
@@ -811,7 +813,7 @@ begin
  result:= nil;
  str1:= uppercase(aname);
  if aname <> '' then begin
-  for int1:= 0 to fcount - 1 do begin
+  for int1:= 0 to count - 1 do begin
    po1:= next;
    if uppercase(po1^.name) = str1 then begin
     result:= po1^.instance;
@@ -842,7 +844,7 @@ var
  int1: integer;
 begin
  setlength(result,count);
- for int1:= 0 to fcount - 1 do begin
+ for int1:= 0 to count - 1 do begin
   with result[int1] do begin
    instance:= next^.instance;
    dispname:= instance.name;
@@ -857,7 +859,7 @@ var
  int1: integer;
 begin
  setlength(result,count);
- for int1:= 0 to fcount - 1 do begin
+ for int1:= 0 to count - 1 do begin
   result[int1]:= next^.instance.name;
  end;
 end;

@@ -1,26 +1,26 @@
-{ MSEgui Copyright (c) 2007-2008 by Martin Schreiber
+{ MSEide Copyright (c) 1999-2011 by Martin Schreiber
 
-    See the file COPYING.MSE, included in this distribution,
-    for details about the copyright.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+   Modified 2011 by Sri Wahono
+
+   This component is used for Repaz components
+   Feel free to participate with reports bug, create new 
+   report template, etc with join with Repaz forum at : 
+   http://www.msegui.org/repaz                
 }
-{*********************************************************}
-{                     CompDesigner                        }
-{                                                         }
-{            Originally file is taken from MSEide         }
-{                and modified to tmsecomponent            }
-{                   by : Sri Wahono '2008                 }
-{             Included package with Repaz                 }
-{*********************************************************}
-{ Feel free to participate with reports bug, create new   }
-{ report template, etc with join with Repaz forum  :      }
-{                                                         }
-{              http://www.msegui.org/repaz                }
-{                                                         }
-{*********************************************************}
 
 unit compdesigner;
 {$ifdef FPC}{$mode objfpc}{$h+}{$interfaces corba}{$endif}
@@ -5204,7 +5204,7 @@ end;
 
 function tpropeditor.getvariantvalue(const index: integer = 0): variant;
 begin
-  with fprops[index] do begin
+ with fprops[index] do begin
   result:= getvariantprop(instance,propinfo);
  end;
 end;
@@ -5214,21 +5214,21 @@ var
  int1: integer;
  ar1: objectarty;
 begin
-  ar1:= queryselectedpropinstances;
-  if ar1 = nil then begin
-   for int1:= 0 to high(fprops) do begin
-    with fprops[int1] do begin
+ ar1:= queryselectedpropinstances;
+ if ar1 = nil then begin
+  for int1:= 0 to high(fprops) do begin
+   with fprops[int1] do begin
     setvariantprop(instance,propinfo,value);
-    end;
-   end;
-  end
-  else begin
-   for int1:= 0 to high(ar1) do begin
-   setvariantprop(ar1[int1],fprops[0].propinfo,value);  
    end;
   end;
-  modified;
- end;
+ end
+ else begin
+  for int1:= 0 to high(ar1) do begin
+   setvariantprop(ar1[int1],fprops[0].propinfo,value);  
+  end;
+ end;    
+ modified;
+end;
 
 function tpropeditor.getpointervalue(const index: integer): pointer;
 
@@ -5518,8 +5518,8 @@ begin
    result[int2]:= tsetelementeditor.create(fdesigner,fcomponent,
                     fobjectinspector,fprops,compty,self,int1);
    inc(int2);
+  end;
  end;
-end;
  setlength(result,int2);
 end;
 
@@ -5717,8 +5717,8 @@ begin
  end
  else begin
   result:= getcomponentpropname(tcomponent(getpointervalue));
-  end;
-  end;
+ end;
+end;
 
 function tcomponentpropeditor.getvalues: msestringarty;
 var
@@ -7308,7 +7308,7 @@ begin
    end
    else begin
     result:= datetimetostring(getfloatvalue,'yyyy-mm-dd hh:nn:ss');
-end;
+   end;
   end;
  end;
 end;
@@ -7319,7 +7319,7 @@ procedure tdatetimepropeditor.setvalue(const value: msestring);
  var
   ar2: msestringarty;
   year,month,day: word;
-begin
+ begin
   result:= 0;
   ar2:= splitstring(str,msechar('-'));
   if high(ar2) >= 0 then begin
@@ -7330,7 +7330,7 @@ begin
     month:= strtoint(ar2[1]);
     if high(ar2) > 1 then begin
      day:= strtoint(ar2[2]);
-end;
+    end;
    end;
   end
   else begin
@@ -7504,49 +7504,49 @@ begin
    with tmsetexteditorfo(sender) do begin
     forigtext:= textedit.datalist.asmsestringarray;
     try
-    if ismsestring then begin
-     with tmsestringdatalist(getpointervalue) do begin
+     if ismsestring then begin
+      with tmsestringdatalist(getpointervalue) do begin
        backupm:= asarray;
-      beginupdate;
-      try
-       clear;
-       for int1:= 0 to grid.rowcount-1 do begin
-        add(textedit[int1]);
-       end;
-      finally
-       endupdate
-      end;
-     end;
-    end
-    else begin
-     with tstrings(getpointervalue) do begin
-       backup:= text;
-      utf8:= getutf8;
-      beginupdate;
-      try
-       clear;
-       for int1:= 0 to grid.rowcount-1 do begin
-        if utf8 then begin
-         str1:= stringtoutf8(textedit[int1]);
-        end
-        else begin
-         str1:= textedit[int1];
+       beginupdate;
+       try
+        clear;
+        for int1:= 0 to grid.rowcount-1 do begin
+         add(textedit[int1]);
         end;
-        updateline(str1);
-        add(str1);
+       finally
+        endupdate
        end;
-      finally
-       endupdate
+      end;
+     end
+     else begin
+      with tstrings(getpointervalue) do begin
+       backup:= text;
+       utf8:= getutf8;
+       beginupdate;
+       try
+        clear;
+        for int1:= 0 to grid.rowcount-1 do begin
+         if utf8 then begin
+          str1:= stringtoutf8(textedit[int1]);
+         end
+         else begin
+          str1:= textedit[int1];
+         end;
+         updateline(str1);
+         add(str1);
+        end;
+       finally
+        endupdate
+       end;
       end;
      end;
-    end;
      doafterclosequery(amodalresult);
     finally
      if amodalresult = mr_canclose then begin
       if ismsestring then begin
        with tmsestringdatalist(getpointervalue) do begin
         asarray:= backupm;
-   end;
+       end;
       end
       else begin
        with tstrings(getpointervalue) do begin
@@ -7559,7 +7559,7 @@ begin
   except
    application.handleexception(nil);
 //   if amodalresult = mr_canclose then begin
-   amodalresult:= mr_none;
+    amodalresult:= mr_none;
 //   end;
   end;
  end;
@@ -7704,10 +7704,10 @@ begin
      if datalist1 is tcomplexdatalist then begin
       formkind:= lfk_complex;
      end
+    end;
    end;
   end;
  end;
-end;
 end;
 
 procedure tdatalistpropeditor.edit;
@@ -7750,7 +7750,7 @@ begin
       griddata.assign(realdata);
       if realdata.defaultzero then begin
        valuedefault:= 0;
-    end;
+      end;
       min:= realdata.min;
       max:= realdata.max;
      end;
@@ -7763,7 +7763,7 @@ begin
      with tmsestringintlisteditor(editform) do begin
       texta.assigncol(tmsestringdatalist(getpointervalue));
       tmsestringintdatalist(getpointervalue).assigntob(textb.griddata);
-   end;
+     end;
     end;
     lfk_complex: begin
      complexdata:= tcomplexdatalist(getpointervalue);
@@ -7833,7 +7833,7 @@ begin
       with tmsestringintlisteditor(sender) do begin
        tmsestringintdatalist(datalist1).assign(texta.griddata);
        tmsestringintdatalist(datalist1).assignb(textb.griddata);
-    end;
+      end;
      end;
      lfk_complex: begin
       with tdoublereallisteditor(sender) do begin

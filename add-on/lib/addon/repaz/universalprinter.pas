@@ -93,7 +93,7 @@ type
    procedure docupsconnect;
    function getcupsrequest(aname: pcups_dest_t) : pipp_t;
    function getattributestring(aprinter: pcups_dest_t; aname: pchar; const defaultvalue : string): string;
-  function printfile(afilename: string): longint;
+   function printfile(afilename: string): longint;
    {$ENDIF}   
    procedure setprncommand(acommandtype: trawprintercommand);
    procedure defineescapecode(esccommand: integer; escstring: string);
@@ -923,12 +923,12 @@ begin
      fcairo.fsurface:= nil;
      cairo_surface_destroy(fcairo.fsurface);
      fcairo.fsurface:= nil;
-   end;
+    end;
     if fcairo.fdraw<>nil then begin
      fcairo.fdraw:= nil;
      cairo_destroy(fcairo.fdraw);
- end;
-end;
+    end;
+   end;
   cai_SVG:
    begin
     cairo_surface_finish(fcairo.fsurface);
@@ -964,7 +964,7 @@ begin
     fcairo.fsurface:= cairo_image_surface_create (CAIRO_FORMAT_RGB24, round(fcairo.page_width*self.ppmm), round(fcairo.page_height*self.ppmm));
     fcairo.fdraw:= cairo_create(fcairo.fsurface);
     fillrect(makerect(0,0,round(fcairo.page_width*self.ppmm),round(fcairo.page_height*self.ppmm)),cl_white,cl_black);
- end;
+   end;
   cai_SVG:
    begin
     str1:= tosysfilepath(removefileext(fcairo.outputfilename))+inttostr(fpagenum)+'.svg';
