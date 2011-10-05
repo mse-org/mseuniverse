@@ -88,6 +88,9 @@ type
    im: timage;
    ttimer1: ttimer;
    fne_msetune: tfilenameedit;
+   rb: trichbutton;
+   timagelist1: timagelist;
+   timer: ttimer;
    procedure on_loaded(const sender: TObject);
    procedure on_savesettings(const sender: TObject);
    procedure on_close(const sender: TObject);
@@ -100,6 +103,7 @@ type
    procedure on_finishcompile(const sender: TObject);
    procedure insert_tune_in_mse(idedir : string);
    procedure on_timer(const sender: TObject);
+   procedure on_timer2(const sender: TObject);
  end;
  
 type tstatus = (_download,_compile);
@@ -109,6 +113,7 @@ var   mainfo : tmainfo;
          dir : string;
       kernel : string;
       status : tstatus;
+         _im : integer = 0;
 implementation
 uses  main_mfm;
 
@@ -428,6 +433,7 @@ begin
           
  term_update.addline('MSEtune : Starting download MSEide (and components)...');
  l_update_status.caption := 'Be patient, I still update ... ';
+ rb.visible := true;
  term_update.execprog(cmd);
  setcurrentdir(dir);
 end;
@@ -438,6 +444,7 @@ begin
   term_update.addline('MSEtune : Finish update MSEide');
   l_update_status.caption := 'Finished';
   if status = _download then ttimer1.enabled := true;  
+  rb.visible := false;
 end;
 
 procedure tmainfo.on_timer(const sender: TObject);
@@ -456,6 +463,7 @@ begin
 
  term_update.addline('MSEtune : Starting compile MSEide (and components)...');
  l_update_status.caption := 'Be patient, man, I still compile ... ';
+ rb.visible := true;
  term_update.execprog(cmd);  
 end;
 
@@ -712,6 +720,7 @@ begin
  if be_pascalscript.value then cmd := cmd + ' -dmse_with_pascalscript';
  
   term.addline('MSEtune : Starting compile ...');
+  rb.visible := true;
   term.execprog(cmd);    
 end;  
 
@@ -732,7 +741,14 @@ begin
   then begin 
         se2[4] := 'Ok';
         term.addline('MSEtune : END process');
+        rb.visible := false;
        end;   
+end;
+
+procedure tmainfo.on_timer2(const sender: TObject);
+begin
+ rb.imagenr := _im;
+ if _im = timagelist1.count - 1 then _im := 0 else inc(_im); 
 end;
 
 
