@@ -1,0 +1,25 @@
+object mainmo: tmainmo
+  bounds_cx = 350
+  bounds_cy = 195
+  statfile = mainstat
+  left = 64
+  top = 504
+  moduleclassname = 'tmsedatamodule'
+  object optionsstat: trttistat
+    top = 32
+  end
+  object mainstat: tstatfile
+    filename = '^/.msetools/msegit.sta'
+    savedmemoryfiles = '*fo.sta'
+    top = 8
+  end
+  object openrepoact: taction
+    caption = '&Open git repo'
+    left = 128
+    top = 16
+  end
+  object quitact: taction
+    left = 128
+    top = 32
+  end
+end

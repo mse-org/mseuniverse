@@ -14,37 +14,25 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit main;
+unit mainmodule;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
- msedockpanelform,msestrings,msestatfile;
+ mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
+ mserttistat,mseact,mseactions,mseifiglob;
 
 type
- tmainfo = class(tmainform)
-   dockpanel: tdockpanel;
-   mainmen: tmainmenu;
-   panelcontroller: tdockpanelformcontroller;
-   mainfosta: tstatfile;
-   panelsta: tstatfile;
-   procedure newpanelexe(const sender: TObject);
+ tmainmo = class(tmsedatamodule)
+   optionsstat: trttistat;
+   mainstat: tstatfile;
+   openrepoact: taction;
+   quitact: taction;
  end;
 var
- mainfo: tmainfo;
+ mainmo: tmainmo;
 
 implementation
 
 uses
- main_mfm;
- 
-procedure tmainfo.newpanelexe(const sender: TObject);
-begin
- with panelcontroller.newpanel do begin
-//  statfile:= mainfosta;
-  activate;
- end;
-end;
-
+ mainmodule_mfm;
 end.

@@ -21,8 +21,10 @@ program msegit;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
- msegui,mseforms,main;
+ msegui,mseforms,main,mainmodule;
+ 
 begin
+ application.createdatamodule(tmainmo,mainmo);
  application.createform(tmainfo,mainfo);
  application.run;
 end.

@@ -1,7 +1,90 @@
 object mainfo: tmainfo
-  bounds_x = 291
-  bounds_y = 247
+  bounds_x = 49
+  bounds_y = 179
   bounds_cx = 403
   bounds_cy = 280
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    16
+    403
+    264
+  )
+  mainmenu = mainmen
+  statfile = mainfosta
+  caption = 'MSEgit'
   moduleclassname = 'tmainform'
+  object dockpanel: tdockpanel
+    frame.grip_size = 10
+    frame.grip_options = [go_lockbutton]
+    frame.dummy = 0
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 403
+    bounds_cy = 264
+    anchors = []
+    dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
+  end
+  object mainmen: tmainmenu
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        submenu.count = 2
+        submenu.items = <        
+          item
+            action = mainmo.openrepoact
+          end        
+          item
+            action = mainmo.quitact
+          end>
+        caption = '&File'
+        state = [as_localcaption]
+      end    
+      item
+        submenu.count = 1
+        submenu.items = <        
+          item
+            submenu.count = 2
+            submenu.items = <            
+              item
+                options = [mao_separator, mao_shortcutcaption]
+              end            
+              item
+                caption = 'New Panel'
+                state = [as_localcaption, as_localonexecute]
+                onexecute = newpanelexe
+              end>
+            caption = '&Panels'
+            name = 'panels'
+            state = [as_localcaption]
+          end>
+        caption = '&View'
+        name = 'view'
+        state = [as_localcaption]
+      end>
+    left = 16
+    top = 16
+  end
+  object panelcontroller: tdockpanelformcontroller
+    menu = mainmen
+    statfile = mainfosta
+    statfileclient = panelsta
+    menunamepath = 'view.panels'
+    left = 16
+    top = 40
+  end
+  object mainfosta: tstatfile
+    filename = 'mainfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    statfile = mainmo.mainstat
+    left = 136
+    top = 16
+  end
+  object panelsta: tstatfile
+    filename = 'panelfo.sta'
+    statfile = mainmo.mainstat
+    left = 136
+    top = 40
+  end
 end
