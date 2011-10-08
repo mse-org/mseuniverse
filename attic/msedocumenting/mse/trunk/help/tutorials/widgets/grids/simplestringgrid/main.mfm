@@ -1,0 +1,222 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 291
+  bounds_y = 242
+  bounds_cx = 403
+  bounds_cy = 280
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 403
+  container.bounds_cy = 280
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Simple StringGrid Example'
+  moduleclassname = 'tmseform'
+  object tgroupbox2: tgroupbox
+    bounds_x = 128
+    bounds_y = 2
+    bounds_cx = 266
+    bounds_cy = 112
+    bounds_cxmin = 266
+    frame.caption = 'Grid Text'
+    frame.captiondist = -10
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      6
+      0
+      0
+    )
+    anchors = [an_left, an_top, an_right]
+    taborder = 1
+    object coled: tintegeredit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      bounds_x = 8
+      bounds_y = 22
+      bounds_cx = 50
+      bounds_cy = 20
+      frame.caption = 'Col'
+      frame.captionpos = cp_right
+      frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        0
+        22
+        0
+      )
+      statfile = tstatfile1
+      reffontheight = 14
+    end
+    object rowed: tintegeredit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      bounds_x = 72
+      bounds_y = 22
+      bounds_cx = 56
+      bounds_cy = 20
+      frame.caption = 'Row'
+      frame.captionpos = cp_right
+      frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        0
+        28
+        0
+      )
+      taborder = 1
+      statfile = tstatfile1
+      reffontheight = 14
+    end
+    object tstringedit1: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      bounds_x = 8
+      bounds_y = 51
+      bounds_cx = 210
+      bounds_cy = 20
+      frame.caption = 'Set Text'
+      frame.captionpos = cp_right
+      frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        0
+        46
+        0
+      )
+      anchors = [an_left, an_top, an_right]
+      taborder = 2
+      statfile = tstatfile1
+      onsetvalue = settext
+      reffontheight = 14
+    end
+    object tbutton4: tbutton
+      bounds_x = 184
+      bounds_y = 78
+      bounds_cx = 66
+      bounds_cy = 22
+      anchors = [an_top, an_right]
+      taborder = 3
+      state = [as_localcaption, as_localonexecute]
+      caption = 'Get Text'
+      onexecute = button4_click
+    end
+    object textdi: tstringdisp
+      bounds_x = 8
+      bounds_y = 80
+      bounds_cx = 164
+      bounds_cy = 18
+      frame.dummy = 0
+      anchors = [an_left, an_top, an_right]
+      taborder = 4
+      reffontheight = 14
+    end
+  end
+  object tgroupbox3: tgroupbox
+    bounds_x = 8
+    bounds_y = 2
+    bounds_cx = 106
+    bounds_cy = 112
+    frame.caption = 'Grid Layout'
+    frame.captiondist = -10
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      6
+      0
+      0
+    )
+    taborder = 2
+    object colsed: tintegeredit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      bounds_x = 16
+      bounds_y = 30
+      bounds_cx = 57
+      bounds_cy = 20
+      frame.caption = 'Cols'
+      frame.captionpos = cp_right
+      frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        0
+        29
+        0
+      )
+      statfile = tstatfile1
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      onchange = layoutcha
+      onsetvalue = colssetval
+      value = 1
+      reffontheight = 14
+    end
+    object rowsed: tintegeredit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      bounds_x = 16
+      bounds_y = 70
+      bounds_cx = 63
+      bounds_cy = 20
+      frame.caption = 'Rows'
+      frame.captionpos = cp_right
+      frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        0
+        35
+        0
+      )
+      taborder = 1
+      statfile = tstatfile1
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      onchange = layoutcha
+      onsetvalue = rowssetval
+      value = 1
+      reffontheight = 14
+    end
+  end
+  object grid: tstringgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 8
+    bounds_y = 120
+    bounds_cx = 386
+    bounds_cy = 146
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.dummy = 0
+    anchors = [an_left, an_top, an_right, an_bottom]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        datalist.data = (
+          0
+        )
+      end>
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 30
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        numstep = 1
+      end>
+    rowcount = 1
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 128
+    top = 168
+  end
+end

@@ -1,0 +1,313 @@
+object mainfo: tmainfo
+  optionswidget1 = [ow1_autowidth]
+  bounds_x = 88
+  bounds_y = 211
+  bounds_cx = 403
+  bounds_cy = 442
+  container.bounds = (
+    0
+    0
+    403
+    442
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  onasyncevent = asyncex
+  moduleclassname = 'tmainform'
+  object tdbwidgetgrid1: tdbwidgetgrid
+    bounds_x = 0
+    bounds_y = 227
+    bounds_cx = 403
+    bounds_cy = 215
+    anchors = [an_top, an_bottom]
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'Thumb'
+          end        
+          item
+            caption = 'Description'
+          end>
+      end>
+    datacols.count = 2
+    datacols.items = <    
+      item
+        options = [co_nofocus, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'thumb'
+      end    
+      item
+        width = 316
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tdbstringedit1'
+      end>
+    datalink.options = [gdo_propscrollbar, gdo_thumbtrack, gdo_checkbrowsemodeonexit]
+    datalink.datasource = dataso
+    datarowheight = 50
+    reffontheight = 14
+    object thumb: tdbdataimage
+      optionswidget = [ow_destroywidgets]
+      optionsskin = [osk_framebuttononly, osk_container]
+      frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom, frl_colorclient]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 50
+      bitmap.options = [bmo_masked, bmo_colormask]
+      bitmap.alignment = [al_xcentered, al_ycentered]
+      datalink.datasource = dataso
+      datalink.fieldname = 'thumb'
+    end
+    object tdbstringedit1: tdbstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.framei_left = 3
+      frame.localprops = [frl_levelo, frl_fileft]
+      frame.dummy = 0
+      taborder = 2
+      visible = False
+      bounds_x = 51
+      bounds_y = 0
+      bounds_cx = 316
+      bounds_cy = 50
+      textflags = [tf_ycentered, tf_wordbreak, tf_noselect]
+      textflagsactive = [tf_ycentered, tf_wordbreak]
+      datalink.datasource = dataso
+      datalink.fieldname = 'comment'
+      reffontheight = 14
+    end
+  end
+  object tsplitter1: tsplitter
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 224
+    bounds_cx = 403
+    bounds_cy = 3
+    anchors = [an_top]
+    options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linktop = image
+    linkbottom = tdbwidgetgrid1
+    statfile = tstatfile1
+  end
+  object tdbnavigator1: tdbnavigator
+    optionswidget1 = [ow1_autowidth]
+    frame.leveli = 1
+    frame.localprops = [frl_leveli]
+    taborder = 2
+    bounds_x = 68
+    bounds_y = 0
+    bounds_cx = 222
+    datasource = dataso
+  end
+  object image: tdbdataimage
+    frame.levelo = -1
+    frame.leveli = 1
+    frame.localprops = [frl_levelo, frl_leveli]
+    taborder = 3
+    bounds_x = 0
+    bounds_y = 24
+    bounds_cx = 403
+    bounds_cy = 200
+    anchors = [an_top]
+    bitmap.alignment = [al_xcentered, al_ycentered]
+    datalink.datasource = imagedataso
+    datalink.fieldname = 'image'
+  end
+  object tdbstringdisp1: tdbstringdisp
+    frame.dummy = 0
+    taborder = 4
+    bounds_x = 4
+    bounds_y = 3
+    bounds_cx = 60
+    bounds_cy = 18
+    textflags = [tf_xcentered, tf_ycentered]
+    datalink.datasource = dataso
+    datalink.fieldname = 'format'
+    reffontheight = 14
+  end
+  object conn: tsqlite3connection
+    Connected = True
+    DatabaseName = 'image.db'
+    options = [slo_transactions]
+    Transaction = trans
+    transactionwrite = writetrans
+    left = 8
+    top = 40
+  end
+  object trans: tmsesqltransaction
+    Active = True
+    options = [tao_fake]
+    Database = conn
+    left = 72
+    top = 40
+  end
+  object query: tmsesqlquery
+    Active = True
+    params = <>
+    SQL.data = (
+      'select pk,format,thumb,comment from table1;'
+    )
+    IndexDefs = <    
+      item
+        Name = '$PRIMARY_KEY$'
+      end>
+    database = conn
+    AfterInsert = insertexe
+    Transaction = trans
+    transactionwrite = writetrans
+    FieldDefs = <    
+      item
+        Name = 'pk'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'format'
+        DataType = ftString
+        Precision = -1
+        Size = 10
+      end    
+      item
+        Name = 'thumb'
+        DataType = ftBlob
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'comment'
+        DataType = ftMemo
+        Precision = -1
+        Size = 0
+      end>
+    controller.fields.count = 3
+    controller.fields.fields = (
+      (
+        ft_longint
+        ft_memo
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'pk'
+          Index = 0
+          ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+        end      
+        item
+          DisplayWidth = 10
+          FieldName = 'comment'
+          Index = 1
+          BlobType = ftBlob
+          Transliterate = False
+        end      
+        item
+          DisplayWidth = 10
+          FieldName = 'format'
+          Index = 2
+          Size = 10
+        end>
+    )
+    controller.options = [dso_utf8, dso_autoapply, dso_autocommit]
+    left = 8
+    top = 88
+    object thumbf: tmsegraphicfield
+      DisplayWidth = 10
+      FieldName = 'thumb'
+      Index = 3
+      BlobType = ftBlob
+      imagecachekb = 10000
+      left = 72
+      top = 120
+    end
+  end
+  object imagequery: tmsesqlquery
+    Active = True
+    params = <    
+      item
+        DataType = ftInteger
+        Name = 'pkpar'
+        ParamType = ptUnknown
+      end>
+    SQL.data = (
+      'select pk,image from table1 where pk =:pkpar;'
+    )
+    IndexDefs = <    
+      item
+        Name = '$PRIMARY_KEY$'
+      end>
+    database = conn
+    Transaction = trans
+    transactionwrite = writetrans
+    FieldDefs = <    
+      item
+        Name = 'pk'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'image'
+        DataType = ftBlob
+        Precision = -1
+        Size = 0
+      end>
+    controller.options = [dso_utf8, dso_autoapply, dso_refreshwaitcursor]
+    left = 8
+    top = 152
+  end
+  object dataso: tmsedatasource
+    DataSet = query
+    left = 72
+    top = 88
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 288
+    top = 64
+  end
+  object filedialog: tfiledialog
+    statfile = tstatfile1
+    controller.filterlist.data = (
+      (
+        'Image Files'
+        '"*.jpg" "*.png"'
+      )
+    )
+    controller.options = [fdo_checkexist, fdo_single, fdo_savelastdir]
+    controller.captionopen = 'Select Image File'
+    dialogkind = fdk_open
+    left = 288
+    top = 32
+  end
+  object imagedataso: tmsedatasource
+    DataSet = imagequery
+    left = 112
+    top = 152
+  end
+  object pklink: tfieldparamlink
+    datafield = 'pk'
+    datasource = dataso
+    destdataset = imagequery
+    paramname = 'pkpar'
+    delayus = 300000
+    left = 152
+    top = 88
+  end
+  object writetrans: tmsesqltransaction
+    Database = conn
+    left = 136
+    top = 40
+  end
+end

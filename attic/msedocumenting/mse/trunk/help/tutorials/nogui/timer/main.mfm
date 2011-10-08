@@ -1,0 +1,29 @@
+object mainmo: tmainmo
+  onevent = handleevent
+  onasyncevent = handleasyncevent
+  left = 293
+  top = 221
+  moduleclassname = 'tmsedatamodule'
+  size = (
+    388
+    242
+  )
+  object ttimer1: ttimer
+    ontimer = timertick
+    enabled = True
+    left = 32
+    top = 32
+  end
+  object waitthread: tthreadcomp
+    active = True
+    onexecute = waitforenter
+    left = 112
+    top = 32
+  end
+  object eventpostthread: tthreadcomp
+    active = True
+    onexecute = postevent
+    left = 216
+    top = 32
+  end
+end

@@ -1,0 +1,64 @@
+object mainfo: tmainfo
+  bounds_x = 34
+  bounds_y = 247
+  bounds_cx = 121
+  bounds_cy = 134
+  container.bounds = (
+    0
+    0
+    121
+    134
+  )
+  caption = 'Layout Version'
+  moduleclassname = 'tmainform'
+  object bu1: tbutton
+    taborder = 3
+    bounds_x = 32
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = '&small'
+    onexecute = showformex
+  end
+  object bu2: tbutton
+    Tag = 1
+    bounds_x = 32
+    bounds_y = 32
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = '&normal'
+    onexecute = showformex
+  end
+  object bu3: tbutton
+    Tag = 2
+    taborder = 1
+    bounds_x = 32
+    bounds_y = 56
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = '&big'
+    onexecute = showformex
+  end
+  object textedit: tstringedit
+    frame.caption = 'Text'
+    frame.captionpos = cp_top
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 87
+    bounds_cx = 100
+    bounds_cy = 37
+    value = 'thetext'
+    onsetvalue = settext
+    reffontheight = 14
+  end
+end

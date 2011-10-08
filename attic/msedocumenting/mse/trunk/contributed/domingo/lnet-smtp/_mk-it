@@ -1,0 +1,27 @@
+#!/bin/sh
+appname=smtptest
+
+devhome=~/lazarus
+
+mseguilib_home=$devhome/msegui/lib/common
+
+fpc=$devhome/fpc-2.2.2/bin/ppc386
+
+common_options="\
+	-Fu$mseguilib_home/kernel/ \
+	-Fi$mseguilib_home/kernel/ \
+	-Fu$mseguilib_home/*/ \
+	-Fulib -Sm \
+	-l -Mobjfpc -Sh -gl -OG2p3 -XX -Xs -Fcutf8 $appname.pas"
+
+linux_options="-Fu$mseguilib_home/kernel/i386-linux/ -FEi386-linux"
+
+win32_options="-Fu$mseguilib_home/kernel/i386-win32/ -FEi386-win32 -Twin32"
+
+echo "****************************************************************"
+echo "making $appname i386-linux"
+$fpc $linux_options $common_options
+
+echo "****************************************************************"
+echo "making $appname.exe i386-win32"
+$fpc $win32_options $common_options

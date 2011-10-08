@@ -1,0 +1,71 @@
+object authenticatefo: tauthenticatefo
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 272
+  bounds_cy = 135
+  taborder = 1
+  visible = False
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 272
+  container.bounds_cy = 135
+  container.frame.dummy = 0
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  caption = 'Authentication'
+  moduleclassname = 'tmseform'
+  object loginName: tstringedit
+    bounds_x = 58
+    bounds_y = 18
+    bounds_cx = 194
+    bounds_cy = 25
+    frame.caption = 'Login'
+    frame.captionpos = cp_left
+    frame.dummy = 0
+    frame.outerframe = (
+      46
+      0
+      0
+      0
+    )
+    reffontheight = 19
+  end
+  object loginPassword: tstringedit
+    bounds_x = 25
+    bounds_y = 58
+    bounds_cx = 227
+    bounds_cy = 25
+    frame.caption = 'Password'
+    frame.captionpos = cp_left
+    frame.dummy = 0
+    frame.outerframe = (
+      79
+      0
+      0
+      0
+    )
+    taborder = 1
+    reffontheight = 19
+    pwchar = 42
+  end
+  object btnOk: tbutton
+    bounds_x = 56
+    bounds_y = 96
+    bounds_cx = 50
+    bounds_cy = 25
+    taborder = 2
+    state = [as_localcaption]
+    caption = 'Ok'
+    modalresult = mr_ok
+  end
+  object btnCancel: tbutton
+    bounds_x = 160
+    bounds_y = 96
+    bounds_cx = 50
+    bounds_cy = 25
+    taborder = 3
+    state = [as_localcaption]
+    caption = 'Cancel'
+    modalresult = mr_cancel
+  end
+end

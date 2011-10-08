@@ -1,0 +1,64 @@
+object script1sc: tscript1sc
+  bounds_x = 341
+  bounds_y = 396
+  bounds_cx = 172
+  bounds_cy = 121
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 172
+  container.bounds_cy = 121
+  container.frame.dummy = 0
+  options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  caption = 'Scripted Form'
+  pasc_script.Strings = (
+    ' '
+    'procedure            beepex(const sender: TObject);'
+    'begin'
+    ' beep;'
+    'end;'
+    ''
+  )
+  pasc_plugins = <  
+    item
+      Plugin = TPSImport_Classes1
+    end  
+    item
+      Plugin = tpsimportmsegui1
+    end>
+  moduleclassname = 'tpascform'
+  object tbutton1: tbutton
+    bounds_x = 16
+    bounds_y = 24
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    autosize_cx = 0
+    autosize_cy = 0
+    caption = 'Beep'
+    onexecute = beepex
+  end
+  object tbutton2: tbutton
+    bounds_x = 88
+    bounds_y = 24
+    bounds_cx = 50
+    bounds_cy = 20
+    taborder = 1
+    state = [as_localcaption]
+    autosize_cx = 0
+    autosize_cy = 0
+    caption = 'Exit'
+    modalresult = mr_ok
+  end
+  object tpsimportmsegui1: tpascimportmsegui
+    left = 8
+    top = 88
+  end
+  object TPSImport_Classes1: tpascimport_classes
+    EnableStreams = True
+    EnableClasses = True
+    left = 8
+    top = 48
+  end
+end

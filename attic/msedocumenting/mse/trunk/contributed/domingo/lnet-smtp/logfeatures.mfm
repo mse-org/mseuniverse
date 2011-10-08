@@ -1,0 +1,59 @@
+object logfeaturesfo: tlogfeaturesfo
+  bounds_x = 421
+  bounds_y = 211
+  bounds_cx = 386
+  bounds_cy = 294
+  taborder = 1
+  visible = False
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 386
+  container.bounds_cy = 294
+  container.frame.dummy = 0
+  caption = 'Message Logs'
+  moduleclassname = 'tmseform'
+  object memoLogs: tmemoedit
+    bounds_x = 165
+    bounds_y = 10
+    bounds_cx = 217
+    bounds_cy = 279
+    frame.caption = 'Log'
+    frame.localprops = [frl_colorclient]
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      22
+      0
+      0
+    )
+  end
+  object gridFeatures: tstringgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 8
+    bounds_y = 10
+    bounds_cx = 154
+    bounds_cy = 280
+    frame.caption = 'Features'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      22
+      0
+      0
+    )
+    taborder = 1
+    datacols.count = 1
+    datacols.colorselect = -1610612727
+    datacols.coloractive = -1610612727
+    datacols.items = <    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 149
+        options = [co_readonly, co_focusselect, co_rowselect, co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+      end>
+    datarowheight = 21
+    reffontheight = 19
+  end
+end

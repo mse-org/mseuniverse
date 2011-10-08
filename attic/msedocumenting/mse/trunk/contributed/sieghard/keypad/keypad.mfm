@@ -1,0 +1,514 @@
+object KeyPadfo: tKeyPadfo
+  bounds_x = 249
+  bounds_y = 236
+  bounds_cx = 206
+  bounds_cy = 180
+  taborder = 1
+  visible = False
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 206
+  container.bounds_cy = 180
+  container.frame.sbhorz.width = 0
+  container.frame.sbvert.width = 0
+  container.frame.dummy = 0
+  container.face.fade_pos.count = 2
+  container.face.fade_pos.items = (
+     0.0000000000000000E+0000
+     1.0000000000000000E+0000
+  )
+  container.face.fade_color.count = 2
+  container.face.fade_color.items = (
+    11529966
+    15138815
+  )
+  container.face.fade_direction = gd_down
+  container.face.localprops = [fal_fadirection]
+  container.face.dummy = 0
+  font.height = 22
+  font.style = [fs_bold]
+  font.name = 'stf_helvetica'
+  font.xscale =  1.0000000000000000E+0000
+  font.dummy = 0
+  caption = 'Zahleneingabe'
+  oncreate = NewPad
+  moduleclassname = 'tmseform'
+  object Eingabefeld: tgroupbox
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 206
+    bounds_cy = 202
+    color = -2147483645
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.dummy = 0
+    object Eingabe: tstringdisp
+      bounds_x = 8
+      bounds_y = 8
+      bounds_cx = 188
+      bounds_cy = 31
+      color = 15788248
+      frame.framei_right = 10
+      frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+      frame.dummy = 0
+      taborder = 15
+      textflags = [tf_right, tf_ycentered]
+      value = '0'
+      reffontheight = 27
+    end
+    object tbutton1: tbutton
+      Tag = 1
+      bounds_x = 8
+      bounds_y = 48
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 1
+      state = [as_localcaption, as_localonexecute]
+      caption = '1'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object tbutton2: tbutton
+      Tag = 2
+      bounds_x = 56
+      bounds_y = 48
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 2
+      state = [as_localcaption, as_localonexecute]
+      caption = '2'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object tbutton3: tbutton
+      Tag = 3
+      bounds_x = 104
+      bounds_y = 48
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 3
+      state = [as_localcaption, as_localonexecute]
+      caption = '3'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object ClearKey: tbutton
+      Tag = 11
+      bounds_x = 8
+      bounds_y = 144
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        10343636
+        12908021
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 11
+      state = [as_localcaption, as_localonexecute]
+      caption = 'C'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = Clear
+    end
+    object tbutton4: tbutton
+      Tag = 4
+      bounds_x = 8
+      bounds_y = 80
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 4
+      state = [as_localcaption, as_localonexecute]
+      caption = '4'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object tbutton5: tbutton
+      Tag = 5
+      bounds_x = 56
+      bounds_y = 80
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 5
+      state = [as_localcaption, as_localonexecute]
+      caption = '5'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object tbutton6: tbutton
+      Tag = 6
+      bounds_x = 104
+      bounds_y = 80
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 6
+      state = [as_localcaption, as_localonexecute]
+      caption = '6'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object EnterKey: tbutton
+      Tag = 13
+      bounds_x = 152
+      bounds_y = 80
+      bounds_cx = 44
+      bounds_cy = 61
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        10343636
+        12908021
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 13
+      state = [as_localcaption, as_localonexecute]
+      caption = 'Enter'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  6.6666665999999997E-0001
+      font.dummy = 0
+      modalresult = mr_ok
+    end
+    object tbutton9: tbutton
+      Tag = 9
+      bounds_x = 104
+      bounds_y = 112
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 9
+      state = [as_localcaption, as_localonexecute]
+      caption = '9'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object tbutton8: tbutton
+      Tag = 8
+      bounds_x = 56
+      bounds_y = 112
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 8
+      state = [as_localcaption, as_localonexecute]
+      caption = '8'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object tbutton7: tbutton
+      Tag = 7
+      bounds_x = 8
+      bounds_y = 112
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 7
+      state = [as_localcaption, as_localonexecute]
+      caption = '7'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object tbutton0: tbutton
+      bounds_x = 56
+      bounds_y = 144
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 10
+      state = [as_localcaption, as_localonexecute]
+      caption = '0'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = PadKey
+    end
+    object Abbruch: tstockglyphbutton
+      Tag = 14
+      bounds_x = 152
+      bounds_y = 48
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        10343636
+        12908021
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection, fal_image]
+      face.dummy = 0
+      state = [as_localimagelist, as_localimagenr]
+      glyph = stg_dbcancel
+      modalresult = mr_escape
+    end
+    object DelKey: tstockglyphbutton
+      Tag = 12
+      bounds_x = 104
+      bounds_y = 144
+      bounds_cx = 44
+      bounds_cy = 29
+      face.image.transparentcolor = -2147483642
+      face.image.options = [bmo_masked]
+      face.image.alignment = [al_xcentered, al_ycentered]
+      face.image.image = {
+        0000000002000000170000001700000064010000000000000000000000000000
+        0000000000000000000000000000000000000000FFFFFF4C0000000FFFFFFF07
+        00000011FFFFFF0500000003FFFFFF0D00000002FFFFFF0400000003FFFFFF0E
+        00000002FFFFFF0300000003FFFFFF0300000009FFFFFF0300000002FFFFFF02
+        00000003FFFFFF0400000001FFFFFF0700000001FFFFFF0300000002FFFFFF01
+        00000003FFFFFF0500000001FFFFFF0700000001FFFFFF0300000005FFFFFF06
+        00000001FFFFFF0700000001FFFFFF0300000004FFFFFF0700000001FFFFFF01
+        00000005FFFFFF0100000001FFFFFF0300000005FFFFFF0600000001FFFFFF07
+        00000001FFFFFF0300000002FFFFFF0100000003FFFFFF0500000001FFFFFF07
+        00000001FFFFFF0300000002FFFFFF0200000003FFFFFF0400000001FFFFFF07
+        00000001FFFFFF0300000002FFFFFF0300000003FFFFFF0300000009FFFFFF03
+        00000002FFFFFF0400000003FFFFFF0E00000002FFFFFF0500000003FFFFFF0D
+        00000002FFFFFF0600000011FFFFFF070000000FFFFFFF460000800800000008
+        000080BF80FF3F08C0FF7F00E00060097000E00338FE63C01C0262000E02E208
+        0702E2BF03FA6208070262090E0262091C02E2BF38FE630870006000E000E003
+        C0FF7F4080FF3F0000000000000080BF00000000
+      }
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        10343636
+        12908021
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection, fal_image]
+      face.dummy = 0
+      taborder = 12
+      state = [as_localimagelist, as_localimagenr, as_localonexecute]
+      onexecute = Delete
+    end
+    object DecimalKey: tbutton
+      bounds_x = 152
+      bounds_y = 144
+      bounds_cx = 44
+      bounds_cy = 29
+      face.fade_pos.count = 2
+      face.fade_pos.items = (
+         0.0000000000000000E+0000
+         1.0000000000000000E+0000
+      )
+      face.fade_color.count = 2
+      face.fade_color.items = (
+        12908021
+        10343636
+      )
+      face.fade_direction = gd_down
+      face.localprops = [fal_fadirection]
+      face.dummy = 0
+      taborder = 14
+      state = [as_invisible, as_localinvisible, as_localcaption, as_localonexecute]
+      caption = '-'
+      font.colorshadow = -1879048188
+      font.height = 22
+      font.style = [fs_bold]
+      font.name = 'stf_helvetica'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+    end
+  end
+end

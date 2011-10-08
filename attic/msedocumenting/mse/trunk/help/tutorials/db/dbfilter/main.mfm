@@ -1,0 +1,114 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 308
+  bounds_cy = 280
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 308
+  container.bounds_cy = 280
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  moduleclassname = 'tmseform'
+  object tdbnavigator1: tdbnavigator
+    optionswidget = [ow_destroywidgets, ow_autoscale, ow_autosize]
+    bounds_x = 8
+    bounds_y = 0
+    bounds_cx = 288
+    frame.dummy = 0
+    datasource = tmsedatasource1
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_filter, dbnb_filteronoff, dbnb_find]
+  end
+  object tdbwidgetgrid1: tdbwidgetgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 8
+    bounds_y = 32
+    bounds_cx = 290
+    bounds_cy = 242
+    frame.dummy = 0
+    taborder = 1
+    datasource = tmsedatasource1
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    datacols.count = 1
+    datacols.options = [co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+    datacols.items = <    
+      item
+        width = 254
+        options = [co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        widgetname = 'tdbstringedit1'
+      end>
+    datarowheight = 16
+    reffontheight = 14
+    object tdbstringedit1: tdbstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 254
+      bounds_cy = 16
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.dummy = 0
+      taborder = 1
+      visible = False
+      datafield = 'text1'
+      datasource = tmsedatasource1
+      reffontheight = 14
+    end
+  end
+  object tmsesqlquery1: tmsesqlquery
+    logfilename = 'test.db'
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.count = 1
+        fields.items = <        
+          item
+            fieldname = 'text1'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    beforeendfilteredit = befendfiltered
+    afterendfilteredit = afterendfiltered
+    params = <>
+    IndexDefs = <>
+    Active = True
+    OnFilterRecord = filterrec
+    FieldDefs = <    
+      item
+        Name = 'text1'
+        DataType = ftString
+        Size = 50
+      end>
+    controller.options = [dso_local]
+    left = 16
+    top = 184
+    object text1fi: tmsestringfield
+      DisplayWidth = 50
+      FieldName = 'text1'
+      Size = 50
+      left = 24
+      top = 240
+    end
+  end
+  object tmsedatasource1: tmsedatasource
+    DataSet = tmsesqlquery1
+    left = 16
+    top = 208
+  end
+end

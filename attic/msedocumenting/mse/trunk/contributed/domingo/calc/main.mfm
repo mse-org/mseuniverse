@@ -1,0 +1,423 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 357
+  bounds_y = 167
+  bounds_cx = 310
+  bounds_cy = 327
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 21
+  container.bounds_cx = 310
+  container.bounds_cy = 306
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  mainmenu = appMainMenu
+  font.height = 24
+  font.style = [fs_bold]
+  font.name = 'stf_default'
+  font.xscale =  1.0000000000000000E+0000
+  font.dummy = 0
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  caption = 'Resizeable Calc'
+  oncreate = FormCreate
+  onkeydown = execKeyDown
+  moduleclassname = 'tmseform'
+  object tlayouter1: tlayouter
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 306
+    bounds_cy = 304
+    frame.dummy = 0
+    anchors = [an_left, an_top, an_right, an_bottom]
+    optionslayout = [lao_scaleleft, lao_scaletop, lao_scalewidth, lao_scaleheight, lao_scalefont, lao_scalechildfont]
+    font.height = 24
+    font.style = [fs_bold]
+    font.name = 'stf_default'
+    font.xscale =  1.0000000000000000E+0000
+    font.dummy = 0
+    object btn7: tbutton
+      bounds_x = 1
+      bounds_y = 112
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 8
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '7'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btn4: tbutton
+      bounds_x = 1
+      bounds_y = 160
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 5
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '4'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btn1: tbutton
+      bounds_x = 1
+      bounds_y = 208
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 2
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '1'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btn0: tbutton
+      bounds_x = 1
+      bounds_y = 256
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 1
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '0'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btn8: tbutton
+      bounds_x = 61
+      bounds_y = 112
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 9
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '8'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btn5: tbutton
+      bounds_x = 61
+      bounds_y = 160
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 6
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '5'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btn2: tbutton
+      bounds_x = 61
+      bounds_y = 208
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 3
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '2'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btnSign: tbutton
+      bounds_x = 61
+      bounds_y = 256
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 12
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '+-'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = signBtnClick
+    end
+    object tbutton9: tbutton
+      bounds_x = 122
+      bounds_y = 112
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 10
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '9'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object tbutton10: tbutton
+      bounds_x = 122
+      bounds_y = 160
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 7
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '6'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object tbutton11: tbutton
+      bounds_x = 122
+      bounds_y = 208
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 4
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '3'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btnDot: tbutton
+      bounds_x = 122
+      bounds_y = 256
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 9223646
+      taborder = 11
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '.'
+      font.color = -1610612727
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btnDiv: tbutton
+      bounds_x = 182
+      bounds_y = 112
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 16234423
+      taborder = 16
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '/'
+      font.color = 9857812
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btnTimes: tbutton
+      bounds_x = 182
+      bounds_y = 160
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 16234423
+      taborder = 15
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '*'
+      font.color = 9857812
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btnMinus: tbutton
+      bounds_x = 182
+      bounds_y = 208
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 16234423
+      taborder = 14
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '-'
+      font.color = 9857812
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btnPlus: tbutton
+      bounds_x = 182
+      bounds_y = 256
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 16234423
+      taborder = 13
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '+'
+      font.color = 9857812
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object btnclear: tbutton
+      bounds_x = 243
+      bounds_y = 112
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 16234423
+      taborder = 17
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = 'CE'
+      font.color = -1610612729
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = clearBtnClick
+    end
+    object btnSqrt: tbutton
+      bounds_x = 243
+      bounds_y = 160
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 16234423
+      taborder = 18
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = 'x'
+      font.color = 9857812
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = sqrtBtnClick
+    end
+    object btnPercent: tbutton
+      bounds_x = 243
+      bounds_y = 208
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 16234423
+      taborder = 19
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '%'
+      font.color = 9857812
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = percentBtnClick
+    end
+    object ButtonEq: tbutton
+      bounds_x = 243
+      bounds_y = 256
+      bounds_cx = 60
+      bounds_cy = 48
+      color = 16234423
+      state = [as_localcaption, as_localcolor, as_localonexecute]
+      caption = '='
+      font.color = 9857812
+      font.height = 24
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      onexecute = CalcButtonClick
+    end
+    object tbutton21: tbutton
+      bounds_x = 1
+      bounds_y = 80
+      bounds_cx = 302
+      bounds_cy = 24
+      color = 5383900
+      taborder = 20
+      state = [as_localcolor]
+    end
+    object resultDisplay: trealedit
+      bounds_x = 2
+      bounds_y = 0
+      bounds_cx = 302
+      bounds_cy = 76
+      frame.colorclient = 10992593
+      frame.localprops = [frl_colorclient]
+      frame.dummy = 0
+      taborder = 21
+      font.height = 32
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      oncheckvalue = doEval
+      reffontheight = 38
+      val =  0.0000000000000000E+0000
+    end
+  end
+  object appMainMenu: tmainmenu
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        submenu.count = 1
+        submenu.items = <        
+          item
+            caption = 'Exit'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = doFinish
+          end>
+        caption = 'File'
+        state = [as_localcaption]
+      end>
+    left = 88
+    top = 32
+  end
+end

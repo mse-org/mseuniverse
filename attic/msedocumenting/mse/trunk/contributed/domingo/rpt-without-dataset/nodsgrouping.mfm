@@ -1,0 +1,81 @@
+inherited nodsgroupingfo: tnodsgroupingfo
+  repdesigninfo = (
+    68
+    195
+    602
+    369
+  )
+  moduleclassname = 'tnodsre'
+  inherited treportpage1: treportpage
+    inherited tbandarea1: tbandarea
+      inherited header: trecordband
+        tabs.items = <        
+          item
+          end        
+          item
+          end        
+          item
+          end>
+      end
+      inherited dataRec: trecordband
+        bounds_y = 126
+        visible = False
+        tabs.items = <        
+          item
+          end        
+          item
+            value = 'Not used!'
+          end        
+          item
+          end>
+        onbeforerender = nil
+        onafterrender = nil
+      end
+      object tbandgroup1: tbandgroup[2]
+        bounds_x = 0
+        bounds_y = 48
+        bounds_cx = 560
+        bounds_cy = 54
+        taborder = 2
+        optionsscale = [osc_expandy, osc_shrinky]
+        onbeforerender = fillDataLine
+        onafterrender = goNext
+        object bandGroup: trecordband
+          bounds_x = 0
+          bounds_y = 6
+          bounds_cx = 560
+          bounds_cy = 18
+          tabs.count = 1
+          tabs.items = <          
+            item
+            end>
+        end
+        object datarec1: trecordband
+          bounds_x = 0
+          bounds_y = 36
+          bounds_cx = 560
+          bounds_cy = 18
+          taborder = 1
+          tabs.count = 3
+          tabs.items = <          
+            item
+            end          
+            item
+              pos =  2.1666666666666668E+0001
+            end          
+            item
+              pos =  1.5266666666666666E+0002
+            end>
+          zebra_color = -1610612712
+          zebra_height = 1
+        end
+      end
+    end
+    inherited tlabel1: tlabel
+    end
+    inherited treppagenumdisp1: treppagenumdisp
+    end
+  end
+  inherited psprn: tpostscriptprinter
+  end
+end

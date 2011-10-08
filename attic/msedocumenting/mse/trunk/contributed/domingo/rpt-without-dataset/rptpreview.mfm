@@ -1,0 +1,112 @@
+object rptpreviewfo: trptpreviewfo
+  bounds_x = 204
+  bounds_y = 259
+  bounds_cx = 668
+  bounds_cy = 375
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 668
+  container.bounds_cy = 375
+  container.frame.dummy = 0
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  oncreate = doInit
+  ondestroy = doFinish
+  moduleclassname = 'tmseform'
+  object imgPreview: timage
+    optionswidget = [ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
+    bounds_x = 72
+    bounds_y = 8
+    bounds_cx = 586
+    bounds_cy = 358
+    color = -2147483646
+    frame.optionsscroll = [oscr_drag, oscr_key, oscr_mousewheel]
+    frame.framewidth = 2
+    frame.colorframeactive = -1610612727
+    frame.colorclient = -1610612730
+    frame.localprops = [frl_framewidth, frl_colorframeactive, frl_colorclient]
+    frame.dummy = 0
+    anchors = [an_left, an_top, an_right, an_bottom]
+    onmousewheelevent = checkPageScroll
+  end
+  object gridPages: tstringgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 254
+    frame.dummy = 0
+    anchors = [an_left, an_top, an_bottom]
+    taborder = 1
+    optionsgrid = [og_focuscellonenter, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.colorselect = -1610612727
+    datacols.coloractive = -1610612727
+    datacols.textflagsactive = [tf_right, tf_ycentered]
+    datacols.items = <    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 45
+        options = [co_readonly, co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        textflags = [tf_right, tf_ycentered, tf_noselect]
+        textflagsactive = [tf_right, tf_ycentered]
+      end>
+    zebra_color = -1610612716
+    zebra_height = 1
+    datarowheight = 23
+    oncellevent = gridCellEvent
+    reffontheight = 21
+  end
+  object tbutton1: tbutton
+    bounds_x = 8
+    bounds_y = 272
+    bounds_cx = 50
+    bounds_cy = 25
+    anchors = [an_left, an_bottom]
+    taborder = 2
+    hint = 'Save Page'
+    state = [as_localcaption, as_localhint, as_localonexecute]
+    caption = 'SP'
+    onexecute = doSavePageImage
+  end
+  object tbutton2: tbutton
+    bounds_x = 8
+    bounds_y = 304
+    bounds_cx = 50
+    bounds_cy = 25
+    anchors = [an_left, an_bottom]
+    taborder = 3
+    hint = 'Send page by email'
+    state = [as_localcaption, as_localhint]
+    caption = 'SE'
+  end
+  object zoonValue: trealspinedit
+    bounds_x = 8
+    bounds_y = 336
+    bounds_cx = 52
+    bounds_cy = 27
+    frame.framei_left = 1
+    frame.framei_top = 1
+    frame.framei_right = 1
+    frame.framei_bottom = 1
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.dummy = 0
+    anchors = [an_left, an_bottom]
+    taborder = 4
+    ondataentered = doZoon
+    step =  1.0000000000000001E-0001
+    reffontheight = 21
+    val =  1.0000000000000000E+0000
+  end
+  object fileSaveDialog: tfiledialog
+    controller.filter = '"*.jpg" "*.png"'
+    controller.defaultext = 'jpg'
+    controller.options = [fdo_save, fdo_savelastdir]
+    controller.captionsave = 'Save Page Image'
+    dialogkind = fdk_none
+    left = 88
+    top = 16
+  end
+end

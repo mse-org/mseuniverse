@@ -1,0 +1,328 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 333
+  bounds_y = 202
+  bounds_cx = 468
+  bounds_cy = 473
+  taborder = 1
+  popupmenu = popupAttachments
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 21
+  container.bounds_cx = 468
+  container.bounds_cy = 452
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  mainmenu = appMainMenu
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  oncreate = doInit
+  ondestroy = doFinish
+  onclosequery = checkForClose
+  moduleclassname = 'tmseform'
+  object tgroupbox1: tgroupbox
+    bounds_x = 8
+    bounds_y = 6
+    bounds_cx = 218
+    bounds_cy = 140
+    frame.caption = 'Connection'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      10
+      0
+      0
+    )
+    anchors = [an_left, an_top, an_right, an_bottom]
+    object smtpServer: tstringedit
+      bounds_x = 8
+      bounds_y = 22
+      bounds_cx = 204
+      bounds_cy = 25
+      frame.caption = 'Server'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        56
+        0
+        0
+        0
+      )
+      reffontheight = 19
+    end
+    object smtpPort: tintegeredit
+      bounds_x = 28
+      bounds_y = 54
+      bounds_cx = 88
+      bounds_cy = 25
+      frame.caption = 'Port'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        36
+        0
+        0
+        0
+      )
+      taborder = 1
+      value = 25
+      svalue = '25'
+      reffontheight = 19
+    end
+    object btnConnect: tbutton
+      bounds_x = 8
+      bounds_y = 106
+      bounds_cx = 82
+      bounds_cy = 25
+      taborder = 2
+      state = [as_localcaption, as_localonexecute]
+      caption = 'Connect'
+      onexecute = doConnect
+    end
+    object btnAuth: tbutton
+      bounds_x = 96
+      bounds_y = 106
+      bounds_cx = 114
+      bounds_cy = 25
+      taborder = 3
+      state = [as_invisible, as_localinvisible, as_localcaption, as_localonexecute]
+      caption = 'Authenticate'
+      onexecute = doAuth
+    end
+    object useSSL: tbooleanedit
+      bounds_x = 128
+      bounds_y = 50
+      bounds_cx = 80
+      bounds_cy = 21
+      frame.caption = 'Use SSL'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        4
+        67
+        4
+      )
+      taborder = 4
+      ondataentered = checkSSL
+    end
+    object btnTLS: tbutton
+      bounds_x = 128
+      bounds_y = 74
+      bounds_cx = 82
+      bounds_cy = 25
+      taborder = 5
+      state = [as_localcaption, as_localonexecute]
+      caption = 'TLS'
+      onexecute = startTLS
+    end
+  end
+  object tgroupbox2: tgroupbox
+    bounds_x = 240
+    bounds_y = 6
+    bounds_cx = 218
+    bounds_cy = 140
+    frame.caption = 'e-mail'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      10
+      0
+      0
+    )
+    taborder = 1
+    object emailFrom: tstringedit
+      bounds_x = 19
+      bounds_y = 26
+      bounds_cx = 193
+      bounds_cy = 25
+      frame.caption = 'From'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        45
+        0
+        0
+        0
+      )
+      reffontheight = 19
+    end
+    object emailTo: tstringedit
+      bounds_x = 41
+      bounds_y = 58
+      bounds_cx = 171
+      bounds_cy = 25
+      frame.caption = 'To'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        23
+        0
+        0
+        0
+      )
+      taborder = 1
+      reffontheight = 19
+    end
+    object emailSubject: tstringedit
+      bounds_x = 2
+      bounds_y = 90
+      bounds_cx = 210
+      bounds_cy = 25
+      frame.caption = 'Subject'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        62
+        0
+        0
+        0
+      )
+      taborder = 2
+      reffontheight = 19
+    end
+  end
+  object memoText: tmemoedit
+    bounds_x = 8
+    bounds_y = 152
+    bounds_cx = 452
+    bounds_cy = 137
+    frame.localprops = [frl_colorclient]
+    frame.dummy = 0
+    taborder = 2
+  end
+  object statusBar: tlabel
+    optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 2
+    bounds_y = 423
+    bounds_cx = 464
+    bounds_cy = 27
+    frame.leveli = 1
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.dummy = 0
+    anchors = [an_left, an_right, an_bottom]
+    taborder = 3
+    reffontheight = 19
+  end
+  object smptSendProgress: tprogressbar
+    bounds_x = 3
+    bounds_y = 402
+    bounds_cx = 461
+    frame.dummy = 0
+    anchors = [an_left, an_right, an_bottom]
+    taborder = 4
+    bar_face.fade_pos.count = 1
+    bar_face.fade_pos.items = (
+       0.0000000000000000E+0000
+    )
+    bar_face.fade_color.count = 1
+    bar_face.fade_color.items = (
+      -1610612715
+    )
+    bar_face.dummy = 0
+    bar_frame.dummy = 0
+    valuescale =  1.0000000000000000E-0002
+    format = '0%'
+  end
+  object btnSend: tbutton
+    bounds_x = 3
+    bounds_y = 376
+    bounds_cx = 462
+    bounds_cy = 25
+    anchors = [an_left, an_right, an_bottom]
+    taborder = 5
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Send'
+    onexecute = doSendMail
+  end
+  object gridAttach: tstringgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 8
+    bounds_y = 290
+    bounds_cx = 450
+    bounds_cy = 80
+    frame.caption = 'Attachments'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      22
+      0
+      0
+    )
+    anchors = [an_left, an_right, an_bottom]
+    taborder = 6
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 445
+        options = [co_readonly, co_rowselect, co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+      end>
+    datarowheight = 21
+    reffontheight = 19
+  end
+  object appMainMenu: tmainmenu
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        submenu.count = 1
+        submenu.items = <        
+          item
+            caption = 'Exit'
+            state = [as_localcaption]
+          end>
+        caption = 'File'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = exitApp
+      end    
+      item
+        submenu.count = 2
+        submenu.items = <        
+          item
+            caption = 'Log/Features'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showLogFeatures
+          end        
+          item
+            caption = 'About'
+            state = [as_localcaption]
+          end>
+        caption = 'Help'
+        state = [as_localcaption, as_localonexecute]
+      end>
+    menu.state = [as_localonexecute]
+    menu.onexecute = showAbout
+    left = 280
+    top = 152
+  end
+  object openDlg: tfiledialog
+    dialogkind = fdk_none
+    left = 288
+    top = 184
+  end
+  object timerQuit: ttimer
+    ontimer = doTimerQuit
+    left = 288
+    top = 216
+  end
+  object popupAttachments: tpopupmenu
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        caption = 'Attachment Add'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = doAddAttachments
+      end    
+      item
+        caption = 'Attachment Delete'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = doDelAttachements
+      end>
+    menu.caption = 'Attachments'
+    menu.state = [as_localcaption]
+    left = 256
+    top = 240
+  end
+  object connThread: tthreadcomp
+    onexecute = mangeConn
+    left = 104
+    top = 176
+  end
+end

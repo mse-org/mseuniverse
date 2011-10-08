@@ -1,0 +1,106 @@
+object imageviewerfo: timageviewerfo
+  bounds_x = 281
+  bounds_y = 193
+  bounds_cx = 416
+  bounds_cy = 504
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 416
+  container.bounds_cy = 504
+  container.frame.dummy = 0
+  oncreate = doInit
+  ondestroy = doFinish
+  moduleclassname = 'tmseform'
+  object imgPreview: timage
+    bounds_x = 8
+    bounds_y = 96
+    bounds_cx = 400
+    bounds_cy = 400
+    frame.dummy = 0
+    anchors = [an_left, an_top, an_right, an_bottom]
+    bitmap.alignment = [al_xcentered, al_ycentered, al_intpol]
+  end
+  object imageFileName: tfilenameedit
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 336
+    bounds_cy = 27
+    frame.button.color = -2147483646
+    frame.button.imagenr = 17
+    frame.dummy = 0
+    anchors = [an_left, an_top, an_right]
+    taborder = 1
+    reffontheight = 21
+  end
+  object btnLoadImage: tbutton
+    bounds_x = 356
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 25
+    anchors = [an_top, an_right]
+    taborder = 2
+    state = [as_localcaption, as_localonexecute]
+    autosize_cx = 0
+    autosize_cy = 0
+    caption = 'Load'
+    onexecute = doLoadImage
+  end
+  object imgWidth: tintegeredit
+    bounds_x = 15
+    bounds_y = 48
+    bounds_cx = 61
+    bounds_cy = 27
+    frame.caption = 'W'
+    frame.captionpos = cp_left
+    frame.dummy = 0
+    frame.outerframe = (
+      17
+      0
+      0
+      0
+    )
+    taborder = 3
+    ondataentered = doResizeImage
+    reffontheight = 21
+  end
+  object imgHeight: tintegeredit
+    bounds_x = 99
+    bounds_y = 48
+    bounds_cx = 57
+    bounds_cy = 27
+    frame.caption = 'H'
+    frame.captionpos = cp_left
+    frame.dummy = 0
+    frame.outerframe = (
+      13
+      0
+      0
+      0
+    )
+    taborder = 4
+    ondataentered = doResizeImage
+    reffontheight = 21
+  end
+  object btnThumbnail: tbutton
+    bounds_x = 212
+    bounds_y = 48
+    bounds_cx = 130
+    bounds_cy = 25
+    anchors = [an_top, an_right]
+    taborder = 5
+    state = [as_localcaption, as_localonexecute]
+    autosize_cx = 0
+    autosize_cy = 0
+    caption = 'Save resized'
+    onexecute = doSaveImage
+  end
+  object resizeProportioal: tbooleanedit
+    bounds_x = 176
+    bounds_y = 56
+    frame.dummy = 0
+    taborder = 6
+    value = True
+  end
+end

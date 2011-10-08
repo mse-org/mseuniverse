@@ -1,0 +1,220 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 182
+  bounds_y = 251
+  bounds_cx = 403
+  bounds_cy = 280
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 403
+  container.bounds_cy = 280
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  caption = 'Convert bitmap to pas'
+  moduleclassname = 'tmseform'
+  object tlayouter8: tlayouter
+    bounds_x = 0
+    bounds_y = 250
+    bounds_cx = 403
+    bounds_cy = 30
+    frame.framei_top = 5
+    frame.framei_bottom = 5
+    frame.localprops = [frl_fitop, frl_fibottom]
+    frame.localprops1 = [frl1_framefaceoffset, frl1_framefaceoffsetdisabled, frl1_framefaceoffsetmouse, frl1_framefaceoffsetclicked, frl1_framefaceoffsetactive, frl1_framefaceoffsetactivemouse, frl1_framefaceoffsetactiveclicked]
+    frame.dummy = 0
+    anchors = [an_bottom]
+    optionsscale = [osc_expandy, osc_shrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_center
+    place_mindist = 5
+    place_maxdist = 5
+    place_mode = wam_end
+    place_options = [plo_propmargin, plo_syncmaxautosize]
+    object btncancel: tbutton
+      optionswidget = [ow_tabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      bounds_x = 349
+      bounds_y = 6
+      bounds_cx = 49
+      bounds_cy = 19
+      taborder = 3
+      state = [as_localcaption]
+      caption = 'Cancel'
+      modalresult = mr_cancel
+      reffontheight = 13
+    end
+    object btnconvert: tbutton
+      optionswidget = [ow_tabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      bounds_x = 295
+      bounds_y = 6
+      bounds_cx = 49
+      bounds_cy = 19
+      taborder = 2
+      state = [as_localdefault, as_localcaption, as_localonexecute]
+      caption = '&Convert'
+      onexecute = btnconvert_onexecute
+      reffontheight = 13
+    end
+    object btnsave: tbutton
+      bounds_x = 187
+      bounds_y = 6
+      bounds_cx = 49
+      bounds_cy = 19
+      state = [as_localcaption, as_localonexecute]
+      caption = '&Save'
+      onexecute = btnsave_onexecute
+    end
+    object btnload: tbutton
+      bounds_x = 241
+      bounds_y = 6
+      bounds_cx = 49
+      bounds_cy = 19
+      taborder = 1
+      state = [as_localcaption, as_localonexecute]
+      caption = '&Load'
+      onexecute = btnload_onexecute
+    end
+  end
+  object unitfilename: tfilenameedit
+    bounds_x = 0
+    bounds_y = 208
+    bounds_cx = 401
+    bounds_cy = 35
+    color = -2147483645
+    frame.caption = 'Unit file &name'
+    frame.button.imagenr = 17
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    anchors = [an_left, an_right, an_bottom]
+    taborder = 1
+    controller.filterlist.data = (
+      (
+        'Source file'
+        '*.pas'
+      )
+    )
+    controller.include = [fa_xusr, fa_xgrp, fa_xoth]
+    controller.defaultext = 'pas'
+    controller.captionsave = 'Select unit file'
+    reffontheight = 13
+  end
+  object twidgetgrid1: twidgetgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 0
+    bounds_y = -1
+    bounds_cx = 401
+    bounds_cy = 210
+    frame.caption = 'Components icon'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    anchors = [an_left, an_top, an_right, an_bottom]
+    taborder = 2
+    optionsgrid = [og_colsizing, og_rowsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 15
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'Bitmap filename'
+          end        
+          item
+            caption = 'Unit name'
+          end>
+      end>
+    datacols.count = 2
+    datacols.options = [co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_cancopy, co_canpaste, co_mousescrollrow]
+    datacols.items = <    
+      item
+        width = 265
+        options = [co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_cancopy, co_canpaste, co_mousescrollrow]
+        widgetname = 'bitmapfiles'
+      end    
+      item
+        width = 162
+        options = [co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_cancopy, co_canpaste, co_mousescrollrow]
+        widgetname = 'compsname'
+      end>
+    datarowheight = 15
+    reffontheight = 13
+    object bitmapfiles: tfilenameedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 265
+      bounds_cy = 15
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.color = -1879048187
+      frame.button.imagenr = 17
+      frame.dummy = 0
+      taborder = 1
+      visible = False
+      controller.filterlist.data = (
+        (
+          'Bitmap File'
+          '*.bmp'
+        )
+      )
+      controller.include = [fa_xusr, fa_xgrp, fa_xoth]
+      controller.captionopen = 'Select bitmap file'
+      reffontheight = 13
+    end
+    object compsname: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      bounds_x = 266
+      bounds_y = 0
+      bounds_cx = 162
+      bounds_cy = 15
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.dummy = 0
+      taborder = 2
+      visible = False
+      reffontheight = 13
+    end
+  end
+  object tbitmapcomp1: tbitmapcomp
+    bitmap.image = {
+      00000000000000001800000018000000BC000000000000000000000000000000
+      0000000000000000000000000000000000000000FFFFFF39FF000007FFFFFF11
+      FF000007FFFFFF11FF000007FFFFFF11FF000007FFFFFF11FF000007FFFFFF11
+      FF000007FFFFFF11FF000007FFFFFF6A0000FF01FFFFFF0900FFFF03FFFFFF0B
+      0000FF02FFFFFF0700FFFF05FFFFFF0A0000FF03FFFFFF0500FFFF07FFFFFF09
+      0000FF04FFFFFF0400FFFF07FFFFFF090000FF05FFFFFF0300FFFF07FFFFFF09
+      0000FF04FFFFFF0500FFFF05FFFFFF0A0000FF03FFFFFF0700FFFF03FFFFFF0B
+      0000FF02FFFFFF160000FF01FFFFFF45
+    }
+    left = 208
+    top = 104
+  end
+  object tfiledialog1: tfiledialog
+    controller.filterlist.data = (
+      (
+        'Components bitmap file'
+        '*.cbf'
+      )
+    )
+    controller.defaultext = 'cbf'
+    dialogkind = fdk_none
+    left = 112
+    top = 88
+  end
+end

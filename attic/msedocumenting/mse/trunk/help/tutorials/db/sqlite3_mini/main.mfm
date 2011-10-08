@@ -1,0 +1,92 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 206
+  bounds_y = 238
+  bounds_cx = 261
+  bounds_cy = 117
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 261
+  container.bounds_cy = 117
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  moduleclassname = 'tmseform'
+  object navig: tdbnavigator
+    bounds_x = 8
+    bounds_y = 32
+    frame.dummy = 0
+    datasource = dso
+  end
+  object ed: tdbstringedit
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 8
+    bounds_y = 64
+    bounds_cx = 244
+    bounds_cy = 20
+    frame.dummy = 0
+    taborder = 1
+    datafield = 'TEXT1'
+    datasource = dso
+    reffontheight = 14
+  end
+  object tbutton1: tbutton
+    bounds_x = 8
+    bounds_y = 88
+    bounds_cx = 245
+    bounds_cy = 20
+    taborder = 2
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Insert a Record in Code'
+    onexecute = insertex
+  end
+  object conn: tsqlite3connection
+    Connected = True
+    DatabaseName = 'test.db'
+    Transaction = trans
+    left = 8
+    top = 8
+  end
+  object trans: tmsesqltransaction
+    Active = True
+    Database = conn
+    left = 72
+    top = 8
+  end
+  object query: tmsesqlquery
+    params = <>
+    SQL.data = (
+      'select * from table1;'
+    )
+    IndexDefs = <    
+      item
+        Name = '$PRIMARY_KEY$'
+      end>
+    StatementType = stSelect
+    database = conn
+    Active = True
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'TEXT1'
+        DataType = ftString
+        Precision = -1
+        Size = 50
+      end>
+    controller.options = [dso_utf8, dso_autoapply, dso_autocommitret]
+    left = 136
+    top = 8
+  end
+  object dso: tmsedatasource
+    DataSet = query
+    left = 200
+    top = 8
+  end
+end

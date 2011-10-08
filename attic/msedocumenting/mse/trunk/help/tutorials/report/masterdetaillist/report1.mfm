@@ -1,0 +1,209 @@
+object report1re: treport1re
+  ppmm =  3.0000000000000000E+0000
+  font.height = 14
+  font.name = 'stf_report'
+  font.xscale =  1.0000000000000000E+0000
+  font.dummy = 0
+  grid_size =  2.0000000000000000E+0000
+  options = [reo_autorelease, reo_nodisablecontrols]
+  repdesigninfo = (
+    177
+    159
+    657
+    499
+  )
+  moduleclassname = 'treport'
+  object treportpage1: treportpage
+    pagewidth =  1.9000000000000000E+0002
+    pageheight =  2.7000000000000000E+0002
+    object tbandarea1: tbandarea
+      bounds_x = 12
+      bounds_y = 18
+      bounds_cx = 548
+      bounds_cy = 782
+      options = [bao_nopagerestart]
+      object customer: trecordband
+        bounds_x = 0
+        bounds_y = 6
+        bounds_cx = 548
+        bounds_cy = 18
+        tabs.count = 2
+        tabs.litop_widthmm =  0.0000000000000000E+0000
+        tabs.lileft_widthmm =  0.0000000000000000E+0000
+        tabs.livert_widthmm =  0.0000000000000000E+0000
+        tabs.liright_widthmm =  0.0000000000000000E+0000
+        tabs.libottom_widthmm =  0.0000000000000000E+0000
+        tabs.distleft =  0.0000000000000000E+0000
+        tabs.distright =  0.0000000000000000E+0000
+        tabs.defaultdist =  0.0000000000000000E+0000
+        tabs.items = <        
+          item
+            pos =  0.0000000000000000E+0000
+            datafield = 'ID'
+            datasource = mainfo.dcustomer
+            litop_widthmm =  0.0000000000000000E+0000
+            livert_widthmm =  0.0000000000000000E+0000
+            libottom_widthmm =  0.0000000000000000E+0000
+            distleft =  0.0000000000000000E+0000
+            distright =  0.0000000000000000E+0000
+          end        
+          item
+            pos =  1.4333333333333334E+0001
+            datafield = 'NAME'
+            datasource = mainfo.dcustomer
+            litop_widthmm =  0.0000000000000000E+0000
+            livert_widthmm =  0.0000000000000000E+0000
+            libottom_widthmm =  0.0000000000000000E+0000
+            distleft =  0.0000000000000000E+0000
+            distright =  0.0000000000000000E+0000
+          end>
+        datasource = mainfo.dcustomer
+        options = [bo_delayednextrecord, bo_topofarea]
+        nextband = detailgroup
+        nextbandiflast = enddummy
+      end
+      object enddummy: trecordband
+        bounds_x = 0
+        bounds_y = 84
+        bounds_cx = 548
+        bounds_cy = 18
+        taborder = 1
+        tabs.litop_widthmm =  0.0000000000000000E+0000
+        tabs.lileft_widthmm =  0.0000000000000000E+0000
+        tabs.livert_widthmm =  0.0000000000000000E+0000
+        tabs.liright_widthmm =  0.0000000000000000E+0000
+        tabs.libottom_widthmm =  0.0000000000000000E+0000
+        tabs.distleft =  0.0000000000000000E+0000
+        tabs.distright =  0.0000000000000000E+0000
+        tabs.defaultdist =  0.0000000000000000E+0000
+      end
+      object detailgroup: tbandgroup
+        bounds_x = 0
+        bounds_y = 30
+        bounds_cx = 548
+        bounds_cy = 48
+        taborder = 2
+        optionsscale = [osc_expandy, osc_shrinky]
+        tabs.litop_widthmm =  0.0000000000000000E+0000
+        tabs.lileft_widthmm =  0.0000000000000000E+0000
+        tabs.livert_widthmm =  0.0000000000000000E+0000
+        tabs.liright_widthmm =  0.0000000000000000E+0000
+        tabs.libottom_widthmm =  0.0000000000000000E+0000
+        tabs.distleft =  0.0000000000000000E+0000
+        tabs.distright =  0.0000000000000000E+0000
+        tabs.defaultdist =  0.0000000000000000E+0000
+        datasource = mainfo.dlist
+        nextbandiflast = customer
+        object detail: trecordband
+          bounds_x = 0
+          bounds_y = 30
+          bounds_cx = 548
+          bounds_cy = 18
+          tabs.count = 3
+          tabs.litop_widthmm =  0.0000000000000000E+0000
+          tabs.lileft_widthmm =  0.0000000000000000E+0000
+          tabs.livert_widthmm =  0.0000000000000000E+0000
+          tabs.liright_widthmm =  0.0000000000000000E+0000
+          tabs.libottom_widthmm =  0.0000000000000000E+0000
+          tabs.distleft =  0.0000000000000000E+0000
+          tabs.distright =  0.0000000000000000E+0000
+          tabs.defaultdist =  0.0000000000000000E+0000
+          tabs.items = <          
+            item
+              pos =  0.0000000000000000E+0000
+              datafield = 'date'
+              datasource = mainfo.dlist
+              litop_widthmm =  0.0000000000000000E+0000
+              livert_widthmm =  0.0000000000000000E+0000
+              libottom_widthmm =  0.0000000000000000E+0000
+              distleft =  0.0000000000000000E+0000
+              distright =  0.0000000000000000E+0000
+            end          
+            item
+              pos =  3.7333333333333336E+0001
+              datafield = 'text'
+              datasource = mainfo.dlist
+              litop_widthmm =  0.0000000000000000E+0000
+              livert_widthmm =  0.0000000000000000E+0000
+              libottom_widthmm =  0.0000000000000000E+0000
+              distleft =  0.0000000000000000E+0000
+              distright =  0.0000000000000000E+0000
+            end          
+            item
+              kind = tak_decimal
+              pos =  1.7033333333333334E+0002
+              datafield = 'value'
+              datasource = mainfo.dlist
+              litop_widthmm =  0.0000000000000000E+0000
+              livert_widthmm =  0.0000000000000000E+0000
+              libottom_widthmm =  0.0000000000000000E+0000
+              distleft =  0.0000000000000000E+0000
+              distright =  0.0000000000000000E+0000
+            end>
+          nextbandiflastofarea = header
+        end
+        object header: trecordband
+          bounds_x = 0
+          bounds_y = 6
+          bounds_cx = 548
+          bounds_cy = 18
+          taborder = 1
+          tabs.count = 3
+          tabs.litop_widthmm =  0.0000000000000000E+0000
+          tabs.lileft_widthmm =  0.0000000000000000E+0000
+          tabs.livert_widthmm =  0.0000000000000000E+0000
+          tabs.liright_widthmm =  0.0000000000000000E+0000
+          tabs.libottom_widthmm =  2.0000000000000001E-0001
+          tabs.distleft =  0.0000000000000000E+0000
+          tabs.distright =  0.0000000000000000E+0000
+          tabs.linksource = detail
+          tabs.defaultdist =  0.0000000000000000E+0000
+          tabs.items = <          
+            item
+              pos =  0.0000000000000000E+0000
+              value = 'Date'
+              textflags = [tf_xcentered, tf_ycentered]
+              datasource = mainfo.dlist
+              litop_widthmm =  0.0000000000000000E+0000
+              livert_widthmm =  0.0000000000000000E+0000
+              libottom_widthmm =  0.0000000000000000E+0000
+              distleft =  0.0000000000000000E+0000
+              distright =  0.0000000000000000E+0000
+            end          
+            item
+              pos =  3.7333333333333336E+0001
+              value = 'Text'
+              textflags = [tf_xcentered, tf_ycentered]
+              datasource = mainfo.dlist
+              litop_widthmm =  0.0000000000000000E+0000
+              livert_widthmm =  0.0000000000000000E+0000
+              libottom_widthmm =  0.0000000000000000E+0000
+              distleft =  0.0000000000000000E+0000
+              distright =  0.0000000000000000E+0000
+            end          
+            item
+              kind = tak_decimal
+              pos =  1.7033333333333334E+0002
+              value = 'Value'
+              datasource = mainfo.dlist
+              litop_widthmm =  0.0000000000000000E+0000
+              livert_widthmm =  0.0000000000000000E+0000
+              libottom_widthmm =  0.0000000000000000E+0000
+              distleft =  0.0000000000000000E+0000
+              distright =  0.0000000000000000E+0000
+            end>
+          options = [bo_once]
+          optionsshow = [bos_showtopofpage, bos_hidenormalofpage]
+        end
+      end
+    end
+    object treppagenumdisp1: treppagenumdisp
+      bounds_x = 546
+      bounds_y = 0
+      bounds_cx = 8
+      bounds_cy = 16
+      anchors = [an_top, an_right]
+      taborder = 1
+    end
+  end
+end

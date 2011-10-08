@@ -1,0 +1,30 @@
+======================
+tmsesqlquery
+
+	active
+	autocalfields
+
+	beforeexecute
+		- tsqlscript
+
+	controller
+		- activator
+		- fields[i]
+			= Alignment
+			= BlobType
+			= cachekb
+			= ConstraintErrorMessage
+			= CustomConstraint
+			= DataSet
+				* the query oneself
+			= DefaultExpression
+			= DisplayLabel
+			= DisplayWidth
+			= FiledKind
+				* fkData
+				* fkCalculated
+				* fkLookup
+				* fkInternalCalc
+	
+		
+	

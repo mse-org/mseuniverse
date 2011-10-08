@@ -1,0 +1,52 @@
+object basefo: tbasefo
+  bounds_x = 202
+  bounds_y = 281
+  bounds_cx = 186
+  bounds_cy = 110
+  container.bounds = (
+    0
+    0
+    186
+    110
+  )
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  caption = 'Base Form'
+  ondestroy = destroyex
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    bounds_x = 120
+    bounds_y = 80
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = '&Exit'
+    modalresult = mr_cancel
+  end
+  object edit1: tstringedit
+    frame.caption = 'Text'
+    frame.captionpos = cp_top
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 16
+    bounds_y = 15
+    bounds_cx = 156
+    bounds_cy = 37
+    onsetvalue = setva
+    reffontheight = 14
+  end
+  object tlabel1: tlabel
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 83
+    bounds_cx = 106
+    bounds_cy = 14
+    caption = 'The normal version'
+    reffontheight = 14
+  end
+end

@@ -1,0 +1,103 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 24
+  bounds_y = 216
+  bounds_cx = 304
+  bounds_cy = 113
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  statfile = tstatfile1
+  caption = 'MSEifi Pipedemo Client'
+  oncreate = cre
+  moduleclassname = 'tmseform'
+  object serverapp: tfilenameedit
+    frame.caption = 'Server'
+    frame.button.color = -2147483646
+    frame.button.imagenr = 17
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 12
+    bounds_cx = 281
+    bounds_cy = 35
+    anchors = [an_left, an_top, an_right]
+    statfile = tstatfile1
+    controller.lastdir = './'
+    reffontheight = 13
+  end
+  object tbooleanedit1: tbooleanedit
+    frame.caption = 'connect'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      42
+      1
+    )
+    taborder = 1
+    bounds_x = 9
+    bounds_y = 70
+    bounds_cx = 55
+    bounds_cy = 15
+    onsetvalue = setconnected
+  end
+  object prociddisp: tintegerdisp
+    frame.caption = 'ProcID'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 248
+    bounds_y = 53
+    bounds_cx = 39
+    bounds_cy = 33
+    textflags = [tf_xcentered, tf_right, tf_ycentered]
+    reffontheight = 13
+  end
+  object statedisp: tstringdisp
+    frame.dummy = 0
+    taborder = 3
+    bounds_x = 88
+    bounds_y = 69
+    bounds_cx = 143
+    bounds_cy = 18
+    font.style = [fs_bold]
+    font.name = 'stf_default'
+    font.xscale =  1.0000000000000000E+0000
+    font.dummy = 0
+    textflags = [tf_xcentered, tf_ycentered]
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'client.sta'
+    onstatafterread = afterstatread
+    left = 192
+  end
+  object channel: tpipeiochannel
+    onafterconnect = afterconn
+    onafterdisconnect = afterdisconn
+    left = 48
+  end
+  object tformlink1: tformlink
+    channel = channel
+    modulesrx.count = 1
+    modulesrx.items = <    
+      item
+        name = 'main'
+      end>
+    left = 112
+  end
+  object tframecomp1: tframecomp
+    left = 144
+    top = 40
+  end
+end

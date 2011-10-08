@@ -1,0 +1,613 @@
+==============================================
+
+treporter
+
+	"twidget" stuff:
+
+		color : the backgroud color of the whole report ( not areas only )
+		font : the default font for internal widgets
+		helpcontext
+		name
+		statfile
+		tag
+	
+		Event handlers:
+
+			oncreate
+			ondestroy
+			ondestroyed
+			onloaded
+			onafterupdateskin
+			onbeforeupdateskin
+
+	dialogcaption & dialogtext
+		- if "reo_waitdialog" is set : title & text of the message dialogue
+
+
+	grid_
+		show: T*/F
+		size
+		snap
+
+	options
+		reo_autorelease
+		reo_prepass
+		reo_nodisablecontrols
+		reo_nothread
+		reo_waitdialog
+		reo_aotoreadstat
+		reo_autowritestat
+
+	ppmm
+		pixel per mm
+
+	Event handlers:	
+
+		onafterrender
+		onbeforerender
+		onpreamble
+		onpageafterpaint
+		onpagebeforerender
+		onpagepaint
+		onprogress
+
+	Public:
+		procedure render(const acanvas: tcanvas;
+                        const onafterrender: reporteventty = nil); overload;
+		procedure render(const aprinter: tstreamprinter; const command: string = '';
+                        const onafterrender: reporteventty = nil); overload;
+		procedure render(const aprinter: tstreamprinter; const astream: ttextstream;
+                        const onafterrender: reporteventty = nil); overload;
+		procedure render(const aprinter: tgdiprinter;
+                           const onafterrender: reporteventty = nil); overload;
+		procedure waitfor;         //returns before calling of onafterrender
+		function prepass: boolean; //true if in prepass render state
+		procedure restart;
+		procedure recordchanged;  //calls recordchanged of active page
+   
+		function reppagecount: integer;
+		property reppages[index: integer]: tcustomreportpage read getreppages 
+                                                write setreppages; default;
+		property pagenum: integer read fpagenum {write fpagenum}; 
+                            //null-based
+		property lastpagecount: integer read flastpagecount write flastpagecount;
+		property activepage: integer read factivepage write setactivepage;
+		procedure finish;
+		property printstarttime: tdatetime read fprintstarttime write fprintstarttime;
+		property nilstream: boolean read fnilstream;
+                           //true if reder called with nil stream
+		property canceled: boolean read getcanceled write setcanceled;
+		property running: boolean read getrunning;
+
+==============================================
+
+treportpage
+	
+	TWidget stuff :
+
+		color
+		face
+		frame
+		helpcontext
+		name
+		tag
+		visible
+
+	datasource - last resort data source for the child areas & bands
+
+	nextpage
+	nexpageifempty
+
+	options
+		rpo_once
+		rpo_firsteven
+		rpo_firstodd
+
+	pageheight
+	pagewidth
+
+	printorientation
+		rpo_default ( printer.canvas value )
+		rpo_portrait
+		rpo_landscape 
+
+	visiblepage
+	
+	Event handlers:
+		
+		onafterlastpage
+		onafternextrecord
+		onbeforenextrecord
+		onafterpaint
+		onbeforerender
+		onfirstpage
+		onpaint
+
+	Public :
+
+		function isfirstrecord: boolean;
+			- true if "datasource.dataset" is active and positioned to 1-st record
+   
+		function islastrecord: boolean;
+			- true if "datasource.dataset" is active and positioned to the last record
+   
+		procedure recordchanged;   
+		property report: tcustomreport read freport;
+
+		property pagenum: integer read fpagenum write fpagenum; 
+			- null-based, local to this page
+
+		property lastpagecount: integer read getlastpagepagecount write flastpagecount;
+                 //local to this page
+
+		property printstarttime: tdatetime
+		property visiblepage: boolean
+		procedure activatepage;
+		procedure finish;
+		procedure restart;
+   
+==============================================
+
+tbandarea
+
+	"twidget" stuff:
+
+		anchors
+		bounds
+		color
+		cursor
+		enabled
+		face
+		font
+		frame
+		helpcontext
+		hint
+		name
+		optionswidget
+		popupmenu
+		tag
+		taborder
+		visible
+
+		Event handlers:
+
+			onactivate
+			onafterupdateskin
+			onbeforeupdateskin
+			ondeactivate
+			ondefocus
+			onenter
+			onexit
+			onfocus
+			onpopup
+			onshowhint
+
+	Event handlers:
+
+		onafterpaint
+		onbeforerender: before cicling through the area's bands
+		onbeforerender
+		onfirstarea
+		onpaint
+	
+	Public:
+
+		islastband		- true if any more recordband ( of design-set height = 
+						  bounds_cy + bottom frame) won't fit the area
+
+		isfirstband		- true if the currently coming recordband (of the area) 
+						   hasn't been shown on the page yet
+
+		isfirstrecord	- true if :
+			1) "active_recordband.datasource.dataset" is active and positioned to 1-st record
+			or otherwise
+			2) "parent_page.datasource.dataset" is active and positioned to 1-st record
+
+		islastrecord	- true if :
+			1) "active_recordband.datasource.dataset" is active and positioned to the last record
+			or otherwise
+			2) "parent_page.datasource.dataset" is active and positioned to the last record
+
+		function istopband: boolean;
+		function remainingheight: integer;
+
+		function pagepagenum: integer; //null based
+		function reppagenum: integer; //null based
+
+		function pageprintstarttime: tdatetime;
+		function repprintstarttime: tdatetime;
+		function getreppage: tcustomreportpage;
+		procedure restart;
+   
+		property acty: integer
+		property areafull: boolean
+   
+===============================================	
+
+"li*" element
+
+	*** presents a single line framing a tab, a recorband,.. ***
+
+	capstyle
+
+		cs_projecting - (PS-printer only), doesn't adjust length of the line 
+						on joints with other lines
+
+		cs_butt - adjusts length of the line so that it not to jut out beyond 
+				its orthogonal "counterparthner"
+
+		cs_round - (PS-printer only), rounds joints of this line
+		
+	color - color of the line
+
+	dashes - numeric 2-digit mask (1-st digit is the space {pix} and 2-nd if the line segment length )
+	colorgap - color of space between the segments
+
+	dist - shift {mm} of the line from its default position ( positive values are outward 
+		   thus enlarge the tab, and vie versa), "livert" shifts left, both vert & hor shifts 
+			are accepted
+
+	visible
+		lv_firstofpage - to draw if belongs to a recorband which :
+			1) 1-st of the report
+			
+		lv_topofpage
+		lv_nottopofpage
+		lv_firstofpage
+		lv_normal
+		lv_lastofpage
+		lv_firstofgroup
+		lv_lastofgroup
+		lv_firstrecord	
+		lv_last_record
+
+	widthmm
+
+===============================================	
+
+textflags
+	tf_xcentered
+	tf_right
+	tf_xjustify
+	tf_ycentered
+	tf_bottom
+	tf_clipi
+	tf_clipo
+	tf_grayed
+	tf_wordbreak
+	tf_softhyphen
+	tf_noselect
+	tf_ellipseleft
+	tf_ellipseright
+	tf_tabtospace
+
+===============================================	
+
+tab = trecordband.tabs[i]
+
+	color
+
+	datafield
+	datasource
+
+	distright
+	distright
+
+	font: see <any_font>	
+	format
+
+	kind
+		*** shifts/aligns the value against the tab h-position ***
+
+		tak_left : the tab is touched by the left extent of value  
+
+		tak_right : the tab is touched by the right extent of value  
+
+		tak_centered : the value is h-centered around the tab
+
+		tak_decimal : 
+			if the value contains a decimal separator then the value shifts 
+			so that the separator is placed on the tab's position, 
+			otherwise "tak_right" is applied
+
+	linksource
+		-recordband/bandgroup/rep*disp
+
+	libottom	
+		see "li" element
+	lileft	
+		see "li" element
+	lileft	
+		see "li" element
+	liright	
+		see "li" element
+	litop
+		see "li" element
+	livert	
+		see "li" element
+
+	lookupbuffer
+	lookupkeyfiedno
+	lookupvaluefiedno
+
+	lookupkind
+		lk_text
+		lk_integer
+		lk_float
+		lk_date
+		lk_time
+		lk_datetime
+	
+	pos	
+
+	options
+		rto_count
+		rto_sum
+		rto_average
+		rto_shownull
+		rto_nocurrentvalue
+		ryo_noreset
+
+	textflags
+		see "textflags" above
+
+	tag
+	value
+
+	Even handlers:
+		
+		ongetvalue
+	
+===============================================	
+
+trecordband
+
+	"twidget" stuff:
+
+		anchors
+		bounds
+		color
+		cursor
+		enabled
+		face
+		font
+		frame
+		helpcontext
+		hint
+		name
+		optionswidget
+		popupmenu
+		taborder
+		tag
+
+		Event handlers:
+
+			onactivate
+			OnAfterUpdateSkin
+			onchildscaled
+			ondeactivate
+			ondefocus
+			onenter
+			onexit
+			onfocus
+			onfontheightdelta
+			onpopup
+			onshowhint
+
+	visible	: skips this band when rendering the parent area
+	datasource
+
+	nextband
+	nextbandifempty
+
+	options
+		bo_once : 
+		
+		bo_evenpage
+		bo_oddpage
+		bo_visigroupfirst
+		bo_visigroupnotfirst
+		bo_visigrouplast
+		bo_visigroupnotlast
+		bo_localvalue
+
+	optionsscale
+		osc_expandx
+		osc_shrinkx
+		osc_expandy
+		osc_shrinky
+		osc_invisisshrinkx
+		osc_invisisshrinky
+
+
+	optionsshow
+		bos_showfirstpage
+		bos_hidefirstpage
+		bos_shownormalpage
+		bos_hidenormalpage
+		bos_showevenpage
+		bos_hideevenpage
+		bos_showoddpage
+		bos_hideoddpage
+
+		bos_showtopofpage
+		bos_hidetopofpage
+
+
+		bos_showfirstofpage
+		bos_hidefirstofpage
+		bos_shownormalofpage
+		bos_hidenormalofpage
+		bos_showlastofpage
+		bos_hidelastofpage
+		bos_showfirstrecord
+		bos_hidefirstrecord
+		bos_shownormalrecord
+		bos_hidenormalrecord
+		bos_showlastrecord
+		bos_hidelastrecord
+
+
+	visidatasource
+	visidatafield
+	visigroupfield
+
+	tabs
+		count
+		defaultdist
+		disleft
+		distright
+
+		libottom
+			see "li" element
+		lileft
+			see "li" element
+		liright
+			see "li" element
+		litop
+			see "li" element
+		livert
+			see "li" element
+	
+		tabs[i]
+			see "tab" above
+			
+
+		linksource	
+
+	Event handlers:
+
+		onafterpaint
+		onafternextrecord
+		onbeforenextrecord
+		onbeforepaint
+		onbeforerender: before cycling through the area's bands
+		onpaint
+
+	Public:
+
+		procedure beginupdate;
+		procedure endupdate;
+		function remainingbands: integer;
+		function reppage: tcustomreportpage;
+		procedure finish;
+		function isfirstrecord: boolean;
+		function islastrecord: boolean;
+		function isfirstofgroup: boolean;
+		function islastofgroup: boolean;
+		procedure restart;
+
+	hidden:
+   		procedure render(canvas; var empty);
+   			- 
+   
+===============================================	
+
+tbandgroup
+
+	"twidget" stuff:
+
+		anchors
+		bounds
+		color
+		cursor
+		enabled
+		face
+		font
+		frame
+		helpcontext
+		hint
+		name
+		optionswidget
+		popupmenu
+		taborder
+		visible
+
+	"trecordband" stuff:
+
+		datasource
+
+		options
+		optionsscale
+		optionsshow
+
+		visidatasource
+		visidatafield
+		visigroupfield
+
+		nextband
+		nextbandifempty
+
+		onactivate
+		onafterpaint
+		onbeforerender
+		onchildscaled
+		ondeactivate
+		ondefocus
+		onenter
+		onexit
+		onfocus
+		onfontheightdelta
+		onpaint
+		onpopup
+		onshowhint
+	
+
+===========================================	
+
+trepvaluedisp
+
+	"twidget" stuff:
+
+		anchors
+		bounds
+		color
+		cursor
+		enabled
+		face
+		font
+		frame
+		helpcontext
+		hint
+		name
+		optionswidget
+		popupmenu
+		taborder
+		visible
+		tag
+
+	"trecordband" stuff:
+
+		options
+		optionsscale
+		optionsshow
+		visidatasource
+		visidatafield
+		visigroupfield
+		onactivate
+		onafterpaint
+		onbeforerender
+		onchildscaled
+		ondeactivate
+		ondefocus
+		onenter
+		onexit
+		onfocus
+		onfontheightdelta
+		onpaint
+		onpopup
+		onshowhint
+
+	value
+
+	More event handlers:
+
+		ongettext
+
+	Public:
+
+		format
+
+=================================
+
+

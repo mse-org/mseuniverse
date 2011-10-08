@@ -1,0 +1,168 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 53
+  bounds_y = 238
+  bounds_cx = 219
+  bounds_cy = 260
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    219
+    260
+  )
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  statfile = tstatfile1
+  caption = 'MSEgui OpenGL'
+  onshow = showexe
+  moduleclassname = 'tmseform'
+  object openglwidget: topenglwidget
+    optionswidget = [ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
+    frame.leveli = -1
+    frame.framei_left = 10
+    frame.framei_top = 10
+    frame.framei_right = 10
+    frame.framei_bottom = 10
+    frame.localprops = [frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.dummy = 0
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 202
+    bounds_cy = 166
+    anchors = [an_left, an_top, an_right, an_bottom]
+    onrender = renderexe
+    fpsmax = 1
+    oncreatewinid = createwinidexe
+    onclientrectchanged = clientrectchangedexe
+  end
+  object roty: trealedit
+    frame.caption = 'roty'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      22
+      0
+    )
+    taborder = 1
+    bounds_x = 10
+    bounds_y = 209
+    bounds_cx = 74
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = rotentexe
+    value = 0.2
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 14
+  end
+  object fps: trealedit
+    frame.caption = 'fpsmax'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      43
+      0
+    )
+    taborder = 3
+    bounds_x = 98
+    bounds_y = 185
+    bounds_cx = 95
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    onsetvalue = fpssetvalue
+    value = 30
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -1
+    max = 1E+038
+    reffontheight = 14
+  end
+  object rotx: trealedit
+    frame.caption = 'rotx'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      22
+      0
+    )
+    bounds_x = 10
+    bounds_y = 185
+    bounds_cx = 74
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = rotentexe
+    value = 0.1
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 14
+  end
+  object fpsdisp: trealdisp
+    frame.caption = 'fps'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      20
+      0
+    )
+    taborder = 5
+    bounds_x = 98
+    bounds_y = 209
+    bounds_cx = 72
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.00'
+    value = -Inf
+    reffontheight = 14
+  end
+  object rotz: trealedit
+    frame.caption = 'rotz'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      22
+      0
+    )
+    taborder = 2
+    bounds_x = 10
+    bounds_y = 233
+    bounds_cx = 74
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = rotentexe
+    value = 0.3
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 24
+    top = 24
+  end
+end

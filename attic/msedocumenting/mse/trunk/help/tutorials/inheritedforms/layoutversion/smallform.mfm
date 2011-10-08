@@ -1,0 +1,41 @@
+inherited smallfo: tsmallfo
+  bounds_x = 197
+  bounds_y = 260
+  bounds_cx = 171
+  bounds_cy = 65
+  container.bounds = (
+    0
+    0
+    171
+    65
+  )
+  font.height = 10
+  font.name = ''
+  caption = 'Small Form'
+  moduleclassname = 'tbasefo'
+  inherited tbutton1: tbutton
+    bounds_x = 106
+    bounds_y = 40
+    bounds_cx = 34
+    bounds_cy = 19
+  end
+  inherited edit1: tstringedit
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 0
+    bounds_cy = 35
+    reffontheight = 13
+  end
+  inherited tlabel1: tlabel
+    bounds_y = 43
+    bounds_cx = 83
+    bounds_cy = 13
+    caption = 'The small version'
+    reffontheight = 13
+  end
+end

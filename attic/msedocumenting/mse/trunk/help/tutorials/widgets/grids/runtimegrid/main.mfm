@@ -1,0 +1,87 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 403
+  bounds_cy = 280
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 403
+  container.bounds_cy = 280
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  onloaded = onlo
+  moduleclassname = 'tmseform'
+  object tstringgrid1: tstringgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 8
+    bounds_y = 14
+    bounds_cx = 200
+    bounds_cy = 260
+    frame.caption = 'tstringgrid'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    anchors = [an_left, an_top, an_right, an_bottom]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 17
+      end>
+    datarowheight = 17
+    reffontheight = 15
+  end
+  object tsplitter1: tsplitter
+    bounds_x = 208
+    bounds_y = 32
+    bounds_cx = 3
+    bounds_cy = 242
+    anchors = [an_left, an_top, an_bottom]
+    taborder = 1
+    options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linkleft = tstringgrid1
+    linkright = tdrawgrid1
+    statfile = tstatfile1
+  end
+  object tdrawgrid1: tdrawgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 211
+    bounds_y = 14
+    bounds_cx = 183
+    bounds_cy = 260
+    frame.caption = 'tdrawgrid'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    anchors = [an_left, an_top, an_right, an_bottom]
+    taborder = 2
+    datacols.count = 1
+    datacols.items = <    
+      item
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 17
+      end>
+    reffontheight = 15
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 72
+    top = 80
+  end
+end

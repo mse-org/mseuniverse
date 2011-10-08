@@ -1,0 +1,63 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 181
+  bounds_y = 257
+  bounds_cx = 458
+  bounds_cy = 280
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 458
+  container.bounds_cy = 280
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_autoscale]
+    bounds_x = 256
+    bounds_y = 48
+    bounds_cx = 106
+    bounds_cy = 19
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Print'
+    onexecute = cmdprint
+  end
+  object tmemoedit1: tmemoedit
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 236
+    bounds_cy = 203
+    frame.localprops = [frl_colorclient]
+    frame.dummy = 0
+    taborder = 1
+    value = 'Printing to default printer:'#13#10'<roman>roman</roman>'#13#10'<courier>courier</courier>'#13#10'<b>bold</b>'#13#10'<i>italic</i>'#13#10'<u>underline</u>'#13#10'<s>strike</s>'#13#10'<small>small</s>'#13#10'normal'#13#10'<big>big</big>'#13#10'<double>double</double>'#13#10'<sub>subtext</sub>'#13#10'<super>supertext</super>'#13#10'<right>right-aligned</right>'#13#10'<center>centered</center>'#13#10'<left>left-aligned</left>'
+  end
+  object tbooleanedit1: tbooleanedit
+    bounds_x = 256
+    bounds_y = 15
+    bounds_cx = 140
+    bounds_cy = 15
+    frame.caption = '&Eject paper when finished'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      127
+      1
+    )
+    taborder = 2
+    ondataentered = changeejectpaper
+  end
+  object TRAWPrinter1: TRAWPrinter
+    CommandType = rpcEpson
+    DocumentTitle = 'RAW Printing'
+    NewLineCode = nlCRLF
+    InitPrinterRequired = False
+    PageWidth = 98
+    PageHeight = 68
+    left = 256
+    top = 88
+  end
+end

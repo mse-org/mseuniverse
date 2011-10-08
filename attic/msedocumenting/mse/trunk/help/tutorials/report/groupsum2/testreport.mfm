@@ -1,0 +1,312 @@
+object testre: ttestre
+  ppmm =  3.0000000000000000E+0000
+  font.height = 14
+  font.name = 'stf_report'
+  font.xscale =  1.0000000000000000E+0000
+  font.dummy = 0
+  grid_size =  2.0000000000000000E+0000
+  options = [reo_autorelease]
+  onloaded = reportloaded
+  repdesigninfo = (
+    23
+    159
+    614
+    369
+  )
+  moduleclassname = 'treport'
+  object treportpage1: treportpage
+    pagewidth =  1.9000000000000000E+0002
+    pageheight =  2.7000000000000000E+0002
+    object tbandarea1: tbandarea
+      bounds_x = 0
+      bounds_y = 30
+      bounds_cx = 570
+      bounds_cy = 780
+      anchors = [an_top]
+      object tbandgroup1: tbandgroup
+        bounds_x = 0
+        bounds_y = 42
+        bounds_cx = 570
+        bounds_cy = 108
+        optionsscale = [osc_expandy, osc_shrinky]
+        datasource = dso
+        object trecordband1: trecordband
+          bounds_x = 0
+          bounds_y = 6
+          bounds_cx = 570
+          bounds_cy = 18
+          tabs.count = 6
+          tabs.linksource = header
+          tabs.items = <          
+            item
+              datafield = 'group1'
+              datasource = dso
+              ongetvalue = group1getvalue
+            end          
+            item
+              pos =  4.0000000000000000E+0001
+              datafield = 'group2'
+              datasource = dso
+              ongetvalue = group2getvalue
+            end          
+            item
+              pos =  8.0000000000000000E+0001
+              datafield = 'group3'
+              datasource = dso
+              ongetvalue = group3getvalue
+            end          
+            item
+              pos =  1.2000000000000000E+0002
+              datafield = 'detail'
+              datasource = dso
+            end          
+            item
+              pos =  1.6000000000000000E+0002
+              textflags = [tf_right, tf_ycentered]
+              datafield = 'balance'
+              datasource = dso
+            end          
+            item
+              pos =  1.8500000000000000E+0002
+            end>
+        end
+        object group3: trecordband
+          bounds_x = 0
+          bounds_y = 30
+          bounds_cx = 570
+          bounds_cy = 18
+          taborder = 1
+          tabs.count = 6
+          tabs.linksource = header
+          tabs.items = <          
+            item
+            end          
+            item
+              pos =  4.0000000000000000E+0001
+              textflags = [tf_right, tf_ycentered]
+              datasource = dso
+              distright =  1.0000000000000000E+0000
+            end          
+            item
+              pos =  8.0000000000000000E+0001
+              datafield = 'group3'
+              datasource = dso
+              format = 'Sum '
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  1.2000000000000000E+0002
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  1.6000000000000000E+0002
+              options = [rto_sum]
+              textflags = [tf_right, tf_ycentered]
+              datafield = 'balance'
+              datasource = dso
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  1.8500000000000000E+0002
+            end>
+          options = [bo_visigrouplast]
+          visidatasource = dso
+          visigroupfield = 'id3'
+        end
+        object group2: trecordband
+          bounds_x = 0
+          bounds_y = 60
+          bounds_cx = 570
+          bounds_cy = 18
+          taborder = 2
+          tabs.count = 6
+          tabs.linksource = header
+          tabs.items = <          
+            item
+              textflags = [tf_right, tf_ycentered]
+              distright =  1.0000000000000000E+0000
+            end          
+            item
+              pos =  4.0000000000000000E+0001
+              datafield = 'group2'
+              datasource = dso
+              format = 'Sum '
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  8.0000000000000000E+0001
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  1.2000000000000000E+0002
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  1.6000000000000000E+0002
+              options = [rto_sum]
+              textflags = [tf_right, tf_ycentered]
+              datafield = 'balance'
+              datasource = dso
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  1.8500000000000000E+0002
+            end>
+          options = [bo_visigrouplast]
+          visidatasource = dso
+          visigroupfield = 'id2'
+        end
+        object group1: trecordband
+          bounds_x = 0
+          bounds_y = 90
+          bounds_cx = 570
+          bounds_cy = 18
+          taborder = 3
+          tabs.count = 6
+          tabs.libottom_widthmm =  2.9999999999999999E-0001
+          tabs.linksource = header
+          tabs.items = <          
+            item
+              datafield = 'group1'
+              datasource = dso
+              format = 'Sum '
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  4.0000000000000000E+0001
+              datasource = dso
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  8.0000000000000000E+0001
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  1.2000000000000000E+0002
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  1.6000000000000000E+0002
+              options = [rto_sum]
+              textflags = [tf_right, tf_ycentered]
+              datafield = 'balance'
+              datasource = dso
+              litop_widthmm =  2.9999999999999999E-0001
+            end          
+            item
+              pos =  1.8500000000000000E+0002
+            end>
+          options = [bo_visigrouplast]
+          visidatasource = dso
+          visigroupfield = 'id1'
+        end
+      end
+      object header: trecordband
+        bounds_x = 0
+        bounds_y = 6
+        bounds_cx = 570
+        bounds_cy = 18
+        taborder = 1
+        tabs.count = 6
+        tabs.litop_widthmm =  2.9999999999999999E-0001
+        tabs.libottom_widthmm =  2.9999999999999999E-0001
+        tabs.items = <        
+          item
+            value = 'group1'
+          end        
+          item
+            pos =  4.0000000000000000E+0001
+            value = 'group2'
+          end        
+          item
+            pos =  8.0000000000000000E+0001
+            value = 'group3'
+          end        
+          item
+            pos =  1.2000000000000000E+0002
+            value = 'detail'
+          end        
+          item
+            pos =  1.6000000000000000E+0002
+            textflags = [tf_right, tf_ycentered]
+          end        
+          item
+            pos =  1.8500000000000000E+0002
+            value = 'balance'
+            textflags = [tf_right, tf_ycentered]
+          end>
+        options = [bo_evenpage, bo_oddpage]
+      end
+    end
+    object treppagenumdisp1: treppagenumdisp
+      bounds_x = 249
+      bounds_y = 6
+      bounds_cx = 45
+      bounds_cy = 16
+      anchors = [an_left, an_top, an_right]
+      taborder = 1
+      format = 'Page 0'
+    end
+  end
+  object printer: tpostscriptprinter
+    canvas.font.color = -1610612734
+    canvas.font.xscale =  1.0000000000000000E+0000
+    canvas.font.dummy = 0
+    canvas.ppmm =  1.0000000000000000E+0001
+    pa_width =  2.1000000000000000E+0002
+    pa_height =  2.9700000000000000E+0002
+    pa_size = sps_a4
+    pa_frameleft =  1.0000000000000000E+0001
+    pa_frametop =  1.0000000000000000E+0001
+    pa_frameright =  1.0000000000000000E+0001
+    pa_framebottom =  1.0000000000000000E+0001
+    left = 12
+    top = 222
+  end
+  object dse: tmsesqlquery
+    params = <>
+    IndexDefs = <>
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'group1'
+        DataType = ftString
+      end    
+      item
+        Name = 'group2'
+        DataType = ftString
+      end    
+      item
+        Name = 'group3'
+        DataType = ftString
+      end    
+      item
+        Name = 'detail'
+        DataType = ftString
+      end    
+      item
+        Name = 'balance'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'id1'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'id2'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'id3'
+        DataType = ftInteger
+      end>
+    controller.options = [dso_local]
+    left = 12
+    top = 252
+  end
+  object dso: tmsedatasource
+    DataSet = dse
+    left = 78
+    top = 252
+  end
+end

@@ -1,0 +1,360 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 72
+  bounds_y = 234
+  bounds_cx = 576
+  bounds_cy = 253
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 576
+  container.bounds_cy = 253
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmseform'
+  object mastergrid: tdbstringgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 8
+    bounds_y = 7
+    bounds_cx = 250
+    bounds_cy = 208
+    frame.caption = 'Customer'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    anchors = [an_left, an_top, an_bottom]
+    optionsgrid = [og_rowinserting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 2
+    datacols.newrowcol = 0
+    datacols.items = <    
+      item
+        width = 70
+        options = [co_readonly, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        datafield = 'ID'
+        textflags = [tf_right, tf_ycentered, tf_noselect]
+      end    
+      item
+        width = 143
+        options = [co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        datafield = 'NAME'
+      end>
+    datalink.options = [gdo_propscrollbar, gdo_thumbtrack]
+    datalink.datasource = dcustomer
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'ID'
+          end        
+          item
+            caption = 'NAME'
+          end>
+      end>
+    datarowheight = 16
+    reffontheight = 14
+  end
+  object detailgrid: tdbwidgetgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 264
+    bounds_y = 7
+    bounds_cx = 306
+    bounds_cy = 208
+    frame.caption = 'Detail List'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    anchors = [an_left, an_top, an_right, an_bottom]
+    taborder = 1
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'Date'
+          end        
+          item
+            caption = 'Text'
+          end        
+          item
+            caption = 'Value'
+          end>
+      end>
+    datacols.count = 3
+    datacols.newrowcol = 0
+    datacols.items = <    
+      item
+        width = 69
+        widgetname = 'tdbdatetimeedit1'
+      end    
+      item
+        width = 134
+        options = [co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        widgetname = 'tdbstringedit1'
+      end    
+      item
+        width = 65
+        widgetname = 'tdbrealedit1'
+      end>
+    datalink.options = [gdo_propscrollbar, gdo_thumbtrack]
+    datalink.datasource = dlist
+    datarowheight = 16
+    reffontheight = 14
+    object tdbdatetimeedit1: tdbdatetimeedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 69
+      bounds_cy = 16
+      taborder = 1
+      visible = False
+      datalink.datasource = dlist
+      datalink.fieldname = 'date'
+      reffontheight = 14
+      ma =  4.0176899998999998E+0005
+    end
+    object tdbstringedit1: tdbstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      bounds_x = 70
+      bounds_y = 0
+      bounds_cx = 134
+      bounds_cy = 16
+      taborder = 2
+      visible = False
+      datalink.datasource = dlist
+      datalink.fieldname = 'text'
+      reffontheight = 14
+    end
+    object tdbrealedit1: tdbrealedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      bounds_x = 205
+      bounds_y = 0
+      bounds_cx = 65
+      bounds_cy = 16
+      taborder = 3
+      visible = False
+      datalink.datasource = dlist
+      datalink.fieldname = 'value'
+      formatedit = '0.00'
+      formatdisp = '0.00'
+      valuescale =  1.0000000000000000E+0000
+      reffontheight = 14
+    end
+  end
+  object button1: tbutton
+    bounds_x = 8
+    bounds_y = 224
+    bounds_cx = 122
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    taborder = 2
+    state = [as_localcaption, as_localonexecute]
+    autosize_cx = 0
+    autosize_cy = 0
+    caption = 'Run List Report'
+    onexecute = runlistrep
+  end
+  object button2: tbutton
+    bounds_x = 136
+    bounds_y = 224
+    bounds_cx = 122
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    taborder = 3
+    state = [as_localcaption, as_localonexecute]
+    autosize_cx = 0
+    autosize_cy = 0
+    caption = 'Run Page Report'
+    onexecute = runpagerep
+  end
+  object info: tlabel
+    bounds_x = 272
+    bounds_y = 228
+    bounds_cx = 171
+    bounds_cy = 16
+    anchors = [an_left, an_bottom]
+    taborder = 4
+    visible = False
+    caption = 'PostScript written to test.ps'
+    font.height = 14
+    font.name = 'stf_default'
+    font.xscale =  1.0000000000000000E+0000
+    font.dummy = 0
+    reffontheight = 16
+  end
+  object conn: tsqlite3connection
+    Connected = True
+    DatabaseName = 'test.db'
+    Transaction = trans
+    left = 16
+    top = 104
+  end
+  object trans: tmsesqltransaction
+    Active = True
+    Database = conn
+    left = 80
+    top = 104
+  end
+  object qcustomer: tmsesqlquery
+    Active = True
+    params = <>
+    SQL.data = (
+      'select * from customer;'
+    )
+    IndexDefs = <    
+      item
+        Name = '$PRIMARY_KEY$'
+      end>
+    StatementType = stSelect
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Precision = -1
+        Size = 0
+      end>
+    controller.options = [dso_utf8, dso_stringmemo, dso_autoapply, dso_autocommitret]
+    left = 16
+    top = 136
+  end
+  object qlist: tmsesqlquery
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.count = 1
+        fields.items = <        
+          item
+            fieldname = 'date'
+          end>
+        active = True
+      end>
+    Active = True
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'custpar'
+        ParamType = ptUnknown
+      end>
+    SQL.data = (
+      'select * from list where cust = :custpar;'
+    )
+    IndexDefs = <    
+      item
+        Name = '$PRIMARY_KEY$'
+      end>
+    StatementType = stSelect
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'date'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'text'
+        DataType = ftString
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'value'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'CUST'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end>
+    controller.options = [dso_utf8, dso_stringmemo, dso_autoapply, dso_autocommitret]
+    left = 272
+    top = 104
+  end
+  object dcustomer: tmsedatasource
+    DataSet = qcustomer
+    left = 112
+    top = 136
+  end
+  object dlist: tmsedatasource
+    DataSet = qlist
+    left = 328
+    top = 104
+  end
+  object custlink: tfieldfieldlink
+    destdataset = qlist
+    destdatafield = 'CUST'
+    options = [flo_notifunmodifiedinsert]
+    datafield = 'ID'
+    datasource = dcustomer
+    left = 272
+    top = 136
+  end
+  object custparamlink: tfieldparamlink
+    datafield = 'ID'
+    datasource = dcustomer
+    destdataset = qlist
+    paramname = 'custpar'
+    left = 272
+    top = 160
+  end
+  object printer: tpostscriptprinter
+    canvas.font.color = -1610612734
+    canvas.font.xscale =  1.0000000000000000E+0000
+    canvas.font.dummy = 0
+    canvas.ppmm =  1.0000000000000000E+0001
+    pa_width =  2.1000000000000000E+0002
+    pa_height =  2.9700000000000000E+0002
+    pa_size = sps_a4
+    pa_orientation = pao_portrait
+    tabulators.defaultdist =  0.0000000000000000E+0000
+    left = 476
+    top = 224
+  end
+end

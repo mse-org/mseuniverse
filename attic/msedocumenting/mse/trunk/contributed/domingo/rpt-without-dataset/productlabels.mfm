@@ -1,0 +1,70 @@
+object productlabelsre: tproductlabelsre
+  ppmm =  3.0000000000000000E+0000
+  font.height = 14
+  font.name = 'stf_report'
+  font.xscale =  1.0000000000000000E+0000
+  font.dummy = 0
+  grid_size =  2.0000000000000000E+0000
+  onreportstart = doInitVars
+  repdesigninfo = (
+    212
+    235
+    651
+    447
+  )
+  moduleclassname = 'treport'
+  object treportpage1: treportpage
+    pagewidth =  1.9000000000000000E+0002
+    pageheight =  2.7000000000000000E+0002
+    onbeforerender = checkPageCounter
+    object tileLabels: ttilearea
+      bounds_x = 6
+      bounds_y = 12
+      bounds_cx = 560
+      bounds_cy = 788
+      colcount = 3
+      rowcount = 8
+      object trecordband1: trecordband
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 188
+        bounds_cy = 99
+        anchors = [an_left, an_top]
+        onbeforerender = feedData
+        object imageBarCode: timage
+          bounds_x = 12
+          bounds_y = 12
+          bounds_cx = 164
+          bounds_cy = 44
+          frame.dummy = 0
+        end
+        object labelDescription: tlabel
+          optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+          bounds_x = 12
+          bounds_y = 66
+          bounds_cx = 162
+          bounds_cy = 16
+          taborder = 1
+          caption = 'Description'
+          textflags = [tf_xcentered, tf_ycentered]
+          reffontheight = 16
+        end
+      end
+    end
+  end
+  object psprn: tpostscriptprinter
+    canvas.font.color = -1610612734
+    canvas.font.xscale =  1.0000000000000000E+0000
+    canvas.font.dummy = 0
+    canvas.ppmm =  1.0000000000000000E+0001
+    pa_width =  2.1000000000000000E+0002
+    pa_height =  2.9700000000000000E+0002
+    pa_size = sps_a4
+    pa_frameleft =  1.0000000000000000E+0001
+    pa_frametop =  1.0000000000000000E+0001
+    pa_frameright =  1.0000000000000000E+0001
+    pa_framebottom =  1.0000000000000000E+0001
+    left = 420
+    top = 42
+  end
+end

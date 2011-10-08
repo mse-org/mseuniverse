@@ -1,0 +1,105 @@
+object nodsre: tnodsre
+  ppmm =  3.0000000000000000E+0000
+  font.height = 14
+  font.name = 'stf_report'
+  font.xscale =  1.0000000000000000E+0000
+  font.dummy = 0
+  grid_size =  2.0000000000000000E+0000
+  options = [reo_autorelease, reo_prepass]
+  onreportstart = resetCounter
+  oncreate = doInit
+  repdesigninfo = (
+    169
+    219
+    602
+    369
+  )
+  moduleclassname = 'treport'
+  object treportpage1: treportpage
+    pagewidth =  1.9000000000000000E+0002
+    pageheight =  2.7000000000000000E+0002
+    object tbandarea1: tbandarea
+      bounds_x = 6
+      bounds_y = 66
+      bounds_cx = 560
+      bounds_cy = 272
+      object header: trecordband
+        bounds_x = 0
+        bounds_y = 6
+        bounds_cx = 560
+        bounds_cy = 18
+        tabs.count = 3
+        tabs.libottom_widthmm =  1.0000000000000000E+0000
+        tabs.libottom_color = -1610612731
+        tabs.items = <        
+          item
+            value = 'Id'
+          end        
+          item
+            pos =  2.1666666666666668E+0001
+            value = 'Name'
+          end        
+          item
+            pos =  1.5266666666666666E+0002
+            value = 'Phone'
+          end>
+        options = [bo_evenpage, bo_oddpage]
+      end
+      object dataRec: trecordband
+        bounds_x = 0
+        bounds_y = 54
+        bounds_cx = 560
+        bounds_cy = 18
+        taborder = 1
+        tabs.count = 3
+        tabs.linksource = header
+        tabs.items = <        
+          item
+          end        
+          item
+            pos =  2.1666666666666668E+0001
+          end        
+          item
+            pos =  1.5266666666666666E+0002
+          end>
+        zebra_color = -1610612712
+        zebra_height = 1
+        onbeforerender = fillDataLine
+        onafterrender = advanceCounter
+      end
+    end
+    object tlabel1: tlabel
+      bounds_x = 198
+      bounds_y = 30
+      bounds_cx = 150
+      bounds_cy = 16
+      taborder = 1
+      caption = 'Report Without DataSet'
+      reffontheight = 16
+    end
+    object treppagenumdisp1: treppagenumdisp
+      bounds_x = 228
+      bounds_y = 348
+      bounds_cx = 36
+      bounds_cy = 16
+      taborder = 2
+      format = '0 of 1'
+    end
+  end
+  object psprn: tpostscriptprinter
+    canvas.font.color = -1610612734
+    canvas.font.xscale =  1.0000000000000000E+0000
+    canvas.font.dummy = 0
+    canvas.colorspace = cos_rgb
+    canvas.ppmm =  1.0000000000000000E+0001
+    pa_width =  2.1000000000000000E+0002
+    pa_height =  2.9700000000000000E+0002
+    pa_size = sps_a4
+    pa_frameleft =  1.0000000000000000E+0001
+    pa_frametop =  1.0000000000000000E+0001
+    pa_frameright =  1.0000000000000000E+0001
+    pa_framebottom =  1.0000000000000000E+0001
+    left = 378
+    top = 168
+  end
+end

@@ -1,0 +1,242 @@
+object datagridfo: tdatagridfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 305
+  bounds_y = 108
+  bounds_cx = 604
+  bounds_cy = 369
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 604
+  container.bounds_cy = 369
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  oncreate = doInit
+  ondestroy = doFinish
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    bounds_x = 8
+    bounds_y = 329
+    bounds_cx = 162
+    bounds_cy = 25
+    anchors = [an_left, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    autosize_cx = 0
+    autosize_cy = 0
+    caption = 'Print Report'
+    onexecute = doReport
+  end
+  object grid: tdrawgrid
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_arrowfocusout, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 586
+    bounds_cy = 242
+    frame.dummy = 0
+    taborder = 1
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    datacols.count = 10
+    datacols.colorselect = -1610612727
+    datacols.coloractive = -1610612727
+    datacols.options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+    datacols.items = <    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 90
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 69
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 291
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 104
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 69
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 100
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 90
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 69
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 84
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end    
+      item
+        colorselect = -1610612727
+        coloractive = -1610612727
+        width = 75
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        ondrawcell = grawGridCell
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 23
+        captions.count = 10
+        captions.items = <        
+          item
+            caption = 'Group'
+          end        
+          item
+            caption = 'Ref.'
+          end        
+          item
+            caption = 'Description'
+          end        
+          item
+            caption = 'Price'
+          end        
+          item
+            caption = 'Qty.'
+          end        
+          item
+            caption = 'Price/Qty.'
+          end        
+          item
+            caption = 'Measure'
+          end        
+          item
+            caption = 'Weight'
+          end        
+          item
+            caption = 'V.A.T. %'
+          end        
+          item
+            caption = 'ID'
+          end>
+      end>
+    zebra_color = -1610612716
+    zebra_height = 1
+    reffontheight = 21
+  end
+  object tgroupbox3: tgroupbox
+    bounds_x = 336
+    bounds_y = 254
+    bounds_cx = 258
+    bounds_cy = 109
+    frame.caption = 'Labels'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      11
+      0
+      0
+    )
+    taborder = 2
+    object labelPagesToPrint: tintegeredit
+      bounds_x = 150
+      bounds_y = 27
+      bounds_cx = 97
+      bounds_cy = 26
+      frame.caption = 'Pages'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        45
+        0
+        0
+        0
+      )
+      value = 1
+      reffontheight = 21
+    end
+    object tbutton3: tbutton
+      optionswidget = [ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_autoscale]
+      bounds_x = 16
+      bounds_y = 27
+      bounds_cx = 90
+      bounds_cy = 25
+      taborder = 1
+      state = [as_localcaption, as_localonexecute]
+      autosize_cx = 0
+      autosize_cy = 0
+      caption = 'Print'
+      onexecute = doLabels
+    end
+    object barcodeType: tenumedit
+      bounds_x = 16
+      bounds_y = 67
+      bounds_cx = 228
+      bounds_cy = 27
+      frame.button.color = -2147483646
+      frame.dummy = 0
+      taborder = 2
+      value = 6
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          data = (
+            '2 5 interleaved'
+            '2 5 industrial'
+            '2 5 matrix'
+            '39'
+            '39 Extended'
+            '128A'
+            '128B'
+            '128C'
+            '93'
+            '93Extended'
+            'MSI'
+            'PostNet'
+            'CodaBar'
+            'EAN8'
+            'EAN13'
+            'UPC A'
+            'UPC E0'
+            'UPC E1'
+            'UPC Supp2'
+            'UPC Supp5'
+            'EAN128A'
+            'EAN128B'
+            'EAN128C'
+          )
+        end>
+      dropdown.itemindex = 6
+      reffontheight = 21
+    end
+  end
+end

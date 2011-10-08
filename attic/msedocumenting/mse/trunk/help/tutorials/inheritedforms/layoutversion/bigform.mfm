@@ -1,0 +1,40 @@
+inherited bigfo: tbigfo
+  bounds_x = 207
+  bounds_y = 302
+  bounds_cx = 204
+  bounds_cy = 141
+  container.bounds = (
+    0
+    0
+    204
+    141
+  )
+  font.height = 20
+  font.name = ''
+  caption = 'Big Form'
+  moduleclassname = 'tbasefo'
+  inherited tbutton1: tbutton
+    bounds_x = 136
+    bounds_y = 104
+    bounds_cy = 30
+  end
+  inherited edit1: tstringedit
+    frame.outerframe = (
+      0
+      27
+      0
+      0
+    )
+    bounds_y = 5
+    bounds_cy = 57
+    reffontheight = 24
+  end
+  inherited tlabel1: tlabel
+    bounds_x = 56
+    bounds_y = 72
+    bounds_cx = 133
+    bounds_cy = 24
+    caption = 'The big version'
+    reffontheight = 24
+  end
+end

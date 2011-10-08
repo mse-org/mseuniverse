@@ -1,0 +1,8 @@
+app=smtptest
+rm *.o *.ppu *.bak *.compiled *.bak?
+rm i386-linux/*.o i386-linux/*.ppu
+strip i386-linux/$app
+rm i386-win32/*.o i386-win32/*.ppu i386-win32/*.a
+rm lib/*.o lib/*.ppu
+strip i386-win32/$app.exe
+strip $app

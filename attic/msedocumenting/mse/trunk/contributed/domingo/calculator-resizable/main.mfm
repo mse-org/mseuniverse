@@ -1,0 +1,586 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 310
+  bounds_y = 251
+  bounds_cx = 499
+  bounds_cy = 251
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 499
+  container.bounds_cy = 251
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  caption = 'Calculator'
+  icon.image = {
+    000000000000000022000000200000006C080000000000000000000000000000
+    0000000000000000000000000000000000000000C1D2CF21A8B7B401929A9901
+    5053521F959C9B01C1D1CF016E7372010000001F6E747301C1D1CF016E737201
+    0000001822200001252300014042000100000001434100012929000122230001
+    6E747301C1D1CF016E737201000000185B5900016E6F00017074000114140001
+    7570000163680001464800016E747301C1D1CF016E7372010000001805050001
+    060600010A0A0001161600010A0A000106050001040500016E747301C1D1CF01
+    6E7372010000001F6E747301C1D1CF01BDC9C701A1ABA91FBFCCCA01C1D1CF01
+    D2DFDD01D6E4E11FD4E1DF01C1D1CF01D5E4E101E1F2EF04DDEEEB01E0F1EE01
+    E1F2EF04DCECEA01E1F2EF04DCECEA01E1F2EF04DCECEA01E1F2EF04DCECEA01
+    E1F2EF04DBECE901D5E4E101C1D1CF01D5E4E101E1F2EF01DDF0ED03D3E4E201
+    DFEFED01DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04
+    D5E4E101DDF0ED04D1E2DF01D5E4E101C1D1CF01D5E4E101E1F2EF01DDF0ED01
+    AFBFBE01D7E9E401D3E4E201DFEFED01DDF0ED01A9BABA01CCDAD501DDF0ED01
+    D5E4E101DDF0ED01B7C8C701C5D4D001DDF0ED01D5E4E101DDF0ED01DCE6E301
+    DDF0ED02D5E4E101DDF0ED01B1C2F001A8B7F101DBEDED01D5E4E101DDF0ED01
+    9FAEF201B6C7F001D6E9ED01D1E2DF01D5E4E101C1D1CF01D5E4E101E1F2EF01
+    DDF0ED01BECECC01DDF0ED01D3E4E201DFEFED01DDF0ED01A9BABA01CCDAD501
+    DDF0ED01D5E4E101DDF0ED01BFD1D001C4D3CE01DDF0ED01D5E4E101DDF0ED01
+    D9D1CE01DCE7E401DDF0ED01D5E4E101DDF0ED01B1C1F001A8B7F101DBEDED01
+    D5E4E101DDF0ED0193A2F301B1BFF101D6E9ED01D1E2DF01D5E4E101C1D1CF01
+    D5E4E101E1F2EF01DDF0ED03D3E4E201DFEFED01DDF0ED04D5E4E101DDF0ED04
+    D5E4E101DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04D1E2DF01D5E4E101
+    C1D1CF01D5E4E101DBEAE801D6E4E103D0DEDC01DBEAE701D6E4E104D6E4E201
+    D6E4E104D6E4E201D6E4E104D6E4E201D6E4E104D6E4E201D6E4E104D2E2DF01
+    D5E4E101C1D1CF01D5E4E101E1F2EF01DDF0ED03D3E4E201DFEFED01DDF0ED04
+    D5E4E101DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04
+    D1E2DF01D5E4E101C1D1CF01D5E4E101E1F2EF01DDF0ED01B1C1BF01DDF0ED01
+    D3E4E201DFEFED01DDF0ED01ACBBB801DAECE901DDF0ED01D5E4E101DDF0ED01
+    B8CAC901D4E6E201DDF0ED01D5E4E101DDF0ED04D5E4E101DDF0ED01D9CDCC01
+    DBDCD901DDF0ED01D5E4E101DDF0ED01DCE9E601DBDEDC01DDF0ED01D1E2DF01
+    D5E4E101C1D1CF01D5E4E101E1F2EF01DDF0ED01A2AFAC01DAEDEA01D3E4E201
+    DFEFED01DDF0ED01BDD0CF01C9D7D201DDF0ED01D5E4E101DDF0ED01B2C3C201
+    BFCDC901DDF0ED01D5E4E101DDF0ED01DCE4E101DBDDDA01DDF0ED01D5E4E101
+    DDF0ED01DAD5D501D6B4B001DDF0ED01D5E4E101DDF0ED01D8C5C301D9CECB01
+    DAD6D401D1E2DF01D5E4E101C1D1CF01D5E4E101E1F2EF01DDF0ED03D3E4E201
+    DFEFED01DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04
+    D5E4E101DDF0ED04D1E2DF01D5E4E101C1D1CF01D5E4E101DBEAE801D6E4E103
+    D0DEDC01DBEAE701D6E4E104D6E4E201D6E4E104D6E4E201D6E4E104D6E4E201
+    D6E4E104D6E4E201D6E4E104D2E2DF01D5E4E101C1D1CF01D5E4E101E1F2EF01
+    DDF0ED03D3E4E201DFEFED01DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04
+    D5E4E101DDF0ED04D5E4E101DDF0ED04D1E2DF01D5E4E101C1D1CF01D5E4E101
+    E1F2EF01DDF0ED01BFCFCC01DDF0ED01D3E4E201DFEFED01DDF0ED01C5D8D501
+    D1E1DD01DDF0ED01D5E4E101DDF0ED01CCDEDC01C9D9D601DDF0ED01D5E4E101
+    DDF0ED01DCE7E402DDF0ED01D5E4E101DDF0ED01DDEFEC01DBDDDB01DDF0ED01
+    D5E4E101C9DCE901B7C7E501CBDEEA01C6D7E801D1E2DF01D5E4E101C1D1CF01
+    D5E4E101E1F2EF01DDF0ED01A5B4B101DDF0ED01D3E4E201DFEFED01DDF0ED01
+    A7B7B701D0E0DB01DDF0ED01D5E4E101DDF0ED01C1D3D101BBC8C301DDF0ED01
+    D5E4E101DDF0ED01D8C7C701D9C9C401DDF0ED01D5E4E101DDF0ED01D9D0CF01
+    DBDDD701DDF0ED01D5E4E101B7C8E601A6B4E201BBCCE6019EA9DF01D1E2DF01
+    D5E4E101C1D1CF01D5E4E101E1F2EF01DDF0ED03D3E4E201DFEFED01DDF0ED04
+    D5E4E101DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04
+    D1E2DF01D5E4E101C1D1CF01D5E4E101DBEAE801D5E3E103D0DEDB01DBEAE701
+    D5E3E104D5E4E201D5E3E104D5E4E201D5E3E104D5E4E201D5E3E104D5E4E201
+    D5E3E104D2E2DF01D5E4E101C1D1CF01D5E4E101E2F2EF01DEF0ED03D4E5E201
+    DFEFED01DEF0ED04D6E4E101DEF0ED04D6E4E101DEF0ED04D6E4E101DEF0ED04
+    D6E4E101DEF0ED04D1E2DF01D5E4E101C1D1CF01D5E4E101E1F2EF01DDF0ED01
+    BCCECC01DCEEE901D3E4E201DFEFED01C0D2D101BCCDCA02D6E6E201D5E4E101
+    DDF0ED04D5E4E101DDF0ED01DCEDEB01DCE7E301DDF0ED01D5E4E101DDF0ED04
+    D5E4E101CEE1EE01C4D4EF01BCCCF002D1E2DF01D5E4E101C1D1CF01D5E4E101
+    E1F2EF01DDF0ED0190A09F01D3E2DE01D3E4E201DFEFED019DAEAE0189959402
+    BFCCC701D5E4E101DDF0ED01C6D8D501DDF0ED02D5E4E101DDF0ED01D9D3D201
+    DDEBE601DDF0ED01D5E4E101DDF0ED01DAD3D001D9CFCC01DDF0ED01D5E4E101
+    B3C3F001AAB7F101A1AFF202D1E2DF01D5E4E101C1D1CF01D5E4E101E1F2EF01
+    DDF0ED03D3E4E201DFEFED01DDF0ED04D5E4E101DDF0ED01DBEDEB01DDF0ED02
+    D5E4E101DDF0ED04D5E4E101DDF0ED04D5E4E101DDF0ED04D1E2DF01D5E4E101
+    C1D1CF01D5E4E101D9E9E601D1E2DF03CDDCDA01D9E9E601D1E2DF04D4E4E101
+    D1E2DF04D4E4E101D1E2DF04D4E4E101D1E2DF04D4E4E101D1E2DF04D1E1DF01
+    D5E4E101C1D1CF01D3E0DE01D6E4E11FD5E2E001C1D1CF01C1D2CF21A8B7B401
+  }
+  oncreate = setdefaults
+  onkeydown = dokey
+  moduleclassname = 'tmseform'
+  object mainLayouter: tlayouter
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 496
+    bounds_cy = 247
+    anchors = [an_left, an_top, an_right, an_bottom]
+    font.height = 14
+    font.name = 'stf_default'
+    font.xscale =  1.0000000000000000E+0000
+    font.dummy = 0
+    optionslayout = [lao_scaleleft, lao_scaletop, lao_scalewidth, lao_scaleheight, lao_scalefont]
+    object buttonLayouter: tlayouter
+      bounds_x = 240
+      bounds_y = 66
+      bounds_cx = 250
+      bounds_cy = 172
+      frame.levelo = -1
+      frame.leveli = 1
+      frame.localprops = [frl_levelo, frl_leveli]
+      frame.dummy = 0
+      font.height = 14
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale =  1.0000000000000000E+0000
+      font.dummy = 0
+      optionslayout = [lao_scaleleft, lao_scaletop, lao_scalewidth, lao_scaleheight, lao_scalefont, lao_scalechildfont]
+      object b8: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 49
+        bounds_y = 10
+        bounds_cx = 35
+        bounds_cy = 35
+        state = [as_localcaption, as_localonexecute]
+        caption = '8'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b9: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 88
+        bounds_y = 10
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 1
+        state = [as_localcaption, as_localonexecute]
+        caption = '9'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b7: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 9
+        bounds_y = 10
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 2
+        state = [as_localcaption, as_localonexecute]
+        caption = '7'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b4: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 9
+        bounds_y = 49
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 3
+        state = [as_localcaption, as_localonexecute]
+        caption = '4'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b5: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 49
+        bounds_y = 49
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 4
+        state = [as_localcaption, as_localonexecute]
+        caption = '5'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b6: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 88
+        bounds_y = 49
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 5
+        state = [as_localcaption, as_localonexecute]
+        caption = '6'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b1: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 9
+        bounds_y = 87
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 6
+        state = [as_localcaption, as_localonexecute]
+        caption = '1'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b2: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 49
+        bounds_y = 87
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 7
+        state = [as_localcaption, as_localonexecute]
+        caption = '2'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b3: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 88
+        bounds_y = 87
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 8
+        state = [as_localcaption, as_localonexecute]
+        caption = '3'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b0: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 9
+        bounds_y = 127
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 9
+        state = [as_localcaption, as_localonexecute]
+        caption = '0'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object b000: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 49
+        bounds_y = 127
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 10
+        state = [as_localcaption, as_localonexecute]
+        caption = '000'
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object bperiod: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 88
+        bounds_y = 127
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 11
+        state = [as_localcaption, as_localonexecute]
+        caption = ','
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = donumber
+      end
+      object bplus: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 128
+        bounds_y = 10
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 12
+        state = [as_localcaption, as_localonexecute]
+        caption = '+'
+        font.color = -1610612727
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = dooperation
+      end
+      object bminus: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 128
+        bounds_y = 49
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 13
+        state = [as_localcaption, as_localonexecute]
+        caption = '-'
+        font.color = -1610612727
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = dooperation
+      end
+      object bmultiply: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 128
+        bounds_y = 87
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 14
+        state = [as_localcaption, as_localonexecute]
+        caption = 'x'
+        font.color = -1610612727
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = dooperation
+      end
+      object bdiv: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 128
+        bounds_y = 127
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 15
+        state = [as_localcaption, as_localonexecute]
+        caption = '/'
+        font.color = -1610612727
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = dooperation
+      end
+      object tbutton17: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 167
+        bounds_y = 10
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 16
+        state = [as_localcaption, as_localcolor, as_localonexecute]
+        caption = 'CE'
+        font.color = -1610612729
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = doclear
+      end
+      object bpercent: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 167
+        bounds_y = 49
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 17
+        state = [as_localcaption, as_localonexecute]
+        caption = '%'
+        font.color = -1610612727
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = dopercent
+      end
+      object tbutton19: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 167
+        bounds_y = 87
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 18
+        state = [as_localcaption, as_localonexecute]
+        caption = 'sqrt'
+        font.color = -1610612727
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = dosqrt
+      end
+      object bequal: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 167
+        bounds_y = 127
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 19
+        state = [as_localcaption, as_localonexecute]
+        caption = '='
+        font.color = -1610612727
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = dototal
+      end
+      object tbutton21: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 206
+        bounds_y = 10
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 20
+        state = [as_localcaption, as_localcolor, as_localonexecute]
+        caption = 'AC'
+        font.color = -1610612729
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = doreset
+      end
+      object tbutton22: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 206
+        bounds_y = 49
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 21
+        state = [as_localcaption, as_localonexecute]
+        caption = '+/-'
+        font.color = -1610612727
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = dochangesign
+      end
+      object tbutton23: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 206
+        bounds_y = 87
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 22
+        state = [as_localcaption, as_localonexecute]
+        caption = 'CLS'
+        font.color = -1610612729
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = doclearpaper
+      end
+      object tbutton24: tbutton
+        optionswidget = [ow_destroywidgets, ow_autoscale]
+        bounds_x = 206
+        bounds_y = 127
+        bounds_cx = 35
+        bounds_cy = 35
+        taborder = 23
+        state = [as_localcaption, as_localonexecute]
+        caption = 'OFF'
+        font.color = -1610612729
+        font.height = 14
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        onexecute = doterminate
+      end
+    end
+    object paper: tstringgrid
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      bounds_x = 8
+      bounds_y = 8
+      bounds_cx = 222
+      bounds_cy = 232
+      frame.levelo = -1
+      frame.leveli = 1
+      frame.localprops = [frl_levelo, frl_leveli]
+      frame.dummy = 0
+      taborder = 1
+      datacols.count = 2
+      datacols.linecolor = -2147483645
+      datacols.linecolorfix = -2147483645
+      datacols.coloractive = 16776163
+      datacols.options = [co_readonly, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+      datacols.textflags = [tf_right, tf_ycentered, tf_noselect]
+      datacols.textflagsactive = [tf_right, tf_ycentered]
+      datacols.items = <      
+        item
+          frame.dummy = 0
+          linecolor = -2147483645
+          linecolorfix = -2147483645
+          coloractive = 16776163
+          width = 23
+          options = [co_readonly, co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+          widthmin = 23
+          textflags = [tf_xcentered, tf_ycentered, tf_noselect]
+          textflagsactive = [tf_xcentered, tf_ycentered]
+        end      
+        item
+          linecolor = -2147483645
+          linecolorfix = -2147483645
+          coloractive = 16776163
+          width = 193
+          options = [co_readonly, co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+          textflags = [tf_right, tf_ycentered, tf_noselect]
+          textflagsactive = [tf_right, tf_ycentered]
+        end>
+      datarowlinecolor = -2147483645
+      datarowheight = 19
+      reffontheight = 17
+    end
+    object tlayouter1: tlayouter
+      bounds_x = 240
+      bounds_y = 8
+      bounds_cx = 250
+      bounds_cy = 50
+      color = -1610612734
+      frame.levelo = -1
+      frame.leveli = 1
+      frame.localprops = [frl_levelo, frl_leveli]
+      frame.dummy = 0
+      taborder = 2
+      optionslayout = [lao_scaleleft, lao_scaletop, lao_scalewidth, lao_scaleheight, lao_scalefont, lao_scalechildfont]
+      object ldisplay: tlabel
+        optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+        bounds_x = 10
+        bounds_y = 18
+        bounds_cx = 238
+        bounds_cy = 19
+        caption = '0,00'
+        font.color = -1610612726
+        font.height = 16
+        font.style = [fs_bold]
+        font.name = 'stf_default'
+        font.xscale =  1.0000000000000000E+0000
+        font.dummy = 0
+        textflags = [tf_right, tf_ycentered]
+        reffontheight = 19
+      end
+    end
+  end
+end

@@ -1,0 +1,917 @@
+ tcol = class(tgridprop)
+  public
+   constructor create(const agrid: tcustomgrid; 
+                        const aowner: tgridarrayprop); override;
+   destructor destroy; override;
+   procedure invalidate;
+   procedure invalidatecell(const arow: integer);
+   function rowcolor(const aindex: integer): colorty;
+   function rowfont(const aindex: integer): tfont;
+   procedure changed; override;
+   procedure cellchanged(const row: integer); virtual;
+   function actualcolor: colorty;
+   function actualfont: tfont; virtual;
+   property colindex: integer read getcolindex;
+   function translatetocell(const arow: integer; const apos: pointty): pointty;
+  published
+   property width: integer read fwidth write setwidth 
+                 {stored iswidthstored} default griddefaultcolwidth;
+   property rowcoloroffset: integer read frowcoloroffset 
+                               write setrowcoloroffset default 0;
+   property rowcoloroffsetselect: integer read frowcoloroffsetselect
+                               write setrowcoloroffsetselect default 0;
+   property rowfontoffset: integer read frowfontoffset write 
+                               setrowfontoffset default 0;
+   property rowfontoffsetselect: integer read frowfontoffsetselect write 
+                               setrowfontoffsetselect default 0;
+   property fontselect: tcolselectfont read getfontselect write
+                     setfontselect stored isfontselectstored;
+   property onbeforedrawcell: beforedrawcelleventty read fonbeforedrawcell
+                                write fonbeforedrawcell;
+   property onafterdrawcell: drawcelleventty read fonafterdrawcell
+                                write fonafterdrawcell;
+ end;
+
+
+================
+
+ tdatacol = class(tcol) :
+  public
+   constructor create(const agrid: tcustomgrid;
+                     const aowner: tgridarrayprop); override;
+   destructor destroy; override;
+
+   procedure cellchanged(const row: integer); override;
+   function canfocus(const abutton: mousebuttonty;
+                     const ashiftstate: shiftstatesty): boolean; virtual;
+   function isreadonly: boolean; //col readonly or row readonly
+   procedure updatecellzone(const pos: pointty; var result: cellzonety); virtual;
+   property datalist: tdatalist read fdata;
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
+   property selected[const row: integer]: boolean read getselected write setselected;
+             //row < 0 -> whole col
+   property cellorigin: pointty read getcellorigin;    //org = grid.paintpos
+   property visible: boolean read getvisible write setvisible;
+   property enabled: boolean read getenabled write setenabled;
+   property readonly: boolean read getreadonly write setreadonly;
+  published
+   property options default defaultdatacoloptions;
+   property widthmin: integer read fwidthmin write setwidthmin default 1;
+   property widthmax: integer read fwidthmax write setwidthmax default 0;
+   property name: string read fname write fname;
+   property onchange: notifyeventty read fonchange write fonchange;
+   property oncellevent: celleventty read foncellevent write foncellevent;
+   property onshowhint: showcolhinteventty read fonshowhint write fonshowhint;
+   property linecolor default defaultdatalinecolor;
+ end;
+
+
+==============
+
+ tdrawcol = class(tdatacol)
+  private
+   fondrawcell: drawcelleventty;
+  protected
+   procedure drawcell(const canvas: tcanvas); override;
+  published
+   property focusrectdist;
+   property ondrawcell: drawcelleventty read fondrawcell write fondrawcell;
+   property font;
+ end;
+
+
+=======================
+
+ tcustomstringcol = class(tdatacol)
+  private
+   ftextflagsactive: textflagsty;
+   fonsetvalue: setstringeventty;
+   fondataentered: notifyeventty;
+   procedure settextflags(const avalue: textflagsty);
+   function getdatalist: tmsestringdatalist;
+   procedure setdatalist(const value: tmsestringdatalist);
+   procedure settextflagsactive(const avalue: textflagsty);
+   procedure setoptionsedit(const avalue: stringcoleditoptionsty);
+  protected
+   ftextinfo: drawtextinfoty;
+   foptionsedit: stringcoleditoptionsty;
+   foptionsdb: optionseditdbty;
+   function getoptionsedit: optionseditty;
+   function getoptionsdb: optionseditdbty;
+   function getitems(aindex: integer): msestring; virtual;
+   procedure setitems(aindex: integer; const Value: msestring);
+   function createdatalist: tdatalist; override;
+   function getrowtext(const arow: integer): msestring; virtual;
+   procedure drawcell(const canvas: tcanvas); override;
+   procedure docellevent(var info: celleventinfoty); override;
+   procedure updatelayout; override;
+   function getinnerframe: framety; override;
+   function getcursor: cursorshapety; override;
+   procedure modified; virtual;
+  public
+   constructor create(const agrid: tcustomgrid; 
+                         const aowner: tgridarrayprop); override;
+   destructor destroy; override;
+   procedure readpipe(const pipe: tpipereader; 
+                      const processeditchars: boolean = false); overload;
+   procedure readpipe(const text: string; 
+                      const processeditchars: boolean = false); overload;
+   property items[aindex: integer]: msestring read getitems write setitems; default;
+   property textflags: textflagsty read ftextinfo.flags write settextflags
+                          default defaultcoltextflags;
+   property textflagsactive: textflagsty read ftextflagsactive
+             write settextflagsactive default defaultactivecoltextflags;
+   property optionsedit: stringcoleditoptionsty read foptionsedit 
+               write setoptionsedit default defaultstringcoleditoptions;
+   property font;
+   property datalist: tmsestringdatalist read getdatalist write setdatalist;
+   property onsetvalue: setstringeventty read fonsetvalue write fonsetvalue;
+   property ondataentered: notifyeventty read fondataentered write fondataentered;
+ end;
+
+ tstringcol = class(tcustomstringcol)
+  published
+   property focusrectdist;
+   property textflags;
+   property textflagsactive;
+   property optionsedit;
+   property font;
+   property datalist;
+   property fontselect;
+   property onsetvalue;
+   property ondataentered;
+ end;
+
+
+=======================
+
+ tfixcol = class(tcol)
+  private
+   fnumstart: integer;
+   fnumstep: integer;
+   fcaptions: tmsestringdatalist;
+   foptionsfix: fixcoloptionsty;
+   procedure settextflags(const Value: textflagsty);
+   procedure setnumstart(const Value: integer);
+   procedure setnumstep(const Value: integer);
+   procedure setcaptions(const Value: tmsestringdatalist);
+   function getcaptions: tmsestringdatalist;
+   function iscaptionsstored: Boolean;
+   procedure captionchanged(sender: tdatalist; aindex: integer);
+   procedure setoptionsfix(const avalue: fixcoloptionsty);
+   function getvisible: boolean;
+   procedure setvisible(const avalue: boolean);
+  protected
+   ftextinfo: drawtextinfoty;
+   procedure updatelayout; override;
+   procedure setoptions(const Value: coloptionsty); override;
+   procedure drawcell(const canvas: tcanvas); override;
+   procedure moverow(const fromindex,toindex: integer; const count: integer = 1); override;
+   procedure insertrow(const aindex: integer; const count: integer = 1); override;
+   procedure deleterow(const aindex: integer; const count: integer = 1); override;
+   procedure paint(const info: colpaintinfoty); override;
+   procedure rearange(const list: tintegerdatalist); override;
+  public
+   constructor create(const agrid: tcustomgrid;
+                            const aowner: tgridarrayprop); override;
+   destructor destroy; override;
+   property visible: boolean read getvisible write setvisible;
+  published
+   property linewidth;
+   property linecolor default defaultfixlinecolor;
+   property textflags: textflagsty read ftextinfo.flags write settextflags
+                default defaultfixcoltextflags;
+   property numstart: integer read fnumstart write setnumstart default 0;
+   property numstep: integer read fnumstep write setnumstep default 0;
+   property captions: tmsestringdatalist
+              read getcaptions write setcaptions stored iscaptionsstored;
+   property color default cl_parent;
+   property options: fixcoloptionsty read foptionsfix write setoptionsfix 
+                       default defaultfixcoloptions;
+   property font;
+ end;
+
+=======================
+ tcolheader = class(tindexpersistent,iframe,iface)
+  private
+   fcaption: msestring;
+   ftextflags: textflagsty;
+   ffont: tcolheaderfont;
+   fcolor: colorty;
+   fhint: msestring;
+   fmergecols: integer;
+   fmerged: boolean;
+   fmergedcx: integer;
+   fmergedx: integer;
+   procedure setcaption(const avalue: msestring);
+   procedure settextflags(const Value: textflagsty);
+   function getfont: tcolheaderfont;
+   procedure setfont(const Value: tcolheaderfont);
+   function isfontstored: Boolean;
+   procedure createfont;
+   function getframe: tfixcellframe;
+   procedure setframe(const avalue: tfixcellframe);
+   function getface: tfixcellface;
+   procedure setface(const avalue: tfixcellface);
+   procedure createframe;
+   procedure createface;
+   procedure setcolor(const avalue: colorty);
+   procedure setmergecols(const avalue: integer);
+  protected
+   fgrid: tcustomgrid;
+   fframe: tfixcellframe;
+   fface: tfixcellface;
+   procedure changed;
+   procedure fontchanged(const sender: tobject);
+
+    //iframe
+   function getwidget: twidget;
+   procedure setframeinstance(instance: tcustomframe);
+   function getwidgetrect: rectty;
+   procedure setstaticframe(value: boolean);
+   function widgetstate: widgetstatesty;
+   procedure scrollwidgets(const dist: pointty);
+   procedure clientrectchanged;
+   function getcomponentstate: tcomponentstate;
+   procedure invalidate;
+   procedure invalidatewidget;
+   procedure invalidaterect(const rect: rectty; org: originty = org_client);
+   function getframeclicked: boolean;
+   function getframemouse: boolean;
+   function getframeactive: boolean;
+
+   //iface
+   function translatecolor(const acolor: colorty): colorty;
+   
+  public
+   constructor create(const aowner: tobject;
+         const aprop: tindexpersistentarrayprop); override;
+   destructor destroy; override;   
+   property mergedcx: integer read fmergedcx;
+   property mergedx: integer read fmergedx;
+  published
+   property color: colorty read fcolor write setcolor default cl_parent;
+   property caption: msestring read fcaption write setcaption;
+   property textflags: textflagsty read ftextflags write settextflags default defaultcolheadertextflags;
+   property font: tcolheaderfont read getfont write setfont stored isfontstored;
+   property frame: tfixcellframe read getframe write setframe;
+   property face: tfixcellface read getface write setface;
+   property mergecols: integer read fmergecols write setmergecols default 0;
+   property hint: msestring read fhint write fhint;
+ end;
+
+=======================
+ tcolheaders = class(tindexpersistentarrayprop)
+  private
+   fgridprop: tgridprop;
+   function getitems(const index: integer): tcolheader;
+   procedure setitems(const index: integer; const Value: tcolheader);
+  protected
+   procedure movecol(const curindex,newindex: integer);
+   procedure colcountchanged(const acount: integer);
+   procedure updatelayout(const cols: tgridarrayprop);
+   procedure dosizechanged; override;
+  public
+   constructor create(const agridprop: tgridprop); reintroduce;
+   property items[const index: integer]: tcolheader read getitems
+                 write setitems; default;
+ end;
+
+ tfixcolheaders = class(tcolheaders)
+  private
+   function getitems(const index: integer): tcolheader;
+   procedure setitems(const index: integer; const Value: tcolheader);
+  public
+   property items[const index: integer]: tcolheader read getitems
+                 write setitems; default;
+ end;
+ 
+ tfixrows = class;
+ tfixrow = class(tgridprop)
+  private
+   fheight: integer;
+   fnumstart: integer;
+   fnumstep: integer;
+   fcaptions: tcolheaders;
+   fcaptionsfix: tfixcolheaders;
+   foptionsfix: fixrowoptionsty;
+   procedure setheight(const Value: integer);
+   function getrowindex: integer;
+   procedure captionchanged(const sender: tarrayprop; const aindex: integer);
+   procedure setnumstart(const Value: integer);
+   procedure setnumstep(const Value: integer);
+   procedure settextflags(const Value: textflagsty);
+   procedure setcaptions(const Value: tcolheaders);
+   procedure setcaptionsfix(const Value: tfixcolheaders);
+   procedure setoptionsfix(const avalue: fixrowoptionsty);
+   function getvisible: boolean;
+   procedure setvisible(const avalue: boolean);
+  protected
+   ftextinfo: drawtextinfoty;
+   procedure datacolscountchanged(const acount: integer);
+   procedure fixcolscountchanged(const acount: integer);
+   procedure cellchanged(const col: integer); virtual;
+   procedure changed; override;
+   procedure updatelayout; override;
+   procedure updatemergedcells;
+   function step(getscrollable: boolean = true): integer; override;
+   procedure paint(const info: rowpaintinfoty); virtual;
+   procedure drawcell(const canvas: tcanvas);{ virtual;}
+   procedure movecol(const curindex,newindex: integer; const isfix: boolean);
+   procedure orderdatacols(const neworder: integerarty);
+   function mergedline(acol: integer): boolean;
+  public
+   constructor create(const agrid: tcustomgrid; 
+                        const aowner: tgridarrayprop); override;
+   destructor destroy; override;
+   procedure synctofontheight;
+   property rowindex: integer read getrowindex;
+   property visible: boolean read getvisible write setvisible;
+  published
+   property height: integer read fheight write setheight;
+   property textflags: textflagsty read ftextinfo.flags write settextflags
+                default defaultfixcoltextflags;
+   property numstart: integer read fnumstart write setnumstart default 0;
+   property numstep: integer read fnumstep write setnumstep default 0;
+   property captions: tcolheaders read fcaptions write setcaptions;
+   property captionsfix: tfixcolheaders read fcaptionsfix write setcaptionsfix;
+   property font;
+   property linecolor default defaultfixlinecolor;
+   property options: fixrowoptionsty read foptionsfix write setoptionsfix;
+ end;
+
+=======================
+
+ tdatacol = class(tcol)
+  private
+   fwidthmax: integer;
+   fwidthmin: integer;
+   foncellevent: celleventty;
+   fonshowhint: showcolhinteventty;
+   fselectedrow: integer; //-1 none, -2 more than one
+   procedure internaldoentercell(const cellbefore: gridcoordty;
+                      var newcell: gridcoordty; const action: focuscellactionty);
+   procedure internaldoexitcell(const cellbefore: gridcoordty;
+                      var newcell: gridcoordty; const selectaction: focuscellactionty);
+   procedure setwidthmax(const Value: integer);
+   procedure setwidthmin(const Value: integer);
+   function getcellorigin: pointty;
+   function getvisible: boolean;
+   procedure setvisible(const avalue: boolean);
+   function getenabled: boolean;
+   procedure setenabled(const avalue: boolean);
+   function getreadonly: boolean;
+   procedure setreadonly(const avalue: boolean);
+  protected
+   fdata: tdatalist;
+   fname: string;
+   fonchange: notifyeventty;
+   function getdatapo(const arow: integer): pointer; override;
+   procedure beforedragevent(var ainfo: draginfoty; const arow: integer;
+                                     var processed: boolean); virtual;
+   procedure afterdragevent(var ainfo: draginfoty; const arow: integer;
+                                     var processed: boolean); virtual;
+   procedure setselected(const row: integer; value: boolean); virtual;
+   function getselected(const row: integer): boolean; override;
+   procedure setoptions(const Value: coloptionsty); override;
+   function createdatalist: tdatalist; virtual;
+   procedure rowcountchanged(const newcount: integer); override;
+   procedure dofocusedcellchanged(enter: boolean;
+               const cellbefore: gridcoordty; var newcell: gridcoordty;
+               const selectaction: focuscellactionty); virtual;
+   procedure doactivate; virtual;
+   procedure dodeactivate; virtual;
+   procedure clientmouseevent(const acell: gridcoordty; var info: mouseeventinfoty); virtual;
+   procedure dokeyevent(var info: keyeventinfoty; up: boolean); virtual;
+   procedure itemchanged(sender: tdatalist; aindex: integer); virtual;
+   procedure updatelayout; override;
+   procedure moverow(const fromindex,toindex: integer; const count: integer = 1); override;
+   procedure insertrow(const aindex: integer; const count: integer = 1); override;
+   procedure deleterow(const aindex: integer; const count: integer = 1); override;
+   procedure rearange(const list: tintegerdatalist); override;
+   procedure sortcompare(const index1,index2: integer; var result: integer); virtual;
+   function isempty(const aindex: integer): boolean; virtual;
+   procedure docellevent(var info: celleventinfoty); virtual;
+   function getcursor: cursorshapety; virtual;
+   function getdatastatname: msestring;
+   procedure coloptionstoeditoptions(var dest: optionseditty);
+  public
+   constructor create(const agrid: tcustomgrid;
+                     const aowner: tgridarrayprop); override;
+   destructor destroy; override;
+
+   procedure cellchanged(const row: integer); override;
+   function canfocus(const abutton: mousebuttonty;
+                     const ashiftstate: shiftstatesty): boolean; virtual;
+   function isreadonly: boolean; //col readonly or row readonly
+   procedure updatecellzone(const pos: pointty; var result: cellzonety); virtual;
+   property datalist: tdatalist read fdata;
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
+   property selected[const row: integer]: boolean read getselected write setselected;
+             //row < 0 -> whole col
+   property cellorigin: pointty read getcellorigin;    //org = grid.paintpos
+   property visible: boolean read getvisible write setvisible;
+   property enabled: boolean read getenabled write setenabled;
+   property readonly: boolean read getreadonly write setreadonly;
+  published
+   property options default defaultdatacoloptions;
+   property widthmin: integer read fwidthmin write setwidthmin default 1;
+   property widthmax: integer read fwidthmax write setwidthmax default 0;
+   property name: string read fname write fname;
+   property onchange: notifyeventty read fonchange write fonchange;
+   property oncellevent: celleventty read foncellevent write foncellevent;
+   property onshowhint: showcolhinteventty read fonshowhint write fonshowhint;
+   property linecolor default defaultdatalinecolor;
+ end;
+
+
+==================================
+
+ tdatacols = class(tcols)
+  private
+   frowstate: trowstatelist;
+   fselectedrow: integer; //-1 none, -2 more than one
+   fsortcol: integer;
+   fnewrowcol: integer;
+   function getcols(const index: integer): tdatacol;
+   procedure setcols(const index: integer; const Value: tdatacol);
+   function getselectedcells: gridcoordarty;
+   procedure setselectedcells(const Value: gridcoordarty);
+   function getselected(const cell: gridcoordty): boolean;
+   procedure setselected(const cell: gridcoordty; const Value: boolean);
+   procedure roworderinvalid;
+   procedure checkindexrange;
+   procedure setsortcol(const avalue: integer);
+   procedure setnewrowcol(const avalue: integer);
+  protected
+   procedure begindataupdate; override;
+   procedure enddataupdate; override;
+   procedure dosizechanged; override;
+   procedure countchanged; override;
+   procedure rearange(const list: tintegerdatalist); override;
+   procedure setcount1(acount: integer; doinit: boolean); override;
+   procedure setrowcountmax(const value: integer);
+   procedure rowcountchanged(const newcount: integer); override;
+   procedure createitem(const index: integer; var item: tpersistent); override;
+   procedure updatelayout; override;
+   function colatpos(const x: integer;
+                 const getscrollable: boolean = true): integer;
+                //0..count-1, invalidaxis if invalid
+   procedure moverow(const fromindex,toindex: integer; const acount: integer = 1); override;
+   procedure insertrow(const index: integer; const acount: integer = 1); override;
+   procedure deleterow(const index: integer; const acount: integer = 1); override;
+   procedure changeselectedrange(const start,oldend,newend: gridcoordty;
+             calldoselectcell: boolean); virtual; //implemented in tcustomlistview
+   procedure sortfunc(sender: tcustomgrid;
+                       const index1,index2: integer; var result: integer);
+   procedure updatedatastate; virtual;
+
+   procedure dostatread(const reader: tstatreader); virtual;
+   procedure dostatwrite(const writer: tstatwriter); virtual;
+
+  public
+   constructor create(aowner: tcustomgrid; aclasstype: gridpropclassty);
+   destructor destroy; override;
+   procedure move(const curindex,newindex: integer); override;
+   procedure clearselection;
+   function hasselection: boolean;
+   function previosvisiblecol(aindex: integer): integer;
+                   //invalidaxis if none
+   function rowempty(const arow: integer): boolean;
+   property cols[const index: integer]: tdatacol read getcols write setcols; default;
+   function colbyname(const aname: string): tdatacol;
+                  //name is case sensitive
+   
+   function selectedcellcount: integer;
+   property selectedcells: gridcoordarty read getselectedcells write setselectedcells;
+   property selected[const cell: gridcoordty]: boolean read Getselected write Setselected;
+               //col < 0 and row < 0 -> whole grid, col < 0 -> whole col,
+               //row = < 0 -> whole row
+   procedure setselectedrange(const rect: gridrectty; const value: boolean;
+             const calldoselectcell: boolean = false); overload; virtual;
+  published
+   property sortcol: integer read fsortcol write setsortcol default -1;
+                                      //-1 -> all
+   property newrowcol: integer read fnewrowcol write setnewrowcol default -1;
+                                      //-1 -> actual
+   property width;
+   property options default defaultdatacoloptions;
+   property linewidth;
+   property linecolor default defaultdatalinecolor;
+   property linecolorfix;
+ end;
+
+==========================
+
+tcustomgrid
+  public
+	constructor create(aowner: tcomponent); override;
+	destructor destroy; override;
+
+	// sets fixrows to "1" then adjusts "bounds_*" & font size to "ascale"
+	procedure initnewcomponent(const ascale: real); override;
+
+
+   procedure synctofontheight; override;
+   procedure dragevent(var info: draginfoty); override;
+
+   procedure beginupdate;
+   procedure endupdate;
+   function calcminscrollsize: sizety; override;
+   procedure layoutchanged;
+   function cellclicked: boolean;
+   procedure rowdatachanged(const index: integer; const count: integer = 1);
+
+   procedure rowup(const action: focuscellactionty = fca_focusin); virtual;
+   procedure rowdown(const action: focuscellactionty = fca_focusin); virtual;
+   procedure pageup(const action: focuscellactionty = fca_focusin); virtual;
+   procedure pagedown(const action: focuscellactionty = fca_focusin); virtual;
+   procedure wheelup(const action: focuscellactionty = fca_focusin); virtual;
+   procedure wheeldown(const action: focuscellactionty = fca_focusin); virtual;
+   procedure lastrow(const action: focuscellactionty = fca_focusin); virtual;
+   procedure firstrow(const action: focuscellactionty = fca_focusin); virtual;
+
+   procedure colstep(const action: focuscellactionty; step: integer;
+                          const rowchange: boolean); virtual;
+                 //step > 0 -> right, step < 0 left
+
+   function isdatacell(const coord: gridcoordty): boolean;
+   function isfixrow(const coord: gridcoordty): boolean;
+   function isfixcol(const coord: gridcoordty): boolean;
+   function rowvisible(const arow: integer): integer;
+                 //0 -> fully visible, < 0 -> below > 0 above
+   function rowsperpage: integer;
+   function cellatpos(const apos: pointty; out coord: gridcoordty): cellkindty; overload;
+                 //origin = paintrect.pos
+   function cellatpos(const apos: pointty): gridcoordty; overload;
+   function cellrect(const cell: gridcoordty;
+                 const innerlevel: cellinnerlevelty = cil_all): rectty;
+                 //origin = paintrect.pos
+   function clippedcellrect(const cell: gridcoordty;
+                 const innerlevel: cellinnerlevelty = cil_all): rectty;
+                 //origin = paintrect.pos, clipped by datarect
+   function cellvisible(const acell: gridcoordty): boolean;
+       //returns row.visible and col.visible, independent from scrolling
+   procedure invalidatecell(const cell: gridcoordty);
+   procedure invalidatefocusedcell;
+   procedure invalidaterow(const arow: integer);
+   function selectcell(const cell: gridcoordty; 
+                          const amode: cellselectmodety): boolean; 
+                          //true if accepted
+   function getselectedrange: gridrectty;
+   function getselectedrows: integerarty;
+
+   function focuscell(cell: gridcoordty;
+              selectaction: focuscellactionty = fca_focusin;
+              const selectmode: selectcellmodety = scm_cell;
+              const noshowcell: boolean = false): boolean; virtual;
+                                               //true if ok
+   procedure focuscolbyname(const aname: string);
+                 //case sensitive
+   function focusedcellvalid: boolean;
+   function scrollingcol: boolean;   //true if focusedcolvalid and no co_nohscroll
+   function noscrollingcol: boolean; //true if focusedcolvalid and co_nohscroll
+
+   function defocuscell: boolean;
+   function defocusrow: boolean;
+   function showrect(const rect: rectty;
+                       const position: cellpositionty = cep_nearest;
+                       const noxshift: boolean = false): pointty;
+                                    //returns shifted amount
+   function showcaretrect(const arect: rectty;
+                               const aframe: tcustomframe): pointty; overload;
+   function showcaretrect(const arect: rectty; 
+                       const aframe: framety): pointty; overload;
+   function showcellrect(const rect: rectty;
+                   const origin: cellinnerlevelty = cil_paint): pointty;
+   procedure showcell(const cell: gridcoordty; 
+                      const position: cellpositionty = cep_nearest;
+                      const force: boolean = false); 
+               //scrolls cell in view, force true -> if scrollbar clicked also
+   procedure showlastrow;
+   procedure scrollrows(const step: integer);
+   procedure scrollleft;
+   procedure scrollright;
+   procedure scrollpageleft;
+   procedure scrollpageright;
+   procedure movecol(const curindex,newindex: integer);
+   procedure moverow(const curindex,newindex: integer; const count: integer = 1);
+   procedure insertrow(index: integer; count: integer = 1); virtual;
+   procedure deleterow(index: integer; count: integer = 1); virtual;
+   procedure clear; //sets rowcount to 0
+   function appendrow: integer; //returns index of new row
+   procedure sort;
+   function copyselection: boolean; virtual;  //false if no copy
+   function pasteselection: boolean; virtual; //false if no paste
+
+   property optionsgrid: optionsgridty read foptionsgrid write setoptionsgrid
+                default defaultoptionsgrid;
+
+   property datarowlinewidth: integer read fdatarowlinewidth
+                write setdatarowlinewidth default defaultgridlinewidth;
+   property datarowlinecolorfix: colorty read fdatarowlinecolorfix
+                write setdatarowlinecolorfix default defaultfixlinecolor;
+   property datarowlinecolor: colorty read fdatarowlinecolor
+                write setdatarowlinecolor default defaultdatalinecolor;
+   property datarowheight: integer read fdatarowheight
+                write setdatarowheight default griddefaultrowheight;
+
+   property datacols: tdatacols read fdatacols write setdatacols;
+   property fixcols: tfixcols read ffixcols write setfixcols;
+   property fixrows: tfixrows read ffixrows write setfixrows;
+   property rowcount: integer read frowcount write setrowcount;
+   function rowhigh: integer; //rowcount - 1
+   property rowcountmax: integer read frowcountmax
+                         write setrowcountmax default bigint;
+   property focusedcell: gridcoordty read ffocusedcell;
+                              //col,row = invalidaxis if none
+   property col: integer read ffocusedcell.col write setcol;
+   property row: integer read ffocusedcell.row write setrow;
+   property gridframewidth: integer read fgridframewidth 
+                        write setgridframewidth default 0;
+   property gridframecolor: colorty read fgridframecolor 
+                        write setgridframecolor default cl_black;
+
+   property rowcolors: tcolorarrayprop read frowcolors write setrowcolors;
+   property rowcolorstate[index: integer]: rowstatenumty read getrowcolorstate 
+                        write setrowcolorstate; //default = -1
+   property rowfonts: trowfontarrayprop read frowfonts write setrowfonts;
+   property rowfontstate[index: integer]: rowstatenumty read getrowfontstate 
+                        write setrowfontstate;  //default = -1
+   property rowreadonlystate[const index: integer]: boolean read getrowreadonlystate
+                        write setrowreadonlystate;
+   property zebra_color: colorty read fzebra_color write setzebra_color default cl_infobackground;
+   property zebra_start: integer read fzebra_start write setzebra_start default 0;
+   property zebra_height: integer read fzebra_height write setzebra_height default 0;
+   property zebra_step: integer read fzebra_step write setzebra_step default 2;
+
+   property statfile: tstatfile read fstatfile write setstatfile;
+   property statvarname: msestring read getstatvarname write fstatvarname;
+
+   property onlayoutchanged: gridnotifyeventty read fonlayoutchanged
+              write fonlayoutchanged;
+   property oncolmoved: griddatamovedeventty read foncolmoved
+              write foncolmoved;
+   property onrowcountchanged: gridnotifyeventty read fonrowcountchanged
+              write fonrowcountchanged;
+   property onrowsdatachanged: griddatablockeventty read fonrowsdatachanged
+              write fonrowsdatachanged;
+   property onrowdatachanged: griddataeventty read fonrowdatachanged
+              write fonrowdatachanged;
+   property onrowsmoved: griddatamovedeventty read fonrowsmoved
+              write fonrowsmoved;
+
+   property onrowsinserting: gridbeforedatablockeventty read fonrowsinserting
+              write fonrowsinserting;
+   property onrowsinserted: griddatablockeventty read fonrowsinserted
+              write fonrowsinserted;
+
+   property onrowsdeleting: gridbeforedatablockeventty read fonrowsdeleting
+              write fonrowsdeleting;
+   property onrowsdeleted: griddatablockeventty read fonrowsdeleted
+              write fonrowsdeleted;
+
+   property onsort: gridsorteventty read fonsort write fonsort;
+
+   property oncellevent: celleventty read foncellevent write foncellevent;
+   property onselectionchanged: notifyeventty read fonselectionchanged
+                  write fonselectionchanged;
+
+   property drag: tdragcontroller read fdragcontroller write setdragcontroller;
+
+  published
+   property frame: tgridframe read getframe write setframe;
+   property font: twidgetfont read getfont write setfont stored isfontstored;
+   property onkeydown: keyeventty read fonkeydown write fonkeydown;
+   property wheelscrollheight: integer read fwheelscrollheight write
+                    fwheelscrollheight;
+
+======================
+
+ tcellgrid = class(tcustomgrid)
+  protected
+   procedure clientmouseevent(var info: mouseeventinfoty); override;
+ end;
+
+======================
+
+ tdrawgrid = class(tcellgrid)
+ // only overrides "(set/get)datacols"
+  private
+   function getdatacols: tdrawcols;
+   procedure setdatacols(const value: tdrawcols);
+  protected
+   function createdatacols: tdatacols; override;
+  published
+   property optionsgrid;
+   property datacols: tdrawcols read getdatacols write setdatacols;
+   property fixcols;
+   property fixrows;
+   property rowcount;
+   property rowcountmax;
+   property gridframecolor;
+   property gridframewidth;
+   property rowcolors;
+   property rowfonts;
+   property zebra_color;
+   property zebra_start;
+   property zebra_height;
+   property zebra_step;
+
+   property datarowlinewidth;
+   property datarowlinecolorfix;
+   property datarowlinecolor;
+   property datarowheight;
+
+   property statfile;
+   property statvarname;
+
+   property onlayoutchanged;
+   property onrowcountchanged;
+   property onrowsdatachanged;
+   property onrowdatachanged;
+   property onrowsmoved;
+   property onrowsinserting;
+   property onrowsinserted;
+   property onrowsdeleting;
+   property onrowsdeleted;
+   property oncellevent;
+   property onselectionchanged;
+   property onsort;
+   property drag;
+
+ end;
+
+==================
+ tcustomstringgrid = class(tcellgrid,iedit)
+  private
+   function getdatacols: tstringcols;
+   procedure setdatacols(const value: tstringcols);
+   function getcols(index: integer): tstringcol;
+   procedure setcols(index: integer; const Value: tstringcol);
+   function getitems(const cell: gridcoordty): msestring;
+   procedure setitems(const cell: gridcoordty; const Value: msestring);
+   function getcaretwidth: integer;
+   procedure setcaretwidth(const value: integer);
+   procedure setupeditor(const acell: gridcoordty);
+  protected
+   feditor: tinplaceedit;
+   function canclose(const newfocus: twidget): boolean; override;
+   procedure dofontheightdelta(var delta: integer); override;
+   procedure checkcellvalue(var accept: boolean); override;
+   procedure rootchanged; override;
+   procedure updatelayout; override;
+   procedure firstcellclick(const cell: gridcoordty; const info: mouseeventinfoty); override;
+   function createdatacols: tdatacols; override;
+   procedure docellevent(var info: celleventinfoty); override;
+   procedure drawfocusedcell(const canvas: tcanvas); override;
+   procedure scrolled(const dist: pointty); override;
+   function getcaretcliprect: rectty; override;  //origin = clientrect.pos
+   property cols[index: integer]: tstringcol read getcols write setcols; default;
+  //iedit
+   function getoptionsedit: optionseditty; virtual;
+   procedure editnotification(var info: editnotificationinfoty); virtual;
+   function hasselection: boolean;
+
+   procedure focusedcellchanged; override;
+   procedure checkrowreadonlystate; override;
+     //interface to inplaceedit
+   procedure dokeydown(var info: keyeventinfoty); override;
+   procedure clientmouseevent(var info: mouseeventinfoty); override;
+   procedure doactivate; override;
+   procedure dodeactivate; override;
+
+   procedure doselectionchanged; override;
+   procedure dopopup(var amenu: tpopupmenu; 
+                         var mouseinfo: mouseeventinfoty); override;
+  public
+   constructor create(aowner: tcomponent); override;
+   destructor destroy; override;
+   procedure synctofontheight; override;
+   function textclipped(const acell: gridcoordty;
+                 out acellrect: rectty): boolean; overload;
+   function textclipped(const acell: gridcoordty): boolean; overload;
+   function appendrow(const value: array of msestring): integer; overload;
+   function appendrow(const value: msestringarty): integer; overload;
+   function appendrow(const value: msestring): integer; overload;
+   function copyselection: boolean; override;
+   function pasteselection: boolean; override;
+   property items[const cell: gridcoordty]: msestring read getitems write setitems;
+   property datacols: tstringcols read getdatacols write setdatacols;
+   property caretwidth: integer read getcaretwidth write setcaretwidth default defaultcaretwidth;
+ end;
+
+===========================
+
+ tstringgrid = class(tcustomstringgrid)
+  published
+   property optionsgrid;
+   property datacols;
+   property fixcols;
+   property fixrows;
+   property rowcount;
+   property rowcountmax;
+   property gridframecolor;
+   property gridframewidth;
+   property rowcolors;
+   property rowfonts;
+   property zebra_color;
+   property zebra_start;
+   property zebra_height;
+   property zebra_step;
+
+   property datarowlinewidth;
+   property datarowlinecolorfix;
+   property datarowlinecolor;
+   property datarowheight;
+   property caretwidth;
+
+   property statfile;
+   property statvarname;
+
+   property onlayoutchanged;
+   property onrowsmoved;
+   property onrowsdatachanged;
+   property onrowdatachanged;
+   property onrowsinserting;
+   property onrowsinserted;
+   property onrowsdeleting;
+   property onrowsdeleted;
+   property onrowcountchanged;
+   property oncellevent;
+   property onselectionchanged;
+   property onsort;
+   property drag;
+ end;
+
+======================
+
+tdbwidgetgrid
+
+	anchors - ...
+	bounds - ...
+
+	color 
+		- color of the grid's client area
+	cursor 
+		- cursor shape when the mouse is over the client area
+
+	datacols
+		colorselect
+		linecolor
+		linecolorfix
+		linewidth
+		newrowcol
+
+		options
+			co_readonly
+			co_nofocus
+			co_invisible
+			co_disabled
+			co_drawfocus
+			co_mousemovefocus
+			co_lefbuttonfocusonly
+			co_focusselect
+			co_mouseselect
+			co_keyselect
+			co_multiselect
+			co_resetselectionexit
+			co_rowselect
+			co_fixwidth
+			co_fixpos
+			co_fill
+			co_proportional
+			co_nohscroll
+			co_savevalue
+			co_savestate
+			co_rowfont
+			co_rowcolor
+			co_zebracolor
+			co_nosort
+			co_sortdescent
+			co_norearrange
+			co_cancopy
+			co_canpaste
+			co_mousescrollrow
+			co_rowdatachange
+
+		sortcol
+		width
+
+		items[N]
+			color
+			colorselect
+			datalist - ???
+			face - see <any face>
+			fontselect - see <any font>
+			frame - see <any frame>
+			linecolor
+			linecolorfix
+			linewidth
+			name
+			
+			options
+			
+

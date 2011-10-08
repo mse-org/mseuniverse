@@ -1,0 +1,375 @@
+object clientfo: tclientfo
+  bounds_x = 20
+  bounds_y = 378
+  bounds_cx = 380
+  bounds_cy = 242
+  optionswindow = [wo_windowcentermessage]
+  mainmenu = menu
+  options = [fo_terminateonclose, fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  caption = 'MSEifi Demo Clientform transferred from Server'
+  moduleclassname = 'tmseform'
+  object tstringedit1: tstringedit
+    frame.caption = 'Editwidget'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 2
+    bounds_cx = 100
+    bounds_cy = 35
+    reffontheight = 13
+  end
+  object tbutton1: tbutton
+    taborder = 1
+    bounds_x = 118
+    bounds_y = 19
+    bounds_cx = 50
+    bounds_cy = 19
+    state = [as_localcaption]
+    action = buttonact
+    caption = 'Button'
+  end
+  object buttondisp: tstringdisp
+    frame.dummy = 0
+    taborder = 2
+    bounds_x = 176
+    bounds_y = 19
+    bounds_cx = 92
+    bounds_cy = 17
+    font.color = -1610612730
+    font.name = 'stf_default'
+    font.xscale =  1.0000000000000000E+0000
+    font.dummy = 0
+    textflags = [tf_xcentered, tf_ycentered]
+    reffontheight = 13
+  end
+  object tdbstringgrid1: tdbstringgrid
+    frame.caption = 'Dataset'
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 40
+    bounds_cx = 337
+    bounds_cy = 147
+    anchors = [an_left, an_top, an_right, an_bottom]
+    options = [dsgo_autofields]
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    datalink.options = [gdo_propscrollbar, gdo_thumbtrack]
+    datalink.datasource = datasource
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 15
+      end>
+    datarowheight = 15
+    reffontheight = 13
+  end
+  object progressbar: tprogressbar
+    frame.framei_left = 2
+    frame.framei_top = 0
+    frame.framei_right = 2
+    frame.framei_bottom = 0
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.dummy = 0
+    face.template = fadehorzconcave
+    face.dummy = 0
+    taborder = 4
+    bounds_x = 353
+    bounds_y = 57
+    bounds_cx = 20
+    bounds_cy = 151
+    anchors = [an_top, an_right, an_bottom]
+    direction = gd_up
+    bar_face.fade_pos.count = 2
+    bar_face.fade_pos.items = (
+       0.0000000000000000E+0000
+       1.0000000000000000E+0000
+    )
+    bar_face.fade_color.count = 2
+    bar_face.fade_color.items = (
+      -1610612715
+      160
+    )
+    bar_face.localprops = [fal_fadirection]
+    bar_face.dummy = 0
+    bar_frame.localprops = [frl_levelo, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    bar_frame.dummy = 0
+    valuerange =  1.0000000000000000E+0002
+    value =  0.0000000000000000E+0000
+    format = ''
+  end
+  object tdbnavigator1: tdbnavigator
+    optionswidget1 = [ow1_autowidth, ow1_autoheight]
+    frame.levelo = -1
+    frame.leveli = 1
+    frame.localprops = [frl_levelo, frl_leveli]
+    taborder = 5
+    bounds_x = 8
+    bounds_y = 189
+    bounds_cx = 204
+    anchors = [an_left, an_bottom]
+    datasource = datasource
+    buttonface.template = fadehorzconcave
+    buttonface.dummy = 0
+  end
+  object tformlink1: tformlink
+    valuewidgets.count = 4
+    valuewidgets.items = <    
+      item
+        name = 'edit1'
+        widget = tstringedit1
+        options = [iwlo_sendvalue]
+      end    
+      item
+        name = 'buttondisp'
+        widget = buttondisp
+      end    
+      item
+        name = 'progressbar'
+        widget = progressbar
+      end    
+      item
+      end>
+    actionsrx.count = 1
+    actionsrx.items = <    
+      item
+      end>
+    actionstx.count = 6
+    actionstx.items = <    
+      item
+        name = 'button'
+        action = buttonact
+      end    
+      item
+        name = 'quit'
+        action = quit
+      end    
+      item
+        name = 'menu1a'
+        action = menu1a
+      end    
+      item
+        name = 'menu1b'
+        action = menu1b
+      end    
+      item
+        name = 'menu1c'
+        action = menu1c
+      end    
+      item
+        name = 'menu2a'
+        action = menu2a
+      end>
+    left = 264
+    top = 88
+  end
+  object buttonact: taction
+    left = 264
+    top = 112
+  end
+  object dataset: trxdataset
+    Active = True
+    ifi.linkname = 'dataset'
+    ifi.optionsdb = []
+    AutoCalcFields = True
+    fielddefs = <>
+    left = 160
+    top = 88
+  end
+  object datasource: tmsedatasource
+    DataSet = dataset
+    left = 160
+    top = 112
+  end
+  object menu: tmainmenu
+    frametemplate = menuframe
+    itemframetemplate = menuitemframe
+    itemfacetemplate = fadevertkonvex
+    itemframetemplateactive = menuitemframe
+    itemfacetemplateactive = fadevertconcave
+    menu.submenu.count = 3
+    menu.submenu.items = <    
+      item
+        action = quit
+        caption = '&Quit'
+        state = [as_localcaption]
+      end    
+      item
+        submenu.count = 3
+        submenu.items = <        
+          item
+            action = menu1a
+            caption = 'Menu1 &A'
+            state = [as_localcaption]
+          end        
+          item
+            action = menu1b
+            caption = 'Menu1 &B'
+            state = [as_localcaption]
+          end        
+          item
+            action = menu1c
+            caption = 'Menu1 &C'
+            state = [as_localcaption]
+          end>
+        caption = 'Menu&1'
+        state = [as_localcaption]
+      end    
+      item
+        action = menu2a
+        caption = 'Menu&2'
+        state = [as_localcaption]
+      end>
+    left = 72
+    top = 40
+  end
+  object menu1a: taction
+    left = 16
+    top = 80
+  end
+  object menu1b: taction
+    left = 16
+    top = 104
+  end
+  object menu1c: taction
+    left = 16
+    top = 128
+  end
+  object menu2a: taction
+    left = 88
+    top = 104
+  end
+  object quit: taction
+    left = 88
+    top = 80
+  end
+  object nullface: tfacecomp
+    left = 296
+    top = 144
+  end
+  object fadecontainer: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+       0.0000000000000000E+0000
+       1.0000000000000000E+0000
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612731
+      13421772
+    )
+    left = 184
+    top = 192
+  end
+  object fadehorzconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+       0.0000000000000000E+0000
+       1.0000000000000000E+0000
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_left
+    left = 184
+    top = 168
+  end
+  object fadevertconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+       0.0000000000000000E+0000
+       1.0000000000000000E+0000
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_up
+    left = 184
+    top = 144
+  end
+  object skin: tskincontroller
+    active = True
+    extenders = 0
+    sb_horz_facebutton = fadevertkonvex
+    sb_horz_faceendbutton = fadevertkonvex
+    sb_vert_facebutton = fadehorzconvex
+    sb_vert_faceendbutton = fadehorzconvex
+    widget_color = -2147483645
+    container_face = fadehorzconvex
+    grid_fixrows_face = fadevertkonvex
+    button_face = fadevertkonvex
+    framebutton_face = fadehorzconvex
+    tabbar_horz_face = fadevertconcave
+    tabbar_horz_tab_face = fadevertkonvex
+    tabbar_vert_face = fadehorzconcave
+    tabbar_vert_tab_face = fadevertkonvex
+    mainmenu_face = fadevertconcave
+    left = 80
+    top = 192
+  end
+  object fadehorzconvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+       0.0000000000000000E+0000
+       1.0000000000000000E+0000
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    left = 80
+    top = 168
+  end
+  object fadevertkonvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+       0.0000000000000000E+0000
+       1.0000000000000000E+0000
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_down
+    left = 80
+    top = 144
+  end
+  object menuitemframe: tframecomp
+    template.levelo = -1
+    template.leveli = 1
+    template.framei_left = 2
+    template.framei_right = 3
+    template.framei_bottom = 1
+    template.extraspace = 4
+    left = 224
+    top = 40
+  end
+  object menuframe: tframecomp
+    template.levelo = -1
+    template.framei_left = 4
+    template.framei_top = 2
+    template.framei_bottom = 2
+    left = 136
+    top = 40
+  end
+end

@@ -1,0 +1,66 @@
+object mainfo: tmainfo
+  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  bounds_x = 291
+  bounds_y = 251
+  bounds_cx = 366
+  bounds_cy = 164
+  taborder = 1
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.bounds_x = 0
+  container.bounds_y = 0
+  container.bounds_cx = 366
+  container.bounds_cy = 164
+  container.frame.dummy = 0
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    bounds_x = 112
+    bounds_y = 8
+    bounds_cx = 146
+    bounds_cy = 25
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Report Print'
+    onexecute = doPrint
+  end
+  object btnShowImage: tbutton
+    bounds_x = 8
+    bounds_y = 48
+    bounds_cx = 146
+    bounds_cy = 27
+    taborder = 1
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Report Viewer'
+    onexecute = showReport
+  end
+  object tbutton2: tbutton
+    bounds_x = 112
+    bounds_y = 88
+    bounds_cx = 146
+    bounds_cy = 27
+    taborder = 2
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Image viewer'
+    onexecute = showReportViewer
+  end
+  object tbutton3: tbutton
+    bounds_x = 112
+    bounds_y = 128
+    bounds_cx = 146
+    bounds_cy = 27
+    taborder = 3
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Data Grid'
+    onexecute = showDataGrid
+  end
+  object tbutton4: tbutton
+    bounds_x = 208
+    bounds_y = 48
+    bounds_cx = 146
+    bounds_cy = 27
+    taborder = 4
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Report Viewer G'
+    onexecute = showReportG
+  end
+end

@@ -1,0 +1,2 @@
+#!/bin/sh
+./calc --FONTALIAS=stf_menu,sans,18 --FONTALIAS=stf_default,sans,18
