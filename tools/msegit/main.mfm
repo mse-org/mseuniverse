@@ -1,4 +1,5 @@
 object mainfo: tmainfo
+  visible = False
   bounds_x = 49
   bounds_y = 179
   bounds_cx = 403
@@ -12,6 +13,7 @@ object mainfo: tmainfo
     264
   )
   mainmenu = mainmen
+  options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfosta
   caption = 'MSEgit'
   moduleclassname = 'tmainform'
@@ -69,22 +71,21 @@ object mainfo: tmainfo
   object panelcontroller: tdockpanelformcontroller
     menu = mainmen
     statfile = mainfosta
-    statfileclient = panelsta
+    statfileclient = formsta
     menunamepath = 'view.panels'
     left = 16
     top = 40
   end
-  object mainfosta: tstatfile
-    filename = 'mainfo.sta'
-    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    statfile = mainmo.mainstat
-    left = 136
-    top = 16
-  end
-  object panelsta: tstatfile
-    filename = 'panelfo.sta'
+  object formsta: tstatfile
+    filename = 'formfo.sta'
     statfile = mainmo.mainstat
     left = 136
     top = 40
+  end
+  object mainfosta: tstatfile
+    filename = 'mainfo.sta'
+    statfile = mainmo.mainstat
+    left = 136
+    top = 16
   end
 end

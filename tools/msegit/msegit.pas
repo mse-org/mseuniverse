@@ -21,10 +21,11 @@ program msegit;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
- msegui,mseforms,main,mainmodule;
+ msegui,mseforms,main,mainmodule,dirtree;
  
 begin
+ application.createdatamodule(tdirtreefo,dirtreefo);
  application.createdatamodule(tmainmo,mainmo);
- application.createform(tmainfo,mainfo);
+ application.createform(tmainfo,mainfo); //last
  application.run;
 end.

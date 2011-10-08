@@ -14,32 +14,19 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit mainmodule;
+unit dirtree;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
- mserttistat,mseact,mseactions,mseifiglob;
+ mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msestatfile;
 
 type
- tmainmo = class(tmsedatamodule)
-   optionsstat: trttistat;
-   mainstat: tstatfile;
-   openrepoact: taction;
-   quitact: taction;
-   procedure quitexe(const sender: TObject);
+ tdirtreefo = class(tdockform)
  end;
 var
- mainmo: tmainmo;
-
+ dirtreefo: tdirtreefo;
 implementation
-
 uses
- mainmodule_mfm;
- 
-procedure tmainmo.quitexe(const sender: TObject);
-begin
- application.terminated:= true;
-end;
-
+ dirtree_mfm;
 end.

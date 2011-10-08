@@ -1,0 +1,22 @@
+object dirtreefo: tdirtreefo
+  frame.grip_size = 10
+  frame.dummy = 0
+  visible = False
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 445
+  bounds_cy = 354
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock]
+  options = [fo_savepos, fo_savezorder, fo_savestate]
+  statfile = mainfo.formsta
+  caption = 'DirTree'
+  moduleclassname = 'tdockform'
+end

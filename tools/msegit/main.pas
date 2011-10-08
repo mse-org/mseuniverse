@@ -27,8 +27,8 @@ type
    dockpanel: tdockpanel;
    mainmen: tmainmenu;
    panelcontroller: tdockpanelformcontroller;
+   formsta: tstatfile;
    mainfosta: tstatfile;
-   panelsta: tstatfile;
    procedure newpanelexe(const sender: TObject);
  end;
 var

@@ -19,6 +19,8 @@ object mainmo: tmainmo
     top = 16
   end
   object quitact: taction
+    caption = '&Quit'
+    onexecute = quitexe
     left = 128
     top = 32
   end
