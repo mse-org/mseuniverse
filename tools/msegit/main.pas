@@ -34,6 +34,8 @@ type
    mainfosta: tstatfile;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
+   procedure showuntrackedexe(const sender: TObject);
+   procedure formstaafterreadexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -41,7 +43,7 @@ var
 implementation
 
 uses
- main_mfm,dirtree;
+ main_mfm,dirtree,mainmodule;
  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
@@ -53,6 +55,18 @@ end;
 procedure tmainfo.showdirtreeexe(const sender: TObject);
 begin
  dirtreefo.activate;
+end;
+
+procedure tmainfo.showuntrackedexe(const sender: TObject);
+begin
+ mainmo.opt.showuntrackeditems:= tmenuitem(sender).checked;
+end;
+
+procedure tmainfo.formstaafterreadexe(const sender: TObject);
+begin
+ with mainmo.opt do begin
+  mainmen.menu.itembynames(['view','untracked']).checked:= showuntrackeditems;
+ end;
 end;
 
 end.

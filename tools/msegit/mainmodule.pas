@@ -28,7 +28,13 @@ uses
  msesimplewidgets,msewidgets;
 
 type
+
  tmsegitoptions = class
+  private
+   fshowuntrackeditems: boolean;
+  published
+   property showuntrackeditems: boolean read fshowuntrackeditems 
+                                             write fshowuntrackeditems;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -175,5 +181,7 @@ begin
   end;
  end;
 end;
+
+{ tmsegitoptions }
 
 end.

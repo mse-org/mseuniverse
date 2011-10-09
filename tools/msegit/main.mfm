@@ -44,7 +44,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 2
+        submenu.count = 3
         submenu.items = <        
           item
             submenu.count = 2
@@ -60,6 +60,13 @@ object mainfo: tmainfo
             caption = '&Panels'
             name = 'panels'
             state = [as_localcaption]
+          end        
+          item
+            caption = 'Show &untracked Items'
+            name = 'untracked'
+            state = [as_localcaption, as_localonexecute]
+            options = [mao_checkbox, mao_shortcutcaption]
+            onexecute = showuntrackedexe
           end        
           item
             caption = '&Dirtree'
@@ -84,6 +91,7 @@ object mainfo: tmainfo
   object formsta: tstatfile
     filename = 'formfo.sta'
     statfile = mainmo.mainstat
+    onstatafterread = formstaafterreadexe
     left = 136
     top = 40
   end
