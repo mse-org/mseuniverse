@@ -19,14 +19,31 @@ unit dirtree;
 interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msestatfile;
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msestatfile,
+ msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
+ msedatanodes,mselistbrowser,mseact,mseactions;
 
 type
  tdirtreefo = class(tdockform)
+   grid: twidgetgrid;
+   treeedit: ttreeitemedit;
+   repoloadedact: taction;
+   repoclosedact: taction;
+   procedure loadedexe(const sender: TObject);
+   procedure closedexe(const sender: TObject);
  end;
 var
  dirtreefo: tdirtreefo;
 implementation
 uses
  dirtree_mfm;
+ 
+procedure tdirtreefo.loadedexe(const sender: TObject);
+begin
+end;
+
+procedure tdirtreefo.closedexe(const sender: TObject);
+begin
+end;
+
 end.

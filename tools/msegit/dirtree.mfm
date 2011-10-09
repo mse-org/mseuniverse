@@ -2,8 +2,8 @@ object dirtreefo: tdirtreefo
   frame.grip_size = 10
   frame.dummy = 0
   visible = False
-  bounds_x = 100
-  bounds_y = 100
+  bounds_x = 83
+  bounds_y = 273
   bounds_cx = 445
   bounds_cy = 354
   container.frame.zoomwidthstep = 1
@@ -19,4 +19,46 @@ object dirtreefo: tdirtreefo
   statfile = mainfo.formsta
   caption = 'DirTree'
   moduleclassname = 'tdockform'
+  object grid: twidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 430
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'treeedit'
+      end>
+    datarowheight = 16
+    reffontheight = 14
+    object treeedit: ttreeitemedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 430
+      bounds_cy = 16
+      reffontheight = 14
+    end
+  end
+  object repoloadedact: taction
+    onexecute = loadedexe
+    ifilink = mainmo.repoloadedact
+    left = 16
+    top = 32
+  end
+  object repoclosedact: taction
+    onexecute = closedexe
+    ifilink = mainmo.repoclosedact
+    left = 16
+    top = 16
+  end
 end

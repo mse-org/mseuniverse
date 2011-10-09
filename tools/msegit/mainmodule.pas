@@ -19,7 +19,10 @@ unit mainmodule;
 interface
 uses
  mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
- mserttistat,mseact,mseactions,mseifiglob;
+ mserttistat,mseact,mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,
+ mseedit,msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,
+ mselistbrowser,msemenus,msestrings,msesys,msetypes,mseificomp,mseificompglob,
+ msesimplewidgets,msewidgets;
 
 type
  tmainmo = class(tmsedatamodule)
@@ -27,7 +30,22 @@ type
    mainstat: tstatfile;
    openrepoact: taction;
    quitact: taction;
+   repositoryfiledialog: tfiledialog;
+   repoclosedact: tifiactionlinkcomp;
+   repoloadedact: tifiactionlinkcomp;
    procedure quitexe(const sender: TObject);
+   procedure openrepoexe(const sender: TObject);
+  private
+   frepo: filenamety;
+   procedure setrepo(const avalue: filenamety);
+  protected
+   function checkgit(const adir: filenamety): boolean;
+   procedure closerepo;
+   procedure loadrepo(const avalue: filenamety);
+   procedure repoloaded;
+   procedure repoclosed;
+  public
+   property repo: filenamety read frepo write setrepo;
  end;
 var
  mainmo: tmainmo;
@@ -35,11 +53,61 @@ var
 implementation
 
 uses
- mainmodule_mfm;
+ mainmodule_mfm,msefileutils,sysutils;
  
 procedure tmainmo.quitexe(const sender: TObject);
 begin
  application.terminated:= true;
+end;
+
+function tmainmo.checkgit(const adir: filenamety): boolean;
+begin
+ result:= finddir(adir+'/.git'); //todo: better check
+ if not result then begin
+  showmessage(adir+lineend+'is no git repository.','***ERROR***');
+ end;
+end;
+
+procedure tmainmo.openrepoexe(const sender: TObject);
+begin
+ with repositoryfiledialog do begin
+  if execute = mr_ok then begin
+   repo:= controller.filename;
+  end;
+ end;
+end;
+
+procedure tmainmo.setrepo(const avalue: filenamety);
+begin
+ loadrepo(avalue);
+end;
+
+procedure tmainmo.closerepo;
+begin
+ if frepo <> '' then begin
+  frepo:= '';
+  repoclosed;
+ end;
+end;
+
+procedure tmainmo.loadrepo(const avalue: filenamety);
+begin
+ closerepo;
+ if not checkgit(avalue) then begin
+  abort;
+ end;
+ frepo:= avalue;
+ repoloaded;
+end;
+
+procedure tmainmo.repoloaded;
+begin
+ repoloadedact.controller.execute;
+end;
+
+procedure tmainmo.repoclosed;
+begin
+ repoclosedact.controller.execute;
 end;
 
 end.

@@ -1,9 +1,9 @@
 object mainmo: tmainmo
-  bounds_cx = 350
+  bounds_cx = 395
   bounds_cy = 195
   statfile = mainstat
-  left = 64
-  top = 504
+  left = 565
+  top = 368
   moduleclassname = 'tmsedatamodule'
   object optionsstat: trttistat
     top = 32
@@ -15,13 +15,28 @@ object mainmo: tmainmo
   end
   object openrepoact: taction
     caption = '&Open git repo'
+    onexecute = openrepoexe
     left = 128
-    top = 16
+    top = 8
   end
   object quitact: taction
     caption = '&Quit'
     onexecute = quitexe
     left = 128
+    top = 24
+  end
+  object repositoryfiledialog: tfiledialog
+    statfile = mainstat
+    controller.options = [fdo_directory, fdo_checkexist, fdo_savelastdir]
+    controller.captionopen = 'Select git Directory'
+    top = 56
+  end
+  object repoclosedact: tifiactionlinkcomp
+    left = 232
+    top = 16
+  end
+  object repoloadedact: tifiactionlinkcomp
+    left = 232
     top = 32
   end
 end
