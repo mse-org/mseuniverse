@@ -14,6 +14,9 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
+//
+// under construction
+//
 unit dirtree;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -36,10 +39,11 @@ var
  dirtreefo: tdirtreefo;
 implementation
 uses
- dirtree_mfm;
+ dirtree_mfm,mainmodule;
  
 procedure tdirtreefo.loadedexe(const sender: TObject);
 begin
+ treeedit.itemlist.assign(mainmo.dirtree,false);
 end;
 
 procedure tdirtreefo.closedexe(const sender: TObject);

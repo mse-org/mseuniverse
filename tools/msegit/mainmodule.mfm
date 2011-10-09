@@ -2,10 +2,12 @@ object mainmo: tmainmo
   bounds_cx = 395
   bounds_cy = 195
   statfile = mainstat
-  left = 565
-  top = 368
+  left = 254
+  top = 222
   moduleclassname = 'tmsedatamodule'
   object optionsstat: trttistat
+    statfile = mainstat
+    ongetobject = getoptionsobjexe
     top = 32
   end
   object mainstat: tstatfile
@@ -33,10 +35,10 @@ object mainmo: tmainmo
   end
   object repoclosedact: tifiactionlinkcomp
     left = 232
-    top = 16
+    top = 8
   end
   object repoloadedact: tifiactionlinkcomp
     left = 232
-    top = 32
+    top = 24
   end
 end

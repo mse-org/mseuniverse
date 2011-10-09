@@ -44,7 +44,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 1
+        submenu.count = 2
         submenu.items = <        
           item
             submenu.count = 2
@@ -60,6 +60,11 @@ object mainfo: tmainfo
             caption = '&Panels'
             name = 'panels'
             state = [as_localcaption]
+          end        
+          item
+            caption = '&Dirtree'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showdirtreeexe
           end>
         caption = '&View'
         name = 'view'

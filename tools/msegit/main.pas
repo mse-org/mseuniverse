@@ -14,6 +14,9 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
+//
+// under construction
+//
 unit main;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -30,6 +33,7 @@ type
    formsta: tstatfile;
    mainfosta: tstatfile;
    procedure newpanelexe(const sender: TObject);
+   procedure showdirtreeexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -37,14 +41,18 @@ var
 implementation
 
 uses
- main_mfm;
+ main_mfm,dirtree;
  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
  with panelcontroller.newpanel do begin
-//  statfile:= mainfosta;
   activate;
  end;
+end;
+
+procedure tmainfo.showdirtreeexe(const sender: TObject);
+begin
+ dirtreefo.activate;
 end;
 
 end.

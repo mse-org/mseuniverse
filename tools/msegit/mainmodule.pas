@@ -14,17 +14,32 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
+//
+// under construction
+//
 unit mainmodule;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
+ classes,mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
  mserttistat,mseact,mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,
  mseedit,msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,
  mselistbrowser,msemenus,msestrings,msesys,msetypes,mseificomp,mseificompglob,
  msesimplewidgets,msewidgets;
 
 type
+ tmsegitoptions = class
+ end;
+
+ tgitdirtreenode = class(tdirtreenode)
+  private
+   froot: boolean;
+  protected
+   procedure checkfiles(var afiles: filenamearty); override;
+  public
+   procedure loaddirtree(const apath: filenamety); override;
+ end;
+  
  tmainmo = class(tmsedatamodule)
    optionsstat: trttistat;
    mainstat: tstatfile;
@@ -35,8 +50,11 @@ type
    repoloadedact: tifiactionlinkcomp;
    procedure quitexe(const sender: TObject);
    procedure openrepoexe(const sender: TObject);
+   procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
   private
    frepo: filenamety;
+   fopt: tmsegitoptions;
+   fdirtree: tgitdirtreenode;
    procedure setrepo(const avalue: filenamety);
   protected
    function checkgit(const adir: filenamety): boolean;
@@ -45,16 +63,35 @@ type
    procedure repoloaded;
    procedure repoclosed;
   public
+   constructor create(aowner: tcomponent); override;
+   destructor destroy; override;
    property repo: filenamety read frepo write setrepo;
+   property opt: tmsegitoptions read fopt;
+   property dirtree: tgitdirtreenode read fdirtree;
  end;
+ 
 var
  mainmo: tmainmo;
 
 implementation
 
 uses
- mainmodule_mfm,msefileutils,sysutils;
+ mainmodule_mfm,msefileutils,sysutils,msearrayutils;
  
+constructor tmainmo.create(aowner: tcomponent);
+begin
+ fopt:= tmsegitoptions.create;
+ fdirtree:= tgitdirtreenode.create;
+ inherited;
+end;
+
+destructor tmainmo.destroy;
+begin
+ fopt.free;
+ fdirtree.free;
+ inherited;
+end;
+
 procedure tmainmo.quitexe(const sender: TObject);
 begin
  application.terminated:= true;
@@ -97,6 +134,7 @@ begin
   abort;
  end;
  frepo:= avalue;
+ fdirtree.loaddirtree(avalue);
  repoloaded;
 end;
 
@@ -108,6 +146,34 @@ end;
 procedure tmainmo.repoclosed;
 begin
  repoclosedact.controller.execute;
+end;
+
+procedure tmainmo.getoptionsobjexe(const sender: TObject; var aobject: TObject);
+begin
+ aobject:= fopt;
+end;
+
+{ tgitdirtreenode }
+
+procedure tgitdirtreenode.loaddirtree(const apath: filenamety);
+begin
+ froot:= true;
+ inherited;
+end;
+
+procedure tgitdirtreenode.checkfiles(var afiles: filenamearty);
+var
+ int1: integer;
+begin
+ if froot then begin
+  froot:= false;
+  for int1:= 0 to high(afiles) do begin
+   if pos('.git',afiles[int1]) = length(afiles[int1])-3 then begin
+    deleteitem(afiles,int1);
+    break;
+   end;
+  end;
+ end;
 end;
 
 end.
