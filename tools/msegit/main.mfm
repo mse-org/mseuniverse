@@ -101,4 +101,16 @@ object mainfo: tmainfo
     left = 136
     top = 16
   end
+  object repoloadedact: taction
+    onexecute = repoloadedexe
+    ifilink = mainmo.repoloadedact
+    left = 232
+    top = 16
+  end
+  object repoclosedact: taction
+    onexecute = repoclosedexe
+    ifilink = mainmo.repoclosedact
+    left = 232
+    top = 32
+  end
 end

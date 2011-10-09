@@ -104,8 +104,15 @@ begin
 end;
 
 function tmainmo.checkgit(const adir: filenamety): boolean;
+var
+ fna1,fna2: filenamety;
 begin
- result:= finddir(adir+'/.git'); //todo: better check
+ fna1:= filepath(adir);
+ repeat
+  result:= finddir(fna1+'/.git'); //todo: better check
+  fna2:= fna1;
+  fna1:= filepath(fna1+'/..');
+ until result or (fna1 = fna2);
  if not result then begin
   showmessage(adir+lineend+'is no git repository.','***ERROR***');
  end;
@@ -135,7 +142,7 @@ end;
 
 procedure tmainmo.loadrepo(const avalue: filenamety);
 begin
- closerepo;
+ closerepo; 
  if not checkgit(avalue) then begin
   abort;
  end;

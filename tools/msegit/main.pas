@@ -23,7 +23,7 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
- msedockpanelform,msestrings,msestatfile;
+ msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob;
 
 type
  tmainfo = class(tmainform)
@@ -32,10 +32,14 @@ type
    panelcontroller: tdockpanelformcontroller;
    formsta: tstatfile;
    mainfosta: tstatfile;
+   repoloadedact: taction;
+   repoclosedact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
    procedure formstaafterreadexe(const sender: TObject);
+   procedure repoloadedexe(const sender: TObject);
+   procedure repoclosedexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -67,6 +71,16 @@ begin
  with mainmo.opt do begin
   mainmen.menu.itembynames(['view','untracked']).checked:= showuntrackeditems;
  end;
+end;
+
+procedure tmainfo.repoloadedexe(const sender: TObject);
+begin
+ caption:= 'MSEgit '+mainmo.repo;
+end;
+
+procedure tmainfo.repoclosedexe(const sender: TObject);
+begin
+ caption:= 'MSEgit';
 end;
 
 end.
