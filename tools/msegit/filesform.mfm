@@ -1,0 +1,64 @@
+object filesfo: tfilesfo
+  frame.grip_size = 10
+  frame.dummy = 0
+  visible = False
+  bounds_x = 99
+  bounds_y = 125
+  bounds_cx = 445
+  bounds_cy = 354
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
+  statfile = mainfo.formsta
+  moduleclassname = 'tdockform'
+  object grid: twidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_sorted, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    datacols.count = 1
+    datacols.sortcol = 0
+    datacols.sortcoldefault = 0
+    datacols.options = [co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item
+        width = 230
+        options = [co_readonly, co_savestate, co_mousescrollrow]
+        widgetname = 'fileitemed'
+      end>
+    datarowheight = 16
+    statfile = mainfo.formsta
+    reffontheight = 14
+    object fileitemed: titemedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 230
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_locate, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      itemlist.imagelist = mainfo.images
+      itemlist.imagewidth = 16
+      itemlist.imageheight = 16
+      reffontheight = 14
+    end
+  end
+end

@@ -21,7 +21,7 @@ unit msegitcontroller;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msestrings,mseclasses,classes;
+ msestrings,mseclasses,classes,msehash;
 const
  defaultgitcommand = 'git';
  
@@ -30,24 +30,42 @@ type
                 gist_deleted,gist_renamed,gist_copied,gist_updated,
                 gist_untracked,gist_ignored);
  gitstatesty = set of gitstatety;
- gitstateinfoty = record
-  name: filenamety;
+
+ gitstatedataty = record
   statex: gitstatety;
   statey: gitstatety;
  end;
+ gitstateinfoty = record
+  name: filenamety;
+  data: gitstatedataty;
+ end;
  pgitstateinfoty = ^gitstateinfoty;
  gitstateinfoarty = array of gitstateinfoty;
+ 
+ tgitstatecache = class(tmsestringhashdatalist)
+  public
+   constructor create;
+ end;
+
+ addstatecallbackeventty = procedure(const astatus: gitstateinfoty) of object;
  
  tgitcontroller = class(tmsecomponent)
   private
    fgitcommand: msestring;
    ferrormessage: string;
+   fstatear: gitstateinfoarty;
+   fstatecount: integer;
+   procedure arraycallback(const astatus: gitstateinfoty);
   protected
    function getgitcommand(const acommand: msestring): msestring;
+   function status1(const callback: addstatecallbackeventty;
+                                  const apath: filenamety): boolean;
   public
    constructor create(aowner: tcomponent); override;
    function status(out astatus: gitstateinfoarty;
-                               const apath: filenamety = ''): boolean;
+                         const apath: filenamety = ''): boolean; overload;
+   function status(out astatus: tgitstatecache;
+                         const apath: filenamety = ''): boolean; overload;
    function getpathparam(const apath: filenamety): msestring;
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
@@ -171,20 +189,19 @@ const
    gist_invalid,gist_invalid,gist_invalid,gist_invalid
    );
    
-function tgitcontroller.status(out astatus: gitstateinfoarty;
-               const apath: filenamety = ''): boolean;
+function tgitcontroller.status1(const callback: addstatecallbackeventty;
+               const apath: filenamety): boolean;
 var
  str1: string;
  po1,po2,po3: pchar;
- int1,int2: integer;
+ int1: integer;
+ stat1: gitstateinfoty;
 begin
- astatus:= nil;
  result:= getprocessoutput(getgitcommand('status -z --porcelain '+
                                   getpathparam(apath)),'',str1,ferrormessage) = 0;
  if result and (str1 <> '') then begin
   po1:= pointer(str1);
   po3:= po1 + length(str1);
-  int2:= 0;
   while po1 < po3 do begin
    po2:= po1;
    while po2^ <> #0 do begin
@@ -192,32 +209,60 @@ begin
    end;
    int1:= po2-po1;
    if int1 > 3 then begin
-    if int2 >= high(astatus) then begin
-     setlength(astatus,length(astatus)*2+32);
-    end;
-    with astatus[int2] do begin
+    with stat1 do begin
      if po1^ > #$7f then begin
-      statex:= gist_invalid;
+      data.statex:= gist_invalid;
      end
      else begin
-      statex:= statchars[ord(po1^)];
+      data.statex:= statchars[ord(po1^)];
      end;
      inc(po1);
      if po1^ > #$7f then begin
-      statey:= gist_invalid;
+      data.statey:= gist_invalid;
      end
      else begin
-      statey:= statchars[ord(po1^)];
+      data.statey:= statchars[ord(po1^)];
      end;
      inc(po1,2);
      name:= po1;
+     callback(stat1);
     end;
     po1:= po2+1;
    end;
-   inc(int2);
   end;
-  setlength(astatus,int2);
  end;
+end;
+
+procedure tgitcontroller.arraycallback(const astatus: gitstateinfoty);
+begin
+ if fstatecount > high(fstatear) then begin
+  setlength(fstatear,high(fstatear)*2+32);
+ end;
+ fstatear[fstatecount]:= astatus;
+ inc(fstatecount);
+end;
+
+function tgitcontroller.status(out astatus: tgitstatecache;
+               const apath: filenamety = ''): boolean;
+begin
+end;
+
+function tgitcontroller.status(out astatus: gitstateinfoarty;
+               const apath: filenamety = ''): boolean;
+begin
+ fstatear:= nil;
+ fstatecount:= 0;
+ result:= status1(@arraycallback,apath);
+ setlength(fstatear,fstatecount);
+ astatus:= fstatear;
+ fstatear:= nil;
+end;
+
+{ tgitstatecache }
+
+constructor tgitstatecache.create;
+begin
+ inherited create(sizeof(gitstatedataty));
 end;
 
 end.

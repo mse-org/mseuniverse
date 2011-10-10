@@ -23,7 +23,7 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
- msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob;
+ msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap;
 
 type
  tmainfo = class(tmainform)
@@ -34,6 +34,7 @@ type
    mainfosta: tstatfile;
    repoloadedact: taction;
    repoclosedact: taction;
+   images: timagelist;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -41,6 +42,7 @@ type
    procedure repoloadedexe(const sender: TObject);
    procedure repoclosedexe(const sender: TObject);
    procedure optionsexe(const sender: TObject);
+   procedure showfilesexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -48,7 +50,7 @@ var
 implementation
 
 uses
- main_mfm,dirtree,mainmodule,optionsform;
+ main_mfm,dirtree,mainmodule,optionsform,filesform;
  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
@@ -60,6 +62,11 @@ end;
 procedure tmainfo.showdirtreeexe(const sender: TObject);
 begin
  dirtreefo.activate;
+end;
+
+procedure tmainfo.showfilesexe(const sender: TObject);
+begin
+ filesfo.activate;
 end;
 
 procedure tmainfo.showuntrackedexe(const sender: TObject);

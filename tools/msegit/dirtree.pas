@@ -29,29 +29,38 @@ uses
 type
  tdirtreefo = class(tdockform)
    grid: twidgetgrid;
-   treeedit: ttreeitemedit;
+   treeed: ttreeitemedit;
    repoloadedact: taction;
    repoclosedact: taction;
-   images: timagelist;
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
+   procedure celleventexe(const sender: TObject; var info: celleventinfoty);
  end;
 var
  dirtreefo: tdirtreefo;
 implementation
 uses
- dirtree_mfm,mainmodule;
+ dirtree_mfm,mainmodule,filesform;
  
 procedure tdirtreefo.loadedexe(const sender: TObject);
 begin
  mainmo.dirtree.expanded:= true;
- treeedit.itemlist.add(mainmo.dirtree,false);
+ treeed.itemlist.add(mainmo.dirtree,false);
+ grid.row:= 0;
 // treeedit.itemlist.assign(mainmo.dirtree,false);
 end;
 
 procedure tdirtreefo.closedexe(const sender: TObject);
 begin
- treeedit.itemlist.clear;
+ treeed.itemlist.clear;
+end;
+
+procedure tdirtreefo.celleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if isrowenter(info) then begin
+  filesfo.synctodirtree;
+ end;
 end;
 
 end.

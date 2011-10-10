@@ -47,7 +47,11 @@ type
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
  end;
- 
+
+ tgitfileitem = class(tlistedititem)
+ end;
+ gitfileitemarty = array of tgitfileitem;
+  
  tgitdirtreerootnode = class(tgitdirtreenode)
   private
    froot: boolean;
@@ -59,6 +63,7 @@ type
    procedure loaddirtree(const apath: filenamety); override;
    procedure updatestate(const areporoot,arepo: filenamety;
                                         const astate: gitstateinfoarty);
+   function getfiles(const apath: filenamety): gitfileitemarty;
  end;
   
  tmainmo = class(tmsedatamodule)
@@ -99,7 +104,7 @@ var
 implementation
 
 uses
- mainmodule_mfm,msefileutils,sysutils,msearrayutils;
+ mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes;
 
 const
  defaultdiricon = 8;
@@ -198,8 +203,8 @@ var
  lstr1: lmsestringty;
  int1: integer;
 begin
- include(fstatex,astate.statex);
- include(fstatey,astate.statey);
+ include(fstatex,astate.data.statex);
+ include(fstatey,astate.data.statey);
  lstr1:= aname;
  po1:= msestrings.strscan(aname,msechar('/'));
  if po1 <> nil then begin
@@ -272,6 +277,32 @@ begin
   lstr1.po:= pmsechar(po1^.name)+int2;
   lstr1.len:= length(po1^.name)-int2;
   setstate(po1^,lstr1);
+ end;
+end;
+
+function tgitdirtreerootnode.getfiles(const apath: filenamety): gitfileitemarty;
+var
+ dirstream: dirstreamty;
+ info: fileinfoty;
+ n1: tgitfileitem;
+ int1: integer;
+begin
+ result:= nil;
+ fillchar(dirstream,sizeof(dirstream),0);
+ with dirstream.dirinfo do begin
+  dirname:= filepath(apath);
+  include:= [fa_all];
+  exclude:= [fa_dir];
+  if sys_opendirstream(dirstream) = sye_ok then begin
+   int1:= 0;
+   while sys_readdirstream(dirstream,info) do begin
+    n1:= tgitfileitem.create(nil);
+    n1.fcaption:= info.name;
+    additem(pointerarty(result),n1,int1);
+   end;
+   sys_closedirstream(dirstream);
+   setlength(result,int1);
+  end;
  end;
 end;
 
