@@ -17,41 +17,38 @@
 //
 // under construction
 //
-unit dirtree;
+unit optionsform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msestatfile,
- msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
- msedatanodes,mselistbrowser,mseact,mseactions,msebitmap;
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,
+ msewidgets,msescrollbar,msetabs,sysutils,msestatfile;
 
 type
- tdirtreefo = class(tdockform)
-   grid: twidgetgrid;
-   treeedit: ttreeitemedit;
-   repoloadedact: taction;
-   repoclosedact: taction;
-   images: timagelist;
-   procedure loadedexe(const sender: TObject);
-   procedure closedexe(const sender: TObject);
+ toptionsfo = class(tmseform)
+   tbutton1: tbutton;
+   tbutton2: tbutton;
+   ttabwidget1: ttabwidget;
+   ttabpage1: ttabpage;
+   tstatfile1: tstatfile;
  end;
-var
- dirtreefo: tdirtreefo;
+
+procedure editoptions;
+
 implementation
 uses
- dirtree_mfm,mainmodule;
+ optionsform_mfm,mserttistat,mainmodule;
  
-procedure tdirtreefo.loadedexe(const sender: TObject);
+procedure editoptions;
+var
+ fo1: toptionsfo;
 begin
- mainmo.dirtree.expanded:= true;
- treeedit.itemlist.add(mainmo.dirtree,false);
-// treeedit.itemlist.assign(mainmo.dirtree,false);
-end;
-
-procedure tdirtreefo.closedexe(const sender: TObject);
-begin
- treeedit.itemlist.clear;
+ fo1:= toptionsfo.create(nil);
+ mainmo.optionsstat.objtovalues(fo1);
+ if fo1.show(ml_application) = mr_ok then begin
+  mainmo.optionsstat.valuestoobj(fo1);
+ end;
 end;
 
 end.

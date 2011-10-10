@@ -39,11 +39,26 @@ type
 
  tgitdirtreenode = class(tdirtreenode)
   private
+   fstatex: gitstatesty;
+   fstatey: gitstatesty;
+  protected
+   procedure setstate(const astate: gitstateinfoty; var aname: lmsestringty);
+  public
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
+ end;
+ 
+ tgitdirtreerootnode = class(tgitdirtreenode)
+  private
    froot: boolean;
   protected
+   function createsubnode: ttreelistitem; override;
    procedure checkfiles(var afiles: filenamearty); override;
   public
+   destructor destroy; override;
    procedure loaddirtree(const apath: filenamety); override;
+   procedure updatestate(const areporoot,arepo: filenamety;
+                                        const astate: gitstateinfoarty);
  end;
   
  tmainmo = class(tmsedatamodule)
@@ -61,8 +76,9 @@ type
    frepo: filenamety;
    freporoot: filenamety;
    fopt: tmsegitoptions;
-   fdirtree: tgitdirtreenode;
+   fdirtree: tgitdirtreerootnode;
    fgit: tgitcontroller;
+   fgitstate: gitstateinfoarty;
    procedure setrepo(const avalue: filenamety);
   protected
    procedure closerepo;
@@ -74,7 +90,7 @@ type
    destructor destroy; override;
    property repo: filenamety read frepo write setrepo;
    property opt: tmsegitoptions read fopt;
-   property dirtree: tgitdirtreenode read fdirtree;
+   property dirtree: tgitdirtreerootnode read fdirtree;
  end;
  
 var
@@ -84,11 +100,16 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils;
- 
+
+const
+ defaultdiricon = 8;
+ modifieddiricon = 4;
+ untrackeddiricon = 12;
+  
 constructor tmainmo.create(aowner: tcomponent);
 begin
  fopt:= tmsegitoptions.create;
- fdirtree:= tgitdirtreenode.create;
+ fdirtree:= tgitdirtreerootnode.create;
  fgit:= tgitcontroller.create(nil);
  inherited;
 end;
@@ -122,6 +143,7 @@ end;
 
 procedure tmainmo.closerepo;
 begin
+ fdirtree.clear;
  if frepo <> '' then begin
   frepo:= '';
   freporoot:= '';
@@ -130,17 +152,17 @@ begin
 end;
 
 procedure tmainmo.loadrepo(const avalue: filenamety);
-var
- ar1: gitstatusinfoarty;
 begin
  closerepo; 
  if not checkgit(avalue,freporoot) then begin
   showmessage(avalue+lineend+'is no git repository.','***ERROR***');
   abort;
  end;
- fgit.status(ar1,avalue);
- frepo:= avalue;
- fdirtree.loaddirtree(avalue);
+ frepo:= filepath(avalue,fk_dir);
+ fgit.status(fgitstate,frepo);
+ fdirtree.loaddirtree(frepo);
+ fdirtree.sort(false,true);
+ fdirtree.updatestate(freporoot,frepo,fgitstate);
  repoloaded;
 end;
 
@@ -161,13 +183,60 @@ end;
 
 { tgitdirtreenode }
 
-procedure tgitdirtreenode.loaddirtree(const apath: filenamety);
+constructor tgitdirtreenode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;
+ fimagenr:= defaultdiricon;
+end;
+
+procedure tgitdirtreenode.setstate(const astate: gitstateinfoty;
+               var aname: lmsestringty);
+var
+ n1: tgitdirtreenode;
+ po1: pmsechar;
+ lstr1: lmsestringty;
+ int1: integer;
+begin
+ include(fstatex,astate.statex);
+ include(fstatey,astate.statey);
+ lstr1:= aname;
+ po1:= msestrings.strscan(aname,msechar('/'));
+ if po1 <> nil then begin
+  lstr1.len:= po1-lstr1.po;
+ end;
+ n1:= tgitdirtreenode(finditembycaption(lstr1));
+ if n1 <> nil then begin
+  if po1 <> nil then begin
+   aname.po:= po1+1;
+   aname.len:= aname.len - lstr1.len - 1;
+   n1.setstate(astate,aname);
+  end;
+ end;
+ int1:= defaultdiricon;
+ if gist_modified in fstatey then begin
+  int1:= modifieddiricon;
+ end;
+ if (lstr1.len = 0) and (gist_untracked in fstatey) then begin //directory end
+  int1:= untrackeddiricon;
+ end;
+ fimagenr:= int1;
+end;
+
+{ tgitdirtreerootnode }
+
+destructor tgitdirtreerootnode.destroy;
+begin
+ inherited;
+end;
+
+procedure tgitdirtreerootnode.loaddirtree(const apath: filenamety);
 begin
  froot:= true;
  inherited;
 end;
 
-procedure tgitdirtreenode.checkfiles(var afiles: filenamearty);
+procedure tgitdirtreerootnode.checkfiles(var afiles: filenamearty);
 var
  int1: integer;
 begin
@@ -179,6 +248,30 @@ begin
     break;
    end;
   end;
+ end;
+end;
+
+function tgitdirtreerootnode.createsubnode: ttreelistitem;
+begin
+ result:= tgitdirtreenode.create;
+end;
+
+procedure tgitdirtreerootnode.updatestate(const areporoot,arepo: filenamety;
+               const astate: gitstateinfoarty);
+var
+ lstr1: lmsestringty;
+ int1,int2: integer;
+ po1: pgitstateinfoty;
+begin
+ fstatex:= [];
+ fstatey:= [];
+ fimagenr:= defaultdiricon;
+ int2:= length(arepo)-length(areporoot);
+ for int1:= 0 to high(astate) do begin
+  po1:= @astate[int1];
+  lstr1.po:= pmsechar(po1^.name)+int2;
+  lstr1.len:= length(po1^.name)-int2;
+  setstate(po1^,lstr1);
  end;
 end;
 

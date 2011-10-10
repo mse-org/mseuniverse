@@ -29,7 +29,7 @@ object mainfo: tmainfo
     dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
   end
   object mainmen: tmainmenu
-    menu.submenu.count = 2
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
         submenu.count = 2
@@ -76,6 +76,11 @@ object mainfo: tmainfo
         caption = '&View'
         name = 'view'
         state = [as_localcaption]
+      end    
+      item
+        caption = '&Options'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = optionsexe
       end>
     left = 16
     top = 16

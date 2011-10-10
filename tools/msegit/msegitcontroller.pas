@@ -26,15 +26,17 @@ const
  defaultgitcommand = 'git';
  
 type
- gitstatusty = (gist_invalid,gist_unmodified,gist_modified,gist_added,
+ gitstatety = (gist_invalid,gist_unmodified,gist_modified,gist_added,
                 gist_deleted,gist_renamed,gist_copied,gist_updated,
                 gist_untracked,gist_ignored);
- gitstatusinfoty = record
+ gitstatesty = set of gitstatety;
+ gitstateinfoty = record
   name: filenamety;
-  statusx: gitstatusty;
-  statusy: gitstatusty;
+  statex: gitstatety;
+  statey: gitstatety;
  end;
- gitstatusinfoarty = array of gitstatusinfoty;
+ pgitstateinfoty = ^gitstateinfoty;
+ gitstateinfoarty = array of gitstateinfoty;
  
  tgitcontroller = class(tmsecomponent)
   private
@@ -44,7 +46,7 @@ type
    function getgitcommand(const acommand: msestring): msestring;
   public
    constructor create(aowner: tcomponent); override;
-   function status(out astatus: gitstatusinfoarty;
+   function status(out astatus: gitstateinfoarty;
                                const apath: filenamety = ''): boolean;
    function getpathparam(const apath: filenamety): msestring;
   published
@@ -72,6 +74,9 @@ begin
   fna2:= fna1;
   fna1:= filepath(fna1+'/..');
  until result or (fna1 = fna2);
+ if result then begin
+  gitroot:= filepath(gitroot,fk_dir);
+ end;
 end;
 
 { tgitcontroller }
@@ -96,8 +101,9 @@ function tgitcontroller.getpathparam(const apath: filenamety): msestring;
 begin
  result:= quotefilename(tosysfilepath(apath));
 end;
+
 const
- statchars: array[0..127] of gitstatusty =
+ statchars: array[0..127] of gitstatety =
   ( 
 // #$00,        #$01,        #$02,        #$03,
    gist_invalid,gist_invalid,gist_invalid,gist_invalid,
@@ -165,7 +171,7 @@ const
    gist_invalid,gist_invalid,gist_invalid,gist_invalid
    );
    
-function tgitcontroller.status(out astatus: gitstatusinfoarty;
+function tgitcontroller.status(out astatus: gitstateinfoarty;
                const apath: filenamety = ''): boolean;
 var
  str1: string;
@@ -191,20 +197,20 @@ begin
     end;
     with astatus[int2] do begin
      if po1^ > #$7f then begin
-      statusx:= gist_invalid;
+      statex:= gist_invalid;
      end
      else begin
-      statusx:= statchars[ord(po1^)];
+      statex:= statchars[ord(po1^)];
      end;
      inc(po1);
      if po1^ > #$7f then begin
-      statusy:= gist_invalid;
+      statey:= gist_invalid;
      end
      else begin
-      statusy:= statchars[ord(po1^)];
+      statey:= statchars[ord(po1^)];
      end;
-     inc(po1);
-     name:= po1^;
+     inc(po1,2);
+     name:= po1;
     end;
     po1:= po2+1;
    end;

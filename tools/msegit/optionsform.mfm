@@ -1,0 +1,67 @@
+object optionsfo: toptionsfo
+  visible = False
+  bounds_x = 232
+  bounds_y = 219
+  bounds_cx = 339
+  bounds_cy = 234
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    339
+    234
+  )
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    bounds_x = 280
+    bounds_y = 208
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    state = [as_default, as_localdefault, as_localcaption]
+    caption = '&Cancel'
+    modalresult = mr_cancel
+  end
+  object tbutton2: tbutton
+    taborder = 1
+    bounds_x = 224
+    bounds_y = 208
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    state = [as_localcaption]
+    caption = '&OK'
+    modalresult = mr_ok
+  end
+  object ttabwidget1: ttabwidget
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 339
+    bounds_cy = 202
+    anchors = [an_top, an_bottom]
+    taborder = 2
+    tab_size = 18
+    object ttabpage1: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 1
+      visible = True
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 339
+      bounds_cy = 184
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Options'
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'optionsfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    statfile = mainmo.mainstat
+    left = 16
+    top = 205
+  end
+end

@@ -40,6 +40,7 @@ type
    procedure formstaafterreadexe(const sender: TObject);
    procedure repoloadedexe(const sender: TObject);
    procedure repoclosedexe(const sender: TObject);
+   procedure optionsexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -47,7 +48,7 @@ var
 implementation
 
 uses
- main_mfm,dirtree,mainmodule;
+ main_mfm,dirtree,mainmodule,optionsform;
  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
@@ -81,6 +82,11 @@ end;
 procedure tmainfo.repoclosedexe(const sender: TObject);
 begin
  caption:= 'MSEgit';
+end;
+
+procedure tmainfo.optionsexe(const sender: TObject);
+begin
+ editoptions;
 end;
 
 end.
