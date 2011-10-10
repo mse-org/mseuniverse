@@ -25,7 +25,7 @@ uses
  mserttistat,mseact,mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,
  mseedit,msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,
  mselistbrowser,msemenus,msestrings,msesys,msetypes,mseificomp,mseificompglob,
- msesimplewidgets,msewidgets;
+ msesimplewidgets,msewidgets,msegitcontroller;
 
 type
 
@@ -59,11 +59,12 @@ type
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
   private
    frepo: filenamety;
+   freporoot: filenamety;
    fopt: tmsegitoptions;
    fdirtree: tgitdirtreenode;
+   fgit: tgitcontroller;
    procedure setrepo(const avalue: filenamety);
   protected
-   function checkgit(const adir: filenamety): boolean;
    procedure closerepo;
    procedure loadrepo(const avalue: filenamety);
    procedure repoloaded;
@@ -88,11 +89,13 @@ constructor tmainmo.create(aowner: tcomponent);
 begin
  fopt:= tmsegitoptions.create;
  fdirtree:= tgitdirtreenode.create;
+ fgit:= tgitcontroller.create(nil);
  inherited;
 end;
 
 destructor tmainmo.destroy;
 begin
+ fgit.free;
  fopt.free;
  fdirtree.free;
  inherited;
@@ -101,21 +104,6 @@ end;
 procedure tmainmo.quitexe(const sender: TObject);
 begin
  application.terminated:= true;
-end;
-
-function tmainmo.checkgit(const adir: filenamety): boolean;
-var
- fna1,fna2: filenamety;
-begin
- fna1:= filepath(adir);
- repeat
-  result:= finddir(fna1+'/.git'); //todo: better check
-  fna2:= fna1;
-  fna1:= filepath(fna1+'/..');
- until result or (fna1 = fna2);
- if not result then begin
-  showmessage(adir+lineend+'is no git repository.','***ERROR***');
- end;
 end;
 
 procedure tmainmo.openrepoexe(const sender: TObject);
@@ -136,16 +124,21 @@ procedure tmainmo.closerepo;
 begin
  if frepo <> '' then begin
   frepo:= '';
+  freporoot:= '';
   repoclosed;
  end;
 end;
 
 procedure tmainmo.loadrepo(const avalue: filenamety);
+var
+ ar1: gitstatusinfoarty;
 begin
  closerepo; 
- if not checkgit(avalue) then begin
+ if not checkgit(avalue,freporoot) then begin
+  showmessage(avalue+lineend+'is no git repository.','***ERROR***');
   abort;
  end;
+ fgit.status(ar1,avalue);
  frepo:= avalue;
  fdirtree.loaddirtree(avalue);
  repoloaded;
