@@ -35,6 +35,12 @@ type
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
+  private
+   frowsave: integer;
+   fexpandedsave: expandedinfoarty;
+  public
+   procedure savestate;
+   procedure restorestate;
  end;
 var
  dirtreefo: tdirtreefo;
@@ -61,6 +67,18 @@ begin
  if isrowenter(info) then begin
   filesfo.synctodirtree;
  end;
+end;
+
+procedure tdirtreefo.savestate;
+begin
+ grid.beginupdate;
+ fexpandedsave:= treeed.itemlist.expandedstate;
+end;
+
+procedure tdirtreefo.restorestate;
+begin
+ grid.endupdate;
+ treeed.itemlist.expandedstate:= fexpandedsave;
 end;
 
 end.

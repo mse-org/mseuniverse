@@ -44,7 +44,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 4
+        submenu.count = 7
         submenu.items = <        
           item
             submenu.count = 2
@@ -62,11 +62,26 @@ object mainfo: tmainfo
             state = [as_localcaption]
           end        
           item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
             caption = 'Show &untracked Items'
             name = 'untracked'
             state = [as_localcaption, as_localonexecute]
             options = [mao_checkbox, mao_shortcutcaption]
             onexecute = showuntrackedexe
+          end        
+          item
+            caption = '&Reload'
+            state = [as_localcaption, as_localshortcut, as_localonexecute]
+            onexecute = reloadeexe
+            sc = (
+              1
+              16466
+            )
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
           end        
           item
             caption = '&Dirtree'

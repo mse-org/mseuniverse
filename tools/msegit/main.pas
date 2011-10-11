@@ -43,6 +43,7 @@ type
    procedure repoclosedexe(const sender: TObject);
    procedure optionsexe(const sender: TObject);
    procedure showfilesexe(const sender: TObject);
+   procedure reloadeexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -94,6 +95,16 @@ end;
 procedure tmainfo.optionsexe(const sender: TObject);
 begin
  editoptions;
+end;
+
+procedure tmainfo.reloadeexe(const sender: TObject);
+begin
+ dirtreefo.savestate;
+ try
+  mainmo.repo:= mainmo.repo;
+ finally
+  dirtreefo.restorestate;
+ end;
 end;
 
 end.

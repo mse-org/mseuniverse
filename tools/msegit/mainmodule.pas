@@ -49,6 +49,11 @@ type
  end;
 
  tgitfileitem = class(tlistedititem)
+  private
+   fstatex: gitstatety;
+   fstatey: gitstatety;
+  public
+   constructor create;
  end;
  gitfileitemarty = array of tgitfileitem;
   
@@ -63,7 +68,8 @@ type
    procedure loaddirtree(const apath: filenamety); override;
    procedure updatestate(const areporoot,arepo: filenamety;
                                         const astate: tgitstatecache);
-   function getfiles(const apath: filenamety): gitfileitemarty;
+   function getfiles(const apath: filenamety;
+                          const gitstate: tgitstatecache): gitfileitemarty;
  end;
   
  tmainmo = class(tmsedatamodule)
@@ -84,7 +90,7 @@ type
    fdirtree: tgitdirtreerootnode;
    fgit: tgitcontroller;
    fgitstate: tgitstatecache;
-   procedure setrepo(const avalue: filenamety);
+   procedure setrepo(avalue: filenamety); //no const!
   protected
    procedure closerepo;
    procedure loadrepo(const avalue: filenamety);
@@ -93,6 +99,7 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
+   function getfiles(const apath: filenamety): gitfileitemarty;
    property repo: filenamety read frepo write setrepo;
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
@@ -110,6 +117,9 @@ const
  defaultdiricon = 8;
  modifieddiricon = 4;
  untrackeddiricon = 12;
+ defaultfileicon = 10;
+ modifiedfileicon = 6;
+ untrackedfileicon = 14;
   
 constructor tmainmo.create(aowner: tcomponent);
 begin
@@ -142,7 +152,7 @@ begin
  end;
 end;
 
-procedure tmainmo.setrepo(const avalue: filenamety);
+procedure tmainmo.setrepo(avalue: filenamety);
 begin
  loadrepo(avalue);
 end;
@@ -162,18 +172,23 @@ procedure tmainmo.loadrepo(const avalue: filenamety);
 var
  cache1: tgitstatecache;
 begin
- closerepo; 
+ closerepo;
  if not checkgit(avalue,freporoot) then begin
   showmessage(avalue+lineend+'is no git repository.','***ERROR***');
   abort;
  end;
- frepo:= filepath(avalue,fk_dir);
- fgit.status(fgitstate,frepo);
- fgit.status(cache1,frepo);
- cache1.free;
- fdirtree.loaddirtree(frepo);
- fdirtree.sort(false,true);
- fdirtree.updatestate(freporoot,frepo,fgitstate);
+ application.beginwait;
+ try
+  frepo:= filepath(avalue,fk_dir);
+  fgit.status(fgitstate,frepo);
+  fgit.status(cache1,frepo);
+  cache1.free;
+  fdirtree.loaddirtree(frepo);
+  fdirtree.sort(false,true);
+  fdirtree.updatestate(freporoot,frepo,fgitstate);
+ finally
+  application.endwait;
+ end;
  repoloaded;
 end;
 
@@ -190,6 +205,11 @@ end;
 procedure tmainmo.getoptionsobjexe(const sender: TObject; var aobject: TObject);
 begin
  aobject:= fopt;
+end;
+
+function tmainmo.getfiles(const apath: filenamety): gitfileitemarty;
+begin
+ result:= fdirtree.getfiles(apath,fgitstate);
 end;
 
 { tgitdirtreenode }
@@ -274,6 +294,7 @@ var
  int1,int2: integer;
  po1: pgitstateinfoty;
 begin
+ astate.reporoot:= areporoot;
  fstatex:= [];
  fstatey:= [];
  fimagenr:= defaultdiricon;
@@ -286,15 +307,19 @@ begin
  end;
 end;
 
-function tgitdirtreerootnode.getfiles(const apath: filenamety): gitfileitemarty;
+function tgitdirtreerootnode.getfiles(const apath: filenamety;
+                    const gitstate: tgitstatecache): gitfileitemarty;
 var
  dirstream: dirstreamty;
  info: fileinfoty;
  n1: tgitfileitem;
- int1: integer;
+ int1,int2: integer;
+ po1: pgitstatedataty;
+ pref: filenamety;
 begin
  result:= nil;
  fillchar(dirstream,sizeof(dirstream),0);
+ pref:= gitstate.getrepodir(apath);
  with dirstream.dirinfo do begin
   dirname:= filepath(apath);
   include:= [fa_all];
@@ -302,8 +327,23 @@ begin
   if sys_opendirstream(dirstream) = sye_ok then begin
    int1:= 0;
    while sys_readdirstream(dirstream,info) do begin
-    n1:= tgitfileitem.create(nil);
+    n1:= tgitfileitem.create;
     n1.fcaption:= info.name;
+    po1:= gitstate.find(pref+info.name);
+    if po1 <> nil then begin
+     with n1 do begin
+      fstatex:= po1^.statex;
+      fstatey:= po1^.statey;
+      int2:= defaultfileicon;
+      if fstatey = gist_modified then begin
+       int2:= modifiedfileicon;
+      end;
+      if fstatey = gist_untracked then begin
+       int2:= untrackedfileicon;
+      end;
+      fimagenr:= int2;
+     end;
+    end;
     additem(pointerarty(result),n1,int1);
    end;
    sys_closedirstream(dirstream);
@@ -313,5 +353,13 @@ begin
 end;
 
 { tmsegitoptions }
+
+{ tgitfileitem }
+
+constructor tgitfileitem.create;
+begin
+ inherited create(nil);
+ fimagenr:= defaultfileicon;
+end;
 
 end.

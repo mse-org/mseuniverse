@@ -44,12 +44,17 @@ type
  gitstateinfoarty = array of gitstateinfoty;
  
  tgitstatecache = class(tmsestringhashdatalist)
+  private
+   freporoot: filenamety;
   public
    constructor create;
+   function getrepodir(const apath: filenamety): filenamety;
+                //returns apath - reporoot
    function add(const aname: msestring): pgitstatedataty;
-   function find(const aname: msestring): pgitstateinfoty;
+   function find(const aname: msestring): pgitstatedataty;
    function first: pgitstateinfoty;
    function next: pgitstateinfoty;
+   property reporoot: filenamety read freporoot write freporoot;
  end;
 
  addstatecallbackeventty = procedure(const astatus: gitstateinfoty) of object;
@@ -286,7 +291,7 @@ begin
  result:= inherited add(aname);
 end;
 
-function tgitstatecache.find(const aname: msestring): pgitstateinfoty;
+function tgitstatecache.find(const aname: msestring): pgitstatedataty;
 begin
  result:= inherited find(aname);
 end;
@@ -299,6 +304,11 @@ end;
 function tgitstatecache.next: pgitstateinfoty;
 begin
  result:= pointer(inherited next);
+end;
+
+function tgitstatecache.getrepodir(const apath: filenamety): filenamety;
+begin
+ result:= relativepath(apath,freporoot,fk_dir);
 end;
 
 end.

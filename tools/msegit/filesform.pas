@@ -51,7 +51,7 @@ begin
   grid.clear;
  end
  else begin
-  fileitemed.itemlist.assign(listitemarty(mainmo.dirtree.getfiles(apath)));
+  fileitemed.itemlist.assign(listitemarty(mainmo.getfiles(apath)));
  end;
 end;
 
