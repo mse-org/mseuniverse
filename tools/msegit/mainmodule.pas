@@ -62,7 +62,7 @@ type
    destructor destroy; override;
    procedure loaddirtree(const apath: filenamety); override;
    procedure updatestate(const areporoot,arepo: filenamety;
-                                        const astate: gitstateinfoarty);
+                                        const astate: tgitstatecache);
    function getfiles(const apath: filenamety): gitfileitemarty;
  end;
   
@@ -83,7 +83,7 @@ type
    fopt: tmsegitoptions;
    fdirtree: tgitdirtreerootnode;
    fgit: tgitcontroller;
-   fgitstate: gitstateinfoarty;
+   fgitstate: tgitstatecache;
    procedure setrepo(const avalue: filenamety);
   protected
    procedure closerepo;
@@ -121,6 +121,7 @@ end;
 
 destructor tmainmo.destroy;
 begin
+ closerepo;
  fgit.free;
  fopt.free;
  fdirtree.free;
@@ -149,6 +150,7 @@ end;
 procedure tmainmo.closerepo;
 begin
  fdirtree.clear;
+ freeandnil(fgitstate);
  if frepo <> '' then begin
   frepo:= '';
   freporoot:= '';
@@ -157,6 +159,8 @@ begin
 end;
 
 procedure tmainmo.loadrepo(const avalue: filenamety);
+var
+ cache1: tgitstatecache;
 begin
  closerepo; 
  if not checkgit(avalue,freporoot) then begin
@@ -165,6 +169,8 @@ begin
  end;
  frepo:= filepath(avalue,fk_dir);
  fgit.status(fgitstate,frepo);
+ fgit.status(cache1,frepo);
+ cache1.free;
  fdirtree.loaddirtree(frepo);
  fdirtree.sort(false,true);
  fdirtree.updatestate(freporoot,frepo,fgitstate);
@@ -262,7 +268,7 @@ begin
 end;
 
 procedure tgitdirtreerootnode.updatestate(const areporoot,arepo: filenamety;
-               const astate: gitstateinfoarty);
+               const astate: tgitstatecache);
 var
  lstr1: lmsestringty;
  int1,int2: integer;
@@ -272,8 +278,8 @@ begin
  fstatey:= [];
  fimagenr:= defaultdiricon;
  int2:= length(arepo)-length(areporoot);
- for int1:= 0 to high(astate) do begin
-  po1:= @astate[int1];
+ for int1:= astate.count - 1 downto 0 do begin
+  po1:= astate.next;
   lstr1.po:= pmsechar(po1^.name)+int2;
   lstr1.len:= length(po1^.name)-int2;
   setstate(po1^,lstr1);

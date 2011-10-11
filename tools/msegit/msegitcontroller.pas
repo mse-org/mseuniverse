@@ -35,6 +35,7 @@ type
   statex: gitstatety;
   statey: gitstatety;
  end;
+ pgitstatedataty = ^gitstatedataty;
  gitstateinfoty = record
   name: filenamety;
   data: gitstatedataty;
@@ -45,6 +46,10 @@ type
  tgitstatecache = class(tmsestringhashdatalist)
   public
    constructor create;
+   function add(const aname: msestring): pgitstatedataty;
+   function find(const aname: msestring): pgitstateinfoty;
+   function first: pgitstateinfoty;
+   function next: pgitstateinfoty;
  end;
 
  addstatecallbackeventty = procedure(const astatus: gitstateinfoty) of object;
@@ -55,7 +60,9 @@ type
    ferrormessage: string;
    fstatear: gitstateinfoarty;
    fstatecount: integer;
+   fstatecache: tgitstatecache;
    procedure arraycallback(const astatus: gitstateinfoty);
+   procedure cachecallback(const astatus: gitstateinfoty);
   protected
    function getgitcommand(const acommand: msestring): msestring;
    function status1(const callback: addstatecallbackeventty;
@@ -242,11 +249,6 @@ begin
  inc(fstatecount);
 end;
 
-function tgitcontroller.status(out astatus: tgitstatecache;
-               const apath: filenamety = ''): boolean;
-begin
-end;
-
 function tgitcontroller.status(out astatus: gitstateinfoarty;
                const apath: filenamety = ''): boolean;
 begin
@@ -258,11 +260,45 @@ begin
  fstatear:= nil;
 end;
 
+procedure tgitcontroller.cachecallback(const astatus: gitstateinfoty);
+begin
+ fstatecache.add(astatus.name)^:= astatus.data;
+end;
+
+function tgitcontroller.status(out astatus: tgitstatecache;
+               const apath: filenamety = ''): boolean;
+begin
+ fstatecache:= tgitstatecache.create;
+ result:= status1(@cachecallback,apath);
+ astatus:= fstatecache;
+ fstatecache:= nil;
+end;
+
 { tgitstatecache }
 
 constructor tgitstatecache.create;
 begin
  inherited create(sizeof(gitstatedataty));
+end;
+
+function tgitstatecache.add(const aname: msestring): pgitstatedataty;
+begin
+ result:= inherited add(aname);
+end;
+
+function tgitstatecache.find(const aname: msestring): pgitstateinfoty;
+begin
+ result:= inherited find(aname);
+end;
+
+function tgitstatecache.first: pgitstateinfoty;
+begin
+ result:= pointer(inherited first);
+end;
+
+function tgitstatecache.next: pgitstateinfoty;
+begin
+ result:= pointer(inherited next);
 end;
 
 end.
