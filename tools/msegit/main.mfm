@@ -8,9 +8,9 @@ object mainfo: tmainfo
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
-    16
+    15
     403
-    264
+    265
   )
   mainmenu = mainmen
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -24,7 +24,7 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 403
-    bounds_cy = 264
+    bounds_cy = 265
     anchors = []
     dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
   end
@@ -115,6 +115,7 @@ object mainfo: tmainfo
   end
   object formsta: tstatfile
     filename = 'formfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     statfile = mainmo.mainstat
     onstatafterread = formstaafterreadexe
     left = 136
@@ -122,6 +123,7 @@ object mainfo: tmainfo
   end
   object mainfosta: tstatfile
     filename = 'mainfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     statfile = mainmo.mainstat
     left = 136
     top = 16

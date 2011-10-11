@@ -12,6 +12,7 @@ object mainmo: tmainmo
   end
   object mainstat: tstatfile
     filename = '^/.msetools/msegit.sta'
+    options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*fo.sta'
     top = 8
   end
