@@ -24,7 +24,7 @@ program msegit;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
- msegui,mseforms,main,mainmodule,dirtree,filesform;
+ msegui,mseforms,main,mainmodule,dirtreeform,filesform;
  
 begin
  application.createdatamodule(tdirtreefo,dirtreefo);

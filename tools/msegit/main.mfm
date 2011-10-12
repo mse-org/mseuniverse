@@ -8,9 +8,9 @@ object mainfo: tmainfo
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
-    15
+    16
     403
-    265
+    264
   )
   mainmenu = mainmen
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -24,9 +24,10 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 403
-    bounds_cy = 265
+    bounds_cy = 264
     anchors = []
     dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
+    statfile = formsta
   end
   object mainmen: tmainmenu
     menu.submenu.count = 3

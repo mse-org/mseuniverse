@@ -40,7 +40,7 @@ var
  filesfo: tfilesfo;
 implementation
 uses
- filesform_mfm,mainmodule,dirtree;
+ filesform_mfm,mainmodule,dirtreeform;
  
 { tfilesfo }
 

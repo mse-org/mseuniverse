@@ -51,7 +51,7 @@ var
 implementation
 
 uses
- main_mfm,dirtree,mainmodule,optionsform,filesform;
+ main_mfm,dirtreeform,mainmodule,optionsform,filesform;
  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin

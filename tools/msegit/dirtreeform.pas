@@ -17,7 +17,7 @@
 //
 // under construction
 //
-unit dirtree;
+unit dirtreeform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
@@ -46,7 +46,7 @@ var
  dirtreefo: tdirtreefo;
 implementation
 uses
- dirtree_mfm,mainmodule,filesform;
+ dirtreeform_mfm,mainmodule,filesform;
  
 procedure tdirtreefo.loadedexe(const sender: TObject);
 begin
