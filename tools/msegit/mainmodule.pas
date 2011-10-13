@@ -29,12 +29,21 @@ uses
 
 type
 
+ tmsegitfileitem = class(tgitfileitem)
+  public
+   constructor create; override;
+ end;
  tmsegitoptions = class
   private
    fshowuntrackeditems: boolean;
+   fshowignoreditems: boolean;
+   procedure setshowignoreditems(const avalue: boolean);
+   procedure setshowuntrackeditems(const avalue: boolean);
   published
    property showuntrackeditems: boolean read fshowuntrackeditems 
-                                             write fshowuntrackeditems;
+                                             write setshowuntrackeditems;
+   property showignoreditems: boolean read fshowignoreditems 
+                                             write setshowignoreditems;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -48,15 +57,6 @@ type
               const aparent: ttreelistitem = nil); override;
  end;
 
- tgitfileitem = class(tlistedititem)
-  private
-   fstatex: gitstatety;
-   fstatey: gitstatety;
-  public
-   constructor create;
- end;
- gitfileitemarty = array of tgitfileitem;
-  
  tgitdirtreerootnode = class(tgitdirtreenode)
   private
    froot: boolean;
@@ -180,8 +180,8 @@ begin
  application.beginwait;
  try
   frepo:= filepath(avalue,fk_dir);
-  fgit.status(fgitstate,frepo);
-  fgit.status(cache1,frepo);
+  fgit.status(frepo,fgitstate);
+  fgit.status(frepo,cache1);
   cache1.free;
   fdirtree.loaddirtree(frepo);
   fdirtree.sort(false,true);
@@ -208,8 +208,25 @@ begin
 end;
 
 function tmainmo.getfiles(const apath: filenamety): gitfileitemarty;
+var
+ int1,int2: integer;
 begin
- result:= fdirtree.getfiles(apath,fgitstate);
+// result:= fdirtree.getfiles(apath,fgitstate);
+ if fgit.lsfiles(apath,fopt.showuntrackeditems,fopt.showignoreditems,
+                                   fgitstate,tmsegitfileitem,result) then begin
+  for int1:= 0 to high(result) do begin
+   with tmsegitfileitem(result[int1]) do begin
+    int2:= defaultfileicon;
+    if fstatey = gist_modified then begin
+     int2:= modifiedfileicon;
+    end;
+    if fstatey = gist_untracked then begin
+     int2:= untrackedfileicon;
+    end;
+    fimagenr:= int2;
+   end;
+  end;
+ end;
 end;
 
 { tgitdirtreenode }
@@ -312,7 +329,7 @@ function tgitdirtreerootnode.getfiles(const apath: filenamety;
 var
  dirstream: dirstreamty;
  info: fileinfoty;
- n1: tgitfileitem;
+ n1: tmsegitfileitem;
  int1,int2: integer;
  po1: pgitstatedataty;
  pref: filenamety;
@@ -327,7 +344,7 @@ begin
   if sys_opendirstream(dirstream) = sye_ok then begin
    int1:= 0;
    while sys_readdirstream(dirstream,info) do begin
-    n1:= tgitfileitem.create;
+    n1:= tmsegitfileitem.create;
     n1.fcaption:= info.name;
     po1:= gitstate.find(pref+info.name);
     if po1 <> nil then begin
@@ -354,12 +371,25 @@ end;
 
 { tmsegitoptions }
 
-{ tgitfileitem }
+{ tmsegitfileitem }
 
-constructor tgitfileitem.create;
+constructor tmsegitfileitem.create;
 begin
- inherited create(nil);
  fimagenr:= defaultfileicon;
+end;
+
+{ tmsegitoptions }
+
+procedure tmsegitoptions.setshowignoreditems(const avalue: boolean);
+begin
+ fshowignoreditems:= avalue;
+ fshowuntrackeditems:= fshowuntrackeditems or avalue;
+end;
+
+procedure tmsegitoptions.setshowuntrackeditems(const avalue: boolean);
+begin
+ fshowuntrackeditems:= avalue;
+ fshowignoreditems:= fshowignoreditems and avalue;
 end;
 
 end.

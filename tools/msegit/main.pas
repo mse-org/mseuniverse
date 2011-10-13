@@ -23,7 +23,8 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
- msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap;
+ msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
+ msedataedits,mseedit,msetypes;
 
 type
  tmainfo = class(tmainform)
@@ -35,6 +36,7 @@ type
    repoloadedact: taction;
    repoclosedact: taction;
    images: timagelist;
+   reloadact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -44,6 +46,7 @@ type
    procedure optionsexe(const sender: TObject);
    procedure showfilesexe(const sender: TObject);
    procedure reloadeexe(const sender: TObject);
+   procedure showignoredexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -51,7 +54,7 @@ var
 implementation
 
 uses
- main_mfm,dirtreeform,mainmodule,optionsform,filesform;
+ main_mfm,dirtreeform                                                                                                                    ,mainmodule,optionsform,filesform;
  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
@@ -73,12 +76,22 @@ end;
 procedure tmainfo.showuntrackedexe(const sender: TObject);
 begin
  mainmo.opt.showuntrackeditems:= tmenuitem(sender).checked;
+ formstaafterreadexe(nil);
+ reloadact.execute; 
+end;
+
+procedure tmainfo.showignoredexe(const sender: TObject);
+begin
+ mainmo.opt.showignoreditems:= tmenuitem(sender).checked;
+ formstaafterreadexe(nil);
+ reloadact.execute; 
 end;
 
 procedure tmainfo.formstaafterreadexe(const sender: TObject);
 begin
  with mainmo.opt do begin
   mainmen.menu.itembynames(['view','untracked']).checked:= showuntrackeditems;
+  mainmen.menu.itembynames(['view','ignored']).checked:= showignoreditems;
  end;
 end;
 
@@ -101,6 +114,7 @@ procedure tmainfo.reloadeexe(const sender: TObject);
 begin
  dirtreefo.savestate;
  try
+  dirtreefo.grid.clear;
   mainmo.repo:= mainmo.repo;
  finally
   dirtreefo.restorestate;

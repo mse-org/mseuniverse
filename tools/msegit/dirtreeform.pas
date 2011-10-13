@@ -36,7 +36,7 @@ type
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
   private
-   frowsave: integer;
+//   frowsave: integer;
    fexpandedsave: expandedinfoarty;
   public
    procedure savestate;
@@ -78,7 +78,9 @@ end;
 procedure tdirtreefo.restorestate;
 begin
  grid.endupdate;
- treeed.itemlist.expandedstate:= fexpandedsave;
+ if fexpandedsave <> nil then begin
+  treeed.itemlist.expandedstate:= fexpandedsave;
+ end;
 end;
 
 end.

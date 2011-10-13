@@ -45,7 +45,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 7
+        submenu.count = 8
         submenu.items = <        
           item
             submenu.count = 2
@@ -73,13 +73,14 @@ object mainfo: tmainfo
             onexecute = showuntrackedexe
           end        
           item
-            caption = '&Reload'
-            state = [as_localcaption, as_localshortcut, as_localonexecute]
-            onexecute = reloadeexe
-            sc = (
-              1
-              16466
-            )
+            caption = 'Show &ignored Items'
+            name = 'ignored'
+            state = [as_localcaption, as_localonexecute]
+            options = [mao_checkbox, mao_shortcutcaption]
+            onexecute = showignoredexe
+          end        
+          item
+            action = reloadact
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
@@ -311,5 +312,11 @@ object mainfo: tmainfo
       F83FFC1FFC1FFE1FF83FFC1FF81FFC0FF83FF81F00000000F83F000000000000
       F03F00000000000000000000
     }
+  end
+  object reloadact: taction
+    caption = '&Refresh'
+    onexecute = reloadeexe
+    left = 232
+    top = 64
   end
 end
