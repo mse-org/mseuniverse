@@ -56,10 +56,17 @@ begin
 end;
 
 procedure tfilesfo.synctodirtree;
+var
+ ar1: msestringarty;
+ mstr1: msestring;
 begin
  if visible and (dirtreefo.grid.row >= 0) then begin
-  loadfiles(mainmo.repo+'/'+
-       concatstrings(dirtreefo.treeed.item.rootcaptions,'/'));
+  ar1:= dirtreefo.treeed.item.rootcaptions;
+  mstr1:= '';
+  if high(ar1) > 0 then begin
+   mstr1:= concatstrings(copy(dirtreefo.treeed.item.rootcaptions,1,bigint),'/');
+  end;
+  loadfiles(mainmo.repo+'/'+mstr1);
  end;
 end;
 

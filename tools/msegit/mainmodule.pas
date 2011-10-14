@@ -281,6 +281,7 @@ end;
 procedure tgitdirtreerootnode.loaddirtree(const apath: filenamety);
 begin
  froot:= true;
+ caption:= getlastpathsection(apath); 
  inherited;
 end;
 
