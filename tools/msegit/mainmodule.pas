@@ -125,6 +125,8 @@ const
  untrackedfileicon = 14;
  mergependingicon = 16;
  pushpendingicon = 17;
+ pushmergependingicon = 18;
+ pusconflicticon = 19;
   
 constructor tmainmo.create(aowner: tcomponent);
 begin
@@ -174,8 +176,6 @@ begin
 end;
 
 procedure tmainmo.loadrepo(const avalue: filenamety);
-var
- cache1: tgitstatecache;
 begin
  closerepo;
  if not checkgit(avalue,freporoot) then begin
@@ -187,8 +187,6 @@ begin
  try
   frepo:= filepath(avalue,fk_dir);
   fgit.status(frepo,fgitstate);
-  fgit.status(frepo,cache1);
-  cache1.free;
   fdirtree.loaddirtree(frepo);
   fdirtree.sort(false,true);
   fdirtree.updatestate(freporoot,frepo,fgitstate);
@@ -245,11 +243,32 @@ begin
 end;
 
 procedure tmsegitfileitem.drawimage(const acanvas: tcanvas);
+var
+ int1: integer;
 begin
  inherited;
- if gist_pushpending in fstatey then begin
+ int1:= -1;
+ if gist_pushconflict in fstatey then begin
+  int1:= pusconflicticon;
+ end
+ else begin
+  if gist_pushpending in fstatey then begin
+   if gist_mergepending in fstatey then begin
+    int1:= pusconflicticon;
+   end
+   else begin
+    int1:= pushpendingicon;
+   end;
+  end
+  else begin
+   if gist_mergepending in fstatey then begin
+    int1:= mergependingicon;
+   end
+  end;
+ end;
+ if int1 >= 0 then begin
   with fowner.layoutinfopo^ do begin
-   fowner.imagelist.paint(acanvas,pushpendingicon,imagerect,[al_ycentered]);
+   fowner.imagelist.paint(acanvas,int1,imagerect,[al_ycentered]);
   end;
  end;
 end;
@@ -297,11 +316,32 @@ begin
 end;
 
 procedure tgitdirtreenode.drawimage(const acanvas: tcanvas);
+var
+ int1: integer;
 begin
  inherited;
- if gist_pushpending in fstatey then begin
+ int1:= -1;
+ if gist_pushconflict in fstatey then begin
+  int1:= pusconflicticon;
+ end
+ else begin
+  if gist_pushpending in fstatey then begin
+   if gist_mergepending in fstatey then begin
+    int1:= pushmergependingicon;
+   end
+   else begin
+    int1:= pushpendingicon;
+   end;
+  end
+  else begin
+   if gist_mergepending in fstatey then begin
+    int1:= mergependingicon;
+   end
+  end;
+ end;
+ if int1 >= 0 then begin
   with fowner.layoutinfopo^ do begin
-   fowner.imagelist.paint(acanvas,pushpendingicon,imagerect,[al_ycentered]);
+   fowner.imagelist.paint(acanvas,int1,imagerect,[al_ycentered]);
   end;
  end;
 // inherited;

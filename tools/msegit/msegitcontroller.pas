@@ -29,7 +29,7 @@ type
  gitstatety = (gist_invalid,gist_unmodified,gist_modified,gist_added,
                 gist_deleted,gist_renamed,gist_copied,gist_updated,
                 gist_untracked,gist_ignored,
-                gist_pushpending,gist_mergepending);
+                gist_pushpending,gist_mergepending,gist_pushconflict);
  gitstatesty = set of gitstatety;
 
  gitstatedataty = record
@@ -236,6 +236,35 @@ var
  po1,po2,po3: pchar;
  int1: integer;
  stat1: gitstateinfoty;
+
+ procedure scan(const aflags: gitstatesty);
+ begin
+  po1:= pointer(str1);
+  po3:= po1 + length(str1);
+  while po1 < po3 do begin
+   if po1^ = c_return then begin
+    inc(po1);
+   end;
+   if po1^ <> c_linefeed then begin
+    break; //invalid
+   end;
+   inc(po1); //skip empy header
+   while (po1 < po3) and (po1^ <> #0) do begin
+    po2:= po1;
+    while po2^ <> #0 do begin
+     inc(po2);
+    end;
+    with stat1 do begin
+     name:= psubstr(po1,po2);
+     data.statex:= [];
+     data.statey:= aflags;
+    end;
+    callback(stat1);
+    po1:= po2+1;
+   end;
+  end;
+ end;
+
 begin
  fna1:= getpathparam(apath,false);
  result:= getprocessoutput(getgitcommand('status -z --porcelain '+
@@ -277,30 +306,13 @@ begin
       'log -z --name-only --format=format: '+
       'origin/master..HEAD '+fna1),'',str1,ferrormessage) = 0) and
                                                       (str1 <> '') then begin
-   po1:= pointer(str1);
-   po3:= po1 + length(str1);
-   while po1 < po3 do begin
-    if po1^ = c_return then begin
-     inc(po1);
-    end;
-    if po1^ <> c_linefeed then begin
-     break; //invalid
-    end;
-    inc(po1); //skip empy header
-    while (po1 < po3) and (po1^ <> #0) do begin
-     po2:= po1;
-     while po2^ <> #0 do begin
-      inc(po2);
-     end;
-     with stat1 do begin
-      name:= psubstr(po1,po2);
-      data.statex:= [];
-      data.statey:= [gist_pushpending];
-     end;
-     callback(stat1);
-     po1:= po2+1;
-    end;
-   end;
+   scan([gist_pushpending]);
+  end;
+  if (getprocessoutput(getgitcommand(
+      'log -z --name-only --format=format: '+
+      'HEAD..origin/master '+fna1),'',str1,ferrormessage) = 0) and
+                                                      (str1 <> '') then begin
+   scan([gist_mergepending]);
   end;
  end;
 end;
@@ -329,7 +341,11 @@ procedure tgitcontroller.cachecallback(const astatus: gitstateinfoty);
 begin
  with fstatecache.addunique(astatus.name)^ do begin
   statex:= statex + astatus.data.statex;
-  statey:= statex + astatus.data.statey;
+  statey:= statey + astatus.data.statey;
+  if statey * [gist_pushpending,gist_mergepending] = 
+                             [gist_pushpending,gist_mergepending] then begin
+   include(statey,gist_pushconflict);
+  end;
  end;
 end;
 
