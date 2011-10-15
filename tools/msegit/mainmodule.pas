@@ -30,6 +30,8 @@ uses
 type
 
  tmsegitfileitem = class(tgitfileitem)
+  protected
+   procedure drawimage(const acanvas: tcanvas); override;
   public
    constructor create; override;
  end;
@@ -52,6 +54,7 @@ type
    fstatey: gitstatesty;
   protected
    procedure setstate(const astate: gitstateinfoty; var aname: lmsestringty);
+   procedure drawimage(const acanvas: tcanvas); override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
@@ -120,6 +123,8 @@ const
  defaultfileicon = 10;
  modifiedfileicon = 6;
  untrackedfileicon = 14;
+ mergependingicon = 16;
+ pushpendingicon = 17;
   
 constructor tmainmo.create(aowner: tcomponent);
 begin
@@ -177,6 +182,7 @@ begin
   showmessage(avalue+lineend+'is no git repository.','***ERROR***');
   abort;
  end;
+ setcurrentdir(freporoot);
  application.beginwait;
  try
   frepo:= filepath(avalue,fk_dir);
@@ -217,14 +223,33 @@ begin
   for int1:= 0 to high(result) do begin
    with tmsegitfileitem(result[int1]) do begin
     int2:= defaultfileicon;
-    if fstatey = gist_modified then begin
+    if gist_modified in fstatey then begin
      int2:= modifiedfileicon;
     end;
-    if fstatey = gist_untracked then begin
+    if gist_untracked in fstatey then begin
      int2:= untrackedfileicon;
     end;
     fimagenr:= int2;
    end;
+  end;
+ end;
+end;
+
+
+{ tmsegitfileitem }
+
+constructor tmsegitfileitem.create;
+begin
+ fimagenr:= defaultfileicon;
+ inherited;
+end;
+
+procedure tmsegitfileitem.drawimage(const acanvas: tcanvas);
+begin
+ inherited;
+ if gist_pushpending in fstatey then begin
+  with fowner.layoutinfopo^ do begin
+   fowner.imagelist.paint(acanvas,pushpendingicon,imagerect,[al_ycentered]);
   end;
  end;
 end;
@@ -246,8 +271,8 @@ var
  lstr1: lmsestringty;
  int1: integer;
 begin
- include(fstatex,astate.data.statex);
- include(fstatey,astate.data.statey);
+ fstatex:= fstatex + astate.data.statex;
+ fstatey:= fstatey + astate.data.statey;
  lstr1:= aname;
  po1:= msestrings.strscan(aname,msechar('/'));
  if po1 <> nil then begin
@@ -269,6 +294,17 @@ begin
   int1:= untrackeddiricon;
  end;
  fimagenr:= int1;
+end;
+
+procedure tgitdirtreenode.drawimage(const acanvas: tcanvas);
+begin
+ inherited;
+ if gist_pushpending in fstatey then begin
+  with fowner.layoutinfopo^ do begin
+   fowner.imagelist.paint(acanvas,pushpendingicon,imagerect,[al_ycentered]);
+  end;
+ end;
+// inherited;
 end;
 
 { tgitdirtreerootnode }
@@ -353,10 +389,10 @@ begin
       fstatex:= po1^.statex;
       fstatey:= po1^.statey;
       int2:= defaultfileicon;
-      if fstatey = gist_modified then begin
+      if gist_modified in fstatey then begin
        int2:= modifiedfileicon;
       end;
-      if fstatey = gist_untracked then begin
+      if gist_untracked in fstatey then begin
        int2:= untrackedfileicon;
       end;
       fimagenr:= int2;
@@ -368,15 +404,6 @@ begin
    setlength(result,int1);
   end;
  end;
-end;
-
-{ tmsegitoptions }
-
-{ tmsegitfileitem }
-
-constructor tmsegitfileitem.create;
-begin
- fimagenr:= defaultfileicon;
 end;
 
 { tmsegitoptions }

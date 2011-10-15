@@ -28,12 +28,13 @@ const
 type
  gitstatety = (gist_invalid,gist_unmodified,gist_modified,gist_added,
                 gist_deleted,gist_renamed,gist_copied,gist_updated,
-                gist_untracked,gist_ignored);
+                gist_untracked,gist_ignored,
+                gist_pushpending,gist_mergepending);
  gitstatesty = set of gitstatety;
 
  gitstatedataty = record
-  statex: gitstatety;
-  statey: gitstatety;
+  statex: gitstatesty;
+  statey: gitstatesty;
  end;
  pgitstatedataty = ^gitstatedataty;
  gitstateinfoty = record
@@ -51,6 +52,7 @@ type
    function getrepodir(const apath: filenamety): filenamety;
                 //returns apath - reporoot
    function add(const aname: msestring): pgitstatedataty;
+   function addunique(const akey: msestring): pgitstatedataty;
    function find(const aname: msestring): pgitstatedataty;
    function first: pgitstateinfoty;
    function next: pgitstateinfoty;
@@ -62,8 +64,8 @@ type
  tgitfileitem = class(tlistedititem)
   private
   protected
-   fstatex: gitstatety;
-   fstatey: gitstatety;
+   fstatex: gitstatesty;
+   fstatey: gitstatesty;
   public
    constructor create; virtual;
  end;
@@ -109,7 +111,7 @@ type
  end;
  
 function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
-
+//git log -z --name-only --format=format: origin/master..HEAD 
 implementation
 uses
  msefileutils,mseprocess,msearrayutils,msesysintf,msesystypes,msesysutils;
@@ -229,13 +231,15 @@ const
 function tgitcontroller.status1(const callback: addstatecallbackeventty;
                const apath: filenamety): boolean;
 var
- str1: string;
+ fna1: filenamety;
+ str1,str2: string;
  po1,po2,po3: pchar;
  int1: integer;
  stat1: gitstateinfoty;
 begin
+ fna1:= getpathparam(apath,false);
  result:= getprocessoutput(getgitcommand('status -z --porcelain '+
-                                  getpathparam(apath,false)),'',str1,ferrormessage) = 0;
+                      fna1),'',str1,ferrormessage) = 0;
  if result and (str1 <> '') then begin
   po1:= pointer(str1);
   po3:= po1 + length(str1);
@@ -248,23 +252,54 @@ begin
    if int1 > 3 then begin
     with stat1 do begin
      if po1^ > #$7f then begin
-      data.statex:= gist_invalid;
+      data.statex:= [gist_invalid];
      end
      else begin
-      data.statex:= statchars[ord(po1^)];
+      data.statex:= [statchars[ord(po1^)]];
      end;
      inc(po1);
      if po1^ > #$7f then begin
-      data.statey:= gist_invalid;
+      data.statey:= [gist_invalid];
      end
      else begin
-      data.statey:= statchars[ord(po1^)];
+      data.statey:= [statchars[ord(po1^)]];
      end;
      inc(po1,2);
      name:= po1;
      callback(stat1);
     end;
     po1:= po2+1;
+   end;
+  end;
+ end;
+ if result then begin
+  if (getprocessoutput(getgitcommand(
+      'log -z --name-only --format=format: '+
+      'origin/master..HEAD '+fna1),'',str1,ferrormessage) = 0) and
+                                                      (str1 <> '') then begin
+   po1:= pointer(str1);
+   po3:= po1 + length(str1);
+   while po1 < po3 do begin
+    if po1^ = c_return then begin
+     inc(po1);
+    end;
+    if po1^ <> c_linefeed then begin
+     break; //invalid
+    end;
+    inc(po1); //skip empy header
+    while (po1 < po3) and (po1^ <> #0) do begin
+     po2:= po1;
+     while po2^ <> #0 do begin
+      inc(po2);
+     end;
+     with stat1 do begin
+      name:= psubstr(po1,po2);
+      data.statex:= [];
+      data.statey:= [gist_pushpending];
+     end;
+     callback(stat1);
+     po1:= po2+1;
+    end;
    end;
   end;
  end;
@@ -292,7 +327,10 @@ end;
 
 procedure tgitcontroller.cachecallback(const astatus: gitstateinfoty);
 begin
- fstatecache.add(astatus.name)^:= astatus.data;
+ with fstatecache.addunique(astatus.name)^ do begin
+  statex:= statex + astatus.data.statex;
+  statey:= statex + astatus.data.statey;
+ end;
 end;
 
 function tgitcontroller.status(const apath: filenamety;
@@ -300,6 +338,9 @@ function tgitcontroller.status(const apath: filenamety;
 begin
  fstatecache:= tgitstatecache.create;
  result:= status1(@cachecallback,apath);
+ if not result then begin
+  fstatecache.clear;
+ end;
  astatus:= fstatecache;
  fstatecache:= nil;
 end;
@@ -419,13 +460,11 @@ begin
       while po2^ <> #0 do begin
        inc(po2);
       end;
-      int1:= po2-po1;
-      setlength(str2,int1);
-      move(po1^,str2[1],int1);
+      str2:= psubstr(po1,po2);
       additem(pointerarty(afiles),pointer(aitemclass.create),int2);
       with afiles[int2-1] do begin
        fcaption:= copy(msestring(str2),dirlen,bigint);
-       fstatey:= gist_untracked;
+       fstatey:= [gist_untracked];
       end;     
       po1:= po2+1;
      end;
@@ -504,6 +543,11 @@ end;
 function tgitstatecache.add(const aname: msestring): pgitstatedataty;
 begin
  result:= inherited add(aname);
+end;
+
+function tgitstatecache.addunique(const akey: msestring): pgitstatedataty;
+begin
+ result:= inherited addunique(akey);
 end;
 
 function tgitstatecache.find(const aname: msestring): pgitstatedataty;
