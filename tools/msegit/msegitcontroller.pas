@@ -68,6 +68,8 @@ type
    fstatey: gitstatesty;
   public
    constructor create; virtual;
+   property statex: gitstatesty read fstatex;
+   property statey: gitstatesty read fstatey;
  end;
  gitfileitemclassty = class of tgitfileitem;
  gitfileitemarty = array of tgitfileitem;
@@ -232,7 +234,7 @@ function tgitcontroller.status1(const callback: addstatecallbackeventty;
                const apath: filenamety): boolean;
 var
  fna1: filenamety;
- str1,str2: string;
+ str1{,str2}: string;
  po1,po2,po3: pchar;
  int1: integer;
  stat1: gitstateinfoty;
@@ -380,12 +382,12 @@ function tgitcontroller.lsfiles(const apath: filenamety;
 var
  str1,str2: string;
  int1,int2: integer;
- n1: tgitfileitem;
+// n1: tgitfileitem;
  po1,po2: pchar;
  po3: pgitstatedataty;
  dirlen: integer;
  fna1: filenamety;
- isdir: boolean;
+// isdir: boolean;
  repodir: filenamety;
 begin
  afiles:= nil;

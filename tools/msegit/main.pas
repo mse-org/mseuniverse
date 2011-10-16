@@ -35,7 +35,6 @@ type
    mainfosta: tstatfile;
    repoloadedact: taction;
    repoclosedact: taction;
-   images: timagelist;
    reloadact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);

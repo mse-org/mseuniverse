@@ -28,12 +28,36 @@ object filesfo: tfilesfo
     fixrows.items = <    
       item
         height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'Name'
+            options = [dco_colsort, dco_hintclippedtext]
+          end>
       end>
-    datacols.count = 1
-    datacols.sortcol = 0
-    datacols.sortcoldefault = 0
+    datacols.count = 3
+    datacols.sortcol = 2
+    datacols.sortcoldefault = 2
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
+      item
+        width = 16
+        options = [co_fixwidth, co_savestate, co_mousescrollrow]
+        widgetname = 'originstate'
+        dataclass = tgridintegerdatalist
+      end    
+      item
+        width = 16
+        options = [co_fixwidth, co_savestate, co_mousescrollrow]
+        widgetname = 'filestate'
+        dataclass = tgridintegerdatalist
+      end    
       item
         width = 230
         options = [co_readonly, co_savestate, co_mousescrollrow]
@@ -44,23 +68,45 @@ object filesfo: tfilesfo
     statfile = mainfo.formsta
     reffontheight = 14
     object fileitemed: titemedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       taborder = 1
       visible = False
-      bounds_x = 0
+      bounds_x = 34
       bounds_y = 0
       bounds_cx = 230
       bounds_cy = 16
+      bounds_cymin = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_locate, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      itemlist.imagelist = mainfo.images
-      itemlist.imagewidth = 32
-      itemlist.imageheight = 16
       itemlist.imagealignment = [al_right, al_ycentered]
+      onupdaterowvalues = udaterowvaluesexe
       reffontheight = 14
+    end
+    object originstate: tdataicon
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 16
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      visible = False
+      imagelist = mainmo.images
+    end
+    object filestate: tdataicon
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      bounds_x = 17
+      bounds_y = 0
+      bounds_cx = 16
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      visible = False
+      imagelist = mainmo.images
     end
   end
 end

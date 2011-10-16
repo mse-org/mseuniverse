@@ -64,7 +64,7 @@ end;
 procedure tdirtreefo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
- if isrowenter(info) then begin
+ if isrowenter(info,true) then begin
   filesfo.synctodirtree;
  end;
 end;

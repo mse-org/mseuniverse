@@ -28,13 +28,14 @@ uses
  msesimplewidgets,msewidgets,msegitcontroller;
 
 type
-
  tmsegitfileitem = class(tgitfileitem)
   protected
-   procedure drawimage(const acanvas: tcanvas); override;
+//   procedure drawimage(const acanvas: tcanvas); override;
   public
    constructor create; override;
+   function getoriginicon: integer;
  end;
+
  tmsegitoptions = class
   private
    fshowuntrackeditems: boolean;
@@ -54,10 +55,11 @@ type
    fstatey: gitstatesty;
   protected
    procedure setstate(const astate: gitstateinfoty; var aname: lmsestringty);
-   procedure drawimage(const acanvas: tcanvas); override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
+   procedure drawimage(const acanvas: tcanvas); override;
+   function getoriginicon: integer;
  end;
 
  tgitdirtreerootnode = class(tgitdirtreenode)
@@ -74,7 +76,7 @@ type
    function getfiles(const apath: filenamety;
                           const gitstate: tgitstatecache): gitfileitemarty;
  end;
-  
+   
  tmainmo = class(tmsedatamodule)
    optionsstat: trttistat;
    mainstat: tstatfile;
@@ -83,6 +85,7 @@ type
    repositoryfiledialog: tfiledialog;
    repoclosedact: tifiactionlinkcomp;
    repoloadedact: tifiactionlinkcomp;
+   images: timagelist;
    procedure quitexe(const sender: TObject);
    procedure openrepoexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -115,7 +118,7 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes;
-
+  
 const
  defaultdiricon = 8;
  modifieddiricon = 4;
@@ -127,7 +130,31 @@ const
  pushpendingicon = 17;
  pushmergependingicon = 18;
  pusconflicticon = 19;
-  
+
+function statetooriginicon(const astate: gitstatesty): integer;
+begin
+ result:= -1;
+ if gist_pushconflict in astate then begin
+  result:= pusconflicticon;
+ end
+ else begin
+  if gist_pushpending in astate then begin
+   if gist_mergepending in astate then begin
+    result:= pushmergependingicon;
+   end
+   else begin
+    result:= pushpendingicon;
+   end;
+  end
+  else begin
+   if gist_mergepending in astate then begin
+    result:= mergependingicon;
+   end
+  end;
+ end;
+end;
+
+{ tmainmo }
 constructor tmainmo.create(aowner: tcomponent);
 begin
  fopt:= tmsegitoptions.create;
@@ -242,6 +269,11 @@ begin
  inherited;
 end;
 
+function tmsegitfileitem.getoriginicon: integer;
+begin
+ result:= statetooriginicon(fstatey);
+end;
+{
 procedure tmsegitfileitem.drawimage(const acanvas: tcanvas);
 var
  int1: integer;
@@ -272,7 +304,7 @@ begin
   end;
  end;
 end;
-
+}
 { tgitdirtreenode }
 
 constructor tgitdirtreenode.create(const aowner: tcustomitemlist = nil;
@@ -320,31 +352,18 @@ var
  int1: integer;
 begin
  inherited;
- int1:= -1;
- if gist_pushconflict in fstatey then begin
-  int1:= pusconflicticon;
- end
- else begin
-  if gist_pushpending in fstatey then begin
-   if gist_mergepending in fstatey then begin
-    int1:= pushmergependingicon;
-   end
-   else begin
-    int1:= pushpendingicon;
-   end;
-  end
-  else begin
-   if gist_mergepending in fstatey then begin
-    int1:= mergependingicon;
-   end
-  end;
- end;
+ int1:= getoriginicon;
  if int1 >= 0 then begin
   with fowner.layoutinfopo^ do begin
-   fowner.imagelist.paint(acanvas,int1,imagerect,[al_ycentered]);
+   fowner.imagelist.paint(acanvas,int1,imagerect,[al_left,al_ycentered]);
   end;
  end;
 // inherited;
+end;
+
+function tgitdirtreenode.getoriginicon: integer;
+begin
+ result:= statetooriginicon(fstatey);
 end;
 
 { tgitdirtreerootnode }

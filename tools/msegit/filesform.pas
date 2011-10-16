@@ -24,12 +24,16 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msedatanodes,
- mselistbrowser;
+ mselistbrowser,msegraphedits;
 
 type
  tfilesfo = class(tdockform)
    grid: twidgetgrid;
    fileitemed: titemedit;
+   originstate: tdataicon;
+   filestate: tdataicon;
+   procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
+                   const aitem: tlistitem);
   private
    fpath: filenamety;
   public
@@ -40,7 +44,7 @@ var
  filesfo: tfilesfo;
 implementation
 uses
- filesform_mfm,mainmodule,dirtreeform;
+ filesform_mfm,mainmodule,dirtreeform,msegitcontroller;
  
 { tfilesfo }
 
@@ -67,6 +71,17 @@ begin
    mstr1:= concatstrings(copy(dirtreefo.treeed.item.rootcaptions,1,bigint),'/');
   end;
   loadfiles(mainmo.repo+'/'+mstr1);
+ end;
+end;
+
+procedure tfilesfo.udaterowvaluesexe(const sender: TObject;
+               const aindex: Integer; const aitem: tlistitem);
+var
+ int1: integer;
+begin
+ with tmsegitfileitem(aitem) do begin
+  filestate[aindex]:= imagenr;
+  originstate[aindex]:= getoriginicon;
  end;
 end;
 
