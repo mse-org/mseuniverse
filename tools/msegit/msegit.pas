@@ -24,9 +24,10 @@ program msegit;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
- msegui,mseforms,main,mainmodule,dirtreeform,filesform;
+ msegui,mseforms,main,mainmodule,dirtreeform,filesform,guitemplates;
  
 begin
+ application.createdatamodule(tguitemplatesmo,guitemplatesmo);
  application.createdatamodule(tdirtreefo,dirtreefo);
  application.createdatamodule(tfilesfo,filesfo);
  application.createdatamodule(tmainmo,mainmo);
