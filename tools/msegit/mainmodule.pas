@@ -35,6 +35,7 @@ type
    constructor create; override;
    function getoriginicon: integer;
  end;
+ msegitfileitemarty = array of tmsegitfileitem;
 
  tmsegitoptions = class
   private
@@ -94,9 +95,13 @@ type
    freporoot: filenamety;
    fopt: tmsegitoptions;
    fdirtree: tgitdirtreerootnode;
+   ffilecache: tgitfilecache;
    fgit: tgitcontroller;
    fgitstate: tgitstatecache;
+   fvaluecount: integer;
+   ffilear: msegitfileitemarty;
    procedure setrepo(avalue: filenamety); //no const!
+   procedure addfiles(var aitem: gitfileinfoty);
   protected
    procedure closerepo;
    procedure loadrepo(const avalue: filenamety);
@@ -105,7 +110,7 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
-   function getfiles(const apath: filenamety): gitfileitemarty;
+   function getfiles(const apath: filenamety): msegitfileitemarty;
    property repo: filenamety read frepo write setrepo;
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
@@ -155,9 +160,11 @@ begin
 end;
 
 { tmainmo }
+
 constructor tmainmo.create(aowner: tcomponent);
 begin
  fopt:= tmsegitoptions.create;
+ ffilecache:= tgitfilecache.create;
  fdirtree:= tgitdirtreerootnode.create;
  fgit:= tgitcontroller.create(nil);
  inherited;
@@ -169,6 +176,7 @@ begin
  fgit.free;
  fopt.free;
  fdirtree.free;
+ ffilecache.free;
  inherited;
 end;
 
@@ -194,6 +202,7 @@ end;
 procedure tmainmo.closerepo;
 begin
  fdirtree.clear;
+ ffilecache.clear;
  freeandnil(fgitstate);
  if frepo <> '' then begin
   frepo:= '';
@@ -217,6 +226,8 @@ begin
   fdirtree.loaddirtree(frepo);
   fdirtree.sort(false,true);
   fdirtree.updatestate(freporoot,frepo,fgitstate);
+  fgit.lsfiles(frepo,fopt.showuntrackeditems,fopt.showignoreditems,true,
+                           fgitstate,ffilecache);
  finally
   application.endwait;
  end;
@@ -238,11 +249,35 @@ begin
  aobject:= fopt;
 end;
 
-function tmainmo.getfiles(const apath: filenamety): gitfileitemarty;
+procedure tmainmo.addfiles(var aitem: gitfileinfoty);
 var
- int1,int2: integer;
+ n1: tmsegitfileitem;
+ int1: integer;
 begin
-// result:= fdirtree.getfiles(apath,fgitstate);
+ with aitem.data do begin 
+  if filename <> '' then begin
+   n1:= tmsegitfileitem.create;
+   additem(pointerarty(ffilear),pointer(n1),fvaluecount);
+   n1.fcaption:= filename;
+   n1.fstatex:= statex;
+   n1.fstatey:= statey;
+   int1:= defaultfileicon;
+   if gist_modified in statey then begin
+    int1:= modifiedfileicon;
+   end;
+   if gist_untracked in statey then begin
+    int1:= untrackedfileicon;
+   end;
+   n1.fimagenr:= int1;
+  end;
+ end;
+end;
+
+function tmainmo.getfiles(const apath: filenamety): msegitfileitemarty;
+//var
+// int1,int2: integer;
+begin
+{
  if fgit.lsfiles(apath,fopt.showuntrackeditems,fopt.showignoreditems,
                                    fgitstate,tmsegitfileitem,result) then begin
   for int1:= 0 to high(result) do begin
@@ -258,6 +293,13 @@ begin
    end;
   end;
  end;
+ }
+ fvaluecount:= 0;
+ ffilear:= nil;
+ ffilecache.iterate(fgitstate.getrepodir(apath),@addfiles);
+ setlength(ffilear,fvaluecount);
+ result:= ffilear;
+ ffilear:= nil;
 end;
 
 

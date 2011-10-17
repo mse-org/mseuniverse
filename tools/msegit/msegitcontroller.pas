@@ -60,6 +60,45 @@ type
  end;
 
  addstatecallbackeventty = procedure(const astatus: gitstateinfoty) of object;
+{
+ dirnamecachedataty = record
+  dirname: filenamety;
+ end;
+ dirnamecacheinfoty = record
+  key: integer;
+  data: dirnamecachedataty;
+ end;
+ 
+ tdirnamecache = class(tintegerhashdatalist)
+  protected
+   procedure finalizeitem(var aitemdata); override;
+  public
+   constructor create;
+   procedure add(const akey: integer; const aname: filenamety);
+   function find(const akey: integer): msestring;
+ end;
+ }
+ gitfiledataty = record
+  filename: filenamety;
+  statex,statey: gitstatesty;
+ end;
+ pgitfiledataty = ^gitfiledataty;
+ gitfileinfoty = record
+  dirpath: filenamety; //key
+  data: gitfiledataty;
+ end;
+
+ gitfileiteratorprocty = procedure(var aitem: gitfileinfoty) of object;
+ 
+ tgitfilecache = class(tmsestringhashdatalist)
+  protected
+   procedure finalizeitem(var aitemdata); override;
+  public
+   constructor create;
+   function add(const adirpath: filenamety): pgitfiledataty;
+   procedure iterate(const akey: msestring;
+                     const aiterator: gitfileiteratorprocty); overload;
+ end;
  
  tgitfileitem = class(tlistedititem)
   private
@@ -73,20 +112,34 @@ type
  end;
  gitfileitemclassty = class of tgitfileitem;
  gitfileitemarty = array of tgitfileitem;
+
+ addfilecallbackeventty = procedure(var afile: gitfileinfoty) of object;
   
  tgitcontroller = class(tmsecomponent)
   private
    fgitcommand: msestring;
    ferrormessage: string;
    fstatear: gitstateinfoarty;
-   fstatecount: integer;
+   fvaluecount: integer;
    fstatecache: tgitstatecache;
+   ffilear: gitfileitemarty;
+   ffileitemclass: gitfileitemclassty;
+   ffilecache: tgitfilecache;
+   fdirlen: integer;
+   fdirpath: filenamety;
    procedure arraycallback(const astatus: gitstateinfoty);
    procedure cachecallback(const astatus: gitstateinfoty);
+   procedure filearraycallback(var astatus: gitfileinfoty);
+   procedure filecachecallback(var astatus: gitfileinfoty);
   protected
    function getgitcommand(const acommand: msestring): msestring;
    function status1(const callback: addstatecallbackeventty;
                                   const apath: filenamety): boolean;
+   function lsfiles1(const apath: filenamety;
+            const includeuntracked: boolean; const includeignored: boolean;
+                            const arecursive: boolean;
+                            const astate: tgitstatecache;
+                            const callback: addfilecallbackeventty): boolean;
   public
    constructor create(aowner: tcomponent); override;
    function status(const apath: filenamety;
@@ -97,8 +150,8 @@ type
           //true if ok
    function getpathparam(const apath: filenamety;
                                   const relative: boolean): msestring;
-   function lsfiles(const apath: filenamety; 
-                    const ainclude: gitstatesty; const aexclude: gitstatesty;
+   function lsfiles(const apath,repodir: filenamety; 
+               const includeuntracked: boolean; const includeignored: boolean;
                     out afiles: filenamearty): boolean; overload;
           //true if ok
    function lsfiles(const apath: filenamety; 
@@ -107,6 +160,11 @@ type
                     const aitemclass: gitfileitemclassty;
                     out afiles: gitfileitemarty): boolean; overload;
           //true if ok
+   function lsfiles(const apath: filenamety;
+               const includeuntracked: boolean; const includeignored: boolean;
+                    const arecursive: boolean;
+                    const astate: tgitstatecache;
+                    const adest: tgitfilecache): boolean; overload;
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
@@ -321,20 +379,20 @@ end;
 
 procedure tgitcontroller.arraycallback(const astatus: gitstateinfoty);
 begin
- if fstatecount > high(fstatear) then begin
+ if fvaluecount > high(fstatear) then begin
   setlength(fstatear,high(fstatear)*2+32);
  end;
- fstatear[fstatecount]:= astatus;
- inc(fstatecount);
+ fstatear[fvaluecount]:= astatus;
+ inc(fvaluecount);
 end;
 
 function tgitcontroller.status(const apath: filenamety;
                                       out astatus: gitstateinfoarty): boolean;
 begin
  fstatear:= nil;
- fstatecount:= 0;
+ fvaluecount:= 0;
  result:= status1(@arraycallback,apath);
- setlength(fstatear,fstatecount);
+ setlength(fstatear,fvaluecount);
  astatus:= fstatear;
  fstatear:= nil;
 end;
@@ -363,41 +421,58 @@ begin
  fstatecache:= nil;
 end;
 
-function tgitcontroller.lsfiles(const apath: filenamety;
-               const ainclude: gitstatesty; const aexclude: gitstatesty;
+function tgitcontroller.lsfiles(const apath,repodir: filenamety;
+               const includeuntracked: boolean; const includeignored: boolean;
                out afiles: filenamearty): boolean;
 var
- str1: string;
+ str1,str2,str3: string;
 begin
- result:= getprocessoutput(getgitcommand('ls-files --full-name '+
-                             getpathparam(apath,false)),'',str1,ferrormessage) = 0;
+ str2:= 'ls-files --full-name ';
+ result:= getprocessoutput(getgitcommand(str2+
+                getpathparam(apath,false)),'',str1,ferrormessage) = 0;
+ if result and (includeuntracked or includeignored) then begin
+  str2:= str2 + '--other --exclude='+
+                              getpathparam(repodir+'*/',true)+' ';
+  if not includeignored then begin
+   str2:= str2 + '--exclude-standard ';
+  end;
+  result:= getprocessoutput(getgitcommand(str2+
+                getpathparam(apath,false)),'',str3,ferrormessage) = 0;
+  str1:= str1+str3;
+ end;
  afiles:= breaklines(msestring(str1));
 end;
 
-function tgitcontroller.lsfiles(const apath: filenamety;
-               const includeuntracked: boolean; const includeignored: boolean;
-               const astate: tgitstatecache;
-               const aitemclass: gitfileitemclassty;
-               out afiles: gitfileitemarty): boolean;
+function tgitcontroller.lsfiles1(const apath: filenamety;
+            const includeuntracked: boolean; const includeignored: boolean;
+            const arecursive: boolean;
+            const astate: tgitstatecache;
+            const callback: addfilecallbackeventty): boolean;
 var
  str1,str2: string;
- int1,int2: integer;
+ int1{,int2}: integer;
 // n1: tgitfileitem;
  po1,po2: pchar;
  po3: pgitstatedataty;
- dirlen: integer;
+// dirlen: integer;
  fna1: filenamety;
 // isdir: boolean;
  repodir: filenamety;
+ info1: gitfileinfoty;
 begin
- afiles:= nil;
+// afiles:= nil;
  repodir:= astate.getrepodir(apath);
- dirlen:= length(repodir)+1;
+ fdirlen:= length(repodir)+1;
+ str2:= 'ls-tree --full-name --abbrev=1 ';
+ if arecursive then begin
+  str2:= str2 + '-r ';
+ end;
+ str2:= str2 + '-z HEAD ';
  result:= getprocessoutput(
-     getgitcommand('ls-tree --full-name --abbrev=1 -z HEAD '+
+     getgitcommand(str2+
                   getpathparam(apath+'/',false)),'',str1,ferrormessage) = 0;
  if result and (str1 <> '') then begin
-  int2:= 0;
+//  int2:= 0;
   po1:= pointer(str1);
   while true do begin
    po2:= po1;
@@ -439,28 +514,37 @@ begin
    if int1 = 0 then begin
     break; //invalid
    end;
-   additem(pointerarty(afiles),pointer(aitemclass.create),int2);
-   with afiles[int2-1] do begin
+//   additem(pointerarty(afiles),pointer(aitemclass.create),int2);
+//   with afiles[int2-1] do begin
+   with info1 do begin
     setlength(str2,int1);
     move(po1^,str2[1],int1);
-    fna1:= str2;
-    fcaption:= copy(fna1,dirlen,bigint);
-    po3:= astate.find(fna1);
+    data.filename:= str2;
+//    fcaption:= copy(fna1,dirlen,bigint);
+    po3:= astate.find(data.filename);
     if po3 <> nil then begin
-     fstatex:= po3^.statex;
-     fstatey:= po3^.statey;
-    end;  
+     data.statex:= po3^.statex;
+     data.statey:= po3^.statey;
+    end
+    else begin
+     data.statex:= [];
+     data.statey:= [];
+    end;
     po1:= po1 + int1 + 1;
    end;
+   callback(info1);
   end;
   if includeuntracked or includeignored then begin
-   str2:= 'ls-files -z --other --full-name --exclude='+
-                              getpathparam(repodir+'*/',true)+' ';
+   str2:= 'ls-files -z --other --full-name ';
+   if not arecursive then begin
+    str2:= str2 + '--exclude='+ getpathparam(repodir+'*/',true)+' ';
+   end;
    if not includeignored then begin
     str2:= str2 + '--exclude-standard ';
    end;
    str2:= getgitcommand(str2 + getpathparam(apath,true));
    result:= getprocessoutput(str2,'',str1,ferrormessage) = 0;
+  {
    if not result then begin
     for int1:= 0 to int2-1 do begin
      afiles[int1].free;
@@ -468,29 +552,93 @@ begin
     int2:= 0;
    end
    else begin
-    if str1 <> '' then begin
-     po1:= pointer(str1);
-     while true do begin
-      po2:= po1;
-      if po2^ = #0 then begin
-       break; //end
-      end;
-      while po2^ <> #0 do begin
-       inc(po2);
-      end;
-      str2:= psubstr(po1,po2);
-      additem(pointerarty(afiles),pointer(aitemclass.create),int2);
-      with afiles[int2-1] do begin
-       fcaption:= copy(msestring(str2),dirlen,bigint);
-       fstatey:= [gist_untracked];
-      end;     
-      po1:= po2+1;
+   }
+   if str1 <> '' then begin
+    info1.data.statex:= [];
+    info1.data.statey:= [gist_untracked];
+    po1:= pointer(str1);
+    while true do begin
+     po2:= po1;
+     if po2^ = #0 then begin
+      break; //end
      end;
+     while po2^ <> #0 do begin
+      inc(po2);
+     end;
+     str2:= psubstr(po1,po2);
+//      additem(pointerarty(afiles),pointer(aitemclass.create),int2);
+//      with afiles[int2-1] do begin
+     with info1 do begin
+      name:= str2;
+//       fcaption:= copy(msestring(str2),dirlen,bigint);
+//       fstatey:= [gist_untracked];
+      data.statey:= [gist_untracked];
+     end;     
+     callback(info1);
+     po1:= po2+1;
     end;
+//    end;
    end;
   end;
-  setlength(afiles,int2);
+//  setlength(afiles,int2);
  end;
+end;
+
+procedure tgitcontroller.filearraycallback(var astatus: gitfileinfoty);
+var
+ n1: tgitfileitem;
+begin
+ n1:= ffileitemclass.create;
+ additem(pointerarty(ffilear),pointer(n1),fvaluecount);
+ with astatus do begin
+  n1.fcaption:= copy(data.filename,fdirlen,bigint);
+  n1.fstatex:= data.statex;
+  n1.fstatey:= data.statey;
+ end;
+end;
+
+function tgitcontroller.lsfiles(const apath: filenamety;
+               const includeuntracked: boolean; const includeignored: boolean;
+               const astate: tgitstatecache;
+               const aitemclass: gitfileitemclassty;
+               out afiles: gitfileitemarty): boolean;
+begin
+ fvaluecount:= 0;
+ ffilear:= nil;
+ ffileitemclass:= aitemclass;
+ result:= lsfiles1(apath,includeuntracked,includeignored,false,astate,
+                                                @filearraycallback);
+ setlength(ffilear,fvaluecount);
+ afiles:= ffilear;
+ ffilear:= nil;
+end;
+
+procedure tgitcontroller.filecachecallback(var astatus: gitfileinfoty);
+var
+ dir,nam: msestring; 
+begin
+ with astatus do begin
+  splitfilepath(data.filename,dir,nam);
+  if dir = fdirpath then begin
+   dir:= fdirpath; //reuse memory;
+  end
+  else begin
+   fdirpath:= dir;
+  end;
+  data.filename:= nam;
+  ffilecache.add(dir)^:= data;
+ end;
+end;
+
+function tgitcontroller.lsfiles(const apath: filenamety;
+               const includeuntracked: boolean; const includeignored: boolean;
+               const arecursive: boolean;
+               const astate: tgitstatecache;
+                              const adest: tgitfilecache): boolean;
+begin
+ ffilecache:= adest;
+ result:= lsfiles1(apath,includeuntracked,includeignored,arecursive,astate,
+                                                @filecachecallback);
 end;
 {
 function tgitcontroller.lsfiles(const apath: filenamety;
@@ -596,6 +744,30 @@ end;
 constructor tgitfileitem.create;
 begin
  inherited create(nil);
+end;
+
+{ tgitfilecache }
+
+constructor tgitfilecache.create;
+begin
+ inherited create(sizeof(gitfiledataty));
+end;
+
+procedure tgitfilecache.finalizeitem(var aitemdata);
+begin
+ finalize(gitfileinfoty(aitemdata).data);
+ inherited;
+end;
+
+function tgitfilecache.add(const adirpath: filenamety): pgitfiledataty;
+begin
+ result:= pgitfiledataty(inherited add(adirpath));
+end;
+
+procedure tgitfilecache.iterate(const akey: msestring;
+               const aiterator: gitfileiteratorprocty);
+begin
+ inherited iterate(akey,msestringiteratorprocty(aiterator));
 end;
 
 end.

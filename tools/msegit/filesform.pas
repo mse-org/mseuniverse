@@ -76,8 +76,8 @@ end;
 
 procedure tfilesfo.udaterowvaluesexe(const sender: TObject;
                const aindex: Integer; const aitem: tlistitem);
-var
- int1: integer;
+//var
+// int1: integer;
 begin
  with tmsegitfileitem(aitem) do begin
   filestate[aindex]:= imagenr;
