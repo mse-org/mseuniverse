@@ -73,7 +73,7 @@ type
    destructor destroy; override;
    procedure loaddirtree(const apath: filenamety); override;
    procedure updatestate(const areporoot,arepo: filenamety;
-                                        const astate: tgitstatecache);
+                   const astate: tgitstatecache; const afiles: tgitfilecache);
    function getfiles(const apath: filenamety;
                           const gitstate: tgitstatecache): gitfileitemarty;
  end;
@@ -225,8 +225,9 @@ begin
   fgit.status(frepo,fgitstate);
   fdirtree.loaddirtree(frepo);
   fdirtree.sort(false,true);
-  fdirtree.updatestate(freporoot,frepo,fgitstate);
-  fgit.lsfiles(frepo,fopt.showuntrackeditems,fopt.showignoreditems,true,
+  fgit.lsfiles(frepo,false,false,false,true,fgitstate,ffilecache);
+  fdirtree.updatestate(freporoot,frepo,fgitstate,ffilecache);
+  fgit.lsfiles(frepo,true,fopt.showuntrackeditems,fopt.showignoreditems,true,
                            fgitstate,ffilecache);
  finally
   application.endwait;
@@ -443,17 +444,53 @@ begin
 end;
 
 procedure tgitdirtreerootnode.updatestate(const areporoot,arepo: filenamety;
-               const astate: tgitstatecache);
+               const astate: tgitstatecache; const afiles: tgitfilecache);
 var
  lstr1: lmsestringty;
  int1,int2: integer;
  po1: pgitstateinfoty;
+ 
+ procedure checkuntracked(const anode: tgitdirtreenode; const apath: filenamety);
+ var
+  int1: integer;
+  mstr1: msestring;
+  n1: tgitdirtreenode;
+ begin
+  with anode do begin
+   if afiles.find(apath) = nil then begin
+    include(fstatey,gist_untracked);
+    fimagenr:= untrackeddiricon;
+   end
+   else begin
+    n1:= tgitdirtreenode(parent);
+    while (n1 <> nil) and (gist_untracked in n1.fstatey) do begin
+     exclude(n1.fstatey,gist_untracked);
+     n1.fimagenr:= defaultdiricon;
+     n1:= tgitdirtreenode(n1.parent);
+    end;
+   end;
+   if fcount > 0 then begin
+//    if apath <> '' then begin
+//     mstr1:= apath+'/';
+//    end
+//    else begin
+//     mstr1:= '';
+//    end;
+    for int1:= 0 to fcount - 1 do begin
+     checkuntracked(tgitdirtreenode(fitems[int1]),
+                     apath+tgitdirtreenode(fitems[int1]).fcaption+'/');
+    end;
+   end;
+  end;
+ end;
+ 
 begin
  astate.reporoot:= areporoot;
  fstatex:= [];
  fstatey:= [];
  fimagenr:= defaultdiricon;
  int2:= length(arepo)-length(areporoot);
+ checkuntracked(self,astate.getrepodir(arepo));
  for int1:= astate.count - 1 downto 0 do begin
   po1:= astate.next;
   lstr1.po:= pmsechar(po1^.name)+int2;
