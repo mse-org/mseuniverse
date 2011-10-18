@@ -126,9 +126,11 @@ type
    destructor destroy; override;
    function getfiles(const apath: filenamety): msegitfileitemarty;
    property repo: filenamety read frepo write setrepo;
+   property reporoot: filenamety read freporoot;
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
    property remotesinfo: remoteinfoarty read fremotesinfo;
+   property git: tgitcontroller read fgit;
  end;
  
 var
@@ -137,7 +139,8 @@ var
 implementation
 
 uses
- mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes;
+ mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
+ gitconsole;
   
 const
  defaultdiricon = 8;
@@ -279,6 +282,7 @@ begin
     end;
    end;
   end;
+  gitconsolefo.init;
  finally
   application.endwait;
  end;

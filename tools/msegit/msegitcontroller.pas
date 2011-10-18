@@ -140,7 +140,6 @@ type
    procedure filearraycallback(var astatus: gitfileinfoty);
    procedure filecachecallback(var astatus: gitfileinfoty);
   protected
-   function getgitcommand(const acommand: msestring): msestring;
    function commandresult(const acommand: string; out adest: string): boolean;
    function status1(const callback: addstatecallbackeventty;
                                   const apath: filenamety): boolean;
@@ -151,6 +150,7 @@ type
                             const callback: addfilecallbackeventty): boolean;
   public
    constructor create(aowner: tcomponent); override;
+   function getgitcommand(const acommand: msestring): msestring;
    function status(const apath: filenamety;
                         out astatus: gitstateinfoarty): boolean; overload;
           //true if ok

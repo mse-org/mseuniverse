@@ -31,21 +31,55 @@ type
    dirdisp: tstringdisp;
    grid: twidgetgrid;
    termed: tterminal;
+   procedure sendtextexe(const sender: TObject; var atext: msestring;
+                   var donotsend: Boolean);
+   procedure procfiexe(const sender: TObject);
   public
    procedure synctodirtree(const apath: filenamety);
+   procedure init;
  end;
  
 var
  gitconsolefo: tgitconsolefo;
 implementation
 uses
- gitconsole_mfm;
-
+ gitconsole_mfm,mainmodule,msefileutils;
+const
+ prompt = '(git)->';
 { tgitconsolefo }
 
 procedure tgitconsolefo.synctodirtree(const apath: filenamety);
 begin
  dirdisp.value:= apath;
+end;
+
+procedure tgitconsolefo.sendtextexe(const sender: TObject; var atext: msestring;
+               var donotsend: Boolean);
+var
+ fna1: filenamety;
+begin
+ donotsend:= true;
+ if mainmo.reporoot <> '' then begin
+  application.lock;
+  try
+   fna1:= setcurrentdir(mainmo.reporoot+'/'+dirdisp.value);
+   termed.execprog(mainmo.git.getgitcommand(atext));
+   setcurrentdir(fna1);
+  finally
+   application.unlock;
+  end;   
+ end;
+end;
+
+procedure tgitconsolefo.procfiexe(const sender: TObject);
+begin
+ termed.addline(prompt);
+end;
+
+procedure tgitconsolefo.init;
+begin
+ grid.clear;
+ termed.addline(prompt);
 end;
 
 end.
