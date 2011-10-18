@@ -5,7 +5,7 @@ object mainmo: tmainmo
   left = 254
   top = 222
   moduleclassname = 'tmsedatamodule'
-  object optionsstat: trttistat
+  object optionsobj: trttistat
     statfile = mainstat
     ongetobject = getoptionsobjexe
     top = 32
@@ -314,5 +314,16 @@ object mainmo: tmainmo
       FFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF
       FFFF0000FFFFFFFFFFFFFFFFFFFF0000
     }
+  end
+  object repostat: tstatfile
+    filename = '.msegitrepo.sta'
+    left = 136
+    top = 80
+  end
+  object repoobj: trttistat
+    statfile = repostat
+    ongetobject = repogetobj
+    left = 136
+    top = 104
   end
 end

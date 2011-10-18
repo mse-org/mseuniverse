@@ -114,7 +114,15 @@ type
  gitfileitemarty = array of tgitfileitem;
 
  addfilecallbackeventty = procedure(var afile: gitfileinfoty) of object;
-  
+
+ remoteinfoty = record
+  name: msestring;
+  fetchurl: msestring;
+  pushurl: msestring;
+  active: boolean;
+ end;
+ remoteinfoarty = array of remoteinfoty;
+   
  tgitcontroller = class(tmsecomponent)
   private
    fgitcommand: msestring;
@@ -133,6 +141,7 @@ type
    procedure filecachecallback(var astatus: gitfileinfoty);
   protected
    function getgitcommand(const acommand: msestring): msestring;
+   function commandresult(const acommand: string; out adest: string): boolean;
    function status1(const callback: addstatecallbackeventty;
                                   const apath: filenamety): boolean;
    function lsfiles1(const apath: filenamety; const excludetracked: boolean;
@@ -168,6 +177,7 @@ type
                     const arecursive: boolean;
                     const astate: tgitstatecache;
                     const adest: tgitfilecache): boolean; overload;
+   function remoteshow(out adest: remoteinfoarty): boolean;
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
@@ -220,6 +230,12 @@ function tgitcontroller.getpathparam(const apath: filenamety;
                                       const relative: boolean): msestring;
 begin
  result:= quotefilename(tosysfilepath(filepath(apath,'',fk_default,relative)));
+end;
+
+function tgitcontroller.commandresult(const acommand: string;
+               out adest: string): boolean;
+begin
+ result:= getprocessoutput(getgitcommand(acommand),'',adest,ferrormessage) = 0;
 end;
 
 const
@@ -330,8 +346,7 @@ var
 
 begin
  fna1:= getpathparam(apath,false);
- result:= getprocessoutput(getgitcommand('status -z --porcelain '+
-                      fna1),'',str1,ferrormessage) = 0;
+ result:= commandresult('status -z --porcelain '+fna1,str1);
  if result and (str1 <> '') then begin
   po1:= pointer(str1);
   po3:= po1 + length(str1);
@@ -365,15 +380,13 @@ begin
   end;
  end;
  if result then begin
-  if (getprocessoutput(getgitcommand(
-      'log -z --name-only --format=format: '+
-      'origin/master..HEAD '+fna1),'',str1,ferrormessage) = 0) and
+  if commandresult('log -z --name-only --format=format: '+
+                        'origin/master..HEAD '+fna1,str1) and
                                                       (str1 <> '') then begin
    scan([gist_pushpending]);
   end;
-  if (getprocessoutput(getgitcommand(
-      'log -z --name-only --format=format: '+
-      'HEAD..origin/master '+fna1),'',str1,ferrormessage) = 0) and
+  if commandresult('log -z --name-only --format=format: '+
+                                'HEAD..origin/master '+fna1,str1) and
                                                       (str1 <> '') then begin
    scan([gist_mergepending]);
   end;
@@ -432,16 +445,14 @@ var
  str1,str2,str3: string;
 begin
  str2:= 'ls-files --full-name ';
- result:= getprocessoutput(getgitcommand(str2+
-                getpathparam(apath,false)),'',str1,ferrormessage) = 0;
+ result:= commandresult(str2+getpathparam(apath,false),str1);
  if result and (includeuntracked or includeignored) then begin
   str2:= str2 + '--other --exclude='+
                               getpathparam(repodir+'*/',true)+' ';
   if not includeignored then begin
    str2:= str2 + '--exclude-standard ';
   end;
-  result:= getprocessoutput(getgitcommand(str2+
-                getpathparam(apath,false)),'',str3,ferrormessage) = 0;
+  result:= commandresult(str2+getpathparam(apath,false),str3);
   str1:= str1+str3;
  end;
  afiles:= breaklines(msestring(str1));
@@ -470,9 +481,7 @@ begin
    str2:= str2 + '-r ';
   end;
   str2:= str2 + '-z HEAD ';
-  result:= getprocessoutput(
-      getgitcommand(str2+
-                   getpathparam(apath+'/',false)),'',str1,ferrormessage) = 0;
+  result:= commandresult(str2+getpathparam(apath+'/',false),str1);
   if result and (str1 <> '') then begin
    po1:= pointer(str1);
    while true do begin
@@ -542,8 +551,7 @@ begin
   if not includeignored then begin
    str2:= str2 + '--exclude-standard ';
   end;
-  str2:= getgitcommand(str2 + getpathparam(apath,true));
-  result:= getprocessoutput(str2,'',str1,ferrormessage) = 0;
+  result:= commandresult(str2 + getpathparam(apath,true),str1);
   if str1 <> '' then begin
    info1.data.statex:= [];
    info1.data.statey:= [gist_untracked];
@@ -626,6 +634,47 @@ begin
  result:= lsfiles1(apath,excludetracked,includeuntracked,includeignored,
                                          arecursive,astate,@filecachecallback);
 end;
+
+function tgitcontroller.remoteshow(out adest: remoteinfoarty): boolean;
+var
+ str1,str2: string;
+ ar1,ar2: stringarty;
+ int1,int2,int3: integer;
+begin
+ result:= commandresult('remote -v show',str1);
+ if result then begin
+  ar1:= breaklines(str1);
+  setlength(adest,length(ar1));//max
+  int2:= 0;
+  str2:= '';
+  for int1:= 0 to high(ar1) do begin
+   ar2:= splitstring(ar1[int1],c_tab);
+   if high(ar2) = 1 then begin
+    if (str2 <> '') and (str2 <> ar2[0]) then begin
+     inc(int2);
+    end;
+    str2:= ar2[0];
+    with adest[int2] do begin
+     name:= str2;
+     int3:= length(ar2[1]);
+     if (int3 > 8) and (copy(ar2[1],int3-7,bigint) = ' (fetch)') then begin
+      fetchurl:= copy(ar2[1],1,int3-8);
+     end;
+     if (int3 > 7) and (copy(ar2[1],int3-6,bigint) = ' (push)') then begin
+      pushurl:= copy(ar2[1],1,int3-7);
+     end;
+    end;     
+   end;
+  end;
+  if str2 = '' then begin
+   adest:= nil;
+  end
+  else begin
+   setlength(adest,int2+1);
+  end;
+ end;
+end;
+
 {
 function tgitcontroller.lsfiles(const apath: filenamety;
                const ainclude: gitstatesty; const aexclude: gitstatesty;

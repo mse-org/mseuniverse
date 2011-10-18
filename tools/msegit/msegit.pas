@@ -24,12 +24,14 @@ program msegit;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
- msegui,mseforms,main,mainmodule,dirtreeform,filesform,guitemplates;
+ msegui,mseforms,main,mainmodule,dirtreeform,filesform,guitemplates,
+ remotesform;
  
 begin
  application.createdatamodule(tguitemplatesmo,guitemplatesmo);
  application.createdatamodule(tdirtreefo,dirtreefo);
  application.createdatamodule(tfilesfo,filesfo);
+ application.createdatamodule(tremotesfo,remotesfo);
  application.createdatamodule(tmainmo,mainmo);
  application.createform(tmainfo,mainfo); //last
  application.run;

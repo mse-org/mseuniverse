@@ -77,9 +77,18 @@ type
    function getfiles(const apath: filenamety;
                           const gitstate: tgitstatecache): gitfileitemarty;
  end;
-   
+
+ trepostat = class
+  private
+   factiverepos: booleanarty;
+   freponames: msestringarty;
+  published
+   property activerepos: booleanarty read factiverepos write factiverepos;
+   property reponames: msestringarty read freponames write freponames;
+ end;
+    
  tmainmo = class(tmsedatamodule)
-   optionsstat: trttistat;
+   optionsobj: trttistat;
    mainstat: tstatfile;
    openrepoact: taction;
    quitact: taction;
@@ -87,19 +96,24 @@ type
    repoclosedact: tifiactionlinkcomp;
    repoloadedact: tifiactionlinkcomp;
    images: timagelist;
+   repostat: tstatfile;
+   repoobj: trttistat;
    procedure quitexe(const sender: TObject);
    procedure openrepoexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
+   procedure repogetobj(const sender: TObject; var aobject: TObject);
   private
    frepo: filenamety;
    freporoot: filenamety;
    fopt: tmsegitoptions;
+   frepostat: trepostat;
    fdirtree: tgitdirtreerootnode;
    ffilecache: tgitfilecache;
    fgit: tgitcontroller;
    fgitstate: tgitstatecache;
    fvaluecount: integer;
    ffilear: msegitfileitemarty;
+   fremotesinfo: remoteinfoarty;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
   protected
@@ -114,6 +128,7 @@ type
    property repo: filenamety read frepo write setrepo;
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
+   property remotesinfo: remoteinfoarty read fremotesinfo;
  end;
  
 var
@@ -164,6 +179,7 @@ end;
 constructor tmainmo.create(aowner: tcomponent);
 begin
  fopt:= tmsegitoptions.create;
+ frepostat:= trepostat.create;
  ffilecache:= tgitfilecache.create;
  fdirtree:= tgitdirtreerootnode.create;
  fgit:= tgitcontroller.create(nil);
@@ -174,6 +190,7 @@ destructor tmainmo.destroy;
 begin
  closerepo;
  fgit.free;
+ frepostat.free;
  fopt.free;
  fdirtree.free;
  ffilecache.free;
@@ -200,11 +217,27 @@ begin
 end;
 
 procedure tmainmo.closerepo;
+var
+ ar1: msestringarty;
+ ar2: booleanarty;
+ int1: integer;
 begin
  fdirtree.clear;
  ffilecache.clear;
  freeandnil(fgitstate);
  if frepo <> '' then begin
+  setlength(ar1,length(fremotesinfo));
+  setlength(ar2,length(fremotesinfo));
+  for int1:= 0 to high(fremotesinfo) do begin
+   with fremotesinfo[int1] do begin
+    ar1[int1]:= name;
+    ar2[int1]:= active;
+   end;
+  end;
+  frepostat.reponames:= ar1;
+  frepostat.activerepos:= ar2;
+  repostat.writestat;
+  fremotesinfo:= nil;
   frepo:= '';
   freporoot:= '';
   repoclosed;
@@ -212,6 +245,10 @@ begin
 end;
 
 procedure tmainmo.loadrepo(const avalue: filenamety);
+var
+ ar1: msestringarty;
+ ar2: booleanarty;
+ int1,int2: integer;
 begin
  closerepo;
  if not checkgit(avalue,freporoot) then begin
@@ -221,6 +258,7 @@ begin
  setcurrentdir(freporoot);
  application.beginwait;
  try
+  repostat.readstat;
   frepo:= filepath(avalue,fk_dir);
   fgit.status(frepo,fgitstate);
   fdirtree.loaddirtree(frepo);
@@ -229,6 +267,18 @@ begin
   fdirtree.updatestate(freporoot,frepo,fgitstate,ffilecache);
   fgit.lsfiles(frepo,true,fopt.showuntrackeditems,fopt.showignoreditems,true,
                            fgitstate,ffilecache);
+  fgit.remoteshow(fremotesinfo);
+  ar1:= frepostat.reponames;
+  ar2:= frepostat.activerepos;
+  for int2:= 0 to arrayminhigh([pointer(ar1),pointer(ar2)]) do begin
+   for int1:= 0 to high(fremotesinfo) do begin
+    with fremotesinfo[int1] do begin
+     if ar1[int2] = name then begin
+      active:= ar2[int2];
+     end;
+    end;
+   end;
+  end;
  finally
   application.endwait;
  end;
@@ -301,6 +351,11 @@ begin
  setlength(ffilear,fvaluecount);
  result:= ffilear;
  ffilear:= nil;
+end;
+
+procedure tmainmo.repogetobj(const sender: TObject; var aobject: TObject);
+begin
+ aobject:= frepostat;
 end;
 
 
@@ -558,4 +613,5 @@ begin
  fshowignoreditems:= fshowignoreditems and avalue;
 end;
 
+{ trepostat }
 end.

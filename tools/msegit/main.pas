@@ -46,6 +46,7 @@ type
    procedure showfilesexe(const sender: TObject);
    procedure reloadeexe(const sender: TObject);
    procedure showignoredexe(const sender: TObject);
+   procedure showremotesexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -53,7 +54,7 @@ var
 implementation
 
 uses
- main_mfm,dirtreeform                                                                                                                    ,mainmodule,optionsform,filesform;
+ main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform;
  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
@@ -70,6 +71,11 @@ end;
 procedure tmainfo.showfilesexe(const sender: TObject);
 begin
  filesfo.activate;
+end;
+
+procedure tmainfo.showremotesexe(const sender: TObject);
+begin
+ remotesfo.activate;
 end;
 
 procedure tmainfo.showuntrackedexe(const sender: TObject);
@@ -119,5 +125,4 @@ begin
   dirtreefo.restorestate;
  end;
 end;
-
 end.

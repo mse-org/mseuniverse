@@ -45,7 +45,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 8
+        submenu.count = 9
         submenu.items = <        
           item
             submenu.count = 2
@@ -94,6 +94,11 @@ object mainfo: tmainfo
             caption = '&Files'
             state = [as_localcaption, as_localonexecute]
             onexecute = showfilesexe
+          end        
+          item
+            caption = 'Remotes'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showremotesexe
           end>
         caption = '&View'
         name = 'view'
@@ -147,5 +152,9 @@ object mainfo: tmainfo
     onexecute = reloadeexe
     left = 232
     top = 64
+    sc = (
+      1
+      16466
+    )
   end
 end

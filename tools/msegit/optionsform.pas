@@ -45,9 +45,9 @@ var
  fo1: toptionsfo;
 begin
  fo1:= toptionsfo.create(nil);
- mainmo.optionsstat.objtovalues(fo1);
+ mainmo.optionsobj.objtovalues(fo1);
  if fo1.show(ml_application) = mr_ok then begin
-  mainmo.optionsstat.valuestoobj(fo1);
+  mainmo.optionsobj.valuestoobj(fo1);
  end;
 end;
 
