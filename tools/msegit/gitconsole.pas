@@ -1,4 +1,4 @@
-{ MSEtools Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2011 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,14 +14,38 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-program ptytee;
+//
+// under construction
+//
+unit gitconsole;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
-{$ifdef FPC}
- {$ifdef mswindows}{$apptype gui}{$endif}
-{$endif}
+interface
 uses
- {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}msenogui,main;
+ mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedispwidgets,
+ msestrings,msetypes,msedataedits,mseedit,msegrids,mseifiglob,msewidgetgrid,
+ mseterminal;
+
+type
+ tgitconsolefo = class(tdockform)
+   dirdisp: tstringdisp;
+   grid: twidgetgrid;
+   termed: tterminal;
+  public
+   procedure synctodirtree(const apath: filenamety);
+ end;
+ 
+var
+ gitconsolefo: tgitconsolefo;
+implementation
+uses
+ gitconsole_mfm;
+
+{ tgitconsolefo }
+
+procedure tgitconsolefo.synctodirtree(const apath: filenamety);
 begin
- application.createdatamodule(tmainmo,mainmo);
- application.run;
+ dirdisp.value:= apath;
+end;
+
 end.

@@ -38,7 +38,7 @@ type
    fpath: filenamety;
   public
    procedure loadfiles(const apath: filenamety);
-   procedure synctodirtree;
+   procedure synctodirtree(const apath: filenamety);
  end;
 var
  filesfo: tfilesfo;
@@ -59,19 +59,9 @@ begin
  end;
 end;
 
-procedure tfilesfo.synctodirtree;
-var
- ar1: msestringarty;
- mstr1: msestring;
+procedure tfilesfo.synctodirtree(const apath: filenamety);
 begin
- if visible and (dirtreefo.grid.row >= 0) then begin
-  ar1:= dirtreefo.treeed.item.rootcaptions;
-  mstr1:= '';
-  if high(ar1) > 0 then begin
-   mstr1:= concatstrings(copy(dirtreefo.treeed.item.rootcaptions,1,bigint),'/');
-  end;
-  loadfiles(mainmo.repo+'/'+mstr1);
- end;
+ loadfiles(mainmo.repo+'/'+apath);
 end;
 
 procedure tfilesfo.udaterowvaluesexe(const sender: TObject;

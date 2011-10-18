@@ -46,7 +46,7 @@ var
  dirtreefo: tdirtreefo;
 implementation
 uses
- dirtreeform_mfm,mainmodule,filesform;
+ dirtreeform_mfm,mainmodule,filesform,gitconsole;
  
 procedure tdirtreefo.loadedexe(const sender: TObject);
 begin
@@ -63,9 +63,16 @@ end;
 
 procedure tdirtreefo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
+var
+ fna1: filenamety;
 begin
  if isrowenter(info,true) then begin
-  filesfo.synctodirtree;
+  fna1:= '';
+  if treeed.item.parent <> nil then begin
+   fna1:= concatstrings(copy(treeed.item.rootcaptions,1,bigint),'/');
+  end;
+  filesfo.synctodirtree(fna1);
+  gitconsolefo.synctodirtree(fna1);
  end;
 end;
 

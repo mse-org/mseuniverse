@@ -47,6 +47,7 @@ type
    procedure reloadeexe(const sender: TObject);
    procedure showignoredexe(const sender: TObject);
    procedure showremotesexe(const sender: TObject);
+   procedure gitconsoleshowexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -54,7 +55,8 @@ var
 implementation
 
 uses
- main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform;
+ main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform,
+ gitconsole;
  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
@@ -76,6 +78,11 @@ end;
 procedure tmainfo.showremotesexe(const sender: TObject);
 begin
  remotesfo.activate;
+end;
+
+procedure tmainfo.gitconsoleshowexe(const sender: TObject);
+begin
+ gitconsolefo.activate;
 end;
 
 procedure tmainfo.showuntrackedexe(const sender: TObject);
@@ -125,4 +132,5 @@ begin
   dirtreefo.restorestate;
  end;
 end;
+
 end.

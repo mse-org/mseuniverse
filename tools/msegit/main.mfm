@@ -45,7 +45,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 9
+        submenu.count = 10
         submenu.items = <        
           item
             submenu.count = 2
@@ -99,6 +99,11 @@ object mainfo: tmainfo
             caption = 'Remotes'
             state = [as_localcaption, as_localonexecute]
             onexecute = showremotesexe
+          end        
+          item
+            caption = 'Git Console'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = gitconsoleshowexe
           end>
         caption = '&View'
         name = 'view'
