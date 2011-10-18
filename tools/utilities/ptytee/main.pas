@@ -48,6 +48,7 @@ begin
  else begin
   if sysenv.value[ord(arg_outputfile)] <> '' then begin
    fteestream:= tbufstream.create(sysenv.value[ord(arg_outputfile)],fm_create);
+   fteestream.usewritebuffer:= true;
   end;
   proc.active:= true;
  end;
