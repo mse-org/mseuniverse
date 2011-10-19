@@ -77,6 +77,9 @@ end;
 
 procedure tgitconsolefo.procfiexe(const sender: TObject);
 begin
+ if termed.inputcolindex > 0 then begin
+  termed.addline('');
+ end;
  termed.addchars(prompt);
 end;
 
