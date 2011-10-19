@@ -59,13 +59,16 @@ procedure tgitconsolefo.sendtextexe(const sender: TObject; var atext: msestring;
 var
  fna1: filenamety;
 begin
- donotsend:= true;
  if mainmo.reporoot <> '' then begin
   application.lock;
   try
-   fna1:= setcurrentdir(mainmo.reporoot+'/'+dirdisp.value);
-   termed.execprog(mainmo.git.getgitcommand(atext));
-   setcurrentdir(fna1);
+   if not termed.running then begin
+    donotsend:= true;
+    fna1:= setcurrentdir(mainmo.reporoot+'/'+dirdisp.value);
+    termed.execprog(mainmo.git.getgitcommand(atext));
+//    termed.execprog('/home/mse/proj/msegui/testcase/mse/terminal/echo');
+    setcurrentdir(fna1);
+   end;
   finally
    application.unlock;
   end;   

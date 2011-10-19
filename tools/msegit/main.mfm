@@ -106,7 +106,7 @@ object mainfo: tmainfo
             onexecute = showremotesexe
           end        
           item
-            caption = 'Git Console'
+            caption = '&Git Console'
             state = [as_localcaption, as_localonexecute]
             onexecute = gitconsoleshowexe
           end>

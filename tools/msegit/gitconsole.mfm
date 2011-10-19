@@ -58,8 +58,10 @@ object gitconsolefo: tgitconsolefo
       font.name = 'stf_fixed'
       font.xscale = 1
       font.dummy = 0
+      maxcommandhistory = 100
       onprocfinished = procfiexe
       onsendtext = sendtextexe
+      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_tty, pro_nowaitforpipeeof, pro_ctrlc]
       reffontheight = 15
     end
   end
