@@ -48,6 +48,7 @@ type
    procedure showignoredexe(const sender: TObject);
    procedure showremotesexe(const sender: TObject);
    procedure gitconsoleshowexe(const sender: TObject);
+   procedure closerepoexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -115,6 +116,7 @@ end;
 procedure tmainfo.repoclosedexe(const sender: TObject);
 begin
  caption:= 'MSEgit';
+ gitconsolefo.clear;
 end;
 
 procedure tmainfo.optionsexe(const sender: TObject);
@@ -131,6 +133,11 @@ begin
  finally
   dirtreefo.restorestate;
  end;
+end;
+
+procedure tmainfo.closerepoexe(const sender: TObject);
+begin
+ mainmo.repo:= '';
 end;
 
 end.

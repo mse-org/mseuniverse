@@ -37,6 +37,7 @@ type
   public
    procedure synctodirtree(const apath: filenamety);
    procedure init;
+   procedure clear;
  end;
  
 var
@@ -45,7 +46,7 @@ implementation
 uses
  gitconsole_mfm,mainmodule,msefileutils;
 const
- prompt = '(git)->';
+ prompt = '(git)-> ';
 { tgitconsolefo }
 
 procedure tgitconsolefo.synctodirtree(const apath: filenamety);
@@ -73,13 +74,18 @@ end;
 
 procedure tgitconsolefo.procfiexe(const sender: TObject);
 begin
- termed.addline(prompt);
+ termed.addchars(prompt);
+end;
+
+procedure tgitconsolefo.clear;
+begin
+ grid.clear;
 end;
 
 procedure tgitconsolefo.init;
 begin
- grid.clear;
- termed.addline(prompt);
+ clear;
+ termed.addchars(prompt);
 end;
 
 end.

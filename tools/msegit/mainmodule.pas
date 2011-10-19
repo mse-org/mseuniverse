@@ -254,39 +254,41 @@ var
  int1,int2: integer;
 begin
  closerepo;
- if not checkgit(avalue,freporoot) then begin
-  showmessage(avalue+lineend+'is no git repository.','***ERROR***');
-  abort;
- end;
- setcurrentdir(freporoot);
- application.beginwait;
- try
-  repostat.readstat;
-  frepo:= filepath(avalue,fk_dir);
-  fgit.status(frepo,fgitstate);
-  fdirtree.loaddirtree(frepo);
-  fdirtree.sort(false,true);
-  fgit.lsfiles(frepo,false,false,false,true,fgitstate,ffilecache);
-  fdirtree.updatestate(freporoot,frepo,fgitstate,ffilecache);
-  fgit.lsfiles(frepo,true,fopt.showuntrackeditems,fopt.showignoreditems,true,
-                           fgitstate,ffilecache);
-  fgit.remoteshow(fremotesinfo);
-  ar1:= frepostat.reponames;
-  ar2:= frepostat.activerepos;
-  for int2:= 0 to arrayminhigh([pointer(ar1),pointer(ar2)]) do begin
-   for int1:= 0 to high(fremotesinfo) do begin
-    with fremotesinfo[int1] do begin
-     if ar1[int2] = name then begin
-      active:= ar2[int2];
+ if avalue <> '' then begin
+  if not checkgit(avalue,freporoot) then begin
+   showmessage(avalue+lineend+'is no git repository.','***ERROR***');
+   abort;
+  end;
+  setcurrentdir(freporoot);
+  application.beginwait;
+  try
+   repostat.readstat;
+   frepo:= filepath(avalue,fk_dir);
+   fgit.status(frepo,fgitstate);
+   fdirtree.loaddirtree(frepo);
+   fdirtree.sort(false,true);
+   fgit.lsfiles(frepo,false,false,false,true,fgitstate,ffilecache);
+   fdirtree.updatestate(freporoot,frepo,fgitstate,ffilecache);
+   fgit.lsfiles(frepo,true,fopt.showuntrackeditems,fopt.showignoreditems,true,
+                            fgitstate,ffilecache);
+   fgit.remoteshow(fremotesinfo);
+   ar1:= frepostat.reponames;
+   ar2:= frepostat.activerepos;
+   for int2:= 0 to arrayminhigh([pointer(ar1),pointer(ar2)]) do begin
+    for int1:= 0 to high(fremotesinfo) do begin
+     with fremotesinfo[int1] do begin
+      if ar1[int2] = name then begin
+       active:= ar2[int2];
+      end;
      end;
     end;
    end;
+   gitconsolefo.init;
+  finally
+   application.endwait;
   end;
-  gitconsolefo.init;
- finally
-  application.endwait;
+  repoloaded;
  end;
- repoloaded;
 end;
 
 procedure tmainmo.repoloaded;
@@ -512,7 +514,7 @@ var
  procedure checkuntracked(const anode: tgitdirtreenode; const apath: filenamety);
  var
   int1: integer;
-  mstr1: msestring;
+//  mstr1: msestring;
   n1: tgitdirtreenode;
  begin
   with anode do begin

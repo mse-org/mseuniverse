@@ -33,10 +33,15 @@ object mainfo: tmainfo
     menu.submenu.count = 3
     menu.submenu.items = <    
       item
-        submenu.count = 2
+        submenu.count = 3
         submenu.items = <        
           item
             action = mainmo.openrepoact
+          end        
+          item
+            caption = 'Close git repo'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = closerepoexe
           end        
           item
             action = mainmo.quitact
