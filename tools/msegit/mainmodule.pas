@@ -114,15 +114,16 @@ type
    fvaluecount: integer;
    ffilear: msegitfileitemarty;
    fremotesinfo: remoteinfoarty;
-   factiveremote: integer;
+   factiveremote: msestring;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
-   procedure setactiveremote(const avalue: integer);
+   procedure setactiveremote(const avalue: msestring);
   protected
    procedure closerepo;
    procedure loadrepo(const avalue: filenamety);
    procedure repoloaded;
    procedure repoclosed;
+   function getorigin: msestring;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
@@ -132,7 +133,7 @@ type
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
    property remotesinfo: remoteinfoarty read fremotesinfo;
-   property activeremote: integer read factiveremote write setactiveremote;
+   property activeremote: msestring read factiveremote write setactiveremote;
    property git: tgitcontroller read fgit;
  end;
  
@@ -241,7 +242,7 @@ begin
    end;
   end;
 //  frepostat.reponames:= ar1;
-  frepostat.activeremote:= fremotesinfo[activeremote].name;
+  frepostat.activeremote:= activeremote;
   repostat.writestat;
   fremotesinfo:= nil;
   frepo:= '';
@@ -252,8 +253,6 @@ end;
 
 procedure tmainmo.loadrepo(const avalue: filenamety);
 var
-// ar1: msestringarty;
-// ar2: booleanarty;
  int1,int2: integer;
  mstr1: msestring;
  bo1: boolean;
@@ -267,43 +266,44 @@ begin
   setcurrentdir(freporoot);
   application.beginwait;
   try
+   frepostat.activeremote:= 'origin';
    repostat.readstat;
    frepo:= filepath(avalue,fk_dir);
-   fgit.status(frepo,fgitstate);
+   fgit.remoteshow(fremotesinfo);
+   factiveremote:= '';
+   if high(fremotesinfo) >= 0 then begin
+    mstr1:= frepostat.activeremote;
+    for int1:= 0 to high(fremotesinfo) do begin
+     if fremotesinfo[int1].name = mstr1 then begin
+      factiveremote:= mstr1;
+      break;
+     end;
+    end;
+    {
+    if (factiveremote = '') and ( then begin
+     bo1:= false;
+     for int1:= 0 to high(fremotesinfo) do begin
+      with fremotesinfo[int1] do begin
+       if name = 'origin' then begin
+        bo1:= true;
+        factiveremote:= fremotesinfo[int1].name;
+        break;
+       end;
+      end;
+     end;
+     if not bo1 then begin
+      factiveremote:= fremotesinfo[0].name;
+     end;
+    end;
+    }
+   end;
+   fgit.status(frepo,getorigin,fgitstate);
    fdirtree.loaddirtree(frepo);
    fdirtree.sort(false,true);
    fgit.lsfiles(frepo,false,false,false,true,fgitstate,ffilecache);
    fdirtree.updatestate(freporoot,frepo,fgitstate,ffilecache);
    fgit.lsfiles(frepo,true,fopt.showuntrackeditems,fopt.showignoreditems,true,
                             fgitstate,ffilecache);
-   fgit.remoteshow(fremotesinfo);
-//   ar1:= frepostat.reponames;
-//   ar2:= frepostat.activerepos;
-   factiveremote:= -1;
-   if high(fremotesinfo) >= 0 then begin
-    mstr1:= frepostat.activeremote;
-    for int1:= 0 to high(fremotesinfo) do begin
-     if fremotesinfo[int1].name = mstr1 then begin
-      factiveremote:= int1;
-      break;
-     end;
-    end;
-    if factiveremote < 0 then begin
-     bo1:= false;
-     for int1:= 0 to high(fremotesinfo) do begin
-      with fremotesinfo[int1] do begin
-       if name = 'origin' then begin
-        bo1:= true;
-        factiveremote:= int1;
-        break;
-       end;
-      end;
-     end;
-     if not bo1 then begin
-      factiveremote:= 0;      
-     end;
-    end;
-   end;
    gitconsolefo.init;
   finally
    application.endwait;
@@ -385,14 +385,31 @@ begin
  aobject:= frepostat;
 end;
 
-procedure tmainmo.setactiveremote(const avalue: integer);
+procedure tmainmo.setactiveremote(const avalue: msestring);
+var
+ int1: integer;
+ bo1: boolean;
 begin
- if avalue < 0 then begin
-  factiveremote:= -1;
- end
- else begin
-  checkarrayindex(fremotesinfo,avalue);
-  factiveremote:= avalue;
+ if avalue <> '' then begin
+  bo1:= false;
+  for int1:= 0 to high(fremotesinfo) do begin
+   if fremotesinfo[int1].name = avalue then begin
+    bo1:= true;
+    break;
+   end;
+  end;
+  if not bo1 then begin
+   raise exception.create('Invalid remote.');
+  end;
+ end;
+ factiveremote:= avalue;
+end;
+
+function tmainmo.getorigin: msestring;
+begin
+ result:= '';
+ if factiveremote <> '' then begin
+  result:= factiveremote + '/master';
  end;
 end;
 

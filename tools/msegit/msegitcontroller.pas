@@ -142,7 +142,7 @@ type
   protected
    function commandresult(const acommand: string; out adest: string): boolean;
    function status1(const callback: addstatecallbackeventty;
-                                  const apath: filenamety): boolean;
+        const apath: filenamety; const aorigin: msestring): boolean;
    function lsfiles1(const apath: filenamety; const excludetracked: boolean;
             const includeuntracked: boolean; const includeignored: boolean;
                             const arecursive: boolean;
@@ -151,10 +151,10 @@ type
   public
    constructor create(aowner: tcomponent); override;
    function getgitcommand(const acommand: msestring): msestring;
-   function status(const apath: filenamety;
+   function status(const apath: filenamety; const aorigin: msestring;
                         out astatus: gitstateinfoarty): boolean; overload;
           //true if ok
-   function status(const apath: filenamety;
+   function status(const apath: filenamety; const aorigin: msestring;
                         out astatus: tgitstatecache): boolean; overload;
           //true if ok
    function getpathparam(const apath: filenamety;
@@ -308,7 +308,7 @@ const
    );
    
 function tgitcontroller.status1(const callback: addstatecallbackeventty;
-               const apath: filenamety): boolean;
+               const apath: filenamety; const aorigin: msestring): boolean;
 var
  fna1: filenamety;
  str1{,str2}: string;
@@ -379,15 +379,13 @@ begin
    end;
   end;
  end;
- if result then begin
-  if commandresult('log -z --name-only --format=format: '+
-                        'origin/master..HEAD '+fna1,str1) and
-                                                      (str1 <> '') then begin
+ if result and (aorigin <> '') then begin
+  if commandresult('log -z --name-only --format=format: '+ aorigin+
+                        '..HEAD '+fna1,str1) and (str1 <> '') then begin
    scan([gist_pushpending]);
   end;
   if commandresult('log -z --name-only --format=format: '+
-                                'HEAD..origin/master '+fna1,str1) and
-                                                      (str1 <> '') then begin
+       'HEAD..'+aorigin+' '+fna1,str1) and (str1 <> '') then begin
    scan([gist_mergepending]);
   end;
  end;
@@ -403,11 +401,11 @@ begin
 end;
 
 function tgitcontroller.status(const apath: filenamety;
-                                      out astatus: gitstateinfoarty): boolean;
+           const aorigin: msestring; out astatus: gitstateinfoarty): boolean;
 begin
  fstatear:= nil;
  fvaluecount:= 0;
- result:= status1(@arraycallback,apath);
+ result:= status1(@arraycallback,apath,aorigin);
  setlength(fstatear,fvaluecount);
  astatus:= fstatear;
  fstatear:= nil;
@@ -426,10 +424,10 @@ begin
 end;
 
 function tgitcontroller.status(const apath: filenamety;
-                                       out astatus: tgitstatecache): boolean;
+               const aorigin: msestring; out astatus: tgitstatecache): boolean;
 begin
  fstatecache:= tgitstatecache.create;
- result:= status1(@cachecallback,apath);
+ result:= status1(@cachecallback,apath,aorigin);
  if not result then begin
   fstatecache.clear;
  end;
