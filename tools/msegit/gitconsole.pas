@@ -65,9 +65,11 @@ begin
    if not termed.running then begin
     donotsend:= true;
     fna1:= setcurrentdir(mainmo.reporoot+'/'+dirdisp.value);
-    termed.execprog(mainmo.git.getgitcommand(atext));
-//    termed.execprog('/home/mse/proj/msegui/testcase/mse/terminal/echo');
-    setcurrentdir(fna1);
+    try
+     termed.execprog(mainmo.git.getgitcommand(atext));
+    finally
+     setcurrentdir(fna1);
+    end;
    end;
   finally
    application.unlock;

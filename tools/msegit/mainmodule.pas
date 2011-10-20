@@ -80,11 +80,11 @@ type
 
  trepostat = class
   private
-   factiverepos: booleanarty;
-   freponames: msestringarty;
+   factiveremote: msestring;
+//   freponames: msestringarty;
   published
-   property activerepos: booleanarty read factiverepos write factiverepos;
-   property reponames: msestringarty read freponames write freponames;
+   property activeremote: msestring read factiveremote write factiveremote;
+//   property reponames: msestringarty read freponames write freponames;
  end;
     
  tmainmo = class(tmsedatamodule)
@@ -114,8 +114,10 @@ type
    fvaluecount: integer;
    ffilear: msegitfileitemarty;
    fremotesinfo: remoteinfoarty;
+   factiveremote: integer;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
+   procedure setactiveremote(const avalue: integer);
   protected
    procedure closerepo;
    procedure loadrepo(const avalue: filenamety);
@@ -130,6 +132,7 @@ type
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
    property remotesinfo: remoteinfoarty read fremotesinfo;
+   property activeremote: integer read factiveremote write setactiveremote;
    property git: tgitcontroller read fgit;
  end;
  
@@ -222,7 +225,7 @@ end;
 procedure tmainmo.closerepo;
 var
  ar1: msestringarty;
- ar2: booleanarty;
+// ar2: booleanarty;
  int1: integer;
 begin
  fdirtree.clear;
@@ -230,15 +233,15 @@ begin
  freeandnil(fgitstate);
  if frepo <> '' then begin
   setlength(ar1,length(fremotesinfo));
-  setlength(ar2,length(fremotesinfo));
+//  setlength(ar2,length(fremotesinfo));
   for int1:= 0 to high(fremotesinfo) do begin
    with fremotesinfo[int1] do begin
     ar1[int1]:= name;
-    ar2[int1]:= active;
+//    ar2[int1]:= active;
    end;
   end;
-  frepostat.reponames:= ar1;
-  frepostat.activerepos:= ar2;
+//  frepostat.reponames:= ar1;
+  frepostat.activeremote:= fremotesinfo[activeremote].name;
   repostat.writestat;
   fremotesinfo:= nil;
   frepo:= '';
@@ -249,9 +252,11 @@ end;
 
 procedure tmainmo.loadrepo(const avalue: filenamety);
 var
- ar1: msestringarty;
- ar2: booleanarty;
+// ar1: msestringarty;
+// ar2: booleanarty;
  int1,int2: integer;
+ mstr1: msestring;
+ bo1: boolean;
 begin
  closerepo;
  if avalue <> '' then begin
@@ -272,14 +277,30 @@ begin
    fgit.lsfiles(frepo,true,fopt.showuntrackeditems,fopt.showignoreditems,true,
                             fgitstate,ffilecache);
    fgit.remoteshow(fremotesinfo);
-   ar1:= frepostat.reponames;
-   ar2:= frepostat.activerepos;
-   for int2:= 0 to arrayminhigh([pointer(ar1),pointer(ar2)]) do begin
+//   ar1:= frepostat.reponames;
+//   ar2:= frepostat.activerepos;
+   factiveremote:= -1;
+   if high(fremotesinfo) >= 0 then begin
+    mstr1:= frepostat.activeremote;
     for int1:= 0 to high(fremotesinfo) do begin
-     with fremotesinfo[int1] do begin
-      if ar1[int2] = name then begin
-       active:= ar2[int2];
+     if fremotesinfo[int1].name = mstr1 then begin
+      factiveremote:= int1;
+      break;
+     end;
+    end;
+    if factiveremote < 0 then begin
+     bo1:= false;
+     for int1:= 0 to high(fremotesinfo) do begin
+      with fremotesinfo[int1] do begin
+       if name = 'origin' then begin
+        bo1:= true;
+        factiveremote:= int1;
+        break;
+       end;
       end;
+     end;
+     if not bo1 then begin
+      factiveremote:= 0;      
      end;
     end;
    end;
@@ -362,6 +383,17 @@ end;
 procedure tmainmo.repogetobj(const sender: TObject; var aobject: TObject);
 begin
  aobject:= frepostat;
+end;
+
+procedure tmainmo.setactiveremote(const avalue: integer);
+begin
+ if avalue < 0 then begin
+  factiveremote:= -1;
+ end
+ else begin
+  checkarrayindex(fremotesinfo,avalue);
+  factiveremote:= avalue;
+ end;
 end;
 
 

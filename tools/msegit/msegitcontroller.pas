@@ -119,7 +119,7 @@ type
   name: msestring;
   fetchurl: msestring;
   pushurl: msestring;
-  active: boolean;
+//  active: boolean;
  end;
  remoteinfoarty = array of remoteinfoty;
    
