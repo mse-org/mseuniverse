@@ -24,7 +24,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msedatanodes,
- mselistbrowser,msegraphedits;
+ mselistbrowser,msegraphedits,mseact,mseactions;
 
 type
  tfilesfo = class(tdockform)
@@ -32,8 +32,12 @@ type
    fileitemed: titemedit;
    originstate: tdataicon;
    filestate: tdataicon;
+   gridpopup: tpopupmenu;
+   commitact: taction;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
+   procedure commitexe(const sender: TObject);
+   procedure commitupdateexe(const sender: tcustomaction);
   private
    fpath: filenamety;
   public
@@ -73,6 +77,18 @@ begin
   filestate[aindex]:= imagenr;
   originstate[aindex]:= getoriginicon;
  end;
+end;
+
+procedure tfilesfo.commitexe(const sender: TObject);
+begin
+ mainmo.commit(tgitdirtreenode(dirtreefo.treeed.item),
+                               msegitfileitemarty(fileitemed.selecteditems));
+end;
+
+procedure tfilesfo.commitupdateexe(const sender: tcustomaction);
+begin
+ sender.enabled:=  mainmo.cancommit(
+                               msegitfileitemarty(fileitemed.selecteditems));
 end;
 
 end.

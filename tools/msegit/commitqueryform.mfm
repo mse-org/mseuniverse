@@ -1,0 +1,128 @@
+object commitqueryfo: tcommitqueryfo
+  visible = False
+  bounds_x = 109
+  bounds_y = 231
+  bounds_cx = 420
+  bounds_cy = 283
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    420
+    283
+  )
+  options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = filelist.tstatfile1
+  caption = 'Commit'
+  moduleclassname = 'tmseform'
+  inline filelist: tfilelistframefo
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 420
+    bounds_cy = 250
+    anchors = [an_top, an_bottom]
+    container.bounds = (
+      0
+      0
+      420
+      250
+    )
+    inherited grid: twidgetgrid
+      bounds_cx = 420
+      bounds_cy = 250
+      fixrows.items = <      
+        item
+          captions.count = 4
+          captions.items = <          
+            item
+              options = [dco_hintclippedtext]
+            end          
+            item
+            end          
+            item
+              caption = ''
+            end          
+            item
+              caption = 'Name'
+              options = [dco_colsort, dco_hintclippedtext]
+            end>
+        end>
+      datacols.count = 4
+      datacols.sortcol = 3
+      datacols.sortcoldefault = 3
+      datacols.items = <      
+        item
+          options = [co_savestate, co_mousescrollrow]
+          widgetname = 'tbooleanedit1'
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          widgetname = 'originstate'
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          width = 16
+          options = [co_readonly, co_nofocus, co_fixwidth, co_savestate, co_mousescrollrow]
+          widgetname = 'filestate'
+          dataclass = tgridintegerdatalist
+          data = (
+            (            )
+          )
+        end      
+        item
+          width = 230
+          options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
+          widgetname = 'fileitemed'
+          dataclass = titemeditlist
+        end>
+      inherited originstate: tdataicon
+        bounds_x = 17
+      end
+      inherited filestate: tdataicon
+        bounds_x = 34
+      end
+      inherited fileitemed: titemedit
+        bounds_x = 51
+      end
+      object tbooleanedit1: tbooleanedit[3]
+        optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+        optionsskin = [osk_framebuttononly]
+        taborder = 4
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 16
+        bounds_cy = 16
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+        visible = False
+        value = True
+        valuedefault = True
+      end
+    end
+    inherited tstatfile1: tstatfile
+      filename = 'commitqueryfo.sta'
+    end
+  end
+  object tbutton1: tbutton
+    taborder = 1
+    bounds_x = 360
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_default, as_localdefault, as_localcaption]
+    caption = '&Cancel'
+    modalresult = mr_cancel
+  end
+  object tbutton2: tbutton
+    taborder = 2
+    bounds_x = 304
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption]
+    caption = 'C&ommit'
+    modalresult = mr_ok
+  end
+end

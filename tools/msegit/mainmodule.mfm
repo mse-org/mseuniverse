@@ -317,13 +317,11 @@ object mainmo: tmainmo
   end
   object repostat: tstatfile
     filename = '.msegitrepo.sta'
-    left = 136
-    top = 80
+    top = 112
   end
   object repoobj: trttistat
     statfile = repostat
     ongetobject = repogetobj
-    left = 136
-    top = 104
+    top = 136
   end
 end

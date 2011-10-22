@@ -32,15 +32,20 @@ type
    treeed: ttreeitemedit;
    repoloadedact: taction;
    repoclosedact: taction;
+   commitact: taction;
+   gridpopup: tpopupmenu;
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
+   procedure commitupdataexe(const sender: tcustomaction);
+   procedure commitexe(const sender: TObject);
   private
 //   frowsave: integer;
    fexpandedsave: expandedinfoarty;
   public
    procedure savestate;
    procedure restorestate;
+   function currentgitdir: filenamety;
  end;
 var
  dirtreefo: tdirtreefo;
@@ -87,6 +92,24 @@ begin
  grid.endupdate;
  if fexpandedsave <> nil then begin
   treeed.itemlist.expandedstate:= fexpandedsave;
+ end;
+end;
+
+procedure tdirtreefo.commitupdataexe(const sender: tcustomaction);
+begin
+ sender.enabled:= mainmo.cancommit(tgitdirtreenode(treeed.item));
+end;
+
+procedure tdirtreefo.commitexe(const sender: TObject);
+begin
+ mainmo.commit(tgitdirtreenode(treeed.item));
+end;
+
+function tdirtreefo.currentgitdir: filenamety;
+begin
+ result:= '';
+ if treeed.item <> nil then begin
+  result:= tgitdirtreenode(treeed.item).path;
  end;
 end;
 

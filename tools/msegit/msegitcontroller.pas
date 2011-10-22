@@ -21,7 +21,7 @@ unit msegitcontroller;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msestrings,mseclasses,classes,msehash,mselistbrowser,msetypes;
+ msestrings,mseclasses,classes,msehash,mselistbrowser,msetypes,msedatanodes;
 const
  defaultgitcommand = 'git';
  
@@ -107,6 +107,7 @@ type
    fstatey: gitstatesty;
   public
    constructor create; virtual;
+   procedure assign(const source: tlistitem); overload; override;
    property statex: gitstatesty read fstatex;
    property statey: gitstatesty read fstatey;
  end;
@@ -223,7 +224,7 @@ begin
  else begin
   result:= fgitcommand;
  end;
- result:= result + ' ' + acommand;
+ result:= result + ' --no-pager ' + acommand;
 end;
 
 function tgitcontroller.getpathparam(const apath: filenamety;
@@ -467,7 +468,7 @@ var
  int1: integer;
  po1,po2: pchar;
  po3: pgitstatedataty;
- fna1: filenamety;
+// fna1: filenamety;
  repodir: filenamety;
  info1: gitfileinfoty;
 begin
@@ -777,6 +778,17 @@ end;
 constructor tgitfileitem.create;
 begin
  inherited create(nil);
+end;
+
+procedure tgitfileitem.assign(const source: tlistitem);
+begin
+ inherited;
+ if source is tgitfileitem then begin
+  with tgitfileitem(source) do begin
+   self.fstatex:= fstatex;
+   self.fstatey:= fstatey;
+  end;
+ end;
 end;
 
 { tgitfilecache }

@@ -1,28 +1,22 @@
-object filesfo: tfilesfo
-  frame.grip_size = 10
-  frame.dummy = 0
-  visible = False
-  bounds_x = 99
-  bounds_y = 125
-  bounds_cx = 445
-  bounds_cy = 354
+object filelistframefo: tfilelistframefo
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 299
+  bounds_cy = 197
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    435
-    354
+    299
+    197
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
-  statfile = mainfo.formsta
-  moduleclassname = 'tdockform'
+  moduleclassname = 'tmseform'
   object grid: twidgetgrid
-    popupmenu = gridpopup
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 435
-    bounds_cy = 354
+    bounds_cx = 299
+    bounds_cy = 197
     anchors = []
     optionsgrid = [og_colsizing, og_focuscellonenter, og_sorted, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixrows.count = 1
@@ -63,10 +57,13 @@ object filesfo: tfilesfo
         width = 230
         options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
         widgetname = 'fileitemed'
+        dataclass = titemeditlist
+        datalist.imagealignment = [al_right, al_ycentered]
+        datalist.captionpos = cp_top
       end>
     datarowlinewidth = 0
     datarowheight = 16
-    statfile = mainfo.formsta
+    statfile = tstatfile1
     reffontheight = 14
     object originstate: tdataicon
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
@@ -105,25 +102,14 @@ object filesfo: tfilesfo
       bounds_cy = 16
       bounds_cymin = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_locate, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      itemlist.imagealignment = [al_right, al_ycentered]
-      onupdaterowvalues = udaterowvaluesexe
+      onupdaterowvalues = updaterowvaluesexe
       reffontheight = 14
     end
   end
-  object gridpopup: tpopupmenu
-    menu.submenu.count = 1
-    menu.submenu.items = <    
-      item
-        action = commitact
-      end>
-    left = 128
-    top = 88
-  end
-  object commitact: taction
-    caption = 'Commit'
-    onexecute = commitexe
-    onupdate = commitupdateexe
-    left = 128
-    top = 64
+  object tstatfile1: tstatfile
+    filename = 'filelistframe.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 24
+    top = 48
   end
 end

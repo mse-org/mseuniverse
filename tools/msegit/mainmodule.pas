@@ -128,6 +128,11 @@ type
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
    function getfiles(const apath: filenamety): msegitfileitemarty;
+   function cancommit(const anode: tgitdirtreenode): boolean; overload;
+   function cancommit(const aitems: msegitfileitemarty): boolean; overload;
+   procedure commit(const anode: tgitdirtreenode); overload;
+   procedure commit(const anode: tgitdirtreenode;
+                         const aitems: msegitfileitemarty); overload;
    property repo: filenamety read frepo write setrepo;
    property reporoot: filenamety read freporoot;
    property opt: tmsegitoptions read fopt;
@@ -144,7 +149,7 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
- gitconsole;
+ gitconsole,commitqueryform;
   
 const
  defaultdiricon = 8;
@@ -253,9 +258,9 @@ end;
 
 procedure tmainmo.loadrepo(const avalue: filenamety);
 var
- int1,int2: integer;
+ int1{,int2}: integer;
  mstr1: msestring;
- bo1: boolean;
+// bo1: boolean;
 begin
  closerepo;
  if avalue <> '' then begin
@@ -411,6 +416,36 @@ begin
  if factiveremote <> '' then begin
   result:= factiveremote + '/master';
  end;
+end;
+
+function tmainmo.cancommit(const anode: tgitdirtreenode): boolean;
+begin
+ result:= (anode <> nil) and (gist_modified in anode.fstatey);
+end;
+
+procedure tmainmo.commit(const anode: tgitdirtreenode);
+begin
+end;
+
+function tmainmo.cancommit(const aitems: msegitfileitemarty): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(aitems) do begin
+  if gist_modified in aitems[int1].fstatey then begin
+   result:= true;
+   break;
+  end;
+ end;
+end;
+
+procedure tmainmo.commit(const anode: tgitdirtreenode;
+                                   const aitems: msegitfileitemarty);
+var
+ ar1: msegitfileitemarty;
+begin
+ ar1:= tcommitqueryfo.create(nil).exec(aitems);
 end;
 
 
