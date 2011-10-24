@@ -116,9 +116,11 @@ type
    ffilear: msegitfileitemarty;
    fremotesinfo: remoteinfoarty;
    factiveremote: msestring;
+   fnam: filenamety;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
+   procedure updatecommit(var aitem: gitfileinfoty);
   protected
    procedure closerepo;
    procedure loadrepo(const avalue: filenamety);
@@ -445,11 +447,22 @@ begin
  ar1:= tcommitqueryfo.create(nil).exec(anode,aitems);
 end;
 
+procedure tmainmo.updatecommit(var aitem: gitfileinfoty);
+begin
+ with aitem.data do begin
+  if filename = fnam then begin
+   statey:= (statey - [gist_modified]) + [gist_pushpending];
+  end;
+ end;
+end;
+
 function tmainmo.commit(const afiles: filenamearty;
                                      const amessage: msestring): boolean;
 var
  int1: integer;
  po1: pgitstatedataty;
+ po2: pgitfiledataty;
+ dir: filenamety;
 begin
  result:= false;
  if afiles <> nil then begin
@@ -461,6 +474,8 @@ begin
     if po1 <> nil then begin
      po1^.statey:= (po1^.statey - [gist_modified]) + [gist_pushpending];
     end;
+    splitfilepath(afiles[int1],dir,fnam);
+    ffilecache.iterate(dir,@updatecommit);
    end;
    if dirtree.owner <> nil then begin
     dirtree.owner.beginupdate;
@@ -495,38 +510,7 @@ function tmsegitfileitem.getoriginicon: integer;
 begin
  result:= statetooriginicon(fstatey);
 end;
-{
-procedure tmsegitfileitem.drawimage(const acanvas: tcanvas);
-var
- int1: integer;
-begin
- inherited;
- int1:= -1;
- if gist_pushconflict in fstatey then begin
-  int1:= pusconflicticon;
- end
- else begin
-  if gist_pushpending in fstatey then begin
-   if gist_mergepending in fstatey then begin
-    int1:= pusconflicticon;
-   end
-   else begin
-    int1:= pushpendingicon;
-   end;
-  end
-  else begin
-   if gist_mergepending in fstatey then begin
-    int1:= mergependingicon;
-   end
-  end;
- end;
- if int1 >= 0 then begin
-  with fowner.layoutinfopo^ do begin
-   fowner.imagelist.paint(acanvas,int1,imagerect,[al_ycentered]);
-  end;
- end;
-end;
-}
+
 { tgitdirtreenode }
 
 constructor tgitdirtreenode.create(const aowner: tcustomitemlist = nil;

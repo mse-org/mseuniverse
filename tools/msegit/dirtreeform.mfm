@@ -92,6 +92,7 @@ object dirtreefo: tdirtreefo
   end
   object reporefreshsedact: taction
     onexecute = refreshedexe
+    ifilink = mainmo.reporefreshedact
     left = 16
     top = 48
   end
