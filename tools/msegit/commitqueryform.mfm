@@ -13,24 +13,24 @@ object commitqueryfo: tcommitqueryfo
     283
   )
   options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
-  statfile = filelist.tstatfile1
+  statfile = tstatfile1
   caption = 'Commit'
   moduleclassname = 'tmseform'
   inline filelist: tfilelistframefo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 420
-    bounds_cy = 250
+    bounds_cy = 208
     anchors = [an_top, an_bottom]
     container.bounds = (
       0
       0
       420
-      250
+      208
     )
     inherited grid: twidgetgrid
       bounds_cx = 420
-      bounds_cy = 250
+      bounds_cy = 208
       fixrows.items = <      
         item
           captions.count = 4
@@ -54,7 +54,7 @@ object commitqueryfo: tcommitqueryfo
       datacols.items = <      
         item
           options = [co_savestate, co_mousescrollrow]
-          widgetname = 'tbooleanedit1'
+          widgetname = 'selected'
           dataclass = tgridintegerdatalist
         end      
         item
@@ -76,6 +76,7 @@ object commitqueryfo: tcommitqueryfo
           widgetname = 'fileitemed'
           dataclass = titemeditlist
         end>
+      statfile = tstatfile1
       inherited originstate: tdataicon
         bounds_x = 17
       end
@@ -85,7 +86,7 @@ object commitqueryfo: tcommitqueryfo
       inherited fileitemed: titemedit
         bounds_x = 51
       end
-      object tbooleanedit1: tbooleanedit[3]
+      object selected: tbooleanedit[3]
         optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
         optionsskin = [osk_framebuttononly]
         taborder = 4
@@ -95,12 +96,10 @@ object commitqueryfo: tcommitqueryfo
         bounds_cy = 16
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
         visible = False
+        onsetvalue = selectsetexe
         value = True
         valuedefault = True
       end
-    end
-    inherited tstatfile1: tstatfile
-      filename = 'commitqueryfo.sta'
     end
   end
   object tbutton1: tbutton
@@ -121,8 +120,66 @@ object commitqueryfo: tcommitqueryfo
     bounds_cx = 50
     bounds_cy = 20
     anchors = [an_right, an_bottom]
-    state = [as_localcaption]
+    state = [as_localcaption, as_localonexecute]
     caption = 'C&ommit'
-    modalresult = mr_ok
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+    onupdate = commitupdateexe
+    onexecute = commitexe
+  end
+  object filecountdisp: tintegerdisp
+    frame.caption = 'Filecount'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      53
+      0
+    )
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 256
+    bounds_cx = 97
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object messageed: tmemodialoghistoryedit
+    frame.caption = 'Commit message'
+    frame.buttondialog.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 0
+    bounds_y = 208
+    bounds_cx = 420
+    bounds_cy = 37
+    anchors = [an_top]
+    statfile = tstatfile1
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    reffontheight = 14
+  end
+  object tspacer1: tspacer
+    taborder = 5
+    bounds_x = 224
+    bounds_y = 208
+    bounds_cx = 50
+    bounds_cy = 3
+    linktop = filelist
+    linkbottom = messageed
+    dist_bottom = -3
+  end
+  object tstatfile1: tstatfile
+    filename = 'commitqueryfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 40
+    top = 160
   end
 end

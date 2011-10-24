@@ -127,6 +127,9 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
+   function getpath(const adir: tgitdirtreenode;
+                           const afilename: filenamety): filenamety;
+                    //returns path relative to reporoot
    function getfiles(const apath: filenamety): msegitfileitemarty;
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
    function cancommit(const aitems: msegitfileitemarty): boolean; overload;
@@ -445,7 +448,13 @@ procedure tmainmo.commit(const anode: tgitdirtreenode;
 var
  ar1: msegitfileitemarty;
 begin
- ar1:= tcommitqueryfo.create(nil).exec(aitems);
+ ar1:= tcommitqueryfo.create(nil).exec(anode,aitems);
+end;
+
+function tmainmo.getpath(const adir: tgitdirtreenode;
+               const afilename: filenamety): filenamety;
+begin
+ result:= adir.path(1)+afilename;
 end;
 
 

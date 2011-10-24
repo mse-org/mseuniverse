@@ -31,7 +31,6 @@ type
    originstate: tdataicon;
    filestate: tdataicon;
    fileitemed: titemedit;
-   tstatfile1: tstatfile;
    procedure updaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
  end;
