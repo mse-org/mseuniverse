@@ -98,6 +98,7 @@ type
    images: timagelist;
    repostat: tstatfile;
    repoobj: trttistat;
+   reporefreshedact: tifiactionlinkcomp;
    procedure quitexe(const sender: TObject);
    procedure openrepoexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -127,6 +128,8 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
+   function execgitconsole(const acommand: msestring): boolean;
+                        //true if OK
    function getpath(const adir: tgitdirtreenode;
                            const afilename: filenamety): filenamety;
                     //returns path relative to reporoot
@@ -136,6 +139,8 @@ type
    procedure commit(const anode: tgitdirtreenode); overload;
    procedure commit(const anode: tgitdirtreenode;
                          const aitems: msegitfileitemarty); overload;
+   function commit(const afiles: filenamearty;
+                          const amessage: msestring): boolean; overload;
    property repo: filenamety read frepo write setrepo;
    property reporoot: filenamety read freporoot;
    property opt: tmsegitoptions read fopt;
@@ -287,23 +292,6 @@ begin
       break;
      end;
     end;
-    {
-    if (factiveremote = '') and ( then begin
-     bo1:= false;
-     for int1:= 0 to high(fremotesinfo) do begin
-      with fremotesinfo[int1] do begin
-       if name = 'origin' then begin
-        bo1:= true;
-        factiveremote:= fremotesinfo[int1].name;
-        break;
-       end;
-      end;
-     end;
-     if not bo1 then begin
-      factiveremote:= fremotesinfo[0].name;
-     end;
-    end;
-    }
    end;
    fgit.status(frepo,getorigin,fgitstate);
    fdirtree.loaddirtree(frepo);
@@ -421,6 +409,12 @@ begin
  end;
 end;
 
+function tmainmo.getpath(const adir: tgitdirtreenode;
+               const afilename: filenamety): filenamety;
+begin
+ result:= adir.path(1)+afilename;
+end;
+
 function tmainmo.cancommit(const anode: tgitdirtreenode): boolean;
 begin
  result:= (anode <> nil) and (gist_modified in anode.fstatey);
@@ -451,10 +445,41 @@ begin
  ar1:= tcommitqueryfo.create(nil).exec(anode,aitems);
 end;
 
-function tmainmo.getpath(const adir: tgitdirtreenode;
-               const afilename: filenamety): filenamety;
+function tmainmo.commit(const afiles: filenamearty;
+                                     const amessage: msestring): boolean;
+var
+ int1: integer;
+ po1: pgitstatedataty;
 begin
- result:= adir.path(1)+afilename;
+ result:= false;
+ if afiles <> nil then begin
+  result:= execgitconsole('commit -m'+fgit.encodestringparam(amessage)+' '+
+                                          fgit.encodepathparams(afiles,true));
+  if result then begin
+   for int1:= 0 to high(afiles) do begin
+    po1:= fgitstate.find(afiles[int1]);
+    if po1 <> nil then begin
+     po1^.statey:= (po1^.statey - [gist_modified]) + [gist_pushpending];
+    end;
+   end;
+   if dirtree.owner <> nil then begin
+    dirtree.owner.beginupdate;
+   end;
+   try
+    dirtree.updatestate(reporoot,repo,fgitstate,ffilecache);
+   finally
+    if dirtree.owner <> nil then begin
+     dirtree.owner.endupdate;
+    end;
+   end;
+   reporefreshedact.controller.execute;
+  end;
+ end;
+end;
+
+function tmainmo.execgitconsole(const acommand: msestring): boolean;
+begin
+ result:= gitconsolefo.execgit(acommand);
 end;
 
 
@@ -607,10 +632,11 @@ var
  procedure checkuntracked(const anode: tgitdirtreenode; const apath: filenamety);
  var
   int1: integer;
-//  mstr1: msestring;
   n1: tgitdirtreenode;
  begin
   with anode do begin
+   fstatex:= [];
+   fstatey:= [];
    if afiles.find(apath) = nil then begin
     include(fstatey,gist_untracked);
     fimagenr:= untrackeddiricon;
@@ -624,12 +650,6 @@ var
     end;
    end;
    if fcount > 0 then begin
-//    if apath <> '' then begin
-//     mstr1:= apath+'/';
-//    end
-//    else begin
-//     mstr1:= '';
-//    end;
     for int1:= 0 to fcount - 1 do begin
      checkuntracked(tgitdirtreenode(fitems[int1]),
                      apath+tgitdirtreenode(fitems[int1]).fcaption+'/');

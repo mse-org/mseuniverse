@@ -24,7 +24,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
- msedataedits,mseedit,msetypes;
+ msedataedits,mseedit,msetypes,msegraphedits;
 
 type
  tmainfo = class(tmainform)

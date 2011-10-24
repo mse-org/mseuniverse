@@ -34,10 +34,13 @@ type
    procedure sendtextexe(const sender: TObject; var atext: msestring;
                    var donotsend: Boolean);
    procedure procfiexe(const sender: TObject);
+  private
+   fexecgitwaiting: boolean;
   public
    procedure synctodirtree(const apath: filenamety);
    procedure init;
    procedure clear;
+   function execgit(const acommand: msestring): boolean;
  end;
  
 var
@@ -66,7 +69,7 @@ begin
     donotsend:= true;
     fna1:= setcurrentdir(mainmo.reporoot+'/'+dirdisp.value);
     try
-     termed.execprog(mainmo.git.getgitcommand(atext));
+     termed.execprog(mainmo.git.encodegitcommand(atext));
     finally
      setcurrentdir(fna1);
     end;
@@ -83,6 +86,10 @@ begin
   termed.addline('');
  end;
  termed.addchars(prompt);
+ if fexecgitwaiting then begin
+  fexecgitwaiting:= false;
+  window.endmodal;
+ end;
 end;
 
 procedure tgitconsolefo.clear;
@@ -94,6 +101,20 @@ procedure tgitconsolefo.init;
 begin
  clear;
  termed.addchars(prompt);
+end;
+
+function tgitconsolefo.execgit(const acommand: msestring): boolean;
+var
+ mstr1: msestring;
+begin
+ mstr1:= mainmo.git.encodegitcommand(acommand);
+ with termed do begin
+  addchars(acommand+lineend);
+  fexecgitwaiting:= true;
+  execprog(mstr1);
+  show(ml_application);
+  result:= exitcode = 0;
+ end;
 end;
 
 end.

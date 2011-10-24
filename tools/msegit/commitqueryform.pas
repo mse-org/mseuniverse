@@ -67,7 +67,7 @@ begin
   int2:= 0;
   for int1:= 0 to high(ar1) do begin
    if gist_modified in aitems[int1].statey then begin
-    ar1[int2]:= tmsegitfileitem.create(nil,aitems[int1]);
+    ar1[int2]:= tmsegitfileitem.createassign(nil,aitems[int1]);
     inc(int2);
    end;
   end;
@@ -86,6 +86,7 @@ begin
      end;
     end;
     setlength(ar2,int2);
+    mainmo.commit(ar2,messageed.value);
    end;
   end
   else begin

@@ -151,15 +151,19 @@ type
                             const callback: addfilecallbackeventty): boolean;
   public
    constructor create(aowner: tcomponent); override;
-   function getgitcommand(const acommand: msestring): msestring;
+   function encodegitcommand(const acommand: msestring): msestring;
+   function encodestringparam(const avalue: msestring): msestring;
+   function encodepathparam(const apath: filenamety;
+                                  const relative: boolean): msestring;
+   function encodepathparams(const apath: filenamearty;
+                                  const relative: boolean): msestring;
+   
    function status(const apath: filenamety; const aorigin: msestring;
                         out astatus: gitstateinfoarty): boolean; overload;
           //true if ok
    function status(const apath: filenamety; const aorigin: msestring;
                         out astatus: tgitstatecache): boolean; overload;
           //true if ok
-   function getpathparam(const apath: filenamety;
-                                  const relative: boolean): msestring;
    function lsfiles(const apath,repodir: filenamety;
                const excludetracked: boolean;
                const includeuntracked: boolean; const includeignored: boolean;
@@ -216,7 +220,7 @@ begin
  inherited;
 end;
 
-function tgitcontroller.getgitcommand(const acommand: msestring): msestring;
+function tgitcontroller.encodegitcommand(const acommand: msestring): msestring;
 begin
  if fgitcommand = '' then begin
   result:= defaultgitcommand;
@@ -227,16 +231,36 @@ begin
  result:= result + ' --no-pager ' + acommand;
 end;
 
-function tgitcontroller.getpathparam(const apath: filenamety;
+function tgitcontroller.encodepathparam(const apath: filenamety;
                                       const relative: boolean): msestring;
 begin
- result:= quotefilename(tosysfilepath(filepath(apath,'',fk_default,relative)));
+ result:= quotefilename(tosysfilepath(filepath('',apath,fk_default,relative)));
+end;
+
+function tgitcontroller.encodepathparams(const apath: filenamearty;
+               const relative: boolean): msestring;
+var
+ int1: integer;
+begin
+ result:= '';
+ if high(apath) >= 0 then begin
+  result:= encodepathparam(apath[0],relative);
+  for int1:= 1 to high(apath) do begin
+   result:= result + ' ' + encodepathparam(apath[int1],relative);
+  end;
+ end;
+end;
+
+function tgitcontroller.encodestringparam(const avalue: msestring): msestring;
+begin
+ result:= quotestring(avalue,'"');
 end;
 
 function tgitcontroller.commandresult(const acommand: string;
                out adest: string): boolean;
 begin
- result:= getprocessoutput(getgitcommand(acommand),'',adest,ferrormessage) = 0;
+ result:= getprocessoutput(encodegitcommand(acommand),'',
+                                                 adest,ferrormessage) = 0;
 end;
 
 const
@@ -346,7 +370,7 @@ var
  end;
 
 begin
- fna1:= getpathparam(apath,false);
+ fna1:= encodepathparam(apath,false);
  result:= commandresult('status -z --porcelain '+fna1,str1);
  if result and (str1 <> '') then begin
   po1:= pointer(str1);
@@ -444,14 +468,14 @@ var
  str1,str2,str3: string;
 begin
  str2:= 'ls-files --full-name ';
- result:= commandresult(str2+getpathparam(apath,false),str1);
+ result:= commandresult(str2+encodepathparam(apath,false),str1);
  if result and (includeuntracked or includeignored) then begin
   str2:= str2 + '--other --exclude='+
-                              getpathparam(repodir+'*/',true)+' ';
+                              encodepathparam(repodir+'*/',true)+' ';
   if not includeignored then begin
    str2:= str2 + '--exclude-standard ';
   end;
-  result:= commandresult(str2+getpathparam(apath,false),str3);
+  result:= commandresult(str2+encodepathparam(apath,false),str3);
   str1:= str1+str3;
  end;
  afiles:= breaklines(msestring(str1));
@@ -480,7 +504,7 @@ begin
    str2:= str2 + '-r ';
   end;
   str2:= str2 + '-z HEAD ';
-  result:= commandresult(str2+getpathparam(apath+'/',false),str1);
+  result:= commandresult(str2+encodepathparam(apath+'/',false),str1);
   if result and (str1 <> '') then begin
    po1:= pointer(str1);
    while true do begin
@@ -545,12 +569,12 @@ begin
  if includeuntracked or includeignored then begin
   str2:= 'ls-files -z --other --full-name ';
   if not arecursive then begin
-   str2:= str2 + '--exclude='+ getpathparam(repodir+'*/',true)+' ';
+   str2:= str2 + '--exclude='+ encodepathparam(repodir+'*/',true)+' ';
   end;
   if not includeignored then begin
    str2:= str2 + '--exclude-standard ';
   end;
-  result:= commandresult(str2 + getpathparam(apath,true),str1);
+  result:= commandresult(str2 + encodepathparam(apath,true),str1);
   if str1 <> '' then begin
    info1.data.statex:= [];
    info1.data.statey:= [gist_untracked];

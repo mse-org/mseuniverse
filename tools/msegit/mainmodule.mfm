@@ -324,4 +324,8 @@ object mainmo: tmainmo
     ongetobject = repogetobj
     top = 136
   end
+  object reporefreshedact: tifiactionlinkcomp
+    left = 232
+    top = 40
+  end
 end

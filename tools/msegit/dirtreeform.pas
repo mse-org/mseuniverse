@@ -34,14 +34,18 @@ type
    repoclosedact: taction;
    commitact: taction;
    gridpopup: tpopupmenu;
+   reporefreshsedact: taction;
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
    procedure commitupdataexe(const sender: tcustomaction);
    procedure commitexe(const sender: TObject);
+   procedure refreshedexe(const sender: TObject);
   private
 //   frowsave: integer;
    fexpandedsave: expandedinfoarty;
+  protected
+   function syncfilesfo: filenamety;
   public
    procedure savestate;
    procedure restorestate;
@@ -66,17 +70,22 @@ begin
  treeed.itemlist.clear;
 end;
 
+function tdirtreefo.syncfilesfo: filenamety;
+begin
+ result:= '';
+ if treeed.item.parent <> nil then begin
+  result:= concatstrings(copy(treeed.item.rootcaptions,1,bigint),'/');
+ end;
+ filesfo.synctodirtree(result);
+end;
+
 procedure tdirtreefo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 var
  fna1: filenamety;
 begin
  if isrowenter(info,true) then begin
-  fna1:= '';
-  if treeed.item.parent <> nil then begin
-   fna1:= concatstrings(copy(treeed.item.rootcaptions,1,bigint),'/');
-  end;
-  filesfo.synctodirtree(fna1);
+  fna1:= syncfilesfo;
   gitconsolefo.synctodirtree(fna1);
  end;
 end;
@@ -111,6 +120,11 @@ begin
  if treeed.item <> nil then begin
   result:= tgitdirtreenode(treeed.item).path;
  end;
+end;
+
+procedure tdirtreefo.refreshedexe(const sender: TObject);
+begin
+ syncfilesfo;
 end;
 
 end.
