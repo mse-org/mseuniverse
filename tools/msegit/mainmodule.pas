@@ -172,6 +172,8 @@ const
  pushpendingicon = 17;
  pushmergependingicon = 18;
  pusconflicticon = 19;
+ mergeconflictpendingicon = 20;
+ mergeconflictpushpendingicon = 21;
 
 function statetooriginicon(const astate: gitstatesty): integer;
 begin
@@ -182,16 +184,26 @@ begin
  else begin
   if gist_pushpending in astate then begin
    if gist_mergepending in astate then begin
-    result:= pushmergependingicon;
+    if gist_mergeconflictpending in astate then begin
+     result:= mergeconflictpushpendingicon;
+    end
+    else begin
+     result:= pushmergependingicon;
+    end;
    end
    else begin
     result:= pushpendingicon;
    end;
   end
   else begin
-   if gist_mergepending in astate then begin
-    result:= mergependingicon;
+   if gist_mergeconflictpending in astate then begin
+    result:= mergeconflictpendingicon;
    end
+   else begin
+    if gist_mergepending in astate then begin
+     result:= mergependingicon;
+    end
+   end;
   end;
  end;
 end;

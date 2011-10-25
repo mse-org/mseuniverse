@@ -29,7 +29,8 @@ type
  gitstatety = (gist_invalid,gist_unmodified,gist_modified,gist_added,
                 gist_deleted,gist_renamed,gist_copied,gist_updated,
                 gist_untracked,gist_ignored,
-                gist_pushpending,gist_mergepending,gist_pushconflict);
+                gist_pushpending,gist_mergepending,gist_mergeconflictpending,
+                gist_pushconflict);
  gitstatesty = set of gitstatety;
 
  gitstatedataty = record
@@ -444,6 +445,10 @@ begin
   if statey * [gist_pushpending,gist_mergepending] = 
                              [gist_pushpending,gist_mergepending] then begin
    include(statey,gist_pushconflict);
+  end;
+  if statey * [gist_mergepending,gist_modified] = 
+                            [gist_mergepending,gist_modified] then begin
+   include(statey,gist_mergeconflictpending);
   end;
  end;
 end;
