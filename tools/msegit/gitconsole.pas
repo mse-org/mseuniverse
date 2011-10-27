@@ -24,13 +24,14 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedispwidgets,
  msestrings,msetypes,msedataedits,mseedit,msegrids,mseifiglob,msewidgetgrid,
- mseterminal;
+ mseterminal,msesplitter;
 
 type
  tgitconsolefo = class(tdockform)
    dirdisp: tstringdisp;
    grid: twidgetgrid;
    termed: tterminal;
+   tspacer1: tspacer;
    procedure sendtextexe(const sender: TObject; var atext: msestring;
                    var donotsend: Boolean);
    procedure procfiexe(const sender: TObject);

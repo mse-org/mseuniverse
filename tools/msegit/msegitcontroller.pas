@@ -92,11 +92,15 @@ type
  gitfileiteratorprocty = procedure(var aitem: gitfileinfoty) of object;
  
  tgitfilecache = class(tmsestringhashdatalist)
+  private
+   fdirpath: filenamety;
   protected
    procedure finalizeitem(var aitemdata); override;
   public
    constructor create;
-   function add(const adirpath: filenamety): pgitfiledataty;
+   function add(const adirpath: filenamety): pgitfiledataty; overload;
+   function add(var ainfo: gitfileinfoty): pgitfiledataty; overload;
+   function add(const astatus: gitstateinfoty): pgitfiledataty; overload;
    procedure iterate(const akey: msestring;
                      const aiterator: gitfileiteratorprocty); overload;
  end;
@@ -136,11 +140,11 @@ type
    ffileitemclass: gitfileitemclassty;
    ffilecache: tgitfilecache;
    fdirlen: integer;
-   fdirpath: filenamety;
+//   fdirpath: filenamety;
    procedure arraycallback(const astatus: gitstateinfoty);
    procedure cachecallback(const astatus: gitstateinfoty);
-   procedure filearraycallback(var astatus: gitfileinfoty);
-   procedure filecachecallback(var astatus: gitfileinfoty);
+   procedure filearraycallback(var ainfo: gitfileinfoty);
+   procedure filecachecallback(var ainfo: gitfileinfoty);
   protected
    function commandresult(const acommand: string; out adest: string): boolean;
    function status1(const callback: addstatecallbackeventty;
@@ -163,6 +167,7 @@ type
                         out astatus: gitstateinfoarty): boolean; overload;
           //true if ok
    function status(const apath: filenamety; const aorigin: msestring;
+             const afiles: tgitfilecache; //add added files, can be nil
                         out astatus: tgitstatecache): boolean; overload;
           //true if ok
    function lsfiles(const apath,repodir: filenamety;
@@ -439,6 +444,9 @@ end;
 
 procedure tgitcontroller.cachecallback(const astatus: gitstateinfoty);
 begin
+ if (ffilecache <> nil) and (gist_added in astatus.data.statex) then begin
+  ffilecache.add(astatus);
+ end;
  with fstatecache.addunique(astatus.name)^ do begin
   statex:= statex + astatus.data.statex;
   statey:= statey + astatus.data.statey;
@@ -454,9 +462,12 @@ begin
 end;
 
 function tgitcontroller.status(const apath: filenamety;
-               const aorigin: msestring; out astatus: tgitstatecache): boolean;
+               const aorigin: msestring;
+               const afiles: tgitfilecache; //add added files, can be nil
+               out astatus: tgitstatecache): boolean;
 begin
  fstatecache:= tgitstatecache.create;
+ ffilecache:= afiles;
  result:= status1(@cachecallback,apath,aorigin);
  if not result then begin
   fstatecache.clear;
@@ -604,13 +615,13 @@ begin
  end;
 end;
 
-procedure tgitcontroller.filearraycallback(var astatus: gitfileinfoty);
+procedure tgitcontroller.filearraycallback(var ainfo: gitfileinfoty);
 var
  n1: tgitfileitem;
 begin
  n1:= ffileitemclass.create;
  additem(pointerarty(ffilear),pointer(n1),fvaluecount);
- with astatus do begin
+ with ainfo do begin
   n1.fcaption:= copy(data.filename,fdirlen,bigint);
   n1.fstatex:= data.statex;
   n1.fstatey:= data.statey;
@@ -634,21 +645,9 @@ begin
  ffilear:= nil;
 end;
 
-procedure tgitcontroller.filecachecallback(var astatus: gitfileinfoty);
-var
- dir,nam: msestring; 
+procedure tgitcontroller.filecachecallback(var ainfo: gitfileinfoty);
 begin
- with astatus do begin
-  splitfilepath(data.filename,dir,nam);
-  if dir = fdirpath then begin
-   dir:= fdirpath; //reuse memory;
-  end
-  else begin
-   fdirpath:= dir;
-  end;
-  data.filename:= nam;
-  ffilecache.add(dir)^:= data;
- end;
+ ffilecache.add(ainfo);
 end;
 
 function tgitcontroller.lsfiles(const apath: filenamety;
@@ -842,6 +841,44 @@ procedure tgitfilecache.iterate(const akey: msestring;
                const aiterator: gitfileiteratorprocty);
 begin
  inherited iterate(akey,msestringiteratorprocty(aiterator));
+end;
+
+function tgitfilecache.add(var ainfo: gitfileinfoty): pgitfiledataty;
+var
+ dir,nam: msestring; 
+begin
+ with ainfo do begin
+  splitfilepath(data.filename,dir,nam);
+  if dir = fdirpath then begin
+   dir:= fdirpath; //reuse memory;
+  end
+  else begin
+   fdirpath:= dir;
+  end;
+  data.filename:= nam;
+  add(dir)^:= data;
+ end;
+end;
+
+function tgitfilecache.add(const astatus: gitstateinfoty): pgitfiledataty;
+
+var
+ dir,nam: msestring; 
+begin
+ with astatus do begin
+  splitfilepath(name,dir,nam);
+  if dir = fdirpath then begin
+   dir:= fdirpath; //reuse memory;
+  end
+  else begin
+   fdirpath:= dir;
+  end;
+  with add(dir)^ do begin
+   filename:= nam;
+   statex:= data.statex;
+   statey:= data.statey
+  end;
+ end;
 end;
 
 end.

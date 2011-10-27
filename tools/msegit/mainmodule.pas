@@ -174,17 +174,19 @@ const
  pusconflicticon = 19;
  mergeconflictpendingicon = 20;
  mergeconflictpushpendingicon = 21;
+ addedicon = 22;
+ addedmodifiedicon = 23;
 
-function statetooriginicon(const astate: gitstatesty): integer;
+function statetooriginicon(const astatex,astatey: gitstatesty): integer;
 begin
  result:= -1;
- if gist_pushconflict in astate then begin
+ if gist_pushconflict in astatey then begin
   result:= pusconflicticon;
  end
  else begin
-  if gist_pushpending in astate then begin
-   if gist_mergepending in astate then begin
-    if gist_mergeconflictpending in astate then begin
+  if gist_pushpending in astatey then begin
+   if gist_mergepending in astatey then begin
+    if gist_mergeconflictpending in astatey then begin
      result:= mergeconflictpushpendingicon;
     end
     else begin
@@ -196,11 +198,11 @@ begin
    end;
   end
   else begin
-   if gist_mergeconflictpending in astate then begin
+   if gist_mergeconflictpending in astatey then begin
     result:= mergeconflictpendingicon;
    end
    else begin
-    if gist_mergepending in astate then begin
+    if gist_mergepending in astatey then begin
      result:= mergependingicon;
     end
    end;
@@ -307,10 +309,11 @@ begin
      end;
     end;
    end;
-   fgit.status(frepo,getorigin,fgitstate);
+   fgit.status(frepo,getorigin,ffilecache,fgitstate);
    fdirtree.loaddirtree(frepo);
    fdirtree.sort(false,true);
    fgit.lsfiles(frepo,false,false,false,true,fgitstate,ffilecache);
+                      //list tracked files
    fdirtree.updatestate(freporoot,frepo,fgitstate,ffilecache);
    fgit.lsfiles(frepo,true,fopt.showuntrackeditems,fopt.showignoreditems,true,
                             fgitstate,ffilecache);
@@ -351,7 +354,17 @@ begin
    n1.fstatey:= statey;
    int1:= defaultfileicon;
    if gist_modified in statey then begin
-    int1:= modifiedfileicon;
+    if gist_added in statex then begin
+     int1:= addedmodifiedicon;
+    end
+    else begin
+     int1:= modifiedfileicon;
+    end;
+   end
+   else begin
+    if gist_added in statex then begin
+     int1:= addedicon;
+    end;
    end;
    if gist_untracked in statey then begin
     int1:= untrackedfileicon;
@@ -520,7 +533,7 @@ end;
 
 function tmsegitfileitem.getoriginicon: integer;
 begin
- result:= statetooriginicon(fstatey);
+ result:= statetooriginicon(fstatex,fstatey);
 end;
 
 { tgitdirtreenode }
@@ -581,7 +594,7 @@ end;
 
 function tgitdirtreenode.getoriginicon: integer;
 begin
- result:= statetooriginicon(fstatey);
+ result:= statetooriginicon(fstatex,fstatey);
 end;
 
 { tgitdirtreerootnode }
