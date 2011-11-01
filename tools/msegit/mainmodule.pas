@@ -52,8 +52,9 @@ type
 
  tgitdirtreenode = class(tdirtreenode)
   private
-   fstatex: gitstatesty;
-   fstatey: gitstatesty;
+   fgitstate: gitstatedataty;
+//   fstatex: gitstatesty;
+//   fstatey: gitstatesty;
   protected
    procedure setstate(const astate: gitstateinfoty; var aname: lmsestringty);
   public
@@ -119,6 +120,7 @@ type
    fremotesinfo: remoteinfoarty;
    factiveremote: msestring;
    fnam: filenamety;
+   fkind: commitkindty;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
@@ -144,9 +146,10 @@ type
    function cancommit(const aitems: msegitfileitemarty): boolean; overload;
    procedure commit(const aitems: gitdirtreenodearty); overload;
    procedure commit(const anode: tgitdirtreenode;
-                         const aitems: msegitfileitemarty); overload;
+                     const aitems: msegitfileitemarty); overload;
    function commit(const afiles: filenamearty;
-                          const amessage: msestring): boolean; overload;
+                          const amessage: msestring;
+                          const akind: commitkindty): boolean; overload;
    property repo: filenamety read frepo write setrepo;
    property reporoot: filenamety read freporoot;
    property opt: tmsegitoptions read fopt;
@@ -171,6 +174,8 @@ const
  untrackedfileicon = 14;
  mergefileicon = 24;
  mergeconflictfileicon = 25;
+ stagedfileicon = 30;
+ stagedconflictfileicon = 31;
 
  defaultdiricon = 8;
  unmergeddiricon = 26;
@@ -187,16 +192,16 @@ const
  addedmodifiedicon = 23;
  
 
-function statetooriginicon(const astatex,astatey: gitstatesty): integer;
+function statetooriginicon(const astate: gitstatedataty): integer;
 begin
  result:= -1;
- if gist_pushconflict in astatey then begin
+ if gist_pushconflict in astate.statey then begin
   result:= pusconflicticon;
  end
  else begin
-  if gist_pushpending in astatey then begin
-   if gist_mergepending in astatey then begin
-    if gist_mergeconflictpending in astatey then begin
+  if gist_pushpending in astate.statey then begin
+   if gist_mergepending in astate.statey then begin
+    if gist_mergeconflictpending in astate.statey then begin
      result:= mergeconflictpushpendingicon;
     end
     else begin
@@ -208,11 +213,11 @@ begin
    end;
   end
   else begin
-   if gist_mergeconflictpending in astatey then begin
+   if gist_mergeconflictpending in astate.statey then begin
     result:= mergeconflictpendingicon;
    end
    else begin
-    if gist_mergepending in astatey then begin
+    if gist_mergepending in astate.statey then begin
      result:= mergependingicon;
     end
    end;
@@ -220,11 +225,13 @@ begin
  end;
 end;
 
-function statetofileicon(const astatex,astatey: gitstatesty): integer;
+function statetofileicon(const astate: gitstatedataty): integer;
 begin
  result:= defaultfileicon;
- if (gist_unmerged in astatex) or (gist_unmerged in astatey) then begin
-  if (gist_unmerged in astatex) and (gist_unmerged in astatey) then begin
+ if (gist_unmerged in astate.statex) or 
+                        (gist_unmerged in astate.statey) then begin
+  if (gist_unmerged in astate.statex) and 
+                     (gist_unmerged in astate.statey) then begin
    result:= mergeconflictfileicon;
   end
   else begin
@@ -232,8 +239,8 @@ begin
   end;
  end
  else begin
-  if gist_modified in astatey then begin
-   if gist_added in astatex then begin
+  if gist_modified in astate.statey then begin
+   if gist_added in astate.statex then begin
     result:= addedmodifiedicon;
    end
    else begin
@@ -241,11 +248,16 @@ begin
    end;
   end
   else begin
-   if gist_added in astatex then begin
-    result:= addedicon;
+   if gist_modified in astate.statex then begin
+    result:= stagedfileicon;
+   end
+   else begin
+    if gist_added in astate.statex then begin
+     result:= addedicon;
+    end;
    end;
   end;
-  if gist_untracked in astatey then begin
+  if gist_untracked in astate.statey then begin
    result:= untrackedfileicon;
   end;
  end;
@@ -386,14 +398,13 @@ var
  n1: tmsegitfileitem;
  int1: integer;
 begin
- with aitem.data do begin 
+ with aitem.data.stateinfo do begin 
   if filename <> '' then begin
    n1:= tmsegitfileitem.create;
    additem(pointerarty(ffilear),pointer(n1),fvaluecount);
    n1.fcaption:= filename;
-   n1.fstatex:= statex;
-   n1.fstatey:= statey;
-   n1.fimagenr:= statetofileicon(statex,statey);
+   n1.fgitstate:= data;
+   n1.fimagenr:= statetofileicon(data);
   end;
  end;
 end;
@@ -468,7 +479,7 @@ end;
 
 function tmainmo.cancommit(const anode: tgitdirtreenode): boolean;
 begin
- result:= (anode <> nil) and (gist_modified in anode.fstatey);
+ result:= (anode <> nil) and checkcancommit(anode.fgitstate);
 end;
 
 function tmainmo.cancommit(const aitems: gitdirtreenodearty): boolean;
@@ -489,7 +500,7 @@ var
  n1: tmsegitfileitem;
 begin
  n1:= tmsegitfileitem.create(aitem,fpathstart);
- n1.fimagenr:= statetofileicon(n1.fstatex,n1.fstatey);
+ n1.fimagenr:= statetofileicon(n1.fgitstate);
  additem(pointerarty(ffilear),pointer(n1),fvaluecount);
 end;
 
@@ -562,7 +573,7 @@ var
 begin
  result:= false;
  for int1:= 0 to high(aitems) do begin
-  if gist_modified in aitems[int1].fstatey then begin
+  if checkcancommit(aitems[int1].fgitstate) then begin
    result:= true;
    break;
   end;
@@ -570,40 +581,92 @@ begin
 end;
 
 procedure tmainmo.commit(const anode: tgitdirtreenode;
-                                   const aitems: msegitfileitemarty);
-var
- ar1: msegitfileitemarty;
+                         const aitems: msegitfileitemarty);
 begin
- ar1:= tcommitqueryfo.create(nil).exec(anode,aitems);
+ tcommitqueryfo.create(nil).exec(anode,aitems);
 end;
 
-procedure tmainmo.updatecommit(var aitem: gitfileinfoty);
+procedure updatecommitinfo(const akind: commitkindty;
+                                          var adata: gitstatedataty);
 begin
- with aitem.data do begin
-  if filename = fnam then begin
-   statey:= (statey - [gist_modified]) + [gist_pushpending];
+ with adata do begin
+  case akind of
+   ck_commit,ck_ammend: begin
+    statey:= (statey - cancommitstate) + [gist_pushpending];
+    statex:= statex - cancommitstate;
+   end;
+   ck_stage: begin
+    statex:= statex + statey * cancommitstate;
+    statey:= statey - cancommitstate;
+   end;
+   ck_unstage: begin
+    statey:= statey + statex * cancommitstate;
+    statex:= statex - cancommitstate;
+   end;
   end;
  end;
 end;
 
+procedure tmainmo.updatecommit(var aitem: gitfileinfoty);
+begin
+ if aitem.data.stateinfo.filename = fnam then begin
+  updatecommitinfo(fkind,aitem.data.stateinfo.data);
+ end;
+end;
+
 function tmainmo.commit(const afiles: filenamearty;
-                                     const amessage: msestring): boolean;
+                        const amessage: msestring;
+                        const akind: commitkindty): boolean;
 var
  int1: integer;
  po1: pgitstatedataty;
  po2: pgitfiledataty;
  dir: filenamety;
+ mstr1: msestring;
 begin
  result:= false;
  if afiles <> nil then begin
-  result:= execgitconsole('commit -m'+fgit.encodestringparam(amessage)+' '+
-                                          fgit.encodepathparams(afiles,true));
+  case akind of
+   ck_stage: begin
+    mstr1:= 'add ';
+   end;
+   ck_unstage: begin
+    mstr1:= 'reset -q ';
+   end;
+   ck_ammend,ck_commit: begin
+    mstr1:= 'commit -m'+fgit.encodestringparam(amessage)+' ';
+    if akind = ck_ammend then begin
+     mstr1:= mstr1 + '--ammend ';
+    end;
+   end;
+   else begin
+    exit;
+   end;
+  end;
+  result:= execgitconsole(mstr1+fgit.encodepathparams(afiles,true));
   if result then begin
    for int1:= 0 to high(afiles) do begin
     po1:= fgitstate.find(afiles[int1]);
     if po1 <> nil then begin
-     po1^.statey:= (po1^.statey - [gist_modified]) + [gist_pushpending];
+     updatecommitinfo(akind,po1^);
+     {
+     case akind of
+      ck_stage: begin
+       po1^.statex:= (po1^.statex + [gist_modified]);
+       po1^.statey:= (po1^.statey - [gist_modified]);
+      end;
+      ck_unstage: begin
+       po1^.statex:= (po1^.statex - [gist_modified]);
+       po1^.statey:= (po1^.statey + [gist_modified]);
+      end;
+      ck_ammend,ck_commit: begin
+       po1^.statex:= (po1^.statex - [gist_modified]);
+       po1^.statey:= (po1^.statey - [gist_modified]) + [gist_pushpending];
+      end;
+     end;
+     }
     end;
+    fkind:= akind;
     splitfilepath(afiles[int1],dir,fnam);
     ffilecache.iterate(dir,@updatecommit);
    end;
@@ -637,7 +700,7 @@ end;
 
 function tmsegitfileitem.getoriginicon: integer;
 begin
- result:= statetooriginicon(fstatex,fstatey);
+ result:= statetooriginicon(fgitstate);
 end;
 
 { tgitdirtreenode }
@@ -657,8 +720,10 @@ var
  lstr1: lmsestringty;
  int1: integer;
 begin
- fstatex:= fstatex + astate.data.statex;
- fstatey:= fstatey + astate.data.statey;
+ with fgitstate do begin
+  statex:= statex + astate.data.statex;
+  statey:= statey + astate.data.statey;
+ end;
  lstr1:= aname;
  po1:= msestrings.strscan(aname,msechar('/'));
  if po1 <> nil then begin
@@ -673,21 +738,23 @@ begin
   end;
  end;
  int1:= defaultdiricon;
- if (gist_unmerged in fstatex) or (gist_unmerged in fstatey) then begin
-  if gist_modified in fstatey then begin
-   int1:= modifiedunmergeddiricon;
+ with fgitstate do begin
+  if (gist_unmerged in statex) or (gist_unmerged in statey) then begin
+   if gist_modified in statey then begin
+    int1:= modifiedunmergeddiricon;
+   end
+   else begin
+    int1:= unmergeddiricon;
+   end;
   end
   else begin
-   int1:= unmergeddiricon;
+   if (gist_modified in statey) or (gist_modified in statex) then begin
+    int1:= modifieddiricon;
+   end;
   end;
- end
- else begin
-  if gist_modified in fstatey then begin
-   int1:= modifieddiricon;
+  if (lstr1.len = 0) and (gist_untracked in statey) then begin //directory end
+   int1:= untrackeddiricon;
   end;
- end;
- if (lstr1.len = 0) and (gist_untracked in fstatey) then begin //directory end
-  int1:= untrackeddiricon;
  end;
  fimagenr:= int1;
 end;
@@ -708,7 +775,7 @@ end;
 
 function tgitdirtreenode.getoriginicon: integer;
 begin
- result:= statetooriginicon(fstatex,fstatey);
+ result:= statetooriginicon(fgitstate);
 end;
 
 { tgitdirtreerootnode }
@@ -757,17 +824,17 @@ var
   int1: integer;
   n1: tgitdirtreenode;
  begin
-  with anode do begin
-   fstatex:= [];
-   fstatey:= [];
+  with anode,fgitstate do begin
+   statex:= [];
+   statey:= [];
    if afiles.find(apath) = nil then begin
-    include(fstatey,gist_untracked);
+    include(statey,gist_untracked);
     fimagenr:= untrackeddiricon;
    end
    else begin
     n1:= tgitdirtreenode(parent);
-    while (n1 <> nil) and (gist_untracked in n1.fstatey) do begin
-     exclude(n1.fstatey,gist_untracked);
+    while (n1 <> nil) and (gist_untracked in n1.fgitstate.statey) do begin
+     exclude(n1.fgitstate.statey,gist_untracked);
      n1.fimagenr:= defaultdiricon;
      n1:= tgitdirtreenode(n1.parent);
     end;
@@ -783,15 +850,15 @@ var
  
 begin
  astate.reporoot:= areporoot;
- fstatex:= [];
- fstatey:= [];
+ fgitstate.statex:= [];
+ fgitstate.statey:= [];
  fimagenr:= defaultdiricon;
  int2:= length(arepo)-length(areporoot);
  checkuntracked(self,astate.getrepodir(arepo));
  for int1:= astate.count - 1 downto 0 do begin
   po1:= astate.next;
-  lstr1.po:= pmsechar(po1^.name)+int2;
-  lstr1.len:= length(po1^.name)-int2;
+  lstr1.po:= pmsechar(po1^.filename)+int2;
+  lstr1.len:= length(po1^.filename)-int2;
   setstate(po1^,lstr1);
  end;
 end;
@@ -821,13 +888,13 @@ begin
     po1:= gitstate.find(pref+info.name);
     if po1 <> nil then begin
      with n1 do begin
-      fstatex:= po1^.statex;
-      fstatey:= po1^.statey;
+      fgitstate.statex:= po1^.statex;
+      fgitstate.statey:= po1^.statey;
       int2:= defaultfileicon;
-      if gist_modified in fstatey then begin
+      if gist_modified in fgitstate.statey then begin
        int2:= modifiedfileicon;
       end;
-      if gist_untracked in fstatey then begin
+      if gist_untracked in fgitstate.statey then begin
        int2:= untrackedfileicon;
       end;
       fimagenr:= int2;

@@ -26,6 +26,8 @@ const
  defaultgitcommand = 'git';
  
 type
+ commitkindty = (ck_none,ck_stage,ck_unstage,ck_ammend,ck_commit);
+
  gitstatety = (gist_invalid,gist_unmodified,gist_modified,gist_added,
                 gist_deleted,gist_renamed,gist_copied,gist_unmerged,
                 gist_untracked,gist_ignored,
@@ -33,13 +35,17 @@ type
                 gist_pushconflict);
  gitstatesty = set of gitstatety;
 
+const
+ cancommitstate = [gist_modified,gist_added,gist_deleted,gist_renamed];
+
+type
  gitstatedataty = record
   statex: gitstatesty;
   statey: gitstatesty;
  end;
  pgitstatedataty = ^gitstatedataty;
  gitstateinfoty = record
-  name: filenamety;
+  filename: filenamety;
   data: gitstatedataty;
  end;
  pgitstateinfoty = ^gitstateinfoty;
@@ -89,8 +95,9 @@ type
  end;
  }
  gitfiledataty = record
-  filename: filenamety;
-  statex,statey: gitstatesty;
+  stateinfo: gitstateinfoty;
+//  filename: filenamety;
+//  statex,statey: gitstatesty;
  end;
  pgitfiledataty = ^gitfiledataty;
  gitfileinfoty = record
@@ -117,15 +124,17 @@ type
  tgitfileitem = class(tlistedititem)
   private
   protected
-   fstatex: gitstatesty;
-   fstatey: gitstatesty;
+   fgitstate: gitstatedataty;
+//   fstatex: gitstatesty;
+//   fstatey: gitstatesty;
   public
    constructor create; virtual; overload;
    constructor create(const aitem: gitstateinfoty;
                                const pathstart: integer); overload;
    procedure assign(const source: tlistitem); overload; override;
-   property statex: gitstatesty read fstatex;
-   property statey: gitstatesty read fstatey;
+   property statex: gitstatesty read fgitstate.statex;
+   property statey: gitstatesty read fgitstate.statey;
+   property gitstate: gitstatedataty read fgitstate;
  end;
  gitfileitemclassty = class of tgitfileitem;
  gitfileitemarty = array of tgitfileitem;
@@ -207,12 +216,22 @@ type
  
 function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
 //git log -z --name-only --format=format: origin/master..HEAD 
+
+function checkcancommit(const astate: gitstatedataty): boolean;
+
 implementation
 uses
  msefileutils,mseprocess,msearrayutils,msesysintf,msesystypes,msesysutils;
 
 type
  thashdatalist1 = class(thashdatalist);
+
+function checkcancommit(const astate: gitstatedataty): boolean;
+begin
+ with astate do begin
+  result:= (statex * cancommitstate <> []) or (statey * cancommitstate <> []);
+ end;
+end;
   
 function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
 var
@@ -264,7 +283,7 @@ var
 begin
  result:= '';
  if high(apath) >= 0 then begin
-  result:= encodepathparam(apath[0],relative);
+  result:= '-- '+encodepathparam(apath[0],relative);
   for int1:= 1 to high(apath) do begin
    result:= result + ' ' + encodepathparam(apath[int1],relative);
   end;
@@ -379,7 +398,7 @@ var
      inc(po2);
     end;
     with stat1 do begin
-     name:= psubstr(po1,po2);
+     filename:= psubstr(po1,po2);
      data.statex:= [];
      data.statey:= aflags;
     end;
@@ -417,7 +436,7 @@ begin
       data.statey:= [statchars[ord(po1^)]];
      end;
      inc(po1,2);
-     name:= po1;
+     filename:= po1;
      callback(stat1);
     end;
     po1:= po2+1;
@@ -461,7 +480,7 @@ begin
  if (ffilecache <> nil) and (gist_added in astatus.data.statex) then begin
   ffilecache.add(astatus);
  end;
- with fstatecache.addunique(astatus.name)^ do begin
+ with fstatecache.addunique(astatus.filename)^ do begin
   statex:= statex + astatus.data.statex;
   statey:= statey + astatus.data.statey;
   if statey * [gist_pushpending,gist_mergepending] = 
@@ -580,15 +599,15 @@ begin
     with info1 do begin
      setlength(str2,int1);
      move(po1^,str2[1],int1);
-     data.filename:= str2;
-     po3:= astate.find(data.filename);
+     data.stateinfo.filename:= str2;
+     po3:= astate.find(data.stateinfo.filename);
      if po3 <> nil then begin
-      data.statex:= po3^.statex;
-      data.statey:= po3^.statey;
+      data.stateinfo.data.statex:= po3^.statex;
+      data.stateinfo.data.statey:= po3^.statey;
      end
      else begin
-      data.statex:= [];
-      data.statey:= [];
+      data.stateinfo.data.statex:= [];
+      data.stateinfo.data.statey:= [];
      end;
      po1:= po1 + int1 + 1;
     end;
@@ -606,8 +625,8 @@ begin
   end;
   result:= commandresult(str2 + encodepathparam(apath,true),str1);
   if str1 <> '' then begin
-   info1.data.statex:= [];
-   info1.data.statey:= [gist_untracked];
+   info1.data.stateinfo.data.statex:= [];
+   info1.data.stateinfo.data.statey:= [gist_untracked];
    po1:= pointer(str1);
    while true do begin
     po2:= po1;
@@ -619,8 +638,8 @@ begin
     end;
     str2:= psubstr(po1,po2);
     with info1 do begin
-     data.filename:= str2;
-     data.statey:= [gist_untracked];
+     data.stateinfo.filename:= str2;
+     data.stateinfo.data.statey:= [gist_untracked];
     end;     
     callback(info1);
     po1:= po2+1;
@@ -636,9 +655,8 @@ begin
  n1:= ffileitemclass.create;
  additem(pointerarty(ffilear),pointer(n1),fvaluecount);
  with ainfo do begin
-  n1.fcaption:= copy(data.filename,fdirlen,bigint);
-  n1.fstatex:= data.statex;
-  n1.fstatey:= data.statey;
+  n1.fcaption:= copy(data.stateinfo.filename,fdirlen,bigint);
+  n1.fgitstate:= data.stateinfo.data;
  end;
 end;
 
@@ -900,8 +918,7 @@ begin
  inherited;
  if source is tgitfileitem then begin
   with tgitfileitem(source) do begin
-   self.fstatex:= fstatex;
-   self.fstatey:= fstatey;
+   self.fgitstate:= fgitstate;
   end;
  end;
 end;
@@ -910,9 +927,8 @@ constructor tgitfileitem.create(const aitem: gitstateinfoty;
                                                   const pathstart: integer);
 begin
  create;
- fcaption:= copy(aitem.name,pathstart,bigint);
- fstatex:= aitem.data.statex;
- fstatey:= aitem.data.statey;
+ fcaption:= copy(aitem.filename,pathstart,bigint);
+ fgitstate:= aitem.data;
 end;
 
 { tgitfilecache }
@@ -944,14 +960,14 @@ var
  dir,nam: msestring; 
 begin
  with ainfo do begin
-  splitfilepath(data.filename,dir,nam);
+  splitfilepath(data.stateinfo.filename,dir,nam);
   if dir = fdirpath then begin
    dir:= fdirpath; //reuse memory;
   end
   else begin
    fdirpath:= dir;
   end;
-  data.filename:= nam;
+  data.stateinfo.filename:= nam;
   result:= add(dir);
   result^:= data;
  end;
@@ -962,20 +978,19 @@ function tgitfilecache.add(const astatus: gitstateinfoty): pgitfiledataty;
 var
  dir,nam: msestring; 
 begin
- with astatus do begin
-  splitfilepath(name,dir,nam);
-  if dir = fdirpath then begin
-   dir:= fdirpath; //reuse memory;
-  end
-  else begin
-   fdirpath:= dir;
-  end;
-  result:= add(dir);
-  with result^ do begin
-   filename:= nam;
-   statex:= data.statex;
-   statey:= data.statey
-  end;
+ splitfilepath(astatus.filename,dir,nam);
+ if dir = fdirpath then begin
+  dir:= fdirpath; //reuse memory;
+ end
+ else begin
+  fdirpath:= dir;
+ end;
+ result:= add(dir);
+ with result^.stateinfo do begin
+  filename:= nam;
+  data:= astatus.data;
+//   statex:= data.statex;
+//   statey:= data.statey
  end;
 end;
 

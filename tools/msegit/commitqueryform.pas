@@ -24,7 +24,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mainmodule,msestatfile,
  filelistframe,msesimplewidgets,msewidgets,msegraphedits,mseifiglob,msetypes,
- msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog;
+ msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog,
+ msegitcontroller;
 type
  tcommitqueryfo = class(tmseform)
    filelist: tfilelistframefo;
@@ -35,13 +36,21 @@ type
    tstatfile1: tstatfile;
    messageed: tmemodialoghistoryedit;
    tspacer1: tspacer;
+   tbutton3: tbutton;
+   tbutton4: tbutton;
+   tbutton5: tbutton;
    procedure commitexe(const sender: TObject);
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure commitupdateexe(const sender: tcustombutton);
+   procedure stageexe(const sender: TObject);
+   procedure ammendexe(const sender: TObject);
+   procedure unstageexe(const sender: TObject);
+  private
+   fkind: commitkindty;
   public
-   function exec(const aroot: tgitdirtreenode;
-                     const aitems: msegitfileitemarty): msegitfileitemarty;
+   procedure exec(const aroot: tgitdirtreenode;
+                     const aitems: msegitfileitemarty);
 //   destructor destroy; override;
  end;
 
@@ -50,25 +59,26 @@ var
 
 implementation
 uses
- commitqueryform_mfm,msedatanodes,msegitcontroller;
+ commitqueryform_mfm,msedatanodes;
 
 { tcommitqueryfo }
-
-function tcommitqueryfo.exec(const aroot: tgitdirtreenode;
-                       const aitems: msegitfileitemarty): msegitfileitemarty;
+ 
+procedure tcommitqueryfo.exec(const aroot: tgitdirtreenode;
+                       const aitems: msegitfileitemarty);
 var
  ar1: msegitfileitemarty;
  ar2: filenamearty;
  int1,int2: integer;
 begin
- result:= nil;
  if aitems <> nil then begin
   setlength(ar1,length(aitems));
   int2:= 0;
   for int1:= 0 to high(ar1) do begin
-   if gist_modified in aitems[int1].statey then begin
-    ar1[int2]:= tmsegitfileitem.createassign(nil,aitems[int1]);
-    inc(int2);
+   with aitems[int1] do begin
+    if checkcancommit(gitstate) then begin
+     ar1[int2]:= tmsegitfileitem.createassign(nil,aitems[int1]);
+     inc(int2);
+    end;
    end;
   end;
   setlength(ar1,int2);
@@ -86,18 +96,44 @@ begin
      end;
     end;
     setlength(ar2,int2);
-    mainmo.commit(ar2,messageed.value);
+    mainmo.commit(ar2,messageed.value,fkind);
    end;
   end
   else begin
    showmessage('No files to commit.');
+   release;
   end;
+ end;
+end;
+
+procedure tcommitqueryfo.stageexe(const sender: TObject);
+begin
+ if askyesno('Do you want to stage?') then begin
+  fkind:= ck_stage;
+  window.modalresult:= mr_ok;
+ end;
+end;
+
+procedure tcommitqueryfo.unstageexe(const sender: TObject);
+begin
+ if askyesno('Do you want to unstage?') then begin
+  fkind:= ck_unstage;
+  window.modalresult:= mr_ok;
+ end;
+end;
+
+procedure tcommitqueryfo.ammendexe(const sender: TObject);
+begin
+ if askyesno('Do you want to ammend?') then begin
+  fkind:= ck_ammend;
+  window.modalresult:= mr_ok;
  end;
 end;
 
 procedure tcommitqueryfo.commitexe(const sender: TObject);
 begin
  if askyesno('Do you want to commit?') then begin
+  fkind:= ck_commit;
   window.modalresult:= mr_ok;
  end;
 end;

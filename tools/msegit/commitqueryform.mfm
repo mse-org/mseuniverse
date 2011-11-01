@@ -176,6 +176,39 @@ object commitqueryfo: tcommitqueryfo
     linkbottom = messageed
     dist_bottom = -3
   end
+  object tbutton3: tbutton
+    taborder = 6
+    bounds_x = 240
+    bounds_y = 256
+    bounds_cx = 58
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Ammend'
+    onupdate = commitupdateexe
+    onexecute = ammendexe
+  end
+  object tbutton4: tbutton
+    taborder = 7
+    bounds_x = 184
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Stage'
+    onupdate = commitupdateexe
+    onexecute = stageexe
+  end
+  object tbutton5: tbutton
+    taborder = 8
+    bounds_x = 120
+    bounds_y = 256
+    bounds_cx = 58
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Unstage'
+    onupdate = commitupdateexe
+    onexecute = unstageexe
+  end
   object tstatfile1: tstatfile
     filename = 'commitqueryfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
