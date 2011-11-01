@@ -44,12 +44,16 @@ type
  end;
  pgitstateinfoty = ^gitstateinfoty;
  gitstateinfoarty = array of gitstateinfoty;
- 
+
+ gitstateiteratorprocty = procedure(var aitem: gitstateinfoty) of object; 
  tgitstatecache = class(tmsestringhashdatalist)
   private
    freporoot: filenamety;
+   fdirhash: tpointermsestringhashdatalist;
+   ffiledir: msestring;
   public
    constructor create;
+   destructor destroy; override;
    function getrepodir(const apath: filenamety): filenamety;
                 //returns apath - reporoot
    function add(const aname: msestring): pgitstatedataty;
@@ -57,6 +61,11 @@ type
    function find(const aname: msestring): pgitstatedataty;
    function first: pgitstateinfoty;
    function next: pgitstateinfoty;
+   procedure iterate(const includex,includey: gitstatesty;
+                                      const aiterator: gitstateiteratorprocty);
+   procedure iterate(const adir: msestring;
+                            const includex,includey: gitstatesty;
+                            const aiterator: gitstateiteratorprocty);
    property reporoot: filenamety read freporoot write freporoot;
  end;
 
@@ -111,7 +120,9 @@ type
    fstatex: gitstatesty;
    fstatey: gitstatesty;
   public
-   constructor create; virtual;
+   constructor create; virtual; overload;
+   constructor create(const aitem: gitstateinfoty;
+                               const pathstart: integer); overload;
    procedure assign(const source: tlistitem); overload; override;
    property statex: gitstatesty read fstatex;
    property statey: gitstatesty read fstatey;
@@ -199,7 +210,10 @@ function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
 implementation
 uses
  msefileutils,mseprocess,msearrayutils,msesysintf,msesystypes,msesysutils;
- 
+
+type
+ thashdatalist1 = class(thashdatalist);
+  
 function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
 var
  fna1,fna2: filenamety;
@@ -766,16 +780,36 @@ end;
 constructor tgitstatecache.create;
 begin
  inherited create(sizeof(gitstatedataty));
+ fdirhash:= tpointermsestringhashdatalist.create;
+end;
+
+destructor tgitstatecache.destroy;
+begin
+ fdirhash.free;
+ inherited;
 end;
 
 function tgitstatecache.add(const aname: msestring): pgitstatedataty;
+var
+ mstr1: msestring;
 begin
  result:= inherited add(aname);
+ mstr1:= filedir(aname);
+ if mstr1 = ffiledir then begin
+  mstr1:= ffiledir; //reuse memory
+ end;
+ ffiledir:= mstr1;
+ fdirhash.add(mstr1,
+         pointer(ptruint(pchar(result)-pchar(data)-sizeof(msestringdataty))));
+         //pgitstateinfoty
 end;
 
 function tgitstatecache.addunique(const akey: msestring): pgitstatedataty;
 begin
- result:= inherited addunique(akey);
+ result:= find(akey);
+ if result = nil then begin
+  result:= add(akey);
+ end;
 end;
 
 function tgitstatecache.find(const aname: msestring): pgitstatedataty;
@@ -801,6 +835,59 @@ begin
  end;
 end;
 
+procedure tgitstatecache.iterate(const includex,includey: gitstatesty;
+                                      const aiterator: gitstateiteratorprocty);
+var
+ po1: pgitstateinfoty;
+ puint1: ptruint;
+begin
+ if count > 0 then begin
+  puint1:= assignedroot;
+  while puint1 <> 0 do begin
+   po1:= pgitstateinfoty(pchar(data) + puint1 + sizeof(hashheaderty));
+   if (po1^.data.statex*includex = includex) and 
+                           (po1^.data.statey*includey = includey) then begin
+    aiterator(po1^);
+   end;
+   inc(puint1,phashdataty(pchar(po1)-sizeof(hashheaderty))^.header.nextlist);
+  end;  
+ end;
+end;
+
+procedure tgitstatecache.iterate(const adir: msestring;
+               const includex: gitstatesty; const includey: gitstatesty;
+               const aiterator: gitstateiteratorprocty);
+var
+ ha1: hashvaluety;
+ po1: ppointermsestringhashdataty;
+ po2: pgitstateinfoty;
+ dirhashdata: pchar;
+begin
+{$warnings off}
+ po1:= ppointermsestringhashdataty(thashdatalist1(fdirhash).internalfind(adir));
+{$warnings on}
+ if po1 <> nil then begin
+{$warnings off}
+  dirhashdata:= thashdatalist1(fdirhash).data;
+{$warnings on}
+  ha1:= hashkey(adir);
+  while true do begin
+   if (po1^.header.hash = ha1) and checkkey(adir,po1^.data) then begin
+    po2:= pointer(pchar(data) + ptruint(po1^.data.data));
+    if (po2^.data.statex*includex = includex) and 
+                           (po2^.data.statey*includey = includey) then begin
+     aiterator(po2^);
+    end;
+   end;
+   if po1^.header.nexthash = 0 then begin
+    break;
+   end;
+   po1:= ppointermsestringhashdataty(phashdataty(dirhashdata + 
+                                             po1^.header.nexthash));
+  end;
+ end;
+end;
+
 { tgitfileitem }
 
 constructor tgitfileitem.create;
@@ -817,6 +904,15 @@ begin
    self.fstatey:= fstatey;
   end;
  end;
+end;
+
+constructor tgitfileitem.create(const aitem: gitstateinfoty;
+                                                  const pathstart: integer);
+begin
+ create;
+ fcaption:= copy(aitem.name,pathstart,bigint);
+ fstatex:= aitem.data.statex;
+ fstatey:= aitem.data.statey;
 end;
 
 { tgitfilecache }
@@ -856,7 +952,8 @@ begin
    fdirpath:= dir;
   end;
   data.filename:= nam;
-  add(dir)^:= data;
+  result:= add(dir);
+  result^:= data;
  end;
 end;
 
@@ -873,7 +970,8 @@ begin
   else begin
    fdirpath:= dir;
   end;
-  with add(dir)^ do begin
+  result:= add(dir);
+  with result^ do begin
    filename:= nam;
    statex:= data.statex;
    statey:= data.statey

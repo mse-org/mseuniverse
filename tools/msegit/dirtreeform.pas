@@ -51,8 +51,10 @@ type
    procedure restorestate;
    function currentgitdir: filenamety;
  end;
+
 var
  dirtreefo: tdirtreefo;
+
 implementation
 uses
  dirtreeform_mfm,mainmodule,filesform,gitconsole;
@@ -106,12 +108,13 @@ end;
 
 procedure tdirtreefo.commitupdataexe(const sender: tcustomaction);
 begin
- sender.enabled:= mainmo.cancommit(tgitdirtreenode(treeed.item));
+ sender.enabled:= mainmo.cancommit(
+                gitdirtreenodearty(treeed.selecteditems));
 end;
 
 procedure tdirtreefo.commitexe(const sender: TObject);
 begin
- mainmo.commit(tgitdirtreenode(treeed.item));
+ mainmo.commit(gitdirtreenodearty(treeed.selecteditems));
 end;
 
 function tdirtreefo.currentgitdir: filenamety;

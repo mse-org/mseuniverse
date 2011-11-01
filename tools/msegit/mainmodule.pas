@@ -62,6 +62,7 @@ type
    procedure drawimage(const acanvas: tcanvas); override;
    function getoriginicon: integer;
  end;
+ gitdirtreenodearty = array of tgitdirtreenode;
 
  tgitdirtreerootnode = class(tgitdirtreenode)
   private
@@ -112,6 +113,7 @@ type
    ffilecache: tgitfilecache;
    fgit: tgitcontroller;
    fgitstate: tgitstatecache;
+   fpathstart: integer;
    fvaluecount: integer;
    ffilear: msegitfileitemarty;
    fremotesinfo: remoteinfoarty;
@@ -127,6 +129,7 @@ type
    procedure repoloaded;
    procedure repoclosed;
    function getorigin: msestring;
+   procedure listfileitems(var aitem: gitstateinfoty);
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
@@ -137,8 +140,9 @@ type
                     //returns path relative to reporoot
    function getfiles(const apath: filenamety): msegitfileitemarty;
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
+   function cancommit(const aitems: gitdirtreenodearty): boolean; overload;
    function cancommit(const aitems: msegitfileitemarty): boolean; overload;
-   procedure commit(const anode: tgitdirtreenode); overload;
+   procedure commit(const aitems: gitdirtreenodearty); overload;
    procedure commit(const anode: tgitdirtreenode;
                          const aitems: msegitfileitemarty); overload;
    function commit(const afiles: filenamearty;
@@ -207,6 +211,27 @@ begin
     end
    end;
   end;
+ end;
+end;
+
+function statetofileicon(const astatex,astatey: gitstatesty): integer;
+begin
+ result:= defaultfileicon;
+ if gist_modified in astatey then begin
+  if gist_added in astatex then begin
+   result:= addedmodifiedicon;
+  end
+  else begin
+   result:= modifiedfileicon;
+  end;
+ end
+ else begin
+  if gist_added in astatex then begin
+   result:= addedicon;
+  end;
+ end;
+ if gist_untracked in astatey then begin
+  result:= untrackedfileicon;
  end;
 end;
 
@@ -352,24 +377,7 @@ begin
    n1.fcaption:= filename;
    n1.fstatex:= statex;
    n1.fstatey:= statey;
-   int1:= defaultfileicon;
-   if gist_modified in statey then begin
-    if gist_added in statex then begin
-     int1:= addedmodifiedicon;
-    end
-    else begin
-     int1:= modifiedfileicon;
-    end;
-   end
-   else begin
-    if gist_added in statex then begin
-     int1:= addedicon;
-    end;
-   end;
-   if gist_untracked in statey then begin
-    int1:= untrackedfileicon;
-   end;
-   n1.fimagenr:= int1;
+   n1.fimagenr:= statetofileicon(statex,statey);
   end;
  end;
 end;
@@ -447,8 +455,89 @@ begin
  result:= (anode <> nil) and (gist_modified in anode.fstatey);
 end;
 
-procedure tmainmo.commit(const anode: tgitdirtreenode);
+function tmainmo.cancommit(const aitems: gitdirtreenodearty): boolean;
+var
+ int1: integer;
 begin
+ result:= false;
+ for int1:= high(aitems) downto 0 do begin
+  result:= cancommit(aitems[int1]);
+  if result then begin
+   break;
+  end;
+ end;
+end;
+
+procedure tmainmo.listfileitems(var aitem: gitstateinfoty);
+var
+ n1: tmsegitfileitem;
+begin
+ n1:= tmsegitfileitem.create(aitem,fpathstart);
+ n1.fimagenr:= statetofileicon(n1.fstatex,n1.fstatey);
+ additem(pointerarty(ffilear),pointer(n1),fvaluecount);
+end;
+
+procedure tmainmo.commit(const aitems: gitdirtreenodearty);
+ procedure sca(const anode: tgitdirtreenode);
+ var
+  int1: integer;
+ begin
+  fgitstate.iterate(anode.path(1),[],[gist_modified],@listfileitems);
+  for int1:= 0 to anode.count-1 do begin
+   sca(tgitdirtreenode(anode.fitems[int1]));
+  end;
+ end; //sca
+ 
+var
+ int1,int2,int3: integer;
+ n1,n2: tgitdirtreenode;
+ bo1: boolean;
+ 
+begin
+ if high(aitems) >= 0 then begin
+  n1:= aitems[0];
+  for int1:= 1 to high(aitems) do begin
+   if aitems[int1].treelevel < n1.treelevel then begin
+    n1:= aitems[int1];
+   end;
+  end;
+  fvaluecount:= 0;
+  ffilear:= nil;
+  if (high(aitems) > 0) and (n1.parent <> nil) then begin
+   n1:= tgitdirtreenode(n1.parent);
+  end;
+  fpathstart:= length(n1.path(1))+1;
+  for int1:= 0 to high(aitems) do begin
+   n2:= aitems[int1];
+   bo1:= true;
+   for int2:= n2.treelevel-1 downto n1.treelevel do begin
+    n2:= tgitdirtreenode(n2.parent);
+    for int3:= 0 to high(aitems) do begin
+     if aitems[int3] = n2 then begin
+      bo1:= false; //handled by parent
+      break;
+     end;
+    end;
+    if not bo1 then begin
+     break;
+    end;
+   end; 
+   if bo1 then begin
+    sca(aitems[int1]);
+   end;
+  end;
+  setlength(ffilear,fvaluecount);
+  if fvaluecount > 0 then begin
+   try
+    commit(n1,ffilear);
+   finally
+    for int1:= high(ffilear) downto 0 do begin
+     ffilear[int1].free;
+    end;
+    ffilear:= nil;
+   end;
+  end;
+ end;
 end;
 
 function tmainmo.cancommit(const aitems: msegitfileitemarty): boolean;
@@ -521,7 +610,6 @@ function tmainmo.execgitconsole(const acommand: msestring): boolean;
 begin
  result:= gitconsolefo.execgit(acommand);
 end;
-
 
 { tmsegitfileitem }
 
