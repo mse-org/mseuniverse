@@ -27,7 +27,7 @@ const
  
 type
  gitstatety = (gist_invalid,gist_unmodified,gist_modified,gist_added,
-                gist_deleted,gist_renamed,gist_copied,gist_updated,
+                gist_deleted,gist_renamed,gist_copied,gist_unmerged,
                 gist_untracked,gist_ignored,
                 gist_pushpending,gist_mergepending,gist_mergeconflictpending,
                 gist_pushconflict);
@@ -329,7 +329,7 @@ const
 // 'P',         'Q',         'R',         'S',
    gist_invalid,gist_invalid,gist_renamed,gist_invalid,
 // 'T',         'U',         'V',         'W',
-   gist_invalid,gist_updated,gist_invalid,gist_invalid,
+   gist_invalid,gist_unmerged,gist_invalid,gist_invalid,
 // 'X',         'Y',         'Z',         #$5b,
    gist_invalid,gist_invalid,gist_invalid,gist_invalid,
 // #$5c,        #$5d,        #$5e,        #$5f,

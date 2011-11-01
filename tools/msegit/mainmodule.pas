@@ -166,12 +166,17 @@ uses
  gitconsole,commitqueryform;
   
 const
- defaultdiricon = 8;
- modifieddiricon = 4;
- untrackeddiricon = 12;
  defaultfileicon = 10;
  modifiedfileicon = 6;
  untrackedfileicon = 14;
+ mergefileicon = 24;
+ mergeconflictfileicon = 25;
+
+ defaultdiricon = 8;
+ unmergeddiricon = 26;
+ modifieddiricon = 4;
+ modifiedunmergeddiricon = 28;
+ untrackeddiricon = 12;
  mergependingicon = 16;
  pushpendingicon = 17;
  pushmergependingicon = 18;
@@ -180,6 +185,7 @@ const
  mergeconflictpushpendingicon = 21;
  addedicon = 22;
  addedmodifiedicon = 23;
+ 
 
 function statetooriginicon(const astatex,astatey: gitstatesty): integer;
 begin
@@ -217,21 +223,31 @@ end;
 function statetofileicon(const astatex,astatey: gitstatesty): integer;
 begin
  result:= defaultfileicon;
- if gist_modified in astatey then begin
-  if gist_added in astatex then begin
-   result:= addedmodifiedicon;
+ if (gist_unmerged in astatex) or (gist_unmerged in astatey) then begin
+  if (gist_unmerged in astatex) and (gist_unmerged in astatey) then begin
+   result:= mergeconflictfileicon;
   end
   else begin
-   result:= modifiedfileicon;
+   result:= mergefileicon;
   end;
  end
  else begin
-  if gist_added in astatex then begin
-   result:= addedicon;
+  if gist_modified in astatey then begin
+   if gist_added in astatex then begin
+    result:= addedmodifiedicon;
+   end
+   else begin
+    result:= modifiedfileicon;
+   end;
+  end
+  else begin
+   if gist_added in astatex then begin
+    result:= addedicon;
+   end;
   end;
- end;
- if gist_untracked in astatey then begin
-  result:= untrackedfileicon;
+  if gist_untracked in astatey then begin
+   result:= untrackedfileicon;
+  end;
  end;
 end;
 
@@ -657,8 +673,18 @@ begin
   end;
  end;
  int1:= defaultdiricon;
- if gist_modified in fstatey then begin
-  int1:= modifieddiricon;
+ if (gist_unmerged in fstatex) or (gist_unmerged in fstatey) then begin
+  if gist_modified in fstatey then begin
+   int1:= modifiedunmergeddiricon;
+  end
+  else begin
+   int1:= unmergeddiricon;
+  end;
+ end
+ else begin
+  if gist_modified in fstatey then begin
+   int1:= modifieddiricon;
+  end;
  end;
  if (lstr1.len = 0) and (gist_untracked in fstatey) then begin //directory end
   int1:= untrackeddiricon;
