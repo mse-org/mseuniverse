@@ -31,6 +31,7 @@ object commitqueryfo: tcommitqueryfo
     inherited grid: twidgetgrid
       bounds_cx = 420
       bounds_cy = 208
+      bounds_cxmin = 420
       fixrows.items = <      
         item
           captions.count = 4
@@ -71,8 +72,8 @@ object commitqueryfo: tcommitqueryfo
           )
         end      
         item
-          width = 230
-          options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
+          width = 364
+          options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_fill, co_savestate, co_mousescrollrow]
           widgetname = 'fileitemed'
           dataclass = titemeditlist
         end>
@@ -85,6 +86,9 @@ object commitqueryfo: tcommitqueryfo
       end
       inherited fileitemed: titemedit
         bounds_x = 51
+        bounds_cx = 364
+        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_locate, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+        textflags = [tf_ycentered, tf_clipo, tf_noselect, tf_ellipseleft]
       end
       object selected: tbooleanedit[3]
         optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
@@ -108,7 +112,7 @@ object commitqueryfo: tcommitqueryfo
     bounds_y = 256
     bounds_cx = 50
     bounds_cy = 20
-    anchors = [an_right, an_bottom]
+    anchors = [an_left, an_bottom]
     state = [as_default, as_localdefault, as_localcaption]
     caption = '&Cancel'
     modalresult = mr_cancel
@@ -119,7 +123,7 @@ object commitqueryfo: tcommitqueryfo
     bounds_y = 256
     bounds_cx = 50
     bounds_cy = 20
-    anchors = [an_right, an_bottom]
+    anchors = [an_left, an_bottom]
     state = [as_localcaption, as_localonexecute]
     caption = 'C&ommit'
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
@@ -159,12 +163,13 @@ object commitqueryfo: tcommitqueryfo
     bounds_cx = 420
     bounds_cy = 37
     anchors = [an_top]
-    statfile = tstatfile1
     textflags = [tf_noselect]
     textflagsactive = []
     dropdown.cols.count = 1
+    dropdown.cols.textflags = [tf_noselect]
     dropdown.cols.items = <    
       item
+        textflags = [tf_noselect]
       end>
     reffontheight = 14
   end
