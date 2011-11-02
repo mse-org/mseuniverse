@@ -916,7 +916,7 @@ var
    end
    else begin
     n1:= tgitdirtreenode(parent);
-    while (n1 <> nil) and (gist_untracked in n1.fgitstate.statey) do begin
+    while (n1 <> nil) and (gist_untracked in n1.fdirstate.statey) do begin
      exclude(n1.fdirstate.statey,gist_untracked);
      n1.fimagenr:= defaultdiricon;
      n1:= tgitdirtreenode(n1.parent);
