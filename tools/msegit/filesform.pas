@@ -34,10 +34,13 @@ type
    filestate: tdataicon;
    gridpopup: tpopupmenu;
    commitact: taction;
+   addact: taction;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure commitexe(const sender: TObject);
    procedure commitupdateexe(const sender: tcustomaction);
+   procedure addupdateexe(const sender: tcustomaction);
+   procedure addexe(const sender: TObject);
   private
    fpath: filenamety;
   public
@@ -48,7 +51,8 @@ var
  filesfo: tfilesfo;
 implementation
 uses
- filesform_mfm,mainmodule,dirtreeform,msegitcontroller;
+ filesform_mfm,mainmodule,dirtreeform,msegitcontroller,msewidgets,mseformatstr,
+ main;
  
 { tfilesfo }
 
@@ -89,6 +93,25 @@ procedure tfilesfo.commitupdateexe(const sender: tcustomaction);
 begin
  sender.enabled:=  mainmo.cancommit(
                                msegitfileitemarty(fileitemed.selecteditems));
+end;
+
+procedure tfilesfo.addupdateexe(const sender: tcustomaction);
+begin
+ sender.enabled:=  mainmo.canadd(
+                               msegitfileitemarty(fileitemed.selecteditems));
+end;
+
+procedure tfilesfo.addexe(const sender: TObject);
+var
+ ar1: msegitfileitemarty;
+begin
+ ar1:= msegitfileitemarty(fileitemed.selecteditems);
+ if askyesno('Do you want to add '+inttostrmse(length(ar1))+ 
+                        ' directories?') then begin
+  if mainmo.add(tgitdirtreenode(dirtreefo.treeed.item),ar1) then begin
+   mainfo.reloadact.execute;
+  end;
+ end;    
 end;
 
 end.

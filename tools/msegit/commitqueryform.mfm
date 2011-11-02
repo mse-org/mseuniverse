@@ -160,6 +160,8 @@ object commitqueryfo: tcommitqueryfo
     bounds_cy = 37
     anchors = [an_top]
     statfile = tstatfile1
+    textflags = [tf_noselect]
+    textflagsactive = []
     dropdown.cols.count = 1
     dropdown.cols.items = <    
       item

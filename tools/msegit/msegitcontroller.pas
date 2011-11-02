@@ -67,11 +67,13 @@ type
    function find(const aname: msestring): pgitstatedataty;
    function first: pgitstateinfoty;
    function next: pgitstateinfoty;
-   procedure iterate(const includex,includey: gitstatesty;
+   procedure iterate(const include: array of gitstatedataty;
                                       const aiterator: gitstateiteratorprocty);
    procedure iterate(const adir: msestring;
-                            const includex,includey: gitstatesty;
+                            const include: array of gitstatedataty;
                             const aiterator: gitstateiteratorprocty);
+   procedure iterate(const adir: msestring;
+                               const include: array of gitstatedataty);
    property reporoot: filenamety read freporoot write freporoot;
  end;
 
@@ -853,19 +855,25 @@ begin
  end;
 end;
 
-procedure tgitstatecache.iterate(const includex,includey: gitstatesty;
+procedure tgitstatecache.iterate(const include: array of gitstatedataty;
                                       const aiterator: gitstateiteratorprocty);
 var
  po1: pgitstateinfoty;
  puint1: ptruint;
+ int1: integer;
 begin
  if count > 0 then begin
   puint1:= assignedroot;
   while puint1 <> 0 do begin
    po1:= pgitstateinfoty(pchar(data) + puint1 + sizeof(hashheaderty));
-   if (po1^.data.statex*includex = includex) and 
-                           (po1^.data.statey*includey = includey) then begin
-    aiterator(po1^);
+   for int1:= 0 to high(include) do begin
+    with include[int1] do begin
+     if (po1^.data.statex*statex = statex) and 
+                             (po1^.data.statey*statey = statey) then begin
+      aiterator(po1^);
+      break;
+     end;
+    end;
    end;
    inc(puint1,phashdataty(pchar(po1)-sizeof(hashheaderty))^.header.nextlist);
   end;  
@@ -873,13 +881,14 @@ begin
 end;
 
 procedure tgitstatecache.iterate(const adir: msestring;
-               const includex: gitstatesty; const includey: gitstatesty;
+               const include: array of gitstatedataty;
                const aiterator: gitstateiteratorprocty);
 var
  ha1: hashvaluety;
  po1: ppointermsestringhashdataty;
  po2: pgitstateinfoty;
  dirhashdata: pchar;
+ int1: integer;
 begin
 {$warnings off}
  po1:= ppointermsestringhashdataty(thashdatalist1(fdirhash).internalfind(adir));
@@ -892,9 +901,14 @@ begin
   while true do begin
    if (po1^.header.hash = ha1) and checkkey(adir,po1^.data) then begin
     po2:= pointer(pchar(data) + ptruint(po1^.data.data));
-    if (po2^.data.statex*includex = includex) and 
-                           (po2^.data.statey*includey = includey) then begin
-     aiterator(po2^);
+    for int1:= 0 to high(include) do begin
+     with include[int1] do begin
+      if (po2^.data.statex*statex = statex) and 
+                            (po2^.data.statey*statey = statey) then begin
+       aiterator(po2^);
+       break;
+      end;
+     end;
     end;
    end;
    if po1^.header.nexthash = 0 then begin
@@ -904,6 +918,11 @@ begin
                                              po1^.header.nexthash));
   end;
  end;
+end;
+
+procedure tgitstatecache.iterate(const adir: msestring;
+               const include: array of gitstatedataty);
+begin
 end;
 
 { tgitfileitem }

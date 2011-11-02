@@ -35,12 +35,15 @@ type
    commitact: taction;
    gridpopup: tpopupmenu;
    reporefreshsedact: taction;
+   addact: taction;
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
    procedure commitupdataexe(const sender: tcustomaction);
    procedure commitexe(const sender: TObject);
    procedure refreshedexe(const sender: TObject);
+   procedure addexe(const sender: TObject);
+   procedure addupdateexe(const sender: tcustomaction);
   private
 //   frowsave: integer;
    fexpandedsave: expandedinfoarty;
@@ -57,7 +60,8 @@ var
 
 implementation
 uses
- dirtreeform_mfm,mainmodule,filesform,gitconsole;
+ dirtreeform_mfm,mainmodule,filesform,gitconsole,msewidgets,mseformatstr,
+ main;
  
 procedure tdirtreefo.loadedexe(const sender: TObject);
 begin
@@ -109,7 +113,7 @@ end;
 procedure tdirtreefo.commitupdataexe(const sender: tcustomaction);
 begin
  sender.enabled:= mainmo.cancommit(
-                gitdirtreenodearty(treeed.selecteditems));
+                                gitdirtreenodearty(treeed.selecteditems));
 end;
 
 procedure tdirtreefo.commitexe(const sender: TObject);
@@ -128,6 +132,24 @@ end;
 procedure tdirtreefo.refreshedexe(const sender: TObject);
 begin
  syncfilesfo;
+end;
+
+procedure tdirtreefo.addexe(const sender: TObject);
+var
+ ar1: gitdirtreenodearty;
+begin
+ ar1:= gitdirtreenodearty(treeed.selecteditems);
+ if askyesno('Do you want to add '+inttostrmse(length(ar1))+ 
+                        ' directories?') then begin
+  if mainmo.add(ar1) then begin
+   mainfo.reloadact.execute;
+  end;
+ end;    
+end;
+
+procedure tdirtreefo.addupdateexe(const sender: tcustomaction);
+begin
+ sender.enabled:= mainmo.canadd(gitdirtreenodearty(treeed.selecteditems));
 end;
 
 end.

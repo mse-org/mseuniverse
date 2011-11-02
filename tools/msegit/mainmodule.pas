@@ -53,6 +53,7 @@ type
  tgitdirtreenode = class(tdirtreenode)
   private
    fgitstate: gitstatedataty;
+   fdirstate: gitstatedataty;
 //   fstatex: gitstatesty;
 //   fstatey: gitstatesty;
   protected
@@ -150,6 +151,12 @@ type
    function commit(const afiles: filenamearty;
                           const amessage: msestring;
                           const akind: commitkindty): boolean; overload;
+   function canadd(const aitems: msegitfileitemarty): boolean; overload;
+   function canadd(const anodes: gitdirtreenodearty): boolean; overload;
+   function add(const anodes: gitdirtreenodearty): boolean; overload;
+   function add(const anode: tgitdirtreenode;
+                   const aitems: msegitfileitemarty): boolean; overload;
+
    property repo: filenamety read frepo write setrepo;
    property reporoot: filenamety read freporoot;
    property opt: tmsegitoptions read fopt;
@@ -506,10 +513,13 @@ end;
 
 procedure tmainmo.commit(const aitems: gitdirtreenodearty);
  procedure sca(const anode: tgitdirtreenode);
+ const
+  mask: gitstatedataty = (statex: []; statey : [gist_modified]);
+  mask1: gitstatedataty = (statex: [gist_added]; statey : []);
  var
   int1: integer;
  begin
-  fgitstate.iterate(anode.path(1),[],[gist_modified],@listfileitems);
+  fgitstate.iterate(anode.path(1),[mask,mask1],@listfileitems);
   for int1:= 0 to anode.count-1 do begin
    sca(tgitdirtreenode(anode.fitems[int1]));
   end;
@@ -600,8 +610,11 @@ begin
     statey:= statey - cancommitstate;
    end;
    ck_unstage: begin
-    statey:= statey + statex * cancommitstate;
-    statex:= statex - cancommitstate;
+    statey:= (statey + statex * cancommitstate);
+    if gist_added in statey then begin
+     statey:= [gist_untracked];
+    end;
+    statex:= statex - cancommitstate;    
    end;
   end;
  end;
@@ -688,6 +701,74 @@ end;
 function tmainmo.execgitconsole(const acommand: msestring): boolean;
 begin
  result:= gitconsolefo.execgit(acommand);
+end;
+
+function tmainmo.canadd(const anodes: gitdirtreenodearty): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= high(anodes) downto 0 do begin
+  if gist_untracked in anodes[int1].fdirstate.statey then begin
+   result:= true;
+   break;
+  end;
+ end;
+end;
+
+function tmainmo.canadd(const aitems: msegitfileitemarty): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= high(aitems) downto 0 do begin
+  if gist_untracked in aitems[int1].fgitstate.statey then begin
+   result:= true;
+   break;
+  end;
+ end;
+end;
+
+
+function tmainmo.add(const anodes: gitdirtreenodearty): boolean;
+var
+ ar1: msestringarty;
+ int1,int2: integer;
+begin
+ result:= false;
+ setlength(ar1,length(anodes));
+ int2:= 0;
+ for int1:= 0 to high(ar1) do begin
+  if gist_untracked in anodes[int1].fdirstate.statey then begin
+   ar1[int2]:= anodes[int1].path(1);
+   inc(int2);
+  end;
+ end;
+ if int2 > 0 then begin
+  setlength(ar1,int2);
+  result:= execgitconsole('add '+fgit.encodepathparams(ar1,true));
+ end;
+end;
+
+function tmainmo.add(const anode: tgitdirtreenode;
+                              const aitems: msegitfileitemarty): boolean;
+var
+ ar1: msestringarty;
+ int1,int2: integer;
+begin
+ result:= false;
+ setlength(ar1,length(aitems));
+ int2:= 0;
+ for int1:= 0 to high(ar1) do begin
+  if gist_untracked in aitems[int1].fgitstate.statey then begin
+   ar1[int2]:= getpath(anode,aitems[int1].caption);
+   inc(int2);
+  end;
+ end;
+ if int2 > 0 then begin
+  setlength(ar1,int2);
+  result:= execgitconsole('add '+fgit.encodepathparams(ar1,true));
+ end;
 end;
 
 { tmsegitfileitem }
@@ -824,9 +905,11 @@ var
   int1: integer;
   n1: tgitdirtreenode;
  begin
-  with anode,fgitstate do begin
+  with anode,fdirstate do begin
    statex:= [];
    statey:= [];
+   fgitstate.statex:= [];
+   fgitstate.statey:= [];
    if afiles.find(apath) = nil then begin
     include(statey,gist_untracked);
     fimagenr:= untrackeddiricon;
@@ -834,7 +917,7 @@ var
    else begin
     n1:= tgitdirtreenode(parent);
     while (n1 <> nil) and (gist_untracked in n1.fgitstate.statey) do begin
-     exclude(n1.fgitstate.statey,gist_untracked);
+     exclude(n1.fdirstate.statey,gist_untracked);
      n1.fimagenr:= defaultdiricon;
      n1:= tgitdirtreenode(n1.parent);
     end;

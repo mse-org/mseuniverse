@@ -79,22 +79,32 @@ object dirtreefo: tdirtreefo
     caption = 'Commit'
     onexecute = commitexe
     onupdate = commitupdataexe
-    left = 144
-    top = 16
+    left = 176
+    top = 40
   end
   object gridpopup: tpopupmenu
-    menu.submenu.count = 1
+    menu.submenu.count = 2
     menu.submenu.items = <    
       item
         action = commitact
+      end    
+      item
+        action = addact
       end>
-    left = 144
-    top = 40
+    left = 176
+    top = 16
   end
   object reporefreshsedact: taction
     onexecute = refreshedexe
     ifilink = mainmo.reporefreshedact
     left = 16
     top = 48
+  end
+  object addact: taction
+    caption = 'Add'
+    onexecute = addexe
+    onupdate = addupdateexe
+    left = 176
+    top = 56
   end
 end
