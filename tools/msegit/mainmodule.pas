@@ -128,7 +128,7 @@ type
    procedure updatecommit(var aitem: gitfileinfoty);
   protected
    procedure closerepo;
-   procedure loadrepo(const avalue: filenamety);
+   procedure loadrepo(avalue: filenamety); //no const
    procedure repoloaded;
    procedure repoclosed;
    function getorigin: msestring;
@@ -156,7 +156,7 @@ type
    function add(const anodes: gitdirtreenodearty): boolean; overload;
    function add(const anode: tgitdirtreenode;
                    const aitems: msegitfileitemarty): boolean; overload;
-
+   procedure reload;
    property repo: filenamety read frepo write setrepo;
    property reporoot: filenamety read freporoot;
    property opt: tmsegitoptions read fopt;
@@ -340,7 +340,7 @@ begin
  end;
 end;
 
-procedure tmainmo.loadrepo(const avalue: filenamety);
+procedure tmainmo.loadrepo(avalue: filenamety);
 var
  int1{,int2}: integer;
  mstr1: msestring;
@@ -383,6 +383,11 @@ begin
   end;
   repoloaded;
  end;
+end;
+
+procedure tmainmo.reload;
+begin
+ loadrepo(freporoot);
 end;
 
 procedure tmainmo.repoloaded;
@@ -730,7 +735,6 @@ begin
   end;
  end;
 end;
-
 
 function tmainmo.add(const anodes: gitdirtreenodearty): boolean;
 var

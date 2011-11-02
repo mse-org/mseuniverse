@@ -119,6 +119,7 @@ end;
 procedure tdirtreefo.commitexe(const sender: TObject);
 begin
  mainmo.commit(gitdirtreenodearty(treeed.selecteditems));
+ activate;
 end;
 
 function tdirtreefo.currentgitdir: filenamety;
@@ -144,7 +145,8 @@ begin
   if mainmo.add(ar1) then begin
    mainfo.reloadact.execute;
   end;
- end;    
+ end;
+ activate;
 end;
 
 procedure tdirtreefo.addupdateexe(const sender: tcustomaction);

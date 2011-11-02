@@ -87,6 +87,7 @@ procedure tfilesfo.commitexe(const sender: TObject);
 begin
  mainmo.commit(tgitdirtreenode(dirtreefo.treeed.item),
                                msegitfileitemarty(fileitemed.selecteditems));
+ activate;
 end;
 
 procedure tfilesfo.commitupdateexe(const sender: tcustomaction);
@@ -107,11 +108,12 @@ var
 begin
  ar1:= msegitfileitemarty(fileitemed.selecteditems);
  if askyesno('Do you want to add '+inttostrmse(length(ar1))+ 
-                        ' directories?') then begin
+                        ' files?') then begin
   if mainmo.add(tgitdirtreenode(dirtreefo.treeed.item),ar1) then begin
-   mainfo.reloadact.execute;
+   mainfo.reload;
   end;
  end;    
+ activate;
 end;
 
 end.

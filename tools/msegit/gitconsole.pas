@@ -48,7 +48,7 @@ var
  gitconsolefo: tgitconsolefo;
 implementation
 uses
- gitconsole_mfm,mainmodule,msefileutils;
+ gitconsole_mfm,mainmodule,msefileutils,main;
 const
  prompt = '(git)-> ';
 { tgitconsolefo }
@@ -100,8 +100,10 @@ end;
 
 procedure tgitconsolefo.init;
 begin
- clear;
- termed.addchars(prompt);
+ if not mainfo.refreshing then begin
+  clear;
+  termed.addchars(prompt);
+ end;
 end;
 
 function tgitconsolefo.execgit(const acommand: msestring): boolean;

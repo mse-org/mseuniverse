@@ -49,6 +49,11 @@ type
    procedure showremotesexe(const sender: TObject);
    procedure gitconsoleshowexe(const sender: TObject);
    procedure closerepoexe(const sender: TObject);
+  private
+   frefreshing: boolean;
+  public
+   procedure reload;
+   property refreshing: boolean read frefreshing;
  end;
 var
  mainfo: tmainfo;
@@ -115,8 +120,10 @@ end;
 
 procedure tmainfo.repoclosedexe(const sender: TObject);
 begin
- caption:= 'MSEgit';
- gitconsolefo.clear;
+ if not frefreshing then begin
+  caption:= 'MSEgit';
+  gitconsolefo.clear;
+ end;
 end;
 
 procedure tmainfo.optionsexe(const sender: TObject);
@@ -126,18 +133,25 @@ end;
 
 procedure tmainfo.reloadeexe(const sender: TObject);
 begin
- dirtreefo.savestate;
- try
-  dirtreefo.grid.clear;
-  mainmo.repo:= mainmo.repo;
- finally
-  dirtreefo.restorestate;
- end;
+ reload;
 end;
 
 procedure tmainfo.closerepoexe(const sender: TObject);
 begin
  mainmo.repo:= '';
+end;
+
+procedure tmainfo.reload;
+begin
+ dirtreefo.savestate;
+ try
+  frefreshing:= true;
+  dirtreefo.grid.clear;
+  mainmo.reload;
+ finally
+  frefreshing:= false;
+  dirtreefo.restorestate;
+ end;
 end;
 
 end.
