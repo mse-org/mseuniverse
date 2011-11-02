@@ -529,6 +529,7 @@ var
  int1,int2,int3: integer;
  n1,n2: tgitdirtreenode;
  bo1: boolean;
+ ar1: msegitfileitemarty;
  
 begin
  if high(aitems) >= 0 then begin
@@ -563,15 +564,16 @@ begin
     sca(aitems[int1]);
    end;
   end;
+  ar1:= copy(ffilear,0,fvaluecount);
+  ffilear:= nil;
   setlength(ffilear,fvaluecount);
   if fvaluecount > 0 then begin
    try
-    commit(n1,ffilear);
+    commit(n1,ar1);
    finally
-    for int1:= high(ffilear) downto 0 do begin
-     ffilear[int1].free;
+    for int1:= high(ar1) downto 0 do begin
+     ar1[int1].free;
     end;
-    ffilear:= nil;
    end;
   end;
  end;
