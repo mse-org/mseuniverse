@@ -84,9 +84,12 @@ type
  trepostat = class
   private
    factiveremote: msestring;
+   fcommitmessages: msestringarty;
 //   freponames: msestringarty;
   published
    property activeremote: msestring read factiveremote write factiveremote;
+   property commitmessages: msestringarty read fcommitmessages 
+                                                 write fcommitmessages;
 //   property reponames: msestringarty read freponames write freponames;
  end;
     
@@ -99,7 +102,7 @@ type
    repoclosedact: tifiactionlinkcomp;
    repoloadedact: tifiactionlinkcomp;
    images: timagelist;
-   repostat: tstatfile;
+   repostatf: tstatfile;
    repoobj: trttistat;
    reporefreshedact: tifiactionlinkcomp;
    procedure quitexe(const sender: TObject);
@@ -158,6 +161,7 @@ type
                    const aitems: msegitfileitemarty): boolean; overload;
    procedure reload;
    property repo: filenamety read frepo write setrepo;
+   property repostat: trepostat read frepostat;
    property reporoot: filenamety read freporoot;
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
@@ -332,7 +336,7 @@ begin
   end;
 //  frepostat.reponames:= ar1;
   frepostat.activeremote:= activeremote;
-  repostat.writestat;
+  repostatf.writestat;
   fremotesinfo:= nil;
   frepo:= '';
   freporoot:= '';
@@ -356,7 +360,7 @@ begin
   application.beginwait;
   try
    frepostat.activeremote:= 'origin';
-   repostat.readstat;
+   repostatf.readstat;
    frepo:= filepath(avalue,fk_dir);
    fgit.remoteshow(fremotesinfo);
    factiveremote:= '';

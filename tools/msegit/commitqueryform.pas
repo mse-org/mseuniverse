@@ -71,6 +71,7 @@ var
  int1,int2: integer;
 begin
  if aitems <> nil then begin
+  messageed.dropdown.history:= mainmo.repostat.commitmessages;
   setlength(ar1,length(aitems));
   int2:= 0;
   for int1:= 0 to high(ar1) do begin
@@ -86,6 +87,7 @@ begin
    filelist.fileitemed.itemlist.assign(listitemarty(ar1));
    filecountdisp.value:= length(ar1);
    if show(ml_application) = mr_ok then begin
+    mainmo.repostat.commitmessages:= messageed.dropdown.history;
     setlength(ar2,filelist.grid.rowcount);
     int2:= 0;
     for int1:= 0 to high(ar2) do begin

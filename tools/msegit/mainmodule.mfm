@@ -404,12 +404,12 @@ object mainmo: tmainmo
       FFFFFFFF000000000000FFFFFFFFFFFF
     }
   end
-  object repostat: tstatfile
+  object repostatf: tstatfile
     filename = '.msegitrepo.sta'
     top = 112
   end
   object repoobj: trttistat
-    statfile = repostat
+    statfile = repostatf
     ongetobject = repogetobj
     top = 136
   end
