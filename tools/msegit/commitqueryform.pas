@@ -30,13 +30,13 @@ type
  tcommitqueryfo = class(tmseform)
    filelist: tfilelistframefo;
    tbutton1: tbutton;
-   tbutton2: tbutton;
+   commit: tbutton;
    selected: tbooleanedit;
    filecountdisp: tintegerdisp;
    tstatfile1: tstatfile;
-   tbutton3: tbutton;
-   tbutton4: tbutton;
-   tbutton5: tbutton;
+   ammend: tbutton;
+   stage: tbutton;
+   unstage: tbutton;
    messageed: tmemoedit;
    tsplitter1: tsplitter;
    tpopupmenu1: tpopupmenu;
@@ -48,8 +48,11 @@ type
    procedure ammendexe(const sender: TObject);
    procedure unstageexe(const sender: TObject);
    procedure lastmessageexe(const sender: TObject);
+   procedure messagepopupupdaexe(const sender: tcustommenu);
   private
    fkind: commitkindty;
+  protected
+   function checkmessage: boolean;
   public
    procedure exec(const aroot: tgitdirtreenode;
                      const aitems: msegitfileitemarty);
@@ -61,7 +64,7 @@ var
 
 implementation
 uses
- commitqueryform_mfm,msedatanodes;
+ commitqueryform_mfm,msedatanodes,lastmessageform,msearrayutils;
 
 { tcommitqueryfo }
  
@@ -74,6 +77,7 @@ var
 begin
  if aitems <> nil then begin
 //  messageed.dropdown.history:= mainmo.repostat.commitmessages;
+  messageed.value:= mainmo.repostat.commitmessage;
   setlength(ar1,length(aitems));
   int2:= 0;
   for int1:= 0 to high(ar1) do begin
@@ -102,6 +106,7 @@ begin
     setlength(ar2,int2);
     mainmo.commit(ar2,messageed.value,fkind);
    end;
+   mainmo.repostat.commitmessage:= messageed.value;
   end
   else begin
    showmessage('No files to commit.');
@@ -128,17 +133,21 @@ end;
 
 procedure tcommitqueryfo.ammendexe(const sender: TObject);
 begin
- if askyesno('Do you want to ammend?') then begin
-  fkind:= ck_ammend;
-  window.modalresult:= mr_ok;
+ if checkmessage then begin
+  if askyesno('Do you want to ammend?') then begin
+   fkind:= ck_amend;
+   window.modalresult:= mr_ok;
+  end;
  end;
 end;
 
 procedure tcommitqueryfo.commitexe(const sender: TObject);
 begin
- if askyesno('Do you want to commit?') then begin
-  fkind:= ck_commit;
-  window.modalresult:= mr_ok;
+ if checkmessage then begin
+  if askyesno('Do you want to commit?') then begin
+   fkind:= ck_commit;
+   window.modalresult:= mr_ok;
+  end;
  end;
 end;
 
@@ -154,12 +163,55 @@ begin
 end;
 
 procedure tcommitqueryfo.commitupdateexe(const sender: tcustombutton);
+var
+ bo1: boolean;
 begin
- sender.enabled:= filecountdisp.value > 0;
+ bo1:= filecountdisp.value > 0;
+ unstage.enabled:= bo1;
+ stage.enabled:= bo1;
+ ammend.enabled:= bo1;
+ commit.enabled:= bo1;
 end;
 
 procedure tcommitqueryfo.lastmessageexe(const sender: TObject);
 begin
+ with tlastmessagefo.create(nil) do begin
+  ed.gridvalues:= mainmo.repostat.commitmessages;
+  grid.row:= 0;
+  if show(ml_application) = mr_ok then begin
+   messageed.value:= ed.value;
+  end;
+ end;
+end;
+
+procedure tcommitqueryfo.messagepopupupdaexe(const sender: tcustommenu);
+begin
+ sender.menu.itembyname('lastmessage').enabled:= 
+                                mainmo.repostat.commitmessages <> nil;
+end;
+
+function tcommitqueryfo.checkmessage: boolean;
+var
+ int1: integer;
+ ar1: msestringarty;
+begin
+ result:= messageed.value <> '';
+ if not result then begin
+  showmessage('Empty commit message.','***ERROR***');
+ end
+ else begin
+  ar1:= mainmo.repostat.commitmessages;
+  for int1:= high(ar1) downto 0  do begin
+   if ar1[int1] = messageed.value then begin
+    deleteitem(ar1,int1);
+   end;
+  end;
+  if high(ar1) >= 10 then begin
+   setlength(ar1,high(ar1));
+  end;
+  insertitem(ar1,0,messageed.value);
+  mainmo.repostat.commitmessages:= ar1;
+ end;   
 end;
 
 end.

@@ -86,11 +86,13 @@ type
    factiveremote: msestring;
    fcommitmessages: msestringarty;
 //   freponames: msestringarty;
+   fcommitmessage: msestring;
   published
    property activeremote: msestring read factiveremote write factiveremote;
    property commitmessages: msestringarty read fcommitmessages 
                                                  write fcommitmessages;
-//   property reponames: msestringarty read freponames write freponames;
+   property commitmessage: msestring read fcommitmessage write fcommitmessage;
+//   property reponames: msestringarty read freponames write freponames
  end;
     
  tmainmo = class(tmsedatamodule)
@@ -612,7 +614,7 @@ procedure updatecommitinfo(const akind: commitkindty;
 begin
  with adata do begin
   case akind of
-   ck_commit,ck_ammend: begin
+   ck_commit,ck_amend: begin
     statey:= (statey - cancommitstate) + [gist_pushpending];
     statex:= statex - cancommitstate;
    end;
@@ -657,10 +659,13 @@ begin
    ck_unstage: begin
     mstr1:= 'reset -q ';
    end;
-   ck_ammend,ck_commit: begin
-    mstr1:= 'commit -m'+fgit.encodestringparam(amessage)+' ';
-    if akind = ck_ammend then begin
-     mstr1:= mstr1 + '--ammend ';
+   ck_amend,ck_commit: begin
+    mstr1:= 'commit ';
+    if amessage <> '' then begin
+     mstr1:= mstr1 + '-m'+fgit.encodestringparam(amessage)+' ';
+    end;
+    if akind = ck_amend then begin
+     mstr1:= mstr1 + '--amend ';
     end;
    end;
    else begin
@@ -1015,5 +1020,4 @@ begin
  fshowignoreditems:= fshowignoreditems and avalue;
 end;
 
-{ trepostat }
 end.

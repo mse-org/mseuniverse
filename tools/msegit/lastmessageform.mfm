@@ -1,15 +1,81 @@
 object lastmessagefo: tlastmessagefo
-  bounds_x = 337
-  bounds_y = 266
-  bounds_cx = 100
-  bounds_cy = 100
+  visible = False
+  bounds_x = 212
+  bounds_y = 250
+  bounds_cx = 341
+  bounds_cy = 263
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    100
-    100
+    341
+    263
   )
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Select commit message'
   moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    taborder = 1
+    bounds_x = 285
+    bounds_y = 240
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption]
+    caption = '&Cancel'
+    modalresult = mr_cancel
+  end
+  object tbutton2: tbutton
+    taborder = 2
+    bounds_x = 229
+    bounds_y = 240
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_default, as_localdefault, as_localcaption]
+    caption = '&OK'
+    modalresult = mr_ok
+  end
+  object grid: twidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 341
+    bounds_cy = 234
+    anchors = [an_top, an_bottom]
+    optionsgrid = [og_focuscellonenter, og_rowheight, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.coloractive = -1879048185
+    datacols.colorfocused = -1879048185
+    datacols.items = <    
+      item
+        coloractive = -1879048185
+        colorfocused = -1879048185
+        width = 336
+        options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autorowheight]
+        widgetname = 'ed'
+        dataclass = tgridmsestringdatalist
+      end>
+    datarowheight = 16
+    reffontheight = 14
+    object ed: tstringedit
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 336
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      reffontheight = 14
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'lastmessagefo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 72
+    top = 56
+  end
 end

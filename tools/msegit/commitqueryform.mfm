@@ -2,34 +2,34 @@ object commitqueryfo: tcommitqueryfo
   visible = False
   bounds_x = 109
   bounds_y = 231
-  bounds_cx = 420
+  bounds_cx = 432
   bounds_cy = 283
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    420
+    432
     283
   )
-  options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Commit'
   moduleclassname = 'tmseform'
   inline filelist: tfilelistframefo
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 420
+    bounds_cx = 432
     bounds_cy = 152
     anchors = [an_top, an_bottom]
     container.bounds = (
       0
       0
-      420
+      432
       152
     )
     inherited grid: twidgetgrid
-      bounds_cx = 420
+      bounds_cx = 432
       bounds_cy = 152
       bounds_cxmin = 420
       fixrows.items = <      
@@ -72,7 +72,7 @@ object commitqueryfo: tcommitqueryfo
           )
         end      
         item
-          width = 364
+          width = 376
           options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_fill, co_savestate, co_mousescrollrow]
           widgetname = 'fileitemed'
           dataclass = titemeditlist
@@ -86,7 +86,7 @@ object commitqueryfo: tcommitqueryfo
       end
       inherited fileitemed: titemedit
         bounds_x = 51
-        bounds_cx = 364
+        bounds_cx = 376
         optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_locate, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
         textflags = [tf_ycentered, tf_clipo, tf_noselect, tf_ellipseleft]
       end
@@ -117,7 +117,7 @@ object commitqueryfo: tcommitqueryfo
     caption = '&Cancel'
     modalresult = mr_cancel
   end
-  object tbutton2: tbutton
+  object commit: tbutton
     taborder = 2
     bounds_x = 304
     bounds_y = 256
@@ -148,34 +148,37 @@ object commitqueryfo: tcommitqueryfo
     anchors = [an_left, an_bottom]
     reffontheight = 14
   end
-  object tbutton3: tbutton
+  object ammend: tbutton
     taborder = 4
-    bounds_x = 240
-    bounds_y = 256
-    bounds_cx = 58
-    bounds_cy = 20
-    state = [as_localcaption, as_localonexecute]
-    caption = '&Ammend'
-    onupdate = commitupdateexe
-    onexecute = ammendexe
-  end
-  object tbutton4: tbutton
-    taborder = 5
-    bounds_x = 184
+    bounds_x = 248
     bounds_y = 256
     bounds_cx = 50
     bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Amend'
+    onupdate = commitupdateexe
+    onexecute = ammendexe
+  end
+  object stage: tbutton
+    taborder = 5
+    bounds_x = 192
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
     state = [as_localcaption, as_localonexecute]
     caption = '&Stage'
     onupdate = commitupdateexe
     onexecute = stageexe
   end
-  object tbutton5: tbutton
+  object unstage: tbutton
     taborder = 6
-    bounds_x = 120
+    bounds_x = 128
     bounds_y = 256
     bounds_cx = 58
     bounds_cy = 20
+    anchors = [an_left, an_bottom]
     state = [as_localcaption, as_localonexecute]
     caption = '&Unstage'
     onupdate = commitupdateexe
@@ -194,9 +197,10 @@ object commitqueryfo: tcommitqueryfo
     popupmenu = tpopupmenu1
     bounds_x = 0
     bounds_y = 155
-    bounds_cx = 420
+    bounds_cx = 432
     bounds_cy = 93
     anchors = [an_top, an_bottom]
+    optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_focusrectonreadonly, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
   end
   object tsplitter1: tsplitter
     optionswidget = [ow_destroywidgets, ow_autoscale]
@@ -204,7 +208,7 @@ object commitqueryfo: tcommitqueryfo
     taborder = 8
     bounds_x = 0
     bounds_y = 152
-    bounds_cx = 420
+    bounds_cx = 432
     bounds_cy = 3
     anchors = [an_top]
     linktop = filelist
@@ -218,10 +222,12 @@ object commitqueryfo: tcommitqueryfo
     top = 160
   end
   object tpopupmenu1: tpopupmenu
+    onupdate = messagepopupupdaexe
     menu.submenu.count = 1
     menu.submenu.items = <    
       item
         caption = 'Last Messages'
+        name = 'lastmessage'
         state = [as_localcaption, as_localonexecute]
         onexecute = lastmessageexe
       end>

@@ -55,7 +55,7 @@ object filelistframefo: tfilelistframefo
       end    
       item
         width = 230
-        options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_savestate, co_mousescrollrow]
         widgetname = 'fileitemed'
         dataclass = titemeditlist
         datalist.imagealignment = [al_right, al_ycentered]
