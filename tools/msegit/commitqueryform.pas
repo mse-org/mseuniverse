@@ -110,9 +110,9 @@ begin
   end
   else begin
    showmessage('No files to commit.');
-   release;
   end;
  end;
+ release;
 end;
 
 procedure tcommitqueryfo.stageexe(const sender: TObject);
