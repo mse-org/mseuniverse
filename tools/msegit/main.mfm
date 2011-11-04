@@ -50,7 +50,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 10
+        submenu.count = 11
         submenu.items = <        
           item
             submenu.count = 2
@@ -91,7 +91,7 @@ object mainfo: tmainfo
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
-            caption = '&Dirtree'
+            caption = 'Dir&tree'
             state = [as_localcaption, as_localonexecute]
             onexecute = showdirtreeexe
           end        
@@ -104,6 +104,11 @@ object mainfo: tmainfo
             caption = 'Remotes'
             state = [as_localcaption, as_localonexecute]
             onexecute = showremotesexe
+          end        
+          item
+            caption = '&Diff'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showdiffexe
           end        
           item
             caption = '&Git Console'

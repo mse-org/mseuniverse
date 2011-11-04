@@ -1,6 +1,10 @@
 object difffo: tdifffo
-  bounds_x = 100
-  bounds_y = 100
+  frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_fixsizebutton]
+  frame.dummy = 0
+  visible = False
+  bounds_x = 124
+  bounds_y = 256
   bounds_cx = 445
   bounds_cy = 354
   container.frame.zoomwidthstep = 1
@@ -8,8 +12,51 @@ object difffo: tdifffo
   container.bounds = (
     0
     0
-    445
+    435
     354
   )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
+  statfile = mainfo.formsta
+  onshow = showexe
+  onhide = hideexe
   moduleclassname = 'tdockform'
+  object grid: twidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 2000
+        widgetname = 'ed'
+        dataclass = tgridrichstringdatalist
+      end>
+    datarowlinewidth = 0
+    datarowheight = 15
+    reffontheight = 14
+    object ed: ttextedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontlineheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 2000
+      bounds_cy = 15
+      font.name = 'stf_fixed'
+      font.xscale = 1
+      font.dummy = 0
+      optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      reffontheight = 15
+    end
+  end
+  object repocloseact: taction
+    onexecute = repocloseexe
+    ifilink = mainmo.repoclosedact
+    left = 56
+    top = 64
+  end
 end

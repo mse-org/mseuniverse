@@ -24,7 +24,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msedatanodes,
- mselistbrowser,msegraphedits,mseact,mseactions;
+ mselistbrowser,msegraphedits,mseact,mseactions,mainmodule;
 
 type
  tfilesfo = class(tdockform)
@@ -41,18 +41,20 @@ type
    procedure commitupdateexe(const sender: tcustomaction);
    procedure addupdateexe(const sender: tcustomaction);
    procedure addexe(const sender: TObject);
+   procedure cellevexe(const sender: TObject; var info: celleventinfoty);
   private
    fpath: filenamety;
   public
    procedure loadfiles(const apath: filenamety);
    procedure synctodirtree(const apath: filenamety);
+   function currentitem: tmsegitfileitem;
  end;
 var
  filesfo: tfilesfo;
 implementation
 uses
- filesform_mfm,mainmodule,dirtreeform,msegitcontroller,msewidgets,mseformatstr,
- main;
+ filesform_mfm,dirtreeform,msegitcontroller,msewidgets,mseformatstr,
+ main,diffform;
  
 { tfilesfo }
 
@@ -114,6 +116,18 @@ begin
   end;
  end;    
  activate;
+end;
+
+procedure tfilesfo.cellevexe(const sender: TObject; var info: celleventinfoty);
+begin
+ if isrowenter(info) then begin
+  difffo.refresh(dirtreefo.currentitem,currentitem);
+ end;
+end;
+
+function tfilesfo.currentitem: tmsegitfileitem;
+begin
+ result:= tmsegitfileitem(fileitemed.item);
 end;
 
 end.

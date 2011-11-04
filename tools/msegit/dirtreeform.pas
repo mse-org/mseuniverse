@@ -24,7 +24,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msestatfile,
  msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
- msedatanodes,mselistbrowser,mseact,mseactions,msebitmap;
+ msedatanodes,mselistbrowser,mseact,mseactions,msebitmap,mainmodule;
 
 type
  tdirtreefo = class(tdockform)
@@ -53,6 +53,7 @@ type
    procedure savestate;
    procedure restorestate;
    function currentgitdir: filenamety;
+   function currentitem: tgitdirtreenode;
  end;
 
 var
@@ -60,7 +61,7 @@ var
 
 implementation
 uses
- dirtreeform_mfm,mainmodule,filesform,gitconsole,msewidgets,mseformatstr,
+ dirtreeform_mfm,filesform,gitconsole,msewidgets,mseformatstr,
  main;
  
 procedure tdirtreefo.loadedexe(const sender: TObject);
@@ -152,6 +153,11 @@ end;
 procedure tdirtreefo.addupdateexe(const sender: tcustomaction);
 begin
  sender.enabled:= mainmo.canadd(gitdirtreenodearty(treeed.selecteditems));
+end;
+
+function tdirtreefo.currentitem: tgitdirtreenode;
+begin
+ result:= tgitdirtreenode(treeed.item);
 end;
 
 end.

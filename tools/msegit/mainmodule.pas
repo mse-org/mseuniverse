@@ -63,6 +63,7 @@ type
               const aparent: ttreelistitem = nil); override;
    procedure drawimage(const acanvas: tcanvas); override;
    function getoriginicon: integer;
+   function gitpath: filenamety;
  end;
  gitdirtreenodearty = array of tgitdirtreenode;
 
@@ -872,6 +873,11 @@ end;
 function tgitdirtreenode.getoriginicon: integer;
 begin
  result:= statetooriginicon(fgitstate);
+end;
+
+function tgitdirtreenode.gitpath: filenamety;
+begin
+ result:= path(1);
 end;
 
 { tgitdirtreerootnode }

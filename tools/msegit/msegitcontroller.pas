@@ -211,6 +211,7 @@ type
                     const astate: tgitstatecache;
                     const adest: tgitfilecache): boolean; overload;
    function remoteshow(out adest: remoteinfoarty): boolean;
+   function diff(const afile: filenamety): msestringarty;
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
@@ -733,6 +734,16 @@ begin
   else begin
    setlength(adest,int2+1);
   end;
+ end;
+end;
+
+function tgitcontroller.diff(const afile: filenamety): msestringarty;
+var
+ str1: string;
+begin
+ result:= nil;
+ if commandresult('diff '+encodepathparam(afile,true),str1) then begin
+  result:= breaklines(msestring(str1));
  end;
 end;
 

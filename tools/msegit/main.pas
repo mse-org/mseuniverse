@@ -49,6 +49,7 @@ type
    procedure showremotesexe(const sender: TObject);
    procedure gitconsoleshowexe(const sender: TObject);
    procedure closerepoexe(const sender: TObject);
+   procedure showdiffexe(const sender: TObject);
   private
    frefreshing: boolean;
   public
@@ -62,7 +63,7 @@ implementation
 
 uses
  main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform,
- gitconsole;
+ gitconsole,diffform;
  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
@@ -84,6 +85,11 @@ end;
 procedure tmainfo.showremotesexe(const sender: TObject);
 begin
  remotesfo.activate;
+end;
+
+procedure tmainfo.showdiffexe(const sender: TObject);
+begin
+ difffo.activate;
 end;
 
 procedure tmainfo.gitconsoleshowexe(const sender: TObject);
