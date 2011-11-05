@@ -17,6 +17,7 @@ object difffo: tdifffo
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
   statfile = mainfo.formsta
+  caption = 'diff'
   onshow = showexe
   onhide = hideexe
   moduleclassname = 'tdockform'

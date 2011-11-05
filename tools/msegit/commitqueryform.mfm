@@ -82,7 +82,7 @@ object commitqueryfo: tcommitqueryfo
     onexecute = stageexe
   end
   object unstage: tbutton
-    taborder = 5
+    taborder = 6
     bounds_x = 232
     bounds_y = 256
     bounds_cx = 58
@@ -226,7 +226,7 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
-    taborder = 6
+    taborder = 5
     visible = True
     bounds_x = 387
     bounds_y = 0
