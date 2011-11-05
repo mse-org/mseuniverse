@@ -415,7 +415,7 @@ end;
 procedure tmainmo.addfiles(var aitem: gitfileinfoty);
 var
  n1: tmsegitfileitem;
- int1: integer;
+// int1: integer;
 begin
  with aitem.data.stateinfo do begin 
   if filename <> '' then begin

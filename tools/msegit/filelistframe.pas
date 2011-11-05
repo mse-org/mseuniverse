@@ -24,7 +24,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedataedits,mseedit,
  msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msegraphedits,
- msedatanodes,mselistbrowser,msestatfile;
+ msedatanodes,mselistbrowser,msestatfile,mainmodule;
 type
  tfilelistframefo = class(tmseform)
    grid: twidgetgrid;
@@ -33,12 +33,14 @@ type
    fileitemed: titemedit;
    procedure updaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
+  public
+   function currentitem: tmsegitfileitem;
  end;
 var
  filelistframefo: tfilelistframefo;
 implementation
 uses
- filelistframe_mfm,mainmodule;
+ filelistframe_mfm;
 
 procedure tfilelistframefo.updaterowvaluesexe(const sender: TObject;
                const aindex: Integer; const aitem: tlistitem);
@@ -47,6 +49,11 @@ begin
   filestate[aindex]:= imagenr;
   originstate[aindex]:= getoriginicon;
  end;
+end;
+
+function tfilelistframefo.currentitem: tmsegitfileitem;
+begin
+ result:= tmsegitfileitem(fileitemed.item);
 end;
 
 end.

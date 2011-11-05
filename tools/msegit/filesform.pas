@@ -48,6 +48,7 @@ type
    procedure loadfiles(const apath: filenamety);
    procedure synctodirtree(const apath: filenamety);
    function currentitem: tmsegitfileitem;
+   procedure refreshdiff;
  end;
 var
  filesfo: tfilesfo;
@@ -118,10 +119,15 @@ begin
  activate;
 end;
 
+procedure tfilesfo.refreshdiff;
+begin
+ difffo.refresh(dirtreefo.currentitem,currentitem);
+end;
+
 procedure tfilesfo.cellevexe(const sender: TObject; var info: celleventinfoty);
 begin
  if isrowenter(info) then begin
-  difffo.refresh(dirtreefo.currentitem,currentitem);
+  refreshdiff;
  end;
 end;
 
@@ -129,5 +135,6 @@ function tfilesfo.currentitem: tmsegitfileitem;
 begin
  result:= tmsegitfileitem(fileitemed.item);
 end;
+
 
 end.

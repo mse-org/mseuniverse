@@ -2,112 +2,21 @@ object commitqueryfo: tcommitqueryfo
   visible = False
   bounds_x = 109
   bounds_y = 231
-  bounds_cx = 432
+  bounds_cx = 693
   bounds_cy = 283
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    432
+    693
     283
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Commit'
   moduleclassname = 'tmseform'
-  inline filelist: tfilelistframefo
-    bounds_x = 0
-    bounds_y = 0
-    bounds_cx = 432
-    bounds_cy = 152
-    anchors = [an_top, an_bottom]
-    container.bounds = (
-      0
-      0
-      432
-      152
-    )
-    inherited grid: twidgetgrid
-      bounds_cx = 432
-      bounds_cy = 152
-      bounds_cxmin = 420
-      fixrows.items = <      
-        item
-          captions.count = 4
-          captions.items = <          
-            item
-              options = [dco_hintclippedtext]
-            end          
-            item
-            end          
-            item
-              caption = ''
-            end          
-            item
-              caption = 'Name'
-              options = [dco_colsort, dco_hintclippedtext]
-            end>
-        end>
-      datacols.count = 4
-      datacols.sortcol = 3
-      datacols.sortcoldefault = 3
-      datacols.items = <      
-        item
-          options = [co_savestate, co_mousescrollrow]
-          widgetname = 'selected'
-          dataclass = tgridintegerdatalist
-        end      
-        item
-          widgetname = 'originstate'
-          dataclass = tgridintegerdatalist
-        end      
-        item
-          width = 16
-          options = [co_readonly, co_nofocus, co_fixwidth, co_savestate, co_mousescrollrow]
-          widgetname = 'filestate'
-          dataclass = tgridintegerdatalist
-          data = (
-            (            )
-          )
-        end      
-        item
-          width = 376
-          options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_fill, co_savestate, co_mousescrollrow]
-          widgetname = 'fileitemed'
-          dataclass = titemeditlist
-        end>
-      statfile = tstatfile1
-      inherited originstate: tdataicon
-        bounds_x = 17
-      end
-      inherited filestate: tdataicon
-        bounds_x = 34
-      end
-      inherited fileitemed: titemedit
-        bounds_x = 51
-        bounds_cx = 376
-        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_locate, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-        textflags = [tf_ycentered, tf_clipo, tf_noselect, tf_ellipseleft]
-      end
-      object selected: tbooleanedit[3]
-        optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
-        optionsskin = [osk_framebuttononly]
-        taborder = 4
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 16
-        bounds_cy = 16
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-        visible = False
-        onsetvalue = selectsetexe
-        value = True
-        valuedefault = True
-      end
-    end
-  end
   object tbutton1: tbutton
-    taborder = 1
     bounds_x = 360
     bounds_y = 256
     bounds_cx = 50
@@ -118,7 +27,7 @@ object commitqueryfo: tcommitqueryfo
     modalresult = mr_cancel
   end
   object commit: tbutton
-    taborder = 2
+    taborder = 1
     bounds_x = 304
     bounds_y = 256
     bounds_cx = 50
@@ -140,7 +49,7 @@ object commitqueryfo: tcommitqueryfo
       53
       0
     )
-    taborder = 3
+    taborder = 2
     bounds_x = 8
     bounds_y = 256
     bounds_cx = 97
@@ -149,7 +58,7 @@ object commitqueryfo: tcommitqueryfo
     reffontheight = 14
   end
   object ammend: tbutton
-    taborder = 4
+    taborder = 3
     bounds_x = 248
     bounds_y = 256
     bounds_cx = 50
@@ -161,7 +70,7 @@ object commitqueryfo: tcommitqueryfo
     onexecute = ammendexe
   end
   object stage: tbutton
-    taborder = 5
+    taborder = 4
     bounds_x = 192
     bounds_y = 256
     bounds_cx = 50
@@ -173,7 +82,7 @@ object commitqueryfo: tcommitqueryfo
     onexecute = stageexe
   end
   object unstage: tbutton
-    taborder = 6
+    taborder = 5
     bounds_x = 128
     bounds_y = 256
     bounds_cx = 58
@@ -184,35 +93,188 @@ object commitqueryfo: tcommitqueryfo
     onupdate = commitupdateexe
     onexecute = unstageexe
   end
-  object messageed: tmemoedit
-    frame.caption = 'Commit Message'
-    frame.localprops = [frl_colorclient]
-    frame.outerframe = (
-      0
-      17
-      0
-      0
-    )
-    taborder = 7
-    popupmenu = tpopupmenu1
+  object tsimplewidget1: tsimplewidget
+    taborder = 6
+    visible = True
     bounds_x = 0
-    bounds_y = 155
-    bounds_cx = 432
-    bounds_cy = 93
-    anchors = [an_top, an_bottom]
-    optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_focusrectonreadonly, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+    bounds_y = 0
+    bounds_cx = 384
+    bounds_cy = 250
+    anchors = [an_left, an_top, an_bottom]
+    object messageed: tmemoedit
+      frame.caption = 'Commit Message'
+      frame.localprops = [frl_colorclient]
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      popupmenu = tpopupmenu1
+      bounds_x = 0
+      bounds_y = 144
+      bounds_cx = 384
+      bounds_cy = 106
+      anchors = [an_bottom]
+      optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_focusrectonreadonly, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+    end
+    object tsplitter1: tsplitter
+      optionswidget = [ow_destroywidgets, ow_autoscale]
+      color = -1879048189
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 141
+      bounds_cx = 384
+      bounds_cy = 3
+      anchors = [an_top]
+      options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linktop = filelist
+      linkbottom = messageed
+      statfile = tstatfile1
+    end
+    inline filelist: tfilelistframefo
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 384
+      bounds_cy = 141
+      anchors = [an_top]
+      container.bounds = (
+        0
+        0
+        384
+        141
+      )
+      inherited grid: twidgetgrid
+        bounds_cx = 384
+        bounds_cy = 141
+        fixrows.items = <        
+          item
+            captions.count = 4
+            captions.items = <            
+              item
+              end            
+              item
+              end            
+              item
+                caption = ''
+              end            
+              item
+                caption = 'Name'
+                options = [dco_colsort, dco_hintclippedtext]
+              end>
+          end>
+        datacols.count = 4
+        datacols.sortcol = 3
+        datacols.sortcoldefault = 3
+        datacols.items = <        
+          item
+            options = [co_savestate, co_mousescrollrow]
+            widgetname = 'selected'
+            dataclass = tgridintegerdatalist
+          end        
+          item
+            widgetname = 'originstate'
+            dataclass = tgridintegerdatalist
+          end        
+          item
+            width = 16
+            options = [co_readonly, co_nofocus, co_fixwidth, co_savestate, co_mousescrollrow]
+            widgetname = 'filestate'
+            dataclass = tgridintegerdatalist
+            data = (
+              (              )
+            )
+          end        
+          item
+            width = 328
+            options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_fill, co_savestate, co_mousescrollrow]
+            widgetname = 'fileitemed'
+            dataclass = titemeditlist
+            datalist.imagealignment = [al_right, al_ycentered]
+            datalist.captionpos = cp_top
+          end>
+        oncellevent = celleventexe
+        inherited originstate: tdataicon
+          bounds_x = 17
+        end
+        inherited filestate: tdataicon
+          bounds_x = 34
+        end
+        inherited fileitemed: titemedit
+          bounds_x = 51
+          bounds_cx = 328
+        end
+        object selected: tbooleanedit[3]
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+          optionsskin = [osk_framebuttononly]
+          taborder = 4
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 16
+          bounds_cy = 16
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+          visible = False
+          valuedefault = True
+        end
+      end
+    end
   end
-  object tsplitter1: tsplitter
+  inline diff: tcommitdifffo
+    frame = nil
+    taborder = 7
+    visible = True
+    bounds_x = 387
+    bounds_y = 0
+    bounds_cx = 306
+    bounds_cy = 250
+    anchors = [an_top, an_right, an_bottom]
+    container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
+    container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
+    container.bounds = (
+      0
+      0
+      306
+      250
+    )
+    options = [fo_savepos, fo_savezorder]
+    statfile = diff.tstatfile1
+    inherited grid: twidgetgrid
+      frame.caption = 'diff'
+      frame.captionoffset = 10
+      frame.localprops1 = [frl1_captionoffset]
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_cx = 306
+      bounds_cy = 250
+      datacols.items = <      
+        item
+          dataclass = tgridrichstringdatalist
+        end>
+      inherited ed: ttextedit
+      end
+    end
+    inherited repocloseact: taction
+    end
+    inherited tstatfile1: tstatfile
+    end
+  end
+  object tsplitter2: tsplitter
     optionswidget = [ow_destroywidgets, ow_autoscale]
     color = -1879048189
     taborder = 8
-    bounds_x = 0
-    bounds_y = 152
-    bounds_cx = 432
-    bounds_cy = 3
-    anchors = [an_top]
-    linktop = filelist
-    linkbottom = messageed
+    bounds_x = 384
+    bounds_y = 0
+    bounds_cx = 3
+    bounds_cy = 250
+    anchors = [an_left, an_top, an_bottom]
+    options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linkleft = tsimplewidget1
+    linkright = diff
     statfile = tstatfile1
   end
   object tstatfile1: tstatfile

@@ -25,13 +25,11 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mainmodule,msestatfile,
  filelistframe,msesimplewidgets,msewidgets,msegraphedits,mseifiglob,msetypes,
  msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog,
- msegitcontroller;
+ msegitcontroller,commitdiffform,msegrids;
 type
  tcommitqueryfo = class(tmseform)
-   filelist: tfilelistframefo;
    tbutton1: tbutton;
    commit: tbutton;
-   selected: tbooleanedit;
    filecountdisp: tintegerdisp;
    tstatfile1: tstatfile;
    ammend: tbutton;
@@ -40,6 +38,11 @@ type
    messageed: tmemoedit;
    tsplitter1: tsplitter;
    tpopupmenu1: tpopupmenu;
+   filelist: tfilelistframefo;
+   selected: tbooleanedit;
+   tsimplewidget1: tsimplewidget;
+   diff: tcommitdifffo;
+   tsplitter2: tsplitter;
    procedure commitexe(const sender: TObject);
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
@@ -49,8 +52,10 @@ type
    procedure unstageexe(const sender: TObject);
    procedure lastmessageexe(const sender: TObject);
    procedure messagepopupupdaexe(const sender: tcustommenu);
+   procedure celleventexe(const sender: TObject; var info: celleventinfoty);
   private
    fkind: commitkindty;
+   froot: tgitdirtreenode;
   protected
    function checkmessage: boolean;
   public
@@ -76,6 +81,7 @@ var
  int1,int2: integer;
 begin
  if aitems <> nil then begin
+  froot:= aroot;
 //  messageed.dropdown.history:= mainmo.repostat.commitmessages;
   messageed.value:= mainmo.repostat.commitmessage;
   setlength(ar1,length(aitems));
@@ -212,6 +218,14 @@ begin
   insertitem(ar1,0,messageed.value);
   mainmo.repostat.commitmessages:= ar1;
  end;   
+end;
+
+procedure tcommitqueryfo.celleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if isrowenter(info) then begin
+  diff.refresh(froot,filelist.currentitem);
+ end;
 end;
 
 end.
