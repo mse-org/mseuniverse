@@ -46,14 +46,47 @@ var
  difffo: tdifffo;
 implementation
 uses
- diffform_mfm;
-
+ diffform_mfm,mserichstring;
+const
+ chunkcolor = cl_dkmagenta;
+ addcolor = $008000;
+ removecolor= cl_dkred;
 { tdifffo }
 
 procedure tdifffo.updatedisp;
+var
+ int1: integer;
+ po1: prichstringaty;
+ chunkformat,addformat,removeformat: formatinfoarty;
 begin
  if fpath <> '' then begin
-  ed.gridvalues:= mainmo.git.diff(fpath);
+  setfontcolor(chunkformat,0,bigint,chunkcolor);
+  setfontcolor(addformat,0,bigint,addcolor);
+  setfontcolor(removeformat,0,bigint,removecolor);
+  grid.beginupdate;
+  try
+   ed.gridvalues:= mainmo.git.diff(fpath);
+   po1:= ed.datalist.datapo;
+   for int1:= 0 to ed.datalist.count-1 do begin
+    with po1^[int1] do begin
+     if text <> '' then begin
+      case text[1] of
+       '@': begin
+        format:= chunkformat;
+       end;
+       '+': begin
+        format:= addformat;
+       end;
+       '-': begin
+        format:= removeformat;
+       end;
+      end;
+     end;
+    end;
+   end;
+  finally
+   grid.endupdate;
+  end;
  end
  else begin
   grid.clear;

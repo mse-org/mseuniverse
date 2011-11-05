@@ -165,19 +165,23 @@ object commitqueryfo: tcommitqueryfo
               end>
           end>
         datacols.count = 4
+        datacols.colorfocused = -1879048185
         datacols.sortcol = 3
         datacols.sortcoldefault = 3
         datacols.items = <        
           item
+            colorfocused = -1879048185
             options = [co_savestate, co_mousescrollrow]
             widgetname = 'selected'
             dataclass = tgridintegerdatalist
           end        
           item
+            colorfocused = -1879048185
             widgetname = 'originstate'
             dataclass = tgridintegerdatalist
           end        
           item
+            colorfocused = -1879048185
             width = 16
             options = [co_readonly, co_nofocus, co_fixwidth, co_savestate, co_mousescrollrow]
             widgetname = 'filestate'
@@ -187,6 +191,7 @@ object commitqueryfo: tcommitqueryfo
             )
           end        
           item
+            colorfocused = -1879048185
             width = 328
             options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_fill, co_savestate, co_mousescrollrow]
             widgetname = 'fileitemed'

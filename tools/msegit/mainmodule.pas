@@ -647,7 +647,7 @@ function tmainmo.commit(const afiles: filenamearty;
 var
  int1: integer;
  po1: pgitstatedataty;
- po2: pgitfiledataty;
+// po2: pgitfiledataty;
  dir: filenamety;
  mstr1: msestring;
 begin
