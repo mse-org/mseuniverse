@@ -2,14 +2,14 @@ object commitqueryfo: tcommitqueryfo
   visible = False
   bounds_x = 109
   bounds_y = 231
-  bounds_cx = 693
+  bounds_cx = 696
   bounds_cy = 283
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    693
+    696
     283
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -17,7 +17,7 @@ object commitqueryfo: tcommitqueryfo
   caption = 'Commit'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
-    bounds_x = 360
+    bounds_x = 464
     bounds_y = 256
     bounds_cx = 50
     bounds_cy = 20
@@ -28,7 +28,7 @@ object commitqueryfo: tcommitqueryfo
   end
   object commit: tbutton
     taborder = 1
-    bounds_x = 304
+    bounds_x = 408
     bounds_y = 256
     bounds_cx = 50
     bounds_cy = 20
@@ -51,7 +51,7 @@ object commitqueryfo: tcommitqueryfo
     )
     taborder = 2
     bounds_x = 8
-    bounds_y = 256
+    bounds_y = 257
     bounds_cx = 97
     bounds_cy = 18
     anchors = [an_left, an_bottom]
@@ -59,7 +59,7 @@ object commitqueryfo: tcommitqueryfo
   end
   object ammend: tbutton
     taborder = 3
-    bounds_x = 248
+    bounds_x = 352
     bounds_y = 256
     bounds_cx = 50
     bounds_cy = 20
@@ -71,7 +71,7 @@ object commitqueryfo: tcommitqueryfo
   end
   object stage: tbutton
     taborder = 4
-    bounds_x = 192
+    bounds_x = 296
     bounds_y = 256
     bounds_cx = 50
     bounds_cy = 20
@@ -83,7 +83,7 @@ object commitqueryfo: tcommitqueryfo
   end
   object unstage: tbutton
     taborder = 5
-    bounds_x = 128
+    bounds_x = 232
     bounds_y = 256
     bounds_cx = 58
     bounds_cy = 20
@@ -94,7 +94,7 @@ object commitqueryfo: tcommitqueryfo
     onexecute = unstageexe
   end
   object tsimplewidget1: tsimplewidget
-    taborder = 6
+    taborder = 7
     visible = True
     bounds_x = 0
     bounds_y = 0
@@ -110,13 +110,12 @@ object commitqueryfo: tcommitqueryfo
         0
         0
       )
-      popupmenu = tpopupmenu1
       bounds_x = 0
       bounds_y = 144
       bounds_cx = 384
       bounds_cy = 106
       anchors = [an_bottom]
-      optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_focusrectonreadonly, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
     end
     object tsplitter1: tsplitter
       optionswidget = [ow_destroywidgets, ow_autoscale]
@@ -227,11 +226,11 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
-    taborder = 7
+    taborder = 6
     visible = True
     bounds_x = 387
     bounds_y = 0
-    bounds_cx = 306
+    bounds_cx = 307
     bounds_cy = 250
     anchors = [an_top, an_right, an_bottom]
     container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
@@ -239,7 +238,7 @@ object commitqueryfo: tcommitqueryfo
     container.bounds = (
       0
       0
-      306
+      307
       250
     )
     options = [fo_savepos, fo_savezorder]
@@ -254,7 +253,7 @@ object commitqueryfo: tcommitqueryfo
         0
         0
       )
-      bounds_cx = 306
+      bounds_cx = 307
       bounds_cy = 250
       datacols.items = <      
         item
@@ -282,23 +281,21 @@ object commitqueryfo: tcommitqueryfo
     linkright = diff
     statfile = tstatfile1
   end
+  object tbutton2: tbutton
+    taborder = 9
+    bounds_x = 112
+    bounds_y = 256
+    bounds_cx = 114
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Message &History'
+    onexecute = lastmessageexe
+  end
   object tstatfile1: tstatfile
     filename = 'commitqueryfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 40
     top = 160
-  end
-  object tpopupmenu1: tpopupmenu
-    onupdate = messagepopupupdaexe
-    menu.submenu.count = 1
-    menu.submenu.items = <    
-      item
-        caption = 'Last Messages'
-        name = 'lastmessage'
-        state = [as_localcaption, as_localonexecute]
-        onexecute = lastmessageexe
-      end>
-    left = 96
-    top = 192
   end
 end

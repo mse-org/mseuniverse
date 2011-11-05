@@ -37,12 +37,12 @@ type
    unstage: tbutton;
    messageed: tmemoedit;
    tsplitter1: tsplitter;
-   tpopupmenu1: tpopupmenu;
    filelist: tfilelistframefo;
    selected: tbooleanedit;
    tsimplewidget1: tsimplewidget;
    diff: tcommitdifffo;
    tsplitter2: tsplitter;
+   tbutton2: tbutton;
    procedure commitexe(const sender: TObject);
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
