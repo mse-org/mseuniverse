@@ -183,6 +183,39 @@ uses
  gitconsole,commitqueryform;
   
 const
+ defaultfileicon = 0;
+ modifiedfileoffset = 1;
+ stagedfileoffset = 2;
+ mergefileoffset = 3;
+ 
+// modifiedfileicon = 15;
+ untrackedfileicon = 6;
+ addedfileoffset = 1;
+// mergefileicon = 24;
+// mergeconflictfileicon = 25;
+// stagedfileicon = 16;
+// stagedconflictfileicon = 19;
+
+ defaultdiricon = 9;
+ modifieddiroffset = 2;
+ stageddiroffset = 4;
+ mergediroffset = 6;
+ untrackeddiricon = 21;
+ 
+// unmergeddiricon = 26;
+// modifieddiricon = 4;
+// modifiedunmergeddiricon = 28;
+// untrackeddiricon = 12;
+ mergependingicon = 30;
+ pushpendingicon = 31;
+ pushmergependingicon = 32;
+ pusconflicticon = 33;
+ mergeconflictpendingicon = 34;
+ mergeconflictpushpendingicon = 35;
+// addedicon = 22;
+// addedmodifiedicon = 23;
+{
+const
  defaultfileicon = 10;
  modifiedfileicon = 6;
  untrackedfileicon = 14;
@@ -204,7 +237,7 @@ const
  mergeconflictpushpendingicon = 21;
  addedicon = 22;
  addedmodifiedicon = 23;
- 
+}
 
 function statetooriginicon(const astate: gitstatedataty): integer;
 begin
@@ -240,18 +273,34 @@ begin
 end;
 
 function statetofileicon(const astate: gitstatedataty): integer;
+var
+ int1: integer;
 begin
- result:= defaultfileicon;
+ int1:= defaultfileicon;
  if (gist_unmerged in astate.statex) or 
                         (gist_unmerged in astate.statey) then begin
   if (gist_unmerged in astate.statex) and 
                      (gist_unmerged in astate.statey) then begin
-   result:= mergeconflictfileicon;
-  end
-  else begin
-   result:= mergefileicon;
+   int1:= int1+mergefileoffset;
+//   int1:= int1 + modifiedfileoffset;
+//   result:= mergeconflictfileicon;
+//  end
+//  else begin
+//   result:= mergefileicon;
   end;
  end
+ else begin
+  if gist_added in astate.statex then begin
+   int1:= untrackedfileicon + addedfileoffset;
+  end;
+ end;
+ if gist_modified in astate.statey then begin
+  int1:= int1 + modifiedfileoffset;
+ end;
+ if gist_modified in astate.statex then begin
+  int1:= int1 + stagedfileoffset;
+ end;
+{
  else begin
   if gist_modified in astate.statey then begin
    if gist_added in astate.statex then begin
@@ -275,6 +324,11 @@ begin
    result:= untrackedfileicon;
   end;
  end;
+}
+ if gist_untracked in astate.statey then begin
+  int1:= untrackedfileicon;
+ end;
+ result:= int1;
 end;
 
 { tmainmo }
@@ -836,6 +890,19 @@ begin
  end;
  int1:= defaultdiricon;
  with fgitstate do begin
+  if gist_modified in statey then begin
+   int1:= int1 + modifieddiroffset;
+  end
+  else begin
+   if gist_modified in statex then begin
+    int1:= int1 + stageddiroffset;
+   end;
+  end;
+  if (gist_unmerged in statex) or (gist_unmerged in statey) then begin
+   int1:= int1 + mergediroffset;
+  end;
+  
+ {
   if (gist_unmerged in statex) or (gist_unmerged in statey) then begin
    if gist_modified in statey then begin
     int1:= modifiedunmergeddiricon;
@@ -849,6 +916,7 @@ begin
     int1:= modifieddiricon;
    end;
   end;
+ }
   if (lstr1.len = 0) and (gist_untracked in statey) then begin //directory end
    int1:= untrackeddiricon;
   end;
@@ -994,6 +1062,8 @@ begin
      with n1 do begin
       fgitstate.statex:= po1^.statex;
       fgitstate.statey:= po1^.statey;
+      fimagenr:= statetofileicon(fgitstate);
+     {
       int2:= defaultfileicon;
       if gist_modified in fgitstate.statey then begin
        int2:= modifiedfileicon;
@@ -1002,6 +1072,7 @@ begin
        int2:= untrackedfileicon;
       end;
       fimagenr:= int2;
+     }
      end;
     end;
     additem(pointerarty(result),n1,int1);
