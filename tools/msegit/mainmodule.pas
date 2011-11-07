@@ -599,6 +599,7 @@ var
  ar1: msegitfileitemarty;
  
 begin
+ ar1:= nil;
  if high(aitems) >= 0 then begin
   n1:= aitems[0];
   for int1:= 1 to high(aitems) do begin
@@ -634,16 +635,16 @@ begin
   ar1:= copy(ffilear,0,fvaluecount);
   ffilear:= nil;
   setlength(ffilear,fvaluecount);
-  if fvaluecount > 0 then begin
-   try
-    commit(n1,ar1);
-   finally
-    for int1:= high(ar1) downto 0 do begin
-     ar1[int1].free;
-    end;
-   end;
+ end;
+//  if fvaluecount > 0 then begin
+ try
+  commit(n1,ar1);
+ finally
+  for int1:= high(ar1) downto 0 do begin
+   ar1[int1].free;
   end;
  end;
+//  end;
 end;
 
 function tmainmo.cancommit(const aitems: msegitfileitemarty): boolean;
