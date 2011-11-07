@@ -25,7 +25,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mainmodule,msestatfile,
  filelistframe,msesimplewidgets,msewidgets,msegraphedits,mseifiglob,msetypes,
  msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog,
- msegitcontroller,commitdiffform,msegrids;
+ msegitcontroller,commitdiffform,msegrids,filechecklistframe;
 type
  tcommitqueryfo = class(tmseform)
    tbutton1: tbutton;
@@ -37,12 +37,11 @@ type
    unstage: tbutton;
    messageed: tmemoedit;
    tsplitter1: tsplitter;
-   filelist: tfilelistframefo;
-   selected: tbooleanedit;
    tsimplewidget1: tsimplewidget;
    diff: tcommitdifffo;
    tsplitter2: tsplitter;
    tbutton2: tbutton;
+   filelist: tfilechecklistframefo;
    procedure commitexe(const sender: TObject);
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
@@ -104,7 +103,7 @@ begin
     setlength(ar2,filelist.grid.rowcount);
     int2:= 0;
     for int1:= 0 to high(ar2) do begin
-     if selected[int1] then begin
+     if filelist.selected[int1] then begin
       ar2[int2]:= mainmo.getpath(aroot,
                               tgitfileitem(filelist.fileitemed[int1]).caption);
       inc(int2);

@@ -131,7 +131,7 @@ object commitqueryfo: tcommitqueryfo
       linkbottom = messageed
       statfile = tstatfile1
     end
-    inline filelist: tfilelistframefo
+    inline filelist: tfilechecklistframefo
       taborder = 2
       bounds_x = 0
       bounds_y = 0
@@ -149,77 +149,43 @@ object commitqueryfo: tcommitqueryfo
         bounds_cy = 141
         fixrows.items = <        
           item
-            captions.count = 4
             captions.items = <            
               item
               end            
               item
               end            
               item
-                caption = ''
               end            
               item
-                caption = 'Name'
-                options = [dco_colsort, dco_hintclippedtext]
               end>
           end>
-        datacols.count = 4
-        datacols.colorfocused = -1879048185
-        datacols.sortcol = 3
-        datacols.sortcoldefault = 3
         datacols.items = <        
           item
-            colorfocused = -1879048185
-            options = [co_savestate, co_mousescrollrow]
             widgetname = 'selected'
             dataclass = tgridintegerdatalist
           end        
           item
-            colorfocused = -1879048185
-            widgetname = 'originstate'
             dataclass = tgridintegerdatalist
           end        
           item
-            colorfocused = -1879048185
-            width = 16
-            options = [co_readonly, co_nofocus, co_fixwidth, co_savestate, co_mousescrollrow]
-            widgetname = 'filestate'
             dataclass = tgridintegerdatalist
-            data = (
-              (              )
-            )
           end        
           item
-            colorfocused = -1879048185
             width = 328
-            options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_fill, co_savestate, co_mousescrollrow]
-            widgetname = 'fileitemed'
             dataclass = titemeditlist
             datalist.imagealignment = [al_right, al_ycentered]
             datalist.captionpos = cp_top
+            datalist.data = (            )
           end>
-        oncellevent = celleventexe
         inherited originstate: tdataicon
-          bounds_x = 17
         end
         inherited filestate: tdataicon
-          bounds_x = 34
         end
         inherited fileitemed: titemedit
-          bounds_x = 51
           bounds_cx = 328
         end
-        object selected: tbooleanedit[3]
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
-          optionsskin = [osk_framebuttononly]
-          taborder = 4
-          bounds_x = 0
-          bounds_y = 0
-          bounds_cx = 16
-          bounds_cy = 16
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-          visible = False
-          valuedefault = True
+        inherited selected: tbooleanedit
+          onsetvalue = selectsetexe
         end
       end
     end
