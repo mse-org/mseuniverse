@@ -161,7 +161,6 @@ object commitqueryfo: tcommitqueryfo
           end>
         datacols.items = <        
           item
-            widgetname = 'selected'
             dataclass = tgridintegerdatalist
           end        
           item
@@ -183,6 +182,7 @@ object commitqueryfo: tcommitqueryfo
         end
         inherited fileitemed: titemedit
           bounds_cx = 328
+          oncellevent = celleventexe
         end
         inherited selected: tbooleanedit
           onsetvalue = selectsetexe

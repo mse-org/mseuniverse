@@ -63,6 +63,7 @@ object filesfo: tfilesfo
       inherited filestate: tdataicon
       end
       inherited fileitemed: titemedit
+        oncellevent = cellevexe
       end
     end
   end
