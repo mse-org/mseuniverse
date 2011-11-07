@@ -41,12 +41,12 @@ object commitqueryfo: tcommitqueryfo
   end
   object filecountdisp: tintegerdisp
     frame.caption = 'Filecount'
-    frame.captionpos = cp_right
+    frame.captionpos = cp_left
     frame.dummy = 0
     frame.outerframe = (
-      0
-      0
       53
+      0
+      0
       0
     )
     taborder = 2
