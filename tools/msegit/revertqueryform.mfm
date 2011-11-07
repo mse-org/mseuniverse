@@ -1,0 +1,181 @@
+object revertqueryfo: trevertqueryfo
+  visible = False
+  bounds_x = 109
+  bounds_y = 231
+  bounds_cx = 553
+  bounds_cy = 283
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    553
+    283
+  )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Commit'
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    bounds_x = 168
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    state = [as_default, as_localdefault, as_localcaption]
+    caption = '&Cancel'
+    modalresult = mr_cancel
+  end
+  object revert: tbutton
+    taborder = 1
+    bounds_x = 112
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Revert'
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+    onupdate = revertupdateexe
+    onexecute = revertexe
+  end
+  object filecountdisp: tintegerdisp
+    frame.caption = 'Filecount'
+    frame.captionpos = cp_left
+    frame.dummy = 0
+    frame.outerframe = (
+      53
+      0
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 257
+    bounds_cx = 97
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  inline diff: tcommitdifffo
+    frame = nil
+    taborder = 3
+    visible = True
+    bounds_x = 235
+    bounds_y = 0
+    bounds_cx = 316
+    bounds_cy = 250
+    anchors = [an_top, an_right, an_bottom]
+    container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
+    container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
+    container.bounds = (
+      0
+      0
+      316
+      250
+    )
+    options = [fo_savepos, fo_savezorder]
+    statfile = diff.tstatfile1
+    inherited grid: twidgetgrid
+      frame.caption = 'diff'
+      frame.captionoffset = 10
+      frame.localprops1 = [frl1_captionoffset]
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_cx = 316
+      bounds_cy = 250
+      datacols.items = <      
+        item
+          dataclass = tgridrichstringdatalist
+        end>
+      inherited ed: ttextedit
+      end
+    end
+    inherited repocloseact: taction
+    end
+    inherited tstatfile1: tstatfile
+    end
+  end
+  object tsplitter2: tsplitter
+    optionswidget = [ow_destroywidgets, ow_autoscale]
+    color = -1879048189
+    taborder = 4
+    bounds_x = 232
+    bounds_y = -8
+    bounds_cx = 3
+    bounds_cy = 250
+    anchors = [an_left, an_top, an_bottom]
+    options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linkleft = filelist
+    linkright = diff
+    statfile = tstatfile1
+  end
+  inline filelist: tfilechecklistframefo
+    taborder = 5
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 232
+    bounds_cy = 250
+    anchors = [an_left, an_top, an_bottom]
+    container.bounds = (
+      0
+      0
+      232
+      250
+    )
+    inherited grid: twidgetgrid
+      bounds_cx = 232
+      bounds_cy = 250
+      fixrows.items = <      
+        item
+          captions.items = <          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end>
+        end>
+      datacols.items = <      
+        item
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          width = 176
+          dataclass = titemeditlist
+          datalist.imagealignment = [al_right, al_ycentered]
+          datalist.captionpos = cp_top
+          datalist.data = (          )
+        end>
+      inherited originstate: tdataicon
+      end
+      inherited filestate: tdataicon
+      end
+      inherited fileitemed: titemedit
+        bounds_cx = 176
+        oncellevent = celleventexe
+      end
+      inherited selected: tbooleanedit
+        onsetvalue = selectsetexe
+      end
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'revertqueryfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 40
+    top = 160
+  end
+end
