@@ -23,15 +23,39 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,filelistframe,
- msegraphedits,mseifiglob,msetypes;
+ msegraphedits,mseifiglob,msetypes,mainmodule,msestrings,msegitcontroller;
 
 type
  tfilechecklistframefo = class(tfilelistframefo)
    selected: tbooleanedit;
+  public
+   function selectedfiles(const aroot: tgitdirtreenode): filenamearty;
  end;
+
 var
  filechecklistframefo: tfilechecklistframefo;
+
 implementation
 uses
  filechecklistframe_mfm;
+
+{ tfilechecklistframe }
+
+function tfilechecklistframefo.selectedfiles(
+                  const aroot: tgitdirtreenode): filenamearty; 
+var
+ int1,int2: integer;
+begin
+ setlength(result,grid.rowcount);
+ int2:= 0;
+ for int1:= 0 to high(result) do begin
+  if selected[int1] then begin
+   result[int2]:= mainmo.getpath(aroot,
+                           tgitfileitem(fileitemed[int1]).caption);
+   inc(int2);
+  end;
+ end;
+ setlength(result,int2);
+end;
+
 end.

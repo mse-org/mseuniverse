@@ -32,6 +32,7 @@ type
    commitact: taction;
    addact: taction;
    filelist: tfilelistframefo;
+   revertact: taction;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure commitexe(const sender: TObject);
@@ -40,6 +41,8 @@ type
    procedure addexe(const sender: TObject);
    procedure cellevexe(const sender: TObject; var info: celleventinfoty);
    procedure gridenterexe(const sender: TObject);
+   procedure revertupdateexe(const sender: tcustomaction);
+   procedure revertexe(const sender: TObject);
   private
    fpath: filenamety;
   public
@@ -86,9 +89,10 @@ end;
 
 procedure tfilesfo.commitexe(const sender: TObject);
 begin
- mainmo.commit(tgitdirtreenode(dirtreefo.treeed.item),
-                  msegitfileitemarty(filelist.fileitemed.selecteditems));
- activate;
+ if mainmo.commit(tgitdirtreenode(dirtreefo.treeed.item), 
+         msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
+  activate;
+ end;
 end;
 
 procedure tfilesfo.commitupdateexe(const sender: tcustomaction);
@@ -117,6 +121,21 @@ begin
  end;    
  activate;
 end;
+
+procedure tfilesfo.revertupdateexe(const sender: tcustomaction);
+begin
+ sender.enabled:=  mainmo.canrevert(
+                      msegitfileitemarty(filelist.fileitemed.selecteditems));
+end;
+
+procedure tfilesfo.revertexe(const sender: TObject);
+begin
+ if mainmo.revert(tgitdirtreenode(dirtreefo.treeed.item),
+             msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
+  activate;
+ end;
+end;
+
 
 procedure tfilesfo.refreshdiff;
 begin

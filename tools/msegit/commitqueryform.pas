@@ -58,9 +58,8 @@ type
   protected
    function checkmessage: boolean;
   public
-   procedure exec(const aroot: tgitdirtreenode;
-                     const aitems: msegitfileitemarty);
-//   destructor destroy; override;
+   function exec(const aroot: tgitdirtreenode;
+                     const aitems: msegitfileitemarty): boolean;
  end;
 
 var
@@ -72,17 +71,15 @@ uses
 
 { tcommitqueryfo }
  
-procedure tcommitqueryfo.exec(const aroot: tgitdirtreenode;
-                       const aitems: msegitfileitemarty);
+function tcommitqueryfo.exec(const aroot: tgitdirtreenode;
+                       const aitems: msegitfileitemarty): boolean;
 var
  ar1: msegitfileitemarty;
- ar2: filenamearty;
  int1,int2: integer;
 begin
-//if aitems <> nil then begin
+ result:= true;
  try
   froot:= aroot;
-//  messageed.dropdown.history:= mainmo.repostat.commitmessages;
   messageed.value:= mainmo.repostat.commitmessage;
   setlength(ar1,length(aitems));
   int2:= 0;
@@ -95,29 +92,12 @@ begin
    end;
   end;
   setlength(ar1,int2);
-//  if int2 > 0 then begin
-   filelist.fileitemed.itemlist.assign(listitemarty(ar1));
-   filecountdisp.value:= length(ar1);
-   if show(ml_application) = mr_ok then begin
-//    mainmo.repostat.commitmessages:= messageed.dropdown.history;
-    setlength(ar2,filelist.grid.rowcount);
-    int2:= 0;
-    for int1:= 0 to high(ar2) do begin
-     if filelist.selected[int1] then begin
-      ar2[int2]:= mainmo.getpath(aroot,
-                              tgitfileitem(filelist.fileitemed[int1]).caption);
-      inc(int2);
-     end;
-    end;
-    setlength(ar2,int2);
-    mainmo.commit(ar2,messageed.value,fkind);
-   end;
-   mainmo.repostat.commitmessage:= messageed.value;
-//  end
-//  else begin
-//   showmessage('No files to commit.');
-//  end;
-// end;
+  filelist.fileitemed.itemlist.assign(listitemarty(ar1));
+  filecountdisp.value:= length(ar1);
+  if show(ml_application) = mr_ok then begin
+   result:= mainmo.commit(filelist.selectedfiles(aroot),messageed.value,fkind);
+  end;
+  mainmo.repostat.commitmessage:= messageed.value;
  finally
   release;
  end;

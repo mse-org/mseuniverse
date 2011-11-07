@@ -26,7 +26,7 @@ const
  defaultgitcommand = 'git';
  
 type
- commitkindty = (ck_none,ck_stage,ck_unstage,ck_amend,ck_commit);
+ commitkindty = (ck_none,ck_stage,ck_unstage,ck_amend,ck_commit,ck_revert);
 
  gitstatety = (gist_invalid,gist_unmodified,gist_modified,gist_added,
                 gist_deleted,gist_renamed,gist_copied,gist_unmerged,
@@ -221,6 +221,7 @@ function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
 //git log -z --name-only --format=format: origin/master..HEAD 
 
 function checkcancommit(const astate: gitstatedataty): boolean;
+function checkcanrevert(const astate: gitstatedataty): boolean;
 
 implementation
 uses
@@ -233,6 +234,13 @@ function checkcancommit(const astate: gitstatedataty): boolean;
 begin
  with astate do begin
   result:= (statex * cancommitstate <> []) or (statey * cancommitstate <> []);
+ end;
+end;
+  
+function checkcanrevert(const astate: gitstatedataty): boolean;
+begin
+ with astate do begin
+  result:= gist_modified in statey; //???
  end;
 end;
   

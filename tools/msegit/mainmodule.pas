@@ -133,12 +133,17 @@ type
    procedure setactiveremote(const avalue: msestring);
    procedure updatecommit(var aitem: gitfileinfoty);
   protected
+   procedure updateoperation(const aoperation: commitkindty;
+                                                  const afiles: filenamearty);
    procedure closerepo;
    procedure loadrepo(avalue: filenamety); //no const
    procedure repoloaded;
    procedure repoclosed;
    function getorigin: msestring;
    procedure listfileitems(var aitem: gitstateinfoty);
+   function  getfilelist(const aitems: gitdirtreenodearty;
+                               const amask: array of gitstatedataty; 
+                                out aroot: tgitdirtreenode): msegitfileitemarty;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
@@ -151,9 +156,9 @@ type
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
    function cancommit(const aitems: gitdirtreenodearty): boolean; overload;
    function cancommit(const aitems: msegitfileitemarty): boolean; overload;
-   procedure commit(const aitems: gitdirtreenodearty); overload;
-   procedure commit(const anode: tgitdirtreenode;
-                     const aitems: msegitfileitemarty); overload;
+   function commit(const aitems: gitdirtreenodearty): boolean; overload;
+   function commit(const anode: tgitdirtreenode;
+                     const aitems: msegitfileitemarty): boolean; overload;
    function commit(const afiles: filenamearty;
                           const amessage: msestring;
                           const akind: commitkindty): boolean; overload;
@@ -161,6 +166,12 @@ type
    function canadd(const anodes: gitdirtreenodearty): boolean; overload;
    function add(const anodes: gitdirtreenodearty): boolean; overload;
    function add(const anode: tgitdirtreenode;
+                   const aitems: msegitfileitemarty): boolean; overload;
+   function canrevert(const aitems: msegitfileitemarty): boolean; overload;
+   function canrevert(const aitems: gitdirtreenodearty): boolean; overload;
+   function revert(const aitems: gitdirtreenodearty): boolean;
+   function revert(const afiles: filenamearty): boolean;
+   function revert(const anode: tgitdirtreenode;
                    const aitems: msegitfileitemarty): boolean; overload;
    procedure reload;
    property repo: filenamety read frepo write setrepo;
@@ -180,7 +191,7 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
- gitconsole,commitqueryform;
+ gitconsole,commitqueryform,revertqueryform;
   
 const
  defaultfileicon = 0;
@@ -577,16 +588,15 @@ begin
  additem(pointerarty(ffilear),pointer(n1),fvaluecount);
 end;
 
-procedure tmainmo.commit(const aitems: gitdirtreenodearty);
+function tmainmo.getfilelist(const aitems: gitdirtreenodearty;
+                                const amask: array of gitstatedataty; 
+                                out aroot: tgitdirtreenode): msegitfileitemarty;
+              
  procedure sca(const anode: tgitdirtreenode);
- const
-  mask: gitstatedataty = (statex: []; statey : [gist_modified]);
-  mask1: gitstatedataty = (statex: [gist_added]; statey : []);
-  mask2: gitstatedataty = (statex: [gist_modified]; statey : []);
  var
   int1: integer;
  begin
-  fgitstate.iterate(anode.path(1),[mask,mask1,mask2],@listfileitems);
+  fgitstate.iterate(anode.path(1),amask,@listfileitems);
   for int1:= 0 to anode.count-1 do begin
    sca(tgitdirtreenode(anode.fitems[int1]));
   end;
@@ -594,29 +604,28 @@ procedure tmainmo.commit(const aitems: gitdirtreenodearty);
  
 var
  int1,int2,int3: integer;
- n1,n2: tgitdirtreenode;
+ n2: tgitdirtreenode;
  bo1: boolean;
- ar1: msegitfileitemarty;
- 
 begin
- ar1:= nil;
+ result:= nil;
+ aroot:= nil;
  if high(aitems) >= 0 then begin
-  n1:= aitems[0];
+  aroot:= aitems[0];
   for int1:= 1 to high(aitems) do begin
-   if aitems[int1].treelevel < n1.treelevel then begin
-    n1:= aitems[int1];
+   if aitems[int1].treelevel < aroot.treelevel then begin
+    aroot:= aitems[int1];
    end;
   end;
   fvaluecount:= 0;
   ffilear:= nil;
-  if (high(aitems) > 0) and (n1.parent <> nil) then begin
-   n1:= tgitdirtreenode(n1.parent);
+  if (high(aitems) > 0) and (aroot.parent <> nil) then begin
+   aroot:= tgitdirtreenode(aroot.parent);
   end;
-  fpathstart:= length(n1.path(1))+1;
+  fpathstart:= length(aroot.path(1))+1;
   for int1:= 0 to high(aitems) do begin
    n2:= aitems[int1];
    bo1:= true;
-   for int2:= n2.treelevel-1 downto n1.treelevel do begin
+   for int2:= n2.treelevel-1 downto aroot.treelevel do begin
     n2:= tgitdirtreenode(n2.parent);
     for int3:= 0 to high(aitems) do begin
      if aitems[int3] = n2 then begin
@@ -632,13 +641,25 @@ begin
     sca(aitems[int1]);
    end;
   end;
-  ar1:= copy(ffilear,0,fvaluecount);
+  result:= copy(ffilear,0,fvaluecount);
   ffilear:= nil;
   setlength(ffilear,fvaluecount);
  end;
-//  if fvaluecount > 0 then begin
+end;
+
+function tmainmo.commit(const aitems: gitdirtreenodearty): boolean;
+ const
+  mask1: gitstatedataty = (statex: []; statey : [gist_modified]);
+  mask2: gitstatedataty = (statex: [gist_added]; statey : []);
+  mask3: gitstatedataty = (statex: [gist_modified]; statey : []);
+var
+ ar1: msegitfileitemarty;
+ n1: tgitdirtreenode;
+ int1: integer;
+begin 
+ ar1:= getfilelist(aitems,[mask1,mask2,mask3],n1);
  try
-  commit(n1,ar1);
+  result:= commit(n1,ar1);
  finally
   for int1:= high(ar1) downto 0 do begin
    ar1[int1].free;
@@ -660,10 +681,10 @@ begin
  end;
 end;
 
-procedure tmainmo.commit(const anode: tgitdirtreenode;
-                         const aitems: msegitfileitemarty);
+function tmainmo.commit(const anode: tgitdirtreenode;
+                         const aitems: msegitfileitemarty): boolean;
 begin
- tcommitqueryfo.create(nil).exec(anode,aitems);
+ result:= tcommitqueryfo.create(nil).exec(anode,aitems);
 end;
 
 procedure updatecommitinfo(const akind: commitkindty;
@@ -686,6 +707,9 @@ begin
     end;
     statex:= statex - cancommitstate;    
    end;
+   ck_revert: begin
+    statey:= statey - [gist_modified];
+   end;
   end;
  end;
 end;
@@ -697,14 +721,39 @@ begin
  end;
 end;
 
+procedure tmainmo.updateoperation(const aoperation: commitkindty;
+                                                  const afiles: filenamearty);
+var
+ int1: integer;
+ po1: pgitstatedataty;
+ dir: filenamety;
+begin
+ for int1:= 0 to high(afiles) do begin
+  po1:= fgitstate.find(afiles[int1]);
+  if po1 <> nil then begin
+   updatecommitinfo(aoperation,po1^);
+  end;
+  fkind:= aoperation;
+  splitfilepath(afiles[int1],dir,fnam);
+  ffilecache.iterate(dir,@updatecommit);
+ end;
+ if dirtree.owner <> nil then begin
+  dirtree.owner.beginupdate;
+ end;
+ try
+  dirtree.updatestate(reporoot,repo,fgitstate,ffilecache);
+ finally
+  if dirtree.owner <> nil then begin
+   dirtree.owner.endupdate;
+  end;
+ end;
+ reporefreshedact.controller.execute;
+end;
+
 function tmainmo.commit(const afiles: filenamearty;
                         const amessage: msestring;
                         const akind: commitkindty): boolean;
 var
- int1: integer;
- po1: pgitstatedataty;
-// po2: pgitfiledataty;
- dir: filenamety;
  mstr1: msestring;
 begin
  result:= false;
@@ -730,43 +779,8 @@ begin
    end;
   end;
   result:= execgitconsole(mstr1+fgit.encodepathparams(afiles,true));
-  if result then begin
-   for int1:= 0 to high(afiles) do begin
-    po1:= fgitstate.find(afiles[int1]);
-    if po1 <> nil then begin
-     updatecommitinfo(akind,po1^);
-     {
-     case akind of
-      ck_stage: begin
-       po1^.statex:= (po1^.statex + [gist_modified]);
-       po1^.statey:= (po1^.statey - [gist_modified]);
-      end;
-      ck_unstage: begin
-       po1^.statex:= (po1^.statex - [gist_modified]);
-       po1^.statey:= (po1^.statey + [gist_modified]);
-      end;
-      ck_ammend,ck_commit: begin
-       po1^.statex:= (po1^.statex - [gist_modified]);
-       po1^.statey:= (po1^.statey - [gist_modified]) + [gist_pushpending];
-      end;
-     end;
-     }
-    end;
-    fkind:= akind;
-    splitfilepath(afiles[int1],dir,fnam);
-    ffilecache.iterate(dir,@updatecommit);
-   end;
-   if dirtree.owner <> nil then begin
-    dirtree.owner.beginupdate;
-   end;
-   try
-    dirtree.updatestate(reporoot,repo,fgitstate,ffilecache);
-   finally
-    if dirtree.owner <> nil then begin
-     dirtree.owner.endupdate;
-    end;
-   end;
-   reporefreshedact.controller.execute;
+  if result then begin   
+   updateoperation(akind,afiles);
   end;
  end;
 end;
@@ -840,6 +854,64 @@ begin
  if int2 > 0 then begin
   setlength(ar1,int2);
   result:= execgitconsole('add '+fgit.encodepathparams(ar1,true));
+ end;
+end;
+
+function tmainmo.canrevert(const aitems: msegitfileitemarty): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(aitems) do begin
+  if checkcanrevert(aitems[int1].fgitstate) then begin
+   result:= true;
+   break;
+  end;
+ end;
+end;
+
+function tmainmo.canrevert(const aitems: gitdirtreenodearty): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(aitems) do begin
+  if checkcanrevert(aitems[int1].fgitstate) then begin
+   result:= true;
+   break;
+  end;
+ end;
+end;
+
+function tmainmo.revert(const anode: tgitdirtreenode;
+               const aitems: msegitfileitemarty): boolean;
+begin
+ result:= trevertqueryfo.create(nil).exec(anode,aitems);
+end;
+
+function tmainmo.revert(const afiles: filenamearty): boolean;
+begin
+ result:= execgitconsole('checkout '+fgit.encodepathparams(afiles,true));
+ if result then begin   
+  updateoperation(ck_revert,afiles);
+ end;
+end;
+
+function tmainmo.revert(const aitems: gitdirtreenodearty): boolean;
+ const
+  mask1: gitstatedataty = (statex: []; statey : [gist_modified]);
+var
+ ar1: msegitfileitemarty;
+ n1: tgitdirtreenode;
+ int1: integer;
+begin 
+ ar1:= getfilelist(aitems,[mask1],n1);
+ try
+  result:= revert(n1,ar1);
+ finally
+  for int1:= high(ar1) downto 0 do begin
+   ar1[int1].free;
+  end;
  end;
 end;
 
@@ -1043,7 +1115,7 @@ var
  dirstream: dirstreamty;
  info: fileinfoty;
  n1: tmsegitfileitem;
- int1,int2: integer;
+ int1: integer;
  po1: pgitstatedataty;
  pref: filenamety;
 begin

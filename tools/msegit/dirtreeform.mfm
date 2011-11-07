@@ -84,13 +84,16 @@ object dirtreefo: tdirtreefo
     top = 40
   end
   object gridpopup: tpopupmenu
-    menu.submenu.count = 2
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
         action = commitact
       end    
       item
         action = addact
+      end    
+      item
+        action = revertact
       end>
     left = 176
     top = 16
@@ -107,5 +110,12 @@ object dirtreefo: tdirtreefo
     onupdate = addupdateexe
     left = 176
     top = 56
+  end
+  object revertact: taction
+    caption = 'Revert'
+    onexecute = revertexe
+    onupdate = revertupdateexe
+    left = 176
+    top = 72
   end
 end

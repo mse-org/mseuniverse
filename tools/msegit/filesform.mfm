@@ -68,13 +68,16 @@ object filesfo: tfilesfo
     end
   end
   object gridpopup: tpopupmenu
-    menu.submenu.count = 2
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
         action = commitact
       end    
       item
         action = addact
+      end    
+      item
+        action = revertact
       end>
     left = 136
     top = 40
@@ -92,5 +95,12 @@ object filesfo: tfilesfo
     onupdate = addupdateexe
     left = 128
     top = 80
+  end
+  object revertact: taction
+    caption = 'Revert'
+    onexecute = revertexe
+    onupdate = revertupdateexe
+    left = 128
+    top = 96
   end
 end
