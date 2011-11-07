@@ -21,6 +21,7 @@ object dirtreefo: tdirtreefo
   moduleclassname = 'tdockform'
   object grid: twidgetgrid
     popupmenu = gridpopup
+    onenter = gridenterexe
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435

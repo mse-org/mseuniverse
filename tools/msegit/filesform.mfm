@@ -17,99 +17,53 @@ object filesfo: tfilesfo
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
   statfile = mainfo.formsta
   moduleclassname = 'tdockform'
-  object grid: twidgetgrid
-    popupmenu = gridpopup
+  inline filelist: tfilelistframefo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
     bounds_cy = 354
     anchors = []
-    optionsgrid = [og_colsizing, og_focuscellonenter, og_sorted, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-    fixrows.count = 1
-    fixrows.items = <    
-      item
-        height = 16
-        captions.count = 3
-        captions.items = <        
-          item
-            options = [dco_colsort, dco_hintclippedtext]
-          end        
-          item
-            options = [dco_colsort, dco_hintclippedtext]
-          end        
-          item
-            caption = 'Name'
-            options = [dco_colsort, dco_hintclippedtext]
-          end>
-      end>
-    datacols.count = 3
-    datacols.sortcol = 2
-    datacols.sortcoldefault = 2
-    datacols.options = [co_savestate, co_mousescrollrow]
-    datacols.items = <    
-      item
-        width = 16
-        options = [co_readonly, co_nofocus, co_fixwidth, co_savestate, co_mousescrollrow]
-        widgetname = 'originstate'
-        dataclass = tgridintegerdatalist
-      end    
-      item
-        width = 16
-        options = [co_readonly, co_nofocus, co_fixwidth, co_savestate, co_mousescrollrow]
-        widgetname = 'filestate'
-        dataclass = tgridintegerdatalist
-      end    
-      item
-        width = 230
-        options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
-        widgetname = 'fileitemed'
-        dataclass = titemeditlist
-        datalist.imagealignment = [al_right, al_ycentered]
-      end>
-    datarowlinewidth = 0
-    datarowheight = 16
-    statfile = mainfo.formsta
-    reffontheight = 14
-    object originstate: tdataicon
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
-      optionsskin = [osk_framebuttononly]
-      taborder = 1
-      bounds_x = 0
-      bounds_y = 0
-      bounds_cx = 16
-      bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      visible = False
-      imagelist = mainmo.images
-    end
-    object filestate: tdataicon
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
-      optionsskin = [osk_framebuttononly]
-      taborder = 2
-      bounds_x = 17
-      bounds_y = 0
-      bounds_cx = 16
-      bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      visible = False
-      imagelist = mainmo.images
-    end
-    object fileitemed: titemedit
-      optionsskin = [osk_framebuttononly]
-      frame.levelo = 0
-      frame.colorclient = -2147483645
-      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      taborder = 3
-      visible = False
-      bounds_x = 34
-      bounds_y = 0
-      bounds_cx = 230
-      bounds_cy = 16
-      bounds_cymin = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_locate, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      onupdaterowvalues = udaterowvaluesexe
-      oncellevent = cellevexe
-      reffontheight = 14
+    container.bounds = (
+      0
+      0
+      435
+      354
+    )
+    inherited grid: twidgetgrid
+      popupmenu = gridpopup
+      onenter = gridenterexe
+      bounds_cx = 435
+      bounds_cy = 354
+      fixrows.items = <      
+        item
+          captions.items = <          
+            item
+            end          
+            item
+            end          
+            item
+            end>
+        end>
+      datacols.items = <      
+        item
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          dataclass = titemeditlist
+          datalist.imagealignment = [al_right, al_ycentered]
+          datalist.captionpos = cp_top
+          datalist.data = (          )
+        end>
+      statfile = mainfo.formsta
+      inherited originstate: tdataicon
+      end
+      inherited filestate: tdataicon
+      end
+      inherited fileitemed: titemedit
+      end
     end
   end
   object gridpopup: tpopupmenu

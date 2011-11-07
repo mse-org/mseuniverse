@@ -44,6 +44,7 @@ type
    procedure refreshedexe(const sender: TObject);
    procedure addexe(const sender: TObject);
    procedure addupdateexe(const sender: tcustomaction);
+   procedure gridenterexe(const sender: TObject);
   private
 //   frowsave: integer;
    fexpandedsave: expandedinfoarty;
@@ -158,6 +159,11 @@ end;
 function tdirtreefo.currentitem: tgitdirtreenode;
 begin
  result:= tgitdirtreenode(treeed.item);
+end;
+
+procedure tdirtreefo.gridenterexe(const sender: TObject);
+begin
+ filesfo.filelist.grid.datacols.clearselection;
 end;
 
 end.
