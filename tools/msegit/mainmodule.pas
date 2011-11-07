@@ -582,10 +582,11 @@ procedure tmainmo.commit(const aitems: gitdirtreenodearty);
  const
   mask: gitstatedataty = (statex: []; statey : [gist_modified]);
   mask1: gitstatedataty = (statex: [gist_added]; statey : []);
+  mask2: gitstatedataty = (statex: [gist_modified]; statey : []);
  var
   int1: integer;
  begin
-  fgitstate.iterate(anode.path(1),[mask,mask1],@listfileitems);
+  fgitstate.iterate(anode.path(1),[mask,mask1,mask2],@listfileitems);
   for int1:= 0 to anode.count-1 do begin
    sca(tgitdirtreenode(anode.fitems[int1]));
   end;
