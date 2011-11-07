@@ -93,8 +93,9 @@ end;
 
 procedure tfilesfo.commitupdateexe(const sender: tcustomaction);
 begin
- sender.enabled:=  mainmo.cancommit(
-                      msegitfileitemarty(filelist.fileitemed.selecteditems));
+ sender.enabled:= filelist.fileitemed.selecteditems <> nil;
+// sender.enabled:=  mainmo.cancommit(
+//                      msegitfileitemarty(filelist.fileitemed.selecteditems));
 end;
 
 procedure tfilesfo.addupdateexe(const sender: tcustomaction);

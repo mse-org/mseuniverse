@@ -80,7 +80,8 @@ var
  ar2: filenamearty;
  int1,int2: integer;
 begin
- if aitems <> nil then begin
+//if aitems <> nil then begin
+ try
   froot:= aroot;
 //  messageed.dropdown.history:= mainmo.repostat.commitmessages;
   messageed.value:= mainmo.repostat.commitmessage;
@@ -95,7 +96,7 @@ begin
    end;
   end;
   setlength(ar1,int2);
-  if int2 > 0 then begin
+//  if int2 > 0 then begin
    filelist.fileitemed.itemlist.assign(listitemarty(ar1));
    filecountdisp.value:= length(ar1);
    if show(ml_application) = mr_ok then begin
@@ -113,12 +114,14 @@ begin
     mainmo.commit(ar2,messageed.value,fkind);
    end;
    mainmo.repostat.commitmessage:= messageed.value;
-  end
-  else begin
-   showmessage('No files to commit.');
-  end;
+//  end
+//  else begin
+//   showmessage('No files to commit.');
+//  end;
+// end;
+ finally
+  release;
  end;
- release;
 end;
 
 procedure tcommitqueryfo.stageexe(const sender: TObject);

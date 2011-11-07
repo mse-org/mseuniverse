@@ -114,8 +114,9 @@ end;
 
 procedure tdirtreefo.commitupdataexe(const sender: tcustomaction);
 begin
- sender.enabled:= mainmo.cancommit(
-                                gitdirtreenodearty(treeed.selecteditems));
+ sender.enabled:= treeed.selecteditems <> nil;
+// sender.enabled:= mainmo.cancommit(
+//                                gitdirtreenodearty(treeed.selecteditems));
 end;
 
 procedure tdirtreefo.commitexe(const sender: TObject);
