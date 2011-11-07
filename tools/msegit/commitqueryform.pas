@@ -54,12 +54,13 @@ type
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
   private
    fkind: commitkindty;
+   fstaged: boolean;
    froot: tgitdirtreenode;
   protected
    function checkmessage: boolean;
   public
    function exec(const aroot: tgitdirtreenode;
-                     const aitems: msegitfileitemarty): boolean;
+           const aitems: msegitfileitemarty; const staged: boolean): boolean;
  end;
 
 var
@@ -72,13 +73,15 @@ uses
 { tcommitqueryfo }
  
 function tcommitqueryfo.exec(const aroot: tgitdirtreenode;
-                       const aitems: msegitfileitemarty): boolean;
+                       const aitems: msegitfileitemarty;
+                       const staged: boolean): boolean;
 var
  ar1: msegitfileitemarty;
  int1,int2: integer;
 begin
  result:= true;
  try
+  fstaged:= staged;
   froot:= aroot;
   messageed.value:= mainmo.repostat.commitmessage;
   setlength(ar1,length(aitems));
@@ -94,8 +97,17 @@ begin
   setlength(ar1,int2);
   filelist.fileitemed.itemlist.assign(listitemarty(ar1));
   filecountdisp.value:= length(ar1);
+  if staged then begin 
+   filelist.selected.enabled:= false;
+  end;
   if show(ml_application) = mr_ok then begin
-   result:= mainmo.commit(filelist.selectedfiles(aroot),messageed.value,fkind);
+   if staged then begin
+    result:= mainmo.commitstaged(aroot,filelist.selectedfiles(aroot),
+                                                            messageed.value);
+   end
+   else begin
+    result:= mainmo.commit(filelist.selectedfiles(aroot),messageed.value,fkind);
+   end;
   end;
   mainmo.repostat.commitmessage:= messageed.value;
  finally
@@ -155,10 +167,10 @@ var
  bo1: boolean;
 begin
  bo1:= filecountdisp.value > 0;
- unstage.enabled:= bo1;
- stage.enabled:= bo1;
- ammend.enabled:= bo1;
- commit.enabled:= bo1;
+ unstage.enabled:= bo1 and not fstaged;
+ stage.enabled:= bo1 and not fstaged;
+ ammend.enabled:= bo1 and not fstaged;
+ commit.enabled:= bo1 or fstaged;
 end;
 
 procedure tcommitqueryfo.lastmessageexe(const sender: TObject);

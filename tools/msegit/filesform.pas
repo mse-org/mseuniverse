@@ -33,6 +33,7 @@ type
    addact: taction;
    filelist: tfilelistframefo;
    revertact: taction;
+   mergetoolact: taction;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure commitexe(const sender: TObject);
@@ -43,12 +44,14 @@ type
    procedure gridenterexe(const sender: TObject);
    procedure revertupdateexe(const sender: tcustomaction);
    procedure revertexe(const sender: TObject);
+   procedure mergetoolexe(const sender: tcustomaction);
   private
    fpath: filenamety;
   public
    procedure loadfiles(const apath: filenamety);
    procedure synctodirtree(const apath: filenamety);
    function currentitem: tmsegitfileitem;
+   function currentfilepath: filenamety;
    procedure refreshdiff;
  end;
 var
@@ -90,7 +93,7 @@ end;
 procedure tfilesfo.commitexe(const sender: TObject);
 begin
  if mainmo.commit(tgitdirtreenode(dirtreefo.treeed.item), 
-         msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
+        msegitfileitemarty(filelist.fileitemed.selecteditems),false) then begin
   activate;
  end;
 end;
@@ -154,10 +157,35 @@ begin
  result:= tmsegitfileitem(filelist.fileitemed.item);
 end;
 
+function tfilesfo.currentfilepath: filenamety;
+var
+ n1: tmsegitfileitem;
+begin
+ result:= '';
+ n1:= currentitem;
+ if n1 <> nil then begin
+  result:= mainmo.getpath(dirtreefo.currentitem,n1.caption);
+ end;
+end;
+
 procedure tfilesfo.gridenterexe(const sender: TObject);
 begin
  dirtreefo.grid.datacols.clearselection;
 end;
+
+procedure tfilesfo.mergetoolexe(const sender: tcustomaction);
+var
+ ar1: filenamearty;
+begin
+ setlength(ar1,1);
+ ar1[0]:= currentfilepath;
+ if ar1[0] <> '' then begin
+  if mainmo.mergetoolcall(ar1) then begin
+   activate;
+  end;
+ end;
+end;
+
 
 
 end.

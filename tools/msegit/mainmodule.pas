@@ -156,12 +156,16 @@ type
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
    function cancommit(const aitems: gitdirtreenodearty): boolean; overload;
    function cancommit(const aitems: msegitfileitemarty): boolean; overload;
-   function commit(const aitems: gitdirtreenodearty): boolean; overload;
+   function commit(const aitems: gitdirtreenodearty;
+                           staged: boolean): boolean; overload;
    function commit(const anode: tgitdirtreenode;
-                     const aitems: msegitfileitemarty): boolean; overload;
+                     const aitems: msegitfileitemarty;
+                     const staged: boolean): boolean; overload;
    function commit(const afiles: filenamearty;
                           const amessage: msestring;
                           const akind: commitkindty): boolean; overload;
+   function commitstaged(const anode: tgitdirtreenode;
+              const afiles: filenamearty; const amessage: msestring): boolean;
    function canadd(const aitems: msegitfileitemarty): boolean; overload;
    function canadd(const anodes: gitdirtreenodearty): boolean; overload;
    function add(const anodes: gitdirtreenodearty): boolean; overload;
@@ -173,6 +177,7 @@ type
    function revert(const afiles: filenamearty): boolean;
    function revert(const anode: tgitdirtreenode;
                    const aitems: msegitfileitemarty): boolean; overload;
+   function mergetoolcall(const afiles: filenamearty): boolean;
    procedure reload;
    property repo: filenamety read frepo write setrepo;
    property repostat: trepostat read frepostat;
@@ -647,7 +652,8 @@ begin
  end;
 end;
 
-function tmainmo.commit(const aitems: gitdirtreenodearty): boolean;
+function tmainmo.commit(const aitems: gitdirtreenodearty;
+                                  staged: boolean): boolean;
  const
   mask1: gitstatedataty = (statex: []; statey : [gist_modified]);
   mask2: gitstatedataty = (statex: [gist_added]; statey : []);
@@ -657,9 +663,17 @@ var
  n1: tgitdirtreenode;
  int1: integer;
 begin 
- ar1:= getfilelist(aitems,[mask1,mask2,mask3],n1);
+ if high(aitems) <> 0 then begin
+  staged:= false;
+ end;
+ if staged then begin
+  ar1:= getfilelist(aitems,[mask2,mask3],n1);
+ end
+ else begin
+  ar1:= getfilelist(aitems,[mask1,mask2,mask3],n1);
+ end;
  try
-  result:= commit(n1,ar1);
+  result:= commit(n1,ar1,staged);
  finally
   for int1:= high(ar1) downto 0 do begin
    ar1[int1].free;
@@ -682,9 +696,10 @@ begin
 end;
 
 function tmainmo.commit(const anode: tgitdirtreenode;
-                         const aitems: msegitfileitemarty): boolean;
+                         const aitems: msegitfileitemarty;
+                         const staged: boolean): boolean;
 begin
- result:= tcommitqueryfo.create(nil).exec(anode,aitems);
+ result:= tcommitqueryfo.create(nil).exec(anode,aitems,staged);
 end;
 
 procedure updatecommitinfo(const akind: commitkindty;
@@ -782,6 +797,17 @@ begin
   if result then begin   
    updateoperation(akind,afiles);
   end;
+ end;
+end;
+
+function tmainmo.commitstaged(const anode: tgitdirtreenode;
+          const afiles: filenamearty;
+          const amessage: msestring): boolean;
+begin
+ result:= execgitconsole('commit -m'+fgit.encodestringparam(amessage)+' '+
+         anode.gitpath);
+ if result then begin   
+  updateoperation(ck_commit,afiles);
  end;
 end;
 
@@ -913,6 +939,12 @@ begin
    ar1[int1].free;
   end;
  end;
+end;
+
+function tmainmo.mergetoolcall(const afiles: filenamearty): boolean;
+begin
+ result:= execgitconsole('mergetool --no-prompt '+
+                              fgit.encodepathparams(afiles,true));
 end;
 
 { tmsegitfileitem }

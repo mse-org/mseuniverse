@@ -61,7 +61,6 @@ object gitconsolefo: tgitconsolefo
       maxcommandhistory = 100
       onprocfinished = procfiexe
       onsendtext = sendtextexe
-      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_tty, pro_nowaitforpipeeof, pro_ctrlc]
       reffontheight = 15
     end
   end

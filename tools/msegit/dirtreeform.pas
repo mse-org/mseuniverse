@@ -37,6 +37,7 @@ type
    reporefreshsedact: taction;
    addact: taction;
    revertact: taction;
+   commitstaged: taction;
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -48,6 +49,7 @@ type
    procedure gridenterexe(const sender: TObject);
    procedure revertupdateexe(const sender: tcustomaction);
    procedure revertexe(const sender: TObject);
+   procedure commitstagedexe(const sender: TObject);
   private
 //   frowsave: integer;
    fexpandedsave: expandedinfoarty;
@@ -66,7 +68,7 @@ var
 implementation
 uses
  dirtreeform_mfm,filesform,gitconsole,msewidgets,mseformatstr,
- main;
+ main,mseeditglob;
  
 procedure tdirtreefo.loadedexe(const sender: TObject);
 begin
@@ -124,10 +126,20 @@ end;
 
 procedure tdirtreefo.commitexe(const sender: TObject);
 begin
- if mainmo.commit(gitdirtreenodearty(treeed.selecteditems)) then begin
+ if mainmo.commit(gitdirtreenodearty(treeed.selecteditems),false) then begin
   activate;
  end;
 end;
+
+procedure tdirtreefo.commitstagedexe(const sender: TObject);
+begin
+ grid.datacols.clearselection;
+ grid.datacols.rowselected[grid.row]:= true;
+ if mainmo.commit(gitdirtreenodearty(treeed.selecteditems),true) then begin
+  activate;
+ end;
+end;
+
 
 function tdirtreefo.currentgitdir: filenamety;
 begin

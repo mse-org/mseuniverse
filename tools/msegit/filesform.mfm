@@ -68,7 +68,7 @@ object filesfo: tfilesfo
     end
   end
   object gridpopup: tpopupmenu
-    menu.submenu.count = 3
+    menu.submenu.count = 4
     menu.submenu.items = <    
       item
         action = commitact
@@ -78,6 +78,9 @@ object filesfo: tfilesfo
       end    
       item
         action = revertact
+      end    
+      item
+        action = mergetoolact
       end>
     left = 136
     top = 40
@@ -102,5 +105,11 @@ object filesfo: tfilesfo
     onupdate = revertupdateexe
     left = 128
     top = 96
+  end
+  object mergetoolact: taction
+    caption = 'Mergetool'
+    onexecuteaction = mergetoolexe
+    left = 128
+    top = 112
   end
 end
