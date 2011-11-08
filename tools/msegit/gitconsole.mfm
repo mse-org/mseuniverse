@@ -21,18 +21,18 @@ object gitconsolefo: tgitconsolefo
   object dirdisp: tstringdisp
     frame.dummy = 0
     bounds_x = 0
-    bounds_y = 336
+    bounds_y = 337
     bounds_cx = 435
-    bounds_cy = 18
+    bounds_cy = 17
     anchors = [an_bottom]
-    reffontheight = 14
+    reffontheight = 13
   end
   object grid: twidgetgrid
     taborder = 1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
-    bounds_cy = 334
+    bounds_cy = 335
     anchors = [an_left, an_top, an_right, an_bottom]
     optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     rowcountmax = 10000
@@ -44,8 +44,8 @@ object gitconsolefo: tgitconsolefo
         dataclass = tgridrichstringdatalist
       end>
     datarowlinewidth = 0
-    datarowheight = 16
-    reffontheight = 14
+    datarowheight = 14
+    reffontheight = 13
     object termed: tterminal
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontlineheight, ow_autoscale]
       optionsskin = [osk_framebuttononly]
@@ -54,20 +54,21 @@ object gitconsolefo: tgitconsolefo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 1000
-      bounds_cy = 16
+      bounds_cy = 14
       font.name = 'stf_fixed'
       font.xscale = 1
       font.dummy = 0
       maxcommandhistory = 100
       onprocfinished = procfiexe
       onsendtext = sendtextexe
-      reffontheight = 15
+      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_tty, pro_inactive, pro_ctrlc]
+      reffontheight = 13
     end
   end
   object tspacer1: tspacer
     taborder = 2
     bounds_x = 152
-    bounds_y = 334
+    bounds_y = 335
     bounds_cx = 50
     bounds_cy = 2
     linktop = grid

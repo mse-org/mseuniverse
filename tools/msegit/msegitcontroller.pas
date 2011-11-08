@@ -222,6 +222,8 @@ function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
 
 function checkcancommit(const astate: gitstatedataty): boolean;
 function checkcanrevert(const astate: gitstatedataty): boolean;
+function gitfilepath(const apath: filenamety;
+                                      const relative: boolean): filenamety;
 
 implementation
 uses
@@ -229,6 +231,17 @@ uses
 
 type
  thashdatalist1 = class(thashdatalist);
+
+function gitfilepath(const apath: filenamety;
+                                      const relative: boolean): filenamety;
+begin
+ result:= tosysfilepath(filepath('',apath,fk_default,relative));
+//{$ifdef mswindows}
+// if (result <> '') and (result[1] = '/') then begin
+//  tosysfilepath1(result);
+// end;
+//{$endif}
+end;
 
 function checkcancommit(const astate: gitstatedataty): boolean;
 begin
@@ -284,7 +297,7 @@ end;
 function tgitcontroller.encodepathparam(const apath: filenamety;
                                       const relative: boolean): msestring;
 begin
- result:= quotefilename(tosysfilepath(filepath('',apath,fk_default,relative)));
+ result:= quotefilename(gitfilepath(apath,relative));
 end;
 
 function tgitcontroller.encodepathparams(const apath: filenamearty;
@@ -750,7 +763,7 @@ var
  str1: string;
 begin
  result:= nil;
- if commandresult('diff '+encodepathparam(afile,true),str1) then begin
+ if commandresult('diff -- '+encodepathparam(afile,true),str1) then begin
   result:= breaklines(msestring(str1));
  end;
 end;

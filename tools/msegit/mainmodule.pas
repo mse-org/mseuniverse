@@ -37,17 +37,25 @@ type
  end;
  msegitfileitemarty = array of tmsegitfileitem;
 
+ tmainmo = class;
+ 
  tmsegitoptions = class
   private
+   fowner: tmainmo;
    fshowuntrackeditems: boolean;
    fshowignoreditems: boolean;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
+   function getgitcommand: msestring;
+   procedure setgitcommand(const avalue: msestring);
+  public
+   constructor create(const aowner: tmainmo);
   published
    property showuntrackeditems: boolean read fshowuntrackeditems 
                                              write setshowuntrackeditems;
    property showignoreditems: boolean read fshowignoreditems 
                                              write setshowignoreditems;
+   property gitcommand: msestring read getgitcommand write setgitcommand;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -351,7 +359,7 @@ end;
 
 constructor tmainmo.create(aowner: tcomponent);
 begin
- fopt:= tmsegitoptions.create;
+ fopt:= tmsegitoptions.create(self);
  frepostat:= trepostat.create;
  ffilecache:= tgitfilecache.create;
  fdirtree:= tgitdirtreerootnode.create;
@@ -429,7 +437,7 @@ begin
    showmessage(avalue+lineend+'is no git repository.','***ERROR***');
    abort;
   end;
-  setcurrentdir(freporoot);
+  msefileutils.setcurrentdir(freporoot);
   application.beginwait;
   try
    frepostat.activeremote:= 'origin';
@@ -1191,6 +1199,11 @@ end;
 
 { tmsegitoptions }
 
+constructor tmsegitoptions.create(const aowner: tmainmo);
+begin
+ fowner:= aowner;
+end;
+
 procedure tmsegitoptions.setshowignoreditems(const avalue: boolean);
 begin
  fshowignoreditems:= avalue;
@@ -1201,6 +1214,16 @@ procedure tmsegitoptions.setshowuntrackeditems(const avalue: boolean);
 begin
  fshowuntrackeditems:= avalue;
  fshowignoreditems:= fshowignoreditems and avalue;
+end;
+
+function tmsegitoptions.getgitcommand: msestring;
+begin
+ result:= fowner.fgit.gitcommand;
+end;
+
+procedure tmsegitoptions.setgitcommand(const avalue: msestring);
+begin
+ fowner.fgit.gitcommand:= avalue;
 end;
 
 end.

@@ -23,7 +23,9 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,
- msewidgets,msescrollbar,msetabs,sysutils,msestatfile;
+ msewidgets,msescrollbar,msetabs,sysutils,msestatfile,msebitmap,msedataedits,
+ msedatanodes,mseedit,msefiledialog,msegrids,mseifiglob,mselistbrowser,
+ msestrings,msesys,msetypes;
 
 type
  toptionsfo = class(tmseform)
@@ -32,6 +34,7 @@ type
    ttabwidget1: ttabwidget;
    ttabpage1: ttabpage;
    tstatfile1: tstatfile;
+   gitcommand: tfilenameedit;
  end;
 
 procedure editoptions;

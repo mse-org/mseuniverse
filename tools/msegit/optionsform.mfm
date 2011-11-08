@@ -50,11 +50,27 @@ object optionsfo: toptionsfo
       taborder = 1
       visible = True
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 17
       bounds_cx = 339
-      bounds_cy = 184
+      bounds_cy = 185
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Options'
+      object gitcommand: tfilenameedit
+        frame.caption = 'git command (empty = default)'
+        frame.button.imagenr = 17
+        frame.outerframe = (
+          0
+          16
+          0
+          0
+        )
+        bounds_x = 8
+        bounds_y = -1
+        bounds_cx = 324
+        bounds_cy = 35
+        anchors = [an_left, an_top, an_right]
+        reffontheight = 13
+      end
     end
   end
   object tstatfile1: tstatfile
