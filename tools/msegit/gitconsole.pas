@@ -68,11 +68,11 @@ begin
   try
    if not termed.running then begin
     donotsend:= true;
-    fna1:= setcurrentdir(mainmo.reporoot+'/'+dirdisp.value);
+    fna1:= msesetcurrentdir(mainmo.reporoot+'/'+dirdisp.value);
     try
      termed.execprog(mainmo.git.encodegitcommand(atext));
     finally
-     setcurrentdir(fna1);
+     msesetcurrentdir(fna1);
     end;
    end;
   finally

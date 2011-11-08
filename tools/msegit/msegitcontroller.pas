@@ -785,7 +785,7 @@ var
  wdbefore: filenamety;
 begin
  afiles:= nil;
- wdbefore:= getcurrentdir;
+ wdbefore:= msegetcurrentdir;
  fna1:= astate.getrepodir(apath);
  result:= sys_setcurrentdir(apath) = sye_ok;
  if not result then begin
@@ -794,7 +794,7 @@ begin
  end;
  result:= getprocessoutput(getgitcommand('ls-files -z '+getpathparam(apath)),
                                                     '',str1,ferrormessage) = 0;
- setcurrentdir(wdbefore);
+ msesetcurrentdir(wdbefore);
  if result and (str1 <> '') then begin
   int2:= 0;
   po1:= pointer(str1);

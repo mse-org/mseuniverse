@@ -437,7 +437,7 @@ begin
    showmessage(avalue+lineend+'is no git repository.','***ERROR***');
    abort;
   end;
-  msefileutils.setcurrentdir(freporoot);
+  msesetcurrentdir(freporoot);
   application.beginwait;
   try
    frepostat.activeremote:= 'origin';
