@@ -25,7 +25,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mainmodule,msestatfile,
  filelistframe,msesimplewidgets,msewidgets,msegraphedits,mseifiglob,msetypes,
  msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog,
- msegitcontroller,commitdiffform,msegrids,filechecklistframe;
+ msegitcontroller,commitdiffform,msegrids,filechecklistframe,msetimer;
 type
  tcommitqueryfo = class(tmseform)
    tbutton1: tbutton;
@@ -42,6 +42,7 @@ type
    tsplitter2: tsplitter;
    tbutton2: tbutton;
    filelist: tfilechecklistframefo;
+   difftimer: ttimer;
    procedure commitexe(const sender: TObject);
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
@@ -52,6 +53,7 @@ type
    procedure lastmessageexe(const sender: TObject);
    procedure messagepopupupdaexe(const sender: tcustommenu);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
+   procedure difftiexe(const sender: TObject);
   private
    fkind: commitkindty;
    fstaged: boolean;
@@ -214,11 +216,16 @@ begin
  end;   
 end;
 
+procedure tcommitqueryfo.difftiexe(const sender: TObject);
+begin
+ diff.refresh(froot,filelist.currentitem);
+end;
+
 procedure tcommitqueryfo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
  if isrowenter(info) then begin
-  diff.refresh(froot,filelist.currentitem);
+  difftimer.restart;
  end;
 end;
 

@@ -24,7 +24,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msedatanodes,
- mselistbrowser,msegraphedits,mseact,mseactions,mainmodule,filelistframe;
+ mselistbrowser,msegraphedits,mseact,mseactions,mainmodule,filelistframe,
+ msetimer;
 
 type
  tfilesfo = class(tdockform)
@@ -34,6 +35,7 @@ type
    filelist: tfilelistframefo;
    revertact: taction;
    mergetoolact: taction;
+   difftimer: ttimer;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure commitexe(const sender: TObject);
@@ -45,17 +47,22 @@ type
    procedure revertupdateexe(const sender: tcustomaction);
    procedure revertexe(const sender: TObject);
    procedure mergetoolexe(const sender: tcustomaction);
+   procedure difftimexe(const sender: TObject);
   private
    fpath: filenamety;
+   ffilebefore: msestring;
   public
    procedure loadfiles(const apath: filenamety);
    procedure synctodirtree(const apath: filenamety);
    function currentitem: tmsegitfileitem;
    function currentfilepath: filenamety;
    procedure refreshdiff;
+   procedure savestate;
+   procedure restorestate;
  end;
 var
  filesfo: tfilesfo;
+ 
 implementation
 uses
  filesform_mfm,dirtreeform,msegitcontroller,msewidgets,mseformatstr,
@@ -145,10 +152,15 @@ begin
  difffo.refresh(dirtreefo.currentitem,currentitem);
 end;
 
+procedure tfilesfo.difftimexe(const sender: TObject);
+begin
+ refreshdiff;
+end;
+
 procedure tfilesfo.cellevexe(const sender: TObject; var info: celleventinfoty);
 begin
  if isrowenter(info) then begin
-  refreshdiff;
+  difftimer.restart;
  end;
 end;
 
@@ -186,6 +198,14 @@ begin
  end;
 end;
 
+procedure tfilesfo.savestate;
+begin
+ ffilebefore:= filelist.currentfile;
+end;
 
+procedure tfilesfo.restorestate;
+begin
+ filelist.setcurrentfile(ffilebefore);
+end;
 
 end.

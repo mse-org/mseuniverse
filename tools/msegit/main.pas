@@ -149,6 +149,7 @@ end;
 
 procedure tmainfo.reload;
 begin
+ filesfo.savestate;
  dirtreefo.savestate;
  try
   frefreshing:= true;
@@ -157,6 +158,7 @@ begin
  finally
   frefreshing:= false;
   dirtreefo.restorestate;
+  filesfo.restorestate;
  end;
 end;
 

@@ -264,4 +264,11 @@ object commitqueryfo: tcommitqueryfo
     left = 40
     top = 160
   end
+  object difftimer: ttimer
+    interval = 0
+    options = [to_single]
+    ontimer = difftiexe
+    left = 40
+    top = 88
+  end
 end

@@ -140,6 +140,8 @@ type
  end;
  gitfileitemclassty = class of tgitfileitem;
  gitfileitemarty = array of tgitfileitem;
+ gitfileitematy = array[0..0] of tgitfileitem;
+ pgitfileitematy = ^gitfileitematy;
 
  addfilecallbackeventty = procedure(var afile: gitfileinfoty) of object;
 

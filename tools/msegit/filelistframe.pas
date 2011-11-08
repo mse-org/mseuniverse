@@ -35,12 +35,14 @@ type
                    const aitem: tlistitem);
   public
    function currentitem: tmsegitfileitem;
+   function currentfile: filenamety;
+   procedure setcurrentfile(const afile: filenamety);
  end;
 var
  filelistframefo: tfilelistframefo;
 implementation
 uses
- filelistframe_mfm;
+ filelistframe_mfm,msegitcontroller;
 
 procedure tfilelistframefo.updaterowvaluesexe(const sender: TObject;
                const aindex: Integer; const aitem: tlistitem);
@@ -54,6 +56,37 @@ end;
 function tfilelistframefo.currentitem: tmsegitfileitem;
 begin
  result:= tmsegitfileitem(fileitemed.item);
+end;
+
+function tfilelistframefo.currentfile: filenamety;
+var
+ n1: tmsegitfileitem;
+begin
+ result:= '';
+ n1:= currentitem;
+ if n1 <> nil then begin
+  result:= n1.caption;
+ end;
+end;
+
+procedure tfilelistframefo.setcurrentfile(const afile: filenamety);
+var
+ po1: pgitfileitematy;
+ int1: integer;
+begin
+ po1:= fileitemed.itemlist.datapo;
+ with grid do begin
+  for int1:= rowhigh downto 0 do begin
+   if po1^[int1].caption = afile then begin
+    row:= int1;
+    if not entered then begin
+     datacols.clearselection;
+    end; 
+    exit;
+   end;
+  end;
+  row:= invalidaxis;
+ end;
 end;
 
 end.

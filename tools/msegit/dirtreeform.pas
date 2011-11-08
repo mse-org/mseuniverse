@@ -53,12 +53,14 @@ type
   private
 //   frowsave: integer;
    fexpandedsave: expandedinfoarty;
+   fdirbefore: filenamety;
   protected
    function syncfilesfo: filenamety;
   public
    procedure savestate;
    procedure restorestate;
    function currentgitdir: filenamety;
+   procedure setcurrentgitdir(const adir: filenamety);
    function currentitem: tgitdirtreenode;
  end;
 
@@ -68,13 +70,15 @@ var
 implementation
 uses
  dirtreeform_mfm,filesform,gitconsole,msewidgets,mseformatstr,
- main,mseeditglob;
+ main,mseeditglob,msearrayutils;
  
 procedure tdirtreefo.loadedexe(const sender: TObject);
 begin
  mainmo.dirtree.expanded:= true;
  treeed.itemlist.add(mainmo.dirtree,false);
- grid.row:= 0;
+ if not mainfo.refreshing then begin
+  grid.row:= 0;
+ end;
 // treeedit.itemlist.assign(mainmo.dirtree,false);
 end;
 
@@ -107,6 +111,7 @@ procedure tdirtreefo.savestate;
 begin
  grid.beginupdate;
  fexpandedsave:= treeed.itemlist.expandedstate;
+ fdirbefore:= currentgitdir;
 end;
 
 procedure tdirtreefo.restorestate;
@@ -115,6 +120,7 @@ begin
  if fexpandedsave <> nil then begin
   treeed.itemlist.expandedstate:= fexpandedsave;
  end;
+ setcurrentgitdir(fdirbefore);
 end;
 
 procedure tdirtreefo.commitupdataexe(const sender: tcustomaction);
@@ -192,6 +198,28 @@ procedure tdirtreefo.revertexe(const sender: TObject);
 begin
  if mainmo.revert(gitdirtreenodearty(treeed.selecteditems)) then begin
   activate;
+ end;
+end;
+
+procedure tdirtreefo.setcurrentgitdir(const adir: filenamety);
+var
+ ar1: msestringarty;
+ n1: ttreelistitem;
+begin
+ if (grid.rowcount > 0) and (adir <> '') then begin
+  ar1:= splitstring(adir,'/');
+  n1:= treeed.items[0];
+  setlength(ar1,high(ar1));
+  if high(ar1) > 0 then begin
+   deleteitem(ar1,0);   
+   n1:= n1.finditembycaption(ar1);
+  end;
+  if (n1 <> nil) and (n1.index >= 0) then begin
+   grid.row:= n1.index;
+   if not grid.entered then begin
+    grid.datacols.clearselection;
+   end;
+  end;
  end;
 end;
 
