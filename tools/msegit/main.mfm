@@ -220,37 +220,37 @@ object mainfo: tmainfo
     )
   end
   object commitmergeact: taction
-    caption = 'Merge commit'
+    caption = 'Merge &commit'
     onexecute = commitmergeexe
     left = 112
     top = 112
   end
   object resetmergeact: taction
-    caption = 'Merge reset'
+    caption = 'Merge &reset'
     onexecute = resetmergeexe
     left = 112
     top = 160
   end
   object fetchact: taction
-    caption = 'Fetch'
+    caption = '&Fetch'
     onexecute = fetchexe
     left = 112
     top = 96
   end
   object pullact: taction
-    caption = 'Pull'
+    caption = 'P&ull'
     onexecute = pullexe
     left = 112
     top = 128
   end
   object mergeact: taction
-    caption = 'Merge fetched'
+    caption = '&Merge fetched'
     onexecute = mergeexe
     left = 112
     top = 144
   end
   object pushact: taction
-    caption = 'Push'
+    caption = '&Push'
     options = [ao_updateonidle]
     onexecute = pushexe
     onupdate = pushupdateexe
