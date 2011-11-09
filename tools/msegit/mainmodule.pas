@@ -136,6 +136,8 @@ type
    factiveremote: msestring;
    fnam: filenamety;
    fkind: commitkindty;
+   fmergehead: msestring;
+   fmergemessage: msestring;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
@@ -143,6 +145,7 @@ type
   protected
    procedure updateoperation(const aoperation: commitkindty;
                                                   const afiles: filenamearty);
+   procedure readmergeinfo;
    procedure closerepo;
    procedure loadrepo(avalue: filenamety); //no const
    procedure repoloaded;
@@ -155,12 +158,17 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
-   function execgitconsole(const acommand: msestring): boolean;
+   function execgitconsole(const acommand: string): boolean;
                         //true if OK
    function getpath(const adir: tgitdirtreenode;
                            const afilename: filenamety): filenamety;
                     //returns path relative to reporoot
    function getfiles(const apath: filenamety): msegitfileitemarty;
+   
+   function fetch: boolean;
+   function pull: boolean;
+   function push: boolean;
+   function merge: boolean;
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
    function cancommit(const aitems: gitdirtreenodearty): boolean; overload;
    function cancommit(const aitems: msegitfileitemarty): boolean; overload;
@@ -172,6 +180,8 @@ type
    function commit(const afiles: filenamearty;
                           const amessage: msestring;
                           const akind: commitkindty): boolean; overload;
+   function mergecommit: boolean;
+   function mergereset: boolean;
    function commitstaged(const anode: tgitdirtreenode;
               const afiles: filenamearty; const amessage: msestring): boolean;
    function canadd(const aitems: msegitfileitemarty): boolean; overload;
@@ -187,9 +197,14 @@ type
                    const aitems: msegitfileitemarty): boolean; overload;
    function mergetoolcall(const afiles: filenamearty): boolean;
    procedure reload;
+   function repoloaded: boolean;
    property repo: filenamety read frepo write setrepo;
    property repostat: trepostat read frepostat;
    property reporoot: filenamety read freporoot;
+   function merging: boolean;
+   property mergehead: msestring read fmergehead;
+   property mergemessage: msestring read fmergemessage;
+   
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
    property remotesinfo: remoteinfoarty read fremotesinfo;
@@ -204,7 +219,7 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
- gitconsole,commitqueryform,revertqueryform;
+ gitconsole,commitqueryform,revertqueryform,msestream;
   
 const
  defaultfileicon = 0;
@@ -403,6 +418,8 @@ var
 // ar2: booleanarty;
  int1: integer;
 begin
+ fmergehead:= '';
+ fmergemessage:= '';
  fdirtree.clear;
  ffilecache.clear;
  freeandnil(fgitstate);
@@ -425,6 +442,18 @@ begin
  end;
 end;
 
+procedure tmainmo.readmergeinfo;
+var
+ str1,str2: string;
+begin
+ if tryreadfiledatastring('.git/MERGE_HEAD',str1) then begin
+  fmergehead:= utf8tostring(str1);
+  if tryreadfiledatastring('.git/MERGE_MSG',str2) then begin
+   fmergemessage:= utf8tostring(str2);
+  end;
+ end;
+end;
+
 procedure tmainmo.loadrepo(avalue: filenamety);
 var
  int1{,int2}: integer;
@@ -440,6 +469,7 @@ begin
   msesetcurrentdir(freporoot);
   application.beginwait;
   try
+   readmergeinfo;
    frepostat.activeremote:= 'origin';
    repostatf.readstat;
    frepo:= filepath(avalue,fk_dir);
@@ -777,31 +807,31 @@ function tmainmo.commit(const afiles: filenamearty;
                         const amessage: msestring;
                         const akind: commitkindty): boolean;
 var
- mstr1: msestring;
+ str1: string;
 begin
  result:= false;
  if afiles <> nil then begin
   case akind of
    ck_stage: begin
-    mstr1:= 'add ';
+    str1:= 'add ';
    end;
    ck_unstage: begin
-    mstr1:= 'reset -q ';
+    str1:= 'reset -q ';
    end;
    ck_amend,ck_commit: begin
-    mstr1:= 'commit ';
+    str1:= 'commit ';
     if amessage <> '' then begin
-     mstr1:= mstr1 + '-m'+fgit.encodestringparam(amessage)+' ';
+     str1:= str1 + '-m'+fgit.encodestringparam(amessage)+' ';
     end;
     if akind = ck_amend then begin
-     mstr1:= mstr1 + '--amend ';
+     str1:= str1 + '--amend ';
     end;
    end;
    else begin
     exit;
    end;
   end;
-  result:= execgitconsole(mstr1+fgit.encodepathparams(afiles,true));
+  result:= execgitconsole(str1+fgit.encodepathparams(afiles,true));
   if result then begin   
    updateoperation(akind,afiles);
   end;
@@ -813,13 +843,27 @@ function tmainmo.commitstaged(const anode: tgitdirtreenode;
           const amessage: msestring): boolean;
 begin
  result:= execgitconsole('commit -m'+fgit.encodestringparam(amessage)+' '+
-         anode.gitpath);
+         fgit.encodepathparam(anode.gitpath,true));
  if result then begin   
   updateoperation(ck_commit,afiles);
  end;
 end;
 
-function tmainmo.execgitconsole(const acommand: msestring): boolean;
+function tmainmo.mergecommit: boolean;
+var
+ ar1: gitdirtreenodearty;
+begin
+ setlength(ar1,1);
+ ar1[0]:= fdirtree;
+ result:= commit(ar1,true);
+end;
+
+function tmainmo.mergereset: boolean;
+begin
+ result:= execgitconsole('reset --merge');
+end;
+
+function tmainmo.execgitconsole(const acommand: string): boolean;
 begin
  result:= gitconsolefo.execgit(acommand);
 end;
@@ -953,6 +997,36 @@ function tmainmo.mergetoolcall(const afiles: filenamearty): boolean;
 begin
  result:= execgitconsole('mergetool --no-prompt '+
                               fgit.encodepathparams(afiles,true));
+end;
+
+function tmainmo.fetch: boolean;
+begin
+ result:= execgitconsole('fetch');
+end;
+
+function tmainmo.pull: boolean;
+begin
+ result:= execgitconsole('pull');
+end;
+
+function tmainmo.push: boolean;
+begin
+ result:= execgitconsole('push');
+end;
+
+function tmainmo.merge: boolean;
+begin
+ result:= execgitconsole('merge FETCH_HEAD');
+end;
+
+function tmainmo.repoloaded: boolean;
+begin
+ result:= frepo <> '';
+end;
+
+function tmainmo.merging: boolean;
+begin
+ result:= fmergehead <> '';
 end;
 
 { tmsegitfileitem }

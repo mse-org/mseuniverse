@@ -180,12 +180,12 @@ type
                             const callback: addfilecallbackeventty): boolean;
   public
    constructor create(aowner: tcomponent); override;
-   function encodegitcommand(const acommand: msestring): msestring;
-   function encodestringparam(const avalue: msestring): msestring;
+   function encodegitcommand(const acommand: string): string;
+   function encodestringparam(const avalue: msestring): string;
    function encodepathparam(const apath: filenamety;
-                                  const relative: boolean): msestring;
+                                  const relative: boolean): string;
    function encodepathparams(const apath: filenamearty;
-                                  const relative: boolean): msestring;
+                                  const relative: boolean): string;
    
    function status(const apath: filenamety; const aorigin: msestring;
                         out astatus: gitstateinfoarty): boolean; overload;
@@ -285,7 +285,7 @@ begin
  inherited;
 end;
 
-function tgitcontroller.encodegitcommand(const acommand: msestring): msestring;
+function tgitcontroller.encodegitcommand(const acommand: string): string;
 begin
  if fgitcommand = '' then begin
   result:= defaultgitcommand;
@@ -297,13 +297,13 @@ begin
 end;
 
 function tgitcontroller.encodepathparam(const apath: filenamety;
-                                      const relative: boolean): msestring;
+                                      const relative: boolean): string;
 begin
  result:= quotefilename(gitfilepath(apath,relative));
 end;
 
 function tgitcontroller.encodepathparams(const apath: filenamearty;
-               const relative: boolean): msestring;
+               const relative: boolean): string;
 var
  int1: integer;
 begin
@@ -316,9 +316,9 @@ begin
  end;
 end;
 
-function tgitcontroller.encodestringparam(const avalue: msestring): msestring;
+function tgitcontroller.encodestringparam(const avalue: msestring): string;
 begin
- result:= quotestring(avalue,'"');
+ result:= stringtoutf8(quotestring(avalue,'"'));
 end;
 
 function tgitcontroller.commandresult(const acommand: string;
@@ -400,7 +400,6 @@ const
 function tgitcontroller.status1(const callback: addstatecallbackeventty;
                const apath: filenamety; const aorigin: msestring): boolean;
 var
- fna1: filenamety;
  str1{,str2}: string;
  po1,po2,po3: pchar;
  int1: integer;
@@ -433,6 +432,9 @@ var
    end;
   end;
  end;
+
+var
+ fna1: string;
 
 begin
  fna1:= encodepathparam(apath,false);
@@ -470,7 +472,7 @@ begin
   end;
  end;
  if result and (aorigin <> '') then begin
-  if commandresult('log -z --name-only --format=format: '+ aorigin+
+  if commandresult('log -z --name-only --format=format: '+aorigin+
                         '..HEAD '+fna1,str1) and (str1 <> '') then begin
    scan([gist_pushpending]);
   end;

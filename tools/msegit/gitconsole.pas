@@ -41,7 +41,7 @@ type
    procedure synctodirtree(const apath: filenamety);
    procedure init;
    procedure clear;
-   function execgit(const acommand: msestring): boolean;
+   function execgit(const acommand: string): boolean;
  end;
  
 var
@@ -70,7 +70,7 @@ begin
     donotsend:= true;
     fna1:= msesetcurrentdir(mainmo.reporoot+'/'+dirdisp.value);
     try
-     termed.execprog(mainmo.git.encodegitcommand(atext));
+     termed.execprog(mainmo.git.encodegitcommand(atext)); //encoding?
     finally
      msesetcurrentdir(fna1);
     end;
@@ -106,7 +106,7 @@ begin
  end;
 end;
 
-function tgitconsolefo.execgit(const acommand: msestring): boolean;
+function tgitconsolefo.execgit(const acommand: string): boolean;
 var
  mstr1: msestring;
 begin

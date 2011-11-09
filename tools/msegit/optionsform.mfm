@@ -50,9 +50,9 @@ object optionsfo: toptionsfo
       taborder = 1
       visible = True
       bounds_x = 0
-      bounds_y = 17
+      bounds_y = 18
       bounds_cx = 339
-      bounds_cy = 185
+      bounds_cy = 184
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Options'
       object gitcommand: tfilenameedit
@@ -60,16 +60,16 @@ object optionsfo: toptionsfo
         frame.button.imagenr = 17
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
         bounds_x = 8
-        bounds_y = -1
+        bounds_y = 6
         bounds_cx = 324
-        bounds_cy = 35
+        bounds_cy = 37
         anchors = [an_left, an_top, an_right]
-        reffontheight = 13
+        reffontheight = 14
       end
     end
   end

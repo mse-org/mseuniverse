@@ -84,13 +84,10 @@ object dirtreefo: tdirtreefo
     top = 40
   end
   object gridpopup: tpopupmenu
-    menu.submenu.count = 4
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
         action = commitact
-      end    
-      item
-        action = commitstaged
       end    
       item
         action = addact
@@ -120,12 +117,5 @@ object dirtreefo: tdirtreefo
     onupdate = revertupdateexe
     left = 176
     top = 88
-  end
-  object commitstaged: taction
-    caption = 'Commit staged'
-    onexecute = commitstagedexe
-    onupdate = commitupdataexe
-    left = 176
-    top = 56
   end
 end

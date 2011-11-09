@@ -37,7 +37,6 @@ type
    reporefreshsedact: taction;
    addact: taction;
    revertact: taction;
-   commitstaged: taction;
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);

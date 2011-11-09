@@ -22,15 +22,35 @@ object mainfo: tmainfo
     frame.grip_options = [go_lockbutton]
     frame.dummy = 0
     bounds_x = 0
-    bounds_y = 0
+    bounds_y = 18
     bounds_cx = 403
-    bounds_cy = 264
-    anchors = []
+    bounds_cy = 244
+    anchors = [an_bottom]
     dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
     statfile = formsta
   end
+  object tspacer1: tspacer
+    taborder = 1
+    bounds_x = 216
+    bounds_y = 18
+    bounds_cx = 50
+    bounds_cy = 3
+    linktop = statdisp
+    linkbottom = dockpanel
+    dist_bottom = -3
+  end
+  object statdisp: tstringdisp
+    frame.dummy = 0
+    taborder = 2
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 403
+    bounds_cy = 18
+    anchors = [an_top]
+    reffontheight = 14
+  end
   object mainmen: tmainmenu
-    menu.submenu.count = 3
+    menu.submenu.count = 4
     menu.submenu.items = <    
       item
         submenu.count = 3
@@ -47,6 +67,33 @@ object mainfo: tmainfo
             action = mainmo.quitact
           end>
         caption = '&File'
+        state = [as_localcaption]
+      end    
+      item
+        submenu.count = 7
+        submenu.items = <        
+          item
+            action = pushact
+          end        
+          item
+            action = pullact
+          end        
+          item
+            action = fetchact
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
+            action = mergeact
+          end        
+          item
+            action = resetmergeact
+          end        
+          item
+            action = commitmergeact
+          end>
+        caption = '&git'
         state = [as_localcaption]
       end    
       item
@@ -171,5 +218,43 @@ object mainfo: tmainfo
       1
       16466
     )
+  end
+  object commitmergeact: taction
+    caption = 'Merge commit'
+    onexecute = commitmergeexe
+    left = 112
+    top = 112
+  end
+  object resetmergeact: taction
+    caption = 'Merge reset'
+    onexecute = resetmergeexe
+    left = 112
+    top = 160
+  end
+  object fetchact: taction
+    caption = 'Fetch'
+    onexecute = fetchexe
+    left = 112
+    top = 96
+  end
+  object pullact: taction
+    caption = 'Pull'
+    onexecute = pullexe
+    left = 112
+    top = 128
+  end
+  object mergeact: taction
+    caption = 'Merge fetched'
+    onexecute = mergeexe
+    left = 112
+    top = 144
+  end
+  object pushact: taction
+    caption = 'Push'
+    options = [ao_updateonidle]
+    onexecute = pushexe
+    onupdate = pushupdateexe
+    left = 112
+    top = 80
   end
 end

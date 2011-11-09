@@ -24,7 +24,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
- msedataedits,mseedit,msetypes,msegraphedits;
+ msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets;
 
 type
  tmainfo = class(tmainform)
@@ -36,6 +36,14 @@ type
    repoloadedact: taction;
    repoclosedact: taction;
    reloadact: taction;
+   tspacer1: tspacer;
+   statdisp: tstringdisp;
+   commitmergeact: taction;
+   resetmergeact: taction;
+   fetchact: taction;
+   pullact: taction;
+   mergeact: taction;
+   pushact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -50,11 +58,19 @@ type
    procedure gitconsoleshowexe(const sender: TObject);
    procedure closerepoexe(const sender: TObject);
    procedure showdiffexe(const sender: TObject);
+   procedure commitmergeexe(const sender: TObject);
+   procedure resetmergeexe(const sender: TObject);
+   procedure fetchexe(const sender: TObject);
+   procedure pullexe(const sender: TObject);
+   procedure mergeexe(const sender: TObject);
+   procedure pushexe(const sender: TObject);
+   procedure pushupdateexe(const sender: tcustomaction);
   private
    frefreshing: boolean;
   public
    procedure reload;
    property refreshing: boolean read frefreshing;
+   procedure updatestate;
  end;
 var
  mainfo: tmainfo;
@@ -63,8 +79,10 @@ implementation
 
 uses
  main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform,
- gitconsole,diffform;
- 
+ gitconsole,diffform,msewidgets;
+const
+ mergecolor = $ffb030;
+  
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
  with panelcontroller.newpanel do begin
@@ -122,6 +140,7 @@ end;
 procedure tmainfo.repoloadedexe(const sender: TObject);
 begin
  caption:= 'MSEgit '+mainmo.repo;
+ updatestate;
 end;
 
 procedure tmainfo.repoclosedexe(const sender: TObject);
@@ -129,6 +148,9 @@ begin
  if not frefreshing then begin
   caption:= 'MSEgit';
   gitconsolefo.clear;
+  statdisp.value:= '';
+  statdisp.hint:= '';
+  statdisp.color:= cl_default;
  end;
 end;
 
@@ -160,6 +182,100 @@ begin
   dirtreefo.restorestate;
   filesfo.restorestate;
  end;
+end;
+
+procedure tmainfo.updatestate;
+var
+ ar1: msestringarty;
+ int1: integer;
+begin
+ with mainmo do begin
+  with statdisp do begin
+   color:= cl_default;
+   value:= '';
+   hint:= '';
+  end;
+  if mergehead <> '' then begin
+   statdisp.color:= mergecolor;
+   ar1:= breaklines(mergemessage);
+   if high(ar1) >= 0 then begin
+    statdisp.value:= ar1[0];
+    if ar1[high(ar1)] = '' then begin
+     setlength(ar1,high(ar1));
+    end;
+    int1:= 1;
+    if (high(ar1) >= 1) and (ar1[1] = '') then begin
+     inc(int1);
+    end;
+    if int1 <= high(ar1) then begin
+     statdisp.hint:= concatstrings(copy(ar1,int1,bigint),lineend);
+    end;
+   end
+   else begin
+    statdisp.value:= 'Merging';
+   end;
+  end;
+ end;
+end;
+
+procedure tmainfo.commitmergeexe(const sender: TObject);
+begin
+ if mainmo.mergecommit then begin
+  reload;
+ end;
+end;
+
+procedure tmainfo.resetmergeexe(const sender: TObject);
+begin
+ if askyesno('Do you want to reset the merge operation?') then begin
+  if mainmo.mergereset then begin
+   reload;
+  end;
+ end;
+end;
+
+procedure tmainfo.fetchexe(const sender: TObject);
+begin
+ if mainmo.fetch then begin
+  reload;
+ end;
+end;
+
+procedure tmainfo.pullexe(const sender: TObject);
+begin
+ if askyesno('Do you want to fetch and merge data?') and mainmo.pull then begin
+  reload;
+ end;
+end;
+
+procedure tmainfo.mergeexe(const sender: TObject);
+begin
+ if askyesno('Do you want to merge fetched data?') then begin
+  mainmo.merge;
+  reload;
+ end;
+end;
+
+procedure tmainfo.pushexe(const sender: TObject);
+begin
+ if askyesno('Do you want to push data?') and mainmo.push then begin
+  reload;
+ end;
+end;
+
+procedure tmainfo.pushupdateexe(const sender: tcustomaction);
+var
+ bo1: boolean;
+ bo2: boolean;
+begin
+ bo1:= mainmo.repoloaded;
+ bo2:= bo1 and not mainmo.merging;
+ pushact.enabled:= bo2;
+ fetchact.enabled:= bo1;
+ commitmergeact.enabled:= bo1;
+ pullact.enabled:= bo2;
+ mergeact.enabled:= bo2;
+ resetmergeact.enabled:= bo1;
 end;
 
 end.
