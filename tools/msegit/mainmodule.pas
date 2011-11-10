@@ -103,7 +103,7 @@ type
    property commitmessage: msestring read fcommitmessage write fcommitmessage;
 //   property reponames: msestringarty read freponames write freponames
  end;
-    
+
  tmainmo = class(tmsedatamodule)
    optionsobj: trttistat;
    mainstat: tstatfile;
@@ -138,6 +138,7 @@ type
    fkind: commitkindty;
    fmergehead: msestring;
    fmergemessage: msestring;
+   fbranches: branchinfoarty;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
@@ -207,6 +208,7 @@ type
    
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
+   property branches: branchinfoarty read fbranches;
    property remotesinfo: remoteinfoarty read fremotesinfo;
    property activeremote: msestring read factiveremote write setactiveremote;
    property git: tgitcontroller read fgit;
@@ -474,6 +476,7 @@ begin
    repostatf.readstat;
    frepo:= filepath(avalue,fk_dir);
    fgit.remoteshow(fremotesinfo);
+   fgit.branchshow(fbranches);
    factiveremote:= '';
    if high(fremotesinfo) >= 0 then begin
     mstr1:= frepostat.activeremote;

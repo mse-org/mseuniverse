@@ -145,6 +145,12 @@ type
 
  addfilecallbackeventty = procedure(var afile: gitfileinfoty) of object;
 
+ branchinfoty = record
+  name: msestring;
+  active: boolean;
+ end;
+ branchinfoarty = array of branchinfoty;    
+
  remoteinfoty = record
   name: msestring;
   fetchurl: msestring;
@@ -170,7 +176,7 @@ type
    procedure filearraycallback(var ainfo: gitfileinfoty);
    procedure filecachecallback(var ainfo: gitfileinfoty);
   protected
-   function commandresult(const acommand: string; out adest: string): boolean;
+   function commandresult1(const acommand: string; out adest: msestring): boolean;
    function status1(const callback: addstatecallbackeventty;
         const apath: filenamety; const aorigin: msestring): boolean;
    function lsfiles1(const apath: filenamety; const excludetracked: boolean;
@@ -213,6 +219,7 @@ type
                     const astate: tgitstatecache;
                     const adest: tgitfilecache): boolean; overload;
    function remoteshow(out adest: remoteinfoarty): boolean;
+   function branchshow(out adest: branchinfoarty): boolean;
    function diff(const afile: filenamety): msestringarty;
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
@@ -321,11 +328,14 @@ begin
  result:= stringtoutf8(quotestring(avalue,'"'));
 end;
 
-function tgitcontroller.commandresult(const acommand: string;
-               out adest: string): boolean;
+function tgitcontroller.commandresult1(const acommand: string;
+               out adest: msestring): boolean;
+var
+ str1: string;
 begin
  result:= getprocessoutput(encodegitcommand(acommand),'',
-                                                 adest,ferrormessage) = 0;
+                                                 str1,ferrormessage) = 0;
+ adest:= utf8tostring(str1);
 end;
 
 const
@@ -400,15 +410,15 @@ const
 function tgitcontroller.status1(const callback: addstatecallbackeventty;
                const apath: filenamety; const aorigin: msestring): boolean;
 var
- str1{,str2}: string;
- po1,po2,po3: pchar;
+ mstr1: msestring;
+ po1,po2,po3: pmsechar;
  int1: integer;
  stat1: gitstateinfoty;
 
  procedure scan(const aflags: gitstatesty);
  begin
-  po1:= pointer(str1);
-  po3:= po1 + length(str1);
+  po1:= pointer(mstr1);
+  po3:= po1 + length(mstr1);
   while po1 < po3 do begin
    if po1^ = c_return then begin
     inc(po1);
@@ -438,10 +448,10 @@ var
 
 begin
  fna1:= encodepathparam(apath,false);
- result:= commandresult('status -z --porcelain '+fna1,str1);
- if result and (str1 <> '') then begin
-  po1:= pointer(str1);
-  po3:= po1 + length(str1);
+ result:= commandresult1('status -z --porcelain '+fna1,mstr1);
+ if result and (mstr1 <> '') then begin
+  po1:= pointer(mstr1);
+  po3:= po1 + length(mstr1);
   while po1 < po3 do begin
    po2:= po1;
    while po2^ <> #0 do begin
@@ -472,12 +482,12 @@ begin
   end;
  end;
  if result and (aorigin <> '') then begin
-  if commandresult('log -z --name-only --format=format: '+aorigin+
-                        '..HEAD '+fna1,str1) and (str1 <> '') then begin
+  if commandresult1('log -z --name-only --format=format: '+aorigin+
+                        '..HEAD '+fna1,mstr1) and (mstr1 <> '') then begin
    scan([gist_pushpending]);
   end;
-  if commandresult('log -z --name-only --format=format: '+
-       'HEAD..'+aorigin+' '+fna1,str1) and (str1 <> '') then begin
+  if commandresult1('log -z --name-only --format=format: '+
+       'HEAD..'+aorigin+' '+fna1,mstr1) and (mstr1 <> '') then begin
    scan([gist_mergepending]);
   end;
  end;
@@ -542,20 +552,21 @@ function tgitcontroller.lsfiles(const apath,repodir: filenamety;
                const includeuntracked: boolean; const includeignored: boolean;
                out afiles: filenamearty): boolean;
 var
- str1,str2,str3: string;
+ mstr1,mstr2: msestring;
+ str2{,str3}: string;
 begin
  str2:= 'ls-files --full-name ';
- result:= commandresult(str2+encodepathparam(apath,false),str1);
+ result:= commandresult1(str2+encodepathparam(apath,false),mstr1);
  if result and (includeuntracked or includeignored) then begin
   str2:= str2 + '--other --exclude='+
                               encodepathparam(repodir+'*/',true)+' ';
   if not includeignored then begin
    str2:= str2 + '--exclude-standard ';
   end;
-  result:= commandresult(str2+encodepathparam(apath,false),str3);
-  str1:= str1+str3;
+  result:= commandresult1(str2+encodepathparam(apath,false),mstr2);
+  mstr1:= mstr1+mstr2;
  end;
- afiles:= breaklines(msestring(str1));
+ afiles:= breaklines(mstr1);
 end;
 
 function tgitcontroller.lsfiles1(const apath: filenamety;
@@ -565,9 +576,10 @@ function tgitcontroller.lsfiles1(const apath: filenamety;
             const astate: tgitstatecache;
             const callback: addfilecallbackeventty): boolean;
 var
- str1,str2: string;
+ mstr1: msestring;
+ str2: string;
  int1: integer;
- po1,po2: pchar;
+ po1,po2: pmsechar;
  po3: pgitstatedataty;
 // fna1: filenamety;
  repodir: filenamety;
@@ -581,9 +593,9 @@ begin
    str2:= str2 + '-r ';
   end;
   str2:= str2 + '-z HEAD ';
-  result:= commandresult(str2+encodepathparam(apath+'/',false),str1);
-  if result and (str1 <> '') then begin
-   po1:= pointer(str1);
+  result:= commandresult1(str2+encodepathparam(apath+'/',false),mstr1);
+  if result and (mstr1 <> '') then begin
+   po1:= pointer(mstr1);
    while true do begin
     po2:= po1;
     if po2^ = #0 then begin
@@ -625,9 +637,8 @@ begin
      break; //invalid
     end;
     with info1 do begin
-     setlength(str2,int1);
-     move(po1^,str2[1],int1);
-     data.stateinfo.filename:= str2;
+     setlength(data.stateinfo.filename,int1);
+     move(po1^,data.stateinfo.filename[1],int1*sizeof(msechar));
      po3:= astate.find(data.stateinfo.filename);
      if po3 <> nil then begin
       data.stateinfo.data.statex:= po3^.statex;
@@ -651,11 +662,11 @@ begin
   if not includeignored then begin
    str2:= str2 + '--exclude-standard ';
   end;
-  result:= commandresult(str2 + encodepathparam(apath,true),str1);
-  if str1 <> '' then begin
+  result:= commandresult1(str2 + encodepathparam(apath,true),mstr1);
+  if mstr1 <> '' then begin
    info1.data.stateinfo.data.statex:= [];
    info1.data.stateinfo.data.statey:= [gist_untracked];
-   po1:= pointer(str1);
+   po1:= pointer(mstr1);
    while true do begin
     po2:= po1;
     if po2^ = #0 then begin
@@ -664,9 +675,8 @@ begin
     while po2^ <> #0 do begin
      inc(po2);
     end;
-    str2:= psubstr(po1,po2);
     with info1 do begin
-     data.stateinfo.filename:= str2;
+     data.stateinfo.filename:= psubstr(po1,po2);
      data.stateinfo.data.statey:= [gist_untracked];
     end;     
     callback(info1);
@@ -724,25 +734,25 @@ end;
 
 function tgitcontroller.remoteshow(out adest: remoteinfoarty): boolean;
 var
- str1,str2: string;
- ar1,ar2: stringarty;
+ mstr1,mstr2: msestring;
+ ar1,ar2: msestringarty;
  int1,int2,int3: integer;
 begin
- result:= commandresult('remote -v show',str1);
+ result:= commandresult1('remote -v show',mstr1);
  if result then begin
-  ar1:= breaklines(str1);
+  ar1:= breaklines(mstr1);
   setlength(adest,length(ar1));//max
   int2:= 0;
-  str2:= '';
+  mstr2:= '';
   for int1:= 0 to high(ar1) do begin
    ar2:= splitstring(ar1[int1],c_tab);
    if high(ar2) = 1 then begin
-    if (str2 <> '') and (str2 <> ar2[0]) then begin
+    if (mstr2 <> '') and (mstr2 <> ar2[0]) then begin
      inc(int2);
     end;
-    str2:= ar2[0];
+    mstr2:= ar2[0];
     with adest[int2] do begin
-     name:= str2;
+     name:= mstr2;
      int3:= length(ar2[1]);
      if (int3 > 8) and (copy(ar2[1],int3-7,bigint) = ' (fetch)') then begin
       fetchurl:= copy(ar2[1],1,int3-8);
@@ -753,7 +763,7 @@ begin
     end;     
    end;
   end;
-  if str2 = '' then begin
+  if mstr2 = '' then begin
    adest:= nil;
   end
   else begin
@@ -762,13 +772,20 @@ begin
  end;
 end;
 
+function tgitcontroller.branchshow(out adest: branchinfoarty): boolean;
+var
+ mstr1: msestring;
+begin
+ result:= commandresult1('branch',mstr1); 
+end;
+
 function tgitcontroller.diff(const afile: filenamety): msestringarty;
 var
- str1: string;
+ mstr1: msestring;
 begin
  result:= nil;
- if commandresult('diff -- '+encodepathparam(afile,true),str1) then begin
-  result:= breaklines(msestring(str1));
+ if commandresult1('diff -- '+encodepathparam(afile,true),mstr1) then begin
+  result:= breaklines(mstr1);
  end;
 end;
 
