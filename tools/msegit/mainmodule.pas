@@ -466,7 +466,7 @@ begin
    showmessage(avalue+lineend+'is no git repository.','***ERROR***');
    abort;
   end;
-  msesetcurrentdir(freporoot);
+  setcurrentdirmse(freporoot);
   application.beginwait;
   try
    readmergeinfo;
