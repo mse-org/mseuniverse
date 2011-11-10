@@ -775,8 +775,33 @@ end;
 function tgitcontroller.branchshow(out adest: branchinfoarty): boolean;
 var
  mstr1: msestring;
+ ar1: msestringarty;
+ int1: integer;
 begin
+ adest:= nil;
  result:= commandresult1('branch',mstr1); 
+ if result then begin
+  ar1:= breaklines(mstr1);
+  if ar1 <> nil then begin
+   if ar1[high(ar1)] = '' then begin
+    setlength(ar1,high(ar1));
+   end;
+   setlength(adest,length(ar1));
+   for int1:= 0 to high(ar1) do begin
+    if length(ar1[int1]) < 2 then begin
+     result:= false;
+     adest:= nil;
+     exit;
+    end;
+    with adest[int1] do begin
+     if ar1[int1][1] = '*' then begin
+      active:= true;
+     end;
+     name:= copy(ar1[int1],3,bigint);
+    end;    
+   end;
+  end;
+ end;
 end;
 
 function tgitcontroller.diff(const afile: filenamety): msestringarty;

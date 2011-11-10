@@ -166,6 +166,7 @@ type
                     //returns path relative to reporoot
    function getfiles(const apath: filenamety): msegitfileitemarty;
    
+   function checkoutbranch(const aname: msestring): boolean;
    function fetch: boolean;
    function pull: boolean;
    function push: boolean;
@@ -867,8 +868,25 @@ begin
 end;
 
 function tmainmo.execgitconsole(const acommand: string): boolean;
+var
+ w1: twindow;
 begin
- result:= gitconsolefo.execgit(acommand);
+ w1:= nil;
+ setlinkedvar(tlinkedobject(application.normalactivewindow),tlinkedobject(w1));
+ try
+  result:= gitconsolefo.execgit(acommand);
+  if not result then begin
+   gitconsolefo.activate;
+  end
+  else begin
+   if w1 <> nil then begin
+    w1.activate;
+    w1.bringtofront;
+   end;
+  end;
+ finally
+  setlinkedvar(nil,tlinkedobject(w1));
+ end;
 end;
 
 function tmainmo.canadd(const anodes: gitdirtreenodearty): boolean;
@@ -1030,6 +1048,11 @@ end;
 function tmainmo.merging: boolean;
 begin
  result:= fmergehead <> '';
+end;
+
+function tmainmo.checkoutbranch(const aname: msestring): boolean;
+begin
+ result:= execgitconsole('checkout '+git.encodestringparam(aname));
 end;
 
 { tmsegitfileitem }

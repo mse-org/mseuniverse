@@ -65,6 +65,7 @@ type
    procedure mergeexe(const sender: TObject);
    procedure pushexe(const sender: TObject);
    procedure pushupdateexe(const sender: tcustomaction);
+   procedure branchcheckoutexe(const sender: TObject; var accept: Boolean);
   private
    frefreshing: boolean;
   public
@@ -79,7 +80,7 @@ implementation
 
 uses
  main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform,
- gitconsole,diffform,msewidgets;
+ gitconsole,diffform,msewidgets,sysutils;
 const
  mergecolor = $ffb030;
   
@@ -188,12 +189,31 @@ procedure tmainfo.updatestate;
 var
  ar1: msestringarty;
  int1: integer;
+ activebranch: integer;
 begin
  with mainmo do begin
   with statdisp do begin
    color:= cl_default;
    value:= '';
    hint:= '';
+  end;
+  activebranch:= -1;
+  with mainmen.menu.itembynames(['git','branch']) do begin
+   submenu.count:= 0;
+   submenu.count:= length(branches);
+   for int1:= 0 to high(branches) do begin
+    with submenu[int1] do begin
+     caption:= branches[int1].name;
+     options:= [mao_radiobutton{,mao_asyncexecute}];
+     onbeforeexecute:= @branchcheckoutexe;
+    end;
+    if branches[int1].active then begin
+     activebranch:= int1;
+    end;
+   end;
+   if activebranch >= 0 then begin
+    submenu[activebranch].checked:= true;
+   end;
   end;
   if mergehead <> '' then begin
    statdisp.color:= mergecolor;
@@ -213,6 +233,11 @@ begin
    end
    else begin
     statdisp.value:= 'Merging';
+   end;
+  end
+  else begin
+   if activebranch >= 0 then begin
+    statdisp.value:= 'Branch '+mainmo.branches[activebranch].name;
    end;
   end;
  end;
@@ -276,6 +301,17 @@ begin
  pullact.enabled:= bo2;
  mergeact.enabled:= bo2;
  resetmergeact.enabled:= bo1;
+ mainmen.menu.itembynames(['git','branch']).enabled:= bo2;
+end;
+
+procedure tmainfo.branchcheckoutexe(const sender: TObject; var accept: Boolean);
+begin
+ with tmenuitem(sender) do begin
+  accept:= mainmo.checkoutbranch(caption);
+  if accept then begin
+   reload;
+  end;
+ end;
 end;
 
 end.

@@ -109,13 +109,19 @@ end;
 function tgitconsolefo.execgit(const acommand: string): boolean;
 var
  mstr1: msestring;
+ wi1: twindow;
 begin
  mstr1:= mainmo.git.encodegitcommand(acommand);
  with termed do begin
   addchars(acommand+lineend);
   fexecgitwaiting:= true;
   execprog(mstr1);
+  wi1:= nil;
+  setlinkedvar(tlinkedobject(application.activewindow),tlinkedobject(wi1));
   show(ml_application);
+  if wi1 <> nil then begin
+   wi1.activate;
+  end;
   result:= exitcode = 0;
  end;
 end;
