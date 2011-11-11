@@ -25,13 +25,14 @@ program msegit;
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
  msegui,mseforms,main,mainmodule,dirtreeform,filesform,guitemplates,
- remotesform,gitconsole,diffform;
+ remotesform,gitconsole,diffform,branchform;
  
 begin
  application.createdatamodule(tguitemplatesmo,guitemplatesmo);
  application.createform(tdirtreefo,dirtreefo);
  application.createform(tfilesfo,filesfo);
  application.createform(tremotesfo,remotesfo);
+ application.createform(tbranchfo,branchfo);
  application.createform(tgitconsolefo,gitconsolefo);
  application.createform(tdifffo,difffo);
  application.createdatamodule(tmainmo,mainmo);

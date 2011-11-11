@@ -60,6 +60,8 @@ object gitconsolefo: tgitconsolefo
       font.dummy = 0
       maxchars = 100
       maxcommandhistory = 100
+      tabulators.ppmm = 3
+      tabulators.defaultdist = 10
       onprocfinished = procfiexe
       onsendtext = sendtextexe
       optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_tty, pro_inactive, pro_ctrlc]

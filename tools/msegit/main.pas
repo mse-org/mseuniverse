@@ -66,6 +66,7 @@ type
    procedure pushexe(const sender: TObject);
    procedure pushupdateexe(const sender: tcustomaction);
    procedure branchcheckoutexe(const sender: TObject; var accept: Boolean);
+   procedure showbranchexe(const sender: TObject);
   private
    frefreshing: boolean;
   public
@@ -80,7 +81,7 @@ implementation
 
 uses
  main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform,
- gitconsole,diffform,msewidgets,sysutils;
+ gitconsole,diffform,msewidgets,sysutils,branchform;
 const
  mergecolor = $ffb030;
   
@@ -99,6 +100,11 @@ end;
 procedure tmainfo.showfilesexe(const sender: TObject);
 begin
  filesfo.activate;
+end;
+
+procedure tmainfo.showbranchexe(const sender: TObject);
+begin
+ branchfo.activate;
 end;
 
 procedure tmainfo.showremotesexe(const sender: TObject);
