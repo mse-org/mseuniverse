@@ -50,7 +50,7 @@ var
  branchfo: tbranchfo;
 implementation
 uses
- branchform_mfm,mainmodule,msewidgets;
+ branchform_mfm,mainmodule,msewidgets,main,msefileutils;
  
 procedure tbranchfo.repoclosedexe(const sender: TObject);
 begin
@@ -161,9 +161,24 @@ begin
   mainmo.activeremote:= remotename.value;
  end
  else begin
-  for int1:= grid.row downto 0 do begin
+  mstr1:= '';
+  for int1:= grid.row - 1 downto 0 do begin
    mstr1:= remotename[int1];
    if mstr1 <> '' then begin
+    break;
+   end;
+  end;
+  if mstr1 = '' then begin //local branch
+   accept:= askyesno('Do you want to switch to branch "'+
+                        branchname.value+'"?') and
+                        mainmo.checkoutbranch(branchname.value);
+   if accept then begin
+    mainfo.reload;
+   end;
+   exit;
+  end;
+  for int1:= grid.row - 1 downto 0 do begin
+   if remotename[int1] <> '' then begin
     break;
    end;
    activeed[int1]:= false;
@@ -174,7 +189,11 @@ begin
    end;
    activeed[int1]:= false;
   end;
+  if mstr1 <> '' then begin
+   trydeletefile('.git/FETCH_HEAD'); //invalid
+  end;
   mainmo.activeremotebranch[mstr1]:= branchname.value;
+  mainfo.updatestate;
  end;
 end;
 

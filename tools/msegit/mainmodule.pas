@@ -224,6 +224,7 @@ type
    property activeremote: msestring read factiveremote write setactiveremote;
    property activeremotebranch[const aremote: msestring]: msestring read
                      getactiveremotebranch write setactiveremotebranch;
+   function remotetarget: msestring;
    property git: tgitcontroller read fgit;
  end;
  
@@ -890,25 +891,25 @@ begin
 end;
 
 function tmainmo.execgitconsole(const acommand: string): boolean;
-var
- w1: twindow;
+//var
+// w1: twindow;
 begin
- w1:= nil;
- setlinkedvar(tlinkedobject(application.normalactivewindow),tlinkedobject(w1));
- try
+// w1:= nil;
+// setlinkedvar(tlinkedobject(application.normalactivewindow),tlinkedobject(w1));
+// try
   result:= gitconsolefo.execgit(acommand);
   if not result then begin
    gitconsolefo.activate;
-  end
-  else begin
-   if w1 <> nil then begin
-    w1.activate;
-    w1.bringtofront;
-   end;
   end;
- finally
-  setlinkedvar(nil,tlinkedobject(w1));
- end;
+//  else begin
+//   if w1 <> nil then begin
+//    w1.activate;
+//    w1.bringtofront;
+//   end;
+//  end;
+// finally
+//  setlinkedvar(nil,tlinkedobject(w1));
+// end;
 end;
 
 function tmainmo.canadd(const anodes: gitdirtreenodearty): boolean;
@@ -1044,17 +1045,17 @@ end;
 
 function tmainmo.fetch: boolean;
 begin
- result:= execgitconsole('fetch');
+ result:= execgitconsole('fetch '+remotetarget);
 end;
 
 function tmainmo.pull: boolean;
 begin
- result:= execgitconsole('pull');
+ result:= execgitconsole('pull '+remotetarget);
 end;
 
 function tmainmo.push: boolean;
 begin
- result:= execgitconsole('push');
+ result:= execgitconsole('push '+remotetarget);
 end;
 
 function tmainmo.merge: boolean;
@@ -1146,6 +1147,17 @@ procedure tmainmo.repowriteexe(const sender: TObject;
                const writer: tstatwriter);
 begin
  writer.writerecordarray('remotes',length(fremotesinfo),@writeremote);
+end;
+
+function tmainmo.remotetarget: msestring;
+begin
+ result:= activeremotebranch[activeremote];
+ if result <> '' then begin
+  result:= activeremote+' '+result;
+ end
+ else begin
+  result:= activeremote;
+ end;
 end;
 
 { tmsegitfileitem }

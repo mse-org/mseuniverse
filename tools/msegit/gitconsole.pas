@@ -121,6 +121,7 @@ begin
   show(ml_application);
   if wi1 <> nil then begin
    wi1.activate;
+   wi1.bringtofront;
   end;
   result:= exitcode = 0;
  end;

@@ -65,7 +65,7 @@ type
    procedure mergeexe(const sender: TObject);
    procedure pushexe(const sender: TObject);
    procedure pushupdateexe(const sender: tcustomaction);
-   procedure branchcheckoutexe(const sender: TObject; var accept: Boolean);
+//   procedure branchcheckoutexe(const sender: TObject; var accept: Boolean);
    procedure showbranchexe(const sender: TObject);
   private
    frefreshing: boolean;
@@ -196,6 +196,7 @@ var
  ar1: msestringarty;
  int1: integer;
  activebranch: integer;
+ mstr1: msestring;
 begin
  with mainmo do begin
   with statdisp do begin
@@ -204,21 +205,9 @@ begin
    hint:= '';
   end;
   activebranch:= -1;
-  with mainmen.menu.itembynames(['git','branch']) do begin
-   submenu.count:= 0;
-   submenu.count:= length(branches);
-   for int1:= 0 to high(branches) do begin
-    with submenu[int1] do begin
-     caption:= branches[int1].name;
-     options:= [mao_radiobutton{,mao_asyncexecute}];
-     onbeforeexecute:= @branchcheckoutexe;
-    end;
-    if branches[int1].active then begin
-     activebranch:= int1;
-    end;
-   end;
-   if activebranch >= 0 then begin
-    submenu[activebranch].checked:= true;
+  for int1:= 0 to high(branches) do begin
+   if branches[int1].active then begin
+    activebranch:= int1;
    end;
   end;
   if mergehead <> '' then begin
@@ -242,9 +231,13 @@ begin
    end;
   end
   else begin
+   mstr1:= 'B: ';
    if activebranch >= 0 then begin
-    statdisp.value:= 'Branch '+mainmo.branches[activebranch].name;
+    mstr1:= mstr1 + mainmo.branches[activebranch].name;
    end;
+   mstr1:= mstr1+'   R: '+mainmo.activeremote + ' B: '+
+                  mainmo.activeremotebranch[mainmo.activeremote];
+   statdisp.value:= mstr1;
   end;
  end;
 end;
@@ -307,9 +300,9 @@ begin
  pullact.enabled:= bo2;
  mergeact.enabled:= bo2;
  resetmergeact.enabled:= bo1;
- mainmen.menu.itembynames(['git','branch']).enabled:= bo2;
+// mainmen.menu.itembynames(['git','branch']).enabled:= bo2;
 end;
-
+{
 procedure tmainfo.branchcheckoutexe(const sender: TObject; var accept: Boolean);
 begin
  with tmenuitem(sender) do begin
@@ -319,5 +312,5 @@ begin
   end;
  end;
 end;
-
+}
 end.

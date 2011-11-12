@@ -70,7 +70,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 9
+        submenu.count = 8
         submenu.items = <        
           item
             action = pushact
@@ -95,11 +95,6 @@ object mainfo: tmainfo
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
-          end        
-          item
-            caption = 'Branch checkout'
-            name = 'branch'
-            state = [as_localcaption, as_localonexecute, as_localonbeforeexecute]
           end>
         caption = '&git'
         name = 'git'
