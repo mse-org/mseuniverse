@@ -33,10 +33,6 @@ object remotesfo: tremotesfo
         captions.count = 4
         captions.items = <        
           item
-            caption = 'A'
-            hint = 'Active remote repository'
-          end        
-          item
             caption = 'Remote Name'
           end        
           item
@@ -44,17 +40,15 @@ object remotesfo: tremotesfo
           end        
           item
             caption = 'Push URL'
+          end        
+          item
+            caption = 'A'
+            hint = 'Active remote repository'
           end>
       end>
-    datacols.count = 4
+    datacols.count = 3
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
-        width = 16
-        options = [co_fixwidth, co_savestate, co_mousescrollrow]
-        widgetname = 'remoteactive'
-        dataclass = tgridintegerdatalist
-      end    
       item
         width = 90
         options = [co_proportional, co_savestate, co_mousescrollrow]
@@ -76,25 +70,12 @@ object remotesfo: tremotesfo
     datarowheight = 16
     statfile = mainfo.formsta
     reffontheight = 14
-    object remoteactive: tbooleaneditradio
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
-      optionsskin = [osk_framebuttononly]
-      taborder = 1
-      bounds_x = 0
-      bounds_y = 0
-      bounds_cx = 16
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol, bo_cantoggle]
-      visible = False
-      onsetvalue = activesetexe
-    end
     object remotename: tstringedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 2
+      taborder = 1
       visible = False
-      bounds_x = 17
+      bounds_x = 0
       bounds_y = 0
       bounds_cx = 90
       bounds_cy = 16
@@ -109,9 +90,9 @@ object remotesfo: tremotesfo
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.button.color = -1879048187
       frame.button.imagenr = 17
-      taborder = 3
+      taborder = 2
       visible = False
-      bounds_x = 108
+      bounds_x = 91
       bounds_y = 0
       bounds_cx = 114
       bounds_cy = 16
@@ -127,9 +108,9 @@ object remotesfo: tremotesfo
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.button.color = -1879048187
       frame.button.imagenr = 17
-      taborder = 4
+      taborder = 3
       visible = False
-      bounds_x = 223
+      bounds_x = 206
       bounds_y = 0
       bounds_cx = 151
       bounds_cy = 16

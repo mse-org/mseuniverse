@@ -30,7 +30,6 @@ type
  tremotesfo = class(tdockform)
    grid: twidgetgrid;
    remotename: tstringedit;
-   remoteactive: tbooleaneditradio;
    remotefetchurl: tmemodialogedit;
    remotepushurl: tmemodialogedit;
    repoloadedact: taction;
@@ -58,15 +57,15 @@ begin
  grid.beginupdate;
  ar1:= mainmo.remotesinfo;
  grid.rowcount:= length(ar1);
- remoteactive.checkedrow:= -1;
+// remoteactive.checkedrow:= -1;
  for int1:= 0 to high(ar1) do begin
   with ar1[int1] do begin
    remotename[int1]:= name;
    remotefetchurl[int1]:= fetchurl;
    remotepushurl[int1]:= pushurl;
-   if name = mainmo.activeremote then begin
-    remoteactive.checkedrow:= int1;
-   end;
+//   if name = mainmo.activeremote then begin
+//    remoteactive.checkedrow:= int1;
+//   end;
   end;
  end;
  grid.endupdate;

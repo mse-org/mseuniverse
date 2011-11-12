@@ -215,6 +215,8 @@ type
    property branches: branchinfoarty read fbranches;
    property remotesinfo: remoteinfoarty read fremotesinfo;
    property activeremote: msestring read factiveremote write setactiveremote;
+   procedure setactiveremotebranch(const aremote: msestring;
+                            const abranch: msestring);
    property git: tgitcontroller read fgit;
  end;
  
@@ -1080,6 +1082,11 @@ begin
    fgit.encodestringparam(oldname)+':'+fgit.encodestringparam(newname)+
                   ' :'+fgit.encodestringparam(oldname));
  end;
+end;
+
+procedure tmainmo.setactiveremotebranch(const aremote: msestring;
+               const abranch: msestring);
+begin
 end;
 
 { tmsegitfileitem }

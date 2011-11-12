@@ -29,7 +29,7 @@ uses
 type
  tbranchfo = class(tdockform)
    grid: twidgetgrid;
-   activeed: tbooleanedit;
+   activeed: tbooleaneditradio;
    branchname: tstringedit;
    repoloadedact: taction;
    repoclosedact: taction;
@@ -38,6 +38,8 @@ type
    procedure repoloadedexe(const sender: TObject);
    procedure showexe(const sender: TObject);
    procedure branchsetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure activesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
   protected
    function currentremote: msestring;
@@ -134,6 +136,38 @@ begin
    result:= remotename[int1];
    break;
   end;
+ end;
+end;
+
+procedure tbranchfo.activesetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+var
+ int1: integer;
+ mstr1: msestring;
+begin
+ if remotename.value <> '' then begin
+  for int1:= 0 to grid.rowhigh do begin
+   if remotename[int1] <> '' then begin
+    activeed[int1]:= false;
+   end;
+  end;
+  mainmo.activeremote:= remotename.value;
+ end
+ else begin
+  for int1:= grid.row downto 0 do begin
+   mstr1:= remotename[int1];
+   if mstr1 <> '' then begin
+    break;
+   end;
+   activeed[int1]:= false;
+  end;
+  for int1:= grid.row+1 to grid.rowhigh do begin
+   if remotename[int1] <> '' then begin
+    break;
+   end;
+   activeed[int1]:= false;
+  end;
+  mainmo.setactiveremotebranch(mstr1,branchname.value);
  end;
 end;
 
