@@ -120,6 +120,8 @@ type
    procedure openrepoexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
    procedure repogetobj(const sender: TObject; var aobject: TObject);
+   procedure reporeadexe(const sender: TObject; const reader: tstatreader);
+   procedure repowriteexe(const sender: TObject; const writer: tstatwriter);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -143,6 +145,11 @@ type
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
    procedure updatecommit(var aitem: gitfileinfoty);
+   function getactiveremotebranch(const aremote: msestring): msestring;
+   procedure setactiveremotebranch(const aremote: msestring;
+                            const abranch: msestring);
+   procedure readremote(const aindex: integer; const avalue: msestring);
+   function writeremote(const index: integer): msestring;
   protected
    procedure updateoperation(const aoperation: commitkindty;
                                                   const afiles: filenamearty);
@@ -215,8 +222,8 @@ type
    property branches: branchinfoarty read fbranches;
    property remotesinfo: remoteinfoarty read fremotesinfo;
    property activeremote: msestring read factiveremote write setactiveremote;
-   procedure setactiveremotebranch(const aremote: msestring;
-                            const abranch: msestring);
+   property activeremotebranch[const aremote: msestring]: msestring read
+                     getactiveremotebranch write setactiveremotebranch;
    property git: tgitcontroller read fgit;
  end;
  
@@ -489,10 +496,10 @@ begin
   try
    readmergeinfo;
    frepostat.activeremote:= 'origin';
-   repostatf.readstat;
    frepo:= filepath(avalue,fk_dir);
    fgit.remoteshow(fremotesinfo);
    fgit.branchshow(fbranches);
+   repostatf.readstat;
    factiveremote:= '';
    if high(fremotesinfo) >= 0 then begin
     mstr1:= frepostat.activeremote;
@@ -1084,9 +1091,61 @@ begin
  end;
 end;
 
+function tmainmo.getactiveremotebranch(const aremote: msestring): msestring;
+var
+ int1: integer;
+begin
+ result:= '';
+ for int1:= 0 to high(fremotesinfo) do begin
+  with fremotesinfo[int1] do begin
+   if name = aremote then begin
+    result:= activebranch;
+    break;
+   end;
+  end;
+ end;
+end;
+
 procedure tmainmo.setactiveremotebranch(const aremote: msestring;
                const abranch: msestring);
+var
+ int1: integer;
 begin
+ for int1:= 0 to high(fremotesinfo) do begin
+  with fremotesinfo[int1] do begin
+   if name = aremote then begin
+    activebranch:= abranch;
+    break;
+   end;
+  end;
+ end;
+end;
+
+procedure tmainmo.readremote(const aindex: integer; const avalue: msestring);
+var
+ na,bra: msestring;
+begin
+ if decoderecord(avalue,[@na,@bra],'SS') then begin
+  activeremotebranch[na]:= bra;
+ end;
+end;
+
+function tmainmo.writeremote(const index: integer): msestring;
+begin
+ with fremotesinfo[index] do begin
+  result:= encoderecord([name,activebranch]);
+ end;
+end;
+
+procedure tmainmo.reporeadexe(const sender: TObject; const reader: tstatreader);
+begin
+ reader.readrecordarray('remotes',nil,@readremote);
+end;
+
+procedure tmainmo.repowriteexe(const sender: TObject;
+               const writer: tstatwriter);
+begin
+ writer.writerecordarray('remotes',length(fremotesinfo),@writeremote);
 end;
 
 { tmsegitfileitem }

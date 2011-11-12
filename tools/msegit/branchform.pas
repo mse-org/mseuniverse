@@ -60,6 +60,7 @@ end;
 procedure tbranchfo.repoloadedexe(const sender: TObject);
 var
  int1,int2,int3: integer;
+ mstr1: msestring;
 begin
  if visible then begin
   finfovalid:= true;
@@ -74,15 +75,21 @@ begin
   for int1:= 0 to high(mainmo.remotesinfo) do begin
    with mainmo.remotesinfo[int1] do begin
     if name <> '' then begin
-     grid.rowcount:= 1+int3 + length(branches);
+     grid.rowcount:= 1 + int3 + length(branches);
      remotename[int3]:= name;
+     mstr1:= mainmo.activeremotebranch[name];
      if name = mainmo.activeremote then begin
       activeed[int3]:= true;
      end;
      grid.datacols.mergecols(int3,0,1);
      inc(int3);
      for int2:= 0 to high(branches) do begin
-      branchname[int3]:= branches[int2].name;
+      with branches[int2] do begin
+       branchname[int3]:= name;
+       if name = mstr1 then begin
+        activeed[int3]:= true;
+       end;
+      end;
       inc(int3);
      end;
     end;
@@ -167,7 +174,7 @@ begin
    end;
    activeed[int1]:= false;
   end;
-  mainmo.setactiveremotebranch(mstr1,branchname.value);
+  mainmo.activeremotebranch[mstr1]:= branchname.value;
  end;
 end;
 

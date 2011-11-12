@@ -161,6 +161,7 @@ type
   fetchurl: msestring;
   pushurl: msestring;
   branches: remotebranchinfoarty;
+  activebranch: msestring;
 //  active: boolean;
  end;
  remoteinfoarty = array of remoteinfoty;

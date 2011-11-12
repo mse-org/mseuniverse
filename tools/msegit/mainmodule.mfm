@@ -422,6 +422,8 @@ object mainmo: tmainmo
   object repoobj: trttistat
     statfile = repostatf
     ongetobject = repogetobj
+    onstatread = reporeadexe
+    onstatwrite = repowriteexe
     top = 136
   end
   object reporefreshedact: tifiactionlinkcomp
