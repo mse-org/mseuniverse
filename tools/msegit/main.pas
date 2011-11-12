@@ -195,7 +195,7 @@ procedure tmainfo.updatestate;
 var
  ar1: msestringarty;
  int1: integer;
- activebranch: integer;
+// activebranch: integer;
  mstr1: msestring;
 begin
  with mainmo do begin
@@ -204,12 +204,12 @@ begin
    value:= '';
    hint:= '';
   end;
-  activebranch:= -1;
-  for int1:= 0 to high(branches) do begin
-   if branches[int1].active then begin
-    activebranch:= int1;
-   end;
-  end;
+//  activebranch:= -1;
+//  for int1:= 0 to high(branches) do begin
+//   if branches[int1].active then begin
+//    activebranch:= int1;
+//   end;
+//  end;
   if mergehead <> '' then begin
    statdisp.color:= mergecolor;
    ar1:= breaklines(mergemessage);
@@ -231,11 +231,8 @@ begin
    end;
   end
   else begin
-   mstr1:= 'B: ';
-   if activebranch >= 0 then begin
-    mstr1:= mstr1 + mainmo.branches[activebranch].name;
-   end;
-   mstr1:= mstr1+'   R: '+mainmo.activeremote + ' B: '+
+   mstr1:= 'B: ' + mainmo.activebranch+
+           '   R: '+mainmo.activeremote + ' B: '+
                   mainmo.activeremotebranch[mainmo.activeremote];
    statdisp.value:= mstr1;
   end;
@@ -267,14 +264,16 @@ end;
 
 procedure tmainfo.pullexe(const sender: TObject);
 begin
- if askyesno('Do you want to fetch and merge data?') and mainmo.pull then begin
+ if askyesno('Do you want to fetch and merge data from '+mainmo.remotetarget+
+                ' to '+mainmo.activebranch+'?') and mainmo.pull then begin
   reload;
  end;
 end;
 
 procedure tmainfo.mergeexe(const sender: TObject);
 begin
- if askyesno('Do you want to merge fetched data?') then begin
+ if askyesno('Do you want to merge fetched data from '+mainmo.remotetarget+
+                ' to '+mainmo.activebranch+'?') then begin
   mainmo.merge;
   reload;
  end;
@@ -282,7 +281,8 @@ end;
 
 procedure tmainfo.pushexe(const sender: TObject);
 begin
- if askyesno('Do you want to push data?') and mainmo.push then begin
+ if askyesno('Do you want to push '+mainmo.activebranch+' to '+
+                   mainmo.remotetarget+'?') and mainmo.push then begin
   reload;
  end;
 end;

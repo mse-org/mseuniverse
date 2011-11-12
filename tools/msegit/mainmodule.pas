@@ -141,6 +141,7 @@ type
    fmergehead: msestring;
    fmergemessage: msestring;
    fbranches: branchinfoarty;
+   factivebranch: msestring;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
@@ -219,6 +220,7 @@ type
    
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
+   property activebranch: msestring read factivebranch;
    property branches: branchinfoarty read fbranches;
    property remotesinfo: remoteinfoarty read fremotesinfo;
    property activeremote: msestring read factiveremote write setactiveremote;
@@ -446,6 +448,7 @@ var
 begin
  fmergehead:= '';
  fmergemessage:= '';
+ factivebranch:= '';
  fdirtree.clear;
  ffilecache.clear;
  freeandnil(fgitstate);
@@ -499,7 +502,7 @@ begin
    frepostat.activeremote:= 'origin';
    frepo:= filepath(avalue,fk_dir);
    fgit.remoteshow(fremotesinfo);
-   fgit.branchshow(fbranches);
+   fgit.branchshow(fbranches,factivebranch);
    repostatf.readstat;
    factiveremote:= '';
    if high(fremotesinfo) >= 0 then begin

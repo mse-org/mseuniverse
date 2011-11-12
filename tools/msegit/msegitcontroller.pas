@@ -226,7 +226,8 @@ type
                     const astate: tgitstatecache;
                     const adest: tgitfilecache): boolean; overload;
    function remoteshow(out adest: remoteinfoarty): boolean;
-   function branchshow(out adest: branchinfoarty): boolean;
+   function branchshow(out adest: branchinfoarty;
+                           out activebranch: msestring): boolean;
    function diff(const afile: filenamety): msestringarty;
    function issha1(const avalue: string; out asha1: string): boolean;
                                                                overload;
@@ -803,13 +804,15 @@ begin
  end;
 end;
 
-function tgitcontroller.branchshow(out adest: branchinfoarty): boolean;
+function tgitcontroller.branchshow(out adest: branchinfoarty;
+                           out activebranch: msestring): boolean;
 var
  mstr1: msestring;
  ar1: msestringarty;
  int1: integer;
 begin
  adest:= nil;
+ activebranch:= '';
  result:= commandresult1('branch',mstr1); 
  if result then begin
   ar1:= breaklines(mstr1);
@@ -825,10 +828,11 @@ begin
      exit;
     end;
     with adest[int1] do begin
+     name:= copy(ar1[int1],3,bigint);
      if ar1[int1][1] = '*' then begin
       active:= true;
+      activebranch:= name;
      end;
-     name:= copy(ar1[int1],3,bigint);
     end;    
    end;
   end;
