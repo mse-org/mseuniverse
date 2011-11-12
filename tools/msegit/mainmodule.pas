@@ -207,6 +207,9 @@ type
    property mergehead: msestring read fmergehead;
    property mergemessage: msestring read fmergemessage;
    
+   function renamebranch(const aremote: msestring; const oldname: msestring;
+                 const newname: msestring): boolean;
+   
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
    property branches: branchinfoarty read fbranches;
@@ -217,6 +220,8 @@ type
  
 var
  mainmo: tmainmo;
+
+function checkname(const aname: msestring): boolean;
 
 implementation
 
@@ -280,6 +285,14 @@ const
  addedicon = 22;
  addedmodifiedicon = 23;
 }
+
+function checkname(const aname: msestring): boolean;
+begin
+ result:= trim(aname) <> '';
+ if not result then begin
+  showmessage('Invalid name "'+aname+'".','***ERROR***');
+ end;
+end;
 
 function statetooriginicon(const astate: gitstatedataty): integer;
 begin
@@ -1053,6 +1066,20 @@ end;
 function tmainmo.checkoutbranch(const aname: msestring): boolean;
 begin
  result:= execgitconsole('checkout '+git.encodestringparam(aname));
+end;
+
+function tmainmo.renamebranch(const aremote: msestring;
+               const oldname: msestring; const newname: msestring): boolean;
+begin
+ if aremote = '' then begin
+  result:= execgitconsole('branch -m '+fgit.encodestringparam(oldname)+' '+
+                                   fgit.encodestringparam(newname));
+ end
+ else begin
+  result:= execgitconsole('push '+aremote+' '+
+   fgit.encodestringparam(oldname)+':'+fgit.encodestringparam(newname)+
+                  ' :'+fgit.encodestringparam(oldname));
+ end;
 end;
 
 { tmsegitfileitem }

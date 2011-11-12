@@ -37,7 +37,7 @@ object remotesfo: tremotesfo
             hint = 'Active remote repository'
           end        
           item
-            caption = 'Name'
+            caption = 'Remote Name'
           end        
           item
             caption = 'Fetch URL'
@@ -56,7 +56,7 @@ object remotesfo: tremotesfo
         dataclass = tgridintegerdatalist
       end    
       item
-        width = 71
+        width = 90
         options = [co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remotename'
         dataclass = tgridmsestringdatalist
@@ -96,7 +96,7 @@ object remotesfo: tremotesfo
       visible = False
       bounds_x = 17
       bounds_y = 0
-      bounds_cx = 71
+      bounds_cx = 90
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       reffontheight = 14
@@ -111,7 +111,7 @@ object remotesfo: tremotesfo
       frame.button.imagenr = 17
       taborder = 3
       visible = False
-      bounds_x = 89
+      bounds_x = 108
       bounds_y = 0
       bounds_cx = 114
       bounds_cy = 16
@@ -129,7 +129,7 @@ object remotesfo: tremotesfo
       frame.button.imagenr = 17
       taborder = 4
       visible = False
-      bounds_x = 204
+      bounds_x = 223
       bounds_y = 0
       bounds_cx = 151
       bounds_cy = 16

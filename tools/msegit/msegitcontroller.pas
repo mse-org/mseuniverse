@@ -151,10 +151,16 @@ type
  end;
  branchinfoarty = array of branchinfoty;    
 
+ remotebranchinfoty = record
+  name: msestring;
+ end;
+ remotebranchinfoarty = array of remotebranchinfoty;
+
  remoteinfoty = record
   name: msestring;
   fetchurl: msestring;
   pushurl: msestring;
+  branches: remotebranchinfoarty;
 //  active: boolean;
  end;
  remoteinfoarty = array of remoteinfoty;
@@ -221,6 +227,9 @@ type
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: branchinfoarty): boolean;
    function diff(const afile: filenamety): msestringarty;
+   function issha1(const avalue: string; out asha1: string): boolean;
+                                                               overload;
+   function issha1(const avalue: string): boolean; overload;
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
@@ -236,7 +245,8 @@ function gitfilepath(const apath: filenamety;
 
 implementation
 uses
- msefileutils,mseprocess,msearrayutils,msesysintf,msesystypes,msesysutils;
+ msefileutils,mseprocess,msearrayutils,msesysintf,msesystypes,msesysutils,
+ msestream,sysutils;
 
 type
  thashdatalist1 = class(thashdatalist);
@@ -734,9 +744,11 @@ end;
 
 function tgitcontroller.remoteshow(out adest: remoteinfoarty): boolean;
 var
- mstr1,mstr2: msestring;
+ mstr1,mstr2{,mstr3}: msestring;
  ar1,ar2: msestringarty;
  int1,int2,int3: integer;
+ str1: string;
+ fna1: filenamety;
 begin
  result:= commandresult1('remote -v show',mstr1);
  if result then begin
@@ -768,6 +780,24 @@ begin
   end
   else begin
    setlength(adest,int2+1);
+  end;
+  for int1:= 0 to high(adest) do begin
+   with adest[int1] do begin
+    fna1:= '.git/refs/remotes/'+name;
+    ar2:= searchfilenames('',fna1);
+    setlength(branches,length(ar2)); //max
+    int3:= 0;
+    for int2:= 0 to high(ar2) do begin
+     if tryreadfiledatastring(fna1+'/'+ar2[int2],str1) and
+      issha1(str1) then begin
+      with branches[int3] do begin
+       name:= ar2[int2];
+      end;
+      inc(int3);
+     end;
+    end;
+    setlength(branches,int3);
+   end;
   end;
  end;
 end;
@@ -812,6 +842,43 @@ begin
  if commandresult1('diff -- '+encodepathparam(afile,true),mstr1) then begin
   result:= breaklines(mstr1);
  end;
+end;
+
+function tgitcontroller.issha1(const avalue: string;
+                                     out asha1: string): boolean;
+var
+ int1: integer;
+ po1,po2: pchar;
+begin
+ result:= length(avalue) >= 40;
+ if result then begin
+  po1:= pointer(avalue);
+  po2:= po1+length(avalue)-1;
+  while (po1 <= po2) and (po1^ in [' ',c_tab]) do begin
+   inc(po1);         //remove leading whitespace
+  end;
+  while (po2 >= po1) and ((po2^ in [' ',c_tab,c_return,c_linefeed])) do begin
+   dec(po2);         //remove trailing whitespace
+  end;
+  inc(po2);
+  result:= po2-po1 = 40;
+  if result then begin
+   asha1:= psubstr(po1,po2);
+  end;
+  po1:= pointer(asha1);
+  while ((po1^ >= '0') and (po1^ <= '9') or  
+         (po1^ >= 'a') and (po1^ <= 'f')) do begin
+   inc(po1);
+  end;
+  result:= po1^ = #0;
+ end;
+end;
+
+function tgitcontroller.issha1(const avalue: string): boolean;
+var
+ str1: string;
+begin
+ result:= issha1(avalue,str1);
 end;
 
 {
