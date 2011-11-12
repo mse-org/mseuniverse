@@ -34,6 +34,7 @@ type
    repoloadedact: taction;
    repoclosedact: taction;
    remotename: tstringedit;
+   tpopupmenu1: tpopupmenu;
    procedure repoclosedexe(const sender: TObject);
    procedure repoloadedexe(const sender: TObject);
    procedure showexe(const sender: TObject);
@@ -41,6 +42,12 @@ type
                    var accept: Boolean);
    procedure activesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
+   procedure rowdeleteexe(const sender: tcustomgrid; var aindex: Integer;
+                   var acount: Integer);
+   procedure popupupdateexe(const sender: tcustommenu);
+   procedure deleteexe(const sender: TObject);
+   procedure createexe(const sender: TObject);
+   procedure celleventexe(const sender: TObject; var info: celleventinfoty);
   protected
    function currentremote: msestring;
   private
@@ -50,7 +57,7 @@ var
  branchfo: tbranchfo;
 implementation
 uses
- branchform_mfm,mainmodule,msewidgets,main,msefileutils;
+ branchform_mfm,mainmodule,msewidgets,main,msefileutils,mseeditglob;
  
 procedure tbranchfo.repoclosedexe(const sender: TObject);
 begin
@@ -116,18 +123,32 @@ begin
  accept:= checkname(avalue);
  if accept then begin
   mstr1:= currentremote;
-  if mstr1 = '' then begin
-   accept:= askyesno('Do you want to rename branch "'+branchname.value+'" to "'+
-                        avalue+'"?');
+  if branchname.value = '' then begin
+   if mstr1 = '' then begin
+    accept:= askyesno('Do you want to create branch '+avalue+'?');
+   end
+   else begin
+    accept:= askyesno('Do you want to create remote branch '+mstr1+' '+
+                                                                avalue+'?');
+   end;
+   if accept then begin
+    accept:= mainmo.createbranch(mstr1,avalue);
+   end;
   end
   else begin
-   accept:= askyesno('Do you want to rename remote branch '+mstr1+
-                 ' "'+branchname.value+'" to "'+
-                        avalue+'"?','***WARNING***');
-  end;
-  if accept then begin
-   if not mainmo.renamebranch(currentremote,branchname.value,avalue) then begin
-    avalue:= branchname.value;
+   if mstr1 = '' then begin
+    accept:= askyesno('Do you want to rename branch "'+branchname.value+'" to "'+
+                         avalue+'"?');
+   end
+   else begin
+    accept:= askyesno('Do you want to rename remote branch '+mstr1+
+                  ' "'+branchname.value+'" to "'+
+                         avalue+'"?','***WARNING***');
+   end;
+   if accept then begin
+    if not mainmo.renamebranch(currentremote,branchname.value,avalue) then begin
+     avalue:= branchname.value;
+    end;
    end;
   end;
  end;
@@ -174,6 +195,7 @@ begin
                         mainmo.checkoutbranch(branchname.value);
    if accept then begin
     mainfo.reload;
+    accept:= false;
    end;
    exit;
   end;
@@ -194,6 +216,62 @@ begin
   end;
   mainmo.activeremotebranch[mstr1]:= branchname.value;
   mainfo.updatestate;
+ end;
+end;
+
+procedure tbranchfo.rowdeleteexe(const sender: tcustomgrid; var aindex: Integer;
+                            var acount: Integer);
+var
+ mstr1,mstr2: msestring;
+begin
+ if branchname.value <> '' then begin
+  if remotename.value = '' then begin
+   mstr1:= currentremote;
+   if mstr1 <> '' then begin
+    mstr2:= mstr1 + ' ' + branchname.value;
+   end
+   else begin
+    mstr2:= branchname.value;
+   end;
+   if not askyesno('Do you want to delete branch '+mstr1+'?') or
+                 not mainmo.deletebranch(mstr1,branchname.value) then begin
+    acount:= 0;
+   end;
+  end
+  else begin
+   acount:= 0;
+  end;
+ end;
+end;
+
+procedure tbranchfo.popupupdateexe(const sender: tcustommenu);
+begin
+ sender.menu[1].enabled:= remotename.value = '';
+end;
+
+procedure tbranchfo.deleteexe(const sender: TObject);
+begin
+ grid.deleterow(grid.row,1);
+end;
+
+procedure tbranchfo.createexe(const sender: TObject);
+begin
+ grid.insertrow(grid.row+1,1);
+ grid.row:= grid.row+1;
+end;
+
+procedure tbranchfo.celleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if isrowenter(info) then begin
+  if remotename.value <> '' then begin
+   branchname.optionsedit:= (branchname.optionsedit + [oe_readonly]) -
+                                                                [oe_notnull];
+  end
+  else begin
+   branchname.optionsedit:= (branchname.optionsedit - [oe_readonly]) +
+                                                                [oe_notnull];
+  end;
  end;
 end;
 

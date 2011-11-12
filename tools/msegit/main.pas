@@ -231,8 +231,8 @@ begin
    end;
   end
   else begin
-   mstr1:= 'B: ' + mainmo.activebranch+
-           '   R: '+mainmo.activeremote + ' B: '+
+   mstr1:= mainmo.activebranch+
+           ' Remote: '+mainmo.activeremote + ' '+
                   mainmo.activeremotebranch[mainmo.activeremote];
    statdisp.value:= mstr1;
   end;

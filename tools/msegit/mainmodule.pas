@@ -217,6 +217,10 @@ type
    
    function renamebranch(const aremote: msestring; const oldname: msestring;
                  const newname: msestring): boolean;
+   function deletebranch(const aremote: msestring;
+                                      const abranch: msestring): boolean;
+   function createbranch(const aremote: msestring;
+                                      const abranch: msestring): boolean;
    
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
@@ -1092,6 +1096,28 @@ begin
   result:= execgitconsole('push '+aremote+' '+
    fgit.encodestringparam(oldname)+':'+fgit.encodestringparam(newname)+
                   ' :'+fgit.encodestringparam(oldname));
+ end;
+end;
+
+function tmainmo.deletebranch(const aremote: msestring;
+               const abranch: msestring): boolean;
+begin
+ if aremote = '' then begin
+  result:= execgitconsole('branch -d '+abranch);
+ end
+ else begin
+  result:= execgitconsole('push '+aremote+' :'+abranch);
+ end;
+end;
+
+function tmainmo.createbranch(const aremote: msestring;
+               const abranch: msestring): boolean;
+begin
+ if aremote = '' then begin
+  result:= execgitconsole('branch '+abranch);
+ end
+ else begin
+  result:= execgitconsole('push '+aremote+' '+activebranch+':'+abranch);
  end;
 end;
 
