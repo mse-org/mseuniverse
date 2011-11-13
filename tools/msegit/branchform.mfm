@@ -19,13 +19,13 @@ object branchfo: tbranchfo
   statfile = mainfo.formsta
   onshow = showexe
   moduleclassname = 'tdockform'
-  object grid: twidgetgrid
-    popupmenu = tpopupmenu1
-    bounds_x = 0
+  object remotegrid: twidgetgrid
+    popupmenu = remotepopup
+    bounds_x = 195
     bounds_y = 0
-    bounds_cx = 435
+    bounds_cx = 240
     bounds_cy = 354
-    anchors = []
+    anchors = [an_right]
     optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_noinsertempty, og_colmerged, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
     fixrows.count = 1
     fixrows.items = <    
@@ -52,64 +52,155 @@ object branchfo: tbranchfo
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
+        width = 61
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
-        widgetname = 'remotename'
+        widgetname = 'remote'
         dataclass = tgridmsestringdatalist
       end    
       item
-        width = 162
-        options = [co_proportional, co_savestate, co_mousescrollrow]
-        widgetname = 'branchname'
+        width = 156
+        options = [co_fill, co_savestate, co_mousescrollrow]
+        widgetname = 'remotebranch'
         dataclass = tgridmsestringdatalist
       end    
       item
         width = 16
         options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
-        widgetname = 'activeed'
+        widgetname = 'remoteactive'
         dataclass = tgridintegerdatalist
       end>
     datarowheight = 16
     statfile = mainfo.formsta
-    onrowsdeleting = rowdeleteexe
-    oncellevent = celleventexe
+    onrowsinserting = remoterowinsertexe
+    onrowsdeleting = remoterowdeleteexe
+    oncellevent = remotecelleventexe
     reffontheight = 14
-    object remotename: tstringedit
+    object remote: tstringedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 61
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       reffontheight = 14
     end
-    object branchname: tstringedit
+    object remotebranch: tstringedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 51
+      bounds_x = 62
       bounds_y = 0
-      bounds_cx = 162
+      bounds_cx = 156
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      onsetvalue = branchsetexe
+      onsetvalue = remotebranchsetexe
       reffontheight = 14
     end
-    object activeed: tbooleaneditradio
+    object remoteactive: tbooleaneditradio
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 3
-      bounds_x = 214
+      bounds_x = 219
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       visible = False
-      onsetvalue = activesetexe
+      onsetvalue = remoteactivesetexe
     end
+  end
+  object localgrid: twidgetgrid
+    taborder = 1
+    popupmenu = localpopup
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 192
+    bounds_cy = 354
+    anchors = [an_left]
+    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_noinsertempty, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 4
+        captions.items = <        
+          item
+            caption = 'Branch'
+          end        
+          item
+            caption = 'A'
+            hint = 'Active branch'#10'Active remote repository,'
+          end        
+          item
+            caption = 'Remote'
+          end        
+          item
+            caption = 'T'
+            hint = 'Track remote branch'
+          end>
+      end>
+    datacols.count = 2
+    datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item
+        width = 170
+        options = [co_fill, co_savestate, co_mousescrollrow]
+        widgetname = 'localbranch'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        width = 16
+        options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
+        widgetname = 'localactive'
+        dataclass = tgridintegerdatalist
+      end>
+    datarowheight = 16
+    statfile = mainfo.formsta
+    onrowsdeleting = localrowdeleteexe
+    reffontheight = 14
+    object localbranch: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 170
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      onsetvalue = localbranchsetexe
+      reffontheight = 14
+    end
+    object localactive: tbooleaneditradio
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      bounds_x = 171
+      bounds_y = 0
+      bounds_cx = 16
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      visible = False
+      onsetvalue = localactivesetexe
+    end
+  end
+  object tsplitter1: tsplitter
+    optionswidget = [ow_destroywidgets, ow_autoscale]
+    color = -1879048189
+    taborder = 2
+    bounds_x = 192
+    bounds_y = 0
+    bounds_cx = 3
+    bounds_cy = 354
+    anchors = [an_left]
+    options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linkleft = localgrid
+    linkright = remotegrid
+    statfile = mainfo.formsta
   end
   object repoloadedact: taction
     onexecute = repoloadedexe
@@ -123,21 +214,38 @@ object branchfo: tbranchfo
     left = 40
     top = 88
   end
-  object tpopupmenu1: tpopupmenu
-    onupdate = popupupdateexe
+  object remotepopup: tpopupmenu
+    onupdate = remotepopupupdateexe
     menu.submenu.count = 2
     menu.submenu.items = <    
       item
         caption = 'Create Branch'
         state = [as_localcaption, as_localonexecute]
-        onexecute = createexe
+        onexecute = remotecreateexe
       end    
       item
         caption = 'Delete Branch'
         state = [as_localcaption, as_localonexecute]
-        onexecute = deleteexe
+        onexecute = remotedeleteexe
       end>
-    left = 184
-    top = 104
+    left = 248
+    top = 152
+  end
+  object localpopup: tpopupmenu
+    onupdate = localpopupupdateexe
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        caption = 'Create Branch'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = localcreateexe
+      end    
+      item
+        caption = 'Delete Branch'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = localdeleteexe
+      end>
+    left = 40
+    top = 152
   end
 end
