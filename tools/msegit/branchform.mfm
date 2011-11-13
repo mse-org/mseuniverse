@@ -41,7 +41,7 @@ object branchfo: tbranchfo
           end        
           item
             caption = 'A'
-            hint = 'Active branch'#10'Active remote repository,'
+            hint = 'Active branch'#10'Active remote repository'
           end        
           item
             caption = 'T'
@@ -133,7 +133,7 @@ object branchfo: tbranchfo
           end        
           item
             caption = 'A'
-            hint = 'Active branch'#10'Active remote repository,'
+            hint = 'Active branch'
           end        
           item
             caption = 'Remote'
