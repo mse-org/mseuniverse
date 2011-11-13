@@ -29,15 +29,27 @@ uses
 type
  tremotesfo = class(tdockform)
    grid: twidgetgrid;
-   remotename: tstringedit;
-   remotefetchurl: tmemodialogedit;
-   remotepushurl: tmemodialogedit;
+   remote: tstringedit;
+   fetch: tmemodialogedit;
+   push: tmemodialogedit;
    repoloadedact: taction;
    repoclosedact: taction;
    procedure repoloadedexe(const sender: TObject);
    procedure repoclosedexe(const sender: TObject);
    procedure activesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
+   procedure remoteset(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure fetchsetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure pushsetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure rowdeleteexe(const sender: tcustomgrid; var aindex: Integer;
+                   var acount: Integer);
+   procedure celleventexe(const sender: TObject; var info: celleventinfoty);
+  private
+   fhasremote: boolean;
+   function changeurl(const afetch,apush: msestring): boolean;
   public
    procedure refresh;
  end;
@@ -45,7 +57,7 @@ var
  remotesfo: tremotesfo;
 implementation
 uses
- remotesform_mfm,mainmodule,msegitcontroller;
+ remotesform_mfm,mainmodule,msegitcontroller,sysutils;
 
 { tremotesfo }
 
@@ -60,9 +72,9 @@ begin
 // remoteactive.checkedrow:= -1;
  for int1:= 0 to high(ar1) do begin
   with ar1[int1] do begin
-   remotename[int1]:= name;
-   remotefetchurl[int1]:= fetchurl;
-   remotepushurl[int1]:= pushurl;
+   remote[int1]:= name;
+   fetch[int1]:= fetchurl;
+   push[int1]:= pushurl;
 //   if name = mainmo.activeremote then begin
 //    remoteactive.checkedrow:= int1;
 //   end;
@@ -73,22 +85,94 @@ end;
 
 procedure tremotesfo.repoloadedexe(const sender: TObject);
 begin
+ with grid do begin
+  optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
+ end;
  refresh;
 end;
 
 procedure tremotesfo.repoclosedexe(const sender: TObject);
 begin
- grid.clear;
+ with grid do begin
+  optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
+  clear;
+ end;
 end;
 
 procedure tremotesfo.activesetexe(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
  if avalue then begin
-  mainmo.activeremote:= remotename[-1];
+  mainmo.activeremote:= remote[-1];
  end
  else begin
   mainmo.activeremote:= '';
+ end;
+end;
+
+procedure tremotesfo.remoteset(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ accept:= checkname(avalue);
+ if accept then begin
+  if grid.canexitrow(true) then begin //check notnull
+   if remote.value = '' then begin
+    accept:= mainmo.createremote(avalue,fetch.value,push.value);
+    fhasremote:= accept;
+   end
+   else begin
+    accept:= mainmo.changeremote(remote.value,avalue,fetch.value,push.value);
+   end;
+  end
+  else begin
+   remote.value:= avalue;
+   abort;
+  end;
+ end;
+end;
+
+function tremotesfo.changeurl(const afetch,apush: msestring): boolean;
+begin
+ result:= true;
+ if remote.value <> '' then begin
+  if fhasremote then begin
+   result:= mainmo.changeremote(remote.value,remote.value,afetch,apush);
+  end
+  else begin
+   fhasremote:= mainmo.createremote(remote.value,afetch,apush);
+   result:= fhasremote;
+  end;
+ end;
+end;
+
+procedure tremotesfo.fetchsetexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ if push.value = '' then begin
+  push.value:= avalue;
+ end;
+ accept:= changeurl(avalue,push.value);
+end;
+
+procedure tremotesfo.pushsetexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ accept:= changeurl(fetch.value,avalue);
+end;
+
+procedure tremotesfo.rowdeleteexe(const sender: tcustomgrid;
+               var aindex: Integer; var acount: Integer);
+begin
+ if (remote.value <> '') and not mainmo.deleteremote(remote.value) then begin
+//  acount:= 0;
+ end;
+end;
+
+procedure tremotesfo.celleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if isrowenter(info) then begin
+  fhasremote:= remote.value <> '';
  end;
 end;
 

@@ -25,7 +25,7 @@ object remotesfo: tremotesfo
     bounds_cx = 435
     bounds_cy = 354
     anchors = []
-    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_noinsertempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixrows.count = 1
     fixrows.items = <    
       item
@@ -52,25 +52,27 @@ object remotesfo: tremotesfo
       item
         width = 90
         options = [co_proportional, co_savestate, co_mousescrollrow]
-        widgetname = 'remotename'
+        widgetname = 'remote'
         dataclass = tgridmsestringdatalist
       end    
       item
-        width = 114
+        width = 167
         options = [co_proportional, co_savestate, co_mousescrollrow]
-        widgetname = 'remotefetchurl'
+        widgetname = 'fetch'
         dataclass = tgridmsestringdatalist
       end    
       item
-        width = 151
+        width = 166
         options = [co_proportional, co_savestate, co_mousescrollrow]
-        widgetname = 'remotepushurl'
+        widgetname = 'push'
         dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
     statfile = mainfo.formsta
+    onrowsdeleting = rowdeleteexe
+    oncellevent = celleventexe
     reffontheight = 14
-    object remotename: tstringedit
+    object remote: tstringedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
@@ -79,10 +81,11 @@ object remotesfo: tremotesfo
       bounds_y = 0
       bounds_cx = 90
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      onsetvalue = remoteset
       reffontheight = 14
     end
-    object remotefetchurl: tmemodialogedit
+    object fetch: tmemodialogedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
@@ -94,13 +97,14 @@ object remotesfo: tremotesfo
       visible = False
       bounds_x = 91
       bounds_y = 0
-      bounds_cx = 114
+      bounds_cx = 167
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+      onsetvalue = fetchsetexe
       reffontheight = 14
     end
-    object remotepushurl: tmemodialogedit
+    object push: tmemodialogedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
@@ -110,12 +114,13 @@ object remotesfo: tremotesfo
       frame.button.imagenr = 17
       taborder = 3
       visible = False
-      bounds_x = 206
+      bounds_x = 259
       bounds_y = 0
-      bounds_cx = 151
+      bounds_cx = 166
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+      onsetvalue = pushsetexe
       reffontheight = 14
     end
   end

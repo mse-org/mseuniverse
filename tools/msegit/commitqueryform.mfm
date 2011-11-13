@@ -58,7 +58,7 @@ object commitqueryfo: tcommitqueryfo
     reffontheight = 14
   end
   object ammend: tbutton
-    taborder = 3
+    taborder = 4
     bounds_x = 352
     bounds_y = 256
     bounds_cx = 50
@@ -70,7 +70,7 @@ object commitqueryfo: tcommitqueryfo
     onexecute = ammendexe
   end
   object stage: tbutton
-    taborder = 4
+    taborder = 5
     bounds_x = 296
     bounds_y = 256
     bounds_cx = 50
@@ -192,7 +192,7 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
-    taborder = 5
+    taborder = 3
     visible = True
     bounds_x = 387
     bounds_y = 0
@@ -226,6 +226,7 @@ object commitqueryfo: tcommitqueryfo
           dataclass = tgridrichstringdatalist
         end>
       inherited ed: ttextedit
+        optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
       end
     end
     inherited repocloseact: taction

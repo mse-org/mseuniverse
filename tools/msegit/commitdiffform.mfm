@@ -16,7 +16,6 @@ inherited commitdifffo: tcommitdifffo
         dataclass = tgridrichstringdatalist
       end>
     inherited ed: ttextedit
-      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
     end
   end
   inherited repocloseact: taction

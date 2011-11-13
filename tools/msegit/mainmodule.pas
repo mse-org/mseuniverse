@@ -221,7 +221,12 @@ type
                                       const abranch: msestring): boolean;
    function createbranch(const aremote: msestring;
                                       const abranch: msestring): boolean;
-   
+   function createremote(const aremote: msestring; const afetch: msestring;
+                                const apush: msestring): boolean;
+   function changeremote(const aremote: msestring; const newname: msestring;
+                         const afetch: msestring;
+                         const apush: msestring): boolean;
+   function deleteremote(const aremote: msestring): boolean;
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
    property activebranch: msestring read factivebranch;
@@ -1187,6 +1192,59 @@ begin
  else begin
   result:= activeremote;
  end;
+end;
+
+function tmainmo.createremote(const aremote: msestring; const afetch: msestring;
+               const apush: msestring): boolean;
+var
+ str1: string;
+begin
+ result:= checkname(aremote);
+ if result then begin
+  result:= afetch <> '';
+  if result then begin
+   result:= execgitconsole('remote add '+fgit.encodestringparam(aremote)+' '+
+                 fgit.encodestringparam(afetch));
+   if result then begin
+    if apush <> '' then begin
+     result:= execgitconsole('remote set-url --push '+
+                                fgit.encodestringparam(aremote)+' '+
+                                 fgit.encodestringparam(apush));
+    end;
+   end;
+  end;
+ end;
+end;
+
+function tmainmo.changeremote(const aremote: msestring;
+               const newname: msestring; const afetch: msestring;
+               const apush: msestring): boolean;
+begin
+ result:= checkname(newname);
+ if result then begin
+  result:= afetch <> '';
+  if result then begin
+   if aremote <> newname then begin
+    result:= execgitconsole('remote rename ' +
+        fgit.encodestringparam(aremote)+' ' + fgit.encodestringparam(newname));
+   end;
+   if result then begin
+    result:= execgitconsole('remote set-url '+
+                      fgit.encodestringparam(newname)+' '+
+                      fgit.encodestringparam(afetch));
+    if result then begin
+     result:= execgitconsole('remote set-url --push '+
+                    fgit.encodestringparam(newname)+' '+
+                      fgit.encodestringparam(apush));
+    end;
+   end;
+  end;
+ end;
+end;
+
+function tmainmo.deleteremote(const aremote: msestring): boolean;
+begin
+ result:= execgitconsole('remote rm '+fgit.encodestringparam(aremote));
 end;
 
 { tmsegitfileitem }

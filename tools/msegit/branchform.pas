@@ -70,6 +70,7 @@ type
   private
    finfovalid: boolean;
  end;
+ 
 var
  branchfo: tbranchfo;
 implementation
@@ -142,7 +143,7 @@ end;
 
 procedure tbranchfo.showexe(const sender: TObject);
 begin
- if not finfovalid then begin
+ if not finfovalid and mainmo.repoloaded then begin
   repoloadedexe(nil);
  end;
 end;
