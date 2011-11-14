@@ -1196,8 +1196,8 @@ end;
 
 function tmainmo.createremote(const aremote: msestring; const afetch: msestring;
                const apush: msestring): boolean;
-var
- str1: string;
+//var
+// str1: string;
 begin
  result:= checkname(aremote);
  if result then begin
