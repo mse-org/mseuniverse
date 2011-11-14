@@ -1300,7 +1300,7 @@ begin
    int1:= int1 + modifieddiroffset;
   end
   else begin
-   if gist_modified in statex then begin
+   if statex * [gist_modified,gist_added] <> [] then begin
     int1:= int1 + stageddiroffset;
    end;
   end;
