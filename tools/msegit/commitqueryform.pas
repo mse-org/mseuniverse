@@ -70,7 +70,7 @@ var
 
 implementation
 uses
- commitqueryform_mfm,msedatanodes,lastmessageform,msearrayutils;
+ commitqueryform_mfm,msedatanodes,lastmessageform,msearrayutils,main;
 
 { tcommitqueryfo }
  
@@ -110,6 +110,7 @@ begin
    else begin
     result:= mainmo.commit(filelist.selectedfiles(aroot),messageed.value,fkind);
    end;
+   mainfo.updatestate;
   end;
   mainmo.repostat.commitmessage:= messageed.value;
  finally

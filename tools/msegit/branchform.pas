@@ -269,8 +269,8 @@ end;
 
 procedure tbranchfo.localrowdeleteexe(const sender: tcustomgrid;
                var aindex: Integer; var acount: Integer);
-var
- mstr1,mstr2: msestring;
+//var
+// mstr1,mstr2: msestring;
 begin
  if localbranch.value <> '' then begin
   if not askyesno('Do you want to delete branch '+localbranch.value+'?') or

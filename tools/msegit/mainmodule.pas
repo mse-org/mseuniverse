@@ -72,6 +72,10 @@ type
    procedure drawimage(const acanvas: tcanvas); override;
    function getoriginicon: integer;
    function gitpath: filenamety;
+   property gitstatex: gitstatesty read fgitstate.statex;
+   property gitstatey: gitstatesty read fgitstate.statey;
+   property dirstatex: gitstatesty read fdirstate.statex;
+   property dirstatey: gitstatesty read fdirstate.statey;
  end;
  gitdirtreenodearty = array of tgitdirtreenode;
 

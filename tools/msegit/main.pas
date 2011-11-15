@@ -81,7 +81,7 @@ implementation
 
 uses
  main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform,
- gitconsole,diffform,msewidgets,sysutils,branchform;
+ gitconsole,diffform,msewidgets,sysutils,branchform,msegitcontroller;
 const
  mergecolor = $ffb030;
   
@@ -197,12 +197,14 @@ var
  int1: integer;
 // activebranch: integer;
  mstr1: msestring;
+ col1: colorty;
 begin
  with mainmo do begin
   with statdisp do begin
    color:= cl_default;
    value:= '';
    hint:= '';
+   font.color:= cl_text;
   end;
 //  activebranch:= -1;
 //  for int1:= 0 to high(branches) do begin
@@ -231,10 +233,20 @@ begin
    end;
   end
   else begin
+   col1:= cl_ltgreen;
+   if gist_modified in mainmo.dirtree.gitstatey then begin
+    col1:= cl_ltred;
+   end
+   else begin
+    if gist_modified in mainmo.dirtree.gitstatex then begin
+     statdisp.font.color:=  cl_dkred;
+    end;
+   end;
    mstr1:= mainmo.activebranch+
            ' Remote: '+mainmo.activeremote + ' '+
                   mainmo.activeremotebranch[mainmo.activeremote];
    statdisp.value:= mstr1;
+   statdisp.color:= col1;
   end;
  end;
 end;
