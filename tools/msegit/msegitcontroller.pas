@@ -78,28 +78,9 @@ type
  end;
 
  addstatecallbackeventty = procedure(const astatus: gitstateinfoty) of object;
-{
- dirnamecachedataty = record
-  dirname: filenamety;
- end;
- dirnamecacheinfoty = record
-  key: integer;
-  data: dirnamecachedataty;
- end;
- 
- tdirnamecache = class(tintegerhashdatalist)
-  protected
-   procedure finalizeitem(var aitemdata); override;
-  public
-   constructor create;
-   procedure add(const akey: integer; const aname: filenamety);
-   function find(const akey: integer): msestring;
- end;
- }
+
  gitfiledataty = record
   stateinfo: gitstateinfoty;
-//  filename: filenamety;
-//  statex,statey: gitstatesty;
  end;
  pgitfiledataty = ^gitfiledataty;
  gitfileinfoty = record
@@ -127,8 +108,6 @@ type
   private
   protected
    fgitstate: gitstatedataty;
-//   fstatex: gitstatesty;
-//   fstatey: gitstatesty;
   public
    constructor create; virtual; overload;
    constructor create(const aitem: gitstateinfoty;
@@ -162,10 +141,16 @@ type
   pushurl: msestring;
   branches: remotebranchinfoarty;
   activebranch: msestring;
-//  active: boolean;
  end;
  remoteinfoarty = array of remoteinfoty;
-   
+
+ refinfoty = record
+  commit: msestring;
+  message: msestring;
+ end;
+ prefinfoty = ^refinfoty;
+ refinfoarty = array of refinfoty;
+    
  tgitcontroller = class(tmsecomponent)
   private
    fgitcommand: msestring;
@@ -177,7 +162,6 @@ type
    ffileitemclass: gitfileitemclassty;
    ffilecache: tgitfilecache;
    fdirlen: integer;
-//   fdirpath: filenamety;
    procedure arraycallback(const astatus: gitstateinfoty);
    procedure cachecallback(const astatus: gitstateinfoty);
    procedure filearraycallback(var ainfo: gitfileinfoty);
@@ -232,6 +216,8 @@ type
    function issha1(const avalue: string; out asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
+   function revlist(out alist: refinfoarty; const apath: filenamety = '';
+                                         const maxcount: integer = 0): boolean;
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
@@ -886,6 +872,120 @@ begin
  result:= issha1(avalue,str1);
 end;
 
+type
+ recordkindty = (rk_none,rk_commit,rk_message);
+ recdefty = record
+  name: msestring;
+ end;
+
+const
+ rk_first = rk_commit;
+ rk_last = high(recordkindty);
+ 
+ recdef: array[recordkindty] of recdefty =
+         (     
+          (name: ''),           //rk_none
+          (name: 'commit'),    //rk_commit
+          (name: '   ')           //rk_message
+         );
+function tgitcontroller.revlist(out alist: refinfoarty;
+               const apath: filenamety = '';
+               const maxcount: integer = 0): boolean;
+               
+ function recordkind(const start,stop: pmsechar): recordkindty;
+ var
+  k1: recordkindty;
+  po1: pmsechar;
+  int1,int2: integer;
+ begin
+  result:= rk_none;
+  int1:= stop-start;
+  if int1 > 0 then begin
+   for k1:= rk_first to rk_last do begin
+    if length(recdef[k1].name) = int1 then begin
+     result:= k1;
+     po1:= pointer(recdef[k1].name);
+     for int2:= 0 to int1-1 do begin
+      if po1[int2] <> start[int2] then begin
+       result:= rk_none;
+       break;
+      end;
+     end;
+     if result <> rk_none then begin
+      break;
+     end;
+    end;
+   end;
+  end;
+ end;
+ 
+var
+ str1: string;
+ mstr1: msestring;
+ po1,po2,po3,po4: pmsechar;
+ int1: integer;
+ pinfo1: prefinfoty;
+begin
+ alist:= nil;
+ str1:= 'rev-list --pretty=raw ';
+ if maxcount > 0 then begin
+  str1:= str1 + '--max-count='+inttostr(maxcount)+' ';
+ end;
+ str1:= str1 + 'HEAD ';
+ if apath <> '' then begin
+  str1:= str1 + '-- '+encodepathparam(apath,true);
+ end;
+ result:= commandresult1(str1,mstr1);
+ if result then begin
+  pinfo1:= nil;
+  po1:= pmsechar(mstr1);
+  int1:= 0;
+  while po1^ <> #0 do begin
+   po2:= po1;
+   while (po2^ <> ' ') and (po2^ <> c_linefeed) and (po2^ <> #0) do begin
+    inc(po2);
+   end;
+   if po1^ = ' ' then begin
+    while po2^ = ' ' do begin
+     inc(po2);
+    end;
+    dec(po2);
+   end;
+   po3:= po2;
+   while (po3^ <> c_linefeed) and (po3^ <> #0) do begin
+    inc(po3);
+   end;
+   case recordkind(po1,po2) of
+    rk_commit: begin
+     if int1 > high(alist) then begin
+      setlength(alist,high(alist)*2+256);
+     end;
+     pinfo1:= @alist[int1];
+     inc(int1);
+     pinfo1^.commit:= psubstr(po2+1,po3);
+    end;
+    rk_message: begin
+     if pinfo1 <> nil then begin
+      if pinfo1^.message <> '' then begin
+       pinfo1^.message:= pinfo1^.message + lineend + psubstr(po2+1,po3);
+      end
+      else begin
+       pinfo1^.message:= pinfo1^.message + psubstr(po2+1,po3);
+      end;
+     end;
+    end;
+    else begin
+    end;
+   end;
+   if po3^ <> #0 then begin
+    inc(po3);
+   end;
+   po1:= po3;
+  end;
+  setlength(alist,int1);
+ end;
+end;
+
 {
 function tgitcontroller.lsfiles(const apath: filenamety;
                const ainclude: gitstatesty; const aexclude: gitstatesty;
@@ -1158,8 +1258,6 @@ begin
  with result^.stateinfo do begin
   filename:= nam;
   data:= astatus.data;
-//   statex:= data.statex;
-//   statey:= data.statey
  end;
 end;
 

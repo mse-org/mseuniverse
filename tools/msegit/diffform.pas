@@ -24,23 +24,20 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msestatfile,
  msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
- mseeditglob,msetextedit,mainmodule,mseact,mseactions;
+ mseeditglob,msetextedit,mainmodule,mseact,mseactions,dispform;
 
 type
- tdifffo = class(tdockform)
+ tdifffo = class(tdispfo)
    grid: twidgetgrid;
    ed: ttextedit;
-   repocloseact: taction;
-   procedure showexe(const sender: TObject);
-   procedure hideexe(const sender: TObject);
-   procedure repocloseexe(const sender: TObject);
   private
    fpath: msestring;
   protected
-   procedure updatedisp;
+   procedure dorefresh; override;
+   procedure doclear; override;
+//   procedure updatedisp;
   public
-   procedure refresh(const adir: tgitdirtreenode;
-                 const afile: tmsegitfileitem);
+   procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
  end;
 var
  difffo: tdifffo;
@@ -50,10 +47,17 @@ uses
 const
  chunkcolor = cl_dkmagenta;
  addcolor = $008000;
- removecolor= cl_dkred;
+ removecolor = cl_dkred;
+ 
 { tdifffo }
 
-procedure tdifffo.updatedisp;
+procedure tdifffo.doclear;
+begin
+ fpath:= '';
+ grid.clear;
+end;
+
+procedure tdifffo.dorefresh;
 var
  int1: integer;
  po1: prichstringaty;
@@ -100,24 +104,7 @@ begin
  if (adir <> nil) and (afile <> nil) then begin
   fpath:= adir.gitpath+afile.caption;
  end;
- if visible then begin
-  updatedisp;
- end;
-end;
-
-procedure tdifffo.showexe(const sender: TObject);
-begin
- updatedisp;
-end;
-
-procedure tdifffo.hideexe(const sender: TObject);
-begin
- grid.clear;
-end;
-
-procedure tdifffo.repocloseexe(const sender: TObject);
-begin
- grid.clear;
+ inherited refresh;
 end;
 
 end.

@@ -24,7 +24,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
- msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets;
+ msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,msetimer;
 
 type
  tmainfo = class(tmainform)
@@ -44,6 +44,7 @@ type
    pullact: taction;
    mergeact: taction;
    pushact: taction;
+   objectrefreshtimer: ttimer;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -67,12 +68,15 @@ type
    procedure pushupdateexe(const sender: tcustomaction);
 //   procedure branchcheckoutexe(const sender: TObject; var accept: Boolean);
    procedure showbranchexe(const sender: TObject);
+   procedure objectrefreshtiexe(const sender: TObject);
+   procedure showlogexe(const sender: TObject);
   private
    frefreshing: boolean;
   public
    procedure reload;
    property refreshing: boolean read frefreshing;
    procedure updatestate;
+   procedure objchanged;
  end;
 var
  mainfo: tmainfo;
@@ -82,7 +86,7 @@ implementation
 uses
  main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform,
  gitconsole,diffform,msewidgets,sysutils,branchform,msegitcontroller,
- mserichstring;
+ mserichstring,logform;
 const
  mergecolor = $ffb030;
   
@@ -116,6 +120,11 @@ end;
 procedure tmainfo.showdiffexe(const sender: TObject);
 begin
  difffo.activate;
+end;
+
+procedure tmainfo.showlogexe(const sender: TObject);
+begin
+ logfo.show;
 end;
 
 procedure tmainfo.gitconsoleshowexe(const sender: TObject);
@@ -310,15 +319,16 @@ begin
  resetmergeact.enabled:= bo1;
 // mainmen.menu.itembynames(['git','branch']).enabled:= bo2;
 end;
-{
-procedure tmainfo.branchcheckoutexe(const sender: TObject; var accept: Boolean);
+
+procedure tmainfo.objectrefreshtiexe(const sender: TObject);
 begin
- with tmenuitem(sender) do begin
-  accept:= mainmo.checkoutbranch(caption);
-  if accept then begin
-   reload;
-  end;
- end;
+ difffo.refresh(dirtreefo.currentitem,filesfo.currentitem); 
+ logfo.refresh(dirtreefo.currentitem,filesfo.currentitem); 
 end;
-}
+
+procedure tmainfo.objchanged;
+begin
+ objectrefreshtimer.restart;
+end;
+
 end.

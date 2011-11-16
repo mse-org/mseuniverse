@@ -112,11 +112,4 @@ object filesfo: tfilesfo
     left = 128
     top = 112
   end
-  object difftimer: ttimer
-    interval = 0
-    options = [to_single]
-    ontimer = difftimexe
-    left = 32
-    top = 64
-  end
 end

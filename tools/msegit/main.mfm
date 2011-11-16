@@ -104,7 +104,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 12
+        submenu.count = 13
         submenu.items = <        
           item
             submenu.count = 2
@@ -173,6 +173,11 @@ object mainfo: tmainfo
             caption = '&Git Console'
             state = [as_localcaption, as_localonexecute]
             onexecute = gitconsoleshowexe
+          end        
+          item
+            caption = '&Log'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showlogexe
           end>
         caption = '&View'
         name = 'view'
@@ -235,31 +240,31 @@ object mainfo: tmainfo
   object commitmergeact: taction
     caption = 'Merge &commit'
     onexecute = commitmergeexe
-    left = 112
+    left = 160
     top = 112
   end
   object resetmergeact: taction
     caption = 'Merge &reset'
     onexecute = resetmergeexe
-    left = 112
+    left = 160
     top = 160
   end
   object fetchact: taction
     caption = '&Fetch'
     onexecute = fetchexe
-    left = 112
+    left = 160
     top = 96
   end
   object pullact: taction
     caption = 'P&ull'
     onexecute = pullexe
-    left = 112
+    left = 160
     top = 128
   end
   object mergeact: taction
     caption = '&Merge fetched'
     onexecute = mergeexe
-    left = 112
+    left = 160
     top = 144
   end
   object pushact: taction
@@ -267,7 +272,14 @@ object mainfo: tmainfo
     options = [ao_updateonidle]
     onexecute = pushexe
     onupdate = pushupdateexe
-    left = 112
+    left = 160
     top = 80
+  end
+  object objectrefreshtimer: ttimer
+    interval = 0
+    options = [to_single]
+    ontimer = objectrefreshtiexe
+    left = 16
+    top = 72
   end
 end

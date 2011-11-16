@@ -27,6 +27,8 @@ uses
  mselistbrowser,msemenus,msestrings,msesys,msetypes,mseificomp,mseificompglob,
  msesimplewidgets,msewidgets,msegitcontroller;
 
+const
+ defaultmaxlog = 100;
 type
  tmsegitfileitem = class(tgitfileitem)
   protected
@@ -44,6 +46,7 @@ type
    fowner: tmainmo;
    fshowuntrackeditems: boolean;
    fshowignoreditems: boolean;
+   fmaxlog: integer;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -56,6 +59,7 @@ type
    property showignoreditems: boolean read fshowignoreditems 
                                              write setshowignoreditems;
    property gitcommand: msestring read getgitcommand write setgitcommand;
+   property maxlog: integer read fmaxlog write fmaxlog;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -1462,6 +1466,7 @@ end;
 constructor tmsegitoptions.create(const aowner: tmainmo);
 begin
  fowner:= aowner;
+ fmaxlog:= defaultmaxlog;
 end;
 
 procedure tmsegitoptions.setshowignoreditems(const avalue: boolean);

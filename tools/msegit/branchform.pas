@@ -24,15 +24,13 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msegraphedits,
- msememodialog,mseact,mseactions,msegitcontroller,msesplitter;
+ msememodialog,mseact,mseactions,msegitcontroller,msesplitter,dispform;
 
 type
- tbranchfo = class(tdockform)
+ tbranchfo = class(tdispfo)
    remotegrid: twidgetgrid;
    remoteactive: tbooleaneditradio;
    remotebranch: tstringedit;
-   repoloadedact: taction;
-   repoclosedact: taction;
    remote: tstringedit;
    remotepopup: tpopupmenu;
    localgrid: twidgetgrid;
@@ -40,9 +38,6 @@ type
    localactive: tbooleaneditradio;
    tsplitter1: tsplitter;
    localpopup: tpopupmenu;
-   procedure repoclosedexe(const sender: TObject);
-   procedure repoloadedexe(const sender: TObject);
-   procedure showexe(const sender: TObject);
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -67,8 +62,8 @@ type
                    var acount: Integer);
   protected
    function currentremote: msestring;
-  private
-   finfovalid: boolean;
+   procedure doclear; override;
+   procedure dorefresh; override;
  end;
  
 var
@@ -76,8 +71,8 @@ var
 implementation
 uses
  branchform_mfm,mainmodule,msewidgets,main,msefileutils,mseeditglob;
- 
-procedure tbranchfo.repoclosedexe(const sender: TObject);
+
+procedure tbranchfo.doclear;
 begin
  with localgrid do begin
   optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
@@ -89,65 +84,52 @@ begin
  end;
 end;
 
-procedure tbranchfo.repoloadedexe(const sender: TObject);
+procedure tbranchfo.dorefresh;
 var
  int1,int2,int3: integer;
  mstr1: msestring;
 begin
- if visible then begin
-  finfovalid:= true;
-  localgrid.rowcount:= length(mainmo.branches);
-  with localgrid do begin
-   optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
+ localgrid.rowcount:= length(mainmo.branches);
+ with localgrid do begin
+  optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
+ end;
+ for int1:= 0 to localgrid.rowhigh do begin
+  with mainmo.branches[int1] do begin
+   localbranch[int1]:= name;
+   localactive[int1]:= active;
   end;
-  for int1:= 0 to localgrid.rowhigh do begin
-   with mainmo.branches[int1] do begin
-    localbranch[int1]:= name;
-    localactive[int1]:= active;
-   end;
-  end;
-  int3:= 0;
-  for int1:= 0 to high(mainmo.remotesinfo) do begin
-   with mainmo.remotesinfo[int1] do begin
-    if name <> '' then begin
-     remotegrid.rowcount:= 1 + int3 + length(branches);
-     remote[int3]:= name;
-     mstr1:= mainmo.activeremotebranch[name];
-     if name = mainmo.activeremote then begin
-      remoteactive[int3]:= true;
-     end;
-     remotegrid.datacols.mergecols(int3,0,1);
-     inc(int3);
-     for int2:= 0 to high(branches) do begin
-      with branches[int2] do begin
-       remotebranch[int3]:= name;
-       if name = mstr1 then begin
-        remoteactive[int3]:= true;
-       end;
+ end;
+ int3:= 0;
+ for int1:= 0 to high(mainmo.remotesinfo) do begin
+  with mainmo.remotesinfo[int1] do begin
+   if name <> '' then begin
+    remotegrid.rowcount:= 1 + int3 + length(branches);
+    remote[int3]:= name;
+    mstr1:= mainmo.activeremotebranch[name];
+    if name = mainmo.activeremote then begin
+     remoteactive[int3]:= true;
+    end;
+    remotegrid.datacols.mergecols(int3,0,1);
+    inc(int3);
+    for int2:= 0 to high(branches) do begin
+     with branches[int2] do begin
+      remotebranch[int3]:= name;
+      if name = mstr1 then begin
+       remoteactive[int3]:= true;
       end;
-      inc(int3);
      end;
+     inc(int3);
     end;
    end;
   end;
-  with remotegrid do begin
-   if rowcount > 0 then begin
-    optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
-   end;
+ end;
+ with remotegrid do begin
+  if rowcount > 0 then begin
+   optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
   end;
- end
- else begin
-  finfovalid:= false;
  end;
 end;
-
-procedure tbranchfo.showexe(const sender: TObject);
-begin
- if not finfovalid and mainmo.repoloaded then begin
-  repoloadedexe(nil);
- end;
-end;
-
+ 
 procedure tbranchfo.localbranchsetexe(const sender: TObject;
                var avalue: msestring; var accept: Boolean);
 begin
@@ -354,6 +336,5 @@ begin
   acount:= 0;
  end;
 end;
-
 
 end.

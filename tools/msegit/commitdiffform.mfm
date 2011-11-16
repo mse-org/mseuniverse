@@ -9,6 +9,7 @@ inherited commitdifffo: tcommitdifffo
   )
   options = [fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder]
   statfile = tstatfile1
+  onshow = showexe
   moduleclassname = 'tdifffo'
   inherited grid: twidgetgrid
     datacols.items = <    
@@ -18,12 +19,14 @@ inherited commitdifffo: tcommitdifffo
     inherited ed: ttextedit
     end
   end
-  inherited repocloseact: taction
+  inherited repoloadedact: taction
   end
   object tstatfile1: tstatfile[2]
     filename = 'commitdiffo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    left = 64
-    top = 112
+    left = 56
+    top = 176
+  end
+  inherited repoclosedact: taction[3]
   end
 end

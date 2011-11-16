@@ -71,6 +71,22 @@ object optionsfo: toptionsfo
         anchors = [an_left, an_top, an_right]
         reffontheight = 14
       end
+      object maxlog: tintegeredit
+        frame.caption = 'Max. log count'
+        frame.captionpos = cp_right
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          0
+          80
+          0
+        )
+        taborder = 1
+        bounds_x = 8
+        bounds_y = 46
+        bounds_cx = 116
+        reffontheight = 14
+      end
     end
   end
   object tstatfile1: tstatfile

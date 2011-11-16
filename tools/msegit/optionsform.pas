@@ -35,6 +35,7 @@ type
    ttabpage1: ttabpage;
    tstatfile1: tstatfile;
    gitcommand: tfilenameedit;
+   maxlog: tintegeredit;
  end;
 
 procedure editoptions;

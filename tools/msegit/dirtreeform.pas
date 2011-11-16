@@ -94,7 +94,9 @@ end;
 function tdirtreefo.syncfilesfo: filenamety;
 begin
  result:= tgitdirtreenode(treeed.item).gitpath;
- filesfo.synctodirtree(result);
+ if not application.terminated then begin
+  filesfo.synctodirtree(result);
+ end;
 end;
 
 procedure tdirtreefo.celleventexe(const sender: TObject;
@@ -102,7 +104,8 @@ procedure tdirtreefo.celleventexe(const sender: TObject;
 var
  fna1: filenamety;
 begin
- if isrowenter(info,true) then begin
+ if isrowenter(info,true) and not application.terminated then begin
+  mainfo.objchanged;
   fna1:= syncfilesfo;
   gitconsolefo.synctodirtree(fna1);
  end;

@@ -1,25 +1,14 @@
-object branchfo: tbranchfo
-  frame.grip_size = 10
-  frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
-  frame.dummy = 0
-  visible = False
+inherited branchfo: tbranchfo
   bounds_x = 100
   bounds_y = 100
-  bounds_cx = 445
-  bounds_cy = 354
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
-  statfile = mainfo.formsta
-  onshow = showexe
-  moduleclassname = 'tdockform'
-  object remotegrid: twidgetgrid
+  moduleclassname = 'tdispfo'
+  object remotegrid: twidgetgrid[0]
     popupmenu = remotepopup
     bounds_x = 195
     bounds_y = 0
@@ -113,7 +102,7 @@ object branchfo: tbranchfo
       onsetvalue = remoteactivesetexe
     end
   end
-  object localgrid: twidgetgrid
+  object localgrid: twidgetgrid[1]
     taborder = 1
     popupmenu = localpopup
     bounds_x = 0
@@ -188,7 +177,7 @@ object branchfo: tbranchfo
       onsetvalue = localactivesetexe
     end
   end
-  object tsplitter1: tsplitter
+  object tsplitter1: tsplitter[2]
     optionswidget = [ow_destroywidgets, ow_autoscale]
     color = -1879048189
     taborder = 2
@@ -202,19 +191,11 @@ object branchfo: tbranchfo
     linkright = remotegrid
     statfile = mainfo.formsta
   end
-  object repoloadedact: taction
-    onexecute = repoloadedexe
-    ifilink = mainmo.repoloadedact
-    left = 40
-    top = 104
+  inherited repoloadedact: taction[3]
   end
-  object repoclosedact: taction
-    onexecute = repoclosedexe
-    ifilink = mainmo.repoclosedact
-    left = 40
-    top = 88
+  inherited repoclosedact: taction[4]
   end
-  object remotepopup: tpopupmenu
+  object remotepopup: tpopupmenu[5]
     onupdate = remotepopupupdateexe
     menu.submenu.count = 2
     menu.submenu.items = <    
@@ -231,7 +212,7 @@ object branchfo: tbranchfo
     left = 248
     top = 152
   end
-  object localpopup: tpopupmenu
+  object localpopup: tpopupmenu[6]
     onupdate = localpopupupdateexe
     menu.submenu.count = 2
     menu.submenu.items = <    

@@ -1,27 +1,17 @@
-object difffo: tdifffo
-  frame.grip_size = 10
+inherited difffo: tdifffo
   frame.grip_options = [go_closebutton, go_fixsizebutton]
-  frame.dummy = 0
-  visible = False
   bounds_x = 124
   bounds_y = 256
-  bounds_cx = 445
-  bounds_cy = 354
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
-  statfile = mainfo.formsta
   caption = 'diff'
   onshow = showexe
-  onhide = hideexe
-  moduleclassname = 'tdockform'
-  object grid: twidgetgrid
+  moduleclassname = 'tdispfo'
+  object grid: twidgetgrid[0]
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
@@ -56,10 +46,8 @@ object difffo: tdifffo
       reffontheight = 15
     end
   end
-  object repocloseact: taction
-    onexecute = repocloseexe
-    ifilink = mainmo.repoclosedact
-    left = 56
-    top = 64
+  inherited repoloadedact: taction[1]
+  end
+  inherited repoclosedact: taction[2]
   end
 end

@@ -35,7 +35,6 @@ type
    filelist: tfilelistframefo;
    revertact: taction;
    mergetoolact: taction;
-   difftimer: ttimer;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure commitexe(const sender: TObject);
@@ -47,7 +46,6 @@ type
    procedure revertupdateexe(const sender: tcustomaction);
    procedure revertexe(const sender: TObject);
    procedure mergetoolexe(const sender: tcustomaction);
-   procedure difftimexe(const sender: TObject);
   private
    fpath: filenamety;
    ffilebefore: msestring;
@@ -56,7 +54,6 @@ type
    procedure synctodirtree(const apath: filenamety);
    function currentitem: tmsegitfileitem;
    function currentfilepath: filenamety;
-   procedure refreshdiff;
    procedure savestate;
    procedure restorestate;
  end;
@@ -84,6 +81,7 @@ end;
 procedure tfilesfo.synctodirtree(const apath: filenamety);
 begin
  loadfiles(mainmo.repo+'/'+apath);
+ mainfo.objchanged;
 end;
 
 procedure tfilesfo.udaterowvaluesexe(const sender: TObject;
@@ -146,21 +144,10 @@ begin
  end;
 end;
 
-
-procedure tfilesfo.refreshdiff;
-begin
- difffo.refresh(dirtreefo.currentitem,currentitem);
-end;
-
-procedure tfilesfo.difftimexe(const sender: TObject);
-begin
- refreshdiff;
-end;
-
 procedure tfilesfo.cellevexe(const sender: TObject; var info: celleventinfoty);
 begin
- if isrowenter(info) then begin
-  difftimer.restart;
+ if isrowenter(info) or isrowexit(info,true) then begin
+  mainfo.objchanged;
  end;
 end;
 
