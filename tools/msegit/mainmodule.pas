@@ -72,6 +72,7 @@ type
    procedure drawimage(const acanvas: tcanvas); override;
    function getoriginicon: integer;
    function gitpath: filenamety;
+   function gitbasepath: filenamety;
    property gitstatex: gitstatesty read fgitstate.statex;
    property gitstatey: gitstatesty read fgitstate.statey;
    property dirstatex: gitstatesty read fdirstate.statex;
@@ -129,6 +130,7 @@ type
   private
    frepo: filenamety;
    freporoot: filenamety;
+   frepobase: filenamety;
    fopt: tmsegitoptions;
    frepostat: trepostat;
    fdirtree: tgitdirtreerootnode;
@@ -146,6 +148,7 @@ type
    fmergemessage: msestring;
    fbranches: branchinfoarty;
    factivebranch: msestring;
+//   fgitpathlevel: integer;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
@@ -173,6 +176,7 @@ type
    destructor destroy; override;
    function execgitconsole(const acommand: string): boolean;
                         //true if OK
+//   property gitpathlevel: integer read fgitpathlevel;
    function getpath(const adir: tgitdirtreenode;
                            const afilename: filenamety): filenamety;
                     //returns path relative to reporoot
@@ -213,8 +217,12 @@ type
    procedure reload;
    function repoloaded: boolean;
    property repo: filenamety read frepo write setrepo;
-   property repostat: trepostat read frepostat;
+                  //absolute path to repo dir
    property reporoot: filenamety read freporoot;
+                  //absolut path to .git containing dir
+   property repobase: filenamety read frepobase;
+                  //relatvepath reporoot -> repo
+   property repostat: trepostat read frepostat;
    function merging: boolean;
    property mergehead: msestring read fmergehead;
    property mergemessage: msestring read fmergemessage;
@@ -415,6 +423,7 @@ end;
 
 constructor tmainmo.create(aowner: tcomponent);
 begin
+// fgitpathlevel:= 1;
  fopt:= tmsegitoptions.create(self);
  frepostat:= trepostat.create;
  ffilecache:= tgitfilecache.create;
@@ -465,6 +474,7 @@ begin
  fdirtree.clear;
  ffilecache.clear;
  freeandnil(fgitstate);
+// fgitpathlevel:= 1;
  if frepo <> '' then begin
   setlength(ar1,length(fremotesinfo));
 //  setlength(ar2,length(fremotesinfo));
@@ -480,6 +490,7 @@ begin
   fremotesinfo:= nil;
   frepo:= '';
   freporoot:= '';
+  frepobase:= '';
   repoclosed;
  end;
 end;
@@ -508,12 +519,16 @@ begin
    showmessage(avalue+lineend+'is no git repository.','***ERROR***');
    abort;
   end;
+//  if freporoot <> avalue then begin
+//   fgitpathlevel:= 0;
+//  end;
   setcurrentdirmse(freporoot);
   application.beginwait;
   try
    readmergeinfo;
    frepostat.activeremote:= 'origin';
    frepo:= filepath(avalue,fk_dir);
+   frepobase:= copy(frepo,(length(freporoot)+1),bigint);
    fgit.remoteshow(fremotesinfo);
    fgit.branchshow(fbranches,factivebranch);
    repostatf.readstat;
@@ -545,7 +560,7 @@ end;
 
 procedure tmainmo.reload;
 begin
- loadrepo(freporoot);
+ loadrepo(frepo);
 end;
 
 procedure tmainmo.repoloaded;
@@ -644,7 +659,7 @@ end;
 function tmainmo.getpath(const adir: tgitdirtreenode;
                const afilename: filenamety): filenamety;
 begin
- result:= adir.path(1)+afilename;
+ result:= adir.path(1{fgitpathlevel})+afilename;
 end;
 
 function tmainmo.cancommit(const anode: tgitdirtreenode): boolean;
@@ -682,7 +697,7 @@ function tmainmo.getfilelist(const aitems: gitdirtreenodearty;
  var
   int1: integer;
  begin
-  fgitstate.iterate(anode.path(1),amask,@listfileitems);
+  fgitstate.iterate(anode.gitbasepath,amask,@listfileitems);
   for int1:= 0 to anode.count-1 do begin
    sca(tgitdirtreenode(anode.fitems[int1]));
   end;
@@ -1356,6 +1371,11 @@ end;
 function tgitdirtreenode.gitpath: filenamety;
 begin
  result:= path(1);
+end;
+
+function tgitdirtreenode.gitbasepath: filenamety;
+begin
+ result:= mainmo.repobase+gitpath;
 end;
 
 { tgitdirtreerootnode }

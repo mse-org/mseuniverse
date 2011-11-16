@@ -85,13 +85,15 @@ procedure tdirtreefo.closedexe(const sender: TObject);
 begin
  treeed.itemlist.clear;
 end;
-
-function tdirtreefo.syncfilesfo: filenamety;
-begin
+{
  result:= '';
- if treeed.item.parent <> nil then begin
+ .parent <> nil then begin
   result:= concatstrings(copy(treeed.item.rootcaptions,1,bigint),'/');
  end;
+}
+function tdirtreefo.syncfilesfo: filenamety;
+begin
+ result:= tgitdirtreenode(treeed.item).gitpath;
  filesfo.synctodirtree(result);
 end;
 
