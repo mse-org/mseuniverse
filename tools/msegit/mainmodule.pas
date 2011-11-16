@@ -99,8 +99,9 @@ type
   private
    factiveremote: msestring;
    fcommitmessages: msestringarty;
-//   freponames: msestringarty;
    fcommitmessage: msestring;
+  public
+   procedure reset;
   published
    property activeremote: msestring read factiveremote write factiveremote;
    property commitmessages: msestringarty read fcommitmessages 
@@ -148,6 +149,7 @@ type
    fmergemessage: msestring;
    fbranches: branchinfoarty;
    factivebranch: msestring;
+   fhasremote: boolean;
 //   fgitpathlevel: integer;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
@@ -223,6 +225,8 @@ type
    property repobase: filenamety read frepobase;
                   //relatvepath reporoot -> repo
    property repostat: trepostat read frepostat;
+   property hasremote: boolean read fhasremote;
+   
    function merging: boolean;
    property mergehead: msestring read fmergehead;
    property mergemessage: msestring read fmergemessage;
@@ -268,13 +272,8 @@ const
  stagedfileoffset = 2;
  mergefileoffset = 3;
  
-// modifiedfileicon = 15;
  untrackedfileicon = 6;
  addedfileoffset = 1;
-// mergefileicon = 24;
-// mergeconflictfileicon = 25;
-// stagedfileicon = 16;
-// stagedconflictfileicon = 19;
 
  defaultdiricon = 9;
  modifieddiroffset = 2;
@@ -282,42 +281,12 @@ const
  mergediroffset = 6;
  untrackeddiricon = 21;
  
-// unmergeddiricon = 26;
-// modifieddiricon = 4;
-// modifiedunmergeddiricon = 28;
-// untrackeddiricon = 12;
  mergependingicon = 30;
  pushpendingicon = 31;
  pushmergependingicon = 32;
  pusconflicticon = 33;
  mergeconflictpendingicon = 34;
  mergeconflictpushpendingicon = 35;
-// addedicon = 22;
-// addedmodifiedicon = 23;
-{
-const
- defaultfileicon = 10;
- modifiedfileicon = 6;
- untrackedfileicon = 14;
- mergefileicon = 24;
- mergeconflictfileicon = 25;
- stagedfileicon = 30;
- stagedconflictfileicon = 31;
-
- defaultdiricon = 8;
- unmergeddiricon = 26;
- modifieddiricon = 4;
- modifiedunmergeddiricon = 28;
- untrackeddiricon = 12;
- mergependingicon = 16;
- pushpendingicon = 17;
- pushmergependingicon = 18;
- pusconflicticon = 19;
- mergeconflictpendingicon = 20;
- mergeconflictpushpendingicon = 21;
- addedicon = 22;
- addedmodifiedicon = 23;
-}
 
 function checkname(const aname: msestring): boolean;
 begin
@@ -330,31 +299,33 @@ end;
 function statetooriginicon(const astate: gitstatedataty): integer;
 begin
  result:= -1;
- if gist_pushconflict in astate.statey then begin
-  result:= pusconflicticon;
- end
- else begin
-  if gist_pushpending in astate.statey then begin
-   if gist_mergepending in astate.statey then begin
-    if gist_mergeconflictpending in astate.statey then begin
-     result:= mergeconflictpushpendingicon;
+ if mainmo.hasremote then begin
+  if gist_pushconflict in astate.statey then begin
+   result:= pusconflicticon;
+  end
+  else begin
+   if gist_pushpending in astate.statey then begin
+    if gist_mergepending in astate.statey then begin
+     if gist_mergeconflictpending in astate.statey then begin
+      result:= mergeconflictpushpendingicon;
+     end
+     else begin
+      result:= pushmergependingicon;
+     end;
     end
     else begin
-     result:= pushmergependingicon;
+     result:= pushpendingicon;
     end;
    end
    else begin
-    result:= pushpendingicon;
-   end;
-  end
-  else begin
-   if gist_mergeconflictpending in astate.statey then begin
-    result:= mergeconflictpendingicon;
-   end
-   else begin
-    if gist_mergepending in astate.statey then begin
-     result:= mergependingicon;
+    if gist_mergeconflictpending in astate.statey then begin
+     result:= mergeconflictpendingicon;
     end
+    else begin
+     if gist_mergepending in astate.statey then begin
+      result:= mergependingicon;
+     end
+    end;
    end;
   end;
  end;
@@ -370,11 +341,6 @@ begin
   if (gist_unmerged in astate.statex) and 
                      (gist_unmerged in astate.statey) then begin
    int1:= int1+mergefileoffset;
-//   int1:= int1 + modifiedfileoffset;
-//   result:= mergeconflictfileicon;
-//  end
-//  else begin
-//   result:= mergefileicon;
   end;
  end
  else begin
@@ -465,7 +431,6 @@ end;
 procedure tmainmo.closerepo;
 var
  ar1: msestringarty;
-// ar2: booleanarty;
  int1: integer;
 begin
  fmergehead:= '';
@@ -474,23 +439,21 @@ begin
  fdirtree.clear;
  ffilecache.clear;
  freeandnil(fgitstate);
-// fgitpathlevel:= 1;
  if frepo <> '' then begin
   setlength(ar1,length(fremotesinfo));
-//  setlength(ar2,length(fremotesinfo));
   for int1:= 0 to high(fremotesinfo) do begin
    with fremotesinfo[int1] do begin
     ar1[int1]:= name;
-//    ar2[int1]:= active;
    end;
   end;
-//  frepostat.reponames:= ar1;
   frepostat.activeremote:= activeremote;
   repostatf.writestat;
   fremotesinfo:= nil;
+  fhasremote:= false;
   frepo:= '';
   freporoot:= '';
   frepobase:= '';
+  frepostat.reset;
   repoclosed;
  end;
 end;
@@ -509,9 +472,8 @@ end;
 
 procedure tmainmo.loadrepo(avalue: filenamety);
 var
- int1{,int2}: integer;
+ int1: integer;
  mstr1: msestring;
-// bo1: boolean;
 begin
  closerepo;
  if avalue <> '' then begin
@@ -519,9 +481,6 @@ begin
    showmessage(avalue+lineend+'is no git repository.','***ERROR***');
    abort;
   end;
-//  if freporoot <> avalue then begin
-//   fgitpathlevel:= 0;
-//  end;
   setcurrentdirmse(freporoot);
   application.beginwait;
   try
@@ -554,6 +513,7 @@ begin
   finally
    application.endwait;
   end;
+  fhasremote:= high(fremotesinfo) >= 0;
   repoloaded;
  end;
 end;
@@ -1326,22 +1286,6 @@ begin
   if (gist_unmerged in statex) or (gist_unmerged in statey) then begin
    int1:= int1 + mergediroffset;
   end;
-  
- {
-  if (gist_unmerged in statex) or (gist_unmerged in statey) then begin
-   if gist_modified in statey then begin
-    int1:= modifiedunmergeddiricon;
-   end
-   else begin
-    int1:= unmergeddiricon;
-   end;
-  end
-  else begin
-   if (gist_modified in statey) or (gist_modified in statex) then begin
-    int1:= modifieddiricon;
-   end;
-  end;
- }
   if (lstr1.len = 0) and (gist_untracked in statey) then begin //directory end
    int1:= untrackeddiricon;
   end;
@@ -1540,6 +1484,15 @@ end;
 procedure tmsegitoptions.setgitcommand(const avalue: msestring);
 begin
  fowner.fgit.gitcommand:= avalue;
+end;
+
+{ trepostat }
+
+procedure trepostat.reset;
+begin
+ factiveremote:= '';
+ fcommitmessages:= nil;
+ fcommitmessage:= '';
 end;
 
 end.

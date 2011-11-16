@@ -39,7 +39,7 @@ object mainfo: tmainfo
     linkbottom = dockpanel
     dist_bottom = -3
   end
-  object statdisp: tstringdisp
+  object statdisp: trichstringdisp
     frame.dummy = 0
     taborder = 2
     bounds_x = 0

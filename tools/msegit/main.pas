@@ -37,7 +37,7 @@ type
    repoclosedact: taction;
    reloadact: taction;
    tspacer1: tspacer;
-   statdisp: tstringdisp;
+   statdisp: trichstringdisp;
    commitmergeact: taction;
    resetmergeact: taction;
    fetchact: taction;
@@ -81,7 +81,8 @@ implementation
 
 uses
  main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform,
- gitconsole,diffform,msewidgets,sysutils,branchform,msegitcontroller;
+ gitconsole,diffform,msewidgets,sysutils,branchform,msegitcontroller,
+ mserichstring;
 const
  mergecolor = $ffb030;
   
@@ -195,8 +196,7 @@ procedure tmainfo.updatestate;
 var
  ar1: msestringarty;
  int1: integer;
-// activebranch: integer;
- mstr1: msestring;
+ rstr1: richstringty;
  col1: colorty;
 begin
  with mainmo do begin
@@ -206,12 +206,6 @@ begin
    hint:= '';
    font.color:= cl_text;
   end;
-//  activebranch:= -1;
-//  for int1:= 0 to high(branches) do begin
-//   if branches[int1].active then begin
-//    activebranch:= int1;
-//   end;
-//  end;
   if mergehead <> '' then begin
    statdisp.color:= mergecolor;
    ar1:= breaklines(mergemessage);
@@ -238,14 +232,16 @@ begin
     col1:= cl_ltred;
    end
    else begin
-    if gist_modified in mainmo.dirtree.gitstatex then begin
+    if mainmo.dirtree.gitstatex * [gist_modified,gist_added] <> [] then begin
      statdisp.font.color:=  cl_dkred;
     end;
    end;
-   mstr1:= mainmo.activebranch+
-           ' Remote: '+mainmo.activeremote + ' '+
-                  mainmo.activeremotebranch[mainmo.activeremote];
-   statdisp.value:= mstr1;
+   rstr1.text:= 'Branch: ';
+   richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
+   richconcat1(rstr1,' Remote: ',[fs_force]);
+   richconcat1(rstr1,mainmo.activeremote+' '+
+                mainmo.activeremotebranch[mainmo.activeremote],[fs_bold]);
+   statdisp.richvalue:= rstr1;
    statdisp.color:= col1;
   end;
  end;
