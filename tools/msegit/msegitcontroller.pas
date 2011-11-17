@@ -21,7 +21,7 @@ unit msegitcontroller;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msestrings,mseclasses,classes,msehash,mselistbrowser,msetypes,msedatanodes;
+ msestrings,mseclasses,classes,msehash,mselistbrowser,msetypes,msedatanodes,msedate;
 const
  defaultgitcommand = 'git';
  
@@ -147,6 +147,8 @@ type
  refinfoty = record
   commit: msestring;
   message: msestring;
+  committer: msestring;
+  commitdate: tdatetime; //utc
  end;
  prefinfoty = ^refinfoty;
  refinfoarty = array of refinfoty;
@@ -234,7 +236,7 @@ function gitfilepath(const apath: filenamety;
 implementation
 uses
  msefileutils,mseprocess,msearrayutils,msesysintf,msesystypes,msesysutils,
- msestream,sysutils;
+ msestream,sysutils,mseformatstr;
 
 type
  thashdatalist1 = class(thashdatalist);
@@ -838,7 +840,7 @@ end;
 function tgitcontroller.issha1(const avalue: string;
                                      out asha1: string): boolean;
 var
- int1: integer;
+// int1: integer;
  po1,po2: pchar;
 begin
  result:= length(avalue) >= 40;
@@ -873,7 +875,7 @@ begin
 end;
 
 type
- recordkindty = (rk_none,rk_commit,rk_message);
+ recordkindty = (rk_none,rk_commit,rk_committer,rk_message);
  recdefty = record
   name: msestring;
  end;
@@ -884,8 +886,9 @@ const
  
  recdef: array[recordkindty] of recdefty =
          (     
-          (name: ''),           //rk_none
-          (name: 'commit'),    //rk_commit
+          (name: ''),             //rk_none
+          (name: 'commit'),       //rk_commit
+          (name: 'committer'),    //rk_committer
           (name: '   ')           //rk_message
          );
 function tgitcontroller.revlist(out alist: refinfoarty;
@@ -917,14 +920,35 @@ function tgitcontroller.revlist(out alist: refinfoarty;
     end;
    end;
   end;
- end;
+ end; //recordkind
+
+var
+ po1: pmsechar;
+ 
+ procedure revfind(const start: pmsechar; const achar: msechar;
+                                                 out found: pmsechar);
+ var
+  po2: pmsechar;
+ begin
+  found:= nil;
+  po2:= start-1;
+  while (po2 > po1) and (po2^ <> achar) do begin
+   dec(po2);
+  end;
+  if (po2 >= po1) and (po2^ = achar) then begin
+   found:= po2;
+  end;
+ end; //revfind;
  
 var
  str1: string;
  mstr1: msestring;
- po1,po2,po3,po4: pmsechar;
+ po2,po3,po4,po5: pmsechar;
  int1: integer;
  pinfo1: prefinfoty;
+ k1: recordkindty;
+ lwo1: longword;
+ 
 begin
  alist:= nil;
  str1:= 'rev-list --pretty=raw ';
@@ -955,26 +979,37 @@ begin
    while (po3^ <> c_linefeed) and (po3^ <> #0) do begin
     inc(po3);
    end;
-   case recordkind(po1,po2) of
-    rk_commit: begin
-     if int1 > high(alist) then begin
-      setlength(alist,high(alist)*2+256);
-     end;
-     pinfo1:= @alist[int1];
-     inc(int1);
-     pinfo1^.commit:= psubstr(po2+1,po3);
+   k1:= recordkind(po1,po2);
+   if k1 = rk_commit then begin
+    if int1 > high(alist) then begin
+     setlength(alist,high(alist)*2+256);
     end;
-    rk_message: begin
-     if pinfo1 <> nil then begin
-      if pinfo1^.message <> '' then begin
-       pinfo1^.message:= pinfo1^.message + lineend + psubstr(po2+1,po3);
-      end
-      else begin
-       pinfo1^.message:= pinfo1^.message + psubstr(po2+1,po3);
+    pinfo1:= @alist[int1];
+    inc(int1);
+    pinfo1^.commit:= psubstr(po2+1,po3);
+   end
+   else begin
+    if pinfo1 <> nil then begin
+     case k1 of
+      rk_committer: begin
+       revfind(po3,' ',po4);
+       revfind(po4,' ',po5);
+       if po5 <> nil then begin
+        if trystrtointmse(psubstr(po5+1,po4),lwo1) then begin
+         pinfo1^.commitdate:= unixtodatetime(lwo1);
+         pinfo1^.committer:= psubstr(po2+1,po5);
+        end;
+       end;
+      end;
+      rk_message: begin
+       if pinfo1^.message <> '' then begin
+        pinfo1^.message:= pinfo1^.message + lineend + psubstr(po2+1,po3);
+       end
+       else begin
+        pinfo1^.message:= pinfo1^.message + psubstr(po2+1,po3);
+       end;
       end;
      end;
-    end;
-    else begin
     end;
    end;
    if po3^ <> #0 then begin

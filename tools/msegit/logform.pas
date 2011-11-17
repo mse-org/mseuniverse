@@ -30,7 +30,8 @@ type
    grid: twidgetgrid;
    message: tstringedit;
    commit: tstringedit;
-   tdatetimeedit1: tdatetimeedit;
+   commitdate: tdatetimeedit;
+   committer: tstringedit;
   private
    fpath: filenamety;
   protected
@@ -51,17 +52,22 @@ uses
 procedure tlogfo.dorefresh;
 var
  ar1: refinfoarty;
- po1,po2: pmsestring;
+ po1,po2,po4: pmsestring;
+ po3: pdatetime;
  int1: integer;
 begin
  if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog) then begin
   grid.rowcount:= length(ar1);
   po1:= message.griddata.datapo;
   po2:= commit.griddata.datapo;
+  po3:= commitdate.griddata.datapo;
+  po4:= committer.griddata.datapo;
   for int1:= 0 to high(ar1) do begin
    with ar1[int1] do begin
     po1[int1]:= message;
     po2[int1]:= commit;
+    po3[int1]:= commitdate;
+    po4[int1]:= committer;
    end;
   end;
  end

@@ -124,7 +124,7 @@ end;
 
 procedure tmainfo.showlogexe(const sender: TObject);
 begin
- logfo.show;
+ logfo.activate;
 end;
 
 procedure tmainfo.gitconsoleshowexe(const sender: TObject);
