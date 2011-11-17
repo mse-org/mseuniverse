@@ -47,6 +47,7 @@ type
    fshowuntrackeditems: boolean;
    fshowignoreditems: boolean;
    fmaxlog: integer;
+   fshowutc: boolean;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -60,6 +61,7 @@ type
                                              write setshowignoreditems;
    property gitcommand: msestring read getgitcommand write setgitcommand;
    property maxlog: integer read fmaxlog write fmaxlog;
+   property showutc: boolean read fshowutc write fshowutc;
  end;
 
  tgitdirtreenode = class(tdirtreenode)

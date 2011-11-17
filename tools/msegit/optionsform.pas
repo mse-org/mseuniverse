@@ -25,7 +25,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,
  msewidgets,msescrollbar,msetabs,sysutils,msestatfile,msebitmap,msedataedits,
  msedatanodes,mseedit,msefiledialog,msegrids,mseifiglob,mselistbrowser,
- msestrings,msesys,msetypes;
+ msestrings,msesys,msetypes,msegraphedits;
 
 type
  toptionsfo = class(tmseform)
@@ -36,6 +36,7 @@ type
    tstatfile1: tstatfile;
    gitcommand: tfilenameedit;
    maxlog: tintegeredit;
+   showutc: tbooleanedit;
  end;
 
 procedure editoptions;

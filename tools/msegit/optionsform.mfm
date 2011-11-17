@@ -87,6 +87,21 @@ object optionsfo: toptionsfo
         bounds_cx = 116
         reffontheight = 14
       end
+      object showutc: tbooleanedit
+        frame.caption = 'Show UTC time'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          1
+          89
+          2
+        )
+        taborder = 2
+        bounds_x = 8
+        bounds_y = 77
+        bounds_cx = 102
+        bounds_cy = 16
+      end
     end
   end
   object tstatfile1: tstatfile
