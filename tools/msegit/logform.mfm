@@ -112,6 +112,7 @@ inherited logfo: tlogfo
       min = -Inf
       max = 401768.99999
       kind = dtk_datetime
+      options = [dteo_showlocal]
       reffontheight = 14
     end
     object committer: tstringedit
