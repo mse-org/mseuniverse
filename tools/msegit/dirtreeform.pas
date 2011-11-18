@@ -191,6 +191,7 @@ end;
 procedure tdirtreefo.gridenterexe(const sender: TObject);
 begin
  filesfo.filelist.grid.datacols.clearselection;
+ mainfo.objchanged;
 end;
 
 procedure tdirtreefo.revertupdateexe(const sender: tcustomaction);

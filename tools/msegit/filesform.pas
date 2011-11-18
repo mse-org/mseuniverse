@@ -154,6 +154,9 @@ end;
 function tfilesfo.currentitem: tmsegitfileitem;
 begin
  result:= tmsegitfileitem(filelist.fileitemed.item);
+ if not filelist.grid.datacols.hasselection then begin
+  result:= nil;
+ end;
 end;
 
 function tfilesfo.currentfilepath: filenamety;
@@ -170,6 +173,7 @@ end;
 procedure tfilesfo.gridenterexe(const sender: TObject);
 begin
  dirtreefo.grid.datacols.clearselection;
+ mainfo.objchanged;
 end;
 
 procedure tfilesfo.mergetoolexe(const sender: tcustomaction);
