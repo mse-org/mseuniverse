@@ -49,7 +49,7 @@ object commitqueryfo: tcommitqueryfo
       0
       0
     )
-    taborder = 2
+    taborder = 3
     bounds_x = 8
     bounds_y = 257
     bounds_cx = 97
@@ -192,7 +192,7 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
-    taborder = 3
+    taborder = 2
     visible = True
     bounds_x = 387
     bounds_y = 0
