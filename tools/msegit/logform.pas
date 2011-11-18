@@ -57,6 +57,7 @@ var
  int1: integer;
 begin
  if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog) then begin
+  grid.beginupdate;
   grid.rowcount:= length(ar1);
   po1:= message.griddata.datapo;
   po2:= commit.griddata.datapo;
@@ -70,6 +71,8 @@ begin
     po4[int1]:= committer;
    end;
   end;
+  grid.row:= 0;
+  grid.endupdate;
  end
  else begin
   grid.clear;
