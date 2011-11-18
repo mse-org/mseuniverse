@@ -35,7 +35,7 @@ var
 implementation
 
 uses
- main_mfm;
+ main_mfm,mseglob,mseact;
 
 procedure tmainfo.OnExecActionExit(const sender: TObject);
 begin

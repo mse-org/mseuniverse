@@ -15,7 +15,7 @@ interface
 
 uses
   msegui,mseclasses,mseforms,msedock,MSESysUtils,msegraphics,Classes,SysUtils,
-  mseactions, msemenus, mseshapes;
+  mseact, mseactions, msemenus, mseshapes;
 
 type
   TMDIController = class;
@@ -101,7 +101,7 @@ const
 implementation
 
 uses
-  GuiMDIChild_mfm;
+  GuiMDIChild_mfm,msegraphutils,mseglob;
 
 //TMDIDockController >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

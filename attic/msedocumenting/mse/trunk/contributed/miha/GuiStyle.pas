@@ -14,13 +14,16 @@ unit GuiStyle;
 interface
 
 uses
-  msegraphics, msebits 
+  msegraphics, msebits,msegraphutils 
   {$ifdef mswindows},windows{$endif}
   {$ifdef linux},msestat,strutils,sysutils,classes{$endif};
 
   procedure SetDesktopSkin;
 
 implementation
+uses
+ msefont;
+ 
 {$ifdef linux}
 const
   QT_COLOR_BACKGROUND = 1;
