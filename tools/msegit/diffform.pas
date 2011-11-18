@@ -32,12 +32,16 @@ type
    ed: ttextedit;
   private
    fpath: msestring;
+   fa: msestring;
+   fb: msestring;
   protected
    procedure dorefresh; override;
    procedure doclear; override;
 //   procedure updatedisp;
   public
-   procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
+   procedure refresh(const adir: tgitdirtreenode;
+                                      const afile: tmsegitfileitem;
+                   const oldcommit: msestring; const newcommit: msestring);
  end;
 var
  difffo: tdifffo;
@@ -54,6 +58,8 @@ const
 procedure tdifffo.doclear;
 begin
  fpath:= '';
+ fa:= '';
+ fb:= '';
  grid.clear;
 end;
 
@@ -63,13 +69,13 @@ var
  po1: prichstringaty;
  chunkformat,addformat,removeformat: formatinfoarty;
 begin
- if fpath <> '' then begin
+ if (fpath <> '') or (fa <> '') or (fb <> '') then begin
   setfontcolor(chunkformat,0,bigint,chunkcolor);
   setfontcolor(addformat,0,bigint,addcolor);
   setfontcolor(removeformat,0,bigint,removecolor);
   grid.beginupdate;
   try
-   ed.gridvalues:= mainmo.git.diff(fpath);
+   ed.gridvalues:= mainmo.git.diff(fa,fb,fpath);
    po1:= ed.datalist.datapo;
    for int1:= 0 to ed.datalist.count-1 do begin
     with po1^[int1] do begin
@@ -98,9 +104,12 @@ begin
 end;
 
 procedure tdifffo.refresh(const adir: tgitdirtreenode;
-               const afile: tmsegitfileitem);
+                                      const afile: tmsegitfileitem;
+                   const oldcommit: msestring; const newcommit: msestring);
 begin
  fpath:= '';
+ fa:= newcommit;
+ fb:= oldcommit;
  if (adir <> nil) and (afile <> nil) then begin
   fpath:= adir.gitpath+afile.caption;
  end;

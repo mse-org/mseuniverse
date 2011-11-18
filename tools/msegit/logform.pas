@@ -23,7 +23,8 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,dispform,msedataedits,
- mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mainmodule;
+ mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mainmodule,
+ msegraphedits;
 
 type
  tlogfo = class(tdispfo)
@@ -32,6 +33,10 @@ type
    commit: tstringedit;
    commitdate: tdatetimeedit;
    committer: tstringedit;
+   diffbase: tbooleaneditradio;
+   procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure celleventexe(const sender: TObject; var info: celleventinfoty);
   private
    fpath: filenamety;
   protected
@@ -45,7 +50,7 @@ var
  logfo: tlogfo;
 implementation
 uses
- logform_mfm,msegitcontroller;
+ logform_mfm,msegitcontroller,main;
 
 { tlogfo }
 
@@ -57,6 +62,7 @@ var
  int1: integer;
 begin
  if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog) then begin
+  diffbase.checkedrow:= -1;
   grid.beginupdate;
   grid.rowcount:= length(ar1);
   po1:= message.griddata.datapo;
@@ -73,6 +79,9 @@ begin
   end;
   grid.row:= 0;
   grid.endupdate;
+  if diffbase.checkedrow >= 0 then begin
+   mainfo.diffchanged;
+  end;
  end
  else begin
   grid.clear;
@@ -96,6 +105,21 @@ begin
   end;
  end;
  inherited refresh;
+end;
+
+procedure tlogfo.diffbasesetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if visible then begin
+  mainfo.diffchanged;
+ end;
+end;
+
+procedure tlogfo.celleventexe(const sender: TObject; var info: celleventinfoty);
+begin
+ if visible and isrowenter(info,true) and (diffbase.checkedrow >= 0) then begin
+  mainfo.diffchanged;
+ end;
 end;
 
 end.

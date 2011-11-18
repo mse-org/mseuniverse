@@ -181,6 +181,7 @@ type
    constructor create(aowner: tcomponent); override;
    function encodegitcommand(const acommand: string): string;
    function encodestringparam(const avalue: msestring): string;
+   function noemptystringparam(const avalue: msestring): string;
    function encodepathparam(const apath: filenamety;
                                   const relative: boolean): string;
    function encodepathparams(const apath: filenamearty;
@@ -214,7 +215,7 @@ type
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: branchinfoarty;
                            out activebranch: msestring): boolean;
-   function diff(const afile: filenamety): msestringarty;
+   function diff(const a,b: msestring; const afile: filenamety): msestringarty;
    function issha1(const avalue: string; out asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
@@ -326,6 +327,16 @@ end;
 function tgitcontroller.encodestringparam(const avalue: msestring): string;
 begin
  result:= stringtoutf8(quotestring(avalue,'"'));
+end;
+
+function tgitcontroller.noemptystringparam(const avalue: msestring): string;
+begin
+ if avalue <> '' then begin
+  result:= encodestringparam(avalue) + ' ';
+ end
+ else begin
+  result:= '';
+ end;
 end;
 
 function tgitcontroller.commandresult1(const acommand: string;
@@ -827,12 +838,15 @@ begin
  end;
 end;
 
-function tgitcontroller.diff(const afile: filenamety): msestringarty;
+function tgitcontroller.diff(const a,b: msestring;
+                                  const afile: filenamety): msestringarty;
 var
  mstr1: msestring;
+ str1: string;
 begin
  result:= nil;
- if commandresult1('diff -- '+encodepathparam(afile,true),mstr1) then begin
+ if commandresult1('diff '+noemptystringparam(a)+noemptystringparam(b)+
+                       ' -- '+encodepathparam(afile,true),mstr1) then begin
   result:= breaklines(mstr1);
  end;
 end;

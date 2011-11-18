@@ -282,4 +282,11 @@ object mainfo: tmainfo
     left = 16
     top = 72
   end
+  object diffrefreshtimer: ttimer
+    interval = 0
+    options = [to_single]
+    ontimer = difrefreshtiexe
+    left = 16
+    top = 96
+  end
 end

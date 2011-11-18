@@ -219,7 +219,7 @@ end;
 
 procedure tcommitqueryfo.difftiexe(const sender: TObject);
 begin
- diff.refresh(froot,filelist.currentitem);
+ diff.refresh(froot,filelist.currentitem,'','');
 end;
 
 procedure tcommitqueryfo.celleventexe(const sender: TObject;

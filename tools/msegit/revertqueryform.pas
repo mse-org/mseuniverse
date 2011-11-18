@@ -104,7 +104,7 @@ procedure trevertqueryfo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
  if isrowenter(info) then begin
-  diff.refresh(froot,filelist.currentitem);
+  diff.refresh(froot,filelist.currentitem,'','');
  end;
 end;
 

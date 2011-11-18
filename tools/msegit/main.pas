@@ -45,6 +45,7 @@ type
    mergeact: taction;
    pushact: taction;
    objectrefreshtimer: ttimer;
+   diffrefreshtimer: ttimer;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -70,6 +71,7 @@ type
    procedure showbranchexe(const sender: TObject);
    procedure objectrefreshtiexe(const sender: TObject);
    procedure showlogexe(const sender: TObject);
+   procedure difrefreshtiexe(const sender: TObject);
   private
    frefreshing: boolean;
   public
@@ -77,6 +79,7 @@ type
    property refreshing: boolean read frefreshing;
    procedure updatestate;
    procedure objchanged;
+   procedure diffchanged;
  end;
 var
  mainfo: tmainfo;
@@ -322,13 +325,33 @@ end;
 
 procedure tmainfo.objectrefreshtiexe(const sender: TObject);
 begin
- difffo.refresh(dirtreefo.currentitem,filesfo.currentitem); 
  logfo.refresh(dirtreefo.currentitem,filesfo.currentitem); 
+end;
+
+procedure tmainfo.difrefreshtiexe(const sender: TObject);
+var
+ int1: integer;
+begin
+ if logfo.visible then begin
+  int1:= logfo.diffbase.checkedrow;
+  if (int1 >= 0) and (int1 <> logfo.grid.row) then begin
+   difffo.refresh(dirtreefo.currentitem,filesfo.currentitem,
+                       logfo.commit[int1],logfo.commit.value); 
+   exit;
+  end;
+ end;   
+ difffo.refresh(dirtreefo.currentitem,filesfo.currentitem,'',''); 
 end;
 
 procedure tmainfo.objchanged;
 begin
  objectrefreshtimer.restart;
+ diffrefreshtimer.restart;
+end;
+
+procedure tmainfo.diffchanged;
+begin
+ diffrefreshtimer.restart;
 end;
 
 end.

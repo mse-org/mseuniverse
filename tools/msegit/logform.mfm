@@ -28,8 +28,12 @@ inherited logfo: tlogfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 4
+        captions.count = 5
         captions.items = <        
+          item
+            caption = 'D'
+            hint = 'Diff base'
+          end        
           item
             caption = 'Message'
             options = [dco_colsort, dco_hintclippedtext]
@@ -47,43 +51,56 @@ inherited logfo: tlogfo
             options = [dco_colsort, dco_hintclippedtext]
           end>
       end>
-    datacols.count = 4
-    datacols.sortcol = 2
-    datacols.sortcoldefault = 2
+    datacols.count = 5
+    datacols.colorfocused = -1879048185
+    datacols.sortcol = 3
+    datacols.sortcoldefault = 3
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
+        colorfocused = -1879048185
+        width = 16
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'diffbase'
+        dataclass = tgridintegerdatalist
+      end    
+      item
+        colorfocused = -1879048185
         width = 167
         options = [co_readonly, co_savestate, co_mousescrollrow]
         widgetname = 'message'
         dataclass = tgridmsestringdatalist
       end    
       item
+        colorfocused = -1879048185
         width = 99
         options = [co_readonly, co_savestate, co_mousescrollrow]
         widgetname = 'commit'
         dataclass = tgridmsestringdatalist
       end    
       item
+        colorfocused = -1879048185
         width = 116
         options = [co_readonly, co_savestate, co_mousescrollrow]
         widgetname = 'commitdate'
         dataclass = tgridrealdatalist
       end    
       item
+        colorfocused = -1879048185
         width = 117
         options = [co_readonly, co_savestate, co_mousescrollrow]
         widgetname = 'committer'
         dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
+    oncellevent = celleventexe
     reffontheight = 14
     object message: tstringedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
-      bounds_x = 0
+      bounds_x = 17
       bounds_y = 0
       bounds_cx = 167
       bounds_cy = 16
@@ -97,7 +114,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 168
+      bounds_x = 185
       bounds_y = 0
       bounds_cx = 99
       bounds_cy = 16
@@ -109,7 +126,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 268
+      bounds_x = 285
       bounds_y = 0
       bounds_cx = 116
       bounds_cy = 16
@@ -127,7 +144,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 385
+      bounds_x = 402
       bounds_y = 0
       bounds_cx = 117
       bounds_cy = 16
@@ -135,6 +152,19 @@ inherited logfo: tlogfo
       textflags = [tf_noselect]
       textflagsactive = []
       reffontheight = 14
+    end
+    object diffbase: tbooleaneditradio
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+      optionsskin = [osk_framebuttononly]
+      taborder = 5
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 16
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol, bo_cantoggle]
+      visible = False
+      onsetvalue = diffbasesetexe
     end
   end
   inherited repoloadedact: taction[1]
