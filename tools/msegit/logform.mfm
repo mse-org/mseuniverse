@@ -94,6 +94,7 @@ inherited logfo: tlogfo
         dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
+    ongetmorerows = getmorerowsexe
     oncellevent = celleventexe
     reffontheight = 14
     object diffbase: tbooleaneditradio

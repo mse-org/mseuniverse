@@ -37,11 +37,13 @@ type
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
+   procedure getmorerowsexe(const sender: tcustomgrid; const count: Integer);
   private
    fpath: filenamety;
   protected
    procedure dorefresh; override;
    procedure doclear; override;   
+   procedure getrevs(const skip: integer);
   public
    procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
  end;
@@ -54,30 +56,34 @@ uses
 
 { tlogfo }
 
-procedure tlogfo.dorefresh;
+procedure tlogfo.getrevs(const skip: integer);
 var
  ar1: refinfoarty;
  po1,po2,po4: pmsestring;
  po3: pdatetime;
  int1: integer;
 begin
- if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog) then begin
-  diffbase.checkedrow:= -1;
+ if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog,skip) then begin
+  if skip = 0 then begin
+   diffbase.checkedrow:= -1;
+  end;
   grid.beginupdate;
-  grid.rowcount:= length(ar1);
+  grid.rowcount:= length(ar1)+skip;
   po1:= message.griddata.datapo;
   po2:= commit.griddata.datapo;
   po3:= commitdate.griddata.datapo;
   po4:= committer.griddata.datapo;
-  for int1:= 0 to high(ar1) do begin
-   with ar1[int1] do begin
+  for int1:= skip to high(ar1)+skip do begin
+   with ar1[int1-skip] do begin
     po1[int1]:= message;
     po2[int1]:= commit;
     po3[int1]:= commitdate;
     po4[int1]:= committer;
    end;
   end;
-  grid.row:= 0;
+  if skip = 0 then begin
+   grid.row:= 0;
+  end;
   grid.endupdate;
   if diffbase.checkedrow >= 0 then begin
    mainfo.diffchanged;
@@ -85,6 +91,26 @@ begin
  end
  else begin
   grid.clear;
+ end;
+end;
+
+procedure tlogfo.dorefresh;
+begin
+ getrevs(0);
+end;
+
+procedure tlogfo.getmorerowsexe(const sender: tcustomgrid;
+               const count: Integer);
+var
+ int1: integer;
+begin
+ int1:= count;
+ if (grid.datacols.sortcol = commitdate.gridcol) and 
+                 not (co_sortdescend in commitdate.widgetcol.options) then begin
+  int1:= -int1;
+ end;
+ if int1 > 0 then begin
+  getrevs(grid.rowcount);
  end;
 end;
 

@@ -220,7 +220,7 @@ type
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
    function revlist(out alist: refinfoarty; const apath: filenamety = '';
-                                         const maxcount: integer = 0): boolean;
+                const maxcount: integer = 0; const skip: integer = 0): boolean;
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
@@ -907,7 +907,7 @@ const
          );
 function tgitcontroller.revlist(out alist: refinfoarty;
                const apath: filenamety = '';
-               const maxcount: integer = 0): boolean;
+               const maxcount: integer = 0; const skip: integer = 0): boolean;
                
  function recordkind(const start,stop: pmsechar): recordkindty;
  var
@@ -968,6 +968,9 @@ begin
  str1:= 'rev-list --pretty=raw ';
  if maxcount > 0 then begin
   str1:= str1 + '--max-count='+inttostr(maxcount)+' ';
+ end;
+ if skip > 0 then begin
+  str1:= str1+'--skip='+inttostr(skip)+' ';
  end;
  str1:= str1 + 'HEAD ';
  if apath <> '' then begin
