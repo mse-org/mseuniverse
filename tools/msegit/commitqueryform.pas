@@ -70,7 +70,8 @@ var
 
 implementation
 uses
- commitqueryform_mfm,msedatanodes,lastmessageform,msearrayutils,main;
+ commitqueryform_mfm,msedatanodes,lastmessageform,msearrayutils,main,
+ logform,dirtreeform,filesform;
 
 { tcommitqueryfo }
  
@@ -111,6 +112,9 @@ begin
     result:= mainmo.commit(filelist.selectedfiles(aroot),messageed.value,fkind);
    end;
    mainfo.updatestate;
+   if fkind = ck_commit then begin
+    logfo.refresh(dirtreefo.currentitem,filesfo.currentitem);
+   end;
   end;
   mainmo.repostat.commitmessage:= messageed.value;
  finally
