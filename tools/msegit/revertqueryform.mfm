@@ -90,15 +90,18 @@ object revertqueryfo: trevertqueryfo
       bounds_cy = 250
       datacols.items = <      
         item
+          options = [co_savevalue, co_savestate, co_mousescrollrow]
           dataclass = tgridrichstringdatalist
         end>
       inherited ed: ttextedit
         optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
       end
     end
-    inherited repocloseact: taction
+    inherited repoloadedact: taction
     end
     inherited tstatfile1: tstatfile
+    end
+    inherited repoclosedact: taction
     end
   end
   object tsplitter2: tsplitter
