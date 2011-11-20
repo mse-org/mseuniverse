@@ -75,7 +75,7 @@ end;
 
 procedure tdispfo.refresh;
 begin
- if isvisible then begin
+ if isvisible and mainmo.repoloaded then begin
   finfovalid:= true;
   dorefresh;
  end
