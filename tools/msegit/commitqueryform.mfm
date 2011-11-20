@@ -27,7 +27,7 @@ object commitqueryfo: tcommitqueryfo
     modalresult = mr_cancel
   end
   object commit: tbutton
-    taborder = 1
+    taborder = 2
     bounds_x = 408
     bounds_y = 256
     bounds_cx = 50
@@ -192,7 +192,7 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
-    taborder = 2
+    taborder = 1
     visible = True
     bounds_x = 387
     bounds_y = 0

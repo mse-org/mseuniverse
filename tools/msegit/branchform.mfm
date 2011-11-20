@@ -7,6 +7,8 @@ inherited branchfo: tbranchfo
     435
     354
   )
+  dragdock.caption = 'Branch'
+  caption = 'Branch'
   moduleclassname = 'tdispfo'
   object remotegrid: twidgetgrid[0]
     popupmenu = remotepopup

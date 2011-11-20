@@ -14,9 +14,10 @@ object gitconsolefo: tgitconsolefo
     435
     354
   )
+  dragdock.caption = 'git Console'
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_canfloat, od_candock, od_propsize]
   statfile = mainfo.formsta
-  caption = 'Git Console'
+  caption = 'git Console'
   moduleclassname = 'tdockform'
   object dirdisp: tstringdisp
     frame.dummy = 0

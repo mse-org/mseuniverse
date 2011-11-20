@@ -15,6 +15,7 @@ object remotesfo: tremotesfo
     435
     354
   )
+  dragdock.caption = 'Remotes'
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_canfloat, od_candock, od_propsize]
   statfile = mainfo.formsta
   caption = 'Remotes'

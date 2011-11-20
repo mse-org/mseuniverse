@@ -8,6 +8,7 @@ inherited logfo: tlogfo
     537
     354
   )
+  dragdock.caption = 'Log'
   caption = 'Log'
   moduleclassname = 'tdispfo'
   object grid: twidgetgrid[0]

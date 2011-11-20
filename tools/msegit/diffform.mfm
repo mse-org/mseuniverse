@@ -8,6 +8,7 @@ inherited difffo: tdifffo
     435
     354
   )
+  dragdock.caption = 'diff'
   caption = 'diff'
   onshow = showexe
   moduleclassname = 'tdispfo'
