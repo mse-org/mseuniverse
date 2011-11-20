@@ -53,7 +53,7 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   object mainmen: tmainmenu
-    menu.submenu.count = 4
+    menu.submenu.count = 5
     menu.submenu.items = <    
       item
         submenu.count = 3
@@ -194,6 +194,11 @@ object mainfo: tmainfo
         caption = '&Options'
         state = [as_localcaption, as_localonexecute]
         onexecute = optionsexe
+      end    
+      item
+        caption = '&About'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = aboutexe
       end>
     menu.name = 'git'
     left = 16

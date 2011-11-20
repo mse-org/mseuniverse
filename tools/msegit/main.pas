@@ -14,9 +14,6 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-//
-// under construction
-//
 unit main;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -25,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
  msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,msetimer;
-
+const
+ versiontext = '0.7 unstable';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
@@ -74,6 +72,7 @@ type
    procedure showlogexe(const sender: TObject);
    procedure difrefreshtiexe(const sender: TObject);
    procedure commitallexe(const sender: TObject);
+   procedure aboutexe(const sender: TObject);
   private
    frefreshing: boolean;
   public
@@ -362,6 +361,16 @@ end;
 procedure tmainfo.diffchanged;
 begin
  diffrefreshtimer.restart;
+end;
+
+procedure tmainfo.aboutexe(const sender: TObject);
+begin
+ showmessage('MSEgit version: '+versiontext+c_linefeed+
+             'MSEgui version: '+mseguiversiontext+c_linefeed+
+             c_linefeed+
+             'Copyright 2011'+c_linefeed+
+             'by Martin Schreiber'
+             ,'About MSEgit');
 end;
 
 end.
