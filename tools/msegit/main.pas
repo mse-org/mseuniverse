@@ -23,7 +23,7 @@ uses
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
  msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,msetimer;
 const
- versiontext = '0.9 unstable';
+ versiontext = '0.8 beta'{'0.9 unstable'};
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
@@ -73,6 +73,8 @@ type
    procedure difrefreshtiexe(const sender: TObject);
    procedure commitallexe(const sender: TObject);
    procedure aboutexe(const sender: TObject);
+   procedure updatecaptionxe(const sender: tdockpanelformcontroller;
+                   const apanel: tdockpanelform; var avalue: msestring);
   private
    frefreshing: boolean;
   public
@@ -371,6 +373,11 @@ begin
              'Copyright 2011'+c_linefeed+
              'by Martin Schreiber'
              ,'About MSEgit');
+end;
+
+procedure tmainfo.updatecaptionxe(const sender: tdockpanelformcontroller;
+               const apanel: tdockpanelform; var avalue: msestring);
+begin
 end;
 
 end.
