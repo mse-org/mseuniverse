@@ -46,6 +46,7 @@ type
    pushact: taction;
    objectrefreshtimer: ttimer;
    diffrefreshtimer: ttimer;
+   commitallact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -322,6 +323,7 @@ var
 begin
  bo1:= mainmo.repoloaded;
  bo2:= bo1 and not mainmo.merging;
+ commitallact.enabled:= bo1;
  pushact.enabled:= bo2;
  fetchact.enabled:= bo1;
  commitmergeact.enabled:= bo1;

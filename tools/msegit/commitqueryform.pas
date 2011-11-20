@@ -82,7 +82,7 @@ var
  ar1: msegitfileitemarty;
  int1,int2: integer;
 begin
- result:= true;
+ result:= false;
  try
   fstaged:= staged;
   froot:= aroot;

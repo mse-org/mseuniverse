@@ -76,9 +76,7 @@ object mainfo: tmainfo
         submenu.count = 9
         submenu.items = <        
           item
-            caption = 'C&ommit all'
-            state = [as_localcaption, as_localonexecute]
-            onexecute = commitallexe
+            action = commitallact
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
@@ -250,31 +248,31 @@ object mainfo: tmainfo
     caption = 'Merge &commit'
     onexecute = commitmergeexe
     left = 160
-    top = 112
+    top = 144
   end
   object resetmergeact: taction
     caption = 'Merge &reset'
     onexecute = resetmergeexe
     left = 160
-    top = 160
+    top = 192
   end
   object fetchact: taction
     caption = '&Fetch'
     onexecute = fetchexe
     left = 160
-    top = 96
+    top = 128
   end
   object pullact: taction
     caption = 'P&ull'
     onexecute = pullexe
     left = 160
-    top = 128
+    top = 160
   end
   object mergeact: taction
     caption = '&Merge fetched'
     onexecute = mergeexe
     left = 160
-    top = 144
+    top = 176
   end
   object pushact: taction
     caption = '&Push'
@@ -282,7 +280,7 @@ object mainfo: tmainfo
     onexecute = pushexe
     onupdate = pushupdateexe
     left = 160
-    top = 80
+    top = 112
   end
   object objectrefreshtimer: ttimer
     interval = 0
@@ -297,5 +295,15 @@ object mainfo: tmainfo
     ontimer = difrefreshtiexe
     left = 16
     top = 96
+  end
+  object commitallact: taction
+    caption = 'C&ommit all'
+    onexecute = commitallexe
+    left = 160
+    top = 96
+    sc = (
+      1
+      16463
+    )
   end
 end

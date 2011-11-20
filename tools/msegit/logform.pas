@@ -81,6 +81,7 @@ begin
     po4[int1]:= committer;
    end;
   end;
+  grid.sortinvalid;
   if skip = 0 then begin
    grid.row:= 0;
   end;
