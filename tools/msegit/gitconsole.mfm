@@ -29,6 +29,7 @@ object gitconsolefo: tgitconsolefo
   end
   object grid: twidgetgrid
     taborder = 1
+    popupmenu = popupmen
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
@@ -55,6 +56,7 @@ object gitconsolefo: tgitconsolefo
       bounds_y = 0
       bounds_cx = 1000
       bounds_cy = 16
+      optionsedit = [oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_focusrectonreadonly, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
       font.name = 'stf_fixed'
       font.xscale = 1
       font.dummy = 0
@@ -77,5 +79,17 @@ object gitconsolefo: tgitconsolefo
     linktop = grid
     linkbottom = dirdisp
     options = [spao_gluebottom]
+  end
+  object popupmen: tpopupmenu
+    onupdate = popupupdateexe
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        caption = '&Clear'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = clearexe
+      end>
+    left = 56
+    top = 56
   end
 end

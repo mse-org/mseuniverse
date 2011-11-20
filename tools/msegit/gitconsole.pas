@@ -29,9 +29,12 @@ type
    grid: twidgetgrid;
    termed: tterminal;
    tspacer1: tspacer;
+   popupmen: tpopupmenu;
    procedure sendtextexe(const sender: TObject; var atext: msestring;
                    var donotsend: Boolean);
    procedure procfiexe(const sender: TObject);
+   procedure clearexe(const sender: TObject);
+   procedure popupupdateexe(const sender: tcustommenu);
   private
    fexecgitwaiting: boolean;
   public
@@ -99,7 +102,9 @@ procedure tgitconsolefo.init;
 begin
  if not mainfo.refreshing then begin
   clear;
-  termed.addchars(prompt);
+  if mainmo.repoloaded then begin
+   termed.addchars(prompt);
+  end;
  end;
 end;
 
@@ -122,6 +127,17 @@ begin
   end;
   result:= exitcode = 0;
  end;
+end;
+
+procedure tgitconsolefo.clearexe(const sender: TObject);
+begin
+ init;
+end;
+
+procedure tgitconsolefo.popupupdateexe(const sender: tcustommenu);
+
+begin
+ sender.menu.submenu[0].enabled:= mainmo.repoloaded;
 end;
 
 end.
