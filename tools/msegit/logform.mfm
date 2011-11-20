@@ -94,6 +94,7 @@ inherited logfo: tlogfo
         dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
+    statfile = mainfo.formsta
     ongetmorerows = getmorerowsexe
     oncellevent = celleventexe
     reffontheight = 14
