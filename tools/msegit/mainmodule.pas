@@ -206,6 +206,7 @@ type
    function commit(const afiles: filenamearty;
                           const amessage: msestring;
                           const akind: commitkindty): boolean; overload;
+   function commitall: boolean;
    function mergecommit: boolean;
    function mergereset: boolean;
    function commitstaged(const anode: tgitdirtreenode;
@@ -871,6 +872,15 @@ begin
  if result then begin   
   updateoperation(ck_commit,afiles);
  end;
+end;
+
+function tmainmo.commitall: boolean;
+var
+ ar1: gitdirtreenodearty;
+begin
+ setlength(ar1,1);
+ ar1[0]:= fdirtree;
+ result:= commit(ar1,false);
 end;
 
 function tmainmo.mergecommit: boolean;

@@ -62,7 +62,7 @@ object mainfo: tmainfo
             action = mainmo.openrepoact
           end        
           item
-            caption = 'Close git repo'
+            caption = '&Close git repo'
             state = [as_localcaption, as_localonexecute]
             onexecute = closerepoexe
           end        
@@ -73,8 +73,16 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 8
+        submenu.count = 9
         submenu.items = <        
+          item
+            caption = 'C&ommit all'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = commitallexe
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
           item
             action = pushact
           end        
@@ -95,9 +103,6 @@ object mainfo: tmainfo
           end        
           item
             action = commitmergeact
-          end        
-          item
-            options = [mao_separator, mao_shortcutcaption]
           end>
         caption = '&git'
         name = 'git'

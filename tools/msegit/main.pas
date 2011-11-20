@@ -72,6 +72,7 @@ type
    procedure objectrefreshtiexe(const sender: TObject);
    procedure showlogexe(const sender: TObject);
    procedure difrefreshtiexe(const sender: TObject);
+   procedure commitallexe(const sender: TObject);
   private
    frefreshing: boolean;
   public
@@ -256,6 +257,13 @@ begin
    statdisp.richvalue:= rstr1;
    statdisp.color:= col1;
   end;
+ end;
+end;
+
+procedure tmainfo.commitallexe(const sender: TObject);
+begin
+ if mainmo.commitall then begin
+  reload;
  end;
 end;
 
