@@ -155,6 +155,16 @@ object mainfo: tmainfo
             onexecute = showfilesexe
           end        
           item
+            caption = '&Diff'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showdiffexe
+          end        
+          item
+            caption = '&Log'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showlogexe
+          end        
+          item
             caption = '&Branches'
             state = [as_localcaption, as_localonexecute]
             onexecute = showbranchexe
@@ -165,19 +175,13 @@ object mainfo: tmainfo
             onexecute = showremotesexe
           end        
           item
-            caption = '&Diff'
-            state = [as_localcaption, as_localonexecute]
-            onexecute = showdiffexe
-          end        
-          item
             caption = '&Git Console'
-            state = [as_localcaption, as_localonexecute]
+            state = [as_localcaption, as_localshortcut, as_localonexecute]
             onexecute = gitconsoleshowexe
-          end        
-          item
-            caption = '&Log'
-            state = [as_localcaption, as_localonexecute]
-            onexecute = showlogexe
+            sc = (
+              1
+              16455
+            )
           end>
         caption = '&View'
         name = 'view'
