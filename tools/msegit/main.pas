@@ -23,7 +23,7 @@ uses
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
  msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,msetimer;
 const
- versiontext = '0.7 unstable';
+ versiontext = '0.8 beta';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
