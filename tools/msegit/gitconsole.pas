@@ -120,6 +120,7 @@ begin
   execprog(mstr1);
   wi1:= nil;
   setlinkedvar(tlinkedobject(application.activewindow),tlinkedobject(wi1));
+  activate;
   show(ml_application);
   if wi1 <> nil then begin
    wi1.activate;
