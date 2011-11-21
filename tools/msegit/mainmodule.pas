@@ -34,6 +34,7 @@ type
    constructor create; override;
    function getoriginicon: integer;
  end;
+ pmsegitfileitem = ^tmsegitfileitem;
  msegitfileitemarty = array of tmsegitfileitem;
 
  tmainmo = class;
@@ -219,6 +220,13 @@ type
    function revert(const afiles: filenamearty): boolean;
    function revert(const anode: tgitdirtreenode;
                    const aitems: msegitfileitemarty): boolean; overload;
+   function canremove(const aitems: msegitfileitemarty): boolean; overload;
+   function canremove(const aitems: gitdirtreenodearty): boolean; overload;
+   function remove(const aitems: gitdirtreenodearty): boolean; overload;
+   function remove(const afiles: filenamearty;
+                               const untrack: boolean): boolean; overload;
+   function remove(const anode: tgitdirtreenode;
+                    const aitems: msegitfileitemarty): boolean; overload;
    function mergetoolcall(const afiles: filenamearty): boolean;
    procedure reload;
    function repoloaded: boolean;
@@ -268,7 +276,7 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
- gitconsole,commitqueryform,revertqueryform,msestream;
+ gitconsole,commitqueryform,revertqueryform,msestream,removequeryform;
   
 const
  defaultfileicon = 0;
@@ -278,19 +286,22 @@ const
  
  untrackedfileicon = 6;
  addedfileoffset = 1;
+ deletedfileicon = 9;
 
- defaultdiricon = 9;
+ defaultdiricon = 10;
  modifieddiroffset = 2;
  stageddiroffset = 4;
  mergediroffset = 6;
- untrackeddiricon = 21;
  
- mergependingicon = 30;
- pushpendingicon = 31;
- pushmergependingicon = 32;
- pusconflicticon = 33;
- mergeconflictpendingicon = 34;
- mergeconflictpushpendingicon = 35;
+ untrackeddiricon = 22;
+
+ remoteiconbase = 31; 
+ mergependingicon = remoteiconbase+0;
+ pushpendingicon = remoteiconbase+1;
+ pushmergependingicon = remoteiconbase+2;
+ pusconflicticon = remoteiconbase+3;
+ mergeconflictpendingicon = remoteiconbase+4;
+ mergeconflictpushpendingicon = remoteiconbase+5;
 
 function checkname(const aname: msestring): boolean;
 begin
@@ -385,6 +396,9 @@ begin
 }
  if gist_untracked in astate.statey then begin
   int1:= untrackedfileicon;
+ end;
+ if (gist_deleted in astate.statex) or (gist_deleted in astate.statey) then begin
+  int1:= deletedfileicon;
  end;
  result:= int1;
 end;
@@ -717,7 +731,8 @@ function tmainmo.commit(const aitems: gitdirtreenodearty;
  const
   mask1: gitstatedataty = (statex: []; statey : [gist_modified]);
   mask2: gitstatedataty = (statex: [gist_added]; statey : []);
-  mask3: gitstatedataty = (statex: [gist_modified]; statey : []);
+  mask3: gitstatedataty = (statex: [gist_deleted]; statey : []);
+  mask4: gitstatedataty = (statex: [gist_modified]; statey : []);
 var
  ar1: msegitfileitemarty;
  n1: tgitdirtreenode;
@@ -727,10 +742,10 @@ begin
   staged:= false;
  end;
  if staged then begin
-  ar1:= getfilelist(aitems,[mask2,mask3],n1);
+  ar1:= getfilelist(aitems,[mask2,mask3,mask4],n1);
  end
  else begin
-  ar1:= getfilelist(aitems,[mask1,mask2,mask3],n1);
+  ar1:= getfilelist(aitems,[mask1,mask2,mask3,mask4],n1);
  end;
  try
   result:= commit(n1,ar1,staged);
@@ -776,7 +791,7 @@ begin
     statey:= statey - cancommitstate;
    end;
    ck_unstage: begin
-    statey:= (statey + statex * cancommitstate);
+    statey:= (statey + statex * cancommitstate)-[gist_deleted];
     if gist_added in statey then begin
      statey:= [gist_untracked];
     end;
@@ -784,6 +799,9 @@ begin
    end;
    ck_revert: begin
     statey:= statey - [gist_modified];
+   end;
+   ck_remove: begin
+    statex:= statex + [gist_deleted];
    end;
   end;
  end;
@@ -1034,6 +1052,71 @@ begin
  ar1:= getfilelist(aitems,[mask1],n1);
  try
   result:= revert(n1,ar1);
+ finally
+  for int1:= high(ar1) downto 0 do begin
+   ar1[int1].free;
+  end;
+ end;
+end;
+
+function tmainmo.canremove(const aitems: msegitfileitemarty): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(aitems) do begin
+  if checkcanremove(aitems[int1].fgitstate) then begin
+   result:= true;
+   break;
+  end;
+ end;
+end;
+
+function tmainmo.canremove(const aitems: gitdirtreenodearty): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(aitems) do begin
+  if checkcanrevert(aitems[int1].fgitstate) then begin
+   result:= true;
+   break;
+  end;
+ end;
+end;
+
+function tmainmo.remove(const anode: tgitdirtreenode;
+               const aitems: msegitfileitemarty): boolean;
+begin
+ result:= tremovequeryfo.create(nil).exec(anode,aitems);
+end;
+
+function tmainmo.remove(const afiles: filenamearty;
+                                 const untrack: boolean): boolean;
+var
+ str1: string;
+begin
+ str1:= 'rm ';
+ if untrack then begin
+  str1:= str1 + '--cached ';
+ end;
+ result:= execgitconsole(str1+fgit.encodepathparams(afiles,true));
+ if result then begin   
+  updateoperation(ck_remove,afiles);
+ end;
+end;
+
+function tmainmo.remove(const aitems: gitdirtreenodearty): boolean;
+ const
+  mask1: gitstatedataty = (statex: []; statey : []);
+var
+ ar1: msegitfileitemarty;
+ n1: tgitdirtreenode;
+ int1: integer;
+begin 
+ ar1:= getfilelist(aitems,[mask1],n1);
+ try
+  result:= remove(n1,ar1);
  finally
   for int1:= high(ar1) downto 0 do begin
    ar1[int1].free;
@@ -1292,7 +1375,7 @@ begin
    int1:= int1 + modifieddiroffset;
   end
   else begin
-   if statex * [gist_modified,gist_added] <> [] then begin
+   if statex * [gist_modified,gist_added,gist_deleted] <> [] then begin
     int1:= int1 + stageddiroffset;
    end;
   end;

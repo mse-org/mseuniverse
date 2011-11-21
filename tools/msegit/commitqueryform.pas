@@ -78,6 +78,7 @@ function tcommitqueryfo.exec(const aroot: tgitdirtreenode;
 var
  ar1: msegitfileitemarty;
  int1,int2: integer;
+ needsrefresh: boolean;
 begin
  result:= false;
  try
@@ -86,6 +87,7 @@ begin
   messageed.value:= mainmo.repostat.commitmessage;
   setlength(ar1,length(aitems));
   int2:= 0;
+  needsrefresh:= true;
   for int1:= 0 to high(ar1) do begin
    with aitems[int1] do begin
     if checkcancommit(gitstate) then begin
@@ -108,9 +110,24 @@ begin
    else begin
     result:= mainmo.commit(filelist.selectedfiles(aroot),messageed.value,fkind);
    end;
-   mainfo.updatestate;
-   if fkind = ck_commit then begin
-    logfo.refresh(dirtreefo.currentitem,filesfo.currentitem);
+   if result then begin
+    needsrefresh:= false;
+    ar1:= filelist.checkeditems;
+    for int1:= 0 to high(ar1) do begin
+     if gist_deleted in ar1[int1].gitstate.statex then begin
+      needsrefresh:= true;
+      break;
+     end;
+    end;
+   end;
+   if needsrefresh then begin
+    mainfo.reload;
+   end
+   else begin
+    mainfo.updatestate;
+    if fkind = ck_commit then begin
+     logfo.refresh(dirtreefo.currentitem,filesfo.currentitem);
+    end;
    end;
   end;
   mainmo.repostat.commitmessage:= messageed.value;

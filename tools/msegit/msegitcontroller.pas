@@ -23,7 +23,8 @@ const
  defaultgitcommand = 'git';
  
 type
- commitkindty = (ck_none,ck_stage,ck_unstage,ck_amend,ck_commit,ck_revert);
+ commitkindty = (ck_none,ck_stage,ck_unstage,ck_amend,ck_commit,ck_revert,
+                 ck_remove);
 
  gitstatety = (gist_invalid,gist_unmodified,gist_modified,gist_added,
                 gist_deleted,gist_renamed,gist_copied,gist_unmerged,
@@ -114,6 +115,7 @@ type
    property statey: gitstatesty read fgitstate.statey;
    property gitstate: gitstatedataty read fgitstate;
  end;
+ pgitfileitem = ^tgitfileitem;
  gitfileitemclassty = class of tgitfileitem;
  gitfileitemarty = array of tgitfileitem;
  gitfileitematy = array[0..0] of tgitfileitem;
@@ -228,6 +230,7 @@ function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
 
 function checkcancommit(const astate: gitstatedataty): boolean;
 function checkcanrevert(const astate: gitstatedataty): boolean;
+function checkcanremove(const astate: gitstatedataty): boolean;
 function gitfilepath(const apath: filenamety;
                                       const relative: boolean): filenamety;
 
@@ -261,6 +264,13 @@ function checkcanrevert(const astate: gitstatedataty): boolean;
 begin
  with astate do begin
   result:= gist_modified in statey; //???
+ end;
+end;
+
+function checkcanremove(const astate: gitstatedataty): boolean;
+begin
+ with astate do begin
+  result:= statey * [gist_untracked,gist_ignored] = [];
  end;
 end;
   
@@ -839,7 +849,7 @@ function tgitcontroller.diff(const a,b: msestring;
                                   const afile: filenamety): msestringarty;
 var
  mstr1: msestring;
- str1: string;
+// str1: string;
 begin
  result:= nil;
  if commandresult1('diff '+noemptystringparam(a)+noemptystringparam(b)+

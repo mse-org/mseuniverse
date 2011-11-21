@@ -112,13 +112,20 @@ object dirtreefo: tdirtreefo
     onexecute = addexe
     onupdate = addupdateexe
     left = 176
-    top = 72
+    top = 88
   end
   object revertact: taction
     caption = 'Revert'
     onexecute = revertexe
     onupdate = revertupdateexe
     left = 176
-    top = 88
+    top = 56
+  end
+  object removeact: taction
+    caption = 'Add'
+    onexecute = removeexe
+    onupdate = removeupdateexe
+    left = 176
+    top = 104
   end
 end

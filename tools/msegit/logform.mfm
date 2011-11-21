@@ -62,7 +62,7 @@ inherited logfo: tlogfo
       item
         colorfocused = -1879048185
         width = 16
-        options = [co_savestate, co_mousescrollrow]
+        options = [co_noctrlmousefocus, co_savestate, co_mousescrollrow]
         widgetname = 'diffbase'
         dataclass = tgridintegerdatalist
       end    

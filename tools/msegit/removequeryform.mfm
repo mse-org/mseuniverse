@@ -1,0 +1,137 @@
+object removequeryfo: tremovequeryfo
+  visible = False
+  bounds_x = 109
+  bounds_y = 231
+  bounds_cx = 343
+  bounds_cy = 283
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    343
+    283
+  )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Commit'
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    bounds_x = 288
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_default, as_localdefault, as_localcaption]
+    caption = '&Cancel'
+    modalresult = mr_cancel
+  end
+  object remove: tbutton
+    taborder = 1
+    bounds_x = 232
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Remove'
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+    onupdate = removeupdateexe
+    onexecute = removeexe
+  end
+  object filecountdisp: tintegerdisp
+    frame.caption = 'Filecount'
+    frame.captionpos = cp_left
+    frame.dummy = 0
+    frame.outerframe = (
+      53
+      0
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 257
+    bounds_cx = 97
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  inline filelist: tfilechecklistframefo
+    taborder = 3
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 343
+    bounds_cy = 250
+    anchors = [an_top, an_bottom]
+    container.bounds = (
+      0
+      0
+      343
+      250
+    )
+    inherited grid: twidgetgrid
+      bounds_cx = 343
+      bounds_cy = 250
+      fixrows.items = <      
+        item
+          captions.items = <          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end>
+        end>
+      datacols.items = <      
+        item
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          width = 287
+          dataclass = titemeditlist
+          datalist.imagealignment = [al_right, al_ycentered]
+          datalist.captionpos = cp_top
+          datalist.data = (          )
+        end>
+      inherited originstate: tdataicon
+      end
+      inherited filestate: tdataicon
+      end
+      inherited fileitemed: titemedit
+        bounds_cx = 287
+        oncellevent = celleventexe
+      end
+      inherited selected: tbooleanedit
+        onsetvalue = selectsetexe
+      end
+    end
+  end
+  object tbutton2: tbutton
+    taborder = 4
+    bounds_x = 176
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_invisible, as_localinvisible, as_localcaption, as_localonexecute]
+    caption = '&Untrack'
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+    onupdate = removeupdateexe
+    onexecute = untrackexe
+  end
+  object tstatfile1: tstatfile
+    filename = 'revertqueryfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 40
+    top = 160
+  end
+end

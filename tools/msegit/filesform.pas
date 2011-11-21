@@ -32,6 +32,7 @@ type
    filelist: tfilelistframefo;
    revertact: taction;
    mergetoolact: taction;
+   removeact: taction;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure commitexe(const sender: TObject);
@@ -43,6 +44,8 @@ type
    procedure revertupdateexe(const sender: tcustomaction);
    procedure revertexe(const sender: TObject);
    procedure mergetoolexe(const sender: tcustomaction);
+   procedure removeupdateexe(const sender: tcustomaction);
+   procedure removeexe(const sender: TObject);
   private
    fpath: filenamety;
    ffilebefore: msestring;
@@ -136,6 +139,20 @@ end;
 procedure tfilesfo.revertexe(const sender: TObject);
 begin
  if mainmo.revert(tgitdirtreenode(dirtreefo.treeed.item),
+             msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
+  activate;
+ end;
+end;
+
+procedure tfilesfo.removeupdateexe(const sender: tcustomaction);
+begin
+ sender.enabled:=  mainmo.canremove(
+                      msegitfileitemarty(filelist.fileitemed.selecteditems));
+end;
+
+procedure tfilesfo.removeexe(const sender: TObject);
+begin
+ if mainmo.remove(tgitdirtreenode(dirtreefo.treeed.item),
              msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
   activate;
  end;

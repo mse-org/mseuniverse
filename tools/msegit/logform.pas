@@ -79,7 +79,7 @@ begin
    end;
   end;
   grid.sortinvalid;
-  if skip = 0 then begin
+  if (skip = 0) and (grid.rowcount > 0) then begin
    grid.row:= 0;
   end;
   grid.endupdate;

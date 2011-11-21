@@ -27,6 +27,7 @@ type
    selected: tbooleanedit;
   public
    function selectedfiles(const aroot: tgitdirtreenode): filenamearty;
+   function checkeditems: msegitfileitemarty;
  end;
 
 var
@@ -42,13 +43,32 @@ function tfilechecklistframefo.selectedfiles(
                   const aroot: tgitdirtreenode): filenamearty; 
 var
  int1,int2: integer;
+ po1: pgitfileitem;
 begin
  setlength(result,grid.rowcount);
  int2:= 0;
+ po1:= fileitemed.itemlist.datapo;
  for int1:= 0 to high(result) do begin
   if selected[int1] then begin
    result[int2]:= mainmo.getpath(aroot,
-                           tgitfileitem(fileitemed[int1]).caption);
+                           po1[int1].caption);
+   inc(int2);
+  end;
+ end;
+ setlength(result,int2);
+end;
+
+function tfilechecklistframefo.checkeditems: msegitfileitemarty;
+var
+ int1,int2: integer;
+ po1: pmsegitfileitem;
+begin
+ setlength(result,grid.rowcount);
+ int2:= 0;
+ po1:= fileitemed.itemlist.datapo;
+ for int1:= 0 to high(result) do begin
+  if selected[int1] then begin
+   result[int2]:= po1[int1];
    inc(int2);
   end;
  end;

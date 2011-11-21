@@ -34,6 +34,7 @@ type
    reporefreshsedact: taction;
    addact: taction;
    revertact: taction;
+   removeact: taction;
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -46,6 +47,8 @@ type
    procedure revertupdateexe(const sender: tcustomaction);
    procedure revertexe(const sender: TObject);
    procedure commitstagedexe(const sender: TObject);
+   procedure removeexe(const sender: TObject);
+   procedure removeupdateexe(const sender: tcustomaction);
   private
 //   frowsave: integer;
    fexpandedsave: expandedinfoarty;
@@ -201,6 +204,18 @@ begin
  if mainmo.revert(gitdirtreenodearty(treeed.selecteditems)) then begin
   activate;
  end;
+end;
+
+procedure tdirtreefo.removeexe(const sender: TObject);
+begin
+ if mainmo.remove(gitdirtreenodearty(treeed.selecteditems)) then begin
+  activate;
+ end;
+end;
+
+procedure tdirtreefo.removeupdateexe(const sender: tcustomaction);
+begin
+ sender.enabled:= mainmo.canremove(gitdirtreenodearty(treeed.selecteditems));
 end;
 
 procedure tdirtreefo.setcurrentgitdir(const adir: filenamety);
