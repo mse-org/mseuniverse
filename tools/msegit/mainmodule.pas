@@ -177,6 +177,8 @@ type
    function  getfilelist(const aitems: gitdirtreenodearty;
                                const amask: array of gitstatedataty; 
                                 out aroot: tgitdirtreenode): msegitfileitemarty;
+   function encodepathparams(const adir: tgitdirtreenode;
+                               const afiles: msegitfileitemarty): string;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
@@ -189,10 +191,15 @@ type
    function getfiles(const apath: filenamety): msegitfileitemarty;
    
    function checkoutbranch(const aname: msestring): boolean;
+   function checkout(const atreeish: msestring;
+                                const anode: tgitdirtreenode;
+                                const afiles: msegitfileitemarty): boolean;
+
    function fetch: boolean;
    function pull: boolean;
    function push: boolean;
    function merge: boolean;
+
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
    function cancommit(const aitems: gitdirtreenodearty): boolean; overload;
    function cancommit(const aitems: msegitfileitemarty): boolean; overload;
@@ -248,7 +255,8 @@ type
    function deletebranch(const aremote: msestring;
                                       const abranch: msestring): boolean;
    function createbranch(const aremote: msestring;
-                                      const abranch: msestring): boolean;
+                         const abranch: msestring;
+                         const astartpoint: msestring): boolean;
    function createremote(const aremote: msestring; const afetch: msestring;
                                 const apush: msestring): boolean;
    function changeremote(const aremote: msestring; const newname: msestring;
@@ -1165,6 +1173,14 @@ begin
  result:= execgitconsole('checkout '+git.encodestringparam(aname));
 end;
 
+function tmainmo.checkout(const atreeish: msestring;
+               const anode: tgitdirtreenode;
+               const afiles: msegitfileitemarty): boolean;
+begin
+ result:= execgitconsole('checkout '+atreeish+' '+
+                                 encodepathparams(anode,afiles));
+end;
+
 function tmainmo.renamebranch(const aremote: msestring;
                const oldname: msestring; const newname: msestring): boolean;
 begin
@@ -1191,10 +1207,12 @@ begin
 end;
 
 function tmainmo.createbranch(const aremote: msestring;
-               const abranch: msestring): boolean;
+               const abranch: msestring;
+               const astartpoint: msestring): boolean;
 begin
  if aremote = '' then begin
-  result:= execgitconsole('branch '+abranch);
+  result:= execgitconsole('branch '+fgit.encodestringparam(abranch)+' '+
+                 fgit.encodestringparam(astartpoint));
  end
  else begin
   result:= execgitconsole('push '+aremote+' '+activebranch+':'+abranch);
@@ -1320,6 +1338,29 @@ end;
 function tmainmo.deleteremote(const aremote: msestring): boolean;
 begin
  result:= execgitconsole('remote rm '+fgit.encodestringparam(aremote));
+end;
+
+function tmainmo.encodepathparams(const adir: tgitdirtreenode;
+               const afiles: msegitfileitemarty): string;
+var
+ ar1: msestringarty;
+ fna1: filenamety;
+ int1: integer;
+begin
+ if adir <> nil then begin
+  fna1:= adir.gitpath;
+  if afiles = nil then begin
+   setlength(ar1,1);
+   ar1[0]:= fna1;
+  end
+  else begin
+   setlength(ar1,length(afiles));
+   for int1:= 0 to high(ar1) do begin
+    ar1[int1]:= fna1+afiles[int1].caption;
+   end;
+  end;  
+ end;
+ result:= fgit.encodepathparams(ar1,true);
 end;
 
 { tmsegitfileitem }

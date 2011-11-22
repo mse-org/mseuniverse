@@ -67,7 +67,7 @@ var
  branchfo: tbranchfo;
 implementation
 uses
- branchform_mfm,mainmodule,msewidgets,main,msefileutils,mseeditglob;
+ branchform_mfm,mainmodule,msewidgets,main,msefileutils,mseeditglob,logform;
 
 procedure tbranchfo.doclear;
 begin
@@ -133,9 +133,10 @@ begin
  accept:= checkname(avalue);
  if accept then begin
   if localbranch.value = '' then begin
-   accept:= askyesno('Do you want to create branch '+avalue+'?');
+   accept:= askyesno('Do you want to create branch '+avalue+' from '+
+                  logfo.currentcommit+'?');
    if accept then begin
-    accept:= mainmo.createbranch('',avalue);
+    accept:= mainmo.createbranch('',avalue,logfo.currentcommit);
    end;
   end
   else begin
@@ -162,7 +163,7 @@ begin
    accept:= askyesno('Do you want to create remote branch '+mstr1+' '+
                                                                 avalue+'?');
    if accept then begin
-    accept:= mainmo.createbranch(mstr1,avalue);
+    accept:= mainmo.createbranch(mstr1,avalue,'');
    end;
   end
   else begin

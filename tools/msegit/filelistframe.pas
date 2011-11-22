@@ -32,6 +32,7 @@ type
                    const aitem: tlistitem);
   public
    function currentitem: tmsegitfileitem;
+   function currentitems: msegitfileitemarty;
    function currentfile: filenamety;
    procedure setcurrentfile(const afile: filenamety);
  end;
@@ -84,6 +85,11 @@ begin
   end;
   row:= invalidaxis;
  end;
+end;
+
+function tfilelistframefo.currentitems: msegitfileitemarty;
+begin
+ result:= msegitfileitemarty(fileitemed.selecteditems);
 end;
 
 end.

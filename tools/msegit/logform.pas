@@ -21,7 +21,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,dispform,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mainmodule,
- msegraphedits;
+ msegraphedits,mseact,mseactions;
 
 type
  tlogfo = class(tdispfo)
@@ -31,10 +31,14 @@ type
    commitdate: tdatetimeedit;
    committer: tstringedit;
    diffbase: tbooleaneditradio;
+   tpopupmenu1: tpopupmenu;
+   checkoutact: taction;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
    procedure getmorerowsexe(const sender: tcustomgrid; const count: Integer);
+   procedure checkoutexe(const sender: TObject);
+   procedure updateexe(const sender: tcustomaction);
   private
    fpath: filenamety;
   protected
@@ -43,13 +47,14 @@ type
    procedure getrevs(const skip: integer);
   public
    procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
+   function currentcommit: msestring;
  end;
 
 var
  logfo: tlogfo;
 implementation
 uses
- logform_mfm,msegitcontroller,main;
+ logform_mfm,msegitcontroller,main,dirtreeform,filesform,msewidgets;
 
 { tlogfo }
 
@@ -143,6 +148,33 @@ procedure tlogfo.celleventexe(const sender: TObject; var info: celleventinfoty);
 begin
  if visible and isrowenter(info,true) and (diffbase.checkedrow >= 0) then begin
   mainfo.diffchanged;
+ end;
+end;
+
+procedure tlogfo.updateexe(const sender: tcustomaction);
+var
+ bo1: boolean;
+begin
+ bo1:= mainmo.repoloaded and (grid.row >= 0);
+ checkoutact.enabled:= bo1;
+end;
+
+procedure tlogfo.checkoutexe(const sender: TObject);
+begin
+ if askyesno('Do you want to checkout ' + commit.value+'?') and
+              mainmo.checkout(commit.value,dirtreefo.currentitem,
+                            filesfo.filelist.currentitems) then begin
+  mainfo.reload;
+ end;
+end;
+
+function tlogfo.currentcommit: msestring;
+begin
+ if not isvisible or (grid.row < 0) then begin
+  result:= 'HEAD';
+ end
+ else begin
+  result:= commit.value;
  end;
 end;
 

@@ -12,6 +12,7 @@ inherited logfo: tlogfo
   caption = 'Log'
   moduleclassname = 'tdispfo'
   object grid: twidgetgrid[0]
+    popupmenu = tpopupmenu1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 537
@@ -62,7 +63,7 @@ inherited logfo: tlogfo
       item
         colorfocused = -1879048185
         width = 16
-        options = [co_noctrlmousefocus, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_noctrlmousefocus, co_savestate, co_mousescrollrow]
         widgetname = 'diffbase'
         dataclass = tgridintegerdatalist
       end    
@@ -121,7 +122,7 @@ inherited logfo: tlogfo
       bounds_y = 0
       bounds_cx = 167
       bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       textflags = [tf_noselect]
       textflagsactive = []
       reffontheight = 14
@@ -135,7 +136,7 @@ inherited logfo: tlogfo
       bounds_y = 0
       bounds_cx = 99
       bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       reffontheight = 14
     end
     object commitdate: tdatetimeedit
@@ -165,7 +166,7 @@ inherited logfo: tlogfo
       bounds_y = 0
       bounds_cx = 117
       bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       textflags = [tf_noselect]
       textflagsactive = []
       reffontheight = 14
@@ -174,5 +175,21 @@ inherited logfo: tlogfo
   inherited repoloadedact: taction[1]
   end
   inherited repoclosedact: taction[2]
+  end
+  object tpopupmenu1: tpopupmenu[3]
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        action = checkoutact
+      end>
+    left = 56
+    top = 152
+  end
+  object checkoutact: taction[4]
+    caption = 'Checkout'
+    onexecute = checkoutexe
+    onupdate = updateexe
+    left = 56
+    top = 192
   end
 end
