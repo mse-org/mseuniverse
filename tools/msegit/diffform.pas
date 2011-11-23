@@ -67,9 +67,9 @@ var
  chunkformat,addformat,removeformat: formatinfoarty;
 begin
  if (fpath <> '') or (fa <> '') or (fb <> '') then begin
-  setfontcolor(chunkformat,0,bigint,chunkcolor);
-  setfontcolor(addformat,0,bigint,addcolor);
-  setfontcolor(removeformat,0,bigint,removecolor);
+  setfontcolor1(chunkformat,0,bigint,chunkcolor);
+  setfontcolor1(addformat,0,bigint,addcolor);
+  setfontcolor1(removeformat,0,bigint,removecolor);
   grid.beginupdate;
   try
    ed.gridvalues:= mainmo.git.diff(fa,fb,fpath);
