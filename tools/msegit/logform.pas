@@ -48,6 +48,7 @@ type
   public
    procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
    function currentcommit: msestring;
+   function currentcommithint: msestring;
  end;
 
 var
@@ -175,6 +176,16 @@ begin
  end
  else begin
   result:= commit.value;
+ end;
+end;
+
+function tlogfo.currentcommithint: msestring;
+begin
+ if not isvisible or (grid.row < 0) then begin
+  result:= 'HEAD';
+ end
+ else begin
+  result:= commit.value + lineend + firstline(message.value);
  end;
 end;
 

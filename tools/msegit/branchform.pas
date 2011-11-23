@@ -134,7 +134,7 @@ begin
  if accept then begin
   if localbranch.value = '' then begin
    accept:= askyesno('Do you want to create branch '+avalue+' from '+
-                  logfo.currentcommit+'?');
+                  logfo.currentcommithint+'?');
    if accept then begin
     accept:= mainmo.createbranch('',avalue,logfo.currentcommit);
    end;
