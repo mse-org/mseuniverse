@@ -25,7 +25,7 @@ uses
  msesimplewidgets,msewidgets,msegitcontroller;
 
 const
- defaultmaxlog = 100;
+ defaultmaxlog = 50;
 type
  tmsegitfileitem = class(tgitfileitem)
   protected
