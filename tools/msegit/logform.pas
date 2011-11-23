@@ -84,10 +84,10 @@ begin
     po4[int1]:= committer;
    end;
   end;
-  grid.sortinvalid;
   if (skip = 0) and (grid.rowcount > 0) then begin
    grid.row:= 0;
   end;
+  grid.rowdatachanged;
   grid.endupdate;
   if diffbase.checkedrow >= 0 then begin
    mainfo.diffchanged;
