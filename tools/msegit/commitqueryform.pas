@@ -190,7 +190,7 @@ begin
  bo1:= filecountdisp.value > 0;
  unstage.enabled:= bo1 and not fstaged;
  stage.enabled:= bo1 and not fstaged;
- ammend.enabled:= bo1 and not fstaged;
+ ammend.enabled:= {bo1 and} not fstaged;
  commit.enabled:= bo1 or fstaged;
 end;
 

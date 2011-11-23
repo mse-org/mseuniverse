@@ -858,7 +858,7 @@ var
  str1: string;
 begin
  result:= false;
- if afiles <> nil then begin
+ if (afiles <> nil) or (akind = ck_amend) then begin
   case akind of
    ck_stage: begin
     str1:= 'add ';
