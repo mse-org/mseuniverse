@@ -102,6 +102,22 @@ object optionsfo: toptionsfo
         bounds_cx = 102
         bounds_cy = 16
       end
+      object diffcontextn: tintegeredit
+        frame.caption = 'diff context lines'
+        frame.captionpos = cp_right
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          0
+          90
+          0
+        )
+        taborder = 3
+        bounds_x = 8
+        bounds_y = 102
+        bounds_cx = 118
+        reffontheight = 14
+      end
     end
   end
   object tstatfile1: tstatfile

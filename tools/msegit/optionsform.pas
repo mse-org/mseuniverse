@@ -34,6 +34,7 @@ type
    gitcommand: tfilenameedit;
    maxlog: tintegeredit;
    showutc: tbooleanedit;
+   diffcontextn: tintegeredit;
  end;
 
 procedure editoptions;

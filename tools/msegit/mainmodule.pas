@@ -26,6 +26,7 @@ uses
 
 const
  defaultmaxlog = 50;
+ defaultdiffcontextn = 3;
 type
  tmsegitfileitem = class(tgitfileitem)
   protected
@@ -46,6 +47,7 @@ type
    fshowignoreditems: boolean;
    fmaxlog: integer;
    fshowutc: boolean;
+   fdiffcontextn: integer;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -60,6 +62,7 @@ type
    property gitcommand: msestring read getgitcommand write setgitcommand;
    property maxlog: integer read fmaxlog write fmaxlog;
    property showutc: boolean read fshowutc write fshowutc;
+   property diffcontextn: integer read fdiffcontextn write fdiffcontextn;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -1600,6 +1603,7 @@ constructor tmsegitoptions.create(const aowner: tmainmo);
 begin
  fowner:= aowner;
  fmaxlog:= defaultmaxlog;
+ fdiffcontextn:= defaultdiffcontextn;
 end;
 
 procedure tmsegitoptions.setshowignoreditems(const avalue: boolean);

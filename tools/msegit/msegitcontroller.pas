@@ -214,7 +214,8 @@ type
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: branchinfoarty;
                            out activebranch: msestring): boolean;
-   function diff(const a,b: msestring; const afile: filenamety): msestringarty;
+   function diff(const a,b: msestring; const afile: filenamety;
+                 const acontextn: integer = 3): msestringarty;
    function issha1(const avalue: string; out asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
@@ -845,14 +846,15 @@ begin
  end;
 end;
 
-function tgitcontroller.diff(const a,b: msestring;
-                                  const afile: filenamety): msestringarty;
+function tgitcontroller.diff(const a,b: msestring; const afile: filenamety;
+                                  const acontextn: integer = 3): msestringarty;
 var
  mstr1: msestring;
 // str1: string;
 begin
  result:= nil;
- if commandresult1('diff '+noemptystringparam(a)+noemptystringparam(b)+
+ if commandresult1('diff --unified='+inttostr(acontextn)+' '+
+                       noemptystringparam(a)+noemptystringparam(b)+
                        ' -- '+encodepathparam(afile,true),mstr1) then begin
   result:= breaklines(mstr1);
  end;

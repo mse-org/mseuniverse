@@ -72,7 +72,7 @@ begin
   setfontcolor1(removeformat,0,bigint,removecolor);
   grid.beginupdate;
   try
-   ed.gridvalues:= mainmo.git.diff(fa,fb,fpath);
+   ed.gridvalues:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
    po1:= ed.datalist.datapo;
    for int1:= 0 to ed.datalist.count-1 do begin
     with po1^[int1] do begin
