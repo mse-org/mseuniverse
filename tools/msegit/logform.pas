@@ -33,6 +33,7 @@ type
    diffbase: tbooleaneditradio;
    tpopupmenu1: tpopupmenu;
    checkoutact: taction;
+   num: tintegeredit;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -64,6 +65,7 @@ var
  ar1: refinfoarty;
  po1,po2,po4: pmsestring;
  po3: pdatetime;
+ po5: pinteger;
  int1: integer;
 begin
  if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog,skip) then begin
@@ -76,12 +78,14 @@ begin
   po2:= commit.griddata.datapo;
   po3:= commitdate.griddata.datapo;
   po4:= committer.griddata.datapo;
+  po5:= num.griddata.datapo;
   for int1:= skip to high(ar1)+skip do begin
    with ar1[int1-skip] do begin
     po1[int1]:= message;
     po2[int1]:= commit;
     po3[int1]:= commitdate;
     po4[int1]:= committer;
+    po5[int1]:= int1;
    end;
   end;
   if (skip = 0) and (grid.rowcount > 0) then begin
