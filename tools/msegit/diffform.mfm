@@ -13,6 +13,7 @@ inherited difffo: tdifffo
   onshow = showexe
   moduleclassname = 'tdispfo'
   object grid: twidgetgrid[0]
+    popupmenu = tpopupmenu1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
@@ -28,7 +29,7 @@ inherited difffo: tdifffo
         dataclass = tgridrichstringdatalist
       end>
     datarowlinewidth = 0
-    datarowheight = 15
+    datarowheight = 14
     reffontheight = 14
     object ed: ttextedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontlineheight]
@@ -38,16 +39,33 @@ inherited difffo: tdifffo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 2000
-      bounds_cy = 15
+      bounds_cy = 14
       font.name = 'stf_fixed'
       font.xscale = 1
       font.dummy = 0
       optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
-      reffontheight = 15
+      reffontheight = 14
     end
   end
   inherited repoloadedact: taction[1]
   end
   inherited repoclosedact: taction[2]
+  end
+  object tpopupmenu1: tpopupmenu[3]
+    onupdate = popupupdateexe
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        caption = 'External &diff'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = externaldiffexe
+      end>
+    left = 168
+    top = 96
+  end
+  object externaldiffact: taction[4]
+    caption = 'Difftool'
+    left = 168
+    top = 120
   end
 end

@@ -27,10 +27,15 @@ type
  tdifffo = class(tdispfo)
    grid: twidgetgrid;
    ed: ttextedit;
+   tpopupmenu1: tpopupmenu;
+   externaldiffact: taction;
+   procedure externaldiffexe(const sender: TObject);
+   procedure popupupdateexe(const sender: tcustommenu);
   private
    fpath: msestring;
    fa: msestring;
    fb: msestring;
+   fcanexternaldiff: boolean;
   protected
    procedure dorefresh; override;
    procedure doclear; override;
@@ -54,10 +59,21 @@ const
 
 procedure tdifffo.doclear;
 begin
+ fcanexternaldiff:= false;
  fpath:= '';
  fa:= '';
  fb:= '';
  grid.clear;
+end;
+
+procedure tdifffo.externaldiffexe(const sender: TObject);
+begin
+ with mainmo.git do begin
+  mainmo.execgitconsole('difftool -y --tool='+
+              encodestringparam(mainmo.opt.externaldiff)+' '+
+                       noemptystringparam(fa)+noemptystringparam(fb)+
+                       ' -- '+encodepathparam(fpath,true));
+ end;
 end;
 
 procedure tdifffo.dorefresh;
@@ -104,13 +120,20 @@ procedure tdifffo.refresh(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem;
                    const oldcommit: msestring; const newcommit: msestring);
 begin
+ fcanexternaldiff:= false;
  fpath:= '';
  fa:= newcommit;
  fb:= oldcommit;
  if (adir <> nil) and (afile <> nil) then begin
   fpath:= adir.gitpath+afile.caption;
+  fcanexternaldiff:= true;
  end;
  inherited refresh;
+end;
+
+procedure tdifffo.popupupdateexe(const sender: tcustommenu);
+begin
+ externaldiffact.enabled:= fcanexternaldiff and (mainmo.opt.externaldiff <> '');
 end;
 
 end.

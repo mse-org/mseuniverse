@@ -17,6 +17,7 @@ object commitqueryfo: tcommitqueryfo
   caption = 'Commit'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
+    taborder = 1
     bounds_x = 464
     bounds_y = 256
     bounds_cx = 50
@@ -192,7 +193,6 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
-    taborder = 1
     visible = True
     bounds_x = 387
     bounds_y = 0
@@ -235,6 +235,17 @@ object commitqueryfo: tcommitqueryfo
     inherited tstatfile1: tstatfile
     end
     inherited repoclosedact: taction
+    end
+    inherited tpopupmenu1: tpopupmenu
+      menu.submenu.items = <      
+        item
+        end>
+      left = 0
+      top = 0
+    end
+    inherited externaldiffact: taction
+      left = 0
+      top = 0
     end
   end
   object tsplitter2: tsplitter

@@ -48,6 +48,7 @@ type
    fmaxlog: integer;
    fshowutc: boolean;
    fdiffcontextn: integer;
+   fexternaldiff: msestring;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -63,6 +64,7 @@ type
    property maxlog: integer read fmaxlog write fmaxlog;
    property showutc: boolean read fshowutc write fshowutc;
    property diffcontextn: integer read fdiffcontextn write fdiffcontextn;
+   property externaldiff: msestring read fexternaldiff write fexternaldiff;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
