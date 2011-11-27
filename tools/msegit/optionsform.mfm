@@ -21,7 +21,7 @@ object optionsfo: toptionsfo
     bounds_cx = 50
     bounds_cy = 20
     anchors = [an_left, an_bottom]
-    state = [as_default, as_localdefault, as_localcaption]
+    state = [as_localdefault, as_localcaption]
     caption = '&Cancel'
     modalresult = mr_cancel
   end
@@ -32,7 +32,7 @@ object optionsfo: toptionsfo
     bounds_cx = 50
     bounds_cy = 20
     anchors = [an_left, an_bottom]
-    state = [as_localcaption]
+    state = [as_default, as_localdefault, as_localcaption]
     caption = '&OK'
     modalresult = mr_ok
   end
