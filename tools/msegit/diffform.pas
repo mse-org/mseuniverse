@@ -70,7 +70,7 @@ procedure tdifffo.externaldiffexe(const sender: TObject);
 begin
  with mainmo.git do begin
   mainmo.execgitconsole('difftool -y --tool='+
-              encodestringparam(mainmo.opt.externaldiff)+' '+
+              encodestringparam(mainmo.opt.difftool)+' '+
                        noemptystringparam(fa)+noemptystringparam(fb)+
                        ' -- '+encodepathparam(fpath,true));
  end;
@@ -133,7 +133,7 @@ end;
 
 procedure tdifffo.popupupdateexe(const sender: tcustommenu);
 begin
- externaldiffact.enabled:= fcanexternaldiff and (mainmo.opt.externaldiff <> '');
+ externaldiffact.enabled:= fcanexternaldiff and (mainmo.opt.difftool <> '');
 end;
 
 end.

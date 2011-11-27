@@ -48,7 +48,8 @@ type
    fmaxlog: integer;
    fshowutc: boolean;
    fdiffcontextn: integer;
-   fexternaldiff: msestring;
+   fdifftool: msestring;
+   fmergetool: msestring;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -64,7 +65,8 @@ type
    property maxlog: integer read fmaxlog write fmaxlog;
    property showutc: boolean read fshowutc write fshowutc;
    property diffcontextn: integer read fdiffcontextn write fdiffcontextn;
-   property externaldiff: msestring read fexternaldiff write fexternaldiff;
+   property difftool: msestring read fdifftool write fdifftool;
+   property mergetool: msestring read fmergetool write fmergetool;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -1139,7 +1141,8 @@ end;
 
 function tmainmo.mergetoolcall(const afiles: filenamearty): boolean;
 begin
- result:= execgitconsole('mergetool --no-prompt '+
+ result:= execgitconsole('mergetool --no-prompt --tool='+
+                            git.encodestringparam(opt.mergetool)+' '+
                               fgit.encodepathparams(afiles,true));
 end;
 

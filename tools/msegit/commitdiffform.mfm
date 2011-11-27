@@ -33,6 +33,8 @@ inherited commitdifffo: tcommitdifffo
   inherited tpopupmenu1: tpopupmenu[4]
     menu.submenu.items = <    
       item
+        caption = 'External &diff'
+        state = [as_localcaption, as_localonexecute]
       end>
   end
   inherited externaldiffact: taction[5]

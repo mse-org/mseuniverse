@@ -35,7 +35,8 @@ type
    maxlog: tintegeredit;
    showutc: tbooleanedit;
    diffcontextn: tintegeredit;
-   externaldiff: thistoryedit;
+   difftool: thistoryedit;
+   mergetool: thistoryedit;
  end;
 
 procedure editoptions;

@@ -56,15 +56,14 @@ inherited difffo: tdifffo
     menu.submenu.count = 1
     menu.submenu.items = <    
       item
-        caption = 'External &diff'
-        state = [as_localcaption, as_localonexecute]
-        onexecute = externaldiffexe
+        action = externaldiffact
       end>
     left = 168
     top = 96
   end
   object externaldiffact: taction[4]
     caption = 'Difftool'
+    onexecute = externaldiffexe
     left = 168
     top = 120
   end
