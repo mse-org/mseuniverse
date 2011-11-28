@@ -77,6 +77,7 @@ procedure tgitconsolefo.sendtextexe(const sender: TObject; var atext: msestring;
 var
  fna1: filenamety;
  po1: pmsechar;
+ bo1: boolean;
 begin
  if mainmo.reporoot <> '' then begin
 //  application.lock;
@@ -86,11 +87,23 @@ begin
     termed.prompt:= prompt+atext;
     if msestartsstr('cd ',atext) then begin
      po1:= pmsechar(pointer(atext))+3;
+     bo1:= false;
      while po1^ = ' ' do begin
       inc(po1);
      end;
-     fna1:= filepath(fpath+
-               copy(atext,po1-pmsechar(pointer(atext))+1,bigint),fk_dir,true);
+     bo1:= false;
+     if po1^ = '/' then begin
+      bo1:= true;
+      inc(po1);
+     end;
+     if not bo1 then begin
+      fna1:= fpath;
+     end
+     else begin
+      fna1:= '';
+     end;     
+     fna1:= filepath(fna1+copy(atext,po1-pmsechar(pointer(atext))+1,bigint),
+                                                                  fk_dir,true);
      if dirtreefo.setcurrentgitdir(fna1) then begin
       fpath:= fna1;
       mainfo.objchanged;
