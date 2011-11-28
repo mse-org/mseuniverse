@@ -25,10 +25,8 @@ uses
 
 type
  tgitconsolefo = class(tdockform)
-   dirdisp: tstringdisp;
    grid: twidgetgrid;
    termed: tterminal;
-   tspacer1: tspacer;
    popupmen: tpopupmenu;
    procedure sendtextexe(const sender: TObject; var atext: msestring;
                    var donotsend: Boolean);
@@ -37,6 +35,10 @@ type
    procedure popupupdateexe(const sender: tcustommenu);
   private
    fexecgitwaiting: boolean;
+   fpath: filenamety;
+  protected
+   procedure refreshprompt;
+   function prompt: msestring;
   public
    procedure synctodirtree(const apath: filenamety);
    procedure init;
@@ -46,38 +48,72 @@ type
  
 var
  gitconsolefo: tgitconsolefo;
+
 implementation
 uses
- gitconsole_mfm,mainmodule,msefileutils,main;
-const
- prompt = '(git)-> ';
+ gitconsole_mfm,mainmodule,msefileutils,main,dirtreeform;
+
 { tgitconsolefo }
+
+function tgitconsolefo.prompt: msestring;
+begin
+ result:= '(git)'+fpath+'> ';
+end;
 
 procedure tgitconsolefo.synctodirtree(const apath: filenamety);
 begin
- dirdisp.value:= apath;
+ fpath:= apath;
+ refreshprompt;
+// dirdisp.value:= apath;
+end;
+
+procedure tgitconsolefo.refreshprompt;
+begin
+ termed.prompt:= prompt;
 end;
 
 procedure tgitconsolefo.sendtextexe(const sender: TObject; var atext: msestring;
                var donotsend: Boolean);
 var
  fna1: filenamety;
+ po1: pmsechar;
 begin
  if mainmo.reporoot <> '' then begin
-  application.lock;
-  try
+//  application.lock;
+//  try
    if not termed.running then begin
     donotsend:= true;
-    fna1:= setcurrentdirmse(mainmo.reporoot+'/'+dirdisp.value);
-    try
-     termed.execprog(mainmo.git.encodegitcommand(atext)); //encoding?
-    finally
-     setcurrentdirmse(fna1);
+    termed.prompt:= prompt+atext;
+    if msestartsstr('cd ',atext) then begin
+     po1:= pmsechar(pointer(atext))+3;
+     while po1^ = ' ' do begin
+      inc(po1);
+     end;
+     fna1:= filepath(fpath+
+               copy(atext,po1-pmsechar(pointer(atext))+1,bigint),fk_dir,true);
+     if dirtreefo.setcurrentgitdir(fna1) then begin
+      fpath:= fna1;
+      mainfo.objchanged;
+     end
+     else begin
+      termed.addline('cd: '+quotefilename(fna1)+': git directory not found.');
+     end;
+     termed.addline('');
+     refreshprompt;
+    end
+    else begin
+     termed.addline('');
+     fna1:= setcurrentdirmse(mainmo.reporoot+'/'+fpath);
+     try
+      termed.execprog(mainmo.git.encodegitcommand(atext)); //encoding?
+     finally
+      setcurrentdirmse(fna1);
+     end;
     end;
    end;
-  finally
-   application.unlock;
-  end;   
+//  finally
+//   application.unlock;
+//  end;   
  end;
 end;
 

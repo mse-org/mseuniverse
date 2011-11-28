@@ -59,7 +59,8 @@ type
    procedure savestate;
    procedure restorestate;
    function currentgitdir: filenamety;
-   procedure setcurrentgitdir(const adir: filenamety);
+   function setcurrentgitdir(const adir: filenamety): boolean;
+                     //true if found
    function currentitem: tgitdirtreenode;
  end;
 
@@ -155,7 +156,7 @@ function tdirtreefo.currentgitdir: filenamety;
 begin
  result:= '';
  if treeed.item <> nil then begin
-  result:= tgitdirtreenode(treeed.item).path;
+  result:= tgitdirtreenode(treeed.item).gitpath;
  end;
 end;
 
@@ -218,20 +219,24 @@ begin
  sender.enabled:= mainmo.canremove(gitdirtreenodearty(treeed.selecteditems));
 end;
 
-procedure tdirtreefo.setcurrentgitdir(const adir: filenamety);
+function tdirtreefo.setcurrentgitdir(const adir: filenamety): boolean;
 var
  ar1: msestringarty;
  n1: ttreelistitem;
 begin
- if (grid.rowcount > 0) and (adir <> '') then begin
+ result:= false;
+ if (grid.rowcount > 0){ and (adir <> '')} then begin
   ar1:= splitstring(adir,'/');
   n1:= treeed.items[0];
-  setlength(ar1,high(ar1));
-  if high(ar1) > 0 then begin
-   deleteitem(ar1,0);   
-   n1:= n1.finditembycaption(ar1);
+  if ar1 <> nil then begin
+   setlength(ar1,high(ar1));
   end;
-  if (n1 <> nil) and (n1.index >= 0) then begin
+  if high(ar1) >= 0 then begin
+//   deleteitem(ar1,0);   
+   n1:= n1.finditembycaption(ar1,true,true);
+  end;
+  result:= n1 <> nil;
+  if result and (n1.index >= 0) then begin
    grid.row:= n1.index;
    if not grid.entered then begin
     grid.datacols.clearselection;
