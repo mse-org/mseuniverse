@@ -44,7 +44,7 @@ var
  dispfo: tdispfo;
 implementation
 uses
- dispform_mfm,mainmodule;
+ dispform_mfm,mainmodule,main;
  
 procedure tdispfo.showexe(const sender: TObject);
 begin
@@ -75,7 +75,7 @@ end;
 
 procedure tdispfo.refresh;
 begin
- if isvisible and mainmo.repoloaded then begin
+ if isvisible and mainmo.repoloaded and not mainfo.refreshing then begin
   finfovalid:= true;
   dorefresh;
  end
