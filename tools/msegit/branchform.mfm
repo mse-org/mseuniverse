@@ -39,11 +39,16 @@ inherited branchfo: tbranchfo
             hint = 'Track remote branch'
           end>
       end>
+    rowcolors.count = 1
+    rowcolors.items = (
+      -1879048185
+    )
     datacols.count = 3
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
         width = 61
+        onbeforedrawcell = befremotecoldraw
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remote'
         dataclass = tgridmsestringdatalist
@@ -134,6 +139,10 @@ inherited branchfo: tbranchfo
             hint = 'Track remote branch'
           end>
       end>
+    rowcolors.count = 1
+    rowcolors.items = (
+      -1879048185
+    )
     datacols.count = 2
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    

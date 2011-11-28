@@ -29,6 +29,7 @@ object gitconsolefo: tgitconsolefo
     reffontheight = 14
   end
   object grid: twidgetgrid
+    frame.localprops = [frl_framewidth, frl_fitop, frl_fibottom]
     taborder = 1
     popupmenu = popupmen
     bounds_x = 0
@@ -46,7 +47,7 @@ object gitconsolefo: tgitconsolefo
         dataclass = tgridrichstringdatalist
       end>
     datarowlinewidth = 0
-    datarowheight = 16
+    datarowheight = 15
     reffontheight = 14
     object termed: tterminal
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontlineheight, ow_autoscale]
@@ -56,7 +57,7 @@ object gitconsolefo: tgitconsolefo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 1000
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_focusrectonreadonly, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
       font.name = 'stf_fixed'
       font.xscale = 1
@@ -68,7 +69,7 @@ object gitconsolefo: tgitconsolefo
       onprocfinished = procfiexe
       onsendtext = sendtextexe
       optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_tty, pro_echo, pro_icanon, pro_inactive, pro_ctrlc]
-      reffontheight = 15
+      reffontheight = 14
     end
   end
   object tspacer1: tspacer

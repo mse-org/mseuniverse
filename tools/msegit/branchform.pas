@@ -57,6 +57,8 @@ type
    procedure localdeleteexe(const sender: TObject);
    procedure remoterowinsertexe(const sender: tcustomgrid; var aindex: Integer;
                    var acount: Integer);
+   procedure befremotecoldraw(const sender: tcol; const canvas: tcanvas;
+                   var cellinfo: cellinfoty; var processed: Boolean);
   protected
    function currentremote: msestring;
    procedure doclear; override;
@@ -85,6 +87,7 @@ procedure tbranchfo.dorefresh;
 var
  int1,int2,int3: integer;
  mstr1: msestring;
+ bo1: boolean;
 begin
  localgrid.rowcount:= length(mainmo.branches);
  with localgrid do begin
@@ -94,6 +97,9 @@ begin
   with mainmo.branches[int1] do begin
    localbranch[int1]:= name;
    localactive[int1]:= active;
+   if active then begin
+    localgrid.rowcolorstate[int1]:= 0;
+   end;
   end;
  end;
  int3:= 0;
@@ -103,8 +109,10 @@ begin
     remotegrid.rowcount:= 1 + int3 + length(branches);
     remote[int3]:= name;
     mstr1:= mainmo.activeremotebranch[name];
-    if name = mainmo.activeremote then begin
+    bo1:= name = mainmo.activeremote;
+    if bo1 then begin
      remoteactive[int3]:= true;
+     remotegrid.rowcolorstate[int3]:= 0;
     end;
     remotegrid.datacols.mergecols(int3,0,1);
     inc(int3);
@@ -113,6 +121,9 @@ begin
       remotebranch[int3]:= name;
       if name = mstr1 then begin
        remoteactive[int3]:= true;
+       if bo1 then begin
+        remotegrid.rowcolorstate[int3]:= 0;
+       end;
       end;
      end;
      inc(int3);
@@ -210,11 +221,26 @@ procedure tbranchfo.remoteactivesetexe(const sender: TObject;
 var
  int1: integer;
  mstr1: msestring;
+ bo1: boolean;
 begin
  if remote.value <> '' then begin  //switch remote
+  bo1:= false;
   for int1:= 0 to remotegrid.rowhigh do begin
+   remotegrid.rowcolorstate[int1]:= -1;
    if remote[int1] <> '' then begin
+    bo1:= false;
+    if remotegrid.row = int1 then begin
+     if avalue then begin
+      bo1:= true;
+      remotegrid.rowcolorstate[int1]:= 0;
+     end;     
+    end;
     remoteactive[int1]:= false;
+   end
+   else begin
+    if bo1 and remoteactive[int1] then begin
+     remotegrid.rowcolorstate[int1]:= 0;
+    end;
    end;
   end;
   mainmo.activeremote:= remote.value;
@@ -227,17 +253,24 @@ begin
     break;
    end;
   end;
+  bo1:= false;
   for int1:= remotegrid.row - 1 downto 0 do begin
    if remote[int1] <> '' then begin
+    bo1:= remoteactive[int1];
     break;
    end;
    remoteactive[int1]:= false;
+   remotegrid.rowcolorstate[int1]:= -1;
   end;
   for int1:= remotegrid.row+1 to remotegrid.rowhigh do begin
    if remote[int1] <> '' then begin
     break;
    end;
    remoteactive[int1]:= false;
+   remotegrid.rowcolorstate[int1]:= -1;
+  end;
+  if bo1 then begin
+   remotegrid.rowcolorstate[-1]:= 0;
   end;
   if mstr1 <> '' then begin
    trydeletefile('.git/FETCH_HEAD'); //invalid
@@ -332,6 +365,16 @@ procedure tbranchfo.remoterowinsertexe(const sender: tcustomgrid;
 begin
  if aindex = 0 then begin
   acount:= 0;
+ end;
+end;
+
+procedure tbranchfo.befremotecoldraw(const sender: tcol; const canvas: tcanvas;
+               var cellinfo: cellinfoty; var processed: Boolean);
+begin
+ with cellinfo do begin
+  if remote[cell.row] = '' then begin
+   color:= cl_transparent;
+  end;
  end;
 end;
 
