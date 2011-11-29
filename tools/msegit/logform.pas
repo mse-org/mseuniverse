@@ -21,12 +21,16 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,dispform,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mainmodule,
- msegraphedits,mseact,mseactions;
+ msegraphedits,mseact,mseactions,mselistbrowser,msedatanodes;
 
 type
+ tlogitem = class(tlistedititem)
+ end;
+ plogitem = ^tlogitem;
+ 
  tlogfo = class(tdispfo)
    grid: twidgetgrid;
-   message: tstringedit;
+   message: titemedit;
    commit: tstringedit;
    commitdate: tdatetimeedit;
    committer: tstringedit;
@@ -40,6 +44,8 @@ type
    procedure getmorerowsexe(const sender: tcustomgrid; const count: Integer);
    procedure checkoutexe(const sender: TObject);
    procedure updateexe(const sender: tcustomaction);
+   procedure createmessageitemexe(const sender: tcustomitemlist;
+                   var item: tlistedititem);
   private
    fpath: filenamety;
   protected
@@ -63,7 +69,8 @@ uses
 procedure tlogfo.getrevs(const skip: integer);
 var
  ar1: refinfoarty;
- po1,po2,po4: pmsestring;
+ po1: plogitem;
+ po2,po4: pmsestring;
  po3: pdatetime;
  po5: pinteger;
  int1: integer;
@@ -81,7 +88,7 @@ begin
   po5:= num.griddata.datapo;
   for int1:= skip to high(ar1)+skip do begin
    with ar1[int1-skip] do begin
-    po1[int1]:= message;
+    po1[int1].caption:= message;
     po2[int1]:= commit;
     po3[int1]:= commitdate;
     po4[int1]:= committer;
@@ -189,8 +196,14 @@ begin
   result:= 'HEAD';
  end
  else begin
-  result:= commit.value + lineend + firstline(message.value);
+  result:= commit.value + lineend + firstline(message.item.caption);
  end;
+end;
+
+procedure tlogfo.createmessageitemexe(const sender: tcustomitemlist;
+               var item: tlistedititem);
+begin
+ item:= tlogitem.create(sender);
 end;
 
 end.

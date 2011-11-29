@@ -47,7 +47,7 @@ type
 
 implementation
 uses
- revertqueryform_mfm,msedatanodes,lastmessageform,msearrayutils;
+ revertqueryform_mfm,msedatanodes,lastmessageform,msearrayutils,main;
 
 { trevertqueryfo }
  
@@ -75,6 +75,9 @@ begin
   filecountdisp.value:= length(ar1);
   if show(ml_application) = mr_ok then begin
    result:= mainmo.revert(filelist.selectedfiles(aroot));
+   if result then begin
+    mainfo.updatestate;
+   end;
   end;
  finally
   release;
