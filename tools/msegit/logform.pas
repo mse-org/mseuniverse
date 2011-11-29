@@ -30,7 +30,7 @@ type
  end;
  logbranchinfoarty = array of logbranchinfoty;
  
- tlogitem = class(tlistedititem)
+ tlogitem = class(trichlistedititem)
   protected
    fbranchinfo: logbranchinfoarty;
   public
@@ -74,7 +74,7 @@ var
 implementation
 
 uses
- logform_mfm,msegitcontroller,main,dirtreeform,filesform,msewidgets;
+ logform_mfm,msegitcontroller,main,dirtreeform,filesform,msewidgets,mserichstring;
 
 { tlogfo }
 
@@ -87,29 +87,41 @@ var
  po5: pinteger;
  int1,int2: integer;
  ar2: refsitemarty;
+ fm1: formatinfoarty;
+ rs1: richstringty;
 begin
  if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog,skip) then begin
   if skip = 0 then begin
    diffbase.checkedrow:= -1;
   end;
   grid.beginupdate;
+//  message.itemlist.beginupdate;
   grid.rowcount:= length(ar1)+skip;
   po1:= message.griddata.datapo;
   po2:= commit.griddata.datapo;
   po3:= commitdate.griddata.datapo;
   po4:= committer.griddata.datapo;
   po5:= num.griddata.datapo;
+  fm1:= setcolorbackground(nil,0,bigint,cl_transparent);
   for int1:= skip to high(ar1)+skip do begin
    with ar1[int1-skip] do begin
     with po1[int1] do begin
      fcaption:= message;
+     fformat:= nil;
      ar2:= mainmo.refsinfo.getitemsbycommit(commit);
      setlength(fbranchinfo,length(ar2));
      for int2:= 0 to high(ar2) do begin
       with fbranchinfo[int2] do begin
        remotename:= ar2[int2].remote;
        branchname:= ar2[int2].info.name;
-       fcaption:= remotename+':'+branchname+' '+fcaption;
+       fcaption:= ' '+fcaption;
+       if fformat = nil then begin
+        fformat:= fm1;
+       end;
+       rs1:= richconcat(remotename+':'+branchname,richcaption,[],
+                       cl_none,cl_ltgreen);
+       fcaption:= rs1.text;
+       fformat:= rs1.format;
       end;
      end;
     end;
@@ -122,6 +134,7 @@ begin
   if (skip = 0) and (grid.rowcount > 0) then begin
    grid.row:= 0;
   end;
+//  message.itemlist.endupdate;
   grid.rowdatachanged;
   grid.endupdate;
   if diffbase.checkedrow >= 0 then begin
