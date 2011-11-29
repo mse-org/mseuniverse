@@ -67,7 +67,9 @@ type
  
 var
  branchfo: tbranchfo;
+
 implementation
+
 uses
  branchform_mfm,mainmodule,msewidgets,main,msefileutils,mseeditglob,logform;
 
@@ -95,7 +97,7 @@ begin
  end;
  for int1:= 0 to localgrid.rowhigh do begin
   with mainmo.branches[int1] do begin
-   localbranch[int1]:= name;
+   localbranch[int1]:= info.name;
    localactive[int1]:= active;
    if active then begin
     localgrid.rowcolorstate[int1]:= 0;
@@ -118,8 +120,8 @@ begin
     inc(int3);
     for int2:= 0 to high(branches) do begin
      with branches[int2] do begin
-      remotebranch[int3]:= name;
-      if name = mstr1 then begin
+      remotebranch[int3]:= info.name;
+      if info.name = mstr1 then begin
        remoteactive[int3]:= true;
        if bo1 then begin
         remotegrid.rowcolorstate[int3]:= 0;

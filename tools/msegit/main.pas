@@ -204,6 +204,7 @@ begin
   frefreshing:= false;
   dirtreefo.restorestate;
   filesfo.restorestate;
+  branchfo.refresh;
   objchanged;
  end;
 end;
