@@ -22,7 +22,7 @@ uses
  mserttistat,mseact,mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,
  mseedit,msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,
  mselistbrowser,msemenus,msestrings,msesys,msetypes,mseificomp,mseificompglob,
- msesimplewidgets,msewidgets,msegitcontroller;
+ msesimplewidgets,msewidgets,msegitcontroller,msehash;
 
 const
  defaultmaxlog = 50;
@@ -30,7 +30,6 @@ const
 type
  tmsegitfileitem = class(tgitfileitem)
   protected
-//   procedure drawimage(const acanvas: tcanvas); override;
   public
    constructor create; override;
    function getoriginicon: integer;
@@ -73,8 +72,6 @@ type
   private
    fgitstate: gitstatedataty;
    fdirstate: gitstatedataty;
-//   fstatex: gitstatesty;
-//   fstatey: gitstatesty;
   protected
    procedure setstate(const astate: gitstateinfoty; var aname: lmsestringty);
   public
@@ -118,9 +115,35 @@ type
    property commitmessages: msestringarty read fcommitmessages 
                                                  write fcommitmessages;
    property commitmessage: msestring read fcommitmessage write fcommitmessage;
-//   property reponames: msestringarty read freponames write freponames
  end;
 
+ trefsitem = class
+  public
+   remote: msestring;
+   info: refsinfoty;
+ end;
+ refsitemarty = array of trefsitem;
+ 
+ trefsnamelist = class(tobjectmsestringhashdatalist)
+  public
+   constructor create;
+   procedure add(const aitem: trefsitem);
+ end;
+ 
+ trefsitemlist = class(tobjectmsestringhashdatalist)
+  private
+   fnamelist: trefsnamelist;
+  protected
+   fitems: refsitemarty;
+   fitemscount: integer;
+   procedure listitems(var item: objectmsestringdataty);
+  public
+   constructor create;
+   destructor destroy; override;
+   procedure add(const aremote: msestring; const ainfo: refsinfoty);
+   function getitemsbycommit(const  acommit: msestring): refsitemarty;
+ end;
+ 
  tmainmo = class(tmsedatamodule)
    optionsobj: trttistat;
    mainstat: tstatfile;
@@ -147,6 +170,7 @@ type
    frepostat: trepostat;
    fdirtree: tgitdirtreerootnode;
    ffilecache: tgitfilecache;
+   frefsinfo: trefsitemlist;
    fgit: tgitcontroller;
    fgitstate: tgitstatecache;
    fpathstart: integer;
@@ -158,10 +182,9 @@ type
    fkind: commitkindty;
    fmergehead: msestring;
    fmergemessage: msestring;
-   fbranches: branchinfoarty;
+   fbranches: localbranchinfoarty;
    factivebranch: msestring;
    fhasremote: boolean;
-//   fgitpathlevel: integer;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
@@ -191,7 +214,6 @@ type
    destructor destroy; override;
    function execgitconsole(const acommand: string): boolean;
                         //true if OK
-//   property gitpathlevel: integer read fgitpathlevel;
    function getpath(const adir: tgitdirtreenode;
                            const afilename: filenamety): filenamety;
                     //returns path relative to reporoot
@@ -273,13 +295,14 @@ type
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
    property activebranch: msestring read factivebranch;
-   property branches: branchinfoarty read fbranches;
+   property branches: localbranchinfoarty read fbranches;
    property remotesinfo: remoteinfoarty read fremotesinfo;
    property activeremote: msestring read factiveremote write setactiveremote;
    property activeremotebranch[const aremote: msestring]: msestring read
                      getactiveremotebranch write setactiveremotebranch;
    function remotetarget: msestring;
    property git: tgitcontroller read fgit;
+   property refsinfo: trefsitemlist read frefsinfo;
  end;
  
 var
@@ -422,11 +445,11 @@ end;
 
 constructor tmainmo.create(aowner: tcomponent);
 begin
-// fgitpathlevel:= 1;
  fopt:= tmsegitoptions.create(self);
  frepostat:= trepostat.create;
  ffilecache:= tgitfilecache.create;
  fdirtree:= tgitdirtreerootnode.create;
+ frefsinfo:= trefsitemlist.create;
  fgit:= tgitcontroller.create(nil);
  inherited;
 end;
@@ -439,6 +462,7 @@ begin
  fopt.free;
  fdirtree.free;
  ffilecache.free;
+ frefsinfo.free;
  inherited;
 end;
 
@@ -472,6 +496,7 @@ begin
  fdirtree.clear;
  ffilecache.clear;
  freeandnil(fgitstate);
+ frefsinfo.clear;
  if frepo <> '' then begin
   setlength(ar1,length(fremotesinfo));
   for int1:= 0 to high(fremotesinfo) do begin
@@ -505,7 +530,7 @@ end;
 
 procedure tmainmo.loadrepo(avalue: filenamety);
 var
- int1: integer;
+ int1,int2: integer;
  mstr1: msestring;
 begin
  closerepo;
@@ -528,11 +553,18 @@ begin
    if high(fremotesinfo) >= 0 then begin
     mstr1:= frepostat.activeremote;
     for int1:= 0 to high(fremotesinfo) do begin
-     if fremotesinfo[int1].name = mstr1 then begin
-      factiveremote:= mstr1;
-      break;
+     with fremotesinfo[int1] do begin
+      if name = mstr1 then begin
+       factiveremote:= mstr1;
+      end;
+      for int2:= 0 to high(branches) do begin
+       frefsinfo.add(name,branches[int2].info);
+      end;
      end;
     end;
+   end;
+   for int2:= 0 to high(fbranches) do begin
+    frefsinfo.add('',fbranches[int2].info);
    end;
    fgit.status(frepo,getorigin,ffilecache,fgitstate);
    fdirtree.loaddirtree(frepo);
@@ -1640,6 +1672,58 @@ begin
  factiveremote:= '';
  fcommitmessages:= nil;
  fcommitmessage:= '';
+end;
+
+{ trefsitemlist }
+
+constructor trefsitemlist.create;
+begin
+ fnamelist:= trefsnamelist.create;
+ inherited;
+end;
+
+destructor trefsitemlist.destroy;
+begin
+ fnamelist.free;
+ inherited;
+end;
+
+procedure trefsitemlist.add(const aremote: msestring; const ainfo: refsinfoty);
+var
+ n1: trefsitem;
+begin
+ n1:= trefsitem.create;
+ n1.remote:= aremote;
+ n1.info:= ainfo;
+ inherited add(ainfo.commit,n1);
+ fnamelist.add(n1);
+end;
+
+procedure trefsitemlist.listitems(var item: objectmsestringdataty);
+begin
+ additem(pointerarty(fitems),item.data,fitemscount);
+end;
+
+function trefsitemlist.getitemsbycommit(const acommit: msestring): refsitemarty;
+begin
+ fitems:= nil;
+ fitemscount:= 0;
+ iterate(acommit,@listitems);
+ setlength(fitems,fitemscount);
+ result:= fitems;
+ fitems:= nil;
+end;
+
+{ trefsnamelist }
+
+constructor trefsnamelist.create;
+begin
+ inherited create(false);
+end;
+
+procedure trefsnamelist.add(const aitem: trefsitem);
+begin
+ inherited add(aitem.remote+':'+aitem.info.name,aitem);
 end;
 
 end.

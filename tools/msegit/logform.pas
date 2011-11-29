@@ -24,7 +24,17 @@ uses
  msegraphedits,mseact,mseactions,mselistbrowser,msedatanodes;
 
 type
+ logbranchinfoty = record
+  remotename: msestring;
+  branchname: msestring;
+ end;
+ logbranchinfoarty = array of logbranchinfoty;
+ 
  tlogitem = class(tlistedititem)
+  protected
+   fbranchinfo: logbranchinfoarty;
+  public
+//   constructor create(const aowner: tcustomitemlist); override;
  end;
  plogitem = ^tlogitem;
  
@@ -60,7 +70,9 @@ type
 
 var
  logfo: tlogfo;
+
 implementation
+
 uses
  logform_mfm,msegitcontroller,main,dirtreeform,filesform,msewidgets;
 
@@ -73,7 +85,8 @@ var
  po2,po4: pmsestring;
  po3: pdatetime;
  po5: pinteger;
- int1: integer;
+ int1,int2: integer;
+ ar2: refsitemarty;
 begin
  if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog,skip) then begin
   if skip = 0 then begin
@@ -88,7 +101,18 @@ begin
   po5:= num.griddata.datapo;
   for int1:= skip to high(ar1)+skip do begin
    with ar1[int1-skip] do begin
-    po1[int1].caption:= message;
+    with po1[int1] do begin
+     fcaption:= message;
+     ar2:= mainmo.refsinfo.getitemsbycommit(commit);
+     setlength(fbranchinfo,length(ar2));
+     for int2:= 0 to high(ar2) do begin
+      with fbranchinfo[int2] do begin
+       remotename:= ar2[int2].remote;
+       branchname:= ar2[int2].info.name;
+       fcaption:= remotename+':'+branchname+' '+fcaption;
+      end;
+     end;
+    end;
     po2[int1]:= commit;
     po3[int1]:= commitdate;
     po4[int1]:= committer;
@@ -205,5 +229,7 @@ procedure tlogfo.createmessageitemexe(const sender: tcustomitemlist;
 begin
  item:= tlogitem.create(sender);
 end;
+
+{ tlogitem }
 
 end.

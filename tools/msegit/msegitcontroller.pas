@@ -123,14 +123,18 @@ type
 
  addfilecallbackeventty = procedure(var afile: gitfileinfoty) of object;
 
- branchinfoty = record
+ refsinfoty = record
   name: msestring;
+  commit: msestring;
+ end;
+ localbranchinfoty = record
+  info: refsinfoty;
   active: boolean;
  end;
- branchinfoarty = array of branchinfoty;    
+ localbranchinfoarty = array of localbranchinfoty;    
 
  remotebranchinfoty = record
-  name: msestring;
+  info: refsinfoty;
  end;
  remotebranchinfoarty = array of remotebranchinfoty;
 
@@ -212,11 +216,11 @@ type
                     const astate: tgitstatecache;
                     const adest: tgitfilecache): boolean; overload;
    function remoteshow(out adest: remoteinfoarty): boolean;
-   function branchshow(out adest: branchinfoarty;
+   function branchshow(out adest: localbranchinfoarty;
                            out activebranch: msestring): boolean;
    function diff(const a,b: msestring; const afile: filenamety;
                  const acontextn: integer = 3): msestringarty;
-   function issha1(const avalue: string; out asha1: string): boolean;
+   function issha1(const avalue: string; var asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
    function revlist(out alist: refinfoarty; const apath: filenamety = '';
@@ -798,9 +802,10 @@ begin
     int3:= 0;
     for int2:= 0 to high(ar2) do begin
      if tryreadfiledatastring(fna1+'/'+ar2[int2],str1) and
-      issha1(str1) then begin
+                                      issha1(str1,str1) then begin
       with branches[int3] do begin
-       name:= ar2[int2];
+       info.name:= ar2[int2];
+       info.commit:= str1;
       end;
       inc(int3);
      end;
@@ -811,16 +816,17 @@ begin
  end;
 end;
 
-function tgitcontroller.branchshow(out adest: branchinfoarty;
+function tgitcontroller.branchshow(out adest: localbranchinfoarty;
                            out activebranch: msestring): boolean;
 var
  mstr1: msestring;
  ar1: msestringarty;
  int1: integer;
+ po1: pmsechar;
 begin
  adest:= nil;
  activebranch:= '';
- result:= commandresult1('branch',mstr1); 
+ result:= commandresult1('branch -v --no-abbrev',mstr1); 
  if result then begin
   ar1:= breaklines(mstr1);
   if ar1 <> nil then begin
@@ -835,11 +841,13 @@ begin
      exit;
     end;
     with adest[int1] do begin
-     name:= copy(ar1[int1],3,bigint);
+     po1:= pmsechar(pointer(ar1[int1]))+2;
+     info.name:= nextword(po1);
      if ar1[int1][1] = '*' then begin
       active:= true;
-      activebranch:= name;
+      activebranch:= info.name;
      end;
+     info.commit:= nextword(po1);
     end;    
    end;
   end;
@@ -861,7 +869,7 @@ begin
 end;
 
 function tgitcontroller.issha1(const avalue: string;
-                                     out asha1: string): boolean;
+                                              var asha1: string): boolean;
 var
 // int1: integer;
  po1,po2: pchar;
