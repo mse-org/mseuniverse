@@ -921,6 +921,7 @@ begin
   result:= execgitconsole(str1+fgit.encodepathparams(afiles,true));
   if result then begin   
    updateoperation(akind,afiles);
+   fgit.branchshow(fbranches,factivebranch);
   end;
  end;
 end;
