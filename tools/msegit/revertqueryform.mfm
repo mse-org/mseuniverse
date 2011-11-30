@@ -107,12 +107,10 @@ object revertqueryfo: trevertqueryfo
       menu.submenu.items = <      
         item
         end>
-      left = 0
-      top = 0
+      top = 56
     end
     inherited externaldiffact: taction
-      left = 0
-      top = 0
+      top = 80
     end
   end
   object tsplitter2: tsplitter

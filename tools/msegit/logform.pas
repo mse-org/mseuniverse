@@ -89,12 +89,17 @@ var
  ar2: refsitemarty;
  fm1: formatinfoarty;
  rs1: richstringty;
+ cl1: colorty;
+ currentbranch,currentremote,currentremotebranch: msestring;
 begin
  if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog,skip) then begin
   if skip = 0 then begin
    diffbase.checkedrow:= -1;
   end;
   grid.beginupdate;
+  currentbranch:= mainmo.activebranch;
+  currentremote:= mainmo.activeremote;
+  currentremotebranch:= mainmo.activeremotebranch[currentremote];
 //  message.itemlist.beginupdate;
   grid.rowcount:= length(ar1)+skip;
   po1:= message.griddata.datapo;
@@ -114,12 +119,24 @@ begin
       with fbranchinfo[int2] do begin
        remotename:= ar2[int2].remote;
        branchname:= ar2[int2].info.name;
+       cl1:= cl_ltgreen;
+       if remotename = '' then begin
+        if branchname = currentbranch then begin
+         cl1:= cl_ltred;
+        end;
+       end
+       else begin
+        if (remotename = currentremote) and 
+               (branchname = currentremotebranch) then begin
+         cl1:= cl_ltred;
+        end;
+       end;
        fcaption:= ' '+fcaption;
        if fformat = nil then begin
         fformat:= fm1;
        end;
        rs1:= richconcat(remotename+':'+branchname,richcaption,[],
-                       cl_none,cl_ltgreen);
+                       cl_none,cl1);
        fcaption:= rs1.text;
        fformat:= rs1.format;
       end;
@@ -156,13 +173,15 @@ procedure tlogfo.getmorerowsexe(const sender: tcustomgrid;
 var
  int1: integer;
 begin
- int1:= count;
- if (grid.datacols.sortcol = commitdate.gridcol) and 
-                 not (co_sortdescend in commitdate.widgetcol.options) then begin
-  int1:= -int1;
- end;
- if int1 > 0 then begin
-  getrevs(grid.rowcount);
+ if mainmo.repoloaded then begin
+  int1:= count;
+  if (grid.datacols.sortcol = commitdate.gridcol) and 
+                  not (co_sortdescend in commitdate.widgetcol.options) then begin
+   int1:= -int1;
+  end;
+  if int1 > 0 then begin
+   getrevs(grid.rowcount);
+  end;
  end;
 end;
 
