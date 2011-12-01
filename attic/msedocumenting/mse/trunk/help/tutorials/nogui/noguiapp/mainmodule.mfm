@@ -1,13 +1,11 @@
 object mainmo: tmainmo
+  bounds_cx = 335
+  bounds_cy = 234
   onasyncevent = asyncevent1
   onterminated = termanatedevent1
   left = 100
   top = 212
   moduleclassname = 'tmsedatamodule'
-  size = (
-    335
-    234
-  )
   object ttimer1: ttimer
     ontimer = timerevent1
     enabled = True

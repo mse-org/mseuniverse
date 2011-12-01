@@ -115,7 +115,7 @@ begin
      fformat:= nil;
      ar2:= mainmo.refsinfo.getitemsbycommit(commit);
      setlength(fbranchinfo,length(ar2));
-     for int2:= 0 to high(ar2) do begin
+     for int2:= high(ar2) downto 0 do begin
       with fbranchinfo[int2] do begin
        remotename:= ar2[int2].remote;
        branchname:= ar2[int2].info.name;
@@ -131,12 +131,12 @@ begin
          cl1:= cl_ltred;
         end;
        end;
-       fcaption:= ' '+fcaption;
+//       fcaption:= ' '+fcaption;
        if fformat = nil then begin
         fformat:= fm1;
        end;
-       rs1:= richconcat(remotename+':'+branchname,richcaption,[],
-                       cl_none,cl1);
+       rs1:= richconcat(' ',richcaption,[],cl_none,cl_transparent);
+       rs1:= richconcat(remotename+':'+branchname,rs1,[],cl_none,cl1);
        fcaption:= rs1.text;
        fformat:= rs1.format;
       end;
