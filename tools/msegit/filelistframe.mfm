@@ -1,6 +1,6 @@
 object filelistframefo: tfilelistframefo
-  bounds_x = 337
-  bounds_y = 266
+  bounds_x = 341
+  bounds_y = 284
   bounds_cx = 299
   bounds_cy = 197
   container.frame.zoomwidthstep = 1

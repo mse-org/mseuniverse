@@ -2,8 +2,8 @@ object dirtreefo: tdirtreefo
   frame.grip_size = 10
   frame.dummy = 0
   visible = False
-  bounds_x = 83
-  bounds_y = 273
+  bounds_x = 87
+  bounds_y = 291
   bounds_cx = 445
   bounds_cy = 354
   container.frame.zoomwidthstep = 1

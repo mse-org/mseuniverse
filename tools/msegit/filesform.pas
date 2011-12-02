@@ -211,6 +211,7 @@ end;
 
 procedure tfilesfo.restorestate;
 begin
+ filelist.grid.checksort;
  filelist.setcurrentfile(ffilebefore);
 end;
 

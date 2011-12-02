@@ -1,7 +1,7 @@
 object optionsfo: toptionsfo
   visible = False
-  bounds_x = 232
-  bounds_y = 219
+  bounds_x = 236
+  bounds_y = 237
   bounds_cx = 339
   bounds_cy = 234
   container.frame.zoomwidthstep = 1

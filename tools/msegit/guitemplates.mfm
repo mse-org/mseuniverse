@@ -2,8 +2,8 @@ object guitemplatesmo: tguitemplatesmo
   bounds_cx = 483
   bounds_cy = 132
   oncreate = cre
-  left = 99
-  top = 135
+  left = 103
+  top = 153
   moduleclassname = 'tmsedatamodule'
   object fadevertkonvex: tfacecomp
     template.fade_pos.count = 2

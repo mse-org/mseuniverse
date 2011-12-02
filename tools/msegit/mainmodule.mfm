@@ -2,8 +2,8 @@ object mainmo: tmainmo
   bounds_cx = 395
   bounds_cy = 195
   statfile = mainstat
-  left = 254
-  top = 222
+  left = 258
+  top = 240
   moduleclassname = 'tmsedatamodule'
   object optionsobj: trttistat
     statfile = mainstat

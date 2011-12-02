@@ -1,7 +1,7 @@
 object commitqueryfo: tcommitqueryfo
   visible = False
-  bounds_x = 109
-  bounds_y = 231
+  bounds_x = 113
+  bounds_y = 249
   bounds_cx = 696
   bounds_cy = 283
   container.frame.zoomwidthstep = 1
@@ -111,6 +111,7 @@ object commitqueryfo: tcommitqueryfo
         0
         0
       )
+      taborder = 1
       bounds_x = 0
       bounds_y = 144
       bounds_cx = 384
@@ -121,7 +122,7 @@ object commitqueryfo: tcommitqueryfo
     object tsplitter1: tsplitter
       optionswidget = [ow_destroywidgets, ow_autoscale]
       color = -1879048189
-      taborder = 1
+      taborder = 2
       bounds_x = 0
       bounds_y = 141
       bounds_cx = 384
@@ -133,7 +134,6 @@ object commitqueryfo: tcommitqueryfo
       statfile = tstatfile1
     end
     inline filelist: tfilechecklistframefo
-      taborder = 2
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 384
@@ -177,16 +177,16 @@ object commitqueryfo: tcommitqueryfo
             datalist.captionpos = cp_top
             datalist.data = (            )
           end>
-        inherited originstate: tdataicon
+        inherited selected: tbooleanedit[0]
+          onsetvalue = selectsetexe
         end
-        inherited filestate: tdataicon
-        end
-        inherited fileitemed: titemedit
+        inherited fileitemed: titemedit[1]
           bounds_cx = 328
           oncellevent = celleventexe
         end
-        inherited selected: tbooleanedit
-          onsetvalue = selectsetexe
+        inherited filestate: tdataicon[2]
+        end
+        inherited originstate: tdataicon[3]
         end
       end
     end

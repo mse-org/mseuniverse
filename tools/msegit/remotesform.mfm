@@ -3,8 +3,8 @@ object remotesfo: tremotesfo
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
   frame.dummy = 0
   visible = False
-  bounds_x = 166
-  bounds_y = 211
+  bounds_x = 170
+  bounds_y = 229
   bounds_cx = 445
   bounds_cy = 354
   container.frame.zoomwidthstep = 1

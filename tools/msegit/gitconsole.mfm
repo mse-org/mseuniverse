@@ -2,8 +2,8 @@ object gitconsolefo: tgitconsolefo
   frame.grip_size = 10
   frame.dummy = 0
   visible = False
-  bounds_x = 100
-  bounds_y = 100
+  bounds_x = 104
+  bounds_y = 118
   bounds_cx = 445
   bounds_cy = 354
   container.frame.zoomwidthstep = 1

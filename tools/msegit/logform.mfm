@@ -1,6 +1,6 @@
 inherited logfo: tlogfo
-  bounds_x = 100
-  bounds_y = 100
+  bounds_x = 104
+  bounds_y = 118
   bounds_cx = 547
   container.bounds = (
     0

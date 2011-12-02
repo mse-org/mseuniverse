@@ -1,6 +1,6 @@
 inherited filechecklistframefo: tfilechecklistframefo
-  bounds_x = 337
-  bounds_y = 266
+  bounds_x = 341
+  bounds_y = 284
   container.bounds = (
     0
     0
@@ -62,11 +62,7 @@ inherited filechecklistframefo: tfilechecklistframefo
     inherited filestate: tdataicon
       bounds_x = 34
     end
-    inherited fileitemed: titemedit
-      bounds_x = 51
-      bounds_cx = 243
-    end
-    object selected: tbooleanedit[3]
+    object selected: tbooleanedit[2]
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 4
@@ -77,6 +73,10 @@ inherited filechecklistframefo: tfilechecklistframefo
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       visible = False
       valuedefault = True
+    end
+    inherited fileitemed: titemedit[3]
+      bounds_x = 51
+      bounds_cx = 243
     end
   end
 end
