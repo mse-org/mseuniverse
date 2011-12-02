@@ -543,7 +543,12 @@ begin
   application.beginwait;
   try
    readmergeinfo;
-   frepostat.activeremote:= 'origin';
+   if activeremote = '' then begin
+    frepostat.activeremote:= 'origin';
+   end
+   else begin
+    frepostat.activeremote:= activeremote;
+   end;
    frepo:= filepath(avalue,fk_dir);
    frepobase:= copy(frepo,(length(freporoot)+1),bigint);
    fgit.remoteshow(fremotesinfo);
