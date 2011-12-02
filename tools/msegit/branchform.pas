@@ -246,6 +246,7 @@ begin
    end;
   end;
   mainmo.activeremote:= remote.value;
+  mainfo.reload;
  end 
  else begin                    //switch remote branch
   mstr1:= '';

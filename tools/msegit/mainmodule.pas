@@ -199,7 +199,8 @@ type
                                                   const afiles: filenamearty);
    procedure readmergeinfo;
    procedure closerepo;
-   procedure loadrepo(avalue: filenamety); //no const
+   procedure loadrepo(avalue: filenamety; const clearconsole: boolean);
+                       //no const
    procedure repoloaded;
    procedure repoclosed;
    function getorigin: msestring;
@@ -482,7 +483,7 @@ end;
 
 procedure tmainmo.setrepo(avalue: filenamety);
 begin
- loadrepo(avalue);
+ loadrepo(avalue,true);
 end;
 
 procedure tmainmo.closerepo;
@@ -528,7 +529,7 @@ begin
  end;
 end;
 
-procedure tmainmo.loadrepo(avalue: filenamety);
+procedure tmainmo.loadrepo(avalue: filenamety; const clearconsole: boolean);
 var
  int1,int2: integer;
  mstr1: msestring;
@@ -579,7 +580,9 @@ begin
    fdirtree.updatestate(freporoot,frepo,fgitstate,ffilecache);
    fgit.lsfiles(frepo,true,fopt.showuntrackeditems,fopt.showignoreditems,true,
                             fgitstate,ffilecache);
-   gitconsolefo.init;
+   if clearconsole then begin
+    gitconsolefo.init;
+   end;
   finally
    application.endwait;
   end;
@@ -590,7 +593,7 @@ end;
 
 procedure tmainmo.reload;
 begin
- loadrepo(frepo);
+ loadrepo(frepo,false);
 end;
 
 procedure tmainmo.repoloaded;
