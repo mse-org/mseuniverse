@@ -76,6 +76,7 @@ begin
  end
  else begin
   filelist.fileitemed.itemlist.assign(listitemarty(mainmo.getfiles(apath)));
+  filelist.grid.checksort;
  end;
 end;
 
