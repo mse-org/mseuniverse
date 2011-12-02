@@ -224,8 +224,10 @@ var
  int1: integer;
  mstr1: msestring;
  bo1: boolean;
+ rowbefore: integer;
 begin
  if remote.value <> '' then begin  //switch remote
+  rowbefore:= remotegrid.row;
   bo1:= false;
   for int1:= 0 to remotegrid.rowhigh do begin
    remotegrid.rowcolorstate[int1]:= -1;
@@ -247,6 +249,7 @@ begin
   end;
   mainmo.activeremote:= remote.value;
   mainfo.reload;
+  remotegrid.row:= rowbefore;
  end 
  else begin                    //switch remote branch
   mstr1:= '';
