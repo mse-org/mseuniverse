@@ -84,7 +84,8 @@ begin
 //  try
    if not termed.running then begin
     donotsend:= true;
-    termed.prompt:= prompt+atext;
+    termed.inputcolindex:= length(termed.text);
+//    termed.prompt:= prompt+atext;
     if msestartsstr('cd ',atext) then begin
      po1:= pmsechar(pointer(atext))+3;
      bo1:= false;
