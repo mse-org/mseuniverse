@@ -1,0 +1,127 @@
+object mainfo: tmainfo
+  bounds_x = 4
+  bounds_y = 124
+  bounds_cx = 500
+  bounds_cy = 85
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    500
+    85
+  )
+  statfile = tstatfile1
+  caption = 'MSEifi Socket Demo Client'
+  onloaded = loadedexe
+  moduleclassname = 'tmainform'
+  object url: tstringedit
+    frame.caption = 'URL'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 7
+    bounds_cx = 332
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = '../ifisocketdemo'
+    onsetvalue = urlsetexe
+    reffontheight = 14
+  end
+  object port: tintegeredit
+    frame.caption = 'Port'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 344
+    bounds_y = 7
+    bounds_cx = 60
+    bounds_cy = 37
+    statfile = tstatfile1
+    onsetvalue = portsetexe
+    reffontheight = 14
+  end
+  object tbutton1: tbutton
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 56
+    bounds_cx = 74
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Connect'
+    onexecute = connectexe
+  end
+  object tbutton2: tbutton
+    taborder = 3
+    bounds_x = 88
+    bounds_y = 56
+    bounds_cx = 74
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Disconnect'
+    onexecute = disconnectexe
+  end
+  object conndisp: tstringdisp
+    frame.dummy = 0
+    taborder = 4
+    bounds_x = 168
+    bounds_y = 57
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object socketkind: tenumtypeedit
+    taborder = 5
+    bounds_x = 408
+    bounds_y = 24
+    bounds_cx = 84
+    statfile = tstatfile1
+    valuedefault = 0
+    onsetvalue = setsocketkindexe
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = intsocketkindexe
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'client.sta'
+    left = 280
+    top = 56
+  end
+  object channel: tsocketclientiochannel
+    onafterconnect = aftterconnectexe
+    onafterdisconnect = afterdisconnectexe
+    socket.cryptio = ssl
+    socket.url = '../ifisocket'
+    left = 48
+  end
+  object modulelink: tmodulelink
+    channel = channel
+    modulesrx.count = 1
+    modulesrx.items = <    
+      item
+        name = 'main'
+        options = [rlo_closeconnonfree]
+      end>
+    left = 216
+  end
+  object ssl: tssl
+    cipherlist.Strings = (
+      'DEFAULT'
+    )
+    certfile = '../cacert.pem'
+    privkeyfile = '../privkey.pem'
+    left = 128
+  end
+end

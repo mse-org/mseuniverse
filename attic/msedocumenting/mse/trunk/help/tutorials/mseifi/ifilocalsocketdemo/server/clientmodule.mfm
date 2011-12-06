@@ -1,0 +1,72 @@
+object clientmo: tclientmo
+  bounds_cx = 244
+  bounds_cy = 121
+  left = 120
+  top = 281
+  moduleclassname = 'tmsedatamodule'
+  object channel: tsocketserveriochannel
+    optionsio = [oic_releaseondisconnect]
+    onafterconnect = afterconnectexe
+    onafterdisconnect = afterdisconnectexe
+    left = 8
+    top = 8
+  end
+  object query: ttxsqlquery
+    Active = True
+    params = <>
+    SQL.data = (
+      'select * from table1;'
+    )
+    IndexDefs = <    
+      item
+        Name = '$PRIMARY_KEY$'
+      end>
+    tablename = 'table1'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'pk'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'text1'
+        DataType = ftString
+        Precision = -1
+        Size = 40
+      end>
+    controller.options = [dso_utf8, dso_autoapply, dso_autocommitret]
+    ifi.channel = channel
+    ifi.linkname = 'query'
+    ifi.optionsdb = [iod_autopost]
+    left = 8
+    top = 64
+  end
+  object conn: tsqlite3connection
+    Connected = True
+    DatabaseName = '../test.db'
+    Transaction = trans
+    left = 8
+    top = 40
+  end
+  object trans: tmsesqltransaction
+    Active = True
+    Database = conn
+    left = 72
+    top = 40
+  end
+  object modulelink: tmodulelink
+    channel = channel
+    modulestx.count = 1
+    modulestx.items = <    
+      item
+        name = 'main'
+        moduleclassname = 'tclientmainfo'
+        moduleparentclassname = 'tmainform'
+      end>
+    left = 128
+    top = 8
+  end
+end

@@ -1,0 +1,31 @@
+object mainmo: tmainmo
+  bounds_cx = 214
+  bounds_cy = 92
+  left = 148
+  top = 331
+  moduleclassname = 'tmsedatamodule'
+  object tsocketserver1: tsocketserver
+    onaccept = acceptexe
+    onafterchconnect = chconnect
+    onafterchdisconnect = chdisconnectexe
+    active = True
+    cryptio = ssl
+    url = '../ifisocket'
+    top = 8
+  end
+  object commandthread: tthreadcomp
+    active = True
+    onexecute = commandthreadexe
+    left = 8
+    top = 32
+  end
+  object ssl: tssl
+    cipherlist.Strings = (
+      'DEFAULT'
+    )
+    certfile = '../cacert.pem'
+    privkeyfile = '../privkey.pem'
+    left = 112
+    top = 8
+  end
+end

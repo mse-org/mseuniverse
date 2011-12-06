@@ -1,0 +1,82 @@
+object clientmainfo: tclientmainfo
+  bounds_x = 173
+  bounds_y = 281
+  bounds_cx = 307
+  bounds_cy = 243
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    307
+    243
+  )
+  options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  caption = 'MSEifi Client Form'
+  moduleclassname = 'tmainform'
+  object tdbrxwidgetgrid1: tdbrxwidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 307
+    bounds_cy = 243
+    anchors = []
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'pk'
+          end        
+          item
+            caption = 'text1'
+          end>
+      end>
+    datacols.count = 2
+    datacols.items = <    
+      item
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+        name = 'pk'
+        widgetname = 'tintegeredit1'
+        dataclass = tgridintegerdatalist
+      end    
+      item
+        width = 251
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        name = 'text1'
+        widgetname = 'tstringedit1'
+        dataclass = tgridmsestringdatalist
+      end>
+    datarowheight = 16
+    ifi.linkname = 'query'
+    ifi.optionstx = [igo_rowdelete, igo_rowinsert, igo_coldata]
+    ifi.optionsrx = [igo_rowdelete, igo_rowinsert, igo_coldata]
+    active = True
+    reffontheight = 14
+    object tintegeredit1: tintegeredit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      reffontheight = 14
+    end
+    object tstringedit1: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 51
+      bounds_y = 0
+      bounds_cx = 251
+      bounds_cy = 16
+      reffontheight = 14
+    end
+  end
+end

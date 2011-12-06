@@ -5,6 +5,14 @@ object mainfo: tmainfo
   bounds_cx = 304
   bounds_cy = 113
   container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    304
+    113
+  )
   optionswindow = [wo_groupleader]
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   statfile = tstatfile1
@@ -17,18 +25,18 @@ object mainfo: tmainfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     bounds_x = 8
-    bounds_y = 12
+    bounds_y = 11
     bounds_cx = 281
-    bounds_cy = 35
+    bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     controller.lastdir = './'
-    reffontheight = 13
+    reffontheight = 14
   end
   object tbooleanedit1: tbooleanedit
     frame.caption = 'connect'
@@ -36,14 +44,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      42
-      1
+      46
+      2
     )
     taborder = 1
     bounds_x = 9
     bounds_y = 70
-    bounds_cx = 55
-    bounds_cy = 15
+    bounds_cx = 59
+    bounds_cy = 16
     onsetvalue = setconnected
   end
   object prociddisp: tintegerdisp
@@ -51,17 +59,17 @@ object mainfo: tmainfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 2
     bounds_x = 248
-    bounds_y = 53
+    bounds_y = 52
     bounds_cx = 39
-    bounds_cy = 33
+    bounds_cy = 35
     textflags = [tf_xcentered, tf_right, tf_ycentered]
-    reffontheight = 13
+    reffontheight = 14
   end
   object statedisp: tstringdisp
     frame.dummy = 0
@@ -72,7 +80,7 @@ object mainfo: tmainfo
     bounds_cy = 18
     font.style = [fs_bold]
     font.name = 'stf_default'
-    font.xscale =  1.0000000000000000E+0000
+    font.xscale = 1
     font.dummy = 0
     textflags = [tf_xcentered, tf_ycentered]
     reffontheight = 14
