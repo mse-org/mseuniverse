@@ -29,7 +29,7 @@ object mainfo: tmainfo
     bounds_cx = 332
     bounds_cy = 37
     statfile = tstatfile1
-    value = '../ifisocketdemo'
+    value = '../ifisocket'
     onsetvalue = urlsetexe
     reffontheight = 14
   end
@@ -85,7 +85,7 @@ object mainfo: tmainfo
     bounds_y = 24
     bounds_cx = 84
     statfile = tstatfile1
-    valuedefault = 0
+    value = 0
     onsetvalue = setsocketkindexe
     dropdown.cols.count = 1
     dropdown.cols.items = <    
