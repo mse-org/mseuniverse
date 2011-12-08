@@ -1,0 +1,105 @@
+object mainfo: tmainfo
+  bounds_x = 219
+  bounds_y = 226
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tdbstringgrid1: tdbstringgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 403
+    bounds_cy = 280
+    anchors = []
+    options = [dsgo_autofields]
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 2
+    datacols.items = <    
+      item
+        width = 70
+        datafield = 'pk'
+        textflags = [tf_right, tf_ycentered, tf_noselect]
+      end    
+      item
+        width = 140
+        datafield = 'text1'
+      end>
+    datalink.datasource = dataso
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'pk'
+          end        
+          item
+            caption = 'text1'
+          end>
+      end>
+    datarowheight = 16
+    reffontheight = 14
+  end
+  object conn: tsqlite3connection
+    Connected = True
+    DatabaseName = 'test.db'
+    Transaction = trans
+    left = 32
+    top = 64
+  end
+  object trans: tmsesqltransaction
+    Active = True
+    Database = conn
+    left = 96
+    top = 64
+  end
+  object query: tmsesqlquery
+    Active = True
+    params = <>
+    SQL.data = (
+      'select * from table1;'
+    )
+    IndexDefs = <    
+      item
+        Name = '$PRIMARY_KEY$'
+      end>
+    tablename = 'table1'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'pk'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'text1'
+        DataType = ftString
+        Precision = -1
+        Size = 40
+      end>
+    controller.options = [dso_utf8, dso_autoapply, dso_autocommitret]
+    left = 152
+    top = 64
+  end
+  object dataso: tmsedatasource
+    DataSet = query
+    left = 216
+    top = 64
+  end
+end
