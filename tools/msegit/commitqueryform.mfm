@@ -182,6 +182,7 @@ object commitqueryfo: tcommitqueryfo
         end
         inherited fileitemed: titemedit[1]
           bounds_cx = 328
+          textflags = [tf_ycentered, tf_clipo, tf_noselect, tf_ellipseleft]
           oncellevent = celleventexe
         end
         inherited filestate: tdataicon[2]
