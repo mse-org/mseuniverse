@@ -102,6 +102,8 @@ begin
   if staged then begin 
    filelist.selected.enabled:= false;
   end;
+  filelist.grid.row:= 0;
+  difftimer.restart; //show first diff
   if show(ml_application) = mr_ok then begin
    if staged then begin
     result:= mainmo.commitstaged(aroot,filelist.selectedfiles(aroot),

@@ -17,7 +17,7 @@ object commitqueryfo: tcommitqueryfo
   caption = 'Commit'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
-    taborder = 1
+    taborder = 2
     bounds_x = 464
     bounds_y = 256
     bounds_cx = 50
@@ -28,7 +28,7 @@ object commitqueryfo: tcommitqueryfo
     modalresult = mr_cancel
   end
   object commit: tbutton
-    taborder = 2
+    taborder = 3
     bounds_x = 408
     bounds_y = 256
     bounds_cx = 50
@@ -50,7 +50,7 @@ object commitqueryfo: tcommitqueryfo
       0
       0
     )
-    taborder = 3
+    taborder = 4
     bounds_x = 8
     bounds_y = 257
     bounds_cx = 97
@@ -59,7 +59,7 @@ object commitqueryfo: tcommitqueryfo
     reffontheight = 14
   end
   object ammend: tbutton
-    taborder = 4
+    taborder = 5
     bounds_x = 352
     bounds_y = 256
     bounds_cx = 50
@@ -71,7 +71,7 @@ object commitqueryfo: tcommitqueryfo
     onexecute = ammendexe
   end
   object stage: tbutton
-    taborder = 5
+    taborder = 6
     bounds_x = 296
     bounds_y = 256
     bounds_cx = 50
@@ -83,7 +83,7 @@ object commitqueryfo: tcommitqueryfo
     onexecute = stageexe
   end
   object unstage: tbutton
-    taborder = 6
+    taborder = 7
     bounds_x = 232
     bounds_y = 256
     bounds_cx = 58
@@ -95,7 +95,7 @@ object commitqueryfo: tcommitqueryfo
     onexecute = unstageexe
   end
   object tsimplewidget1: tsimplewidget
-    taborder = 7
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_autoscale]
     visible = True
     bounds_x = 0
     bounds_y = 0
@@ -111,7 +111,6 @@ object commitqueryfo: tcommitqueryfo
         0
         0
       )
-      taborder = 1
       bounds_x = 0
       bounds_y = 144
       bounds_cx = 384
@@ -134,6 +133,7 @@ object commitqueryfo: tcommitqueryfo
       statfile = tstatfile1
     end
     inline filelist: tfilechecklistframefo
+      taborder = 1
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 384
@@ -160,18 +160,24 @@ object commitqueryfo: tcommitqueryfo
               item
               end>
           end>
+        datacols.colorfocused = -1879048185
         datacols.items = <        
           item
+            colorfocused = -1879048185
             dataclass = tgridintegerdatalist
           end        
           item
+            colorfocused = -1879048185
             dataclass = tgridintegerdatalist
           end        
           item
+            colorfocused = -1879048185
             dataclass = tgridintegerdatalist
           end        
           item
+            colorfocused = -1879048185
             width = 328
+            options = [co_readonly, co_leftbuttonfocusonly, co_fill, co_savestate, co_mousescrollrow]
             dataclass = titemeditlist
             datalist.imagealignment = [al_right, al_ycentered]
             datalist.captionpos = cp_top
@@ -194,6 +200,7 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
+    taborder = 1
     visible = True
     bounds_x = 387
     bounds_y = 0
