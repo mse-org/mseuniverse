@@ -241,12 +241,12 @@ object commitqueryfo: tcommitqueryfo
       menu.submenu.items = <      
         item
         end>
-      left = 0
-      top = 0
+      left = 160
+      top = 56
     end
     inherited externaldiffact: taction
-      left = 0
-      top = 0
+      left = 40
+      top = 56
     end
   end
   object tsplitter2: tsplitter
