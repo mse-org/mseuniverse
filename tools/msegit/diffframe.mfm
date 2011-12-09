@@ -1,7 +1,0 @@
-object diffframefo: tdiffframefo
-  bounds_x = 104
-  bounds_y = 118
-  bounds_cx = 100
-  bounds_cy = 100
-  moduleclassname = 'tsubform'
-end
