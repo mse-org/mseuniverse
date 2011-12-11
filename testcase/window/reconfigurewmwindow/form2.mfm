@@ -1,0 +1,17 @@
+object form2fo: tform2fo
+  color = -1610612728
+  bounds_x = 393
+  bounds_y = 396
+  bounds_cx = 100
+  bounds_cy = 100
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    100
+    100
+  )
+  caption = 'form2'
+  moduleclassname = 'tmseform'
+end

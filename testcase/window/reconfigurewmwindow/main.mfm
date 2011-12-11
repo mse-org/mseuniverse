@@ -1,0 +1,25 @@
+object mainfo: tmainfo
+  bounds_x = 258
+  bounds_y = 251
+  bounds_cx = 298
+  bounds_cy = 73
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    298
+    73
+  )
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 24
+    bounds_y = 24
+    bounds_cx = 250
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'xreconfigurewmwindow'
+    onexecute = exe
+  end
+end
