@@ -1188,13 +1188,31 @@ begin
 end;
 
 function tmainmo.fetch: boolean;
+var
+ mstr1: msestring;
 begin
- result:= execgitconsole('fetch '+remotetarget);
+ mstr1:= activeremote;
+ if mstr1 = '' then begin
+  result:= execgitconsole('fetch');
+ end
+ else begin
+  result:= execgitconsole('fetch '+mstr1+
+           ' refs/heads/*:refs/remotes/'+mstr1+'/*' );
+ end;
 end;
 
 function tmainmo.pull: boolean;
+var
+ mstr1: msestring;
 begin
- result:= execgitconsole('pull '+remotetarget);
+ mstr1:= activeremote;
+ if mstr1 = '' then begin
+  result:= execgitconsole('pull');
+ end
+ else begin
+  result:= execgitconsole('pull '+mstr1+
+           ' refs/heads/*:refs/remotes/'+mstr1+'/*' );
+ end;
 end;
 
 function tmainmo.push: boolean;
