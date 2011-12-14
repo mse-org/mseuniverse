@@ -1,0 +1,22 @@
+xwininfo: Window id: 0x6600002 (has no name)
+
+  Absolute upper-left X:  54
+  Absolute upper-left Y:  68
+  Relative upper-left X:  0
+  Relative upper-left Y:  0
+  Width: 200
+  Height: 100
+  Depth: 24
+  Visual: 0x21
+  Visual Class: TrueColor
+  Border width: 0
+  Class: InputOutput
+  Colormap: 0x20 (installed)
+  Bit Gravity State: ForgetGravity
+  Window Gravity State: StaticGravity
+  Backing Store State: NotUseful
+  Save Under State: no
+  Map State: IsViewable
+  Override Redirect State: no
+  Corners:  +54+68  -770+68  -770-600  +54-600
+  -geometry 200x100+54+68
