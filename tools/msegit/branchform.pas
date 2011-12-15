@@ -226,8 +226,8 @@ var
  bo1: boolean;
  rowbefore: integer;
 begin
+ rowbefore:= remotegrid.row;
  if remote.value <> '' then begin  //switch remote
-  rowbefore:= remotegrid.row;
   bo1:= false;
   for int1:= 0 to remotegrid.rowhigh do begin
    remotegrid.rowcolorstate[int1]:= -1;
@@ -248,8 +248,6 @@ begin
    end;
   end;
   mainmo.activeremote:= remote.value;
-  mainfo.reload;
-  remotegrid.row:= rowbefore;
  end 
  else begin                    //switch remote branch
   mstr1:= '';
@@ -283,7 +281,8 @@ begin
   end;
   mainmo.activeremotebranch[mstr1]:= remotebranch.value;
  end;
- mainfo.updatestate;
+ mainfo.reload;
+ remotegrid.row:= rowbefore;
 end;
 
 procedure tbranchfo.localrowdeleteexe(const sender: tcustomgrid;
