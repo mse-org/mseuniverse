@@ -1,7 +1,7 @@
 object mainfo: tmainfo
   visible = False
-  bounds_x = 53
-  bounds_y = 197
+  bounds_x = 77
+  bounds_y = 210
   bounds_cx = 403
   bounds_cy = 280
   container.frame.zoomwidthstep = 1

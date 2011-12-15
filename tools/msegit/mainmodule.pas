@@ -682,10 +682,16 @@ begin
 end;
 
 function tmainmo.getorigin: msestring;
+var
+ mstr1: msestring;
 begin
  result:= '';
  if factiveremote <> '' then begin
-  result:= factiveremote + '/master';
+  result:= factiveremote;
+  mstr1:= activeremotebranch[factiveremote];
+  if mstr1 <> '' then begin
+   result:= result+'/'+mstr1;
+  end;
  end;
 end;
 
