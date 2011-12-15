@@ -1196,8 +1196,8 @@ begin
   result:= execgitconsole('fetch');
  end
  else begin
-  result:= execgitconsole('fetch '+mstr1+
-           ' refs/heads/*:refs/remotes/'+mstr1+'/*' );
+  result:= execgitconsole('fetch '+fgit.encodestringparam(mstr1)+
+           ' '+fgit.encodestringparam('refs/heads/*:refs/remotes/'+mstr1+'/*'));
  end;
 end;
 
@@ -1210,8 +1210,8 @@ begin
   result:= execgitconsole('pull');
  end
  else begin
-  result:= execgitconsole('pull '+mstr1+
-           ' refs/heads/*:refs/remotes/'+mstr1+'/*' );
+  result:= execgitconsole('pull '+fgit.encodestringparam(mstr1)+
+           ' '+fgit.encodestringparam('refs/heads/*:refs/remotes/'+mstr1+'/*'));
  end;
 end;
 
