@@ -116,7 +116,7 @@ object commitqueryfo: tcommitqueryfo
       bounds_cx = 384
       bounds_cy = 106
       anchors = [an_bottom]
-      optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
     end
     object tsplitter1: tsplitter
       optionswidget = [ow_destroywidgets, ow_autoscale]
