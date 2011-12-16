@@ -23,7 +23,7 @@ uses
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
  msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,msetimer;
 const
- versiontext = '0.8.2 beta'{'0.9 unstable'};
+ versiontext = '0.9 unstable';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
@@ -255,6 +255,8 @@ begin
    end;
    rstr1.text:= 'Branch: ';
    richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
+   richconcat1(rstr1,' Log: ',[fs_force]);
+   richconcat1(rstr1,mainmo.repostat.activelogbranch,[fs_bold]);
    richconcat1(rstr1,' Remote: ',[fs_force]);
    richconcat1(rstr1,mainmo.activeremote+' '+
                 mainmo.activeremotebranch[mainmo.activeremote],[fs_bold]);
@@ -360,6 +362,7 @@ procedure tmainfo.objchanged;
 begin
  objectrefreshtimer.restart;
  diffrefreshtimer.restart;
+ updatestate;
 end;
 
 procedure tmainfo.diffchanged;
