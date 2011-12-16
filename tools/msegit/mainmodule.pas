@@ -49,6 +49,7 @@ type
    fdiffcontextn: integer;
    fdifftool: msestring;
    fmergetool: msestring;
+   fsplitdiffs: boolean;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -64,6 +65,7 @@ type
    property maxlog: integer read fmaxlog write fmaxlog;
    property showutc: boolean read fshowutc write fshowutc;
    property diffcontextn: integer read fdiffcontextn write fdiffcontextn;
+   property splitdiffs: boolean read fsplitdiffs write fsplitdiffs;
    property difftool: msestring read fdifftool write fdifftool;
    property mergetool: msestring read fmergetool write fmergetool;
  end;

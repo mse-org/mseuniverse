@@ -37,6 +37,7 @@ type
    diffcontextn: tintegeredit;
    difftool: thistoryedit;
    mergetool: thistoryedit;
+   splitdiffs: tbooleanedit;
  end;
 
 procedure editoptions;

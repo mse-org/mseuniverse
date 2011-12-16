@@ -113,7 +113,7 @@ object optionsfo: toptionsfo
           0
         )
         taborder = 3
-        bounds_x = 192
+        bounds_x = 200
         bounds_y = 102
         bounds_cx = 118
         reffontheight = 14
@@ -159,6 +159,21 @@ object optionsfo: toptionsfo
           item
           end>
         reffontheight = 14
+      end
+      object splitdiffs: tbooleanedit
+        frame.caption = 'Split diffs'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          1
+          53
+          2
+        )
+        taborder = 6
+        bounds_x = 200
+        bounds_y = 77
+        bounds_cx = 66
+        bounds_cy = 16
       end
     end
   end
