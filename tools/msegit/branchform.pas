@@ -35,6 +35,7 @@ type
    localactive: tbooleaneditradio;
    tsplitter1: tsplitter;
    localpopup: tpopupmenu;
+   logbranch: tbooleaneditradio;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -59,6 +60,8 @@ type
                    var acount: Integer);
    procedure befremotecoldraw(const sender: tcol; const canvas: tcanvas;
                    var cellinfo: cellinfoty; var processed: Boolean);
+   procedure activelogsetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
   protected
    function currentremote: msestring;
    procedure doclear; override;
@@ -92,13 +95,20 @@ var
  bo1: boolean;
 begin
  localgrid.rowcount:= length(mainmo.branches);
+ logbranch.checkedrow:= -1;
+ localactive.checkedrow:= -1;
  with localgrid do begin
   optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
  end;
  for int1:= 0 to localgrid.rowhigh do begin
   with mainmo.branches[int1] do begin
    localbranch[int1]:= info.name;
-   localactive[int1]:= active;
+   if active then begin
+    localactive.checkedrow:= int1;
+   end;
+   if info.name = mainmo.repostat.activelogbranch then begin
+    logbranch.checkedrow:= int1;
+   end;
    if active then begin
     localgrid.rowcolorstate[int1]:= 0;
    end;
@@ -212,6 +222,8 @@ begin
                       localbranch.value+'"?') and
                       mainmo.checkoutbranch(localbranch.value);
  if accept then begin
+  mainmo.repostat.activelogbranch:= localbranch.value;
+  logbranch.value:= true;
   mainfo.reload;
   accept:= false;
  end;
@@ -380,6 +392,15 @@ begin
   if remote[cell.row] = '' then begin
    color:= cl_transparent;
   end;
+ end;
+end;
+
+procedure tbranchfo.activelogsetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  mainmo.repostat.activelogbranch:= localbranch.value;
+  mainfo.objchanged;
  end;
 end;
 

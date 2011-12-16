@@ -92,7 +92,8 @@ var
  cl1: colorty;
  currentbranch,currentremote,currentremotebranch: msestring;
 begin
- if mainmo.git.revlist(ar1,fpath,mainmo.opt.maxlog,skip) then begin
+ if mainmo.git.revlist(ar1,mainmo.repostat.activelogbranch,fpath,
+                mainmo.opt.maxlog,skip) then begin
   if skip = 0 then begin
    diffbase.checkedrow:= -1;
   end;

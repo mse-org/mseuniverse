@@ -223,7 +223,8 @@ type
    function issha1(const avalue: string; var asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
-   function revlist(out alist: refinfoarty; const apath: filenamety = '';
+   function revlist(out alist: refinfoarty; 
+                const abranch: msestring; const apath: filenamety = '';
                 const maxcount: integer = 0; const skip: integer = 0): boolean;
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
@@ -922,8 +923,8 @@ const
           (name: 'committer'),    //rk_committer
           (name: '   ')           //rk_message
          );
-function tgitcontroller.revlist(out alist: refinfoarty;
-               const apath: filenamety = '';
+function tgitcontroller.revlist(out alist: refinfoarty; 
+               const abranch: msestring; const apath: filenamety = '';
                const maxcount: integer = 0; const skip: integer = 0): boolean;
                
  function recordkind(const start,stop: pmsechar): recordkindty;
@@ -989,7 +990,12 @@ begin
  if skip > 0 then begin
   str1:= str1+'--skip='+inttostr(skip)+' ';
  end;
- str1:= str1 + 'HEAD ';
+ if abranch = '' then begin
+  str1:= str1 + 'HEAD ';
+ end
+ else begin
+  str1:= str1 + abranch + ' ';
+ end;
  if apath <> '' then begin
   str1:= str1 + '-- '+encodepathparam(apath,true);
  end;

@@ -108,10 +108,13 @@ type
    factiveremote: msestring;
    fcommitmessages: msestringarty;
    fcommitmessage: msestring;
+   factivelogbranch: msestring;
   public
    procedure reset;
   published
    property activeremote: msestring read factiveremote write factiveremote;
+   property activelogbranch: msestring read factivelogbranch 
+                                                write factivelogbranch;
    property commitmessages: msestringarty read fcommitmessages 
                                                  write fcommitmessages;
    property commitmessage: msestring read fcommitmessage write fcommitmessage;
@@ -533,6 +536,7 @@ procedure tmainmo.loadrepo(avalue: filenamety; const clearconsole: boolean);
 var
  int1,int2: integer;
  mstr1: msestring;
+ bo1: boolean;
 begin
  closerepo;
  if avalue <> '' then begin
@@ -555,6 +559,19 @@ begin
    fgit.remoteshow(fremotesinfo);
    fgit.branchshow(fbranches,factivebranch);
    repostatf.readstat;
+   bo1:= false;
+   for int1:= 0 to high(fbranches) do begin
+    if fbranches[int1].info.name = repostat.activelogbranch then begin
+     bo1:= true;
+     break;
+    end;
+   end;
+   if not bo1 then begin
+    repostat.activelogbranch:= '';
+   end;
+   if repostat.activelogbranch = '' then begin
+    repostat.activelogbranch:= activebranch;
+   end;
    factiveremote:= '';
    if high(fremotesinfo) >= 0 then begin
     mstr1:= frepostat.activeremote;
