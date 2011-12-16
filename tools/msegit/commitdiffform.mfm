@@ -11,14 +11,10 @@ inherited commitdifffo: tcommitdifffo
   statfile = tstatfile1
   onshow = showexe
   moduleclassname = 'tdifffo'
-  inherited grid: twidgetgrid
-    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-    datacols.items = <    
-      item
-        dataclass = tgridrichstringdatalist
-      end>
-    inherited ed: ttextedit
-    end
+  inherited tabs: ttabwidget
+    color = -1610612730
+    tab_options = [tabo_multitabsonly]
+    tab_color = -1610612730
   end
   inherited repoloadedact: taction
   end

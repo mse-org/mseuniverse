@@ -96,6 +96,7 @@ object commitqueryfo: tcommitqueryfo
   end
   object tsimplewidget1: tsimplewidget
     optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_autoscale]
+    taborder = 1
     visible = True
     bounds_x = 0
     bounds_y = 0
@@ -200,7 +201,6 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
-    taborder = 1
     visible = True
     bounds_x = 387
     bounds_y = 0
@@ -217,26 +217,9 @@ object commitqueryfo: tcommitqueryfo
     )
     options = [fo_savepos, fo_savezorder]
     statfile = diff.tstatfile1
-    inherited grid: twidgetgrid
-      frame.caption = 'diff'
-      frame.captionoffset = 10
-      frame.localprops1 = [frl1_captionoffset]
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
+    inherited tabs: ttabwidget
       bounds_cx = 307
       bounds_cy = 250
-      datacols.items = <      
-        item
-          options = [co_savevalue, co_savestate, co_mousescrollrow]
-          dataclass = tgridrichstringdatalist
-        end>
-      inherited ed: ttextedit
-        optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
-      end
     end
     inherited repoloadedact: taction
     end
