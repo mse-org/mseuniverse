@@ -81,14 +81,15 @@ begin
 end;
 
 procedure tdifffo.doclear;
-var
- int1: integer;
+//var
+// int1: integer;
 begin
  fcanexternaldiff:= false;
  fpath:= '';
  fa:= '';
  fb:= '';
  cleartabs;
+// grid.clear;
 end;
 
 procedure tdifffo.externaldiffexe(const sender: TObject);
