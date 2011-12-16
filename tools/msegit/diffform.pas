@@ -18,17 +18,17 @@ unit diffform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
+ classes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msestatfile,
  msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
- mseeditglob,msetextedit,mainmodule,mseact,mseactions,dispform;
+ mseeditglob,msetextedit,mainmodule,mseact,mseactions,dispform,msescrollbar,
+ msetabs,msewidgets,sysutils,difftab;
 
 type
  tdifffo = class(tdispfo)
-   grid: twidgetgrid;
-   ed: ttextedit;
    tpopupmenu1: tpopupmenu;
    externaldiffact: taction;
+   tabs: ttabwidget;
    procedure externaldiffexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu);
   private
@@ -36,20 +36,25 @@ type
    fa: msestring;
    fb: msestring;
    fcanexternaldiff: boolean;
+   procedure showdiff(const dest: tdifftabfo; const text: msestringarty);
+   procedure cleartabs;
   protected
    procedure dorefresh; override;
    procedure doclear; override;
 //   procedure updatedisp;
   public
+   constructor create(aowner: tcomponent); override;
    procedure refresh(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem;
                    const oldcommit: msestring; const newcommit: msestring);
  end;
 var
  difffo: tdifffo;
+
 implementation
 uses
- diffform_mfm,mserichstring;
+ diffform_mfm,mserichstring,msearrayutils,msefileutils;
+ 
 const
  chunkcolor = cl_dkmagenta;
  addcolor = $008000;
@@ -57,13 +62,33 @@ const
  
 { tdifffo }
 
+constructor tdifffo.create(aowner: tcomponent);
+begin
+ inherited;
+ tabs.add(itabpage(tdifftabfo.create(nil)));
+end;
+
+procedure tdifffo.cleartabs;
+var
+ int1: integer;
+begin
+ tabs.beginupdate;
+ for int1:= tabs.count - 1 downto 1 do begin
+  tabs[int1].free;
+ end;
+ tdifftabfo(tabs[0]).grid.clear;
+ tabs.endupdate;
+end;
+
 procedure tdifffo.doclear;
+var
+ int1: integer;
 begin
  fcanexternaldiff:= false;
  fpath:= '';
  fa:= '';
  fb:= '';
- grid.clear;
+ cleartabs;
 end;
 
 procedure tdifffo.externaldiffexe(const sender: TObject);
@@ -76,19 +101,19 @@ begin
  end;
 end;
 
-procedure tdifffo.dorefresh;
+procedure tdifffo.showdiff(const dest: tdifftabfo; const text: msestringarty);
 var
  int1: integer;
  po1: prichstringaty;
  chunkformat,addformat,removeformat: formatinfoarty;
 begin
- if (fpath <> '') or (fa <> '') or (fb <> '') then begin
-  setfontcolor1(chunkformat,0,bigint,chunkcolor);
-  setfontcolor1(addformat,0,bigint,addcolor);
-  setfontcolor1(removeformat,0,bigint,removecolor);
+ setfontcolor1(chunkformat,0,bigint,chunkcolor);
+ setfontcolor1(addformat,0,bigint,addcolor);
+ setfontcolor1(removeformat,0,bigint,removecolor);
+ with dest do begin
   grid.beginupdate;
   try
-   ed.gridvalues:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
+   ed.gridvalues:= text;
    po1:= ed.datalist.datapo;
    for int1:= 0 to ed.datalist.count-1 do begin
     with po1^[int1] do begin
@@ -110,9 +135,62 @@ begin
   finally
    grid.endupdate;
   end;
+ end;
+end;
+
+procedure tdifffo.dorefresh;
+var
+ int1,int2: integer;
+ ar1: msestringarty;
+ ar3: filenamearty;
+ captions,hints: msestringarty;
+ ar2: msestringararty;
+begin
+ if (fpath <> '') or (fa <> '') or (fb <> '') then begin
+  ar1:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
  end
  else begin
-  grid.clear;
+  ar1:= nil;
+ end;
+ int2:= -1;
+ if mainmo.opt.splitdiffs then begin
+  for int1:= 0 to high(ar1) do begin
+   if msestartsstr('diff ',ar1[int1]) then begin
+    if int2 >= 0 then begin   
+     additem(ar2,copy(ar1,int2,int1-int2));
+    end;
+    splitstringquoted(ar1[int1],ar3,'"',' ');
+    additem(hints,msestring(ar3[high(ar3)]));
+    additem(captions,filename(hints[high(hints)]));
+    int2:= int1;
+   end;
+  end;
+  if int2 >= 0 then begin
+   additem(ar2,copy(ar1,int2,bigint));
+  end;
+ end
+ else begin
+  additem(ar2,ar1);
+ end;
+ if ar2 = nil then begin
+  cleartabs;
+ end
+ else begin
+  tabs.beginupdate;
+  for int2:= tabs.count-1 downto length(ar2) do begin
+   tabs[int2].free;
+  end;
+  for int2:= tabs.count to high(ar2) do begin  
+   tabs.add(itabpage(tdifftabfo.create(nil)));
+  end;
+  for int1:= 0 to tabs.count - 1 do begin
+   with tdifftabfo(tabs[int1]) do begin
+    caption:= captions[int1];
+    tabhint:= hints[int1];
+   end;
+   showdiff(tdifftabfo(tabs[int1]),ar2[int1]);
+  end;
+  tabs.endupdate;
  end;
 end;
 
