@@ -36,6 +36,7 @@ type
    tsplitter1: tsplitter;
    localpopup: tpopupmenu;
    logbranch: tbooleaneditradio;
+   remotebranchlink: tbooleanedit;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -61,6 +62,8 @@ type
    procedure befremotecoldraw(const sender: tcol; const canvas: tcanvas;
                    var cellinfo: cellinfoty; var processed: Boolean);
    procedure activelogsetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure linkbranchsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
   protected
    function currentremote: msestring;
@@ -131,6 +134,7 @@ begin
     for int2:= 0 to high(branches) do begin
      with branches[int2] do begin
       remotebranch[int3]:= info.name;
+      remotebranchlink[int3]:= linklocalbranch;
       if info.name = mstr1 then begin
        remoteactive[int3]:= true;
        if bo1 then begin
@@ -222,6 +226,9 @@ begin
                       localbranch.value+'"?') and
                       mainmo.checkoutbranch(localbranch.value);
  if accept then begin
+  if mainmo.linkremotebranch[mainmo.activeremote,localbranch.value] then begin
+   mainmo.activeremotebranch[mainmo.activeremote]:= localbranch.value;
+  end;
   mainmo.repostat.activelogbranch:= localbranch.value;
   logbranch.value:= true;
   mainfo.reload;
@@ -240,6 +247,18 @@ var
 begin
  rowbefore:= remotegrid.row;
  if remote.value <> '' then begin  //switch remote
+  mstr1:= mainmo.activeremotebranch[remote.value];
+  if mainmo.linkremotebranch[remote.value,mstr1] and 
+                                  (mstr1 <> mainmo.activebranch) then begin
+   if askyesno('Do you want to switch to branch "'+mstr1+'"?') and
+                                     mainmo.checkoutbranch(mstr1) then begin
+    mainmo.repostat.activelogbranch:= mstr1;
+   end
+   else begin
+    accept:= false;
+    exit;
+   end;
+  end;
   bo1:= false;
   for int1:= 0 to remotegrid.rowhigh do begin
    remotegrid.rowcolorstate[int1]:= -1;
@@ -262,6 +281,19 @@ begin
   mainmo.activeremote:= remote.value;
  end 
  else begin                    //switch remote branch
+  if (mainmo.activeremote = currentremote) and 
+                     (mainmo.activebranch <> remotebranch.value) and
+      mainmo.linkremotebranch[mainmo.activeremote,remotebranch.value] then begin
+   if askyesno('Do you want to switch to branch "'+
+     remotebranch.value+'"?') and
+                mainmo.checkoutbranch(remotebranch.value) then begin
+     mainmo.repostat.activelogbranch:= remotebranch.value;
+   end
+   else begin
+    accept:= false;
+    exit;
+   end;
+  end;
   mstr1:= '';
   for int1:= remotegrid.row - 1 downto 0 do begin
    mstr1:= remote[int1];
@@ -292,6 +324,9 @@ begin
    trydeletefile('.git/FETCH_HEAD'); //invalid
   end;
   mainmo.activeremotebranch[mstr1]:= remotebranch.value;
+  if mainmo.activeremote <> currentremote then begin
+   exit;
+  end;
  end;
  mainfo.reload;
  remotegrid.row:= rowbefore;
@@ -401,6 +436,17 @@ begin
  if avalue then begin
   mainmo.repostat.activelogbranch:= localbranch.value;
   mainfo.objchanged;
+ end;
+end;
+
+procedure tbranchfo.linkbranchsetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if remote.value = '' then begin
+  mainmo.linkremotebranch[currentremote,remotebranch.value]:= avalue;
+ end
+ else begin
+  avalue:= false;
  end;
 end;
 

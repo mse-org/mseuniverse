@@ -111,6 +111,7 @@ type
    fcommitmessages: msestringarty;
    fcommitmessage: msestring;
    factivelogbranch: msestring;
+   flinkedremotebranches: msestringarty;
   public
    procedure reset;
   published
@@ -120,6 +121,8 @@ type
    property commitmessages: msestringarty read fcommitmessages 
                                                  write fcommitmessages;
    property commitmessage: msestring read fcommitmessage write fcommitmessage;
+   property linkedremotebranches: msestringarty read flinkedremotebranches 
+                                                write flinkedremotebranches;
  end;
 
  trefsitem = class
@@ -199,6 +202,10 @@ type
                             const abranch: msestring);
    procedure readremote(const aindex: integer; const avalue: msestring);
    function writeremote(const index: integer): msestring;
+   function getlinkremotebranch(const aremote: msestring; 
+                 const abranch: msestring): boolean;
+   procedure setlinkremotebranch(const aremote: msestring;
+                  const abranch: msestring; const avalue: boolean);
   protected
    procedure updateoperation(const aoperation: commitkindty;
                                                   const afiles: filenamearty);
@@ -306,6 +313,9 @@ type
    property activeremote: msestring read factiveremote write setactiveremote;
    property activeremotebranch[const aremote: msestring]: msestring read
                      getactiveremotebranch write setactiveremotebranch;
+   property linkremotebranch[const aremote: msestring;
+              const abranch: msestring]: boolean read getlinkremotebranch 
+                              write setlinkremotebranch;
    function remotetarget: msestring;
    property git: tgitcontroller read fgit;
    property refsinfo: trefsitemlist read frefsinfo;
@@ -493,8 +503,8 @@ end;
 
 procedure tmainmo.closerepo;
 var
- ar1: msestringarty;
- int1: integer;
+ ar1{,ar2}: msestringarty;
+ int1,int2: integer;
 begin
  fmergehead:= '';
  fmergemessage:= '';
@@ -504,12 +514,21 @@ begin
  freeandnil(fgitstate);
  frefsinfo.clear;
  if frepo <> '' then begin
-  setlength(ar1,length(fremotesinfo));
+//  setlength(ar1,length(fremotesinfo));
+  ar1:= nil;
   for int1:= 0 to high(fremotesinfo) do begin
    with fremotesinfo[int1] do begin
-    ar1[int1]:= name;
+//    ar2[int1]:= name;
+    for int2:= 0 to high(branches) do begin
+     with branches[int2] do begin
+      if linklocalbranch then begin
+       additem(ar1,'"'+name+'" "'+info.name+'"');
+      end;
+     end;
+    end;
    end;
   end;
+  frepostat.linkedremotebranches:= ar1;
   frepostat.activeremote:= activeremote;
   repostatf.writestat;
   fremotesinfo:= nil;
@@ -536,9 +555,10 @@ end;
 
 procedure tmainmo.loadrepo(avalue: filenamety; const clearconsole: boolean);
 var
- int1,int2: integer;
+ int1,int2,int3,int4: integer;
  mstr1: msestring;
  bo1: boolean;
+ ar1: msestringarty;
 begin
  closerepo;
  if avalue <> '' then begin
@@ -590,6 +610,26 @@ begin
    end;
    for int2:= 0 to high(fbranches) do begin
     frefsinfo.add('',fbranches[int2].info);
+   end;
+   for int2:= 0 to high(frepostat.flinkedremotebranches) do begin
+    splitstringquoted(frepostat.flinkedremotebranches[int2],ar1,'"',' ');
+    if high(ar1) = 1 then begin
+     for int3:= 0 to high(fremotesinfo) do begin
+      with fremotesinfo[int3] do begin
+       if name = ar1[0] then begin
+        for int4:= 0 to high(branches) do begin
+         with branches[int4] do begin
+          if info.name = ar1[1] then begin
+           linklocalbranch:= true;
+           break;
+          end;
+         end;
+        end;
+        break;
+       end;
+      end;
+     end;
+    end;
    end;
    fgit.status(frepo,getorigin,ffilecache,fgitstate);
    fdirtree.loaddirtree(frepo);
@@ -1453,6 +1493,51 @@ begin
   end;  
  end;
  result:= fgit.encodepathparams(ar1,true);
+end;
+
+function tmainmo.getlinkremotebranch(const aremote: msestring;
+               const abranch: msestring): boolean;
+var
+ int1,int2: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(fremotesinfo) do begin
+  with fremotesinfo[int1] do begin
+   if name = aremote then begin
+    for int2:= 0 to high(branches) do begin
+     with branches[int2] do begin
+      if info.name = abranch then begin
+       result:= linklocalbranch;
+       break;
+      end;
+     end;
+    end;
+    break;
+   end;
+  end;
+ end;
+end;
+
+procedure tmainmo.setlinkremotebranch(const aremote: msestring;
+               const abranch: msestring; const avalue: boolean);
+var
+ int1,int2: integer;
+begin
+ for int1:= 0 to high(fremotesinfo) do begin
+  with fremotesinfo[int1] do begin
+   if name = aremote then begin
+    for int2:= 0 to high(branches) do begin
+     with branches[int2] do begin
+      if info.name = abranch then begin
+       linklocalbranch:= avalue;
+       break;
+      end;
+     end;
+    end;
+    break;
+   end;
+  end;
+ end;
 end;
 
 { tmsegitfileitem }

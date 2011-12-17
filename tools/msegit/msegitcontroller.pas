@@ -135,6 +135,7 @@ type
 
  remotebranchinfoty = record
   info: refsinfoty;
+  linklocalbranch: boolean;
  end;
  remotebranchinfoarty = array of remotebranchinfoty;
 
