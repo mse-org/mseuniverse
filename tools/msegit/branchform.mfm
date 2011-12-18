@@ -67,7 +67,7 @@ inherited branchfo: tbranchfo
       end    
       item
         width = 16
-        options = [co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_savestate, co_mousescrollrow]
         widgetname = 'remotebranchlink'
         dataclass = tgridintegerdatalist
       end>
