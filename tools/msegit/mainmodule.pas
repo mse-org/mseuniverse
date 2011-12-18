@@ -193,6 +193,7 @@ type
    fbranches: localbranchinfoarty;
    factivebranch: msestring;
    fhasremote: boolean;
+   fstashes: stashinfoarty;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
@@ -278,6 +279,7 @@ type
                     const aitems: msegitfileitemarty): boolean; overload;
    function mergetoolcall(const afiles: filenamearty): boolean;
    procedure reload;
+   procedure loadstash;
    function repoloaded: boolean;
    property repo: filenamety read frepo write setrepo;
                   //absolute path to repo dir
@@ -307,6 +309,7 @@ type
    function deleteremote(const aremote: msestring): boolean;
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
+   property stashes: stashinfoarty read fstashes;
    property activebranch: msestring read factivebranch;
    property branches: localbranchinfoarty read fbranches;
    property remotesinfo: remoteinfoarty read fremotesinfo;
@@ -317,6 +320,8 @@ type
               const abranch: msestring]: boolean read getlinkremotebranch 
                               write setlinkremotebranch;
    function remotetarget: msestring;
+   function stashsave(const amessage: msestring): boolean;
+   function stashpop: boolean;
    property git: tgitcontroller read fgit;
    property refsinfo: trefsitemlist read frefsinfo;
  end;
@@ -553,6 +558,11 @@ begin
  end;
 end;
 
+procedure tmainmo.loadstash;
+begin
+ fgit.stashlist(fstashes);
+end;
+
 procedure tmainmo.loadrepo(avalue: filenamety; const clearconsole: boolean);
 var
  int1,int2,int3,int4: integer;
@@ -632,6 +642,7 @@ begin
     end;
    end;
    fgit.status(frepo,getorigin,ffilecache,fgitstate);
+   loadstash;
    fdirtree.loaddirtree(frepo);
    fdirtree.sort(false,true);
    fgit.lsfiles(frepo,false,false,false,true,fgitstate,ffilecache);
@@ -1538,6 +1549,21 @@ begin
    end;
   end;
  end;
+end;
+
+function tmainmo.stashsave(const amessage: msestring): boolean;
+begin
+ if amessage = '' then begin
+  result:= execgitconsole('stash save');
+ end
+ else begin
+  result:= execgitconsole('stash save '+fgit.encodestringparam(amessage));
+ end;
+end;
+
+function tmainmo.stashpop: boolean;
+begin
+ result:= execgitconsole('stash pop');
 end;
 
 { tmsegitfileitem }

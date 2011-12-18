@@ -9,7 +9,6 @@ inherited commitdifffo: tcommitdifffo
   )
   options = [fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder]
   statfile = tstatfile1
-  onshow = showexe
   moduleclassname = 'tdifffo'
   inherited tabs: ttabwidget
     tab_options = [tabo_multitabsonly]

@@ -10,7 +10,6 @@ inherited difffo: tdifffo
   )
   dragdock.caption = 'diff'
   caption = 'diff'
-  onshow = showexe
   moduleclassname = 'tdispfo'
   object tabs: ttabwidget[0]
     bounds_x = 0

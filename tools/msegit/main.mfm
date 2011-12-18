@@ -73,10 +73,19 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 9
+        submenu.count = 12
         submenu.items = <        
           item
             action = commitallact
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
+            action = stashsaveact
+          end        
+          item
+            action = stashpopact
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
@@ -107,7 +116,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 13
+        submenu.count = 14
         submenu.items = <        
           item
             submenu.count = 2
@@ -166,6 +175,11 @@ object mainfo: tmainfo
             caption = '&Log'
             state = [as_localcaption, as_localonexecute]
             onexecute = showlogexe
+          end        
+          item
+            caption = '&Stashes'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showstashexe
           end        
           item
             caption = '&Branches'
@@ -304,11 +318,23 @@ object mainfo: tmainfo
   object commitallact: taction
     caption = 'C&ommit all'
     onexecute = commitallexe
-    left = 160
-    top = 96
+    left = 16
+    top = 128
     sc = (
       1
       16463
     )
+  end
+  object stashsaveact: taction
+    caption = 'Stash &save'
+    onexecute = stashsaveexe
+    left = 16
+    top = 144
+  end
+  object stashpopact: taction
+    caption = 'Stash pop'
+    onexecute = stashpopexe
+    left = 16
+    top = 160
   end
 end

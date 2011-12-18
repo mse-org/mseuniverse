@@ -1,0 +1,92 @@
+inherited stashfo: tstashfo
+  bounds_x = 100
+  bounds_y = 100
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  caption = 'Stashes'
+  moduleclassname = 'tdispfo'
+  object stashgrid: twidgetgrid[0]
+    popupmenu = tpopupmenu1
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
+    datacols.count = 2
+    datacols.colorfocused = -1879048185
+    datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item
+        colorfocused = -1879048185
+        width = 120
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'stashed'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        colorfocused = -1879048185
+        width = 309
+        options = [co_readonly, co_fill, co_savestate, co_mousescrollrow]
+        widgetname = 'messageed'
+        dataclass = tgridmsestringdatalist
+      end>
+    datarowheight = 16
+    statfile = mainfo.formsta
+    reffontheight = 14
+    object stashed: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 120
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      reffontheight = 14
+    end
+    object messageed: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 121
+      bounds_y = 0
+      bounds_cx = 309
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      reffontheight = 14
+    end
+  end
+  inherited repoloadedact: taction[1]
+  end
+  inherited repoclosedact: taction[2]
+  end
+  object tpopupmenu1: tpopupmenu[3]
+    onupdate = updatapopup
+    menu.submenu.count = 3
+    menu.submenu.items = <    
+      item
+        caption = '&Apply'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = applyexe
+      end    
+      item
+        caption = '&Drop'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = dropexe
+      end    
+      item
+        caption = '&Clear'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = clearexe
+      end>
+    left = 48
+    top = 144
+  end
+end

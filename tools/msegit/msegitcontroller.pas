@@ -156,7 +156,13 @@ type
  end;
  prefinfoty = ^refinfoty;
  refinfoarty = array of refinfoty;
-    
+
+ stashinfoty = record
+  name: msestring;
+  message: msestring;
+ end;
+ stashinfoarty = array of stashinfoty;
+     
  tgitcontroller = class(tmsecomponent)
   private
    fgitcommand: msestring;
@@ -219,6 +225,7 @@ type
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: localbranchinfoarty;
                            out activebranch: msestring): boolean;
+   function stashlist(out adest: stashinfoarty): boolean;
    function diff(const a,b: msestring; const afile: filenamety;
                  const acontextn: integer = 3): msestringarty;
    function issha1(const avalue: string; var asha1: string): boolean;
@@ -1059,6 +1066,51 @@ begin
    po1:= po3;
   end;
   setlength(alist,int1);
+ end;
+end;
+
+function tgitcontroller.stashlist(out adest: stashinfoarty): boolean;
+var
+ po1,po2: pmsechar;
+ 
+ procedure decodeline;
+ var
+  po3,po4: pmsechar;
+ begin
+  po3:= po1;
+  while (po3^ <> ':') and (po3 < po2) do begin
+   inc(po3);
+  end;
+  inc(po3); //space
+  if po3 < po2 then begin
+   setlength(adest,high(adest)+2);
+   with adest[high(adest)] do begin
+    name:= psubstr(po1,po3-1);
+    po4:= po2;
+    if (po4 > po3) and (po4^ = c_return) then begin
+     dec(po4);
+    end;
+    message:= psubstr(po3,po4);
+   end;
+  end;
+  po1:= po2+1;
+ end; //decodeline
+ 
+var
+ mstr1: msestring;
+begin
+ adest:= nil;
+ result:= commandresult1('stash list',mstr1);
+ if mstr1 <> '' then begin
+  po1:= pointer(mstr1);
+  po2:= po1;
+  while po2^ <> #0 do begin
+   if po2^ = c_linefeed then begin
+    decodeline;
+   end;
+   inc(po2);
+  end;
+  decodeline;
  end;
 end;
 

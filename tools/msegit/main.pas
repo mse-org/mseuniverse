@@ -45,6 +45,8 @@ type
    objectrefreshtimer: ttimer;
    diffrefreshtimer: ttimer;
    commitallact: taction;
+   stashsaveact: taction;
+   stashpopact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -75,6 +77,9 @@ type
    procedure aboutexe(const sender: TObject);
    procedure updatecaptionxe(const sender: tdockpanelformcontroller;
                    const apanel: tdockpanelform; var avalue: msestring);
+   procedure showstashexe(const sender: TObject);
+   procedure stashsaveexe(const sender: TObject);
+   procedure stashpopexe(const sender: TObject);
   private
    frefreshing: boolean;
   public
@@ -90,9 +95,9 @@ var
 implementation
 
 uses
- main_mfm,dirtreeform,mainmodule,optionsform,filesform,remotesform,
+ main_mfm,dirtreeform,mainmodule,optionsform,filesform,stashform,remotesform,
  gitconsole,diffform,msewidgets,sysutils,branchform,msegitcontroller,
- mserichstring,logform;
+ mserichstring,logform,msestringenter;
 const
  mergecolor = $ffb030;
   
@@ -111,6 +116,11 @@ end;
 procedure tmainfo.showfilesexe(const sender: TObject);
 begin
  filesfo.activate;
+end;
+
+procedure tmainfo.showstashexe(const sender: TObject);
+begin
+ stashfo.activate;
 end;
 
 procedure tmainfo.showbranchexe(const sender: TObject);
@@ -205,6 +215,7 @@ begin
   dirtreefo.restorestate;
   filesfo.restorestate;
   branchfo.refresh;
+  stashfo.refresh;
   objchanged;
  end;
 end;
@@ -335,6 +346,8 @@ begin
  pullact.enabled:= bo2;
  mergeact.enabled:= bo2;
  resetmergeact.enabled:= bo1;
+ stashsaveact.enabled:= bo1;
+ stashpopact.enabled:= mainmo.stashes <> nil;
 // mainmen.menu.itembynames(['git','branch']).enabled:= bo2;
 end;
 
@@ -383,6 +396,25 @@ end;
 procedure tmainfo.updatecaptionxe(const sender: tdockpanelformcontroller;
                const apanel: tdockpanelform; var avalue: msestring);
 begin
+end;
+
+procedure tmainfo.stashsaveexe(const sender: TObject);
+var
+ mstr1: msestring;
+begin
+ if askyesno('Do you want to save and reset local changes?')
+       and (stringenter(mstr1,'Message','Stash') = mr_ok)
+       and mainmo.stashsave(mstr1) then begin
+  reload;
+ end;
+end;
+
+procedure tmainfo.stashpopexe(const sender: TObject);
+begin
+ if askyesno('Do you want to restore "'+mainmo.stashes[0].message+'"?') and
+                  mainmo.stashpop then begin
+  reload;
+ end;
 end;
 
 end.
