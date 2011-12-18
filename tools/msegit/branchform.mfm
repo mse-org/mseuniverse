@@ -264,20 +264,30 @@ inherited branchfo: tbranchfo
     top = 152
   end
   object localpopup: tpopupmenu[6]
-    onupdate = localpopupupdateexe
-    menu.submenu.count = 2
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
-        caption = 'Create Branch'
+        caption = '&Create Branch'
         state = [as_localcaption, as_localonexecute]
         onexecute = localcreateexe
       end    
       item
-        caption = 'Delete Branch'
+        caption = '&Delete Branch'
         state = [as_localcaption, as_localonexecute]
         onexecute = localdeleteexe
+      end    
+      item
+        action = mergeact
+        caption = '&Merge Branch'
+        state = [as_localcaption]
       end>
     left = 40
     top = 152
+  end
+  object mergeact: taction[7]
+    onexecute = mergebranchexe
+    onupdate = mergeupdateexe
+    left = 40
+    top = 184
   end
 end

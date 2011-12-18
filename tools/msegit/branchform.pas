@@ -37,6 +37,7 @@ type
    localpopup: tpopupmenu;
    logbranch: tbooleaneditradio;
    remotebranchlink: tbooleanedit;
+   mergeact: taction;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -54,7 +55,6 @@ type
                    var accept: Boolean);
    procedure localrowdeleteexe(const sender: tcustomgrid; var aindex: Integer;
                    var acount: Integer);
-   procedure localpopupupdateexe(const sender: tcustommenu);
    procedure localcreateexe(const sender: TObject);
    procedure localdeleteexe(const sender: TObject);
    procedure remoterowinsertexe(const sender: tcustomgrid; var aindex: Integer;
@@ -65,6 +65,8 @@ type
                    var accept: Boolean);
    procedure linkbranchsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
+   procedure mergebranchexe(const sender: TObject);
+   procedure mergeupdateexe(const sender: tcustomaction);
   protected
    function currentremote: msestring;
    procedure doclear; override;
@@ -365,11 +367,6 @@ begin
  end;
 end;
 
-procedure tbranchfo.localpopupupdateexe(const sender: tcustommenu);
-begin
- //dummy
-end;
-
 procedure tbranchfo.localcreateexe(const sender: TObject);
 begin
  localgrid.insertrow(localgrid.row+1,1);
@@ -448,6 +445,22 @@ begin
  else begin
   avalue:= false;
  end;
+end;
+
+procedure tbranchfo.mergebranchexe(const sender: TObject);
+begin
+ if askyesno('Do you want to merge "'+localbranch.value+'" to "'+
+                                          mainmo.activebranch+'"?') and
+      mainmo.execgitconsole('merge '+
+         mainmo.git.encodestringparam(localbranch.value)) then begin
+   mainfo.reload;
+ end;
+end;
+
+procedure tbranchfo.mergeupdateexe(const sender: tcustomaction);
+begin
+ mergeact.enabled:= (localgrid.row >= 0) and 
+                          (localbranch.value <> mainmo.activebranch);
 end;
 
 end.
