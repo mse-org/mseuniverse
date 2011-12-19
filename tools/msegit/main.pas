@@ -206,6 +206,9 @@ procedure tmainfo.reload;
 begin
  filesfo.savestate;
  dirtreefo.savestate;
+ if mainmo.repoloaded then begin
+  mainmo.repostatf.writestat;
+ end;
  try
   frefreshing:= true;
   dirtreefo.grid.clear;

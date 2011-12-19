@@ -113,6 +113,7 @@ type
    factivelogbranch: msestring;
    flinkedremotebranches: msestringarty;
    flocalbranchorder: msestringarty;
+   fremotesorder: msestringarty;
   public
    procedure reset;
   published
@@ -126,6 +127,7 @@ type
                                                 write flinkedremotebranches;
    property localbranchorder: msestringarty read flocalbranchorder 
                                                 write flocalbranchorder;
+   property remotesorder: msestringarty read fremotesorder write fremotesorder;
  end;
 
  trefsitem = class
@@ -284,6 +286,7 @@ type
    procedure reload;
    procedure loadstash;
    procedure updatelocalbranchorder;
+   procedure updateremotesorder;
    function repoloaded: boolean;
    property repo: filenamety read frepo write setrepo;
                   //absolute path to repo dir
@@ -340,7 +343,7 @@ implementation
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
  gitconsole,commitqueryform,revertqueryform,msestream,removequeryform,
- branchform;
+ branchform,remotesform;
   
 const
  defaultfileicon = 0;
@@ -599,9 +602,19 @@ begin
    int2:= 0;
    repostatf.readstat;
    for int1:= 0 to high(frepostat.flocalbranchorder) do begin
-    for int3:= int2+1 to high(fbranches) do begin
+    for int3:= int2 to high(fbranches) do begin
      if fbranches[int3].info.name = frepostat.flocalbranchorder[int1] then begin
       moveitem(fbranches,int3,int2,sizeof(fbranches[0]));
+      inc(int2);
+      break;
+     end;
+    end;
+   end;
+   int2:= 0;
+   for int1:= 0 to high(frepostat.fremotesorder) do begin
+    for int3:= int2 to high(fremotesinfo) do begin
+     if fremotesinfo[int3].name = frepostat.fremotesorder[int1] then begin
+      moveitem(fremotesinfo,int3,int2,sizeof(fremotesinfo[0]));
       inc(int2);
       break;
      end;
@@ -1589,6 +1602,16 @@ begin
  setlength(frepostat.flocalbranchorder,branchfo.localgrid.rowcount);
  for int1:= 0 to branchfo.localgrid.rowhigh do begin
   frepostat.flocalbranchorder[int1]:= branchfo.localbranch[int1];
+ end;
+end;
+
+procedure tmainmo.updateremotesorder;
+var
+ int1: integer;
+begin
+ setlength(frepostat.fremotesorder,remotesfo.grid.rowcount);
+ for int1:= 0 to remotesfo.grid.rowhigh do begin
+  frepostat.fremotesorder[int1]:= remotesfo.remote[int1];
  end;
 end;
 

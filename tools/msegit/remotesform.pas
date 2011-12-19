@@ -44,6 +44,8 @@ type
    procedure rowdeleteexe(const sender: tcustomgrid; var aindex: Integer;
                    var acount: Integer);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
+   procedure rowmovedexe(const sender: tcustomgrid; const fromindex: Integer;
+                   const toindex: Integer; const acount: Integer);
   private
    fhasremote: boolean;
    function changeurl(const afetch,apush: msestring): boolean;
@@ -52,9 +54,10 @@ type
  end;
 var
  remotesfo: tremotesfo;
+ 
 implementation
 uses
- remotesform_mfm,mainmodule,msegitcontroller,sysutils;
+ remotesform_mfm,mainmodule,msegitcontroller,sysutils,main;
 
 { tremotesfo }
 
@@ -171,6 +174,18 @@ begin
  if isrowenter(info) then begin
   fhasremote:= remote.value <> '';
  end;
+end;
+
+procedure tremotesfo.rowmovedexe(const sender: tcustomgrid;
+               const fromindex: Integer; const toindex: Integer;
+               const acount: Integer);
+var
+ int1: integer;
+begin
+ int1:= grid.row;
+ mainmo.updateremotesorder;
+ mainfo.reload;
+ grid.row:= int1;
 end;
 
 end.
