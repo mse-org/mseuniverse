@@ -53,7 +53,7 @@ type
                    var accept: Boolean);
    procedure localactivesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
-   procedure localrowdeleteexe(const sender: tcustomgrid; var aindex: Integer;
+   procedure localrowsdeleteexe(const sender: tcustomgrid; var aindex: Integer;
                    var acount: Integer);
    procedure localcreateexe(const sender: TObject);
    procedure localdeleteexe(const sender: TObject);
@@ -67,6 +67,11 @@ type
                    var accept: Boolean);
    procedure mergebranchexe(const sender: TObject);
    procedure mergeupdateexe(const sender: tcustomaction);
+   procedure localbranchrowmovedexe(const sender: tcustomgrid;
+                   const fromindex: Integer; const toindex: Integer;
+                   const acount: Integer);
+   procedure localrowsdeletedexe(const sender: tcustomgrid;
+                   const aindex: Integer; const acount: Integer);
   protected
    function currentremote: msestring;
    procedure doclear; override;
@@ -166,6 +171,9 @@ begin
                   logfo.currentcommithint+'?');
    if accept then begin
     accept:= mainmo.createbranch('',avalue,logfo.currentcommit);
+    if accept then begin
+     mainmo.updatelocalbranchorder;
+    end;
    end;
   end
   else begin
@@ -174,6 +182,9 @@ begin
    if accept then begin
     if not mainmo.renamebranch('',localbranch.value,avalue) then begin
      avalue:= localbranch.value;
+    end
+    else begin
+     mainmo.updatelocalbranchorder;
     end;
    end;
   end;
@@ -334,7 +345,7 @@ begin
  remotegrid.row:= rowbefore;
 end;
 
-procedure tbranchfo.localrowdeleteexe(const sender: tcustomgrid;
+procedure tbranchfo.localrowsdeleteexe(const sender: tcustomgrid;
                var aindex: Integer; var acount: Integer);
 //var
 // mstr1,mstr2: msestring;
@@ -461,6 +472,19 @@ procedure tbranchfo.mergeupdateexe(const sender: tcustomaction);
 begin
  mergeact.enabled:= (localgrid.row >= 0) and 
                           (localbranch.value <> mainmo.activebranch);
+end;
+
+procedure tbranchfo.localbranchrowmovedexe(const sender: tcustomgrid;
+               const fromindex: Integer; const toindex: Integer;
+               const acount: Integer);
+begin
+ mainmo.updatelocalbranchorder;
+end;
+
+procedure tbranchfo.localrowsdeletedexe(const sender: tcustomgrid;
+               const aindex: Integer; const acount: Integer);
+begin
+ mainmo.updatelocalbranchorder;
 end;
 
 end.

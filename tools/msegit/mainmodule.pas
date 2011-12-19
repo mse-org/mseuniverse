@@ -112,6 +112,7 @@ type
    fcommitmessage: msestring;
    factivelogbranch: msestring;
    flinkedremotebranches: msestringarty;
+   flocalbranchorder: msestringarty;
   public
    procedure reset;
   published
@@ -123,6 +124,8 @@ type
    property commitmessage: msestring read fcommitmessage write fcommitmessage;
    property linkedremotebranches: msestringarty read flinkedremotebranches 
                                                 write flinkedremotebranches;
+   property localbranchorder: msestringarty read flocalbranchorder 
+                                                write flocalbranchorder;
  end;
 
  trefsitem = class
@@ -280,6 +283,7 @@ type
    function mergetoolcall(const afiles: filenamearty): boolean;
    procedure reload;
    procedure loadstash;
+   procedure updatelocalbranchorder;
    function repoloaded: boolean;
    property repo: filenamety read frepo write setrepo;
                   //absolute path to repo dir
@@ -335,7 +339,8 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
- gitconsole,commitqueryform,revertqueryform,msestream,removequeryform;
+ gitconsole,commitqueryform,revertqueryform,msestream,removequeryform,
+ branchform;
   
 const
  defaultfileicon = 0;
@@ -569,6 +574,7 @@ var
  mstr1: msestring;
  bo1: boolean;
  ar1: msestringarty;
+ ar2: integerarty;
 begin
  closerepo;
  if avalue <> '' then begin
@@ -590,7 +596,17 @@ begin
    frepobase:= copy(frepo,(length(freporoot)+1),bigint);
    fgit.remoteshow(fremotesinfo);
    fgit.branchshow(fbranches,factivebranch);
+   int2:= 0;
    repostatf.readstat;
+   for int1:= 0 to high(frepostat.flocalbranchorder) do begin
+    for int3:= int2+1 to high(fbranches) do begin
+     if fbranches[int3].info.name = frepostat.flocalbranchorder[int1] then begin
+      moveitem(fbranches,int3,int2,sizeof(fbranches[0]));
+      inc(int2);
+      break;
+     end;
+    end;
+   end;
    bo1:= false;
    for int1:= 0 to high(fbranches) do begin
     if fbranches[int1].info.name = repostat.activelogbranch then begin
@@ -1564,6 +1580,16 @@ end;
 function tmainmo.stashpop: boolean;
 begin
  result:= execgitconsole('stash pop');
+end;
+
+procedure tmainmo.updatelocalbranchorder;
+var
+ int1: integer;
+begin
+ setlength(frepostat.flocalbranchorder,branchfo.localgrid.rowcount);
+ for int1:= 0 to branchfo.localgrid.rowhigh do begin
+  frepostat.flocalbranchorder[int1]:= branchfo.localbranch[int1];
+ end;
 end;
 
 { tmsegitfileitem }
