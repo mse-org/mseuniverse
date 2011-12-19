@@ -1,0 +1,49 @@
+object difftabfo: tdifftabfo
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 487
+  bounds_cy = 323
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    487
+    323
+  )
+  moduleclassname = 'ttabform'
+  object grid: twidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 487
+    bounds_cy = 323
+    anchors = []
+    datacols.count = 1
+    datacols.options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item
+        width = 2000
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'ed'
+        dataclass = tgridrichstringdatalist
+      end>
+    datarowlinewidth = 0
+    datarowheight = 14
+    reffontheight = 14
+    object ed: ttextedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontlineheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 2000
+      bounds_cy = 14
+      font.name = 'stf_fixed'
+      font.xscale = 1
+      font.dummy = 0
+      optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      reffontheight = 14
+    end
+  end
+end
