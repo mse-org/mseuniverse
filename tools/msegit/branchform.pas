@@ -72,8 +72,14 @@ type
                    const acount: Integer);
    procedure localrowsdeletedexe(const sender: tcustomgrid;
                    const aindex: Integer; const acount: Integer);
+   procedure remoterowsmovingexe(const sender: tcustomgrid;
+                   var fromindex: Integer; var toindex: Integer;
+                   var acount: Integer);
+   procedure remoterowsmovedexe(const sender: tcustomgrid;
+                   const fromindex: Integer; const toindex: Integer;
+                   const acount: Integer);
   protected
-   function currentremote: msestring;
+   function currentremote(arow: integer = -1): msestring;
    procedure doclear; override;
    procedure dorefresh; override;
  end;
@@ -219,12 +225,15 @@ begin
  end;
 end;
 
-function tbranchfo.currentremote: msestring;
+function tbranchfo.currentremote(arow: integer = -1): msestring;
 var
  int1: integer;
 begin
+ if arow < 0 then begin
+  arow:= remotegrid.row;
+ end;
  result:= '';
- for int1:= remotegrid.row downto 0 do begin
+ for int1:= arow downto 0 do begin
   if remote[int1] <> '' then begin
    result:= remote[int1];
    break;
@@ -485,6 +494,23 @@ procedure tbranchfo.localrowsdeletedexe(const sender: tcustomgrid;
                const aindex: Integer; const acount: Integer);
 begin
  mainmo.updatelocalbranchorder;
+end;
+
+procedure tbranchfo.remoterowsmovingexe(const sender: tcustomgrid;
+               var fromindex: Integer; var toindex: Integer;
+               var acount: Integer);
+begin
+ if (remote[fromindex] <> '') or (remote[toindex] <> '') or 
+   (currentremote(fromindex) <> currentremote(toindex)) then begin
+  acount:= 0;
+ end;
+end;
+
+procedure tbranchfo.remoterowsmovedexe(const sender: tcustomgrid;
+               const fromindex: Integer; const toindex: Integer;
+               const acount: Integer);
+begin
+ mainmo.updateremotebranchorder;
 end;
 
 end.

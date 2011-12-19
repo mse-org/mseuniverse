@@ -17,7 +17,12 @@ inherited branchfo: tbranchfo
     bounds_cx = 240
     bounds_cy = 354
     anchors = [an_right]
-    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_noinsertempty, og_colmerged, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_noinsertempty, og_colmerged, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 12
+      end>
     fixrows.count = 1
     fixrows.items = <    
       item
@@ -47,14 +52,14 @@ inherited branchfo: tbranchfo
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
-        width = 61
+        width = 57
         onbeforedrawcell = befremotecoldraw
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remote'
         dataclass = tgridmsestringdatalist
       end    
       item
-        width = 139
+        width = 130
         options = [co_fill, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranch'
         dataclass = tgridmsestringdatalist
@@ -73,6 +78,8 @@ inherited branchfo: tbranchfo
       end>
     datarowheight = 16
     statfile = mainfo.formsta
+    onrowsmoving = remoterowsmovingexe
+    onrowsmoved = remoterowsmovedexe
     onrowsinserting = remoterowinsertexe
     onrowsdeleting = remoterowdeleteexe
     oncellevent = remotecelleventexe
@@ -84,7 +91,7 @@ inherited branchfo: tbranchfo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 61
+      bounds_cx = 57
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       reffontheight = 14
@@ -94,9 +101,9 @@ inherited branchfo: tbranchfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 62
+      bounds_x = 58
       bounds_y = 0
-      bounds_cx = 139
+      bounds_cx = 130
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       onsetvalue = remotebranchsetexe
@@ -106,7 +113,7 @@ inherited branchfo: tbranchfo
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 3
-      bounds_x = 202
+      bounds_x = 189
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
@@ -118,7 +125,7 @@ inherited branchfo: tbranchfo
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 4
-      bounds_x = 219
+      bounds_x = 206
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16

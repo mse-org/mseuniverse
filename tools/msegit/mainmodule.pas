@@ -114,6 +114,7 @@ type
    flinkedremotebranches: msestringarty;
    flocalbranchorder: msestringarty;
    fremotesorder: msestringarty;
+   fremotebranchorder: msestringarty;
   public
    procedure reset;
   published
@@ -128,6 +129,8 @@ type
    property localbranchorder: msestringarty read flocalbranchorder 
                                                 write flocalbranchorder;
    property remotesorder: msestringarty read fremotesorder write fremotesorder;
+   property remotebranchorder: msestringarty read fremotebranchorder 
+                                                  write fremotebranchorder;
  end;
 
  trefsitem = class
@@ -287,6 +290,7 @@ type
    procedure loadstash;
    procedure updatelocalbranchorder;
    procedure updateremotesorder;
+   procedure updateremotebranchorder;
    function repoloaded: boolean;
    property repo: filenamety read frepo write setrepo;
                   //absolute path to repo dir
@@ -527,11 +531,9 @@ begin
  freeandnil(fgitstate);
  frefsinfo.clear;
  if frepo <> '' then begin
-//  setlength(ar1,length(fremotesinfo));
   ar1:= nil;
   for int1:= 0 to high(fremotesinfo) do begin
    with fremotesinfo[int1] do begin
-//    ar2[int1]:= name;
     for int2:= 0 to high(branches) do begin
      with branches[int2] do begin
       if linklocalbranch then begin
@@ -577,7 +579,6 @@ var
  mstr1: msestring;
  bo1: boolean;
  ar1: msestringarty;
- ar2: integerarty;
 begin
  closerepo;
  if avalue <> '' then begin
@@ -617,6 +618,39 @@ begin
       moveitem(fremotesinfo,int3,int2,sizeof(fremotesinfo[0]));
       inc(int2);
       break;
+     end;
+    end;
+   end;
+   if frepostat.fremotebranchorder <> nil then begin
+    int1:= 0;
+    while int1 <= high(frepostat.fremotebranchorder) do begin
+     mstr1:= frepostat.fremotebranchorder[int1];
+     inc(int1);
+     if (mstr1 <> '') and (mstr1[1] = ' ') then begin
+      mstr1:= unquotestring(copy(mstr1,2,bigint),'"');
+      for int2:= 0 to high(fremotesinfo) do begin
+       if fremotesinfo[int2].name = mstr1 then begin
+        with fremotesinfo[int2] do begin
+         int4:= 0;
+         while (int1 <= high(frepostat.fremotebranchorder)) do begin
+          mstr1:= frepostat.fremotebranchorder[int1];
+          if (mstr1 <> '') and (mstr1[1] = ' ') then begin
+           break;
+          end;
+          inc(int1);
+          mstr1:= unquotestring(mstr1,'"');
+          for int3:= 0 to high(branches) do begin
+           if branches[int3].info.name = mstr1 then begin
+            moveitem(branches,int3,int4,sizeof(branches[0]));
+            inc(int4);
+            break;
+           end;
+          end;
+         end;
+        end;
+        break;
+       end;
+      end;
      end;
     end;
    end;
@@ -1612,6 +1646,24 @@ begin
  setlength(frepostat.fremotesorder,remotesfo.grid.rowcount);
  for int1:= 0 to remotesfo.grid.rowhigh do begin
   frepostat.fremotesorder[int1]:= remotesfo.remote[int1];
+ end;
+end;
+
+procedure tmainmo.updateremotebranchorder;
+var
+ int1: integer;
+ mstr1: msestring;
+begin
+ setlength(frepostat.fremotebranchorder,branchfo.remotegrid.rowcount);
+ for int1:= 0 to high(frepostat.fremotebranchorder) do begin
+  mstr1:= branchfo.remotebranch[int1];
+  if mstr1 = '' then begin
+   mstr1:= ' '+quotestring(branchfo.remote[int1],'"');
+  end
+  else begin
+   mstr1:= quotestring(mstr1,'"');
+  end;
+  frepostat.fremotebranchorder[int1]:= mstr1;
  end;
 end;
 
