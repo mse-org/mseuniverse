@@ -96,7 +96,6 @@ object commitqueryfo: tcommitqueryfo
   end
   object tsimplewidget1: tsimplewidget
     optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_autoscale]
-    taborder = 1
     visible = True
     bounds_x = 0
     bounds_y = 0
@@ -201,6 +200,7 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
+    taborder = 1
     visible = True
     bounds_x = 387
     bounds_y = 0
