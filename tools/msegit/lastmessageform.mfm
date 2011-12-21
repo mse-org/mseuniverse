@@ -59,6 +59,7 @@ object lastmessagefo: tlastmessagefo
         dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
+    oncellevent = celleventexe
     reffontheight = 14
     object ed: tstringedit
       optionsskin = [osk_framebuttononly]

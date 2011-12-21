@@ -13,10 +13,20 @@ type
    tbutton2: tbutton;
    grid: twidgetgrid;
    ed: tstringedit;
+   procedure celleventexe(const sender: TObject; var info: celleventinfoty);
  end;
 var
  lastmessagefo: tlastmessagefo;
 implementation
 uses
  lastmessageform_mfm;
+ 
+procedure tlastmessagefo.celleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if (grid.row >= 0) and (iscellclick(info,[ccr_dblclick])) then begin
+  window.modalresult:= mr_ok;
+ end;
+end;
+
 end.
