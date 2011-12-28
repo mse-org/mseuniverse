@@ -76,26 +76,7 @@ object revertqueryfo: trevertqueryfo
     )
     options = [fo_savepos, fo_savezorder]
     statfile = diff.tstatfile1
-    inherited grid: twidgetgrid
-      frame.caption = 'diff'
-      frame.captionoffset = 10
-      frame.localprops1 = [frl1_captionoffset]
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
-      bounds_cx = 316
-      bounds_cy = 250
-      datacols.items = <      
-        item
-          options = [co_savevalue, co_savestate, co_mousescrollrow]
-          dataclass = tgridrichstringdatalist
-        end>
-      inherited ed: ttextedit
-        optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
-      end
+    inherited tabs: ttabwidget
     end
     inherited repoloadedact: taction
     end
