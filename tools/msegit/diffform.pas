@@ -171,7 +171,11 @@ begin
   end;
  end
  else begin
-  additem(ar2,ar1);
+  if ar1 <> nil then begin
+   additem(ar2,ar1);
+   setlength(captions,1);
+   setlength(hints,1);
+  end;
  end;
  if ar2 = nil then begin
   cleartabs;
