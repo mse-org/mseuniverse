@@ -207,9 +207,14 @@ begin
  fpath:= '';
  fa:= newcommit;
  fb:= oldcommit;
- if (adir <> nil) and (afile <> nil) then begin
-  fpath:= adir.gitpath+afile.caption;
-  fcanexternaldiff:= true;
+ if (adir <> nil) then begin
+  if afile <> nil then begin
+   fpath:= adir.gitbasepath+afile.caption;
+   fcanexternaldiff:= true;
+  end
+  else begin
+   fpath:= adir.gitbasepath;
+  end;
  end;
  inherited refresh;
 end;

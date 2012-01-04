@@ -16,7 +16,7 @@ object dispfo: tdispfo
     354
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
-  options = [fo_closeonesc, fo_keycloseifwinonly, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_closeonesc, fo_keycloseifwinonly, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfo.formsta
   onshow = showexe
   moduleclassname = 'tdockform'
