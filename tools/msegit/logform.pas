@@ -197,10 +197,10 @@ procedure tlogfo.refresh(const adir: tgitdirtreenode;
 begin
  fpath:= '';
  if (adir <> nil) then begin
-  fpath:= adir.gitpath;
-  if afile <> nil then begin
-   fpath:= fpath+afile.caption;
-  end;
+  fpath:= adir.gitbasepath;
+ end;
+ if afile <> nil then begin
+  fpath:= fpath+afile.caption;
  end;
  inherited refresh;
 end;

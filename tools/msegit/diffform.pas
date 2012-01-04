@@ -208,13 +208,11 @@ begin
  fa:= newcommit;
  fb:= oldcommit;
  if (adir <> nil) then begin
-  if afile <> nil then begin
-   fpath:= adir.gitbasepath+afile.caption;
-   fcanexternaldiff:= true;
-  end
-  else begin
-   fpath:= adir.gitbasepath;
-  end;
+  fpath:= adir.gitbasepath;
+ end;
+ if afile <> nil then begin
+  fpath:= fpath+afile.caption;
+  fcanexternaldiff:= true;
  end;
  inherited refresh;
 end;
