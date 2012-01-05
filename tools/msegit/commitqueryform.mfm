@@ -58,7 +58,7 @@ object commitqueryfo: tcommitqueryfo
     anchors = [an_left, an_bottom]
     reffontheight = 14
   end
-  object ammend: tbutton
+  object amend: tbutton
     taborder = 5
     bounds_x = 352
     bounds_y = 256
@@ -68,7 +68,7 @@ object commitqueryfo: tcommitqueryfo
     state = [as_localcaption, as_localonexecute]
     caption = '&Amend'
     onupdate = commitupdateexe
-    onexecute = ammendexe
+    onexecute = amendexe
   end
   object stage: tbutton
     taborder = 6

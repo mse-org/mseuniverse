@@ -29,7 +29,7 @@ type
    commit: tbutton;
    filecountdisp: tintegerdisp;
    tstatfile1: tstatfile;
-   ammend: tbutton;
+   amend: tbutton;
    stage: tbutton;
    unstage: tbutton;
    messageed: tmemoedit;
@@ -45,7 +45,7 @@ type
                    var accept: Boolean);
    procedure commitupdateexe(const sender: tcustombutton);
    procedure stageexe(const sender: TObject);
-   procedure ammendexe(const sender: TObject);
+   procedure amendexe(const sender: TObject);
    procedure unstageexe(const sender: TObject);
    procedure lastmessageexe(const sender: TObject);
    procedure messagepopupupdaexe(const sender: tcustommenu);
@@ -154,10 +154,10 @@ begin
  end;
 end;
 
-procedure tcommitqueryfo.ammendexe(const sender: TObject);
+procedure tcommitqueryfo.amendexe(const sender: TObject);
 begin
  if checkmessage then begin
-  if askyesno('Do you want to ammend?') then begin
+  if askyesno('Do you want to amend?') then begin
    fkind:= ck_amend;
    window.modalresult:= mr_ok;
   end;
@@ -192,7 +192,7 @@ begin
  bo1:= filecountdisp.value > 0;
  unstage.enabled:= bo1 and not fstaged;
  stage.enabled:= bo1 and not fstaged;
- ammend.enabled:= {bo1 and} not fstaged;
+ amend.enabled:= {bo1 and} not fstaged;
  commit.enabled:= bo1 or fstaged;
 end;
 
