@@ -77,6 +77,8 @@ object revertqueryfo: trevertqueryfo
     options = [fo_savepos, fo_savezorder]
     statfile = diff.tstatfile1
     inherited tabs: ttabwidget
+      bounds_cx = 316
+      bounds_cy = 250
     end
     inherited repoloadedact: taction
     end

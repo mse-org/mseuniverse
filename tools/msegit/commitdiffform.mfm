@@ -12,6 +12,7 @@ inherited commitdifffo: tcommitdifffo
   moduleclassname = 'tdifffo'
   inherited tabs: ttabwidget
     tab_options = [tabo_multitabsonly]
+    statfile = tstatfile1
   end
   inherited repoloadedact: taction
   end

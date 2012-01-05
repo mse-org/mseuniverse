@@ -23,6 +23,7 @@ inherited difffo: tdifffo
     tab_textflags = [tf_ycentered]
     tab_size = 81
     tab_optionswidget1 = []
+    statfile = mainfo.formsta
   end
   inherited repoloadedact: taction[1]
   end
