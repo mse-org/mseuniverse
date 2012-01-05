@@ -78,6 +78,7 @@ begin
  treeed.itemlist.add(mainmo.dirtree,false);
  if not mainfo.refreshing then begin
   grid.row:= 0;
+  syncfilesfo;
  end;
 // treeedit.itemlist.assign(mainmo.dirtree,false);
 end;

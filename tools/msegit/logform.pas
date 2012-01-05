@@ -59,6 +59,7 @@ type
   private
    fpath: filenamety;
   protected
+   procedure dorepoloaded; override;
    procedure dorefresh; override;
    procedure doclear; override;   
    procedure getrevs(const skip: integer);
@@ -261,6 +262,11 @@ procedure tlogfo.createmessageitemexe(const sender: tcustomitemlist;
                var item: tlistedititem);
 begin
  item:= tlogitem.create(sender);
+end;
+
+procedure tlogfo.dorepoloaded;
+begin
+ //dummy
 end;
 
 { tlogitem }

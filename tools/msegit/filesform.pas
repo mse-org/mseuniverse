@@ -57,6 +57,7 @@ type
    function currentfilepath: filenamety;
    procedure savestate;
    procedure restorestate;
+   procedure clear;
  end;
 var
  filesfo: tfilesfo;
@@ -220,6 +221,11 @@ procedure tfilesfo.popupupdate(const sender: tcustommenu);
 begin
  mergetoolact.enabled:= (mainmo.opt.mergetool <> '') and 
                                           (currentfilepath <> '');
+end;
+
+procedure tfilesfo.clear;
+begin
+ filelist.grid.clear;
 end;
 
 end.

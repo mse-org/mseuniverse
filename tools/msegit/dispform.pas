@@ -33,6 +33,7 @@ type
   private
    finfovalid: boolean;
   protected
+   procedure dorepoloaded; virtual;
    procedure dorefresh; virtual;
    procedure doclear; virtual;
   public
@@ -53,9 +54,14 @@ begin
  end;
 end;
 
-procedure tdispfo.repoloadedexe(const sender: TObject);
+procedure tdispfo.dorepoloaded;
 begin
  refresh;
+end;
+
+procedure tdispfo.repoloadedexe(const sender: TObject);
+begin
+ dorepoloaded;
 end;
 
 procedure tdispfo.repoclosedexe(const sender: TObject);

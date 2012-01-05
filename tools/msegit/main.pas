@@ -181,6 +181,7 @@ begin
  if not frefreshing then begin
   caption:= 'MSEgit';
   gitconsolefo.clear;
+  filesfo.clear;
   statdisp.value:= '';
   statdisp.hint:= '';
   statdisp.color:= cl_default;
