@@ -216,7 +216,7 @@ end;
 
 procedure tlogfo.celleventexe(const sender: TObject; var info: celleventinfoty);
 begin
- if visible and isrowenter(info,true) and (diffbase.checkedrow >= 0) then begin
+ if visible and isrowenter(info,true) {and (diffbase.checkedrow >= 0)} then begin
   mainfo.diffchanged;
  end;
 end;

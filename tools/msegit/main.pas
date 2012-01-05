@@ -364,15 +364,25 @@ procedure tmainfo.difrefreshtiexe(const sender: TObject);
 var
  int1: integer;
 begin
- if logfo.visible then begin
+ if logfo.visible and (logfo.grid.row >= 0) then begin
   int1:= logfo.diffbase.checkedrow;
-  if (int1 >= 0) and (int1 <> logfo.grid.row) then begin
+  if (int1 >= 0) then begin
+   if  int1 = logfo.grid.row then begin
+    difffo.clear;
+   end
+   else begin
+    difffo.refresh(dirtreefo.currentitem,filesfo.currentitem,
+                                 logfo.commit[int1],logfo.commit.value); 
+   end;
+  end
+  else begin
    difffo.refresh(dirtreefo.currentitem,filesfo.currentitem,
-                       logfo.commit[int1],logfo.commit.value); 
-   exit;
+                                 logfo.commit.value,''); 
   end;
+ end
+ else begin
+  difffo.refresh(dirtreefo.currentitem,filesfo.currentitem,'',''); 
  end;   
- difffo.refresh(dirtreefo.currentitem,filesfo.currentitem,'',''); 
 end;
 
 procedure tmainfo.objchanged;
