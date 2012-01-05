@@ -147,12 +147,12 @@ var
  captions,hints: msestringarty;
  ar2: msestringararty;
 begin
- if (fpath <> '') or (fa <> '') or (fb <> '') then begin
+// if (fpath <> '') or (fa <> '') or (fb <> '') then begin
   ar1:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
- end
- else begin
-  ar1:= nil;
- end;
+// end
+// else begin
+//  ar1:= nil;
+// end;
  int2:= -1;
  if mainmo.opt.splitdiffs then begin
   for int1:= 0 to high(ar1) do begin
