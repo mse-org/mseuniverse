@@ -15,7 +15,7 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
 unit branchform;
-{$ifdef FPC}{$mode objfpc}{$h+}{$endif}
+{$ifdef FPC}{$mode objfpc}{$h+}{$goto on}{$endif}
 interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
@@ -35,11 +35,12 @@ type
    localactive: tbooleaneditradio;
    tsplitter1: tsplitter;
    localpopup: tpopupmenu;
-   logbranch: tbooleaneditradio;
+   locallogbranch: tbooleaneditradio;
    remotebranchlink: tbooleanedit;
    mergeact: taction;
    remotebranchcommit: tstringedit;
    localbranchcommit: tstringedit;
+   remotelogbranch: tbooleaneditradio;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -63,7 +64,7 @@ type
                    var acount: Integer);
    procedure befremotecoldraw(const sender: tcol; const canvas: tcanvas;
                    var cellinfo: cellinfoty; var processed: Boolean);
-   procedure activelogsetexe(const sender: TObject; var avalue: Boolean;
+   procedure localactivelogsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure linkbranchsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
@@ -80,10 +81,15 @@ type
    procedure remoterowsmovedexe(const sender: tcustomgrid;
                    const fromindex: Integer; const toindex: Integer;
                    const acount: Integer);
+   procedure remoteactivelogsetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
   protected
    function currentremote(arow: integer = -1): msestring;
    procedure doclear; override;
+  public
    procedure dorefresh; override;
+   procedure setactivelocallog(const abranch: msestring);
+   procedure setactiveremotelog(const aremote,abranch: msestring);
  end;
  
 var
@@ -110,10 +116,10 @@ procedure tbranchfo.dorefresh;
 var
  int1,int2,int3: integer;
  mstr1: msestring;
- bo1: boolean;
+ bo1,bo2: boolean;
 begin
  localgrid.rowcount:= length(mainmo.branches);
- logbranch.checkedrow:= -1;
+ locallogbranch.checkedrow:= -1;
  localactive.checkedrow:= -1;
  with localgrid do begin
   optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
@@ -125,8 +131,8 @@ begin
    if active then begin
     localactive.checkedrow:= int1;
    end;
-   if info.name = mainmo.repostat.activelogbranch then begin
-    logbranch.checkedrow:= int1;
+   if info.name = mainmo.repostat.activelocallogbranch then begin
+    locallogbranch.checkedrow:= int1;
    end;
    if active then begin
     localgrid.rowcolorstate[int1]:= 0;
@@ -139,6 +145,7 @@ begin
    if name <> '' then begin
     remotegrid.rowcount:= 1 + int3 + length(branches);
     remote[int3]:= name;
+    bo2:= mainmo.repostat.activeremotelog = name;
     mstr1:= mainmo.activeremotebranch[name];
     bo1:= name = mainmo.activeremote;
     if bo1 then begin
@@ -152,6 +159,9 @@ begin
       remotebranch[int3]:= info.name;
       remotebranchcommit[int3]:= info.commit;
       remotebranchlink[int3]:= linklocalbranch;
+      if bo2 and (info.name = mainmo.repostat.activeremotelogbranch) then begin
+       remotelogbranch.checkedrow:= int3;
+      end;
       if info.name = mstr1 then begin
        remoteactive[int3]:= true;
        if bo1 then begin
@@ -255,12 +265,63 @@ begin
   if mainmo.linkremotebranch[mainmo.activeremote,localbranch.value] then begin
    mainmo.activeremotebranch[mainmo.activeremote]:= localbranch.value;
   end;
-  mainmo.repostat.activelogbranch:= localbranch.value;
-  logbranch.value:= true;
+  mainmo.repostat.activelocallogbranch:= localbranch.value;
+  locallogbranch.value:= true;
   mainfo.reload;
   accept:= false;
  end;
  exit;
+end;
+
+procedure tbranchfo.setactivelocallog(const abranch: msestring);
+var
+ int1: integer;
+begin
+ mainmo.repostat.activelocallogbranch:= abranch;
+ locallogbranch.checkedrow:= -1;
+ if abranch <> '' then begin
+  for int1:= 0 to localgrid.rowhigh do begin
+   if localbranch[int1] = abranch then begin
+    mainmo.repostat.activeremotelog:= '';
+    mainmo.repostat.activeremotelogbranch:= '';
+    remotelogbranch.checkedrow:= -1;
+    locallogbranch.checkedrow:= int1;
+    exit;
+   end;
+  end;
+ end;    
+ mainmo.repostat.activelocallogbranch:= '';
+end;
+
+procedure tbranchfo.setactiveremotelog(const aremote,abranch: msestring);
+var
+ int1,int2: integer;
+label
+ errorlab;
+begin
+ mainmo.repostat.activeremotelog:= aremote;
+ mainmo.repostat.activeremotelogbranch:= abranch;
+ remotelogbranch.checkedrow:= -1;
+ if aremote <> '' then begin
+  for int1:= 0 to remotegrid.rowhigh do begin
+   if remote[int1] = aremote then begin
+    for int2:= int1+1 to remotegrid.rowhigh do begin
+     if remote[int2] <> '' then begin
+      goto errorlab;
+     end;
+     if remotebranch[int2] = abranch then begin
+      remotelogbranch.checkedrow:= int2;
+      mainmo.repostat.activelocallogbranch:= '';
+      locallogbranch.checkedrow:= -1;
+      exit;
+     end;
+    end;
+   end;
+  end;
+ end;    
+errorlab:
+ mainmo.repostat.activeremotelog:= '';
+ mainmo.repostat.activeremotelogbranch:= ''; 
 end;
 
 procedure tbranchfo.remoteactivesetexe(const sender: TObject;
@@ -278,7 +339,7 @@ begin
                                   (mstr1 <> mainmo.activebranch) then begin
    if askyesno('Do you want to switch to branch "'+mstr1+'"?') and
                                      mainmo.checkoutbranch(mstr1) then begin
-    mainmo.repostat.activelogbranch:= mstr1;
+    setactivelocallog(mstr1);
    end
    else begin
     accept:= false;
@@ -313,7 +374,7 @@ begin
    if askyesno('Do you want to switch to branch "'+
      remotebranch.value+'"?') and
                 mainmo.checkoutbranch(remotebranch.value) then begin
-     mainmo.repostat.activelogbranch:= remotebranch.value;
+     setactivelocallog(remotebranch.value);
    end
    else begin
     accept:= false;
@@ -451,11 +512,25 @@ begin
  end;
 end;
 
-procedure tbranchfo.activelogsetexe(const sender: TObject; var avalue: Boolean;
-               var accept: Boolean);
+procedure tbranchfo.localactivelogsetexe(const sender: TObject;
+               var avalue: Boolean; var accept: Boolean);
 begin
  if avalue then begin
-  mainmo.repostat.activelogbranch:= localbranch.value;
+  setactivelocallog(localbranch.value);
+//  remotelogbranch.checkedrow:= -1;
+//  mainmo.repostat.activelogbranch:= localbranch.value;
+  mainfo.objchanged;
+ end;
+end;
+
+procedure tbranchfo.remoteactivelogsetexe(const sender: TObject;
+               var avalue: Boolean; var accept: Boolean);
+begin
+ if remote.value <> '' then begin
+  avalue:= false;
+ end;
+ if avalue then begin
+  setactiveremotelog(currentremote(remotegrid.row),remotebranch.value);
   mainfo.objchanged;
  end;
 end;

@@ -110,17 +110,24 @@ type
    factiveremote: msestring;
    fcommitmessages: msestringarty;
    fcommitmessage: msestring;
-   factivelogbranch: msestring;
+   factivelocallogbranch: msestring;
+   factiveremotelogbranch: msestring;
+   factiveremotelog: msestring;
    flinkedremotebranches: msestringarty;
    flocalbranchorder: msestringarty;
    fremotesorder: msestringarty;
    fremotebranchorder: msestringarty;
   public
    procedure reset;
+   function activelogcommit: msestring;
   published
    property activeremote: msestring read factiveremote write factiveremote;
-   property activelogbranch: msestring read factivelogbranch 
-                                                write factivelogbranch;
+   property activelocallogbranch: msestring read factivelocallogbranch 
+                                                write factivelocallogbranch;
+   property activeremotelog: msestring read factiveremotelog 
+                                                write factiveremotelog;
+   property activeremotelogbranch: msestring read factiveremotelogbranch 
+                                                write factiveremotelogbranch;
    property commitmessages: msestringarty read fcommitmessages 
                                                  write fcommitmessages;
    property commitmessage: msestring read fcommitmessage write fcommitmessage;
@@ -577,7 +584,6 @@ procedure tmainmo.loadrepo(avalue: filenamety; const clearconsole: boolean);
 var
  int1,int2,int3,int4: integer;
  mstr1: msestring;
- bo1: boolean;
  ar1: msestringarty;
 begin
  closerepo;
@@ -654,19 +660,23 @@ begin
      end;
     end;
    end;
+{
    bo1:= false;
-   for int1:= 0 to high(fbranches) do begin
-    if fbranches[int1].info.name = repostat.activelogbranch then begin
-     bo1:= true;
-     break;
+   if repostat.activelocallogbranch <> '' then begin
+    for int1:= 0 to high(fbranches) do begin
+     if fbranches[int1].info.name = repostat.activelocallogbranch then begin
+      bo1:= true;
+      break;
+     end;
+    end;
+    if not bo1 then begin
+     repostat.activelogbranch:= '';
     end;
    end;
-   if not bo1 then begin
-    repostat.activelogbranch:= '';
-   end;
-   if repostat.activelogbranch = '' then begin
+   if repostat.activelocallogbranch = '' then begin
     repostat.activelogbranch:= activebranch;
    end;
+}
    factiveremote:= '';
    if high(fremotesinfo) >= 0 then begin
     mstr1:= frepostat.activeremote;
@@ -720,6 +730,16 @@ begin
    application.endwait;
   end;
   fhasremote:= high(fremotesinfo) >= 0;
+ 
+  branchfo.dorefresh;
+  branchfo.setactiveremotelog(repostat.activeremotelog,
+                                 repostat.activeremotelogbranch);
+  branchfo.setactivelocallog(repostat.activelocallogbranch);
+  if (repostat.activelocallogbranch = '') and 
+            ((repostat.activeremotelog = '') or
+             (repostat.activeremotelogbranch = '')) then begin
+   branchfo.setactivelocallog(activebranch);
+  end;
   repoloaded;
  end;
 end;
@@ -1934,8 +1954,27 @@ end;
 procedure trepostat.reset;
 begin
  factiveremote:= '';
+ factivelocallogbranch:= '';
+ factiveremotelog:= '';
+ factiveremotelogbranch:= '';
  fcommitmessages:= nil;
  fcommitmessage:= '';
+end;
+
+function trepostat.activelogcommit: msestring;
+begin
+ result:= '';
+ if activelocallogbranch <> '' then begin
+  result:= activelocallogbranch;
+ end
+ else begin
+  if activeremotelog <> '' then begin
+   result:= activeremotelog;
+   if activeremotelogbranch <> '' then begin
+    result:= result+'/'+activeremotelogbranch;
+   end;
+  end;
+ end;
 end;
 
 { trefsitemlist }

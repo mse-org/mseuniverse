@@ -91,9 +91,11 @@ var
  fm1: formatinfoarty;
  rs1: richstringty;
  cl1: colorty;
+ mstr1: msestring;
  currentbranch,currentremote,currentremotebranch: msestring;
 begin
- if mainmo.git.revlist(ar1,mainmo.repostat.activelogbranch,fpath,
+ mstr1:= mainmo.repostat.activelogcommit;
+ if (mstr1 <> '') and mainmo.git.revlist(ar1,mstr1,fpath,
                 mainmo.opt.maxlog,skip) then begin
   if skip = 0 then begin
    diffbase.checkedrow:= -1;
@@ -102,7 +104,6 @@ begin
   currentbranch:= mainmo.activebranch;
   currentremote:= mainmo.activeremote;
   currentremotebranch:= mainmo.activeremotebranch[currentremote];
-//  message.itemlist.beginupdate;
   grid.rowcount:= length(ar1)+skip;
   po1:= message.griddata.datapo;
   po2:= commit.griddata.datapo;
@@ -133,12 +134,16 @@ begin
          cl1:= cl_ltred;
         end;
        end;
-//       fcaption:= ' '+fcaption;
        if fformat = nil then begin
         fformat:= fm1;
        end;
        rs1:= richconcat(' ',richcaption,[],cl_none,cl_transparent);
-       rs1:= richconcat(remotename+':'+branchname,rs1,[],cl_none,cl1);
+       if remotename <> '' then begin
+        rs1:= richconcat(remotename+'/'+branchname,rs1,[],cl_none,cl1);
+       end
+       else begin
+        rs1:= richconcat(branchname,rs1,[],cl_none,cl1);
+       end;
        fcaption:= rs1.text;
        fformat:= rs1.format;
       end;
@@ -153,7 +158,6 @@ begin
   if (skip = 0) and (grid.rowcount > 0) then begin
    grid.row:= 0;
   end;
-//  message.itemlist.endupdate;
   grid.rowdatachanged;
   grid.endupdate;
   if diffbase.checkedrow >= 0 then begin

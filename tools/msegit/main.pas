@@ -271,9 +271,9 @@ begin
    rstr1.text:= 'Branch: ';
    richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
    richconcat1(rstr1,' Log: ',[fs_force]);
-   richconcat1(rstr1,mainmo.repostat.activelogbranch,[fs_bold]);
+   richconcat1(rstr1,mainmo.repostat.activelogcommit,[fs_bold]);
    richconcat1(rstr1,' Remote: ',[fs_force]);
-   richconcat1(rstr1,mainmo.activeremote+' '+
+   richconcat1(rstr1,mainmo.activeremote+'/'+
                 mainmo.activeremotebranch[mainmo.activeremote],[fs_bold]);
    statdisp.richvalue:= rstr1;
    statdisp.color:= col1;
