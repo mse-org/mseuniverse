@@ -38,6 +38,8 @@ type
    logbranch: tbooleaneditradio;
    remotebranchlink: tbooleanedit;
    mergeact: taction;
+   remotebranchcommit: tstringedit;
+   localbranchcommit: tstringedit;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -119,6 +121,7 @@ begin
  for int1:= 0 to localgrid.rowhigh do begin
   with mainmo.branches[int1] do begin
    localbranch[int1]:= info.name;
+   localbranchcommit[int1]:= info.commit;
    if active then begin
     localactive.checkedrow:= int1;
    end;
@@ -147,6 +150,7 @@ begin
     for int2:= 0 to high(branches) do begin
      with branches[int2] do begin
       remotebranch[int3]:= info.name;
+      remotebranchcommit[int3]:= info.commit;
       remotebranchlink[int3]:= linklocalbranch;
       if info.name = mstr1 then begin
        remoteactive[int3]:= true;

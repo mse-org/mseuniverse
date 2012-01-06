@@ -1,6 +1,6 @@
 inherited branchfo: tbranchfo
-  bounds_x = 104
-  bounds_y = 118
+  bounds_x = 95
+  bounds_y = 177
   container.bounds = (
     0
     0
@@ -27,13 +27,16 @@ inherited branchfo: tbranchfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 4
+        captions.count = 5
         captions.items = <        
           item
             caption = 'Remote'
           end        
           item
             caption = 'Branch'
+          end        
+          item
+            caption = 'Commit'
           end        
           item
             caption = 'A'
@@ -48,7 +51,7 @@ inherited branchfo: tbranchfo
     rowcolors.items = (
       -1879048185
     )
-    datacols.count = 4
+    datacols.count = 5
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
@@ -59,9 +62,14 @@ inherited branchfo: tbranchfo
         dataclass = tgridmsestringdatalist
       end    
       item
-        width = 130
+        width = 79
         options = [co_fill, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranch'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'remotebranchcommit'
         dataclass = tgridmsestringdatalist
       end    
       item
@@ -103,7 +111,7 @@ inherited branchfo: tbranchfo
       visible = False
       bounds_x = 58
       bounds_y = 0
-      bounds_cx = 130
+      bounds_cx = 79
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       onsetvalue = remotebranchsetexe
@@ -133,6 +141,18 @@ inherited branchfo: tbranchfo
       visible = False
       onsetvalue = linkbranchsetexe
     end
+    object remotebranchcommit: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 5
+      visible = False
+      bounds_x = 138
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      reffontheight = 14
+    end
   end
   object localgrid: twidgetgrid[1]
     taborder = 1
@@ -160,29 +180,34 @@ inherited branchfo: tbranchfo
             caption = 'Branch'
           end        
           item
+            caption = 'Commit'
+            hint = 'Track remote branch'
+          end        
+          item
             caption = 'A'
             hint = 'Active branch'
           end        
           item
             caption = 'L'
             hint = 'Log list branch'
-          end        
-          item
-            caption = 'T'
-            hint = 'Track remote branch'
           end>
       end>
     rowcolors.count = 1
     rowcolors.items = (
       -1879048185
     )
-    datacols.count = 3
+    datacols.count = 4
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
-        width = 136
+        width = 83
         options = [co_fill, co_savestate, co_mousescrollrow]
         widgetname = 'localbranch'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'localbranchcommit'
         dataclass = tgridmsestringdatalist
       end    
       item
@@ -192,8 +217,8 @@ inherited branchfo: tbranchfo
         dataclass = tgridintegerdatalist
       end    
       item
-        width = 14
-        options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+        width = 16
+        options = [co_drawfocus, co_fixwidth, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'logbranch'
         dataclass = tgridintegerdatalist
       end>
@@ -210,7 +235,7 @@ inherited branchfo: tbranchfo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 136
+      bounds_cx = 83
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       onsetvalue = localbranchsetexe
@@ -220,7 +245,7 @@ inherited branchfo: tbranchfo
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 2
-      bounds_x = 137
+      bounds_x = 135
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
@@ -233,15 +258,27 @@ inherited branchfo: tbranchfo
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 3
-      bounds_x = 154
+      bounds_x = 152
       bounds_y = 0
-      bounds_cx = 14
+      bounds_cx = 16
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
       onsetvalue = activelogsetexe
       group = 1
+    end
+    object localbranchcommit: tstringedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 84
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      reffontheight = 14
     end
   end
   object tsplitter1: tsplitter[2]
