@@ -179,6 +179,7 @@ type
    procedure filearraycallback(var ainfo: gitfileinfoty);
    procedure filecachecallback(var ainfo: gitfileinfoty);
   protected
+   function execcommand(const acommand: string): boolean;
    function commandresult1(const acommand: string; out adest: msestring): boolean;
    function status1(const callback: addstatecallbackeventty;
         const apath: filenamety; const aorigin: msestring): boolean;
@@ -222,6 +223,8 @@ type
                     const arecursive: boolean;
                     const astate: tgitstatecache;
                     const adest: tgitfilecache): boolean; overload;
+   function cat(const source,dest: filenamety;
+                                 const commit: msestring): boolean;
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: localbranchinfoarty;
                            out activebranch: msestring): boolean;
@@ -251,7 +254,7 @@ function gitfilepath(const apath: filenamety;
 implementation
 uses
  msefileutils,mseprocess,msearrayutils,msesysintf,msesystypes,msesysutils,
- msestream,sysutils,mseformatstr;
+ msestream,sysutils,mseformatstr,mseprocutils;
 
 type
  thashdatalist1 = class(thashdatalist);
@@ -368,6 +371,11 @@ begin
  result:= getprocessoutput(encodegitcommand(acommand),'',
                                                  str1,ferrormessage) = 0;
  adest:= utf8tostring(str1);
+end;
+
+function tgitcontroller.execcommand(const acommand: string): boolean;
+begin
+ result:= execwaitmse(encodegitcommand(acommand),[exo_inactive]) = 0;
 end;
 
 const
@@ -762,6 +770,16 @@ begin
  ffilecache:= adest;
  result:= lsfiles1(apath,excludetracked,includeuntracked,includeignored,
                                          arecursive,astate,@filecachecallback);
+end;
+
+function tgitcontroller.cat(const source: filenamety; const dest: filenamety;
+               const commit: msestring): boolean;
+var
+ mstr1: msestring;
+begin
+ mstr1:= 'cat-file blob ' + encodepathparam(commit+':'+source,true) +' >'+
+                                                   encodepathparam(dest,true);
+ result:= execcommand(mstr1);
 end;
 
 function tgitcontroller.remoteshow(out adest: remoteinfoarty): boolean;

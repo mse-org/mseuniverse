@@ -209,6 +209,7 @@ type
    factivebranch: msestring;
    fhasremote: boolean;
    fstashes: stashinfoarty;
+   ftmpfiles: filenamearty;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
@@ -293,6 +294,8 @@ type
    function remove(const anode: tgitdirtreenode;
                     const aitems: msegitfileitemarty): boolean; overload;
    function mergetoolcall(const afiles: filenamearty): boolean;
+   function patchtoolcall(const afile: filenamety;
+                            const basecommit,theircommit: msestring): boolean;
    procedure reload;
    procedure loadstash;
    procedure updatelocalbranchorder;
@@ -325,6 +328,11 @@ type
                          const afetch: msestring;
                          const apush: msestring): boolean;
    function deleteremote(const aremote: msestring): boolean;
+   
+   function createtmpfile(out dest: filenamety; const afilename: filenamety;
+             const acaption: msestring; const acommit: msestring = ''): boolean;
+   procedure deletetmpfiles;
+   
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
    property stashes: stashinfoarty read fstashes;
@@ -354,7 +362,7 @@ implementation
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
  gitconsole,commitqueryform,revertqueryform,msestream,removequeryform,
- branchform,remotesform;
+ branchform,remotesform,mseformatstr,mseprocutils;
   
 const
  defaultfileicon = 0;
@@ -537,6 +545,7 @@ begin
  ffilecache.clear;
  freeandnil(fgitstate);
  frefsinfo.clear;
+ deletetmpfiles;
  if frepo <> '' then begin
   ar1:= nil;
   for int1:= 0 to high(fremotesinfo) do begin
@@ -851,7 +860,7 @@ end;
 function tmainmo.getpath(const adir: tgitdirtreenode;
                const afilename: filenamety): filenamety;
 begin
- result:= adir.path(1{fgitpathlevel})+afilename;
+ result:= adir.gitbasepath+afilename;
 end;
 
 function tmainmo.cancommit(const anode: tgitdirtreenode): boolean;
@@ -914,7 +923,7 @@ begin
   if (high(aitems) > 0) and (aroot.parent <> nil) then begin
    aroot:= tgitdirtreenode(aroot.parent);
   end;
-  fpathstart:= length(aroot.path(1))+1;
+  fpathstart:= length(aroot.gitbasepath)+1;
   for int1:= 0 to high(aitems) do begin
    n2:= aitems[int1];
    bo1:= true;
@@ -1346,6 +1355,24 @@ begin
                               fgit.encodepathparams(afiles,true));
 end;
 
+function tmainmo.patchtoolcall(const afile: filenamety;
+                            const basecommit,theircommit: msestring): boolean;
+var
+ base,their: filenamety;
+begin
+ try
+  result:= createtmpfile(base,afile,'BASE',basecommit);
+  if result then begin
+   result:= createtmpfile(their,afile,'THEIR',theircommit);
+  end;
+  if not result then begin
+   raise exception.create('Can not create temp files.');
+  end;
+ finally
+  deletetmpfiles;
+ end;
+end;
+
 function tmainmo.fetch: boolean;
 var
  mstr1: msestring;
@@ -1685,6 +1712,38 @@ begin
   end;
   frepostat.fremotebranchorder[int1]:= mstr1;
  end;
+end;
+
+function tmainmo.createtmpfile(out dest: filenamety; 
+               const afilename: filenamety;
+               const acaption: msestring;
+               const acommit: msestring = ''): boolean;
+var
+ fna1,fna2: filenamety;
+begin
+ fna2:= fileext(afilename);
+ fna1:= afilename+'.'+acaption+'.'+inttostrmse(getpid);
+ if fna2 <> '' then begin
+  fna1:= fna1 + '.'+fna2;
+ end;
+ additem(ftmpfiles,fna1);
+ if acommit = '' then begin
+  result:= trycopyfile(afilename,fna1);
+ end
+ else begin
+  result:= fgit.cat(afilename,fna1,acommit);
+ end;
+ dest:= fna1;
+end;
+
+procedure tmainmo.deletetmpfiles;
+var
+ int1: integer;
+begin
+ for int1:= 0 to high(ftmpfiles) do begin
+  trydeletefile(ftmpfiles[int1]);
+ end;
+ ftmpfiles:= nil;
 end;
 
 { tmsegitfileitem }

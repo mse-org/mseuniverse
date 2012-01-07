@@ -1,0 +1,24 @@
+inherited diffwindowfo: tdiffwindowfo
+  bounds_x = 128
+  bounds_y = 274
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  moduleclassname = 'tdifffo'
+  inherited tabs: ttabwidget
+  end
+  inherited repoloadedact: taction
+  end
+  inherited repoclosedact: taction
+  end
+  inherited tpopupmenu1: tpopupmenu
+    menu.submenu.items = <    
+      item
+      end>
+  end
+  inherited externaldiffact: taction
+  end
+end

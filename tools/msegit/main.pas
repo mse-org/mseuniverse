@@ -96,7 +96,7 @@ implementation
 
 uses
  main_mfm,dirtreeform,mainmodule,optionsform,filesform,stashform,remotesform,
- gitconsole,diffform,msewidgets,sysutils,branchform,msegitcontroller,
+ gitconsole,diffwindow,msewidgets,sysutils,branchform,msegitcontroller,
  mserichstring,logform,msestringenter;
 const
  mergecolor = $ffb030;
@@ -135,7 +135,7 @@ end;
 
 procedure tmainfo.showdiffexe(const sender: TObject);
 begin
- difffo.activate;
+ diffwindowfo.activate;
 end;
 
 procedure tmainfo.showlogexe(const sender: TObject);
@@ -368,20 +368,20 @@ begin
   int1:= logfo.diffbase.checkedrow;
   if (int1 >= 0) then begin
    if  int1 = logfo.grid.row then begin
-    difffo.clear;
+    diffwindowfo.clear;
    end
    else begin
-    difffo.refresh(dirtreefo.currentitem,filesfo.currentitem,
+    diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,
                                  logfo.commit[int1],logfo.commit.value); 
    end;
   end
   else begin
-   difffo.refresh(dirtreefo.currentitem,filesfo.currentitem,
+   diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,
                                  logfo.commit.value,''); 
   end;
  end
  else begin
-  difffo.refresh(dirtreefo.currentitem,filesfo.currentitem,'',''); 
+  diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,'',''); 
  end;   
 end;
 

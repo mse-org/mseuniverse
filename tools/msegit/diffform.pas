@@ -48,8 +48,6 @@ type
                                       const afile: tmsegitfileitem;
                    const oldcommit: msestring; const newcommit: msestring);
  end;
-var
- difffo: tdifffo;
 
 implementation
 uses
@@ -93,12 +91,20 @@ begin
 end;
 
 procedure tdifffo.externaldiffexe(const sender: TObject);
+var
+ fna1: filenamety;
 begin
  with mainmo.git do begin
+  if fcanexternaldiff then begin
+   fna1:= fpath;
+  end
+  else begin
+   fna1:= fpath+'/'+tabs.activepageintf.getcaption;
+  end;
   mainmo.execgitconsole('difftool -y --tool='+
               encodestringparam(mainmo.opt.difftool)+' '+
                        noemptystringparam(fa)+noemptystringparam(fb)+
-                       ' -- '+encodepathparam(fpath,true));
+                       ' -- '+encodepathparam(fna1,true));
  end;
 end;
 
@@ -219,7 +225,11 @@ end;
 
 procedure tdifffo.popupupdateexe(const sender: tcustommenu);
 begin
- externaldiffact.enabled:= fcanexternaldiff and (mainmo.opt.difftool <> '');
+ externaldiffact.enabled:= 
+       (fcanexternaldiff or 
+        mainmo.opt.splitdiffs and (tabs.activepageintf <> nil) and 
+                                   (tabs.activepageintf.getcaption <> '')) and 
+                                                 (mainmo.opt.difftool <> '');
 end;
 
 end.

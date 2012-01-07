@@ -22,7 +22,7 @@ program msegit;
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
  msegui,mseforms,main,mainmodule,dirtreeform,filesform,stashform,guitemplates,
- remotesform,gitconsole,diffform,branchform,logform;
+ remotesform,gitconsole,diffwindow,branchform,logform;
  
 begin
  application.createdatamodule(tguitemplatesmo,guitemplatesmo);
@@ -32,7 +32,7 @@ begin
  application.createform(tremotesfo,remotesfo);
  application.createform(tbranchfo,branchfo);
  application.createform(tgitconsolefo,gitconsolefo);
- application.createform(tdifffo,difffo);
+ application.createform(tdiffwindowfo,diffwindowfo);
  application.createform(tlogfo,logfo);
  application.createdatamodule(tmainmo,mainmo);
  application.createform(tmainfo,mainfo); //last
