@@ -8,10 +8,17 @@ uses
 
 type
  tdiffwindowfo = class(tdifffo)
+   procedure patchtoolexe(const sender: TObject);
  end;
 var
  diffwindowfo: tdiffwindowfo;
 implementation
 uses
- diffwindow_mfm;
+ diffwindow_mfm,mainmodule;
+ 
+procedure tdiffwindowfo.patchtoolexe(const sender: TObject);
+begin
+ mainmo.patchtoolcall(currentpath,fa,fb);
+end;
+
 end.

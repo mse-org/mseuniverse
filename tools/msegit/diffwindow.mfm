@@ -15,8 +15,14 @@ inherited diffwindowfo: tdiffwindowfo
   inherited repoclosedact: taction
   end
   inherited tpopupmenu1: tpopupmenu
+    menu.submenu.count = 2
     menu.submenu.items = <    
       item
+      end    
+      item
+        caption = 'Patchtool'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = patchtoolexe
       end>
   end
   inherited externaldiffact: taction

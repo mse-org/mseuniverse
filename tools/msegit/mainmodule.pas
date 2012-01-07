@@ -307,7 +307,7 @@ type
    property reporoot: filenamety read freporoot;
                   //absolut path to .git containing dir
    property repobase: filenamety read frepobase;
-                  //relatvepath reporoot -> repo
+                  //relativepath reporoot -> repo
    property repostat: trepostat read frepostat;
    property hasremote: boolean read fhasremote;
    
@@ -1137,25 +1137,11 @@ begin
 end;
 
 function tmainmo.execgitconsole(const acommand: string): boolean;
-//var
-// w1: twindow;
 begin
-// w1:= nil;
-// setlinkedvar(tlinkedobject(application.normalactivewindow),tlinkedobject(w1));
-// try
-  result:= gitconsolefo.execgit(acommand);
-  if not result then begin
-   gitconsolefo.activate;
-  end;
-//  else begin
-//   if w1 <> nil then begin
-//    w1.activate;
-//    w1.bringtofront;
-//   end;
-//  end;
-// finally
-//  setlinkedvar(nil,tlinkedobject(w1));
-// end;
+ result:= gitconsolefo.execgit(acommand);
+ if not result then begin
+  gitconsolefo.activate;
+ end;
 end;
 
 function tmainmo.canadd(const anodes: gitdirtreenodearty): boolean;
@@ -1383,7 +1369,7 @@ begin
  end
  else begin
   result:= execgitconsole('fetch '+fgit.encodestringparam(mstr1)+
-           ' '+fgit.encodestringparam('refs/heads/*:refs/remotes/'+mstr1+'/*'));
+      ' '+fgit.encodestringparam('refs/heads/*:refs/remotes/'+mstr1+'/*'));
  end;
 end;
 
@@ -1397,7 +1383,7 @@ begin
  end
  else begin
   result:= execgitconsole('pull '+fgit.encodestringparam(mstr1)+
-           ' '+fgit.encodestringparam('refs/heads/*:refs/remotes/'+mstr1+'/*'));
+   ' '+fgit.encodestringparam('refs/heads/*:refs/remotes/'+mstr1+'/*'));
  end;
 end;
 
@@ -1542,8 +1528,6 @@ end;
 
 function tmainmo.createremote(const aremote: msestring; const afetch: msestring;
                const apush: msestring): boolean;
-//var
-// str1: string;
 begin
  result:= checkname(aremote);
  if result then begin
@@ -1572,7 +1556,7 @@ begin
   if result then begin
    if aremote <> newname then begin
     result:= execgitconsole('remote rename ' +
-        fgit.encodestringparam(aremote)+' ' + fgit.encodestringparam(newname));
+    fgit.encodestringparam(aremote)+' ' + fgit.encodestringparam(newname));
    end;
    if result then begin
     result:= execgitconsole('remote set-url '+

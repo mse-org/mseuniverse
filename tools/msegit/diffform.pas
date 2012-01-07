@@ -32,13 +32,14 @@ type
    procedure externaldiffexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu);
   private
+   procedure showdiff(const dest: tdifftabfo; const text: msestringarty);
+   procedure cleartabs;
+  protected
    fpath: msestring;
    fa: msestring;
    fb: msestring;
    fcanexternaldiff: boolean;
-   procedure showdiff(const dest: tdifftabfo; const text: msestringarty);
-   procedure cleartabs;
-  protected
+   function currentpath: filenamety;
    procedure dorefresh; override;
    procedure doclear; override;
 //   procedure updatedisp;
@@ -90,21 +91,23 @@ begin
 // grid.clear;
 end;
 
+function tdifffo.currentpath: filenamety;
+begin
+ if fcanexternaldiff then begin
+  result:= fpath;
+ end
+ else begin
+  result:= mainmo.repobase+tabs.activepageintf.gettabhint;
+ end;
+end;
+
 procedure tdifffo.externaldiffexe(const sender: TObject);
-var
- fna1: filenamety;
 begin
  with mainmo.git do begin
-  if fcanexternaldiff then begin
-   fna1:= fpath;
-  end
-  else begin
-   fna1:= fpath+'/'+tabs.activepageintf.getcaption;
-  end;
   mainmo.execgitconsole('difftool -y --tool='+
               encodestringparam(mainmo.opt.difftool)+' '+
                        noemptystringparam(fa)+noemptystringparam(fb)+
-                       ' -- '+encodepathparam(fna1,true));
+         ' -- '+encodepathparam(currentpath,true));
  end;
 end;
 
@@ -147,27 +150,23 @@ end;
 
 procedure tdifffo.dorefresh;
 var
- int1,int2: integer;
+ int1,int2,int3: integer;
  ar1: msestringarty;
  ar3: filenamearty;
  captions,hints: msestringarty;
  ar2: msestringararty;
 begin
-// if (fpath <> '') or (fa <> '') or (fb <> '') then begin
-  ar1:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
-// end
-// else begin
-//  ar1:= nil;
-// end;
+ ar1:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
  int2:= -1;
  if mainmo.opt.splitdiffs then begin
+  int3:= 3+length(mainmo.repobase);
   for int1:= 0 to high(ar1) do begin
    if msestartsstr('diff ',ar1[int1]) then begin
     if int2 >= 0 then begin   
      additem(ar2,copy(ar1,int2,int1-int2));
     end;
     splitstringquoted(ar1[int1],ar3,'"',' ');
-    additem(hints,msestring(ar3[high(ar3)]));
+    additem(hints,msestring(copy(ar3[high(ar3)],int3,bigint)));
     additem(captions,filename(hints[high(hints)]));
     int2:= int1;
    end;
