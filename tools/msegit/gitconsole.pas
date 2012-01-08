@@ -39,11 +39,13 @@ type
   protected
    procedure refreshprompt;
    function prompt: msestring;
+   function doexec(const acommand: string; const agit: boolean): boolean;
   public
    procedure synctodirtree(const apath: filenamety);
    procedure init;
    procedure clear;
    function execgit(const acommand: string): boolean;
+   function exec(const acommand: string): boolean;
  end;
  
 var
@@ -151,14 +153,25 @@ begin
  end;
 end;
 
-function tgitconsolefo.execgit(const acommand: string): boolean;
+function tgitconsolefo.doexec(const acommand: string;
+                                            const agit: boolean): boolean;
 var
  mstr1: msestring;
  wi1: twindow;
 begin
- termed.prompt:= '(git)!> ';
+ if agit then begin
+  termed.prompt:= '(git)!> ';
+ end
+ else begin
+  termed.prompt:= '!> ';
+ end;
  try
-  mstr1:= mainmo.git.encodegitcommand(acommand);
+  if agit then begin
+   mstr1:= mainmo.git.encodegitcommand(acommand);
+  end
+  else begin
+   mstr1:= acommand;
+  end;
   with termed do begin
    addchars(acommand+lineend);
    fexecgitwaiting:= true;
@@ -175,6 +188,16 @@ begin
  finally
   synctodirtree(fpath);
  end;
+end;
+
+function tgitconsolefo.execgit(const acommand: string): boolean;
+begin
+ result:= doexec(acommand,true);
+end;
+
+function tgitconsolefo.exec(const acommand: string): boolean;
+begin
+ result:= doexec(acommand,false);
 end;
 
 procedure tgitconsolefo.clearexe(const sender: TObject);

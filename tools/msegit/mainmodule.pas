@@ -68,6 +68,7 @@ type
    property splitdiffs: boolean read fsplitdiffs write fsplitdiffs;
    property difftool: msestring read fdifftool write fdifftool;
    property mergetool: msestring read fmergetool write fmergetool;
+   property patchtool: msestring read fmergetool write fmergetool;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -225,7 +226,7 @@ type
                   const abranch: msestring; const avalue: boolean);
   protected
    procedure updateoperation(const aoperation: commitkindty;
-                                                  const afiles: filenamearty);
+                  const afiles: filenamearty; const refreshed: boolean = true);
    procedure readmergeinfo;
    procedure closerepo;
    procedure loadrepo(avalue: filenamety; const clearconsole: boolean);
@@ -243,6 +244,7 @@ type
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
    function execgitconsole(const acommand: string): boolean;
+   function execconsole(const acommand: string): boolean;
                         //true if OK
    function getpath(const adir: tgitdirtreenode;
                            const afilename: filenamety): filenamety;
@@ -362,7 +364,8 @@ implementation
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
  gitconsole,commitqueryform,revertqueryform,msestream,removequeryform,
- branchform,remotesform,mseformatstr,mseprocutils;
+ branchform,remotesform,mseformatstr,mseprocutils,msesysenv,main,filesform,
+ dirtreeform;
   
 const
  defaultfileicon = 0;
@@ -1023,6 +1026,9 @@ begin
    ck_revert: begin
     statey:= statey - [gist_modified];
    end;
+   ck_modify: begin
+    statey:= statey + [gist_modified];
+   end;
    ck_remove: begin
     statex:= statex + [gist_deleted];
    end;
@@ -1038,7 +1044,7 @@ begin
 end;
 
 procedure tmainmo.updateoperation(const aoperation: commitkindty;
-                                                  const afiles: filenamearty);
+               const afiles: filenamearty; const refreshed: boolean = true);
 var
  int1: integer;
  po1: pgitstatedataty;
@@ -1063,7 +1069,9 @@ begin
    dirtree.owner.endupdate;
   end;
  end;
- reporefreshedact.controller.execute;
+ if refreshed then begin
+  reporefreshedact.controller.execute;
+ end;
 end;
 
 function tmainmo.commit(const afiles: filenamearty;
@@ -1139,6 +1147,14 @@ end;
 function tmainmo.execgitconsole(const acommand: string): boolean;
 begin
  result:= gitconsolefo.execgit(acommand);
+ if not result then begin
+  gitconsolefo.activate;
+ end;
+end;
+
+function tmainmo.execconsole(const acommand: string): boolean;
+begin
+ result:= gitconsolefo.exec(acommand);
  if not result then begin
   gitconsolefo.activate;
  end;
@@ -1345,6 +1361,8 @@ function tmainmo.patchtoolcall(const afile: filenamety;
                             const basecommit,theircommit: msestring): boolean;
 var
  base,their: filenamety;
+ ar1: msestringarty;
+ ar2: msegitfileitemarty;
 begin
  try
   result:= createtmpfile(base,afile,'BASE',basecommit);
@@ -1353,6 +1371,24 @@ begin
   end;
   if not result then begin
    raise exception.create('Can not create temp files.');
+  end;
+  ar1:= parsecommandline(opt.patchtool);
+  if ar1 <> nil then begin
+   if high(ar1) = 0 then begin
+    result:= execconsole(ar1[0]+' '+git.encodepathparam(base,true)+ ' '+
+                           git.encodepathparam(their,true)+ ' '+
+                           git.encodepathparam(afile,true));
+   end
+   else begin
+    result:= execconsole(expandmacros(opt.patchtool,
+                initmacros(['BASE','THEIR','MINE'],[base,their,afile])));
+   end;
+   if result then begin
+    setlength(ar1,1);
+    ar1[0]:= afile;
+    updateoperation(ck_modify,ar1,false);
+    dirtreefo.syncfilesfo;
+   end;
   end;
  finally
   deletetmpfiles;

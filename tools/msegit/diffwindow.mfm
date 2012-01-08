@@ -20,11 +20,15 @@ inherited diffwindowfo: tdiffwindowfo
       item
       end    
       item
-        caption = 'Patchtool'
-        state = [as_localcaption, as_localonexecute]
-        onexecute = patchtoolexe
+        action = patchact
       end>
   end
   inherited externaldiffact: taction
+  end
+  object patchact: taction[5]
+    caption = 'Patchtool'
+    onexecute = patchtoolexe
+    left = 168
+    top = 136
   end
 end

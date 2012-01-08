@@ -38,6 +38,7 @@ type
    difftool: thistoryedit;
    mergetool: thistoryedit;
    splitdiffs: tbooleanedit;
+   patchtool: thistoryedit;
  end;
 
 procedure editoptions;

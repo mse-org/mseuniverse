@@ -24,7 +24,7 @@ const
  
 type
  commitkindty = (ck_none,ck_stage,ck_unstage,ck_amend,ck_commit,ck_revert,
-                 ck_remove);
+                 ck_remove,ck_modify);
 
  gitstatety = (gist_invalid,gist_unmodified,gist_modified,gist_added,
                 gist_deleted,gist_renamed,gist_copied,gist_unmerged,

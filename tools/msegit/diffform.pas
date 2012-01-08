@@ -30,7 +30,7 @@ type
    externaldiffact: taction;
    tabs: ttabwidget;
    procedure externaldiffexe(const sender: TObject);
-   procedure popupupdateexe(const sender: tcustommenu);
+   procedure popupupdateexe(const sender: tcustommenu); virtual;
   private
    procedure showdiff(const dest: tdifftabfo; const text: msestringarty);
    procedure cleartabs;
@@ -42,6 +42,7 @@ type
    function currentpath: filenamety;
    procedure dorefresh; override;
    procedure doclear; override;
+   function singlediff: boolean;
 //   procedure updatedisp;
   public
    constructor create(aowner: tcomponent); override;
@@ -224,11 +225,14 @@ end;
 
 procedure tdifffo.popupupdateexe(const sender: tcustommenu);
 begin
- externaldiffact.enabled:= 
-       (fcanexternaldiff or 
+ externaldiffact.enabled:= singlediff and (mainmo.opt.difftool <> '');
+end;
+
+function tdifffo.singlediff: boolean;
+begin
+ result:=(fcanexternaldiff or 
         mainmo.opt.splitdiffs and (tabs.activepageintf <> nil) and 
-                                   (tabs.activepageintf.getcaption <> '')) and 
-                                                 (mainmo.opt.difftool <> '');
+                                   (tabs.activepageintf.getcaption <> ''))
 end;
 
 end.

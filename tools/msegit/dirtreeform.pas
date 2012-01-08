@@ -54,8 +54,8 @@ type
    fexpandedsave: expandedinfoarty;
    fdirbefore: filenamety;
   protected
-   function syncfilesfo: filenamety;
   public
+   function syncfilesfo: filenamety;
    procedure savestate;
    procedure restorestate;
    function currentgitdir: filenamety;

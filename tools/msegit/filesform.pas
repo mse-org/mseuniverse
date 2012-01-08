@@ -59,6 +59,7 @@ type
    procedure restorestate;
    procedure clear;
  end;
+
 var
  filesfo: tfilesfo;
  
