@@ -184,6 +184,7 @@ object optionsfo: toptionsfo
           0
         )
         taborder = 7
+        hint = 'Macros: $BASE $THEIRS $MINE'
         bounds_x = 8
         bounds_y = 149
         bounds_cx = 324

@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -49,6 +49,7 @@ type
    fdiffcontextn: integer;
    fdifftool: msestring;
    fmergetool: msestring;
+   fpatchtool: msestring;
    fsplitdiffs: boolean;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
@@ -68,7 +69,7 @@ type
    property splitdiffs: boolean read fsplitdiffs write fsplitdiffs;
    property difftool: msestring read fdifftool write fdifftool;
    property mergetool: msestring read fmergetool write fmergetool;
-   property patchtool: msestring read fmergetool write fmergetool;
+   property patchtool: msestring read fpatchtool write fpatchtool;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -1367,7 +1368,7 @@ begin
  try
   result:= createtmpfile(base,afile,'BASE',basecommit);
   if result then begin
-   result:= createtmpfile(their,afile,'THEIR',theircommit);
+   result:= createtmpfile(their,afile,'THEIRS',theircommit);
   end;
   if not result then begin
    raise exception.create('Can not create temp files.');
@@ -1381,7 +1382,7 @@ begin
    end
    else begin
     result:= execconsole(expandmacros(opt.patchtool,
-                initmacros(['BASE','THEIR','MINE'],[base,their,afile])));
+                initmacros(['BASE','THEIRS','MINE'],[base,their,afile])));
    end;
    if result then begin
     setlength(ar1,1);
