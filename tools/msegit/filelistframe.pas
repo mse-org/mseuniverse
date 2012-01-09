@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -77,9 +77,11 @@ begin
   for int1:= rowhigh downto 0 do begin
    if po1^[int1].caption = afile then begin
     row:= int1;
+    {
     if not entered then begin
      datacols.clearselection;
     end; 
+    }
     exit;
    end;
   end;
