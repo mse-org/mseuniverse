@@ -1356,6 +1356,9 @@ begin
  result:= execgitconsole('mergetool --no-prompt --tool='+
                             git.encodestringparam(opt.mergetool)+' '+
                               fgit.encodepathparams(afiles,true));
+ if result then begin
+  mainfo.reload;
+ end;
 end;
 
 function tmainmo.patchtoolcall(const afile: filenamety;
