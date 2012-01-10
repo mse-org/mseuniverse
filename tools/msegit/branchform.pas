@@ -113,7 +113,9 @@ implementation
 
 uses
  branchform_mfm,mainmodule,msewidgets,main,msefileutils,mseeditglob,logform;
-
+const
+ hiddencolor = $fff0f0;
+ 
 procedure tbranchfo.doclear;
 begin
  with localgrid do begin
@@ -618,18 +620,30 @@ procedure tbranchfo.hideremotebranchsetexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
                
 begin
- if remote.value = '' then begin
-  mainmo.hideremotebranch[currentremote,remotebranch.value]:= avalue;
- end
- else begin
-  mainmo.hideremote[remote.value]:= avalue;
+ if not mainmo.repostat.showhiddenbranches then begin
+  accept:= askyesno('Do you want to hide '+
+                       currentremote+'/'+remotebranch.value+'?');
+ end;
+ if accept then begin
+  if remote.value = '' then begin
+   mainmo.hideremotebranch[currentremote,remotebranch.value]:= avalue;
+  end
+  else begin
+   mainmo.hideremote[remote.value]:= avalue;
+  end;
  end;
 end;
 
 procedure tbranchfo.sethidelocalbranchexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
 begin
+ if not mainmo.repostat.showhiddenbranches then begin
+  accept:= askyesno('Do you want to hide '+
+                       localbranch.value+'?');
+ end;
+ if accept then begin
   mainmo.hidelocalbranch[localbranch.value]:= avalue;
+ end;
 end;
 
 procedure tbranchfo.showhiddenexe(const sender: TObject);
@@ -647,6 +661,14 @@ begin
  mainmo.repostat.showhiddenbranches:= avalue;
  localgrid.folded:= not avalue;
  remotegrid.folded:= not avalue;
+ if avalue then begin
+  localgrid.datacols[0].color:= cl_default;
+  remotegrid.datacols[0].color:= cl_default;
+ end
+ else begin
+  localgrid.datacols[0].color:= hiddencolor;
+  remotegrid.datacols[0].color:= hiddencolor;
+ end;
 end;
 
 end.
