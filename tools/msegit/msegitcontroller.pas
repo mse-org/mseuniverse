@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -130,13 +130,17 @@ type
  localbranchinfoty = record
   info: refsinfoty;
   active: boolean;
+  hidden: boolean;
  end;
+ plocalbranchinfoty = ^localbranchinfoty;
  localbranchinfoarty = array of localbranchinfoty;    
 
  remotebranchinfoty = record
   info: refsinfoty;
   linklocalbranch: boolean;
+  hidden: boolean;
  end;
+ premotebranchinfoty = ^remotebranchinfoty;
  remotebranchinfoarty = array of remotebranchinfoty;
 
  remoteinfoty = record
@@ -145,7 +149,9 @@ type
   pushurl: msestring;
   branches: remotebranchinfoarty;
   activebranch: msestring;
+  hidden: boolean;
  end;
+ premoteinfoty = ^remoteinfoty;
  remoteinfoarty = array of remoteinfoty;
 
  refinfoty = record

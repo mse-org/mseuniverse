@@ -116,7 +116,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 14
+        submenu.count = 15
         submenu.items = <        
           item
             submenu.count = 2
@@ -149,6 +149,10 @@ object mainfo: tmainfo
             state = [as_localcaption, as_localonexecute]
             options = [mao_checkbox, mao_shortcutcaption]
             onexecute = showignoredexe
+          end        
+          item
+            action = branchfo.showhiddenact
+            options = [mao_checkbox, mao_shortcutcaption]
           end        
           item
             action = reloadact

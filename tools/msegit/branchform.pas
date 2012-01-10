@@ -41,6 +41,11 @@ type
    remotebranchcommit: tstringedit;
    localbranchcommit: tstringedit;
    remotelogbranch: tbooleaneditradio;
+   remotebranchhidden: tbooleanedit;
+   localbranchhidden: tbooleanedit;
+   formpopup: tpopupmenu;
+   foldlevel: tintegeredit;
+   showhiddenact: taction;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -83,9 +88,18 @@ type
                    const acount: Integer);
    procedure remoteactivelogsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
+   procedure hideremotebranchsetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure sethidelocalbranchexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure showhiddenexe(const sender: TObject);
+  private
+   function getshowhidden: boolean;
+   procedure setshowhidden(const avalue: boolean);
   protected
    function currentremote(arow: integer = -1): msestring;
    procedure doclear; override;
+   property showhidden: boolean read getshowhidden write setshowhidden;
   public
    procedure dorefresh; override;
    procedure setactivelocallog(const abranch: msestring);
@@ -118,6 +132,9 @@ var
  mstr1: msestring;
  bo1,bo2: boolean;
 begin
+ showhidden:= mainmo.repostat.showhiddenbranches;
+ showhiddenact.checked:= showhidden;
+ 
  localgrid.rowcount:= length(mainmo.branches);
  locallogbranch.checkedrow:= -1;
  localactive.checkedrow:= -1;
@@ -126,6 +143,7 @@ begin
  end;
  for int1:= 0 to localgrid.rowhigh do begin
   with mainmo.branches[int1] do begin
+   localbranchhidden[int1]:= hidden;
    localbranch[int1]:= info.name;
    localbranchcommit[int1]:= info.commit;
    if active then begin
@@ -145,6 +163,8 @@ begin
    if name <> '' then begin
     remotegrid.rowcount:= 1 + int3 + length(branches);
     remote[int3]:= name;
+    remotebranchhidden[int3]:= hidden;
+    foldlevel[int3]:= 0;
     bo2:= mainmo.repostat.activeremotelog = name;
     mstr1:= mainmo.activeremotebranch[name];
     bo1:= name = mainmo.activeremote;
@@ -152,11 +172,13 @@ begin
      remoteactive[int3]:= true;
      remotegrid.rowcolorstate[int3]:= 0;
     end;
-    remotegrid.datacols.mergecols(int3,0,1);
+    remotegrid.datacols.mergecols(int3,1,1);
     inc(int3);
     for int2:= 0 to high(branches) do begin
      with branches[int2] do begin
       remotebranch[int3]:= info.name;
+      remotebranchhidden[int3]:= hidden;
+      foldlevel[int3]:= 1;
       remotebranchcommit[int3]:= info.commit;
       remotebranchlink[int3]:= linklocalbranch;
       if bo2 and (info.name = mainmo.repostat.activeremotelogbranch) then begin
@@ -590,6 +612,41 @@ procedure tbranchfo.remoterowsmovedexe(const sender: tcustomgrid;
                const acount: Integer);
 begin
  mainmo.updateremotebranchorder;
+end;
+
+procedure tbranchfo.hideremotebranchsetexe(const sender: TObject;
+               var avalue: Boolean; var accept: Boolean);
+               
+begin
+ if remote.value = '' then begin
+  mainmo.hideremotebranch[currentremote,remotebranch.value]:= avalue;
+ end
+ else begin
+  mainmo.hideremote[remote.value]:= avalue;
+ end;
+end;
+
+procedure tbranchfo.sethidelocalbranchexe(const sender: TObject;
+               var avalue: Boolean; var accept: Boolean);
+begin
+  mainmo.hidelocalbranch[localbranch.value]:= avalue;
+end;
+
+procedure tbranchfo.showhiddenexe(const sender: TObject);
+begin
+ showhidden:= showhiddenact.checked;
+end;
+
+function tbranchfo.getshowhidden: boolean;
+begin
+ result:= mainmo.repostat.showhiddenbranches;
+end;
+
+procedure tbranchfo.setshowhidden(const avalue: boolean);
+begin
+ mainmo.repostat.showhiddenbranches:= avalue;
+ localgrid.folded:= not avalue;
+ remotegrid.folded:= not avalue;
 end;
 
 end.

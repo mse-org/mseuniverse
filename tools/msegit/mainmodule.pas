@@ -116,9 +116,13 @@ type
    factiveremotelogbranch: msestring;
    factiveremotelog: msestring;
    flinkedremotebranches: msestringarty;
+   fhiddenremotes: msestringarty;
+   fhiddenremotebranches: msestringarty;
+   fhiddenlocalbranches: msestringarty;
    flocalbranchorder: msestringarty;
    fremotesorder: msestringarty;
    fremotebranchorder: msestringarty;
+   fshowhiddenbranches: boolean;
   public
    procedure reset;
    function activelogcommit: msestring;
@@ -135,11 +139,20 @@ type
    property commitmessage: msestring read fcommitmessage write fcommitmessage;
    property linkedremotebranches: msestringarty read flinkedremotebranches 
                                                 write flinkedremotebranches;
+   property hiddenremotes: msestringarty read fhiddenremotes 
+                                                write fhiddenremotes;
+   property hiddenremotebranches: msestringarty read fhiddenremotebranches 
+                                                write fhiddenremotebranches;
+   property hiddenlocalbranches: msestringarty read fhiddenlocalbranches 
+                                                write fhiddenlocalbranches;
    property localbranchorder: msestringarty read flocalbranchorder 
                                                 write flocalbranchorder;
    property remotesorder: msestringarty read fremotesorder write fremotesorder;
    property remotebranchorder: msestringarty read fremotebranchorder 
                                                   write fremotebranchorder;
+   property showhiddenbranches: boolean read fshowhiddenbranches
+                                                  write fshowhiddenbranches;
+                                                  
  end;
 
  trefsitem = class
@@ -225,7 +238,20 @@ type
                  const abranch: msestring): boolean;
    procedure setlinkremotebranch(const aremote: msestring;
                   const abranch: msestring; const avalue: boolean);
+   function gethideremotebranch(const aremote: msestring;
+                                 const abranch: msestring): boolean;
+   procedure sethideremotebranch(const aremote: msestring;
+                                 const abranch: msestring;
+                   const avalue: boolean);
+   function gethidelocalbranch(const abranch: msestring): boolean;
+   procedure sethidelocalbranch(const abranch: msestring; const avalue: boolean);
+   function gethideremote(const aremote: msestring): boolean;
+   procedure sethideremote(const aremote: msestring; const avalue: boolean);
   protected
+   function findremote(const aremote: msestring): premoteinfoty;
+   function findremotebranch(const aremote: msestring;
+               const abranch: msestring): premotebranchinfoty;
+   function findlocalbranch(const abranch: msestring): plocalbranchinfoty;
    procedure updateoperation(const aoperation: commitkindty;
                   const afiles: filenamearty; const refreshed: boolean = true);
    procedure readmergeinfo;
@@ -348,6 +374,13 @@ type
    property linkremotebranch[const aremote: msestring;
               const abranch: msestring]: boolean read getlinkremotebranch 
                               write setlinkremotebranch;
+   property hideremotebranch[const aremote: msestring;
+              const abranch: msestring]: boolean read gethideremotebranch 
+                              write sethideremotebranch;
+   property hideremote[const aremote: msestring]: boolean 
+                         read gethideremote write sethideremote;
+   property hidelocalbranch[const abranch: msestring]: boolean 
+                         read gethidelocalbranch write sethidelocalbranch;
    function remotetarget: msestring;
    function stashsave(const amessage: msestring): boolean;
    function stashpop: boolean;
@@ -539,7 +572,7 @@ end;
 
 procedure tmainmo.closerepo;
 var
- ar1{,ar2}: msestringarty;
+ ar1,ar2,ar3: msestringarty;
  int1,int2: integer;
 begin
  fmergehead:= '';
@@ -552,18 +585,38 @@ begin
  deletetmpfiles;
  if frepo <> '' then begin
   ar1:= nil;
+  ar2:= nil;
+  ar3:= nil;
   for int1:= 0 to high(fremotesinfo) do begin
    with fremotesinfo[int1] do begin
+    if hidden then begin
+     additem(ar2,name);
+    end;
     for int2:= 0 to high(branches) do begin
      with branches[int2] do begin
       if linklocalbranch then begin
        additem(ar1,'"'+name+'" "'+info.name+'"');
+      end;
+      if hidden then begin
+       additem(ar3,'"'+name+'" "'+info.name+'"');
       end;
      end;
     end;
    end;
   end;
   frepostat.linkedremotebranches:= ar1;
+  frepostat.hiddenremotes:= ar2;
+  frepostat.hiddenremotebranches:= ar3;
+  ar1:= nil;
+  for int1:= 0 to high(fbranches) do begin
+   with fbranches[int1] do begin
+    if hidden then begin
+     additem(ar1,info.name);
+    end;
+   end;
+  end;
+  frepostat.hiddenlocalbranches:= ar1;
+  
   frepostat.activeremote:= activeremote;
   repostatf.writestat;
   fremotesinfo:= nil;
@@ -710,22 +763,20 @@ begin
    for int2:= 0 to high(frepostat.flinkedremotebranches) do begin
     splitstringquoted(frepostat.flinkedremotebranches[int2],ar1,'"',' ');
     if high(ar1) = 1 then begin
-     for int3:= 0 to high(fremotesinfo) do begin
-      with fremotesinfo[int3] do begin
-       if name = ar1[0] then begin
-        for int4:= 0 to high(branches) do begin
-         with branches[int4] do begin
-          if info.name = ar1[1] then begin
-           linklocalbranch:= true;
-           break;
-          end;
-         end;
-        end;
-        break;
-       end;
-      end;
-     end;
+     linkremotebranch[ar1[0],ar1[1]]:= true;
     end;
+   end;
+   for int2:= 0 to high(frepostat.fhiddenremotes) do begin
+    hideremote[frepostat.fhiddenremotes[int2]]:= true;
+   end;
+   for int2:= 0 to high(frepostat.fhiddenremotebranches) do begin
+    splitstringquoted(frepostat.fhiddenremotebranches[int2],ar1,'"',' ');
+    if high(ar1) = 1 then begin
+     hideremotebranch[ar1[0],ar1[1]]:= true;
+    end;
+   end;
+   for int2:= 0 to high(frepostat.fhiddenlocalbranches) do begin
+    hidelocalbranch[frepostat.fhiddenlocalbranches[int2]]:= true;
    end;
    fgit.status(frepo,getorigin,ffilecache,fgitstate);
    loadstash;
@@ -1366,7 +1417,7 @@ function tmainmo.patchtoolcall(const afile: filenamety;
 var
  base,their: filenamety;
  ar1: msestringarty;
- ar2: msegitfileitemarty;
+// ar2: msegitfileitemarty;
 begin
  try
   result:= createtmpfile(base,afile,'BASE',basecommit);
@@ -1640,19 +1691,19 @@ begin
  result:= fgit.encodepathparams(ar1,true);
 end;
 
-function tmainmo.getlinkremotebranch(const aremote: msestring;
-               const abranch: msestring): boolean;
+function tmainmo.findremotebranch(const aremote: msestring;
+                                  const abranch: msestring): premotebranchinfoty;
 var
- int1,int2: integer;
+ int1,int2: integer;          
 begin
- result:= false;
+ result:= nil;
  for int1:= 0 to high(fremotesinfo) do begin
   with fremotesinfo[int1] do begin
    if name = aremote then begin
     for int2:= 0 to high(branches) do begin
      with branches[int2] do begin
       if info.name = abranch then begin
-       result:= linklocalbranch;
+       result:= @branches[int2];
        break;
       end;
      end;
@@ -1663,25 +1714,43 @@ begin
  end;
 end;
 
+function tmainmo.getlinkremotebranch(const aremote: msestring;
+               const abranch: msestring): boolean;
+var
+ po1: premotebranchinfoty;
+begin
+ po1:= findremotebranch(aremote,abranch);
+ result:= (po1 <> nil) and po1^.linklocalbranch;
+end;
+
 procedure tmainmo.setlinkremotebranch(const aremote: msestring;
                const abranch: msestring; const avalue: boolean);
 var
- int1,int2: integer;
+ po1: premotebranchinfoty;
 begin
- for int1:= 0 to high(fremotesinfo) do begin
-  with fremotesinfo[int1] do begin
-   if name = aremote then begin
-    for int2:= 0 to high(branches) do begin
-     with branches[int2] do begin
-      if info.name = abranch then begin
-       linklocalbranch:= avalue;
-       break;
-      end;
-     end;
-    end;
-    break;
-   end;
-  end;
+ po1:= findremotebranch(aremote,abranch);
+ if po1 <> nil then begin
+  po1^.linklocalbranch:= avalue;
+ end;
+end;
+
+function tmainmo.gethideremotebranch(const aremote: msestring;
+               const abranch: msestring): boolean;
+var
+ po1: premotebranchinfoty;
+begin
+ po1:= findremotebranch(aremote,abranch);
+ result:= (po1 <> nil) and po1^.hidden;
+end;
+
+procedure tmainmo.sethideremotebranch(const aremote: msestring;
+               const abranch: msestring; const avalue: boolean);
+var
+ po1: premotebranchinfoty;
+begin
+ po1:= findremotebranch(aremote,abranch);
+ if po1 <> nil then begin
+  po1^.hidden:= avalue;
  end;
 end;
 
@@ -1768,6 +1837,70 @@ begin
   trydeletefile(ftmpfiles[int1]);
  end;
  ftmpfiles:= nil;
+end;
+
+function tmainmo.gethidelocalbranch(const abranch: msestring): boolean;
+var
+ po1: plocalbranchinfoty;
+begin
+ po1:= findlocalbranch(abranch);
+ result:= (po1 <> nil) and po1^.hidden;
+end;
+
+procedure tmainmo.sethidelocalbranch(const abranch: msestring;
+                                                    const avalue: boolean);
+var
+ po1: plocalbranchinfoty;
+begin
+ po1:= findlocalbranch(abranch);
+ if po1 <> nil then begin
+  po1^.hidden:= avalue;
+ end;
+end;
+
+function tmainmo.findlocalbranch(const abranch: msestring): plocalbranchinfoty;
+var
+ int1: integer;
+begin
+ result:= nil;
+ for int1:= 0 to high(fbranches) do begin
+  if fbranches[int1].info.name = abranch then begin
+   result:= @fbranches[int1];
+   break;
+  end;
+ end;
+end;
+
+function tmainmo.findremote(const aremote: msestring): premoteinfoty;
+var
+ int1: integer;
+begin
+ result:= nil;
+ for int1:= 0 to high(fremotesinfo) do begin
+  if fremotesinfo[int1].name = aremote then begin
+   result:= @fremotesinfo[int1];
+   break;
+  end;
+ end;
+end;
+
+function tmainmo.gethideremote(const aremote: msestring): boolean;
+var
+ po1: premoteinfoty;
+begin
+ po1:= findremote(aremote);
+ result:= (po1 <> nil) and po1^.hidden;
+end;
+
+procedure tmainmo.sethideremote(const aremote: msestring;
+               const avalue: boolean);
+var
+ po1: premoteinfoty;
+begin
+ po1:= findremote(aremote);
+ if po1 <> nil then begin
+  po1^.hidden:= avalue;
+ end;
 end;
 
 { tmsegitfileitem }
