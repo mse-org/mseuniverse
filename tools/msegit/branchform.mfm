@@ -18,7 +18,7 @@ inherited branchfo: tbranchfo
     bounds_cx = 240
     bounds_cy = 354
     anchors = [an_right]
-    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_noinsertempty, og_folded, og_colmerged, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_focuscellonenter, og_noinsertempty, og_folded, og_colmerged, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
     rowstatelist.sourcefoldhidden = 'hidden'
     rowstatelist.sourcefoldlevel = 'foldlevel'
     fixcols.count = 1
@@ -235,7 +235,7 @@ inherited branchfo: tbranchfo
     bounds_cx = 192
     bounds_cy = 354
     anchors = [an_left]
-    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_noinsertempty, og_folded, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_focuscellonenter, og_noinsertempty, og_folded, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
     rowstatelist.sourcefoldhidden = 'hidden'
     fixcols.count = 1
     fixcols.items = <    
@@ -399,17 +399,24 @@ inherited branchfo: tbranchfo
   end
   object remotepopup: tpopupmenu[5]
     onupdate = remotepopupupdateexe
-    menu.submenu.count = 2
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
-        caption = 'Create Branch'
+        caption = 'Create Remote Branch'
         state = [as_localcaption, as_localonexecute]
         onexecute = remotecreateexe
       end    
       item
-        caption = 'Delete Branch'
+        caption = 'Delete Remote Branch'
+        name = 'delete'
         state = [as_localcaption, as_localonexecute]
         onexecute = remotedeleteexe
+      end    
+      item
+        caption = 'Create Local Branch'
+        name = 'create'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = remotecreatelocalbranchexe
       end>
     left = 248
     top = 152

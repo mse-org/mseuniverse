@@ -93,6 +93,7 @@ type
    procedure sethidelocalbranchexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure showhiddenexe(const sender: TObject);
+   procedure remotecreatelocalbranchexe(const sender: TObject);
   private
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
@@ -119,11 +120,11 @@ const
 procedure tbranchfo.doclear;
 begin
  with localgrid do begin
-  optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
+//  optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
   clear;
  end;
  with remotegrid do begin
-  optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
+//  optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
   clear;
  end;
 end;
@@ -140,9 +141,11 @@ begin
  localgrid.rowcount:= length(mainmo.branches);
  locallogbranch.checkedrow:= -1;
  localactive.checkedrow:= -1;
+{
  with localgrid do begin
   optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
  end;
+}
  for int1:= 0 to localgrid.rowhigh do begin
   with mainmo.branches[int1] do begin
    localbranchhidden[int1]:= hidden;
@@ -198,11 +201,13 @@ begin
    end;
   end;
  end;
+ {
  with remotegrid do begin
   if rowcount > 0 then begin
    optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
   end;
  end;
+ }
 end;
  
 procedure tbranchfo.localbranchsetexe(const sender: TObject;
@@ -488,8 +493,21 @@ begin
 end;
 
 procedure tbranchfo.remotepopupupdateexe(const sender: tcustommenu);
+var
+ bo1: boolean;
+ int1: integer;
 begin
- sender.menu[1].enabled:= remote.value = '';
+ sender.menu.itembyname('delete').enabled:= remote.value = '';
+ bo1:= remote.value = '';
+ if bo1 then begin
+  for int1:= 0 to localgrid.rowhigh do begin
+   if localbranch[int1] = remotebranch.value then begin
+    bo1:= false;
+    break;
+   end;
+  end;
+ end;
+ sender.menu.itembyname('create').enabled:= bo1;
 end;
 
 procedure tbranchfo.remotedeleteexe(const sender: TObject);
@@ -501,6 +519,21 @@ procedure tbranchfo.remotecreateexe(const sender: TObject);
 begin
  remotegrid.insertrow(remotegrid.row+1,1);
  remotegrid.row:= remotegrid.row+1;
+end;
+
+procedure tbranchfo.remotecreatelocalbranchexe(const sender: TObject);
+var
+ bo1,bo2: boolean;
+begin
+ if mainmo.createbranch('',remotebranch.value,
+                    currentremote+'/'+remotebranch.value) then begin
+  localgrid.row:= localgrid.appendrow;
+  localbranch.value:= remotebranch.value;
+  localbranchcommit.value:= remotebranchcommit.value;
+  remotebranchlink.value:= true;
+  bo1:= true;
+  linkbranchsetexe(nil,bo1,bo2);
+ end;
 end;
 
 procedure tbranchfo.remotecelleventexe(const sender: TObject;
