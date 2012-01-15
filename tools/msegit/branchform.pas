@@ -46,6 +46,7 @@ type
    formpopup: tpopupmenu;
    foldlevel: tintegeredit;
    showhiddenact: taction;
+   localtrackbranch: tbooleaneditradio;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -94,6 +95,8 @@ type
                    var accept: Boolean);
    procedure showhiddenexe(const sender: TObject);
    procedure remotecreatelocalbranchexe(const sender: TObject);
+   procedure trackhint(const sender: tdatacol; const arow: Integer;
+                   var ainfo: hintinfoty);
   private
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
@@ -160,6 +163,7 @@ begin
    if active then begin
     localgrid.rowcolorstate[int1]:= 0;
    end;
+   localtrackbranch[int1]:= trackremote <> '';
   end;
  end;
  int3:= 0;
@@ -701,6 +705,20 @@ begin
  else begin
   localgrid.datacols[0].color:= hiddencolor;
   remotegrid.datacols[0].color:= hiddencolor;
+ end;
+end;
+
+procedure tbranchfo.trackhint(const sender: tdatacol; const arow: Integer;
+               var ainfo: hintinfoty);
+var
+ info1: localbranchinfoty;
+begin
+ if mainmo.branchbyname(localbranch[arow],info1) then begin
+  with info1 do begin
+   if trackremote <> '' then begin
+    ainfo.caption:= 'Remote tracking: '+trackremote+'/'+trackbranch;
+   end;
+  end;
  end;
 end;
 

@@ -248,7 +248,7 @@ inherited branchfo: tbranchfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 5
+        captions.count = 6
         captions.items = <        
           item
             caption = 'H'
@@ -268,13 +268,17 @@ inherited branchfo: tbranchfo
           item
             caption = 'I'
             hint = 'Log list branch'
+          end        
+          item
+            caption = 'T'
+            hint = 'Remote tracking branch'
           end>
       end>
     rowcolors.count = 1
     rowcolors.items = (
       -1879048185
     )
-    datacols.count = 5
+    datacols.count = 6
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
@@ -286,7 +290,7 @@ inherited branchfo: tbranchfo
         dataclass = tgridintegerdatalist
       end    
       item
-        width = 66
+        width = 49
         options = [co_fill, co_savestate, co_mousescrollrow]
         widgetname = 'localbranch'
         dataclass = tgridmsestringdatalist
@@ -306,6 +310,13 @@ inherited branchfo: tbranchfo
         width = 16
         options = [co_drawfocus, co_fixwidth, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'locallogbranch'
+        dataclass = tgridintegerdatalist
+      end    
+      item
+        width = 16
+        options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
+        onshowhint = trackhint
+        widgetname = 'localtrackbranch'
         dataclass = tgridintegerdatalist
       end>
     datarowheight = 16
@@ -333,7 +344,7 @@ inherited branchfo: tbranchfo
       visible = False
       bounds_x = 17
       bounds_y = 0
-      bounds_cx = 66
+      bounds_cx = 49
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       onsetvalue = localbranchsetexe
@@ -344,7 +355,7 @@ inherited branchfo: tbranchfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 84
+      bounds_x = 67
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -355,7 +366,7 @@ inherited branchfo: tbranchfo
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 4
-      bounds_x = 135
+      bounds_x = 118
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
@@ -368,6 +379,20 @@ inherited branchfo: tbranchfo
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 5
+      bounds_x = 135
+      bounds_y = 0
+      bounds_cx = 16
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
+      visible = False
+      onsetvalue = localactivelogsetexe
+      group = 1
+    end
+    object localtrackbranch: tbooleaneditradio
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+      optionsskin = [osk_framebuttononly]
+      taborder = 6
       bounds_x = 152
       bounds_y = 0
       bounds_cx = 16

@@ -131,6 +131,8 @@ type
   info: refsinfoty;
   active: boolean;
   hidden: boolean;
+  trackremote: msestring;
+  trackbranch: msestring;
  end;
  plocalbranchinfoty = ^localbranchinfoty;
  localbranchinfoarty = array of localbranchinfoty;    
@@ -855,11 +857,11 @@ var
  mstr1: msestring;
  ar1: msestringarty;
  int1: integer;
- po1: pmsechar;
+ po1,po2,po3: pmsechar;
 begin
  adest:= nil;
  activebranch:= '';
- result:= commandresult1('branch -v --no-abbrev',mstr1); 
+ result:= commandresult1('branch -vv --no-abbrev',mstr1); 
  if result then begin
   ar1:= breaklines(mstr1);
   if ar1 <> nil then begin
@@ -881,6 +883,23 @@ begin
       activebranch:= info.name;
      end;
      info.commit:= nextword(po1);
+     po1:= msestrscan(po1,'[');
+     if po1 <> nil then begin
+      inc(po1);
+      po2:= msestrscan(po1,':');
+      po3:= msestrscan(po1,']');
+      if (po2 = nil) or (po3 < po2) then begin
+       po2:= po3;
+      end;
+      if po2 <> nil then begin
+       po3:= msestrscan(po1,'/');
+       if po3 <> nil then begin
+        trackremote:= stringsegment(po1,po3);
+        po1:= po3+1;
+       end;
+       trackbranch:= stringsegment(po1,po2);
+      end;
+     end;
     end;    
    end;
   end;

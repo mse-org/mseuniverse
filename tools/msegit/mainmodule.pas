@@ -361,6 +361,8 @@ type
    function createtmpfile(out dest: filenamety; const afilename: filenamety;
              const acaption: msestring; const acommit: msestring = ''): boolean;
    procedure deletetmpfiles;
+   function branchbyname(const aname: msestring;
+                           var ainfo: localbranchinfoty): boolean;
    
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
@@ -1900,6 +1902,20 @@ begin
  po1:= findremote(aremote);
  if po1 <> nil then begin
   po1^.hidden:= avalue;
+ end;
+end;
+
+function tmainmo.branchbyname(const aname: msestring;
+               var ainfo: localbranchinfoty): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(fbranches) do begin
+  if fbranches[int1].info.name = aname then begin
+   ainfo:= fbranches[int1];
+   result:= true;
+  end;
  end;
 end;
 
