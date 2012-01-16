@@ -22,8 +22,10 @@ inherited branchfo: tbranchfo
     rowstatelist.sourcefoldhidden = 'hidden'
     rowstatelist.sourcefoldlevel = 'foldlevel'
     fixcols.count = 1
+    fixcols.colorfocused = -1610612716
     fixcols.items = <    
       item
+        colorfocused = -1610612716
         width = 12
       end>
     fixrows.count = 1
@@ -69,7 +71,7 @@ inherited branchfo: tbranchfo
     datacols.items = <    
       item
         width = 16
-        options = [co_drawfocus, co_fixwidth, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         name = 'hidden'
         widgetname = 'remotebranchhidden'
@@ -283,7 +285,7 @@ inherited branchfo: tbranchfo
     datacols.items = <    
       item
         width = 16
-        options = [co_drawfocus, co_fixwidth, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         name = 'hidden'
         widgetname = 'localbranchhidden'
@@ -389,7 +391,7 @@ inherited branchfo: tbranchfo
       onsetvalue = localactivelogsetexe
       group = 1
     end
-    object localtrackbranch: tbooleaneditradio
+    object localtrackbranch: tbooleanedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 6
@@ -398,9 +400,8 @@ inherited branchfo: tbranchfo
       bounds_cx = 16
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
-      onsetvalue = localactivelogsetexe
+      onsetvalue = localtracksetvalue
       group = 1
     end
   end

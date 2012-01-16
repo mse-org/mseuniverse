@@ -357,6 +357,8 @@ type
                          const afetch: msestring;
                          const apush: msestring): boolean;
    function deleteremote(const aremote: msestring): boolean;
+   function setbranchtracking(
+                 const abranch,aremote,aremotebranch: msestring): boolean;
    
    function createtmpfile(out dest: filenamety; const afilename: filenamety;
              const acaption: msestring; const acommit: msestring = ''): boolean;
@@ -1515,15 +1517,40 @@ end;
 
 function tmainmo.renamebranch(const aremote: msestring;
                const oldname: msestring; const newname: msestring): boolean;
+var
+ int1,int2: integer;
 begin
  if aremote = '' then begin
   result:= execgitconsole('branch -m '+fgit.encodestringparam(oldname)+' '+
                                    fgit.encodestringparam(newname));
+  if result then begin
+   for int1:= 0 to high(fbranches) do begin
+    if fbranches[int1].info.name = oldname then begin
+     fbranches[int1].info.name:= newname;
+     break;
+    end;
+   end;
+  end;
  end
  else begin
   result:= execgitconsole('push '+aremote+' '+
    fgit.encodestringparam(oldname)+':'+fgit.encodestringparam(newname)+
                   ' :'+fgit.encodestringparam(oldname));
+  if result then begin
+   for int2:= 0 to high(fremotesinfo) do begin
+    if fremotesinfo[int2].name = aremote then begin
+     with fremotesinfo[int2] do begin
+      for int1:= 0 to high(branches) do begin
+       if branches[int1].info.name = oldname then begin
+        branches[int1].info.name:= newname;
+        break;
+       end;
+      end;
+     end;
+     break;
+    end;
+   end;
+  end;
  end;
 end;
 
@@ -1915,6 +1942,36 @@ begin
   if fbranches[int1].info.name = aname then begin
    ainfo:= fbranches[int1];
    result:= true;
+  end;
+ end;
+end;
+
+function tmainmo.setbranchtracking(const abranch: msestring;
+               const aremote: msestring;
+               const aremotebranch: msestring): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(fbranches) do begin
+  if fbranches[int1].info.name = abranch then begin
+   with fbranches[int1] do begin
+    if aremote = '' then begin
+     result:= execgitconsole('config --unset branch.'+abranch+'.merge');
+     if result then begin
+      trackremote:= '';
+      trackbranch:= '';
+     end;
+    end
+    else begin
+     result:= execgitconsole('branch --set-upstream '+abranch+ ' '+
+                  aremote+'/'+aremotebranch);  
+     if result then begin
+      trackremote:= aremote;
+      trackbranch:= aremotebranch;
+     end;
+    end;
+   end;
   end;
  end;
 end;

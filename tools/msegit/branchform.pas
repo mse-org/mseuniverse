@@ -46,7 +46,7 @@ type
    formpopup: tpopupmenu;
    foldlevel: tintegeredit;
    showhiddenact: taction;
-   localtrackbranch: tbooleaneditradio;
+   localtrackbranch: tbooleanedit;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -97,6 +97,8 @@ type
    procedure remotecreatelocalbranchexe(const sender: TObject);
    procedure trackhint(const sender: tdatacol; const arow: Integer;
                    var ainfo: hintinfoty);
+   procedure localtracksetvalue(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
   private
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
@@ -487,8 +489,9 @@ end;
 
 procedure tbranchfo.localcreateexe(const sender: TObject);
 begin
- localgrid.insertrow(localgrid.row+1,1);
- localgrid.row:= localgrid.row+1;
+ localgrid.appinsrow(localgrid.row+1);
+// localgrid.insertrow(localgrid.row+1,1);
+// localgrid.row:= localgrid.row+1;
 end;
 
 procedure tbranchfo.localdeleteexe(const sender: TObject);
@@ -521,8 +524,9 @@ end;
 
 procedure tbranchfo.remotecreateexe(const sender: TObject);
 begin
- remotegrid.insertrow(remotegrid.row+1,1);
- remotegrid.row:= remotegrid.row+1;
+ remotegrid.appinsrow(localgrid.row+1);
+// remotegrid.insertrow(remotegrid.row+1,1);
+// remotegrid.row:= remotegrid.row+1;
 end;
 
 procedure tbranchfo.remotecreatelocalbranchexe(const sender: TObject);
@@ -718,6 +722,28 @@ begin
    if trackremote <> '' then begin
     ainfo.caption:= 'Remote tracking: '+trackremote+'/'+trackbranch;
    end;
+  end;
+ end;
+end;
+
+procedure tbranchfo.localtracksetvalue(const sender: TObject;
+               var avalue: Boolean; var accept: Boolean);
+begin
+ if avalue then begin
+  if remotebranch.value = '' then begin
+   accept:= false;
+   showmessage('No remote branch selected.','ERROR');
+  end
+  else begin
+   if not mainmo.setbranchtracking(localbranch.value,currentremote,
+                                          remotebranch.value) then begin
+    accept:= false;
+   end;
+  end;
+ end
+ else begin
+  if not mainmo.setbranchtracking(localbranch.value,'','') then begin
+   accept:= false;
   end;
  end;
 end;
