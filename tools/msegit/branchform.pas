@@ -703,12 +703,12 @@ begin
  localgrid.folded:= not avalue;
  remotegrid.folded:= not avalue;
  if avalue then begin
-  localgrid.datacols[0].color:= cl_default;
-  remotegrid.datacols[0].color:= cl_default;
+  localgrid.datacols[5].color:= cl_default;
+  remotegrid.datacols[6].color:= cl_default;
  end
  else begin
-  localgrid.datacols[0].color:= hiddencolor;
-  remotegrid.datacols[0].color:= hiddencolor;
+  localgrid.datacols[5].color:= hiddencolor;
+  remotegrid.datacols[6].color:= hiddencolor;
  end;
 end;
 
