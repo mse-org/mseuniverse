@@ -91,10 +91,10 @@ object mainfo: tmainfo
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
-            action = pushact
+            action = pushtoact
           end        
           item
-            action = pullact
+            action = pullfromact
           end        
           item
             action = fetchact
@@ -285,9 +285,9 @@ object mainfo: tmainfo
     left = 160
     top = 128
   end
-  object pullact: taction
+  object pullfromact: taction
     caption = 'P&ull'
-    onexecute = pullexe
+    onexecute = pullfromexe
     left = 160
     top = 160
   end
@@ -297,10 +297,10 @@ object mainfo: tmainfo
     left = 160
     top = 176
   end
-  object pushact: taction
+  object pushtoact: taction
     caption = '&Push'
     options = [ao_updateonidle]
-    onexecute = pushexe
+    onexecute = pustohexe
     onupdate = pushupdateexe
     left = 160
     top = 112

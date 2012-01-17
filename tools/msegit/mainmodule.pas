@@ -386,6 +386,7 @@ type
    property hidelocalbranch[const abranch: msestring]: boolean 
                          read gethidelocalbranch write sethidelocalbranch;
    function remotetarget: msestring;
+   function remotetargetref: msestring;
    function stashsave(const amessage: msestring): boolean;
    function stashpop: boolean;
    property git: tgitcontroller read fgit;
@@ -1643,6 +1644,14 @@ begin
  end
  else begin
   result:= activeremote;
+ end;
+end;
+
+function tmainmo.remotetargetref: msestring;
+begin
+ result:= activeremote;
+ if result <> '' then begin
+  result:= result+'/'+activeremotebranch[activeremote];
  end;
 end;
 

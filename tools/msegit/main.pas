@@ -39,9 +39,9 @@ type
    commitmergeact: taction;
    resetmergeact: taction;
    fetchact: taction;
-   pullact: taction;
+   pullfromact: taction;
    mergeact: taction;
-   pushact: taction;
+   pushtoact: taction;
    objectrefreshtimer: ttimer;
    diffrefreshtimer: ttimer;
    commitallact: taction;
@@ -64,9 +64,9 @@ type
    procedure commitmergeexe(const sender: TObject);
    procedure resetmergeexe(const sender: TObject);
    procedure fetchexe(const sender: TObject);
-   procedure pullexe(const sender: TObject);
+   procedure pullfromexe(const sender: TObject);
    procedure mergeexe(const sender: TObject);
-   procedure pushexe(const sender: TObject);
+   procedure pustohexe(const sender: TObject);
    procedure pushupdateexe(const sender: tcustomaction);
 //   procedure branchcheckoutexe(const sender: TObject; var accept: Boolean);
    procedure showbranchexe(const sender: TObject);
@@ -273,8 +273,7 @@ begin
    richconcat1(rstr1,' Log: ',[fs_force]);
    richconcat1(rstr1,mainmo.repostat.activelogcommit,[fs_bold]);
    richconcat1(rstr1,' Remote: ',[fs_force]);
-   richconcat1(rstr1,mainmo.activeremote+'/'+
-                mainmo.activeremotebranch[mainmo.activeremote],[fs_bold]);
+   richconcat1(rstr1,mainmo.remotetargetref,[fs_bold]);
    statdisp.richvalue:= rstr1;
    statdisp.color:= col1;
   end;
@@ -311,9 +310,10 @@ begin
  end;
 end;
 
-procedure tmainfo.pullexe(const sender: TObject);
+procedure tmainfo.pullfromexe(const sender: TObject);
 begin
- if askyesno('Do you want to fetch and merge data from '+mainmo.remotetarget+
+ if askyesno('Do you want to fetch and merge data from '+
+                mainmo.remotetargetref+
                 ' to '+mainmo.activebranch+'?') and mainmo.pull then begin
   reload;
  end;
@@ -321,17 +321,17 @@ end;
 
 procedure tmainfo.mergeexe(const sender: TObject);
 begin
- if askyesno('Do you want to merge fetched data from '+mainmo.remotetarget+
+ if askyesno('Do you want to merge fetched data from '+mainmo.remotetargetref+
                 ' to '+mainmo.activebranch+'?') then begin
   mainmo.merge;
   reload;
  end;
 end;
 
-procedure tmainfo.pushexe(const sender: TObject);
+procedure tmainfo.pustohexe(const sender: TObject);
 begin
  if askyesno('Do you want to push '+mainmo.activebranch+' to '+
-                   mainmo.remotetarget+'?') and mainmo.push then begin
+                   mainmo.remotetargetref+'?') and mainmo.push then begin
   reload;
  end;
 end;
@@ -340,14 +340,18 @@ procedure tmainfo.pushupdateexe(const sender: tcustomaction);
 var
  bo1: boolean;
  bo2: boolean;
+ mstr1: msestring;
 begin
  bo1:= mainmo.repoloaded;
  bo2:= bo1 and not mainmo.merging;
  commitallact.enabled:= bo1;
- pushact.enabled:= bo2;
+ mstr1:= mainmo.remotetargetref;
+ pushtoact.enabled:= bo2 and (mstr1 <> '');
+ pushtoact.caption:= 'Push to '+mstr1;
  fetchact.enabled:= bo1;
  commitmergeact.enabled:= bo1;
- pullact.enabled:= bo2;
+ pullfromact.enabled:= bo2 and (mstr1 <> '');
+ pullfromact.caption:= 'Pull from '+mstr1;
  mergeact.enabled:= bo2;
  resetmergeact.enabled:= bo1;
  stashsaveact.enabled:= bo1;
