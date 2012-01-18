@@ -369,16 +369,14 @@ var
 begin
  rowbefore:= remotegrid.row;
  if remote.value <> '' then begin  //switch remote
-  mstr1:= mainmo.activeremotebranch[remote.value];
-  if mainmo.linkremotebranch[remote.value,mstr1] and 
-                                  (mstr1 <> mainmo.activebranch) then begin
-   if askyesno('Do you want to switch to branch "'+mstr1+'"?') and
-                                     mainmo.checkoutbranch(mstr1) then begin
-    setactivelocallog(mstr1);
-   end
-   else begin
-//    accept:= false;
-//    exit;
+  if avalue then begin
+   mstr1:= mainmo.activeremotebranch[remote.value];
+   if mainmo.linkremotebranch[remote.value,mstr1] and 
+                                   (mstr1 <> mainmo.activebranch) then begin
+    if askyesno('Do you want to switch to branch "'+mstr1+'"?') and
+                                      mainmo.checkoutbranch(mstr1) then begin
+     setactivelocallog(mstr1);
+    end;
    end;
   end;
   bo1:= false;
@@ -400,20 +398,23 @@ begin
     end;
    end;
   end;
-  mainmo.activeremote:= remote.value;
+  if avalue then begin
+   mainmo.activeremote:= remote.value;
+  end
+  else begin
+   mainmo.activeremote:= '';
+  end;
  end 
  else begin                    //switch remote branch
-  if (mainmo.activeremote = currentremote) and 
-                     (mainmo.activebranch <> remotebranch.value) and
-      mainmo.linkremotebranch[mainmo.activeremote,remotebranch.value] then begin
-   if askyesno('Do you want to switch to branch "'+
-     remotebranch.value+'"?') and
-                mainmo.checkoutbranch(remotebranch.value) then begin
-     setactivelocallog(remotebranch.value);
-   end
-   else begin
-//    accept:= false;
-//    exit;
+  if avalue then begin
+   if (mainmo.activeremote = currentremote) and 
+                      (mainmo.activebranch <> remotebranch.value) and
+       mainmo.linkremotebranch[mainmo.activeremote,remotebranch.value] then begin
+    if askyesno('Do you want to switch to branch "'+
+      remotebranch.value+'"?') and
+                 mainmo.checkoutbranch(remotebranch.value) then begin
+      setactivelocallog(remotebranch.value);
+    end;
    end;
   end;
   mstr1:= '';
@@ -439,13 +440,18 @@ begin
    remoteactive[int1]:= false;
    remotegrid.rowcolorstate[int1]:= -1;
   end;
-  if bo1 then begin
-   remotegrid.rowcolorstate[-1]:= 0;
+  if avalue then begin
+   if bo1 then begin
+    remotegrid.rowcolorstate[-1]:= 0;
+   end;
+   if mstr1 <> '' then begin
+    trydeletefile('.git/FETCH_HEAD'); //invalid
+   end;
+   mainmo.activeremotebranch[mstr1]:= remotebranch.value;
+  end
+  else begin
+   mainmo.activeremotebranch[mstr1]:= '';
   end;
-  if mstr1 <> '' then begin
-   trydeletefile('.git/FETCH_HEAD'); //invalid
-  end;
-  mainmo.activeremotebranch[mstr1]:= remotebranch.value;
   if mainmo.activeremote <> currentremote then begin
    exit;
   end;

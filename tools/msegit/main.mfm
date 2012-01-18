@@ -73,7 +73,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 14
+        submenu.count = 15
         submenu.items = <        
           item
             action = commitallact
@@ -91,25 +91,28 @@ object mainfo: tmainfo
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
-            action = fetchact
-          end        
-          item
-            action = pullact
-          end        
-          item
             action = pushact
           end        
           item
             action = pushtoact
           end        
           item
+            action = pullact
+          end        
+          item
             action = pullfromact
+          end        
+          item
+            action = fetchfromremoteact
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
             action = mergeact
+          end        
+          item
+            action = mergefromact
           end        
           item
             action = resetmergeact
@@ -276,40 +279,40 @@ object mainfo: tmainfo
   object commitmergeact: taction
     caption = 'Merge &commit'
     onexecute = commitmergeexe
-    left = 160
-    top = 144
+    left = 120
+    top = 160
   end
   object resetmergeact: taction
     caption = 'Merge &reset'
     onexecute = resetmergeexe
-    left = 160
-    top = 192
+    left = 120
+    top = 208
   end
-  object fetchact: taction
-    caption = '&Fetch'
-    onexecute = fetchexe
-    left = 160
-    top = 128
+  object fetchfromremoteact: taction
+    caption = '&Fetch from'
+    onexecute = fetchfromremoteexe
+    left = 120
+    top = 144
   end
   object pullfromact: taction
     caption = 'P&ull from'
     onexecute = pullfromexe
-    left = 160
-    top = 160
-  end
-  object mergeact: taction
-    caption = '&Merge fetched'
-    onexecute = mergeexe
-    left = 160
+    left = 120
     top = 176
+  end
+  object mergefromact: taction
+    caption = '&Merge from'
+    onexecute = mergefromexe
+    left = 120
+    top = 192
   end
   object pushtoact: taction
     caption = '&Push to'
     options = [ao_updateonidle]
     onexecute = pustohexe
     onupdate = pushupdateexe
-    left = 160
-    top = 112
+    left = 120
+    top = 128
   end
   object objectrefreshtimer: ttimer
     interval = 0
@@ -350,13 +353,19 @@ object mainfo: tmainfo
   object pushact: taction
     caption = 'Push'
     onexecute = pushactexe
-    left = 280
-    top = 112
+    left = 248
+    top = 128
   end
   object pullact: taction
     caption = 'Pull'
     onexecute = pullactexe
-    left = 280
-    top = 160
+    left = 248
+    top = 176
+  end
+  object mergeact: taction
+    caption = 'Merge fetched'
+    onexecute = mergetactexe
+    left = 248
+    top = 192
   end
 end

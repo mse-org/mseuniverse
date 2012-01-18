@@ -287,7 +287,7 @@ type
    function fetch(const aremote,aremotebranch: msestring): boolean;
    function pull(const aremote,aremotebranch: msestring): boolean;
    function push(const aremote,aremotebranch: msestring): boolean;
-   function merge: boolean;
+   function merge(const asourceref: msestring): boolean;
 
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
    function cancommit(const aitems: gitdirtreenodearty): boolean; overload;
@@ -1523,9 +1523,14 @@ begin
  end;
 end;
 
-function tmainmo.merge: boolean;
+function tmainmo.merge(const asourceref: msestring): boolean;
 begin
- result:= execgitconsole('merge FETCH_HEAD');
+ if asourceref = '' then begin
+  result:= execgitconsole('merge FETCH_HEAD');
+ end
+ else begin
+  result:= execgitconsole('merge '+fgit.encodestring(asourceref));
+ end;
 end;
 
 function tmainmo.repoloaded: boolean;

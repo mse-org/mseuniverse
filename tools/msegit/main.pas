@@ -38,9 +38,9 @@ type
    statdisp: trichstringdisp;
    commitmergeact: taction;
    resetmergeact: taction;
-   fetchact: taction;
+   fetchfromremoteact: taction;
    pullfromact: taction;
-   mergeact: taction;
+   mergefromact: taction;
    pushtoact: taction;
    objectrefreshtimer: ttimer;
    diffrefreshtimer: ttimer;
@@ -49,6 +49,7 @@ type
    stashpopact: taction;
    pushact: taction;
    pullact: taction;
+   mergeact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -65,9 +66,9 @@ type
    procedure showdiffexe(const sender: TObject);
    procedure commitmergeexe(const sender: TObject);
    procedure resetmergeexe(const sender: TObject);
-   procedure fetchexe(const sender: TObject);
+   procedure fetchfromremoteexe(const sender: TObject);
    procedure pullfromexe(const sender: TObject);
-   procedure mergeexe(const sender: TObject);
+   procedure mergefromexe(const sender: TObject);
    procedure pustohexe(const sender: TObject);
    procedure pushupdateexe(const sender: tcustomaction);
 //   procedure branchcheckoutexe(const sender: TObject; var accept: Boolean);
@@ -84,6 +85,8 @@ type
    procedure stashpopexe(const sender: TObject);
    procedure pullactexe(const sender: TObject);
    procedure pushactexe(const sender: TObject);
+   procedure fetchfrombranchexe(const sender: TObject);
+   procedure mergetactexe(const sender: TObject);
   private
    frefreshing: boolean;
   public
@@ -307,10 +310,21 @@ begin
  end;
 end;
 
-procedure tmainfo.fetchexe(const sender: TObject);
+procedure tmainfo.fetchfromremoteexe(const sender: TObject);
 begin
- if mainmo.fetch('','') then begin
-  reload;
+ with mainmo do begin
+  if mainmo.fetch(activeremote,'') then begin
+   self.reload;
+  end;
+ end;
+end;
+
+procedure tmainfo.fetchfrombranchexe(const sender: TObject);
+begin
+ with mainmo do begin
+  if mainmo.fetch(activeremote,activeremotebranch[activeremote]) then begin
+   self.reload;
+  end;
  end;
 end;
 
@@ -325,12 +339,25 @@ begin
  end;
 end;
 
-procedure tmainfo.mergeexe(const sender: TObject);
+procedure tmainfo.mergetactexe(const sender: TObject);
 begin
- if askyesno('Do you want to merge fetched data from '+mainmo.remotetargetref+
-                ' to '+mainmo.activebranch+'?') then begin
-  mainmo.merge;
-  reload;
+ with mainmo do begin
+  if askyesno('Do you want to merge fetched data '+
+                 ' to '+activebranch+'?') and
+                                      merge('')  then begin
+   self.reload;
+  end;
+ end;
+end;
+
+procedure tmainfo.mergefromexe(const sender: TObject);
+begin
+ with mainmo do begin
+  if askyesno('Do you want to merge from '+remotetargetref+
+                 ' to '+activebranch+'?') and
+                                      merge(remotetargetref)  then begin
+   self.reload;
+  end;
  end;
 end;
 
@@ -361,8 +388,7 @@ end;
 
 procedure tmainfo.pushupdateexe(const sender: tcustomaction);
 var
- bo1: boolean;
- bo2: boolean;
+ bo1,bo2: boolean;
  mstr1: msestring;
 begin
  bo1:= mainmo.repoloaded;
@@ -371,13 +397,18 @@ begin
  mstr1:= mainmo.remotetargetref;
  pushact.enabled:= bo2;
  pushtoact.enabled:= bo2 and (mstr1 <> '');
- pushtoact.caption:= 'Push to '+mstr1;
- fetchact.enabled:= bo1;
+ pushtoact.caption:= '&Push to '+mstr1;
+ fetchfromremoteact.enabled:= bo1;
+ fetchfromremoteact.caption:= '&Fetch from '+mainmo.activeremote;
  commitmergeact.enabled:= bo1;
  pullact.enabled:= bo2;
  pullfromact.enabled:= bo2 and (mstr1 <> '');
- pullfromact.caption:= 'Pull from '+mstr1;
+ pullfromact.caption:= 'P&ull from '+mstr1;
  mergeact.enabled:= bo2;
+ mergefromact.enabled:= bo2 and 
+                      (mainmo.activeremotebranch[mainmo.activeremote] <> '');
+ mergefromact.caption:= '&Merge from '+mstr1;
+ 
  resetmergeact.enabled:= bo1;
  stashsaveact.enabled:= bo1;
  stashpopact.enabled:= mainmo.stashes <> nil;
