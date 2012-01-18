@@ -377,8 +377,8 @@ begin
     setactivelocallog(mstr1);
    end
    else begin
-    accept:= false;
-    exit;
+//    accept:= false;
+//    exit;
    end;
   end;
   bo1:= false;
@@ -412,8 +412,8 @@ begin
      setactivelocallog(remotebranch.value);
    end
    else begin
-    accept:= false;
-    exit;
+//    accept:= false;
+//    exit;
    end;
   end;
   mstr1:= '';

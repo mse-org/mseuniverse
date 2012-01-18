@@ -47,6 +47,8 @@ type
    commitallact: taction;
    stashsaveact: taction;
    stashpopact: taction;
+   pushact: taction;
+   pullact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -80,6 +82,8 @@ type
    procedure showstashexe(const sender: TObject);
    procedure stashsaveexe(const sender: TObject);
    procedure stashpopexe(const sender: TObject);
+   procedure pullactexe(const sender: TObject);
+   procedure pushactexe(const sender: TObject);
   private
    frefreshing: boolean;
   public
@@ -305,17 +309,19 @@ end;
 
 procedure tmainfo.fetchexe(const sender: TObject);
 begin
- if mainmo.fetch then begin
+ if mainmo.fetch('','') then begin
   reload;
  end;
 end;
 
 procedure tmainfo.pullfromexe(const sender: TObject);
 begin
- if askyesno('Do you want to fetch and merge data from '+
-                mainmo.remotetargetref+
-                ' to '+mainmo.activebranch+'?') and mainmo.pull then begin
-  reload;
+ with mainmo do begin
+  if askyesno('Do you want to fetch and merge data from '+
+         remotetargetref+' to '+activebranch+'?') and 
+         pull(activeremote,mainmo.activeremotebranch[activeremote]) then begin
+   self.reload;
+  end;
  end;
 end;
 
@@ -330,8 +336,25 @@ end;
 
 procedure tmainfo.pustohexe(const sender: TObject);
 begin
- if askyesno('Do you want to push '+mainmo.activebranch+' to '+
-                   mainmo.remotetargetref+'?') and mainmo.push then begin
+ with mainmo do begin
+  if askyesno('Do you want to push '+activebranch+' to '+
+        remotetargetref+'?') and 
+        push(activeremote,activeremotebranch[activeremote]) then begin
+   self.reload;
+  end;
+ end;
+end;
+
+procedure tmainfo.pullactexe(const sender: TObject);
+begin
+ if mainmo.pull('','') then begin
+  reload;
+ end;
+end;
+
+procedure tmainfo.pushactexe(const sender: TObject);
+begin
+ if mainmo.push('','') then begin
   reload;
  end;
 end;
@@ -346,10 +369,12 @@ begin
  bo2:= bo1 and not mainmo.merging;
  commitallact.enabled:= bo1;
  mstr1:= mainmo.remotetargetref;
+ pushact.enabled:= bo2;
  pushtoact.enabled:= bo2 and (mstr1 <> '');
  pushtoact.caption:= 'Push to '+mstr1;
  fetchact.enabled:= bo1;
  commitmergeact.enabled:= bo1;
+ pullact.enabled:= bo2;
  pullfromact.enabled:= bo2 and (mstr1 <> '');
  pullfromact.caption:= 'Pull from '+mstr1;
  mergeact.enabled:= bo2;

@@ -267,6 +267,7 @@ type
                                 out aroot: tgitdirtreenode): msegitfileitemarty;
    function encodepathparams(const adir: tgitdirtreenode;
                                const afiles: msegitfileitemarty): string;
+   function getremote(const aremotetarget: msestring): msestring;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
@@ -283,9 +284,9 @@ type
                                 const anode: tgitdirtreenode;
                                 const afiles: msegitfileitemarty): boolean;
 
-   function fetch: boolean;
-   function pull: boolean;
-   function push: boolean;
+   function fetch(const aremote,aremotebranch: msestring): boolean;
+   function pull(const aremote,aremotebranch: msestring): boolean;
+   function push(const aremote,aremotebranch: msestring): boolean;
    function merge: boolean;
 
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
@@ -1455,37 +1456,71 @@ begin
  end;
 end;
 
-function tmainmo.fetch: boolean;
+function tmainmo.getremote(const aremotetarget: msestring): msestring;
 var
- mstr1: msestring;
+ po1: pmsechar;
 begin
- mstr1:= activeremote;
- if mstr1 = '' then begin
+ result:= aremotetarget;
+ if aremotetarget <> '' then begin
+  po1:= msestrscan(pmsechar(pointer(aremotetarget)),' ');
+  if po1 <> nil then begin
+   result:= psubstr(pmsechar(pointer(aremotetarget)),po1);
+  end;
+ end;
+end;
+
+function tmainmo.fetch(const aremote,aremotebranch: msestring): boolean;
+//var
+// mstr1: msestring;
+begin
+// mstr1:= activeremote;
+ if aremote = '' then begin
   result:= execgitconsole('fetch');
  end
  else begin
-  result:= execgitconsole('fetch '+fgit.encodestringparam(mstr1)+
-      ' '+fgit.encodestringparam('refs/heads/*:refs/remotes/'+mstr1+'/*'));
+  result:= execgitconsole('fetch '+
+      fgit.encodestring(aremote+' '+aremotebranch)+' '+
+      fgit.encodestringparam('refs/heads/*:refs/remotes/'+aremote+'/*'));
  end;
 end;
 
-function tmainmo.pull: boolean;
-var
- mstr1: msestring;
+function tmainmo.pull(const aremote,aremotebranch: msestring): boolean;
+//var
+// mstr1: msestring;
 begin
- mstr1:= activeremote;
- if mstr1 = '' then begin
+// mstr1:= activeremote;
+ if aremote = '' then begin
   result:= execgitconsole('pull');
  end
  else begin
-  result:= execgitconsole('pull '+fgit.encodestringparam(mstr1)+
-   ' '+fgit.encodestringparam('refs/heads/*:refs/remotes/'+mstr1+'/*'));
+  result:= execgitconsole('pull '+
+   fgit.encodestring(aremote+' '+aremotebranch)+' '+
+   fgit.encodestringparam('refs/heads/*:refs/remotes/'+aremote+'/*'));
  end;
 end;
 
-function tmainmo.push: boolean;
+function tmainmo.push(const aremote,aremotebranch: msestring): boolean;
+var
+ str1: string;
 begin
- result:= execgitconsole('push '+remotetarget);
+ if aremote = '' then begin
+  result:= execgitconsole('push');
+ end
+ else begin
+  if activebranch = '' then begin
+   result:= false;
+  end
+  else begin
+   str1:= 'push '+fgit.encodestring(aremote)+' ';
+   if aremotebranch <> '' then begin
+    str1:= str1+fgit.encodestringparam(factivebranch+':'+aremotebranch);
+   end
+   else begin
+    str1:= str1+fgit.encodestringparam(factivebranch);
+   end;
+   result:= execgitconsole(str1);
+  end;
+ end;
 end;
 
 function tmainmo.merge: boolean;

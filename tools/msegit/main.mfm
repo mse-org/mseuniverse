@@ -73,7 +73,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 12
+        submenu.count = 14
         submenu.items = <        
           item
             action = commitallact
@@ -91,13 +91,19 @@ object mainfo: tmainfo
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
+            action = fetchact
+          end        
+          item
+            action = pullact
+          end        
+          item
+            action = pushact
+          end        
+          item
             action = pushtoact
           end        
           item
             action = pullfromact
-          end        
-          item
-            action = fetchact
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
@@ -286,7 +292,7 @@ object mainfo: tmainfo
     top = 128
   end
   object pullfromact: taction
-    caption = 'P&ull'
+    caption = 'P&ull from'
     onexecute = pullfromexe
     left = 160
     top = 160
@@ -298,7 +304,7 @@ object mainfo: tmainfo
     top = 176
   end
   object pushtoact: taction
-    caption = '&Push'
+    caption = '&Push to'
     options = [ao_updateonidle]
     onexecute = pustohexe
     onupdate = pushupdateexe
@@ -339,6 +345,18 @@ object mainfo: tmainfo
     caption = 'Stash pop'
     onexecute = stashpopexe
     left = 16
+    top = 160
+  end
+  object pushact: taction
+    caption = 'Push'
+    onexecute = pushactexe
+    left = 280
+    top = 112
+  end
+  object pullact: taction
+    caption = 'Pull'
+    onexecute = pullactexe
+    left = 280
     top = 160
   end
 end

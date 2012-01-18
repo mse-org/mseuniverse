@@ -199,6 +199,7 @@ type
   public
    constructor create(aowner: tcomponent); override;
    function encodegitcommand(const acommand: string): string;
+   function encodestring(const avalue: msestring): string;
    function encodestringparam(const avalue: msestring): string;
    function noemptystringparam(const avalue: msestring): string;
    function encodepathparam(const apath: filenamety;
@@ -354,6 +355,11 @@ begin
    result:= result + ' ' + encodepathparam(apath[int1],relative);
   end;
  end;
+end;
+
+function tgitcontroller.encodestring(const avalue: msestring): string;
+begin
+ result:= stringtoutf8(avalue);
 end;
 
 function tgitcontroller.encodestringparam(const avalue: msestring): string;

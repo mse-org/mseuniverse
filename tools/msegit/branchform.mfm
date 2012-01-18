@@ -22,10 +22,10 @@ inherited branchfo: tbranchfo
     rowstatelist.sourcefoldhidden = 'hidden'
     rowstatelist.sourcefoldlevel = 'foldlevel'
     fixcols.count = 1
-    fixcols.colorfocused = -1610612716
+    fixcols.colorfocused = 12316091
     fixcols.items = <    
       item
-        colorfocused = -1610612716
+        colorfocused = 12316091
         width = 12
       end>
     fixrows.count = 1
