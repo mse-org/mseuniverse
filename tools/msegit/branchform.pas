@@ -495,9 +495,12 @@ end;
 
 procedure tbranchfo.localcreateexe(const sender: TObject);
 begin
- localgrid.appinsrow(localgrid.row+1);
-// localgrid.insertrow(localgrid.row+1,1);
-// localgrid.row:= localgrid.row+1;
+ if sender = nil then begin
+  localgrid.appinsrow(bigint); //called from other form
+ end
+ else begin
+  localgrid.appinsrow(localgrid.row+1);
+ end;
 end;
 
 procedure tbranchfo.localdeleteexe(const sender: TObject);

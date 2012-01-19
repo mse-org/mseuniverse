@@ -48,6 +48,7 @@ type
    tpopupmenu1: tpopupmenu;
    checkoutact: taction;
    num: tintegeredit;
+   branchact: taction;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -56,6 +57,7 @@ type
    procedure updateexe(const sender: tcustomaction);
    procedure createmessageitemexe(const sender: tcustomitemlist;
                    var item: tlistedititem);
+   procedure branchexe(const sender: TObject);
   private
    fpath: filenamety;
   protected
@@ -75,7 +77,8 @@ var
 implementation
 
 uses
- logform_mfm,msegitcontroller,main,dirtreeform,filesform,msewidgets,mserichstring;
+ logform_mfm,msegitcontroller,main,dirtreeform,filesform,msewidgets,
+ mserichstring,branchform,mseeditglob;
 
 { tlogfo }
 
@@ -231,6 +234,7 @@ var
 begin
  bo1:= mainmo.repoloaded and (grid.row >= 0);
  checkoutact.enabled:= bo1;
+ branchact.enabled:= bo1;
 end;
 
 procedure tlogfo.checkoutexe(const sender: TObject);
@@ -239,6 +243,16 @@ begin
               mainmo.checkout(commit.value,dirtreefo.currentitem,
                             filesfo.filelist.currentitems) then begin
   mainfo.reload;
+ end;
+end;
+
+procedure tlogfo.branchexe(const sender: TObject);
+begin
+ with branchfo do begin 
+  localcreateexe(nil);
+  localgrid.focuscell(mgc(1,localgrid.rowhigh));
+  localbranchcommit.value:= self.commit.value;
+  localgrid.activate;
  end;
 end;
 

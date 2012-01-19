@@ -195,8 +195,11 @@ inherited logfo: tlogfo
   inherited repoclosedact: taction[2]
   end
   object tpopupmenu1: tpopupmenu[3]
-    menu.submenu.count = 1
+    menu.submenu.count = 2
     menu.submenu.items = <    
+      item
+        action = branchact
+      end    
       item
         action = checkoutact
       end>
@@ -209,5 +212,11 @@ inherited logfo: tlogfo
     onupdate = updateexe
     left = 56
     top = 192
+  end
+  object branchact: taction[5]
+    caption = 'Branch'
+    onexecute = branchexe
+    left = 56
+    top = 208
   end
 end
