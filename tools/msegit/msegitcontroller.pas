@@ -131,6 +131,7 @@ type
   info: refsinfoty;
   active: boolean;
   hidden: boolean;
+  nobranch: boolean;
   trackremote: msestring;
   trackbranch: msestring;
  end;
@@ -884,6 +885,15 @@ begin
     with adest[int1] do begin
      po1:= pmsechar(pointer(ar1[int1]))+2;
      info.name:= nextword(po1);
+     if (info.name <> '') and (info.name[1] = '(') then begin
+      po2:= po1;
+      po1:= msestrscan(po1,')');
+      if po1 <> '' then begin
+       inc(po1);
+      end;
+      info.name:= info.name+psubstr(po2,po1);
+      nobranch:= true;
+     end;
      if ar1[int1][1] = '*' then begin
       active:= true;
       activebranch:= info.name;
