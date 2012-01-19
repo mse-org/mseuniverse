@@ -288,6 +288,7 @@ type
    function pull(const aremote,aremotebranch: msestring): boolean;
    function push(const aremote,aremotebranch: msestring): boolean;
    function merge(const asourceref: msestring): boolean;
+   function cherrypick(const acommits: msestringarty): boolean;
 
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
    function cancommit(const aitems: gitdirtreenodearty): boolean; overload;
@@ -1530,6 +1531,21 @@ begin
  end
  else begin
   result:= execgitconsole('merge '+fgit.encodestring(asourceref));
+ end;
+end;
+
+function tmainmo.cherrypick(const acommits: msestringarty): boolean;
+var
+ int1: integer;
+ str1: string;
+begin
+ result:= false;
+ if acommits <> nil then begin
+  str1:= '';
+  for int1:= 0 to high(acommits) do begin
+   str1:= str1+' '+fgit.encodestring(acommits[int1]);
+  end;
+  result:= execgitconsole('cherry-pick '+str1);
  end;
 end;
 

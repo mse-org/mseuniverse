@@ -49,6 +49,7 @@ type
    checkoutact: taction;
    num: tintegeredit;
    branchact: taction;
+   cherrypickact: taction;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -58,6 +59,7 @@ type
    procedure createmessageitemexe(const sender: tcustomitemlist;
                    var item: tlistedititem);
    procedure branchexe(const sender: TObject);
+   procedure cherrypickexe(const sender: TObject);
   private
    fpath: filenamety;
   protected
@@ -235,6 +237,7 @@ begin
  bo1:= mainmo.repoloaded and (grid.row >= 0);
  checkoutact.enabled:= bo1;
  branchact.enabled:= bo1;
+ cherrypickact.enabled:= bo1; 
 end;
 
 procedure tlogfo.checkoutexe(const sender: TObject);
@@ -253,6 +256,24 @@ begin
   localgrid.focuscell(mgc(1,localgrid.rowhigh));
   localbranchcommit.value:= self.commit.value;
   localgrid.activate;
+ end;
+end;
+
+procedure tlogfo.cherrypickexe(const sender: TObject);
+var
+ ar1: integerarty;
+ ar2: msestringarty;
+ int1: integer;
+begin
+ if askyesno('Do you want to apply the changes of the selected commits to '+
+                mainmo.activebranch+'?') then begin
+  ar1:= grid.datacols.selectedrows;
+  setlength(ar2,length(ar1));
+  for int1:= 0 to high(ar1) do begin
+   ar2[int1]:= commit[ar1[int1]];
+  end;
+  mainmo.cherrypick(ar2);
+  mainfo.reload;
  end;
 end;
 

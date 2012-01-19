@@ -55,27 +55,27 @@ inherited logfo: tlogfo
     datacols.colorfocused = -1879048185
     datacols.sortcol = 0
     datacols.sortcoldefault = 0
-    datacols.options = [co_savestate, co_mousescrollrow]
+    datacols.options = [co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
         color = -1879048187
         colorfocused = 12316091
         width = 36
-        options = [co_readonly, co_nofocus, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_nofocus, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
         widgetname = 'num'
         dataclass = tgridintegerdatalist
       end    
       item
         colorfocused = -1879048185
         width = 16
-        options = [co_drawfocus, co_noctrlmousefocus, co_fixwidth, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_noctrlmousefocus, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'diffbase'
         dataclass = tgridintegerdatalist
       end    
       item
         colorfocused = -1879048185
         width = 167
-        options = [co_readonly, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
         widgetname = 'message'
         dataclass = titemeditlist
         datalist.oncreateitem = createmessageitemexe
@@ -83,21 +83,21 @@ inherited logfo: tlogfo
       item
         colorfocused = -1879048185
         width = 99
-        options = [co_readonly, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
         widgetname = 'commit'
         dataclass = tgridmsestringdatalist
       end    
       item
         colorfocused = -1879048185
         width = 116
-        options = [co_readonly, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
         widgetname = 'commitdate'
         dataclass = tgridrealdatalist
       end    
       item
         colorfocused = -1879048185
         width = 117
-        options = [co_readonly, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
         widgetname = 'committer'
         dataclass = tgridmsestringdatalist
       end>
@@ -196,13 +196,16 @@ inherited logfo: tlogfo
   inherited repoclosedact: taction[2]
   end
   object tpopupmenu1: tpopupmenu[3]
-    menu.submenu.count = 2
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
         action = branchact
       end    
       item
         action = checkoutact
+      end    
+      item
+        action = cherrypickact
       end>
     left = 56
     top = 152
@@ -219,5 +222,11 @@ inherited logfo: tlogfo
     onexecute = branchexe
     left = 56
     top = 208
+  end
+  object cherrypickact: taction[6]
+    caption = 'Cherry-pick'
+    onexecute = cherrypickexe
+    left = 56
+    top = 224
   end
 end
