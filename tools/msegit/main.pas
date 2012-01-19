@@ -89,6 +89,7 @@ type
    procedure mergetactexe(const sender: TObject);
   private
    frefreshing: boolean;
+  protected
   public
    procedure reload;
    property refreshing: boolean read frefreshing;
@@ -462,7 +463,7 @@ begin
  showmessage('MSEgit version: '+versiontext+c_linefeed+
              'MSEgui version: '+mseguiversiontext+c_linefeed+
              c_linefeed+
-             'Copyright 2011'+c_linefeed+
+             'Copyright 2011-2012'+c_linefeed+
              'by Martin Schreiber'
              ,'About MSEgit');
 end;

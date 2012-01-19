@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -43,7 +43,6 @@ type
    procedure dorefresh; override;
    procedure doclear; override;
    function singlediff: boolean;
-//   procedure updatedisp;
   public
    constructor create(aowner: tcomponent); override;
    procedure refresh(const adir: tgitdirtreenode;

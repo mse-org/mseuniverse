@@ -11,6 +11,7 @@ type
    patchact: taction;
    procedure patchtoolexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu); override;
+   procedure afterstatreadexe(const sender: TObject);
   protected
  end;
 
@@ -31,5 +32,11 @@ begin
  inherited;
  patchact.enabled:= singlediff and (mainmo.opt.difftool <> '');
 end;
+
+procedure tdiffwindowfo.afterstatreadexe(const sender: TObject);
+begin
+ tabs.activepageindex:= 0; //override stored value
+end;
+
 
 end.
