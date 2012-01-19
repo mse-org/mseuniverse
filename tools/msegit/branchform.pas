@@ -146,11 +146,6 @@ begin
  localgrid.rowcount:= length(mainmo.branches);
  locallogbranch.checkedrow:= -1;
  localactive.checkedrow:= -1;
-{
- with localgrid do begin
-  optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
- end;
-}
  for int1:= 0 to localgrid.rowhigh do begin
   with mainmo.branches[int1] do begin
    localbranchhidden[int1]:= hidden;
@@ -183,7 +178,7 @@ begin
      remoteactive[int3]:= true;
      remotegrid.rowcolorstate[int3]:= 0;
     end;
-    remotegrid.datacols.mergecols(int3,1,1);
+    remotegrid.datacols.mergecols(int3,0,2);
     inc(int3);
     for int2:= 0 to high(branches) do begin
      with branches[int2] do begin
