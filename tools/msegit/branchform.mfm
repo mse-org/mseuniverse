@@ -95,13 +95,13 @@ inherited branchfo: tbranchfo
       end    
       item
         width = 16
-        options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'remotelogbranch'
         dataclass = tgridintegerdatalist
       end    
       item
         width = 16
-        options = [co_drawfocus, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranchlink'
         dataclass = tgridintegerdatalist
       end    
@@ -303,7 +303,7 @@ inherited branchfo: tbranchfo
       end    
       item
         width = 16
-        options = [co_drawfocus, co_fixwidth, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'locallogbranch'
         dataclass = tgridintegerdatalist
       end    
