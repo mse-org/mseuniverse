@@ -59,6 +59,7 @@ inherited logfo: tlogfo
     datacols.items = <    
       item
         color = -1879048187
+        colorselect = -2147483642
         colorfocused = 12316091
         width = 36
         options = [co_readonly, co_nofocus, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
