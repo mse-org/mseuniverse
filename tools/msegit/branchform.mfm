@@ -48,11 +48,11 @@ inherited branchfo: tbranchfo
             hint = 'Active branch'#10'Active remote repository'
           end        
           item
-            caption = 'I'
+            caption = 'L'
             hint = 'Log list branch'
           end        
           item
-            caption = 'L'
+            caption = 'll'
             hint = 'Link local branch'
           end        
           item
@@ -265,7 +265,7 @@ inherited branchfo: tbranchfo
             hint = 'Track remote branch'
           end        
           item
-            caption = 'I'
+            caption = 'L'
             hint = 'Log list branch'
           end        
           item
