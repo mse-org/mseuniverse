@@ -555,10 +555,12 @@ begin
   if (remote.value <> '') or (info.cell.row = 0) then begin
    remotebranch.optionsedit:= (remotebranch.optionsedit + [oe_readonly]) -
                                                                 [oe_notnull];
+   remote.color:= cl_default;
   end
   else begin
    remotebranch.optionsedit:= (remotebranch.optionsedit - [oe_readonly]) +
                                                                 [oe_notnull];
+   remote.color:= cl_white;
   end;
  end;
 end;
