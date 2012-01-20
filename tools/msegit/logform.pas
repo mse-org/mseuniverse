@@ -237,7 +237,7 @@ begin
  bo1:= mainmo.repoloaded and (grid.row >= 0);
  checkoutact.enabled:= bo1;
  branchact.enabled:= bo1;
- cherrypickact.enabled:= bo1; 
+ cherrypickact.enabled:= bo1 and (diffbase.checkedrow < 0); 
 end;
 
 procedure tlogfo.checkoutexe(const sender: TObject);
