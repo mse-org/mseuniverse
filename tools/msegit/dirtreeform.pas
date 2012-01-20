@@ -106,7 +106,7 @@ procedure tdirtreefo.celleventexe(const sender: TObject;
 var
  fna1: filenamety;
 begin
- if isrowenter(info,true) and not application.terminated then begin
+ if wasrowenter(info,true) and not application.terminated then begin
   mainfo.objchanged;
   fna1:= syncfilesfo;
   gitconsolefo.synctodirtree(fna1);
@@ -125,6 +125,9 @@ begin
  grid.endupdate;
  if fexpandedsave <> nil then begin
   treeed.itemlist.expandedstate:= fexpandedsave;
+ end;
+ if grid.row < 0 then begin
+  grid.row:= 0;
  end;
  setcurrentgitdir(fdirbefore);
 end;
