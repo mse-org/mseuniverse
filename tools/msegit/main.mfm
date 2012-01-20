@@ -146,6 +146,9 @@ object mainfo: tmainfo
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
+            action = reloadact
+          end        
+          item
             caption = 'Show &untracked Items'
             name = 'untracked'
             state = [as_localcaption, as_localonexecute]
@@ -162,9 +165,6 @@ object mainfo: tmainfo
           item
             action = branchfo.showhiddenact
             options = [mao_checkbox, mao_shortcutcaption]
-          end        
-          item
-            action = reloadact
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
