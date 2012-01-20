@@ -155,11 +155,20 @@ var
  ar3: filenamearty;
  captions,hints: msestringarty;
  ar2: msestringararty;
+ mstr1: msestring;
 begin
  ar1:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
  int2:= -1;
  if mainmo.opt.splitdiffs then begin
   int3:= 3+length(mainmo.repobase);
+  with tabs do begin
+   if activepageindex >= 0 then begin
+    mstr1:= itemsintf[activepageindex].gettabhint;
+   end
+   else begin
+    mstr1:= '';
+   end;
+  end;
   for int1:= 0 to high(ar1) do begin
    if msestartsstr('diff ',ar1[int1]) then begin
     if int2 >= 0 then begin   
@@ -199,6 +208,15 @@ begin
     tabhint:= hints[int1];
    end;
    showdiff(tdifftabfo(tabs[int1]),ar2[int1]);
+  end;
+  tabs.activepageindex:= 0;
+  if (mstr1 <> '') and mainmo.opt.splitdiffs then begin
+   for int1:= 0 to high(hints) do begin
+    if hints[int1] = mstr1 then begin
+     tabs.activepageindex:= int1;
+     break;
+    end;
+   end;
   end;
   tabs.endupdate;
  end;
