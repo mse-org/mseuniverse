@@ -184,6 +184,7 @@ object commitqueryfo: tcommitqueryfo
             datalist.captionpos = cp_top
             datalist.data = (            )
           end>
+        oncellevent = celleventexe
         inherited selected: tbooleanedit[0]
           onsetvalue = selectsetexe
         end

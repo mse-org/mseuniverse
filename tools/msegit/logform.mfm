@@ -51,32 +51,42 @@ inherited logfo: tlogfo
             options = [dco_colsort, dco_hintclippedtext]
           end>
       end>
+    rowcolors.count = 1
+    rowcolors.items = (
+      12316091
+    )
     datacols.count = 6
     datacols.colorfocused = -1879048185
     datacols.sortcol = 0
     datacols.sortcoldefault = 0
-    datacols.options = [co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
+    datacols.options = [co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+    datacols.options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
     datacols.items = <    
       item
         color = -1879048187
-        colorselect = -2147483642
-        colorfocused = 12316091
+        colorselect = -1879048185
+        colorfocused = -1879048185
         width = 36
-        options = [co_readonly, co_nofocus, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_nofocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         widgetname = 'num'
         dataclass = tgridintegerdatalist
       end    
       item
         colorfocused = -1879048185
         width = 16
-        options = [co_drawfocus, co_noctrlmousefocus, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_fixwidth, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_noctrlmousefocus, co_focusselect, co_rowselect, co_fixwidth, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'diffbase'
+        fixwidgetnames = (
+          'diffmode'
+        )
         dataclass = tgridintegerdatalist
       end    
       item
         colorfocused = -1879048185
         width = 167
-        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'message'
         dataclass = titemeditlist
         datalist.oncreateitem = createmessageitemexe
@@ -84,21 +94,24 @@ inherited logfo: tlogfo
       item
         colorfocused = -1879048185
         width = 99
-        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'commit'
         dataclass = tgridmsestringdatalist
       end    
       item
         colorfocused = -1879048185
         width = 116
-        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'commitdate'
         dataclass = tgridrealdatalist
       end    
       item
         colorfocused = -1879048185
         width = 117
-        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'committer'
         dataclass = tgridmsestringdatalist
       end>
@@ -190,6 +203,23 @@ inherited logfo: tlogfo
       textflags = [tf_noselect]
       textflagsactive = []
       reffontheight = 14
+    end
+    object diffmode: tdatabutton
+      optionswidget = [ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+      optionsskin = [osk_noskin]
+      color = 12316091
+      hint = 'D: Show differential diffs.'#10'C: Show commit diffs., enable cherry-pick.'
+      bounds_x = 37
+      bounds_y = 0
+      bounds_cx = 16
+      bounds_cy = 16
+      statfile = mainmo.mainstat
+      state = [as_localcaption, as_localcolor]
+      caption = 'D'
+      onsetvalue = modeselexe
+      value = 0
+      min = 0
+      max = 1
     end
   end
   inherited repoloadedact: taction[1]

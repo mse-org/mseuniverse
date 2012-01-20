@@ -35,19 +35,26 @@ type
    procedure showdiff(const dest: tdifftabfo; const text: msestringarty);
    procedure cleartabs;
   protected
+   fiscommits: boolean;
    fpath: msestring;
    fa: msestring;
    fb: msestring;
+   fcommits: msestringarty;
    fcanexternaldiff: boolean;
    function currentpath: filenamety;
    procedure dorefresh; override;
    procedure doclear; override;
    function singlediff: boolean;
+   procedure refresh1(const adir: tgitdirtreenode;
+                                      const afile: tmsegitfileitem);
   public
    constructor create(aowner: tcomponent); override;
    procedure refresh(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem;
-                   const oldcommit: msestring; const newcommit: msestring);
+                  const commits: msestringarty); overload;
+   procedure refresh(const adir: tgitdirtreenode;
+                                      const afile: tmsegitfileitem;
+          const oldcommit: msestring; const newcommit: msestring); overload;
  end;
 
 implementation
@@ -157,7 +164,12 @@ var
  ar2: msestringararty;
  mstr1: msestring;
 begin
- ar1:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
+ if fiscommits then begin
+  ar1:= mainmo.git.diff(fcommits,fpath,mainmo.opt.diffcontextn);
+ end
+ else begin
+  ar1:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
+ end;
  int2:= -1;
  if mainmo.opt.splitdiffs then begin
   int3:= 3+length(mainmo.repobase);
@@ -222,14 +234,12 @@ begin
  end;
 end;
 
-procedure tdifffo.refresh(const adir: tgitdirtreenode;
-                                      const afile: tmsegitfileitem;
-                   const oldcommit: msestring; const newcommit: msestring);
+
+procedure tdifffo.refresh1(const adir: tgitdirtreenode;
+                                      const afile: tmsegitfileitem);
 begin
  fcanexternaldiff:= false;
  fpath:= '';
- fa:= newcommit;
- fb:= oldcommit;
  if (adir <> nil) then begin
   fpath:= adir.gitbasepath;
  end;
@@ -238,6 +248,28 @@ begin
   fcanexternaldiff:= true;
  end;
  inherited refresh;
+end;
+
+procedure tdifffo.refresh(const adir: tgitdirtreenode;
+                                      const afile: tmsegitfileitem;
+                   const oldcommit: msestring; const newcommit: msestring);
+begin
+ fa:= newcommit;
+ fb:= oldcommit;
+ fcommits:= nil;
+ fiscommits:= false;
+ refresh1(adir,afile);
+end;
+
+procedure tdifffo.refresh(const adir: tgitdirtreenode;
+                                      const afile: tmsegitfileitem;
+                  const commits: msestringarty);
+begin
+ fa:= '';
+ fb:= '';
+ fcommits:= commits;
+ fiscommits:= true;
+ refresh1(adir,afile);
 end;
 
 procedure tdifffo.popupupdateexe(const sender: tcustommenu);

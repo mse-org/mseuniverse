@@ -424,21 +424,43 @@ end;
 procedure tmainfo.difrefreshtiexe(const sender: TObject);
 var
  int1: integer;
+ ar1: integerarty;
+ ar2: msestringarty;
 begin
- if logfo.visible and (logfo.grid.row >= 0) then begin
-  int1:= logfo.diffbase.checkedrow;
-  if (int1 >= 0) then begin
-   if  int1 = logfo.grid.row then begin
-    diffwindowfo.clear;
+ if logfo.visible then begin
+  if logfo.diffmode.value = 1 then begin
+   ar1:= logfo.grid.datacols.selectedrows;
+   if ar1 <> nil then begin
+    setlength(ar2,length(ar1));
+    for int1:= 0 to high(ar1) do begin
+     ar2[int1]:= logfo.commit[ar1[int1]];
+    end;
+    diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,ar2); 
    end
    else begin
-    diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,
-                                 logfo.commit[int1],logfo.commit.value); 
+    diffwindowfo.clear;
    end;
   end
   else begin
-   diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,
-                                 logfo.commit.value,''); 
+   if (logfo.grid.row >= 0) then begin
+    int1:= logfo.diffbase.checkedrow;
+    if (int1 >= 0) then begin
+     if  int1 = logfo.grid.row then begin
+      diffwindowfo.clear;
+     end
+     else begin
+      diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,
+                                   logfo.commit[int1],logfo.commit.value); 
+     end;
+    end
+    else begin
+     diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,
+                                   logfo.commit.value,''); 
+    end;
+   end
+   else begin
+    diffwindowfo.clear;
+   end;
   end;
  end
  else begin

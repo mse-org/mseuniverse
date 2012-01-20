@@ -239,8 +239,10 @@ type
    function branchshow(out adest: localbranchinfoarty;
                            out activebranch: msestring): boolean;
    function stashlist(out adest: stashinfoarty): boolean;
+   function diff(const commits: msestringarty; const afile: filenamety;
+                 const acontextn: integer = 3): msestringarty; overload;
    function diff(const a,b: msestring; const afile: filenamety;
-                 const acontextn: integer = 3): msestringarty;
+                 const acontextn: integer = 3): msestringarty; overload;
    function issha1(const avalue: string; var asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
@@ -926,13 +928,33 @@ function tgitcontroller.diff(const a,b: msestring; const afile: filenamety;
                                   const acontextn: integer = 3): msestringarty;
 var
  mstr1: msestring;
-// str1: string;
 begin
  result:= nil;
  if commandresult1('diff --unified='+inttostr(acontextn)+' '+
                        noemptystringparam(a)+noemptystringparam(b)+
                        ' -- '+encodepathparam(afile,true),mstr1) then begin
   result:= breaklines(mstr1);
+ end;
+end;
+
+function tgitcontroller.diff(const commits: msestringarty; const afile: filenamety;
+                 const acontextn: integer = 3): msestringarty;
+var
+ mstr1: msestring;
+ int1: integer;
+ str1: string;
+begin
+ result:= nil;
+ if commits <> nil then begin
+  str1:= 'log -n'+inttostr(length(commits))+' --unified='+inttostr(acontextn)+
+            ' -p --pretty=format:';
+  for int1:= 0 to high(commits) do begin
+   str1:= str1 + ' '+encodestringparam(commits[int1]);
+  end;
+  str1:= str1 + ' -- '+encodepathparam(afile,true);
+  if commandresult1(str1,mstr1) then begin
+   result:= breaklines(mstr1);
+  end;
  end;
 end;
 

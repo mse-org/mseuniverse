@@ -50,6 +50,7 @@ type
    num: tintegeredit;
    branchact: taction;
    cherrypickact: taction;
+   diffmode: tdatabutton;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -60,6 +61,8 @@ type
                    var item: tlistedititem);
    procedure branchexe(const sender: TObject);
    procedure cherrypickexe(const sender: TObject);
+   procedure modeselexe(const sender: TObject; var avalue: Integer;
+                   var accept: Boolean);
   private
    fpath: filenamety;
   protected
@@ -215,14 +218,6 @@ begin
  inherited refresh;
 end;
 
-procedure tlogfo.diffbasesetexe(const sender: TObject; var avalue: Boolean;
-               var accept: Boolean);
-begin
- if visible then begin
-  mainfo.diffchanged;
- end;
-end;
-
 procedure tlogfo.celleventexe(const sender: TObject; var info: celleventinfoty);
 begin
  if visible and isrowenter(info,true) {and (diffbase.checkedrow >= 0)} then begin
@@ -237,7 +232,7 @@ begin
  bo1:= mainmo.repoloaded and (grid.row >= 0);
  checkoutact.enabled:= bo1;
  branchact.enabled:= bo1;
- cherrypickact.enabled:= bo1 and (diffbase.checkedrow < 0); 
+ cherrypickact.enabled:= bo1 and (diffmode.value = 1); 
 end;
 
 procedure tlogfo.checkoutexe(const sender: TObject);
@@ -306,6 +301,50 @@ end;
 procedure tlogfo.dorepoloaded;
 begin
  //dummy
+end;
+
+procedure tlogfo.diffbasesetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ grid.rowcolorstate[diffbase.checkedrow]:= -1;
+ if avalue then begin
+  grid.rowcolorstate[-1]:= 0;
+  if diffmode.value <> 0 then begin
+   accept:= false;
+   exit;
+  end;
+ end;
+ if visible then begin
+  mainfo.diffchanged;
+ end;
+end;
+
+procedure tlogfo.modeselexe(const sender: TObject; var avalue: Integer;
+               var accept: Boolean);
+begin
+ case avalue of
+  1: begin
+   diffmode.caption:= 'C';
+   diffmode.color:= $EDBBBB;
+   grid.rowcolorstate[diffbase.checkedrow]:= -1;
+   diffbase.checkedrow:= -1;
+   grid.datacols.options:= grid.datacols.options + 
+                                    [co_keyselect,co_mouseselect];
+  end;
+  else begin
+   diffmode.caption:= 'D';
+   diffmode.color:= $BBEDBB;
+   grid.datacols.clearselection;
+   grid.datacols.options:= grid.datacols.options - 
+                                   [co_keyselect,co_mouseselect];
+   if grid.row >= 0 then begin
+    grid.datacols.rowselected[grid.row]:= true;
+   end;
+  end;
+ end;
+ if visible and mainmo.repoloaded then begin
+  mainfo.diffchanged;
+ end;
 end;
 
 { tlogitem }
