@@ -52,7 +52,8 @@ type
    ffilebefore: msestring;
   public
    procedure loadfiles(const apath: filenamety);
-   procedure synctodirtree(const apath: filenamety);
+   procedure synctodirtree(const apath: filenamety;
+                                const refreshlog: boolean);
    function currentitem: tmsegitfileitem;
    function currentfilepath: filenamety;
    procedure savestate;
@@ -82,10 +83,11 @@ begin
  end;
 end;
 
-procedure tfilesfo.synctodirtree(const apath: filenamety);
+procedure tfilesfo.synctodirtree(const apath: filenamety;
+                                         const refreshlog: boolean);
 begin
  loadfiles(mainmo.repo+'/'+apath);
- mainfo.objchanged;
+ mainfo.objchanged(refreshlog);
 end;
 
 procedure tfilesfo.udaterowvaluesexe(const sender: TObject;
@@ -165,7 +167,7 @@ end;
 procedure tfilesfo.cellevexe(const sender: TObject; var info: celleventinfoty);
 begin
  if isrowenter(info) or isrowexit(info,true) then begin
-  mainfo.objchanged;
+  mainfo.objchanged(true);
  end;
 end;
 
@@ -191,7 +193,7 @@ end;
 procedure tfilesfo.gridenterexe(const sender: TObject);
 begin
  dirtreefo.grid.datacols.clearselection;
- mainfo.objchanged;
+ mainfo.objchanged(true);
 end;
 
 procedure tfilesfo.mergetoolexe(const sender: tcustomaction);

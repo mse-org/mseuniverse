@@ -590,7 +590,7 @@ begin
   setactivelocallog(localbranch.value);
 //  remotelogbranch.checkedrow:= -1;
 //  mainmo.repostat.activelogbranch:= localbranch.value;
-  mainfo.objchanged;
+  mainfo.objchanged(true);
  end;
 end;
 
@@ -602,7 +602,7 @@ begin
  end;
  if avalue then begin
   setactiveremotelog(currentremote(remotegrid.row),remotebranch.value);
-  mainfo.objchanged;
+  mainfo.objchanged(true);
  end;
 end;
 

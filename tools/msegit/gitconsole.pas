@@ -105,7 +105,7 @@ begin
                                                                  fk_dir,true);
     if dirtreefo.setcurrentgitdir(fna1) then begin
      fpath:= fna1;
-     mainfo.objchanged;
+     mainfo.objchanged(true);
     end
     else begin
      termed.addline('cd: '+quotefilename(fna1)+': git directory not found.');

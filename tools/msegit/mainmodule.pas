@@ -326,7 +326,8 @@ type
                     const aitems: msegitfileitemarty): boolean; overload;
    function mergetoolcall(const afiles: filenamearty): boolean;
    function patchtoolcall(const afile: filenamety;
-                            const basecommit,theircommit: msestring): boolean;
+                const basecommit,theircommit: msestring;
+                                       const isindex: boolean): boolean;
    procedure reload;
    procedure loadstash;
    procedure updatelocalbranchorder;
@@ -363,7 +364,8 @@ type
                  const abranch,aremote,aremotebranch: msestring): boolean;
    
    function createtmpfile(out dest: filenamety; const afilename: filenamety;
-             const acaption: msestring; const acommit: msestring = ''): boolean;
+             const acaption: msestring; const acommit: msestring = '';
+             const isindex: boolean = false): boolean;
    procedure deletetmpfiles;
    function branchbyname(const aname: msestring;
                            var ainfo: localbranchinfoty): boolean;
@@ -1420,16 +1422,17 @@ begin
 end;
 
 function tmainmo.patchtoolcall(const afile: filenamety;
-                            const basecommit,theircommit: msestring): boolean;
+                 const basecommit,theircommit: msestring;
+                            const isindex: boolean): boolean;
 var
  base,their: filenamety;
  ar1: msestringarty;
 // ar2: msegitfileitemarty;
 begin
  try
-  result:= createtmpfile(base,afile,'BASE',basecommit);
+  result:= createtmpfile(base,afile,'BASE',basecommit,isindex);
   if result then begin
-   result:= createtmpfile(their,afile,'THEIRS',theircommit);
+   result:= createtmpfile(their,afile,'THEIRS',theircommit,isindex);
   end;
   if not result then begin
    raise exception.create('Can not create temp files.');
@@ -1449,7 +1452,7 @@ begin
     setlength(ar1,1);
     ar1[0]:= afile;
     updateoperation(ck_modify,ar1,false);
-    dirtreefo.syncfilesfo;
+    dirtreefo.syncfilesfo(false);
    end;
   end;
  finally
@@ -1904,7 +1907,8 @@ end;
 function tmainmo.createtmpfile(out dest: filenamety; 
                const afilename: filenamety;
                const acaption: msestring;
-               const acommit: msestring = ''): boolean;
+               const acommit: msestring = '';
+               const isindex: boolean = false): boolean;
 var
  fna1,fna2: filenamety;
 begin
@@ -1918,7 +1922,12 @@ begin
   result:= trycopyfile(afilename,fna1);
  end
  else begin
-  result:= fgit.cat(afilename,fna1,acommit);
+  if isindex then begin
+   result:= fgit.cat(fna1,acommit);
+  end
+  else begin
+   result:= fgit.cat(afilename,fna1,acommit);
+  end;
  end;
  dest:= fna1;
 end;

@@ -234,7 +234,9 @@ type
                     const astate: tgitstatecache;
                     const adest: tgitfilecache): boolean; overload;
    function cat(const source,dest: filenamety;
-                                 const commit: msestring): boolean;
+                const commit: msestring): boolean; overload;
+   function cat(const dest: filenamety;
+                const aindex: msestring): boolean; overload;
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: localbranchinfoarty;
                            out activebranch: msestring): boolean;
@@ -799,6 +801,16 @@ begin
  result:= execcommand(mstr1);
 end;
 
+function tgitcontroller.cat(const dest: filenamety;
+                                    const aindex: msestring): boolean; overload;
+var
+ mstr1: msestring;
+begin
+ mstr1:= 'cat-file blob ' + encodestringparam(aindex) +' >'+
+                                                   encodepathparam(dest,true);
+ result:= execcommand(mstr1);
+end;
+
 function tgitcontroller.remoteshow(out adest: remoteinfoarty): boolean;
 var
  mstr1,mstr2{,mstr3}: msestring;
@@ -947,7 +959,7 @@ begin
  result:= nil;
  if commits <> nil then begin
   str1:= 'log -n'+inttostr(length(commits))+' --unified='+inttostr(acontextn)+
-            ' -p --pretty=format:';
+            ' --full-index -p --pretty=format:';
   for int1:= 0 to high(commits) do begin
    str1:= str1 + ' '+encodestringparam(commits[int1]);
   end;

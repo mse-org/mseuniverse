@@ -55,7 +55,7 @@ type
    fdirbefore: filenamety;
   protected
   public
-   function syncfilesfo: filenamety;
+   function syncfilesfo(const refreshlog: boolean): filenamety;
    procedure savestate;
    procedure restorestate;
    function currentgitdir: filenamety;
@@ -78,7 +78,7 @@ begin
  treeed.itemlist.add(mainmo.dirtree,false);
  if not mainfo.refreshing then begin
   grid.row:= 0;
-  syncfilesfo;
+  syncfilesfo(true);
  end;
 // treeedit.itemlist.assign(mainmo.dirtree,false);
 end;
@@ -93,11 +93,11 @@ end;
   result:= concatstrings(copy(treeed.item.rootcaptions,1,bigint),'/');
  end;
 }
-function tdirtreefo.syncfilesfo: filenamety;
+function tdirtreefo.syncfilesfo(const refreshlog: boolean): filenamety;
 begin
  result:= tgitdirtreenode(treeed.item).gitpath;
  if not application.terminated then begin
-  filesfo.synctodirtree(result);
+  filesfo.synctodirtree(result,refreshlog);
  end;
 end;
 
@@ -107,8 +107,8 @@ var
  fna1: filenamety;
 begin
  if wasrowenter(info,true) and not application.terminated then begin
-  mainfo.objchanged;
-  fna1:= syncfilesfo;
+  mainfo.objchanged(true);
+  fna1:= syncfilesfo(true);
   gitconsolefo.synctodirtree(fna1);
  end;
 end;
@@ -166,7 +166,7 @@ end;
 
 procedure tdirtreefo.refreshedexe(const sender: TObject);
 begin
- syncfilesfo;
+ syncfilesfo(true);
 end;
 
 procedure tdirtreefo.addexe(const sender: TObject);
@@ -196,7 +196,7 @@ end;
 procedure tdirtreefo.gridenterexe(const sender: TObject);
 begin
  filesfo.filelist.grid.datacols.clearselection;
- mainfo.objchanged;
+ mainfo.objchanged(true);
 end;
 
 procedure tdirtreefo.revertupdateexe(const sender: tcustomaction);

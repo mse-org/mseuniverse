@@ -94,7 +94,7 @@ type
    procedure reload;
    property refreshing: boolean read frefreshing;
    procedure updatestate;
-   procedure objchanged;
+   procedure objchanged(const refreshlog: boolean);
    procedure diffchanged;
  end;
 var
@@ -228,7 +228,7 @@ begin
   filesfo.restorestate;
   branchfo.refresh;
   stashfo.refresh;
-  objchanged;
+  objchanged(true);
  end;
 end;
 
@@ -468,9 +468,11 @@ begin
  end;   
 end;
 
-procedure tmainfo.objchanged;
+procedure tmainfo.objchanged(const refreshlog: boolean);
 begin
- objectrefreshtimer.restart;
+ if refreshlog then begin
+  objectrefreshtimer.restart;
+ end;
  diffrefreshtimer.restart;
  updatestate;
 end;
