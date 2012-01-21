@@ -202,7 +202,6 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
-    visible = True
     bounds_x = 387
     bounds_y = 0
     bounds_cx = 307

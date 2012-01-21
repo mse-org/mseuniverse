@@ -239,7 +239,10 @@ end;
 
 procedure tcommitqueryfo.difftiexe(const sender: TObject);
 begin
- diff.refresh(froot,filelist.currentitem,'','');
+ if filelist.currentitem <> nil then begin
+  diff.refresh(froot,filelist.currentitem,'','');
+  diff.visible:= true;
+ end;
 end;
 
 procedure tcommitqueryfo.celleventexe(const sender: TObject;
