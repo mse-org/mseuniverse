@@ -36,6 +36,7 @@ type
    procedure cleartabs;
   protected
    fiscommits: boolean;
+   fcached: boolean;
    fpath: msestring;
    fa: msestring;
    fb: msestring;
@@ -59,7 +60,7 @@ type
 
 implementation
 uses
- diffform_mfm,mserichstring,msearrayutils,msefileutils;
+ diffform_mfm,mserichstring,msearrayutils,msefileutils,msegitcontroller;
  
 const
  chunkcolor = cl_dkmagenta;
@@ -111,10 +112,18 @@ end;
 procedure tdifffo.externaldiffexe(const sender: TObject);
 begin
  with mainmo.git do begin
-  mainmo.execgitconsole('difftool -y --tool='+
-              encodestringparam(mainmo.opt.difftool)+' '+
-                       noemptystringparam(fa)+noemptystringparam(fb)+
-         ' -- '+encodepathparam(currentpath,true));
+  if fcached then begin
+   mainmo.execgitconsole('difftool -y --tool='+
+               encodestringparam(mainmo.opt.difftool)+' '+
+                       '--cached '+noemptystringparam(fb)+
+          ' -- '+encodepathparam(currentpath,true));
+  end
+  else begin
+   mainmo.execgitconsole('difftool -y --tool='+
+               encodestringparam(mainmo.opt.difftool)+' '+
+                        noemptystringparam(fa)+noemptystringparam(fb)+
+          ' -- '+encodepathparam(currentpath,true));
+  end;
  end;
 end;
 
@@ -168,7 +177,12 @@ begin
   ar1:= mainmo.git.diff(fcommits,fpath,mainmo.opt.diffcontextn);
  end
  else begin
-  ar1:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
+  if fcached then begin
+   ar1:= mainmo.git.diff(fb,fpath,mainmo.opt.diffcontextn);
+  end
+  else begin
+   ar1:= mainmo.git.diff(fa,fb,fpath,mainmo.opt.diffcontextn);
+  end;
  end;
  int2:= -1;
  if mainmo.opt.splitdiffs then begin
@@ -239,6 +253,7 @@ procedure tdifffo.refresh1(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem);
 begin
  fcanexternaldiff:= false;
+ fcached:= false;
  fpath:= '';
  if (adir <> nil) then begin
   fpath:= adir.gitbasepath;
@@ -246,6 +261,10 @@ begin
  if afile <> nil then begin
   fpath:= fpath+afile.caption;
   fcanexternaldiff:= true;
+  if (fa = '') and (gist_unmodified in afile.statey) and 
+              (gist_modified in afile.statex) then begin
+   fcached:= true;
+  end;
  end;
  inherited refresh;
 end;

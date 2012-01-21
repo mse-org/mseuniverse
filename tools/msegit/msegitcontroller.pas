@@ -245,6 +245,9 @@ type
                  const acontextn: integer = 3): msestringarty; overload;
    function diff(const a,b: msestring; const afile: filenamety;
                  const acontextn: integer = 3): msestringarty; overload;
+   function diff(const b: msestring; const afile: filenamety;
+                 const acontextn: integer = 3): msestringarty; overload;
+                       //cached
    function issha1(const avalue: string; var asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
@@ -944,6 +947,20 @@ begin
  result:= nil;
  if commandresult1('diff --unified='+inttostr(acontextn)+' '+
                        noemptystringparam(a)+noemptystringparam(b)+
+                       ' -- '+encodepathparam(afile,true),mstr1) then begin
+  result:= breaklines(mstr1);
+ end;
+end;
+
+function tgitcontroller.diff(const b: msestring; const afile: filenamety;
+                 const acontextn: integer = 3): msestringarty;
+                       //cached
+var
+ mstr1: msestring;
+begin
+ result:= nil;
+ if commandresult1('diff --unified='+inttostr(acontextn)+' '+
+                       '--cached '+noemptystringparam(b)+
                        ' -- '+encodepathparam(afile,true),mstr1) then begin
   result:= breaklines(mstr1);
  end;
