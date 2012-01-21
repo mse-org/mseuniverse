@@ -313,12 +313,12 @@ procedure tlogfo.diffbasesetexe(const sender: TObject; var avalue: Boolean;
 begin
  grid.rowcolorstate[diffbase.checkedrow]:= -1;
  if avalue then begin
-  grid.rowcolorstate[-1]:= 0;
   if diffmode.value <> 0 then begin
    accept:= false;
    exit;
   end;
  end;
+ grid.rowcolorstate[-1]:= 0;
  if visible then begin
   mainfo.diffchanged;
  end;
