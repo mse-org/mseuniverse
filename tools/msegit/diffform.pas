@@ -48,6 +48,7 @@ type
    function singlediff: boolean;
    procedure refresh1(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem);
+   procedure dorepoloaded; override;
   public
    constructor create(aowner: tcomponent); override;
    procedure refresh(const adir: tgitdirtreenode;
@@ -301,6 +302,11 @@ begin
  result:=(fcanexternaldiff or 
         mainmo.opt.splitdiffs and (tabs.activepageintf <> nil) and 
                                    (tabs.activepageintf.getcaption <> ''))
+end;
+
+procedure tdifffo.dorepoloaded;
+begin
+ //do nothing, reload triggered by mainfo.objchanged
 end;
 
 end.
