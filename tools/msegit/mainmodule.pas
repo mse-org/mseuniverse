@@ -304,6 +304,9 @@ type
    function commitall: boolean;
    function mergecommit: boolean;
    function mergereset: boolean;
+   function rebase(const aupstream: msestring): boolean;
+   function rebasecontinue: boolean;
+   function rebaseabort: boolean;
    function commitstaged(const anode: tgitdirtreenode;
               const afiles: filenamearty; const amessage: msestring): boolean;
    function canadd(const aitems: msegitfileitemarty): boolean; overload;
@@ -1536,6 +1539,22 @@ begin
   result:= execgitconsole('merge '+fgit.encodestring(asourceref));
  end;
 end;
+
+function tmainmo.rebase(const aupstream: msestring): boolean;
+begin
+ result:= execgitconsole('rebase '+fgit.encodestringparam(aupstream));
+end;
+
+function tmainmo.rebasecontinue: boolean;
+begin
+ result:= execgitconsole('rebase --continue');
+end;
+
+function tmainmo.rebaseabort: boolean;
+begin
+ result:= execgitconsole('rebase --abort');
+end;
+
 
 function tmainmo.cherrypick(const acommits: msestringarty): boolean;
 var

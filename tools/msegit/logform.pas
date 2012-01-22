@@ -261,7 +261,7 @@ var
  int1: integer;
 begin
  if mainmo.repobase <> '' then begin
-  showmessage('Cherry-pick not possible in sub directories.','ERROR');
+  showmessage('Cherry-pick not possible in sub-directories.','ERROR');
  end
  else begin
   if askyesno('Do you want to apply the changes of the selected commits to '+

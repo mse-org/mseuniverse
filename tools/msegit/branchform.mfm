@@ -49,7 +49,7 @@ inherited branchfo: tbranchfo
           end        
           item
             caption = 'L'
-            hint = 'Log list branch'
+            hint = 'Log list and rebase branch'
           end        
           item
             caption = 'll'
@@ -266,7 +266,7 @@ inherited branchfo: tbranchfo
           end        
           item
             caption = 'L'
-            hint = 'Log list branch'
+            hint = 'Log list and rebase branch'
           end        
           item
             caption = 'T'

@@ -50,6 +50,9 @@ type
    pushact: taction;
    pullact: taction;
    mergeact: taction;
+   rebaseact: taction;
+   rebasecontinueact: taction;
+   rebaseabortact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -87,6 +90,9 @@ type
    procedure pushactexe(const sender: TObject);
    procedure fetchfrombranchexe(const sender: TObject);
    procedure mergetactexe(const sender: TObject);
+   procedure rebaseexe(const sender: TObject);
+   procedure rebasecontinueexe(const sender: TObject);
+   procedure rebaseabortexe(const sender: TObject);
   private
    frefreshing: boolean;
   protected
@@ -278,7 +284,7 @@ begin
    end;
    rstr1.text:= 'Branch: ';
    richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
-   richconcat1(rstr1,' Log: ',[fs_force]);
+   richconcat1(rstr1,' Log,Rebase: ',[fs_force]);
    richconcat1(rstr1,mainmo.repostat.activelogcommit,[fs_bold]);
    richconcat1(rstr1,' Remote: ',[fs_force]);
    richconcat1(rstr1,mainmo.remotetargetref,[fs_bold]);
@@ -306,6 +312,43 @@ procedure tmainfo.resetmergeexe(const sender: TObject);
 begin
  if askyesno('Do you want to reset the merge operation?') then begin
   if mainmo.mergereset then begin
+   reload;
+  end;
+ end;
+end;
+
+procedure tmainfo.rebaseexe(const sender: TObject);
+var
+ mstr1: msestring;
+begin
+ with mainmo do begin
+  if repobase <> '' then begin
+   showmessage('Rebase not possible in sub-directories.','ERROR');
+  end
+  else begin
+   mstr1:= repostat.activelogcommit;
+   if askyesno('Do you want to rebase '+ activebranch +
+                  ' from '+mstr1+'?') and  rebase(mstr1) then begin
+    self.reload;
+   end;
+  end;
+ end;
+end;
+
+procedure tmainfo.rebasecontinueexe(const sender: TObject);
+begin
+ if askyesno('Do you want to continue the rebase operation?') then begin
+  if mainmo.rebasecontinue then begin
+   reload;
+  end;
+ end;
+end;
+
+procedure tmainfo.rebaseabortexe(const sender: TObject);
+
+begin
+ if askyesno('Do you want to abort the rebase operation?') then begin
+  if mainmo.rebaseabort then begin
    reload;
   end;
  end;
@@ -390,12 +433,13 @@ end;
 procedure tmainfo.pushupdateexe(const sender: tcustomaction);
 var
  bo1,bo2: boolean;
- mstr1: msestring;
+ mstr1,mstr2: msestring;
 begin
  bo1:= mainmo.repoloaded;
  bo2:= bo1 and not mainmo.merging;
  commitallact.enabled:= bo1;
  mstr1:= mainmo.remotetargetref;
+ mstr2:= mainmo.repostat.activelogcommit;
  pushact.enabled:= bo2;
  pushtoact.enabled:= bo2 and (mstr1 <> '');
  pushtoact.caption:= '&Push to '+mstr1;
@@ -409,6 +453,10 @@ begin
  mergefromact.enabled:= bo2 and 
                       (mainmo.activeremotebranch[mainmo.activeremote] <> '');
  mergefromact.caption:= '&Merge from '+mstr1;
+ rebaseact.enabled:= bo2;
+ rebaseact.caption:= 'Rebase from '+mstr2;
+ rebasecontinueact.enabled:= bo2;
+ rebaseabortact.enabled:= bo2;
  
  resetmergeact.enabled:= bo1;
  stashsaveact.enabled:= bo1;
