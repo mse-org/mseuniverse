@@ -53,6 +53,7 @@ type
    rebaseact: taction;
    rebasecontinueact: taction;
    rebaseabortact: taction;
+   rebaseskipact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -93,6 +94,7 @@ type
    procedure rebaseexe(const sender: TObject);
    procedure rebasecontinueexe(const sender: TObject);
    procedure rebaseabortexe(const sender: TObject);
+   procedure rebaseskipexe(const sender: TObject);
   private
    frefreshing: boolean;
   protected
@@ -274,6 +276,10 @@ begin
   end
   else begin
    col1:= cl_ltgreen;
+   if rebasing then begin
+    col1:= mergecolor;
+    richconcat1(rstr1,'Rebasing ',[fs_bold]);
+   end;
    if gist_modified in mainmo.dirtree.gitstatey then begin
     col1:= cl_ltred;
    end
@@ -282,7 +288,7 @@ begin
      statdisp.font.color:=  cl_dkred;
     end;
    end;
-   rstr1.text:= 'Branch: ';
+   richconcat1(rstr1,'Branch: ',[fs_force]);
    richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
    richconcat1(rstr1,' Log,Rebase: ',[fs_force]);
    richconcat1(rstr1,mainmo.repostat.activelogcommit,[fs_bold]);
@@ -329,19 +335,31 @@ begin
    mstr1:= repostat.activelogcommit;
    if askyesno('Do you want to rebase '+ activebranch +
                   ' from '+mstr1+'?') and  rebase(mstr1) then begin
-    self.reload;
+//    self.reload;
    end;
+   self.reload; //show possible merge conflict
   end;
  end;
 end;
 
 procedure tmainfo.rebasecontinueexe(const sender: TObject);
 begin
- if askyesno('Do you want to continue the rebase operation?') then begin
+// if askyesno('Do you want to continue the current rebase operation?') then begin
   if mainmo.rebasecontinue then begin
-   reload;
+//   reload;
   end;
- end;
+  reload;
+// end;
+end;
+
+procedure tmainfo.rebaseskipexe(const sender: TObject);
+begin
+// if askyesno('Do you want to skip the current rebase operation?') then begin
+  if mainmo.rebaseskip then begin
+//   reload;
+  end;
+  reload;
+// end;
 end;
 
 procedure tmainfo.rebaseabortexe(const sender: TObject);
@@ -436,7 +454,7 @@ var
  mstr1,mstr2: msestring;
 begin
  bo1:= mainmo.repoloaded;
- bo2:= bo1 and not mainmo.merging;
+ bo2:= bo1 and not mainmo.merging and not mainmo.rebasing;
  commitallact.enabled:= bo1;
  mstr1:= mainmo.remotetargetref;
  mstr2:= mainmo.repostat.activelogcommit;
@@ -445,20 +463,22 @@ begin
  pushtoact.caption:= '&Push to '+mstr1;
  fetchfromremoteact.enabled:= bo1;
  fetchfromremoteact.caption:= '&Fetch from '+mainmo.activeremote;
- commitmergeact.enabled:= bo1;
+ commitmergeact.enabled:= mainmo.merging;
  pullact.enabled:= bo2;
  pullfromact.enabled:= bo2 and (mstr1 <> '');
  pullfromact.caption:= 'P&ull from '+mstr1;
  mergeact.enabled:= bo2;
- mergefromact.enabled:= bo2 and 
-                      (mainmo.activeremotebranch[mainmo.activeremote] <> '');
- mergefromact.caption:= '&Merge from '+mstr1;
+ mergefromact.enabled:= bo2 and (mstr2 <> '');
+//                      (mainmo.activeremotebranch[mainmo.activeremote] <> '');
+ mergefromact.caption:= '&Merge from '+mstr2;
+ resetmergeact.enabled:= mainmo.merging;
  rebaseact.enabled:= bo2;
  rebaseact.caption:= 'Rebase from '+mstr2;
- rebasecontinueact.enabled:= bo2;
- rebaseabortact.enabled:= bo2;
+ rebasecontinueact.enabled:= mainmo.rebasing;
+ rebaseskipact.enabled:= mainmo.rebasing;
+ rebaseabortact.enabled:= mainmo.rebasing;
  
- resetmergeact.enabled:= bo1;
+// resetmergeact.enabled:= bo1;
  stashsaveact.enabled:= bo1;
  stashpopact.enabled:= mainmo.stashes <> nil;
 // mainmen.menu.itembynames(['git','branch']).enabled:= bo2;

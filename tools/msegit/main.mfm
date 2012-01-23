@@ -73,7 +73,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 19
+        submenu.count = 20
         submenu.items = <        
           item
             action = commitallact
@@ -128,6 +128,9 @@ object mainfo: tmainfo
           end        
           item
             action = rebasecontinueact
+          end        
+          item
+            action = rebaseskipact
           end        
           item
             action = rebaseabortact
@@ -292,31 +295,31 @@ object mainfo: tmainfo
     caption = 'Merge &commit'
     onexecute = commitmergeexe
     left = 144
-    top = 160
+    top = 144
   end
   object resetmergeact: taction
     caption = 'Merge &reset'
     onexecute = resetmergeexe
     left = 144
-    top = 208
+    top = 192
   end
   object fetchfromremoteact: taction
     caption = '&Fetch from'
     onexecute = fetchfromremoteexe
     left = 144
-    top = 144
+    top = 128
   end
   object pullfromact: taction
     caption = 'P&ull from'
     onexecute = pullfromexe
     left = 144
-    top = 176
+    top = 160
   end
   object mergefromact: taction
     caption = '&Merge from'
     onexecute = mergefromexe
     left = 144
-    top = 192
+    top = 176
   end
   object pushtoact: taction
     caption = '&Push to'
@@ -324,26 +327,26 @@ object mainfo: tmainfo
     onexecute = pustohexe
     onupdate = pushupdateexe
     left = 144
-    top = 128
+    top = 112
   end
   object objectrefreshtimer: ttimer
     interval = 0
     options = [to_single]
     ontimer = objectrefreshtiexe
     left = 16
-    top = 72
+    top = 64
   end
   object diffrefreshtimer: ttimer
     interval = 0
     options = [to_single]
     ontimer = difrefreshtiexe
     left = 16
-    top = 96
+    top = 88
   end
   object commitallact: taction
     caption = 'C&ommit all'
     onexecute = commitallexe
-    top = 128
+    top = 112
     sc = (
       1
       16463
@@ -352,44 +355,49 @@ object mainfo: tmainfo
   object stashsaveact: taction
     caption = 'Stash &save'
     onexecute = stashsaveexe
-    top = 144
+    top = 128
   end
   object stashpopact: taction
     caption = 'Stash pop'
     onexecute = stashpopexe
-    top = 160
+    top = 144
   end
   object pushact: taction
     caption = 'Push'
     onexecute = pushactexe
     left = 272
-    top = 128
+    top = 112
   end
   object pullact: taction
     caption = 'Pull'
     onexecute = pullactexe
     left = 272
-    top = 176
+    top = 160
   end
   object mergeact: taction
     caption = 'Merge fetched'
     onexecute = mergetactexe
     left = 272
-    top = 192
+    top = 176
   end
   object rebaseact: taction
     caption = 'Rebase'
     onexecute = rebaseexe
-    top = 192
+    top = 176
   end
   object rebasecontinueact: taction
     caption = 'Rebase continue'
     onexecute = rebasecontinueexe
-    top = 208
+    top = 192
   end
   object rebaseabortact: taction
     caption = 'Rebase abort'
     onexecute = rebaseabortexe
     top = 224
+  end
+  object rebaseskipact: taction
+    caption = 'Rebase skip'
+    onexecute = rebaseskipexe
+    top = 208
   end
 end

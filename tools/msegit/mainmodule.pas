@@ -220,6 +220,7 @@ type
    fkind: commitkindty;
    fmergehead: msestring;
    fmergemessage: msestring;
+   frebasing: boolean;
    fbranches: localbranchinfoarty;
    factivebranch: msestring;
    fhasremote: boolean;
@@ -306,6 +307,7 @@ type
    function mergereset: boolean;
    function rebase(const aupstream: msestring): boolean;
    function rebasecontinue: boolean;
+   function rebaseskip: boolean;
    function rebaseabort: boolean;
    function commitstaged(const anode: tgitdirtreenode;
               const afiles: filenamearty; const amessage: msestring): boolean;
@@ -347,6 +349,7 @@ type
    property hasremote: boolean read fhasremote;
    
    function merging: boolean;
+   function rebasing: boolean;
    property mergehead: msestring read fmergehead;
    property mergemessage: msestring read fmergemessage;
    
@@ -651,6 +654,7 @@ begin
    fmergemessage:= utf8tostring(str2);
   end;
  end;
+ frebasing:= finddir('.git/rebase-apply');
 end;
 
 procedure tmainmo.loadstash;
@@ -1550,6 +1554,11 @@ begin
  result:= execgitconsole('rebase --continue');
 end;
 
+function tmainmo.rebaseskip: boolean;
+begin
+ result:= execgitconsole('rebase --skip');
+end;
+
 function tmainmo.rebaseabort: boolean;
 begin
  result:= execgitconsole('rebase --abort');
@@ -1579,6 +1588,11 @@ end;
 function tmainmo.merging: boolean;
 begin
  result:= fmergehead <> '';
+end;
+
+function tmainmo.rebasing: boolean;
+begin
+ result:= frebasing;
 end;
 
 function tmainmo.checkoutbranch(const aname: msestring): boolean;
