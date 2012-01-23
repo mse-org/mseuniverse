@@ -241,8 +241,9 @@ procedure tcommitqueryfo.difftiexe(const sender: TObject);
 begin
  if filelist.currentitem <> nil then begin
   diff.refresh(froot,filelist.currentitem,'','');
-  diff.visible:= true;
+//  diff.visible:= true;
  end;
+ diff.visible:= true;
 end;
 
 procedure tcommitqueryfo.celleventexe(const sender: TObject;

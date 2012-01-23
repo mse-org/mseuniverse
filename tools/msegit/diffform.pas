@@ -219,7 +219,13 @@ begin
   end;
  end;
  if ar2 = nil then begin
-  cleartabs;
+  tabs.beginupdate;
+  for int2:= tabs.count-1 downto 1 do begin
+   tabs[int2].free;
+  end;
+  tdifftabfo(tabs[0]).grid.clear;
+  tabs.activepageindex:= 0;
+  tabs.endupdate;  
  end
  else begin
   tabs.beginupdate;
