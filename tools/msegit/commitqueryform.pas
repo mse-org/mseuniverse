@@ -243,7 +243,7 @@ begin
   diff.refresh(froot,filelist.currentitem,'','');
 //  diff.visible:= true;
  end;
- diff.visible:= true;
+ diff.tabs.visible:= true;
 end;
 
 procedure tcommitqueryfo.celleventexe(const sender: TObject;

@@ -202,11 +202,15 @@ object commitqueryfo: tcommitqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
+    visible = True
     bounds_x = 387
     bounds_y = 0
     bounds_cx = 307
     bounds_cy = 250
     anchors = [an_top, an_right, an_bottom]
+    container.optionsskin = [osk_framebuttononly, osk_container, osk_noclientsize]
+    container.frame.colorclient = -1610612730
+    container.frame.localprops = [frl_colorclient]
     container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
     container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
     container.bounds = (
@@ -220,6 +224,7 @@ object commitqueryfo: tcommitqueryfo
     inherited tabs: ttabwidget
       bounds_cx = 307
       bounds_cy = 250
+      visible = False
     end
     inherited repoloadedact: taction
     end
