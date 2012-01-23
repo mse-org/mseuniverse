@@ -290,7 +290,7 @@ begin
    end;
    richconcat1(rstr1,'Branch: ',[fs_force]);
    richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
-   richconcat1(rstr1,' Log,Rebase: ',[fs_force]);
+   richconcat1(rstr1,' Log: ',[fs_force]);
    richconcat1(rstr1,mainmo.repostat.activelogcommit,[fs_bold]);
    richconcat1(rstr1,' Remote: ',[fs_force]);
    richconcat1(rstr1,mainmo.remotetargetref,[fs_bold]);
