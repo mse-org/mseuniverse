@@ -14,6 +14,7 @@ object mainmo: tmainmo
     filename = '^/.msetools/msegit.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*fo.sta'
+    onfilemissing = statfilemissingexe
     top = 8
   end
   object openrepoact: taction

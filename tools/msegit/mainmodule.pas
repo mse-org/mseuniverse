@@ -200,6 +200,8 @@ type
    procedure repogetobj(const sender: TObject; var aobject: TObject);
    procedure reporeadexe(const sender: TObject; const reader: tstatreader);
    procedure repowriteexe(const sender: TObject; const writer: tstatwriter);
+   procedure statfilemissingexe(const sender: tstatfile;
+                   const afilename: msestring; var aretry: Boolean);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -414,7 +416,7 @@ uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
  gitconsole,commitqueryform,revertqueryform,msestream,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msesysenv,main,filesform,
- dirtreeform;
+ dirtreeform,defaultstat;
   
 const
  defaultfileicon = 0;
@@ -2081,6 +2083,14 @@ begin
    end;
   end;
  end;
+end;
+
+procedure tmainmo.statfilemissingexe(const sender: tstatfile;
+               const afilename: msestring; var aretry: Boolean);
+begin
+ createdirpath(filedir(afilename));
+ writefiledatastring(afilename,defaultstatdata);
+ aretry:= true;
 end;
 
 { tmsegitfileitem }
