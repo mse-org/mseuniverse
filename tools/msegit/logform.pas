@@ -201,8 +201,10 @@ end;
 
 procedure tlogfo.doclear;
 begin
- fpath:= '';
- grid.clear;
+ if not mainfo.refreshing then begin
+  fpath:= '';
+  grid.clear;
+ end;
 end;
 
 procedure tlogfo.refresh(const adir: tgitdirtreenode;
