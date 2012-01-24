@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -99,6 +99,7 @@ type
                    var ainfo: hintinfoty);
    procedure localtracksetvalue(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
+   procedure trackedithint(const sender: TObject; var info: hintinfoty);
   private
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
@@ -735,23 +736,33 @@ end;
 procedure tbranchfo.localtracksetvalue(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
 begin
- if avalue then begin
-  if remotebranch.value = '' then begin
-   accept:= false;
-   showmessage('No remote branch selected.','ERROR');
+ with mainmo do begin
+  if avalue then begin
+   if activeremotebranch[activeremote] = '' then begin
+    accept:= false;
+    showmessage('No active remote branch.','ERROR');
+   end
+   else begin
+    if not askyesno('Do you want to track '+
+             localbranch.value+' by '+remotetargetref+'?') or
+          not setbranchtracking(localbranch.value,activeremote,
+                             activeremotebranch[activeremote]) then begin
+     accept:= false;
+    end;
+   end;
   end
   else begin
-   if not mainmo.setbranchtracking(localbranch.value,currentremote,
-                                          remotebranch.value) then begin
+   if not askyesno('Do you want to remove remote racking?') or
+             not setbranchtracking(localbranch.value,'','') then begin
     accept:= false;
    end;
   end;
- end
- else begin
-  if not mainmo.setbranchtracking(localbranch.value,'','') then begin
-   accept:= false;
-  end;
  end;
+end;
+
+procedure tbranchfo.trackedithint(const sender: TObject; var info: hintinfoty);
+begin
+ trackhint(nil,-1,info);
 end;
 
 end.
