@@ -61,7 +61,7 @@ type
 
 implementation
 uses
- diffform_mfm,mserichstring,msearrayutils,msefileutils,msegitcontroller;
+ diffform_mfm,mserichstring,msearrayutils,msefileutils,msegitcontroller,main;
  
 const
  chunkcolor = cl_dkmagenta;
@@ -96,7 +96,9 @@ begin
  fpath:= '';
  fa:= '';
  fb:= '';
- cleartabs;
+ if not mainfo.refreshing then begin
+  cleartabs;
+ end;
 // grid.clear;
 end;
 
