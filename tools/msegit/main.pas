@@ -190,6 +190,9 @@ procedure tmainfo.repoloadedexe(const sender: TObject);
 begin
  caption:= 'MSEgit '+mainmo.repo;
  updatestate;
+ if not refreshing then begin
+  objchanged(false);
+ end;
 end;
 
 procedure tmainfo.repoclosedexe(const sender: TObject);
@@ -496,6 +499,7 @@ var
  ar2: msestringarty;
 begin
  if logfo.visible then begin
+  objectrefreshtimer.firependingandstop;
   if logfo.diffmode.value = 1 then begin
    ar1:= logfo.grid.datacols.selectedrows;
    if ar1 <> nil then begin
