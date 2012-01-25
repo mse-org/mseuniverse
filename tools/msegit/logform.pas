@@ -70,6 +70,7 @@ type
    procedure dorefresh; override;
    procedure doclear; override;   
    procedure getrevs(const skip: integer);
+   procedure setrefmode(const avalue: boolean);
   public
    procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
    function currentcommit: msestring;
@@ -179,6 +180,7 @@ end;
 
 procedure tlogfo.dorefresh;
 begin
+ setrefmode(false);
  getrevs(0);
 end;
 
@@ -204,6 +206,7 @@ begin
  if not mainfo.refreshing then begin
   fpath:= '';
   grid.clear;
+  setrefmode(false);
  end;
 end;
 
@@ -319,8 +322,12 @@ begin
    accept:= false;
    exit;
   end;
+  grid.rowcolorstate[-1]:= 0;
+  setrefmode(true);
+ end
+ else begin
+  setrefmode(false);
  end;
- grid.rowcolorstate[-1]:= 0;
  if visible then begin
   mainfo.diffchanged;
  end;
@@ -331,6 +338,7 @@ procedure tlogfo.modeselexe(const sender: TObject; var avalue: Integer;
 begin
  case avalue of
   1: begin
+   setrefmode(false);
    diffmode.caption:= 'C';
    diffmode.color:= $EDBBBB;
    grid.rowcolorstate[diffbase.checkedrow]:= -1;
@@ -351,6 +359,18 @@ begin
  end;
  if visible and mainmo.repoloaded then begin
   mainfo.diffchanged;
+ end;
+end;
+
+procedure tlogfo.setrefmode(const avalue: boolean);
+begin
+ with grid.fixrows[-1].captions[0] do begin
+  if avalue then begin
+   color:= grid.rowcolors[0];
+  end
+  else begin
+   color:= cl_parent;
+  end;
  end;
 end;
 

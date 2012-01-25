@@ -28,6 +28,7 @@ inherited logfo: tlogfo
         captions.items = <        
           item
             caption = 'N'
+            face.dummy = 0
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
@@ -67,14 +68,14 @@ inherited logfo: tlogfo
         colorselect = -1879048185
         colorfocused = -1879048185
         width = 36
-        options = [co_readonly, co_nofocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_nofocus, co_focusselect, co_rowselect, co_fixpos, co_nohscroll, co_savestate, co_mousescrollrow]
         widgetname = 'num'
         dataclass = tgridintegerdatalist
       end    
       item
         colorfocused = -1879048185
         width = 16
-        options = [co_drawfocus, co_noctrlmousefocus, co_focusselect, co_rowselect, co_fixwidth, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_noctrlmousefocus, co_focusselect, co_rowselect, co_fixwidth, co_fixpos, co_nohscroll, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'diffbase'
         fixwidgetnames = (
@@ -120,37 +121,30 @@ inherited logfo: tlogfo
     ongetmorerows = getmorerowsexe
     oncellevent = celleventexe
     reffontheight = 14
-    object num: tintegeredit
+    object diffmode: tdatabutton
+      optionswidget = [ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+      optionsskin = [osk_noskin]
+      color = 12316091
+      taborder = 4
+      hint = 'D: Show differential diffs.'#10'C: Show commit diffs., enable cherry-pick.'
+      bounds_x = 39
+      bounds_y = 2
+      bounds_cx = 16
+      bounds_cy = 16
+      statfile = mainmo.mainstat
+      state = [as_localcaption, as_localcolor]
+      caption = 'D'
+      onsetvalue = modeselexe
+      value = 0
+      min = 0
+      max = 1
+    end
+    object message: titemedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
       bounds_x = 0
-      bounds_y = 0
-      bounds_cx = 36
-      bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      reffontheight = 14
-    end
-    object diffbase: tbooleaneditradio
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
-      optionsskin = [osk_framebuttononly]
-      taborder = 2
-      bounds_x = 37
-      bounds_y = 0
-      bounds_cx = 16
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol, bo_cantoggle]
-      visible = False
-      onsetvalue = diffbasesetexe
-    end
-    object message: titemedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 3
-      visible = False
-      bounds_x = 54
       bounds_y = 0
       bounds_cx = 167
       bounds_cy = 16
@@ -162,9 +156,9 @@ inherited logfo: tlogfo
     object commit: tstringedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 4
+      taborder = 2
       visible = False
-      bounds_x = 222
+      bounds_x = 168
       bounds_y = 0
       bounds_cx = 99
       bounds_cy = 16
@@ -174,9 +168,9 @@ inherited logfo: tlogfo
     object commitdate: tdatetimeedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 5
+      taborder = 3
       visible = False
-      bounds_x = 322
+      bounds_x = 268
       bounds_y = 0
       bounds_cx = 116
       bounds_cy = 16
@@ -193,9 +187,9 @@ inherited logfo: tlogfo
     object committer: tstringedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 6
+      taborder = 4
       visible = False
-      bounds_x = 439
+      bounds_x = 385
       bounds_y = 0
       bounds_cx = 117
       bounds_cy = 16
@@ -204,22 +198,29 @@ inherited logfo: tlogfo
       textflagsactive = []
       reffontheight = 14
     end
-    object diffmode: tdatabutton
-      optionswidget = [ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
-      optionsskin = [osk_noskin]
-      color = 12316091
-      hint = 'D: Show differential diffs.'#10'C: Show commit diffs., enable cherry-pick.'
+    object num: tintegeredit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 36
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      reffontheight = 14
+    end
+    object diffbase: tbooleaneditradio
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
       bounds_x = 37
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
-      statfile = mainmo.mainstat
-      state = [as_localcaption, as_localcolor]
-      caption = 'D'
-      onsetvalue = modeselexe
-      value = 0
-      min = 0
-      max = 1
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol, bo_cantoggle]
+      visible = False
+      onsetvalue = diffbasesetexe
     end
   end
   inherited repoloadedact: taction[1]
