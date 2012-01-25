@@ -22,7 +22,7 @@ uses
  mserttistat,mseact,mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,
  mseedit,msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,
  mselistbrowser,msemenus,msestrings,msesys,msetypes,mseificomp,mseificompglob,
- msesimplewidgets,msewidgets,msegitcontroller,msehash;
+ msesimplewidgets,msewidgets,msegitcontroller,msehash,msestream;
 
 const
  defaultmaxlog = 50;
@@ -201,7 +201,8 @@ type
    procedure reporeadexe(const sender: TObject; const reader: tstatreader);
    procedure repowriteexe(const sender: TObject; const writer: tstatwriter);
    procedure statfilemissingexe(const sender: tstatfile;
-                   const afilename: msestring; var aretry: Boolean);
+                   const afilename: msestring;
+                   var astream: ttextstream; var aretry: Boolean);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -414,7 +415,7 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
- gitconsole,commitqueryform,revertqueryform,msestream,removequeryform,
+ gitconsole,commitqueryform,revertqueryform,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msesysenv,main,filesform,
  dirtreeform,defaultstat;
   
@@ -2086,11 +2087,10 @@ begin
 end;
 
 procedure tmainmo.statfilemissingexe(const sender: tstatfile;
-               const afilename: msestring; var aretry: Boolean);
+               const afilename: msestring; var astream: ttextstream;
+               var aretry: Boolean);
 begin
- createdirpath(filedir(afilename));
- writefiledatastring(afilename,defaultstatdata);
- aretry:= true;
+ astream:= ttextstringcopystream.create(defaultstatdata);
 end;
 
 { tmsegitfileitem }
