@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -178,7 +178,7 @@ begin
    execprog(mstr1);
    wi1:= nil;
    setlinkedvar(tlinkedobject(application.activewindow),tlinkedobject(wi1));
-   show(ml_application);
+   self.show(ml_application);
    if wi1 <> nil then begin
     wi1.activate;
     wi1.bringtofront;
