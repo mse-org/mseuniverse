@@ -517,13 +517,13 @@ begin
    if (logfo.grid.row >= 0) then begin
     int1:= logfo.diffbase.checkedrow;
     if (int1 >= 0) then begin
-     if  int1 = logfo.grid.row then begin
-      diffwindowfo.clear;
-     end
-     else begin
+//     if  int1 = logfo.grid.row then begin
+//      diffwindowfo.clear;
+//     end
+//     else begin
       diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,
-                                   logfo.commit[int1],logfo.commit.value); 
-     end;
+                                   logfo.commit[int1],logfo.commit.value+'^'); 
+//     end;
     end
     else begin
      diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,

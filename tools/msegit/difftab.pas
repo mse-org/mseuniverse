@@ -28,8 +28,8 @@ type
    ed: ttextedit;
   protected
  end;
-var
- difftabfo: tdifftabfo;
+//var
+// difftabfo: tdifftabfo;
 implementation
 uses
  difftab_mfm;
