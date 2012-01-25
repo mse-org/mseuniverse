@@ -91,10 +91,7 @@ object mainfo: tmainfo
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
-            action = pushact
-          end        
-          item
-            action = pushtoact
+            action = fetchfromremoteact
           end        
           item
             action = pullact
@@ -103,7 +100,10 @@ object mainfo: tmainfo
             action = pullfromact
           end        
           item
-            action = fetchfromremoteact
+            action = pushact
+          end        
+          item
+            action = pushtoact
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
