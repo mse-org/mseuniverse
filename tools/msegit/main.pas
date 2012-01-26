@@ -458,6 +458,7 @@ var
 begin
  bo1:= mainmo.repoloaded;
  bo2:= bo1 and not mainmo.merging and not mainmo.rebasing;
+ mainmen.menu.itembynames(['file','close']).enabled:= bo1;
  commitallact.enabled:= bo1;
  mstr1:= mainmo.remotetargetref;
  mstr2:= mainmo.repostat.activelogcommit;

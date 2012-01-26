@@ -8,9 +8,9 @@ object mainfo: tmainfo
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
-    16
+    15
     403
-    264
+    265
   )
   mainmenu = mainmen
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -22,9 +22,9 @@ object mainfo: tmainfo
     frame.grip_options = [go_lockbutton]
     frame.dummy = 0
     bounds_x = 0
-    bounds_y = 18
+    bounds_y = 17
     bounds_cx = 403
-    bounds_cy = 244
+    bounds_cy = 246
     anchors = [an_bottom]
     dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
     statfile = formsta
@@ -32,7 +32,7 @@ object mainfo: tmainfo
   object tspacer1: tspacer
     taborder = 1
     bounds_x = 216
-    bounds_y = 18
+    bounds_y = 17
     bounds_cx = 50
     bounds_cy = 3
     linktop = statdisp
@@ -45,12 +45,12 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 403
-    bounds_cy = 18
+    bounds_cy = 17
     anchors = [an_top]
     font.name = 'stf_default'
     font.xscale = 1
     font.dummy = 0
-    reffontheight = 14
+    reffontheight = 13
   end
   object mainmen: tmainmenu
     menu.submenu.count = 5
@@ -63,6 +63,7 @@ object mainfo: tmainfo
           end        
           item
             caption = '&Close git repo'
+            name = 'close'
             state = [as_localcaption, as_localonexecute]
             onexecute = closerepoexe
           end        
@@ -70,6 +71,7 @@ object mainfo: tmainfo
             action = mainmo.quitact
           end>
         caption = '&File'
+        name = 'file'
         state = [as_localcaption]
       end    
       item
