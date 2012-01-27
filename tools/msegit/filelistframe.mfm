@@ -22,7 +22,7 @@ object filelistframefo: tfilelistframefo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 15
         captions.count = 3
         captions.items = <        
           item
@@ -63,7 +63,7 @@ object filelistframefo: tfilelistframefo
       end>
     datarowlinewidth = 0
     datarowheight = 16
-    reffontheight = 14
+    reffontheight = 13
     object originstate: tdataicon
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
@@ -89,6 +89,8 @@ object filelistframefo: tfilelistframefo
       imagelist = mainmo.images
     end
     object fileitemed: titemedit
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionswidget1 = [ow1_autoheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645
@@ -102,7 +104,7 @@ object filelistframefo: tfilelistframefo
       bounds_cymin = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_locate, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       onupdaterowvalues = updaterowvaluesexe
-      reffontheight = 14
+      reffontheight = 13
     end
   end
 end

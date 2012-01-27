@@ -120,7 +120,7 @@ inherited branchfo: tbranchfo
         widgetname = 'foldlevel'
         dataclass = tgridintegerdatalist
       end>
-    datarowheight = 16
+    datarowheight = 15
     statfile = mainfo.formsta
     onrowsmoving = remoterowsmovingexe
     onrowsmoved = remoterowsmovedexe
@@ -129,14 +129,13 @@ inherited branchfo: tbranchfo
     oncellevent = remotecelleventexe
     reffontheight = 13
     object remote: tstringedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 57
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       reffontheight = 13
     end
@@ -148,7 +147,7 @@ inherited branchfo: tbranchfo
       bounds_x = 58
       bounds_y = 0
       bounds_cx = 26
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       onsetvalue = remotebranchsetexe
       reffontheight = 13
@@ -161,7 +160,7 @@ inherited branchfo: tbranchfo
       bounds_x = 85
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       reffontheight = 13
     end
@@ -172,7 +171,7 @@ inherited branchfo: tbranchfo
       bounds_x = 136
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_cantoggle]
       visible = False
@@ -185,7 +184,7 @@ inherited branchfo: tbranchfo
       bounds_x = 153
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
@@ -199,7 +198,7 @@ inherited branchfo: tbranchfo
       bounds_x = 170
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       visible = False
       onsetvalue = linkbranchsetexe
@@ -211,7 +210,7 @@ inherited branchfo: tbranchfo
       bounds_x = 187
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       visible = False
       onsetvalue = hideremotebranchsetexe
@@ -224,7 +223,7 @@ inherited branchfo: tbranchfo
       bounds_x = 204
       bounds_y = 0
       bounds_cx = 18
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       valuedefault = 1
       reffontheight = 13
@@ -322,7 +321,7 @@ inherited branchfo: tbranchfo
         widgetname = 'localbranchhidden'
         dataclass = tgridintegerdatalist
       end>
-    datarowheight = 16
+    datarowheight = 15
     statfile = mainfo.formsta
     onrowsmoved = localbranchrowmovedexe
     onrowsdeleting = localrowsdeleteexe
@@ -335,21 +334,20 @@ inherited branchfo: tbranchfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
       onsetvalue = localactivesetexe
     end
     object localbranch: tstringedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
       bounds_x = 17
       bounds_y = 0
       bounds_cx = 49
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       onsetvalue = localbranchsetexe
       reffontheight = 13
@@ -362,7 +360,7 @@ inherited branchfo: tbranchfo
       bounds_x = 67
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       reffontheight = 13
     end
@@ -373,7 +371,7 @@ inherited branchfo: tbranchfo
       bounds_x = 118
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
@@ -388,7 +386,7 @@ inherited branchfo: tbranchfo
       bounds_x = 135
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       visible = False
       onsetvalue = localtracksetvalue
@@ -401,7 +399,7 @@ inherited branchfo: tbranchfo
       bounds_x = 152
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       visible = False
       onsetvalue = sethidelocalbranchexe

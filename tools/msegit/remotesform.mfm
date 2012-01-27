@@ -37,7 +37,7 @@ object remotesfo: tremotesfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 15
         captions.count = 4
         captions.items = <        
           item
@@ -75,24 +75,23 @@ object remotesfo: tremotesfo
         widgetname = 'push'
         dataclass = tgridmsestringdatalist
       end>
-    datarowheight = 16
+    datarowheight = 15
     statfile = mainfo.formsta
     onrowsmoved = rowmovedexe
     onrowsdeleting = rowdeleteexe
     oncellevent = celleventexe
-    reffontheight = 14
+    reffontheight = 13
     object remote: tstringedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 86
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       onsetvalue = remoteset
-      reffontheight = 14
+      reffontheight = 13
     end
     object fetch: tmemodialogedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -107,11 +106,11 @@ object remotesfo: tremotesfo
       bounds_x = 87
       bounds_y = 0
       bounds_cx = 160
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
       onsetvalue = fetchsetexe
-      reffontheight = 14
+      reffontheight = 13
     end
     object push: tmemodialogedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
@@ -126,11 +125,11 @@ object remotesfo: tremotesfo
       bounds_x = 248
       bounds_y = 0
       bounds_cx = 159
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
       onsetvalue = pushsetexe
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   object repoloadedact: taction

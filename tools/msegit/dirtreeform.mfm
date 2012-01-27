@@ -47,11 +47,12 @@ object dirtreefo: tdirtreefo
         datalist.imagealignment = [al_right, al_ycentered]
       end>
     datarowlinewidth = 0
-    datarowheight = 16
+    datarowheight = 15
     oncellevent = celleventexe
-    reffontheight = 14
+    reffontheight = 13
     object treeed: ttreeitemedit
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
+      optionswidget1 = [ow1_autoheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645
@@ -61,10 +62,10 @@ object dirtreefo: tdirtreefo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 431
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_locate, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
       options = [teo_treecolnavig, teo_treerownavig]
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   object repoloadedact: taction

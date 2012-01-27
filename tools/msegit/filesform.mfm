@@ -22,21 +22,21 @@ object filesfo: tfilesfo
   inline filelist: tfilelistframefo
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 437
-    bounds_cy = 356
+    bounds_cx = 441
+    bounds_cy = 360
     anchors = []
     container.bounds = (
       0
       0
-      437
-      356
+      441
+      360
     )
     caption = 'Files'
     inherited grid: twidgetgrid
       popupmenu = gridpopup
       onenter = gridenterexe
-      bounds_cx = 437
-      bounds_cy = 356
+      bounds_cx = 441
+      bounds_cy = 360
       fixrows.items = <      
         item
           captions.items = <          
