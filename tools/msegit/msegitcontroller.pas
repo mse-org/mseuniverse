@@ -372,7 +372,7 @@ end;
 
 function tgitcontroller.encodestringparam(const avalue: msestring): string;
 begin
- result:= stringtoutf8(quotestring(avalue,'"'));
+ result:= stringtoutf8(quoteescapedstring(avalue,'"'));
 end;
 
 function tgitcontroller.noemptystringparam(const avalue: msestring): string;
