@@ -22,24 +22,27 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mainmodule,msestatfile,
  filelistframe,msesimplewidgets,msewidgets,msegraphedits,mseifiglob,msetypes,
  msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog,
- msegitcontroller,commitdiffform,msegrids,filechecklistframe,msetimer;
+ msegitcontroller,commitdiffform,msegrids,filechecklistframe,msetimer,
+ mserichstring;
 type
  tcommitqueryfo = class(tmseform)
+   tstatfile1: tstatfile;
+   difftimer: ttimer;
+   bottomstrip: tlayouter;
    tbutton1: tbutton;
    commit: tbutton;
-   filecountdisp: tintegerdisp;
-   tstatfile1: tstatfile;
    amend: tbutton;
    stage: tbutton;
    unstage: tbutton;
+   tbutton2: tbutton;
+   filecountdisp: tintegerdisp;
+   mainarea: tsimplewidget;
+   tsplitter2: tsplitter;
+   diff: tcommitdifffo;
+   tsimplewidget2: tsimplewidget;
    messageed: tmemoedit;
    tsplitter1: tsplitter;
-   tsimplewidget1: tsimplewidget;
-   diff: tcommitdifffo;
-   tsplitter2: tsplitter;
-   tbutton2: tbutton;
    filelist: tfilechecklistframefo;
-   difftimer: ttimer;
    procedure commitexe(const sender: TObject);
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
