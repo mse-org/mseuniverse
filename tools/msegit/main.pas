@@ -257,48 +257,50 @@ begin
    hint:= '';
    font.color:= cl_text;
   end;
-  if mergehead <> '' then begin
-   statdisp.color:= mergecolor;
-   ar1:= breaklines(mergemessage);
-   if high(ar1) >= 0 then begin
-    statdisp.value:= ar1[0];
-    if ar1[high(ar1)] = '' then begin
-     setlength(ar1,high(ar1));
-    end;
-    int1:= 1;
-    if (high(ar1) >= 1) and (ar1[1] = '') then begin
-     inc(int1);
-    end;
-    if int1 <= high(ar1) then begin
-     statdisp.hint:= concatstrings(copy(ar1,int1,bigint),lineend);
+  if repoloaded then begin
+   if mergehead <> '' then begin
+    statdisp.color:= mergecolor;
+    ar1:= breaklines(mergemessage);
+    if high(ar1) >= 0 then begin
+     statdisp.value:= ar1[0];
+     if ar1[high(ar1)] = '' then begin
+      setlength(ar1,high(ar1));
+     end;
+     int1:= 1;
+     if (high(ar1) >= 1) and (ar1[1] = '') then begin
+      inc(int1);
+     end;
+     if int1 <= high(ar1) then begin
+      statdisp.hint:= concatstrings(copy(ar1,int1,bigint),lineend);
+     end;
+    end
+    else begin
+     statdisp.value:= 'Merging';
     end;
    end
    else begin
-    statdisp.value:= 'Merging';
-   end;
-  end
-  else begin
-   col1:= cl_ltgreen;
-   if rebasing then begin
-    col1:= mergecolor;
-    richconcat1(rstr1,'Rebasing ',[fs_bold]);
-   end;
-   if gist_modified in mainmo.dirtree.gitstatey then begin
-    col1:= cl_ltred;
-   end
-   else begin
-    if mainmo.dirtree.gitstatex * [gist_modified,gist_added] <> [] then begin
-     statdisp.font.color:=  cl_dkred;
+    col1:= cl_ltgreen;
+    if rebasing then begin
+     col1:= mergecolor;
+     richconcat1(rstr1,'Rebasing ',[fs_bold]);
     end;
+    if gist_modified in mainmo.dirtree.gitstatey then begin
+     col1:= cl_ltred;
+    end
+    else begin
+     if mainmo.dirtree.gitstatex * [gist_modified,gist_added] <> [] then begin
+      statdisp.font.color:=  cl_dkred;
+     end;
+    end;
+    richconcat1(rstr1,'Branch: ',[fs_force]);
+    richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
+    richconcat1(rstr1,' Log: ',[fs_force]);
+    richconcat1(rstr1,mainmo.repostat.activelogcommit,[fs_bold]);
+    richconcat1(rstr1,' Remote: ',[fs_force]);
+    richconcat1(rstr1,mainmo.remotetargetref,[fs_bold]);
+    statdisp.richvalue:= rstr1;
+    statdisp.color:= col1;
    end;
-   richconcat1(rstr1,'Branch: ',[fs_force]);
-   richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
-   richconcat1(rstr1,' Log: ',[fs_force]);
-   richconcat1(rstr1,mainmo.repostat.activelogcommit,[fs_bold]);
-   richconcat1(rstr1,' Remote: ',[fs_force]);
-   richconcat1(rstr1,mainmo.remotetargetref,[fs_bold]);
-   statdisp.richvalue:= rstr1;
-   statdisp.color:= col1;
   end;
  end;
 end;
