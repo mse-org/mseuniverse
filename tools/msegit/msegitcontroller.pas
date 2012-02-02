@@ -390,14 +390,16 @@ function tgitcontroller.commandresult1(const acommand: string;
 var
  str1: string;
 begin
- result:= getprocessoutput(encodegitcommand(acommand),'',
-                                                 str1,ferrormessage) = 0;
+ result:= getprocessoutput(encodegitcommand(acommand),'',str1,ferrormessage,-1,
+        [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages]) = 0;
  adest:= utf8tostring(str1);
 end;
 
 function tgitcontroller.execcommand(const acommand: string): boolean;
 begin
- result:= execwaitmse(encodegitcommand(acommand),[exo_inactive]) = 0;
+ result:= startprocessandwait(encodegitcommand(acommand),-1,
+       [pro_waitcursor,pro_checkescape,pro_processmessages,pro_inactive]) = 0;
+// result:= execwaitmse(encodegitcommand(acommand),[exo_inactive]) = 0;
 end;
 
 const
