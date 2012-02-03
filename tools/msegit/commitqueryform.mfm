@@ -24,9 +24,9 @@ object commitqueryfo: tcommitqueryfo
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     frame.dummy = 0
     bounds_x = 0
-    bounds_y = 259
-    bounds_cx = 485
-    bounds_cy = 28
+    bounds_y = 260
+    bounds_cx = 432
+    bounds_cy = 27
     anchors = [an_left, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
     linktop = mainarea
@@ -38,10 +38,10 @@ object commitqueryfo: tcommitqueryfo
     place_maxdist = 5
     object tbutton1: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
-      bounds_x = 433
+      bounds_x = 387
       bounds_y = 4
-      bounds_cx = 49
-      bounds_cy = 20
+      bounds_cx = 42
+      bounds_cy = 19
       anchors = [an_left, an_bottom]
       state = [as_default, as_localdefault, as_localcaption]
       caption = '&Cancel'
@@ -50,10 +50,10 @@ object commitqueryfo: tcommitqueryfo
     object commit: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 1
-      bounds_x = 374
+      bounds_x = 337
       bounds_y = 4
-      bounds_cx = 54
-      bounds_cy = 20
+      bounds_cx = 45
+      bounds_cy = 19
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
       caption = 'C&ommit'
@@ -64,10 +64,10 @@ object commitqueryfo: tcommitqueryfo
     object amend: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 2
-      bounds_x = 320
+      bounds_x = 289
       bounds_y = 4
-      bounds_cx = 49
-      bounds_cy = 20
+      bounds_cx = 43
+      bounds_cy = 19
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
       caption = '&Amend'
@@ -77,10 +77,10 @@ object commitqueryfo: tcommitqueryfo
     object stage: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 3
-      bounds_x = 273
+      bounds_x = 246
       bounds_y = 4
-      bounds_cx = 42
-      bounds_cy = 20
+      bounds_cx = 38
+      bounds_cy = 19
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
       caption = '&Stage'
@@ -90,10 +90,10 @@ object commitqueryfo: tcommitqueryfo
     object unstage: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 4
-      bounds_x = 211
+      bounds_x = 191
       bounds_y = 4
-      bounds_cx = 57
-      bounds_cy = 20
+      bounds_cx = 50
+      bounds_cy = 19
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
       caption = '&Unstage'
@@ -103,10 +103,10 @@ object commitqueryfo: tcommitqueryfo
     object tbutton2: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 5
-      bounds_x = 104
+      bounds_x = 97
       bounds_y = 4
-      bounds_cx = 102
-      bounds_cy = 20
+      bounds_cx = 89
+      bounds_cy = 19
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
       caption = 'Message &History'
@@ -117,7 +117,7 @@ object commitqueryfo: tcommitqueryfo
       frame.captionpos = cp_left
       frame.dummy = 0
       frame.outerframe = (
-        53
+        46
         0
         0
         0
@@ -125,10 +125,10 @@ object commitqueryfo: tcommitqueryfo
       taborder = 6
       bounds_x = 2
       bounds_y = 5
-      bounds_cx = 97
-      bounds_cy = 18
+      bounds_cx = 90
+      bounds_cy = 17
       anchors = [an_left, an_bottom]
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   object mainarea: tsimplewidget
@@ -137,7 +137,7 @@ object commitqueryfo: tcommitqueryfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 696
-    bounds_cy = 259
+    bounds_cy = 260
     anchors = [an_top]
     object tsplitter2: tsplitter
       optionswidget = [ow_destroywidgets]
@@ -145,7 +145,7 @@ object commitqueryfo: tcommitqueryfo
       bounds_x = 376
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 183
+      bounds_cy = 184
       anchors = [an_left, an_top, an_bottom]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = tsimplewidget2
@@ -159,7 +159,7 @@ object commitqueryfo: tcommitqueryfo
       bounds_x = 379
       bounds_y = 0
       bounds_cx = 319
-      bounds_cy = 259
+      bounds_cy = 260
       anchors = [an_right]
       container.optionsskin = [osk_framebuttononly, osk_container, osk_noclientsize]
       container.frame.colorclient = -1610612730
@@ -170,13 +170,13 @@ object commitqueryfo: tcommitqueryfo
         0
         0
         319
-        259
+        260
       )
       options = [fo_savepos, fo_savezorder]
       statfile = diff.tstatfile1
       inherited tabs: ttabwidget
         bounds_cx = 319
-        bounds_cy = 259
+        bounds_cy = 260
         visible = False
       end
       inherited repoloadedact: taction
@@ -201,27 +201,27 @@ object commitqueryfo: tcommitqueryfo
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_destroywidgets]
       taborder = 2
       visible = True
-      bounds_x = -2
+      bounds_x = 0
       bounds_y = 0
-      bounds_cx = 378
-      bounds_cy = 259
+      bounds_cx = 376
+      bounds_cy = 260
       anchors = [an_left]
       object messageed: tmemoedit
         frame.caption = 'Commit Message'
         frame.localprops = [frl_colorclient]
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         bounds_x = 0
         bounds_y = 144
-        bounds_cx = 378
-        bounds_cy = 115
+        bounds_cx = 376
+        bounds_cy = 116
         anchors = [an_bottom]
-        optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
-        reffontheight = 14
+        optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        reffontheight = 13
       end
       object tsplitter1: tsplitter
         optionswidget = [ow_destroywidgets]
@@ -229,7 +229,7 @@ object commitqueryfo: tcommitqueryfo
         taborder = 2
         bounds_x = 0
         bounds_y = 141
-        bounds_cx = 378
+        bounds_cx = 376
         bounds_cy = 3
         anchors = [an_top]
         options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
@@ -241,17 +241,17 @@ object commitqueryfo: tcommitqueryfo
         taborder = 1
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 378
+        bounds_cx = 376
         bounds_cy = 141
         anchors = [an_top]
         container.bounds = (
           0
           0
-          378
+          376
           141
         )
         inherited grid: twidgetgrid
-          bounds_cx = 378
+          bounds_cx = 376
           bounds_cy = 141
           fixrows.items = <          
             item
@@ -281,7 +281,7 @@ object commitqueryfo: tcommitqueryfo
             end          
             item
               colorfocused = -1879048185
-              width = 322
+              width = 320
               options = [co_readonly, co_leftbuttonfocusonly, co_fill, co_savestate, co_mousescrollrow]
               dataclass = titemeditlist
               datalist.imagealignment = [al_right, al_ycentered]
@@ -293,7 +293,7 @@ object commitqueryfo: tcommitqueryfo
             onsetvalue = selectsetexe
           end
           inherited fileitemed: titemedit[1]
-            bounds_cx = 322
+            bounds_cx = 320
             textflags = [tf_ycentered, tf_clipo, tf_noselect, tf_ellipseleft]
             oncellevent = celleventexe
           end
