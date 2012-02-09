@@ -337,6 +337,7 @@ type
                 const basecommit,theircommit: msestring;
                                        const isindex: boolean): boolean;
    procedure reload;
+   procedure releasedirtree;
    procedure loadstash;
    procedure updatelocalbranchorder;
    procedure updateremotesorder;
@@ -745,23 +746,6 @@ begin
      end;
     end;
    end;
-{
-   bo1:= false;
-   if repostat.activelocallogbranch <> '' then begin
-    for int1:= 0 to high(fbranches) do begin
-     if fbranches[int1].info.name = repostat.activelocallogbranch then begin
-      bo1:= true;
-      break;
-     end;
-    end;
-    if not bo1 then begin
-     repostat.activelogbranch:= '';
-    end;
-   end;
-   if repostat.activelocallogbranch = '' then begin
-    repostat.activelogbranch:= activebranch;
-   end;
-}
    factiveremote:= '';
    if high(fremotesinfo) >= 0 then begin
     mstr1:= frepostat.activeremote;
@@ -830,6 +814,11 @@ end;
 procedure tmainmo.reload;
 begin
  loadrepo(frepo,false);
+end;
+
+procedure tmainmo.releasedirtree;
+begin
+ fdirtree:= tgitdirtreerootnode.create;
 end;
 
 procedure tmainmo.repoloaded;

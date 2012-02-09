@@ -231,7 +231,7 @@ begin
  end;
  try
   frefreshing:= true;
-  dirtreefo.grid.clear;
+//  dirtreefo.grid.clear;
   mainmo.reload;
  finally
   frefreshing:= false;

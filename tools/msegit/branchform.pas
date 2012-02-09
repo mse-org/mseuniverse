@@ -126,11 +126,9 @@ const
 procedure tbranchfo.doclear;
 begin
  with localgrid do begin
-//  optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
   clear;
  end;
  with remotegrid do begin
-//  optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
   clear;
  end;
 end;

@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -50,9 +50,9 @@ type
    procedure removeexe(const sender: TObject);
    procedure removeupdateexe(const sender: tcustomaction);
   private
-//   frowsave: integer;
    fexpandedsave: expandedinfoarty;
    fdirbefore: filenamety;
+   fdirtreebefore: tgitdirtreenode;
   protected
   public
    function syncfilesfo(const refreshlog: boolean): filenamety;
@@ -70,11 +70,14 @@ var
 implementation
 uses
  dirtreeform_mfm,filesform,gitconsole,msewidgets,mseformatstr,
- main,mseeditglob,msearrayutils;
+ main,mseeditglob,msearrayutils,sysutils;
  
 procedure tdirtreefo.loadedexe(const sender: TObject);
 begin
  mainmo.dirtree.expanded:= true;
+ if mainfo.refreshing then begin
+  grid.clear;
+ end;
  treeed.itemlist.add(mainmo.dirtree,false);
  if not mainfo.refreshing then begin
   grid.row:= 0;
@@ -85,14 +88,11 @@ end;
 
 procedure tdirtreefo.closedexe(const sender: TObject);
 begin
- treeed.itemlist.clear;
-end;
-{
- result:= '';
- .parent <> nil then begin
-  result:= concatstrings(copy(treeed.item.rootcaptions,1,bigint),'/');
+ if not mainfo.refreshing then begin
+  treeed.itemlist.clear;
  end;
-}
+end;
+
 function tdirtreefo.syncfilesfo(const refreshlog: boolean): filenamety;
 begin
  result:= tgitdirtreenode(treeed.item).gitpath;
@@ -118,10 +118,13 @@ begin
  grid.beginupdate;
  fexpandedsave:= treeed.itemlist.expandedstate;
  fdirbefore:= currentgitdir;
+ fdirtreebefore:= mainmo.dirtree;
+ mainmo.releasedirtree;
 end;
 
 procedure tdirtreefo.restorestate;
 begin
+ freeandnil(fdirtreebefore);
  grid.endupdate;
  if fexpandedsave <> nil then begin
   treeed.itemlist.expandedstate:= fexpandedsave;

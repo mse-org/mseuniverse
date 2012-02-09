@@ -66,7 +66,9 @@ end;
 
 procedure tdispfo.repoclosedexe(const sender: TObject);
 begin
- clear;
+ if not mainfo.refreshing then begin
+  clear;
+ end;
 end;
 
 procedure tdispfo.dorefresh;

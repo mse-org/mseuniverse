@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -93,9 +93,11 @@ end;
 
 procedure tremotesfo.repoclosedexe(const sender: TObject);
 begin
- with grid do begin
-  optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
-  clear;
+ if not mainfo.refreshing then begin
+  with grid do begin
+   optionsgrid:= optionsgrid - [og_autofirstrow,og_autoappend];
+   clear;
+  end;
  end;
 end;
 
