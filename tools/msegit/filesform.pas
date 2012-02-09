@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2012 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -211,13 +211,23 @@ end;
 
 procedure tfilesfo.savestate;
 begin
- ffilebefore:= filelist.currentfile;
+ if filelist.grid.active then begin
+  ffilebefore:= filelist.currentfile;
+ end
+ else begin
+  ffilebefore:= '';
+ end;
 end;
 
 procedure tfilesfo.restorestate;
 begin
  filelist.grid.checksort;
- filelist.setcurrentfile(ffilebefore);
+ if ffilebefore = '' then begin
+  filelist.grid.row:= invalidaxis;
+ end
+ else begin
+  filelist.setcurrentfile(ffilebefore);
+ end;
 end;
 
 procedure tfilesfo.popupupdate(const sender: tcustommenu);
