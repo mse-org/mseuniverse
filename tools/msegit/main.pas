@@ -547,8 +547,10 @@ procedure tmainfo.objchanged(const refreshlog: boolean);
 begin
  if refreshlog then begin
   objectrefreshtimer.restart;
+ end
+ else begin
+  diffrefreshtimer.restart;
  end;
- diffrefreshtimer.restart;
  updatestate;
 end;
 

@@ -180,8 +180,10 @@ end;
 
 procedure tlogfo.dorefresh;
 begin
+ mainfo.diffrefreshtimer.enabled:= false;
  setrefmode(false);
  getrevs(0);
+ mainfo.diffrefreshtimer.restart;
 end;
 
 procedure tlogfo.getmorerowsexe(const sender: tcustomgrid;
