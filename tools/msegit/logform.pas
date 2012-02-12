@@ -33,6 +33,7 @@ type
  tlogitem = class(trichlistedititem)
   protected
    fbranchinfo: logbranchinfoarty;
+   fmessage: msestring;
   public
 //   constructor create(const aowner: tcustomitemlist); override;
  end;
@@ -63,6 +64,8 @@ type
    procedure cherrypickexe(const sender: TObject);
    procedure modeselexe(const sender: TObject; var avalue: Integer;
                    var accept: Boolean);
+   procedure messagecelleventexe(const sender: TObject;
+                   var info: celleventinfoty);
   private
    fpath: filenamety;
   protected
@@ -84,7 +87,7 @@ implementation
 
 uses
  logform_mfm,msegitcontroller,main,dirtreeform,filesform,msewidgets,
- mserichstring,branchform,mseeditglob;
+ mserichstring,branchform,mseeditglob,msegridsglob;
 
 { tlogfo }
 
@@ -102,6 +105,7 @@ var
  cl1: colorty;
  mstr1: msestring;
  currentbranch,currentremote,currentremotebranch: msestring;
+ first: boolean;
 begin
  mstr1:= mainmo.repostat.activelogcommit;
  if (mstr1 <> '') and mainmo.git.revlist(ar1,mstr1,fpath,
@@ -123,10 +127,12 @@ begin
   for int1:= skip to high(ar1)+skip do begin
    with ar1[int1-skip] do begin
     with po1[int1] do begin
-     fcaption:= message;
+     fcaption:= removelinebreaks(message);
+     fmessage:= message;
      fformat:= nil;
      ar2:= mainmo.refsinfo.getitemsbycommit(commit);
      setlength(fbranchinfo,length(ar2));
+     first:= true;
      for int2:= high(ar2) downto 0 do begin
       with fbranchinfo[int2] do begin
        remotename:= ar2[int2].remote;
@@ -146,7 +152,13 @@ begin
        if fformat = nil then begin
         fformat:= fm1;
        end;
-       rs1:= richconcat(' ',richcaption,[],cl_none,cl_transparent);
+       if first then begin
+        rs1:= richconcat(lineend,richcaption,[],cl_none,cl_transparent);
+        first:= false;
+       end
+       else begin
+        rs1:= richconcat(' ',richcaption,[],cl_none,cl_transparent);
+       end;
        if remotename <> '' then begin
         rs1:= richconcat(remotename+'/'+branchname,rs1,[],cl_none,cl1);
        end
@@ -373,6 +385,15 @@ begin
   else begin
    color:= cl_parent;
   end;
+ end;
+end;
+
+procedure tlogfo.messagecelleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if (info.eventkind = cek_firstmousepark) and
+    application.active and  message.textclipped(info.cell.row) then begin
+  application.showhint(grid,tlogitem(message.items[info.cell.row]).fmessage);
  end;
 end;
 

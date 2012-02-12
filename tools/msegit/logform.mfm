@@ -18,7 +18,7 @@ inherited logfo: tlogfo
     bounds_cx = 537
     bounds_cy = 354
     anchors = []
-    optionsgrid = [og_colsizing, og_colmoving, og_focuscellonenter, og_savestate, og_sorted, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_colmoving, og_focuscellonenter, og_savestate, og_sorted, og_rowheight, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.colorfocused = -2147483647
     fixrows.count = 1
     fixrows.items = <    
@@ -88,6 +88,7 @@ inherited logfo: tlogfo
         width = 167
         options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autorowheight]
+        oncellevent = messagecelleventexe
         widgetname = 'message'
         dataclass = titemeditlist
         datalist.oncreateitem = createmessageitemexe
@@ -147,7 +148,7 @@ inherited logfo: tlogfo
       bounds_y = 0
       bounds_cx = 167
       bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       textflags = [tf_noselect]
       textflagsactive = []
       reffontheight = 14

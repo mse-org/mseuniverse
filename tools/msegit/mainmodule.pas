@@ -81,7 +81,8 @@ type
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
-   procedure drawimage(const acanvas: tcanvas); override;
+   procedure drawimage(var alayoutinfo: listitemlayoutinfoty;
+                                         const acanvas: tcanvas); override;
    function getoriginicon: integer;
    function gitpath: filenamety;
    function gitbasepath: filenamety;
@@ -2149,18 +2150,20 @@ begin
  fimagenr:= int1;
 end;
 
-procedure tgitdirtreenode.drawimage(const acanvas: tcanvas);
+procedure tgitdirtreenode.drawimage(var alayoutinfo: listitemlayoutinfoty;
+                                                      const acanvas: tcanvas);
 var
  int1: integer;
 begin
  inherited;
- int1:= getoriginicon;
- if int1 >= 0 then begin
-  with fowner.layoutinfopo^ do begin
-   fowner.imagelist.paint(acanvas,int1,imagerect,[al_left,al_ycentered]);
+ if acanvas <> nil then begin
+  int1:= getoriginicon;
+  if int1 >= 0 then begin
+   with alayoutinfo do begin
+    fowner.imagelist.paint(acanvas,int1,imagerect,[al_left,al_ycentered]);
+   end;
   end;
  end;
-// inherited;
 end;
 
 function tgitdirtreenode.getoriginicon: integer;
