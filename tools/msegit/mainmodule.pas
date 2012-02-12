@@ -2155,6 +2155,7 @@ procedure tgitdirtreenode.drawimage(var alayoutinfo: listitemlayoutinfoty;
 var
  int1: integer;
 begin
+ alayoutinfo.imageextra.cx:= 16;
  inherited;
  if acanvas <> nil then begin
   int1:= getoriginicon;
