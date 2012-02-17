@@ -1484,7 +1484,7 @@ begin
  else begin
   result:= execgitconsole('fetch '+
       fgit.encodestring(aremote+' '+aremotebranch)+' '+
-      fgit.encodestringparam('refs/heads/*:refs/remotes/'+aremote+'/*'));
+      fgit.encodestringparam('+refs/heads/*:refs/remotes/'+aremote+'/*'));
  end;
 end;
 
