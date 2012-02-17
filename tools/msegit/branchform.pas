@@ -527,7 +527,7 @@ end;
 
 procedure tbranchfo.remotecreateexe(const sender: TObject);
 begin
- remotegrid.appinsrow(localgrid.row+1);
+ remotegrid.appinsrow(remotegrid.row+1);
 // remotegrid.insertrow(remotegrid.row+1,1);
 // remotegrid.row:= remotegrid.row+1;
 end;
