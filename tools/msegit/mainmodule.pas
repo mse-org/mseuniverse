@@ -1484,8 +1484,8 @@ begin
  end
  else begin
   result:= execgitconsole('fetch '+
-      fgit.encodestring(aremote+' '+aremotebranch)+' '+
-      fgit.encodestringparam('+refs/heads/*:refs/remotes/'+aremote+'/*'));
+      fgit.encodestring(aremote+' '+aremotebranch){+' '+
+      fgit.encodestringparam('+refs/heads/*:refs/remotes/'+aremote+'/*')});
  end;
 end;
 
@@ -1499,8 +1499,8 @@ begin
  end
  else begin
   result:= execgitconsole('pull '+
-   fgit.encodestring(aremote+' '+aremotebranch)+' '+
-   fgit.encodestringparam('+refs/heads/*:refs/remotes/'+aremote+'/*'));
+   fgit.encodestring(aremote+' '+aremotebranch){+' '+
+   fgit.encodestringparam('+refs/heads/*:refs/remotes/'+aremote+'/*')});
  end;
 end;
 

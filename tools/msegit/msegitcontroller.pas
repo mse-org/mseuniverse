@@ -15,7 +15,7 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
 unit msegitcontroller;
-{$ifdef FPC}{$mode objfpc}{$h+}{$endif}
+{$ifdef FPC}{$mode objfpc}{$h+}{$goto on}{$endif}
 interface
 uses
  msestrings,mseclasses,classes,msehash,mselistbrowser,msetypes,msedatanodes,msedate;
@@ -248,12 +248,14 @@ type
    function diff(const b: msestring; const afile: filenamety;
                  const acontextn: integer = 3): msestringarty; overload;
                        //cached
+   function getsha1(const arev: msestring): msestring;
    function issha1(const avalue: string; var asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
    function revlist(out alist: refinfoarty; 
                 const abranch: msestring; const apath: filenamety = '';
                 const maxcount: integer = 0; const skip: integer = 0): boolean;
+   
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
@@ -823,6 +825,11 @@ var
  int1,int2,int3: integer;
  str1: string;
  fna1: filenamety;
+ po1,po2,po3,pend: pmsechar;
+ remotename: msestring;
+ destindex: integer;
+label
+ parseerror,nextline;
 begin
  result:= commandresult1('remote -v show',mstr1);
  if result then begin
@@ -855,6 +862,78 @@ begin
   else begin
    setlength(adest,int2+1);
   end;
+  if not commandresult1('branch -r -v --no-abbrev',mstr1) then begin
+   goto parseerror;
+  end;
+  po1:= pmsechar(mstr1);
+  pend:= po1 + length(mstr1);
+  remotename:= '';
+  while po1 < pend do begin
+   mseskipspace(po1);
+   if po1 >= pend then begin
+    goto parseerror;
+   end;
+   po2:= msestrscan(po1,'/');
+   po3:= msestrscan(po1,c_linefeed);
+   if (po2 <> nil) and (po3 = nil) or (po3 > po2) then begin
+    if not msestartsstr(pointer(remotename),po1) then begin //next repo
+     remotename:= psubstr(po1,po2);
+     destindex:= -1;
+     for int1:= 0 to high(adest) do begin
+      if adest[int1].name = remotename then begin
+       destindex:= int1;
+       break;
+      end;
+     end;
+     if destindex < 0 then begin
+      goto nextline;
+     end;
+    end;
+    inc(po2);        //'remotes/<remote>/'
+    po1:= msestrscan(po2,' '); //'<branch>'
+    if po1 = nil then begin
+     goto nextline;
+    end;
+    with adest[destindex] do begin
+     setlength(branches,high(branches)+2);
+     with branches[high(branches)].info do begin
+      name:= psubstr(po2,po1);
+      mseskipspace(po1);
+      if po1 >= pend then begin
+       goto parseerror;
+      end;
+      if po1^ = '-' then begin //HEAD info
+       setlength(branches,high(branches));
+      end
+      else begin
+       po2:= msestrscan(po1,' '); //'<sha1>'
+       if po2 >= pend then begin
+        goto parseerror;
+       end;
+       commit:= psubstr(po1,po2);
+      end;
+     end;
+    end;
+   end
+   else begin
+    po2:= po1;
+   end;
+nextline:
+   po1:= po3;
+   if po1 = nil then begin
+    po1:= pend;
+   end
+   else begin
+    inc(po1);
+   end;
+  end;
+  result:= true;
+  exit;
+    
+parseerror:
+ result:= false;
+ adest:= nil;
+{
   for int1:= 0 to high(adest) do begin
    with adest[int1] do begin
     fna1:= '.git/refs/remotes/'+name;
@@ -874,6 +953,7 @@ begin
     setlength(branches,int3);
    end;
   end;
+ }
  end;
 end;
 
@@ -1224,6 +1304,11 @@ begin
   end;
   decodeline;
  end;
+end;
+
+function tgitcontroller.getsha1(const arev: msestring): msestring;
+begin
+ commandresult1('show --format=%H -s '+encodestringparam(arev),result);
 end;
 
 {
