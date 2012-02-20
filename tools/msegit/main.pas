@@ -399,8 +399,8 @@ procedure tmainfo.pullfromexe(const sender: TObject);
 begin
  with mainmo do begin
   if askyesno('Do you want to fetch and merge data from '+
-         remotetargetref+' to '+activebranch+'?') and 
-         pull(activeremote,mainmo.activeremotebranch[activeremote]) then begin
+         remotetargetref+' to '+activebranch+'?') then begin
+   pull(activeremote,mainmo.activeremotebranch[activeremote]);
    self.reload;
   end;
  end;
@@ -409,9 +409,9 @@ end;
 procedure tmainfo.mergetactexe(const sender: TObject);
 begin
  with mainmo do begin
-  if askyesno('Do you want to merge fetched data '+
-                 ' to '+activebranch+'?') and
-                                      merge('')  then begin
+  if askyesno('Do you want to merge fetched data ' +
+                                   ' to '+activebranch+'?') then begin
+   merge('');
    self.reload;
   end;
  end;
@@ -421,8 +421,8 @@ procedure tmainfo.mergefromexe(const sender: TObject);
 begin
  with mainmo do begin
   if askyesno('Do you want to merge from '+remotetargetref+
-                 ' to '+activebranch+'?') and
-                                      merge(remotetargetref)  then begin
+                 ' to '+activebranch+'?') then begin
+   merge(remotetargetref);
    self.reload;
   end;
  end;

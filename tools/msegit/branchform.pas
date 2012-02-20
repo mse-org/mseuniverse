@@ -158,6 +158,9 @@ begin
    end;
    if active then begin
     localgrid.rowcolorstate[int1]:= 0;
+   end
+   else begin
+    localgrid.rowcolorstate[int1]:= -1;
    end;
    localtrackbranch[int1]:= trackremote <> '';
   end;
@@ -176,6 +179,9 @@ begin
     if bo1 then begin
      remoteactive[int3]:= true;
      remotegrid.rowcolorstate[int3]:= 0;
+    end
+    else begin
+     remotegrid.rowcolorstate[int3]:= -1;
     end;
     remotegrid.datacols.mergecols(int3,0,2);
     inc(int3);
@@ -193,6 +199,9 @@ begin
        remoteactive[int3]:= true;
        if bo1 then begin
         remotegrid.rowcolorstate[int3]:= 0;
+       end
+       else begin
+        remotegrid.rowcolorstate[int3]:= -1;
        end;
       end;
      end;
