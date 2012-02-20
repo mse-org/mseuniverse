@@ -402,6 +402,7 @@ type
                          read gethidelocalbranch write sethidelocalbranch;
    function remotetarget: msestring;
    function remotetargetref: msestring;
+   function remotetargetbranch: msestring;
    function stashsave(const amessage: msestring): boolean;
    function stashpop: boolean;
    property git: tgitcontroller read fgit;
@@ -1499,7 +1500,7 @@ begin
  else begin
   result:= execgitconsole('pull '+
    fgit.encodestring(aremote+' '+aremotebranch)+' '+
-   fgit.encodestringparam('refs/heads/*:refs/remotes/'+aremote+'/*'));
+   fgit.encodestringparam('+refs/heads/*:refs/remotes/'+aremote+'/*'));
  end;
 end;
 
@@ -1730,6 +1731,11 @@ begin
  else begin
   result:= activeremote;
  end;
+end;
+
+function tmainmo.remotetargetbranch: msestring;
+begin
+ result:= activeremotebranch[activeremote];
 end;
 
 function tmainmo.remotetargetref: msestring;

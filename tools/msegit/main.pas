@@ -455,23 +455,24 @@ end;
 
 procedure tmainfo.pushupdateexe(const sender: tcustomaction);
 var
- bo1,bo2: boolean;
+ bo1,bo2,bo3: boolean;
  mstr1,mstr2: msestring;
 begin
  bo1:= mainmo.repoloaded;
  bo2:= bo1 and not mainmo.merging and not mainmo.rebasing;
+ bo3:= mainmo.remotetargetbranch <> '';
  mainmen.menu.itembynames(['file','close']).enabled:= bo1;
  commitallact.enabled:= bo1;
  mstr1:= mainmo.remotetargetref;
  mstr2:= mainmo.repostat.activelogcommit;
  pushact.enabled:= bo2;
- pushtoact.enabled:= bo2 and (mstr1 <> '');
+ pushtoact.enabled:= bo2 and (mstr1 <> '') and bo3;
  pushtoact.caption:= '&Push to '+mstr1;
  fetchfromremoteact.enabled:= bo1;
  fetchfromremoteact.caption:= '&Fetch from '+mainmo.activeremote;
  commitmergeact.enabled:= mainmo.merging;
  pullact.enabled:= bo2;
- pullfromact.enabled:= bo2 and (mstr1 <> '');
+ pullfromact.enabled:= bo2 and (mstr1 <> '') and bo3;;
  pullfromact.caption:= 'P&ull from '+mstr1;
  mergeact.enabled:= bo2;
  mergefromact.enabled:= bo2 and (mstr2 <> '');
