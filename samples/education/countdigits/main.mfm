@@ -48,7 +48,7 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   object loopcount: tintegeredit
-    frame.caption = 'Count 1..n'
+    frame.caption = 'Count 1..N'
     frame.dummy = 0
     frame.outerframe = (
       0
