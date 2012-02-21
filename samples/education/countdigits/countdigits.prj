@@ -15,11 +15,9 @@ order12=0
 order13=0
 order14=0
 order15=0
-order16=0
-order17=0
 [projectoptions]
-projectdir=/home/mse/packs/standard/git/mseuniverse/samples/education
-projectfilename=/home/mse/packs/standard/git/mseuniverse/samples/education/countdigits.prj
+projectdir=/home/mse/packs/standard/git/mseuniverse/samples/education/countdigits
+projectfilename=/home/mse/packs/standard/git/mseuniverse/samples/education/countdigits/countdigits.prj
 options=83
  [projectoptionsfo.twidgetgrid3]
  propcolwidthref=801
@@ -280,9 +278,12 @@ settingsstorage=0
 settingsprojecttree=0
 settingsautoload=0
 settingsautosave=0
-modulenames=0
-moduletypes=0
-modulefiles=0
+modulenames=1
+ MAINFO
+moduletypes=1
+ TMAINFO
+modulefiles=1
+ /home/mse/packs/standard/git/mseuniverse/samples/education/countdigits/main.mfm
 befcommandon=0
 makeoptionson=4
  63
@@ -471,7 +472,7 @@ files=
  a=0,4132,6,Text Files
  )
 [componentstore]
-storedir=/home/mse/proj/mseguidist/test/msegui/apps/ide/compstore/
+storedir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
 filename=
 [components]
 [selecteditpage]
@@ -484,7 +485,7 @@ cy=0
 progparamhistory=0
 envvarons=0
 [layout]
-windowlayout=535
+windowlayout=536
  [mainfo.projectfiledia]
  filenames=1
   /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
@@ -509,7 +510,8 @@ windowlayout=535
  cy=307
  [mainfo.openfile]
  filenames=0
- filehistory=2
+ filehistory=3
+  /home/mse/packs/standard/git/mseuniverse/samples/education/countdigits/main.pas
   /home/mse/proj/msegui/testcase/jean-pierre/Demo/main.pas
   /D:/MSE/Livre/DemoMSE/Demo.pas
  filefilterindex=0
@@ -525,7 +527,7 @@ windowlayout=535
  [mainfo]
  splitdir=0
  useroptions=33554559
- stackedunder=
+ stackedunder=targetconsolefo
  parent=
  mdistate=3
  nx=0
@@ -610,7 +612,7 @@ windowlayout=535
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=watchfo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -629,7 +631,7 @@ windowlayout=535
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=disassfo
+ stackedunder=objectinspectorfo
  parent=
  mdistate=0
  nx=0
@@ -755,7 +757,7 @@ windowlayout=535
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=targetconsolefo
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -780,7 +782,7 @@ windowlayout=535
  [symbolfo]
  splitdir=0
  useroptions=16511
- stackedunder=findinfilefo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -864,7 +866,7 @@ windowlayout=535
  [componentstorefo]
  splitdir=0
  useroptions=24675
- stackedunder=symbolfo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
@@ -927,7 +929,7 @@ windowlayout=535
  [componentpalettefo]
  splitdir=0
  useroptions=24683
- stackedunder=mainfo
+ stackedunder=formdesignerfo
  parent=
  mdistate=0
  nx=0
@@ -941,7 +943,7 @@ windowlayout=535
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [componentpalettefo.componentpages]
  activetab=0
@@ -985,7 +987,7 @@ windowlayout=535
  irqoff=0
  splitdir=0
  useroptions=16491
- stackedunder=componentstorefo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
@@ -1004,7 +1006,7 @@ windowlayout=535
  [mainfo.panel1]
  splitdir=2
  useroptions=32235
- stackedunder=componentpalettefo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1018,7 +1020,7 @@ windowlayout=535
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
 [edit]
 hintwidth=0
@@ -1026,14 +1028,22 @@ hintheight=0
 finddtext=
 findhistory=0
 findoptions=1
-editpos=0
-sourcefiles=0
-relpaths=0
-ismoduletexts=0
-modules=0
-visiblemodules=0
-nomenumodules=0
+editpos=1
+ 0,0
+bookmarks0=0
+sourcefiles=1
+ /home/mse/packs/standard/git/mseuniverse/samples/education/countdigits/main.pas
+relpaths=1
+ main.pas
+ismoduletexts=1
+ 0
+modules=1
+ /home/mse/packs/standard/git/mseuniverse/samples/education/countdigits/main.mfm
+visiblemodules=1
+ -1
+nomenumodules=1
+ 0
 [sourcefo.tabwidget]
 tabsize=134
 firsttab=0
-index=-1
+index=0
