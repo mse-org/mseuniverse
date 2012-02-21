@@ -14,12 +14,19 @@ object mainfo: tmainfo
   caption = 'Cipher Count'
   moduleclassname = 'tmainform'
   object ciphercount: tintegerdisp
+    frame.caption = 'Found Count'
     frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
     taborder = 1
     bounds_x = 160
-    bounds_y = 24
+    bounds_y = 7
     bounds_cx = 76
-    bounds_cy = 18
+    bounds_cy = 35
     reffontheight = 14
   end
   object cipher: tintegeredit
