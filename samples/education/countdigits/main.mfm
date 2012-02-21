@@ -15,6 +15,7 @@ object mainfo: tmainfo
   moduleclassname = 'tmainform'
   object ciphercount: tintegerdisp
     frame.dummy = 0
+    taborder = 1
     bounds_x = 160
     bounds_y = 24
     bounds_cx = 76
@@ -30,7 +31,7 @@ object mainfo: tmainfo
       3
       0
     )
-    taborder = 1
+    taborder = 2
     bounds_x = 112
     bounds_y = 7
     bounds_cx = 39
@@ -48,7 +49,6 @@ object mainfo: tmainfo
       0
       0
     )
-    taborder = 2
     bounds_x = 16
     bounds_y = 7
     bounds_cx = 84
