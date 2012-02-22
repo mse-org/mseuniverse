@@ -284,7 +284,7 @@ begin
      col1:= mergecolor;
      richconcat1(rstr1,'Rebasing ',[fs_bold]);
     end;
-    if gist_modified in mainmo.dirtree.gitstatey then begin
+    if mainmo.dirtree.gitstatey * [gist_modified,gist_deleted] <> [] then begin
      col1:= cl_ltred;
     end
     else begin
