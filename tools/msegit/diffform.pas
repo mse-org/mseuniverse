@@ -57,6 +57,7 @@ type
    procedure refresh(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem;
           const oldcommit: msestring; const newcommit: msestring); overload;
+   property iscommits: boolean read fiscommits write fiscommits;
  end;
 
 implementation

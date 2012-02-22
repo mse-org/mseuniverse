@@ -54,6 +54,7 @@ type
    procedure messagepopupupdaexe(const sender: tcustommenu);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
    procedure difftiexe(const sender: TObject);
+   procedure createexe(const sender: TObject);
   private
    fkind: commitkindty;
    fstaged: boolean;
@@ -255,6 +256,11 @@ begin
  if isrowenter(info) then begin
   difftimer.restart;
  end;
+end;
+
+procedure tcommitqueryfo.createexe(const sender: TObject);
+begin
+ diff.iscommits:= true;
 end;
 
 end.
