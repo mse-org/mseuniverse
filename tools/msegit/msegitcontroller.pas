@@ -823,8 +823,8 @@ var
  mstr1,mstr2{,mstr3}: msestring;
  ar1,ar2: msestringarty;
  int1,int2,int3: integer;
- str1: string;
- fna1: filenamety;
+// str1: string;
+// fna1: filenamety;
  po1,po2,po3,pend: pmsechar;
  remotename: msestring;
  destindex: integer;
