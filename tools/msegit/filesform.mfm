@@ -66,6 +66,7 @@ object filesfo: tfilesfo
       inherited filestate: tdataicon
       end
       inherited fileitemed: titemedit
+        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_locate, oe_savestate, oe_checkvaluepaststatread]
         oncellevent = cellevexe
       end
     end
