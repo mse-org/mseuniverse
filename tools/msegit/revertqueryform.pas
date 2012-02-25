@@ -37,6 +37,7 @@ type
    procedure revertupdateexe(const sender: tcustombutton);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
    procedure revertexe(const sender: TObject);
+   procedure createexe(const sender: TObject);
   private
    froot: tgitdirtreenode;
   protected
@@ -113,6 +114,11 @@ begin
  if askyesno('Do you want to revert?') then begin
   window.modalresult:= mr_ok;
  end;
+end;
+
+procedure trevertqueryfo.createexe(const sender: TObject);
+begin
+ diff.iscommits:= true;
 end;
 
 end.

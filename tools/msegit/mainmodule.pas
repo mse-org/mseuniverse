@@ -1086,7 +1086,7 @@ begin
     statex:= statex - cancommitstate;    
    end;
    ck_revert: begin
-    statey:= statey - [gist_modified];
+    statey:= statey - [gist_modified,gist_deleted];
    end;
    ck_modify: begin
     statey:= statey + [gist_modified];
@@ -1332,12 +1332,13 @@ end;
 function tmainmo.revert(const aitems: gitdirtreenodearty): boolean;
  const
   mask1: gitstatedataty = (statex: []; statey : [gist_modified]);
+  mask2: gitstatedataty = (statex: []; statey : [gist_deleted]);
 var
  ar1: msegitfileitemarty;
  n1: tgitdirtreenode;
  int1: integer;
 begin 
- ar1:= getfilelist(aitems,[mask1],n1);
+ ar1:= getfilelist(aitems,[mask1,mask2],n1);
  try
   result:= revert(n1,ar1);
  finally
@@ -2138,7 +2139,7 @@ begin
  end;
  int1:= defaultdiricon;
  with fgitstate do begin
-  if gist_modified in statey then begin
+  if [gist_modified,gist_deleted] * statey <> [] then begin
    int1:= int1 + modifieddiroffset;
   end
   else begin

@@ -299,7 +299,7 @@ end;
 function checkcanrevert(const astate: gitstatedataty): boolean;
 begin
  with astate do begin
-  result:= gist_modified in statey; //???
+  result:= [gist_modified,gist_deleted] * statey <> [];
  end;
 end;
 

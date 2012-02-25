@@ -15,6 +15,7 @@ object revertqueryfo: trevertqueryfo
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Commit'
+  oncreate = createexe
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
     taborder = 1
@@ -97,7 +98,7 @@ object revertqueryfo: trevertqueryfo
     end
   end
   object tsplitter2: tsplitter
-    optionswidget = [ow_destroywidgets, ow_autoscale]
+    optionswidget = [ow_destroywidgets]
     color = -1879048189
     taborder = 5
     bounds_x = 232
