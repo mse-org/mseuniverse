@@ -8,9 +8,9 @@ object mainfo: tmainfo
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
-    15
+    16
     403
-    265
+    264
   )
   mainmenu = mainmen
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -22,9 +22,9 @@ object mainfo: tmainfo
     frame.grip_options = [go_lockbutton]
     frame.dummy = 0
     bounds_x = 0
-    bounds_y = 17
+    bounds_y = 18
     bounds_cx = 403
-    bounds_cy = 246
+    bounds_cy = 244
     anchors = [an_bottom]
     dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
     statfile = formsta
@@ -32,7 +32,7 @@ object mainfo: tmainfo
   object tspacer1: tspacer
     taborder = 1
     bounds_x = 216
-    bounds_y = 17
+    bounds_y = 18
     bounds_cx = 50
     bounds_cy = 3
     linktop = statdisp
@@ -45,12 +45,12 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 403
-    bounds_cy = 17
+    bounds_cy = 18
     anchors = [an_top]
     font.name = 'stf_default'
     font.xscale = 1
     font.dummy = 0
-    reffontheight = 13
+    reffontheight = 14
   end
   object mainmen: tmainmenu
     menu.submenu.count = 5
@@ -75,7 +75,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 20
+        submenu.count = 21
         submenu.items = <        
           item
             action = commitallact
@@ -91,6 +91,9 @@ object mainfo: tmainfo
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
+            action = fetchact
           end        
           item
             action = fetchfromremoteact
@@ -329,7 +332,7 @@ object mainfo: tmainfo
     onexecute = pustohexe
     onupdate = pushupdateexe
     left = 144
-    top = 112
+    top = 96
   end
   object objectrefreshtimer: ttimer
     interval = 0
@@ -401,5 +404,11 @@ object mainfo: tmainfo
     caption = 'Rebase skip'
     onexecute = rebaseskipexe
     top = 208
+  end
+  object fetchact: taction
+    caption = 'Fetch'
+    onexecute = fetchexe
+    left = 144
+    top = 112
   end
 end

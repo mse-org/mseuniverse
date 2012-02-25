@@ -54,6 +54,7 @@ type
    rebasecontinueact: taction;
    rebaseabortact: taction;
    rebaseskipact: taction;
+   fetchact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -95,6 +96,7 @@ type
    procedure rebasecontinueexe(const sender: TObject);
    procedure rebaseabortexe(const sender: TObject);
    procedure rebaseskipexe(const sender: TObject);
+   procedure fetchexe(const sender: TObject);
   private
    frefreshing: boolean;
   protected
@@ -377,6 +379,15 @@ begin
  end;
 end;
 
+procedure tmainfo.fetchexe(const sender: TObject);
+begin
+ with mainmo do begin
+  if mainmo.fetch('','') then begin
+   self.reload;
+  end;
+ end;
+end;
+
 procedure tmainfo.fetchfromremoteexe(const sender: TObject);
 begin
  with mainmo do begin
@@ -468,6 +479,7 @@ begin
  pushact.enabled:= bo2;
  pushtoact.enabled:= bo2 and (mstr1 <> '') and bo3;
  pushtoact.caption:= '&Push to '+mstr1;
+ fetchact.enabled:= bo1;
  fetchfromremoteact.enabled:= bo1;
  fetchfromremoteact.caption:= '&Fetch from '+mainmo.activeremote;
  commitmergeact.enabled:= mainmo.merging;
@@ -487,7 +499,7 @@ begin
  
 // resetmergeact.enabled:= bo1;
  stashsaveact.enabled:= bo1;
- stashpopact.enabled:= mainmo.stashes <> nil;
+ stashpopact.enabled:= bo1 and (mainmo.stashes <> nil);
 // mainmen.menu.itembynames(['git','branch']).enabled:= bo2;
 end;
 
