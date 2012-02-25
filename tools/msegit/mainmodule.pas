@@ -430,16 +430,17 @@ const
  
  untrackedfileicon = 6;
  addedfileoffset = 1;
- deletedfileicon = 9;
+ deletedmodifiedfileicon = 9;
+ deletedfileicon = 10;
 
- defaultdiricon = 10;
+ defaultdiricon = 11;
  modifieddiroffset = 2;
  stageddiroffset = 4;
  mergediroffset = 6;
  
- untrackeddiricon = 22;
+ untrackeddiricon = 23;
 
- remoteiconbase = 31; 
+ remoteiconbase = 32; 
  mergependingicon = remoteiconbase+0;
  pushpendingicon = remoteiconbase+1;
  pushmergependingicon = remoteiconbase+2;
@@ -541,7 +542,10 @@ begin
  if gist_untracked in astate.statey then begin
   int1:= untrackedfileicon;
  end;
- if (gist_deleted in astate.statex) or (gist_deleted in astate.statey) then begin
+ if  gist_deleted in astate.statey then begin
+  int1:= deletedmodifiedfileicon;
+ end;
+ if (gist_deleted in astate.statex) then begin
   int1:= deletedfileicon;
  end;
  result:= int1;
