@@ -216,6 +216,7 @@ object commitqueryfo: tcommitqueryfo
           0
           0
         )
+        taborder = 1
         bounds_x = 0
         bounds_y = 144
         bounds_cx = 376
@@ -239,7 +240,6 @@ object commitqueryfo: tcommitqueryfo
         statfile = tstatfile1
       end
       inline filelist: tfilechecklistframefo
-        taborder = 1
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 376
