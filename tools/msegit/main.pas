@@ -506,6 +506,7 @@ end;
 procedure tmainfo.objectrefreshtiexe(const sender: TObject);
 begin
  logfo.refresh(dirtreefo.currentitem,filesfo.currentitem); 
+ diffrefreshtimer.firependingandstop;
 end;
 
 procedure tmainfo.difrefreshtiexe(const sender: TObject);

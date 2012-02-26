@@ -335,14 +335,14 @@ object mainfo: tmainfo
     top = 96
   end
   object objectrefreshtimer: ttimer
-    interval = 0
+    interval = 500000
     options = [to_single]
     ontimer = objectrefreshtiexe
     left = 16
     top = 64
   end
   object diffrefreshtimer: ttimer
-    interval = 0
+    interval = 500000
     options = [to_single]
     ontimer = difrefreshtiexe
     left = 16
