@@ -290,6 +290,7 @@ type
                                 const afiles: msegitfileitemarty): boolean;
 
    function fetch(const aremote,aremotebranch: msestring): boolean;
+   function fetchall: boolean;
    function pull(const aremote,aremotebranch: msestring): boolean;
    function push(const aremote,aremotebranch: msestring): boolean;
    function merge(const asourceref: msestring): boolean;
@@ -1480,10 +1481,7 @@ begin
 end;
 
 function tmainmo.fetch(const aremote,aremotebranch: msestring): boolean;
-//var
-// mstr1: msestring;
 begin
-// mstr1:= activeremote;
  if aremote = '' then begin
   result:= execgitconsole('fetch');
  end
@@ -1494,11 +1492,13 @@ begin
  end;
 end;
 
-function tmainmo.pull(const aremote,aremotebranch: msestring): boolean;
-//var
-// mstr1: msestring;
+function tmainmo.fetchall: boolean;
 begin
-// mstr1:= activeremote;
+ result:= execgitconsole('fetch --all');
+end;
+
+function tmainmo.pull(const aremote,aremotebranch: msestring): boolean;
+begin
  if aremote = '' then begin
   result:= execgitconsole('pull');
  end
