@@ -55,6 +55,7 @@ type
    rebaseabortact: taction;
    rebaseskipact: taction;
    fetchact: taction;
+   fetchallact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -97,6 +98,7 @@ type
    procedure rebaseabortexe(const sender: TObject);
    procedure rebaseskipexe(const sender: TObject);
    procedure fetchexe(const sender: TObject);
+   procedure fetchallexe(const sender: TObject);
   private
    frefreshing: boolean;
   protected
@@ -388,6 +390,14 @@ begin
  end;
 end;
 
+procedure tmainfo.fetchallexe(const sender: TObject);
+begin
+ with mainmo do begin
+  mainmo.fetchall;
+  self.reload;
+ end;
+end;
+
 procedure tmainfo.fetchfromremoteexe(const sender: TObject);
 begin
  with mainmo do begin
@@ -480,6 +490,7 @@ begin
  pushtoact.enabled:= bo2 and (mstr1 <> '') and bo3;
  pushtoact.caption:= '&Push to '+mstr1;
  fetchact.enabled:= bo1;
+ fetchallact.enabled:= bo1;
  fetchfromremoteact.enabled:= bo1;
  fetchfromremoteact.caption:= '&Fetch from '+mainmo.activeremote;
  commitmergeact.enabled:= mainmo.merging;

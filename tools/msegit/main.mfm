@@ -75,7 +75,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 21
+        submenu.count = 22
         submenu.items = <        
           item
             action = commitallact
@@ -91,6 +91,9 @@ object mainfo: tmainfo
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
+            action = fetchallact
           end        
           item
             action = fetchact
@@ -300,31 +303,31 @@ object mainfo: tmainfo
     caption = 'Merge &commit'
     onexecute = commitmergeexe
     left = 144
-    top = 144
+    top = 160
   end
   object resetmergeact: taction
     caption = 'Merge &reset'
     onexecute = resetmergeexe
     left = 144
-    top = 192
+    top = 208
   end
   object fetchfromremoteact: taction
     caption = '&Fetch from'
     onexecute = fetchfromremoteexe
     left = 144
-    top = 128
+    top = 144
   end
   object pullfromact: taction
     caption = 'P&ull from'
     onexecute = pullfromexe
     left = 144
-    top = 160
+    top = 176
   end
   object mergefromact: taction
     caption = '&Merge from'
     onexecute = mergefromexe
     left = 144
-    top = 176
+    top = 192
   end
   object pushtoact: taction
     caption = '&Push to'
@@ -410,5 +413,11 @@ object mainfo: tmainfo
     onexecute = fetchexe
     left = 144
     top = 112
+  end
+  object fetchallact: taction
+    caption = 'Fetch all'
+    onexecute = fetchallexe
+    left = 144
+    top = 128
   end
 end

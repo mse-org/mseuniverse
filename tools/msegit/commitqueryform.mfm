@@ -313,7 +313,7 @@ object commitqueryfo: tcommitqueryfo
     top = 160
   end
   object difftimer: ttimer
-    interval = 0
+    interval = 500000
     options = [to_single]
     ontimer = difftiexe
     left = 40
