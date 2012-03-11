@@ -14,11 +14,11 @@ object revertqueryfo: trevertqueryfo
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'Commit'
+  caption = 'Revert'
   oncreate = createexe
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
-    taborder = 1
+    taborder = 2
     bounds_x = 168
     bounds_y = 256
     bounds_cx = 50
@@ -61,6 +61,7 @@ object revertqueryfo: trevertqueryfo
   end
   inline diff: tcommitdifffo
     frame = nil
+    taborder = 1
     visible = True
     bounds_x = 235
     bounds_y = 0
@@ -112,7 +113,6 @@ object revertqueryfo: trevertqueryfo
     statfile = tstatfile1
   end
   inline filelist: tfilechecklistframefo
-    taborder = 2
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 232
@@ -168,11 +168,25 @@ object revertqueryfo: trevertqueryfo
       inherited originstate: tdataicon[3]
       end
     end
+    inherited checkpopup: tpopupmenu
+      menu.submenu.items = <      
+        item
+        end      
+        item
+        end>
+    end
   end
   object tstatfile1: tstatfile
     filename = 'revertqueryfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 40
     top = 160
+  end
+  object difftimer: ttimer
+    interval = 500000
+    options = [to_single]
+    ontimer = difftiexe
+    left = 88
+    top = 112
   end
 end

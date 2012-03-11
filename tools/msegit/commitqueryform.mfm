@@ -303,6 +303,13 @@ object commitqueryfo: tcommitqueryfo
           inherited originstate: tdataicon[3]
           end
         end
+        inherited checkpopup: tpopupmenu
+          menu.submenu.items = <          
+            item
+            end          
+            item
+            end>
+        end
       end
     end
   end
