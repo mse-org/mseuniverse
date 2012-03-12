@@ -195,6 +195,8 @@ type
    repostatf: tstatfile;
    repoobj: trttistat;
    reporefreshedact: tifiactionlinkcomp;
+   initrepoact: taction;
+   clonerepoact: taction;
    procedure quitexe(const sender: TObject);
    procedure openrepoexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -204,6 +206,8 @@ type
    procedure statfilemissingexe(const sender: tstatfile;
                    const afilename: msestring;
                    var astream: ttextstream; var aretry: Boolean);
+   procedure initrepoexe(const sender: TObject);
+   procedure clonerepoexe(const sender: TObject);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -421,7 +425,7 @@ uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
  gitconsole,commitqueryform,revertqueryform,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msesysenv,main,filesform,
- dirtreeform,defaultstat;
+ dirtreeform,defaultstat,clonequeryform;
   
 const
  defaultfileicon = 0;
@@ -590,6 +594,38 @@ begin
   end;
  end;
 end;
+
+procedure tmainmo.initrepoexe(const sender: TObject);
+var
+ fna1: filenamety;
+begin
+ fna1:= '';
+ if filedialog(fna1,[fdo_directory],'Select Repository Directory',
+                                                   [],[]) = mr_ok then begin
+  closerepo;
+  if execgitconsole('init '+fgit.encodepathparam(fna1,false)) then begin
+   loadrepo(fna1,false);
+  end;
+ end;
+end;
+
+procedure tmainmo.clonerepoexe(const sender: TObject);
+var
+ dir,url: filenamety;
+begin
+ with tclonequeryfo.create(nil) do begin
+  if window.modalresult = mr_ok then begin
+   dir:= clonedired.value;
+   url:= cloneurled.value;
+   closerepo;
+   if execgitconsole('clone '+fgit.encodestringparam(url)+' '+
+                                   fgit.encodepathparam(dir,false)) then begin
+    loadrepo(dir,false);
+   end;
+  end;
+ end;
+end;
+
 
 procedure tmainmo.setrepo(avalue: filenamety);
 begin
