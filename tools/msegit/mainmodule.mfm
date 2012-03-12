@@ -2,8 +2,9 @@ object mainmo: tmainmo
   bounds_cx = 395
   bounds_cy = 195
   statfile = mainstat
-  left = 595
-  top = 185
+  onasyncevent = asynceventexe
+  left = 301
+  top = 160
   moduleclassname = 'tmsedatamodule'
   object optionsobj: trttistat
     statfile = mainstat
