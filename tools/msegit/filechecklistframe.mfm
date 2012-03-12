@@ -9,6 +9,7 @@ inherited filechecklistframefo: tfilechecklistframefo
   )
   moduleclassname = 'tfilelistframefo'
   inherited grid: twidgetgrid
+    popupmenu = checkpopup
     fixrows.items = <    
       item
         captions.count = 4
@@ -62,7 +63,11 @@ inherited filechecklistframefo: tfilechecklistframefo
     inherited filestate: tdataicon
       bounds_x = 34
     end
-    object selected: tbooleanedit[2]
+    inherited fileitemed: titemedit
+      bounds_x = 51
+      bounds_cx = 243
+    end
+    object selected: tbooleanedit[3]
       optionsskin = [osk_framebuttononly]
       taborder = 4
       bounds_x = 0
@@ -73,10 +78,21 @@ inherited filechecklistframefo: tfilechecklistframefo
       visible = False
       valuedefault = True
     end
-    inherited fileitemed: titemedit[3]
-      bounds_x = 51
-      bounds_cx = 243
-      reffontheight = 0
-    end
+  end
+  object checkpopup: tpopupmenu[1]
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        caption = '&Check all'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = checkallexe
+      end    
+      item
+        caption = '&Uncheck all'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = uncheckallexe
+      end>
+    left = 96
+    top = 64
   end
 end

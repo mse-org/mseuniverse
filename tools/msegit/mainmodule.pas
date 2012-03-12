@@ -195,6 +195,8 @@ type
    repostatf: tstatfile;
    repoobj: trttistat;
    reporefreshedact: tifiactionlinkcomp;
+   initrepoact: taction;
+   clonerepoact: taction;
    procedure quitexe(const sender: TObject);
    procedure openrepoexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -204,6 +206,9 @@ type
    procedure statfilemissingexe(const sender: tstatfile;
                    const afilename: msestring;
                    var astream: ttextstream; var aretry: Boolean);
+   procedure initrepoexe(const sender: TObject);
+   procedure clonerepoexe(const sender: TObject);
+   procedure asynceventexe(const sender: TObject; var atag: Integer);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -228,6 +233,7 @@ type
    fbranches: localbranchinfoarty;
    factivebranch: msestring;
    fhasremote: boolean;
+   frefreshpending: boolean;
    fstashes: stashinfoarty;
    ftmpfiles: filenamearty;
    procedure setrepo(avalue: filenamety); //no const!
@@ -253,9 +259,6 @@ type
    function gethideremote(const aremote: msestring): boolean;
    procedure sethideremote(const aremote: msestring; const avalue: boolean);
   protected
-   function findremote(const aremote: msestring): premoteinfoty;
-   function findremotebranch(const aremote: msestring;
-               const abranch: msestring): premotebranchinfoty;
    function findlocalbranch(const abranch: msestring): plocalbranchinfoty;
    procedure updateoperation(const aoperation: commitkindty;
                   const afiles: filenamearty; const refreshed: boolean = true);
@@ -273,6 +276,7 @@ type
    function encodepathparams(const adir: tgitdirtreenode;
                                const afiles: msegitfileitemarty): string;
    function getremote(const aremotetarget: msestring): msestring;
+   procedure delayedrefresh;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
@@ -381,6 +385,9 @@ type
    procedure deletetmpfiles;
    function branchbyname(const aname: msestring;
                            var ainfo: localbranchinfoty): boolean;
+   function findremote(const aremote: msestring): premoteinfoty;
+   function findremotebranch(const aremote: msestring;
+               const abranch: msestring): premotebranchinfoty;
    
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
@@ -421,7 +428,7 @@ uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
  gitconsole,commitqueryform,revertqueryform,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msesysenv,main,filesform,
- dirtreeform,defaultstat;
+ dirtreeform,defaultstat,clonequeryform;
   
 const
  defaultfileicon = 0;
@@ -590,6 +597,38 @@ begin
   end;
  end;
 end;
+
+procedure tmainmo.initrepoexe(const sender: TObject);
+var
+ fna1: filenamety;
+begin
+ fna1:= '';
+ if filedialog(fna1,[fdo_directory],'Select Repository Directory',
+                                                   [],[]) = mr_ok then begin
+  closerepo;
+  if execgitconsole('init '+fgit.encodepathparam(fna1,false)) then begin
+   loadrepo(fna1,false);
+  end;
+ end;
+end;
+
+procedure tmainmo.clonerepoexe(const sender: TObject);
+var
+ dir,url: filenamety;
+begin
+ with tclonequeryfo.create(nil) do begin
+  if window.modalresult = mr_ok then begin
+   dir:= clonedired.value;
+   url:= cloneurled.value;
+   closerepo;
+   if execgitconsole('clone '+fgit.encodestringparam(url)+' '+
+                                   fgit.encodepathparam(dir,false)) then begin
+    loadrepo(dir,false);
+   end;
+  end;
+ end;
+end;
+
 
 procedure tmainmo.setrepo(avalue: filenamety);
 begin
@@ -1626,7 +1665,8 @@ begin
  end
  else begin
   result:= execgitconsole('push '+aremote+' '+
-   fgit.encodestringparam(oldname)+':'+fgit.encodestringparam(newname)+
+   fgit.encodestringparam(aremote+'/'+oldname)+':'+
+             fgit.encodestringparam('refs/heads/'+newname)+
                   ' :'+fgit.encodestringparam(oldname));
   if result then begin
    for int2:= 0 to high(fremotesinfo) do begin
@@ -1644,6 +1684,9 @@ begin
    end;
   end;
  end;
+ if result then begin
+  delayedrefresh;
+ end;
 end;
 
 function tmainmo.deletebranch(const aremote: msestring;
@@ -1654,6 +1697,9 @@ begin
  end
  else begin
   result:= execgitconsole('push '+aremote+' :'+abranch);
+ end;
+ if result then begin
+  delayedrefresh;
  end;
 end;
 
@@ -1667,6 +1713,9 @@ begin
  end
  else begin
   result:= execgitconsole('push '+aremote+' '+activebranch+':'+abranch);
+ end;
+ if result then begin
+  delayedrefresh;
  end;
 end;
 
@@ -2092,6 +2141,20 @@ procedure tmainmo.statfilemissingexe(const sender: tstatfile;
                var aretry: Boolean);
 begin
  astream:= ttextstringcopystream.create(defaultstatdata);
+end;
+
+procedure tmainmo.delayedrefresh;
+begin
+ if not frefreshpending then begin
+  frefreshpending:= true;
+  asyncevent;
+ end;
+end;
+
+procedure tmainmo.asynceventexe(const sender: TObject; var atag: Integer);
+begin
+ frefreshpending:= false;
+ reload;
 end;
 
 { tmsegitfileitem }

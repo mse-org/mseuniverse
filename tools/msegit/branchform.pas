@@ -100,6 +100,8 @@ type
    procedure localtracksetvalue(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure trackedithint(const sender: TObject; var info: hintinfoty);
+   procedure pushbranchexe(const sender: TObject);
+   procedure localpopupupdateexe(const sender: tcustommenu);
   private
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
@@ -770,6 +772,38 @@ end;
 procedure tbranchfo.trackedithint(const sender: TObject; var info: hintinfoty);
 begin
  trackhint(nil,-1,info);
+end;
+
+function pushbranchtext: msestring;
+begin
+ result:= mainmo.activebranch+' to '+mainmo.activeremote+'/'+
+                 mainmo.activebranch;
+end;
+
+procedure tbranchfo.pushbranchexe(const sender: TObject);
+begin
+ if askyesno('Do you want to push branch '+pushbranchtext+'?') then begin
+  with mainmo do begin
+   if execgitconsole('push '+activeremote+' '+
+                                    activebranch+':'+activebranch) then begin
+    mainmo.setbranchtracking(activebranch,activeremote,activebranch);
+    reload;
+    mainmo.linkremotebranch[activeremote,activebranch]:= true;
+    mainmo.activeremotebranch[activeremote]:= activebranch;
+    self.reload;
+    mainfo.updatestate;
+   end;
+  end;
+ end;
+end;
+
+procedure tbranchfo.localpopupupdateexe(const sender: tcustommenu);
+begin
+ with sender.menu.itembyname('pushbranch') do begin
+  caption:= 'Push branch ' + pushbranchtext;
+  enabled:= (mainmo.activeremote <> '') and 
+        (mainmo.findremotebranch(mainmo.activeremote,mainmo.activebranch) = nil);
+ end;
 end;
 
 end.

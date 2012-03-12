@@ -61,6 +61,7 @@ type
    froot: tgitdirtreenode;
   protected
    function checkmessage: boolean;
+   procedure checkallexe(const sender: tobject; const acheck: boolean);
   public
    function exec(const aroot: tgitdirtreenode;
            const aitems: msegitfileitemarty; const staged: boolean): boolean;
@@ -189,6 +190,17 @@ begin
  end;
 end;
 
+procedure tcommitqueryfo.checkallexe(const sender: tobject;
+               const acheck: boolean);
+begin
+ if acheck then begin
+  filecountdisp.value:= filelist.grid.rowcount;
+ end
+ else begin
+  filecountdisp.value:= 0;
+ end;
+end;
+
 procedure tcommitqueryfo.commitupdateexe(const sender: tcustombutton);
 var
  bo1: boolean;
@@ -261,6 +273,7 @@ end;
 procedure tcommitqueryfo.createexe(const sender: TObject);
 begin
  diff.iscommits:= true;
+ filelist.oncheckall:= @checkallexe;
 end;
 
 end.

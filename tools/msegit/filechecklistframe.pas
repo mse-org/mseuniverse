@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,11 +23,22 @@ uses
  msegraphedits,mseifiglob,msetypes,mainmodule,msestrings,msegitcontroller;
 
 type
+ checkalleventty = procedure(const sender: tobject;
+                               const acheck: boolean) of object;
+
  tfilechecklistframefo = class(tfilelistframefo)
    selected: tbooleanedit;
+   checkpopup: tpopupmenu;
+   procedure uncheckallexe(const sender: TObject);
+   procedure checkallexe(const sender: TObject);
+  private
+   foncheckall: checkalleventty;
+  protected
+   procedure docheckall(const acheck: boolean);
   public
    function selectedfiles(const aroot: tgitdirtreenode): filenamearty;
    function checkeditems: msegitfileitemarty;
+   property oncheckall: checkalleventty read foncheckall write foncheckall;
  end;
 
 var
@@ -73,6 +84,24 @@ begin
   end;
  end;
  setlength(result,int2);
+end;
+
+procedure tfilechecklistframefo.docheckall(const acheck: boolean);
+begin
+ selected.fillcol(acheck);
+ if canevent(tmethod(foncheckall)) then begin
+  foncheckall(self,acheck);
+ end;
+end;
+
+procedure tfilechecklistframefo.uncheckallexe(const sender: TObject);
+begin
+ docheckall(false);
+end;
+
+procedure tfilechecklistframefo.checkallexe(const sender: TObject);
+begin
+ docheckall(true);
 end;
 
 end.

@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mainmodule,msestatfile,
  filelistframe,msesimplewidgets,msewidgets,msegraphedits,mseifiglob,msetypes,
  msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog,
- msegitcontroller,commitdiffform,msegrids,filechecklistframe;
+ msegitcontroller,commitdiffform,msegrids,filechecklistframe,msetimer;
 type
  trevertqueryfo = class(tmseform)
    tbutton1: tbutton;
@@ -32,15 +32,18 @@ type
    diff: tcommitdifffo;
    tsplitter2: tsplitter;
    filelist: tfilechecklistframefo;
+   difftimer: ttimer;
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure revertupdateexe(const sender: tcustombutton);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
    procedure revertexe(const sender: TObject);
    procedure createexe(const sender: TObject);
+   procedure difftiexe(const sender: TObject);
   private
    froot: tgitdirtreenode;
   protected
+   procedure checkallexe(const sender: tobject; const acheck: boolean);
   public
    function exec(const aroot: tgitdirtreenode;
                      const aitems: msegitfileitemarty): boolean;
@@ -74,6 +77,8 @@ begin
   setlength(ar1,int2);
   filelist.fileitemed.itemlist.assign(listitemarty(ar1));
   filecountdisp.value:= length(ar1);
+  filelist.grid.row:= 0;
+  difftimer.restart; //show first diff
   if show(ml_application) = mr_ok then begin
    result:= mainmo.revert(filelist.selectedfiles(aroot));
    if result then begin
@@ -96,6 +101,17 @@ begin
  end;
 end;
 
+procedure trevertqueryfo.checkallexe(const sender: tobject;
+               const acheck: boolean);
+begin
+ if acheck then begin
+  filecountdisp.value:= filelist.grid.rowcount;
+ end
+ else begin
+  filecountdisp.value:= 0;
+ end;
+end;
+
 procedure trevertqueryfo.revertupdateexe(const sender: tcustombutton);
 begin
  sender.enabled:= filecountdisp.value > 0;
@@ -105,7 +121,8 @@ procedure trevertqueryfo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
  if isrowenter(info) then begin
-  diff.refresh(froot,filelist.currentitem,'','');
+  difftimer.restart;
+//  diff.refresh(froot,filelist.currentitem,'','');
  end;
 end;
 
@@ -119,6 +136,12 @@ end;
 procedure trevertqueryfo.createexe(const sender: TObject);
 begin
  diff.iscommits:= true;
+ filelist.oncheckall:= @checkallexe;
+end;
+
+procedure trevertqueryfo.difftiexe(const sender: TObject);
+begin
+ diff.refresh(froot,filelist.currentitem,'','');
 end;
 
 end.

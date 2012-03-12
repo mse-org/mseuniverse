@@ -2,8 +2,9 @@ object mainmo: tmainmo
   bounds_cx = 395
   bounds_cy = 195
   statfile = mainstat
-  left = 595
-  top = 185
+  onasyncevent = asynceventexe
+  left = 301
+  top = 160
   moduleclassname = 'tmsedatamodule'
   object optionsobj: trttistat
     statfile = mainstat
@@ -27,7 +28,7 @@ object mainmo: tmainmo
     caption = 'E&xit'
     onexecute = quitexe
     left = 128
-    top = 24
+    top = 72
   end
   object repositoryfiledialog: tfiledialog
     statfile = mainstat
@@ -576,6 +577,18 @@ object mainmo: tmainmo
   end
   object reporefreshedact: tifiactionlinkcomp
     left = 232
+    top = 40
+  end
+  object initrepoact: taction
+    caption = 'Init git repo'
+    onexecute = initrepoexe
+    left = 128
+    top = 24
+  end
+  object clonerepoact: taction
+    caption = 'Clone git repo'
+    onexecute = clonerepoexe
+    left = 128
     top = 40
   end
 end
