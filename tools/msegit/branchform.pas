@@ -183,6 +183,7 @@ begin
      remotegrid.rowcolorstate[int3]:= 0;
     end
     else begin
+     remoteactive[int3]:= false;
      remotegrid.rowcolorstate[int3]:= -1;
     end;
     remotegrid.datacols.mergecols(int3,0,2);
@@ -205,6 +206,10 @@ begin
        else begin
         remotegrid.rowcolorstate[int3]:= -1;
        end;
+      end
+      else begin
+       remoteactive[int3]:= false;
+       remotegrid.rowcolorstate[int3]:= -1;
       end;
      end;
      inc(int3);
