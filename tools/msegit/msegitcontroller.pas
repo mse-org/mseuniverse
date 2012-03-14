@@ -183,6 +183,8 @@ type
    ffileitemclass: gitfileitemclassty;
    ffilecache: tgitfilecache;
    fdirlen: integer;
+   fversionchecked: boolean;
+   fcanvarset: boolean;
    procedure arraycallback(const astatus: gitstateinfoty);
    procedure cachecallback(const astatus: gitstateinfoty);
    procedure filearraycallback(var ainfo: gitfileinfoty);
@@ -197,8 +199,10 @@ type
                             const arecursive: boolean;
                             const astate: tgitstatecache;
                             const callback: addfilecallbackeventty): boolean;
+   function canvarset: boolean;
   public
    constructor create(aowner: tcomponent); override;
+   procedure resetversioncheck;
    function encodegitcommand(const acommand: string): string;
    function encodestring(const avalue: msestring): string;
    function encodestringparam(const avalue: msestring): string;
@@ -336,6 +340,23 @@ begin
  inherited;
 end;
 
+function tgitcontroller.canvarset: boolean;
+var
+ str1,str2: string;
+begin
+ result:= fcanvarset;
+ if not result and not fversionchecked then begin
+  fversionchecked:= true;
+  str2:= fgitcommand;
+  if str2 = '' then begin
+   str2:= defaultgitcommand;
+  end;
+  fcanvarset:= getprocessoutput(str2 +
+    ' -c color.ui=false --version','',str1,-1,[pro_inactive]) = 0;
+  result:= fcanvarset;
+ end;
+end;
+
 function tgitcontroller.encodegitcommand(const acommand: string): string;
 begin
  if fgitcommand = '' then begin
@@ -344,7 +365,10 @@ begin
  else begin
   result:= fgitcommand;
  end;
- result:= result + ' --no-pager '+'-c color.ui=false ' + acommand;
+ if canvarset then begin
+  result:= result + ' -c color.ui=false';
+ end;
+ result:= result + ' --no-pager '+ acommand;
 end;
 
 function tgitcontroller.encodepathparam(const apath: filenamety;
@@ -1309,6 +1333,12 @@ end;
 function tgitcontroller.getsha1(const arev: msestring): msestring;
 begin
  commandresult1('show --format=%H -s '+encodestringparam(arev),result);
+end;
+
+procedure tgitcontroller.resetversioncheck;
+begin
+ fversionchecked:= false;
+ fcanvarset:= false;
 end;
 
 {
