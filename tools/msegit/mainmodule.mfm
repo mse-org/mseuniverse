@@ -9,6 +9,7 @@ object mainmo: tmainmo
   object optionsobj: trttistat
     statfile = mainstat
     ongetobject = getoptionsobjexe
+    onstatafterread = optionsafterread
     top = 32
   end
   object mainstat: tstatfile

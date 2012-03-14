@@ -249,8 +249,8 @@ inherited branchfo: tbranchfo
         captions.count = 6
         captions.items = <        
           item
-            caption = 'A'
-            hint = 'Active branch'
+            caption = 'C'
+            hint = 'Checkout branch'
           end        
           item
             caption = 'Branch'

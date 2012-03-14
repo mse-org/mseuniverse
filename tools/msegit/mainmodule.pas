@@ -209,6 +209,7 @@ type
    procedure initrepoexe(const sender: TObject);
    procedure clonerepoexe(const sender: TObject);
    procedure asynceventexe(const sender: TObject; var atag: Integer);
+   procedure optionsafterread(const sender: TObject);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -2155,6 +2156,11 @@ procedure tmainmo.asynceventexe(const sender: TObject; var atag: Integer);
 begin
  frefreshpending:= false;
  reload;
+end;
+
+procedure tmainmo.optionsafterread(const sender: TObject);
+begin
+ git.resetversioncheck;
 end;
 
 { tmsegitfileitem }

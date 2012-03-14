@@ -55,6 +55,7 @@ begin
  mainmo.optionsobj.objtovalues(fo1);
  if fo1.show(ml_application) = mr_ok then begin
   mainmo.optionsobj.valuestoobj(fo1);
+  mainmo.git.resetversioncheck;
  end;
 end;
 
