@@ -344,7 +344,7 @@ begin
  else begin
   result:= fgitcommand;
  end;
- result:= result + ' --no-pager ' + acommand;
+ result:= result + ' --no-pager '+'-c color.ui=false ' + acommand;
 end;
 
 function tgitcontroller.encodepathparam(const apath: filenamety;
