@@ -2462,13 +2462,13 @@ end;
 constructor trefsitemlist.create;
 begin
  fnamelist:= trefsnamelist.create;
- inherited;
+ inherited create(true);
 end;
 
 destructor trefsitemlist.destroy;
 begin
- inherited;
  fnamelist.free;
+ inherited;
 end;
 
 procedure trefsitemlist.add(const aremote: msestring; const ainfo: refsinfoty);
@@ -2507,8 +2507,8 @@ end;
 
 constructor trefsnamelist.create;
 begin
-// inherited create(false);
- inherited create(true);
+ inherited create(false);
+// inherited create(true);
 end;
 
 procedure trefsnamelist.add(const aitem: trefsitem);
