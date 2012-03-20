@@ -179,6 +179,7 @@ type
   public
    constructor create;
    destructor destroy; override;
+   procedure clear;
    procedure add(const aremote: msestring; const ainfo: refsinfoty);
    function getitemsbycommit(const  acommit: msestring): refsitemarty;
  end;
@@ -2461,7 +2462,7 @@ end;
 constructor trefsitemlist.create;
 begin
  fnamelist:= trefsnamelist.create;
- inherited;
+ inherited create(true);
 end;
 
 destructor trefsitemlist.destroy;
@@ -2496,11 +2497,18 @@ begin
  fitems:= nil;
 end;
 
+procedure trefsitemlist.clear;
+begin
+ fnamelist.clear;
+ inherited;
+end;
+
 { trefsnamelist }
 
 constructor trefsnamelist.create;
 begin
  inherited create(false);
+// inherited create(true);
 end;
 
 procedure trefsnamelist.add(const aitem: trefsitem);
