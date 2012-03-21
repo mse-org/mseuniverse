@@ -511,6 +511,7 @@ begin
  else begin
   localgrid.appinsrow(localgrid.row+1);
  end;
+ localgrid.col:= 1;
 end;
 
 procedure tbranchfo.localdeleteexe(const sender: TObject);
@@ -544,6 +545,7 @@ end;
 procedure tbranchfo.remotecreateexe(const sender: TObject);
 begin
  remotegrid.appinsrow(remotegrid.row+1);
+ remotegrid.col:= 1;
 // remotegrid.insertrow(remotegrid.row+1,1);
 // remotegrid.row:= remotegrid.row+1;
 end;

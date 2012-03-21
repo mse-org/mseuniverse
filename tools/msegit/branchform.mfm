@@ -257,7 +257,6 @@ inherited branchfo: tbranchfo
           end        
           item
             caption = 'Commit'
-            hint = 'Track remote branch'
           end        
           item
             caption = 'L'
