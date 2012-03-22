@@ -49,6 +49,8 @@ type
    procedure commitstagedexe(const sender: TObject);
    procedure removeexe(const sender: TObject);
    procedure removeupdateexe(const sender: tcustomaction);
+   procedure openrepoexe(const sender: TObject);
+   procedure popupupdateexe(const sender: tcustommenu);
   private
    fexpandedsave: expandedinfoarty;
    fdirbefore: filenamety;
@@ -250,6 +252,16 @@ begin
    end;
   end;
  end;
+end;
+
+procedure tdirtreefo.openrepoexe(const sender: TObject);
+begin
+ mainmo.repo:= mainmo.reporoot + '/'+currentitem.gitbasepath;
+end;
+
+procedure tdirtreefo.popupupdateexe(const sender: tcustommenu);
+begin
+ sender.menu.itembyname('openrepo').enabled:= treeed.item <> nil;
 end;
 
 end.

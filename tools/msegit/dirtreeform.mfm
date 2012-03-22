@@ -87,7 +87,8 @@ object dirtreefo: tdirtreefo
     top = 40
   end
   object gridpopup: tpopupmenu
-    menu.submenu.count = 3
+    onupdate = popupupdateexe
+    menu.submenu.count = 5
     menu.submenu.items = <    
       item
         action = commitact
@@ -97,6 +98,15 @@ object dirtreefo: tdirtreefo
       end    
       item
         action = revertact
+      end    
+      item
+        options = [mao_separator, mao_shortcutcaption]
+      end    
+      item
+        caption = '&Open git  repo'
+        name = 'openrepo'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = openrepoexe
       end>
     left = 176
     top = 16
