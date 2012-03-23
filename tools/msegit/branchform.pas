@@ -472,6 +472,7 @@ end;
 
 procedure tbranchfo.localrowsdeleteexe(const sender: tcustomgrid;
                var aindex: Integer; var acount: Integer);
+               
 //var
 // mstr1,mstr2: msestring;
 begin
