@@ -1,0 +1,15 @@
+inherited tagsfo: ttagsfo
+  bounds_x = 100
+  bounds_y = 100
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  moduleclassname = 'tdispfo'
+  inherited repoloadedact: taction
+  end
+  inherited repoclosedact: taction
+  end
+end
