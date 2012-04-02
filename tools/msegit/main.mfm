@@ -160,7 +160,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 15
+        submenu.count = 16
         submenu.items = <        
           item
             submenu.count = 2
@@ -233,6 +233,11 @@ object mainfo: tmainfo
             caption = '&Branches'
             state = [as_localcaption, as_localonexecute]
             onexecute = showbranchexe
+          end        
+          item
+            caption = '&Tags'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showtagsexe
           end        
           item
             caption = 'Rem&otes'

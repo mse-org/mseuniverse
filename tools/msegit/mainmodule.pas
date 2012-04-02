@@ -108,6 +108,14 @@ type
                           const gitstate: tgitstatecache): gitfileitemarty;
  end;
 
+ tgittagstreenode = class(ttreelistedititem)
+ end;
+ 
+ tgittagstreerootnode = class(tgittagstreenode)
+  public
+   procedure load;
+ end;
+ 
  trepostat = class
   private
    factiveremote: msestring;
@@ -218,6 +226,7 @@ type
    fopt: tmsegitoptions;
    frepostat: trepostat;
    fdirtree: tgitdirtreerootnode;
+   ftagstree: tgittagstreerootnode;
    ffilecache: tgitfilecache;
    frefsinfo: trefsitemlist;
    fgit: tgitcontroller;
@@ -346,6 +355,7 @@ type
                                        const isindex: boolean): boolean;
    procedure reload;
    procedure releasedirtree;
+   procedure releasetagstree;
    procedure loadstash;
    procedure updatelocalbranchorder;
    procedure updateremotesorder;
@@ -393,6 +403,7 @@ type
    
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
+   property tagstree: tgittagstreerootnode read ftagstree;
    property stashes: stashinfoarty read fstashes;
    property activebranch: msestring read factivebranch;
    property branches: localbranchinfoarty read fbranches;
@@ -569,6 +580,7 @@ begin
  frepostat:= trepostat.create;
  ffilecache:= tgitfilecache.create;
  fdirtree:= tgitdirtreerootnode.create;
+ ftagstree:= tgittagstreerootnode.create;
  frefsinfo:= trefsitemlist.create;
  fgit:= tgitcontroller.create(nil);
  inherited;
@@ -581,6 +593,7 @@ begin
  frepostat.free;
  fopt.free;
  fdirtree.free;
+ ftagstree.free;
  ffilecache.free;
  frefsinfo.free;
  inherited;
@@ -646,6 +659,7 @@ begin
  fmergemessage:= '';
  factivebranch:= '';
  fdirtree.clear;
+ ftagstree.clear;
  ffilecache.clear;
  freeandnil(fgitstate);
  frefsinfo.clear;
@@ -831,6 +845,7 @@ begin
    end;
    fgit.status(frepo,getorigin,ffilecache,fgitstate);
    loadstash;
+   ftagstree.load;
    fdirtree.loaddirtree(frepo);
    fdirtree.sort(false,true);
    fgit.lsfiles(frepo,false,false,false,true,fgitstate,ffilecache);
@@ -867,6 +882,11 @@ end;
 procedure tmainmo.releasedirtree;
 begin
  fdirtree:= tgitdirtreerootnode.create;
+end;
+
+procedure tmainmo.releasetagstree;
+begin
+ ftagstree:= tgittagstreerootnode.create;
 end;
 
 procedure tmainmo.repoloaded;
@@ -2514,6 +2534,28 @@ end;
 procedure trefsnamelist.add(const aitem: trefsitem);
 begin
  inherited add(aitem.remote+':'+aitem.info.name,aitem);
+end;
+
+{ tgittagstreerootnode }
+
+procedure tgittagstreerootnode.load;
+var
+ ar1: tagsinfoarty;
+ int1: integer;
+begin
+ clear;
+ with add(ttreelistedititem) do begin
+  caption:= '<LOCAL>';
+  if mainmo.git.tagsshow(ar1) then begin
+   for int1:= 0 to high(ar1) do begin
+    with add(tgittagstreenode) do begin
+     with ar1[int1] do begin
+      caption:= info.name;
+     end;
+    end;
+   end;
+  end;
+ end;
 end;
 
 end.

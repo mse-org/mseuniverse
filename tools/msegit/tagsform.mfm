@@ -7,9 +7,47 @@ inherited tagsfo: ttagsfo
     435
     354
   )
+  dragdock.caption = 'Tags'
+  caption = 'Tags'
   moduleclassname = 'tdispfo'
-  inherited repoloadedact: taction
+  object grid: twidgetgrid[0]
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 259
+        widgetname = 'treeed'
+        dataclass = ttreeitemeditlist
+        datalist.options = [no_nofreeitems]
+      end>
+    datarowheight = 16
+    reffontheight = 14
+    object treeed: ttreeitemedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 259
+      bounds_cy = 16
+      reffontheight = 14
+    end
   end
-  inherited repoclosedact: taction
+  inherited repoloadedact: taction[1]
+  end
+  inherited repoclosedact: taction[2]
   end
 end

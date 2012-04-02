@@ -99,6 +99,7 @@ type
    procedure rebaseskipexe(const sender: TObject);
    procedure fetchexe(const sender: TObject);
    procedure fetchallexe(const sender: TObject);
+   procedure showtagsexe(const sender: TObject);
   private
    frefreshing: boolean;
   protected
@@ -117,7 +118,7 @@ implementation
 uses
  main_mfm,dirtreeform,mainmodule,optionsform,filesform,stashform,remotesform,
  gitconsole,diffwindow,msewidgets,sysutils,branchform,msegitcontroller,
- mserichstring,logform,msestringenter;
+ mserichstring,logform,msestringenter,tagsform;
 const
  mergecolor = $ffb030;
   
@@ -146,6 +147,11 @@ end;
 procedure tmainfo.showbranchexe(const sender: TObject);
 begin
  branchfo.activate;
+end;
+
+procedure tmainfo.showtagsexe(const sender: TObject);
+begin
+ tagsfo.activate;
 end;
 
 procedure tmainfo.showremotesexe(const sender: TObject);
@@ -230,6 +236,7 @@ procedure tmainfo.reload;
 begin
  filesfo.savestate;
  dirtreefo.savestate;
+ tagsfo.savestate;
  if mainmo.repoloaded then begin
   mainmo.repostatf.writestat;
  end;
@@ -240,6 +247,7 @@ begin
  finally
   frefreshing:= false;
   dirtreefo.restorestate;
+  tagsfo.restorestate;
   filesfo.restorestate;
   branchfo.refresh;
   stashfo.refresh;

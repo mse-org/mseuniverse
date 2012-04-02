@@ -127,6 +127,12 @@ type
   name: msestring;
   commit: msestring;
  end;
+ tagsinfoty = record
+  info: refsinfoty;
+ end;
+ ptagsinfoty = ^tagsinfoty;
+ tagsinfoarty = array of tagsinfoty;
+ 
  localbranchinfoty = record
   info: refsinfoty;
   active: boolean;
@@ -244,6 +250,7 @@ type
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: localbranchinfoarty;
                            out activebranch: msestring): boolean;
+   function tagsshow(out adest: tagsinfoarty): boolean;
    function stashlist(out adest: stashinfoarty): boolean;
    function diff(const commits: msestringarty; const afile: filenamety;
                  const acontextn: integer = 3): msestringarty; overload;
@@ -978,6 +985,25 @@ parseerror:
    end;
   end;
  }
+ end;
+end;
+
+function tgitcontroller.tagsshow(out adest: tagsinfoarty): boolean;
+var
+ mstr1: msestring;
+ ar1: msestringarty;
+ int1: integer;
+begin
+ adest:= nil;
+ result:= commandresult1('tag',mstr1);
+ if result then begin
+  ar1:= breaklines(mstr1);
+  setlength(adest,high(ar1)); //there is an empty last line
+  for int1:= 0 to high(adest) do begin
+   with adest[int1] do begin
+    info.name:= ar1[int1];
+   end;
+  end;
  end;
 end;
 
