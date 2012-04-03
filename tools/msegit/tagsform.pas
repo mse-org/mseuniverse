@@ -11,6 +11,13 @@ type
  ttagsfo = class(tdispfo)
    grid: twidgetgrid;
    treeed: ttreeitemedit;
+   commited: tstringedit;
+   messageed: tstringedit;
+   commitdateed: tdatetimeedit;
+   committered: tstringedit;
+   procedure updaterowvaluesexe(const sender: TObject; const aindex: Integer;
+                   const aitem: tlistitem);
+   procedure messagecellevent(const sender: TObject; var info: celleventinfoty);
   private
    fexpandedsave: expandedinfoarty;
    ftagstreebefore: tgittagstreenode;  
@@ -26,7 +33,7 @@ var
  tagsfo: ttagsfo;
 implementation
 uses
- tagsform_mfm,sysutils,main;
+ tagsform_mfm,sysutils,main,msegridsglob;
  
 { ttagsfo }
 
@@ -67,6 +74,33 @@ begin
   treeed.itemlist.clear;
  end;
  fexpandedsave:= nil;
+end;
+
+procedure ttagsfo.updaterowvaluesexe(const sender: TObject;
+               const aindex: Integer; const aitem: tlistitem);
+begin
+ if aitem is tgittagstreenode then begin
+  with tgittagstreenode(aitem) do begin
+   commited[aindex]:= commit;
+   commitdateed[aindex]:= commitdate;
+   committered[aindex]:= committer;
+   messageed[aindex]:= removelinebreaks(message);
+  end;
+ end;
+end;
+
+procedure ttagsfo.messagecellevent(const sender: TObject;
+               var info: celleventinfoty);
+var
+ n1: ttreelistitem;
+begin
+ if (info.eventkind = cek_firstmousepark) and
+    application.active and  messageed.textclipped(info.cell.row) then begin
+  n1:= treeed[info.cell.row];
+  if n1 is tgittagstreenode then begin
+   application.showhint(grid,tgittagstreenode(n1).message);
+  end;
+ end;
 end;
 
 end.

@@ -1,10 +1,11 @@
 inherited tagsfo: ttagsfo
-  bounds_x = 100
-  bounds_y = 100
+  bounds_x = 88
+  bounds_y = 177
+  bounds_cx = 779
   container.bounds = (
     0
     0
-    435
+    769
     354
   )
   dragdock.caption = 'Tags'
@@ -13,23 +14,69 @@ inherited tagsfo: ttagsfo
   object grid: twidgetgrid[0]
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 435
+    bounds_cx = 769
     bounds_cy = 354
     anchors = []
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixrows.count = 1
     fixrows.items = <    
       item
         height = 16
+        captions.count = 5
+        captions.items = <        
+          item
+            caption = 'Tag'
+          end        
+          item
+            caption = 'Message'
+          end        
+          item
+            caption = 'Commit'
+          end        
+          item
+            caption = 'Date'
+          end        
+          item
+            caption = 'Committer'
+          end>
       end>
-    datacols.count = 1
+    datacols.count = 5
+    datacols.options = [co_readonly, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
-        width = 259
+        width = 167
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
         datalist.options = [no_nofreeitems]
+      end    
+      item
+        width = 229
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        oncellevent = messagecellevent
+        widgetname = 'messageed'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        width = 93
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'commited'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        width = 131
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'commitdateed'
+        dataclass = tgridrealdatalist
+      end    
+      item
+        width = 109
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'committered'
+        dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
+    statfile = mainfo.formsta
     reffontheight = 14
     object treeed: ttreeitemedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -41,8 +88,63 @@ inherited tagsfo: ttagsfo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 259
+      bounds_cx = 167
       bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
+      onupdaterowvalues = updaterowvaluesexe
+      reffontheight = 14
+    end
+    object messageed: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 168
+      bounds_y = 0
+      bounds_cx = 229
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
+      reffontheight = 14
+    end
+    object commited: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 398
+      bounds_y = 0
+      bounds_cx = 93
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
+      reffontheight = 14
+    end
+    object commitdateed: tdatetimeedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 492
+      bounds_y = 0
+      bounds_cx = 131
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
+      value = -Inf
+      valuedefault = -Inf
+      min = -Inf
+      max = 401768.99999
+      kind = dtk_datetime
+      reffontheight = 14
+    end
+    object committered: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 5
+      visible = False
+      bounds_x = 624
+      bounds_y = 0
+      bounds_cx = 109
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
     end
   end

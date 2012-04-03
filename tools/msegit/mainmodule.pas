@@ -109,6 +109,18 @@ type
  end;
 
  tgittagstreenode = class(ttreelistedititem)
+  private
+   fcommit: msestring;
+   fcommitdate: tdatetime;
+   fcommitter: msestring;
+   fmessage: msestring;
+//   fmessageheader: msestring;
+  public
+   property commit: msestring read fcommit;
+   property commitdate: tdatetime read fcommitdate;
+   property committer: msestring read fcommitter;
+//   property messageheader: msestring read fmessageheader;
+   property message: msestring read fmessage;
  end;
  
  tgittagstreerootnode = class(tgittagstreenode)
@@ -2541,21 +2553,46 @@ end;
 procedure tgittagstreerootnode.load;
 var
  ar1: tagsinfoarty;
- int1: integer;
+ ar2: msestringarty;
+ int1,int2: integer;
+ n1: ttreelistedititem;
+ n2: tgittagstreenode;
+// po1: pmsechar;
 begin
  clear;
- with add(ttreelistedititem) do begin
-  caption:= '<LOCAL>';
-  if mainmo.git.tagsshow(ar1) then begin
-   for int1:= 0 to high(ar1) do begin
-    with add(tgittagstreenode) do begin
-     with ar1[int1] do begin
-      caption:= info.name;
+ if mainmo.git.tagsshow(ar1) then begin
+  for int1:= high(ar1) downto 0 do begin
+   n1:= self;
+   with ar1[int1],info do begin
+    ar2:= splitstring(name,'/');
+    for int2:= 0 to high(ar2)-1 do begin
+     if not n1.finditembycaption(ar2[int2],ttreelistitem(n1)) then begin
+      n1:= n1.add(ttreelistedititem);
+      n1.caption:= ar2[int2];
+      n1.top:= true;
      end;
+    end;
+    n2:= tgittagstreenode(n1.add(tgittagstreenode));
+    if ar2 <> nil then begin
+     n2.caption:= ar2[high(ar2)];
+    end;
+    n2.fcommit:= commit;
+    n2.fcommitter:= committer;
+    n2.fcommitdate:= commitdate;
+    if message <> '' then begin
+     n2.fmessage:= message;
+     {
+     po1:= pointer(message);
+     while (po1^ <> c_linefeed) and (po1^ <> #0) do begin
+      inc(po1);
+     end;
+     n2.fmessageheader:= psubstr(pmsechar(pointer(message)),po1);
+     }
     end;
    end;
   end;
  end;
+ sort(false,true);
 end;
 
 end.

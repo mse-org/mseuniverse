@@ -127,12 +127,7 @@ type
   name: msestring;
   commit: msestring;
  end;
- tagsinfoty = record
-  info: refsinfoty;
- end;
- ptagsinfoty = ^tagsinfoty;
- tagsinfoarty = array of tagsinfoty;
- 
+
  localbranchinfoty = record
   info: refsinfoty;
   active: boolean;
@@ -171,7 +166,15 @@ type
  end;
  prefinfoty = ^refinfoty;
  refinfoarty = array of refinfoty;
+ prefinfoarty = ^refinfoarty;
 
+ tagsinfoty = record
+  name: msestring;
+  info: refinfoty;
+ end; 
+ ptagsinfoty = ^tagsinfoty;
+ tagsinfoarty = array of tagsinfoty;
+ 
  stashinfoty = record
   name: msestring;
   message: msestring;
@@ -206,6 +209,9 @@ type
                             const astate: tgitstatecache;
                             const callback: addfilecallbackeventty): boolean;
    function canvarset: boolean;
+   function decodecommit(const atext: msestring;
+              const ainfo: prefinfoty; const alist: prefinfoarty): boolean;
+                              //false if empty
   public
    constructor create(aowner: tcomponent); override;
    procedure resetversioncheck;
@@ -260,6 +266,8 @@ type
                  const acontextn: integer = 3): msestringarty; overload;
                        //cached
    function getsha1(const arev: msestring): msestring;
+   function getrefinfo(const arev: msestring;
+                                 out ainfo: refinfoty): boolean;
    function issha1(const avalue: string; var asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
@@ -998,10 +1006,13 @@ begin
  result:= commandresult1('tag',mstr1);
  if result then begin
   ar1:= breaklines(mstr1);
-  setlength(adest,high(ar1)); //there is an empty last line
-  for int1:= 0 to high(adest) do begin
-   with adest[int1] do begin
-    info.name:= ar1[int1];
+  if high(ar1) > 0 then begin
+   setlength(adest,high(ar1)); //there is an empty last line
+   for int1:= 0 to high(adest) do begin
+    with adest[int1] do begin
+     name:= ar1[int1];
+     getrefinfo('refs/tags/'+name,adest[int1].info);
+    end;
    end;
   end;
  end;
@@ -1173,6 +1184,136 @@ const
           (name: 'committer'),    //rk_committer
           (name: '   ')           //rk_message
          );
+         
+function tgitcontroller.decodecommit(const atext: msestring;
+                   const ainfo: prefinfoty; const alist: prefinfoarty): boolean;
+                                             //false if empty
+
+ function recordkind(const start,stop: pmsechar): recordkindty;
+ var
+  k1: recordkindty;
+  po1: pmsechar;
+  int1,int2: integer;
+ begin
+  result:= rk_none;
+  int1:= stop-start;
+  if int1 > 0 then begin
+   for k1:= rk_first to rk_last do begin
+    if length(recdef[k1].name) = int1 then begin
+     result:= k1;
+     po1:= pointer(recdef[k1].name);
+     for int2:= 0 to int1-1 do begin
+      if po1[int2] <> start[int2] then begin
+       result:= rk_none;
+       break;
+      end;
+     end;
+     if result <> rk_none then begin
+      break;
+     end;
+    end;
+   end;
+  end;
+ end; //recordkind
+ 
+var
+ po1: pmsechar;
+ 
+ procedure revfind(const start: pmsechar; const achar: msechar;
+                                                 out found: pmsechar);
+ var
+  po2: pmsechar;
+ begin
+  found:= nil;
+  po2:= start-1;
+  while (po2 > po1) and (po2^ <> achar) do begin
+   dec(po2);
+  end;
+  if (po2 >= po1) and (po2^ = achar) then begin
+   found:= po2;
+  end;
+ end; //revfind;
+ 
+var
+ po2,po3,po4,po5: pmsechar;
+ k1: recordkindty;
+ lwo1: longword;
+ int1: integer;
+ pinfo1: prefinfoty;
+begin
+ result:= false;
+ if atext <> '' then begin
+  po1:= pointer(atext);
+  pinfo1:= nil;
+  int1:= 0;
+  while po1^ <> #0 do begin
+   po2:= po1;
+   while (po2^ <> ' ') and (po2^ <> c_linefeed) and (po2^ <> #0) do begin
+    inc(po2);
+   end;
+   if po1^ = ' ' then begin
+    while po2^ = ' ' do begin
+     inc(po2);
+    end;
+    dec(po2);
+   end;
+   po3:= po2;
+   while (po3^ <> c_linefeed) and (po3^ <> #0) do begin
+    inc(po3);
+   end;
+   k1:= recordkind(po1,po2);
+   if k1 = rk_commit then begin
+    result:= true; 
+    if alist <> nil then begin
+     if int1 > high(alist^) then begin
+      setlength(alist^,high(alist^)*2+256);
+     end;
+     pinfo1:= @alist^[int1];
+    end
+    else begin
+     if pinfo1 <> nil then begin
+      exit;
+     end;
+     pinfo1:= ainfo;
+    end;
+    inc(int1);
+    pinfo1^.commit:= psubstr(po2+1,po3);
+   end
+   else begin
+    if pinfo1 <> nil then begin
+     case k1 of
+      rk_committer: begin
+       revfind(po3,' ',po4);
+       revfind(po4,' ',po5);
+       if po5 <> nil then begin
+        if trystrtointmse(psubstr(po5+1,po4),lwo1) then begin
+         pinfo1^.commitdate:= unixtodatetime(lwo1);
+         pinfo1^.committer:= psubstr(po2+1,po5);
+        end;
+       end;
+      end;
+      rk_message: begin
+       if pinfo1^.message <> '' then begin
+        pinfo1^.message:= pinfo1^.message + lineend + psubstr(po2+1,po3);
+       end
+       else begin
+        pinfo1^.message:= pinfo1^.message + psubstr(po2+1,po3);
+       end;
+      end;
+     end;
+    end;
+   end;
+   if po3^ <> #0 then begin
+    inc(po3);
+   end;
+   po1:= po3;
+  end;
+  if alist <> nil then begin
+   setlength(alist^,int1);
+  end;
+ end;
+end;
+
 function tgitcontroller.revlist(out alist: refinfoarty; 
                const abranch: msestring; const apath: filenamety = '';
                const maxcount: integer = 0; const skip: integer = 0): boolean;
@@ -1358,7 +1499,21 @@ end;
 
 function tgitcontroller.getsha1(const arev: msestring): msestring;
 begin
- commandresult1('show --format=%H -s '+encodestringparam(arev),result);
+ commandresult1('show --format=format:"%H" -s '+encodestringparam(arev),result);
+ trimright1(result); //remove line end
+end;
+
+function tgitcontroller.getrefinfo(const arev: msestring;
+                                 out ainfo: refinfoty): boolean;
+var
+ mstr1: msestring;
+begin
+ ainfo.commitdate:= emptydatetime;
+ result:= commandresult1('show --format=raw -s '+
+             encodestringparam(arev),mstr1);
+ if result then begin
+  result:= decodecommit(mstr1,@ainfo,nil);
+ end;
 end;
 
 procedure tgitcontroller.resetversioncheck;
