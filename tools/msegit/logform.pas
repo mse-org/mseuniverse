@@ -52,6 +52,7 @@ type
    branchact: taction;
    cherrypickact: taction;
    diffmode: tdatabutton;
+   tagact: taction;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -66,6 +67,7 @@ type
                    var accept: Boolean);
    procedure messagecelleventexe(const sender: TObject;
                    var info: celleventinfoty);
+   procedure tagexe(const sender: TObject);
   private
    fpath: filenamety;
   protected
@@ -87,7 +89,7 @@ implementation
 
 uses
  logform_mfm,msegitcontroller,main,dirtreeform,filesform,msewidgets,
- mserichstring,branchform,mseeditglob,msegridsglob;
+ mserichstring,branchform,mseeditglob,msegridsglob,tagdialogform;
 
 { tlogfo }
 
@@ -251,6 +253,7 @@ begin
  bo1:= mainmo.repoloaded and (grid.row >= 0);
  checkoutact.enabled:= bo1;
  branchact.enabled:= bo1;
+ tagact.enabled:= bo1;
  cherrypickact.enabled:= bo1 and (diffmode.value = 1); 
 end;
 
@@ -270,6 +273,12 @@ begin
   localgrid.focuscell(mgc(1,localgrid.rowhigh));
   localbranchcommit.value:= self.commit.value;
   localgrid.activate;
+ end;
+end;
+
+procedure tlogfo.tagexe(const sender: TObject);
+begin
+ if ttagdialogfo.create(nil).exec(commit.value) then begin
  end;
 end;
 

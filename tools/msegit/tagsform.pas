@@ -15,9 +15,12 @@ type
    messageed: tstringedit;
    commitdateed: tdatetimeedit;
    committered: tstringedit;
+   tpopupmenu1: tpopupmenu;
    procedure updaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure messagecellevent(const sender: TObject; var info: celleventinfoty);
+   procedure updateexe(const sender: tcustommenu);
+   procedure deletetagexe(const sender: TObject);
   private
    fexpandedsave: expandedinfoarty;
    ftagstreebefore: tgittagstreenode;  
@@ -33,7 +36,7 @@ var
  tagsfo: ttagsfo;
 implementation
 uses
- tagsform_mfm,sysutils,main,msegridsglob;
+ tagsform_mfm,sysutils,main,msegridsglob,msewidgets;
  
 { ttagsfo }
 
@@ -100,6 +103,22 @@ begin
   if n1 is tgittagstreenode then begin
    application.showhint(grid,tgittagstreenode(n1).message);
   end;
+ end;
+end;
+
+procedure ttagsfo.updateexe(const sender: tcustommenu);
+begin
+ sender.menu.itembyname('delete').enabled:= treeed.item is tgittagstreenode;                    
+end;
+
+procedure ttagsfo.deletetagexe(const sender: TObject);
+var
+ mstr1: msestring;
+begin
+ mstr1:= tgittagstreenode(treeed.item).tagref;
+ if askyesno('Do you want to delete the tag "'+
+            mstr1+'"?') then begin
+  mainmo.deletetag('',mstr1);
  end;
 end;
 

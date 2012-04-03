@@ -12,6 +12,7 @@ inherited tagsfo: ttagsfo
   caption = 'Tags'
   moduleclassname = 'tdispfo'
   object grid: twidgetgrid[0]
+    popupmenu = tpopupmenu1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 769
@@ -151,5 +152,18 @@ inherited tagsfo: ttagsfo
   inherited repoloadedact: taction[1]
   end
   inherited repoclosedact: taction[2]
+  end
+  object tpopupmenu1: tpopupmenu[3]
+    onupdate = updateexe
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        caption = 'Delete Tag'
+        name = 'delete'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = deletetagexe
+      end>
+    left = 184
+    top = 88
   end
 end

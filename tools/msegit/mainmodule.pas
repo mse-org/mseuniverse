@@ -121,6 +121,7 @@ type
    property committer: msestring read fcommitter;
 //   property messageheader: msestring read fmessageheader;
    property message: msestring read fmessage;
+   function tagref: msestring;
  end;
  
  tgittagstreerootnode = class(tgittagstreenode)
@@ -387,6 +388,8 @@ type
    property mergehead: msestring read fmergehead;
    property mergemessage: msestring read fmergemessage;
    
+   function deletetag(const aremote: msestring;
+                                      const atag: msestring): boolean;
    function renamebranch(const aremote: msestring; const oldname: msestring;
                  const newname: msestring): boolean;
    function deletebranch(const aremote: msestring;
@@ -1730,7 +1733,21 @@ begin
   result:= execgitconsole('branch -d '+abranch);
  end
  else begin
-  result:= execgitconsole('push '+aremote+' :'+abranch);
+  result:= execgitconsole('push '+aremote+' :refs/heads/'+abranch);
+ end;
+ if result then begin
+  delayedrefresh;
+ end;
+end;
+
+function tmainmo.deletetag(const aremote: msestring;
+               const atag: msestring): boolean;
+begin
+ if aremote = '' then begin
+  result:= execgitconsole('tag -d '+atag);
+ end
+ else begin
+  result:= execgitconsole('push '+aremote+' :refs/tags/'+atag);
  end;
  if result then begin
   delayedrefresh;
@@ -2546,6 +2563,13 @@ end;
 procedure trefsnamelist.add(const aitem: trefsitem);
 begin
  inherited add(aitem.remote+':'+aitem.info.name,aitem);
+end;
+
+{ tgittagstreenode }
+
+function tgittagstreenode.tagref: msestring;
+begin
+ result:= concatstrings(rootcaptions,'/');
 end;
 
 { tgittagstreerootnode }

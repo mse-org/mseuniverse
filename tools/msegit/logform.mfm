@@ -258,4 +258,10 @@ inherited logfo: tlogfo
     left = 56
     top = 224
   end
+  object tagact: taction[7]
+    caption = 'Tag'
+    onexecute = tagexe
+    left = 160
+    top = 208
+  end
 end
