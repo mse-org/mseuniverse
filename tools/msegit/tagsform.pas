@@ -50,11 +50,12 @@ end;
 
 procedure ttagsfo.restorestate;
 begin
- freeandnil(ftagstreebefore);
  grid.endupdate;
  if fexpandedsave <> nil then begin
   treeed.itemlist.expandedstate:= fexpandedsave;
  end;
+ ftagstreebefore.releaseowner;
+ freeandnil(ftagstreebefore);
  {
  if grid.row < 0 then begin
   grid.row:= 0;
