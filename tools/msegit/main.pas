@@ -104,6 +104,7 @@ type
    frefreshing: boolean;
   protected
   public
+   hastagdialogstat: boolean;
    procedure reload;
    property refreshing: boolean read frefreshing;
    procedure updatestate;
@@ -214,6 +215,7 @@ begin
   statdisp.value:= '';
   statdisp.hint:= '';
   statdisp.color:= cl_default;
+  hastagdialogstat:= false;
  end;
 end;
 

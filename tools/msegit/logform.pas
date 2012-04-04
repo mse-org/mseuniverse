@@ -139,16 +139,21 @@ begin
       with fbranchinfo[int2] do begin
        remotename:= ar2[int2].remote;
        branchname:= ar2[int2].info.name;
-       cl1:= cl_ltgreen;
-       if remotename = '' then begin
-        if branchname = currentbranch then begin
-         cl1:= cl_ltred;
-        end;
+       if ar2[int2].info.kind = refk_tag then begin
+        cl1:= cl_ltyellow;
        end
        else begin
-        if (remotename = currentremote) and 
-               (branchname = currentremotebranch) then begin
-         cl1:= cl_ltred;
+        cl1:= cl_ltgreen;
+        if remotename = '' then begin
+         if branchname = currentbranch then begin
+          cl1:= cl_ltred;
+         end;
+        end
+        else begin
+         if (remotename = currentremote) and 
+                (branchname = currentremotebranch) then begin
+          cl1:= cl_ltred;
+         end;
         end;
        end;
        if fformat = nil then begin
@@ -278,8 +283,7 @@ end;
 
 procedure tlogfo.tagexe(const sender: TObject);
 begin
- if ttagdialogfo.create(nil).exec(commit.value) then begin
- end;
+ ttagdialogfo.create(nil).exec(commit.value);
 end;
 
 procedure tlogfo.cherrypickexe(const sender: TObject);

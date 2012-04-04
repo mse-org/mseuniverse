@@ -1,37 +1,95 @@
 object tagdialogfo: ttagdialogfo
+  visible = False
   bounds_x = 337
   bounds_y = 266
-  bounds_cx = 320
+  bounds_cx = 326
   bounds_cy = 133
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    320
+    326
     133
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Create Tag'
+  onloaded = loadedexe
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
-    bounds_x = 208
+    taborder = 2
+    bounds_x = 209
     bounds_y = 104
-    bounds_cx = 50
+    bounds_cx = 49
     bounds_cy = 20
     anchors = [an_right, an_bottom]
     state = [as_localcaption]
     caption = '&OK'
     modalresult = mr_ok
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+    onupdate = updateexe
   end
   object tbutton2: tbutton
-    taborder = 1
-    bounds_x = 264
+    taborder = 3
+    bounds_x = 265
     bounds_y = 104
-    bounds_cx = 50
+    bounds_cx = 49
     bounds_cy = 20
     anchors = [an_right, an_bottom]
     state = [as_localcaption]
     caption = '&Cancel'
     modalresult = mr_cancel
+  end
+  object nameed: tstringedit
+    frame.caption = 'Name'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      37
+      0
+    )
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 281
+    anchors = [an_left, an_top, an_right]
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object messageed: tmemoedit
+    frame.caption = 'Message'
+    frame.localprops = [frl_colorclient]
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 31
+    bounds_cx = 308
+    bounds_cy = 66
+    anchors = [an_left, an_top, an_right, an_bottom]
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object commitdisp: tstringdisp
+    frame.dummy = 0
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 105
+    bounds_cx = 196
+    bounds_cy = 18
+    anchors = [an_left, an_right, an_bottom]
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'tagdialogfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 56
+    top = 64
   end
 end

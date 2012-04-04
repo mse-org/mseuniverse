@@ -122,10 +122,12 @@ type
  pgitfileitematy = ^gitfileitematy;
 
  addfilecallbackeventty = procedure(var afile: gitfileinfoty) of object;
-
+ 
+ refskindty = (refk_none,refk_localbranch,refk_remotebranch,refk_tag);
  refsinfoty = record
   name: msestring;
   commit: msestring;
+  kind: refskindty;
  end;
 
  localbranchinfoty = record
@@ -169,7 +171,8 @@ type
  prefinfoarty = ^refinfoarty;
 
  tagsinfoty = record
-  name: msestring;
+  ref: refsinfoty;
+//  name: msestring;
   info: refinfoty;
  end; 
  ptagsinfoty = ^tagsinfoty;
@@ -936,6 +939,7 @@ begin
     with adest[destindex] do begin
      setlength(branches,high(branches)+2);
      with branches[high(branches)].info do begin
+      kind:= refk_remotebranch;
       name:= psubstr(po2,po1);
       mseskipspace(po1);
       if po1 >= pend then begin
@@ -1010,8 +1014,10 @@ begin
    setlength(adest,high(ar1)); //there is an empty last line
    for int1:= 0 to high(adest) do begin
     with adest[int1] do begin
-     name:= ar1[int1];
-     getrefinfo('refs/tags/'+name,adest[int1].info);
+     ref.kind:= refk_tag;
+     ref.name:= ar1[int1];
+     getrefinfo('refs/tags/'+ref.name,info);
+     ref.commit:= info.commit;
     end;
    end;
   end;
@@ -1045,6 +1051,7 @@ begin
     with adest[int1] do begin
      po1:= pmsechar(pointer(ar1[int1]))+2;
      info.name:= nextword(po1);
+     info.kind:= refk_localbranch;
      if (info.name <> '') and (info.name[1] = '(') then begin
       po2:= po1;
       po1:= msestrscan(po1,')');

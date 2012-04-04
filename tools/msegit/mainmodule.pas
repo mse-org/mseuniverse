@@ -388,6 +388,7 @@ type
    property mergehead: msestring read fmergehead;
    property mergemessage: msestring read fmergemessage;
    
+   function createtag(const atag,amessage,acommit: msestring): boolean;
    function deletetag(const aremote: msestring;
                                       const atag: msestring): boolean;
    function renamebranch(const aremote: msestring; const oldname: msestring;
@@ -1730,10 +1731,27 @@ function tmainmo.deletebranch(const aremote: msestring;
                const abranch: msestring): boolean;
 begin
  if aremote = '' then begin
-  result:= execgitconsole('branch -d '+abranch);
+  result:= execgitconsole('branch -d '+fgit.encodestringparam(abranch));
  end
  else begin
-  result:= execgitconsole('push '+aremote+' :refs/heads/'+abranch);
+  result:= execgitconsole('push '+aremote+' '+
+          fgit.encodestringparam(':refs/heads/'+abranch));
+ end;
+ if result then begin
+  delayedrefresh;
+ end;
+end;
+
+function tmainmo.createtag(const atag,amessage,acommit: msestring): boolean;
+begin
+ if amessage <> '' then begin
+  result:= execgitconsole('tag -a -m '+fgit.encodestringparam(amessage)+' '+
+                                fgit.encodestringparam(atag)+' '+
+                                  fgit.encodestringparam(acommit));
+ end
+ else begin
+  result:= execgitconsole('tag '+fgit.encodestringparam(atag)+' '+
+                  fgit.encodestringparam(acommit));
  end;
  if result then begin
   delayedrefresh;
@@ -1744,10 +1762,11 @@ function tmainmo.deletetag(const aremote: msestring;
                const atag: msestring): boolean;
 begin
  if aremote = '' then begin
-  result:= execgitconsole('tag -d '+atag);
+  result:= execgitconsole('tag -d '+fgit.encodestringparam(atag));
  end
  else begin
-  result:= execgitconsole('push '+aremote+' :refs/tags/'+atag);
+  result:= execgitconsole('push '+aremote+' '+
+                          fgit.encodestringparam(':refs/tags/'+atag));
  end;
  if result then begin
   delayedrefresh;
@@ -2587,31 +2606,34 @@ begin
  if mainmo.git.tagsshow(ar1) then begin
   for int1:= high(ar1) downto 0 do begin
    n1:= self;
-   with ar1[int1],info do begin
-    ar2:= splitstring(name,'/');
-    for int2:= 0 to high(ar2)-1 do begin
-     if not n1.finditembycaption(ar2[int2],ttreelistitem(n1)) then begin
-      n1:= n1.add(ttreelistedititem);
-      n1.caption:= ar2[int2];
-      n1.top:= true;
+   with ar1[int1] do begin
+    mainmo.frefsinfo.add('',ref);
+    with info do begin
+     ar2:= splitstring(ref.name,'/');
+     for int2:= 0 to high(ar2)-1 do begin
+      if not n1.finditembycaption(ar2[int2],ttreelistitem(n1)) then begin
+       n1:= n1.add(ttreelistedititem);
+       n1.caption:= ar2[int2];
+       n1.top:= true;
+      end;
      end;
-    end;
-    n2:= tgittagstreenode(n1.add(tgittagstreenode));
-    if ar2 <> nil then begin
-     n2.caption:= ar2[high(ar2)];
-    end;
-    n2.fcommit:= commit;
-    n2.fcommitter:= committer;
-    n2.fcommitdate:= commitdate;
-    if message <> '' then begin
-     n2.fmessage:= message;
-     {
-     po1:= pointer(message);
-     while (po1^ <> c_linefeed) and (po1^ <> #0) do begin
-      inc(po1);
+     n2:= tgittagstreenode(n1.add(tgittagstreenode));
+     if ar2 <> nil then begin
+      n2.caption:= ar2[high(ar2)];
      end;
-     n2.fmessageheader:= psubstr(pmsechar(pointer(message)),po1);
-     }
+     n2.fcommit:= commit;
+     n2.fcommitter:= committer;
+     n2.fcommitdate:= commitdate;
+     if message <> '' then begin
+      n2.fmessage:= message;
+      {
+      po1:= pointer(message);
+      while (po1^ <> c_linefeed) and (po1^ <> #0) do begin
+       inc(po1);
+      end;
+      n2.fmessageheader:= psubstr(pmsechar(pointer(message)),po1);
+      }
+     end;
     end;
    end;
   end;
