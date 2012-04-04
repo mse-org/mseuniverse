@@ -108,6 +108,7 @@ var
  mstr1: msestring;
  currentbranch,currentremote,currentremotebranch: msestring;
  first: boolean;
+ lastvisrow: integer; 
 begin
  mstr1:= mainmo.repostat.activelogcommit;
  if (mstr1 <> '') and mainmo.git.revlist(ar1,mstr1,fpath,
@@ -115,6 +116,7 @@ begin
   if skip = 0 then begin
    diffbase.checkedrow:= -1;
   end;
+  lastvisrow:= grid.lastvisiblerow;
   grid.beginupdate;
   currentbranch:= mainmo.activebranch;
   currentremote:= mainmo.activeremote;
@@ -188,6 +190,9 @@ begin
   end;
   grid.rowdatachanged;
   grid.endupdate;
+  if skip > 0 then begin
+   grid.showrow(lastvisrow);
+  end;
   if diffbase.checkedrow >= 0 then begin
    mainfo.diffchanged;
   end;

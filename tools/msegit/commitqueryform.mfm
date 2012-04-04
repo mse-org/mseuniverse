@@ -146,7 +146,7 @@ object commitqueryfo: tcommitqueryfo
       bounds_x = 376
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 183
+      bounds_cy = 258
       anchors = [an_left, an_top, an_bottom]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = tsimplewidget2
