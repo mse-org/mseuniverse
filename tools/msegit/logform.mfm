@@ -225,10 +225,13 @@ inherited logfo: tlogfo
   inherited repoclosedact: taction[2]
   end
   object tpopupmenu1: tpopupmenu[3]
-    menu.submenu.count = 3
+    menu.submenu.count = 4
     menu.submenu.items = <    
       item
         action = branchact
+      end    
+      item
+        action = tagact
       end    
       item
         action = checkoutact

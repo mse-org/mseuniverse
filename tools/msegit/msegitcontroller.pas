@@ -1317,6 +1317,39 @@ end;
 function tgitcontroller.revlist(out alist: refinfoarty; 
                const abranch: msestring; const apath: filenamety = '';
                const maxcount: integer = 0; const skip: integer = 0): boolean;
+
+var
+ mstr1: msestring;
+ str1: string;
+ 
+begin
+ alist:= nil;
+ str1:= 'rev-list --pretty=raw ';
+ if maxcount > 0 then begin
+  str1:= str1 + '--max-count='+inttostr(maxcount)+' ';
+ end;
+ if skip > 0 then begin
+  str1:= str1+'--skip='+inttostr(skip)+' ';
+ end;
+ if abranch = '' then begin
+  str1:= str1 + 'HEAD ';
+ end
+ else begin
+  str1:= str1 + abranch + ' ';
+ end;
+ if apath <> '' then begin
+  str1:= str1 + '-- '+encodepathparam(apath,true);
+ end;
+ result:= commandresult1(str1,mstr1);
+ if result then begin
+  decodecommit(mstr1,nil,@alist);
+ end;
+end;
+
+(*
+function tgitcontroller.revlist(out alist: refinfoarty; 
+               const abranch: msestring; const apath: filenamety = '';
+               const maxcount: integer = 0; const skip: integer = 0): boolean;
                
  function recordkind(const start,stop: pmsechar): recordkindty;
  var
@@ -1451,6 +1484,7 @@ begin
   setlength(alist,int1);
  end;
 end;
+*)
 
 function tgitcontroller.stashlist(out adest: stashinfoarty): boolean;
 var
