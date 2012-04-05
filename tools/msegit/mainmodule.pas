@@ -1707,7 +1707,7 @@ begin
  else begin
   result:= execgitconsole('push '+aremote+' '+
    fgit.encodestringparam(aremote+'/'+oldname)+':'+
-             fgit.encodestringparam('refs/heads/'+newname)+
+             fgit.encodestringparam(branchref+newname)+
                   ' :'+fgit.encodestringparam(oldname));
   if result then begin
    for int2:= 0 to high(fremotesinfo) do begin
@@ -1738,7 +1738,7 @@ begin
  end
  else begin
   result:= execgitconsole('push '+aremote+' '+
-          fgit.encodestringparam(':refs/heads/'+abranch));
+          fgit.encodestringparam(branchref+abranch));
  end;
  if result then begin
   delayedrefresh;
@@ -1769,7 +1769,7 @@ begin
  end
  else begin
   result:= execgitconsole('push '+aremote+' '+
-                          fgit.encodestringparam(':refs/tags/'+atag));
+                          fgit.encodestringparam(tagref+atag));
  end;
  if result then begin
   delayedrefresh;
@@ -1780,7 +1780,7 @@ function tmainmo.pushtag(const aremote: msestring;
                const atag: msestring): boolean;
 begin
  result:= execgitconsole('push '+aremote+' '+
-             fgit.encodestringparam('refs/tags/'+atag));
+             fgit.encodestringparam(tagref+atag));
 end;
 
 function tmainmo.createbranch(const aremote: msestring;
@@ -1788,11 +1788,13 @@ function tmainmo.createbranch(const aremote: msestring;
                const astartpoint: msestring): boolean;
 begin
  if aremote = '' then begin
-  result:= execgitconsole('branch '+fgit.encodestringparam(abranch)+' '+
-                 fgit.encodestringparam(astartpoint));
+  result:= execgitconsole('branch '+
+               fgit.encodestringparam(branchref+abranch)+' '+
+                                    fgit.encodestringparam(astartpoint));
  end
  else begin
-  result:= execgitconsole('push '+aremote+' '+activebranch+':'+abranch);
+  result:= execgitconsole('push '+aremote+' '+activebranch+':'+
+                                                  branchref+abranch);
  end;
  if result then begin
   delayedrefresh;

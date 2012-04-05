@@ -641,7 +641,7 @@ begin
                                           mainmo.activebranch+'"?') and
       mainmo.execgitconsole('merge '+
          mainmo.git.encodestringparam(
-                           'refs/heads/'+localbranch.value)) then begin
+                           branchref+localbranch.value)) then begin
   mainfo.reload;
  end;
 end;
@@ -794,8 +794,8 @@ begin
  if askyesno('Do you want to push branch '+pushbranchtext+'?') then begin
   with mainmo do begin
    if execgitconsole('push '+activeremote+' '+
-           mainmo.git.encodestringparam('refs/heads/'+activebranch+':'+
-             'refs/heads/'+activebranch)) then begin
+           mainmo.git.encodestringparam(branchref+activebranch+':'+
+             branchref+activebranch)) then begin
     mainmo.setbranchtracking(activebranch,activeremote,activebranch);
     reload;
     mainmo.linkremotebranch[activeremote,activebranch]:= true;

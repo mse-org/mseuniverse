@@ -21,6 +21,9 @@ uses
  msestrings,mseclasses,classes,msehash,mselistbrowser,msetypes,msedatanodes,msedate;
 const
  defaultgitcommand = 'git';
+ branchref = 'refs/heads/';
+ tagref = 'refs/tags/';
+ 
  
 type
  commitkindty = (ck_none,ck_stage,ck_unstage,ck_amend,ck_commit,ck_revert,
@@ -1016,7 +1019,7 @@ begin
     with adest[int1] do begin
      ref.kind:= refk_tag;
      ref.name:= ar1[int1];
-     getrefinfo('refs/tags/'+ref.name,info);
+     getrefinfo(tagref+ref.name,info);
      ref.commit:= info.commit;
     end;
    end;
