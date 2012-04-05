@@ -391,6 +391,9 @@ type
    function createtag(const atag,amessage,acommit: msestring): boolean;
    function deletetag(const aremote: msestring;
                                       const atag: msestring): boolean;
+                  //aremote = '' -> local
+   function pushtag(const aremote: msestring;
+                                      const atag: msestring): boolean;
    function renamebranch(const aremote: msestring; const oldname: msestring;
                  const newname: msestring): boolean;
    function deletebranch(const aremote: msestring;
@@ -1771,6 +1774,13 @@ begin
  if result then begin
   delayedrefresh;
  end;
+end;
+
+function tmainmo.pushtag(const aremote: msestring;
+               const atag: msestring): boolean;
+begin
+ result:= execgitconsole('push '+aremote+' '+
+             fgit.encodestringparam('refs/tags/'+atag));
 end;
 
 function tmainmo.createbranch(const aremote: msestring;

@@ -21,6 +21,7 @@ type
    procedure messagecellevent(const sender: TObject; var info: celleventinfoty);
    procedure updateexe(const sender: tcustommenu);
    procedure deletetagexe(const sender: TObject);
+   procedure pushexe(const sender: TObject);
   private
    fexpandedsave: expandedinfoarty;
    ftagstreebefore: tgittagstreenode;  
@@ -108,8 +109,12 @@ begin
 end;
 
 procedure ttagsfo.updateexe(const sender: tcustommenu);
+var
+ bo1: boolean;
 begin
- sender.menu.itembyname('delete').enabled:= treeed.item is tgittagstreenode;                    
+ bo1:= treeed.item is tgittagstreenode;
+ sender.menu.itembyname('delete').enabled:= bo1;
+ sender.menu.itembyname('push').enabled:= bo1 and (mainmo.activeremote <> '');
 end;
 
 procedure ttagsfo.deletetagexe(const sender: TObject);
@@ -120,6 +125,17 @@ begin
  if askyesno('Do you want to delete the tag "'+
             mstr1+'"?') then begin
   mainmo.deletetag('',mstr1);
+ end;
+end;
+
+procedure ttagsfo.pushexe(const sender: TObject);
+var
+ mstr1: msestring;
+begin
+ mstr1:= tgittagstreenode(treeed.item).tagref;
+ if askyesno('Do you want to push the tag "'+
+            mstr1+'" to '+mainmo.activeremote+'?') then begin
+  mainmo.pushtag(mainmo.activeremote,mstr1);
  end;
 end;
 

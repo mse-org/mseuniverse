@@ -640,8 +640,9 @@ begin
  if askyesno('Do you want to merge "'+localbranch.value+'" to "'+
                                           mainmo.activebranch+'"?') and
       mainmo.execgitconsole('merge '+
-         mainmo.git.encodestringparam(localbranch.value)) then begin
-   mainfo.reload;
+         mainmo.git.encodestringparam(
+                           'refs/heads/'+localbranch.value)) then begin
+  mainfo.reload;
  end;
 end;
 
@@ -793,7 +794,8 @@ begin
  if askyesno('Do you want to push branch '+pushbranchtext+'?') then begin
   with mainmo do begin
    if execgitconsole('push '+activeremote+' '+
-                                    activebranch+':'+activebranch) then begin
+           mainmo.git.encodestringparam('refs/heads/'+activebranch+':'+
+             'refs/heads/'+activebranch)) then begin
     mainmo.setbranchtracking(activebranch,activeremote,activebranch);
     reload;
     mainmo.linkremotebranch[activeremote,activebranch]:= true;

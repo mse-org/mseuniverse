@@ -155,13 +155,19 @@ inherited tagsfo: ttagsfo
   end
   object tpopupmenu1: tpopupmenu[3]
     onupdate = updateexe
-    menu.submenu.count = 1
+    menu.submenu.count = 2
     menu.submenu.items = <    
       item
         caption = 'Delete Tag'
         name = 'delete'
         state = [as_localcaption, as_localonexecute]
         onexecute = deletetagexe
+      end    
+      item
+        caption = 'Push Tag'
+        name = 'push'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = pushexe
       end>
     left = 184
     top = 88
