@@ -311,6 +311,7 @@ type
                            const afilename: filenamety): filenamety;
                     //returns path relative to reporoot
    function getfiles(const apath: filenamety): msegitfileitemarty;
+   function commithint(const acommit: msestring): msestring;
    
    function checkoutbranch(const aname: msestring): boolean;
    function checkout(const atreeish: msestring;
@@ -490,7 +491,7 @@ const
 
 function checkname(const aname: msestring): boolean;
 begin
- result:= trim(aname) <> '';
+ result:= (trim(aname) <> '') and mainmo.git.checkrefformat(aname);
  if not result then begin
   showmessage('Invalid name "'+aname+'".','***ERROR***');
  end;
@@ -2242,6 +2243,19 @@ end;
 procedure tmainmo.optionsafterread(const sender: TObject);
 begin
  git.resetversioncheck;
+end;
+
+function tmainmo.commithint(const acommit: msestring): msestring;
+var
+ info: refinfoty;
+begin
+ result:= acommit;
+ if fgit.getrefinfo(acommit,info) then begin
+  with info do begin
+   result:= commit + lineend + firstline(message) + lineend + 
+   datetimetostring(commitdate)+' '+committer;
+  end;
+ end;
 end;
 
 { tmsegitfileitem }

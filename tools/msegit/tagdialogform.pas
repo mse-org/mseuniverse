@@ -16,6 +16,8 @@ type
    commitdisp: tstringdisp;
    procedure loadedexe(const sender: TObject);
    procedure updateexe(const sender: tcustombutton);
+   procedure namesetvalue(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
   public
    function exec(const acommit: msestring): boolean;
  end;
@@ -48,6 +50,12 @@ end;
 procedure ttagdialogfo.updateexe(const sender: tcustombutton);
 begin
  sender.enabled:= nameed.value <> '';
+end;
+
+procedure ttagdialogfo.namesetvalue(const sender: TObject;
+               var avalue: msestring; var accept: Boolean);
+begin
+ accept:= checkname(avalue);
 end;
 
 end.

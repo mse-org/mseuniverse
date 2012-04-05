@@ -221,6 +221,7 @@ type
   public
    constructor create(aowner: tcomponent); override;
    procedure resetversioncheck;
+   function checkrefformat(const aref: msestring): boolean;
    function encodegitcommand(const acommand: string): string;
    function encodestring(const avalue: msestring): string;
    function encodestringparam(const avalue: msestring): string;
@@ -1564,6 +1565,11 @@ procedure tgitcontroller.resetversioncheck;
 begin
  fversionchecked:= false;
  fcanvarset:= false;
+end;
+
+function tgitcontroller.checkrefformat(const aref: msestring): boolean;
+begin
+ result:= execcommand('check-ref-format '+encodestringparam('refs/'+aref));
 end;
 
 {

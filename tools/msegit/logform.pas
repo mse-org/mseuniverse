@@ -79,7 +79,7 @@ type
   public
    procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
    function currentcommit: msestring;
-   function currentcommithint: msestring;
+//   function currentcommithint: msestring;
  end;
 
 var
@@ -318,7 +318,7 @@ begin
   result:= commit.value;
  end;
 end;
-
+{
 function tlogfo.currentcommithint: msestring;
 begin
  if not isvisible or (grid.row < 0) then begin
@@ -328,7 +328,7 @@ begin
   result:= commit.value + lineend + firstline(message.item.caption);
  end;
 end;
-
+}
 procedure tlogfo.createmessageitemexe(const sender: tcustomitemlist;
                var item: tlistedititem);
 begin

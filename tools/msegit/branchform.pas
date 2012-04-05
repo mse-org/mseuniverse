@@ -233,8 +233,8 @@ begin
  accept:= checkname(avalue);
  if accept then begin
   if localbranch.value = '' then begin
-   accept:= askyesno('Do you want to create branch '+avalue+' from '+
-                  logfo.currentcommithint+'?');
+   accept:= askyesno('Do you want to create branch '+avalue+' from '+lineend+
+                  mainmo.commithint(localbranchcommit.value)+'?');
    if accept then begin
     accept:= mainmo.createbranch('',avalue,logfo.currentcommit);
     if accept then begin
@@ -266,8 +266,8 @@ begin
  if accept then begin
   mstr1:= currentremote;
   if remotebranch.value = '' then begin
-   accept:= askyesno('Do you want to create remote branch '+mstr1+' '+
-                                                                avalue+'?');
+   accept:= askyesno('Do you want to create remote branch '+
+   mstr1+'/'+avalue+' from '+ mainmo.activebranch+'?');
    if accept then begin
     accept:= mainmo.createbranch(mstr1,avalue,'');
    end;

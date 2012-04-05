@@ -56,6 +56,8 @@ object tagdialogfo: ttagdialogfo
     bounds_cx = 281
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+    onsetvalue = namesetvalue
     reffontheight = 14
   end
   object messageed: tmemoedit
@@ -74,6 +76,7 @@ object tagdialogfo: ttagdialogfo
     bounds_cy = 66
     anchors = [an_left, an_top, an_right, an_bottom]
     statfile = tstatfile1
+    optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
     reffontheight = 14
   end
   object commitdisp: tstringdisp
