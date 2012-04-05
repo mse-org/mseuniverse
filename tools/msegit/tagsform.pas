@@ -22,6 +22,7 @@ type
    procedure updateexe(const sender: tcustommenu);
    procedure deletetagexe(const sender: TObject);
    procedure pushexe(const sender: TObject);
+   procedure branchexe(const sender: TObject);
   private
    fexpandedsave: expandedinfoarty;
    ftagstreebefore: tgittagstreenode;  
@@ -35,9 +36,10 @@ type
  
 var
  tagsfo: ttagsfo;
+ 
 implementation
 uses
- tagsform_mfm,sysutils,main,msegridsglob,msewidgets;
+ tagsform_mfm,sysutils,main,msegridsglob,msewidgets,branchform;
  
 { ttagsfo }
 
@@ -115,6 +117,7 @@ begin
  bo1:= treeed.item is tgittagstreenode;
  sender.menu.itembyname('delete').enabled:= bo1;
  sender.menu.itembyname('push').enabled:= bo1 and (mainmo.activeremote <> '');
+ sender.menu.itembyname('branch').enabled:= bo1;
 end;
 
 procedure ttagsfo.deletetagexe(const sender: TObject);
@@ -137,6 +140,11 @@ begin
             mstr1+'" to '+mainmo.activeremote+'?') then begin
   mainmo.pushtag(mainmo.activeremote,mstr1);
  end;
+end;
+
+procedure ttagsfo.branchexe(const sender: TObject);
+begin
+ branchfo.createbranch(commited.value);
 end;
 
 end.

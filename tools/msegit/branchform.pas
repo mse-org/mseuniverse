@@ -113,6 +113,7 @@ type
    procedure dorefresh; override;
    procedure setactivelocallog(const abranch: msestring);
    procedure setactiveremotelog(const aremote,abranch: msestring);
+   procedure createbranch(const acommit: msestring);
  end;
  
 var
@@ -814,6 +815,14 @@ begin
   enabled:= (mainmo.activeremote <> '') and 
         (mainmo.findremotebranch(mainmo.activeremote,mainmo.activebranch) = nil);
  end;
+end;
+
+procedure tbranchfo.createbranch(const acommit: msestring);
+begin
+ localcreateexe(nil);
+ localgrid.focuscell(mgc(1,localgrid.rowhigh));
+ localbranchcommit.value:= acommit;
+ localgrid.activate;
 end;
 
 end.

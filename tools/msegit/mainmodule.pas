@@ -1789,7 +1789,7 @@ function tmainmo.createbranch(const aremote: msestring;
 begin
  if aremote = '' then begin
   result:= execgitconsole('branch '+
-               fgit.encodestringparam(branchref+abranch)+' '+
+               fgit.encodestringparam(abranch)+' '+
                                     fgit.encodestringparam(astartpoint));
  end
  else begin

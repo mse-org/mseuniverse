@@ -278,12 +278,7 @@ end;
 
 procedure tlogfo.branchexe(const sender: TObject);
 begin
- with branchfo do begin 
-  localcreateexe(nil);
-  localgrid.focuscell(mgc(1,localgrid.rowhigh));
-  localbranchcommit.value:= self.commit.value;
-  localgrid.activate;
- end;
+ branchfo.createbranch(self.commit.value);
 end;
 
 procedure tlogfo.tagexe(const sender: TObject);
