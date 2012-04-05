@@ -262,7 +262,7 @@ type
                 const aindex: msestring): boolean; overload;
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: localbranchinfoarty;
-                           out activebranch: msestring): boolean;
+                       out activebranch,activecommit: msestring): boolean;
    function tagsshow(out adest: tagsinfoarty): boolean;
    function stashlist(out adest: stashinfoarty): boolean;
    function diff(const commits: msestringarty; const afile: filenamety;
@@ -1029,7 +1029,7 @@ begin
 end;
 
 function tgitcontroller.branchshow(out adest: localbranchinfoarty;
-                           out activebranch: msestring): boolean;
+                           out activebranch,activecommit: msestring): boolean;
 var
  mstr1: msestring;
  ar1: msestringarty;
@@ -1038,6 +1038,7 @@ var
 begin
  adest:= nil;
  activebranch:= '';
+ activecommit:= '';
  result:= commandresult1('branch -vv --no-abbrev',mstr1); 
  if result then begin
   ar1:= breaklines(mstr1);
@@ -1065,11 +1066,12 @@ begin
       info.name:= info.name+psubstr(po2,po1);
       nobranch:= true;
      end;
+     info.commit:= nextword(po1);
      if ar1[int1][1] = '*' then begin
       active:= true;
       activebranch:= info.name;
+      activecommit:= info.commit;
      end;
-     info.commit:= nextword(po1);
      po1:= msestrscan(po1,'[');
      if po1 <> nil then begin
       inc(po1);

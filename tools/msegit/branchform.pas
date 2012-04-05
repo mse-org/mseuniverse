@@ -548,6 +548,9 @@ procedure tbranchfo.remotecreateexe(const sender: TObject);
 begin
  remotegrid.appinsrow(remotegrid.row+1);
  remotegrid.col:= 1;
+ remotebranch.value:= mainmo.activebranch;
+ remotebranchcommit.value:= mainmo.activecommit;
+ remotebranch.edited:= true; //trigger checkvalue
 // remotegrid.insertrow(remotegrid.row+1,1);
 // remotegrid.row:= remotegrid.row+1;
 end;
@@ -786,21 +789,26 @@ end;
 
 function pushbranchtext: msestring;
 begin
- result:= mainmo.activebranch+' to '+mainmo.activeremote+'/'+
-                 mainmo.activebranch;
+ result:= branchfo.localbranch.value + ' to '+mainmo.activeremote;
+// result:= mainmo.activebranch+' to '+mainmo.activeremote+'/'+
+//                 mainmo.activebranch;
 end;
 
 procedure tbranchfo.pushbranchexe(const sender: TObject);
+var
+ bra,braref: msestring;
 begin
  if askyesno('Do you want to push branch '+pushbranchtext+'?') then begin
   with mainmo do begin
+   bra:= localbranch.value;
+   braref:= branchref+bra;
    if execgitconsole('push '+activeremote+' '+
-           mainmo.git.encodestringparam(branchref+activebranch+':'+
-             branchref+activebranch)) then begin
-    mainmo.setbranchtracking(activebranch,activeremote,activebranch);
+           mainmo.git.encodestringparam(braref+':'+
+             braref)) then begin
+    mainmo.setbranchtracking(bra,activeremote,bra);
     reload;
-    mainmo.linkremotebranch[activeremote,activebranch]:= true;
-    mainmo.activeremotebranch[activeremote]:= activebranch;
+    mainmo.linkremotebranch[activeremote,bra]:= true;
+//    mainmo.activeremotebranch[activeremote]:= activebranch;
     self.reload;
     mainfo.updatestate;
    end;
@@ -812,8 +820,10 @@ procedure tbranchfo.localpopupupdateexe(const sender: tcustommenu);
 begin
  with sender.menu.itembyname('pushbranch') do begin
   caption:= 'Push branch ' + pushbranchtext;
-  enabled:= (mainmo.activeremote <> '') and 
-        (mainmo.findremotebranch(mainmo.activeremote,mainmo.activebranch) = nil);
+  enabled:= (localbranch.value <> '') and 
+        (mainmo.findremotebranch(mainmo.activeremote,localbranch.value) = nil);
+//  enabled:= (mainmo.activeremote <> '') and 
+//        (mainmo.findremotebranch(mainmo.activeremote,mainmo.activebranch) = nil);
  end;
 end;
 

@@ -256,6 +256,7 @@ type
    frebasing: boolean;
    fbranches: localbranchinfoarty;
    factivebranch: msestring;
+   factivecommit: msestring;
    fhasremote: boolean;
    frefreshpending: boolean;
    fstashes: stashinfoarty;
@@ -426,6 +427,7 @@ type
    property tagstree: tgittagstreerootnode read ftagstree;
    property stashes: stashinfoarty read fstashes;
    property activebranch: msestring read factivebranch;
+   property activecommit: msestring read factivecommit;
    property branches: localbranchinfoarty read fbranches;
    property remotesinfo: remoteinfoarty read fremotesinfo;
    property activeremote: msestring read factiveremote write setactiveremote;
@@ -678,6 +680,7 @@ begin
  fmergehead:= '';
  fmergemessage:= '';
  factivebranch:= '';
+ factivecommit:= '';
  fdirtree.clear;
  ftagstree.clear;
  ffilecache.clear;
@@ -773,7 +776,7 @@ begin
    frepo:= filepath(avalue,fk_dir);
    frepobase:= copy(frepo,(length(freporoot)+1),bigint);
    fgit.remoteshow(fremotesinfo);
-   fgit.branchshow(fbranches,factivebranch);
+   fgit.branchshow(fbranches,factivebranch,factivecommit);
    int2:= 0;
    repostatf.readstat;
    for int1:= 0 to high(frepostat.flocalbranchorder) do begin
@@ -1252,7 +1255,7 @@ begin
   end;
   result:= execgitconsole(str1+fgit.encodepathparams(afiles,true));
   if result then begin   
-   fgit.branchshow(fbranches,factivebranch);
+   fgit.branchshow(fbranches,factivebranch,factivecommit);
    updateoperation(akind,afiles);
   end;
  end;
@@ -1739,7 +1742,7 @@ begin
  end
  else begin
   result:= execgitconsole('push '+aremote+' '+
-          fgit.encodestringparam(branchref+abranch));
+          fgit.encodestringparam(':'+branchref+abranch));
  end;
  if result then begin
   delayedrefresh;
