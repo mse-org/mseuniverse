@@ -937,7 +937,7 @@ begin
     end;
     inc(po2);        //'remotes/<remote>/'
     po1:= msestrscan(po2,' '); //'<branch>'
-    if po1 = nil then begin
+    if (po1 = nil) or (destindex < 0) then begin
      goto nextline;
     end;
     with adest[destindex] do begin
