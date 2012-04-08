@@ -73,7 +73,7 @@ const
 
 constructor tdifffo.create(aowner: tcomponent);
 begin
- inherited;
+ inherited create(aowner);
  tabs.add(itabpage(tdifftabfo.create(nil)));
 end;
 
@@ -204,7 +204,7 @@ begin
     if int2 >= 0 then begin   
      additem(ar2,copy(ar1,int2,int1-int2));
     end;
-    splitstringquoted(ar1[int1],ar3,'"',' ');
+    splitstringquoted(ar1[int1],ar3,msechar('"'),msechar(' '));
     additem(hints,msestring(copy(ar3[high(ar3)],int3,bigint)));
     additem(captions,filename(hints[high(hints)]));
     int2:= int1;

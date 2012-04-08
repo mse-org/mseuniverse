@@ -69,12 +69,12 @@ type
    function first: pgitstateinfoty;
    function next: pgitstateinfoty;
    procedure iterate(const include: array of gitstatedataty;
-                                      const aiterator: gitstateiteratorprocty);
+                   const aiterator: gitstateiteratorprocty); overload;
    procedure iterate(const adir: msestring;
                             const include: array of gitstatedataty;
-                            const aiterator: gitstateiteratorprocty);
+                  const aiterator: gitstateiteratorprocty); overload;
    procedure iterate(const adir: msestring;
-                               const include: array of gitstatedataty);
+                  const include: array of gitstatedataty); overload;
    property reporoot: filenamety read freporoot write freporoot;
  end;
 
@@ -110,7 +110,7 @@ type
   protected
    fgitstate: gitstatedataty;
   public
-   constructor create; virtual; overload;
+   constructor create; overload; virtual;
    constructor create(const aitem: gitstateinfoty;
                                const pathstart: integer); overload;
    procedure assign(const source: tlistitem); overload; override;
@@ -619,7 +619,7 @@ function tgitcontroller.status(const apath: filenamety;
 begin
  fstatear:= nil;
  fvaluecount:= 0;
- result:= status1(@arraycallback,apath,aorigin);
+ result:= status1({$ifdef FPC}@{$endif}arraycallback,apath,aorigin);
  setlength(fstatear,fvaluecount);
  astatus:= fstatear;
  fstatear:= nil;
@@ -651,7 +651,7 @@ function tgitcontroller.status(const apath: filenamety;
 begin
  fstatecache:= tgitstatecache.create;
  ffilecache:= afiles;
- result:= status1(@cachecallback,apath,aorigin);
+ result:= status1({$ifdef FPC}@{$endif}cachecallback,apath,aorigin);
  if not result then begin
   fstatecache.clear;
  end;
@@ -803,7 +803,11 @@ var
  n1: tgitfileitem;
 begin
  n1:= ffileitemclass.create;
+{$ifdef FPC}
  additem(pointerarty(ffilear),pointer(n1),fvaluecount);
+{$else}
+ addpointeritem(pointerarty(ffilear),pointer(n1),fvaluecount);
+{$endif}
  with ainfo do begin
   n1.fcaption:= copy(data.stateinfo.filename,fdirlen,bigint);
   n1.fgitstate:= data.stateinfo.data;
@@ -821,7 +825,7 @@ begin
  ffilear:= nil;
  ffileitemclass:= aitemclass;
  result:= lsfiles1(apath,excludetracked,includeuntracked,includeignored,
-                                      false,astate,@filearraycallback);
+                   false,astate,{$ifdef FPC}@{$endif}filearraycallback);
  setlength(ffilear,fvaluecount);
  afiles:= ffilear;
  ffilear:= nil;
@@ -841,7 +845,7 @@ function tgitcontroller.lsfiles(const apath: filenamety;
 begin
  ffilecache:= adest;
  result:= lsfiles1(apath,excludetracked,includeuntracked,includeignored,
-                                         arecursive,astate,@filecachecallback);
+                  arecursive,astate,{$ifdef FPC}@{$endif}filecachecallback);
 end;
 
 function tgitcontroller.cat(const source: filenamety; const dest: filenamety;
@@ -855,7 +859,7 @@ begin
 end;
 
 function tgitcontroller.cat(const dest: filenamety;
-                                    const aindex: msestring): boolean; overload;
+                 const aindex: msestring): boolean;
 var
  mstr1: msestring;
 begin
@@ -919,7 +923,7 @@ begin
    if po1 >= pend then begin
     goto parseerror;
    end;
-   po2:= msestrscan(po1,'/');
+   po2:= msestrscan(po1,msechar('/'));
    po3:= msestrscan(po1,c_linefeed);
    if (po2 <> nil) and (po3 = nil) or (po3 > po2) then begin
     if not msestartsstr(pointer(remotename),po1) then begin //next repo
@@ -936,7 +940,7 @@ begin
      end;
     end;
     inc(po2);        //'remotes/<remote>/'
-    po1:= msestrscan(po2,' '); //'<branch>'
+    po1:= msestrscan(po2,msechar(' ')); //'<branch>'
     if (po1 = nil) or (destindex < 0) then begin
      goto nextline;
     end;
@@ -953,7 +957,7 @@ begin
        setlength(branches,high(branches));
       end
       else begin
-       po2:= msestrscan(po1,' '); //'<sha1>'
+       po2:= msestrscan(po1,msechar(' ')); //'<sha1>'
        if po2 >= pend then begin
         goto parseerror;
        end;
@@ -1059,7 +1063,7 @@ begin
      info.kind:= refk_localbranch;
      if (info.name <> '') and (info.name[1] = '(') then begin
       po2:= po1;
-      po1:= msestrscan(po1,')');
+      po1:= msestrscan(po1,msechar(')'));
       if po1 <> '' then begin
        inc(po1);
       end;
@@ -1072,16 +1076,16 @@ begin
       activebranch:= info.name;
       activecommit:= info.commit;
      end;
-     po1:= msestrscan(po1,'[');
+     po1:= msestrscan(po1,msechar('['));
      if po1 <> nil then begin
       inc(po1);
-      po2:= msestrscan(po1,':');
-      po3:= msestrscan(po1,']');
+      po2:= msestrscan(po1,msechar(':'));
+      po3:= msestrscan(po1,msechar(']'));
       if (po2 = nil) or (po3 < po2) then begin
        po2:= po3;
       end;
       if po2 <> nil then begin
-       po3:= msestrscan(po1,'/');
+       po3:= msestrscan(po1,msechar('/'));
        if po3 <> nil then begin
         trackremote:= stringsegment(po1,po3);
         po1:= po3+1;

@@ -66,7 +66,7 @@ var
  
 implementation
 uses
- filesform_mfm,dirtreeform,msegitcontroller,msewidgets,mseformatstr,
+ filesform_mfm,gitdirtreeform,msegitcontroller,msewidgets,mseformatstr,
  main,diffform;
  
 { tfilesfo }
@@ -103,7 +103,7 @@ end;
 
 procedure tfilesfo.commitexe(const sender: TObject);
 begin
- if mainmo.commit(tgitdirtreenode(dirtreefo.treeed.item), 
+ if mainmo.commit(tgitdirtreenode(gitdirtreefo.treeed.item), 
         msegitfileitemarty(filelist.fileitemed.selecteditems),false) then begin
   activate;
  end;
@@ -129,7 +129,7 @@ begin
  ar1:= msegitfileitemarty(filelist.fileitemed.selecteditems);
  if askyesno('Do you want to add '+inttostrmse(length(ar1))+ 
                         ' files?') then begin
-  if mainmo.add(tgitdirtreenode(dirtreefo.treeed.item),ar1) then begin
+  if mainmo.add(tgitdirtreenode(gitdirtreefo.treeed.item),ar1) then begin
    mainfo.reload;
   end;
  end;    
@@ -144,7 +144,7 @@ end;
 
 procedure tfilesfo.revertexe(const sender: TObject);
 begin
- if mainmo.revert(tgitdirtreenode(dirtreefo.treeed.item),
+ if mainmo.revert(tgitdirtreenode(gitdirtreefo.treeed.item),
              msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
   activate;
  end;
@@ -158,7 +158,7 @@ end;
 
 procedure tfilesfo.removeexe(const sender: TObject);
 begin
- if mainmo.remove(tgitdirtreenode(dirtreefo.treeed.item),
+ if mainmo.remove(tgitdirtreenode(gitdirtreefo.treeed.item),
              msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
   activate;
  end;
@@ -186,13 +186,13 @@ begin
  result:= '';
  n1:= currentitem;
  if n1 <> nil then begin
-  result:= mainmo.getpath(dirtreefo.currentitem,n1.caption);
+  result:= mainmo.getpath(gitdirtreefo.currentitem,n1.caption);
  end;
 end;
 
 procedure tfilesfo.gridenterexe(const sender: TObject);
 begin
- dirtreefo.grid.datacols.clearselection;
+ gitdirtreefo.grid.datacols.clearselection;
  mainfo.objchanged(true);
 end;
 

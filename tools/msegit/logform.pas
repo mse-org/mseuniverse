@@ -38,6 +38,8 @@ type
 //   constructor create(const aowner: tcustomitemlist); override;
  end;
  plogitem = ^tlogitem;
+ logitematy = array[0..0] of tlogitem;
+ plogitematy = ^logitematy;
  
  tlogfo = class(tdispfo)
    grid: twidgetgrid;
@@ -88,7 +90,7 @@ var
 implementation
 
 uses
- logform_mfm,msegitcontroller,main,dirtreeform,filesform,msewidgets,
+ logform_mfm,msegitcontroller,main,gitdirtreeform,filesform,msewidgets,
  mserichstring,branchform,mseeditglob,msegridsglob,tagdialogform;
 
 { tlogfo }
@@ -130,7 +132,7 @@ begin
   fm1:= setcolorbackground(nil,0,bigint,cl_transparent);
   for int1:= skip to high(ar1)+skip do begin
    with ar1[int1-skip] do begin
-    with po1[int1] do begin
+    with plogitematy(po1)^[int1] do begin
      fcaption:= removelinebreaks(message);
      fmessage:= message;
      fformat:= nil;
@@ -179,10 +181,10 @@ begin
       end;
      end;
     end;
-    po2[int1]:= commit;
-    po3[int1]:= commitdate;
-    po4[int1]:= committer;
-    po5[int1]:= int1;
+    pmsestringaty(po2)^[int1]:= commit;
+    pdatetimeaty(po3)^[int1]:= commitdate;
+    pmsestringaty(po4)^[int1]:= committer;
+    pintegeraty(po5)^[int1]:= int1;
    end;
   end;
   if (skip = 0) and (grid.rowcount > 0) then begin
@@ -215,7 +217,7 @@ procedure tlogfo.getmorerowsexe(const sender: tcustomgrid;
 var
  int1: integer;
 begin
- if mainmo.repoloaded then begin
+ if mainmo.isrepoloaded then begin
   int1:= count;
   if (grid.datacols.sortcol = commitdate.gridcol) and 
                   not (co_sortdescend in commitdate.widgetcol.options) then begin
@@ -260,7 +262,7 @@ procedure tlogfo.updateexe(const sender: tcustomaction);
 var
  bo1: boolean;
 begin
- bo1:= mainmo.repoloaded and (grid.row >= 0);
+ bo1:= mainmo.isrepoloaded and (grid.row >= 0);
  checkoutact.enabled:= bo1;
  branchact.enabled:= bo1;
  tagact.enabled:= bo1;
@@ -270,7 +272,7 @@ end;
 procedure tlogfo.checkoutexe(const sender: TObject);
 begin
  if askyesno('Do you want to checkout ' + commit.value+'?') and
-              mainmo.checkout(commit.value,dirtreefo.currentitem,
+              mainmo.checkout(commit.value,gitdirtreefo.currentitem,
                             filesfo.filelist.currentitems) then begin
   mainfo.reload;
  end;
@@ -384,7 +386,7 @@ begin
    end;
   end;
  end;
- if visible and mainmo.repoloaded then begin
+ if visible and mainmo.isrepoloaded then begin
   mainfo.diffchanged;
  end;
 end;

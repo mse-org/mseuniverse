@@ -53,7 +53,7 @@ var
 
 implementation
 uses
- gitconsole_mfm,mainmodule,msefileutils,main,dirtreeform;
+ gitconsole_mfm,mainmodule,msefileutils,main,gitdirtreeform;
 
 { tgitconsolefo }
 
@@ -103,7 +103,7 @@ begin
     end;     
     fna1:= filepath(fna1+copy(atext,po1-pmsechar(pointer(atext))+1,bigint),
                                                                  fk_dir,true);
-    if dirtreefo.setcurrentgitdir(fna1) then begin
+    if gitdirtreefo.setcurrentgitdir(fna1) then begin
      fpath:= fna1;
      mainfo.objchanged(true);
     end
@@ -147,7 +147,7 @@ procedure tgitconsolefo.init;
 begin
  if not mainfo.refreshing then begin
   clear;
-  if mainmo.repoloaded then begin
+  if mainmo.isrepoloaded then begin
    termed.addchars(prompt);
   end;
  end;
@@ -208,7 +208,7 @@ end;
 procedure tgitconsolefo.popupupdateexe(const sender: tcustommenu);
 
 begin
- sender.menu.submenu[0].enabled:= mainmo.repoloaded;
+ sender.menu.submenu[0].enabled:= mainmo.isrepoloaded;
 end;
 
 end.

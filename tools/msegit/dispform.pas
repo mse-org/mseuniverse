@@ -49,7 +49,7 @@ uses
  
 procedure tdispfo.showexe(const sender: TObject);
 begin
- if mainmo.repoloaded then begin
+ if mainmo.isrepoloaded then begin
   refresh;
  end;
 end;
@@ -83,7 +83,7 @@ end;
 
 procedure tdispfo.refresh;
 begin
- if isvisible and mainmo.repoloaded and not mainfo.refreshing then begin
+ if isvisible and mainmo.isrepoloaded and not mainfo.refreshing then begin
   finfovalid:= true;
   dorefresh;
  end

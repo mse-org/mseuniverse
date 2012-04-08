@@ -136,7 +136,7 @@ end;
 procedure trevertqueryfo.createexe(const sender: TObject);
 begin
  diff.iscommits:= true;
- filelist.oncheckall:= @checkallexe;
+ filelist.oncheckall:= {$ifdef FPC}@{$endif}checkallexe;
 end;
 
 procedure trevertqueryfo.difftiexe(const sender: TObject);

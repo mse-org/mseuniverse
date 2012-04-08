@@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit dirtreeform;
+unit gitdirtreeform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
@@ -24,7 +24,7 @@ uses
  msedatanodes,mselistbrowser,mseact,mseactions,msebitmap,mainmodule;
 
 type
- tdirtreefo = class(tdockform)
+ tgitdirtreefo = class(tdockform)
    grid: twidgetgrid;
    treeed: ttreeitemedit;
    repoloadedact: taction;
@@ -67,14 +67,14 @@ type
  end;
 
 var
- dirtreefo: tdirtreefo;
+ gitdirtreefo: tgitdirtreefo;
 
 implementation
 uses
- dirtreeform_mfm,filesform,gitconsole,msewidgets,mseformatstr,
+ gitdirtreeform_mfm,filesform,gitconsole,msewidgets,mseformatstr,
  main,mseeditglob,msearrayutils,sysutils;
  
-procedure tdirtreefo.loadedexe(const sender: TObject);
+procedure tgitdirtreefo.loadedexe(const sender: TObject);
 begin
  mainmo.dirtree.expanded:= true;
  if mainfo.refreshing then begin
@@ -88,14 +88,14 @@ begin
 // treeedit.itemlist.assign(mainmo.dirtree,false);
 end;
 
-procedure tdirtreefo.closedexe(const sender: TObject);
+procedure tgitdirtreefo.closedexe(const sender: TObject);
 begin
  if not mainfo.refreshing then begin
   treeed.itemlist.clear;
  end;
 end;
 
-function tdirtreefo.syncfilesfo(const refreshlog: boolean): filenamety;
+function tgitdirtreefo.syncfilesfo(const refreshlog: boolean): filenamety;
 begin
  result:= tgitdirtreenode(treeed.item).gitpath;
  if not application.terminated then begin
@@ -103,7 +103,7 @@ begin
  end;
 end;
 
-procedure tdirtreefo.celleventexe(const sender: TObject;
+procedure tgitdirtreefo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 var
  fna1: filenamety;
@@ -115,7 +115,7 @@ begin
  end;
 end;
 
-procedure tdirtreefo.savestate;
+procedure tgitdirtreefo.savestate;
 begin
  grid.beginupdate;
  fexpandedsave:= treeed.itemlist.expandedstate;
@@ -124,7 +124,7 @@ begin
  mainmo.releasedirtree;
 end;
 
-procedure tdirtreefo.restorestate;
+procedure tgitdirtreefo.restorestate;
 begin
  freeandnil(fdirtreebefore);
  grid.endupdate;
@@ -137,21 +137,21 @@ begin
  setcurrentgitdir(fdirbefore);
 end;
 
-procedure tdirtreefo.commitupdataexe(const sender: tcustomaction);
+procedure tgitdirtreefo.commitupdataexe(const sender: tcustomaction);
 begin
  sender.enabled:= treeed.selecteditems <> nil;
 // sender.enabled:= mainmo.cancommit(
 //                                gitdirtreenodearty(treeed.selecteditems));
 end;
 
-procedure tdirtreefo.commitexe(const sender: TObject);
+procedure tgitdirtreefo.commitexe(const sender: TObject);
 begin
  if mainmo.commit(gitdirtreenodearty(treeed.selecteditems),false) then begin
   activate;
  end;
 end;
 
-procedure tdirtreefo.commitstagedexe(const sender: TObject);
+procedure tgitdirtreefo.commitstagedexe(const sender: TObject);
 begin
  grid.datacols.clearselection;
  grid.datacols.rowselected[grid.row]:= true;
@@ -161,7 +161,7 @@ begin
 end;
 
 
-function tdirtreefo.currentgitdir: filenamety;
+function tgitdirtreefo.currentgitdir: filenamety;
 begin
  result:= '';
  if treeed.item <> nil then begin
@@ -169,12 +169,12 @@ begin
  end;
 end;
 
-procedure tdirtreefo.refreshedexe(const sender: TObject);
+procedure tgitdirtreefo.refreshedexe(const sender: TObject);
 begin
  syncfilesfo(true);
 end;
 
-procedure tdirtreefo.addexe(const sender: TObject);
+procedure tgitdirtreefo.addexe(const sender: TObject);
 var
  ar1: gitdirtreenodearty;
 begin
@@ -188,54 +188,54 @@ begin
  activate;
 end;
 
-procedure tdirtreefo.addupdateexe(const sender: tcustomaction);
+procedure tgitdirtreefo.addupdateexe(const sender: tcustomaction);
 begin
  sender.enabled:= mainmo.canadd(gitdirtreenodearty(treeed.selecteditems));
 end;
 
-function tdirtreefo.currentitem: tgitdirtreenode;
+function tgitdirtreefo.currentitem: tgitdirtreenode;
 begin
  result:= tgitdirtreenode(treeed.item);
 end;
 
-procedure tdirtreefo.gridenterexe(const sender: TObject);
+procedure tgitdirtreefo.gridenterexe(const sender: TObject);
 begin
  filesfo.filelist.grid.datacols.clearselection;
  mainfo.objchanged(true);
 end;
 
-procedure tdirtreefo.revertupdateexe(const sender: tcustomaction);
+procedure tgitdirtreefo.revertupdateexe(const sender: tcustomaction);
 begin
  sender.enabled:= mainmo.canrevert(gitdirtreenodearty(treeed.selecteditems));
 end;
 
-procedure tdirtreefo.revertexe(const sender: TObject);
+procedure tgitdirtreefo.revertexe(const sender: TObject);
 begin
  if mainmo.revert(gitdirtreenodearty(treeed.selecteditems)) then begin
   activate;
  end;
 end;
 
-procedure tdirtreefo.removeexe(const sender: TObject);
+procedure tgitdirtreefo.removeexe(const sender: TObject);
 begin
  if mainmo.remove(gitdirtreenodearty(treeed.selecteditems)) then begin
   activate;
  end;
 end;
 
-procedure tdirtreefo.removeupdateexe(const sender: tcustomaction);
+procedure tgitdirtreefo.removeupdateexe(const sender: tcustomaction);
 begin
  sender.enabled:= mainmo.canremove(gitdirtreenodearty(treeed.selecteditems));
 end;
 
-function tdirtreefo.setcurrentgitdir(const adir: filenamety): boolean;
+function tgitdirtreefo.setcurrentgitdir(const adir: filenamety): boolean;
 var
  ar1: msestringarty;
  n1: ttreelistitem;
 begin
  result:= false;
  if (grid.rowcount > 0){ and (adir <> '')} then begin
-  ar1:= splitstring(adir,'/');
+  ar1:= splitstring(adir,msechar('/'));
   n1:= treeed.items[0];
   if ar1 <> nil then begin
    setlength(ar1,high(ar1));
@@ -254,12 +254,12 @@ begin
  end;
 end;
 
-procedure tdirtreefo.openrepoexe(const sender: TObject);
+procedure tgitdirtreefo.openrepoexe(const sender: TObject);
 begin
  mainmo.repo:= mainmo.reporoot + '/'+currentitem.gitbasepath;
 end;
 
-procedure tdirtreefo.popupupdateexe(const sender: tcustommenu);
+procedure tgitdirtreefo.popupupdateexe(const sender: tcustommenu);
 begin
  sender.menu.itembyname('openrepo').enabled:= treeed.item <> nil;
 end;

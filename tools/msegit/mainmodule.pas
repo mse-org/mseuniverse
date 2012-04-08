@@ -353,8 +353,8 @@ type
                    const aitems: msegitfileitemarty): boolean; overload;
    function canrevert(const aitems: msegitfileitemarty): boolean; overload;
    function canrevert(const aitems: gitdirtreenodearty): boolean; overload;
-   function revert(const aitems: gitdirtreenodearty): boolean;
-   function revert(const afiles: filenamearty): boolean;
+   function revert(const aitems: gitdirtreenodearty): boolean; overload;
+   function revert(const afiles: filenamearty): boolean; overload;
    function revert(const anode: tgitdirtreenode;
                    const aitems: msegitfileitemarty): boolean; overload;
    function canremove(const aitems: msegitfileitemarty): boolean; overload;
@@ -375,7 +375,7 @@ type
    procedure updatelocalbranchorder;
    procedure updateremotesorder;
    procedure updateremotebranchorder;
-   function repoloaded: boolean;
+   function isrepoloaded: boolean;
    property repo: filenamety read frepo write setrepo;
                   //absolute path to repo dir
    property reporoot: filenamety read freporoot;
@@ -463,7 +463,7 @@ uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
  gitconsole,commitqueryform,revertqueryform,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msesysenv,main,filesform,
- dirtreeform,defaultstat,clonequeryform;
+ gitdirtreeform,defaultstat,clonequeryform;
   
 const
  defaultfileicon = 0;
@@ -849,7 +849,8 @@ begin
     frefsinfo.add('',fbranches[int2].info);
    end;
    for int2:= 0 to high(frepostat.flinkedremotebranches) do begin
-    splitstringquoted(frepostat.flinkedremotebranches[int2],ar1,'"',' ');
+    splitstringquoted(frepostat.flinkedremotebranches[int2],ar1,
+                             msechar('"'),msechar(' '));
     if high(ar1) = 1 then begin
      linkremotebranch[ar1[0],ar1[1]]:= true;
     end;
@@ -858,7 +859,8 @@ begin
     hideremote[frepostat.fhiddenremotes[int2]]:= true;
    end;
    for int2:= 0 to high(frepostat.fhiddenremotebranches) do begin
-    splitstringquoted(frepostat.fhiddenremotebranches[int2],ar1,'"',' ');
+    splitstringquoted(frepostat.fhiddenremotebranches[int2],ar1,
+                                msechar('"'),msechar(' '));
     if high(ar1) = 1 then begin
      hideremotebranch[ar1[0],ar1[1]]:= true;
     end;
@@ -935,7 +937,11 @@ begin
  with aitem.data.stateinfo do begin 
   if filename <> '' then begin
    n1:= tmsegitfileitem.create;
+ {$ifdef FPC}
    additem(pointerarty(ffilear),pointer(n1),fvaluecount);
+ {$else}
+   addpointeritem(pointerarty(ffilear),pointer(n1),fvaluecount);
+ {$endif}
    n1.fcaption:= filename;
    n1.fgitstate:= data;
    n1.fimagenr:= statetofileicon(data);
@@ -966,7 +972,7 @@ begin
  }
  fvaluecount:= 0;
  ffilear:= nil;
- ffilecache.iterate(fgitstate.getrepodir(apath),@addfiles);
+ ffilecache.iterate(fgitstate.getrepodir(apath),{$ifdef FPC}@{$endif}addfiles);
  setlength(ffilear,fvaluecount);
  result:= ffilear;
  ffilear:= nil;
@@ -1041,7 +1047,11 @@ var
 begin
  n1:= tmsegitfileitem.create(aitem,fpathstart);
  n1.fimagenr:= statetofileicon(n1.fgitstate);
+{$ifdef FPC}
  additem(pointerarty(ffilear),pointer(n1),fvaluecount);
+{$else}
+ addpointeritem(pointerarty(ffilear),pointer(n1),fvaluecount);
+{$endif}
 end;
 
 function tmainmo.getfilelist(const aitems: gitdirtreenodearty;
@@ -1052,7 +1062,7 @@ function tmainmo.getfilelist(const aitems: gitdirtreenodearty;
  var
   int1: integer;
  begin
-  fgitstate.iterate(anode.gitbasepath,amask,@listfileitems);
+  fgitstate.iterate(anode.gitbasepath,amask,{$ifdef FPC}@{$endif}listfileitems);
   for int1:= 0 to anode.count-1 do begin
    sca(tgitdirtreenode(anode.fitems[int1]));
   end;
@@ -1208,7 +1218,7 @@ begin
   end;
   fkind:= aoperation;
   splitfilepath(afiles[int1],dir,fnam);
-  ffilecache.iterate(dir,@updatecommit);
+  ffilecache.iterate(dir,{$ifdef FPC}@{$endif}updatecommit);
  end;
  if dirtree.owner <> nil then begin
   dirtree.owner.beginupdate;
@@ -1543,7 +1553,7 @@ begin
     setlength(ar1,1);
     ar1[0]:= afile;
     updateoperation(ck_modify,ar1,false);
-    dirtreefo.syncfilesfo(false);
+    gitdirtreefo.syncfilesfo(false);
    end;
   end;
  finally
@@ -1557,7 +1567,7 @@ var
 begin
  result:= aremotetarget;
  if aremotetarget <> '' then begin
-  po1:= msestrscan(pmsechar(pointer(aremotetarget)),' ');
+  po1:= msestrscan(pmsechar(pointer(aremotetarget)),msechar(' '));
   if po1 <> nil then begin
    result:= psubstr(pmsechar(pointer(aremotetarget)),po1);
   end;
@@ -1663,7 +1673,7 @@ begin
  end;
 end;
 
-function tmainmo.repoloaded: boolean;
+function tmainmo.isrepoloaded: boolean;
 begin
  result:= frepo <> '';
 end;
@@ -1852,14 +1862,23 @@ begin
 end;
 
 procedure tmainmo.reporeadexe(const sender: TObject; const reader: tstatreader);
+{$ifndef FPC}
+const
+ reccountset: recsetcounteventty = nil;
+{$endif}
 begin
+{$ifdef FPC}
  reader.readrecordarray('remotes',nil,@readremote);
+{$else}
+ reader.readrecordarray('remotes',reccountset,readremote);
+{$endif}
 end;
 
 procedure tmainmo.repowriteexe(const sender: TObject;
                const writer: tstatwriter);
 begin
- writer.writerecordarray('remotes',length(fremotesinfo),@writeremote);
+ writer.writerecordarray('remotes',length(fremotesinfo),
+                                      {$ifdef FPC}@{$endif}writeremote);
 end;
 
 function tmainmo.remotetarget: msestring;
@@ -2588,7 +2607,7 @@ function trefsitemlist.getitemsbycommit(const acommit: msestring): refsitemarty;
 begin
  fitems:= nil;
  fitemscount:= 0;
- iterate(acommit,@listitems);
+ iterate(acommit,{$ifdef FPC}@{$endif}listitems);
  setlength(fitems,fitemscount);
  result:= fitems;
  fitems:= nil;
@@ -2638,7 +2657,7 @@ begin
    with ar1[int1] do begin
     mainmo.frefsinfo.add('',ref);
     with info do begin
-     ar2:= splitstring(ref.name,'/');
+     ar2:= splitstring(ref.name,msechar('/'));
      for int2:= 0 to high(ar2)-1 do begin
       if not n1.finditembycaption(ar2[int2],ttreelistitem(n1)) then begin
        n1:= n1.add(ttreelistedititem);

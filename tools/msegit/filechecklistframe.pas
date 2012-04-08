@@ -62,7 +62,7 @@ begin
  for int1:= 0 to high(result) do begin
   if selected[int1] then begin
    result[int2]:= mainmo.getpath(aroot,
-                           po1[int1].caption);
+                           pgitfileitematy(po1)^[int1].caption);
    inc(int2);
   end;
  end;
@@ -79,7 +79,7 @@ begin
  po1:= fileitemed.itemlist.datapo;
  for int1:= 0 to high(result) do begin
   if selected[int1] then begin
-   result[int2]:= po1[int1];
+   result[int2]:= tmsegitfileitem(pgitfileitematy(po1)^[int1]);
    inc(int2);
   end;
  end;

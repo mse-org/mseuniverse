@@ -1,4 +1,4 @@
-object dirtreefo: tdirtreefo
+object gitdirtreefo: tgitdirtreefo
   frame.grip_size = 10
   frame.dummy = 0
   visible = False
@@ -49,7 +49,7 @@ object dirtreefo: tdirtreefo
     datarowlinewidth = 0
     datarowheight = 15
     oncellevent = celleventexe
-    reffontheight = 14
+    reffontheight = 13
     object treeed: ttreeitemedit
       optionswidget1 = [ow1_autoheight]
       optionsskin = [osk_framebuttononly]

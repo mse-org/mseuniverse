@@ -73,7 +73,7 @@ var
 implementation
 uses
  commitqueryform_mfm,msedatanodes,lastmessageform,msearrayutils,main,
- logform,dirtreeform,filesform;
+ logform,gitdirtreeform,filesform;
 
 { tcommitqueryfo }
  
@@ -133,7 +133,7 @@ begin
    else begin
     mainfo.updatestate;
     if fkind = ck_commit then begin
-     logfo.refresh(dirtreefo.currentitem,filesfo.currentitem);
+     logfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem);
     end;
    end;
   end;
@@ -273,7 +273,7 @@ end;
 procedure tcommitqueryfo.createexe(const sender: TObject);
 begin
  diff.iscommits:= true;
- filelist.oncheckall:= @checkallexe;
+ filelist.oncheckall:= {$ifdef FPC}@{$endif}checkallexe;
 end;
 
 end.

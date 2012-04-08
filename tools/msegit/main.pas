@@ -117,7 +117,7 @@ var
 implementation
 
 uses
- main_mfm,dirtreeform,mainmodule,optionsform,filesform,stashform,remotesform,
+ main_mfm,gitdirtreeform,mainmodule,optionsform,filesform,stashform,remotesform,
  gitconsole,diffwindow,msewidgets,sysutils,branchform,msegitcontroller,
  mserichstring,logform,msestringenter,tagsform;
 const
@@ -132,7 +132,7 @@ end;
 
 procedure tmainfo.showdirtreeexe(const sender: TObject);
 begin
- dirtreefo.activate;
+ gitdirtreefo.activate;
 end;
 
 procedure tmainfo.showfilesexe(const sender: TObject);
@@ -237,9 +237,9 @@ end;
 procedure tmainfo.reload;
 begin
  filesfo.savestate;
- dirtreefo.savestate;
+ gitdirtreefo.savestate;
  tagsfo.savestate;
- if mainmo.repoloaded then begin
+ if mainmo.isrepoloaded then begin
   mainmo.repostatf.writestat;
  end;
  try
@@ -248,7 +248,7 @@ begin
   mainmo.reload;
  finally
   frefreshing:= false;
-  dirtreefo.restorestate;
+  gitdirtreefo.restorestate;
   tagsfo.restorestate;
   filesfo.restorestate;
   branchfo.refresh;
@@ -271,7 +271,7 @@ begin
    hint:= '';
    font.color:= cl_text;
   end;
-  if repoloaded then begin
+  if isrepoloaded then begin
    if mergehead <> '' then begin
     statdisp.color:= mergecolor;
     ar1:= breaklines(mergemessage);
@@ -489,7 +489,7 @@ var
  bo1,bo2,bo3: boolean;
  mstr1,mstr2: msestring;
 begin
- bo1:= mainmo.repoloaded;
+ bo1:= mainmo.isrepoloaded;
  bo2:= bo1 and not mainmo.merging and not mainmo.rebasing;
  bo3:= mainmo.remotetargetbranch <> '';
  mainmen.menu.itembynames(['file','close']).enabled:= bo1;
@@ -526,7 +526,7 @@ end;
 
 procedure tmainfo.objectrefreshtiexe(const sender: TObject);
 begin
- logfo.refresh(dirtreefo.currentitem,filesfo.currentitem); 
+ logfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem); 
  diffrefreshtimer.firependingandstop;
 end;
 
@@ -545,7 +545,7 @@ begin
     for int1:= 0 to high(ar1) do begin
      ar2[int1]:= logfo.commit[ar1[int1]];
     end;
-    diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,ar2); 
+    diffwindowfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem,ar2); 
    end
    else begin
     diffwindowfo.clear;
@@ -559,12 +559,12 @@ begin
 //      diffwindowfo.clear;
 //     end
 //     else begin
-      diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,
+      diffwindowfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem,
                                    logfo.commit[int1],logfo.commit.value+'^'); 
 //     end;
     end
     else begin
-     diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,
+     diffwindowfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem,
                                    logfo.commit.value,''); 
     end;
    end
@@ -574,7 +574,7 @@ begin
   end;
  end
  else begin
-  diffwindowfo.refresh(dirtreefo.currentitem,filesfo.currentitem,'',''); 
+  diffwindowfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem,'',''); 
  end;   
 end;
 
