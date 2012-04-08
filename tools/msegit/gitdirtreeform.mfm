@@ -1,4 +1,4 @@
-object gitdirtreefo: tgitdirtreefo
+object dirtreefo: tgitdirtreefo
   frame.grip_size = 10
   frame.dummy = 0
   visible = False
