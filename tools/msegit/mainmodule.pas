@@ -39,7 +39,7 @@ type
 
  tmainmo = class;
  
- tmsegitoptions = class
+ tmsegitoptions = class(toptionsclass)
   private
    fowner: tmainmo;
    fshowuntrackeditems: boolean;
@@ -129,7 +129,7 @@ type
    procedure load;
  end;
  
- trepostat = class
+ trepostat = class(toptionsclass)
   private
    factiveremote: msestring;
    fcommitmessages: msestringarty;
