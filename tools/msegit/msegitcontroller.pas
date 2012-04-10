@@ -205,7 +205,8 @@ type
    procedure filearraycallback(var ainfo: gitfileinfoty);
    procedure filecachecallback(var ainfo: gitfileinfoty);
   protected
-   function execcommand(const acommand: string): boolean;
+   function execcommand(const acommand: string;
+                                const useshell: boolean): boolean;
    function commandresult1(const acommand: string; out adest: msestring): boolean;
    function status1(const callback: addstatecallbackeventty;
         const apath: filenamety; const aorigin: msestring): boolean;
@@ -443,10 +444,16 @@ begin
  adest:= utf8tostring(str1);
 end;
 
-function tgitcontroller.execcommand(const acommand: string): boolean;
+function tgitcontroller.execcommand(const acommand: string;
+                             const useshell: boolean): boolean;
+var
+ opt1: processoptionsty;
 begin
- result:= startprocessandwait(encodegitcommand(acommand),-1,
-       [pro_waitcursor,pro_checkescape,pro_processmessages,pro_inactive]) = 0;
+ opt1:= [pro_waitcursor,pro_checkescape,pro_processmessages,pro_inactive];
+ if useshell then begin
+  include(opt1,pro_shell);
+ end;
+ result:= startprocessandwait(encodegitcommand(acommand),-1,opt1) = 0;
 // result:= execwaitmse(encodegitcommand(acommand),[exo_inactive]) = 0;
 end;
 
@@ -851,21 +858,21 @@ end;
 function tgitcontroller.cat(const source: filenamety; const dest: filenamety;
                const commit: msestring): boolean;
 var
- mstr1: msestring;
+ str1: string;
 begin
- mstr1:= 'cat-file blob ' + encodepathparam(commit+':'+source,true) +' >'+
-                                                   encodepathparam(dest,true);
- result:= execcommand(mstr1);
+ str1:= 'cat-file blob ' + encodestringparam(commit+':'+source) +' >'+
+                                         tosysfilepath(quotefilename(dest));
+ result:= execcommand(str1,true);
 end;
 
 function tgitcontroller.cat(const dest: filenamety;
                  const aindex: msestring): boolean;
 var
- mstr1: msestring;
+ str1: string;
 begin
- mstr1:= 'cat-file blob ' + encodestringparam(aindex) +' >'+
-                                                   encodepathparam(dest,true);
- result:= execcommand(mstr1);
+ str1:= 'cat-file blob ' + encodestringparam(aindex) +' >'+
+                                         tosysfilepath(quotefilename(dest));
+ result:= execcommand(str1,true);
 end;
 
 function tgitcontroller.remoteshow(out adest: remoteinfoarty): boolean;
@@ -1575,7 +1582,7 @@ end;
 
 function tgitcontroller.checkrefformat(const aref: msestring): boolean;
 begin
- result:= execcommand('check-ref-format '+encodestringparam('refs/'+aref));
+ result:= execcommand('check-ref-format '+encodestringparam('refs/'+aref),false);
 end;
 
 {

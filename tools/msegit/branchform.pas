@@ -21,7 +21,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msegraphedits,
- msememodialog,mseact,mseactions,msegitcontroller,msesplitter,dispform;
+ msememodialog,mseact,mseactions,msegitcontroller,msesplitter,dispform,
+ msesimplewidgets,msewidgets;
 
 type
  tbranchfo = class(tdispfo)
@@ -122,7 +123,7 @@ var
 implementation
 
 uses
- branchform_mfm,mainmodule,msewidgets,main,msefileutils,mseeditglob,logform;
+ branchform_mfm,mainmodule,main,msefileutils,mseeditglob,logform;
 const
  hiddencolor = $fff0f0;
  

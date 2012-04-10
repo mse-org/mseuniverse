@@ -1531,9 +1531,26 @@ var
 // ar2: msegitfileitemarty;
 begin
  try
-  result:= createtmpfile(base,afile,'BASE',basecommit,isindex);
-  if result then begin
-   result:= createtmpfile(their,afile,'THEIRS',theircommit,isindex);
+  result:= true;
+  if basecommit = '' then begin
+   if theircommit <> '' then begin
+    result:= createtmpfile(their,afile,'THEIRS',theircommit,isindex);
+    base:= their;
+   end
+   else begin
+    result:= false;
+   end;
+  end
+  else begin
+   result:= createtmpfile(base,afile,'BASE',basecommit,isindex);
+   if result then begin
+    if theircommit = '' then begin
+     their:= base;
+    end
+    else begin
+     result:= createtmpfile(their,afile,'THEIRS',theircommit,isindex);
+    end;
+   end;
   end;
   if not result then begin
    raise exception.create('Can not create temp files.');

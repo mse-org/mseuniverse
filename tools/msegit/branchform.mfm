@@ -2,10 +2,11 @@ inherited branchfo: tbranchfo
   popupmenu = formpopup
   bounds_x = 95
   bounds_y = 177
+  bounds_cx = 452
   container.bounds = (
     0
     0
-    435
+    442
     354
   )
   dragdock.caption = 'Branch'
@@ -15,7 +16,7 @@ inherited branchfo: tbranchfo
     popupmenu = remotepopup
     bounds_x = 195
     bounds_y = 0
-    bounds_cx = 240
+    bounds_cx = 247
     bounds_cy = 354
     anchors = [an_right]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_focuscellonenter, og_noinsertempty, og_folded, og_colmerged, og_colchangeontabkey, og_wrapcol, og_mousescrollcol]
@@ -31,7 +32,7 @@ inherited branchfo: tbranchfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 15
         captions.count = 8
         captions.items = <        
           item
@@ -70,19 +71,20 @@ inherited branchfo: tbranchfo
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
-        width = 57
+        width = 59
         onbeforedrawcell = befremotecoldraw
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remote'
         dataclass = tgridmsestringdatalist
       end    
       item
-        width = 26
+        width = 28
         options = [co_fill, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranch'
         dataclass = tgridmsestringdatalist
       end    
       item
+        width = 52
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranchcommit'
         dataclass = tgridmsestringdatalist
@@ -114,63 +116,63 @@ inherited branchfo: tbranchfo
         dataclass = tgridintegerdatalist
       end    
       item
-        width = 18
+        width = 19
         options = [co_invisible, co_proportional, co_savestate, co_mousescrollrow]
         name = 'foldlevel'
         widgetname = 'foldlevel'
         dataclass = tgridintegerdatalist
       end>
-    datarowheight = 16
+    datarowheight = 15
     statfile = mainfo.formsta
     onrowsmoving = remoterowsmovingexe
     onrowsmoved = remoterowsmovedexe
     onrowsinserting = remoterowinsertexe
     onrowsdeleting = remoterowdeleteexe
     oncellevent = remotecelleventexe
-    reffontheight = 14
+    reffontheight = 13
     object remote: tstringedit
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 57
-      bounds_cy = 16
+      bounds_cx = 59
+      bounds_cy = 15
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-      reffontheight = 14
+      reffontheight = 13
     end
     object remotebranch: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 58
+      bounds_x = 60
       bounds_y = 0
-      bounds_cx = 26
-      bounds_cy = 16
+      bounds_cx = 28
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       onsetvalue = remotebranchsetexe
-      reffontheight = 14
+      reffontheight = 13
     end
     object remotebranchcommit: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 85
+      bounds_x = 89
       bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
+      bounds_cx = 52
+      bounds_cy = 15
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
-      reffontheight = 14
+      reffontheight = 13
     end
     object remoteactive: tbooleaneditradio
       optionsskin = [osk_framebuttononly]
       taborder = 4
-      bounds_x = 136
+      bounds_x = 142
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread, oe_autopopupmenu, oe_keyexecute]
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_cantoggle]
       visible = False
@@ -179,10 +181,10 @@ inherited branchfo: tbranchfo
     object remotelogbranch: tbooleaneditradio
       optionsskin = [osk_framebuttononly]
       taborder = 5
-      bounds_x = 153
+      bounds_x = 159
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread, oe_autopopupmenu, oe_keyexecute]
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
@@ -192,10 +194,10 @@ inherited branchfo: tbranchfo
     object remotebranchlink: tbooleanedit
       optionsskin = [osk_framebuttononly]
       taborder = 6
-      bounds_x = 170
+      bounds_x = 176
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread, oe_autopopupmenu, oe_keyexecute]
       visible = False
       onsetvalue = linkbranchsetexe
@@ -203,10 +205,10 @@ inherited branchfo: tbranchfo
     object remotebranchhidden: tbooleanedit
       optionsskin = [osk_framebuttononly]
       taborder = 7
-      bounds_x = 187
+      bounds_x = 193
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread, oe_autopopupmenu, oe_keyexecute]
       visible = False
       onsetvalue = hideremotebranchsetexe
@@ -216,13 +218,13 @@ inherited branchfo: tbranchfo
       optionsskin = [osk_framebuttononly]
       taborder = 8
       visible = False
-      bounds_x = 204
+      bounds_x = 210
       bounds_y = 0
-      bounds_cx = 18
-      bounds_cy = 16
+      bounds_cx = 19
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       valuedefault = 1
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   object localgrid: twidgetgrid[1]
@@ -247,7 +249,7 @@ inherited branchfo: tbranchfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 15
         captions.count = 6
         captions.items = <        
           item
@@ -318,19 +320,19 @@ inherited branchfo: tbranchfo
         widgetname = 'localbranchhidden'
         dataclass = tgridintegerdatalist
       end>
-    datarowheight = 16
+    datarowheight = 15
     statfile = mainfo.formsta
     onrowsmoved = localbranchrowmovedexe
     onrowsdeleting = localrowsdeleteexe
     onrowsdeleted = localrowsdeletedexe
-    reffontheight = 14
+    reffontheight = 13
     object localactive: tbooleaneditradio
       optionsskin = [osk_framebuttononly]
       taborder = 1
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread, oe_autopopupmenu, oe_keyexecute]
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
@@ -343,10 +345,10 @@ inherited branchfo: tbranchfo
       bounds_x = 17
       bounds_y = 0
       bounds_cx = 49
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull, oe_savestate, oe_checkvaluepaststatread]
       onsetvalue = localbranchsetexe
-      reffontheight = 14
+      reffontheight = 13
     end
     object localbranchcommit: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -356,9 +358,9 @@ inherited branchfo: tbranchfo
       bounds_x = 67
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
-      reffontheight = 14
+      reffontheight = 13
     end
     object locallogbranch: tbooleaneditradio
       optionsskin = [osk_framebuttononly]
@@ -366,7 +368,7 @@ inherited branchfo: tbranchfo
       bounds_x = 118
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread, oe_autopopupmenu, oe_keyexecute]
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
@@ -380,7 +382,7 @@ inherited branchfo: tbranchfo
       bounds_x = 135
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread, oe_autopopupmenu, oe_keyexecute]
       visible = False
       onsetvalue = localtracksetvalue
@@ -392,7 +394,7 @@ inherited branchfo: tbranchfo
       bounds_x = 152
       bounds_y = 0
       bounds_cx = 16
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread, oe_autopopupmenu, oe_keyexecute]
       visible = False
       onsetvalue = sethidelocalbranchexe
