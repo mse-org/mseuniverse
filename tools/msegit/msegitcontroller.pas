@@ -594,6 +594,17 @@ begin
      end;
      inc(po1,2);
      filename:= po1;
+     if data.statex = [gist_renamed] then begin
+      data.statex:= [gist_added];
+      callback(stat1);
+      data.statex:= [gist_deleted];
+      po1:= po2+1; //next filename
+      if po1 >= po3 then begin
+       break;
+      end;
+      filename:= po1;
+      po2:= po1+length(filename);
+     end;
      callback(stat1);
     end;
     po1:= po2+1;

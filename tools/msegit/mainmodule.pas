@@ -1117,6 +1117,7 @@ function tmainmo.commit(const aitems: gitdirtreenodearty;
                                   staged: boolean): boolean;
  const
   mask1: gitstatedataty = (statex: []; statey : [gist_modified]);
+  mask1a: gitstatedataty = (statex: []; statey : [gist_deleted]);
   mask2: gitstatedataty = (statex: [gist_added]; statey : []);
   mask3: gitstatedataty = (statex: [gist_deleted]; statey : []);
   mask4: gitstatedataty = (statex: [gist_modified]; statey : []);
@@ -1132,7 +1133,7 @@ begin
   ar1:= getfilelist(aitems,[mask2,mask3,mask4],n1);
  end
  else begin
-  ar1:= getfilelist(aitems,[mask1,mask2,mask3,mask4],n1);
+  ar1:= getfilelist(aitems,[mask1,mask1a,mask2,mask3,mask4],n1);
  end;
  try
   result:= commit(n1,ar1,staged);
