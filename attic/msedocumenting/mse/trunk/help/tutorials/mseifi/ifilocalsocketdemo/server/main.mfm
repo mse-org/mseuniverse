@@ -9,7 +9,7 @@ object mainmo: tmainmo
     onafterchconnect = chconnect
     onafterchdisconnect = chdisconnectexe
     active = True
-    cryptio = ssl
+    cryptoio = ssl
     url = '../ifisocket'
     top = 8
   end

@@ -102,7 +102,7 @@ object mainfo: tmainfo
   object channel: tsocketclientiochannel
     onafterconnect = aftterconnectexe
     onafterdisconnect = afterdisconnectexe
-    socket.cryptio = ssl
+    socket.cryptoio = ssl
     socket.url = '../ifisocket'
     left = 48
   end
