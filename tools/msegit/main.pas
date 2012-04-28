@@ -473,8 +473,9 @@ end;
 procedure tmainfo.pullactexe(const sender: TObject);
 begin
  if mainmo.pull('','') then begin
-  reload;
+//  reload;
  end;
+ reload;
 end;
 
 procedure tmainfo.pushactexe(const sender: TObject);

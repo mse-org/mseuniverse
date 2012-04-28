@@ -25,9 +25,11 @@ uses
 type
  tdiffwindowfo = class(tdifffo)
    patchact: taction;
+   mergetoolact: taction;
    procedure patchtoolexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu); override;
    procedure afterstatreadexe(const sender: TObject);
+   procedure mergetoolexe(const sender: TObject);
   protected
  end;
 
@@ -61,15 +63,34 @@ begin
 end;
 
 procedure tdiffwindowfo.popupupdateexe(const sender: tcustommenu);
+var
+ bo1: boolean;
 begin
  inherited;
- patchact.enabled:= singlediff and (mainmo.opt.difftool <> '');
+ bo1:= singlediff and (tabs.activepageindex >= 0) and 
+                (tdifftabfo(tabs.activepage).grid.rowcount > 0);
+
+ patchact.enabled:= bo1 and (mainmo.opt.difftool <> '');
  externaldiffact.enabled:= externaldiffact.enabled and not fiscommits;
+ mergetoolact.enabled:= bo1 and mainmo.canmergetool;
 end;
 
 procedure tdiffwindowfo.afterstatreadexe(const sender: TObject);
 begin
  tabs.activepageindex:= 0; //override stored value
+end;
+
+procedure tdiffwindowfo.mergetoolexe(const sender: TObject);
+var
+ ar1: filenamearty;
+begin
+ setlength(ar1,1);
+ ar1[0]:= currentpath;
+ if ar1[0] <> '' then begin
+  if mainmo.mergetoolcall(ar1) then begin
+   activate;
+  end;
+ end;
 end;
 
 

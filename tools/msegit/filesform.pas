@@ -47,6 +47,7 @@ type
    procedure removeupdateexe(const sender: tcustomaction);
    procedure removeexe(const sender: TObject);
    procedure popupupdate(const sender: tcustommenu);
+   procedure mergetoolonupdate(const sender: tcustomaction);
   private
    fpath: filenamety;
    ffilebefore: msestring;
@@ -232,13 +233,17 @@ end;
 
 procedure tfilesfo.popupupdate(const sender: tcustommenu);
 begin
- mergetoolact.enabled:= (mainmo.opt.mergetool <> '') and 
-                                          (currentfilepath <> '');
+ //
 end;
 
 procedure tfilesfo.clear;
 begin
  filelist.grid.clear;
+end;
+
+procedure tfilesfo.mergetoolonupdate(const sender: tcustomaction);
+begin
+ mergetoolact.enabled:= mainmo.canmergetool and (currentfilepath <> '');
 end;
 
 end.

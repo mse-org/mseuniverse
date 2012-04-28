@@ -340,6 +340,7 @@ type
    function commitall: boolean;
    function mergecommit: boolean;
    function mergereset: boolean;
+   function canmergetool: boolean;
    function rebase(const aupstream: msestring): boolean;
    function rebasecontinue: boolean;
    function rebaseskip: boolean;
@@ -2296,6 +2297,11 @@ begin
    datetimetostring(commitdate)+' '+committer;
   end;
  end;
+end;
+
+function tmainmo.canmergetool: boolean;
+begin
+ result:= (merging or rebasing) and (opt.mergetool <> '');
 end;
 
 { tmsegitfileitem }

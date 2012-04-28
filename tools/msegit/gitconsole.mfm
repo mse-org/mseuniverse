@@ -57,7 +57,7 @@ object gitconsolefo: tgitconsolefo
       tabulators.defaultdist = 10
       onprocfinished = procfiexe
       onsendtext = sendtextexe
-      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_tty, pro_echo, pro_icanon, pro_inactive, pro_ctrlc]
+      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_inactive, pro_tty, pro_echo, pro_icanon, pro_ctrlc]
       pipewaitus = 1000000
       reffontheight = 14
     end

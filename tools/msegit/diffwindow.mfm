@@ -16,12 +16,15 @@ inherited diffwindowfo: tdiffwindowfo
   inherited repoclosedact: taction
   end
   inherited tpopupmenu1: tpopupmenu
-    menu.submenu.count = 2
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
       end    
       item
         action = patchact
+      end    
+      item
+        action = mergetoolact
       end>
   end
   inherited externaldiffact: taction
@@ -31,5 +34,11 @@ inherited diffwindowfo: tdiffwindowfo
     onexecute = patchtoolexe
     left = 168
     top = 136
+  end
+  object mergetoolact: taction[6]
+    caption = 'Mergetool'
+    onexecute = mergetoolexe
+    left = 168
+    top = 152
   end
 end
