@@ -236,7 +236,8 @@ begin
  end
  else begin
   application.lock;
-  try  
+  try
+   mainfo.endbackground;
    grid.clear;
   finally
    application.unlock;
