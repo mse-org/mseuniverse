@@ -21,7 +21,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
- msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,msetimer;
+ msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,
+ msetimer,mserichstring,msesimplewidgets,msewidgets;
 const
  versiontext = '1.3 unstable';
 type
@@ -34,8 +35,6 @@ type
    repoloadedact: taction;
    repoclosedact: taction;
    reloadact: taction;
-   tspacer1: tspacer;
-   statdisp: trichstringdisp;
    commitmergeact: taction;
    resetmergeact: taction;
    fetchfromremoteact: taction;
@@ -56,6 +55,10 @@ type
    rebaseskipact: taction;
    fetchact: taction;
    fetchallact: taction;
+   tlayouter1: tlayouter;
+   statdisp: trichstringdisp;
+   waiticon: ticon;
+   iconimage: timagelist;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -102,6 +105,7 @@ type
    procedure showtagsexe(const sender: TObject);
   private
    frefreshing: boolean;
+   fbackgroundcount: integer;
   protected
   public
    hastagdialogstat: boolean;
@@ -110,6 +114,8 @@ type
    procedure updatestate;
    procedure objchanged(const refreshlog: boolean);
    procedure diffchanged;
+   procedure beginbackground;
+   procedure endbackground;
  end;
 var
  mainfo: tmainfo;
@@ -118,8 +124,8 @@ implementation
 
 uses
  main_mfm,gitdirtreeform,mainmodule,optionsform,filesform,stashform,remotesform,
- gitconsole,diffwindow,msewidgets,sysutils,branchform,msegitcontroller,
- mserichstring,logform,msestringenter,tagsform;
+ gitconsole,diffwindow,sysutils,branchform,msegitcontroller,
+ logform,msestringenter,tagsform;
 const
  mergecolor = $ffb030;
   
@@ -556,13 +562,8 @@ begin
    if (logfo.grid.row >= 0) then begin
     int1:= logfo.diffbase.checkedrow;
     if (int1 >= 0) then begin
-//     if  int1 = logfo.grid.row then begin
-//      diffwindowfo.clear;
-//     end
-//     else begin
-      diffwindowfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem,
+     diffwindowfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem,
                                    logfo.commit[int1],logfo.commit.value+'^'); 
-//     end;
     end
     else begin
      diffwindowfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem,
@@ -626,6 +627,22 @@ begin
  if askyesno('Do you want to restore "'+mainmo.stashes[0].message+'"?') and
                   mainmo.stashpop then begin
   reload;
+ end;
+end;
+
+procedure tmainfo.beginbackground;
+begin
+ if fbackgroundcount = 0 then begin
+  waiticon.width:= 16;
+ end;
+ inc(fbackgroundcount);
+end;
+
+procedure tmainfo.endbackground;
+begin
+ dec(fbackgroundcount);
+ if fbackgroundcount = 0 then begin
+  waiticon.width:= 0;
  end;
 end;
 

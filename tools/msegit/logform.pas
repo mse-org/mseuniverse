@@ -21,7 +21,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,dispform,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mainmodule,
- msegraphedits,mseact,mseactions,mselistbrowser,msedatanodes;
+ msegraphedits,mseact,mseactions,mselistbrowser,msedatanodes,msethreadcomp,
+ msesystypes,classes;
 
 type
  logbranchinfoty = record
@@ -55,6 +56,7 @@ type
    cherrypickact: taction;
    diffmode: tdatabutton;
    tagact: taction;
+   refreshthread: tthreadcomp;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -70,15 +72,20 @@ type
    procedure messagecelleventexe(const sender: TObject;
                    var info: celleventinfoty);
    procedure tagexe(const sender: TObject);
+   procedure dorefreshexe(const sender: tthreadcomp);
   private
    fpath: filenamety;
   protected
+   fgitproc: prochandlety;
+   fasyncskip: integer;
    procedure dorepoloaded; override;
    procedure dorefresh; override;
    procedure doclear; override;   
-   procedure getrevs(const skip: integer);
+   procedure getrevs1(const sender: tthreadcomp; const skip: integer);
+   procedure getrevs(const async: boolean; const skip: integer);
    procedure setrefmode(const avalue: boolean);
   public
+   constructor create(aowner: tcomponent); override;
    procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
    function currentcommit: msestring;
 //   function currentcommithint: msestring;
@@ -91,11 +98,18 @@ implementation
 
 uses
  logform_mfm,msegitcontroller,main,gitdirtreeform,filesform,msewidgets,
- mserichstring,branchform,mseeditglob,msegridsglob,tagdialogform;
+ mserichstring,branchform,mseeditglob,msegridsglob,tagdialogform,
+ mseprocutils;
 
 { tlogfo }
 
-procedure tlogfo.getrevs(const skip: integer);
+constructor tlogfo.create(aowner: tcomponent);
+begin
+ fgitproc:= invalidprochandle;
+ inherited;
+end;
+
+procedure tlogfo.getrevs1(const sender: tthreadcomp; const skip: integer);
 var
  ar1: refinfoarty;
  po1: plogitem;
@@ -111,96 +125,140 @@ var
  currentbranch,currentremote,currentremotebranch: msestring;
  first: boolean;
  lastvisrow: integer; 
+ fpath1: msestring;
+ maxlog1: integer;
 begin
+ application.lock;
  mstr1:= mainmo.repostat.activelogcommit;
- if (mstr1 <> '') and mainmo.git.revlist(ar1,mstr1,fpath,
-                mainmo.opt.maxlog,skip) then begin
-  if skip = 0 then begin
-   diffbase.checkedrow:= -1;
-  end;
-  lastvisrow:= grid.lastvisiblerow;
-  grid.beginupdate;
-  currentbranch:= mainmo.activebranch;
-  currentremote:= mainmo.activeremote;
-  currentremotebranch:= mainmo.activeremotebranch[currentremote];
-  grid.rowcount:= length(ar1)+skip;
-  po1:= message.griddata.datapo;
-  po2:= commit.griddata.datapo;
-  po3:= commitdate.griddata.datapo;
-  po4:= committer.griddata.datapo;
-  po5:= num.griddata.datapo;
-  fm1:= setcolorbackground(nil,0,bigint,cl_transparent);
-  for int1:= skip to high(ar1)+skip do begin
-   with ar1[int1-skip] do begin
-    with plogitematy(po1)^[int1] do begin
-     fcaption:= removelinebreaks(message);
-     fmessage:= message;
-     fformat:= nil;
-     ar2:= mainmo.refsinfo.getitemsbycommit(commit);
-     setlength(fbranchinfo,length(ar2));
-     first:= true;
-     for int2:= high(ar2) downto 0 do begin
-      with fbranchinfo[int2] do begin
-       remotename:= ar2[int2].remote;
-       branchname:= ar2[int2].info.name;
-       if ar2[int2].info.kind = refk_tag then begin
-        cl1:= cl_ltyellow;
-       end
-       else begin
-        cl1:= cl_ltgreen;
-        if remotename = '' then begin
-         if branchname = currentbranch then begin
-          cl1:= cl_ltred;
-         end;
+ fpath1:= fpath;
+ maxlog1:= mainmo.opt.maxlog;
+ if sender <> nil then begin
+  mainfo.beginbackground;
+ end;
+ application.unlock;
+ 
+ if (mstr1 <> '') and mainmo.git.revlist(ar1,mstr1,fpath1,
+                                             maxlog1,skip) then begin
+  application.lock;
+  try
+   if sender <> nil then begin
+    mainfo.endbackground;
+    if sender.terminated then begin
+     exit;
+    end;
+   end;
+   if skip = 0 then begin
+    diffbase.checkedrow:= -1;
+   end;
+   lastvisrow:= grid.lastvisiblerow;
+   grid.beginupdate;
+   currentbranch:= mainmo.activebranch;
+   currentremote:= mainmo.activeremote;
+   currentremotebranch:= mainmo.activeremotebranch[currentremote];
+   grid.rowcount:= length(ar1)+skip;
+   po1:= message.griddata.datapo;
+   po2:= commit.griddata.datapo;
+   po3:= commitdate.griddata.datapo;
+   po4:= committer.griddata.datapo;
+   po5:= num.griddata.datapo;
+   fm1:= setcolorbackground(nil,0,bigint,cl_transparent);
+   for int1:= skip to high(ar1)+skip do begin
+    with ar1[int1-skip] do begin
+     with plogitematy(po1)^[int1] do begin
+      fcaption:= removelinebreaks(message);
+      fmessage:= message;
+      fformat:= nil;
+      ar2:= mainmo.refsinfo.getitemsbycommit(commit);
+      setlength(fbranchinfo,length(ar2));
+      first:= true;
+      for int2:= high(ar2) downto 0 do begin
+       with fbranchinfo[int2] do begin
+        remotename:= ar2[int2].remote;
+        branchname:= ar2[int2].info.name;
+        if ar2[int2].info.kind = refk_tag then begin
+         cl1:= cl_ltyellow;
         end
         else begin
-         if (remotename = currentremote) and 
-                (branchname = currentremotebranch) then begin
-          cl1:= cl_ltred;
+         cl1:= cl_ltgreen;
+         if remotename = '' then begin
+          if branchname = currentbranch then begin
+           cl1:= cl_ltred;
+          end;
+         end
+         else begin
+          if (remotename = currentremote) and 
+                 (branchname = currentremotebranch) then begin
+           cl1:= cl_ltred;
+          end;
          end;
         end;
+        if fformat = nil then begin
+         fformat:= fm1;
+        end;
+        if first then begin
+         rs1:= richconcat(lineend,richcaption,[],cl_none,cl_transparent);
+         first:= false;
+        end
+        else begin
+         rs1:= richconcat(' ',richcaption,[],cl_none,cl_transparent);
+        end;
+        if remotename <> '' then begin
+         rs1:= richconcat(remotename+'/'+branchname,rs1,[],cl_none,cl1);
+        end
+        else begin
+         rs1:= richconcat(branchname,rs1,[],cl_none,cl1);
+        end;
+        fcaption:= rs1.text;
+        fformat:= rs1.format;
        end;
-       if fformat = nil then begin
-        fformat:= fm1;
-       end;
-       if first then begin
-        rs1:= richconcat(lineend,richcaption,[],cl_none,cl_transparent);
-        first:= false;
-       end
-       else begin
-        rs1:= richconcat(' ',richcaption,[],cl_none,cl_transparent);
-       end;
-       if remotename <> '' then begin
-        rs1:= richconcat(remotename+'/'+branchname,rs1,[],cl_none,cl1);
-       end
-       else begin
-        rs1:= richconcat(branchname,rs1,[],cl_none,cl1);
-       end;
-       fcaption:= rs1.text;
-       fformat:= rs1.format;
       end;
      end;
+     pmsestringaty(po2)^[int1]:= commit;
+     pdatetimeaty(po3)^[int1]:= commitdate;
+     pmsestringaty(po4)^[int1]:= committer;
+     pintegeraty(po5)^[int1]:= int1;
     end;
-    pmsestringaty(po2)^[int1]:= commit;
-    pdatetimeaty(po3)^[int1]:= commitdate;
-    pmsestringaty(po4)^[int1]:= committer;
-    pintegeraty(po5)^[int1]:= int1;
    end;
-  end;
-  if (skip = 0) and (grid.rowcount > 0) then begin
-   grid.row:= 0;
-  end;
-  grid.rowdatachanged;
-  grid.endupdate;
-  if skip > 0 then begin
-   grid.showrow(lastvisrow);
-  end;
-  if diffbase.checkedrow >= 0 then begin
-   mainfo.diffchanged;
+   if (skip = 0) and (grid.rowcount > 0) then begin
+    grid.row:= 0;
+   end;
+   grid.rowdatachanged;
+   grid.endupdate;
+   if skip > 0 then begin
+    grid.showrow(lastvisrow);
+   end;
+   if diffbase.checkedrow >= 0 then begin
+    mainfo.diffchanged;
+   end;
+  finally
+   application.unlock;
   end;
  end
  else begin
-  grid.clear;
+  application.lock;
+  try  
+   grid.clear;
+  finally
+   application.unlock;
+  end;
+ end;
+ if sender <> nil then begin
+  application.lock;
+  mainfo.diffrefreshtimer.restart;
+  application.unlock;
+ end;
+end;
+
+procedure tlogfo.getrevs(const async: boolean; const skip: integer);
+begin
+ if async then begin
+  refreshthread.terminate;
+  terminateprocess(fgitproc);
+  fasyncskip:= skip;
+  refreshthread.run;
+ end
+ else begin
+  getrevs1(nil,skip);
  end;
 end;
 
@@ -208,8 +266,13 @@ procedure tlogfo.dorefresh;
 begin
  mainfo.diffrefreshtimer.enabled:= false;
  setrefmode(false);
- getrevs(0);
- mainfo.diffrefreshtimer.restart;
+ getrevs(true,0);
+// mainfo.diffrefreshtimer.restart;
+end;
+
+procedure tlogfo.dorefreshexe(const sender: tthreadcomp);
+begin
+ getrevs1(sender,fasyncskip);
 end;
 
 procedure tlogfo.getmorerowsexe(const sender: tcustomgrid;
@@ -224,7 +287,7 @@ begin
    int1:= -int1;
   end;
   if int1 > 0 then begin
-   getrevs(grid.rowcount);
+   getrevs(false,grid.rowcount);
   end;
  end;
 end;

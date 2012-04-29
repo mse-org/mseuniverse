@@ -22,26 +22,33 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msestatfile,
  msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
  mseeditglob,msetextedit,mainmodule,mseact,mseactions,dispform,msescrollbar,
- msetabs,msewidgets,sysutils,difftab;
+ msetabs,msewidgets,sysutils,difftab,msethreadcomp,msesystypes;
 
 type
+ refreshinfoty = record
+   iscommits: boolean;
+   cached: boolean;
+   commits: msestringarty;
+   path: msestring;
+   a: msestring;
+   b: msestring;
+ end;
+ 
  tdifffo = class(tdispfo)
    tpopupmenu1: tpopupmenu;
    externaldiffact: taction;
    tabs: ttabwidget;
+   refreshthread: tthreadcomp;
    procedure externaldiffexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu); virtual;
+   procedure refreshexe(const sender: tthreadcomp);
   private
    procedure showdiff(const dest: tdifftabfo; const text: msestringarty);
    procedure cleartabs;
   protected
-   fiscommits: boolean;
-   fcached: boolean;
-   fpath: msestring;
-   fa: msestring;
-   fb: msestring;
-   fcommits: msestringarty;
+   fi: refreshinfoty;
    fcanexternaldiff: boolean;
+   fgitproc: prochandlety;
    function currentpath: filenamety;
    procedure dorefresh; override;
    procedure doclear; override;
@@ -57,12 +64,13 @@ type
    procedure refresh(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem;
           const oldcommit: msestring; const newcommit: msestring); overload;
-   property iscommits: boolean read fiscommits write fiscommits;
+   property iscommits: boolean read fi.iscommits write fi.iscommits;
  end;
 
 implementation
 uses
- diffform_mfm,mserichstring,msearrayutils,msefileutils,msegitcontroller,main;
+ diffform_mfm,mserichstring,msearrayutils,msefileutils,msegitcontroller,main,
+ mseprocutils;
  
 const
  chunkcolor = cl_dkmagenta;
@@ -73,6 +81,7 @@ const
 
 constructor tdifffo.create(aowner: tcomponent);
 begin
+ fgitproc:= invalidprochandle;
  inherited create(aowner);
  tabs.add(itabpage(tdifftabfo.create(nil)));
 end;
@@ -94,9 +103,9 @@ procedure tdifffo.doclear;
 // int1: integer;
 begin
  fcanexternaldiff:= false;
- fpath:= '';
- fa:= '';
- fb:= '';
+ fi.path:= '';
+ fi.a:= '';
+ fi.b:= '';
  if not mainfo.refreshing then begin
   cleartabs;
  end;
@@ -106,7 +115,7 @@ end;
 function tdifffo.currentpath: filenamety;
 begin
  if fcanexternaldiff then begin
-  result:= fpath;
+  result:= fi.path;
  end
  else begin
   result:= mainmo.repobase+tabs.activepageintf.gettabhint;
@@ -116,16 +125,16 @@ end;
 procedure tdifffo.externaldiffexe(const sender: TObject);
 begin
  with mainmo.git do begin
-  if fcached then begin
+  if fi.cached then begin
    mainmo.execgitconsole('difftool -y --tool='+
                encodestringparam(mainmo.opt.difftool)+' '+
-                       '--cached '+noemptystringparam(fb)+
+                       '--cached '+noemptystringparam(fi.b)+
           ' -- '+encodepathparam(currentpath,true));
   end
   else begin
    mainmo.execgitconsole('difftool -y --tool='+
                encodestringparam(mainmo.opt.difftool)+' '+
-                        noemptystringparam(fa)+noemptystringparam(fb)+
+                        noemptystringparam(fi.a)+noemptystringparam(fi.b)+
           ' -- '+encodepathparam(currentpath,true));
   end;
  end;
@@ -168,6 +177,123 @@ begin
  end;
 end;
 
+procedure tdifffo.dorefresh;
+begin
+ refreshthread.terminate;
+ terminateprocess(fgitproc);
+ refreshthread.run;
+end;
+
+procedure tdifffo.refreshexe(const sender: tthreadcomp);
+var
+ int1,int2,int3: integer;
+ ar1: msestringarty;
+ ar3: filenamearty;
+ captions,hints: msestringarty;
+ ar2: msestringararty;
+ mstr1: msestring;
+ diffcontextn1: integer;
+ fi1: refreshinfoty;
+begin
+ mainmo.git.setprociddest(fgitproc);
+ application.lock;
+ fi1:= fi;
+ diffcontextn1:= mainmo.opt.diffcontextn;
+ mainfo.beginbackground;
+ application.unlock;
+ with fi1 do begin 
+  if iscommits then begin
+   ar1:= mainmo.git.diff(commits,path,diffcontextn1);
+  end
+  else begin
+   if cached then begin
+    ar1:= mainmo.git.diff(b,path,diffcontextn1);
+   end
+   else begin
+    ar1:= mainmo.git.diff(a,b,path,diffcontextn1);
+   end;
+  end;
+ end;
+ application.lock;
+ try
+  mainfo.endbackground;
+  if sender.terminated then begin
+   exit;
+  end;
+  int2:= -1;
+  if mainmo.opt.splitdiffs then begin
+   int3:= 3+length(mainmo.repobase);
+   with tabs do begin
+    if activepageindex >= 0 then begin
+     mstr1:= itemsintf[activepageindex].gettabhint;
+    end
+    else begin
+     mstr1:= '';
+    end;
+   end;
+   for int1:= 0 to high(ar1) do begin
+    if msestartsstr('diff ',ar1[int1]) then begin
+     if int2 >= 0 then begin   
+      additem(ar2,copy(ar1,int2,int1-int2));
+     end;
+     splitstringquoted(ar1[int1],ar3,msechar('"'),msechar(' '));
+     additem(hints,msestring(copy(ar3[high(ar3)],int3,bigint)));
+     additem(captions,filename(hints[high(hints)]));
+     int2:= int1;
+    end;
+   end;
+   if int2 >= 0 then begin
+    additem(ar2,copy(ar1,int2,bigint));
+   end;
+  end
+  else begin
+   if ar1 <> nil then begin
+    additem(ar2,ar1);
+    setlength(captions,1);
+    setlength(hints,1);
+   end;
+  end;
+  if ar2 = nil then begin
+   tabs.beginupdate;
+   for int2:= tabs.count-1 downto 1 do begin
+    tabs[int2].free;
+   end;
+   tdifftabfo(tabs[0]).grid.clear;
+   tabs.activepageindex:= 0;
+   tabs.endupdate;  
+  end
+  else begin
+   tabs.beginupdate;
+   for int2:= tabs.count-1 downto length(ar2) do begin
+    tabs[int2].free;
+   end;
+   for int2:= tabs.count to high(ar2) do begin  
+    tabs.add(itabpage(tdifftabfo.create(nil)));
+   end;
+   for int1:= 0 to tabs.count - 1 do begin
+    with tdifftabfo(tabs[int1]) do begin
+     caption:= captions[int1];
+     tabhint:= hints[int1];
+    end;
+    showdiff(tdifftabfo(tabs[int1]),ar2[int1]);
+   end;
+   tabs.activepageindex:= 0;
+   if (mstr1 <> '') and mainmo.opt.splitdiffs then begin
+    for int1:= 0 to high(hints) do begin
+     if hints[int1] = mstr1 then begin
+      tabs.activepageindex:= int1;
+      break;
+     end;
+    end;
+   end;
+   tabs.endupdate;
+  end;
+ finally
+  application.unlock;
+ end;
+end;
+
+(*
 procedure tdifffo.dorefresh;
 var
  int1,int2,int3: integer;
@@ -257,23 +383,23 @@ begin
   tabs.endupdate;
  end;
 end;
-
+*)
 
 procedure tdifffo.refresh1(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem);
 begin
  fcanexternaldiff:= false;
- fcached:= false;
- fpath:= '';
+ fi.cached:= false;
+ fi.path:= '';
  if (adir <> nil) then begin
-  fpath:= adir.gitbasepath;
+  fi.path:= adir.gitbasepath;
  end;
  if afile <> nil then begin
-  fpath:= fpath+afile.caption;
+  fi.path:= fi.path+afile.caption;
   fcanexternaldiff:= true;
-  if (fa = '') and (gist_unmodified in afile.statey) and 
+  if (fi.a = '') and (gist_unmodified in afile.statey) and 
               (gist_modified in afile.statex) then begin
-   fcached:= true;
+   fi.cached:= true;
   end;
  end;
  inherited refresh;
@@ -283,10 +409,10 @@ procedure tdifffo.refresh(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem;
                    const oldcommit: msestring; const newcommit: msestring);
 begin
- fa:= newcommit;
- fb:= oldcommit;
- fcommits:= nil;
- fiscommits:= false;
+ fi.a:= newcommit;
+ fi.b:= oldcommit;
+ fi.commits:= nil;
+ fi.iscommits:= false;
  refresh1(adir,afile);
 end;
 
@@ -294,10 +420,10 @@ procedure tdifffo.refresh(const adir: tgitdirtreenode;
                                       const afile: tmsegitfileitem;
                   const commits: msestringarty);
 begin
- fa:= '';
- fb:= '';
- fcommits:= commits;
- fiscommits:= true;
+ fi.a:= '';
+ fi.b:= '';
+ fi.commits:= commits;
+ fi.iscommits:= true;
  refresh1(adir,afile);
 end;
 

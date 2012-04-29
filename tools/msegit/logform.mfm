@@ -268,4 +268,9 @@ inherited logfo: tlogfo
     left = 160
     top = 208
   end
+  object refreshthread: tthreadcomp[8]
+    onexecute = dorefreshexe
+    left = 296
+    top = 104
+  end
 end

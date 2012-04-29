@@ -22,7 +22,8 @@ uses
  mserttistat,mseact,mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,
  mseedit,msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,
  mselistbrowser,msemenus,msestrings,msesys,msetypes,mseificomp,mseificompglob,
- msesimplewidgets,msewidgets,msegitcontroller,msehash,msestream;
+ msesimplewidgets,msewidgets,msegitcontroller,msehash,msestream,msethreadcomp,
+ msesystypes;
 
 const
  defaultmaxlog = 50;
@@ -232,6 +233,7 @@ type
    procedure clonerepoexe(const sender: TObject);
    procedure asynceventexe(const sender: TObject; var atag: Integer);
    procedure optionsafterread(const sender: TObject);
+   procedure refreshthreadexe(const sender: tthreadcomp);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -284,6 +286,7 @@ type
    function gethideremote(const aremote: msestring): boolean;
    procedure sethideremote(const aremote: msestring; const avalue: boolean);
   protected
+   fgitbackgroundprocess: prochandlety;
    function findlocalbranch(const abranch: msestring): plocalbranchinfoty;
    procedure updateoperation(const aoperation: commitkindty;
                   const afiles: filenamearty; const refreshed: boolean = true);
@@ -461,7 +464,7 @@ function checkname(const aname: msestring): boolean;
 implementation
 
 uses
- mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,msesystypes,
+ mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,
  gitconsole,commitqueryform,revertqueryform,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msesysenv,main,filesform,
  gitdirtreeform,defaultstat,clonequeryform;
@@ -2302,6 +2305,10 @@ end;
 function tmainmo.canmergetool: boolean;
 begin
  result:= (merging or rebasing) and (opt.mergetool <> '');
+end;
+
+procedure tmainmo.refreshthreadexe(const sender: tthreadcomp);
+begin
 end;
 
 { tmsegitfileitem }

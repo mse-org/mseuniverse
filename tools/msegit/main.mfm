@@ -2,14 +2,14 @@ object mainfo: tmainfo
   visible = False
   bounds_x = 77
   bounds_y = 210
-  bounds_cx = 403
+  bounds_cx = 415
   bounds_cy = 280
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     16
-    403
+    415
     264
   )
   mainmenu = mainmen
@@ -17,40 +17,51 @@ object mainfo: tmainfo
   statfile = mainfosta
   caption = 'MSEgit'
   moduleclassname = 'tmainform'
+  object tlayouter1: tlayouter
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 415
+    bounds_cy = 18
+    anchors = [an_top]
+    optionsscale = [osc_expandy, osc_shrinky]
+    linkbottom = dockpanel
+    optionslayout = [lao_placex, lao_aligny]
+    place_maxdist = 0
+    place_options = [plo_endmargin]
+    object statdisp: trichstringdisp
+      frame.dummy = 0
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 415
+      bounds_cy = 18
+      anchors = [an_left, an_top, an_right]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      reffontheight = 14
+    end
+    object waiticon: ticon
+      optionswidget1 = [ow1_autoscale]
+      taborder = 1
+      bounds_x = 415
+      bounds_y = 1
+      bounds_cx = 0
+      imagelist = iconimage
+      imagenum = 0
+    end
+  end
   object dockpanel: tdockpanel
     frame.grip_size = 10
     frame.grip_options = [go_lockbutton]
     frame.dummy = 0
     bounds_x = 0
     bounds_y = 18
-    bounds_cx = 403
+    bounds_cx = 415
     bounds_cy = 244
     anchors = [an_bottom]
     dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
     statfile = formsta
-  end
-  object tspacer1: tspacer
-    taborder = 1
-    bounds_x = 216
-    bounds_y = 18
-    bounds_cx = 50
-    bounds_cy = 3
-    linktop = statdisp
-    linkbottom = dockpanel
-    dist_bottom = -3
-  end
-  object statdisp: trichstringdisp
-    frame.dummy = 0
-    taborder = 2
-    bounds_x = 0
-    bounds_y = 0
-    bounds_cx = 403
-    bounds_cy = 18
-    anchors = [an_top]
-    font.name = 'stf_default'
-    font.xscale = 1
-    font.dummy = 0
-    reffontheight = 14
   end
   object mainmen: tmainmenu
     menu.submenu.count = 5
@@ -269,7 +280,7 @@ object mainfo: tmainfo
       end>
     menu.name = 'git'
     left = 16
-    top = 16
+    top = 24
   end
   object panelcontroller: tdockpanelformcontroller
     menu = mainmen
@@ -277,7 +288,7 @@ object mainfo: tmainfo
     statfileclient = formsta
     menunamepath = 'view.panels'
     left = 16
-    top = 40
+    top = 48
   end
   object formsta: tstatfile
     filename = 'form.sta'
@@ -285,32 +296,32 @@ object mainfo: tmainfo
     statfile = mainmo.mainstat
     onstatafterread = formstaafterreadexe
     left = 136
-    top = 40
+    top = 48
   end
   object mainfosta: tstatfile
     filename = 'mainfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     statfile = mainmo.mainstat
     left = 136
-    top = 16
+    top = 24
   end
   object repoloadedact: taction
     onexecute = repoloadedexe
     ifilink = mainmo.repoloadedact
     left = 232
-    top = 16
+    top = 24
   end
   object repoclosedact: taction
     onexecute = repoclosedexe
     ifilink = mainmo.repoclosedact
     left = 232
-    top = 32
+    top = 40
   end
   object reloadact: taction
     caption = '&Refresh'
     onexecute = reloadeexe
     left = 232
-    top = 64
+    top = 72
     sc = (
       1
       16466
@@ -320,31 +331,31 @@ object mainfo: tmainfo
     caption = 'Merge &commit'
     onexecute = commitmergeexe
     left = 144
-    top = 160
+    top = 168
   end
   object resetmergeact: taction
     caption = 'Merge &reset'
     onexecute = resetmergeexe
     left = 144
-    top = 208
+    top = 216
   end
   object fetchfromremoteact: taction
     caption = '&Fetch from'
     onexecute = fetchfromremoteexe
     left = 144
-    top = 144
+    top = 152
   end
   object pullfromact: taction
     caption = 'P&ull from'
     onexecute = pullfromexe
     left = 144
-    top = 176
+    top = 184
   end
   object mergefromact: taction
     caption = '&Merge from'
     onexecute = mergefromexe
     left = 144
-    top = 192
+    top = 200
   end
   object pushtoact: taction
     caption = '&Push to'
@@ -352,26 +363,26 @@ object mainfo: tmainfo
     onexecute = pustohexe
     onupdate = pushupdateexe
     left = 144
-    top = 96
+    top = 104
   end
   object objectrefreshtimer: ttimer
     interval = 500000
     options = [to_single]
     ontimer = objectrefreshtiexe
     left = 16
-    top = 64
+    top = 72
   end
   object diffrefreshtimer: ttimer
     interval = 500000
     options = [to_single]
     ontimer = difrefreshtiexe
     left = 16
-    top = 88
+    top = 96
   end
   object commitallact: taction
     caption = 'C&ommit all'
     onexecute = commitallexe
-    top = 112
+    top = 120
     sc = (
       1
       16463
@@ -380,61 +391,87 @@ object mainfo: tmainfo
   object stashsaveact: taction
     caption = 'Stash &save'
     onexecute = stashsaveexe
-    top = 128
+    top = 136
   end
   object stashpopact: taction
     caption = 'Stash pop'
     onexecute = stashpopexe
-    top = 144
+    top = 152
   end
   object pushact: taction
     caption = 'Push'
     onexecute = pushactexe
     left = 272
-    top = 112
+    top = 120
   end
   object pullact: taction
     caption = 'Pull'
     onexecute = pullactexe
     left = 272
-    top = 160
+    top = 168
   end
   object mergeact: taction
     caption = 'Merge fetched'
     onexecute = mergetactexe
     left = 272
-    top = 176
+    top = 184
   end
   object rebaseact: taction
     caption = 'Rebase'
     onexecute = rebaseexe
-    top = 176
+    top = 184
   end
   object rebasecontinueact: taction
     caption = 'Rebase continue'
     onexecute = rebasecontinueexe
-    top = 192
+    top = 200
   end
   object rebaseabortact: taction
     caption = 'Rebase abort'
     onexecute = rebaseabortexe
-    top = 224
+    top = 232
   end
   object rebaseskipact: taction
     caption = 'Rebase skip'
     onexecute = rebaseskipexe
-    top = 208
+    top = 216
   end
   object fetchact: taction
     caption = 'Fetch'
     onexecute = fetchexe
     left = 144
-    top = 112
+    top = 120
   end
   object fetchallact: taction
     caption = 'Fetch all'
     onexecute = fetchallexe
     left = 144
-    top = 128
+    top = 136
+  end
+  object iconimage: timagelist
+    count = 1
+    left = 272
+    top = 216
+    image = {
+      00000000020000001000000010000000D0010000000000000000000000000000
+      0000000000000000000000000000000000000000040005020D100B0200000003
+      01000009000000227B7B7B018F8F8F027B7B7B01000000037B7B7B018F8F8F02
+      7B7B7B010000000460606001EBEBEB01FFFFFF02EBEBEB016060600100000001
+      60606001EBEBEB01FFFFFF02EBEBEB016060600100000003E6E6E601FFFFFF04
+      E6E6E60100000001E6E6E601FFFFFF04E6E6E601000000012828280100000001
+      FFFFFF0600000001FFFFFF06000000018080800100000001FFFFFF01EFEFEF02
+      FFFFFF0300000001FFFFFF01EFEFEF02FFFFFF03000000018080800100000001
+      FFFFFF010F0F0F02FFFFFF0300000001FFFFFF010F0F0F02FFFFFF0300000001
+      8080800100000001E2E2E20100000002FFFFFF02E2E2E20100000001E2E2E201
+      00000002FFFFFF02E2E2E2010000000180808001000000014444440197979701
+      AFAFAF01FFFFFF01E6E6E60144444401585858014444440197979701AFAFAF01
+      FFFFFF01E6E6E60144444401585858018080800100000002606060016F6F6F02
+      60606001484848018080800100000001606060016F6F6F026060600148484801
+      8080800138383801000000033838380380808001484848010000000238383803
+      8080800148484801000000045858580400000003585858040000001206000007
+      0700000900000000000000003C1E00007E3F00007E3F0000FF7F0000FFFF0000
+      FFFF0000FFFF0000FFFF0000FEFF0000FC7E0000FC7E0000783C000000000000
+      00000000
+    }
   end
 end

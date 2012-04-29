@@ -44,7 +44,7 @@ procedure tdiffwindowfo.patchtoolexe(const sender: TObject);
 var
  mstr1,a,b: msestring;
 begin
- if fiscommits then begin
+ if fi.iscommits then begin
   with tdifftabfo(tabs.activepage) do begin
    if grid.rowcount >= 2 then begin
     mstr1:= ed[1];
@@ -56,10 +56,10 @@ begin
   end;
  end
  else begin
-  a:= fa;
-  b:= fb;
+  a:= fi.a;
+  b:= fi.b;
  end;
- mainmo.patchtoolcall(currentpath,a,b,fiscommits);
+ mainmo.patchtoolcall(currentpath,a,b,fi.iscommits);
 end;
 
 procedure tdiffwindowfo.popupupdateexe(const sender: tcustommenu);
@@ -71,7 +71,7 @@ begin
                 (tdifftabfo(tabs.activepage).grid.rowcount > 0);
 
  patchact.enabled:= bo1 and (mainmo.opt.difftool <> '');
- externaldiffact.enabled:= externaldiffact.enabled and not fiscommits;
+ externaldiffact.enabled:= externaldiffact.enabled and not fi.iscommits;
  mergetoolact.enabled:= bo1 and mainmo.canmergetool;
 end;
 

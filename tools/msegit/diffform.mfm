@@ -46,4 +46,9 @@ inherited difffo: tdifffo
     left = 168
     top = 120
   end
+  object refreshthread: tthreadcomp[5]
+    onexecute = refreshexe
+    left = 48
+    top = 168
+  end
 end

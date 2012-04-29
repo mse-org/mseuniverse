@@ -18,7 +18,8 @@ unit msegitcontroller;
 {$ifdef FPC}{$mode objfpc}{$h+}{$goto on}{$endif}
 interface
 uses
- msestrings,mseclasses,classes,msehash,mselistbrowser,msetypes,msedatanodes,msedate;
+ msestrings,mseclasses,classes,msehash,mselistbrowser,msetypes,msedatanodes,
+ msedate,msesys,msesystypes;
 const
  defaultgitcommand = 'git';
  branchref = 'refs/heads/';
@@ -282,7 +283,7 @@ type
    function revlist(out alist: refinfoarty; 
                 const abranch: msestring; const apath: filenamety = '';
                 const maxcount: integer = 0; const skip: integer = 0): boolean;
-   
+   procedure setprociddest(var adest: prochandlety); //sets threadvar   
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
@@ -299,12 +300,15 @@ function gitfilepath(const apath: filenamety;
 
 implementation
 uses
- msefileutils,mseprocess,msearrayutils,msesysintf,msesystypes,msesysutils,
- msestream,sysutils,mseformatstr,mseprocutils;
+ msefileutils,mseprocess,msearrayutils,msesysintf,msesysutils,
+ msestream,sysutils,mseformatstr,mseprocutils,mseapplication;
 
 type
  thashdatalist1 = class(thashdatalist);
 
+threadvar
+ currentgitprocesspo: pprochandlety;
+ 
 function gitfilepath(const apath: filenamety;
                                       const relative: boolean): filenamety;
 begin
@@ -438,9 +442,14 @@ function tgitcontroller.commandresult1(const acommand: string;
                out adest: msestring): boolean;
 var
  str1: string;
+ opt1: processoptionsty;
 begin
- result:= getprocessoutput(encodegitcommand(acommand),'',str1,ferrormessage,-1,
-        [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages]) = 0;
+ opt1:= [pro_inactive];
+ if application.ismainthread then begin
+  opt1:= [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages];
+ end;
+ result:= getprocessoutput(currentgitprocesspo^,
+          encodegitcommand(acommand),'',str1,ferrormessage,-1,opt1) = 0;
  adest:= utf8tostring(str1);
 end;
 
@@ -1594,6 +1603,11 @@ end;
 function tgitcontroller.checkrefformat(const aref: msestring): boolean;
 begin
  result:= execcommand('check-ref-format '+encodestringparam('refs/'+aref),false);
+end;
+
+procedure tgitcontroller.setprociddest(var adest: prochandlety);
+begin
+ currentgitprocesspo:= @adest;
 end;
 
 {
