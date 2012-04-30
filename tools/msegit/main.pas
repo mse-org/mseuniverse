@@ -24,7 +24,8 @@ uses
  msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,
  msetimer,mserichstring,msesimplewidgets,msewidgets;
 const
- versiontext = '1.3 unstable';
+// versiontext = '1.3 unstable';
+ versiontext = '1.4';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
