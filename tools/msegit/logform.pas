@@ -245,7 +245,7 @@ begin
  end;
  if sender <> nil then begin
   application.lock;
-  mainfo.diffrefreshtimer.restart;
+  mainfo.diffrefreshtimer.fireandstop;
   application.unlock;
  end;
 end;
