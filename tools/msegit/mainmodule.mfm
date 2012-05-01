@@ -3,8 +3,8 @@ object mainmo: tmainmo
   bounds_cy = 195
   statfile = mainstat
   onasyncevent = asynceventexe
-  left = 301
-  top = 160
+  left = 267
+  top = 163
   moduleclassname = 'tmsedatamodule'
   object optionsobj: trttistat
     statfile = mainstat
@@ -591,5 +591,25 @@ object mainmo: tmainmo
     onexecute = clonerepoexe
     left = 128
     top = 40
+  end
+  object logfilterdialog: tifidialoglinkcomp
+    controller.onafterdialog = afterlogfiltereditexe
+    controller.action = filtereditact
+    controller.rttistat = repoobj
+    left = 232
+    top = 80
+  end
+  object filterresetact: taction
+    caption = '&Reset Filter'
+    onexecute = filterresetexe
+    onupdate = filterresetupdateexe
+    left = 232
+    top = 120
+  end
+  object filtereditact: taction
+    caption = '&Edit Filter'
+    onupdate = repoloadedupdateexe
+    left = 232
+    top = 104
   end
 end

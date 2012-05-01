@@ -23,7 +23,7 @@ uses
  mseedit,msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,
  mselistbrowser,msemenus,msestrings,msesys,msetypes,mseificomp,mseificompglob,
  msesimplewidgets,msewidgets,msegitcontroller,msehash,msestream,msethreadcomp,
- msesystypes;
+ msesystypes,mseifidialogcomp;
 
 const
  defaultmaxlog = 50;
@@ -146,7 +146,13 @@ type
    fremotesorder: msestringarty;
    fremotebranchorder: msestringarty;
    fshowhiddenbranches: boolean;
+   flogfiltercommit: msestring;
+   flogfiltercommitter: msestring;
+   flogfilterdatemin: tdatetime;
+   flogfilterdatemax: tdatetime;
+   flogfiltermessage: msestring;
   public
+   constructor create;
    procedure reset;
    function activelogcommit: msestring;
   published
@@ -175,7 +181,16 @@ type
                                                   write fremotebranchorder;
    property showhiddenbranches: boolean read fshowhiddenbranches
                                                   write fshowhiddenbranches;
-                                                  
+   property logfiltercommit: msestring read flogfiltercommit
+                                                write flogfiltercommit;
+   property logfiltercommitter: msestring read flogfiltercommitter
+                                             write flogfiltercommitter;
+   property logfilterdatemin: tdatetime read flogfilterdatemin 
+                                             write flogfilterdatemin;
+   property logfilterdatemax: tdatetime read flogfilterdatemax 
+                                             write flogfilterdatemax;
+   property logfiltermessage: msestring read flogfiltermessage
+                                                write flogfiltermessage;
  end;
 
  trefsitem = class
@@ -220,6 +235,9 @@ type
    reporefreshedact: tifiactionlinkcomp;
    initrepoact: taction;
    clonerepoact: taction;
+   logfilterdialog: tifidialoglinkcomp;
+   filterresetact: taction;
+   filtereditact: taction;
    procedure quitexe(const sender: TObject);
    procedure openrepoexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -234,6 +252,12 @@ type
    procedure asynceventexe(const sender: TObject; var atag: Integer);
    procedure optionsafterread(const sender: TObject);
    procedure refreshthreadexe(const sender: tthreadcomp);
+   procedure repoloadedupdateexe(const sender: tcustomaction);
+   procedure filterresetupdateexe(const sender: tcustomaction);
+   procedure afterlogfiltereditexe(const sender: TObject;
+                   const adialog: tactcomponent;
+                   const amodalresult: modalresultty);
+   procedure filterresetexe(const sender: TObject);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -2311,6 +2335,40 @@ procedure tmainmo.refreshthreadexe(const sender: tthreadcomp);
 begin
 end;
 
+procedure tmainmo.repoloadedupdateexe(const sender: tcustomaction);
+begin
+ sender.enabled:= isrepoloaded;
+end;
+
+procedure tmainmo.filterresetupdateexe(const sender: tcustomaction);
+begin
+ sender.enabled:= isrepoloaded and 
+  ((frepostat.logfiltercommit <> '') or
+  (frepostat.logfiltercommitter <> '') or
+   (frepostat.logfilterdatemin <> emptydatetime) or
+   (frepostat.logfilterdatemax <> emptydatetime)
+  );
+end;
+
+procedure tmainmo.afterlogfiltereditexe(const sender: TObject;
+               const adialog: tactcomponent; const amodalresult: modalresultty);
+begin
+ if amodalresult = mr_ok then begin
+  mainfo.objchanged(true);
+ end;
+end;
+
+procedure tmainmo.filterresetexe(const sender: TObject);
+begin
+ with frepostat do begin
+  logfiltercommit:= '';
+  logfiltercommitter:= '';
+  logfilterdatemin:= emptydatetime;
+  logfilterdatemax:= emptydatetime;
+ end;
+ mainfo.objchanged(true);
+end;
+
 { tmsegitfileitem }
 
 constructor tmsegitfileitem.create;
@@ -2578,6 +2636,11 @@ end;
 
 { trepostat }
 
+constructor trepostat.create;
+begin
+ reset;
+end;
+
 procedure trepostat.reset;
 begin
  factiveremote:= '';
@@ -2586,6 +2649,10 @@ begin
  factiveremotelogbranch:= '';
  fcommitmessages:= nil;
  fcommitmessage:= '';
+ flogfiltercommit:= '';
+ flogfiltercommitter:= '';
+ flogfilterdatemin:= emptydatetime;
+ flogfilterdatemax:= emptydatetime;
 end;
 
 function trepostat.activelogcommit: msestring;

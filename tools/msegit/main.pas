@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
  msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,
- msetimer,mserichstring,msesimplewidgets,msewidgets;
+ msetimer,mserichstring,msesimplewidgets,msewidgets,msegrids,mseifigui,
+ mseifilink;
 const
  versiontext = '1.5 unstable';
 // versiontext = '1.4';
@@ -60,6 +61,7 @@ type
    statdisp: trichstringdisp;
    waiticon: ticon;
    iconimage: timagelist;
+   editlogfilter: tifidialog;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -104,6 +106,8 @@ type
    procedure fetchexe(const sender: TObject);
    procedure fetchallexe(const sender: TObject);
    procedure showtagsexe(const sender: TObject);
+   procedure getlogfilteredit(const sender: TObject;
+                   var adialogclass: custommseformclassty);
   private
    frefreshing: boolean;
    fbackgroundcount: integer;
@@ -126,7 +130,7 @@ implementation
 uses
  main_mfm,gitdirtreeform,mainmodule,optionsform,filesform,stashform,remotesform,
  gitconsole,diffwindow,sysutils,branchform,msegitcontroller,
- logform,msestringenter,tagsform;
+ logform,msestringenter,tagsform,editlogfilterform;
 const
  mergecolor = $ffb030;
   
@@ -645,6 +649,12 @@ begin
  if fbackgroundcount = 0 then begin
   waiticon.width:= 0;
  end;
+end;
+
+procedure tmainfo.getlogfilteredit(const sender: TObject;
+               var adialogclass: custommseformclassty);
+begin
+ adialogclass:= teditlogfilterfo;
 end;
 
 end.

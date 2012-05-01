@@ -73,6 +73,7 @@ type
                    var info: celleventinfoty);
    procedure tagexe(const sender: TObject);
    procedure dorefreshexe(const sender: tthreadcomp);
+   procedure filtereditexe(const sender: TObject);
   private
    fpath: filenamety;
   protected
@@ -99,7 +100,7 @@ implementation
 uses
  logform_mfm,msegitcontroller,main,gitdirtreeform,filesform,msewidgets,
  mserichstring,branchform,mseeditglob,msegridsglob,tagdialogform,
- mseprocutils;
+ mseprocutils,editlogfilterform;
 
 { tlogfo }
 
@@ -455,7 +456,28 @@ begin
  end;
 end;
 
+const
+ filtercolor = $e0c0c0;
+ 
 procedure tlogfo.setrefmode(const avalue: boolean);
+
+ procedure updatecell(const aname: string; const filtered: boolean);
+ begin
+  with grid.fixrows[-1].captions[
+                   grid.datacols.colbyname(aname).index] do begin
+   if filtered then begin
+    color:= filtercolor;
+    createface;
+    hint:= 'Filtered';
+   end
+   else begin
+    color:= cl_parent;
+    face:= nil;
+    hint:= '';
+   end;
+  end;
+ end; //updatecell
+ 
 begin
  with grid.fixrows[-1].captions[0] do begin
   if avalue then begin
@@ -464,6 +486,13 @@ begin
   else begin
    color:= cl_parent;
   end;
+ end;
+ with mainmo.repostat do begin
+  updatecell('commit',logfiltercommit <> '');
+  updatecell('committer',logfiltercommitter <> '');
+  updatecell('commitdate',(logfilterdatemin <> emptydatetime) or 
+                  (logfilterdatemax <> emptydatetime));
+  updatecell('message',logfiltermessage <> '');
  end;
 end;
 
@@ -474,6 +503,11 @@ begin
     application.active and  message.textclipped(info.cell.row) then begin
   application.showhint(grid,tlogitem(message.items[info.cell.row]).fmessage);
  end;
+end;
+
+procedure tlogfo.filtereditexe(const sender: TObject);
+begin
+ teditlogfilterfo.create(nil);
 end;
 
 { tlogitem }

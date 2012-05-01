@@ -474,4 +474,10 @@ object mainfo: tmainfo
       00000000
     }
   end
+  object editlogfilter: tifidialog
+    ifilink = mainmo.logfilterdialog
+    ongetdialogclass = getlogfilteredit
+    left = 152
+    top = 72
+  end
 end

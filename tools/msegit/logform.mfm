@@ -89,6 +89,7 @@ inherited logfo: tlogfo
         width = 167
         options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autorowheight]
+        name = 'message'
         oncellevent = messagecelleventexe
         widgetname = 'message'
         dataclass = titemeditlist
@@ -99,6 +100,7 @@ inherited logfo: tlogfo
         width = 99
         options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
+        name = 'commit'
         widgetname = 'commit'
         dataclass = tgridmsestringdatalist
       end    
@@ -107,6 +109,7 @@ inherited logfo: tlogfo
         width = 116
         options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
+        name = 'commitdate'
         widgetname = 'commitdate'
         dataclass = tgridrealdatalist
       end    
@@ -115,6 +118,7 @@ inherited logfo: tlogfo
         width = 117
         options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
+        name = 'committer'
         widgetname = 'committer'
         dataclass = tgridmsestringdatalist
       end>
@@ -226,8 +230,17 @@ inherited logfo: tlogfo
   inherited repoclosedact: taction[2]
   end
   object tpopupmenu1: tpopupmenu[3]
-    menu.submenu.count = 4
+    menu.submenu.count = 7
     menu.submenu.items = <    
+      item
+        action = mainmo.filterresetact
+      end    
+      item
+        action = mainmo.filtereditact
+      end    
+      item
+        options = [mao_separator, mao_shortcutcaption]
+      end    
       item
         action = branchact
       end    
@@ -244,20 +257,20 @@ inherited logfo: tlogfo
     top = 152
   end
   object checkoutact: taction[4]
-    caption = 'Checkout'
+    caption = '&Checkout'
     onexecute = checkoutexe
     onupdate = updateexe
     left = 56
     top = 192
   end
   object branchact: taction[5]
-    caption = 'Branch'
+    caption = '&Branch'
     onexecute = branchexe
     left = 56
     top = 208
   end
   object cherrypickact: taction[6]
-    caption = 'Cherry-pick'
+    caption = 'Cherry-&pick'
     onexecute = cherrypickexe
     left = 56
     top = 224
