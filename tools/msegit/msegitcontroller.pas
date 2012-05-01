@@ -232,6 +232,7 @@ type
                                   const relative: boolean): string;
    function encodepathparams(const apath: filenamearty;
                                   const relative: boolean): string;
+   function encodedatetimeparam(const aparam: tdatetime): string;
    
    function status(const apath: filenamety; const aorigin: msestring;
                         out astatus: gitstateinfoarty): boolean; overload;
@@ -282,7 +283,12 @@ type
    function issha1(const avalue: string): boolean; overload;
    function revlist(out alist: refinfoarty; 
                 const abranch: msestring; const apath: filenamety = '';
-                const maxcount: integer = 0; const skip: integer = 0): boolean;
+                const maxcount: integer = 0; const skip: integer = 0;
+                const commitfilter: msestring = ''; 
+                const commitdatemin: tdatetime = emptydatetime;
+                const commitdatemax: tdatetime = emptydatetime;
+                const committerfilter: msestring = ''; 
+                const messagefilter: msestring = ''): boolean;
    procedure setprociddest(var adest: prochandlety); //sets threadvar   
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
@@ -1360,7 +1366,12 @@ end;
 
 function tgitcontroller.revlist(out alist: refinfoarty; 
                const abranch: msestring; const apath: filenamety = '';
-               const maxcount: integer = 0; const skip: integer = 0): boolean;
+               const maxcount: integer = 0; const skip: integer = 0;
+               const commitfilter: msestring = ''; 
+               const commitdatemin: tdatetime = emptydatetime;
+               const commitdatemax: tdatetime = emptydatetime;
+               const committerfilter: msestring = ''; 
+               const messagefilter: msestring = ''): boolean;
 
 var
  mstr1: msestring;
@@ -1369,17 +1380,34 @@ var
 begin
  alist:= nil;
  str1:= 'rev-list --pretty=raw ';
+ if commitdatemin <> emptydatetime then begin
+  str1:= str1 + '--since='+encodedatetimeparam(commitdatemin)+' ';
+ end;
+ if commitdatemax <> emptydatetime then begin
+  str1:= str1 + '--until='+encodedatetimeparam(commitdatemax)+' ';
+ end;
+ if committerfilter <> '' then begin
+  str1:= str1 + '--committer='+encodestringparam(committerfilter)+' ';
+ end;
+ if messagefilter <> '' then begin
+  str1:= str1 + '--grep='+encodestringparam(messagefilter)+' ';
+ end;
  if maxcount > 0 then begin
   str1:= str1 + '--max-count='+inttostr(maxcount)+' ';
  end;
  if skip > 0 then begin
   str1:= str1+'--skip='+inttostr(skip)+' ';
  end;
- if abranch = '' then begin
-  str1:= str1 + 'HEAD ';
+ if commitfilter <> '' then begin
+  str1:= str1 + encodestringparam(commitfilter);
  end
  else begin
-  str1:= str1 + abranch + ' ';
+  if abranch = '' then begin
+   str1:= str1 + 'HEAD ';
+  end
+  else begin
+   str1:= str1 + abranch + ' ';
+  end;
  end;
  if apath <> '' then begin
   str1:= str1 + '-- '+encodepathparam(apath,true);
@@ -1608,6 +1636,11 @@ end;
 procedure tgitcontroller.setprociddest(var adest: prochandlety);
 begin
  currentgitprocesspo:= @adest;
+end;
+
+function tgitcontroller.encodedatetimeparam(const aparam: tdatetime): string;
+begin
+ result:= datetimetostring(aparam,'II');
 end;
 
 {

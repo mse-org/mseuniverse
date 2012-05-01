@@ -2344,9 +2344,10 @@ procedure tmainmo.filterresetupdateexe(const sender: tcustomaction);
 begin
  sender.enabled:= isrepoloaded and 
   ((frepostat.logfiltercommit <> '') or
-  (frepostat.logfiltercommitter <> '') or
+   (frepostat.logfiltercommitter <> '') or
    (frepostat.logfilterdatemin <> emptydatetime) or
-   (frepostat.logfilterdatemax <> emptydatetime)
+   (frepostat.logfilterdatemax <> emptydatetime) or
+   (frepostat.logfiltermessage <> '')
   );
 end;
 
@@ -2365,6 +2366,7 @@ begin
   logfiltercommitter:= '';
   logfilterdatemin:= emptydatetime;
   logfilterdatemax:= emptydatetime;
+  logfiltermessage:= '';
  end;
  mainfo.objchanged(true);
 end;

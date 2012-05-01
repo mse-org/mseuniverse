@@ -139,7 +139,12 @@ begin
  application.unlock;
  
  if (mstr1 <> '') and mainmo.git.revlist(ar1,mstr1,fpath1,
-                                             maxlog1,skip) then begin
+                            maxlog1,skip,
+                            mainmo.repostat.logfiltercommit,
+                            mainmo.repostat.logfilterdatemin,
+                            mainmo.repostat.logfilterdatemax,
+                            mainmo.repostat.logfiltercommitter,
+                            mainmo.repostat.logfiltermessage) then begin
   application.lock;
   try
    if sender <> nil then begin
