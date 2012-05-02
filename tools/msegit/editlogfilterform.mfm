@@ -1,0 +1,138 @@
+object editlogfilterfo: teditlogfilterfo
+  visible = False
+  bounds_x = 144
+  bounds_y = 244
+  bounds_cx = 284
+  bounds_cy = 201
+  container.frame.clientheightmin = 170
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    284
+    201
+  )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Edit log Filter'
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    bounds_x = 226
+    bounds_y = 172
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption]
+    caption = '&Cancel'
+    modalresult = mr_cancel
+  end
+  object tbutton2: tbutton
+    taborder = 1
+    bounds_x = 170
+    bounds_y = 172
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_default, as_localdefault, as_localcaption]
+    caption = '&OK'
+    modalresult = mr_ok
+  end
+  object logfiltercommit: tstringedit
+    frame.caption = 'Commit'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 7
+    bounds_cx = 268
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    reffontheight = 14
+  end
+  object logfilterdatemin: tdatetimeedit
+    frame.caption = 'Date min'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 47
+    bounds_cx = 132
+    bounds_cy = 37
+    value = -Inf
+    valuedefault = -Inf
+    min = -Inf
+    max = 401768.99999
+    reffontheight = 14
+  end
+  object logfilterdatemax: tdatetimeedit
+    frame.caption = 'Date max'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 144
+    bounds_y = 47
+    bounds_cx = 132
+    bounds_cy = 37
+    value = -Inf
+    valuedefault = -Inf
+    min = -Inf
+    max = 401768.99999
+    reffontheight = 14
+  end
+  object logfiltercommitter: tstringedit
+    frame.caption = 'Committer Regex'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 8
+    bounds_y = 87
+    bounds_cx = 268
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    reffontheight = 14
+  end
+  object logfiltermessage: tstringedit
+    frame.caption = 'Message Regex'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 8
+    bounds_y = 127
+    bounds_cx = 268
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'editlogfilterfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 8
+    top = 168
+  end
+end
