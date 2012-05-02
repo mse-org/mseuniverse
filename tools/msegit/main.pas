@@ -25,8 +25,8 @@ uses
  msetimer,mserichstring,msesimplewidgets,msewidgets,msegrids,mseifigui,
  mseifilink;
 const
-// versiontext = '1.5 unstable';
- versiontext = '1.4a';
+ versiontext = '1.5 unstable';
+// versiontext = '1.4a';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
