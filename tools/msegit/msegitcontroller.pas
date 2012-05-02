@@ -783,7 +783,7 @@ begin
     end;
     with info1 do begin
      setlength(data.stateinfo.filename,int1);
-     move(po1^,data.stateinfo.filename[1],int1*sizeof(msechar));
+     move(po1^,pointer(data.stateinfo.filename)^,int1*sizeof(msechar));
      po3:= astate.find(data.stateinfo.filename);
      if po3 <> nil then begin
       data.stateinfo.data.statex:= po3^.statex;
