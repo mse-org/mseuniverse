@@ -21,8 +21,7 @@ type
   public
    function exec(const acommit: msestring): boolean;
  end;
-var
- tagdialogfo: ttagdialogfo;
+
 implementation
 uses
  tagdialogform_mfm,mainmodule,main;

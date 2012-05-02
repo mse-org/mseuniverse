@@ -24,7 +24,7 @@ object tagdialogfo: ttagdialogfo
     bounds_cx = 49
     bounds_cy = 20
     anchors = [an_right, an_bottom]
-    state = [as_localcaption]
+    state = [as_default, as_localdefault, as_localcaption]
     caption = '&OK'
     modalresult = mr_ok
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
