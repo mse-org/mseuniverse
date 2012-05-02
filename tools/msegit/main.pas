@@ -115,6 +115,7 @@ type
   public
    hastagdialogstat: boolean;
    procedure reload;
+   procedure refreshdiff;
    property refreshing: boolean read frefreshing;
    procedure updatestate;
    procedure objchanged(const refreshlog: boolean);
@@ -542,14 +543,14 @@ begin
  diffrefreshtimer.firependingandstop;
 end;
 
-procedure tmainfo.difrefreshtiexe(const sender: TObject);
+procedure tmainfo.refreshdiff;
 var
  int1: integer;
  ar1: integerarty;
  ar2: msestringarty;
 begin
  if logfo.visible then begin
-  objectrefreshtimer.firependingandstop;
+//  objectrefreshtimer.firependingandstop;
   if logfo.diffmode.value = 1 then begin
    ar1:= logfo.grid.datacols.selectedrows;
    if ar1 <> nil then begin
@@ -583,6 +584,14 @@ begin
  else begin
   diffwindowfo.refresh(gitdirtreefo.currentitem,filesfo.currentitem,'',''); 
  end;   
+end;
+
+procedure tmainfo.difrefreshtiexe(const sender: TObject);
+begin
+ if logfo.visible then begin
+  objectrefreshtimer.firependingandstop;
+ end;
+ refreshdiff;
 end;
 
 procedure tmainfo.objchanged(const refreshlog: boolean);
