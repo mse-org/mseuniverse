@@ -36,8 +36,9 @@ object dirtreefo: tgitdirtreefo
       item
         linewidth = 0
         colorfocused = -1879048185
-        width = 431
-        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        width = 95
+        options = [co_readonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_savevalue, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autocolwidth]
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
         datalist.imnr_expanded = 1
@@ -47,7 +48,7 @@ object dirtreefo: tgitdirtreefo
         datalist.imagealignment = [al_right, al_ycentered]
       end>
     datarowlinewidth = 0
-    datarowheight = 15
+    datarowheight = 16
     oncellevent = celleventexe
     reffontheight = 13
     object treeed: ttreeitemedit
@@ -60,7 +61,7 @@ object dirtreefo: tgitdirtreefo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 431
+      bounds_cx = 95
       bounds_cy = 16
       optionsedit1 = [oe1_keyexecute]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_locate, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
