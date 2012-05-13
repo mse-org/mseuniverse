@@ -27,23 +27,18 @@ inherited tagsfo: ttagsfo
         captions.items = <        
           item
             caption = 'Tag'
-            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Message'
-            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Commit'
-            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Date'
-            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Committer'
-            options = [dco_colsort, dco_hintclippedtext]
           end>
       end>
     datacols.count = 5
