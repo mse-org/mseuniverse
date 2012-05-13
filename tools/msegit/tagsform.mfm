@@ -43,10 +43,12 @@ inherited tagsfo: ttagsfo
       end>
     datacols.count = 5
     datacols.options = [co_readonly, co_savestate, co_mousescrollrow]
+    datacols.options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_noautocolwidth]
     datacols.items = <    
       item
         width = 167
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_noautocolwidth]
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
         datalist.options = [no_nofreeitems]
@@ -54,6 +56,7 @@ inherited tagsfo: ttagsfo
       item
         width = 229
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_noautocolwidth]
         oncellevent = messagecellevent
         widgetname = 'messageed'
         dataclass = tgridmsestringdatalist
@@ -61,18 +64,21 @@ inherited tagsfo: ttagsfo
       item
         width = 93
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_noautocolwidth]
         widgetname = 'commited'
         dataclass = tgridmsestringdatalist
       end    
       item
         width = 131
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_noautocolwidth]
         widgetname = 'commitdateed'
         dataclass = tgridrealdatalist
       end    
       item
         width = 109
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_noautocolwidth]
         widgetname = 'committered'
         dataclass = tgridmsestringdatalist
       end>
