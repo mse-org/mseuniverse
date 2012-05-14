@@ -35,6 +35,8 @@ type
   protected
    fbranchinfo: logbranchinfoarty;
    fmessage: msestring;
+   function compare(const r: tlistitem;
+                          const acasesensitive: boolean): integer; override;
   public
 //   constructor create(const aowner: tcustomitemlist); override;
  end;
@@ -517,5 +519,11 @@ begin
 end;
 
 { tlogitem }
+
+function tlogitem.compare(const r: tlistitem;
+               const acasesensitive: boolean): integer;
+begin
+ result:= msecomparetext(fmessage,tlogitem(r).fmessage);
+end;
 
 end.
