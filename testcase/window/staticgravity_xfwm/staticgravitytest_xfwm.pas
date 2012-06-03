@@ -17,7 +17,6 @@ var
  id: winidty;
  setattributes: txsetwindowattributes;
  attributes: txwindowattributes;
- changes: txwindowchanges;
  sizehints: pxsizehints;
  int1: integer;
  rect1: rectty;
@@ -71,8 +70,8 @@ begin
     writeln('xroot: ',xroot,' yroot: ',yroot,
            ' x: ',x1, ' y: ',y1,' width: ',w1,' height: ',h1);
    end;
-   sleep(100);
   end;
+  sleep(100);
  until attributes.map_state <> isviewable;
  xdestroywindow(msedisplay,id);
 end.

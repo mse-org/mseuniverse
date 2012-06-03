@@ -17,8 +17,8 @@ order14=0
 order15=0
 order16=0
 [projectoptions]
-projectdir=/home/mse/packs/standard/git/mseuniverse/testcase/window/staticgravity_xfwm
-projectfilename=/home/mse/packs/standard/git/mseuniverse/testcase/window/staticgravity_xfwm/staticgravitytest_xfwm.prj
+projectdir=/home/mse/packs/standard/git/mseuniverse2/testcase/window/staticgravity_xfwm
+projectfilename=/home/mse/packs/standard/git/mseuniverse2/testcase/window/staticgravity_xfwm/staticgravitytest_xfwm.prj
 options=99
  [projectoptionsfo.twidgetgrid3]
  propcolwidthref=638
@@ -481,7 +481,7 @@ cy=0
 progparamhistory=0
 envvarons=0
 [layout]
-windowlayout=544
+windowlayout=538
  [mainfo.projectfiledia]
  filenames=1
   /home/mse/packs/standard/git/mseuniverse/testcase/window/staticgravity_xfwm/mse_staticgravitytest_xwfm.prj
@@ -527,7 +527,7 @@ windowlayout=544
  [mainfo]
  splitdir=0
  useroptions=127
- stackedunder=
+ stackedunder=componentpalettefo
  parent=
  mdistate=3
  nx=0
@@ -544,7 +544,7 @@ windowlayout=544
   container,0,16,276,58
   ,0,0,276,16
  wsize=0
- active=1
+ active=0
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -631,7 +631,7 @@ windowlayout=544
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=objectinspectorfo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
@@ -732,7 +732,7 @@ windowlayout=544
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- stackedunder=projecttreefo
+ stackedunder=watchpointsfo
  parent=
  mdistate=0
  nx=0
@@ -753,7 +753,7 @@ windowlayout=544
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=disassfo
+ stackedunder=breakpointsfo
  parent=
  mdistate=0
  nx=0
@@ -797,19 +797,13 @@ windowlayout=544
  active=0
  visible=0
  [symbolfo.grid]
- propcolwidthref=506
- values0=8
-  
-  
-  
-  
-  
-  
+ propcolwidthref=521
+ values0=2
   
   
  width0=111
  sortdescend0=0
- width1=318
+ width1=328
  sortdescend1=0
  [symbolfo.symbol]
  [watchfo]
@@ -862,11 +856,11 @@ windowlayout=544
  ncx=0
  ncy=0
  x=0
- y=411
+ y=290
  cx=858
- cy=80
- rcx=313
- rcy=195
+ cy=201
+ rcx=858
+ rcy=491
  [componentstorefo]
  splitdir=0
  useroptions=24675
@@ -1010,7 +1004,7 @@ windowlayout=544
  [mainfo.panel1]
  splitdir=2
  useroptions=33586667
- stackedunder=mainfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1024,7 +1018,7 @@ windowlayout=544
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
 [edit]
 hintwidth=0
@@ -1033,12 +1027,12 @@ finddtext=
 findhistory=0
 findoptions=1
 editpos=1
- 25,0
+ 10,35
 bookmarks0=0
 sourcefiles=1
- /home/mse/packs/standard/git/mseuniverse/testcase/window/staticgravity_xfwm/staticgravitytest_xwfm.pas
+ /home/mse/packs/standard/git/mseuniverse2/testcase/window/staticgravity_xfwm/staticgravitytest_xfwm.pas
 relpaths=1
- staticgravitytest_xwfm.pas
+ staticgravitytest_xfwm.pas
 ismoduletexts=1
  0
 modules=0
