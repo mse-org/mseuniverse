@@ -757,6 +757,7 @@ begin
   freporoot:= '';
   frepobase:= '';
   frepostat.reset;
+  fgit.resetversioncheck;
   repoclosed;
  end;
 end;

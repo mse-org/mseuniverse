@@ -201,6 +201,9 @@ type
    fdirlen: integer;
    fversionchecked: boolean;
    fcanvarset: boolean;
+   fhasaskpassvar: boolean;
+   fhasdisplayvar: boolean;
+   fcommandlinevars: string;
    procedure arraycallback(const astatus: gitstateinfoty);
    procedure cachecallback(const astatus: gitstateinfoty);
    procedure filearraycallback(var ainfo: gitfileinfoty);
@@ -223,6 +226,8 @@ type
   public
    constructor create(aowner: tcomponent); override;
    procedure resetversioncheck;
+   function getconfig(const varname: string; out varvalue: msestring): boolean;
+                  //false if unset
    function checkrefformat(const aref: msestring): boolean;
    function encodegitcommand(const acommand: string): string;
    function encodestring(const avalue: msestring): string;
@@ -369,13 +374,20 @@ end;
 { tgitcontroller }
 
 constructor tgitcontroller.create(aowner: tcomponent);
+var
+ mstr1: msestring;
 begin
  inherited;
+ fhasaskpassvar:= sys_getenv('SSH_ASKPASS',mstr1);
+ fhasdisplayvar:= sys_getenv('DISPLAY',mstr1);
 end;
 
 function tgitcontroller.canvarset: boolean;
 var
  str1,str2: string;
+{$ifdef windows}
+ mstr1,mstr2: msestring;
+{$endif}
 begin
  result:= fcanvarset;
  if not result and not fversionchecked then begin
@@ -387,6 +399,25 @@ begin
   fcanvarset:= getprocessoutput(str2 +
     ' -c color.ui=false --version','',str1,-1,[pro_inactive]) = 0;
   result:= fcanvarset;
+  if result then begin
+   fcommandlinevars:= ' -c color.ui=false';
+  {$ifdef mswindows}
+   mstr1:= filedir(sys_getapplicationpath)+'msegitpw.exe';
+   if findfile(mstr1) and not getconfig('core.askpass',mstr2) then begin
+    str1:= encodepathparam(mstr1,true);
+    fcommandlinevars:= fcommandlinevars+' -c core.askpass=' + str1;
+    if not fhasaskpassvar then begin
+     sys_setenv('SSH_ASKPASS',mstr1);
+    end;
+    if not fhasdisplayvar then begin
+     sys_setenv('DISPLAY',':0');
+    end;
+   end;
+  {$endif}
+  end
+  else begin
+   fcommandlinevars:= ''; 
+  end;
  end;
 end;
 
@@ -399,7 +430,7 @@ begin
   result:= fgitcommand;
  end;
  if canvarset then begin
-  result:= result + ' -c color.ui=false';
+  result:= result + fcommandlinevars;
  end;
  result:= result + ' --no-pager '+ acommand;
 end;
@@ -452,7 +483,8 @@ var
 begin
  opt1:= [pro_inactive];
  if application.ismainthread then begin
-  opt1:= [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages];
+  opt1:= [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages,
+          pro_detached];
  end;
  result:= getprocessoutput(currentgitprocesspo^,
           encodegitcommand(acommand),'',str1,ferrormessage,-1,opt1) = 0;
@@ -464,7 +496,8 @@ function tgitcontroller.execcommand(const acommand: string;
 var
  opt1: processoptionsty;
 begin
- opt1:= [pro_waitcursor,pro_checkescape,pro_processmessages,pro_inactive];
+ opt1:= [pro_waitcursor,pro_checkescape,pro_processmessages,pro_inactive,
+         pro_detached];
  if useshell then begin
   include(opt1,pro_shell);
  end;
@@ -1641,6 +1674,19 @@ end;
 function tgitcontroller.encodedatetimeparam(const aparam: tdatetime): string;
 begin
  result:= datetimetostring(aparam,'II');
+end;
+
+function tgitcontroller.getconfig(const varname: string;
+               out varvalue: msestring): boolean;
+begin
+ varvalue:= '';
+ result:= commandresult1('config '+varname,varvalue) and (varvalue <> '');
+ if result and (varvalue[length(varvalue)] = c_linefeed) then begin
+  setlength(varvalue,length(varvalue)-1);
+  if (varvalue <> '') and (varvalue[length(varvalue)] = c_return) then begin
+   setlength(varvalue,length(varvalue)-1);
+  end;
+ end;
 end;
 
 {
