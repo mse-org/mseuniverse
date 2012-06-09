@@ -483,8 +483,7 @@ var
 begin
  opt1:= [pro_inactive];
  if application.ismainthread then begin
-  opt1:= [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages,
-          pro_detached];
+  opt1:= [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages];
  end;
  result:= getprocessoutput(currentgitprocesspo^,
           encodegitcommand(acommand),'',str1,ferrormessage,-1,opt1) = 0;
@@ -496,8 +495,7 @@ function tgitcontroller.execcommand(const acommand: string;
 var
  opt1: processoptionsty;
 begin
- opt1:= [pro_waitcursor,pro_checkescape,pro_processmessages,pro_inactive,
-         pro_detached];
+ opt1:= [pro_waitcursor,pro_checkescape,pro_processmessages,pro_inactive];
  if useshell then begin
   include(opt1,pro_shell);
  end;

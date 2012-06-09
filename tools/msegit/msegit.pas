@@ -29,7 +29,6 @@ uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
  msegui,mseforms,main,mainmodule,gitdirtreeform,filesform,stashform,guitemplates,
  remotesform,gitconsole,diffwindow,branchform,logform,tagsform;
- 
 begin
  application.createdatamodule(tguitemplatesmo,guitemplatesmo);
  application.createform(tgitdirtreefo,gitdirtreefo);

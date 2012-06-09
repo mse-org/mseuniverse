@@ -16,6 +16,7 @@ object mainfo: tmainfo
   caption = 'MSEgit Password'
   onloaded = loadedexe
   onclosequery = closequeryexe
+  onshow = showexe
   moduleclassname = 'tmainform'
   object password: tstringedit
     frame.dummy = 0

@@ -16,6 +16,7 @@ type
    procedure loadedexe(const sender: TObject);
    procedure closequeryexe(const sender: tcustommseform;
                    var amodalresult: modalresultty);
+   procedure showexe(const sender: TObject);
  end;
  
 var
@@ -41,6 +42,11 @@ begin
   sys_write(sys_stdout,pointer(str1),length(str1));
   procresult:= 0;
  end;
+end;
+
+procedure tmainfo.showexe(const sender: TObject);
+begin
+ activate;
 end;
 
 end.
