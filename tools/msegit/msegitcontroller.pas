@@ -407,7 +407,7 @@ begin
     str1:= encodepathparam(mstr1,true);
     fcommandlinevars:= fcommandlinevars+' -c core.askpass=' + str1;
     if not fhasaskpassvar then begin
-     sys_setenv('SSH_ASKPASS',mstr1);
+     sys_setenv('SSH_ASKPASS',str1);
     end;
     if not fhasdisplayvar then begin
      sys_setenv('DISPLAY',':0');
