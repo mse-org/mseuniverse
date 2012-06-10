@@ -12,7 +12,7 @@ object mainfo: tmainfo
     270
     89
   )
-  options = [fo_main, fo_terminateonclose, fo_screencentered, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_main, fo_terminateonclose, fo_screencentered, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   caption = 'MSEgit Password'
   onloaded = loadedexe
   onclosequery = closequeryexe

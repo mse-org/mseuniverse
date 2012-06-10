@@ -403,7 +403,7 @@ begin
    fcommandlinevars:= ' -c color.ui=false';
   {$ifdef mswindows}
    mstr1:= filedir(sys_getapplicationpath)+'msegitpw.exe';
-   if findfile(mstr1) and not getconfig('core.askpass',mstr2) then begin
+   if {findfile(mstr1) and} not getconfig('core.askpass',mstr2) then begin
     str1:= encodepathparam(mstr1,true);
     fcommandlinevars:= fcommandlinevars+' -c core.askpass=' + str1;
     if not fhasaskpassvar then begin
