@@ -38,8 +38,8 @@ type
    function compare(const r: tlistitem;
                           const acasesensitive: boolean): integer; override;
   public
-//   constructor create(const aowner: tcustomitemlist); override;
  end;
+
  plogitem = ^tlogitem;
  logitematy = array[0..0] of tlogitem;
  plogitematy = ^logitematy;
@@ -506,10 +506,30 @@ end;
 
 procedure tlogfo.messagecelleventexe(const sender: TObject;
                var info: celleventinfoty);
+var
+ mstr1: msestring;
+ int1: integer;
 begin
  if (info.eventkind = cek_firstmousepark) and
     application.active and  message.textclipped(info.cell.row) then begin
-  application.showhint(grid,tlogitem(message.items[info.cell.row]).fmessage);
+  with tlogitem(message.items[info.cell.row]) do begin
+   if fbranchinfo <> nil then begin
+    mstr1:= '';
+    for int1:= 0 to high(fbranchinfo) do begin
+     with fbranchinfo[int1] do begin
+      if remotename <> '' then begin
+       mstr1:= mstr1 + remotename + '/';
+      end;
+      mstr1:= mstr1 + branchname + ' ';
+     end;
+    end;
+    mstr1:= mstr1 + lineend + fmessage;
+   end
+   else begin
+    mstr1:= fmessage;
+   end;
+  end;
+  application.showhint(grid,mstr1);
  end;
 end;
 
