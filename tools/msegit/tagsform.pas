@@ -23,6 +23,8 @@ type
    procedure deletetagexe(const sender: TObject);
    procedure pushexe(const sender: TObject);
    procedure branchexe(const sender: TObject);
+   procedure sortexe(const sender: tcustomgrid; const index1: Integer;
+                   const index2: Integer; var aresult: Integer);
   private
    fexpandedsave: expandedinfoarty;
    ftagstreebefore: tgittagstreenode;  
@@ -73,6 +75,7 @@ begin
   grid.clear;
  end;
  treeed.itemlist.addchildren(mainmo.tagstree); 
+ grid.sorted:= true;
 end;
 
 procedure ttagsfo.doclear;
@@ -145,6 +148,12 @@ end;
 procedure ttagsfo.branchexe(const sender: TObject);
 begin
  branchfo.createbranch(commited.value);
+end;
+
+procedure ttagsfo.sortexe(const sender: tcustomgrid; const index1: Integer;
+               const index2: Integer; var aresult: Integer);
+begin
+ treeed.comparerow(index1,index2,aresult);
 end;
 
 end.

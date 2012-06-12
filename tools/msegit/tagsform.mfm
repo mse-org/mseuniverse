@@ -27,24 +27,33 @@ inherited tagsfo: ttagsfo
         captions.items = <        
           item
             caption = 'Tag'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Message'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Commit'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Date'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Committer'
+            options = [dco_colsort, dco_hintclippedtext]
           end>
       end>
     datacols.count = 5
+    datacols.coloractive = -1879048185
+    datacols.sortcol = 3
+    datacols.sortcoldefault = 3
     datacols.options = [co_readonly, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
+        coloractive = -1879048185
         width = 167
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'treeed'
@@ -52,6 +61,7 @@ inherited tagsfo: ttagsfo
         datalist.options = [no_nofreeitems]
       end    
       item
+        coloractive = -1879048185
         width = 229
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_noautocolwidth]
@@ -60,18 +70,22 @@ inherited tagsfo: ttagsfo
         dataclass = tgridmsestringdatalist
       end    
       item
+        coloractive = -1879048185
+        colorfocused = -1879048185
         width = 93
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'commited'
         dataclass = tgridmsestringdatalist
       end    
       item
+        coloractive = -1879048185
         width = 131
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_proportional, co_savestate, co_sortdescend, co_mousescrollrow]
         widgetname = 'commitdateed'
         dataclass = tgridrealdatalist
       end    
       item
+        coloractive = -1879048185
         width = 109
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'committered'
@@ -79,6 +93,7 @@ inherited tagsfo: ttagsfo
       end>
     datarowheight = 16
     statfile = mainfo.formsta
+    onsort = sortexe
     reffontheight = 14
     object treeed: ttreeitemedit
       optionswidget1 = [ow1_fontglyphheight]
