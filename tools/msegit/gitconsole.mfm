@@ -38,7 +38,7 @@ object gitconsolefo: tgitconsolefo
       end>
     datarowlinewidth = 0
     datarowheight = 14
-    reffontheight = 13
+    reffontheight = 14
     object termed: tterminal
       optionsskin = [osk_framebuttononly]
       taborder = 1
@@ -57,7 +57,7 @@ object gitconsolefo: tgitconsolefo
       tabulators.defaultdist = 10
       onprocfinished = procfiexe
       onsendtext = sendtextexe
-      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_inactive, pro_detached, pro_allowsetforegroundwindow, pro_tty, pro_echo, pro_icanon, pro_winpipewritehandles, pro_ctrlc]
+      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_inactive, pro_detached, pro_allowsetforegroundwindow, pro_sessionleader, pro_settty, pro_tty, pro_echo, pro_icanon, pro_winpipewritehandles, pro_ctrlc]
       pipewaitus = 1000000
       reffontheight = 14
     end
