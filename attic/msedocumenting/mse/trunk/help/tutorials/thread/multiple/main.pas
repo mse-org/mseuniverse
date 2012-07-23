@@ -47,7 +47,7 @@ end;
 
 procedure tmainfo.doexecute(const sender: tthreadcomp);
 var
- event1: tevent;
+ event1: tmseevent;
 begin
  with sender do begin
   while not terminated do begin
@@ -117,7 +117,7 @@ end;
 procedure tmainfo.posteventexe(const sender: TObject);
 begin
  if checkthreadnum then begin
-  fthreads[threadnum.value].postevent(tevent.create(ek_none));
+  fthreads[threadnum.value].postevent(tmseevent.create(ek_none));
  end;
 end;
 
@@ -126,9 +126,6 @@ begin
  if checkthreadnum then begin
   fthreads[threadnum.value].terminate;
  end;
-// application.unlock;
-// sys_waitforthread;
-// application.lock;
 end;
 
 end.
