@@ -92,8 +92,11 @@
   'Menampilkan nomor halaman dari Repaz', //rcsPageNumber,
   'Menampilkan nilai kunci header yang aktif dari TraTreeReport', //rcsHeaderTreeKey
   'Menampilkan nilai kunci footer yang aktif dari TraTreeReport', //rcsFooterTreeKey
+  'Menampilkan index yang aktif dari TraTreeReport', //rcsTreeIndex
   'Menampilkan nilai footer terakhir (TraTreeReport)', //rcsTreeFooterValue
   '(indexrow: integer, indexcol:integer, indextree: integer=0)', //rcsPTreeFooterValue
+  'Menampilkan nilai footer utama (TraTreeReport)', //rcsTreeMainFooterValue
+  '(indexrow: integer, indexcol:integer, indextree: integer=0)', //rcsPTreeMainFooterValue
   'Menampilkan nilai footer induk (TraTreeReport)', //rcsTreeFooterValue2
   '(indexcol:integer, indextree: integer=0)', //rcsPTreeFooterValue2
   'Menampilkan nomor urut dari data', //rcsRecordNumber

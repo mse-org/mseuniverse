@@ -36,10 +36,9 @@ unit repazpreviewform;
 interface
 uses
  mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
- msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,msewidgets,
- repazpreview,mseact,msetoolbar,msestatfile,msedataedits,mseedit,msestrings,
- msetypes,msereal,sysutils,mseimage,msebitmap,msedock,msefiledialog,mseconsts,
- mseconsts_id,repazconsts,msesplitter,msescrollbar;
+ msegraphutils,mseclasses,mseforms,msesimplewidgets,msewidgets,
+ repazpreview,msetoolbar,msedataedits,
+ sysutils,msebitmap,mseconsts,mseconsts_id,repazconsts,msesplitter,msescrollbar;
 type
  trepazpreviewfo = class(tdockform)
    tscrollbox1: tscrollbox;
@@ -78,7 +77,7 @@ type
 
 implementation
 uses
- repazpreviewform_mfm,math,mseintegerenter,frmabout;
+ repazpreviewform_mfm,mseintegerenter,frmabout;
 procedure trepazpreviewfo.cpage_onchange(const sender: TObject);
 begin
  if cpage.value>0 then begin
@@ -175,7 +174,7 @@ end;
 procedure trepazpreviewfo.mnuaboutexec(const sender: TObject);
 begin
  frmaboutfo:= tfrmaboutfo.create(nil);
- frmaboutfo.show;
+	frmaboutfo.show(true);
 end;
 
 procedure trepazpreviewfo.btnfind_onexecute(const sender: TObject);

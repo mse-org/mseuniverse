@@ -36,11 +36,10 @@ unit frmevaldialog;
 interface
 uses
  mseglob,mseguiglob,mseapplication,msestat,msegui,msegraphics,msegraphutils,
- mseclasses,mseforms,msedataedits,msestrings,msesimplewidgets,msewidgets,
+ mseclasses,mseforms,msestrings,msesimplewidgets,msewidgets,
  msegrids,repazdatasources,repazevaluator,repazconsts,classes,mseconsts,
- repazevaluatortype,msesplitter,mseedit,msemenus,msetypes,msewidgetgrid,
- mseinplaceedit,msescrollbar,msestatfile,msegridsglob,sysutils,mseifiglob,
- mseeditglob,msesyntaxedit,msetextedit,msesyntaxpainter;
+ repazevaluatortype,msesplitter,msetypes,msewidgetgrid,
+ msegridsglob,sysutils,mseeditglob,msesyntaxedit,msetextedit,msesyntaxpainter,msedispwidgets;
 
 const
  fmaxlisthelp=6;
@@ -59,7 +58,7 @@ const
   ' ''MIN'' ''FLOATTODATETIME'' ''STRINGTOTIME'' ''STRINGTODATETIME'' ''TIMETOSTRING'''+LINEEND+
   ' ''DATETIMETOSTRING'' ''DAYOFWEEK'' ''ROUND'' ''ROUNDTOINTEGER'' ''INT'' ''ABS'''+LINEEND+
   ' ''COMPAREVALUE'' ''SQRT'' ''ISINTEGER'' ''ISNUMERIC'' ''ISVALIDDATETIME'' ''CHECKEXPRESSION'''+LINEEND+
-  ' ''STRINGTOBIN'' ''STR'' ''VAL'' ''LEFT'' ''LENGTH'' ''TRIM'' ''POS'' ''MOD'''+LINEEND+
+  ' ''STRINGTOBIN'' ''STR'' ''VAL'' ''LEFT'' ''LENGTH'' ''TRIM'' ''POS'' ''MOD'' ''DIV'''+LINEEND+
   ' ''MONTHNAME'' ''MONTH'' ''YEAR'' ''DAY'' ''RIGHT'' ''SUBSTR'' ''FORMATSTR'' ''FORMATNUM'''+LINEEND+
   ' ''UPPERCASE'' ''LOWERCASE'' ''EVALTEXT'' ''NUMTOTEXT'' ''REPLACESTR'' ''FIELDWITHKEY'''+LINEEND+
   ' ''ISHOLIDAY'' ''ISDISCOUNTDAY'' ''PAGENUMBER'' ''REPORTHEADER'' ''REPORTFOOTER'' ''PAGEHEADER'''+LINEEND+
@@ -101,24 +100,24 @@ type
  tfrmevaldialogfo = class(tmseform)
    LItems: tstringgrid;
    LCategory: tstringgrid;
-   lparams: tlabel;
-   lmodel: tlabel;
-   lhelp: tlabel;
    tlayouter1: tlayouter;
    bclear: tbutton;
    bshowresult: tbutton;
    bchecksyn: tbutton;
    tbutton3: tbutton;
    badd: tbutton;
-   tlayouter2: tlayouter;
-   bcancel: tbutton;
-   bok: tbutton;
    tsimplewidget1: tsimplewidget;
    tsplitter1: tsplitter;
    tsplitter2: tsplitter;
    wformula: twidgetgrid;
    textedit: tsyntaxedit;
    tsyntaxpainter1: tsyntaxpainter;
+   tscrollbox1: tscrollbox;
+   lparams: tstringdisp;
+   lmodel: tstringdisp;
+   lhelp: tstringdisp;
+   bcancel: tbutton;
+   bok: tbutton;
    procedure frmevaldialogfo_oncreate(const sender: tobject);
    procedure frmevaldialogfo_ondestroy(const sender: tobject);
    procedure badd_onexecute(const sender: tobject);
@@ -318,13 +317,16 @@ begin
 end;
 
 procedure tfrmevaldialogfo.badd_onexecute(const sender: tobject);
+var
+ i: integer;
 begin
  if litems.row>=0 then begin
   textedit.beginupdate;
+  i:= litems.row;
   if textedit.gettext='' then begin
-   textedit.settext(litems[0][litems.row])
+   textedit.settext(litems[0][i])
   end else begin
-   textedit.inserttext(litems[0][litems.row]);
+   textedit.inserttext(litems[0][i]);
   end;
   textedit.endupdate;
  end;
@@ -368,23 +370,26 @@ begin
   for int1:=0 to llistes[lcategory.row].count-1 do begin
    litems.appendrow(llistes[lcategory.row].strings[int1]);
   end;
-  lhelp.caption:='';
-  lparams.caption:='';
-  lmodel.caption:='';
+  lhelp.text:='';
+  lparams.text:='';
+  lmodel.text:='';
  end;
 end;
 
 procedure tfrmevaldialogfo.litems_oncellevent(const sender: tobject;
                var info: celleventinfoty);
+var
+ i: integer;
 begin
  if LItems.rowcount<=0 then exit;
+ i:= litems.row;
  if (info.eventkind=cek_buttonrelease) or (info.eventkind=cek_keyup) then
  begin
-  lhelp.caption:=(llistes[lcategory.row].objects[litems.row] 
+  lhelp.text:=(llistes[lcategory.row].objects[litems.row] 
    as tevalrechelp).help;
-  lparams.caption:=(llistes[lcategory.row].objects[litems.row]
+  lparams.text:=(llistes[lcategory.row].objects[litems.row]
    as tevalrechelp).params;
-  lmodel.caption:=(llistes[lcategory.row].objects[litems.row]
+  lmodel.text:=(llistes[lcategory.row].objects[litems.row]
    as tevalrechelp).model;
  end;
  
@@ -392,9 +397,9 @@ begin
  begin
   textedit.beginupdate;
   if textedit.gettext='' then begin
-   textedit.settext(litems[0][litems.row])
+   textedit.settext(litems[0][i])
   end else begin
-   textedit.inserttext(litems[0][litems.row]);
+   textedit.inserttext(litems[0][i]);
   end;
   textedit.endupdate;
  end;
@@ -477,7 +482,7 @@ begin
    rec.rfunction:=aval.identifiers.strings[i];
    rec.help:=iden.help;
    rec.model:=iden.model;
-   rec.params:=iden.aparams;
+   rec.params:=iden.parameters;
    lista1.addobject(rec.rfunction,rec);
   end;
  end;
@@ -583,8 +588,6 @@ begin
 end;
 
 procedure tfrmevaldialogfo.doasyncevent(var atag: integer);
-var
- mstr1: filenamety;
 begin
  case atag of
   99: begin

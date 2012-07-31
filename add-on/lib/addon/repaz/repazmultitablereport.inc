@@ -44,7 +44,7 @@ end;
 
 procedure TraTable.paint(const canvas: tcanvas;const area:rectty);
 var
- posy,limity,int1,int2,int3,int4,posy2,fdelta,extheight1,extheight2,hband,tmppos: integer;
+ posy,limity,int1,int2,fdelta,extheight1,extheight2,hband,tmppos: integer;
 begin
  posy:= 0;
  limity:= area.cy;
@@ -190,8 +190,8 @@ function TraTable.build(const canvas: tcanvas;const area:rectty;var islastpage: 
   end;
  end;
 var
- posy,limity,int1,int2,int3,int4,posy2,fdelta,extheight1,extheight2,hband,tmppos: integer;
- bo1,eofbefore,areset: boolean;
+ posy,limity,int1,int2,fdelta,extheight1,extheight2,hband,tmppos: integer;
+ bo1,eofbefore: boolean;
 begin
  if not fprintifempty then begin
   if fdata.items[0].tabulators.recordcount<=0 then begin
@@ -321,11 +321,6 @@ begin
       fdata.items[fdata.count-1].tabulators.paintextend(canvas,makerect(area.x,area.y+posy,area.cx,fdelta),true,true,true,false,false);
       posy:= posy+fdelta;
      end;
-    end;
-    if fmbo_ResetEveryPage in ffooteroptions then begin
-     areset:= true;
-    end else begin
-     areset:= false;
     end;
     for int1:=0 to ffooter.count-1 do begin
      with ffooter.items[int1] do begin
@@ -530,7 +525,6 @@ end;
 procedure TraMultiTableReport.drawcontent(const canvas: tcanvas;const contentarea:rectty);
 var
  int1: integer;
- farea: rectty;
 begin
  with fmultitable do begin
   for int1:=0 to count-1 do begin

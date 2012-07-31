@@ -17,7 +17,7 @@ unit barcode;
 interface
 
 uses
- sysutils,classes,math,msegraphics,msegraphutils,msebitmap;
+ sysutils,classes,msegraphics,msegraphutils,msebitmap;
 
 type
  barcodety = (
@@ -83,9 +83,6 @@ type
 
 
 implementation
-
-type
-	tcanvas1 = class(tcanvas);
 
 {
 	converts a string from '321' to the internal representation '715'
@@ -1278,7 +1275,6 @@ end;
 function TBarcode.GetWidth(data: string):integer;
 var
  i : integer;
- w : integer;
 begin
  Result := 0;
  for i:=1 to Length(data) do  // examine the pattern string

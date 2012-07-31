@@ -2,9 +2,9 @@ unit frmabout;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
- msegraphutils,mseevent,mseclasses,mseforms,mseimage,msedispwidgets,msestrings,
- msetypes,msetabs,msewidgets,msedataedits,mseedit,msesimplewidgets;
+ mseglob,mseguiglob,mseapplication,msestat,msegui,msegraphics,
+ msegraphutils,mseclasses,mseforms,mseimage,msedispwidgets,
+ msetabs,msedataedits,msesimplewidgets;
 type
  tfrmaboutfo = class(tmseform)
    timage1: timage;

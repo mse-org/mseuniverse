@@ -16,10 +16,10 @@ unit universalprinter;
 interface
 
 uses
- msegui,mseclasses,sysutils,classes,msegraphics,mseguiglob,msegraphutils,msestream,msestrings,msetypes,
- msedrawtext,mserichstring,cairo,universalprintertype,msefileutils,msebitmap,pagesetupdlg,msewidgets
+ msegui,mseclasses,sysutils,classes,msegraphics,mseguiglob,msegraphutils,msestrings,msetypes,
+ cairo,universalprintertype,msefileutils,msebitmap,pagesetupdlg,msewidgets
  {$IFDEF windows},windows,gdiapi,cairowin32{$ENDIF},mseglob,msestat,msestatfile,msesysintf
- {$IFDEF LINUX},cupsapi{$ENDIF},msecommport;
+ {$IFDEF LINUX},cupsapi,msestream{$ENDIF},msecommport;
 
 const
  mmtoinch = 1/25.4;
@@ -239,8 +239,7 @@ type
 implementation
 
 uses
- msesys,msedatalist,mseformatstr,msefont,msesysutils,
- mseguiintf,msebits,msereal;
+ msesys,mseformatstr,msefont,mseguiintf;
 type
  cairogcdty = record
   canvas: tuniversalprintercanvas;
@@ -2190,8 +2189,8 @@ begin
   end else begin
    if (csloading in componentstate) then begin
     fprintername:='';
-   end else begin
-    raise exception.create('Printer not found, please install printer correctly!');
+   //end else begin
+   // raise exception.create('Printer not found, please install printer correctly!');
    end;
   end;
  end;

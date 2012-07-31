@@ -65,9 +65,8 @@ object repazdialogfo: trepazdialogfo
       bounds_x = 6
       bounds_y = 20
       bounds_cx = 232
-      bounds_cy = 61
+      bounds_cy = 63
       textflags = [tf_wordbreak]
-      reffontheight = 13
     end
     object wfilename: tfilenameedit
       frame.caption = 'Nama file report'
@@ -84,6 +83,10 @@ object repazdialogfo: trepazdialogfo
       bounds_y = 83
       bounds_cx = 235
       bounds_cy = 35
+      textflags = [tf_ycentered, tf_noselect, tf_ellipseright]
+      onchange = wfilename_onchange
+      controller.lastdir = '/C:/msegui/MSEProject/Acosys/acosysv4'
+      controller.options = [fdo_relative, fdo_savelastdir]
       reffontheight = 13
     end
   end
@@ -109,11 +112,13 @@ object repazdialogfo: trepazdialogfo
     bounds_y = 20
     bounds_cx = 60
     bounds_cy = 19
+    anchors = [an_top, an_right]
     state = [as_localcaption]
     caption = 'Se&tting'
   end
   object btnok: tbutton
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    optionswidget1 = [ow1_fontglyphheight, ow1_autoscale]
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
     taborder = 4
     bounds_x = 266
     bounds_y = 48
@@ -126,7 +131,8 @@ object repazdialogfo: trepazdialogfo
     reffontheight = 13
   end
   object btncancel: tbutton
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    optionswidget1 = [ow1_fontglyphheight, ow1_autoscale]
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
     taborder = 5
     bounds_x = 266
     bounds_y = 73

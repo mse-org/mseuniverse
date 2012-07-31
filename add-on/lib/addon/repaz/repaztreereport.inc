@@ -67,19 +67,8 @@ begin
  inherited;
  try
   ftreeheader:= nil;
-  setlength(ftreeheader,1);
-  if fparentfieldlink.active and fkeyfieldlink.active and
-   (fparentfieldlink.fieldname<>'') and (fkeyfieldlink.fieldname<>'') then begin
-   if fparentfieldlink.ismsestring then begin
-    ftreeheader[0].parentstr:= fparentfieldlink.asmsestring;
-    ftreeheader[0].keystr:= fkeyfieldlink.asmsestring;
-   end else begin
-    ftreeheader[0].parentnum:= fparentfieldlink.aslargeint;
-    ftreeheader[0].keynum:= fkeyfieldlink.aslargeint;
-   end;
-  end;
-  ftreeheader[0].indextree:= 0;
-  findextree:= 0;
+  setlength(ftreeheader,0);
+  findextree:= -1;
  except
  end;
 end;
@@ -107,15 +96,11 @@ var
  found: boolean;
  res1: integer;
 begin
- if fparentfieldlink.active and (fparentfieldlink.field<>nil) then begin
-  if iseof then begin
-   findextree:= 0;
-   setlength(ftreeheader,0);
-   exit;
-  end;
+ if fkeyfieldlink.active and (fkeyfieldlink.field<>nil) then begin
   found:= false;
   for int1:=0 to length(ftreeheader)-1 do begin
-   if fparentfieldlink.isstringfield then begin
+   //debugwriteln(inttostr(int1)+' = '+ftreeheader[int1].parentstr);
+   if fkeyfieldlink.isstringfield then begin
     if fparentfieldlink.asmsestring=ftreeheader[int1].parentstr then begin
      res1:= ftreeheader[int1].indextree;
      found:= true;
@@ -144,6 +129,7 @@ begin
  inherited create;
  fowner:= aowner;
  fheader:= TraTreeTabulators.create(fowner);
+ ftreefooter:= TSummaryTabsCol.create(fowner);
  fheader.recordarea:= ra_AllRecord;
  ffooter:= TSummaryTabs.create(fowner);
  ffooter2:= TSummaryTabs.create(fowner);
@@ -160,6 +146,7 @@ destructor TraTreeBand.destroy;
 begin
  freeandnil(fheader);
  freeandnil(ffooter);
+ freeandnil(ftreefooter);
  freeandnil(ffooter2);
  freeandnil(fdata);
  freeandnil(fheaderdetail);
@@ -174,6 +161,7 @@ begin
   fheader.assign(TraTreeBand(source).MasterHeader);
   ffooter.assign(TraTreeBand(source).MasterFooter);
   ffooter2.assign(TraTreeBand(source).Footer);
+  ftreefooter.assign(TraTreeBand(source).TreeFooter);
   fdata.assign(TraTreeBand(source).Detail);
   fheaderdetail.assign(TraTreeBand(source).HeaderDetail);
   fkeyheader:= TraTreeBand(source).KeyFieldHeader;
@@ -207,10 +195,14 @@ end;
 constructor TraTreeContent.create(const aowner: TraReportTemplate);
 begin
  fowner:= aowner;
- fisfinishdata:= true;
+ fneedfooter:= true;
+ fmodheader:= false;
  fpreviewing:= false;
  fmodfooter:= -1;
- isdrawheader:= true;
+ ishaschildren:= false;
+ fmodmasterfooter:= false;
+ fmodtreefooter:= -1;
+ findextree:= -1;
  inherited create(TraTreeBand);
 end;
 
@@ -268,8 +260,9 @@ label emptyfooter;
     int3:= 0;
    end;
    if masterfooter.count>0 then begin
-    for int2:=masterheader.indextree downto 0 do begin
+    for int2:=masterheader.indextree-1 downto 0 do begin
      if posy<=area.cy-int3-footerarty[int2].pixelheight then begin
+      factivefooterkey:= masterheader.treeheader[int2].keystr;
       footerarty[int2].yposition:= posy+area.y;
       footerarty[int2].paint(canvas,makerect(0,posy+area.y,area.cx,footerarty[int1].pixelheight),false,true);
       inc(posy,footerarty[int2].pixelheight);
@@ -296,6 +289,7 @@ begin
  counter:= 0;
  with items[aindex] do begin
   masterheader.init;
+  masterheader.indextree:= 0;
   if (not masterheader.datalink.active) or masterheader.iseof then exit;
   if KeyFieldHeader='' then exit;
   footerarty:=nil;
@@ -326,6 +320,15 @@ begin
      masterheader[TreeColIndex].fwidth:= tmpwidth;
      inc(posy,masterheader.pixelheight);
      masterheader.checklevel;
+     setlength(masterheader.ftreeheader,masterheader.indextree+1);
+     if masterheader.parentfieldlink.isstringfield then begin
+      masterheader.treeheader[masterheader.indextree].parentstr:= masterheader.parentfieldlink.asmsestring;
+      masterheader.treeheader[masterheader.indextree].keystr:= masterheader.keyfieldlink.asstring;
+     end else begin
+      masterheader.treeheader[masterheader.indextree].parentnum:= masterheader.parentfieldlink.aslargeint;
+      masterheader.treeheader[masterheader.indextree].keynum:= masterheader.keyfieldlink.aslargeint;
+     end;
+     masterheader.treeheader[masterheader.indextree].indextree:= masterheader.indextree;
      createfooter(aindex);
      if detail.datalink.datasource<>nil then begin
       if detail.datalink.dataset.recordcount>0  then begin
@@ -361,6 +364,13 @@ begin
          for int1:=0 to masterheader.indextree do begin
           footerarty[int1].dobeforenextrecord(detail.datalink.datasource);
          end;
+         if ftreefooter.count>0 then begin
+          for int1:=0 to ftreefooter.count-1 do begin
+           if (ftreefooter[int1].tabulators.count>0) and (ftreefooter[int1].tabulators.datalink.datasource<>nil) then begin
+            ftreefooter[int1].tabulators.dobeforenextrecord(detail.datalink.datasource);
+           end;
+          end;
+         end;
          drawfooter;
         end;
        end;
@@ -395,6 +405,17 @@ begin
     isfinish:= true;
    end;
   end;
+  if ftreefooter.count>0 then begin
+   for int1:=ftreefooter.count-1 downto 0 do begin
+    with ftreefooter[int1] do begin
+     if posy<=area.cy-tabulators.pixelheight then begin
+      tabulators.yposition:=posy+area.y;
+      tabulators.paint(canvas,makerect(0,posy+area.y,area.cx,tabulators.pixelheight),false,false);
+      inc(posy,tabulators.pixelheight);
+     end;
+    end;
+   end;
+  end;
 emptyfooter:
   for int1:=length(footerarty)-1 downto 0 do begin
    footerarty[int1].free;
@@ -405,45 +426,37 @@ end;
 
 procedure TraTreeContent.createfooter(const aindex:integer);
 var
- int1: integer;
+ int1,int2,int3: integer;
 begin
  with items[aindex] do begin
-   if length(footerarty)<masterheader.indextree+1 then begin
-   setlength(ffooterarty,masterheader.indextree+1);
-   footerarty[masterheader.indextree]:= TSummaryTabs.create(fowner);
-   footerarty[masterheader.indextree].count:= masterfooter.count;
-   for int1:=0 to masterfooter.count-1 do begin
-    footerarty[masterheader.indextree][int1].assign(masterfooter[int1]);
-   end;
-   if TreeColIndex<footerarty[masterheader.indextree].count then begin
-    footerarty[masterheader.indextree][TreeColIndex].fpos:= masterfooter[TreeColIndex].position+(masterheader.indextree*TreeGap);
-    footerarty[masterheader.indextree][TreeColIndex].fwidth:= masterfooter[TreeColIndex].width-(masterheader.indextree*TreeGap);
-   end;
-   footerarty[masterheader.indextree].datasource:= masterfooter.datasource;
-   footerarty[masterheader.indextree].height:= masterfooter.height;
-   //footerarty[masterheader.indextree].PixelPerUnit:= masterfooter.PixelPerUnit;
-   footerarty[masterheader.indextree].backcolor:= masterfooter.backcolor;
-   footerarty[masterheader.indextree].RAW_EmptyLinesBelow:= masterfooter.RAW_EmptyLinesBelow;
-  end;
-  setlength(masterheader.ftreeheader,masterheader.indextree+1);
-  if masterheader.parentfieldlink.active and masterheader.parentfieldlink.active then begin
-   if masterheader.parentfieldlink.isstringfield then begin
-    masterheader.treeheader[masterheader.indextree].parentstr:= masterheader.parentfieldlink.asmsestring;
-    masterheader.treeheader[masterheader.indextree].keystr:= masterheader.keyfieldlink.asmsestring;
-   end else begin
-    masterheader.treeheader[masterheader.indextree].parentnum:= masterheader.parentfieldlink.aslargeint;
-    masterheader.treeheader[masterheader.indextree].keynum:= masterheader.keyfieldlink.aslargeint;
+  if length(footerarty)<masterheader.indextree+1 then begin
+   int2:= length(footerarty);
+   setlength(ffooterarty,length(masterheader.ftreeheader));
+   for int3:=int2 to high(masterheader.ftreeheader) do begin
+    footerarty[int3]:= TSummaryTabs.create(fowner);
+    footerarty[int3].count:= masterfooter.count;
+    for int1:=0 to masterfooter.count-1 do begin
+     footerarty[int3][int1].assign(masterfooter[int1]);
+    end;
+    if TreeColIndex<footerarty[int3].count then begin
+     footerarty[int3][TreeColIndex].fpos:= masterfooter[TreeColIndex].position+(int3*TreeGap);
+     footerarty[int3][TreeColIndex].fwidth:= masterfooter[TreeColIndex].width-(int3*TreeGap);
+    end;
+    footerarty[int3].datasource:= masterfooter.datasource;
+    footerarty[int3].height:= masterfooter.height;
+    //footerarty[int3].PixelPerUnit:= masterfooter.PixelPerUnit;
+    footerarty[int3].backcolor:= masterfooter.backcolor;
+    footerarty[int3].RAW_EmptyLinesBelow:= masterfooter.RAW_EmptyLinesBelow;
    end;
   end;
-  masterheader.treeheader[masterheader.indextree].indextree:= masterheader.indextree;
  end;
 end;
 
 function TraTreeContent.build(const aindex:integer; var posy: integer;
   const canvas: tcanvas;const area:rectty;var islastpage: boolean):integer;
 var
- int2,extheight,limity,hband,lastfound: integer;
- isfinish,ishaschildren: boolean;
+ int1,int2,int3,j,extheight,limity,hband: integer;
+ isfinish,fprintfooter: boolean;
  tmpwidth,tmppos: real;
 
  function islastrecord:boolean;
@@ -455,44 +468,52 @@ var
    (aindex=self.count-1);
  end;
 
- procedure updateheader;
+ procedure updateheader(const headerlength:integer; const changelength: boolean);
  begin
   with items[aindex] do begin
-   setlength(masterheader.ftreeheader,length(footerarty));
-   if masterheader.parentfieldlink.isstringfield then begin
-    masterheader.treeheader[masterheader.indextree].parentstr:= masterheader.parentfieldlink.asmsestring;
-    masterheader.treeheader[masterheader.indextree].keystr:= masterheader.keyfieldlink.asmsestring;
-   end else begin
-    masterheader.treeheader[masterheader.indextree].parentnum:= masterheader.parentfieldlink.aslargeint;
-    masterheader.treeheader[masterheader.indextree].keynum:= masterheader.keyfieldlink.aslargeint;
+   //if (high(masterheader.ftreeheader)=headerlength) and not istemp then exit;
+   if changelength then begin
+    setlength(masterheader.ftreeheader,headerlength+1);
    end;
-   masterheader.treeheader[masterheader.indextree].indextree:= masterheader.indextree;
+   if headerlength<0 then exit;
+   if masterheader.parentfieldlink.isstringfield then begin
+    masterheader.treeheader[headerlength].parentstr:= masterheader.parentfieldlink.asmsestring;
+    masterheader.treeheader[headerlength].keystr:= masterheader.keyfieldlink.asstring;
+   end else begin
+    masterheader.treeheader[headerlength].parentnum:= masterheader.parentfieldlink.aslargeint;
+    masterheader.treeheader[headerlength].keynum:= masterheader.keyfieldlink.aslargeint;
+   end;
+   masterheader.treeheader[headerlength].indextree:= masterheader.indextree;
   end;
  end;
  
- function drawfooter(astart:integer):integer;
+ function drawfooter(astart:integer; aend: integer):integer;
  var
-  int3,int4,lowerfoot: integer;
+  int3,int4: integer;
  begin
   with items[aindex] do begin
    result:= -1;
-   if masterheader.iseof then begin
-    lowerfoot:= 0;
-   end else begin
-    lowerfoot:= masterheader.indextree;
-   end;
    if footer.count>0 then begin
     int4:= footer.pixelheight;
    end else begin
     int4:= 0;
    end;
    if masterfooter.count>0 then begin
-    for int3:=astart downto lowerfoot do begin
+    for int3:=astart downto aend do begin
      if posy<=limity-int4-footerarty[int3].pixelheight then begin
       factivefooterkey:= masterheader.treeheader[int3].keystr;
       footerarty[int3].paint(canvas,makerect(area.x,posy+area.y,area.cx,footerarty[int3].pixelheight),true,false);
       inc(posy,footerarty[int3].pixelheight);
       footerarty[int3].resetsums(false);
+      if int3=0 then
+       result:= -1
+      else
+       result:= int3-1;
+      if int3=aend then begin
+       fneedfooter:= false;
+       fnextindex:= -1;
+       fnextrow:= -1;
+      end;
      end else begin
       result:= int3;
       TraTreeReport(fowner).continuetree:= false;
@@ -507,7 +528,7 @@ var
  procedure updatefooter;
  begin
   with items[aindex] do begin
-   while length(footerarty)>masterheader.indextree+1 do begin
+   while high(footerarty)>length(masterheader.treeheader) do begin
     footerarty[high(footerarty)].destroy;
     setlength(ffooterarty,high(footerarty));
    end;
@@ -562,8 +583,8 @@ var
     if fprintdetail then begin
      drawheaderdetail;
     end;
-    if fisfinishdata then begin
-     fisfinishdata:= false;
+    if fneedfooter then begin
+     fneedfooter:= false;
      detail.datalink.dataset.first;
      fdatanumber:= 1;
     end;
@@ -592,12 +613,17 @@ var
      //end check limit
      if posy<=limity-detail.pixelheight then begin
       if fprintdetail then begin
+       //debugwriteln(detail.datalink.dataset.fieldbyname('id').asstring);
        detail.paint(canvas,makerect(area.x,posy+area.y,area.cx,detail.pixelheight),true,false);
        inc(posy,detail.pixelheight);
       end;
       items[aindex].footer.dobeforenextrecord(detail.datalink.datasource);
-      for int3:=0 to masterheader.indextree do begin
-       footerarty[int3].dobeforenextrecord(detail.datalink.datasource);
+      if ftreefooter.count>0 then begin
+       for int3:=0 to ftreefooter.count-1 do begin
+        if (ftreefooter[int3].tabulators.count>0) and (ftreefooter[int3].tabulators.datalink.datasource<>nil) then begin
+         ftreefooter[int3].tabulators.dobeforenextrecord(detail.datalink.datasource);
+        end;
+       end;
       end;
       //process counting for report footer
       if (fowner.report_footer_rowvalues.count>0) then begin
@@ -607,6 +633,9 @@ var
         end;
        end;
       end;
+      for int3:=0 to high(footerarty) do begin
+       footerarty[int3].dobeforenextrecord(detail.datalink.datasource);
+      end;
       detail.nextrecord;
       inc(fdatanumber);
      end else begin
@@ -615,44 +644,73 @@ var
       TraTreeReport(fowner).continuetree:= false;
      end;
      if detail.iseof then begin
-      fisfinishdata:= true;
+      fneedfooter:= true;
       isfinish2:= true;
      end;
     end;
     detail[TreeColIndex].fpos:= tmppos;
     detail[TreeColIndex].fwidth:= tmpwidth;
    end else begin
-    fisfinishdata:= true;
+    fneedfooter:= false;
    end;
   end;
  end;
  
  function haschildren: boolean;
  var
-  lastrow,itree,tmptree: integer;
+  lastrow,tmptree,k: integer;
   shouldstop: boolean;
-  fparent1,lastparent: variant;
+  findexstr1,fparentstr1: msestring;
+  findexint1,fparentint1: int64;
  begin
+  j:= 0;
   with items[aindex] do begin
-   lastrow:= masterheader.datalink.dataset.recno;
-   if lastfound>lastrow then begin
+   if (fnextrow>masterheader.datalink.dataset.recno) then begin
     result:= true;
     exit;
+   end else if (fnextrow=masterheader.datalink.dataset.recno) then begin
+    result:= true;
+   //debugwriteln(inttostr(fnextrow)+' = '+inttostr(fnextindex));
+    with tmsesqlquery(detail.datalink.dataset) do begin
+     active:= false;
+     params.parambyname(DetailParams).value:= tmsesqlquery(
+       masterheader.datalink.dataset).fieldbyname(KeyFieldHeader).value;
+     active:= true;
+    end;
+    exit;
    end;
+   lastrow:= masterheader.datalink.dataset.recno;
    with tmsesqlquery(detail.datalink.dataset) do begin
     active:= false;
     params.parambyname(DetailParams).value:= tmsesqlquery(
       masterheader.datalink.dataset).fieldbyname(KeyFieldHeader).value;
     active:= true;
    end;
+   if (fnextindex=masterheader.indextree) then begin
+    result:= detail.datalink.dataset.recordcount>0;
+    if result then begin
+     fnextrow:= masterheader.datalink.dataset.recno;
+     fnextindex:= masterheader.indextree;
+    end;
+    exit;
+   end;
    if (detail.datalink.dataset.recordcount>0) then begin
     result:= true;
-    lastfound:= lastrow;
+    fnextrow:= lastrow;
+    fnextindex:= masterheader.indextree;
    end else begin
     shouldstop:= false;
     tmptree:= masterheader.indextree;
+    if tmptree>=high(masterheader.treeheader) then begin
+     updateheader(tmptree,true);
+    end;
+    findexstr1:= masterheader.treeheader[tmptree].keystr;
+    fparentstr1:= masterheader.treeheader[tmptree].parentstr;
+    findexint1:= masterheader.treeheader[tmptree].keynum;
+    fparentint1:= masterheader.treeheader[tmptree].parentnum;
+    //factiveheaderkey1:= footertreekey;
     while not shouldstop do begin
-     masterheader.nextrecord;       
+     masterheader.nextrecord;
      if not masterheader.iseof then begin
       with tmsesqlquery(detail.datalink.dataset) do begin
        active:= false;
@@ -660,43 +718,67 @@ var
          masterheader.datalink.dataset).fieldbyname(KeyFieldHeader).value;
        active:= true;
       end;
-      itree:= masterheader.indextree;
-      masterheader.checklevel;
-      if itree>=masterheader.indextree then begin
-       result:= false;
-       lastfound:= masterheader.datalink.dataset.recno;
-       shouldstop:= true;
-       fisfinishdata:= true;
-       masterheader.datalink.dataset.recno:= lastrow;
-       tmsesqlquery(detail.datalink.dataset).active:= false;
-      end else begin
-       with tmsesqlquery(detail.datalink.dataset) do begin
-        if recordcount>0 then begin
-         result:= true;
-         lastfound:= masterheader.datalink.dataset.recno;
-         shouldstop:= true;
-         fisfinishdata:= true;
-         masterheader.datalink.dataset.recno:= lastrow;
-         active:= false;
-        end;
-       end;
-      end;
      end else begin
       result:= false;
       shouldstop:= true;
+      //updateheader(tmptree,true);
+      tmsesqlquery(detail.datalink.dataset).active:= false;
+      break;
      end;
+     masterheader.checklevel;
+     k:= masterheader.indextree;
+     if k>=high(masterheader.treeheader) then begin
+      updateheader(k,true);
+     end;
+     if (k=tmptree) and ((tmptree<>-1) and (tmptree<>0)) then begin
+      result:= false;
+      shouldstop:= true;
+      masterheader.datalink.dataset.recno:= lastrow;
+      fnextrow:= -1;
+      fnextindex:= -1;
+      tmsesqlquery(detail.datalink.dataset).active:= false;
+     end else begin
+      if k<tmptree then begin
+       result:= false;
+       shouldstop:= true;
+       fnextrow:= -1;
+       fnextindex:= -1;
+       masterheader.datalink.dataset.recno:= lastrow;
+       tmsesqlquery(detail.datalink.dataset).active:= false;
+      end else if detail.datalink.dataset.recordcount>0 then begin
+       result:= true;
+       shouldstop:= true;
+       fnextrow:= masterheader.datalink.dataset.recno;
+       fnextindex:= masterheader.indextree;
+       masterheader.datalink.dataset.recno:= lastrow;
+       tmsesqlquery(detail.datalink.dataset).active:= false;
+      end;
+     end;      
     end;
-    masterheader.indextree:= tmptree;
+    if masterheader.indextree<>tmptree then begin
+     masterheader.indextree:= tmptree;
+     updateheader(masterheader.indextree,true);
+     updatefooter;
+    end;
+    if result then begin
+     masterheader.treeheader[tmptree].keystr:= findexstr1;
+     masterheader.treeheader[tmptree].parentstr:= fparentstr1;
+     masterheader.treeheader[tmptree].keynum:= findexint1;
+     masterheader.treeheader[tmptree].parentnum:= fparentint1;
+     //masterheader.treeheader[tmptree].activeheaderkey:= factiveheaderkey1;
+    end;
    end;
   end;
  end;
  
- procedure drawtreefooter;
+ function drawtreefooter:boolean;
  begin
+  result:= false;
   if items[aindex].footer.count>0 then begin
    if posy<=limity-items[aindex].footer.pixelheight then begin
     items[aindex].footer.paint(canvas,makerect(area.x,posy+area.y,area.cx,items[aindex].footer.pixelheight),true,false);
     inc(posy,items[aindex].footer.pixelheight);
+    result:= true;
    end;
   end;
  end;
@@ -705,153 +787,153 @@ begin
  limity:= area.cy;
  fpreviewing:= true;
  isfinish:= false;
- lastfound:= -1;
  with items[aindex] do begin
-  if not masterheader.datalink.active then begin
-   TraTreeReport(fowner).continuetree:= false;
-   islastpage:= true;
-   exit;
-  end;
   if (fowner.Report_Footer_RowValues.count>0) then begin
    extheight:= round(fowner.Report_Footer_Height*fowner.pixelperunit);
   end else begin
    extheight:= 0;
   end;
-  if masterheader.iseof then begin
-   result:= 0;
-   //draw footer
-   fmodfooter:= drawfooter(masterheader.indextree);
-   if fmodfooter=-1 then begin
-    updatefooter;
-    updateheader;
-   end;
-   if TraTreeReport(fowner).indexbuild<self.count-1 then begin
-    drawtreefooter;
-    inc(TraTreeReport(fowner).findexbuild);
-    init(TraTreeReport(fowner).indexbuild);
-    TraTreeReport(fowner).continuetree:= true;
-   end else begin
-    drawtreefooter;
-    islastpage:= true;
-    TraTreeReport(fowner).continuetree:= false;
-   end;
-   exit;
-  end;
   while not isfinish do begin
-   if fisfinishdata then begin
-    if fmodfooter>=0 then begin
-     drawfooter(fmodfooter);
-     updatefooter;
-     updateheader;
+   if fmodheader or fneedfooter or (not fneedfooter and detail.iseof) then begin
+    {if masterheader.keyfieldlink.asmsestring='514.002' then begin
+     debugwriteln(masterheader.keyfieldlink.asmsestring);
     end;
-    if masterheader.count>0 then begin
-     if posy<=limity-masterheader.pixelheight then begin
-      ishaschildren:= haschildren;
-      if isdrawheader and ((masterheader.printifnochild) or ((not masterheader.printifnochild) and ishaschildren)) then begin
-       tmppos:= masterheader[TreeColIndex].position;
-       tmpwidth:= masterheader[TreeColIndex].width;
-       delta:= masterheader.indextree*TreeGap;
-       treepos:= tmppos+delta;
-       masterheader[TreeColIndex].fpos:= treepos;
-       masterheader[TreeColIndex].fwidth:= tmpwidth-delta;
-       factiveheaderkey:= masterheader.keyfieldlink.asvariant;
-       masterheader.paint(canvas,makerect(area.x,posy+area.y,area.cx,masterheader.pixelheight),true,false);
-       masterheader[TreeColIndex].fpos:= tmppos;
-       masterheader[TreeColIndex].fwidth:= tmpwidth;
-       inc(posy,masterheader.pixelheight);
-       if detail.datalink.active then begin
-        if ishaschildren then begin
-         drawdetail;
-        end;
-       end;
-      end;
-      isdrawheader:= true;
-      if fisfinishdata and (not isfinish) then begin
-       if not masterheader.iseof then masterheader.nextrecord;
-       if not masterheader.iseof then begin
-        int2:= masterheader.indextree;
-        masterheader.checklevel;
-        if int2<masterheader.indextree then begin
-         createfooter(aindex);
-        end else begin
-         //draw footer
-         if ishaschildren then begin
-          fmodfooter:= drawfooter(int2);
-         end;
-         if fmodfooter=-1 then begin
-          updatefooter;
-          updateheader;
-         end;
-        end;
-       end else begin
-        //draw footer
-        fmodfooter:= drawfooter(masterheader.indextree-1);
-        if fmodfooter=-1 then begin
-         updatefooter;
-         updateheader;
-        end;
-        isfinish:= true;
-        if TraTreeReport(fowner).indexbuild<self.count-1 then begin
-         drawtreefooter;
-         inc(TraTreeReport(fowner).findexbuild);
-         init(TraTreeReport(fowner).indexbuild);
-         TraTreeReport(fowner).continuetree:= true;
-        end else begin
-         drawtreefooter;
-         islastpage:= true;
-         TraTreeReport(fowner).continuetree:= false;
-        end;
-       end;
-      end;
+    debugwriteln(masterheader.keyfieldlink.asmsestring);}
+    
+    int2:= masterheader.indextree;
+    masterheader.checklevel;
+    int3:= masterheader.indextree;
+    if (int3<int2) then begin
+     fprintfooter:= (fmodfooter<>-1) or fneedfooter;
+    end else if (int3=int2) then begin
+     if fneedfooter then begin
+      fprintfooter:= true;
      end else begin
-      isfinish:= true;
-      TraTreeReport(fowner).continuetree:= false;
+      fprintfooter:= false;
      end;
     end else begin
-     drawtreefooter;
-     inc(TraTreeReport(fowner).findexbuild);
-     isfinish:= true;
-     islastpage:= true;
+     fprintfooter:= false;
     end;
-   end else begin
-    if not detail.datalink.active then begin
-     isfinish:= true;
+    if masterheader.iseof then begin
+     int1:= 0;
+     fprintfooter:= true;
     end else begin
-     drawdetail;
-     isdrawheader:= true;
-     if not fisfinishdata then begin
-      TraTreeReport(fowner).continuetree:= false;
-      isfinish:= true;
-     end else begin
-      if masterheader.iseof then begin
-       isfinish:= true;
-       if TraTreeReport(fowner).indexbuild<self.count-1 then begin
-        drawtreefooter;
-        inc(TraTreeReport(fowner).findexbuild);
-        init(TraTreeReport(fowner).indexbuild);
-        TraTreeReport(fowner).continuetree:= true;
-       end else begin
-        drawtreefooter;
-        islastpage:= true;
-        TraTreeReport(fowner).continuetree:= false;
-       end;
+     int1:= masterheader.indextree;
+    end;
+    if fmodfooter<>-1 then begin
+     if not fneedfooter then begin
+      if int3>int2 then begin
+       int2:= int3;
       end else begin
-       isdrawheader:= false;
+       int2:= fmodfooter;
+      end;
+     //end else begin
+     // int2:= int3;
+     end;
+    end;
+    if fprintfooter and (int2>=0) and (int1>=0) then begin
+     fmodfooter:= drawfooter(int2,int1);
+    end;
+    if not isfinish and masterheader.iseof then begin
+     if fmodmasterfooter then begin
+      fmodmasterfooter:= drawtreefooter;
+      if not fmodmasterfooter then begin
+       isfinish:= true;
       end;
      end;
-    end;    
+     if (fmodtreefooter<>-1) and not isfinish then begin
+      if treefooter.count>0 then begin
+       for j:=fmodtreefooter downto 0 do begin
+        with treefooter[j] do begin
+         if posy<=limity-tabulators.pixelheight then begin
+          //tabulators.yposition:=posy+area.y;
+          tabulators.paint(canvas,makerect(area.x,posy+area.y,area.cx,tabulators.pixelheight),true,false);
+          inc(posy,tabulators.pixelheight);
+          fmodtreefooter:= j;
+         end else begin
+          isfinish:= true;
+         end;
+        end;
+       end;
+      end;
+     end;
+     if not isfinish then begin
+      if TraTreeReport(fowner).indexbuild<self.count-1 then begin
+       inc(TraTreeReport(fowner).findexbuild);
+       init(TraTreeReport(fowner).indexbuild);
+       TraTreeReport(fowner).continuetree:= true;
+       isfinish:= true;
+      end else begin
+       islastpage:= true;
+       isfinish:= true;
+       TraTreeReport(fowner).continuetree:= false;
+      end;
+     end;
+    end;
+    //print header
+    if not isfinish then begin
+     ishaschildren:= haschildren;
+     if masterheader.indextree>fmodfooter then begin
+      updateheader(masterheader.indextree,true);
+      createfooter(aindex);
+     end else begin
+      updateheader(fmodfooter,true);
+      createfooter(aindex);
+     end;
+     if not masterheader.iseof then begin
+      if masterheader.count>0 then begin
+       if posy<=limity-masterheader.pixelheight then begin
+        if ((masterheader.printifnochild) or ((not masterheader.printifnochild) and ishaschildren)) then begin
+         if (fnextindex=-1) or (fnextrow=-1) or (masterheader.indextree<fnextindex) or ((masterheader.indextree=fnextindex) and (masterheader.datalink.dataset.recno=fnextrow)) then begin
+          tmppos:= masterheader[TreeColIndex].position;
+          tmpwidth:= masterheader[TreeColIndex].width;
+          delta:= masterheader.indextree*TreeGap;
+          treepos:= tmppos+delta;
+          masterheader[TreeColIndex].fpos:= treepos;
+          masterheader[TreeColIndex].fwidth:= tmpwidth-delta;
+          factiveheaderkey:= masterheader.keyfieldlink.asvariant;
+          masterheader.paint(canvas,makerect(area.x,posy+area.y,area.cx,masterheader.pixelheight),true,false);
+          masterheader[TreeColIndex].fpos:= tmppos;
+          masterheader[TreeColIndex].fwidth:= tmpwidth;
+          inc(posy,masterheader.pixelheight);
+          fmodheader:= false;
+         end;
+        end;
+       end else begin
+        isfinish:= true;
+        TraTreeReport(fowner).continuetree:= false;
+        fmodheader:= true;
+        result:= posy+area.y;
+        break;
+       end;
+      end;
+     end else begin
+      isfinish:= true;
+      TraTreeReport(fowner).continuetree:= true;
+     end;
+    end;
+   end;
+   //print detail
+   if not isfinish then begin
+    if ishaschildren and (masterheader.datalink.dataset.recordcount>0) then begin
+     drawdetail;
+    end;
+    if detail.iseof then begin
+     masterheader.nextrecord;
+    end;
    end;
   end;
-  if islastpage then begin
-   fpreviewing:= false;
-  end;
+//akhir
+ end;
+ if islastpage then begin
+  fpreviewing:= false;
  end;
  result:= posy+area.y;
 end;
 
 procedure TraTreeContent.adddatasets(var adatasets: datasetarty);
 var
- int1: integer;
+ int1,int2: integer;
 begin
  if count>0 then begin
   for int1:=0 to count-1 do begin
@@ -867,17 +949,25 @@ begin
    if (items[int1].detail.count>0) and (items[int1].detail.datalink.dataset <> nil) then begin
     adduniqueitem(pointerarty(adatasets),items[int1].detail.datalink.dataset);
    end;
+   if items[int1].treefooter.count>0 then begin
+    for int2:=0 to items[int1].treefooter.count-1 do begin
+     if (items[int1].treefooter[int2].tabulators.count>0) and (items[int1].treefooter[int2].tabulators.datalink.dataset <> nil) then begin
+      adduniqueitem(pointerarty(adatasets),items[int1].treefooter[int2].tabulators.datalink.dataset);
+     end;
+    end;
+   end;
   end;
  end;
 end;
 
 procedure TraTreeContent.init(aindex:integer);
+var
+ int1: integer;
 begin
  if aindex<count then begin
   with items[aindex] do begin
    footerarty:= nil;
    masterheader.init;
-   footerarty:= nil;
    createfooter(aindex);
    if masterheader.datalink.active and detail.datalink.active then begin
     with tmsesqlquery(detail.datalink.dataset) do begin
@@ -889,12 +979,21 @@ begin
    footer.init;
    masterfooter.init;
    detail.init;
+   if ftreefooter.count>0 then begin
+    for int1:=0 to ftreefooter.count-1 do begin
+     ftreefooter[int1].tabulators.init;
+    end;
+   end;
+   fmodmasterfooter:= footer.count>0;
+   fmodtreefooter:= treefooter.count-1;
   end;
  end;
+ fnextrow:= -1;
+ fnextindex:= -1;
  fdatanumber:= 0;
  fmodfooter:= -1;
- fisfinishdata:= true;
- isdrawheader:= true;
+ fneedfooter:= true;
+ ishaschildren:= false;
 end;
 
 { TraTreeReport }
@@ -950,7 +1049,7 @@ end;
 
 procedure TraTreeReport.contentupdatelinks;
 var
- int1: integer;
+ int1,int2: integer;
 begin
  if fcontent.count>0 then begin
   for int1:=0 to fcontent.count-1 do begin
@@ -958,19 +1057,29 @@ begin
    fcontent.items[int1].masterfooter.updatelinks;
    fcontent.items[int1].detail.updatelinks;
    fcontent.items[int1].footer.updatelinks;
+   if fcontent.items[int1].treefooter.count>0 then begin
+    for int2:=0 to fcontent.items[int1].treefooter.count-1 do begin
+     fcontent.items[int1].treefooter[int2].tabulators.updatelinks;
+    end;
+   end;
   end;
  end;
 end;
 
 procedure TraTreeReport.setcontentpixelperunit(const avalue: real);
 var
- int1: integer;
+ int1,int2: integer;
 begin
  if fcontent.count>0 then begin
   for int1:=0 to fcontent.count-1 do begin
    fcontent.items[int1].masterheader.setpixelperunit(avalue);
    fcontent.items[int1].masterfooter.setpixelperunit(avalue);
    fcontent.items[int1].detail.setpixelperunit(avalue);
+   if fcontent.items[int1].treefooter.count>0 then begin
+    for int2:=0 to fcontent.items[int1].treefooter.count-1 do begin
+     fcontent.items[int1].treefooter[int2].tabulators.setpixelperunit(avalue);
+    end;
+   end;
   end;
  end;
 end;
@@ -990,6 +1099,17 @@ begin
   if (indexrow>=0) and (indexrow<=high(fcontent[indextree].footerarty)) then begin
    if (indexcol>=0) and (indexcol<=(fcontent[indextree].footerarty[indexrow].count-1)) then begin
     result:= fcontent[indextree].footerarty[indexrow].items[indexcol].value;
+   end;
+  end;
+ end;
+end;
+
+function TraTreeReport.treemainfootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
+begin
+ if ((indextree>=0) and (indextree<=(fcontent.count-1))) then begin
+  if (indexrow>=0) and (indexrow<=high(fcontent[indextree].treefooter.count)) then begin
+   if (indexcol>=0) and (indexcol<=(fcontent[indextree].treefooter[indexrow].tabulators.count-1)) then begin
+    result:= fcontent[indextree].treefooter[indexrow].tabulators.items[indexcol].value;
    end;
   end;
  end;
@@ -1024,7 +1144,7 @@ end;
 function TraTreeReport.treenumber: integer;
 begin
  if findexbuild>=0 then begin
-  result:= fcontent[findexbuild].masterheader.indextree;
+  result:= fcontent.indextree;
  end else begin
   result:= -1;
  end;

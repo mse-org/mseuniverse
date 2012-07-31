@@ -1,16 +1,15 @@
 object frmevaldialogfo: tfrmevaldialogfo
-  optionswidget = [ow_top, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousewheel, ow_destroywidgets, ow_hinton, ow_autoscale]
-  bounds_x = 178
-  bounds_y = 202
-  bounds_cx = 448
-  bounds_cy = 396
+  bounds_x = 180
+  bounds_y = 114
+  bounds_cx = 564
+  bounds_cy = 472
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    448
-    396
+    564
+    472
   )
   optionswindow = [wo_message]
   options = [fo_screencentered, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos]
@@ -44,47 +43,15 @@ object frmevaldialogfo: tfrmevaldialogfo
   ondestroy = frmevaldialogfo_ondestroy
   onstatafterread = frmevaldialogfo_onstatafterread
   moduleclassname = 'tmseform'
-  object tlayouter2: tlayouter
-    bounds_x = 8
-    bounds_y = 363
-    bounds_cx = 432
-    bounds_cy = 26
-    anchors = [an_right, an_bottom]
-    optionslayout = [lao_placex, lao_aligny]
-    place_mindist = 10
-    place_maxdist = 10
-    place_mode = wam_end
-    object bcancel: tbutton
-      taborder = 1
-      bounds_x = 382
-      bounds_y = 4
-      bounds_cx = 50
-      bounds_cy = 22
-      state = [as_localcaption, as_localcolor]
-      caption = '&Cancel'
-      modalresult = mr_cancel
-    end
-    object bok: tbutton
-      bounds_x = 322
-      bounds_y = 4
-      bounds_cx = 50
-      bounds_cy = 22
-      state = [as_default, as_localdefault, as_localcaption, as_localcolor, as_localonexecute]
-      caption = '&OK'
-      modalresult = mr_ok
-      onexecute = bok_onexecute
-    end
-  end
   object tsimplewidget1: tsimplewidget
-    taborder = 1
     visible = True
-    bounds_x = 0
+    bounds_x = -8
     bounds_y = 104
-    bounds_cx = 448
-    bounds_cy = 258
+    bounds_cx = 571
+    bounds_cy = 334
     anchors = [an_left, an_top, an_right, an_bottom]
     object LItems: tstringgrid
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
       frame.caption = '&Operation'
       frame.outerframe = (
         0
@@ -93,18 +60,18 @@ object frmevaldialogfo: tfrmevaldialogfo
         0
       )
       taborder = 2
-      bounds_x = 148
+      bounds_x = 152
       bounds_y = 41
-      bounds_cx = 292
-      bounds_cy = 97
-      anchors = [an_left, an_top, an_right, an_bottom]
+      bounds_cx = 415
+      bounds_cy = 173
+      anchors = [an_left, an_top, an_right]
       optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
       datacols.count = 1
       datacols.options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
       datacols.items = <      
         item
           linewidth = 0
-          width = 288
+          width = 411
           options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
           valuefalse = '0'
           valuetrue = '1'
@@ -118,7 +85,7 @@ object frmevaldialogfo: tfrmevaldialogfo
       reffontheight = 13
     end
     object LCategory: tstringgrid
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
       frame.caption = '&Category'
       frame.outerframe = (
         0
@@ -127,11 +94,10 @@ object frmevaldialogfo: tfrmevaldialogfo
         0
       )
       taborder = 1
-      bounds_x = 8
+      bounds_x = 12
       bounds_y = 41
       bounds_cx = 136
-      bounds_cy = 97
-      anchors = [an_left, an_top, an_bottom]
+      bounds_cy = 173
       optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
       datacols.count = 1
       datacols.linewidth = 0
@@ -152,92 +118,21 @@ object frmevaldialogfo: tfrmevaldialogfo
       oncellevent = LCategory_oncellevent
       reffontheight = 13
     end
-    object lparams: tlabel
-      optionswidget1 = []
-      frame.caption = 'Params :'
-      frame.dummy = 0
-      frame.outerframe = (
-        0
-        16
-        0
-        0
-      )
-      taborder = 3
-      bounds_x = 8
-      bounds_y = 184
-      bounds_cx = 434
-      bounds_cy = 33
-      anchors = [an_left, an_bottom]
-      caption = 'tlabel1'
-      font.color = -1879048181
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
-      textflags = [tf_wordbreak]
-      reffontheight = 13
-    end
-    object lmodel: tlabel
-      optionswidget1 = []
-      frame.caption = 'Model :'
-      frame.dummy = 0
-      frame.outerframe = (
-        0
-        16
-        0
-        0
-      )
-      taborder = 4
-      bounds_x = 8
-      bounds_y = 144
-      bounds_cx = 434
-      bounds_cy = 33
-      anchors = [an_left, an_bottom]
-      caption = 'tlabel1'
-      font.color = -1879048181
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
-      textflags = [tf_wordbreak]
-      reffontheight = 13
-    end
-    object lhelp: tlabel
-      optionswidget1 = []
-      frame.caption = 'Hints :'
-      frame.dummy = 0
-      frame.outerframe = (
-        0
-        16
-        0
-        0
-      )
-      taborder = 5
-      bounds_x = 8
-      bounds_y = 223
-      bounds_cx = 434
-      bounds_cy = 33
-      anchors = [an_left, an_bottom]
-      caption = 'tlabel1'
-      font.color = -1879048181
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
-      textflags = [tf_wordbreak]
-      reffontheight = 13
-    end
     object tlayouter1: tlayouter
-      bounds_x = 8
+      bounds_x = 13
       bounds_y = 8
-      bounds_cx = 433
+      bounds_cx = 552
       bounds_cy = 26
       anchors = [an_left, an_top, an_right]
       optionslayout = [lao_placex, lao_aligny]
       place_mindist = 10
       place_maxdist = 10
+      place_mode = wam_center
       place_options = [plo_scalesize]
       object bclear: tbutton
-        bounds_x = 0
+        bounds_x = 5
         bounds_y = 0
-        bounds_cx = 99
+        bounds_cx = 128
         bounds_cy = 22
         state = [as_localcaption, as_localcolor, as_localonexecute]
         caption = '&Clear'
@@ -245,9 +140,9 @@ object frmevaldialogfo: tfrmevaldialogfo
       end
       object bshowresult: tbutton
         taborder = 3
-        bounds_x = 327
+        bounds_x = 419
         bounds_y = 0
-        bounds_cx = 99
+        bounds_cx = 128
         bounds_cy = 22
         state = [as_localcaption, as_localcolor, as_localonexecute]
         caption = 'Show &Result'
@@ -255,15 +150,15 @@ object frmevaldialogfo: tfrmevaldialogfo
       end
       object bchecksyn: tbutton
         taborder = 2
-        bounds_x = 218
+        bounds_x = 281
         bounds_y = 0
-        bounds_cx = 99
+        bounds_cx = 128
         bounds_cy = 22
         state = [as_localcaption, as_localcolor, as_localonexecute]
         caption = '&Syntax Check'
         onexecute = bchecksyn_onexecute
         object tbutton3: tbutton
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_autoscale]
+          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
           bounds_x = 102
           bounds_y = 46
           bounds_cx = 140
@@ -274,9 +169,9 @@ object frmevaldialogfo: tfrmevaldialogfo
       end
       object badd: tbutton
         taborder = 1
-        bounds_x = 109
+        bounds_x = 143
         bounds_y = 0
-        bounds_cx = 99
+        bounds_cx = 128
         bounds_cy = 22
         state = [as_localcaption, as_localcolor, as_localonexecute]
         caption = '&Add Selection'
@@ -284,29 +179,110 @@ object frmevaldialogfo: tfrmevaldialogfo
       end
     end
     object tsplitter2: tsplitter
-      optionswidget = [ow_destroywidgets, ow_autoscale]
+      optionswidget = [ow_destroywidgets]
       color = -1879048189
       frame.dummy = 0
-      taborder = 6
-      bounds_x = 144
+      taborder = 3
+      bounds_x = 148
       bounds_y = 57
       bounds_cx = 4
-      bounds_cy = 81
-      anchors = [an_left, an_top, an_bottom]
+      bounds_cy = 157
       options = [spo_hmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = LCategory
       linkright = LItems
       grip = stb_dens50
     end
+    object tscrollbox1: tscrollbox
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto, sbo_show]
+      taborder = 4
+      bounds_x = 12
+      bounds_y = 219
+      bounds_cx = 556
+      bounds_cy = 110
+      anchors = [an_left, an_top, an_right, an_bottom]
+      object lparams: tstringdisp
+        optionswidget1 = [ow1_autoscale]
+        frame.levelo = 0
+        frame.caption = 'Params :'
+        frame.localprops = [frl_levelo]
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          16
+          0
+          0
+        )
+        bounds_x = 7
+        bounds_y = 44
+        bounds_cx = 531
+        bounds_cy = 68
+        text = 'none'
+        font.color = -1879048181
+        font.name = 'stf_default'
+        font.xscale = 1
+        font.dummy = 0
+        textflags = [tf_wordbreak]
+      end
+      object lmodel: tstringdisp
+        optionswidget1 = []
+        frame.levelo = 0
+        frame.caption = 'Model :'
+        frame.localprops = [frl_levelo]
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          16
+          0
+          0
+        )
+        taborder = 1
+        bounds_x = 7
+        bounds_y = 5
+        bounds_cx = 531
+        bounds_cy = 33
+        text = 'none'
+        font.color = -1879048181
+        font.name = 'stf_default'
+        font.xscale = 1
+        font.dummy = 0
+        textflags = [tf_wordbreak]
+      end
+      object lhelp: tstringdisp
+        optionswidget1 = []
+        frame.levelo = 0
+        frame.caption = 'Hints :'
+        frame.localprops = [frl_levelo]
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          16
+          0
+          0
+        )
+        taborder = 2
+        bounds_x = 7
+        bounds_y = 118
+        bounds_cx = 531
+        bounds_cy = 68
+        text = 'none'
+        font.color = -1879048181
+        font.name = 'stf_default'
+        font.xscale = 1
+        font.dummy = 0
+        textflags = [tf_wordbreak]
+      end
+    end
   end
   object tsplitter1: tsplitter
-    optionswidget = [ow_destroywidgets, ow_autoscale]
+    optionswidget = [ow_destroywidgets]
     color = -1879048189
     frame.dummy = 0
-    taborder = 2
+    taborder = 1
     bounds_x = 0
     bounds_y = 100
-    bounds_cx = 448
+    bounds_cx = 564
     bounds_cy = 4
     anchors = [an_top]
     options = [spo_vmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
@@ -322,10 +298,10 @@ object frmevaldialogfo: tfrmevaldialogfo
       0
       0
     )
-    taborder = 3
+    taborder = 2
     bounds_x = 0
     bounds_y = 1
-    bounds_cx = 448
+    bounds_cx = 564
     bounds_cy = 99
     anchors = [an_top, an_bottom]
     optionsgrid = [og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup]
@@ -349,7 +325,6 @@ object frmevaldialogfo: tfrmevaldialogfo
     datarowheight = 15
     reffontheight = 13
     object textedit: tsyntaxedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontlineheight, ow_autoscale]
       frame.levelo = 0
       frame.framei_top = 0
       frame.framei_bottom = 0
@@ -364,11 +339,34 @@ object frmevaldialogfo: tfrmevaldialogfo
       font.options = [foo_script]
       font.xscale = 1
       font.dummy = 0
-      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
+      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_savevalue, oe_savestate]
       oneditnotifcation = textedit_oneditnotifcation
       syntaxpainter = tsyntaxpainter1
       reffontheight = 13
     end
+  end
+  object bcancel: tbutton
+    taborder = 3
+    bounds_x = 492
+    bounds_y = 444
+    bounds_cx = 66
+    bounds_cy = 22
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localcolor]
+    caption = '&Cancel'
+    modalresult = mr_cancel
+  end
+  object bok: tbutton
+    taborder = 4
+    bounds_x = 420
+    bounds_y = 444
+    bounds_cx = 66
+    bounds_cy = 22
+    anchors = [an_right, an_bottom]
+    state = [as_default, as_localdefault, as_localcaption, as_localcolor, as_localonexecute]
+    caption = '&OK'
+    modalresult = mr_ok
+    onexecute = bok_onexecute
   end
   object tsyntaxpainter1: tsyntaxpainter
     defdefs.data = (

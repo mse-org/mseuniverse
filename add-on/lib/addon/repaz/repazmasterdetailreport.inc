@@ -208,6 +208,7 @@ begin
     if (ffooter.count>0) and fmodfooter then begin
  	   ffooter.paint(canvas,makerect(area.x,posy+area.y,area.cx,ffooter.pixelheight),true,false);
      inc(posy,ffooter.pixelheight);
+     ffooter.resetsums(false);
      fmodfooter:= false;
     end;
     if (fmaster.count>0) and newgroup then begin
@@ -243,23 +244,25 @@ begin
       newheader:= false;
       newgroup:= false;
      end else begin
-      newheader:= true;
+      //newheader:= false;
+      //newgroup:= false;
       bo1:= true;
      end;
-    end else begin
+    {end else begin
      newheader:= true;
+     newgroup:= true;}
     end;
-    if fdata.iseof then begin
+    if fdata.iseof and not bo1 then begin
      if (ffooter.count>0) and (fdata.datalink.dataset.recordcount>0) then begin
       if ((posy+ffooter.pixelheight)<=limity) then begin
-       ffooter.paint(canvas,makerect(area.x,posy+area.y,area.cx,ffooter.pixelheight),true,true);
+       ffooter.paint(canvas,makerect(area.x,posy+area.y,area.cx,ffooter.pixelheight),true,false);
        inc(posy,ffooter.pixelheight);
        ffooter.resetsums(false);
       end else begin
        fmodfooter:= true;
       end;
      end;
-     //countingsummarymaster;
+     countingsummarymaster;
      fmaster.nextrecord;
      frecordnumber:= 1;
      newheader:= true;

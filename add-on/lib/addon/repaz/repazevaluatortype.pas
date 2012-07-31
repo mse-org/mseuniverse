@@ -73,19 +73,25 @@ type
  tevalidentifier=class(tcomponent)
   protected
    fparamcount:integer;
+   fhelp:msestring;
+   fmodel:msestring;
+   fparams:msestring;
    procedure setevalvalue(avalue:variant);virtual;abstract;
    function getevalvalue:variant;virtual;abstract;
+   function gethelp: msestring;virtual;
+   function getparam: msestring;virtual;
+   function getmodel: msestring;virtual;
   public
    evaluator:tcomponent;
    rtype:rtypeidentificator;
    idenname:string;
-   help:string;
-   model:string;
-   aparams:string;
    params:array[0..maxparams-1] of variant;
    constructor create(aowner:tcomponent);override;
    property paramcount:integer read fparamcount;
    property value:variant read getevalvalue write setevalvalue;
+   property help: msestring read gethelp write fhelp;
+   property model: msestring read getmodel write fmodel;
+   property parameters: msestring read getparam write fparams;
   end;
 
  tidenfunction=class(tevalidentifier)
@@ -126,6 +132,7 @@ type
  protected
   function getevalvalue:variant;override;
   procedure setevalvalue(avalue:variant);override;
+  function gethelp: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
   constructor createfield(aowner:tcomponent;nom:string);
@@ -134,11 +141,13 @@ type
 
  tidentrue=class(tidenconstant)
  public
+  function gethelp: msestring;override;
   constructor create(aowner:tcomponent);override;
  end;
 
  tidenfalse=class(tidenconstant)
  public
+  function gethelp: msestring; override;
   constructor create(aowner:tcomponent);override;
  end;
 
@@ -206,10 +215,23 @@ end;
 constructor tevalidentifier.create(aowner:tcomponent);
 begin
  inherited create(aowner);
- help:=uc(ord(rcsnohelp));
- aparams:=uc(ord(rcsnoaparams));
- model:=uc(ord(rcsnomodel));
 end;
+
+function tevalidentifier.gethelp: msestring;
+begin
+ result:=uc(ord(rcsnohelp));
+end;
+
+function tevalidentifier.getparam: msestring;
+begin
+ result:=uc(ord(rcsnoaparams));
+end;
+
+function tevalidentifier.getmodel: msestring;
+begin
+ result:=uc(ord(rcsnomodel));
+end;
+
 
 // tidenfunction
 constructor tidenfunction.create(aowner:tcomponent);
@@ -241,8 +263,12 @@ begin
  inherited create(aowner);
  fvalue:=true;
  rtype:=rtypeidenconstant;
- help:=uc(ord(rcstruehelp));
  idenname:='true';
+end;
+
+function tidentrue.gethelp: msestring;
+begin
+ result:=uc(ord(rcstruehelp));
 end;
 
 // tidenfalse
@@ -250,8 +276,12 @@ constructor tidenfalse.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fvalue:=false;
- help:=uc(ord(rcsfalsehelp));
  idenname:='false';
+end;
+
+function tidenfalse.gethelp: msestring;
+begin
+ result:=uc(ord(rcsfalsehelp));
 end;
 
 // tidenvariable
@@ -298,7 +328,11 @@ constructor tidenfield.createfield(aowner:tcomponent;nom:string);
 begin
  inherited create(aowner);
  idenname:=nom;
- help:=uc(ord(rcsfieldhelp));
+end;
+
+function tidenfield.gethelp: msestring;
+begin
+ result:= uc(ord(rcsfieldhelp));
 end;
 
 procedure tidenfield.setevalvalue(avalue:variant);

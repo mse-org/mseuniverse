@@ -18,7 +18,7 @@ object frmaboutfo: tfrmaboutfo
     355
   )
   optionswindow = [wo_message, wo_windowcentermessage]
-  options = [fo_freeonclose, fo_screencentered, fo_modal, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_freeonclose, fo_screencentered, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   caption = 'About Repaz'
   moduleclassname = 'tmseform'
   object timage1: timage
@@ -939,7 +939,7 @@ object frmaboutfo: tfrmaboutfo
     bounds_cy = 170
     taborder = 1
     activepageindex = 0
-    tab_size = 18
+    tab_size = 19
     object ttabpage1: ttabpage
       frame.zoomwidthstep = 1
       frame.zoomheightstep = 1
@@ -948,9 +948,9 @@ object frmaboutfo: tfrmaboutfo
       taborder = 1
       visible = True
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 19
       bounds_cx = 410
-      bounds_cy = 152
+      bounds_cy = 151
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'About'
       object tmemoedit1: tmemoedit
@@ -970,9 +970,9 @@ object frmaboutfo: tfrmaboutfo
       frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
       taborder = 2
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 19
       bounds_cx = 410
-      bounds_cy = 152
+      bounds_cy = 151
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Contributors'
       object tmemoedit2: tmemoedit
@@ -992,9 +992,9 @@ object frmaboutfo: tfrmaboutfo
       frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
       taborder = 3
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 19
       bounds_cx = 410
-      bounds_cy = 152
+      bounds_cy = 151
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Special Thanks'
       object tmemoedit3: tmemoedit
@@ -1014,9 +1014,9 @@ object frmaboutfo: tfrmaboutfo
       frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
       taborder = 4
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 19
       bounds_cx = 410
-      bounds_cy = 152
+      bounds_cy = 151
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Licence'
       object tmemoedit4: tmemoedit
@@ -1038,7 +1038,7 @@ object frmaboutfo: tfrmaboutfo
     bounds_x = 264
     bounds_y = 17
     bounds_cx = 164
-    bounds_cy = 90
+    bounds_cy = 91
     font.color = -1610612727
     font.height = 12
     font.style = [fs_bold]
@@ -1047,7 +1047,7 @@ object frmaboutfo: tfrmaboutfo
     font.dummy = 0
     textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
     value = 'Version : 1.0.50'#10#10'Copyright (c) 2011 :'#13#10'Sri Wahono'
-    reffontheight = 14
+    reffontheight = 15
   end
   object tbutton1: tbutton
     taborder = 3
