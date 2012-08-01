@@ -21,7 +21,7 @@ uses
  mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
  msegraphutils,mseevent,mseclasses,mseforms,msedataedits,mseedit,msegrids,
  msestrings,msetypes,msewidgetgrid,msedatanodes,mselistbrowser,msestatfile;
-
+ 
 type
  tmainfo = class(tmseform)
    grid: twidgetgrid;
