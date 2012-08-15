@@ -5,7 +5,7 @@
 constructor TraSimpleContent.create(const aowner: TraReportTemplate);
 begin
  inherited create;
- fdatanumber:= -1;
+ fdatanumber:= 0;
  fowner:= aowner;
  fheader:= TNormalTabs.create(fowner);
  ffooter:= TSummaryTabs.create(fowner);
@@ -81,11 +81,11 @@ function TraSimpleContent.build(const canvas: tcanvas;const area:rectty;var isla
  end;
 var
  posy,limity,posy2,fdelta,extheight1,extheight2,hband: integer;
- bo1,eofbefore,areset: boolean;
+ bo1,areset: boolean;
 begin
  posy:= 0;
  limity:= area.cy;
- eofbefore:= false;
+ //eofbefore:= false;
  if (fowner.Report_Footer_RowValues.count>0) then begin
   extheight1:= round(fowner.Report_Footer_Height*fowner.pixelperunit);
  end else begin
@@ -94,7 +94,7 @@ begin
  if (fheader.count>0) and 
   ((fheadershow=hcs_EveryPage) or 
   ((fheadershow=hcs_FirstPageOnly) and (fowner.reportpage.pagenum=1))) then begin
-  if (fdata.count>0) and (not fdata.iseof) then begin
+  if (fdata.count>0) {and (not fdata.iseof)} then begin
    if fheader.height<=fheaderheight then begin
     fheader.paint(canvas,makerect(area.x,area.y,area.cx,fheader.pixelheight),true,false);
    end;
@@ -106,7 +106,7 @@ begin
  end else begin
   extheight2:= 0;
  end;
- fdatanumber:= 0;
+ //fdatanumber:= 0;
  if fdata.count>0 then begin
   bo1:= false;
   while not bo1 do begin
@@ -148,8 +148,8 @@ begin
     end else begin
      bo1:= true;
     end;
-   end else begin
-    eofbefore:= true;
+   {end else begin
+    eofbefore:= true;}
    end;
    if fdata.iseof then begin
     bo1:= true;
@@ -163,7 +163,7 @@ begin
  if (ffooter.count>0) and 
   ((ffootershow=fcs_EveryPage) or 
   ((ffootershow=fcs_LastPageOnly) and islastpage)) then begin
-  if not eofbefore then begin
+  //if not eofbefore then begin
    if ffooter.height<=ffooterheight then begin
     if fco_PrintOnBottomPage in ffooteroptions then begin
      posy2:= area.y+limity; //-round(ffooterheight*fowner.pixelperunit);
@@ -181,12 +181,16 @@ begin
      areset:= false;
     end;
     ffooter.paint(canvas,makerect(area.x,posy2,area.cx,ffooter.pixelheight),true,areset);
+    inc(posy,ffooter.pixelheight);
+    if fco_ResetEveryPage in ffooteroptions then begin
+     ffooter.resetsums(false);
+    end;
     if not (fdata.iseof) then begin
      fdata.initpage;
      countingsummary(false);
     end;
    end;
-  end;
+  //end;
  end;
  result:= posy+area.y;
 end;

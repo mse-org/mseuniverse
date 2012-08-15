@@ -34,7 +34,7 @@ unit repazdatasources;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- classes,mseclasses,db,msedb,msearrayprops,repazevaluatortype,msewidgets,msesqldb,msebufdataset,msestrings;
+ classes,mseclasses,db,msedb,msearrayprops,repazevaluatortype,msebufdataset;
 type
  trepazdatasources = class;
  
@@ -78,8 +78,7 @@ type
  end;
 
 implementation
-uses
- msesysutils;
+
 { tdatasourceitem }
 
 procedure tdatasourceitem.setdatasource(const avalue:tdatasource);

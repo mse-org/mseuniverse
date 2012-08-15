@@ -34,7 +34,7 @@ unit repazevaluatorparser;
 
 interface
 
-uses classes,sysutils,repazevaluatortype,repazconsts,mseconsts,msestrings,msesysutils;
+uses classes,sysutils,repazevaluatortype,repazconsts,mseconsts,msestrings;
 
 type
 

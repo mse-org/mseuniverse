@@ -299,7 +299,7 @@ end;
 function TraGroupContent.build(const canvas: tcanvas;const area:rectty;var islastpage: boolean):integer;
 var
  posy,limity,int1,int2,int3,hband,extheight: integer;
- bo1,eofbefore,newheader,isprev: boolean;
+ bo1,newheader,isprev: boolean;
 
  function islastrecord:boolean;
  begin
@@ -357,13 +357,12 @@ var
 begin
  posy:= 0;
  limity:= area.cy;
- eofbefore:= false;
  if (fowner.Report_Footer_RowValues.count>0) then begin
   extheight:= round(fowner.Report_Footer_Height*fowner.pixelperunit);
  end else begin
   extheight:= 0;
  end;
- fdatanumber:= 0;
+ //fdatanumber:= 0;
  if fdata.count>0 then begin
   bo1:= false;
   while not bo1 do begin
@@ -506,7 +505,6 @@ begin
      end;
     end;
     islastpage:= true;
-    eofbefore:= true;
    end;   
    if fdata.iseof then begin
     bo1:= true;

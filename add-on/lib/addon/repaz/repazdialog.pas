@@ -36,9 +36,8 @@ unit repazdialog;
 interface
 uses
  mseglob,mseguiglob,mseapplication,msestat,msegui,msegraphics,msegraphutils,
- mseclasses,mseforms,msedataedits,msesimplewidgets,msegraphedits,msebitmap,
- msedatanodes,mseedit,msefiledialog,msegrids,mselistbrowser,msemenus,
- msescrollbar,msestrings,msesys,msetypes;
+ mseclasses,mseforms,msedataedits,msesimplewidgets,msegraphedits,
+ msefiledialog,msegrids,mselistbrowser,msesys;
 type
  trepazdialogfo = class(tmseform)
    cactions: tdropdownlistedit;
@@ -54,6 +53,7 @@ type
    procedure btncancel_onexecute(const sender: TObject);
    procedure dialogloaded;virtual;
    procedure repazdialogfo_onloaded(const sender: TObject);
+   procedure wfilename_onchange(const sender: TObject);
  end;
 var
  repazdialogfo: trepazdialogfo;
@@ -111,6 +111,11 @@ end;
 
 procedure trepazdialogfo.repazdialogfo_onloaded(const sender: TObject);
 begin
+end;
+
+procedure trepazdialogfo.wfilename_onchange(const sender: TObject);
+begin
+ wfilename.hint:= wfilename.value;
 end;
 
 end.

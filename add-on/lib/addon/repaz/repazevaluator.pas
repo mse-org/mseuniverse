@@ -6,6 +6,7 @@
 { License Agreement:                                      }
 { This library is distributed in the hope that it will be }
 { useful, but WITHOUT ANY WARRANTY; without even the      }
+
 { implied warranty of MERCHANTABILITY or FITNESS FOR      }
 { A PARTICULAR PURPOSE.  See the GNU Lesser General       }
 { Public License for more details.                        }
@@ -35,9 +36,9 @@ unit repazevaluator;
 interface
 
 uses
-  sysutils,classes,db,repazevaluatortype,msestrings,
+  sysutils,classes,repazevaluatortype,msestrings,
   sysconst,repazevaluatorparser,variants,repazdatasources,repazconsts,
-  mseconsts,msesysutils;
+  mseconsts;
 
 type
  trepazcustomevaluator=class(tcomponent)
@@ -123,7 +124,7 @@ procedure removediscountday(adate: tdatetime);
 
 implementation
 
-uses repazevaluatorfunc,repazclasses,dateutils;
+uses repazevaluatorfunc,dateutils;
 
 { trepazcustomevaluator }
 
@@ -318,8 +319,12 @@ begin
   evalfunctions.addobject('HeaderTreeKey',iden); 
   iden:=tidenfootertreekey.create(self);
   evalfunctions.addobject('FooterTreeKey',iden); 
+  iden:=tidentreeindex.create(self);
+  evalfunctions.addobject('TreeIndex',iden); 
   iden:=tidentreefootervalue.create(self);
   evalfunctions.addobject('TreeFooterValue',iden); 
+  iden:=tidentreemainfootervalue.create(self);
+  evalfunctions.addobject('TreeMainFooterValue',iden); 
   iden:=tidentreefootervalue2.create(self);
   evalfunctions.addobject('TreeFooterValue2',iden); 
   iden:=tidenlettervalue.create(self);
@@ -1177,8 +1182,6 @@ begin
   addvariable(name1,iden);
   result:=iden;
  end else begin
-  // error variable redeclared
-  //raise exception.create(uc(ord(rcsvariabledefined))+name1);
   tidenvariable(var1).value:= valueini;
  end;
 end;
@@ -1305,5 +1308,6 @@ end;
 initialization
 
 finalization
+ //freeandnil(aholidays);
 
 end.

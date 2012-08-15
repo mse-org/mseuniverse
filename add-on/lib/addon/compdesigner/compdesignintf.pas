@@ -132,6 +132,12 @@ type
  end;
  objinfoarty = array of objinfoty;
 
+ componentsdataty = record
+  key: ptruint;
+  data: componentinfoty;
+ end;
+ pcomponentsdataty = ^componentsdataty;
+
  tdesignerselections = class(trecordlist,idesignerselections)
   private
    fupdating: integer;
@@ -794,13 +800,13 @@ var
 begin
  setlength(result,count);
  for int1:= 0 to count - 1 do begin
-  result[int1]:= next^.instance;
+  result[int1]:= pcomponentsdataty(next)^.data.instance;
  end;
 end;
 
 function tcomponents.next: pcomponentinfoty;
 begin
- result:= pcomponentinfoty (inherited next);
+ result:= @pcomponentsdataty(inherited next)^.data;
 end;
 
 function tcomponents.getcomponent(const aname: string): tcomponent;

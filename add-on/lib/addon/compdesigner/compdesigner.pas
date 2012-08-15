@@ -29,7 +29,7 @@ interface
 uses
  classes,TypInfo,msegui,mseevent,msegraphutils,msegraphics,mseclasses,msemenus,msedoublereallisteditor,
  msestrings,msewidgets,mseglob,compdesignintf,msetoolbar,mseact,msegrids,msewidgetgrid,msedatalist,
- msedataedits,mselistbrowser,msedatanodes,mselist,msetypes,mseguiglob,sysutils,msestringintlisteditor,
+ mselistbrowser,msedatanodes,mselist,msetypes,mseguiglob,sysutils,msestringintlisteditor,
  mseedit,mseforms,msearrayutils,msedropdownlist,mseeditglob,msedrag,mseobjecttext;
 
 type
@@ -123,7 +123,6 @@ type
    finitcompsoffset: pointty;
    fuseinitcompsoffset: boolean;
    fcompsoffsetused: boolean;
-   fselectwidget: twidget;
    fmoveonfirstclick: boolean;
    fonresize,fonchange: notifyeventty;
    fonmouseevent: mouseeventty;
@@ -1000,7 +999,7 @@ type
    function getitems(const index: integer): ppropeditorinfoty;
   protected
    procedure freedata(var data); override;
-   procedure copyinstance(var data); override;
+   procedure beforecopy(var data); override;
    procedure add(apropertytype: ptypeinfo;
      apropertyownerclass: tclass; const apropertyname: string;
        aeditorclass: propeditorclassty);
@@ -1181,20 +1180,19 @@ var
 implementation
 uses
  msekeyboard,msepointer,msebits,
- msestockobjects,msedrawtext,mseshapes,msedatamodules,
+ msestockobjects,msedrawtext,mseshapes,
  mseactions,msestream,msesys,
  mseformatstr,msearrayprops,msebitmap,
- msefiledialog,mseimagelisteditor,msereal,msehash,
+ msefiledialog,mseimagelisteditor,
  msestringlisteditor,msedoublestringlisteditor,msereallisteditor,
  mseintegerlisteditor,
  msecolordialog,msememodialog,msetexteditor,
- msegraphicstream,msesysutils,
+ msegraphicstream,
  mseformatbmpicoread{$ifdef FPC},mseformatjpgread,mseformatpngread,
  mseformatpnmread,mseformattgaread,mseformatxpmread{$endif},msestat,msestatfile,msefileutils;
 
 const
  ado_rereadprops = 1;  //asyncevent codes
- ado_updatecomponentname = 2;
  selectcolor = cl_ltred;
  falsename = 'False';
  truename = 'True';
@@ -1205,15 +1203,12 @@ type
  twidget1 = class(twidget);
  twidgetcol1 = class(twidgetcol);
  tpersistentarrayprop1 = class(tpersistentarrayprop);
- twriter1= class(twriter);
 
  defaultenumerationty = (null);
  defaultsetty = set of defaultenumerationty;
- defaultmethodty = procedure of object;
 
  titemlist1 = class(tcustomitemlist);
  tpropeditor1 = class(tpropeditor);
- propertyitemarty = array of tpropertyitem;
 
  tpropertyvalue = class(tlistedititem)
   protected
@@ -3476,6 +3471,7 @@ begin
  fcomponentinfos:= tcomponentinfos.create;
  if not (csdesigning in componentstate) then begin
   props:= ttreeitemedit.create(self);
+  props.itemlist.colorglyph:= cl_glyph;
   values:= tmbdropdownitemedit.create(self);
   props.optionsedit:= [oe_readonly,oe_undoonesc,oe_closequery,oe_checkmrcancel,oe_exitoncursor,oe_resetselectonexit,oe_locate,oe_savestate];
   props.optionsskin:= [osk_noskin];
@@ -3487,8 +3483,10 @@ begin
   values.frame.buttons.count:= 2;
   values.frame.buttons[0].imagenr:= 14;
   values.frame.buttons[1].imagenr:= 17;
-  values.frame.buttons[0].color:= cl_background;
-  values.frame.buttons[1].color:= cl_background;
+  values.frame.buttons[0].color:= cl_parent;
+  values.frame.buttons[1].color:= cl_parent;
+  values.frame.buttons[0].colorglyph:= cl_glyph;
+  values.frame.buttons[1].colorglyph:= cl_glyph;
   values.frame.levelo:= 0;
   values.onbeforedropdown:= {$ifdef FPC}@{$endif}valuesbeforedropdown;
   values.onbuttonaction:= {$ifdef FPC}@{$endif}valuesbuttonaction;
@@ -4431,9 +4429,9 @@ begin
  inherited;
 end;
 
-procedure tpropeditors.copyinstance(var data);
+procedure tpropeditors.beforecopy(var data);
 begin
- reallocstring(propeditorinfoty(data).propertyname);
+ stringaddref(propeditorinfoty(data).propertyname);
 end;
 
 function tpropeditors.getitems(
@@ -5768,7 +5766,7 @@ end;
 procedure tcomponentpropeditor.setvalue(const value: msestring);
 var
  comp: tcomponent;
- int1,int2: integer;
+ int1: integer;
 begin
  if issubcomponent then begin
   inherited setvalue(value);
@@ -6087,7 +6085,7 @@ var
  mstr1: msestring;
 begin
  mstr1:= encodemsestring(getmsestringvalue(0));
- if memodialog(mstr1) = mr_ok then begin
+ if memodialog(mstr1,false) = mr_ok then begin
   setmsestringvalue(decodemsestring(mstr1));
  end;
 end;
@@ -7128,7 +7126,7 @@ begin
     try
      bmp.loadfromfile(filename,graphicfilefilterlabel(filterindex));
      for int1:= 0 to high(fprops) do begin
-      bmp1:= tmaskedbitmap(getordvalue(int1));
+      bmp1:= tmaskedbitmap(getpointervalue(int1));
       if bmp1 <> nil then begin
        bmp.alignment:= bmp1.alignment;
        bmp.colorbackground:= bmp1.colorbackground;

@@ -38,8 +38,8 @@ unit repazevaluatorfunc;
 interface
 
 uses
- sysutils,classes,repazconsts,mseconsts,dateutils,msestrings,msesysutils,
- {$ifdef mswindows}windows,{$endif}variants,repazevaluatortype,repazclasses;
+ sysutils,classes,repazconsts,mseconsts,dateutils,msestrings,
+ variants,repazevaluatortype,repazclasses;
 
 type
 
@@ -47,6 +47,9 @@ type
  tidenuppercase=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -54,6 +57,9 @@ type
  tidenlowercase=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -61,12 +67,18 @@ type
  tidensinus=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
 
  tidenmax=class(tidenfunction)
  protected
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
   function getevalvalue:variant;override;
  public
   constructor create(aowner:tcomponent);override;
@@ -75,6 +87,9 @@ type
  tidenmin=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -83,6 +98,9 @@ type
  tidenfloattodatetime=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -90,6 +108,9 @@ type
  tidenstringtotime=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -97,6 +118,9 @@ type
  tidenstringtodatetime=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -104,6 +128,9 @@ type
  tidentimetostring=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -111,6 +138,9 @@ type
  tidendatetimetostring=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -118,6 +148,9 @@ type
  tidendayofweek=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -125,6 +158,9 @@ type
  tidenround=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -132,6 +168,9 @@ type
  tidenroundtointeger=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -139,6 +178,9 @@ type
  tidenabs=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -146,6 +188,9 @@ type
  tidencomparevalue=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -153,6 +198,9 @@ type
  tidenint=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -160,6 +208,9 @@ type
  tidenval=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -167,6 +218,9 @@ type
  tidenstr=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -174,6 +228,9 @@ type
  tidentrim=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -181,6 +238,9 @@ type
  tidenleft=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -188,6 +248,9 @@ type
  tidenlength=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -195,6 +258,9 @@ type
  tidenisinteger=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -202,6 +268,9 @@ type
  tidenisnumeric=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -209,6 +278,7 @@ type
  tidenisvaliddatetime=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function getmodel: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -216,6 +286,7 @@ type
  tidencheckexpression=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function getmodel: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -223,6 +294,9 @@ type
  tidenpos=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -230,6 +304,9 @@ type
  tidenmodul=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -237,6 +314,9 @@ type
  tidendivide=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -244,6 +324,9 @@ type
  tidensqrt=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -251,6 +334,9 @@ type
  tidenmonth=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -258,6 +344,9 @@ type
  tidenevaltext=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -265,6 +354,9 @@ type
  tidenmonthname=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -272,6 +364,9 @@ type
  tidenyear=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -279,6 +374,9 @@ type
  tidenday=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -286,6 +384,9 @@ type
  tidenright=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -294,6 +395,9 @@ type
  tidenstringtobin=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -301,6 +405,9 @@ type
  tidensubstr=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -308,6 +415,9 @@ type
  tidenformatstr=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -315,6 +425,8 @@ type
  tidenformatnum=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -322,6 +434,9 @@ type
  tidennumtotext=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -329,6 +444,9 @@ type
  tidenreplacestr=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -336,6 +454,9 @@ type
  tidenfieldwithkey=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -343,6 +464,9 @@ type
  tidensumfield=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -350,6 +474,9 @@ type
  tidenisdiscountday=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -357,6 +484,9 @@ type
  tidenisholiday=class(tidenfunction)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -366,6 +496,9 @@ type
  tidenreportheader=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -375,6 +508,9 @@ type
  tidenreportfooter=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -384,6 +520,9 @@ type
  tidenpageheader=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -393,6 +532,9 @@ type
  tidenpagefooter=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -402,6 +544,9 @@ type
  tidencontentheader=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -411,6 +556,9 @@ type
  tidencontentfooter=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -420,6 +568,9 @@ type
  tidentableheader=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -429,6 +580,9 @@ type
  tidentablefooter=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -438,6 +592,9 @@ type
  tidencontentdata=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -447,6 +604,9 @@ type
  tidengroupheader=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -456,6 +616,9 @@ type
  tidengroupfooter=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -465,6 +628,9 @@ type
  tidengroupdata=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -474,6 +640,9 @@ type
  tidenpagenumber=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -483,6 +652,9 @@ type
  tidenheadertreekey=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -492,6 +664,21 @@ type
  tidenfootertreekey=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
+ public
+  constructor create(aowner:tcomponent);override;
+ end;
+
+ { tree index }
+ 
+ tidentreeindex=class(tidenreport)
+ protected
+  function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -501,6 +688,21 @@ type
  tidentreefootervalue=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
+ public
+  constructor create(aowner:tcomponent);override;
+ end;
+
+ { treemainfootervalue }
+ 
+ tidentreemainfootervalue=class(tidenreport)
+ protected
+  function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -510,6 +712,9 @@ type
  tidentreefootervalue2=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -519,6 +724,9 @@ type
  tidenlettervalue=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -528,6 +736,9 @@ type
  tidenrecordnumber=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -537,6 +748,9 @@ type
  tidenmasternumber=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -546,6 +760,9 @@ type
  tidendatanumber=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -555,6 +772,9 @@ type
  tidengroupnumber=class(tidenreport)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
+  function getparam: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -564,6 +784,8 @@ type
  tidentoday=class(tidenconstant)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -571,6 +793,8 @@ type
  tidentime=class(tidenconstant)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -578,6 +802,8 @@ type
  tidennow=class(tidenconstant)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -585,6 +811,8 @@ type
  tidennull=class(tidenconstant)
  protected
   function getevalvalue:variant;override;
+  function gethelp: msestring; override;
+  function getmodel: msestring; override;
  public
   constructor create(aowner:tcomponent);override;
  end;
@@ -605,9 +833,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='UpperCase';
- help:=uc(ord(rcsuppercase));
- model:='UpperCase(Strings:string):string';
- aparams:=uc(ord(rcspuppercase));
+end;
+
+function tidenuppercase.gethelp: msestring;
+begin
+ result:=uc(ord(rcsuppercase));
+end;
+
+function tidenuppercase.getmodel: msestring;
+begin
+ result:='UpperCase(Strings:string):string';
+end;
+
+function tidenuppercase.getparam: msestring;
+begin
+ result:=uc(ord(rcspuppercase));
 end;
 
 function tidenuppercase.getevalvalue:variant;
@@ -641,9 +881,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='LowerCase';
- help:=uc(ord(rcslowercase));
- model:='LowerCase(Strings:string):string';
- aparams:=uc(ord(rcsplowercase));
+end;
+
+function tidenlowercase.gethelp: msestring;
+begin
+ result:=uc(ord(rcslowercase));
+end;
+
+function tidenlowercase.getmodel: msestring;
+begin
+ result:='LowerCase(Strings:string):string';
+end;
+
+function tidenlowercase.getparam: msestring;
+begin
+ result:=uc(ord(rcsplowercase));
 end;
 
 constructor tidenfloattodatetime.create(aowner:tcomponent);
@@ -651,9 +903,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='FloatToDateTime';
- help:=uc(ord(rcsfloattodatetime));
- model:='FloatToDateTime(Number:double):tdatetime';
- aparams:=uc(ord(rcspfloattodatetime));
+end;
+
+function tidenfloattodatetime.gethelp: msestring;
+begin
+ result:=uc(ord(rcsfloattodatetime));
+end;
+
+function tidenfloattodatetime.getmodel: msestring;
+begin
+ result:='FloatToDateTime(Number:double):tdatetime';
+end;
+
+function tidenfloattodatetime.getparam: msestring;
+begin
+ result:=uc(ord(rcspfloattodatetime));
 end;
 
 function tidenfloattodatetime.getevalvalue:variant;
@@ -678,9 +942,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='StringToTime';
- help:=uc(ord(rcsstringtotime));
- model:='StringToTime(Strings:string):tdatetime';
- aparams:=uc(ord(rcspstringtotime));
+end;
+
+function tidenstringtotime.gethelp: msestring;
+begin
+ result:=uc(ord(rcsstringtotime));
+end;
+
+function tidenstringtotime.getmodel: msestring;
+begin
+ result:='StringToTime(Strings:string):tdatetime';
+end;
+
+function tidenstringtotime.getparam: msestring;
+begin
+ result:=uc(ord(rcspstringtotime));
 end;
 
 function tidenstringtotime.getevalvalue:variant;
@@ -697,9 +973,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='StringToDateTime';
- help:= uc(ord(rcsstringtodatetime));
- model:='StringToDateTime(Strings:string):tdatetime';
- aparams:=uc(ord(rcspstringtodatetime));
+end;
+
+function tidenstringtodatetime.gethelp: msestring;
+begin
+ result:= uc(ord(rcsstringtodatetime));
+end;
+
+function tidenstringtodatetime.getmodel: msestring;
+begin
+ result:='StringToDateTime(Strings:string):tdatetime';
+end;
+
+function tidenstringtodatetime.getparam: msestring;
+begin
+ result:=uc(ord(rcspstringtodatetime));
 end;
 
 function tidenstringtodatetime.getevalvalue:variant;
@@ -716,9 +1004,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='TimeToString';
- help:=uc(ord(rcstimetostring));
- model:='TimeToString(mask:string, Date:tdatetime):string';
- aparams:=uc(ord(rcsptimetostring));
+end;
+
+function tidentimetostring.gethelp: msestring;
+begin
+ result:=uc(ord(rcstimetostring));
+end;
+
+function tidentimetostring.getmodel: msestring;
+begin
+ result:='TimeToString(mask:string, Date:tdatetime):string';
+end;
+
+function tidentimetostring.getparam: msestring;
+begin
+ result:=uc(ord(rcsptimetostring));
 end;
 
 function tidentimetostring.getevalvalue:variant;
@@ -744,13 +1044,26 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='DateTimeToString';
- help:= uc(ord(rcsdatetimetostring));
- model:='DateTimeToString(mask:string, Date:tdatetime):string';
- aparams:=uc(ord(rcspdatetimetostring));
+end;
+
+function tidendatetimetostring.gethelp: msestring;
+begin
+ result:= uc(ord(rcsdatetimetostring));
+end;
+
+function tidendatetimetostring.getmodel: msestring;
+begin
+ result:='DateTimeToString(mask:string, Date:tdatetime):string';
+end;
+
+function tidendatetimetostring.getparam: msestring;
+begin
+ result:=uc(ord(rcspdatetimetostring));
 end;
 
 function tidendatetimetostring.getevalvalue:variant;
 begin
+ result:= '';
  if vartype(params[1])=vardate then begin
   if ( not (varisstring(params[0]))) then
    raise tevalnamedexception.create(uc(ord(rcsevaltype)),
@@ -772,9 +1085,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='DayOfWeek';
- help:= uc(ord(rcsdayofweek));
- model:='DayOfWeek(Date:tdatetime):integer';
- aparams:=uc(ord(rcspdayofweek));
+end;
+
+function tidendayofweek.gethelp: msestring;
+begin
+ result:= uc(ord(rcsdayofweek));
+end;
+
+function tidendayofweek.getmodel: msestring;
+begin
+ result:='DayOfWeek(Date:tdatetime):integer';
+end;
+
+function tidendayofweek.getparam: msestring;
+begin
+ result:=uc(ord(rcspdayofweek));
 end;
 
 function tidendayofweek.getevalvalue:variant;
@@ -796,9 +1121,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='SIN';
- help:=uc(ord(rcssin));
- model:='SIN(Angular:double):double';
- aparams:=uc(ord(rcspsin));
+end;
+
+function tidensinus.gethelp: msestring;
+begin
+ result:= uc(ord(rcssin));
+end;
+
+function tidensinus.getmodel: msestring;
+begin
+ result:= 'SIN(Angular:double):double';
+end;
+
+function tidensinus.getparam: msestring;
+begin
+ result:= uc(ord(rcspsin));
 end;
 
 function tidensinus.getevalvalue:variant;
@@ -815,8 +1152,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='MAX';
- help:=uc(ord(rcsmax));
- model:='MAX(Number1:double,Number2:double):double';
+end;
+
+function tidenmax.getparam: msestring;
+begin
+ result:= '';
+end;
+
+function tidenmax.gethelp: msestring;
+begin
+ result:= uc(ord(rcsmax));
+end;
+
+function tidenmax.getmodel: msestring;
+begin
+ result:= 'MAX(Number1:double,Number2:double):double';
 end;
 
 function tidenmax.getevalvalue:variant;
@@ -837,8 +1187,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='MIN';
- help:=uc(ord(rcsmin));
- model:='MIN(Number1:double,Number2:double):double';
+end;
+
+function tidenmin.gethelp: msestring;
+begin
+ result:= uc(ord(rcsmin));
+end;
+
+function tidenmin.getmodel: msestring;
+begin
+ result:= 'MIN(Number1:double,Number2:double):double';
+end;
+
+function tidenmin.getparam: msestring;
+begin
+ result:= '';
 end;
 
 function tidenmin.getevalvalue:variant;
@@ -859,9 +1222,21 @@ begin
  inherited create(aowner);
  idenname:='Round';
  fparamcount:=2;
- help:=uc(ord(rcsround));
- model:='Round(Number:double,Rounded:double):double';
- aparams:=uc(ord(rcspround));
+end;
+
+function tidenround.gethelp: msestring;
+begin
+ result:= uc(ord(rcsround));
+end;
+
+function tidenround.getmodel: msestring;
+begin
+ result:= 'Round(Number:double,Rounded:double):double';
+end;
+
+function tidenround.getparam: msestring;
+begin
+ result:= uc(ord(rcspround));
 end;
 
 function tidenround.getevalvalue:variant;
@@ -880,9 +1255,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='RoundToInteger';
- help:=uc(ord(rcsround));
- model:='RoundToInteger(Number:double):integer';
- aparams:='';
+end;
+
+function tidenroundtointeger.gethelp: msestring;
+begin
+ result:= uc(ord(rcsround));
+end;
+
+function tidenroundtointeger.getmodel: msestring;
+begin
+ result:= 'RoundToInteger(Number:double):integer';
+end;
+
+function tidenroundtointeger.getparam: msestring;
+begin
+ result:= '';
 end;
 
 function tidenroundtointeger.getevalvalue:variant;
@@ -898,9 +1285,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='ABS';
- help:=uc(ord(rcsabs));
- model:='ABS(Number:double):double';
- aparams:=uc(ord(rcspabs));
+end;
+
+function tidenabs.gethelp: msestring;
+begin
+ result:= uc(ord(rcsabs));
+end;
+
+function tidenabs.getmodel: msestring;
+begin
+ result:= 'ABS(Number:double):double';
+end;
+
+function tidenabs.getparam: msestring;
+begin
+ result:= uc(ord(rcspabs));
 end;
 
 function tidenabs.getevalvalue:variant;
@@ -916,9 +1315,21 @@ begin
  inherited create(aowner);
  fparamcount:=3;
  idenname:='CompareValue';
- help:=uc(ord(rcscomparevalue));
- model:='Compare(Number1,Number2,Epsilon:double):integer';
- aparams:=uc(ord(rcspcomparevalue));
+end;
+
+function tidencomparevalue.gethelp: msestring;
+begin
+ result:= uc(ord(rcscomparevalue));
+end;
+
+function tidencomparevalue.getmodel: msestring;
+begin
+ result:= 'Compare(Number1,Number2,Epsilon:double):integer';
+end;
+
+function tidencomparevalue.getparam: msestring;
+begin
+ result:= uc(ord(rcspcomparevalue));
 end;
 
 function comparevalue(p1,p2,epsilon:double):integer;
@@ -957,9 +1368,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='Int';
- help:=uc(ord(rcsint));
- model:='Int(Number:double):integer';
- aparams:=uc(ord(rcspint));
+end;
+
+function tidenint.gethelp: msestring;
+begin
+ result:= uc(ord(rcsint));
+end;
+
+function tidenint.getmodel: msestring;
+begin
+ result:= 'Int(Number:double):integer';
+end;
+
+function tidenint.getparam: msestring;
+begin
+ result:= uc(ord(rcspint));
 end;
 
 function tidenint.getevalvalue:variant;
@@ -988,9 +1411,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='Str';
- help:=uc(ord(rcsstr));
- model:='Str(Number:variant):string';
- aparams:=uc(ord(rcspstr));
+end;
+
+function tidenstr.gethelp: msestring;
+begin
+ result:= uc(ord(rcsstr));
+end;
+
+function tidenstr.getmodel: msestring;
+begin
+ result:= 'Str(Number:variant):string';
+end;
+
+function tidenstr.getparam: msestring;
+begin
+ result:= uc(ord(rcspstr));
 end;
 
 function tidenstr.getevalvalue:variant;
@@ -1005,9 +1440,21 @@ constructor tidenval.create(aowner:tcomponent);
 begin
  fparamcount:=1;
  idenname:='Val';
- help:=uc(ord(rcsval));
- model:='Val(Strings:string):double';
- aparams:=uc(ord(rcspval));
+end;
+
+function tidenval.gethelp: msestring;
+begin
+ result:= uc(ord(rcsval));
+end;
+
+function tidenval.getmodel: msestring;
+begin
+ result:= 'Val(Strings:string):double';
+end;
+
+function tidenval.getparam: msestring;
+begin
+ result:= uc(ord(rcspval));
 end;
 
 function tidenval.getevalvalue:variant;
@@ -1033,9 +1480,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='Trim';
- help:=uc(ord(rcstrim));
- model:='Trim(Strings:string):string';
- aparams:=uc(ord(rcsptrim));
+end;
+
+function tidentrim.gethelp: msestring;
+begin
+ result:= uc(ord(rcstrim));
+end;
+
+function tidentrim.getmodel: msestring;
+begin
+ result:= 'Trim(Strings:string):string';
+end;
+
+function tidentrim.getparam: msestring;
+begin
+ result:= uc(ord(rcsptrim));
 end;
 
 function tidentrim.getevalvalue:variant;
@@ -1055,9 +1514,21 @@ begin
  inherited create(aowner);
  idenname:= 'Left';
  fparamcount:=2;
- help:=uc(ord(rcsleft));
- model:='Left(Strings:string,Count:integer):string';
- aparams:=uc(ord(rcspleft));
+end;
+
+function tidenleft.gethelp: msestring;
+begin
+ result:= uc(ord(rcsleft));
+end;
+
+function tidenleft.getmodel: msestring;
+begin
+ result:= 'Left(Strings:string,Count:integer):string';
+end;
+
+function tidenleft.getparam: msestring;
+begin
+ result:= uc(ord(rcspleft));
 end;
 
 function tidenleft.getevalvalue:variant;
@@ -1080,9 +1551,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='Length';
- help:=uc(ord(rcslength));
- model:='Length(Strings:string):integer';
- aparams:=uc(ord(rcsplength));
+end;
+
+function tidenlength.gethelp: msestring;
+begin
+ result:= uc(ord(rcslength));
+end;
+
+function tidenlength.getmodel: msestring;
+begin
+ result:= 'Length(Strings:string):integer';
+end;
+
+function tidenlength.getparam: msestring;
+begin
+ result:= uc(ord(rcsplength));
 end;
 
 function tidenlength.getevalvalue:variant;
@@ -1103,8 +1586,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='IsInteger';
- help:=uc(ord(rcsisinteger));
- model:='IsInteger(Strings:string):boolean';
+end;
+
+function tidenisinteger.gethelp: msestring;
+begin
+ result:= uc(ord(rcsisinteger));
+end;
+
+function tidenisinteger.getmodel: msestring;
+begin
+ result:= 'IsInteger(Strings:string):boolean';
+end;
+
+function tidenisinteger.getparam: msestring;
+begin
+ result:= '';
 end;
 
 function tidenisinteger.getevalvalue:variant;
@@ -1128,9 +1624,21 @@ constructor tidenisnumeric.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=1;
+end;
 
- help:=uc(ord(rcsisnumeric));
- model:='IsNumeric(Strings:string):boolean';
+function tidenisnumeric.gethelp: msestring;
+begin
+ result:= uc(ord(rcsisnumeric));
+end;
+
+function tidenisnumeric.getmodel: msestring;
+begin
+ result:= 'IsNumeric(Strings:string):boolean';
+end;
+
+function tidenisnumeric.getparam: msestring;
+begin
+ result:= '';
 end;
 
 function tidenisnumeric.getevalvalue:variant;
@@ -1155,8 +1663,11 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='IsValidDateTime';
+end;
 
- model:='IsValidDateTime(Strings:string):boolean';
+function tidenisvaliddatetime.getmodel: msestring;
+begin
+ result:= 'IsValidDateTime(Strings:string):boolean';
 end;
 
 function tidenisvaliddatetime.getevalvalue:variant;
@@ -1181,7 +1692,11 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='CheckExpression';
- model:='CheckExpression(expression,message:string):boolean';
+end;
+
+function tidencheckexpression.getmodel: msestring;
+begin
+ result:= 'CheckExpression(expression,message:string):boolean';
 end;
 
 function tidencheckexpression.getevalvalue:variant;
@@ -1204,9 +1719,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='Pos';
- help:=uc(ord(rcspos));
- model:='Pos(SubString:string,Strings:string):integer';
- aparams:=uc(ord(rcsppos));
+end;
+
+function tidenpos.gethelp: msestring;
+begin
+ result:= uc(ord(rcspos));
+end;
+
+function tidenpos.getmodel: msestring;
+begin
+ result:= 'Pos(SubString:string,Strings:string):integer';
+end;
+
+function tidenpos.getparam: msestring;
+begin
+ result:= uc(ord(rcsppos));
 end;
 
 function tidenpos.getevalvalue:variant;
@@ -1229,9 +1756,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='SQRT';
- help:=uc(ord(rcssqrt));
- model:='SQRT(Number:double):double';
- aparams:=uc(ord(rcspsqrt));
+end;
+
+function tidensqrt.gethelp: msestring;
+begin
+ result:= uc(ord(rcssqrt));
+end;
+
+function tidensqrt.getmodel: msestring;
+begin
+ result:= 'SQRT(Number:double):double';
+end;
+
+function tidensqrt.getparam: msestring;
+begin
+ result:= uc(ord(rcspsqrt));
 end;
 
 function tidensqrt.getevalvalue:variant;
@@ -1248,9 +1787,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='MOD';
- help:=uc(ord(rcsmod));
- model:='MOD(Number1:integer,Number2:integer):integer';
- aparams:=uc(ord(rcspmod));
+end;
+
+function tidenmodul.gethelp: msestring;
+begin
+ result:= uc(ord(rcsmod));
+end;
+
+function tidenmodul.getmodel: msestring;
+begin
+ result:= 'MOD(Number1:integer,Number2:integer):integer';
+end;
+
+function tidenmodul.getparam: msestring;
+begin
+ result:= uc(ord(rcspmod));
 end;
 
 function tidenmodul.getevalvalue:variant;
@@ -1269,9 +1820,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='DIV';
- help:=uc(ord(rcsdiv));
- model:='DIV(Number1:integer,Number2:integer):integer';
- aparams:=uc(ord(rcspdiv));
+end;
+
+function tidendivide.gethelp: msestring;
+begin
+ result:= uc(ord(rcsdiv));
+end;
+
+function tidendivide.getmodel: msestring;
+begin
+ result:= 'DIV(Number1:integer,Number2:integer):integer';
+end;
+
+function tidendivide.getparam: msestring;
+begin
+ result:= uc(ord(rcspdiv));
 end;
 
 function tidendivide.getevalvalue:variant;
@@ -1288,8 +1851,16 @@ end;
 constructor tidentoday.create(aowner:tcomponent);
 begin
  inherited create(aowner);
- help:=uc(ord(rcstoday));
- model:='Today'+':date';
+end;
+
+function tidentoday.gethelp: msestring;
+begin
+ result:= uc(ord(rcstoday));
+end;
+
+function tidentoday.getmodel: msestring;
+begin
+ result:= 'Today'+':date';
 end;
 
 function tidentoday.getevalvalue:variant;
@@ -1301,8 +1872,16 @@ constructor tidentime.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  idenname:='Time';
- help:=uc(ord(rcstimeh));
- model:='Time'+':time';
+end;
+
+function tidentime.gethelp: msestring;
+begin
+ result:= uc(ord(rcstimeh));
+end;
+
+function tidentime.getmodel: msestring;
+begin
+ result:= 'Time'+':time';
 end;
 
 function tidentime.getevalvalue:variant;
@@ -1314,8 +1893,16 @@ constructor tidennull.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  idenname:='Null';
- help:=uc(ord(rcsnull));
- model:='Null';
+end;
+
+function tidennull.gethelp: msestring;
+begin
+ result:= uc(ord(rcsnull));
+end;
+
+function tidennull.getmodel: msestring;
+begin
+ result:= 'Null';
 end;
 
 function tidennull.getevalvalue:variant;
@@ -1327,8 +1914,16 @@ constructor tidennow.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  idenname:='Now';
- help:=uc(ord(rcsnow));
- model:='Now'+':datetime';
+end;
+
+function tidennow.gethelp: msestring;
+begin
+ result:= uc(ord(rcsnow));
+end;
+
+function tidennow.getmodel: msestring;
+begin
+ result:= 'Now'+':datetime';
 end;
 
 function tidennow.getevalvalue:variant;
@@ -1342,10 +1937,22 @@ constructor tidenpagenumber.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=0;
- aparams:='';
  idenname:='PageNumber';
- help:=uc(ord(rcspagenumber));
- model:='PageNumber : integer';
+end;
+
+function tidenpagenumber.getparam: msestring;
+begin
+ result:= '';
+end;
+
+function tidenpagenumber.gethelp: msestring;
+begin
+ result:= uc(ord(rcspagenumber));
+end;
+
+function tidenpagenumber.getmodel: msestring;
+begin
+ result:= 'PageNumber : integer';
 end;
 
 function tidenpagenumber.getevalvalue:variant;
@@ -1363,10 +1970,22 @@ constructor tidenheadertreekey.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=0;
- aparams:='';
  idenname:='HeaderTreeKey';
- help:=uc(ord(rcsheadertreekey));
- model:='HeaderTreeKey : variant';
+end;
+
+function tidenheadertreekey.getparam: msestring;
+begin
+ result:= '';
+end;
+
+function tidenheadertreekey.gethelp: msestring;
+begin
+ result:= uc(ord(rcsheadertreekey));
+end;
+
+function tidenheadertreekey.getmodel: msestring;
+begin
+ result:= 'HeaderTreeKey : variant';
 end;
 
 function tidenheadertreekey.getevalvalue:variant;
@@ -1384,10 +2003,22 @@ constructor tidenfootertreekey.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=0;
- aparams:='';
  idenname:='FooterTreeKey';
- help:=uc(ord(rcsfootertreekey));
- model:='FooterTreeKey : variant';
+end;
+
+function tidenfootertreekey.getparam: msestring;
+begin
+ result:= '';
+end;
+
+function tidenfootertreekey.gethelp: msestring;
+begin
+ result:= uc(ord(rcsfootertreekey));
+end;
+
+function tidenfootertreekey.getmodel: msestring;
+begin
+ result:= 'FooterTreeKey : variant';
 end;
 
 function tidenfootertreekey.getevalvalue:variant;
@@ -1399,16 +2030,61 @@ begin
  end;
 end;
 
+{ tidenTreeIndex }
+
+constructor tidenTreeIndex.create(aowner:tcomponent);
+begin
+ inherited create(aowner);
+ fparamcount:=0;
+ idenname:='TreeIndex';
+end;
+
+function tidenTreeIndex.getparam: msestring;
+begin
+ result:= '';
+end;
+
+function tidenTreeIndex.gethelp: msestring;
+begin
+ result:= uc(ord(rcsTreeIndex));
+end;
+
+function tidenTreeIndex.getmodel: msestring;
+begin
+ result:= 'TreeIndex : integer';
+end;
+
+function tidenTreeIndex.getevalvalue:variant;
+begin
+ if owner.owner is TRepaz then begin
+  result:= (owner.owner as TRepaz).TreeIndex;
+ end else begin
+  result:= -1;
+ end;
+end;
+
 { tidentreefootervalue }
 
 constructor tidentreefootervalue.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=3;
- aparams:=uc(ord(rcsptreefootervalue));
  idenname:='TreeFooterValue';
- help:=uc(ord(rcstreefootervalue));
- model:='TreeFooterValue(IndexRow:Integer, IndexCol:Integer, IndexTree:Integer): variant';
+end;
+
+function tidentreefootervalue.getparam: msestring;
+begin
+ result:= uc(ord(rcsptreefootervalue));
+end;
+
+function tidentreefootervalue.gethelp: msestring;
+begin
+ result:= uc(ord(rcstreefootervalue));
+end;
+
+function tidentreefootervalue.getmodel: msestring;
+begin
+ result:= 'TreeFooterValue(IndexRow:Integer, IndexCol:Integer, IndexTree:Integer): variant';
 end;
 
 function tidentreefootervalue.getevalvalue:variant;
@@ -1420,16 +2096,61 @@ begin
  end;
 end;
 
+{ tidentreemainfootervalue }
+
+constructor tidentreemainfootervalue.create(aowner:tcomponent);
+begin
+ inherited create(aowner);
+ fparamcount:=3;
+ idenname:='TreeMainFooterValue';
+end;
+
+function tidentreemainfootervalue.getparam: msestring;
+begin
+ result:= uc(ord(rcsptreemainfootervalue));
+end;
+
+function tidentreemainfootervalue.gethelp: msestring;
+begin
+ result:= uc(ord(rcstreemainfootervalue));
+end;
+
+function tidentreemainfootervalue.getmodel: msestring;
+begin
+ result:= 'TreeMainFooterValue(IndexRow:Integer, IndexCol:Integer, IndexTree:Integer): variant';
+end;
+
+function tidentreemainfootervalue.getevalvalue:variant;
+begin
+ if owner.owner is TRepaz then begin
+  result:= (owner.owner as TRepaz).treemainfootervalue(integer(params[0]),integer(params[1]),integer(params[2]));
+ end else begin
+  result:= null;
+ end;
+end;
+
 { tidentreefootervalue2 }
 
 constructor tidentreefootervalue2.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=2;
- aparams:=uc(ord(rcsptreefootervalue2));
  idenname:='TreeFooterValue2';
- help:=uc(ord(rcstreefootervalue2));
- model:='TreeFooterValue2(IndexCol:Integer, IndexTree:Integer): variant';
+end;
+
+function tidentreefootervalue2.getparam: msestring;
+begin
+ result:= uc(ord(rcsptreefootervalue2));
+end;
+
+function tidentreefootervalue2.gethelp: msestring;
+begin
+ result:= uc(ord(rcstreefootervalue2));
+end;
+
+function tidentreefootervalue2.getmodel: msestring;
+begin
+ result:= 'TreeFooterValue2(IndexCol:Integer, IndexTree:Integer): variant';
 end;
 
 function tidentreefootervalue2.getevalvalue:variant;
@@ -1447,10 +2168,22 @@ constructor tidenlettervalue.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=2;
- aparams:=uc(ord(rcsplettervalue));
  idenname:='LetterValue';
- help:=uc(ord(rcslettervalue));
- model:='LetterValue(IndexRow:Integer, IndexCol:Integer): variant';
+end;
+
+function tidenlettervalue.getparam: msestring;
+begin
+ result:= uc(ord(rcsplettervalue));
+end;
+
+function tidenlettervalue.gethelp: msestring;
+begin
+ result:= uc(ord(rcslettervalue));
+end;
+
+function tidenlettervalue.getmodel: msestring;
+begin
+ result:= 'LetterValue(IndexRow:Integer, IndexCol:Integer): variant';
 end;
 
 function tidenlettervalue.getevalvalue:variant;
@@ -1468,10 +2201,22 @@ constructor tidenrecordnumber.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=0;
- aparams:='';
  idenname:='RecordNumber';
- help:=uc(ord(rcsrecordnumber));
- model:='RecordNumber : integer';
+end;
+
+function tidenrecordnumber.getparam: msestring;
+begin
+ result:= '';
+end;
+
+function tidenrecordnumber.gethelp: msestring;
+begin
+ result:= uc(ord(rcsrecordnumber));
+end;
+
+function tidenrecordnumber.getmodel: msestring;
+begin
+ result:= 'RecordNumber : integer';
 end;
 
 function tidenrecordnumber.getevalvalue:variant;
@@ -1489,10 +2234,22 @@ constructor tidenmasternumber.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=0;
- aparams:='';
  idenname:='MasterNumber';
- help:=uc(ord(rcsmasternumber));
- model:='MasterNumber : integer';
+end;
+
+function tidenmasternumber.getparam: msestring;
+begin
+ result:= '';
+end;
+
+function tidenmasternumber.gethelp: msestring;
+begin
+ result:= uc(ord(rcsmasternumber));
+end;
+
+function tidenmasternumber.getmodel: msestring;
+begin
+ result:= 'MasterNumber : integer';
 end;
 
 function tidenmasternumber.getevalvalue:variant;
@@ -1510,10 +2267,22 @@ constructor tidendatanumber.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=0;
- aparams:='';
  idenname:='DataNumber';
- help:=uc(ord(rcsdatanumber));
- model:='DataNumber : integer';
+end;
+
+function tidendatanumber.getparam: msestring;
+begin
+ result:= '';
+end;
+
+function tidendatanumber.gethelp: msestring;
+begin
+ result:= uc(ord(rcsdatanumber));
+end;
+
+function tidendatanumber.getmodel: msestring;
+begin
+ result:= 'DataNumber : integer';
 end;
 
 function tidendatanumber.getevalvalue:variant;
@@ -1531,10 +2300,22 @@ constructor tidengroupnumber.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=1;
- aparams:=uc(ord(rcspgroupnumber));;
  idenname:='GroupNumber';
- help:=uc(ord(rcsgroupnumber));
- model:='GroupNumber(Index:integer) : integer';
+end;
+
+function tidengroupnumber.getparam: msestring;
+begin
+ result:= uc(ord(rcspgroupnumber));;
+end;
+
+function tidengroupnumber.gethelp: msestring;
+begin
+ result:= uc(ord(rcsgroupnumber));
+end;
+
+function tidengroupnumber.getmodel: msestring;
+begin
+ result:= 'GroupNumber(Index:integer) : integer';
 end;
 
 function tidengroupnumber.getevalvalue:variant;
@@ -1555,10 +2336,22 @@ constructor tidenreportheader.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=2;
- aparams:=uc(ord(rcspreportheader));
  idenname:='ReportHeader';
- help:=uc(ord(rcsreportheader));
- model:='ReportHeader(RowIndex:integer, ColIndex:integer):variant';
+end;
+
+function tidenreportheader.getparam: msestring;
+begin
+ result:= uc(ord(rcspreportheader));
+end;
+
+function tidenreportheader.gethelp: msestring;
+begin
+ result:= uc(ord(rcsreportheader));
+end;
+
+function tidenreportheader.getmodel: msestring;
+begin
+ result:= 'ReportHeader(RowIndex:integer, ColIndex:integer):variant';
 end;
 
 function tidenreportheader.getevalvalue:variant;
@@ -1583,10 +2376,22 @@ constructor tidenreportfooter.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=2;
- aparams:=uc(ord(rcspreportfooter));
  idenname:='ReportFooter';
- help:=uc(ord(rcsreportfooter));
- model:='ReportFooter(RowIndex:integer, ColIndex:integer):variant';
+end;
+
+function tidenreportfooter.getparam: msestring;
+begin
+ result:= uc(ord(rcspreportfooter));
+end;
+
+function tidenreportfooter.gethelp: msestring;
+begin
+ result:= uc(ord(rcsreportfooter));
+end;
+
+function tidenreportfooter.getmodel: msestring;
+begin
+ result:= 'ReportFooter(RowIndex:integer, ColIndex:integer):variant';
 end;
 
 function tidenreportfooter.getevalvalue:variant;
@@ -1611,10 +2416,22 @@ constructor tidenpageheader.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=2;
- aparams:=uc(ord(rcsppageheader));
  idenname:='PageHeader';
- help:=uc(ord(rcspageheader));
- model:='PageHeader(RowIndex:integer, ColIndex:integer):variant';
+end;
+
+function tidenpageheader.getparam: msestring;
+begin
+ result:= uc(ord(rcsppageheader));
+end;
+
+function tidenpageheader.gethelp: msestring;
+begin
+ result:= uc(ord(rcspageheader));
+end;
+
+function tidenpageheader.getmodel: msestring;
+begin
+ result:= 'PageHeader(RowIndex:integer, ColIndex:integer):variant';
 end;
 
 function tidenpageheader.getevalvalue:variant;
@@ -1639,10 +2456,22 @@ constructor tidenpagefooter.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=2;
- aparams:=uc(ord(rcsppagefooter));
  idenname:='PageFooter';
- help:=uc(ord(rcspagefooter));
- model:='PageFooter(RowIndex:integer, ColIndex:integer):variant';
+end;
+
+function tidenpagefooter.getparam: msestring;
+begin
+ result:= uc(ord(rcsppagefooter));
+end;
+
+function tidenpagefooter.gethelp: msestring;
+begin
+ result:= uc(ord(rcspagefooter));
+end;
+
+function tidenpagefooter.getmodel: msestring;
+begin
+ result:= 'PageFooter(RowIndex:integer, ColIndex:integer):variant';
 end;
 
 function tidenpagefooter.getevalvalue:variant;
@@ -1668,10 +2497,22 @@ constructor tidencontentheader.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=1;
- aparams:=uc(ord(rcspcontentheader));
  idenname:='ContentHeader';
- help:=uc(ord(rcscontentheader));
- model:='ContentHeader(ColIndex:integer):variant';
+end;
+
+function tidencontentheader.getparam: msestring;
+begin
+ result:= uc(ord(rcspcontentheader));
+end;
+
+function tidencontentheader.gethelp: msestring;
+begin
+ result:= uc(ord(rcscontentheader));
+end;
+
+function tidencontentheader.getmodel: msestring;
+begin
+ result:= 'ContentHeader(ColIndex:integer):variant';
 end;
 
 function tidencontentheader.getevalvalue:variant;
@@ -1692,10 +2533,22 @@ constructor tidencontentfooter.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=1;
- aparams:=uc(ord(rcspcontentfooter));
  idenname:='ContentFooter';
- help:=uc(ord(rcscontentfooter));
- model:='ContentFooter(ColIndex:integer):variant';
+end;
+
+function tidencontentfooter.getparam: msestring;
+begin
+ result:= uc(ord(rcspcontentfooter));
+end;
+
+function tidencontentfooter.gethelp: msestring;
+begin
+ result:= uc(ord(rcscontentfooter));
+end;
+
+function tidencontentfooter.getmodel: msestring;
+begin
+ result:= 'ContentFooter(ColIndex:integer):variant';
 end;
 
 function tidencontentfooter.getevalvalue:variant;
@@ -1716,10 +2569,22 @@ constructor tidentableheader.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=3;
- aparams:=uc(ord(rcsptableheader));
  idenname:='TableHeader';
- help:=uc(ord(rcstableheader));
- model:='TableHeader(TableIndex:integer, RowIndex:integer, ColIndex:integer):variant';
+end;
+
+function tidentableheader.getparam: msestring;
+begin
+ result:= uc(ord(rcsptableheader));
+end;
+
+function tidentableheader.gethelp: msestring;
+begin
+ result:= uc(ord(rcstableheader));
+end;
+
+function tidentableheader.getmodel: msestring;
+begin
+ result:= 'TableHeader(TableIndex:integer, RowIndex:integer, ColIndex:integer):variant';
 end;
 
 function tidentableheader.getevalvalue:variant;
@@ -1746,10 +2611,22 @@ constructor tidentablefooter.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=3;
- aparams:=uc(ord(rcsptablefooter));
  idenname:='TableFooter';
- help:=uc(ord(rcstablefooter));
- model:='TableFooter(TableIndex:integer, RowIndex:integer, ColIndex:integer):variant';
+end;
+
+function tidentablefooter.getparam: msestring;
+begin
+ result:= uc(ord(rcsptablefooter));
+end;
+
+function tidentablefooter.gethelp: msestring;
+begin
+ result:= uc(ord(rcstablefooter));
+end;
+
+function tidentablefooter.getmodel: msestring;
+begin
+ result:= 'TableFooter(TableIndex:integer, RowIndex:integer, ColIndex:integer):variant';
 end;
 
 function tidentablefooter.getevalvalue:variant;
@@ -1776,10 +2653,22 @@ constructor tidencontentdata.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=1;
- aparams:=uc(ord(rcspcontentdata));
  idenname:='ContentData';
- help:=uc(ord(rcscontentdata));
- model:='ContentData(ColIndex:integer):variant';
+end;
+
+function tidencontentdata.getparam: msestring;
+begin
+ result:= uc(ord(rcspcontentdata));
+end;
+
+function tidencontentdata.gethelp: msestring;
+begin
+ result:= uc(ord(rcscontentdata));
+end;
+
+function tidencontentdata.getmodel: msestring;
+begin
+ result:= 'ContentData(ColIndex:integer):variant';
 end;
 
 function tidencontentdata.getevalvalue:variant;
@@ -1800,10 +2689,22 @@ constructor tidengroupheader.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=2;
- aparams:=uc(ord(rcspgroupheader));
  idenname:='GroupHeader';
- help:=uc(ord(rcsgroupheader));
- model:='GroupHeader(RowIndex:integer, ColIndex:integer):variant';
+end;
+
+function tidengroupheader.getparam: msestring;
+begin
+ result:= uc(ord(rcspgroupheader));
+end;
+
+function tidengroupheader.gethelp: msestring;
+begin
+ result:= uc(ord(rcsgroupheader));
+end;
+
+function tidengroupheader.getmodel: msestring;
+begin
+ result:= 'GroupHeader(RowIndex:integer, ColIndex:integer):variant';
 end;
 
 function tidengroupheader.getevalvalue:variant;
@@ -1827,10 +2728,22 @@ constructor tidengroupfooter.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=2;
- aparams:=uc(ord(rcspgroupfooter));
  idenname:='GroupFooter';
- help:=uc(ord(rcsgroupfooter));
- model:='GroupFooter(RowIndex:integer, ColIndex:integer):variant';
+end;
+
+function tidengroupfooter.getparam: msestring;
+begin
+ result:= uc(ord(rcspgroupfooter));
+end;
+
+function tidengroupfooter.gethelp: msestring;
+begin
+ result:= uc(ord(rcsgroupfooter));
+end;
+
+function tidengroupfooter.getmodel: msestring;
+begin
+ result:= 'GroupFooter(RowIndex:integer, ColIndex:integer):variant';
 end;
 
 function tidengroupfooter.getevalvalue:variant;
@@ -1854,10 +2767,22 @@ constructor tidengroupdata.create(aowner:tcomponent);
 begin
  inherited create(aowner);
  fparamcount:=1;
- aparams:=uc(ord(rcspgroupdata));
  idenname:='GroupData';
- help:=uc(ord(rcsgroupdata));
- model:='GroupData(ColIndex:integer):variant';
+end;
+
+function tidengroupdata.getparam: msestring;
+begin
+ result:= uc(ord(rcspgroupdata));
+end;
+
+function tidengroupdata.gethelp: msestring;
+begin
+ result:= uc(ord(rcsgroupdata));
+end;
+
+function tidengroupdata.getmodel: msestring;
+begin
+ result:= 'GroupData(ColIndex:integer):variant';
 end;
 
 function tidengroupdata.getevalvalue:variant;
@@ -1877,9 +2802,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='MonthName';
- help:=uc(ord(rcsmonthname));
- model:='MonthName(Date:datetime):string';
- aparams:=uc(ord(rcspmonthname));
+end;
+
+function tidenmonthname.gethelp: msestring;
+begin
+ result:= uc(ord(rcsmonthname));
+end;
+
+function tidenmonthname.getmodel: msestring;
+begin
+ result:= 'MonthName(Date:datetime):string';
+end;
+
+function tidenmonthname.getparam: msestring;
+begin
+ result:= uc(ord(rcspmonthname));
 end;
 
 function tidenmonthname.getevalvalue:variant;
@@ -1904,9 +2841,21 @@ constructor tidenevaltext.create(aowner:tcomponent);
 begin
  fparamcount:=1;
  idenname:='EvalText';
- help:=uc(ord(rcsevaltext));
- model:='EvalText(Expression:string):variant';
- aparams:=uc(ord(rcspevaltext));
+end;
+
+function tidenevaltext.gethelp: msestring;
+begin
+ result:= uc(ord(rcsevaltext));
+end;
+
+function tidenevaltext.getmodel: msestring;
+begin
+ result:= 'EvalText(Expression:string):variant';
+end;
+
+function tidenevaltext.getparam: msestring;
+begin
+ result:= uc(ord(rcspevaltext));
 end;
 
 function tidenevaltext.getevalvalue:variant;
@@ -1925,9 +2874,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='Month';
- help:=uc(ord(rcsmonth));
- model:='Month(Date:datetime):integer';
- aparams:=uc(ord(rcspmonth));
+end;
+
+function tidenmonth.gethelp: msestring;
+begin
+ result:= uc(ord(rcsmonth));
+end;
+
+function tidenmonth.getmodel: msestring;
+begin
+ result:= 'Month(Date:datetime):integer';
+end;
+
+function tidenmonth.getparam: msestring;
+begin
+ result:= uc(ord(rcspmonth));
 end;
 
 
@@ -1951,9 +2912,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='Year';
- help:=uc(ord(rcsyear));
- model:='Year(Date:datetime):integer';
- aparams:=uc(ord(rcspyear));
+end;
+
+function tidenyear.gethelp: msestring;
+begin
+ result:= uc(ord(rcsyear));
+end;
+
+function tidenyear.getmodel: msestring;
+begin
+ result:= 'Year(Date:datetime):integer';
+end;
+
+function tidenyear.getparam: msestring;
+begin
+ result:= uc(ord(rcspyear));
 end;
 
 function tidenyear.getevalvalue:variant;
@@ -1976,9 +2949,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='Day';
- help:=uc(ord(rcsday));
- model:='Day(Date:datetime):integer';
- aparams:=uc(ord(rcspday));
+end;
+
+function tidenday.gethelp: msestring;
+begin
+ result:= uc(ord(rcsday));
+end;
+
+function tidenday.getmodel: msestring;
+begin
+ result:= 'Day(Date:datetime):integer';
+end;
+
+function tidenday.getparam: msestring;
+begin
+ result:= uc(ord(rcspday));
 end;
 
 function tidenday.getevalvalue:variant;
@@ -2001,9 +2986,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='Right';
- help:=uc(ord(rcsright));
- model:='Right(Strings:string,Count:integer):string';
- aparams:=uc(ord(rcspright));
+end;
+
+function tidenright.gethelp: msestring;
+begin
+ result:= uc(ord(rcsright));
+end;
+
+function tidenright.getmodel: msestring;
+begin
+ result:= 'Right(Strings:string,Count:integer):string';
+end;
+
+function tidenright.getparam: msestring;
+begin
+ result:= uc(ord(rcspright));
 end;
 
 
@@ -2029,9 +3026,21 @@ begin
  inherited create(aowner);
  fparamcount:=3;
  idenname:='SubStr';
- help:=uc(ord(rcssubstr));
- model:='SubStr(Strings:string,Start:integer,Length:integer):string';
- aparams:=uc(ord(rcspsubstr));
+end;
+
+function tidensubstr.gethelp: msestring;
+begin
+ result:= uc(ord(rcssubstr));
+end;
+
+function tidensubstr.getmodel: msestring;
+begin
+ result:= 'SubStr(Strings:string,Start:integer,Length:integer):string';
+end;
+
+function tidensubstr.getparam: msestring;
+begin
+ result:= uc(ord(rcspsubstr));
 end;
 
 
@@ -2066,9 +3075,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='FormatStr';
- help:=uc(ord(rcsformatstr));
- model:='FormatStr(format:string,Value:variant):string';
- aparams:=uc(ord(rcspformatstr));
+end;
+
+function tidenformatstr.gethelp: msestring;
+begin
+ result:= uc(ord(rcsformatstr));
+end;
+
+function tidenformatstr.getmodel: msestring;
+begin
+ result:= 'FormatStr(format:string,Value:variant):string';
+end;
+
+function tidenformatstr.getparam: msestring;
+begin
+ result:= uc(ord(rcspformatstr));
 end;
 
 
@@ -2114,8 +3135,16 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='FormatNum';
- model:='FormatNum(mask:string,Number:double):string';
- aparams:=uc(ord(rcspformatnum));
+end;
+
+function tidenformatnum.getmodel: msestring;
+begin
+ result:= 'FormatNum(mask:string,Number:double):string';
+end;
+
+function tidenformatnum.getparam: msestring;
+begin
+ result:= uc(ord(rcspformatnum));
 end;
 
 function tidenformatnum.getevalvalue:variant;
@@ -2136,9 +3165,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='NumToText';
- help:=uc(ord(rcsnumtotext));
- model:='NumToText(Number:double):string';
- aparams:=uc(ord(rcspnumtotext));
+end;
+
+function tidennumtotext.gethelp: msestring;
+begin
+ result:= uc(ord(rcsnumtotext));
+end;
+
+function tidennumtotext.getmodel: msestring;
+begin
+ result:= 'NumToText(Number:double):string';
+end;
+
+function tidennumtotext.getparam: msestring;
+begin
+ result:= uc(ord(rcspnumtotext));
 end;
 
 function tidennumtotext.getevalvalue:variant;
@@ -2156,9 +3197,21 @@ begin
  inherited create(aowner);
  fparamcount:=3;
  idenname:='ReplaceStr';
- help:=uc(ord(rcsreplacestr));
- model:='ReplaceStr(Strings:string, OldPattern:string, NewPattern:string;): string';
- aparams:=uc(ord(rcspreplacestr));
+end;
+
+function tidenreplacestr.gethelp: msestring;
+begin
+ result:= uc(ord(rcsreplacestr));
+end;
+
+function tidenreplacestr.getmodel: msestring;
+begin
+ result:= 'ReplaceStr(Strings:string, OldPattern:string, NewPattern:string;): string';
+end;
+
+function tidenreplacestr.getparam: msestring;
+begin
+ result:= uc(ord(rcspreplacestr));
 end;
 
 function tidenreplacestr.getevalvalue:variant;
@@ -2178,15 +3231,27 @@ begin
  inherited create(aowner);
  fparamcount:=3;
  idenname:='FieldWithKey';
- help:=uc(ord(rcsfieldwithkey));
- model:='FieldWithKey(KeyField:string, KeyValue:variant, ValueField:string): variant';
- aparams:=uc(ord(rcspfieldwithkey));
+end;
+
+function tidenfieldwithkey.gethelp: msestring;
+begin
+ result:= uc(ord(rcsfieldwithkey));
+end;
+
+function tidenfieldwithkey.getmodel: msestring;
+begin
+ result:= 'FieldWithKey(KeyField:string, KeyValue:variant, ValueField:string): variant';
+end;
+
+function tidenfieldwithkey.getparam: msestring;
+begin
+ result:= uc(ord(rcspfieldwithkey));
 end;
 
 function tidenfieldwithkey.getevalvalue:variant;
 var
  pos1,pos2: integer;
- adataset,afield,adataset2,afield2: string;
+ adataset,afield,afield2: string;
 begin
  if (not varisstring(params[0]))
   or (not varisstring(params[2])) then
@@ -2195,7 +3260,6 @@ begin
  adataset:=copy(params[0],0,pos1-1);
  afield:=copy(params[0],pos1+1,length(params[0])-pos1);
  pos2:=pos('.',params[2]);
- adataset2:=copy(params[2],0,pos2-1);
  afield2:=copy(params[2],pos2+1,length(params[2])-pos2);
  result:= trepazevaluator(owner).datasource.searchfieldwithkey(adataset,afield,[params[1]],afield2);
 end;
@@ -2207,14 +3271,26 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='sumfield';
- help:=uc(ord(rcssumfield));
- model:='sumfield(FieldName:string): variant';
- aparams:=uc(ord(rcspsumfield));
+end;
+
+function tidensumfield.gethelp: msestring;
+begin
+ result:= uc(ord(rcssumfield));
+end;
+
+function tidensumfield.getmodel: msestring;
+begin
+ result:= 'sumfield(FieldName:string): variant';
+end;
+
+function tidensumfield.getparam: msestring;
+begin
+ result:= uc(ord(rcspsumfield));
 end;
 
 function tidensumfield.getevalvalue:variant;
 var
- pos1,pos2: integer;
+ pos1: integer;
  adataset,afield: string;
 begin
  if (not varisstring(params[0])) then
@@ -2232,9 +3308,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='IsDiscountday';
- help:=uc(ord(rcsisdiscountday));
- model:='IsDiscountday(ADate:tdatetime, IncludeSunday:boolean): boolean';
- aparams:=uc(ord(rcspisdiscountday));
+end;
+
+function tidenisdiscountday.gethelp: msestring;
+begin
+ result:= uc(ord(rcsisdiscountday));
+end;
+
+function tidenisdiscountday.getmodel: msestring;
+begin
+ result:= 'IsDiscountday(ADate:tdatetime, IncludeSunday:boolean): boolean';
+end;
+
+function tidenisdiscountday.getparam: msestring;
+begin
+ result:= uc(ord(rcspisdiscountday));
 end;
 
 function tidenisdiscountday.getevalvalue:variant;
@@ -2277,9 +3365,21 @@ begin
  inherited create(aowner);
  fparamcount:=2;
  idenname:='IsHoliday';
- help:=uc(ord(rcsisholiday));
- model:='IsHoliday(ADate:tdatetime, IncludeSunday:boolean): boolean';
- aparams:=uc(ord(rcspisholiday));
+end;
+
+function tidenisholiday.gethelp: msestring;
+begin
+ result:= uc(ord(rcsisholiday));
+end;
+
+function tidenisholiday.getmodel: msestring;
+begin
+ result:= 'IsHoliday(ADate:tdatetime, IncludeSunday:boolean): boolean';
+end;
+
+function tidenisholiday.getparam: msestring;
+begin
+ result:= uc(ord(rcspisholiday));
 end;
 
 function tidenisholiday.getevalvalue:variant;
@@ -2312,9 +3412,21 @@ begin
  inherited create(aowner);
  fparamcount:=1;
  idenname:='StringToBin';
- help:=uc(ord(rcsdecode64));
- model:='StringToBin(Strings:string):binary';
- aparams:='';
+end;
+
+function tidenstringtobin.gethelp: msestring;
+begin
+ result:= uc(ord(rcsdecode64));
+end;
+
+function tidenstringtobin.getmodel: msestring;
+begin
+ result:= 'StringToBin(Strings:string):binary';
+end;
+
+function tidenstringtobin.getparam: msestring;
+begin
+ result:= '';
 end;
 
 

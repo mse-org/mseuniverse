@@ -1,0 +1,1503 @@
+[Copyright]
+Creator=Sri Wahono
+Version=24 Okt 2011
+[SystemColors]
+Colors=19
+ -2147483647
+ -2147483647
+ -2147483647
+ -2147483647
+ -2147483647
+ -1879048187
+ -1879048186
+ -1879048185
+ -1879048184
+ -1879048183
+ -1879048182
+ -1879048181
+ -1879048180
+ -1879048179
+ -1879048178
+ -1879048177
+ -1879048176
+ -1879048175
+ 14541763
+[Widget]
+widgetcolor=-2147483645
+captionframecolor=-2147483647
+[DefaultFont]
+[DefaultFont-Font]
+fontname=
+fontwidth=0
+fontheight=12
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[MenuFont]
+[MenuFont-Font]
+fontname=
+fontwidth=0
+fontheight=12
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[MessageFont]
+[MessageFont-Font]
+fontname=
+fontwidth=0
+fontheight=12
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[Edit]
+empty_text=
+empty_color=-2147483647
+empty_fontstyle=[]
+empty_textflags=[]
+empty_textcolor=-2147483647
+empty_textcolorbackground=-2147483647
+empty_textcolorbackground=-2147483647
+[Edit-Frame]
+framewidth=1
+colorclient=-1879048186
+colorframe=-1610612733
+levelo=0
+leveli=0
+colorframeactive=-1610612733
+framei_left=1
+framei_top=0
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Edit-Face]
+options=[]
+[Edit-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[BooleanEdit-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=-1
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+frameface_list_count=4
+frameface_offset=0
+frameface_offset1=0
+frameface_offsetdisabled=0
+frameface_offsetmouse=2
+frameface_offsetclicked=3
+frameface_offsetactive=1
+frameface_offsetactivemouse=1
+frameface_offsetactiveclicked=3
+facelist-0-face_pos=3
+ 0
+ 0.3
+ 1
+facelist-0-face_color=3
+ 11584754
+ 11584754
+ 15134460
+facelist-0-face_direction=3
+facelist-0-options=[]
+facelist-1-face_pos=2
+ 0
+ 1
+facelist-1-face_color=2
+ 11584754
+ 15134460
+facelist-1-face_direction=0
+facelist-1-options=[]
+facelist-2-face_pos=2
+ 0
+ 1
+facelist-2-face_color=2
+ 11584754
+ 15134460
+facelist-2-face_direction=1
+facelist-2-options=[]
+facelist-3-face_pos=2
+ 0
+ 1
+facelist-3-face_color=2
+ 11584754
+ 15134460
+facelist-3-face_direction=3
+facelist-3-options=[]
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[BooleanEdit-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[Button]
+buttoncolor=-2147483647
+[Button-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=0
+framei_right=0
+framei_bottom=0
+frameface_list_count=4
+frameface_offset=0
+frameface_offset1=0
+frameface_offsetdisabled=0
+frameface_offsetmouse=2
+frameface_offsetclicked=3
+frameface_offsetactive=1
+frameface_offsetactivemouse=1
+frameface_offsetactiveclicked=3
+facelist-0-face_pos=2
+ 0
+ 1
+facelist-0-face_color=2
+ 15922943
+ 13228799
+facelist-0-face_direction=3
+facelist-0-options=[]
+facelist-1-face_pos=2
+ 0
+ 1
+facelist-1-face_color=2
+ 16773588
+ 16766848
+facelist-1-face_direction=1
+facelist-1-options=[]
+facelist-2-face_pos=2
+ 0
+ 1
+facelist-2-face_color=2
+ 16773588
+ 16766848
+facelist-2-face_direction=3
+facelist-2-options=[]
+facelist-3-face_pos=2
+ 0
+ 1
+facelist-3-face_color=2
+ 15922943
+ 13228799
+facelist-3-face_direction=1
+facelist-3-options=[]
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+frame-image=89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773DF8000002D449444154789CA595CB4F534114C6E78F30FE0126C6AD8971E75A4362E3C6C8CEC4051A8D464D344611175050E2636142140D52890B10598022463086A4F2AC050A0896DA07A58556FAA48F0BB4FDBC67E2BDF6CEB4A9A437F9D24CEF9DF33BF37D931C16F0CF60D13E8CD989017C1FEFE7BFECD80DF45A27B9166C9FB0EF6483BE2E27FA66673BADAFA946361D05A3E2BE9F13A86BE9C481D38D12C0E9F88A33F5ED30B75C2F5BBCC97C15671B3B90CBEDC880B9E98FBCF8E357AF11DB704800BFD786CDD0322E3DECE20DD0BB6251E7E7CC9D5094380AF95C69006DD45E8880D8A60BA9AD3076B733C8E777213E8542E1AFF248253764001524085945795887BB0C0AAD2F62CD6387EFD714BCAE49FE4B9B3FCFA75565E077DBB0DF740FAD7D6B25C5E888B577DBE1F7D8E05D19932CA0E241DF2CEEB475E3606D930408F86670FEBE05874CCD30358CE26263D42046C721FFEB9A2DFC046280ABEE695E9C0AD8D7210142C1059E5143FB5BDE80D820D30A510EB14D7749006D1C59C870898048D88958C483ADC43A32E908B29998414CF38A7CDC4A04FF79A71649445779418290559407E5502C3123FA96F63A9767E0752F81914F747CBA86E9D46F0940E00B0F2CD858737055CA48025081CB8FDE20950AAB478A4A00F29D1AA86FEBE1DDD2BA585A46C7AF3C4147F73B19A06493D8569250B209D54BB704D0BCA7EEC86F6DAD49CBC8D2DB8F1FB3633240BBC723DFC6110CBA110EF90D9A9A77C26A77E81905031EAEFFCD8869F7D874F3390646A7914C440D22C0A95B2FF58C4440A58C58A57B2C662402FA87865073EDA99ED19C6DD42026DE63251B1764CC4804AC2CD9D133F845CFC8A57A5F2C566E1E143C2F9073DCD6E7416CB006CAC06128EF05A9FF45064FE8F340F97044D5D1CAF3400314CF83C0335652C5F34002949B071A60AFF3A0248036465D7DBCA008D8EB3C900095E601ABF6A9340FAA06289179C33C40DCA8AA01E433F9AFCD83FC72AB41D5D6FF0393D21DD1C6EC713F0000000049454E44AE426082
+frame-image-count=32
+frame-image-masked=1
+frame-image-width=4
+frame-image-height=4
+frame-image-offset=0
+frame-image-offsetactive=8
+frame-image-offsetactiveclicked=16
+frame-image-offsetclicked=16
+frame-image-offsetactivemouse=24
+frame-image-offsetmouse=24
+frame-image-offsetdisabled=0
+frame-image-left=-3
+frame-image-right=-3
+frame-image-top=-3
+frame-image-bottom=-3
+[Button-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[DataButton]
+buttoncolor=-2147483647
+[DataButton-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[DataButton-Face]
+options=[]
+[Container-Frame]
+framewidth=0
+colorclient=-2147483647
+colorframe=-1879048191
+levelo=0
+leveli=1
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Container-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 15526360
+ 14737367
+face_direction=0
+options=[]
+[Container-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[FrameButton]
+buttoncolor=-2147483647
+[FrameButton-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+frameface_list_count=3
+frameface_offset=0
+frameface_offset1=0
+frameface_offsetdisabled=0
+frameface_offsetmouse=1
+frameface_offsetclicked=2
+frameface_offsetactive=0
+frameface_offsetactivemouse=0
+frameface_offsetactiveclicked=2
+facelist-0-face_pos=3
+ 0
+ 0.3
+ 1
+facelist-0-face_color=3
+ 11584754
+ 11584754
+ 15134460
+facelist-0-face_direction=3
+facelist-0-options=[]
+facelist-1-face_pos=2
+ 0
+ 1
+facelist-1-face_color=2
+ 11584754
+ 15134460
+facelist-1-face_direction=1
+facelist-1-options=[]
+facelist-2-face_pos=2
+ 0
+ 1
+facelist-2-face_color=2
+ 11584754
+ 15134460
+facelist-2-face_direction=3
+facelist-2-options=[]
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[fso_flat]
+[StepButton-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[StepButton-Face]
+options=[]
+[Toolbar-Horizontal-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Toolbar-Horizontal-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14737367
+ 15526360
+face_direction=3
+options=[]
+[Toolbar-Vertical-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Toolbar-Vertical-Face]
+options=[]
+[Toolbar-Vertical-Item-Face]
+options=[]
+[GroupBox-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+frame-image=89504E470D0A1A0A0000000D494844520000000C0000000C080600000056755CE70000013949444154789C6591CB4AC3401486E7297C03DFC2B5E0A2B8F40D1444C1852228BA71A1A0B8100A8A08415CB4EAA68274A38B8217AC25ADF5D2126BD2F43235D14493A61757BF39B34A3B031F3330E73B73E61C66B55ED13054981F59542B0FA8E98F60638BD0CA7954F512EA7A0E23B1755CDDDE83731D8C82B959C04A3C81D1A90D49689A794C6F2A882DEDE32213DE5100058FCFEFE228712E09167FC1B755C6DAC1A94828043A286729BC15EE24C1B135FC3806DA5E0BDD8E03665B7544C93E6BB8518BA2EEB6C7C19B868092786E0DCCF75C44216172F910B3DBC7E8045FB240872894796EE7044160A3D77565A1DFFBC5203EFEFA7EB87B61EDBA2C50FFE9A3D45E9A09CD220A1B5E54C2CC9682CF4651305CA224A4D2694C2CEC61359E142F3CE5320348C27B4945F2F25ACC827A5E09FB1F6538FE1FA00593B0853014870000000049454E44AE426082
+frame-image-count=8
+frame-image-masked=1
+frame-image-width=4
+frame-image-height=4
+frame-image-offset=0
+frame-image-offsetactive=0
+frame-image-offsetactiveclicked=0
+frame-image-offsetclicked=0
+frame-image-offsetactivemouse=0
+frame-image-offsetmouse=0
+frame-image-offsetdisabled=0
+frame-image-left=-3
+frame-image-right=-3
+frame-image-top=-3
+frame-image-bottom=-3
+[GroupBox-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16579570
+ 15921641
+face_direction=3
+options=[]
+[GroupBox-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[MainMenu-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[MainMenu-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16777215
+ 14737632
+face_direction=3
+options=[]
+[MainMenu-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[MainMenu-Item-Face]
+options=[]
+[MainMenu-Item-Active-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-1610612733
+colorshadow=-1610612732
+colorlight=-1610612730
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[MainMenu-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16776178
+ 16766627
+face_direction=3
+options=[]
+[Mainmenu-Popup-Frame]
+framewidth=1
+colorclient=-2147483645
+colorframe=-1879048178
+levelo=0
+leveli=3
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+frame-image=89504E470D0A1A0A0000000D494844520000000C0000000C080600000056755CE70000011249444154789C6591CD4AC3501085EF53F806E24BB8759975DF40B1B87455A90B455474DB85BB222E5AA96FE0C6A53F54910A2236353526A6352969D3A4AE8E3903C170EF858FFBC39CB9676654E0BFC01D74E1F4EFF0F17E2BBB5ADDC65AAD237CDA0F58B276717CE50A8AC19EF3845AA385E5CABE21F8721EB17ED8C48A7500AB7E0335B4EF25980F5D1F8620F07AF8095E513FBB948422E0E1BA970ABA201CBD61120E308B7DA4F310AAF0A643DFB3D8FBF79E2789A321D4E65E041DDAAB9E9C639E8C4D010F659879EBF4024932429646A6204B2728B3C8A6F85D4CF33DCEBDDBA68045B270B69733E12CCA287DD1C2C65113DFEEB3A05B3404EC3D8BDC69B4E507DECB1882A2FF9C057B5EDC0BF4F83F43F47F80332FFF750000000049454E44AE426082
+frame-image-count=8
+frame-image-masked=1
+frame-image-width=4
+frame-image-height=4
+frame-image-offset=0
+frame-image-offsetactive=0
+frame-image-offsetactiveclicked=0
+frame-image-offsetclicked=0
+frame-image-offsetactivemouse=0
+frame-image-offsetmouse=0
+frame-image-offsetdisabled=0
+frame-image-left=-3
+frame-image-right=-3
+frame-image-top=-3
+frame-image-bottom=-3
+[Mainmenu-Popup-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16777215
+ 16711422
+face_direction=2
+options=[]
+[Mainmenu-Popup-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Mainmenu-Popup-Item-Face]
+options=[]
+[Mainmenu-Popup-Item-Active-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-1610612733
+colorshadow=-1610612732
+colorlight=-1610612730
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Mainmenu-Popup-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 16773816
+face_direction=0
+options=[]
+[PopupMenu-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=2
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[PopupMenu-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16777215
+ 14737632
+face_direction=3
+options=[]
+[PopupMenu-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[PopupMenu-Item-Face]
+options=[]
+[PopupMenu-Item-Active-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-1610612733
+colorshadow=-1610612732
+colorlight=-1610612730
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[PopupMenu-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 14277631
+face_direction=0
+options=[]
+[Scrollbar-Horizontal-Button-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Horizontal-Button-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 15134460
+ 11584754
+face_direction=3
+face-image=89504E470D0A1A0A0000000D494844520000000800000007080600000035590C5E0000002149444154789C63B877E7FF7F0620C04583198DADFFFFE3A2078502108031B0D1000B65A1A1D12E32E80000000049454E44AE426082
+image-alignment=[al_xcentered,al_ycentered]
+image-options=[bmo_masked]
+options=[]
+[Scrollbar-Horizontal-Start-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Horizontal-End-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Horizontal-Arrow-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 15134460
+ 11584754
+face_direction=3
+options=[]
+[Scrollbar-Vertical-Button-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Vertical-Button-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 15134460
+ 11584754
+face_direction=0
+face-image=89504E470D0A1A0A0000000D49484452000000070000000808060000003504E5060000001C49444154789C63606060F8DFD8FA1F2B66B877073B06696218523A015A9A91B1AD03985F0000000049454E44AE426082
+image-alignment=[al_xcentered,al_ycentered]
+image-options=[bmo_masked]
+options=[]
+[Scrollbar-Vertical-Start-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Vertical-End-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Vertical-Arrow-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 15134460
+ 11584754
+face_direction=0
+options=[]
+[TabPage-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=2
+colorframeactive=-2147483647
+framei_left=1
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[TabPage-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16579570
+ 15921641
+face_direction=3
+options=[]
+[Tabbar-Horizontal-Top]
+Shift=-100
+TabColor=-2147483647
+TabColorActive=-2147483647
+[Tabbar-Horizontal-Top-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Horizontal-Top-Face]
+options=[]
+[Tabbar-Horizontal-Top-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Horizontal-Top-Item-Face]
+face_pos=3
+ 0
+ 0.17628205128205
+ 1
+face_color=3
+ 8687042
+ -1879048189
+ -1879048189
+face_direction=1
+options=[]
+[Tabbar-Horizontal-Top-Item-Active-Face]
+face_pos=3
+ 0
+ 0.48397435897435
+ 1
+face_color=3
+ 8819936
+ 11778784
+ -1879048189
+face_direction=1
+options=[]
+[Tabbar-Horizontal-Bottom]
+Shift=-100
+TabColor=-2147483647
+TabColorActive=-2147483647
+[Tabbar-Horizontal-Bottom-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Horizontal-Bottom-Face]
+options=[]
+[Tabbar-Horizontal-Bottom-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Horizontal-Bottom-Item-Face]
+face_pos=3
+ 0
+ 0.14423076923076
+ 1
+face_color=3
+ 8687042
+ -1879048189
+ -1879048189
+face_direction=1
+options=[]
+[Tabbar-Horizontal-Bottom-Item-Active-Face]
+face_pos=3
+ 0
+ 0.48397435897435
+ 1
+face_color=3
+ -1879048189
+ 11778784
+ 8819936
+face_direction=1
+options=[]
+[Tabbar-Vertical-Left]
+Shift=-100
+TabColor=-2147483647
+TabColorActive=-2147483647
+[Tabbar-Vertical-Left-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Vertical-Left-Face]
+options=[]
+[Tabbar-Vertical-Left-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Vertical-Left-Item-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 8687042
+ -1879048189
+face_direction=3
+options=[]
+[Tabbar-Vertical-Left-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1879048189
+ 8819936
+face_direction=3
+options=[]
+[Tabbar-Vertical-Right]
+Shift=-100
+TabColor=-2147483647
+TabColorActive=-2147483647
+[Tabbar-Vertical-Right-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Vertical-Right-Face]
+options=[]
+[Tabbar-Vertical-Right-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Vertical-Right-Item-Face]
+options=[]
+[Tabbar-Vertical-Right-Item-Active-Face]
+options=[]
+[Grid-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=1
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-1879048192
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Grid-Face]
+options=[]
+[Grid-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[Grid-FixRows-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Grid-FixRows-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 14277081
+face_direction=3
+options=[]
+[Grid-FixCols-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Grid-FixCols-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14277119
+ -1610612730
+face_direction=0
+options=[]
+[Grid-DataCols-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Grid-DataCols-Face]
+options=[]
+[DisplayWidget]
+Color=-2147483647
+ColorCaptionFrame=-2147483647

@@ -9,9 +9,9 @@ object repazpreviewfo: trepazpreviewfo
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
-    15
+    16
     672
-    453
+    452
   )
   dragdock.optionsdock = [od_savechildren]
   mainmenu = tmainmenu1
@@ -94,6 +94,7 @@ object repazpreviewfo: trepazpreviewfo
   ondestroy = repazpreviewfo_ondestroy
   moduleclassname = 'tdockform'
   object tscrollbox1: tscrollbox
+    color = -1879048191
     frame.optionsscroll = [oscr_zoom, oscr_key, oscr_mousewheel]
     frame.zoomwidthstep = 1
     frame.zoomheightstep = 1
@@ -102,10 +103,10 @@ object repazpreviewfo: trepazpreviewfo
     bounds_x = 0
     bounds_y = 34
     bounds_cx = 672
-    bounds_cy = 419
+    bounds_cy = 418
     anchors = [an_left, an_top, an_right, an_bottom]
     object tpreview1: tpreview
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_mousewheel, ow_destroywidgets]
       optionsskin = [osk_noskin]
       frame.framewidth = 1
       frame.colorframe = -1610612734
@@ -186,7 +187,7 @@ object repazpreviewfo: trepazpreviewfo
       font.dummy = 0
       textflags = [tf_xcentered, tf_ycentered, tf_noselect]
       ondataentered = btnzoom_onexecute
-      value = '100 %'
+      value = '125 %'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
@@ -200,7 +201,7 @@ object repazpreviewfo: trepazpreviewfo
             '200 %'
           )
         end>
-      dropdown.itemindex = 2
+      dropdown.itemindex = 3
       reffontheight = 13
     end
     object cpage: tintegeredit
@@ -208,16 +209,16 @@ object repazpreviewfo: trepazpreviewfo
       frame.captionpos = cp_left
       frame.dummy = 0
       frame.outerframe = (
-        27
+        32
         0
         0
         0
       )
       taborder = 1
       hint = 'Page number'
-      bounds_x = 135
+      bounds_x = 130
       bounds_y = 0
-      bounds_cx = 71
+      bounds_cx = 76
       bounds_cy = 32
       font.height = 11
       font.style = [fs_bold]
@@ -306,18 +307,18 @@ object repazpreviewfo: trepazpreviewfo
       frame.captionpos = cp_left
       frame.dummy = 0
       frame.outerframe = (
-        27
+        31
         0
         0
         0
       )
       taborder = 2
       hint = 'Total of pages'
-      bounds_x = 208
+      bounds_x = 204
       bounds_y = 0
-      bounds_cx = 71
+      bounds_cx = 75
       bounds_cy = 32
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_savevalue, oe_savestate]
       font.height = 11
       font.style = [fs_bold]
       font.name = 'stf_default'

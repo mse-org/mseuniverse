@@ -19,14 +19,14 @@ uses
  mseclasses,classes,msegui,msegraphics,msetypes,msewidgets,msegraphutils,
  msestream,msearrayprops,mseguiglob,repazdialog,repazlookupbuffers,
  msedrawtext,msestrings,msedb,db,mseobjectpicker,msestat,msestatfile,
- msepointer,mseevent,mselookupbuffer,mseformatstr,msqldb,repaztypes,
- mseglob,msesys,repazdatasources,typinfo,universalprinter,universalprintertype,msestockobjects,
+ msepointer,mselookupbuffer,mseformatstr,msqldb,repaztypes,msesqlquery,
+ mseglob,msesys,repazdatasources,typinfo,universalprinter,universalprintertype,
  repazglob,repazpreviewform,msesqldb,repazchart,barcode,msearrayutils,
- variants,msebitmap,mseformatbmpicoread,mseformatjpgread,repazevaluator,mseforms,
+ variants,msebitmap,mseformatbmpicoread,mseformatjpgread,repazevaluator,
  mseformatpngread,mseformatpngwrite,mseformatjpgwrite,msedock,repazdesign;
  
 const
- frepazversion = '1.1.0'; //x.y.z = Major.Minor.Revision
+ frepazversion = '1.1.7'; //x.y.z = Major.Minor.Revision
  defaultreportactions = [ra_save,ra_print,ra_preview,ra_design,ra_showdialog];
  defaultreppixelpermm = (1/25.4)*72;
  defaultreppixelperinch = 72;
@@ -117,7 +117,7 @@ type
    ffontstyle: fontstylesty;
    fmodul: integer;
    fbarcodetype: barcodety;
-   fchecksum: boolean;
+   fchecksum,fhidden: boolean;
    fbarcoderotation: integer;
    fbarcodecolor: colorty;
    fbarcoderatio: double;
@@ -137,7 +137,7 @@ type
    function getlb: tcustomlookupbuffer;
 
    procedure setlookupbuffer(const avalue: string);
-   procedure setdatafield(const avalue: string);
+   procedure setdatafield(const avalue: string); virtual;
    procedure setdatasource(const avalue: string);
    procedure updatelinks;
 
@@ -223,6 +223,7 @@ type
    property Alignment_Vertical: valignmentty read fvalign write setvalign default va_Center;
    property Position: real read fpos write setpos;
    property Width: real read fwidth write setwidth;
+   property Hidden: boolean read fhidden write fhidden default false;
    property Ellipse: textellipsety read fellipse write fellipse;
    property TextOptions : textoptionsty read ftextoptions write ftextoptions;
    property DataField: string read getdatafield write setdatafield;
@@ -329,6 +330,7 @@ type
    procedure assign(source: tpersistent); override;
    procedure setpixelperunit(const avalue: real);
    procedure dobeforenextrecord(const adatasource: tdatasource);virtual;
+   procedure prevrecord;virtual;
    procedure nextrecord;virtual;
    procedure paintextend(const acanvas: tcanvas; const adest: rectty;
      const isbuilding:boolean;const aleft:boolean;const aright:boolean;const atop:boolean;const abottom:boolean);
@@ -339,6 +341,7 @@ type
    procedure resetzebra;
    procedure initpage;
    function iseof: boolean;
+   function isbof: boolean;
    function recordcount: integer;
    procedure resetsums(const skipcurrent: boolean);
    property items[const index: integer]: TraTabulatorItem read getitems 
@@ -468,7 +471,7 @@ type
    fpixelperunit: real;
    fleft,ftop,fwidth,fheight: real;
    fbitmap: tmaskedbitmap;
-   fpickkind, fpickarrayindex, fpicktabindex: integer;
+   fpickkind, fpickarrayindex: integer;
   protected
    function getauthor: msestring;virtual;
    procedure setbitmap(const Value: tmaskedbitmap);
@@ -617,7 +620,9 @@ type
    function datanumber: integer;
    function footertreekey: variant;
    function headertreekey: variant;
+   function treeindex: integer;
    function treefootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
+   function treemainfootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
    function treefootervalue2(indexcol:integer; indextree: integer=0): variant;
    function lettervalue(indexrow: integer; indexcol:integer): variant;
    function groupnumber(aindex: integer): integer;
@@ -670,7 +675,7 @@ type
    fdialogtext: msestring;
    fdialogcaption,fpreviewcaption,fdesigncaption: msestring;
    fdatasets: datasetarty;
-   ffilename: filenamety;
+   ffilename,foutputfile: filenamety;
    freportowner: tcomponent;
    frootcomp: tcomponent;
    fprintdestination: printdestinationty;
@@ -779,7 +784,9 @@ type
    function datanumber: integer;
    function headertreekey: variant;
    function footertreekey: variant;
+   function treeindex: integer;
    function treefootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
+   function treemainfootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
    function treefootervalue2(indexcol:integer; indextree: integer=0): variant;
    function lettervalue(indexrow: integer; indexcol:integer): variant;
    function groupnumber(aindex: integer): integer;
@@ -811,6 +818,7 @@ type
   published
    property activepage: integer read factivepage write factivepage;
    property Version: string read fversion;
+   property OutputFileName: filenamety read foutputfile write foutputfile;
    property FileName: filenamety read getfilename write setfilename;
    property ReportAction: repactionsty read freportactions write freportactions{ default defaultreportactions};
    property Options: reportoptionsty read foptions write foptions default defaultreportoptions;
@@ -894,13 +902,10 @@ type
 
 implementation
 uses
- msedatalist,sysutils,msefiledialog,msefileutils,frmevaldialog,msecommport,
- repazconsts,mseconsts,msegraphicstream,msesysutils,msedial;
+ sysutils,msefiledialog,msefileutils,frmevaldialog,msecommport,
+ repazconsts,mseconsts,msegraphicstream,msedial,msesysintf,msesysutils;
 type
- tcustomframe1 = class(tcustomframe);
  tcomponent1 = class(tcomponent);
- tmsecomponent1 = class(tmsecomponent);
- twindow1 = class(twindow);
 
 function stringtopages(const avalue: widestring): pagerangearty;
 var
@@ -1378,6 +1383,7 @@ end;
 constructor TraTabulatorItem.create(aowner: tobject);
 begin
  inherited;
+ fhidden:= false;
  fmodul:= 1;
  fbarcoderatio:= 1.0;
  fbarcodetype:= bcCodeNone;
@@ -2100,6 +2106,9 @@ begin
  fillchar(fsum,sizeof(fsum),0);
  fsum.resetpending:= skipcurrent;
  fsum.reset:= true;
+ if fsummary<>st_None then begin
+  fvalue:= 0;
+ end;
 end;
 
 procedure TraTabulatorItemSummary.assign(source: TPersistent);
@@ -2165,18 +2174,22 @@ begin
       ftinteger,ftword,ftsmallint,ftboolean: begin
        integervalue:= integervalue + asinteger;
        setvalue(integervalue);
-      end;
+       fvartype:= varinteger;
+    end;
       ftlargeint: begin
        largeintvalue:= largeintvalue + aslargeint;
        setvalue(largeintvalue);
+       fvartype:= varint64;
       end;
       ftfloat,ftcurrency: begin
        floatvalue:= floatvalue + asfloat;
        setvalue(floatvalue);
+       fvartype:= vardouble;
       end;
       ftbcd: begin
        bcdvalue:= bcdvalue + ascurrency;
        setvalue(bcdvalue);
+       fvartype:= varcurrency;
       end;
      end;
     end;
@@ -2243,91 +2256,44 @@ var
  int1: integer;
 begin
  if (fsummary=st_Sum) or (fsummary=st_Count) or (fsummary=st_Average) then begin
-  if fdatalink.fieldactive then begin
-   if fsummary=st_Count then begin
-    setvalue(sumcount);
-   end else begin
-    if fsummary=st_Average then begin
-     int1:= sumcount;
-     if int1 = 0 then begin
-      setvalue(0);
-     end else begin
-      case fdatalink.field.datatype of 
-       ftinteger,ftword,ftsmallint,ftboolean: begin
-        setvalue(sumasinteger/int1);
-       end;
-       ftlargeint: begin
-        setvalue(sumaslargeint/int1);
-       end;
-       ftfloat,ftcurrency: begin
-        setvalue(sumasfloat/int1);
-       end;
-       ftbcd: begin
-        setvalue(sumascurrency/int1);
-       end;
-      end;
-     end;
-    end else begin
-     case fdatalink.field.datatype of 
-      ftinteger,ftword,ftsmallint,ftboolean: begin
-       setvalue(sumasinteger);
-      end;
-      ftlargeint: begin
-       setvalue(sumaslargeint);
-      end;
-      ftfloat,ftcurrency: begin
-       setvalue(sumasfloat);
-      end;
-      ftbcd: begin
-       setvalue(sumascurrency);
-      end;
-     end;
-    end;
-   end;
+  if fsummary=st_Count then begin
+   setvalue(sumcount);
   end else begin
-   if fexpression<>'' then begin
-    if fsummary=st_Count then begin
-     setvalue(sumcount);
+   if fsummary=st_Average then begin
+    int1:= sumcount;
+    if int1 = 0 then begin
+     setvalue(0);
     end else begin
-     if fsummary=st_Average then begin
-      int1:= sumcount;
-      if int1 = 0 then begin
-       setvalue(0);
-      end else begin
-       case fvartype of 
-        varinteger: begin
-         setvalue(sumasinteger/int1);
-        end;
-        varint64: begin
-         setvalue(sumaslargeint/int1);
-        end;
-        vardouble: begin
-         setvalue(sumasfloat/int1);
-        end;
-        varcurrency: begin
-         setvalue(sumascurrency/int1);
-        end;
-       end;
+     case fvartype of 
+      varinteger: begin
+       setvalue(sumasinteger/int1);
       end;
-     end else begin
-      case fvartype of 
-       varinteger: begin
-        setvalue(sumasinteger);
-       end;
-       varint64: begin
-        setvalue(sumaslargeint);
-       end;
-       vardouble: begin
-        setvalue(sumasfloat);
-       end;
-       varcurrency: begin
-        setvalue(sumascurrency);
-       end;
+      varint64: begin
+       setvalue(sumaslargeint/int1);
+      end;
+      vardouble: begin
+       setvalue(sumasfloat/int1);
+      end;
+      varcurrency: begin
+       setvalue(sumascurrency/int1);
       end;
      end;
     end;
    end else begin
-    setvalue(null);
+    case fvartype of 
+     varinteger: begin
+      setvalue(sumasinteger);
+     end;
+     varint64: begin
+      setvalue(sumaslargeint);
+     end;
+     vardouble: begin
+      setvalue(sumasfloat);
+     end;
+     varcurrency: begin
+      setvalue(sumascurrency);
+     end;
+    end;
    end;
   end;
  end else begin
@@ -2425,7 +2391,6 @@ var
  bmpstr: string;
  tmpfont: tfont;
  ftextflags: textflagsty;
- data: string;
 begin
  tmpfont:= tfont.create;
  fbitmapfield:= tmaskedbitmap.create(false);
@@ -2452,194 +2417,196 @@ begin
   setlength(reptabinfo.tabs,count);
   for int1:= 0 to count - 1 do begin
    with items[int1] do begin
-    //draw background cell
-    if (Color<>cl_none) and (Color<>cl_transparent)then begin
-     if isbuilding then begin
-      freporttemplate.reportpage.report.addrect2toreport(createrectinfo(tmprect,Color));
+    if not hidden then begin
+     //draw background cell
+     if (Color<>cl_none) and (Color<>cl_transparent)then begin
+      if isbuilding then begin
+       freporttemplate.reportpage.report.addrect2toreport(createrectinfo(tmprect,Color));
+      end else begin
+       acanvas.fillrect(tmprect,Color);
+      end;
+     end;
+     //draw picture
+     if bitmap.hasimage then begin
+      tmprect:= makerect(adest.x+round(Position*fpixelperunit),adest.y,
+        round(Width*fpixelperunit),adest.cy);
+      if isbuilding then begin
+       freporttemplate.reportpage.report.addbitmap1toreport(tmprect,bitmap);
+      end else begin
+       bitmap.paint(acanvas,tmprect);
+      end;
+     end;
+     finfo.text.text:= '';
+     bmpstr:='';
+     processvalue;
+     finfo.text.text:= Text;
+     bmpstr:= BitmapString;
+     //draw picture from field
+     if bmpstr<>'' then begin
+      tmprect:= makerect(adest.x+round((Position+Margin_Left)*fpixelperunit),adest.y,
+       round((Width-Margin_Right)*fpixelperunit),adest.cy);
+      try
+       fbitmapfield.clear;
+       fbitmapfield.alignment:= BitmapFieldAlignment;
+       fbitmapfield.loadfromstring(bmpstr);
+       if isbuilding then begin
+        freporttemplate.reportpage.report.addbitmap2toreport(tmprect,fbitmapfield);
+       end else begin
+        fbitmapfield.paint(acanvas,tmprect);
+       end;
+      except
+       //
+      end;
+     end;
+     finfo.font:= tmpfont;
+     finfo.font.name:= font_name;
+     finfo.font.color:= font_color;
+     finfo.font.style:= fontstyle;
+     finfo.font.height:= font_size;
+     if finfo.text.text<>'' then begin
+      ftextflags:= [];
+      case Alignment_Horizontal of 
+       ha_Center: begin
+        ftextflags:= ftextflags + [tf_xcentered];
+       end;
+       ha_Right: begin   
+        ftextflags:= ftextflags + [tf_right];
+       end;
+      end;
+      case Alignment_Vertical of 
+       va_Center: begin
+        ftextflags:= ftextflags + [tf_ycentered];
+       end;
+       va_Bottom: begin   
+        ftextflags:= ftextflags + [tf_bottom];
+       end;
+      end;
+      if to_WordBreak in TextOptions then ftextflags:= ftextflags + [tf_wordbreak];
+      if to_SoftHyphen in TextOptions then ftextflags:= ftextflags + [tf_softhyphen];
+      if to_ConvertTabtoSpace in TextOptions then ftextflags:= ftextflags + [tf_tabtospace];
+      if to_Vertical in TextOptions then ftextflags:= ftextflags + [tf_rotate90];
+      if to_Flip in TextOptions then ftextflags:= ftextflags + [tf_rotate180];
+      if Ellipse<>el_None then begin
+       if Ellipse=el_Left then
+        ftextflags:= ftextflags + [tf_ellipseleft]
+       else
+        ftextflags:= ftextflags + [tf_ellipseright];
+      end;
+      finfo.flags:= ftextflags;
+      finfo.dest:= makerect(adest.x+round((Position+Margin_Left)*fpixelperunit),adest.y,
+       round((Width-Margin_Right)*fpixelperunit),adest.cy);
+      finfo.res:= finfo.dest;
+      //draw text
+      if isbuilding then begin
+       reptabinfo.tabs[int1].text:= finfo.text.text;
+       reptabinfo.tabs[int1].dest:= finfo.dest;
+       reptabinfo.tabs[int1].flags:= finfo.flags;
+       reptabinfo.tabs[int1].fontname:= finfo.font.name;
+       reptabinfo.tabs[int1].fontsize:= finfo.font.height;
+       reptabinfo.tabs[int1].fontcolor:= finfo.font.color;
+       reptabinfo.tabs[int1].fontstyle:= finfo.font.style;
+       reptabinfo.tabs[int1].rawfont:= RAW_Font;
+       reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
+       reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
+      end else begin
+       drawtext(acanvas,finfo);
+      end;
      end else begin
-      acanvas.fillrect(tmprect,Color);
-     end;
-    end;
-    //draw picture
-    if bitmap.hasimage then begin
-     tmprect:= makerect(adest.x+round(Position*fpixelperunit),adest.y,
-       round(Width*fpixelperunit),adest.cy);
-     if isbuilding then begin
-      freporttemplate.reportpage.report.addbitmap1toreport(tmprect,bitmap);
-     end else begin
-      bitmap.paint(acanvas,tmprect);
-     end;
-    end;
-    finfo.text.text:= '';
-    bmpstr:='';
-    processvalue;
-    finfo.text.text:= Text;
-    bmpstr:= BitmapString;
-    //draw picture from field
-    if bmpstr<>'' then begin
-     tmprect:= makerect(adest.x+round((Position+Margin_Left)*fpixelperunit),adest.y,
-      round((Width-Margin_Right)*fpixelperunit),adest.cy);
-     try
-      fbitmapfield.clear;
-      fbitmapfield.alignment:= BitmapFieldAlignment;
-      fbitmapfield.loadfromstring(bmpstr);
       if isbuilding then begin
-       freporttemplate.reportpage.report.addbitmap2toreport(tmprect,fbitmapfield);
-      end else begin
-       fbitmapfield.paint(acanvas,tmprect);
-      end;
-     except
-      //
-     end;
-    end;
-    finfo.font:= tmpfont;
-    finfo.font.name:= font_name;
-    finfo.font.color:= font_color;
-    finfo.font.style:= fontstyle;
-    finfo.font.height:= font_size;
-    if finfo.text.text<>'' then begin
-     ftextflags:= [];
-     case Alignment_Horizontal of 
-      ha_Center: begin
-       ftextflags:= ftextflags + [tf_xcentered];
-      end;
-      ha_Right: begin   
-       ftextflags:= ftextflags + [tf_right];
+       reptabinfo.tabs[int1].text:= finfo.text.text;
+       reptabinfo.tabs[int1].dest:= finfo.dest;
+       reptabinfo.tabs[int1].flags:= finfo.flags;
+       reptabinfo.tabs[int1].fontname:= finfo.font.name;
+       reptabinfo.tabs[int1].fontsize:= finfo.font.height;
+       reptabinfo.tabs[int1].fontcolor:= finfo.font.color;
+       reptabinfo.tabs[int1].fontstyle:= finfo.font.style;
+       reptabinfo.tabs[int1].rawfont:= RAW_Font;
+       reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
+       reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
       end;
      end;
-     case Alignment_Vertical of 
-      va_Center: begin
-       ftextflags:= ftextflags + [tf_ycentered];
-      end;
-      va_Bottom: begin   
-       ftextflags:= ftextflags + [tf_bottom];
-      end;
-     end;
-     if to_WordBreak in TextOptions then ftextflags:= ftextflags + [tf_wordbreak];
-     if to_SoftHyphen in TextOptions then ftextflags:= ftextflags + [tf_softhyphen];
-     if to_ConvertTabtoSpace in TextOptions then ftextflags:= ftextflags + [tf_tabtospace];
-     if to_Vertical in TextOptions then ftextflags:= ftextflags + [tf_rotate90];
-     if to_Flip in TextOptions then ftextflags:= ftextflags + [tf_rotate180];
-     if Ellipse<>el_None then begin
-      if Ellipse=el_Left then
-       ftextflags:= ftextflags + [tf_ellipseleft]
-      else
-       ftextflags:= ftextflags + [tf_ellipseright];
-     end;
-     finfo.flags:= ftextflags;
-     finfo.dest:= makerect(adest.x+round((Position+Margin_Left)*fpixelperunit),adest.y,
-      round((Width-Margin_Right)*fpixelperunit),adest.cy);
-     finfo.res:= finfo.dest;
-     //draw text
-     if isbuilding then begin
-      reptabinfo.tabs[int1].text:= finfo.text.text;
-      reptabinfo.tabs[int1].dest:= finfo.dest;
-      reptabinfo.tabs[int1].flags:= finfo.flags;
-      reptabinfo.tabs[int1].fontname:= finfo.font.name;
-      reptabinfo.tabs[int1].fontsize:= finfo.font.height;
-      reptabinfo.tabs[int1].fontcolor:= finfo.font.color;
-      reptabinfo.tabs[int1].fontstyle:= finfo.font.style;
-      reptabinfo.tabs[int1].rawfont:= RAW_Font;
-      reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
-      reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
-     end else begin
-      drawtext(acanvas,finfo);
-     end;
-    end else begin
-     if isbuilding then begin
-      reptabinfo.tabs[int1].text:= finfo.text.text;
-      reptabinfo.tabs[int1].dest:= finfo.dest;
-      reptabinfo.tabs[int1].flags:= finfo.flags;
-      reptabinfo.tabs[int1].fontname:= finfo.font.name;
-      reptabinfo.tabs[int1].fontsize:= finfo.font.height;
-      reptabinfo.tabs[int1].fontcolor:= finfo.font.color;
-      reptabinfo.tabs[int1].fontstyle:= finfo.font.style;
-      reptabinfo.tabs[int1].rawfont:= RAW_Font;
-      reptabinfo.tabs[int1].rawwidth:= RAW_WidthInChar;
-      reptabinfo.tabs[int1].rawpos:= RAW_PosInChar;
-     end;
-    end;
-    with fbordertop do begin
-     if linewidth > 0 then begin
-      linestart:= makepoint(adest.x+round(items[int1].position*fpixelperunit),adest.y);
-      lineend:= makepoint(adest.x+round((items[int1].position+items[int1].width)*fpixelperunit),adest.y);
-      if isbuilding then begin
-       reptabinfo.tabs[int1].bordertop.linewidth:= linewidth;
-       reptabinfo.tabs[int1].bordertop.linecolor:= linecolor;
-       reptabinfo.tabs[int1].bordertop.capstyle:= capstyle;
-       reptabinfo.tabs[int1].bordertop.linestyle:= linestyle;
-       reptabinfo.tabs[int1].bordertop.startpoint:= linestart;
-       reptabinfo.tabs[int1].bordertop.endpoint:= lineend;     
-      end else begin
-       acanvas.save;
-       acanvas.linewidth:= round(linewidth*fpixelperunit);
-       acanvas.capstyle:= capstyle;
-       acanvas.dashes:= linestyles[linestyle];
-       acanvas.drawline(linestart,lineend,linecolor);
-       acanvas.restore;
+     with fbordertop do begin
+      if linewidth > 0 then begin
+       linestart:= makepoint(adest.x+round(items[int1].position*fpixelperunit),adest.y);
+       lineend:= makepoint(adest.x+round((items[int1].position+items[int1].width)*fpixelperunit),adest.y);
+       if isbuilding then begin
+        reptabinfo.tabs[int1].bordertop.linewidth:= linewidth;
+        reptabinfo.tabs[int1].bordertop.linecolor:= linecolor;
+        reptabinfo.tabs[int1].bordertop.capstyle:= capstyle;
+        reptabinfo.tabs[int1].bordertop.linestyle:= linestyle;
+        reptabinfo.tabs[int1].bordertop.startpoint:= linestart;
+        reptabinfo.tabs[int1].bordertop.endpoint:= lineend;     
+       end else begin
+        acanvas.save;
+        acanvas.linewidth:= round(linewidth*fpixelperunit);
+        acanvas.capstyle:= capstyle;
+        acanvas.dashes:= linestyles[linestyle];
+        acanvas.drawline(linestart,lineend,linecolor);
+        acanvas.restore;
+       end;
       end;
      end;
-    end;
-    with fborderbottom do begin
-     if linewidth > 0 then begin
-      linestart:= makepoint(adest.x+round(items[int1].position*fpixelperunit),adest.y+round(fheight*fpixelperunit));
-      lineend:= makepoint(adest.x+round((items[int1].position+items[int1].width)*fpixelperunit),adest.y+round(fheight*fpixelperunit));
-      if isbuilding then begin
-       reptabinfo.tabs[int1].borderbottom.linewidth:= linewidth;
-       reptabinfo.tabs[int1].borderbottom.linecolor:= linecolor;
-       reptabinfo.tabs[int1].borderbottom.capstyle:= capstyle;
-       reptabinfo.tabs[int1].borderbottom.linestyle:= linestyle;
-       reptabinfo.tabs[int1].borderbottom.startpoint:= linestart;
-       reptabinfo.tabs[int1].borderbottom.endpoint:= lineend;     
-      end else begin
-       acanvas.save;
-       acanvas.linewidth:= round(linewidth*fpixelperunit);
-       acanvas.capstyle:= capstyle;
-       acanvas.dashes:= linestyles[linestyle];
-       acanvas.drawline(linestart,lineend,linecolor);
-       acanvas.restore;
+     with fborderbottom do begin
+      if linewidth > 0 then begin
+       linestart:= makepoint(adest.x+round(items[int1].position*fpixelperunit),adest.y+round(fheight*fpixelperunit));
+       lineend:= makepoint(adest.x+round((items[int1].position+items[int1].width)*fpixelperunit),adest.y+round(fheight*fpixelperunit));
+       if isbuilding then begin
+        reptabinfo.tabs[int1].borderbottom.linewidth:= linewidth;
+        reptabinfo.tabs[int1].borderbottom.linecolor:= linecolor;
+        reptabinfo.tabs[int1].borderbottom.capstyle:= capstyle;
+        reptabinfo.tabs[int1].borderbottom.linestyle:= linestyle;
+        reptabinfo.tabs[int1].borderbottom.startpoint:= linestart;
+        reptabinfo.tabs[int1].borderbottom.endpoint:= lineend;     
+       end else begin
+        acanvas.save;
+        acanvas.linewidth:= round(linewidth*fpixelperunit);
+        acanvas.capstyle:= capstyle;
+        acanvas.dashes:= linestyles[linestyle];
+        acanvas.drawline(linestart,lineend,linecolor);
+        acanvas.restore;
+       end;
       end;
      end;
-    end;
-    with fborderleft do begin
-     if linewidth > 0 then begin
-      linestart:= makepoint(adest.x+round(items[int1].position*fpixelperunit),adest.y);
-      lineend:= makepoint(adest.x+round(items[int1].position*fpixelperunit),adest.y+round(fheight*fpixelperunit));
-      if isbuilding then begin
-       reptabinfo.tabs[int1].borderleft.linewidth:= linewidth;
-       reptabinfo.tabs[int1].borderleft.linecolor:= linecolor;
-       reptabinfo.tabs[int1].borderleft.capstyle:= capstyle;
-       reptabinfo.tabs[int1].borderleft.linestyle:= linestyle;
-       reptabinfo.tabs[int1].borderleft.startpoint:= linestart;
-       reptabinfo.tabs[int1].borderleft.endpoint:= lineend;     
-      end else begin
-       acanvas.save;
-       acanvas.linewidth:= round(linewidth*fpixelperunit);
-       acanvas.capstyle:= capstyle;
-       acanvas.dashes:= linestyles[linestyle];
-       acanvas.drawline(linestart,lineend,linecolor);
-       acanvas.restore;
+     with fborderleft do begin
+      if linewidth > 0 then begin
+       linestart:= makepoint(adest.x+round(items[int1].position*fpixelperunit),adest.y);
+       lineend:= makepoint(adest.x+round(items[int1].position*fpixelperunit),adest.y+round(fheight*fpixelperunit));
+       if isbuilding then begin
+        reptabinfo.tabs[int1].borderleft.linewidth:= linewidth;
+        reptabinfo.tabs[int1].borderleft.linecolor:= linecolor;
+        reptabinfo.tabs[int1].borderleft.capstyle:= capstyle;
+        reptabinfo.tabs[int1].borderleft.linestyle:= linestyle;
+        reptabinfo.tabs[int1].borderleft.startpoint:= linestart;
+        reptabinfo.tabs[int1].borderleft.endpoint:= lineend;     
+       end else begin
+        acanvas.save;
+        acanvas.linewidth:= round(linewidth*fpixelperunit);
+        acanvas.capstyle:= capstyle;
+        acanvas.dashes:= linestyles[linestyle];
+        acanvas.drawline(linestart,lineend,linecolor);
+        acanvas.restore;
+       end;
       end;
      end;
-    end;
-    with fborderright do begin
-     if linewidth > 0 then begin
-      linestart:= makepoint(adest.x+round((items[int1].position+items[int1].width)*fpixelperunit),adest.y);
-      lineend:= makepoint(adest.x+round((items[int1].position+items[int1].width)*fpixelperunit),adest.y+round(fheight*fpixelperunit));
-      if isbuilding then begin
-       reptabinfo.tabs[int1].borderright.linewidth:= linewidth;
-       reptabinfo.tabs[int1].borderright.linecolor:= linecolor;
-       reptabinfo.tabs[int1].borderright.capstyle:= capstyle;
-       reptabinfo.tabs[int1].borderright.linestyle:= linestyle;
-       reptabinfo.tabs[int1].borderright.startpoint:= linestart;
-       reptabinfo.tabs[int1].borderright.endpoint:= lineend;     
-      end else begin
-       acanvas.save;
-       acanvas.linewidth:= round(linewidth*fpixelperunit);
-       acanvas.capstyle:= capstyle;
-       acanvas.dashes:= linestyles[linestyle];
-       acanvas.drawline(linestart,lineend,linecolor);
-       acanvas.restore;
+     with fborderright do begin
+      if linewidth > 0 then begin
+       linestart:= makepoint(adest.x+round((items[int1].position+items[int1].width)*fpixelperunit),adest.y);
+       lineend:= makepoint(adest.x+round((items[int1].position+items[int1].width)*fpixelperunit),adest.y+round(fheight*fpixelperunit));
+       if isbuilding then begin
+        reptabinfo.tabs[int1].borderright.linewidth:= linewidth;
+        reptabinfo.tabs[int1].borderright.linecolor:= linecolor;
+        reptabinfo.tabs[int1].borderright.capstyle:= capstyle;
+        reptabinfo.tabs[int1].borderright.linestyle:= linestyle;
+        reptabinfo.tabs[int1].borderright.startpoint:= linestart;
+        reptabinfo.tabs[int1].borderright.endpoint:= lineend;     
+       end else begin
+        acanvas.save;
+        acanvas.linewidth:= round(linewidth*fpixelperunit);
+        acanvas.capstyle:= capstyle;
+        acanvas.dashes:= linestyles[linestyle];
+        acanvas.drawline(linestart,lineend,linecolor);
+        acanvas.restore;
+       end;
       end;
      end;
     end;
@@ -2944,8 +2911,18 @@ procedure TraTabulators.nextrecord;
 begin
  try
   dobeforenextrecord(fdatalink.DataSource);
-  if fdatalink.active then begin
+  if fdatalink.active and not fdatalink.dataset.eof then begin
    fdatalink.dataset.next;
+  end;
+ finally
+ end;
+end;
+
+procedure TraTabulators.prevrecord;
+begin
+ try
+  if fdatalink.active and not fdatalink.dataset.bof then begin
+   fdatalink.dataset.prior;
   end;
  finally
  end;
@@ -2985,6 +2962,7 @@ var
  tmpdatasource: tdatasource;
  xx: TComponentState;
 begin
+ if freporttemplate.reportpage=nil then exit;
  xx:= freporttemplate.reportpage.componentstate;
  if (fdatasourcestr<>avalue) or (fdatalink.datasource=nil) then begin
   fdatasourcestr:= avalue;
@@ -3017,6 +2995,16 @@ begin
  result:= false;
  if fdatalink.active then begin
   result:= fdatalink.eof;
+ end else begin
+  result:= true;
+ end;
+end;
+
+function TraTabulators.isbof: boolean;
+begin
+ result:= false;
+ if fdatalink.active then begin
+  result:= fdatalink.dataset.recno=1;
  end else begin
   result:= true;
  end;
@@ -3071,6 +3059,7 @@ end;
 constructor TraReportTemplate.create(aowner: tcomponent);
 begin
  inherited;
+ fcolor:= cl_white;
  if aowner is TraPage then begin
   freportpage:= TraPage(aowner);
   fpixelperunit:= freportpage.PixelPerUnit;
@@ -3944,6 +3933,8 @@ begin
  if factivetemplate>=0 then begin
   if ftemplate[factivetemplate] is TraSimpleReport then begin
    result:= TraSimpleReport(ftemplate[factivetemplate]).contentheadervalue(indexcol);
+  end else if ftemplate[factivetemplate] is TraMasterDetailReport then begin
+   result:= TraMasterDetailReport(ftemplate[factivetemplate]).contentheadervalue(indexcol);
   end; 
  end;
 end;
@@ -3953,6 +3944,8 @@ begin
  if factivetemplate>=0 then begin
   if ftemplate[factivetemplate] is TraSimpleReport then begin
    result:= TraSimpleReport(ftemplate[factivetemplate]).contentfootervalue(indexcol);
+  end else if ftemplate[factivetemplate] is TraMasterDetailReport then begin
+   result:= TraMasterDetailReport(ftemplate[factivetemplate]).contentfootervalue(indexcol);
   end; 
  end;
 end;
@@ -3980,6 +3973,8 @@ begin
  if factivetemplate>=0 then begin
   if ftemplate[factivetemplate] is TraSimpleReport then begin
    result:= TraSimpleReport(ftemplate[factivetemplate]).contentdatavalue(indexcol);
+  end else if ftemplate[factivetemplate] is TraMasterDetailReport then begin
+   result:= TraMasterDetailReport(ftemplate[factivetemplate]).contentdatavalue(indexcol);
   end; 
  end;
 end;
@@ -4052,11 +4047,29 @@ begin
  end;
 end;
 
+function TraPage.treeindex: integer;
+begin
+ if factivetemplate>=0 then begin
+  if ftemplate[factivetemplate] is TraTreeReport then begin
+   result:= TraTreeReport(ftemplate[factivetemplate]).treenumber;
+  end; 
+ end;
+end;
+
 function TraPage.treefootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
 begin
  if factivetemplate>=0 then begin
   if ftemplate[factivetemplate] is TraTreeReport then begin
    result:= TraTreeReport(ftemplate[factivetemplate]).treefootervalue(indexrow,indexcol,indextree);
+  end; 
+ end;
+end;
+
+function TraPage.treemainfootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
+begin
+ if factivetemplate>=0 then begin
+  if ftemplate[factivetemplate] is TraTreeReport then begin
+   result:= TraTreeReport(ftemplate[factivetemplate]).treemainfootervalue(indexrow,indexcol,indextree);
   end; 
  end;
 end;
@@ -4330,6 +4343,7 @@ end;
 constructor TRepaz.create(aowner: tcomponent);
 begin
  inherited;
+ foutputfile:= '';
  fpreviewdestroyed:= false;
  fdesigndestroyed:= false;
  fprinting:= false;
@@ -4521,10 +4535,28 @@ begin
  end;
 end;
 
+function TRepaz.treeindex: integer;
+begin
+ if factivepage>=0 then begin
+  result:= freppages[factivepage].treeindex;
+ end else begin
+  result:= -1;
+ end;
+end;
+
 function TRepaz.treefootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
 begin
  if factivepage>=0 then begin
   result:= freppages[factivepage].treefootervalue(indexrow,indexcol,indextree);
+ end else begin
+  result:= '';
+ end;
+end;
+
+function TRepaz.treemainfootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
+begin
+ if factivepage>=0 then begin
+  result:= freppages[factivepage].treemainfootervalue(indexrow,indexcol,indextree);
  end else begin
   result:= '';
  end;
@@ -4810,10 +4842,10 @@ begin
  if length(fmetapages)>=1 then begin
   fuprinter.title:= removefileext(msefileutils.filename(ffilename));
   fuprinter.beginrender;
-  for int1:=0 to length(fmetapages)-1 do begin
-   if ispageprint(fpages,int1) then begin
-    for int6:=1 to fuprinter.copies do begin
-     fuprinter.newpage;
+  for int6:=1 to fuprinter.copies do begin
+   fuprinter.newpage;
+   for int1:=0 to length(fmetapages)-1 do begin
+    if ispageprint(fpages,int1) then begin
      for int2:=0 to length(fmetapages[int1].tabobjects)-1 do begin
       textline:= nil;
       setlength(textline,1);
@@ -4968,6 +5000,7 @@ begin
    tfiledialog1:= tfiledialog.create(nil);
    tfiledialog1.dialogkind:= fdk_save;
    tfiledialog1.controller.defaultext:= 'csv';
+   tfiledialog1.controller.filename:= filenamebase(ffilename);
    with tfiledialog1.controller do begin
     captionsave:=uc(ord(rcsCapsave2text));
     filterlist.add(uc(ord(rcsLbltext)),'*.csv');
@@ -5039,35 +5072,40 @@ begin
    result:= reportexec;
   end;
   if isreportfinished then begin
-   tfiledialog1:= tfiledialog.create(nil);
-   tfiledialog1.dialogkind:= fdk_save;
-   tfiledialog1.controller.defaultext:= extfile;
-   with tfiledialog1.controller do begin
-    if aextfile='html' then begin
-     captionsave:=uc(ord(rcsCapsave2html));
-     filterlist.add(uc(ord(rcsLblhtml)),'*.html');
-    end else if aextfile='xls' then begin
-     captionsave:=uc(ord(rcsCapsave2excel));
-     filterlist.add(uc(ord(rcsLblexcel)),'*.xls');
-    end else if aextfile='ods' then begin
-     captionsave:=uc(ord(rcsCapsave2openoffice));
-     filterlist.add(uc(ord(rcsLblopenoffice)),'*.ods');
+   if foutputfile='' then begin
+    tfiledialog1:= tfiledialog.create(nil);
+    tfiledialog1.dialogkind:= fdk_save;
+    tfiledialog1.controller.defaultext:= extfile;
+    tfiledialog1.controller.filename:= filenamebase(ffilename);
+    with tfiledialog1.controller do begin
+     if aextfile='html' then begin
+      captionsave:=uc(ord(rcsCapsave2html));
+      filterlist.add(uc(ord(rcsLblhtml)),'*.html');
+     end else if aextfile='xls' then begin
+      captionsave:=uc(ord(rcsCapsave2excel));
+      filterlist.add(uc(ord(rcsLblexcel)),'*.xls');
+     end else if aextfile='ods' then begin
+      captionsave:=uc(ord(rcsCapsave2openoffice));
+      filterlist.add(uc(ord(rcsLblopenoffice)),'*.ods');
+     end;
+     filterlist.add(uc(ord(rcsLblallfiles)),'*.*');
     end;
-    filterlist.add(uc(ord(rcsLblallfiles)),'*.*');
-   end;
-   if tfiledialog1.execute=mr_ok then begin
-    xx:= tfiledialog1.controller.filename;
-    if xx='' then begin
-     showmessage(uc(ord(rcsMsgtypepsfn)));
+    if tfiledialog1.execute=mr_ok then begin
+     xx:= tfiledialog1.controller.filename;
+     if xx='' then begin
+      showmessage(uc(ord(rcsMsgtypepsfn)));
+      tfiledialog1.free;
+      exit;
+     end;
+    end else begin
      tfiledialog1.free;
      exit;
     end;
-    stream:= ttextstream.create(xx,fm_create);
-   end else begin
     tfiledialog1.free;
-    exit;
+   end else begin
+    xx:= foutputfile;
    end;
-   tfiledialog1.free;
+   stream:= ttextstream.create(xx,fm_create);
    stream.writeln('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">');
    stream.writeln('<html>');
    stream.writeln('<head>');
@@ -5222,27 +5260,32 @@ begin
    result:= reportexec;
   end;
   if isreportfinished then begin
-   tfiledialog1:= tfiledialog.create(nil);
-   tfiledialog1.dialogkind:= fdk_save;
-   tfiledialog1.controller.defaultext:= 'pdf';
-   with tfiledialog1.controller do begin
-    captionsave:=uc(ord(rcsCapsave2pdf));
-    filterlist.add(uc(ord(rcsLblpdf)),'*.pdf');
-    filterlist.add(uc(ord(rcsLblallfiles)),'*.*');
-   end;
-   if tfiledialog1.execute=mr_ok then begin
-    xx:= tfiledialog1.controller.filename;
-    if xx='' then begin
-     showmessage(uc(ord(rcsMsgtypepsfn)));
+   if foutputfile='' then begin
+    tfiledialog1:= tfiledialog.create(nil);
+    tfiledialog1.dialogkind:= fdk_save;
+    tfiledialog1.controller.defaultext:= 'pdf';
+    tfiledialog1.controller.filename:= filenamebase(ffilename);
+    with tfiledialog1.controller do begin
+     captionsave:=uc(ord(rcsCapsave2pdf));
+     filterlist.add(uc(ord(rcsLblpdf)),'*.pdf');
+     filterlist.add(uc(ord(rcsLblallfiles)),'*.*');
+    end;
+    if tfiledialog1.execute=mr_ok then begin
+     xx:= tfiledialog1.controller.filename;
+     if xx='' then begin
+      showmessage(uc(ord(rcsMsgtypepsfn)));
+      tfiledialog1.free;
+      exit;
+     end;
+    end else begin
      tfiledialog1.free;
      exit;
     end;
-    fuprinter.outputfilename:= xx;
-   end else begin
     tfiledialog1.free;
-    exit;
+   end else begin
+    xx:= foutputfile;
    end;
-   tfiledialog1.free;
+   fuprinter.outputfilename:= xx;
    fuprinter.canvas.ppmm:= fpixelperunit;
    fuprinter.page_paperheight:= freppages[0].pageheight;
    fuprinter.page_paperwidth:= freppages[0].pagewidth;
@@ -5285,6 +5328,7 @@ begin
    tfiledialog1:= tfiledialog.create(nil);
    tfiledialog1.dialogkind:= fdk_save;
    tfiledialog1.controller.defaultext:= 'png';
+   tfiledialog1.controller.filename:= filenamebase(ffilename);
    with tfiledialog1.controller do begin
     captionsave:=uc(ord(rcsCapsave2png));
     filterlist.add(uc(ord(rcsLblpng)),'*.png');
@@ -5345,6 +5389,7 @@ begin
    tfiledialog1:= tfiledialog.create(nil);
    tfiledialog1.dialogkind:= fdk_save;
    tfiledialog1.controller.defaultext:= 'ps';
+   tfiledialog1.controller.filename:= filenamebase(ffilename);
    with tfiledialog1.controller do begin
     captionsave:=uc(ord(rcsCapsave2ps));
     filterlist.add(uc(ord(rcsLblpostscript)),'*.ps');
@@ -5397,11 +5442,11 @@ begin
   if ra_showdialog in freportactions then begin
    try
     dia.cactions.dropdown.itemindex:= ord(fprintdestination);
-    if isrelativepath(ffilename) then begin
-     dia.wfilename.value:= filepath(ffilename);
-    end else begin
+    //if isrelativepath(ffilename) then begin
+     //dia.wfilename.value:= filepath(ffilename);
+    //end else begin
      dia.wfilename.value:= ffilename;
-    end;
+    //end;
     if dia.show(true)=mr_ok then begin
      printdestination:= printdestinationty(dia.cactions.dropdown.itemindex);
      if printdestination=pd_Design then begin
@@ -5527,7 +5572,7 @@ end;
 procedure TRepaz.setpreviewpanel(const avalue: tdockpanel);
 begin
  if avalue<>fpreviewpanel then begin
-  setlinkedvar(avalue,fpreviewpanel);
+  setlinkedvar(avalue,tmsecomponent(fpreviewpanel));
   //fpreviewpanel:= avalue;
  end;
 end;
@@ -5535,7 +5580,7 @@ end;
 procedure TRepaz.setdesignpanel(const avalue: tdockpanel);
 begin
  if avalue<>fdesignpanel then begin
-  setlinkedvar(avalue,fdesignpanel);
+  setlinkedvar(avalue,tmsecomponent(fdesignpanel));
   //fdesignpanel:= avalue;
  end;
 end;
@@ -5858,7 +5903,7 @@ begin
   writeinteger('OSPrinter_DrawerMode',ord(fuprinter.raw_drawermode));
   writeinteger('OSPrinter_SerialPort',ord(fuprinter.raw_serialport));
   writeinteger('PrintDestination',ord(fprintdestination));
-  writestring('Report_FileName',ffilename);
+  writestring('Report_FileName',relativepath(ffilename,extractfilepath(sys_getapplicationpath)));
   writeinteger('OSPrinter_LinesPerPage',fuprinter.raw_linesperpage);
  end;
 end;

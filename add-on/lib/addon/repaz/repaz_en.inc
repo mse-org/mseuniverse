@@ -92,8 +92,11 @@
   'Return page number of Repaz page', //rcsPageNumber
   'Return value of active key header (TraTreeReport)', //rcsHeaderTreeKey
   'Return value of active key footer (TraTreeReport)', //rcsFooterTreeKey
+  'Return index of active tree (TraTreeReport)', //rcsTreeIndex
   'Return value of last footer (TraTreeReport)',  //rcsTreeFooterValue
   '(indexrow: integer, indexcol:integer, indextree: integer=0)', //rcsPTreeFooterValue
+  'Return value of main footer (TraTreeReport)',  //rcsTreeMainFooterValue
+  '(indexrow: integer, indexcol:integer, indextree: integer=0)', //rcsPMainTreeFooterValue
   'Return value of main footer (TraTreeReport)',  //rcsTreeFooterValue2
   '(indexcol:integer, indextree: integer=0)', //rcsPTreeFooterValue2
   'Return record number of data', //rcsRecordNumber

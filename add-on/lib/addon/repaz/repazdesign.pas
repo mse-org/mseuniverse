@@ -39,10 +39,10 @@ uses
  mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
  msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,msewidgets,
  msebitmap,msetabs,msedataedits,msestrings,msetypes,classes,db,msegrids,
- msesplitter,compdesigner,msedial,msedispwidgets,msereal,mseimage,
- repaz_bmp,compdesignintf,msedb,msefiledialog,msesys,sysutils,msedatalist,
+ msesplitter,compdesigner,msedial,msedispwidgets,
+ repaz_bmp,compdesignintf,msedb,msefiledialog,msesys,sysutils,
  typinfo,mselookupbuffer,msestatfile,msetoolbar,repazglob,msedock,msesqldb,
- mseact,msesysutils,msearrayutils;
+ msearrayutils;
 type
  raeditorstatety = (ras_tabupdating,ras_mouseinclient);
  raeditorstatesty = set of raeditorstatety;
@@ -220,10 +220,9 @@ type
  
 implementation
 uses
- repazdesign_mfm,msefileutils,frmabout,frmreportoptions,mseconsts,
+ repazdesign_mfm,frmabout,frmreportoptions,mseconsts,
  repazconsts,mseconsts_id,repazclasses;
 type
- tcomponent1 = class(tcomponent);
  tpropeditor1 =  class(tpropeditor);
 
 procedure trepazdesignfo.cpaper_onresize(const sender: TObject);
@@ -748,7 +747,7 @@ var
  obj1: tobject;
  ar1: stringarty;
  ar2: fieldtypesarty;
- int1,int2: integer;
+ int1: integer;
 begin
  result:= inherited getdefaultstate;
  if fremote <> nil then begin
@@ -766,10 +765,8 @@ begin
  end;
  if fdbeditinfointf <> nil then begin
   fdbeditinfointf.getfieldtypes(ar1,ar2);
-  int2:= 0;
   for int1:= 0 to high(ar1) do begin
    if ar1[int1] = name then begin
-    int2:= int1;
     break;
    end;
   end;
@@ -785,7 +782,6 @@ var
  ft: fieldtypesty;
  int1,int2: integer;
  ds: tdataset;
- dataso: tdatasource;
  
 begin
  result:= nil;

@@ -1,0 +1,1422 @@
+[Copyright]
+Creator=Ansori
+Version=24 Okt 2011
+[SystemColors]
+Colors=19
+ -2147483647
+ -2147483647
+ 7034624
+ -2147483647
+ -2147483647
+ -1879048187
+ 16768637
+ 14598765
+ -1879048184
+ -1879048183
+ -1879048182
+ 7028739
+ -1879048180
+ -1879048179
+ -1879048178
+ -1879048177
+ -1879048176
+ -1879048175
+ 14598765
+[Widget]
+widgetcolor=-2147483645
+captionframecolor=-2147483647
+[DefaultFont]
+[DefaultFont-Font]
+fontname=
+fontwidth=0
+fontheight=12
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[MenuFont]
+[MenuFont-Font]
+fontname=
+fontwidth=0
+fontheight=12
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[MessageFont]
+[MessageFont-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[Edit]
+empty_text=
+empty_color=-2147483647
+empty_fontstyle=[]
+empty_textflags=[]
+empty_textcolor=-2147483647
+empty_textcolorbackground=-2147483647
+empty_textcolorbackground=-2147483647
+[Edit-Frame]
+framewidth=1
+colorclient=-1879048186
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-1610612733
+framei_left=1
+framei_top=0
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Edit-Face]
+face_pos=3
+ 0
+ 1
+ 1
+face_color=3
+ 14592528
+ 14592528
+ 14592528
+face_direction=0
+options=[]
+[Edit-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[BooleanEdit-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=-1
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[BooleanEdit-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 16768637
+face_direction=3
+options=[]
+[BooleanEdit-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[Button]
+buttoncolor=-2147483647
+[Button-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=0
+framei_right=0
+framei_bottom=0
+frameface_list_count=4
+frameface_offset=0
+frameface_offset1=0
+frameface_offsetdisabled=0
+frameface_offsetmouse=2
+frameface_offsetclicked=3
+frameface_offsetactive=1
+frameface_offsetactivemouse=1
+frameface_offsetactiveclicked=3
+facelist-0-face_pos=3
+ 0
+ 0.18181818181818
+ 1
+facelist-0-face_color=3
+ 12237567
+ 14606079
+ 13750783
+facelist-0-face_direction=3
+facelist-0-options=[]
+facelist-1-face_pos=3
+ 0
+ 0.18181818181818
+ 1
+facelist-1-face_color=3
+ 13758463
+ 14611967
+ 10082559
+facelist-1-face_direction=3
+facelist-1-options=[]
+facelist-2-face_pos=3
+ 0
+ 0.18181818181818
+ 1
+facelist-2-face_color=3
+ 13758463
+ 14611967
+ 10082559
+facelist-2-face_direction=3
+facelist-2-options=[]
+facelist-3-face_pos=3
+ 0
+ 0.8
+ 1
+facelist-3-face_color=3
+ 13750783
+ 13750783
+ 12237567
+facelist-3-face_direction=3
+facelist-3-options=[]
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Button-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16448249
+ 14598765
+face_direction=3
+options=[]
+[Button-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[DataButton]
+buttoncolor=-2147483647
+[DataButton-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[DataButton-Face]
+face_pos=3
+ 0
+ 0.22550831792976
+ 1
+face_color=3
+ 14598765
+ 14598765
+ 14598765
+face_direction=0
+options=[]
+[Container-Frame]
+framewidth=0
+colorclient=-2147483647
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Container-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ 14598765
+face_direction=0
+options=[]
+[Container-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[FrameButton]
+buttoncolor=-2147483647
+[FrameButton-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[FrameButton-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 14598765
+face_direction=3
+options=[]
+[StepButton-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[StepButton-Face]
+face_pos=3
+ 0
+ 1
+ 1
+face_color=3
+ -1610612734
+ -1610612734
+ -1610612734
+face_direction=0
+options=[]
+[Toolbar-Horizontal-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Toolbar-Horizontal-Face]
+options=[]
+[Toolbar-Horizontal-Item-Face]
+options=[]
+[Toolbar-Vertical-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Toolbar-Vertical-Face]
+options=[]
+[Toolbar-Vertical-Item-Face]
+options=[]
+[GroupBox-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=1
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[GroupBox-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16768637
+ 16768637
+face_direction=3
+options=[]
+[GroupBox-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[fs_bold]
+[MainMenu-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[MainMenu-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16777215
+ 14598765
+face_direction=3
+options=[]
+[MainMenu-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[MainMenu-Item-Face]
+options=[]
+[MainMenu-Item-Active-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-1610612733
+colorshadow=-1610612732
+colorlight=-1610612730
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[MainMenu-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 16768637
+ -1610612730
+face_direction=3
+options=[]
+[Mainmenu-Popup-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048178
+levelo=1
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Mainmenu-Popup-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ 16711422
+face_direction=2
+options=[]
+[Mainmenu-Popup-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Mainmenu-Popup-Item-Face]
+options=[]
+[Mainmenu-Popup-Item-Active-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-1610612733
+colorshadow=-1610612732
+colorlight=-1610612730
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Mainmenu-Popup-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ -1610612730
+face_direction=0
+options=[]
+[PopupMenu-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=1
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[PopupMenu-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ 16777215
+face_direction=0
+options=[]
+[PopupMenu-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[PopupMenu-Item-Face]
+options=[]
+[PopupMenu-Item-Active-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=1
+framei_right=1
+framei_bottom=1
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-1610612733
+colorshadow=-1610612732
+colorlight=-1610612730
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[PopupMenu-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 14598765
+face_direction=0
+options=[]
+[Scrollbar-Horizontal-Button-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Horizontal-Button-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ -1610612730
+face_direction=3
+options=[]
+[Scrollbar-Horizontal-Start-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Horizontal-End-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Horizontal-Arrow-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ -1610612730
+face_direction=3
+options=[]
+[Scrollbar-Vertical-Button-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Vertical-Button-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 14598765
+face_direction=0
+options=[]
+[Scrollbar-Vertical-Start-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Vertical-End-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Scrollbar-Vertical-Arrow-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ -1610612730
+face_direction=0
+options=[]
+[TabPage-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=1
+leveli=0
+colorframeactive=-2147483647
+framei_left=1
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[TabPage-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 15592161
+ 16579570
+face_direction=3
+options=[]
+[Tabbar-Horizontal-Top]
+Shift=-100
+TabColor=-2147483647
+TabColorActive=-2147483647
+[Tabbar-Horizontal-Top-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Horizontal-Top-Face]
+options=[]
+[Tabbar-Horizontal-Top-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Horizontal-Top-Item-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ -1610612730
+face_direction=3
+options=[]
+[Tabbar-Horizontal-Top-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 14598765
+face_direction=3
+options=[]
+[Tabbar-Horizontal-Bottom]
+Shift=-100
+TabColor=-2147483647
+TabColorActive=-2147483647
+[Tabbar-Horizontal-Bottom-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Horizontal-Bottom-Face]
+options=[]
+[Tabbar-Horizontal-Bottom-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Horizontal-Bottom-Item-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 14598765
+face_direction=3
+options=[]
+[Tabbar-Horizontal-Bottom-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ -1610612730
+face_direction=3
+options=[]
+[Tabbar-Vertical-Left]
+Shift=-100
+TabColor=-2147483647
+TabColorActive=-2147483647
+[Tabbar-Vertical-Left-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Vertical-Left-Face]
+options=[]
+[Tabbar-Vertical-Left-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Vertical-Left-Item-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ -1610612730
+face_direction=3
+options=[]
+[Tabbar-Vertical-Left-Item-Active-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ 14598765
+ -1879048189
+face_direction=3
+options=[]
+[Tabbar-Vertical-Right]
+Shift=-100
+TabColor=-2147483647
+TabColorActive=-2147483647
+[Tabbar-Vertical-Right-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Vertical-Right-Face]
+options=[]
+[Tabbar-Vertical-Right-Item-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Tabbar-Vertical-Right-Item-Face]
+options=[]
+[Tabbar-Vertical-Right-Item-Active-Face]
+options=[]
+[Grid-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-1879048191
+levelo=0
+leveli=1
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-1879048192
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Grid-Face]
+options=[]
+[Grid-Font]
+fontname=
+fontwidth=0
+fontheight=0
+textcolor=-1879048183
+textcolorbg=-2147483645
+shadowcolor=-2147483642
+shadowx=1
+shadowy=1
+glosscolor=-2147483642
+glossx=-1
+glossy=-1
+fontstyle=[]
+[Grid-FixRows-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Grid-FixRows-Face]
+face_pos=3
+ 0
+ 1
+ 1
+face_color=3
+ 14598765
+ -1610612730
+ -1610612730
+face_direction=3
+options=[]
+[Grid-FixCols-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Grid-FixCols-Face]
+face_pos=2
+ 0
+ 1
+face_color=2
+ -1610612730
+ 14598765
+face_direction=0
+options=[]
+[Grid-DataCols-Frame]
+framewidth=0
+colorclient=-2147483645
+colorframe=-2147483647
+levelo=0
+leveli=0
+colorframeactive=-2147483647
+framei_left=0
+framei_top=0
+framei_right=0
+framei_bottom=0
+captiondist=0
+captionoffset=0
+extraspace=0
+imagedist=0
+imagedisttop=0
+imagedistbottom=0
+colordkshadow=-2147483647
+colorshadow=-2147483647
+colorlight=-2147483647
+colorhighlight=-2147483647
+colordkwidth=-1
+colorhlwidth=-1
+optionsskin=[]
+[Grid-DataCols-Face]
+options=[]
+[DisplayWidget]
+Color=-2147483647
+ColorCaptionFrame=-2147483647

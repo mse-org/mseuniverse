@@ -127,6 +127,11 @@ begin
      exit;
     end;
    end;
+   if fdata.items[0].tabulators.iseof then begin
+    bo1:= true;
+    islastpage:= true;
+    result:= posy+area.y;
+   end;
   end;
  end else begin
   islastpage:= true;

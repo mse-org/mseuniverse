@@ -110,7 +110,7 @@ object repazdesignfo: trepazdesignfo
     bounds_cx = 676
     bounds_cy = 28
     anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky]
+    optionsscale = [osc_expandy, osc_invisishrinky]
     dragdock.splitter_grip = stb_none
     dragdock.optionsdock = [od_savepos, od_savezorder, od_splitvert, od_aligncenter, od_nofit, od_banded, od_nosplitmove]
     object ttoolbar1: ttoolbar
@@ -186,9 +186,10 @@ object repazdesignfo: trepazdesignfo
       hint = 'Report Components'
       bounds_x = 569
       bounds_y = 1
-      bounds_cx = 182
+      bounds_cx = 208
       bounds_cy = 26
       options = [tbo_novert, tbo_shortcuthint]
+      onbuttonchanged = nil
     end
     object ttoolbar2: ttoolbar
       optionswidget1 = [ow1_autowidth, ow1_autoheight]
@@ -324,6 +325,7 @@ object repazdesignfo: trepazdesignfo
     bounds_cy = 504
     anchors = [an_left, an_top, an_right, an_bottom]
     object tobjectinspector1: tobjectinspector
+      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
       frame.levelo = 0
       frame.framewidth = 1
       frame.colorframe = -1610612734
@@ -395,7 +397,7 @@ object repazdesignfo: trepazdesignfo
       reffontheight = 13
     end
     object tsplitter1: tsplitter
-      optionswidget = [ow_destroywidgets, ow_autoscale]
+      optionswidget = [ow_destroywidgets]
       color = -1879048189
       taborder = 1
       hint = 'Drag this to resize layout'

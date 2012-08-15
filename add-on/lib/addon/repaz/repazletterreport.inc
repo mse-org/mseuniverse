@@ -42,6 +42,7 @@ var
  posy,int1,hband: integer;
 begin
  posy:= 0;
+ hband:= 0;
  for int1:=0 to fdata.count-1 do begin
   with fdata.items[int1] do begin
    inc(hband,tabulators.pixelheight);

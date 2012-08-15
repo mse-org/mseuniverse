@@ -59,6 +59,7 @@ type
   largeintvalue: int64;
   floatvalue: double;
   bcdvalue: currency;
+  valuetype: byte;
  end;
 
  summarytypety = (st_None,st_Sum,st_Count,st_Average);

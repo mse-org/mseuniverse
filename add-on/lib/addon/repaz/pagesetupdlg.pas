@@ -38,8 +38,7 @@ uses
  mseglob,mseguiglob,mseapplication,msestat,msegui,msegraphics,msegraphutils,
  mseclasses,mseforms,msesimplewidgets,msedataedits,mseedit,msestrings,
  msedispwidgets,msegraphedits,msetabs,classes,sysutils,universalprintertype,
- mseimage,msegrids,msesplitter,msemenus,msetypes,mseifiglob,msescrollbar,
- msewidgets,msecommutils;
+ msegrids,msesplitter,msecommutils;
  
 type
  tpagesetupdlgfo = class(tmseform)

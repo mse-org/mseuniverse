@@ -34,11 +34,11 @@ unit repazchart;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseclasses,classes,msegui,msegraphics,msetypes,msewidgets,msegraphutils,msereal,mseconsts,
- msestream,msearrayprops,mseguiglob,msedrawtext,msestrings,msedb,db,repaztypes,repazconsts,
- msepointer,mseevent,mseformatstr,msqldb,mseglob,msesys,typinfo,msestockobjects,sysutils,
- msesqldb,variants,msebitmap,mseformatbmpicoread,mseformatjpgread,mseformatpngread,mseformatpngwrite,
- math,msesysutils;
+ mseclasses,classes,msegui,msegraphics,msetypes,msewidgets,msegraphutils,mseconsts,
+ msearrayprops,mseguiglob,msedrawtext,msestrings,msedb,db,repaztypes,repazconsts,
+ mseformatstr,msqldb,mseglob,msesys,typinfo,msestockobjects,sysutils,
+ variants,msebitmap,mseformatbmpicoread,mseformatjpgread,mseformatpngread,mseformatpngwrite,
+ math;
 
 const
  defaultfontnamechart= 'Arial';
@@ -146,6 +146,7 @@ type
    ffillpattern: stockbitmapty;
    ffillcolor: colorty;
    flabellegend: msestring;
+   fvisible: boolean;
   public
    constructor create(const aowner: TraCustomChart);override;
    destructor destroy; override;
@@ -160,6 +161,7 @@ type
    property FillPattern: stockbitmapty read ffillpattern write ffillpattern;
    property FillColor: colorty read ffillcolor write ffillcolor;
    property LabelLegend: msestring read flabellegend write flabellegend;
+   property Visible: boolean read fvisible write fvisible;
    property Bitmap;
    property Font_Bold;
    property Font_Italic;
@@ -363,12 +365,13 @@ type
   private
    fchart: TraCustomChartWidget;
   protected
-   procedure dopaint(const canvas: tcanvas); override;
+   procedure doonpaint(const canvas: tcanvas); override;
    procedure clientmouseevent(var info: mouseeventinfoty); override;
    class function classskininfo: skininfoty; override;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
+   procedure refresh;
   published
    property Chart: TraCustomChartWidget read fchart write fchart;  
    property visible;
@@ -621,6 +624,7 @@ end;
 constructor TChartItemsY.create(const aowner: TraCustomChart);
 begin
  inherited;
+ fvisible:= true;
  fbackcolor:= cl_white;
  fline.linecolor:= cl_black;
  fline.linewidth:= 0;
@@ -645,6 +649,7 @@ begin
   ffillpattern:= TChartItemsY(source).ffillpattern;
   ffillcolor:= TChartItemsY(source).ffillcolor; 
   flabellegend:= TChartItemsY(source).flabellegend; 
+  fvisible:= TChartItemsY(source).fvisible; 
  end;
 end;
 
@@ -1090,8 +1095,8 @@ procedure TraCustomChart.paintchart(const canvas: tcanvas;area:rectty);
  
 var
  rcount,int1,int2,chartwidth,chartheight,barwidth,gapmajor,gapminor,xaxislabel,
- yaxislabel,barheight,county,deltax,deltay,linemajor,lineminor,haxiscaption,
- posy,posx,maxx,int3,int4,startx,starty,colpie,rowpie,sizepie,deltapiex,deltapiey: integer;
+ yaxislabel,barheight,county,realcounty,deltax,deltay,linemajor,lineminor,haxiscaption,
+ posy,posx,maxx,int3,int4,startx,starty,colpie,rowpie,sizepie,deltapiex,deltapiey,realy: integer;
  tmprect,tmprect2,tmprect3: rectty;
  xflags,yflags: textflagsty; 
  max,min,ydeltavalue,xdeltavalue,curvalue: double;
@@ -1104,6 +1109,7 @@ var
  tmplabel: msestring;
  tmplegendsize: integer;
  fpoly: pointarty;
+ do1,do2: double;
 const
  maxytick = 10;
 begin
@@ -1111,6 +1117,11 @@ begin
  if rcount<=0 then exit;
  county:= fcharty.count;
  if county=0 then exit;
+ realcounty:= county;
+ for int1:= 0 to fcharty.count-1 do begin
+  if not fcharty.items[int1].values.visible then realcounty:= realcounty-1;
+ end;
+ if realcounty=0 then exit;
  chartwidth:= area.cx;
  chartheight:= area.cy;
  gapmajor:= 12;
@@ -1184,18 +1195,25 @@ begin
    tmprect.cx:= area.cx;
    tmprect.cy:= tmplegendsize-2;
   end;
-  canvas.save;
-  if fdepth>0 then begin
-   canvas.fillrect(makerect(tmprect.x+fdepth,
-   tmprect.y-fdepth,tmprect.cx,tmprect.cy),fshadowcolor);
-  end;
-  canvas.fillrect(tmprect,flegendbackcolor);
-  canvas.drawframe(tmprect,1,flegendlinecolor);
-  canvas.restore;
-  posy:=2;
-  posx:=2;
-  maxx:=0;
-  for int1:=0 to county-1 do begin
+ end else begin
+   fchartarea.x:= area.x;
+   fchartarea.cx:= area.cx;
+   fchartarea.y:= area.y;
+   fchartarea.cy:= area.cy;
+ end;
+ canvas.save;
+ if fdepth>0 then begin
+  canvas.fillrect(makerect(tmprect.x+fdepth,
+  tmprect.y-fdepth,tmprect.cx,tmprect.cy),fshadowcolor);
+ end;
+ canvas.fillrect(tmprect,flegendbackcolor);
+ canvas.drawframe(tmprect,1,flegendlinecolor);
+ canvas.restore;
+ posy:=2;
+ posx:=2;
+ maxx:=0;
+ for int1:=0 to county-1 do begin
+  if fcharty[int1].values.visible then begin
    canvas.save;
    canvas.font.color:= fcharty[int1].values.font_color;
    if fscale<>1 then
@@ -1274,17 +1292,19 @@ begin
  max:= 0;
  min:= 0;
  for int2:=0 to fcharty.count-1 do begin
-  for int1:=0 to rcount do begin
-   if fcharty[int2].values.chartitems[int1].value=null then
-    curvalue:= 0
-   else
-    curvalue:= double(fcharty[int2].values.chartitems[int1].value);
-   toty[int2]:= toty[int2]+curvalue;
-   if curvalue>max then begin
-    max:= curvalue;
-   end;
-   if curvalue<min then begin
-    min:= curvalue;
+  if fcharty[int2].values.visible then begin
+   for int1:=0 to rcount do begin
+    if fcharty[int2].values.chartitems[int1].value=null then
+     curvalue:= 0
+    else
+     curvalue:= double(fcharty[int2].values.chartitems[int1].value);
+    toty[int2]:= toty[int2]+curvalue;
+    if curvalue>max then begin
+     max:= curvalue;
+    end;
+    if curvalue<min then begin
+     min:= curvalue;
+    end;
    end;
   end;
  end;
@@ -1419,24 +1439,24 @@ begin
   if fxasvalue then begin
    barwidth:= 6;
   end else begin
-   barwidth:= round(((fchartarea.cx-((rcount+1)*(gapmajor+((county-1)*gapminor))))/
-    (rcount+1))/county);
+   barwidth:= round(((fchartarea.cx-((rcount+1)*(gapmajor+((realcounty-1)*gapminor))))/
+    (rcount+1))/realcounty);
   end;
  end else if fcharttype=ctLine then begin
   setlength(flines,rcount+1);
  end else if fcharttype=ctPie then begin
-  setlength(fpies,county);
-  rea1:= sqrt(county);
+  setlength(fpies,realcounty);
+  rea1:= sqrt(realcounty);
   if rea1-floor(rea1)>0 then begin
    if fchartarea.cx>fchartarea.cy then begin
     colpie:= floor(rea1)+1;
-    if colpie<county then
-     rowpie:= floor(rea1)
+    if colpie<realcounty then
+     rowpie:= round(rea1)
     else
      rowpie:= 1;
    end else begin
     rowpie:= floor(rea1)+1;
-    if rowpie<county then
+    if rowpie<realcounty then
      colpie:= floor(rea1)
     else
      colpie:= 1;
@@ -1461,15 +1481,15 @@ begin
   int1:=0;
   int2:=0;
   int4:= 0;
-  while int1<county do begin
-   fpies[int1].x:= fchartarea.x+startx+(int2*(sizepie+deltapiex));
-   fpies[int1].y:= fchartarea.y+starty+(int4*(sizepie+deltapiey));
+  while int1<realcounty do begin
+   fpies[int1].x:= fchartarea.x+startx+(int2*(sizepie+deltapiex))+2;
+   fpies[int1].y:= fchartarea.y+starty+(int4*(sizepie+deltapiey))+2;
    if deltapiex>0 then
     fpies[int1].x:= fpies[int1].x+(deltapiex div 2);
    if deltapiey>0 then
     fpies[int1].y:= fpies[int1].y+(deltapiey div 2);
-   fpies[int1].cx:= sizepie;
-   fpies[int1].cy:= sizepie;
+   fpies[int1].cx:= sizepie-4;
+   fpies[int1].cy:= sizepie-4;
    int1:= int1+1;
    if int2+1<colpie then begin
     int2:= int2+1;
@@ -1481,30 +1501,36 @@ begin
   int4:= 0;
   if fshowvalue and (fvaluepos=vpOutside) then begin
    for int1:=0 to fcharty.count-1 do begin
-    canvas.save;
-    yflags:= createflag(fcharty[int1].values);
-    canvas.font.color:= fcharty[int1].values.font_color;
-    if fscale<>1 then
-     canvas.font.height:= round(fcharty[int1].values.font_size * fscale)
-    else
-     canvas.font.height:= fcharty[int1].values.font_size;
-    canvas.font.name:= fcharty[int1].values.font_name;
-    canvas.font.style:= createstyle(fcharty[int1].values);
-    if fdepth>0 then canvas.font.shadow_color:= fshadowcolor;
-    for int2:=0 to high(fcharty[int1].values.chartitems) do begin     
-     if pvShowPercent in fshowpercentvalue then begin
-      if pvShowPercentOnly in fshowpercentvalue then
-       tmplabel:= realtytostr((double(fcharty[int1].values.chartitems[int2].value)/toty[int1])*100,'0.0%')
-      else
-       tmplabel:= fcharty[int1].values.chartitems[int2].text+ ' (' +
-        realtytostr((double(fcharty[int1].values.chartitems[int2].value)/toty[int1])*100,'0.0%')+')';
-     end else begin
-      tmplabel:= fcharty[int1].values.chartitems[int2].text; 
+    if fcharty[int1].values.visible then begin
+     canvas.save;
+     yflags:= createflag(fcharty[int1].values);
+     canvas.font.color:= fcharty[int1].values.font_color;
+     if fscale<>1 then
+      canvas.font.height:= round(fcharty[int1].values.font_size * fscale)
+     else
+      canvas.font.height:= fcharty[int1].values.font_size;
+     canvas.font.name:= fcharty[int1].values.font_name;
+     canvas.font.style:= createstyle(fcharty[int1].values);
+     if fdepth>0 then canvas.font.shadow_color:= fshadowcolor;
+     for int2:=0 to high(fcharty[int1].values.chartitems) do begin     
+      if pvShowPercent in fshowpercentvalue then begin
+       if toty[int1]=0 then
+        do2:= 0
+       else
+        do2:= (double(fcharty[int1].values.chartitems[int2].value)/toty[int1])*100;
+       if pvShowPercentOnly in fshowpercentvalue then
+        tmplabel:= realtytostr(do2,'0.0%')
+       else
+        tmplabel:= fcharty[int1].values.chartitems[int2].text+ ' (' +
+         realtytostr(do2,'0.0%')+')';
+      end else begin
+       tmplabel:= fcharty[int1].values.chartitems[int2].text; 
+      end;
+      int3:= textrect(canvas,tmplabel,area,xflags,nil,nil).cx;
+      if int3>int4 then int4:= int3;
      end;
-     int3:= textrect(canvas,tmplabel,area,xflags,nil,nil).cx;
-     if int3>int4 then int4:= int3;
+     canvas.restore;
     end;
-    canvas.restore;
    end;
    for int1:=0 to high(fpies) do begin
     with fpies[int1] do begin
@@ -1586,184 +1612,208 @@ begin
   canvas.restore;
  end;
  //draw y
+ realy:= 0;
  for int2:=0 to fcharty.count-1 do begin
-  yflags:= createflag(fcharty[int2].values);
-  canvas.save;
-  canvas.font.color:= fcharty[int2].values.font_color;
-  if fscale<>1 then
-   canvas.font.height:= round(fcharty[int2].values.font_size * fscale)
-  else
-   canvas.font.height:= fcharty[int2].values.font_size;
-  canvas.font.name:= fcharty[int2].values.font_name;
-  canvas.font.style:= createstyle(fcharty[int2].values);
-  if fdepth>0 then canvas.font.shadow_color:= fshadowcolor;
-  canvas.linewidthmm:= fcharty[int2].values.linewidth;
-  canvas.dashes:= linestyles[fcharty[int2].values.linestyle];
-  canvas.joinstyle:= fcharty[int2].values.linejoin;
-  canvas.capstyle:= fcharty[int2].values.linecap;
-  rea2:= 0;
-  int3:= 0;
-  int4:= 0;
-  if (fcharttype=ctPie) and (fdepth>0) then begin
-   with fpies[int2] do begin
-    tmprect.x:= x+(cx div 2)+fdepth;
-    tmprect.y:= y+(cy div 2)-fdepth;
-    tmprect.cx:= cx;
-    tmprect.cy:= cy;
+  if fcharty[int2].values.visible then begin
+   yflags:= createflag(fcharty[int2].values);
+   canvas.save;
+   canvas.font.color:= fcharty[int2].values.font_color;
+   if fscale<>1 then
+    canvas.font.height:= round(fcharty[int2].values.font_size * fscale)
+   else
+    canvas.font.height:= fcharty[int2].values.font_size;
+   canvas.font.name:= fcharty[int2].values.font_name;
+   canvas.font.style:= createstyle(fcharty[int2].values);
+   if fdepth>0 then canvas.font.shadow_color:= fshadowcolor;
+   canvas.linewidthmm:= fcharty[int2].values.linewidth;
+   canvas.dashes:= linestyles[fcharty[int2].values.linestyle];
+   canvas.joinstyle:= fcharty[int2].values.linejoin;
+   canvas.capstyle:= fcharty[int2].values.linecap;
+   rea2:= 0;
+   int3:= 0;
+   int4:= 0;
+   if (fcharttype=ctPie) and (fdepth>0) then begin
+    with fpies[int2] do begin
+     tmprect.x:= x+(cx div 2)+fdepth;
+     tmprect.y:= y+(cy div 2)-fdepth;
+     tmprect.cx:= cx;
+     tmprect.cy:= cy;
+    end;
+    canvas.fillarcpieslice(tmprect,0,2*pi,fshadowcolor,cl_none);
    end;
-   canvas.fillarcpieslice(tmprect,0,2*pi,fshadowcolor,cl_none);
-  end;
-  for int1:=0 to rcount do begin
-   if fshowvalue then begin
-    if pvShowPercent in fshowpercentvalue then begin
-     if pvShowPercentOnly in fshowpercentvalue then
-      tmplabel:= realtytostr((double(fcharty[int2].values.chartitems[int1].value)/toty[int2])*100,'0.0%')
-     else
-      tmplabel:= fcharty[int2].values.chartitems[int1].text+ ' (' +
-       realtytostr((double(fcharty[int2].values.chartitems[int1].value)/toty[int2])*100,'0.0%')+')';
-    end else begin
-     tmplabel:= fcharty[int2].values.chartitems[int1].text; 
-    end;
-   end else begin
-    tmplabel:='';
-   end;
-   if fcharttype=ctBar then begin
-    barheight:= round(fcharty[int2].values.chartitems[int1].value*ypercent);
-    if fxasvalue then begin
-     int3:= round(fchartx.chartitems[int1].value*xpercent);
-     tmprect:= makerect(fchartarea.x+int3-3,
-       fchartarea.y+fchartarea.cy-barheight,
-       barwidth,barheight);
-    end else begin
-     tmprect:= makerect(fchartarea.x+(int1*deltax)+round(gapmajor/2)+int2*(barwidth+gapminor),
-       fchartarea.y+fchartarea.cy-barheight,
-       barwidth,barheight);
-    end;
-    if fdepth>0 then begin
-     canvas.fillrect(makerect(tmprect.x+fdepth,
-     tmprect.y-fdepth,tmprect.cx,tmprect.cy),fshadowcolor);
-    end;
-    canvas.fillrect(tmprect,fcharty[int2].values.backcolor);
-    if fcharty[int2].values.fillpattern <> stb_none then begin
-     canvas.brush:= stockobjects.bitmaps[fcharty[int2].values.fillpattern];
-     canvas.color:= fcharty[int2].values.fillcolor;
-     canvas.fillrect(tmprect,cl_brushcanvas);
-    end;
-    flines[0].x:= tmprect.x;
-    flines[0].y:= tmprect.y+tmprect.cy;
-    flines[1].x:= tmprect.x;
-    flines[1].y:= tmprect.y;
-    flines[2].x:= tmprect.x+tmprect.cx;
-    flines[2].y:= tmprect.y;
-    flines[3].x:= tmprect.x+tmprect.cx;
-    flines[3].y:= tmprect.y+tmprect.cy;
-    canvas.drawlines(flines,false,fcharty[int2].values.linecolor);
+   for int1:=0 to rcount do begin
     if fshowvalue then begin
-     tmprect2:= textrect(canvas,tmplabel,area,xflags,nil,nil);
-     if fvaluepos=vpInside then begin
-      centerinrect(tmprect2,tmprect);
-      rotaterect(tmprect2);
-      if tmprect2.y<tmprect.y then begin
-       tmprect2.y:= tmprect.y-tmprect2.cy;
+     if pvShowPercent in fshowpercentvalue then begin
+      if pvShowPercentOnly in fshowpercentvalue then begin
+       if toty[int2]<>0 then
+        tmplabel:= realtytostr((double(fcharty[int2].values.chartitems[int1].value)/toty[int2])*100,'0.0%')
+       else
+        tmplabel:= '0.0%';
       end else begin
-       canvas.fillrect(tmprect2,cl_white);
+       if toty[int2]=0 then begin
+        tmplabel:= fcharty[int2].values.chartitems[int1].text+ ' (0.0%)';
+       end else begin
+        do1:= double(fcharty[int2].values.chartitems[int1].value);
+        if do1=0 then
+         tmplabel:= fcharty[int2].values.chartitems[int1].text+ ' (0.0%)'
+        else
+         tmplabel:= fcharty[int2].values.chartitems[int1].text+ ' (' +
+          realtytostr((do1/toty[int2])*100,'0.0%')+')';
+       end;
       end;
-      canvas.drawstring(tmplabel,makepoint(tmprect2.x+tmprect2.cx-3,tmprect2.y+
-        tmprect2.cy),nil,false,0.5*pi);
      end else begin
-      hcenterrect(tmprect2,tmprect);
-      tmprect2.y:= tmprect.y-tmprect2.cy;
+      tmplabel:= fcharty[int2].values.chartitems[int1].text; 
+     end;
+    end else begin
+     tmplabel:='';
+    end;
+    if fcharttype=ctBar then begin
+     barheight:= round(fcharty[int2].values.chartitems[int1].value*ypercent);
+     if fxasvalue then begin
+      int3:= round(fchartx.chartitems[int1].value*xpercent);
+      tmprect:= makerect(fchartarea.x+int3-3,
+        fchartarea.y+fchartarea.cy-barheight,
+        barwidth,barheight);
+     end else begin
+      tmprect:= makerect(fchartarea.x+(int1*deltax)+round(gapmajor/2)+realy*(barwidth+gapminor),
+        fchartarea.y+fchartarea.cy-barheight,
+        barwidth,barheight);
+     end;
+     if fdepth>0 then begin
+      canvas.fillrect(makerect(tmprect.x+fdepth,
+      tmprect.y-fdepth,tmprect.cx,tmprect.cy),fshadowcolor);
+     end;
+     canvas.fillrect(tmprect,fcharty[int2].values.backcolor);
+     if fcharty[int2].values.fillpattern <> stb_none then begin
+      canvas.brush:= stockobjects.bitmaps[fcharty[int2].values.fillpattern];
+      canvas.color:= fcharty[int2].values.fillcolor;
+      canvas.fillrect(tmprect,cl_brushcanvas);
+     end;
+     flines[0].x:= tmprect.x;
+     flines[0].y:= tmprect.y+tmprect.cy;
+     flines[1].x:= tmprect.x;
+     flines[1].y:= tmprect.y;
+     flines[2].x:= tmprect.x+tmprect.cx;
+     flines[2].y:= tmprect.y;
+     flines[3].x:= tmprect.x+tmprect.cx;
+     flines[3].y:= tmprect.y+tmprect.cy;
+     canvas.drawlines(flines,false,fcharty[int2].values.linecolor);
+     if fshowvalue then begin
+      tmprect2:= textrect(canvas,tmplabel,area,xflags,nil,nil);
+      if fvaluepos=vpInside then begin
+       centerinrect(tmprect2,tmprect);
+       rotaterect(tmprect2);
+       if tmprect2.y<tmprect.y then begin
+        tmprect2.y:= tmprect.y-tmprect2.cy;
+       end else begin
+        canvas.fillrect(tmprect2,cl_white);
+       end;
+       canvas.drawstring(tmplabel,makepoint(tmprect2.x+tmprect2.cx-3,tmprect2.y+
+         tmprect2.cy),nil,false,0.5*pi);
+      end else begin
+       hcenterrect(tmprect2,tmprect);
+       tmprect2.y:= tmprect.y-tmprect2.cy;
+       drawtext(canvas,tmplabel,tmprect2,xflags,nil,nil);
+      end;
+     end;
+    end else if fcharttype=ctLine then begin    
+     if fxasvalue then begin
+      flines[int1].x:= fchartarea.x+round(fchartx.chartitems[int1].value*xpercent);
+      flines[int1].y:= fchartarea.y+fchartarea.cy-round(fcharty[int2].values.chartitems[int1].value*ypercent);
+     end else begin
+      flines[int1].x:= fchartarea.x+deltax*(int1+1);
+      flines[int1].y:= fchartarea.y+fchartarea.cy-round(fcharty[int2].values.chartitems[int1].value*ypercent);
+     end;
+     if fshowvalue then begin
+      tmprect2:= textrect(canvas,tmplabel,area,xflags,nil,nil);
+      tmprect2.x:= flines[int1].x-(tmprect2.cx div 2);
+      tmprect2.y:= flines[int1].y-tmprect2.cy;
       drawtext(canvas,tmplabel,tmprect2,xflags,nil,nil);
      end;
+    end else if fcharttype=ctPie then begin
+     with fpies[realy] do begin
+      tmprect.x:= x+(cx div 2);
+      tmprect.y:= y+(cy div 2);
+      tmprect.cx:= cx;
+      tmprect.cy:= cy;
+     end;
+     if toty[int2]=0 then
+      rea1:=0
+     else
+      rea1:= (fcharty[int2].values.chartitems[int1].value/toty[int2])*2*pi;
+     if rea1>0 then begin
+      if fcharty[int2].values.fillpattern <> stb_none then begin
+       canvas.fillarcpieslice(tmprect,rea2,rea1,cl_white,cl_none);
+       canvas.brush:= getpattern(int4);
+       canvas.color:= getchartcolor(int3);
+       canvas.fillarcpieslice(tmprect,rea2,rea1,cl_brushcanvas,fcharty[int2].values.linecolor);
+      end else begin
+       canvas.fillarcpieslice(tmprect,rea2,rea1,getchartcolor(int3),fcharty[int2].values.linecolor);
+      end;
+      if int3+1<21 then
+       inc(int3)
+      else
+       int3:=0;
+      if int4+1<14 then
+       inc(int4)
+      else
+       int4:=0;
+      if fshowvalue then begin
+       tmplabel:= tmplabel+c_linefeed+fchartx.chartitems[int1].text;
+      end else begin
+       tmplabel:= fchartx.chartitems[int1].text;
+      end;
+      tmprect2:= textrect(canvas,tmplabel,area,xflags,nil,nil);
+      getposfromcircle(tmprect.pos,rea2+(rea1/2),tmprect.cx,fvaluepos,tmprect2);
+      //if fvaluepos=vpInside then begin
+      // canvas.fillrect(tmprect2,cl_white);
+      //end;
+      drawtext(canvas,tmplabel,tmprect2,xflags,nil,nil);
+     end;
+     rea2:= rea2+rea1;
     end;
-   end else if fcharttype=ctLine then begin    
+   end;
+   if fcharttype=ctLine then begin
     if fxasvalue then begin
-     flines[int1].x:= fchartarea.x+round(fchartx.chartitems[int1].value*xpercent);
-     flines[int1].y:= fchartarea.y+fchartarea.cy-round(fcharty[int2].values.chartitems[int1].value*ypercent);
+     for int3:= 0 to high(flines)-1 do begin
+      for int4:= int3+1 to high(flines) do begin
+       if flines[int4].x<flines[int3].x then begin
+        point1.x:= flines[int3].x;
+        point1.y:= flines[int3].y;
+        flines[int3].x:= flines[int4].x;
+        flines[int3].y:= flines[int4].y;
+        flines[int4].x:= point1.x;
+        flines[int4].y:= point1.y;
+       end;
+      end;
+     end;
+     canvas.drawlines(flines,false,fcharty[int2].values.linecolor);
     end else begin
-     flines[int1].x:= fchartarea.x+deltax*(int1+1);
-     flines[int1].y:= fchartarea.y+fchartarea.cy-round(fcharty[int2].values.chartitems[int1].value*ypercent);
+     canvas.drawlines(flines,false,fcharty[int2].values.linecolor);
     end;
-    if fshowvalue then begin
-     tmprect2:= textrect(canvas,tmplabel,area,xflags,nil,nil);
-     tmprect2.x:= flines[int1].x-(tmprect2.cx div 2);
-     tmprect2.y:= flines[int1].y-tmprect2.cy;
-     drawtext(canvas,tmplabel,tmprect2,xflags,nil,nil);
-    end;
-   end else if fcharttype=ctPie then begin
-    with fpies[int2] do begin
+   end;
+   if (fcharttype=ctPie) then begin
+    with fpies[realy] do begin
      tmprect.x:= x+(cx div 2);
      tmprect.y:= y+(cy div 2);
      tmprect.cx:= cx;
      tmprect.cy:= cy;
     end;
-    rea1:= (fcharty[int2].values.chartitems[int1].value/toty[int2])*2*pi;
-    if fcharty[int2].values.fillpattern <> stb_none then begin
-     canvas.fillarcpieslice(tmprect,rea2,rea1,cl_white,cl_none);
-     canvas.brush:= getpattern(int4);
-     canvas.color:= getchartcolor(int3);
-     canvas.fillarcpieslice(tmprect,rea2,rea1,cl_brushcanvas,fcharty[int2].values.linecolor);
-    end else begin
-     canvas.fillarcpieslice(tmprect,rea2,rea1,getchartcolor(int3),fcharty[int2].values.linecolor);
-    end;
-    if int3+1<21 then
-     inc(int3)
-    else
-     int3:=0;
-    if int4+1<14 then
-     inc(int4)
-    else
-     int4:=0;
-    if fshowvalue then begin
-     tmprect2:= textrect(canvas,tmplabel,area,xflags,nil,nil);
-     getposfromcircle(tmprect.pos,rea2+(rea1/2),tmprect.cx,fvaluepos,tmprect2);
-     if fvaluepos=vpInside then begin
-      canvas.fillrect(tmprect2,cl_white);
-     end;
-     drawtext(canvas,tmplabel,tmprect2,xflags,nil,nil);
-    end;
-    rea2:= rea2+rea1;
+    canvas.linewidthmm:= fcharty[int2].values.linewidth+1;
+    canvas.drawarc(tmprect,0,2*pi,fcharty[int2].values.linecolor);
    end;
-  end;
-  if fcharttype=ctLine then begin
-   if fxasvalue then begin
-    for int3:= 0 to high(flines)-1 do begin
-     for int4:= int3+1 to high(flines) do begin
-      if flines[int4].x<flines[int3].x then begin
-       point1.x:= flines[int3].x;
-       point1.y:= flines[int3].y;
-       flines[int3].x:= flines[int4].x;
-       flines[int3].y:= flines[int4].y;
-       flines[int4].x:= point1.x;
-       flines[int4].y:= point1.y;
-      end;
-     end;
-    end;
-    canvas.drawlines(flines,false,fcharty[int2].values.linecolor);
-   end else begin
-    canvas.drawlines(flines,false,fcharty[int2].values.linecolor);
-   end;
-  end;
-  if (fcharttype=ctPie) then begin
-   with fpies[int2] do begin
-    tmprect.x:= x+(cx div 2);
-    tmprect.y:= y+(cy div 2);
-    tmprect.cx:= cx;
-    tmprect.cy:= cy;
-   end;
-   canvas.linewidthmm:= fcharty[int2].values.linewidth+1;
-   canvas.drawarc(tmprect,0,2*pi,fcharty[int2].values.linecolor);
-  end;
-  canvas.restore;
-  //draw axis
-  if fcharttype<>ctPie then begin
-   canvas.save;
-   canvas.linewidthmm:=1;
-   canvas.drawline(makepoint(fchartarea.x-linemajor,fchartarea.y+fchartarea.cy),
-    makepoint(fchartarea.x+fchartarea.cx+linemajor,fchartarea.y+fchartarea.cy),cl_black);
-   canvas.drawline(makepoint(fchartarea.x,fchartarea.y-linemajor),
-    makepoint(fchartarea.x,fchartarea.y+fchartarea.cy+linemajor),cl_black);
    canvas.restore;
+   //draw axis
+   if fcharttype<>ctPie then begin
+    canvas.save;
+    canvas.linewidthmm:=1;
+    canvas.drawline(makepoint(fchartarea.x-linemajor,fchartarea.y+fchartarea.cy),
+     makepoint(fchartarea.x+fchartarea.cx+linemajor,fchartarea.y+fchartarea.cy),cl_black);
+    canvas.drawline(makepoint(fchartarea.x,fchartarea.y-linemajor),
+     makepoint(fchartarea.x,fchartarea.y+fchartarea.cy+linemajor),cl_black);
+    canvas.restore;
+   end;
+   realy:= realy+1;
   end;
  end;
 end;
@@ -1852,14 +1902,14 @@ begin
  if fchartdatasource.dataset.active then begin
   rcount:= fchartdatasource.dataset.recordcount;
   bo1:= true;
-  if (rcount=length(fchartx.chartitems)) then begin
+  {if (rcount=length(fchartx.chartitems)) then begin
    bo1:= false;
   end;
   for int1:=0 to fcharty.count-1 do begin
    if rcount=length(fcharty[int1].values.chartitems) then begin
     bo1:= false;
    end;
-  end;
+  end;}
   if bo1 then begin
    clearchartdata;
    fchartx.assign(fdbchartx);
@@ -1921,10 +1971,16 @@ begin
  result.objectkind:= sok_groupbox;
 end;
 
-procedure TRepazChart.dopaint(const canvas: tcanvas);
+procedure TRepazChart.refresh;
+begin
+ if (fchart.chartdatasource.dataset.state<>dsbrowse) or (not fchart.chartdatasource.dataset.active) then exit;
+ fchart.rebuildchart;
+ invalidate;
+end;
+
+procedure TRepazChart.doonpaint(const canvas: tcanvas);
 begin
  inherited;
- fchart.rebuildchart;
  fchart.paintchart(canvas,innerclientrect);
 end;
 

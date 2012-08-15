@@ -95,6 +95,7 @@ type
    fheader: TraTreeTabulators;
    fdata: TNormalTabs;
    fheaderdetail: TNormalTabs;
+   ftreefooter: TSummaryTabsCol;
    ffooter: TSummaryTabs;
    ffooter2: TSummaryTabs;
    ftreegap: real;
@@ -124,6 +125,7 @@ type
    property KeyFieldHeader: string read fkeyheader write fkeyheader;
    property MasterFooter: TSummaryTabs read ffooter write ffooter;
    property MasterHeader: TraTreeTabulators read fheader write fheader;
+   property TreeFooter: TSummaryTabsCol read ftreefooter write ftreefooter;
    property PrintDetail: boolean read fprintdetail write fprintdetail;
    property TreeColIndex: integer read ftreecol write ftreecol;
    property TreeGap: real read ftreegap write ftreegap;
@@ -132,13 +134,12 @@ type
  TraTreeContent = class(tpersistentarrayprop)
   private
    fowner: TraReportTemplate;
-   fisfinishdata,isdrawheader: boolean;
-   fpreviewing: boolean;
-   fmodfooter: integer;
+   fneedfooter,fmodheader,ffirstrecord,fpreviewing,fmodmasterfooter,ishaschildren: boolean;
+   fmodfooter,findextree,fmodtreefooter: integer;
    treepos,delta: real;
    fdatanumber: integer;
-   factivefooterkey: variant;
-   factiveheaderkey: variant;
+   factivefooterkey,factiveheaderkey: variant;
+   fnextrow,fnextindex: integer;
    
    function gettreeitems(index: integer): TraTreeBand;
    procedure settreeitems(index: integer; const value: TraTreeBand);
@@ -149,6 +150,7 @@ type
   public
    constructor create(const aowner: TraReportTemplate);
    destructor destroy; override;
+   property indextree: integer read findextree;
    property datanumber: integer read fdatanumber;
    procedure createfooter(const aindex:integer);
    procedure paint(const aindex:integer; var posy:integer; const canvas: tcanvas;const area:rectty);
@@ -180,6 +182,7 @@ type
    procedure setcontentpixelperunit(const avalue: real);override;
    function treeheadervalue(indexrow: integer; indexcol:integer): variant;
    function treefootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
+   function treemainfootervalue(indexrow: integer; indexcol:integer; indextree: integer=0): variant;
    function treefootervalue2(indexcol:integer; indextree: integer=0): variant;
    function treedatavalue(indexcol:integer): variant;
    function recordnumber: integer;override;
