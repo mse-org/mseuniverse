@@ -28,6 +28,7 @@ uses
 const
  defaultmaxlog = 50;
  defaultdiffcontextn = 3;
+ defaultrepostatfilename = '.msegitrepo.sta';
 type
  tmsegitfileitem = class(tgitfileitem)
   protected
@@ -52,6 +53,7 @@ type
    fmergetool: msestring;
    fpatchtool: msestring;
    fsplitdiffs: boolean;
+   frepostatfilename: msestring;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -71,6 +73,8 @@ type
    property difftool: msestring read fdifftool write fdifftool;
    property mergetool: msestring read fmergetool write fmergetool;
    property patchtool: msestring read fpatchtool write fpatchtool;
+   property repostatfilename: msestring read frepostatfilename 
+                                            write frepostatfilename;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -258,6 +262,7 @@ type
                    const adialog: tactcomponent;
                    const amodalresult: modalresultty);
    procedure filterresetexe(const sender: TObject);
+   procedure mainstatafterreadexe(const sender: TObject);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -2370,6 +2375,14 @@ begin
   logfiltermessage:= '';
  end;
  mainfo.objchanged(true);
+end;
+
+procedure tmainmo.mainstatafterreadexe(const sender: TObject);
+begin
+ if fopt.repostatfilename = '' then begin
+  fopt.repostatfilename:= defaultrepostatfilename;
+ end;
+ repostatf.filename:= fopt.repostatfilename;
 end;
 
 { tmsegitfileitem }

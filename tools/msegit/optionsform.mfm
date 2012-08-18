@@ -3,21 +3,21 @@ object optionsfo: toptionsfo
   bounds_x = 236
   bounds_y = 237
   bounds_cx = 339
-  bounds_cy = 271
+  bounds_cy = 298
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
     339
-    271
+    298
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
     bounds_x = 280
-    bounds_y = 245
+    bounds_y = 272
     bounds_cx = 50
     bounds_cy = 20
     anchors = [an_right, an_bottom]
@@ -28,7 +28,7 @@ object optionsfo: toptionsfo
   object tbutton2: tbutton
     taborder = 1
     bounds_x = 224
-    bounds_y = 245
+    bounds_y = 272
     bounds_cx = 50
     bounds_cy = 20
     anchors = [an_right, an_bottom]
@@ -40,7 +40,7 @@ object optionsfo: toptionsfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 339
-    bounds_cy = 239
+    bounds_cy = 266
     anchors = [an_top, an_bottom]
     taborder = 2
     tab_size = 18
@@ -52,7 +52,7 @@ object optionsfo: toptionsfo
       bounds_x = 0
       bounds_y = 18
       bounds_cx = 339
-      bounds_cy = 221
+      bounds_cy = 248
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Options'
       object gitcommand: tfilenameedit
@@ -69,6 +69,7 @@ object optionsfo: toptionsfo
         bounds_cx = 324
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
+        statfile = mainmo.mainstat
         reffontheight = 14
       end
       object maxlog: tintegeredit
@@ -85,6 +86,7 @@ object optionsfo: toptionsfo
         bounds_x = 8
         bounds_y = 46
         bounds_cx = 116
+        statfile = mainmo.mainstat
         reffontheight = 14
       end
       object showutc: tbooleanedit
@@ -101,6 +103,7 @@ object optionsfo: toptionsfo
         bounds_y = 77
         bounds_cx = 102
         bounds_cy = 16
+        statfile = mainmo.mainstat
       end
       object diffcontextn: tintegeredit
         frame.caption = 'diff context lines'
@@ -116,6 +119,7 @@ object optionsfo: toptionsfo
         bounds_x = 200
         bounds_y = 102
         bounds_cx = 118
+        statfile = mainmo.mainstat
         reffontheight = 14
       end
       object difftool: thistoryedit
@@ -131,8 +135,8 @@ object optionsfo: toptionsfo
         bounds_x = 8
         bounds_y = 102
         bounds_cx = 166
-        statfile = tstatfile1
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+        statfile = mainmo.mainstat
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
           item
@@ -152,8 +156,8 @@ object optionsfo: toptionsfo
         bounds_x = 8
         bounds_y = 126
         bounds_cx = 186
-        statfile = tstatfile1
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+        statfile = mainmo.mainstat
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
           item
@@ -174,6 +178,7 @@ object optionsfo: toptionsfo
         bounds_y = 77
         bounds_cx = 66
         bounds_cy = 16
+        statfile = mainmo.mainstat
       end
       object patchtool: thistoryedit
         frame.caption = 'patch tool command line'
@@ -190,12 +195,31 @@ object optionsfo: toptionsfo
         bounds_cx = 324
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
-        statfile = tstatfile1
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
+        statfile = mainmo.mainstat
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
           item
           end>
+        reffontheight = 14
+      end
+      object repostatfilename: tstringedit
+        frame.caption = 'repo stat file name'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 8
+        bounds_x = 8
+        bounds_y = 189
+        bounds_cx = 324
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        statfile = mainmo.mainstat
+        onsetvalue = repostafnasetexe
         reffontheight = 14
       end
     end
@@ -204,7 +228,7 @@ object optionsfo: toptionsfo
     filename = 'optionsfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     statfile = mainmo.mainstat
-    left = 16
-    top = 205
+    left = 136
+    top = 69
   end
 end

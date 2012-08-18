@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -39,6 +39,9 @@ type
    mergetool: thistoryedit;
    splitdiffs: tbooleanedit;
    patchtool: thistoryedit;
+   repostatfilename: tstringedit;
+   procedure repostafnasetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
  end;
 
 procedure editoptions;
@@ -56,6 +59,14 @@ begin
  if fo1.show(ml_application) = mr_ok then begin
   mainmo.optionsobj.valuestoobj(fo1);
   mainmo.git.resetversioncheck;
+ end;
+end;
+
+procedure toptionsfo.repostafnasetexe(const sender: TObject;
+               var avalue: msestring; var accept: Boolean);
+begin
+ if avalue = '' then begin
+  avalue:= defaultrepostatfilename;
  end;
 end;
 
