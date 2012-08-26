@@ -14,7 +14,7 @@ unit mseguiintf; //i386-win32
 interface
 uses
  {windows,messages,}mseapplication,msetypes,msegraphutils,
- mseevent,msepointer,mseguiglob,msegraphics,
+ mseevent,msepointer,mseguiglob,msegraphics,mseopenglgdi,
  msethread,mseformatstr,{msesysintf,}msestrings,msesystypes,msewinglob,
  sdl4msegui;
 
@@ -59,7 +59,7 @@ implementation
 //todo: 19.10.03 rasterops for textout
 uses
  sysutils,mselist,msekeyboard,msebits,msearrayutils,msesysutils,msegui,
- msesystimer,msesdlgdi,msesysintf1,msedynload;
+ msesystimer,msesysintf1,msedynload;
 
 type
 
@@ -407,14 +407,14 @@ begin
  result:= gue_ok;
 end;
 
-{function gui_regiontorects(const aregion: regionty): rectarty;
+function gui_regiontorects(const aregion: regionty): rectarty;
 var
  int1: integer;
- po1: prgndata;
- po2: prect;
+ //po1: prgndata;
+ //po2: prect;
 begin
  result:= nil;
- if aregion <> 0 then begin
+ {if aregion <> 0 then begin
   int1:= getregiondata(aregion,0,nil);
   getmem(po1,int1);
   if getregiondata(aregion,int1,po1) <> 0 then begin
@@ -431,12 +431,12 @@ begin
    end;
   end;
   freemem(po1);
- end;
-end;}
+ end;}
+end;
 
 function gui_getdefaultfontnames: defaultfontnamesty;
 begin
- result:= gdi32getdefaultfontnames;
+ //result:= gdi32getdefaultfontnames;
 end;
 
 function gui_canstackunder: boolean;
@@ -1286,7 +1286,7 @@ type
  end;
  ppidinfoty = ^pidinfoty;
 
-function checkproc(awinid: winidty; po: ptrint): bool; stdcall;
+{function checkproc(awinid: winidty; po: ptrint): bool; stdcall;
 var
  pid: integer;
  int1: integer;
@@ -1304,7 +1304,7 @@ begin
    end;
   end;
  end;
-end;
+end;}
 
 function gui_pidtowinid(const pids: procidarty): winidty;
 var
@@ -1312,7 +1312,7 @@ var
 begin
  info.pids:= pids;
  info.winid:= 0;
- enumwindows(@checkproc,ptrint(@info));
+ //enumwindows(@checkproc,ptrint(@info));
  result:= info.winid;
 end;
 
@@ -1326,7 +1326,7 @@ begin
  result:= swaprgb(pixel);
 end;
 
-function winmousekeyflagstoshiftstate(keys: longword): shiftstatesty;
+{function winmousekeyflagstoshiftstate(keys: longword): shiftstatesty;
 begin
  result:= [];
  if keys and mk_control <> 0 then begin
@@ -1347,12 +1347,12 @@ begin
  if getkeystate(vk_menu) < 0 then begin
   include(result,ss_alt);
  end;
-end;
+end;}
 
 function shiftstatetowinmousekeyflags(shiftstate: shiftstatesty): longword;
 begin
  result:= 0;
- if ss_ctrl in shiftstate then begin
+ {if ss_ctrl in shiftstate then begin
   result:= result or mk_control;
  end;
  if ss_left in shiftstate then begin
@@ -1366,26 +1366,26 @@ begin
  end;
  if ss_shift in shiftstate then begin
   result:= result or mk_shift;
- end;
+ end;}
 end;
 
 function winmousepostopoint(pos: longword): pointty;
 begin
- result.x:= smallint(loword(pos));
- result.y:= smallint(hiword(pos));
+ {result.x:= smallint(loword(pos));
+ result.y:= smallint(hiword(pos));}
 end;
 
 function pointtowinmousepos(pos: pointty): longword;
 begin
- result:= word(pos.x) + (word(pos.y) shl 16);
+ //result:= word(pos.x) + (word(pos.y) shl 16);
 end;
 
-function winkeytokey(key: longword; lparam: longword;
+{function winkeytokey(key: longword; lparam: longword;
                                        var shift: shiftstatesty): keyty;
 var
  second: boolean;
 begin
- second:= mapvirtualkey(key,mapvk_vk_to_vsc) <> (lparam shr 16) and $ff;
+ second:= true; //mapvirtualkey(key,mapvk_vk_to_vsc) <> (lparam shr 16) and $ff;
 
  case key of
   vk_back: result:= key_backspace;
@@ -1483,9 +1483,9 @@ begin
    result:= key_unknown;
   end;
  end;
-end;
+end;}
 
-function winkeystatetoshiftstate(keystate: longword): shiftstatesty;
+{function winkeystatetoshiftstate(keystate: longword): shiftstatesty;
 begin
  result:= [];
  if $20000000 and keystate <> 0 then begin
@@ -1532,22 +1532,22 @@ begin
  if getkeystate(vk_menu) < 0 then begin
   include(result,ss_alt);
  end;
-end;
+end;}
 
 function windowvisible(handle: winidty): boolean;
-var
- rect1: trect;
+//var
+// rect1: trect;
 begin
- windows.getclientrect(handle,rect1);
- result:= iswindowvisible(handle) and
+ //windows.getclientrect(handle,rect1);
+ result:= iswindowvisible(handle); { and
   not ((rect1.Left = 0) and (rect1.Top = 0)
                               and (rect1.Bottom = 0) and (rect1.Right = 0)) and
-      (gui_getwindowsize(handle) <> wsi_minimized);
+      (gui_getwindowsize(handle) <> wsi_minimized);}
 end;
 
-procedure checkmousewindow(window: winidty; const pos: pointty); forward;
+//procedure checkmousewindow(window: winidty; const pos: pointty); forward;
 
-procedure mouseidleproc(awinidty: winidty; uMsg: longword; idEvent: longword;
+{procedure mouseidleproc(awinidty: winidty; uMsg: longword; idEvent: longword;
           dwTime: longword); stdcall;
 var
  po1: tpoint;
@@ -1568,9 +1568,9 @@ begin
    end;
   end;
  end;
-end;
+end;}
 
-procedure killmouseidletimer(restart: boolean = false);
+{procedure killmouseidletimer(restart: boolean = false);
 begin
  if mouseidletimer <> 0 then begin
   windows.KillTimer(0,mouseidletimer);
@@ -1581,9 +1581,9 @@ begin
  else begin
   mouseidletimer:= 0;
  end;
-end;
+end;}
 
-procedure checkmousewindow(window: winidty; const pos: pointty);
+{procedure checkmousewindow(window: winidty; const pos: pointty);
 var
  rect1: trect;
 begin
@@ -1609,83 +1609,31 @@ begin
    windows.SetCursor(mousecursor); //possible missed et_exitwindow
   end;
  end;
-end;
+end;}
 
 function gui_movewindowrect(id: winidty; const dist: pointty;
                                              const rect: rectty): guierrorty;
-var
- rect1,rect2: rectty;
+//var
+// rect1,rect2: rectty;
 begin
- rect1:= rect;
- recttowinrect(rect1);
- if iswin95 then begin
-  rect2.x:= -32000;      //trect
-  rect2.y:= -32000;
-  rect2.cx:= 32000;
-  rect2.cy:= 32000;
- end
- else begin
-  rect2.x:= -100000;      //trect
-  rect2.y:= -100000;
-  rect2.cx:= 100000;
-  rect2.cy:= 100000;
- end;
- {$ifdef FPC}
- winscrollwindowex(id,dist.x,dist.y,@rect1,@rect2,0,nil,sw_invalidate);
- {$else}
- scrollwindowex(id,dist.x,dist.y,@rect1,@rect2,0,nil,sw_invalidate);
- {$endif}
+ SDL_SetWindowPosition(id,rect.x+dist.x,rect.y+dist.y);
  result:= gue_ok;
-end;
-
-procedure getframe(const outerrect,innerrect: trect; out frame: framety);
-var
- int1: integer;
-begin
- int1:= (outerrect.Right - outerrect.Left - innerrect.Right +
-               innerrect.left) div 2; //i hope so
- with frame do begin
-  left:= int1;
-  bottom:= int1;
-  right:= int1;
-  top:= outerrect.Bottom - outerrect.top -
-       innerrect.Bottom + innerrect.Top - int1;
- end;
 end;
 
 function getclientrect(winidty: winidty; windowrect: prectty = nil): rectty;
                      //screen origin
 var
- rect1,rect2: trect;
- frame: framety;
+ x,y,w,h:integer;
 begin
- if windows.GetWindowRect(winidty,rect1) then begin
-  if windows.getclientrect(winidty,rect2) then begin
-   getframe(rect1,rect2,frame);
-   if windowrect = nil then begin
-    result.x:= rect1.left + frame.left;
-    result.y:= rect1.top + frame.top;
-    result.size:= sizety(rect2.BottomRight);
-   end
-   else begin
-    with windowrect^ do begin
-     result.x:= x + frame.left;
-     result.y:= y + frame.top;
-     result.cx:= cx - frame.left - frame.right;
-     result.cy:= cy - frame.top - frame.bottom;
-    end;
-   end;
-  end
-  else begin
-   result:= nullrect;
-  end;
- end
- else begin
-  result:= nullrect;
- end;
+ SDL_GetWindowSize(winidty,w,h);
+ SDL_GetWindowPosition(winidty,x,y);
+ result.x:= x;
+ result.y:= y;
+ result.cx:= w;
+ result.cy:= h;
 end;
 
-procedure getwindowrectpa(id: winidty; out rect: rectty; out origin: pointty);
+{procedure getwindowrectpa(id: winidty; out rect: rectty; out origin: pointty);
              //parent origin
 var
 // rect1: rectty;
@@ -1700,7 +1648,7 @@ begin
  else begin
   origin:= nullpoint;
  end;
-end;
+end;}
 
 function gui_getwindowrect(id: winidty; out rect: rectty): guierrorty;
             //screen origin
@@ -1711,14 +1659,12 @@ end;
 
 function gui_getwindowpos(id: winidty; out pos: pointty): guierrorty;
 var
- rect1: trect;
+ x,y : integer;
 begin
- result:= gue_error;
- if windows.GetWindowRect(id,rect1) then begin
-  pos.x:= rect1.left;
-  pos.y:= rect1.top;
-  result:= gue_ok;
- end;
+ SDL_GetWindowPosition(id,x,y);
+ pos.x:= x;
+ pos.y:= y;
+ result:= gue_ok;
 end;
 
 var
@@ -1730,19 +1676,19 @@ var
  pt1: pointty;
 begin
  configuredwindow:= id;
- if gui_getwindowsize(id) <> wsi_minimized then begin
+ {if gui_getwindowsize(id) <> wsi_minimized then begin
   getwindowrectpa(id,rect1,pt1);
   eventlist.add(twindowrectevent.create(ek_configure,id,
                           rect1,pt1));
  end
  else begin
   eventlist.add(twindowevent.create(ek_hide,id));
- end;
+ end;}
 end;
 
 function gui_reposwindow(id: winidty; const rect: rectty): guierrorty;
 var
- rect1,rect2: trect;
+ //rect1,rect2: trect;
  arect: rectty;
  frame: framety;
 begin
@@ -1767,13 +1713,8 @@ end;
 
 function gui_getdecoratedwindowrect(id: winidty; out arect: rectty): guierrorty;
 begin
- if windows.getwindowrect(id,trect(arect)) then begin
-  winrecttorect(arect);
-  result:= gue_ok;
- end
- else begin
-  result:= gue_error;
- end;
+ gui_getwindowrect(id,arect);
+ result:= gue_ok;
 end;
 
 function gui_setdecoratedwindowrect(id: winidty; const rect: rectty; 
@@ -1782,21 +1723,16 @@ function gui_setdecoratedwindowrect(id: winidty; const rect: rectty;
 // rect1: rectty;
 begin
  result:= gue_resizewindow;
- clientrect:= rect;
- if windows.SetWindowPos(id,0,rect.x,rect.y,rect.cx,rect.cy,
-               swp_nozorder or swp_noactivate) then begin
-  clientrect:= getclientrect(id);
-  result:= gue_ok;
- end
+ gui_getwindowrect(id,clientrect);
+ SDL_SetWindowPosition(id,rect.x,rect.y);
+ result:= gue_ok;
 end;
 
 function gui_setembeddedwindowrect(id: winidty; const rect: rectty): guierrorty;
 begin
  result:= gue_resizewindow;
- if windows.SetWindowPos(id,0,rect.x,rect.y,rect.cx,rect.cy,
-               swp_nozorder or swp_noactivate) then begin
-  result:= gue_ok;
- end
+ SDL_SetWindowPosition(id,rect.x,rect.y);
+ result:= gue_ok;
 end;
 
 var
@@ -1805,22 +1741,22 @@ var
  eventlooping: integer;
  escapepressed: boolean;
  
-procedure gui_wakeup;
+{procedure gui_wakeup;
 begin
  windows.postmessage(applicationwindow,wakeupmessage,0,0);
 // windows.postthreadmessage(mainthread,wakeupmessage,0,0);
-end;
+end;}
 
 function gui_postevent(event: tmseevent): guierrorty;
 //var
 // int1: integer;
 begin
- if windows.postmessage(applicationwindow,msemessage,longword(event),0) then begin
+ {if windows.postmessage(applicationwindow,msemessage,longword(event),0) then begin
   result:= gue_ok;
  end
  else begin
   result:= gue_postevent;
- end;
+ end;}
 {
  if eventlooping > 0 then begin
   result:= gue_ok;
@@ -1849,7 +1785,7 @@ begin
  escapepressed:= false;
 end;
 
-function WindowProc(awinidty: winidty; Msg: UINT; wParam: WPARAM; lParam: LPARAM): LRESULT; stdcall;
+{function WindowProc(awinidty: winidty; Msg: UINT; wParam: WPARAM; lParam: LPARAM): LRESULT; stdcall;
 
  function checkbutton(const amessage: UINT): mousebuttonty;
  begin
@@ -2181,9 +2117,9 @@ begin
    dec(eventlooping);
   end;
  end;
-end;
+end;}
 
-function childWindowProc(awinidty: winidty; Msg: UINT; wParam: WPARAM;
+{function childWindowProc(awinidty: winidty; Msg: UINT; wParam: WPARAM;
             lParam: LPARAM): LRESULT; stdcall;
 var
  parent: winidty;
@@ -2216,9 +2152,9 @@ begin
  else begin
   result:= defwindowprocw(awinidty,msg,wparam,lparam);
  end;
-end;
+end;}
 
-procedure dispatchevents;
+{procedure dispatchevents;
 var
  msg,msg1: tmsg;
  str1: string;
@@ -2279,18 +2215,18 @@ begin
    end;
   end;
  end;
-end;
+end;}
 
 function gui_hasevent: boolean;
 begin
- dispatchevents;
+ //dispatchevents;
  result:= eventlist.count > 0;
 end;
 
 function gui_getevent: tmseevent;
 begin
  result:= nil;
- while true do begin
+{ while true do begin
   dispatchevents;
   if eventlist.count > 0 then begin
    result:= tmseevent(eventlist.getfirst);
@@ -2303,13 +2239,13 @@ begin
    windows.waitmessage;
    application.lock;
   end;
- end;
+ end;}
 end;
 
 function createapphandle(out id: winidty): guierrorty;
 var
  str1: string;
- menu1: hmenu;
+ //menu1: hmenu;
 begin
  str1:= application.applicationname;
  {id:= windows.CreateWindow(widgetclassname,pchar(str1),
@@ -2319,7 +2255,7 @@ begin
  deletemenu(menu1,sc_maximize,mf_bycommand);
  deletemenu(menu1,sc_size,mf_bycommand);
  deletemenu(menu1,sc_move,mf_bycommand);}
- id:= SDL_CreateWindow(pchar(str1),0,0,0,0,SDL_WINDOW_MINIMIZED);
+ id:= SDL_CreateWindow(pchar(str1),0,0,0,0,[SDL_WINDOW_MINIMIZED]);
 
  SDL_ShowWindow(id);
   
@@ -2333,18 +2269,18 @@ end;
 
 function gui_settransientfor(var awindow: windowty; const transientfor: winidty): guierrorty;
 begin
- with awindow,win32windowty(platformdata).d do begin
+{ with awindow,win32windowty(platformdata).d do begin
   if not istaskbar then begin
    setwindowlong(id,gwl_winidtyparent,transientfor); //no taskbar widget if called!
 // transientfor can be destroyed
   end;
- end;
+ end;}
  result:= gue_ok;
 end;
 
 function gui_windowatpos(const pos: pointty): winidty;
 begin
- result:= windowfrompoint(tpoint(pos));
+ //result:= windowfrompoint(tpoint(pos));
 end;
 
 function gui_setsizeconstraints(id: winidty; const min,max: sizety): guierrorty;
@@ -2361,7 +2297,8 @@ function gui_createwindow(const rect: rectty;
                              const options: internalwindowoptionsty;
                              var awindow: windowty): guierrorty;
 var
- windowstyle,windowstyleex,ca2: UInt32;
+ windowstyle,ca2: UInt32;
+ windowstyleex: SDL_WindowFlags;
  rect1: rectty;
  classname: string;
  ownerwindow: winidty;
@@ -2369,19 +2306,19 @@ begin
  fillchar(awindow,sizeof(awindow),0);
  with awindow,options do begin
   ownerwindow:= applicationwindow;
-  windowstyleex:= SDL_WINDOW_SHOWN;
+  windowstyleex:= [SDL_WINDOW_SHOWN];
 //  if wo_popup in options then begin
   if options * noframewindowtypes <> [] then begin
-   windowstyle:= ws_popup;
-   windowstyleex:= windowstyleex or SDL_WINDOW_BORDERLESS;
+   //windowstyle:= ws_popup;
+   windowstyleex:= windowstyleex + [SDL_WINDOW_BORDERLESS];
   end
   else begin
    if wo_message in options then begin
-    windowstyle:= ws_overlappedwindow;
-    windowstyleex:= windowstyleex or SDL_WINDOW_BORDERLESS;
+    //windowstyle:= ws_overlappedwindow;
+    windowstyleex:= windowstyleex + [SDL_WINDOW_BORDERLESS];
    end
    else begin
-    windowstyle:= ws_overlappedwindow;
+    //windowstyle:= ws_overlappedwindow;
     if wo_taskbar in options then begin
      //istaskbar:= true;
      //windowstyleex:= windowstyleex or ws_ex_appwindow;
@@ -2390,19 +2327,19 @@ begin
     end;
    end;
    if wo_embedded in options then begin
-    windowstyle:= ws_child;
+    //windowstyle:= ws_child;
    end;
   end;
-  if pos = wp_default then begin
+  {if pos = wp_default then begin
    rect1.x:= integer(cw_usedefault);
    rect1.y:= integer(cw_usedefault);
    rect1.cx:= integer(cw_usedefault);
    rect1.cy:= integer(cw_usedefault);
   end
-  else begin
+  else begin}
    rect1:= rect;
-  end;
-  windowstyle:= windowstyle or ws_clipchildren;
+  //end;
+  //windowstyle:= windowstyle or ws_clipchildren;
   if (transientfor <> 0) or (options * [wo_popup,wo_message,wo_notaskbar] <> []) then begin
    if transientfor <> 0 then begin
     ownerwindow:= transientfor;
@@ -2419,7 +2356,7 @@ begin
   else begin
    if parent <> 0 then begin
     ca2:= parent;
-    windowstyle:= ws_child;
+    //windowstyle:= ws_child;
     classname:= childwidgetclassname;
    end
    else begin
@@ -2462,7 +2399,7 @@ end;
 function gui_getparentwindow(const awindow: winidty): winidty;
 begin
 // result:= getparent(awindow);
- result:= getancestor(awindow,ga_parent);
+ //result:= getancestor(awindow,ga_parent);
 end;
 
 function gui_reparentwindow(const child: winidty; const parent: winidty;
@@ -2471,7 +2408,7 @@ var
  rect1: rectty;
 begin
  result:= gue_reparent;
- if setparent(child,parent) <> 0 then begin
+ {if setparent(child,parent) <> 0 then begin
   if parent = 0 then begin
    result:= gui_getwindowrect(child,rect1);
    if result = gue_ok then begin
@@ -2485,7 +2422,7 @@ begin
     result:= gue_ok;
    end;
   end;
- end;
+ end;}
 end;
 
 type
@@ -2496,7 +2433,7 @@ type
  end;
  penumchildinfoty = ^enumchildinfoty;
 
-function getchildren(child: winidty; data: lparam): winbool; stdcall;
+{function getchildren(child: winidty; data: lparam): winbool; stdcall;
 begin
  with penumchildinfoty(data)^ do begin
   if gui_getparentwindow(child) = parent then begin
@@ -2504,19 +2441,19 @@ begin
   end;
  end;
  result:= true;
-end;
+end;}
 
 function gui_getchildren(const id: winidty; out children: winidarty): guierrorty;
 var
  info: enumchildinfoty;
 begin
  fillchar(info,sizeof(info),0);
- with info do begin
+ {with info do begin
   parent:= id;
   enumchildwindows(id,@getchildren,ptruint(@info));
   setlength(childlist,count);
   children:= childlist;
- end;
+ end;}
  result:= gue_ok;
 end;
 
@@ -2528,9 +2465,10 @@ end;
 
 function gui_getscreenrect(const id: winidty): rectty; //0 -> virtual screen
 var
- info: tmonitorinfo;
+// info: tmonitorinfo;
+ arect: SDL_Rect;
 begin
- info.cbsize:= sizeof(info);
+{ info.cbsize:= sizeof(info);
  if (id = 0) or not getmonitorinfo(monitorfromwindow(id,monitor_defaulttonearest),
                                                        @info) then begin
   result.x:= getsystemmetrics(sm_xvirtualscreen);
@@ -2547,15 +2485,16 @@ begin
  else begin
   result:= rectty(info.rcmonitor);
   winrecttorect(result);
- end;
+ end;}
+ gui_getwindowrect(id,result);
 end;
 
 function gui_getworkarea(id: winidty): rectty;
-var
- info: tmonitorinfo;
+//var
+// info: tmonitorinfo;
 begin
 // if systemparametersinfo(spi_getworkarea,0,@result,0) then begin
- info.cbsize:= sizeof(info);
+ {info.cbsize:= sizeof(info);
  if getmonitorinfo(monitorfromwindow(id,monitor_defaulttonearest),
                                                        @info) then begin
   result:= rectty(info.rcwork);
@@ -2563,7 +2502,7 @@ begin
  end
  else begin
   result:= nullrect;                            
- end;
+ end;}
 end;
 
 
@@ -2591,8 +2530,8 @@ const
  NIM_SETFOCUS = $00000003;
  NIM_SETVERSION = $00000004;
 
-type
- iconunionty = record
+//type
+ {iconunionty = record
   case boolean of
    false: (uTimeout: UINT);
    true: (uVersion: UINT); // Used with Shell_NotifyIcon flag NIM_SETVERSION.
@@ -2612,8 +2551,8 @@ type
   szInfoTitle: array[0..63] of widechar;
   dwInfoFlags: DWORD;
  end;
-
-function traycommand(var child: windowty; 
+}
+{function traycommand(var child: windowty; 
                        const command: integer; const flags: integer = 0;
                              const CallbackMessage: UINT = 0;
                              const Icon: HICON = 0;
@@ -2641,7 +2580,7 @@ function traycommand(var child: windowty;
  
 var
 // dataa: notifyicondataa;
- dataw: notifyicondataw_2;
+// dataw: notifyicondataw_2;
 // int1: integer;
 begin
  result:= checkshellinterface;
@@ -2676,18 +2615,18 @@ begin
   end;
  end;
 end;
-
+}
 function docktotray(var child: windowty): guierrorty;
 begin
- result:= traycommand(child,nim_add,nif_message,traycallbackmessage);
+{ result:= traycommand(child,nim_add,nif_message,traycallbackmessage);
  if result = gue_ok then begin
   result:= traycommand(child,nim_setversion,0,0,0,'',0,0,'',0,0);
- end;
+ end;}
 end;
 
 function undockfromtray(var child: windowty): guierrorty;
 begin
- result:= traycommand(child,nim_delete);
+ //result:= traycommand(child,nim_delete);
 end;
 
 function gui_showsysdock(var awindow: windowty): guierrorty;
@@ -2706,7 +2645,7 @@ var
  rect1: rectty;
  pt1: pointty;
 begin
- gui_hidewindow(child.id);
+{ gui_hidewindow(child.id);
  if akind = sywi_none then begin
   result:= undockfromtray(child);
   getwindowrectpa(child.id,rect1,pt1);
@@ -2719,16 +2658,16 @@ begin
     result:= docktotray(child);
    end;
   end;
- end;
+ end;}
 end;
-{
+
 function gui_undockfromsyswindow(var child: windowty): guierrorty;
                     //hides window
 begin
  gui_hidewindow(child.id);
  result:= undockfromtray(child);
 end;
-}
+
 function gui_traymessage(var awindow: windowty; const message: msestring;
                           out messageid: longword;
                           const timeoutms: longword = 0): guierrorty;
@@ -2740,36 +2679,36 @@ begin
  if timeoutms = 0 then begin
   int1:= bigint;
  end;
- result:= traycommand(awindow,nim_modify,nif_info,0,0,'',0,0,
-                                                     message,int1,0,'',0);
+ //result:= traycommand(awindow,nim_modify,nif_info,0,0,'',0,0,
+ //                                                    message,int1,0,'',0);
 end;
 
 function gui_canceltraymessage(var awindow: windowty;
                           const messageid: longword): guierrorty;
 begin
- result:= traycommand(awindow,nim_modify,nif_info,0,0,'',0,0,
-                                                     '',0,0,'',0);
+ //result:= traycommand(awindow,nim_modify,nif_info,0,0,'',0,0,
+ //                                                    '',0,0,'',0);
 end;
 
 function gui_settrayicon(var awindow: windowty;
                                      const icon,mask: pixmapty): guierrorty;
-var
- ico{,ico1}: hicon;
+//var
+// ico{,ico1}: hicon;
 begin
- ico:= 0;
+{ ico:= 0;
  if icon <> 0 then begin
   ico:= composeicon(icon,mask);
   if ico = 0 then begin
    exit;
   end;
  end;
- result:= traycommand(awindow,nim_modify,nif_icon,0,ico);
+ result:= traycommand(awindow,nim_modify,nif_icon,0,ico);}
 end;
 
 function gui_settrayhint(var awindow: windowty;
                                      const hint: msestring): guierrorty;
 begin
- result:= traycommand(awindow,nim_modify,nif_tip,0,0,hint);
+// result:= traycommand(awindow,nim_modify,nif_tip,0,0,hint);
 end;
 
 function gui_initcolormap: guierrorty;
@@ -2778,12 +2717,6 @@ begin
 end;
 
 function gui_init: guierrorty;
-const
- classstyle = cs_owndc;
-var
- classinfow: twndclassw;
- classinfoa: twndclassa;
-
 begin
  SDL_Init(SDL_INIT_EVERYTHING);
  mousewindow:= 0;
@@ -2794,11 +2727,11 @@ begin
  charbuffer:= '';
  gui_setmainthread;
  eventlist:= tobjectqueue.create(true);
- desktopwindow:= getdesktopwindow;
+ //desktopwindow:= getdesktopwindow;
 
- msegdi32gdi.init;
+ //mseopenglgdi.init;
 
- fillchar(classinfoa,sizeof(classinfoa),0);
+ {fillchar(classinfoa,sizeof(classinfoa),0);
  if iswin95 then begin
   with classinfoa do begin
    lpszclassname:= childwidgetclassname;
@@ -2844,7 +2777,7 @@ begin
  end
  else begin
   result:= gue_ok;
- end;
+ end;}
  if applicationallocated then begin
   createapphandle(applicationwindow);
  end;
@@ -2858,17 +2791,17 @@ var
 begin
  systimerdeinit;
 // killtimer;
- killmouseidletimer;
+ //killmouseidletimer;
  if applicationwindow <> 0 then begin
-  destroywindow(applicationwindow);
+  SDL_DestroyWindow(applicationwindow);
   applicationwindow:= 0;
  end;
  freeandnil(eventlist);
- unregisterclass(widgetclassname,hinstance);
- widgetclass:= 0;
+ //unregisterclass(widgetclassname,hinstance);
+ //widgetclass:= 0;
  
  SDL_Quit;
- msegdi32gdi.deinit;
+ //msegdi32gdi.deinit;
 
  result:= gue_ok;
  mainthread:= 0;
@@ -2876,7 +2809,7 @@ begin
  mousecursor:= 0;
  for acursor:= low(acursor) to high(acursor) do begin
   if cursors[acursor] <> 0 then begin
-   destroycursor(cursors[acursor]);
+   //destroycursor(cursors[acursor]);
    cursors[acursor]:= 0;
   end;
  end;
@@ -2884,7 +2817,7 @@ end;
 
 function gui_getgdifuncs: pgdifunctionaty;
 begin
- result:= gdi32getgdifuncs;
+ result:= openglgetgdifuncs;
 end;
 
 procedure GUI_DEBUGBEGIN;
@@ -2898,11 +2831,11 @@ end;
 
 function gui_registergdi: guierrorty;
 begin
- registergdi(gdi32getgdifuncs);
+ registergdi(openglgetgdifuncs);
  result:= gue_ok;
 end;
 
-procedure initlibs;
+{procedure initlibs;
 begin
  hasimm32:= checkprocaddresses(['Imm32.dll'],
  ['ImmGetContext',
@@ -2911,9 +2844,9 @@ begin
  [{$ifndef FPC}@{$endif}@ImmGetContext,
   {$ifndef FPC}@{$endif}@ImmReleaseContext,
   {$ifndef FPC}@{$endif}@ImmSetCompositionWindow]);
-end;
+end;}
 
 initialization
- initlibs;
- gdi32initdefaultfont;
+ //initlibs;
+ //gdi32initdefaultfont;
 end.

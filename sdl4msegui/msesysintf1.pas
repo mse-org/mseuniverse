@@ -11,68 +11,27 @@ unit msesysintf1;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msesystypes;
+ msesystypes,sdl4msegui;
 var
- iswin95: boolean;
- iswin98: boolean;
  cancleartype: boolean;
 
 {$include ..\msesysintf1.inc}
 
-type
- win32semty = record
-  event: cardinal;
-  semacount: integer;
-  destroyed: integer;
-  platformdata: array[3..7] of cardinal;
- end;
-
 implementation
 uses
- windows,sysutils,dateutils,msedynload;
+ sysutils,dateutils,msedynload;
  
 type
- {$ifdef FPC}
- PCRITICAL_SECTION_DEBUG = ^CRITICAL_SECTION_DEBUG;
-     //bug in struct.inc
-     CRITICAL_SECTION = record
-          DebugInfo : PCRITICAL_SECTION_DEBUG;
-          LockCount : LONG;
-          RecursionCount : LONG;
-          OwningThread : HANDLE;
-          LockSemaphore : HANDLE;
-          Reserved : DWORD;
-       end;
- {$endif}
- win32mutexty = record
-  mutex: trtlcriticalsection;
-  trycount: integer;
-  lockco: integer; 
-  owningth: threadty;
-  platformdata: array[7..7] of cardinal;
- end;
-
  condeventsty = (ce_signal,ce_broadcast);
- win32condty = record
-  events: array[condeventsty] of cardinal;
-  waiterscount: integer;
-  waiterscountlock: trtlcriticalsection;
-  mutex: trtlcriticalsection;
-  platformdata: array[15..31] of cardinal;
- end;
-
-var
- TryEnterCriticalSection: function (
-                 var lpCriticalSection: TRTLCriticalSection): BOOL; stdcall;
    
 function sys_getlasterror: Integer;
 begin
- result:= windows.GetLastError;
+ //result:= windows.GetLastError;
 end;
 
 procedure sys_setlasterror(const avalue: integer);
 begin
- windows.setlasterror(avalue);
+ //windows.setlasterror(avalue);
 end;
 
 function sys_geterrortext(aerror: integer): string;
@@ -82,18 +41,16 @@ var
  int1: integer;
 begin
  setlength(result,maxlen);
- int1:= formatmessage(format_message_from_system,nil,aerror,0,pchar(result),maxlen,nil);
+ //int1:= formatmessage(format_message_from_system,nil,aerror,0,pchar(result),maxlen,nil);
  setlength(result,int1);
 end;
 
 function sys_mutexcreate(out mutex: mutexty): syserrorty;
+var
+ amutex: PSDL_Mutex;
 begin
- with win32mutexty(mutex) do begin
-  windows.initializecriticalsection(mutex);
-  trycount:= 0;
-  lockco:= 0;
-  owningth:= 0;
- end;
+ amutex:= SDL_CreateMutex;
+ mutex:= mutexty(amutex);
  result:= sye_ok;
 end;
 

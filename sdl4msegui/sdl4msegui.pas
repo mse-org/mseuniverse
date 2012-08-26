@@ -114,13 +114,158 @@ type
  procedure SDL_ShowWindow(window: winidty); cdecl; external SDLLibName;
  procedure SDL_HideWindow(window: winidty); cdecl; external SDLLibName;
  procedure SDL_RaiseWindow(window: winidty); cdecl; external SDLLibName;
+ procedure SDL_GetWindowPosition(window: winidty; x, y: integer); cdecl; external SDLLibName;
  procedure SDL_SetWindowPosition(window: winidty; x, y: integer); cdecl; external SDLLibName;
+ procedure SDL_GetWindowSize(window: winidty; w, h: integer); cdecl; external SDLLibName;
  procedure SDL_SetWindowSize(window: winidty; w, h: integer); cdecl; external SDLLibName;
  function SDL_GetWindowFlags(window: winidty): SDL_WindowFlags; cdecl; external SDLLibName;
  procedure SDL_MinimizeWindow(window: winidty); cdecl; external SDLLibName;
  procedure SDL_SetWindowTitle(window: winidty; const title: PChar); cdecl; external SDLLibName;
  procedure SDL_SetWindowIcon(window: winidty; icon: PSDL_Surface); cdecl; external SDLLibName;
 
+// error 
+const
+  ERR_MAX_STRLEN = 128;
+  ERR_MAX_ARGS = 5;
+
+type
+  TArg = record
+    case Byte of
+      0: (value_ptr: Pointer);
+      (* #if 0 means: never
+      1 :  ( value_c : Byte );
+      *)
+      2: (value_i: Integer);
+      3: (value_f: double);
+      4: (buf: array[0..ERR_MAX_STRLEN - 1] of Byte);
+  end;
+
+  PSDL_error = ^TSDL_error;
+  TSDL_error = record
+    { This is a numeric value corresponding to the current error }
+    error: Integer;
+
+    { This is a key used to index into a language hashtable containing
+       internationalized versions of the SDL error messages.  If the key
+       is not in the hashtable, or no hashtable is available, the key is
+       used directly as an error message format string. }
+    key: array[0..ERR_MAX_STRLEN - 1] of Byte;
+
+    { These are the arguments for the error functions }
+    argc: Integer;
+    args: array[0..ERR_MAX_ARGS - 1] of TArg;
+  end;
+
+ function SDL_GetError: pchar; cdecl; external SDLLibName;
+
+// thread
+ type
+{$IFDEF WINDOWS}
+  PSDL_Mutex = ^TSDL_Mutex;
+  TSDL_Mutex = record
+    id: THANDLE;
+  end;
+{$ENDIF}
+
+{$IFDEF Unix}
+  PSDL_Mutex = ^TSDL_Mutex;
+  TSDL_mutex = record
+    id: pthread_mutex_t;
+  end;
+{$ENDIF}
+
+{$IFDEF NDS}
+  PSDL_mutex = ^TSDL_Mutex;
+  TSDL_Mutex = record
+    recursive: Integer;
+    Owner: UInt32;
+    sem: PSDL_sem;
+  end;
+{$ENDIF}
+
+{$IFDEF __MACH__}
+  {$define USE_NAMED_SEMAPHORES}
+  // Broken sem_getvalue() in MacOS X Public Beta */
+  {$define BROKEN_SEMGETVALUE}
+{$ENDIF}
+
+PSDL_semaphore = ^TSDL_semaphore;
+{$IFDEF WINDOWS}
+  // WINDOWS or Machintosh
+  TSDL_semaphore = record
+    id: THANDLE;
+    count: UInt32;
+  end;
+{$ELSE}
+  {$IFDEF FPC}
+  // This should be semaphore.h 
+  __sem_lock_t = {packed} record { Not in header file - anonymous }
+    status: Longint;
+    spinlock: Integer;
+  end;
+
+  sem_t = {packed} record
+    __sem_lock: __sem_lock_t;
+    __sem_value: Integer;
+    __sem_waiting: longint ; {_pthread_queue;}
+  end;
+  {$ENDIF}
+  
+  TSDL_semaphore = record
+    sem: Pointer; //PSem_t;
+  {$IFNDEF USE_NAMED_SEMAPHORES}
+    sem_data: Sem_t;
+  {$ENDIF}
+
+  {$IFDEF BROKEN_SEMGETVALUE}
+    { This is a little hack for MacOS X -
+      It's not thread-safe, but it's better than nothing }
+    sem_value: Integer;
+  {$ENDIF}
+  end;
+{$ENDIF}
+
+  PSDL_Sem = ^TSDL_Sem;
+  TSDL_Sem = TSDL_Semaphore;
+
+  PSDL_Cond = ^TSDL_Cond;
+  TSDL_Cond = record
+{$IFDEF Unix}
+    cond: pthread_cond_t;
+{$ELSE}
+    // Generic Cond structure
+    lock: PSDL_mutex;
+    waiting: Integer;
+    signals: Integer;
+    wait_sem: PSDL_Sem;
+    wait_done: PSDL_Sem;
+{$ENDIF}
+  end;
+
+  // SDL_thread.h types
+{$IFDEF WINDOWS}
+  TSYS_ThreadHandle = THandle;
+{$ENDIF}
+
+{$IFDEF Unix}
+  TSYS_ThreadHandle = pthread_t;
+{$ENDIF}
+
+{$IFDEF NDS}
+  TSYS_ThreadHandle = Integer;
+{$ENDIF}
+
+  { This is the system-independent thread info structure }
+  PSDL_Thread = ^TSDL_Thread;
+  TSDL_Thread = record
+    threadid: UInt32;
+    handle: TSYS_ThreadHandle;
+    status: Integer;
+    errbuf: TSDL_Error;
+    data: Pointer;
+  end;
+ function SDL_CreateMutex: PSDL_mutex; cdecl; external SDLLibName;
+ 
 // mouse
 const
  curwidth = 32;
@@ -214,8 +359,15 @@ const
                                             //      with the refresh rate */
  SDL_RENDERER_TARGETTEXTURE = $00000008;     //**< The renderer supports
 
- function SDL_CreateRenderer(window: winidty; index: integer; flags: Cardinal): ptruint; cdecl; external SDLLibName;
+type
+ SDL_Texture = pbyte;
+ SDL_Renderer = ptruint;
+ 
+ function SDL_CreateRenderer(window: winidty; index: integer; flags: Cardinal): SDL_Renderer; cdecl; external SDLLibName;
+ function SDL_CreateTexture(renderer: SDL_Renderer; format: Cardinal; access,w,h: integer): SDL_Texture; cdecl; external SDLLibName;
 
+//keyboard
+ procedure SDL_StartTextInput; cdecl; external SDLLibName;
 // timer
  procedure SDL_Delay(ms: Cardinal); cdecl; external SDLLibName;
 
