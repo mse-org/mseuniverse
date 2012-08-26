@@ -2,7 +2,7 @@ unit sdl4msegui;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msetypes;
+ msetypes,msesystypes;
 {$i sdl2_types.inc}
 
 // base function
@@ -160,35 +160,6 @@ type
 
 // thread
  type
-{$IFDEF WINDOWS}
-  PSDL_Mutex = ^TSDL_Mutex;
-  TSDL_Mutex = record
-    id: THANDLE;
-  end;
-{$ENDIF}
-
-{$IFDEF Unix}
-  PSDL_Mutex = ^TSDL_Mutex;
-  TSDL_mutex = record
-    id: pthread_mutex_t;
-  end;
-{$ENDIF}
-
-{$IFDEF NDS}
-  PSDL_mutex = ^TSDL_Mutex;
-  TSDL_Mutex = record
-    recursive: Integer;
-    Owner: UInt32;
-    sem: PSDL_sem;
-  end;
-{$ENDIF}
-
-{$IFDEF __MACH__}
-  {$define USE_NAMED_SEMAPHORES}
-  // Broken sem_getvalue() in MacOS X Public Beta */
-  {$define BROKEN_SEMGETVALUE}
-{$ENDIF}
-
 PSDL_semaphore = ^TSDL_semaphore;
 {$IFDEF WINDOWS}
   // WINDOWS or Machintosh
@@ -234,7 +205,7 @@ PSDL_semaphore = ^TSDL_semaphore;
     cond: pthread_cond_t;
 {$ELSE}
     // Generic Cond structure
-    lock: PSDL_mutex;
+    lock: mutexty;
     waiting: Integer;
     signals: Integer;
     wait_sem: PSDL_Sem;
@@ -264,7 +235,17 @@ PSDL_semaphore = ^TSDL_semaphore;
     errbuf: TSDL_Error;
     data: Pointer;
   end;
- function SDL_CreateMutex: PSDL_mutex; cdecl; external SDLLibName;
+ function SDL_CreateMutex: mutexty; cdecl; external SDLLibName;
+ procedure SDL_DestroyMutex(varmutex: mutexty); cdecl; external SDLLibName;
+ function SDL_mutexP(mutex: mutexty): integer; cdecl; external SDLLibName;
+ function SDL_mutexV(mutex: mutexty): integer; cdecl; external SDLLibName;
+ function SDL_CreateSemaphore(initial_value: cardinal): semty; cdecl; external SDLLibName;
+ function SDL_SemPost(sem: semty): integer; cdecl; external SDLLibName;
+ procedure SDL_DestroySemaphore(sem: semty); cdecl; external SDLLibName;
+ function SDL_SemWait(sem: semty): integer; cdecl; external SDLLibName;
+ function SDL_SemWaitTimeout(sem: semty; ms:cardinal): integer; cdecl; external SDLLibName;
+ function SDL_SemValue(sem: semty): cardinal; cdecl; external SDLLibName;
+ function SDL_SemTryWait(sem: semty): integer; cdecl; external SDLLibName;
  
 // mouse
 const
