@@ -352,5 +352,59 @@ type
 // timer
  procedure SDL_Delay(ms: Cardinal); cdecl; external SDLLibName;
 
+//file I/O
+type
+ TStdio = record
+   autoclose: Integer;
+  // FILE * is only defined in Kylix so we use a simple Pointer
+   fp: Pointer;
+ end;
+
+ TMem = record
+   base: PUInt8;
+   here: PUInt8;
+   stop: PUInt8;
+ end;
+
+ TUnknown = record
+   data1: Pointer;
+ end;
+
+ // first declare the pointer type
+ PSDL_RWops = ^TSDL_RWops;
+ // now the pointer to function types
+ TSeek = function( context: PSDL_RWops; offset: Integer; whence: Integer ): Integer; cdecl;
+ TRead = function( context: PSDL_RWops; Ptr: Pointer; size: Integer; maxnum : Integer ): Integer;  cdecl;
+ TWrite = function( context: PSDL_RWops; Ptr: Pointer; size: Integer; num: Integer ): Integer; cdecl;
+ TClose = function( context: PSDL_RWops ): Integer; cdecl;
+ // the variant record itself
+ TSDL_RWops = record
+   seek: TSeek;
+   read: TRead;
+   write: TWrite;
+   close: TClose;
+   // a keyword as name is not allowed
+   type_: UInt32;
+   // be warned! structure alignment may arise at this point
+   case Integer of
+     0: (stdio: TStdio);
+     1: (mem: TMem);
+     2: (unknown: TUnknown);
+ end;
+
+ SDL_RWops = TSDL_RWops;
+
+ function SDL_RWFromFile(filename, mode: PAnsiChar): PSDL_RWops; cdecl; external SDLLibName;
+ procedure SDL_FreeRW(area: PSDL_RWops); cdecl; external SDLLibName;
+ function SDL_RWFromFP(fp: Pointer; autoclose: Integer): PSDL_RWops; cdecl; external SDLLibName;
+ function SDL_RWFromMem(mem: Pointer; size: Integer): PSDL_RWops; cdecl; external SDLLibName;
+ function SDL_RWFromConstMem(const mem: Pointer; size: Integer) : PSDL_RWops; cdecl; external SDLLibName;
+ function SDL_AllocRW: PSDL_RWops; cdecl; external SDLLibName;
+ function SDL_RWSeek(context: PSDL_RWops; offset: Integer; whence: Integer) : Integer; cdecl; external SDLLibName;
+ function SDL_RWTell(context: PSDL_RWops): Integer; cdecl; external SDLLibName;
+ function SDL_RWRead(context: PSDL_RWops; ptr: Pointer; size: Integer; n : Integer): Integer; cdecl; external SDLLibName;
+ function SDL_RWWrite(context: PSDL_RWops; ptr: Pointer; size: Integer; n : Integer): Integer; cdecl; external SDLLibName;
+ function SDL_RWClose(context: PSDL_RWops): Integer; cdecl; external SDLLibName;
+
 implementation
 end.

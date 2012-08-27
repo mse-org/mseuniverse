@@ -248,7 +248,7 @@ var
  lwo1: longword;
 begin
  avalue:= '';
- if iswin95 then begin
+ {if iswin95 then begin
   str2:= ansistring(aname);
   lwo1:= getenvironmentvariablea(pchar(str2),nil,0);
   result:= lwo1 > 0;
@@ -273,13 +273,13 @@ begin
     setlength(avalue,lwo1);
    end;
   end;
- end;
+ end;}
 end;
 
 function sys_setenv(const aname: msestring; const avalue: msestring): syserrorty;
 begin
  result:= sye_ok;
- if iswin95 then begin
+{ if iswin95 then begin
   if not setenvironmentvariablea(pchar(ansistring(aname)),
                                      pchar(ansistring(avalue))) then begin
    result:= syelasterror;
@@ -290,13 +290,13 @@ begin
                                      pmsechar(avalue)) then begin
    result:= syelasterror;
   end;
- end;
+ end;}
 end;
 
 function sys_unsetenv(const aname: msestring): syserrorty;
 begin
  result:= sye_ok;
- if iswin95 then begin
+{ if iswin95 then begin
   if not setenvironmentvariablea(pchar(ansistring(aname)),nil) then begin
    result:= syelasterror;
   end;
@@ -305,7 +305,7 @@ begin
   if not setenvironmentvariablew(pmsechar(aname),nil) then begin
    result:= syelasterror;
   end;
- end;
+ end;}
 end;
 
 function winfilepath(dirname,filename: msestring): msestring;
