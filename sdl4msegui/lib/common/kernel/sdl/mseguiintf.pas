@@ -14,7 +14,7 @@ unit mseguiintf; //i386-win32
 interface
 uses
  {windows,messages,}mseapplication,msetypes,msegraphutils,
- mseevent,msepointer,mseguiglob,msegraphics,mseopenglgdi,
+ mseevent,msepointer,mseguiglob,msegraphics,
  msethread,mseformatstr,{msesysintf,}msestrings,msesystypes,msewinglob,
  sdl4msegui;
 
@@ -59,7 +59,7 @@ implementation
 //todo: 19.10.03 rasterops for textout
 uses
  sysutils,mselist,msekeyboard,msebits,msearrayutils,msesysutils,msegui,
- msesystimer,msesysintf1,msedynload;
+ msesystimer,msesysintf1,msedynload,msecairogdi;
 
 type
 
@@ -2817,7 +2817,7 @@ end;
 
 function gui_getgdifuncs: pgdifunctionaty;
 begin
- result:= openglgetgdifuncs;
+ result:= cairogetgdifuncs;
 end;
 
 procedure GUI_DEBUGBEGIN;
@@ -2831,7 +2831,7 @@ end;
 
 function gui_registergdi: guierrorty;
 begin
- registergdi(openglgetgdifuncs);
+ registergdi(cairogetgdifuncs);
  result:= gue_ok;
 end;
 

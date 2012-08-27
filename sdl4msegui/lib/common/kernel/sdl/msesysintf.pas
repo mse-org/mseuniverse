@@ -248,7 +248,7 @@ var
  lwo1: longword;
 begin
  avalue:= '';
- {if iswin95 then begin
+ if iswin95 then begin
   str2:= ansistring(aname);
   lwo1:= getenvironmentvariablea(pchar(str2),nil,0);
   result:= lwo1 > 0;
@@ -273,13 +273,13 @@ begin
     setlength(avalue,lwo1);
    end;
   end;
- end;}
+ end;
 end;
 
 function sys_setenv(const aname: msestring; const avalue: msestring): syserrorty;
 begin
  result:= sye_ok;
-{ if iswin95 then begin
+ if iswin95 then begin
   if not setenvironmentvariablea(pchar(ansistring(aname)),
                                      pchar(ansistring(avalue))) then begin
    result:= syelasterror;
@@ -290,13 +290,13 @@ begin
                                      pmsechar(avalue)) then begin
    result:= syelasterror;
   end;
- end;}
+ end;
 end;
 
 function sys_unsetenv(const aname: msestring): syserrorty;
 begin
  result:= sye_ok;
-{ if iswin95 then begin
+ if iswin95 then begin
   if not setenvironmentvariablea(pchar(ansistring(aname)),nil) then begin
    result:= syelasterror;
   end;
@@ -305,7 +305,7 @@ begin
   if not setenvironmentvariablew(pmsechar(aname),nil) then begin
    result:= syelasterror;
   end;
- end;}
+ end;
 end;
 
 function winfilepath(dirname,filename: msestring): msestring;
@@ -1594,11 +1594,51 @@ const
 type
  SHGetFolderPathW = function (hwndowner: HWND; nFolder: integer; hToken: thandle;
                                  dwFlags: DWORD; pszPath: LPTSTR): HRESULT; stdcall;
+
+{$ifdef FPC}
+function DoCompareStringA(const s1, s2: unicodestring; Flags: DWORD): PtrInt;
+  var
+    a1, a2: AnsiString;
+  begin
+    a1:=s1;
+    a2:=s2;
+    SetLastError(0);
+    Result:=CompareStringA(LOCALE_USER_DEFAULT,Flags,pchar(a1),
+      length(a1),pchar(a2),length(a2))-2;
+  end;
+
+function DoCompareStringW(const s1, s2: unicodestring; Flags: DWORD): PtrInt;
+  begin
+    SetLastError(0);
+    Result:=CompareStringW(LOCALE_USER_DEFAULT,Flags,pwidechar(s1),
+      length(s1),pwidechar(s2),length(s2))-2;
+    if GetLastError=0 then
+      Exit;
+    if GetLastError=ERROR_CALL_NOT_IMPLEMENTED then  // Win9x case
+      Result:=DoCompareStringA(s1, s2, Flags);
+    if GetLastError<>0 then
+      RaiseLastOSError;
+  end;
+
+function Win32CompareunicodeString(const s1, s2 : unicodestring) : PtrInt;
+  begin
+    Result:=DoCompareStringW(s1, s2, 0);
+  end;
+
+function Win32CompareTextunicodeString(const s1, s2 : unicodestring) : PtrInt;
+  begin
+    Result:=DoCompareStringW(s1, s2, NORM_IGNORECASE);
+  end;
+{$endif}
+
+
 procedure doinit;
 var
  libhandle: thandle;
  po1: SHGetFolderPathW;
  buffer: array[0..max_path] of widechar;
+ info: osversioninfo;
+ int1: integer;
 // int1: integer;
 
 begin
@@ -1634,6 +1674,23 @@ begin
  checkprocaddresses(['user32.dll'],
       ['AllowSetForegroundWindow'],
       [{$ifndef FPC}@{$endif}@AllowSetForegroundWindow]);
+{$ifdef FPC}
+ widestringmanager.CompareUnicodeStringProc:=@win32CompareUnicodeString;
+ widestringmanager.CompareTextUnicodeStringProc:=@win32CompareTextUnicodeString;
+{$endif}
+
+ info.dwOSVersionInfoSize:= sizeof(info);
+ if getversionex(info) then begin
+  with info do begin
+   int1:= dwmajorversion*1000+dwminorversion;
+   cancleartype:= int1 >= 5001;
+   iswin95:= dwPlatformId = ver_platform_win32_windows;
+   if iswin95 then begin
+    iswin98:= (dwMajorVersion >= 4) or
+                (dwMajorVersion = 4) and (dwminorVersion > 0);
+   end;
+  end;
+ end;
 end;
 {
 procedure initformatsettings;
@@ -1644,6 +1701,7 @@ begin
  timeseparatormse:= timeseparator;
 end;
 }
+
 initialization
 {$ifdef FPC}
 // winwidestringalloc:= false;

@@ -13,6 +13,8 @@ interface
 uses
  msesystypes,sdl4msegui;
 var
+ iswin95: boolean;
+ iswin98: boolean;
  cancleartype: boolean;
 
 {$include ..\msesysintf1.inc}
@@ -59,10 +61,14 @@ end;
 
 function sys_mutexlock(var mutex: mutexty): syserrorty;
 begin
- if SDL_mutexP(mutex)=0 then begin
-  result:= sye_ok;
- end else begin
+ if mutex[0]=nil then begin
   result:= sye_busy;
+ end else begin
+  if SDL_mutexP(mutex)=0 then begin
+   result:= sye_ok;
+  end else begin
+   result:= sye_busy;
+  end;
  end;
 end;
 
