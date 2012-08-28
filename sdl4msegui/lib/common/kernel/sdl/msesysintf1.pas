@@ -55,20 +55,16 @@ end;
 
 function sys_mutexdestroy(var mutex: mutexty): syserrorty;
 begin
- result:= sye_ok;
  SDL_DestroyMutex(mutex);
+ result:= sye_ok;
 end;
 
 function sys_mutexlock(var mutex: mutexty): syserrorty;
 begin
- if mutex[0]=nil then begin
-  result:= sye_busy;
+ if SDL_mutexP(mutex)=0 then begin
+  result:= sye_ok;
  end else begin
-  if SDL_mutexP(mutex)=0 then begin
-   result:= sye_ok;
-  end else begin
-   result:= sye_busy;
-  end;
+  result:= sye_busy;
  end;
 end;
 

@@ -48,10 +48,6 @@ type
  tfont1 = class(tfont);
          
 const
- highresfontshift = 6;  //64
- highresfontfakt = 1 shl highresfontshift;
- highresfontmask = highresfontfakt - 1; 
-
  defaultfontname = 'Tahoma';
 // defaultfontname = 'MS Sans Serif';
  defaultfontnames: defaultfontnamesty =
@@ -99,108 +95,6 @@ begin
   if gcpo^.handle <> 0 then begin
    drawinfo.cairosurface:= cairo_win32_surface_create(gcpo^.handle);
   end;
- end;
-end;
-
-procedure transformpoints(var drawinfo: drawinfoty; const aclose: boolean);
-var
- po1: ppointty;
- po2: ppointty;
- int1: integer;
-begin
- with drawinfo.points do begin
-  int1:= count;
-  if aclose then begin
-   inc(int1);
-  end;
-  allocbuffer(drawinfo.buffer,int1*sizeof(pointty));
-  po1:= points;
-  po2:= drawinfo.buffer.buffer;
-  int1:= count;
-  with drawinfo.origin do begin
-   while int1 > 0 do begin
-    po2^.x:= po1^.x + x;
-    po2^.y:= po1^.y + y;
-    inc(po1);
-    inc(po2);
-    dec(int1);
-   end;
-  end;
-  if aclose then begin
-   move(drawinfo.buffer.buffer^,(pchar(drawinfo.buffer.buffer)+
-              count*sizeof(pointty))^,sizeof(pointty));
-  end;
- end;
-end;
-
-procedure adjustlineend(po: ppointty); //solve lineto lastpixel problem
-var
- po1: ppoint;
- dx,dy,dist: integer;
-
-begin
- po1:= ppoint(pchar(po)-sizeof(pointty));
- dx:= po^.x - po1^.x;
- dy:= po^.y - po1^.y;
- dist:= (abs(dx) + abs(dy)) div 2;
- if dx < 0 then begin
-  if dx + dist <= 0 then begin
-   dec(po^.x);
-  end;
- end
- else begin
-  if dx >= dist then begin
-   inc(po^.x);
-  end;
- end;
- if dy < 0 then begin
-  if dy + dist <= 0 then begin
-   dec(po^.y);
-  end;
- end
- else begin
-  if dy >= dist then begin
-   inc(po^.y);
-  end;
- end;
-end;
-
-procedure transformrect(var drawinfo: drawinfoty);
-begin
- allocbuffer(drawinfo.buffer,sizeof(trect));
- with drawinfo,prect(buffer.buffer)^,rect do begin
-  Left:= rect^.x + origin.x;
-  right:= Left + rect^.cx;
-  top:= rect^.y + origin.y;
-  bottom:= top + rect^.cy;
- end;
-end;
-
-procedure offsetrect(var drawinfo: drawinfoty);
-begin
- allocbuffer(drawinfo.buffer,sizeof(rectty));
- with drawinfo,prectty(buffer.buffer)^,rect do begin
-  x:= rect^.x + origin.x;
-  cx:= rect^.cx;
-  y:= rect^.y + origin.y;
-  cy:= rect^.cy;
- end;
-end;
-
-procedure transformellipseinfo(var drawinfo: drawinfoty; const fill: boolean);
-var
- int1: integer;
-begin
- allocbuffer(drawinfo.buffer,sizeof(trect));
- int1:= 1;
- if fill then begin
-  int1:= 2;
- end;
- with drawinfo,prect(buffer.buffer)^,rect do begin
-  Left:= rect^.x + origin.x - drawinfo.rect.rect^.cx div 2;
-  right:= Left + rect^.cx+int1;
-  top:= rect^.y + origin.y - drawinfo.rect.rect^.cy div 2;
-  bottom:= top + rect^.cy+int1;
  end;
 end;
 

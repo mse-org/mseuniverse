@@ -721,6 +721,7 @@ function gui_createpixmap(const size: sizety; winid: winidty = 0;
 // dc,dc1: hdc;
 
 begin
+ monochrome:= false;
 { if monochrome then begin
   result:= createbitmap(size.cx,size.cy,1,1,nil);
  end
@@ -751,6 +752,7 @@ var
  //dc: hdc;
 
 begin
+ bottomup:= false;
  {$ifdef FPC}{$checkpointer off}{$endif}
  {bytesperline:= ((size.cx+31) div 32)*4;
  int3:= bytesperline*size.cy; //total bytecount
@@ -2782,6 +2784,7 @@ begin
   createapphandle(applicationwindow);
  end;
  systimerinit(eventlist,applicationwindow);
+ result:= gue_ok;
 end;
 
 function gui_deinit: guierrorty;
