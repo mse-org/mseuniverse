@@ -1958,6 +1958,7 @@ function gui_getevent: tmseevent;
 var
  e: SDL_Event;
  rect1: rectty;
+ winid: winidty;
 begin
  result:= nil;
  while true do begin
@@ -1967,16 +1968,17 @@ begin
      application.postevent(tmseevent.create(ek_terminate));
      //break;
     end;
-    SDL_WINDOWEVENT :begin
+    SDL_WINDOWEVENT : begin
+     winid:= SDL_GetWindowFromID(e.window.window);
      if (e.window.event = SDL_WINDOWEVENT_ENTER) then begin
-      result:= twindowevent.create(ek_enterwindow,e.window.window);
+      result:= twindowevent.create(ek_enterwindow,winid);
      end else if (e.window.event = SDL_WINDOWEVENT_LEAVE) then begin
-      result:= twindowevent.create(ek_leavewindow,e.window.window);
+      result:= twindowevent.create(ek_leavewindow,winid);
      end else if (e.window.event = SDL_WINDOWEVENT_CLOSE) then begin
-      result:= twindowevent.create(ek_close,e.window.window);
+      result:= twindowevent.create(ek_close,winid);
      end else begin
       winrecttorect(rect1);
-      eventlist.add(twindowrectevent.create(ek_expose,e.window.window,rect1,nullpoint));
+      eventlist.add(twindowrectevent.create(ek_expose,winid,rect1,nullpoint));
      end;
      break;
     end;
@@ -1986,7 +1988,7 @@ begin
      //end;
     end;
     SDL_MOUSEMOTION: begin
-     result:= tmouseevent.create(e.motion.window,false,mb_none,mw_none,
+     result:= tmouseevent.create(SDL_GetWindowFromID(e.motion.window),false,mb_none,mw_none,
                 makepoint(e.motion.x,e.motion.y),[], MilliSecondOf(time)*1000);
      //break;
     end;

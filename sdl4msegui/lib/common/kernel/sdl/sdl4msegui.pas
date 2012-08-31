@@ -120,7 +120,7 @@ type
  SDL_Window_Event = record
   type_: cardinal;
   timestamp: cardinal;
-  window: winidty;
+  window: cardinal;
   event: byte; //**< ::SDL_WindowEventID */
   padding1: byte;
   padding2: byte;
@@ -134,7 +134,7 @@ type
  SDL_KeyboardEvent = record
   type_: cardinal; //**< ::SDL_KEYDOWN or ::SDL_KEYUP */
   timestamp: cardinal;
-  window: winidty;
+  window: cardinal;
   state: byte; //**< ::SDL_PRESSED or ::SDL_RELEASED */
   repeat_: byte; //**< Non-zero if this is a key repeat */
   padding2: byte;
@@ -148,7 +148,7 @@ type
  SDL_TextEditingEvent = record
   type_: cardinal;
   timestamp: cardinal;
-  window: winidty;
+  window: cardinal;
   text: array[0..TEXT_SIZE - 1] of AnsiChar; //**< The editing text */
   start: integer; //**< The start cursor of selected editing text */
   length: integer; //**< The length of selected editing text */
@@ -157,7 +157,7 @@ type
  SDL_TextInputEvent = record
   type_: cardinal;
   timestamp: cardinal;
-  window: winidty;
+  window: cardinal;
   text: array[0..TEXT_SIZE - 1] of AnsiChar;
  end;
 
@@ -167,7 +167,7 @@ type
  SDL_MouseMotionEvent = record
   type_: cardinal;
   timestamp: cardinal;
-  window: winidty;
+  window: cardinal;
   state: byte; //**< The current button state */
   padding1: byte;
   padding2: byte;
@@ -184,7 +184,7 @@ type
  SDL_MouseButtonEvent = record
   type_: cardinal; //**< ::SDL_MOUSEBUTTONDOWN or ::SDL_MOUSEBUTTONUP */
   timestamp: cardinal;
-  window: winidty;
+  window: cardinal;
   button: byte; //**< The mouse button index */
   state: byte; //**< ::SDL_PRESSED or ::SDL_RELEASED */
   padding1: byte;
@@ -256,7 +256,7 @@ type
   SDL_TouchFingerEvent = record
    type_ : cardinal;        //**< ::SDL_FINGERMOTION OR SDL_FINGERDOWN OR SDL_FINGERUP*/
    timestamp: cardinal;
-   window: winidty;    //**< The window with mouse focus, if any */
+   window: cardinal;    //**< The window with mouse focus, if any */
    touchID: cuint64;        //**< The touch device id */
    fingerId: cuint64;
    state: byte;        //**< The current button state */
@@ -273,7 +273,7 @@ type
  SDL_TouchButtonEvent = record
   type_ : cardinal;        //**< ::SDL_TOUCHBUTTONUP OR SDL_TOUCHBUTTONDOWN */
   timestamp: cardinal;
-  window: winidty;         //**< The window with mouse focus, if any */
+  window: cardinal;         //**< The window with mouse focus, if any */
   touchID: cuint64;        //**< The touch device id */
   state: byte;             //**< The current button state */
   button: byte;            //**< The button changing state */
@@ -283,7 +283,7 @@ type
  SDL_MultiGestureEvent = record
   type_ : cardinal;        //**< ::SDL_MULTIGESTURE */
   timestamp: cardinal;
-  window: winidty;         //**< The window with mouse focus, if any */
+  window: cardinal;         //**< The window with mouse focus, if any */
   touchID: cuint64;        //**< The touch device id */
   dTheta: double;
   dDist: double;
@@ -297,7 +297,7 @@ type
  SDL_DollarGestureEvent = record
   type_ : cardinal;        //**< ::SDL_DOLLARGESTURE */
   timestamp: cardinal;
-  window: winidty;         //**< The window with mouse focus, if any */
+  window: cardinal;         //**< The window with mouse focus, if any */
   touchID: cuint64;        //**< The touch device id */
   gestureId: cuint64;
   numFingers: cardinal;
@@ -434,15 +434,16 @@ type
  procedure SDL_ShowWindow(window: winidty); cdecl; external SDLLibName;
  procedure SDL_HideWindow(window: winidty); cdecl; external SDLLibName;
  procedure SDL_RaiseWindow(window: winidty); cdecl; external SDLLibName;
- procedure SDL_GetWindowPosition(window: winidty; var x, y: integer); cdecl; external SDLLibName;
- procedure SDL_SetWindowPosition(window: winidty; x, y: integer); cdecl; external SDLLibName;
- procedure SDL_GetWindowSize(window: winidty; var w, h: integer); cdecl; external SDLLibName;
- procedure SDL_SetWindowSize(window: winidty; w, h: integer); cdecl; external SDLLibName;
- function SDL_GetWindowFlags(window: winidty): SDL_WindowFlags; cdecl; external SDLLibName;
- procedure SDL_MinimizeWindow(window: winidty); cdecl; external SDLLibName;
- procedure SDL_SetWindowTitle(window: winidty; const title: PChar); cdecl; external SDLLibName;
- procedure SDL_SetWindowIcon(window: winidty; icon: PSDL_Surface); cdecl; external SDLLibName;
- procedure SDL_UpdateWindowSurface(window: winidty); cdecl; external SDLLibName;
+ procedure SDL_GetWindowPosition(window: cardinal; var x, y: integer); cdecl; external SDLLibName;
+ procedure SDL_SetWindowPosition(window: cardinal; x, y: integer); cdecl; external SDLLibName;
+ procedure SDL_GetWindowSize(window: cardinal; var w, h: integer); cdecl; external SDLLibName;
+ procedure SDL_SetWindowSize(window: cardinal; w, h: integer); cdecl; external SDLLibName;
+ function SDL_GetWindowFlags(window: cardinal): SDL_WindowFlags; cdecl; external SDLLibName;
+ procedure SDL_MinimizeWindow(window: cardinal); cdecl; external SDLLibName;
+ procedure SDL_SetWindowTitle(window: cardinal; const title: PChar); cdecl; external SDLLibName;
+ procedure SDL_SetWindowIcon(window: cardinal; icon: PSDL_Surface); cdecl; external SDLLibName;
+ procedure SDL_UpdateWindowSurface(window: cardinal); cdecl; external SDLLibName;
+ function SDL_GetWindowFromID(id: cardinal): winidty; cdecl; external SDLLibName;
 
 // error 
 const
@@ -572,7 +573,7 @@ type
 
  function SDL_GetMouseState(x,y: integer): byte; cdecl; external SDLLibName;
  function SDL_GetRelativeMouseState(x,y: integer): byte; cdecl; external SDLLibName;
- procedure SDL_WarpMouseInWindow(window: winidty; x, y: integer); cdecl; external SDLLibName;
+ procedure SDL_WarpMouseInWindow(window: cardinal; x, y: integer); cdecl; external SDLLibName;
  function SDL_CreateCursor(const data: pbyte; const Umask: pbyte; w,h,hot_x,hot_y: integer): SDL_Cursor; cdecl; external SDLLibName;
  procedure SDL_SetCursor(cursor: SDL_Cursor); cdecl; external SDLLibName;
 
@@ -593,9 +594,9 @@ type
  SDL_BlendMode = (sdlbBlend, sdlbAdd, sdlbMod, sdlbForce32 = 31);
  SDL_BlendModes = set of SDL_BlendMode;
 
- function SDL_CreateRenderer(window: winidty; index: integer; flags: Cardinal): SDL_Renderer; cdecl; external SDLLibName;
+ function SDL_CreateRenderer(window: cardinal; index: integer; flags: Cardinal): SDL_Renderer; cdecl; external SDLLibName;
  function SDL_CreateTexture(renderer: SDL_Renderer; format: Cardinal; access,w,h: integer): SDL_Texture; cdecl; external SDLLibName;
- function SDL_GetRenderer(window: winidty): SDL_Renderer; cdecl; external SDLLibName;
+ function SDL_GetRenderer(window: cardinal): SDL_Renderer; cdecl; external SDLLibName;
  function SDL_CreateSoftwareRenderer(surface: PSDL_Surface): SDL_Renderer; cdecl; external SDLLibName;
  procedure SDL_DestroyRenderer(renderer: SDL_Renderer); cdecl; external SDLLibName;
  function SDL_CreateTextureFromSurface(renderer: SDL_Renderer; surface: PSDL_Surface): SDL_Texture; cdecl; external SDLLibName;
