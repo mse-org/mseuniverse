@@ -497,11 +497,12 @@ end;
 
 function gui_getpointerpos: pointty;
 var
- x,y: integer;
+ x,y: pinteger;
 begin
+ //SDL_PumpEvents;
  SDL_GetMouseState(x,y);
- result.x:= x;
- result.y:= y;
+ result.x:= x^;
+ result.y:= y^;
 end;
 
 function gui_setpointerpos(const pos: pointty): guierrorty;
@@ -512,11 +513,11 @@ end;
 
 function gui_movepointer(const dist: pointty): guierrorty;
 var
- x,y: integer;
+ x,y: pinteger;
 begin
  result:= gue_mousepos;
  SDL_GetMouseState(x,y);
- SDL_WarpMouseInWindow(mousewindow,x+dist.x,y+dist.y);
+ SDL_WarpMouseInWindow(mousewindow,x^+dist.x,y^+dist.y);
  result:= gue_ok;
 end;
 
@@ -1353,8 +1354,8 @@ function gui_movewindowrect(id: winidty; const dist: pointty;
 //var
 // rect1,rect2: rectty;
 begin
- //SDL_SetWindowPosition(id,rect.x+dist.x,rect.y+dist.y);
- SDL_UpdateWindowSurface(id);
+ SDL_SetWindowPosition(id,rect.x+dist.x,rect.y+dist.y);
+ //SDL_UpdateWindowSurface(id);
  result:= gue_ok;
 end;
 

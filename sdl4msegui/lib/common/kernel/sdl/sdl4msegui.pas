@@ -571,7 +571,7 @@ const
 type
  SDL_Cursor = ptruint;
 
- function SDL_GetMouseState(x,y: integer): byte; cdecl; external SDLLibName;
+ function SDL_GetMouseState(x,y: pinteger): byte; cdecl; external SDLLibName;
  function SDL_GetRelativeMouseState(x,y: integer): byte; cdecl; external SDLLibName;
  procedure SDL_WarpMouseInWindow(window: cardinal; x, y: integer); cdecl; external SDLLibName;
  function SDL_CreateCursor(const data: pbyte; const Umask: pbyte; w,h,hot_x,hot_y: integer): SDL_Cursor; cdecl; external SDLLibName;
