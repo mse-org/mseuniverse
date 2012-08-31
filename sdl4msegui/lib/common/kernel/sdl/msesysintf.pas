@@ -13,7 +13,7 @@ unit msesysintf; //i386-win32
 
 interface
 uses
- msesys,{msethread,}msetypes,msesystypes,msestrings,windows;
+ msesys,{msethread,}msetypes,msesystypes,msestrings,windows,sdl4msegui;
  
 {$include ..\msesysintf.inc}
 
@@ -25,7 +25,7 @@ var
 implementation
 uses
  sysutils,msebits,msefileutils,{msedatalist,}dateutils,
- msesystimer,msearrayutils,msesysintf1,msedynload;
+ {msesystimer,}msearrayutils,msesysintf1,msedynload;
 
 //todo: correct unicode implementation, long filepaths, stubs for win95
 
@@ -590,8 +590,7 @@ end;
 
 function sys_gettimeus: longword;
 begin
- result:= systimerus;
-// result:= gettickcount * 1000;
+ result:= SDL_GetTicks * 1000;
 end;
 {
 function sys_getlastsyserror: integer;

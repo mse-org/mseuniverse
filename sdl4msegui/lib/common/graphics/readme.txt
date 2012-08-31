@@ -1,1 +1,0 @@
-cairo needs context and surface for every window, than I add cairocontext and cairosurface in drawinfoty 
