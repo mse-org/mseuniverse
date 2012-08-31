@@ -1490,7 +1490,7 @@ function gui_postevent(event: tmseevent): guierrorty;
 // int1: integer;
 begin
  result:= gue_postevent;
- //SDL_PumpEvents;
+ SDL_PumpEvents;
  result:= gue_ok;
  {if windows.postmessage(applicationwindow,msemessage,longword(event),0) then begin
   result:= gue_ok;
@@ -1968,15 +1968,15 @@ begin
      //break;
     end;
     SDL_WINDOWEVENT :begin
-     if (e.win.event = SDL_WINDOWEVENT_ENTER) then begin
-      result:= twindowevent.create(ek_enterwindow,e.win.window);
-     end else if (e.win.event = SDL_WINDOWEVENT_LEAVE) then begin
-      result:= twindowevent.create(ek_leavewindow,e.win.window);
-     end else if (e.win.event = SDL_WINDOWEVENT_CLOSE) then begin
-      result:= twindowevent.create(ek_close,e.win.window);
+     if (e.window.event = SDL_WINDOWEVENT_ENTER) then begin
+      result:= twindowevent.create(ek_enterwindow,e.window.window);
+     end else if (e.window.event = SDL_WINDOWEVENT_LEAVE) then begin
+      result:= twindowevent.create(ek_leavewindow,e.window.window);
+     end else if (e.window.event = SDL_WINDOWEVENT_CLOSE) then begin
+      result:= twindowevent.create(ek_close,e.window.window);
      end else begin
       winrecttorect(rect1);
-      eventlist.add(twindowrectevent.create(ek_expose,e.win.window,rect1,nullpoint));
+      eventlist.add(twindowrectevent.create(ek_expose,e.window.window,rect1,nullpoint));
      end;
      break;
     end;
@@ -1987,7 +1987,7 @@ begin
     end;
     SDL_MOUSEMOTION: begin
      result:= tmouseevent.create(e.motion.window,false,mb_none,mw_none,
-                makepoint(e.motion.z,e.motion.y),[], MilliSecondOf(time)*1000);
+                makepoint(e.motion.x,e.motion.y),[], MilliSecondOf(time)*1000);
      //break;
     end;
    end;

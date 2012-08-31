@@ -208,11 +208,13 @@ type
  *  \brief Joystick axis motion event structure (event.jaxis.*)
  }
   SDL_JoyAxisEvent = packed record
-    type_: cardinal;
-    which: byte;
-    axis: byte;
-    pad: word;
-    value: integer;
+    type_: cardinal; //**< ::SDL_JOYAXISMOTION */
+    timestamp : cardinal;
+    which: byte; //**< The joystick device index */
+    axis: byte; //**< The joystick axis index */
+    padding1: byte;
+    padding2: byte;
+    value: integer; //**< The axis value (range: -32768 to 32767) */
   end;
 
 {*

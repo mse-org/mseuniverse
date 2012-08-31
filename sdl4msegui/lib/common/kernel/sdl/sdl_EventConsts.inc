@@ -341,52 +341,66 @@ const
                                  for array bounds }
 
 const
-    SDL_FIRSTEVENT     = 0;     // Unused (do not remove) */
+    SDL_FIRSTEVENT     = 0;     //*< Unused (do not remove) */
 
-    { Application events }
-    SDL_QUITEV         = $100;  // User-requested quit */
+    // Application events */
+    SDL_QUITEV           = $100; //*< User-requested quit */
 
-    { Window events }
-    SDL_WINDOWEVENT    = $200;  // Window state change */
-    SDL_SYSWMEVENT     = $201;  // System specific event */
+    // Window events */
+    SDL_WINDOWEVENT    = $200; //*< Window state change */
+    SDL_SYSWMEVENT     = $201;             //*< System specific event */
 
-    { Keyboard events }
-    SDL_KEYDOWN        = $300;  // Keys pressed */
-    SDL_KEYUP          = $301;  // Keys released */
-    SDL_TEXTEDITING    = $302;  // Keyboard text editing (composition) */
-    SDL_TEXTINPUT      = $303;  // Keyboard text input */
+    // Keyboard events */
+    SDL_KEYDOWN        = $300; //*< Key pressed */
+    SDL_KEYUP = $301;                  //*< Key released */
+    SDL_TEXTEDITING = $302;            //*< Keyboard text editing (composition) */
+    SDL_TEXTINPUT = $303;              //*< Keyboard text input */
 
-    { Mouse events }
-    SDL_MOUSEMOTION    = $400;  // Mouse moved */
-    SDL_MOUSEBUTTONDOWN= $401;  // Mouse button pressed */
-    SDL_MOUSEBUTTONUP  = $402;  // Mouse button released */
-    SDL_MOUSEWHEEL     = $403;  // Mouse wheel motion */
+    // Mouse events */
+    SDL_MOUSEMOTION    = $400; //*< Mouse moved */
+    SDL_MOUSEBUTTONDOWN = $401;        //*< Mouse button pressed */
+    SDL_MOUSEBUTTONUP = $402;          //*< Mouse button released */
+    SDL_MOUSEWHEEL = $403;             //*< Mouse wheel motion */
 
-    { Tablet events }
-    SDL_PROXIMITYIN    = $500;  // Proximity In event */
-    SDL_PROXIMITYOUT   = $501;  // Proximity Out event */
+    // Tablet or multiple mice input device events */
+    SDL_INPUTMOTION    = $500; //*< Input moved */
+    SDL_INPUTBUTTONDOWN = $501;        //*< Input button pressed */
+    SDL_INPUTBUTTONUP = $502;          //*< Input button released */
+    SDL_INPUTWHEEL = $503;             //*< Input wheel motion */
+    SDL_INPUTPROXIMITYIN = $504;       //*< Input pen entered proximity */
+    SDL_INPUTPROXIMITYOUT = $505;      //*< Input pen left proximity */
 
-    { Joystick events }
-    SDL_JOYAXISMOTION  = $600;  // Joystick axis motion */
-    SDL_JOYBALLMOTION  = $601;  // Joystick trackball motion */
-    SDL_JOYHATMOTION   = $602;  // Joystick hat position change */
-    SDL_JOYBUTTONDOWN  = $603;  // Joystick button pressed */
-    SDL_JOYBUTTONUP    = $604;  // Joystick button released */
+    // Joystick events */
+    SDL_JOYAXISMOTION  = $600; //*< Joystick axis motion */
+    SDL_JOYBALLMOTION  = $601;          //*< Joystick trackball motion */
+    SDL_JOYHATMOTION  = $602;           //*< Joystick hat position change */
+    SDL_JOYBUTTONDOWN  = $603;          //*< Joystick button pressed */
+    SDL_JOYBUTTONUP  = $604;            //*< Joystick button released */
 
-    { Obsolete events }
-    SDL_EVENT_COMPAT1 = $7000;  // SDL 1.2 events for compatibility */
-    SDL_EVENT_COMPAT2 = $7001;
-    SDL_EVENT_COMPAT3 = $7002;
+    // Touch events */
+    SDL_FINGERDOWN      = $700;
+    SDL_FINGERUP   = $701;
+    SDL_FINGERMOTION   = $702;
+    SDL_TOUCHBUTTONDOWN   = $703;
+    SDL_TOUCHBUTTONUP   = $7004;    
 
-    {* Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use,
-     *  and should be allocated with SDL_RegisterEvents()
-     }
-    SDL_USEREVENT     = $8000;
+    // Gesture events */
+    SDL_DOLLARGESTURE   = $800;
+    SDL_DOLLARRECORD   = $801;
+    SDL_MULTIGESTURE   = $802;
 
-    {*
-     *  This last event is only for bounding internal arrays
-     }
-    SDL_LASTEVENT     = $FFFF;
+    // Clipboard events */
+    SDL_CLIPBOARDUPDATE = $900; //*< The clipboard changed */
+
+    // Drag and drop events */
+    SDL_DROPFILE        = $1000; //*< The system requests a file open */
+
+    {//* Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use;
+     *  and should be allocated with SDL_RegisterEvents()}
+    SDL_USEREVENT    = $8000;
+
+     {*  This last event is only for bounding internal arrays}
+    SDL_LASTEVENT    = $FFFF;
 
 const
   SDL_QUERY	  = -1;
