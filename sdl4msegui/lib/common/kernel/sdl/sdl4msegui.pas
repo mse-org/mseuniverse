@@ -2,7 +2,7 @@ unit sdl4msegui;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msetypes,msesystypes,mseguiglob;
+ msetypes,msesystypes,mseguiglob,ctypes;
 {$i sdl2_types.inc}
 
 // base function
@@ -107,7 +107,7 @@ type
 {*
  *  \brief The SDL keysym structure, used in key events.
  }
-  SDL_Keysym = packed record
+  SDL_Keysym = record
    scancode: SDL_scancode; //**< SDL physical key code - see ::SDL_Scancode for details */
    sym: integer; //**< SDL virtual key code - see ::SDL_Keycode for details */
    mods: word; //**< current key modifiers */
@@ -131,7 +131,7 @@ type
 {*
  *  \brief Keyboard button event structure (event.key.*)
  *}
- SDL_KeyboardEvent = packed record
+ SDL_KeyboardEvent = record
   type_: cardinal; //**< ::SDL_KEYDOWN or ::SDL_KEYUP */
   timestamp: cardinal;
   window: winidty;
@@ -165,64 +165,43 @@ type
  *  \brief Mouse motion event structure (event.motion.*)
  }
  SDL_MouseMotionEvent = record
-   type_: cardinal;
-   window: winidty;
-   which: byte;
-   state: byte;
-   pad: word;
-   x: integer;
-   y: integer;
-   z: integer;
-   pressure: integer;
-   pressure_min: integer;
-   pressure_max: integer;
-   rotation: integer;
-   tilt_x: integer;
-   tilt_y: integer;
-   cursor: integer;
-   xrel: integer;
-   yrel: integer;
+  type_: cardinal;
+  timestamp: cardinal;
+  window: winidty;
+  state: byte; //**< The current button state */
+  padding1: byte;
+  padding2: byte;
+  padding3: byte;
+  x: integer; //**< X coordinate, relative to window */
+  y: integer; //**< Y coordinate, relative to window */
+  xrel: integer; //**< The relative motion in the X direction */
+  yrel: integer; //**< The relative motion in the Y direction */
  end;
 
 {*
  *  \brief Mouse button event structure (event.button.*)
  }
-  SDL_MouseButtonEvent = packed record
-    type_: cardinal;
-    window: winidty;
-    which: byte;
-    button: byte;
-    state: byte;
-    pad: byte;
-    x: integer;
-    y: integer;
-  end;
+ SDL_MouseButtonEvent = record
+  type_: cardinal; //**< ::SDL_MOUSEBUTTONDOWN or ::SDL_MOUSEBUTTONUP */
+  timestamp: cardinal;
+  window: winidty;
+  button: byte; //**< The mouse button index */
+  state: byte; //**< ::SDL_PRESSED or ::SDL_RELEASED */
+  padding1: byte;
+  padding2: byte;
+  x: integer; //**< X coordinate, relative to window */
+  y: integer; //**< Y coordinate, relative to window */  
+ end;
 
 {*
  *  \brief Mouse wheel event structure (event.wheel.*)
  }
-  SDL_MouseWheelEvent = packed record
-    type_: cardinal;
-    window: winidty;
-    which: byte;
-    pad1: byte;
-    pad2: word;
-    x: integer;
-    y: integer;
-  end;
-
-{*
- * \brief Tablet pen proximity event
- }
-  SDL_ProximityEvent = packed record
-    type_: cardinal;
-    window: winidty;
-    which: byte;
-    pad1: byte;
-    pad2: word;
-    cursor: integer;
-    x: integer;
-    y: integer;
+  SDL_MouseWheelEvent = record
+   type_ : cardinal;        //**< ::SDL_MOUSEWHEEL */
+   timestamp : cardinal;
+   window : winidty;        //**< The window with mouse focus, if any */
+   x: integer;              //**< The amount scrolled horizontally */
+   y: integer;              //**< The amount scrolled vertically */
   end;
 
 {*
@@ -253,7 +232,7 @@ type
 {*
  *  \brief Joystick hat position change event structure (event.jhat.*)
  }
-  SDL_JoyHatEvent = packed record
+  SDL_JoyHatEvent = record
     type_: cardinal;
     which: byte;
     hat: byte;
@@ -264,7 +243,7 @@ type
 {*
  *  \brief Joystick button event structure (event.jbutton.*)
  }
-  SDL_JoyButtonEvent = packed record
+  SDL_JoyButtonEvent = record
     type_: cardinal;
     which: byte;
     buton: byte;
@@ -272,17 +251,77 @@ type
     pad: byte;
   end;
 
+  SDL_TouchFingerEvent = record
+   type_ : cardinal;        //**< ::SDL_FINGERMOTION OR SDL_FINGERDOWN OR SDL_FINGERUP*/
+   timestamp: cardinal;
+   window: winidty;    //**< The window with mouse focus, if any */
+   touchID: cuint64;        //**< The touch device id */
+   fingerId: cuint64;
+   state: byte;        //**< The current button state */
+   padding1: byte;
+   padding2: byte;
+   padding3: byte;
+   x: Uint16;
+   y: Uint16;
+   dx: Uint16;
+   dy: Uint16;
+   pressure: Uint16;
+ end;
+
+ SDL_TouchButtonEvent = record
+  type_ : cardinal;        //**< ::SDL_TOUCHBUTTONUP OR SDL_TOUCHBUTTONDOWN */
+  timestamp: cardinal;
+  window: winidty;         //**< The window with mouse focus, if any */
+  touchID: cuint64;        //**< The touch device id */
+  state: byte;             //**< The current button state */
+  button: byte;            //**< The button changing state */
+  padding1: byte;
+ end; 
+
+ SDL_MultiGestureEvent = record
+  type_ : cardinal;        //**< ::SDL_MULTIGESTURE */
+  timestamp: cardinal;
+  window: winidty;         //**< The window with mouse focus, if any */
+  touchID: cuint64;        //**< The touch device id */
+  dTheta: double;
+  dDist: double;
+  x: double;  //currently 0...1. Change to screen coords?
+  y: double;  
+  numFingers: Uint16;
+  padding: Uint16;
+ end;
+
+ //* (event.dgesture.*) */
+ SDL_DollarGestureEvent = record
+  type_ : cardinal;        //**< ::SDL_DOLLARGESTURE */
+  timestamp: cardinal;
+  window: winidty;         //**< The window with mouse focus, if any */
+  touchID: cuint64;        //**< The touch device id */
+  gestureId: cuint64;
+  numFingers: cardinal;
+  error: double;
+  {//TODO: Enable to give location?
+  float x;  //currently 0...1. Change to screen coords?
+  float y;}
+ end;
+
+ SDL_DropEvent = record
+  type_ : cardinal;        //**< ::SDL_DROPFILE */
+  timestamp: cardinal;
+  filename: pchar;         //**< The file name, which should be freed with SDL_free() */
+ end;
+
 {*
  *  \brief The "quit requested" event
  }
-  SDL_QuitEvent = packed record
+  SDL_QuitEvent = record
     type_: cardinal;
   end;
 
 {*
  *  \brief A user-defined event type (event.user.*)
  }
-  SDL_User_Event = packed record
+  SDL_User_Event = record
     type_: cardinal;
     windowID: cardinal;
     code: integer;
@@ -293,31 +332,59 @@ type
 {*
  *  \brief A video driver dependent system event (event.syswm.*)
  }
-  SDL_SysWM_Event = packed record
+  SDL_SysWM_Event = record
      type_: cardinal;
      msg: pointer;
   end;
 
   SDL_Event = record
-    case UInt32 of
-      SDL_FIRSTEVENT: (type_: cardinal);
-      SDL_QUITEV: (quit: SDL_QuitEvent );
-      SDL_WINDOWEVENT: (win: SDL_Window_Event);
-      SDL_SYSWMEVENT: (syswin: SDL_SysWM_Event);
-      SDL_KEYDOWN, SDL_KEYUP: (key: SDL_KeyboardEvent);
-      SDL_TEXTEDITING: (edit: SDL_TextEditingEvent);
-      SDL_TEXTINPUT: (input: SDL_TextInputEvent);
-      SDL_MOUSEMOTION: (motion: SDL_MouseMotionEvent);
-      SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP: (button: SDL_MouseButtonEvent);
-      SDL_MOUSEWHEEL: (wheel: SDL_MouseWheelEvent);
-      SDL_PROXIMITYIN, SDL_PROXIMITYOUT: (prox: SDL_ProximityEvent);
-      SDL_JOYAXISMOTION: (jaxis: SDL_JoyAxisEvent );
-      SDL_JOYBALLMOTION: (jball: SDL_JoyBallEvent );
-      SDL_JOYHATMOTION: (jhat: SDL_JoyHatEvent );
-      SDL_JOYBUTTONDOWN, SDL_JOYBUTTONUP: (jbutton: SDL_JoyButtonEvent );
-      SDL_USEREVENT : ( user : SDL_User_Event );
+   case UInt32 of
+    SDL_FIRSTEVENT: (type_: cardinal); //**< Unused (do not remove) */
+    //application
+    SDL_QUITEV: (quit: SDL_QuitEvent ); //**< User-requested quit */
+    //window
+    SDL_WINDOWEVENT: (window: SDL_Window_Event); //**< Window state change */
+    SDL_SYSWMEVENT: (syswin: SDL_SysWM_Event); //**< System specific event */
+    //keyboard
+    SDL_KEYDOWN: (keydown: SDL_KeyboardEvent); //**< Key pressed */
+    SDL_KEYUP: (keyup: SDL_KeyboardEvent); //**< Key released */
+    SDL_TEXTEDITING: (edit: SDL_TextEditingEvent); //**< Keyboard text editing (composition) */
+    SDL_TEXTINPUT: (text: SDL_TextInputEvent); //**< Keyboard text input */
+    //mouse
+    SDL_MOUSEMOTION: (motion: SDL_MouseMotionEvent); //**< Mouse moved */
+    SDL_MOUSEBUTTONDOWN,SDL_MOUSEBUTTONUP: (button: SDL_MouseButtonEvent); //**< Mouse button pressed */
+    SDL_MOUSEWHEEL: (wheel: SDL_MouseWheelEvent); //**< Mouse wheel motion */
+    //* Tablet or multiple mice input device events */
+    {SDL_INPUTMOTION    = 0x500, /**< Input moved */
+    SDL_INPUTBUTTONDOWN,        /**< Input button pressed */
+    SDL_INPUTBUTTONUP,          /**< Input button released */
+    SDL_INPUTWHEEL,             /**< Input wheel motion */
+    SDL_INPUTPROXIMITYIN,       /**< Input pen entered proximity */
+    SDL_INPUTPROXIMITYOUT,      /**< Input pen left proximity */}
+    //* Joystick events */
+    SDL_JOYAXISMOTION: (jaxis: SDL_JoyAxisEvent );
+    SDL_JOYBALLMOTION: (jball: SDL_JoyBallEvent );
+    SDL_JOYHATMOTION: (jhat: SDL_JoyHatEvent );
+    SDL_JOYBUTTONDOWN, SDL_JOYBUTTONUP: (jbutton: SDL_JoyButtonEvent );
+    //* Touch events */
+    SDL_FINGERDOWN,SDL_FINGERUP: (tfinger: SDL_TouchFingerEvent);
+    //SDL_FINGERMOTION,
+    SDL_TOUCHBUTTONDOWN,SDL_TOUCHBUTTONUP: (tbutton: SDL_TouchButtonEvent);  
+    //* Gesture events */
+    SDL_DOLLARGESTURE: (dgesture: SDL_DollarGestureEvent);
+    //SDL_DOLLARRECORD,
+    SDL_MULTIGESTURE: (mgesture: SDL_MultiGestureEvent);
+    //* Clipboard events */
+    //SDL_CLIPBOARDUPDATE = 0x900, /**< The clipboard changed */ 
+    // Drag and drop events */
+    SDL_DROPFILE : (drop: SDL_DropEvent);  
+    {/** Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use,
+     *  and should be allocated with SDL_RegisterEvents()}
+    SDL_USEREVENT: (user: SDL_User_Event);
+    //SDL_LASTEVENT    = 0xFFFF
+   //end;
   end;
-  PSdlEvent = ^SDL_Event;
+  PSDLEvent = ^SDL_Event;
 
   SDL_EventAction = (SdlAddEvent, SdlPeekEvent, SdlGetEvent);
 

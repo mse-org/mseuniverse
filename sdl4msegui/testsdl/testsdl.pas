@@ -4,8 +4,8 @@ program testsdl;
  {$ifdef mswindows}{$apptype gui}{$endif}
 {$endif}
 uses
- {.$define testlib} //test SDL lib
- {$define testgui} //test MSEgui
+ {$define testlib} //test SDL lib
+ {.$define testgui} //test MSEgui
  
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
  {$ifdef testgui}msegui,mseforms,main,form2,{$endif}msesysutils,sdl4msegui,msetypes,sysutils;
@@ -76,9 +76,9 @@ begin
      break;
     end;
     SDL_WINDOWEVENT :begin
-     if (e.win.event = SDL_WINDOWEVENT_MAXIMIZED) then begin
+     if (e.window.event = SDL_WINDOWEVENT_MAXIMIZED) then begin
       debugwriteln('maximized');
-     end else if (e.win.event = SDL_WINDOWEVENT_CLOSE) then begin
+     end else if (e.window.event = SDL_WINDOWEVENT_CLOSE) then begin
       debugwriteln('Close');
      end;
     end;
@@ -86,12 +86,12 @@ begin
      //debugwriteln('press key : '+e.key.keysym);
     end;
     SDL_TEXTINPUT :begin
-     debugwriteln(e.input.text);
+     debugwriteln(e.text.text);
     end;
     SDL_MOUSEMOTION: begin
      changecolor;
-     SDL_RenderDrawPoint(renderer,e.motion.y,e.motion.z);
-     debugwriteln('mouse move :'+inttostr(e.motion.z)+' - '+inttostr(e.motion.y));
+     SDL_RenderDrawPoint(renderer,e.motion.x,e.motion.y);
+     debugwriteln('mouse move :'+inttostr(e.motion.x)+' - '+inttostr(e.motion.y));
     end;
    end;
   end;
