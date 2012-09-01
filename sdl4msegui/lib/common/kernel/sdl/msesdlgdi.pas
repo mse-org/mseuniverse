@@ -7,12 +7,12 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 }
-unit msecairogdi;
+unit msesdlgdi;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msegraphics,msetypes,msestrings,mseguiglob,cairo,msebitmap
- {$IFDEF windows},windows,cairowin32{$ENDIF};
+ msegraphics,msetypes,msestrings,mseguiglob,sdl4msegui,msebitmap
+ {$IFDEF windows},windows{$ENDIF},msesysutils;
 
 const
  radtodeg = 360/(2*pi);
@@ -20,10 +20,10 @@ const
 procedure init;
 procedure deinit; 
 
-function cairogetgdifuncs: pgdifunctionaty;
-//function cairogetgdinum: integer;
-procedure cairoinitdefaultfont;
-function cairogetdefaultfontnames: defaultfontnamesty;
+function sdlgetgdifuncs: pgdifunctionaty;
+//function sdlgetgdinum: integer;
+procedure sdlinitdefaultfont;
+function sdlgetdefaultfontnames: defaultfontnamesty;
 
 
 implementation
@@ -58,7 +58,7 @@ const
   //stf_helvetica stf_roman          stf_courier
     'Arial',     'Times New Roman', 'Courier New');
 
-function cairogetdefaultfontnames: defaultfontnamesty;
+function sdlgetdefaultfontnames: defaultfontnamesty;
 begin
  result:= defaultfontnames;
 end;
@@ -84,17 +84,22 @@ begin
  end;
 end;
 
-//function cairocreategc(paintdevice: paintdevicety; const akind: gckindty; 
-//              var gc: gcty; const aprintername: msestring): guierrorty;
 procedure gdi_creategc(var drawinfo: drawinfoty);
 begin
  with drawinfo.creategc do begin
   gcpo^.gdifuncs:= gui_getgdifuncs;
-  error:= gde_creategc;
-  gcpo^.handle:= createcompatibledc(0);
-  if gcpo^.handle <> 0 then begin
-   drawinfo.cairosurface:= cairo_win32_surface_create(gcpo^.handle);
+  case kind of
+   gck_pixmap: begin
+    error:= gde_creategc;
+    gcpo^.handle:= SDL_CreateSoftwareRenderer(drawinfo.createpixmap.pixmap);
+   end;
+   gck_screen: begin
+    error:= gde_creategc;
+    gcpo^.handle:= SDL_CreateRenderer(drawinfo.creategc.paintdevice,-1,SDL_RENDERER_ACCELERATED);
+   end;
   end;
+  error:= gde_ok;
+  debugwriteln('creategc');
  end;
 end;
 
@@ -104,7 +109,7 @@ var
 begin
  with drawinfo do begin
   rgbcolor:= colortorgb(foregroundcol);
-  cairo_set_source_rgb (cairocontext,rgbcolor.red,rgbcolor.green,rgbcolor.blue);
+  sdl_set_source_rgb (paintdevice,rgbcolor.red,rgbcolor.green,rgbcolor.blue);
   if df_opaque in drawingflags then begin
    //setbkmode(handle,opaque);
    setbkcolor(handle,backgroundcol);
@@ -252,12 +257,10 @@ end;
  
 procedure gdi_destroygc(var drawinfo: drawinfoty);
 begin
- with drawinfo.gc do begin
-   deletedc(handle);
- end;
+ SDL_DestroyRenderer(drawinfo.paintdevice);
 end;
 
-function cairoimage(aimage: imagety; aformat:cairo_format_t): Pcairo_surface_t;
+{function sdlimage(aimage: imagety; aformat:sdl_format_t): Psdl_surface_t;
 var
  sourcerowstep: integer;
  rowshiftleft,rowshiftright: byte;
@@ -268,7 +271,7 @@ var
  acolor: rgbtriplety;
 begin
  if aimage.monochrome then begin
-  result:= nil;
+  //result:= nil;
   stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
   int1:= aimage.size.cy*stridewidth;
   adata:= pbyte(gui_allocimagemem(int1));
@@ -285,9 +288,9 @@ begin
    po2^:= po1^.res;
    inc(po2);
   end;}
-  result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
+  result:= sdl_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
  end else begin
-  result:= nil;
+  //result:= nil;
   stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
   int1:= aimage.size.cy*stridewidth;
   adata:= pbyte(gui_allocimagemem(int1));
@@ -305,7 +308,7 @@ begin
   end;
   result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
  end; 
-end;
+end;}
 
 procedure gdi_changegc(var drawinfo: drawinfoty);
 var
@@ -314,16 +317,15 @@ var
  ar1: rectarty;
  dashesarty: realarty;
  rgbcolor: rgbtriplety;
- fslant: cairo_font_slant_t;
- fweight: cairo_font_weight_t;
+ //fslant: cairo_font_slant_t;
+ //fweight: cairo_font_weight_t;
  pt1: pointty;
- fmatrix,fontmatrix: cairo_matrix_t;
- ffontextent: cairo_font_extents_t;
+ //fmatrix,fontmatrix: cairo_matrix_t;
+ //ffontextent: cairo_font_extents_t;
  height1,width1: integer;
  image: imagety;
- fsurface1 : Pcairo_surface_t;
+ //fsurface1 : Pcairo_surface_t;
  lwidth: real;
- cpattern: Pcairo_pattern_t;
 begin
  ar1:= nil; //compiler warning
  with drawinfo,gcvalues^ do begin
@@ -343,89 +345,87 @@ begin
     dashesarty[0]:= 0.0;
     ndash:= 0;
    end;
-   cairo_set_dash(cairocontext, pointer(dashesarty), ndash, 0);
+   //cairo_set_dash(fcairo.context, pointer(dashesarty), ndash, 0);
   end;
-  if (tcanvas(getcanvasclass.canvasclass).brush <> nil) and 
+  if (brush <> nil) and 
             ([gvm_brush,gvm_brushorigin] * mask <> []) then begin
-   msebitmap.tbitmap(tcanvas(getcanvasclass.canvasclass).brush).savetoimage(image);
+   msebitmap.tbitmap(brush).savetoimage(image);
    if image.length>0 then begin 
-    fsurface1:= cairoimage(image,CAIRO_FORMAT_A1);
+    //fsurface1:= cairoimage(image,CAIRO_FORMAT_A1);
     image.pixels:= nil;
-    cpattern:= nil;
-    cpattern:= cairo_pattern_create_for_surface(fsurface1);
-    cairo_pattern_destroy(cpattern); 
-    cpattern:= nil;
-    cairo_surface_destroy(fsurface1);
-    fsurface1:= nil;
+    //cpattern:= nil;
+    //cpattern:= cairo_pattern_create_for_surface(fsurface1);
+    //cairo_surface_destroy(fsurface1);
+    //fsurface1:= nil;
    end;
   end;
-  if (df_brush in gc.drawingflags) and (cpattern<>nil) then begin
-   rect2:= makerect(tcanvas(getcanvasclass.canvasclass).brushorigin,tsimplebitmap(tcanvas(getcanvasclass.canvasclass).brush).size);
+  {if (df_brush in gc.drawingflags) and (cpattern<>nil) then begin
+   rect2:= makerect(self.brushorigin,tsimplebitmap(self.brush).size);
    cairo_matrix_init_scale(@fmatrix, rect2.cx, rect2.cy);
    cairo_pattern_set_matrix(cpattern, @fmatrix);
    cairo_pattern_set_extend (cpattern, CAIRO_EXTEND_REPEAT);
-   cairo_set_source(cairocontext,cpattern);
-   cairo_fill(cairocontext);
+   cairo_set_source(fcairo.context,cpattern);
+   cairo_fill(fcairo.context);
    image.pixels:= nil;
-  end else begin
+  end else begin}
    if gvm_colorforeground in mask then begin
     rgbcolor:= colortorgb(acolorforeground);
-    cairo_set_source_rgb (cairocontext,rgbcolor.red,rgbcolor.green,rgbcolor.blue);
+    SDL_SetRenderDrawColor(paintdevice,rgbcolor.red,rgbcolor.green,rgbcolor.blue,0);
    end;
-  end;
-  if gvm_font in mask then begin
-   cairo_set_font_size (cairocontext, tcanvas(getcanvasclass.canvasclass).font.height);  
+  //end;
+  {if gvm_font in mask then begin
+   cairo_set_font_size (fcairo.context, self.font.height);  
    fweight:= CAIRO_FONT_WEIGHT_NORMAL;
    fslant:= CAIRO_FONT_SLANT_NORMAL;
-   if fs_bold in tcanvas(getcanvasclass.canvasclass).font.style then begin
+   if fs_bold in self.font.style then begin
     fweight:= CAIRO_FONT_WEIGHT_BOLD;
    end;
-   if fs_italic in tcanvas(getcanvasclass.canvasclass).font.style then begin
+   if fs_italic in self.font.style then begin
     fslant:= CAIRO_FONT_SLANT_ITALIC;
    end;
-   cairo_select_font_face (cairocontext, pchar(tcanvas(getcanvasclass.canvasclass).font.name),fslant,fweight);
+   cairo_select_font_face (fcairo.context, pchar(self.font.name),fslant,fweight);
    //if (fx<>1) or (fy<>1) then begin
-   {if fcairo.dpix>fcairo.dpiy then begin
-    cairo_get_font_matrix(cairocontext,@fontmatrix);
+   if fcairo.dpix>fcairo.dpiy then begin
+    cairo_get_font_matrix(fcairo.context,@fontmatrix);
     cairo_matrix_scale(@fontmatrix, fx, fy);
-    cairo_set_font_matrix(cairocontext,@fontmatrix);
-   end;}
+    cairo_set_font_matrix(fcairo.context,@fontmatrix);
+   end;
   end;
   if gvm_linewidth in mask then begin
-   if tcanvas(getcanvasclass.canvasclass).linewidth = 0 then begin
+   if self.linewidth = 0 then begin
     lwidth:= 0.3;
    end else begin
-    lwidth:= tcanvas(getcanvasclass.canvasclass).linewidthmm;
+    lwidth:= self.linewidthmm;
    end;
-   cairo_set_line_width (cairocontext, lwidth);
+   cairo_set_line_width (fcairo.context, lwidth);
   end;
   if gvm_capstyle in mask then begin
    case lineinfo.capstyle of
-    cs_round: cairo_set_line_cap(cairocontext,CAIRO_LINE_CAP_ROUND);
-    cs_projecting: cairo_set_line_cap(cairocontext,CAIRO_LINE_CAP_SQUARE);
-    else cairo_set_line_cap(cairocontext,CAIRO_LINE_CAP_BUTT)
+    cs_round: cairo_set_line_cap(fcairo.context,CAIRO_LINE_CAP_ROUND);
+    cs_projecting: cairo_set_line_cap(fcairo.context,CAIRO_LINE_CAP_SQUARE);
+    else cairo_set_line_cap(fcairo.context,CAIRO_LINE_CAP_BUTT)
    end;
   end;
   if gvm_joinstyle in mask then begin
    case lineinfo.joinstyle of
-    js_round: cairo_set_line_join(cairocontext,CAIRO_LINE_JOIN_ROUND);
-    js_bevel: cairo_set_line_join(cairocontext,CAIRO_LINE_JOIN_BEVEL);
-    else cairo_set_line_join(cairocontext,CAIRO_LINE_JOIN_MITER);
+    js_round: cairo_set_line_join(fcairo.context,CAIRO_LINE_JOIN_ROUND);
+    js_bevel: cairo_set_line_join(fcairo.context,CAIRO_LINE_JOIN_BEVEL);
+    else cairo_set_line_join(fcairo.context,CAIRO_LINE_JOIN_MITER);
    end;
-  end;
-  if gvm_clipregion in mask then begin
-   cairo_save(cairocontext);
+  end;}
+  {if gvm_clipregion in mask then begin
+   cairo_save(fcairo.context);
    if clipregion <> 0 then begin
     ar1:= gui_regiontorects(clipregion);
     for int1:= 0 to high(ar1) do begin
      pt1:= addpoint(ar1[int1].pos,gc.cliporigin);
-     cairo_rectangle(cairocontext, pt1.x, pt1.y, ar1[int1].size.cx, ar1[int1].size.cy);
-     cairo_fill(cairocontext);
-     cairo_clip(cairocontext);
+     cairo_rectangle(fcairo.context, pt1.x, pt1.y, ar1[int1].size.cx, ar1[int1].size.cy);
+     cairo_fill(fcairo.context);
+     cairo_clip(fcairo.context);
     end;
    end;
-   cairo_restore (cairocontext)
-  end;
+   cairo_restore (fcairo.context)
+  end;}
  end;
 end;
 
@@ -437,11 +437,13 @@ end;
 procedure gdi_endpaint(var drawinfo: drawinfoty); //gdifunc
 begin
  //dummy
+ SDL_RenderPresent(drawinfo.paintdevice);
 end;
 
 procedure gdi_flush(var drawinfo: drawinfoty); //gdifunc
 begin
  //dummy
+ SDL_RenderClear(drawinfo.paintdevice);
 end;
 
 procedure gdi_movewindowrect(var drawinfo: drawinfoty); //gdifunc
@@ -459,19 +461,20 @@ var
 begin
  startpoint.x:= points^.x;
  startpoint.y:= points^.y;
- cairo_move_to (drawinfo.cairocontext, startpoint.x,startpoint.y);
  for int1:= 1 to lastpoint do begin
-  cairo_line_to (drawinfo.cairocontext, ppointaty(points)^[int1].x, ppointaty(points)^[int1].y);
+  SDL_RenderDrawLine(drawinfo.paintdevice,startpoint.x,startpoint.y,
+    ppointaty(points)^[int1].x, ppointaty(points)^[int1].y);
+  if (int1=lastpoint) and closed then begin
+   SDL_RenderDrawLine(drawinfo.paintdevice,ppointaty(points)^[int1].x, ppointaty(points)^[int1].y,
+     startpoint.x, startpoint.y);
+  end;
  end;
- if closed then begin
-  cairo_line_to (drawinfo.cairocontext, startpoint.x, startpoint.y);
- end;
- if fill then begin
-  cairo_fill(drawinfo.cairocontext);
+ {if fill then begin
+  cairo_fill(fcairo.context);
  end
  else begin
-  cairo_stroke(drawinfo.cairocontext);
- end;
+  cairo_stroke(fcairo.context);
+ end;}
 end;
 
 procedure gdi_drawlines(var drawinfo: drawinfoty);
@@ -495,13 +498,7 @@ end;
 
 procedure handleellipse(var drawinfo: drawinfoty; const rect: rectty; const fill: boolean);
 begin
- with rect do begin
-  cairo_arc (drawinfo.cairocontext, pos.x, pos.y, cx div 2, 0, 360);
-  cairo_stroke(drawinfo.cairocontext);
- end;
- if fill then begin
-  cairo_fill(drawinfo.cairocontext);
- end;
+ debugwriteln('handleellipse');
 end;
 
 procedure gdi_drawellipse(var drawinfo: drawinfoty);
@@ -525,92 +522,23 @@ end;
 
 procedure gdi_drawarc(var drawinfo: drawinfoty);
 begin
- with drawinfo,drawinfo.arc,rect^ do begin
-  cairo_new_path(cairocontext);
-  if cy = cx then begin
-   cairo_arc(cairocontext,x+origin.x,y+origin.y,cx div 2, startang*radtodeg, extentang*radtodeg);
-  end
-  else begin
-   cairo_translate(cairocontext,pos.x,pos.y);
-   cairo_scale(cairocontext,0,0.5);
-   cairo_arc (cairocontext,x+origin.x,y+origin.y, cx div 2, startang*radtodeg, extentang*radtodeg);
-  end;
-  cairo_stroke(cairocontext);
- end;
-end;
-
-procedure cairopos(var drawinfo: drawinfoty; const apos: pointty);
-begin
- cairo_move_to(drawinfo.cairocontext, apos.x, apos.y);
+ debugwriteln('drawarc');
 end;
 
 procedure gdi_drawstring16(var drawinfo: drawinfoty);
-var
- rea1,rea2: real;
- int1: integer;
- te: cairo_text_extents_t;
- str1: pchar;
- char1: msestring;
- xx,yy: real;
- str2: msestring;
 begin
- with drawinfo,drawinfo.text16pos do begin
-  cairopos(drawinfo,pos^);
-  rea1:= tfont1(tcanvas(getcanvasclass.canvasclass).font).rotation;
-  if rea1<>0 then begin
-   cairo_rotate(cairocontext,-rea1);
-  end;
-  {if fcairo.printtextasgraphic then begin
-   str2:= msestrlcopy(text,count);
-   str1:= pchar(stringtoutf8(str2));
-   cairo_text_path (fcairo.context, str1);
-   cairo_fill(fcairo.context);
-  end else begin}
-   {if (fcairo.outputformat=cai_GDIPrinter) and (fcairo.dpix<>fcairo.dpiy) then begin
-    xx:= pos^.x;
-    yy:= pos^.y;
-    str2:= msestrlcopy(text,count);
-    for int1:=1 to length(str2) do begin
-     char1:= copy(str2,int1,1);
-     str1:= pchar(stringtoutf8(char1));
-     cairo_text_extents(fcairo.context, str1, @te);
-     cairo_show_text(fcairo.context, str1);
-     if fcairo.dpix>fcairo.dpiy then begin
-      rea2:= te.x_advance*(fcairo.dpix/fcairo.dpiy);
-     end else begin
-      rea2:= te.x_advance;
-     end;
-     xx:= xx+ rea2;
-     cairo_move_to(fcairo.context,xx,yy);
-    end;
-   end else begin}
-    str2:= msestrlcopy(text,count);
-    str1:= pchar(stringtoutf8(str2));
-    //str1:= pchar(UTF8Encode(str2));
-	   cairo_show_text(cairocontext, str1); 
-	//end;
-  //end;
-  if rea1<>0 then begin
-   cairo_rotate(cairocontext,(rea1));
-  end;
- end;
+ debugwriteln('drawstring16');
 end;
 
 procedure gdi_fillrect(var drawinfo: drawinfoty);
 var
- points1: array[0..3] of pointty;
+ rect1: SDL_Rect;
 begin
- with drawinfo.rect.rect^ do begin
-  points1[0].x:= x;
-  points1[0].y:= y;
-  points1[1].x:= x+cx;
-  points1[1].y:= y;
-  points1[2].x:= x+cx;
-  points1[2].y:= y+cy;
-  points1[3].x:= x;
-  points1[3].y:= y+cy;
-  handlepoly(drawinfo,@points1,high(points1),true,true);
- end;
+ rect1.x:= drawinfo.rect.rect^.x;
+ rect1.y:= drawinfo.rect.rect^.y;
+ rect1.w:= drawinfo.rect.rect^.cx;
+ rect1.h:= drawinfo.rect.rect^.cy;
+ SDL_RenderFillRect(drawinfo.paintdevice,@rect1);
 end;
 
 procedure gdi_fillelipse(var drawinfo: drawinfoty);
@@ -620,25 +548,7 @@ end;
 
 procedure gdi_fillarc(var drawinfo: drawinfoty);
 begin
- with drawinfo,drawinfo.arc,rect^ do begin
-  cairo_save(cairocontext);
-  cairo_new_sub_path(cairocontext);
-  if pieslice then begin
-   cairopos(drawinfo,pos);
-  end;
-  if cy = cx then begin
-   cairo_arc(cairocontext,x+origin.x,y+origin.y,cx div 2,startang*radtodeg,extentang*radtodeg);
-  end
-  else begin
-   cairo_translate(cairocontext,pos.x,pos.y);
-   cairo_scale(cairocontext,0,0.5);
-   cairo_arc (cairocontext,x+origin.x,y+origin.y, cx div 2, startang*radtodeg, extentang*radtodeg);
-  end;
-  //cairo_close_path(fcairo.context);
-  //cairo_clip(fcairo.context);
-  cairo_fill(cairocontext);
-  cairo_restore(cairocontext);
- end;
+ debugwriteln('fillarc');
 end;
 
 procedure gdi_fillpolygon(var drawinfo: drawinfoty);
@@ -649,98 +559,8 @@ begin
 end;
 
 procedure gdi_copyarea(var drawinfo: drawinfoty);
-var
- cimage: Pcairo_surface_t; 
- image: imagety;
- maskbefore: tsimplebitmap;
- aresize: boolean;
- ax,ay: double;
- fcairoop: cairo_operator_t;
 begin
- with drawinfo,copyarea do begin
-  if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
-   exit;
-  end;
-  if mask<>nil then begin
-   maskbefore:= mask;
-   mask.canvas.copyarea(maskbefore.canvas,sourcerect^,nullpoint,rop_nor);
-  end;
-  with tcanvas1(source).fdrawinfo do begin
-   gdi_lock;
-   gui_pixmaptoimage(paintdevice,image,gc.handle);
-   gdi_unlock;
-  end;
-  if alignment * [al_stretchx,al_stretchy,al_fit] <> [] then begin
-   ax:= 1;
-   ay:= 1;
-   if al_fit in alignment then begin
-    ax:= destrect^.size.cx/image.size.cx;
-    ay:= destrect^.size.cy/image.size.cy;
-    if ax>ay then 
-     ay:= ax
-    else
-     ax:= ay;
-   end else if al_stretchx in alignment then begin
-    ax:= destrect^.size.cx/image.size.cx;
-    if al_stretchy in alignment then begin
-     ay:= destrect^.size.cy/image.size.cy;
-    end;
-   end else if al_stretchy in alignment then begin
-    ay:= destrect^.size.cy/image.size.cy;
-    if al_stretchx in alignment then begin
-     ax:= destrect^.size.cx/image.size.cx;
-    end;
-   end;
-   aresize:= true;
-  end else begin
-   aresize:= false;
-   ay:= 1;
-   ax:= 1;
-  end;
-  cairo_save(cairocontext);
-  cimage:= cairoimage(image,CAIRO_FORMAT_RGB24);
-  if aresize then begin
-   cairo_scale(cairocontext,ax,ay);
-   cairo_set_source_surface (cairocontext, cimage, (destrect^.pos.x - sourcerect^.pos.x)/ax, (destrect^.pos.y - sourcerect^.pos.y)/ay);
-   cairo_rectangle (cairocontext, destrect^.pos.x/ax, destrect^.pos.y/ay, destrect^.size.cx/ax, destrect^.size.cy/ay);
-   cairo_fill (cairocontext);
-  end else begin
-   cairo_set_source_surface (cairocontext, cimage, destrect^.pos.x - sourcerect^.pos.x, destrect^.pos.y - sourcerect^.pos.y);
-   cairo_rectangle (cairocontext, destrect^.pos.x, destrect^.pos.y, destrect^.size.cx, destrect^.size.cy);
-   cairo_fill (cairocontext);
-  end;
-  cairo_surface_destroy(cimage);
-  cimage:= nil;
-  if mask<>nil then begin
-   gdi_lock;
-   gui_pixmaptoimage(mask.handle,image,mask.canvas.gchandle);
-   gdi_unlock;
-   if image.length>0 then begin 
-    cimage:= cairoimage(image,CAIRO_FORMAT_RGB24);
-    fcairoop:= cairo_get_operator(cairocontext);
-    cairo_set_operator (cairocontext, CAIRO_OPERATOR_ADD);
-    if aresize then begin
-     cairo_rectangle (cairocontext, destrect^.pos.x/ax, destrect^.pos.y/ay, destrect^.size.cx/ax, destrect^.size.cy/ay);
-     cairo_clip(cairocontext);
-     cairo_set_source_surface (cairocontext, cimage, (destrect^.pos.x - sourcerect^.pos.x)/ax, (destrect^.pos.y - sourcerect^.pos.y)/ay);
-    end else begin
-     cairo_rectangle (cairocontext, destrect^.pos.x, destrect^.pos.y, destrect^.size.cx, destrect^.size.cy);
-     cairo_clip(cairocontext);
-     cairo_set_source_surface (cairocontext, cimage, destrect^.pos.x - sourcerect^.pos.x, destrect^.pos.y - sourcerect^.pos.y);
-    end;
-    cairo_paint (cairocontext);
-    //gui_freeimagemem(image.pixels);
-    //image.pixels:= nil;
-    cairo_surface_destroy(cimage);
-    cimage:= nil;
-    cairo_set_operator (cairocontext, fcairoop);
-   end;
-  end;
-  if aresize then begin
-   cairo_scale(cairocontext,1/ax,1/ay);
-  end;
-  cairo_restore(cairocontext);
- end; 
+ debugwriteln('copyarea');
 end;
 
 procedure gdi_getimage(var drawinfo: drawinfoty); //gdifunc
@@ -802,7 +622,7 @@ begin
 end;
 
 
-procedure cairoinitdefaultfont;
+procedure sdlinitdefaultfont;
 var
  dc1: hdc;
  bo1: boolean;
@@ -908,17 +728,17 @@ const
 //var
 // gdinumber: integer;
 
-function cairogetgdifuncs: pgdifunctionaty;
+function sdlgetgdifuncs: pgdifunctionaty;
 begin
  result:= @gdifunctions;
 end;
 {
-function cairogetgdinum: integer;
+function sdlgetgdinum: integer;
 begin
  result:= gdinumber;
 end;
 
 initialization
- gdinumber:= registergdi(cairogetgdifuncs);
+ gdinumber:= registergdi(sdlgetgdifuncs);
 }
 end.

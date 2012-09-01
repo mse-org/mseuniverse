@@ -11,11 +11,11 @@ unit msesystimer;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseguiglob,mselist,msetypes,windows;
+ mseguiglob,mselist,msetypes,dateutils,sysutils,sdl4msegui;
  
 function setsystimer(us: longword): guierrorty;
                //send et_timer event after delay or us (micro seconds)
-procedure systimerinit(const aeventlist: tobjectqueue; const apphandle: hwnd);
+procedure systimerinit(const aeventlist: tobjectqueue; const apphandle: winidty);
 procedure systimerdeinit;
 function systimerus: longword;
 function setmmtimer(const avalue: boolean): boolean;
@@ -33,62 +33,18 @@ const
   TIME_CALLBACK_EVENT_SET   = $0010;  { callback is event - use SetEvent }
   TIME_CALLBACK_EVENT_PULSE = $0020;  { callback is event - use PulseEvent }
 
-type 
-  MMRESULT = Longint;
-  PTimeCaps = ^TTimeCaps;
-  timecaps_tag = record
-    wPeriodMin: UINT;     { minimum period supported  }
-    wPeriodMax: UINT;     { maximum period supported  }
-  end;
-  TTimeCaps = timecaps_tag;
-  TIMECAPS = timecaps_tag;
-  TFNTimeCallBack = procedure(uTimerID, uMessage: UINT;
-    dwUser, dw1, dw2: DWORD) stdcall;
-var
- timeKillEvent: function (uTimerID: UINT): MMRESULT; stdcall;
- timeGetDevCaps: function (lpTimeCaps: PTimeCaps;
-                                    uSize: UINT): MMRESULT; stdcall;
- timeBeginPeriod: function (uPeriod: UINT): MMRESULT; stdcall;
- timeEndPeriod: function (uPeriod: UINT): MMRESULT; stdcall;
- timeSetEvent: function (uDelay, uResolution: UINT;
-  lpFunction: TFNTimeCallBack; dwUser: DWORD; uFlags: UINT): MMRESULT; stdcall;
- timeGetTime: function: DWORD; stdcall;
-
 var
  eventlist: tobjectqueue;
- applicationhandle: hwnd;
+ applicationhandle: winidty;
 
  timer: longword;
- mmtimer: mmresult;
  usemmtimer: boolean = false;
  hasmmtimer: boolean = false;
  mmtimerchecked: boolean = false;
-// mmtimershift: longword;
- ticaps: ttimecaps;
-// perfref: qword;
-// perffrequ: qword;
 
 function checkmmtimer: boolean;
 begin
  result:= hasmmtimer;
- if not result and not mmtimerchecked then begin
-  mmtimerchecked:= true;
-  hasmmtimer:= checkprocaddresses(['winmm.dll'],
-   ['timeKillEvent',
-    'timeGetDevCaps',
-    'timeBeginPeriod',
-    'timeEndPeriod',
-    'timeSetEvent',
-    'timeGetTime'],
-   [{$ifndef FPC}@{$endif}@timeKillEvent,
-    {$ifndef FPC}@{$endif}@timeGetDevCaps,
-    {$ifndef FPC}@{$endif}@timeBeginPeriod,
-    {$ifndef FPC}@{$endif}@timeEndPeriod,
-    {$ifndef FPC}@{$endif}@timeSetEvent,
-    {$ifndef FPC}@{$endif}@timeGetTime]);
-  result:= hasmmtimer and 
-              (timegetdevcaps(@ticaps,sizeof(timecaps)) = MMSYSERR_NOERROR);
- end;
 end;
 
 function setmmtimer(const avalue: boolean): boolean;
@@ -108,22 +64,18 @@ end;
 function systimerus: longword;
 begin
  if usemmtimer then begin
-  result:= timegettime() * 1000;
+  result:= MilliSecondOf(time) * 1000;
  end
  else begin
-  result:= gettickcount * 1000;
+  result:= SDL_GetTicks * 1000;
  end;
 end;
 
 procedure killtimer;
 begin
  if timer <> 0 then begin
-  windows.killtimer(0,timer);
+  SDL_RemoveTimer(timer);
   timer:= 0;
- end;
- if mmtimer <> 0 then begin
-  timekillevent(mmtimer);
-  mmtimer:= 0;
  end;
 end;
 

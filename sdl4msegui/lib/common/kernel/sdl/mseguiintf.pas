@@ -7,7 +7,7 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 }
-unit mseguiintf; //i386-win32
+unit mseguiintf;
 
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 
@@ -16,17 +16,11 @@ uses
  {windows,messages,}mseapplication,msetypes,msegraphutils,
  mseevent,msepointer,mseguiglob,msegraphics,
  msethread,mseformatstr,{msesysintf,}msestrings,msesystypes,msewinglob,
- sdl4msegui;
+ sdl4msegui,msesdlgdi,dateutils;
 
 type
- syseventty = record
-  winidty: winidty;
-  //umsg: uint;
-  //wparam: wparam;
-  //lparam: lparam;
-  //lresult: lresult;
- end;
-  
+ syseventty = SDL_Event;
+   
 const
 // pixel0 = $000000;
 // pixel1 = $ffffff;
@@ -46,20 +40,11 @@ procedure winrecttorect(const rect: rectty); overload;
 procedure winrecttorect(po: prectty; count: integer); overload;
 //function mrect(aleft,atop,aright,abottom: integer): trect;
 
-{$ifdef mse_debuggdi}
-var
- pixmapcount: integer;
- fontcount: integer;
- windowcount: integer;
- regioncount: integer;
- gccount: integer;
-{$endif}
-
 implementation
 //todo: 19.10.03 rasterops for textout
 uses
  sysutils,mselist,msekeyboard,msebits,msearrayutils,msesysutils,msegui,
- msesystimer,msesysintf1,msedynload,msecairogdi;
+ msesysintf1,msedynload;
 
 type
 
@@ -200,7 +185,7 @@ var
  applicationwindow: winidty;
  desktopwindow: winidty;
  eventlist: tobjectqueue;
-// timer: longword;
+ timer: integer;
  mouseidletimer: longword;
  mainthread: longword;
  mousewindow: winidty;
@@ -384,12 +369,7 @@ end;}
 
 function gui_sethighrestimer(const avalue: boolean): guierrorty;
 begin
- if setmmtimer(avalue) then begin
-  result:= gue_ok;
- end
- else begin
-  result:= gue_timer;
- end;
+ result:= gue_ok;
 end;
 
 function gui_grouphideminimizedwindows: boolean;
@@ -436,7 +416,7 @@ end;
 
 function gui_getdefaultfontnames: defaultfontnamesty;
 begin
- //result:= gdi32getdefaultfontnames;
+ result:= sdlgetdefaultfontnames;
 end;
 
 function gui_canstackunder: boolean;
@@ -454,57 +434,15 @@ end;
 
 function gui_copytoclipboard(const value: msestring): guierrorty;
          //todo: copy msechars to clipboard, win95?
-var
- mem: thandle;
- po1: pchar;
- po2: pwidechar;
- str1: string;
 begin
  result:= gue_clipboard;
- {if openclipboard(0) then begin
-  if emptyclipboard then begin
-   if iswin95 then begin
-    str1:= value;
-    mem:= globalalloc(GMEM_MOVEABLE or GMEM_DDESHARE,length(str1)+1); //nullterminator
-    if mem <> 0 then begin
-     po1:= globallock(mem);
-     if po1 <> nil then begin
-      move(pchar(str1)^,po1^,length(str1)+1);
-      globalunlock(mem);
-      if setclipboarddata(cf_text,longword(mem)) <> 0 then begin
-       result:= gue_ok;
-      end;
-     end
-     else begin
-      globalfree(mem);
-     end;
-    end;
-   end
-   else begin
-    mem:= globalalloc(GMEM_MOVEABLE or GMEM_DDESHARE,(length(value)+1)*2);
-                                                     //nullterminator
-    if mem <> 0 then begin
-     po2:= globallock(mem);
-     if po2 <> nil then begin
-      move(pwidechar(value)^,po2^,(length(value)+1)*2);
-      globalunlock(mem);
-      if setclipboarddata(cf_unicodetext,longword(mem)) <> 0 then begin
-       result:= gue_ok;
-      end;
-     end
-     else begin
-      globalfree(mem);
-     end;
-    end;
-   end;
-  end;
-  closeclipboard;
- end;}
+ SDL_SetClipboardText(pchar(value));
+ result:= gue_ok;
 end;
 
 function gui_canpastefromclipboard: boolean;
 begin
- //result:= isclipboardformatavailable(cf_text);
+ result:= SDL_HasClipboardText;
 end;
 
 function gui_pastefromclipboard(out value: msestring): guierrorty;
@@ -513,68 +451,23 @@ var               //todo: get msechars from clipboard, win95?
  po1: pointer;
  str1: string;
 begin
- {value:= '';
- result:= gue_clipboard;
- if openclipboard(0) then begin
-  if iswin95 then begin
-   data:= getclipboarddata(cf_text);
-  end
-  else begin
-   data:= getclipboarddata(cf_unicodetext);
-  end;
-  closeclipboard;
-  if data <> 0 then begin
-   po1:= globallock(data);
-   if po1 <> nil then begin
-    if iswin95 then begin
-     setlength(str1,globalsize(data));
-     if length(str1) > 0 then begin
-      move(po1^,str1[1],length(str1));
-      result:= gue_ok;
-      setlength(str1,length(pchar(str1)));
-     end;
-     value:= str1;
-    end
-    else begin
-     setlength(value,globalsize(data) div 2);
-     if length(value) > 0 then begin
-      move(po1^,value[1],length(value)*2);
-      result:= gue_ok;
-      setlength(value,length(pwidechar(value)));
-      if (value <> '') and (value[length(value)] = #$0d) then begin
-       setlength(value,length(value)-1);
-      end;
-     end;
-    end;
-    globalunlock(data);
-   end;
-  end;
- end;}
+ value:= SDL_GetClipboardText;
+ result:= gue_ok;
 end;
 
 function gui_getwindowsize(id: winidty): windowsizety;
-//var
-// placement: twindowplacement;
+var
+ flag: SDL_WindowFlags;
 begin
- result:= wsi_normal;
- {case getwindowlong(id,flagsoffs) of
-  1: begin
-   result:= wsi_fullscreen;
-  end;
-  2: begin
-   result:= wsi_fullscreenvirt;
-  end;
-  else begin
-   result:= wsi_normal;
-   placement.length:= sizeof(placement);
-   if getwindowplacement(id,{$ifndef FPC}@{$endif}placement) then begin
-    case placement.showcmd of
-     sw_showmaximized: result:= wsi_maximized;
-     sw_showminimized: result:= wsi_minimized;
-    end;
-   end;
-  end;
- end;}
+ flag:= SDL_GetWindowFlags(id);
+ if SDL_WINDOW_FULLSCREEN in flag then
+  result:= wsi_fullscreen
+ else if SDL_WINDOW_MAXIMIZED in flag then
+  result:= wsi_maximized
+ else if SDL_WINDOW_MINIMIZED in flag then
+  result:= wsi_minimized
+ else
+  result:= wsi_normal;
 end;
 
 function gui_getwindowdesktop(const id: winidty): integer;
@@ -597,102 +490,34 @@ end;
 
 function gui_setwindowstate(id: winidty; size: windowsizety;
                             visible: boolean): guierrorty;
-var
- int1,int2: integer;
- wo1: longword;
-// placement: twindowplacement;
 begin
  result:= gue_ok;
- {int1:= getwindowlong(id,flagsoffs);
- int2:= 0;
- if size in [wsi_fullscreen,wsi_fullscreenvirt] then begin
-  case size of 
-   wsi_fullscreen: int2:= 1;
-   wsi_fullscreenvirt: int2:= 2;
-  end;
-  if int1 <> int2 then begin
-   setwindowlong(id,flagsoffs,int2);
-   if int1 = 0 then begin
-    wo1:= getwindowlong(id,gwl_style);
-    setwindowlong(id,stylebackupoffs,wo1);
-    wo1:= wo1 and not 
-     (ws_border or ws_dlgframe or ws_overlapped or ws_thickframe) or (ws_popup);
-    setwindowlong(id,gwl_style,wo1);
-   end;
-   if size = wsi_fullscreen then begin
-    setwindowpos(id,0,0,0,getsystemmetrics(sm_cxscreen),
-                      getsystemmetrics(sm_cyscreen),
-                      swp_framechanged {or swp_nomove or swp_nosize} 
-                      or swp_nozorder or swp_noownerzorder or swp_noactivate);
-   end
-   else begin
-    setwindowpos(id,0,getsystemmetrics(sm_xvirtualscreen),
-                      getsystemmetrics(sm_yvirtualscreen),
-                      getsystemmetrics(sm_cxvirtualscreen),
-                      getsystemmetrics(sm_cyvirtualscreen),
-                      swp_framechanged {or swp_nomove or swp_nosize} 
-                      or swp_nozorder or swp_noownerzorder or swp_noactivate);
-   end;   
-  end;
-  if visible then begin
-   showwindow(id,sw_shownoactivate);
-  end;
- end
- else begin
-  if int1 <> 0 then begin
-   wo1:= getwindowlong(id,stylebackupoffs);
-   setwindowlong(id,gwl_style,getwindowlong(id,stylebackupoffs));
-   setwindowpos(id,0,0,0,0,0,
-           swp_framechanged or swp_nomove or swp_nosize or swp_nozorder or
-           swp_noownerzorder or swp_noactivate);
-   setwindowlong(id,flagsoffs,int2);
-  end;   
-  case size of
-   wsi_maximized: begin
-    int1:= sw_maximize;
-   end;
-   wsi_minimized: begin
-    int1:= sw_minimize;
-   end;
-   else begin
-    int1:= sw_shownoactivate;
-   end;
-  end;
-  if visible or (size = wsi_minimized) then begin
-   showwindow(id,int1);
-  end;
- end;}
  SDL_ShowWindow(id);
 end;
 
 function gui_getpointerpos: pointty;
 var
- x,y: integer;
+ x,y: pinteger;
 begin
+ //SDL_PumpEvents;
  SDL_GetMouseState(x,y);
- result.x:= x;
- result.y:= y;
- //windows.getcursorpos(tpoint(result));
+ result.x:= x^;
+ result.y:= y^;
 end;
 
 function gui_setpointerpos(const pos: pointty): guierrorty;
 begin
  SDL_WarpMouseInWindow(mousewindow,pos.x,pos.y);
- //if windows.SetCursorPos(pos.x,pos.y) then begin
-  result:= gue_ok;
- {end
- else begin
-  result:= gue_mousepos;
- end;}
+ result:= gue_ok;
 end;
 
 function gui_movepointer(const dist: pointty): guierrorty;
 var
- x,y: integer;
+ x,y: pinteger;
 begin
  result:= gue_mousepos;
  SDL_GetMouseState(x,y);
- SDL_WarpMouseInWindow(mousewindow,x+dist.x,y+dist.y);
+ SDL_WarpMouseInWindow(mousewindow,x^+dist.x,y^+dist.y);
  result:= gue_ok;
 end;
 
@@ -717,28 +542,10 @@ function gui_createpixmap(const size: sizety; winid: winidty = 0;
                           monochrome: boolean = false;
                           copyfrom: pixmapty = 0): pixmapty;
              //copyfrom does not work if selected in dc!
-//var
-// dc,dc1: hdc;
-
 begin
- monochrome:= false;
-{ if monochrome then begin
-  result:= createbitmap(size.cx,size.cy,1,1,nil);
- end
- else begin
-  dc:= getdc(winid);
-  result:= createcompatiblebitmap(dc,size.cx,size.cy);
-  releasedc(winid,dc);
- end;
- if (result <> 0) and (copyfrom <> 0) then begin
-  dc:= createcompatibledc(0);
-  dc1:= createcompatibledc(0);
-  selectobject(dc,result);
-  selectobject(dc1,copyfrom);
-  bitblt(dc,0,0,size.cx,size.cy,dc1,0,0,srccopy);
-  deletedc(dc);
-  deletedc(dc1);
- end;}
+ //create SDL surface
+ result:= SDL_CreateRGBSurface(0,size.cx,size.cy,32,0,0,0,0);
+ debugwriteln('createpixmap');
 end;
 
 function gui_createbitmapfromdata(const size: sizety; datapo: pbyte;
@@ -748,69 +555,21 @@ var
  po1,po2: pbyte;
  bytesperline: integer;
  int1,int2,int3: integer;
- //bitmapinfo: monochromebitmapinfoty;
- //dc: hdc;
-
 begin
- bottomup:= false;
- {$ifdef FPC}{$checkpointer off}{$endif}
- {bytesperline:= ((size.cx+31) div 32)*4;
- int3:= bytesperline*size.cy; //total bytecount
- po1:= pointer(localalloc(LMEM_FIXED,int3));
- fillchar(po1^,int3,0);
- if dwordaligned then begin
-  move(datapo^,po1^,int3);
- end
- else begin
-  int2:= (size.cx+7) div 8; //source bytesperline
-  po2:= po1;
-  for int1:= 0 to size.cy - 1 do begin
-   move(datapo^,po2^,int2);
-   inc(po2,bytesperline);
-   inc(datapo,int2);
-  end;
- end;
- if not msbitfirst then begin
-  po2:= po1;
-  for int1:= 0 to int3-1 do begin
-   po2^:= bitreverse[po2^];
-   inc(po2);
-  end;
- end;
- initbitmapinfo(true,bottomup,size,bitmapinfo);
- result:= createbitmap(size.cx,size.cy,1,1,nil);
- dc:= getdc(0);
- setdibits(dc,result,0,size.cy,po1,windows.bitmapinfo(pointer(@bitmapinfo)^),dib_rgb_colors);
- releasedc(0,dc);
- localfree(longword(po1));}
- {$ifdef FPC}{$checkpointer default}{$endif}
+ result:= SDL_CreateRGBSurfaceFrom(datapo,size.cx,size.cy,32,0,0,0,0,0);
+ debugwriteln('createpixmapfromdata');
 end;
 
 function gui_freepixmap(pixmap: pixmapty): gdierrorty;
 begin
- //if not deleteobject(pixmap) then begin
- // result:= gde_freepixmap;
- //end
- //else begin
-  result:= gde_ok;
- //end;
+ debugwriteln('freepixmap');
+ SDL_FreeSurface(pixmap);
+ result:= gde_ok;
 end;
 
 function gui_getpixmapinfo(var info: pixmapinfoty): gdierrorty;
-//var
-// bmp: bitmap;
 begin
-{ with info do begin
-  if getobject(handle,sizeof(bmp),@bmp) = 0 then begin
-   result:= gde_pixmap;
-  end
-  else begin
-   result:= gde_ok;
-   size.cx:= bmp.bmwidth;
-   size.cy:= bmp.bmheight;
-   depth:= bmp.bmbitspixel;
-  end;
- end;}
+ result:= gde_ok;
 end;
 
 procedure transformimageformat(const image: imagety; inverse: boolean = true);
@@ -871,6 +630,7 @@ function gui_pixmaptoimage(pixmap: pixmapty; out image: imagety; gchandle: longw
  bmp1: hbitmap;}
 
 begin
+ result:= gde_ok;
 { if gchandle <> 0 then begin
   bmp1:= createcompatiblebitmap(gchandle,0,0);
   selectobject(gchandle,bmp1);
@@ -913,34 +673,12 @@ end;
 
 function gui_imagetopixmap(const image: imagety; out pixmap: pixmapty;
                            gchandle: longword): gdierrorty;
-{var
- int1: integer;
- bitmapinfo: monochromebitmapinfoty;
- dc: hdc;
- bmp1: hbitmap;}
 begin
-{ bmp1:= 0; //compiler warning
  result:= gde_pixmap;
- if gchandle <> 0 then begin
-  bmp1:= createcompatiblebitmap(gchandle,0,0);
-  selectobject(gchandle,bmp1);
- end;
- pixmap:= gui_createpixmap(image.size,0,image.monochrome);
+ pixmap:= SDL_CreateRGBSurfaceFrom(image.pixels,image.size.cx,image.size.cy,32,0,0,0,0,0);
  if pixmap <> 0 then begin
-  transformimageformat(image,false); //setdibits reverses image!?!?!
-  initbitmapinfo(image.monochrome,false,image.size,bitmapinfo);
-  dc:= getdc(0);
-  int1:= setdibits(dc,pixmap,0,image.size.cy,image.pixels,
-              tbitmapinfo(pbitmapinfo(@bitmapinfo)^),dib_rgb_colors);
-  releasedc(0,dc);
-  if int1 <> 0 then begin
-   result:= gde_ok;
-  end;
+  result:= gde_ok;
  end;
- if gchandle <> 0 then begin
-  selectobject(gchandle,pixmap);
-  deleteobject(bmp1);
- end;}
 end;
 
 function gui_setwindowfocus(id: winidty): guierrorty;
@@ -1059,17 +797,16 @@ begin
  mousecursor:= cursor;
  result:= gue_ok;
 end;
-{
+
 procedure killtimer;
 begin
  if timer <> 0 then begin
-  windows.killtimer(0,timer);
+  SDL_RemoveTimer(timer);
   timer:= 0;
  end;
 end;
 
-procedure TimerProc(winidty: winidty; uMsg: longword; idEvent: longword;
-          dwTime: longword); stdcall;
+function TimerProc(interval: UInt32; param: Pointer ): UInt32;
 begin
  killtimer;
  eventlist.add(tmseevent.create(ek_timer));
@@ -1079,19 +816,13 @@ function gui_settimer(us: longword): guierrorty;
                //send et_timer event after delay or us (micro seconds)
 begin
  killtimer;
- timer:= windows.settimer(0,0,us div 1000,@timerproc);
+ timer:= SDL_AddTimer(us div 1000, @timerproc, nil);
  if timer = 0 then begin
   result:= gue_timer;
  end
  else begin
   result:= gue_ok;
  end;
-end;
-}
-function gui_settimer(us: longword): guierrorty;
-               //send et_timer event after delay or us (micro seconds)
-begin
- result:= setsystimer(us);
 end;
 
 procedure gui_beep;
@@ -1224,8 +955,13 @@ var
  int1,foundcount: integer;
  id1: winidty;
 begin
- {setlength(zorders,length(ids));
- foundcount:= 0;
+ setlength(zorders,length(ids));
+ //need to fixed
+ for int1:= 0 to high(ids) do begin
+  zorders[int1]:= int1;
+ end; 
+ result:= gue_ok;
+ {foundcount:= 0;
  id1:= gettopwindow(0);
  while (foundcount <= high(ids)) and (id1 <> 0) do begin
   for int1:= 0 to high(ids) do begin
@@ -1248,7 +984,7 @@ end;
 function gui_setwindowcaption(id: winidty; const caption: msestring): guierrorty;
 begin
  result:= gue_error;
- SDL_SetWindowTitle(id,PChar(caption));
+ SDL_SetWindowTitle(id,pchar(stringtolatin1(caption)));
  if (id = groupleaderwindow) and (result = gue_ok) then begin
   SDL_SetWindowTitle(applicationwindow,PChar(caption));
   result:= gue_ok;
@@ -1258,7 +994,7 @@ end;
 function composeicon(const icon,mask: pixmapty): PSDL_Surface;
 begin
  //need convert icon,mask to PSDL_Surface 
- result:= nil;
+ //result:= nil;
 end;
 
 function gui_setwindowicon(id: winidty; const icon,mask: pixmapty): guierrorty;
@@ -1268,7 +1004,7 @@ begin
  result:= gue_error;
  if icon <> 0 then begin
   ico:= composeicon(icon,mask);
-  if ico = nil then begin
+  if ico = 0 then begin
    exit;
   end;
  end;
@@ -1619,16 +1355,17 @@ function gui_movewindowrect(id: winidty; const dist: pointty;
 // rect1,rect2: rectty;
 begin
  SDL_SetWindowPosition(id,rect.x+dist.x,rect.y+dist.y);
+ //SDL_UpdateWindowSurface(id);
  result:= gue_ok;
 end;
 
-function getclientrect(winidty: winidty; windowrect: prectty = nil): rectty;
+function getclientrect(winid: winidty; windowrect: prectty = nil): rectty;
                      //screen origin
 var
  x,y,w,h:integer;
 begin
- SDL_GetWindowSize(winidty,w,h);
- SDL_GetWindowPosition(winidty,x,y);
+ SDL_GetWindowSize(winid,w,h);
+ SDL_GetWindowPosition(winid,x,y);
  result.x:= x;
  result.y:= y;
  result.cx:= w;
@@ -1678,14 +1415,14 @@ var
  pt1: pointty;
 begin
  configuredwindow:= id;
- {if gui_getwindowsize(id) <> wsi_minimized then begin
-  getwindowrectpa(id,rect1,pt1);
+ if gui_getwindowsize(id) <> wsi_minimized then begin
+  gui_getwindowrect(id,rect1);
   eventlist.add(twindowrectevent.create(ek_configure,id,
                           rect1,pt1));
  end
  else begin
   eventlist.add(twindowevent.create(ek_hide,id));
- end;}
+ end;
 end;
 
 function gui_reposwindow(id: winidty; const rect: rectty): guierrorty;
@@ -1699,11 +1436,11 @@ begin
   if windows.GetclientRect(id,rect2) then begin
    getframe(rect1,rect2,frame);
    arect:= inflaterect(rect,frame);}
-   configuredwindow:= 0;
+   //configuredwindow:= 0;
    //if windows.SetWindowPos(id,0,arect.x,arect.y,arect.cx,arect.cy,
    //             swp_nozorder or swp_noactivate) then begin
-    SDL_SetWindowPosition(id,arect.x,arect.y);
-    SDL_SetWindowSize(id,arect.cx,arect.cy);
+    SDL_SetWindowPosition(id,rect.x,rect.y);
+    SDL_SetWindowSize(id,rect.cx,rect.cy);
     result:= gue_ok;
    //end;
   //end;
@@ -1753,6 +1490,9 @@ function gui_postevent(event: tmseevent): guierrorty;
 //var
 // int1: integer;
 begin
+ result:= gue_postevent;
+ SDL_PumpEvents;
+ result:= gue_ok;
  {if windows.postmessage(applicationwindow,msemessage,longword(event),0) then begin
   result:= gue_ok;
  end
@@ -2156,92 +1896,227 @@ begin
  end;
 end;}
 
-{procedure dispatchevents;
+procedure dispatchevents;
 var
- msg,msg1: tmsg;
  str1: string;
+ e: SDL_Event;
 begin
  if eventlooping > 0 then begin
   exit;
  end;
- if iswin95 then begin
-  while peekmessagea(msg,0,0,0,pm_remove) do begin
-   with msg do begin
-    case message of
-     destroymessage: begin
-      windows.destroywindow(msg.wparam);
+ {while (SDL_PollEvent(@e)>0) do begin
+  case e.type_ of
+   SDL_QUITEV:  begin     
+    break;
+   end;
+   SDL_WINDOWEVENT :begin
+    if (e.win.event = sdlweMaximized) then begin
+     debugwriteln('maximized');
+    end;
+   end;
+   SDL_KEYDOWN :begin
+    //if (e.win.event = sdlweMaximized) then begin
+     debugwriteln('press key');
+    //end;
+   end;
+   SDL_MOUSEMOTION: begin
+    SDL_RenderDrawPoint(renderer,e.motion.y,e.motion.z);
+    debugwriteln('mouse move :'+inttostr(e.motion.z)+' - '+inttostr(e.motion.y));
+   end;
+  end;
+ end;
+
+ while peekmessagew(msg,0,0,0,pm_remove) do begin
+  with msg do begin
+   case message of
+    destroymessage: begin
+     windows.destroywindow(msg.wparam);
+    end;
+    wm_keydown,wm_keyup,wm_syskeydown,wm_syskeyup: begin
+     translatemessage(msg);
+     while peekmessagew(msg1,msg.winidty,wm_char,wm_char,pm_remove) do begin
+      charbuffer:= charbuffer + msechar(msg1.wparam);
      end;
-     wm_keydown,wm_keyup,wm_syskeydown,wm_syskeyup: begin
-      translatemessage(msg);
-      str1:= '';
-      while peekmessagea(msg1,msg.winidty,wm_char,wm_char,pm_remove) do begin
-       str1:= str1 + char(msg1.wparam);
-      end;
-      while peekmessagea(msg1,msg.winidty,wm_syschar,wm_syschar,pm_remove) do begin
-       str1:= str1 + char(msg1.wparam);
-      end;
-      charbuffer:= charbuffer + str1;
-      dispatchmessagea(msg);
-     end
-     else begin
-      dispatchmessagea(msg);
+     while peekmessagew(msg1,msg.winidty,wm_syschar,wm_syschar,pm_remove) do begin
+      charbuffer:= charbuffer + msechar(msg1.wparam);
      end;
+     dispatchmessagew(msg);
+    end
+    else begin
+     dispatchmessagew(msg);
     end;
    end;
   end;
- end
- else begin
-  while peekmessagew(msg,0,0,0,pm_remove) do begin
-   with msg do begin
-    case message of
-     destroymessage: begin
-     {$ifdef mse_debugwindowdestroy}
-      debugwindow('*destroymessage ',msg.wparam);
-     {$endif}
-      windows.destroywindow(msg.wparam);
+ end;}
+end;
+
+function gui_hasevent: boolean;
+begin
+ result:= SDL_HasEvents(SDL_FIRSTEVENT,SDL_USEREVENT);
+end;
+
+function gui_getevent: tmseevent;
+var
+ e: SDL_Event;
+ rect1: rectty;
+ winid: winidty;
+begin
+ result:= nil;
+ while true do begin
+  if (SDL_PollEvent(@e)>0) then begin
+   case e.type_ of
+    SDL_QUITEV:  begin
+     application.postevent(tmseevent.create(ek_terminate));
+     //break;
+    end;
+    SDL_WINDOWEVENT : begin
+     winid:= SDL_GetWindowFromID(e.window.window);
+     if (e.window.event = SDL_WINDOWEVENT_ENTER) then begin
+      result:= twindowevent.create(ek_enterwindow,winid);
+     end else if (e.window.event = SDL_WINDOWEVENT_LEAVE) then begin
+      result:= twindowevent.create(ek_leavewindow,winid);
+     end else if (e.window.event = SDL_WINDOWEVENT_CLOSE) then begin
+      result:= twindowevent.create(ek_close,winid);
+     end else begin
+      winrecttorect(rect1);
+      eventlist.add(twindowrectevent.create(ek_expose,winid,rect1,nullpoint));
      end;
-     wm_keydown,wm_keyup,wm_syskeydown,wm_syskeyup: begin
-      translatemessage(msg);
-      while peekmessagew(msg1,msg.winidty,wm_char,wm_char,pm_remove) do begin
-       charbuffer:= charbuffer + msechar(msg1.wparam);
-      end;
-      while peekmessagew(msg1,msg.winidty,wm_syschar,wm_syschar,pm_remove) do begin
-       charbuffer:= charbuffer + msechar(msg1.wparam);
-      end;
-      dispatchmessagew(msg);
-     end
-     else begin
-      dispatchmessagew(msg);
-     end;
+     break;
+    end;
+    SDL_KEYDOWN :begin
+     //if (e.win.event = sdlweMaximized) then begin
+      debugwriteln('press key');
+     //end;
+    end;
+    SDL_MOUSEMOTION: begin
+     result:= tmouseevent.create(SDL_GetWindowFromID(e.motion.window),false,mb_none,mw_none,
+                makepoint(e.motion.x,e.motion.y),[], MilliSecondOf(time)*1000);
+     //break;
     end;
    end;
   end;
  end;
-end;}
 
-function gui_hasevent: boolean;
-begin
- //dispatchevents;
- result:= eventlist.count > 0;
-end;
-
-function gui_getevent: tmseevent;
-begin
- result:= nil;
-{ while true do begin
-  dispatchevents;
-  if eventlist.count > 0 then begin
-   result:= tmseevent(eventlist.getfirst);
-   break;
-  end
-  else begin
-   if not application.unlock then begin
-    guierror(gue_notlocked);
+//batas
+{      result:= tmseevent(getclientpointer(xev.xclient));
+  keypress: begin
+    result:= tkeyevent.create(xwindow,false,key1,key2,
+                                    shiftstate1,chars,time*1000);
    end;
-   windows.waitmessage;
-   application.lock;
   end;
- end;}
+  keyrelease: begin
+   with xev.xkey do begin
+    lasteventtime:= time;
+    int1:= keycode;
+    xlookupstring(@xev.xkey,nil,0,@akey,nil);
+    shiftstate1:= [];
+    key1:= xkeytokey(akey,shiftstate1);
+    key2:= getkeynomod(xev.xkey);
+    shiftstate1:= shiftstate1 + xtoshiftstate(state,key1,mb_none,true);
+    if xpending(appdisp) > 0 then begin
+     xpeekevent(appdisp,@xev);
+     if (xev.xtype = keypress) and (time - lasteventtime < 10) and 
+                                                   (keycode = int1) then begin
+      repeatkey:= int1;
+      repeatkeytime:= time;
+      goto eventrestart;  //auto repeat key, don't send
+     end;
+    end;
+    result:= tkeyevent.create(xwindow,true,key1,key2,shiftstate1,'',time*1000);
+   end;
+  end;
+  buttonpress,buttonrelease: begin
+   with xev.xbutton do begin
+    lasteventtime:= time;
+    button1:= xtomousebutton(button);
+    shiftstate1:= xtoshiftstate(state,key_none,button1,xev.xtype=buttonrelease);
+    if button = 4 then begin
+     if xev.xtype = buttonpress then begin
+      result:= tmouseevent.create(xwindow,false,mb_none,mw_up,
+                makepoint(x,y),shiftstate1,time*1000);
+     end;
+    end
+    else begin
+     if button = 5 then begin
+      if xev.xtype = buttonpress then begin
+       result:= tmouseevent.create(xwindow,false,mb_none,mw_down,
+                makepoint(x,y),shiftstate1,time*1000);
+      end;
+     end
+     else begin
+      result:= tmouseevent.create(xwindow,xtype = buttonrelease,button1,mw_none,
+                makepoint(x,y),shiftstate1,time*1000);
+     end;
+    end;
+   end;
+  end;
+  mappingnotify: begin
+   xrefreshkeyboardmapping(@xev.xkeymap);
+  end;
+  mapnotify: begin
+   with xev.xmap do begin
+    result:= twindowevent.create(ek_show,xwindow);
+    if application.findwindow(xwindow,window1) and 
+             (wo_notaskbar in window1.options) then begin
+     setnetatomarrayitem(xwindow,net_wm_state,net_wm_state_skip_taskbar);
+    end;
+   end;
+  end;
+  unmapnotify: begin
+   with xev.xunmap do begin
+    result:= twindowevent.create(ek_hide,xwindow);
+   end;
+  end;
+  focusin,focusout: begin
+   with xev.xfocus do begin
+    if xtype = focusin then begin
+     eventkind:= ek_focusin;
+    end
+    else begin
+     eventkind:= ek_focusout;
+    end;
+    if mode <> notifypointer then begin
+     result:= twindowevent.create(eventkind,window);
+    end;
+   end;
+  end;
+  expose: begin
+   with xev.xexpose do begin
+    result:= twindowrectevent.create(ek_expose,xwindow,
+                          makerect(x,y,width,height),nullpoint);
+   end;
+  end;
+  graphicsexpose: begin
+   with xev.xgraphicsexpose do begin
+    result:= twindowrectevent.create(ek_expose,drawable,
+                          makerect(x,y,width,height),nullpoint);
+   end;
+  end;
+  configurenotify: begin
+   with xev.xconfigure do begin
+    w:= xwindow;
+    xsync(appdisp,false);
+    if xchecktypedwindowevent(appdisp,w,destroynotify,@xev2) then begin
+     result:= twindowevent.create(ek_destroy,xwindow);
+    end
+    else begin
+     if not application.deinitializing and 
+       (getwindowrect(w,rect1,pt1) = gue_ok) then begin
+                         //there can be an Xerror?
+     //gnome returns a different pos on window resizing than on window moving!
+      result:= twindowrectevent.create(ek_configure,w,rect1,pt1);
+     while xchecktypedwindowevent(appdisp,w,configurenotify,@xev) do begin
+     end;
+    end;
+   end;
+  end;
+  destroynotify: begin
+   with xev.xdestroywindow do begin
+    result:= twindowevent.create(ek_destroy,xwindow);
+   end;
+  end;
+ end;
+}
 end;
 
 function createapphandle(out id: winidty): guierrorty;
@@ -2258,9 +2133,7 @@ begin
  deletemenu(menu1,sc_size,mf_bycommand);
  deletemenu(menu1,sc_move,mf_bycommand);}
  id:= SDL_CreateWindow(pchar(str1),0,0,0,0,[SDL_WINDOW_MINIMIZED]);
-
- SDL_ShowWindow(id);
-  
+ SDL_HideWindow(id);
  if id = 0 then begin
   result:= gue_createwindow;
  end
@@ -2308,7 +2181,7 @@ begin
  fillchar(awindow,sizeof(awindow),0);
  with awindow,options do begin
   ownerwindow:= applicationwindow;
-  windowstyleex:= [SDL_WINDOW_SHOWN];
+  windowstyleex:= [SDL_WINDOW_SHOWN,SDL_WINDOW_RESIZABLE];
 //  if wo_popup in options then begin
   if options * noframewindowtypes <> [] then begin
    //windowstyle:= ws_popup;
@@ -2367,7 +2240,7 @@ begin
    end;
    {id:= windows.CreateWindowex(windowstyleex,pchar(classname),nil,
          windowstyle,rect1.x,rect1.y,rect1.cx,rect1.cy,ca2,0,hinstance,nil);}
-    id:= SDL_CreateWindow(widgetclassname,rect1.x,rect1.y,rect1.cx,rect1.cy,windowstyleex);
+    id:= SDL_CreateWindow(pchar(classname),rect1.x,rect1.y,rect1.cx,rect1.cy,windowstyleex);
    if setgroup and (groupleader = 0) or (wo_groupleader in options) then begin
     groupleaderwindow:= id;
    end;
@@ -2376,12 +2249,6 @@ begin
    result:= gue_createwindow;
   end
   else begin
-{$ifdef mse_debugwindowdestroy}
-   debugwindow('gui_createwindow ',id);
-{$endif}
-{$ifdef mse_debuggdi}
-   inc(windowcount);
-{$endif}
    if not (pos = wp_default) and (parent = 0) then begin
     result:= gui_reposwindow(id,rect);
    end
@@ -2400,6 +2267,7 @@ end;
 
 function gui_getparentwindow(const awindow: winidty): winidty;
 begin
+ result:= awindow;
 // result:= getparent(awindow);
  //result:= getancestor(awindow,ga_parent);
 end;
@@ -2731,7 +2599,7 @@ begin
  eventlist:= tobjectqueue.create(true);
  //desktopwindow:= getdesktopwindow;
 
- //mseopenglgdi.init;
+ //msesdlgdi.init;
 
  {fillchar(classinfoa,sizeof(classinfoa),0);
  if iswin95 then begin
@@ -2783,7 +2651,6 @@ begin
  if applicationallocated then begin
   createapphandle(applicationwindow);
  end;
- systimerinit(eventlist,applicationwindow);
  result:= gue_ok;
 end;
 
@@ -2792,8 +2659,7 @@ var
  acursor: cursorshapety;
 
 begin
- systimerdeinit;
-// killtimer;
+ killtimer;
  //killmouseidletimer;
  if applicationwindow <> 0 then begin
   SDL_DestroyWindow(applicationwindow);
@@ -2820,7 +2686,7 @@ end;
 
 function gui_getgdifuncs: pgdifunctionaty;
 begin
- result:= cairogetgdifuncs;
+ result:= sdlgetgdifuncs;
 end;
 
 procedure GUI_DEBUGBEGIN;
@@ -2834,22 +2700,9 @@ end;
 
 function gui_registergdi: guierrorty;
 begin
- registergdi(cairogetgdifuncs);
+ registergdi(sdlgetgdifuncs);
  result:= gue_ok;
 end;
 
-{procedure initlibs;
-begin
- hasimm32:= checkprocaddresses(['Imm32.dll'],
- ['ImmGetContext',
-  'ImmReleaseContext',
-  'ImmSetCompositionWindow'],
- [{$ifndef FPC}@{$endif}@ImmGetContext,
-  {$ifndef FPC}@{$endif}@ImmReleaseContext,
-  {$ifndef FPC}@{$endif}@ImmSetCompositionWindow]);
-end;}
-
 initialization
- //initlibs;
- //gdi32initdefaultfont;
 end.
