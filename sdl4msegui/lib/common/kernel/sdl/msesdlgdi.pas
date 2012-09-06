@@ -28,7 +28,7 @@ function sdlgetdefaultfontnames: defaultfontnamesty;
 
 implementation
 uses
- mseguiintf,msegraphutils,msesysintf1,sysutils;
+ mseguiintf,msegraphutils,msesysintf1,sysutils,msegenericgdi;
  
 type
  shapety = (fs_copyarea,fs_rect,fs_ellipse,fs_arc,fs_polygon);
@@ -85,21 +85,43 @@ begin
 end;
 
 procedure gdi_creategc(var drawinfo: drawinfoty);
+var
+ int1, int2, int3: integer;
+ arenderer: ptruint;
+ pinfo: PSDL_RendererInfo;
 begin
  with drawinfo.creategc do begin
   gcpo^.gdifuncs:= gui_getgdifuncs;
+  error:= gde_creategc;
   case kind of
    gck_pixmap: begin
-    error:= gde_creategc;
-    gcpo^.handle:= SDL_CreateSoftwareRenderer(drawinfo.createpixmap.pixmap);
+    gcpo^.handle:= SDL_CreateSoftwareRenderer(paintdevice);
+    error:= SDL_CheckErrorGDI('creategc');
    end;
    gck_screen: begin
-    error:= gde_creategc;
-    gcpo^.handle:= SDL_CreateRenderer(drawinfo.creategc.paintdevice,-1,SDL_RENDERER_ACCELERATED);
+    //choose the best renderer supported
+    int3:= -1;
+    arenderer:= SDL_CreateRenderer(paintdevice,int3,SDL_RENDERER_ACCELERATED);
+    error:= gde_ok;
+    if (arenderer=0) {or (SDL_GetError<>'')} then begin //wait for final release SDL 2
+     SDL_DestroyRenderer(arenderer);
+     int1:= SDL_GetNumRenderDrivers;
+     for int2:= 1 to int1 do begin
+      if SDL_GetRenderDriverInfo(int2,pinfo)=0 then begin
+       debugwriteln(pinfo^.name+' w = '+inttostr(pinfo^.max_texture_width)+' h = '+inttostr(pinfo^.max_texture_width));
+       arenderer:= SDL_CreateRenderer(paintdevice,int2,SDL_RENDERER_ACCELERATED);
+       if (arenderer=0) {or (SDL_GetError<>'')} then begin
+        error:= SDL_CheckErrorGDI('creategc');
+        SDL_DestroyRenderer(arenderer);
+       end else begin
+        break;
+       end;
+      end;
+     end;
+    end;    
+    gcpo^.handle:= arenderer;
    end;
   end;
-  error:= gde_ok;
-  debugwriteln('creategc');
  end;
 end;
 
@@ -253,62 +275,11 @@ begin
  end;
 end;
 
-
- 
 procedure gdi_destroygc(var drawinfo: drawinfoty);
-begin
- SDL_DestroyRenderer(drawinfo.paintdevice);
+begin 
+ SDL_DestroyRenderer(drawinfo.gc.handle);
+ SDL_CheckError('destroygc');
 end;
-
-{function sdlimage(aimage: imagety; aformat:sdl_format_t): Psdl_surface_t;
-var
- sourcerowstep: integer;
- rowshiftleft,rowshiftright: byte;
- int1,int2,stridewidth,rowbytes: integer;
- po1: prgbtriplety;
- po2: pbyte;
- adata: pbyte;
- acolor: rgbtriplety;
-begin
- if aimage.monochrome then begin
-  //result:= nil;
-  stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
-  int1:= aimage.size.cy*stridewidth;
-  adata:= pbyte(gui_allocimagemem(int1));
-  system.move(aimage.pixels^,adata^,int1);
-  {po2:= pointer(adata);
-  for int2:= 0 to aimage.length-1 do begin
-   po1:= @aimage.pixels^[int2];
-   po2^:= po1^.blue;
-   inc(po2);
-   po2^:= po1^.green;
-   inc(po2);
-   po2^:= po1^.red;
-   inc(po2);
-   po2^:= po1^.res;
-   inc(po2);
-  end;}
-  result:= sdl_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
- end else begin
-  //result:= nil;
-  stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
-  int1:= aimage.size.cy*stridewidth;
-  adata:= pbyte(gui_allocimagemem(int1));
-  po2:= pointer(adata);
-  for int2:= 0 to aimage.length-1 do begin
-   po1:= @aimage.pixels^[int2];
-   po2^:= po1^.blue;
-   inc(po2);
-   po2^:= po1^.green;
-   inc(po2);
-   po2^:= po1^.red;
-   inc(po2);
-   po2^:= po1^.res;
-   inc(po2);
-  end;
-  result:= cairo_image_surface_create_for_data(pbyte(adata),aformat,aimage.size.cx,aimage.size.cy,stridewidth);
- end; 
-end;}
 
 procedure gdi_changegc(var drawinfo: drawinfoty);
 var
@@ -326,6 +297,7 @@ var
  image: imagety;
  //fsurface1 : Pcairo_surface_t;
  lwidth: real;
+ rect3: SDL_Rect;
 begin
  ar1:= nil; //compiler warning
  with drawinfo,gcvalues^ do begin
@@ -370,7 +342,8 @@ begin
   end else begin}
    if gvm_colorforeground in mask then begin
     rgbcolor:= colortorgb(acolorforeground);
-    SDL_SetRenderDrawColor(paintdevice,rgbcolor.red,rgbcolor.green,rgbcolor.blue,0);
+    SDL_SetRenderDrawColor(gc.handle,rgbcolor.red,rgbcolor.green,rgbcolor.blue,0);
+    SDL_CheckError('SetRenderDrawColor');
    end;
   //end;
   {if gvm_font in mask then begin
@@ -413,19 +386,21 @@ begin
     else cairo_set_line_join(fcairo.context,CAIRO_LINE_JOIN_MITER);
    end;
   end;}
-  {if gvm_clipregion in mask then begin
-   cairo_save(fcairo.context);
+  if gvm_clipregion in mask then begin
+   //cairo_save(fcairo.context);
    if clipregion <> 0 then begin
     ar1:= gui_regiontorects(clipregion);
     for int1:= 0 to high(ar1) do begin
-     pt1:= addpoint(ar1[int1].pos,gc.cliporigin);
-     cairo_rectangle(fcairo.context, pt1.x, pt1.y, ar1[int1].size.cx, ar1[int1].size.cy);
-     cairo_fill(fcairo.context);
-     cairo_clip(fcairo.context);
+     pt1:= addpoint(ar1[int1].pos,gc.cliporigin);     
+     rect3.x:= pt1.x;
+     rect3.x:= pt1.y;
+     rect3.w:= ar1[int1].size.cx;
+     rect3.h:= ar1[int1].size.cy;
+     SDL_SetClipRect(drawinfo.paintdevice,@rect3)
     end;
    end;
-   cairo_restore (fcairo.context)
-  end;}
+   //cairo_restore (fcairo.context)
+  end;
  end;
 end;
 
@@ -436,14 +411,14 @@ end;
 
 procedure gdi_endpaint(var drawinfo: drawinfoty); //gdifunc
 begin
- //dummy
- SDL_RenderPresent(drawinfo.paintdevice);
+ //SDL_RenderPresent(drawinfo.gc.handle);
+ //SDL_CheckError('endpaint');
 end;
 
 procedure gdi_flush(var drawinfo: drawinfoty); //gdifunc
 begin
- //dummy
- SDL_RenderClear(drawinfo.paintdevice);
+ SDL_RenderPresent(drawinfo.gc.handle);
+ SDL_CheckError('flush');
 end;
 
 procedure gdi_movewindowrect(var drawinfo: drawinfoty); //gdifunc
@@ -462,11 +437,13 @@ begin
  startpoint.x:= points^.x;
  startpoint.y:= points^.y;
  for int1:= 1 to lastpoint do begin
-  SDL_RenderDrawLine(drawinfo.paintdevice,startpoint.x,startpoint.y,
+  SDL_RenderDrawLine(drawinfo.gc.handle,startpoint.x,startpoint.y,
     ppointaty(points)^[int1].x, ppointaty(points)^[int1].y);
+  SDL_CheckError('SDL_RenderDrawLine');
   if (int1=lastpoint) and closed then begin
-   SDL_RenderDrawLine(drawinfo.paintdevice,ppointaty(points)^[int1].x, ppointaty(points)^[int1].y,
+   SDL_RenderDrawLine(drawinfo.gc.handle,ppointaty(points)^[int1].x, ppointaty(points)^[int1].y,
      startpoint.x, startpoint.y);
+  SDL_CheckError('SDL_RenderDrawLine');
   end;
  end;
  {if fill then begin
@@ -498,7 +475,7 @@ end;
 
 procedure handleellipse(var drawinfo: drawinfoty; const rect: rectty; const fill: boolean);
 begin
- debugwriteln('handleellipse');
+ SDL_CheckError('handleellipse');
 end;
 
 procedure gdi_drawellipse(var drawinfo: drawinfoty);
@@ -522,12 +499,12 @@ end;
 
 procedure gdi_drawarc(var drawinfo: drawinfoty);
 begin
- debugwriteln('drawarc');
+ SDL_CheckError('drawarc');
 end;
 
 procedure gdi_drawstring16(var drawinfo: drawinfoty);
 begin
- debugwriteln('drawstring16');
+ SDL_CheckError('drawstring16');
 end;
 
 procedure gdi_fillrect(var drawinfo: drawinfoty);
@@ -538,7 +515,8 @@ begin
  rect1.y:= drawinfo.rect.rect^.y;
  rect1.w:= drawinfo.rect.rect^.cx;
  rect1.h:= drawinfo.rect.rect^.cy;
- SDL_RenderFillRect(drawinfo.paintdevice,@rect1);
+ SDL_RenderFillRect(drawinfo.gc.handle,@rect1);
+ SDL_CheckError('SDL_RenderFillRect');
 end;
 
 procedure gdi_fillelipse(var drawinfo: drawinfoty);
@@ -548,7 +526,7 @@ end;
 
 procedure gdi_fillarc(var drawinfo: drawinfoty);
 begin
- debugwriteln('fillarc');
+ SDL_CheckError('fillarc');
 end;
 
 procedure gdi_fillpolygon(var drawinfo: drawinfoty);
@@ -559,8 +537,57 @@ begin
 end;
 
 procedure gdi_copyarea(var drawinfo: drawinfoty);
+var
+ rect1,rect2,rect3: SDL_rect;
+ maskbefore: tsimplebitmap;
+ atexture: SDL_Texture;
+ asurface: PSDL_Surface;
+ w,h: integer;
 begin
- debugwriteln('copyarea');
+ with drawinfo,copyarea do begin
+  if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
+   exit;
+  end;
+  {if mask<>nil then begin
+   maskbefore:= mask;
+   mask.canvas.copyarea(maskbefore.canvas,sourcerect^,nullpoint,rop_nor);
+  end;}
+  rect1.x:= sourcerect^.x;
+  rect1.y:= sourcerect^.y;
+  rect1.w:= sourcerect^.cx;
+  rect1.h:= sourcerect^.cy;
+  rect2.x:= destrect^.x;
+  rect2.y:= destrect^.y;
+  rect2.w:= destrect^.cx;
+  rect2.h:= destrect^.cy;
+  w:= CSDL_Surface(tcanvas1(source).fdrawinfo.paintdevice)^.w;
+  h:= CSDL_Surface(tcanvas1(source).fdrawinfo.paintdevice)^.h;
+  rect3.x:= 0;
+  rect3.y:= 0;
+  rect3.w:= w;
+  rect3.h:= h;
+  {SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
+  asurface:= SDL_CreateRGBSurface(0,rect2.w,rect2.h,32,0,0,0,0);
+  SDL_unlockSurface(asurface);
+  SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, asurface, nil);
+  SDL_SaveBMP_toFile(asurface,'c:\bb.bmp');
+  atexture:= SDL_CreateTextureFromSurface(drawinfo.gc.handle,asurface);
+  //SDL_CheckError('create texture');
+  if SDL_RenderCopy(drawinfo.gc.handle, atexture, nil, @rect2)=0 then begin
+   SDL_RenderPresent(drawinfo.gc.handle);
+   SDL_CheckError('rendercopy');
+  end;
+  SDL_DestroyTexture(atexture);
+  SDL_FreeSurface(asurface);}
+
+  SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
+  SDL_unlockSurface(drawinfo.paintdevice);
+  SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, drawinfo.paintdevice, @rect2);
+  //SDL_SaveBMP_toFile(drawinfo.paintdevice,'c:\bb.bmp');
+  SDL_RenderPresent(drawinfo.gc.handle);
+  SDL_CheckError('rendercopy');
+ end;
+ //SDL_CheckError('copyarea');
 end;
 
 procedure gdi_getimage(var drawinfo: drawinfoty); //gdifunc
@@ -700,20 +727,20 @@ const
 //   {$ifdef FPC}@{$endif}gdi_drawstring,
    {$ifdef FPC}@{$endif}gdi_drawstring16,
    {$ifdef FPC}@{$endif}gdi_setcliporigin,
-   {$ifdef FPC}@{$endif}gdi_createemptyregion,
-   {$ifdef FPC}@{$endif}gdi_createrectregion,
-   {$ifdef FPC}@{$endif}gdi_createrectsregion,
-   {$ifdef FPC}@{$endif}gdi_destroyregion,
-   {$ifdef FPC}@{$endif}gdi_copyregion,
-   {$ifdef FPC}@{$endif}gdi_moveregion,
-   {$ifdef FPC}@{$endif}gdi_regionisempty,
-   {$ifdef FPC}@{$endif}gdi_regionclipbox,
-   {$ifdef FPC}@{$endif}gdi_regsubrect,
-   {$ifdef FPC}@{$endif}gdi_regsubregion,
-   {$ifdef FPC}@{$endif}gdi_regaddrect,
-   {$ifdef FPC}@{$endif}gdi_regaddregion,
-   {$ifdef FPC}@{$endif}gdi_regintersectrect,
-   {$ifdef FPC}@{$endif}gdi_regintersectregion,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_createemptyregion,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_createrectregion,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_createrectsregion,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_destroyregion,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_copyregion,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_moveregion,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_regionisempty,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_regionclipbox,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_regsubrect,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_regsubregion,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_regaddrect,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_regaddregion,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_regintersectrect,
+   {$ifdef FPC}@{$endif}msegenericgdi.gdi_regintersectregion,
    {$ifdef FPC}@{$endif}gdi_copyarea,
    {$ifdef FPC}@{$endif}gdi_getimage,
    {$ifdef FPC}@{$endif}gdi_fonthasglyph,

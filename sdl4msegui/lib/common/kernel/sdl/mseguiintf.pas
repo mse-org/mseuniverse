@@ -437,12 +437,13 @@ function gui_copytoclipboard(const value: msestring): guierrorty;
 begin
  result:= gue_clipboard;
  SDL_SetClipboardText(pchar(value));
- result:= gue_ok;
+ result:= SDL_CheckError('copytoclipboard');
 end;
 
 function gui_canpastefromclipboard: boolean;
 begin
  result:= SDL_HasClipboardText;
+ SDL_CheckError('canpastefromclipboard');
 end;
 
 function gui_pastefromclipboard(out value: msestring): guierrorty;
@@ -451,8 +452,9 @@ var               //todo: get msechars from clipboard, win95?
  po1: pointer;
  str1: string;
 begin
+ result:= gue_clipboard;
  value:= SDL_GetClipboardText;
- result:= gue_ok;
+ result:= SDL_CheckError('pastefromclipboard');
 end;
 
 function gui_getwindowsize(id: winidty): windowsizety;
@@ -460,14 +462,13 @@ var
  flag: SDL_WindowFlags;
 begin
  flag:= SDL_GetWindowFlags(id);
- if SDL_WINDOW_FULLSCREEN in flag then
-  result:= wsi_fullscreen
- else if SDL_WINDOW_MAXIMIZED in flag then
-  result:= wsi_maximized
- else if SDL_WINDOW_MINIMIZED in flag then
-  result:= wsi_minimized
+ case flag of
+  SDL_WINDOW_FULLSCREEN: result:= wsi_fullscreen;
+  SDL_WINDOW_MAXIMIZED: result:= wsi_maximized;
+  SDL_WINDOW_MINIMIZED: result:= wsi_minimized;
  else
   result:= wsi_normal;
+ end;
 end;
 
 function gui_getwindowdesktop(const id: winidty): integer;
@@ -480,7 +481,7 @@ var
  aflag: SDL_WindowFlags;
 begin
  aflag:= SDL_GetWindowFlags(id);
- result:= not (SDL_WINDOW_HIDDEN in aflag);
+ result:= not (SDL_WINDOW_HIDDEN=aflag);
 end;
 
 function gui_windowvisible(id: winidty): boolean;
@@ -491,34 +492,42 @@ end;
 function gui_setwindowstate(id: winidty; size: windowsizety;
                             visible: boolean): guierrorty;
 begin
- result:= gue_ok;
- SDL_ShowWindow(id);
+ case size of 
+  wsi_normal: SDL_ShowWindow(id);
+  wsi_minimized: SDL_MinimizeWindow(id);
+  wsi_maximized: SDL_MaximizeWindow(id);
+  wsi_fullscreen: SDL_SetWindowFullscreen(id,true);
+  wsi_fullscreenvirt: SDL_SetWindowFullscreen(id,true);
+ end;
+ SDL_CheckError('setwindowstate');
 end;
 
 function gui_getpointerpos: pointty;
 var
- x,y: pinteger;
+ x,y: integer;
 begin
- //SDL_PumpEvents;
- SDL_GetMouseState(x,y);
- result.x:= x^;
- result.y:= y^;
+ //SDL_GetMouseState(@x,@y);
+ SDL_GetRelativeMouseState(@x,@y);
+ SDL_CheckError('getpointerpos');
+ result.x:= x;
+ result.y:= y;
 end;
 
 function gui_setpointerpos(const pos: pointty): guierrorty;
 begin
+ result:= gue_mousepos;
  SDL_WarpMouseInWindow(mousewindow,pos.x,pos.y);
- result:= gue_ok;
+ result:= SDL_CheckError('setpointerpos');
 end;
 
 function gui_movepointer(const dist: pointty): guierrorty;
 var
- x,y: pinteger;
+ x,y: integer;
 begin
  result:= gue_mousepos;
- SDL_GetMouseState(x,y);
- SDL_WarpMouseInWindow(mousewindow,x^+dist.x,y^+dist.y);
- result:= gue_ok;
+ SDL_GetMouseState(@x,@y);
+ SDL_WarpMouseInWindow(mousewindow,x+dist.x,y+dist.y);
+ result:= SDL_CheckError('movepointer');
 end;
 
 function gui_grabpointer(id: winidty): guierrorty;
@@ -543,9 +552,9 @@ function gui_createpixmap(const size: sizety; winid: winidty = 0;
                           copyfrom: pixmapty = 0): pixmapty;
              //copyfrom does not work if selected in dc!
 begin
- //create SDL surface
+ //create surface
  result:= SDL_CreateRGBSurface(0,size.cx,size.cy,32,0,0,0,0);
- debugwriteln('createpixmap');
+ SDL_CheckError('createpixmap');
 end;
 
 function gui_createbitmapfromdata(const size: sizety; datapo: pbyte;
@@ -557,14 +566,13 @@ var
  int1,int2,int3: integer;
 begin
  result:= SDL_CreateRGBSurfaceFrom(datapo,size.cx,size.cy,32,0,0,0,0,0);
- debugwriteln('createpixmapfromdata');
+ SDL_CheckError('createpixmapfromdata');
 end;
 
 function gui_freepixmap(pixmap: pixmapty): gdierrorty;
 begin
- debugwriteln('freepixmap');
  SDL_FreeSurface(pixmap);
- result:= gde_ok;
+ SDL_CheckError('freepixmap');
 end;
 
 function gui_getpixmapinfo(var info: pixmapinfoty): gdierrorty;
@@ -630,7 +638,11 @@ function gui_pixmaptoimage(pixmap: pixmapty; out image: imagety; gchandle: longw
  bmp1: hbitmap;}
 
 begin
+ //RenderReadPixels(renderer: SDL_Renderer; const rect: PSDL_Rect; format: Uint32, image.pixels; pitch: integer);
+ 
  result:= gde_ok;
+ SDL_CheckError('pixmatoimage');
+ 
 { if gchandle <> 0 then begin
   bmp1:= createcompatiblebitmap(gchandle,0,0);
   selectobject(gchandle,bmp1);
@@ -675,27 +687,30 @@ function gui_imagetopixmap(const image: imagety; out pixmap: pixmapty;
                            gchandle: longword): gdierrorty;
 begin
  result:= gde_pixmap;
- pixmap:= SDL_CreateRGBSurfaceFrom(image.pixels,image.size.cx,image.size.cy,32,0,0,0,0,0);
- if pixmap <> 0 then begin
-  result:= gde_ok;
- end;
+ pixmap:= SDL_CreateRGBSurfaceFrom(image.pixels,image.size.cx,image.size.cy,32,image.size.cx*4,0,0,0,0); //$00FF0000,$0000FF00,$000000FF,$FF000000);
+ //SDL_SaveBMP_toFile(pixmap,'c:\aa.bmp');
+ result:= gde_ok;
+ SDL_CheckError('imagetopixmap');
 end;
 
 function gui_setwindowfocus(id: winidty): guierrorty;
 begin
+ result:= gue_windowfocus;
  SDL_ShowWindow(id);
- result:= gue_ok;
+ result:= SDL_CheckError('setwindowfocus');
 end;
 
 function gui_setappfocus(id: winidty): guierrorty;
 begin
+ result:= gue_windowfocus;
  SDL_ShowWindow(id);
+ result:= SDL_CheckError('setappfocus');
 end;
 
 function gui_minimizeapplication: guierrorty;
 begin
- result:= gue_ok;
  SDL_MinimizeWindow(applicationwindow);
+ result:= SDL_CheckError('miniizeapplication');
 end;
 
 const
@@ -791,17 +806,17 @@ begin
    cursor:= windows.LoadCursor(0,standardcursors[shape]);
   end;
  end;}
- cursor:= SDL_CreateCursor(curdragxor,curdragand,32,32,0,0);
- 
+ cursor:= SDL_CreateCursor(curdragand,curdragxor,32,32,0,0);
  SDL_SetCursor(cursor);
  mousecursor:= cursor;
- result:= gue_ok;
+ result:= SDL_CheckError('setcursorshape');
 end;
 
 procedure killtimer;
 begin
  if timer <> 0 then begin
   SDL_RemoveTimer(timer);
+  SDL_CheckError('killtimer');
   timer:= 0;
  end;
 end;
@@ -823,6 +838,7 @@ begin
  else begin
   result:= gue_ok;
  end;
+ result:= SDL_CheckError('settimer');
 end;
 
 procedure gui_beep;
@@ -861,13 +877,7 @@ begin
   dec(count);
  end;
 end;
-{
-function gui_creategc(paintdevice: paintdevicety; const akind: gckindty; 
-              var gc: gcty; const aprintername: msestring = ''): guierrorty;
-begin
- result:= gdi32creategc(paintdevice,akind,gc,aprintername);
-end;
-}
+
 function gui_flushgdi(const synchronize: boolean = false): guierrorty;
 begin
  gui_hasevent; //dispachevents
@@ -907,27 +917,28 @@ end;}
 
 function gui_destroywindow(var awindow: windowty): guierrorty;
 begin
+ result:= gue_destroywindow;
  SDL_DestroyWindow(awindow.id);
- result:= gue_ok;
+ result:= SDL_CheckError('destroywindow');
  windowdestroyed(awindow.id);
 end;
 
 function gui_showwindow(id: winidty): guierrorty;
 begin
  SDL_ShowWindow(id);
- result:= gue_ok;
+ result:= SDL_CheckError('showwindow');
 end;
 
 function gui_hidewindow(id: winidty): guierrorty;
 begin
  SDL_HideWindow(id);
- result:= gue_ok;
+ result:= SDL_CheckError('HideWindow');
 end;
 
 function gui_raisewindow(id: winidty): guierrorty;
 begin
  SDL_RaiseWindow(id);
- result:= gue_ok;
+ result:= SDL_CheckError('raisewindow');
 end;
 
 function gui_lowerwindow(id: winidty): guierrorty;
@@ -987,14 +998,14 @@ begin
  SDL_SetWindowTitle(id,pchar(stringtolatin1(caption)));
  if (id = groupleaderwindow) and (result = gue_ok) then begin
   SDL_SetWindowTitle(applicationwindow,PChar(caption));
-  result:= gue_ok;
+  result:= SDL_CheckError('setwindowcaption');
  end;
 end;
 
 function composeicon(const icon,mask: pixmapty): PSDL_Surface;
 begin
  //need convert icon,mask to PSDL_Surface 
- //result:= nil;
+ result:= icon;
 end;
 
 function gui_setwindowicon(id: winidty; const icon,mask: pixmapty): guierrorty;
@@ -1009,7 +1020,7 @@ begin
   end;
  end;
  SDL_SetWindowIcon(id,ico);
- result:= gue_ok;
+ result:= SDL_CheckError('setwindowicon');
 end;
 
 function gui_setapplicationicon(const icon,mask: pixmapty): guierrorty;
@@ -1023,26 +1034,6 @@ type
   winid: winidty;
  end;
  ppidinfoty = ^pidinfoty;
-
-{function checkproc(awinid: winidty; po: ptrint): bool; stdcall;
-var
- pid: integer;
- int1: integer;
-begin
- result:= true;
- if getwindowlong(awinid,gwl_style) and windows.ws_visible <> 0 then begin 
-  getwindowthreadprocessid(awinid,@pid);
-  with ppidinfoty(po)^ do begin
-   for int1:= 0 to high(pids) do begin
-    if pids[int1] = pid then begin
-     result:= false;
-     winid:= awinid;
-     break;
-    end;
-   end;
-  end;
- end;
-end;}
 
 function gui_pidtowinid(const pids: procidarty): winidty;
 var
@@ -1063,29 +1054,6 @@ function gui_pixeltorgb(pixel: pixelty): longword;
 begin
  result:= swaprgb(pixel);
 end;
-
-{function winmousekeyflagstoshiftstate(keys: longword): shiftstatesty;
-begin
- result:= [];
- if keys and mk_control <> 0 then begin
-  include(result,ss_ctrl);
- end;
- if keys and mk_lbutton <> 0 then begin
-  include(result,ss_left);
- end;
- if keys and mk_mbutton <> 0 then begin
-  include(result,ss_middle);
- end;
- if keys and mk_rbutton <> 0 then begin
-  include(result,ss_right);
- end;
- if keys and mk_shift <> 0 then begin
-  include(result,ss_shift);
- end;
- if getkeystate(vk_menu) < 0 then begin
-  include(result,ss_alt);
- end;
-end;}
 
 function shiftstatetowinmousekeyflags(shiftstate: shiftstatesty): longword;
 begin
@@ -1118,134 +1086,7 @@ begin
  //result:= word(pos.x) + (word(pos.y) shl 16);
 end;
 
-{function winkeytokey(key: longword; lparam: longword;
-                                       var shift: shiftstatesty): keyty;
-var
- second: boolean;
-begin
- second:= true; //mapvirtualkey(key,mapvk_vk_to_vsc) <> (lparam shr 16) and $ff;
-
- case key of
-  vk_back: result:= key_backspace;
-  vk_tab: begin
-   if ss_shift in shift then begin
-    result:= key_backtab;
-   end
-   else begin
-    result:= key_tab;
-   end;
-  end;
-  vk_clear: result:= key_clear;
-  vk_return: result:= key_return;
-  vk_shift: begin
-   result:= key_shift;
-   if second then begin
-    include(shiftstate,ss_second);
-   end;
-  end;
-  vk_control: begin
-   result:= key_control;
-   if second then begin
-    include(shiftstate,ss_second);
-   end;
-  end;
-  vk_menu: begin
-   result:= key_alt;
-   if second then begin
-    include(shiftstate,ss_second);
-   end;
-  end;
-  vk_pause: result:= key_pause;
-  vk_capital: result:= key_capslock;
-  vk_escape: result:= key_escape;
-  vk_space: result:= key_space;
-  vk_prior: result:= key_pageup;
-  vk_next: result:= key_pagedown;
-  vk_end: result:= key_end;
-  vk_home: result:= key_home;
-  vk_left: result:= key_left;
-  vk_up: result:= key_up;
-  vk_right: result:= key_right;
-  vk_down: result:= key_down;
- //  vk_select: result:= key_select;
-  vk_execute: result:= key_sysreq;
-  vk_snapshot: result:= key_print;
-  vk_insert: result:= key_insert;
-  vk_delete: result:= key_delete;
-  vk_help: result:= key_help;
-  longword('0')..longword('9'): result:= keyty(key);
-  longword('A')..longword('Z'): result:= keyty(key);
-  vk_lwin: result:= key_super;
-  vk_rwin: begin
-   result:= key_super;
-   include(shiftstate,ss_second);
-  end;
-  vk_apps: result:= key_menu;
-  vk_oem_plus: result:= key_plus;
-  vk_oem_comma: result:= key_comma;
-  vk_oem_minus: result:= key_minus;
-  vk_oem_period: result:= key_period;
-  vk_numpad0..vk_numpad9: begin
-   result:= keyty(longword(key_0) + key - vk_numpad0);
-   include(shiftstate,ss_second);
-  end;
-  vk_add: begin
-   result:= key_plus;
-   include(shiftstate,ss_second);
-  end;
-  vk_separator: begin
-   result:= key_comma;
-   include(shiftstate,ss_second);
-  end;
-  vk_subtract: begin
-   result:= key_minus;
-   include(shiftstate,ss_second);
-  end;
-  vk_decimal: begin
-   result:= key_decimal;
-   include(shiftstate,ss_second);
-  end;
-  vk_multiply: begin
-   result:= key_asterisk;
-   include(shiftstate,ss_second);
-  end;
-  vk_divide: begin
-   result:= key_slash;
-   include(shiftstate,ss_second);
-  end;
-  vk_f1..vk_f24: result:= keyty(longword(key_f1) + key - vk_f1);
-  vk_numlock: result:= key_numlock;
-  vk_scroll: result:= key_scrolllock;
-
-  else begin
-   result:= key_unknown;
-  end;
- end;
-end;}
-
-{function winkeystatetoshiftstate(keystate: longword): shiftstatesty;
-begin
- result:= [];
- if $20000000 and keystate <> 0 then begin
-  include(result,ss_alt);
- end;
- if getkeystate(vk_shift) < 0 then begin
-  include(result,ss_shift);
- end;
- if getkeystate(vk_control) < 0 then begin
-  include(result,ss_ctrl);
- end;
- if getkeystate(vk_lbutton) < 0 then begin
-  include(result,ss_left);
- end;
- if getkeystate(vk_mbutton) < 0 then begin
-  include(result,ss_middle);
- end;
- if getkeystate(vk_rbutton) < 0 then begin
-  include(result,ss_right);
- end;
-end;
-
+{
 function wheelkeystatetoshiftstate(keystate: longword): shiftstatesty;
 var
  wo1: word;
@@ -1355,8 +1196,7 @@ function gui_movewindowrect(id: winidty; const dist: pointty;
 // rect1,rect2: rectty;
 begin
  SDL_SetWindowPosition(id,rect.x+dist.x,rect.y+dist.y);
- //SDL_UpdateWindowSurface(id);
- result:= gue_ok;
+ result:= SDL_CheckError('movewindowrect');
 end;
 
 function getclientrect(winid: winidty; windowrect: prectty = nil): rectty;
@@ -1370,6 +1210,7 @@ begin
  result.y:= y;
  result.cx:= w;
  result.cy:= h;
+ SDL_CheckError('getclientrect');
 end;
 
 {procedure getwindowrectpa(id: winidty; out rect: rectty; out origin: pointty);
@@ -1403,7 +1244,7 @@ begin
  SDL_GetWindowPosition(id,x,y);
  pos.x:= x;
  pos.y:= y;
- result:= gue_ok;
+ result:= SDL_CheckError('getwindowpos');
 end;
 
 var
@@ -1441,9 +1282,9 @@ begin
    //             swp_nozorder or swp_noactivate) then begin
     SDL_SetWindowPosition(id,rect.x,rect.y);
     SDL_SetWindowSize(id,rect.cx,rect.cy);
-    result:= gue_ok;
    //end;
   //end;
+  result:= SDL_CheckError('reposwindow');
   if configuredwindow <> id then begin
    postconfigureevent(id);
   end;
@@ -1464,14 +1305,14 @@ begin
  result:= gue_resizewindow;
  gui_getwindowrect(id,clientrect);
  SDL_SetWindowPosition(id,rect.x,rect.y);
- result:= gue_ok;
+ result:= SDL_CheckError('setdecoratewindowrect');
 end;
 
 function gui_setembeddedwindowrect(id: winidty; const rect: rectty): guierrorty;
 begin
  result:= gue_resizewindow;
  SDL_SetWindowPosition(id,rect.x,rect.y);
- result:= gue_ok;
+ result:= SDL_CheckError('setembeddedwindowrect');
 end;
 
 var
@@ -1492,7 +1333,7 @@ function gui_postevent(event: tmseevent): guierrorty;
 begin
  result:= gue_postevent;
  SDL_PumpEvents;
- result:= gue_ok;
+ result:= SDL_CheckError('postevent');
  {if windows.postmessage(applicationwindow,msemessage,longword(event),0) then begin
   result:= gue_ok;
  end
@@ -1527,120 +1368,154 @@ begin
  escapepressed:= false;
 end;
 
-{function WindowProc(awinidty: winidty; Msg: UINT; wParam: WPARAM; lParam: LPARAM): LRESULT; stdcall;
-
- function checkbutton(const amessage: UINT): mousebuttonty;
- begin
-  result:= mb_none;
-  case amessage of
-   wm_lbuttondown,wm_lbuttonup: result:= mb_left;
-   wm_mbuttondown,wm_mbuttonup: result:= mb_middle;
-   wm_rbuttondown,wm_rbuttonup: result:= mb_right;
-  end;
- end;
- 
- procedure inittraycallback(const reposition: boolean; out cursorpos: pointty;
-                            out shiftstate: uint);
- var
-  rect1: rectty;
-  pt1: pointty;
- begin
-  shiftstate:= 0;
-  if getkeystate(vk_control) < 0 then begin
-   shiftstate:= shiftstate or mk_control;
-  end;
-  if getkeystate(vk_shift) < 0 then begin
-   shiftstate:= shiftstate or mk_shift;
-  end;
-  if getkeystate(vk_lbutton) < 0 then begin
-   shiftstate:= shiftstate or mk_lbutton;
-  end;
-  if getkeystate(vk_mbutton) < 0 then begin
-   shiftstate:= shiftstate or mk_mbutton;
-  end;
-  if getkeystate(vk_rbutton) < 0 then begin
-   shiftstate:= shiftstate or mk_rbutton;
-  end;
-  
-  windows.getcursorpos(tpoint(pt1));
-  gui_getwindowrect(awinidty,rect1);
-  cursorpos.x:= rect1.cx div 2;
-  cursorpos.y:= rect1.cy div 2;
-  if reposition then begin
-   gui_reposwindow(awinidty,makerect(pt1.x-cursorpos.x,pt1.y-cursorpos.y,
-                                                           rect1.cx,rect1.cy));
-//   setforegroundwindow(applicationwindow);
-  end;
- end;
-
-const
- wheelstep = 120;
+procedure dispatchevents;
 var
- rect1,rect2,rect3: rectty;
- pt1{,pt2}: pointty;
- size1: sizety;
- button: mousebuttonty;
- key1: keyty;
  str1: string;
-// int1: integer;
- bo1: boolean;
- sysevent: syseventty;
- shiftstate1: uint;
- imc: himc;
- imminfo: compositionform;
- 
+ e: SDL_Event;
 begin
- if application.ismainthread then begin
-  sysevent.winidty:= awinidty;
-  sysevent.umsg:= msg;
-  sysevent.wparam:= wparam;
-  sysevent.lparam:= lparam;
-  sysevent.lresult:= 0;
-  bo1:= false;
-  tapplication1(application).sysevent(awinidty,sysevent,bo1);
-  if bo1 then begin
-   result:= sysevent.lresult;
-   exit;
+ if eventlooping > 0 then begin
+  exit;
+ end;
+ {while (SDL_PollEvent(@e)>0) do begin
+  case e.type_ of
+   SDL_QUITEV:  begin     
+    break;
+   end;
+   SDL_WINDOWEVENT :begin
+    if (e.win.event = sdlweMaximized) then begin
+     debugwriteln('maximized');
+    end;
+   end;
+   SDL_KEYDOWN :begin
+    //if (e.win.event = sdlweMaximized) then begin
+     debugwriteln('press key');
+    //end;
+   end;
+   SDL_MOUSEMOTION: begin
+    SDL_RenderDrawPoint(renderer,e.motion.y,e.motion.z);
+    debugwriteln('mouse move :'+inttostr(e.motion.z)+' - '+inttostr(e.motion.y));
+   end;
   end;
  end;
- result:= 1;
- case msg of
-  msemessage: begin
-   eventlist.add(tmseevent(wparam));
-   exit;
-  end;
-  wakeupmessage: begin
-   eventlist.add(nil);
-   exit;
-  end;
-  timermessage: begin
-   eventlist.add(tmseevent.create(ek_timer));
-   exit;
-  end;
-  traycallbackmessage: begin
-   case lparam and $ffff of
-    wm_lbuttondown,wm_mbuttondown,wm_rbuttondown: begin
-     inittraycallback(true,pt1,shiftstate1);
-     windowproc(awinidty,lparam and $ffff,shiftstate1,pointtowinmousepos(pt1));
+
+ while peekmessagew(msg,0,0,0,pm_remove) do begin
+  with msg do begin
+   case message of
+    destroymessage: begin
+     windows.destroywindow(msg.wparam);
     end;
-    wm_lbuttonup,wm_mbuttonup,wm_rbuttonup: begin
-     inittraycallback(true,pt1,shiftstate1);
-     windowproc(awinidty,lparam and $ffff,shiftstate1,pointtowinmousepos(pt1));
+    wm_keydown,wm_keyup,wm_syskeydown,wm_syskeyup: begin
+     translatemessage(msg);
+     while peekmessagew(msg1,msg.winidty,wm_char,wm_char,pm_remove) do begin
+      charbuffer:= charbuffer + msechar(msg1.wparam);
+     end;
+     while peekmessagew(msg1,msg.winidty,wm_syschar,wm_syschar,pm_remove) do begin
+      charbuffer:= charbuffer + msechar(msg1.wparam);
+     end;
+     dispatchmessagew(msg);
+    end
+    else begin
+     dispatchmessagew(msg);
     end;
    end;
-  end;     
-  wm_ime_char: begin
-   if iswin95 then begin
-    str1:= char(wparam);
-    if wparam and $ff00 <> 0 then begin
-     str1:= char(wparam shr 8) + str1;
+  end;
+ end;}
+end;
+
+function gui_hasevent: boolean;
+begin
+ result:= SDL_HasEvents(SDL_FIRSTEVENT,SDL_USEREVENT);
+ //SDL_CheckError('hasevent');
+end;
+
+function gui_getevent: tmseevent;
+var
+ e: SDL_Event;
+ rect1: rectty;
+ winid: winidty;
+ key1: keyty;
+begin
+ result:= nil;
+ while true do begin
+  if (SDL_PollEvent(@e)>0) then begin
+   case e.type_ of
+    SDL_QUITEV:  begin
+     application.postevent(tmseevent.create(ek_terminate));
+     //break;
     end;
-    charbuffer:= charbuffer + str1;    
-   end
-   else begin
-    charbuffer:= charbuffer + ucs4tostring(wparam);
+    SDL_WINDOWEVENT : begin
+     winid:= SDL_GetWindowFromID(e.window.window);
+     if (e.window.event = SDL_WINDOWEVENT_ENTER) or (e.window.event = SDL_WINDOWEVENT_FOCUS_GAINED) then begin
+      if (winid = applicationwindow) and (lastfocuswindow <> 0) then begin
+       if windowvisible(lastfocuswindow) then begin
+        gui_setwindowfocus(lastfocuswindow);
+       end
+       else begin
+        if application.activewindow <> nil then begin
+         gui_setwindowfocus(application.activewindow.winid);
+        end
+        else begin
+         if application.mainwindow <> nil then begin
+          gui_setwindowfocus(application.mainwindow.winid);
+         end;
+        end;
+       end;
+      end
+      else begin
+       if windowvisible(winid) then begin
+        lastfocuswindow:= winid;
+        if e.window.event = SDL_WINDOWEVENT_FOCUS_GAINED then begin
+         result:= twindowevent.create(ek_focusin,winid);
+        end else if e.window.event = SDL_WINDOWEVENT_ENTER then begin
+         result:= twindowevent.create(ek_enterwindow,winid)
+        end;
+       end;
+      end;
+     end else if (e.window.event = SDL_WINDOWEVENT_LEAVE) or (e.window.event = SDL_WINDOWEVENT_FOCUS_LOST) then begin
+      result:= twindowevent.create(ek_leavewindow,winid);
+     end else if (e.window.event = SDL_WINDOWEVENT_CLOSE) then begin
+      result:= twindowevent.create(ek_close,winid);
+     //end else begin
+     // winrecttorect(rect1);
+     // eventlist.add(twindowrectevent.create(ek_expose,winid,rect1,nullpoint));
+     end else if (e.window.event = SDL_WINDOWEVENT_EXPOSED) then begin
+      gui_getwindowrect(winid,rect1);
+      result:= twindowrectevent.create(ek_expose,winid,rect1,nullpoint);
+     end;
+     break;
+    end;
+    SDL_TEXTINPUT: begin
+     charbuffer:= charbuffer + pchar(e.text.text);
+     eventlist.add(tkeyevent.create(e.text.window,false,key_none,key_none,shiftstate,
+                                    charbuffer,timestamp));
+    end; 
+    SDL_KEYDOWN : begin
+     key1:= SDL_KeyCodeToKey(e.keydown.keysym.sym);
+     shiftstate:= SDL_GetShiftState(e.keydown);
+     if key1 = key_escape then begin
+      escapepressed:= true;
+     end;
+     result:= tkeyevent.create(SDL_GetWindowFromID(e.keydown.window),false,
+       key1,key1,shiftstate,charbuffer,timestamp);
+    end;
+    SDL_KEYUP : begin
+     key1:= SDL_KeyCodeToKey(e.keydown.keysym.sym);
+     shiftstate:= SDL_GetShiftState(e.keydown);
+     result:= tkeyevent.create(SDL_GetWindowFromID(e.keydown.window),true,
+       key1,key1,shiftstate,charbuffer,timestamp);
+     charbuffer:= '';
+    end;
+    SDL_MOUSEMOTION: begin
+     result:= tmouseevent.create(SDL_GetWindowFromID(e.motion.window),false,mb_none,mw_none,
+                makepoint(e.motion.x,e.motion.y),[], MilliSecondOf(time)*1000);
+     //break;
+    end;
    end;
-   eventlist.add(tkeyevent.create(awinidty,false,key_none,key_none,shiftstate,
+  end;
+ end;
+
+//batas
+{   eventlist.add(tkeyevent.create(awinidty,false,key_none,key_none,shiftstate,
                                     charbuffer,timestamp));
    charbuffer:= '';
   end;
@@ -1858,284 +1733,19 @@ begin
   finally
    dec(eventlooping);
   end;
- end;
-end;}
-
-{function childWindowProc(awinidty: winidty; Msg: UINT; wParam: WPARAM;
-            lParam: LPARAM): LRESULT; stdcall;
-var
- parent: winidty;
- pt1: pointty;
- rect1: trect;
- rect2: rectty;
-begin
- parent:= getparent(awinidty);
- case msg of
-  wm_destroy: begin
-   windowdestroyed(awinidty);
-   eventlist.add(twindowevent.create(ek_destroy,awinidty));
-  end;
-  wm_mousemove,
-  wm_lbuttondown,wm_mbuttondown,wm_rbuttondown,
-  wm_lbuttonup,wm_mbuttonup,wm_rbuttonup,
-  wm_mousewheel: begin
-   getwindowrect(awinidty,rect1);
-   rect2:= getclientrect(parent);
-   pt1.x:= rect1.left - rect2.x;
-   pt1.y:= rect1.top - rect2.y;
-   pt1:= addpoint(winmousepostopoint(lparam),pt1);
-   result:= windowproc(parent,msg,wparam,pointtowinmousepos(pt1));
-   exit;
-  end;
- end;
- if iswin95 then begin
-  result:= defwindowproca(awinidty,msg,wparam,lparam);
- end
- else begin
-  result:= defwindowprocw(awinidty,msg,wparam,lparam);
- end;
-end;}
-
-procedure dispatchevents;
-var
- str1: string;
- e: SDL_Event;
-begin
- if eventlooping > 0 then begin
-  exit;
- end;
- {while (SDL_PollEvent(@e)>0) do begin
-  case e.type_ of
-   SDL_QUITEV:  begin     
-    break;
-   end;
-   SDL_WINDOWEVENT :begin
-    if (e.win.event = sdlweMaximized) then begin
-     debugwriteln('maximized');
-    end;
-   end;
-   SDL_KEYDOWN :begin
-    //if (e.win.event = sdlweMaximized) then begin
-     debugwriteln('press key');
-    //end;
-   end;
-   SDL_MOUSEMOTION: begin
-    SDL_RenderDrawPoint(renderer,e.motion.y,e.motion.z);
-    debugwriteln('mouse move :'+inttostr(e.motion.z)+' - '+inttostr(e.motion.y));
-   end;
-  end;
- end;
-
- while peekmessagew(msg,0,0,0,pm_remove) do begin
-  with msg do begin
-   case message of
-    destroymessage: begin
-     windows.destroywindow(msg.wparam);
-    end;
-    wm_keydown,wm_keyup,wm_syskeydown,wm_syskeyup: begin
-     translatemessage(msg);
-     while peekmessagew(msg1,msg.winidty,wm_char,wm_char,pm_remove) do begin
-      charbuffer:= charbuffer + msechar(msg1.wparam);
-     end;
-     while peekmessagew(msg1,msg.winidty,wm_syschar,wm_syschar,pm_remove) do begin
-      charbuffer:= charbuffer + msechar(msg1.wparam);
-     end;
-     dispatchmessagew(msg);
-    end
-    else begin
-     dispatchmessagew(msg);
-    end;
-   end;
-  end;
  end;}
-end;
-
-function gui_hasevent: boolean;
-begin
- result:= SDL_HasEvents(SDL_FIRSTEVENT,SDL_USEREVENT);
-end;
-
-function gui_getevent: tmseevent;
-var
- e: SDL_Event;
- rect1: rectty;
- winid: winidty;
-begin
- result:= nil;
- while true do begin
-  if (SDL_PollEvent(@e)>0) then begin
-   case e.type_ of
-    SDL_QUITEV:  begin
-     application.postevent(tmseevent.create(ek_terminate));
-     //break;
-    end;
-    SDL_WINDOWEVENT : begin
-     winid:= SDL_GetWindowFromID(e.window.window);
-     if (e.window.event = SDL_WINDOWEVENT_ENTER) then begin
-      result:= twindowevent.create(ek_enterwindow,winid);
-     end else if (e.window.event = SDL_WINDOWEVENT_LEAVE) then begin
-      result:= twindowevent.create(ek_leavewindow,winid);
-     end else if (e.window.event = SDL_WINDOWEVENT_CLOSE) then begin
-      result:= twindowevent.create(ek_close,winid);
-     end else begin
-      winrecttorect(rect1);
-      eventlist.add(twindowrectevent.create(ek_expose,winid,rect1,nullpoint));
-     end;
-     break;
-    end;
-    SDL_KEYDOWN :begin
-     //if (e.win.event = sdlweMaximized) then begin
-      debugwriteln('press key');
-     //end;
-    end;
-    SDL_MOUSEMOTION: begin
-     result:= tmouseevent.create(SDL_GetWindowFromID(e.motion.window),false,mb_none,mw_none,
-                makepoint(e.motion.x,e.motion.y),[], MilliSecondOf(time)*1000);
-     //break;
-    end;
-   end;
-  end;
- end;
-
-//batas
-{      result:= tmseevent(getclientpointer(xev.xclient));
-  keypress: begin
-    result:= tkeyevent.create(xwindow,false,key1,key2,
-                                    shiftstate1,chars,time*1000);
-   end;
-  end;
-  keyrelease: begin
-   with xev.xkey do begin
-    lasteventtime:= time;
-    int1:= keycode;
-    xlookupstring(@xev.xkey,nil,0,@akey,nil);
-    shiftstate1:= [];
-    key1:= xkeytokey(akey,shiftstate1);
-    key2:= getkeynomod(xev.xkey);
-    shiftstate1:= shiftstate1 + xtoshiftstate(state,key1,mb_none,true);
-    if xpending(appdisp) > 0 then begin
-     xpeekevent(appdisp,@xev);
-     if (xev.xtype = keypress) and (time - lasteventtime < 10) and 
-                                                   (keycode = int1) then begin
-      repeatkey:= int1;
-      repeatkeytime:= time;
-      goto eventrestart;  //auto repeat key, don't send
-     end;
-    end;
-    result:= tkeyevent.create(xwindow,true,key1,key2,shiftstate1,'',time*1000);
-   end;
-  end;
-  buttonpress,buttonrelease: begin
-   with xev.xbutton do begin
-    lasteventtime:= time;
-    button1:= xtomousebutton(button);
-    shiftstate1:= xtoshiftstate(state,key_none,button1,xev.xtype=buttonrelease);
-    if button = 4 then begin
-     if xev.xtype = buttonpress then begin
-      result:= tmouseevent.create(xwindow,false,mb_none,mw_up,
-                makepoint(x,y),shiftstate1,time*1000);
-     end;
-    end
-    else begin
-     if button = 5 then begin
-      if xev.xtype = buttonpress then begin
-       result:= tmouseevent.create(xwindow,false,mb_none,mw_down,
-                makepoint(x,y),shiftstate1,time*1000);
-      end;
-     end
-     else begin
-      result:= tmouseevent.create(xwindow,xtype = buttonrelease,button1,mw_none,
-                makepoint(x,y),shiftstate1,time*1000);
-     end;
-    end;
-   end;
-  end;
-  mappingnotify: begin
-   xrefreshkeyboardmapping(@xev.xkeymap);
-  end;
-  mapnotify: begin
-   with xev.xmap do begin
-    result:= twindowevent.create(ek_show,xwindow);
-    if application.findwindow(xwindow,window1) and 
-             (wo_notaskbar in window1.options) then begin
-     setnetatomarrayitem(xwindow,net_wm_state,net_wm_state_skip_taskbar);
-    end;
-   end;
-  end;
-  unmapnotify: begin
-   with xev.xunmap do begin
-    result:= twindowevent.create(ek_hide,xwindow);
-   end;
-  end;
-  focusin,focusout: begin
-   with xev.xfocus do begin
-    if xtype = focusin then begin
-     eventkind:= ek_focusin;
-    end
-    else begin
-     eventkind:= ek_focusout;
-    end;
-    if mode <> notifypointer then begin
-     result:= twindowevent.create(eventkind,window);
-    end;
-   end;
-  end;
-  expose: begin
-   with xev.xexpose do begin
-    result:= twindowrectevent.create(ek_expose,xwindow,
-                          makerect(x,y,width,height),nullpoint);
-   end;
-  end;
-  graphicsexpose: begin
-   with xev.xgraphicsexpose do begin
-    result:= twindowrectevent.create(ek_expose,drawable,
-                          makerect(x,y,width,height),nullpoint);
-   end;
-  end;
-  configurenotify: begin
-   with xev.xconfigure do begin
-    w:= xwindow;
-    xsync(appdisp,false);
-    if xchecktypedwindowevent(appdisp,w,destroynotify,@xev2) then begin
-     result:= twindowevent.create(ek_destroy,xwindow);
-    end
-    else begin
-     if not application.deinitializing and 
-       (getwindowrect(w,rect1,pt1) = gue_ok) then begin
-                         //there can be an Xerror?
-     //gnome returns a different pos on window resizing than on window moving!
-      result:= twindowrectevent.create(ek_configure,w,rect1,pt1);
-     while xchecktypedwindowevent(appdisp,w,configurenotify,@xev) do begin
-     end;
-    end;
-   end;
-  end;
-  destroynotify: begin
-   with xev.xdestroywindow do begin
-    result:= twindowevent.create(ek_destroy,xwindow);
-   end;
-  end;
- end;
-}
 end;
 
 function createapphandle(out id: winidty): guierrorty;
 var
  str1: string;
- //menu1: hmenu;
 begin
  str1:= application.applicationname;
- {id:= windows.CreateWindow(widgetclassname,pchar(str1),
-             WS_POPUP or WS_CAPTION or WS_CLIPSIBLINGS or 
-             WS_SYSMENU or WS_MINIMIZEBOX,0,0,0,0,0,0,hinstance,nil);
- menu1:= getsystemmenu(id,false);
- deletemenu(menu1,sc_maximize,mf_bycommand);
- deletemenu(menu1,sc_size,mf_bycommand);
- deletemenu(menu1,sc_move,mf_bycommand);}
- id:= SDL_CreateWindow(pchar(str1),0,0,0,0,[SDL_WINDOW_MINIMIZED]);
- SDL_HideWindow(id);
+ id:= SDL_CreateWindow(pchar(str1),0,0,1,1,SDL_WINDOW_MINIMIZED);
+ gui_hidewindow(id);
  if id = 0 then begin
   result:= gue_createwindow;
+  SDL_CheckError('createapphandle');
  end
  else begin
   result:= gue_ok;
@@ -2172,96 +1782,60 @@ function gui_createwindow(const rect: rectty;
                              const options: internalwindowoptionsty;
                              var awindow: windowty): guierrorty;
 var
- windowstyle,ca2: UInt32;
  windowstyleex: SDL_WindowFlags;
  rect1: rectty;
- classname: string;
+ classname: pchar;
  ownerwindow: winidty;
 begin
  fillchar(awindow,sizeof(awindow),0);
  with awindow,options do begin
   ownerwindow:= applicationwindow;
-  windowstyleex:= [SDL_WINDOW_SHOWN,SDL_WINDOW_RESIZABLE];
-//  if wo_popup in options then begin
-  if options * noframewindowtypes <> [] then begin
-   //windowstyle:= ws_popup;
-   windowstyleex:= windowstyleex + [SDL_WINDOW_BORDERLESS];
-  end
-  else begin
-   if wo_message in options then begin
-    //windowstyle:= ws_overlappedwindow;
-    windowstyleex:= windowstyleex + [SDL_WINDOW_BORDERLESS];
-   end
-   else begin
-    //windowstyle:= ws_overlappedwindow;
-    if wo_taskbar in options then begin
-     //istaskbar:= true;
-     //windowstyleex:= windowstyleex or ws_ex_appwindow;
-     SDL_HideWindow(applicationwindow);
-     ownerwindow:= 0;
-    end;
-   end;
-   if wo_embedded in options then begin
-    //windowstyle:= ws_child;
+  windowstyleex:= SDL_WINDOW_SHOWN;
+  if (options * noframewindowtypes <> []) or
+    (wo_message in options) then begin
+   windowstyleex:= SDL_WINDOW_BORDERLESS;
+  end else begin
+   windowstyleex:= SDL_WINDOW_RESIZABLE;
+  end;
+  if wo_taskbar in options then begin
+   SDL_HideWindow(applicationwindow);
+   ownerwindow:= 0;
+  end;
+  result:= gue_createwindow;
+  rect1:= rect;
+
+  if not ((transientfor <> 0) or (options * [wo_popup,wo_message,wo_notaskbar] <> [])) then begin
+   if parent <> 0 then begin
+    classname:= childwidgetclassname;
+   end else begin
+    classname:= widgetclassname;
    end;
   end;
-  {if pos = wp_default then begin
-   rect1.x:= integer(cw_usedefault);
-   rect1.y:= integer(cw_usedefault);
-   rect1.cx:= integer(cw_usedefault);
-   rect1.cy:= integer(cw_usedefault);
-  end
-  else begin}
-   rect1:= rect;
-  //end;
-  //windowstyle:= windowstyle or ws_clipchildren;
+  id:= SDL_CreateWindow(classname,rect1.x,rect1.y,rect1.cx,rect1.cy,windowstyleex);
+  result:= SDL_CheckError('createwindow');
   if (transientfor <> 0) or (options * [wo_popup,wo_message,wo_notaskbar] <> []) then begin
    if transientfor <> 0 then begin
     ownerwindow:= transientfor;
    end;
-   {id:= windows.CreateWindowex(windowstyleex,widgetclassname,nil,windowstyle,
-         rect1.x,rect1.y,rect1.cx,rect1.cy,ownerwindow,0,hinstance,nil);}
-   id:= SDL_CreateWindow(widgetclassname,rect1.x,rect1.y,rect1.cx,rect1.cy,windowstyleex);
-
    if transientfor = 0 then begin
-    //setwindowpos(id,winidty_top,0,0,0,0,swp_noactivate or swp_nomove or 
-    //                                        swp_nosize or swp_noownerzorder);
+    SDL_SetWindowPosition(id,0,0);
    end;
-  end
-  else begin
-   if parent <> 0 then begin
-    ca2:= parent;
-    //windowstyle:= ws_child;
-    classname:= childwidgetclassname;
-   end
-   else begin
-    ca2:= ownerwindow;
-    classname:= widgetclassname;
-   end;
-   {id:= windows.CreateWindowex(windowstyleex,pchar(classname),nil,
-         windowstyle,rect1.x,rect1.y,rect1.cx,rect1.cy,ca2,0,hinstance,nil);}
-    id:= SDL_CreateWindow(pchar(classname),rect1.x,rect1.y,rect1.cx,rect1.cy,windowstyleex);
+  end else begin
    if setgroup and (groupleader = 0) or (wo_groupleader in options) then begin
     groupleaderwindow:= id;
    end;
-  end;
-  if id = 0 then begin
-   result:= gue_createwindow;
-  end
-  else begin
    if not (pos = wp_default) and (parent = 0) then begin
     result:= gui_reposwindow(id,rect);
-   end
-   else begin
+   end else begin
     result:= gue_ok;
    end;
   end;
-  {if icon <> 0 then begin
+  if icon <> 0 then begin
    gui_setwindowicon(id,icon,iconmask);
    if (groupleaderwindow = id) then begin
     gui_setwindowicon(applicationwindow,icon,iconmask);
    end;
-  end;}
+  end;
  end;
 end;
 
@@ -2589,6 +2163,7 @@ end;
 function gui_init: guierrorty;
 begin
  SDL_Init(SDL_INIT_EVERYTHING);
+ SDL_CheckError('Init video');
  mousewindow:= 0;
  mousecursor:= 0;
  applicationwindow:= 0;
@@ -2663,6 +2238,7 @@ begin
  //killmouseidletimer;
  if applicationwindow <> 0 then begin
   SDL_DestroyWindow(applicationwindow);
+  SDL_CheckError('deinit');
   applicationwindow:= 0;
  end;
  freeandnil(eventlist);
