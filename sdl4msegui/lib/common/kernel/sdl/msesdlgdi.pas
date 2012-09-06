@@ -566,7 +566,7 @@ begin
   rect3.y:= 0;
   rect3.w:= w;
   rect3.h:= h;
-  {SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
+  SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
   asurface:= SDL_CreateRGBSurface(0,rect2.w,rect2.h,32,0,0,0,0);
   SDL_unlockSurface(asurface);
   SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, asurface, nil);
@@ -578,14 +578,14 @@ begin
    SDL_CheckError('rendercopy');
   end;
   SDL_DestroyTexture(atexture);
-  SDL_FreeSurface(asurface);}
+  SDL_FreeSurface(asurface);
 
-  SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
+  {SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
   SDL_unlockSurface(drawinfo.paintdevice);
   SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, drawinfo.paintdevice, @rect2);
-  //SDL_SaveBMP_toFile(drawinfo.paintdevice,'c:\bb.bmp');
+  SDL_SaveBMP_toFile(drawinfo.paintdevice,'c:\bb.bmp');
   SDL_RenderPresent(drawinfo.gc.handle);
-  SDL_CheckError('rendercopy');
+  SDL_CheckError('rendercopy');}
  end;
  //SDL_CheckError('copyarea');
 end;
