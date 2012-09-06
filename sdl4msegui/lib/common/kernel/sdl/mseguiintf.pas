@@ -1741,8 +1741,7 @@ var
  str1: string;
 begin
  str1:= application.applicationname;
- id:= SDL_CreateWindow(pchar(str1),0,0,1,1,SDL_WINDOW_MINIMIZED);
- gui_hidewindow(id);
+ id:= SDL_CreateWindow(pchar(str1),0,0,1,1,SDL_WINDOWEVENT_HIDDEN);
  if id = 0 then begin
   result:= gue_createwindow;
   SDL_CheckError('createapphandle');
@@ -1793,10 +1792,17 @@ begin
   windowstyleex:= SDL_WINDOW_SHOWN;
   if (options * noframewindowtypes <> []) or
     (wo_message in options) then begin
-   windowstyleex:= SDL_WINDOW_BORDERLESS;
+   windowstyleex:= windowstyleex or SDL_WINDOW_BORDERLESS;
   end else begin
-   windowstyleex:= SDL_WINDOW_RESIZABLE;
+   windowstyleex:= windowstyleex or SDL_WINDOW_RESIZABLE;
   end;
+  if pos = wp_minimized then begin
+   windowstyleex:= windowstyleex or SDL_WINDOW_MINIMIZED;
+  end else if pos = wp_maximized then begin
+   windowstyleex:= windowstyleex or SDL_WINDOW_MAXIMIZED;
+  end else if (pos = wp_fullscreen) or (pos = wp_fullscreenvirt) then begin
+   windowstyleex:= windowstyleex or SDL_WINDOW_FULLSCREEN;
+  end; 
   if wo_taskbar in options then begin
    SDL_HideWindow(applicationwindow);
    ownerwindow:= 0;
@@ -1824,11 +1830,11 @@ begin
    if setgroup and (groupleader = 0) or (wo_groupleader in options) then begin
     groupleaderwindow:= id;
    end;
-   if not (pos = wp_default) and (parent = 0) then begin
+   {if not (pos = wp_default) and (parent = 0) then begin
     result:= gui_reposwindow(id,rect);
    end else begin
     result:= gue_ok;
-   end;
+   end;}
   end;
   if icon <> 0 then begin
    gui_setwindowicon(id,icon,iconmask);
