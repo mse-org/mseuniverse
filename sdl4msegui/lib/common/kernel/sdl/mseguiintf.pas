@@ -630,57 +630,16 @@ begin
 end;
 
 function gui_pixmaptoimage(pixmap: pixmapty; out image: imagety; gchandle: longword): gdierrorty;
-{var
- info: pixmapinfoty;
- bitmapinfo: monochromebitmapinfoty;
- dc: hdc;
- int1: integer;
- bmp1: hbitmap;}
-
 begin
- //RenderReadPixels(renderer: SDL_Renderer; const rect: PSDL_Rect; format: Uint32, image.pixels; pitch: integer);
- 
+ with CSDL_Surface(pixmap)^ do begin
+  image.pixels:= pixels; 
+  image.bgr:= false;
+  image.size.cx:= w;
+  image.size.cy:= h;
+  image.length:= w*h;
+ end;
  result:= gde_ok;
- SDL_CheckError('pixmatoimage');
- 
-{ if gchandle <> 0 then begin
-  bmp1:= createcompatiblebitmap(gchandle,0,0);
-  selectobject(gchandle,bmp1);
- end
- else begin
-  bmp1:= 0; //compiler warning
- end;
- info.handle:= pixmap;
- result:= gui_getpixmapinfo(info);
- if result = gde_ok then begin
-  image.size:= info.size;
-  result:= gde_image;
-  image.pixels:= nil;
-  if info.depth = 1 then begin
-   image.length:= ((info.size.cx + 31) div 32) * info.size.cy;
-   initbitmapinfo(true,false,info.size,bitmapinfo);
-   image.monochrome:= true;
-  end
-  else begin
-   image.monochrome:= false;
-   initbitmapinfo(false,false,info.size,bitmapinfo);
-   image.length:= info.size.cx * info.size.cy;
-  end;
-  image.pixels:= gui_allocimagemem(image.length);
-         //getdibits does not work with normal heap
-  dc:= getdc(0);
-  int1:= getdibits(dc,pixmap,0,info.size.cy,image.pixels,
-                 pbitmapinfo(@bitmapinfo)^,dib_rgb_colors);
-  releasedc(0,dc);
-  if int1 <> 0 then begin
-   transformimageformat(image);
-   result:= gde_ok;
-  end;
- end;
- if gchandle <> 0 then begin
-  selectobject(gchandle,pixmap);
-  deleteobject(bmp1);
- end;}
+ SDL_CheckError('pixmatoimage'); 
 end;
 
 function gui_imagetopixmap(const image: imagety; out pixmap: pixmapty;

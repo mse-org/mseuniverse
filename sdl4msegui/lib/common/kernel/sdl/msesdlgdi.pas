@@ -548,10 +548,10 @@ begin
   if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
    exit;
   end;
-  {if mask<>nil then begin
+  if mask<>nil then begin
    maskbefore:= mask;
    mask.canvas.copyarea(maskbefore.canvas,sourcerect^,nullpoint,rop_nor);
-  end;}
+  end;
   rect1.x:= sourcerect^.x;
   rect1.y:= sourcerect^.y;
   rect1.w:= sourcerect^.cx;
@@ -570,11 +570,11 @@ begin
   asurface:= SDL_CreateRGBSurface(0,rect2.w,rect2.h,32,0,0,0,0);
   SDL_unlockSurface(asurface);
   SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, asurface, nil);
-  SDL_SaveBMP_toFile(asurface,'c:\bb.bmp');
   atexture:= SDL_CreateTextureFromSurface(drawinfo.gc.handle,asurface);
   //SDL_CheckError('create texture');
   if SDL_RenderCopy(drawinfo.gc.handle, atexture, nil, @rect2)=0 then begin
    SDL_RenderPresent(drawinfo.gc.handle);
+   //SDL_SaveBMP_toFile(drawinfo.paintdevice,'c:\bb.bmp');
    SDL_CheckError('rendercopy');
   end;
   SDL_DestroyTexture(atexture);
@@ -583,11 +583,10 @@ begin
   {SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
   SDL_unlockSurface(drawinfo.paintdevice);
   SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, drawinfo.paintdevice, @rect2);
-  SDL_SaveBMP_toFile(drawinfo.paintdevice,'c:\bb.bmp');
+  //SDL_SaveBMP_toFile(drawinfo.paintdevice,'c:\bb.bmp');
   SDL_RenderPresent(drawinfo.gc.handle);
   SDL_CheckError('rendercopy');}
  end;
- //SDL_CheckError('copyarea');
 end;
 
 procedure gdi_getimage(var drawinfo: drawinfoty); //gdifunc
