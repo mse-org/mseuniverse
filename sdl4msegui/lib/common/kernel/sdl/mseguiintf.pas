@@ -22,6 +22,8 @@ type
  syseventty = SDL_Event;
    
 const
+ wheelstep = 120;
+
 // pixel0 = $000000;
 // pixel1 = $ffffff;
  pixel0 = $ffffff;   //select colorbackground
@@ -33,12 +35,7 @@ const
 {$include mseguiintf.inc}
 {$endif}
 
-//function getapplicationwindow: winidty;
-procedure recttowinrect(const rect: rectty); overload;
-procedure recttowinrect(po: prectty; count: integer); overload;
-procedure winrecttorect(const rect: rectty); overload;
-procedure winrecttorect(po: prectty; count: integer); overload;
-//function mrect(aleft,atop,aright,abottom: integer): trect;
+function getapplicationwindow: winidty;
 
 implementation
 //todo: 19.10.03 rasterops for textout
@@ -268,10 +265,10 @@ var
  ImmSetCompositionWindow: function(_himc: HIMC; 
                           lpCompForm: LPCOMPOSITIONFORM): BOOL; stdcall;}
              
-{function getapplicationwindow: winidty;
+function getapplicationwindow: winidty;
 begin
  result:= applicationwindow;
-end;}
+end;
 
 {$ifndef FPC}
 type
@@ -647,7 +644,7 @@ function gui_imagetopixmap(const image: imagety; out pixmap: pixmapty;
 begin
  result:= gde_pixmap;
  pixmap:= SDL_CreateRGBSurfaceFrom(image.pixels,image.size.cx,image.size.cy,32,image.size.cx*4,0,0,0,0); //$00FF0000,$0000FF00,$000000FF,$FF000000);
- //SDL_SaveBMP_toFile(pixmap,'c:\aa.bmp');
+ //SDL_SaveBMP_toFile(pixmap,'xx.bmp');
  result:= gde_ok;
  SDL_CheckError('imagetopixmap');
 end;
@@ -805,38 +802,6 @@ begin
  //windows.MessageBeep($ffffffff);
 end;
 
-procedure winrecttorect(const rect: rectty); overload;
-begin
- dec(pinteger(@rect.cx)^,rect.x);
- dec(pinteger(@rect.cy)^,rect.y);
-end;
-
-procedure winrecttorect(po: prectty; count: integer); overload;
-begin
- while count > 0 do begin
-  dec(po^.cx,po^.x);
-  dec(po^.cy,po^.y);
-  inc(po);
-  dec(count);
- end;
-end;
-
-procedure recttowinrect(const rect: rectty); overload;
-begin
- inc(pinteger(@rect.cx)^,rect.x);
- inc(pinteger(@rect.cy)^,rect.y);
-end;
-
-procedure recttowinrect(po: prectty; count: integer); overload;
-begin
- while count > 0 do begin
-  inc(po^.cx,po^.x);
-  inc(po^.cy,po^.y);
-  inc(po);
-  dec(count);
- end;
-end;
-
 function gui_flushgdi(const synchronize: boolean = false): guierrorty;
 begin
  gui_hasevent; //dispachevents
@@ -963,7 +928,10 @@ end;
 
 function composeicon(const icon,mask: pixmapty): PSDL_Surface;
 begin
- //need convert icon,mask to PSDL_Surface 
+ if mask<>0 then begin
+  SDL_SetSurfaceBlendMode(mask,SDL_BLENDMODE_ADD);
+  SDL_UpperBlit(mask,nil,icon,nil);
+ end;
  result:= icon;
 end;
 
@@ -1073,14 +1041,8 @@ begin
 end;}
 
 function windowvisible(handle: winidty): boolean;
-//var
-// rect1: trect;
 begin
- //windows.getclientrect(handle,rect1);
- result:= iswindowvisible(handle); { and
-  not ((rect1.Left = 0) and (rect1.Top = 0)
-                              and (rect1.Bottom = 0) and (rect1.Right = 0)) and
-      (gui_getwindowsize(handle) <> wsi_minimized);}
+ result:= iswindowvisible(handle);
 end;
 
 //procedure checkmousewindow(window: winidty; const pos: pointty); forward;
@@ -1160,34 +1122,11 @@ end;
 
 function getclientrect(winid: winidty; windowrect: prectty = nil): rectty;
                      //screen origin
-var
- x,y,w,h:integer;
 begin
- SDL_GetWindowSize(winid,w,h);
- SDL_GetWindowPosition(winid,x,y);
- result.x:= x;
- result.y:= y;
- result.cx:= w;
- result.cy:= h;
+ SDL_GetWindowSize(winid,result.cx,result.cy);
+ SDL_GetWindowPosition(winid,result.x,result.y);
  SDL_CheckError('getclientrect');
 end;
-
-{procedure getwindowrectpa(id: winidty; out rect: rectty; out origin: pointty);
-             //parent origin
-var
-// rect1: rectty;
- win1: winidty;
-begin
- rect:= getclientrect(id);
- win1:= getancestor(id,ga_parent);
- if win1 <> 0 then begin
-  origin:= getclientrect(win1).pos;
-  subpoint1(rect.pos,origin);
- end
- else begin
-  origin:= nullpoint;
- end;
-end;}
 
 function gui_getwindowrect(id: winidty; out rect: rectty): guierrorty;
             //screen origin
@@ -1227,28 +1166,22 @@ end;
 
 function gui_reposwindow(id: winidty; const rect: rectty): guierrorty;
 var
- //rect1,rect2: trect;
- arect: rectty;
- frame: framety;
+ rect1: rectty;
 begin
  result:= gue_resizewindow;
- {if windows.getwindowrect(id,rect1) then begin
-  if windows.GetclientRect(id,rect2) then begin
-   getframe(rect1,rect2,frame);
-   arect:= inflaterect(rect,frame);}
-   //configuredwindow:= 0;
-   //if windows.SetWindowPos(id,0,arect.x,arect.y,arect.cx,arect.cy,
-   //             swp_nozorder or swp_noactivate) then begin
-    SDL_SetWindowPosition(id,rect.x,rect.y);
-    SDL_SetWindowSize(id,rect.cx,rect.cy);
-    SDL_GetWindowSurface(id);
-   //end;
-  //end;
+ rect1:= getclientrect(id);
+ if not ((rect.x=rect1.x) and (rect.y=rect1.y) and 
+  (rect.cx=rect1.cx) and (rect.cy=rect1.cy)) then begin
+  SDL_SetWindowPosition(id,rect.x,rect.y);
+  SDL_SetWindowSize(id,rect.cx,rect.cy);
+  SDL_GetWindowSurface(id);
   result:= SDL_CheckError('reposwindow');
   if configuredwindow <> id then begin
    postconfigureevent(id);
   end;
- //end;
+ end else begin
+  result:= gue_ok;
+ end;
 end;
 
 function gui_getdecoratedwindowrect(id: winidty; out arect: rectty): guierrorty;
@@ -1394,6 +1327,10 @@ var
  rect1: rectty;
  winid: winidty;
  key1: keyty;
+ shiftstate1: shiftstatesty;
+ release1: boolean;
+ mousewheel1: mousewheelty;
+ pt1: pointty;
 begin
  result:= nil;
  while true do begin
@@ -1401,7 +1338,7 @@ begin
    case e.type_ of
     SDL_QUITEV:  begin
      application.postevent(tmseevent.create(ek_terminate));
-     //break;
+     break;
     end;
     SDL_WINDOWEVENT : begin
      winid:= SDL_GetWindowFromID(e.window.window);
@@ -1434,20 +1371,41 @@ begin
      end else if (e.window.event = SDL_WINDOWEVENT_LEAVE) or (e.window.event = SDL_WINDOWEVENT_FOCUS_LOST) then begin
       result:= twindowevent.create(ek_leavewindow,winid);
      end else if (e.window.event = SDL_WINDOWEVENT_CLOSE) then begin
-      result:= twindowevent.create(ek_close,winid);
-     //end else begin
-     // winrecttorect(rect1);
-     // eventlist.add(twindowrectevent.create(ek_expose,winid,rect1,nullpoint));
+      if winid = applicationwindow then begin
+       result:= tmseevent.create(ek_terminate);
+      end else begin
+       result:= twindowevent.create(ek_close,winid);
+      end;
+     end else if (e.window.event = SDL_WINDOWEVENT_RESIZED) 
+      or (e.window.event = SDL_WINDOWEVENT_SIZE_CHANGED) then begin
+      SDL_GetWindowSurface(winid);
+      postconfigureevent(winid);
+      SDL_CheckError('resized');
      end else if (e.window.event = SDL_WINDOWEVENT_EXPOSED) then begin
       gui_getwindowrect(winid,rect1);
       result:= twindowrectevent.create(ek_expose,winid,rect1,nullpoint);
+     end else if (e.window.event = SDL_WINDOWEVENT_MOVED) then begin
+      postconfigureevent(winid);
+     end else if (e.window.event = SDL_WINDOWEVENT_HIDDEN) then begin
+      result:= twindowevent.create(ek_hide,winid);
+     end else if (e.window.event = SDL_WINDOWEVENT_SHOWN) then begin
+      result:= twindowevent.create(ek_show,winid);
      end;
+     {if winid = sizingwindow then begin
+      inc(eventlooping);
+      try
+       tapplication1(application).eventloop(true);
+      finally
+       dec(eventlooping);
+      end;
+     end;}
      break;
     end;
     SDL_TEXTINPUT: begin
      charbuffer:= charbuffer + pchar(e.text.text);
-     eventlist.add(tkeyevent.create(e.text.window,false,key_none,key_none,shiftstate,
-                                    charbuffer,timestamp));
+     result:= tkeyevent.create(e.text.window,false,key_none,key_none,shiftstate,
+                                    charbuffer,e.text.timestamp);
+     break;
     end; 
     SDL_KEYDOWN : begin
      key1:= SDL_KeyCodeToKey(e.keydown.keysym.sym);
@@ -1456,244 +1414,61 @@ begin
       escapepressed:= true;
      end;
      result:= tkeyevent.create(SDL_GetWindowFromID(e.keydown.window),false,
-       key1,key1,shiftstate,charbuffer,timestamp);
+       key1,key1,shiftstate,charbuffer,e.keydown.timestamp);
+     break;
     end;
     SDL_KEYUP : begin
      key1:= SDL_KeyCodeToKey(e.keydown.keysym.sym);
      shiftstate:= SDL_GetShiftState(e.keydown);
      result:= tkeyevent.create(SDL_GetWindowFromID(e.keydown.window),true,
-       key1,key1,shiftstate,charbuffer,timestamp);
+       key1,key1,shiftstate,charbuffer,e.keydown.timestamp);
      charbuffer:= '';
+     break;
     end;
     SDL_MOUSEMOTION: begin
-     result:= tmouseevent.create(SDL_GetWindowFromID(e.motion.window),false,mb_none,mw_none,
-                makepoint(e.motion.x,e.motion.y),[], MilliSecondOf(time)*1000);
-     //break;
+     shiftstate1:= sdlmousetoshiftstate(e.motion.state);
+     shiftstate1:= shiftstate1+shiftstate;
+     release1:= false;
+     result:= tmouseevent.create(SDL_GetWindowFromID(e.motion.window),release1,
+      checkbutton(e.motion.state),mw_none,
+      makepoint(e.motion.x,e.motion.y),shiftstate1, e.motion.timestamp);
+     break;
     end;
-   end;
-  end;
- end;
-
-//batas
-{   eventlist.add(tkeyevent.create(awinidty,false,key_none,key_none,shiftstate,
-                                    charbuffer,timestamp));
-   charbuffer:= '';
-  end;
-  wm_close: begin
-   if awinidty = applicationwindow then begin
-    eventlist.add(tmseevent.create(ek_terminate));
-   end
-   else begin
-    eventlist.add(twindowevent.create(ek_close,awinidty));
-    result:= 0;
-   end;
-   exit;
-  end;
-  wm_queryendsession: begin
-   canshutdown:= 1;
-   eventlist.add(tmseevent.create(ek_terminate));
-   tapplication1(application).eventloop;
-   result:= canshutdown;
-   exit;
-  end;
-  wm_destroy: begin
-  {$ifdef mse_debugwindowfocus}
-   debugwindow('wm_destroy ',awinidty);
-  {$endif}
-  {$ifdef mse_debugwindowdestroy}
-   debugwindow('*wm_destroy ',awinidty);
-  {$endif}
-   windowdestroyed(awinidty);
-   eventlist.add(twindowevent.create(ek_destroy,awinidty));
-  end;
-  wm_setfocus: begin
-   if (awinidty = applicationwindow) and (lastfocuswindow <> 0) then begin
-   {$ifdef mse_debugwindowfocus}
-    debugwindow('wm_setfocus applicationwindow ',awinidty);
-   {$endif}
-    if windowvisible(lastfocuswindow) then begin
-     setfocus(lastfocuswindow);
-    end
-    else begin
-     if application.activewindow <> nil then begin
-      setfocus(application.activewindow.winid);
-     end
-     else begin
-      if application.mainwindow <> nil then begin
-       setfocus(application.mainwindow.winid);
+    SDL_MOUSEBUTTONDOWN,SDL_MOUSEBUTTONUP: begin
+     shiftstate1:= sdlmousetoshiftstate(e.button.state);
+     shiftstate1:= shiftstate1+shiftstate;
+     if e.type_=SDL_MOUSEBUTTONUP then
+      release1:= true
+     else
+      release1:= false;
+     result:= tmouseevent.create(SDL_GetWindowFromID(e.button.window),release1,
+      checkbutton(e.button.state),mw_none,
+      makepoint(e.button.x,e.button.y),shiftstate1, e.button.timestamp);
+     break;
+    end;
+    SDL_MOUSEWHEEL: begin
+     if mousewindow <> 0 then begin
+      //e.wheel.x ( - -> left + -> right )
+      //e.wheel.y ( - -> up   + -> down )
+      pt1:= gui_getpointerpos;
+      subpoint1(pt1,getclientrect(mousewindow).pos);
+      inc(mousewheelpos,e.wheel.y);
+      while mousewheelpos >= wheelstep do begin
+       result:= tmouseevent.create(SDL_GetWindowFromID(e.wheel.window),false,mb_none,mw_up,pt1,
+              shiftstate,e.wheel.timestamp);
+       dec(mousewheelpos,wheelstep);
+      end;
+      while mousewheelpos <= -wheelstep do begin
+       result:= tmouseevent.create(SDL_GetWindowFromID(e.wheel.window),false,mb_none,mw_down,pt1,
+              shiftstate,e.wheel.timestamp);
+       inc(mousewheelpos,wheelstep);
       end;
      end;
+     break;
     end;
-   end
-   else begin
-    if windowvisible(awinidty) then begin
-    {$ifdef mse_debugwindowfocus}
-     debugwindow('wm_setfocus ',awinidty);
-    {$endif}
-     lastfocuswindow:= awinidty;
-     eventlist.add(twindowevent.create(ek_focusin,awinidty));
-    end{$ifndef mse_debugwindowfocus};{$endif}
-  {$ifdef mse_debugwindowfocus}
-    else begin
-     debugwindow('wm_setfocus invisible ',awinidty);
-    end;
-  {$endif}
-   end;
-  end;
-  wm_killfocus: begin
-  {$ifdef mse_debugwindowfocus}
-   debugwindow('wm_killfocus ',awinidty);
-  {$endif}
-   eventlist.add(twindowevent.create(ek_focusout,awinidty));
-  end;
-  wm_paint: begin
-   if getupdaterect(awinidty,trect(rect1),false) then begin
-    winrecttorect(rect1);
-    eventlist.add(twindowrectevent.create(ek_expose,awinidty,rect1,nullpoint));
-//    exit;
-   end;
-  end;
-  wm_entersizemove: begin
-   sizingwindow:= awinidty;
-  end;
-  wm_exitsizemove: begin
-   sizingwindow:= 0;
-  end;
-  wm_sizing: begin
-   rect1:= rectty(prect(lparam)^);
-   winrecttorect(rect1);
-   rect2:= getclientrect(awinidty,@rect1);
-   rect3:= rect2;
-   application.checkwindowrect(awinidty,rect2);
-   size1:= subsize(rect3.size,rect2.size);
-   if (wparam = wmsz_topleft) or (wparam = wmsz_left) or
-                           (wparam = wmsz_bottomleft) then begin
-    inc(rect1.x,size1.cx);
-   end;
-   dec(rect1.cx,size1.cx);
-   if (wparam = wmsz_topleft) or (wparam = wmsz_top) or
-                           (wparam = wmsz_topright) then begin
-    inc(rect1.y,size1.cy);
-   end;
-   dec(rect1.cy,size1.cy);
-   recttowinrect(rect1);
-   rect2:= rectty(prect(lparam)^);
-   rectty(prect(lparam)^):= rect1;
-   if not rectisequal(rect2,rectty(prect(lparam)^)) then begin
-    exit;
-   end;
-  end;
-  wm_move,wm_size: begin
-   postconfigureevent(awinidty);
-  end;
-  wm_queryopen: begin
-   eventlist.add(twindowevent.create(ek_show,awinidty));
-  end;
-  wm_windowposchanged: begin
-   with pwindowpos(lparam)^ do begin
-    if swp_hidewindow and flags <> 0 then begin
-     eventlist.add(twindowevent.create(ek_hide,awinidty));
-    end;
-    if (swp_showwindow and flags <> 0) and (gui_getwindowsize(awinidty) <> wsi_minimized) then begin
-     eventlist.add(twindowevent.create(ek_show,awinidty));
-    end;
-    if ((swp_nomove or swp_nosize) and flags <> (swp_nomove or swp_nosize)) and
-            windowvisible(awinidty) then begin
-     postconfigureevent(awinidty);
-//     getwindowrectpa(awinidty,rect1,pt1); 
-//     eventlist.add(twindowrectevent.create(ek_configure,awinidty,rect1,pt1));
-     result:= 0;
-     exit;
-    end;
-   end;
-  end;
-  wm_mousewheel: begin
-   if mousewindow <> 0 then begin
-    shiftstate:= wheelkeystatetoshiftstate(wparam);
-    pt1:= winmousepostopoint(lparam);
-    subpoint1(pt1,getclientrect(mousewindow).pos);
-    inc(mousewheelpos,smallint(hiword(wparam)));
-    while mousewheelpos >= wheelstep do begin
-    eventlist.add(tmouseevent.create(mousewindow,false,mb_none,mw_up,pt1,
-            winmousekeyflagstoshiftstate(wparam),timestamp));
-     dec(mousewheelpos,wheelstep);
-    end;
-    while mousewheelpos <= -wheelstep do begin
-     eventlist.add(tmouseevent.create(mousewindow,false,mb_none,mw_down,pt1,
-            winmousekeyflagstoshiftstate(wparam),timestamp));
-     inc(mousewheelpos,wheelstep);
-    end;
-    result:= 0;
-    exit;
-   end;
-  end;
-  wm_mousemove,
-  wm_lbuttondown,wm_mbuttondown,wm_rbuttondown,
-  wm_lbuttonup,wm_mbuttonup,wm_rbuttonup: begin
-   pt1:= winmousepostopoint(lparam);
-   checkmousewindow(awinidty,pt1);
-   button:= checkbutton(msg);
-   eventlist.add(tmouseevent.create(awinidty,
-        (msg = wm_lbuttonup) or (msg = wm_mbuttonup) or (msg = wm_rbuttonup),
-         button,mw_none,pt1,
-           winmousekeyflagstoshiftstate(wparam),timestamp));
-   result:= 0;
-   exit;
-  end;
-  wm_keydown,wm_syskeydown: begin
-   shiftstate:= winkeystatetoshiftstate(lparam);
-   if lparam and $40000000 <> 0 then begin
-    include(shiftstate,ss_repeat);
-   end;
-   key1:= winkeytokey(wparam,lparam,shiftstate);
-   if key1 = key_escape then begin
-    escapepressed:= true;
-   end;
-   eventlist.add(tkeyevent.create(awinidty,false,key1,key1,shiftstate,
-                                    charbuffer,timestamp));
-   charbuffer:= '';
-  end;
-  wm_keyup,wm_syskeyup: begin
-   shiftstate:= winkeystatetoshiftstate(lparam);
-   key1:= winkeytokey(wparam,lparam,shiftstate);
-   if charbuffer <> '' then begin
-    eventlist.add(tkeyevent.create(awinidty,false,key_none,key_none,shiftstate,
-                                    charbuffer,timestamp));
-    charbuffer:= '';
-   end;
-   eventlist.add(tkeyevent.create(awinidty,true,key1,key1,shiftstate,'',timestamp));
-  end;
-  wm_ime_startcomposition: begin
-   if hasimm32 and (application.activewidget <> nil) and 
-                            application.activewidget.hascaret then begin
-    imc:= immgetcontext(awinidty);
-    fillchar(imminfo,sizeof(imminfo),0);
-    with imminfo,application do begin
-     dwstyle:= cfs_point;
-     ptcurrentpos.x:= caret.pos.x + caret.origin.x;
-     ptcurrentpos.y:= caret.pos.y + caret.origin.y{ + caret.size.cy};
-//     ptcurrentpos.x:= caret.pos.x + activewidget.rootpos.x;
-//     ptcurrentpos.y:= activewidget.rootpos.y + activewidget.bounds_cy;
-     immsetcompositionwindow(imc,@imminfo);
-    end;
-    immreleasecontext(awinidty,imc);
    end;
   end;
  end;
- if iswin95 then begin
-  result:= defwindowproca(awinidty,msg,wparam,lparam);
- end
- else begin
-  result:= defwindowprocw(awinidty,msg,wparam,lparam);
- end;
- if awinidty = sizingwindow then begin
-  inc(eventlooping);
-  try
-   tapplication1(application).eventloop(true);
-  finally
-   dec(eventlooping);
-  end;
- end;}
 end;
 
 function createapphandle(out id: winidty): guierrorty;

@@ -63,6 +63,11 @@ begin
  result:= defaultfontnames;
 end;
 
+procedure gdi_setcliporigin(var drawinfo: drawinfoty);
+begin
+// gdierror(gde_notimplemented);
+end;
+
 procedure gdi_createpixmap(var drawinfo: drawinfoty); //gdifunc
 begin
  with drawinfo.createpixmap do begin
@@ -127,156 +132,6 @@ begin
  end;
 end;
 
-{procedure updateopaquemode(var drawinfo: drawinfoty);
-var
- rgbcolor: rgbtriplety;
-begin
- with drawinfo do begin
-  rgbcolor:= colortorgb(foregroundcol);
-  sdl_set_source_rgb (paintdevice,rgbcolor.red,rgbcolor.green,rgbcolor.blue);
-  if df_opaque in drawingflags then begin
-   //setbkmode(handle,opaque);
-   setbkcolor(handle,backgroundcol);
-  end
-  else begin
-   setbkmode(handle,transparent);
-  end;
- end;
-end;}
-
-
-function createregion: regionty; overload;
-begin
-{$ifdef mse_debuggdi}
- inc(regioncount);
-{$endif}
- result:= createrectrgnindirect(trect(nullrect));
-end;
-
-{function createregion(var rect: rectty; const gc: gcty): regionty; overload;
-var
- rect1: rectty;
-begin
-{$ifdef mse_debuggdi}
- inc(regioncount);
-{$endif}
- if win32gcty(gc.platformdata).d.kind = gck_printer then begin
-  rect1:= rect;
-  recttowinrect(rect1);
-  lptodp(gc.handle,
-     {$ifdef FPC}lppoint(@{$endif}rect1{$ifdef FPC}){$endif},2);
-  result:= createrectrgnindirect(trect(rect1));   
- end
- else begin
-  recttowinrect(rect);
-  result:= createrectrgnindirect(trect(rect));
-  winrecttorect(rect);
- end;
-end;}
-
-procedure gdi_createemptyregion(var drawinfo: drawinfoty);
-begin
- with drawinfo.regionoperation do begin
-  dest:= createregion;
- end;
-end;
-
-procedure gdi_setcliporigin(var drawinfo: drawinfoty);
-begin
-// gdierror(gde_notimplemented,'setcliporigin');
-end;
-
-procedure gdi_createrectregion(var drawinfo: drawinfoty);
-begin
-end;
-
-procedure gdi_createrectsregion(var drawinfo: drawinfoty);
-begin
-end;
-
-procedure gdi_destroyregion(var drawinfo: drawinfoty);
-begin
- with drawinfo.regionoperation do begin
-  if source <> 0 then begin
-{$ifdef mse_debuggdi}
-   dec(regioncount);
-{$endif}
-   deleteobject(source);
-  end;
- end;
-end;
-
-procedure gdi_regionisempty(var drawinfo: drawinfoty);
-var
- rect1: trect;
-begin
- with drawinfo.regionoperation do begin
-  if getrgnbox(source,rect1) = nullregion then begin
-   dest:= 1;
-  end
-  else begin
-   dest:= 0;
-  end;
- end;
-end;
-
-procedure gdi_regionclipbox(var drawinfo: drawinfoty);
-begin
-end;
-
-procedure gdi_copyregion(var drawinfo: drawinfoty);
-begin
- with drawinfo.regionoperation do begin
-  if source = 0 then begin
-   dest:= 0;
-  end
-  else begin
-   dest:= createregion;
-   combinergn(dest,source,0,rgn_copy);
-  end;
- end;
-end;
-
-procedure gdi_moveregion(var drawinfo: drawinfoty);
-begin
- with drawinfo.regionoperation do begin
-  offsetrgn(source,rect.x,rect.y);
- end;
-end;
-
-procedure gdi_regsubrect(var drawinfo: drawinfoty);
-begin
-end;
-
-procedure gdi_regsubregion(var drawinfo: drawinfoty);
-begin
- with drawinfo.regionoperation do begin
-  combinergn(dest,dest,source,rgn_diff);
- end;
-end;
-
-procedure gdi_regaddrect(var drawinfo: drawinfoty);
-begin
-end;
-
-procedure gdi_regaddregion(var drawinfo: drawinfoty);
-begin
- with drawinfo.regionoperation do begin
-  combinergn(dest,dest,source,rgn_or);
- end;
-end;
-
-procedure gdi_regintersectrect(var drawinfo: drawinfoty);
-begin
-end;
-
-procedure gdi_regintersectregion(var drawinfo: drawinfoty);
-begin
- with drawinfo.regionoperation do begin
-  combinergn(dest,dest,source,rgn_and);
- end;
-end;
-
 procedure gdi_destroygc(var drawinfo: drawinfoty);
 begin 
  SDL_DestroyRenderer(drawinfo.gc.handle);
@@ -290,20 +145,15 @@ var
  ar1: rectarty;
  dashesarty: realarty;
  rgbcolor: rgbtriplety;
- //fslant: cairo_font_slant_t;
- //fweight: cairo_font_weight_t;
  pt1: pointty;
- //fmatrix,fontmatrix: cairo_matrix_t;
- //ffontextent: cairo_font_extents_t;
  height1,width1: integer;
  image: imagety;
- //fsurface1 : Pcairo_surface_t;
  lwidth: real;
  rect3: SDL_Rect;
 begin
  ar1:= nil; //compiler warning
  with drawinfo,gcvalues^ do begin
-  if gvm_dashes in mask then begin
+  {if gvm_dashes in mask then begin
    int2:= length(lineinfo.dashes);
    if (int2 > 0) and (lineinfo.dashes[int2] = #0) then begin
     dec(int2);
@@ -332,7 +182,7 @@ begin
     //cairo_surface_destroy(fsurface1);
     //fsurface1:= nil;
    end;
-  end;
+  end;}
   {if (df_brush in gc.drawingflags) and (cpattern<>nil) then begin
    rect2:= makerect(self.brushorigin,tsimplebitmap(self.brush).size);
    cairo_matrix_init_scale(@fmatrix, rect2.cx, rect2.cy);
@@ -388,7 +238,7 @@ begin
     else cairo_set_line_join(fcairo.context,CAIRO_LINE_JOIN_MITER);
    end;
   end;}
-  if gvm_clipregion in mask then begin
+  {if gvm_clipregion in mask then begin
    //cairo_save(fcairo.context);
    if clipregion <> 0 then begin
     ar1:= gui_regiontorects(clipregion);
@@ -402,7 +252,7 @@ begin
     end;
    end;
    //cairo_restore (fcairo.context)
-  end;
+  end;}
  end;
 end;
 
@@ -419,8 +269,8 @@ end;
 
 procedure gdi_flush(var drawinfo: drawinfoty); //gdifunc
 begin
- SDL_RenderPresent(drawinfo.gc.handle);
- SDL_CheckError('flush');
+ //SDL_RenderPresent(drawinfo.gc.handle);
+ //SDL_CheckError('flush');
 end;
 
 procedure gdi_movewindowrect(var drawinfo: drawinfoty); //gdifunc
@@ -442,11 +292,11 @@ begin
   SDL_RenderDrawLine(drawinfo.gc.handle,startpoint.x,startpoint.y,
     ppointaty(points)^[int1].x, ppointaty(points)^[int1].y);
   SDL_CheckError('SDL_RenderDrawLine');
-  if (int1=lastpoint) and closed then begin
+  {if (int1=lastpoint) and closed then begin
    SDL_RenderDrawLine(drawinfo.gc.handle,ppointaty(points)^[int1].x, ppointaty(points)^[int1].y,
      startpoint.x, startpoint.y);
-  SDL_CheckError('SDL_RenderDrawLine');
-  end;
+   SDL_CheckError('SDL_RenderDrawLine');
+  end;}
  end;
  {if fill then begin
   cairo_fill(fcairo.context);
@@ -549,10 +399,6 @@ begin
   if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
    exit;
   end;
-  if mask<>nil then begin
-   maskbefore:= mask;
-   mask.canvas.copyarea(maskbefore.canvas,sourcerect^,nullpoint,rop_nor);
-  end;
   rect1.x:= sourcerect^.x;
   rect1.y:= sourcerect^.y;
   rect1.w:= sourcerect^.cx;
@@ -578,12 +424,22 @@ begin
   end;
   SDL_DestroyTexture(atexture);
   SDL_FreeSurface(asurface);
-
-  {SDL_unlockSurface(drawinfo.paintdevice);
-  SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
-  SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, drawinfo.paintdevice, @rect2);
-  SDL_RenderPresent(drawinfo.gc.handle);
-  SDL_CheckError('rendercopy');}
+  if mask<>nil then begin
+   asurface:= SDL_CreateRGBSurface(0,rect2.w,rect2.h,32,0,0,0,0);
+   SDL_unlockSurface(mask.handle);
+   SDL_unlockSurface(asurface);
+   SDL_UpperBlit(mask.handle,@rect1, asurface, nil);
+   atexture:= SDL_CreateTextureFromSurface(drawinfo.gc.handle,asurface);
+   SDL_SetRenderDrawBlendMode(atexture,SDL_BLENDMODE_ADD);
+   if atexture<>0 then begin
+    if SDL_RenderCopy(drawinfo.gc.handle, atexture, nil, @rect2)=0 then begin
+     SDL_RenderPresent(drawinfo.gc.handle);
+     SDL_CheckError('rendercopy');
+    end;
+   end;
+   SDL_DestroyTexture(atexture);
+   SDL_FreeSurface(asurface); 
+  end;
  end;
 end;
 

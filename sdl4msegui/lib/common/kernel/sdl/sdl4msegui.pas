@@ -175,7 +175,12 @@ const
  SDL_WINDOWEVENT_CLOSE = 14;          // The window manager requests that the window be closed */
 
  TEXT_SIZE = 32;
-
+ 
+ // mouse button state
+ SDL_BUTTON_LMASK = (1 << ((1)-1));
+ SDL_BUTTON_MMASK = (1 << ((2)-1));
+ SDL_BUTTON_RMASK = (1 << ((3)-1));
+ 
 type
  SDL_KeyCode = longword;
  SDL_KeyMod = longword;
@@ -633,8 +638,11 @@ type
  SDL_Renderer = ptruint;
  PSdlTextureAccess = ^SDL_TextureAccess;
  SDL_TextureAccess = (sdltaStatic, sdltaStreaming, sdltaRenderTarget);
- SDL_BlendMode = (sdlbBlend, sdlbAdd, sdlbMod, sdlbForce32 = 31);
- SDL_BlendModes = set of SDL_BlendMode;
+
+ SDL_BlendMode = (SDL_BLENDMODE_NONE = $00000000,
+                  SDL_BLENDMODE_BLEND = $00000001,
+                  SDL_BLENDMODE_ADD = $00000002,
+                  SDL_BLENDMODE_MOD = $00000004);
 
  SDL_RendererInfo = record
   name: pchar;                              //**< The name of the renderer */
@@ -660,12 +668,12 @@ type
  function SDL_SetTextureAlphaMod(textureID: SDL_Texture; alpha: byte): integer; cdecl; external SDLLibName;
  function SDL_GetTextureAlphaMod(textureID: SDL_Texture; var alpha: byte): integer; cdecl; external SDLLibName;
  function SDL_GetTextureHandle(texture: SDL_Texture): integer; cdecl; external SDLLibName;
- function SDL_SetTextureBlendMode(texture: SDL_Texture; blendMode: SDL_BlendModes): Integer; cdecl; external SDLLibName;
- function SDL_GetTextureBlendMode(texture: SDL_Texture; var blendMode: SDL_BlendModes): Integer; cdecl; external SDLLibName;
+ function SDL_SetTextureBlendMode(texture: SDL_Texture; blendMode: SDL_BlendMode): Integer; cdecl; external SDLLibName;
+ function SDL_GetTextureBlendMode(texture: SDL_Texture; var blendMode: SDL_BlendMode): Integer; cdecl; external SDLLibName;
  function SDL_SetRenderDrawColor(renderer: SDL_Renderer; r, g, b, a: byte): integer; cdecl; overload; external SDLLibName;
  function SDL_RenderReadPixels(renderer: SDL_Renderer; const rect: PSDL_Rect; format: Uint32; pixels: pointer; pitch: integer): integer; cdecl; external SDLLibName;
- function SDL_SetRenderDrawBlendMode(renderer: SDL_Renderer; blendMode: SDL_BlendModes): integer; cdecl; external SDLLibName;
- function SDL_GetRenderDrawBlendMode(renderer: SDL_Renderer; var blendMode: SDL_BlendModes): integer; cdecl; external SDLLibName;
+ function SDL_SetRenderDrawBlendMode(renderer: SDL_Renderer; blendMode: SDL_BlendMode): integer; cdecl; external SDLLibName;
+ function SDL_GetRenderDrawBlendMode(renderer: SDL_Renderer; var blendMode: SDL_BlendMode): integer; cdecl; external SDLLibName;
  function SDL_RenderClear(renderer: SDL_Renderer): Integer; cdecl; external SDLLibName;
  function SDL_RenderDrawLine(renderer: SDL_Renderer; x1, y1, x2, y2: integer): integer; cdecl; external SDLLibName;
  function SDL_RenderDrawRect(renderer: SDL_Renderer; const rect: PSDL_Rect): integer; cdecl; external SDLLibName;
@@ -716,7 +724,7 @@ type
  procedure SDL_SaveBMP_RW(surface: PSDL_Surface; dst: PSDL_RWops; freedst: integer); cdecl; external SDLLibName;
  procedure SDL_SaveBMP_toFile(surface: PSDL_Surface; filename: PAnsiChar);
  function SDL_SetClipRect(surface: PSDL_Surface; const rect: PSDL_Rect): boolean; cdecl; external SDLLibName;
-
+ function SDL_SetSurfaceBlendMode(surface: PSDL_Surface; blendMode: SDL_BlendMode): integer; cdecl; external SDLLibName;
 // event
 
  procedure SDL_PumpEvents; cdecl; external SDLLibName;
@@ -742,6 +750,10 @@ type
  procedure SDL_StartTextInput; cdecl; external SDLLibName;
  function SDL_GetKeyName(key: SDL_KeyCode): pchar; cdecl; external SDLLibName;
  function SDL_GetKeyFromScancode(scancode: SDL_Scancode): SDL_KeyCode; cdecl; external SDLLibName;
+
+//mouse
+ function checkbutton(const mousestate: byte): mousebuttonty;
+ function sdlmousetoshiftstate(keys: byte): shiftstatesty;
 
 // timer
 type
@@ -1128,6 +1140,26 @@ implementation
   end else begin
    debugwriteln('Success = ' + ref);
    result:= gde_ok;
+  end;
+ end;
+
+ function checkbutton(const mousestate: byte): mousebuttonty;
+ begin
+  result:= mb_none;
+  case mousestate of
+   SDL_BUTTON_LMASK: result:= mb_left;
+   SDL_BUTTON_MMASK: result:= mb_middle;
+   SDL_BUTTON_RMASK: result:= mb_right;
+  end;
+ end;
+
+ function sdlmousetoshiftstate(keys: byte): shiftstatesty;
+ begin
+  result:= [];
+  case keys of
+   SDL_BUTTON_LMASK: include(result,ss_left);
+   SDL_BUTTON_MMASK: include(result,ss_middle);
+   SDL_BUTTON_RMASK: include(result,ss_right);
   end;
  end;
  
