@@ -1241,6 +1241,7 @@ begin
    //             swp_nozorder or swp_noactivate) then begin
     SDL_SetWindowPosition(id,rect.x,rect.y);
     SDL_SetWindowSize(id,rect.cx,rect.cy);
+    SDL_GetWindowSurface(id);
    //end;
   //end;
   result:= SDL_CheckError('reposwindow');

@@ -133,6 +133,7 @@ type
  TWrite = function( context: PSDL_RWops; Ptr: Pointer; size: Integer; num: Integer ): Integer; cdecl;
  TClose = function( context: PSDL_RWops ): Integer; cdecl;
  // the variant record itself
+ // Note : TSDL_RWops need to be updated to current revision
  TSDL_RWops = record
    seek: TSeek;
    read: TRead;
@@ -608,7 +609,7 @@ const
       $ff,$ff,$ff,$ff,
       $ff,$ff,$ff,$ff
    );
-
+   
 type
  SDL_Cursor = ptruint;
 
@@ -701,6 +702,7 @@ type
  function SDL_LoadBMPFromFile(filename: PAnsiChar): PSDL_Surface;
  procedure SDL_FreeSurface(surface: PSDL_Surface); cdecl; external SDLLibName;
  function SDL_UpperBlit(src: PSDL_Surface; const srcrect: PSDL_Rect; dst: PSDL_Surface; dstrect: PSDL_Rect): integer; cdecl; external SDLLibName;
+ function SDL_LowerBlit(src: PSDL_Surface; const srcrect: PSDL_Rect; dst: PSDL_Surface; dstrect: PSDL_Rect): integer; cdecl; external SDLLibName;
  function SDL_LockSurface(surface: PSDL_Surface): integer; cdecl; external SDLLibName;
  procedure SDL_UnlockSurface(surface: PSDL_Surface); cdecl; external SDLLibName;
  function SDL_ConvertPixels(width: integer; 

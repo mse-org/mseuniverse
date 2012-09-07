@@ -101,16 +101,18 @@ begin
    gck_screen: begin
     //choose the best renderer supported
     int3:= -1;
-    arenderer:= SDL_CreateRenderer(paintdevice,int3,SDL_RENDERER_ACCELERATED);
+    arenderer:= SDL_CreateRenderer(paintdevice,int3,SDL_RENDERER_SOFTWARE{SDL_RENDERER_ACCELERATED});
     error:= gde_ok;
-    if (arenderer=0) {or (SDL_GetError<>'')} then begin //wait for final release SDL 2
+    {//wait for final release SDL 2, we use software renderer only
+     //at the moment some bugs in SDL 2 with DirectX and OpenGL/ES
+    if (arenderer=0) or (SDL_GetError<>'') then begin
      SDL_DestroyRenderer(arenderer);
      int1:= SDL_GetNumRenderDrivers;
      for int2:= 1 to int1 do begin
       if SDL_GetRenderDriverInfo(int2,pinfo)=0 then begin
        debugwriteln(pinfo^.name+' w = '+inttostr(pinfo^.max_texture_width)+' h = '+inttostr(pinfo^.max_texture_width));
        arenderer:= SDL_CreateRenderer(paintdevice,int2,SDL_RENDERER_ACCELERATED);
-       if (arenderer=0) {or (SDL_GetError<>'')} then begin
+       if (arenderer=0) or (SDL_GetError<>'') then begin
         error:= SDL_CheckErrorGDI('creategc');
         SDL_DestroyRenderer(arenderer);
        end else begin
@@ -118,7 +120,7 @@ begin
        end;
       end;
      end;
-    end;    
+    end;}
     gcpo^.handle:= arenderer;
    end;
   end;
@@ -538,11 +540,10 @@ end;
 
 procedure gdi_copyarea(var drawinfo: drawinfoty);
 var
- rect1,rect2,rect3: SDL_rect;
+ rect1,rect2: SDL_rect;
  maskbefore: tsimplebitmap;
  atexture: SDL_Texture;
  asurface: PSDL_Surface;
- w,h: integer;
 begin
  with drawinfo,copyarea do begin
   if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
@@ -560,30 +561,27 @@ begin
   rect2.y:= destrect^.y;
   rect2.w:= destrect^.cx;
   rect2.h:= destrect^.cy;
-  w:= CSDL_Surface(tcanvas1(source).fdrawinfo.paintdevice)^.w;
-  h:= CSDL_Surface(tcanvas1(source).fdrawinfo.paintdevice)^.h;
-  rect3.x:= 0;
-  rect3.y:= 0;
-  rect3.w:= w;
-  rect3.h:= h;
-  SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
+    
+  //SDL_SaveBMP_toFile(tcanvas1(source).fdrawinfo.paintdevice,'source.bmp');
+  //SDL_SaveBMP_toFile(drawinfo.paintdevice,'target.bmp');
   asurface:= SDL_CreateRGBSurface(0,rect2.w,rect2.h,32,0,0,0,0);
+  SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
   SDL_unlockSurface(asurface);
   SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, asurface, nil);
   atexture:= SDL_CreateTextureFromSurface(drawinfo.gc.handle,asurface);
-  //SDL_CheckError('create texture');
-  if SDL_RenderCopy(drawinfo.gc.handle, atexture, nil, @rect2)=0 then begin
-   SDL_RenderPresent(drawinfo.gc.handle);
-   //SDL_SaveBMP_toFile(drawinfo.paintdevice,'c:\bb.bmp');
-   SDL_CheckError('rendercopy');
+  if atexture<>0 then begin
+   if SDL_RenderCopy(drawinfo.gc.handle, atexture, nil, @rect2)=0 then begin
+    SDL_RenderPresent(drawinfo.gc.handle);
+    SDL_CheckError('rendercopy');
+    //SDL_SaveBMP_toFile(drawinfo.paintdevice,'result.bmp');
+   end;
   end;
   SDL_DestroyTexture(atexture);
   SDL_FreeSurface(asurface);
 
-  {SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
-  SDL_unlockSurface(drawinfo.paintdevice);
+  {SDL_unlockSurface(drawinfo.paintdevice);
+  SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
   SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, drawinfo.paintdevice, @rect2);
-  //SDL_SaveBMP_toFile(drawinfo.paintdevice,'c:\bb.bmp');
   SDL_RenderPresent(drawinfo.gc.handle);
   SDL_CheckError('rendercopy');}
  end;
