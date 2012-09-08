@@ -772,7 +772,7 @@ procedure killtimer;
 begin
  if timer <> 0 then begin
   SDL_RemoveTimer(timer);
-  SDL_CheckError('killtimer');
+  //SDL_CheckError('killtimer');
   timer:= 0;
  end;
 end;
@@ -794,7 +794,7 @@ begin
  else begin
   result:= gue_ok;
  end;
- result:= SDL_CheckError('settimer');
+ //result:= SDL_CheckError('settimer');
 end;
 
 procedure gui_beep;
@@ -1225,30 +1225,37 @@ function gui_postevent(event: tmseevent): guierrorty;
 // int1: integer;
 begin
  result:= gue_postevent;
- SDL_PumpEvents;
- result:= SDL_CheckError('postevent');
+ case event.kind of
+  {ek_focusin,ek_focusout,ek_checkapplicationactive,
+  ek_enterwindow,ek_leavewindow,
+  ek_buttonrelease,ek_mousewheel,
+  ek_mousemove,ek_mousepark,
+  ek_mouseenter,ek_mouseleave,ek_mousecaptureend,
+  ek_clientmouseenter,ek_clientmouseleave,
+  ek_expose,ek_configure,
+  ek_terminate,ek_abort,ek_destroy,ek_show,ek_hide,ek_close,
+  ek_activate,ek_loaded,
+  ek_keypress,ek_keyrelease,ek_timer,ek_wakeup,
+  ek_release,ek_closeform,ek_checkscreenrange,
+  ek_childscaled,ek_resize,
+  ek_dropdown,ek_async,ek_execute,ek_component,
+  ek_synchronize,ek_releaseobject,
+  ek_connect,
+  ek_dbedit,ek_dbupdaterowdata,ek_data,ek_objectdata,ek_childproc,
+  ek_dbinsert, 
+  ek_mse,
+  ek_user}
+  ek_buttonpress: begin
+   result:= SDL_CheckError('postevent');   
+  end;
+ end;
+ //SDL_PumpEvents;
  {if windows.postmessage(applicationwindow,msemessage,longword(event),0) then begin
   result:= gue_ok;
  end
  else begin
   result:= gue_postevent;
  end;}
-{
- if eventlooping > 0 then begin
-  result:= gue_ok;
-  eventlist.add(event); //threadmessages are lost while window sizing
- end
- else begin
-  result:= gue_postevent;
-  for int1:= 0 to 15 do begin
-   if windows.postthreadmessage(mainthread,msemessage,longword(event),0) then begin
-    result:= gue_ok;
-    break;
-   end;
-   sys_threadschedyield;
-  end;
- end;
- }
 end;
 
 function gui_escapepressed: boolean;
@@ -1269,29 +1276,8 @@ begin
  if eventlooping > 0 then begin
   exit;
  end;
- {while (SDL_PollEvent(@e)>0) do begin
-  case e.type_ of
-   SDL_QUITEV:  begin     
-    break;
-   end;
-   SDL_WINDOWEVENT :begin
-    if (e.win.event = sdlweMaximized) then begin
-     debugwriteln('maximized');
-    end;
-   end;
-   SDL_KEYDOWN :begin
-    //if (e.win.event = sdlweMaximized) then begin
-     debugwriteln('press key');
-    //end;
-   end;
-   SDL_MOUSEMOTION: begin
-    SDL_RenderDrawPoint(renderer,e.motion.y,e.motion.z);
-    debugwriteln('mouse move :'+inttostr(e.motion.z)+' - '+inttostr(e.motion.y));
-   end;
-  end;
- end;
-
- while peekmessagew(msg,0,0,0,pm_remove) do begin
+ SDL_PumpEvents;
+ {while peekmessagew(msg,0,0,0,pm_remove) do begin
   with msg do begin
    case message of
     destroymessage: begin
@@ -1332,6 +1318,7 @@ var
  mousewheel1: mousewheelty;
  pt1: pointty;
 begin
+ dispatchevents;
  result:= nil;
  while true do begin
   if (SDL_PollEvent(@e)>0) then begin
@@ -1678,6 +1665,7 @@ function gui_getworkarea(id: winidty): rectty;
 //var
 // info: tmonitorinfo;
 begin
+ debugwriteln('workarea');
 // if systemparametersinfo(spi_getworkarea,0,@result,0) then begin
  {info.cbsize:= sizeof(info);
  if getmonitorinfo(monitorfromwindow(id,monitor_defaulttonearest),
