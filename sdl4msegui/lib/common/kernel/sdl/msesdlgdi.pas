@@ -455,7 +455,7 @@ begin
  end;
 end;
 
-var
+{var
  defaultfontinfo: logfont;
 type
  charsetinfoty = record
@@ -484,43 +484,14 @@ const
   (name: 'EASTEUROPE'; code: 238),
   (name: 'RUSSIAN'; code: 204),
   (name: 'MAC'; code: 77),
-  (name: 'BALTIC'; code: 186));
+  (name: 'BALTIC'; code: 186));}
   
 type
  pboolean = ^boolean;
 
-{$ifdef FPC}
-function fontenumcallback(var _para1:ENUMLOGFONTEX;
-       var _para2:NEWTEXTMETRICEX; _para3:longint; _para4:LPARAM):longint; stdcall;
-{$else}
-function fontenumcallback(var _para1:ENUMLOGFONTEX;
-       var _para2:TNEWTEXTMETRICEXa; _para3:longint; _para4:LPARAM):longint; stdcall;
-{$endif}
-begin
- pboolean(_para4)^:= true;
- result:= 0;
-end;
-
 
 procedure sdlinitdefaultfont;
-var
- dc1: hdc;
- bo1: boolean;
 begin
- fillchar(defaultfontinfo,sizeof(defaultfontinfo),0);
- defaultfontinfo.lfHeight:= -11;
- bo1:= false;
- defaultfontinfo.lfFaceName:= defaultfontname;
- dc1:= getdc(0);
- {$ifdef FPC}
- enumfontfamiliesex(dc1,@defaultfontinfo,@fontenumcallback,ptruint(@bo1),0);
- {$else}
- enumfontfamiliesex(dc1,defaultfontinfo,@fontenumcallback,ptruint(@bo1),0);
- {$endif}
- if not bo1 then begin
-  defaultfontinfo.lfFaceName:= 'MS Sans Serif';
- end;
- releasedc(0,dc1);
 end;
 
 procedure gdi_getfonthighres(var drawinfo: drawinfoty);

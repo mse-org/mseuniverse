@@ -5,8 +5,6 @@ uses
  msetypes,msesystypes,mseguiglob,ctypes,msekeyboard,msesysutils,msegraphutils;
 {$i sdl2_types.inc}
 
-// base function
-
 const
   SDL_INIT_TIMER = $00000001;
   SDL_INIT_AUDIO = $00000010;
@@ -466,11 +464,11 @@ type
     //SDL_LASTEVENT    = 0xFFFF
    //end;
   end;
-  PSDLEvent = ^SDL_Event;
+  PSDL_Event = ^SDL_Event;
 
   SDL_EventAction = (SdlAddEvent, SdlPeekEvent, SdlGetEvent);
 
-  SDL_EventFilter = function (userdata: pointer; event: PSdlEvent): integer;
+  SDL_EventFilter = function (userdata: pointer; event: PSDL_Event): integer;
 
   SDL_EventArray = array of SDL_Event; 
 
@@ -539,6 +537,7 @@ type
  function SDL_SemWaitTimeout(sem: semty; ms:cardinal): integer; cdecl; external SDLLibName;
  function SDL_SemValue(sem: semty): cardinal; cdecl; external SDLLibName;
  function SDL_SemTryWait(sem: semty): integer; cdecl; external SDLLibName;
+ procedure SDL_WaitThread(thread: pointer; status:pinteger); cdecl; external SDLLibName;
  
 // mouse
 const
@@ -725,20 +724,23 @@ type
  procedure SDL_SaveBMP_toFile(surface: PSDL_Surface; filename: PAnsiChar);
  function SDL_SetClipRect(surface: PSDL_Surface; const rect: PSDL_Rect): boolean; cdecl; external SDLLibName;
  function SDL_SetSurfaceBlendMode(surface: PSDL_Surface; blendMode: SDL_BlendMode): integer; cdecl; external SDLLibName;
+ function SDL_UpperBlitScaled(src: PSDL_Surface; const srcrect: PSDL_Rect; dst: PSDL_Surface; dstrect: PSDL_Rect): integer; cdecl; external SDLLibName;
+
+
 // event
 
  procedure SDL_PumpEvents; cdecl; external SDLLibName;
- function SDL_PeepEvents(events: PSdlEvent; numevents: integer; action: SDL_EventAction;
+ function SDL_PeepEvents(events: PSDL_Event; numevents: integer; action: SDL_EventAction;
                         minType, maxType: cardinal): integer; cdecl; external SDLLibName;
  function SDL_GetEvents(minType: cardinal = 0; maxType: cardinal = SDL_LASTEVENT): SDL_EventArray; cdecl; external SDLLibName;
  function SDL_HasEvent(type_: Cardinal): boolean; cdecl; external SDLLibName;
  function SDL_HasEvents(minType, maxType: Cardinal): boolean; cdecl; external SDLLibName;
  procedure SDL_FlushEvent(type_: Cardinal); cdecl; external SDLLibName;
  procedure SDL_FlushEvents(minType, maxType: Cardinal); cdecl; external SDLLibName;
- function SDL_PollEvent(event: PSdlEvent): integer; cdecl; external SDLLibName;
- function SDL_WaitEvent(event: PSdlEvent): integer; cdecl; external SDLLibName;
- function SDL_WaitEventTimeout(event: PSdlEvent; timeout: integer): integer; cdecl; external SDLLibName;
- function SDL_PushEvent(const event: SDL_Event): integer; cdecl; external SDLLibName;
+ function SDL_PollEvent(event: PSDL_Event): integer; cdecl; external SDLLibName;
+ function SDL_WaitEvent(event: PSDL_Event): integer; cdecl; external SDLLibName;
+ function SDL_WaitEventTimeout(event: PSDL_Event; timeout: integer): integer; cdecl; external SDLLibName;
+ function SDL_PushEvent(const event: PSDL_Event): integer; cdecl; external SDLLibName;
  procedure SDL_SetEventFilter(filter: SDL_EventFilter; userdata: pointer);cdecl; external SDLLibName;
  function SDL_GetEventFilter(out filter: SDL_EventFilter; out userdata: pointer): boolean; cdecl; external SDLLibName;
  procedure SDL_FilterEvents(filter: SDL_EventFilter; userdata: pointer); cdecl; external SDLLibName;

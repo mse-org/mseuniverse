@@ -15,7 +15,7 @@ interface
 uses
  {windows,messages,}mseapplication,msetypes,msegraphutils,
  mseevent,msepointer,mseguiglob,msegraphics,
- msethread,mseformatstr,{msesysintf,}msestrings,msesystypes,msewinglob,
+ msethread,mseformatstr,{msesysintf,}msestrings,msesystypes,
  sdl4msegui,msesdlgdi,dateutils;
 
 type
@@ -643,7 +643,7 @@ function gui_imagetopixmap(const image: imagety; out pixmap: pixmapty;
                            gchandle: longword): gdierrorty;
 begin
  result:= gde_pixmap;
- pixmap:= SDL_CreateRGBSurfaceFrom(image.pixels,image.size.cx,image.size.cy,32,image.size.cx*4,0,0,0,0); //$00FF0000,$0000FF00,$000000FF,$FF000000);
+ pixmap:= SDL_CreateRGBSurfaceFrom(image.pixels,image.size.cx,image.size.cy,32,image.size.cx*4,0,0,0,0);
  //SDL_SaveBMP_toFile(pixmap,'xx.bmp');
  result:= gde_ok;
  SDL_CheckError('imagetopixmap');
@@ -1221,23 +1221,23 @@ begin
 end;}
 
 function gui_postevent(event: tmseevent): guierrorty;
-//var
-// int1: integer;
+var
+ sdlevent: SDL_Event;
 begin
  result:= gue_postevent;
  case event.kind of
   {ek_focusin,ek_focusout,ek_checkapplicationactive,
   ek_enterwindow,ek_leavewindow,
-  ek_buttonrelease,ek_mousewheel,
+  ek_mousewheel,
   ek_mousemove,ek_mousepark,
   ek_mouseenter,ek_mouseleave,ek_mousecaptureend,
   ek_clientmouseenter,ek_clientmouseleave,
-  ek_expose,ek_configure,
+  ek_configure,
   ek_terminate,ek_abort,ek_destroy,ek_show,ek_hide,ek_close,
   ek_activate,ek_loaded,
   ek_keypress,ek_keyrelease,ek_timer,ek_wakeup,
   ek_release,ek_closeform,ek_checkscreenrange,
-  ek_childscaled,ek_resize,
+  ek_childscaled,
   ek_dropdown,ek_async,ek_execute,ek_component,
   ek_synchronize,ek_releaseobject,
   ek_connect,
@@ -1245,11 +1245,23 @@ begin
   ek_dbinsert, 
   ek_mse,
   ek_user}
-  ek_buttonpress: begin
-   result:= SDL_CheckError('postevent');   
+  ek_resize: begin
+   debugwriteln('post resize event');
+  end;
+  ek_expose: begin
+   debugwriteln('post expose event');
+  end;
+  ek_buttonpress,ek_buttonrelease: begin
+   debugwriteln('post button press/release event');
+   with tmouseevent(event) do begin
+    sdlevent.button.x:= fpos.x;
+    sdlevent.button.y:= fpos.y;
+    SDL_PushEvent(@sdlevent);
+   end;
   end;
  end;
- //SDL_PumpEvents;
+ //result:= SDL_CheckError('postevent');   
+ SDL_PumpEvents;
  {if windows.postmessage(applicationwindow,msemessage,longword(event),0) then begin
   result:= gue_ok;
  end

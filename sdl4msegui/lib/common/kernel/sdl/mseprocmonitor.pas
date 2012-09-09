@@ -1,4 +1,4 @@
-{ MSEgui Copyright (c) 2008 by Martin Schreiber
+{ MSEgui Copyright (c) 2008-2009 by Martin Schreiber
 
     See the file COPYING.MSE, included in this distribution,
     for details about the copyright.
@@ -11,172 +11,89 @@ unit mseprocmonitor;
 {$ifdef FPC}{$mode objfpc}{$h+}{$interfaces corba}{$endif}
 interface
 uses
- msesystypes,mseglob;
-{$ifdef FPC}
+ msesystypes,mseglob,sdl4msegui;
+ 
  {$include ../mseprocmonitor.inc}
-{$else}
- {$include mseprocmonitor.inc}
-{$endif}
-
 implementation
-uses 
- msethread,msetypes,windows,sysutils,msearrayutils,mseapplication;
+uses
+ mseapplication,msedatalist,{mselibc,}msearrayutils;
+ 
 type
- handlearty = array of thandle;
-
- tprocmonitor = class(tmutexthread)
-  private
-   fwakeupevent: thandle;
-   fhandles: handlearty;
-   fcallbacks: array of iprocmonitor;
-   fdata: pointerarty;
-//   fcount: integer;
-   procedure wakeup;
-  public
-   constructor create(const athreadproc: threadprocty;
-                    const afreeonterminate: boolean = false;
-                    const astacksizekb: integer = 0); override;
-   destructor destroy; override;
-   function listentoprocess(const prochandle: prochandlety;
-                              const dest: iprocmonitor;
-                              const data: pointer): boolean;
-   procedure unlistentoprocess(const prochandle: prochandlety;
-                               const dest: iprocmonitor);
-   function execute(thread: tmsethread): integer; override;
+ procinfoty = record
+  prochandle: prochandlety;
+  dest: iprocmonitor;
+  data: pointer;
  end;
-
+ procinfoarty = array of procinfoty;
 var
- monitor: tprocmonitor;
-
-procedure checkinit;
-begin
- if monitor = nil then begin
-  monitor:= tprocmonitor.create;
- end;
-end;
-
+ infos: procinfoarty;
+  
 function pro_listentoprocess(const aprochandle: prochandlety;
-                             const adest: iprocmonitor;
-                             const adata: pointer): boolean;
+                             const adest: iprocmonitor; const adata: pointer): boolean;
 begin
- checkinit;
- result:= monitor.listentoprocess(aprochandle,adest,adata);
+ application.lock;
+ setlength(infos,high(infos)+2);
+ with infos[high(infos)] do begin
+  prochandle:= aprochandle;
+  dest:= adest;
+  data:= adata;
+ end;
+ application.unlock;
+ result:= true;
 end;
 
 procedure pro_unlistentoprocess(const aprochandle: prochandlety;
-                                          const adest: iprocmonitor);
-begin
- if monitor <> nil then begin
-  monitor.unlistentoprocess(aprochandle,adest);
- end;
-end;
-
-{ tprocmonitor }
-
-constructor tprocmonitor.create(const athreadproc: threadprocty;
-                                   const afreeonterminate: boolean = false;
-                                   const astacksizekb: integer = 0);
-begin
- fwakeupevent:= createevent(nil,false,false,nil);
- setlength(fhandles,1);
- fhandles[0]:= fwakeupevent;
- inherited;
-end;
-
-destructor tprocmonitor.destroy;
-begin
- terminate;
- setevent(fwakeupevent);
- inherited;
- closehandle(fwakeupevent);
-end;
-
-procedure tprocmonitor.wakeup;
-begin
- setevent(fwakeupevent);
-end;
-
-function tprocmonitor.execute(thread: tmsethread): integer;
+                                     const adest: iprocmonitor);
 var
-// event: tmseevent;
  int1: integer;
- handles1: handlearty;
- handle1: thandle;
- execresult1: integer;
 begin
- with tprocmonitor(thread) do begin
-  repeat
-   lock;
-   handles1:= copy(fhandles);
-   unlock;
-   int1:= waitformultipleobjects(length(handles1),
-                                     pwohandlearray(handles1),false,INFINITE);
-   if not terminated then begin
-    int1:= int1 - wait_object_0;
-    if (int1 > 0) and (int1 <= high(handles1)) then begin
-     handle1:= fhandles[int1];
-     getexitcodeprocess(handle1,longword(execresult1));
-     lock;
-     for int1:= high(fhandles) downto 1 do begin
-      if fhandles[int1] = handle1 then begin
-       fcallbacks[int1-1].processdied(handle1,execresult1,fdata[int1-1]);
-//       application.postevent(tchildprocevent.create(fcallbacks[int1-1],handle1,
-//                      execresult1,fdata[int1-1]));
-       deleteitem(pointerarty(fcallbacks),int1-1);
-       deleteitem(fhandles,typeinfo(handlearty),int1);
-       deleteitem(fdata,int1-1);
-      end;
-     end;
-     closehandle(handle1);
-     unlock;
-    end;
+ application.lock;
+ for int1:= high(infos) downto 0 do begin
+  with infos[int1] do begin
+   if (prochandle = aprochandle) and (dest = adest) then begin
+    deleteitem(infos,typeinfo(procinfoarty),int1);
    end;
-  until terminated;
- end;
- result:= 0;
-end;
-
-function tprocmonitor.listentoprocess(const prochandle: prochandlety;
-                        const dest: iprocmonitor; const data: pointer): boolean;
-begin
- result:= false;
- lock;
- if length(fhandles) < maximum_wait_objects then begin
-  setlength(fhandles,high(fhandles)+2);
-  fhandles[high(fhandles)]:= prochandle;
-  setlength(fcallbacks,high(fhandles));
-  fcallbacks[high(fcallbacks)]:= dest;
-  setlength(fdata,high(fhandles));
-  fdata[high(fdata)]:= data;
-  result:= true;
- end;
- wakeup;
- unlock;
-end;
-
-procedure tprocmonitor.unlistentoprocess(const prochandle: prochandlety; 
-                     const dest: iprocmonitor);
-var
- int1: integer;
-begin
- lock;
- for int1:= high(fcallbacks) downto 0 do begin
-  if (fcallbacks[int1] = dest) and (fhandles[int1+1] = cardinal(prochandle)) then begin
-   deleteitem(pointerarty(fcallbacks),int1);
-   deleteitem(fhandles,typeinfo(handlearty),int1+1);
-   deleteitem(fdata,int1);
   end;
  end;
- wakeup;
- unlock;
+ application.unlock;
+end;
+
+procedure checkchildproc;
+var
+ int1,int2: integer;
+ execresult: integer;
+begin
+ application.lock;
+ int1:= high(infos);
+ while int1 >= 0 do begin
+  SDL_WaitThread(@infos[int1].prochandle,@execresult);
+  for int2:= int1 downto 0 do begin
+   with infos[int2] do begin
+    if prochandle = infos[int1].prochandle then begin     
+     if dest <> nil then begin
+      dest.processdied(prochandle,execresult,data);
+//       application.postevent(tchildprocevent.create(dest,prochandle,execresult,
+//                                                     data));
+     end;
+     deleteitem(infos,typeinfo(procinfoarty),int2);
+     if int2 <> int1 then begin
+      dec(int1);
+     end;
+    end;
+   end;
+  end;
+  dec(int1);
+ end;
+ application.unlock;
 end;
 
 procedure pro_killzombie(const aprochandle: prochandlety);
 begin
- closehandle(aprochandle);
+ pro_listentoprocess(aprochandle,nil,nil);
 end;
 
 initialization
+ onhandlesigchld:= @checkchildproc;
 finalization
- freeandnil(monitor);
+ onhandlesigchld:= nil;
 end.
