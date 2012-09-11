@@ -645,8 +645,8 @@ begin
  result:= gde_pixmap;
  pixmap:= SDL_CreateRGBSurfaceFrom(image.pixels,image.size.cx,image.size.cy,32,image.size.cx*4,0,0,0,0);
  //SDL_SaveBMP_toFile(pixmap,'xx.bmp');
- result:= gde_ok;
  SDL_CheckError('imagetopixmap');
+ result:= gde_ok;
 end;
 
 function gui_setwindowfocus(id: winidty): guierrorty;

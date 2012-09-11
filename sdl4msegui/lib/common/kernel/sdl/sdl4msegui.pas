@@ -22,6 +22,12 @@ type
  end;
  PSDL_Rect = ^SDL_Rect;
  
+ SDL_Point = record
+  x: integer;
+  y: integer;
+ end;
+ PSDL_Point = ^SDL_Point;
+ 
  SDL_Color = record
   r: byte;
   g: byte;
@@ -675,6 +681,8 @@ type
  function SDL_GetRenderDrawBlendMode(renderer: SDL_Renderer; var blendMode: SDL_BlendMode): integer; cdecl; external SDLLibName;
  function SDL_RenderClear(renderer: SDL_Renderer): Integer; cdecl; external SDLLibName;
  function SDL_RenderDrawLine(renderer: SDL_Renderer; x1, y1, x2, y2: integer): integer; cdecl; external SDLLibName;
+ function SDL_RenderDrawLines(renderer: SDL_Renderer; const points: PSDL_Point; count: integer): integer; cdecl; external SDLLibName;
+
  function SDL_RenderDrawRect(renderer: SDL_Renderer; const rect: PSDL_Rect): integer; cdecl; external SDLLibName;
  function SDL_RenderFillRect(renderer: SDL_Renderer; const rect: PSDL_Rect): integer; cdecl; external SDLLibName;
  function SDL_RenderDrawPoint(renderer: SDL_Renderer; x: integer; y: integer): integer; cdecl; external SDLLibName;

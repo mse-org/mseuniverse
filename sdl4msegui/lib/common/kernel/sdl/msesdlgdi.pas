@@ -12,7 +12,7 @@ unit msesdlgdi;
 interface
 uses
  msegraphics,msetypes,msestrings,mseguiglob,sdl4msegui,msebitmap
- {$IFDEF windows},windows{$ENDIF},msesysutils;
+ {$IFDEF windows},windows{$ENDIF},msesysutils,sdl2_gfxprimitives;
 
 const
  radtodeg = 360/(2*pi);
@@ -100,6 +100,7 @@ begin
   error:= gde_creategc;
   case kind of
    gck_pixmap: begin
+    //SDL_SaveBMP_toFile(paintdevice,'creategc.bmp');
     gcpo^.handle:= SDL_CreateSoftwareRenderer(paintdevice);
     error:= SDL_CheckErrorGDI('creategc');
    end;
@@ -140,119 +141,39 @@ end;
 
 procedure gdi_changegc(var drawinfo: drawinfoty);
 var
- int1,int2,ndash: integer;
- rect1,rect2: rectty;
- ar1: rectarty;
- dashesarty: realarty;
  rgbcolor: rgbtriplety;
- pt1: pointty;
- height1,width1: integer;
- image: imagety;
- lwidth: real;
- rect3: SDL_Rect;
 begin
- ar1:= nil; //compiler warning
- with drawinfo,gcvalues^ do begin
-  {if gvm_dashes in mask then begin
-   int2:= length(lineinfo.dashes);
-   if (int2 > 0) and (lineinfo.dashes[int2] = #0) then begin
-    dec(int2);
-   end;
-   if int2>0 then begin
-    setlength(dashesarty,int2);
-    for int1:= 0 to int2-1 do begin
-     dashesarty[int1]:= byte(lineinfo.dashes[int1]);
-    end;
-    ndash:= sizeof(dashesarty);
-   end else begin
-    setlength(dashesarty,1);
-    dashesarty[0]:= 0.0;
-    ndash:= 0;
-   end;
-   //cairo_set_dash(fcairo.context, pointer(dashesarty), ndash, 0);
+ with drawinfo.gcvalues^,drawinfo.gc do begin
+  if gvm_colorbackground in mask then begin
+   rgbcolor:= colortorgb(colorbackground);
+   SDL_SetRenderDrawColor(handle,rgbcolor.red,rgbcolor.green,rgbcolor.blue,0);
+   SDL_CheckError('SetRenderDrawColor');
   end;
-  if (brush <> nil) and 
-            ([gvm_brush,gvm_brushorigin] * mask <> []) then begin
-   msebitmap.tbitmap(brush).savetoimage(image);
-   if image.length>0 then begin 
-    //fsurface1:= cairoimage(image,CAIRO_FORMAT_A1);
-    image.pixels:= nil;
-    //cpattern:= nil;
-    //cpattern:= cairo_pattern_create_for_surface(fsurface1);
-    //cairo_surface_destroy(fsurface1);
-    //fsurface1:= nil;
-   end;
-  end;}
-  {if (df_brush in gc.drawingflags) and (cpattern<>nil) then begin
-   rect2:= makerect(self.brushorigin,tsimplebitmap(self.brush).size);
-   cairo_matrix_init_scale(@fmatrix, rect2.cx, rect2.cy);
-   cairo_pattern_set_matrix(cpattern, @fmatrix);
-   cairo_pattern_set_extend (cpattern, CAIRO_EXTEND_REPEAT);
-   cairo_set_source(fcairo.context,cpattern);
-   cairo_fill(fcairo.context);
-   image.pixels:= nil;
-  end else begin}
-   if gvm_colorforeground in mask then begin
-    rgbcolor:= colortorgb(acolorforeground);
-    SDL_SetRenderDrawColor(gc.handle,rgbcolor.red,rgbcolor.green,rgbcolor.blue,0);
-    SDL_CheckError('SetRenderDrawColor');
-   end;
-  //end;
-  {if gvm_font in mask then begin
-   cairo_set_font_size (fcairo.context, self.font.height);  
-   fweight:= CAIRO_FONT_WEIGHT_NORMAL;
-   fslant:= CAIRO_FONT_SLANT_NORMAL;
-   if fs_bold in self.font.style then begin
-    fweight:= CAIRO_FONT_WEIGHT_BOLD;
-   end;
-   if fs_italic in self.font.style then begin
-    fslant:= CAIRO_FONT_SLANT_ITALIC;
-   end;
-   cairo_select_font_face (fcairo.context, pchar(self.font.name),fslant,fweight);
-   //if (fx<>1) or (fy<>1) then begin
-   if fcairo.dpix>fcairo.dpiy then begin
-    cairo_get_font_matrix(fcairo.context,@fontmatrix);
-    cairo_matrix_scale(@fontmatrix, fx, fy);
-    cairo_set_font_matrix(fcairo.context,@fontmatrix);
-   end;
+  if gvm_colorforeground in mask then begin
+   rgbcolor:= colortorgb(colorforeground);
+   SDL_SetRenderDrawColor(handle,rgbcolor.red,rgbcolor.green,rgbcolor.blue,0);
+   SDL_CheckError('SetRenderDrawColor');
   end;
-  if gvm_linewidth in mask then begin
-   if self.linewidth = 0 then begin
-    lwidth:= 0.3;
-   end else begin
-    lwidth:= self.linewidthmm;
-   end;
-   cairo_set_line_width (fcairo.context, lwidth);
+  if mask * [gvm_linewidth,gvm_dashes,gvm_capstyle,gvm_joinstyle] <> [] then begin
   end;
-  if gvm_capstyle in mask then begin
-   case lineinfo.capstyle of
-    cs_round: cairo_set_line_cap(fcairo.context,CAIRO_LINE_CAP_ROUND);
-    cs_projecting: cairo_set_line_cap(fcairo.context,CAIRO_LINE_CAP_SQUARE);
-    else cairo_set_line_cap(fcairo.context,CAIRO_LINE_CAP_BUTT)
-   end;
+  if gvm_rasterop in mask then begin
   end;
-  if gvm_joinstyle in mask then begin
-   case lineinfo.joinstyle of
-    js_round: cairo_set_line_join(fcairo.context,CAIRO_LINE_JOIN_ROUND);
-    js_bevel: cairo_set_line_join(fcairo.context,CAIRO_LINE_JOIN_BEVEL);
-    else cairo_set_line_join(fcairo.context,CAIRO_LINE_JOIN_MITER);
-   end;
-  end;}
-  {if gvm_clipregion in mask then begin
-   //cairo_save(fcairo.context);
-   if clipregion <> 0 then begin
-    ar1:= gui_regiontorects(clipregion);
-    for int1:= 0 to high(ar1) do begin
-     pt1:= addpoint(ar1[int1].pos,gc.cliporigin);     
-     rect3.x:= pt1.x;
-     rect3.x:= pt1.y;
-     rect3.w:= ar1[int1].size.cx;
-     rect3.h:= ar1[int1].size.cy;
-     SDL_SetClipRect(drawinfo.paintdevice,@rect3)
-    end;
-   end;
-   //cairo_restore (fcairo.context)
-  end;}
+  if gvm_brush in mask then begin
+  end;
+  if gvm_brushorigin in mask then begin
+  end;
+  if gvm_clipregion in mask then begin
+   {if ((cliporigin.x <> 0) or (cliporigin.y <> 0)) and (clipregion <> 0) then begin
+    offsetrgn(clipregion,cliporigin.x,cliporigin.y);
+    selectcliprgn(handle,clipregion);
+    offsetrgn(clipregion,-cliporigin.x,-cliporigin.y);
+   end
+   else begin
+    selectcliprgn(handle,clipregion);
+   end;}
+  end;
+  if gvm_font in mask then begin
+  end;
  end;
 end;
 
@@ -280,59 +201,66 @@ begin
  end;
 end;
 
-procedure handlepoly(var drawinfo: drawinfoty; const points: ppointty; 
-             const lastpoint: integer; const closed: boolean; const fill: boolean);
-var
- int1: integer;
- startpoint: pointty;
+procedure drawsingleline(renderer: SDL_Renderer; x1,y1,x2,y2,awidth: integer; acolor: rgbtriplety);
 begin
- startpoint.x:= points^.x;
- startpoint.y:= points^.y;
- for int1:= 1 to lastpoint do begin
-  SDL_RenderDrawLine(drawinfo.gc.handle,startpoint.x,startpoint.y,
-    ppointaty(points)^[int1].x, ppointaty(points)^[int1].y);
-  SDL_CheckError('SDL_RenderDrawLine');
-  {if (int1=lastpoint) and closed then begin
-   SDL_RenderDrawLine(drawinfo.gc.handle,ppointaty(points)^[int1].x, ppointaty(points)^[int1].y,
-     startpoint.x, startpoint.y);
-   SDL_CheckError('SDL_RenderDrawLine');
-  end;}
+ //choose the best performance method
+ if awidth=0 then begin
+  if (x1=x2) or (y1=y2) then
+   lineRGBA(renderer, x1, y1, x2, y2, acolor.red, acolor.green, acolor.blue, 255-acolor.res)
+  else
+   aalineRGBA(renderer, x1, y1, x2, y2, acolor.red, acolor.green, acolor.blue, 255-acolor.res);
+ end else begin
+  thickLineRGBA(renderer, x1, y1, x2, y2, awidth, acolor.red, acolor.green, acolor.blue, 255-acolor.res);
  end;
- {if fill then begin
-  cairo_fill(fcairo.context);
- end
- else begin
-  cairo_stroke(fcairo.context);
- end;}
 end;
 
 procedure gdi_drawlines(var drawinfo: drawinfoty);
+var
+ int1,lwidth: integer;
+ startpoint: pointty;
+ rgb: rgbtriplety;
 begin
- with drawinfo.points do begin
-  handlepoly(drawinfo,points,count-1,closed,false);
+ with drawinfo, points do begin
+  startpoint.x:= points^.x;
+  startpoint.y:= points^.y;
+  rgb:= colortorgb(acolorforeground);
+  lwidth:= (gcvalues^.lineinfo.width + linewidthroundvalue) shr linewidthshift;
+  for int1:= 1 to count-1 do begin
+   drawsingleline(drawinfo.gc.handle, ppointaty(points)^[int1-1].x, ppointaty(points)^[int1-1].y,
+     ppointaty(points)^[int1].x, ppointaty(points)^[int1].y, lwidth, rgb);
+  end;
+  if closed then begin
+   drawsingleline(drawinfo.gc.handle, ppointaty(points)^[int1].x, ppointaty(points)^[int1].y,
+     startpoint.x, startpoint.y, lwidth, rgb);
+  end;
  end;
 end;
 
 procedure gdi_drawlinesegments(var drawinfo: drawinfoty);
 var
- int1: integer;
+ int1,lwidth: integer;
+ rgb: rgbtriplety;
 begin
- with drawinfo.points do begin
+ with drawinfo, drawinfo.points do begin
+  rgb:= colortorgb(acolorforeground);
+  lwidth:= (gcvalues^.lineinfo.width + linewidthroundvalue) shr linewidthshift;
   for int1:= 0 to count div 2 - 1 do begin
-   handlepoly(drawinfo,points,1,false,false);
+   drawsingleline(drawinfo.gc.handle, ppointaty(points)^[int1-1].x, ppointaty(points)^[int1-1].y,
+     ppointaty(points)^[int1].x, ppointaty(points)^[int1].y, lwidth, rgb);
    inc(points,2);
   end;
  end;
 end;
 
-procedure handleellipse(var drawinfo: drawinfoty; const rect: rectty; const fill: boolean);
-begin
- SDL_CheckError('handleellipse');
-end;
-
 procedure gdi_drawellipse(var drawinfo: drawinfoty);
+var
+ rgb: rgbtriplety;
 begin
- handleellipse(drawinfo,drawinfo.rect.rect^,false);
+ with drawinfo, rect.rect^ do begin
+  rgb:= colortorgb(acolorforeground);
+  aaellipseRGBA(gc.handle, pos.x, pos.y, round(cx/2), round(cy/2), 
+    rgb.red, rgb.green, rgb.blue, 255-rgb.res);
+ end;
 end;
 
 procedure getarcinfo(const info: drawinfoty; 
@@ -372,8 +300,14 @@ begin
 end;
 
 procedure gdi_fillelipse(var drawinfo: drawinfoty);
+var
+ rgb: rgbtriplety;
 begin
- handleellipse(drawinfo,drawinfo.rect.rect^,true);
+ with drawinfo, rect.rect^ do begin
+  rgb:= colortorgb(acolorforeground);
+  filledEllipseRGBA(gc.handle, pos.x, pos.y, round(cx/2), round(cy/2), 
+  rgb.red, rgb.green, rgb.blue, 255-rgb.res);
+ end;
 end;
 
 procedure gdi_fillarc(var drawinfo: drawinfoty);
@@ -384,7 +318,7 @@ end;
 procedure gdi_fillpolygon(var drawinfo: drawinfoty);
 begin
  with drawinfo.points do begin
-  handlepoly(drawinfo,points,count-1,true,true);
+  //handlepoly(drawinfo,points,count-1,true);
  end;
 end;
 
@@ -413,7 +347,9 @@ begin
   asurface:= SDL_CreateRGBSurface(0,rect2.w,rect2.h,32,0,0,0,0);
   SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
   SDL_unlockSurface(asurface);
+  //SDL_UpperBlitScaled(tcanvas1(source).fdrawinfo.paintdevice,@rect1, asurface, nil);
   SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, asurface, nil);
+  //SDL_SaveBMP_toFile(asurface,'clip.bmp');
   atexture:= SDL_CreateTextureFromSurface(drawinfo.gc.handle,asurface);
   if atexture<>0 then begin
    if SDL_RenderCopy(drawinfo.gc.handle, atexture, nil, @rect2)=0 then begin
@@ -429,6 +365,7 @@ begin
    SDL_unlockSurface(mask.handle);
    SDL_unlockSurface(asurface);
    SDL_UpperBlit(mask.handle,@rect1, asurface, nil);
+   //SDL_UpperBlitScaled(mask.handle,@rect1, asurface, nil);
    atexture:= SDL_CreateTextureFromSurface(drawinfo.gc.handle,asurface);
    SDL_SetRenderDrawBlendMode(atexture,SDL_BLENDMODE_ADD);
    if atexture<>0 then begin
