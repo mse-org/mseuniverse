@@ -1,0 +1,24 @@
+object basetabfo: tbasetabfo
+  visible = False
+  bounds_x = 443
+  bounds_y = 403
+  bounds_cx = 100
+  bounds_cy = 100
+  anchors = []
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    100
+    100
+  )
+  statfile = tabstat
+  moduleclassname = 'tmseform'
+  object tabstat: tstatfile
+    filename = 'tabx.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 8
+    top = 16
+  end
+end

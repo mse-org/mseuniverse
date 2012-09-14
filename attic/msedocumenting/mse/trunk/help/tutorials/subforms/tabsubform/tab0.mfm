@@ -1,0 +1,46 @@
+inherited tab0fo: ttab0fo
+  bounds_x = 563
+  bounds_y = 394
+  bounds_cx = 141
+  container.bounds = (
+    0
+    0
+    141
+    100
+  )
+  moduleclassname = 'tbasetabfo'
+  object edita: tstringedit[0]
+    frame.caption = 'edita'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 16
+    bounds_y = 7
+    bounds_cy = 37
+    statfile = tabstat
+    reffontheight = 14
+  end
+  object editb: tstringedit[1]
+    frame.caption = 'editb'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 16
+    bounds_y = 47
+    bounds_cy = 37
+    statfile = tabstat
+    reffontheight = 14
+  end
+  inherited tabstat: tstatfile[2]
+    filename = 'tab0.sta'
+  end
+end

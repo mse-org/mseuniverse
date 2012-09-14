@@ -1,0 +1,54 @@
+inherited tab3fo: ttab3fo
+  bounds_x = 570
+  bounds_y = 190
+  bounds_cx = 254
+  bounds_cy = 243
+  container.bounds = (
+    0
+    0
+    254
+    243
+  )
+  moduleclassname = 'tbasetabfo'
+  object tdbstringgrid1: tdbstringgrid[0]
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 254
+    bounds_cy = 243
+    anchors = []
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 70
+        datafield = 'int1'
+        textflags = [tf_right, tf_ycentered, tf_noselect]
+      end>
+    datalink.datasource = mainfo.dataso
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'int1'
+          end        
+          item
+            caption = 'str2'
+          end        
+          item
+            caption = 'str1'
+          end>
+      end>
+    datarowheight = 16
+    reffontheight = 14
+  end
+  inherited tabstat: tstatfile[1]
+  end
+end

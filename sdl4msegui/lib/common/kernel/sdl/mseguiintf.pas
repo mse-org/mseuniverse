@@ -1330,7 +1330,7 @@ var
  mousewheel1: mousewheelty;
  pt1: pointty;
 begin
- dispatchevents;
+// dispatchevents;
  result:= nil;
  while true do begin
   if (SDL_PollEvent(@e)>0) then begin
