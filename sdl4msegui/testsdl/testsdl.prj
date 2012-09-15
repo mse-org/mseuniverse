@@ -78,7 +78,7 @@ order26=0
 [projectoptions]
 projectdir=/C:/msegui/MSEProject/testsdl
 projectfilename=/C:/msegui/MSEProject/testsdl/testsdl.prj
-findinfiledialog=54
+findinfiledialog=58
  [findinfileadialogfo.subdirs]
  value=1
  [findinfileadialogfo.inopenfiles]
@@ -102,31 +102,35 @@ findinfiledialog=54
  [findinfileadialogfo.dir]
  filenames=1
   /C:/msegui/lib/common2/
- filehistory=4
+ filehistory=8
+  /C:/msegui/lib/common2/aggpas/
+  /C:/msegui/lib/common2/
+  /C:/msegui/lib/addon/repaz/
   /C:/msegui/lib/common/
+  /home/wahono/msegui/lib/common2/
   /C:/msegui/SDL/src/
   /C:/msegui/lib/common-sdl/
   /C:/msegui/SDL/include/
  filefilterindex=3
- filefilter=*.*
+ filefilter="*.pas" "*.pp" "*.inc"
  filecolwidth=174
  x=389
  y=217
  cx=588
  cy=307
  [findinfileadialogfo.findtext]
- value=gdi_getcanvasclass
+ value=insertwidget
  history=10
-  gdi_getcanvasclass
-  endpaint
-  flushgdi
-  singlecanvas
-  swaprgb1
-  gui_destroywindow
-  gui_pixmaptoimage
-  gui_freepixmap
-  gui_setwindowstate
-  buffer
+  insertwidget
+  region
+  gdf_createrectsregion
+  gdi_createrectsregion
+  gdf_createrectregion
+  gdi_createrectregion
+  gdi_regaddrect
+  setcliporigin
+  gdi_regiontorects
+  intersect
  [findinfileadialogfo]
  stackedunder=
  x=374
@@ -146,20 +150,20 @@ replacedialog=23
  [replacedialogfo.promptonreplace]
  value=1
  [replacedialogfo.selectedonly]
- value=1
+ value=0
  [replacedialogfo.replacetext]
- value=winidty
+ value=//SDL_RenderSetViewport
  history=10
-  winidty
-  ;
-  $
+  //SDL_RenderSetViewport
+  e.key
   //
-  drawinfo.creategc.gcpo^.handle
-  bitmapSurface1
-  bitmaptex1
-  renderer2
-  renderer1
-  drawinfo.gc.handle
+  ;
+  ,
+  }
+  {
+  $
+  acolor.
+  c[0], c[1], c[2], c[3]
  [replacedialogfo]
  stackedunder=
  x=287
@@ -259,7 +263,7 @@ options=99
  index=1
  [projectoptionsfo.tabwidget]
  firsttab=0
- index=2
+ index=3
  [projectoptionsfo]
  stackedunder=
  x=381
@@ -368,13 +372,17 @@ compnamedialog=5
  y=267
  cx=300
  cy=203
-bmpfiledialog=15
+bmpfiledialog=19
  [filedialog]
  filenames=1
   /C:/msegui/MSEProject/Acosys/others/Letter-A-icon.png
  lastdir=/C:/msegui/MSEProject/Acosys/others/
- filehistory=3
+ filehistory=7
   /C:/msegui/MSEProject/Acosys/others/Letter-A-icon.png
+  /C:/msegui/MSEProject/Acosys/others/logo-acosys-shadow.png
+  /C:/msegui/MSEProject/Acosys/others/LOGO ACOSYS modification.png
+  /C:/msegui/MSEProject/Acosys/others/logo-acosys.png
+  /C:/msegui/MSEProject/Acosys/others/ACOSYS.ICO
   /C:/msegui/MSEProject/Acosys/others/icon-acosys.png
   /C:/msegui/MSEProject/logo.png
  filefilterindex=0
@@ -449,12 +457,13 @@ objpref=-Fo
 targpref=-o
 befcommand=0
 aftcommand=0
-makeoptions=5
- -l -Mobjfpc -Sh -Fcutf8 -dusesdl -gh -duse_singlecanvas
+makeoptions=6
+ -l -Mobjfpc -Sh -Fcutf8 -dusesdl -gh
  -gl -O-
  -B
  -O2 -XX -Xs -CX
- -dmse_gdiflush
+ -dmse_flushgdi
+ -duse_singlecanvas
 codetemplatedirs=1
  ${TEMPLATEDIR}
 toolmenus=0
@@ -591,37 +600,38 @@ settingsstorage=0
 settingsprojecttree=0
 settingsautoload=0
 settingsautosave=0
-modulenames=2
+modulenames=1
  MAINFO
- STOCKDATA
-moduletypes=2
+moduletypes=1
  TMAINFO
- TSTOCKDATA
-modulefiles=2
+modulefiles=1
  /C:/msegui/MSEProject/testsdl/main.mfm
- /C:/msegui/lib/common2/kernel/msestockobjects.mfm
 befcommandon=0
-makeoptionson=5
+makeoptionson=6
  63
  31
  34
  32
- 0
+ 63
+ 63
 aftcommandon=0
 unitdirson=3
  65599
  196671
  65599
-macroon=1
- 63
-macronames=1
+macroon=2
+ 1
+ 2
+macronames=2
  MSELIBDIR
-macrovalues=1
+ MSELIBDIR
+macrovalues=2
  c:/msegui/lib/common2/
+ /home/wahono/msegui/lib/common2/
 macrogroup=0
 groupcomments=6
  Win32
- 
+ Linux
  
  
  
@@ -704,7 +714,8 @@ afterconnect=
 beforeload=
 afterload=
 beforerun=
-sourcedirs=3
+sourcedirs=4
+ ${MSEDIR}lib/addon/aggpas/
  ${MSELIBDIR}kernel/sdl/
  ${MSELIBDIR}*/
  ./
@@ -764,53 +775,25 @@ sigsettings=27
  30,30,T,F
 defaultmake=1
 [breakpoints]
-on=6
+on=2
  -1
  -1
- -1
- -1
- -1
- -1
-path=6
- 
- 
- /C:/msegui/lib/common2/kernel/sdl/msesdlgdi.pas
- /C:/msegui/lib/common2/kernel/sdl/sdl4msegui.pas
- /C:/msegui/lib/common2/kernel/msegui.pas
- /C:/msegui/lib/common2/kernel/msegui.pas
-line=6
+path=2
+ /C:/msegui/lib/common2/kernel/sdl/mseguiintf.pas
+ /C:/msegui/lib/common2/graphics/msegenericgdi.pas
+line=2
+ 1360
+ 1222
+address=2
+ 4581900
+ 4754492
+addbkpt=2
  0
  0
- 535
- 1124
- 13224
- 13228
-address=6
+ignore=2
  0
  0
- 4744053
- 4409080
- 4354577
- 4354730
-addbkpt=6
- 0
- 0
- 0
- 0
- 0
- 0
-ignore=6
- 0
- 0
- 0
- 0
- 0
- 0
-condition=6
- 
- 
- 
- 
+condition=2
  
  
 panels=3
@@ -843,7 +826,7 @@ cy=473
 progparamhistory=0
 envvarons=0
 [layout]
-windowlayout=573
+windowlayout=572
  [mainfo.projectfiledia]
  filenames=1
   /C:/msegui/MSEProject/testsdl/testsdl.prj
@@ -869,18 +852,18 @@ windowlayout=573
  [mainfo.openfile]
  filenames=0
  filehistory=10
-  /C:/FPC/fpc-2.6.0/packages/sdl/src/sdl.pas
-  /C:/msegui/lib/addon/sdl2/sdl.pas
   /C:/msegui/lib/addon/sdl2/sdl2.pas
   /C:/msegui/lib/common/kernel/i386-linux/mseguiintf.pas
-  /C:/msegui/lib/addon/aggpas/agg_2D.pas
-  /C:/msegui/lib/addon/repaz/universalprinter.pas
-  /C:/msegui/lib/common2/opengl/mseopenglgdi.pas
-  /C:/msegui/lib/sdl/mseguiintf.pas
-  /C:/msegui/lib/sdl/msesdlgdi.pas
-  /C:/msegui/lib/common/graphics/msegdi32gdi.pas
- filefilterindex=0
- filefilter="*.pp" "*.pas" "*.inc" "*.dpr" "*.lpr"
+  /C:/msegui/lib/common2/kernel/msetypes.pas
+  /C:/msegui/lib/common2/kernel/msectypes.pas
+  /C:/master/programming/sdl2_gfx/SDL2_gfxPrimitives.c
+  /C:/msegui/lib/common2/kernel/sdl/sdl2_gfxprimitives.pas
+  /C:/msegui/lib/common2/kernel/sdl/SDL2_gfxPrimitives.pas
+  /C:/msegui/lib/common2/aggpas/agg_ellipse.pas
+  /C:/FPC/fpc-2.6.0/packages/ptc/src/c_api/capi_surfaced.inc
+  /C:/FPC/fpc-2.6.0/packages/fv/src/outline.pas
+ filefilterindex=2
+ filefilter=*
  filecolwidth=198
  x=389
  y=215
@@ -899,7 +882,7 @@ windowlayout=573
  ny=0
  ncx=0
  ncy=0
- x=9
+ x=11
  y=30
  cx=865
  cy=698
@@ -923,7 +906,7 @@ windowlayout=573
  ncy=0
  x=0
  y=0
- cx=456
+ cx=446
  cy=227
  rcx=0
  rcy=0
@@ -948,7 +931,7 @@ windowlayout=573
  [memoryfo]
  splitdir=0
  useroptions=16507
- stackedunder=threadsfo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -994,15 +977,15 @@ windowlayout=573
  [findinfilefo]
  splitdir=0
  useroptions=16491
- parent=mainfo.panel2.container
- visible=1
- mdistate=0
+ stackedunder=formdesignerfo
+ parent=
+ mdistate=3
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=0
- y=0
+ x=873
+ y=41
  cx=456
  cy=683
  rcx=0
@@ -1024,10 +1007,10 @@ windowlayout=573
  rcx=0
  rcy=0
  [projecttreefo.grid]
- propcolwidthref=182
+ propcolwidthref=172
  width0=274
  sortdescend0=0
- width1=176
+ width1=166
  sortdescend1=0
  sorted=0
  col=1
@@ -1066,7 +1049,7 @@ windowlayout=573
  rcx=0
  rcy=0
  [watchpointsfo.grid]
- propcolwidthref=335
+ propcolwidthref=325
  width0=16
  sortdescend0=0
  values1=1
@@ -1076,7 +1059,7 @@ windowlayout=573
  sortdescend1=0
  values2=1
   longword(0x1cd3408^)
- width2=229
+ width2=222
  sortdescend2=0
  width4=34
  sortdescend4=0
@@ -1087,7 +1070,7 @@ windowlayout=573
  sortdescend5=0
  values6=1
   
- width6=96
+ width6=93
  sortdescend6=0
  [breakpointsfo]
  splitdir=0
@@ -1101,7 +1084,7 @@ windowlayout=573
  ncy=0
  x=0
  y=230
- cx=456
+ cx=446
  cy=453
  rcx=0
  rcy=0
@@ -1118,21 +1101,21 @@ windowlayout=573
  ncx=0
  ncy=0
  x=0
- y=79
- cx=456
- cy=604
+ y=80
+ cx=446
+ cy=603
  rcx=0
  rcy=0
  [objectinspectorfo.grid]
- propcolwidthref=441
- width0=248
+ propcolwidthref=446
+ width0=250
  sortdescend0=0
- width1=187
+ width1=190
  sortdescend1=0
  [symbolfo]
  splitdir=0
  useroptions=147583
- stackedunder=memoryfo
+ stackedunder=threadsfo
  parent=
  mdistate=0
  nx=0
@@ -1175,7 +1158,7 @@ windowlayout=573
  rcx=0
  rcy=0
  [watchfo.grid]
- propcolwidthref=261
+ propcolwidthref=251
  values0=2
   -1
   -1
@@ -1207,18 +1190,18 @@ windowlayout=573
  splitdir=0
  useroptions=16491
  parent=mainfo.basedock
- visible=1
+ visible=0
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
  x=0
- y=580
+ y=519
  cx=855
- cy=84
- rcx=0
- rcy=0
+ cy=145
+ rcx=855
+ rcy=664
  [componentstorefo]
  splitdir=0
  useroptions=24675
@@ -1295,8 +1278,8 @@ windowlayout=573
  ncy=0
  x=0
  y=0
- cx=456
- cy=76
+ cx=446
+ cy=77
  rcx=0
  rcy=0
  [componentpalettefo.componentpages]
@@ -1314,7 +1297,7 @@ windowlayout=573
  x=0
  y=0
  cx=855
- cy=24
+ cy=36
  rcx=0
  rcy=0
  [sourcefo]
@@ -1328,9 +1311,9 @@ windowlayout=573
  ncx=0
  ncy=0
  x=0
- y=27
+ y=39
  cx=855
- cy=550
+ cy=625
  rcx=0
  rcy=0
  [actionsmo.watchesonact]
@@ -1375,16 +1358,15 @@ windowlayout=573
  rcy=0
  [mainfo.panel2]
  splitdir=3
- useroptions=33586667
- order=7
+ useroptions=32235
+ order=6
   panel1
   projecttreefo
-  findinfilefo
   panel3
   stackfo
-  watchfo
   watchpointsfo
- activetab=3
+  watchfo
+ activetab=2
  stackedunder=mainfo
  parent=
  mdistate=0
@@ -1420,59 +1402,34 @@ windowlayout=573
 [edit]
 hintwidth=314
 hintheight=74
-finddtext=createpixmap
+finddtext=regaddrect
 findhistory=10
- createpixmap
- copyarea
- gdi_getimage
- flush
- checkerror
- fowner.paint
- expose
- fowner.aint
- composeicon
- swaprgb1
+ regaddrect
+ region
+ insertwidget
+ twidget.paint
+ SDL_RenderSetViewport
+ updateroot
+ updateroo
+ frootpos
+ ////SDL_RenderSetViewport
+ changeg
 findoptions=1
-editpos=39
- 0,-1073741823
- 40,6
- 0,1109
- 0,556
- 0,769
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,1677
- 0,-1073741823
- 0,1811
- 0,-1073741823
- 0,13227
- 0,467
- 55,367
- 0,1550
- 0,-1073741823
- 0,-1073741823
- 57,150
+editpos=14
+ 2,7
+ 29,6
+ 0,0
+ 22,585
+ 0,170
+ 0,0
+ 5,3524
+ 0,0
  0,-1073741823
  0,-1073741823
  0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,1491
- 0,1399
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 18,624
- 0,157
- 0,1110
+ 0,0
+ 2,1210
+ 0,9
 bookmarks0=0
 bookmarks1=0
 bookmarks2=0
@@ -1487,112 +1444,37 @@ bookmarks10=0
 bookmarks11=0
 bookmarks12=0
 bookmarks13=0
-bookmarks14=0
-bookmarks15=0
-bookmarks16=0
-bookmarks17=0
-bookmarks18=0
-bookmarks19=0
-bookmarks20=0
-bookmarks21=0
-bookmarks22=0
-bookmarks23=0
-bookmarks24=0
-bookmarks25=0
-bookmarks26=0
-bookmarks27=0
-bookmarks28=0
-bookmarks29=0
-bookmarks30=0
-bookmarks31=0
-bookmarks32=0
-bookmarks33=0
-bookmarks34=0
-bookmarks35=0
-bookmarks36=0
-bookmarks37=0
-bookmarks38=0
-sourcefiles=39
+sourcefiles=14
  /C:/msegui/MSEProject/testsdl/testsdl.pas
  /C:/msegui/MSEProject/testsdl/main.pas
  /C:/msegui/lib/common2/kernel/sdl/sdl4msegui.pas
  /C:/msegui/lib/common2/kernel/sdl/mseguiintf.pas
  /C:/msegui/lib/common2/kernel/sdl/msesdlgdi.pas
- /C:/msegui/lib/common/kernel/i386-win32/mseguiintf.pas
- /C:/msegui/lib/common/graphics/msebitmap.pas
- /C:/msegui/lib/common/graphics/msegdi32gdi.pas
- /C:/msegui/lib/common2/opengl/mseopenglgdi.pas
- /C:/msegui/lib/common2/kernel/mseguiintf.inc
- /C:/msegui/lib/common2/graphics/msegraphics.pas
- /C:/msegui/lib/common2/kernel/sdl/sdl_eventconsts.inc
+ /C:/msegui/lib/common2/kernel/sdl/sdl2_types.inc
  /C:/msegui/lib/common2/kernel/msegui.pas
- /C:/msegui/lib/common2/graphics/msebitmap.pas
- /C:/msegui/lib/addon/repaz/universalprinter.pas
- /C:/msegui/lib/common2/widgets/msewidgets.pas
- /C:/msegui/lib/common2/kernel/mseapplication.pas
- /C:/msegui/lib/common2/kernel/mseguiglob.pas
- /C:/msegui/lib/common2/kernel/msestockobjects.pas
- /C:/msegui/lib/common2/kernel/msedatamodules.pas
- /C:/msegui/lib/common2/kernel/mseclasses.pas
- /C:/msegui/lib/common2/kernel/mseerr.pas
- /C:/msegui/lib/common2/graphics/msefontcache.pas
- /C:/msegui/lib/common2/image/mseformatbmpicoread.pas
- /C:/msegui/lib/common2/widgets/mseimage.pas
- /c:/msegui/lib/common2/kernel/msetypes.pas
- /C:/msegui/lib/common2/kernel/msetimer.pas
- /C:/msegui/lib/common2/kernel/sdl/msesysintf1.pas
- /C:/msegui/lib/common2/graphics/msefont.pas
- /C:/msegui/lib/common2/widgets/mseforms.pas
- /C:/msegui/lib/common2/graphics/msegraphutils.pas
- /C:/msegui/lib/common/kernel/i386-linux/mseguiintf.pas
- /C:/msegui/lib/common2/widgets/msewindowwidget.pas
- /C:/msegui/lib/addon/sdl2/sdl2.pas
- /C:/msegui/lib/addon/sdl2/sdl.pas
- /C:/FPC/fpc-2.6.0/packages/sdl/src/sdl.pas
- /C:/msegui/lib/common2/kernel/msebits.pas
- /C:/msegui/lib/common2/kernel/mseevent.pas
+ /C:/msegui/lib/common2/kernel/sdl/msesysintfwin32.inc
+ /C:/msegui/lib/common2/kernel/sdl/msesysintflinux.inc
+ /C:/msegui/lib/common2/kernel/sdl/msesysintfhwin32.inc
+ /C:/msegui/lib/common2/kernel/sdl/msesysintfhlinux.inc
+ /C:/msegui/lib/common2/kernel/sdl/sdl2_gfxprimitives.pas
  /C:/msegui/lib/common2/graphics/msegenericgdi.pas
-relpaths=39
+ /C:/msegui/lib/common2/kernel/sdl/sdl_eventconsts.inc
+relpaths=14
  testsdl.pas
  main.pas
  ../../lib/common2/kernel/sdl/sdl4msegui.pas
  ../../lib/common2/kernel/sdl/mseguiintf.pas
  ../../lib/common2/kernel/sdl/msesdlgdi.pas
- ../../lib/common/kernel/i386-win32/mseguiintf.pas
- ../../lib/common/graphics/msebitmap.pas
- ../../lib/common/graphics/msegdi32gdi.pas
- ../../lib/common2/opengl/mseopenglgdi.pas
- ../../lib/common2/kernel/mseguiintf.inc
- ../../lib/common2/graphics/msegraphics.pas
- ../../lib/common2/kernel/sdl/sdl_eventconsts.inc
+ ../../lib/common2/kernel/sdl/sdl2_types.inc
  ../../lib/common2/kernel/msegui.pas
- ../../lib/common2/graphics/msebitmap.pas
- ../../lib/addon/repaz/universalprinter.pas
- ../../lib/common2/widgets/msewidgets.pas
- ../../lib/common2/kernel/mseapplication.pas
- ../../lib/common2/kernel/mseguiglob.pas
- ../../lib/common2/kernel/msestockobjects.pas
- ../../lib/common2/kernel/msedatamodules.pas
- ../../lib/common2/kernel/mseclasses.pas
- ../../lib/common2/kernel/mseerr.pas
- ../../lib/common2/graphics/msefontcache.pas
- ../../lib/common2/image/mseformatbmpicoread.pas
- ../../lib/common2/widgets/mseimage.pas
- ../../lib/common2/kernel/msetypes.pas
- ../../lib/common2/kernel/msetimer.pas
- ../../lib/common2/kernel/sdl/msesysintf1.pas
- ../../lib/common2/graphics/msefont.pas
- ../../lib/common2/widgets/mseforms.pas
- ../../lib/common2/graphics/msegraphutils.pas
- ../../lib/common/kernel/i386-linux/mseguiintf.pas
- ../../lib/common2/widgets/msewindowwidget.pas
- ../../lib/addon/sdl2/sdl2.pas
- ../../lib/addon/sdl2/sdl.pas
- ../../../FPC/fpc-2.6.0/packages/sdl/src/sdl.pas
- ../../lib/common2/kernel/msebits.pas
- ../../lib/common2/kernel/mseevent.pas
+ ../../lib/common2/kernel/sdl/msesysintfwin32.inc
+ ../../lib/common2/kernel/sdl/msesysintflinux.inc
+ ../../lib/common2/kernel/sdl/msesysintfhwin32.inc
+ ../../lib/common2/kernel/sdl/msesysintfhlinux.inc
+ ../../lib/common2/kernel/sdl/sdl2_gfxprimitives.pas
  ../../lib/common2/graphics/msegenericgdi.pas
-ismoduletexts=39
+ ../../lib/common2/kernel/sdl/sdl_eventconsts.inc
+ismoduletexts=14
  0
  0
  0
@@ -1607,81 +1489,13 @@ ismoduletexts=39
  0
  0
  0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
-modules=2
+modules=1
  /C:/msegui/MSEProject/testsdl/main.mfm
- /C:/msegui/lib/common2/kernel/msestockobjects.mfm
-visiblemodules=2
+visiblemodules=1
  -1
- -1
-nomenumodules=2
- 0
+nomenumodules=1
  0
 [sourcefo.tabwidget]
-order=39
- 0
- 33
- 34
- 35
- 1
- 2
- 11
- 3
- 36
- 30
- 29
- 21
- 17
- 25
- 13
- 23
- 15
- 4
- 24
- 14
- 12
- 37
- 26
- 27
- 16
- 9
- 32
- 8
- 5
- 31
- 7
- 6
- 10
- 38
- 28
- 22
- 18
- 19
- 20
 tabsize=175
 firsttab=0
-index=20
+index=13
