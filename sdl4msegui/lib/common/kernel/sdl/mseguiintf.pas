@@ -989,6 +989,10 @@ var
  pt1: pointty;
  numevents: integer;
 begin
+<<<<<<< HEAD
+=======
+// dispatchevents;
+>>>>>>> 3c203bbc73e0842c876804998cfba4c1f4f2847d
  result:= nil;
  if gui_hasevent then begin
   SDL_PumpEvents;
