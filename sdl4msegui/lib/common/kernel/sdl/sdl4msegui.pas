@@ -177,7 +177,7 @@ const
  SDL_WINDOWEVENT_FOCUS_GAINED = 12;   // Window has gained keyboard focus */
  SDL_WINDOWEVENT_FOCUS_LOST = 13;     // Window has lost keyboard focus */
  SDL_WINDOWEVENT_CLOSE = 14;          // The window manager requests that the window be closed */
-
+ 
  TEXT_SIZE = 32;
  
  // mouse button state
@@ -432,21 +432,13 @@ type
     SDL_WINDOWEVENT: (window: SDL_Window_Event); //**< Window state change */
     SDL_SYSWMEVENT: (syswin: SDL_SysWM_Event); //**< System specific event */
     //keyboard
-    SDL_KEYDOWN: (keydown: SDL_KeyboardEvent); //**< Key pressed */
-    SDL_KEYUP: (keyup: SDL_KeyboardEvent); //**< Key released */
+    SDL_KEYDOWN,SDL_KEYUP: (key: SDL_KeyboardEvent); //**< Key pressed */
     SDL_TEXTEDITING: (edit: SDL_TextEditingEvent); //**< Keyboard text editing (composition) */
     SDL_TEXTINPUT: (text: SDL_TextInputEvent); //**< Keyboard text input */
     //mouse
     SDL_MOUSEMOTION: (motion: SDL_MouseMotionEvent); //**< Mouse moved */
     SDL_MOUSEBUTTONDOWN,SDL_MOUSEBUTTONUP: (button: SDL_MouseButtonEvent); //**< Mouse button pressed */
     SDL_MOUSEWHEEL: (wheel: SDL_MouseWheelEvent); //**< Mouse wheel motion */
-    //* Tablet or multiple mice input device events */
-    {SDL_INPUTMOTION    = 0x500, /**< Input moved */
-    SDL_INPUTBUTTONDOWN,        /**< Input button pressed */
-    SDL_INPUTBUTTONUP,          /**< Input button released */
-    SDL_INPUTWHEEL,             /**< Input wheel motion */
-    SDL_INPUTPROXIMITYIN,       /**< Input pen entered proximity */
-    SDL_INPUTPROXIMITYOUT,      /**< Input pen left proximity */}
     //* Joystick events */
     SDL_JOYAXISMOTION: (jaxis: SDL_JoyAxisEvent );
     SDL_JOYBALLMOTION: (jball: SDL_JoyBallEvent );
@@ -458,17 +450,9 @@ type
     SDL_TOUCHBUTTONDOWN,SDL_TOUCHBUTTONUP: (tbutton: SDL_TouchButtonEvent);  
     //* Gesture events */
     SDL_DOLLARGESTURE: (dgesture: SDL_DollarGestureEvent);
-    //SDL_DOLLARRECORD,
     SDL_MULTIGESTURE: (mgesture: SDL_MultiGestureEvent);
-    //* Clipboard events */
-    //SDL_CLIPBOARDUPDATE = 0x900, /**< The clipboard changed */ 
-    // Drag and drop events */
     SDL_DROPFILE : (drop: SDL_DropEvent);  
-    {/** Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use,
-     *  and should be allocated with SDL_RegisterEvents()}
     SDL_USEREVENT: (user: SDL_User_Event);
-    //SDL_LASTEVENT    = 0xFFFF
-   //end;
   end;
   PSDL_Event = ^SDL_Event;
 
@@ -524,6 +508,7 @@ type
  function SDL_GetWindowFromID(id: cardinal): winidty; cdecl; external SDLLibName;
  function SDL_GetWindowSurface(window: winidty): PSDL_Surface; cdecl; external SDLLibName;
  function SDL_UpdateWindowSurface(window: winidty): integer; cdecl; external SDLLibName;
+ function SDL_GetDisplayBounds(displayIndex: integer; rect: PSDL_Rect): integer; cdecl; external SDLLibName;
 
 // error 
  function SDL_GetError: pchar; cdecl; external SDLLibName;
@@ -627,6 +612,8 @@ type
  function SDL_GetRelativeMouseState(x,y: pinteger): byte; cdecl; external SDLLibName;
  procedure SDL_WarpMouseInWindow(window: cardinal; x, y: integer); cdecl; external SDLLibName;
  function SDL_CreateCursor(const data: pbyte; const Umask: pbyte; w,h,hot_x,hot_y: integer): SDL_Cursor; cdecl; external SDLLibName;
+ function SDL_CreateColorCursor(surface: PSDL_Surface; hot_x, hot_y: integer): SDL_Cursor; cdecl; external SDLLibName;
+
  procedure SDL_SetCursor(cursor: SDL_Cursor); cdecl; external SDLLibName;
 
 // 2D renderer
@@ -660,7 +647,7 @@ type
  PSDL_RendererInfo = ^SDL_RendererInfo;
  
  function SDL_CreateRenderer(window: cardinal; index: integer; flags: Cardinal): SDL_Renderer; cdecl; external SDLLibName;
- function SDL_CreateTexture(renderer: SDL_Renderer; format: Cardinal; access,w,h: integer): SDL_Texture; cdecl; external SDLLibName;
+ function SDL_CreateTexture(renderer: SDL_Renderer; format: Cardinal; access: SDL_TextureAccess; w,h: integer): SDL_Texture; cdecl; external SDLLibName;
  function SDL_GetRenderer(window: cardinal): SDL_Renderer; cdecl; external SDLLibName;
  function SDL_CreateSoftwareRenderer(surface: PSDL_Surface): SDL_Renderer; cdecl; external SDLLibName;
  procedure SDL_DestroyRenderer(renderer: SDL_Renderer); cdecl; external SDLLibName;
@@ -694,7 +681,8 @@ type
  function SDL_GetNumRenderDrivers: integer; cdecl; external SDLLibName;
  function SDL_GetRenderDriverInfo(index: integer; info: PSDL_RendererInfo): integer; cdecl; external SDLLibName;
  function SDL_GetRendererInfo(renderer: SDL_Renderer; info: PSDL_RendererInfo): integer; cdecl; external SDLLibName;
-
+ function SDL_LockTexture(texture: SDL_Texture; const rect: PSDL_Rect; pixels: pointer; pitch: pinteger): integer; cdecl; external SDLLibName;
+ procedure SDL_UnlockTexture(texture: SDL_Texture); cdecl; external SDLLibName;
 // surface
  function SDL_CreateRGBSurface (flags: cardinal;
                                    width: integer;
@@ -731,6 +719,7 @@ type
  procedure SDL_SaveBMP_RW(surface: PSDL_Surface; dst: PSDL_RWops; freedst: integer); cdecl; external SDLLibName;
  procedure SDL_SaveBMP_toFile(surface: PSDL_Surface; filename: PAnsiChar);
  function SDL_SetClipRect(surface: PSDL_Surface; const rect: PSDL_Rect): boolean; cdecl; external SDLLibName;
+ procedure SDL_GetClipRect(surface: PSDL_Surface; var rect: PSDL_Rect); cdecl; external SDLLibName;
  function SDL_SetSurfaceBlendMode(surface: PSDL_Surface; blendMode: SDL_BlendMode): integer; cdecl; external SDLLibName;
  function SDL_UpperBlitScaled(src: PSDL_Surface; const srcrect: PSDL_Rect; dst: PSDL_Surface; dstrect: PSDL_Rect): integer; cdecl; external SDLLibName;
 
@@ -738,7 +727,7 @@ type
 // event
 
  procedure SDL_PumpEvents; cdecl; external SDLLibName;
- function SDL_PeepEvents(events: PSDL_Event; numevents: integer; action: SDL_EventAction;
+ function SDL_PeepEvents(events: PSDL_Event; var numevents: integer; action: SDL_EventAction;
                         minType, maxType: cardinal): integer; cdecl; external SDLLibName;
  function SDL_GetEvents(minType: cardinal = 0; maxType: cardinal = SDL_LASTEVENT): SDL_EventArray; cdecl; external SDLLibName;
  function SDL_HasEvent(type_: Cardinal): boolean; cdecl; external SDLLibName;
@@ -763,6 +752,7 @@ type
 
 //mouse
  function checkbutton(const mousestate: byte): mousebuttonty;
+ function checkbuttonindex(const buttonindex: byte): mousebuttonty;
  function sdlmousetoshiftstate(keys: byte): shiftstatesty;
 
 // timer
@@ -1160,6 +1150,16 @@ implementation
    SDL_BUTTON_LMASK: result:= mb_left;
    SDL_BUTTON_MMASK: result:= mb_middle;
    SDL_BUTTON_RMASK: result:= mb_right;
+  end;
+ end;
+
+ function checkbuttonindex(const buttonindex: byte): mousebuttonty;
+ begin
+  result:= mb_none;
+  case buttonindex of
+   1: result:= mb_left;
+   2: result:= mb_middle;
+   3: result:= mb_right;
   end;
  end;
 
