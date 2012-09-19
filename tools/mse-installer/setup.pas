@@ -4,7 +4,7 @@ program setup;
  {$ifdef mswindows}{$apptype gui}{$endif}
 {$endif}
 uses
- {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}msegui,mseforms,mainsetup,skinblue,
+ {$ifdef FPC}{$ifdef linux}cthreads,cwstring,{$endif}{$endif}msegui,mseforms,mainsetup,skinblue,
  zipper,msestrings,globmodul,msepointer,msefileutils;
 
 {$ifdef mswindows} 

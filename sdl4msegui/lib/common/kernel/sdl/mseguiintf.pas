@@ -989,15 +989,12 @@ var
  pt1: pointty;
  numevents: integer;
 begin
-<<<<<<< HEAD
-=======
-// dispatchevents;
->>>>>>> 3c203bbc73e0842c876804998cfba4c1f4f2847d
  result:= nil;
  if gui_hasevent then begin
   SDL_PumpEvents;
  end;
  while true do begin
+  //if SDL_PeepEvents(@e, numevents, SdlGetEvent, SDL_FIRSTEVENT, SDL_LASTEVENT)>0 then begin
   if (SDL_PollEvent(@e)>0) then begin
    case e.type_ of
     SDL_QUITEV:  begin

@@ -7,10 +7,10 @@ uses
  msebitmap,msedataedits,mseedit,msegrids,msestrings,msetypes,msewidgetgrid,
  msedatanodes,msefiledialog,mselistbrowser,msescrollbar,msesys,msesysutils,
  msesysintf,sysutils,msestatfile,msetimer,msedispwidgets,msesimplewidgets,
- dateutils,classes,msefileutils,strutils,mseimage,mseeditglob,
- msegridsglob,msetextedit,mseformatjpgread,mseformatpngread,mseformatjpgwrite,
- msestringenter,mseformatpngwrite,msestream,mseformatstr,globmodul,
- msegraphedits,msedataimage,msekeyboard;
+ dateutils,classes,msefileutils,strutils,mseimage,mseeditglob,msegridsglob,
+ msetextedit,mseformatjpgread,mseformatpngread,mseformatjpgwrite,msestringenter,
+ mseformatpngwrite,msestream,mseformatstr,globmodul,msegraphedits,msedataimage,
+ mseifiglob;
 
 type
  tmainfo = class(tmainform)
@@ -69,6 +69,7 @@ type
    btnsave: tbutton;
    btndel: tbutton;
    woutputname: tstringedit;
+   woverwrite: tbooleanedit;
    procedure mainfo_onloaded(const sender: TObject);
    procedure ttimer1_ontimer(const sender: TObject);
    procedure buildproject(const sender: TObject);
@@ -99,9 +100,6 @@ type
    procedure btndel_onexecute(const sender: TObject);
    procedure wlanglist_oncellevent(const sender: TObject;
                    var info: celleventinfoty);
-   procedure exitform(const sender: TObject);
-   procedure showabout(const sender: TObject);
-   procedure showhelp(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -163,12 +161,14 @@ begin
   fzip.BufferSize:= 65536;
   strar1:= wfilesource.gridvalues;
   for int1:= 0 to high(strar1) do begin
-   fzip.entries.addfileentry(tosysfilepath(strar1[int1]),tosysfilepath(wfilestore.gridvalues[int1]));
+   //fzip.entries.addfileentry(tosysfilepath(strar1[int1]),tosysfilepath(wfilestore.gridvalues[int1]));
+   fzip.entries.addfileentry(tosysfilepath(strar1[int1]),wfilestore.gridvalues[int1]);
   end;
   strar1:= wformimage.gridvalues;
   for int1:= 0 to high(strar1) do begin
    if strar1[int1]<>'' then begin
-    fzip.entries.addfileentry(tosysfilepath(strar1[int1]),tosysfilepath('formimages/'+filename(strar1[int1])));
+    //fzip.entries.addfileentry(tosysfilepath(strar1[int1]),tosysfilepath('formimages/'+filename(strar1[int1])));
+    fzip.entries.addfileentry(tosysfilepath(strar1[int1]),'formimages/'+filename(strar1[int1]));
    end;
   end;
   strar1:= nil;
@@ -178,6 +178,7 @@ begin
   for int1:= 0 to high(strar1) do begin
    ftmp[int1]:= concatpath(filedir(tstatfile2.filename),'lang/'+strar1[int1]+'.lang','/');
    copyfile(ftmp[int1],ftmp[int1]+'.tmp',true);
+   //fzip.entries.addfileentry(tosysfilepath(ftmp[int1]+'.tmp'),strar1[int1]+'.lang');
    fzip.entries.addfileentry(tosysfilepath(ftmp[int1]+'.tmp'),strar1[int1]+'.lang');
   end;
   int1:= high(ftmp);
@@ -246,7 +247,7 @@ end;
 
 procedure tmainfo.clearlangdata;
 begin
- apptagline.value:= '';
+ //apptagline.value:= '';
  appdescription.value:= '';
  wforms.clear;
  wlocation.clear;
@@ -424,21 +425,6 @@ begin
   tstatfile1.filename:= concatpath(filedir(tstatfile2.filename),'lang/'+wlangname.value+'.lang','/');
   tstatfile1.readstat;
  end;
-end;
-
-procedure tmainfo.exitform(const sender: TObject);
-begin
- self.close;
-end;
-
-procedure tmainfo.showabout(const sender: TObject);
-begin
- showmessage('MSE Installer'+c_linefeed+'Copyright : Sri Wahono (2011)','About MSE Installer');
-end;
-
-procedure tmainfo.showhelp(const sender: TObject);
-begin
- showmessage('No yet created!');
 end;
 
 end.
