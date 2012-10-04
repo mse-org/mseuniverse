@@ -15,7 +15,7 @@ object commitqueryfo: tcommitqueryfo
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Commit'
-  oncreate = createexe
+  onloaded = createexe
   moduleclassname = 'tmseform'
   object bottomstrip: tlayouter
     frame.framei_left = 2
@@ -143,6 +143,7 @@ object commitqueryfo: tcommitqueryfo
     object tsplitter2: tsplitter
       optionswidget = [ow_destroywidgets]
       color = -1879048189
+      taborder = 1
       bounds_x = 376
       bounds_y = 0
       bounds_cx = 3
@@ -155,7 +156,6 @@ object commitqueryfo: tcommitqueryfo
     end
     inline diff: tcommitdifffo
       frame = nil
-      taborder = 1
       visible = True
       bounds_x = 379
       bounds_y = 0
@@ -196,6 +196,8 @@ object commitqueryfo: tcommitqueryfo
       inherited externaldiffact: taction
         left = 40
         top = 56
+      end
+      inherited refreshthread: tthreadcomp
       end
     end
     object tsimplewidget2: tsimplewidget

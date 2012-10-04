@@ -48,7 +48,6 @@ object optionsfo: toptionsfo
       frame.zoomwidthstep = 1
       frame.zoomheightstep = 1
       taborder = 1
-      visible = True
       bounds_x = 0
       bounds_y = 18
       bounds_cx = 339

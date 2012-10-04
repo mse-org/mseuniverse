@@ -33,4 +33,6 @@ inherited commitdifffo: tcommitdifffo
   end
   inherited externaldiffact: taction[5]
   end
+  inherited refreshthread: tthreadcomp[6]
+  end
 end

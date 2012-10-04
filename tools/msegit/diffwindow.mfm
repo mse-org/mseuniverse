@@ -41,4 +41,6 @@ inherited diffwindowfo: tdiffwindowfo
     left = 168
     top = 152
   end
+  inherited refreshthread: tthreadcomp[7]
+  end
 end
