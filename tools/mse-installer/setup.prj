@@ -20,10 +20,15 @@ order17=0
 order18=0
 order19=0
 order20=0
+order21=0
+order22=0
+order23=0
+order24=0
+order25=0
 [projectoptions]
-projectdir=/usr/local/msegui/MSEProject/mse-installer/source
-projectfilename=/usr/local/msegui/MSEProject/mse-installer/source/setup.prj
-findinfiledialog=46
+projectdir=/windows/D/msegui/MSEProject/mse-installer/source
+projectfilename=/windows/D/msegui/MSEProject/mse-installer/source/setup.prj
+findinfiledialog=51
  [findinfileadialogfo.subdirs]
  value=1
  [findinfileadialogfo.inopenfiles]
@@ -40,8 +45,9 @@ findinfiledialog=46
   "*.pas" "*.pp" "*.inc"
  [findinfileadialogfo.dir]
  filenames=1
-  /usr/local/msegui/MSEProject/mse-installer/source/
- filehistory=6
+  /C:/msegui/lib/common/
+ filehistory=7
+  /C:/msegui/lib/common/
   /usr/local/msegui/MSEProject/mse-installer/source/
   /usr/local/msegui/lib/common/
   /home/wahono/master/fpc-2.4.2/rtl/
@@ -51,11 +57,15 @@ findinfiledialog=46
  filefilterindex=0
  filefilter="*.pas" "*.pp" "*.inc"
  filecolwidth=174
+ x=0
+ y=0
+ cx=0
+ cy=0
  [findinfileadialogfo.findtext]
- value=azi
+ value=sys_geterrortext
  history=10
-  azi
   sys_geterrortext
+  azi
   getsyserror
   cuint16
   mode_t
@@ -119,10 +129,10 @@ options=99
  sortdescent3=0
  width4=309
  sortdescent4=0
- sortcol=-1
+ sorted=0
  col=-1073741823
  row=-1073741823
- rowheight=16
+ rowheight=17
  [projectoptionsfo.newfile]
  firsttab=0
  index=2
@@ -144,9 +154,9 @@ options=99
  sortdescent6=0
  [projectoptionsfo.macrosplitter]
  x=0
- y=178
+ y=179
  xprop=1
- yprop=0.34622823984526
+ yprop=0.35
  [projectoptionsfo.macrogrid]
  propcolwidthref=595
  sortdescent0=0
@@ -161,7 +171,7 @@ options=99
  sortdescent7=0
  [projectoptionsfo.makegroupbox]
  firsttab=0
- index=0
+ index=1
  [projectoptionsfo.exceptionsgrid]
  propcolwidthref=772
  width0=47
@@ -261,35 +271,145 @@ bmpfiledialog=18
  filefilterindex=0
  filefilter="*.jpg" "*.jpeg" "*.bmp" "*.ico" "*.png" "*.pnm" "*.pgm" "*.pbm" "*.tga" "*.xpm"
  filecolwidth=174
+mainfile=${PROJECTNAME}.pas
+targetfile=${PROJECTNAME}${EXEEXT}
+messageoutputfile=/media/Acer/msegui/MSEProject/Acosys/test.txt
+makecommand=${COMPILER}
+makedir=
+unitdirs=7
+ ${MSELIBDIR}*/
+ ${MSELIBDIR}kernel/
+ ${MSELIBDIR}kernel/$TARGET/
+ ${MSEDIR}lib/addon/*/
+ ${MSEDIR}lib/addon/osprinter/$TARGET/
+ ${MSEDIR}lib/addon/dcpcrypt/
+ ${MSEDIR}lib/addon/dcpcrypt/*/
+unitpref=-Fu
+incpref=-Fi
+libpref=-Fl
+objpref=-Fo
+targpref=-o
+befcommand=2
+ windres.exe -O res -i acosys-ver.rc -o acosys-ver.res
+ windres.exe -O res -i acosys-icon.rc -o acosys-icon.res
+aftcommand=1
+ C:\FPC\2.4.2\bin\i386-win32\upx.exe -9 Acosys.exe
+makeoptions=13
+ -l -Mobjfpc -Sh -Fcutf8 ${TARGETOPTIONS}
+ -gl -O-
+ -B -g -CX
+ -Os -Xs -XX
+ -gh
+ -ddemo_version
+ -dmse_debugzorder
+ -ddebugsqlquery
+ -ddebug_posprinter
+ -dmse_debugwindowfocus
+ -dmse_debugsignal
+ -vu
+ -FU${OUTPUTLIB}
+codetemplatedirs=1
+ ${TEMPLATEDIR}/codetemplate/
+toolmenus=7
+ Language Tools (Windows)
+ Language Tools (Linux)
+ Activation (Windows)
+ Activation (Linux)
+ Unit Dependencies
+ AcoDB
+ MSE-Installer
+toolfiles=7
+ /C:/msegui/bin/i386-win32/acosys-lang.exe
+ /windows/D/msegui/bin/i386-linux/acosys-lang
+ /C:/msegui/MSEProject/Acosys/activation/activation.exe
+ /windows/D/msegui/MSEProject/Acosys/activation/activation
+ /windows/D/msegui/bin/i386-linux/mseunitdep
+ /windows/D/msegui/MSEProject/AcoDB/acodb
+ /windows/D/msegui/MSEProject/Acosys/installer/project/mse-installer
+toolparams=7
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+fontnames=0
+scriptbeforecopy=
+scriptaftercopy=
+newprojectfiles=4
+ ${TEMPLATEDIR}default/project.pas
+ ${TEMPLATEDIR}default/main.pas
+ ${TEMPLATEDIR}default/main.mfm
+ ${TEMPLATEDIR}default/main_mfm.pas
+newprojectfilesdest=4
+ ${%PROJECTNAME%}.pas
+ 
+ 
+ 
+newfinames=3
+ Program
+ Unit
+ Textfile
+newfifilters=3
+ "*.pas" "*.pp"
+ "*.pas" "*.pp"
+ 
+newfiexts=3
+ pas
+ pas
+ 
+newfisources=3
+ ${TEMPLATEDIR}default/program.pas
+ ${TEMPLATEDIR}default/unit.pas
+ 
+newfonames=10
+ Mainform
+ Simple Form
+ Docking Form
+ Datamodule
+ Subform
+ Scrollboxform
+ Tabform
+ Report
+ Scriptform
+ Inherited Form
+newfonamebases=10
+ form
+ form
+ form
+ module
+ form
+ form
+ form
+ report
+ script
+ form
+newfosources=10
+ ${TEMPLATEDIR}default/mainform.pas
+ ${TEMPLATEDIR}default/simpleform.pas
+ ${TEMPLATEDIR}default/dockingform.pas
+ ${TEMPLATEDIR}default/datamodule.pas
+ ${TEMPLATEDIR}default/subform.pas
+ ${TEMPLATEDIR}default/scrollboxform.pas
+ ${TEMPLATEDIR}default/tabform.pas
+ ${TEMPLATEDIR}default/report.pas
+ ${TEMPLATEDIR}default/pascform.pas
+ ${TEMPLATEDIR}default/inheritedform.pas
+newfoforms=10
+ ${TEMPLATEDIR}default/mainform.mfm
+ ${TEMPLATEDIR}default/simpleform.mfm
+ ${TEMPLATEDIR}default/dockingform.mfm
+ ${TEMPLATEDIR}default/datamodule.mfm
+ ${TEMPLATEDIR}default/subform.mfm
+ ${TEMPLATEDIR}default/scrollboxform.mfm
+ ${TEMPLATEDIR}default/tabform.mfm
+ ${TEMPLATEDIR}default/report.mfm
+ ${TEMPLATEDIR}default/pascform.mfm
+ ${TEMPLATEDIR}default/inheritedform.mfm
 copymessages=0
 closemessages=1
 checkmethods=1
-showgrid=0
-snaptogrid=1
-moveonfirstclick=1
-gridsizex=8
-gridsizey=8
-autoindent=1
-blockindent=1
-rightmarginon=1
-rightmarginchars=80
-scrollheight=0
-tabstops=4
-spacetabs=0
-tabindent=0
-editfontname=mseide_source
-editfontheight=0
-editfontwidth=0
-editfontextraspace=0
-editfontcolor=-1879048183
-editbkcolor=-1879048186
-statementcolor=14745599
-editfontantialiased=1
-editmarkbrackets=1
-backupfilecount=2
-encoding=0
-codetemplatedirs=1
- ${TEMPLATEDIR}
 usercolors=30
  0
  0
@@ -352,6 +472,225 @@ usercolorcomment=30
  
  
  
+settingsfile=
+settingseditor=1
+settingsdebugger=1
+settingsstorage=1
+settingsprojecttree=0
+settingsautoload=0
+settingsautosave=1
+modulenames=2
+ MAINSETUPFO
+ SKINBLUE
+moduletypes=2
+ TMAINSETUPFO
+ TSKINBLUE
+modulefiles=2
+ /windows/D/msegui/MSEProject/mse-installer/source/mainsetup.mfm
+ /windows/D/msegui/MSEProject/mse-installer/source/skinblue.mfm
+befcommandon=2
+ 0
+ 0
+makeoptionson=13
+ 63
+ 31
+ 2
+ 32
+ 31
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 63
+aftcommandon=1
+ 0
+unitdirson=7
+ 196671
+ 196671
+ 196671
+ 196671
+ 65599
+ 196671
+ 65599
+macroon=15
+ 1
+ 1
+ 1
+ 1
+ 0
+ 0
+ 2
+ 2
+ 2
+ 2
+ 4
+ 4
+ 4
+ 4
+ 4
+macronames=15
+ TARGET
+ TARGETOPTIONS
+ EXEEXT
+ OUTPUTLIB
+ COMPILER
+ FPCLIBDIR
+ TARGET
+ TARGETOPTIONS
+ EXEEXT
+ OUTPUTLIB
+ COMPILER
+ TARGET
+ TARGETOPTIONS
+ EXEEXT
+ FPCLIBDIR
+macrovalues=15
+ i386-win32
+ -Twin32
+ .exe
+ c:\msegui\liboutput\
+ /usr/local/lib/fpc/2.4.4/ppcross386
+ /usr/local/lib/fpc/2.4.4/units/i386-win32/
+ i386-linux
+ -TLinux 
+ 
+ /windows/D/msegui/liboutput/
+ /C:/FPC/2.4.2/bin/i386-win32/ppcrossx64.exe
+ i386-win32
+ -Twin64
+ .exe
+ /C:/FPC/2.4.2/units/x86_64-win64/
+macrogroup=1
+groupcomments=6
+ i386-win32
+ i386-linux
+ x86_64-win64
+ 
+ 
+ 
+toolsave=7
+ 1
+ -1
+ -1
+ -1
+ -1
+ -1
+ -1
+toolhide=7
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+ -1
+toolparse=7
+ -1
+ -1
+ -1
+ -1
+ -1
+ -1
+ -1
+fontalias=0
+fontancestors=0
+fontheights=0
+fontwidths=0
+fontoptions=0
+fontxscales=0
+expandprojectfilemacros=4
+ 1
+ 1
+ 1
+ 1
+loadprojectfile=4
+ 1
+ 1
+ 1
+ 1
+newinheritedforms=10
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+sourcefilemasks=3
+ "*.pas" "*.dpr" "*.pp" "*.inc"
+ "*.c" "*.cc" "*.h"
+ "*.mfm"
+syntaxdeffiles=3
+ ${SYNTAXDEFDIR}pascal.sdef
+ ${SYNTAXDEFDIR}cpp.sdef
+ ${SYNTAXDEFDIR}objecttext.sdef
+filemasknames=3
+ Source
+ Forms
+ All Files
+filemasks=3
+ "*.pp" "*.pas" "*.inc" "*.dpr"
+ *.mfm
+ *
+showgrid=0
+snaptogrid=1
+moveonfirstclick=1
+gridsizex=8
+gridsizey=8
+autoindent=1
+blockindent=1
+rightmarginon=1
+rightmarginchars=80
+scrollheight=0
+tabstops=1
+spacetabs=0
+tabindent=0
+editfontname=mseide_source
+editfontheight=0
+editfontwidth=0
+editfontextraspace=0
+editfontcolor=-1879048183
+editbkcolor=-1879048186
+statementcolor=14745599
+editfontantialiased=1
+editmarkbrackets=1
+backupfilecount=0
+encoding=1
+codetemplatedirs=1
+ ${TEMPLATEDIR}/codetemplate/
+debugcommand=${DEBUGGER}
+debugoptions=
+debugtarget=
+runcommand=
+remoteconnection=
+uploadcommand=
+gdbprocessor=i386
+gdbservercommand=
+gdbservercommandattach=
+beforeload=
+afterload=
+beforerun=
+sourcedirs=8
+ ${MSEDIR}/lib/addon/dcpcrypt/*/
+ ${MSEDIR}/lib/addon/dcpcrypt/
+ ${MSELIBDIR}osprinter/$TARGET/*/
+ ${MSELIBDIR}osprinter/$TARGET/
+ ${MSEDIR}/lib/addon/*/
+ ${MSELIBDIR}kernel/$TARGET/
+ ${MSELIBDIR}*/
+ ./
+defines=0
+progparameters=
+progworkingdirectory=
+envvarnames=0
+envvarvalues=0
+defineson=0
 stoponexception=0
 valuehints=1
 activateonbreak=1
@@ -368,7 +707,7 @@ exceptclassnames=1
  EconvertError
 exceptignore=1
  0
-settingsfile=
+nodebugbeginend=0
 sigsettings=27
  1,1,T,F
  3,3,T,F
@@ -397,240 +736,7 @@ sigsettings=27
  28,28,T,F
  29,29,T,F
  30,30,T,F
-modulenames=2
- MAINSETUPFO
- SKINBLUE
-moduletypes=2
- TMAINSETUPFO
- TSKINBLUE
-modulefiles=2
- /usr/local/msegui/MSEProject/mse-installer/source/mainsetup.mfm
- /usr/local/msegui/MSEProject/mse-installer/source/skinblue.mfm
-mainfile=${PROJECTNAME}.pas
-targetfile=${PROJECTNAME}${EXEEXT}
-messageoutputfile=
-makecommand=${COMPILER}
-makedir=
-debugcommand=${DEBUGGER}
-debugoptions=
-debugtarget=
-runcommand=
-remoteconnection=
-uploadcommand=
-gdbprocessor=i386
-gdbservercommand=
-gdbservercommandattach=
-beforeload=
-afterload=
-beforerun=
 defaultmake=1
-befcommand=0
-befcommandon=0
-aftcommand=0
-aftcommandon=0
-makeoptions=5
- ${TARGETOPTIONS} -l -Mobjfpc -Sh
- -gl -O-
- -B
- -OG2p3 -XX -Xs
- -gh
-makeoptionson=5
- 63
- 31
- 34
- 32
- 31
-macroon=8
- 1
- 1
- 1
- 1
- 2
- 2
- 2
- 2
-macronames=8
- COMPILER
- TARGET
- TARGETOPTIONS
- EXEEXT
- COMPILER
- TARGET
- TARGETOPTION
- EXEEXT
-macrovalues=8
- /usr/local/lib/fpc/2.4.2/ppcross386
- i386-win32
- -Twin32
- .exe
- /usr/local/lib/fpc/2.4.2/ppc386
- i386-linux
- -TLinux
- 
-macrogroup=0
-groupcomments=6
- i386-win32
- i386-linux
- 
- 
- 
- 
-sourcedirs=4
- ${MSEDIR}/lib/addon/*/
- ${MSELIBDIR}kernel/$TARGET/
- ${MSELIBDIR}*/
- ./
-defines=0
-defineson=0
-unitdirs=4
- ${MSEDIR}lib/addon/*/
- ${MSELIBDIR}kernel/$TARGET/
- ${MSELIBDIR}kernel/
- ${MSELIBDIR}*/
-unitdirson=4
- 196671
- 65599
- 196671
- 65599
-unitpref=-Fu
-incpref=-Fi
-libpref=-Fl
-objpref=-Fo
-targpref=-o
-sourcefilemasks=3
- "*.pas" "*.dpr" "*.pp" "*.inc"
- "*.c" "*.cc" "*.h"
- "*.mfm"
-syntaxdeffiles=3
- ${SYNTAXDEFDIR}pascal.sdef
- ${SYNTAXDEFDIR}cpp.sdef
- ${SYNTAXDEFDIR}objecttext.sdef
-filemasknames=3
- Source
- Forms
- All Files
-filemasks=3
- "*.pp" "*.pas" "*.inc" "*.dpr"
- *.mfm
- *
-toolsave=2
- 1
- -1
-toolhide=2
- 1
- -1
-toolparse=2
- 1
- -1
-toolmenus=2
- Language Tools
- Activation
-toolfiles=2
- /usr/local/msegui/bin/i386-linux/msei18n
- /usr/local/msegui/MSEProject/Acosys/activation/activation
-toolparams=2
- 
- 
-fontalias=0
-fontancestors=0
-fontnames=0
-fontheights=0
-fontwidths=0
-fontoptions=0
-fontxscales=0
-scriptbeforecopy=
-scriptaftercopy=
-newprojectfiles=4
- ${TEMPLATEDIR}default/project.pas
- ${TEMPLATEDIR}default/main.pas
- ${TEMPLATEDIR}default/main.mfm
- ${TEMPLATEDIR}default/main_mfm.pas
-newprojectfilesdest=4
- ${%PROJECTNAME%}.pas
- 
- 
- 
-expandprojectfilemacros=4
- 1
- 1
- 1
- 1
-loadprojectfile=4
- 1
- 1
- 1
- 1
-newfinames=3
- Program
- Unit
- Textfile
-newfinfilters=3
- "*.pas" "*.pp"
- "*.pas" "*.pp"
- 
-newfiexts=3
- pas
- pas
- 
-newfisources=3
- ${TEMPLATEDIR}default/program.pas
- ${TEMPLATEDIR}default/unit.pas
- 
-newfonames=10
- Mainform
- Simple Form
- Docking Form
- Datamodule
- Subform
- Scrollboxform
- Tabform
- Report
- Scriptform
- Inherited Form
-newfonamebases=10
- form
- form
- form
- module
- form
- form
- form
- report
- script
- form
-newinheritedforms=10
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- -1
-newfosources=10
- ${TEMPLATEDIR}default/mainform.pas
- ${TEMPLATEDIR}default/simpleform.pas
- ${TEMPLATEDIR}default/dockingform.pas
- ${TEMPLATEDIR}default/datamodule.pas
- ${TEMPLATEDIR}default/subform.pas
- ${TEMPLATEDIR}default/scrollboxform.pas
- ${TEMPLATEDIR}default/tabform.pas
- ${TEMPLATEDIR}default/report.pas
- ${TEMPLATEDIR}default/pascform.pas
- ${TEMPLATEDIR}default/inheritedform.pas
-newfoforms=10
- ${TEMPLATEDIR}default/mainform.mfm
- ${TEMPLATEDIR}default/simpleform.mfm
- ${TEMPLATEDIR}default/dockingform.mfm
- ${TEMPLATEDIR}default/datamodule.mfm
- ${TEMPLATEDIR}default/subform.mfm
- ${TEMPLATEDIR}default/scrollboxform.mfm
- ${TEMPLATEDIR}default/tabform.mfm
- ${TEMPLATEDIR}default/report.mfm
- ${TEMPLATEDIR}default/pascform.mfm
- ${TEMPLATEDIR}default/inheritedform.mfm
 [breakpoints]
 on=0
 path=0
@@ -639,50 +745,76 @@ address=0
 addbkpt=0
 ignore=0
 condition=0
-panels=1
+panels=4
+ panel2
+ panel3
+ panel5
  panel1
 units=
  (
- modulefilenames=0
- modulenames=0
- moduleclassnames=0
- a=0,4132,0,Pascal Units
+ a=0,4132,6,Pascal Units
  )
 cmodules=
  (
- a=0,4132,0,C Modules
+ a=0,4132,6,C Modules
  )
 files=
  (
- a=0,4132,0,Text Files
+ a=0,4132,6,Text Files
  )
 [componentstore]
-storedir=/usr/local/msegui/apps/ide/compstore/
+storedir=/windows/D/msegui/apps/ide/compstore/
 filename=
+[components]
+[selecteditpage]
+colwidth=100
+x=0
+y=0
+cx=0
+cy=0
+[progparams]
+progparamhistory=0
+envvarons=0
 [layout]
-windowlayout=503
+windowlayout=566
+ [mainfo.projectfiledia]
+ filenames=1
+  /media/Acer/msegui/MSEProject/mse-installer/source/setup.prj
+ lastdir=
+ filehistory=0
+ filefilterindex=0
+ filefilter=
+ filecolwidth=0
+ x=0
+ y=0
+ cx=0
+ cy=0
  [mainfo.openfile]
  filenames=0
  filehistory=10
-  /usr/local/msegui/MSEProject/mse-installer/source/skinblue.pas
-  /usr/local/msegui/lib/common/image/mseformatpngread.pas
-  /usr/local/msegui/lib/common/image/msegraphicstream.pas
-  /usr/local/msegui/MSEProject/Acosys/azinstall/main.pas
-  /usr/local/msegui/MSEProject/Acosys/azinstall/setup.pas
-  /usr/local/msegui/MSEProject/shortcut-win/main.pas
-  /usr/local/msegui/MSEProject/Acosys/azinstall/mainsetup.pas
-  /usr/local/msegui/lib/common/kernel/i386-win32/msesysintf.pas
-  /usr/local/msegui/MSEProject/Acosys/acosysv4/frmcreatedb.pas
-  /usr/local/msegui/lib/addon/repaz/frmabout.pas
+  /c:/msegui/mseproject/acosys/acosysv4/repinventorymovingpertrans.pas
+  /C:/msegui/MSEProject/Acosys/acosysv4/main.pas
+  /media/Acer/msegui/lib/addon/videoplayer/azvideoplayer.pas
+  /media/Acer/msegui/MSEProject/Acosys/acosysv4/main.pas
+  /C:/msegui/lib/common/dialogs/msestringenter.pas
+  /C:/msegui/lib/common/db/msqldb.pas
+  /C:/msegui/lib/common/db/msesqldb.pas
+  /C:/msegui/lib/addon/compdesigner/compdesigner.pas
+  /C:/msegui/lib/addon/repaz/repazglob.pas
+  /C:/msegui/lib/addon/repaz/repazconsts.pas
  filefilterindex=0
  filefilter="*.pp" "*.pas" "*.inc" "*.dpr"
- filecolwidth=174
+ filecolwidth=198
+ x=0
+ y=0
+ cx=0
+ cy=0
  [mainfo.basedock]
  splitdir=2
  useroptions=15488
  [mainfo]
  splitdir=0
- useroptions=33554559
+ useroptions=127
  stackedunder=
  parent=
  mdistate=0
@@ -690,66 +822,62 @@ windowlayout=503
  ny=0
  ncx=0
  ncy=0
- x=6
- y=23
- cx=947
- cy=689
+ x=8
+ y=30
+ cx=921
+ cy=701
  rcx=0
  rcy=0
  children=2
-  container,0,16,937,673
-  ,0,0,937,16
+  container,0,17,911,684
+  ,0,0,911,17
  wsize=0
  active=1
  visible=1
  [targetconsolefo]
  splitdir=0
  useroptions=16489
- parent=
+ parent=mainfo.panel3.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=116
- y=297
- cx=904
- cy=347
+ x=0
+ y=0
+ cx=412
+ cy=462
  rcx=0
  rcy=0
- wsize=0
- active=0
- visible=0
  [threadsfo]
  splitdir=0
  useroptions=16489
- parent=
+ parent=mainfo.panel3.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=37
- y=270
- cx=349
- cy=276
+ x=0
+ y=635
+ cx=412
+ cy=44
  rcx=0
  rcy=0
- wsize=0
- active=0
- visible=0
  [memoryfo]
  splitdir=0
  useroptions=16507
- stackedunder=componentpalettefo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=100
- y=100
+ x=142
+ y=155
  cx=453
  cy=354
  rcx=0
@@ -768,15 +896,15 @@ windowlayout=503
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=projecttreefo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=162
- y=501
+ x=646
+ y=510
  cx=564
  cy=210
  rcx=0
@@ -787,157 +915,144 @@ windowlayout=503
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=formdesignerfo
- parent=
+ parent=mainfo.panel5.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=548
- y=115
- cx=696
- cy=571
+ x=0
+ y=0
+ cx=412
+ cy=679
  rcx=0
  rcy=0
  [projecttreefo]
  splitdir=0
  useroptions=16491
- stackedunder=stackfo
- parent=
+ parent=mainfo.panel2.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=321
- y=101
- cx=698
- cy=413
+ x=0
+ y=465
+ cx=412
+ cy=214
  rcx=0
  rcy=0
- wsize=0
- active=0
- visible=0
  [projecttreefo.grid]
- propcolwidthref=383
+ propcolwidthref=107
  width0=305
- sortdescent0=0
- width1=377
- sortdescent1=0
- sortcol=-1
+ sortdescend0=0
+ width1=101
+ sortdescend1=0
+ sorted=0
  col=0
- row=1
- rowheight=16
+ row=2
+ rowheight=18
  [stackfo]
  splitdir=0
  useroptions=16489
- parent=
+ parent=mainfo.panel1.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=960
- y=84
- cx=316
- cy=627
+ x=0
+ y=218
+ cx=412
+ cy=243
  rcx=0
  rcy=0
- wsize=0
- active=0
- visible=0
  [watchpointsfo]
  splitdir=0
  useroptions=16489
- parent=
+ parent=mainfo.panel1.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=537
- y=26
- cx=483
- cy=210
+ x=0
+ y=464
+ cx=412
+ cy=215
  rcx=0
  rcy=0
- wsize=0
- active=0
- visible=0
  [watchpointsfo.grid]
- propcolwidthref=352
+ propcolwidthref=291
  width0=16
- sortdescent0=0
+ sortdescend0=0
  values1=1
   0
  values1_ci=-1
  width1=33
- sortdescent1=0
+ sortdescend1=0
  values2=1
   pinteger(0x126c6b4)^
- width2=239
- sortdescent2=0
+ width2=199
+ sortdescend2=0
  width4=34
- sortdescent4=0
+ sortdescend4=0
  values5=1
   0
  values5_ci=-1
  width5=38
- sortdescent5=0
+ sortdescend5=0
  values6=1
   
- width6=103
- sortdescent6=0
+ width6=82
+ sortdescend6=0
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- stackedunder=watchpointsfo
- parent=
+ parent=mainfo.panel3.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=107
- y=404
- cx=477
- cy=128
+ x=0
+ y=465
+ cx=412
+ cy=167
  rcx=0
  rcy=0
- wsize=0
- active=0
- visible=0
  [breakpointsfo.bkptson]
  value=1
  [objectinspectorfo]
  splitdir=0
- useroptions=82027
- stackedunder=symbolfo
- parent=
+ useroptions=16491
+ parent=mainfo.panel2.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=929
- y=185
- cx=347
- cy=488
+ x=0
+ y=91
+ cx=412
+ cy=371
  rcx=0
  rcy=0
- wsize=0
- active=0
- visible=0
  [objectinspectorfo.grid]
- propcolwidthref=337
- width0=182
- sortdescent0=0
- width1=149
- sortdescent1=0
+ propcolwidthref=397
+ width0=228
+ sortdescend0=0
+ width1=163
+ sortdescend1=0
  [symbolfo]
  splitdir=0
- useroptions=16511
+ useroptions=147583
  stackedunder=componentstorefo
  parent=
  mdistate=0
@@ -945,69 +1060,66 @@ windowlayout=503
  ny=0
  ncx=0
  ncy=0
- x=142
- y=257
- cx=361
+ x=290
+ y=528
+ cx=589
  cy=137
  rcx=0
  rcy=0
  children=1
-  container,0,0,351,137
+  container,0,0,579,137
  wsize=0
  active=0
  visible=0
  [symbolfo.grid]
- propcolwidthref=222
- values0=1
-  
+ propcolwidthref=450
+ values0=0
  width0=111
- sortdescent0=0
- width1=135
- sortdescent1=0
+ sortdescend0=0
+ width1=363
+ sortdescend1=0
  [symbolfo.symbol]
  [watchfo]
  splitdir=0
  useroptions=24681
- parent=
+ parent=mainfo.panel1.container
+ visible=1
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=510
- y=325
- cx=310
- cy=245
+ x=0
+ y=0
+ cx=412
+ cy=215
  rcx=0
  rcy=0
- wsize=0
- active=0
- visible=0
  [watchfo.grid]
- propcolwidthref=105
+ propcolwidthref=217
  values0=0
  values0_ci=-1
  width0=13
- sortdescent0=0
+ sortdescend0=0
  values1=0
  width1=152
- sortdescent1=0
+ sortdescend1=0
  values3=0
  values3_ci=-1
  width3=12
- sortdescent3=0
+ sortdescend3=0
  values4=0
  values4_ci=-1
  width4=13
- sortdescent4=0
+ sortdescend4=0
  [watchfo.watchon]
  [watchfo.expression]
  [watchfo.watcheson]
  value=1
  [messagefo]
  splitdir=0
- useroptions=49259
- parent=mainfo.panel1.container
+ useroptions=16491
+ parent=mainfo.basedock
  visible=0
  mdistate=0
  nx=0
@@ -1015,23 +1127,23 @@ windowlayout=503
  ncx=0
  ncy=0
  x=0
- y=508
- cx=937
- cy=113
- rcx=937
- rcy=621
+ y=555
+ cx=911
+ cy=114
+ rcx=911
+ rcy=669
  [componentstorefo]
  splitdir=0
  useroptions=24675
- stackedunder=findinfilefo
+ stackedunder=formdesignerfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=100
- y=100
+ x=806
+ y=366
  cx=445
  cy=354
  rcx=0
@@ -1042,28 +1154,37 @@ windowlayout=503
  [componentstorefo.grid]
  propcolwidthref=435
  width0=111
- sortdescent0=0
- sortdescent1=0
- width2=160
- sortdescent2=0
+ sortdescend0=0
+ sortdescend1=0
+ width2=112
+ sortdescend2=0
  width3=185
- sortdescent3=0
+ sortdescend3=0
  [componentstorefo.storefiledialog]
  filenames=1
   /home/mse/test/msegui/apps/ide/compstore/
- lastdir=/home/mse/test/msegui/apps/ide/compstore/
- filehistory=0
+ lastdir=/usr/local/msegui/MSEProject/Acosys/acosysv4/others/compstore/
+ filehistory=1
+  /usr/local/msegui/MSEProject/Acosys/acosysv4/others/compstore/test.sto
  filefilterindex=0
- filefilter=
- filecolwidth=0
+ filefilter=*.sto
+ filecolwidth=174
+ x=0
+ y=0
+ cx=0
+ cy=0
  [componentstorefo.groupfiledialog]
  filenames=1
   /home/mse/test/msegui/apps/ide/compstore/
- lastdir=/home/mse/test/msegui/apps/ide/compstore/
+ lastdir=/C:/MSEGUI/apps/ide/compstore/
  filehistory=0
  filefilterindex=0
  filefilter=
  filecolwidth=0
+ x=0
+ y=0
+ cx=0
+ cy=0
  [componentstorefo.compfiledialog]
  filenames=0
  lastdir=
@@ -1071,27 +1192,28 @@ windowlayout=503
  filefilterindex=0
  filefilter=
  filecolwidth=0
+ x=0
+ y=0
+ cx=0
+ cy=0
  [componentpalettefo]
  splitdir=0
- useroptions=90219
- stackedunder=cpui386fo
- parent=
- mdistate=3
+ useroptions=24683
+ parent=mainfo.panel2.container
+ visible=1
+ mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=931
- y=29
- cx=345
- cy=129
+ x=0
+ y=0
+ cx=412
+ cy=88
  rcx=0
  rcy=0
- wsize=0
- active=0
- visible=0
  [componentpalettefo.componentpages]
- activetab=0
+ activetab=1
  [debuggerfo]
  splitdir=0
  useroptions=24683
@@ -1104,14 +1226,14 @@ windowlayout=503
  ncy=0
  x=0
  y=0
- cx=937
- cy=29
+ cx=911
+ cy=28
  rcx=0
  rcy=0
  [sourcefo]
  splitdir=0
  useroptions=16489
- parent=mainfo.panel1.container
+ parent=mainfo.basedock
  visible=1
  mdistate=0
  nx=0
@@ -1119,9 +1241,9 @@ windowlayout=503
  ncx=0
  ncy=0
  x=0
- y=0
- cx=937
- cy=621
+ y=31
+ cx=911
+ cy=632
  rcx=0
  rcy=0
  [actionsmo.watchesonact]
@@ -1132,26 +1254,26 @@ windowlayout=503
  irqoff=0
  splitdir=0
  useroptions=16491
- stackedunder=targetconsolefo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=312
- y=341
- cx=283
- cy=210
+ x=431
+ y=467
+ cx=273
+ cy=207
  rcx=0
  rcy=0
  wsize=0
  active=0
  visible=0
- [mainfo.panel1]
+ [mainfo.panel2]
  splitdir=2
- useroptions=33586667
- parent=mainfo.basedock
+ useroptions=32235
+ parent=mainfo.panel5.container
  visible=1
  mdistate=0
  nx=0
@@ -1159,16 +1281,75 @@ windowlayout=503
  ncx=0
  ncy=0
  x=0
- y=32
- cx=937
- cy=621
+ y=0
+ cx=412
+ cy=679
+ rcx=0
+ rcy=0
+ [mainfo.panel3]
+ splitdir=2
+ useroptions=32235
+ parent=mainfo.panel5.container
+ visible=1
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=412
+ cy=679
+ rcx=0
+ rcy=0
+ [mainfo.panel5]
+ splitdir=3
+ useroptions=33586667
+ order=4
+  panel2
+  panel3
+  findinfilefo
+  panel1
+ activetab=0
+ stackedunder=formdesignerfo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=934
+ y=26
+ cx=422
+ cy=698
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=1
+ [mainfo.panel1]
+ splitdir=2
+ useroptions=33652203
+ parent=mainfo.panel5.container
+ visible=1
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=412
+ cy=679
  rcx=0
  rcy=0
 [edit]
 hintwidth=320
 hintheight=36
-finddtext=azinstall
+finddtext=wtagline
 findhistory=10
+ wtagline
+ wtmp
  azinstall
  mode_t
  environment
@@ -1177,54 +1358,52 @@ findhistory=10
  copy
  copyfile
  filecopy
- tprogress
- refindex
 findoptions=1
-editpos=4
- 0,248
- 16,223
+editpos=5
+ 9,139
  0,-1073741823
- 0,0
+ 0,-1073741823
+ 0,-1073741823
+ 5,320
 bookmarks0=0
 bookmarks1=0
 bookmarks2=0
 bookmarks3=0
-sourcefiles=4
- /usr/local/msegui/MSEProject/mse-installer/source/mainsetup.pas
- /usr/local/msegui/MSEProject/mse-installer/source/globmodul.pas
- /usr/local/msegui/MSEProject/mse-installer/source/setup.pas
- /usr/local/msegui/MSEProject/mse-installer/source/skinblue.pas
-relpaths=4
+bookmarks4=0
+sourcefiles=5
+ /windows/D/msegui/MSEProject/mse-installer/source/mainsetup.pas
+ /C:/msegui/MSEProject/mse-installer/source/globmodul.pas
+ /C:/msegui/MSEProject/mse-installer/source/setup.pas
+ /C:/msegui/MSEProject/mse-installer/source/skinblue.pas
+ /windows/D/msegui/lib/common/kernel/msefileutils.pas
+relpaths=5
  mainsetup.pas
  globmodul.pas
  setup.pas
  skinblue.pas
-ismoduletexts=4
+ ../../../lib/common/kernel/msefileutils.pas
+ismoduletexts=5
+ 0
  0
  0
  0
  0
 modules=2
- /usr/local/msegui/MSEProject/mse-installer/source/mainsetup.mfm
- /usr/local/msegui/MSEProject/mse-installer/source/skinblue.mfm
+ /windows/D/msegui/MSEProject/mse-installer/source/mainsetup.mfm
+ /windows/D/msegui/MSEProject/mse-installer/source/skinblue.mfm
 visiblemodules=2
+ -1
+ 0
+nomenumodules=2
  0
  0
 [sourcefo.tabwidget]
+order=5
+ 0
+ 4
+ 1
+ 2
+ 3
 tabsize=134
 firsttab=0
-index=1
-[components]
-[selecteditpage]
-colwidth=100
-x=0
-y=0
-cx=0
-cy=0
-[progparams]
-parameters=
-progparamhistory=0
-workingdirectory=
-envvarons=0
-envvarnames=0
-envvarvalues=0
+index=0

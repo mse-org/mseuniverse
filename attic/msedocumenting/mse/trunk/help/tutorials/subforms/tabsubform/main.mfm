@@ -1,0 +1,110 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 18
+  bounds_y = 189
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  statfile = mainstat
+  caption = 'MSEgui tabsubform Demo'
+  moduleclassname = 'tmainform'
+  object tabs: ttabwidget
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 403
+    bounds_cy = 280
+    anchors = []
+    tab_size = 18
+    statfile = mainstat
+    object ttabpage1: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 403
+      bounds_cy = 262
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'tab0'
+      ongetsubform = getsub0exe
+    end
+    object ttabpage2: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 403
+      bounds_cy = 262
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'tab1'
+      ongetsubform = getsub1exe
+    end
+    object ttabpage3: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 403
+      bounds_cy = 262
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'tab2'
+      ongetsubform = getsub2exe
+    end
+    object ttabpage4: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 4
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 403
+      bounds_cy = 262
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'tab3'
+      ongetsubform = getsub3exe
+    end
+  end
+  object mainstat: tstatfile
+    filename = 'status.sta'
+    savedmemoryfiles = '*.sta'
+    left = 40
+    top = 40
+  end
+  object dataset: tlocaldataset
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'str1'
+        DataType = ftString
+        Precision = 0
+        Size = 0
+      end    
+      item
+        Name = 'str2'
+        DataType = ftString
+        Precision = 0
+        Size = 0
+      end    
+      item
+        Name = 'int1'
+        DataType = ftInteger
+        Precision = 0
+        Size = 0
+      end>
+    left = 40
+    top = 80
+  end
+  object dataso: tmsedatasource
+    DataSet = dataset
+    left = 40
+    top = 104
+  end
+end

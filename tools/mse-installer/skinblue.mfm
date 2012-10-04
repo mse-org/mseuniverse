@@ -3,8 +3,8 @@ object skinblue: tskinblue
   bounds_cx = 311
   bounds_cy = 548
   oncreate = skinblue_oncreate
-  left = 388
-  top = 125
+  left = 310
+  top = 74
   moduleclassname = 'tmsedatamodule'
   object tfacemenu: tfacecomp
     template.image.transparentcolor = -2147483642
@@ -260,7 +260,7 @@ object skinblue: tskinblue
     booleanedit_face = tfaceboolean
     booleanedit_frame = tframeboolean
     container_face = tfaceform
-    container_ftrame = tframeform
+    container_frame = tframeform
     groupbox_face = tfaceframe
     groupbox_frame = tframeframe
     grid_frame = tframegrid
@@ -285,8 +285,8 @@ object skinblue: tskinblue
     tabbar_vert_tab_faceactive = tfacevtabactive
     tabbar_vert_tab_shift = 5
     tabbar_vertopo_tab_shift = 0
-    toolbar_frame = tframetoolbar
-    toolbar_buttonface = tfacebuttontoolbar
+    toolbar_horz_face = tfacebuttontoolbar
+    toolbar_horz_frame = tframetoolbar
     tabpage_face = tfacetabpage
     tabpage_frame = tframetabpage
     popupmenu_face = tfacemenu

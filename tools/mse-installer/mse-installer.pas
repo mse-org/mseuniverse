@@ -4,7 +4,7 @@ program mseinstaller;
  {$ifdef mswindows}{$apptype gui}{$endif}
 {$endif}
 uses
- {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}msegui,mseforms,main,skinblue;
+ {$ifdef FPC}{$ifdef linux}cthreads,cwstring,{$endif}{$endif}msegui,mseforms,main,skinblue;
 
 {$ifdef mswindows} 
  {$R mse-installer-icon.res} 

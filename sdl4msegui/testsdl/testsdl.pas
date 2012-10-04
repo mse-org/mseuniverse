@@ -8,8 +8,8 @@ uses
  {$define testgui} //test MSEgui
  
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
- {$ifdef testgui}msegui,mseforms,main{,form2},{$endif}msesysutils,sdl4msegui,msetypes,sysutils,
- mseformatstr;
+ {$ifdef testgui}msegui,mseforms,main{,form2},{$endif}msesysutils,sdl4msegui,
+ msetypes,sysutils,mseformatstr;
 
 {$ifndef testgui}
 var
@@ -50,6 +50,25 @@ begin
  end;
  SDL_SetRenderDrawColor(renderer1,r,g,b,0);
 end;
+
+procedure drawcircle(posx,posy,radius: integer; startang: real; extentang: real; r: byte; g: byte; b: byte);
+var
+ endx,endy,x,y:integer;
+ deltaangle,angle: real;
+begin
+ deltaangle:= (2*pi/extentang)/(radius*extentang);
+ x:= round(cos(startang)*radius);
+ y:= round(sin(startang)*radius);
+ SDL_SetRenderDrawColor(renderer1,r,g,b,0);
+ angle:= startang;
+ while angle<(startang+extentang) do begin
+  SDL_RenderDrawPoint(renderer1,posx+x,posy+y);
+  //SDL_RenderDrawLine(renderer1,posx,posy,posx+x,posy+y);
+  x:= round(cos(angle)*radius);
+  y:= round(sin(angle)*radius);
+  angle:= angle+deltaangle;
+ end;
+end;
 {$endif}
 
 begin
@@ -66,11 +85,11 @@ begin
   end;
  end;
 
- win1 := SDL_CreateWindow('Test SDL2 library', posX, posY, width, height, SDL_WINDOW_RESIZABLE);
+ win1 := SDL_CreateWindow('Test SDL2 library', posX, posY, width, height, SDL_WINDOW_SHOWN or SDL_WINDOW_RESIZABLE);
  SDL_CheckError('create win 1');
  //win2 := SDL_CreateWindow('Test Window 2', posX, posY, width, height, [SDL_WINDOW_SHOWN,SDL_WINDOW_RESIZABLE{,SDL_WINDOW_MAXIMIZED}]);
  //SDL_CheckError('create win 2');
- renderer1 := SDL_CreateRenderer(win1, -1, SDL_RENDERER_ACCELERATED);
+ renderer1 := SDL_CreateRenderer(win1, -1, {SDL_RENDERER_SOFTWARE}SDL_RENDERER_ACCELERATED);
  SDL_CheckError('create renderer');
  if SDL_GetRendererInfo(renderer1,@pinfo)=0 then begin
   debugwriteln(pinfo.name+' w = '+inttostr(pinfo.max_texture_width)+' h = '+inttostr(pinfo.max_texture_width));
@@ -120,32 +139,34 @@ begin
       if e.window.window=win1 then begin
        debugwriteln('Close');
       end;
+     end else if (e.window.event = SDL_WINDOWEVENT_EXPOSED) then begin
+      debugwriteln('expose');
      end;
     end;
     SDL_KEYDOWN :begin
-     if e.keydown.keysym.sym= $61 then begin
+     if e.key.keysym.sym= $61 then begin
       debugwriteln('benar')
      end;
      debugwriteln('press key : keycode = '+
-       inttostr(SDL_GetKeyFromScancode(e.keydown.keysym.scancode))+ //keycode
-       ' keyname = '+SDL_GetKeyName(e.keydown.keysym.sym)+
-       ' KEYCODE 2 = '+wordtohex(e.keydown.keysym.sym,false));
-     if e.keydown.keysym.mods=KMOD_SHIFT then begin
+       inttostr(SDL_GetKeyFromScancode(e.key.keysym.scancode))+ //keycode
+       ' keyname = '+SDL_GetKeyName(e.key.keysym.sym)+
+       ' KEYCODE 2 = '+wordtohex(e.key.keysym.sym,false));
+     if e.key.keysym.mods=KMOD_SHIFT then begin
       debugwriteln('Has mod SHIFT');
      end;
     end;
     SDL_KEYUP :begin
      debugwriteln('release key : keycode = '+
-       inttostr(SDL_GetKeyFromScancode(e.keydown.keysym.scancode))+ //keycode
-       ' keyname = '+SDL_GetKeyName(e.keydown.keysym.sym)+
-       ' KEYCODE 2 = '+inttostr(e.keydown.keysym.sym));
-     if (e.keydown.keysym.mods and KMOD_SHIFT)<>0 then begin
+       inttostr(SDL_GetKeyFromScancode(e.key.keysym.scancode))+ //keycode
+       ' keyname = '+SDL_GetKeyName(e.key.keysym.sym)+
+       ' KEYCODE 2 = '+inttostr(e.key.keysym.sym));
+     if (e.key.keysym.mods and KMOD_SHIFT)<>0 then begin
       debugwriteln('Has mod SHIFT');
      end;
-     if (e.keydown.keysym.mods and KMOD_ALT)<>0 then begin
+     if (e.key.keysym.mods and KMOD_ALT)<>0 then begin
       debugwriteln('Has mod ALT');
      end;
-     if (e.keydown.keysym.mods and KMOD_CTRL)<>0 then begin
+     if (e.key.keysym.mods and KMOD_CTRL)<>0 then begin
       debugwriteln('Has mod CTRL');
      end;
     end;
@@ -155,24 +176,33 @@ begin
       SDL_RenderClear(renderer1);
       rect2.x:= rect2.x+1;
       SDL_RenderCopy(renderer1, bitmaptex1, nil, @rect2);
+      SDL_CheckError('rendercopy');
      end else if e.text.text='a' then begin
       SDL_RenderClear(renderer1);
       rect2.x:= rect2.x-1;
       SDL_RenderCopy(renderer1, bitmaptex1, nil, @rect2);
+      SDL_CheckError('rendercopy');
      end else if e.text.text='w' then begin
       SDL_RenderClear(renderer1);
       rect2.y:= rect2.y-1;
       SDL_RenderCopy(renderer1, bitmaptex1, nil, @rect2);
+      SDL_CheckError('rendercopy');
      end else if e.text.text='s' then begin
       SDL_RenderClear(renderer1);
       rect2.y:= rect2.y+1;
       SDL_RenderCopy(renderer1, bitmaptex1, nil, @rect2);
+      SDL_CheckError('rendercopy');
+     end else if e.text.text='r' then begin
+      SDL_RenderClear(renderer1);
+      rect2.y:= rect2.y+1;      
+      drawcircle(rect2.x,rect2.y,rect2.w, 0,2*pi,255,0,0);
      end else if e.text.text='c' then begin
       tmpsurf:= SDL_CreateRGBSurface(0,100,75,32,0,0,0,0);
-      if SDL_UpperBlit(bitmapsurface2,nil, tmpsurf, nil)=0 then begin
+      if SDL_UpperBlit(bitmapSurface2,nil, tmpsurf, nil)=0 then begin
        tmptext:= SDL_CreateTextureFromSurface(renderer1,tmpsurf);
        SDL_RenderCopy(renderer1, tmptext, nil, @rect2);
       end;
+      SDL_CheckError('blitsurface');
      end;
     end;
     SDL_MOUSEMOTION: begin

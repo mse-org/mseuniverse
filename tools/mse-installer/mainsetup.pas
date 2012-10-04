@@ -3,11 +3,12 @@ unit mainsetup;
 interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mseimage,
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mseimage,msesysintf1,
  msesimplewidgets,msewidgets,globmodul,msestatfile,msestrings,mseformatstr,
  mseformatjpgread,mseformatpngread,msedock,msepointer,msedataedits,mseedit,
  msetypes,msebitmap,msetabs,msegrids,msewidgetgrid,msedatanodes,msefiledialog,
- mselistbrowser,msescrollbar,msesys,msefileutils,msegraphedits,msesysenv;
+ mselistbrowser,msescrollbar,msesys,msefileutils,msegraphedits,msesysenv,
+ mseifiglob;
 type
  tmainsetupfo = class(tmainform)
    applogo: timage;
@@ -59,6 +60,7 @@ type
    wlang: tkeystringedit;
    tstatfile2: tstatfile;
    wiconfile: tstringedit;
+   woverwrite: tbooleanedit;
    procedure mainsetupfo_onloaded(const sender: TObject);
    procedure tstatfile1_onstatread(const sender: TObject;
                    const reader: tstatreader);
@@ -93,6 +95,7 @@ var
  mstr1,mstr2: msestring;
  strar1,strar2,strar3,strar4,strar5,strar6,strar7,strar8,
  strar9,strar10,strar11: msestringarty;
+ boar1: longboolarty;
  int1,int2: integer;
 begin
  reader.findsection('mainfo.tstatfile2');
@@ -151,13 +154,15 @@ begin
  strar9:= nil;
  strar10:= nil;
  strar11:= nil;
- strar1:= reader.readarray('values1',strar1);
- strar2:= reader.readarray('values2',strar2);
- strar3:= reader.readarray('values3',strar3);
- strar7:= reader.readarray('values5',strar7); //desktop
- strar8:= reader.readarray('values6',strar8); //program group
- strar9:= reader.readarray('values7',strar9); //program name
- strar10:= reader.readarray('values8',strar10); //program icon
+ boar1:= nil;
+ strar1:= reader.readarray('filestore',strar1);
+ strar2:= reader.readarray('folder',strar2);
+ strar3:= reader.readarray('filetarget',strar3);
+ strar7:= reader.readarray('dekstop',strar7); //desktop
+ strar8:= reader.readarray('programgroup',strar8); //program group
+ strar9:= reader.readarray('programname',strar9); //program name
+ strar10:= reader.readarray('iconname',strar10); //program icon
+ boar1:= reader.readarray('overwrite',boar1); //overwrite
  int2:= length(strar1);
  setlength(strar4,int2);
  setlength(strar5,int2);
@@ -183,6 +188,7 @@ begin
  wprogramgroup.gridvalues:= strar8;
  wprogramname.gridvalues:= strar9;
  wiconfile.gridvalues:= strar11;
+ woverwrite.gridvalues:= boar1;
  strar1:= nil;
  strar2:= nil;
  reader.findsection('mainfo.wlanglist');
@@ -240,7 +246,14 @@ begin
     if not finddir(fdir) then begin
      createdirpath(fdir);
     end;
-    copyfile(concatpath(tmpdir,wfilecopy.value),wcopyto.value,true);
+    if woverwrite.value then begin
+     copyfile(concatpath(tmpdir,wfilecopy.value),wcopyto.value,true);
+    end else begin
+     try
+      copyfile(concatpath(tmpdir,wfilecopy.value),wcopyto.value,false);
+     except
+     end;
+    end;
     if wdesktop.value<>'' then begin
      {$ifdef mswindows}
      createshortcutdesktop(wcopyto.value,wdesktop.value);

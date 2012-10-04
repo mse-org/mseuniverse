@@ -235,7 +235,7 @@ begin
   fstream.writeln('Exec='+targetname);
   fstream.writeln('GenericName[en_US]=');
   fstream.writeln('GenericName=');
-  fstream.writeln('Icon='+iconfile);
+  fstream.writeln('Icon='+filedir(targetname)+'/'+iconfile);
   fstream.writeln('MimeType=');
   fstream.writeln('Name[en_US]='+shortcutname);
   fstream.writeln('Name='+shortcutname);

@@ -11,8 +11,8 @@ unit msesdlgdi;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msegraphics,msetypes,msestrings,mseguiglob,sdl4msegui,msebitmap
- {$IFDEF windows},windows{$ENDIF},msesysutils,sdl2_gfxprimitives;
+ msegraphics,msetypes,msestrings,mseguiglob,sdl4msegui,msebitmap,
+ msesysutils,sdl2_gfxprimitives;
 
 const
  radtodeg = 360/(2*pi);
@@ -51,8 +51,8 @@ const
  defaultfontname = 'Tahoma';
 // defaultfontname = 'MS Sans Serif';
  defaultfontnames: defaultfontnamesty =
-  //stf_default           stf_empty stf_unicode stf_menu stf_message stf_report
-   (defaultfontname,          '',       '',         '',      '',      'Arial',
+  //stf_default           stf_empty stf_unicode stf_menu stf_message stf_hint stf_report
+   (defaultfontname,          '',       '',         '',      '',     '', 'Arial',
   //stf_proportional stf_fixed,
    defaultfontname,         'Courier New',
   //stf_helvetica stf_roman          stf_courier
@@ -65,7 +65,7 @@ end;
 
 procedure gdi_setcliporigin(var drawinfo: drawinfoty);
 begin
-// gdierror(gde_notimplemented);
+// debugwriteln('gde_notimplemented');
 end;
 
 procedure gdi_createpixmap(var drawinfo: drawinfoty); //gdifunc
@@ -142,16 +142,20 @@ end;
 procedure gdi_changegc(var drawinfo: drawinfoty);
 var
  rgbcolor: rgbtriplety;
+ ar1: rectarty;
+ int1: integer;
+ rect1: SDL_Rect;
+ pt1: pointty;
 begin
  with drawinfo.gcvalues^,drawinfo.gc do begin
   if gvm_colorbackground in mask then begin
    rgbcolor:= colortorgb(colorbackground);
-   SDL_SetRenderDrawColor(handle,rgbcolor.red,rgbcolor.green,rgbcolor.blue,0);
+   SDL_SetRenderDrawColor(handle,rgbcolor.red,rgbcolor.green,rgbcolor.blue,255-rgbcolor.res);
    SDL_CheckError('SetRenderDrawColor');
   end;
   if gvm_colorforeground in mask then begin
    rgbcolor:= colortorgb(colorforeground);
-   SDL_SetRenderDrawColor(handle,rgbcolor.red,rgbcolor.green,rgbcolor.blue,0);
+   SDL_SetRenderDrawColor(handle,rgbcolor.red,rgbcolor.green,rgbcolor.blue,255-rgbcolor.res);
    SDL_CheckError('SetRenderDrawColor');
   end;
   if mask * [gvm_linewidth,gvm_dashes,gvm_capstyle,gvm_joinstyle] <> [] then begin
@@ -163,14 +167,18 @@ begin
   if gvm_brushorigin in mask then begin
   end;
   if gvm_clipregion in mask then begin
-   {if ((cliporigin.x <> 0) or (cliporigin.y <> 0)) and (clipregion <> 0) then begin
-    offsetrgn(clipregion,cliporigin.x,cliporigin.y);
-    selectcliprgn(handle,clipregion);
-    offsetrgn(clipregion,-cliporigin.x,-cliporigin.y);
-   end
-   else begin
-    selectcliprgn(handle,clipregion);
-   end;}
+   if clipregion <> 0 then begin
+    ar1:= gui_regiontorects(clipregion);
+    if ar1<>nil then begin
+     //pt1:= addpoint(ar1[0].pos,cliporigin);
+     //rect1.x:= pt1.x;
+     //rect1.y:= pt1.y;
+     //rect1.w:= ar1[0].size.cx;
+     //rect1.h:= ar1[0].size.cy;
+     //cliporigin:= ar1[0].pos;
+     //SDL_RenderSetViewport(drawinfo.gc.handle,@rect1);
+    end;
+   end;
   end;
   if gvm_font in mask then begin
   end;
@@ -184,13 +192,13 @@ end;
 
 procedure gdi_endpaint(var drawinfo: drawinfoty); //gdifunc
 begin
- //SDL_RenderPresent(drawinfo.gc.handle);
+ SDL_RenderPresent(drawinfo.gc.handle);
  //SDL_CheckError('endpaint');
 end;
 
 procedure gdi_flush(var drawinfo: drawinfoty); //gdifunc
 begin
- //SDL_RenderPresent(drawinfo.gc.handle);
+ //SDL_RenderClear(drawinfo.gc.handle);
  //SDL_CheckError('flush');
 end;
 
@@ -328,8 +336,9 @@ var
  maskbefore: tsimplebitmap;
  atexture: SDL_Texture;
  asurface: PSDL_Surface;
+ pt1: pointty;
 begin
- with drawinfo,copyarea do begin
+ with drawinfo,copyarea,gcvalues^ do begin
   if not (df_canvasispixmap in tcanvas1(source).fdrawinfo.gc.drawingflags) then begin
    exit;
   end;
@@ -341,26 +350,27 @@ begin
   rect2.y:= destrect^.y;
   rect2.w:= destrect^.cx;
   rect2.h:= destrect^.cy;
-    
+
+
+  //pt1:= addpoint(makepoint(destrect^.x,destrect^.y),origin);
   //SDL_SaveBMP_toFile(tcanvas1(source).fdrawinfo.paintdevice,'source.bmp');
   //SDL_SaveBMP_toFile(drawinfo.paintdevice,'target.bmp');
   asurface:= SDL_CreateRGBSurface(0,rect2.w,rect2.h,32,0,0,0,0);
   SDL_unlockSurface(tcanvas1(source).fdrawinfo.paintdevice);
   SDL_unlockSurface(asurface);
-  //SDL_UpperBlitScaled(tcanvas1(source).fdrawinfo.paintdevice,@rect1, asurface, nil);
   SDL_UpperBlit(tcanvas1(source).fdrawinfo.paintdevice,@rect1, asurface, nil);
   //SDL_SaveBMP_toFile(asurface,'clip.bmp');
   atexture:= SDL_CreateTextureFromSurface(drawinfo.gc.handle,asurface);
   if atexture<>0 then begin
    if SDL_RenderCopy(drawinfo.gc.handle, atexture, nil, @rect2)=0 then begin
-    SDL_RenderPresent(drawinfo.gc.handle);
+    //SDL_RenderPresent(drawinfo.gc.handle);
     SDL_CheckError('rendercopy');
     //SDL_SaveBMP_toFile(drawinfo.paintdevice,'result.bmp');
    end;
   end;
   SDL_DestroyTexture(atexture);
   SDL_FreeSurface(asurface);
-  if mask<>nil then begin
+  {if mask<>nil then begin
    asurface:= SDL_CreateRGBSurface(0,rect2.w,rect2.h,32,0,0,0,0);
    SDL_unlockSurface(mask.handle);
    SDL_unlockSurface(asurface);
@@ -376,7 +386,7 @@ begin
    end;
    SDL_DestroyTexture(atexture);
    SDL_FreeSurface(asurface); 
-  end;
+  end;}
  end;
 end;
 
