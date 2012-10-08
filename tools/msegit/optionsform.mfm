@@ -14,6 +14,7 @@ object optionsfo: toptionsfo
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
+  caption = 'Options'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
     bounds_x = 280
@@ -43,6 +44,7 @@ object optionsfo: toptionsfo
     bounds_cy = 266
     anchors = [an_top, an_bottom]
     taborder = 2
+    activepageindex = 0
     tab_size = 18
     object ttabpage1: ttabpage
       frame.zoomwidthstep = 1
