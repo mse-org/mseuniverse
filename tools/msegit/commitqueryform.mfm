@@ -15,7 +15,7 @@ object commitqueryfo: tcommitqueryfo
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Commit'
-  onloaded = createexe
+  oncreate = createexe
   moduleclassname = 'tmseform'
   object bottomstrip: tlayouter
     frame.framei_left = 2

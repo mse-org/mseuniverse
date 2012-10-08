@@ -15,7 +15,7 @@ object revertqueryfo: trevertqueryfo
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Revert'
-  onloaded = createexe
+  oncreate = createexe
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
     taborder = 2
@@ -96,6 +96,8 @@ object revertqueryfo: trevertqueryfo
     end
     inherited externaldiffact: taction
       top = 80
+    end
+    inherited refreshthread: tthreadcomp
     end
   end
   object tsplitter2: tsplitter

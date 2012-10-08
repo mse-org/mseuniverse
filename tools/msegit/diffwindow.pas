@@ -26,11 +26,15 @@ type
  tdiffwindowfo = class(tdifffo)
    patchact: taction;
    mergetoolact: taction;
+   revertact: taction;
    procedure patchtoolexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu); override;
    procedure afterstatreadexe(const sender: TObject);
    procedure mergetoolexe(const sender: TObject);
+   procedure popupupdateexe1(const sender: tcustommenu);
+   procedure revertexe(const sender: TObject);
   protected
+   fcandiffpopup: boolean;
  end;
 
 var
@@ -38,7 +42,7 @@ var
 
 implementation
 uses
- diffwindow_mfm,mainmodule,msestrings,difftab;
+ diffwindow_mfm,mainmodule,msestrings,difftab,logform,msewidgets;
  
 procedure tdiffwindowfo.patchtoolexe(const sender: TObject);
 var
@@ -63,16 +67,14 @@ begin
 end;
 
 procedure tdiffwindowfo.popupupdateexe(const sender: tcustommenu);
-var
- bo1: boolean;
 begin
  inherited;
- bo1:= singlediff and (tabs.activepageindex >= 0) and 
+ fcandiffpopup:= singlediff and (tabs.activepageindex >= 0) and 
                 (tdifftabfo(tabs.activepage).grid.rowcount > 0);
 
- patchact.enabled:= bo1 and (mainmo.opt.difftool <> '');
+ patchact.enabled:= fcandiffpopup and (mainmo.opt.difftool <> '');
  externaldiffact.enabled:= externaldiffact.enabled and not fi.iscommits;
- mergetoolact.enabled:= bo1 and mainmo.canmergetool;
+ mergetoolact.enabled:= fcandiffpopup and mainmo.canmergetool;
 end;
 
 procedure tdiffwindowfo.afterstatreadexe(const sender: TObject);
@@ -90,6 +92,19 @@ begin
   if mainmo.mergetoolcall(ar1) then begin
    activate;
   end;
+ end;
+end;
+
+procedure tdiffwindowfo.popupupdateexe1(const sender: tcustommenu);
+begin
+ popupupdateexe(sender);
+ revertact.enabled:= fcandiffpopup and logfo.isbasediff;
+end;
+
+procedure tdiffwindowfo.revertexe(const sender: TObject);
+begin
+ if askyesno('Do you want to revert "'+currentpath+'"?') then begin
+  mainmo.revert(currentpath);
  end;
 end;
 

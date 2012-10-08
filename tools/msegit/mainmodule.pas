@@ -388,6 +388,7 @@ type
    function canrevert(const aitems: gitdirtreenodearty): boolean; overload;
    function revert(const aitems: gitdirtreenodearty): boolean; overload;
    function revert(const afiles: filenamearty): boolean; overload;
+   function revert(const afile: filenamety): boolean; overload;
    function revert(const anode: tgitdirtreenode;
                    const aitems: msegitfileitemarty): boolean; overload;
    function canremove(const aitems: msegitfileitemarty): boolean; overload;
@@ -418,6 +419,7 @@ type
    property repostat: trepostat read frepostat;
    property hasremote: boolean read fhasremote;
    
+   function logfilterempty: boolean;
    function merging: boolean;
    function rebasing: boolean;
    property mergehead: msestring read fmergehead;
@@ -1463,6 +1465,15 @@ begin
  end;
 end;
 
+function tmainmo.revert(const afile: filenamety): boolean;
+var
+ ar1: filenamearty;
+begin
+ setlength(ar1,1);
+ ar1[0]:= afile;
+ result:= revert(ar1);
+end;
+
 function tmainmo.revert(const aitems: gitdirtreenodearty): boolean;
  const
   mask1: gitstatedataty = (statex: []; statey : [gist_modified]);
@@ -2346,15 +2357,19 @@ begin
  sender.enabled:= isrepoloaded;
 end;
 
+function tmainmo.logfilterempty: boolean;
+begin
+ result:= ((frepostat.logfiltercommit = '') and
+   (frepostat.logfiltercommitter = '') and
+   (frepostat.logfilterdatemin = emptydatetime) and
+   (frepostat.logfilterdatemax = emptydatetime) and
+   (frepostat.logfiltermessage = '')
+  );
+end;
+
 procedure tmainmo.filterresetupdateexe(const sender: tcustomaction);
 begin
- sender.enabled:= isrepoloaded and 
-  ((frepostat.logfiltercommit <> '') or
-   (frepostat.logfiltercommitter <> '') or
-   (frepostat.logfilterdatemin <> emptydatetime) or
-   (frepostat.logfilterdatemax <> emptydatetime) or
-   (frepostat.logfiltermessage <> '')
-  );
+ sender.enabled:= isrepoloaded and not logfilterempty;
 end;
 
 procedure tmainmo.afterlogfiltereditexe(const sender: TObject;

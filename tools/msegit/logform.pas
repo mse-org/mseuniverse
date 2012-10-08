@@ -91,6 +91,8 @@ type
    constructor create(aowner: tcomponent); override;
    procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
    function currentcommit: msestring;
+   function isbasediff: boolean; 
+           //true if diffwindow shows diff to head
 //   function currentcommithint: msestring;
  end;
 
@@ -536,6 +538,12 @@ end;
 procedure tlogfo.filtereditexe(const sender: TObject);
 begin
  teditlogfilterfo.create(nil);
+end;
+
+function tlogfo.isbasediff: boolean;
+begin
+ result:= (diffmode.value = 0) and (grid.row = 0) and mainmo.logfilterempty and
+                        (diffbase.checkedrow = -1);
 end;
 
 { tlogitem }

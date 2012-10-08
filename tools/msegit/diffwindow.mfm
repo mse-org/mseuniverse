@@ -16,7 +16,8 @@ inherited diffwindowfo: tdiffwindowfo
   inherited repoclosedact: taction
   end
   inherited tpopupmenu1: tpopupmenu
-    menu.submenu.count = 3
+    onupdate = popupupdateexe1
+    menu.submenu.count = 5
     menu.submenu.items = <    
       item
       end    
@@ -25,6 +26,14 @@ inherited diffwindowfo: tdiffwindowfo
       end    
       item
         action = mergetoolact
+      end    
+      item
+        options = [mao_separator, mao_shortcutcaption]
+      end    
+      item
+        action = revertact
+        caption = 'Revert'
+        state = [as_localcaption]
       end>
   end
   inherited externaldiffact: taction
@@ -42,5 +51,11 @@ inherited diffwindowfo: tdiffwindowfo
     top = 152
   end
   inherited refreshthread: tthreadcomp[7]
+  end
+  object revertact: taction[8]
+    caption = 'Caption'
+    onexecute = revertexe
+    left = 176
+    top = 208
   end
 end
