@@ -1,0 +1,111 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    16
+    403
+    264
+  )
+  mainmenu = tmainmenu1
+  options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  onloaded = loadedexe
+  onclosequery = closequeryexe
+  moduleclassname = 'tmainform'
+  object tmainmenu1: tmainmenu
+    menu.submenu.count = 4
+    menu.submenu.items = <    
+      item
+        submenu.count = 6
+        submenu.items = <        
+          item
+            action = mainmo.newprojectact
+          end        
+          item
+            action = mainmo.openprojectact
+          end        
+          item
+            action = mainmo.saveasact
+          end        
+          item
+            action = mainmo.closeprojectact
+            state = [as_disabled]
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
+            caption = '&Exit'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = exitexe
+          end>
+        caption = '&File'
+        state = [as_localcaption]
+      end    
+      item
+        submenu.count = 2
+        submenu.items = <        
+          item
+            action = mainmo.simustartact
+            state = [as_disabled]
+          end        
+          item
+            action = mainmo.simustopact
+            state = [as_disabled]
+          end>
+        caption = '&Simulation'
+        state = [as_localcaption]
+      end    
+      item
+        submenu.count = 2
+        submenu.items = <        
+          item
+            submenu.count = 2
+            submenu.items = <            
+              item
+                options = [mao_separator, mao_shortcutcaption]
+              end            
+              item
+                caption = '&New Panel'
+                state = [as_localcaption, as_localonexecute]
+                onexecute = newpanelexe
+              end>
+            caption = '&Panels'
+            name = 'panels'
+            state = [as_localcaption]
+          end        
+          item
+            caption = 'Spice Console'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showconsoleexe
+          end>
+        caption = '&View'
+        name = 'view'
+        state = [as_localcaption]
+      end    
+      item
+        action = mainmo.optionsact
+        state = [as_disabled]
+      end>
+    left = 208
+    top = 64
+  end
+  object panelcontroller: tdockpanelformcontroller
+    menu = tmainmenu1
+    statfile = mainmo.projectstat
+    statfileclient = panelsta
+    menunamepath = 'view.panels'
+    left = 16
+    top = 16
+  end
+  object panelsta: tstatfile
+    filename = 'panelfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 16
+    top = 48
+  end
+end

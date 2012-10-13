@@ -1,0 +1,51 @@
+object consolefo: tconsolefo
+  frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
+  frame.dummy = 0
+  visible = False
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 445
+  bounds_cy = 354
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock]
+  statfile = mainfo.panelsta
+  moduleclassname = 'tdockform'
+  object grid: twidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 855
+        widgetname = 'term'
+        dataclass = tgridrichstringdatalist
+      end>
+    datarowheight = 14
+    reffontheight = 14
+    object term: tterminal
+      optionswidget1 = [ow1_fontlineheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 855
+      bounds_cy = 14
+      maxchars = 80
+      oninputpipebroken = inputbrokenexe
+      reffontheight = 14
+    end
+  end
+end

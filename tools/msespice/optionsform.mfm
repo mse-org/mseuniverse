@@ -1,0 +1,140 @@
+object optionsfo: toptionsfo
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 372
+  bounds_cy = 245
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    372
+    245
+  )
+  statfile = tstatfile1
+  moduleclassname = 'tmseform'
+  object ttabwidget1: ttabwidget
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 372
+    bounds_cy = 214
+    anchors = [an_top]
+    activepageindex = 0
+    tab_size = 18
+    statfile = tstatfile1
+    object ttabpage2: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 372
+      bounds_cy = 196
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '&Project'
+      object netlist: tfilenameedit
+        frame.caption = 'Spice Netlist'
+        frame.button.imagenr = 17
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        bounds_x = 8
+        bounds_y = 5
+        bounds_cx = 356
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        statfile = tstatfile1
+        textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+        controller.filterlist.data = (
+          (
+            'Spice Netlist'
+            '*.cir'
+          )
+        )
+        controller.defaultext = 'cir'
+        controller.captionopen = 'Spice Netlist'
+        reffontheight = 14
+      end
+    end
+    object ttabpage1: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 372
+      bounds_cy = 196
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '&Ngspice'
+      object ngspice: tfilenameedit
+        frame.caption = 'Ngspice Program'
+        frame.button.imagenr = 17
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        bounds_x = 8
+        bounds_y = 5
+        bounds_cx = 356
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        statfile = tstatfile1
+        textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+        reffontheight = 14
+      end
+    end
+  end
+  object tlayouter1: tlayouter
+    taborder = 1
+    bounds_x = 260
+    bounds_y = 219
+    bounds_cx = 105
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
+    linktop = ttabwidget1
+    dist_top = 5
+    options = [spao_gluebottom]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_center
+    place_mindist = 5
+    place_maxdist = 5
+    place_mode = wam_end
+    object tbutton1: tbutton
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      bounds_x = 55
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_localdefault, as_localcaption]
+      caption = 'Cancel'
+      modalresult = mr_cancel
+      reffontheight = 14
+    end
+    object tbutton2: tbutton
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_default, as_localdefault, as_localcaption]
+      caption = 'OK'
+      modalresult = mr_ok
+      reffontheight = 14
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'optionsfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 24
+    top = 160
+  end
+end
