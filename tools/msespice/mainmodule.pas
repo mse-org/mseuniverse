@@ -63,6 +63,8 @@ type
    procedure saveasexe(const sender: TObject);
    procedure simustartexe(const sender: TObject);
    procedure simustopexe(const sender: TObject);
+   procedure projreadexe(const sender: TObject; const reader: tstatreader);
+   procedure projwriteexe(const sender: TObject; const writer: tstatwriter);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -89,7 +91,7 @@ var
 
 implementation
 uses
- mainmodule_mfm,main,msefileutils,consoleform,msestream,msewidgets;
+ mainmodule_mfm,main,msefileutils,consoleform,msestream,msewidgets,plotsform;
 
 { tprojectoptions }
 
@@ -255,6 +257,17 @@ begin
   end;
  end;
  updateprojectstate;
+end;
+
+procedure tmainmo.projreadexe(const sender: TObject; const reader: tstatreader);
+begin
+ plotsfo.readstat(reader);
+end;
+
+procedure tmainmo.projwriteexe(const sender: TObject;
+               const writer: tstatwriter);
+begin
+ plotsfo.writestat(writer);
 end;
 
 end.

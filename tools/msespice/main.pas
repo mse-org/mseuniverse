@@ -35,12 +35,13 @@ type
    procedure showconsoleexe(const sender: TObject);
    procedure closequeryexe(const sender: tcustommseform;
                    var amodalresult: modalresultty);
+   procedure showplotsexe(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,optionsform,mainmodule,consoleform;
+ main_mfm,optionsform,mainmodule,consoleform,plotsform;
  
 procedure tmainfo.exitexe(const sender: TObject);
 begin
@@ -69,6 +70,11 @@ begin
  if not mainmo.closeproject then begin
   amodalresult:= mr_none;
  end;
+end;
+
+procedure tmainfo.showplotsexe(const sender: TObject);
+begin
+ plotsfo.activate;
 end;
 
 end.

@@ -1,0 +1,51 @@
+object plotsfo: tplotsfo
+  frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
+  frame.dummy = 0
+  bounds_x = 235
+  bounds_y = 234
+  bounds_cx = 445
+  bounds_cy = 354
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional, od_propsize]
+  statfile = mainfo.panelsta
+  oncreate = createexe
+  moduleclassname = 'tdockform'
+  object tabs: ttabwidget
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    popupmenu = popupmen
+    tab_options = [tabo_dragsource, tabo_dragdest]
+    tab_size = 18
+    statfile = mainfo.panelsta
+  end
+  object popupmen: tpopupmenu
+    onupdate = popupupdateexe
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        caption = '&New Plot'
+        name = 'new'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = newplotexe
+      end    
+      item
+        caption = '&Delete Plot'
+        name = 'del'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = deleteplotexe
+      end>
+    left = 24
+    top = 48
+  end
+end

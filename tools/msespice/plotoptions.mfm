@@ -1,0 +1,15 @@
+object plotoptionsfo: tplotoptionsfo
+  visible = False
+  bounds_x = 72
+  bounds_y = 80
+  bounds_cx = 217
+  bounds_cy = 100
+  anchors = []
+  moduleclassname = 'tsubform'
+  object tstringedit1: tstringedit
+    frame.dummy = 0
+    bounds_x = 16
+    bounds_y = 16
+    reffontheight = 14
+  end
+end

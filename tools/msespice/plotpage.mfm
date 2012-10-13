@@ -1,0 +1,77 @@
+object plotpagefo: tplotpagefo
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 572
+  bounds_cy = 235
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    572
+    235
+  )
+  moduleclassname = 'ttabform'
+  object plotname: tstringedit
+    frame.caption = 'Name'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 7
+    bounds_cx = 116
+    bounds_cy = 37
+    statfile = mainmo.projectstat
+    value = 'Default'
+    onsetvalue = setnameexe
+    reffontheight = 14
+  end
+  object plotkind: tenumedit
+    frame.caption = 'Kind'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 128
+    bounds_y = 7
+    bounds_cx = 180
+    bounds_cy = 37
+    statfile = mainmo.projectstat
+    onsetvalue = kindsetexe
+    dropdown.cols.count = 2
+    dropdown.cols.items = <    
+      item
+        width = 20
+        data = (
+          'DC'
+          'AC'
+          'TR'
+        )
+      end    
+      item
+        data = (
+          'DC Transfer Function'
+          'Small-Signal AC Analysis'
+          'Transient Analysis'
+        )
+      end>
+    dropdown.valuecol = 1
+    reffontheight = 14
+  end
+  object plotcont: tsimplewidget
+    taborder = 2
+    visible = True
+    bounds_x = 0
+    bounds_y = 47
+    bounds_cx = 572
+    bounds_cy = 188
+    anchors = [an_top, an_bottom]
+  end
+end

@@ -1,15 +1,15 @@
 object mainfo: tmainfo
   bounds_x = 291
   bounds_y = 247
-  bounds_cx = 403
-  bounds_cy = 280
+  bounds_cx = 400
+  bounds_cy = 115
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     16
-    403
-    264
+    400
+    99
   )
   mainmenu = tmainmenu1
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -61,7 +61,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 2
+        submenu.count = 3
         submenu.items = <        
           item
             submenu.count = 2
@@ -82,6 +82,11 @@ object mainfo: tmainfo
             caption = 'Spice Console'
             state = [as_localcaption, as_localonexecute]
             onexecute = showconsoleexe
+          end        
+          item
+            caption = 'Plots'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showplotsexe
           end>
         caption = '&View'
         name = 'view'
@@ -91,8 +96,8 @@ object mainfo: tmainfo
         action = mainmo.optionsact
         state = [as_disabled]
       end>
-    left = 208
-    top = 64
+    left = 176
+    top = 16
   end
   object panelcontroller: tdockpanelformcontroller
     menu = tmainmenu1

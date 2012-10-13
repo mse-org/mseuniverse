@@ -1,0 +1,17 @@
+inherited transplotfo: ttransplotfo
+  bounds_x = 69
+  bounds_y = 433
+  bounds_cx = 100
+  moduleclassname = 'tplotoptionsfo'
+  inherited tstringedit1: tstringedit
+    frame.caption = 'Trans'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_y = -1
+    bounds_cy = 37
+  end
+end

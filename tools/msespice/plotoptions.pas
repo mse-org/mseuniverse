@@ -14,24 +14,20 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-program msespice;
-//under construction
-
+unit plotoptions;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
-{$ifdef FPC}
- {$ifdef mswindows}{$apptype gui}{$endif}
-{$endif}
+interface
 uses
- {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
- msegui,mseforms,main,mainmodule,guitemplates,mseclasses,consoleform,
- plotsform;
-begin
- application.createdatamodule(tguitemplatesmo,guitemplatesmo);
- msebegingloballoading;
- application.createform(tmainfo,mainfo);
- application.createdatamodule(tmainmo,mainmo);
- application.createform(tconsolefo,consolefo);
- application.createform(tplotsfo,plotsfo);
- mseendgloballoading;
- application.run;
+ mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedataedits,mseedit,
+ mseifiglob,msestrings,msetypes;
+type
+ tplotoptionsfo = class(tsubform)
+   tstringedit1: tstringedit;
+ end;
+ plotsfoclassty = class of tplotoptionsfo;
+ 
+implementation
+uses
+ plotoptions_mfm;
 end.

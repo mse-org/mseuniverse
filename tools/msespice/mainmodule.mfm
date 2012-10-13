@@ -24,6 +24,8 @@ object mainmo: tmainmo
     filename = 'default.msp'
     statfile = mainstat
     savedmemoryfiles = '*fo.sta'
+    onstatread = projreadexe
+    onstatwrite = projwriteexe
     left = 152
     top = 16
   end
