@@ -24,7 +24,7 @@ uses
  mseactions,mseifiglob,mseguirttistat,classes,msestatfile,msebitmap,
  msedataedits,msedatanodes,mseedit,msefiledialog,msegraphics,msegraphutils,
  msegrids,msegui,mseguiglob,mselistbrowser,msemenus,msestrings,msesys,msetypes,
- msepipestream,mseprocess;
+ msepipestream,mseprocess,msengspice;
 
 const
  ngspicename = 'ngspice';
@@ -66,8 +66,10 @@ type
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
+   frawname: filenamety;
   protected
    fprojectoptions: tprojectoptions;
+   fspice: tngspice;
    procedure updateprojectstate;
   public
    constructor create(aowner: tcomponent); override;
@@ -87,7 +89,7 @@ var
 
 implementation
 uses
- mainmodule_mfm,main,msefileutils,consoleform;
+ mainmodule_mfm,main,msefileutils,consoleform,msestream,msewidgets;
 
 { tprojectoptions }
 
@@ -101,11 +103,13 @@ end;
 constructor tmainmo.create(aowner: tcomponent);
 begin
  fprojectoptions:= tprojectoptions.create;
+ fspice:= tngspice.create;
  inherited;
 end;
 
 destructor tmainmo.destroy;
 begin
+ fspice.free;
  inherited;
  fprojectoptions.free;
 end;
@@ -218,8 +222,9 @@ end;
 
 procedure tmainmo.simustartexe(const sender: TObject);
 begin
+ frawname:= replacefileext(projectstat.filename,'raw');
  consolefo.term.execprog(tosysfilepath(fprojectoptions.ngspice,true)+
-   ' -b -r'+tosysfilepath(replacefileext(projectstat.filename,'raw'),true)+
+   ' -b -r'+tosysfilepath(frawname,true)+
    ' '+tosysfilepath(fprojectoptions.netlist,true));
  fsimurunning:= true;
  updateprojectstate;
@@ -232,9 +237,24 @@ begin
 end;
 
 procedure tmainmo.simuterminated;
+var
+ stream1: ttextstream;
 begin
- fsimurunning:= false; 
- updateprojectstate; 
+ fsimurunning:= false;
+ fspice.reset;
+ if consolefo.term.exitcode = 0 then begin
+  if not ttextstream.trycreate(stream1,frawname) then begin
+   showerror('RAW file'+lineend+frawname+lineend+'not found.');
+  end
+  else begin
+   try
+    fspice.readdata(stream1);
+   finally
+    stream1.free;
+   end;
+  end;
+ end;
+ updateprojectstate;
 end;
 
 end.
