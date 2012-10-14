@@ -3,15 +3,4 @@ inherited dcplotfo: tdcplotfo
   bounds_y = 238
   bounds_cx = 206
   moduleclassname = 'tplotoptionsfo'
-  inherited tstringedit1: tstringedit
-    frame.caption = 'DC'
-    frame.outerframe = (
-      0
-      17
-      0
-      0
-    )
-    bounds_y = -1
-    bounds_cy = 37
-  end
 end

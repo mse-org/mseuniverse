@@ -3,6 +3,7 @@ object mainmo: tmainmo
   bounds_cx = 462
   bounds_cy = 295
   statfile = mainstat
+  oncreate = createexe
   left = 337
   top = 475
   moduleclassname = 'tmsedatamodule'

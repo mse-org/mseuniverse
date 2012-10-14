@@ -497,7 +497,7 @@ implementation
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,
  gitconsole,commitqueryform,revertqueryform,removequeryform,
- branchform,remotesform,mseformatstr,mseprocutils,msesysenv,main,filesform,
+ branchform,remotesform,mseformatstr,mseprocutils,msemacros,main,filesform,
  gitdirtreeform,defaultstat,clonequeryform;
   
 const

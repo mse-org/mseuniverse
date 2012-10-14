@@ -66,6 +66,7 @@ object plotpagefo: tplotpagefo
     reffontheight = 14
   end
   object plotcont: tsimplewidget
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 2
     visible = True
     bounds_x = 0

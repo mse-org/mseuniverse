@@ -19,9 +19,13 @@ unit transplot;
 interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,mseforms,plotoptions;
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,plotoptions,
+ msedataedits,mseedit,mseifiglob,msestrings,msetypes;
 type
  ttransplotfo = class(tplotoptionsfo)
+   tstart: trealedit;
+   tlen: trealedit;
+   minstep: trealedit;
  end;
 implementation
 uses

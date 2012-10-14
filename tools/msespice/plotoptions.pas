@@ -23,7 +23,6 @@ uses
  mseifiglob,msestrings,msetypes;
 type
  tplotoptionsfo = class(tsubform)
-   tstringedit1: tstringedit;
  end;
  plotsfoclassty = class of tplotoptionsfo;
  

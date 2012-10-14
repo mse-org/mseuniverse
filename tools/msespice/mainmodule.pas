@@ -28,6 +28,7 @@ uses
 
 const
  ngspicename = 'ngspice';
+ realformat = '0.#########g';
  
 type
  tprojectoptions = class(toptionsclass)
@@ -65,6 +66,7 @@ type
    procedure simustopexe(const sender: TObject);
    procedure projreadexe(const sender: TObject; const reader: tstatreader);
    procedure projwriteexe(const sender: TObject; const writer: tstatwriter);
+   procedure createexe(const sender: TObject);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -91,7 +93,8 @@ var
 
 implementation
 uses
- mainmodule_mfm,main,msefileutils,consoleform,msestream,msewidgets,plotsform;
+ mainmodule_mfm,main,msefileutils,consoleform,msestream,msewidgets,plotsform,
+ mseformatstr;
 
 { tprojectoptions }
 
@@ -268,6 +271,11 @@ procedure tmainmo.projwriteexe(const sender: TObject;
                const writer: tstatwriter);
 begin
  plotsfo.writestat(writer);
+end;
+
+procedure tmainmo.createexe(const sender: TObject);
+begin
+ formatmacros.add(['REAL'],[realformat]);
 end;
 
 end.
