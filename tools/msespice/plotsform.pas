@@ -98,6 +98,7 @@ var
  ar1: integerarty;
  int1: integer;
 begin
+ tabs.clearorder;
  updatetabnames;
  setlength(ar1,tabs.count);
  for int1:= 0 to high(ar1) do begin

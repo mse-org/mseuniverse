@@ -22,11 +22,20 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedataedits,mseedit,
  mseifiglob,msestrings,msetypes;
 type
- tplotoptionsfo = class(tsubform)
+ tplotoptionsfo = class(tmseform)
+  public
+   function getplotstatement: string; virtual;
  end;
  plotsfoclassty = class of tplotoptionsfo;
  
 implementation
 uses
  plotoptions_mfm;
+{ tplotoptionsfo }
+
+function tplotoptionsfo.getplotstatement: string;
+begin
+ result:= '';
+end;
+
 end.

@@ -20,13 +20,18 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msetabs,msedataedits,
- mseedit,mseifiglob,msestrings,msetypes,msewidgets,classes,plotoptions;
+ mseedit,mseifiglob,msestrings,msetypes,msewidgets,classes,plotoptions,
+ msesplitter,msegrids,msewidgetgrid,msegraphedits,msesimplewidgets;
  
 type
  tplotpagefo = class(ttabform)
    plotname: tstringedit;
    plotkind: tenumedit;
    plotcont: tsimplewidget;
+   tsplitter1: tsplitter;
+   tracegrid: twidgetgrid;
+   traceexp: tstringedit;
+   plotactive: tbooleanedit;
    procedure setnameexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
@@ -38,6 +43,8 @@ type
   public
    constructor create(const aowner: tcomponent; const akind: integer);
    function kind: integer;
+   function getplotstatement: string;
+   property plot: tplotoptionsfo read fplot;
  end;
 
 implementation
@@ -114,6 +121,23 @@ end;
 function tplotpagefo.kind: integer;
 begin
  result:= getplotkind(fplot);
+end;
+
+function tplotpagefo.getplotstatement: string;
+var
+ int1,int2: integer;
+ str1: string;
+begin
+ result:= '';
+ int2:= tracegrid.datarowhigh;
+ if int2 >= 0 then begin
+  str1:= '.SAVE';
+  for int1:= 0 to int2 do begin
+   str1:= str1 + ' '+traceexp[int1];
+  end;
+  result:= str1+lineend;
+ end;
+ result:= result+fplot.getplotstatement;
 end;
 
 end.

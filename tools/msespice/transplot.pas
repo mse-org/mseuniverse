@@ -26,8 +26,23 @@ type
    tstart: trealedit;
    tlen: trealedit;
    minstep: trealedit;
+  public
+   function getplotstatement: string; override;
  end;
+ 
 implementation
 uses
- transplot_mfm;
+ transplot_mfm,msefloattostr;
+ 
+{ ttransplotfo }
+
+function ttransplotfo.getplotstatement: string;
+begin
+ result:= '.TRAN 0 '+doubletostring(tstart.value+tlen.value)+' '+
+                      doubletostring(tstart.value);
+ if minstep.value <> emptyreal then begin
+  result:= result+' '+doubletostring(minstep.value)
+ end;
+end;
+
 end.

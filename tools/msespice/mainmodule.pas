@@ -71,6 +71,7 @@ type
    fprojectloaded: boolean;
    fsimurunning: boolean;
    frawname: filenamety;
+   finpname: filenamety;
   protected
    fprojectoptions: tprojectoptions;
    fspice: tngspice;
@@ -94,7 +95,7 @@ var
 implementation
 uses
  mainmodule_mfm,main,msefileutils,consoleform,msestream,msewidgets,plotsform,
- mseformatstr;
+ mseformatstr,plotpage;
 
 { tprojectoptions }
 
@@ -226,8 +227,35 @@ begin
 end;
 
 procedure tmainmo.simustartexe(const sender: TObject);
+var
+ fna1: filenamety;
+ stream1: ttextstream;
+ stream2: ttextstream = nil;
+ int1: integer;
+ str1: string;
+ lstr1: lstringty;
 begin
  frawname:= replacefileext(projectstat.filename,'raw');
+ finpname:= replacefileext(projectstat.filename,'tmp');
+ stream1:= ttextstream.create(fprojectoptions.netlist,fm_read);
+ try
+  stream2:= ttextstream.create(finpname,fm_create);
+  while not stream1.eof do begin
+   stream1.readln(str1);
+   nextword(str1,lstr1);
+   if lstringicomp(lstr1,'.END') = 0 then begin
+    break;
+   end;
+   stream2.writeln(str1);
+  end;
+  for int1:= 0 to plotsfo.tabs.count - 1 do begin
+   stream2.writeln(tplotpagefo(plotsfo.tabs[int1]).getplotstatement);
+  end;
+  stream2.writeln('.END');
+ finally
+  stream1.free;
+  stream2.free;
+ end;
  consolefo.term.execprog(tosysfilepath(fprojectoptions.ngspice,true)+
    ' -b -r'+tosysfilepath(frawname,true)+
    ' '+tosysfilepath(fprojectoptions.netlist,true));
