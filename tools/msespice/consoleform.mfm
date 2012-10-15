@@ -16,6 +16,7 @@ object consolefo: tconsolefo
     354
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional, od_propsize]
+  options = [fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfo.panelsta
   moduleclassname = 'tdockform'
   object grid: twidgetgrid
@@ -28,7 +29,7 @@ object consolefo: tconsolefo
     datacols.count = 1
     datacols.items = <    
       item
-        width = 855
+        width = 1000
         widgetname = 'term'
         dataclass = tgridrichstringdatalist
       end>
@@ -41,9 +42,12 @@ object consolefo: tconsolefo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 855
+      bounds_cx = 1000
       bounds_cy = 14
-      maxchars = 80
+      font.name = 'stf_fixed'
+      font.xscale = 1
+      font.dummy = 0
+      maxchars = 120
       oninputpipebroken = inputbrokenexe
       reffontheight = 14
     end

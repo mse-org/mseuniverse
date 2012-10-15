@@ -1,4 +1,5 @@
 object mainfo: tmainfo
+  visible = False
   bounds_x = 291
   bounds_y = 247
   bounds_cx = 400
@@ -12,7 +13,8 @@ object mainfo: tmainfo
     99
   )
   mainmenu = tmainmenu1
-  options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = panelsta
   onloaded = loadedexe
   onclosequery = closequeryexe
   moduleclassname = 'tmainform'
@@ -39,7 +41,7 @@ object mainfo: tmainfo
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
-            caption = '&Exit'
+            caption = 'E&xit'
             state = [as_localcaption, as_localonexecute]
             onexecute = exitexe
           end>
@@ -101,7 +103,12 @@ object mainfo: tmainfo
   end
   object panelcontroller: tdockpanelformcontroller
     menu = tmainmenu1
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectmainstat
+    statfileclients.count = 1
+    statfileclients.items = <    
+      item
+        statfile = mainmo.projectstat
+      end>
     statfileclient = panelsta
     menunamepath = 'view.panels'
     left = 16
@@ -110,6 +117,7 @@ object mainfo: tmainfo
   object panelsta: tstatfile
     filename = 'panelfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    onstatbeforeread = befre
     left = 16
     top = 48
   end

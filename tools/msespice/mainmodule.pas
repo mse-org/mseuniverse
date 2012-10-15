@@ -55,6 +55,7 @@ type
    tmseprocess1: tmseprocess;
    simustartact: taction;
    simustopact: taction;
+   projectmainstat: tstatfile;
    procedure getobjexe(const sender: TObject; var aobject: TObject);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -147,9 +148,9 @@ end;
 procedure tmainmo.loadproject(const aname: filenamety);
 begin
  if aname <> '' then begin
-  projectstat.filename:= aname;
+  projectmainstat.filename:= aname;
  end;
- projectstat.readstat;
+ projectmainstat.readstat;
  fprojectloaded:= true;
  updateprojectstate;
 end;
@@ -176,7 +177,7 @@ begin
  if fprojectloaded then begin
   fprojectloaded:= false;
   updateprojectstate;
-  projectstat.writestat;
+  projectmainstat.writestat;
  end;
 end;
 
@@ -237,6 +238,7 @@ var
 begin
  frawname:= replacefileext(projectstat.filename,'raw');
  finpname:= replacefileext(projectstat.filename,'tmp');
+ deletefile(frawname);
  stream1:= ttextstream.create(fprojectoptions.netlist,fm_read);
  try
   stream2:= ttextstream.create(finpname,fm_create);
@@ -256,9 +258,12 @@ begin
   stream1.free;
   stream2.free;
  end;
- consolefo.term.execprog(tosysfilepath(fprojectoptions.ngspice,true)+
+ consolefo.term.clear;
+ str1:= tosysfilepath(fprojectoptions.ngspice,true)+
    ' -b -r'+tosysfilepath(frawname,true)+
-   ' '+tosysfilepath(fprojectoptions.netlist,true));
+   ' '+tosysfilepath(finpname,true);
+ consolefo.term.addline('> '+str1);
+ consolefo.term.execprog(str1);
  fsimurunning:= true;
  updateprojectstate;
 end;
@@ -286,6 +291,10 @@ begin
     stream1.free;
    end;
   end;
+ end
+ else begin
+  consolefo.term.addline('**** ERROR ****');
+  consolefo.activate;
  end;
  updateprojectstate;
 end;

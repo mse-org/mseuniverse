@@ -21,35 +21,87 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msetabs,msedataedits,
  mseedit,mseifiglob,msestrings,msetypes,msewidgets,classes,plotoptions,
- msesplitter,msegrids,msewidgetgrid,msegraphedits,msesimplewidgets;
+ msesplitter,msegrids,msewidgetgrid,msegraphedits,msesimplewidgets,
+ mselistbrowser,msedatanodes,msememodialog,chartform;
  
 type
+
+ tplotnode = class(ttreelistedititem)
+  private
+   fvalue0: msestring;
+  protected
+   property value0: msestring read fvalue0 write fvalue0;
+  public
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
+   procedure showchart; virtual;
+ end;
+ 
+ tchartnode = class(tplotnode)
+  private
+   fchart: tchartfo;
+  protected
+   function createsubnode: ttreelistitem; override;
+  public
+   destructor destroy; override;
+   procedure showchart; override;
+   function getsavevalues: msestring;
+   function chart: tchartfo;
+   function haschart: boolean;
+   property title: msestring read fvalue0;
+ end;
+
+ chartnodearty = array of tchartnode;
+
+ ttracenode = class(tplotnode)
+  private
+   fexpression: msestring;
+  public
+   procedure showchart; override;
+   property expression: msestring read fvalue0;
+ end;
+ 
  tplotpagefo = class(ttabform)
    plotname: tstringedit;
    plotkind: tenumedit;
    plotcont: tsimplewidget;
    tsplitter1: tsplitter;
    tracegrid: twidgetgrid;
-   traceexp: tstringedit;
    plotactive: tbooleanedit;
+   treeed: ttreeitemedit;
+   value0: tmemodialogedit;
    procedure setnameexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
                    var accept: Boolean);
+   procedure createitemexe(const sender: tcustomitemlist;
+                   var item: ttreelistedititem);
+   procedure updaterowvalueexe(const sender: TObject; const aindex: Integer;
+                   const aitem: tlistitem);
+   procedure value0setexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure celleventexe(const sender: TObject; var info: celleventinfoty);
+   procedure rowinsertexe(const sender: tcustomgrid; var aindex: Integer;
+                   var acount: Integer);
   private
    fplot: tplotoptionsfo;
+   fnameindex: integer;
+   finsertlevel: integer;
   protected
    procedure setkind(const akind: integer);
+   function getchartname: string;
   public
    constructor create(const aowner: tcomponent; const akind: integer);
    function kind: integer;
    function getplotstatement: string;
+   function chartnodes: chartnodearty;
+   procedure resetnameindex;
    property plot: tplotoptionsfo read fplot;
  end;
-
+ 
 implementation
 uses
- plotpage_mfm,dcplot,acplot,transplot,sysutils;
+ plotpage_mfm,dcplot,acplot,transplot,sysutils,mseeditglob;
 
 const
  plotclasses: array[0..2] of plotsfoclassty = (
@@ -127,17 +179,154 @@ function tplotpagefo.getplotstatement: string;
 var
  int1,int2: integer;
  str1: string;
+ ar1: chartnodearty;
 begin
  result:= '';
- int2:= tracegrid.datarowhigh;
- if int2 >= 0 then begin
-  str1:= '.SAVE';
-  for int1:= 0 to int2 do begin
-   str1:= str1 + ' '+traceexp[int1];
+ ar1:= chartnodes;
+ str1:= '.SAVE '+ fplot.getxvalue;
+ if ar1 <> nil then begin
+  for int1:= 0 to high(ar1) do begin
+   str1:= str1 + ' ' + ar1[int1].getsavevalues;
   end;
-  result:= str1+lineend;
  end;
+ result:= str1+lineend;
  result:= result+fplot.getplotstatement;
+end;
+
+procedure tplotpagefo.createitemexe(const sender: tcustomitemlist;
+               var item: ttreelistedititem);
+begin
+ item:= tchartnode.create(sender);
+ item.add(1);
+ tchartnode(item).chart.name:= getchartname;
+end;
+
+procedure tplotpagefo.updaterowvalueexe(const sender: TObject;
+               const aindex: Integer; const aitem: tlistitem);
+begin
+ value0[aindex]:= tplotnode(aitem).value0;
+end;
+
+procedure tplotpagefo.value0setexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ tplotnode(treeed.item).value0:= avalue;
+end;
+
+procedure tplotpagefo.celleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if iscellclick(info,[ccr_dblclick]) then begin
+  tplotnode(treeed.item).showchart;
+ end;
+end;
+
+function tplotpagefo.chartnodes: chartnodearty;
+begin
+ result:= chartnodearty(treeed.itemlist.toplevelnodes);
+end;
+
+function tplotpagefo.getchartname: string;
+begin
+ result:= 'p'+inttostr(tabindex)+'_'+inttostr(fnameindex);
+ inc(fnameindex);
+end;
+
+procedure tplotpagefo.resetnameindex;
+begin
+ fnameindex:= 0;
+end;
+
+procedure tplotpagefo.rowinsertexe(const sender: tcustomgrid;
+               var aindex: Integer; var acount: Integer);
+begin
+ if not (des_updating in treeed.dataeditstate) and (finsertlevel = 0) then begin
+  inc(finsertlevel);
+  try
+   if treeed.item is tchartnode then begin
+    
+   end
+   else begin
+    if treeed.item is ttracenode then begin
+     with treeed.item do begin
+      parent.insert(ttracenode.create,index);
+     end;
+    end;
+   end;
+   acount:= 0;
+  finally
+   dec(finsertlevel)
+  end;
+ end;
+end;
+
+{ tplotnode }
+
+procedure tplotnode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ fvalue0:= reader.readmsestring('value0',fvalue0);
+end;
+
+procedure tplotnode.dostatwrite(const writer: tstatwriter);
+begin
+ inherited;
+ writer.writemsestring('value0',fvalue0);
+end;
+
+procedure tplotnode.showchart;
+begin
+ //dummy
+end;
+
+{ tchartnode }
+
+destructor tchartnode.destroy;
+begin
+ freeandnil(fchart);
+end;
+
+function tchartnode.getsavevalues: msestring;
+var
+ int1: integer;
+begin
+ result:= '';
+ if count > 0 then begin
+  for int1:= 0 to count - 1 do begin
+   result:= result + ttracenode(fitems[int1]).expression + ' ';
+  end;
+  setlength(result,length(result)-1);
+ end;
+end;
+
+function tchartnode.createsubnode: ttreelistitem;
+begin
+ result:= ttracenode.create;
+end;
+
+procedure tchartnode.showchart;
+begin
+ chart.activate;
+end;
+
+function tchartnode.chart: tchartfo;
+begin
+ if fchart = nil then begin
+  fchart:= tchartfo.create(nil);
+ end;
+ result:= fchart;
+end;
+
+function tchartnode.haschart: boolean;
+begin
+ result:= fchart <> nil;
+end;
+
+{ ttracenode }
+
+procedure ttracenode.showchart;
+begin
+ tchartnode(parent).showchart;
 end;
 
 end.

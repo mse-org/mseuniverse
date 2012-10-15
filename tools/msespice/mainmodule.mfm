@@ -12,7 +12,7 @@ object mainmo: tmainmo
     state = [as_disabled]
     onexecute = optionsexe
     left = 128
-    top = 48
+    top = 96
   end
   object projectoptionscomp: tguirttistat
     statfile = projectstat
@@ -22,24 +22,21 @@ object mainmo: tmainmo
     top = 16
   end
   object projectstat: tstatfile
-    filename = 'default.msp'
-    statfile = mainstat
-    savedmemoryfiles = '*fo.sta'
     onstatread = projreadexe
     onstatwrite = projwriteexe
     left = 152
-    top = 16
+    top = 40
   end
   object openprojectact: taction
     caption = '&Open Project'
     onexecute = openprojectexe
     left = 16
-    top = 48
+    top = 96
   end
   object mainstat: tstatfile
     filename = '^/.msetools/msespice.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    left = 248
+    left = 320
     top = 16
   end
   object projectfiledialog: tfiledialog
@@ -56,44 +53,55 @@ object mainmo: tmainmo
     controller.captionopen = 'Open MSEspice Project'
     controller.captionnew = 'New MSEspice Project'
     dialogkind = fdk_open
-    left = 328
-    top = 16
+    left = 320
+    top = 56
   end
   object newprojectact: taction
     caption = '&New Project'
     onexecute = newprojectactexe
     left = 16
-    top = 64
+    top = 112
   end
   object closeprojectact: taction
     caption = '&Close Project'
     state = [as_disabled]
     onexecute = closeprojectexe
     left = 16
-    top = 80
+    top = 128
   end
   object saveasact: taction
     caption = 'Save &as'
     onexecute = saveasexe
     left = 16
-    top = 96
+    top = 144
   end
   object tmseprocess1: tmseprocess
-    left = 328
-    top = 48
+    left = 320
+    top = 88
   end
   object simustartact: taction
     caption = '&Start'
     state = [as_disabled]
     onexecute = simustartexe
     left = 16
-    top = 128
+    top = 176
+    sc = (
+      1
+      312
+    )
   end
   object simustopact: taction
     caption = 'St&op'
     state = [as_disabled]
     onexecute = simustopexe
     left = 16
-    top = 144
+    top = 192
+  end
+  object projectmainstat: tstatfile
+    filename = 'default.msp'
+    statfile = mainstat
+    savedmemoryfiles = '*fo.sta'
+    left = 152
+    top = 16
   end
 end

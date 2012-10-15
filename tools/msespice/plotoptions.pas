@@ -25,6 +25,7 @@ type
  tplotoptionsfo = class(tmseform)
   public
    function getplotstatement: string; virtual;
+   function getxvalue: string; virtual;
  end;
  plotsfoclassty = class of tplotoptionsfo;
  
@@ -34,6 +35,11 @@ uses
 { tplotoptionsfo }
 
 function tplotoptionsfo.getplotstatement: string;
+begin
+ result:= '';
+end;
+
+function tplotoptionsfo.getxvalue: string;
 begin
  result:= '';
 end;

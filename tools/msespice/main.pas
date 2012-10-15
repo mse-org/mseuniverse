@@ -36,6 +36,7 @@ type
    procedure closequeryexe(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure showplotsexe(const sender: TObject);
+   procedure befre(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -75,6 +76,10 @@ end;
 procedure tmainfo.showplotsexe(const sender: TObject);
 begin
  plotsfo.activate;
+end;
+
+procedure tmainfo.befre(const sender: TObject);
+begin
 end;
 
 end.

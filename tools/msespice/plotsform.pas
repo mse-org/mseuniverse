@@ -63,13 +63,28 @@ end;
 
 procedure tplotsfo.updatetabnames;
 var
- int1: integer;
+ int1,int2: integer;
+ str1: string;
+ ar1: chartnodearty;
 begin
  for int1:= 0 to tabs.count-1 do begin
-  tabs.items[int1].name:= 'x'+inttostr(int1);
+  tabs.items[int1].name:= '';
  end;
  for int1:= 0 to tabs.count-1 do begin
-  tabs.items[int1].name:= 'p'+inttostr(int1);
+  with tplotpagefo(tabs.items[int1]) do begin
+   str1:= 'p'+inttostr(int1);
+   name:= str1;
+   str1:= str1+'_';
+   ar1:= chartnodes;
+   for int2:= 0 to high(ar1) do begin
+    with ar1[int2] do begin
+     if haschart then begin
+      chart.name:= str1+inttostr(int2);
+     end;
+    end;
+   end;
+   resetnameindex;
+  end;
  end;
 end;
 
@@ -117,7 +132,7 @@ end;
 
 procedure tplotsfo.deleteplotexe(const sender: TObject);
 begin
- tabs.activepage.free;
+ tabs.activepage.release;
 end;
 
 procedure tplotsfo.popupupdateexe(const sender: tcustommenu);

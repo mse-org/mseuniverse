@@ -116,7 +116,7 @@ function readmeta(const astream: ttextstream; var infokind: infokindty;
 var
  str1: string;
  po1: pchar;
- ik1: infokindty;
+// ik1: infokindty;
 begin
  result:= astream.readln(str1) and (str1 <> '');
  if result then begin
@@ -143,7 +143,7 @@ procedure tngspice.readdata(const astream: ttextstream);
 var
  str1: string;
  infokind: infokindty;
- bo1: boolean;
+// bo1: boolean;
  flags: flagsty = fl_unknown;
  padding: padty = pa_unknown;
  po1: pchar;

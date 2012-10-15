@@ -28,6 +28,7 @@ type
    minstep: trealedit;
   public
    function getplotstatement: string; override;
+   function getxvalue: string; override;
  end;
  
 implementation
@@ -38,11 +39,16 @@ uses
 
 function ttransplotfo.getplotstatement: string;
 begin
- result:= '.TRAN 0 '+doubletostring(tstart.value+tlen.value)+' '+
+ result:= '.TRAN 1 '+doubletostring(tstart.value+tlen.value)+' '+
                       doubletostring(tstart.value);
  if minstep.value <> emptyreal then begin
   result:= result+' '+doubletostring(minstep.value)
  end;
+end;
+
+function ttransplotfo.getxvalue: string;
+begin
+ result:= 'T';
 end;
 
 end.
