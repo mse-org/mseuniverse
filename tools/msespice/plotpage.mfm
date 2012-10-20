@@ -135,7 +135,9 @@ object plotpagefo: tplotpagefo
       end>
     datarowheight = 16
     statfile = mainmo.projectstat
+    onrowsmoving = rowmoveexe
     onrowsinserting = rowinsertexe
+    onrowsdeleting = rowdeleteexe
     oncellevent = celleventexe
     reffontheight = 14
     object treeed: ttreeitemedit

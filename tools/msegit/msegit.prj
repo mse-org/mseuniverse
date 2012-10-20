@@ -549,14 +549,14 @@ envvarons=0
 windowlayout=595
  [mainfo.projectfiledia]
  filenames=1
-  /home/mse/packs/standard/git/mseuniverse/tools/msespice/mse_msespice.prj
- lastdir=/home/mse/packs/standard/git/mseuniverse/tools/msespice/
- filehistory=10
-  /home/mse/packs/standard/git/mseuniverse/tools/msespice/mse_msespice.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/msegit/msegit.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
+ lastdir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/
+ filehistory=10
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
+  /home/mse/packs/standard/git/mseuniverse/tools/msegit/msegit.prj
   /home/mse/proj/test3/test3.prj
+  /home/mse/packs/standard/git/mseuniverse/tools/msespice/mse_msespice.prj
+  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
   /home/mse/proj/msegui/testcase/ivankob/noparams7/noparams/noparms.prj
   /home/mse/proj/msegui/testcase/liuzg/bug1/bug/fff.prj
   /home/mse/packs/standard/git/mseuniverse/tools/msegit/passwordenter/msegitpw.prj
@@ -588,7 +588,7 @@ windowlayout=595
  [mainfo]
  splitdir=0
  useroptions=33554559
- stackedunder=formdesignerfo
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
@@ -646,7 +646,7 @@ windowlayout=595
  [memoryfo]
  splitdir=0
  useroptions=16507
- stackedunder=cpui386fo
+ stackedunder=breakpointsfo
  parent=
  mdistate=0
  nx=0
@@ -659,7 +659,7 @@ windowlayout=595
  cy=354
  rcx=0
  rcy=0
- wsize=0
+ wsize=3
  active=0
  visible=0
  [memoryfo.add]
@@ -673,7 +673,7 @@ windowlayout=595
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=projecttreefo
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -692,7 +692,7 @@ windowlayout=595
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=disassfo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -708,7 +708,7 @@ windowlayout=595
  [projecttreefo]
  splitdir=0
  useroptions=16491
- stackedunder=objectinspectorfo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -803,7 +803,7 @@ windowlayout=595
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- stackedunder=memoryfo
+ stackedunder=projecttreefo
  parent=
  mdistate=0
  nx=0
@@ -824,7 +824,7 @@ windowlayout=595
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=targetconsolefo
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -837,7 +837,7 @@ windowlayout=595
  cy=484
  rcx=0
  rcy=0
- wsize=0
+ wsize=3
  active=0
  visible=0
  [objectinspectorfo.grid]
@@ -959,9 +959,9 @@ windowlayout=595
  ncx=0
  ncy=0
  x=0
- y=634
+ y=271
  cx=832
- cy=123
+ cy=486
  rcx=832
  rcy=757
  [componentstorefo]
@@ -1088,7 +1088,7 @@ windowlayout=595
  irqoff=0
  splitdir=0
  useroptions=16491
- stackedunder=componentstorefo
+ stackedunder=formdesignerfo
  parent=
  mdistate=0
  nx=0
@@ -1126,7 +1126,7 @@ windowlayout=595
  [mainfo.panel2]
  splitdir=2
  useroptions=33586667
- stackedunder=mainfo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -1151,22 +1151,32 @@ findhistory=3
  fmodalinfopo
  fmodallevel
 findoptions=1
-editpos=1
+editpos=3
  59,499
+ 0,-1073741823
+ 19,4505
 bookmarks0=0
-sourcefiles=1
+bookmarks1=0
+bookmarks2=0
+sourcefiles=3
  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mainmodule.pas
-relpaths=1
+ /home/mse/packs/standard/git/mseuniverse/tools/msegit/msegit.pas
+ /home/mse/packs/standard/git/mseide-msegui/lib/common/editwidgets/mselistbrowser.pas
+relpaths=3
  mainmodule.pas
-ismoduletexts=1
+ msegit.pas
+ ../../../mseide-msegui/lib/common/editwidgets/mselistbrowser.pas
+ismoduletexts=3
+ 0
+ 0
  0
 modules=1
  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mainmodule.mfm
 visiblemodules=1
- -1
+ 0
 nomenumodules=1
  0
 [sourcefo.tabwidget]
 tabsize=134
 firsttab=0
-index=0
+index=2

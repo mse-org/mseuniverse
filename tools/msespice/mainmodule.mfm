@@ -1,5 +1,4 @@
 object mainmo: tmainmo
-  options = [dmo_autoreadstat]
   bounds_cx = 462
   bounds_cy = 295
   statfile = mainstat
@@ -36,6 +35,7 @@ object mainmo: tmainmo
   object mainstat: tstatfile
     filename = '^/.msetools/msespice.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    onstatbeforeread = mainbefre
     left = 320
     top = 16
   end
@@ -69,11 +69,11 @@ object mainmo: tmainmo
     left = 16
     top = 128
   end
-  object saveasact: taction
-    caption = 'Save &as'
-    onexecute = saveasexe
+  object saveprojectasact: taction
+    caption = 'Save Project &as'
+    onexecute = saveprojectasexe
     left = 16
-    top = 144
+    top = 160
   end
   object tmseprocess1: tmseprocess
     left = 320
@@ -84,7 +84,7 @@ object mainmo: tmainmo
     state = [as_disabled]
     onexecute = simustartexe
     left = 16
-    top = 176
+    top = 208
     sc = (
       1
       312
@@ -95,13 +95,20 @@ object mainmo: tmainmo
     state = [as_disabled]
     onexecute = simustopexe
     left = 16
-    top = 192
+    top = 224
   end
   object projectmainstat: tstatfile
     filename = 'default.msp'
     statfile = mainstat
     savedmemoryfiles = '*fo.sta'
+    onstatbeforeread = projectbefre
     left = 152
     top = 16
+  end
+  object saveprojectact: taction
+    caption = '&Save Project'
+    onexecute = saveprojectexe
+    left = 16
+    top = 144
   end
 end

@@ -30,9 +30,11 @@ object consolefo: tconsolefo
     datacols.items = <    
       item
         width = 1000
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'term'
         dataclass = tgridrichstringdatalist
       end>
+    datarowlinewidth = 0
     datarowheight = 14
     reffontheight = 14
     object term: tterminal
@@ -44,11 +46,13 @@ object consolefo: tconsolefo
       bounds_y = 0
       bounds_cx = 1000
       bounds_cy = 14
+      optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       font.name = 'stf_fixed'
       font.xscale = 1
       font.dummy = 0
       maxchars = 120
       oninputpipebroken = inputbrokenexe
+      options = [teo_readonly]
       reffontheight = 14
     end
   end

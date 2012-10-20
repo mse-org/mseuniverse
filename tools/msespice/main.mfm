@@ -22,7 +22,7 @@ object mainfo: tmainfo
     menu.submenu.count = 4
     menu.submenu.items = <    
       item
-        submenu.count = 6
+        submenu.count = 7
         submenu.items = <        
           item
             action = mainmo.newprojectact
@@ -31,7 +31,10 @@ object mainfo: tmainfo
             action = mainmo.openprojectact
           end        
           item
-            action = mainmo.saveasact
+            action = mainmo.saveprojectact
+          end        
+          item
+            action = mainmo.saveprojectasact
           end        
           item
             action = mainmo.closeprojectact
@@ -117,7 +120,6 @@ object mainfo: tmainfo
   object panelsta: tstatfile
     filename = 'panelfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    onstatbeforeread = befre
     left = 16
     top = 48
   end

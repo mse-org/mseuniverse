@@ -51,23 +51,27 @@ type
    projectfiledialog: tfiledialog;
    newprojectact: taction;
    closeprojectact: taction;
-   saveasact: taction;
+   saveprojectasact: taction;
    tmseprocess1: tmseprocess;
    simustartact: taction;
    simustopact: taction;
    projectmainstat: tstatfile;
+   saveprojectact: taction;
    procedure getobjexe(const sender: TObject; var aobject: TObject);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
    procedure openprojectexe(const sender: TObject);
    procedure newprojectactexe(const sender: TObject);
    procedure closeprojectexe(const sender: TObject);
-   procedure saveasexe(const sender: TObject);
+   procedure saveprojectasexe(const sender: TObject);
    procedure simustartexe(const sender: TObject);
    procedure simustopexe(const sender: TObject);
    procedure projreadexe(const sender: TObject; const reader: tstatreader);
    procedure projwriteexe(const sender: TObject; const writer: tstatwriter);
    procedure createexe(const sender: TObject);
+   procedure saveprojectexe(const sender: TObject);
+   procedure mainbefre(const sender: TObject);
+   procedure projectbefre(const sender: TObject);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -204,7 +208,8 @@ procedure tmainmo.updateprojectstate;
 begin
  closeprojectact.enabled:= projectloaded; 
  optionsact.enabled:= projectloaded;
- saveasact.enabled:= projectloaded;
+ saveprojectasact.enabled:= projectloaded;
+ saveprojectact.enabled:= projectloaded;
  simustopact.enabled:= simurunning;
  simustartact.enabled:= projectloaded and not simurunning;
  
@@ -216,12 +221,18 @@ begin
  end;
 end;
 
-procedure tmainmo.saveasexe(const sender: TObject);
+procedure tmainmo.saveprojectexe(const sender: TObject);
+begin
+ projectstat.writestat;
+end;
+
+procedure tmainmo.saveprojectasexe(const sender: TObject);
 begin
  with projectfiledialog do begin
+  controller.filename:= projectmainstat.filename;
   if execute(fdk_save) = mr_ok then begin
-   projectstat.filename:= controller.filename;
-   projectstat.writestat;
+   projectmainstat.filename:= controller.filename;
+   projectmainstat.writestat;
    updateprojectstate;
   end;
  end;
@@ -229,15 +240,15 @@ end;
 
 procedure tmainmo.simustartexe(const sender: TObject);
 var
- fna1: filenamety;
+// fna1: filenamety;
  stream1: ttextstream;
  stream2: ttextstream = nil;
  int1: integer;
  str1: string;
  lstr1: lstringty;
 begin
- frawname:= replacefileext(projectstat.filename,'raw');
- finpname:= replacefileext(projectstat.filename,'tmp');
+ frawname:= replacefileext(projectmainstat.filename,'raw');
+ finpname:= replacefileext(projectmainstat.filename,'tmp');
  deletefile(frawname);
  stream1:= ttextstream.create(fprojectoptions.netlist,fm_read);
  try
@@ -313,6 +324,14 @@ end;
 procedure tmainmo.createexe(const sender: TObject);
 begin
  formatmacros.add(['REAL'],[realformat]);
+end;
+
+procedure tmainmo.mainbefre(const sender: TObject);
+begin
+end;
+
+procedure tmainmo.projectbefre(const sender: TObject);
+begin
 end;
 
 end.
