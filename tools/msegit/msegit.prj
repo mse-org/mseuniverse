@@ -549,14 +549,14 @@ envvarons=0
 windowlayout=595
  [mainfo.projectfiledia]
  filenames=1
-  /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
- lastdir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/
+  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
+ lastdir=/home/mse/packs/standard/git/mseuniverse/tools/msegit/
  filehistory=10
-  /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
+  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
   /home/mse/packs/standard/git/mseuniverse/tools/msegit/msegit.prj
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
   /home/mse/proj/test3/test3.prj
   /home/mse/packs/standard/git/mseuniverse/tools/msespice/mse_msespice.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
   /home/mse/proj/msegui/testcase/ivankob/noparams7/noparams/noparms.prj
   /home/mse/proj/msegui/testcase/liuzg/bug1/bug/fff.prj
   /home/mse/packs/standard/git/mseuniverse/tools/msegit/passwordenter/msegitpw.prj
@@ -623,7 +623,7 @@ windowlayout=595
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [threadsfo]
  splitdir=0
@@ -646,7 +646,7 @@ windowlayout=595
  [memoryfo]
  splitdir=0
  useroptions=16507
- stackedunder=breakpointsfo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -659,7 +659,7 @@ windowlayout=595
  cy=354
  rcx=0
  rcy=0
- wsize=3
+ wsize=0
  active=0
  visible=0
  [memoryfo.add]
@@ -673,7 +673,7 @@ windowlayout=595
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=mainfo
+ stackedunder=watchpointsfo
  parent=
  mdistate=0
  nx=0
@@ -708,7 +708,7 @@ windowlayout=595
  [projecttreefo]
  splitdir=0
  useroptions=16491
- stackedunder=componentstorefo
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -824,7 +824,7 @@ windowlayout=595
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=memoryfo
+ stackedunder=breakpointsfo
  parent=
  mdistate=0
  nx=0
@@ -837,7 +837,7 @@ windowlayout=595
  cy=484
  rcx=0
  rcy=0
- wsize=3
+ wsize=0
  active=0
  visible=0
  [objectinspectorfo.grid]
@@ -1107,7 +1107,7 @@ windowlayout=595
  [mainfo.panel1]
  splitdir=2
  useroptions=33586667
- stackedunder=
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -1121,7 +1121,7 @@ windowlayout=595
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [mainfo.panel2]
  splitdir=2

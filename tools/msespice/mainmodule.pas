@@ -262,7 +262,11 @@ begin
    stream2.writeln(str1);
   end;
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
-   stream2.writeln(tplotpagefo(plotsfo.tabs[int1]).getplotstatement);
+   with tplotpagefo(plotsfo.tabs[int1]) do begin
+    if plotactive.value then begin
+     stream2.writeln(getplotstatement);
+    end;
+   end;
   end;
   stream2.writeln('.END');
  finally
@@ -298,8 +302,10 @@ begin
   else begin
    try
     fspice.readdata(stream1);
+    plotsfo.updatecharts(fspice.plots);
    finally
     stream1.free;
+    updateprojectstate;
    end;
   end;
  end

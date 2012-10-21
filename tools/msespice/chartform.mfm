@@ -1,0 +1,47 @@
+object chartfo: tchartfo
+  frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton]
+  frame.dummy = 0
+  visible = False
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 445
+  bounds_cy = 354
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional]
+  options = [fo_savepos, fo_savezorder, fo_savestate]
+  statfile = mainfo.panelsta
+  moduleclassname = 'tdockform'
+  object chart: tchart
+    frame.zoomwidthstep = 1
+    frame.zoomheightstep = 1
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    traces.xserstart = 0
+    traces.xstart = 0
+    traces.ystart = 0
+    traces.xrange = 1
+    traces.xserrange = 1
+    traces.yrange = 1
+    traces.image_widthmm = 0
+    traces.image_heighthmm = 0
+    xstart = 0
+    ystart = 0
+    xrange = 1
+    yrange = 1
+    xdials.start = 0
+    xdials.range = 1
+    ydials.start = 0
+    ydials.range = 1
+  end
+end

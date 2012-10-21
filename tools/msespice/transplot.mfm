@@ -1,7 +1,13 @@
 inherited transplotfo: ttransplotfo
   bounds_x = 69
   bounds_y = 433
-  bounds_cx = 365
+  bounds_cx = 505
+  container.bounds = (
+    0
+    0
+    505
+    100
+  )
   moduleclassname = 'tplotoptionsfo'
   object tstart: trealedit[0]
     frame.caption = 'Start (s)'
@@ -76,5 +82,21 @@ inherited transplotfo: ttransplotfo
     min = -Inf
     max = 1E+038
     reffontheight = 14
+  end
+  object uic: tbooleanedit[3]
+    frame.caption = 'Use initial conditions'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      118
+      2
+    )
+    taborder = 3
+    bounds_x = 352
+    bounds_y = 27
+    bounds_cx = 131
+    bounds_cy = 16
+    statfile = mainmo.projectstat
   end
 end

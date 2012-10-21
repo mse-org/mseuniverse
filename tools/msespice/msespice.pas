@@ -29,8 +29,6 @@ begin
  application.createdatamodule(tskinmo,skinmo);
  msebegingloballoading;
  application.createform(tmainfo,mainfo);
- application.removecomponent(mainfo);
- 
  application.createdatamodule(tmainmo,mainmo);
  application.createform(tconsolefo,consolefo);
  application.createform(tplotsfo,plotsfo);

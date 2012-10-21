@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msetabs,msedataedits,
  mseedit,mseifiglob,msestrings,msetypes,msewidgets,classes,plotoptions,
  msesplitter,msegrids,msewidgetgrid,msegraphedits,msesimplewidgets,
- mselistbrowser,msedatanodes,msememodialog,chartform;
+ mselistbrowser,msedatanodes,msememodialog,chartform,msengspice;
  
 type
 
@@ -48,6 +48,7 @@ type
    function getsavevalues: msestring;
    function chart: tchartfo;
    function haschart: boolean;
+   procedure loaddata(const adata: plotinfoty);
    property title: msestring read fvalue0;
  end;
 
@@ -56,9 +57,12 @@ type
  ttracenode = class(tplotnode)
   private
    fexpression: msestring;
+   fvaluekind: valuekindty;
   public
    procedure showchart; override;
    property expression: msestring read fvalue0;
+   property valuekind: valuekindty read fvaluekind write fvaluekind 
+                                                        default vk_mag;
  end;
  
  tplotpagefo = class(ttabform)
@@ -70,6 +74,7 @@ type
    plotactive: tbooleanedit;
    treeed: ttreeitemedit;
    value0: tmemodialogedit;
+   valuekind: tenumedit;
    procedure setnameexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
@@ -87,6 +92,8 @@ type
                    var acount: Integer);
    procedure rowmoveexe(const sender: tcustomgrid; var fromindex: Integer;
                    var toindex: Integer; var acount: Integer);
+   procedure valuekindsetexe(const sender: TObject; var avalue: Integer;
+                   var accept: Boolean);
   private
    fplot: tplotoptionsfo;
    fnameindex: integer;
@@ -104,7 +111,7 @@ type
  
 implementation
 uses
- plotpage_mfm,dcplot,acplot,transplot,sysutils,mseeditglob;
+ plotpage_mfm,dcplot,acplot,transplot,sysutils,mseeditglob,msechart;
 
 const
  plotclasses: array[0..2] of plotsfoclassty = (
@@ -200,6 +207,30 @@ begin
  result:= fchart <> nil;
 end;
 
+procedure tchartnode.loaddata(const adata: plotinfoty);
+var
+ int1: integer;
+begin
+ with chart.chart do begin
+  traces.count:= count;
+  for int1:= 0 to count-1 do begin
+   if int1 >= high(adata.data) then begin
+    clear;
+   end
+   else begin
+    with traces[int1],ttracenode(items[int1]) do begin
+     kind:= trk_xy;
+     options:= options + [cto_xordered];
+     xdata:= getplotvalues(adata,0,vk_mag);
+     ydata:= getplotvalues(adata,int1+1,valuekind);
+    end;
+   end;
+  end;
+  autoscalex;
+  autoscaley;
+ end;
+end;
+
 { ttracenode }
 
 procedure ttracenode.showchart;
@@ -278,12 +309,27 @@ procedure tplotpagefo.updaterowvalueexe(const sender: TObject;
                const aindex: Integer; const aitem: tlistitem);
 begin
  value0[aindex]:= tplotnode(aitem).value0;
+ if aitem is ttracenode then begin
+  valuekind[aindex]:= ord(ttracenode(aitem).valuekind);
+  tracegrid.datacols.unmergecols(aindex);
+ end
+ else begin
+  tracegrid.datacols.mergecols(aindex,1,1);
+ end;
 end;
 
 procedure tplotpagefo.value0setexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
  tplotnode(treeed.item).value0:= avalue;
+end;
+
+procedure tplotpagefo.valuekindsetexe(const sender: TObject;
+               var avalue: Integer; var accept: Boolean);
+begin
+ if treeed.item is ttracenode then begin
+  ttracenode(treeed.item).valuekind:= valuekindty(avalue);
+ end;
 end;
 
 procedure tplotpagefo.celleventexe(const sender: TObject;

@@ -23,7 +23,8 @@ uses
  sysutils,msestream,msestrings,msetypes;
  
 type
- espice = exception;
+ espice = class(exception)
+ end;
  
  simuoptionsty = record
  end;
@@ -34,6 +35,7 @@ type
  end;
 
  flagsty = (fl_unknown,fl_real,fl_complex);
+ valuekindty = (vk_mag,vk_ph,vk_re,vk_im);
  
  dataty = record
   real: realarty;
@@ -66,6 +68,7 @@ type
   public
    procedure readdata(const astream: ttextstream);
    procedure reset;
+   property plots: plotinfoarty read fplots;
    function plotcount: integer;
    property title[index: integer]: msestring read gettitle;
    property date[index: integer]: msestring read getdate;
@@ -75,10 +78,12 @@ type
  end;
   
 function simuoptionstospice(const aoptions:  simuoptionsty): string;
+function getplotvalues(const ainfo: plotinfoty; const aindex: integer;
+                                  const valuekind: valuekindty): realarty;
 
 implementation
 uses
- mseformatstr,msearrayutils;
+ mseformatstr,msearrayutils,math;
  
 type
  infokindty = (ik_unknown,ik_title,ik_date,ik_plotname,ik_flags,
@@ -136,6 +141,64 @@ begin
   end;
  end;
 end;
+
+function getplotvalues(const ainfo: plotinfoty; const aindex: integer;
+                                     const valuekind: valuekindty): realarty;
+var
+ int1: integer;
+ 
+begin
+ checkarrayindex(ainfo.data,aindex);
+ with ainfo.data[aindex] do begin
+  if complex <> nil then begin
+   setlength(result,length(complex));
+   case valuekind of
+    vk_mag: begin
+     for int1:= 0 to high(result) do begin
+      with complex[int1] do begin
+       result[int1]:= sqrt(re*re+im*im);
+      end;
+     end;
+    end;
+    vk_ph: begin
+     for int1:= 0 to high(result) do begin
+      with complex[int1] do begin
+       if abs(re) > abs(im) then begin
+        result[int1]:= arcsin(im/re);
+       end
+       else begin
+        if im = 0 then begin
+         result[int1]:= 0;
+        end
+        else begin
+         result[int1]:= arccos(re/im);
+        end;
+       end;
+      end;
+     end;
+    end;
+    vk_re: begin
+     for int1:= 0 to high(result) do begin
+      with complex[int1] do begin
+       result[int1]:= re;
+      end;
+     end;
+    end;
+    vk_im: begin
+     for int1:= 0 to high(result) do begin
+      with complex[int1] do begin
+       result[int1]:= im;
+      end;
+     end;
+    end;
+   end;
+  end
+  else begin
+   result:= real;
+  end;   
+ end;
+end;
+
 
 { tngspice }
 
@@ -198,7 +261,7 @@ begin
        while (astream.bufpo <> nil) and (astream.bufpo^ = c_tab) do begin
         astream.readln(str1);
         ar1:= splitstring(str1,c_tab);
-        if length(ar1) = 4 then begin
+        if length(ar1) >= 4 then begin
          if trystrtoint(ar1[1],int2) and (int2 = int1) then begin
           setlength(vars,int1+1);
           with vars[int1] do begin
@@ -215,6 +278,9 @@ begin
       end;
       ik_binary: begin
        int1:= nvars*npoints*sizeof(double);  //todo: dimensions
+       if flags = fl_complex then begin
+        int1:= int1*2;
+       end;
        getmem(po2,int1);
        try
         if astream.read(po2^,int1) <> int1 then begin
@@ -322,7 +388,7 @@ end;
 
 procedure tngspice.loaderror(const message: string);
 begin
- raise espice(message);
+ raise espice.create(message);
 end;
 
 end.

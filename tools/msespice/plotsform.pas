@@ -20,7 +20,8 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msescrollbar,
- msestatfile,msestream,msestrings,msetabs,msewidgets,sysutils,msetypes;
+ msestatfile,msestream,msestrings,msetabs,msewidgets,sysutils,msetypes,
+ msengspice;
 
 type
  tplotsfo = class(tdockform)
@@ -36,6 +37,7 @@ type
   public
    procedure readstat(const areader: tstatreader);
    procedure writestat(const awriter: tstatwriter);
+   procedure updatecharts(const aplots: plotinfoarty);
  end;
 var
  plotsfo: tplotsfo;
@@ -138,6 +140,37 @@ end;
 procedure tplotsfo.popupupdateexe(const sender: tcustommenu);
 begin
  sender.menu.itembyname('del').enabled:= tabs.activepageindex >= 0;
+end;
+
+procedure tplotsfo.updatecharts(const aplots: plotinfoarty);
+var
+ int1,int2,int3: integer;
+begin
+ int2:= 0;
+ for int1:= 0 to tabs.count - 1 do begin
+  with tplotpagefo(tabs[int1]) do begin
+   if plotactive.value and (int2 <= high(aplots)) then begin
+    for int3:= 0 to tracegrid.rowhigh do begin
+     if treeed[int3] is tchartnode then begin
+      if int2 <= high(aplots) then begin
+       tchartnode(treeed[int3]).loaddata(aplots[int2]);
+       inc(int2);
+      end
+      else begin
+       tchartnode(treeed[int3]).chart.clear;
+      end;
+     end;
+    end;
+   end
+   else begin
+    for int3:= 0 to tracegrid.rowhigh do begin
+     if treeed[int3] is tchartnode then begin
+      tchartnode(treeed[int3]).chart.clear;
+     end;
+    end;
+   end;
+  end;
+ end;
 end;
 
 end.

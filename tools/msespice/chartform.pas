@@ -14,45 +14,30 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit transplot;
+unit chartform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,mseforms,plotoptions,
- msedataedits,mseedit,mseifiglob,msestrings,msetypes,msegraphedits;
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msechart,
+ msengspice;
+
 type
- ttransplotfo = class(tplotoptionsfo)
-   tstart: trealedit;
-   tlen: trealedit;
-   minstep: trealedit;
-   uic: tbooleanedit;
+ tchartfo = class(tdockform)
+   chart: tchart;
   public
-   function getplotstatement: string; override;
-   function getxvalue: string; override;
+   procedure clear;
  end;
- 
+
 implementation
 uses
- transplot_mfm,msefloattostr;
- 
-{ ttransplotfo }
+ chartform_mfm;
 
-function ttransplotfo.getplotstatement: string;
-begin
- result:= '.TRAN 1 '+doubletostring(tstart.value+tlen.value)+' '+
-                      doubletostring(tstart.value);
- if minstep.value <> emptyreal then begin
-  result:= result+' '+doubletostring(minstep.value)
- end;
- if uic.value then begin
-  result:= result + ' uic';
- end;
-end;
+{ tchartfo }
 
-function ttransplotfo.getxvalue: string;
+procedure tchartfo.clear;
 begin
- result:= 'T';
+ chart.clear;
 end;
 
 end.
