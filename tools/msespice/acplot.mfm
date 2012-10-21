@@ -22,7 +22,7 @@ inherited acplotfo: tacplotfo
     bounds_y = 7
     bounds_cx = 108
     bounds_cy = 37
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     onsetvalue = setstopexe
     value = 10
     valuedefault = -Inf
@@ -48,7 +48,7 @@ inherited acplotfo: tacplotfo
     bounds_y = 7
     bounds_cx = 108
     bounds_cy = 37
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     onsetvalue = setstartexe
     value = 1
     valuedefault = -Inf
@@ -73,7 +73,7 @@ inherited acplotfo: tacplotfo
     bounds_y = 7
     bounds_cx = 76
     bounds_cy = 37
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     value = 0
     min = 0
     max = 2
@@ -102,7 +102,7 @@ inherited acplotfo: tacplotfo
     bounds_y = 7
     bounds_cx = 63
     bounds_cy = 37
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     value = 10
     min = 1
     max = 100000

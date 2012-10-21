@@ -20,11 +20,19 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msechart,
- msengspice;
+ msengspice,msesplitter,msedataedits,mseedit,mseifiglob,msestrings,msetypes,
+ msesimplewidgets,msewidgets,msegraphedits,mserealsumedit,msegrids,msewidgetgrid;
 
 type
  tchartfo = class(tdockform)
    chart: tchart;
+   tsplitter1: tsplitter;
+   tscrollbox1: tscrollbox;
+   scalesgrid: twidgetgrid;
+   start: trealsumedit;
+   range: trealsumedit;
+   autoscale: tbooleanedit;
+   expdisp: tstringedit;
   public
    procedure clear;
  end;

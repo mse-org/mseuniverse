@@ -35,7 +35,7 @@ type
  end;
 
  flagsty = (fl_unknown,fl_real,fl_complex);
- valuekindty = (vk_mag,vk_ph,vk_re,vk_im);
+ valuekindty = (vk_def,vk_mag,vk_ph,vk_re,vk_im);
  
  dataty = record
   real: realarty;
@@ -153,7 +153,7 @@ begin
   if complex <> nil then begin
    setlength(result,length(complex));
    case valuekind of
-    vk_mag: begin
+    vk_mag,vk_def: begin
      for int1:= 0 to high(result) do begin
       with complex[int1] do begin
        result[int1]:= sqrt(re*re+im*im);

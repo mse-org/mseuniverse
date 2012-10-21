@@ -22,7 +22,7 @@ inherited transplotfo: ttransplotfo
     bounds_y = 7
     bounds_cx = 108
     bounds_cy = 37
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     value = 0
     valuedefault = -Inf
     formatedit = '${REAL}'
@@ -47,7 +47,7 @@ inherited transplotfo: ttransplotfo
     bounds_y = 7
     bounds_cx = 108
     bounds_cy = 37
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     value = 0
     valuedefault = -Inf
     formatedit = '${REAL}'
@@ -72,7 +72,7 @@ inherited transplotfo: ttransplotfo
     bounds_y = 7
     bounds_cx = 108
     bounds_cy = 37
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     value = -Inf
     valuedefault = -Inf
     formatedit = '${REAL}'
@@ -97,6 +97,6 @@ inherited transplotfo: ttransplotfo
     bounds_y = 27
     bounds_cx = 131
     bounds_cy = 16
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
   end
 end

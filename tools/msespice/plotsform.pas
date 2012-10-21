@@ -80,9 +80,7 @@ begin
    ar1:= chartnodes;
    for int2:= 0 to high(ar1) do begin
     with ar1[int2] do begin
-     if haschart then begin
-      chart.name:= str1+inttostr(int2);
-     end;
+     chart.name:= str1+inttostr(int2);
     end;
    end;
    resetnameindex;
@@ -153,7 +151,7 @@ begin
     for int3:= 0 to tracegrid.rowhigh do begin
      if treeed[int3] is tchartnode then begin
       if int2 <= high(aplots) then begin
-       tchartnode(treeed[int3]).loaddata(aplots[int2]);
+       tchartnode(treeed[int3]).loaddata(aplots[int2],plot.getxvalue);
        inc(int2);
       end
       else begin

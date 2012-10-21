@@ -25,7 +25,7 @@ object plotpagefo: tplotpagefo
     bounds_y = 7
     bounds_cx = 116
     bounds_cy = 37
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     value = 'Default'
     onsetvalue = setnameexe
     reffontheight = 14
@@ -43,7 +43,7 @@ object plotpagefo: tplotpagefo
     bounds_y = 7
     bounds_cx = 180
     bounds_cy = 37
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     onsetvalue = kindsetexe
     dropdown.cols.count = 2
     dropdown.cols.items = <    
@@ -91,7 +91,7 @@ object plotpagefo: tplotpagefo
     options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
     linktop = plotcont
     linkbottom = tracegrid
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
   end
   object tracegrid: twidgetgrid
     taborder = 4
@@ -139,7 +139,7 @@ object plotpagefo: tplotpagefo
         dataclass = tgridenumdatalist
       end>
     datarowheight = 16
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     onrowsmoving = rowmoveexe
     onrowsinserting = rowinsertexe
     onrowsdeleting = rowdeleteexe
@@ -194,12 +194,13 @@ object plotpagefo: tplotpagefo
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       value = 0
       min = 0
-      max = 3
+      max = 4
       onsetvalue = valuekindsetexe
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item
           data = (
+            'def'
             'mag'
             'ph'
             're'
@@ -223,7 +224,7 @@ object plotpagefo: tplotpagefo
     bounds_y = 26
     bounds_cx = 47
     bounds_cy = 16
-    statfile = mainmo.projectstat
+    statfile = mainmo.projectstat1
     value = True
   end
 end

@@ -6,14 +6,14 @@ object chartfo: tchartfo
   bounds_x = 100
   bounds_y = 100
   bounds_cx = 445
-  bounds_cy = 354
+  bounds_cy = 409
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
     435
-    354
+    409
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional]
   options = [fo_savepos, fo_savezorder, fo_savestate]
@@ -25,8 +25,8 @@ object chartfo: tchartfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
-    bounds_cy = 354
-    anchors = []
+    bounds_cy = 296
+    anchors = [an_top]
     traces.xserstart = 0
     traces.xstart = 0
     traces.ystart = 0
@@ -43,5 +43,144 @@ object chartfo: tchartfo
     xdials.range = 1
     ydials.start = 0
     ydials.range = 1
+  end
+  object tsplitter1: tsplitter
+    optionswidget = [ow_destroywidgets]
+    color = -1879048189
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 296
+    bounds_cx = 435
+    bounds_cy = 3
+    anchors = [an_bottom]
+    options = [spo_vmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linktop = chart
+    linkbottom = tscrollbox1
+    statfile = mainmo.projectstat2
+  end
+  object tscrollbox1: tscrollbox
+    frame.zoomwidthstep = 1
+    frame.zoomheightstep = 1
+    taborder = 2
+    bounds_x = 0
+    bounds_y = 299
+    bounds_cx = 435
+    bounds_cy = 111
+    anchors = [an_bottom]
+    object scalesgrid: twidgetgrid
+      bounds_x = 0
+      bounds_y = 1
+      bounds_cx = 435
+      bounds_cy = 108
+      anchors = [an_top, an_bottom]
+      optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+      fixrows.count = 1
+      fixrows.items = <      
+        item
+          height = 16
+          captions.count = 4
+          captions.items = <          
+            item
+              caption = 'Expression'
+            end          
+            item
+              caption = 'Start'
+            end          
+            item
+              caption = 'Range'
+            end          
+            item
+              caption = 'A'
+            end>
+        end>
+      datacols.count = 4
+      datacols.items = <      
+        item
+          color = -1879048185
+          width = 106
+          options = [co_savestate, co_mousescrollrow]
+          widgetname = 'expdisp'
+          dataclass = tgridmsestringdatalist
+        end      
+        item
+          width = 82
+          widgetname = 'start'
+          dataclass = tgridrealsumlist
+        end      
+        item
+          width = 69
+          widgetname = 'range'
+          dataclass = tgridrealsumlist
+        end      
+        item
+          width = 15
+          options = [co_drawfocus, co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+          widgetname = 'autoscale'
+          dataclass = tgridintegerdatalist
+        end>
+      datarowheight = 16
+      statfile = mainmo.projectstat2
+      reffontheight = 14
+      object start: trealsumedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 1
+        visible = False
+        bounds_x = 107
+        bounds_y = 0
+        bounds_cx = 82
+        bounds_cy = 16
+        value = 0
+        valuedefault = -Inf
+        formatedit = '${REAL}'
+        formatdisp = '${REAL}'
+        valuerange = 1
+        valuestart = 0
+        min = -1E+038
+        max = 1E+038
+        reffontheight = 14
+      end
+      object range: trealsumedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 2
+        visible = False
+        bounds_x = 190
+        bounds_y = 0
+        bounds_cx = 69
+        bounds_cy = 16
+        value = 1
+        valuedefault = -Inf
+        formatedit = '${REAL}'
+        formatdisp = '${REAL}'
+        valuerange = 1
+        valuestart = 0
+        min = -1E+038
+        max = 1E+038
+        reffontheight = 14
+      end
+      object autoscale: tbooleanedit
+        optionswidget1 = []
+        optionsskin = [osk_framebuttononly]
+        taborder = 3
+        bounds_x = 260
+        bounds_y = 0
+        bounds_cx = 15
+        bounds_cy = 16
+        visible = False
+      end
+      object expdisp: tstringedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 4
+        visible = False
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 106
+        bounds_cy = 16
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
+        reffontheight = 14
+      end
+    end
   end
 end

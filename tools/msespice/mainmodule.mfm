@@ -14,13 +14,13 @@ object mainmo: tmainmo
     top = 96
   end
   object projectoptionscomp: tguirttistat
-    statfile = projectstat
+    statfile = projectstat1
     ongetobject = getoptionsobjexe
     options = [rso_autowritestat]
     left = 16
     top = 16
   end
-  object projectstat: tstatfile
+  object projectstat1: tstatfile
     onstatread = projreadexe
     onstatwrite = projwriteexe
     left = 152
@@ -35,7 +35,6 @@ object mainmo: tmainmo
   object mainstat: tstatfile
     filename = '^/.msetools/msespice.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    onstatbeforeread = mainbefre
     left = 320
     top = 16
   end
@@ -101,7 +100,6 @@ object mainmo: tmainmo
     filename = 'default.msp'
     statfile = mainstat
     savedmemoryfiles = '*fo.sta'
-    onstatbeforeread = projectbefre
     left = 152
     top = 16
   end
@@ -110,5 +108,14 @@ object mainmo: tmainmo
     onexecute = saveprojectexe
     left = 16
     top = 144
+  end
+  object projectstat2: tstatfile
+    left = 152
+    top = 64
+  end
+  object tactivator1: tactivator
+    clients = 0
+    left = 184
+    top = 168
   end
 end

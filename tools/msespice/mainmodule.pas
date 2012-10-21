@@ -45,7 +45,7 @@ type
  tmainmo = class(tmsedatamodule)
    optionsact: taction;
    projectoptionscomp: tguirttistat;
-   projectstat: tstatfile;
+   projectstat1: tstatfile;
    openprojectact: taction;
    mainstat: tstatfile;
    projectfiledialog: tfiledialog;
@@ -57,6 +57,8 @@ type
    simustopact: taction;
    projectmainstat: tstatfile;
    saveprojectact: taction;
+   projectstat2: tstatfile;
+   tactivator1: tactivator;
    procedure getobjexe(const sender: TObject; var aobject: TObject);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -70,8 +72,6 @@ type
    procedure projwriteexe(const sender: TObject; const writer: tstatwriter);
    procedure createexe(const sender: TObject);
    procedure saveprojectexe(const sender: TObject);
-   procedure mainbefre(const sender: TObject);
-   procedure projectbefre(const sender: TObject);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -196,8 +196,8 @@ begin
  if closeproject then begin
   with projectfiledialog do begin
    if execute(fdk_new) = mr_ok then begin
-    projectstat.filename:= controller.filename;
-    projectstat.writestat;
+    projectmainstat.filename:= controller.filename;
+    projectmainstat.writestat;
    end;
   end;
   updateprojectstate;
@@ -214,7 +214,7 @@ begin
  simustartact.enabled:= projectloaded and not simurunning;
  
  if projectloaded then begin
-  mainfo.caption:= 'MSEspice '+filename(projectstat.filename);
+  mainfo.caption:= 'MSEspice '+filename(projectmainstat.filename);
  end
  else begin
   mainfo.caption:= 'MSEspice';
@@ -223,7 +223,7 @@ end;
 
 procedure tmainmo.saveprojectexe(const sender: TObject);
 begin
- projectstat.writestat;
+ projectmainstat.writestat;
 end;
 
 procedure tmainmo.saveprojectasexe(const sender: TObject);
@@ -330,14 +330,6 @@ end;
 procedure tmainmo.createexe(const sender: TObject);
 begin
  formatmacros.add(['REAL'],[realformat]);
-end;
-
-procedure tmainmo.mainbefre(const sender: TObject);
-begin
-end;
-
-procedure tmainmo.projectbefre(const sender: TObject);
-begin
 end;
 
 end.

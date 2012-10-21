@@ -43,12 +43,13 @@ type
   protected
    function createsubnode: ttreelistitem; override;
   public
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
    destructor destroy; override;
    procedure showchart; override;
    function getsavevalues: msestring;
-   function chart: tchartfo;
-   function haschart: boolean;
-   procedure loaddata(const adata: plotinfoty);
+   property chart: tchartfo read fchart;
+   procedure loaddata(const adata: plotinfoty; const xexpression: msestring);
    property title: msestring read fvalue0;
  end;
 
@@ -58,6 +59,9 @@ type
   private
    fexpression: msestring;
    fvaluekind: valuekindty;
+  protected
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
   public
    procedure showchart; override;
    property expression: msestring read fvalue0;
@@ -111,7 +115,7 @@ type
  
 implementation
 uses
- plotpage_mfm,dcplot,acplot,transplot,sysutils,mseeditglob,msechart;
+ plotpage_mfm,dcplot,acplot,transplot,sysutils,mseeditglob,msechart,plotsform;
 
 const
  plotclasses: array[0..2] of plotsfoclassty = (
@@ -165,6 +169,14 @@ end;
 
 { tchartnode }
 
+constructor tchartnode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;
+ fchart:= tchartfo.create(nil);
+// fchart.name:= '';
+end;
+
 destructor tchartnode.destroy;
 begin
  freeandnil(fchart);
@@ -194,40 +206,40 @@ begin
  chart.activate;
 end;
 
-function tchartnode.chart: tchartfo;
-begin
- if fchart = nil then begin
-  fchart:= tchartfo.create(nil);
- end;
- result:= fchart;
-end;
-
-function tchartnode.haschart: boolean;
-begin
- result:= fchart <> nil;
-end;
-
-procedure tchartnode.loaddata(const adata: plotinfoty);
+procedure tchartnode.loaddata(const adata: plotinfoty;
+                                   const xexpression: msestring);
 var
  int1: integer;
 begin
- with chart.chart do begin
-  traces.count:= count;
-  for int1:= 0 to count-1 do begin
-   if int1 >= high(adata.data) then begin
-    clear;
-   end
-   else begin
-    with traces[int1],ttracenode(items[int1]) do begin
-     kind:= trk_xy;
-     options:= options + [cto_xordered];
-     xdata:= getplotvalues(adata,0,vk_mag);
-     ydata:= getplotvalues(adata,int1+1,valuekind);
+ with chart do begin
+  scalesgrid.rowcount:= count+1;
+  expdisp[0]:= xexpression;
+  with chart do begin
+   traces.count:= count;
+   for int1:= 0 to count-1 do begin
+    if int1 >= high(adata.data) then begin
+     clear;
+     expdisp[int1+1]:= '';
+    end
+    else begin
+     with traces[int1],ttracenode(items[int1]) do begin
+      kind:= trk_xy;
+      options:= options + [cto_xordered];
+      xdata:= getplotvalues(adata,0,vk_mag);
+      ydata:= getplotvalues(adata,int1+1,valuekind);
+      expdisp[int1+1]:= value0;
+     end;
     end;
    end;
+   autoscalex;
+   autoscaley;
+   start[0]:= xstart;
+   range[0]:= xrange;
+   for int1:= 0 to count-1 do begin
+    start[int1+1]:= ystart;
+    range[int1+1]:= xstart;
+   end;
   end;
-  autoscalex;
-  autoscaley;
  end;
 end;
 
@@ -236,6 +248,18 @@ end;
 procedure ttracenode.showchart;
 begin
  tchartnode(parent).showchart;
+end;
+
+procedure ttracenode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ fvaluekind:= valuekindty(reader.readinteger('valuekind',0,0,4));
+end;
+
+procedure ttracenode.dostatwrite(const writer: tstatwriter);
+begin
+ inherited;
+ writer.writeinteger('valuekind',ord(fvaluekind));
 end;
 
  {tplotpagefo}
