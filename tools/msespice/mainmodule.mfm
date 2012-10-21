@@ -4,7 +4,7 @@ object mainmo: tmainmo
   statfile = mainstat
   oncreate = createexe
   left = 337
-  top = 475
+  top = 423
   moduleclassname = 'tmsedatamodule'
   object optionsact: taction
     caption = '&Options'
