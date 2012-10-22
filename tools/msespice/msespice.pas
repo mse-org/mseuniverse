@@ -23,10 +23,11 @@ program msespice;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
- msegui,mseforms,main,mainmodule,skinmodule,mseclasses,consoleform,
+ msegui,mseforms,main,mainmodule,guitemplates,mseclasses,consoleform,
  plotsform;
 begin
- application.createdatamodule(tskinmo,skinmo);
+// application.createdatamodule(tskinmo,skinmo);
+ application.createdatamodule(tguitemplatesmo,guitemplatesmo);
  msebegingloballoading;
  application.createform(tmainfo,mainfo);
  application.createdatamodule(tmainmo,mainmo);
