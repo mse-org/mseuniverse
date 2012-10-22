@@ -28,7 +28,7 @@ uses
 
 const
  ngspicename = 'ngspice';
- realformat = '0.#########g';
+ realformat = '0..######g';
  
 type
  tprojectoptions = class(toptionsclass)

@@ -58,15 +58,20 @@ type
  ttracenode = class(tplotnode)
   private
    fexpression: msestring;
-   fvaluekind: valuekindty;
+   fxvaluekind: valuekindty;
+   fyexpression: msestring;
+   fyvaluekind: valuekindty;
   protected
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
   public
    procedure showchart; override;
-   property expression: msestring read fvalue0;
-   property valuekind: valuekindty read fvaluekind write fvaluekind 
-                                                        default vk_mag;
+   property xexpression: msestring read fvalue0 write fvalue0;
+   property xvaluekind: valuekindty read fxvaluekind write fxvaluekind 
+                                                        default vk_def;
+   property yexpression: msestring read fyexpression write fyexpression;
+   property yvaluekind: valuekindty read fyvaluekind write fyvaluekind 
+                                                        default vk_def;
  end;
  
  tplotpagefo = class(ttabform)
@@ -78,7 +83,9 @@ type
    plotactive: tbooleanedit;
    treeed: ttreeitemedit;
    value0: tmemodialogedit;
-   valuekind: tenumedit;
+   xvaluekind: tenumedit;
+   yexpression: tmemodialogedit;
+   yvaluekind: tenumedit;
    procedure setnameexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
@@ -96,7 +103,11 @@ type
                    var acount: Integer);
    procedure rowmoveexe(const sender: tcustomgrid; var fromindex: Integer;
                    var toindex: Integer; var acount: Integer);
-   procedure valuekindsetexe(const sender: TObject; var avalue: Integer;
+   procedure xvaluekindsetexe(const sender: TObject; var avalue: Integer;
+                   var accept: Boolean);
+   procedure yexpressionsetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure yvaluekindsetexe(const sender: TObject; var avalue: Integer;
                    var accept: Boolean);
   private
    fplot: tplotoptionsfo;
@@ -115,7 +126,8 @@ type
  
 implementation
 uses
- plotpage_mfm,dcplot,acplot,transplot,sysutils,mseeditglob,msechart,plotsform;
+ plotpage_mfm,dcplot,acplot,transplot,sysutils,mseeditglob,msechart,plotsform,
+ msearrayutils;
 
 const
  plotclasses: array[0..2] of plotsfoclassty = (
@@ -186,13 +198,27 @@ end;
 function tchartnode.getsavevalues: msestring;
 var
  int1: integer;
+ ar1: msestringarty;
+ mstr1: msestring;
 begin
  result:= '';
  if count > 0 then begin
+  setlength(ar1,2*count);
   for int1:= 0 to count - 1 do begin
-   result:= result + ttracenode(fitems[int1]).expression + ' ';
+   with ttracenode(fitems[int1]) do begin
+    ar1[2*int1]:= mseuppercase(trim(xexpression));
+    ar1[2*int1+1]:= mseuppercase(trim(yexpression));
+   end;
   end;
-  setlength(result,length(result)-1);
+  sortarray(ar1);
+  mstr1:= '';
+  for int1:= 0 to high(ar1) do begin
+   if ar1[int1] <> mstr1 then begin
+    mstr1:= ar1[int1];
+    result:= result + mstr1 + ' ';
+   end;
+  end;
+  setlength(result,length(result)-1); //remove last space
  end;
 end;
 
@@ -212,33 +238,35 @@ var
  int1: integer;
 begin
  with chart do begin
-  scalesgrid.rowcount:= count+1;
-  expdisp[0]:= xexpression;
+  scalesgrid.rowcount:= count;
+//  expdisp[0]:= xexpression;
   with chart do begin
    traces.count:= count;
    for int1:= 0 to count-1 do begin
     if int1 >= high(adata.data) then begin
      clear;
-     expdisp[int1+1]:= '';
+     xexpdisp[int1]:= '';
+     yexpdisp[int1]:= '';
     end
     else begin
      with traces[int1],ttracenode(items[int1]) do begin
       kind:= trk_xy;
       options:= options + [cto_xordered];
-      xdata:= getplotvalues(adata,0,vk_mag);
-      ydata:= getplotvalues(adata,int1+1,valuekind);
-      expdisp[int1+1]:= value0;
+      xdata:= getplotvalues(adata,xexpression,xvaluekind);
+      ydata:= getplotvalues(adata,yexpression,yvaluekind);
+      xexpdisp[int1]:= xexpression;
+      yexpdisp[int1]:= yexpression;
      end;
     end;
    end;
    autoscalex;
    autoscaley;
-   start[0]:= xstart;
-   range[0]:= xrange;
-   for int1:= 0 to count-1 do begin
-    start[int1+1]:= ystart;
-    range[int1+1]:= xstart;
-   end;
+  end;
+  for int1:= 0 to count-1 do begin
+   xstart[int1]:= chart.xstart;
+   xrange[int1]:= chart.xrange;
+   ystart[int1]:= chart.ystart;
+   yrange[int1]:= chart.yrange;
   end;
  end;
 end;
@@ -253,13 +281,17 @@ end;
 procedure ttracenode.dostatread(const reader: tstatreader);
 begin
  inherited;
- fvaluekind:= valuekindty(reader.readinteger('valuekind',0,0,4));
+ fxvaluekind:= valuekindty(reader.readinteger('xvaluekind',0,0,4));
+ fyexpression:= reader.readmsestring('yexpression','');
+ fyvaluekind:= valuekindty(reader.readinteger('yvaluekind',0,0,4));
 end;
 
 procedure ttracenode.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
- writer.writeinteger('valuekind',ord(fvaluekind));
+ writer.writeinteger('xvaluekind',ord(fxvaluekind));
+ writer.writeinteger('yvaluekind',ord(fyvaluekind));
+ writer.writemsestring('yexpression',fyexpression);
 end;
 
  {tplotpagefo}
@@ -311,7 +343,7 @@ var
 begin
  result:= '';
  ar1:= chartnodes;
- str1:= '.SAVE '+ fplot.getxvalue;
+ str1:= '.SAVE '{+ fplot.getxvalue};
  if ar1 <> nil then begin
   for int1:= 0 to high(ar1) do begin
    str1:= str1 + ' ' + ar1[int1].getsavevalues;
@@ -334,11 +366,13 @@ procedure tplotpagefo.updaterowvalueexe(const sender: TObject;
 begin
  value0[aindex]:= tplotnode(aitem).value0;
  if aitem is ttracenode then begin
-  valuekind[aindex]:= ord(ttracenode(aitem).valuekind);
+  xvaluekind[aindex]:= ord(ttracenode(aitem).xvaluekind);
+  yvaluekind[aindex]:= ord(ttracenode(aitem).yvaluekind);
+  yexpression[aindex]:= ttracenode(aitem).yexpression;
   tracegrid.datacols.unmergecols(aindex);
  end
  else begin
-  tracegrid.datacols.mergecols(aindex,1,1);
+  tracegrid.datacols.mergecols(aindex,1,3);
  end;
 end;
 
@@ -348,13 +382,30 @@ begin
  tplotnode(treeed.item).value0:= avalue;
 end;
 
-procedure tplotpagefo.valuekindsetexe(const sender: TObject;
+procedure tplotpagefo.xvaluekindsetexe(const sender: TObject;
                var avalue: Integer; var accept: Boolean);
 begin
  if treeed.item is ttracenode then begin
-  ttracenode(treeed.item).valuekind:= valuekindty(avalue);
+  ttracenode(treeed.item).xvaluekind:= valuekindty(avalue);
  end;
 end;
+
+procedure tplotpagefo.yexpressionsetexe(const sender: TObject;
+               var avalue: msestring; var accept: Boolean);
+begin
+ if treeed.item is ttracenode then begin
+  ttracenode(treeed.item).yexpression:= avalue;
+ end;
+end;
+
+procedure tplotpagefo.yvaluekindsetexe(const sender: TObject;
+               var avalue: Integer; var accept: Boolean);
+begin
+ if treeed.item is ttracenode then begin
+  ttracenode(treeed.item).yvaluekind:= valuekindty(avalue);
+ end;
+end;
+
 
 procedure tplotpagefo.celleventexe(const sender: TObject;
                var info: celleventinfoty);

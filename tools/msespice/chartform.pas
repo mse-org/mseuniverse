@@ -29,10 +29,14 @@ type
    tsplitter1: tsplitter;
    tscrollbox1: tscrollbox;
    scalesgrid: twidgetgrid;
-   start: trealsumedit;
-   range: trealsumedit;
-   autoscale: tbooleanedit;
-   expdisp: tstringedit;
+   xstart: trealedit;
+   xrange: trealedit;
+   xautoscale: tbooleanedit;
+   xexpdisp: tstringedit;
+   yexpdisp: tstringedit;
+   ystart: trealedit;
+   yrange: trealedit;
+   yautoscale: tbooleanedit;
   public
    procedure clear;
  end;

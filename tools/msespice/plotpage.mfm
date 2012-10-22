@@ -100,42 +100,60 @@ object plotpagefo: tplotpagefo
     bounds_cx = 572
     bounds_cy = 72
     anchors = [an_top, an_bottom]
-    optionsgrid = [og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colmerged, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colmerged, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixrows.count = 1
     fixrows.items = <    
       item
         height = 16
-        captions.count = 3
+        captions.count = 5
         captions.items = <        
           item
             caption = 'Chart/Trace Name'
           end        
           item
-            caption = 'Chart Title / Trace Expression'
+            caption = 'X-Expression'
           end        
           item
-            caption = 'Value'
+            caption = 'X-Value'
+          end        
+          item
+            caption = 'Y-Expression'
+          end        
+          item
+            caption = 'Y-Value'
           end>
       end>
-    datacols.count = 3
+    datacols.count = 5
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
-        width = 196
-        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+        width = 123
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
         datalist.oncreateitem = createitemexe
       end    
       item
-        width = 319
-        options = [co_fill, co_savestate, co_mousescrollrow]
+        width = 252
+        options = [co_savestate, co_mousescrollrow]
         widgetname = 'value0'
         dataclass = tgridmsestringdatalist
       end    
       item
+        width = 44
+        options = [co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'xvaluekind'
+        dataclass = tgridenumdatalist
+      end    
+      item
+        width = 80
         options = [co_savestate, co_mousescrollrow]
-        widgetname = 'valuekind'
+        widgetname = 'yexpression'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        width = 39
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'yvaluekind'
         dataclass = tgridenumdatalist
       end>
     datarowheight = 16
@@ -155,7 +173,7 @@ object plotpagefo: tplotpagefo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 196
+      bounds_cx = 123
       bounds_cy = 16
       onupdaterowvalues = updaterowvalueexe
       reffontheight = 14
@@ -170,15 +188,15 @@ object plotpagefo: tplotpagefo
       frame.button.imagenr = 17
       taborder = 2
       visible = False
-      bounds_x = 197
+      bounds_x = 124
       bounds_y = 0
-      bounds_cx = 319
+      bounds_cx = 252
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       onsetvalue = value0setexe
       reffontheight = 14
     end
-    object valuekind: tenumedit
+    object xvaluekind: tenumedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
@@ -187,15 +205,64 @@ object plotpagefo: tplotpagefo
       frame.button.color = -1879048187
       taborder = 3
       visible = False
-      bounds_x = 517
+      bounds_x = 377
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 44
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       value = 0
       min = 0
       max = 4
-      onsetvalue = valuekindsetexe
+      onsetvalue = xvaluekindsetexe
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          data = (
+            'def'
+            'mag'
+            'ph'
+            're'
+            'im'
+          )
+        end>
+      reffontheight = 14
+    end
+    object yexpression: tmemodialogedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.color = -1879048187
+      frame.button.imagenr = 17
+      taborder = 4
+      visible = False
+      bounds_x = 422
+      bounds_y = 0
+      bounds_cx = 80
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      onsetvalue = yexpressionsetexe
+      reffontheight = 14
+    end
+    object yvaluekind: tenumedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.color = -1879048187
+      taborder = 5
+      visible = False
+      bounds_x = 503
+      bounds_y = 0
+      bounds_cx = 39
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      value = 0
+      min = 0
+      max = 4
+      onsetvalue = yvaluekindsetexe
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item

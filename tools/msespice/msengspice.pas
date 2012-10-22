@@ -32,6 +32,7 @@ type
  varinfoty = record
   expression: string;
   unitname: string;
+  expressionupper: msestring;
  end;
 
  flagsty = (fl_unknown,fl_real,fl_complex);
@@ -79,7 +80,9 @@ type
   
 function simuoptionstospice(const aoptions:  simuoptionsty): string;
 function getplotvalues(const ainfo: plotinfoty; const aindex: integer;
-                                  const valuekind: valuekindty): realarty;
+                            const valuekind: valuekindty): realarty; overload;
+function getplotvalues(const ainfo: plotinfoty; const aexpression: msestring;
+                            const valuekind: valuekindty): realarty; overload;
 
 implementation
 uses
@@ -199,6 +202,26 @@ begin
  end;
 end;
 
+function getplotvalues(const ainfo: plotinfoty; const aexpression: msestring;
+                            const valuekind: valuekindty): realarty; overload;
+var
+ mstr1: msestring;
+ int1: integer;
+begin
+ result:= nil;
+ mstr1:= mseuppercase(trim(aexpression));
+ if mstr1 = 'F' then begin
+  mstr1:= 'FREQUENCY';
+ end;
+ if mstr1 = 'T' then begin
+  mstr1:= 'TIME';
+ end;
+ for int1:= 0 to high(ainfo.vars) do begin
+  if ainfo.vars[int1].expressionupper = mstr1 then begin
+   result:= getplotvalues(ainfo,int1,valuekind);
+  end;
+ end;
+end;
 
 { tngspice }
 
@@ -266,6 +289,7 @@ begin
           setlength(vars,int1+1);
           with vars[int1] do begin
            expression:= ar1[2];
+           expressionupper:= mseuppercase(expression);
            unitname:= ar1[3];
           end;
           inc(int1);
