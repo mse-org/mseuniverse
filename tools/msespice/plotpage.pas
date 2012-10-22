@@ -268,6 +268,7 @@ begin
    ystart[int1]:= chart.ystart;
    yrange[int1]:= chart.yrange;
   end;
+  updatechart;
  end;
 end;
 

@@ -21,7 +21,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msechart,
  msengspice,msesplitter,msedataedits,mseedit,mseifiglob,msestrings,msetypes,
- msesimplewidgets,msewidgets,msegraphedits,mserealsumedit,msegrids,msewidgetgrid;
+ msesimplewidgets,msewidgets,msegraphedits,mserealsumedit,msegrids,
+ msewidgetgrid,msecolordialog,scalegridform;
 
 type
  tchartfo = class(tdockform)
@@ -29,16 +30,25 @@ type
    tsplitter1: tsplitter;
    tscrollbox1: tscrollbox;
    scalesgrid: twidgetgrid;
+   xexpdisp: tstringedit;
    xstart: trealedit;
    xrange: trealedit;
    xautoscale: tbooleanedit;
-   xexpdisp: tstringedit;
    yexpdisp: tstringedit;
    ystart: trealedit;
    yrange: trealedit;
    yautoscale: tbooleanedit;
+   tracecolor: tcoloredit;
+   tsplitter2: tsplitter;
+   tsimplewidget1: tsimplewidget;
+   tsplitter3: tsplitter;
+   xscalefo: tscalegridfo;
+   yscalefo: tscalegridfo;
+   procedure tracedataentered(const sender: TObject);
+  protected
   public
    procedure clear;
+   procedure updatechart;
  end;
 
 implementation
@@ -50,6 +60,25 @@ uses
 procedure tchartfo.clear;
 begin
  chart.clear;
+end;
+
+procedure tchartfo.updatechart;
+var
+ int1: integer;
+begin
+ for int1:= 0 to scalesgrid.rowhigh do begin
+  if int1 >= chart.traces.count then begin
+   break;
+  end;
+  with chart.traces[int1] do begin
+   color:= tracecolor[int1];
+  end;
+ end;
+end;
+
+procedure tchartfo.tracedataentered(const sender: TObject);
+begin
+ updatechart;
 end;
 
 end.
