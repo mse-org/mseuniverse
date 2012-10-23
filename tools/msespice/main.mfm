@@ -107,13 +107,16 @@ object mainfo: tmainfo
   object panelcontroller: tdockpanelformcontroller
     menu = tmainmenu1
     statfile = mainmo.projectmainstat
-    statfileclients.count = 2
+    statfileclients.count = 3
     statfileclients.items = <    
       item
         statfile = mainmo.projectstat1
       end    
       item
         statfile = mainmo.projectstat2
+      end    
+      item
+        statfile = mainmo.projectstat3
       end>
     statfileclient = panelsta
     menunamepath = 'view.panels'

@@ -59,6 +59,7 @@ type
    saveprojectact: taction;
    projectstat2: tstatfile;
    tactivator1: tactivator;
+   projectstat3: tstatfile;
    procedure getobjexe(const sender: TObject; var aobject: TObject);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);

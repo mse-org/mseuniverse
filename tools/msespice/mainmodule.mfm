@@ -118,4 +118,8 @@ object mainmo: tmainmo
     left = 184
     top = 168
   end
+  object projectstat3: tstatfile
+    left = 152
+    top = 88
+  end
 end

@@ -17,16 +17,20 @@ object chartfo: tchartfo
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional]
   options = [fo_savepos, fo_savezorder, fo_savestate]
-  statfile = mainfo.panelsta
+  statfile = mainmo.projectstat2
   moduleclassname = 'tdockform'
   object chart: tchart
     frame.zoomwidthstep = 1
     frame.zoomheightstep = 1
+    frame.framei_left = 1
+    frame.framei_top = 1
+    frame.localprops = [frl_firight, frl_fibottom]
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 621
     bounds_cy = 184
     anchors = [an_top]
+    optionschart = [oca_autofitleft, oca_autofittop, oca_autofitright, oca_autofitbottom]
     traces.count = 1
     traces.xserstart = 0
     traces.xstart = 0
@@ -54,6 +58,10 @@ object chartfo: tchartfo
     xdials.range = 1
     ydials.start = 0
     ydials.range = 1
+    fitframe_left = 1
+    fitframe_top = 1
+    fitframe_right = 1
+    fitframe_bottom = 1
   end
   object tsplitter1: tsplitter
     optionswidget = [ow_destroywidgets]
@@ -67,7 +75,7 @@ object chartfo: tchartfo
     options = [spo_vmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
     linktop = chart
     linkbottom = tscrollbox1
-    statfile = mainmo.projectstat2
+    statfile = mainmo.projectstat3
   end
   object tscrollbox1: tscrollbox
     frame.zoomwidthstep = 1
@@ -80,16 +88,16 @@ object chartfo: tchartfo
     anchors = [an_bottom]
     object scalesgrid: twidgetgrid
       bounds_x = 0
-      bounds_y = 5
+      bounds_y = 1
       bounds_cx = 621
-      bounds_cy = 88
-      anchors = [an_top, an_bottom]
+      bounds_cy = 92
+      anchors = [an_top]
       optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
       fixrows.count = 1
       fixrows.items = <      
         item
           height = 16
-          captions.count = 8
+          captions.count = 11
           captions.items = <          
             item
               caption = 'X-Expression'
@@ -105,6 +113,8 @@ object chartfo: tchartfo
               hint = 'X auto scale'
             end          
             item
+            end          
+            item
               caption = 'Y-Expression'
             end          
             item
@@ -116,9 +126,14 @@ object chartfo: tchartfo
             item
               caption = 'A'
               hint = 'Y auto scale'
+            end          
+            item
+            end          
+            item
+              caption = 'Color'
             end>
         end>
-      datacols.count = 9
+      datacols.count = 11
       datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
       datacols.items = <      
         item
@@ -147,6 +162,12 @@ object chartfo: tchartfo
           dataclass = tgridintegerdatalist
         end      
         item
+          width = 15
+          options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+          widgetname = 'xscalenum'
+          dataclass = tgridintegerdatalist
+        end      
+        item
           color = -1879048185
           width = 62
           options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
@@ -167,8 +188,14 @@ object chartfo: tchartfo
         end      
         item
           width = 17
-          options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
+          options = [co_drawfocus, co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
           widgetname = 'yautoscale'
+          dataclass = tgridintegerdatalist
+        end      
+        item
+          width = 18
+          options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+          widgetname = 'yscalenum'
           dataclass = tgridintegerdatalist
         end      
         item
@@ -248,7 +275,7 @@ object chartfo: tchartfo
         optionsskin = [osk_framebuttononly]
         taborder = 5
         visible = False
-        bounds_x = 244
+        bounds_x = 260
         bounds_y = 0
         bounds_cx = 62
         bounds_cy = 16
@@ -260,7 +287,7 @@ object chartfo: tchartfo
         optionsskin = [osk_framebuttononly]
         taborder = 6
         visible = False
-        bounds_x = 307
+        bounds_x = 323
         bounds_y = 0
         bounds_cx = 62
         bounds_cy = 16
@@ -280,7 +307,7 @@ object chartfo: tchartfo
         optionsskin = [osk_framebuttononly]
         taborder = 7
         visible = False
-        bounds_x = 370
+        bounds_x = 386
         bounds_y = 0
         bounds_cx = 62
         bounds_cy = 16
@@ -299,7 +326,7 @@ object chartfo: tchartfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 8
-        bounds_x = 433
+        bounds_x = 449
         bounds_y = 0
         bounds_cx = 17
         bounds_cy = 16
@@ -317,7 +344,7 @@ object chartfo: tchartfo
         frame.buttonellipse.imagenr = 17
         taborder = 9
         visible = False
-        bounds_x = 451
+        bounds_x = 486
         bounds_y = 0
         bounds_cx = 73
         bounds_cy = 16
@@ -326,6 +353,36 @@ object chartfo: tchartfo
         value = -1610612734
         valuedefault = -1610612734
         dropdown.options = [deo_autodropdown, deo_keydropdown]
+        reffontheight = 14
+      end
+      object xscalenum: tintegeredit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 10
+        visible = False
+        bounds_x = 244
+        bounds_y = 0
+        bounds_cx = 15
+        bounds_cy = 16
+        value = 1
+        valuedefault = 1
+        min = 1
+        max = 10
+        reffontheight = 14
+      end
+      object yscalenum: tintegeredit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 11
+        visible = False
+        bounds_x = 467
+        bounds_y = 0
+        bounds_cx = 18
+        bounds_cy = 16
+        value = 1
+        valuedefault = 1
+        min = 1
+        max = 10
         reffontheight = 14
       end
     end
@@ -341,7 +398,7 @@ object chartfo: tchartfo
       options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linktop = scalesgrid
       linkbottom = tsimplewidget1
-      statfile = mainmo.projectstat2
+      statfile = mainmo.projectstat3
     end
     object tsimplewidget1: tsimplewidget
       taborder = 2
@@ -363,7 +420,7 @@ object chartfo: tchartfo
         options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
         linkleft = xscalefo
         linkright = yscalefo
-        statfile = mainmo.projectstat2
+        statfile = mainmo.projectstat3
       end
       inline xscalefo: tscalegridfo
         taborder = 1
@@ -379,19 +436,47 @@ object chartfo: tchartfo
             end>
           fixrows.items = <          
             item
+              captions.items = <              
+                item
+                end              
+                item
+                end              
+                item
+                end              
+                item
+                end              
+                item
+                  caption = 'top'
+                end              
+                item
+                end>
             end>
           datacols.items = <          
             item
-              widgetname = 'log'
               dataclass = tgridintegerdatalist
             end          
             item
-              widgetname = 'maingridlinewidth'
-              dataclass = tgridrealsumlist
+              dataclass = tgridrealdatalist
+            end          
+            item
+              dataclass = tgridrealdatalist
+            end          
+            item
+              dataclass = tgridmsestringdatalist
+            end          
+            item
+              widgetname = 'oppos'
+              dataclass = tgridintegerdatalist
             end>
-          inherited log: tbooleanedit
+          inherited capt: tstringedit[0]
           end
-          inherited maingridlinewidth: trealsumedit
+          inherited log: tbooleanedit[1]
+          end
+          inherited intervalco: trealedit[2]
+          end
+          inherited maingridlinewidth: trealedit[3]
+          end
+          inherited oppos: tbooleanedit
           end
         end
       end
@@ -409,19 +494,47 @@ object chartfo: tchartfo
             end>
           fixrows.items = <          
             item
+              captions.items = <              
+                item
+                end              
+                item
+                end              
+                item
+                end              
+                item
+                end              
+                item
+                  caption = 'left'
+                end              
+                item
+                end>
             end>
           datacols.items = <          
             item
-              widgetname = 'log'
               dataclass = tgridintegerdatalist
             end          
             item
-              widgetname = 'maingridlinewidth'
-              dataclass = tgridrealsumlist
+              dataclass = tgridrealdatalist
+            end          
+            item
+              dataclass = tgridrealdatalist
+            end          
+            item
+              dataclass = tgridmsestringdatalist
+            end          
+            item
+              widgetname = 'oppos'
+              dataclass = tgridintegerdatalist
             end>
-          inherited log: tbooleanedit
+          inherited capt: tstringedit[0]
           end
-          inherited maingridlinewidth: trealsumedit
+          inherited log: tbooleanedit[1]
+          end
+          inherited intervalco: trealedit[2]
+          end
+          inherited maingridlinewidth: trealedit[3]
+          end
+          inherited oppos: tbooleanedit
           end
         end
       end

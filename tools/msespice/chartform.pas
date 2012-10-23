@@ -44,6 +44,8 @@ type
    tsplitter3: tsplitter;
    xscalefo: tscalegridfo;
    yscalefo: tscalegridfo;
+   xscalenum: tintegeredit;
+   yscalenum: tintegeredit;
    procedure tracedataentered(const sender: TObject);
   protected
   public
@@ -60,6 +62,8 @@ uses
 procedure tchartfo.clear;
 begin
  chart.clear;
+// chart.xdials.count:= 0;
+// chart.ydials.count:= 0;
 end;
 
 procedure tchartfo.updatechart;
@@ -74,6 +78,8 @@ begin
    color:= tracecolor[int1];
   end;
  end;
+ xscalefo.updatechart(chart,chart.xdials);
+ yscalefo.updatechart(chart,chart.ydials);
 end;
 
 procedure tchartfo.tracedataentered(const sender: TObject);

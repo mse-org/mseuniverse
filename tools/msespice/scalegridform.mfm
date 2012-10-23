@@ -11,7 +11,7 @@ object scalegridfo: tscalegridfo
     bounds_cx = 429
     bounds_cy = 155
     anchors = []
-    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autoappend, og_appendempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.width = 20
     fixcols.items = <    
@@ -24,19 +24,79 @@ object scalegridfo: tscalegridfo
     fixrows.items = <    
       item
         height = 16
+        captions.count = 6
+        captions.items = <        
+          item
+            caption = 'log'
+          end        
+          item
+            caption = 'div'
+          end        
+          item
+            caption = 'width'
+          end        
+          item
+            caption = 'caption'
+          end        
+          item
+          end        
+          item
+          end>
       end>
-    datacols.count = 2
+    rowcount = 1
+    datacols.count = 5
     datacols.items = <    
       item
+        width = 18
+        options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'log'
         dataclass = tgridintegerdatalist
+        data = (
+          (
+            0
+          )
+        )
+      end    
+      item
+        widgetname = 'intervalco'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            5
+          )
+        )
       end    
       item
         widgetname = 'maingridlinewidth'
-        dataclass = tgridrealsumlist
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            0.3
+          )
+        )
+      end    
+      item
+        widgetname = 'capt'
+        dataclass = tgridmsestringdatalist
+        data = (
+          (
+            '0..###g'
+          )
+        )
+      end    
+      item
+        width = 34
+        widgetname = 'oppos'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            0
+          )
+        )
       end>
     datarowheight = 16
     statfile = mainmo.projectstat2
+    onrowcountchanged = rowcountchangeexe
     reffontheight = 14
     object log: tbooleanedit
       optionswidget1 = []
@@ -44,26 +104,77 @@ object scalegridfo: tscalegridfo
       taborder = 1
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 18
       bounds_cy = 16
+      statfile = mainmo.projectstat2
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      ondataentered = dataenteredexe
       visible = False
     end
-    object maingridlinewidth: trealsumedit
+    object intervalco: trealedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 51
+      bounds_x = 19
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
-      value = 0
-      valuedefault = 0
+      statfile = mainmo.projectstat2
+      ondataentered = dataenteredexe
+      value = 5
+      valuedefault = 5
+      valuerange = 1
+      valuestart = 0
+      min = 1
+      max = 100
+      reffontheight = 14
+    end
+    object maingridlinewidth: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 70
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = mainmo.projectstat2
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      ondataentered = dataenteredexe
+      value = 0.3
+      valuedefault = 0.3
       valuerange = 1
       valuestart = 0
       min = 0
       max = 1
       reffontheight = 14
+    end
+    object capt: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 121
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = mainmo.projectstat2
+      ondataentered = dataenteredexe
+      value = '0..###g'
+      valuedefault = '0..###g'
+      reffontheight = 14
+    end
+    object oppos: tbooleanedit
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 5
+      bounds_x = 172
+      bounds_y = 0
+      bounds_cx = 34
+      bounds_cy = 16
+      ondataentered = dataenteredexe
+      visible = False
     end
   end
 end
