@@ -1,0 +1,139 @@
+object mainfo: tmainfo
+  bounds_x = 70
+  bounds_y = 240
+  bounds_cx = 558
+  bounds_cy = 373
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    558
+    373
+  )
+  caption = 'MSEgui Grid drag and drop'
+  moduleclassname = 'tmainform'
+  object tstringgrid1: tstringgrid
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 266
+    bounds_cy = 354
+    datacols.count = 2
+    datacols.width = 100
+    datacols.items = <    
+      item
+        width = 100
+        datalist.data = (
+          'A0'
+          'A1'
+          'A2'
+          'A3'
+          'A4'
+          'A5'
+          'A6'
+          'A7'
+          'A8'
+          'A9'
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        width = 100
+        datalist.data = (
+          'AA'
+          'BB'
+          'CC'
+          'DD'
+          'EE'
+          'FF'
+          'GG'
+          'HH'
+          'II'
+          'JJ'
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixcols.count = 1
+    fixcols.width = 20
+    fixcols.items = <    
+      item
+        width = 20
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    rowcount = 10
+    datarowheight = 16
+    drag.onbeforedragbegin = beforedragbeginexe
+    drag.onbeforedragover = beforedragoverexe
+    drag.onbeforedragdrop = beforedragdropexe
+    reffontheight = 14
+  end
+  object tstringgrid2: tstringgrid
+    taborder = 1
+    bounds_x = 280
+    bounds_y = 8
+    bounds_cx = 266
+    bounds_cy = 354
+    datacols.count = 2
+    datacols.width = 100
+    datacols.items = <    
+      item
+        width = 100
+        datalist.data = (
+          'aa'
+          'bb'
+          'cc'
+          'dd'
+          'ee'
+          'ff'
+          'gg'
+          'hh'
+          'ii'
+          'jj'
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        width = 100
+        datalist.data = (
+          '00'
+          '11'
+          '22'
+          '33'
+          '44'
+          '55'
+          '66'
+          '77'
+          '88'
+          '99'
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixcols.count = 1
+    fixcols.width = 20
+    fixcols.items = <    
+      item
+        width = 20
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    rowcount = 10
+    datarowheight = 16
+    drag.onbeforedragbegin = beforedragbeginexe
+    drag.onbeforedragover = beforedragoverexe
+    drag.onbeforedragdrop = beforedragdropexe
+    reffontheight = 14
+  end
+end

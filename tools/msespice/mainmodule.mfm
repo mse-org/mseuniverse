@@ -11,7 +11,7 @@ object mainmo: tmainmo
     state = [as_disabled]
     onexecute = optionsexe
     left = 128
-    top = 96
+    top = 136
   end
   object projectoptionscomp: tguirttistat
     statfile = projectstat1
