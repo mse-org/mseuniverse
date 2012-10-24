@@ -29,15 +29,12 @@ type
    chart: tchart;
    tsplitter1: tsplitter;
    tscrollbox1: tscrollbox;
-   scalesgrid: twidgetgrid;
+   tracesgrid: twidgetgrid;
    xexpdisp: tstringedit;
-   xstart: trealedit;
-   xrange: trealedit;
-   xautoscale: tbooleanedit;
+   start: trealedit;
+   range: trealedit;
+   autoscale: tbooleanedit;
    yexpdisp: tstringedit;
-   ystart: trealedit;
-   yrange: trealedit;
-   yautoscale: tbooleanedit;
    tracecolor: tcoloredit;
    tsplitter2: tsplitter;
    tsimplewidget1: tsimplewidget;
@@ -55,7 +52,7 @@ type
 
 implementation
 uses
- chartform_mfm;
+ chartform_mfm,msereal;
 
 { tchartfo }
 
@@ -67,10 +64,55 @@ begin
 end;
 
 procedure tchartfo.updatechart;
+
+ procedure checkscale(var ascalefo: tscalegridfo; const isy: boolean);
+ var
+  int1,int2: integer;
+  min,max: real;
+ begin
+  with ascalefo do begin
+   for int1:= 0 to scalegrid.rowhigh do begin
+    if autoscale[int1] then begin
+     min:= bigreal;
+     max:= -bigreal;
+     for int2:= 0 to tracesgrid.rowhigh do begin
+      if isy then begin
+       if yscalenum[int2] = int1+1 then begin
+        chart.traces[int2].minmaxy(min,max);
+       end;
+      end
+      else begin
+       if xscalenum[int2] = int1+1 then begin
+        chart.traces[int2].minmaxx(min,max);
+       end;
+      end;
+     end;
+     if max >= min then begin
+      range[int1]:= calctracerange(min,max);
+      start[int1]:= min;
+     end;
+    end;
+   end;
+   if isy then begin
+    for int1:= 0 to tracesgrid.rowhigh do begin
+     int2:= yscalenum[int1]-1;
+     if int2 <= scalegrid.rowhigh then begin
+      chart.traces[int1].ystart:= start[int2];
+      chart.traces[int1].yrange:= range[int2];
+     end;
+    end;
+    updatechart(chart,chart.ydials);
+   end
+   else begin
+    updatechart(chart,chart.xdials);
+   end;
+  end;
+ end;
+ 
 var
  int1: integer;
 begin
- for int1:= 0 to scalesgrid.rowhigh do begin
+ for int1:= 0 to tracesgrid.rowhigh do begin
   if int1 >= chart.traces.count then begin
    break;
   end;
@@ -78,8 +120,9 @@ begin
    color:= tracecolor[int1];
   end;
  end;
- xscalefo.updatechart(chart,chart.xdials);
- yscalefo.updatechart(chart,chart.ydials);
+ checkscale(xscalefo,false);
+ checkscale(yscalefo,true);
+// yscalefo.updatechart(chart,chart.ydials);
 end;
 
 procedure tchartfo.tracedataentered(const sender: TObject);

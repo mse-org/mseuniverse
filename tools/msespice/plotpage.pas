@@ -238,7 +238,7 @@ var
  int1: integer;
 begin
  with chart do begin
-  scalesgrid.rowcount:= count;
+  tracesgrid.rowcount:= count;
 //  expdisp[0]:= xexpression;
   with chart do begin
    traces.count:= count;
@@ -259,15 +259,17 @@ begin
      end;
     end;
    end;
-   autoscalex;
-   autoscaley;
+//   autoscalex;
+//   autoscaley;
   end;
+  {
   for int1:= 0 to count-1 do begin
    xstart[int1]:= chart.xstart;
    xrange[int1]:= chart.xrange;
    ystart[int1]:= chart.ystart;
    yrange[int1]:= chart.yrange;
   end;
+  }
   updatechart;
  end;
 end;

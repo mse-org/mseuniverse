@@ -24,7 +24,7 @@ object scalegridfo: tscalegridfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 6
+        captions.count = 8
         captions.items = <        
           item
             caption = 'log'
@@ -41,10 +41,17 @@ object scalegridfo: tscalegridfo
           item
           end        
           item
+            caption = 'Start'
+          end        
+          item
+            caption = 'Range'
+          end        
+          item
+            caption = 'A'
           end>
       end>
     rowcount = 1
-    datacols.count = 5
+    datacols.count = 8
     datacols.items = <    
       item
         width = 18
@@ -67,6 +74,7 @@ object scalegridfo: tscalegridfo
         )
       end    
       item
+        width = 28
         widgetname = 'maingridlinewidth'
         dataclass = tgridrealdatalist
         data = (
@@ -85,12 +93,41 @@ object scalegridfo: tscalegridfo
         )
       end    
       item
-        width = 34
+        width = 27
         widgetname = 'oppos'
         dataclass = tgridintegerdatalist
         data = (
           (
             0
+          )
+        )
+      end    
+      item
+        widgetname = 'start'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            0
+          )
+        )
+      end    
+      item
+        widgetname = 'range'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            1
+          )
+        )
+      end    
+      item
+        width = 16
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'autoscale'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            -1
           )
         )
       end>
@@ -137,7 +174,7 @@ object scalegridfo: tscalegridfo
       visible = False
       bounds_x = 70
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 28
       bounds_cy = 16
       statfile = mainmo.projectstat2
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
@@ -155,7 +192,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 121
+      bounds_x = 99
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -169,12 +206,65 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 5
-      bounds_x = 172
+      bounds_x = 150
       bounds_y = 0
-      bounds_cx = 34
+      bounds_cx = 27
       bounds_cy = 16
       ondataentered = dataenteredexe
       visible = False
+    end
+    object start: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 6
+      visible = False
+      bounds_x = 178
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      value = 0
+      valuedefault = 0
+      formatedit = '${REAL}'
+      formatdisp = '${REAL}'
+      valuerange = 1
+      valuestart = 0
+      min = -1E+038
+      max = 1E+038
+      reffontheight = 14
+    end
+    object range: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 7
+      visible = False
+      bounds_x = 229
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      value = 1
+      valuedefault = 1
+      formatedit = '${REAL}'
+      formatdisp = '${REAL}'
+      valuerange = 1
+      valuestart = 0
+      min = -1E+038
+      max = 1E+038
+      reffontheight = 14
+    end
+    object autoscale: tbooleanedit
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 8
+      bounds_x = 280
+      bounds_y = 0
+      bounds_cx = 16
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      visible = False
+      value = True
+      valuedefault = True
     end
   end
 end

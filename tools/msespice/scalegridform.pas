@@ -14,6 +14,9 @@ type
    intervalco: trealedit;
    capt: tstringedit;
    oppos: tbooleanedit;
+   start: trealedit;
+   range: trealedit;
+   autoscale: tbooleanedit;
    procedure dataenteredexe(const sender: TObject);
    procedure rowcountchangeexe(const sender: tcustomgrid);
   public
@@ -38,6 +41,8 @@ begin
  with adial do begin
   opposite:= oppos[aindex];
 //  visible:= vis[aindex];
+  range:= self.range[aindex];
+  start:= self.start[aindex];
   ticks.clear;
   ticks.count:= 1;
   with ticks[0] do begin
