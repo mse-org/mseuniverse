@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msechart,
  msengspice,msesplitter,msedataedits,mseedit,mseifiglob,msestrings,msetypes,
  msesimplewidgets,msewidgets,msegraphedits,mserealsumedit,msegrids,
- msewidgetgrid,msecolordialog,scalegridform;
+ msewidgetgrid,msecolordialog,scalegridform,msetimer;
 
 type
  tchartfo = class(tdockform)
@@ -43,7 +43,11 @@ type
    yscalefo: tscalegridfo;
    xscalenum: tintegeredit;
    yscalenum: tintegeredit;
+   timer: ttimer;
    procedure tracedataentered(const sender: TObject);
+   procedure updatechartexe(const sender: TObject);
+   procedure doupdatechart;
+   procedure dataenteredexe(const sender: TObject);
   protected
   public
    procedure clear;
@@ -63,7 +67,7 @@ begin
 // chart.ydials.count:= 0;
 end;
 
-procedure tchartfo.updatechart;
+procedure tchartfo.doupdatechart;
 
  procedure checkscale(var ascalefo: tscalegridfo; const isy: boolean);
  var
@@ -104,6 +108,13 @@ procedure tchartfo.updatechart;
     updatechart(chart,chart.ydials);
    end
    else begin
+    for int1:= 0 to tracesgrid.rowhigh do begin
+     int2:= xscalenum[int1]-1;
+     if int2 <= scalegrid.rowhigh then begin
+      chart.traces[int1].xstart:= start[int2];
+      chart.traces[int1].xrange:= range[int2];
+     end;
+    end;
     updatechart(chart,chart.xdials);
    end;
   end;
@@ -126,6 +137,21 @@ begin
 end;
 
 procedure tchartfo.tracedataentered(const sender: TObject);
+begin
+ updatechart;
+end;
+
+procedure tchartfo.updatechartexe(const sender: TObject);
+begin
+ doupdatechart;
+end;
+
+procedure tchartfo.updatechart;
+begin
+ timer.enabled:= true;
+end;
+
+procedure tchartfo.dataenteredexe(const sender: TObject);
 begin
  updatechart;
 end;

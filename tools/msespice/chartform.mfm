@@ -5,14 +5,14 @@ object chartfo: tchartfo
   visible = False
   bounds_x = 100
   bounds_y = 100
-  bounds_cx = 631
+  bounds_cx = 755
   bounds_cy = 409
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    621
+    745
     409
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional]
@@ -20,14 +20,13 @@ object chartfo: tchartfo
   statfile = mainmo.projectstat2
   moduleclassname = 'tdockform'
   object chart: tchart
-    frame.zoomwidthstep = 1
-    frame.zoomheightstep = 1
-    frame.framei_left = 1
-    frame.framei_top = 1
-    frame.localprops = [frl_firight, frl_fibottom]
+    frame.optionsscroll = [oscr_drag, oscr_zoom, oscr_mousewheel]
+    frame.zoomwidthstep = 1.1
+    frame.zoomheightstep = 1.1
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 621
+    bounds_cx = 745
     bounds_cy = 184
     anchors = [an_top]
     traces.count = 1
@@ -64,7 +63,7 @@ object chartfo: tchartfo
     taborder = 1
     bounds_x = 0
     bounds_y = 184
-    bounds_cx = 621
+    bounds_cx = 745
     bounds_cy = 3
     anchors = [an_bottom]
     options = [spo_vmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
@@ -78,13 +77,13 @@ object chartfo: tchartfo
     taborder = 2
     bounds_x = 0
     bounds_y = 187
-    bounds_cx = 621
+    bounds_cx = 745
     bounds_cy = 223
     anchors = [an_bottom]
     object tracesgrid: twidgetgrid
       bounds_x = 0
       bounds_y = 1
-      bounds_cx = 621
+      bounds_cx = 745
       bounds_cy = 92
       anchors = [an_top]
       optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -135,7 +134,7 @@ object chartfo: tchartfo
       datacols.items = <      
         item
           color = -1879048185
-          width = 88
+          width = 107
           options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
           widgetname = 'xexpdisp'
           dataclass = tgridmsestringdatalist
@@ -148,7 +147,7 @@ object chartfo: tchartfo
         end      
         item
           color = -1879048185
-          width = 182
+          width = 221
           options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
           widgetname = 'yexpdisp'
           dataclass = tgridmsestringdatalist
@@ -160,7 +159,7 @@ object chartfo: tchartfo
           dataclass = tgridintegerdatalist
         end      
         item
-          width = 71
+          width = 86
           options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
           widgetname = 'tracecolor'
           dataclass = tgridenumdatalist
@@ -175,9 +174,10 @@ object chartfo: tchartfo
         visible = False
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 88
+        bounds_cx = 107
         bounds_cy = 16
         optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+        ondataentered = dataenteredexe
         reffontheight = 14
       end
       object xscalenum: tintegeredit
@@ -185,10 +185,11 @@ object chartfo: tchartfo
         optionsskin = [osk_framebuttononly]
         taborder = 2
         visible = False
-        bounds_x = 89
+        bounds_x = 108
         bounds_y = 0
         bounds_cx = 23
         bounds_cy = 16
+        ondataentered = dataenteredexe
         value = 1
         valuedefault = 1
         min = 1
@@ -200,11 +201,12 @@ object chartfo: tchartfo
         optionsskin = [osk_framebuttononly]
         taborder = 3
         visible = False
-        bounds_x = 113
+        bounds_x = 132
         bounds_y = 0
-        bounds_cx = 182
+        bounds_cx = 221
         bounds_cy = 16
         optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+        ondataentered = dataenteredexe
         reffontheight = 14
       end
       object yscalenum: tintegeredit
@@ -212,10 +214,11 @@ object chartfo: tchartfo
         optionsskin = [osk_framebuttononly]
         taborder = 4
         visible = False
-        bounds_x = 296
+        bounds_x = 354
         bounds_y = 0
         bounds_cx = 23
         bounds_cy = 16
+        ondataentered = dataenteredexe
         value = 1
         valuedefault = 1
         min = 1
@@ -233,12 +236,12 @@ object chartfo: tchartfo
         frame.buttonellipse.imagenr = 17
         taborder = 5
         visible = False
-        bounds_x = 320
+        bounds_x = 378
         bounds_y = 0
-        bounds_cx = 71
+        bounds_cx = 86
         bounds_cy = 16
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-        ondataentered = tracedataentered
+        ondataentered = dataenteredexe
         value = -1610612734
         valuedefault = -1610612734
         dropdown.options = [deo_autodropdown, deo_keydropdown]
@@ -251,7 +254,7 @@ object chartfo: tchartfo
       taborder = 1
       bounds_x = 0
       bounds_y = 93
-      bounds_cx = 621
+      bounds_cx = 745
       bounds_cy = 3
       anchors = [an_top]
       options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
@@ -264,7 +267,7 @@ object chartfo: tchartfo
       visible = True
       bounds_x = 0
       bounds_y = 96
-      bounds_cx = 621
+      bounds_cx = 745
       bounds_cy = 126
       anchors = [an_bottom]
       object tsplitter3: tsplitter
@@ -340,31 +343,39 @@ object chartfo: tchartfo
               dataclass = tgridintegerdatalist
             end>
           inherited capt: tstringedit[0]
+            ondataentered = dataenteredexe
           end
           inherited log: tbooleanedit[1]
+            ondataentered = dataenteredexe
           end
           inherited intervalco: trealedit[2]
+            ondataentered = dataenteredexe
           end
           inherited maingridlinewidth: trealedit[3]
+            ondataentered = dataenteredexe
           end
           inherited start: trealedit[4]
+            ondataentered = dataenteredexe
           end
           inherited oppos: tbooleanedit[5]
+            ondataentered = dataenteredexe
           end
           inherited range: trealedit
+            ondataentered = dataenteredexe
           end
           inherited autoscale: tbooleanedit
+            ondataentered = dataenteredexe
           end
         end
       end
       inline yscalefo: tscalegridfo
         bounds_x = 323
         bounds_y = 0
-        bounds_cx = 298
+        bounds_cx = 422
         bounds_cy = 126
         anchors = [an_right]
         inherited scalegrid: twidgetgrid
-          bounds_cx = 298
+          bounds_cx = 422
           bounds_cy = 126
           fixcols.items = <          
             item
@@ -416,23 +427,38 @@ object chartfo: tchartfo
               dataclass = tgridintegerdatalist
             end>
           inherited capt: tstringedit[0]
+            ondataentered = dataenteredexe
           end
           inherited log: tbooleanedit[1]
+            ondataentered = dataenteredexe
           end
           inherited intervalco: trealedit[2]
+            ondataentered = dataenteredexe
           end
           inherited maingridlinewidth: trealedit[3]
+            ondataentered = dataenteredexe
           end
           inherited start: trealedit[4]
+            ondataentered = dataenteredexe
           end
           inherited oppos: tbooleanedit[5]
+            ondataentered = dataenteredexe
           end
           inherited range: trealedit
+            ondataentered = dataenteredexe
           end
           inherited autoscale: tbooleanedit
+            ondataentered = dataenteredexe
           end
         end
       end
     end
+  end
+  object timer: ttimer
+    interval = 0
+    options = [to_single]
+    ontimer = updatechartexe
+    left = 88
+    top = 96
   end
 end
