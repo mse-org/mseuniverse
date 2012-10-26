@@ -32,6 +32,7 @@ type
 implementation
 uses
  plotoptions_mfm;
+ 
 { tplotoptionsfo }
 
 function tplotoptionsfo.getplotstatement: string;

@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2012 by Martin Schreiber
+{ MSEspice Copyright (c) 2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -144,21 +144,21 @@ procedure tplotsfo.updatecharts(const aplots: plotinfoarty);
 var
  int1,int2,int3: integer;
 begin
- int2:= 0;
+ int2:= high(aplots);
  for int1:= 0 to tabs.count - 1 do begin
   with tplotpagefo(tabs[int1]) do begin
-   if plotactive.value and (int2 <= high(aplots)) then begin
+   if plotactive.value and (int2 >= 0) then begin
     for int3:= 0 to tracegrid.rowhigh do begin
      if treeed[int3] is tchartnode then begin
       if int2 <= high(aplots) then begin
        tchartnode(treeed[int3]).loaddata(aplots[int2],plot.getxvalue);
-       inc(int2);
       end
       else begin
        tchartnode(treeed[int3]).chart.clear;
       end;
      end;
     end;
+    dec(int2);
    end
    else begin
     for int3:= 0 to tracegrid.rowhigh do begin

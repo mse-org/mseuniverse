@@ -2,6 +2,7 @@ object chartfo: tchartfo
   frame.grip_size = 10
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton]
   frame.dummy = 0
+  popupmenu = tpopupmenu1
   visible = False
   bounds_x = 100
   bounds_y = 100
@@ -18,6 +19,7 @@ object chartfo: tchartfo
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional]
   options = [fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainmo.projectstat2
+  onchildmouseevent = childmouseexe
   moduleclassname = 'tdockform'
   object chart: tchart
     frame.optionsscroll = [oscr_drag, oscr_zoom, oscr_mousewheel]
@@ -27,8 +29,8 @@ object chartfo: tchartfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 745
-    bounds_cy = 184
-    anchors = [an_top]
+    bounds_cy = 409
+    anchors = []
     traces.count = 1
     traces.xserstart = 0
     traces.xstart = 0
@@ -57,408 +59,26 @@ object chartfo: tchartfo
     ydials.start = 0
     ydials.range = 1
   end
-  object tsplitter1: tsplitter
-    optionswidget = [ow_destroywidgets]
-    color = -1879048189
-    taborder = 1
-    bounds_x = 0
-    bounds_y = 184
-    bounds_cx = 745
-    bounds_cy = 3
-    anchors = [an_bottom]
-    options = [spo_vmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
-    linktop = chart
-    linkbottom = tscrollbox1
-    statfile = mainmo.projectstat3
-  end
-  object tscrollbox1: tscrollbox
-    frame.zoomwidthstep = 1
-    frame.zoomheightstep = 1
-    taborder = 2
-    bounds_x = 0
-    bounds_y = 187
-    bounds_cx = 745
-    bounds_cy = 223
-    anchors = [an_bottom]
-    object tracesgrid: twidgetgrid
-      bounds_x = 0
-      bounds_y = 1
-      bounds_cx = 745
-      bounds_cy = 92
-      anchors = [an_top]
-      optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-      fixrows.count = 1
-      fixrows.items = <      
-        item
-          height = 16
-          captions.count = 11
-          captions.items = <          
-            item
-              caption = 'X-Expression'
-            end          
-            item
-              caption = 'S'
-            end          
-            item
-              caption = 'Y-Expression'
-            end          
-            item
-              caption = 'S'
-            end          
-            item
-              caption = 'Color'
-            end          
-            item
-              caption = 'A'
-              hint = 'Y auto scale'
-            end          
-            item
-              caption = 'Y-Range'
-            end          
-            item
-              caption = 'Y-Start'
-            end          
-            item
-              caption = 'A'
-              hint = 'X auto scale'
-            end          
-            item
-              caption = 'X-Range'
-            end          
-            item
-              caption = 'X-Start'
-            end>
-        end>
-      datacols.count = 5
-      datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
-      datacols.items = <      
-        item
-          color = -1879048185
-          width = 107
-          options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
-          widgetname = 'xexpdisp'
-          dataclass = tgridmsestringdatalist
-        end      
-        item
-          width = 23
-          options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
-          widgetname = 'xscalenum'
-          dataclass = tgridintegerdatalist
-        end      
-        item
-          color = -1879048185
-          width = 221
-          options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
-          widgetname = 'yexpdisp'
-          dataclass = tgridmsestringdatalist
-        end      
-        item
-          width = 23
-          options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
-          widgetname = 'yscalenum'
-          dataclass = tgridintegerdatalist
-        end      
-        item
-          width = 86
-          options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
-          widgetname = 'tracecolor'
-          dataclass = tgridenumdatalist
-        end>
-      datarowheight = 16
-      statfile = mainmo.projectstat2
-      reffontheight = 14
-      object xexpdisp: tstringedit
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        taborder = 1
-        visible = False
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 107
-        bounds_cy = 16
-        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
-        ondataentered = dataenteredexe
-        reffontheight = 14
-      end
-      object xscalenum: tintegeredit
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        taborder = 2
-        visible = False
-        bounds_x = 108
-        bounds_y = 0
-        bounds_cx = 23
-        bounds_cy = 16
-        ondataentered = dataenteredexe
-        value = 1
-        valuedefault = 1
-        min = 1
-        max = 10
-        reffontheight = 14
-      end
-      object yexpdisp: tstringedit
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        taborder = 3
-        visible = False
-        bounds_x = 132
-        bounds_y = 0
-        bounds_cx = 221
-        bounds_cy = 16
-        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
-        ondataentered = dataenteredexe
-        reffontheight = 14
-      end
-      object yscalenum: tintegeredit
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        taborder = 4
-        visible = False
-        bounds_x = 354
-        bounds_y = 0
-        bounds_cx = 23
-        bounds_cy = 16
-        ondataentered = dataenteredexe
-        value = 1
-        valuedefault = 1
-        min = 1
-        max = 10
-        reffontheight = 14
-      end
-      object tracecolor: tcoloredit
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        frame.levelo = 0
-        frame.colorclient = -2147483645
-        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-        frame.button.color = -1879048187
-        frame.buttonellipse.color = -1879048187
-        frame.buttonellipse.imagenr = 17
-        taborder = 5
-        visible = False
-        bounds_x = 378
-        bounds_y = 0
-        bounds_cx = 86
-        bounds_cy = 16
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-        ondataentered = dataenteredexe
-        value = -1610612734
-        valuedefault = -1610612734
-        dropdown.options = [deo_autodropdown, deo_keydropdown]
-        reffontheight = 14
-      end
-    end
-    object tsplitter2: tsplitter
-      optionswidget = [ow_destroywidgets]
-      color = -1879048189
-      taborder = 1
-      bounds_x = 0
-      bounds_y = 93
-      bounds_cx = 745
-      bounds_cy = 3
-      anchors = [an_top]
-      options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
-      linktop = tracesgrid
-      linkbottom = tsimplewidget1
-      statfile = mainmo.projectstat3
-    end
-    object tsimplewidget1: tsimplewidget
-      taborder = 2
-      visible = True
-      bounds_x = 0
-      bounds_y = 96
-      bounds_cx = 745
-      bounds_cy = 126
-      anchors = [an_bottom]
-      object tsplitter3: tsplitter
-        optionswidget = [ow_destroywidgets]
-        color = -1879048189
-        taborder = 2
-        bounds_x = 320
-        bounds_y = 0
-        bounds_cx = 3
-        bounds_cy = 126
-        anchors = [an_left]
-        options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
-        linkleft = xscalefo
-        linkright = yscalefo
-        statfile = mainmo.projectstat3
-      end
-      inline xscalefo: tscalegridfo
-        taborder = 1
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 320
-        bounds_cy = 126
-        inherited scalegrid: twidgetgrid
-          bounds_cx = 320
-          bounds_cy = 126
-          fixcols.items = <          
-            item
-            end>
-          fixrows.items = <          
-            item
-              captions.items = <              
-                item
-                end              
-                item
-                end              
-                item
-                end              
-                item
-                end              
-                item
-                  caption = 'top'
-                end              
-                item
-                end              
-                item
-                end              
-                item
-                end>
-            end>
-          datacols.items = <          
-            item
-              dataclass = tgridintegerdatalist
-            end          
-            item
-              dataclass = tgridrealdatalist
-            end          
-            item
-              dataclass = tgridrealdatalist
-            end          
-            item
-              dataclass = tgridmsestringdatalist
-            end          
-            item
-              dataclass = tgridintegerdatalist
-            end          
-            item
-              dataclass = tgridrealdatalist
-            end          
-            item
-              dataclass = tgridrealdatalist
-            end          
-            item
-              dataclass = tgridintegerdatalist
-            end>
-          inherited capt: tstringedit[0]
-            ondataentered = dataenteredexe
-          end
-          inherited log: tbooleanedit[1]
-            ondataentered = dataenteredexe
-          end
-          inherited intervalco: trealedit[2]
-            ondataentered = dataenteredexe
-          end
-          inherited maingridlinewidth: trealedit[3]
-            ondataentered = dataenteredexe
-          end
-          inherited start: trealedit[4]
-            ondataentered = dataenteredexe
-          end
-          inherited oppos: tbooleanedit[5]
-            ondataentered = dataenteredexe
-          end
-          inherited range: trealedit
-            ondataentered = dataenteredexe
-          end
-          inherited autoscale: tbooleanedit
-            ondataentered = dataenteredexe
-          end
-        end
-      end
-      inline yscalefo: tscalegridfo
-        bounds_x = 323
-        bounds_y = 0
-        bounds_cx = 422
-        bounds_cy = 126
-        anchors = [an_right]
-        inherited scalegrid: twidgetgrid
-          bounds_cx = 422
-          bounds_cy = 126
-          fixcols.items = <          
-            item
-            end>
-          fixrows.items = <          
-            item
-              captions.items = <              
-                item
-                end              
-                item
-                end              
-                item
-                end              
-                item
-                end              
-                item
-                  caption = 'left'
-                end              
-                item
-                end              
-                item
-                end              
-                item
-                end>
-            end>
-          datacols.items = <          
-            item
-              dataclass = tgridintegerdatalist
-            end          
-            item
-              dataclass = tgridrealdatalist
-            end          
-            item
-              dataclass = tgridrealdatalist
-            end          
-            item
-              dataclass = tgridmsestringdatalist
-            end          
-            item
-              dataclass = tgridintegerdatalist
-            end          
-            item
-              dataclass = tgridrealdatalist
-            end          
-            item
-              dataclass = tgridrealdatalist
-            end          
-            item
-              dataclass = tgridintegerdatalist
-            end>
-          inherited capt: tstringedit[0]
-            ondataentered = dataenteredexe
-          end
-          inherited log: tbooleanedit[1]
-            ondataentered = dataenteredexe
-          end
-          inherited intervalco: trealedit[2]
-            ondataentered = dataenteredexe
-          end
-          inherited maingridlinewidth: trealedit[3]
-            ondataentered = dataenteredexe
-          end
-          inherited start: trealedit[4]
-            ondataentered = dataenteredexe
-          end
-          inherited oppos: tbooleanedit[5]
-            ondataentered = dataenteredexe
-          end
-          inherited range: trealedit
-            ondataentered = dataenteredexe
-          end
-          inherited autoscale: tbooleanedit
-            ondataentered = dataenteredexe
-          end
-        end
-      end
-    end
-  end
   object timer: ttimer
     interval = 0
     options = [to_single]
     ontimer = updatechartexe
     left = 88
     top = 96
+  end
+  object tpopupmenu1: tpopupmenu
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        action = optionsact
+      end>
+    left = 248
+    top = 152
+  end
+  object optionsact: taction
+    caption = '&Options'
+    onexecute = optionsexe
+    left = 392
+    top = 152
   end
 end

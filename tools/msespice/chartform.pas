@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2012 by Martin Schreiber
+{ MSEspice Copyright (c) 2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,36 +22,33 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msechart,
  msengspice,msesplitter,msedataedits,mseedit,mseifiglob,msestrings,msetypes,
  msesimplewidgets,msewidgets,msegraphedits,mserealsumedit,msegrids,
- msewidgetgrid,msecolordialog,scalegridform,msetimer;
+ msewidgetgrid,msecolordialog,scalegridform,msetimer,chartoptionsform,classes,
+ mseact,mseactions;
 
 type
  tchartfo = class(tdockform)
    chart: tchart;
-   tsplitter1: tsplitter;
-   tscrollbox1: tscrollbox;
-   tracesgrid: twidgetgrid;
-   xexpdisp: tstringedit;
    start: trealedit;
    range: trealedit;
    autoscale: tbooleanedit;
-   yexpdisp: tstringedit;
-   tracecolor: tcoloredit;
-   tsplitter2: tsplitter;
-   tsimplewidget1: tsimplewidget;
-   tsplitter3: tsplitter;
-   xscalefo: tscalegridfo;
-   yscalefo: tscalegridfo;
-   xscalenum: tintegeredit;
-   yscalenum: tintegeredit;
    timer: ttimer;
+   tpopupmenu1: tpopupmenu;
+   optionsact: taction;
    procedure tracedataentered(const sender: TObject);
    procedure updatechartexe(const sender: TObject);
    procedure doupdatechart;
    procedure dataenteredexe(const sender: TObject);
+   procedure optionsexe(const sender: TObject);
+   procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
+  private
+   foptfo: tchartoptionsfo;
   protected
   public
+   constructor create(aowner: tcomponent); override;
+   destructor destroy; override;
    procedure clear;
    procedure updatechart;
+   property optfo: tchartoptionsfo read foptfo;
  end;
 
 implementation
@@ -59,6 +56,18 @@ uses
  chartform_mfm,msereal;
 
 { tchartfo }
+
+constructor tchartfo.create(aowner: tcomponent);
+begin
+ inherited;
+ foptfo:= tchartoptionsfo.create(self);
+end;
+
+destructor tchartfo.destroy;
+begin
+ foptfo.free;
+ inherited;
+end;
 
 procedure tchartfo.clear;
 begin
@@ -79,15 +88,15 @@ procedure tchartfo.doupdatechart;
     if autoscale[int1] then begin
      min:= bigreal;
      max:= -bigreal;
-     for int2:= 0 to tracesgrid.rowhigh do begin
+     for int2:= 0 to foptfo.tracesgrid.rowhigh do begin
       if isy then begin
-       if yscalenum[int2] = int1+1 then begin
-        chart.traces[int2].minmaxy(min,max);
+       if foptfo.yscalenum[int2] = int1+1 then begin
+        chart.traces[int2].minmaxy1(min,max);
        end;
       end
       else begin
-       if xscalenum[int2] = int1+1 then begin
-        chart.traces[int2].minmaxx(min,max);
+       if foptfo.xscalenum[int2] = int1+1 then begin
+        chart.traces[int2].minmaxx1(min,max);
        end;
       end;
      end;
@@ -98,8 +107,8 @@ procedure tchartfo.doupdatechart;
     end;
    end;
    if isy then begin
-    for int1:= 0 to tracesgrid.rowhigh do begin
-     int2:= yscalenum[int1]-1;
+    for int1:= 0 to foptfo.tracesgrid.rowhigh do begin
+     int2:= foptfo.yscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
       chart.traces[int1].ystart:= start[int2];
       chart.traces[int1].yrange:= range[int2];
@@ -108,8 +117,8 @@ procedure tchartfo.doupdatechart;
     updatechart(chart,chart.ydials);
    end
    else begin
-    for int1:= 0 to tracesgrid.rowhigh do begin
-     int2:= xscalenum[int1]-1;
+    for int1:= 0 to foptfo.tracesgrid.rowhigh do begin
+     int2:= foptfo.xscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
       chart.traces[int1].xstart:= start[int2];
       chart.traces[int1].xrange:= range[int2];
@@ -123,16 +132,16 @@ procedure tchartfo.doupdatechart;
 var
  int1: integer;
 begin
- for int1:= 0 to tracesgrid.rowhigh do begin
+ for int1:= 0 to foptfo.tracesgrid.rowhigh do begin
   if int1 >= chart.traces.count then begin
    break;
   end;
   with chart.traces[int1] do begin
-   color:= tracecolor[int1];
+   color:= foptfo.tracecolor[int1];
   end;
  end;
- checkscale(xscalefo,false);
- checkscale(yscalefo,true);
+ checkscale(foptfo.xscalefo,false);
+ checkscale(foptfo.yscalefo,true);
 // yscalefo.updatechart(chart,chart.ydials);
 end;
 
@@ -154,6 +163,19 @@ end;
 procedure tchartfo.dataenteredexe(const sender: TObject);
 begin
  updatechart;
+end;
+
+procedure tchartfo.optionsexe(const sender: TObject);
+begin
+ optfo.activate;
+end;
+
+procedure tchartfo.childmouseexe(const sender: twidget;
+               var ainfo: mouseeventinfoty);
+begin
+ if msegui.isdblclick(ainfo) then begin
+  optionsact.execute;
+ end;
 end;
 
 end.

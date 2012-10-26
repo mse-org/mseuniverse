@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2012 by Martin Schreiber
+{ MSEspice Copyright (c) 2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ type
               const aparent: ttreelistitem = nil); override;
    destructor destroy; override;
    procedure showchart; override;
-   function getsavevalues: msestring;
+   function getsavevalues: msestringarty;
    property chart: tchartfo read fchart;
    procedure loaddata(const adata: plotinfoty; const xexpression: msestring);
    property title: msestring read fvalue0;
@@ -195,30 +195,18 @@ begin
  inherited;
 end;
 
-function tchartnode.getsavevalues: msestring;
+function tchartnode.getsavevalues: msestringarty;
 var
  int1: integer;
  ar1: msestringarty;
  mstr1: msestring;
 begin
- result:= '';
- if count > 0 then begin
-  setlength(ar1,2*count);
-  for int1:= 0 to count - 1 do begin
-   with ttracenode(fitems[int1]) do begin
-    ar1[2*int1]:= mseuppercase(trim(xexpression));
-    ar1[2*int1+1]:= mseuppercase(trim(yexpression));
-   end;
+ setlength(result,2*count);
+ for int1:= 0 to count - 1 do begin
+  with ttracenode(fitems[int1]) do begin
+   result[2*int1]:= unifyexpression(xexpression);
+   result[2*int1+1]:= unifyexpression(yexpression);
   end;
-  sortarray(ar1);
-  mstr1:= '';
-  for int1:= 0 to high(ar1) do begin
-   if ar1[int1] <> mstr1 then begin
-    mstr1:= ar1[int1];
-    result:= result + mstr1 + ' ';
-   end;
-  end;
-  setlength(result,length(result)-1); //remove last space
  end;
 end;
 
@@ -238,15 +226,15 @@ var
  int1: integer;
 begin
  with chart do begin
-  tracesgrid.rowcount:= count;
+  optfo.tracesgrid.rowcount:= count;
 //  expdisp[0]:= xexpression;
   with chart do begin
    traces.count:= count;
    for int1:= 0 to count-1 do begin
     if int1 >= high(adata.data) then begin
      clear;
-     xexpdisp[int1]:= '';
-     yexpdisp[int1]:= '';
+     optfo.xexpdisp[int1]:= '';
+     optfo.yexpdisp[int1]:= '';
     end
     else begin
      with traces[int1],ttracenode(items[int1]) do begin
@@ -254,22 +242,12 @@ begin
       options:= options + [cto_xordered];
       xdata:= getplotvalues(adata,xexpression,xvaluekind);
       ydata:= getplotvalues(adata,yexpression,yvaluekind);
-      xexpdisp[int1]:= xexpression;
-      yexpdisp[int1]:= yexpression;
+      optfo.xexpdisp[int1]:= xexpression;
+      optfo.yexpdisp[int1]:= yexpression;
      end;
     end;
    end;
-//   autoscalex;
-//   autoscaley;
   end;
-  {
-  for int1:= 0 to count-1 do begin
-   xstart[int1]:= chart.xstart;
-   xrange[int1]:= chart.xrange;
-   ystart[int1]:= chart.ystart;
-   yrange[int1]:= chart.yrange;
-  end;
-  }
   updatechart;
  end;
 end;
@@ -343,15 +321,30 @@ var
  int1,int2: integer;
  str1: string;
  ar1: chartnodearty;
+ ar2: msestringarty;
+ mstr1: msestring;
 begin
  result:= '';
  ar1:= chartnodes;
  str1:= '.SAVE '{+ fplot.getxvalue};
  if ar1 <> nil then begin
+  ar2:= nil;
   for int1:= 0 to high(ar1) do begin
-   str1:= str1 + ' ' + ar1[int1].getsavevalues;
+   stackarray(ar1[int1].getsavevalues,ar2);
+  end;
+  if ar2 <> nil then begin
+   sortarray(ar2);
+   mstr1:= '';
+   for int1:= 0 to high(ar2) do begin
+    if ar2[int1] <> mstr1 then begin
+     mstr1:= ar2[int1];
+     str1:= str1 + mstr1 + ' ';
+    end;
+   end;
+   setlength(str1,length(str1)-1); //remove last space
   end;
  end;
+
  result:= str1+lineend;
  result:= result+fplot.getplotstatement;
 end;

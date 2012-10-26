@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2012 by Martin Schreiber
+{ MSEspice Copyright (c) 2012 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ type
  varinfoty = record
   expression: string;
   unitname: string;
-  expressionupper: msestring;
+  unifiedexpression: msestring;
  end;
 
  flagsty = (fl_unknown,fl_real,fl_complex);
@@ -83,6 +83,7 @@ function getplotvalues(const ainfo: plotinfoty; const aindex: integer;
                             const valuekind: valuekindty): realarty; overload;
 function getplotvalues(const ainfo: plotinfoty; const aexpression: msestring;
                             const valuekind: valuekindty): realarty; overload;
+function unifyexpression(aexpression: msestring): msestring;
 
 implementation
 uses
@@ -113,6 +114,11 @@ const
  padnames: array[padty] of string = (
 //pa_unknown,pa_unpadded
   '',        'unpadded');
+
+function unifyexpression(aexpression: msestring): msestring;
+begin
+ result:= mseuppercase(trim(aexpression));
+end;
  
 function simuoptionstospice(const aoptions:  simuoptionsty): string;
 begin
@@ -217,7 +223,7 @@ begin
   mstr1:= 'TIME';
  end;
  for int1:= 0 to high(ainfo.vars) do begin
-  if ainfo.vars[int1].expressionupper = mstr1 then begin
+  if ainfo.vars[int1].unifiedexpression = mstr1 then begin
    result:= getplotvalues(ainfo,int1,valuekind);
   end;
  end;
@@ -289,7 +295,7 @@ begin
           setlength(vars,int1+1);
           with vars[int1] do begin
            expression:= ar1[2];
-           expressionupper:= mseuppercase(expression);
+           unifiedexpression:= unifyexpression(expression);
            unitname:= ar1[3];
           end;
           inc(int1);

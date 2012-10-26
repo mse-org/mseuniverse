@@ -1,7 +1,7 @@
 object plotoptionsfo: tplotoptionsfo
   visible = False
-  bounds_x = 72
-  bounds_y = 80
+  bounds_x = 84
+  bounds_y = 71
   bounds_cx = 217
   bounds_cy = 100
   anchors = []
