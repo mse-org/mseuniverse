@@ -19,10 +19,10 @@ unit dockform;
 interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock;
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedockpanelform;
 
 type
- tdockfo = class(tdockform)
+ tdockfo = class(tdockpanelform)
  end;
 var
  dockfo: tdockfo;

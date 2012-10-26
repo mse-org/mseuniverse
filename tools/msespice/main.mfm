@@ -2,15 +2,15 @@ object mainfo: tmainfo
   visible = False
   bounds_x = 291
   bounds_y = 247
-  bounds_cx = 400
-  bounds_cy = 115
+  bounds_cx = 372
+  bounds_cy = 118
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     16
-    400
-    99
+    372
+    102
   )
   mainmenu = mainme
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_savepos, fo_savezorder, fo_savestate]
@@ -18,6 +18,23 @@ object mainfo: tmainfo
   onloaded = loadedexe
   onclosequery = closequeryexe
   moduleclassname = 'tmainform'
+  inline dockfo1: tdockfo
+    frame = nil
+    visible = True
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 378
+    bounds_cy = 108
+    anchors = []
+    container.bounds = (
+      0
+      0
+      378
+      108
+    )
+    dragdock.optionsdock = [od_savechildren, od_canfloat, od_candock, od_acceptsdock, od_splitvert, od_tabed, od_proportional, od_propsize]
+    options = [fo_screencentered, fo_globalshortcuts]
+  end
   object mainme: tmainmenu
     menu.submenu.count = 4
     menu.submenu.items = <    
@@ -125,6 +142,7 @@ object mainfo: tmainfo
       end>
     statfileclient = panelsta
     menunamepath = 'view.panels'
+    oncreatepanel = createpanelexe
     left = 16
     top = 16
   end

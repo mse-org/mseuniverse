@@ -22,13 +22,15 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedockpanelform,
- msestrings,msestatfile,msedataedits,mseedit,mseifiglob,msetypes,msedock;
+ msestrings,msestatfile,msedataedits,mseedit,mseifiglob,msetypes,msedock,
+ dockform;
 
 type
  tmainfo = class(tmainform)
    mainme: tmainmenu;
    panelcontroller: tdockpanelformcontroller;
    panelsta: tstatfile;
+   dockfo1: tdockfo;
    procedure exitexe(const sender: TObject);
    procedure loadedexe(const sender: TObject);
    procedure newpanelexe(const sender: TObject);
@@ -36,6 +38,8 @@ type
    procedure closequeryexe(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure showplotsexe(const sender: TObject);
+   procedure createpanelexe(const sender: tdockpanelformcontroller;
+                   var apanel: tdockpanelform);
  end;
 var
  mainfo: tmainfo;
@@ -75,6 +79,12 @@ end;
 procedure tmainfo.showplotsexe(const sender: TObject);
 begin
  plotsfo.activate;
+end;
+
+procedure tmainfo.createpanelexe(const sender: tdockpanelformcontroller;
+               var apanel: tdockpanelform);
+begin
+ apanel:= tdockfo.create(panelcontroller);
 end;
 
 end.
