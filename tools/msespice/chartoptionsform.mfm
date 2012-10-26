@@ -1,0 +1,380 @@
+object chartoptionsfo: tchartoptionsfo
+  visible = False
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 670
+  bounds_cy = 213
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    670
+    213
+  )
+  options = [fo_savepos, fo_savezorder, fo_savestate]
+  statfile = mainmo.projectstat2
+  moduleclassname = 'tdockform'
+  object tsplitter2: tsplitter
+    optionswidget = [ow_destroywidgets]
+    color = -1879048189
+    bounds_x = 0
+    bounds_y = 136
+    bounds_cx = 670
+    bounds_cy = 3
+    anchors = [an_top]
+    options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linktop = tracesgrid
+    linkbottom = tsimplewidget1
+    statfile = mainmo.projectstat3
+  end
+  object tracesgrid: twidgetgrid
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 670
+    bounds_cy = 136
+    anchors = [an_top]
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 11
+        captions.items = <        
+          item
+            caption = 'X-Expression'
+          end        
+          item
+            caption = 'S'
+          end        
+          item
+            caption = 'Y-Expression'
+          end        
+          item
+            caption = 'S'
+          end        
+          item
+            caption = 'Color'
+          end        
+          item
+            caption = 'A'
+            hint = 'Y auto scale'
+          end        
+          item
+            caption = 'Y-Range'
+          end        
+          item
+            caption = 'Y-Start'
+          end        
+          item
+            caption = 'A'
+            hint = 'X auto scale'
+          end        
+          item
+            caption = 'X-Range'
+          end        
+          item
+            caption = 'X-Start'
+          end>
+      end>
+    datacols.count = 5
+    datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item
+        color = -1879048185
+        width = 63
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'xexpdisp'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        width = 23
+        options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'xscalenum'
+        dataclass = tgridintegerdatalist
+      end    
+      item
+        color = -1879048185
+        width = 130
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'yexpdisp'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        width = 23
+        options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'yscalenum'
+        dataclass = tgridintegerdatalist
+      end    
+      item
+        width = 86
+        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tracecolor'
+        dataclass = tgridenumdatalist
+      end>
+    datarowheight = 16
+    statfile = mainmo.projectstat2
+    reffontheight = 14
+    object xexpdisp: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 63
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+      reffontheight = 14
+    end
+    object xscalenum: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 64
+      bounds_y = 0
+      bounds_cx = 23
+      bounds_cy = 16
+      value = 1
+      valuedefault = 1
+      min = 1
+      max = 10
+      reffontheight = 14
+    end
+    object yexpdisp: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 88
+      bounds_y = 0
+      bounds_cx = 130
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+      reffontheight = 14
+    end
+    object yscalenum: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 219
+      bounds_y = 0
+      bounds_cx = 23
+      bounds_cy = 16
+      value = 1
+      valuedefault = 1
+      min = 1
+      max = 10
+      reffontheight = 14
+    end
+    object tracecolor: tcoloredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.color = -1879048187
+      frame.buttonellipse.color = -1879048187
+      frame.buttonellipse.imagenr = 17
+      taborder = 5
+      visible = False
+      bounds_x = 243
+      bounds_y = 0
+      bounds_cx = 86
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      value = -1610612734
+      valuedefault = -1610612734
+      dropdown.options = [deo_autodropdown, deo_keydropdown]
+      reffontheight = 14
+    end
+  end
+  object tsimplewidget1: tsimplewidget
+    taborder = 2
+    visible = True
+    bounds_x = 0
+    bounds_y = 139
+    bounds_cx = 670
+    bounds_cy = 74
+    anchors = [an_bottom]
+    object tsplitter3: tsplitter
+      optionswidget = [ow_destroywidgets]
+      color = -1879048189
+      taborder = 2
+      bounds_x = 336
+      bounds_y = 0
+      bounds_cx = 3
+      bounds_cy = 74
+      anchors = [an_left]
+      options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = xscalefo
+      linkright = yscalefo
+      statfile = mainmo.projectstat3
+    end
+    inline xscalefo: tscalegridfo
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 336
+      bounds_cy = 74
+      inherited scalegrid: twidgetgrid
+        bounds_cx = 336
+        bounds_cy = 74
+        fixcols.items = <        
+          item
+          end>
+        fixrows.items = <        
+          item
+            captions.items = <            
+              item
+              end            
+              item
+              end            
+              item
+              end            
+              item
+              end            
+              item
+                caption = 'top'
+              end            
+              item
+              end            
+              item
+              end            
+              item
+              end>
+          end>
+        datacols.items = <        
+          item
+            dataclass = tgridintegerdatalist
+          end        
+          item
+            dataclass = tgridrealdatalist
+          end        
+          item
+            dataclass = tgridrealdatalist
+          end        
+          item
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            dataclass = tgridintegerdatalist
+          end        
+          item
+            dataclass = tgridrealdatalist
+          end        
+          item
+            dataclass = tgridrealdatalist
+          end        
+          item
+            dataclass = tgridintegerdatalist
+          end>
+        inherited capt: tstringedit[0]
+          ondataentered = nil
+        end
+        inherited log: tbooleanedit[1]
+          ondataentered = nil
+        end
+        inherited intervalco: trealedit[2]
+          ondataentered = nil
+        end
+        inherited maingridlinewidth: trealedit[3]
+          ondataentered = nil
+        end
+        inherited start: trealedit[4]
+        end
+        inherited oppos: tbooleanedit[5]
+          ondataentered = nil
+        end
+        inherited range: trealedit
+        end
+        inherited autoscale: tbooleanedit
+        end
+      end
+    end
+    inline yscalefo: tscalegridfo
+      bounds_x = 339
+      bounds_y = 0
+      bounds_cx = 331
+      bounds_cy = 74
+      anchors = [an_right]
+      inherited scalegrid: twidgetgrid
+        bounds_cx = 331
+        bounds_cy = 74
+        fixcols.items = <        
+          item
+          end>
+        fixrows.items = <        
+          item
+            captions.items = <            
+              item
+              end            
+              item
+              end            
+              item
+              end            
+              item
+              end            
+              item
+                caption = 'left'
+              end            
+              item
+              end            
+              item
+              end            
+              item
+              end>
+          end>
+        datacols.items = <        
+          item
+            dataclass = tgridintegerdatalist
+          end        
+          item
+            dataclass = tgridrealdatalist
+          end        
+          item
+            dataclass = tgridrealdatalist
+          end        
+          item
+            dataclass = tgridmsestringdatalist
+          end        
+          item
+            dataclass = tgridintegerdatalist
+          end        
+          item
+            dataclass = tgridrealdatalist
+          end        
+          item
+            dataclass = tgridrealdatalist
+          end        
+          item
+            dataclass = tgridintegerdatalist
+          end>
+        inherited capt: tstringedit[0]
+          ondataentered = nil
+        end
+        inherited log: tbooleanedit[1]
+          ondataentered = nil
+        end
+        inherited intervalco: trealedit[2]
+          ondataentered = nil
+        end
+        inherited maingridlinewidth: trealedit[3]
+          ondataentered = nil
+        end
+        inherited start: trealedit[4]
+        end
+        inherited oppos: tbooleanedit[5]
+          ondataentered = nil
+        end
+        inherited range: trealedit
+        end
+        inherited autoscale: tbooleanedit
+        end
+      end
+    end
+  end
+end

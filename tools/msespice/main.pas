@@ -22,11 +22,11 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedockpanelform,
- msestrings,msestatfile,msedataedits,mseedit,mseifiglob,msetypes;
+ msestrings,msestatfile,msedataedits,mseedit,mseifiglob,msetypes,msedock;
 
 type
  tmainfo = class(tmainform)
-   tmainmenu1: tmainmenu;
+   mainme: tmainmenu;
    panelcontroller: tdockpanelformcontroller;
    panelsta: tstatfile;
    procedure exitexe(const sender: TObject);

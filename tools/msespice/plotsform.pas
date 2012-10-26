@@ -32,13 +32,16 @@ type
    procedure deleteplotexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu);
   protected
+   fchartnum: integer;
    procedure createpage(const akind: integer);
    procedure updatetabnames;
   public
    procedure readstat(const areader: tstatreader);
    procedure writestat(const awriter: tstatwriter);
    procedure updatecharts(const aplots: plotinfoarty);
+   function getchartcaption: msestring;
  end;
+ 
 var
  plotsfo: tplotsfo;
 implementation
@@ -169,6 +172,12 @@ begin
    end;
   end;
  end;
+end;
+
+function tplotsfo.getchartcaption: msestring;
+begin
+ inc(fchartnum);
+ result:= 'Chart '+inttostr(fchartnum);
 end;
 
 end.

@@ -42,18 +42,23 @@ type
    procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
   private
    foptfo: tchartoptionsfo;
+   fshowmenuitem: tmenuitem;
+   procedure activateexe(const sender: tobject);
+   function getchartcaption: msestring;
+   procedure setchartcaption(const avalue: msestring);
   protected
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
    procedure clear;
    procedure updatechart;
+   property chartcaption: msestring read getchartcaption write setchartcaption;
    property optfo: tchartoptionsfo read foptfo;
  end;
 
 implementation
 uses
- chartform_mfm,msereal;
+ chartform_mfm,msereal,main;
 
 { tchartfo }
 
@@ -61,11 +66,18 @@ constructor tchartfo.create(aowner: tcomponent);
 begin
  inherited;
  foptfo:= tchartoptionsfo.create(self);
+ fshowmenuitem:= tmenuitem.create;
+ with fshowmenuitem do begin
+  onexecute:= @activateexe;
+ end;
+ mainfo.mainme.menu.itembynames(['view','charts']).
+                              submenu.insert(bigint,fshowmenuitem);
 end;
 
 destructor tchartfo.destroy;
 begin
  foptfo.free;
+ fshowmenuitem.create;
  inherited;
 end;
 
@@ -176,6 +188,24 @@ begin
  if msegui.isdblclick(ainfo) then begin
   optionsact.execute;
  end;
+end;
+
+procedure tchartfo.activateexe(const sender: tobject);
+begin
+ activate;
+end;
+
+function tchartfo.getchartcaption: msestring;
+begin
+ result:= caption;
+end;
+
+procedure tchartfo.setchartcaption(const avalue: msestring);
+begin
+ caption:= avalue;
+ optfo.caption:= avalue + ' [Options]';
+ fshowmenuitem.caption:= avalue;
+ fshowmenuitem.parentmenu.submenu.sort;
 end;
 
 end.

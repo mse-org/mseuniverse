@@ -12,13 +12,13 @@ object mainfo: tmainfo
     400
     99
   )
-  mainmenu = tmainmenu1
+  mainmenu = mainme
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_savepos, fo_savezorder, fo_savestate]
   statfile = panelsta
   onloaded = loadedexe
   onclosequery = closequeryexe
   moduleclassname = 'tmainform'
-  object tmainmenu1: tmainmenu
+  object mainme: tmainmenu
     menu.submenu.count = 4
     menu.submenu.items = <    
       item
@@ -66,7 +66,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 3
+        submenu.count = 4
         submenu.items = <        
           item
             submenu.count = 2
@@ -79,19 +79,24 @@ object mainfo: tmainfo
                 state = [as_localcaption, as_localonexecute]
                 onexecute = newpanelexe
               end>
-            caption = '&Panels'
+            caption = 'P&anels'
             name = 'panels'
             state = [as_localcaption]
           end        
           item
-            caption = 'Spice Console'
+            caption = '&Spice Console'
             state = [as_localcaption, as_localonexecute]
             onexecute = showconsoleexe
           end        
           item
-            caption = 'Plots'
+            caption = '&Plots'
             state = [as_localcaption, as_localonexecute]
             onexecute = showplotsexe
+          end        
+          item
+            caption = '&Charts'
+            name = 'charts'
+            state = [as_localcaption]
           end>
         caption = '&View'
         name = 'view'
@@ -105,7 +110,7 @@ object mainfo: tmainfo
     top = 16
   end
   object panelcontroller: tdockpanelformcontroller
-    menu = tmainmenu1
+    menu = mainme
     statfile = mainmo.projectmainstat
     statfileclients.count = 3
     statfileclients.items = <    

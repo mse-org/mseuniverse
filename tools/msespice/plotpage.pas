@@ -42,6 +42,8 @@ type
    fchart: tchartfo;
   protected
    function createsubnode: ttreelistitem; override;
+   procedure setcaption(const avalue: msestring); override;
+   procedure dostatread(const reader: tstatreader); override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
@@ -186,7 +188,7 @@ constructor tchartnode.create(const aowner: tcustomitemlist = nil;
 begin
  inherited;
  fchart:= tchartfo.create(nil);
-// fchart.name:= '';
+ caption:= plotsfo.getchartcaption;
 end;
 
 destructor tchartnode.destroy;
@@ -250,6 +252,18 @@ begin
   end;
   updatechart;
  end;
+end;
+
+procedure tchartnode.setcaption(const avalue: msestring);
+begin
+ inherited;
+ fchart.chartcaption:= avalue;
+end;
+
+procedure tchartnode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ setcaption(fcaption);
 end;
 
 { ttracenode }
