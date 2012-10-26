@@ -84,7 +84,7 @@ end;
 procedure tmainfo.createpanelexe(const sender: tdockpanelformcontroller;
                var apanel: tdockpanelform);
 begin
- apanel:= tdockfo.create(panelcontroller);
+ apanel:= tdockfo.create(sender);
 end;
 
 end.
