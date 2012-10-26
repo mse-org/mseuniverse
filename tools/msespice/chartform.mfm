@@ -22,7 +22,7 @@ object chartfo: tchartfo
   onchildmouseevent = childmouseexe
   moduleclassname = 'tdockform'
   object chart: tchart
-    frame.optionsscroll = [oscr_drag, oscr_zoom, oscr_mousewheel]
+    frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
     frame.zoomwidthstep = 1.1
     frame.zoomheightstep = 1.1
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
