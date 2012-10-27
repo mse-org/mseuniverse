@@ -223,6 +223,8 @@ object scalegridfo: tscalegridfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      ondataentered = dataenteredexe
+      onsetvalue = setvalueexe
       value = 0
       valuedefault = 0
       formatedit = '${REAL}'
@@ -243,6 +245,8 @@ object scalegridfo: tscalegridfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      ondataentered = dataenteredexe
+      onsetvalue = setvalueexe
       value = 1
       valuedefault = 1
       formatedit = '${REAL}'
@@ -262,6 +266,7 @@ object scalegridfo: tscalegridfo
       bounds_cx = 16
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      ondataentered = dataenteredexe
       visible = False
       value = True
       valuedefault = True

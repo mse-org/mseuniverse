@@ -4,8 +4,8 @@ object chartfo: tchartfo
   frame.dummy = 0
   popupmenu = tpopupmenu1
   visible = False
-  bounds_x = 100
-  bounds_y = 100
+  bounds_x = 98
+  bounds_y = 341
   bounds_cx = 755
   bounds_cy = 409
   container.frame.zoomwidthstep = 1
@@ -67,8 +67,11 @@ object chartfo: tchartfo
     top = 96
   end
   object tpopupmenu1: tpopupmenu
-    menu.submenu.count = 1
+    menu.submenu.count = 2
     menu.submenu.items = <    
+      item
+        action = plotact
+      end    
       item
         action = optionsact
       end>
@@ -76,9 +79,23 @@ object chartfo: tchartfo
     top = 152
   end
   object optionsact: taction
-    caption = '&Options'
-    onexecute = optionsexe
+    caption = 'Show &Options'
+    onexecute = showoptionsexe
     left = 392
     top = 152
+    sc = (
+      1
+      307
+    )
+  end
+  object plotact: taction
+    caption = 'Show &Plot'
+    onexecute = showplotexe
+    left = 392
+    top = 168
+    sc = (
+      1
+      305
+    )
   end
 end

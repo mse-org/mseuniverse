@@ -21,7 +21,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msesplitter,
  msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
- msecolordialog,msewidgets,scalegridform;
+ msecolordialog,msewidgets,scalegridform,mseact,mseactions;
 
 type
  tchartoptionsfo = class(tdockform)
@@ -36,10 +36,40 @@ type
    tsplitter3: tsplitter;
    xscalefo: tscalegridfo;
    yscalefo: tscalegridfo;
+   chartact: taction;
+   tpopupmenu1: tpopupmenu;
+   plotact: taction;
+   procedure dataenteredexe(const sender: TObject);
+   procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
+   procedure showchartexe(const sender: TObject);
+   procedure showplotexe(const sender: TObject);
  end;
-var
- chartoptionsfo: tchartoptionsfo;
+
 implementation
 uses
- chartoptionsform_mfm;
+ chartoptionsform_mfm,chartform;
+
+procedure tchartoptionsfo.dataenteredexe(const sender: TObject);
+begin
+ tchartfo(owner).updatechart;
+end;
+
+procedure tchartoptionsfo.childmouseexe(const sender: twidget;
+               var ainfo: mouseeventinfoty);
+begin
+ if msegui.isdblclick(ainfo) then begin
+  chartact.execute;
+ end;
+end;
+
+procedure tchartoptionsfo.showchartexe(const sender: TObject);
+begin
+ tchartfo(owner).activate; 
+end;
+
+procedure tchartoptionsfo.showplotexe(const sender: TObject);
+begin
+ tchartfo(owner).showplotexe(nil); 
+end;
+
 end.

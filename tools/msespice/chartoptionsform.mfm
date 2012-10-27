@@ -1,4 +1,8 @@
 object chartoptionsfo: tchartoptionsfo
+  frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton]
+  frame.dummy = 0
+  popupmenu = tpopupmenu1
   visible = False
   bounds_x = 100
   bounds_y = 100
@@ -9,18 +13,20 @@ object chartoptionsfo: tchartoptionsfo
   container.bounds = (
     0
     0
-    670
+    660
     213
   )
-  options = [fo_savepos, fo_savezorder, fo_savestate]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_cansize, od_canfloat, od_candock, od_proportional]
+  options = [fo_closeonesc, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainmo.projectstat2
+  onchildmouseevent = childmouseexe
   moduleclassname = 'tdockform'
   object tsplitter2: tsplitter
     optionswidget = [ow_destroywidgets]
     color = -1879048189
     bounds_x = 0
     bounds_y = 136
-    bounds_cx = 670
+    bounds_cx = 660
     bounds_cy = 3
     anchors = [an_top]
     options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
@@ -32,7 +38,7 @@ object chartoptionsfo: tchartoptionsfo
     taborder = 1
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 670
+    bounds_cx = 660
     bounds_cy = 136
     anchors = [an_top]
     optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -83,7 +89,7 @@ object chartoptionsfo: tchartoptionsfo
     datacols.items = <    
       item
         color = -1879048185
-        width = 63
+        width = 62
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'xexpdisp'
         dataclass = tgridmsestringdatalist
@@ -96,7 +102,7 @@ object chartoptionsfo: tchartoptionsfo
       end    
       item
         color = -1879048185
-        width = 130
+        width = 128
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'yexpdisp'
         dataclass = tgridmsestringdatalist
@@ -108,7 +114,7 @@ object chartoptionsfo: tchartoptionsfo
         dataclass = tgridintegerdatalist
       end    
       item
-        width = 86
+        width = 85
         options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tracecolor'
         dataclass = tgridenumdatalist
@@ -123,9 +129,10 @@ object chartoptionsfo: tchartoptionsfo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 63
+      bounds_cx = 62
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+      ondataentered = dataenteredexe
       reffontheight = 14
     end
     object xscalenum: tintegeredit
@@ -133,10 +140,11 @@ object chartoptionsfo: tchartoptionsfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 64
+      bounds_x = 63
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16
+      ondataentered = dataenteredexe
       value = 1
       valuedefault = 1
       min = 1
@@ -148,11 +156,12 @@ object chartoptionsfo: tchartoptionsfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 88
+      bounds_x = 87
       bounds_y = 0
-      bounds_cx = 130
+      bounds_cx = 128
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+      ondataentered = dataenteredexe
       reffontheight = 14
     end
     object yscalenum: tintegeredit
@@ -160,10 +169,11 @@ object chartoptionsfo: tchartoptionsfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 219
+      bounds_x = 216
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16
+      ondataentered = dataenteredexe
       value = 1
       valuedefault = 1
       min = 1
@@ -181,11 +191,12 @@ object chartoptionsfo: tchartoptionsfo
       frame.buttonellipse.imagenr = 17
       taborder = 5
       visible = False
-      bounds_x = 243
+      bounds_x = 240
       bounds_y = 0
-      bounds_cx = 86
+      bounds_cx = 85
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      ondataentered = dataenteredexe
       value = -1610612734
       valuedefault = -1610612734
       dropdown.options = [deo_autodropdown, deo_keydropdown]
@@ -197,7 +208,7 @@ object chartoptionsfo: tchartoptionsfo
     visible = True
     bounds_x = 0
     bounds_y = 139
-    bounds_cx = 670
+    bounds_cx = 660
     bounds_cy = 74
     anchors = [an_bottom]
     object tsplitter3: tsplitter
@@ -298,11 +309,11 @@ object chartoptionsfo: tchartoptionsfo
     inline yscalefo: tscalegridfo
       bounds_x = 339
       bounds_y = 0
-      bounds_cx = 331
+      bounds_cx = 321
       bounds_cy = 74
       anchors = [an_right]
       inherited scalegrid: twidgetgrid
-        bounds_cx = 331
+        bounds_cx = 321
         bounds_cy = 74
         fixcols.items = <        
           item
@@ -376,5 +387,37 @@ object chartoptionsfo: tchartoptionsfo
         end
       end
     end
+  end
+  object chartact: taction
+    caption = 'Show &Chart'
+    onexecute = showchartexe
+    left = 176
+    top = 48
+    sc = (
+      1
+      306
+    )
+  end
+  object tpopupmenu1: tpopupmenu
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        action = plotact
+      end    
+      item
+        action = chartact
+      end>
+    left = 64
+    top = 80
+  end
+  object plotact: taction
+    caption = 'Show &Plot'
+    onexecute = showplotexe
+    left = 176
+    top = 64
+    sc = (
+      1
+      305
+    )
   end
 end

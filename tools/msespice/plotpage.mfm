@@ -95,6 +95,7 @@ object plotpagefo: tplotpagefo
   end
   object tracegrid: twidgetgrid
     taborder = 4
+    popupmenu = gridpopup
     bounds_x = 0
     bounds_y = 163
     bounds_cx = 572
@@ -293,5 +294,39 @@ object plotpagefo: tplotpagefo
     bounds_cy = 16
     statfile = mainmo.projectstat1
     value = True
+  end
+  object gridpopup: tpopupmenu
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        action = showchartact
+      end    
+      item
+        action = showchartoptact
+      end>
+    left = 160
+    top = 200
+  end
+  object showchartoptact: taction
+    caption = 'Show Chart Options'
+    onexecute = showchartoptexe
+    left = 144
+    top = 120
+    sc = (
+      1
+      307
+    )
+  end
+  object showchartact: taction
+    caption = 'Show Chart'
+    options = [ao_updateonidle]
+    onexecute = showchartexe
+    onupdate = udateshowexe
+    left = 144
+    top = 104
+    sc = (
+      1
+      306
+    )
   end
 end

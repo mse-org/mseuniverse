@@ -35,6 +35,8 @@ type
    autoscale: tbooleanedit;
    procedure dataenteredexe(const sender: TObject);
    procedure rowcountchangeexe(const sender: tcustomgrid);
+   procedure setvalueexe(const sender: TObject; var avalue: realty;
+                   var accept: Boolean);
   public
    procedure updatedial(const adial: tcustomdialcontroller;
                                              const aindex: integer);
@@ -48,7 +50,7 @@ uses
  
 procedure tscalegridfo.dataenteredexe(const sender: TObject);
 begin
- tchartfo(owner).updatechart;
+ tchartfo(owner.owner).updatechart;
 end;
 
 procedure tscalegridfo.updatedial(const adial: tcustomdialcontroller;
@@ -82,6 +84,12 @@ end;
 procedure tscalegridfo.rowcountchangeexe(const sender: tcustomgrid);
 begin
  dataenteredexe(nil);
+end;
+
+procedure tscalegridfo.setvalueexe(const sender: TObject; var avalue: realty;
+               var accept: Boolean);
+begin
+ autoscale.value:= false;
 end;
 
 end.

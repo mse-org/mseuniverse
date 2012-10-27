@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msetabs,msedataedits,
  mseedit,mseifiglob,msestrings,msetypes,msewidgets,classes,plotoptions,
  msesplitter,msegrids,msewidgetgrid,msegraphedits,msesimplewidgets,
- mselistbrowser,msedatanodes,msememodialog,chartform,msengspice;
+ mselistbrowser,msedatanodes,msememodialog,msengspice,chartform,mseact,
+ mseactions;
  
 type
 
@@ -88,6 +89,9 @@ type
    xvaluekind: tenumedit;
    yexpression: tmemodialogedit;
    yvaluekind: tenumedit;
+   gridpopup: tpopupmenu;
+   showchartoptact: taction;
+   showchartact: taction;
    procedure setnameexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
@@ -111,6 +115,9 @@ type
                    var accept: Boolean);
    procedure yvaluekindsetexe(const sender: TObject; var avalue: Integer;
                    var accept: Boolean);
+   procedure showchartoptexe(const sender: TObject);
+   procedure showchartexe(const sender: TObject);
+   procedure udateshowexe(const sender: tcustomaction);
   private
    fplot: tplotoptionsfo;
    fnameindex: integer;
@@ -187,7 +194,7 @@ constructor tchartnode.create(const aowner: tcustomitemlist = nil;
                const aparent: ttreelistitem = nil);
 begin
  inherited;
- fchart:= tchartfo.create(nil);
+ fchart:= tchartfo.create(nil,self);
  caption:= plotsfo.getchartcaption;
 end;
 
@@ -368,7 +375,9 @@ procedure tplotpagefo.createitemexe(const sender: tcustomitemlist;
 begin
  item:= tchartnode.create(sender);
  item.add(1);
- tchartnode(item).chart.name:= getchartname;
+ with tchartnode(item).chart do begin
+  name:= getchartname;
+ end;
 end;
 
 procedure tplotpagefo.updaterowvalueexe(const sender: TObject;
@@ -527,6 +536,29 @@ begin
   acount:= 0;
   tracegrid.row:= source.index;
  end;
+end;
+
+procedure tplotpagefo.showchartoptexe(const sender: TObject);
+begin
+ if treeed.item <> nil then begin
+  tchartnode(treeed.item.rootnode).chart.optfo.activate;
+ end;
+end;
+
+procedure tplotpagefo.showchartexe(const sender: TObject);
+begin
+ if treeed.item <> nil then begin
+  tchartnode(treeed.item.rootnode).chart.activate;
+ end;
+end;
+
+procedure tplotpagefo.udateshowexe(const sender: tcustomaction);
+var
+ bo1: boolean;
+begin
+ bo1:= treeed.item <> nil;
+ showchartact.enabled:= bo1;
+ showchartoptact.enabled:= bo1;
 end;
 
 end.

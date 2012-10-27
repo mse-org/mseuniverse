@@ -23,7 +23,7 @@ uses
  msengspice,msesplitter,msedataedits,mseedit,mseifiglob,msestrings,msetypes,
  msesimplewidgets,msewidgets,msegraphedits,mserealsumedit,msegrids,
  msewidgetgrid,msecolordialog,scalegridform,msetimer,chartoptionsform,classes,
- mseact,mseactions;
+ mseact,mseactions,mselistbrowser;
 
 type
  tchartfo = class(tdockform)
@@ -34,12 +34,14 @@ type
    timer: ttimer;
    tpopupmenu1: tpopupmenu;
    optionsact: taction;
+   plotact: taction;
    procedure tracedataentered(const sender: TObject);
    procedure updatechartexe(const sender: TObject);
    procedure doupdatechart;
    procedure dataenteredexe(const sender: TObject);
-   procedure optionsexe(const sender: TObject);
+   procedure showoptionsexe(const sender: TObject);
    procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
+   procedure showplotexe(const sender: TObject);
   private
    foptfo: tchartoptionsfo;
    fshowmenuitem: tmenuitem;
@@ -47,8 +49,11 @@ type
    function getchartcaption: msestring;
    procedure setchartcaption(const avalue: msestring);
   protected
+   fnode: ttreelistedititem; //tchartnode
   public
-   constructor create(aowner: tcomponent); override;
+   constructor create(const aowner: tcomponent;
+                       const anode: ttreelistedititem //tchartnode
+                                                       ); reintroduce;
    destructor destroy; override;
    procedure clear;
    procedure updatechart;
@@ -58,13 +63,15 @@ type
 
 implementation
 uses
- chartform_mfm,msereal,main;
+ chartform_mfm,msereal,main,plotpage;
 
 { tchartfo }
 
-constructor tchartfo.create(aowner: tcomponent);
+constructor tchartfo.create(const aowner: tcomponent;
+                                      const anode: ttreelistedititem);
 begin
- inherited;
+ inherited create(aowner);
+  fnode:= anode;
  foptfo:= tchartoptionsfo.create(self);
  fshowmenuitem:= tmenuitem.create;
  with fshowmenuitem do begin
@@ -177,11 +184,6 @@ begin
  updatechart;
 end;
 
-procedure tchartfo.optionsexe(const sender: TObject);
-begin
- optfo.activate;
-end;
-
 procedure tchartfo.childmouseexe(const sender: twidget;
                var ainfo: mouseeventinfoty);
 begin
@@ -206,6 +208,16 @@ begin
  optfo.caption:= avalue + ' [Options]';
  fshowmenuitem.caption:= avalue;
  fshowmenuitem.parentmenu.submenu.sort;
+end;
+
+procedure tchartfo.showoptionsexe(const sender: TObject);
+begin
+ optfo.activate;
+end;
+
+procedure tchartfo.showplotexe(const sender: TObject);
+begin
+ fnode.activate;
 end;
 
 end.
