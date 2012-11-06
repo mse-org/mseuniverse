@@ -35,7 +35,7 @@ var
 
 implementation
 uses
- main_mfm,windows,msearrayutils;
+ main_mfm,msearrayutils,sysutils;
 
 const 
  knownformats: array[0..1] of msestring = ('text/uri-list','CF_HDROP');
@@ -126,7 +126,7 @@ begin
   with tmimedragobject(adragobject) do begin
    case wantedformatindex of 
     0: begin
-     ar1:= breaklines(msestring(data));
+     ar1:= breaklines(msestring(trim(data)));
      if (ar1 <> nil) and (ar1[high(ar1)] = '') then begin
       setlength(ar1,high(ar1));
      end;
