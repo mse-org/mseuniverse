@@ -55,6 +55,7 @@ object mainfo: tmainfo
     bounds_y = 8
     bounds_cx = 193
     bounds_cy = 82
+    bounds_cxmin = 193
     anchors = [an_left, an_top, an_right]
   end
   object sourcedata: tfilenameedit
@@ -63,9 +64,8 @@ object mainfo: tmainfo
     bounds_x = 4
     bounds_y = 104
     bounds_cx = 192
-    bounds_cy = 19
     statfile = tstatfile1
-    reffontheight = 13
+    reffontheight = 14
   end
   object destdata: tstringgrid
     frame.levelo = -1
@@ -87,8 +87,8 @@ object mainfo: tmainfo
         valuefalse = '0'
         valuetrue = '1'
       end>
-    datarowheight = 15
-    reffontheight = 13
+    datarowheight = 16
+    reffontheight = 14
   end
   object formatdisp: tstringgrid
     frame.levelo = -1
@@ -97,15 +97,15 @@ object mainfo: tmainfo
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 4
     bounds_x = 4
-    bounds_y = 128
+    bounds_y = 127
     bounds_cx = 190
-    bounds_cy = 148
+    bounds_cy = 149
     anchors = [an_left, an_top, an_bottom]
     datacols.count = 1
     datacols.options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
@@ -117,8 +117,8 @@ object mainfo: tmainfo
         valuefalse = '0'
         valuetrue = '1'
       end>
-    datarowheight = 15
-    reffontheight = 13
+    datarowheight = 16
+    reffontheight = 14
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'

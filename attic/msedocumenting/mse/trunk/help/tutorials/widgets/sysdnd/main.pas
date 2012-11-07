@@ -127,9 +127,6 @@ begin
    case wantedformatindex of 
     0: begin
      ar1:= breaklines(msestring(trim(data)));
-     if (ar1 <> nil) and (ar1[high(ar1)] = '') then begin
-      setlength(ar1,high(ar1));
-     end;
     end;
     1: begin
      if length(data) > sizeof(dropfilesty) then begin
