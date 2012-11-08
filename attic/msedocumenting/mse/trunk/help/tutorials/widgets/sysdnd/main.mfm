@@ -1,0 +1,128 @@
+object mainfo: tmainfo
+  bounds_x = 63
+  bounds_y = 234
+  bounds_cx = 397
+  bounds_cy = 280
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    397
+    280
+  )
+  dragdock.onbeforedragover = dragoverexe
+  dragdock.onbeforedragdrop = dragdropexe
+  dragdock.onafterdragbegin = dragbeginexe
+  optionswindow = [wo_sysdnd]
+  options = [fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'MSEgui SYSDND Demo'
+  moduleclassname = 'tdockform'
+  object source: tsimplewidget
+    optionswidget = [ow_mousetransparent, ow_destroywidgets]
+    color = -1610612729
+    frame.leveli = 1
+    frame.caption = 'SOURCE'
+    frame.captionpos = cp_center
+    frame.font.height = 20
+    frame.font.name = 'stf_default'
+    frame.font.xscale = 1
+    frame.font.dummy = 0
+    frame.localprops = [frl_leveli]
+    frame.dummy = 0
+    visible = True
+    bounds_x = 4
+    bounds_y = 8
+    bounds_cx = 190
+    bounds_cy = 82
+  end
+  object dest: tsimplewidget
+    optionswidget = [ow_mousetransparent, ow_destroywidgets]
+    color = -1610612728
+    frame.leveli = -1
+    frame.caption = 'DESTINATION'
+    frame.captionpos = cp_center
+    frame.font.height = 20
+    frame.font.name = 'stf_default'
+    frame.font.xscale = 1
+    frame.font.dummy = 0
+    frame.localprops = [frl_leveli]
+    frame.dummy = 0
+    taborder = 1
+    visible = True
+    bounds_x = 200
+    bounds_y = 8
+    bounds_cx = 193
+    bounds_cy = 82
+    bounds_cxmin = 193
+    anchors = [an_left, an_top, an_right]
+  end
+  object sourcedata: tfilenameedit
+    frame.button.imagenr = 17
+    taborder = 2
+    bounds_x = 4
+    bounds_y = 104
+    bounds_cx = 192
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object destdata: tstringgrid
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.localprops = [frl_levelo, frl_colorclient]
+    taborder = 3
+    bounds_x = 200
+    bounds_y = 104
+    bounds_cx = 193
+    bounds_cy = 172
+    anchors = [an_left, an_top, an_right, an_bottom]
+    datacols.count = 1
+    datacols.options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autocolwidth]
+    datacols.items = <    
+      item
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autocolwidth]
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    datarowheight = 16
+    reffontheight = 14
+  end
+  object formatdisp: tstringgrid
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Formats'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 4
+    bounds_y = 127
+    bounds_cx = 190
+    bounds_cy = 149
+    anchors = [an_left, an_top, an_bottom]
+    datacols.count = 1
+    datacols.options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autocolwidth]
+    datacols.items = <    
+      item
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autocolwidth]
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    datarowheight = 16
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 80
+    top = 168
+  end
+end
