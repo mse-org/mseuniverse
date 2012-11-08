@@ -18,15 +18,36 @@ unit dockform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedockpanelform;
+ mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,msetypes,
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedockpanelform,
+ msechart,msedock,msetimer;
 
 type
  tdockfo = class(tdockpanelform)
+   timer: ttimer;
+   procedure boundschangedexe(const sender: tdockcontroller);
+   procedure timerexe(const sender: TObject);
+  public
+   procedure chartchanged(const sender: twidget);
  end;
-var
- dockfo: tdockfo;
+
 implementation
 uses
- dockform_mfm;
+ dockform_mfm,chartform;
+ 
+procedure tdockfo.boundschangedexe(const sender: tdockcontroller);
+begin
+ syncfitframe(sender);
+end;
+
+procedure tdockfo.chartchanged(const sender: twidget);
+begin
+ timer.enabled:= true;
+end;
+
+procedure tdockfo.timerexe(const sender: TObject);
+begin
+ syncfitframe(dragdock);  
+end;
+
 end.

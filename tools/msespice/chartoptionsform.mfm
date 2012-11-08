@@ -1,32 +1,31 @@
 object chartoptionsfo: tchartoptionsfo
   frame.grip_size = 10
-  frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton]
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
   frame.dummy = 0
   popupmenu = tpopupmenu1
   visible = False
   bounds_x = 100
   bounds_y = 100
-  bounds_cx = 670
+  bounds_cx = 672
   bounds_cy = 213
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    660
+    662
     213
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_cansize, od_canfloat, od_candock, od_proportional]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional]
   options = [fo_closeonesc, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainmo.projectstat2
   onchildmouseevent = childmouseexe
   moduleclassname = 'tdockform'
   object tsplitter2: tsplitter
-    optionswidget = [ow_destroywidgets]
     color = -1879048189
     bounds_x = 0
     bounds_y = 136
-    bounds_cx = 660
+    bounds_cx = 662
     bounds_cy = 3
     anchors = [an_top]
     options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
@@ -38,7 +37,7 @@ object chartoptionsfo: tchartoptionsfo
     taborder = 1
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 660
+    bounds_cx = 662
     bounds_cy = 136
     anchors = [an_top]
     optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -102,7 +101,7 @@ object chartoptionsfo: tchartoptionsfo
       end    
       item
         color = -1879048185
-        width = 128
+        width = 129
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'yexpdisp'
         dataclass = tgridmsestringdatalist
@@ -158,7 +157,7 @@ object chartoptionsfo: tchartoptionsfo
       visible = False
       bounds_x = 87
       bounds_y = 0
-      bounds_cx = 128
+      bounds_cx = 129
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
       ondataentered = dataenteredexe
@@ -169,7 +168,7 @@ object chartoptionsfo: tchartoptionsfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 216
+      bounds_x = 217
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16
@@ -191,7 +190,7 @@ object chartoptionsfo: tchartoptionsfo
       frame.buttonellipse.imagenr = 17
       taborder = 5
       visible = False
-      bounds_x = 240
+      bounds_x = 241
       bounds_y = 0
       bounds_cx = 85
       bounds_cy = 16
@@ -208,14 +207,13 @@ object chartoptionsfo: tchartoptionsfo
     visible = True
     bounds_x = 0
     bounds_y = 139
-    bounds_cx = 660
+    bounds_cx = 662
     bounds_cy = 74
     anchors = [an_bottom]
     object tsplitter3: tsplitter
-      optionswidget = [ow_destroywidgets]
       color = -1879048189
       taborder = 2
-      bounds_x = 336
+      bounds_x = 328
       bounds_y = 0
       bounds_cx = 3
       bounds_cy = 74
@@ -229,10 +227,10 @@ object chartoptionsfo: tchartoptionsfo
       taborder = 1
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 336
+      bounds_cx = 328
       bounds_cy = 74
       inherited scalegrid: twidgetgrid
-        bounds_cx = 336
+        bounds_cx = 328
         bounds_cy = 74
         fixcols.items = <        
           item
@@ -256,6 +254,10 @@ object chartoptionsfo: tchartoptionsfo
               item
               end            
               item
+              end            
+              item
+              end            
+              item
               end>
           end>
         datacols.items = <        
@@ -282,38 +284,45 @@ object chartoptionsfo: tchartoptionsfo
           end        
           item
             dataclass = tgridintegerdatalist
+          end        
+          item
+            widgetname = 'startmargin'
+            dataclass = tgridrealdatalist
+          end        
+          item
+            widgetname = 'endmargin'
+            dataclass = tgridrealdatalist
           end>
         inherited capt: tstringedit[0]
-          ondataentered = nil
         end
         inherited log: tbooleanedit[1]
-          ondataentered = nil
         end
         inherited intervalco: trealedit[2]
-          ondataentered = nil
         end
         inherited maingridlinewidth: trealedit[3]
-          ondataentered = nil
         end
         inherited start: trealedit[4]
         end
         inherited oppos: tbooleanedit[5]
-          ondataentered = nil
         end
-        inherited range: trealedit
+        inherited startmargin: trealedit[6]
         end
-        inherited autoscale: tbooleanedit
+        inherited range: trealedit[7]
+        end
+        inherited autoscale: tbooleanedit[8]
+        end
+        inherited endmargin: trealedit
         end
       end
     end
     inline yscalefo: tscalegridfo
-      bounds_x = 339
+      bounds_x = 331
       bounds_y = 0
-      bounds_cx = 321
+      bounds_cx = 331
       bounds_cy = 74
       anchors = [an_right]
       inherited scalegrid: twidgetgrid
-        bounds_cx = 321
+        bounds_cx = 331
         bounds_cy = 74
         fixcols.items = <        
           item
@@ -337,6 +346,10 @@ object chartoptionsfo: tchartoptionsfo
               item
               end            
               item
+              end            
+              item
+              end            
+              item
               end>
           end>
         datacols.items = <        
@@ -363,27 +376,34 @@ object chartoptionsfo: tchartoptionsfo
           end        
           item
             dataclass = tgridintegerdatalist
+          end        
+          item
+            widgetname = 'startmargin'
+            dataclass = tgridrealdatalist
+          end        
+          item
+            widgetname = 'endmargin'
+            dataclass = tgridrealdatalist
           end>
         inherited capt: tstringedit[0]
-          ondataentered = nil
         end
         inherited log: tbooleanedit[1]
-          ondataentered = nil
         end
         inherited intervalco: trealedit[2]
-          ondataentered = nil
         end
         inherited maingridlinewidth: trealedit[3]
-          ondataentered = nil
         end
         inherited start: trealedit[4]
         end
         inherited oppos: tbooleanedit[5]
-          ondataentered = nil
         end
-        inherited range: trealedit
+        inherited startmargin: trealedit[6]
         end
-        inherited autoscale: tbooleanedit
+        inherited range: trealedit[7]
+        end
+        inherited autoscale: tbooleanedit[8]
+        end
+        inherited endmargin: trealedit
         end
       end
     end

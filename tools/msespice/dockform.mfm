@@ -16,6 +16,14 @@ object dockfo: tdockfo
     354
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_acceptsdock, od_splitvert, od_tabed, od_proportional, od_propsize]
+  dragdock.onboundschanged = boundschangedexe
   statfile = mainmo.projectmainstat
   moduleclassname = 'tdockpanelform'
+  object timer: ttimer
+    interval = 0
+    options = [to_single]
+    ontimer = timerexe
+    left = 72
+    top = 88
+  end
 end

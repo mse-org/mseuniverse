@@ -33,6 +33,8 @@ type
    start: trealedit;
    range: trealedit;
    autoscale: tbooleanedit;
+   startmargin: trealedit;
+   endmargin: trealedit;
    procedure dataenteredexe(const sender: TObject);
    procedure rowcountchangeexe(const sender: tcustomgrid);
    procedure setvalueexe(const sender: TObject; var avalue: realty;

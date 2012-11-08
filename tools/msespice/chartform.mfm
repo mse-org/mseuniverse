@@ -1,6 +1,6 @@
 object chartfo: tchartfo
   frame.grip_size = 10
-  frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton]
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
   frame.dummy = 0
   popupmenu = tpopupmenu1
   visible = False
@@ -16,7 +16,7 @@ object chartfo: tchartfo
     745
     409
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
   options = [fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainmo.projectstat2
   onchildmouseevent = childmouseexe
@@ -54,8 +54,15 @@ object chartfo: tchartfo
     ystart = 0
     xrange = 1
     yrange = 1
+    xdials.count = 1
     xdials.start = 0
     xdials.range = 1
+    xdials.items = <    
+      item
+        widthmm = 0.3
+        start = 0
+        range = 1
+      end>
     ydials.start = 0
     ydials.range = 1
   end

@@ -61,9 +61,88 @@ type
    property optfo: tchartoptionsfo read foptfo;
  end;
 
+procedure syncfitframe(const adock: tdockcontroller);
+
 implementation
 uses
- chartform_mfm,msereal,main,plotpage;
+ chartform_mfm,msereal,main,plotpage,dockform;
+
+procedure syncfitframe(const adock: tdockcontroller);
+var
+ left1: integer = 0;
+ top1: integer = 0;
+ right1: integer = 0;
+ bottom1: integer = 0;
+ ar1: booleanarty;
+ children1: widgetarty;
+  
+ procedure checkfit;
+ var
+  int1: integer;
+ begin
+  setlength(ar1,length(children1));
+  for int1:= 0 to high(ar1) do begin
+   if children1[int1] is tchartfo then begin
+    ar1[int1]:= true;
+    with tchartfo(children1[int1]).chart.fitframe do begin
+     if left > left1 then begin
+      left1:= left;
+     end;
+     if top > top1 then begin
+      top1:= top;
+     end;
+     if right > right1 then begin
+      right1:= right;
+     end;
+     if bottom > bottom1 then begin
+      bottom1:= bottom;
+     end;
+    end;
+   end;
+  end;
+ end; //checkfit
+
+var
+ int1: integer;
+ 
+begin
+ children1:= adock.getitems;
+ case adock.currentsplitdir of
+  sd_horz: begin
+   checkfit;
+   for int1:= 0 to high(ar1) do begin
+    if ar1[int1] then begin
+     with tchartfo(children1[int1]).chart,frame,fitframe do begin
+      framei_left:= left1-left;
+      framei_top:= 0;
+      framei_right:= right1-right;
+      framei_bottom:= 0;
+     end;
+    end;
+   end;
+  end;
+  sd_vert: begin
+   checkfit;
+   for int1:= 0 to high(ar1) do begin
+    if ar1[int1] then begin
+     with tchartfo(children1[int1]).chart,frame,fitframe do begin
+      framei_left:= 0;
+      framei_top:= top1-top;
+      framei_right:= 0;
+      framei_bottom:= bottom1-bottom;
+     end;
+    end;
+   end;
+  end;
+  else begin
+   for int1:= 0 to high(children1) do begin
+    if children1[int1] is tcustomchart then begin
+     tchartfo(children1[int1]).chart.frame.framei:= nullframe;
+    end;
+   end;
+  end;
+ end;
+end;
 
 { tchartfo }
 
@@ -91,8 +170,6 @@ end;
 procedure tchartfo.clear;
 begin
  chart.clear;
-// chart.xdials.count:= 0;
-// chart.ydials.count:= 0;
 end;
 
 procedure tchartfo.doupdatechart;
@@ -100,47 +177,95 @@ procedure tchartfo.doupdatechart;
  procedure checkscale(var ascalefo: tscalegridfo; const isy: boolean);
  var
   int1,int2: integer;
-  min,max: real;
+  ar1: complexarty;
  begin
   with ascalefo do begin
+   setlength(ar1,scalegrid.rowcount);
    for int1:= 0 to scalegrid.rowhigh do begin
-    if autoscale[int1] then begin
-     min:= bigreal;
-     max:= -bigreal;
-     for int2:= 0 to foptfo.tracesgrid.rowhigh do begin
-      if isy then begin
-       if foptfo.yscalenum[int2] = int1+1 then begin
-        chart.traces[int2].minmaxy1(min,max);
+    with ar1[int1] do begin
+     re:= bigreal;  //min
+     im:= -bigreal; //max
+    end;
+    for int2:= 0 to foptfo.tracesgrid.rowhigh do begin
+     if int2 >= chart.traces.count then begin
+      break;
+     end;
+     if isy then begin
+      if foptfo.yscalenum[int2] = int1+1 then begin
+       with chart.traces[int2] do begin
+        logy:= log[int1];
+        if autoscale[int1] then begin
+         with ar1[int1] do begin
+          minmaxy1(re,im);
+         end;
+        end;
        end;
-      end
-      else begin
-       if foptfo.xscalenum[int2] = int1+1 then begin
-        chart.traces[int2].minmaxx1(min,max);
+      end;
+     end
+     else begin
+      if foptfo.xscalenum[int2] = int1+1 then begin
+       with chart.traces[int2] do begin
+        logx:= log[int1];
+        if autoscale[int1] then begin
+         with ar1[int1] do begin
+          minmaxx1(re,im);
+         end;
+        end;
+//         autoscalex(startmargin[int1],endmargin[int1]);
        end;
       end;
      end;
-     if max >= min then begin
-      range[int1]:= calctracerange(min,max);
-      start[int1]:= min;
+    end;
+   end;
+   for int1:= 0 to high(ar1) do begin
+    if autoscale[int1] then begin
+     with ar1[int1] do begin
+      im:= calctracerange(re,im,log[int1],startmargin[int1],endmargin[int1]);
      end;
     end;
    end;
    if isy then begin
     for int1:= 0 to foptfo.tracesgrid.rowhigh do begin
+     if int1 >= chart.traces.count then begin
+      break;
+     end;
      int2:= foptfo.yscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
-      chart.traces[int1].ystart:= start[int2];
-      chart.traces[int1].yrange:= range[int2];
+      if autoscale[int2] then begin
+       with ar1[int2] do begin
+        start[int2]:= re;
+        chart.traces[int1].ystart:= re;
+        range[int2]:= im;
+        chart.traces[int1].yrange:= im;
+       end;
+      end
+      else begin
+       chart.traces[int1].ystart:= start[int2];
+       chart.traces[int1].yrange:= range[int2];
+      end;
      end;
     end;
     updatechart(chart,chart.ydials);
    end
    else begin
     for int1:= 0 to foptfo.tracesgrid.rowhigh do begin
+     if int1 >= chart.traces.count then begin
+      break;
+     end;
      int2:= foptfo.xscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
-      chart.traces[int1].xstart:= start[int2];
-      chart.traces[int1].xrange:= range[int2];
+      if autoscale[int2] then begin
+       with ar1[int2] do begin
+        start[int2]:= re;
+        chart.traces[int1].xstart:= re;
+        range[int2]:= im;
+        chart.traces[int1].xrange:= im;
+       end;
+      end
+      else begin
+       chart.traces[int1].xstart:= start[int2];
+       chart.traces[int1].xrange:= range[int2];
+      end;
      end;
     end;
     updatechart(chart,chart.xdials);
@@ -161,7 +286,9 @@ begin
  end;
  checkscale(foptfo.xscalefo,false);
  checkscale(foptfo.yscalefo,true);
-// yscalefo.updatechart(chart,chart.ydials);
+ if parentofcontainer is tdockfo then begin
+  tdockfo(parentofcontainer).chartchanged(self);
+ end;
 end;
 
 procedure tchartfo.tracedataentered(const sender: TObject);

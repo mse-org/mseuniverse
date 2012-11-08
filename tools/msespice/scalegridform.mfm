@@ -24,7 +24,7 @@ object scalegridfo: tscalegridfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 8
+        captions.count = 10
         captions.items = <        
           item
             caption = 'log'
@@ -48,10 +48,16 @@ object scalegridfo: tscalegridfo
           end        
           item
             caption = 'A'
+          end        
+          item
+            caption = 'S.Marg.'
+          end        
+          item
+            caption = 'E.Marg.'
           end>
       end>
     rowcount = 1
-    datacols.count = 8
+    datacols.count = 10
     datacols.items = <    
       item
         width = 18
@@ -128,6 +134,24 @@ object scalegridfo: tscalegridfo
         data = (
           (
             -1
+          )
+        )
+      end    
+      item
+        widgetname = 'startmargin'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            1
+          )
+        )
+      end    
+      item
+        widgetname = 'endmargin'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            1
           )
         )
       end>
@@ -270,6 +294,44 @@ object scalegridfo: tscalegridfo
       visible = False
       value = True
       valuedefault = True
+    end
+    object startmargin: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 9
+      visible = False
+      bounds_x = 297
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      ondataentered = dataenteredexe
+      value = 0
+      valuedefault = 0
+      valuerange = 1
+      valuestart = 0
+      min = 0
+      max = 0.4
+      reffontheight = 14
+    end
+    object endmargin: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 10
+      visible = False
+      bounds_x = 348
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      ondataentered = dataenteredexe
+      value = 0
+      valuedefault = 0
+      valuerange = 1
+      valuestart = 0
+      min = 0
+      max = 0.4
+      reffontheight = 14
     end
   end
 end
