@@ -286,11 +286,9 @@ object chartoptionsfo: tchartoptionsfo
             dataclass = tgridintegerdatalist
           end        
           item
-            widgetname = 'startmargin'
             dataclass = tgridrealdatalist
           end        
           item
-            widgetname = 'endmargin'
             dataclass = tgridrealdatalist
           end>
         inherited capt: tstringedit[0]
@@ -378,11 +376,9 @@ object chartoptionsfo: tchartoptionsfo
             dataclass = tgridintegerdatalist
           end        
           item
-            widgetname = 'startmargin'
             dataclass = tgridrealdatalist
           end        
           item
-            widgetname = 'endmargin'
             dataclass = tgridrealdatalist
           end>
         inherited capt: tstringedit[0]

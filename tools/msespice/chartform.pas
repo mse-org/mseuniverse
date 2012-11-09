@@ -28,9 +28,6 @@ uses
 type
  tchartfo = class(tdockform)
    chart: tchart;
-   start: trealedit;
-   range: trealedit;
-   autoscale: tbooleanedit;
    timer: ttimer;
    tpopupmenu1: tpopupmenu;
    optionsact: taction;
@@ -211,13 +208,16 @@ procedure tchartfo.doupdatechart;
           minmaxx1(re,im);
          end;
         end;
-//         autoscalex(startmargin[int1],endmargin[int1]);
        end;
       end;
      end;
     end;
    end;
    for int1:= 0 to high(ar1) do begin
+    if isy then begin
+    end
+    else begin
+    end;
     if autoscale[int1] then begin
      with ar1[int1] do begin
       im:= calctracerange(re,im,log[int1],startmargin[int1],endmargin[int1]);
@@ -231,17 +231,19 @@ procedure tchartfo.doupdatechart;
      end;
      int2:= foptfo.yscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
-      if autoscale[int2] then begin
-       with ar1[int2] do begin
-        start[int2]:= re;
-        chart.traces[int1].ystart:= re;
-        range[int2]:= im;
-        chart.traces[int1].yrange:= im;
+      with chart.traces[int1] do begin;
+       if autoscale[int2] then begin
+        with ar1[int2] do begin
+         ascalefo.start[int2]:= re;
+         ystart:= re;
+         ascalefo.range[int2]:= im;
+         yrange:= im;
+        end;
+       end
+       else begin
+        ystart:= ascalefo.start[int2];
+        yrange:= ascalefo.range[int2];
        end;
-      end
-      else begin
-       chart.traces[int1].ystart:= start[int2];
-       chart.traces[int1].yrange:= range[int2];
       end;
      end;
     end;
@@ -254,17 +256,19 @@ procedure tchartfo.doupdatechart;
      end;
      int2:= foptfo.xscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
-      if autoscale[int2] then begin
-       with ar1[int2] do begin
-        start[int2]:= re;
-        chart.traces[int1].xstart:= re;
-        range[int2]:= im;
-        chart.traces[int1].xrange:= im;
+      with chart.traces[int1] do begin;
+       if autoscale[int2] then begin
+        with ar1[int2] do begin
+         ascalefo.start[int2]:= re;
+         xstart:= re;
+         ascalefo.range[int2]:= im;
+         xrange:= im;
+        end;
+       end
+       else begin
+        xstart:= ascalefo.start[int2];
+        xrange:= ascalefo.range[int2];
        end;
-      end
-      else begin
-       chart.traces[int1].xstart:= start[int2];
-       chart.traces[int1].xrange:= range[int2];
       end;
      end;
     end;

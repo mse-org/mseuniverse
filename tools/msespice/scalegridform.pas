@@ -59,14 +59,21 @@ procedure tscalegridfo.updatedial(const adial: tcustomdialcontroller;
                const aindex: integer);
 begin
  with adial do begin
+//  options:= [do_sideline,do_boxline];
   opposite:= oppos[aindex];
 //  visible:= vis[aindex];
   range:= self.range[aindex];
   start:= self.start[aindex];
+  log:= self.log[aindex];
   ticks.clear;
   ticks.count:= 1;
   with ticks[0] do begin
-   interval:= autointerval(range,intervalco[aindex]);
+   if log then begin
+    intervalcount:= intervalco[aindex];
+   end
+   else begin
+    interval:= autointerval(range,intervalco[aindex]);
+   end;
    caption:= capt[aindex];
   end;
  end;
