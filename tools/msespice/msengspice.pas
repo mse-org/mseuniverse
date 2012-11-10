@@ -23,6 +23,8 @@ uses
  sysutils,msestream,msestrings,msetypes;
  
 type
+ plotkindty = (plk_dc,plk_ac,plk_tran);
+ 
  espice = class(exception)
  end;
  
@@ -84,7 +86,9 @@ function getplotvalues(const ainfo: plotinfoty; const aindex: integer;
 function getplotvalues(const ainfo: plotinfoty; const aexpression: msestring;
                             const valuekind: valuekindty): realarty; overload;
 function unifyexpression(aexpression: msestring): msestring;
-
+const
+ plotnames: array[plotkindty] of string = ('dc','ac','tran');
+ 
 implementation
 uses
  mseformatstr,msearrayutils,math;
@@ -225,6 +229,7 @@ begin
  for int1:= 0 to high(ainfo.vars) do begin
   if ainfo.vars[int1].unifiedexpression = mstr1 then begin
    result:= getplotvalues(ainfo,int1,valuekind);
+   break;
   end;
  end;
 end;

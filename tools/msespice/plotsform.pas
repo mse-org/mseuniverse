@@ -44,6 +44,7 @@ type
  
 var
  plotsfo: tplotsfo;
+
 implementation
 uses
  plotsform_mfm,plotpage;
@@ -62,8 +63,7 @@ var
 begin
  fo1:= tplotpagefo.create(self,akind);
  fo1.name:= '';
- tabs.add(itabpage(fo1));
- 
+ tabs.add(itabpage(fo1)); 
 end;
 
 procedure tplotsfo.updatetabnames;
@@ -120,7 +120,7 @@ begin
  updatetabnames;
  setlength(ar1,tabs.count);
  for int1:= 0 to high(ar1) do begin
-  ar1[int1]:= tplotpagefo(tabs.items[int1]).kind;
+  ar1[int1]:= ord(tplotpagefo(tabs.items[int1]).kind);
  end;
  with awriter do begin
   setsection(plotssection);
@@ -147,7 +147,7 @@ procedure tplotsfo.updatecharts(const aplots: plotinfoarty);
 var
  int1,int2,int3: integer;
 begin
- int2:= high(aplots);
+ int2:= 0;
  for int1:= 0 to tabs.count - 1 do begin
   with tplotpagefo(tabs[int1]) do begin
    if plotactive.value and (int2 >= 0) then begin
@@ -161,7 +161,7 @@ begin
       end;
      end;
     end;
-    dec(int2);
+    inc(int2);
    end
    else begin
     for int3:= 0 to tracegrid.rowhigh do begin

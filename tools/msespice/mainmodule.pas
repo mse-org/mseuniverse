@@ -76,8 +76,8 @@ type
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
-   frawname: filenamety;
-   finpname: filenamety;
+   fspicefile: filenamety;
+   frawfile: filenamety;
   protected
    fprojectoptions: tprojectoptions;
    fspice: tngspice;
@@ -101,7 +101,7 @@ var
 implementation
 uses
  mainmodule_mfm,main,msefileutils,consoleform,msestream,msewidgets,plotsform,
- mseformatstr,plotpage;
+ mseformatstr,plotpage,sysutils;
 
 { tprojectoptions }
 
@@ -244,16 +244,20 @@ var
 // fna1: filenamety;
  stream1: ttextstream;
  stream2: ttextstream = nil;
- int1: integer;
+ int1,int2: integer;
  str1: string;
  lstr1: lstringty;
+ ar1: msestringarty;
+ vectors: string;
+ nums,nums1: array[plotkindty] of integer;
 begin
- frawname:= replacefileext(projectmainstat.filename,'raw');
- finpname:= replacefileext(projectmainstat.filename,'tmp');
- deletefile(frawname);
+ fspicefile:= replacefileext(projectmainstat.filename,'spi.tmp');
+ frawfile:= replacefileext(projectmainstat.filename,'raw.tmp');
+ deletefile(frawfile);
  stream1:= ttextstream.create(fprojectoptions.netlist,fm_read);
  try
-  stream2:= ttextstream.create(finpname,fm_create);
+  vectors:= '';
+  stream2:= ttextstream.create(fspicefile,fm_create);
   while not stream1.eof do begin
    stream1.readln(str1);
    nextword(str1,lstr1);
@@ -262,22 +266,51 @@ begin
    end;
    stream2.writeln(str1);
   end;
+  fillchar(nums,sizeof(nums),0);
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
    with tplotpagefo(plotsfo.tabs[int1]) do begin
     if plotactive.value then begin
      stream2.writeln(getplotstatement);
+     inc(nums[kind]);
     end;
    end;
   end;
-  stream2.writeln('.END');
+  if nums[plk_ac] > 1 then begin
+   nums[plk_tran]:= nums[plk_tran] + nums[plk_ac]-1;
+  end;
+  nums1:= nums;
+  stream2.writeln('.CONTROL'+lineend+'run');
+  for int1:= 0 to plotsfo.tabs.count - 1 do begin
+   with tplotpagefo(plotsfo.tabs[int1]) do begin
+    if plotactive.value then begin
+     stream2.writeln('setplot '+plotnames[kind]+inttostr(nums[kind]));
+     for int2:= 1 to high(expressions) do begin
+      stream2.writeln('let '+exptag(int2)+'='+expressions[int2]);
+     end;
+     dec(nums[kind]);
+    end;
+   end;
+  end;
+  str1:= 'write '+tosysfilepath(frawfile,true); //'write' must be lowercase!
+  for int1:= 0 to plotsfo.tabs.count - 1 do begin
+   with tplotpagefo(plotsfo.tabs[int1]) do begin
+    if plotactive.value then begin
+     for int2:= 1 to high(expressions) do begin
+      str1:= str1 +' '+plotnames[kind]+inttostr(nums1[kind])+'.'+exptag(int2);
+     end;
+     dec(nums1[kind]);
+    end;
+   end;
+  end;
+  stream2.writeln(str1);                   
+  stream2.writeln('.ENDC'+lineend+'.END');
  finally
   stream1.free;
   stream2.free;
  end;
  consolefo.term.clear;
  str1:= tosysfilepath(fprojectoptions.ngspice,true)+
-   ' -b -r'+tosysfilepath(frawname,true)+
-   ' '+tosysfilepath(finpname,true);
+   ' -b '+tosysfilepath(fspicefile,true);
  consolefo.term.addline('> '+str1);
  consolefo.term.execprog(str1);
  fsimurunning:= true;
@@ -296,11 +329,12 @@ var
 begin
  fsimurunning:= false;
  fspice.reset;
- if consolefo.term.exitcode = 0 then begin
-  if not ttextstream.trycreate(stream1,frawname) then begin
-   showerror('RAW file'+lineend+frawname+lineend+'not found.');
+ if consolefo.term.exitcode <= 1 then begin
+  if not ttextstream.trycreate(stream1,frawfile) then begin
+   showerror('RAW file'+lineend+frawfile+lineend+'not found.');
   end
   else begin
+   consolefo.term.addline('**** FINISHED ****');
    try
     fspice.readdata(stream1);
     plotsfo.updatecharts(fspice.plots);

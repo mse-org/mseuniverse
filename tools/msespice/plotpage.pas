@@ -121,16 +121,19 @@ type
   private
    fplot: tplotoptionsfo;
    fnameindex: integer;
+   fexpressions: msestringarty;
   protected
    procedure setkind(const akind: integer);
    function getchartname: string;
   public
    constructor create(const aowner: tcomponent; const akind: integer);
-   function kind: integer;
+   function kind: plotkindty;
    function getplotstatement: string;
    function chartnodes: chartnodearty;
+   function exptag(const aindex: integer): string;
    procedure resetnameindex;
    property plot: tplotoptionsfo read fplot;
+   property expressions: msestringarty read fexpressions;
  end;
  
 implementation
@@ -139,30 +142,30 @@ uses
  msearrayutils;
 
 const
- plotclasses: array[0..2] of plotsfoclassty = (
+ plotclasses: array[plotkindty] of plotsfoclassty = (
   tdcplotfo,tacplotfo,ttransplotfo);
 
 function getplotclass(const akind: integer): plotsfoclassty;
 begin
- if (akind < 0) or (akind > high(plotclasses)) then begin
+ if (akind < 0) or (akind > ord(high(plotclasses))) then begin
   result:= nil;
  end
  else begin
-  result:= plotclasses[akind];
+  result:= plotclasses[plotkindty(akind)];
  end;
 end;
 
-function getplotkind(const aclass: tplotoptionsfo): integer;
+function getplotkind(const aclass: tplotoptionsfo): plotkindty;
 var
- int1: integer;
+ kind1: plotkindty;
  po1: pointer;
 begin
- result:= -1;
+ result:= plotkindty(-1);
  if aclass <> nil then begin
   po1:= aclass.classtype;
-  for int1:= 0 to high(plotclasses) do begin
-   if plotclasses[int1] = plotsfoclassty(po1) then begin
-    result:= int1;
+  for kind1:= low(plotclasses) to high(plotclasses) do begin
+   if plotclasses[kind1] = plotsfoclassty(po1) then begin
+    result:= kind1;
     break;
    end;
   end;
@@ -228,9 +231,30 @@ procedure tchartnode.showchart;
 begin
  chart.activate;
 end;
-
+var testvar: msestringarty;
 procedure tchartnode.loaddata(const adata: plotinfoty;
                                    const xexpression: msestring);
+ function getdata(const aexpression: msestring;
+                            const akind: valuekindty): realarty;
+ var
+  int1: integer;
+  mstr1: msestring;
+ begin
+  result:= nil;
+  mstr1:= unifyexpression(aexpression);
+  with tplotpagefo(editwidget.owner) do begin
+testvar:= fexpressions;
+   for int1:= 0 to high(fexpressions) do begin
+    if mstr1 = fexpressions[int1] then begin
+     if int1 <= high(adata.vars) then begin
+      result:= getplotvalues(adata,int1,akind);
+     end;
+     break;
+    end;
+   end;
+  end;
+ end;
+ 
 var
  int1: integer;
 begin
@@ -249,8 +273,8 @@ begin
      with traces[int1],ttracenode(items[int1]) do begin
       kind:= trk_xy;
       options:= options + [cto_xordered];
-      xdata:= getplotvalues(adata,xexpression,xvaluekind);
-      ydata:= getplotvalues(adata,yexpression,yvaluekind);
+      xdata:= getdata(xexpression,xvaluekind);
+      ydata:= getdata(yexpression,yvaluekind);
       optfo.xexpdisp[int1]:= xexpression;
       optfo.yexpdisp[int1]:= yexpression;
      end;
@@ -332,42 +356,58 @@ begin
  end;
 end;
 
-function tplotpagefo.kind: integer;
+function tplotpagefo.kind: plotkindty;
 begin
  result:= getplotkind(fplot);
 end;
 
+function tplotpagefo.exptag(const aindex: integer): string;
+begin
+ result:= 'p'+inttostr(tabindex)+'e'+inttostr(aindex)
+end;
+
 function tplotpagefo.getplotstatement: string;
+ 
 var
  int1,int2: integer;
- str1: string;
+// str1: string;
  ar1: chartnodearty;
  ar2: msestringarty;
- mstr1: msestring;
+ mstr1,mstr2: msestring;
 begin
  result:= '';
  ar1:= chartnodes;
- str1:= '.SAVE '{+ fplot.getxvalue};
+// str1:= '.SAVE '{+ fplot.getxvalue};
  if ar1 <> nil then begin
   ar2:= nil;
   for int1:= 0 to high(ar1) do begin
    stackarray(ar1[int1].getsavevalues,ar2);
   end;
+  setlength(fexpressions,length(ar2));
   if ar2 <> nil then begin
    sortarray(ar2);
    mstr1:= '';
+   int2:= 0;
+   mstr2:= fplot.getxvalue;
    for int1:= 0 to high(ar2) do begin
     if ar2[int1] <> mstr1 then begin
      mstr1:= ar2[int1];
-     str1:= str1 + mstr1 + ' ';
+     if mstr1 <> mstr2 then begin
+      fexpressions[int2]:= mstr1;
+      inc(int2);
+     end;
+//     str1:= str1 + mstr1 + ' ';
     end;
    end;
-   setlength(str1,length(str1)-1); //remove last space
+//   setlength(str1,length(str1)-1); //remove last space
+   setlength(fexpressions,int2);
+   insertitem(fexpressions,0,mstr2); //x unit, always returned first by ngnutmeg
   end;
  end;
 
- result:= str1+lineend;
- result:= result+fplot.getplotstatement;
+// result:= str1+lineend;
+// result:= result+fplot.getplotstatement;
+ result:= fplot.getplotstatement;
 end;
 
 procedure tplotpagefo.createitemexe(const sender: tcustomitemlist;
@@ -493,7 +533,7 @@ begin
   int1:= tracegrid.row;
   treeed[aindex].free;
   acount:= 0;
-  if int1 >= 0 then begin
+  if (int1 <= tracegrid.rowhigh) or (int1 = 0) then begin
    tracegrid.row:= aindex;
   end;
  end;
