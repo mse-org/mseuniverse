@@ -23,7 +23,7 @@ uses
  mseedit,mseifiglob,msestrings,msetypes,msewidgets,classes,plotoptions,
  msesplitter,msegrids,msewidgetgrid,msegraphedits,msesimplewidgets,
  mselistbrowser,msedatanodes,msememodialog,msengspice,chartform,mseact,
- mseactions;
+ mseactions,msescrollbar,msestatfile,msestream,sysutils;
  
 type
 
@@ -80,18 +80,27 @@ type
  tplotpagefo = class(ttabform)
    plotname: tstringedit;
    plotkind: tenumedit;
-   plotcont: tsimplewidget;
-   tsplitter1: tsplitter;
-   tracegrid: twidgetgrid;
    plotactive: tbooleanedit;
+   gridpopup: tpopupmenu;
+   showchartoptact: taction;
+   showchartact: taction;
+   ttabwidget1: ttabwidget;
+   ttabpage1: ttabpage;
+   tracegrid: twidgetgrid;
    treeed: ttreeitemedit;
    value0: tmemodialogedit;
    xvaluekind: tenumedit;
    yexpression: tmemodialogedit;
    yvaluekind: tenumedit;
-   gridpopup: tpopupmenu;
-   showchartoptact: taction;
-   showchartact: taction;
+   tsplitter1: tsplitter;
+   plotcont: tsimplewidget;
+   ttabpage2: ttabpage;
+   stepactive: tbooleanedit;
+   stepgrid: twidgetgrid;
+   stepdest: tmemodialogedit;
+   stepstart: trealedit;
+   stepstop: trealedit;
+   stepcount: tintegeredit;
    procedure setnameexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
@@ -138,7 +147,7 @@ type
  
 implementation
 uses
- plotpage_mfm,dcplot,acplot,transplot,sysutils,mseeditglob,msechart,plotsform,
+ plotpage_mfm,dcplot,acplot,transplot,mseeditglob,msechart,plotsform,
  msearrayutils;
 
 const
@@ -231,7 +240,7 @@ procedure tchartnode.showchart;
 begin
  chart.activate;
 end;
-var testvar: msestringarty;
+
 procedure tchartnode.loaddata(const adata: plotinfoty;
                                    const xexpression: msestring);
  function getdata(const aexpression: msestring;
@@ -243,7 +252,6 @@ procedure tchartnode.loaddata(const adata: plotinfoty;
   result:= nil;
   mstr1:= unifyexpression(aexpression);
   with tplotpagefo(editwidget.owner) do begin
-testvar:= fexpressions;
    for int1:= 0 to high(fexpressions) do begin
     if mstr1 = fexpressions[int1] then begin
      if int1 <= high(adata.vars) then begin

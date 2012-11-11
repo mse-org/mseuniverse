@@ -40,7 +40,7 @@ uses
 
 function ttransplotfo.getplotstatement: string;
 begin
- result:= '.TRAN 1 '+doubletostring(tstart.value+tlen.value)+' '+
+ result:= 'tran 1 '+doubletostring(tstart.value+tlen.value)+' '+
                       doubletostring(tstart.value);
  if minstep.value <> emptyreal then begin
   result:= result+' '+doubletostring(minstep.value)

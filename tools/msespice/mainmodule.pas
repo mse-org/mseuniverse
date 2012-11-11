@@ -101,7 +101,7 @@ var
 implementation
 uses
  mainmodule_mfm,main,msefileutils,consoleform,msestream,msewidgets,plotsform,
- mseformatstr,plotpage,sysutils;
+ mseformatstr,plotpage,sysutils,msefloattostr;
 
 { tprojectoptions }
 
@@ -244,12 +244,12 @@ var
 // fna1: filenamety;
  stream1: ttextstream;
  stream2: ttextstream = nil;
- int1,int2: integer;
+ int1,int2,int3: integer;
  str1: string;
  lstr1: lstringty;
  ar1: msestringarty;
  vectors: string;
- nums,nums1: array[plotkindty] of integer;
+ nums{,nums1}: array[plotkindty] of integer;
 begin
  fspicefile:= replacefileext(projectmainstat.filename,'spi.tmp');
  frawfile:= replacefileext(projectmainstat.filename,'raw.tmp');
@@ -266,44 +266,63 @@ begin
    end;
    stream2.writeln(str1);
   end;
+  stream2.writeln('.control');
+  for int1:= 0 to plotsfo.tabs.count - 1 do begin
+   with tplotpagefo(plotsfo.tabs[int1]) do begin
+    if plotactive.value then begin
+     if stepactive.value then begin
+      for int2:= 0 to stepgrid.datarowhigh do begin
+       stream2.writeln(' set b'+inttostr(int2)+' = '+stepdest[int2]);
+                                     //backup original values
+       stream2.writeln(' alter '+stepdest[int2]+' = '+
+                                     doubletostring(stepstart[int2]));
+      end;
+      stream2.writeln(' let n = 0');
+      stream2.writeln(' dowhile n <= '+inttostr(stepcount[int2]));
+      stream2.writeln('  '+getplotstatement);
+      stream2.writeln('  let n = n + 1');
+      for int2:= 0 to stepgrid.datarowhigh do begin //restore original values
+       stream2.writeln(' alter '+stepdest[int2]+' = $b'+inttostr(int2));
+      end;
+      for int2:= 1 to high(expressions) do begin
+       stream2.writeln(' let '+exptag(int2)+'='+expressions[int2]);
+      end;
+      stream2.writeln(' end');
+     end
+     else begin
+      stream2.writeln(' '+getplotstatement);
+      for int2:= 1 to high(expressions) do begin
+       stream2.writeln(' let '+exptag(int2)+'='+expressions[int2]);
+      end;
+     end;
+    end;
+   end;
+  end;
   fillchar(nums,sizeof(nums),0);
+  str1:= ' write '+tosysfilepath(frawfile,true); //'write' must be lowercase!
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
    with tplotpagefo(plotsfo.tabs[int1]) do begin
     if plotactive.value then begin
-     stream2.writeln(getplotstatement);
-     inc(nums[kind]);
-    end;
-   end;
-  end;
-  if nums[plk_ac] > 1 then begin
-   nums[plk_tran]:= nums[plk_tran] + nums[plk_ac]-1;
-  end;
-  nums1:= nums;
-  stream2.writeln('.CONTROL'+lineend+'run');
-  for int1:= 0 to plotsfo.tabs.count - 1 do begin
-   with tplotpagefo(plotsfo.tabs[int1]) do begin
-    if plotactive.value then begin
-     stream2.writeln('setplot '+plotnames[kind]+inttostr(nums[kind]));
-     for int2:= 1 to high(expressions) do begin
-      stream2.writeln('let '+exptag(int2)+'='+expressions[int2]);
+     int3:= 0;
+     if stepactive.value then begin
+      int3:= stepcount.value;
      end;
-     dec(nums[kind]);
-    end;
-   end;
-  end;
-  str1:= 'write '+tosysfilepath(frawfile,true); //'write' must be lowercase!
-  for int1:= 0 to plotsfo.tabs.count - 1 do begin
-   with tplotpagefo(plotsfo.tabs[int1]) do begin
-    if plotactive.value then begin
-     for int2:= 1 to high(expressions) do begin
-      str1:= str1 +' '+plotnames[kind]+inttostr(nums1[kind])+'.'+exptag(int2);
+     for int3:= 0 to int3 do begin
+      str1:= str1+lineend+'+ ';
+      if (kind = plk_ac) and (nums[plk_ac] = 0) and 
+                                      (nums[plk_tran] = 0) then begin
+       inc(nums[plk_tran]);
+      end;
+      inc(nums[kind]);
+      for int2:= 1 to high(expressions) do begin
+       str1:= str1 +' '+plotnames[kind]+inttostr(nums[kind])+'.'+exptag(int2);
+      end;
      end;
-     dec(nums1[kind]);
     end;
    end;
   end;
   stream2.writeln(str1);                   
-  stream2.writeln('.ENDC'+lineend+'.END');
+  stream2.writeln('.endc'+lineend+'.END');
  finally
   stream1.free;
   stream2.free;

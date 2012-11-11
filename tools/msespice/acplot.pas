@@ -44,7 +44,7 @@ type
  acstepkindty = (acsk_dec,acsk_oct,acsk_lin);
 const
  acsteptags: array[acstepkindty] of string = (
-             'DEC','OCT','LIN');
+             'dec','oct','lin');
 
 procedure tacplotfo.setstopexe(const sender: TObject; var avalue: realty;
                var accept: Boolean);
@@ -64,7 +64,7 @@ end;
 
 function tacplotfo.getplotstatement: string;
 begin
- result:= '.AC '+acsteptags[acstepkindty(stepkind.value)]+' '+
+ result:= 'ac '+acsteptags[acstepkindty(stepkind.value)]+' '+
               inttostr(stepcount.value)+ ' ' +
              doubletostring(fstart.value)+' '+doubletostring(fstop.value);
 end;
