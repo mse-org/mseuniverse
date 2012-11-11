@@ -52,7 +52,8 @@ type
    procedure showchart; override;
    function getsavevalues: msestringarty;
    property chart: tchartfo read fchart;
-   procedure loaddata(const adata: plotinfoty; const xexpression: msestring);
+   procedure loaddata(const adata: plotinfoty; const xexpression: msestring;
+                           const stepping: boolean);
    property title: msestring read fvalue0;
  end;
 
@@ -242,7 +243,8 @@ begin
 end;
 
 procedure tchartnode.loaddata(const adata: plotinfoty;
-                                   const xexpression: msestring);
+               const xexpression: msestring; const stepping: boolean);
+
  function getdata(const aexpression: msestring;
                             const akind: valuekindty): realarty;
  var
@@ -261,10 +263,12 @@ procedure tchartnode.loaddata(const adata: plotinfoty;
     end;
    end;
   end;
- end;
+ end; //getdata
  
 var
  int1: integer;
+ ar1: realarty;
+ ar2: integerarty;
 begin
  with chart do begin
   optfo.tracesgrid.rowcount:= count;
@@ -280,9 +284,24 @@ begin
     else begin
      with traces[int1],ttracenode(items[int1]) do begin
       kind:= trk_xy;
-      options:= options + [cto_xordered];
-      xdata:= getdata(xexpression,xvaluekind);
-      ydata:= getdata(yexpression,yvaluekind);
+      if stepping then begin
+       options:= options - [cto_xordered];
+       ar2:= breaks;
+       ar1:= xdata;
+       additem(ar2,length(ar1));
+       breaks:= ar2;
+       stackarray(getdata(xexpression,xvaluekind),ar1);
+       xdata:= ar1;
+       ar1:= ydata;
+       stackarray(getdata(yexpression,yvaluekind),ar1);
+       ydata:= ar1;
+      end
+      else begin
+       breaks:= nil;
+       options:= options + [cto_xordered];
+       xdata:= getdata(xexpression,xvaluekind);
+       ydata:= getdata(yexpression,yvaluekind);
+      end;
       optfo.xexpdisp[int1]:= xexpression;
       optfo.yexpdisp[int1]:= yexpression;
      end;

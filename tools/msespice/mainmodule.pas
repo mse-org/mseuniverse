@@ -250,6 +250,7 @@ var
  ar1: msestringarty;
  vectors: string;
  nums{,nums1}: array[plotkindty] of integer;
+ rea1: real;
 begin
  fspicefile:= replacefileext(projectmainstat.filename,'spi.tmp');
  frawfile:= replacefileext(projectmainstat.filename,'raw.tmp');
@@ -272,22 +273,34 @@ begin
     if plotactive.value then begin
      if stepactive.value then begin
       for int2:= 0 to stepgrid.datarowhigh do begin
-       stream2.writeln(' set b'+inttostr(int2)+' = '+stepdest[int2]);
+       stream2.writeln(' let b'+inttostr(int2)+' = '+stepdest[int2]);
                                      //backup original values
-       stream2.writeln(' alter '+stepdest[int2]+' = '+
-                                     doubletostring(stepstart[int2]));
+       if stepcount.value > 0 then begin
+        stream2.writeln(' let a'+inttostr(int2)+' = '+
+           doubletostring((stepstop[int2]-stepstart[int2])/stepcount.value));
+       end;
       end;
       stream2.writeln(' let n = 0');
-      stream2.writeln(' dowhile n <= '+inttostr(stepcount[int2]));
+      stream2.writeln(' dowhile n <= '+inttostr(stepcount.value));
+      for int2:= 0 to stepgrid.datarowhigh do begin
+       if stepcount.value = 0 then begin
+        stream2.writeln('  alter '+stepdest[int2]+' = '+
+                                          doubletostring(stepstart[int2]));
+       end
+       else begin
+        stream2.writeln('  alter '+stepdest[int2]+' = '+
+                      doubletostring(stepstart[int2])+'+n*a'+inttostr(int2));
+       end;
+      end;
       stream2.writeln('  '+getplotstatement);
       stream2.writeln('  let n = n + 1');
-      for int2:= 0 to stepgrid.datarowhigh do begin //restore original values
-       stream2.writeln(' alter '+stepdest[int2]+' = $b'+inttostr(int2));
-      end;
       for int2:= 1 to high(expressions) do begin
-       stream2.writeln(' let '+exptag(int2)+'='+expressions[int2]);
+       stream2.writeln('  let '+exptag(int2)+'='+expressions[int2]);
       end;
       stream2.writeln(' end');
+      for int2:= 0 to stepgrid.datarowhigh do begin //restore original values
+       stream2.writeln(' alter '+stepdest[int2]+' = b'+inttostr(int2));
+      end;
      end
      else begin
       stream2.writeln(' '+getplotstatement);

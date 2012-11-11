@@ -145,23 +145,29 @@ end;
 
 procedure tplotsfo.updatecharts(const aplots: plotinfoarty);
 var
- int1,int2,int3: integer;
+ int1,int2,int3,int4: integer;
 begin
  int2:= 0;
  for int1:= 0 to tabs.count - 1 do begin
   with tplotpagefo(tabs[int1]) do begin
    if plotactive.value and (int2 >= 0) then begin
-    for int3:= 0 to tracegrid.rowhigh do begin
-     if treeed[int3] is tchartnode then begin
-      if int2 <= high(aplots) then begin
-       tchartnode(treeed[int3]).loaddata(aplots[int2],plot.getxvalue);
-      end
-      else begin
-       tchartnode(treeed[int3]).chart.clear;
+    int4:= 0;
+    if stepactive.value then begin
+     int4:= stepcount.value;
+    end;
+    for int4:= 0 to int4 do begin
+     for int3:= 0 to tracegrid.rowhigh do begin
+      if treeed[int3] is tchartnode then begin
+       if int2 <= high(aplots) then begin
+        tchartnode(treeed[int3]).loaddata(aplots[int2],plot.getxvalue,int4 > 0);
+       end
+       else begin
+        tchartnode(treeed[int3]).chart.clear;
+       end;
       end;
      end;
+     inc(int2);
     end;
-    inc(int2);
    end
    else begin
     for int3:= 0 to tracegrid.rowhigh do begin

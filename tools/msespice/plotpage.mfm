@@ -371,7 +371,7 @@ object plotpagefo: tplotpagefo
                 caption = 'Count'
               end>
           end>
-        datacols.count = 4
+        datacols.count = 3
         datacols.items = <        
           item
             width = 193
@@ -385,10 +385,6 @@ object plotpagefo: tplotpagefo
           item
             widgetname = 'stepstop'
             dataclass = tgridrealdatalist
-          end        
-          item
-            widgetname = 'stepcount'
-            dataclass = tgridintegerdatalist
           end>
         datarowheight = 16
         statfile = mainmo.projectstat1
@@ -447,17 +443,25 @@ object plotpagefo: tplotpagefo
           max = 1E+038
           reffontheight = 14
         end
-        object stepcount: tintegeredit
-          optionswidget1 = [ow1_fontglyphheight]
-          optionsskin = [osk_framebuttononly]
-          taborder = 4
-          visible = False
-          bounds_x = 296
-          bounds_y = 0
-          bounds_cx = 50
-          bounds_cy = 16
-          reffontheight = 14
-        end
+      end
+      object stepcount: tintegeredit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.caption = 'Count'
+        frame.captionpos = cp_right
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          0
+          36
+          0
+        )
+        taborder = 2
+        bounds_x = 80
+        bounds_y = 10
+        bounds_cx = 86
+        statfile = mainmo.projectstat1
+        reffontheight = 14
       end
     end
   end
