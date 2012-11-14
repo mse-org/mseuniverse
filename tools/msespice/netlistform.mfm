@@ -1,0 +1,11 @@
+inherited netlistfo: tnetlistfo
+  bounds_x = 100
+  bounds_y = 100
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  moduleclassname = 'tspicefo'
+end
