@@ -23,10 +23,10 @@ uses
  msengspice,msesplitter,msedataedits,mseedit,mseifiglob,msestrings,msetypes,
  msesimplewidgets,msewidgets,msegraphedits,mserealsumedit,msegrids,
  msewidgetgrid,msecolordialog,scalegridform,msetimer,chartoptionsform,classes,
- mseact,mseactions,mselistbrowser;
+ mseact,mseactions,mselistbrowser,spiceform;
 
 type
- tchartfo = class(tdockform)
+ tchartfo = class(tspicefo)
    chart: tchart;
    timer: ttimer;
    tpopupmenu1: tpopupmenu;
