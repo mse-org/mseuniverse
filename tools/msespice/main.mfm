@@ -87,7 +87,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 4
+        submenu.count = 5
         submenu.items = <        
           item
             submenu.count = 2
@@ -105,9 +105,9 @@ object mainfo: tmainfo
             state = [as_localcaption]
           end        
           item
-            caption = '&Spice Console'
+            caption = '&Netlist'
             state = [as_localcaption, as_localonexecute]
-            onexecute = showconsoleexe
+            onexecute = shownetlistexe
           end        
           item
             caption = '&Plots'
@@ -118,6 +118,11 @@ object mainfo: tmainfo
             caption = '&Charts'
             name = 'charts'
             state = [as_localcaption]
+          end        
+          item
+            caption = '&Spice Console'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showconsoleexe
           end>
         caption = '&View'
         name = 'view'

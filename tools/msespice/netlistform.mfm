@@ -8,4 +8,54 @@ inherited netlistfo: tnetlistfo
     354
   )
   moduleclassname = 'tspicefo'
+  object grid: twidgetgrid[0]
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 29
+        numstart = 1
+        numstep = 1
+      end>
+    datacols.count = 1
+    datacols.options = [co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item
+        width = 2000
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'edit'
+        dataclass = tgridrichstringdatalist
+      end>
+    datarowlinewidth = 0
+    datarowheight = 14
+    statfile = mainmo.projectstat2
+    reffontheight = 14
+    object edit: tsyntaxedit
+      optionswidget1 = [ow1_fontlineheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 2000
+      bounds_cy = 14
+      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      ontextedited = textedexe
+      syntaxpainter = syntaxpainter
+      reffontheight = 14
+    end
+  end
+  object filechange: tfilechangenotifyer[1]
+    left = 72
+    top = 112
+  end
+  object syntaxpainter: tsyntaxpainter[2]
+    left = 72
+    top = 136
+  end
 end

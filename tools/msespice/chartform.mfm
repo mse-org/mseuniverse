@@ -13,7 +13,6 @@ inherited chartfo: tchartfo
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
   options = [fo_savepos, fo_savezorder, fo_savestate]
-  statfile = mainmo.projectstat2
   onchildmouseevent = childmouseexe
   moduleclassname = 'tspicefo'
   object chart: tchart[0]

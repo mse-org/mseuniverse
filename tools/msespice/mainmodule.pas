@@ -94,6 +94,7 @@ type
    procedure simuterminated;
    property projectloaded: boolean read fprojectloaded;
    property simurunning: boolean read fsimurunning;
+   property projectoptions: tprojectoptions read fprojectoptions;
  end;
 
 var
@@ -102,7 +103,7 @@ var
 implementation
 uses
  mainmodule_mfm,main,msefileutils,consoleform,msestream,plotsform,
- mseformatstr,plotpage,sysutils,msefloattostr,math;
+ mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform;
 
 { tprojectoptions }
 
@@ -159,6 +160,7 @@ begin
  projectmainstat.readstat;
  fprojectloaded:= true;
  updateprojectstate;
+ netlistfo.loadfile(projectoptions.netlist);
 end;
 
 procedure tmainmo.openproject;
@@ -243,7 +245,7 @@ end;
 procedure tmainmo.simustartexe(const sender: TObject);
 var
 // fna1: filenamety;
- stream1: ttextstream;
+// stream1: ttextstream;
  stream2: ttextstream = nil;
  int1,int2,int3: integer;
  str1: string;
@@ -256,12 +258,14 @@ begin
  fspicefile:= replacefileext(projectmainstat.filename,'spi.tmp');
  frawfile:= replacefileext(projectmainstat.filename,'raw.tmp');
  deletefile(frawfile);
- stream1:= ttextstream.create(fprojectoptions.netlist,fm_read);
+// stream1:= ttextstream.create(fprojectoptions.netlist,fm_read);
  try
   vectors:= '';
   stream2:= ttextstream.create(fspicefile,fm_create);
-  while not stream1.eof do begin
-   stream1.readln(str1);
+  for int1:= 0 to netlistfo.grid.rowhigh do begin
+//  while not stream1.eof do begin
+//   stream1.readln(str1);
+   str1:= netlistfo.edit[int1];
    nextword(str1,lstr1);
    if lstringicomp(lstr1,'.END') = 0 then begin
     break;
@@ -350,7 +354,7 @@ begin
   stream2.writeln(str1);                   
   stream2.writeln('.endc'+lineend+'.END');
  finally
-  stream1.free;
+//  stream1.free;
   stream2.free;
  end;
  consolefo.term.clear;
