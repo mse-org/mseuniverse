@@ -58,4 +58,18 @@ inherited netlistfo: tnetlistfo
     left = 72
     top = 136
   end
+  object filedialog: tfiledialog[3]
+    controller.filterlist.data = (
+      (
+        '*.cir'
+        'Spice Cirquit File'
+      )
+      (
+        '*'
+        'All Files'
+      )
+    )
+    left = 192
+    top = 112
+  end
 end

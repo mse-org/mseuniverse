@@ -40,10 +40,11 @@ object mainfo: tmainfo
     end
   end
   object mainme: tmainmenu
+    onupdate = mainmenuupdateexe
     menu.submenu.count = 4
     menu.submenu.items = <    
       item
-        submenu.count = 7
+        submenu.count = 10
         submenu.items = <        
           item
             action = mainmo.newprojectact
@@ -65,11 +66,24 @@ object mainfo: tmainfo
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
+            caption = 'Save &Netlist'
+            name = 'savenetlist'
+            state = [as_localcaption]
+          end        
+          item
+            caption = 'Save Netlist as'
+            state = [as_localcaption]
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
             caption = 'E&xit'
             state = [as_localcaption, as_localonexecute]
             onexecute = exitexe
           end>
         caption = '&File'
+        name = 'file'
         state = [as_localcaption]
       end    
       item

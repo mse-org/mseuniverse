@@ -41,6 +41,7 @@ type
    procedure createpanelexe(const sender: tdockpanelformcontroller;
                    var apanel: tdockpanelform);
    procedure shownetlistexe(const sender: TObject);
+   procedure mainmenuupdateexe(const sender: tcustommenu);
  end;
 var
  mainfo: tmainfo;
@@ -91,6 +92,12 @@ end;
 procedure tmainfo.shownetlistexe(const sender: TObject);
 begin
  netlistfo.activate;
+end;
+
+procedure tmainfo.mainmenuupdateexe(const sender: tcustommenu);
+begin
+ mainmenu.menu.itembynames(['file','savenetlist']).enabled:= 
+                                                 netlistfo.edit.modified;
 end;
 
 end.
