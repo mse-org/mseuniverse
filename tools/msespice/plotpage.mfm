@@ -368,10 +368,10 @@ object plotpagefo: tplotpagefo
                 caption = 'Stop'
               end            
               item
-                caption = 'Count'
+                caption = 'Kind'
               end>
           end>
-        datacols.count = 3
+        datacols.count = 4
         datacols.items = <        
           item
             width = 193
@@ -385,6 +385,10 @@ object plotpagefo: tplotpagefo
           item
             widgetname = 'stepstop'
             dataclass = tgridrealdatalist
+          end        
+          item
+            widgetname = 'stepkind'
+            dataclass = tgridenumdatalist
           end>
         datarowheight = 16
         statfile = mainmo.projectstat1
@@ -414,6 +418,7 @@ object plotpagefo: tplotpagefo
           bounds_y = 0
           bounds_cx = 50
           bounds_cy = 16
+          onsetvalue = stepstartsetexe
           value = 0
           valuedefault = 0
           formatedit = '${REAL}'
@@ -433,6 +438,7 @@ object plotpagefo: tplotpagefo
           bounds_y = 0
           bounds_cx = 50
           bounds_cy = 16
+          onsetvalue = stepstopsetexe
           value = 1
           valuedefault = 1
           formatedit = '${REAL}'
@@ -441,6 +447,34 @@ object plotpagefo: tplotpagefo
           valuestart = 0
           min = -1E+038
           max = 1E+038
+          reffontheight = 14
+        end
+        object stepkind: tenumedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.button.color = -1879048187
+          taborder = 4
+          visible = False
+          bounds_x = 296
+          bounds_y = 0
+          bounds_cx = 50
+          bounds_cy = 16
+          value = 0
+          valuedefault = 0
+          min = 0
+          max = 1
+          onsetvalue = stepkindsetexe
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+              data = (
+                'Lin'
+                'Log'
+              )
+            end>
           reffontheight = 14
         end
       end

@@ -24,6 +24,7 @@ uses
  
 type
  plotkindty = (plk_dc,plk_ac,plk_tran);
+ stepkindty = (sk_lin,sk_log);
  
  espice = class(exception)
  end;

@@ -20,7 +20,8 @@ unit mainmodule;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseapplication,mseclasses,msedatamodules,mserttistat,msestat,mseact,
+ msewidgets,mseglob,mseapplication,mseclasses,msedatamodules,mserttistat,
+ msestat,mseact,
  mseactions,mseifiglob,mseguirttistat,classes,msestatfile,msebitmap,
  msedataedits,msedatanodes,mseedit,msefiledialog,msegraphics,msegraphutils,
  msegrids,msegui,mseguiglob,mselistbrowser,msemenus,msestrings,msesys,msetypes,
@@ -100,8 +101,8 @@ var
 
 implementation
 uses
- mainmodule_mfm,main,msefileutils,consoleform,msestream,msewidgets,plotsform,
- mseformatstr,plotpage,sysutils,msefloattostr;
+ mainmodule_mfm,main,msefileutils,consoleform,msestream,plotsform,
+ mseformatstr,plotpage,sysutils,msefloattostr,math;
 
 { tprojectoptions }
 
@@ -276,8 +277,14 @@ begin
        stream2.writeln(' let b'+inttostr(int2)+' = '+stepdest[int2]);
                                      //backup original values
        if stepcount.value > 0 then begin
-        stream2.writeln(' let a'+inttostr(int2)+' = '+
-           doubletostring((stepstop[int2]-stepstart[int2])/stepcount.value));
+        if stepkindty(stepkind[int2]) = sk_log then begin
+         stream2.writeln(' let a'+inttostr(int2)+' = '+
+            doubletostring(ln(stepstop[int2]/stepstart[int2])/stepcount.value));
+        end
+        else begin //lin
+         stream2.writeln(' let a'+inttostr(int2)+' = '+
+            doubletostring((stepstop[int2]-stepstart[int2])/stepcount.value));
+        end;
        end;
       end;
       stream2.writeln(' let n = 0');
@@ -288,8 +295,14 @@ begin
                                           doubletostring(stepstart[int2]));
        end
        else begin
-        stream2.writeln('  alter '+stepdest[int2]+' = '+
+        if stepkindty(stepkind[int2]) = sk_log then begin
+         stream2.writeln('  alter '+stepdest[int2]+' = '+
+             doubletostring(stepstart[int2])+'*exp(n*a'+inttostr(int2)+')');
+        end
+        else begin //lin
+         stream2.writeln('  alter '+stepdest[int2]+' = '+
                       doubletostring(stepstart[int2])+'+n*a'+inttostr(int2));
+        end;
        end;
       end;
       stream2.writeln('  '+getplotstatement);

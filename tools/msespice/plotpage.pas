@@ -102,6 +102,7 @@ type
    stepstart: trealedit;
    stepstop: trealedit;
    stepcount: tintegeredit;
+   stepkind: tenumedit;
    procedure setnameexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
@@ -128,6 +129,12 @@ type
    procedure showchartoptexe(const sender: TObject);
    procedure showchartexe(const sender: TObject);
    procedure udateshowexe(const sender: tcustomaction);
+   procedure stepkindsetexe(const sender: TObject; var avalue: Integer;
+                   var accept: Boolean);
+   procedure stepstartsetexe(const sender: TObject; var avalue: realty;
+                   var accept: Boolean);
+   procedure stepstopsetexe(const sender: TObject; var avalue: realty;
+                   var accept: Boolean);
   private
    fplot: tplotoptionsfo;
    fnameindex: integer;
@@ -626,6 +633,61 @@ begin
  bo1:= treeed.item <> nil;
  showchartact.enabled:= bo1;
  showchartoptact.enabled:= bo1;
+end;
+
+procedure tplotpagefo.stepkindsetexe(const sender: TObject; var avalue: Integer;
+               var accept: Boolean);
+var
+ rea1: real;
+begin
+ if (stepkindty(avalue) = sk_log) then begin
+  if stepstart.value = 0 then begin
+   stepstart.value:= 1;
+  end;
+  if stepstop.value = 0 then begin
+   stepstop.value:= 1;
+  end;
+  if ((stepstart.value < 0) xor (stepstop.value < 0)) then begin
+   stepstop.value:= stepstop.value * -1;
+  end;
+  if ((stepstart.value < 0) xor (stepstop.value < stepstart.value)) then begin
+   rea1:= stepstart.value;
+   stepstop.value:= stepstart.value;
+   stepstart.value:= rea1;
+  end;
+ end;
+end;
+
+procedure tplotpagefo.stepstartsetexe(const sender: TObject; var avalue: realty;
+               var accept: Boolean);
+begin
+ if (stepkindty(stepkind.value) = sk_log) then begin
+  if avalue = 0 then begin
+   avalue:= 1;
+  end;
+  if ((avalue < 0) xor (stepstop.value < 0)) then begin
+   stepstop.value:= stepstop.value * -1;
+  end;
+  if (avalue < 0) xor (stepstop.value < avalue) then begin
+   stepstop.value:= avalue;
+  end;
+ end;
+end;
+
+procedure tplotpagefo.stepstopsetexe(const sender: TObject; var avalue: realty;
+               var accept: Boolean);
+begin
+ if (stepkindty(stepkind.value) = sk_log) then begin
+  if avalue = 0 then begin
+   avalue:= 1;
+  end;
+  if ((stepstart.value < 0) xor (avalue < 0)) then begin
+   stepstart.value:= stepstart.value * -1;
+  end;
+  if (avalue < 0) xor (stepstart.value > avalue) then begin
+   stepstart.value:= avalue;
+  end;
+ end;
 end;
 
 end.
