@@ -99,6 +99,8 @@ type
    procedure newproject;
    procedure loadproject(const aname: filenamety); //'' -> statfilename
    procedure simuterminated;
+   function spicelines(const atext: msestring): string;
+                     //break lines with + linestart
    property projectloaded: boolean read fprojectloaded;
    property simurunning: boolean read fsimurunning;
    property projectoptions: tprojectoptions read fprojectoptions;
@@ -110,7 +112,7 @@ var
 implementation
 uses
  mainmodule_mfm,main,msefileutils,consoleform,msestream,plotsform,
- mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform;
+ mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform,paramform;
 
 { tprojectoptions }
 
@@ -290,6 +292,13 @@ begin
    end;
    stream2.writeln(str1);
   end;
+  with paramfo do begin
+   for int1:= 0 to grid.datarowhigh do begin
+    stream2.writeln('.param '+paramname[int1]+'='+
+                             spicelines(paramexpression[int1]));
+   end;
+  end;
+
   with projectoptions do begin
    for int1:= 0 to high(libfiles) do begin
     if libfiles[int1] <> '' then begin
@@ -353,7 +362,7 @@ begin
      else begin
       stream2.writeln(' '+getplotstatement);
       for int2:= 1 to high(expressions) do begin
-       stream2.writeln(' let '+exptag(int2)+'='+expressions[int2]);
+       stream2.writeln(' let '+exptag(int2)+'='+spicelines(expressions[int2]));
       end;
      end;
     end;
@@ -458,6 +467,23 @@ procedure tmainmo.afteroptionsreadexe(const sender: TObject);
 begin
  with projectoptions do begin
   setlength(flibnames,length(flibfiles));
+ end;
+end;
+
+function tmainmo.spicelines(const atext: msestring): string;
+var
+ ar1: msestringarty;
+ int1: integer;
+begin
+ if atext = '' then begin
+  result:= '';
+ end
+ else begin
+  ar1:= breaklines(atext);
+  result:= ar1[0];
+  for int1:= 1 to high(ar1) do begin
+   result:= result + lineend + '+ '+ar1[int1];
+  end;
  end;
 end;
 

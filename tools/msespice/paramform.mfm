@@ -1,0 +1,77 @@
+inherited paramfo: tparamfo
+  bounds_x = 100
+  bounds_y = 100
+  container.bounds = (
+    0
+    0
+    435
+    354
+  )
+  caption = 'Params'
+  moduleclassname = 'tspicefo'
+  object grid: twidgetgrid[0]
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 435
+    bounds_cy = 354
+    anchors = []
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_noinsertempty, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'Param Name'
+          end        
+          item
+            caption = 'Param Expression'
+          end>
+      end>
+    datacols.count = 2
+    datacols.items = <    
+      item
+        width = 99
+        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'paramname'
+        dataclass = tgridmsestringdatalist
+      end    
+      item
+        width = 330
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'paramexpression'
+        dataclass = tgridmsestringdatalist
+      end>
+    datarowheight = 16
+    statfile = mainmo.projectmainstat
+    reffontheight = 14
+    object paramname: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 99
+      bounds_cy = 16
+      reffontheight = 14
+    end
+    object paramexpression: tmemodialogedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.color = -1879048187
+      frame.button.imagenr = 17
+      taborder = 2
+      visible = False
+      bounds_x = 100
+      bounds_y = 0
+      bounds_cx = 330
+      bounds_cy = 16
+      reffontheight = 14
+    end
+  end
+end

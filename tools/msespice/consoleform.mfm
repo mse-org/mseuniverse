@@ -52,7 +52,6 @@ object consolefo: tconsolefo
       font.dummy = 0
       maxchars = 120
       oninputpipebroken = inputbrokenexe
-      options = [teo_readonly]
       reffontheight = 14
     end
   end

@@ -42,12 +42,16 @@ type
                    var apanel: tdockpanelform);
    procedure shownetlistexe(const sender: TObject);
    procedure mainmenuupdateexe(const sender: tcustommenu);
+   procedure showparamsexe(const sender: TObject);
  end;
+
 var
  mainfo: tmainfo;
+
 implementation
 uses
- main_mfm,optionsform,mainmodule,consoleform,plotsform,netlistform;
+ main_mfm,optionsform,mainmodule,consoleform,plotsform,netlistform,
+ paramform;
  
 procedure tmainfo.exitexe(const sender: TObject);
 begin
@@ -81,6 +85,11 @@ end;
 procedure tmainfo.showplotsexe(const sender: TObject);
 begin
  plotsfo.activate;
+end;
+
+procedure tmainfo.showparamsexe(const sender: TObject);
+begin
+ paramfo.activate;
 end;
 
 procedure tmainfo.createpanelexe(const sender: tdockpanelformcontroller;

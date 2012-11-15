@@ -24,7 +24,7 @@ program msespice;
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
  msegui,mseforms,main,mainmodule,guitemplates,mseclasses,consoleform,
- plotsform,netlistform;
+ plotsform,netlistform,paramform;
 begin
 // application.createdatamodule(tskinmo,skinmo);
  application.createdatamodule(tguitemplatesmo,guitemplatesmo);
@@ -34,6 +34,7 @@ begin
  application.createform(tconsolefo,consolefo);
  application.createform(tplotsfo,plotsfo);
  application.createform(tnetlistfo,netlistfo);
+ application.createform(tparamfo,paramfo);
  mseendgloballoading;
  application.run;
 end.

@@ -100,7 +100,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 5
+        submenu.count = 6
         submenu.items = <        
           item
             submenu.count = 2
@@ -121,6 +121,11 @@ object mainfo: tmainfo
             caption = '&Netlist'
             state = [as_localcaption, as_localonexecute]
             onexecute = shownetlistexe
+          end        
+          item
+            caption = 'P&arams'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showparamsexe
           end        
           item
             caption = '&Plots'
