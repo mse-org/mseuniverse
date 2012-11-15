@@ -36,10 +36,19 @@ type
    ngspice: tfilenameedit;
    ttabpage2: ttabpage;
    tstatfile1: tstatfile;
-   netlist: tfilenameedit;
+   netlist: tremotefilenameedit;
+   procedure netlistsetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
  end;
 
 implementation
 uses
- optionsform_mfm;
+ optionsform_mfm,netlistform;
+ 
+procedure toptionsfo.netlistsetexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ accept:= netlistfo.checksave;
+end;
+
 end.

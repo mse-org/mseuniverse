@@ -74,6 +74,7 @@ type
    procedure projwriteexe(const sender: TObject; const writer: tstatwriter);
    procedure createexe(const sender: TObject);
    procedure saveprojectexe(const sender: TObject);
+   procedure aftereditoptionsexe(const sender: TObject);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -86,6 +87,7 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
+   function checkfilesave: boolean; //true if ok
    procedure editoptions;
    procedure openproject;
    function closeproject: boolean;
@@ -130,6 +132,7 @@ end;
 
 procedure tmainmo.getobjexe(const sender: TObject; var aobject: TObject);
 begin
+ aobject:= projectoptions;
 end;
 
 procedure tmainmo.optionsexe(const sender: TObject);
@@ -145,6 +148,11 @@ end;
 procedure tmainmo.getoptionsobjexe(const sender: TObject; var aobject: TObject);
 begin
  aobject:= fprojectoptions;
+end;
+
+function tmainmo.checkfilesave: boolean;
+begin
+ result:= netlistfo.checksave;
 end;
 
 procedure tmainmo.openprojectexe(const sender: TObject);
@@ -181,8 +189,9 @@ end;
 
 function tmainmo.closeproject: boolean;
 begin
- result:= true;
- if fprojectloaded then begin
+ result:= checkfilesave;
+ if result and fprojectloaded then begin
+  netlistfo.close;
   fprojectloaded:= false;
   updateprojectstate;
   projectmainstat.writestat;
@@ -227,17 +236,21 @@ end;
 
 procedure tmainmo.saveprojectexe(const sender: TObject);
 begin
- projectmainstat.writestat;
+ if checkfilesave then begin
+  projectmainstat.writestat;
+ end;
 end;
 
 procedure tmainmo.saveprojectasexe(const sender: TObject);
 begin
- with projectfiledialog do begin
-  controller.filename:= projectmainstat.filename;
-  if execute(fdk_save) = mr_ok then begin
-   projectmainstat.filename:= controller.filename;
-   projectmainstat.writestat;
-   updateprojectstate;
+ if checkfilesave then begin
+  with projectfiledialog do begin
+   controller.filename:= projectmainstat.filename;
+   if execute(fdk_save) = mr_ok then begin
+    projectmainstat.filename:= controller.filename;
+    projectmainstat.writestat;
+    updateprojectstate;
+   end;
   end;
  end;
 end;
@@ -414,6 +427,13 @@ end;
 procedure tmainmo.createexe(const sender: TObject);
 begin
  formatmacros.add(['REAL'],[realformat]);
+end;
+
+procedure tmainmo.aftereditoptionsexe(const sender: TObject);
+begin
+ if projectoptions.netlist <> netlistfo.edit.filename then begin
+  netlistfo.loadfile(projectoptions.netlist);
+ end;
 end;
 
 end.

@@ -66,13 +66,11 @@ object mainfo: tmainfo
             options = [mao_separator, mao_shortcutcaption]
           end        
           item
-            caption = 'Save &Netlist'
+            action = netlistfo.saveact
             name = 'savenetlist'
-            state = [as_localcaption]
           end        
           item
-            caption = 'Save Netlist as'
-            state = [as_localcaption]
+            action = netlistfo.saveasact
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
@@ -98,6 +96,7 @@ object mainfo: tmainfo
             state = [as_disabled]
           end>
         caption = '&Simulation'
+        name = 'simulation'
         state = [as_localcaption]
       end    
       item

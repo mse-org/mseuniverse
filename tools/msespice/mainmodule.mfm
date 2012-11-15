@@ -17,6 +17,7 @@ object mainmo: tmainmo
     statfile = projectstat1
     ongetobject = getoptionsobjexe
     options = [rso_autowritestat]
+    onafteredit = aftereditoptionsexe
     left = 16
     top = 16
   end

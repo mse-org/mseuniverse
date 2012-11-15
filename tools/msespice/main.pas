@@ -96,8 +96,7 @@ end;
 
 procedure tmainfo.mainmenuupdateexe(const sender: tcustommenu);
 begin
- mainmenu.menu.itembynames(['file','savenetlist']).enabled:= 
-                                                 netlistfo.edit.modified;
+ mainmenu.menu.itembynames(['simulation']).enabled:= mainmo.projectloaded;
 end;
 
 end.

@@ -59,17 +59,36 @@ inherited netlistfo: tnetlistfo
     top = 136
   end
   object filedialog: tfiledialog[3]
+    controller.filter = '*.cir'
     controller.filterlist.data = (
       (
         '*.cir'
-        'Spice Cirquit File'
+        'Spice Circuit File'
       )
       (
         '*'
         'All Files'
       )
     )
+    controller.defaultext = 'cir'
+    controller.options = [fdo_checkexist, fdo_savelastdir]
+    controller.captionopen = 'Spice Netlist'
+    controller.captionsave = 'Spice Netlist'
+    controller.captionnew = 'Spice Netlist'
     left = 192
     top = 112
+  end
+  object saveact: taction[4]
+    caption = 'Save Netlist'
+    onexecute = saveexe
+    onupdate = saveupdateexe
+    left = 200
+    top = 152
+  end
+  object saveasact: taction[5]
+    caption = 'Save Netlist as'
+    onexecute = saveasexe
+    left = 200
+    top = 168
   end
 end
