@@ -16,6 +16,7 @@ object mainmo: tmainmo
   object projectoptionscomp: tguirttistat
     statfile = projectstat1
     ongetobject = getoptionsobjexe
+    onstatafterread = afteroptionsreadexe
     options = [rso_autowritestat]
     onafteredit = aftereditoptionsexe
     left = 16
@@ -77,7 +78,7 @@ object mainmo: tmainmo
   end
   object tmseprocess1: tmseprocess
     left = 320
-    top = 88
+    top = 120
   end
   object simustartact: taction
     caption = '&Start'
@@ -122,5 +123,26 @@ object mainmo: tmainmo
   object projectstat3: tstatfile
     left = 152
     top = 88
+  end
+  object libfiledialog: tfiledialog
+    statfile = projectmainstat
+    controller.filter = '*.lib'
+    controller.filterlist.data = (
+      (
+        '*.lib'
+        'Spice Library File'
+      )
+      (
+        '*'
+        'All Files'
+      )
+    )
+    controller.defaultext = 'lib'
+    controller.options = [fdo_checkexist, fdo_savelastdir]
+    controller.captionopen = 'Spice Library'
+    controller.captionsave = 'Spice Library'
+    controller.captionnew = 'Spice Library'
+    left = 320
+    top = 80
   end
 end

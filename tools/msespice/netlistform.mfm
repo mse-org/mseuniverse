@@ -59,6 +59,7 @@ inherited netlistfo: tnetlistfo
     top = 136
   end
   object filedialog: tfiledialog[3]
+    statfile = mainmo.projectmainstat
     controller.filter = '*.cir'
     controller.filterlist.data = (
       (

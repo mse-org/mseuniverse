@@ -21,11 +21,10 @@ unit mainmodule;
 interface
 uses
  msewidgets,mseglob,mseapplication,mseclasses,msedatamodules,mserttistat,
- msestat,mseact,
- mseactions,mseifiglob,mseguirttistat,classes,msestatfile,msebitmap,
- msedataedits,msedatanodes,mseedit,msefiledialog,msegraphics,msegraphutils,
- msegrids,msegui,mseguiglob,mselistbrowser,msemenus,msestrings,msesys,msetypes,
- msepipestream,mseprocess,msengspice;
+ msestat,mseact,mseactions,mseifiglob,mseguirttistat,classes,msestatfile,
+ msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,msegraphics,
+ msegraphutils,msegrids,msegui,mseguiglob,mselistbrowser,msemenus,msestrings,
+ msesys,msetypes,msepipestream,mseprocess,msengspice;
 
 const
  ngspicename = 'ngspice';
@@ -36,11 +35,15 @@ type
   private
    fngspice: filenamety;
    fnetlist: filenamety;
+   flibfiles: filenamearty;
+   flibnames: filenamearty;
   public
    constructor create;
   published
    property ngspice: filenamety read fngspice write fngspice;
    property netlist: filenamety read fnetlist write fnetlist;
+   property libfiles: filenamearty read flibfiles write flibfiles;
+   property libnames: filenamearty read flibnames write flibnames;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -61,6 +64,7 @@ type
    projectstat2: tstatfile;
    tactivator1: tactivator;
    projectstat3: tstatfile;
+   libfiledialog: tfiledialog;
    procedure getobjexe(const sender: TObject; var aobject: TObject);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -75,6 +79,7 @@ type
    procedure createexe(const sender: TObject);
    procedure saveprojectexe(const sender: TObject);
    procedure aftereditoptionsexe(const sender: TObject);
+   procedure afteroptionsreadexe(const sender: TObject);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -285,6 +290,19 @@ begin
    end;
    stream2.writeln(str1);
   end;
+  with projectoptions do begin
+   for int1:= 0 to high(libfiles) do begin
+    if libfiles[int1] <> '' then begin
+     if libnames[int1] = '' then begin
+      stream2.writeln('.include '+tosysfilepath(libfiles[int1],true));
+     end
+     else begin
+      stream2.writeln('.lib '+tosysfilepath(libfiles[int1],true)+' '+
+                                                             libnames[int1]);
+     end;
+    end;
+   end;
+  end;
   stream2.writeln('.control');
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
    with tplotpagefo(plotsfo.tabs[int1]) do begin
@@ -433,6 +451,13 @@ procedure tmainmo.aftereditoptionsexe(const sender: TObject);
 begin
  if projectoptions.netlist <> netlistfo.edit.filename then begin
   netlistfo.loadfile(projectoptions.netlist);
+ end;
+end;
+
+procedure tmainmo.afteroptionsreadexe(const sender: TObject);
+begin
+ with projectoptions do begin
+  setlength(flibnames,length(flibfiles));
  end;
 end;
 

@@ -24,7 +24,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msescrollbar,
  msestatfile,msestream,msestrings,msetabs,msewidgets,sysutils,msesplitter,
  msesimplewidgets,msefiledialog,msebitmap,msedataedits,msedatanodes,mseedit,
- msegrids,mseifiglob,mselistbrowser,msesys,msetypes;
+ msegrids,mseifiglob,mselistbrowser,msesys,msetypes,msewidgetgrid;
 
 type
  toptionsfo = class(tmseform)
@@ -37,6 +37,9 @@ type
    ttabpage2: ttabpage;
    tstatfile1: tstatfile;
    netlist: tremotefilenameedit;
+   libgrid: twidgetgrid;
+   libfiles: tremotefilenameedit;
+   libnames: tstringedit;
    procedure netlistsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
  end;
