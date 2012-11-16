@@ -1,12 +1,14 @@
 inherited acplotfo: tacplotfo
   bounds_x = 53
-  bounds_y = 641
+  bounds_y = 618
   bounds_cx = 530
+  bounds_cy = 55
+  bounds_cymin = 55
   container.bounds = (
     0
     0
     530
-    100
+    55
   )
   moduleclassname = 'tplotoptionsfo'
   object fstop: trealedit[0]

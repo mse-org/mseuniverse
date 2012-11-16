@@ -23,14 +23,15 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedockpanelform,
  msestrings,msestatfile,msedataedits,mseedit,mseifiglob,msetypes,msedock,
- dockform;
+ dockform,msebitmap;
 
 type
- tmainfo = class(tmainform)
+ tmainfo = class(tdockform)
    mainme: tmainmenu;
    panelcontroller: tdockpanelformcontroller;
    panelsta: tstatfile;
    dockfo1: tdockfo;
+   imagelist: timagelist;
    procedure exitexe(const sender: TObject);
    procedure loadedexe(const sender: TObject);
    procedure newpanelexe(const sender: TObject);

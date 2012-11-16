@@ -119,7 +119,7 @@ end;
 
 procedure tnetlistfo.saveasexe(const sender: TObject);
 begin
- if filedialog.execute = mr_ok then begin
+ if filedialog.execute(fdk_save) = mr_ok then begin
   edit.savetofile(filedialog.controller.filename);
   mainmo.projectoptions.netlist:= filedialog.controller.filename;
   updatecaption;

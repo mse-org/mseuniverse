@@ -1,14 +1,14 @@
 object plotpagefo: tplotpagefo
   bounds_x = 341
   bounds_y = 264
-  bounds_cx = 572
+  bounds_cx = 559
   bounds_cy = 235
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    572
+    559
     235
   )
   moduleclassname = 'ttabform'
@@ -85,7 +85,7 @@ object plotpagefo: tplotpagefo
   object ttabwidget1: ttabwidget
     bounds_x = 0
     bounds_y = 48
-    bounds_cx = 572
+    bounds_cx = 559
     bounds_cy = 186
     anchors = [an_top, an_bottom]
     taborder = 3
@@ -98,16 +98,16 @@ object plotpagefo: tplotpagefo
       taborder = 1
       bounds_x = 0
       bounds_y = 18
-      bounds_cx = 572
+      bounds_cx = 559
       bounds_cy = 168
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Run'
       object tracegrid: twidgetgrid
         popupmenu = gridpopup
         bounds_x = 0
-        bounds_y = 59
-        bounds_cx = 572
-        bounds_cy = 108
+        bounds_y = 10
+        bounds_cx = 559
+        bounds_cy = 157
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colmerged, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixrows.count = 1
@@ -148,7 +148,7 @@ object plotpagefo: tplotpagefo
             dataclass = tgridmsestringdatalist
           end        
           item
-            width = 55
+            width = 46
             options = [co_proportional, co_savestate, co_mousescrollrow]
             widgetname = 'xvaluekind'
             dataclass = tgridenumdatalist
@@ -216,7 +216,7 @@ object plotpagefo: tplotpagefo
           visible = False
           bounds_x = 377
           bounds_y = 0
-          bounds_cx = 55
+          bounds_cx = 46
           bounds_cy = 16
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
           value = 0
@@ -246,7 +246,7 @@ object plotpagefo: tplotpagefo
           frame.button.imagenr = 17
           taborder = 4
           visible = False
-          bounds_x = 433
+          bounds_x = 424
           bounds_y = 0
           bounds_cx = 80
           bounds_cy = 16
@@ -263,7 +263,7 @@ object plotpagefo: tplotpagefo
           frame.button.color = -1879048187
           taborder = 5
           visible = False
-          bounds_x = 514
+          bounds_x = 505
           bounds_y = 0
           bounds_cx = 39
           bounds_cy = 16
@@ -286,30 +286,20 @@ object plotpagefo: tplotpagefo
           reffontheight = 14
         end
       end
-      object tsplitter1: tsplitter
-        color = -1879048189
-        taborder = 1
-        bounds_x = 0
-        bounds_y = 56
-        bounds_cx = 572
-        bounds_cy = 3
-        anchors = [an_top]
-        options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
-        linktop = plotcont
-        linkbottom = tracegrid
-        statfile = mainmo.projectstat1
-      end
-      object plotcont: tsimplewidget
+      object plotcont: tspacer
         optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         frame.localprops = [frl_levelo, frl_leveli]
         frame.dummy = 0
-        taborder = 2
+        taborder = 1
         visible = True
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 572
-        bounds_cy = 56
-        anchors = [an_top, an_bottom]
+        bounds_cx = 559
+        bounds_cy = 10
+        bounds_cymin = 10
+        anchors = [an_top]
+        optionsscale = [osc_expandy, osc_shrinky]
+        linkbottom = tracegrid
       end
     end
     object ttabpage2: ttabpage
@@ -318,7 +308,7 @@ object plotpagefo: tplotpagefo
       taborder = 2
       bounds_x = 0
       bounds_y = 18
-      bounds_cx = 572
+      bounds_cx = 559
       bounds_cy = 168
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Stepping'
@@ -341,7 +331,7 @@ object plotpagefo: tplotpagefo
         taborder = 1
         bounds_x = 0
         bounds_y = 38
-        bounds_cx = 572
+        bounds_cx = 559
         bounds_cy = 129
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]

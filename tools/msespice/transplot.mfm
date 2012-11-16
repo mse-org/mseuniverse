@@ -2,11 +2,13 @@ inherited transplotfo: ttransplotfo
   bounds_x = 69
   bounds_y = 433
   bounds_cx = 505
+  bounds_cy = 55
+  bounds_cymin = 55
   container.bounds = (
     0
     0
     505
-    100
+    55
   )
   moduleclassname = 'tplotoptionsfo'
   object tstart: trealedit[0]

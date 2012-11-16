@@ -145,4 +145,9 @@ object mainmo: tmainmo
     left = 320
     top = 80
   end
+  object stringlink: tifistringlinkcomp
+    controller.onclientdataentered = projectdataenteredexe
+    left = 320
+    top = 152
+  end
 end

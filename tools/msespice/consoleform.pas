@@ -30,6 +30,9 @@ type
    grid: twidgetgrid;
    term: tterminal;
    procedure inputbrokenexe(const sender: TObject);
+  public
+   procedure beginsimu;
+   procedure endsimu;
  end;
 var
  consolefo: tconsolefo;
@@ -40,6 +43,16 @@ uses
 procedure tconsolefo.inputbrokenexe(const sender: TObject);
 begin
  mainmo.simuterminated;
+end;
+
+procedure tconsolefo.beginsimu;
+begin
+ term.readonly:= false;
+end;
+
+procedure tconsolefo.endsimu;
+begin
+ term.readonly:= true;
 end;
 
 end.

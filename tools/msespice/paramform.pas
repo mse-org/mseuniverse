@@ -4,7 +4,8 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,spiceform,msedataedits,
- mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msememodialog;
+ mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msememodialog,
+ mseificomp,mseificompglob;
 
 type
  tparamfo = class(tspicefo)

@@ -3,6 +3,8 @@ object mainfo: tmainfo
   bounds_y = 255
   bounds_cx = 360
   bounds_cy = 273
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
   container.face.image.transparentcolor = -2147483642
   container.face.image.options = [bmo_masked]
   container.face.image.alignment = [al_tiled]
@@ -75,9 +77,9 @@ object mainfo: tmainfo
   }
   container.face.fade_pos.count = 3
   container.face.fade_pos.items = (
-     0.0000000000000000E+0000
-     8.1632653061224492E-0001
-     1.0000000000000000E+0000
+    0
+    0.81632653061225
+    1
   )
   container.face.fade_color.count = 3
   container.face.fade_color.items = (
@@ -123,7 +125,7 @@ object mainfo: tmainfo
     font.shadow_color = -1610612730
     font.height = 20
     font.name = 'stf_default'
-    font.xscale =  1.0000000000000000E+0000
+    font.xscale = 1
     font.dummy = 0
     imagelist = backgroundimagelist
     imagenr = 0
@@ -165,7 +167,7 @@ object mainfo: tmainfo
     font.shadow_color = -1610612730
     font.height = 20
     font.name = 'stf_default'
-    font.xscale =  1.0000000000000000E+0000
+    font.xscale = 1
     font.dummy = 0
     caption = 'A'
     imagelist = backgroundimagelist
@@ -214,7 +216,7 @@ object mainfo: tmainfo
     font.shadow_color = -1610612730
     font.height = 20
     font.name = 'stf_default'
-    font.xscale =  1.0000000000000000E+0000
+    font.xscale = 1
     font.dummy = 0
     caption = 'B'
     imagelist = backgroundimagelist
@@ -258,7 +260,7 @@ object mainfo: tmainfo
     font.shadow_color = -1610612730
     font.height = 20
     font.name = 'stf_default'
-    font.xscale =  1.0000000000000000E+0000
+    font.xscale = 1
     font.dummy = 0
     imagelist = backgroundimagelist
     imagenr = 0
@@ -333,8 +335,8 @@ object mainfo: tmainfo
     )
     face.fade_pos.count = 2
     face.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     face.fade_color.count = 2
     face.fade_color.items = (
@@ -349,17 +351,17 @@ object mainfo: tmainfo
     bounds_x = 184
     bounds_y = 109
     bounds_cx = 163
-    bounds_cy = 47
+    bounds_cy = 45
     font.color = 14052096
     font.shadow_color = -1610612733
     font.gloss_color = -1610612730
     font.height = 20
     font.name = 'stf_default'
-    font.xscale =  1.0000000000000000E+0000
+    font.xscale = 1
     font.dummy = 0
     textflagsactive = [tf_ycentered, tf_underlineselect]
     value = 'Edit Text'
-    reffontheight = 24
+    reffontheight = 22
   end
   object tbutton2: tbutton
     color = -2147483645
@@ -3146,6 +3148,7 @@ object mainfo: tmainfo
     list.count = 3
     list.items = <    
       item
+        image.transparentcolor = -2147483642
         image.options = [bmo_masked, bmo_colormask]
         image.image = {
           000000000600000032000000320000006C1C0000000000000000000000000000
@@ -3572,6 +3575,7 @@ object mainfo: tmainfo
         dummy = 0
       end    
       item
+        image.transparentcolor = -2147483642
         image.options = [bmo_masked, bmo_colormask]
         image.image = {
           000000000600000032000000320000004C1C0000000000000000000000000000
@@ -3997,6 +4001,7 @@ object mainfo: tmainfo
         dummy = 0
       end    
       item
+        image.transparentcolor = -2147483642
         image.options = [bmo_masked, bmo_colormask]
         image.image = {
           00000000060000003200000032000000C41D0000000000000000000000000000

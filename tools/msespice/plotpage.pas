@@ -93,8 +93,7 @@ type
    xvaluekind: tenumedit;
    yexpression: tmemodialogedit;
    yvaluekind: tenumedit;
-   tsplitter1: tsplitter;
-   plotcont: tsimplewidget;
+   plotcont: tspacer;
    ttabpage2: ttabpage;
    stepactive: tbooleanedit;
    stepgrid: twidgetgrid;
@@ -383,11 +382,12 @@ var
 begin
  freeandnil(fplot);
  cla1:= getplotclass(akind);
- if cla1 <> nil then begin
-  fplot:= cla1.create(self);
-  fplot.parentwidget:= plotcont;
-  fplot.visible:= true;
+ if cla1 = nil then begin
+  cla1:= getplotclass(ord(plk_tran));
  end;
+ fplot:= cla1.create(self);
+ fplot.parentwidget:= plotcont;
+ fplot.visible:= true;
 end;
 
 function tplotpagefo.kind: plotkindty;

@@ -24,7 +24,7 @@ uses
  msestat,mseact,mseactions,mseifiglob,mseguirttistat,classes,msestatfile,
  msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,msegraphics,
  msegraphutils,msegrids,msegui,mseguiglob,mselistbrowser,msemenus,msestrings,
- msesys,msetypes,msepipestream,mseprocess,msengspice;
+ msesys,msetypes,msepipestream,mseprocess,msengspice,mseificomp,mseificompglob;
 
 const
  ngspicename = 'ngspice';
@@ -65,6 +65,7 @@ type
    tactivator1: tactivator;
    projectstat3: tstatfile;
    libfiledialog: tfiledialog;
+   stringlink: tifistringlinkcomp;
    procedure getobjexe(const sender: TObject; var aobject: TObject);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -80,11 +81,14 @@ type
    procedure saveprojectexe(const sender: TObject);
    procedure aftereditoptionsexe(const sender: TObject);
    procedure afteroptionsreadexe(const sender: TObject);
+   procedure projectdataenteredexe(const sender: TObject;
+                   const aindex: Integer);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
    fspicefile: filenamety;
    frawfile: filenamety;
+   fmodified: boolean;
   protected
    fprojectoptions: tprojectoptions;
    fspice: tngspice;
@@ -99,6 +103,7 @@ type
    procedure newproject;
    procedure loadproject(const aname: filenamety); //'' -> statfilename
    procedure simuterminated;
+   procedure projectchanged;
    function spicelines(const atext: msestring): string;
                      //break lines with + linestart
    property projectloaded: boolean read fprojectloaded;
@@ -174,6 +179,7 @@ begin
  end;
  projectmainstat.readstat;
  fprojectloaded:= true;
+ fmodified:= false;
  updateprojectstate;
  netlistfo.loadfile(projectoptions.netlist);
 end;
@@ -198,10 +204,22 @@ function tmainmo.closeproject: boolean;
 begin
  result:= checkfilesave;
  if result and fprojectloaded then begin
-  netlistfo.close;
-  fprojectloaded:= false;
-  updateprojectstate;
-  projectmainstat.writestat;
+  if fmodified then begin
+   case askyesnocancel('Project '+projectmainstat.filename+
+                                     ' is modified. Save?') of
+    mr_yes,mr_no: begin
+    end;
+    else begin
+     result:= false;
+    end;
+   end;
+  end;
+  if result then begin                                             
+   netlistfo.close;
+   fprojectloaded:= false;
+   updateprojectstate;
+   projectmainstat.writestat;
+  end;
  end;
 end;
 
@@ -228,7 +246,7 @@ procedure tmainmo.updateprojectstate;
 begin
  closeprojectact.enabled:= projectloaded; 
  optionsact.enabled:= projectloaded;
- saveprojectasact.enabled:= projectloaded;
+ saveprojectasact.enabled:= projectloaded and fmodified;
  saveprojectact.enabled:= projectloaded;
  simustopact.enabled:= simurunning;
  simustartact.enabled:= projectloaded and not simurunning;
@@ -245,6 +263,8 @@ procedure tmainmo.saveprojectexe(const sender: TObject);
 begin
  if checkfilesave then begin
   projectmainstat.writestat;
+  fmodified:= false;
+  updateprojectstate;
  end;
 end;
 
@@ -256,6 +276,7 @@ begin
    if execute(fdk_save) = mr_ok then begin
     projectmainstat.filename:= controller.filename;
     projectmainstat.writestat;
+    fmodified:= false;
     updateprojectstate;
    end;
   end;
@@ -401,6 +422,7 @@ begin
  str1:= tosysfilepath(fprojectoptions.ngspice,true)+
    ' -b '+tosysfilepath(fspicefile,true);
  consolefo.term.addline('> '+str1);
+ consolefo.beginsimu;
  consolefo.term.execprog(str1);
  fsimurunning:= true;
  updateprojectstate;
@@ -416,6 +438,7 @@ procedure tmainmo.simuterminated;
 var
  stream1: ttextstream;
 begin
+ consolefo.endsimu;
  fsimurunning:= false;
  fspice.reset;
  if consolefo.term.exitcode <= 1 then begin
@@ -485,6 +508,18 @@ begin
    result:= result + lineend + '+ '+ar1[int1];
   end;
  end;
+end;
+
+procedure tmainmo.projectdataenteredexe(const sender: TObject;
+               const aindex: Integer);
+begin
+ projectchanged;
+end;
+
+procedure tmainmo.projectchanged;
+begin
+ fmodified:= true;
+ updateprojectstate;
 end;
 
 end.
