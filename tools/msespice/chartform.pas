@@ -79,7 +79,8 @@ var
  begin
   setlength(ar1,length(children1));
   for int1:= 0 to high(ar1) do begin
-   if children1[int1] is tchartfo then begin
+   if not (csdestroying in children1[int1].componentstate) and 
+                                    (children1[int1] is tchartfo) then begin
     ar1[int1]:= true;
     with tchartfo(children1[int1]).chart.fitframe do begin
      if left > left1 then begin
