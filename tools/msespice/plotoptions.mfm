@@ -4,7 +4,7 @@ object plotoptionsfo: tplotoptionsfo
   bounds_y = 71
   bounds_cx = 217
   bounds_cy = 100
-  anchors = []
+  anchors = [an_top]
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (

@@ -147,6 +147,7 @@ object mainmo: tmainmo
   end
   object stringlink: tifistringlinkcomp
     controller.onclientdataentered = projectdataenteredexe
+    controller.optionsvalue = [vco_nosync]
     left = 320
     top = 152
   end

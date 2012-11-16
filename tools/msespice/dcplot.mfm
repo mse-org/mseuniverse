@@ -1,6 +1,195 @@
 inherited dcplotfo: tdcplotfo
   bounds_x = 109
   bounds_y = 238
-  bounds_cx = 206
+  bounds_cx = 467
+  container.bounds = (
+    0
+    0
+    467
+    100
+  )
   moduleclassname = 'tplotoptionsfo'
+  object stop: trealedit[0]
+    frame.caption = 'Stop'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 272
+    bounds_y = 7
+    bounds_cx = 76
+    bounds_cy = 37
+    statfile = mainmo.projectstat1
+    value = 1
+    valuedefault = -Inf
+    formatedit = '${REAL}'
+    formatdisp = '${REAL}'
+    valuerange = 1
+    valuestart = 0
+    min = -1E+038
+    max = 1E+038
+    reffontheight = 14
+  end
+  object start: trealedit[1]
+    frame.caption = 'Start'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 184
+    bounds_y = 7
+    bounds_cx = 84
+    bounds_cy = 37
+    statfile = mainmo.projectstat1
+    value = 0
+    valuedefault = -Inf
+    formatedit = '${REAL}'
+    formatdisp = '${REAL}'
+    valuerange = 1
+    valuestart = 0
+    min = -1E+038
+    max = 1E+038
+    reffontheight = 14
+  end
+  object source: tstringedit[2]
+    frame.caption = 'Source'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 7
+    bounds_cx = 172
+    bounds_cy = 37
+    statfile = mainmo.projectstat1
+    reffontheight = 14
+  end
+  object increment: trealedit[3]
+    frame.caption = 'Increment'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 352
+    bounds_y = 7
+    bounds_cx = 76
+    bounds_cy = 37
+    statfile = mainmo.projectstat1
+    value = 0.1
+    valuedefault = -Inf
+    formatedit = '${REAL}'
+    formatdisp = '${REAL}'
+    valuerange = 1
+    valuestart = 0
+    min = -1E+038
+    max = 1E+038
+    reffontheight = 14
+  end
+  object increment2: trealedit[4]
+    frame.caption = 'Increment 2'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 352
+    bounds_y = 47
+    bounds_cx = 76
+    bounds_cy = 37
+    statfile = mainmo.projectstat1
+    value = -Inf
+    valuedefault = -Inf
+    formatedit = '${REAL}'
+    formatdisp = '${REAL}'
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 14
+  end
+  object stop2: trealedit[5]
+    frame.caption = 'Stop 2'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 272
+    bounds_y = 47
+    bounds_cx = 76
+    bounds_cy = 37
+    statfile = mainmo.projectstat1
+    value = -Inf
+    valuedefault = -Inf
+    formatedit = '${REAL}'
+    formatdisp = '${REAL}'
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 14
+  end
+  object start2: trealedit[6]
+    frame.caption = 'Start 2'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 184
+    bounds_y = 47
+    bounds_cx = 84
+    bounds_cy = 37
+    statfile = mainmo.projectstat1
+    value = -Inf
+    valuedefault = -Inf
+    formatedit = '${REAL}'
+    formatdisp = '${REAL}'
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 14
+  end
+  object source2: tstringedit[7]
+    frame.caption = 'Source 2'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 8
+    bounds_y = 47
+    bounds_cx = 172
+    bounds_cy = 37
+    statfile = mainmo.projectstat1
+    reffontheight = 14
+  end
 end

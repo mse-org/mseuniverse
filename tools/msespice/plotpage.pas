@@ -259,13 +259,18 @@ procedure tchartnode.loaddata(const adata: plotinfoty;
  begin
   result:= nil;
   mstr1:= unifyexpression(aexpression);
-  with tplotpagefo(editwidget.owner) do begin
-   for int1:= 0 to high(fexpressions) do begin
-    if mstr1 = fexpressions[int1] then begin
-     if int1 <= high(adata.vars) then begin
-      result:= getplotvalues(adata,int1,akind);
+  if mstr1 = '' then begin //scale
+   result:= getplotvalues(adata,0,akind);
+  end
+  else begin
+   with tplotpagefo(editwidget.owner) do begin
+    for int1:= 0 to high(fexpressions) do begin
+     if mstr1 = fexpressions[int1] then begin
+      if int1 <= high(adata.vars) then begin
+       result:= getplotvalues(adata,int1,akind);
+      end;
+      break;
      end;
-     break;
     end;
    end;
   end;
@@ -386,7 +391,8 @@ begin
   cla1:= getplotclass(ord(plk_tran));
  end;
  fplot:= cla1.create(self);
- fplot.parentwidget:= plotcont;
+ plotcont.insertwidget(fplot,nullpoint);
+// fplot.parentwidget:= plotcont;
  fplot.visible:= true;
 end;
 

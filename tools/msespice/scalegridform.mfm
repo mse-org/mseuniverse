@@ -1,6 +1,6 @@
 object scalegridfo: tscalegridfo
   bounds_x = 92
-  bounds_y = 639
+  bounds_y = 563
   bounds_cx = 429
   bounds_cy = 155
   anchors = [an_left]

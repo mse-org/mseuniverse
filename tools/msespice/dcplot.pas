@@ -19,12 +19,42 @@ unit dcplot;
 interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,mseforms,plotoptions;
+ msegraphics,msegraphutils,mseevent,mseclasses,mseforms,plotoptions,
+ msedataedits,mseedit,mseifiglob,msestrings,msetypes;
 type
  tdcplotfo = class(tplotoptionsfo)
+   stop: trealedit;
+   start: trealedit;
+   source: tstringedit;
+   increment: trealedit;
+   increment2: trealedit;
+   stop2: trealedit;
+   start2: trealedit;
+   source2: tstringedit;
+  public
+   function getplotstatement: string; override;
+   function getxvalue: string; override;
  end;
 
 implementation
 uses
  dcplot_mfm;
+
+{ tdcplotfo }
+
+function tdcplotfo.getplotstatement: string;
+begin
+ result:= 'dc '+source.value+' '+start.asstring+' '+
+                             stop.asstring+' '+increment.asstring;
+ if not(source2.isnull or start2.isnull or stop2.isnull or 
+                                        increment2.isnull) then begin
+  result:= result + ' '+source2.value+' '+start2.asstring+' '+
+                             stop2.asstring+' '+increment2.asstring;
+ end;
+end;
+
+function tdcplotfo.getxvalue: string;
+begin
+end;
+
 end.

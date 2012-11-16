@@ -232,6 +232,7 @@ object chartoptionsfo: tchartoptionsfo
       inherited scalegrid: twidgetgrid
         bounds_cx = 328
         bounds_cy = 74
+        font.name = ''
         fixcols.items = <        
           item
           end>
@@ -243,21 +244,29 @@ object chartoptionsfo: tchartoptionsfo
               item
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
                 caption = 'top'
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end>
           end>
         datacols.items = <        
@@ -322,6 +331,7 @@ object chartoptionsfo: tchartoptionsfo
       inherited scalegrid: twidgetgrid
         bounds_cx = 331
         bounds_cy = 74
+        font.name = ''
         fixcols.items = <        
           item
           end>
@@ -333,21 +343,29 @@ object chartoptionsfo: tchartoptionsfo
               item
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
                 caption = 'left'
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end            
               item
+                font.xscale = 1
               end>
           end>
         datacols.items = <        
