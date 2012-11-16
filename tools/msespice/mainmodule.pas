@@ -66,6 +66,10 @@ type
    projectstat3: tstatfile;
    libfiledialog: tfiledialog;
    stringlink: tifistringlinkcomp;
+   booleanlink: tifibooleanlinkcomp;
+   reallink: tifireallinkcomp;
+   integerlink: tifiintegerlinkcomp;
+   enumlink: tifienumlinkcomp;
    procedure getobjexe(const sender: TObject; var aobject: TObject);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);

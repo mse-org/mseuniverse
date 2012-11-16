@@ -33,6 +33,7 @@ inherited transplotfo: ttransplotfo
     valuestart = 0
     min = 0
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object tlen: trealedit[1]
@@ -58,6 +59,7 @@ inherited transplotfo: ttransplotfo
     valuestart = 0
     min = 0
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object minstep: trealedit[2]
@@ -83,6 +85,7 @@ inherited transplotfo: ttransplotfo
     valuestart = 0
     min = -Inf
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object uic: tbooleanedit[3]
@@ -100,5 +103,6 @@ inherited transplotfo: ttransplotfo
     bounds_cx = 131
     bounds_cy = 16
     statfile = mainmo.projectstat1
+    ifilink = mainmo.booleanlink
   end
 end

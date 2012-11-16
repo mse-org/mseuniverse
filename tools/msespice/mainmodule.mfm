@@ -3,8 +3,8 @@ object mainmo: tmainmo
   bounds_cy = 295
   statfile = mainstat
   oncreate = createexe
-  left = 337
-  top = 423
+  left = 151
+  top = 328
   moduleclassname = 'tmsedatamodule'
   object optionsact: taction
     caption = '&Options'
@@ -147,8 +147,36 @@ object mainmo: tmainmo
   end
   object stringlink: tifistringlinkcomp
     controller.onclientdataentered = projectdataenteredexe
-    controller.optionsvalue = [vco_nosync]
+    controller.optionsvalue = [vco_nosync, vco_novaluetoclient]
     left = 320
     top = 152
+  end
+  object booleanlink: tifibooleanlinkcomp
+    controller.onclientdataentered = projectdataenteredexe
+    controller.optionsvalue = [vco_nosync, vco_novaluetoclient]
+    left = 320
+    top = 168
+  end
+  object reallink: tifireallinkcomp
+    controller.onclientdataentered = projectdataenteredexe
+    controller.optionsvalue = [vco_nosync, vco_novaluetoclient]
+    controller.value = -Inf
+    controller.valuedefault = -Inf
+    controller.min = -Inf
+    controller.max = 1E+038
+    left = 320
+    top = 184
+  end
+  object integerlink: tifiintegerlinkcomp
+    controller.onclientdataentered = projectdataenteredexe
+    controller.optionsvalue = [vco_nosync, vco_novaluetoclient]
+    left = 320
+    top = 200
+  end
+  object enumlink: tifienumlinkcomp
+    controller.onclientdataentered = projectdataenteredexe
+    controller.optionsvalue = [vco_nosync, vco_novaluetoclient]
+    left = 320
+    top = 216
   end
 end

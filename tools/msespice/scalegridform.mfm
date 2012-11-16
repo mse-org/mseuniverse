@@ -63,31 +63,13 @@ object scalegridfo: tscalegridfo
         width = 18
         options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'log'
-        dataclass = tgridintegerdatalist
-        data = (
-          (
-            0
-          )
-        )
       end    
       item
         widgetname = 'intervalco'
-        dataclass = tgridrealdatalist
-        data = (
-          (
-            5
-          )
-        )
       end    
       item
         width = 28
         widgetname = 'maingridlinewidth'
-        dataclass = tgridrealdatalist
-        data = (
-          (
-            0.3
-          )
-        )
       end    
       item
         widgetname = 'capt'
@@ -110,50 +92,20 @@ object scalegridfo: tscalegridfo
       end    
       item
         widgetname = 'start'
-        dataclass = tgridrealdatalist
-        data = (
-          (
-            0
-          )
-        )
       end    
       item
         widgetname = 'range'
-        dataclass = tgridrealdatalist
-        data = (
-          (
-            1
-          )
-        )
       end    
       item
         width = 16
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'autoscale'
-        dataclass = tgridintegerdatalist
-        data = (
-          (
-            -1
-          )
-        )
       end    
       item
         widgetname = 'startmargin'
-        dataclass = tgridrealdatalist
-        data = (
-          (
-            1
-          )
-        )
       end    
       item
         widgetname = 'endmargin'
-        dataclass = tgridrealdatalist
-        data = (
-          (
-            1
-          )
-        )
       end>
     datarowheight = 16
     statfile = mainmo.projectstat2
@@ -171,6 +123,7 @@ object scalegridfo: tscalegridfo
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
       ondataentered = dataenteredexe
       visible = False
+      ifilink = mainmo.booleanlink
     end
     object intervalco: trealedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -189,6 +142,7 @@ object scalegridfo: tscalegridfo
       valuestart = 0
       min = 1
       max = 100
+      ifilink = mainmo.reallink
       reffontheight = 14
     end
     object maingridlinewidth: trealedit
@@ -209,6 +163,7 @@ object scalegridfo: tscalegridfo
       valuestart = 0
       min = 0
       max = 1
+      ifilink = mainmo.reallink
       reffontheight = 14
     end
     object capt: tstringedit
@@ -257,6 +212,7 @@ object scalegridfo: tscalegridfo
       valuestart = 0
       min = -1E+038
       max = 1E+038
+      ifilink = mainmo.reallink
       reffontheight = 14
     end
     object range: trealedit
@@ -279,6 +235,7 @@ object scalegridfo: tscalegridfo
       valuestart = 0
       min = -1E+038
       max = 1E+038
+      ifilink = mainmo.reallink
       reffontheight = 14
     end
     object autoscale: tbooleanedit
@@ -294,6 +251,7 @@ object scalegridfo: tscalegridfo
       visible = False
       value = True
       valuedefault = True
+      ifilink = mainmo.booleanlink
     end
     object startmargin: trealedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -312,6 +270,7 @@ object scalegridfo: tscalegridfo
       valuestart = 0
       min = 0
       max = 0.4
+      ifilink = mainmo.reallink
       reffontheight = 14
     end
     object endmargin: trealedit
@@ -331,6 +290,7 @@ object scalegridfo: tscalegridfo
       valuestart = 0
       min = 0
       max = 0.4
+      ifilink = mainmo.reallink
       reffontheight = 14
     end
   end

@@ -31,6 +31,7 @@ inherited dcplotfo: tdcplotfo
     valuestart = 0
     min = -1E+038
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object start: trealedit[1]
@@ -56,6 +57,7 @@ inherited dcplotfo: tdcplotfo
     valuestart = 0
     min = -1E+038
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object source: tstringedit[2]
@@ -73,6 +75,7 @@ inherited dcplotfo: tdcplotfo
     bounds_cx = 172
     bounds_cy = 37
     statfile = mainmo.projectstat1
+    ifilink = mainmo.stringlink
     reffontheight = 14
   end
   object increment: trealedit[3]
@@ -98,6 +101,7 @@ inherited dcplotfo: tdcplotfo
     valuestart = 0
     min = -1E+038
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object increment2: trealedit[4]
@@ -123,6 +127,7 @@ inherited dcplotfo: tdcplotfo
     valuestart = 0
     min = -Inf
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object stop2: trealedit[5]
@@ -148,6 +153,7 @@ inherited dcplotfo: tdcplotfo
     valuestart = 0
     min = -Inf
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object start2: trealedit[6]
@@ -173,6 +179,7 @@ inherited dcplotfo: tdcplotfo
     valuestart = 0
     min = -Inf
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object source2: tstringedit[7]
@@ -190,6 +197,7 @@ inherited dcplotfo: tdcplotfo
     bounds_cx = 172
     bounds_cy = 37
     statfile = mainmo.projectstat1
+    ifilink = mainmo.stringlink
     reffontheight = 14
   end
 end

@@ -34,6 +34,7 @@ inherited acplotfo: tacplotfo
     valuestart = 0
     min = 0
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object fstart: trealedit[1]
@@ -60,6 +61,7 @@ inherited acplotfo: tacplotfo
     valuestart = 0
     min = 0
     max = 1E+038
+    ifilink = mainmo.reallink
     reffontheight = 14
   end
   object stepkind: tenumedit[2]
@@ -79,6 +81,7 @@ inherited acplotfo: tacplotfo
     value = 0
     min = 0
     max = 2
+    ifilink = mainmo.enumlink
     dropdown.cols.count = 1
     dropdown.cols.items = <    
       item
@@ -108,6 +111,7 @@ inherited acplotfo: tacplotfo
     value = 10
     min = 1
     max = 100000
+    ifilink = mainmo.integerlink
     reffontheight = 14
   end
 end

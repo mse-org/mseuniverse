@@ -271,13 +271,10 @@ object chartoptionsfo: tchartoptionsfo
           end>
         datacols.items = <        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
             dataclass = tgridmsestringdatalist
@@ -286,19 +283,14 @@ object chartoptionsfo: tchartoptionsfo
             dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end>
         inherited capt: tstringedit[0]
         end
@@ -370,13 +362,10 @@ object chartoptionsfo: tchartoptionsfo
           end>
         datacols.items = <        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
             dataclass = tgridmsestringdatalist
@@ -385,19 +374,14 @@ object chartoptionsfo: tchartoptionsfo
             dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end>
         inherited capt: tstringedit[0]
         end
