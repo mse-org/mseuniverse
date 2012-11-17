@@ -15,7 +15,7 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
 unit plotpage;
-{$ifdef FPC}{$mode objfpc}{$h+}{$endif}
+{$ifdef FPC}{$mode objfpc}{$h+}{$goto on}{$endif}
 interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
@@ -45,6 +45,7 @@ type
    function createsubnode: ttreelistitem; override;
    procedure setcaption(const avalue: msestring); override;
    procedure dostatread(const reader: tstatreader); override;
+   function defaulttracecaption: msestring;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
@@ -69,6 +70,7 @@ type
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
   public
+   constructor create(const acaption: msestring);
    procedure showchart; override;
    property xexpression: msestring read fvalue0 write fvalue0;
    property xvaluekind: valuekindty read fxvaluekind write fxvaluekind 
@@ -134,6 +136,8 @@ type
                    var accept: Boolean);
    procedure stepstopsetexe(const sender: TObject; var avalue: realty;
                    var accept: Boolean);
+   procedure rowinsertedexe(const sender: tcustomgrid; const aindex: Integer;
+                   const acount: Integer);
   private
    fplot: tplotoptionsfo;
    fnameindex: integer;
@@ -240,7 +244,7 @@ end;
 
 function tchartnode.createsubnode: ttreelistitem;
 begin
- result:= ttracenode.create;
+ result:= ttracenode.create('');
 end;
 
 procedure tchartnode.showchart;
@@ -335,7 +339,30 @@ begin
  setcaption(fcaption);
 end;
 
+function tchartnode.defaulttracecaption: msestring;
+var
+ int1,int2: integer;
+label
+ lab1;
+begin
+ int1:= 0;
+lab1:
+ inc(int1);
+ result:= 'Trace '+inttostr(int1);
+ for int2:= 0 to fcount - 1 do begin
+  if fitems[int2].caption = result then begin
+   goto lab1;
+  end;
+ end; 
+end;
+
 { ttracenode }
+
+constructor ttracenode.create(const acaption: msestring);
+begin
+ inherited create;
+ caption:= acaption;
+end;
 
 procedure ttracenode.showchart;
 begin
@@ -509,7 +536,7 @@ end;
 procedure tplotpagefo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
- if iscellclick(info,[ccr_dblclick]) then begin
+ if iscellclick(info,[ccr_dblclick]) and not treeed.focused then begin
   tplotnode(treeed.item).showchart;
  end;
 end;
@@ -532,12 +559,14 @@ end;
 
 procedure tplotpagefo.rowinsertexe(const sender: tcustomgrid;
                var aindex: Integer; var acount: Integer);
+var
+ n1: ttracenode;
 begin
  if sender.userinput then begin
   if (treeed.item is tchartnode) then begin
    with tchartnode(treeed.item) do begin
     if (aindex > tracegrid.row) and (count = 0) then begin
-     insert(ttracenode.create,0);
+     insert(ttracenode.create(defaulttracecaption),0);
      acount:= 0;
     end
     else begin
@@ -549,18 +578,25 @@ begin
   end
   else begin
    if treeed.item is ttracenode then begin
-    with treeed.item do begin
+    with tchartnode(treeed.item.parent) do begin
      if aindex > tracegrid.row then begin
-      parent.insert(ttracenode.create,parentindex+1);
+      insert(ttracenode.create(defaulttracecaption),treeed.item.parentindex+1);
      end
      else begin
-//      insert(ttracenode.create,0);
-      parent.insert(ttracenode.create,parentindex);
+      insert(ttracenode.create(defaulttracecaption),treeed.item.parentindex);
      end;
     end;
     acount:= 0;
    end;
   end;
+ end;
+end;
+
+procedure tplotpagefo.rowinsertedexe(const sender: tcustomgrid;
+               const aindex: Integer; const acount: Integer);
+begin
+ if sender.userinput then begin
+  updaterowvalueexe(nil,aindex,treeed[aindex]);
  end;
 end;
 
