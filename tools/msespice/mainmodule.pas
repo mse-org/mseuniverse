@@ -288,9 +288,10 @@ begin
 end;
 
 procedure tmainmo.simustartexe(const sender: TObject);
+const
+ varplotname = 'unknown1'; 
+        //"set var curplot" "$var.vector" does not work
 var
-// fna1: filenamety;
-// stream1: ttextstream;
  stream2: ttextstream = nil;
  int1,int2,int3: integer;
  str1: string;
@@ -298,6 +299,7 @@ var
  ar1: msestringarty;
  vectors: string;
  nums{,nums1}: array[plotkindty] of integer;
+ plotnum: integer;
  rea1: real;
 begin
  fspicefile:= replacefileext(projectmainstat.filename,'spi.tmp');
@@ -338,10 +340,13 @@ begin
    end;
   end;
   stream2.writeln('.control');
+  stream2.writeln(' set curplot = new');
+//  plotnum:= 0;
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
    with tplotpagefo(plotsfo.tabs[int1]) do begin
     if plotactive.value then begin
      if stepactive.value then begin
+      stream2.writeln(' set curplot = '+varplotname);
       for int2:= 0 to stepgrid.datarowhigh do begin
        stream2.writeln(' let b'+inttostr(int2)+' = '+stepdest[int2]);
                                      //backup original values
@@ -357,7 +362,7 @@ begin
        end;
       end;
       stream2.writeln(' let n = 0');
-      stream2.writeln(' dowhile n <= '+inttostr(stepcount.value));
+      stream2.writeln(' dowhile '+varplotname+'.n <= '+inttostr(stepcount.value));
       for int2:= 0 to stepgrid.datarowhigh do begin
        if stepcount.value = 0 then begin
         stream2.writeln('  alter '+stepdest[int2]+' = '+
@@ -366,26 +371,33 @@ begin
        else begin
         if stepkindty(stepkind[int2]) = sk_log then begin
          stream2.writeln('  alter '+stepdest[int2]+' = '+
-             doubletostring(stepstart[int2])+'*exp(n*a'+inttostr(int2)+')');
+             doubletostring(stepstart[int2])+
+             '*exp('+varplotname+'.n*'+varplotname+'.a'+inttostr(int2)+')');
         end
         else begin //lin
          stream2.writeln('  alter '+stepdest[int2]+' = '+
-                      doubletostring(stepstart[int2])+'+n*a'+inttostr(int2));
+                      doubletostring(stepstart[int2])+
+                      '+'+varplotname+'.n*'+varplotname+'.a'+inttostr(int2));
         end;
        end;
       end;
       stream2.writeln('  '+getplotstatement);
-      stream2.writeln('  let n = n + 1');
+//      stream2.writeln(' set p'+inttostr(plotnum)+' = $curplot');
+//      inc(plotnum);
+      stream2.writeln('  let '+varplotname+'.n = '+varplotname+'.n + 1');
       for int2:= 1 to high(expressions) do begin
        stream2.writeln('  let '+exptag(int2)+'='+expressions[int2]);
       end;
       stream2.writeln(' end');
       for int2:= 0 to stepgrid.datarowhigh do begin //restore original values
-       stream2.writeln(' alter '+stepdest[int2]+' = b'+inttostr(int2));
+       stream2.writeln(' alter '+stepdest[int2]+' = '+
+                                    varplotname+'.b'+inttostr(int2));
       end;
      end
      else begin
       stream2.writeln(' '+getplotstatement);
+//      stream2.writeln(' set p'+inttostr(plotnum)+' = $curplot');
+//      inc(plotnum);
       for int2:= 1 to high(expressions) do begin
        stream2.writeln(' let '+exptag(int2)+'='+spicelines(expressions[int2]));
       end;
@@ -395,6 +407,7 @@ begin
   end;
   fillchar(nums,sizeof(nums),0);
   str1:= ' write '+tosysfilepath(frawfile,true); //'write' must be lowercase!
+  plotnum:= 0;
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
    with tplotpagefo(plotsfo.tabs[int1]) do begin
     if plotactive.value then begin
@@ -404,13 +417,21 @@ begin
      end;
      for int3:= 0 to int3 do begin
       str1:= str1+lineend+'+ ';
-      if (kind = plk_ac) and (nums[plk_ac] = 0) and 
-                                      (nums[plk_tran] = 0) then begin
+(*      if (kind = plk_ac) and (nums[plk_ac] <> 0) {and 
+                                      (nums[plk_tran] = 0)} then begin
        inc(nums[plk_tran]);
+       inc(nums[plk_dc]);
+      end;
+*)
+      if (nums[kind] = 0) and (plotnum > 0) then begin
+       dec(plotnum);
       end;
       inc(nums[kind]);
+      inc(plotnum);
       for int2:= 1 to high(expressions) do begin
-       str1:= str1 +' '+plotnames[kind]+inttostr(nums[kind])+'.'+exptag(int2);
+       str1:= str1 +' '+plotnames[kind]+inttostr(plotnum)+'.'+exptag(int2);
+//       str1:= str1 +' '+plotnames[kind]+inttostr(nums[kind])+'.'+exptag(int2);
+//       str1:= str1 +' {$p'+inttostr(plotnum)+'}.'+exptag(int2);
       end;
      end;
     end;
@@ -445,19 +466,15 @@ begin
  consolefo.endsimu;
  fsimurunning:= false;
  fspice.reset;
- if consolefo.term.exitcode <= 1 then begin
-  if not ttextstream.trycreate(stream1,frawfile) then begin
-   showerror('RAW file'+lineend+frawfile+lineend+'not found.');
-  end
-  else begin
-   consolefo.term.addline('**** FINISHED ****');
-   try
-    fspice.readdata(stream1);
-    plotsfo.updatecharts(fspice.plots);
-   finally
-    stream1.free;
-    updateprojectstate;
-   end;
+ if (consolefo.term.exitcode <= 1) and 
+                        ttextstream.trycreate(stream1,frawfile) then begin
+  consolefo.term.addline('**** FINISHED ****');
+  try
+   fspice.readdata(stream1);
+   plotsfo.updatecharts(fspice.plots);
+  finally
+   stream1.free;
+   updateprojectstate;
   end;
  end
  else begin
