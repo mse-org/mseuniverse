@@ -24,7 +24,7 @@ object scalegridfo: tscalegridfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 10
+        captions.count = 11
         captions.items = <        
           item
             caption = 'log'
@@ -33,10 +33,13 @@ object scalegridfo: tscalegridfo
             caption = 'div'
           end        
           item
-            caption = 'width'
+            caption = 'line'
           end        
           item
             caption = 'caption'
+          end        
+          item
+            caption = 'div2'
           end        
           item
           end        
@@ -57,19 +60,38 @@ object scalegridfo: tscalegridfo
           end>
       end>
     rowcount = 1
-    datacols.count = 10
+    datacols.count = 11
     datacols.items = <    
       item
         width = 18
-        options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'log'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            0
+          )
+        )
       end    
       item
+        width = 31
         widgetname = 'intervalco'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            5
+          )
+        )
       end    
       item
-        width = 28
-        widgetname = 'maingridlinewidth'
+        width = 27
+        widgetname = 'gridline'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            0
+          )
+        )
       end    
       item
         widgetname = 'capt'
@@ -81,7 +103,18 @@ object scalegridfo: tscalegridfo
         )
       end    
       item
+        width = 29
+        widgetname = 'intervalco2'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            5
+          )
+        )
+      end    
+      item
         width = 27
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'oppos'
         dataclass = tgridintegerdatalist
         data = (
@@ -92,24 +125,55 @@ object scalegridfo: tscalegridfo
       end    
       item
         widgetname = 'start'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            0
+          )
+        )
       end    
       item
         widgetname = 'range'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            1
+          )
+        )
       end    
       item
         width = 16
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'autoscale'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            -1
+          )
+        )
       end    
       item
         widgetname = 'startmargin'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            0
+          )
+        )
       end    
       item
         widgetname = 'endmargin'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            0
+          )
+        )
       end>
     datarowheight = 16
     statfile = mainmo.projectstat2
     onrowcountchanged = rowcountchangeexe
+    onrowsmoved = rowmovedexe
     reffontheight = 14
     object log: tbooleanedit
       optionswidget1 = []
@@ -132,7 +196,7 @@ object scalegridfo: tscalegridfo
       visible = False
       bounds_x = 19
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 31
       bounds_cy = 16
       statfile = mainmo.projectstat2
       ondataentered = dataenteredexe
@@ -145,33 +209,12 @@ object scalegridfo: tscalegridfo
       ifilink = mainmo.reallink
       reffontheight = 14
     end
-    object maingridlinewidth: trealedit
+    object capt: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 70
-      bounds_y = 0
-      bounds_cx = 28
-      bounds_cy = 16
-      statfile = mainmo.projectstat2
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
-      value = 0.3
-      valuedefault = 0.3
-      valuerange = 1
-      valuestart = 0
-      min = 0
-      max = 1
-      ifilink = mainmo.reallink
-      reffontheight = 14
-    end
-    object capt: tstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 4
-      visible = False
-      bounds_x = 99
+      bounds_x = 79
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -181,11 +224,31 @@ object scalegridfo: tscalegridfo
       valuedefault = '0..###g'
       reffontheight = 14
     end
+    object intervalco2: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 130
+      bounds_y = 0
+      bounds_cx = 29
+      bounds_cy = 16
+      statfile = mainmo.projectstat2
+      ondataentered = dataenteredexe
+      value = 0
+      valuedefault = 0
+      valuerange = 1
+      valuestart = 0
+      min = 0
+      max = 100
+      ifilink = mainmo.reallink
+      reffontheight = 14
+    end
     object oppos: tbooleanedit
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 5
-      bounds_x = 150
+      bounds_x = 160
       bounds_y = 0
       bounds_cx = 27
       bounds_cy = 16
@@ -197,7 +260,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 178
+      bounds_x = 188
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -220,7 +283,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 229
+      bounds_x = 239
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -242,7 +305,7 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 8
-      bounds_x = 280
+      bounds_x = 290
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
@@ -258,7 +321,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 9
       visible = False
-      bounds_x = 297
+      bounds_x = 307
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -278,7 +341,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 10
       visible = False
-      bounds_x = 348
+      bounds_x = 358
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -292,6 +355,17 @@ object scalegridfo: tscalegridfo
       max = 0.4
       ifilink = mainmo.reallink
       reffontheight = 14
+    end
+    object gridline: tbooleanedit
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 11
+      bounds_x = 51
+      bounds_y = 0
+      bounds_cx = 27
+      bounds_cy = 16
+      ondataentered = dataenteredexe
+      visible = False
     end
   end
 end

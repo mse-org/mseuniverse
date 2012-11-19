@@ -215,10 +215,6 @@ procedure tchartfo.doupdatechart;
     end;
    end;
    for int1:= 0 to high(ar1) do begin
-    if isy then begin
-    end
-    else begin
-    end;
     if autoscale[int1] then begin
      with ar1[int1] do begin
       im:= calctracerange(re,im,log[int1],startmargin[int1],endmargin[int1]);

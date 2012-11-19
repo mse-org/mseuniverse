@@ -19,6 +19,7 @@ object chartoptionsfo: tchartoptionsfo
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional]
   options = [fo_closeonesc, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainmo.projectstat2
+  icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
   icon.image = {
     0000000002000000180000001800000058060000000000000000000000000000
@@ -309,6 +310,9 @@ object chartoptionsfo: tchartoptionsfo
                 font.xscale = 1
               end            
               item
+                font.xscale = 1
+              end            
+              item
                 caption = 'top'
                 font.xscale = 1
               end            
@@ -325,39 +329,51 @@ object chartoptionsfo: tchartoptionsfo
                 font.xscale = 1
               end            
               item
-                font.xscale = 1
               end>
           end>
+        datacols.colorder = (
+          'log'
+          'intervalco'
+          'gridline'
+          'capt'
+          'intervalco2'
+          'oppos'
+          'start'
+          'range'
+          'autoscale'
+          'startmargin'
+          'endmargin'
+        )
         datacols.items = <        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
+            widgetname = 'gridline'
           end        
           item
-            dataclass = tgridmsestringdatalist
           end        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
+            width = 28
+            data = (
+              (
+                0.3
+              )
+            )
+          end        
+          item
+            width = 28
           end>
         inherited capt: tstringedit[0]
         end
@@ -365,19 +381,24 @@ object chartoptionsfo: tchartoptionsfo
         end
         inherited intervalco: trealedit[2]
         end
-        inherited maingridlinewidth: trealedit[3]
+        inherited start: trealedit[3]
         end
-        inherited start: trealedit[4]
+        inherited startmargin: trealedit[4]
+          bounds_cx = 28
         end
         inherited oppos: tbooleanedit[5]
         end
-        inherited startmargin: trealedit[6]
+        inherited intervalco2: trealedit[6]
         end
         inherited range: trealedit[7]
         end
         inherited autoscale: tbooleanedit[8]
         end
         inherited endmargin: trealedit
+          bounds_x = 336
+          bounds_cx = 28
+        end
+        inherited gridline: tbooleanedit
         end
       end
     end
@@ -408,6 +429,9 @@ object chartoptionsfo: tchartoptionsfo
                 font.xscale = 1
               end            
               item
+                font.xscale = 1
+              end            
+              item
                 caption = 'left'
                 font.xscale = 1
               end            
@@ -424,39 +448,51 @@ object chartoptionsfo: tchartoptionsfo
                 font.xscale = 1
               end            
               item
-                font.xscale = 1
               end>
           end>
+        datacols.colorder = (
+          'log'
+          'intervalco'
+          'gridline'
+          'capt'
+          'intervalco2'
+          'oppos'
+          'start'
+          'range'
+          'autoscale'
+          'startmargin'
+          'endmargin'
+        )
         datacols.items = <        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
+            widgetname = 'gridline'
           end        
           item
-            dataclass = tgridmsestringdatalist
           end        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridintegerdatalist
           end        
           item
-            dataclass = tgridrealdatalist
           end        
           item
-            dataclass = tgridrealdatalist
+            width = 28
+            data = (
+              (
+                0.3
+              )
+            )
+          end        
+          item
+            width = 28
           end>
         inherited capt: tstringedit[0]
         end
@@ -464,19 +500,24 @@ object chartoptionsfo: tchartoptionsfo
         end
         inherited intervalco: trealedit[2]
         end
-        inherited maingridlinewidth: trealedit[3]
+        inherited start: trealedit[3]
         end
-        inherited start: trealedit[4]
+        inherited startmargin: trealedit[4]
+          bounds_cx = 28
         end
         inherited oppos: tbooleanedit[5]
         end
-        inherited startmargin: trealedit[6]
+        inherited intervalco2: trealedit[6]
         end
         inherited range: trealedit[7]
         end
         inherited autoscale: tbooleanedit[8]
         end
         inherited endmargin: trealedit
+          bounds_x = 336
+          bounds_cx = 28
+        end
+        inherited gridline: tbooleanedit
         end
       end
     end
