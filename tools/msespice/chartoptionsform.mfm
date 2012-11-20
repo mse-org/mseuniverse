@@ -111,23 +111,23 @@ object chartoptionsfo: tchartoptionsfo
             caption = 'X-Expression'
           end        
           item
+            caption = 'X-Unit'
+          end        
+          item
             caption = 'S'
           end        
           item
             caption = 'Y-Expression'
           end        
           item
+            caption = 'Y-Unit'
+            hint = 'Y auto scale'
+          end        
+          item
             caption = 'S'
           end        
           item
             caption = 'Color'
-          end        
-          item
-            caption = 'A'
-            hint = 'Y auto scale'
-          end        
-          item
-            caption = 'Y-Range'
           end        
           item
             caption = 'Y-Start'
@@ -143,36 +143,46 @@ object chartoptionsfo: tchartoptionsfo
             caption = 'X-Start'
           end>
       end>
-    datacols.count = 5
+    datacols.count = 7
     datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[xexpdisp]
         color = -1879048185
         width = 62
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'xexpdisp'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[xunitdisp]
+        options = [co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'xunitdisp'
+        dataclass = tgridmsestringdatalist
+      end    
+      item[xscalenum]
         width = 23
         options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'xscalenum'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[yexpdisp]
         color = -1879048185
         width = 129
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'yexpdisp'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[yunitdisp]
+        options = [co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'yunitdisp'
+        dataclass = tgridmsestringdatalist
+      end    
+      item[yscalenum]
         width = 23
         options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'yscalenum'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[tracecolor]
         width = 85
         options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tracecolor'
@@ -194,12 +204,25 @@ object chartoptionsfo: tchartoptionsfo
       ondataentered = dataenteredexe
       reffontheight = 14
     end
-    object xscalenum: tintegeredit
+    object xunitdisp: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
       bounds_x = 63
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+      ondataentered = dataenteredexe
+      reffontheight = 14
+    end
+    object xscalenum: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 114
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16
@@ -213,9 +236,9 @@ object chartoptionsfo: tchartoptionsfo
     object yexpdisp: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 3
+      taborder = 4
       visible = False
-      bounds_x = 87
+      bounds_x = 138
       bounds_y = 0
       bounds_cx = 129
       bounds_cy = 16
@@ -223,12 +246,25 @@ object chartoptionsfo: tchartoptionsfo
       ondataentered = dataenteredexe
       reffontheight = 14
     end
+    object yunitdisp: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 5
+      visible = False
+      bounds_x = 268
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+      ondataentered = dataenteredexe
+      reffontheight = 14
+    end
     object yscalenum: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 4
+      taborder = 6
       visible = False
-      bounds_x = 217
+      bounds_x = 319
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16
@@ -248,9 +284,9 @@ object chartoptionsfo: tchartoptionsfo
       frame.button.color = -1879048187
       frame.buttonellipse.color = -1879048187
       frame.buttonellipse.imagenr = 17
-      taborder = 5
+      taborder = 7
       visible = False
-      bounds_x = 241
+      bounds_x = 343
       bounds_y = 0
       bounds_cx = 85
       bounds_cy = 16
@@ -313,10 +349,10 @@ object chartoptionsfo: tchartoptionsfo
                 font.xscale = 1
               end            
               item
-                caption = 'top'
                 font.xscale = 1
               end            
               item
+                caption = 'top'
                 font.xscale = 1
               end            
               item
@@ -332,25 +368,25 @@ object chartoptionsfo: tchartoptionsfo
               end>
           end>
         datacols.items = <        
-          item
+          item[autoscale]
           end        
-          item
+          item[log]
           end        
-          item
+          item[intervalco]
           end        
-          item
+          item[gridline]
           end        
-          item
+          item[capt]
           end        
-          item
+          item[intervalco2]
           end        
-          item
+          item[oppos]
           end        
-          item
+          item[start]
           end        
-          item
+          item[range]
           end        
-          item
+          item[startmargin]
             width = 28
             data = (
               (
@@ -358,33 +394,38 @@ object chartoptionsfo: tchartoptionsfo
               )
             )
           end        
-          item
+          item[endmargin]
             width = 28
+          end        
+          item[unittext]
           end>
         inherited capt: tstringedit[0]
         end
-        inherited log: tbooleanedit[1]
+        inherited start: trealedit[1]
         end
-        inherited intervalco: trealedit[2]
-        end
-        inherited start: trealedit[3]
-        end
-        inherited startmargin: trealedit[4]
+        inherited startmargin: trealedit[2]
           bounds_cx = 28
         end
-        inherited intervalco2: trealedit[5]
+        inherited log: tbooleanedit[3]
         end
-        inherited oppos: tbooleanedit[6]
+        inherited intervalco: trealedit[4]
         end
-        inherited range: trealedit
+        inherited gridline: tbooleanedit[5]
         end
-        inherited autoscale: tbooleanedit
+        inherited intervalco2: trealedit[6]
         end
-        inherited gridline: tbooleanedit[9]
+        inherited oppos: tbooleanedit[7]
+        end
+        inherited autoscale: tbooleanedit[8]
+        end
+        inherited unittext: tstringedit[9]
+          bounds_x = 365
         end
         inherited endmargin: trealedit
           bounds_x = 336
           bounds_cx = 28
+        end
+        inherited range: trealedit[11]
         end
       end
     end
@@ -418,10 +459,10 @@ object chartoptionsfo: tchartoptionsfo
                 font.xscale = 1
               end            
               item
-                caption = 'left'
                 font.xscale = 1
               end            
               item
+                caption = 'left'
                 font.xscale = 1
               end            
               item
@@ -437,25 +478,25 @@ object chartoptionsfo: tchartoptionsfo
               end>
           end>
         datacols.items = <        
-          item
+          item[autoscale]
           end        
-          item
+          item[log]
           end        
-          item
+          item[intervalco]
           end        
-          item
+          item[gridline]
           end        
-          item
+          item[capt]
           end        
-          item
+          item[intervalco2]
           end        
-          item
+          item[oppos]
           end        
-          item
+          item[start]
           end        
-          item
+          item[range]
           end        
-          item
+          item[startmargin]
             width = 28
             data = (
               (
@@ -463,33 +504,38 @@ object chartoptionsfo: tchartoptionsfo
               )
             )
           end        
-          item
+          item[endmargin]
             width = 28
+          end        
+          item[unittext]
           end>
         inherited capt: tstringedit[0]
         end
-        inherited log: tbooleanedit[1]
+        inherited start: trealedit[1]
         end
-        inherited intervalco: trealedit[2]
-        end
-        inherited start: trealedit[3]
-        end
-        inherited startmargin: trealedit[4]
+        inherited startmargin: trealedit[2]
           bounds_cx = 28
         end
-        inherited intervalco2: trealedit[5]
+        inherited log: tbooleanedit[3]
         end
-        inherited oppos: tbooleanedit[6]
+        inherited intervalco: trealedit[4]
         end
-        inherited range: trealedit
+        inherited gridline: tbooleanedit[5]
         end
-        inherited autoscale: tbooleanedit
+        inherited intervalco2: trealedit[6]
         end
-        inherited gridline: tbooleanedit[9]
+        inherited oppos: tbooleanedit[7]
+        end
+        inherited autoscale: tbooleanedit[8]
+        end
+        inherited unittext: tstringedit[9]
+          bounds_x = 365
         end
         inherited endmargin: trealedit
           bounds_x = 336
           bounds_cx = 28
+        end
+        inherited range: trealedit[11]
         end
       end
     end

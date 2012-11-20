@@ -1,14 +1,14 @@
 object plotpagefo: tplotpagefo
   bounds_x = 81
   bounds_y = 270
-  bounds_cx = 559
+  bounds_cx = 612
   bounds_cy = 235
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    559
+    612
     235
   )
   moduleclassname = 'ttabform'
@@ -88,7 +88,7 @@ object plotpagefo: tplotpagefo
   object ttabwidget1: ttabwidget
     bounds_x = 0
     bounds_y = 48
-    bounds_cx = 559
+    bounds_cx = 612
     bounds_cy = 186
     anchors = [an_top, an_bottom]
     taborder = 3
@@ -101,7 +101,7 @@ object plotpagefo: tplotpagefo
       taborder = 1
       bounds_x = 0
       bounds_y = 18
-      bounds_cx = 559
+      bounds_cx = 612
       bounds_cy = 168
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Run'
@@ -109,7 +109,7 @@ object plotpagefo: tplotpagefo
         popupmenu = gridpopup
         bounds_x = 0
         bounds_y = 55
-        bounds_cx = 559
+        bounds_cx = 612
         bounds_cy = 112
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_colmerged, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -117,7 +117,7 @@ object plotpagefo: tplotpagefo
         fixrows.items = <        
           item
             height = 16
-            captions.count = 5
+            captions.count = 7
             captions.items = <            
               item
                 caption = 'Chart/Trace Name'
@@ -133,37 +133,43 @@ object plotpagefo: tplotpagefo
               end            
               item
                 caption = 'Y-Value'
+              end            
+              item
+                caption = 'Y-Unit'
+              end            
+              item
+                caption = 'X-Unit'
               end>
           end>
         datacols.count = 5
         datacols.options = [co_savestate, co_mousescrollrow]
         datacols.items = <        
-          item
+          item[treeed]
             width = 123
             widgetname = 'treeed'
             dataclass = ttreeitemeditlist
             datalist.oncreateitem = createitemexe
           end        
-          item
-            width = 252
+          item[value0]
+            width = 114
             options = [co_savestate, co_mousescrollrow]
             widgetname = 'value0'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[xvaluekind]
             width = 46
             options = [co_proportional, co_savestate, co_mousescrollrow]
             widgetname = 'xvaluekind'
             dataclass = tgridenumdatalist
           end        
-          item
-            width = 80
+          item[yexpression]
+            width = 100
             options = [co_savestate, co_mousescrollrow]
             widgetname = 'yexpression'
             dataclass = tgridmsestringdatalist
           end        
-          item
-            width = 39
+          item[yvaluekind]
+            width = 51
             options = [co_savestate, co_mousescrollrow]
             widgetname = 'yvaluekind'
             dataclass = tgridenumdatalist
@@ -206,7 +212,7 @@ object plotpagefo: tplotpagefo
           visible = False
           bounds_x = 124
           bounds_y = 0
-          bounds_cx = 252
+          bounds_cx = 114
           bounds_cy = 16
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
           onsetvalue = value0setexe
@@ -222,7 +228,7 @@ object plotpagefo: tplotpagefo
           frame.button.color = -1879048187
           taborder = 3
           visible = False
-          bounds_x = 377
+          bounds_x = 239
           bounds_y = 0
           bounds_cx = 46
           bounds_cy = 16
@@ -255,9 +261,8 @@ object plotpagefo: tplotpagefo
           frame.button.imagenr = 17
           taborder = 4
           visible = False
-          bounds_x = 424
+          bounds_x = 286
           bounds_y = 0
-          bounds_cx = 80
           bounds_cy = 16
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
           onsetvalue = yexpressionsetexe
@@ -273,9 +278,9 @@ object plotpagefo: tplotpagefo
           frame.button.color = -1879048187
           taborder = 5
           visible = False
-          bounds_x = 505
+          bounds_x = 387
           bounds_y = 0
-          bounds_cx = 39
+          bounds_cx = 51
           bounds_cy = 16
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
           value = 0
@@ -305,7 +310,7 @@ object plotpagefo: tplotpagefo
         visible = True
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 559
+        bounds_cx = 612
         bounds_cy = 55
         bounds_cymin = 55
         anchors = [an_top]
@@ -319,7 +324,7 @@ object plotpagefo: tplotpagefo
       taborder = 2
       bounds_x = 0
       bounds_y = 18
-      bounds_cx = 559
+      bounds_cx = 612
       bounds_cy = 168
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Stepping'
@@ -343,7 +348,7 @@ object plotpagefo: tplotpagefo
         taborder = 1
         bounds_x = 0
         bounds_y = 38
-        bounds_cx = 559
+        bounds_cx = 612
         bounds_cy = 129
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -375,20 +380,20 @@ object plotpagefo: tplotpagefo
           end>
         datacols.count = 4
         datacols.items = <        
-          item
+          item[stepdest]
             width = 193
             widgetname = 'stepdest'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[stepstart]
             widgetname = 'stepstart'
             dataclass = tgridrealdatalist
           end        
-          item
+          item[stepstop]
             widgetname = 'stepstop'
             dataclass = tgridrealdatalist
           end        
-          item
+          item[stepkind]
             widgetname = 'stepkind'
             dataclass = tgridenumdatalist
           end>

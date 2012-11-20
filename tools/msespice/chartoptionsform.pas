@@ -39,10 +39,13 @@ type
    chartact: taction;
    tpopupmenu1: tpopupmenu;
    plotact: taction;
+   yunitdisp: tstringedit;
+   xunitdisp: tstringedit;
    procedure dataenteredexe(const sender: TObject);
    procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
    procedure showchartexe(const sender: TObject);
    procedure showplotexe(const sender: TObject);
+  public
  end;
 
 implementation

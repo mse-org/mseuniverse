@@ -36,6 +36,7 @@ type
    endmargin: trealedit;
    intervalco2: trealedit;
    gridline: tbooleanedit;
+   unittext: tstringedit;
    procedure dataenteredexe(const sender: TObject);
    procedure rowcountchangeexe(const sender: tcustomgrid);
    procedure setvalueexe(const sender: TObject; var avalue: realty;
@@ -62,8 +63,7 @@ begin
 end;
 
 procedure tscalegridfo.updatedial(const adial: tcustomdialcontroller;
-               const aindex: integer;
-               var hasnormal,hasopposite: boolean);
+               const aindex: integer; var hasnormal,hasopposite: boolean);
 var
  bo1: boolean;
 begin
@@ -81,6 +81,7 @@ begin
   ticks.clear;
   ticks.count:= 1;
   with ticks[0] do begin
+   captionunit:= self.unittext[aindex];
    if log then begin
     intervalcount:= intervalco[aindex];
    end

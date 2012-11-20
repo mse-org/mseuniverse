@@ -228,6 +228,7 @@ procedure tchartfo.doupdatechart;
      end;
      int2:= foptfo.yscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
+      ascalefo.unittext[int2]:= foptfo.yunitdisp[int1];
       with chart.traces[int1] do begin;
        if autoscale[int2] then begin
         with ar1[int2] do begin
@@ -253,6 +254,7 @@ procedure tchartfo.doupdatechart;
      end;
      int2:= foptfo.xscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
+      ascalefo.unittext[int2]:= foptfo.xunitdisp[int1];
       with chart.traces[int1] do begin;
        if autoscale[int2] then begin
         with ar1[int2] do begin

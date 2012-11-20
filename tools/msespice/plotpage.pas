@@ -30,8 +30,15 @@ type
  tplotnode = class(ttreelistedititem)
   private
    fvalue0: msestring;
+   fvalue1: msestring;
+   fvalue2: msestring;
+   procedure setvalue0(const avalue: msestring);
+   procedure setvalue1(const avalue: msestring);
+   procedure setvalue2(const avalue: msestring);
   protected
-   property value0: msestring read fvalue0 write fvalue0;
+   property value0: msestring read fvalue0 write setvalue0;
+   property value1: msestring read fvalue1 write setvalue1;
+   property value2: msestring read fvalue2 write setvalue2;
   public
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
@@ -138,6 +145,10 @@ type
                    var accept: Boolean);
    procedure rowinsertedexe(const sender: tcustomgrid; const aindex: Integer;
                    const acount: Integer);
+   procedure yunitsetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure xunitsetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
   private
    fplot: tplotoptionsfo;
    fnameindex: integer;
@@ -159,7 +170,7 @@ type
 implementation
 uses
  plotpage_mfm,dcplot,acplot,transplot,mseeditglob,msechart,plotsform,
- msearrayutils;
+ msearrayutils,mainmodule;
 
 const
  plotclasses: array[plotkindty] of plotsfoclassty = (
@@ -198,17 +209,41 @@ procedure tplotnode.dostatread(const reader: tstatreader);
 begin
  inherited;
  fvalue0:= reader.readmsestring('value0',fvalue0);
+ fvalue1:= reader.readmsestring('value1',fvalue1);
+ fvalue2:= reader.readmsestring('value2',fvalue2);
 end;
 
 procedure tplotnode.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
  writer.writemsestring('value0',fvalue0);
+ writer.writemsestring('value1',fvalue1);
+ writer.writemsestring('value2',fvalue2);
 end;
 
 procedure tplotnode.showchart;
 begin
  //dummy
+end;
+
+procedure tplotnode.setvalue0(const avalue: msestring);
+begin
+ fvalue0:= avalue;
+ mainmo.projectchanged;
+end;
+
+procedure tplotnode.setvalue1(const avalue: msestring);
+begin
+ fvalue1:= avalue;
+ mainmo.projectchanged;
+ tchartnode(parent).chart.updatechart;
+end;
+
+procedure tplotnode.setvalue2(const avalue: msestring);
+begin
+ fvalue2:= avalue;
+ mainmo.projectchanged;
+ tchartnode(parent).chart.updatechart;
 end;
 
 { tchartnode }
@@ -295,6 +330,8 @@ begin
      clear;
      optfo.xexpdisp[int1]:= '';
      optfo.yexpdisp[int1]:= '';
+//     optfo.xunitdisp[int1]:= '';
+//     optfo.yunitdisp[int1]:= '';
     end
     else begin
      with traces[int1],ttracenode(items[int1]) do begin
@@ -319,6 +356,8 @@ begin
       end;
       optfo.xexpdisp[int1]:= xexpression;
       optfo.yexpdisp[int1]:= yexpression;
+//      optfo.xunitdisp[int1]:= fvalue1;
+//      optfo.yunitdisp[int1]:= fvalue2;
      end;
     end;
    end;
@@ -498,7 +537,7 @@ begin
   tracegrid.datacols.unmergecols(aindex);
  end
  else begin
-  tracegrid.datacols.mergecols(aindex,1,3);
+  tracegrid.datacols.mergecols(aindex,1,5);
  end;
 end;
 
@@ -506,6 +545,18 @@ procedure tplotpagefo.value0setexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
  tplotnode(treeed.item).value0:= avalue;
+end;
+
+procedure tplotpagefo.xunitsetexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ tplotnode(treeed.item).value1:= avalue;
+end;
+
+procedure tplotpagefo.yunitsetexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ tplotnode(treeed.item).value2:= avalue;
 end;
 
 procedure tplotpagefo.xvaluekindsetexe(const sender: TObject;
