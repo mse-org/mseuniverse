@@ -331,26 +331,12 @@ object chartoptionsfo: tchartoptionsfo
               item
               end>
           end>
-        datacols.colorder = (
-          'log'
-          'intervalco'
-          'gridline'
-          'capt'
-          'intervalco2'
-          'oppos'
-          'start'
-          'range'
-          'autoscale'
-          'startmargin'
-          'endmargin'
-        )
         datacols.items = <        
           item
           end        
           item
           end        
           item
-            widgetname = 'gridline'
           end        
           item
           end        
@@ -386,19 +372,19 @@ object chartoptionsfo: tchartoptionsfo
         inherited startmargin: trealedit[4]
           bounds_cx = 28
         end
-        inherited oppos: tbooleanedit[5]
+        inherited intervalco2: trealedit[5]
         end
-        inherited intervalco2: trealedit[6]
+        inherited oppos: tbooleanedit[6]
         end
-        inherited range: trealedit[7]
+        inherited range: trealedit
         end
-        inherited autoscale: tbooleanedit[8]
+        inherited autoscale: tbooleanedit
+        end
+        inherited gridline: tbooleanedit[9]
         end
         inherited endmargin: trealedit
           bounds_x = 336
           bounds_cx = 28
-        end
-        inherited gridline: tbooleanedit
         end
       end
     end
@@ -450,26 +436,12 @@ object chartoptionsfo: tchartoptionsfo
               item
               end>
           end>
-        datacols.colorder = (
-          'log'
-          'intervalco'
-          'gridline'
-          'capt'
-          'intervalco2'
-          'oppos'
-          'start'
-          'range'
-          'autoscale'
-          'startmargin'
-          'endmargin'
-        )
         datacols.items = <        
           item
           end        
           item
           end        
           item
-            widgetname = 'gridline'
           end        
           item
           end        
@@ -505,19 +477,19 @@ object chartoptionsfo: tchartoptionsfo
         inherited startmargin: trealedit[4]
           bounds_cx = 28
         end
-        inherited oppos: tbooleanedit[5]
+        inherited intervalco2: trealedit[5]
         end
-        inherited intervalco2: trealedit[6]
+        inherited oppos: tbooleanedit[6]
         end
-        inherited range: trealedit[7]
+        inherited range: trealedit
         end
-        inherited autoscale: tbooleanedit[8]
+        inherited autoscale: tbooleanedit
+        end
+        inherited gridline: tbooleanedit[9]
         end
         inherited endmargin: trealedit
           bounds_x = 336
           bounds_cx = 28
-        end
-        inherited gridline: tbooleanedit
         end
       end
     end

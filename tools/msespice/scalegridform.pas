@@ -42,6 +42,8 @@ type
                    var accept: Boolean);
    procedure rowmovedexe(const sender: tcustomgrid; const fromindex: Integer;
                    const toindex: Integer; const acount: Integer);
+   procedure setlogexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
   public
    procedure updatedial(const adial: tcustomdialcontroller;
                   const aindex: integer; var hasnormal,hasopposite: boolean);
@@ -166,6 +168,19 @@ procedure tscalegridfo.rowmovedexe(const sender: tcustomgrid;
                const acount: Integer);
 begin
  dataenteredexe(nil);
+end;
+
+procedure tscalegridfo.setlogexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  intervalco.value:= 1;
+  intervalco2.value:= 10;
+ end
+ else begin
+  intervalco.value:= 5;
+  intervalco2.value:= 5;
+ end;
 end;
 
 end.
