@@ -51,12 +51,12 @@ type
   protected
    function createsubnode: ttreelistitem; override;
    procedure setcaption(const avalue: msestring); override;
-   procedure dostatread(const reader: tstatreader); override;
    function defaulttracecaption: msestring;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
    destructor destroy; override;
+   procedure dostatread(const reader: tstatreader); override;
    procedure showchart; override;
    function getsavevalues: msestringarty;
    property chart: tchartfo read fchart;
@@ -69,15 +69,15 @@ type
 
  ttracenode = class(tplotnode)
   private
-   fexpression: msestring;
+//   fexpression: msestring;
    fxvaluekind: valuekindty;
    fyexpression: msestring;
    fyvaluekind: valuekindty;
   protected
-   procedure dostatread(const reader: tstatreader); override;
-   procedure dostatwrite(const writer: tstatwriter); override;
   public
    constructor create(const acaption: msestring);
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
    procedure showchart; override;
    property xexpression: msestring read fvalue0 write fvalue0;
    property xvaluekind: valuekindty read fxvaluekind write fxvaluekind 
@@ -265,8 +265,8 @@ end;
 function tchartnode.getsavevalues: msestringarty;
 var
  int1: integer;
- ar1: msestringarty;
- mstr1: msestring;
+// ar1: msestringarty;
+// mstr1: msestring;
 begin
  setlength(result,2*count);
  for int1:= 0 to count - 1 do begin
@@ -610,8 +610,8 @@ end;
 
 procedure tplotpagefo.rowinsertexe(const sender: tcustomgrid;
                var aindex: Integer; var acount: Integer);
-var
- n1: ttracenode;
+//var
+// n1: ttracenode;
 begin
  if sender.userinput then begin
   if (treeed.item is tchartnode) then begin
@@ -671,7 +671,7 @@ procedure tplotpagefo.rowmoveexe(const sender: tcustomgrid;
                var acount: Integer);
 var
  source,dest: ttreelistedititem;
- int1: integer;
+// int1: integer;
 begin
  if sender.userinput then begin
   source:= treeed[fromindex];

@@ -310,11 +310,11 @@ object plotpagefo: tplotpagefo
         visible = True
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 612
+        bounds_cx = 50
         bounds_cy = 55
+        bounds_cxmin = 50
         bounds_cymin = 55
-        anchors = [an_top]
-        optionsscale = [osc_expandy, osc_shrinky]
+        optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
         linkbottom = tracegrid
       end
     end

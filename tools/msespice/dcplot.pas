@@ -55,6 +55,7 @@ end;
 
 function tdcplotfo.getxvalue: string;
 begin
+ result:= '';
 end;
 
 end.

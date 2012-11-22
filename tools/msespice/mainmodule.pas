@@ -299,18 +299,18 @@ var
  int1,int2,int3: integer;
  str1: string;
  lstr1: lstringty;
- ar1: msestringarty;
- vectors: string;
+// ar1: msestringarty;
+// vectors: string;
  nums{,nums1}: array[plotkindty] of integer;
  plotnum: integer;
- rea1: real;
+// rea1: real;
 begin
  fspicefile:= replacefileext(projectmainstat.filename,'spi.tmp');
  frawfile:= replacefileext(projectmainstat.filename,'raw.tmp');
  deletefile(frawfile);
 // stream1:= ttextstream.create(fprojectoptions.netlist,fm_read);
  try
-  vectors:= '';
+//  vectors:= '';
   stream2:= ttextstream.create(fspicefile,fm_create);
   for int1:= 0 to netlistfo.grid.rowhigh do begin
 //  while not stream1.eof do begin
