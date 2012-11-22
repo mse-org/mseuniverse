@@ -61,7 +61,7 @@ object consolefo: tconsolefo
     optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 1
     datacols.items = <    
-      item
+      item[term]
         width = 1000
         options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'term'
@@ -69,7 +69,7 @@ object consolefo: tconsolefo
       end>
     datarowlinewidth = 0
     datarowheight = 14
-    reffontheight = 14
+    reffontheight = 13
     object term: tterminal
       optionswidget1 = [ow1_fontlineheight]
       optionsskin = [osk_framebuttononly]

@@ -2,13 +2,13 @@ inherited transplotfo: ttransplotfo
   bounds_x = 69
   bounds_y = 433
   bounds_cx = 505
-  bounds_cy = 55
+  bounds_cy = 64
   bounds_cymin = 55
   container.bounds = (
     0
     0
     505
-    55
+    64
   )
   moduleclassname = 'tplotoptionsfo'
   object tstart: trealedit[0]
@@ -16,14 +16,14 @@ inherited transplotfo: ttransplotfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     bounds_x = 8
-    bounds_y = 7
+    bounds_y = 8
     bounds_cx = 108
-    bounds_cy = 37
+    bounds_cy = 35
     statfile = mainmo.projectstat1
     value = 0
     valuedefault = -Inf
@@ -34,22 +34,22 @@ inherited transplotfo: ttransplotfo
     min = 0
     max = 1E+038
     ifilink = mainmo.reallink
-    reffontheight = 14
+    reffontheight = 13
   end
   object tlen: trealedit[1]
     frame.caption = 'Length (s)'
     frame.dummy = 0
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 1
     bounds_x = 120
-    bounds_y = 7
+    bounds_y = 8
     bounds_cx = 108
-    bounds_cy = 37
+    bounds_cy = 35
     statfile = mainmo.projectstat1
     value = 0
     valuedefault = -Inf
@@ -60,22 +60,22 @@ inherited transplotfo: ttransplotfo
     min = 0
     max = 1E+038
     ifilink = mainmo.reallink
-    reffontheight = 14
+    reffontheight = 13
   end
   object minstep: trealedit[2]
     frame.caption = 'Min. Step (s)'
     frame.dummy = 0
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 2
     bounds_x = 232
-    bounds_y = 7
+    bounds_y = 8
     bounds_cx = 108
-    bounds_cy = 37
+    bounds_cy = 35
     statfile = mainmo.projectstat1
     value = -Inf
     valuedefault = -Inf
@@ -86,7 +86,7 @@ inherited transplotfo: ttransplotfo
     min = -Inf
     max = 1E+038
     ifilink = mainmo.reallink
-    reffontheight = 14
+    reffontheight = 13
   end
   object uic: tbooleanedit[3]
     frame.caption = 'Use initial conditions'
@@ -94,14 +94,14 @@ inherited transplotfo: ttransplotfo
     frame.outerframe = (
       0
       1
-      118
-      2
+      99
+      1
     )
     taborder = 3
     bounds_x = 352
     bounds_y = 27
-    bounds_cx = 131
-    bounds_cy = 16
+    bounds_cx = 112
+    bounds_cy = 15
     statfile = mainmo.projectstat1
     ifilink = mainmo.booleanlink
   end
