@@ -179,4 +179,11 @@ object mainmo: tmainmo
     left = 320
     top = 216
   end
+  object tracesymbols: timagelist
+    monochrome = True
+    width = 15
+    height = 15
+    left = 152
+    top = 200
+  end
 end

@@ -70,6 +70,7 @@ type
    reallink: tifireallinkcomp;
    integerlink: tifiintegerlinkcomp;
    enumlink: tifienumlinkcomp;
+   tracesymbols: timagelist;
    procedure getobjexe(const sender: TObject; var aobject: TObject);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -98,6 +99,7 @@ type
    fspice: tngspice;
    procedure updateprojectstate;
   public
+   tracesymbolnames: msestringarty;
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
    function checkfilesave: boolean; //true if ok
@@ -121,7 +123,8 @@ var
 implementation
 uses
  mainmodule_mfm,main,msefileutils,consoleform,msestream,plotsform,
- mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform,paramform;
+ mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform,paramform,
+ msestockobjects,typinfo;
 
 { tprojectoptions }
 
@@ -496,8 +499,23 @@ begin
 end;
 
 procedure tmainmo.createexe(const sender: TObject);
+var
+ bmp1: tmaskedbitmap;
+ int1,int2: integer;
 begin
  formatmacros.add(['REAL'],[realformat]);
+ bmp1:= tmaskedbitmap.create(true);
+ bmp1.masked:= true;
+ int2:= 0;
+ setlength(tracesymbolnames,ord(lasttracesymbol)-ord(firsttracesymbol)+1);
+ for int1:= ord(firsttracesymbol) to ord(lasttracesymbol) do begin
+  stockobjects.glyphs.getimage(int1,bmp1);
+  tracesymbols.addimage(bmp1);
+  tracesymbolnames[int2]:= 
+                    copy(getenumname(typeinfo(stockglyphty),int1),5,bigint);
+  inc(int2);  
+ end;
+ bmp1.free;
 end;
 
 procedure tmainmo.aftereditoptionsexe(const sender: TObject);

@@ -41,16 +41,18 @@ type
    plotact: taction;
    yunitdisp: tstringedit;
    xunitdisp: tstringedit;
+   tracesymbol: tenumedit;
    procedure dataenteredexe(const sender: TObject);
    procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
    procedure showchartexe(const sender: TObject);
    procedure showplotexe(const sender: TObject);
+   procedure createexe(const sender: TObject);
   public
  end;
 
 implementation
 uses
- chartoptionsform_mfm,chartform;
+ chartoptionsform_mfm,chartform,mainmodule;
 
 procedure tchartoptionsfo.dataenteredexe(const sender: TObject);
 begin
@@ -73,6 +75,11 @@ end;
 procedure tchartoptionsfo.showplotexe(const sender: TObject);
 begin
  tchartfo(owner).showplotexe(nil); 
+end;
+
+procedure tchartoptionsfo.createexe(const sender: TObject);
+begin
+ tracesymbol.dropdown.cols[0].asarray:= mainmo.tracesymbolnames;
 end;
 
 end.

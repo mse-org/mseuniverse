@@ -79,6 +79,7 @@ object chartoptionsfo: tchartoptionsfo
     7F3FEE00FFFFFF00FF3FEE00FD7D8F007F77E700FFFFFF006FE6E70003808000
     7767E600FFFFFF00FFFFFF00
   }
+  oncreate = createexe
   onchildmouseevent = childmouseexe
   moduleclassname = 'tdockform'
   object tsplitter2: tsplitter
@@ -130,7 +131,7 @@ object chartoptionsfo: tchartoptionsfo
             caption = 'Color'
           end        
           item
-            caption = 'Y-Start'
+            caption = 'Symbol'
           end        
           item
             caption = 'A'
@@ -143,7 +144,7 @@ object chartoptionsfo: tchartoptionsfo
             caption = 'X-Start'
           end>
       end>
-    datacols.count = 7
+    datacols.count = 8
     datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[xexpdisp]
@@ -186,6 +187,12 @@ object chartoptionsfo: tchartoptionsfo
         width = 85
         options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tracecolor'
+        dataclass = tgridenumdatalist
+      end    
+      item[tracesymbol]
+        width = 86
+        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tracesymbol'
         dataclass = tgridenumdatalist
       end>
     datarowheight = 16
@@ -295,6 +302,27 @@ object chartoptionsfo: tchartoptionsfo
       value = -1610612734
       valuedefault = -1610612734
       dropdown.options = [deo_autodropdown, deo_keydropdown]
+      reffontheight = 14
+    end
+    object tracesymbol: tenumedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.color = -1879048187
+      taborder = 8
+      visible = False
+      bounds_x = 429
+      bounds_y = 0
+      bounds_cx = 86
+      bounds_cy = 16
+      ondataentered = dataenteredexe
+      dropdown.imagelist = mainmo.tracesymbols
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+        end>
       reffontheight = 14
     end
   end
@@ -421,11 +449,11 @@ object chartoptionsfo: tchartoptionsfo
         inherited unittext: tstringedit[9]
           bounds_x = 365
         end
-        inherited endmargin: trealedit
+        inherited range: trealedit[10]
+        end
+        inherited endmargin: trealedit[11]
           bounds_x = 336
           bounds_cx = 28
-        end
-        inherited range: trealedit[11]
         end
       end
     end
@@ -531,11 +559,11 @@ object chartoptionsfo: tchartoptionsfo
         inherited unittext: tstringedit[9]
           bounds_x = 365
         end
-        inherited endmargin: trealedit
+        inherited range: trealedit[10]
+        end
+        inherited endmargin: trealedit[11]
           bounds_x = 336
           bounds_cx = 28
-        end
-        inherited range: trealedit[11]
         end
       end
     end

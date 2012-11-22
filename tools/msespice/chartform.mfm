@@ -86,6 +86,7 @@ inherited chartfo: tchartfo
     traces.xrange = 1
     traces.xserrange = 1
     traces.yrange = 1
+    traces.image_list = mainmo.tracesymbols
     traces.image_widthmm = 0
     traces.image_heighthmm = 0
     traces.items = <    
