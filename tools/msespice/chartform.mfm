@@ -5,6 +5,7 @@ inherited chartfo: tchartfo
   bounds_y = 309
   bounds_cx = 755
   bounds_cy = 409
+  container.onbeforepaint = beforepaintexe
   container.bounds = (
     0
     0
@@ -68,6 +69,7 @@ inherited chartfo: tchartfo
     FFFFFF00FFFFFF00
   }
   onchildmouseevent = childmouseexe
+  onbeforepaint = beforepaintexe
   moduleclassname = 'tspicefo'
   object chart: tchart[0]
     frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
@@ -115,14 +117,7 @@ inherited chartfo: tchartfo
     ydials.start = 0
     ydials.range = 1
   end
-  object timer: ttimer[1]
-    interval = 0
-    options = [to_single]
-    ontimer = updatechartexe
-    left = 88
-    top = 96
-  end
-  object tpopupmenu1: tpopupmenu[2]
+  object tpopupmenu1: tpopupmenu[1]
     menu.submenu.count = 2
     menu.submenu.items = <    
       item
@@ -134,7 +129,7 @@ inherited chartfo: tchartfo
     left = 248
     top = 152
   end
-  object optionsact: taction[3]
+  object optionsact: taction[2]
     caption = 'Show &Options'
     onexecute = showoptionsexe
     left = 392
@@ -144,7 +139,7 @@ inherited chartfo: tchartfo
       307
     )
   end
-  object plotact: taction[4]
+  object plotact: taction[3]
     caption = 'Show &Plot'
     onexecute = showplotexe
     left = 392

@@ -28,25 +28,25 @@ uses
 type
  tchartfo = class(tspicefo)
    chart: tchart;
-   timer: ttimer;
    tpopupmenu1: tpopupmenu;
    optionsact: taction;
    plotact: taction;
    procedure tracedataentered(const sender: TObject);
-   procedure updatechartexe(const sender: TObject);
-   procedure doupdatechart;
    procedure dataenteredexe(const sender: TObject);
    procedure showoptionsexe(const sender: TObject);
    procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
    procedure showplotexe(const sender: TObject);
+   procedure beforepaintexe(const sender: twidget; const acanvas: tcanvas);
   private
    foptfo: tchartoptionsfo;
    fshowmenuitem: tmenuitem;
+   fchartvalid: boolean;
    procedure activateexe(const sender: tobject);
    function getchartcaption: msestring;
    procedure setchartcaption(const avalue: msestring);
   protected
    fnode: ttreelistedititem; //tchartnode
+   procedure doupdatechart;
   public
    constructor create(const aowner: tcomponent;
                        const anode: ttreelistedititem //tchartnode
@@ -279,19 +279,22 @@ procedure tchartfo.doupdatechart;
 var
  int1: integer;
 begin
- for int1:= 0 to foptfo.tracesgrid.rowhigh do begin
-  if int1 >= chart.traces.count then begin
-   break;
+ if not fchartvalid then begin
+  fchartvalid:= true;
+  for int1:= 0 to foptfo.tracesgrid.rowhigh do begin
+   if int1 >= chart.traces.count then begin
+    break;
+   end;
+   with chart.traces[int1] do begin
+    color:= foptfo.tracecolor[int1];
+    imagenr:= foptfo.tracesymbol[int1];
+   end;
   end;
-  with chart.traces[int1] do begin
-   color:= foptfo.tracecolor[int1];
-   imagenr:= foptfo.tracesymbol[int1];
+  checkscale(foptfo.xscalefo,false);
+  checkscale(foptfo.yscalefo,true);
+  if parentofcontainer is tdockfo then begin
+   tdockfo(parentofcontainer).chartchanged(self);
   end;
- end;
- checkscale(foptfo.xscalefo,false);
- checkscale(foptfo.yscalefo,true);
- if parentofcontainer is tdockfo then begin
-  tdockfo(parentofcontainer).chartchanged(self);
  end;
 end;
 
@@ -300,14 +303,11 @@ begin
  updatechart;
 end;
 
-procedure tchartfo.updatechartexe(const sender: TObject);
-begin
- doupdatechart;
-end;
-
 procedure tchartfo.updatechart;
 begin
- timer.enabled:= true;
+ fchartvalid:= false;
+ invalidate;
+// timer.enabled:= true;
 end;
 
 procedure tchartfo.dataenteredexe(const sender: TObject);
@@ -349,6 +349,12 @@ end;
 procedure tchartfo.showplotexe(const sender: TObject);
 begin
  fnode.activate;
+end;
+
+procedure tchartfo.beforepaintexe(const sender: twidget;
+               const acanvas: tcanvas);
+begin
+ doupdatechart;
 end;
 
 end.
