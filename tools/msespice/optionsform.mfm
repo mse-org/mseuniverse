@@ -79,13 +79,13 @@ object optionsfo: toptionsfo
         datacols.count = 2
         datacols.options = [co_savestate, co_mousescrollrow]
         datacols.items = <        
-          item
+          item[libfiles]
             width = 280
             options = [co_fill, co_savestate, co_mousescrollrow]
             widgetname = 'libfiles'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[libnames]
             width = 68
             options = [co_proportional, co_savestate, co_mousescrollrow]
             widgetname = 'libnames'
@@ -148,6 +148,25 @@ object optionsfo: toptionsfo
         )
         bounds_x = 8
         bounds_y = 5
+        bounds_cx = 356
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        statfile = tstatfile1
+        textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+        reffontheight = 14
+      end
+      object ps2pdf: tfilenameedit
+        frame.caption = 'ps2pdf Program'
+        frame.button.imagenr = 17
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 1
+        bounds_x = 8
+        bounds_y = 53
         bounds_cx = 356
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]

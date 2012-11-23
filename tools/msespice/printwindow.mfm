@@ -1,15 +1,358 @@
 object printwindowfo: tprintwindowfo
-  bounds_x = 337
-  bounds_y = 266
-  bounds_cx = 100
-  bounds_cy = 100
+  visible = False
+  bounds_x = 130
+  bounds_y = 242
+  bounds_cx = 310
+  bounds_cy = 321
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    100
-    100
+    310
+    321
   )
+  statfile = tstatfile1
   moduleclassname = 'tmseform'
+  object pasize: tpagesizeselector
+    frame.caption = '&Size'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 7
+    bounds_cy = 37
+    statfile = tstatfile1
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    printer = psprinter
+    reffontheight = 14
+  end
+  object shrink: tbooleanedit
+    frame.caption = 'Shrink to fit'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      63
+      2
+    )
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 63
+    bounds_cx = 76
+    bounds_cy = 16
+    statfile = tstatfile1
+  end
+  object enlarge: tbooleanedit
+    frame.caption = 'Enlarge to fit'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      71
+      2
+    )
+    taborder = 2
+    bounds_x = 96
+    bounds_y = 63
+    bounds_cx = 84
+    bounds_cy = 16
+    statfile = tstatfile1
+  end
+  object tlayouter1: tlayouter
+    taborder = 3
+    bounds_x = 192
+    bounds_y = 280
+    bounds_cx = 105
+    bounds_cy = 20
+    anchors = [an_top, an_right]
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
+    dist_top = 5
+    options = [spao_gluebottom]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_center
+    place_mindist = 5
+    place_maxdist = 5
+    place_mode = wam_end
+    object tbutton2: tbutton
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      bounds_x = 55
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_localdefault, as_localcaption]
+      caption = '&Cancel'
+      modalresult = mr_cancel
+      reffontheight = 14
+    end
+    object tbutton3: tbutton
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_default, as_localdefault, as_localcaption, as_localonexecute]
+      caption = '&OK'
+      modalresult = mr_ok
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_asyncexecute]
+      onexecute = okexe
+      reffontheight = 14
+    end
+  end
+  object printcommand: tdropdownlistedit
+    frame.caption = 'Print Command'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 231
+    bounds_cx = 291
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    statfile = tstatfile1
+    value = 'kprinter --stdin'
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+        data = (
+          'kprinter --stdin'
+        )
+      end>
+    dropdown.itemindex = 0
+    reffontheight = 14
+  end
+  object prcolor: tbooleanedit
+    frame.caption = 'Color'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      33
+      2
+    )
+    taborder = 5
+    bounds_x = 192
+    bounds_y = 63
+    bounds_cx = 46
+    bounds_cy = 16
+    statfile = tstatfile1
+    value = True
+  end
+  object pdffile: tfilenameedit
+    frame.caption = 'PDF File'
+    frame.button.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 6
+    enabled = False
+    bounds_x = 8
+    bounds_y = 191
+    bounds_cx = 291
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    statfile = tstatfile1
+    controller.filterlist.data = (
+      (
+        'PDF File'
+        '"*.pdf" "*.PDF"'
+      )
+    )
+    controller.options = [fdo_save, fdo_savelastdir]
+    controller.captionsave = 'Export to PDF File'
+    reffontheight = 14
+  end
+  object pdf: tbooleanedit
+    frame.caption = 'PDF'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      27
+      2
+    )
+    taborder = 7
+    bounds_x = 248
+    bounds_y = 63
+    bounds_cx = 40
+    bounds_cy = 16
+    statfile = tstatfile1
+    onsetvalue = pdfsetexe
+  end
+  object margleft: trealedit
+    frame.caption = 'Margins(mm)'#10'Left'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      31
+      8
+      0
+    )
+    taborder = 8
+    bounds_x = 8
+    bounds_y = 89
+    bounds_cx = 76
+    bounds_cy = 51
+    statfile = tstatfile1
+    value = 10
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -100
+    max = 100
+    reffontheight = 14
+  end
+  object margright: trealedit
+    frame.caption = 'Right'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 9
+    bounds_x = 96
+    bounds_y = 103
+    bounds_cx = 68
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 10
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -100
+    max = 100
+    reffontheight = 14
+  end
+  object centerhorz: tbooleanedit
+    frame.caption = 'Center'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      40
+      2
+    )
+    taborder = 10
+    bounds_x = 192
+    bounds_y = 122
+    bounds_cx = 53
+    bounds_cy = 16
+    statfile = tstatfile1
+    value = True
+  end
+  object centervert: tbooleanedit
+    frame.caption = 'Center'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      40
+      2
+    )
+    taborder = 11
+    bounds_x = 192
+    bounds_y = 162
+    bounds_cx = 53
+    bounds_cy = 16
+    statfile = tstatfile1
+    value = True
+  end
+  object margbottom: trealedit
+    frame.caption = 'Bottom'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 12
+    bounds_x = 96
+    bounds_y = 143
+    bounds_cx = 68
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 10
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -100
+    max = 100
+    reffontheight = 14
+  end
+  object margtop: trealedit
+    frame.caption = 'Top'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 13
+    bounds_x = 8
+    bounds_y = 143
+    bounds_cx = 68
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 10
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -100
+    max = 100
+    reffontheight = 14
+  end
+  object landscape: tbooleanedit
+    frame.caption = 'Landscape'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      65
+      2
+    )
+    taborder = 14
+    bounds_x = 125
+    bounds_y = 26
+    bounds_cx = 78
+    bounds_cy = 16
+    statfile = tstatfile1
+  end
+  object tstatfile1: tstatfile
+    filename = 'printwindowfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 192
+    top = 88
+  end
+  object psprinter: tpostscriptprinter
+    canvas.font.color = -1610612734
+    canvas.font.xscale = 1
+    canvas.font.dummy = 0
+    canvas.ppmm = 3
+    pa_width = 210
+    pa_height = 297
+    pa_size = sps_a4
+    tabulators.defaultdist = 0
+    left = 24
+    top = 272
+  end
 end

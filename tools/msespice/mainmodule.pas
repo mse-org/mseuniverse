@@ -34,6 +34,7 @@ type
  tprojectoptions = class(toptionsclass)
   private
    fngspice: filenamety;
+   fps2pdf: filenamety;
    fnetlist: filenamety;
    flibfiles: filenamearty;
    flibnames: filenamearty;
@@ -41,6 +42,7 @@ type
    constructor create;
   published
    property ngspice: filenamety read fngspice write fngspice;
+   property ps2pdf: filenamety read fps2pdf write fps2pdf;
    property netlist: filenamety read fnetlist write fnetlist;
    property libfiles: filenamearty read flibfiles write flibfiles;
    property libnames: filenamearty read flibnames write flibnames;

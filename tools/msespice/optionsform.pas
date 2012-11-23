@@ -40,6 +40,7 @@ type
    libgrid: twidgetgrid;
    libfiles: tremotefilenameedit;
    libnames: tstringedit;
+   ps2pdf: tfilenameedit;
    procedure netlistsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
  end;

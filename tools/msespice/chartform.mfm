@@ -153,6 +153,7 @@ inherited chartfo: tchartfo
     )
   end
   object printact: taction[4]
+    caption = '&Print Chart'
     onexecute = printexe
     left = 168
     top = 48
