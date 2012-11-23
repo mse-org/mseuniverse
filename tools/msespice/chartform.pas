@@ -31,12 +31,14 @@ type
    tpopupmenu1: tpopupmenu;
    optionsact: taction;
    plotact: taction;
+   printact: taction;
    procedure tracedataentered(const sender: TObject);
    procedure dataenteredexe(const sender: TObject);
    procedure showoptionsexe(const sender: TObject);
    procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
    procedure showplotexe(const sender: TObject);
    procedure beforepaintexe(const sender: twidget; const acanvas: tcanvas);
+   procedure printexe(const sender: TObject);
   private
    foptfo: tchartoptionsfo;
    fshowmenuitem: tmenuitem;
@@ -62,7 +64,7 @@ procedure syncfitframe(const adock: tdockcontroller);
 
 implementation
 uses
- chartform_mfm,msereal,main,plotpage,dockform;
+ chartform_mfm,msereal,main,plotpage,dockform,printwindow;
 
 procedure syncfitframe(const adock: tdockcontroller);
 var
@@ -355,6 +357,11 @@ procedure tchartfo.beforepaintexe(const sender: twidget;
                const acanvas: tcanvas);
 begin
  doupdatechart;
+end;
+
+procedure tchartfo.printexe(const sender: TObject);
+begin
+ tprintwindowfo.create(chart);
 end;
 
 end.

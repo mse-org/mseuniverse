@@ -3,14 +3,14 @@ inherited chartfo: tchartfo
   visible = False
   bounds_x = 98
   bounds_y = 309
-  bounds_cx = 755
-  bounds_cy = 409
+  bounds_cx = 359
+  bounds_cy = 297
   container.onbeforepaint = beforepaintexe
   container.bounds = (
     0
     0
-    745
-    409
+    349
+    297
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
   options = [fo_savepos, fo_savezorder, fo_savestate]
@@ -78,8 +78,8 @@ inherited chartfo: tchartfo
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 745
-    bounds_cy = 409
+    bounds_cx = 349
+    bounds_cy = 297
     anchors = []
     traces.count = 1
     traces.xserstart = 0
@@ -118,22 +118,25 @@ inherited chartfo: tchartfo
     ydials.range = 1
   end
   object tpopupmenu1: tpopupmenu[1]
-    menu.submenu.count = 2
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
         action = plotact
       end    
       item
         action = optionsact
+      end    
+      item
+        action = printact
       end>
-    left = 248
-    top = 152
+    left = 24
+    top = 16
   end
   object optionsact: taction[2]
     caption = 'Show &Options'
     onexecute = showoptionsexe
-    left = 392
-    top = 152
+    left = 168
+    top = 16
     sc = (
       1
       307
@@ -142,11 +145,16 @@ inherited chartfo: tchartfo
   object plotact: taction[3]
     caption = 'Show &Plot'
     onexecute = showplotexe
-    left = 392
-    top = 168
+    left = 168
+    top = 32
     sc = (
       1
       305
     )
+  end
+  object printact: taction[4]
+    onexecute = printexe
+    left = 168
+    top = 48
   end
 end
