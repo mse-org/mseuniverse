@@ -120,7 +120,7 @@ begin
                                                                       'ERROR');
    end;
   finally
-//   deletefile(fna1);
+   deletefile(fna1);
   end;
  end
  else begin
