@@ -1,0 +1,31 @@
+object spicetabfo: tspicetabfo
+  popupmenu = popupme
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 295
+  bounds_cy = 179
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    295
+    179
+  )
+  moduleclassname = 'ttabform'
+  object printpanel: taction
+    caption = '&Print Panel'
+    onexecute = printpanelexe
+    left = 48
+    top = 64
+  end
+  object popupme: tpopupmenu
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        action = printpanel
+      end>
+    left = 48
+    top = 32
+  end
+end

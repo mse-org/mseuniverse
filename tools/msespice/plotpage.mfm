@@ -1,18 +1,16 @@
-object plotpagefo: tplotpagefo
+inherited plotpagefo: tplotpagefo
   bounds_x = 81
   bounds_y = 270
   bounds_cx = 612
   bounds_cy = 235
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
     612
     235
   )
-  moduleclassname = 'ttabform'
-  object plotname: tstringedit
+  moduleclassname = 'tspicetabfo'
+  object plotname: tstringedit[0]
     frame.caption = 'Name'
     frame.dummy = 0
     frame.outerframe = (
@@ -31,7 +29,7 @@ object plotpagefo: tplotpagefo
     ifilink = mainmo.stringlink
     reffontheight = 14
   end
-  object plotkind: tenumedit
+  object plotkind: tenumedit[1]
     frame.caption = 'Kind'
     frame.outerframe = (
       0
@@ -67,7 +65,7 @@ object plotpagefo: tplotpagefo
     dropdown.valuecol = 1
     reffontheight = 14
   end
-  object plotactive: tbooleanedit
+  object plotactive: tbooleanedit[2]
     frame.caption = 'active'
     frame.dummy = 0
     frame.outerframe = (
@@ -85,7 +83,7 @@ object plotpagefo: tplotpagefo
     value = True
     ifilink = mainmo.booleanlink
   end
-  object ttabwidget1: ttabwidget
+  object ttabwidget1: ttabwidget[3]
     bounds_x = 0
     bounds_y = 48
     bounds_cx = 612
@@ -507,7 +505,7 @@ object plotpagefo: tplotpagefo
       end
     end
   end
-  object gridpopup: tpopupmenu
+  object gridpopup: tpopupmenu[4]
     menu.submenu.count = 2
     menu.submenu.items = <    
       item
@@ -519,7 +517,7 @@ object plotpagefo: tplotpagefo
     left = 160
     top = 200
   end
-  object showchartoptact: taction
+  object showchartoptact: taction[5]
     caption = 'Show Chart Options'
     onexecute = showchartoptexe
     left = 144
@@ -529,7 +527,7 @@ object plotpagefo: tplotpagefo
       307
     )
   end
-  object showchartact: taction
+  object showchartact: taction[6]
     caption = 'Show Chart'
     options = [ao_updateonidle]
     onexecute = showchartexe
@@ -540,5 +538,12 @@ object plotpagefo: tplotpagefo
       1
       306
     )
+  end
+  inherited printpanel: taction[7]
+  end
+  inherited popupme: tpopupmenu[8]
+    menu.submenu.items = <    
+      item
+      end>
   end
 end

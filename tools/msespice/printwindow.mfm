@@ -12,7 +12,9 @@ object printwindowfo: tprintwindowfo
     310
     321
   )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
+  caption = 'MSEspice Print'
   moduleclassname = 'tmseform'
   object pasize: tpagesizeselector
     frame.caption = '&Size'

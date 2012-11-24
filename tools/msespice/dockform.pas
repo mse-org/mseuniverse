@@ -20,20 +20,24 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,msetypes,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedockpanelform,
- msechart,msedock,msetimer;
+ msechart,msedock,msetimer,mseact,mseactions,mseifiglob;
 
 type
  tdockfo = class(tdockpanelform)
    timer: ttimer;
+   popupme: tpopupmenu;
+   printact: taction;
    procedure boundschangedexe(const sender: tdockcontroller);
    procedure timerexe(const sender: TObject);
+   procedure updateprintexe(const sender: tcustomaction);
+   procedure printexe(const sender: TObject);
   public
    procedure chartchanged(const sender: twidget);
  end;
 
 implementation
 uses
- dockform_mfm,chartform;
+ dockform_mfm,chartform,main,printwindow;
  
 procedure tdockfo.boundschangedexe(const sender: tdockcontroller);
 begin
@@ -48,6 +52,16 @@ end;
 procedure tdockfo.timerexe(const sender: TObject);
 begin
  syncfitframe(dragdock);  
+end;
+
+procedure tdockfo.updateprintexe(const sender: tcustomaction);
+begin
+ sender.visible:= (parentwidget = nil) or (parentofcontainer = mainfo);
+end;
+
+procedure tdockfo.printexe(const sender: TObject);
+begin
+ tprintwindowfo.create(container); 
 end;
 
 end.

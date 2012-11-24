@@ -1,5 +1,4 @@
 inherited chartfo: tchartfo
-  popupmenu = tpopupmenu1
   visible = False
   bounds_x = 98
   bounds_y = 309
@@ -117,22 +116,7 @@ inherited chartfo: tchartfo
     ydials.start = 0
     ydials.range = 1
   end
-  object tpopupmenu1: tpopupmenu[1]
-    menu.submenu.count = 3
-    menu.submenu.items = <    
-      item
-        action = plotact
-      end    
-      item
-        action = optionsact
-      end    
-      item
-        action = printact
-      end>
-    left = 24
-    top = 16
-  end
-  object optionsact: taction[2]
+  object optionsact: taction[1]
     caption = 'Show &Options'
     onexecute = showoptionsexe
     left = 168
@@ -142,7 +126,7 @@ inherited chartfo: tchartfo
       307
     )
   end
-  object plotact: taction[3]
+  object plotact: taction[2]
     caption = 'Show &Plot'
     onexecute = showplotexe
     left = 168
@@ -152,10 +136,20 @@ inherited chartfo: tchartfo
       305
     )
   end
-  object printact: taction[4]
+  inherited popupme: tpopupmenu[3]
+    menu.submenu.count = 3
+    menu.submenu.items = <    
+      item
+        action = plotact
+      end    
+      item
+        action = optionsact
+      end    
+      item
+        action = printpanel
+      end>
+  end
+  inherited printpanel: taction[4]
     caption = '&Print Chart'
-    onexecute = printexe
-    left = 168
-    top = 48
   end
 end

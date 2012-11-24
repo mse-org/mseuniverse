@@ -149,4 +149,11 @@ inherited netlistfo: tnetlistfo
     left = 200
     top = 168
   end
+  inherited popupme: tpopupmenu[6]
+    menu.submenu.items = <    
+      item
+      end>
+  end
+  inherited printpanel: taction[7]
+  end
 end

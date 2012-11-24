@@ -135,7 +135,10 @@ end;
 
 procedure tplotsfo.deleteplotexe(const sender: TObject);
 begin
- tabs.activepage.release;
+ if askyesno('Do you want to delete plot "'+
+           tplotpagefo(tabs.activepage).plotname.value+'"?','WARNING') then begin
+  tabs.activepage.release;
+ end;
 end;
 
 procedure tplotsfo.popupupdateexe(const sender: tcustommenu);

@@ -23,7 +23,7 @@ uses
  mseedit,mseifiglob,msestrings,msetypes,msewidgets,classes,plotoptions,
  msesplitter,msegrids,msewidgetgrid,msegraphedits,msesimplewidgets,
  mselistbrowser,msedatanodes,msememodialog,msengspice,chartform,mseact,
- mseactions,msescrollbar,msestatfile,msestream,sysutils;
+ mseactions,msescrollbar,msestatfile,msestream,sysutils,spicetabform;
  
 type
 
@@ -87,7 +87,7 @@ type
                                                         default vk_def;
  end;
  
- tplotpagefo = class(ttabform)
+ tplotpagefo = class(tspicetabfo)
    plotname: tstringedit;
    plotkind: tenumedit;
    plotactive: tbooleanedit;

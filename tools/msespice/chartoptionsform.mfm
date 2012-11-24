@@ -1,15 +1,9 @@
-object chartoptionsfo: tchartoptionsfo
-  frame.grip_size = 10
-  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
-  frame.dummy = 0
-  popupmenu = tpopupmenu1
+inherited chartoptionsfo: tchartoptionsfo
   visible = False
   bounds_x = 100
   bounds_y = 100
   bounds_cx = 672
   bounds_cy = 213
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
@@ -18,7 +12,6 @@ object chartoptionsfo: tchartoptionsfo
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional]
   options = [fo_closeonesc, fo_savepos, fo_savezorder, fo_savestate]
-  statfile = mainmo.projectstat2
   icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
   icon.image = {
@@ -81,8 +74,8 @@ object chartoptionsfo: tchartoptionsfo
   }
   oncreate = createexe
   onchildmouseevent = childmouseexe
-  moduleclassname = 'tdockform'
-  object tsplitter2: tsplitter
+  moduleclassname = 'tspicefo'
+  object tsplitter2: tsplitter[0]
     color = -1879048189
     bounds_x = 0
     bounds_y = 136
@@ -94,7 +87,7 @@ object chartoptionsfo: tchartoptionsfo
     linkbottom = tsimplewidget1
     statfile = mainmo.projectstat3
   end
-  object tracesgrid: twidgetgrid
+  object tracesgrid: twidgetgrid[1]
     taborder = 1
     bounds_x = 0
     bounds_y = 0
@@ -326,13 +319,13 @@ object chartoptionsfo: tchartoptionsfo
       reffontheight = 14
     end
   end
-  object tsimplewidget1: tsimplewidget
+  object tsimplewidget1: tsimplewidget[2]
     taborder = 2
     visible = True
     bounds_x = 0
     bounds_y = 139
     bounds_cx = 662
-    bounds_cy = 74
+    bounds_cy = 60
     anchors = [an_bottom]
     object tsplitter3: tsplitter
       color = -1879048189
@@ -340,7 +333,7 @@ object chartoptionsfo: tchartoptionsfo
       bounds_x = 328
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 74
+      bounds_cy = 62
       anchors = [an_left]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = xscalefo
@@ -352,10 +345,10 @@ object chartoptionsfo: tchartoptionsfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 328
-      bounds_cy = 74
+      bounds_cy = 62
       inherited scalegrid: twidgetgrid
         bounds_cx = 328
-        bounds_cy = 74
+        bounds_cy = 66
         font.name = ''
         fixcols.items = <        
           item
@@ -461,11 +454,11 @@ object chartoptionsfo: tchartoptionsfo
       bounds_x = 331
       bounds_y = 0
       bounds_cx = 331
-      bounds_cy = 74
+      bounds_cy = 62
       anchors = [an_right]
       inherited scalegrid: twidgetgrid
         bounds_cx = 331
-        bounds_cy = 74
+        bounds_cy = 66
         font.name = ''
         fixcols.items = <        
           item
@@ -568,7 +561,24 @@ object chartoptionsfo: tchartoptionsfo
       end
     end
   end
-  object chartact: taction
+  inherited printpanel: taction[3]
+    top = 96
+  end
+  inherited popupme: tpopupmenu[4]
+    menu.submenu.count = 3
+    menu.submenu.items = <    
+      item
+        action = plotact
+      end    
+      item
+        action = chartact
+      end    
+      item
+        action = printpanel
+      end>
+    top = 72
+  end
+  object chartact: taction[5]
     caption = 'Show &Chart'
     onexecute = showchartexe
     left = 176
@@ -578,19 +588,7 @@ object chartoptionsfo: tchartoptionsfo
       306
     )
   end
-  object tpopupmenu1: tpopupmenu
-    menu.submenu.count = 2
-    menu.submenu.items = <    
-      item
-        action = plotact
-      end    
-      item
-        action = chartact
-      end>
-    left = 64
-    top = 80
-  end
-  object plotact: taction
+  object plotact: taction[6]
     caption = 'Show &Plot'
     onexecute = showplotexe
     left = 176

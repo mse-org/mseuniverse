@@ -28,10 +28,8 @@ uses
 type
  tchartfo = class(tspicefo)
    chart: tchart;
-   tpopupmenu1: tpopupmenu;
    optionsact: taction;
    plotact: taction;
-   printact: taction;
    procedure tracedataentered(const sender: TObject);
    procedure dataenteredexe(const sender: TObject);
    procedure showoptionsexe(const sender: TObject);

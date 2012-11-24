@@ -2,6 +2,7 @@ object dockfo: tdockfo
   frame.grip_size = 10
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
   frame.dummy = 0
+  popupmenu = popupme
   bounds_x = 100
   bounds_y = 100
   bounds_cx = 445
@@ -9,6 +10,11 @@ object dockfo: tdockfo
   container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_mousetransparent, ow_mousewheel]
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
+  container.frame.framei_left = 0
+  container.frame.framei_top = 0
+  container.frame.framei_right = 0
+  container.frame.framei_bottom = 0
+  container.frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
   container.bounds = (
     0
     0
@@ -23,7 +29,22 @@ object dockfo: tdockfo
     interval = 0
     options = [to_single]
     ontimer = timerexe
-    left = 72
-    top = 88
+    left = 248
+    top = 48
+  end
+  object popupme: tpopupmenu
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        action = printact
+      end>
+    left = 248
+  end
+  object printact: taction
+    caption = 'Print &Window'
+    onexecute = printexe
+    onupdate = updateprintexe
+    left = 248
+    top = 24
   end
 end

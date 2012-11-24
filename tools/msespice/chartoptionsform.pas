@@ -21,10 +21,10 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msesplitter,
  msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
- msecolordialog,msewidgets,scalegridform,mseact,mseactions;
+ msecolordialog,msewidgets,scalegridform,mseact,mseactions,spiceform;
 
 type
- tchartoptionsfo = class(tdockform)
+ tchartoptionsfo = class(tspicefo)
    tsplitter2: tsplitter;
    tracesgrid: twidgetgrid;
    xexpdisp: tstringedit;
@@ -37,7 +37,6 @@ type
    xscalefo: tscalegridfo;
    yscalefo: tscalegridfo;
    chartact: taction;
-   tpopupmenu1: tpopupmenu;
    plotact: taction;
    yunitdisp: tstringedit;
    xunitdisp: tstringedit;

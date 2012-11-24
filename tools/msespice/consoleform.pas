@@ -23,10 +23,10 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mseterminal,
- msestatfile;
+ msestatfile,spiceform;
 
 type
- tconsolefo = class(tdockform)
+ tconsolefo = class(tspicefo)
    grid: twidgetgrid;
    term: tterminal;
    procedure inputbrokenexe(const sender: TObject);

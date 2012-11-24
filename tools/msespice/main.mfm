@@ -5,15 +5,15 @@ object mainfo: tmainfo
   visible = False
   bounds_x = 291
   bounds_y = 247
-  bounds_cx = 372
-  bounds_cy = 118
+  bounds_cx = 383
+  bounds_cy = 117
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
     16
-    362
-    102
+    373
+    101
   )
   mainmenu = mainme
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_savepos, fo_savezorder, fo_savestate]
@@ -23,23 +23,29 @@ object mainfo: tmainfo
   moduleclassname = 'tdockform'
   inline dockfo1: tdockfo
     frame = nil
+    popupmenu = dockfo1.popupme
     visible = True
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 362
-    bounds_cy = 102
+    bounds_cx = 381
+    bounds_cy = 109
     anchors = []
     container.bounds = (
       0
       0
-      362
-      102
+      381
+      109
     )
     dragdock.optionsdock = [od_savechildren, od_canfloat, od_candock, od_acceptsdock, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize]
     options = [fo_screencentered, fo_globalshortcuts]
     inherited timer: ttimer
-      left = 112
-      top = 48
+    end
+    inherited popupme: tpopupmenu
+      menu.submenu.items = <      
+        item
+        end>
+    end
+    inherited printact: taction
     end
   end
   object mainme: tmainmenu
