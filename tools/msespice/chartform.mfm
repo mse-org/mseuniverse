@@ -123,7 +123,7 @@ inherited chartfo: tchartfo
     top = 16
     sc = (
       1
-      307
+      308
     )
   end
   object plotact: taction[2]
@@ -133,7 +133,7 @@ inherited chartfo: tchartfo
     top = 32
     sc = (
       1
-      305
+      306
     )
   end
   inherited popupme: tpopupmenu[3]
@@ -151,5 +151,6 @@ inherited chartfo: tchartfo
   end
   inherited printpanel: taction[4]
     caption = '&Print Chart'
+    onexecute = printchartexe
   end
 end

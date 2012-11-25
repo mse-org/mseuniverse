@@ -453,13 +453,15 @@ var
 begin
  freeandnil(fplot);
  cla1:= getplotclass(akind);
- if cla1 = nil then begin
-  cla1:= getplotclass(ord(plk_tran));
- end;
- fplot:= cla1.create(self);
- plotcont.insertwidget(fplot,nullpoint);
+// if cla1 = nil then begin
+//  cla1:= getplotclass(ord(plk_tran));
+// end;
+ if cla1 <> nil then begin
+  fplot:= cla1.create(self);
+  plotcont.insertwidget(fplot,nullpoint);
 // fplot.parentwidget:= plotcont;
- fplot.visible:= true;
+  fplot.visible:= true;
+ end;
 end;
 
 function tplotpagefo.kind: plotkindty;
@@ -476,14 +478,12 @@ function tplotpagefo.getplotstatement: string;
  
 var
  int1,int2: integer;
-// str1: string;
  ar1: chartnodearty;
  ar2: msestringarty;
  mstr1,mstr2: msestring;
 begin
  result:= '';
  ar1:= chartnodes;
-// str1:= '.SAVE '{+ fplot.getxvalue};
  if ar1 <> nil then begin
   ar2:= nil;
   for int1:= 0 to high(ar1) do begin
@@ -502,18 +502,15 @@ begin
       fexpressions[int2]:= mstr1;
       inc(int2);
      end;
-//     str1:= str1 + mstr1 + ' ';
     end;
    end;
-//   setlength(str1,length(str1)-1); //remove last space
    setlength(fexpressions,int2);
    insertitem(fexpressions,0,mstr2); //x unit, always returned first by ngnutmeg
   end;
  end;
-
-// result:= str1+lineend;
-// result:= result+fplot.getplotstatement;
- result:= fplot.getplotstatement;
+ if fplot <> nil then begin
+  result:= fplot.getplotstatement;
+ end;
 end;
 
 procedure tplotpagefo.createitemexe(const sender: tcustomitemlist;
@@ -521,6 +518,7 @@ procedure tplotpagefo.createitemexe(const sender: tcustomitemlist;
 begin
  item:= tchartnode.create(sender);
  item.add(1);
+ item[0].caption:= 'Trace 1';
  with tchartnode(item).chart do begin
   name:= getchartname;
  end;

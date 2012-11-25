@@ -17,6 +17,9 @@ type
    filedialog: tfiledialog;
    saveact: taction;
    saveasact: taction;
+   showplotact: taction;
+   showchartact: taction;
+   showchartoptact: taction;
    procedure textedexe(const sender: tcustomedit; var atext: msestring);
    procedure saveupdateexe(const sender: tcustomaction);
    procedure saveexe(const sender: TObject);
@@ -25,6 +28,10 @@ type
                    const info: filechangeinfoty);
    procedure idleexe(var again: Boolean);
    procedure createexe(const sender: TObject);
+   procedure showplotexe(const sender: TObject);
+   procedure showchartexe(const sender: TObject);
+   procedure showchatroptexe(const sender: TObject);
+   procedure popupupdateexe(const sender: tcustomaction);
   private
    fmodified: boolean;
    fcheckfilechanged: boolean;
@@ -43,7 +50,8 @@ var
 
 implementation
 uses
- netlistform_mfm,msefileutils,msewidgets,mainmodule,msestream,mserichstring;
+ netlistform_mfm,msefileutils,msewidgets,mainmodule,msestream,mserichstring,
+ plotsform,plotpage;
 
 const
  spicesyntax = 
@@ -252,6 +260,31 @@ end;
 procedure tnetlistfo.createexe(const sender: TObject);
 begin
  edit.setsyntaxdef(syntaxpainter.readdeffile(spicesyntax));
+end;
+
+procedure tnetlistfo.showplotexe(const sender: TObject);
+begin
+ plotsfo.activate;
+end;
+
+procedure tnetlistfo.showchartexe(const sender: TObject);
+begin
+ tplotpagefo(plotsfo.tabs.activepage).showchartact.onexecute(nil);
+end;
+
+procedure tnetlistfo.showchatroptexe(const sender: TObject);
+begin
+ tplotpagefo(plotsfo.tabs.activepage).showchartoptact.onexecute(nil);
+end;
+
+procedure tnetlistfo.popupupdateexe(const sender: tcustomaction);
+var
+ bo1: boolean;
+begin
+ bo1:= (plotsfo.tabs.activepage <> nil) and 
+  (tplotpagefo(plotsfo.tabs.activepage).treeed.item <> nil);
+ showchartact.enabled:= bo1;
+ showchartoptact.enabled:= bo1;
 end;
 
 end.

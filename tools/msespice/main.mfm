@@ -3,8 +3,8 @@ object mainfo: tmainfo
   frame.grip_options = [go_closebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
   frame.dummy = 0
   visible = False
-  bounds_x = 291
-  bounds_y = 247
+  bounds_x = 149
+  bounds_y = 221
   bounds_cx = 383
   bounds_cy = 117
   container.frame.zoomwidthstep = 1
@@ -27,14 +27,14 @@ object mainfo: tmainfo
     visible = True
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 381
-    bounds_cy = 109
+    bounds_cx = 373
+    bounds_cy = 101
     anchors = []
     container.bounds = (
       0
       0
-      381
-      109
+      373
+      101
     )
     dragdock.optionsdock = [od_savechildren, od_canfloat, od_candock, od_acceptsdock, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize]
     options = [fo_screencentered, fo_globalshortcuts]
@@ -129,10 +129,14 @@ object mainfo: tmainfo
           end        
           item
             caption = '&Netlist'
-            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut, as_localonexecute]
             imagelist = imagelist
             imagenr = 2
             onexecute = shownetlistexe
+            sc = (
+              1
+              305
+            )
           end        
           item
             caption = 'Para&ms'

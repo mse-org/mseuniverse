@@ -36,7 +36,7 @@ type
    procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
    procedure showplotexe(const sender: TObject);
    procedure beforepaintexe(const sender: twidget; const acanvas: tcanvas);
-   procedure printexe(const sender: TObject);
+   procedure printchartexe(const sender: TObject);
   private
    foptfo: tchartoptionsfo;
    fshowmenuitem: tmenuitem;
@@ -357,7 +357,7 @@ begin
  doupdatechart;
 end;
 
-procedure tchartfo.printexe(const sender: TObject);
+procedure tchartfo.printchartexe(const sender: TObject);
 begin
  tprintwindowfo.create(chart);
 end;

@@ -152,17 +152,55 @@ inherited netlistfo: tnetlistfo
     top = 168
   end
   inherited popupme: tpopupmenu[6]
-    menu.submenu.count = 3
+    menu.submenu.count = 5
     menu.submenu.items = <    
       item
-        action = nil
+        action = showplotact
       end    
       item
+        action = showchartact
       end    
       item
-        action = printpanel
+        action = showchartoptact
+      end    
+      item
+        options = [mao_separator, mao_shortcutcaption]
+      end    
+      item
+        action = spicefo.printpanel
       end>
   end
   inherited printpanel: taction[7]
+  end
+  object showplotact: taction[8]
+    caption = 'Show Plots'
+    onexecute = showplotexe
+    onupdate = popupupdateexe
+    left = 208
+    top = 200
+    sc = (
+      1
+      306
+    )
+  end
+  object showchartact: taction[9]
+    caption = 'Show Chart'
+    onexecute = showchartexe
+    left = 208
+    top = 216
+    sc = (
+      1
+      307
+    )
+  end
+  object showchartoptact: taction[10]
+    caption = 'Show Chart Options'
+    onexecute = showchatroptexe
+    left = 208
+    top = 232
+    sc = (
+      1
+      308
+    )
   end
 end

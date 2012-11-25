@@ -228,6 +228,7 @@ begin
    fprojectloaded:= false;
    updateprojectstate;
    projectmainstat.writestat;
+   plotsfo.tabs.clear;
   end;
  end;
 end;
@@ -247,6 +248,7 @@ begin
     projectmainstat.writestat;
    end;
   end;
+  fprojectloaded:= true;
   updateprojectstate;
  end;
 end;

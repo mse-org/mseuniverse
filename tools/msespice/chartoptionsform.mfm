@@ -82,7 +82,7 @@ inherited chartoptionsfo: tchartoptionsfo
     bounds_cx = 662
     bounds_cy = 3
     anchors = [an_top]
-    options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    options = [spo_vmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
     linktop = tracesgrid
     linkbottom = tsimplewidget1
     statfile = mainmo.projectstat3
@@ -333,7 +333,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 328
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 62
+      bounds_cy = 60
       anchors = [an_left]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = xscalefo
@@ -345,10 +345,10 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 328
-      bounds_cy = 62
+      bounds_cy = 60
       inherited scalegrid: twidgetgrid
         bounds_cx = 328
-        bounds_cy = 66
+        bounds_cy = 62
         font.name = ''
         fixcols.items = <        
           item
@@ -454,11 +454,11 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 331
       bounds_y = 0
       bounds_cx = 331
-      bounds_cy = 62
+      bounds_cy = 60
       anchors = [an_right]
       inherited scalegrid: twidgetgrid
         bounds_cx = 331
-        bounds_cy = 66
+        bounds_cy = 62
         font.name = ''
         fixcols.items = <        
           item
@@ -585,7 +585,7 @@ inherited chartoptionsfo: tchartoptionsfo
     top = 48
     sc = (
       1
-      306
+      307
     )
   end
   object plotact: taction[6]
@@ -595,7 +595,7 @@ inherited chartoptionsfo: tchartoptionsfo
     top = 64
     sc = (
       1
-      305
+      306
     )
   end
 end

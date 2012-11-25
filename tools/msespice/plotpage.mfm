@@ -156,7 +156,7 @@ inherited plotpagefo: tplotpagefo
           end        
           item[xvaluekind]
             width = 46
-            options = [co_proportional, co_savestate, co_mousescrollrow]
+            options = [co_savestate, co_mousescrollrow]
             widgetname = 'xvaluekind'
             dataclass = tgridenumdatalist
           end        
@@ -524,7 +524,7 @@ inherited plotpagefo: tplotpagefo
     top = 80
     sc = (
       1
-      307
+      308
     )
   end
   object showchartact: taction[6]
@@ -536,7 +536,7 @@ inherited plotpagefo: tplotpagefo
     top = 64
     sc = (
       1
-      306
+      307
     )
   end
   inherited printpanel: taction[7]
