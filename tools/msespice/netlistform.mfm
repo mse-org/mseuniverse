@@ -62,7 +62,8 @@ inherited netlistfo: tnetlistfo
     FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     FFFFFF00FFFFFF00FFFFFF00
   }
-  onidle = idelexe
+  oncreate = createexe
+  onidle = idleexe
   moduleclassname = 'tspicefo'
   object grid: twidgetgrid[0]
     bounds_x = 0
@@ -103,6 +104,7 @@ inherited netlistfo: tnetlistfo
       optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       ontextedited = textedexe
       syntaxpainter = syntaxpainter
+      options = [seo_autoindent, seo_markbrackets]
       reffontheight = 14
     end
   end
@@ -150,8 +152,15 @@ inherited netlistfo: tnetlistfo
     top = 168
   end
   inherited popupme: tpopupmenu[6]
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
+        action = nil
+      end    
+      item
+      end    
+      item
+        action = printpanel
       end>
   end
   inherited printpanel: taction[7]

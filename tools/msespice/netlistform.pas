@@ -23,7 +23,8 @@ type
    procedure saveasexe(const sender: TObject);
    procedure filechangeexe(const sender: tfilechangenotifyer;
                    const info: filechangeinfoty);
-   procedure idelexe(var again: Boolean);
+   procedure idleexe(var again: Boolean);
+   procedure createexe(const sender: TObject);
   private
    fmodified: boolean;
    fcheckfilechanged: boolean;
@@ -36,11 +37,59 @@ type
    procedure save;
    procedure close;
  end;
+
 var
  netlistfo: tnetlistfo;
+
 implementation
 uses
  netlistform_mfm,msefileutils,msewidgets,mainmodule,msestream,mserichstring;
+
+const
+ spicesyntax = 
+'caseinsensitive'+lineend+
+'addkeywordchars'+ lineend+
+' ''.'''+lineend+
+'styles'+lineend+
+' default '''''+lineend+
+' words ''b'''+lineend+
+' comment ''i'' cl_dkblue'+lineend+
+' option ''b'' cl_dkblue'+lineend+
+' string '''' cl_dkblue'+lineend+
+' '+lineend+
+'keyworddefs spice'+lineend+
+' ''.TITLE'' ''.END'' ''.MODEL'' ''.SUBCKT'' ''.ENDS'' ''.GLOBAL'''+lineend+
+' ''.INCLUDE'' ''.LIB'' ''.PARAM'''+lineend+
+' ''NOT'' ''MOD'' ''DIV'' ''AND'' ''OR'''+lineend+
+' ''DEFINED'' ''SQR'' ''SQRT'' ''SIN'' ''COS'' ''EXP'' ''LN'''+lineend+
+' ''ARCTAN'' ''ABS'' ''FLOOR'' ''CEIL'' ''POW'' ''PWR'''+lineend+
+' ''MIN'' ''MAX'' ''SGN'' ''TERNARY_FCN'''+lineend+
+' ''GAUSS'' ''AGAUSS'' ''UNIF'' ''AUNIF'' ''LIMIT'''+lineend+
+' ''IF'' ''ELSE'' ''END'' ''WHILE'' ''MACRO'' ''FUNCT'''+lineend+
+' ''FOR'' ''TO'' ''DOWNTO'' ''IS'' ''VAR'' ''.FUNC'' ''.CSPARAM'''+lineend+
+' ''.CONTROL'' ''.ENDC'' ''.OPTIONS'' ''.NODESET'' ''.IC'' ''.AC'''+lineend+
+' ''.DC'' ''.DISTO'' ''.NOISE'' ''.OP'' ''.PZ'' ''.SENS'' ''.TF'''+lineend+
+' ''.TRAN'' ''.PSS'' ''.MEAS'' ''.MEASURE'' ''.SAVE'' ''.PRINT'''+lineend+
+' ''.PLOT'' ''.FOUR'' ''.PROBE'' ''.WIDTH'''+lineend+
+''+lineend+
+'scope comment2 comment'+lineend+
+' endtokens'+lineend+
+'  '''''+lineend+
+'  '+lineend+
+'scope string string'+lineend+
+' endtokens'+lineend+
+'  ''"'''+lineend+
+'  '+lineend+
+'scope main'+lineend+
+''+lineend+
+' keywords words'+lineend+
+'  spice'+lineend+
+' calltokens'+lineend+
+'  .'';'' comment2'+lineend+
+'  ,''*'' comment2'+lineend+
+'  ''"'' string'+lineend+
+''
+;
 
 { tnetlistfo }
 
@@ -183,7 +232,7 @@ begin
  application.wakeupmainthread;
 end;
 
-procedure tnetlistfo.idelexe(var again: Boolean);
+procedure tnetlistfo.idleexe(var again: Boolean);
 var
  pt1: gridcoordty;
  bo1:boolean;
@@ -198,6 +247,11 @@ begin
    edit.editpos:= pt1;
   end;   
  end;
+end;
+
+procedure tnetlistfo.createexe(const sender: TObject);
+begin
+ edit.setsyntaxdef(syntaxpainter.readdeffile(spicesyntax));
 end;
 
 end.
