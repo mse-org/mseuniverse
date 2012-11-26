@@ -30,6 +30,7 @@ type
    chart: tchart;
    optionsact: taction;
    plotact: taction;
+   resetzoomact: taction;
    procedure tracedataentered(const sender: TObject);
    procedure dataenteredexe(const sender: TObject);
    procedure showoptionsexe(const sender: TObject);
@@ -37,6 +38,8 @@ type
    procedure showplotexe(const sender: TObject);
    procedure beforepaintexe(const sender: twidget; const acanvas: tcanvas);
    procedure printchartexe(const sender: TObject);
+   procedure resetzoomupdateexe(const sender: tcustomaction);
+   procedure resetzoomexe(const sender: TObject);
   private
    foptfo: tchartoptionsfo;
    fshowmenuitem: tmenuitem;
@@ -360,6 +363,16 @@ end;
 procedure tchartfo.printchartexe(const sender: TObject);
 begin
  tprintwindowfo.create(chart);
+end;
+
+procedure tchartfo.resetzoomupdateexe(const sender: tcustomaction);
+begin
+ sender.enabled:= (chart.frame.zoomwidth <> 1) or (chart.frame.zoomheight <> 1);
+end;
+
+procedure tchartfo.resetzoomexe(const sender: TObject);
+begin
+ chart.frame.zoom:= mc(1,1);
 end;
 
 end.

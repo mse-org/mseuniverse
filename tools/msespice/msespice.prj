@@ -17,6 +17,8 @@ order14=0
 order15=0
 order16=0
 order17=0
+order18=0
+order19=0
 [projectoptions]
 projectdir=/home/mse/packs/standard/git/mseuniverse/tools/msespice
 projectfilename=/home/mse/packs/standard/git/mseuniverse/tools/msespice/msespice.prj
@@ -290,6 +292,8 @@ usercolorcomment=30
  
  
  
+formatmacronames=0
+formatmacrovalues=0
 settingsfile=
 settingseditor=0
 settingsdebugger=0
@@ -496,7 +500,7 @@ files=
  a=0,4132,6,Text Files
  )
 [componentstore]
-storedir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
+storedir=/home/mse/proj/mseguidist/test/msegui/apps/ide/compstore/
 filename=
 [components]
 [selecteditpage]
@@ -509,7 +513,7 @@ cy=0
 progparamhistory=0
 envvarons=0
 [layout]
-windowlayout=535
+windowlayout=550
  [mainfo.projectfiledia]
  filenames=1
   /home/mse/packs/standard/git/mseuniverse/tools/msespice/mse_msespice.prj
@@ -517,14 +521,14 @@ windowlayout=535
  filehistory=10
   /home/mse/packs/standard/git/mseuniverse/tools/msespice/mse_msespice.prj
   /home/mse/packs/standard/git/mseuniverse/tools/msespice/msespice.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
-  /home/mse/proj/test3/test3.prj
-  /home/mse/proj/msegui/testcase/ivankob/noparams7/noparams/noparms.prj
-  /home/mse/proj/msegui/testcase/liuzg/bug1/bug/fff.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/msegit/passwordenter/msegitpw.prj
+  /home/mse/proj/test3/test.prj
+  /home/mse/proj/msegui/testcase/invankob/betweenparents/betweenparents.prj
+  /home/mse/packs/standard/git/mseide-msegui/tools/i18n/mse_msei18n.prj
+  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
   /home/mse/packs/standard/git/yellowpim/mse_pim.prj
-  /home/mse/proj/msegui/testcase/mse/db/local/local.prj
+  /home/mse/packs/standard/git/yellowpim/pim.prj
+  /home/mse/proj/msegui/testcase/mse/db/postgres/base/postgresbase.prj
  filefilterindex=0
  filefilter=*.prj
  filecolwidth=97
@@ -550,7 +554,7 @@ windowlayout=535
  [mainfo]
  splitdir=0
  useroptions=127
- stackedunder=
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
@@ -564,10 +568,11 @@ windowlayout=535
  rcx=0
  rcy=0
  children=2
-  container,0,16,276,58
-  ,0,0,276,16
+  container,0,16,286,58
+  ,0,0,286,16
+ focusedchild=0
  wsize=0
- active=1
+ active=0
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -635,7 +640,7 @@ windowlayout=535
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=objectinspectorfo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
@@ -654,7 +659,7 @@ windowlayout=535
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=disassfo
+ stackedunder=watchfo
  parent=
  mdistate=0
  nx=0
@@ -759,7 +764,7 @@ windowlayout=535
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- stackedunder=watchpointsfo
+ stackedunder=projecttreefo
  parent=
  mdistate=0
  nx=0
@@ -780,7 +785,7 @@ windowlayout=535
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=targetconsolefo
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -805,7 +810,7 @@ windowlayout=535
  [symbolfo]
  splitdir=0
  useroptions=16511
- stackedunder=findinfilefo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -820,12 +825,26 @@ windowlayout=535
  rcy=0
  children=1
   container,0,0,351,137
+ focusedchild=-1
  wsize=0
  active=0
  visible=0
  [symbolfo.grid]
  propcolwidthref=222
- values0=0
+ values0=13
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
  width0=111
  sortdescend0=0
  width1=135
@@ -889,7 +908,7 @@ windowlayout=535
  [componentstorefo]
  splitdir=0
  useroptions=24675
- stackedunder=symbolfo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
@@ -952,7 +971,7 @@ windowlayout=535
  [componentpalettefo]
  splitdir=0
  useroptions=24683
- stackedunder=mainfo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -982,7 +1001,7 @@ windowlayout=535
  ncy=0
  x=0
  y=0
- cx=276
+ cx=286
  cy=38
  rcx=0
  rcy=0
@@ -1010,7 +1029,7 @@ windowlayout=535
  irqoff=0
  splitdir=0
  useroptions=16491
- stackedunder=componentstorefo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -1029,7 +1048,7 @@ windowlayout=535
  [mainfo.panel1]
  splitdir=2
  useroptions=32235
- stackedunder=componentpalettefo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1043,7 +1062,7 @@ windowlayout=535
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
 [edit]
 hintwidth=0
@@ -1056,6 +1075,7 @@ sourcefiles=0
 relpaths=0
 ismoduletexts=0
 modules=0
+moduleoptions=0
 visiblemodules=0
 nomenumodules=0
 [sourcefo.tabwidget]

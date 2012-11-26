@@ -167,7 +167,7 @@ inherited netlistfo: tnetlistfo
         options = [mao_separator, mao_shortcutcaption]
       end    
       item
-        action = spicefo.printpanel
+        action = printpanel
       end>
   end
   inherited printpanel: taction[7]

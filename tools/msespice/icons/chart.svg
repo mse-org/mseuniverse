@@ -17,9 +17,9 @@
    inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="chart.svg"
    version="1.0"
-   inkscape:export-filename="/home/mse/packs/standard/git/mseuniverse/tools/msespice/icons/chart20.png"
-   inkscape:export-xdpi="21.166668"
-   inkscape:export-ydpi="21.166668"
+   inkscape:export-filename="/home/mse/packs/standard/git/mseuniverse/tools/msespice/icons/chart.png"
+   inkscape:export-xdpi="25.400002"
+   inkscape:export-ydpi="25.400002"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs4">
@@ -189,10 +189,10 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.5795373"
-     inkscape:cx="43.065808"
+     inkscape:cx="43.424261"
      inkscape:cy="41.130484"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer5"
+     inkscape:current-layer="layer3"
      inkscape:window-width="1016"
      inkscape:window-height="725"
      inkscape:window-x="0"
@@ -233,7 +233,15 @@
   <g
      inkscape:groupmode="layer"
      id="layer3"
-     inkscape:label="background" />
+     inkscape:label="background">
+    <rect
+       style="color:#000000;fill:#ffffff;stroke:none;stroke-width:4.59999990000000025;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;fill-opacity:1"
+       id="rect3812"
+       width="77.952759"
+       height="77.952759"
+       x="3.5433071"
+       y="3.5433047" />
+  </g>
   <g
      inkscape:groupmode="layer"
      id="layer1"
@@ -249,7 +257,7 @@
        id="path4501"
        sodipodi:nodetypes="ccc" />
     <path
-       style="opacity:1;fill:none;fill-opacity:0.75000000000000000;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.54330708999999988;stroke-linecap:square;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.54330708999999988;stroke-linecap:square;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        d="M 83.267717,5.3149582 L 83.267717,83.267714 L 1.7716535,83.267714"
        id="path5012" />
   </g>

@@ -229,6 +229,7 @@ begin
    updateprojectstate;
    projectmainstat.writestat;
    plotsfo.tabs.clear;
+   mainfo.setstattext('');
   end;
  end;
 end;
@@ -455,6 +456,7 @@ begin
    ' -b '+tosysfilepath(fspicefile,true);
  consolefo.term.addline('> '+str1);
  consolefo.beginsimu;
+ mainfo.setstattext('*** Simulation running ***',mtk_running);
  consolefo.term.execprog(str1);
  fsimurunning:= true;
  updateprojectstate;
@@ -476,6 +478,7 @@ begin
  if (consolefo.term.exitcode <= 1) and 
                         ttextstream.trycreate(stream1,frawfile) then begin
   consolefo.term.addline('**** FINISHED ****');
+  mainfo.setstattext('Simulation OK',mtk_finished);
   try
    fspice.readdata(stream1);
    plotsfo.updatecharts(fspice.plots);
@@ -485,6 +488,7 @@ begin
   end;
  end
  else begin
+  mainfo.setstattext('Simulation Error',mtk_error);
   consolefo.term.addline('**** ERROR ****');
   consolefo.activate;
  end;

@@ -23,15 +23,19 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedockpanelform,
  msestrings,msestatfile,msedataedits,mseedit,mseifiglob,msetypes,msedock,
- dockform,msebitmap;
+ dockform,msebitmap,msesplitter,msedispwidgets,mserichstring;
 
 type
+ messagetextkindty = (mtk_info,mtk_running,mtk_finished,mtk_error,mtk_signal);
+
  tmainfo = class(tdockform)
    mainme: tmainmenu;
    panelcontroller: tdockpanelformcontroller;
    panelsta: tstatfile;
    dockfo1: tdockfo;
    imagelist: timagelist;
+   tspacer1: tspacer;
+   statdisp: tstringdisp;
    procedure exitexe(const sender: TObject);
    procedure loadedexe(const sender: TObject);
    procedure newpanelexe(const sender: TObject);
@@ -44,6 +48,9 @@ type
    procedure shownetlistexe(const sender: TObject);
    procedure mainmenuupdateexe(const sender: tcustommenu);
    procedure showparamsexe(const sender: TObject);
+  public
+   procedure setstattext(const atext: msestring; 
+                   const akind: messagetextkindty = mtk_info);
  end;
 
 var
@@ -54,6 +61,24 @@ uses
  main_mfm,optionsform,mainmodule,consoleform,plotsform,netlistform,
  paramform;
  
+procedure tmainfo.setstattext(const atext: msestring; 
+                   const akind: messagetextkindty = mtk_info);
+begin
+ with statdisp do begin
+  value:= removelinebreaks(atext);
+  case akind of
+   mtk_finished: color:= cl_ltgreen;
+   mtk_error: color:= cl_ltyellow;
+   mtk_signal: color:= cl_ltred;
+   else color:= cl_parent;
+  end;
+  case akind of
+   mtk_running: font.color:= cl_red;
+   else font.color:= cl_black;
+  end;
+ end;
+end;
+
 procedure tmainfo.exitexe(const sender: TObject);
 begin
  application.terminate;
