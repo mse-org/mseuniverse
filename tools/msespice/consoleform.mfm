@@ -1,5 +1,5 @@
 inherited consolefo: tconsolefo
-  frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_lockbutton]
   visible = False
   bounds_x = 100
   bounds_y = 100
@@ -9,7 +9,7 @@ inherited consolefo: tconsolefo
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
   options = [fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfo.panelsta
   caption = 'Spice Console'

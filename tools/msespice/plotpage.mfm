@@ -121,7 +121,7 @@ inherited plotpagefo: tplotpagefo
                 caption = 'Chart/Trace Name'
               end            
               item
-                caption = 'X-Expression'
+                caption = 'Title/X-Expression'
               end            
               item
                 caption = 'X-Value'

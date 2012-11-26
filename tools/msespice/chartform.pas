@@ -23,7 +23,7 @@ uses
  msengspice,msesplitter,msedataedits,mseedit,mseifiglob,msestrings,msetypes,
  msesimplewidgets,msewidgets,msegraphedits,mserealsumedit,msegrids,
  msewidgetgrid,msecolordialog,scalegridform,msetimer,chartoptionsform,classes,
- mseact,mseactions,mselistbrowser,spiceform;
+ mseact,mseactions,mselistbrowser,spiceform,msedispwidgets,mserichstring;
 
 type
  tchartfo = class(tspicefo)
@@ -31,6 +31,8 @@ type
    optionsact: taction;
    plotact: taction;
    resetzoomact: taction;
+   tspacer1: tspacer;
+   titledisp: tstringdisp;
    procedure tracedataentered(const sender: TObject);
    procedure dataenteredexe(const sender: TObject);
    procedure showoptionsexe(const sender: TObject);
@@ -47,6 +49,8 @@ type
    procedure activateexe(const sender: tobject);
    function getchartcaption: msestring;
    procedure setchartcaption(const avalue: msestring);
+   function gettitle: msestring;
+   procedure settitle(const avalue: msestring);
   protected
    fnode: ttreelistedititem; //tchartnode
    procedure doupdatechart;
@@ -59,6 +63,7 @@ type
    procedure updatechart;
    property chartcaption: msestring read getchartcaption write setchartcaption;
    property optfo: tchartoptionsfo read foptfo;
+   property title: msestring read gettitle write settitle;
  end;
 
 procedure syncfitframe(const adock: tdockcontroller);
@@ -310,7 +315,6 @@ procedure tchartfo.updatechart;
 begin
  fchartvalid:= false;
  invalidate;
-// timer.enabled:= true;
 end;
 
 procedure tchartfo.dataenteredexe(const sender: TObject);
@@ -373,6 +377,17 @@ end;
 procedure tchartfo.resetzoomexe(const sender: TObject);
 begin
  chart.frame.zoom:= mc(1,1);
+end;
+
+function tchartfo.gettitle: msestring;
+begin
+ result:= titledisp.value;
+end;
+
+procedure tchartfo.settitle(const avalue: msestring);
+begin
+ titledisp.value:= avalue;
+ titledisp.visible:= avalue <> '';
 end;
 
 end.

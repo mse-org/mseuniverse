@@ -32,7 +32,7 @@ type
    fvalue0: msestring;
    fvalue1: msestring;
    fvalue2: msestring;
-   procedure setvalue0(const avalue: msestring);
+   procedure setvalue0(const avalue: msestring); virtual;
    procedure setvalue1(const avalue: msestring);
    procedure setvalue2(const avalue: msestring);
   protected
@@ -49,6 +49,7 @@ type
   private
    fchart: tchartfo;
   protected
+   procedure setvalue0(const avalue: msestring); override;
    function createsubnode: ttreelistitem; override;
    procedure setcaption(const avalue: msestring); override;
    function defaulttracecaption: msestring;
@@ -393,6 +394,14 @@ lab1:
    goto lab1;
   end;
  end; 
+end;
+
+procedure tchartnode.setvalue0(const avalue: msestring);
+begin
+ inherited;
+ if fchart <> nil then begin
+  fchart.title:= avalue;
+ end;
 end;
 
 { ttracenode }

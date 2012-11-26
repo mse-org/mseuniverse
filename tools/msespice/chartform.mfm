@@ -79,10 +79,10 @@ inherited chartfo: tchartfo
     frame.zoomheightstep = 1.1
     frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     bounds_x = 0
-    bounds_y = 0
+    bounds_y = 18
     bounds_cx = 349
-    bounds_cy = 297
-    anchors = []
+    bounds_cy = 279
+    anchors = [an_top, an_bottom]
     traces.xserstart = 0
     traces.xstart = 0
     traces.ystart = 0
@@ -101,7 +101,32 @@ inherited chartfo: tchartfo
     ydials.start = 0
     ydials.range = 1
   end
-  object optionsact: taction[1]
+  object tspacer1: tspacer[1]
+    taborder = 1
+    visible = True
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 349
+    bounds_cy = 18
+    anchors = [an_top]
+    optionsscale = [osc_expandy, osc_shrinky]
+    linkbottom = chart
+    object titledisp: tstringdisp
+      color = -1610612730
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.dummy = 0
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 349
+      bounds_cy = 18
+      anchors = [an_top]
+      textflags = [tf_xcentered, tf_ycentered]
+      reffontheight = 14
+    end
+  end
+  object optionsact: taction[2]
     caption = 'Show &Options'
     onexecute = showoptionsexe
     left = 168
@@ -111,7 +136,7 @@ inherited chartfo: tchartfo
       308
     )
   end
-  object plotact: taction[2]
+  object plotact: taction[3]
     caption = 'Show &Plot'
     onexecute = showplotexe
     left = 168
@@ -121,7 +146,7 @@ inherited chartfo: tchartfo
       306
     )
   end
-  inherited popupme: tpopupmenu[3]
+  inherited popupme: tpopupmenu[4]
     menu.submenu.count = 4
     menu.submenu.items = <    
       item
@@ -139,11 +164,11 @@ inherited chartfo: tchartfo
         state = [as_localcaption]
       end>
   end
-  inherited printpanel: taction[4]
+  inherited printpanel: taction[5]
     caption = '&Print Chart'
     onexecute = printchartexe
   end
-  object resetzoomact: taction[5]
+  object resetzoomact: taction[6]
     caption = 'Reset &Zoom'
     onexecute = resetzoomexe
     onupdate = resetzoomupdateexe

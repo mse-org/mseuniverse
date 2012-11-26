@@ -1,6 +1,6 @@
 object dockfo: tdockfo
   frame.grip_size = 10
-  frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_lockbutton]
   frame.dummy = 0
   popupmenu = popupme
   bounds_x = 100
@@ -21,9 +21,9 @@ object dockfo: tdockfo
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_acceptsdock, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_acceptsdock, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize]
   dragdock.onboundschanged = boundschangedexe
-  statfile = mainmo.projectmainstat
+  statfile = mainmo.projectstat2
   moduleclassname = 'tdockpanelform'
   object timer: ttimer
     interval = 0
