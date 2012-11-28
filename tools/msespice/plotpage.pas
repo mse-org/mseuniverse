@@ -377,6 +377,7 @@ procedure tchartnode.dostatread(const reader: tstatreader);
 begin
  inherited;
  setcaption(fcaption);
+ fchart.title:= fvalue0;
 end;
 
 function tchartnode.defaulttracecaption: msestring;

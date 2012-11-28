@@ -92,6 +92,9 @@ inherited chartfo: tchartfo
     traces.image_list = mainmo.tracesymbols
     traces.image_widthmm = 0
     traces.image_heighthmm = 0
+    traces.legend_x = 0
+    traces.legend_y = 0
+    traces.legend_placement = tlp_below
     xstart = 0
     ystart = 0
     xrange = 1
@@ -100,6 +103,7 @@ inherited chartfo: tchartfo
     xdials.range = 1
     ydials.start = 0
     ydials.range = 1
+    fitframe_bottom = 1
   end
   object tspacer1: tspacer[1]
     taborder = 1

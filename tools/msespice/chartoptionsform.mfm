@@ -128,7 +128,7 @@ inherited chartoptionsfo: tchartoptionsfo
             caption = 'Symbol'
           end        
           item
-            caption = 'A'
+            caption = 'Legend'
             hint = 'X auto scale'
           end        
           item
@@ -138,7 +138,7 @@ inherited chartoptionsfo: tchartoptionsfo
             caption = 'X-Start'
           end>
       end>
-    datacols.count = 8
+    datacols.count = 9
     datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[xexpdisp]
@@ -188,6 +188,11 @@ inherited chartoptionsfo: tchartoptionsfo
         options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tracesymbol'
         dataclass = tgridenumdatalist
+      end    
+      item[tracelegend]
+        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tracelegend'
+        dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
     statfile = mainmo.projectstat2
@@ -317,6 +322,18 @@ inherited chartoptionsfo: tchartoptionsfo
       dropdown.cols.items = <      
         item
         end>
+      reffontheight = 14
+    end
+    object tracelegend: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 9
+      visible = False
+      bounds_x = 516
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      ondataentered = dataenteredexe
       reffontheight = 14
     end
   end

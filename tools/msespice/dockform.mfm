@@ -25,13 +25,6 @@ object dockfo: tdockfo
   dragdock.onboundschanged = boundschangedexe
   statfile = mainmo.projectstat2
   moduleclassname = 'tdockpanelform'
-  object timer: ttimer
-    interval = 0
-    options = [to_single]
-    ontimer = timerexe
-    left = 248
-    top = 48
-  end
   object popupme: tpopupmenu
     menu.submenu.count = 1
     menu.submenu.items = <    
@@ -46,5 +39,12 @@ object dockfo: tdockfo
     onupdate = updateprintexe
     left = 248
     top = 24
+  end
+  object timer: ttimer
+    interval = 0
+    options = [to_single]
+    ontimer = timerexe
+    left = 248
+    top = 48
   end
 end

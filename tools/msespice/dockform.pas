@@ -24,13 +24,16 @@ uses
 
 type
  tdockfo = class(tdockpanelform)
-   timer: ttimer;
    popupme: tpopupmenu;
    printact: taction;
+   timer: ttimer;
    procedure boundschangedexe(const sender: tdockcontroller);
    procedure timerexe(const sender: TObject);
    procedure updateprintexe(const sender: tcustomaction);
    procedure printexe(const sender: TObject);
+//   procedure idleexe(var again: Boolean);
+  private
+//   fchartchanged: boolean;
   public
    procedure chartchanged(const sender: twidget);
  end;
@@ -46,6 +49,7 @@ end;
 
 procedure tdockfo.chartchanged(const sender: twidget);
 begin
+// fchartchanged:= true;
  timer.enabled:= true;
 end;
 
@@ -63,5 +67,13 @@ procedure tdockfo.printexe(const sender: TObject);
 begin
  tprintwindowfo.create(container); 
 end;
-
+{
+procedure tdockfo.idleexe(var again: Boolean);
+begin
+ if fchartchanged then begin
+  syncfitframe(dragdock);  
+  fchartchanged:= false;
+ end;
+end;
+}
 end.

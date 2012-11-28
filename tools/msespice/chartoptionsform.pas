@@ -41,6 +41,7 @@ type
    yunitdisp: tstringedit;
    xunitdisp: tstringedit;
    tracesymbol: tenumedit;
+   tracelegend: tstringedit;
    procedure dataenteredexe(const sender: TObject);
    procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
    procedure showchartexe(const sender: TObject);

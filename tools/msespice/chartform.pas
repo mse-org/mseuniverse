@@ -296,6 +296,7 @@ begin
    with chart.traces[int1] do begin
     color:= foptfo.tracecolor[int1];
     imagenr:= foptfo.tracesymbol[int1];
+    legend_caption:= foptfo.tracelegend[int1];
    end;
   end;
   checkscale(foptfo.xscalefo,false);
