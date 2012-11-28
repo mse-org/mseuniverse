@@ -343,7 +343,7 @@ inherited chartoptionsfo: tchartoptionsfo
     bounds_x = 0
     bounds_y = 139
     bounds_cx = 662
-    bounds_cy = 60
+    bounds_cy = 74
     anchors = [an_bottom]
     object tsplitter3: tsplitter
       color = -1879048189
@@ -351,7 +351,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 328
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 60
+      bounds_cy = 74
       anchors = [an_left]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = xscalefo
@@ -363,10 +363,10 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 328
-      bounds_cy = 60
+      bounds_cy = 74
       inherited scalegrid: twidgetgrid
         bounds_cx = 328
-        bounds_cy = 60
+        bounds_cy = 74
         font.name = ''
         fixcols.items = <        
           item
@@ -377,9 +377,6 @@ inherited chartoptionsfo: tchartoptionsfo
               item
               end            
               item
-              end            
-              item
-                font.xscale = 1
               end            
               item
                 font.xscale = 1
@@ -404,11 +401,13 @@ inherited chartoptionsfo: tchartoptionsfo
                 font.xscale = 1
               end            
               item
+                font.xscale = 1
+              end            
+              item
+                font.xscale = 1
               end>
           end>
         datacols.items = <        
-          item[autoscale]
-          end        
           item[log]
           end        
           item[intervalco]
@@ -421,17 +420,14 @@ inherited chartoptionsfo: tchartoptionsfo
           end        
           item[oppos]
           end        
+          item[autoscale]
+          end        
           item[start]
           end        
           item[range]
           end        
           item[startmargin]
             width = 28
-            data = (
-              (
-                0.3
-              )
-            )
           end        
           item[endmargin]
             width = 28
@@ -456,6 +452,7 @@ inherited chartoptionsfo: tchartoptionsfo
         inherited oppos: tbooleanedit[7]
         end
         inherited autoscale: tbooleanedit[8]
+          face.dummy = 0
         end
         inherited unittext: tstringedit[9]
           bounds_x = 365
@@ -472,11 +469,11 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 331
       bounds_y = 0
       bounds_cx = 331
-      bounds_cy = 60
+      bounds_cy = 74
       anchors = [an_right]
       inherited scalegrid: twidgetgrid
         bounds_cx = 331
-        bounds_cy = 60
+        bounds_cy = 74
         font.name = ''
         fixcols.items = <        
           item
@@ -487,9 +484,6 @@ inherited chartoptionsfo: tchartoptionsfo
               item
               end            
               item
-              end            
-              item
-                font.xscale = 1
               end            
               item
                 font.xscale = 1
@@ -514,11 +508,13 @@ inherited chartoptionsfo: tchartoptionsfo
                 font.xscale = 1
               end            
               item
+                font.xscale = 1
+              end            
+              item
+                font.xscale = 1
               end>
           end>
         datacols.items = <        
-          item[autoscale]
-          end        
           item[log]
           end        
           item[intervalco]
@@ -531,17 +527,14 @@ inherited chartoptionsfo: tchartoptionsfo
           end        
           item[oppos]
           end        
+          item[autoscale]
+          end        
           item[start]
           end        
           item[range]
           end        
           item[startmargin]
             width = 28
-            data = (
-              (
-                0.3
-              )
-            )
           end        
           item[endmargin]
             width = 28

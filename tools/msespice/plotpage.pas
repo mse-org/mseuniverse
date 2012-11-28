@@ -494,7 +494,7 @@ var
 begin
  result:= '';
  ar1:= chartnodes;
- if ar1 <> nil then begin
+ if (ar1 <> nil) and (fplot <> nil) then begin
   ar2:= nil;
   for int1:= 0 to high(ar1) do begin
    stackarray(ar1[int1].getsavevalues,ar2);

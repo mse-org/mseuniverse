@@ -27,9 +27,6 @@ object scalegridfo: tscalegridfo
         captions.count = 11
         captions.items = <        
           item
-            caption = 'A'
-          end        
-          item
             caption = 'log'
           end        
           item
@@ -47,6 +44,9 @@ object scalegridfo: tscalegridfo
           item
           end        
           item
+            caption = 'A'
+          end        
+          item
             caption = 'Start'
           end        
           item
@@ -62,17 +62,6 @@ object scalegridfo: tscalegridfo
     rowcount = 1
     datacols.count = 12
     datacols.items = <    
-      item[autoscale]
-        width = 16
-        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
-        widgetname = 'autoscale'
-        dataclass = tgridintegerdatalist
-        data = (
-          (
-            -1
-          )
-        )
-      end    
       item[log]
         width = 18
         options = [co_drawfocus, co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
@@ -134,6 +123,17 @@ object scalegridfo: tscalegridfo
           )
         )
       end    
+      item[autoscale]
+        width = 16
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'autoscale'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            -1
+          )
+        )
+      end    
       item[start]
         widgetname = 'start'
         dataclass = tgridrealdatalist
@@ -189,7 +189,7 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 1
-      bounds_x = 0
+      bounds_x = 188
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
@@ -204,7 +204,7 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 2
-      bounds_x = 17
+      bounds_x = 0
       bounds_y = 0
       bounds_cx = 18
       bounds_cy = 16
@@ -220,7 +220,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 36
+      bounds_x = 19
       bounds_y = 0
       bounds_cx = 31
       bounds_cy = 16
@@ -239,7 +239,7 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 4
-      bounds_x = 68
+      bounds_x = 51
       bounds_y = 0
       bounds_cx = 27
       bounds_cy = 16
@@ -251,7 +251,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 96
+      bounds_x = 79
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -266,7 +266,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 147
+      bounds_x = 130
       bounds_y = 0
       bounds_cx = 29
       bounds_cy = 16
@@ -285,7 +285,7 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 7
-      bounds_x = 177
+      bounds_x = 160
       bounds_y = 0
       bounds_cx = 27
       bounds_cy = 16
