@@ -27,22 +27,37 @@ uses
  msesys,msetypes,msepipestream,mseprocess,msengspice,mseificomp,mseificompglob;
 
 const
+{$ifdef mswindows}
+ ngspicename = 'ngspice.exe';
+ ps2pdfname = 'ps2pdf.exe';
+{$else}
  ngspicename = 'ngspice';
+ ps2pdfname = 'ps2pdf';
+{$endif}
  realformat = '0..######g';
  
 type
- tprojectoptions = class(toptionsclass)
+ tspiceoptions = class(toptionsclass)
   private
    fngspice: filenamety;
    fps2pdf: filenamety;
+   procedure setngspice(const avalue: filenamety);
+   procedure setps2pdf(const avalue: filenamety);
+  public
+   constructor create;
+  published
+   property ngspice: filenamety read fngspice write setngspice;
+   property ps2pdf: filenamety read fps2pdf write setps2pdf;
+ end;
+
+ tprojectoptions = class(toptionsclass)
+  private
    fnetlist: filenamety;
    flibfiles: filenamearty;
    flibnames: filenamearty;
   public
    constructor create;
   published
-   property ngspice: filenamety read fngspice write fngspice;
-   property ps2pdf: filenamety read fps2pdf write fps2pdf;
    property netlist: filenamety read fnetlist write fnetlist;
    property libfiles: filenamearty read flibfiles write flibfiles;
    property libnames: filenamearty read flibnames write flibnames;
@@ -73,6 +88,7 @@ type
    integerlink: tifiintegerlinkcomp;
    enumlink: tifienumlinkcomp;
    tracesymbols: timagelist;
+   spiceoptionscomp: tguirttistat;
    procedure getobjexe(const sender: TObject; var aobject: TObject);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
@@ -90,6 +106,9 @@ type
    procedure afteroptionsreadexe(const sender: TObject);
    procedure projectdataenteredexe(const sender: TObject;
                    const aindex: Integer);
+   procedure getoptionsobjsexe(const sender: TObject;
+                   var aobjects: objectinfoarty);
+   procedure getspiceobjexe(const sender: TObject; var aobject: TObject);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -98,6 +117,7 @@ type
    fmodified: boolean;
   protected
    fprojectoptions: tprojectoptions;
+   fspiceoptions: tspiceoptions;
    fspice: tngspice;
    procedure updateprojectstate;
   public
@@ -117,6 +137,7 @@ type
    property projectloaded: boolean read fprojectloaded;
    property simurunning: boolean read fsimurunning;
    property projectoptions: tprojectoptions read fprojectoptions;
+   property spiceoptions: tspiceoptions read fspiceoptions;
  end;
 
 var
@@ -128,11 +149,39 @@ uses
  mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform,paramform,
  msestockobjects,typinfo;
 
+{ tspiceoptions }
+
+constructor tspiceoptions.create;
+begin
+ fngspice:= ngspicename;
+ fps2pdf:= ps2pdfname;
+end;
+
+procedure tspiceoptions.setngspice(const avalue: filenamety);
+begin
+ if avalue = '' then begin
+  fngspice:= ngspicename;
+ end
+ else begin
+  fngspice:= avalue;
+ end;
+end;
+
+procedure tspiceoptions.setps2pdf(const avalue: filenamety);
+begin
+ if avalue = '' then begin
+  fps2pdf:= ps2pdfname;
+ end
+ else begin
+  fps2pdf:= avalue;
+ end;
+end;
+
 { tprojectoptions }
 
 constructor tprojectoptions.create;
 begin
- fngspice:= ngspicename;
+//fngspice:= ngspicename;
 end;
 
 { mainmo }
@@ -140,6 +189,7 @@ end;
 constructor tmainmo.create(aowner: tcomponent);
 begin
  fprojectoptions:= tprojectoptions.create;
+ fspiceoptions:= tspiceoptions.create;
  fspice:= tngspice.create;
  inherited;
 end;
@@ -163,12 +213,9 @@ end;
 
 procedure tmainmo.editoptions;
 begin
- projectoptionscomp.edit;
-end;
-
-procedure tmainmo.getoptionsobjexe(const sender: TObject; var aobject: TObject);
-begin
- aobject:= fprojectoptions;
+ if projectoptionscomp.edit = mr_ok then begin
+  mainstat.writestat;
+ end;
 end;
 
 function tmainmo.checkfilesave: boolean;
@@ -452,7 +499,7 @@ begin
   stream2.free;
  end;
  consolefo.term.clear;
- str1:= tosysfilepath(fprojectoptions.ngspice,true)+
+ str1:= tosysfilepath(fspiceoptions.ngspice,true)+
    ' -b '+tosysfilepath(fspicefile,true);
  consolefo.term.addline('> '+str1);
  consolefo.beginsimu;
@@ -567,6 +614,26 @@ procedure tmainmo.projectchanged;
 begin
  fmodified:= true;
  updateprojectstate;
+end;
+
+procedure tmainmo.getoptionsobjsexe(const sender: TObject;
+               var aobjects: objectinfoarty);
+begin
+ if tguirttistat(sender).editing then begin
+  setlength(aobjects,2);
+  aobjects[0].obj:= fspiceoptions;
+  aobjects[1].obj:= fprojectoptions;
+ end;
+end;
+
+procedure tmainmo.getoptionsobjexe(const sender: TObject; var aobject: TObject);
+begin
+ aobject:= fprojectoptions;
+end;
+
+procedure tmainmo.getspiceobjexe(const sender: TObject; var aobject: TObject);
+begin
+ aobject:= fspiceoptions;
 end;
 
 end.

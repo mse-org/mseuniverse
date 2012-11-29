@@ -43,16 +43,36 @@ type
    ps2pdf: tfilenameedit;
    procedure netlistsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
+   procedure setngspiceexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure setps2pdfexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
  end;
 
 implementation
 uses
- optionsform_mfm,netlistform;
+ optionsform_mfm,netlistform,mainmodule;
  
 procedure toptionsfo.netlistsetexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
  accept:= netlistfo.checksave;
+end;
+
+procedure toptionsfo.setngspiceexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ if avalue = '' then begin
+  avalue:= ngspicename;
+ end;
+end;
+
+procedure toptionsfo.setps2pdfexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ if avalue = '' then begin
+  avalue:= ps2pdfname;
+ end;
 end;
 
 end.

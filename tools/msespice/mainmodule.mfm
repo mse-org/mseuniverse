@@ -16,11 +16,12 @@ object mainmo: tmainmo
   object projectoptionscomp: tguirttistat
     statfile = projectstat1
     ongetobject = getoptionsobjexe
+    ongetobjects = getoptionsobjsexe
     onstatafterread = afteroptionsreadexe
     options = [rso_autowritestat]
     onafteredit = aftereditoptionsexe
-    left = 16
-    top = 16
+    left = 8
+    top = 32
   end
   object projectstat1: tstatfile
     onstatread = projreadexe
@@ -185,5 +186,11 @@ object mainmo: tmainmo
     height = 15
     left = 152
     top = 200
+  end
+  object spiceoptionscomp: tguirttistat
+    statfile = mainstat
+    ongetobject = getspiceobjexe
+    left = 8
+    top = 56
   end
 end

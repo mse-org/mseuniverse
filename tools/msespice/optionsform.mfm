@@ -153,6 +153,7 @@ object optionsfo: toptionsfo
         anchors = [an_left, an_top, an_right]
         statfile = tstatfile1
         textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+        onsetvalue = setngspiceexe
         reffontheight = 14
       end
       object ps2pdf: tfilenameedit
@@ -172,6 +173,7 @@ object optionsfo: toptionsfo
         anchors = [an_left, an_top, an_right]
         statfile = tstatfile1
         textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+        onsetvalue = setps2pdfexe
         reffontheight = 14
       end
     end

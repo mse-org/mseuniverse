@@ -106,10 +106,10 @@ begin
    psprinter.beginprint(ttextstream.create(fna1,fm_create));
    updatecanvas;
    psprinter.endprint;
-   fna2:= mainmo.projectoptions.ps2pdf;
-   if fna2 = '' then begin
-    fna2:= 'ps2pdf';
-   end;
+   fna2:= mainmo.spiceoptions.ps2pdf;
+//   if fna2 = '' then begin
+//    fna2:= 'ps2pdf';
+//   end;
    fna3:= pdffile.sysvaluequoted;
    if fna3 = '' then begin
     fna3:= 'msespice.pdf';
