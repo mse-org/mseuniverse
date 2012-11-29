@@ -8,6 +8,7 @@ inherited paramfo: tparamfo
     354
   )
   caption = 'Params'
+  icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
   icon.image = {
     0000000002000000180000001800000078030000000000000000000000000000
@@ -67,15 +68,17 @@ inherited paramfo: tparamfo
       end>
     datacols.count = 2
     datacols.items = <    
-      item
+      item[paramname]
         width = 99
         options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'paramname'
+        dataclass = tgridmsestringdatalist
       end    
-      item
+      item[paramexpression]
         width = 330
         options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'paramexpression'
+        dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
     statfile = mainmo.projectmainstat
@@ -109,5 +112,12 @@ inherited paramfo: tparamfo
       ifilink = mainmo.stringlink
       reffontheight = 14
     end
+  end
+  inherited printpanel: taction[1]
+  end
+  inherited popupme: tpopupmenu[2]
+    menu.submenu.items = <    
+      item
+      end>
   end
 end

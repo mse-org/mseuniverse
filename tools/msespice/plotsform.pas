@@ -21,10 +21,10 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msescrollbar,
  msestatfile,msestream,msestrings,msetabs,msewidgets,sysutils,msetypes,
- msengspice;
+ msengspice,spiceform;
 
 type
- tplotsfo = class(tdockform)
+ tplotsfo = class(tspicefo)
    tabs: ttabwidget;
    popupmen: tpopupmenu;
    procedure createexe(const sender: TObject);

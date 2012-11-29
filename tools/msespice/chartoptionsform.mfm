@@ -1,5 +1,4 @@
 inherited chartoptionsfo: tchartoptionsfo
-  visible = False
   bounds_x = 100
   bounds_y = 100
   bounds_cx = 672
@@ -139,18 +138,16 @@ inherited chartoptionsfo: tchartoptionsfo
           end>
       end>
     datacols.count = 9
-    datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[xexpdisp]
         color = -1879048185
         width = 62
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_savestate, co_mousescrollrow]
         widgetname = 'xexpdisp'
         dataclass = tgridmsestringdatalist
       end    
-      item[xunitdisp]
-        options = [co_proportional, co_savestate, co_mousescrollrow]
-        widgetname = 'xunitdisp'
+      item[xunit]
+        widgetname = 'xunit'
         dataclass = tgridmsestringdatalist
       end    
       item[xscalenum]
@@ -162,13 +159,12 @@ inherited chartoptionsfo: tchartoptionsfo
       item[yexpdisp]
         color = -1879048185
         width = 129
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_savestate, co_mousescrollrow]
         widgetname = 'yexpdisp'
         dataclass = tgridmsestringdatalist
       end    
-      item[yunitdisp]
-        options = [co_proportional, co_savestate, co_mousescrollrow]
-        widgetname = 'yunitdisp'
+      item[yunit]
+        widgetname = 'yunit'
         dataclass = tgridmsestringdatalist
       end    
       item[yscalenum]
@@ -179,18 +175,15 @@ inherited chartoptionsfo: tchartoptionsfo
       end    
       item[tracecolor]
         width = 85
-        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tracecolor'
         dataclass = tgridenumdatalist
       end    
       item[tracesymbol]
         width = 86
-        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tracesymbol'
         dataclass = tgridenumdatalist
       end    
       item[tracelegend]
-        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tracelegend'
         dataclass = tgridmsestringdatalist
       end>
@@ -210,7 +203,7 @@ inherited chartoptionsfo: tchartoptionsfo
       ondataentered = dataenteredexe
       reffontheight = 14
     end
-    object xunitdisp: tstringedit
+    object xunit: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
@@ -219,7 +212,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
       ondataentered = dataenteredexe
       reffontheight = 14
     end
@@ -252,7 +245,7 @@ inherited chartoptionsfo: tchartoptionsfo
       ondataentered = dataenteredexe
       reffontheight = 14
     end
-    object yunitdisp: tstringedit
+    object yunit: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
@@ -261,7 +254,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
       ondataentered = dataenteredexe
       reffontheight = 14
     end
@@ -343,7 +336,7 @@ inherited chartoptionsfo: tchartoptionsfo
     bounds_x = 0
     bounds_y = 139
     bounds_cx = 662
-    bounds_cy = 74
+    bounds_cy = 72
     anchors = [an_bottom]
     object tsplitter3: tsplitter
       color = -1879048189

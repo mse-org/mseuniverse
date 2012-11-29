@@ -110,7 +110,8 @@ var
 
 var
  int1: integer;
- 
+const
+ pad = 1; 
 begin
  children1:= adock.getitems;
  case adock.currentsplitdir of
@@ -119,10 +120,10 @@ begin
    for int1:= 0 to high(ar1) do begin
     if ar1[int1] then begin
      with tchartfo(children1[int1]).chart,frame,fitframe do begin
-      framei_left:= left1-left;
-      framei_top:= 0;
-      framei_right:= right1-right;
-      framei_bottom:= 0;
+      framei_left:= left1-left + pad;
+      framei_top:= pad;
+      framei_right:= right1-right+pad+1;
+      framei_bottom:= pad;
      end;
     end;
    end;
@@ -132,10 +133,10 @@ begin
    for int1:= 0 to high(ar1) do begin
     if ar1[int1] then begin
      with tchartfo(children1[int1]).chart,frame,fitframe do begin
-      framei_left:= 0;
-      framei_top:= top1-top;
-      framei_right:= 0;
-      framei_bottom:= bottom1-bottom;
+      framei_left:= pad;
+      framei_top:= top1-top+pad;
+      framei_right:= 1;
+      framei_bottom:= bottom1-bottom+pad+1;
      end;
     end;
    end;
@@ -143,7 +144,7 @@ begin
   else begin
    for int1:= 0 to high(children1) do begin
     if children1[int1] is tcustomchart then begin
-     tchartfo(children1[int1]).chart.frame.framei:= nullframe;
+     tchartfo(children1[int1]).chart.frame.framei:= mf(pad,pad,pad+1,pad+1);
     end;
    end;
   end;
@@ -236,7 +237,7 @@ procedure tchartfo.doupdatechart;
      end;
      int2:= foptfo.yscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
-      ascalefo.unittext[int2]:= foptfo.yunitdisp[int1];
+      ascalefo.unittext[int2]:= foptfo.yunit[int1];
       with chart.traces[int1] do begin;
        if autoscale[int2] then begin
         with ar1[int2] do begin
@@ -262,7 +263,7 @@ procedure tchartfo.doupdatechart;
      end;
      int2:= foptfo.xscalenum[int1]-1;
      if int2 <= scalegrid.rowhigh then begin
-      ascalefo.unittext[int2]:= foptfo.xunitdisp[int1];
+      ascalefo.unittext[int2]:= foptfo.xunit[int1];
       with chart.traces[int1] do begin;
        if autoscale[int2] then begin
         with ar1[int2] do begin

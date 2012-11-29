@@ -305,8 +305,8 @@ procedure tmainmo.updateprojectstate;
 begin
  closeprojectact.enabled:= projectloaded; 
  optionsact.enabled:= projectloaded;
- saveprojectasact.enabled:= projectloaded and fmodified;
- saveprojectact.enabled:= projectloaded;
+ saveprojectact.enabled:= projectloaded and fmodified;
+ saveprojectasact.enabled:= projectloaded;
  simustopact.enabled:= simurunning;
  simustartact.enabled:= projectloaded and not simurunning;
  

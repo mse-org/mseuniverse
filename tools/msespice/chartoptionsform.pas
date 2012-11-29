@@ -38,8 +38,8 @@ type
    yscalefo: tscalegridfo;
    chartact: taction;
    plotact: taction;
-   yunitdisp: tstringedit;
-   xunitdisp: tstringedit;
+   yunit: tstringedit;
+   xunit: tstringedit;
    tracesymbol: tenumedit;
    tracelegend: tstringedit;
    procedure dataenteredexe(const sender: TObject);

@@ -1,6 +1,5 @@
 inherited consolefo: tconsolefo
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_lockbutton]
-  visible = False
   bounds_x = 100
   bounds_y = 100
   container.bounds = (

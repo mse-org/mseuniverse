@@ -25,6 +25,8 @@ uses
  msestrings,msestatfile,msedataedits,mseedit,mseifiglob,msetypes,msedock,
  dockform,msebitmap,msesplitter,msedispwidgets,mserichstring;
 
+const
+ versiontext = '0.7 unstable';
 type
  messagetextkindty = (mtk_info,mtk_running,mtk_finished,mtk_error,mtk_signal);
 
@@ -48,6 +50,7 @@ type
    procedure shownetlistexe(const sender: TObject);
    procedure mainmenuupdateexe(const sender: tcustommenu);
    procedure showparamsexe(const sender: TObject);
+   procedure aboutexe(const sender: TObject);
   public
    procedure setstattext(const atext: msestring; 
                    const akind: messagetextkindty = mtk_info);
@@ -59,7 +62,7 @@ var
 implementation
 uses
  main_mfm,optionsform,mainmodule,consoleform,plotsform,netlistform,
- paramform;
+ paramform,msewidgets;
  
 procedure tmainfo.setstattext(const atext: msestring; 
                    const akind: messagetextkindty = mtk_info);
@@ -87,7 +90,9 @@ end;
 procedure tmainfo.loadedexe(const sender: TObject);
 begin
  mainmo.projectoptionscomp.dialogclass:= toptionsfo;
- mainmo.loadproject('');
+ if mainmo.projectmainstat.filename <> '' then begin
+  mainmo.loadproject('');
+ end;
 end;
 
 procedure tmainfo.newpanelexe(const sender: TObject);
@@ -132,6 +137,17 @@ end;
 procedure tmainfo.mainmenuupdateexe(const sender: tcustommenu);
 begin
  mainmenu.menu.itembynames(['simulation']).enabled:= mainmo.projectloaded;
+end;
+
+procedure tmainfo.aboutexe(const sender: TObject);
+begin
+ showmessage('MSEgui version: '+mseguiversiontext+c_linefeed+
+             'MSEspice version: '+versiontext+c_linefeed+
+             'Host: '+ platformtext+ c_linefeed+
+             c_linefeed+
+             'Copyright 1999-2012'+c_linefeed+
+             'by Martin Schreiber'
+             ,'About MSEspice');
 end;
 
 end.

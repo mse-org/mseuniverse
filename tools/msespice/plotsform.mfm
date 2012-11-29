@@ -1,13 +1,7 @@
-object plotsfo: tplotsfo
-  frame.grip_size = 10
+inherited plotsfo: tplotsfo
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
-  frame.dummy = 0
   bounds_x = 235
   bounds_y = 234
-  bounds_cx = 445
-  bounds_cy = 354
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
@@ -18,6 +12,7 @@ object plotsfo: tplotsfo
   options = [fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfo.panelsta
   caption = 'Plots'
+  icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
   icon.image = {
     0000000002000000180000001800000058040000000000000000000000000000
@@ -62,8 +57,8 @@ object plotsfo: tplotsfo
     FFFFFF00FFFFFF00FFFFFF00
   }
   oncreate = createexe
-  moduleclassname = 'tdockform'
-  object tabs: ttabwidget
+  moduleclassname = 'tspicefo'
+  object tabs: ttabwidget[0]
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
@@ -74,7 +69,14 @@ object plotsfo: tplotsfo
     tab_size = 18
     statfile = mainfo.panelsta
   end
-  object popupmen: tpopupmenu
+  inherited printpanel: taction[1]
+  end
+  inherited popupme: tpopupmenu[2]
+    menu.submenu.items = <    
+      item
+      end>
+  end
+  object popupmen: tpopupmenu[3]
     onupdate = popupupdateexe
     menu.submenu.count = 2
     menu.submenu.items = <    

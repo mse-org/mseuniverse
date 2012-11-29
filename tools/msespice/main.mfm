@@ -20,6 +20,7 @@ object mainfo: tmainfo
   mainmenu = mainme
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_savepos, fo_savezorder, fo_savestate]
   statfile = panelsta
+  caption = 'MSEspice'
   onloaded = loadedexe
   onclosequery = closequeryexe
   moduleclassname = 'tdockform'
@@ -75,7 +76,7 @@ object mainfo: tmainfo
   end
   object mainme: tmainmenu
     onupdate = mainmenuupdateexe
-    menu.submenu.count = 4
+    menu.submenu.count = 5
     menu.submenu.items = <    
       item
         submenu.count = 10
@@ -198,6 +199,11 @@ object mainfo: tmainfo
       item
         action = mainmo.optionsact
         state = [as_disabled]
+      end    
+      item
+        caption = 'About'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = aboutexe
       end>
     left = 176
     top = 16

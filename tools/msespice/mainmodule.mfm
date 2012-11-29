@@ -43,7 +43,6 @@ object mainmo: tmainmo
   end
   object projectfiledialog: tfiledialog
     statfile = mainstat
-    controller.filename = 'default.msp'
     controller.filterlist.data = (
       (
         'MSEspice Project'
@@ -100,7 +99,6 @@ object mainmo: tmainmo
     top = 224
   end
   object projectmainstat: tstatfile
-    filename = 'default.msp'
     statfile = mainstat
     savedmemoryfiles = '*fo.sta'
     left = 152
