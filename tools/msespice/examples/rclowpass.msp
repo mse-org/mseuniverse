@@ -35,8 +35,8 @@ optionsfo.sta=55
  sortdescend1=0
  [optionsfo.netlist]
  filenames=1
-  /home/mse/packs/standard/git/mseuniverse/tools/msespice/test.cir
- lastdir=/home/mse/packs/standard/git/mseuniverse/tools/msespice/
+  /home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
+ lastdir=/home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/
  filehistory=1
   /home/mse/packs/standard/git/mseuniverse/tools/msespice/test.cir
  filefilterindex=0
@@ -48,7 +48,7 @@ optionsfo.sta=55
  cy=0
  [optionsfo.ttabwidget1]
  firsttab=0
- index=1
+ index=0
  [optionsfo]
  stackedunder=
  x=337
@@ -325,7 +325,7 @@ client_1=683
  [paramfo]
  splitdir=0
  useroptions=127
- stackedunder=netlistfo
+ stackedunder=p0_1.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -423,7 +423,7 @@ client_1=683
  [p0_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=mainfo
+ stackedunder=plotsfo
  parent=
  mdistate=0
  nx=0
@@ -614,7 +614,7 @@ client_1=683
  [p0_1.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=p0_0.chartoptionsfo
+ stackedunder=p1_0.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -805,7 +805,7 @@ client_1=683
  [p1_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=p0_1.chartoptionsfo
+ stackedunder=netlistfo
  parent=
  mdistate=0
  nx=0
@@ -1032,7 +1032,7 @@ clients=70
  [consolefo]
  splitdir=0
  useroptions=24703
- stackedunder=plotsfo
+ stackedunder=p0_0.chartoptionsfo
  parent=
  mdistate=3
  nx=0
@@ -1054,7 +1054,7 @@ clients=70
  [plotsfo]
  splitdir=0
  useroptions=24679
- stackedunder=p1_0.chartoptionsfo
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -1080,8 +1080,7 @@ clients=70
 filenames=1
  /home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
 lastdir=/home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/
-filehistory=2
- /home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
+filehistory=1
  /home/mse/packs/standard/git/mseuniverse/tools/msespice/test.cir
 filefilterindex=0
 filefilter=*.cir
