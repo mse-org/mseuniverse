@@ -337,6 +337,8 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
+   function getcommitmessage(const acaption: msestring;
+                                            var amessage: msestring): boolean;
    function execgitconsole(const acommand: string): boolean;
    function execconsole(const acommand: string): boolean;
                         //true if OK
@@ -498,7 +500,7 @@ uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,
  gitconsole,commitqueryform,revertqueryform,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msemacros,main,filesform,
- gitdirtreeform,defaultstat,clonequeryform;
+ gitdirtreeform,defaultstat,clonequeryform,commitmessageform;
   
 const
  defaultfileicon = 0;
@@ -1342,6 +1344,21 @@ begin
  result:= execgitconsole('reset --merge');
 end;
 
+function tmainmo.getcommitmessage(const acaption: msestring;
+                                            var amessage: msestring): boolean;
+begin
+ with tcommitmessagefo.create(nil) do begin
+  caption:= acaption;
+  if amessage <> '' then begin
+   messageed.value:= amessage;
+  end;
+  result:= show(ml_application) = mr_ok;
+  if result then begin
+   amessage:= messageed.value;
+  end;
+ end;
+end;
+
 function tmainmo.execgitconsole(const acommand: string): boolean;
 begin
  result:= gitconsolefo.execgit(acommand);
@@ -1691,12 +1708,18 @@ begin
 end;
 
 function tmainmo.merge(const asourceref: msestring): boolean;
+var
+ mstr1: msestring;
+ str1: string;
 begin
- if asourceref = '' then begin
-  result:= execgitconsole('merge FETCH_HEAD');
- end
- else begin
-  result:= execgitconsole('merge '+fgit.encodestring(asourceref));
+ if getcommitmessage('Merge Commit Message',mstr1) then begin
+  str1:= 'merge -m'+fgit.encodestringparam(mstr1)+' ';
+  if asourceref = '' then begin
+   result:= execgitconsole(str1+'FETCH_HEAD');
+  end
+  else begin
+   result:= execgitconsole(str1+fgit.encodestring(asourceref));
+  end;
  end;
 end;
 
