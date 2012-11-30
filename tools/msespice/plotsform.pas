@@ -40,6 +40,7 @@ type
    procedure writestat(const awriter: tstatwriter);
    procedure updatecharts(const aplots: plotinfoarty);
    function getchartcaption: msestring;
+   procedure updatechartsettings;
  end;
  
 var
@@ -187,6 +188,17 @@ function tplotsfo.getchartcaption: msestring;
 begin
  inc(fchartnum);
  result:= 'Chart '+inttostr(fchartnum);
+end;
+
+procedure tplotsfo.updatechartsettings;
+var
+ int1: integer;
+begin
+ for int1:= 0 to tabs.count - 1 do begin
+  with tplotpagefo(tabs[int1]) do begin
+   updatechartsettings;
+  end;
+ end;
 end;
 
 end.

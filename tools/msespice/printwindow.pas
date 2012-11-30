@@ -106,7 +106,7 @@ begin
    psprinter.beginprint(ttextstream.create(fna1,fm_create));
    updatecanvas;
    psprinter.endprint;
-   fna2:= mainmo.spiceoptions.ps2pdf;
+   fna2:= mainmo.globaloptions.ps2pdf;
 //   if fna2 = '' then begin
 //    fna2:= 'ps2pdf';
 //   end;

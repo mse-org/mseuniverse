@@ -41,6 +41,8 @@ type
    libfiles: tremotefilenameedit;
    libnames: tstringedit;
    ps2pdf: tfilenameedit;
+   chartfontname: tstringedit;
+   chartfontheight: tintegeredit;
    procedure netlistsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure setngspiceexe(const sender: TObject; var avalue: msestring;

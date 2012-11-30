@@ -2,23 +2,25 @@
 savedmemoryfiles=2
  optionsfo.sta
  printwindowfo.sta
-optionsfo.sta=55
+optionsfo.sta=57
  [optionsfo.ps2pdf]
  filenames=1
-  ps2pdf
+  ps2pdf.bat
  lastdir=
- filehistory=0
- filefilterindex=0
+ filehistory=2
+  /C:/Programme/gs/gs8.63/lib/ps2pdf.bat
+  /ps2pdf
+ filefilterindex=-1
  filefilter=
- filecolwidth=0
- x=0
- y=0
- cx=0
- cy=0
+ filecolwidth=174
+ x=113
+ y=230
+ cx=588
+ cy=307
  [optionsfo.ngspice]
  filenames=1
-  ngspice
- lastdir=
+  /E:/download/spice/spice/bin/ngspice.exe
+ lastdir=/E:/download/spice/spice/bin/
  filehistory=0
  filefilterindex=0
  filefilter=
@@ -34,6 +36,11 @@ optionsfo.sta=55
  width1=68
  sortdescend1=0
  [optionsfo.netlist]
+ filenames=1
+  /F:/proj/mseuniverse/tools/msespice/examples/rclowpass.cir
+ lastdir=/F:/proj/mseuniverse/tools/msespice/examples/
+ filehistory=1
+  /home/mse/packs/standard/git/mseuniverse/tools/msespice/test.cir
  filefilterindex=0
  filefilter=*.cir
  filecolwidth=174
@@ -43,7 +50,7 @@ optionsfo.sta=55
  cy=0
  [optionsfo.ttabwidget1]
  firsttab=0
- index=0
+ index=1
  [optionsfo]
  stackedunder=
  x=337
@@ -53,11 +60,6 @@ optionsfo.sta=55
  wsize=0
  active=1
  visible=1
- 
- 
- 
- 
- 
 printwindowfo.sta=47
  [printwindowfo.landscape]
  value=0
@@ -74,7 +76,7 @@ printwindowfo.sta=47
  [printwindowfo.margleft]
  value=10
  [printwindowfo.pdf]
- value=1
+ value=0
  [printwindowfo.pdffile]
  filenames=1
   test.pdf
@@ -90,9 +92,9 @@ printwindowfo.sta=47
  [printwindowfo.prcolor]
  value=1
  [printwindowfo.printcommand]
- value=kprinter --stdin
+ value=
  [printwindowfo.enlarge]
- value=0
+ value=1
  [printwindowfo.shrink]
  value=1
  [printwindowfo.pasize]
@@ -326,7 +328,7 @@ client_1=683
  [paramfo]
  splitdir=0
  useroptions=127
- stackedunder=p1_0.chartoptionsfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -424,7 +426,7 @@ client_1=683
  [p0_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=mainfo
+ stackedunder=plotsfo
  parent=
  mdistate=0
  nx=0
@@ -615,7 +617,7 @@ client_1=683
  [p0_1.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=p0_0.chartoptionsfo
+ stackedunder=p1_0.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -1010,7 +1012,7 @@ clients=70
  [mainfo]
  splitdir=0
  useroptions=33554695
- stackedunder=plotsfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1033,7 +1035,7 @@ clients=70
  [consolefo]
  splitdir=0
  useroptions=24703
- stackedunder=p0_1.chartoptionsfo
+ stackedunder=p0_0.chartoptionsfo
  parent=
  mdistate=3
  nx=0
@@ -1055,7 +1057,7 @@ clients=70
  [plotsfo]
  splitdir=0
  useroptions=24679
- stackedunder=
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -1079,8 +1081,8 @@ clients=70
  index=1
 [netlistfo.filedialog]
 filenames=1
- /home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
-lastdir=/home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/
+ /F:/proj/mseuniverse/tools/msespice/examples/rclowpass.cir
+lastdir=/F:/proj/mseuniverse/tools/msespice/examples/
 filehistory=1
  /home/mse/packs/standard/git/mseuniverse/tools/msespice/test.cir
 filefilterindex=0

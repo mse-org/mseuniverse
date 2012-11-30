@@ -61,6 +61,7 @@ type
    destructor destroy; override;
    procedure clear;
    procedure updatechart;
+   procedure updatechartsettings;
    property chartcaption: msestring read getchartcaption write setchartcaption;
    property optfo: tchartoptionsfo read foptfo;
    property title: msestring read gettitle write settitle;
@@ -70,7 +71,7 @@ procedure syncfitframe(const adock: tdockcontroller);
 
 implementation
 uses
- chartform_mfm,msereal,main,plotpage,dockform,printwindow;
+ chartform_mfm,msereal,main,plotpage,dockform,printwindow,mainmodule;
 
 procedure syncfitframe(const adock: tdockcontroller);
 var
@@ -319,6 +320,14 @@ begin
  invalidate;
 end;
 
+procedure tchartfo.updatechartsettings;
+begin
+ with mainmo.globaloptions do begin
+  font.name:= chartfontname;
+  font.height:= chartfontheight;
+ end;
+end;
+
 procedure tchartfo.dataenteredexe(const sender: TObject);
 begin
  updatechart;
@@ -368,7 +377,7 @@ end;
 
 procedure tchartfo.printchartexe(const sender: TObject);
 begin
- tprintwindowfo.create(chart);
+ tprintwindowfo.create(container);
 end;
 
 procedure tchartfo.resetzoomupdateexe(const sender: tcustomaction);

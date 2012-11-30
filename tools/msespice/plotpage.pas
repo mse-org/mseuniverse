@@ -164,6 +164,7 @@ type
    function chartnodes: chartnodearty;
    function exptag(const aindex: integer): string;
    procedure resetnameindex;
+   procedure updatechartsettings;
    property plot: tplotoptionsfo read fplot;
    property expressions: msestringarty read fexpressions;
  end;
@@ -603,6 +604,17 @@ end;
 function tplotpagefo.chartnodes: chartnodearty;
 begin
  result:= chartnodearty(treeed.itemlist.toplevelnodes);
+end;
+
+procedure tplotpagefo.updatechartsettings;
+var
+ ar1: chartnodearty;
+ int1: integer;
+begin
+ ar1:= chartnodes;
+ for int1:= 0 to high(ar1) do begin
+  ar1[int1].chart.updatechartsettings;
+ end;
 end;
 
 function tplotpagefo.getchartname: string;

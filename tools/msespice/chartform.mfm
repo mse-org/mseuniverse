@@ -11,6 +11,8 @@ inherited chartfo: tchartfo
     297
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
+  font.height = 10
+  font.name = 'Arial'
   options = [fo_savepos, fo_savezorder, fo_savestate]
   icon.transparentcolor = -2147483642
   icon.image = {
@@ -82,9 +84,9 @@ inherited chartfo: tchartfo
     frame.framei_bottom = 10
     frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     bounds_x = 0
-    bounds_y = 18
+    bounds_y = 17
     bounds_cx = 349
-    bounds_cy = 279
+    bounds_cy = 280
     anchors = [an_top, an_bottom]
     traces.xserstart = 0
     traces.xstart = 0
@@ -114,7 +116,7 @@ inherited chartfo: tchartfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 349
-    bounds_cy = 18
+    bounds_cy = 17
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky]
     linkbottom = chart
@@ -127,10 +129,10 @@ inherited chartfo: tchartfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 349
-      bounds_cy = 18
+      bounds_cy = 17
       anchors = [an_top]
       textflags = [tf_xcentered, tf_ycentered]
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   object optionsact: taction[2]

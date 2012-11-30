@@ -29,18 +29,22 @@ uses
 const
 {$ifdef mswindows}
  ngspicename = 'ngspice.exe';
- ps2pdfname = 'ps2pdf.exe';
+ ps2pdfname = 'ps2pdf.bat';
 {$else}
  ngspicename = 'ngspice';
  ps2pdfname = 'ps2pdf';
 {$endif}
  realformat = '0..######g';
+ defaultfontname = 'Arial';
+ defaultfontheight = 12;
  
 type
- tspiceoptions = class(toptionsclass)
+ tglobaloptions = class(toptionsclass)
   private
    fngspice: filenamety;
    fps2pdf: filenamety;
+   fchartfontname: msestring;
+   fchartfontheight: integer;
    procedure setngspice(const avalue: filenamety);
    procedure setps2pdf(const avalue: filenamety);
   public
@@ -48,6 +52,9 @@ type
   published
    property ngspice: filenamety read fngspice write setngspice;
    property ps2pdf: filenamety read fps2pdf write setps2pdf;
+   property chartfontname: msestring read fchartfontname write fchartfontname;
+   property chartfontheight: integer read fchartfontheight 
+                                                       write fchartfontheight;
  end;
 
  tprojectoptions = class(toptionsclass)
@@ -122,7 +129,7 @@ type
    fmodified: boolean;
   protected
    fprojectoptions: tprojectoptions;
-   fspiceoptions: tspiceoptions;
+   fglobaloptions: tglobaloptions;
    fspice: tngspice;
    procedure updateprojectstate;
   public
@@ -142,7 +149,7 @@ type
    property projectloaded: boolean read fprojectloaded;
    property simurunning: boolean read fsimurunning;
    property projectoptions: tprojectoptions read fprojectoptions;
-   property spiceoptions: tspiceoptions read fspiceoptions;
+   property globaloptions: tglobaloptions read fglobaloptions;
  end;
 
 var
@@ -154,15 +161,17 @@ uses
  mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform,paramform,
  msestockobjects,typinfo;
 
-{ tspiceoptions }
+{ tglobaloptions }
 
-constructor tspiceoptions.create;
+constructor tglobaloptions.create;
 begin
  fngspice:= ngspicename;
  fps2pdf:= ps2pdfname;
+ fchartfontname:= defaultfontname;
+ fchartfontheight:= defaultfontheight;
 end;
 
-procedure tspiceoptions.setngspice(const avalue: filenamety);
+procedure tglobaloptions.setngspice(const avalue: filenamety);
 begin
  if avalue = '' then begin
   fngspice:= ngspicename;
@@ -172,7 +181,7 @@ begin
  end;
 end;
 
-procedure tspiceoptions.setps2pdf(const avalue: filenamety);
+procedure tglobaloptions.setps2pdf(const avalue: filenamety);
 begin
  if avalue = '' then begin
   fps2pdf:= ps2pdfname;
@@ -199,7 +208,7 @@ end;
 constructor tmainmo.create(aowner: tcomponent);
 begin
  fprojectoptions:= tprojectoptions.create;
- fspiceoptions:= tspiceoptions.create;
+ fglobaloptions:= tglobaloptions.create;
  fspice:= tngspice.create;
  inherited;
 end;
@@ -225,6 +234,7 @@ procedure tmainmo.editoptions;
 begin
  if projectoptionscomp.edit = mr_ok then begin
   mainstat.writestat;
+  plotsfo.updatechartsettings;
  end;
 end;
 
@@ -245,6 +255,7 @@ begin
  end;
  setcurrentdirmse(filedir(projectmainstat.filename)); 
  projectmainstat.readstat;
+ plotsfo.updatechartsettings;
  fprojectloaded:= true;
  fmodified:= false;
  updateprojectstate;
@@ -515,7 +526,7 @@ begin
   stream2.free;
  end;
  consolefo.term.clear;
- str1:= tosysfilepath(fspiceoptions.ngspice,true)+
+ str1:= tosysfilepath(fglobaloptions.ngspice,true)+
    ' -b '+tosysfilepath(fspicefile,true);
  consolefo.term.addline('> '+str1);
  consolefo.beginsimu;
@@ -643,7 +654,7 @@ procedure tmainmo.getoptionsobjsexe(const sender: TObject;
 begin
  if tguirttistat(sender).editing then begin
   setlength(aobjects,2);
-  aobjects[0].obj:= fspiceoptions;
+  aobjects[0].obj:= fglobaloptions;
   aobjects[1].obj:= fprojectoptions;
  end;
 end;
@@ -657,7 +668,7 @@ end;
 procedure tmainmo.getspiceobjexe(const sender: TObject; 
                                                var aobject: tobject);
 begin
- aobject:= fspiceoptions;
+ aobject:= fglobaloptions;
 end;
 
 end.
