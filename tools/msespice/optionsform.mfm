@@ -11,6 +11,7 @@ object optionsfo: toptionsfo
     372
     245
   )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Project Options'
   moduleclassname = 'tmseform'
@@ -18,7 +19,7 @@ object optionsfo: toptionsfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 372
-    bounds_cy = 215
+    bounds_cy = 214
     anchors = [an_top]
     activepageindex = 0
     tab_size = 18
@@ -28,9 +29,9 @@ object optionsfo: toptionsfo
       frame.zoomheightstep = 1
       taborder = 2
       bounds_x = 0
-      bounds_y = 17
+      bounds_y = 18
       bounds_cx = 372
-      bounds_cy = 198
+      bounds_cy = 196
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Project'
       object netlist: tremotefilenameedit
@@ -38,34 +39,34 @@ object optionsfo: toptionsfo
         frame.button.imagenr = 17
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
         bounds_x = 8
-        bounds_y = 6
+        bounds_y = 5
         bounds_cx = 355
-        bounds_cy = 35
+        bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         statfile = tstatfile1
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
         textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
         onsetvalue = netlistsetexe
         dialog = netlistfo.filedialog
-        reffontheight = 13
+        reffontheight = 14
       end
       object libgrid: twidgetgrid
         taborder = 1
         bounds_x = 8
         bounds_y = 46
         bounds_cx = 354
-        bounds_cy = 148
+        bounds_cy = 146
         anchors = [an_left, an_top, an_right, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_noinsertempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixrows.count = 1
         fixrows.items = <        
           item
-            height = 15
+            height = 16
             captions.count = 2
             captions.items = <            
               item
@@ -93,7 +94,7 @@ object optionsfo: toptionsfo
           end>
         datarowheight = 16
         statfile = tstatfile1
-        reffontheight = 13
+        reffontheight = 14
         object libfiles: tremotefilenameedit
           optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
@@ -111,7 +112,7 @@ object optionsfo: toptionsfo
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
           textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
           dialog = mainmo.libfiledialog
-          reffontheight = 13
+          reffontheight = 14
         end
         object libnames: tstringedit
           optionswidget1 = [ow1_fontglyphheight]
@@ -123,7 +124,7 @@ object optionsfo: toptionsfo
           bounds_cx = 68
           bounds_cy = 16
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-          reffontheight = 13
+          reffontheight = 14
         end
       end
     end
@@ -132,9 +133,9 @@ object optionsfo: toptionsfo
       frame.zoomheightstep = 1
       taborder = 1
       bounds_x = 0
-      bounds_y = 17
+      bounds_y = 18
       bounds_cx = 372
-      bounds_cy = 198
+      bounds_cy = 196
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Global'
       object ngspice: tfilenameedit
@@ -142,83 +143,83 @@ object optionsfo: toptionsfo
         frame.button.imagenr = 17
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
         bounds_x = 8
-        bounds_y = 6
+        bounds_y = 5
         bounds_cx = 356
-        bounds_cy = 35
+        bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         statfile = tstatfile1
         textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
         onsetvalue = setngspiceexe
-        reffontheight = 13
+        reffontheight = 14
       end
       object ps2pdf: tfilenameedit
         frame.caption = 'ps2pdf Program'
         frame.button.imagenr = 17
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
         taborder = 1
         bounds_x = 8
-        bounds_y = 54
+        bounds_y = 53
         bounds_cx = 356
-        bounds_cy = 35
+        bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         statfile = tstatfile1
         textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
         onsetvalue = setps2pdfexe
-        reffontheight = 13
+        reffontheight = 14
       end
       object chartfontname: tstringedit
         frame.caption = 'Chart Font Name'
         frame.dummy = 0
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
         taborder = 2
         bounds_x = 8
-        bounds_y = 103
-        bounds_cy = 35
+        bounds_y = 102
+        bounds_cy = 37
         value = 'Arial'
-        reffontheight = 13
+        reffontheight = 14
       end
       object chartfontheight: tintegeredit
         frame.caption = 'Height (Pixel)'
         frame.dummy = 0
         frame.outerframe = (
           0
-          16
-          22
+          17
+          31
           0
         )
         taborder = 3
         bounds_x = 120
-        bounds_y = 103
-        bounds_cx = 66
-        bounds_cy = 35
+        bounds_y = 102
+        bounds_cx = 75
+        bounds_cy = 37
         value = 12
         min = 5
         max = 30
-        reffontheight = 13
+        reffontheight = 14
       end
     end
   end
   object tlayouter1: tlayouter
     taborder = 1
     bounds_x = 260
-    bounds_y = 220
+    bounds_y = 219
     bounds_cx = 105
-    bounds_cy = 19
+    bounds_cy = 20
     anchors = [an_right, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
     linktop = ttabwidget1
@@ -234,12 +235,12 @@ object optionsfo: toptionsfo
       bounds_x = 55
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 19
+      bounds_cy = 20
       bounds_cxmin = 50
       state = [as_localdefault, as_localcaption]
       caption = 'Cancel'
       modalresult = mr_cancel
-      reffontheight = 13
+      reffontheight = 14
     end
     object tbutton2: tbutton
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
@@ -247,12 +248,12 @@ object optionsfo: toptionsfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 19
+      bounds_cy = 20
       bounds_cxmin = 50
       state = [as_default, as_localdefault, as_localcaption]
       caption = 'OK'
       modalresult = mr_ok
-      reffontheight = 13
+      reffontheight = 14
     end
   end
   object tstatfile1: tstatfile
