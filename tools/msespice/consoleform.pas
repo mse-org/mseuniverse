@@ -29,7 +29,7 @@ type
  tconsolefo = class(tspicefo)
    grid: twidgetgrid;
    term: tterminal;
-   procedure inputbrokenexe(const sender: TObject);
+   procedure procfinishedexe(const sender: TObject);
   public
    procedure beginsimu;
    procedure endsimu;
@@ -40,7 +40,7 @@ implementation
 uses
  consoleform_mfm,mainmodule;
  
-procedure tconsolefo.inputbrokenexe(const sender: TObject);
+procedure tconsolefo.procfinishedexe(const sender: TObject);
 begin
  mainmo.simuterminated;
 end;

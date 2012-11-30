@@ -62,7 +62,7 @@ inherited consolefo: tconsolefo
       end>
     datarowlinewidth = 0
     datarowheight = 14
-    reffontheight = 14
+    reffontheight = 13
     object term: tterminal
       optionswidget1 = [ow1_fontlineheight]
       optionsskin = [osk_framebuttononly]
@@ -77,7 +77,7 @@ inherited consolefo: tconsolefo
       font.xscale = 1
       font.dummy = 0
       maxchars = 120
-      oninputpipebroken = inputbrokenexe
+      onprocfinished = procfinishedexe
       options = [teo_readonly]
       reffontheight = 14
     end

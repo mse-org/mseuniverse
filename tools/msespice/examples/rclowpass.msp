@@ -53,6 +53,11 @@ optionsfo.sta=55
  wsize=0
  active=1
  visible=1
+ 
+ 
+ 
+ 
+ 
 printwindowfo.sta=47
  [printwindowfo.landscape]
  value=0
@@ -117,14 +122,14 @@ panels=3
  panel1
  panel2
  panel3
-client_0=167
+client_0=168
  [mainmo.projectstat1]
  [plots]
  kind=2
   1
   2
  [mainmo.projectoptionscomp]
- netlist=/home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
+ netlist=/F:/proj/mseuniverse/tools/msespice/examples/rclowpass.cir
  netlistrel=rclowpass.cir
  libfiles=0
  libnames=0
@@ -291,7 +296,7 @@ client_1=683
  splitdir=2
  useroptions=32228
  children=1
-  container,0,0,623,519
+  container,0,0,623,521
  focusedchild=0
  [netlistfo]
  splitdir=0
@@ -321,7 +326,7 @@ client_1=683
  [paramfo]
  splitdir=0
  useroptions=127
- stackedunder=p0_1.chartoptionsfo
+ stackedunder=p1_0.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -353,11 +358,11 @@ client_1=683
  x=0
  y=0
  cx=332
- cy=519
+ cy=521
  rcx=0
  rcy=0
  children=1
-  container,0,0,332,519
+  container,0,0,332,521
  focusedchild=0
  [mainfo.panelcontroller.panel2]
  splitdir=2
@@ -372,11 +377,11 @@ client_1=683
  x=335
  y=0
  cx=288
- cy=519
+ cy=521
  rcx=0
  rcy=0
  children=1
-  container,0,0,288,519
+  container,0,0,288,521
  focusedchild=0
  [mainfo.panelcontroller.panel3]
  splitdir=1
@@ -391,11 +396,11 @@ client_1=683
  x=0
  y=0
  cx=623
- cy=519
+ cy=521
  rcx=0
  rcy=0
  children=1
-  container,0,0,623,519
+  container,0,0,623,521
  focusedchild=0
  [p0_0]
  splitdir=0
@@ -410,16 +415,16 @@ client_1=683
  x=0
  y=0
  cx=288
- cy=246
+ cy=247
  rcx=0
  rcy=0
  children=1
-  container,0,0,288,246
+  container,0,0,288,247
  focusedchild=0
  [p0_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=plotsfo
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -601,16 +606,16 @@ client_1=683
  x=0
  y=0
  cx=332
- cy=519
+ cy=521
  rcx=0
  rcy=0
  children=1
-  container,0,0,332,519
+  container,0,0,332,521
  focusedchild=0
  [p0_1.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=p1_0.chartoptionsfo
+ stackedunder=p0_0.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -790,13 +795,13 @@ client_1=683
  ncx=0
  ncy=0
  x=0
- y=249
+ y=250
  cx=288
- cy=270
+ cy=271
  rcx=0
  rcy=0
  children=1
-  container,0,0,288,270
+  container,0,0,288,271
  focusedchild=0
  [p1_0.chartoptionsfo]
  splitdir=0
@@ -1005,7 +1010,7 @@ clients=70
  [mainfo]
  splitdir=0
  useroptions=33554695
- stackedunder=
+ stackedunder=plotsfo
  parent=
  mdistate=0
  nx=0
@@ -1019,8 +1024,8 @@ clients=70
  rcx=0
  rcy=0
  children=2
-  container,0,16,623,537
-  ,0,0,623,16
+  container,0,15,623,538
+  ,0,0,623,15
  focusedchild=0
  wsize=0
  active=1
@@ -1028,7 +1033,7 @@ clients=70
  [consolefo]
  splitdir=0
  useroptions=24703
- stackedunder=p0_0.chartoptionsfo
+ stackedunder=p0_1.chartoptionsfo
  parent=
  mdistate=3
  nx=0
@@ -1050,7 +1055,7 @@ clients=70
  [plotsfo]
  splitdir=0
  useroptions=24679
- stackedunder=mainfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1071,7 +1076,7 @@ clients=70
  visible=1
  [plotsfo.tabs]
  firsttab=0
- index=0
+ index=1
 [netlistfo.filedialog]
 filenames=1
  /home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
