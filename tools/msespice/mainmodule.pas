@@ -519,8 +519,14 @@ begin
    ' -b '+tosysfilepath(fspicefile,true);
  consolefo.term.addline('> '+str1);
  consolefo.beginsimu;
+ try
+  consolefo.term.execprog(str1);
+ except
+  application.handleexception;
+  consolefo.endsimu;
+  exit;
+ end;
  mainfo.setstattext('*** Simulation running ***',mtk_running);
- consolefo.term.execprog(str1);
  fsimurunning:= true;
  updateprojectstate;
 end;
