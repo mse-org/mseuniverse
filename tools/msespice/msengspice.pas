@@ -241,8 +241,6 @@ procedure tngspice.readdata(const astream: ttextstream);
 var
  str1: string;
  infokind: infokindty;
-// bo1: boolean;
- flags: flagsty = fl_unknown;
  padding: padty = pa_unknown;
  po1: pchar;
  nvars: integer = 0;
@@ -280,6 +278,7 @@ begin
         if po1 <> nil then begin
          padding:= padty(checkkeyword(po1,padnames,ord(high(padnames))));
         end;
+        padding:= padding; //compiler warning
        end;
       end;
       ik_novariables: begin

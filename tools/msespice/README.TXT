@@ -1,18 +1,28 @@
- MSEspice Copyright (c) 2012 by Martin Schreiber
-   
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+MSEspice, GUI for Ngspice
+Version 0.8, 2012-11-30
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+- Download and install ngspice from
+http://sourceforge.net/projects/ngspice/
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+- Download msespice_i386_linux_0_8.tar.gz on Linux or
+msespice_i386_win32_0_8.zip on Windows from
+http://sourceforge.net/projects/mseuniverse/
 
+- Extract them into a directory of your choice (MYDIRECTORY).
+- On Linux cd in MYDIRECTORY/msespice_i386_linux, start msespice,
+on Windows cd in MYDIRECTORY\msespice_i386_win32, start msespice.exe.
 
-GUI for Ngspice, under construction!
+- 'File'-'Open Project', select 'examples/rclowpass.msp'.
+- Pess F9.
+
+If the ngspice program is not in path select it in 
+'Options'-'Global'-'Ngspice Program'.
+
+MSEide+MSEgui development environment is here:
+http://sourceforge.net/projects/mseide-msegui/
+MSEspice 0.8 needs MSEide+MSEgui git master branch from here:
+http://gitorious.org/mseide-msegui
+
+Have a lot of fun!
+
+Martin
