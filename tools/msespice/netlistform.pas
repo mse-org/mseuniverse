@@ -109,6 +109,7 @@ begin
   end;
   edit.loadfromfile(afile);
   filechange.addnotification(edit.filename);
+  mainmo.projectoptions.netlist:= edit.filename;
  except
   application.handleexception;
  end;

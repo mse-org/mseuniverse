@@ -34,11 +34,6 @@ optionsfo.sta=55
  width1=68
  sortdescend1=0
  [optionsfo.netlist]
- filenames=1
-  /home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
- lastdir=/home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/
- filehistory=1
-  /home/mse/packs/standard/git/mseuniverse/tools/msespice/test.cir
  filefilterindex=0
  filefilter=*.cir
  filecolwidth=174
@@ -130,6 +125,7 @@ client_0=167
   2
  [mainmo.projectoptionscomp]
  netlist=/home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
+ netlistrel=rclowpass.cir
  libfiles=0
  libnames=0
  [plotsfo.p0.plotname]

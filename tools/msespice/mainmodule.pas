@@ -53,12 +53,16 @@ type
  tprojectoptions = class(toptionsclass)
   private
    fnetlist: filenamety;
+   fnetlistrel: filenamety;
    flibfiles: filenamearty;
    flibnames: filenamearty;
+  protected
+   procedure dostatwrite(const writer: tstatwriter); override;
   public
    constructor create;
   published
    property netlist: filenamety read fnetlist write fnetlist;
+   property netlistrel: filenamety read fnetlistrel write fnetlistrel;
    property libfiles: filenamearty read flibfiles write flibfiles;
    property libnames: filenamearty read flibnames write flibnames;
  end;
@@ -89,9 +93,10 @@ type
    enumlink: tifienumlinkcomp;
    tracesymbols: timagelist;
    spiceoptionscomp: tguirttistat;
-   procedure getobjexe(const sender: TObject; var aobject: TObject);
+   procedure getobjexe(const sender: TObject; var aobject: toptionsclass);
    procedure optionsexe(const sender: TObject);
-   procedure getoptionsobjexe(const sender: TObject; var aobject: TObject);
+   procedure getoptionsobjexe(const sender: TObject;
+                                         var aobject: tobject);
    procedure openprojectexe(const sender: TObject);
    procedure newprojectactexe(const sender: TObject);
    procedure closeprojectexe(const sender: TObject);
@@ -108,7 +113,7 @@ type
                    const aindex: Integer);
    procedure getoptionsobjsexe(const sender: TObject;
                    var aobjects: objectinfoarty);
-   procedure getspiceobjexe(const sender: TObject; var aobject: TObject);
+   procedure getspiceobjexe(const sender: TObject; var aobject: tobject);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -184,6 +189,11 @@ begin
 //fngspice:= ngspicename;
 end;
 
+procedure tprojectoptions.dostatwrite(const writer: tstatwriter);
+begin
+ fnetlistrel:= relativepath(fnetlist);
+end;
+
 { mainmo }
 
 constructor tmainmo.create(aowner: tcomponent);
@@ -201,7 +211,7 @@ begin
  fprojectoptions.free;
 end;
 
-procedure tmainmo.getobjexe(const sender: TObject; var aobject: TObject);
+procedure tmainmo.getobjexe(const sender: TObject; var aobject: toptionsclass);
 begin
  aobject:= projectoptions;
 end;
@@ -233,11 +243,17 @@ begin
  if aname <> '' then begin
   projectmainstat.filename:= aname;
  end;
+ setcurrentdirmse(filedir(projectmainstat.filename)); 
  projectmainstat.readstat;
  fprojectloaded:= true;
  fmodified:= false;
  updateprojectstate;
- netlistfo.loadfile(projectoptions.netlist);
+ if findfile(projectoptions.netlistrel) then begin
+  netlistfo.loadfile(projectoptions.netlistrel);
+ end
+ else begin
+  netlistfo.loadfile(projectoptions.netlist);
+ end;
 end;
 
 procedure tmainmo.openproject;
@@ -626,12 +642,14 @@ begin
  end;
 end;
 
-procedure tmainmo.getoptionsobjexe(const sender: TObject; var aobject: TObject);
+procedure tmainmo.getoptionsobjexe(const sender: TObject;
+                                            var aobject: tobject);
 begin
  aobject:= fprojectoptions;
 end;
 
-procedure tmainmo.getspiceobjexe(const sender: TObject; var aobject: TObject);
+procedure tmainmo.getspiceobjexe(const sender: TObject; 
+                                               var aobject: tobject);
 begin
  aobject:= fspiceoptions;
 end;
