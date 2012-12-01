@@ -158,7 +158,7 @@ constructor tchartfo.create(const aowner: tcomponent;
                                       const anode: ttreelistedititem);
 begin
  inherited create(aowner);
-  fnode:= anode;
+ fnode:= anode;
  foptfo:= tchartoptionsfo.create(self);
  fshowmenuitem:= tmenuitem.create;
  with fshowmenuitem do begin
@@ -171,7 +171,7 @@ end;
 destructor tchartfo.destroy;
 begin
  foptfo.free;
- fshowmenuitem.create;
+ fshowmenuitem.free;
  inherited;
 end;
 

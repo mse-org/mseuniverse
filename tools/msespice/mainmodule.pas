@@ -218,6 +218,7 @@ begin
  fspice.free;
  inherited;
  fprojectoptions.free;
+ fglobaloptions.free;
 end;
 
 procedure tmainmo.getobjexe(const sender: TObject; var aobject: toptionsclass);
