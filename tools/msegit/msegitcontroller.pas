@@ -211,9 +211,12 @@ type
   protected
    function execcommand(const acommand: string;
                                 const useshell: boolean): boolean;
-   function commandresult1(const acommand: string; out adest: msestring): boolean;
+   function commandresult1(const acommand: string; 
+                                        out adest: msestring): boolean;
+   function commandresult2(const acommand: string;  const ainputdata: string;
+                                        out adest: msestring): boolean;
    function status1(const callback: addstatecallbackeventty;
-        const apath: filenamety; const aorigin: msestring): boolean;
+                const apath: filenamety; const aorigin: msestring): boolean;
    function lsfiles1(const apath: filenamety; const excludetracked: boolean;
             const includeuntracked: boolean; const includeignored: boolean;
                             const arecursive: boolean;
@@ -283,6 +286,8 @@ type
    function getsha1(const arev: msestring): msestring;
    function getrefinfo(const arev: msestring;
                                  out ainfo: refinfoty): boolean;
+   function fmtmergemsg(const arev: msestring;
+                                      out amessage: msestring): boolean;
    function issha1(const avalue: string; var asha1: string): boolean;
                                                                overload;
    function issha1(const avalue: string): boolean; overload;
@@ -475,8 +480,8 @@ begin
  end;
 end;
 
-function tgitcontroller.commandresult1(const acommand: string;
-               out adest: msestring): boolean;
+function tgitcontroller.commandresult2(const acommand: string;
+               const ainputdata: string; out adest: msestring): boolean;
 var
  str1: string;
  opt1: processoptionsty;
@@ -486,8 +491,14 @@ begin
   opt1:= [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages];
  end;
  result:= getprocessoutput(currentgitprocesspo^,
-          encodegitcommand(acommand),'',str1,ferrormessage,-1,opt1) = 0;
+          encodegitcommand(acommand),ainputdata,str1,ferrormessage,-1,opt1) = 0;
  adest:= utf8tostring(str1);
+end;
+
+function tgitcontroller.commandresult1(const acommand: string;
+                                          out adest: msestring): boolean;
+begin
+ result:= commandresult2(acommand,'',adest);
 end;
 
 function tgitcontroller.execcommand(const acommand: string;
@@ -1650,6 +1661,18 @@ begin
              encodestringparam(arev),mstr1);
  if result then begin
   result:= decodecommit(mstr1,@ainfo,nil);
+ end;
+end;
+
+function tgitcontroller.fmtmergemsg(const arev: msestring;
+                                         out amessage: msestring): boolean;
+var
+ str1: string;
+begin
+ amessage:= '';
+ result:= true;
+ if tryreadfiledatastring('.git/'+arev,str1) then begin
+  result:= commandresult2('fmt-merge-msg ',str1,amessage);
  end;
 end;
 

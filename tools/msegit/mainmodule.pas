@@ -357,7 +357,7 @@ type
    function fetchall: boolean;
    function pull(const aremote,aremotebranch: msestring): boolean;
    function push(const aremote,aremotebranch: msestring): boolean;
-   function merge(const asourceref: msestring): boolean;
+   function merge(asourceref: msestring): boolean;
    function cherrypick(const acommits: msestringarty): boolean;
 
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
@@ -1707,17 +1707,17 @@ begin
  end;
 end;
 
-function tmainmo.merge(const asourceref: msestring): boolean;
+function tmainmo.merge(asourceref: msestring): boolean;
 var
  mstr1: msestring;
  str1: string;
 begin
- if getcommitmessage('Merge Commit Message',mstr1) then begin
-  str1:= 'merge -m'+fgit.encodestringparam(mstr1)+' ';
-  if asourceref = '' then begin
-   result:= execgitconsole(str1+'FETCH_HEAD');
-  end
-  else begin
+ if asourceref = '' then begin
+  asourceref:= 'FETCH_HEAD';
+ end;
+ if fgit.fmtmergemsg(asourceref,mstr1) then begin 
+  if getcommitmessage('Merge Commit Message',mstr1) then begin
+   str1:= 'merge -m'+fgit.encodestringparam(mstr1)+' ';
    result:= execgitconsole(str1+fgit.encodestring(asourceref));
   end;
  end;
