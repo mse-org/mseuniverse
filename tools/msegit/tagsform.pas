@@ -74,6 +74,7 @@ begin
  if mainfo.refreshing then begin
   grid.clear;
  end;
+ grid.sorted:= false;
  treeed.itemlist.addchildren(mainmo.tagstree); 
  grid.sorted:= true;
 end;
