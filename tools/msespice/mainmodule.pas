@@ -304,6 +304,7 @@ begin
    updateprojectstate;
    projectmainstat.writestat;
    plotsfo.tabs.clear;
+   paramfo.grid.clear;
    mainfo.setstattext('');
   end;
  end;
