@@ -181,7 +181,6 @@ inherited plotpagefo: tplotpagefo
         oncellevent = celleventexe
         reffontheight = 14
         object treeed: ttreeitemedit
-          optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           frame.levelo = 0
           frame.colorclient = -2147483645
@@ -399,7 +398,6 @@ inherited plotpagefo: tplotpagefo
         statfile = mainmo.projectstat1
         reffontheight = 14
         object stepdest: tmemodialogedit
-          optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           frame.levelo = 0
           frame.colorclient = -2147483645

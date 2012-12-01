@@ -93,7 +93,6 @@ inherited netlistfo: tnetlistfo
     statfile = mainmo.projectstat2
     reffontheight = 14
     object edit: tsyntaxedit
-      optionswidget1 = [ow1_fontlineheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False

@@ -204,7 +204,6 @@ inherited chartoptionsfo: tchartoptionsfo
       reffontheight = 14
     end
     object xunit: tstringedit
-      optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
@@ -344,7 +343,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 328
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 74
+      bounds_cy = 72
       anchors = [an_left]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = xscalefo
@@ -356,10 +355,10 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 328
-      bounds_cy = 74
+      bounds_cy = 72
       inherited scalegrid: twidgetgrid
         bounds_cx = 328
-        bounds_cy = 74
+        bounds_cy = 72
         font.name = ''
         fixcols.items = <        
           item
@@ -462,11 +461,11 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 331
       bounds_y = 0
       bounds_cx = 331
-      bounds_cy = 74
+      bounds_cy = 72
       anchors = [an_right]
       inherited scalegrid: twidgetgrid
         bounds_cx = 331
-        bounds_cy = 74
+        bounds_cy = 72
         font.name = ''
         fixcols.items = <        
           item

@@ -185,25 +185,10 @@ object scalegridfo: tscalegridfo
     onrowcountchanged = rowcountchangeexe
     onrowsmoved = rowmovedexe
     reffontheight = 14
-    object autoscale: tbooleanedit
-      optionswidget1 = []
-      optionsskin = [osk_framebuttononly]
-      taborder = 1
-      bounds_x = 188
-      bounds_y = 0
-      bounds_cx = 16
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
-      visible = False
-      value = True
-      valuedefault = True
-      ifilink = mainmo.booleanlink
-    end
     object log: tbooleanedit
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 2
+      taborder = 1
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 18
@@ -216,9 +201,8 @@ object scalegridfo: tscalegridfo
       ifilink = mainmo.booleanlink
     end
     object intervalco: trealedit
-      optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 3
+      taborder = 2
       visible = False
       bounds_x = 19
       bounds_y = 0
@@ -238,7 +222,7 @@ object scalegridfo: tscalegridfo
     object gridline: tbooleanedit
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 4
+      taborder = 3
       bounds_x = 51
       bounds_y = 0
       bounds_cx = 27
@@ -249,7 +233,7 @@ object scalegridfo: tscalegridfo
     object capt: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 5
+      taborder = 4
       visible = False
       bounds_x = 79
       bounds_y = 0
@@ -264,7 +248,7 @@ object scalegridfo: tscalegridfo
     object intervalco2: trealedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 6
+      taborder = 5
       visible = False
       bounds_x = 130
       bounds_y = 0
@@ -284,13 +268,28 @@ object scalegridfo: tscalegridfo
     object oppos: tbooleanedit
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 7
+      taborder = 6
       bounds_x = 160
       bounds_y = 0
       bounds_cx = 27
       bounds_cy = 16
       ondataentered = dataenteredexe
       visible = False
+    end
+    object autoscale: tbooleanedit
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 7
+      bounds_x = 188
+      bounds_y = 0
+      bounds_cx = 16
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      ondataentered = dataenteredexe
+      visible = False
+      value = True
+      valuedefault = True
+      ifilink = mainmo.booleanlink
     end
     object start: trealedit
       optionswidget1 = [ow1_fontglyphheight]
