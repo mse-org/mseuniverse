@@ -135,6 +135,7 @@ object scalegridfo: tscalegridfo
         )
       end    
       item[start]
+        width = 75
         widgetname = 'start'
         dataclass = tgridrealdatalist
         data = (
@@ -144,6 +145,7 @@ object scalegridfo: tscalegridfo
         )
       end    
       item[range]
+        width = 75
         widgetname = 'range'
         dataclass = tgridrealdatalist
         data = (
@@ -298,7 +300,7 @@ object scalegridfo: tscalegridfo
       visible = False
       bounds_x = 205
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 75
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
       ondataentered = dataenteredexe
@@ -319,9 +321,9 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 9
       visible = False
-      bounds_x = 256
+      bounds_x = 281
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 75
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
       ondataentered = dataenteredexe
@@ -342,7 +344,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 10
       visible = False
-      bounds_x = 307
+      bounds_x = 357
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -362,7 +364,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 11
       visible = False
-      bounds_x = 358
+      bounds_x = 408
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -382,7 +384,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 12
       visible = False
-      bounds_x = 409
+      bounds_x = 459
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16

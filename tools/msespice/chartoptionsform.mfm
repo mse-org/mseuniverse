@@ -2,12 +2,12 @@ inherited chartoptionsfo: tchartoptionsfo
   bounds_x = 100
   bounds_y = 100
   bounds_cx = 672
-  bounds_cy = 213
+  bounds_cy = 331
   container.bounds = (
     0
     0
     662
-    213
+    331
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional]
   options = [fo_closeonesc, fo_savepos, fo_savezorder, fo_savestate]
@@ -75,20 +75,21 @@ inherited chartoptionsfo: tchartoptionsfo
   oncreate = createexe
   onchildmouseevent = childmouseexe
   moduleclassname = 'tspicefo'
-  object tsplitter2: tsplitter[0]
+  object tsplitter2a: tsplitter[0]
     color = -1879048189
+    taborder = 2
     bounds_x = 0
     bounds_y = 136
     bounds_cx = 662
     bounds_cy = 3
     anchors = [an_top]
-    options = [spo_vmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
     linktop = tracesgrid
-    linkbottom = tsimplewidget1
+    linkbottom = xscalefo
     statfile = mainmo.projectstat3
   end
   object tracesgrid: twidgetgrid[1]
-    taborder = 1
+    taborder = 3
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 662
@@ -329,245 +330,227 @@ inherited chartoptionsfo: tchartoptionsfo
       reffontheight = 14
     end
   end
-  object tsimplewidget1: tsimplewidget[2]
-    taborder = 2
-    visible = True
+  inline yscalefo: tscalegridfo[2]
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 235
+    bounds_cx = 662
+    bounds_cy = 96
+    anchors = [an_top, an_bottom]
+    inherited scalegrid: twidgetgrid
+      bounds_cx = 662
+      bounds_cy = 96
+      fixcols.items = <      
+        item
+        end>
+      fixrows.items = <      
+        item
+          captions.items = <          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+              caption = 'left'
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end>
+          captionsfix.count = 1
+          captionsfix.items = <          
+            item
+              caption = 'Y'
+            end>
+        end>
+      datacols.items = <      
+        item[log]
+        end      
+        item[intervalco]
+        end      
+        item[gridline]
+        end      
+        item[capt]
+        end      
+        item[intervalco2]
+        end      
+        item[oppos]
+        end      
+        item[autoscale]
+        end      
+        item[start]
+        end      
+        item[range]
+        end      
+        item[startmargin]
+          width = 28
+        end      
+        item[endmargin]
+          width = 28
+        end      
+        item[unittext]
+        end>
+      inherited capt: tstringedit[0]
+      end
+      inherited start: trealedit[1]
+      end
+      inherited startmargin: trealedit[2]
+        bounds_cx = 28
+      end
+      inherited log: tbooleanedit[3]
+      end
+      inherited intervalco: trealedit[4]
+      end
+      inherited gridline: tbooleanedit[5]
+      end
+      inherited intervalco2: trealedit[6]
+      end
+      inherited oppos: tbooleanedit[7]
+      end
+      inherited autoscale: tbooleanedit[8]
+      end
+      inherited unittext: tstringedit[9]
+        bounds_x = 415
+      end
+      inherited range: trealedit[10]
+      end
+      inherited endmargin: trealedit[11]
+        bounds_x = 386
+        bounds_cx = 28
+      end
+    end
+  end
+  object tsplitter3a: tsplitter[3]
+    color = -1879048189
+    taborder = 4
+    bounds_x = 0
+    bounds_y = 232
+    bounds_cx = 662
+    bounds_cy = 3
+    anchors = [an_top]
+    options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linktop = xscalefo
+    linkbottom = yscalefo
+    statfile = mainmo.projectstat3
+  end
+  inline xscalefo: tscalegridfo[4]
     bounds_x = 0
     bounds_y = 139
     bounds_cx = 662
-    bounds_cy = 72
-    anchors = [an_bottom]
-    object tsplitter3: tsplitter
-      color = -1879048189
-      taborder = 2
-      bounds_x = 328
-      bounds_y = 0
-      bounds_cx = 3
-      bounds_cy = 72
-      anchors = [an_left]
-      options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
-      linkleft = xscalefo
-      linkright = yscalefo
-      statfile = mainmo.projectstat3
-    end
-    inline xscalefo: tscalegridfo
-      taborder = 1
-      bounds_x = 0
-      bounds_y = 0
-      bounds_cx = 328
-      bounds_cy = 72
-      inherited scalegrid: twidgetgrid
-        bounds_cx = 328
-        bounds_cy = 72
-        font.name = ''
-        fixcols.items = <        
-          item
-          end>
-        fixrows.items = <        
-          item
-            captions.items = <            
-              item
-              end            
-              item
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                caption = 'top'
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end>
-          end>
-        datacols.items = <        
-          item[log]
-          end        
-          item[intervalco]
-          end        
-          item[gridline]
-          end        
-          item[capt]
-          end        
-          item[intervalco2]
-          end        
-          item[oppos]
-          end        
-          item[autoscale]
-          end        
-          item[start]
-          end        
-          item[range]
-          end        
-          item[startmargin]
-            width = 28
-          end        
-          item[endmargin]
-            width = 28
-          end        
-          item[unittext]
-          end>
-        inherited capt: tstringedit[0]
-        end
-        inherited start: trealedit[1]
-        end
-        inherited startmargin: trealedit[2]
-          bounds_cx = 28
-        end
-        inherited log: tbooleanedit[3]
-        end
-        inherited intervalco: trealedit[4]
-        end
-        inherited gridline: tbooleanedit[5]
-        end
-        inherited intervalco2: trealedit[6]
-        end
-        inherited oppos: tbooleanedit[7]
-        end
-        inherited autoscale: tbooleanedit[8]
-          face.dummy = 0
-        end
-        inherited unittext: tstringedit[9]
-          bounds_x = 365
-        end
-        inherited range: trealedit[10]
-        end
-        inherited endmargin: trealedit[11]
-          bounds_x = 336
-          bounds_cx = 28
-        end
+    bounds_cy = 93
+    anchors = [an_top]
+    inherited scalegrid: twidgetgrid
+      bounds_cx = 662
+      bounds_cy = 93
+      fixcols.items = <      
+        item
+        end>
+      fixrows.items = <      
+        item
+          captions.items = <          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+              caption = 'top'
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end>
+          captionsfix.count = 1
+          captionsfix.items = <          
+            item
+              caption = 'X'
+            end>
+        end>
+      datacols.items = <      
+        item[log]
+        end      
+        item[intervalco]
+        end      
+        item[gridline]
+        end      
+        item[capt]
+        end      
+        item[intervalco2]
+        end      
+        item[oppos]
+        end      
+        item[autoscale]
+        end      
+        item[start]
+        end      
+        item[range]
+        end      
+        item[startmargin]
+          width = 28
+        end      
+        item[endmargin]
+          width = 28
+        end      
+        item[unittext]
+        end>
+      inherited capt: tstringedit[0]
       end
-    end
-    inline yscalefo: tscalegridfo
-      bounds_x = 331
-      bounds_y = 0
-      bounds_cx = 331
-      bounds_cy = 72
-      anchors = [an_right]
-      inherited scalegrid: twidgetgrid
-        bounds_cx = 331
-        bounds_cy = 72
-        font.name = ''
-        fixcols.items = <        
-          item
-          end>
-        fixrows.items = <        
-          item
-            captions.items = <            
-              item
-              end            
-              item
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                caption = 'left'
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end            
-              item
-                font.xscale = 1
-              end>
-          end>
-        datacols.items = <        
-          item[log]
-          end        
-          item[intervalco]
-          end        
-          item[gridline]
-          end        
-          item[capt]
-          end        
-          item[intervalco2]
-          end        
-          item[oppos]
-          end        
-          item[autoscale]
-          end        
-          item[start]
-          end        
-          item[range]
-          end        
-          item[startmargin]
-            width = 28
-          end        
-          item[endmargin]
-            width = 28
-          end        
-          item[unittext]
-          end>
-        inherited capt: tstringedit[0]
-        end
-        inherited start: trealedit[1]
-        end
-        inherited startmargin: trealedit[2]
-          bounds_cx = 28
-        end
-        inherited log: tbooleanedit[3]
-        end
-        inherited intervalco: trealedit[4]
-        end
-        inherited gridline: tbooleanedit[5]
-        end
-        inherited intervalco2: trealedit[6]
-        end
-        inherited oppos: tbooleanedit[7]
-        end
-        inherited autoscale: tbooleanedit[8]
-        end
-        inherited unittext: tstringedit[9]
-          bounds_x = 365
-        end
-        inherited range: trealedit[10]
-        end
-        inherited endmargin: trealedit[11]
-          bounds_x = 336
-          bounds_cx = 28
-        end
+      inherited start: trealedit[1]
+      end
+      inherited startmargin: trealedit[2]
+        bounds_cx = 28
+      end
+      inherited log: tbooleanedit[3]
+      end
+      inherited intervalco: trealedit[4]
+      end
+      inherited gridline: tbooleanedit[5]
+      end
+      inherited intervalco2: trealedit[6]
+      end
+      inherited oppos: tbooleanedit[7]
+      end
+      inherited autoscale: tbooleanedit[8]
+        face.dummy = 0
+      end
+      inherited unittext: tstringedit[9]
+        bounds_x = 415
+      end
+      inherited range: trealedit[10]
+      end
+      inherited endmargin: trealedit[11]
+        bounds_x = 386
+        bounds_cx = 28
       end
     end
   end
-  inherited printpanel: taction[3]
+  inherited printpanel: taction[5]
     top = 96
   end
-  inherited popupme: tpopupmenu[4]
+  inherited popupme: tpopupmenu[6]
     menu.submenu.count = 3
     menu.submenu.items = <    
       item
@@ -581,7 +564,7 @@ inherited chartoptionsfo: tchartoptionsfo
       end>
     top = 72
   end
-  object chartact: taction[5]
+  object chartact: taction[7]
     caption = 'Show &Chart'
     onexecute = showchartexe
     left = 176
@@ -591,7 +574,7 @@ inherited chartoptionsfo: tchartoptionsfo
       307
     )
   end
-  object plotact: taction[6]
+  object plotact: taction[8]
     caption = 'Show &Plot'
     onexecute = showplotexe
     left = 176

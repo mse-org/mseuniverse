@@ -100,6 +100,9 @@ inherited netlistfo: tnetlistfo
       bounds_y = 0
       bounds_cx = 2000
       bounds_cy = 14
+      font.name = 'stf_courier'
+      font.xscale = 1
+      font.dummy = 0
       optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       ontextedited = textedexe
       syntaxpainter = syntaxpainter

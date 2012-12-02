@@ -195,7 +195,7 @@ end;
 
 constructor tprojectoptions.create;
 begin
-//fngspice:= ngspicename;
+ //dummy
 end;
 
 procedure tprojectoptions.dostatwrite(const writer: tstatwriter);
@@ -260,11 +260,13 @@ begin
  fprojectloaded:= true;
  fmodified:= false;
  updateprojectstate;
- if findfile(projectoptions.netlistrel) then begin
-  netlistfo.loadfile(projectoptions.netlistrel);
- end
- else begin
-  netlistfo.loadfile(projectoptions.netlist);
+ if projectoptions.netlist <> '' then begin
+  if findfile(projectoptions.netlistrel) then begin
+   netlistfo.loadfile(projectoptions.netlistrel);
+  end
+  else begin
+   netlistfo.loadfile(projectoptions.netlist);
+  end;
  end;
 end;
 
@@ -306,6 +308,8 @@ begin
    plotsfo.tabs.clear;
    paramfo.grid.clear;
    mainfo.setstattext('');
+   fprojectoptions.free;
+   fprojectoptions:= tprojectoptions.create;
   end;
  end;
 end;

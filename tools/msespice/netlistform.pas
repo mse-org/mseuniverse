@@ -38,10 +38,11 @@ type
   protected
    procedure updatecaption;
    function checkfilechanged: boolean;
+   function dosaveas: modalresultty;
   public
    procedure loadfile(const afile: filenamety);
    function checksave: boolean; //true if ok
-   procedure save;
+   procedure save(const afilename: filenamety = '');
    procedure close;
  end;
 
@@ -136,12 +137,19 @@ begin
  if edit.modified then begin
   fna1:= '*'+fna1;
  end;
- caption:= fna1;
+ caption:= fna1+' Netlist';
 end;
 
-procedure tnetlistfo.save;
+procedure tnetlistfo.save(const afilename: filenamety = '');
 begin
- edit.savetofile('');
+ if afilename <> '' then begin
+  filechange.removenotification(afilename);
+ end;
+ edit.savetofile(afilename);
+ if afilename <> '' then begin
+  mainmo.projectoptions.netlist:= afilename;
+  filechange.addnotification(afilename);
+ end;
  fmodified:= false;
  updatecaption;
 end;
@@ -163,7 +171,12 @@ begin
   mr1:= askyesnocancel('Netlist '+edit.filename+' is modified. Save?');
   case mr1 of
    mr_yes: begin
-    save;
+    if edit.filename = '' then begin
+     result:= dosaveas = mr_ok;
+    end;
+    if result then begin
+     save;
+    end;
    end;
    mr_no: begin
    end;
@@ -182,18 +195,25 @@ end;
 
 procedure tnetlistfo.saveexe(const sender: TObject);
 begin
- save;
+ if edit.filename = '' then begin
+  dosaveas;
+ end
+ else begin
+  save;
+ end;
+end;
+
+function tnetlistfo.dosaveas: modalresultty;
+begin
+ result:= filedialog.execute(fdk_save);
+ if result = mr_ok then begin
+  save(filedialog.controller.filename);
+ end;
 end;
 
 procedure tnetlistfo.saveasexe(const sender: TObject);
 begin
- if filedialog.execute(fdk_save) = mr_ok then begin
-  filechange.removenotification(edit.filename);
-  edit.savetofile(filedialog.controller.filename);
-  filechange.addnotification(edit.filename);
-  mainmo.projectoptions.netlist:= filedialog.controller.filename;
-  updatecaption;
- end;
+ dosaveas;
 end;
 
 function tnetlistfo.checkfilechanged: boolean;

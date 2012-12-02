@@ -25,23 +25,22 @@ uses
 
 type
  tchartoptionsfo = class(tspicefo)
-   tsplitter2: tsplitter;
+   tsplitter2a: tsplitter;
    tracesgrid: twidgetgrid;
    xexpdisp: tstringedit;
    xscalenum: tintegeredit;
    yexpdisp: tstringedit;
    yscalenum: tintegeredit;
    tracecolor: tcoloredit;
-   tsimplewidget1: tsimplewidget;
-   tsplitter3: tsplitter;
-   xscalefo: tscalegridfo;
-   yscalefo: tscalegridfo;
    chartact: taction;
    plotact: taction;
    yunit: tstringedit;
    xunit: tstringedit;
    tracesymbol: tenumedit;
    tracelegend: tstringedit;
+   yscalefo: tscalegridfo;
+   tsplitter3a: tsplitter;
+   xscalefo: tscalegridfo;
    procedure dataenteredexe(const sender: TObject);
    procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
    procedure showchartexe(const sender: TObject);
