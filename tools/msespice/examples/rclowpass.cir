@@ -3,3 +3,4 @@ Vin in gnd DC 1 AC 1
 R1 in out 10k
 C1 out  gnd 100n
 R2 out gnd 33k
+.end
