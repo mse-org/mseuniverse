@@ -24,7 +24,7 @@ uses
  
 type
  plotkindty = (plk_dc,plk_ac,plk_tran);
- stepkindty = (sk_lin,sk_log);
+ stepkindty = (sk_lin,sk_log,sk_gauss,sk_agauss,sk_unif,sk_aunif,sk_limit);
  
  espice = class(exception)
  end;
@@ -89,7 +89,10 @@ function getplotvalues(const ainfo: plotinfoty; const aexpression: msestring;
 function unifyexpression(aexpression: msestring): msestring;
 const
  plotnames: array[plotkindty] of string = ('dc','ac','tran');
- 
+ stepfunctions: array[stepkindty] of string =(
+  //(sk_lin,sk_log,sk_gauss,sk_agauss,sk_unif,sk_aunif,sk_limit);
+       '',    '',    'gauss', 'agauss', 'unif', 'aunif', 'limit');
+
 implementation
 uses
  mseformatstr,msearrayutils,math;

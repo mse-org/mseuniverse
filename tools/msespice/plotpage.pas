@@ -112,6 +112,7 @@ type
    stepstop: trealedit;
    stepcount: tintegeredit;
    stepkind: tenumedit;
+   stepsigma: trealedit;
    procedure setnameexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;

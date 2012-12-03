@@ -360,22 +360,25 @@ inherited plotpagefo: tplotpagefo
         fixrows.items = <        
           item
             height = 16
-            captions.count = 4
+            captions.count = 5
             captions.items = <            
               item
                 caption = 'What'
               end            
               item
-                caption = 'Start'
+                caption = 'Start/Nom'
               end            
               item
-                caption = 'Stop'
+                caption = 'Stop/Var'
+              end            
+              item
+                caption = 'Sigma'
               end            
               item
                 caption = 'Kind'
               end>
           end>
-        datacols.count = 4
+        datacols.count = 5
         datacols.items = <        
           item[stepdest]
             width = 193
@@ -383,11 +386,16 @@ inherited plotpagefo: tplotpagefo
             dataclass = tgridmsestringdatalist
           end        
           item[stepstart]
+            width = 61
             widgetname = 'stepstart'
             dataclass = tgridrealdatalist
           end        
           item[stepstop]
             widgetname = 'stepstop'
+            dataclass = tgridrealdatalist
+          end        
+          item[stepsigma]
+            widgetname = 'stepsigma'
             dataclass = tgridrealdatalist
           end        
           item[stepkind]
@@ -419,7 +427,7 @@ inherited plotpagefo: tplotpagefo
           visible = False
           bounds_x = 194
           bounds_y = 0
-          bounds_cx = 50
+          bounds_cx = 61
           bounds_cy = 16
           onsetvalue = stepstartsetexe
           value = 0
@@ -437,7 +445,7 @@ inherited plotpagefo: tplotpagefo
           optionsskin = [osk_framebuttononly]
           taborder = 3
           visible = False
-          bounds_x = 245
+          bounds_x = 256
           bounds_y = 0
           bounds_cx = 50
           bounds_cy = 16
@@ -461,14 +469,14 @@ inherited plotpagefo: tplotpagefo
           frame.button.color = -1879048187
           taborder = 4
           visible = False
-          bounds_x = 296
+          bounds_x = 358
           bounds_y = 0
           bounds_cx = 50
           bounds_cy = 16
           value = 0
           valuedefault = 0
           min = 0
-          max = 1
+          max = 7
           onsetvalue = stepkindsetexe
           dropdown.cols.count = 1
           dropdown.cols.items = <          
@@ -476,8 +484,33 @@ inherited plotpagefo: tplotpagefo
               data = (
                 'Lin'
                 'Log'
+                'Gauss'
+                'AGauss'
+                'Unif'
+                'AUnif'
+                'Limit'
               )
             end>
+          reffontheight = 14
+        end
+        object stepsigma: trealedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 5
+          visible = False
+          bounds_x = 307
+          bounds_y = 0
+          bounds_cx = 50
+          bounds_cy = 16
+          onsetvalue = stepstopsetexe
+          value = 1
+          valuedefault = 1
+          formatedit = '${REAL}'
+          formatdisp = '${REAL}'
+          valuerange = 1
+          valuestart = 0
+          min = 1E-038
+          max = 1E+038
           reffontheight = 14
         end
       end

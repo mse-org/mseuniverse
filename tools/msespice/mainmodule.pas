@@ -384,22 +384,16 @@ var
  int1,int2,int3: integer;
  str1: string;
  lstr1: lstringty;
-// ar1: msestringarty;
-// vectors: string;
- nums{,nums1}: array[plotkindty] of integer;
+ nums: array[plotkindty] of integer;
  plotnum: integer;
-// rea1: real;
+ sk1: stepkindty;
 begin
  fspicefile:= replacefileext(projectmainstat.filename,'spi.tmp');
  frawfile:= replacefileext(projectmainstat.filename,'raw.tmp');
  deletefile(frawfile);
-// stream1:= ttextstream.create(fprojectoptions.netlist,fm_read);
  try
-//  vectors:= '';
   stream2:= ttextstream.create(fspicefile,fm_create);
   for int1:= 0 to netlistfo.grid.rowhigh do begin
-//  while not stream1.eof do begin
-//   stream1.readln(str1);
    str1:= netlistfo.edit[int1];
    nextword(str1,lstr1);
    if lstringicomp(lstr1,'.END') = 0 then begin
@@ -428,8 +422,14 @@ begin
    end;
   end;
   stream2.writeln('.control');
+  stream2.writeln(
+  ' define unif(nom, rvar) (nom + (nom*rvar) * sunif(0))'+lineend+
+  ' define aunif(nom, avar) (nom + avar * sunif(0))'+lineend+
+  ' define gauss(nom, rvar, sig) (nom + (nom*rvar)/sig * sgauss(0))'+lineend+
+  ' define agauss(nom, avar, sig) (nom + avar/sig * sgauss(0))'+lineend+
+  ' define limit(nom, avar) (nom + ((sgauss(0) >= 0) ? avar : -avar))'+lineend);
+
   stream2.writeln(' set curplot = new');
-//  plotnum:= 0;
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
    with tplotpagefo(plotsfo.tabs[int1]) do begin
     if plotactive.value then begin
@@ -438,8 +438,9 @@ begin
       for int2:= 0 to stepgrid.datarowhigh do begin
        stream2.writeln(' let b'+inttostr(int2)+' = '+stepdest[int2]);
                                      //backup original values
-       if stepcount.value > 0 then begin
-        if stepkindty(stepkind[int2]) = sk_log then begin
+       sk1:= stepkindty(stepkind[int2]);
+       if (stepcount.value > 0) and (sk1 <= sk_log) then begin
+        if sk1 = sk_log then begin
          stream2.writeln(' let a'+inttostr(int2)+' = '+
             doubletostring(ln(stepstop[int2]/stepstart[int2])/stepcount.value));
         end
@@ -452,20 +453,38 @@ begin
       stream2.writeln(' let n = 0');
       stream2.writeln(' dowhile '+varplotname+'.n <= '+inttostr(stepcount.value));
       for int2:= 0 to stepgrid.datarowhigh do begin
-       if stepcount.value = 0 then begin
-        stream2.writeln('  alter '+stepdest[int2]+' = '+
-                                          doubletostring(stepstart[int2]));
-       end
-       else begin
-        if stepkindty(stepkind[int2]) = sk_log then begin
+       sk1:= stepkindty(stepkind[int2]);
+       case sk1 of
+        sk_gauss,sk_agauss: begin
          stream2.writeln('  alter '+stepdest[int2]+' = '+
-             doubletostring(stepstart[int2])+
-             '*exp('+varplotname+'.n*'+varplotname+'.a'+inttostr(int2)+')');
-        end
-        else begin //lin
+           stepfunctions[sk1]+'('+
+                           doubletostring(stepstart[int2])+','+
+                           doubletostring(stepstop[int2])+','+
+                           doubletostring(stepsigma[int2])+')');
+        end;
+        sk_unif,sk_aunif,sk_limit: begin
          stream2.writeln('  alter '+stepdest[int2]+' = '+
-                      doubletostring(stepstart[int2])+
-                      '+'+varplotname+'.n*'+varplotname+'.a'+inttostr(int2));
+           stepfunctions[sk1]+'('+
+                           doubletostring(stepstart[int2])+','+
+                           doubletostring(stepstop[int2])+')');
+        end;
+        else begin
+         if stepcount.value = 0 then begin
+          stream2.writeln('  alter '+stepdest[int2]+' = '+
+                                            doubletostring(stepstart[int2]));
+         end
+         else begin
+          if stepkindty(stepkind[int2]) = sk_log then begin
+           stream2.writeln('  alter '+stepdest[int2]+' = '+
+               doubletostring(stepstart[int2])+
+               '*exp('+varplotname+'.n*'+varplotname+'.a'+inttostr(int2)+')');
+          end
+          else begin //lin
+           stream2.writeln('  alter '+stepdest[int2]+' = '+
+                        doubletostring(stepstart[int2])+
+                        '+'+varplotname+'.n*'+varplotname+'.a'+inttostr(int2));
+          end;
+         end;
         end;
        end;
       end;
