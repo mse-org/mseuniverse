@@ -125,7 +125,28 @@ const
 
 function unifyexpression(aexpression: msestring): msestring;
 begin
- result:= mseuppercase(trim(aexpression));
+// result:= mseuppercase(trim(aexpression));
+ result:= mselowercase(trim(aexpression));
+end;
+
+function removebrackets(aexpression: msestring): msestring;
+var
+ po1,po2: pmsechar;
+begin
+ po1:= pmsechar(aexpression);
+ while po1^ <> #0 do begin
+  if po1^ = '(' then begin
+   po2:= po1+1;
+   while po1^ <> #0 do begin
+    if po1^ = ')' then begin
+     result:= psubstr(po2,po1);
+     break;
+    end;
+    inc(po1);
+   end;
+  end;
+  inc(po1);
+ end;
 end;
  
 function simuoptionstospice(const aoptions:  simuoptionsty): string;
@@ -223,7 +244,7 @@ var
  int1: integer;
 begin
  result:= nil;
- mstr1:= mseuppercase(trim(aexpression));
+ mstr1:= unifyexpression(aexpression);
  if mstr1 = 'F' then begin
   mstr1:= 'FREQUENCY';
  end;
@@ -303,7 +324,7 @@ begin
           setlength(vars,int1+1);
           with vars[int1] do begin
            expression:= ar1[2];
-           unifiedexpression:= unifyexpression(expression);
+           unifiedexpression:= removebrackets(unifyexpression(expression));
            unitname:= ar1[3];
           end;
           inc(int1);

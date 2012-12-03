@@ -102,7 +102,7 @@ inherited plotpagefo: tplotpagefo
       bounds_cx = 612
       bounds_cy = 168
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = '&Run'
+      caption = '&Run Parameters,Charts'
       object tracegrid: twidgetgrid
         popupmenu = gridpopup
         bounds_x = 0
@@ -535,6 +535,64 @@ inherited plotpagefo: tplotpagefo
         reffontheight = 14
       end
     end
+    object ttabpage3: ttabpage
+      frame.zoomwidthstep = 1
+      frame.zoomheightstep = 1
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 612
+      bounds_cy = 168
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Save &Vectors'
+      object savegrid: twidgetgrid
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 612
+        bounds_cy = 168
+        anchors = []
+        optionsgrid = [og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 32
+            numstart = 1
+            numstep = 1
+          end>
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 1
+            captions.items = <            
+              item
+                caption = 'Saved Vectors'
+              end>
+          end>
+        datacols.count = 1
+        datacols.items = <        
+          item[savevector]
+            width = 574
+            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'savevector'
+            dataclass = tgridmsestringdatalist
+          end>
+        datarowheight = 16
+        statfile = mainmo.projectstat1
+        reffontheight = 14
+        object savevector: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 574
+          bounds_cy = 16
+          reffontheight = 14
+        end
+      end
+    end
   end
   object gridpopup: tpopupmenu[4]
     menu.submenu.count = 2
@@ -571,6 +629,7 @@ inherited plotpagefo: tplotpagefo
     )
   end
   inherited printpanel: taction[7]
+    left = 56
   end
   inherited popupme: tpopupmenu[8]
     menu.submenu.items = <    

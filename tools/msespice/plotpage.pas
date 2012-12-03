@@ -113,6 +113,9 @@ type
    stepcount: tintegeredit;
    stepkind: tenumedit;
    stepsigma: trealedit;
+   ttabpage3: ttabpage;
+   savegrid: twidgetgrid;
+   savevector: tstringedit;
    procedure setnameexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
