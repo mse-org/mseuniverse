@@ -23,7 +23,8 @@ uses
  mseedit,mseifiglob,msestrings,msetypes,msewidgets,classes,plotoptions,
  msesplitter,msegrids,msewidgetgrid,msegraphedits,msesimplewidgets,
  mselistbrowser,msedatanodes,msememodialog,msengspice,chartform,mseact,
- mseactions,msescrollbar,msestatfile,msestream,sysutils,spicetabform;
+ mseactions,msescrollbar,msestatfile,msestream,sysutils,spicetabform,
+ msedispwidgets,mserichstring,msetimer;
  
 type
 
@@ -600,7 +601,7 @@ end;
 procedure tplotpagefo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
- if iscellclick(info,[ccr_dblclick]) and not treeed.focused then begin
+ if iscellclick(info,[ccr_dblclick]){ and not treeed.focused} then begin
   tplotnode(treeed.item).showchart;
  end;
 end;

@@ -21,7 +21,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msescrollbar,
  msestatfile,msestream,msestrings,msetabs,msewidgets,sysutils,msetypes,
- msengspice,spiceform;
+ msengspice,spiceform,mselistbrowser;
 
 type
  tplotsfo = class(tspicefo)
@@ -41,6 +41,7 @@ type
    procedure updatecharts(const aplots: plotinfoarty);
    function getchartcaption: msestring;
    procedure updatechartsettings;
+   procedure activatechartnode(const anode: ttreelistedititem);
  end;
  
 var
@@ -198,6 +199,19 @@ begin
   with tplotpagefo(tabs[int1]) do begin
    updatechartsettings;
   end;
+ end;
+end;
+
+procedure tplotsfo.activatechartnode(const anode: ttreelistedititem);
+var
+ wi1: ttreeitemedit;
+begin
+ wi1:= anode.editwidget;
+ if (wi1.item = nil) or (wi1.item.parent <> anode) then begin
+  anode.activate;
+ end
+ else begin
+  wi1.parentwidget.activate;
  end;
 end;
 

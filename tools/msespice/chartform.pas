@@ -71,7 +71,7 @@ procedure syncfitframe(const adock: tdockcontroller);
 
 implementation
 uses
- chartform_mfm,msereal,main,plotpage,dockform,printwindow,mainmodule;
+ chartform_mfm,msereal,main,plotpage,dockform,printwindow,mainmodule,plotsform;
 
 procedure syncfitframe(const adock: tdockcontroller);
 var
@@ -366,7 +366,8 @@ end;
 
 procedure tchartfo.showplotexe(const sender: TObject);
 begin
- fnode.activate;
+ plotsfo.activatechartnode(fnode);
+// fnode.activate;
 end;
 
 procedure tchartfo.beforepaintexe(const sender: twidget;
