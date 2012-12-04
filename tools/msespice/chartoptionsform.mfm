@@ -105,7 +105,7 @@ inherited chartoptionsfo: tchartoptionsfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 15
         captions.count = 9
         captions.items = <        
           item
@@ -193,11 +193,12 @@ inherited chartoptionsfo: tchartoptionsfo
         widgetname = 'tracekey'
         dataclass = tgridintegerdatalist
       end>
-    datarowheight = 16
+    datarowheight = 15
     statfile = mainmo.projectstat2
+    onrowsmoved = tracerowmovedexe
     onrowsmodified = datamodifiedexe
     oncellevent = tracecelleventexe
-    reffontheight = 14
+    reffontheight = 13
     object xexpdisp: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
@@ -206,10 +207,10 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 62
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
       ondataentered = datamodifiedexe
-      reffontheight = 14
+      reffontheight = 13
     end
     object xunit: tstringedit
       optionsskin = [osk_framebuttononly]
@@ -218,10 +219,10 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 63
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
       ondataentered = datamodifiedexe
-      reffontheight = 14
+      reffontheight = 13
     end
     object xscalenum: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
@@ -231,13 +232,13 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 114
       bounds_y = 0
       bounds_cx = 23
-      bounds_cy = 16
+      bounds_cy = 15
       ondataentered = datamodifiedexe
       value = 1
       valuedefault = 1
       min = 1
       max = 10
-      reffontheight = 14
+      reffontheight = 13
     end
     object yexpdisp: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -247,10 +248,10 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 138
       bounds_y = 0
       bounds_cx = 129
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
       ondataentered = datamodifiedexe
-      reffontheight = 14
+      reffontheight = 13
     end
     object yunit: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -260,10 +261,10 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 268
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
       ondataentered = datamodifiedexe
-      reffontheight = 14
+      reffontheight = 13
     end
     object yscalenum: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
@@ -273,13 +274,13 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 319
       bounds_y = 0
       bounds_cx = 23
-      bounds_cy = 16
+      bounds_cy = 15
       ondataentered = datamodifiedexe
       value = 1
       valuedefault = 1
       min = 1
       max = 10
-      reffontheight = 14
+      reffontheight = 13
     end
     object tracecolor: tcoloredit
       optionswidget1 = [ow1_fontglyphheight]
@@ -295,13 +296,13 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 343
       bounds_y = 0
       bounds_cx = 85
-      bounds_cy = 16
+      bounds_cy = 15
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
       ondataentered = datamodifiedexe
       value = -1610612734
       valuedefault = -1610612734
       dropdown.options = [deo_autodropdown, deo_keydropdown]
-      reffontheight = 14
+      reffontheight = 13
     end
     object tracesymbol: tenumedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -315,14 +316,14 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 429
       bounds_y = 0
       bounds_cx = 86
-      bounds_cy = 16
+      bounds_cy = 15
       ondataentered = datamodifiedexe
       dropdown.imagelist = mainmo.tracesymbols
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item
         end>
-      reffontheight = 14
+      reffontheight = 13
     end
     object tracelegend: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -332,9 +333,9 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 516
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 16
+      bounds_cy = 15
       ondataentered = datamodifiedexe
-      reffontheight = 14
+      reffontheight = 13
     end
     object tracekey: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
@@ -344,8 +345,8 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_x = 567
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 15
+      reffontheight = 13
     end
   end
   inline yscalefo: tscalegridfo[2]

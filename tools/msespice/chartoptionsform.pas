@@ -49,6 +49,9 @@ type
    procedure tracecelleventexe(const sender: TObject;
                    var info: celleventinfoty);
    procedure dialcelleventexe(const sender: TObject; var info: celleventinfoty);
+   procedure tracerowmovedexe(const sender: tcustomgrid;
+                   const fromindex: Integer; const toindex: Integer;
+                   const acount: Integer);
   protected
    procedure chartchange;
   public
@@ -118,6 +121,15 @@ procedure tchartoptionsfo.dialcelleventexe(const sender: TObject;
 begin
  if iscellclick(info,[ccr_dblclick]) then begin
   chartact.execute;
+ end;
+end;
+
+procedure tchartoptionsfo.tracerowmovedexe(const sender: tcustomgrid;
+               const fromindex: Integer; const toindex: Integer;
+               const acount: Integer);
+begin
+ if sender.userinput then begin
+  tchartfo(owner).chart.traces.move(fromindex,toindex);
  end;
 end;
 
