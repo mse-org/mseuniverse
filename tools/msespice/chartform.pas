@@ -65,6 +65,7 @@ type
    property chartcaption: msestring read getchartcaption write setchartcaption;
    property optfo: tchartoptionsfo read foptfo;
    property title: msestring read gettitle write settitle;
+   property node: ttreelistedititem read fnode;
  end;
 
 procedure syncfitframe(const adock: tdockcontroller);

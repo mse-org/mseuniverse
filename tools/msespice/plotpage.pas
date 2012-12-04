@@ -155,7 +155,7 @@ type
                    var accept: Boolean);
    procedure xunitsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
-  private
+   private
    fplot: tplotoptionsfo;
    fnameindex: integer;
    fexpressions: msestringarty;

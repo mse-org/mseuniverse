@@ -124,14 +124,14 @@ panels=3
  panel1
  panel2
  panel3
-client_0=168
+client_0=194
  [mainmo.projectstat1]
  [plots]
  kind=2
   1
   2
  [mainmo.projectoptionscomp]
- netlist=/F:/proj/mseuniverse/tools/msespice/examples/rclowpass.cir
+ netlist=/home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
  netlistrel=rclowpass.cir
  libfiles=0
  libnames=0
@@ -194,10 +194,14 @@ client_0=168
   0 0
   0 62
   0 0
+ [plotsfo.p0.savegrid]
+ propcolwidthref=492
+ values0=0
+ sortdescend0=0
  [plotsfo.p0.stepactive]
  value=1
  [plotsfo.p0.stepgrid]
- propcolwidthref=157
+ propcolwidthref=107
  values0=1
   @c1[c]
  width0=193
@@ -212,9 +216,13 @@ client_0=168
  sortdescend2=0
  values3=1
   1
- values3_ci=-1
  width3=50
  sortdescend3=0
+ values4=1
+  0
+ values4_ci=-1
+ width4=50
+ sortdescend4=0
  [plotsfo.p0.stepcount]
  value=5
  [plotsfo.p0.acplotfo.fstop]
@@ -239,7 +247,7 @@ client_0=168
  values0=1
   (
   a=0,17,0,RC  tran
-  c=1
+  c=2
    (
    a=0,0,0,Trace 1
    value0=
@@ -248,6 +256,15 @@ client_0=168
    xvaluekind=0
    yvaluekind=0
    yexpression=v(out)
+   )
+   (
+   a=0,0,0,Trace 2
+   value0=
+   value1=
+   value2=
+   xvaluekind=0
+   yvaluekind=0
+   yexpression=@R1[p]
    )
   value0=Pulse Response
   value1=
@@ -263,13 +280,19 @@ client_0=168
  sortdescend3=0
  width4=51
  sortdescend4=0
- rowstate=2
+ rowstate=3
   0 62
   0 0
+  0 0
+ [plotsfo.p1.savegrid]
+ propcolwidthref=492
+ values0=1
+  @R1[p]
+ sortdescend0=0
  [plotsfo.p1.stepactive]
  value=0
  [plotsfo.p1.stepgrid]
- propcolwidthref=157
+ propcolwidthref=107
  values0=0
  width0=193
  sortdescend0=0
@@ -280,9 +303,12 @@ client_0=168
  width2=50
  sortdescend2=0
  values3=0
- values3_ci=-1
  width3=50
  sortdescend3=0
+ values4=0
+ values4_ci=-1
+ width4=50
+ sortdescend4=0
  [plotsfo.p1.stepcount]
  value=0
  [plotsfo.p1.transplotfo.tstart]
@@ -293,12 +319,12 @@ client_0=168
  value=
  [plotsfo.p1.transplotfo.uic]
  value=1
-client_1=683
+client_1=702
  [mainfo.dockfo1]
  splitdir=2
  useroptions=32228
  children=1
-  container,0,0,623,521
+  container,0,0,623,519
  focusedchild=0
  [netlistfo]
  splitdir=0
@@ -310,8 +336,8 @@ client_1=683
  ny=0
  ncx=0
  ncy=0
- x=574
- y=202
+ x=515
+ y=249
  cx=445
  cy=354
  rcx=0
@@ -328,7 +354,7 @@ client_1=683
  [paramfo]
  splitdir=0
  useroptions=127
- stackedunder=
+ stackedunder=p0_1.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -360,11 +386,11 @@ client_1=683
  x=0
  y=0
  cx=332
- cy=521
+ cy=519
  rcx=0
  rcy=0
  children=1
-  container,0,0,332,521
+  container,0,0,332,519
  focusedchild=0
  [mainfo.panelcontroller.panel2]
  splitdir=2
@@ -379,11 +405,11 @@ client_1=683
  x=335
  y=0
  cx=288
- cy=521
+ cy=519
  rcx=0
  rcy=0
  children=1
-  container,0,0,288,521
+  container,0,0,288,519
  focusedchild=0
  [mainfo.panelcontroller.panel3]
  splitdir=1
@@ -398,11 +424,11 @@ client_1=683
  x=0
  y=0
  cx=623
- cy=521
+ cy=519
  rcx=0
  rcy=0
  children=1
-  container,0,0,623,521
+  container,0,0,623,519
  focusedchild=0
  [p0_0]
  splitdir=0
@@ -417,16 +443,16 @@ client_1=683
  x=0
  y=0
  cx=288
- cy=247
+ cy=246
  rcx=0
  rcy=0
  children=1
-  container,0,0,288,247
+  container,0,0,288,246
  focusedchild=0
  [p0_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=plotsfo
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -445,65 +471,8 @@ client_1=683
  wsize=0
  active=0
  visible=1
- [p0_0.chartoptionsfo.xscalefo.scalegrid]
- propcolwidthref=0
- values0=1
-  0
- values0_ci=-1
- sortdescend0=0
- values1=1
-  5
- width1=31
- sortdescend1=0
- values2=1
-  5
- values2_ci=-1
- width2=31
- sortdescend2=0
- values3=1
-  0..###g
- width3=27
- sortdescend3=0
- values4=1
-  5
- width4=50
- sortdescend4=0
- values5=1
-  0
- values5_ci=-1
- width5=29
- sortdescend5=0
- values6=1
-  0
- values6_ci=-1
- width6=27
- sortdescend6=0
- values7=1
-  0
- width7=50
- sortdescend7=0
- values8=1
-  999.000000000002
- width8=50
- sortdescend8=0
- values9=1
-  0
- width9=28
- sortdescend9=0
- values10=1
-  0
- width10=28
- sortdescend10=0
- values11=1
-  Hz
- width11=50
- sortdescend11=0
- [p0_0.chartoptionsfo.xscalefo.log]
- [p0_0.chartoptionsfo.xscalefo.intervalco]
- [p0_0.chartoptionsfo.xscalefo.capt]
- [p0_0.chartoptionsfo.xscalefo.intervalco2]
  [p0_0.chartoptionsfo.yscalefo.scalegrid]
- propcolwidthref=12
+ propcolwidthref=98
  values0=1
   0
  values0_ci=-1
@@ -533,23 +502,23 @@ client_1=683
  values6=1
   -1
  values6_ci=-1
- width6=27
+ width6=18
  sortdescend6=0
  values7=1
-  0.10510354059345
+  0.105103540593449
  width7=92
  sortdescend7=0
  values8=1
-  0.662336089360976
+  0.662336089360977
  width8=107
  sortdescend8=0
  values9=1
   0
- width9=28
+ width9=47
  sortdescend9=0
  values10=1
   0
- width10=28
+ width10=70
  sortdescend10=0
  values11=1
   V
@@ -559,8 +528,65 @@ client_1=683
  [p0_0.chartoptionsfo.yscalefo.intervalco]
  [p0_0.chartoptionsfo.yscalefo.capt]
  [p0_0.chartoptionsfo.yscalefo.intervalco2]
+ [p0_0.chartoptionsfo.xscalefo.scalegrid]
+ propcolwidthref=222
+ values0=1
+  0
+ values0_ci=-1
+ sortdescend0=0
+ values1=1
+  5
+ width1=31
+ sortdescend1=0
+ values2=1
+  5
+ values2_ci=-1
+ width2=31
+ sortdescend2=0
+ values3=1
+  0..###g
+ width3=27
+ sortdescend3=0
+ values4=1
+  5
+ width4=50
+ sortdescend4=0
+ values5=1
+  0
+ values5_ci=-1
+ width5=29
+ sortdescend5=0
+ values6=1
+  0
+ values6_ci=-1
+ width6=16
+ sortdescend6=0
+ values7=1
+  0
+ width7=50
+ sortdescend7=0
+ values8=1
+  999.000000000002
+ width8=50
+ sortdescend8=0
+ values9=1
+  0
+ width9=51
+ sortdescend9=0
+ values10=1
+  0
+ width10=43
+ sortdescend10=0
+ values11=1
+  Hz
+ width11=50
+ sortdescend11=0
+ [p0_0.chartoptionsfo.xscalefo.log]
+ [p0_0.chartoptionsfo.xscalefo.intervalco]
+ [p0_0.chartoptionsfo.xscalefo.capt]
+ [p0_0.chartoptionsfo.xscalefo.intervalco2]
  [p0_0.chartoptionsfo.tracesgrid]
- propcolwidthref=21
+ propcolwidthref=57
  width0=69
  sortdescend0=0
  values1=1
@@ -571,7 +597,7 @@ client_1=683
   1
  values2_ci=-1
  sortdescend2=0
- width3=145
+ width3=109
  sortdescend3=0
  values4=1
   V
@@ -608,24 +634,24 @@ client_1=683
  x=0
  y=0
  cx=332
- cy=521
+ cy=519
  rcx=0
  rcy=0
  children=1
-  container,0,0,332,521
+  container,0,0,332,519
  focusedchild=0
  [p0_1.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=p1_0.chartoptionsfo
+ stackedunder=plotsfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=490
- y=122
+ x=401
+ y=144
  cx=518
  cy=213
  rcx=0
@@ -636,8 +662,65 @@ client_1=683
  wsize=0
  active=0
  visible=1
+ [p0_1.chartoptionsfo.yscalefo.scalegrid]
+ propcolwidthref=25
+ values0=1
+  0
+ values0_ci=-1
+ sortdescend0=0
+ values1=1
+  5
+ width1=31
+ sortdescend1=0
+ values2=1
+  10
+ values2_ci=-1
+ width2=31
+ sortdescend2=0
+ values3=1
+  0..###g
+ width3=59
+ sortdescend3=0
+ values4=1
+  5
+ width4=50
+ sortdescend4=0
+ values5=1
+  2
+ values5_ci=-1
+ width5=29
+ sortdescend5=0
+ values6=1
+  -1
+ values6_ci=-1
+ width6=27
+ sortdescend6=0
+ values7=1
+  -19.5676530753823
+ width7=64
+ sortdescend7=0
+ values8=1
+  18.1774079120442
+ width8=67
+ sortdescend8=0
+ values9=1
+  0
+ width9=44
+ sortdescend9=0
+ values10=1
+  0.05
+ width10=43
+ sortdescend10=0
+ values11=1
+  
+ width11=50
+ sortdescend11=0
+ [p0_1.chartoptionsfo.yscalefo.log]
+ [p0_1.chartoptionsfo.yscalefo.intervalco]
+ [p0_1.chartoptionsfo.yscalefo.capt]
+ [p0_1.chartoptionsfo.yscalefo.intervalco2]
  [p0_1.chartoptionsfo.xscalefo.scalegrid]
- propcolwidthref=0
+ propcolwidthref=119
  values0=1
   -1
  values0_ci=-1
@@ -693,65 +776,8 @@ client_1=683
  [p0_1.chartoptionsfo.xscalefo.intervalco]
  [p0_1.chartoptionsfo.xscalefo.capt]
  [p0_1.chartoptionsfo.xscalefo.intervalco2]
- [p0_1.chartoptionsfo.yscalefo.scalegrid]
- propcolwidthref=0
- values0=1
-  0
- values0_ci=-1
- sortdescend0=0
- values1=1
-  5
- width1=31
- sortdescend1=0
- values2=1
-  10
- values2_ci=-1
- width2=31
- sortdescend2=0
- values3=1
-  0..###g
- width3=59
- sortdescend3=0
- values4=1
-  5
- width4=50
- sortdescend4=0
- values5=1
-  2
- values5_ci=-1
- width5=29
- sortdescend5=0
- values6=1
-  -1
- values6_ci=-1
- width6=27
- sortdescend6=0
- values7=1
-  -19.5676530753822
- width7=50
- sortdescend7=0
- values8=1
-  18.1774079120442
- width8=50
- sortdescend8=0
- values9=1
-  0
- width9=65
- sortdescend9=0
- values10=1
-  0.05
- width10=87
- sortdescend10=0
- values11=1
-  
- width11=50
- sortdescend11=0
- [p0_1.chartoptionsfo.yscalefo.log]
- [p0_1.chartoptionsfo.yscalefo.intervalco]
- [p0_1.chartoptionsfo.yscalefo.capt]
- [p0_1.chartoptionsfo.yscalefo.intervalco2]
  [p0_1.chartoptionsfo.tracesgrid]
- propcolwidthref=79
+ propcolwidthref=45
  width0=47
  sortdescend0=0
  values1=1
@@ -784,7 +810,7 @@ client_1=683
  sortdescend7=0
  values8=1
   
- width8=37
+ width8=71
  sortdescend8=0
  [p1_0]
  splitdir=0
@@ -797,38 +823,107 @@ client_1=683
  ncx=0
  ncy=0
  x=0
- y=250
+ y=249
  cx=288
- cy=271
+ cy=270
  rcx=0
  rcy=0
  children=1
-  container,0,0,288,271
+  container,0,0,288,270
  focusedchild=0
  [p1_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=netlistfo
+ stackedunder=p0_0.chartoptionsfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=298
- y=56
- cx=672
+ x=230
+ y=68
+ cx=602
  cy=213
  rcx=0
  rcy=0
  children=1
-  container,0,0,662,213
+  container,0,0,592,213
  focusedchild=0
  wsize=0
  active=0
  visible=1
+ [p1_0.chartoptionsfo.yscalefo.scalegrid]
+ propcolwidthref=100
+ values0=2
+  0
+  0
+ values0_ci=-1
+ sortdescend0=0
+ values1=2
+  5
+  5
+ width1=31
+ sortdescend1=0
+ values2=2
+  0
+  0
+ values2_ci=-1
+ width2=31
+ sortdescend2=0
+ values3=2
+  0..###g
+  0..###g
+ width3=63
+ sortdescend3=0
+ values4=2
+  5
+  10
+ width4=50
+ sortdescend4=0
+ values5=2
+  0
+  -1
+ values5_ci=-1
+ width5=29
+ sortdescend5=0
+ values6=2
+  -1
+  -1
+ values6_ci=-1
+ width6=27
+ sortdescend6=0
+ values7=2
+  0
+  0
+ width7=50
+ sortdescend7=0
+ values8=2
+  0.806647985281989
+  0.0000999000900765517
+ width8=81
+ sortdescend8=0
+ values9=2
+  0
+  0
+ width9=45
+ sortdescend9=0
+ values10=2
+  0.05
+  0
+ width10=47
+ sortdescend10=0
+ values11=2
+  V
+  W
+ width11=50
+ sortdescend11=0
+ [p1_0.chartoptionsfo.yscalefo.log]
+ [p1_0.chartoptionsfo.yscalefo.intervalco]
+ [p1_0.chartoptionsfo.yscalefo.capt]
+ [p1_0.chartoptionsfo.yscalefo.intervalco2]
  [p1_0.chartoptionsfo.xscalefo.scalegrid]
- propcolwidthref=0
+ propcolwidthref=150
  values0=1
   0
  values0_ci=-1
@@ -838,13 +933,13 @@ client_1=683
  width1=31
  sortdescend1=0
  values2=1
-  5
+  0
  values2_ci=-1
  width2=31
  sortdescend2=0
  values3=1
   0..###g
- width3=27
+ width3=56
  sortdescend3=0
  values4=1
   5
@@ -866,7 +961,7 @@ client_1=683
  sortdescend7=0
  values8=1
   0.005
- width8=50
+ width8=74
  sortdescend8=0
  values9=1
   0
@@ -877,137 +972,87 @@ client_1=683
  width10=28
  sortdescend10=0
  values11=1
-  s
+  
  width11=50
  sortdescend11=0
  [p1_0.chartoptionsfo.xscalefo.log]
  [p1_0.chartoptionsfo.xscalefo.intervalco]
  [p1_0.chartoptionsfo.xscalefo.capt]
  [p1_0.chartoptionsfo.xscalefo.intervalco2]
- [p1_0.chartoptionsfo.yscalefo.scalegrid]
- propcolwidthref=0
- values0=1
-  0
- values0_ci=-1
- sortdescend0=0
- values1=1
-  5
- width1=31
- sortdescend1=0
- values2=1
-  5
- values2_ci=-1
- width2=31
- sortdescend2=0
- values3=1
-  0..###g
- width3=27
- sortdescend3=0
- values4=1
-  5
- width4=50
- sortdescend4=0
- values5=1
-  0
- values5_ci=-1
- width5=29
- sortdescend5=0
- values6=1
-  -1
- values6_ci=-1
- width6=27
- sortdescend6=0
- values7=1
-  0
- width7=50
- sortdescend7=0
- values8=1
-  0.806647985281989
- width8=50
- sortdescend8=0
- values9=1
-  0
- width9=28
- sortdescend9=0
- values10=1
-  0.05
- width10=28
- sortdescend10=0
- values11=1
-  V
- width11=50
- sortdescend11=0
- [p1_0.chartoptionsfo.yscalefo.log]
- [p1_0.chartoptionsfo.yscalefo.intervalco]
- [p1_0.chartoptionsfo.yscalefo.capt]
- [p1_0.chartoptionsfo.yscalefo.intervalco2]
  [p1_0.chartoptionsfo.tracesgrid]
- propcolwidthref=63
+ propcolwidthref=15
  width0=103
  sortdescend0=0
- values1=1
+ values1=2
   s
+  
  width1=50
  sortdescend1=0
- values2=1
+ values2=2
+  1
   1
  values2_ci=-1
  sortdescend2=0
- width3=129
+ width3=91
  sortdescend3=0
- values4=1
+ values4=2
   V
+  W
  width4=50
  sortdescend4=0
- values5=1
+ values5=2
   1
+  2
  values5_ci=-1
  sortdescend5=0
- values6=1
+ values6=2
   -1610612729
+  -1610612734
  values6_ci=-1
  width6=85
  sortdescend6=0
- values7=1
+ values7=2
+  -1
   -1
  values7_ci=-1
  width7=86
  sortdescend7=0
- values8=1
-  cde
- width8=50
+ values8=2
+  Output Voltage
+  R1 Power
+ width8=66
  sortdescend8=0
 client_2=30
- [p0_0.chartoptionsfo.tsplitter2]
+ [p0_0.chartoptionsfo.tsplitter2a]
  x=0
- y=136
+ y=115
  xprop=1
- yprop=0.652582159624413
- [p0_0.chartoptionsfo.tsplitter3]
- x=135
- y=0
- xprop=0.216300940438872
- yprop=1
- [p0_1.chartoptionsfo.tsplitter2]
+ yprop=0.419939577039275
+ [p0_0.chartoptionsfo.tsplitter3a]
  x=0
- y=136
+ y=196
  xprop=1
- yprop=0.652582159624413
- [p0_1.chartoptionsfo.tsplitter3]
- x=280
- y=0
- xprop=0.557401812688822
- yprop=1
- [p1_0.chartoptionsfo.tsplitter2]
+ yprop=0.709969788519638
+ [p0_1.chartoptionsfo.tsplitter2a]
  x=0
- y=136
+ y=86
  xprop=1
- yprop=0.652582159624413
- [p1_0.chartoptionsfo.tsplitter3]
- x=355
- y=0
- xprop=0.540785498489426
- yprop=1
+ yprop=0.419939577039275
+ [p0_1.chartoptionsfo.tsplitter3a]
+ x=0
+ y=148
+ xprop=1
+ yprop=0.709969788519638
+ [p1_0.chartoptionsfo.tsplitter2a]
+ x=0
+ y=86
+ xprop=1
+ yprop=0.419939577039275
+ [p1_0.chartoptionsfo.tsplitter3a]
+ x=0
+ y=148
+ xprop=1
+ yprop=0.709969788519638
 clients=70
  [mainfo]
  splitdir=0
@@ -1026,8 +1071,8 @@ clients=70
  rcx=0
  rcy=0
  children=2
-  container,0,15,623,538
-  ,0,0,623,15
+  container,0,16,623,537
+  ,0,0,623,16
  focusedchild=0
  wsize=0
  active=1
@@ -1035,7 +1080,7 @@ clients=70
  [consolefo]
  splitdir=0
  useroptions=24703
- stackedunder=p0_0.chartoptionsfo
+ stackedunder=p1_0.chartoptionsfo
  parent=
  mdistate=3
  nx=0
@@ -1057,15 +1102,15 @@ clients=70
  [plotsfo]
  splitdir=0
  useroptions=24679
- stackedunder=mainfo
+ stackedunder=netlistfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=485
- y=369
+ x=298
+ y=337
  cx=534
  cy=349
  rcx=0

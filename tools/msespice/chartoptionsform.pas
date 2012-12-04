@@ -42,28 +42,22 @@ type
    tsplitter3a: tsplitter;
    xscalefo: tscalegridfo;
    procedure dataenteredexe(const sender: TObject);
-   procedure childmouseexe(const sender: twidget; var ainfo: mouseeventinfoty);
    procedure showchartexe(const sender: TObject);
    procedure showplotexe(const sender: TObject);
    procedure createexe(const sender: TObject);
+   procedure tracecelleventexe(const sender: TObject;
+                   var info: celleventinfoty);
+   procedure dialcelleventexe(const sender: TObject; var info: celleventinfoty);
   public
  end;
 
 implementation
 uses
- chartoptionsform_mfm,chartform,mainmodule;
+ chartoptionsform_mfm,chartform,mainmodule,mselistbrowser,plotpage;
 
 procedure tchartoptionsfo.dataenteredexe(const sender: TObject);
 begin
  tchartfo(owner).updatechart;
-end;
-
-procedure tchartoptionsfo.childmouseexe(const sender: twidget;
-               var ainfo: mouseeventinfoty);
-begin
- if msegui.isdblclick(ainfo) then begin
-  chartact.execute;
- end;
 end;
 
 procedure tchartoptionsfo.showchartexe(const sender: TObject);
@@ -72,13 +66,50 @@ begin
 end;
 
 procedure tchartoptionsfo.showplotexe(const sender: TObject);
+var
+ node1: ttreelistedititem;
 begin
- tchartfo(owner).showplotexe(nil); 
+ with tchartfo(owner) do begin
+  if tracesgrid.active and (tracesgrid.row >= 0) and
+                    (tracesgrid.row < node.count) then begin
+   node1:= ttreelistedititem(node[tracesgrid.row]);
+   node1.activate;
+   with tplotpagefo(node1.editwidget.owner) do begin
+    if self.xexpdisp.focused then begin
+     tracegrid.col:= value0.gridcol;
+    end
+    else begin
+     if self.yexpdisp.focused then begin
+      tracegrid.col:= yexpression.gridcol;
+     end;
+    end;
+   end;
+  end
+  else begin
+   showplotexe(nil);
+  end;
+ end;
 end;
 
 procedure tchartoptionsfo.createexe(const sender: TObject);
 begin
  tracesymbol.dropdown.cols[0].asarray:= mainmo.tracesymbolnames;
+end;
+
+procedure tchartoptionsfo.tracecelleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if iscellclick(info,[ccr_dblclick]) then begin
+  plotact.execute;
+ end;
+end;
+
+procedure tchartoptionsfo.dialcelleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if iscellclick(info,[ccr_dblclick]) then begin
+  chartact.execute;
+ end;
 end;
 
 end.

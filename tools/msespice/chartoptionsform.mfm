@@ -73,7 +73,6 @@ inherited chartoptionsfo: tchartoptionsfo
     FFFFFF18
   }
   oncreate = createexe
-  onchildmouseevent = childmouseexe
   moduleclassname = 'tspicefo'
   object tsplitter2a: tsplitter[0]
     color = -1879048189
@@ -190,6 +189,7 @@ inherited chartoptionsfo: tchartoptionsfo
       end>
     datarowheight = 16
     statfile = mainmo.projectstat2
+    oncellevent = tracecelleventexe
     reffontheight = 14
     object xexpdisp: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -402,6 +402,7 @@ inherited chartoptionsfo: tchartoptionsfo
         end      
         item[unittext]
         end>
+      oncellevent = dialcelleventexe
       inherited capt: tstringedit[0]
       end
       inherited start: trealedit[1]
@@ -516,6 +517,7 @@ inherited chartoptionsfo: tchartoptionsfo
         end      
         item[unittext]
         end>
+      oncellevent = dialcelleventexe
       inherited capt: tstringedit[0]
       end
       inherited start: trealedit[1]
