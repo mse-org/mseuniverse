@@ -33,6 +33,7 @@ type
    fvalue0: msestring;
    fvalue1: msestring;
    fvalue2: msestring;
+   fkey: integer;
    procedure setvalue0(const avalue: msestring); virtual;
    procedure setvalue1(const avalue: msestring);
    procedure setvalue2(const avalue: msestring);
@@ -58,12 +59,13 @@ type
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
    destructor destroy; override;
+   procedure newtrace(const aindex: integer);
    procedure dostatread(const reader: tstatreader); override;
    procedure showchart; override;
    function getsavevalues: msestringarty;
    property chart: tchartfo read fchart;
    procedure loaddata(const adata: plotinfoty; const xexpression: msestring;
-                           const stepping: boolean);
+                       const stepping: boolean; var destindex: integerarty);
    property title: msestring read fvalue0;
  end;
 
@@ -149,12 +151,13 @@ type
                    var accept: Boolean);
    procedure stepstopsetexe(const sender: TObject; var avalue: realty;
                    var accept: Boolean);
-   procedure rowinsertedexe(const sender: tcustomgrid; const aindex: Integer;
-                   const acount: Integer);
+   procedure plotrowinsertedexe(const sender: tcustomgrid;
+                   const aindex: Integer; const acount: Integer);
    procedure yunitsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure xunitsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
+   procedure datamodifiedexe(const sender: TObject);
    private
    fplot: tplotoptionsfo;
    fnameindex: integer;
@@ -218,6 +221,7 @@ begin
  fvalue0:= reader.readmsestring('value0',fvalue0);
  fvalue1:= reader.readmsestring('value1',fvalue1);
  fvalue2:= reader.readmsestring('value2',fvalue2);
+ fkey:= reader.readinteger('key',fkey);
 end;
 
 procedure tplotnode.dostatwrite(const writer: tstatwriter);
@@ -226,6 +230,7 @@ begin
  writer.writemsestring('value0',fvalue0);
  writer.writemsestring('value1',fvalue1);
  writer.writemsestring('value2',fvalue2);
+ writer.writeinteger('key',fkey);
 end;
 
 procedure tplotnode.showchart;
@@ -236,20 +241,20 @@ end;
 procedure tplotnode.setvalue0(const avalue: msestring);
 begin
  fvalue0:= avalue;
- mainmo.projectchanged;
+ mainmo.projectmodified;
 end;
 
 procedure tplotnode.setvalue1(const avalue: msestring);
 begin
  fvalue1:= avalue;
- mainmo.projectchanged;
+ mainmo.projectmodified;
  tchartnode(parent).chart.updatechart;
 end;
 
 procedure tplotnode.setvalue2(const avalue: msestring);
 begin
  fvalue2:= avalue;
- mainmo.projectchanged;
+ mainmo.projectmodified;
  tchartnode(parent).chart.updatechart;
 end;
 
@@ -295,7 +300,8 @@ begin
 end;
 
 procedure tchartnode.loaddata(const adata: plotinfoty;
-               const xexpression: msestring; const stepping: boolean);
+               const xexpression: msestring; const stepping: boolean;
+               var destindex: integerarty);
 
  function getdata(const aexpression: msestring;
                             const akind: valuekindty): realarty;
@@ -323,25 +329,67 @@ procedure tchartnode.loaddata(const adata: plotinfoty;
  end; //getdata
  
 var
- int1: integer;
+ int1,int2,int3: integer;
  ar1: realarty;
  ar2: integerarty;
+ found: booleanarty;
 begin
  with chart do begin
-  optfo.tracesgrid.rowcount:= count;
-//  expdisp[0]:= xexpression;
+  if not stepping then begin
+   setlength(destindex,count);
+   setlength(found,optfo.tracesgrid.rowcount);
+   for int1:= 0 to high(destindex) do begin
+    int3:= ttracenode(fitems[int1]).fkey;
+    destindex[int1]:= -1;
+    for int2:= 0 to optfo.tracesgrid.rowhigh do begin
+     if optfo.tracekey[int2] = int3 then begin
+      destindex[int1]:= int2;
+      found[int2]:= true;
+      break;
+     end;
+    end;
+   end;
+   for int1:= 0 to high(destindex) do begin
+    if destindex[int1] < 0 then begin
+     for int2:= 0 to high(found) do begin
+      if not found[int2] then begin
+       found[int2]:= true;
+       optfo.tracekey[int2]:= ttracenode(fitems[int1]).fkey;
+       destindex[int1]:= int2;
+       break;
+      end;
+     end;
+     if destindex[int1] < 0 then begin
+      found:= nil;
+      optfo.tracesgrid.appendrow; 
+      destindex[int1]:= optfo.tracesgrid.rowhigh;
+      optfo.tracekey[destindex[int1]]:= ttracenode(fitems[int1]).fkey;
+     end;
+    end;
+   end;
+   for int1:= 0 to high(found) do begin
+    if not found[int1] then begin
+     optfo.tracesgrid.deleterow(int1);
+     for int2:= 0 to high(destindex) do begin
+      if destindex[int2] > int1 then begin
+       dec(destindex[int2]);
+      end;
+     end;
+    end;
+   end;
+  end;
+//  optfo.tracesgrid.rowcount:= count;
   with chart do begin
    traces.count:= count;
    for int1:= 0 to count-1 do begin
+    int2:= destindex[int1];
     if int1 >= high(adata.data) then begin
      clear;
-     optfo.xexpdisp[int1]:= '';
-     optfo.yexpdisp[int1]:= '';
-//     optfo.xunitdisp[int1]:= '';
-//     optfo.yunitdisp[int1]:= '';
+     optfo.xexpdisp[int2]:= '';
+     optfo.yexpdisp[int2]:= '';
     end
     else begin
-     with traces[int1],ttracenode(items[int1]) do begin
+     with traces[int2],ttracenode(items[int1]) do begin
       kind:= trk_xy;
       if stepping then begin
        options:= options - [cto_xordered];
@@ -361,10 +409,8 @@ begin
        xdata:= getdata(xexpression,xvaluekind);
        ydata:= getdata(yexpression,yvaluekind);
       end;
-      optfo.xexpdisp[int1]:= xexpression;
-      optfo.yexpdisp[int1]:= yexpression;
-//      optfo.xunitdisp[int1]:= fvalue1;
-//      optfo.yunitdisp[int1]:= fvalue2;
+      optfo.xexpdisp[int2]:= xexpression;
+      optfo.yexpdisp[int2]:= yexpression;
      end;
     end;
    end;
@@ -380,8 +426,16 @@ begin
 end;
 
 procedure tchartnode.dostatread(const reader: tstatreader);
+var
+ int1: integer;
 begin
  inherited;
+ if fkey = 0 then begin
+  for int1:= 0 to count - 1 do begin
+   ttracenode(fitems[int1]).fkey:= int1;
+  end;
+  fkey:= count; //next key
+ end;
  setcaption(fcaption);
  fchart.title:= fvalue0;
 end;
@@ -409,6 +463,17 @@ begin
  if fchart <> nil then begin
   fchart.title:= avalue;
  end;
+end;
+
+procedure tchartnode.newtrace(const aindex: integer);
+var
+ node1: ttracenode;
+begin
+ node1:= ttracenode.create(defaulttracecaption);
+ node1.fkey:= fkey;
+ inc(fkey); 
+ insert(node1,aindex);
+ mainmo.projectmodified;
 end;
 
 { ttracenode }
@@ -642,7 +707,8 @@ begin
   if (treeed.item is tchartnode) then begin
    with tchartnode(treeed.item) do begin
     if (aindex > tracegrid.row) and (count = 0) then begin
-     insert(ttracenode.create(defaulttracecaption),0);
+     newtrace(0);
+//     insert(ttracenode.create(defaulttracecaption),0);
      acount:= 0;
     end
     else begin
@@ -656,10 +722,12 @@ begin
    if treeed.item is ttracenode then begin
     with tchartnode(treeed.item.parent) do begin
      if aindex > tracegrid.row then begin
-      insert(ttracenode.create(defaulttracecaption),treeed.item.parentindex+1);
+      newtrace(treeed.item.parentindex+1);
+//      insert(ttracenode.create(defaulttracecaption),treeed.item.parentindex+1);
      end
      else begin
-      insert(ttracenode.create(defaulttracecaption),treeed.item.parentindex);
+      newtrace(treeed.item.parentindex);
+//      insert(ttracenode.create(defaulttracecaption),treeed.item.parentindex);
      end;
     end;
     acount:= 0;
@@ -668,7 +736,7 @@ begin
  end;
 end;
 
-procedure tplotpagefo.rowinsertedexe(const sender: tcustomgrid;
+procedure tplotpagefo.plotrowinsertedexe(const sender: tcustomgrid;
                const aindex: Integer; const acount: Integer);
 begin
  if sender.userinput then begin
@@ -727,6 +795,7 @@ begin
   end;
   acount:= 0;
   tracegrid.row:= source.index;
+  mainmo.projectmodified;
  end;
 end;
 
@@ -806,6 +875,11 @@ begin
    stepstart.value:= avalue;
   end;
  end;
+end;
+
+procedure tplotpagefo.datamodifiedexe(const sender: TObject);
+begin
+ mainmo.projectmodified;
 end;
 
 end.

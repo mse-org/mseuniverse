@@ -184,8 +184,7 @@ object scalegridfo: tscalegridfo
       end>
     datarowheight = 16
     statfile = mainmo.projectstat2
-    onrowcountchanged = rowcountchangeexe
-    onrowsmoved = rowmovedexe
+    onrowsmodified = datamodifiedexe
     reffontheight = 14
     object log: tbooleanedit
       optionswidget1 = []
@@ -197,7 +196,7 @@ object scalegridfo: tscalegridfo
       bounds_cy = 16
       statfile = mainmo.projectstat2
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       visible = False
       onsetvalue = setlogexe
       ifilink = mainmo.booleanlink
@@ -211,7 +210,7 @@ object scalegridfo: tscalegridfo
       bounds_cx = 31
       bounds_cy = 16
       statfile = mainmo.projectstat2
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       value = 5
       valuedefault = 5
       valuerange = 1
@@ -229,7 +228,7 @@ object scalegridfo: tscalegridfo
       bounds_y = 0
       bounds_cx = 27
       bounds_cy = 16
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       visible = False
     end
     object capt: tstringedit
@@ -242,7 +241,7 @@ object scalegridfo: tscalegridfo
       bounds_cx = 50
       bounds_cy = 16
       statfile = mainmo.projectstat2
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       value = '0..###g'
       valuedefault = '0..###g'
       reffontheight = 14
@@ -257,7 +256,7 @@ object scalegridfo: tscalegridfo
       bounds_cx = 29
       bounds_cy = 16
       statfile = mainmo.projectstat2
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       value = 5
       valuedefault = 5
       valuerange = 1
@@ -275,7 +274,7 @@ object scalegridfo: tscalegridfo
       bounds_y = 0
       bounds_cx = 27
       bounds_cy = 16
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       visible = False
     end
     object autoscale: tbooleanedit
@@ -287,7 +286,7 @@ object scalegridfo: tscalegridfo
       bounds_cx = 16
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       visible = False
       value = True
       valuedefault = True
@@ -303,7 +302,7 @@ object scalegridfo: tscalegridfo
       bounds_cx = 75
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       onsetvalue = setvalueexe
       value = 0
       valuedefault = 0
@@ -326,7 +325,7 @@ object scalegridfo: tscalegridfo
       bounds_cx = 75
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       onsetvalue = setvalueexe
       value = 1
       valuedefault = 1
@@ -349,7 +348,7 @@ object scalegridfo: tscalegridfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       value = 0
       valuedefault = 0
       valuerange = 1
@@ -369,7 +368,7 @@ object scalegridfo: tscalegridfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       value = 0
       valuedefault = 0
       valuerange = 1

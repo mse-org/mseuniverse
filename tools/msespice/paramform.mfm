@@ -82,6 +82,7 @@ inherited paramfo: tparamfo
       end>
     datarowheight = 16
     statfile = mainmo.projectmainstat
+    onrowsmodified = datamodifiedeexe
     reffontheight = 14
     object paramname: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -92,6 +93,7 @@ inherited paramfo: tparamfo
       bounds_y = 0
       bounds_cx = 99
       bounds_cy = 16
+      ondataentered = datamodifiedeexe
       ifilink = mainmo.stringlink
       reffontheight = 14
     end
@@ -109,6 +111,7 @@ inherited paramfo: tparamfo
       bounds_y = 0
       bounds_cx = 330
       bounds_cy = 16
+      ondataentered = datamodifiedeexe
       ifilink = mainmo.stringlink
       reffontheight = 14
     end

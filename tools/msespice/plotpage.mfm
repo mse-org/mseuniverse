@@ -24,6 +24,7 @@ inherited plotpagefo: tplotpagefo
     bounds_cx = 116
     bounds_cy = 37
     statfile = mainmo.projectstat1
+    ondataentered = datamodifiedexe
     value = 'Default'
     onsetvalue = setnameexe
     ifilink = mainmo.stringlink
@@ -43,6 +44,7 @@ inherited plotpagefo: tplotpagefo
     bounds_cx = 180
     bounds_cy = 37
     statfile = mainmo.projectstat1
+    ondataentered = datamodifiedexe
     onsetvalue = kindsetexe
     ifilink = mainmo.enumlink
     dropdown.cols.count = 2
@@ -80,6 +82,7 @@ inherited plotpagefo: tplotpagefo
     bounds_cx = 47
     bounds_cy = 16
     statfile = mainmo.projectstat1
+    ondataentered = datamodifiedexe
     value = True
     ifilink = mainmo.booleanlink
   end
@@ -176,8 +179,9 @@ inherited plotpagefo: tplotpagefo
         statfile = mainmo.projectstat1
         onrowsmoving = rowmoveexe
         onrowsinserting = rowinsertexe
-        onrowsinserted = rowinsertedexe
+        onrowsinserted = plotrowinsertedexe
         onrowsdeleting = rowdeleteexe
+        onrowsmodified = datamodifiedexe
         oncellevent = celleventexe
         reffontheight = 14
         object treeed: ttreeitemedit
@@ -359,6 +363,7 @@ inherited plotpagefo: tplotpagefo
           end>
         datarowheight = 16
         statfile = mainmo.projectstat1
+        onrowsmodified = datamodifiedexe
         reffontheight = 14
         object savevector: tstringedit
           optionswidget1 = [ow1_fontglyphheight]
@@ -369,6 +374,7 @@ inherited plotpagefo: tplotpagefo
           bounds_y = 0
           bounds_cx = 574
           bounds_cy = 16
+          ondataentered = datamodifiedexe
           reffontheight = 14
         end
       end
@@ -397,6 +403,7 @@ inherited plotpagefo: tplotpagefo
         bounds_cx = 47
         bounds_cy = 16
         statfile = mainmo.projectstat1
+        ondataentered = datamodifiedexe
         ifilink = mainmo.booleanlink
       end
       object stepgrid: twidgetgrid
@@ -462,6 +469,7 @@ inherited plotpagefo: tplotpagefo
           end>
         datarowheight = 16
         statfile = mainmo.projectstat1
+        onrowsmodified = datamodifiedexe
         reffontheight = 14
         object stepdest: tmemodialogedit
           optionsskin = [osk_framebuttononly]
@@ -476,6 +484,7 @@ inherited plotpagefo: tplotpagefo
           bounds_y = 0
           bounds_cx = 193
           bounds_cy = 16
+          ondataentered = datamodifiedexe
           reffontheight = 14
         end
         object stepstart: trealedit
@@ -487,6 +496,7 @@ inherited plotpagefo: tplotpagefo
           bounds_y = 0
           bounds_cx = 61
           bounds_cy = 16
+          ondataentered = datamodifiedexe
           onsetvalue = stepstartsetexe
           value = 0
           valuedefault = 0
@@ -507,6 +517,7 @@ inherited plotpagefo: tplotpagefo
           bounds_y = 0
           bounds_cx = 50
           bounds_cy = 16
+          ondataentered = datamodifiedexe
           onsetvalue = stepstopsetexe
           value = 1
           valuedefault = 1
@@ -527,6 +538,7 @@ inherited plotpagefo: tplotpagefo
           bounds_y = 0
           bounds_cx = 50
           bounds_cy = 16
+          ondataentered = datamodifiedexe
           onsetvalue = stepstopsetexe
           value = 1
           valuedefault = 1
@@ -551,6 +563,7 @@ inherited plotpagefo: tplotpagefo
           bounds_y = 0
           bounds_cx = 50
           bounds_cy = 16
+          ondataentered = datamodifiedexe
           value = 0
           valuedefault = 0
           min = 0
@@ -589,6 +602,7 @@ inherited plotpagefo: tplotpagefo
         bounds_y = 10
         bounds_cx = 86
         statfile = mainmo.projectstat1
+        ondataentered = datamodifiedexe
         ifilink = mainmo.integerlink
         reffontheight = 14
       end

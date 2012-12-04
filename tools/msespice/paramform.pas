@@ -12,10 +12,17 @@ type
    grid: twidgetgrid;
    paramname: tstringedit;
    paramexpression: tmemodialogedit;
+   procedure datamodifiedeexe(const sender: TObject);
  end;
 var
  paramfo: tparamfo;
 implementation
 uses
- paramform_mfm;
+ paramform_mfm,mainmodule;
+ 
+procedure tparamfo.datamodifiedeexe(const sender: TObject);
+begin
+ mainmo.projectmodified;
+end;
+
 end.

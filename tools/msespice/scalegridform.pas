@@ -37,12 +37,9 @@ type
    intervalco2: trealedit;
    gridline: tbooleanedit;
    unittext: tstringedit;
-   procedure dataenteredexe(const sender: TObject);
-   procedure rowcountchangeexe(const sender: tcustomgrid);
+   procedure datamodifiedexe(const sender: TObject);
    procedure setvalueexe(const sender: TObject; var avalue: realty;
                    var accept: Boolean);
-   procedure rowmovedexe(const sender: tcustomgrid; const fromindex: Integer;
-                   const toindex: Integer; const acount: Integer);
    procedure setlogexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
   public
@@ -56,10 +53,10 @@ implementation
 uses
  scalegridform_mfm,chartform,mainmodule;
  
-procedure tscalegridfo.dataenteredexe(const sender: TObject);
+procedure tscalegridfo.datamodifiedexe(const sender: TObject);
 begin
  tchartfo(owner.owner).updatechart;
- mainmo.projectchanged;
+ mainmo.projectmodified;
 end;
 
 procedure tscalegridfo.updatedial(const adial: tcustomdialcontroller;
@@ -153,22 +150,10 @@ begin
  end;
 end;
 
-procedure tscalegridfo.rowcountchangeexe(const sender: tcustomgrid);
-begin
- dataenteredexe(nil);
-end;
-
 procedure tscalegridfo.setvalueexe(const sender: TObject; var avalue: realty;
                var accept: Boolean);
 begin
  autoscale.value:= false;
-end;
-
-procedure tscalegridfo.rowmovedexe(const sender: tcustomgrid;
-               const fromindex: Integer; const toindex: Integer;
-               const acount: Integer);
-begin
- dataenteredexe(nil);
 end;
 
 procedure tscalegridfo.setlogexe(const sender: TObject; var avalue: Boolean;

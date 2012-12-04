@@ -41,13 +41,16 @@ type
    yscalefo: tscalegridfo;
    tsplitter3a: tsplitter;
    xscalefo: tscalegridfo;
-   procedure dataenteredexe(const sender: TObject);
+   tracekey: tintegeredit;
+   procedure datamodifiedexe(const sender: TObject);
    procedure showchartexe(const sender: TObject);
    procedure showplotexe(const sender: TObject);
    procedure createexe(const sender: TObject);
    procedure tracecelleventexe(const sender: TObject;
                    var info: celleventinfoty);
    procedure dialcelleventexe(const sender: TObject; var info: celleventinfoty);
+  protected
+   procedure chartchange;
   public
  end;
 
@@ -55,9 +58,15 @@ implementation
 uses
  chartoptionsform_mfm,chartform,mainmodule,mselistbrowser,plotpage;
 
-procedure tchartoptionsfo.dataenteredexe(const sender: TObject);
+procedure tchartoptionsfo.chartchange;
 begin
  tchartfo(owner).updatechart;
+ mainmo.projectmodified;
+end;
+
+procedure tchartoptionsfo.datamodifiedexe(const sender: TObject);
+begin
+ chartchange;
 end;
 
 procedure tchartoptionsfo.showchartexe(const sender: TObject);

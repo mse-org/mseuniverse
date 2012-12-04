@@ -94,12 +94,19 @@ inherited chartoptionsfo: tchartoptionsfo
     bounds_cx = 662
     bounds_cy = 136
     anchors = [an_top]
-    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowmoving, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 29
+        numstart = 1
+        numstep = 1
+      end>
     fixrows.count = 1
     fixrows.items = <    
       item
         height = 16
-        captions.count = 11
+        captions.count = 9
         captions.items = <        
           item
             caption = 'X-Expression'
@@ -129,20 +136,14 @@ inherited chartoptionsfo: tchartoptionsfo
           item
             caption = 'Legend'
             hint = 'X auto scale'
-          end        
-          item
-            caption = 'X-Range'
-          end        
-          item
-            caption = 'X-Start'
           end>
       end>
-    datacols.count = 9
+    datacols.count = 10
     datacols.items = <    
       item[xexpdisp]
         color = -1879048185
         width = 62
-        options = [co_readonly, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'xexpdisp'
         dataclass = tgridmsestringdatalist
       end    
@@ -159,7 +160,7 @@ inherited chartoptionsfo: tchartoptionsfo
       item[yexpdisp]
         color = -1879048185
         width = 129
-        options = [co_readonly, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'yexpdisp'
         dataclass = tgridmsestringdatalist
       end    
@@ -186,9 +187,15 @@ inherited chartoptionsfo: tchartoptionsfo
       item[tracelegend]
         widgetname = 'tracelegend'
         dataclass = tgridmsestringdatalist
+      end    
+      item[tracekey]
+        options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tracekey'
+        dataclass = tgridintegerdatalist
       end>
     datarowheight = 16
     statfile = mainmo.projectstat2
+    onrowsmodified = datamodifiedexe
     oncellevent = tracecelleventexe
     reffontheight = 14
     object xexpdisp: tstringedit
@@ -200,8 +207,8 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 62
       bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
-      ondataentered = dataenteredexe
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
+      ondataentered = datamodifiedexe
       reffontheight = 14
     end
     object xunit: tstringedit
@@ -213,7 +220,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       reffontheight = 14
     end
     object xscalenum: tintegeredit
@@ -225,7 +232,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       value = 1
       valuedefault = 1
       min = 1
@@ -241,8 +248,8 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 129
       bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate]
-      ondataentered = dataenteredexe
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
+      ondataentered = datamodifiedexe
       reffontheight = 14
     end
     object yunit: tstringedit
@@ -255,7 +262,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       reffontheight = 14
     end
     object yscalenum: tintegeredit
@@ -267,7 +274,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       value = 1
       valuedefault = 1
       min = 1
@@ -290,7 +297,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_cx = 85
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       value = -1610612734
       valuedefault = -1610612734
       dropdown.options = [deo_autodropdown, deo_keydropdown]
@@ -309,7 +316,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 86
       bounds_cy = 16
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
       dropdown.imagelist = mainmo.tracesymbols
       dropdown.cols.count = 1
       dropdown.cols.items = <      
@@ -326,7 +333,18 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
-      ondataentered = dataenteredexe
+      ondataentered = datamodifiedexe
+      reffontheight = 14
+    end
+    object tracekey: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 10
+      visible = False
+      bounds_x = 567
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
       reffontheight = 14
     end
   end

@@ -143,7 +143,7 @@ type
    procedure newproject;
    procedure loadproject(const aname: filenamety); //'' -> statfilename
    procedure simuterminated;
-   procedure projectchanged;
+   procedure projectmodified;
    function spicelines(const atext: msestring): string;
                      //break lines with + linestart
    property projectloaded: boolean read fprojectloaded;
@@ -335,6 +335,8 @@ begin
 end;
 
 procedure tmainmo.updateprojectstate;
+var
+ mstr1: msestring;
 begin
  closeprojectact.enabled:= projectloaded; 
  optionsact.enabled:= projectloaded;
@@ -344,7 +346,10 @@ begin
  simustartact.enabled:= projectloaded and not simurunning;
  
  if projectloaded then begin
-  mainfo.caption:= 'MSEspice '+filename(projectmainstat.filename);
+  if fmodified then begin
+   mstr1:= '*';
+  end;
+  mainfo.caption:= 'MSEspice '+mstr1+filename(projectmainstat.filename);
  end
  else begin
   mainfo.caption:= 'MSEspice';
@@ -671,10 +676,10 @@ end;
 procedure tmainmo.projectdataenteredexe(const sender: TObject;
                const aindex: Integer);
 begin
- projectchanged;
+ projectmodified;
 end;
 
-procedure tmainmo.projectchanged;
+procedure tmainmo.projectmodified;
 begin
  fmodified:= true;
  updateprojectstate;

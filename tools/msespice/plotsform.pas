@@ -151,6 +151,7 @@ end;
 procedure tplotsfo.updatecharts(const aplots: plotinfoarty);
 var
  int1,int2,int3,int4: integer;
+ destindex: integerarty;
 begin
  int2:= 0;
  for int1:= 0 to tabs.count - 1 do begin
@@ -164,7 +165,8 @@ begin
      for int3:= 0 to tracegrid.rowhigh do begin
       if treeed[int3] is tchartnode then begin
        if int2 <= high(aplots) then begin
-        tchartnode(treeed[int3]).loaddata(aplots[int2],plot.getxvalue,int4 > 0);
+        tchartnode(treeed[int3]).loaddata(aplots[int2],plot.getxvalue,int4 > 0,
+                  destindex);
        end
        else begin
         tchartnode(treeed[int3]).chart.clear;
