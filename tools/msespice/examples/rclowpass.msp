@@ -329,7 +329,7 @@ client_1=702
  [netlistfo]
  splitdir=0
  useroptions=127
- stackedunder=consolefo
+ stackedunder=p0_0.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -354,7 +354,7 @@ client_1=702
  [paramfo]
  splitdir=0
  useroptions=127
- stackedunder=p0_1.chartoptionsfo
+ stackedunder=netlistfo
  parent=
  mdistate=0
  nx=0
@@ -452,7 +452,7 @@ client_1=702
  [p0_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=mainfo
+ stackedunder=consolefo
  parent=
  mdistate=0
  nx=0
@@ -643,7 +643,7 @@ client_1=702
  [p0_1.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=plotsfo
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -663,7 +663,7 @@ client_1=702
  active=0
  visible=1
  [p0_1.chartoptionsfo.yscalefo.scalegrid]
- propcolwidthref=25
+ propcolwidthref=23
  values0=1
   0
  values0_ci=-1
@@ -705,7 +705,7 @@ client_1=702
  sortdescend8=0
  values9=1
   0
- width9=44
+ width9=46
  sortdescend9=0
  values10=1
   0.05
@@ -720,7 +720,7 @@ client_1=702
  [p0_1.chartoptionsfo.yscalefo.capt]
  [p0_1.chartoptionsfo.yscalefo.intervalco2]
  [p0_1.chartoptionsfo.xscalefo.scalegrid]
- propcolwidthref=119
+ propcolwidthref=72
  values0=1
   -1
  values0_ci=-1
@@ -743,7 +743,7 @@ client_1=702
  width4=50
  sortdescend4=0
  values5=1
-  10
+  0
  values5_ci=-1
  width5=29
  sortdescend5=0
@@ -762,11 +762,11 @@ client_1=702
  sortdescend8=0
  values9=1
   0
- width9=28
+ width9=55
  sortdescend9=0
  values10=1
   0
- width10=28
+ width10=48
  sortdescend10=0
  values11=1
   
@@ -834,7 +834,7 @@ client_1=702
  [p1_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=p0_0.chartoptionsfo
+ stackedunder=p0_1.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -1080,7 +1080,7 @@ clients=70
  [consolefo]
  splitdir=0
  useroptions=24703
- stackedunder=p1_0.chartoptionsfo
+ stackedunder=plotsfo
  parent=
  mdistate=3
  nx=0
@@ -1102,7 +1102,7 @@ clients=70
  [plotsfo]
  splitdir=0
  useroptions=24679
- stackedunder=netlistfo
+ stackedunder=p1_0.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -1123,7 +1123,7 @@ clients=70
  visible=1
  [plotsfo.tabs]
  firsttab=0
- index=1
+ index=0
 [netlistfo.filedialog]
 filenames=1
  /F:/proj/mseuniverse/tools/msespice/examples/rclowpass.cir
