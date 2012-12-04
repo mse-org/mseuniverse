@@ -173,10 +173,14 @@ object mainfo: tmainfo
           end        
           item
             caption = '&Plots'
-            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut, as_localonexecute]
             imagelist = imagelist
             imagenr = 4
             onexecute = showplotsexe
+            sc = (
+              1
+              306
+            )
           end        
           item
             caption = '&Charts'
@@ -187,10 +191,14 @@ object mainfo: tmainfo
           end        
           item
             caption = '&Spice Console'
-            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+            state = [as_localcaption, as_localimagelist, as_localimagenr, as_localshortcut, as_localonexecute]
             imagelist = imagelist
             imagenr = 1
             onexecute = showconsoleexe
+            sc = (
+              1
+              311
+            )
           end>
         caption = '&View'
         name = 'view'
