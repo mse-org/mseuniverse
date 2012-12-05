@@ -59,7 +59,7 @@ type
                        const anode: ttreelistedititem //tchartnode
                                                        ); reintroduce;
    destructor destroy; override;
-   procedure clear;
+   procedure clear(const all: boolean);
    procedure updatechart;
    procedure updatechartsettings;
    property chartcaption: msestring read getchartcaption write setchartcaption;
@@ -176,9 +176,19 @@ begin
  inherited;
 end;
 
-procedure tchartfo.clear;
+procedure tchartfo.clear(const all: boolean);
+var
+ int1: integer;
 begin
  chart.clear;
+ if all then begin
+  optfo.tracesgrid.clear;
+  with chart.traces do begin
+   for int1:= 0 to count - 1 do begin
+    items[int1].legend_caption:= '';
+   end;
+  end;
+ end;
 end;
 
 procedure tchartfo.doupdatechart;

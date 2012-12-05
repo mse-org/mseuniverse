@@ -164,12 +164,13 @@ begin
     for int4:= 0 to int4 do begin
      for int3:= 0 to tracegrid.rowhigh do begin
       if treeed[int3] is tchartnode then begin
-       if int2 <= high(aplots) then begin
-        tchartnode(treeed[int3]).loaddata(aplots[int2],plot.getxvalue,int4 > 0,
-                  destindex);
-       end
-       else begin
-        tchartnode(treeed[int3]).chart.clear;
+       with tchartnode(treeed[int3]) do begin
+        if int2 <= high(aplots) then begin
+         loaddata(aplots[int2],plot.getxvalue,int4 > 0,destindex);
+        end
+        else begin
+         chart.clear(count = 0);
+        end;
        end;
       end;
      end;
@@ -179,7 +180,7 @@ begin
    else begin
     for int3:= 0 to tracegrid.rowhigh do begin
      if treeed[int3] is tchartnode then begin
-      tchartnode(treeed[int3]).chart.clear;
+      tchartnode(treeed[int3]).chart.clear(false);
      end;
     end;
    end;
