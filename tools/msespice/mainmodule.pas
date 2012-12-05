@@ -436,14 +436,14 @@ begin
   stream2.writeln(' set curplot = new');
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
    with tplotpagefo(plotsfo.tabs[int1]) do begin
-    if savegrid.datarowhigh >= 0 then begin
-     stream2.writeln(' save all '+concatstrings(savevector.gridvalues));
-    end
-    else begin
-     stream2.writeln(' save all');
-//     stream2.writeln(' save ');
-    end;
     if plotactive.value then begin
+     if savegrid.datarowhigh >= 0 then begin
+      stream2.writeln(' save all '+concatstrings(savevector.gridvalues));
+     end
+     else begin
+      stream2.writeln(' save all');
+ //     stream2.writeln(' save ');
+     end;
      if stepactive.value then begin
       stream2.writeln(' set curplot = '+varplotname);
       for int2:= 0 to stepgrid.datarowhigh do begin

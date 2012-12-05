@@ -361,7 +361,7 @@ client_1=732
  [paramfo]
  splitdir=0
  useroptions=127
- stackedunder=netlistfo
+ stackedunder=p0_0.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -459,7 +459,7 @@ client_1=732
  [p0_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=p1_0.chartoptionsfo
+ stackedunder=p0_1.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -659,7 +659,7 @@ client_1=732
  [p0_1.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=p0_0.chartoptionsfo
+ stackedunder=plotsfo
  parent=
  mdistate=0
  nx=0
@@ -1117,7 +1117,7 @@ clients=70
  [consolefo]
  splitdir=0
  useroptions=24703
- stackedunder=plotsfo
+ stackedunder=p1_0.chartoptionsfo
  parent=
  mdistate=3
  nx=0
@@ -1139,7 +1139,7 @@ clients=70
  [plotsfo]
  splitdir=0
  useroptions=24679
- stackedunder=p0_1.chartoptionsfo
+ stackedunder=netlistfo
  parent=
  mdistate=0
  nx=0
