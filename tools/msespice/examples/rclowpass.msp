@@ -336,7 +336,7 @@ client_1=732
  [netlistfo]
  splitdir=0
  useroptions=127
- stackedunder=plotsfo
+ stackedunder=consolefo
  parent=
  mdistate=0
  nx=0
@@ -361,7 +361,7 @@ client_1=732
  [paramfo]
  splitdir=0
  useroptions=127
- stackedunder=consolefo
+ stackedunder=netlistfo
  parent=
  mdistate=0
  nx=0
@@ -939,8 +939,8 @@ client_1=732
  width10=47
  sortdescend10=0
  values11=2
-  W
   V
+  W
  width11=50
  sortdescend11=0
  [p1_0.chartoptionsfo.yscalefo.log]
@@ -1027,8 +1027,8 @@ client_1=732
  width3=91
  sortdescend3=0
  values4=2
-  V
   W
+  V
  width4=50
  sortdescend4=0
  values5=2
@@ -1117,7 +1117,7 @@ clients=70
  [consolefo]
  splitdir=0
  useroptions=24703
- stackedunder=netlistfo
+ stackedunder=plotsfo
  parent=
  mdistate=3
  nx=0
