@@ -386,16 +386,33 @@ const
         //"set var curplot" "$var.vector" does not work
 var
  stream2: ttextstream = nil;
- int1,int2,int3: integer;
+ writestatement: string;
+ 
+ procedure dowrite(const vectors: stringarty);
+ var
+  int1: integer;
+  str1: string;
+ begin
+  str1:= '';
+  for int1:= 0 to high(vectors) do begin
+   str1:= str1 + ' {$curplot}.'+vectors[int1];
+  end;
+  stream2.writeln(writestatement+str1);
+ end;
+
+var
+ int1,int2: integer;
  str1: string;
  lstr1: lstringty;
- nums: array[plotkindty] of integer;
- plotnum: integer;
  sk1: stepkindty;
+ ar1: stringarty;
+ 
 begin
  fspicefile:= replacefileext(projectmainstat.filename,'spi.tmp');
  frawfile:= replacefileext(projectmainstat.filename,'raw.tmp');
  deletefile(frawfile);
+ writestatement:= ' write '+tosysfilepath(frawfile,true);
+                                       //'write' must be lowercase!
  try
   stream2:= ttextstream.create(fspicefile,fm_create);
   for int1:= 0 to netlistfo.grid.rowhigh do begin
@@ -427,6 +444,7 @@ begin
    end;
   end;
   stream2.writeln('.control');
+  stream2.writeln(' set appendwrite');
   stream2.writeln(
   ' define unif(nom, rvar) (nom + (nom*rvar) * sunif(0))'+lineend+
   ' define aunif(nom, avar) (nom + avar * sunif(0))'+lineend+
@@ -442,9 +460,9 @@ begin
      end
      else begin
       stream2.writeln(' save all');
- //     stream2.writeln(' save ');
      end;
      if stepactive.value then begin
+      ar1:= exptags;
       stream2.writeln(' set curplot = '+varplotname);
       for int2:= 0 to stepgrid.datarowhigh do begin
        stream2.writeln(' let b'+inttostr(int2)+' = '+stepdest[int2]);
@@ -500,12 +518,11 @@ begin
        end;
       end;
       stream2.writeln('  '+getplotstatement);
-//      stream2.writeln(' set p'+inttostr(plotnum)+' = $curplot');
-//      inc(plotnum);
       stream2.writeln('  let '+varplotname+'.n = '+varplotname+'.n + 1');
       for int2:= 1 to high(expressions) do begin
        stream2.writeln('  let '+exptag(int2)+'='+expressions[int2]);
       end;
+      dowrite(ar1);
       stream2.writeln(' end');
       for int2:= 0 to stepgrid.datarowhigh do begin //restore original values
        stream2.writeln(' alter '+stepdest[int2]+' = '+
@@ -514,51 +531,16 @@ begin
      end
      else begin
       stream2.writeln(' '+getplotstatement);
-//      stream2.writeln(' set p'+inttostr(plotnum)+' = $curplot');
-//      inc(plotnum);
       for int2:= 1 to high(expressions) do begin
        stream2.writeln(' let '+exptag(int2)+'='+spicelines(expressions[int2]));
       end;
+      dowrite(exptags);
      end;
     end;
    end;
   end;
-  fillchar(nums,sizeof(nums),0);
-  str1:= ' write '+tosysfilepath(frawfile,true); //'write' must be lowercase!
-  plotnum:= 0;
-  for int1:= 0 to plotsfo.tabs.count - 1 do begin
-   with tplotpagefo(plotsfo.tabs[int1]) do begin
-    if plotactive.value then begin
-     int3:= 0;
-     if stepactive.value then begin
-      int3:= stepcount.value;
-     end;
-     for int3:= 0 to int3 do begin
-      str1:= str1+lineend+'+ ';
-(*      if (kind = plk_ac) and (nums[plk_ac] <> 0) {and 
-                                      (nums[plk_tran] = 0)} then begin
-       inc(nums[plk_tran]);
-       inc(nums[plk_dc]);
-      end;
-*)
-      if (nums[kind] = 0) and (plotnum > 0) then begin
-       dec(plotnum);
-      end;
-      inc(nums[kind]);
-      inc(plotnum);
-      for int2:= 1 to high(expressions) do begin
-       str1:= str1 +' '+plotnames[kind]+inttostr(plotnum)+'.'+exptag(int2);
-//       str1:= str1 +' '+plotnames[kind]+inttostr(nums[kind])+'.'+exptag(int2);
-//       str1:= str1 +' {$p'+inttostr(plotnum)+'}.'+exptag(int2);
-      end;
-     end;
-    end;
-   end;
-  end;
-  stream2.writeln(str1);                   
   stream2.writeln('.endc'+lineend+'.END');
  finally
-//  stream1.free;
   stream2.free;
  end;
  consolefo.term.clear;

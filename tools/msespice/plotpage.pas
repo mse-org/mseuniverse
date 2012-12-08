@@ -171,6 +171,7 @@ type
    function getplotstatement: string;
    function chartnodes: chartnodearty;
    function exptag(const aindex: integer): string;
+   function exptags: stringarty;
    procedure resetnameindex;
    procedure updatechartsettings;
    property plot: tplotoptionsfo read fplot;
@@ -553,6 +554,19 @@ end;
 function tplotpagefo.exptag(const aindex: integer): string;
 begin
  result:= 'p'+inttostr(tabindex)+'e'+inttostr(aindex)
+end;
+
+function tplotpagefo.exptags: stringarty;
+var
+ int1: integer;
+begin
+ result:= nil;
+ if expressions <> nil then begin
+  setlength(result,high(expressions));
+  for int1:= 1 to high(expressions) do begin
+   result[int1-1]:= exptag(int1);
+  end;
+ end;
 end;
 
 function tplotpagefo.getplotstatement: string;
