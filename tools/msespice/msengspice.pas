@@ -153,7 +153,7 @@ function simuoptionstospice(const aoptions:  simuoptionsty): string;
 begin
  result:= '';
 end;
-
+var testvar: string;
 function readmeta(const astream: ttextstream; var infokind: infokindty;
                      var info: string): boolean;
 var
@@ -162,6 +162,7 @@ var
 // ik1: infokindty;
 begin
  result:= astream.readln(str1) and (str1 <> '');
+testvar:= str1;
  if result then begin
   result:= false;
   po1:= strscan(pchar(pointer(str1)),':');

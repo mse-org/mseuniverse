@@ -456,12 +456,13 @@ begin
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
    with tplotpagefo(plotsfo.tabs[int1]) do begin
     if plotactive.value then begin
+     str1:= ' save all';
      if savegrid.datarowhigh >= 0 then begin
-      stream2.writeln(' save all '+concatstrings(savevector.gridvalues));
-     end
-     else begin
-      stream2.writeln(' save all');
+      for int2:= 0 to savegrid.datarowhigh do begin
+       str1:= str1 + ' '+unifyexpression(savevector[int2]);
+      end;
      end;
+     stream2.writeln(str1);
      if stepactive.value then begin
       ar1:= exptags;
       stream2.writeln(' set curplot = '+varplotname);

@@ -561,6 +561,7 @@ var
  int1: integer;
 begin
  result:= nil;
+ getplotstatement;
  if expressions <> nil then begin
   setlength(result,high(expressions));
   for int1:= 1 to high(expressions) do begin
