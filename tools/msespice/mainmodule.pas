@@ -388,7 +388,7 @@ var
  stream2: ttextstream = nil;
  writestatement: string;
  
- procedure dowrite(const vectors: stringarty);
+ procedure dowrite(const vectors: stringarty; const indent: string = '');
  var
   int1: integer;
   str1: string;
@@ -397,7 +397,8 @@ var
   for int1:= 0 to high(vectors) do begin
    str1:= str1 + ' {$curplot}.'+vectors[int1];
   end;
-  stream2.writeln(writestatement+str1);
+  stream2.writeln(indent+writestatement+str1);
+  stream2.writeln(indent+' destroy {$curplot}');
  end;
 
 var
@@ -522,7 +523,7 @@ begin
       for int2:= 1 to high(expressions) do begin
        stream2.writeln('  let '+exptag(int2)+'='+expressions[int2]);
       end;
-      dowrite(ar1);
+      dowrite(ar1,' ');
       stream2.writeln(' end');
       for int2:= 0 to stepgrid.datarowhigh do begin //restore original values
        stream2.writeln(' alter '+stepdest[int2]+' = '+
