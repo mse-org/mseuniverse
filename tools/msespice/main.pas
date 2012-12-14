@@ -26,7 +26,7 @@ uses
  dockform,msebitmap,msesplitter,msedispwidgets,mserichstring;
 
 const
- versiontext = '0.9 unstable';
+ versiontext = '0.8.4';
 type
  messagetextkindty = (mtk_info,mtk_running,mtk_finished,mtk_error,mtk_signal);
 
@@ -141,8 +141,8 @@ end;
 
 procedure tmainfo.aboutexe(const sender: TObject);
 begin
- showmessage('MSEgui version: '+mseguiversiontext+c_linefeed+
-             'MSEspice version: '+versiontext+c_linefeed+
+ showmessage('MSEspice version: '+versiontext+c_linefeed+
+             'MSEgui version: '+mseguiversiontext+c_linefeed+             
              'Host: '+ platformtext+ c_linefeed+
              c_linefeed+
              'Copyright 1999-2012'+c_linefeed+
