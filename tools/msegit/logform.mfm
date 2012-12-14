@@ -1,6 +1,6 @@
 inherited logfo: tlogfo
-  bounds_x = 104
-  bounds_y = 118
+  bounds_x = 582
+  bounds_y = 103
   bounds_cx = 547
   container.bounds = (
     0
@@ -64,7 +64,7 @@ inherited logfo: tlogfo
     datacols.options = [co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
     datacols.options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
     datacols.items = <    
-      item
+      item[num]
         color = -1879048187
         colorselect = -1879048185
         colorfocused = -1879048185
@@ -73,7 +73,7 @@ inherited logfo: tlogfo
         widgetname = 'num'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[diffbase]
         colorfocused = -1879048185
         width = 16
         options = [co_drawfocus, co_noctrlmousefocus, co_focusselect, co_rowselect, co_fixwidth, co_fixpos, co_nohscroll, co_savestate, co_mousescrollrow]
@@ -84,7 +84,7 @@ inherited logfo: tlogfo
         )
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[message]
         colorfocused = -1879048185
         width = 167
         options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
@@ -95,7 +95,7 @@ inherited logfo: tlogfo
         dataclass = titemeditlist
         datalist.oncreateitem = createmessageitemexe
       end    
-      item
+      item[commit]
         colorfocused = -1879048185
         width = 99
         options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
@@ -104,7 +104,7 @@ inherited logfo: tlogfo
         widgetname = 'commit'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[commitdate]
         colorfocused = -1879048185
         width = 116
         options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
@@ -113,7 +113,7 @@ inherited logfo: tlogfo
         widgetname = 'commitdate'
         dataclass = tgridrealdatalist
       end    
-      item
+      item[committer]
         colorfocused = -1879048185
         width = 117
         options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
