@@ -237,7 +237,7 @@ groupcomments=6
 sourcedirs=5
  ${PSDIR}/Source/
  ${MSEDIR}lib/addon/*/
- ${MSELIBDIR}kernel/$TARGET/
+ ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}*/
  ./
 defines=0
@@ -245,7 +245,7 @@ defineson=0
 unitdirs=5
  ${PASCDIR}/Source/
  ${MSEDIR}lib/addon/*/
- ${MSELIBDIR}kernel/$TARGET/
+ ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}kernel/
  ${MSELIBDIR}*/
 unitdirson=5

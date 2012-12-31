@@ -169,7 +169,7 @@ groupcomments=6
 sourcedirs=5
  ${zeosdir}src/*/
  ${zeosdir}src/
- ${MSELIBDIR}kernel/$TARGET/
+ ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}*/
  ./
 defines=0
@@ -177,7 +177,7 @@ defineson=0
 unitdirs=5
  ${zeosdir}src/*/
  ${zeosdir}src/
- ${MSELIBDIR}kernel/$TARGET/
+ ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}kernel/
  ${MSELIBDIR}*/
 unitdirson=5

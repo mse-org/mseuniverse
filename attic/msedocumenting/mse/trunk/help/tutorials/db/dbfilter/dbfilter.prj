@@ -182,13 +182,13 @@ sourcedirs=28
  ${fpcdir}rtl/i386/
  ${fpcdir}rtl/inc/
  ${fpcdir}rtl/
- ${MSELIBDIR}kernel/$TARGET/
+ ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}*/
  ./
 defines=0
 defineson=0
 unitdirs=3
- ${MSELIBDIR}kernel/$TARGET/
+ ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}kernel/
  ${MSELIBDIR}*/
 unitdirson=3

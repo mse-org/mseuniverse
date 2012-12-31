@@ -152,7 +152,7 @@ makedir=
 unitdirs=5
  ../toolsskin/
  ${MSEDIR}lib/addon/*/
- ${MSELIBDIR}kernel/$TARGET/
+ ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}kernel/
  ${MSELIBDIR}*/
 unitpref=-Fu
@@ -444,7 +444,7 @@ afterload=
 beforerun=
 sourcedirs=4
  ${MSEDIR}lib/addon/*/
- ${MSELIBDIR}kernel/$TARGET/
+ ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}*/
  ./
 defines=0
