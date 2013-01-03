@@ -1001,7 +1001,8 @@ begin
    po2:= msestrscan(po1,msechar('/'));
    po3:= msestrscan(po1,c_linefeed);
    if (po2 <> nil) and (po3 = nil) or (po3 > po2) then begin
-    if not msestartsstr(pointer(remotename),po1) then begin //next repo
+    if ((po2-po1) <> length(remotename)) or 
+            not msestartsstr(pointer(remotename),po1) then begin //next repo
      remotename:= psubstr(po1,po2);
      destindex:= -1;
      for int1:= 0 to high(adest) do begin
@@ -1668,11 +1669,25 @@ function tgitcontroller.fmtmergemsg(const arev: msestring;
                                          out amessage: msestring): boolean;
 var
  str1: string;
+ mstr1: msestring;
+ bo1: boolean;
 begin
  amessage:= '';
- result:= true;
- if tryreadfiledatastring('.git/'+arev,str1) then begin
+ result:= false;
+ bo1:= false;
+ if findchar(arev,'/') > 0 then begin
+  mstr1:= 'refs/remotes/';
+  bo1:= true;
+ end
+ else begin
+  mstr1:= 'refs/heads/';
+ end;
+ if not bo1 and tryreadfiledatastring('.git/'+arev,str1) or 
+                    tryreadfiledatastring('.git/'+mstr1+arev,str1) then begin
   result:= commandresult2('fmt-merge-msg ',str1,amessage);
+ end;
+ if amessage = '' then begin
+  amessage:= 'Merge from '+arev+'.'+lineend;
  end;
 end;
 

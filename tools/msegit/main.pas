@@ -25,7 +25,7 @@ uses
  msetimer,mserichstring,msesimplewidgets,msewidgets,msegrids,mseifigui,
  mseifilink;
 const
- versiontext = '1.6.2';
+ versiontext = '1.6.3 unstable';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
@@ -462,9 +462,9 @@ end;
 procedure tmainfo.mergefromexe(const sender: TObject);
 begin
  with mainmo do begin
-  if askyesno('Do you want to merge from '+remotetargetref+
+  if askyesno('Do you want to merge from '+mainmo.repostat.activelogcommit+
                  ' to '+activebranch+'?') then begin
-   merge(remotetargetref);
+   merge(mainmo.repostat.activelogcommit);
    self.reload;
   end;
  end;

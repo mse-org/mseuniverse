@@ -643,10 +643,8 @@ end;
 procedure tbranchfo.mergebranchexe(const sender: TObject);
 begin
  if askyesno('Do you want to merge "'+localbranch.value+'" to "'+
-                                          mainmo.activebranch+'"?') and
-      mainmo.execgitconsole('merge '+
-         mainmo.git.encodestringparam(
-                           branchref+localbranch.value)) then begin
+                                          mainmo.activebranch+'"?')  then begin
+  mainmo.merge(localbranch.value);
   mainfo.reload;
  end;
 end;
@@ -654,7 +652,8 @@ end;
 procedure tbranchfo.mergeupdateexe(const sender: tcustomaction);
 begin
  mergeact.enabled:= (localgrid.row >= 0) and 
-                          (localbranch.value <> mainmo.activebranch);
+                          (localbranch.value <> mainmo.activebranch) and 
+                          not mainmo.merging;
 end;
 
 procedure tbranchfo.localbranchrowmovedexe(const sender: tcustomgrid;

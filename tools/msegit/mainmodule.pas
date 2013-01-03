@@ -1715,11 +1715,10 @@ begin
  if asourceref = '' then begin
   asourceref:= 'FETCH_HEAD';
  end;
- if fgit.fmtmergemsg(asourceref,mstr1) then begin 
-  if getcommitmessage('Merge Commit Message',mstr1) then begin
-   str1:= 'merge -m'+fgit.encodestringparam(mstr1)+' ';
-   result:= execgitconsole(str1+fgit.encodestring(asourceref));
-  end;
+ fgit.fmtmergemsg(asourceref,mstr1);
+ if getcommitmessage('Merge Commit Message',mstr1) then begin
+  str1:= 'merge -m'+fgit.encodestringparam(mstr1)+' ';
+  result:= execgitconsole(str1+fgit.encodestring(asourceref));
  end;
 end;
 
