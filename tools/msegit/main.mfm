@@ -411,7 +411,7 @@ object mainfo: tmainfo
     top = 168
   end
   object mergeact: taction
-    caption = 'Merge fetched'
+    caption = 'Merge from'
     onexecute = mergetactexe
     left = 272
     top = 184

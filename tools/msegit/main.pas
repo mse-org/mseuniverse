@@ -111,8 +111,10 @@ type
    frefreshing: boolean;
    fbackgroundcount: integer;
   protected
+   function mergefetchedtarget: msestring;
   public
    hastagdialogstat: boolean;
+   procedure merge(const aref: msestring);
    procedure reload;
    procedure refreshdiff;
    property refreshing: boolean read frefreshing;
@@ -448,26 +450,24 @@ begin
  end;
 end;
 
+procedure tmainfo.merge(const aref: msestring);
+begin
+ if askyesno('Do you want to merge "'+aref+'" to "'+
+                                         mainmo.activebranch+'"?')  then begin
+  mainmo.merge(aref);
+  reload;
+ end;
+end;
+
+
 procedure tmainfo.mergetactexe(const sender: TObject);
 begin
- with mainmo do begin
-  if askyesno('Do you want to merge fetched data ' +
-                                   ' to '+activebranch+'?') then begin
-   merge('');
-   self.reload;
-  end;
- end;
+ merge(mergefetchedtarget);
 end;
 
 procedure tmainfo.mergefromexe(const sender: TObject);
 begin
- with mainmo do begin
-  if askyesno('Do you want to merge from '+mainmo.repostat.activelogcommit+
-                 ' to '+activebranch+'?') then begin
-   merge(mainmo.repostat.activelogcommit);
-   self.reload;
-  end;
- end;
+ merge(mainmo.repostat.activelogcommit);
 end;
 
 procedure tmainfo.pustohexe(const sender: TObject);
@@ -496,14 +496,20 @@ begin
  end;
 end;
 
+function tmainfo.mergefetchedtarget: msestring;
+begin
+ result:= mainmo.matchingremotebranch;
+end;
+
 procedure tmainfo.pushupdateexe(const sender: tcustomaction);
 var
  bo1,bo2,bo3: boolean;
- mstr1,mstr2: msestring;
+ mstr1,mstr2,mstr3: msestring;
 begin
  bo1:= mainmo.isrepoloaded;
  bo2:= bo1 and not mainmo.merging and not mainmo.rebasing;
  bo3:= mainmo.remotetargetbranch <> '';
+ mstr3:= mergefetchedtarget;
  mainmen.menu.itembynames(['file','close']).enabled:= bo1;
  commitallact.enabled:= bo1;
  mstr1:= mainmo.remotetargetref;
@@ -519,10 +525,11 @@ begin
  pullact.enabled:= bo2;
  pullfromact.enabled:= bo2 and (mstr1 <> '') and bo3;;
  pullfromact.caption:= 'P&ull from '+mstr1;
- mergeact.enabled:= bo2;
+ mergeact.enabled:= bo2 and (mstr3 <> '');
+ mergeact.caption:= 'Merge from '+mstr3;
  mergefromact.enabled:= bo2 and (mstr2 <> '');
 //                      (mainmo.activeremotebranch[mainmo.activeremote] <> '');
- mergefromact.caption:= '&Merge from '+mstr2;
+ mergefromact.caption:= 'Merge from '+mstr2;
  resetmergeact.enabled:= mainmo.merging;
  rebaseact.enabled:= bo2;
  rebaseact.caption:= 'Rebase from '+mstr2;

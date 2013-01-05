@@ -70,44 +70,44 @@ inherited branchfo: tbranchfo
     datacols.count = 8
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[remote]
         width = 59
         onbeforedrawcell = befremotecoldraw
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remote'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[remotebranch]
         width = 28
         options = [co_fill, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranch'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[remotebranchcommit]
         width = 52
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranchcommit'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[remoteactive]
         width = 16
         options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'remoteactive'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[remotelogbranch]
         width = 16
         options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'remotelogbranch'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[remotebranchlink]
         width = 16
         options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranchlink'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[remotebranchhidden]
         width = 16
         options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
@@ -115,7 +115,7 @@ inherited branchfo: tbranchfo
         widgetname = 'remotebranchhidden'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[foldlevel]
         width = 19
         options = [co_invisible, co_proportional, co_savestate, co_mousescrollrow]
         name = 'foldlevel'
@@ -282,37 +282,37 @@ inherited branchfo: tbranchfo
     datacols.count = 6
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[localactive]
         width = 16
         options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'localactive'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[localbranch]
         width = 49
         options = [co_fill, co_savestate, co_mousescrollrow]
         widgetname = 'localbranch'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[localbranchcommit]
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'localbranchcommit'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[locallogbranch]
         width = 16
         options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'locallogbranch'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[localtrackbranch]
         width = 16
         options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         onshowhint = trackhint
         widgetname = 'localtrackbranch'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[localbranchhidden]
         width = 16
         options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
@@ -401,7 +401,6 @@ inherited branchfo: tbranchfo
     end
   end
   object tsplitter1: tsplitter[2]
-    optionswidget = [ow_destroywidgets]
     color = -1879048189
     taborder = 2
     bounds_x = 192
@@ -420,18 +419,24 @@ inherited branchfo: tbranchfo
   end
   object remotepopup: tpopupmenu[5]
     onupdate = remotepopupupdateexe
-    menu.submenu.count = 3
+    menu.submenu.count = 4
     menu.submenu.items = <    
       item
-        caption = 'Create Remote Branch'
+        caption = 'Create remote Branch'
         state = [as_invisible, as_localinvisible, as_localcaption, as_localonexecute]
         onexecute = remotecreateexe
       end    
       item
-        caption = 'Delete Remote Branch'
+        caption = 'Delete remote Branch'
         name = 'delete'
         state = [as_localcaption, as_localonexecute]
         onexecute = remotedeleteexe
+      end    
+      item
+        caption = 'Merge remote Branch'
+        name = 'merge'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = mergeremotebranchexe
       end    
       item
         caption = 'Create Local Branch'
@@ -463,7 +468,7 @@ inherited branchfo: tbranchfo
         state = [as_localcaption]
       end    
       item
-        caption = 'Push branch to'
+        caption = 'Push Branch to'
         name = 'pushbranch'
         state = [as_localcaption, as_localonexecute]
         onexecute = pushbranchexe

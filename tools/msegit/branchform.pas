@@ -103,6 +103,7 @@ type
    procedure trackedithint(const sender: TObject; var info: hintinfoty);
    procedure pushbranchexe(const sender: TObject);
    procedure localpopupupdateexe(const sender: tcustommenu);
+   procedure mergeremotebranchexe(const sender: TObject);
   private
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
@@ -425,7 +426,7 @@ begin
     if askyesno('Do you want to switch to branch "'+
       remotebranch.value+'"?') and
                  mainmo.checkoutbranch(remotebranch.value) then begin
-      setactivelocallog(remotebranch.value);
+     setactivelocallog(remotebranch.value);
     end;
    end;
   end;
@@ -527,8 +528,9 @@ var
  bo1: boolean;
  int1: integer;
 begin
- sender.menu.itembyname('delete').enabled:= remote.value = '';
  bo1:= remote.value = '';
+ sender.menu.itembyname('delete').enabled:= bo1;
+ sender.menu.itembyname('merge').enabled:= bo1;
  if bo1 then begin
   for int1:= 0 to localgrid.rowhigh do begin
    if localbranch[int1] = remotebranch.value then begin
@@ -642,11 +644,7 @@ end;
 
 procedure tbranchfo.mergebranchexe(const sender: TObject);
 begin
- if askyesno('Do you want to merge "'+localbranch.value+'" to "'+
-                                          mainmo.activebranch+'"?')  then begin
-  mainmo.merge(localbranch.value);
-  mainfo.reload;
- end;
+ mainfo.merge(localbranch.value);
 end;
 
 procedure tbranchfo.mergeupdateexe(const sender: tcustomaction);
@@ -833,6 +831,11 @@ begin
  localgrid.focuscell(mgc(1,localgrid.rowhigh));
  localbranchcommit.value:= acommit;
  localgrid.activate;
+end;
+
+procedure tbranchfo.mergeremotebranchexe(const sender: TObject);
+begin
+ mainfo.merge(currentremote+'/'+remotebranch.value);
 end;
 
 end.

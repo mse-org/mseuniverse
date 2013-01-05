@@ -458,7 +458,7 @@ type
    function findremote(const aremote: msestring): premoteinfoty;
    function findremotebranch(const aremote: msestring;
                const abranch: msestring): premotebranchinfoty;
-   
+   function matchingremotebranch: msestring;
    property opt: tmsegitoptions read fopt;
    property dirtree: tgitdirtreerootnode read fdirtree;
    property tagstree: tgittagstreerootnode read ftagstree;
@@ -2082,6 +2082,25 @@ begin
      end;
     end;
     break;
+   end;
+  end;
+ end;
+end;
+
+function tmainmo.matchingremotebranch: msestring;
+var
+ po1: premoteinfoty;
+ int1: integer;
+begin
+ result:= '';
+ if (activeremote <> '') and (activebranch <> '') then begin
+  po1:= findremote(activeremote);
+  if po1 <> nil then begin
+   for int1:= 0 to high(po1^.branches) do begin
+    if po1^.branches[int1].info.name = activebranch then begin
+     result:= activeremote+'/'+activebranch;
+     break;
+    end;
    end;
   end;
  end;
