@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msegraphedits,
  msememodialog,mseact,mseactions,msegitcontroller,msesplitter,dispform,
- msesimplewidgets,msewidgets;
+ msesimplewidgets,msewidgets,mseguithreadcomp,msethreadcomp;
 
 type
  tbranchfo = class(tdispfo)
@@ -48,6 +48,9 @@ type
    foldlevel: tintegeredit;
    showhiddenact: taction;
    localtrackbranch: tbooleanedit;
+   mergeremoteact: taction;
+   rebaseremoteact: taction;
+   rebaseact: taction;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -104,6 +107,8 @@ type
    procedure pushbranchexe(const sender: TObject);
    procedure localpopupupdateexe(const sender: tcustommenu);
    procedure mergeremotebranchexe(const sender: TObject);
+   procedure rebaseremotebranchexe(const sender: TObject);
+   procedure rebasebranchexe(const sender: TObject);
   private
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
@@ -236,7 +241,7 @@ begin
  if accept then begin
   if localbranch.value = '' then begin
    accept:= askyesno('Do you want to create branch '+avalue+' from '+lineend+
-                  mainmo.commithint(localbranchcommit.value)+'?');
+                  mainmo.commithint(localbranchcommit.value)+'?',confcaption);
    if accept then begin
     accept:= mainmo.createbranch('',avalue,logfo.currentcommit);
     if accept then begin
@@ -246,7 +251,7 @@ begin
   end
   else begin
    accept:= askyesno('Do you want to rename branch "'+
-                      localbranch.value+'" to "'+avalue+'"?');
+                      localbranch.value+'" to "'+avalue+'"?',confcaption);
    if accept then begin
     if not mainmo.renamebranch('',localbranch.value,avalue) then begin
      avalue:= localbranch.value;
@@ -269,7 +274,7 @@ begin
   mstr1:= currentremote;
   if remotebranch.value = '' then begin
    accept:= askyesno('Do you want to create remote branch '+
-   mstr1+'/'+avalue+' from '+ mainmo.activebranch+'?');
+   mstr1+'/'+avalue+' from '+ mainmo.activebranch+'?',confcaption);
    if accept then begin
     accept:= mainmo.createbranch(mstr1,avalue,'');
    end;
@@ -307,7 +312,7 @@ procedure tbranchfo.localactivesetexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
 begin
  accept:= askyesno('Do you want to switch to branch "'+
-                      localbranch.value+'"?') and
+                      localbranch.value+'"?',confcaption) and
                       mainmo.checkoutbranch(localbranch.value);
  if accept then begin
   if mainmo.linkremotebranch[mainmo.activeremote,localbranch.value] then begin
@@ -386,7 +391,7 @@ begin
    mstr1:= mainmo.activeremotebranch[remote.value];
    if mainmo.linkremotebranch[remote.value,mstr1] and 
                                    (mstr1 <> mainmo.activebranch) then begin
-    if askyesno('Do you want to switch to branch "'+mstr1+'"?') and
+    if askyesno('Do you want to switch to branch "'+mstr1+'"?',confcaption) and
                                       mainmo.checkoutbranch(mstr1) then begin
      setactivelocallog(mstr1);
     end;
@@ -424,7 +429,7 @@ begin
                       (mainmo.activebranch <> remotebranch.value) and
        mainmo.linkremotebranch[mainmo.activeremote,remotebranch.value] then begin
     if askyesno('Do you want to switch to branch "'+
-      remotebranch.value+'"?') and
+      remotebranch.value+'"?',confcaption) and
                  mainmo.checkoutbranch(remotebranch.value) then begin
      setactivelocallog(remotebranch.value);
     end;
@@ -480,7 +485,8 @@ procedure tbranchfo.localrowsdeleteexe(const sender: tcustomgrid;
 // mstr1,mstr2: msestring;
 begin
  if localbranch.value <> '' then begin
-  if not askyesno('Do you want to delete branch '+localbranch.value+'?') or
+  if not askyesno('Do you want to delete branch '+localbranch.value+'?',
+                                                            confcaption) or
                 not mainmo.deletebranch('',localbranch.value) then begin
    acount:= 0;
   end;
@@ -496,7 +502,7 @@ begin
   if remote.value = '' then begin
    mstr1:= currentremote;
    if not askyesno('Do you want to delete branch '+
-                     mstr1 +' ' + remotebranch.value+'?') or
+                     mstr1 +' ' + remotebranch.value+'?',confcaption) or
                  not mainmo.deletebranch(mstr1,remotebranch.value) then begin
     acount:= 0;
    end;
@@ -528,18 +534,22 @@ var
  bo1: boolean;
  int1: integer;
 begin
- bo1:= remote.value = '';
- sender.menu.itembyname('delete').enabled:= bo1;
- sender.menu.itembyname('merge').enabled:= bo1;
- if bo1 then begin
-  for int1:= 0 to localgrid.rowhigh do begin
-   if localbranch[int1] = remotebranch.value then begin
-    bo1:= false;
-    break;
+ sender.menu.visible:= mainmo.isrepoloaded;
+ if sender.menu.visible then begin
+  bo1:= remote.value = '';
+  sender.menu.itembyname('delete').enabled:= bo1;
+  sender.menu.itembyname('merge').enabled:= bo1 and not mainmo.merging;
+  sender.menu.itembyname('rebase').enabled:= bo1 and not mainmo.rebasing;
+  if bo1 then begin
+   for int1:= 0 to localgrid.rowhigh do begin
+    if localbranch[int1] = remotebranch.value then begin
+     bo1:= false;
+     break;
+    end;
    end;
   end;
+  sender.menu.itembyname('create').enabled:= bo1;
  end;
- sender.menu.itembyname('create').enabled:= bo1;
 end;
 
 procedure tbranchfo.remotedeleteexe(const sender: TObject);
@@ -647,11 +657,19 @@ begin
  mainfo.merge(localbranch.value);
 end;
 
-procedure tbranchfo.mergeupdateexe(const sender: tcustomaction);
+procedure tbranchfo.rebasebranchexe(const sender: TObject);
 begin
- mergeact.enabled:= (localgrid.row >= 0) and 
-                          (localbranch.value <> mainmo.activebranch) and 
-                          not mainmo.merging;
+ mainfo.rebase(localbranch.value);
+end;
+
+
+procedure tbranchfo.mergeupdateexe(const sender: tcustomaction);
+var
+ bo1: boolean;
+begin
+ bo1:= (localgrid.row >= 0) and (localbranch.value <> mainmo.activebranch);
+ mergeact.enabled:= bo1 and not mainmo.merging;
+ rebaseact.enabled:= bo1 and not mainmo.rebasing;
 end;
 
 procedure tbranchfo.localbranchrowmovedexe(const sender: tcustomgrid;
@@ -690,7 +708,7 @@ procedure tbranchfo.hideremotebranchsetexe(const sender: TObject;
 begin
  if not mainmo.repostat.showhiddenbranches then begin
   accept:= askyesno('Do you want to hide '+
-                       currentremote+'/'+remotebranch.value+'?');
+                       currentremote+'/'+remotebranch.value+'?',confcaption);
  end;
  if accept then begin
   if remote.value = '' then begin
@@ -707,7 +725,7 @@ procedure tbranchfo.sethidelocalbranchexe(const sender: TObject;
 begin
  if not mainmo.repostat.showhiddenbranches then begin
   accept:= askyesno('Do you want to hide '+
-                       localbranch.value+'?');
+                       localbranch.value+'?',confcaption);
  end;
  if accept then begin
   mainmo.hidelocalbranch[localbranch.value]:= avalue;
@@ -764,7 +782,7 @@ begin
    end
    else begin
     if not askyesno('Do you want to track '+
-             localbranch.value+' by '+remotetargetref+'?') or
+             localbranch.value+' by '+remotetargetref+'?',confcaption) or
           not setbranchtracking(localbranch.value,activeremote,
                              activeremotebranch[activeremote]) then begin
      accept:= false;
@@ -772,7 +790,7 @@ begin
    end;
   end
   else begin
-   if not askyesno('Do you want to remove remote racking?') or
+   if not askyesno('Do you want to remove remote racking?',confcaption) or
              not setbranchtracking(localbranch.value,'','') then begin
     accept:= false;
    end;
@@ -796,7 +814,8 @@ procedure tbranchfo.pushbranchexe(const sender: TObject);
 var
  bra,braref: msestring;
 begin
- if askyesno('Do you want to push branch '+pushbranchtext+'?') then begin
+ if askyesno('Do you want to push branch '+pushbranchtext+'?',
+                                                   confcaption) then begin
   with mainmo do begin
    bra:= localbranch.value;
    braref:= branchref+bra;
@@ -816,12 +835,13 @@ end;
 
 procedure tbranchfo.localpopupupdateexe(const sender: tcustommenu);
 begin
- with sender.menu.itembyname('pushbranch') do begin
-  caption:= 'Push branch ' + pushbranchtext;
-  enabled:= (localbranch.value <> '') and 
-        (mainmo.findremotebranch(mainmo.activeremote,localbranch.value) = nil);
-//  enabled:= (mainmo.activeremote <> '') and 
-//        (mainmo.findremotebranch(mainmo.activeremote,mainmo.activebranch) = nil);
+ sender.menu.visible:= mainmo.isrepoloaded;
+ if sender.menu.visible then begin
+  with sender.menu.itembyname('pushbranch') do begin
+   caption:= 'Push branch ' + pushbranchtext;
+   enabled:= (localbranch.value <> '') and 
+         (mainmo.findremotebranch(mainmo.activeremote,localbranch.value) = nil);
+  end;
  end;
 end;
 
@@ -836,6 +856,11 @@ end;
 procedure tbranchfo.mergeremotebranchexe(const sender: TObject);
 begin
  mainfo.merge(currentremote+'/'+remotebranch.value);
+end;
+
+procedure tbranchfo.rebaseremotebranchexe(const sender: TObject);
+begin
+ mainfo.rebase(currentremote+'/'+remotebranch.value);
 end;
 
 end.

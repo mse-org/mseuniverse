@@ -98,7 +98,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 22
+        submenu.count = 23
         submenu.items = <        
           item
             action = commitallact
@@ -141,6 +141,7 @@ object mainfo: tmainfo
           end        
           item
             action = mergeact
+            state = [as_localcolor]
           end        
           item
             action = mergefromact
@@ -156,6 +157,10 @@ object mainfo: tmainfo
           end        
           item
             action = rebaseact
+            state = [as_localcolor]
+          end        
+          item
+            action = rebasefromact
           end        
           item
             action = rebasecontinueact
@@ -408,16 +413,16 @@ object mainfo: tmainfo
     caption = 'Pull'
     onexecute = pullactexe
     left = 272
-    top = 168
+    top = 136
   end
   object mergeact: taction
-    caption = 'Merge from'
+    caption = 'Merge'
     onexecute = mergetactexe
     left = 272
-    top = 184
+    top = 152
   end
-  object rebaseact: taction
-    caption = 'Rebase'
+  object rebasefromact: taction
+    caption = 'Rebase from'
     onexecute = rebaseexe
     top = 184
   end
@@ -479,5 +484,11 @@ object mainfo: tmainfo
     ongetdialogclass = getlogfilteredit
     left = 152
     top = 72
+  end
+  object rebaseact: taction
+    caption = 'Rebase'
+    onexecute = rebaseactexe
+    left = 272
+    top = 168
   end
 end

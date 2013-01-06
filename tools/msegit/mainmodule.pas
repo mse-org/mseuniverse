@@ -29,6 +29,7 @@ const
  defaultmaxlog = 50;
  defaultdiffcontextn = 3;
  defaultrepostatfilename = '.msegitrepo.sta';
+ confcaption = 'Confirmation';
 type
  tmsegitfileitem = class(tgitfileitem)
   protected

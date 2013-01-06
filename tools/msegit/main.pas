@@ -50,7 +50,7 @@ type
    pushact: taction;
    pullact: taction;
    mergeact: taction;
-   rebaseact: taction;
+   rebasefromact: taction;
    rebasecontinueact: taction;
    rebaseabortact: taction;
    rebaseskipact: taction;
@@ -61,6 +61,7 @@ type
    waiticon: ticon;
    iconimage: timagelist;
    editlogfilter: tifidialog;
+   rebaseact: taction;
    procedure newpanelexe(const sender: TObject);
    procedure showdirtreeexe(const sender: TObject);
    procedure showuntrackedexe(const sender: TObject);
@@ -107,14 +108,16 @@ type
    procedure showtagsexe(const sender: TObject);
    procedure getlogfilteredit(const sender: TObject;
                    var adialogclass: custommseformclassty);
+   procedure rebaseactexe(const sender: TObject);
   private
    frefreshing: boolean;
    fbackgroundcount: integer;
   protected
-   function mergefetchedtarget: msestring;
+   function fetchedtarget: msestring;
   public
    hastagdialogstat: boolean;
    procedure merge(const aref: msestring);
+   procedure rebase(const aref: msestring);
    procedure reload;
    procedure refreshdiff;
    property refreshing: boolean read frefreshing;
@@ -348,7 +351,7 @@ end;
 
 procedure tmainfo.resetmergeexe(const sender: TObject);
 begin
- if askyesno('Do you want to reset the merge operation?') then begin
+ if askyesno('Do you want to reset the merge operation?',confcaption) then begin
   if mainmo.mergereset then begin
    reload;
   end;
@@ -356,22 +359,8 @@ begin
 end;
 
 procedure tmainfo.rebaseexe(const sender: TObject);
-var
- mstr1: msestring;
 begin
- with mainmo do begin
-  if repobase <> '' then begin
-   showmessage('Rebase not possible in sub-directories.','ERROR');
-  end
-  else begin
-   mstr1:= repostat.activelogcommit;
-   if askyesno('Do you want to rebase '+ activebranch +
-                  ' from '+mstr1+'?') and  rebase(mstr1) then begin
-//    self.reload;
-   end;
-   self.reload; //show possible merge conflict
-  end;
- end;
+ rebase(mainmo.repostat.activelogcommit);
 end;
 
 procedure tmainfo.rebasecontinueexe(const sender: TObject);
@@ -397,7 +386,8 @@ end;
 procedure tmainfo.rebaseabortexe(const sender: TObject);
 
 begin
- if askyesno('Do you want to abort the rebase operation?') then begin
+ if askyesno('Do you want to abort the rebase operation?',
+                                                confcaption) then begin
   if mainmo.rebaseabort then begin
    reload;
   end;
@@ -443,7 +433,7 @@ procedure tmainfo.pullfromexe(const sender: TObject);
 begin
  with mainmo do begin
   if askyesno('Do you want to fetch and merge data from '+
-         remotetargetref+' to '+activebranch+'?') then begin
+         remotetargetref+' to '+activebranch+'?',confcaption) then begin
    pull(activeremote,mainmo.activeremotebranch[activeremote]);
    self.reload;
   end;
@@ -453,16 +443,36 @@ end;
 procedure tmainfo.merge(const aref: msestring);
 begin
  if askyesno('Do you want to merge "'+aref+'" to "'+
-                                         mainmo.activebranch+'"?')  then begin
+                             mainmo.activebranch+'"?',confcaption)  then begin
   mainmo.merge(aref);
   reload;
  end;
 end;
 
+procedure tmainfo.rebase(const aref: msestring);
+begin
+ with mainmo do begin
+  if repobase <> '' then begin
+   showmessage('Rebase not possible in sub-directories.','ERROR');
+  end
+  else begin
+   if askyesno('Do you want to rebase '+ activebranch +
+                  ' from '+aref+'?',confcaption) then begin
+    rebase(aref);
+    self.reload; //show possible merge conflict
+   end;
+  end;
+ end;
+end;
 
 procedure tmainfo.mergetactexe(const sender: TObject);
 begin
- merge(mergefetchedtarget);
+ merge(fetchedtarget);
+end;
+
+procedure tmainfo.rebaseactexe(const sender: TObject);
+begin
+ rebase(fetchedtarget);
 end;
 
 procedure tmainfo.mergefromexe(const sender: TObject);
@@ -474,7 +484,7 @@ procedure tmainfo.pustohexe(const sender: TObject);
 begin
  with mainmo do begin
   if askyesno('Do you want to push '+activebranch+' to '+
-        remotetargetref+'?') and 
+        remotetargetref+'?',confcaption) and 
         push(activeremote,activeremotebranch[activeremote]) then begin
    self.reload;
   end;
@@ -496,7 +506,7 @@ begin
  end;
 end;
 
-function tmainfo.mergefetchedtarget: msestring;
+function tmainfo.fetchedtarget: msestring;
 begin
  result:= mainmo.matchingremotebranch;
 end;
@@ -509,7 +519,7 @@ begin
  bo1:= mainmo.isrepoloaded;
  bo2:= bo1 and not mainmo.merging and not mainmo.rebasing;
  bo3:= mainmo.remotetargetbranch <> '';
- mstr3:= mergefetchedtarget;
+ mstr3:= fetchedtarget;
  mainmen.menu.itembynames(['file','close']).enabled:= bo1;
  commitallact.enabled:= bo1;
  mstr1:= mainmo.remotetargetref;
@@ -531,8 +541,11 @@ begin
 //                      (mainmo.activeremotebranch[mainmo.activeremote] <> '');
  mergefromact.caption:= 'Merge from '+mstr2;
  resetmergeact.enabled:= mainmo.merging;
- rebaseact.enabled:= bo2;
- rebaseact.caption:= 'Rebase from '+mstr2;
+
+ rebaseact.enabled:= bo2 and (mstr3 <> '');
+ rebaseact.caption:= 'Rebase from '+mstr3;
+ rebasefromact.enabled:= bo2;
+ rebasefromact.caption:= 'Rebase from '+mstr2;
  rebasecontinueact.enabled:= mainmo.rebasing;
  rebaseskipact.enabled:= mainmo.rebasing;
  rebaseabortact.enabled:= mainmo.rebasing;
@@ -635,7 +648,7 @@ procedure tmainfo.stashsaveexe(const sender: TObject);
 var
  mstr1: msestring;
 begin
- if askyesno('Do you want to save and reset local changes?')
+ if askyesno('Do you want to save and reset local changes?',confcaption)
        and (stringenter(mstr1,'Message','Stash') = mr_ok)
        and mainmo.stashsave(mstr1) then begin
   reload;
@@ -644,8 +657,8 @@ end;
 
 procedure tmainfo.stashpopexe(const sender: TObject);
 begin
- if askyesno('Do you want to restore "'+mainmo.stashes[0].message+'"?') and
-                  mainmo.stashpop then begin
+ if askyesno('Do you want to restore "'+mainmo.stashes[0].message+'"?',
+                                   confcaption) and mainmo.stashpop then begin
   reload;
  end;
 end;
