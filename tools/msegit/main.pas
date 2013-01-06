@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2013 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ uses
  msetimer,mserichstring,msesimplewidgets,msewidgets,msegrids,mseifigui,
  mseifilink;
 const
- versiontext = '1.6.3 unstable';
+ versiontext = '1.6.4';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
@@ -634,7 +634,7 @@ begin
  showmessage('MSEgit version: '+versiontext+c_linefeed+
              'MSEgui version: '+mseguiversiontext+c_linefeed+
              c_linefeed+
-             'Copyright 2011-2012'+c_linefeed+
+             'Copyright 2011-2013'+c_linefeed+
              'by Martin Schreiber'
              ,'About MSEgit');
 end;
