@@ -109,6 +109,7 @@ type
    procedure mergeremotebranchexe(const sender: TObject);
    procedure rebaseremotebranchexe(const sender: TObject);
    procedure rebasebranchexe(const sender: TObject);
+   procedure remotecheckoutexe(const sender: TObject);
   private
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
@@ -538,6 +539,7 @@ begin
  if sender.menu.visible then begin
   bo1:= remote.value = '';
   sender.menu.itembyname('delete').enabled:= bo1;
+  sender.menu.itembyname('checkout').enabled:= bo1;
   sender.menu.itembyname('merge').enabled:= bo1 and not mainmo.merging;
   sender.menu.itembyname('rebase').enabled:= bo1 and not mainmo.rebasing;
   if bo1 then begin
@@ -861,6 +863,17 @@ end;
 procedure tbranchfo.rebaseremotebranchexe(const sender: TObject);
 begin
  mainfo.rebase(currentremote+'/'+remotebranch.value);
+end;
+
+procedure tbranchfo.remotecheckoutexe(const sender: TObject);
+var
+ mstr1: msestring;
+begin
+ mstr1:= currentremote+'/'+remotebranch.value;
+ if askyesno('Do you want to checkout ' + mstr1+'?') and
+              mainmo.checkoutbranch(mstr1) then begin
+  mainfo.reload;
+ end;
 end;
 
 end.

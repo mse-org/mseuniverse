@@ -419,7 +419,7 @@ inherited branchfo: tbranchfo
   end
   object remotepopup: tpopupmenu[5]
     onupdate = remotepopupupdateexe
-    menu.submenu.count = 5
+    menu.submenu.count = 6
     menu.submenu.items = <    
       item
         caption = 'Create remote Branch'
@@ -450,6 +450,12 @@ inherited branchfo: tbranchfo
         name = 'create'
         state = [as_localcaption, as_localonexecute]
         onexecute = remotecreatelocalbranchexe
+      end    
+      item
+        caption = 'Checkout'
+        name = 'checkout'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = remotecheckoutexe
       end>
     left = 248
     top = 152

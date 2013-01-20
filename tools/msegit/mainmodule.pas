@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2013 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,7 +18,8 @@ unit mainmodule;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- classes,mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
+ classes,mclasses,mseglob,mseapplication,mseclasses,msedatamodules,msestat,
+ msestatfile,
  mserttistat,mseact,mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,
  mseedit,msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,
  mselistbrowser,msemenus,msestrings,msesys,msetypes,mseificomp,mseificompglob,

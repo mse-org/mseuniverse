@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2013 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@ unit msegitcontroller;
 {$ifdef FPC}{$mode objfpc}{$h+}{$goto on}{$endif}
 interface
 uses
- msestrings,mseclasses,classes,msehash,mselistbrowser,msetypes,msedatanodes,
- msedate,msesys,msesystypes;
+ msestrings,mseclasses,classes,mclasses,msehash,mselistbrowser,
+ msetypes,msedatanodes,msedate,msesys,msesystypes;
 const
  defaultgitcommand = 'git';
  branchref = 'refs/heads/';

@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2012 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2013 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,dispform,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mainmodule,
  msegraphedits,mseact,mseactions,mselistbrowser,msedatanodes,msethreadcomp,
- msesystypes,classes;
+ msesystypes,classes,mclasses;
 
 type
  logbranchinfoty = record
