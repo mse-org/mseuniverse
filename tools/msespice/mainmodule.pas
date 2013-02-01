@@ -1,4 +1,4 @@
-{ MSEspice Copyright (c) 2012 by Martin Schreiber
+{ MSEspice Copyright (c) 2012-2013 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,7 +21,8 @@ unit mainmodule;
 interface
 uses
  msewidgets,mseglob,mseapplication,mseclasses,msedatamodules,mserttistat,
- msestat,mseact,mseactions,mseifiglob,mseguirttistat,classes,msestatfile,
+ msestat,mseact,mseactions,mseifiglob,mseguirttistat,classes,mclasses,
+ msestatfile,
  msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,msegraphics,
  msegraphutils,msegrids,msegui,mseguiglob,mselistbrowser,msemenus,msestrings,
  msesys,msetypes,msepipestream,mseprocess,msengspice,mseificomp,mseificompglob;

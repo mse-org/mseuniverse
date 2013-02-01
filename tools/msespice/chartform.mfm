@@ -74,7 +74,7 @@ inherited chartfo: tchartfo
   onchildmouseevent = childmouseexe
   onbeforepaint = beforepaintexe
   moduleclassname = 'tspicefo'
-  object chart: tchart[0]
+  object chart: txychartedit[0]
     frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
     frame.zoomwidthstep = 1.1
     frame.zoomheightstep = 1.1
@@ -84,10 +84,11 @@ inherited chartfo: tchartfo
     frame.framei_bottom = 10
     frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     bounds_x = 0
-    bounds_y = 17
+    bounds_y = 15
     bounds_cx = 349
-    bounds_cy = 280
+    bounds_cy = 282
     anchors = [an_top, an_bottom]
+    traces.count = 1
     traces.xserstart = 0
     traces.xstart = 0
     traces.ystart = 0
@@ -100,6 +101,16 @@ inherited chartfo: tchartfo
     traces.legend_x = 0
     traces.legend_y = 0
     traces.legend_placement = tlp_below
+    traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 1
+        ystart = 0
+      end>
     xstart = 0
     ystart = 0
     xrange = 1
@@ -109,6 +120,10 @@ inherited chartfo: tchartfo
     ydials.start = 0
     ydials.range = 1
     fitframe_bottom = 1
+    activetrace = -1
+    optionsedit = [oe_readonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+    formatnodehint = '0..######g'
+    options = [ceo_nodehint]
   end
   object tspacer1: tspacer[1]
     taborder = 1
@@ -116,7 +131,7 @@ inherited chartfo: tchartfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 349
-    bounds_cy = 17
+    bounds_cy = 15
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky]
     linkbottom = chart
@@ -129,10 +144,10 @@ inherited chartfo: tchartfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 349
-      bounds_cy = 17
+      bounds_cy = 15
       anchors = [an_top]
       textflags = [tf_xcentered, tf_ycentered]
-      reffontheight = 13
+      reffontheight = 11
     end
   end
   object optionsact: taction[2]

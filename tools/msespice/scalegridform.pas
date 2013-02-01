@@ -45,7 +45,7 @@ type
   public
    procedure updatedial(const adial: tcustomdialcontroller;
                   const aindex: integer; var hasnormal,hasopposite: boolean);
-   procedure updatechart(const achart: tchart; const adials: tchartdials);
+   procedure updatechart(const achart: tcustomchart; const adials: tchartdials);
  end;
 var
  scalegridfo: tscalegridfo;
@@ -136,7 +136,7 @@ begin
  end;
 end;
 
-procedure tscalegridfo.updatechart(const achart: tchart;
+procedure tscalegridfo.updatechart(const achart: tcustomchart;
                                           const adials: tchartdials);
 var
  int1: integer;

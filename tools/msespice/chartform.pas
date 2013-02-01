@@ -1,4 +1,4 @@
-{ MSEspice Copyright (c) 2012 by Martin Schreiber
+{ MSEspice Copyright (c) 2012-2013 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,12 +22,14 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msechart,
  msengspice,msesplitter,msedataedits,mseedit,mseifiglob,msestrings,msetypes,
  msesimplewidgets,msewidgets,msegraphedits,mserealsumedit,msegrids,
- msewidgetgrid,msecolordialog,scalegridform,msetimer,chartoptionsform,classes,
- mseact,mseactions,mselistbrowser,spiceform,msedispwidgets,mserichstring;
+ msewidgetgrid,msecolordialog,scalegridform,msetimer,chartoptionsform,
+ classes,mclasses,
+ mseact,mseactions,mselistbrowser,spiceform,msedispwidgets,mserichstring,
+ msechartedit;
 
 type
  tchartfo = class(tspicefo)
-   chart: tchart;
+   chart: txychartedit;
    optionsact: taction;
    plotact: taction;
    resetzoomact: taction;
