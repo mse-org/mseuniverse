@@ -122,8 +122,11 @@ inherited chartfo: tchartfo
     fitframe_bottom = 1
     activetrace = -1
     optionsedit = [oe_readonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
-    formatnodehint = '0..######g'
-    options = [ceo_nodehint]
+    tracehint_captionx = 'x: 0..######g'
+    tracehint_captiony = 'y: 0..######g'
+    options = [ceo_tracehint, ceo_markerhint]
+    onsetmarker = setmarkerexe
+    onmarkerhint = markerhintexe
   end
   object tspacer1: tspacer[1]
     taborder = 1

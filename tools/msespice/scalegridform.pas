@@ -1,4 +1,4 @@
-{ MSEspice Copyright (c) 2012 by Martin Schreiber
+{ MSEspice Copyright (c) 2012-2013 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,10 +37,19 @@ type
    intervalco2: trealedit;
    gridline: tbooleanedit;
    unittext: tstringedit;
+   mka: trealedit;
+   mkb: trealedit;
+   mkb_a: trealedit;
    procedure datamodifiedexe(const sender: TObject);
    procedure setvalueexe(const sender: TObject; var avalue: realty;
                    var accept: Boolean);
    procedure setlogexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure mkasetexe(const sender: TObject; var avalue: realty;
+                   var accept: Boolean);
+   procedure mkbsetexe(const sender: TObject; var avalue: realty;
+                   var accept: Boolean);
+   procedure mkb_asetexe(const sender: TObject; var avalue: realty;
                    var accept: Boolean);
   public
    procedure updatedial(const adial: tcustomdialcontroller;
@@ -61,6 +70,18 @@ end;
 
 procedure tscalegridfo.updatedial(const adial: tcustomdialcontroller;
                const aindex: integer; var hasnormal,hasopposite: boolean);
+
+ procedure updatemarker(const amarker: tdialmarker;
+                             const amark: trealedit; const acolor: colorty);
+ begin
+  with amarker do begin
+   options:= [dmo_limitoverloadi,dmo_hidelimit];
+   color:= acolor;
+   dashes:= #2#3;
+   value:= amark[aindex];
+  end;
+ end; //updatemarker
+ 
 var
  bo1: boolean;
 begin
@@ -133,6 +154,9 @@ begin
     end;
    end;
   end;
+  markers.count:= 2;
+  updatemarker(markers[0],mka,cl_red);
+  updatemarker(markers[1],mkb,cl_blue);
  end;
 end;
 
@@ -166,6 +190,55 @@ begin
  else begin
   intervalco.value:= 5;
   intervalco2.value:= 5;
+ end;
+end;
+
+procedure tscalegridfo.mkasetexe(const sender: TObject; var avalue: realty;
+               var accept: Boolean);
+begin
+ if avalue = emptyreal then begin
+  mkb_a.value:= emptyreal;
+ end
+ else begin
+  if mkb.value <> emptyreal then begin
+   mkb_a.value:= mkb.value - avalue;
+  end;
+ end;
+end;
+
+procedure tscalegridfo.mkbsetexe(const sender: TObject; var avalue: realty;
+               var accept: Boolean);
+begin
+ if avalue = emptyreal then begin
+  mkb_a.value:= emptyreal;
+ end
+ else begin
+  if mka.value <> emptyreal then begin
+   mkb_a.value:= avalue - mka.value;
+  end;
+ end;
+end;
+
+procedure tscalegridfo.mkb_asetexe(const sender: TObject; var avalue: realty;
+               var accept: Boolean);
+begin
+ if (avalue = emptyreal) then begin
+  if (mka.value <> emptyreal) and (mkb.value <> emptyreal) then begin
+   avalue:= mkb.value-mka.value;  
+  end;
+ end
+ else begin
+  if mka.value <> emptyreal then begin
+   mkb.value:= mka.value + avalue;
+  end
+  else begin
+   if mkb.value <> emptyreal then begin
+    mka.value:= mkb.value - avalue;
+   end
+   else begin
+    avalue:= emptyreal;
+   end;
+  end;
  end;
 end;
 

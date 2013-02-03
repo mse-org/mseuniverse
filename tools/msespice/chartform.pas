@@ -44,6 +44,12 @@ type
    procedure printchartexe(const sender: TObject);
    procedure resetzoomupdateexe(const sender: tcustomaction);
    procedure resetzoomexe(const sender: TObject);
+   procedure setmarkerexe(const sender: tcustomchartedit; const isy: Boolean;
+                   const adial: Integer; const aindex: Integer;
+                   var avalue: realty);
+   procedure markerhintexe(const sender: tcustomchartedit; const isy: Boolean;
+                   const adial: Integer; const aindex: Integer;
+                   var ahint: hintinfoty);
   private
    foptfo: tchartoptionsfo;
    fshowmenuitem: tmenuitem;
@@ -74,7 +80,8 @@ procedure syncfitframe(const adock: tdockcontroller);
 
 implementation
 uses
- chartform_mfm,msereal,main,plotpage,dockform,printwindow,mainmodule,plotsform;
+ chartform_mfm,msereal,main,plotpage,dockform,printwindow,mainmodule,plotsform,
+ msedial,mseformatstr;
 
 procedure syncfitframe(const adock: tdockcontroller);
 var
@@ -413,6 +420,73 @@ procedure tchartfo.settitle(const avalue: msestring);
 begin
  titledisp.value:= avalue;
  titledisp.visible:= avalue <> '';
+end;
+
+procedure tchartfo.setmarkerexe(const sender: tcustomchartedit;
+               const isy: Boolean; const adial: Integer; const aindex: Integer;
+               var avalue: realty);
+
+ procedure update(afo: tscalegridfo);
+ begin
+  with afo do begin
+   if aindex = 0 then begin
+    mka[adial]:= avalue;
+   end
+   else begin
+    mkb[adial]:= avalue;
+   end;
+   if (mkb[adial] <> emptyreal) and (mkb[adial] <> emptyreal) then begin
+    mkb_a[adial]:= mkb[adial] - mka[adial];
+   end;
+  end;
+ end; //update
+ 
+begin
+ if isy then begin
+  update(optfo.yscalefo);
+ end
+ else begin
+  update(optfo.xscalefo);
+ end;
+end;
+
+procedure tchartfo.markerhintexe(const sender: tcustomchartedit;
+               const isy: Boolean; const adial: Integer; const aindex: Integer;
+               var ahint: hintinfoty);
+var
+ markers1: tdialmarkers;
+ rea1,rea2: realty;
+ mstr1: string;
+ mstr2: string;
+
+begin
+ if isy then begin
+  markers1:= chart.ydials[adial].markers;
+ end
+ else begin
+  markers1:= chart.xdials[adial].markers;
+ end;
+ rea2:= emptyreal;
+ if aindex = 0 then begin
+  mstr1:= 'A:     ';
+  mstr2:= 'A-B: ';
+  rea1:= markers1[0].value;
+  if markers1[1].value <> emptyreal then begin
+   rea2:= rea1 - markers1[1].value;
+  end;
+ end
+ else begin
+  mstr1:= 'B:     ';
+  mstr2:= 'B-A: ';
+  rea1:= markers1[1].value;
+  if markers1[0].value <> emptyreal then begin
+   rea2:= rea1 - markers1[0].value;
+  end;
+ end;
+ ahint.caption:= mstr1+formatfloatmse(rea1,'${REAL}');
+ if rea2 <> emptyreal then begin
+  ahint.caption:= ahint.caption + lineend + mstr2+formatfloatmse(rea2,'${REAL}');
+ end;
 end;
 
 end.
