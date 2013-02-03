@@ -1,0 +1,64 @@
+object mainfo: tmainfo
+  bounds_x = 72
+  bounds_y = 235
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.zoomwidthstep = 1
+  container.frame.zoomheightstep = 1
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  statfile = tstatfile1
+  caption = 'MSEgui Imagelist Demo'
+  moduleclassname = 'tmainform'
+  object tfilenameedit1: tfilenameedit
+    frame.button.imagenr = 17
+    bounds_x = 1
+    bounds_y = 0
+    bounds_cx = 401
+    anchors = [an_left, an_top, an_right]
+    statfile = tstatfile1
+    onsetvalue = setvalueexe
+    controller.options = [fdo_directory, fdo_checkexist, fdo_savelastdir]
+    controller.captionopen = 'Select Directory'
+    reffontheight = 14
+  end
+  object listview: tlistview
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 25
+    bounds_cx = 403
+    bounds_cy = 255
+    anchors = [an_left, an_top, an_right, an_bottom]
+    cellwidth = 48
+    cellheight = 48
+    options = [lvo_readonly, lvo_horz, lvo_drawfocus, lvo_leftbuttonfocusonly, lvo_focusselect, lvo_mouseselect, lvo_locate]
+    itemlist.imagelist = imagelist
+    itemlist.imagewidth = 48
+    itemlist.imageheight = 48
+    reffontheight = 14
+  end
+  object tspacer1: tspacer
+    taborder = 2
+    bounds_x = 248
+    bounds_y = 20
+    bounds_cx = 50
+    bounds_cy = 5
+    linktop = tfilenameedit1
+    linkbottom = listview
+  end
+  object imagelist: timagelist
+    width = 48
+    height = 48
+    left = 48
+    top = 72
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 152
+    top = 72
+  end
+end
