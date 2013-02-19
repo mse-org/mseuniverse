@@ -295,7 +295,8 @@ inherited plotpagefo: tplotpagefo
               data = (
                 'def'
                 'mag'
-                'ph'
+                'ph rad'
+                'ph deg'
                 're'
                 'im'
               )

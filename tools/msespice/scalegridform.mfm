@@ -31,20 +31,24 @@ object scalegridfo: tscalegridfo
           end        
           item
             caption = 'div1'
+            hint = 'Main divison count'
           end        
           item
             caption = 'line'
           end        
           item
             caption = 'num'
+            hint = 'Number format'
           end        
           item
             caption = 'div2'
+            hint = 'Sub division count'
           end        
           item
           end        
           item
             caption = 'A'
+            hint = 'Auto scale'
           end        
           item
             caption = 'Start'
@@ -54,20 +58,25 @@ object scalegridfo: tscalegridfo
           end        
           item
             caption = 'S.Marg.'
+            hint = 'Start margin'
           end        
           item
             caption = 'E.Marg.'
+            hint = 'End margin'
           end        
           item
           end        
           item
             caption = 'Mk.A'
+            hint = 'Marker A'
           end        
           item
             caption = 'Mk.B'
+            hint = 'Marker B'
           end        
           item
             caption = 'Mk.B-A'
+            hint = 'Marker B-A'
           end>
       end>
     rowcount = 1

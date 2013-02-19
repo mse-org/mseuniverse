@@ -39,7 +39,7 @@ type
  end;
 
  flagsty = (fl_unknown,fl_real,fl_complex);
- valuekindty = (vk_def,vk_mag,vk_ph,vk_re,vk_im);
+ valuekindty = (vk_def,vk_mag,vk_phrad,vk_phdeg,vk_re,vk_im);
  
  dataty = record
   real: realarty;
@@ -184,7 +184,8 @@ function getplotvalues(const ainfo: plotinfoty; const aindex: integer;
                                      const valuekind: valuekindty): realarty;
 var
  int1: integer;
- 
+const
+ radtodeg = 180.0/pi; 
 begin
  checkarrayindex(ainfo.data,aindex);
  with ainfo.data[aindex] do begin
@@ -198,10 +199,17 @@ begin
       end;
      end;
     end;
-    vk_ph: begin
+    vk_phrad: begin
      for int1:= 0 to high(result) do begin
       with complex[int1] do begin
        result[int1]:= arctan2(im,re);
+      end;
+     end;
+    end;
+    vk_phdeg: begin
+     for int1:= 0 to high(result) do begin
+      with complex[int1] do begin
+       result[int1]:= arctan2(im,re)*radtodeg;
       end;
      end;
     end;
