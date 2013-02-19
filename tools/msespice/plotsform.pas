@@ -165,7 +165,7 @@ begin
      for int3:= 0 to tracegrid.rowhigh do begin
       if treeed[int3] is tchartnode then begin
        with tchartnode(treeed[int3]) do begin
-        if int2 <= high(aplots) then begin
+        if (int2 <= high(aplots)) and (plot <> nil) then begin
          loaddata(aplots[int2],plot.getxvalue,int4 > 0,destindex);
         end
         else begin

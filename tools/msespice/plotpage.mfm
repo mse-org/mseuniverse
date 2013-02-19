@@ -44,9 +44,8 @@ inherited plotpagefo: tplotpagefo
     bounds_cx = 180
     bounds_cy = 37
     statfile = mainmo.projectstat1
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
     ondataentered = datamodifiedexe
-    onsetvalue = kindsetexe
-    ifilink = mainmo.enumlink
     dropdown.cols.count = 2
     dropdown.cols.items = <    
       item
@@ -65,6 +64,12 @@ inherited plotpagefo: tplotpagefo
         )
       end>
     dropdown.valuecol = 1
+    value = 2
+    valuedefault = 2
+    min = 0
+    max = 2
+    onsetvalue = kindsetexe
+    ifilink = mainmo.enumlink
     reffontheight = 14
   end
   object plotactive: tbooleanedit[2]
@@ -234,11 +239,6 @@ inherited plotpagefo: tplotpagefo
           bounds_cx = 46
           bounds_cy = 16
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-          value = 0
-          min = 0
-          max = 4
-          onsetvalue = xvaluekindsetexe
-          ifilink = mainmo.enumlink
           dropdown.cols.count = 1
           dropdown.cols.items = <          
             item
@@ -250,6 +250,11 @@ inherited plotpagefo: tplotpagefo
                 'im'
               )
             end>
+          value = 0
+          min = 0
+          max = 4
+          onsetvalue = xvaluekindsetexe
+          ifilink = mainmo.enumlink
           reffontheight = 14
         end
         object yexpression: tmemodialogedit
@@ -284,11 +289,6 @@ inherited plotpagefo: tplotpagefo
           bounds_cx = 51
           bounds_cy = 16
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-          value = 0
-          min = 0
-          max = 4
-          onsetvalue = yvaluekindsetexe
-          ifilink = mainmo.enumlink
           dropdown.cols.count = 1
           dropdown.cols.items = <          
             item
@@ -300,6 +300,11 @@ inherited plotpagefo: tplotpagefo
                 'im'
               )
             end>
+          value = 0
+          min = 0
+          max = 4
+          onsetvalue = yvaluekindsetexe
+          ifilink = mainmo.enumlink
           reffontheight = 14
         end
       end
@@ -564,11 +569,6 @@ inherited plotpagefo: tplotpagefo
           bounds_cx = 50
           bounds_cy = 16
           ondataentered = datamodifiedexe
-          value = 0
-          valuedefault = 0
-          min = 0
-          max = 7
-          onsetvalue = stepkindsetexe
           dropdown.cols.count = 1
           dropdown.cols.items = <          
             item
@@ -582,6 +582,11 @@ inherited plotpagefo: tplotpagefo
                 'Limit'
               )
             end>
+          value = 0
+          valuedefault = 0
+          min = 0
+          max = 7
+          onsetvalue = stepkindsetexe
           reffontheight = 14
         end
       end

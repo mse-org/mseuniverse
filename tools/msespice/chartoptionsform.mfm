@@ -116,6 +116,7 @@ inherited chartoptionsfo: tchartoptionsfo
           end        
           item
             caption = 'S'
+            hint = 'X-scale number'
           end        
           item
             caption = 'Y-Expression'
@@ -126,6 +127,7 @@ inherited chartoptionsfo: tchartoptionsfo
           end        
           item
             caption = 'S'
+            hint = 'Y-scale number'
           end        
           item
             caption = 'Color'

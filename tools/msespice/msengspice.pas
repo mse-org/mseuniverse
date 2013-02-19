@@ -201,17 +201,7 @@ begin
     vk_ph: begin
      for int1:= 0 to high(result) do begin
       with complex[int1] do begin
-       if abs(re) > abs(im) then begin
-        result[int1]:= arcsin(im/re);
-       end
-       else begin
-        if im = 0 then begin
-         result[int1]:= 0;
-        end
-        else begin
-         result[int1]:= arccos(re/im);
-        end;
-       end;
+       result[int1]:= arctan2(im,re);
       end;
      end;
     end;

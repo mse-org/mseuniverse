@@ -512,7 +512,12 @@ constructor tplotpagefo.create(const aowner: tcomponent; const akind: integer);
 begin
  inherited create(aowner);
  caption:= plotname.value;
- setkind(akind);
+ if akind < 0 then begin
+  setkind(plotkind.value);
+ end
+ else begin  
+  setkind(akind);
+ end;
 end;
  
 procedure tplotpagefo.setnameexe(const sender: TObject; var avalue: msestring;
