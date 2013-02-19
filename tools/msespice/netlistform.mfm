@@ -124,16 +124,16 @@ inherited netlistfo: tnetlistfo
     controller.filter = '*.cir'
     controller.filterlist.data = (
       (
-        '*.cir'
-        'Spice Circuit File'
+        'Spice Circuit Files'
+        '"*.cir" "*.spc"'
       )
       (
-        '*'
         'All Files'
+        '*'
       )
     )
     controller.defaultext = 'cir'
-    controller.options = [fdo_checkexist, fdo_savelastdir]
+    controller.options = [fdo_filtercaseinsensitive, fdo_checkexist, fdo_savelastdir]
     controller.captionopen = 'Spice Netlist'
     controller.captionsave = 'Spice Netlist'
     controller.captionnew = 'Spice Netlist'
