@@ -127,6 +127,7 @@ inherited plotpagefo: tplotpagefo
             captions.items = <            
               item
                 caption = 'Chart/Trace Name'
+                hint = 'Press Enter for name edit'
               end            
               item
                 caption = 'Title/X-Expression'

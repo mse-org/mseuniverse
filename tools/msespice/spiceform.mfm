@@ -21,7 +21,7 @@ object spicefo: tspicefo
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock]
   statfile = mainmo.projectstat2
   moduleclassname = 'tdockform'
   object printpanel: taction

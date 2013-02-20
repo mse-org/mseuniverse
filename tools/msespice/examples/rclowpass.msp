@@ -124,7 +124,7 @@ panels=3
  panel1
  panel2
  panel3
-client_0=201
+client_0=220
  [mainmo.projectstat1]
  [plots]
  kind=2
@@ -135,6 +135,25 @@ client_0=201
  netlistrel=rclowpass.cir
  libfiles=0
  libnames=0
+ [mainfo]
+ splitdir=0
+ useroptions=33554691
+ stackedunder=
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=76
+ y=101
+ cx=457
+ cy=379
+ rcx=0
+ rcy=0
+ wsize=0
+ active=1
+ visible=1
  [plotsfo.p0.plotname]
  value=AC
  [plotsfo.p0.plotkind]
@@ -326,16 +345,10 @@ client_0=201
  value=
  [plotsfo.p1.transplotfo.uic]
  value=1
-client_1=732
- [mainfo.dockfo1]
- splitdir=2
- useroptions=32228
- children=1
-  container,0,0,623,519
- focusedchild=0
+client_1=800
  [netlistfo]
  splitdir=0
- useroptions=127
+ useroptions=123
  stackedunder=consolefo
  parent=
  mdistate=0
@@ -349,9 +362,6 @@ client_1=732
  cy=354
  rcx=0
  rcy=0
- children=1
-  container,0,0,435,354
- focusedchild=0
  wsize=0
  active=0
  visible=1
@@ -360,8 +370,8 @@ client_1=732
  sortdescend0=0
  [paramfo]
  splitdir=0
- useroptions=127
- stackedunder=p0_0.chartoptionsfo
+ useroptions=123
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -374,9 +384,6 @@ client_1=732
  cy=354
  rcx=0
  rcy=0
- children=1
-  container,0,0,435,354
- focusedchild=0
  wsize=0
  active=0
  visible=0
@@ -392,12 +399,12 @@ client_1=732
  ncy=0
  x=0
  y=0
- cx=332
- cy=519
+ cx=238
+ cy=345
  rcx=0
  rcy=0
  children=1
-  container,0,0,332,519
+  p0_1,0,0,238,345
  focusedchild=0
  [mainfo.panelcontroller.panel2]
  splitdir=2
@@ -409,14 +416,15 @@ client_1=732
  ny=0
  ncx=0
  ncy=0
- x=335
+ x=241
  y=0
- cx=288
- cy=519
+ cx=206
+ cy=345
  rcx=0
  rcy=0
- children=1
-  container,0,0,288,519
+ children=2
+  p0_0,0,0,206,163
+  p1_0,0,166,206,179
  focusedchild=0
  [mainfo.panelcontroller.panel3]
  splitdir=1
@@ -430,16 +438,17 @@ client_1=732
  ncy=0
  x=0
  y=0
- cx=623
- cy=519
+ cx=447
+ cy=345
  rcx=0
  rcy=0
- children=1
-  container,0,0,623,519
+ children=2
+  panel1,0,0,238,345
+  panel2,241,0,206,345
  focusedchild=0
  [p0_0]
  splitdir=0
- useroptions=24703
+ useroptions=24699
  parent=mainfo.panelcontroller.panel2.container
  visible=1
  mdistate=0
@@ -449,13 +458,10 @@ client_1=732
  ncy=0
  x=0
  y=0
- cx=288
- cy=246
+ cx=206
+ cy=163
  rcx=0
  rcy=0
- children=1
-  container,0,0,288,246
- focusedchild=0
  [p0_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
@@ -472,14 +478,18 @@ client_1=732
  cy=280
  rcx=0
  rcy=0
- children=1
-  container,0,0,638,280
+ children=5
+  tsplitter2a,0,115,638,3
+  tracesgrid,0,0,638,115
+  yscalefo,0,199,638,81
+  tsplitter3a,0,196,638,3
+  xscalefo,0,118,638,78
  focusedchild=0
  wsize=0
  active=0
  visible=1
  [p0_0.chartoptionsfo.yscalefo.scalegrid]
- propcolwidthref=98
+ propcolwidthref=0
  values0=1
   0
  values0_ci=-1
@@ -531,12 +541,24 @@ client_1=732
   V
  width11=50
  sortdescend11=0
+ values12=1
+  
+ width12=50
+ sortdescend12=0
+ values13=1
+  
+ width13=50
+ sortdescend13=0
+ values14=1
+  
+ width14=50
+ sortdescend14=0
  [p0_0.chartoptionsfo.yscalefo.log]
  [p0_0.chartoptionsfo.yscalefo.intervalco]
  [p0_0.chartoptionsfo.yscalefo.capt]
  [p0_0.chartoptionsfo.yscalefo.intervalco2]
  [p0_0.chartoptionsfo.xscalefo.scalegrid]
- propcolwidthref=222
+ propcolwidthref=72
  values0=1
   0
  values0_ci=-1
@@ -588,6 +610,18 @@ client_1=732
   Hz
  width11=50
  sortdescend11=0
+ values12=1
+  
+ width12=50
+ sortdescend12=0
+ values13=1
+  
+ width13=50
+ sortdescend13=0
+ values14=1
+  
+ width14=50
+ sortdescend14=0
  [p0_0.chartoptionsfo.xscalefo.log]
  [p0_0.chartoptionsfo.xscalefo.intervalco]
  [p0_0.chartoptionsfo.xscalefo.capt]
@@ -639,7 +673,7 @@ client_1=732
  sortdescend9=0
  [p0_1]
  splitdir=0
- useroptions=24703
+ useroptions=24699
  parent=mainfo.panelcontroller.panel1.container
  visible=1
  mdistate=0
@@ -649,13 +683,10 @@ client_1=732
  ncy=0
  x=0
  y=0
- cx=332
- cy=519
+ cx=238
+ cy=345
  rcx=0
  rcy=0
- children=1
-  container,0,0,332,519
- focusedchild=0
  [p0_1.chartoptionsfo]
  splitdir=0
  useroptions=8319
@@ -672,14 +703,18 @@ client_1=732
  cy=213
  rcx=0
  rcy=0
- children=1
-  container,0,0,508,213
+ children=5
+  tsplitter2a,0,86,508,3
+  tracesgrid,0,0,508,86
+  yscalefo,0,151,508,62
+  tsplitter3a,0,148,508,3
+  xscalefo,0,89,508,59
  focusedchild=0
  wsize=0
  active=0
  visible=1
  [p0_1.chartoptionsfo.yscalefo.scalegrid]
- propcolwidthref=23
+ propcolwidthref=0
  values0=1
   0
  values0_ci=-1
@@ -712,11 +747,11 @@ client_1=732
  width6=27
  sortdescend6=0
  values7=1
-  -19.5676530753823
+  90
  width7=64
  sortdescend7=0
  values8=1
-  18.1774079120442
+  180
  width8=67
  sortdescend8=0
  values9=1
@@ -731,12 +766,24 @@ client_1=732
   
  width11=50
  sortdescend11=0
+ values12=1
+  
+ width12=50
+ sortdescend12=0
+ values13=1
+  
+ width13=50
+ sortdescend13=0
+ values14=1
+  
+ width14=50
+ sortdescend14=0
  [p0_1.chartoptionsfo.yscalefo.log]
  [p0_1.chartoptionsfo.yscalefo.intervalco]
  [p0_1.chartoptionsfo.yscalefo.capt]
  [p0_1.chartoptionsfo.yscalefo.intervalco2]
  [p0_1.chartoptionsfo.xscalefo.scalegrid]
- propcolwidthref=72
+ propcolwidthref=0
  values0=1
   -1
  values0_ci=-1
@@ -788,6 +835,18 @@ client_1=732
   
  width11=50
  sortdescend11=0
+ values12=1
+  
+ width12=50
+ sortdescend12=0
+ values13=1
+  
+ width13=50
+ sortdescend13=0
+ values14=1
+  
+ width14=50
+ sortdescend14=0
  [p0_1.chartoptionsfo.xscalefo.log]
  [p0_1.chartoptionsfo.xscalefo.intervalco]
  [p0_1.chartoptionsfo.xscalefo.capt]
@@ -839,7 +898,7 @@ client_1=732
  sortdescend9=0
  [p1_0]
  splitdir=0
- useroptions=24703
+ useroptions=24699
  parent=mainfo.panelcontroller.panel2.container
  visible=1
  mdistate=0
@@ -848,18 +907,15 @@ client_1=732
  ncx=0
  ncy=0
  x=0
- y=249
- cx=288
- cy=270
+ y=166
+ cx=206
+ cy=179
  rcx=0
  rcy=0
- children=1
-  container,0,0,288,270
- focusedchild=0
  [p1_0.chartoptionsfo]
  splitdir=0
  useroptions=8319
- stackedunder=mainfo
+ stackedunder=netlistfo
  parent=
  mdistate=0
  nx=0
@@ -872,14 +928,18 @@ client_1=732
  cy=213
  rcx=0
  rcy=0
- children=1
-  container,0,0,605,213
- focusedchild=0
+ children=5
+  tsplitter2a,0,86,605,3
+  tracesgrid,0,0,605,86
+  yscalefo,0,151,605,62
+  tsplitter3a,0,148,605,3
+  xscalefo,0,89,605,59
+ focusedchild=4
  wsize=0
  active=0
  visible=1
  [p1_0.chartoptionsfo.yscalefo.scalegrid]
- propcolwidthref=113
+ propcolwidthref=0
  values0=2
   0
   0
@@ -943,12 +1003,27 @@ client_1=732
   W
  width11=50
  sortdescend11=0
+ values12=2
+  
+  
+ width12=50
+ sortdescend12=0
+ values13=2
+  
+  
+ width13=50
+ sortdescend13=0
+ values14=2
+  
+  
+ width14=50
+ sortdescend14=0
  [p1_0.chartoptionsfo.yscalefo.log]
  [p1_0.chartoptionsfo.yscalefo.intervalco]
  [p1_0.chartoptionsfo.yscalefo.capt]
  [p1_0.chartoptionsfo.yscalefo.intervalco2]
  [p1_0.chartoptionsfo.xscalefo.scalegrid]
- propcolwidthref=120
+ propcolwidthref=0
  values0=1
   0
  values0_ci=-1
@@ -1000,6 +1075,18 @@ client_1=732
   
  width11=50
  sortdescend11=0
+ values12=1
+  
+ width12=50
+ sortdescend12=0
+ values13=1
+  
+ width13=50
+ sortdescend13=0
+ values14=1
+  
+ width14=50
+ sortdescend14=0
  [p1_0.chartoptionsfo.xscalefo.log]
  [p1_0.chartoptionsfo.xscalefo.intervalco]
  [p1_0.chartoptionsfo.xscalefo.capt]
@@ -1059,7 +1146,13 @@ client_1=732
  values9_ci=-1
  width9=50
  sortdescend9=0
-client_2=30
+client_2=36
+ [mainfo.dockfo1]
+ splitdir=2
+ useroptions=32228
+ children=1
+  panel3,0,0,447,345
+ focusedchild=0
  [p0_0.chartoptionsfo.tsplitter2a]
  x=0
  y=115
@@ -1090,34 +1183,11 @@ client_2=30
  y=148
  xprop=1
  yprop=0.709969788519638
-clients=70
- [mainfo]
- splitdir=0
- useroptions=33554695
- stackedunder=
- parent=
- mdistate=0
- nx=0
- ny=0
- ncx=0
- ncy=0
- x=26
- y=44
- cx=633
- cy=553
- rcx=0
- rcy=0
- children=2
-  container,0,16,623,537
-  ,0,0,623,16
- focusedchild=0
- wsize=0
- active=1
- visible=1
+clients=47
  [consolefo]
  splitdir=0
  useroptions=24703
- stackedunder=p1_0.chartoptionsfo
+ stackedunder=mainfo
  parent=
  mdistate=3
  nx=0
@@ -1131,7 +1201,7 @@ clients=70
  rcx=0
  rcy=0
  children=1
-  container,0,0,554,235
+  grid,0,0,554,235
  focusedchild=0
  wsize=0
  active=0
@@ -1139,7 +1209,7 @@ clients=70
  [plotsfo]
  splitdir=0
  useroptions=24679
- stackedunder=netlistfo
+ stackedunder=p1_0.chartoptionsfo
  parent=
  mdistate=0
  nx=0
@@ -1153,7 +1223,7 @@ clients=70
  rcx=0
  rcy=0
  children=1
-  container,0,0,524,349
+  tabs,0,0,524,349
  focusedchild=0
  wsize=0
  active=0

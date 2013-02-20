@@ -10,7 +10,7 @@ inherited chartfo: tchartfo
     349
     297
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
   font.height = 10
   font.name = 'Arial'
   options = [fo_savepos, fo_savezorder, fo_savestate]

@@ -51,6 +51,7 @@ type
    procedure mainmenuupdateexe(const sender: tcustommenu);
    procedure showparamsexe(const sender: TObject);
    procedure aboutexe(const sender: TObject);
+   procedure panelstatreadexe(const sender: TObject; const reader: tstatreader);
   public
    procedure setstattext(const atext: msestring; 
                    const akind: messagetextkindty = mtk_info);
@@ -148,6 +149,12 @@ begin
              'Copyright 1999-2013'+c_linefeed+
              'by Martin Schreiber'
              ,'About MSEspice');
+end;
+
+procedure tmainfo.panelstatreadexe(const sender: TObject;
+               const reader: tstatreader);
+begin
+ dostatread(reader); //backward compatibility
 end;
 
 end.

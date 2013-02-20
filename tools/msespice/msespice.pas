@@ -29,6 +29,7 @@ begin
 // application.createdatamodule(tskinmo,skinmo);
  application.createdatamodule(tguitemplatesmo,guitemplatesmo);
  msebegingloballoading;
+// application.createdatamodule(tmainmo,mainmo);
  application.createform(tmainfo,mainfo);
  application.createdatamodule(tmainmo,mainmo);
  application.createform(tconsolefo,consolefo);

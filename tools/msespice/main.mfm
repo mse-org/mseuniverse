@@ -6,7 +6,7 @@ object mainfo: tmainfo
   bounds_x = 149
   bounds_y = 221
   bounds_cx = 411
-  bounds_cy = 161
+  bounds_cy = 117
   anchors = [an_left, an_top, an_bottom]
   container.frame.zoomwidthstep = 1
   container.frame.zoomheightstep = 1
@@ -14,12 +14,12 @@ object mainfo: tmainfo
     0
     16
     401
-    145
+    101
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_dockparent]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_dockparent]
   mainmenu = mainme
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_savepos, fo_savezorder, fo_savestate]
-  statfile = panelsta
+  statfile = mainmo.projectstat1
   caption = 'MSEspice'
   onloaded = loadedexe
   onclosequery = closequeryexe
@@ -54,16 +54,17 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 18
     bounds_cx = 401
-    bounds_cy = 127
+    bounds_cy = 83
     anchors = [an_top, an_bottom]
     container.bounds = (
       0
       0
       401
-      127
+      83
     )
     dragdock.optionsdock = [od_savechildren, od_canfloat, od_candock, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize]
     options = [fo_globalshortcuts]
+    statfile = mainmo.projectstat3
     inherited popupme: tpopupmenu
       menu.submenu.items = <      
         item
@@ -239,6 +240,7 @@ object mainfo: tmainfo
   object panelsta: tstatfile
     filename = 'panelfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    onstatread = panelstatreadexe
     left = 16
     top = 48
   end
