@@ -273,11 +273,9 @@ end;
 
 procedure tmainmo.openproject;
 begin
- if closeproject then begin
-  with projectfiledialog do begin
-   if execute = mr_ok then begin
-    loadproject(controller.filename);
-   end;
+ with projectfiledialog do begin
+  if (execute = mr_ok) and closeproject then begin
+   loadproject(controller.filename);
   end;
  end;
 end;

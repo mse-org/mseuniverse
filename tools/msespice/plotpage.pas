@@ -158,6 +158,7 @@ type
    procedure xunitsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure datamodifiedexe(const sender: TObject);
+   procedure createexe(const sender: TObject);
    private
    fplot: tplotoptionsfo;
    fnameindex: integer;
@@ -900,6 +901,11 @@ end;
 procedure tplotpagefo.datamodifiedexe(const sender: TObject);
 begin
  mainmo.projectmodified;
+end;
+ 
+procedure tplotpagefo.createexe(const sender: TObject);
+begin
+ yvaluekind.enums:= enumar;
 end;
 
 end.

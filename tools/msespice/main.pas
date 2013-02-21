@@ -154,7 +154,9 @@ end;
 procedure tmainfo.panelstatreadexe(const sender: TObject;
                const reader: tstatreader);
 begin
- dostatread(reader); //backward compatibility
+ if reader.findsection('mainfo') then begin
+  dostatread(reader); //backward compatibility
+ end;
 end;
 
 end.

@@ -39,8 +39,12 @@ type
  end;
 
  flagsty = (fl_unknown,fl_real,fl_complex);
- valuekindty = (vk_def,vk_mag,vk_phrad,vk_phdeg,vk_re,vk_im);
- 
+ valuekindty = (vk_def,vk_mag,vk_phrad,vk_re,vk_im,vk_phdeg);
+
+const
+ enumar: array[0..ord(high(valuekindty))] of integer = 
+    (ord(vk_def),ord(vk_mag),ord(vk_phrad),ord(vk_phdeg),ord(vk_re),ord(vk_im));
+type 
  dataty = record
   real: realarty;
   complex: complexarty;

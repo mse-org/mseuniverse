@@ -106,8 +106,12 @@ inherited chartoptionsfo: tchartoptionsfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 9
+        captions.count = 10
         captions.items = <        
+          item
+            caption = 'H'
+            hint = 'Hide trace'
+          end        
           item
             caption = 'X-Expression'
           end        
@@ -140,22 +144,32 @@ inherited chartoptionsfo: tchartoptionsfo
             hint = 'X auto scale'
           end>
       end>
-    datacols.count = 10
+    datacols.count = 11
     datacols.items = <    
+      item[hidetrace]
+        width = 16
+        options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+        name = 'hidetrace'
+        widgetname = 'hidetrace'
+        dataclass = tgridintegerdatalist
+      end    
       item[xexpdisp]
         color = -1879048185
         width = 62
         options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+        name = 'values0'
         widgetname = 'xexpdisp'
         dataclass = tgridmsestringdatalist
       end    
       item[xunit]
+        name = 'values1'
         widgetname = 'xunit'
         dataclass = tgridmsestringdatalist
       end    
       item[xscalenum]
         width = 23
         options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+        name = 'values2'
         widgetname = 'xscalenum'
         dataclass = tgridintegerdatalist
       end    
@@ -163,35 +177,42 @@ inherited chartoptionsfo: tchartoptionsfo
         color = -1879048185
         width = 129
         options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+        name = 'values3'
         widgetname = 'yexpdisp'
         dataclass = tgridmsestringdatalist
       end    
       item[yunit]
+        name = 'values4'
         widgetname = 'yunit'
         dataclass = tgridmsestringdatalist
       end    
       item[yscalenum]
         width = 23
         options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+        name = 'values5'
         widgetname = 'yscalenum'
         dataclass = tgridintegerdatalist
       end    
       item[tracecolor]
         width = 85
+        name = 'values6'
         widgetname = 'tracecolor'
         dataclass = tgridenumdatalist
       end    
       item[tracesymbol]
         width = 86
+        name = 'values7'
         widgetname = 'tracesymbol'
         dataclass = tgridenumdatalist
       end    
       item[tracelegend]
+        name = 'values8'
         widgetname = 'tracelegend'
         dataclass = tgridmsestringdatalist
       end    
       item[tracekey]
         options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
+        name = 'values9'
         widgetname = 'tracekey'
         dataclass = tgridintegerdatalist
       end>
@@ -201,12 +222,23 @@ inherited chartoptionsfo: tchartoptionsfo
     onrowsmodified = datamodifiedexe
     oncellevent = tracecelleventexe
     reffontheight = 14
+    object hidetrace: tbooleanedit
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 16
+      bounds_cy = 16
+      ondataentered = datamodifiedexe
+      visible = False
+    end
     object xexpdisp: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 1
+      taborder = 2
       visible = False
-      bounds_x = 0
+      bounds_x = 17
       bounds_y = 0
       bounds_cx = 62
       bounds_cy = 16
@@ -216,9 +248,9 @@ inherited chartoptionsfo: tchartoptionsfo
     end
     object xunit: tstringedit
       optionsskin = [osk_framebuttononly]
-      taborder = 2
+      taborder = 3
       visible = False
-      bounds_x = 63
+      bounds_x = 80
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -229,9 +261,9 @@ inherited chartoptionsfo: tchartoptionsfo
     object xscalenum: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 3
+      taborder = 4
       visible = False
-      bounds_x = 114
+      bounds_x = 131
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16
@@ -245,9 +277,9 @@ inherited chartoptionsfo: tchartoptionsfo
     object yexpdisp: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 4
+      taborder = 5
       visible = False
-      bounds_x = 138
+      bounds_x = 155
       bounds_y = 0
       bounds_cx = 129
       bounds_cy = 16
@@ -258,9 +290,9 @@ inherited chartoptionsfo: tchartoptionsfo
     object yunit: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 5
+      taborder = 6
       visible = False
-      bounds_x = 268
+      bounds_x = 285
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -271,9 +303,9 @@ inherited chartoptionsfo: tchartoptionsfo
     object yscalenum: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 6
+      taborder = 7
       visible = False
-      bounds_x = 319
+      bounds_x = 336
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16
@@ -293,9 +325,9 @@ inherited chartoptionsfo: tchartoptionsfo
       frame.button.color = -1879048187
       frame.buttonellipse.color = -1879048187
       frame.buttonellipse.imagenr = 17
-      taborder = 7
+      taborder = 8
       visible = False
-      bounds_x = 343
+      bounds_x = 360
       bounds_y = 0
       bounds_cx = 85
       bounds_cy = 16
@@ -313,9 +345,9 @@ inherited chartoptionsfo: tchartoptionsfo
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.button.color = -1879048187
-      taborder = 8
+      taborder = 9
       visible = False
-      bounds_x = 429
+      bounds_x = 446
       bounds_y = 0
       bounds_cx = 86
       bounds_cy = 16
@@ -330,9 +362,9 @@ inherited chartoptionsfo: tchartoptionsfo
     object tracelegend: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 9
+      taborder = 10
       visible = False
-      bounds_x = 516
+      bounds_x = 533
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -342,9 +374,9 @@ inherited chartoptionsfo: tchartoptionsfo
     object tracekey: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 10
+      taborder = 11
       visible = False
-      bounds_x = 567
+      bounds_x = 584
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16

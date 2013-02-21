@@ -9,6 +9,7 @@ inherited plotpagefo: tplotpagefo
     612
     235
   )
+  oncreate = createexe
   moduleclassname = 'tspicetabfo'
   object plotname: tstringedit[0]
     frame.caption = 'Name'
@@ -304,7 +305,7 @@ inherited plotpagefo: tplotpagefo
             end>
           value = 0
           min = 0
-          max = 4
+          max = 5
           onsetvalue = yvaluekindsetexe
           ifilink = mainmo.enumlink
           reffontheight = 14

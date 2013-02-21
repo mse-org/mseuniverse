@@ -21,7 +21,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msesplitter,
  msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
- msecolordialog,msewidgets,scalegridform,mseact,mseactions,spiceform;
+ msecolordialog,msewidgets,scalegridform,mseact,mseactions,spiceform,
+ msegraphedits;
 
 type
  tchartoptionsfo = class(tspicefo)
@@ -42,6 +43,7 @@ type
    tsplitter3a: tsplitter;
    xscalefo: tscalegridfo;
    tracekey: tintegeredit;
+   hidetrace: tbooleanedit;
    procedure datamodifiedexe(const sender: TObject);
    procedure showchartexe(const sender: TObject);
    procedure showplotexe(const sender: TObject);
