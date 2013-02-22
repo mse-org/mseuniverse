@@ -15,7 +15,6 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
 unit mainmodule;
-//under construction
 
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -40,7 +39,7 @@ const
  defaultfontheight = 12;
  
 type
- tglobaloptions = class(toptionsclass)
+ tglobaloptions = class(toptions)
   private
    fngspice: filenamety;
    fps2pdf: filenamety;
@@ -58,21 +57,35 @@ type
                                                        write fchartfontheight;
  end;
 
- tprojectoptions = class(toptionsclass)
+ ttextprojectoptions = class
   private
    fnetlist: filenamety;
    fnetlistrel: filenamety;
    flibfiles: filenamearty;
    flibnames: filenamearty;
   protected
-   procedure dostatwrite(const writer: tstatwriter); override;
   public
-   constructor create;
+//   constructor create;
   published
    property netlist: filenamety read fnetlist write fnetlist;
    property netlistrel: filenamety read fnetlistrel write fnetlistrel;
    property libfiles: filenamearty read flibfiles write flibfiles;
    property libnames: filenamearty read flibnames write flibnames;
+ end;
+ 
+ tprojectoptions = class(toptions)
+  private
+   ft: ttextprojectoptions;
+   ftexp: ttextprojectoptions;
+  protected
+   procedure dostatwrite(const writer: tstatwriter); override;
+   function gett: tobject; override;
+   function gettexp: tobject; override;
+  public
+   constructor create;
+   property texp: ttextprojectoptions read ftexp;
+  published
+   property t: ttextprojectoptions read ft;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -101,7 +114,7 @@ type
    enumlink: tifienumlinkcomp;
    tracesymbols: timagelist;
    spiceoptionscomp: tguirttistat;
-   procedure getobjexe(const sender: TObject; var aobject: toptionsclass);
+   procedure getobjexe(const sender: TObject; var aobject: toptions);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject;
                                          var aobject: tobject);
@@ -122,6 +135,8 @@ type
    procedure getoptionsobjsexe(const sender: TObject;
                    var aobjects: objectinfoarty);
    procedure getspiceobjexe(const sender: TObject; var aobject: tobject);
+   procedure getfilenamexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -133,10 +148,13 @@ type
    fglobaloptions: tglobaloptions;
    fspice: tngspice;
    procedure updateprojectstate;
+   procedure expandprojectmacros;
   public
    tracesymbolnames: msestringarty;
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
+   function expandmacros(const atext: msestring): msestring;
+   procedure hintmacros(const aedit: tcustomedit; var ainfo: hintinfoty);
    function checkfilesave: boolean; //true if ok
    procedure editoptions;
    procedure openproject;
@@ -160,7 +178,7 @@ implementation
 uses
  mainmodule_mfm,main,msefileutils,consoleform,msestream,plotsform,
  mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform,paramform,
- msestockobjects,typinfo;
+ msestockobjects,typinfo,msemacros;
 
 { tglobaloptions }
 
@@ -196,12 +214,23 @@ end;
 
 constructor tprojectoptions.create;
 begin
- //dummy
+ ft:= ttextprojectoptions.create;
+ ftexp:= ttextprojectoptions.create;
 end;
 
 procedure tprojectoptions.dostatwrite(const writer: tstatwriter);
 begin
- fnetlistrel:= relativepath(fnetlist);
+ ft.fnetlistrel:= relativepath(ft.fnetlist);
+end;
+
+function tprojectoptions.gett: tobject;
+begin
+ result:= ft;
+end;
+
+function tprojectoptions.gettexp: tobject;
+begin
+ result:= ftexp;
 end;
 
 { mainmo }
@@ -222,7 +251,7 @@ begin
  fglobaloptions.free;
 end;
 
-procedure tmainmo.getobjexe(const sender: TObject; var aobject: toptionsclass);
+procedure tmainmo.getobjexe(const sender: TObject; var aobject: toptions);
 begin
  aobject:= projectoptions;
 end;
@@ -236,7 +265,6 @@ procedure tmainmo.editoptions;
 begin
  if projectoptionscomp.edit = mr_ok then begin
   mainstat.writestat;
-  plotsfo.updatechartsettings;
  end;
 end;
 
@@ -250,6 +278,13 @@ begin
  openproject;
 end;
 
+procedure tmainmo.expandprojectmacros;
+begin
+ fprojectoptions.expandmacros(['PROJECTNAME'],
+            [msestring(filenamebase(projectmainstat.filename))],
+                                                [mao_caseinsensitive]);
+end;
+
 procedure tmainmo.loadproject(const aname: filenamety);
 begin
  if aname <> '' then begin
@@ -257,18 +292,19 @@ begin
  end;
  setcurrentdirmse(filedir(projectmainstat.filename)); 
  projectmainstat.readstat;
- plotsfo.updatechartsettings;
  fprojectloaded:= true;
  fmodified:= false;
- updateprojectstate;
- if projectoptions.netlist <> '' then begin
-  if findfile(projectoptions.netlistrel) then begin
-   netlistfo.loadfile(projectoptions.netlistrel);
+ expandprojectmacros;
+ plotsfo.updatechartsettings;
+ if projectoptions.texp.netlist <> '' then begin
+  if findfile(projectoptions.texp.netlistrel) then begin
+   netlistfo.loadfile(projectoptions.texp.netlistrel);
   end
   else begin
-   netlistfo.loadfile(projectoptions.netlist);
+   netlistfo.loadfile(projectoptions.texp.netlist);
   end;
  end;
+ updateprojectstate;
 end;
 
 procedure tmainmo.openproject;
@@ -430,7 +466,7 @@ begin
    end;
   end;
 
-  with projectoptions do begin
+  with projectoptions.texp do begin
    for int1:= 0 to high(libfiles) do begin
     if libfiles[int1] <> '' then begin
      if libnames[int1] = '' then begin
@@ -627,14 +663,16 @@ end;
 
 procedure tmainmo.aftereditoptionsexe(const sender: TObject);
 begin
- if projectoptions.netlist <> netlistfo.edit.filename then begin
-  netlistfo.loadfile(projectoptions.netlist);
+ expandprojectmacros;
+ plotsfo.updatechartsettings;
+ if projectoptions.texp.netlist <> netlistfo.edit.filename then begin
+  netlistfo.loadfile(projectoptions.texp.netlist);
  end;
 end;
 
 procedure tmainmo.afteroptionsreadexe(const sender: TObject);
 begin
- with projectoptions do begin
+ with projectoptions.texp do begin
   setlength(flibnames,length(flibfiles));
  end;
 end;
@@ -688,6 +726,24 @@ procedure tmainmo.getspiceobjexe(const sender: TObject;
                                                var aobject: tobject);
 begin
  aobject:= fglobaloptions;
+end;
+
+procedure tmainmo.hintmacros(const aedit: tcustomedit; var ainfo: hintinfoty);
+begin
+ ainfo.caption:= expandmacros(aedit.text);
+end;
+
+function tmainmo.expandmacros(const atext: msestring): msestring;
+begin
+ result:= msemacros.expandmacros(atext,['PROJECTNAME'],
+                  [msestring(filenamebase(projectmainstat.filename))],
+                                                     [mao_caseinsensitive]);
+end;
+
+procedure tmainmo.getfilenamexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ avalue:= expandmacros(avalue);
 end;
 
 end.

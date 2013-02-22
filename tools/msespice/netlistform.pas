@@ -32,6 +32,8 @@ type
    procedure showchartexe(const sender: TObject);
    procedure showchatroptexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustomaction);
+   procedure getfilenameexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
   private
    fmodified: boolean;
    fcheckfilechanged: boolean;
@@ -110,7 +112,6 @@ begin
   end;
   edit.loadfromfile(afile);
   filechange.addnotification(edit.filename);
-  mainmo.projectoptions.netlist:= edit.filename;
  except
   application.handleexception;
  end;
@@ -147,7 +148,6 @@ begin
  end;
  edit.savetofile(afilename);
  if afilename <> '' then begin
-  mainmo.projectoptions.netlist:= afilename;
   filechange.addnotification(afilename);
  end;
  fmodified:= false;
@@ -208,6 +208,8 @@ begin
  result:= filedialog.execute(fdk_save);
  if result = mr_ok then begin
   save(filedialog.controller.filename);
+  mainmo.projectoptions.t.netlist:= filedialog.controller.filename;
+  mainmo.projectoptions.texp.netlist:= filedialog.controller.filename;
  end;
 end;
 
@@ -306,6 +308,12 @@ begin
   (tplotpagefo(plotsfo.tabs.activepage).treeed.item <> nil);
  showchartact.enabled:= bo1;
  showchartoptact.enabled:= bo1;
+end;
+
+procedure tnetlistfo.getfilenameexe(const sender: TObject;
+               var avalue: msestring; var accept: Boolean);
+begin
+ avalue:= mainmo.expandmacros(avalue);
 end;
 
 end.

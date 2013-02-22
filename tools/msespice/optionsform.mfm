@@ -43,6 +43,7 @@ object optionsfo: toptionsfo
           0
           0
         )
+        onshowhint = macrohintexe
         bounds_x = 8
         bounds_y = 5
         bounds_cx = 355
@@ -51,6 +52,7 @@ object optionsfo: toptionsfo
         statfile = tstatfile1
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
         textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+        value = '${PROJECTNAME}.cir'
         onsetvalue = netlistsetexe
         dialog = netlistfo.filedialog
         reffontheight = 14
@@ -58,9 +60,9 @@ object optionsfo: toptionsfo
       object libgrid: twidgetgrid
         taborder = 1
         bounds_x = 8
-        bounds_y = 46
+        bounds_y = 86
         bounds_cx = 354
-        bounds_cy = 146
+        bounds_cy = 109
         anchors = [an_left, an_top, an_right, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_noinsertempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixrows.count = 1
@@ -126,6 +128,22 @@ object optionsfo: toptionsfo
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
           reffontheight = 14
         end
+      end
+      object tstringedit1: tstringedit
+        frame.caption = 'Schematic entry Program'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 2
+        bounds_x = 8
+        bounds_y = 45
+        bounds_cx = 354
+        bounds_cy = 37
+        reffontheight = 14
       end
     end
     object ttabpage1: ttabpage
@@ -260,6 +278,6 @@ object optionsfo: toptionsfo
     filename = 'optionsfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 24
-    top = 160
+    top = 104
   end
 end

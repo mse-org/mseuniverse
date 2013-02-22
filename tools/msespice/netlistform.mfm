@@ -121,6 +121,7 @@ inherited netlistfo: tnetlistfo
   end
   object filedialog: tfiledialog[3]
     statfile = mainmo.projectmainstat
+    controller.filename = '${PROJECTNAME}.cir'
     controller.filter = '*.cir'
     controller.filterlist.data = (
       (
@@ -137,6 +138,7 @@ inherited netlistfo: tnetlistfo
     controller.captionopen = 'Spice Netlist'
     controller.captionsave = 'Spice Netlist'
     controller.captionnew = 'Spice Netlist'
+    controller.ongetfilename = getfilenameexe
     left = 192
     top = 112
   end

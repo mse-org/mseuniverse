@@ -43,12 +43,14 @@ type
    ps2pdf: tfilenameedit;
    chartfontname: tstringedit;
    chartfontheight: tintegeredit;
+   tstringedit1: tstringedit;
    procedure netlistsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure setngspiceexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure setps2pdfexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
+   procedure macrohintexe(const sender: TObject; var info: hintinfoty);
  end;
 
 implementation
@@ -75,6 +77,11 @@ begin
  if avalue = '' then begin
   avalue:= ps2pdfname;
  end;
+end;
+
+procedure toptionsfo.macrohintexe(const sender: TObject; var info: hintinfoty);
+begin
+ mainmo.hintmacros(tcustomedit(sender),info);
 end;
 
 end.

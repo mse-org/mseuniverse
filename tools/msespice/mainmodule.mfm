@@ -141,6 +141,7 @@ object mainmo: tmainmo
     controller.captionopen = 'Spice Library'
     controller.captionsave = 'Spice Library'
     controller.captionnew = 'Spice Library'
+    controller.ongetfilename = getfilenamexe
     left = 320
     top = 80
   end
