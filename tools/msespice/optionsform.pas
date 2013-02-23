@@ -33,17 +33,28 @@ type
    tbutton1: tbutton;
    tbutton2: tbutton;
    ttabpage1: ttabpage;
-   ngspice: tfilenameedit;
    ttabpage2: ttabpage;
    tstatfile1: tstatfile;
+   tlayouter2: tlayouter;
    netlist: tremotefilenameedit;
+   tlayouter3: tlayouter;
    libgrid: twidgetgrid;
    libfiles: tremotefilenameedit;
    libnames: tstringedit;
-   ps2pdf: tfilenameedit;
-   chartfontname: tstringedit;
+   tsplitter1: tsplitter;
+   localmacrogrid: twidgetgrid;
+   locmacnames: tstringedit;
+   locmacvalues: tstringedit;
+   tlayouter4: tlayouter;
+   tlayouter5: tlayouter;
    chartfontheight: tintegeredit;
-   tstringedit1: tstringedit;
+   chartfontname: tstringedit;
+   ps2pdf: tfilenameedit;
+   ngspice: tfilenameedit;
+   twidgetgrid2: twidgetgrid;
+   globmacnames: tstringedit;
+   globmacvalues: tstringedit;
+   schematicentry: tstringedit;
    procedure netlistsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure setngspiceexe(const sender: TObject; var avalue: msestring;
@@ -51,8 +62,15 @@ type
    procedure setps2pdfexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure macrohintexe(const sender: TObject; var info: hintinfoty);
+   procedure createexe(const sender: TObject);
+   procedure destroyexe(const sender: TObject);
+   procedure gridhintexe(const sender: tdatacol; const arow: Integer;
+                   var info: hintinfoty);
  end;
 
+var
+ optionsfo: toptionsfo;
+ 
 implementation
 uses
  optionsform_mfm,netlistform,mainmodule;
@@ -81,7 +99,30 @@ end;
 
 procedure toptionsfo.macrohintexe(const sender: TObject; var info: hintinfoty);
 begin
- mainmo.hintmacros(tcustomedit(sender),info);
+ mainmo.hintmacros(tcustomedit(sender).text,info);
+end;
+
+procedure toptionsfo.gridhintexe(const sender: tdatacol; const arow: Integer;
+               var info: hintinfoty);
+begin
+ if sender is twidgetcol then begin
+       mainmo.hintmacros(
+            tcustomstringedit(twidgetcol(sender).editwidget).gridvalue[arow],
+                                                                          info);
+ end
+ else begin
+  mainmo.hintmacros(tstringcol(sender)[arow],info);
+ end;
+end;
+
+procedure toptionsfo.createexe(const sender: TObject);
+begin
+ optionsfo:= self;
+end;
+
+procedure toptionsfo.destroyexe(const sender: TObject);
+begin
+ optionsfo:= nil;
 end;
 
 end.

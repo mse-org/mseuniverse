@@ -136,7 +136,7 @@ object mainfo: tmainfo
         state = [as_disabled, as_localdisabled, as_localcaption]
       end    
       item
-        submenu.count = 6
+        submenu.count = 7
         submenu.items = <        
           item
             submenu.count = 2
@@ -200,6 +200,12 @@ object mainfo: tmainfo
               1
               311
             )
+          end        
+          item
+            action = mainmo.schematicentryact
+            name = 'schematicentry'
+            state = [as_localimagelist]
+            imagelist = imagelist
           end>
         caption = '&View'
         name = 'view'

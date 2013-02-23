@@ -138,6 +138,9 @@ end;
 procedure tmainfo.mainmenuupdateexe(const sender: tcustommenu);
 begin
  mainmenu.menu.itembynames(['simulation']).enabled:= mainmo.projectloaded;
+ mainmenu.menu.itembynames(['view','schematicentry']).enabled:= 
+                     mainmo.projectloaded and 
+                             (mainmo.globaloptions.texp.schematicentry <> '');
 end;
 
 procedure tmainfo.aboutexe(const sender: TObject);

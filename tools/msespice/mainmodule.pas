@@ -21,10 +21,10 @@ interface
 uses
  msewidgets,mseglob,mseapplication,mseclasses,msedatamodules,mserttistat,
  msestat,mseact,mseactions,mseifiglob,mseguirttistat,classes,mclasses,
- msestatfile,
- msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,msegraphics,
- msegraphutils,msegrids,msegui,mseguiglob,mselistbrowser,msemenus,msestrings,
- msesys,msetypes,msepipestream,mseprocess,msengspice,mseificomp,mseificompglob;
+ msestatfile,msemacros,msebitmap,msedataedits,msedatanodes,mseedit,
+ msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,
+ mselistbrowser,msemenus,msestrings,msesys,msetypes,msepipestream,mseprocess,
+ msengspice,mseificomp,mseificompglob,mseprocmonitorcomp,msesystypes;
 
 const
 {$ifdef mswindows}
@@ -39,22 +39,41 @@ const
  defaultfontheight = 12;
  
 type
+ ttextglobaloptions = class
+  private
+   fschematicentry: msestring;
+  published
+   property schematicentry: msestring read fschematicentry 
+                                                  write fschematicentry;
+ end;
+ 
  tglobaloptions = class(toptions)
   private
    fngspice: filenamety;
    fps2pdf: filenamety;
    fchartfontname: msestring;
    fchartfontheight: integer;
+   fglobmacnames: msestringarty;
+   fglobmacvalues: msestringarty;
+   ft: ttextglobaloptions;
+   ftexp: ttextglobaloptions;
    procedure setngspice(const avalue: filenamety);
    procedure setps2pdf(const avalue: filenamety);
+  protected
+   function gett: tobject; override;
+   function gettexp: tobject; override;
   public
    constructor create;
+   property texp: ttextglobaloptions read ftexp;
   published
    property ngspice: filenamety read fngspice write setngspice;
    property ps2pdf: filenamety read fps2pdf write setps2pdf;
    property chartfontname: msestring read fchartfontname write fchartfontname;
    property chartfontheight: integer read fchartfontheight 
                                                        write fchartfontheight;
+   property globmacnames: msestringarty read fglobmacnames write fglobmacnames;
+   property globmacvalues: msestringarty read fglobmacvalues write fglobmacvalues;
+   property t: ttextglobaloptions read ft;
  end;
 
  ttextprojectoptions = class
@@ -77,6 +96,8 @@ type
   private
    ft: ttextprojectoptions;
    ftexp: ttextprojectoptions;
+   flocmacnames: msestringarty;
+   flocmacvalues: msestringarty;
   protected
    procedure dostatwrite(const writer: tstatwriter); override;
    function gett: tobject; override;
@@ -86,6 +107,8 @@ type
    property texp: ttextprojectoptions read ftexp;
   published
    property t: ttextprojectoptions read ft;
+   property locmacnames: msestringarty read flocmacnames write flocmacnames;
+   property locmacvalues: msestringarty read flocmacvalues write flocmacvalues;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -114,10 +137,11 @@ type
    enumlink: tifienumlinkcomp;
    tracesymbols: timagelist;
    spiceoptionscomp: tguirttistat;
+   schematicentry: tmseprocess;
+   schematicentryact: taction;
    procedure getobjexe(const sender: TObject; var aobject: toptions);
    procedure optionsexe(const sender: TObject);
-   procedure getoptionsobjexe(const sender: TObject;
-                                         var aobject: tobject);
+   procedure getoptionsobjexe(const sender: TObject; var aobject: tobject);
    procedure openprojectexe(const sender: TObject);
    procedure newprojectactexe(const sender: TObject);
    procedure closeprojectexe(const sender: TObject);
@@ -147,6 +171,7 @@ type
    fprojectoptions: tprojectoptions;
    fglobaloptions: tglobaloptions;
    fspice: tngspice;
+   function getmacros: macroinfoarty;
    procedure updateprojectstate;
    procedure expandprojectmacros;
   public
@@ -154,7 +179,7 @@ type
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
    function expandmacros(const atext: msestring): msestring;
-   procedure hintmacros(const aedit: tcustomedit; var ainfo: hintinfoty);
+   procedure hintmacros(const avalue: msestring; var ainfo: hintinfoty);
    function checkfilesave: boolean; //true if ok
    procedure editoptions;
    procedure openproject;
@@ -178,7 +203,7 @@ implementation
 uses
  mainmodule_mfm,main,msefileutils,consoleform,msestream,plotsform,
  mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform,paramform,
- msestockobjects,typinfo,msemacros;
+ msestockobjects,typinfo,msearrayutils,optionsform;
 
 { tglobaloptions }
 
@@ -188,6 +213,8 @@ begin
  fps2pdf:= ps2pdfname;
  fchartfontname:= defaultfontname;
  fchartfontheight:= defaultfontheight;
+ ft:= ttextglobaloptions.create;
+ ftexp:= ttextglobaloptions.create;
 end;
 
 procedure tglobaloptions.setngspice(const avalue: filenamety);
@@ -208,6 +235,16 @@ begin
  else begin
   fps2pdf:= avalue;
  end;
+end;
+
+function tglobaloptions.gett: tobject;
+begin
+ result:= ft;
+end;
+
+function tglobaloptions.gettexp: tobject;
+begin
+ result:= ftexp;
 end;
 
 { tprojectoptions }
@@ -278,11 +315,38 @@ begin
  openproject;
 end;
 
-procedure tmainmo.expandprojectmacros;
+function tmainmo.getmacros: macroinfoarty;
 begin
- fprojectoptions.expandmacros(['PROJECTNAME'],
-            [msestring(filenamebase(projectmainstat.filename))],
-                                                [mao_caseinsensitive]);
+ if optionsfo <> nil then begin
+  with optionsfo do begin
+   result:= initmacros([opentodynarraym(['PROJECTNAME','NETLIST']),
+            globmacnames.gridvalues,locmacnames.gridvalues],
+             [opentodynarraym([filenamebase(projectmainstat.filename),
+                                                          netlist.value]),
+              globmacvalues.gridvalues,locmacvalues.gridvalues]);
+  end;
+ end
+ else begin
+  result:= initmacros([opentodynarraym(['PROJECTNAME','NETLIST']),
+            fglobaloptions.globmacnames,fprojectoptions.locmacnames],
+             [opentodynarraym([filenamebase(projectmainstat.filename),
+              fprojectoptions.t.netlist]),
+              fglobaloptions.globmacvalues,fprojectoptions.locmacvalues]);
+ end;
+end;
+
+procedure tmainmo.expandprojectmacros;
+var
+ ar1: macroinfoarty;
+begin
+ ar1:= getmacros;
+ fglobaloptions.expandmacros(ar1);
+ fprojectoptions.expandmacros(ar1);
+end;
+
+function tmainmo.expandmacros(const atext: msestring): msestring;
+begin
+ result:= msemacros.expandmacros(atext,getmacros);
 end;
 
 procedure tmainmo.loadproject(const aname: filenamety);
@@ -728,16 +792,10 @@ begin
  aobject:= fglobaloptions;
 end;
 
-procedure tmainmo.hintmacros(const aedit: tcustomedit; var ainfo: hintinfoty);
+procedure tmainmo.hintmacros(const avalue: msestring; var ainfo: hintinfoty);
 begin
- ainfo.caption:= expandmacros(aedit.text);
-end;
-
-function tmainmo.expandmacros(const atext: msestring): msestring;
-begin
- result:= msemacros.expandmacros(atext,['PROJECTNAME'],
-                  [msestring(filenamebase(projectmainstat.filename))],
-                                                     [mao_caseinsensitive]);
+ ainfo.caption:= expandmacros(avalue);
+ include(ainfo.flags,hfl_show); //show empty caption
 end;
 
 procedure tmainmo.getfilenamexe(const sender: TObject; var avalue: msestring;

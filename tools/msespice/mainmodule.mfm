@@ -192,4 +192,13 @@ object mainmo: tmainmo
     left = 8
     top = 56
   end
+  object schematicentry: tmseprocess
+    left = 320
+    top = 248
+  end
+  object schematicentryact: taction
+    caption = 'Schematicentry'
+    left = 16
+    top = 256
+  end
 end
