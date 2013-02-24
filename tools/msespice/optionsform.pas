@@ -54,7 +54,7 @@ type
    twidgetgrid2: twidgetgrid;
    globmacnames: tstringedit;
    globmacvalues: tstringedit;
-   schematicentry: tstringedit;
+   schematiccapture: tstringedit;
    procedure netlistsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure setngspiceexe(const sender: TObject; var avalue: msestring;

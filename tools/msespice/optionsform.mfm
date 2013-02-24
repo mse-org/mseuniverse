@@ -349,8 +349,8 @@ object optionsfo: toptionsfo
           onsetvalue = setngspiceexe
           reffontheight = 14
         end
-        object schematicentry: tstringedit
-          frame.caption = 'Schematic entry Program'
+        object schematiccapture: tstringedit
+          frame.caption = 'Schematic Capture Program'
           frame.dummy = 0
           frame.outerframe = (
             0

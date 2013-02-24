@@ -41,10 +41,10 @@ const
 type
  ttextglobaloptions = class
   private
-   fschematicentry: msestring;
+   fschematiccapture: msestring;
   published
-   property schematicentry: msestring read fschematicentry 
-                                                  write fschematicentry;
+   property schematiccapture: msestring read fschematiccapture 
+                                                  write fschematiccapture;
  end;
  
  tglobaloptions = class(toptions)
@@ -137,8 +137,8 @@ type
    enumlink: tifienumlinkcomp;
    tracesymbols: timagelist;
    spiceoptionscomp: tguirttistat;
-   schematicentry: tmseprocess;
-   schematicentryact: taction;
+   schematiccapture: tmseprocess;
+   schematiccaptureact: taction;
    procedure getobjexe(const sender: TObject; var aobject: toptions);
    procedure optionsexe(const sender: TObject);
    procedure getoptionsobjexe(const sender: TObject; var aobject: tobject);
@@ -161,6 +161,7 @@ type
    procedure getspiceobjexe(const sender: TObject; var aobject: tobject);
    procedure getfilenamexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
+   procedure schematicexe(const sender: TObject);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -399,7 +400,11 @@ begin
     end;
    end;
   end;
-  if result then begin                                             
+  if result then begin
+//   if schematiccapture.active then begin
+//    schematiccapture.terminate;
+    schematiccapture.active:= false;
+//   end;
    netlistfo.close;
    fprojectloaded:= false;
    updateprojectstate;
@@ -472,8 +477,9 @@ begin
    if execute(fdk_save) = mr_ok then begin
     projectmainstat.filename:= controller.filename;
     projectmainstat.writestat;
-    fmodified:= false;
-    updateprojectstate;
+    loadproject(controller.filename);
+//    fmodified:= false;
+//    updateprojectstate;
    end;
   end;
  end;
@@ -802,6 +808,17 @@ procedure tmainmo.getfilenamexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
  avalue:= expandmacros(avalue);
+end;
+
+procedure tmainmo.schematicexe(const sender: TObject);
+begin
+ if schematiccapture.running then begin
+  activateprocesswindow(schematiccapture.prochandle);
+ end
+ else begin
+  schematiccapture.commandline:= fglobaloptions.texp.schematiccapture;
+  schematiccapture.active:= true;
+ end;
 end;
 
 end.

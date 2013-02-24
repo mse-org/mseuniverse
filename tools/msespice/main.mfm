@@ -202,8 +202,8 @@ object mainfo: tmainfo
             )
           end        
           item
-            action = mainmo.schematicentryact
-            name = 'schematicentry'
+            action = mainmo.schematiccaptureact
+            name = 'schematiccapture'
             state = [as_localimagelist]
             imagelist = imagelist
           end>
