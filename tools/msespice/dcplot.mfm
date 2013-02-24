@@ -1,12 +1,13 @@
 inherited dcplotfo: tdcplotfo
   bounds_x = 109
   bounds_y = 238
-  bounds_cx = 467
+  bounds_cx = 430
+  bounds_cy = 86
   container.bounds = (
     0
     0
-    467
-    100
+    430
+    86
   )
   moduleclassname = 'tplotoptionsfo'
   object stop: trealedit[0]

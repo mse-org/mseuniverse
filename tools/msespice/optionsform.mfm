@@ -271,6 +271,7 @@ object optionsfo: toptionsfo
           anchors = [an_top]
           optionsscale = [osc_expandy, osc_shrinky]
           optionslayout = [lao_placex, lao_aligny]
+          align_glue = wam_start
           place_mindist = 5
           place_maxdist = 5
           object chartfontheight: tintegeredit

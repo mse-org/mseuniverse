@@ -1,4 +1,5 @@
 object plotoptionsfo: tplotoptionsfo
+  optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
   optionsskin = [osk_noskin]
   color = -2147483645
   visible = False

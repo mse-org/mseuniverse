@@ -1,13 +1,13 @@
 inherited acplotfo: tacplotfo
   bounds_x = 53
   bounds_y = 618
-  bounds_cx = 391
+  bounds_cx = 377
   bounds_cy = 55
   bounds_cymin = 55
   container.bounds = (
     0
     0
-    391
+    377
     55
   )
   moduleclassname = 'tplotoptionsfo'
@@ -78,10 +78,6 @@ inherited acplotfo: tacplotfo
     bounds_cx = 76
     bounds_cy = 37
     statfile = mainmo.projectstat1
-    value = 0
-    min = 0
-    max = 2
-    ifilink = mainmo.enumlink
     dropdown.cols.count = 1
     dropdown.cols.items = <    
       item
@@ -91,6 +87,10 @@ inherited acplotfo: tacplotfo
           'Lin'
         )
       end>
+    value = 0
+    min = 0
+    max = 2
+    ifilink = mainmo.enumlink
     reffontheight = 14
   end
   object stepcount: tintegeredit[3]
