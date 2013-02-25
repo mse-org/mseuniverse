@@ -478,6 +478,18 @@ object optionsfo: toptionsfo
       reffontheight = 14
     end
   end
+  object macdisp: tstringdisp
+    taborder = 2
+    onshowhint = defamachintexe
+    bounds_x = 3
+    bounds_y = 383
+    bounds_cx = 257
+    bounds_cy = 18
+    anchors = [an_left, an_right, an_bottom]
+    options = [dwo_hintclippedtext]
+    value = '${PROJECTNAME}, ${NETLIST}'
+    reffontheight = 14
+  end
   object tstatfile1: tstatfile
     filename = 'optionsfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]

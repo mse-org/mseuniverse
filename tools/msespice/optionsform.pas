@@ -24,7 +24,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msescrollbar,
  msestatfile,msestream,msestrings,msetabs,msewidgets,sysutils,msesplitter,
  msesimplewidgets,msefiledialog,msebitmap,msedataedits,msedatanodes,mseedit,
- msegrids,mseifiglob,mselistbrowser,msesys,msetypes,msewidgetgrid;
+ msegrids,mseifiglob,mselistbrowser,msesys,msetypes,msewidgetgrid,
+ msedispwidgets,mserichstring;
 
 type
  toptionsfo = class(tmseform)
@@ -55,6 +56,7 @@ type
    globmacnames: tstringedit;
    globmacvalues: tstringedit;
    schematiccapture: tstringedit;
+   macdisp: tstringdisp;
    procedure netlistsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure setngspiceexe(const sender: TObject; var avalue: msestring;
@@ -66,6 +68,7 @@ type
    procedure destroyexe(const sender: TObject);
    procedure gridhintexe(const sender: tdatacol; const arow: Integer;
                    var info: hintinfoty);
+   procedure defamachintexe(const sender: TObject; var info: hintinfoty);
  end;
 
 var
@@ -123,6 +126,12 @@ end;
 procedure toptionsfo.destroyexe(const sender: TObject);
 begin
  optionsfo:= nil;
+end;
+
+procedure toptionsfo.defamachintexe(const sender: TObject;
+               var info: hintinfoty);
+begin
+ info.caption:= 'Predefined macros: '+macdisp.value;
 end;
 
 end.
