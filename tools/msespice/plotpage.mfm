@@ -247,14 +247,15 @@ inherited plotpagefo: tplotpagefo
               data = (
                 'def'
                 'mag'
-                'ph'
+                'ph rad'
+                'ph deg'
                 're'
                 'im'
               )
             end>
           value = 0
           min = 0
-          max = 4
+          max = 5
           onsetvalue = xvaluekindsetexe
           ifilink = mainmo.enumlink
           reffontheight = 14

@@ -306,7 +306,7 @@ procedure tchartnode.loaddata(const adata: plotinfoty;
                var destindex: integerarty);
 
  function getdata(const aexpression: msestring;
-                            const akind: valuekindty): realarty;
+                            var akind: valuekindty): realarty;
  var
   int1: integer;
   mstr1: msestring;
@@ -335,6 +335,8 @@ var
  ar1: realarty;
  ar2: integerarty;
  found: booleanarty;
+ kx,ky: valuekindty;
+ mstr1: msestring;
 begin
  with chart do begin
   if not stepping then begin
@@ -393,26 +395,34 @@ begin
     else begin
      with traces[int2],ttracenode(items[int1]) do begin
       kind:= trk_xy;
+      kx:= xvaluekind;
+      ky:= yvaluekind;
       if stepping then begin
        options:= options - [cto_xordered];
        ar2:= breaks;
        ar1:= xdata;
        additem(ar2,length(ar1));
        breaks:= ar2;
-       stackarray(getdata(xexpression,xvaluekind),ar1);
+       stackarray(getdata(xexpression,kx),ar1);
        xdata:= ar1;
        ar1:= ydata;
-       stackarray(getdata(yexpression,yvaluekind),ar1);
+       stackarray(getdata(yexpression,ky),ar1);
        ydata:= ar1;
       end
       else begin
        breaks:= nil;
        options:= options + [cto_xordered];
-       xdata:= getdata(xexpression,xvaluekind);
-       ydata:= getdata(yexpression,yvaluekind);
+       xdata:= getdata(xexpression,kx);
+       ydata:= getdata(yexpression,ky);
       end;
-      optfo.xexpdisp[int2]:= xexpression;
-      optfo.yexpdisp[int2]:= yexpression;
+      if xexpression = '' then begin
+       mstr1:= adata.vars[0].expression;
+      end
+      else begin
+       mstr1:= xexpression;
+      end;
+      optfo.xexpdisp[int2]:= mstr1 + ' ['+valuekindcaptions[kx]+']';
+      optfo.yexpdisp[int2]:= yexpression + ' ['+valuekindcaptions[ky]+']';
      end;
     end;
    end;
@@ -905,6 +915,7 @@ end;
  
 procedure tplotpagefo.createexe(const sender: TObject);
 begin
+ xvaluekind.enums:= enumar;
  yvaluekind.enums:= enumar;
 end;
 

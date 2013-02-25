@@ -44,6 +44,9 @@ type
 const
  enumar: array[0..ord(high(valuekindty))] of integer = 
     (ord(vk_def),ord(vk_mag),ord(vk_phrad),ord(vk_phdeg),ord(vk_re),ord(vk_im));
+ valuekindcaptions: array[valuekindty] of msestring = (
+  //vk_def,vk_mag,vk_phrad,vk_re,vk_im,vk_phdeg
+                  'def','mag','ph rad','re','im','ph deg');
 type 
  dataty = record
   real: realarty;
@@ -87,9 +90,9 @@ type
   
 function simuoptionstospice(const aoptions:  simuoptionsty): string;
 function getplotvalues(const ainfo: plotinfoty; const aindex: integer;
-                            const valuekind: valuekindty): realarty; overload;
+                            var valuekind: valuekindty): realarty; overload;
 function getplotvalues(const ainfo: plotinfoty; const aexpression: msestring;
-                            const valuekind: valuekindty): realarty; overload;
+                            var valuekind: valuekindty): realarty; overload;
 function unifyexpression(aexpression: msestring): msestring;
 const
  plotnames: array[plotkindty] of string = ('dc','ac','tran');
@@ -185,7 +188,7 @@ begin
 end;
 
 function getplotvalues(const ainfo: plotinfoty; const aindex: integer;
-                                     const valuekind: valuekindty): realarty;
+                                     var valuekind: valuekindty): realarty;
 var
  int1: integer;
 const
@@ -197,6 +200,7 @@ begin
    setlength(result,length(complex));
    case valuekind of
     vk_mag,vk_def: begin
+     valuekind:= vk_mag;
      for int1:= 0 to high(result) do begin
       with complex[int1] do begin
        result[int1]:= sqrt(re*re+im*im);
@@ -234,24 +238,25 @@ begin
    end;
   end
   else begin
+   valuekind:= vk_re;
    result:= real;
   end;   
  end;
 end;
 
 function getplotvalues(const ainfo: plotinfoty; const aexpression: msestring;
-                            const valuekind: valuekindty): realarty; overload;
+                            var valuekind: valuekindty): realarty; overload;
 var
  mstr1: msestring;
  int1: integer;
 begin
  result:= nil;
  mstr1:= unifyexpression(aexpression);
- if mstr1 = 'F' then begin
-  mstr1:= 'FREQUENCY';
+ if mstr1 = 'f' then begin
+  mstr1:= 'frequency';
  end;
- if mstr1 = 'T' then begin
-  mstr1:= 'TIME';
+ if mstr1 = 't' then begin
+  mstr1:= 'time';
  end;
  for int1:= 0 to high(ainfo.vars) do begin
   if ainfo.vars[int1].unifiedexpression = mstr1 then begin
