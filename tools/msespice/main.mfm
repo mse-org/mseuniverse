@@ -12,9 +12,9 @@ object mainfo: tmainfo
   container.frame.zoomheightstep = 1
   container.bounds = (
     0
-    16
+    15
     401
-    101
+    102
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_dockparent]
   mainmenu = mainme
@@ -30,7 +30,7 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 401
-    bounds_cy = 18
+    bounds_cy = 17
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky]
     linkbottom = dockfo1
@@ -39,12 +39,12 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 401
-      bounds_cy = 18
+      bounds_cy = 17
       anchors = [an_top]
       font.name = 'stf_default'
       font.xscale = 1
       font.dummy = 0
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   inline dockfo1: tdockfo
@@ -52,15 +52,15 @@ object mainfo: tmainfo
     popupmenu = dockfo1.popupme
     visible = True
     bounds_x = 0
-    bounds_y = 18
+    bounds_y = 17
     bounds_cx = 401
-    bounds_cy = 83
+    bounds_cy = 85
     anchors = [an_top, an_bottom]
     container.bounds = (
       0
       0
       401
-      83
+      85
     )
     dragdock.optionsdock = [od_savechildren, od_canfloat, od_candock, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize]
     options = [fo_globalshortcuts]
