@@ -2,8 +2,8 @@ unit main;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseguiglob,mseforms,msedataedits,msegraphedits,msegui,
- msesimplewidgets,msetimer,msestatfile,msewidgets,msetypes;
+ mseglob,mseguiglob,mseforms,msedataedits,msegraphedits,msegui,msesimplewidgets,
+ msetimer,msestatfile,msewidgets,msetypes,msegraphics,mseifiglob,msemenus;
 
 type
  tmainfo = class(tmainform)
@@ -15,12 +15,15 @@ type
    trealedit1: trealedit;
    step: tintegeredit;
    tsimplewidget1: tsimplewidget;
+   mmtimer: tbooleanedit;
    procedure tiexe(const sender: TObject);
    procedure onsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure tiset(const sender: TObject; var avalue: Integer;
                    var accept: Boolean);
    procedure fpssetexe(const sender: TObject; var avalue: realty;
+                   var accept: Boolean);
+   procedure mmtimersetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
   private
    up: boolean;
@@ -29,7 +32,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,msegraphutils;
+ main_mfm,msegraphutils{$ifdef mswindows},msesystimer{$endif};
  
 procedure tmainfo.tiexe(const sender: TObject);
 var
@@ -83,6 +86,14 @@ procedure tmainfo.fpssetexe(const sender: TObject; var avalue: realty;
                var accept: Boolean);
 begin
  ti.interval:= round(1000000/avalue);
+end;
+
+procedure tmainfo.mmtimersetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+{$ifdef mswindows}
+ setmmtimer(avalue);
+{$endif}
 end;
 
 end.

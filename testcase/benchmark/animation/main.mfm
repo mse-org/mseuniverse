@@ -23,13 +23,13 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      31
-      2
+      25
+      1
     )
     bounds_x = 8
     bounds_y = 23
-    bounds_cx = 44
-    bounds_cy = 16
+    bounds_cx = 38
+    bounds_cy = 15
     onsetvalue = onsetexe
   end
   object bu: tbutton
@@ -65,15 +65,15 @@ object mainfo: tmainfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 2
     bounds_x = 104
-    bounds_y = 7
+    bounds_y = 8
     bounds_cx = 44
-    bounds_cy = 37
+    bounds_cy = 35
     statfile = tstatfile1
     onsetvalue = fpssetexe
     value = 50
@@ -82,24 +82,25 @@ object mainfo: tmainfo
     valuestart = 0
     min = 1
     max = 1000
-    reffontheight = 14
+    reffontheight = 13
   end
   object step: tintegeredit
+    color = -2147483645
     frame.caption = 'step'
     frame.dummy = 0
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 3
     bounds_x = 160
-    bounds_y = 7
+    bounds_y = 8
     bounds_cx = 52
-    bounds_cy = 37
+    bounds_cy = 35
     value = 1
-    reffontheight = 14
+    reffontheight = 13
   end
   object tsimplewidget1: tsimplewidget
     color = -2147483645
@@ -127,6 +128,25 @@ object mainfo: tmainfo
     bounds_cx = 18
     bounds_cy = 50
   end
+  object mmtimer: tbooleanedit
+    color = -2147483645
+    frame.caption = 'mmtimer (Windows)'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      97
+      1
+    )
+    taborder = 5
+    bounds_x = 8
+    bounds_y = 47
+    bounds_cx = 110
+    bounds_cy = 15
+    statfile = tstatfile1
+    onsetvalue = mmtimersetexe
+    value = True
+  end
   object fadehorzconcave: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
@@ -139,7 +159,7 @@ object mainfo: tmainfo
       13158600
     )
     left = 8
-    top = 56
+    top = 80
   end
   object ti: ttimer
     interval = 100000
@@ -151,6 +171,6 @@ object mainfo: tmainfo
   object tstatfile1: tstatfile
     filename = 'status.sta'
     left = 8
-    top = 80
+    top = 112
   end
 end
