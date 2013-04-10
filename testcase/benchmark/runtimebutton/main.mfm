@@ -1,0 +1,98 @@
+object mainfo: tmainfo
+  bounds_x = 282
+  bounds_y = 225
+  bounds_cx = 403
+  bounds_cy = 480
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_nochildclipsiblings, ow_destroywidgets]
+  container.frame.sbhorz.facebutton.template = fadevertkonvex
+  container.frame.sbhorz.facebutton.dummy = 0
+  container.frame.sbhorz.faceendbutton.template = fadevertkonvex
+  container.frame.sbhorz.faceendbutton.dummy = 0
+  container.frame.sbhorz.pagesize = 0.98774509803922
+  container.frame.sbvert.facebutton.template = fadehorzconvex
+  container.frame.sbvert.facebutton.dummy = 0
+  container.frame.sbvert.faceendbutton.template = fadehorzconvex
+  container.frame.sbvert.faceendbutton.dummy = 0
+  container.frame.sbvert.pagesize = 0.98969072164949
+  container.face.localprops = [fal_fadirection]
+  container.face.template = fadehorzconvex
+  container.face.dummy = 0
+  container.bounds = (
+    0
+    0
+    403
+    480
+  )
+  caption = 'MSEide+MSEgui'
+  onloaded = loadedexe
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    face.template = fadevertkonvex
+    face.dummy = 0
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 106
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Create Buttons'
+    onexecute = creexe
+  end
+  object bucoed: tintegeredit
+    color = -2147483645
+    frame.caption = 'Button count'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      71
+      0
+    )
+    taborder = 1
+    bounds_x = 120
+    bounds_y = 8
+    bounds_cx = 139
+    reffontheight = 14
+  end
+  object tbutton2: tbutton
+    face.template = fadevertkonvex
+    face.dummy = 0
+    taborder = 2
+    bounds_x = 264
+    bounds_y = 8
+    bounds_cx = 106
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Free Buttons'
+    onexecute = freeexe
+  end
+  object fadevertkonvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_down
+    left = 32
+    top = 136
+  end
+  object fadehorzconvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    left = 32
+    top = 160
+  end
+end

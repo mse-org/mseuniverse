@@ -1,0 +1,156 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 290
+  bounds_y = 234
+  bounds_cx = 279
+  bounds_cy = 297
+  container.frame.sbhorz.pagesize = 0.65853658536585
+  container.face.template = fadehorzconcave
+  container.face.dummy = 0
+  container.bounds = (
+    0
+    0
+    279
+    297
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tbooleanedit2: tbooleanedit
+    color = -2147483645
+    frame.caption = 'anim'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      31
+      2
+    )
+    bounds_x = 8
+    bounds_y = 23
+    bounds_cx = 44
+    bounds_cy = 16
+    onsetvalue = onsetexe
+  end
+  object bu: tbutton
+    face.fade_pos.count = 3
+    face.fade_pos.items = (
+      0
+      0.57142857142857
+      1
+    )
+    face.fade_color.count = 3
+    face.fade_color.items = (
+      -1610612731
+      11119017
+      -1610612733
+    )
+    face.dummy = 0
+    taborder = 1
+    bounds_x = 128
+    bounds_y = 192
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'CAPT'
+    font.color = 11695113
+    font.shadow_color = -1610612733
+    font.style = [fs_bold]
+    font.name = 'stf_default'
+    font.xscale = 1
+    font.dummy = 0
+  end
+  object trealedit1: trealedit
+    frame.caption = 'FPS'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 104
+    bounds_y = 7
+    bounds_cx = 44
+    bounds_cy = 37
+    statfile = tstatfile1
+    onsetvalue = fpssetexe
+    value = 50
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = 1
+    max = 1000
+    reffontheight = 14
+  end
+  object step: tintegeredit
+    frame.caption = 'step'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 160
+    bounds_y = 7
+    bounds_cx = 52
+    bounds_cy = 37
+    value = 1
+    reffontheight = 14
+  end
+  object tsimplewidget1: tsimplewidget
+    color = -2147483645
+    frame.levelo = 1
+    frame.leveli = -1
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.dummy = 0
+    face.fade_pos.count = 2
+    face.fade_pos.items = (
+      0
+      1
+    )
+    face.fade_color.count = 2
+    face.fade_color.items = (
+      14680064
+      13929612
+    )
+    face.fade_transparency = 8421504
+    face.localprops = [fal_fatransparency]
+    face.dummy = 0
+    taborder = 4
+    visible = True
+    bounds_x = 144
+    bounds_y = 120
+    bounds_cx = 18
+    bounds_cy = 50
+  end
+  object fadehorzconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    left = 8
+    top = 56
+  end
+  object ti: ttimer
+    interval = 100000
+    options = [to_leak]
+    ontimer = tiexe
+    left = 144
+    top = 56
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 8
+    top = 80
+  end
+end

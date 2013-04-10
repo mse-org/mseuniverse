@@ -1,0 +1,9116 @@
+object mainfo: tmainfo
+  bounds_x = 38
+  bounds_y = 92
+  bounds_cx = 846
+  bounds_cy = 575
+  container.bounds = (
+    0
+    0
+    846
+    575
+  )
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tbutton2: tbutton
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton3: tbutton
+    taborder = 1
+    bounds_x = 24
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton4: tbutton
+    taborder = 2
+    bounds_x = 40
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton5: tbutton
+    taborder = 3
+    bounds_x = 56
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton6: tbutton
+    taborder = 4
+    bounds_x = 72
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton7: tbutton
+    taborder = 9
+    bounds_x = 152
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton8: tbutton
+    taborder = 8
+    bounds_x = 136
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton9: tbutton
+    taborder = 7
+    bounds_x = 120
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton10: tbutton
+    taborder = 6
+    bounds_x = 104
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton11: tbutton
+    taborder = 5
+    bounds_x = 88
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton12: tbutton
+    taborder = 19
+    bounds_x = 320
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton13: tbutton
+    taborder = 18
+    bounds_x = 304
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton14: tbutton
+    taborder = 17
+    bounds_x = 288
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton15: tbutton
+    taborder = 16
+    bounds_x = 272
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton16: tbutton
+    taborder = 15
+    bounds_x = 256
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton17: tbutton
+    taborder = 14
+    bounds_x = 240
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton18: tbutton
+    taborder = 13
+    bounds_x = 224
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton19: tbutton
+    taborder = 12
+    bounds_x = 208
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton20: tbutton
+    taborder = 11
+    bounds_x = 192
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton21: tbutton
+    taborder = 10
+    bounds_x = 176
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton22: tbutton
+    taborder = 29
+    bounds_x = 488
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton23: tbutton
+    taborder = 28
+    bounds_x = 472
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton24: tbutton
+    taborder = 27
+    bounds_x = 456
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton25: tbutton
+    taborder = 26
+    bounds_x = 440
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton26: tbutton
+    taborder = 25
+    bounds_x = 424
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton27: tbutton
+    taborder = 24
+    bounds_x = 408
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton28: tbutton
+    taborder = 23
+    bounds_x = 392
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton29: tbutton
+    taborder = 22
+    bounds_x = 376
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton30: tbutton
+    taborder = 21
+    bounds_x = 360
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton31: tbutton
+    taborder = 20
+    bounds_x = 344
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton32: tbutton
+    taborder = 39
+    bounds_x = 656
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton33: tbutton
+    taborder = 38
+    bounds_x = 640
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton34: tbutton
+    taborder = 37
+    bounds_x = 624
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton35: tbutton
+    taborder = 36
+    bounds_x = 608
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton36: tbutton
+    taborder = 35
+    bounds_x = 592
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton37: tbutton
+    taborder = 34
+    bounds_x = 576
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton38: tbutton
+    taborder = 33
+    bounds_x = 560
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton39: tbutton
+    taborder = 32
+    bounds_x = 544
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton40: tbutton
+    taborder = 31
+    bounds_x = 528
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton41: tbutton
+    taborder = 30
+    bounds_x = 512
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton42: tbutton
+    taborder = 49
+    bounds_x = 824
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton43: tbutton
+    taborder = 48
+    bounds_x = 808
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton44: tbutton
+    taborder = 47
+    bounds_x = 792
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton45: tbutton
+    taborder = 46
+    bounds_x = 776
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton46: tbutton
+    taborder = 45
+    bounds_x = 760
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton47: tbutton
+    taborder = 44
+    bounds_x = 744
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton48: tbutton
+    taborder = 43
+    bounds_x = 728
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton49: tbutton
+    taborder = 42
+    bounds_x = 712
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton50: tbutton
+    taborder = 41
+    bounds_x = 696
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton51: tbutton
+    taborder = 40
+    bounds_x = 680
+    bounds_y = 8
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton52: tbutton
+    taborder = 99
+    bounds_x = 824
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton53: tbutton
+    taborder = 98
+    bounds_x = 808
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton54: tbutton
+    taborder = 97
+    bounds_x = 792
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton55: tbutton
+    taborder = 96
+    bounds_x = 776
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton56: tbutton
+    taborder = 95
+    bounds_x = 760
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton57: tbutton
+    taborder = 94
+    bounds_x = 744
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton58: tbutton
+    taborder = 93
+    bounds_x = 728
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton59: tbutton
+    taborder = 92
+    bounds_x = 712
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton60: tbutton
+    taborder = 91
+    bounds_x = 696
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton61: tbutton
+    taborder = 90
+    bounds_x = 680
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton62: tbutton
+    taborder = 89
+    bounds_x = 656
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton63: tbutton
+    taborder = 88
+    bounds_x = 640
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton64: tbutton
+    taborder = 87
+    bounds_x = 624
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton65: tbutton
+    taborder = 86
+    bounds_x = 608
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton66: tbutton
+    taborder = 85
+    bounds_x = 592
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton67: tbutton
+    taborder = 84
+    bounds_x = 576
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton68: tbutton
+    taborder = 83
+    bounds_x = 560
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton69: tbutton
+    taborder = 82
+    bounds_x = 544
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton70: tbutton
+    taborder = 81
+    bounds_x = 528
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton71: tbutton
+    taborder = 80
+    bounds_x = 512
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton72: tbutton
+    taborder = 79
+    bounds_x = 488
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton73: tbutton
+    taborder = 78
+    bounds_x = 472
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton74: tbutton
+    taborder = 76
+    bounds_x = 440
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton75: tbutton
+    taborder = 77
+    bounds_x = 456
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton76: tbutton
+    taborder = 75
+    bounds_x = 424
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton77: tbutton
+    taborder = 74
+    bounds_x = 408
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton78: tbutton
+    taborder = 73
+    bounds_x = 392
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton79: tbutton
+    taborder = 72
+    bounds_x = 376
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton80: tbutton
+    taborder = 71
+    bounds_x = 360
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton81: tbutton
+    taborder = 70
+    bounds_x = 344
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton82: tbutton
+    taborder = 69
+    bounds_x = 320
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton83: tbutton
+    taborder = 68
+    bounds_x = 304
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton84: tbutton
+    taborder = 67
+    bounds_x = 288
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton85: tbutton
+    taborder = 66
+    bounds_x = 272
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton86: tbutton
+    taborder = 65
+    bounds_x = 256
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton87: tbutton
+    taborder = 64
+    bounds_x = 240
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton88: tbutton
+    taborder = 63
+    bounds_x = 224
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton89: tbutton
+    taborder = 62
+    bounds_x = 208
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton90: tbutton
+    taborder = 61
+    bounds_x = 192
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton91: tbutton
+    taborder = 60
+    bounds_x = 176
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton92: tbutton
+    taborder = 59
+    bounds_x = 152
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton93: tbutton
+    taborder = 58
+    bounds_x = 136
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton94: tbutton
+    taborder = 57
+    bounds_x = 120
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton95: tbutton
+    taborder = 56
+    bounds_x = 104
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton96: tbutton
+    taborder = 55
+    bounds_x = 88
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton97: tbutton
+    taborder = 54
+    bounds_x = 72
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton98: tbutton
+    taborder = 53
+    bounds_x = 56
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton99: tbutton
+    taborder = 52
+    bounds_x = 40
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton100: tbutton
+    taborder = 51
+    bounds_x = 24
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton101: tbutton
+    taborder = 50
+    bounds_x = 8
+    bounds_y = 32
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton102: tbutton
+    taborder = 149
+    bounds_x = 824
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton103: tbutton
+    taborder = 148
+    bounds_x = 808
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton104: tbutton
+    taborder = 147
+    bounds_x = 792
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton105: tbutton
+    taborder = 146
+    bounds_x = 776
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton106: tbutton
+    taborder = 145
+    bounds_x = 760
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton107: tbutton
+    taborder = 144
+    bounds_x = 744
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton108: tbutton
+    taborder = 143
+    bounds_x = 728
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton109: tbutton
+    taborder = 142
+    bounds_x = 712
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton110: tbutton
+    taborder = 141
+    bounds_x = 696
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton111: tbutton
+    taborder = 140
+    bounds_x = 680
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton112: tbutton
+    taborder = 139
+    bounds_x = 656
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton113: tbutton
+    taborder = 138
+    bounds_x = 640
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton114: tbutton
+    taborder = 137
+    bounds_x = 624
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton115: tbutton
+    taborder = 136
+    bounds_x = 608
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton116: tbutton
+    taborder = 135
+    bounds_x = 592
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton117: tbutton
+    taborder = 134
+    bounds_x = 576
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton118: tbutton
+    taborder = 133
+    bounds_x = 560
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton119: tbutton
+    taborder = 132
+    bounds_x = 544
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton120: tbutton
+    taborder = 131
+    bounds_x = 528
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton121: tbutton
+    taborder = 130
+    bounds_x = 512
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton122: tbutton
+    taborder = 129
+    bounds_x = 488
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton123: tbutton
+    taborder = 128
+    bounds_x = 472
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton124: tbutton
+    taborder = 126
+    bounds_x = 440
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton125: tbutton
+    taborder = 127
+    bounds_x = 456
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton126: tbutton
+    taborder = 125
+    bounds_x = 424
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton127: tbutton
+    taborder = 124
+    bounds_x = 408
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton128: tbutton
+    taborder = 123
+    bounds_x = 392
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton129: tbutton
+    taborder = 122
+    bounds_x = 376
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton130: tbutton
+    taborder = 121
+    bounds_x = 360
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton131: tbutton
+    taborder = 120
+    bounds_x = 344
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton132: tbutton
+    taborder = 119
+    bounds_x = 320
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton133: tbutton
+    taborder = 118
+    bounds_x = 304
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton134: tbutton
+    taborder = 117
+    bounds_x = 288
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton135: tbutton
+    taborder = 116
+    bounds_x = 272
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton136: tbutton
+    taborder = 115
+    bounds_x = 256
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton137: tbutton
+    taborder = 114
+    bounds_x = 240
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton138: tbutton
+    taborder = 113
+    bounds_x = 224
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton139: tbutton
+    taborder = 112
+    bounds_x = 208
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton140: tbutton
+    taborder = 111
+    bounds_x = 192
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton141: tbutton
+    taborder = 110
+    bounds_x = 176
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton142: tbutton
+    taborder = 109
+    bounds_x = 152
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton143: tbutton
+    taborder = 108
+    bounds_x = 136
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton144: tbutton
+    taborder = 107
+    bounds_x = 120
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton145: tbutton
+    taborder = 106
+    bounds_x = 104
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton146: tbutton
+    taborder = 105
+    bounds_x = 88
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton147: tbutton
+    taborder = 104
+    bounds_x = 72
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton148: tbutton
+    taborder = 103
+    bounds_x = 56
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton149: tbutton
+    taborder = 102
+    bounds_x = 40
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton150: tbutton
+    taborder = 101
+    bounds_x = 24
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton151: tbutton
+    taborder = 100
+    bounds_x = 8
+    bounds_y = 64
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton152: tbutton
+    taborder = 199
+    bounds_x = 824
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton153: tbutton
+    taborder = 198
+    bounds_x = 808
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton154: tbutton
+    taborder = 197
+    bounds_x = 792
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton155: tbutton
+    taborder = 196
+    bounds_x = 776
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton156: tbutton
+    taborder = 195
+    bounds_x = 760
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton157: tbutton
+    taborder = 194
+    bounds_x = 744
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton158: tbutton
+    taborder = 193
+    bounds_x = 728
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton159: tbutton
+    taborder = 192
+    bounds_x = 712
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton160: tbutton
+    taborder = 191
+    bounds_x = 696
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton161: tbutton
+    taborder = 190
+    bounds_x = 680
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton162: tbutton
+    taborder = 189
+    bounds_x = 656
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton163: tbutton
+    taborder = 188
+    bounds_x = 640
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton164: tbutton
+    taborder = 187
+    bounds_x = 624
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton165: tbutton
+    taborder = 186
+    bounds_x = 608
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton166: tbutton
+    taborder = 185
+    bounds_x = 592
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton167: tbutton
+    taborder = 184
+    bounds_x = 576
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton168: tbutton
+    taborder = 183
+    bounds_x = 560
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton169: tbutton
+    taborder = 182
+    bounds_x = 544
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton170: tbutton
+    taborder = 181
+    bounds_x = 528
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton171: tbutton
+    taborder = 180
+    bounds_x = 512
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton172: tbutton
+    taborder = 179
+    bounds_x = 488
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton173: tbutton
+    taborder = 178
+    bounds_x = 472
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton174: tbutton
+    taborder = 176
+    bounds_x = 440
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton175: tbutton
+    taborder = 177
+    bounds_x = 456
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton176: tbutton
+    taborder = 175
+    bounds_x = 424
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton177: tbutton
+    taborder = 174
+    bounds_x = 408
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton178: tbutton
+    taborder = 173
+    bounds_x = 392
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton179: tbutton
+    taborder = 172
+    bounds_x = 376
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton180: tbutton
+    taborder = 171
+    bounds_x = 360
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton181: tbutton
+    taborder = 170
+    bounds_x = 344
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton182: tbutton
+    taborder = 169
+    bounds_x = 320
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton183: tbutton
+    taborder = 168
+    bounds_x = 304
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton184: tbutton
+    taborder = 167
+    bounds_x = 288
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton185: tbutton
+    taborder = 166
+    bounds_x = 272
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton186: tbutton
+    taborder = 165
+    bounds_x = 256
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton187: tbutton
+    taborder = 164
+    bounds_x = 240
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton188: tbutton
+    taborder = 163
+    bounds_x = 224
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton189: tbutton
+    taborder = 162
+    bounds_x = 208
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton190: tbutton
+    taborder = 161
+    bounds_x = 192
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton191: tbutton
+    taborder = 160
+    bounds_x = 176
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton192: tbutton
+    taborder = 159
+    bounds_x = 152
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton193: tbutton
+    taborder = 158
+    bounds_x = 136
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton194: tbutton
+    taborder = 157
+    bounds_x = 120
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton195: tbutton
+    taborder = 156
+    bounds_x = 104
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton196: tbutton
+    taborder = 155
+    bounds_x = 88
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton197: tbutton
+    taborder = 154
+    bounds_x = 72
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton198: tbutton
+    taborder = 153
+    bounds_x = 56
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton199: tbutton
+    taborder = 152
+    bounds_x = 40
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton200: tbutton
+    taborder = 151
+    bounds_x = 24
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton201: tbutton
+    taborder = 150
+    bounds_x = 8
+    bounds_y = 88
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton203: tbutton
+    taborder = 251
+    bounds_x = 24
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton204: tbutton
+    taborder = 252
+    bounds_x = 40
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton205: tbutton
+    taborder = 253
+    bounds_x = 56
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton206: tbutton
+    taborder = 254
+    bounds_x = 72
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton207: tbutton
+    taborder = 255
+    bounds_x = 88
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton208: tbutton
+    taborder = 256
+    bounds_x = 104
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton209: tbutton
+    taborder = 257
+    bounds_x = 120
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton210: tbutton
+    taborder = 258
+    bounds_x = 136
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton211: tbutton
+    taborder = 259
+    bounds_x = 152
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton212: tbutton
+    taborder = 260
+    bounds_x = 176
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton213: tbutton
+    taborder = 261
+    bounds_x = 192
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton214: tbutton
+    taborder = 262
+    bounds_x = 208
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton215: tbutton
+    taborder = 263
+    bounds_x = 224
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton216: tbutton
+    taborder = 264
+    bounds_x = 240
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton217: tbutton
+    taborder = 265
+    bounds_x = 256
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton218: tbutton
+    taborder = 266
+    bounds_x = 272
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton219: tbutton
+    taborder = 267
+    bounds_x = 288
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton220: tbutton
+    taborder = 268
+    bounds_x = 304
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton221: tbutton
+    taborder = 269
+    bounds_x = 320
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton222: tbutton
+    taborder = 270
+    bounds_x = 344
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton223: tbutton
+    taborder = 271
+    bounds_x = 360
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton224: tbutton
+    taborder = 272
+    bounds_x = 376
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton225: tbutton
+    taborder = 273
+    bounds_x = 392
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton226: tbutton
+    taborder = 274
+    bounds_x = 408
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton227: tbutton
+    taborder = 275
+    bounds_x = 424
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton228: tbutton
+    taborder = 277
+    bounds_x = 456
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton229: tbutton
+    taborder = 276
+    bounds_x = 440
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton230: tbutton
+    taborder = 278
+    bounds_x = 472
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton231: tbutton
+    taborder = 279
+    bounds_x = 488
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton232: tbutton
+    taborder = 280
+    bounds_x = 512
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton233: tbutton
+    taborder = 281
+    bounds_x = 528
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton234: tbutton
+    taborder = 282
+    bounds_x = 544
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton235: tbutton
+    taborder = 283
+    bounds_x = 560
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton236: tbutton
+    taborder = 284
+    bounds_x = 576
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton237: tbutton
+    taborder = 285
+    bounds_x = 592
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton238: tbutton
+    taborder = 286
+    bounds_x = 608
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton239: tbutton
+    taborder = 287
+    bounds_x = 624
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton240: tbutton
+    taborder = 288
+    bounds_x = 640
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton241: tbutton
+    taborder = 289
+    bounds_x = 656
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton242: tbutton
+    taborder = 290
+    bounds_x = 680
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton243: tbutton
+    taborder = 291
+    bounds_x = 696
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton244: tbutton
+    taborder = 292
+    bounds_x = 712
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton245: tbutton
+    taborder = 293
+    bounds_x = 728
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton246: tbutton
+    taborder = 294
+    bounds_x = 744
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton247: tbutton
+    taborder = 295
+    bounds_x = 760
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton248: tbutton
+    taborder = 296
+    bounds_x = 776
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton249: tbutton
+    taborder = 297
+    bounds_x = 792
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton250: tbutton
+    taborder = 298
+    bounds_x = 808
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton251: tbutton
+    taborder = 299
+    bounds_x = 824
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton262: tbutton
+    taborder = 210
+    bounds_x = 176
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton263: tbutton
+    taborder = 211
+    bounds_x = 192
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton264: tbutton
+    taborder = 212
+    bounds_x = 208
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton265: tbutton
+    taborder = 213
+    bounds_x = 224
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton266: tbutton
+    taborder = 214
+    bounds_x = 240
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton267: tbutton
+    taborder = 215
+    bounds_x = 256
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton268: tbutton
+    taborder = 216
+    bounds_x = 272
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton269: tbutton
+    taborder = 217
+    bounds_x = 288
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton270: tbutton
+    taborder = 218
+    bounds_x = 304
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton271: tbutton
+    taborder = 219
+    bounds_x = 320
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton272: tbutton
+    taborder = 220
+    bounds_x = 344
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton273: tbutton
+    taborder = 221
+    bounds_x = 360
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton274: tbutton
+    taborder = 222
+    bounds_x = 376
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton275: tbutton
+    taborder = 223
+    bounds_x = 392
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton276: tbutton
+    taborder = 224
+    bounds_x = 408
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton277: tbutton
+    taborder = 225
+    bounds_x = 424
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton278: tbutton
+    taborder = 227
+    bounds_x = 456
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton279: tbutton
+    taborder = 226
+    bounds_x = 440
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton280: tbutton
+    taborder = 228
+    bounds_x = 472
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton281: tbutton
+    taborder = 229
+    bounds_x = 488
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton282: tbutton
+    taborder = 230
+    bounds_x = 512
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton283: tbutton
+    taborder = 231
+    bounds_x = 528
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton284: tbutton
+    taborder = 232
+    bounds_x = 544
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton285: tbutton
+    taborder = 233
+    bounds_x = 560
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton286: tbutton
+    taborder = 234
+    bounds_x = 576
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton287: tbutton
+    taborder = 235
+    bounds_x = 592
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton288: tbutton
+    taborder = 236
+    bounds_x = 608
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton289: tbutton
+    taborder = 237
+    bounds_x = 624
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton290: tbutton
+    taborder = 238
+    bounds_x = 640
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton291: tbutton
+    taborder = 239
+    bounds_x = 656
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton292: tbutton
+    taborder = 240
+    bounds_x = 680
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton293: tbutton
+    taborder = 241
+    bounds_x = 696
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton294: tbutton
+    taborder = 242
+    bounds_x = 712
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton295: tbutton
+    taborder = 243
+    bounds_x = 728
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton296: tbutton
+    taborder = 244
+    bounds_x = 744
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton297: tbutton
+    taborder = 245
+    bounds_x = 760
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton298: tbutton
+    taborder = 246
+    bounds_x = 776
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton299: tbutton
+    taborder = 247
+    bounds_x = 792
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton300: tbutton
+    taborder = 248
+    bounds_x = 808
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton301: tbutton
+    taborder = 249
+    bounds_x = 824
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton342: tbutton
+    taborder = 209
+    bounds_x = 152
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton343: tbutton
+    taborder = 208
+    bounds_x = 136
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton344: tbutton
+    taborder = 207
+    bounds_x = 120
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton345: tbutton
+    taborder = 206
+    bounds_x = 104
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton346: tbutton
+    taborder = 205
+    bounds_x = 88
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton347: tbutton
+    taborder = 204
+    bounds_x = 72
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton348: tbutton
+    taborder = 203
+    bounds_x = 56
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton349: tbutton
+    taborder = 202
+    bounds_x = 40
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton350: tbutton
+    taborder = 201
+    bounds_x = 24
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton351: tbutton
+    taborder = 200
+    bounds_x = 8
+    bounds_y = 120
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton401: tbutton
+    taborder = 250
+    bounds_x = 8
+    bounds_y = 144
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton402: tbutton
+    taborder = 349
+    bounds_x = 824
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton403: tbutton
+    taborder = 348
+    bounds_x = 808
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton404: tbutton
+    taborder = 347
+    bounds_x = 792
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton405: tbutton
+    taborder = 346
+    bounds_x = 776
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton406: tbutton
+    taborder = 345
+    bounds_x = 760
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton407: tbutton
+    taborder = 344
+    bounds_x = 744
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton408: tbutton
+    taborder = 343
+    bounds_x = 728
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton409: tbutton
+    taborder = 342
+    bounds_x = 712
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton410: tbutton
+    taborder = 341
+    bounds_x = 696
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton411: tbutton
+    taborder = 340
+    bounds_x = 680
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton412: tbutton
+    taborder = 339
+    bounds_x = 656
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton413: tbutton
+    taborder = 338
+    bounds_x = 640
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton414: tbutton
+    taborder = 337
+    bounds_x = 624
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton415: tbutton
+    taborder = 336
+    bounds_x = 608
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton416: tbutton
+    taborder = 335
+    bounds_x = 592
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton417: tbutton
+    taborder = 334
+    bounds_x = 576
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton418: tbutton
+    taborder = 333
+    bounds_x = 560
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton419: tbutton
+    taborder = 332
+    bounds_x = 544
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton420: tbutton
+    taborder = 331
+    bounds_x = 528
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton421: tbutton
+    taborder = 330
+    bounds_x = 512
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton422: tbutton
+    taborder = 329
+    bounds_x = 488
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton423: tbutton
+    taborder = 328
+    bounds_x = 472
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton424: tbutton
+    taborder = 326
+    bounds_x = 440
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton425: tbutton
+    taborder = 327
+    bounds_x = 456
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton426: tbutton
+    taborder = 325
+    bounds_x = 424
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton427: tbutton
+    taborder = 324
+    bounds_x = 408
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton428: tbutton
+    taborder = 323
+    bounds_x = 392
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton429: tbutton
+    taborder = 322
+    bounds_x = 376
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton430: tbutton
+    taborder = 321
+    bounds_x = 360
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton431: tbutton
+    taborder = 320
+    bounds_x = 344
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton432: tbutton
+    taborder = 319
+    bounds_x = 320
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton433: tbutton
+    taborder = 318
+    bounds_x = 304
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton434: tbutton
+    taborder = 317
+    bounds_x = 288
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton435: tbutton
+    taborder = 316
+    bounds_x = 272
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton436: tbutton
+    taborder = 315
+    bounds_x = 256
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton437: tbutton
+    taborder = 314
+    bounds_x = 240
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton438: tbutton
+    taborder = 313
+    bounds_x = 224
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton439: tbutton
+    taborder = 312
+    bounds_x = 208
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton440: tbutton
+    taborder = 311
+    bounds_x = 192
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton441: tbutton
+    taborder = 310
+    bounds_x = 176
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton442: tbutton
+    taborder = 309
+    bounds_x = 152
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton443: tbutton
+    taborder = 308
+    bounds_x = 136
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton444: tbutton
+    taborder = 307
+    bounds_x = 120
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton445: tbutton
+    taborder = 306
+    bounds_x = 104
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton446: tbutton
+    taborder = 305
+    bounds_x = 88
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton447: tbutton
+    taborder = 304
+    bounds_x = 72
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton448: tbutton
+    taborder = 303
+    bounds_x = 56
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton449: tbutton
+    taborder = 302
+    bounds_x = 40
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton450: tbutton
+    taborder = 301
+    bounds_x = 24
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton451: tbutton
+    taborder = 300
+    bounds_x = 8
+    bounds_y = 176
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton452: tbutton
+    taborder = 399
+    bounds_x = 824
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton453: tbutton
+    taborder = 398
+    bounds_x = 808
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton454: tbutton
+    taborder = 397
+    bounds_x = 792
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton455: tbutton
+    taborder = 396
+    bounds_x = 776
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton456: tbutton
+    taborder = 395
+    bounds_x = 760
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton457: tbutton
+    taborder = 394
+    bounds_x = 744
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton458: tbutton
+    taborder = 393
+    bounds_x = 728
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton459: tbutton
+    taborder = 392
+    bounds_x = 712
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton460: tbutton
+    taborder = 391
+    bounds_x = 696
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton461: tbutton
+    taborder = 390
+    bounds_x = 680
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton462: tbutton
+    taborder = 389
+    bounds_x = 656
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton463: tbutton
+    taborder = 388
+    bounds_x = 640
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton464: tbutton
+    taborder = 387
+    bounds_x = 624
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton465: tbutton
+    taborder = 386
+    bounds_x = 608
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton466: tbutton
+    taborder = 385
+    bounds_x = 592
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton467: tbutton
+    taborder = 384
+    bounds_x = 576
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton468: tbutton
+    taborder = 383
+    bounds_x = 560
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton469: tbutton
+    taborder = 382
+    bounds_x = 544
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton470: tbutton
+    taborder = 381
+    bounds_x = 528
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton471: tbutton
+    taborder = 380
+    bounds_x = 512
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton472: tbutton
+    taborder = 379
+    bounds_x = 488
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton473: tbutton
+    taborder = 378
+    bounds_x = 472
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton474: tbutton
+    taborder = 376
+    bounds_x = 440
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton475: tbutton
+    taborder = 377
+    bounds_x = 456
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton476: tbutton
+    taborder = 375
+    bounds_x = 424
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton477: tbutton
+    taborder = 374
+    bounds_x = 408
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton478: tbutton
+    taborder = 373
+    bounds_x = 392
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton479: tbutton
+    taborder = 372
+    bounds_x = 376
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton480: tbutton
+    taborder = 371
+    bounds_x = 360
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton481: tbutton
+    taborder = 370
+    bounds_x = 344
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton482: tbutton
+    taborder = 369
+    bounds_x = 320
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton483: tbutton
+    taborder = 368
+    bounds_x = 304
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton484: tbutton
+    taborder = 367
+    bounds_x = 288
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton485: tbutton
+    taborder = 366
+    bounds_x = 272
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton486: tbutton
+    taborder = 365
+    bounds_x = 256
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton487: tbutton
+    taborder = 364
+    bounds_x = 240
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton488: tbutton
+    taborder = 363
+    bounds_x = 224
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton489: tbutton
+    taborder = 362
+    bounds_x = 208
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton490: tbutton
+    taborder = 361
+    bounds_x = 192
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton491: tbutton
+    taborder = 360
+    bounds_x = 176
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton492: tbutton
+    taborder = 359
+    bounds_x = 152
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton493: tbutton
+    taborder = 358
+    bounds_x = 136
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton494: tbutton
+    taborder = 357
+    bounds_x = 120
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton495: tbutton
+    taborder = 356
+    bounds_x = 104
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton496: tbutton
+    taborder = 355
+    bounds_x = 88
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton497: tbutton
+    taborder = 354
+    bounds_x = 72
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton498: tbutton
+    taborder = 353
+    bounds_x = 56
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton499: tbutton
+    taborder = 352
+    bounds_x = 40
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton500: tbutton
+    taborder = 351
+    bounds_x = 24
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton501: tbutton
+    taborder = 350
+    bounds_x = 8
+    bounds_y = 200
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton502: tbutton
+    taborder = 449
+    bounds_x = 824
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton503: tbutton
+    taborder = 448
+    bounds_x = 808
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton504: tbutton
+    taborder = 447
+    bounds_x = 792
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton505: tbutton
+    taborder = 446
+    bounds_x = 776
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton506: tbutton
+    taborder = 445
+    bounds_x = 760
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton507: tbutton
+    taborder = 444
+    bounds_x = 744
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton508: tbutton
+    taborder = 443
+    bounds_x = 728
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton509: tbutton
+    taborder = 442
+    bounds_x = 712
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton510: tbutton
+    taborder = 441
+    bounds_x = 696
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton511: tbutton
+    taborder = 440
+    bounds_x = 680
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton512: tbutton
+    taborder = 439
+    bounds_x = 656
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton513: tbutton
+    taborder = 438
+    bounds_x = 640
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton514: tbutton
+    taborder = 437
+    bounds_x = 624
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton515: tbutton
+    taborder = 436
+    bounds_x = 608
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton516: tbutton
+    taborder = 435
+    bounds_x = 592
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton517: tbutton
+    taborder = 434
+    bounds_x = 576
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton518: tbutton
+    taborder = 433
+    bounds_x = 560
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton519: tbutton
+    taborder = 432
+    bounds_x = 544
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton520: tbutton
+    taborder = 431
+    bounds_x = 528
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton521: tbutton
+    taborder = 430
+    bounds_x = 512
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton522: tbutton
+    taborder = 429
+    bounds_x = 488
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton523: tbutton
+    taborder = 428
+    bounds_x = 472
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton524: tbutton
+    taborder = 426
+    bounds_x = 440
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton525: tbutton
+    taborder = 427
+    bounds_x = 456
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton526: tbutton
+    taborder = 425
+    bounds_x = 424
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton527: tbutton
+    taborder = 424
+    bounds_x = 408
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton528: tbutton
+    taborder = 423
+    bounds_x = 392
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton529: tbutton
+    taborder = 422
+    bounds_x = 376
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton530: tbutton
+    taborder = 421
+    bounds_x = 360
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton531: tbutton
+    taborder = 420
+    bounds_x = 344
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton532: tbutton
+    taborder = 419
+    bounds_x = 320
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton533: tbutton
+    taborder = 418
+    bounds_x = 304
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton534: tbutton
+    taborder = 417
+    bounds_x = 288
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton535: tbutton
+    taborder = 416
+    bounds_x = 272
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton536: tbutton
+    taborder = 415
+    bounds_x = 256
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton537: tbutton
+    taborder = 414
+    bounds_x = 240
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton538: tbutton
+    taborder = 413
+    bounds_x = 224
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton539: tbutton
+    taborder = 412
+    bounds_x = 208
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton540: tbutton
+    taborder = 411
+    bounds_x = 192
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton541: tbutton
+    taborder = 410
+    bounds_x = 176
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton542: tbutton
+    taborder = 409
+    bounds_x = 152
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton543: tbutton
+    taborder = 408
+    bounds_x = 136
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton544: tbutton
+    taborder = 407
+    bounds_x = 120
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton545: tbutton
+    taborder = 406
+    bounds_x = 104
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton546: tbutton
+    taborder = 405
+    bounds_x = 88
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton547: tbutton
+    taborder = 404
+    bounds_x = 72
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton548: tbutton
+    taborder = 403
+    bounds_x = 56
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton549: tbutton
+    taborder = 402
+    bounds_x = 40
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton550: tbutton
+    taborder = 401
+    bounds_x = 24
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton551: tbutton
+    taborder = 400
+    bounds_x = 8
+    bounds_y = 232
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton552: tbutton
+    taborder = 499
+    bounds_x = 824
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton553: tbutton
+    taborder = 498
+    bounds_x = 808
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton554: tbutton
+    taborder = 497
+    bounds_x = 792
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton555: tbutton
+    taborder = 496
+    bounds_x = 776
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton556: tbutton
+    taborder = 495
+    bounds_x = 760
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton557: tbutton
+    taborder = 494
+    bounds_x = 744
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton558: tbutton
+    taborder = 493
+    bounds_x = 728
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton559: tbutton
+    taborder = 492
+    bounds_x = 712
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton560: tbutton
+    taborder = 491
+    bounds_x = 696
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton561: tbutton
+    taborder = 490
+    bounds_x = 680
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton562: tbutton
+    taborder = 489
+    bounds_x = 656
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton563: tbutton
+    taborder = 488
+    bounds_x = 640
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton564: tbutton
+    taborder = 487
+    bounds_x = 624
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton565: tbutton
+    taborder = 486
+    bounds_x = 608
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton566: tbutton
+    taborder = 485
+    bounds_x = 592
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton567: tbutton
+    taborder = 484
+    bounds_x = 576
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton568: tbutton
+    taborder = 483
+    bounds_x = 560
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton569: tbutton
+    taborder = 482
+    bounds_x = 544
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton570: tbutton
+    taborder = 481
+    bounds_x = 528
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton571: tbutton
+    taborder = 480
+    bounds_x = 512
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton572: tbutton
+    taborder = 479
+    bounds_x = 488
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton573: tbutton
+    taborder = 478
+    bounds_x = 472
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton574: tbutton
+    taborder = 476
+    bounds_x = 440
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton575: tbutton
+    taborder = 477
+    bounds_x = 456
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton576: tbutton
+    taborder = 475
+    bounds_x = 424
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton577: tbutton
+    taborder = 474
+    bounds_x = 408
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton578: tbutton
+    taborder = 473
+    bounds_x = 392
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton579: tbutton
+    taborder = 472
+    bounds_x = 376
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton580: tbutton
+    taborder = 471
+    bounds_x = 360
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton581: tbutton
+    taborder = 470
+    bounds_x = 344
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton582: tbutton
+    taborder = 469
+    bounds_x = 320
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton583: tbutton
+    taborder = 468
+    bounds_x = 304
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton584: tbutton
+    taborder = 467
+    bounds_x = 288
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton585: tbutton
+    taborder = 466
+    bounds_x = 272
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton586: tbutton
+    taborder = 465
+    bounds_x = 256
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton587: tbutton
+    taborder = 464
+    bounds_x = 240
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton588: tbutton
+    taborder = 463
+    bounds_x = 224
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton589: tbutton
+    taborder = 462
+    bounds_x = 208
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton590: tbutton
+    taborder = 461
+    bounds_x = 192
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton591: tbutton
+    taborder = 460
+    bounds_x = 176
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton592: tbutton
+    taborder = 459
+    bounds_x = 152
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton593: tbutton
+    taborder = 458
+    bounds_x = 136
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton594: tbutton
+    taborder = 457
+    bounds_x = 120
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton595: tbutton
+    taborder = 456
+    bounds_x = 104
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton596: tbutton
+    taborder = 455
+    bounds_x = 88
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton597: tbutton
+    taborder = 454
+    bounds_x = 72
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton598: tbutton
+    taborder = 453
+    bounds_x = 56
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton599: tbutton
+    taborder = 452
+    bounds_x = 40
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton600: tbutton
+    taborder = 451
+    bounds_x = 24
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton601: tbutton
+    taborder = 450
+    bounds_x = 8
+    bounds_y = 256
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton602: tbutton
+    taborder = 549
+    bounds_x = 824
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton603: tbutton
+    taborder = 548
+    bounds_x = 808
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton604: tbutton
+    taborder = 547
+    bounds_x = 792
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton605: tbutton
+    taborder = 546
+    bounds_x = 776
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton606: tbutton
+    taborder = 545
+    bounds_x = 760
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton607: tbutton
+    taborder = 544
+    bounds_x = 744
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton608: tbutton
+    taborder = 543
+    bounds_x = 728
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton609: tbutton
+    taborder = 542
+    bounds_x = 712
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton610: tbutton
+    taborder = 541
+    bounds_x = 696
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton611: tbutton
+    taborder = 540
+    bounds_x = 680
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton612: tbutton
+    taborder = 539
+    bounds_x = 656
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton613: tbutton
+    taborder = 538
+    bounds_x = 640
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton614: tbutton
+    taborder = 537
+    bounds_x = 624
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton615: tbutton
+    taborder = 536
+    bounds_x = 608
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton616: tbutton
+    taborder = 535
+    bounds_x = 592
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton617: tbutton
+    taborder = 534
+    bounds_x = 576
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton618: tbutton
+    taborder = 533
+    bounds_x = 560
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton619: tbutton
+    taborder = 532
+    bounds_x = 544
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton620: tbutton
+    taborder = 531
+    bounds_x = 528
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton621: tbutton
+    taborder = 530
+    bounds_x = 512
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton622: tbutton
+    taborder = 529
+    bounds_x = 488
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton623: tbutton
+    taborder = 528
+    bounds_x = 472
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton624: tbutton
+    taborder = 527
+    bounds_x = 456
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton625: tbutton
+    taborder = 526
+    bounds_x = 440
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton626: tbutton
+    taborder = 525
+    bounds_x = 424
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton627: tbutton
+    taborder = 524
+    bounds_x = 408
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton628: tbutton
+    taborder = 523
+    bounds_x = 392
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton629: tbutton
+    taborder = 522
+    bounds_x = 376
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton630: tbutton
+    taborder = 521
+    bounds_x = 360
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton631: tbutton
+    taborder = 520
+    bounds_x = 344
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton632: tbutton
+    taborder = 519
+    bounds_x = 320
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton633: tbutton
+    taborder = 518
+    bounds_x = 304
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton634: tbutton
+    taborder = 517
+    bounds_x = 288
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton635: tbutton
+    taborder = 516
+    bounds_x = 272
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton636: tbutton
+    taborder = 515
+    bounds_x = 256
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton637: tbutton
+    taborder = 514
+    bounds_x = 240
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton638: tbutton
+    taborder = 513
+    bounds_x = 224
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton639: tbutton
+    taborder = 512
+    bounds_x = 208
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton640: tbutton
+    taborder = 511
+    bounds_x = 192
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton641: tbutton
+    taborder = 510
+    bounds_x = 176
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton642: tbutton
+    taborder = 509
+    bounds_x = 152
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton643: tbutton
+    taborder = 508
+    bounds_x = 136
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton644: tbutton
+    taborder = 507
+    bounds_x = 120
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton645: tbutton
+    taborder = 506
+    bounds_x = 104
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton646: tbutton
+    taborder = 505
+    bounds_x = 88
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton647: tbutton
+    taborder = 504
+    bounds_x = 72
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton648: tbutton
+    taborder = 503
+    bounds_x = 56
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton649: tbutton
+    taborder = 502
+    bounds_x = 40
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton650: tbutton
+    taborder = 501
+    bounds_x = 24
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton651: tbutton
+    taborder = 500
+    bounds_x = 8
+    bounds_y = 296
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton652: tbutton
+    taborder = 550
+    bounds_x = 8
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton653: tbutton
+    taborder = 551
+    bounds_x = 24
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton654: tbutton
+    taborder = 552
+    bounds_x = 40
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton655: tbutton
+    taborder = 553
+    bounds_x = 56
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton656: tbutton
+    taborder = 554
+    bounds_x = 72
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton657: tbutton
+    taborder = 555
+    bounds_x = 88
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton658: tbutton
+    taborder = 556
+    bounds_x = 104
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton659: tbutton
+    taborder = 557
+    bounds_x = 120
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton660: tbutton
+    taborder = 558
+    bounds_x = 136
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton661: tbutton
+    taborder = 559
+    bounds_x = 152
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton662: tbutton
+    taborder = 560
+    bounds_x = 176
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton663: tbutton
+    taborder = 561
+    bounds_x = 192
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton664: tbutton
+    taborder = 562
+    bounds_x = 208
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton665: tbutton
+    taborder = 563
+    bounds_x = 224
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton666: tbutton
+    taborder = 564
+    bounds_x = 240
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton667: tbutton
+    taborder = 565
+    bounds_x = 256
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton668: tbutton
+    taborder = 566
+    bounds_x = 272
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton669: tbutton
+    taborder = 567
+    bounds_x = 288
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton670: tbutton
+    taborder = 568
+    bounds_x = 304
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton671: tbutton
+    taborder = 569
+    bounds_x = 320
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton672: tbutton
+    taborder = 570
+    bounds_x = 344
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton673: tbutton
+    taborder = 571
+    bounds_x = 360
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton674: tbutton
+    taborder = 572
+    bounds_x = 376
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton675: tbutton
+    taborder = 573
+    bounds_x = 392
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton676: tbutton
+    taborder = 574
+    bounds_x = 408
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton677: tbutton
+    taborder = 575
+    bounds_x = 424
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton678: tbutton
+    taborder = 577
+    bounds_x = 456
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton679: tbutton
+    taborder = 576
+    bounds_x = 440
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton680: tbutton
+    taborder = 578
+    bounds_x = 472
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton681: tbutton
+    taborder = 579
+    bounds_x = 488
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton682: tbutton
+    taborder = 580
+    bounds_x = 512
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton683: tbutton
+    taborder = 581
+    bounds_x = 528
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton684: tbutton
+    taborder = 582
+    bounds_x = 544
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton685: tbutton
+    taborder = 583
+    bounds_x = 560
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton686: tbutton
+    taborder = 584
+    bounds_x = 576
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton687: tbutton
+    taborder = 585
+    bounds_x = 592
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton688: tbutton
+    taborder = 586
+    bounds_x = 608
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton689: tbutton
+    taborder = 587
+    bounds_x = 624
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton690: tbutton
+    taborder = 588
+    bounds_x = 640
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton691: tbutton
+    taborder = 589
+    bounds_x = 656
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton692: tbutton
+    taborder = 590
+    bounds_x = 680
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton693: tbutton
+    taborder = 591
+    bounds_x = 696
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton694: tbutton
+    taborder = 592
+    bounds_x = 712
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton695: tbutton
+    taborder = 593
+    bounds_x = 728
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton696: tbutton
+    taborder = 594
+    bounds_x = 744
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton697: tbutton
+    taborder = 595
+    bounds_x = 760
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton698: tbutton
+    taborder = 596
+    bounds_x = 776
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton699: tbutton
+    taborder = 597
+    bounds_x = 792
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton700: tbutton
+    taborder = 598
+    bounds_x = 808
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton701: tbutton
+    taborder = 599
+    bounds_x = 824
+    bounds_y = 320
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton702: tbutton
+    taborder = 600
+    bounds_x = 8
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton703: tbutton
+    taborder = 650
+    bounds_x = 8
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton704: tbutton
+    taborder = 700
+    bounds_x = 8
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton705: tbutton
+    taborder = 750
+    bounds_x = 8
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton706: tbutton
+    taborder = 800
+    bounds_x = 8
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton707: tbutton
+    taborder = 850
+    bounds_x = 8
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton708: tbutton
+    taborder = 900
+    bounds_x = 8
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton709: tbutton
+    taborder = 950
+    bounds_x = 8
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton710: tbutton
+    taborder = 951
+    bounds_x = 24
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton711: tbutton
+    taborder = 952
+    bounds_x = 40
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton712: tbutton
+    taborder = 953
+    bounds_x = 56
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton713: tbutton
+    taborder = 954
+    bounds_x = 72
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton714: tbutton
+    taborder = 955
+    bounds_x = 88
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton715: tbutton
+    taborder = 956
+    bounds_x = 104
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton716: tbutton
+    taborder = 957
+    bounds_x = 120
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton717: tbutton
+    taborder = 958
+    bounds_x = 136
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton718: tbutton
+    taborder = 959
+    bounds_x = 152
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton719: tbutton
+    taborder = 960
+    bounds_x = 176
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton720: tbutton
+    taborder = 961
+    bounds_x = 192
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton721: tbutton
+    taborder = 962
+    bounds_x = 208
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton722: tbutton
+    taborder = 963
+    bounds_x = 224
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton723: tbutton
+    taborder = 964
+    bounds_x = 240
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton724: tbutton
+    taborder = 965
+    bounds_x = 256
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton725: tbutton
+    taborder = 966
+    bounds_x = 272
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton726: tbutton
+    taborder = 967
+    bounds_x = 288
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton727: tbutton
+    taborder = 968
+    bounds_x = 304
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton728: tbutton
+    taborder = 969
+    bounds_x = 320
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton729: tbutton
+    taborder = 970
+    bounds_x = 344
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton730: tbutton
+    taborder = 971
+    bounds_x = 360
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton731: tbutton
+    taborder = 972
+    bounds_x = 376
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton732: tbutton
+    taborder = 973
+    bounds_x = 392
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton733: tbutton
+    taborder = 974
+    bounds_x = 408
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton734: tbutton
+    taborder = 975
+    bounds_x = 424
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton735: tbutton
+    taborder = 977
+    bounds_x = 456
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton736: tbutton
+    taborder = 976
+    bounds_x = 440
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton737: tbutton
+    taborder = 978
+    bounds_x = 472
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton738: tbutton
+    taborder = 979
+    bounds_x = 488
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton739: tbutton
+    taborder = 980
+    bounds_x = 512
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton740: tbutton
+    taborder = 981
+    bounds_x = 528
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton741: tbutton
+    taborder = 982
+    bounds_x = 544
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton742: tbutton
+    taborder = 983
+    bounds_x = 560
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton743: tbutton
+    taborder = 984
+    bounds_x = 576
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton744: tbutton
+    taborder = 985
+    bounds_x = 592
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton745: tbutton
+    taborder = 986
+    bounds_x = 608
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton746: tbutton
+    taborder = 987
+    bounds_x = 624
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton747: tbutton
+    taborder = 988
+    bounds_x = 640
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton748: tbutton
+    taborder = 989
+    bounds_x = 656
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton749: tbutton
+    taborder = 990
+    bounds_x = 680
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton750: tbutton
+    taborder = 991
+    bounds_x = 696
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton751: tbutton
+    taborder = 992
+    bounds_x = 712
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton752: tbutton
+    taborder = 993
+    bounds_x = 728
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton753: tbutton
+    taborder = 994
+    bounds_x = 744
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton754: tbutton
+    taborder = 995
+    bounds_x = 760
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton755: tbutton
+    taborder = 996
+    bounds_x = 776
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton756: tbutton
+    taborder = 997
+    bounds_x = 792
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton757: tbutton
+    taborder = 998
+    bounds_x = 808
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton758: tbutton
+    taborder = 999
+    bounds_x = 824
+    bounds_y = 544
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton759: tbutton
+    taborder = 901
+    bounds_x = 24
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton760: tbutton
+    taborder = 902
+    bounds_x = 40
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton761: tbutton
+    taborder = 903
+    bounds_x = 56
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton762: tbutton
+    taborder = 904
+    bounds_x = 72
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton763: tbutton
+    taborder = 905
+    bounds_x = 88
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton764: tbutton
+    taborder = 906
+    bounds_x = 104
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton765: tbutton
+    taborder = 907
+    bounds_x = 120
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton766: tbutton
+    taborder = 908
+    bounds_x = 136
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton767: tbutton
+    taborder = 909
+    bounds_x = 152
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton768: tbutton
+    taborder = 910
+    bounds_x = 176
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton769: tbutton
+    taborder = 911
+    bounds_x = 192
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton770: tbutton
+    taborder = 912
+    bounds_x = 208
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton771: tbutton
+    taborder = 913
+    bounds_x = 224
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton772: tbutton
+    taborder = 914
+    bounds_x = 240
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton773: tbutton
+    taborder = 915
+    bounds_x = 256
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton774: tbutton
+    taborder = 916
+    bounds_x = 272
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton775: tbutton
+    taborder = 917
+    bounds_x = 288
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton776: tbutton
+    taborder = 918
+    bounds_x = 304
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton777: tbutton
+    taborder = 919
+    bounds_x = 320
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton778: tbutton
+    taborder = 920
+    bounds_x = 344
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton779: tbutton
+    taborder = 921
+    bounds_x = 360
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton780: tbutton
+    taborder = 922
+    bounds_x = 376
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton781: tbutton
+    taborder = 923
+    bounds_x = 392
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton782: tbutton
+    taborder = 924
+    bounds_x = 408
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton783: tbutton
+    taborder = 925
+    bounds_x = 424
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton784: tbutton
+    taborder = 927
+    bounds_x = 456
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton785: tbutton
+    taborder = 926
+    bounds_x = 440
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton786: tbutton
+    taborder = 928
+    bounds_x = 472
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton787: tbutton
+    taborder = 929
+    bounds_x = 488
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton788: tbutton
+    taborder = 930
+    bounds_x = 512
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton789: tbutton
+    taborder = 931
+    bounds_x = 528
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton790: tbutton
+    taborder = 932
+    bounds_x = 544
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton791: tbutton
+    taborder = 933
+    bounds_x = 560
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton792: tbutton
+    taborder = 934
+    bounds_x = 576
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton793: tbutton
+    taborder = 935
+    bounds_x = 592
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton794: tbutton
+    taborder = 936
+    bounds_x = 608
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton795: tbutton
+    taborder = 937
+    bounds_x = 624
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton796: tbutton
+    taborder = 938
+    bounds_x = 640
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton797: tbutton
+    taborder = 939
+    bounds_x = 656
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton798: tbutton
+    taborder = 940
+    bounds_x = 680
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton799: tbutton
+    taborder = 941
+    bounds_x = 696
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton800: tbutton
+    taborder = 942
+    bounds_x = 712
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton801: tbutton
+    taborder = 943
+    bounds_x = 728
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton802: tbutton
+    taborder = 944
+    bounds_x = 744
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton803: tbutton
+    taborder = 945
+    bounds_x = 760
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton804: tbutton
+    taborder = 946
+    bounds_x = 776
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton805: tbutton
+    taborder = 947
+    bounds_x = 792
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton806: tbutton
+    taborder = 948
+    bounds_x = 808
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton807: tbutton
+    taborder = 949
+    bounds_x = 824
+    bounds_y = 520
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton808: tbutton
+    taborder = 851
+    bounds_x = 24
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton809: tbutton
+    taborder = 852
+    bounds_x = 40
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton810: tbutton
+    taborder = 853
+    bounds_x = 56
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton811: tbutton
+    taborder = 854
+    bounds_x = 72
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton812: tbutton
+    taborder = 855
+    bounds_x = 88
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton813: tbutton
+    taborder = 856
+    bounds_x = 104
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton814: tbutton
+    taborder = 857
+    bounds_x = 120
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton815: tbutton
+    taborder = 858
+    bounds_x = 136
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton816: tbutton
+    taborder = 859
+    bounds_x = 152
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton817: tbutton
+    taborder = 860
+    bounds_x = 176
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton818: tbutton
+    taborder = 861
+    bounds_x = 192
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton819: tbutton
+    taborder = 862
+    bounds_x = 208
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton820: tbutton
+    taborder = 863
+    bounds_x = 224
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton821: tbutton
+    taborder = 864
+    bounds_x = 240
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton822: tbutton
+    taborder = 865
+    bounds_x = 256
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton823: tbutton
+    taborder = 866
+    bounds_x = 272
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton824: tbutton
+    taborder = 867
+    bounds_x = 288
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton825: tbutton
+    taborder = 868
+    bounds_x = 304
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton826: tbutton
+    taborder = 869
+    bounds_x = 320
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton827: tbutton
+    taborder = 870
+    bounds_x = 344
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton828: tbutton
+    taborder = 871
+    bounds_x = 360
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton829: tbutton
+    taborder = 872
+    bounds_x = 376
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton830: tbutton
+    taborder = 873
+    bounds_x = 392
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton831: tbutton
+    taborder = 874
+    bounds_x = 408
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton832: tbutton
+    taborder = 875
+    bounds_x = 424
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton833: tbutton
+    taborder = 877
+    bounds_x = 456
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton834: tbutton
+    taborder = 876
+    bounds_x = 440
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton835: tbutton
+    taborder = 878
+    bounds_x = 472
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton836: tbutton
+    taborder = 879
+    bounds_x = 488
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton837: tbutton
+    taborder = 880
+    bounds_x = 512
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton838: tbutton
+    taborder = 881
+    bounds_x = 528
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton839: tbutton
+    taborder = 882
+    bounds_x = 544
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton840: tbutton
+    taborder = 883
+    bounds_x = 560
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton841: tbutton
+    taborder = 884
+    bounds_x = 576
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton842: tbutton
+    taborder = 885
+    bounds_x = 592
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton843: tbutton
+    taborder = 886
+    bounds_x = 608
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton844: tbutton
+    taborder = 887
+    bounds_x = 624
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton845: tbutton
+    taborder = 888
+    bounds_x = 640
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton846: tbutton
+    taborder = 889
+    bounds_x = 656
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton847: tbutton
+    taborder = 890
+    bounds_x = 680
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton848: tbutton
+    taborder = 891
+    bounds_x = 696
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton849: tbutton
+    taborder = 892
+    bounds_x = 712
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton850: tbutton
+    taborder = 893
+    bounds_x = 728
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton851: tbutton
+    taborder = 894
+    bounds_x = 744
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton852: tbutton
+    taborder = 895
+    bounds_x = 760
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton853: tbutton
+    taborder = 896
+    bounds_x = 776
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton854: tbutton
+    taborder = 897
+    bounds_x = 792
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton855: tbutton
+    taborder = 898
+    bounds_x = 808
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton856: tbutton
+    taborder = 899
+    bounds_x = 824
+    bounds_y = 488
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton857: tbutton
+    taborder = 801
+    bounds_x = 24
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton858: tbutton
+    taborder = 802
+    bounds_x = 40
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton859: tbutton
+    taborder = 803
+    bounds_x = 56
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton860: tbutton
+    taborder = 804
+    bounds_x = 72
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton861: tbutton
+    taborder = 805
+    bounds_x = 88
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton862: tbutton
+    taborder = 806
+    bounds_x = 104
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton863: tbutton
+    taborder = 807
+    bounds_x = 120
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton864: tbutton
+    taborder = 808
+    bounds_x = 136
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton865: tbutton
+    taborder = 809
+    bounds_x = 152
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton866: tbutton
+    taborder = 810
+    bounds_x = 176
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton867: tbutton
+    taborder = 811
+    bounds_x = 192
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton868: tbutton
+    taborder = 812
+    bounds_x = 208
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton869: tbutton
+    taborder = 813
+    bounds_x = 224
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton870: tbutton
+    taborder = 814
+    bounds_x = 240
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton871: tbutton
+    taborder = 815
+    bounds_x = 256
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton872: tbutton
+    taborder = 816
+    bounds_x = 272
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton873: tbutton
+    taborder = 817
+    bounds_x = 288
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton874: tbutton
+    taborder = 818
+    bounds_x = 304
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton875: tbutton
+    taborder = 819
+    bounds_x = 320
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton876: tbutton
+    taborder = 820
+    bounds_x = 344
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton877: tbutton
+    taborder = 821
+    bounds_x = 360
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton878: tbutton
+    taborder = 822
+    bounds_x = 376
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton879: tbutton
+    taborder = 823
+    bounds_x = 392
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton880: tbutton
+    taborder = 824
+    bounds_x = 408
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton881: tbutton
+    taborder = 825
+    bounds_x = 424
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton882: tbutton
+    taborder = 827
+    bounds_x = 456
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton883: tbutton
+    taborder = 826
+    bounds_x = 440
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton884: tbutton
+    taborder = 828
+    bounds_x = 472
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton885: tbutton
+    taborder = 829
+    bounds_x = 488
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton886: tbutton
+    taborder = 830
+    bounds_x = 512
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton887: tbutton
+    taborder = 831
+    bounds_x = 528
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton888: tbutton
+    taborder = 832
+    bounds_x = 544
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton889: tbutton
+    taborder = 833
+    bounds_x = 560
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton890: tbutton
+    taborder = 834
+    bounds_x = 576
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton891: tbutton
+    taborder = 835
+    bounds_x = 592
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton892: tbutton
+    taborder = 836
+    bounds_x = 608
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton893: tbutton
+    taborder = 837
+    bounds_x = 624
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton894: tbutton
+    taborder = 838
+    bounds_x = 640
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton895: tbutton
+    taborder = 839
+    bounds_x = 656
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton896: tbutton
+    taborder = 840
+    bounds_x = 680
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton897: tbutton
+    taborder = 841
+    bounds_x = 696
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton898: tbutton
+    taborder = 842
+    bounds_x = 712
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton899: tbutton
+    taborder = 843
+    bounds_x = 728
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton900: tbutton
+    taborder = 844
+    bounds_x = 744
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton901: tbutton
+    taborder = 845
+    bounds_x = 760
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton902: tbutton
+    taborder = 846
+    bounds_x = 776
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton903: tbutton
+    taborder = 847
+    bounds_x = 792
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton904: tbutton
+    taborder = 848
+    bounds_x = 808
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton905: tbutton
+    taborder = 849
+    bounds_x = 824
+    bounds_y = 464
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton906: tbutton
+    taborder = 751
+    bounds_x = 24
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton907: tbutton
+    taborder = 752
+    bounds_x = 40
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton908: tbutton
+    taborder = 753
+    bounds_x = 56
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton909: tbutton
+    taborder = 754
+    bounds_x = 72
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton910: tbutton
+    taborder = 755
+    bounds_x = 88
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton911: tbutton
+    taborder = 756
+    bounds_x = 104
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton912: tbutton
+    taborder = 757
+    bounds_x = 120
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton913: tbutton
+    taborder = 758
+    bounds_x = 136
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton914: tbutton
+    taborder = 759
+    bounds_x = 152
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton915: tbutton
+    taborder = 760
+    bounds_x = 176
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton916: tbutton
+    taborder = 761
+    bounds_x = 192
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton917: tbutton
+    taborder = 762
+    bounds_x = 208
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton918: tbutton
+    taborder = 763
+    bounds_x = 224
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton919: tbutton
+    taborder = 764
+    bounds_x = 240
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton920: tbutton
+    taborder = 765
+    bounds_x = 256
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton921: tbutton
+    taborder = 766
+    bounds_x = 272
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton922: tbutton
+    taborder = 767
+    bounds_x = 288
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton923: tbutton
+    taborder = 768
+    bounds_x = 304
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton924: tbutton
+    taborder = 769
+    bounds_x = 320
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton925: tbutton
+    taborder = 770
+    bounds_x = 344
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton926: tbutton
+    taborder = 771
+    bounds_x = 360
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton927: tbutton
+    taborder = 772
+    bounds_x = 376
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton928: tbutton
+    taborder = 773
+    bounds_x = 392
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton929: tbutton
+    taborder = 774
+    bounds_x = 408
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton930: tbutton
+    taborder = 775
+    bounds_x = 424
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton931: tbutton
+    taborder = 777
+    bounds_x = 456
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton932: tbutton
+    taborder = 776
+    bounds_x = 440
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton933: tbutton
+    taborder = 778
+    bounds_x = 472
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton934: tbutton
+    taborder = 779
+    bounds_x = 488
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton935: tbutton
+    taborder = 780
+    bounds_x = 512
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton936: tbutton
+    taborder = 781
+    bounds_x = 528
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton937: tbutton
+    taborder = 782
+    bounds_x = 544
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton938: tbutton
+    taborder = 783
+    bounds_x = 560
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton939: tbutton
+    taborder = 784
+    bounds_x = 576
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton940: tbutton
+    taborder = 785
+    bounds_x = 592
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton941: tbutton
+    taborder = 786
+    bounds_x = 608
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton942: tbutton
+    taborder = 787
+    bounds_x = 624
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton943: tbutton
+    taborder = 788
+    bounds_x = 640
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton944: tbutton
+    taborder = 789
+    bounds_x = 656
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton945: tbutton
+    taborder = 790
+    bounds_x = 680
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton946: tbutton
+    taborder = 791
+    bounds_x = 696
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton947: tbutton
+    taborder = 792
+    bounds_x = 712
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton948: tbutton
+    taborder = 793
+    bounds_x = 728
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton949: tbutton
+    taborder = 794
+    bounds_x = 744
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton950: tbutton
+    taborder = 795
+    bounds_x = 760
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton951: tbutton
+    taborder = 796
+    bounds_x = 776
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton952: tbutton
+    taborder = 797
+    bounds_x = 792
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton953: tbutton
+    taborder = 798
+    bounds_x = 808
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton954: tbutton
+    taborder = 799
+    bounds_x = 824
+    bounds_y = 432
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton955: tbutton
+    taborder = 701
+    bounds_x = 24
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton956: tbutton
+    taborder = 702
+    bounds_x = 40
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton957: tbutton
+    taborder = 703
+    bounds_x = 56
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton958: tbutton
+    taborder = 704
+    bounds_x = 72
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton959: tbutton
+    taborder = 705
+    bounds_x = 88
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton960: tbutton
+    taborder = 706
+    bounds_x = 104
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton961: tbutton
+    taborder = 707
+    bounds_x = 120
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton962: tbutton
+    taborder = 708
+    bounds_x = 136
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton963: tbutton
+    taborder = 709
+    bounds_x = 152
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton964: tbutton
+    taborder = 710
+    bounds_x = 176
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton965: tbutton
+    taborder = 711
+    bounds_x = 192
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton966: tbutton
+    taborder = 712
+    bounds_x = 208
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton967: tbutton
+    taborder = 713
+    bounds_x = 224
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton968: tbutton
+    taborder = 714
+    bounds_x = 240
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton969: tbutton
+    taborder = 715
+    bounds_x = 256
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton970: tbutton
+    taborder = 716
+    bounds_x = 272
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton971: tbutton
+    taborder = 717
+    bounds_x = 288
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton972: tbutton
+    taborder = 718
+    bounds_x = 304
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton973: tbutton
+    taborder = 719
+    bounds_x = 320
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton974: tbutton
+    taborder = 720
+    bounds_x = 344
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton975: tbutton
+    taborder = 721
+    bounds_x = 360
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton976: tbutton
+    taborder = 722
+    bounds_x = 376
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton977: tbutton
+    taborder = 723
+    bounds_x = 392
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton978: tbutton
+    taborder = 724
+    bounds_x = 408
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton979: tbutton
+    taborder = 725
+    bounds_x = 424
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton980: tbutton
+    taborder = 727
+    bounds_x = 456
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton981: tbutton
+    taborder = 726
+    bounds_x = 440
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton982: tbutton
+    taborder = 728
+    bounds_x = 472
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton983: tbutton
+    taborder = 729
+    bounds_x = 488
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton984: tbutton
+    taborder = 730
+    bounds_x = 512
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton985: tbutton
+    taborder = 731
+    bounds_x = 528
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton986: tbutton
+    taborder = 732
+    bounds_x = 544
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton987: tbutton
+    taborder = 733
+    bounds_x = 560
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton988: tbutton
+    taborder = 734
+    bounds_x = 576
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton989: tbutton
+    taborder = 735
+    bounds_x = 592
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton990: tbutton
+    taborder = 736
+    bounds_x = 608
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton991: tbutton
+    taborder = 737
+    bounds_x = 624
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton992: tbutton
+    taborder = 738
+    bounds_x = 640
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton993: tbutton
+    taborder = 739
+    bounds_x = 656
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton994: tbutton
+    taborder = 740
+    bounds_x = 680
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton995: tbutton
+    taborder = 741
+    bounds_x = 696
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton996: tbutton
+    taborder = 742
+    bounds_x = 712
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton997: tbutton
+    taborder = 743
+    bounds_x = 728
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton998: tbutton
+    taborder = 744
+    bounds_x = 744
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton999: tbutton
+    taborder = 745
+    bounds_x = 760
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1000: tbutton
+    taborder = 746
+    bounds_x = 776
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1001: tbutton
+    taborder = 747
+    bounds_x = 792
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1002: tbutton
+    taborder = 748
+    bounds_x = 808
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1003: tbutton
+    taborder = 749
+    bounds_x = 824
+    bounds_y = 408
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1102: tbutton
+    taborder = 651
+    bounds_x = 24
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1103: tbutton
+    taborder = 652
+    bounds_x = 40
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1104: tbutton
+    taborder = 653
+    bounds_x = 56
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1105: tbutton
+    taborder = 654
+    bounds_x = 72
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1106: tbutton
+    taborder = 655
+    bounds_x = 88
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1107: tbutton
+    taborder = 656
+    bounds_x = 104
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1108: tbutton
+    taborder = 657
+    bounds_x = 120
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1109: tbutton
+    taborder = 658
+    bounds_x = 136
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1110: tbutton
+    taborder = 659
+    bounds_x = 152
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1111: tbutton
+    taborder = 660
+    bounds_x = 176
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1112: tbutton
+    taborder = 661
+    bounds_x = 192
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1113: tbutton
+    taborder = 662
+    bounds_x = 208
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1114: tbutton
+    taborder = 663
+    bounds_x = 224
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1115: tbutton
+    taborder = 664
+    bounds_x = 240
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1116: tbutton
+    taborder = 665
+    bounds_x = 256
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1117: tbutton
+    taborder = 666
+    bounds_x = 272
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1118: tbutton
+    taborder = 667
+    bounds_x = 288
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1119: tbutton
+    taborder = 668
+    bounds_x = 304
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1120: tbutton
+    taborder = 669
+    bounds_x = 320
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1121: tbutton
+    taborder = 670
+    bounds_x = 344
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1122: tbutton
+    taborder = 671
+    bounds_x = 360
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1123: tbutton
+    taborder = 672
+    bounds_x = 376
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1124: tbutton
+    taborder = 673
+    bounds_x = 392
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1125: tbutton
+    taborder = 674
+    bounds_x = 408
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1126: tbutton
+    taborder = 675
+    bounds_x = 424
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1127: tbutton
+    taborder = 677
+    bounds_x = 456
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1128: tbutton
+    taborder = 676
+    bounds_x = 440
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1129: tbutton
+    taborder = 678
+    bounds_x = 472
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1130: tbutton
+    taborder = 679
+    bounds_x = 488
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1131: tbutton
+    taborder = 680
+    bounds_x = 512
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1132: tbutton
+    taborder = 681
+    bounds_x = 528
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1133: tbutton
+    taborder = 682
+    bounds_x = 544
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1134: tbutton
+    taborder = 683
+    bounds_x = 560
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1135: tbutton
+    taborder = 684
+    bounds_x = 576
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1136: tbutton
+    taborder = 685
+    bounds_x = 592
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1137: tbutton
+    taborder = 686
+    bounds_x = 608
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1138: tbutton
+    taborder = 687
+    bounds_x = 624
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1139: tbutton
+    taborder = 688
+    bounds_x = 640
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1140: tbutton
+    taborder = 689
+    bounds_x = 656
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1141: tbutton
+    taborder = 690
+    bounds_x = 680
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1142: tbutton
+    taborder = 691
+    bounds_x = 696
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1143: tbutton
+    taborder = 692
+    bounds_x = 712
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1144: tbutton
+    taborder = 693
+    bounds_x = 728
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1145: tbutton
+    taborder = 694
+    bounds_x = 744
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1146: tbutton
+    taborder = 695
+    bounds_x = 760
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1147: tbutton
+    taborder = 696
+    bounds_x = 776
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1148: tbutton
+    taborder = 697
+    bounds_x = 792
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1149: tbutton
+    taborder = 698
+    bounds_x = 808
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1150: tbutton
+    taborder = 699
+    bounds_x = 824
+    bounds_y = 376
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1151: tbutton
+    taborder = 601
+    bounds_x = 24
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1152: tbutton
+    taborder = 602
+    bounds_x = 40
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1153: tbutton
+    taborder = 603
+    bounds_x = 56
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1154: tbutton
+    taborder = 604
+    bounds_x = 72
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1155: tbutton
+    taborder = 605
+    bounds_x = 88
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1156: tbutton
+    taborder = 606
+    bounds_x = 104
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1157: tbutton
+    taborder = 607
+    bounds_x = 120
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1158: tbutton
+    taborder = 608
+    bounds_x = 136
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1159: tbutton
+    taborder = 609
+    bounds_x = 152
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1160: tbutton
+    taborder = 610
+    bounds_x = 176
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1161: tbutton
+    taborder = 611
+    bounds_x = 192
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1162: tbutton
+    taborder = 612
+    bounds_x = 208
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1163: tbutton
+    taborder = 613
+    bounds_x = 224
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1164: tbutton
+    taborder = 614
+    bounds_x = 240
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1165: tbutton
+    taborder = 615
+    bounds_x = 256
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1166: tbutton
+    taborder = 616
+    bounds_x = 272
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1167: tbutton
+    taborder = 617
+    bounds_x = 288
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1168: tbutton
+    taborder = 618
+    bounds_x = 304
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1169: tbutton
+    taborder = 619
+    bounds_x = 320
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1170: tbutton
+    taborder = 620
+    bounds_x = 344
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1171: tbutton
+    taborder = 621
+    bounds_x = 360
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1172: tbutton
+    taborder = 622
+    bounds_x = 376
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1173: tbutton
+    taborder = 623
+    bounds_x = 392
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1174: tbutton
+    taborder = 624
+    bounds_x = 408
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1175: tbutton
+    taborder = 625
+    bounds_x = 424
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1176: tbutton
+    taborder = 627
+    bounds_x = 456
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1177: tbutton
+    taborder = 626
+    bounds_x = 440
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1178: tbutton
+    taborder = 628
+    bounds_x = 472
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1179: tbutton
+    taborder = 629
+    bounds_x = 488
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1180: tbutton
+    taborder = 630
+    bounds_x = 512
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1181: tbutton
+    taborder = 631
+    bounds_x = 528
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1182: tbutton
+    taborder = 632
+    bounds_x = 544
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1183: tbutton
+    taborder = 633
+    bounds_x = 560
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1184: tbutton
+    taborder = 634
+    bounds_x = 576
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1185: tbutton
+    taborder = 635
+    bounds_x = 592
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1186: tbutton
+    taborder = 636
+    bounds_x = 608
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1187: tbutton
+    taborder = 637
+    bounds_x = 624
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1188: tbutton
+    taborder = 638
+    bounds_x = 640
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1189: tbutton
+    taborder = 639
+    bounds_x = 656
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1190: tbutton
+    taborder = 640
+    bounds_x = 680
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1191: tbutton
+    taborder = 641
+    bounds_x = 696
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1192: tbutton
+    taborder = 642
+    bounds_x = 712
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1193: tbutton
+    taborder = 643
+    bounds_x = 728
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1194: tbutton
+    taborder = 644
+    bounds_x = 744
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1195: tbutton
+    taborder = 645
+    bounds_x = 760
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1196: tbutton
+    taborder = 646
+    bounds_x = 776
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1197: tbutton
+    taborder = 647
+    bounds_x = 792
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1198: tbutton
+    taborder = 648
+    bounds_x = 808
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object tbutton1199: tbutton
+    taborder = 649
+    bounds_x = 824
+    bounds_y = 352
+    bounds_cx = 15
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'B'
+  end
+  object fadevertkonvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_down
+    left = 512
+    top = 272
+  end
+  object fadehorzconvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    left = 64
+    top = 272
+  end
+  object fadehorzconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_left
+    left = 184
+    top = 272
+  end
+  object fadevertconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_up
+    left = 624
+    top = 272
+  end
+  object skin: tskincontroller
+    active = True
+    extenders = 0
+    sb_horz_facebutton = fadevertkonvex
+    sb_horz_faceendbutton = fadevertkonvex
+    sb_vert_facebutton = fadehorzconvex
+    sb_vert_faceendbutton = fadehorzconvex
+    stepbutton_face = fadehorzconvex
+    widget_color = -2147483645
+    container_face = fadehorzconvex
+    grid_fixrows_face = fadevertkonvex
+    button_face = fadevertkonvex
+    databutton_face = fadevertkonvex
+    framebutton_face = fadehorzconvex
+    tabbar_horz_face = fadevertconcave
+    tabbar_horz_tab_face = fadevertkonvex
+    tabbar_horzopo_face = fadevertconcave
+    tabbar_horzopo_tab_face = fadevertkonvex
+    tabbar_vert_face = fadehorzconcave
+    tabbar_vert_tab_face = fadevertkonvex
+    tabbar_vertopo_face = fadehorzconcave
+    tabbar_vertopo_tab_face = fadevertkonvex
+    mainmenu_face = fadevertconcave
+    left = 8
+    top = 272
+  end
+  object fadecontainer: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612731
+      13421772
+    )
+    left = 312
+    top = 272
+  end
+  object nullface: tfacecomp
+    left = 432
+    top = 272
+  end
+end

@@ -1,0 +1,291 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 188
+  bounds_y = 296
+  bounds_cx = 400
+  bounds_cy = 234
+  container.frame.optionsscroll = [oscr_drag, oscr_mousewheel]
+  container.bounds = (
+    0
+    0
+    400
+    234
+  )
+  caption = 'MSEide+MSEgui'
+  oncreate = createexe
+  moduleclassname = 'tmainform'
+  object grid: tstringgrid
+    frame.sbvert.pagesize = 0.00001264704617648
+    frame.sbhorz.pagesize = 0.36974789915966
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 400
+    bounds_cy = 234
+    anchors = []
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 20
+    datacols.items = <    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        face.fade_direction = gd_down
+        face.localprops = [fal_fadirection]
+        face.template = fadehorzconcave
+        face.dummy = 0
+        numstart = 1
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 20
+        captions.items = <        
+          item
+            caption = '1'
+          end        
+          item
+            caption = '2'
+          end        
+          item
+            caption = '3'
+          end        
+          item
+            caption = '4'
+          end        
+          item
+            caption = '5'
+          end        
+          item
+            caption = '6'
+          end        
+          item
+            caption = '7'
+          end        
+          item
+            caption = '8'
+          end        
+          item
+            caption = '9'
+          end        
+          item
+            caption = '10'
+          end        
+          item
+            caption = '11'
+          end        
+          item
+            caption = '12'
+          end        
+          item
+            caption = '13'
+          end        
+          item
+            caption = '14'
+          end        
+          item
+            caption = '15'
+          end        
+          item
+            caption = '16'
+          end        
+          item
+            caption = '17'
+          end        
+          item
+            caption = '18'
+          end        
+          item
+            caption = '19'
+          end        
+          item
+            caption = '20'
+          end>
+      end>
+    datarowheight = 16
+    reffontheight = 14
+  end
+  object nullface: tfacecomp
+    left = 288
+    top = 48
+  end
+  object fadecontainer: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612731
+      13421772
+    )
+    left = 160
+    top = 104
+  end
+  object skin: tskincontroller
+    active = True
+    extenders = 0
+    sb_horz_facebutton = fadevertkonvex
+    sb_horz_faceendbutton = fadevertkonvex
+    sb_vert_facebutton = fadehorzconvex
+    sb_vert_faceendbutton = fadehorzconvex
+    stepbutton_face = fadehorzconvex
+    widget_color = -2147483645
+    container_face = fadehorzconvex
+    grid_fixrows_face = fadevertkonvex
+    button_face = fadevertkonvex
+    databutton_face = fadevertkonvex
+    framebutton_face = fadehorzconvex
+    tabbar_horz_face = fadevertconcave
+    tabbar_horz_tab_face = fadevertkonvex
+    tabbar_horzopo_face = fadevertconcave
+    tabbar_horzopo_tab_face = fadevertkonvex
+    tabbar_vert_face = fadehorzconcave
+    tabbar_vert_tab_face = fadevertkonvex
+    tabbar_vertopo_face = fadehorzconcave
+    tabbar_vertopo_tab_face = fadevertkonvex
+    mainmenu_face = fadevertconcave
+    left = 40
+    top = 104
+  end
+  object fadevertconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_up
+    left = 160
+    top = 48
+  end
+  object fadehorzconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_left
+    left = 160
+    top = 72
+  end
+  object fadehorzconvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    left = 40
+    top = 72
+  end
+  object fadevertkonvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_down
+    left = 40
+    top = 48
+  end
+end
