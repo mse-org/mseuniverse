@@ -155,7 +155,7 @@ type
    procedure aftereditoptionsexe(const sender: TObject);
    procedure afteroptionsreadexe(const sender: TObject);
    procedure projectdataenteredexe(const sender: TObject;
-                   const aindex: Integer);
+                   const aclient: iificlient; const aindex: Integer);
    procedure getoptionsobjsexe(const sender: TObject;
                    var aobjects: objectinfoarty);
    procedure getspiceobjexe(const sender: TObject; var aobject: tobject);
@@ -765,7 +765,7 @@ begin
 end;
 
 procedure tmainmo.projectdataenteredexe(const sender: TObject;
-               const aindex: Integer);
+                     const aclient: iificlient; const aindex: Integer);
 begin
  projectmodified;
 end;
