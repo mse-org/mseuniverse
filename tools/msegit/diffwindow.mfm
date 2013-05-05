@@ -17,7 +17,7 @@ inherited diffwindowfo: tdiffwindowfo
   end
   inherited tpopupmenu1: tpopupmenu
     onupdate = popupupdateexe1
-    menu.submenu.count = 5
+    menu.submenu.count = 6
     menu.submenu.items = <    
       item
       end    
@@ -26,6 +26,9 @@ inherited diffwindowfo: tdiffwindowfo
       end    
       item
         action = mergetoolact
+      end    
+      item
+        action = savediffact
       end    
       item
         options = [mao_separator, mao_shortcutcaption]
@@ -57,5 +60,25 @@ inherited diffwindowfo: tdiffwindowfo
     onexecute = revertexe
     left = 176
     top = 208
+  end
+  object savediffact: taction[9]
+    caption = '&Save diff File'
+    onexecute = savediffexe
+    left = 168
+    top = 168
+  end
+  object difffiledialog: tfiledialog[10]
+    controller.filterlist.data = (
+      (
+        'diff files'
+        '"*.dif" "*.diff"'
+      )
+    )
+    controller.defaultext = 'diff'
+    controller.options = [fdo_filtercaseinsensitive, fdo_checkexist, fdo_savelastdir]
+    controller.captionsave = 'Save diff File'
+    dialogkind = fdk_save
+    left = 168
+    top = 240
   end
 end

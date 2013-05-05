@@ -2,14 +2,12 @@ object optionsfo: toptionsfo
   visible = False
   bounds_x = 236
   bounds_y = 237
-  bounds_cx = 339
+  bounds_cx = 411
   bounds_cy = 298
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    339
+    411
     298
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -17,7 +15,7 @@ object optionsfo: toptionsfo
   caption = 'Options'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
-    bounds_x = 280
+    bounds_x = 352
     bounds_y = 272
     bounds_cx = 50
     bounds_cy = 20
@@ -28,7 +26,7 @@ object optionsfo: toptionsfo
   end
   object tbutton2: tbutton
     taborder = 1
-    bounds_x = 224
+    bounds_x = 296
     bounds_y = 272
     bounds_cx = 50
     bounds_cy = 20
@@ -40,20 +38,18 @@ object optionsfo: toptionsfo
   object ttabwidget1: ttabwidget
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 339
+    bounds_cx = 411
     bounds_cy = 266
     anchors = [an_top, an_bottom]
     taborder = 2
     activepageindex = 0
     tab_size = 18
     object ttabpage1: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
       taborder = 1
       bounds_x = 0
-      bounds_y = 18
-      bounds_cx = 339
-      bounds_cy = 248
+      bounds_y = 17
+      bounds_cx = 411
+      bounds_cy = 249
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Options'
       object gitcommand: tfilenameedit
@@ -61,17 +57,17 @@ object optionsfo: toptionsfo
         frame.button.imagenr = 17
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         bounds_x = 8
-        bounds_y = 6
-        bounds_cx = 324
-        bounds_cy = 37
+        bounds_y = 7
+        bounds_cx = 396
+        bounds_cy = 35
         anchors = [an_left, an_top, an_right]
         statfile = mainmo.mainstat
-        reffontheight = 14
+        reffontheight = 13
       end
       object maxlog: tintegeredit
         frame.caption = 'Max. log count'
@@ -80,15 +76,16 @@ object optionsfo: toptionsfo
         frame.outerframe = (
           0
           0
-          80
+          74
           0
         )
         taborder = 1
         bounds_x = 8
         bounds_y = 46
-        bounds_cx = 116
+        bounds_cx = 110
+        bounds_cy = 19
         statfile = mainmo.mainstat
-        reffontheight = 14
+        reffontheight = 13
       end
       object showutc: tbooleanedit
         frame.caption = 'Show UTC time'
@@ -96,14 +93,14 @@ object optionsfo: toptionsfo
         frame.outerframe = (
           0
           1
-          89
-          2
+          75
+          1
         )
         taborder = 2
         bounds_x = 8
         bounds_y = 77
-        bounds_cx = 102
-        bounds_cy = 16
+        bounds_cx = 88
+        bounds_cy = 15
         statfile = mainmo.mainstat
       end
       object diffcontextn: tintegeredit
@@ -113,15 +110,16 @@ object optionsfo: toptionsfo
         frame.outerframe = (
           0
           0
-          90
+          83
           0
         )
         taborder = 3
         bounds_x = 200
         bounds_y = 102
-        bounds_cx = 118
+        bounds_cx = 111
+        bounds_cy = 19
         statfile = mainmo.mainstat
-        reffontheight = 14
+        reffontheight = 13
       end
       object difftool: thistoryedit
         frame.caption = 'diff tool'
@@ -129,20 +127,21 @@ object optionsfo: toptionsfo
         frame.outerframe = (
           0
           0
-          42
+          40
           0
         )
         taborder = 4
         bounds_x = 8
         bounds_y = 102
-        bounds_cx = 166
+        bounds_cx = 164
+        bounds_cy = 19
         statfile = mainmo.mainstat
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
           item
           end>
-        reffontheight = 14
+        reffontheight = 13
       end
       object mergetool: thistoryedit
         frame.caption = 'merge tool'
@@ -150,20 +149,21 @@ object optionsfo: toptionsfo
         frame.outerframe = (
           0
           0
-          62
+          54
           0
         )
         taborder = 5
         bounds_x = 8
         bounds_y = 126
-        bounds_cx = 186
+        bounds_cx = 178
+        bounds_cy = 19
         statfile = mainmo.mainstat
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
           item
           end>
-        reffontheight = 14
+        reffontheight = 13
       end
       object splitdiffs: tbooleanedit
         frame.caption = 'Split diffs'
@@ -171,30 +171,30 @@ object optionsfo: toptionsfo
         frame.outerframe = (
           0
           1
-          53
-          2
+          47
+          1
         )
         taborder = 6
         bounds_x = 200
         bounds_y = 77
-        bounds_cx = 66
-        bounds_cy = 16
+        bounds_cx = 60
+        bounds_cy = 15
         statfile = mainmo.mainstat
       end
       object patchtool: thistoryedit
         frame.caption = 'patch tool command line'
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 7
         hint = 'Macros: $BASE $THEIRS $MINE'
         bounds_x = 8
-        bounds_y = 149
-        bounds_cx = 324
-        bounds_cy = 37
+        bounds_y = 150
+        bounds_cx = 396
+        bounds_cy = 35
         anchors = [an_left, an_top, an_right]
         statfile = mainmo.mainstat
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
@@ -202,26 +202,47 @@ object optionsfo: toptionsfo
         dropdown.cols.items = <        
           item
           end>
-        reffontheight = 14
+        reffontheight = 13
       end
       object repostatfilename: tstringedit
         frame.caption = 'repo stat file name'
         frame.dummy = 0
         frame.outerframe = (
           0
-          17
+          16
           0
           0
         )
         taborder = 8
         bounds_x = 8
-        bounds_y = 189
-        bounds_cx = 324
-        bounds_cy = 37
+        bounds_y = 190
+        bounds_cx = 396
+        bounds_cy = 35
         anchors = [an_left, an_top, an_right]
         statfile = mainmo.mainstat
         onsetvalue = repostafnasetexe
-        reffontheight = 14
+        reffontheight = 13
+      end
+      object diffencoding: tenumtypeedit
+        frame.caption = 'diff encoding'
+        frame.captionpos = cp_right
+        frame.outerframe = (
+          0
+          0
+          65
+          0
+        )
+        taborder = 9
+        bounds_x = 200
+        bounds_y = 127
+        bounds_cx = 141
+        bounds_cy = 19
+        dropdown.cols.count = 1
+        dropdown.cols.items = <        
+          item
+          end>
+        oninit = diffencinitexe
+        reffontheight = 13
       end
     end
   end

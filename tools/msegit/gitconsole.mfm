@@ -4,14 +4,12 @@ object gitconsolefo: tgitconsolefo
   visible = False
   bounds_x = 104
   bounds_y = 118
-  bounds_cx = 445
+  bounds_cx = 446
   bounds_cy = 354
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    435
+    436
     354
   )
   dragdock.caption = 'git Console'
@@ -24,21 +22,21 @@ object gitconsolefo: tgitconsolefo
     popupmenu = popupmen
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 435
+    bounds_cx = 436
     bounds_cy = 354
-    anchors = [an_left, an_right]
+    anchors = []
     optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     rowcountmax = 10000
     datacols.count = 1
     datacols.items = <    
-      item
+      item[termed]
         width = 1000
         widgetname = 'termed'
         dataclass = tgridrichstringdatalist
       end>
     datarowlinewidth = 0
     datarowheight = 14
-    reffontheight = 14
+    reffontheight = 13
     object termed: tterminal
       optionsskin = [osk_framebuttononly]
       taborder = 1

@@ -40,15 +40,17 @@ type
    splitdiffs: tbooleanedit;
    patchtool: thistoryedit;
    repostatfilename: tstringedit;
+   diffencoding: tenumtypeedit;
    procedure repostafnasetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
+   procedure diffencinitexe(const sender: tenumtypeedit);
  end;
 
 procedure editoptions;
 
 implementation
 uses
- optionsform_mfm,mserttistat,mainmodule;
+ optionsform_mfm,mserttistat,mainmodule,msestream;
  
 procedure editoptions;
 var
@@ -68,6 +70,11 @@ begin
  if avalue = '' then begin
   avalue:= defaultrepostatfilename;
  end;
+end;
+
+procedure toptionsfo.diffencinitexe(const sender: tenumtypeedit);
+begin
+ sender.typeinfopo:= typeinfo(charencodingty);
 end;
 
 end.
