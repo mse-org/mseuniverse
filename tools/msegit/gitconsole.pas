@@ -117,7 +117,7 @@ begin
     termed.addline('');
     fna1:= setcurrentdirmse(mainmo.repo{root}+'/'+fpath);
     try
-     termed.execprog(mainmo.git.encodegitcommand(atext)); //encoding?
+     termed.execprog(mainmo.git.encodegitcommand(atext));
     finally
      setcurrentdirmse(fna1);
     end;

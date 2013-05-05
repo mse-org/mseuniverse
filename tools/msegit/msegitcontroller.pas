@@ -232,7 +232,8 @@ type
    function getconfig(const varname: string; out varvalue: msestring): boolean;
                   //false if unset
    function checkrefformat(const aref: msestring): boolean;
-   function encodegitcommand(const acommand: string): string;
+   function encodegitcommand(const acommand: string): string; overload;
+   function encodegitcommand(const acommand: msestring): string; overload;
    function encodestring(const avalue: msestring): string;
    function encodestringparam(const avalue: msestring): string;
    function noemptystringparam(const avalue: msestring): string;
@@ -438,6 +439,11 @@ begin
   result:= result + fcommandlinevars;
  end;
  result:= result + ' --no-pager '+ acommand;
+end;
+
+function tgitcontroller.encodegitcommand(const acommand: msestring): string;
+begin
+ result:= encodegitcommand(encodestring(acommand));
 end;
 
 function tgitcontroller.encodepathparam(const apath: filenamety;
