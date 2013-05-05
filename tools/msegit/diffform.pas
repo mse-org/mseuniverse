@@ -71,7 +71,7 @@ type
 implementation
 uses
  diffform_mfm,mserichstring,msearrayutils,msefileutils,msegitcontroller,main,
- mseprocutils;
+ mseprocutils,msestream;
  
 const
  chunkcolor = cl_dkmagenta;
@@ -204,14 +204,17 @@ begin
  application.unlock;
  with fi1 do begin 
   if iscommits then begin
-   ar1:= mainmo.git.diff(commits,path,diffcontextn1);
+   ar1:= mainmo.git.diff(commits,path,diffcontextn1,
+                charencodingty(mainmo.opt.diffencoding));
   end
   else begin
    if cached then begin
-    ar1:= mainmo.git.diff(b,path,diffcontextn1);
+    ar1:= mainmo.git.diff(b,path,diffcontextn1,
+                charencodingty(mainmo.opt.diffencoding));
    end
    else begin
-    ar1:= mainmo.git.diff(a,b,path,diffcontextn1);
+    ar1:= mainmo.git.diff(a,b,path,diffcontextn1,
+                charencodingty(mainmo.opt.diffencoding));
    end;
   end;
  end;
