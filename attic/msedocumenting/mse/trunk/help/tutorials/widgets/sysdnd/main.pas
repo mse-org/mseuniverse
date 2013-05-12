@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msewidgets,msebitmap,
  msedataedits,msedatanodes,mseedit,msefiledialog,msegrids,mseifiglob,
  mselistbrowser,msestrings,msesys,msetypes,msedock,msestatfile,
- msesysdnd,msemime;
+ msesysdnd,msemime,msedragglob;
 
 type
  tmainfo = class(tdockform,imimesource)
