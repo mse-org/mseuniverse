@@ -6,9 +6,9 @@ object mainfo: tmainfo
   bounds_cy = 280
   container.bounds = (
     0
-    15
+    16
     415
-    265
+    264
   )
   mainmenu = mainmen
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -21,7 +21,7 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 415
-    bounds_cy = 17
+    bounds_cy = 18
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky]
     linkbottom = dockpanel
@@ -33,18 +33,18 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 415
-      bounds_cy = 17
+      bounds_cy = 18
       anchors = [an_left, an_top, an_right]
       font.name = 'stf_default'
       font.xscale = 1
       font.dummy = 0
-      reffontheight = 13
+      reffontheight = 14
     end
     object waiticon: ticon
       optionswidget1 = [ow1_autoscale]
       taborder = 1
       bounds_x = 415
-      bounds_y = 0
+      bounds_y = 1
       bounds_cx = 0
       imagelist = iconimage
       imagenum = 0
@@ -55,11 +55,11 @@ object mainfo: tmainfo
     frame.grip_options = [go_lockbutton]
     frame.dummy = 0
     bounds_x = 0
-    bounds_y = 17
+    bounds_y = 18
     bounds_cx = 415
-    bounds_cy = 246
+    bounds_cy = 244
     anchors = [an_bottom]
-    dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
+    dragdock.optionsdock = [od_savepos, od_savezorder, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
     statfile = formsta
   end
   object mainmen: tmainmenu

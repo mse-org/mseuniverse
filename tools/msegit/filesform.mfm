@@ -13,7 +13,7 @@ object filesfo: tfilesfo
     354
   )
   dragdock.caption = 'Files'
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
   statfile = mainfo.formsta
   caption = 'Files'
   moduleclassname = 'tdockform'
