@@ -270,7 +270,7 @@ object commitqueryfo: tcommitqueryfo
           datacols.items = <          
             item[selected]
               colorfocused = -1879048185
-              width = 50
+              options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
             end          
             item[originstate]
               colorfocused = -1879048185
@@ -280,7 +280,7 @@ object commitqueryfo: tcommitqueryfo
             end          
             item[fileitemed]
               colorfocused = -1879048185
-              width = 286
+              width = 320
               options = [co_readonly, co_leftbuttonfocusonly, co_fill, co_savestate, co_mousescrollrow]
               datalist.imagealignment = [al_right, al_ycentered]
               datalist.captionpos = cp_top
@@ -288,20 +288,16 @@ object commitqueryfo: tcommitqueryfo
             end>
           oncellevent = celleventexe
           inherited selected: tbooleanedit[0]
-            bounds_cx = 50
             onsetvalue = selectsetexe
           end
           inherited fileitemed: titemedit[1]
-            bounds_x = 85
-            bounds_cx = 286
+            bounds_cx = 320
             textflags = [tf_ycentered, tf_clipo, tf_noselect, tf_ellipseleft]
             oncellevent = celleventexe
           end
           inherited filestate: tdataicon[2]
-            bounds_x = 68
           end
           inherited originstate: tdataicon[3]
-            bounds_x = 51
           end
         end
         inherited checkpopup: tpopupmenu
