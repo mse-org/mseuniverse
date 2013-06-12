@@ -1,6 +1,6 @@
 inherited tab0fo: ttab0fo
-  bounds_x = 563
-  bounds_y = 394
+  bounds_x = 443
+  bounds_y = 263
   bounds_cx = 141
   container.bounds = (
     0

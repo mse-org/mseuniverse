@@ -5,8 +5,9 @@ program tabsubform;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
- msegui,mseforms,main;
+ msegui,mseforms,main,datamodule;
 begin
+ application.createdatamodule(tdatamo,datamo);
  application.createform(tmainfo,mainfo);
  application.run;
 end.
