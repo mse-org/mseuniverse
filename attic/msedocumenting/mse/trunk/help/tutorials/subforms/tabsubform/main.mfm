@@ -48,7 +48,7 @@ object mainfo: tmainfo
       bounds_cx = 403
       bounds_cy = 262
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'tab2 ifilink'
+      caption = 'tab2 ififormlink'
       ongetsubform = getsub2exe
     end
     object ttabpage5: ttabpage
