@@ -11,6 +11,7 @@ inherited tab3fo: ttab3fo
   )
   moduleclassname = 'tbasetabfo'
   object tdbstringgrid1: tdbstringgrid[0]
+    frame.sbvert.pagesize = 1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 254
@@ -24,7 +25,7 @@ inherited tab3fo: ttab3fo
         datafield = 'int1'
         textflags = [tf_right, tf_ycentered, tf_noselect]
       end>
-    datalink.datasource = mainfo.dataso
+    datalink.datasource = datamo.dataso
     fixcols.count = 1
     fixcols.items = <    
       item
@@ -50,5 +51,6 @@ inherited tab3fo: ttab3fo
     reffontheight = 14
   end
   inherited tabstat: tstatfile[1]
+    filename = 'tab3.sta'
   end
 end
