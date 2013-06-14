@@ -8,8 +8,6 @@ object mainfo: tmainfo
   bounds_cx = 411
   bounds_cy = 117
   anchors = [an_left, an_top, an_bottom]
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     15
