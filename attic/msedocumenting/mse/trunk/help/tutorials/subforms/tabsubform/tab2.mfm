@@ -9,15 +9,16 @@ inherited tab2fo: ttab2fo
     410
     134
   )
+  ifilink = datamo.formlink
   moduleclassname = 'tbasetabfo'
   object tdbstringgrid1: tdbstringgrid[0]
+    frame.sbvert.pagesize = 1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 410
     bounds_cy = 134
     anchors = []
-    options = [dsgo_autofields]
-    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 3
     datacols.items = <    
       item
@@ -33,7 +34,7 @@ inherited tab2fo: ttab2fo
         datafield = 'int1'
         textflags = [tf_right, tf_ycentered, tf_noselect]
       end>
-    datalink.datasource = mainfo.dataso
+    datalink.datasource = datamo.dataso
     fixcols.count = 1
     fixcols.items = <    
       item
@@ -56,8 +57,10 @@ inherited tab2fo: ttab2fo
           end>
       end>
     datarowheight = 16
+    statfile = tabstat
     reffontheight = 14
   end
   inherited tabstat: tstatfile[1]
+    filename = 'tab2.sta'
   end
 end

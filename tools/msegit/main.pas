@@ -109,6 +109,7 @@ type
    procedure getlogfilteredit(const sender: TObject;
                    var adialogclass: custommseformclassty);
    procedure rebaseactexe(const sender: TObject);
+   procedure terminatequeryexe(var terminate: Boolean);
   private
    frefreshing: boolean;
    fbackgroundcount: integer;
@@ -683,6 +684,11 @@ procedure tmainfo.getlogfilteredit(const sender: TObject;
                var adialogclass: custommseformclassty);
 begin
  adialogclass:= teditlogfilterfo;
+end;
+
+procedure tmainfo.terminatequeryexe(var terminate: Boolean);
+begin
+ mainmo.closerepo;
 end;
 
 end.

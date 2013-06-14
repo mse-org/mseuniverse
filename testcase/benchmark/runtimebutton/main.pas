@@ -3,7 +3,7 @@ unit main;
 interface
 uses
  mseglob,mseguiglob,mseforms,msesimplewidgets,msedataedits,msegui,msegraphutils,
- msewidgets;
+ msewidgets,classes,mclasses;
 
 type
  tmainfo = class(tmainform)
@@ -24,7 +24,7 @@ var
  
 implementation
 uses
- main_mfm,mclasses;
+ main_mfm;
 const
  smallbuttonsize: sizety = (cx: 5; cy: 5);
  

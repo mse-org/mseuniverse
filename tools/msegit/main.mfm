@@ -4,8 +4,6 @@ object mainfo: tmainfo
   bounds_y = 210
   bounds_cx = 415
   bounds_cy = 280
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     16
@@ -16,6 +14,7 @@ object mainfo: tmainfo
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfosta
   caption = 'MSEgit'
+  onterminatequery = terminatequeryexe
   moduleclassname = 'tmainform'
   object tlayouter1: tlayouter
     taborder = 1
@@ -60,7 +59,7 @@ object mainfo: tmainfo
     bounds_cx = 415
     bounds_cy = 244
     anchors = [an_bottom]
-    dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
+    dragdock.optionsdock = [od_savepos, od_savezorder, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
     statfile = formsta
   end
   object mainmen: tmainmenu

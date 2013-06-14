@@ -6,8 +6,6 @@ object dirtreefo: tgitdirtreefo
   bounds_y = 291
   bounds_cx = 445
   bounds_cy = 354
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
@@ -15,7 +13,7 @@ object dirtreefo: tgitdirtreefo
     354
   )
   dragdock.caption = 'DirTree'
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
   options = [fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfo.formsta
   caption = 'DirTree'
@@ -33,7 +31,7 @@ object dirtreefo: tgitdirtreefo
     datacols.colorfocused = -1879048185
     datacols.options = [co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[treeed]
         linewidth = 0
         colorfocused = -1879048185
         width = 95
@@ -133,7 +131,7 @@ object dirtreefo: tgitdirtreefo
     top = 56
   end
   object removeact: taction
-    caption = 'Add'
+    caption = 'Untrack/&remove'
     onexecute = removeexe
     onupdate = removeupdateexe
     left = 176

@@ -1,0 +1,50 @@
+object datamo: tdatamo
+  bounds_cx = 297
+  bounds_cy = 100
+  left = 55
+  top = 508
+  moduleclassname = 'tmsedatamodule'
+  object dataso: tmsedatasource
+    DataSet = dataset
+    left = 96
+    top = 8
+  end
+  object dataset: tlocaldataset
+    logfilename = 'test.db'
+    controller.activator = dsactivator
+    FieldDefs = <    
+      item
+        Name = 'str1'
+        DataType = ftString
+        Precision = 0
+        Size = 0
+      end    
+      item
+        Name = 'str2'
+        DataType = ftString
+        Precision = 0
+        Size = 0
+      end    
+      item
+        Name = 'int1'
+        DataType = ftInteger
+        Precision = 0
+        Size = 0
+      end>
+    left = 16
+    top = 8
+  end
+  object formlink: tififormlinkcomp
+    controller.onclientstatechanged = formstatechaexe
+    left = 16
+    top = 40
+  end
+  object dsactivator: tactivator
+    clients = 1
+    left = 176
+    top = 8
+    clientnames = (
+      'datamo.dataset'
+    )
+  end
+end

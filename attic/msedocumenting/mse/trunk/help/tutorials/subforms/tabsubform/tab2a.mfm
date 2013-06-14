@@ -1,25 +1,34 @@
-inherited tab3fo: ttab3fo
-  bounds_x = 570
-  bounds_y = 190
-  bounds_cx = 254
-  bounds_cy = 243
+inherited tab2afo: ttab2afo
+  bounds_x = 285
+  bounds_y = 364
+  bounds_cx = 277
+  bounds_cy = 219
   container.bounds = (
     0
     0
-    254
-    243
+    277
+    219
   )
+  activatortarget = datamo.dsactivator
   moduleclassname = 'tbasetabfo'
   object tdbstringgrid1: tdbstringgrid[0]
     frame.sbvert.pagesize = 1
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 254
-    bounds_cy = 243
+    bounds_cx = 277
+    bounds_cy = 219
     anchors = []
-    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-    datacols.count = 1
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 3
     datacols.items = <    
+      item
+        width = 140
+        datafield = 'str1'
+      end    
+      item
+        width = 140
+        datafield = 'str2'
+      end    
       item
         width = 70
         datafield = 'int1'
@@ -38,19 +47,20 @@ inherited tab3fo: ttab3fo
         captions.count = 3
         captions.items = <        
           item
-            caption = 'int1'
+            caption = 'str1'
           end        
           item
             caption = 'str2'
           end        
           item
-            caption = 'str1'
+            caption = 'int1'
           end>
       end>
     datarowheight = 16
+    statfile = tabstat
     reffontheight = 14
   end
   inherited tabstat: tstatfile[1]
-    filename = 'tab3.sta'
+    filename = 'tab2a.sta'
   end
 end

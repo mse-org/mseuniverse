@@ -6,8 +6,6 @@ object filesfo: tfilesfo
   bounds_y = 143
   bounds_cx = 445
   bounds_cy = 354
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
@@ -15,28 +13,28 @@ object filesfo: tfilesfo
     354
   )
   dragdock.caption = 'Files'
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
   statfile = mainfo.formsta
   caption = 'Files'
   moduleclassname = 'tdockform'
   inline filelist: tfilelistframefo
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 437
-    bounds_cy = 356
+    bounds_cx = 435
+    bounds_cy = 354
     anchors = []
     container.bounds = (
       0
       0
-      437
-      356
+      435
+      354
     )
     caption = 'Files'
     inherited grid: twidgetgrid
       popupmenu = gridpopup
       onenter = gridenterexe
-      bounds_cx = 437
-      bounds_cy = 356
+      bounds_cx = 435
+      bounds_cy = 354
       fixrows.items = <      
         item
           captions.items = <          
@@ -48,14 +46,11 @@ object filesfo: tfilesfo
             end>
         end>
       datacols.items = <      
-        item
-          dataclass = tgridintegerdatalist
+        item[originstate]
         end      
-        item
-          dataclass = tgridintegerdatalist
+        item[filestate]
         end      
-        item
-          dataclass = titemeditlist
+        item[fileitemed]
           datalist.imagealignment = [al_right, al_ycentered]
           datalist.captionpos = cp_top
           datalist.data = (          )
@@ -121,7 +116,7 @@ object filesfo: tfilesfo
     top = 152
   end
   object removeact: taction
-    caption = 'R&emove'
+    caption = '&Untrack/remove'
     onexecute = removeexe
     onupdate = removeupdateexe
     left = 128

@@ -7,8 +7,6 @@ object remotesfo: tremotesfo
   bounds_y = 229
   bounds_cx = 445
   bounds_cy = 354
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
@@ -16,7 +14,7 @@ object remotesfo: tremotesfo
     354
   )
   dragdock.caption = 'Remotes'
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_canfloat, od_candock, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_canfloat, od_candock, od_propsize]
   statfile = mainfo.formsta
   caption = 'Remotes'
   moduleclassname = 'tdockform'
@@ -57,19 +55,19 @@ object remotesfo: tremotesfo
     datacols.count = 3
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[remote]
         width = 86
         options = [co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remote'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[fetch]
         width = 160
         options = [co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'fetch'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[push]
         width = 159
         options = [co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'push'

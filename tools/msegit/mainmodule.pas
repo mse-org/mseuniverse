@@ -29,6 +29,7 @@ uses
 const
  defaultmaxlog = 50;
  defaultdiffcontextn = 3;
+ defaultdiffencoding = ce_utf8n;
  defaultrepostatfilename = '.msegitrepo.sta';
  confcaption = 'Confirmation';
 type
@@ -56,6 +57,7 @@ type
    fpatchtool: msestring;
    fsplitdiffs: boolean;
    frepostatfilename: msestring;
+   fdiffencoding: integer;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -77,6 +79,7 @@ type
    property patchtool: msestring read fpatchtool write fpatchtool;
    property repostatfilename: msestring read frepostatfilename 
                                             write frepostatfilename;
+   property diffencoding: integer read fdiffencoding write fdiffencoding;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -322,7 +325,6 @@ type
    procedure updateoperation(const aoperation: commitkindty;
                   const afiles: filenamearty; const refreshed: boolean = true);
    procedure readmergeinfo;
-   procedure closerepo;
    procedure loadrepo(avalue: filenamety; const clearconsole: boolean);
                        //no const
    procedure repoloaded;
@@ -339,6 +341,7 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
+   procedure closerepo;
    function getcommitmessage(const acaption: msestring;
                                             var amessage: msestring): boolean;
    function execgitconsole(const acommand: string): boolean;
@@ -502,7 +505,8 @@ uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,
  gitconsole,commitqueryform,revertqueryform,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msemacros,main,filesform,
- gitdirtreeform,defaultstat,clonequeryform,commitmessageform;
+ gitdirtreeform,defaultstat,clonequeryform,commitmessageform,
+ diffwindow;
   
 const
  defaultfileicon = 0;
@@ -1959,6 +1963,8 @@ begin
 {$else}
  reader.readrecordarray('remotes',reccountset,readremote);
 {$endif}
+ diffwindowfo.difffiledialog.controller.lastdir:= 
+                                       reader.readstring('diffdir','');
 end;
 
 procedure tmainmo.repowriteexe(const sender: TObject;
@@ -1966,6 +1972,7 @@ procedure tmainmo.repowriteexe(const sender: TObject;
 begin
  writer.writerecordarray('remotes',length(fremotesinfo),
                                       {$ifdef FPC}@{$endif}writeremote);
+ writer.writestring('diffdir',diffwindowfo.difffiledialog.controller.lastdir);
 end;
 
 function tmainmo.remotetarget: msestring;
@@ -2684,6 +2691,7 @@ begin
  fowner:= aowner;
  fmaxlog:= defaultmaxlog;
  fdiffcontextn:= defaultdiffcontextn;
+ fdiffencoding:= ord(defaultdiffencoding);
 end;
 
 procedure tmsegitoptions.setshowignoreditems(const avalue: boolean);

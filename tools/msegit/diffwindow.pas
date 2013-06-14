@@ -20,19 +20,23 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,diffform,mseact,
- mseactions,mseifiglob;
+ mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,mseedit,
+ msefiledialog,msegrids,mselistbrowser,msestrings,msesys,msetypes;
 
 type
  tdiffwindowfo = class(tdifffo)
    patchact: taction;
    mergetoolact: taction;
    revertact: taction;
+   savediffact: taction;
+   difffiledialog: tfiledialog;
    procedure patchtoolexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu); override;
    procedure afterstatreadexe(const sender: TObject);
    procedure mergetoolexe(const sender: TObject);
    procedure popupupdateexe1(const sender: tcustommenu);
    procedure revertexe(const sender: TObject);
+   procedure savediffexe(const sender: TObject);
   protected
    fcandiffpopup: boolean;
  end;
@@ -42,7 +46,7 @@ var
 
 implementation
 uses
- diffwindow_mfm,mainmodule,msestrings,difftab,logform,msewidgets;
+ diffwindow_mfm,mainmodule,difftab,logform,msewidgets,msefileutils,msestream;
  
 procedure tdiffwindowfo.patchtoolexe(const sender: TObject);
 var
@@ -69,8 +73,9 @@ end;
 procedure tdiffwindowfo.popupupdateexe(const sender: tcustommenu);
 begin
  inherited;
- fcandiffpopup:= singlediff and (tabs.activepageindex >= 0) and 
+ savediffact.enabled:= (tabs.activepageindex >= 0) and 
                 (tdifftabfo(tabs.activepage).grid.rowcount > 0);
+ fcandiffpopup:= singlediff and savediffact.enabled;
 
  patchact.enabled:= fcandiffpopup and (mainmo.opt.difftool <> '');
  externaldiffact.enabled:= externaldiffact.enabled and not fi.iscommits;
@@ -105,6 +110,31 @@ procedure tdiffwindowfo.revertexe(const sender: TObject);
 begin
  if askyesno('Do you want to revert "'+currentpath+'"?') then begin
   mainmo.revert(currentpath);
+ end;
+end;
+
+procedure tdiffwindowfo.savediffexe(const sender: TObject);
+var
+ stream1: ttextstream;
+ int1: integer;
+begin
+ if mainmo.opt.splitdiffs then begin
+  with difffiledialog.controller do begin
+   filename:= filepath(lastdir,tabs.activepageintf.getcaption+'.diff');
+  end;
+ end;
+ if difffiledialog.execute = mr_ok then begin
+  stream1:= ttextstream.create(difffiledialog.controller.filename,fm_create);
+  stream1.encoding:= charencodingty(mainmo.opt.diffencoding);
+  with tdifftabfo(tabs.activepage) do begin
+   for int1:= 0 to grid.rowhigh do begin
+    stream1.writestrln(ed[int1]);
+   end;
+  end;   
+  try
+  finally
+   stream1.free;
+  end;
  end;
 end;
 

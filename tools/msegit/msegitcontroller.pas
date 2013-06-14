@@ -19,7 +19,7 @@ unit msegitcontroller;
 interface
 uses
  msestrings,mseclasses,classes,mclasses,msehash,mselistbrowser,
- msetypes,msedatanodes,msedate,msesys,msesystypes;
+ msetypes,msedatanodes,msedate,msesys,msesystypes,msestream;
 const
  defaultgitcommand = 'git';
  branchref = 'refs/heads/';
@@ -211,10 +211,11 @@ type
   protected
    function execcommand(const acommand: string;
                                 const useshell: boolean): boolean;
-   function commandresult1(const acommand: string; 
-                                        out adest: msestring): boolean;
+   function commandresult1(const acommand: string; out adest: msestring;
+               const aencoding: charencodingty = ce_utf8n): boolean;
    function commandresult2(const acommand: string;  const ainputdata: string;
-                                        out adest: msestring): boolean;
+                           out adest: msestring;
+                      const aencoding: charencodingty = ce_utf8n): boolean;
    function status1(const callback: addstatecallbackeventty;
                 const apath: filenamety; const aorigin: msestring): boolean;
    function lsfiles1(const apath: filenamety; const excludetracked: boolean;
@@ -232,7 +233,8 @@ type
    function getconfig(const varname: string; out varvalue: msestring): boolean;
                   //false if unset
    function checkrefformat(const aref: msestring): boolean;
-   function encodegitcommand(const acommand: string): string;
+   function encodegitcommand(const acommand: string): string; overload;
+   function encodegitcommand(const acommand: msestring): string; overload;
    function encodestring(const avalue: msestring): string;
    function encodestringparam(const avalue: msestring): string;
    function noemptystringparam(const avalue: msestring): string;
@@ -277,11 +279,14 @@ type
    function tagsshow(out adest: tagsinfoarty): boolean;
    function stashlist(out adest: stashinfoarty): boolean;
    function diff(const commits: msestringarty; const afile: filenamety;
-                 const acontextn: integer = 3): msestringarty; overload;
+            const acontextn: integer = 3;
+             const aencoding: charencodingty = ce_utf8n): msestringarty; overload;
    function diff(const a,b: msestring; const afile: filenamety;
-                 const acontextn: integer = 3): msestringarty; overload;
+                 const acontextn: integer = 3;
+             const aencoding: charencodingty = ce_utf8n): msestringarty; overload;
    function diff(const b: msestring; const afile: filenamety;
-                 const acontextn: integer = 3): msestringarty; overload;
+                 const acontextn: integer = 3;
+             const aencoding: charencodingty = ce_utf8n): msestringarty; overload;
                        //cached
    function getsha1(const arev: msestring): msestring;
    function getrefinfo(const arev: msestring;
@@ -317,7 +322,7 @@ function gitfilepath(const apath: filenamety;
 implementation
 uses
  msefileutils,mseprocess,msearrayutils,msesysintf,msesysutils,
- msestream,sysutils,mseformatstr,mseprocutils,mseapplication;
+ sysutils,mseformatstr,mseprocutils,mseapplication;
 
 type
  thashdatalist1 = class(thashdatalist);
@@ -440,6 +445,11 @@ begin
  result:= result + ' --no-pager '+ acommand;
 end;
 
+function tgitcontroller.encodegitcommand(const acommand: msestring): string;
+begin
+ result:= encodegitcommand(encodestring(acommand));
+end;
+
 function tgitcontroller.encodepathparam(const apath: filenamety;
                                       const relative: boolean): string;
 begin
@@ -481,7 +491,8 @@ begin
 end;
 
 function tgitcontroller.commandresult2(const acommand: string;
-               const ainputdata: string; out adest: msestring): boolean;
+               const ainputdata: string; out adest: msestring;
+               const aencoding: charencodingty = ce_utf8n): boolean;
 var
  str1: string;
  opt1: processoptionsty;
@@ -492,13 +503,14 @@ begin
  end;
  result:= getprocessoutput(currentgitprocesspo^,
           encodegitcommand(acommand),ainputdata,str1,ferrormessage,-1,opt1) = 0;
- adest:= utf8tostring(str1);
+ adest:= decodestring(str1,aencoding);
 end;
 
 function tgitcontroller.commandresult1(const acommand: string;
-                                          out adest: msestring): boolean;
+               out adest: msestring;
+               const aencoding: charencodingty = ce_utf8n): boolean;
 begin
- result:= commandresult2(acommand,'',adest);
+ result:= commandresult2(acommand,'',adest,aencoding);
 end;
 
 function tgitcontroller.execcommand(const acommand: string;
@@ -1176,20 +1188,22 @@ begin
 end;
 
 function tgitcontroller.diff(const a,b: msestring; const afile: filenamety;
-                                  const acontextn: integer = 3): msestringarty;
+                                  const acontextn: integer = 3;
+             const aencoding: charencodingty = ce_utf8n): msestringarty;
 var
  mstr1: msestring;
 begin
  result:= nil;
  if commandresult1('diff --unified='+inttostr(acontextn)+' '+
                        noemptystringparam(a)+noemptystringparam(b)+
-                       ' -- '+encodepathparam(afile,true),mstr1) then begin
+            ' -- '+encodepathparam(afile,true),mstr1,aencoding) then begin
   result:= breaklines(mstr1);
  end;
 end;
 
 function tgitcontroller.diff(const b: msestring; const afile: filenamety;
-                 const acontextn: integer = 3): msestringarty;
+                 const acontextn: integer = 3;
+             const aencoding: charencodingty = ce_utf8n): msestringarty;
                        //cached
 var
  mstr1: msestring;
@@ -1197,13 +1211,16 @@ begin
  result:= nil;
  if commandresult1('diff --unified='+inttostr(acontextn)+' '+
                        '--cached '+noemptystringparam(b)+
-                       ' -- '+encodepathparam(afile,true),mstr1) then begin
+                       ' -- '+encodepathparam(afile,true),mstr1,
+                       aencoding) then begin
   result:= breaklines(mstr1);
  end;
 end;
 
-function tgitcontroller.diff(const commits: msestringarty; const afile: filenamety;
-                 const acontextn: integer = 3): msestringarty;
+function tgitcontroller.diff(const commits: msestringarty;
+                 const afile: filenamety;
+                 const acontextn: integer = 3;
+             const aencoding: charencodingty = ce_utf8n): msestringarty;
 var
  mstr1: msestring;
  int1: integer;
@@ -1217,7 +1234,7 @@ begin
    str1:= str1 + ' '+encodestringparam(commits[int1]);
   end;
   str1:= str1 + ' -- '+encodepathparam(afile,true);
-  if commandresult1(str1,mstr1) then begin
+  if commandresult1(str1,mstr1,aencoding) then begin
    result:= breaklines(mstr1);
   end;
  end;
