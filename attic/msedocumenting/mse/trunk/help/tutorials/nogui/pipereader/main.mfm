@@ -1,0 +1,14 @@
+object mainmo: tmainmo
+  bounds_cx = 229
+  bounds_cy = 120
+  onloaded = loadedexe
+  left = 219
+  top = 214
+  moduleclassname = 'tmsedatamodule'
+  object pipereader: tpipereadercomp
+    oninputavailable = inputavailexe
+    onpipebroken = pipebrokenexe
+    left = 24
+    top = 24
+  end
+end
