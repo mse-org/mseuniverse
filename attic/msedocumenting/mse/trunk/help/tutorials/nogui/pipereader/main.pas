@@ -3,7 +3,10 @@ unit main;
 interface
 uses
  mseglob,mseapplication,mseclasses,msedatamodules,msepipestream;
-
+//
+// On Windows activate 'Project'-'Debugger'-'External Console',
+// otherwise the program will hang on exit
+//
 type
  tmainmo = class(tmsedatamodule)
    pipereader: tpipereadercomp;
