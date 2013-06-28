@@ -225,7 +225,7 @@ type
   public
    constructor create;
    destructor destroy; override;
-   procedure clear;
+   procedure clear; override;
    procedure add(const aremote: msestring; const ainfo: refsinfoty);
    function getitemsbycommit(const  acommit: msestring): refsitemarty;
  end;
