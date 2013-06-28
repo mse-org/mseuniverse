@@ -2763,8 +2763,8 @@ end;
 
 destructor trefsitemlist.destroy;
 begin
- fnamelist.free;
  inherited;
+ fnamelist.free;
 end;
 
 procedure trefsitemlist.add(const aremote: msestring; const ainfo: refsinfoty);
