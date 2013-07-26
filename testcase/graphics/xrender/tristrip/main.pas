@@ -34,22 +34,20 @@ const
  
 var
  format: pxrenderpictformat;
- picture: tpicture;
+ picture,fill: tpicture;
  attributes: txrenderpictureattributes;
- fill: tpicture;
 
 begin
  format:= xrenderfindstandardformat(msedisplay,pictstandardrgb24);
  attributes.poly_edge:= polyedgesmooth;
  attributes.poly_mode:= polymodeprecise; 
-   //no difference with polymodeimprecise
  picture:= xrendercreatepicture(msedisplay,sender.clientwinid,format,
-                                    cppolyedge or cppolymode,@attributes);
+                                        cppolyedge or cppolymode,@attributes);
  fill:= xrendercreatesolidfill(msedisplay,@black);
  xrenderfillrectangle(msedisplay,pictopsrc,picture,@white,
                            0,0,sender.viewport.cx,sender.viewport.cy);
- xrendercompositetristrip(msedisplay,pictopover,fill,picture,nil,0,0,
-                                                @points,length(points));
+ xrendercompositetristrip(msedisplay,pictopover,fill,picture,
+                     alpharenderpictformat,0,0,@points,length(points));
  xrenderfreepicture(msedisplay,fill);
  xrenderfreepicture(msedisplay,picture);
 end;
