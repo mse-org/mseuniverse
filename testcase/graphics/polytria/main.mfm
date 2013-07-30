@@ -1,0 +1,216 @@
+object mainfo: tmainfo
+  bounds_x = 30
+  bounds_y = 183
+  bounds_cx = 632
+  bounds_cy = 340
+  container.bounds = (
+    0
+    0
+    632
+    340
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object grid: twidgetgrid
+    bounds_x = 485
+    bounds_y = 8
+    bounds_cx = 146
+    bounds_cy = 297
+    anchors = [an_top, an_right, an_bottom]
+    optionsgrid = [og_rowmoving, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_appendempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 34
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'X'
+          end        
+          item
+            caption = 'Y'
+          end>
+      end>
+    datacols.count = 2
+    datacols.items = <    
+      item[xed]
+        name = 'xval'
+        widgetname = 'xed'
+        dataclass = tgridrealdatalist
+      end    
+      item[yed]
+        name = 'yval'
+        widgetname = 'yed'
+        dataclass = tgridrealdatalist
+      end>
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+    object xed: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      ondataentered = datentexe
+      value = -Inf
+      valuedefault = 0
+      formatedit = '0'
+      formatdisp = '0'
+      valuerange = 100
+      valuestart = 0
+      min = -1
+      max = 1
+      reffontheight = 14
+    end
+    object yed: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 51
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      ondataentered = datentexe
+      value = -Inf
+      valuedefault = 0
+      formatedit = '0'
+      formatdisp = '0'
+      valuerange = 100
+      valuestart = 0
+      min = -1
+      max = 1
+      reffontheight = 14
+    end
+  end
+  object smoothed: tbooleanedit
+    frame.caption = 'smooth'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      45
+      2
+    )
+    taborder = 1
+    bounds_x = 505
+    bounds_y = 311
+    bounds_cx = 58
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = tstatfile1
+    ondataentered = datentexe
+  end
+  object tsimplewidget1: tsimplewidget
+    taborder = 2
+    visible = True
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 472
+    bounds_cy = 330
+    anchors = [an_left, an_top, an_right, an_bottom]
+    object tridisp: tpaintbox
+      color = -1610612730
+      bounds_x = 139
+      bounds_y = 0
+      bounds_cx = 157
+      bounds_cy = 330
+      anchors = [an_left]
+      onpaint = tripaintexe
+    end
+    object tsplitter1: tsplitter
+      color = -1879048189
+      taborder = 1
+      bounds_x = 136
+      bounds_y = 0
+      bounds_cx = 3
+      bounds_cy = 330
+      anchors = [an_left]
+      options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = polydisp
+      linkright = tridisp
+      statfile = tstatfile1
+    end
+    object polydisp: tpaintbox
+      color = -1610612730
+      taborder = 2
+      bounds_x = 4
+      bounds_y = 0
+      bounds_cx = 132
+      bounds_cy = 330
+      anchors = [an_left]
+      onpaint = paintexe
+    end
+    object tsplitter2: tsplitter
+      color = -1879048189
+      taborder = 3
+      bounds_x = 296
+      bounds_y = 0
+      bounds_cx = 3
+      bounds_cy = 330
+      anchors = [an_left]
+      options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = tridisp
+      linkright = charted
+      statfile = tstatfile1
+    end
+    object charted: txychartedit
+      taborder = 4
+      bounds_x = 299
+      bounds_y = 0
+      bounds_cx = 173
+      bounds_cy = 330
+      anchors = [an_left, an_right]
+      onresize = layoutexe
+      traces.count = 1
+      traces.options = [cto_smooth, cto_stockglyphs]
+      traces.xserstart = 0
+      traces.xstart = 0
+      traces.ystart = 0
+      traces.xrange = 1
+      traces.xserrange = 1
+      traces.yrange = 1
+      traces.image_widthmm = 0
+      traces.image_heighthmm = 0
+      traces.legend_x = 0
+      traces.legend_y = 0
+      traces.items = <      
+        item
+          widthmm = 0.3
+          xserrange = 1
+          xserstart = 0
+          xrange = 1
+          xstart = 0
+          yrange = -1
+          ystart = 1
+          options = [cto_smooth, cto_stockglyphs]
+          imagenr = 45
+        end>
+      xstart = 0
+      ystart = 0
+      xrange = 1
+      yrange = 1
+      xdials.start = 0
+      xdials.range = 1
+      ydials.start = 0
+      ydials.range = 1
+      onsetvalue = setpointexe
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 176
+    top = 112
+  end
+end
