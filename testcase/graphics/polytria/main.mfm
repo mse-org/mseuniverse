@@ -67,7 +67,7 @@ object mainfo: tmainfo
       valuedefault = 0
       formatedit = '0'
       formatdisp = '0'
-      valuerange = 100
+      valuerange = 1
       valuestart = 0
       min = -1
       max = 1
@@ -87,7 +87,7 @@ object mainfo: tmainfo
       valuedefault = 0
       formatedit = '0'
       formatdisp = '0'
-      valuerange = 100
+      valuerange = 1
       valuestart = 0
       min = -1
       max = 1
@@ -104,7 +104,7 @@ object mainfo: tmainfo
       2
     )
     taborder = 1
-    bounds_x = 505
+    bounds_x = 481
     bounds_y = 311
     bounds_cx = 58
     bounds_cy = 16
@@ -127,7 +127,7 @@ object mainfo: tmainfo
       bounds_cx = 157
       bounds_cy = 330
       anchors = [an_left]
-      onpaint = tripaintexe
+      onpaint = tripaexe
     end
     object tsplitter1: tsplitter
       color = -1879048189
@@ -207,6 +207,16 @@ object mainfo: tmainfo
       ydials.range = 1
       onsetvalue = setpointexe
     end
+  end
+  object tbutton1: tbutton
+    taborder = 3
+    bounds_x = 576
+    bounds_y = 312
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_top, an_right]
+    state = [as_localonexecute]
+    onexecute = triangexe
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'

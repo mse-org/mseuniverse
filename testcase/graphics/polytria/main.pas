@@ -9,6 +9,8 @@ uses
  msesplitter,msechartedit,msebitmap;
 
 type
+ trapdispinfoty = array[0..3] of pointty;
+ 
  tmainfo = class(tmainform)
    grid: twidgetgrid;
    smoothed: tbooleanedit;
@@ -21,13 +23,16 @@ type
    charted: txychartedit;
    yed: trealedit;
    xed: trealedit;
+   tbutton1: tbutton;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
-   procedure tripaintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
                    var accept: Boolean);
    procedure layoutexe(const sender: TObject);
+   procedure triangexe(const sender: TObject);
+   procedure tripaexe(const sender: twidget; const acanvas: tcanvas);
   private
+   ftraps: array of trapdispinfoty;
    procedure invalidisp;
    function polyvalues: pointarty;
  end;
@@ -117,15 +122,19 @@ type
   top,bottom: ppointty;  
   left,right: pseginfoty;
   node: ptrapnodeinfoty;
+  above,below,belowr: ptrapinfoty; //below = single or left
  end;
  
- segflagty = (sf_pointhandled);
+ segflagty = (sf_pointhandled,sf_reverse); //sf_reverse -> b below a
  segflagsty = set of segflagty;
  ppseginfoty = ^pseginfoty;
  seginfoty = record
   flags: segflagsty;
-  b: ppointty; //a is in previous segment
-  dx,dy: integer; //a-b
+  b: ppointty;        //a is in previous segment
+  dx,dy: integer;     //a-b
+  trap: ptrapinfoty;  //inserted trap for b
+                           //or left trap after horizontal split
+  rtrap: ptrapinfoty;  //right trap for b after horizontal split
  end;
  
  trapnodeinfoty = record
@@ -135,8 +144,20 @@ type
    tnk_x: (seg: pseginfoty);
    tnk_trap: (trap: ptrapinfoty);
  end;
+
+function calcx(const y: integer; const seg: seginfoty): integer;
+begin
+ with seg do begin
+  if dy = 0 then begin
+   result:= b^.x + dx div 2;
+  end
+  else begin
+   result:= b^.x + (y - b^.y) * dx div dy;
+  end;
+ end;
+end;
  
-procedure tmainfo.tripaintexe(const sender: twidget; const acanvas: tcanvas);
+procedure tmainfo.triangexe(const sender: TObject);
 // x,y range = $7fff..-$8000 (16 bit X11 space)
 var
  buffer: pointer;
@@ -178,12 +199,25 @@ var
    result:= deltraps;
    deltraps:= result^.next;
   end;
+  result^.above:= nil;
+  result^.below:= nil;
+  result^.right:= nil;
  end;
  
  function newnode: ptrapnodeinfoty;
  begin
   result:= newnodes;
   inc(newnodes);
+ end;
+
+ function newnode(const atrap: ptrapinfoty; 
+                     const aparent: ptrapnodeinfoty): ptrapnodeinfoty;
+ begin
+  result:= newnodes;
+  inc(newnodes);
+  result^.kind:= tnk_trap;
+  result^.trap:= atrap;
+  result^.p:= aparent;
  end;
 
  function findtrap(const apoint: ppointty): ptrapinfoty;
@@ -213,52 +247,83 @@ var
   end;
  end;
    
- procedure handlepoint(const apoint: ppointty);
+ procedure handlepoint(const seg: pseginfoty);
  var
-  tpl,tpr: ptrapinfoty;
+  tplower,tpupper: ptrapinfoty;
   no1,nol,nor: ptrapnodeinfoty;
+  ppt1: ppointty;
  begin
-  tpl:= findtrap(apoint);
-  tpr:= newtrap;            //split trap, lower
-  tpr^.top:= apoint;
-  tpr^.bottom:= tpl^.bottom;
-  tpl^.bottom:= apoint;    //upper
-  tpr^.left:= tpl^.left;   //same segmet
-  tpr^.right:= tpl^.right; //same segment
+  ppt1:= seg^.b;
+  tpupper:= findtrap(ppt1);
+  tplower:= newtrap;            //split trap, lower
+  tplower^.top:= ppt1;
+  tplower^.bottom:= tpupper^.bottom;
+  tpupper^.bottom:= ppt1;    //upper
+  tplower^.left:= tpupper^.left;   //same segment
+  tplower^.right:= tpupper^.right; //same segment
+  tpupper^.below:= tplower;
+  tplower^.above:= tpupper;
+  seg^.trap:= tplower;
   
-  no1:= tpl^.node;         //old leaf
-  nol:= newnode;
-  nor:= newnode;
+  no1:= tpupper^.node;         //old leaf
+  nol:= newnode(tpupper,no1);
+  nor:= newnode(tplower,no1);
   no1^.l:= nol;
   no1^.r:= nor;
   no1^.kind:= tnk_y;
-  no1^.y:= apoint;
+  no1^.y:= ppt1;
+  tpupper^.node:= nol;
+  tplower^.node:= nor;
   
-  nol^.kind:= tnk_trap;
-  nol^.trap:= tpl;
-  tpl^.node:= nol;
-
-  nor^.kind:= tnk_trap;
-  nor^.trap:= tpr;
-  tpr^.node:= nor;
+  include(seg^.flags,sf_pointhandled);
  end;
  
- procedure handlesegment(b: ppointty);
+ procedure handlesegment(const aseg: pseginfoty);
  var
-  a: ppointty;
-  pt1: ppointty;
+  sega,segb: pseginfoty;
+  trabove,trleft,trright: ptrapinfoty;
+  noabove,noleft,noright: ptrapnodeinfoty;
  begin
-  a:= b-1;
-  if a < points then begin
-   inc(a,npoints);
+  if sf_reverse in aseg^.flags then begin
+   sega:= aseg;
+   segb:= aseg - 1;
+   if segb < segments then begin
+    inc(segb,npoints);
+   end;
+  end
+  else begin
+   segb:= aseg;
+   sega:= aseg - 1;
+   if sega < segments then begin
+    inc(sega,npoints);
+   end;
   end;
-  if cmpy(a,b) > 0 then begin //swap
-   pt1:= a;
-   b:= a;
-   a:= pt1;
+  if sega^.rtrap = nil then begin //no existing edge
+   trabove:= sega^.trap^.above;
+   trright:= newtrap;
+   trleft:= sega^.trap;
+   trright^.right:= trleft^.right;
+   trleft^.right:= aseg;
+   trright^.left:= aseg;
+   trright^.top:= trleft^.top;
+   trright^.bottom:= trleft^.bottom;
+   trabove^.belowr:= trright;
+   trright^.below:= trleft^.below;
+   
+   noabove:= trleft^.node;
+   noleft:= newnode(trleft,noabove);      // (T1) ->     (s)
+   noright:= newnode(trright,noabove);    //         (T1)   (T2)
+   with noabove^ do begin
+    l:= noleft;
+    r:= noright;
+    kind:= tnk_x;
+    seg:= aseg;
+   end;
+  end
+  else begin
   end;
-  //a top, b bottom
-  
+  segb^.rtrap:= trright;
+  segb^.trap:= trleft;
  end;
 
 var
@@ -269,6 +334,7 @@ var
  ppt1,ppt2: ppointty;
   
 begin
+mwcnoiseinit(1,1);
  if grid.rowcount > 1 then begin
   ar1:= polyvalues;
   npoints:= length(ar1);
@@ -290,18 +356,25 @@ begin
   for int1:= npoints-1 downto 0 do begin //init segments
    shuffle[int1]:= seg1;
    with seg1^ do begin
+    rtrap:= nil;
+    flags:= [];
     b:= ppt1;
     dx:= ppt2^.x-ppt1^.x; //b->a slope
     dy:= ppt2^.y-ppt1^.y; //b->a slope
     if dy = 0 then begin
-     if ppt2 < ppt2 then begin
+     if ppt2 > ppt1 then begin
       dx:= -1;
+      include(flags,sf_reverse);
      end
      else begin
       dx:= 1;
      end;
+    end
+    else begin
+     if dy > 0 then begin
+      include(flags,sf_reverse);
+     end;      
     end;
-    flags:= [];
     inc(seg1);
     ppt2:= ppt1;
     inc(ppt1);
@@ -313,42 +386,78 @@ begin
    shuffle[int2]:= shuffle[int1];
    shuffle[int1]:= seg1;
   end;
+
+  deltraps:= nil;      //init memory sources
+  newtraps:= traps;
+  newnodes:= nodes;
   
-  with nodes^ do begin //init root node
+  with newnode^ do begin //init root node
    kind:= tnk_trap;
    trap:= traps;
   end;
 
-  with traps^ do begin //init trap plane
+  with newtrap^ do begin //init trap plane
    node:= nodes;
    left:= nil;
    right:= nil;
    top:= nil;
    bottom:= nil;
   end;
-
-  deltraps:= nil;      //init trap memory source
-  newtraps:= traps+1;
-  newnodes:= nodes+1;
-  
+ 
   for int1:= npoints-1 downto 0 do begin
    seg1:= shuffle[int1];
    seg2:= seg1-1;
-   if seg1 < segments then begin
+   if seg2 < segments then begin
     inc(seg2,npoints);
    end;
    if not (sf_pointhandled in seg2^.flags) then begin
-    handlepoint(seg2^.b);
-    include(seg2^.flags,sf_pointhandled);
+    handlepoint(seg2);
    end;
    if not (sf_pointhandled in seg1^.flags) then begin
-    handlepoint(seg1^.b);
-    include(seg1^.flags,sf_pointhandled);
+    handlepoint(seg1);
    end;
-   handlesegment(seg1^.b);
+   handlesegment(seg1);
   end;
 
+  setlength(ftraps,newtraps-traps);
+  for int1:= 0 to high(ftraps) do begin
+   with traps[int1] do begin
+    if top = nil then begin
+     ftraps[int1][0].y:= 0;
+     ftraps[int1][1].y:= 0;
+    end
+    else begin
+     ftraps[int1][0].y:= top^.y;
+     ftraps[int1][1].y:= top^.y;
+    end;
+    if bottom = nil then begin
+     ftraps[int1][2].y:= tridisp.height-1;
+     ftraps[int1][3].y:= tridisp.height-1;
+    end
+    else begin
+     ftraps[int1][2].y:= bottom^.y;
+     ftraps[int1][3].y:= bottom^.y;
+    end;
+    if left = nil then begin
+     ftraps[int1][0].x:= 0;
+     ftraps[int1][3].x:= 0;
+    end
+    else begin
+     ftraps[int1][0].x:= calcx(top^.y,left^);
+     ftraps[int1][3].x:= calcx(bottom^.y,left^);
+    end;
+    if right = nil then begin
+     ftraps[int1][1].x:= tridisp.width-1;
+     ftraps[int1][2].x:= tridisp.width-1;
+    end
+    else begin
+     ftraps[int1][1].x:= calcx(top^.y,right^);
+     ftraps[int1][2].x:= calcx(bottom^.y,right^);
+    end;
+   end;
+  end;
   freemem(buffer);
+  invalidisp;
  end;  
 end;
 
@@ -379,6 +488,25 @@ end;
 procedure tmainfo.layoutexe(const sender: TObject);
 begin
  invalidisp;
+ xed.valuerange:= charted.width;
+ yed.valuerange:= charted.height;
+end;
+
+procedure tmainfo.tripaexe(const sender: twidget; const acanvas: tcanvas);
+var
+ ar1: pointarty;
+ int1: integer;
+begin
+ ar1:= polyvalues;
+ for int1:= 0 to high(ftraps) do begin
+  acanvas.drawline(ftraps[int1][0],ftraps[int1][2],cl_gray);
+  acanvas.drawline(ftraps[int1][1],ftraps[int1][3],cl_gray);
+ end;  
+ for int1:= 0 to high(ftraps) do begin
+  acanvas.drawlines(ftraps[int1],true,cl_green);
+ end;
+ acanvas.dashes:= #1#3;
+ acanvas.drawlines(ar1,true,cl_red);
 end;
 
 end.
