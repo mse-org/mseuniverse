@@ -40,7 +40,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,msearrayutils,msenoise;
+ main_mfm,msearrayutils,msenoise,mseformatstr,sysutils;
 
 procedure tmainfo.invalidisp;
 begin
@@ -146,14 +146,136 @@ type
  end;
 
 function calcx(const y: integer; const seg: seginfoty): integer;
+var
+ int1: integer;
 begin
  with seg do begin
   if dy = 0 then begin
-   result:= b^.x + dx div 2;
+   int1:= y - b^.y;
+   if int1 > 0 then begin
+    result:= bigint;
+   end
+   else begin
+    if int1 = 0 then begin
+     result:= b^.x;
+     exit;
+    end
+    else begin
+     result:= -bigint;
+    end;
+   end;
+   result:= result * dx;
   end
   else begin
    result:= b^.x + (y - b^.y) * dx div dy;
   end;
+ end;
+end;
+
+type
+ trapinfoarty = array of trapinfoty;
+
+function calcx(const seg: pseginfoty; const y: integer): integer;
+begin
+ with seg^ do begin
+  if dy = 0 then begin
+   result:= bigint;
+   if y < seg^.b^.y then begin
+    result:= -bigint;
+   end;
+   result:= result*dx;
+  end
+  else begin
+   result:= b^.x + ((y - b^.y)*dx) div dy;
+  end;
+ end;
+end;
+
+function cmptrap(const l,r): integer;
+var
+ y: integer;
+begin
+ result:= 0;
+ y:= 0;
+ if trapinfoty(l).top = nil then begin
+  if trapinfoty(r).top <> nil then begin
+   result:= -1;
+  end;
+ end
+ else begin
+  if trapinfoty(r).top = nil then begin
+   result:= 1;
+  end
+  else begin
+   y:= trapinfoty(r).top^.y;
+   result:= trapinfoty(l).top^.y - y
+  end;
+ end;
+ if result = 0 then begin
+  if trapinfoty(l).left = nil then begin
+   if trapinfoty(r).left <> nil then begin
+    result:= -1;
+   end;
+  end
+  else begin
+   if trapinfoty(r).left = nil then begin
+    result:= 1;
+   end
+   else begin
+    result:= calcx(trapinfoty(l).left,y) - calcx(trapinfoty(r).left,y);
+   end;
+  end;
+ end;
+end;
+ 
+procedure dumptraps(const ataps: ptrapinfoty; const acount: integer);
+
+ function pointval(x,y: integer): string;
+ begin
+  if x > 10000 then begin
+   x:= 10000;
+  end;
+  if y > 10000 then begin
+   y:= 10000;
+  end;
+  result:= rstring(inttostr(x),5)+':'+lstring(inttostr(y),5)+' ';
+ end; //pointval
+
+var
+ ar1: trapinfoarty;
+ int1: integer;
+ lt,lb,rt,rb,t,b: integer;
+begin
+ setlength(ar1,acount);
+ move(ataps^,ar1[0],acount*sizeof(trapinfoty));
+ sortarray(ar1,sizeof(trapinfoty),@cmptrap);
+ writeln('******************************************');
+ writeln('n     topleft    topright   bottomleft bottomright');
+ for int1:= 0 to high(ar1) do begin
+  with ar1[int1] do begin
+   lt:= 0;
+   lb:= 0;
+   t:= 0;
+   rt:= 10000;
+   rb:= 10000;
+   b:= 10000;
+   if top <> nil then begin
+    t:= top^.y;
+   end;
+   if bottom <> nil then begin
+    b:= bottom^.y;
+   end;
+   if left <> nil then begin
+    lt:= calcx(left,t);
+    lb:= calcx(left,b);
+   end;
+   if right <> nil then begin
+    rt:= calcx(right,t);
+    rb:= calcx(right,b);
+   end;
+  end;
+  writeln(rstring(inttostr(int1),3),pointval(lt,t),pointval(rt,t),
+                           pointval(lb,b),pointval(rb,b));
  end;
 end;
  
@@ -283,6 +405,7 @@ var
   sega,segb: pseginfoty;
   trabove,trleft,trright: ptrapinfoty;
   noabove,noleft,noright: ptrapnodeinfoty;
+  trap1,trap2: ptrapinfoty;
  begin
   if sf_reverse in aseg^.flags then begin
    sega:= aseg;
@@ -321,6 +444,14 @@ var
    end;
   end
   else begin
+  end;
+  trap1:= trleft;                    //upper
+  trap2:= trleft^.below;             //lower
+  while trap2 <> segb^.trap do begin //split crossed lines by segment
+   trap2^.left:= segb;               //move edge to right
+   trap1^.bottom:= trap2^.bottom;
+   trap1:= trap2;
+   trap2:= trap2^.below;
   end;
   segb^.rtrap:= trright;
   segb^.trap:= trleft;
@@ -417,6 +548,10 @@ mwcnoiseinit(1,1);
     handlepoint(seg1);
    end;
    handlesegment(seg1);
+dumptraps(traps,newtraps-traps);
+if int1 = 1 then begin
+ break;
+end;
   end;
 
   setlength(ftraps,newtraps-traps);
