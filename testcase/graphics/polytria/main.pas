@@ -40,7 +40,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,msearrayutils,msenoise,mseformatstr,sysutils;
+ main_mfm,msearrayutils,msenoise,mseformatstr,sysutils,msedrawtext;
 
 procedure tmainfo.invalidisp;
 begin
@@ -191,71 +191,188 @@ begin
  end;
 end;
 
+type
+ trapdumpinfoty = record
+  t: trapinfoty;
+  index: integer;
+ end;
+ 
 function cmptrap(const l,r): integer;
 var
  y: integer;
 begin
  result:= 0;
  y:= 0;
- if trapinfoty(l).top = nil then begin
-  if trapinfoty(r).top <> nil then begin
+ if trapdumpinfoty(l).t.top = nil then begin
+  if trapdumpinfoty(r).t.top <> nil then begin
    result:= -1;
   end;
  end
  else begin
-  if trapinfoty(r).top = nil then begin
+  if trapdumpinfoty(r).t.top = nil then begin
    result:= 1;
   end
   else begin
-   y:= trapinfoty(r).top^.y;
-   result:= trapinfoty(l).top^.y - y
+   y:= trapdumpinfoty(r).t.top^.y;
+   result:= trapdumpinfoty(l).t.top^.y - y
   end;
  end;
  if result = 0 then begin
-  if trapinfoty(l).left = nil then begin
-   if trapinfoty(r).left <> nil then begin
+  if trapdumpinfoty(l).t.left = nil then begin
+   if trapdumpinfoty(r).t.left <> nil then begin
     result:= -1;
    end;
   end
   else begin
-   if trapinfoty(r).left = nil then begin
+   if trapdumpinfoty(r).t.left = nil then begin
     result:= 1;
    end
    else begin
-    result:= calcx(trapinfoty(l).left,y) - calcx(trapinfoty(r).left,y);
+    result:= calcx(trapdumpinfoty(l).t.left,y) - 
+                      calcx(trapdumpinfoty(r).t.left,y);
    end;
   end;
  end;
 end;
- 
-procedure dumptraps(const ataps: ptrapinfoty; const acount: integer);
-
- function pointval(x,y: integer): string;
- begin
-  if x > 10000 then begin
-   x:= 10000;
-  end;
-  if y > 10000 then begin
-   y:= 10000;
-  end;
-  result:= rstring(inttostr(x),5)+':'+lstring(inttostr(y),5)+' ';
- end; //pointval
 
 var
- ar1: trapinfoarty;
+ segments: pseginfoty;
+ npoints: integer;
+
+function intvalx(const value: integer): string;
+begin
+ if value <= -10000 then begin
+  result:= '    <';
+ end
+ else begin
+  if value >= 10000 then begin
+   result:= '    >';
+  end
+  else begin
+   result:= rstring(inttostr(value),5);
+  end;
+ end;
+end;
+
+function intvaly(const value: integer): string;
+begin
+ if value <= -10000 then begin
+  result:= '    ^';
+ end
+ else begin
+  if value >= 10000 then begin
+   result:= '    v';
+  end
+  else begin
+   result:= rstring(inttostr(value),5);
+  end;
+ end;
+end;
+
+function pointval(const x,y: integer): string;
+begin
+ result:= intvalx(x)+':'+intvaly(y)+' ';
+end; //pointval
+
+function pointval(const apoint: ppointty): string;
+begin
+ result:= intvalx(apoint^.x)+':'+intvaly(apoint^.y)+' ';
+end; //pointval 
+
+procedure dumpseg(const seg: pseginfoty);
+var
+ seg1: pseginfoty;
+begin
+ writeln('********************************');
+ writeln('  S     A            B');
+ seg1:= seg-1;
+ if seg1 < segments then begin
+  inc(seg1,npoints);
+ end;
+ writeln(rstring(inttostr(seg-segments),3),
+                        pointval(seg1^.b),' ',pointval(seg^.b));
+end;
+
+procedure dumpnodes(const anodes: ptrapnodeinfoty; 
+                                       const atraps: ptrapinfoty);
+type
+ levelsty = array[0..255] of boolean;
+var
+ level: integer;
+ levels: levelsty;
+
+ procedure dump(const n: ptrapnodeinfoty; const lline,rline: boolean);
+ var
+  int1: integer;
+ begin
+  if n <> nil then begin
+   levels[level]:= lline;
+   inc(level);
+   dump(n^.l,false,true);
+   for int1:= 0 to level-2 do begin
+    if levels[int1] then begin
+     write('|');
+    end
+    else begin
+     write(' ');
+    end;
+   end;
+   write('+');
+   case n^.kind of
+    tnk_trap: begin
+     writeln(inttostr(n^.trap-atraps));
+    end;
+    tnk_x: begin
+     writeln('X');
+    end;
+    tnk_y: begin
+     writeln('Y');
+    end;
+   end;
+   levels[level-1]:= rline;
+   dump(n^.r,true,false);
+   dec(level);
+   levels[level]:= false;
+  end;
+ end;
+begin
+ level:= 0;
+ dump(anodes,false,false);
+end;
+
+procedure dumptraps(const atraps: ptrapinfoty; const acount: integer;
+                    const caption: string);
+var
+ ar1: array of trapdumpinfoty;
+ ar2: integerarty;
+
+ function trapval(const trap: ptrapinfoty): string;
+ begin
+  if trap = nil then begin
+   result:= '   ';
+  end
+  else begin
+   result:= rstring(inttostr(trap-atraps),3);
+  end;
+ end;
+ 
+var
  int1: integer;
  lt,lb,rt,rb,t,b: integer;
 begin
  setlength(ar1,acount);
- move(ataps^,ar1[0],acount*sizeof(trapinfoty));
- sortarray(ar1,sizeof(trapinfoty),@cmptrap);
- writeln('******************************************');
- writeln('n     topleft    topright   bottomleft bottomright');
  for int1:= 0 to high(ar1) do begin
-  with ar1[int1] do begin
-   lt:= 0;
-   lb:= 0;
-   t:= 0;
+  ar1[int1].t:= atraps[int1];
+  ar1[int1].index:= int1;
+ end;
+ sortarray(ar1,sizeof(trapdumpinfoty),@cmptrap,ar2);
+ writeln('----------------------------------------------- '+caption);
+ writeln('  T     t     b    tl    tr    bl    br   B  BR');
+ for int1:= 0 to high(ar1) do begin
+  with ar1[int1].t do begin
+   lt:= -10000;
+   lb:= -10000;
+   t:= -10000;
    rt:= 10000;
    rb:= 10000;
    b:= 10000;
@@ -273,20 +390,28 @@ begin
     rt:= calcx(right,t);
     rb:= calcx(right,b);
    end;
+   writeln(rstring(inttostr(ar1[int1].index),3),' ',
+        intvaly(t),' ',intvaly(b),' ',
+        intvalx(lt),' ',intvalx(rt),' ',intvalx(lb),' ',intvalx(rb),' ',
+        trapval(below),' ',trapval(belowr));
   end;
-  writeln(rstring(inttostr(int1),3),pointval(lt,t),pointval(rt,t),
-                           pointval(lb,b),pointval(rb,b));
  end;
 end;
- 
+
+procedure dump(const atraps: ptrapinfoty; const ntraps: integer;
+                        const anodes: ptrapnodeinfoty; const caption: string);
+begin
+ dumptraps(atraps,ntraps,caption);
+ writeln;
+ dumpnodes(anodes,atraps);
+end;
+var testvar: integer;
 procedure tmainfo.triangexe(const sender: TObject);
 // x,y range = $7fff..-$8000 (16 bit X11 space)
 var
  buffer: pointer;
- segments: pseginfoty;
  shuffle: ppseginfoty;
  points: ppointty; 
- npoints: integer;
  traps: ptrapinfoty;
  nodes: ptrapnodeinfoty;
  deltraps,newtraps: ptrapinfoty;
@@ -381,9 +506,12 @@ var
   tplower^.top:= ppt1;
   tplower^.bottom:= tpupper^.bottom;
   tpupper^.bottom:= ppt1;    //upper
-  tplower^.left:= tpupper^.left;   //same segment
-  tplower^.right:= tpupper^.right; //same segment
+  tplower^.left:= tpupper^.left;    //same segment
+  tplower^.right:= tpupper^.right;  //same segment
+  tplower^.below:= tpupper^.below;  //same below
+  tplower^.belowr:= tpupper^.belowr;//same belowr
   tpupper^.below:= tplower;
+  tpupper^.belowr:= nil;
   tplower^.above:= tpupper;
   seg^.trap:= tplower;
   
@@ -447,7 +575,9 @@ var
   end;
   trap1:= trleft;                    //upper
   trap2:= trleft^.below;             //lower
-  while trap2 <> segb^.trap do begin //split crossed lines by segment
+testvar:= trap1-traps;
+testvar:= trap2-traps;
+  while trap1 <> segb^.trap do begin //split crossed lines by segment
    trap2^.left:= segb;               //move edge to right
    trap1^.bottom:= trap2^.bottom;
    trap1:= trap2;
@@ -541,14 +671,17 @@ mwcnoiseinit(1,1);
    if seg2 < segments then begin
     inc(seg2,npoints);
    end;
+dumpseg(seg1);
    if not (sf_pointhandled in seg2^.flags) then begin
     handlepoint(seg2);
+dump(traps,newtraps-traps,nodes,'point A');
    end;
    if not (sf_pointhandled in seg1^.flags) then begin
     handlepoint(seg1);
+dump(traps,newtraps-traps,nodes,'point B');
    end;
    handlesegment(seg1);
-dumptraps(traps,newtraps-traps);
+dump(traps,newtraps-traps,nodes,'segment');
 if int1 = 1 then begin
  break;
 end;
@@ -633,15 +766,24 @@ var
  int1: integer;
 begin
  ar1:= polyvalues;
+ {
  for int1:= 0 to high(ftraps) do begin
   acanvas.drawline(ftraps[int1][0],ftraps[int1][2],cl_gray);
   acanvas.drawline(ftraps[int1][1],ftraps[int1][3],cl_gray);
  end;  
+ }
  for int1:= 0 to high(ftraps) do begin
   acanvas.drawlines(ftraps[int1],true,cl_green);
  end;
  acanvas.dashes:= #1#3;
  acanvas.drawlines(ar1,true,cl_red);
+ for int1:= 0 to high(ftraps) do begin
+  drawtext(acanvas,inttostr(int1),
+  mr((ftraps[int1][0].x+ftraps[int1][1].x+ftraps[int1][2].x+
+                  ftraps[int1][3].x) div 4,
+                    (ftraps[int1][0].y+ftraps[int1][2].y)div 2,
+       0,0),[tf_xcentered,tf_ycentered]);
+ end;
 end;
 
 end.
