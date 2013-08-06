@@ -133,8 +133,7 @@ type
   b: ppointty;        //a is in previous segment
   dx,dy: integer;     //a-b
   trap: ptrapinfoty;  //inserted trap for b
-                           //or left trap after horizontal split
-  rtrap: ptrapinfoty;  //right trap for b after horizontal split
+  strap: ptrapinfoty;  //left or right trap for b after horizontal split
  end;
  
  trapnodeinfoty = record
@@ -306,9 +305,11 @@ var
   int1: integer;
  begin
   if n <> nil then begin
-   levels[level]:= lline;
    inc(level);
-   dump(n^.l,false,true);
+   if n^.kind <> tnk_trap then begin
+    levels[level-1]:= lline;
+    dump(n^.l,false,true);
+   end;
    for int1:= 0 to level-2 do begin
     if levels[int1] then begin
      write('|');
@@ -320,17 +321,19 @@ var
    write('+');
    case n^.kind of
     tnk_trap: begin
-     writeln(inttostr(n^.trap-atraps));
+     writeln('(',inttostr(n^.trap-atraps),')');
     end;
     tnk_x: begin
-     writeln('X');
+     writeln('X=',n^.seg-segments);
     end;
     tnk_y: begin
-     writeln('Y');
+     writeln('Y=',n^.y^.y);
     end;
    end;
-   levels[level-1]:= rline;
-   dump(n^.r,true,false);
+   if n^.kind <> tnk_trap then begin
+    levels[level-1]:= rline;
+    dump(n^.r,true,false);
+   end;
    dec(level);
    levels[level]:= false;
   end;
@@ -448,6 +451,7 @@ var
   end;
   result^.above:= nil;
   result^.below:= nil;
+  result^.belowr:= nil;
   result^.right:= nil;
  end;
  
@@ -465,6 +469,7 @@ var
   result^.kind:= tnk_trap;
   result^.trap:= atrap;
   result^.p:= aparent;
+  atrap^.node:= result;
  end;
 
  function findtrap(const apoint: ppointty): ptrapinfoty;
@@ -516,23 +521,75 @@ var
   seg^.trap:= tplower;
   
   no1:= tpupper^.node;         //old leaf
-  nol:= newnode(tpupper,no1);
-  nor:= newnode(tplower,no1);
+  nol:= newnode(tpupper,no1);  //new leaf
+  nor:= newnode(tplower,no1);  //new leaf
   no1^.l:= nol;
   no1^.r:= nor;
   no1^.kind:= tnk_y;
   no1^.y:= ppt1;
-  tpupper^.node:= nol;
-  tplower^.node:= nor;
   
   include(seg^.flags,sf_pointhandled);
  end;
  
  procedure handlesegment(const aseg: pseginfoty);
+
+  procedure splittrap(const newright: boolean; const old: ptrapinfoty;
+                                                 var left,right: ptrapinfoty);
+  var
+   trabove,trnew: ptrapinfoty;
+  begin
+testvar:= old-traps;
+   trnew:= newtrap;
+   trabove:= old^.above;
+   trnew^.top:= old^.top;
+   trnew^.bottom:= old^.bottom;
+   trnew^.left:= old^.left;
+   trnew^.right:= old^.right;
+
+   if newright then begin
+    old^.right:= aseg;
+    trnew^.left:= aseg;
+    trnew^.below:= old^.belowr;
+    if trnew^.below = nil then begin
+     trnew^.below:= old^.below;
+    end;
+    right:= trnew;
+    left:= old;
+   end
+   else begin
+    old^.left:= aseg;
+    trnew^.right:= aseg;
+    trnew^.below:= old^.below;
+    right:= old;
+    left:= trnew;
+   end;
+   trabove^.below:= left;
+   trabove^.belowr:= right;
+  end; //splittrap
+  
+  procedure splitnode(const newright: boolean; const ltrap,rtrap: ptrapinfoty);
+  var
+   noabove,noleft,noright: ptrapnodeinfoty;
+  begin
+   if newright then begin
+    noabove:= ltrap^.node;
+   end
+   else begin
+    noabove:= rtrap^.node;
+   end;
+   noleft:= newnode(ltrap,noabove);       // (Tb) ->     (s)
+   noright:= newnode(rtrap,noabove);      //         (Tl)   (Tr)
+   with noabove^ do begin
+    l:= noleft;
+    r:= noright;
+    kind:= tnk_x;
+    seg:= aseg;
+   end;
+  end; //splitnode
+
  var
   sega,segb: pseginfoty;
-  trabove,trleft,trright: ptrapinfoty;
-  noabove,noleft,noright: ptrapnodeinfoty;
+  trleft,trright: ptrapinfoty;
   trap1,trap2: ptrapinfoty;
  begin
   if sf_reverse in aseg^.flags then begin
@@ -549,42 +606,29 @@ var
     inc(sega,npoints);
    end;
   end;
-  if sega^.rtrap = nil then begin //no existing edge
-   trabove:= sega^.trap^.above;
-   trright:= newtrap;
-   trleft:= sega^.trap;
-   trright^.right:= trleft^.right;
-   trleft^.right:= aseg;
-   trright^.left:= aseg;
-   trright^.top:= trleft^.top;
-   trright^.bottom:= trleft^.bottom;
-   trabove^.belowr:= trright;
-   trright^.below:= trleft^.below;
-   
-   noabove:= trleft^.node;
-   noleft:= newnode(trleft,noabove);      // (T1) ->     (s)
-   noright:= newnode(trright,noabove);    //         (T1)   (T2)
-   with noabove^ do begin
-    l:= noleft;
-    r:= noright;
-    kind:= tnk_x;
-    seg:= aseg;
-   end;
+  if sega^.strap = nil then begin //no existing edge
+
+   splittrap(true,sega^.trap,trleft,trright);
+   splitnode(true,trleft,trright);
   end
   else begin
   end;
+dump(traps,newtraps-traps,nodes,'segment0');
+
   trap1:= trleft;                    //upper
   trap2:= trleft^.below;             //lower
 testvar:= trap1-traps;
 testvar:= trap2-traps;
-  while trap1 <> segb^.trap do begin //split crossed lines by segment
+  while trap2 <> segb^.trap do begin //split crossed lines by segment
    trap2^.left:= segb;               //move edge to right
-   trap1^.bottom:= trap2^.bottom;
+   trap1^.bottom:= trap2^.bottom;    //extend to bottom
+   splitnode(false,trap1,trap2);
    trap1:= trap2;
    trap2:= trap2^.below;
   end;
-  segb^.rtrap:= trright;
-  segb^.trap:= trleft;
+  segb^.strap:= trright;
+//  segb^.trap:= trleft;
+dump(traps,newtraps-traps,nodes,'segment1');
  end;
 
 var
@@ -603,7 +647,7 @@ mwcnoiseinit(1,1);
  
    //todo: check maximal buffer size
   sizetraps:= 2*npoints*sizeof(trapinfoty);
-  sizenodes:= 4*npoints*sizeof(trapnodeinfoty);
+  sizenodes:= 8*npoints*sizeof(trapnodeinfoty);
   getmem(buffer,npoints*(sizeof(seginfoty)+sizeof(pseginfoty)) + 
                                                 sizetraps + sizenodes);
   segments:= buffer;
@@ -617,7 +661,7 @@ mwcnoiseinit(1,1);
   for int1:= npoints-1 downto 0 do begin //init segments
    shuffle[int1]:= seg1;
    with seg1^ do begin
-    rtrap:= nil;
+    strap:= nil;
     flags:= [];
     b:= ppt1;
     dx:= ppt2^.x-ppt1^.x; //b->a slope
@@ -681,7 +725,6 @@ dump(traps,newtraps-traps,nodes,'point A');
 dump(traps,newtraps-traps,nodes,'point B');
    end;
    handlesegment(seg1);
-dump(traps,newtraps-traps,nodes,'segment');
 if int1 = 1 then begin
  break;
 end;
