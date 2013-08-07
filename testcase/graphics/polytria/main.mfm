@@ -214,7 +214,7 @@ object mainfo: tmainfo
     bounds_y = 312
     bounds_cx = 50
     bounds_cy = 20
-    anchors = [an_top, an_right]
+    anchors = [an_right, an_bottom]
     state = [as_localonexecute]
     onexecute = triangexe
   end

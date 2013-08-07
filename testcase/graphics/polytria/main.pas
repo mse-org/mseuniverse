@@ -133,7 +133,8 @@ type
   b: ppointty;        //a is in previous segment
   dx,dy: integer;     //a-b
   trap: ptrapinfoty;  //inserted trap for b
-  strap: ptrapinfoty;  //left or right trap for b after horizontal split
+  splitseg: pseginfoty;   //segment for horizontal split at b
+  splittrap: ptrapinfoty; //trap for horizontal split at b
  end;
  
  trapnodeinfoty = record
@@ -409,6 +410,88 @@ begin
  dumpnodes(anodes,atraps);
 end;
 var testvar: integer;
+
+function cmpy(const l,r: ppointty): integer;
+begin
+ result:= l^.y - r^.y;
+ if result = 0 then begin
+  result:= l - r;
+ end;
+end;
+
+function cmpx(const l: ppointty; r: pseginfoty): integer;
+ //<0 -> l = left of segment
+begin
+ if r^.dy = 0 then begin
+  result:= (l^.y - r^.b^.y) * r^.dx; //dx = 1|-1
+ end
+ else begin
+//todo: no division
+  result:= l^.x -(r^.b^.x + (l^.y-r^.b^.y)*r^.dx div r^.dy);
+ end;
+end;
+
+type
+ segdirty = (sd_none,sd_same,sd_up,sd_left,sd_right);
+
+function segbefore(const seg: pseginfoty): pseginfoty;
+begin
+ result:= seg-1;
+ if result < segments then begin
+  inc(result,npoints);
+ end;
+end;
+
+function segdir(const seg,ref: pseginfoty): segdirty;
+//todo: handle dy = 0
+var
+ segcommon: pseginfoty;
+ ptseg,ptref: ppointty;
+begin
+ if seg = ref then begin
+  result:= sd_same;
+ end
+ else begin
+  segcommon:= segbefore(seg);
+  if segcommon = ref then begin
+   ptseg:= seg^.b;
+   ptref:= segbefore(ref)^.b;
+  end
+  else begin
+   segcommon:= segbefore(ref);
+   if segcommon = seg then begin
+    ptseg:= segbefore(seg)^.b;
+    ptref:= ref^.b;
+   end
+   else begin
+    result:= sd_none;
+    exit;
+   end;
+  end;
+  if cmpy(segcommon^.b,ptseg) > 0 then begin
+   result:= sd_up;
+  end
+  else begin
+   if ptseg^.x = ptref^.x then begin
+    if cmpy(ptseg,ptref) > 0 then begin
+     result:= sd_right;
+    end
+    else begin
+     result:= sd_left;
+    end;
+   end
+   else begin
+    if seg^.dx*ref^.dy > ref^.dx*seg^.dy then begin
+     result:= sd_right;
+    end
+    else begin
+     result:= sd_left;
+    end;
+   end;
+  end;
+ end;
+end;
+
 procedure tmainfo.triangexe(const sender: TObject);
 // x,y range = $7fff..-$8000 (16 bit X11 space)
 var
@@ -419,25 +502,6 @@ var
  nodes: ptrapnodeinfoty;
  deltraps,newtraps: ptrapinfoty;
  newnodes: ptrapnodeinfoty;
-
- function cmpy(const l,r: ppointty): integer;
- begin
-  result:= l^.y - r^.y;
-  if result = 0 then begin
-   result:= l - r;
-  end;
- end;
-
- function cmpx(const l: pseginfoty; r: ppointty): integer;
-  //<0 -> r = right of segment
- begin
-  if l^.dy = 0 then begin
-   result:= (l^.b^.y - r^.y) * l^.dx; //dx = 1|-1
-  end
-  else begin
-   result:= (l^.b^.x + (r^.y-l^.b^.y)*l^.dx div l^.dy) - r^.x;
-  end;
- end;
 
  function newtrap: ptrapinfoty;
  begin
@@ -485,12 +549,12 @@ var
      break;
     end;
     tnk_y: begin
-     if cmpy(no1^.y,apoint) < 0 then begin
+     if cmpy(apoint,no1^.y) > 0 then begin
       no2:= no1^.r;
      end;
     end;
     tnk_x: begin
-     if cmpx(no1^.seg,apoint) < 0 then begin
+     if cmpx(apoint,no1^.seg) > 0 then begin
       no2:= no1^.r;
      end;
     end;
@@ -533,6 +597,26 @@ var
  
  procedure handlesegment(const aseg: pseginfoty);
 
+  procedure splitnode(const newright: boolean; const ltrap,rtrap: ptrapinfoty);
+  var
+   noabove,noleft,noright: ptrapnodeinfoty;
+  begin
+   if newright then begin
+    noabove:= ltrap^.node;
+   end
+   else begin
+    noabove:= rtrap^.node;
+   end;
+   noleft:= newnode(ltrap,noabove);       // (Tb) ->     (s)
+   noright:= newnode(rtrap,noabove);      //         (Tl)   (Tr)
+   with noabove^ do begin
+    l:= noleft;
+    r:= noright;
+    kind:= tnk_x;
+    seg:= aseg;
+   end;
+  end; //splitnode
+
   procedure splittrap(const newright: boolean; const old: ptrapinfoty;
                                                  var left,right: ptrapinfoty);
   var
@@ -565,28 +649,9 @@ testvar:= old-traps;
    end;
    trabove^.below:= left;
    trabove^.belowr:= right;
+   splitnode(newright,left,right);
   end; //splittrap
   
-  procedure splitnode(const newright: boolean; const ltrap,rtrap: ptrapinfoty);
-  var
-   noabove,noleft,noright: ptrapnodeinfoty;
-  begin
-   if newright then begin
-    noabove:= ltrap^.node;
-   end
-   else begin
-    noabove:= rtrap^.node;
-   end;
-   noleft:= newnode(ltrap,noabove);       // (Tb) ->     (s)
-   noright:= newnode(rtrap,noabove);      //         (Tl)   (Tr)
-   with noabove^ do begin
-    l:= noleft;
-    r:= noright;
-    kind:= tnk_x;
-    seg:= aseg;
-   end;
-  end; //splitnode
-
  var
   sega,segb: pseginfoty;
   trleft,trright: ptrapinfoty;
@@ -606,12 +671,26 @@ testvar:= old-traps;
     inc(sega,npoints);
    end;
   end;
-  if sega^.strap = nil then begin //no existing edge
-
+  if sega^.splitseg = nil then begin //no existing edge
    splittrap(true,sega^.trap,trleft,trright);
-   splitnode(true,trleft,trright);
+   sega^.splitseg:= aseg;
+   sega^.splittrap:= trright;
+//   splitnode(true,trleft,trright);
   end
   else begin
+   case segdir(sega^.splitseg,aseg) of
+    sd_up: begin
+    end;
+    sd_left: begin
+     splittrap(true,sega^.trap,trleft,trright);
+    end;
+    sd_right: begin
+     splittrap(false,sega^.splittrap,trleft,trright);
+    end;
+    else begin
+     raise exception.create('Invalid edge.');
+    end;
+   end;
   end;
 dump(traps,newtraps-traps,nodes,'segment0');
 
@@ -626,7 +705,7 @@ testvar:= trap2-traps;
    trap1:= trap2;
    trap2:= trap2^.below;
   end;
-  segb^.strap:= trright;
+  segb^.splitseg:= aseg;
 //  segb^.trap:= trleft;
 dump(traps,newtraps-traps,nodes,'segment1');
  end;
@@ -661,7 +740,8 @@ mwcnoiseinit(1,1);
   for int1:= npoints-1 downto 0 do begin //init segments
    shuffle[int1]:= seg1;
    with seg1^ do begin
-    strap:= nil;
+    splitseg:= nil;
+    splittrap:= nil;
     flags:= [];
     b:= ppt1;
     dx:= ppt2^.x-ppt1^.x; //b->a slope
@@ -687,7 +767,7 @@ mwcnoiseinit(1,1);
   end;
   for int1:= npoints-1 downto 0 do begin //shuffle segments
    int2:= mwcnoise mod npoints;
-   seg1:= shuffle[int1];
+   seg1:= shuffle[int2];
    shuffle[int2]:= shuffle[int1];
    shuffle[int1]:= seg1;
   end;
@@ -725,9 +805,9 @@ dump(traps,newtraps-traps,nodes,'point A');
 dump(traps,newtraps-traps,nodes,'point B');
    end;
    handlesegment(seg1);
-if int1 = 1 then begin
- break;
-end;
+//if int1 = 1 then begin
+// break;
+//end;
   end;
 
   setlength(ftraps,newtraps-traps);
