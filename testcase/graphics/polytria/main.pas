@@ -629,21 +629,23 @@ testvar:= old-traps;
    trnew^.bottom:= old^.bottom;
    trnew^.left:= old^.left;
    trnew^.right:= old^.right;
+   trnew^.above:= trabove;
+   trnew^.below:= old^.below;
 
    if newright then begin
     old^.right:= aseg;
     trnew^.left:= aseg;
-    trnew^.below:= old^.belowr;
-    if trnew^.below = nil then begin
-     trnew^.below:= old^.below;
-    end;
+//    trnew^.below:= old^.belowr;
+//    if trnew^.below = nil then begin
+//     trnew^.below:= old^.below;
+//    end;
     right:= trnew;
     left:= old;
    end
    else begin
     old^.left:= aseg;
     trnew^.right:= aseg;
-    trnew^.below:= old^.below;
+//    trnew^.below:= old^.below;
     right:= old;
     left:= trnew;
    end;
@@ -680,6 +682,7 @@ testvar:= old-traps;
   else begin
    case segdir(sega^.splitseg,aseg) of
     sd_up: begin
+     splittrap(true,sega^.trap,trleft,trright);
     end;
     sd_left: begin
      splittrap(true,sega^.trap,trleft,trright);
@@ -693,7 +696,9 @@ testvar:= old-traps;
    end;
   end;
 dump(traps,newtraps-traps,nodes,'segment0');
-
+if aseg - segments = 1 then begin
+exit;
+end;
   trap1:= trleft;                    //upper
   trap2:= trleft^.below;             //lower
 testvar:= trap1-traps;
@@ -701,6 +706,8 @@ testvar:= trap2-traps;
   while trap2 <> segb^.trap do begin //split crossed lines by segment
    trap2^.left:= segb;               //move edge to right
    trap1^.bottom:= trap2^.bottom;    //extend to bottom
+   trap1^.below:= trap2^.below;
+   trap1^.belowr:= trap2^.belowr;
    splitnode(false,trap1,trap2);
    trap1:= trap2;
    trap2:= trap2^.below;
