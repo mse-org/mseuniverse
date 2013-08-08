@@ -725,7 +725,7 @@ mwcnoiseinit(1,1);
   points:= pointer(ar1);
  
    //todo: check maximal buffer size
-  sizetraps:= 2*npoints*sizeof(trapinfoty);
+  sizetraps:= 4*npoints*sizeof(trapinfoty);
   sizenodes:= 8*npoints*sizeof(trapnodeinfoty);
   getmem(buffer,npoints*(sizeof(seginfoty)+sizeof(pseginfoty)) + 
                                                 sizetraps + sizenodes);
