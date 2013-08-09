@@ -145,6 +145,9 @@ type
    tnk_trap: (trap: ptrapinfoty);
  end;
 
+var
+ traps: ptrapinfoty;
+
 function calcx(const y: integer; const seg: seginfoty): integer;
 var
  int1: integer;
@@ -230,6 +233,14 @@ begin
    else begin
     result:= calcx(trapdumpinfoty(l).t.left,y) - 
                       calcx(trapdumpinfoty(r).t.left,y);
+    if result = 0 then begin
+     if trapdumpinfoty(r).t.right = nil then begin
+      result:= -1;
+     end;
+     if trapdumpinfoty(l).t.right = nil then begin
+      inc(result);
+     end;
+    end;     
    end;
   end;
  end;
@@ -279,18 +290,30 @@ begin
  result:= intvalx(apoint^.x)+':'+intvaly(apoint^.y)+' ';
 end; //pointval 
 
+function trapval(const atrap: ptrapinfoty): string;
+begin
+ if atrap = nil then begin
+  result:= 'NIL';
+ end
+ else begin
+  result:= rstring(inttostr(atrap-traps),3);
+ end;
+end;
+
 procedure dumpseg(const seg: pseginfoty);
 var
  seg1: pseginfoty;
 begin
- writeln('********************************');
- writeln('  S     A            B');
+// writeln('********************************');
+ writeln('  S     A            B       Atr Asp Brt Bsp');
  seg1:= seg-1;
  if seg1 < segments then begin
   inc(seg1,npoints);
  end;
  writeln(rstring(inttostr(seg-segments),3),
-                        pointval(seg1^.b),' ',pointval(seg^.b));
+        pointval(seg1^.b),' ',pointval(seg^.b),' ',
+        trapval(seg1^.trap),' ',trapval(seg1^.splittrap),' ',
+        trapval(seg^.trap),' ',trapval(seg^.splittrap),' ');
 end;
 
 procedure dumpnodes(const anodes: ptrapnodeinfoty; 
@@ -409,7 +432,7 @@ begin
  writeln;
  dumpnodes(anodes,atraps);
 end;
-var testvar: integer;
+var testvar,testvar1,testvar2,testvar3,testvar4: integer;
 
 function cmpy(const l,r: ppointty): integer;
 begin
@@ -498,7 +521,6 @@ var
  buffer: pointer;
  shuffle: ppseginfoty;
  points: ppointty; 
- traps: ptrapinfoty;
  nodes: ptrapnodeinfoty;
  deltraps,newtraps: ptrapinfoty;
  newnodes: ptrapnodeinfoty;
@@ -618,9 +640,9 @@ var
   end; //splitnode
 
   procedure splittrap(const newright: boolean; const old: ptrapinfoty;
-                                                 var left,right: ptrapinfoty);
+                              var left,right,trnew: ptrapinfoty);
   var
-   trabove,trnew: ptrapinfoty;
+   trabove: ptrapinfoty;
   begin
 testvar:= old-traps;
    trnew:= newtrap;
@@ -630,9 +652,11 @@ testvar:= old-traps;
    trnew^.left:= old^.left;
    trnew^.right:= old^.right;
    trnew^.above:= trabove;
-   trnew^.below:= old^.below;
-
    if newright then begin
+    trnew^.below:= old^.belowr;
+    if trnew^.below = nil then begin
+     trnew^.below:= old^.below;       //single
+    end;
     old^.right:= aseg;
     trnew^.left:= aseg;
 //    trnew^.below:= old^.belowr;
@@ -643,6 +667,7 @@ testvar:= old-traps;
     left:= old;
    end
    else begin
+    trnew^.below:= old^.below;
     old^.left:= aseg;
     trnew^.right:= aseg;
 //    trnew^.below:= old^.below;
@@ -657,7 +682,8 @@ testvar:= old-traps;
  var
   sega,segb: pseginfoty;
   trleft,trright: ptrapinfoty;
-  trap1,trap2: ptrapinfoty;
+  trap1,trap2,trap1l,trap1r: ptrapinfoty;
+  bo1: boolean;
  begin
   if sf_reverse in aseg^.flags then begin
    sega:= aseg;
@@ -674,7 +700,7 @@ testvar:= old-traps;
    end;
   end;
   if sega^.splitseg = nil then begin //no existing edge
-   splittrap(true,sega^.trap,trleft,trright);
+   splittrap(true,sega^.trap,trleft,trright,trap1);
    sega^.splitseg:= aseg;
    sega^.splittrap:= trright;
 //   splitnode(true,trleft,trright);
@@ -682,13 +708,13 @@ testvar:= old-traps;
   else begin
    case segdir(sega^.splitseg,aseg) of
     sd_up: begin
-     splittrap(true,sega^.trap,trleft,trright);
+     splittrap(true,sega^.trap,trleft,trright,trap1);
     end;
     sd_left: begin
-     splittrap(true,sega^.trap,trleft,trright);
+     splittrap(true,sega^.trap,trleft,trright,trap1);
     end;
     sd_right: begin
-     splittrap(false,sega^.splittrap,trleft,trright);
+     splittrap(false,sega^.splittrap,trleft,trright,trap1);
     end;
     else begin
      raise exception.create('Invalid edge.');
@@ -697,20 +723,39 @@ testvar:= old-traps;
   end;
 dump(traps,newtraps-traps,nodes,'segment0');
 if aseg - segments = 1 then begin
-exit;
+//exit;
 end;
-  trap1:= trleft;                    //upper
-  trap2:= trleft^.below;             //lower
-testvar:= trap1-traps;
-testvar:= trap2-traps;
+  trap1l:= trleft;
+  trap1r:= trright;
+  trap2:= trap1^.below;              //??? correct starting?
+testvar4:= segb^.trap-traps;
   while trap2 <> segb^.trap do begin //split crossed lines by segment
-   trap2^.left:= segb;               //move edge to right
-   trap1^.bottom:= trap2^.bottom;    //extend to bottom
+testvar1:= trap1-traps;
+testvar2:= trap2-traps;
+   bo1:= cmpx(trap2^.top,sega) < 0; //point left of segment
+//   if bo1 then begin
+//    trap2:= trap1^.belowr;
+//   end
+//   else begin
+//    trap2:= trap1^.below;
+//   end;
+
+//   trap1^.bottom:= trap2^.bottom;    //extend to bottom
    trap1^.below:= trap2^.below;
    trap1^.belowr:= trap2^.belowr;
-   splitnode(false,trap1,trap2);
+   if bo1 then begin
+    trap2^.right:= segb;              //move edge to left
+    trap1l^.bottom:= trap2^.bottom;
+    trap1r:= trap2;
+   end
+   else begin
+    trap2^.left:= segb;               //move edge to right
+    trap1r^.bottom:= trap2^.bottom;
+    trap1l:= trap2;
+   end;
+   splitnode(bo1,trap1,trap2);
    trap1:= trap2;
-   trap2:= trap2^.below;
+   trap2:= trap1^.below;
   end;
   segb^.splitseg:= aseg;
 //  segb^.trap:= trleft;
@@ -748,6 +793,7 @@ mwcnoiseinit(1,1);
    shuffle[int1]:= seg1;
    with seg1^ do begin
     splitseg:= nil;
+    trap:= nil;
     splittrap:= nil;
     flags:= [];
     b:= ppt1;
@@ -802,6 +848,7 @@ mwcnoiseinit(1,1);
    if seg2 < segments then begin
     inc(seg2,npoints);
    end;
+writeln('**************************************');
 dumpseg(seg1);
    if not (sf_pointhandled in seg2^.flags) then begin
     handlepoint(seg2);
@@ -811,7 +858,11 @@ dump(traps,newtraps-traps,nodes,'point A');
     handlepoint(seg1);
 dump(traps,newtraps-traps,nodes,'point B');
    end;
+writeln('----------------');
+dumpseg(seg1);
    handlesegment(seg1);
+writeln('----------------');
+dumpseg(seg1);
 //if int1 = 1 then begin
 // break;
 //end;
