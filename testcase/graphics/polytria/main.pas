@@ -652,25 +652,21 @@ testvar:= old-traps;
    trnew^.left:= old^.left;
    trnew^.right:= old^.right;
    trnew^.above:= trabove;
+   trnew^.below:= old^.below;
    if newright then begin
-    trnew^.below:= old^.belowr;
-    if trnew^.below = nil then begin
-     trnew^.below:= old^.below;       //single
-    end;
-    old^.right:= aseg;
-    trnew^.left:= aseg;
 //    trnew^.below:= old^.belowr;
 //    if trnew^.below = nil then begin
-//     trnew^.below:= old^.below;
+//     trnew^.below:= old^.below;       //single
 //    end;
+    old^.right:= aseg;
+    trnew^.left:= aseg;
     right:= trnew;
     left:= old;
    end
    else begin
-    trnew^.below:= old^.below;
+//    trnew^.below:= old^.below;
     old^.left:= aseg;
     trnew^.right:= aseg;
-//    trnew^.below:= old^.below;
     right:= old;
     left:= trnew;
    end;
@@ -729,10 +725,10 @@ end;
   trap1r:= trright;
   trap2:= trap1^.below;              //??? correct starting?
 testvar4:= segb^.trap-traps;
-  while trap2 <> segb^.trap do begin //split crossed lines by segment
+  while cmpy(trap2^.top,segb^.trap^.top) < 0 do begin //split crossed lines by segment
 testvar1:= trap1-traps;
 testvar2:= trap2-traps;
-   bo1:= cmpx(trap2^.top,sega) < 0; //point left of segment
+   bo1:= cmpx(trap2^.top,aseg) < 0; //point left of segment
 //   if bo1 then begin
 //    trap2:= trap1^.belowr;
 //   end
@@ -743,15 +739,17 @@ testvar2:= trap2-traps;
 //   trap1^.bottom:= trap2^.bottom;    //extend to bottom
    trap1^.below:= trap2^.below;
    trap1^.belowr:= trap2^.belowr;
+testvar3:= trap1l-traps;
+testvar4:= trap1r-traps;
    if bo1 then begin
-    trap2^.right:= segb;              //move edge to left
-    trap1l^.bottom:= trap2^.bottom;
-    trap1r:= trap2;
-   end
-   else begin
-    trap2^.left:= segb;               //move edge to right
+    trap2^.right:= aseg;              //move edge to left
     trap1r^.bottom:= trap2^.bottom;
     trap1l:= trap2;
+   end
+   else begin
+    trap2^.left:= aseg;               //move edge to right
+    trap1l^.bottom:= trap2^.bottom;
+    trap1r:= trap2;
    end;
    splitnode(bo1,trap1,trap2);
    trap1:= trap2;
