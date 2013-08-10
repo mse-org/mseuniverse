@@ -118,11 +118,11 @@ type
  ptrapnodeinfoty = ^trapnodeinfoty;
 
  trapinfoty = record
-  next: ptrapinfoty; //for deleted list
+  next: ptrapinfoty; //for deleted list //todo: remove next
   top,bottom: ppointty;  
   left,right: pseginfoty;
   node: ptrapnodeinfoty;
-  above,below,belowr: ptrapinfoty; //below = single or left
+  above,abover,below,belowr: ptrapinfoty; //above,below = single or left
  end;
  
  segflagty = (sf_pointhandled,sf_reverse); //sf_reverse -> b below a
@@ -393,8 +393,8 @@ begin
   ar1[int1].index:= int1;
  end;
  sortarray(ar1,sizeof(trapdumpinfoty),@cmptrap,ar2);
- writeln('----------------------------------------------- '+caption);
- writeln('  T     t     b    tl    tr    bl    br   B  BR');
+ writeln('------------------------------------------------------- '+caption);
+ writeln('  T     t     b    tl    tr    bl    br   A   AR  B  BR');
  for int1:= 0 to high(ar1) do begin
   with ar1[int1].t do begin
    lt:= -10000;
@@ -420,6 +420,7 @@ begin
    writeln(rstring(inttostr(ar1[int1].index),3),' ',
         intvaly(t),' ',intvaly(b),' ',
         intvalx(lt),' ',intvalx(rt),' ',intvalx(lb),' ',intvalx(rb),' ',
+        trapval(above),' ',trapval(abover),' ',
         trapval(below),' ',trapval(belowr));
   end;
  end;
@@ -536,9 +537,10 @@ var
    deltraps:= result^.next;
   end;
   result^.above:= nil;
+  result^.abover:= nil;
   result^.below:= nil;
   result^.belowr:= nil;
-  result^.right:= nil;
+//  result^.right:= nil;
  end;
  
  function newnode: ptrapnodeinfoty;
@@ -587,12 +589,13 @@ var
    
  procedure handlepoint(const seg: pseginfoty);
  var
-  tplower,tpupper: ptrapinfoty;
+  tplower,tpupper,tpbelow: ptrapinfoty;
   no1,nol,nor: ptrapnodeinfoty;
   ppt1: ppointty;
  begin
   ppt1:= seg^.b;
   tpupper:= findtrap(ppt1);
+testvar:= tpupper-traps;
   tplower:= newtrap;            //split trap, lower
   tplower^.top:= ppt1;
   tplower^.bottom:= tpupper^.bottom;
@@ -601,9 +604,14 @@ var
   tplower^.right:= tpupper^.right;  //same segment
   tplower^.below:= tpupper^.below;  //same below
   tplower^.belowr:= tpupper^.belowr;//same belowr
+  tplower^.above:= tpupper;         //abover = nil
+  tpbelow:= tpupper^.below;
+  if tpbelow <> nil then begin
+   tpbelow^.above:= tplower;
+   tpbelow^.abover:= nil; //???
+  end;
   tpupper^.below:= tplower;
-  tpupper^.belowr:= nil;
-  tplower^.above:= tpupper;
+  tpupper^.belowr:= nil;            //no split segment
   seg^.trap:= tplower;
   
   no1:= tpupper^.node;         //old leaf
@@ -642,11 +650,18 @@ var
   procedure splittrap(const newright: boolean; const old: ptrapinfoty;
                               var left,right,trnew: ptrapinfoty);
   var
+   trbelow: ptrapinfoty;
+   trbelowr: ptrapinfoty;
    trabove: ptrapinfoty;
+   trabover: ptrapinfoty;
   begin
 testvar:= old-traps;
    trnew:= newtrap;
    trabove:= old^.above;
+   trabover:= old^.abover;
+   trbelow:= old^.below;
+   trbelowr:= old^.belowr;
+
    trnew^.top:= old^.top;
    trnew^.bottom:= old^.bottom;
    trnew^.left:= old^.left;
@@ -670,8 +685,29 @@ testvar:= old-traps;
     right:= old;
     left:= trnew;
    end;
-   trabove^.below:= left;
-   trabove^.belowr:= right;
+   if trbelow <> nil then begin
+    trbelow^.above:= left;
+    if trbelowr <> nil then begin
+     trbelowr^.abover:= right;
+    end
+    else begin
+     trbelow^.abover:= right;
+    end;
+   end;
+   left^.above:= trabove;
+   if trabove <> nil then begin
+    trabove^.below:= left;
+   end;
+   if trabover = nil then begin
+    right^.above:= trabove;
+    if trabove <> nil then begin
+     trabove^.belowr:= right;
+    end;
+   end
+   else begin
+    right^.above:= trabover;
+    trabover^.below:= right;
+   end;  
    splitnode(newright,left,right);
   end; //splittrap
   
@@ -695,6 +731,9 @@ testvar:= old-traps;
     inc(sega,npoints);
    end;
   end;
+if aseg - segments = 1 then begin
+//exit;
+end;
   if sega^.splitseg = nil then begin //no existing edge
    splittrap(true,sega^.trap,trleft,trright,trap1);
    sega^.splitseg:= aseg;
@@ -756,6 +795,9 @@ testvar4:= trap1r-traps;
    trap2:= trap1^.below;
   end;
   segb^.splitseg:= aseg;
+  segb^.trap^.above:= trap1l;
+  segb^.trap^.above:= trap1r;
+  
 //  segb^.trap:= trleft;
 dump(traps,newtraps-traps,nodes,'segment1');
  end;
