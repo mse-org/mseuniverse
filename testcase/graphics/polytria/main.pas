@@ -435,23 +435,28 @@ begin
 end;
 var testvar,testvar1,testvar2,testvar3,testvar4: integer;
 
-function cmpy(const l,r: ppointty): integer;
+function isbelow(const l,r: ppointty): boolean;
+var
+ int1: integer;
 begin
- result:= l^.y - r^.y;
- if result = 0 then begin
-  result:= l - r;
+ int1:= l^.y - r^.y;
+ if int1 = 0 then begin
+  result:= l - r > 0;
+ end
+ else begin
+  result:= int1 > 0;
  end;
 end;
 
-function cmpx(const l: ppointty; r: pseginfoty): integer;
+function isright(const point: ppointty; ref: pseginfoty): boolean;
  //<0 -> l = left of segment
 begin
- if r^.dy = 0 then begin
-  result:= (l^.y - r^.b^.y) * r^.dx; //dx = 1|-1
+ if ref^.dy = 0 then begin
+  result:= (point^.y - ref^.b^.y) * ref^.dx > 0; //dx = 1|-1
  end
  else begin
 //todo: no division
-  result:= l^.x -(r^.b^.x + (l^.y-r^.b^.y)*r^.dx div r^.dy);
+  result:= point^.x -(ref^.b^.x + (point^.y-ref^.b^.y)*ref^.dx div ref^.dy) > 0;
  end;
 end;
 
@@ -492,12 +497,12 @@ begin
     exit;
    end;
   end;
-  if cmpy(segcommon^.b,ptseg) > 0 then begin
+  if isbelow(segcommon^.b,ptseg) then begin
    result:= sd_up;
   end
   else begin
    if ptseg^.x = ptref^.x then begin
-    if cmpy(ptseg,ptref) > 0 then begin
+    if isbelow(ptseg,ptref) then begin
      result:= sd_right;
     end
     else begin
@@ -573,12 +578,12 @@ var
      break;
     end;
     tnk_y: begin
-     if cmpy(apoint,no1^.y) > 0 then begin
+     if isbelow(apoint,no1^.y) then begin
       no2:= no1^.r;
      end;
     end;
     tnk_x: begin
-     if cmpx(apoint,no1^.seg) > 0 then begin
+     if isright(apoint,no1^.seg) then begin
       no2:= no1^.r;
      end;
     end;
@@ -764,10 +769,11 @@ end;
   trap1r:= trright;
   trap2:= trap1^.below;              //??? correct starting?
 testvar4:= segb^.trap-traps;
-  while cmpy(trap2^.top,segb^.trap^.top) < 0 do begin //split crossed lines by segment
+//  while cmpy(trap2^.top,segb^.trap^.top) < 0 do begin //split crossed lines by segment
+  while trap2^.top <> segb^.trap^.top do begin //split crossed lines by segment
 testvar1:= trap1-traps;
 testvar2:= trap2-traps;
-   bo1:= cmpx(trap2^.top,aseg) < 0; //point left of segment
+   bo1:= not isright(trap2^.top,aseg); //point left of segment
 //   if bo1 then begin
 //    trap2:= trap1^.belowr;
 //   end
