@@ -594,7 +594,7 @@ var
    
  procedure handlepoint(const seg: pseginfoty);
  var
-  tplower,tpupper,tpbelow: ptrapinfoty;
+  tplower,tpupper,tpbelow,tpbelowr: ptrapinfoty;
   no1,nol,nor: ptrapnodeinfoty;
   ppt1: ppointty;
  begin
@@ -611,9 +611,14 @@ testvar:= tpupper-traps;
   tplower^.belowr:= tpupper^.belowr;//same belowr
   tplower^.above:= tpupper;         //abover = nil
   tpbelow:= tpupper^.below;
+  tpbelowr:= tpupper^.belowr;
   if tpbelow <> nil then begin
    tpbelow^.above:= tplower;
-   tpbelow^.abover:= nil; //???
+   tpbelow^.abover:= nil;
+  end;
+  if tpbelowr <> nil then begin
+   tpbelowr^.above:= tplower;
+   tpbelowr^.abover:= nil;
   end;
   tpupper^.below:= tplower;
   tpupper^.belowr:= nil;            //no split segment
@@ -672,7 +677,7 @@ testvar:= old-traps;
    trnew^.left:= old^.left;
    trnew^.right:= old^.right;
    trnew^.above:= trabove;
-   trnew^.below:= old^.below;
+   trnew^.below:= trbelow;
    if newright then begin
 //    trnew^.below:= old^.belowr;
 //    if trnew^.below = nil then begin
@@ -682,6 +687,9 @@ testvar:= old-traps;
     trnew^.left:= aseg;
     right:= trnew;
     left:= old;
+    if trbelowr <> nil then begin
+     trnew^.below:= trbelowr;
+    end;
    end
    else begin
 //    trnew^.below:= old^.below;
@@ -689,7 +697,11 @@ testvar:= old-traps;
     trnew^.right:= aseg;
     right:= old;
     left:= trnew;
+    if trbelowr <> nil then begin
+     old^.below:= trbelowr;
+    end;
    end;
+   old^.belowr:= nil;
    if trbelow <> nil then begin
     trbelow^.above:= left;
     if trbelowr <> nil then begin
@@ -765,6 +777,8 @@ dump(traps,newtraps-traps,nodes,'segment0');
 if aseg - segments = 1 then begin
 //exit;
 end;
+testvar1:= trleft-traps;
+testvar2:= trright-traps;
   trap1l:= trleft;
   trap1r:= trright;
   trap2:= trap1^.below;              //??? correct starting?
@@ -802,7 +816,7 @@ testvar4:= trap1r-traps;
   end;
   segb^.splitseg:= aseg;
   segb^.trap^.above:= trap1l;
-  segb^.trap^.above:= trap1r;
+  segb^.trap^.abover:= trap1r;
   
 //  segb^.trap:= trleft;
 dump(traps,newtraps-traps,nodes,'segment1');
@@ -909,9 +923,9 @@ dumpseg(seg1);
    handlesegment(seg1);
 writeln('----------------');
 dumpseg(seg1);
-//if int1 = 1 then begin
+if int1 = 1 then begin
 // break;
-//end;
+end;
   end;
 
   setlength(ftraps,newtraps-traps);
