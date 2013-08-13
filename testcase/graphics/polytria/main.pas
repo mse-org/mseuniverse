@@ -436,7 +436,7 @@ begin
  writeln;
  dumpnodes(anodes,atraps);
 end;
-var testvar,testvar1,testvar2,testvar3,testvar4: integer;
+var testvar,testvar1,testvar2,testvar3,testvar4,testvar5,testvar6: integer;
 
 function isbelow(const l,r: ppointty): boolean;
                //true if l beow r
@@ -805,6 +805,8 @@ testvar2:= trap2-traps;
 //   trap1^.belowr:= trap2^.belowr;
 testvar3:= trap1l-traps;
 testvar4:= trap1r-traps;
+testvar5:= trbelow-traps;
+testvar6:= trbelowr-traps;
    if bo1 then begin
     if trbelowr <> nil then begin
      trap1r^.below:= trbelowr;
@@ -827,6 +829,9 @@ testvar4:= trap1r-traps;
    splitnode(bo1,trap1,trap2);
    trap1:= trap2;
    trap2:= trap1^.below;
+   if bo1 and (trap1^.belowr <> nil) then begin
+    trap2:= trap1^.belowr;
+   end;
   end;
   if bo2 then begin
    if not bo1 then begin
