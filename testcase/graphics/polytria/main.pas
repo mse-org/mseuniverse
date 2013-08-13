@@ -679,10 +679,6 @@ testvar:= old-traps;
    trnew^.above:= trabove;
    trnew^.below:= trbelow;
    if newright then begin
-//    trnew^.below:= old^.belowr;
-//    if trnew^.below = nil then begin
-//     trnew^.below:= old^.below;       //single
-//    end;
     old^.right:= aseg;
     trnew^.left:= aseg;
     right:= trnew;
@@ -692,7 +688,6 @@ testvar:= old-traps;
     end;
    end
    else begin
-//    trnew^.below:= old^.below;
     old^.left:= aseg;
     trnew^.right:= aseg;
     right:= old;
@@ -702,6 +697,7 @@ testvar:= old-traps;
     end;
    end;
    old^.belowr:= nil;
+   {
    if trbelow <> nil then begin
     trbelow^.above:= left;
     if trbelowr <> nil then begin
@@ -711,14 +707,17 @@ testvar:= old-traps;
      trbelow^.abover:= right;
     end;
    end;
+   }
    left^.above:= trabove;
-   if trabove <> nil then begin
-    trabove^.below:= left;
-   end;
-   if trabover = nil then begin
+//   if trabove <> nil then begin
+//    trabove^.below:= left;
+//   end;
+   if trabover = nil then begin //no existing segment above
     right^.above:= trabove;
     if trabove <> nil then begin
-     trabove^.belowr:= right;
+     if trabove^.belowr = nil then begin //first segment
+      trabove^.belowr:= right;
+     end;
     end;
    end
    else begin
@@ -731,8 +730,8 @@ testvar:= old-traps;
  var
   sega,segb: pseginfoty;
   trleft,trright: ptrapinfoty;
-  trap1,trap2,trap1l,trap1r: ptrapinfoty;
-  bo1: boolean;
+  trap1,trap2,trap1l,trap1r,trbelow,trbelowr: ptrapinfoty;
+  bo1,bo2: boolean;
  begin
   if sf_reverse in aseg^.flags then begin
    sega:= aseg;
@@ -781,12 +780,14 @@ testvar1:= trleft-traps;
 testvar2:= trright-traps;
   trap1l:= trleft;
   trap1r:= trright;
-  trap2:= trap1^.below;              //??? correct starting?
+  trap2:= trap1^.below;              //??? correct start?
 testvar4:= segb^.trap-traps;
 //  while cmpy(trap2^.top,segb^.trap^.top) < 0 do begin //split crossed lines by segment
+  bo2:= false;
   while trap2^.top <> segb^.trap^.top do begin //split crossed lines by segment
 testvar1:= trap1-traps;
 testvar2:= trap2-traps;
+   bo2:= true;
    bo1:= not isright(trap2^.top,aseg); //point left of segment
 //   if bo1 then begin
 //    trap2:= trap1^.belowr;
@@ -796,23 +797,39 @@ testvar2:= trap2-traps;
 //   end;
 
 //   trap1^.bottom:= trap2^.bottom;    //extend to bottom
-   trap1^.below:= trap2^.below;
-   trap1^.belowr:= trap2^.belowr;
+   trbelow:= trap2^.below;
+   trbelowr:= trap2^.belowr;
+//   trap1^.belowr:= trap2^.belowr;
 testvar3:= trap1l-traps;
 testvar4:= trap1r-traps;
    if bo1 then begin
+    if trbelowr <> nil then begin
+     trap1r^.below:= trbelowr;
+    end
+    else begin
+     trap1r^.below:= trbelow;
+    end;
     trap2^.right:= aseg;              //move edge to left
     trap1r^.bottom:= trap2^.bottom;
+    trap2^.abover:= trap1l;
     trap1l:= trap2;
    end
    else begin
+    trap1l^.below:= trbelow;
     trap2^.left:= aseg;               //move edge to right
     trap1l^.bottom:= trap2^.bottom;
+    trap2^.above:= trap1r;
     trap1r:= trap2;
    end;
    splitnode(bo1,trap1,trap2);
    trap1:= trap2;
    trap2:= trap1^.below;
+  end;
+  if bo2 then begin
+   if not bo1 then begin
+    trap1^.below:= trap1^.belowr; //move to right
+   end;
+   trap1^.belowr:= nil;
   end;
   segb^.splitseg:= aseg;
   segb^.trap^.above:= trap1l;
@@ -924,7 +941,7 @@ dumpseg(seg1);
 writeln('----------------');
 dumpseg(seg1);
 if int1 = 1 then begin
-// break;
+ break;
 end;
   end;
 
