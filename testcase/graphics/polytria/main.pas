@@ -24,6 +24,9 @@ type
    yed: trealedit;
    xed: trealedit;
    tbutton1: tbutton;
+   stoped: tintegeredit;
+   noseged: tbooleanedit;
+   nosegbed: tbooleanedit;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -436,6 +439,7 @@ end;
 var testvar,testvar1,testvar2,testvar3,testvar4: integer;
 
 function isbelow(const l,r: ppointty): boolean;
+               //true if l beow r
 var
  int1: integer;
 begin
@@ -449,7 +453,7 @@ begin
 end;
 
 function isright(const point: ppointty; ref: pseginfoty): boolean;
- //<0 -> l = left of segment
+ //true if point right of segment
 begin
  if ref^.dy = 0 then begin
   result:= (point^.y - ref^.b^.y) * ref^.dx > 0; //dx = 1|-1
@@ -634,6 +638,9 @@ testvar:= tpupper-traps;
   
   include(seg^.flags,sf_pointhandled);
  end;
+
+var
+ segcounter: integer;
  
  procedure handlesegment(const aseg: pseginfoty);
 
@@ -664,6 +671,7 @@ testvar:= tpupper-traps;
    trbelowr: ptrapinfoty;
    trabove: ptrapinfoty;
    trabover: ptrapinfoty;
+   pointbelowisright: boolean;
   begin
 testvar:= old-traps;
    trnew:= newtrap;
@@ -671,6 +679,9 @@ testvar:= old-traps;
    trabover:= old^.abover;
    trbelow:= old^.below;
    trbelowr:= old^.belowr;
+   if trbelow <> nil then begin
+    pointbelowisright:= isright(trbelow^.top,aseg);
+   end;
 
    trnew^.top:= old^.top;
    trnew^.bottom:= old^.bottom;
@@ -683,35 +694,26 @@ testvar:= old-traps;
     trnew^.left:= aseg;
     right:= trnew;
     left:= old;
-    if trbelowr <> nil then begin
-     trnew^.below:= trbelowr;
-    end;
    end
    else begin
     old^.left:= aseg;
     trnew^.right:= aseg;
     right:= old;
     left:= trnew;
-    if trbelowr <> nil then begin
-     old^.below:= trbelowr;
-    end;
    end;
-   old^.belowr:= nil;
-   {
-   if trbelow <> nil then begin
-    trbelow^.above:= left;
-    if trbelowr <> nil then begin
-     trbelowr^.abover:= right;
+   if trbelowr <> nil then begin
+    if pointbelowisright then begin
+     right^.belowr:= trbelowr;
+     left^.belowr:= nil;
     end
     else begin
-     trbelow^.abover:= right;
+     left^.belowr:= trbelowr;
+     right^.below:= trbelowr;
+     right^.belowr:= nil;
     end;
    end;
-   }
+
    left^.above:= trabove;
-//   if trabove <> nil then begin
-//    trabove^.below:= left;
-//   end;
    if trabover = nil then begin //no existing segment above
     right^.above:= trabove;
     if trabove <> nil then begin
@@ -782,9 +784,10 @@ testvar2:= trright-traps;
   trap1r:= trright;
   trap2:= trap1^.below;              //??? correct start?
 testvar4:= segb^.trap-traps;
-//  while cmpy(trap2^.top,segb^.trap^.top) < 0 do begin //split crossed lines by segment
   bo2:= false;
-  while trap2^.top <> segb^.trap^.top do begin //split crossed lines by segment
+if not ((segcounter = stoped.value) and nosegbed.value) then begin
+  while (trap2 <> nil) and (trap2^.top <> segb^.trap^.top) do begin 
+                               //split crossed lines by segment
 testvar1:= trap1-traps;
 testvar2:= trap2-traps;
    bo2:= true;
@@ -811,14 +814,14 @@ testvar4:= trap1r-traps;
     end;
     trap2^.right:= aseg;              //move edge to left
     trap1r^.bottom:= trap2^.bottom;
-    trap2^.abover:= trap1l;
+//    trap2^.abover:= trap1l;
     trap1l:= trap2;
    end
    else begin
     trap1l^.below:= trbelow;
     trap2^.left:= aseg;               //move edge to right
     trap1l^.bottom:= trap2^.bottom;
-    trap2^.above:= trap1r;
+//    trap2^.above:= trap1r;
     trap1r:= trap2;
    end;
    splitnode(bo1,trap1,trap2);
@@ -827,13 +830,24 @@ testvar4:= trap1r-traps;
   end;
   if bo2 then begin
    if not bo1 then begin
-    trap1^.below:= trap1^.belowr; //move to right
+    if trap1^.belowr <> nil then begin
+     trap1^.below:= trap1^.belowr; //move to right
+    end;
    end;
    trap1^.belowr:= nil;
   end;
-  segb^.splitseg:= aseg;
+end;
   segb^.trap^.above:= trap1l;
-  segb^.trap^.abover:= trap1r;
+  if segb^.splitseg = nil then begin //no existing seg below
+   segb^.splitseg:= aseg;
+   segb^.trap^.abover:= trap1r;
+  end
+  else begin
+   if segb^.splittrap <> nil then begin
+    segb^.splittrap^.above:= trap1r;   
+    segb^.trap^.abover:= nil;
+   end;
+  end;
   
 //  segb^.trap:= trleft;
 dump(traps,newtraps-traps,nodes,'segment1');
@@ -919,13 +933,13 @@ mwcnoiseinit(1,1);
    bottom:= nil;
   end;
  
-  for int1:= npoints-1 downto 0 do begin
-   seg1:= shuffle[int1];
+  for segcounter:= npoints-1 downto 0 do begin
+   seg1:= shuffle[segcounter];
    seg2:= seg1-1;
    if seg2 < segments then begin
     inc(seg2,npoints);
    end;
-writeln('**************************************');
+writeln('************************************** (',segcounter,')');
 dumpseg(seg1);
    if not (sf_pointhandled in seg2^.flags) then begin
     handlepoint(seg2);
@@ -937,10 +951,13 @@ dump(traps,newtraps-traps,nodes,'point B');
    end;
 writeln('----------------');
 dumpseg(seg1);
+if (segcounter = stoped.value) and noseged.value then begin
+ break;
+end;
    handlesegment(seg1);
 writeln('----------------');
 dumpseg(seg1);
-if int1 = 1 then begin
+if segcounter = stoped.value then begin
  break;
 end;
   end;
