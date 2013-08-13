@@ -991,16 +991,36 @@ end;
      ftraps[int1][3].x:= 0;
     end
     else begin
-     ftraps[int1][0].x:= calcx(top^.y,left^);
-     ftraps[int1][3].x:= calcx(bottom^.y,left^);
+     if top = nil then begin
+      ftraps[int1][0].x:= 0;
+     end
+     else begin
+      ftraps[int1][0].x:= calcx(top^.y,left^);
+     end;
+     if bottom = nil then begin
+      ftraps[int1][3].x:= tridisp.width-1;
+     end
+     else begin
+      ftraps[int1][3].x:= calcx(bottom^.y,left^);
+     end;
     end;
     if right = nil then begin
      ftraps[int1][1].x:= tridisp.width-1;
      ftraps[int1][2].x:= tridisp.width-1;
     end
     else begin
-     ftraps[int1][1].x:= calcx(top^.y,right^);
-     ftraps[int1][2].x:= calcx(bottom^.y,right^);
+     if top = nil then begin
+      ftraps[int1][1].x:= tridisp.width-1;
+     end
+     else begin
+      ftraps[int1][1].x:= calcx(top^.y,right^);
+     end;
+     if bottom = nil then begin
+      ftraps[int1][2].x:= 0;
+     end
+     else begin
+      ftraps[int1][2].x:= calcx(bottom^.y,right^);
+     end;
     end;
    end;
   end;
