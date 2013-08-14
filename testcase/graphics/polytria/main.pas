@@ -683,10 +683,6 @@ testvar:= old-traps;
    trabover:= old^.abover;
    trbelow:= old^.below;
    trbelowr:= old^.belowr;
-   if trbelow <> nil then begin
-    pointbelowisright:= isright(trbelow^.top,aseg);
-   end;
-
    trnew^.top:= old^.top;
    trnew^.bottom:= old^.bottom;
    trnew^.left:= old^.left;
@@ -705,16 +701,27 @@ testvar:= old-traps;
     right:= old;
     left:= trnew;
    end;
-   if trbelowr <> nil then begin
-    if pointbelowisright then begin
-     right^.belowr:= trbelowr;
-     right^.belowr^.above:= right;
-     left^.belowr:= nil;
-    end
-    else begin
-     left^.belowr:= trbelowr;
-     right^.below:= trbelowr;
-     right^.belowr:= nil;
+   if trbelow <> nil then begin
+    pointbelowisright:= isright(trbelow^.top,aseg);
+    if trbelow^.above = old then begin
+     if pointbelowisright then begin
+      trbelow^.above:= right;
+     end
+     else begin
+      trbelow^.above:= left;
+     end;
+    end;
+    if trbelowr <> nil then begin
+     if pointbelowisright then begin
+      right^.belowr:= trbelowr;
+      right^.belowr^.above:= right;
+      left^.belowr:= nil;
+     end
+     else begin
+      left^.belowr:= trbelowr;
+      right^.below:= trbelowr;
+      right^.belowr:= nil;
+     end;
     end;
    end;
 
