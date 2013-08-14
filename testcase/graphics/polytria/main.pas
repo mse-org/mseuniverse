@@ -843,7 +843,12 @@ testvar6:= trbelowr-traps;
     end;
     trap2^.right:= aseg;              //move edge to left
     trap1r^.bottom:= trap2^.bottom;
-    trap2^.abover:= trap1l;
+    if trap2^.abover = nil then begin
+     trap2^.above:= trap1l;
+    end
+    else begin
+     trap2^.abover:= trap1l;
+    end;
     trap1l:= trap2;
    end
    else begin
@@ -861,15 +866,9 @@ testvar6:= trbelowr-traps;
    end;
   end;
   if bo2 then begin
-   if bo1 then begin
-    trap1^.below^.above:= trap1;
-   end
-   else begin
+   if not bo1 then begin
     if trap1^.belowr <> nil then begin
      trap1^.below:= trap1^.belowr; //move to right
-    end;
-    if trap1^.below^.abover <> nil then begin //handled below otherwise
-     trap1^.below^.abover:= trap1;   
     end;
    end;
    trap1^.belowr:= nil;
@@ -881,29 +880,18 @@ end;
     abover:= trap1r;
    end
    else begin
-    if not bo2 then begin //no line split
-     if isright(above^.top,aseg) then begin
-      abover:= trap1r;
-     end
-     else begin
-      above:= trap1l;
-     end;
+    if isright(above^.top,aseg) then begin
+     above:= trap1l;
+    end
+    else begin
+     abover:= trap1r;
     end;
    end;
   end;
-//  segb^.trap^.above:= trap1l;
   if segb^.splitseg = nil then begin //no existing seg below
    segb^.splitseg:= aseg;
-//   segb^.trap^.abover:= trap1r;
-//  end
-//  else begin
-//   if segb^.splittrap <> nil then begin
-//    segb^.splittrap^.above:= trap1r;   
-//    segb^.trap^.abover:= nil;
-//   end;
   end;
   
-//  segb^.trap:= trleft;
 dump(traps,newtraps-traps,nodes,'segment1');
  end;
 
