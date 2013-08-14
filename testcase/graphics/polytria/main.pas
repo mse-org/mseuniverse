@@ -710,6 +710,16 @@ testvar:= old-traps;
      else begin
       trbelow^.above:= left;
      end;
+    end
+    else begin
+     if trbelow^.abover = old then begin
+      if pointbelowisright xor newright then begin
+       trbelow^.abover:= right;
+      end
+      else begin
+       trbelow^.abover:= left;
+      end;
+     end;
     end;
     if trbelowr <> nil then begin
      if pointbelowisright then begin
@@ -851,24 +861,46 @@ testvar6:= trbelowr-traps;
    end;
   end;
   if bo2 then begin
-   if not bo1 then begin
+   if bo1 then begin
+    trap1^.below^.above:= trap1;
+   end
+   else begin
     if trap1^.belowr <> nil then begin
      trap1^.below:= trap1^.belowr; //move to right
+    end;
+    if trap1^.below^.abover <> nil then begin //handled below otherwise
+     trap1^.below^.abover:= trap1;   
     end;
    end;
    trap1^.belowr:= nil;
   end;
 end;
-  segb^.trap^.above:= trap1l;
+  with segb^.trap^ do begin
+   if abover = nil then begin //no existing edge above
+    above:= trap1l;
+    abover:= trap1r;
+   end
+   else begin
+    if not bo2 then begin //no line split
+     if isright(above^.top,aseg) then begin
+      abover:= trap1r;
+     end
+     else begin
+      above:= trap1l;
+     end;
+    end;
+   end;
+  end;
+//  segb^.trap^.above:= trap1l;
   if segb^.splitseg = nil then begin //no existing seg below
    segb^.splitseg:= aseg;
-   segb^.trap^.abover:= trap1r;
-  end
-  else begin
-   if segb^.splittrap <> nil then begin
-    segb^.splittrap^.above:= trap1r;   
-    segb^.trap^.abover:= nil;
-   end;
+//   segb^.trap^.abover:= trap1r;
+//  end
+//  else begin
+//   if segb^.splittrap <> nil then begin
+//    segb^.splittrap^.above:= trap1r;   
+//    segb^.trap^.abover:= nil;
+//   end;
   end;
   
 //  segb^.trap:= trleft;
