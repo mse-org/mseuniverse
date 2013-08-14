@@ -617,12 +617,16 @@ testvar:= tpupper-traps;
   tpbelow:= tpupper^.below;
   tpbelowr:= tpupper^.belowr;
   if tpbelow <> nil then begin
-   tpbelow^.above:= tplower;
-   tpbelow^.abover:= nil;
+   if tpbelow^.above = tpupper then begin
+    tpbelow^.above:= tplower;
+   end
+   else begin
+    tpbelow^.abover:= tplower;
+   end;
   end;
   if tpbelowr <> nil then begin
    tpbelowr^.above:= tplower;
-   tpbelowr^.abover:= nil;
+//   tpbelowr^.abover:= nil;
   end;
   tpupper^.below:= tplower;
   tpupper^.belowr:= nil;            //no split segment
@@ -704,6 +708,7 @@ testvar:= old-traps;
    if trbelowr <> nil then begin
     if pointbelowisright then begin
      right^.belowr:= trbelowr;
+     right^.belowr^.above:= right;
      left^.belowr:= nil;
     end
     else begin
@@ -782,7 +787,12 @@ testvar1:= trleft-traps;
 testvar2:= trright-traps;
   trap1l:= trleft;
   trap1r:= trright;
-  trap2:= trap1^.below;              //??? correct start?
+  if (trap1^.belowr <> nil) and not isright(trap1^.belowr^.top,aseg) then begin
+   trap2:= trap1^.belowr;
+  end
+  else begin
+   trap2:= trap1^.below;      
+  end;
 testvar4:= segb^.trap-traps;
   bo2:= false;
 if not ((segcounter = stoped.value) and nosegbed.value) then begin
@@ -816,14 +826,14 @@ testvar6:= trbelowr-traps;
     end;
     trap2^.right:= aseg;              //move edge to left
     trap1r^.bottom:= trap2^.bottom;
-//    trap2^.abover:= trap1l;
+    trap2^.abover:= trap1l;
     trap1l:= trap2;
    end
    else begin
     trap1l^.below:= trbelow;
     trap2^.left:= aseg;               //move edge to right
     trap1l^.bottom:= trap2^.bottom;
-//    trap2^.above:= trap1r;
+    trap2^.above:= trap1r;
     trap1r:= trap2;
    end;
    splitnode(bo1,trap1,trap2);
