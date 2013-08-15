@@ -755,7 +755,7 @@ testvar:= old-traps;
   
  var
   sega,segb: pseginfoty;
-  trleft,trright: ptrapinfoty;
+//  trleft,trright: ptrapinfoty;
   trap1,trap2,trap1l,trap1r,trbelow,trbelowr: ptrapinfoty;
   bo1,bo2: boolean;
  begin
@@ -777,35 +777,19 @@ if aseg - segments = 1 then begin
 //exit;
 end;
   if sega^.splitseg = nil then begin //no existing edge
-   splittrap(true,sega^.trap,trleft,trright,trap1);
+   splittrap(true,sega^.trap,trap1l,trap1r,trap1);
    sega^.splitseg:= aseg;
-   sega^.splittrap:= trright;
-//   splitnode(true,trleft,trright);
+   sega^.splittrap:= trap1r;
   end
   else begin
-   case segdir(sega^.splitseg,aseg) of
-    sd_up: begin
-     splittrap(true,sega^.trap,trleft,trright,trap1);
-    end;
-    sd_left: begin
-     splittrap(true,sega^.trap,trleft,trright,trap1);
-    end;
-    sd_right: begin
-     splittrap(false,sega^.splittrap,trleft,trright,trap1);
-    end;
-    else begin
-     raise exception.create('Invalid edge.');
-    end;
-   end;
+   splittrap(segdir(sega^.splitseg,aseg) <> sd_right,sega^.splittrap,trap1l,trap1r,trap1);
   end;
 dump(traps,newtraps-traps,nodes,'segment0');
 if aseg - segments = 1 then begin
 //exit;
 end;
-testvar1:= trleft-traps;
-testvar2:= trright-traps;
-  trap1l:= trleft;
-  trap1r:= trright;
+testvar1:= trap1l-traps;
+testvar2:= trap1r-traps;
   if (trap1^.belowr <> nil) and not isright(trap1^.belowr^.top,aseg) then begin
    trap2:= trap1^.belowr;
   end
@@ -815,28 +799,30 @@ testvar2:= trright-traps;
 testvar4:= segb^.trap-traps;
   bo2:= false;
 if not ((segcounter = stoped.value) and nosegbed.value) then begin
-  while (trap2 <> nil) and (trap2^.top <> segb^.trap^.top) do begin 
+  while true do begin
+   trap2:= trap1^.below;
+   if (trap2 = nil) or (trap2^.top = segb^.trap^.top) then begin
+    break;
+   end; 
                                //split crossed lines by segment
-testvar1:= trap1-traps;
-testvar2:= trap2-traps;
    bo2:= true;
    bo1:= not isright(trap2^.top,aseg); //point left of segment
-//   if bo1 then begin
-//    trap2:= trap1^.belowr;
-//   end
-//   else begin
-//    trap2:= trap1^.below;
-//   end;
-
-//   trap1^.bottom:= trap2^.bottom;    //extend to bottom
+testvar1:= trap1-traps;
+testvar2:= trap2-traps;
+   if bo1 and (trap1^.belowr <> nil) then begin
+    trap2:= trap1^.belowr;
+   end
+   else begin
+    trap2:= trap1^.below;      
+   end;
+      
    trbelow:= trap2^.below;
    trbelowr:= trap2^.belowr;
-//   trap1^.belowr:= trap2^.belowr;
 testvar3:= trap1l-traps;
 testvar4:= trap1r-traps;
 testvar5:= trbelow-traps;
 testvar6:= trbelowr-traps;
-   if bo1 then begin
+   if bo1 then begin                 
     if trbelowr <> nil then begin
      trap1r^.below:= trbelowr;
     end
