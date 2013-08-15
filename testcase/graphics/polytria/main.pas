@@ -691,6 +691,10 @@ testvar:= old-traps;
    trnew^.right:= old^.right;
    trnew^.above:= trabove;
    trnew^.below:= trbelow;
+testvar1:= trabove-traps;
+testvar2:= trabover-traps;
+testvar3:= trbelow-traps;
+testvar4:= trbelowr-traps;
    if newright then begin
     old^.right:= aseg;
     trnew^.left:= aseg;
@@ -703,7 +707,7 @@ testvar:= old-traps;
     right:= old;
     left:= trnew;
    end;
-//if segcounter = 2 then begin
+//if segcounter = 1 then begin
 //exit;
 //end;
    if trbelow <> nil then begin
