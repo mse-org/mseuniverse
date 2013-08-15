@@ -137,7 +137,7 @@ type
   dx,dy: integer;     //a-b
   trap: ptrapinfoty;  //inserted trap for b
   splitseg: pseginfoty;   //segment for horizontal split at b
-  splittrap: ptrapinfoty; //trap for horizontal split at b
+//  splittrap: ptrapinfoty; //trap for horizontal split at b
  end;
  
  trapnodeinfoty = record
@@ -315,8 +315,8 @@ begin
  end;
  writeln(rstring(inttostr(seg-segments),3),
         pointval(seg1^.b),' ',pointval(seg^.b),' ',
-        trapval(seg1^.trap),' ',trapval(seg1^.splittrap),' ',
-        trapval(seg^.trap),' ',trapval(seg^.splittrap),' ');
+        trapval(seg1^.trap),' ',trapval(nil{seg1^.splittrap}),' ',
+        trapval(seg^.trap),' ',trapval(nil{seg^.splittrap}),' ');
 end;
 
 procedure dumpnodes(const anodes: ptrapnodeinfoty; 
@@ -634,6 +634,23 @@ testvar:= tpupper-traps;
   if tpbelow <> nil then begin
    if tpbelow^.above = tpupper then begin
     tpbelow^.above:= tplower;
+   end;
+   if tpbelow^.abover = tpupper then begin
+    tpbelow^.abover:= tplower;
+   end;
+   if tpbelowr <> nil then begin
+    if tpbelowr^.above = tpupper then begin
+     tpbelowr^.above:= tplower;
+    end;
+    if tpbelowr^.abover = tpupper then begin
+     tpbelowr^.abover:= tplower;
+    end;
+   end;
+  end;
+  {
+  if tpbelow <> nil then begin
+   if tpbelow^.above = tpupper then begin
+    tpbelow^.above:= tplower;
    end
    else begin
     tpbelow^.abover:= tplower;
@@ -643,6 +660,7 @@ testvar:= tpupper-traps;
    tpbelowr^.above:= tplower;
 //   tpbelowr^.abover:= nil;
   end;
+  }
   tpupper^.below:= tplower;
   tpupper^.belowr:= nil;            //no split segment
   seg^.trap:= tplower;
@@ -796,7 +814,7 @@ testvar4:= trbelowr-traps;
   if sega^.splitseg = nil then begin //no existing edge
    splittrap(true,sega^.trap,trap1l,trap1r,trap1);
    sega^.splitseg:= aseg;
-   sega^.splittrap:= trap1r;
+//   sega^.splittrap:= trap1r;
   end
   else begin
    splittrap(segdir(sega^.splitseg,aseg) <> sd_right,
@@ -941,7 +959,7 @@ mwcnoiseinit(1,1);
    with seg1^ do begin
     splitseg:= nil;
     trap:= nil;
-    splittrap:= nil;
+//    splittrap:= nil;
     flags:= [];
     b:= ppt1;
     dx:= ppt2^.x-ppt1^.x; //b->a slope
