@@ -703,6 +703,9 @@ testvar:= old-traps;
     right:= old;
     left:= trnew;
    end;
+//if segcounter = 2 then begin
+//exit;
+//end;
    if trbelow <> nil then begin
     pointbelowisright:= isright(trbelow^.top,aseg);
     if trbelow^.above = old then begin
@@ -773,9 +776,6 @@ testvar:= old-traps;
     inc(sega,npoints);
    end;
   end;
-if aseg - segments = 1 then begin
-//exit;
-end;
   if sega^.splitseg = nil then begin //no existing edge
    splittrap(true,sega^.trap,trap1l,trap1r,trap1);
    sega^.splitseg:= aseg;
@@ -785,9 +785,6 @@ end;
    splittrap(segdir(sega^.splitseg,aseg) <> sd_right,sega^.splittrap,trap1l,trap1r,trap1);
   end;
 dump(traps,newtraps-traps,nodes,'segment0');
-if aseg - segments = 1 then begin
-//exit;
-end;
 testvar1:= trap1l-traps;
 testvar2:= trap1r-traps;
   if (trap1^.belowr <> nil) and not isright(trap1^.belowr^.top,aseg) then begin
@@ -823,12 +820,6 @@ testvar4:= trap1r-traps;
 testvar5:= trbelow-traps;
 testvar6:= trbelowr-traps;
    if bo1 then begin                 
-    if trbelowr <> nil then begin
-     trap1r^.below:= trbelowr;
-    end
-    else begin
-     trap1r^.below:= trbelow;
-    end;
     trap2^.right:= aseg;              //move edge to left
     trap1r^.bottom:= trap2^.bottom;
     if trap2^.abover = nil then begin
@@ -838,14 +829,28 @@ testvar6:= trbelowr-traps;
      trap2^.abover:= trap1l;
     end;
     trap1l:= trap2;
+//    if trbelowr <> nil then begin
+//     trap1r^.below:= trbelowr;
+//    end
+//    else begin
+//     trap1r^.below:= trbelow;
+//    end;
    end
    else begin
-    trap1l^.below:= trbelow;
+//    trap1l^.below:= trbelow;
     trap2^.left:= aseg;               //move edge to right
     trap1l^.bottom:= trap2^.bottom;
     trap2^.above:= trap1r;
     trap1r:= trap2;
    end;
+   if (trbelow <> nil) and (trbelow^.above = trap2) then begin
+    trbelow^.above:= trap1;
+   end;
+   if (trbelowr <> nil) and (trbelowr^.above = trap2) then begin
+    trbelowr^.above:= trap1;
+   end;
+   trap1^.below:= trbelow;
+   trap1^.belowr:= trbelowr;
    splitnode(bo1,trap1l,trap1r);
    trap1:= trap2;
    trap2:= trap1^.below;
@@ -853,6 +858,7 @@ testvar6:= trbelowr-traps;
     trap2:= trap1^.belowr;
    end;
   end;
+{
   if bo2 then begin
    if not bo1 then begin
     if trap1^.belowr <> nil then begin
@@ -861,6 +867,7 @@ testvar6:= trbelowr-traps;
    end;
    trap1^.belowr:= nil;
   end;
+}
 end;
   with segb^.trap^ do begin
    if abover = nil then begin //no existing edge above
