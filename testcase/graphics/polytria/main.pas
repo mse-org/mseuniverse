@@ -445,23 +445,29 @@ var
 begin
  int1:= l^.y - r^.y;
  if int1 = 0 then begin
-  result:= l - r > 0;
+  result:= l - r >= 0;
  end
  else begin
-  result:= int1 > 0;
+  result:= int1 >= 0;
+ end;
+end;
+
+function xdist(const point: ppointty; ref: pseginfoty): integer;
+ //true if point right of segment
+begin
+ if ref^.dy = 0 then begin
+  result:= (point^.y - ref^.b^.y) * ref^.dx; //dx = 1|-1
+ end
+ else begin
+//todo: no division
+  result:= point^.x -(ref^.b^.x + (point^.y-ref^.b^.y)*ref^.dx div ref^.dy);
  end;
 end;
 
 function isright(const point: ppointty; ref: pseginfoty): boolean;
  //true if point right of segment
 begin
- if ref^.dy = 0 then begin
-  result:= (point^.y - ref^.b^.y) * ref^.dx > 0; //dx = 1|-1
- end
- else begin
-//todo: no division
-  result:= point^.x -(ref^.b^.x + (point^.y-ref^.b^.y)*ref^.dx div ref^.dy) > 0;
- end;
+ result:= xdist(point,ref) >= 0;
 end;
 
 type
@@ -569,9 +575,11 @@ var
   atrap^.node:= result;
  end;
 
- function findtrap(const apoint: ppointty): ptrapinfoty;
+ function findtrap(const apoint,second: ppointty): ptrapinfoty;
+                     //second used if apoint is on edge
  var
   no1,no2: ptrapnodeinfoty;
+  int1: integer;
  begin
   write('Search ',apoint^.x,':',apoint^.y);
   no1:= nodes;
@@ -588,7 +596,12 @@ var
      end;
     end;
     tnk_x: begin
-     if isright(apoint,no1^.seg) then begin
+     int1:= xdist(apoint,no1^.seg);
+     if int1 = 0 then begin
+      int1:= xdist(second,no1^.seg);
+     end;
+//     if isright(apoint,no1^.seg) then begin
+     if int1 > 0 then begin
       no2:= no1^.r;
      end;
     end;
@@ -605,7 +618,7 @@ writeln(' found trap ',result-traps);
   ppt1: ppointty;
  begin
   ppt1:= seg^.b;
-  tpupper:= findtrap(ppt1);
+  tpupper:= findtrap(ppt1,ppt1);
 testvar:= tpupper-traps;
   tplower:= newtrap;            //split trap, lower
   tplower^.top:= ppt1;
@@ -786,7 +799,9 @@ testvar4:= trbelowr-traps;
    sega^.splittrap:= trap1r;
   end
   else begin
-   splittrap(segdir(sega^.splitseg,aseg) <> sd_right,sega^.splittrap,trap1l,trap1r,trap1);
+   splittrap(segdir(sega^.splitseg,aseg) <> sd_right,
+                        findtrap(sega^.b,segb^.b),trap1l,trap1r,trap1);
+//   splittrap(segdir(sega^.splitseg,aseg) <> sd_right,sega^.splittrap,trap1l,trap1r,trap1);
   end;
 dump(traps,newtraps-traps,nodes,'segment0');
 testvar1:= trap1l-traps;
