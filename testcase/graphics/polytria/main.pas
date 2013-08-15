@@ -573,6 +573,7 @@ var
  var
   no1,no2: ptrapnodeinfoty;
  begin
+  write('Search ',apoint^.x,':',apoint^.y);
   no1:= nodes;
   while true do begin
    no2:= no1^.l;
@@ -594,6 +595,7 @@ var
    end;
    no1:= no2;
   end;
+writeln(' found trap ',result-traps);
  end;
    
  procedure handlepoint(const seg: pseginfoty);
@@ -858,7 +860,7 @@ testvar6:= trbelowr-traps;
     trap2^.above:= trap1r;
     trap1r:= trap2;
    end;
-   splitnode(bo1,trap1,trap2);
+   splitnode(bo1,trap1l,trap1r);
    trap1:= trap2;
    trap2:= trap1^.below;
    if bo1 and (trap1^.belowr <> nil) then begin
