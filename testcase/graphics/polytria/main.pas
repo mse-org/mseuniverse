@@ -794,8 +794,9 @@ testvar4:= trbelowr-traps;
  var
   sega,segb: pseginfoty;
 //  trleft,trright: ptrapinfoty;
-  trap1,trap2,trap1l,trap1r,trbelow,trbelowr: ptrapinfoty;
-  isleft1,bo2: boolean;
+  trap1,trap2,trap1l,trap1r,trbelow,trbelowr,exttrap: ptrapinfoty;
+  isright1,isright2,bo2: boolean;
+  bottompoint: ppointty;
   
  begin
   if sf_reverse in aseg^.flags then begin
@@ -827,39 +828,52 @@ testvar1:= trap1l-traps;
 testvar2:= trap1r-traps;
 testvar4:= segb^.trap-traps;
 
+  bottompoint:= segb^.trap^.top;
   bo2:= false;
 if not ((segcounter = stoped.value) and nosegbed.value) then begin
-  while true do begin
-   if (trap1^.belowr <> nil) and not isright(trap1^.belowr^.top,aseg) then begin
-    trap2:= trap1^.belowr;
-   end
-   else begin
-    trap2:= trap1^.below;      
-   end;
-   if (trap2 = nil) or (trap2^.top = segb^.trap^.top) then begin
+  while trap1^.below <> nil do begin
+   trap2:= trap1^.below;
+   if trap2^.top = bottompoint then begin
     break;
    end; 
-                               //split crossed lines by segment
    bo2:= true;
-   isleft1:= not isright(trap2^.top,aseg); //point left of segment
+
+
+   isright1:= isright(trap2^.top,aseg); //point right of segment   
+   if (trap1^.belowr <> nil) and not isright1 then begin
+    trap2:= trap1^.belowr;
+   end;
+   trbelow:= trap2^.below;
+   trbelowr:= trap2^.belowr;
+   
+                               //split crossed lines by segment
+//   isright1:= isright(trap2^.top,aseg); //point right of segment
 testvar1:= trap1-traps;
 testvar2:= trap2-traps;
       
-   trbelow:= trap2^.below;
-   trbelowr:= trap2^.belowr;
 testvar3:= trap1l-traps;
 testvar4:= trap1r-traps;
 testvar5:= trbelow-traps;
 testvar6:= trbelowr-traps;
-   if isleft1 then begin                 
+   if isright1 then begin                 
+    exttrap:= trap1l;
+    trap2^.left:= aseg;               //move edge to right
+    trap1l^.bottom:= trap2^.bottom;
+//    trap2^.above:= trap1r;
+    trap1r:= trap2;
+    trap1l^.below:= trbelow;
+    trap1l^.belowr:= nil;
+   end
+   else begin
+    exttrap:= trap1r;
     trap2^.right:= aseg;              //move edge to left
-    trap1r^.bottom:= trap2^.bottom;
-    if trap2^.abover = nil then begin
-     trap2^.above:= trap1l;
-    end
-    else begin
-     trap2^.abover:= trap1l;
-    end;
+//    trap1r^.bottom:= trap2^.bottom;
+//    if trap2^.abover = nil then begin
+//     trap2^.above:= trap1l;
+//    end
+//    else begin
+//     trap2^.abover:= trap1l;
+//    end;
     trap1l:= trap2;
     if trbelowr <> nil then begin
      trap1r^.below:= trbelowr;
@@ -868,24 +882,29 @@ testvar6:= trbelowr-traps;
      trap1r^.below:= trbelow;
     end;
     trap1r^.belowr:= nil;
-   end
-   else begin
-    trap1l^.below:= trbelow;
-    trap1l^.belowr:= nil;
-    trap2^.left:= aseg;               //move edge to right
-    trap1l^.bottom:= trap2^.bottom;
-    trap2^.above:= trap1r;
-    trap1r:= trap2;
    end;
+   exttrap^.bottom:= trap2^.bottom;
+   if (trbelow <> nil) and (trbelow^.top <> bottompoint) then begin
+    if isright(trbelow^.top,aseg) xor isright1 then begin
+     if (trbelow <> nil) and (trbelow^.above = trap1) then begin
+      trbelow^.above:= exttrap;
+      if (trbelowr <> nil) and (trbelowr^.above = trap1) then begin
+       trbelowr^.above:= exttrap;
+      end;
+     end;
+    end;
+   end;
+{
    if (trbelow <> nil) and (trbelow^.above = trap1) then begin
     trbelow^.above:= trap2;
    end;
    if (trbelowr <> nil) and (trbelowr^.above = trap1) then begin
     trbelowr^.above:= trap2;
    end;
+}
 //   trap1^.below:= trbelow;
 //   trap1^.belowr:= trbelowr;
-   splitnode(isleft1,trap1l,trap1r);
+   splitnode(not isright1,trap1l,trap1r);
    trap1:= trap2;
    {
    trap2:= trap1^.below;
@@ -905,22 +924,24 @@ testvar6:= trbelowr-traps;
   end;
 }
 end;
-  with segb^.trap^ do begin
-   if abover = nil then begin //no existing edge above
-    above:= trap1l;
-    abover:= trap1r;
-   end
-   else begin
-    if isright(above^.top,aseg) then begin
+  if not bo2 then begin
+   with segb^.trap^ do begin
+    if abover = nil then begin //no existing edge above
      above:= trap1l;
+     abover:= trap1r;
     end
     else begin
-     abover:= trap1r;
+     if isright(above^.top,aseg) then begin
+      above:= trap1l;
+     end
+     else begin
+      abover:= trap1r;
+     end;
     end;
    end;
-  end;
-  if segb^.splitseg = nil then begin //no existing seg below
-   segb^.splitseg:= aseg;
+   if segb^.splitseg = nil then begin //no existing seg below
+    segb^.splitseg:= aseg;
+   end;
   end;
   
 dump(traps,newtraps-traps,nodes,'segment1');
