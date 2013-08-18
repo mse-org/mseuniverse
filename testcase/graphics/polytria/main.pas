@@ -860,8 +860,8 @@ testvar4:= trbelowr-traps;
 //   sega^.splittrap:= trap1r;
   end
   else begin
-   isright1:= segdirdown(sega^.splitseg,aseg) <> sd_right; 
-   splittrap(isright1,findtrap(sega^.b,segb^.b),trap1l,trap1r,trap1);
+   isright1:= segdirdown(sega^.splitseg,aseg) = sd_right; 
+   splittrap(not isright1,findtrap(sega^.b,segb^.b),trap1l,trap1r,trap1);
 //   splittrap(segdir(sega^.splitseg,aseg) <> sd_right,sega^.splittrap,trap1l,trap1r,trap1);
   end;
 dump(traps,newtraps-traps,nodes,'segment0');
@@ -984,12 +984,12 @@ testvar3:= aseg-segments;
     else begin
 testvar4:= segb^.splitseg-segments;
      if segdirup(aseg,segb^.splitseg) <> sd_right then begin
-      if not isright1 then begin
+      if isright1 then begin
        above:= trap1l;
       end;
      end
      else begin
-      if isright1 then begin
+      if not isright1 then begin
        abover:= trap1r;
       end;
      end;
