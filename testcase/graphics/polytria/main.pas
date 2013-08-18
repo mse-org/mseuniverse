@@ -928,8 +928,13 @@ testvar7:= exttrap-traps;
    exttrap^.bottom:= trap2^.bottom;
    if (trbelow <> nil) and (trbelow^.top <> bottompoint) then begin
     if isright(trbelow^.top,aseg) xor isright1 then begin
-     if (trbelow <> nil) and (trbelow^.above = trap2) then begin
-      trbelow^.above:= exttrap;
+     if (trbelow <> nil) then begin
+      if trbelow^.above = trap2 then begin
+       trbelow^.above:= exttrap;
+      end;
+      if trbelow^.abover = trap2 then begin
+       trbelow^.abover:= exttrap;
+      end;
       if (trbelowr <> nil) and (trbelowr^.above = trap2) then begin
        trbelowr^.above:= exttrap;
       end;
