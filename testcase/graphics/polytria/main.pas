@@ -436,7 +436,8 @@ begin
  writeln;
  dumpnodes(anodes,atraps);
 end;
-var testvar,testvar1,testvar2,testvar3,testvar4,testvar5,testvar6: integer;
+var testvar,testvar1,testvar2,testvar3,testvar4,testvar5,testvar6,
+ testvar7: integer;
 
 function isbelow(const l,r: ppointty): boolean;
                //true if l beow r
@@ -809,8 +810,8 @@ testvar4:= trbelowr-traps;
 //   sega^.splittrap:= trap1r;
   end
   else begin
-   isright1:= segdir(sega^.splitseg,aseg) = sd_right; 
-   splittrap(not isright1,findtrap(sega^.b,segb^.b),trap1l,trap1r,trap1);
+   isright1:= segdir(sega^.splitseg,aseg) <> sd_right; 
+   splittrap(isright1,findtrap(sega^.b,segb^.b),trap1l,trap1r,trap1);
 //   splittrap(segdir(sega^.splitseg,aseg) <> sd_right,sega^.splittrap,trap1l,trap1r,trap1);
   end;
 dump(traps,newtraps-traps,nodes,'segment0');
@@ -852,7 +853,7 @@ testvar6:= trbelowr-traps;
 //    trap2^.above:= trap1r;
     trap1r:= trap2;
     trap1l^.below:= trbelow;
-    trap1l^.belowr:= nil;
+    trap1l^.belowr:= trbelowr;
    end
    else begin
     exttrap:= trap1r;
@@ -873,12 +874,13 @@ testvar6:= trbelowr-traps;
     end;
     trap1r^.belowr:= nil;
    end;
+testvar7:= exttrap-traps;
    exttrap^.bottom:= trap2^.bottom;
    if (trbelow <> nil) and (trbelow^.top <> bottompoint) then begin
     if isright(trbelow^.top,aseg) xor isright1 then begin
-     if (trbelow <> nil) and (trbelow^.above = trap1) then begin
+     if (trbelow <> nil) and (trbelow^.above = trap2) then begin
       trbelow^.above:= exttrap;
-      if (trbelowr <> nil) and (trbelowr^.above = trap1) then begin
+      if (trbelowr <> nil) and (trbelowr^.above = trap2) then begin
        trbelowr^.above:= exttrap;
       end;
      end;
@@ -931,12 +933,12 @@ testvar2:= abover-traps;
     else begin
      if isright(above^.top,aseg) then begin
       if not isright1 then begin
-       abover:= trap1r;
+       above:= trap1l;
       end;
      end
      else begin
       if isright1 then begin
-       above:= trap1l;
+       abover:= trap1r;
       end;
      end;
     end;
