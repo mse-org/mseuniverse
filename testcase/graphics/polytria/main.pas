@@ -472,7 +472,7 @@ begin
 end;
 
 type
- segdirty = (sd_none,sd_same,sd_up,sd_left,sd_right);
+ segdirty = (sd_none,sd_same,sd_up,sd_down,sd_left,sd_right);
 
 function segbefore(const seg: pseginfoty): pseginfoty;
 begin
@@ -482,8 +482,8 @@ begin
  end;
 end;
 
-function segdir(const seg,ref: pseginfoty): segdirty;
-//todo: handle dy = 0
+function segdirdown(const seg,ref: pseginfoty): segdirty;
+//todo: handle dy = 0, unify with segdirup
 var
  segcommon: pseginfoty;
  ptseg,ptref: ppointty;
@@ -518,6 +518,56 @@ begin
     end
     else begin
      result:= sd_left;
+    end;
+   end
+   else begin
+    if seg^.dx*ref^.dy > ref^.dx*seg^.dy then begin
+     result:= sd_right;
+    end
+    else begin
+     result:= sd_left;
+    end;
+   end;
+  end;
+ end;
+end;
+
+function segdirup(const seg,ref: pseginfoty): segdirty;
+//todo: handle dy = 0, unify with segdirdown
+var
+ segcommon: pseginfoty;
+ ptseg,ptref: ppointty;
+begin
+ if seg = ref then begin
+  result:= sd_same;
+ end
+ else begin
+  segcommon:= segbefore(seg);
+  if segcommon = ref then begin
+   ptseg:= seg^.b;
+   ptref:= segbefore(ref)^.b;
+  end
+  else begin
+   segcommon:= segbefore(ref);
+   if segcommon = seg then begin
+    ptseg:= segbefore(seg)^.b;
+    ptref:= ref^.b;
+   end
+   else begin
+    result:= sd_none;
+    exit;
+   end;
+  end;
+  if not isbelow(segcommon^.b,ptseg) then begin
+   result:= sd_down;
+  end
+  else begin
+   if ptseg^.x = ptref^.x then begin
+    if isbelow(ptseg,ptref) then begin
+     result:= sd_left;
+    end
+    else begin
+     result:= sd_right;
     end;
    end
    else begin
@@ -810,7 +860,7 @@ testvar4:= trbelowr-traps;
 //   sega^.splittrap:= trap1r;
   end
   else begin
-   isright1:= segdir(sega^.splitseg,aseg) <> sd_right; 
+   isright1:= segdirdown(sega^.splitseg,aseg) <> sd_right; 
    splittrap(isright1,findtrap(sega^.b,segb^.b),trap1l,trap1r,trap1);
 //   splittrap(segdir(sega^.splitseg,aseg) <> sd_right,sega^.splittrap,trap1l,trap1r,trap1);
   end;
@@ -920,6 +970,7 @@ testvar:= segb^.trap-traps;
   with segb^.trap^ do begin
 testvar1:= above-traps;
 testvar2:= abover-traps;
+testvar3:= aseg-segments;
    if segb^.splitseg = nil then begin //no existing seg
     segb^.splitseg:= aseg;
     above:= trap1l;
@@ -931,7 +982,8 @@ testvar2:= abover-traps;
      abover:= trap1r;
     end
     else begin
-     if isright(above^.top,aseg) then begin
+testvar4:= segb^.splitseg-segments;
+     if segdirup(aseg,segb^.splitseg) <> sd_right then begin
       if not isright1 then begin
        above:= trap1l;
       end;
