@@ -379,7 +379,7 @@ var
  function trapval(const trap: ptrapinfoty): string;
  begin
   if trap = nil then begin
-   result:= '   ';
+   result:= '  -';
   end
   else begin
    result:= rstring(inttostr(trap-atraps),3);
@@ -397,7 +397,7 @@ begin
  end;
  sortarray(ar1,sizeof(trapdumpinfoty),@cmptrap,ar2);
  writeln('------------------------------------------------------- '+caption);
- writeln('  T     t     b    tl    tr    bl    br   A   AR  B  BR');
+ writeln('  T     t     b    tl    tr    bl    br   A  AR   B  BR');
  for int1:= 0 to high(ar1) do begin
   with ar1[int1].t do begin
    lt:= -10000;
@@ -914,7 +914,10 @@ testvar6:= trbelowr-traps;
   end;
 }
 end;
+testvar:= segb^.trap-traps;
   with segb^.trap^ do begin
+testvar1:= above-traps;
+testvar2:= abover-traps;
    if segb^.splitseg = nil then begin //no existing seg
     segb^.splitseg:= aseg;
     above:= trap1l;
@@ -927,13 +930,13 @@ end;
     end
     else begin
      if isright(above^.top,aseg) then begin
-      if isright1 then begin
-       above:= trap1l;
+      if not isright1 then begin
+       abover:= trap1r;
       end;
      end
      else begin
-      if not isright1 then begin
-       abover:= trap1r;
+      if isright1 then begin
+       above:= trap1l;
       end;
      end;
     end;
