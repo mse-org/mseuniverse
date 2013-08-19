@@ -115,6 +115,9 @@ end;
 
 type
  trapnodekindty = (tnk_y,tnk_x,tnk_trap);
+ segdirty = (sd_none,sd_same,sd_up,sd_down,sd_left,sd_right);
+ xposty = (xp_left,xp_center,xp_right);
+
 
  ptrapinfoty = ^trapinfoty;
  pseginfoty = ^seginfoty;
@@ -150,6 +153,8 @@ type
 
 var
  traps: ptrapinfoty;
+ segments: pseginfoty;
+ npoints: integer;
 
 function calcx(const y: integer; const seg: seginfoty): integer;
 var
@@ -199,7 +204,7 @@ end;
 
 type
  trapdumpinfoty = record
-  t: trapinfoty;
+  t: ptrapinfoty;
   index: integer;
  end;
  
@@ -209,38 +214,38 @@ var
 begin
  result:= 0;
  y:= 0;
- if trapdumpinfoty(l).t.top = nil then begin
-  if trapdumpinfoty(r).t.top <> nil then begin
+ if trapdumpinfoty(l).t^.top = nil then begin
+  if trapdumpinfoty(r).t^.top <> nil then begin
    result:= -1;
   end;
  end
  else begin
-  if trapdumpinfoty(r).t.top = nil then begin
+  if trapdumpinfoty(r).t^.top = nil then begin
    result:= 1;
   end
   else begin
-   y:= trapdumpinfoty(r).t.top^.y;
-   result:= trapdumpinfoty(l).t.top^.y - y
+   y:= trapdumpinfoty(r).t^.top^.y;
+   result:= trapdumpinfoty(l).t^.top^.y - y
   end;
  end;
  if result = 0 then begin
-  if trapdumpinfoty(l).t.left = nil then begin
-   if trapdumpinfoty(r).t.left <> nil then begin
+  if trapdumpinfoty(l).t^.left = nil then begin
+   if trapdumpinfoty(r).t^.left <> nil then begin
     result:= -1;
    end;
   end
   else begin
-   if trapdumpinfoty(r).t.left = nil then begin
+   if trapdumpinfoty(r).t^.left = nil then begin
     result:= 1;
    end
    else begin
-    result:= calcx(trapdumpinfoty(l).t.left,y) - 
-                      calcx(trapdumpinfoty(r).t.left,y);
+    result:= calcx(trapdumpinfoty(l).t^.left,y) - 
+                      calcx(trapdumpinfoty(r).t^.left,y);
     if result = 0 then begin
-     if trapdumpinfoty(r).t.right = nil then begin
+     if trapdumpinfoty(r).t^.right = nil then begin
       result:= -1;
      end;
-     if trapdumpinfoty(l).t.right = nil then begin
+     if trapdumpinfoty(l).t^.right = nil then begin
       inc(result);
      end;
     end;     
@@ -248,10 +253,6 @@ begin
   end;
  end;
 end;
-
-var
- segments: pseginfoty;
- npoints: integer;
 
 function intvalx(const value: integer): string;
 begin
@@ -384,22 +385,90 @@ var
   else begin
    result:= rstring(inttostr(trap-atraps),3);
   end;
- end;
+ end; //trapval
+
+ procedure getpoints(const seg: pseginfoty; out top,bottom: ppointty);
+ var
+  seg1: pseginfoty;
+ begin
+  top:= nil;
+  bottom:= nil;
+  if seg <> nil then begin
+   seg1:= seg-1;
+   if seg1 < segments then begin
+    inc(seg1,npoints);
+   end;
+   if sf_reverse in seg^.flags then begin
+    top:= seg1^.b;
+    bottom:= seg^.b;
+   end
+   else begin
+    top:= seg^.b;
+    bottom:= seg1^.b;
+   end;
+  end;
+ end; //getpoints
+
+type
+ pointposty = (pp_none,pp_left,pp_right,pp_both);
  
+ function pointpos(const p: ppointty; 
+                         const left,right: ppointty): pointposty;
+ begin
+  result:= pp_none;
+  if p = left then begin
+   result:= pp_left;
+   if p = right then begin
+    result:= pp_both;
+   end;
+  end
+  else begin
+   if p = right then begin
+    result:= pp_right;
+   end;
+  end;
+ end; //pointpos
+ 
+ function pointpostop(const trap: ptrapinfoty): pointposty;
+ var
+  lefttop,leftbottom,righttop,rightbottom: ppointty;
+ begin
+  with trap^ do begin
+   getpoints(left,lefttop,leftbottom);
+   getpoints(right,righttop,rightbottom);
+   result:= pointpos(top,lefttop,righttop);
+  end;
+ end;
+
+ function pointposbottom(const trap: ptrapinfoty): pointposty;
+ var
+  lefttop,leftbottom,righttop,rightbottom: ppointty;
+ begin
+  with trap^ do begin
+   getpoints(left,lefttop,leftbottom);
+   getpoints(right,righttop,rightbottom);
+   result:= pointpos(bottom,leftbottom,rightbottom);
+  end;
+ end;
+  
 var
  int1: integer;
  lt,lb,rt,rb,t,b: integer;
+ error: boolean;
+ trap1: ptrapinfoty;
+// lefttop,leftbottom,righttop,rightbottom: ppointty;
 begin
  setlength(ar1,acount);
  for int1:= 0 to high(ar1) do begin
-  ar1[int1].t:= atraps[int1];
+  ar1[int1].t:= atraps+int1;
   ar1[int1].index:= int1;
  end;
  sortarray(ar1,sizeof(trapdumpinfoty),@cmptrap,ar2);
  writeln('------------------------------------------------------- '+caption);
  writeln('  T     t     b    tl    tr    bl    br   A  AR   B  BR');
  for int1:= 0 to high(ar1) do begin
-  with ar1[int1].t do begin
+  trap1:= ar1[int1].t;
+  with trap1^ do begin
    lt:= -10000;
    lb:= -10000;
    t:= -10000;
@@ -419,12 +488,47 @@ begin
    if right <> nil then begin
     rt:= calcx(right,t);
     rb:= calcx(right,b);
-   end;
-   writeln(rstring(inttostr(ar1[int1].index),3),' ',
+   end;   
+   write(rstring(inttostr(ar1[int1].index),3),' ',
         intvaly(t),' ',intvaly(b),' ',
         intvalx(lt),' ',intvalx(rt),' ',intvalx(lb),' ',intvalx(rb),' ',
         trapval(above),' ',trapval(abover),' ',
         trapval(below),' ',trapval(belowr));
+   error:= false;
+     
+   if above <> nil then begin
+    case pointpostop(trap1) of
+     pp_left: begin
+      case pointposbottom(above) of
+       pp_left: begin
+        if (above^.below <> trap1) or (above^.belowr <> nil) then begin
+         error:= true;
+        end;
+       end;
+       pp_none: begin
+        if (above^.belowr <> trap1) or (above^.below = trap1) then begin
+         error:= true;
+        end;
+       end;
+       else begin
+        error:= true;
+       end;
+      end;
+     end;
+    end;
+   end
+   else begin
+    if abover <> nil then begin
+     error:= true;
+    end;
+   end;
+    
+   if error then begin
+    writeln(' *');
+   end
+   else begin
+    writeln;
+   end;
   end;
  end;
 end;
@@ -464,10 +568,6 @@ begin
   result:= point^.x -(ref^.b^.x + (point^.y-ref^.b^.y)*ref^.dx div ref^.dy);
  end;
 end;
-
-type
- segdirty = (sd_none,sd_same,sd_up,sd_down,sd_left,sd_right);
- xposty = (xp_left,xp_center,xp_right);
 
 function xpos(const point: ppointty; ref: pseginfoty): xposty;
 var
@@ -807,9 +907,6 @@ testvar4:= trbelowr-traps;
     right:= old;
     left:= trnew;
    end;
-//if segcounter = 1 then begin
-//exit;
-//end;
    if trbelow <> nil then begin
     pointbelowpos:= xpos(trbelow^.top,aseg);
     if (pointbelowpos = xp_right) xor not newright then begin
