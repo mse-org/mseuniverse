@@ -459,7 +459,7 @@ type
 var
  int1: integer;
  lt,lb,rt,rb,t,b: integer;
- error: boolean;
+ error,toterror: boolean;
  trap1: ptrapinfoty;
 // lefttop,leftbottom,righttop,rightbottom: ppointty;
 begin
@@ -471,6 +471,7 @@ begin
  sortarray(ar1,sizeof(trapdumpinfoty),@cmptrap,ar2);
  writeln('------------------------------------------------------- '+caption);
  writeln('  T     t     b    tl    tr    bl    br   A  AR   B  BR');
+ toterror:= false;
  for int1:= 0 to high(ar1) do begin
   trap1:= ar1[int1].t;
   with trap1^ do begin
@@ -647,11 +648,15 @@ begin
    end; 
    if error then begin
     writeln(' *');
+    toterror:= true;
    end
    else begin
     writeln;
    end;
   end;
+ end;
+ if toterror then begin
+  writeln('    ***error***');
  end;
 end;
 
@@ -1020,12 +1025,14 @@ testvar4:= trbelowr-traps;
     trnew^.left:= aseg;
     right:= trnew;
     left:= old;
+    old^.abover:= nil;
    end
    else begin
     old^.left:= aseg;
     trnew^.right:= aseg;
     right:= old;
     left:= trnew;
+    old^.above:= old^.abover;
    end;
    if trbelow <> nil then begin
     pointbelowpos:= xpos(trbelow^.top,aseg);
