@@ -44,6 +44,9 @@ var
 implementation
 uses
  main_mfm,msearrayutils,msenoise,mseformatstr,sysutils,msedrawtext;
+var 
+ testvar,testvar1,testvar2,testvar3,testvar4,testvar5,testvar6,
+ testvar7: integer;
 
 procedure tmainfo.invalidisp;
 begin
@@ -391,6 +394,7 @@ var
  var
   seg1: pseginfoty;
  begin
+testvar:= seg-segments;
   top:= nil;
   bottom:= nil;
   if seg <> nil then begin
@@ -398,13 +402,14 @@ var
    if seg1 < segments then begin
     inc(seg1,npoints);
    end;
+testvar1:= seg1-segments;
    if sf_reverse in seg^.flags then begin
-    top:= seg1^.b;
-    bottom:= seg^.b;
-   end
-   else begin
     top:= seg^.b;
     bottom:= seg1^.b;
+   end
+   else begin
+    top:= seg1^.b;
+    bottom:= seg^.b;
    end;
   end;
  end; //getpoints
@@ -515,6 +520,49 @@ begin
        end;
       end;
      end;
+     pp_right: begin
+      case pointposbottom(above) of
+       pp_right: begin
+        if (above^.below <> trap1) or (above^.belowr <> nil) then begin
+         error:= true;
+        end;
+       end;
+       pp_none: begin
+        if (above^.below <> trap1) or (above^.belowr = trap1) then begin
+         error:= true;
+        end;
+       end;
+       else begin
+        error:= true;
+       end;
+      end;
+     end;
+     pp_none: begin
+      case pointposbottom(above) of
+       pp_right: begin
+        if (abover = nil) or (abover^.below <> trap1) then begin
+         error:= true;
+        end;
+       end;
+       pp_none: begin
+        if (above^.below <> trap1) or (above^.belowr <> nil) then begin
+         error:= true;
+        end;
+       end;
+      end;
+     end;
+    end;
+    if abover <> nil then begin
+     case pointpostop(trap1) of
+      pp_none: begin
+       if (abover^.below <> trap1) or (abover^.belowr <> nil) then begin
+        error:= true;
+       end;
+      end;
+      else begin
+       error:= true;
+      end;
+     end;
     end;
    end
    else begin
@@ -522,7 +570,81 @@ begin
      error:= true;
     end;
    end;
-    
+   
+   if below <> nil then begin
+    case pointposbottom(trap1) of
+     pp_left: begin
+      case pointpostop(below) of
+       pp_left: begin
+        if (below^.above <> trap1) or (below^.abover <> nil) then begin
+         error:= true;
+        end;
+       end;
+       pp_none: begin
+        if (below^.abover <> trap1) or (below^.above = nil) then begin
+         error:= true;
+        end;
+       end;
+       else begin
+        error:= true;
+       end;
+      end;
+     end;
+     pp_right: begin
+      case pointpostop(below) of
+       pp_right: begin
+        if (below^.above <> trap1) or (below^.abover <> nil) then begin
+         error:= true;
+        end;
+       end;
+       pp_none: begin
+        if (below^.above <> trap1) or (below^.abover = nil) then begin
+         error:= true;
+        end;
+       end;
+       else begin
+        error:= true;
+       end;
+      end;
+     end;
+     pp_none: begin
+      case pointpostop(below) of
+       pp_right: begin
+        if (below^.above <> trap1) or (below^.abover <> nil) then begin
+         error:= true;
+        end;
+       end
+       else begin
+        error:= true;
+       end;
+      end;
+     end;
+    end;
+    if belowr <> nil then begin
+     case pointposbottom(trap1) of
+      pp_none: begin
+       case pointpostop(belowr) of
+        pp_left: begin
+         if (belowr^.above <> trap1) or (belowr^.abover <> nil) then begin
+          error:= true;
+         end;
+        end;
+        else begin
+         error:= true;
+        end;
+       end;
+      end;
+      else begin
+       error:= true;
+      end;
+     end; 
+    end;
+   end
+   else begin
+    if belowr <> nil then begin
+     error:= true;
+    end;
+   end; 
    if error then begin
     writeln(' *');
    end
@@ -540,8 +662,6 @@ begin
  writeln;
  dumpnodes(anodes,atraps);
 end;
-var testvar,testvar1,testvar2,testvar3,testvar4,testvar5,testvar6,
- testvar7: integer;
 
 function isbelow(const l,r: ppointty): boolean;
                //true if l beow r
