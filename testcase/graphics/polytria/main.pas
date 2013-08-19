@@ -465,14 +465,32 @@ begin
  end;
 end;
 
+type
+ segdirty = (sd_none,sd_same,sd_up,sd_down,sd_left,sd_right);
+ xposty = (xp_left,xp_center,xp_right);
+
+function xpos(const point: ppointty; ref: pseginfoty): xposty;
+var
+ int1: integer;
+begin
+ int1:= xdist(point,ref);
+ result:= xp_left;
+ if int1 = 0 then begin
+  result:= xp_center;
+ end
+ else begin
+  if int1 > 0 then begin
+   result:= xp_right;
+  end;
+ end;
+end;
+
 function isright(const point: ppointty; ref: pseginfoty): boolean;
  //true if point right of segment
 begin
- result:= xdist(point,ref) >= 0;
+ result:= xpos(point,ref) = xp_right;
 end;
 
-type
- segdirty = (sd_none,sd_same,sd_up,sd_down,sd_left,sd_right);
 
 function segbefore(const seg: pseginfoty): pseginfoty;
 begin
@@ -759,7 +777,7 @@ var
    trbelowr: ptrapinfoty;
    trabove: ptrapinfoty;
    trabover: ptrapinfoty;
-   pointbelowisright: boolean;
+   pointbelowpos: xposty;
   begin
 testvar:= old-traps;
    trnew:= newtrap;
@@ -793,8 +811,8 @@ testvar4:= trbelowr-traps;
 //exit;
 //end;
    if trbelow <> nil then begin
-    pointbelowisright:= isright(trbelow^.top,aseg);
-    if pointbelowisright xor not newright then begin
+    pointbelowpos:= xpos(trbelow^.top,aseg);
+    if (pointbelowpos = xp_right) xor not newright then begin
      if (trbelow <> nil) and (trbelow^.above = old) then begin
       trbelow^.above:= trnew;
       if (trbelowr <> nil) and (trbelowr^.above = old) then begin
@@ -803,7 +821,7 @@ testvar4:= trbelowr-traps;
      end;
     end;
     if trbelowr <> nil then begin
-     if pointbelowisright then begin
+     if pointbelowpos = xp_right then begin
       right^.belowr:= trbelowr;
       left^.belowr:= nil;
      end
