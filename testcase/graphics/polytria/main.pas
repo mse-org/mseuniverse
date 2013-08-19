@@ -375,7 +375,7 @@ begin
 end;
 
 procedure dumptraps(const atraps: ptrapinfoty; const acount: integer;
-                    const caption: string);
+                    const caption: string; const noerr: boolean);
 var
  ar1: array of trapdumpinfoty;
  ar2: integerarty;
@@ -455,13 +455,23 @@ type
    result:= pointpos(bottom,leftbottom,rightbottom);
   end;
  end;
+
+var
+ error: boolean;
+
+procedure seterror;
+begin
+ if not noerr then begin
+  error:= true;
+ end;
+end;
   
 var
  int1: integer;
  lt,lb,rt,rb,t,b: integer;
- error,toterror: boolean;
+ toterror: boolean;
  trap1: ptrapinfoty;
-// lefttop,leftbottom,righttop,rightbottom: ppointty;
+
 begin
  setlength(ar1,acount);
  for int1:= 0 to high(ar1) do begin
@@ -508,16 +518,16 @@ begin
       case pointposbottom(above) of
        pp_left: begin
         if (above^.below <> trap1) or (above^.belowr <> nil) then begin
-         error:= true;
+         seterror;
         end;
        end;
        pp_none: begin
         if (above^.belowr <> trap1) or (above^.below = trap1) then begin
-         error:= true;
+         seterror;
         end;
        end;
        else begin
-        error:= true;
+        seterror;
        end;
       end;
      end;
@@ -525,16 +535,16 @@ begin
       case pointposbottom(above) of
        pp_right: begin
         if (above^.below <> trap1) or (above^.belowr <> nil) then begin
-         error:= true;
+         seterror;
         end;
        end;
        pp_none: begin
         if (above^.below <> trap1) or (above^.belowr = trap1) then begin
-         error:= true;
+         seterror;
         end;
        end;
        else begin
-        error:= true;
+        seterror;
        end;
       end;
      end;
@@ -542,12 +552,12 @@ begin
       case pointposbottom(above) of
        pp_right: begin
         if (abover = nil) or (abover^.below <> trap1) then begin
-         error:= true;
+         seterror;
         end;
        end;
        pp_none: begin
         if (above^.below <> trap1) or (above^.belowr <> nil) then begin
-         error:= true;
+         seterror;
         end;
        end;
       end;
@@ -557,18 +567,18 @@ begin
      case pointpostop(trap1) of
       pp_none: begin
        if (abover^.below <> trap1) or (abover^.belowr <> nil) then begin
-        error:= true;
+        seterror;
        end;
       end;
       else begin
-       error:= true;
+       seterror;
       end;
      end;
     end;
    end
    else begin
     if abover <> nil then begin
-     error:= true;
+     seterror;
     end;
    end;
    
@@ -578,16 +588,16 @@ begin
       case pointpostop(below) of
        pp_left: begin
         if (below^.above <> trap1) or (below^.abover <> nil) then begin
-         error:= true;
+         seterror;
         end;
        end;
        pp_none: begin
         if (below^.abover <> trap1) or (below^.above = nil) then begin
-         error:= true;
+         seterror;
         end;
        end;
        else begin
-        error:= true;
+        seterror;
        end;
       end;
      end;
@@ -595,28 +605,28 @@ begin
       case pointpostop(below) of
        pp_right: begin
         if (below^.above <> trap1) or (below^.abover <> nil) then begin
-         error:= true;
+         seterror;
         end;
        end;
        pp_none: begin
         if (below^.above <> trap1) or (below^.abover = nil) then begin
-         error:= true;
+         seterror;
         end;
        end;
        else begin
-        error:= true;
+        seterror;
        end;
       end;
      end;
      pp_none: begin
       case pointpostop(below) of
-       pp_right: begin
+       pp_right,pp_none: begin
         if (below^.above <> trap1) or (below^.abover <> nil) then begin
-         error:= true;
+         seterror;
         end;
-       end
+       end;
        else begin
-        error:= true;
+        seterror;
        end;
       end;
      end;
@@ -627,23 +637,23 @@ begin
        case pointpostop(belowr) of
         pp_left: begin
          if (belowr^.above <> trap1) or (belowr^.abover <> nil) then begin
-          error:= true;
+          seterror;
          end;
         end;
         else begin
-         error:= true;
+         seterror;
         end;
        end;
       end;
       else begin
-       error:= true;
+       seterror;
       end;
      end; 
     end;
    end
    else begin
     if belowr <> nil then begin
-     error:= true;
+     seterror;
     end;
    end; 
    if error then begin
@@ -656,14 +666,15 @@ begin
   end;
  end;
  if toterror then begin
-  writeln('    ***error***');
+  writeln('                                               ***error***');
  end;
 end;
 
 procedure dump(const atraps: ptrapinfoty; const ntraps: integer;
-                        const anodes: ptrapnodeinfoty; const caption: string);
+            const anodes: ptrapnodeinfoty; const caption: string;
+            const noerr: boolean);
 begin
- dumptraps(atraps,ntraps,caption);
+ dumptraps(atraps,ntraps,caption,noerr);
  writeln;
  dumpnodes(anodes,atraps);
 end;
@@ -1026,13 +1037,21 @@ testvar4:= trbelowr-traps;
     right:= trnew;
     left:= old;
     old^.abover:= nil;
+    old^.belowr:= nil;
    end
    else begin
     old^.left:= aseg;
     trnew^.right:= aseg;
     right:= old;
     left:= trnew;
-    old^.above:= old^.abover;
+    if old^.abover <> nil then begin
+     old^.above:= old^.abover;
+     old^.abover:= nil;
+    end;
+    if old^.belowr <> nil then begin
+     old^.below:= old^.belowr;
+     old^.belowr:= nil;
+    end;
    end;
    if trbelow <> nil then begin
     pointbelowpos:= xpos(trbelow^.top,aseg);
@@ -1045,6 +1064,10 @@ testvar4:= trbelowr-traps;
      end;
     end;
     if trbelowr <> nil then begin
+     left^.belowr:= nil;
+     right^.below:= trbelowr;
+     right^.belowr:= nil;
+    {
      if pointbelowpos = xp_right then begin
       right^.belowr:= trbelowr;
       left^.belowr:= nil;
@@ -1054,6 +1077,7 @@ testvar4:= trbelowr-traps;
       right^.below:= trbelowr;
       right^.belowr:= nil;
      end;
+    }
     end;
    end;
 
@@ -1099,14 +1123,12 @@ testvar4:= trbelowr-traps;
    isright1:= false;
    splittrap(true,sega^.trap,trap1l,trap1r,trap1);
    sega^.splitseg:= aseg;
-//   sega^.splittrap:= trap1r;
   end
   else begin
    isright1:= segdirdown(sega^.splitseg,aseg) = sd_right; 
    splittrap(not isright1,findtrap(sega^.b,segb^.b),trap1l,trap1r,trap1);
-//   splittrap(segdir(sega^.splitseg,aseg) <> sd_right,sega^.splittrap,trap1l,trap1r,trap1);
   end;
-dump(traps,newtraps-traps,nodes,'segment0');
+dump(traps,newtraps-traps,nodes,'segment0',true);
 testvar1:= trap1l-traps;
 testvar2:= trap1r-traps;
 testvar4:= segb^.trap-traps;
@@ -1130,7 +1152,6 @@ if not ((segcounter = stoped.value) and nosegbed.value) then begin
    trbelowr:= trap2^.belowr;
    
                                //split crossed lines by segment
-//   isright1:= isright(trap2^.top,aseg); //point right of segment
 testvar1:= trap1-traps;
 testvar2:= trap2-traps;
       
@@ -1142,7 +1163,6 @@ testvar6:= trbelowr-traps;
     exttrap:= trap1l;
     trap2^.left:= aseg;               //move edge to right
     trap1l^.bottom:= trap2^.bottom;
-//    trap2^.above:= trap1r;
     trap1r:= trap2;
     trap1l^.below:= trbelow;
     trap1l^.belowr:= trbelowr;
@@ -1150,13 +1170,6 @@ testvar6:= trbelowr-traps;
    else begin
     exttrap:= trap1r;
     trap2^.right:= aseg;              //move edge to left
-//    trap1r^.bottom:= trap2^.bottom;
-//    if trap2^.abover = nil then begin
-//     trap2^.above:= trap1l;
-//    end
-//    else begin
-//     trap2^.abover:= trap1l;
-//    end;
     trap1l:= trap2;
     if trbelowr <> nil then begin
      trap1r^.below:= trbelowr;
@@ -1168,6 +1181,7 @@ testvar6:= trbelowr-traps;
    end;
 testvar7:= exttrap-traps;
    exttrap^.bottom:= trap2^.bottom;
+
    if (trbelow <> nil) and (trbelow^.top <> bottompoint) then begin
     if isright(trbelow^.top,aseg) xor isright1 then begin
      if (trbelow <> nil) then begin
@@ -1183,43 +1197,17 @@ testvar7:= exttrap-traps;
      end;
     end;
    end;
-{
-   if (trbelow <> nil) and (trbelow^.above = trap1) then begin
-    trbelow^.above:= trap2;
-   end;
-   if (trbelowr <> nil) and (trbelowr^.above = trap1) then begin
-    trbelowr^.above:= trap2;
-   end;
-}
-//   trap1^.below:= trbelow;
-//   trap1^.belowr:= trbelowr;
    splitnode(not isright1,trap1l,trap1r);
    trap1:= trap2;
-   {
-   trap2:= trap1^.below;
-   if isleft1 and (trap1^.belowr <> nil) then begin
-    trap2:= trap1^.belowr;
-   end;
-   }
   end;
-{
-  if bo2 then begin
-   if not bo1 then begin
-    if trap1^.belowr <> nil then begin
-     trap1^.below:= trap1^.belowr; //move to right
-    end;
-   end;
-   trap1^.belowr:= nil;
-  end;
-}
 end;
+
 testvar:= segb^.trap-traps;
   with segb^.trap^ do begin
 testvar1:= above-traps;
 testvar2:= abover-traps;
 testvar3:= aseg-segments;
    if segb^.splitseg = nil then begin //no existing seg
-    segb^.splitseg:= aseg;
     above:= trap1l;
     abover:= trap1r;
    end
@@ -1243,8 +1231,9 @@ testvar4:= segb^.splitseg-segments;
     end;
    end;
   end;
-  
-dump(traps,newtraps-traps,nodes,'segment1');
+  segb^.splitseg:= aseg;
+
+dump(traps,newtraps-traps,nodes,'segment1',false);
  end;
 
 var
@@ -1337,11 +1326,11 @@ writeln('************************************** (',segcounter,')');
 dumpseg(seg1);
    if not (sf_pointhandled in seg2^.flags) then begin
     handlepoint(seg2);
-dump(traps,newtraps-traps,nodes,'point A');
+dump(traps,newtraps-traps,nodes,'point A',false);
    end;
    if not (sf_pointhandled in seg1^.flags) then begin
     handlepoint(seg1);
-dump(traps,newtraps-traps,nodes,'point B');
+dump(traps,newtraps-traps,nodes,'point B',false);
    end;
 writeln('----------------');
 dumpseg(seg1);
