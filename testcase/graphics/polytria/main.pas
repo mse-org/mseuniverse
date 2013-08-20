@@ -46,7 +46,7 @@ uses
  main_mfm,msearrayutils,msenoise,mseformatstr,sysutils,msedrawtext;
 var 
  testvar,testvar1,testvar2,testvar3,testvar4,testvar5,testvar6,
- testvar7: integer;
+ testvar7,testvar8: integer;
 
 procedure tmainfo.invalidisp;
 begin
@@ -724,7 +724,8 @@ end;
 function isright(const point: ppointty; ref: pseginfoty): boolean;
  //true if point right of segment
 begin
- result:= xpos(point,ref) = xp_right;
+// result:= xpos(point,ref) = xp_right;
+ result:= xdist(point,ref) >= 0;
 end;
 
 
@@ -905,7 +906,6 @@ var
      if int1 = 0 then begin
       int1:= xdist(second,no1^.seg);
      end;
-//     if isright(apoint,no1^.seg) then begin
      if int1 > 0 then begin
       no2:= no1^.r;
      end;
@@ -1006,6 +1006,129 @@ var
    end;
   end; //splitnode
 
+  var
+   bottompoint: ppointty;
+
+  procedure updatebelow(const newright: boolean; const trold,trnew: ptrapinfoty);
+  var
+   int1: integer;
+   aisright: boolean;
+   seg1: pseginfoty;
+//   trleft,trright: ptrapinfoty;
+  begin
+   if newright then begin
+    seg1:= trold^.right;
+//    trleft:= trold;
+//    trright:= trnew;
+   end
+   else begin
+    seg1:= trold^.left;
+//    trleft:= trnew;
+//    trright:= trold;
+   end;
+testvar1:= trold-traps;
+testvar2:= trnew-traps;
+testvar3:= trold^.below-traps;
+testvar4:= trold^.belowr-traps;
+testvar5:= trold^.above-traps;
+testvar6:= trold^.abover-traps;
+testvar7:= trold^.below^.above-traps;
+testvar8:= trold^.below^.abover-traps;
+
+   aisright:= isright(trold^.below^.top,seg1);
+   if trold^.below^.top = bottompoint then begin  //last
+    if trold^.belowr <> nil then begin            //existing segment below
+     if newright then begin
+      trnew^.below:= trold^.belowr;
+      trnew^.below^.above:= trnew;
+     end
+     else begin
+      trnew^.below:= trold^.below;
+      trold^.below^.above:= trnew;
+      trold^.below:= trold^.belowr;
+     end;
+     trold^.belowr:= nil;
+    end
+    else begin      
+     if trold^.below^.abover <> nil then begin     //existing segment above
+      trnew^.below:= trold^.below;
+      if (trold^.below^.above = trold) xor newright then begin 
+             //existing trap is not on new side
+       if newright then begin
+        trold^.below^.abover:= trnew;
+       end
+       else begin
+        trold^.below^.above:= trnew;
+       end;
+      end;
+     end
+     else begin                           //no existing segment
+      trnew^.below:= trold^.below;
+      with trold^.below^ do begin
+       if newright then begin
+        abover:= trnew;
+       end
+       else begin
+        above:= trnew;
+        abover:= trold;
+       end;
+      end;
+     end;
+    end;
+   end
+   else begin //not last
+    if trold^.belowr = nil then begin //no existing segment below
+     trnew^.below:= trold^.below;
+     with trold^.below^ do begin
+      if abover = nil then begin  //single trap above
+       if newright then begin
+        abover:= trnew;
+       end
+       else begin
+        abover:= trold;
+        above:= trnew;
+       end;
+      end
+      else begin
+       if aisright then begin
+        if newright then begin
+         above:= trnew;
+        end;
+       end
+       else begin
+        if not newright then begin
+         abover:= trnew;
+        end;
+       end;
+      end;
+     end;
+    end
+    else begin                           //existing segment below
+     if aisright then begin
+      trnew^.below:= trold^.below;
+      if newright then begin
+       trnew^.below^.above:= trnew;
+       trold^.belowr^.above:= trnew;
+       trold^.belowr:= nil;
+      end;
+     end
+     else begin
+      if newright then begin
+       trnew^.below:= trold^.belowr;
+      end
+      else begin
+       trnew^.below:= trold^.below;
+       trnew^.below^.above:= trnew;
+       trnew^.belowr:= trold^.belowr;
+       trnew^.belowr^.above:= trnew;
+       trold^.below:= trold^.belowr;
+       trold^.belowr:= nil;
+      end;
+     end;
+    end;
+   end;
+  end;
+    
   procedure splittrap(const newright: boolean; const old: ptrapinfoty;
                               var left,right,trnew: ptrapinfoty);
   var
@@ -1037,7 +1160,7 @@ testvar4:= trbelowr-traps;
     right:= trnew;
     left:= old;
     old^.abover:= nil;
-    old^.belowr:= nil;
+//    old^.belowr:= nil;
    end
    else begin
     old^.left:= aseg;
@@ -1048,11 +1171,15 @@ testvar4:= trbelowr-traps;
      old^.above:= old^.abover;
      old^.abover:= nil;
     end;
+    {
     if old^.belowr <> nil then begin
      old^.below:= old^.belowr;
      old^.belowr:= nil;
     end;
+    }
    end;
+   updatebelow(newright,old,trnew);
+   {
    if trbelow <> nil then begin
     pointbelowpos:= xpos(trbelow^.top,aseg);
     if (pointbelowpos = xp_right) xor not newright then begin
@@ -1067,20 +1194,9 @@ testvar4:= trbelowr-traps;
      left^.belowr:= nil;
      right^.below:= trbelowr;
      right^.belowr:= nil;
-    {
-     if pointbelowpos = xp_right then begin
-      right^.belowr:= trbelowr;
-      left^.belowr:= nil;
-     end
-     else begin
-      left^.belowr:= trbelowr;
-      right^.below:= trbelowr;
-      right^.belowr:= nil;
-     end;
-    }
     end;
    end;
-
+}
    left^.above:= trabove;
    if trabover = nil then begin //no existing segment above
     right^.above:= trabove;
@@ -1093,16 +1209,14 @@ testvar4:= trbelowr-traps;
    else begin
     right^.above:= trabover;
     trabover^.below:= right;
-   end;  
+   end;
    splitnode(newright,left,right);
   end; //splittrap
   
  var
   sega,segb: pseginfoty;
-//  trleft,trright: ptrapinfoty;
   trap1,trap2,trap1l,trap1r,trbelow,trbelowr,exttrap: ptrapinfoty;
   isright1,isright2,bo2: boolean;
-  bottompoint: ppointty;
   
  begin
   if sf_reverse in aseg^.flags then begin
@@ -1119,6 +1233,7 @@ testvar4:= trbelowr-traps;
     inc(sega,npoints);
    end;
   end;
+  bottompoint:= segb^.trap^.top;
   if sega^.splitseg = nil then begin //no existing edge
    isright1:= false;
    splittrap(true,sega^.trap,trap1l,trap1r,trap1);
@@ -1133,7 +1248,6 @@ testvar1:= trap1l-traps;
 testvar2:= trap1r-traps;
 testvar4:= segb^.trap-traps;
 
-  bottompoint:= segb^.trap^.top;
   bo2:= false;
 if not ((segcounter = stoped.value) and nosegbed.value) then begin
   while trap1^.below <> nil do begin
@@ -1181,8 +1295,9 @@ testvar6:= trbelowr-traps;
    end;
 testvar7:= exttrap-traps;
    exttrap^.bottom:= trap2^.bottom;
-
-   if (trbelow <> nil) and (trbelow^.top <> bottompoint) then begin
+   updatebelow(not isright1,trap2,exttrap);
+(*
+   if (trbelow <> nil) {and (trbelow^.top <> bottompoint)} then begin
     if isright(trbelow^.top,aseg) xor isright1 then begin
      if (trbelow <> nil) then begin
       if trbelow^.above = trap2 then begin
@@ -1197,11 +1312,12 @@ testvar7:= exttrap-traps;
      end;
     end;
    end;
+*)
    splitnode(not isright1,trap1l,trap1r);
    trap1:= trap2;
   end;
 end;
-
+{
 testvar:= segb^.trap-traps;
   with segb^.trap^ do begin
 testvar1:= above-traps;
@@ -1231,6 +1347,7 @@ testvar4:= segb^.splitseg-segments;
     end;
    end;
   end;
+  }
   segb^.splitseg:= aseg;
 
 dump(traps,newtraps-traps,nodes,'segment1',false);
