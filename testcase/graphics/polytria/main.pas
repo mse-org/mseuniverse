@@ -1197,6 +1197,7 @@ testvar8:= trold^.below^.abover-traps;
     end;
    end
    else begin
+    trabove^.below:= left;
     right^.above:= trabover;
     trabover^.below:= right;
    end;
@@ -1230,8 +1231,14 @@ testvar8:= trold^.below^.abover-traps;
    sega^.splitseg:= aseg;
   end
   else begin
-   isright1:= segdirdown(sega^.splitseg,aseg) = sd_right; 
-   splittrap(not isright1,findtrap(sega^.b,segb^.b),trap1l,trap1r,trap1);
+   trap1:= findtrap(sega^.b,segb^.b);
+   if trap1^.abover <> nil then begin //existing edge above
+    isright1:= isright(trap1^.below^.top,aseg);
+   end
+   else begin
+    isright1:= segdirdown(sega^.splitseg,aseg) = sd_right; 
+   end;
+   splittrap(not isright1,trap1,trap1l,trap1r,trap1);
   end;
 dump(traps,newtraps-traps,nodes,'segment0',true);
 testvar1:= trap1l-traps;
