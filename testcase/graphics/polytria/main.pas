@@ -1103,6 +1103,7 @@ testvar8:= trold^.below^.abover-traps;
      trnew^.below:= trold^.below;
      with trold^.below^ do begin
       if abover = nil then begin  //single trap above
+{
        if newright then begin
         abover:= trnew;
        end
@@ -1110,6 +1111,7 @@ testvar8:= trold^.below^.abover-traps;
         abover:= trold;
         above:= trnew;
        end;
+}
       end
       else begin
        if aisright then begin
@@ -1129,6 +1131,7 @@ testvar8:= trold^.below^.abover-traps;
      if aisright then begin
       trnew^.below:= trold^.below;
       if newright then begin
+       trnew^.belowr:= trold^.belowr;
        trnew^.below^.above:= trnew;
        trold^.belowr^.above:= trnew;
        trold^.belowr:= nil;
