@@ -1070,6 +1070,7 @@ testvar8:= trold^.below^.abover-traps;
       trold^.below:= trold^.belowr;
      end;
      trold^.belowr:= nil;
+     trnew^.belowr:= nil;
     end
     else begin      
      if trold^.below^.abover <> nil then begin     //existing segment above
