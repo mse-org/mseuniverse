@@ -127,7 +127,7 @@ type
  ptrapnodeinfoty = ^trapnodeinfoty;
 
  trapinfoty = record
-  next: ptrapinfoty; //for deleted list //todo: remove next
+//  next: ptrapinfoty; //for deleted list //todo: remove next
   top,bottom: ppointty;  
   left,right: pseginfoty;
   node: ptrapnodeinfoty;
@@ -157,6 +157,7 @@ type
 var
  traps: ptrapinfoty;
  segments: pseginfoty;
+ points: ppointty;
  npoints: integer;
 
 function calcx(const y: integer; const seg: seginfoty): integer;
@@ -374,6 +375,9 @@ begin
  dump(anodes,false,false);
 end;
 
+var
+ dumperror: boolean;
+
 procedure dumptraps(const atraps: ptrapinfoty; const acount: integer;
                     const caption: string; const noerr: boolean);
 var
@@ -459,12 +463,12 @@ type
 var
  error: boolean;
 
-procedure seterror;
-begin
- if not noerr then begin
-  error:= true;
+ procedure seterror;
+ begin
+  if not noerr then begin
+   error:= true;
+  end;
  end;
-end;
   
 var
  int1: integer;
@@ -667,6 +671,7 @@ begin
  end;
  if toterror then begin
   writeln('                                               ***error***');
+  dumperror:= true;
  end;
 end;
 
@@ -674,6 +679,7 @@ procedure dump(const atraps: ptrapinfoty; const ntraps: integer;
             const anodes: ptrapnodeinfoty; const caption: string;
             const noerr: boolean);
 begin
+ dumperror:= false;
  dumptraps(atraps,ntraps,caption,noerr);
  writeln;
  dumpnodes(anodes,atraps);
@@ -742,15 +748,23 @@ function segdirdown(const seg,ref: pseginfoty): segdirty;
 var
  segcommon: pseginfoty;
  ptseg,ptref: ppointty;
+// dxs,dxr,dys,dyr: integer;
 begin
  if seg = ref then begin
   result:= sd_same;
  end
  else begin
+//  dxs:= seg^.dx;
+//  dxr:= ref^.dx;
+//  dys:= seg^.dy;
+//  dyr:= ref^.dy;
+  
   segcommon:= segbefore(seg);
   if segcommon = ref then begin
    ptseg:= seg^.b;
    ptref:= segbefore(ref)^.b;
+//   dxs:= -dxs;
+//   dys:= -dys;
   end
   else begin
    segcommon:= segbefore(ref);
@@ -762,7 +776,13 @@ begin
     result:= sd_none;
     exit;
    end;
+//   dxr:= -dxr;
+//   dyr:= -dyr;
   end;
+testvar1:= seg-segments;
+testvar2:= ref-segments;
+testvar3:= ptseg-points;
+testvar4:= ptref-points;
   if isbelow(segcommon^.b,ptseg) then begin
    result:= sd_up;
   end
@@ -776,7 +796,10 @@ begin
     end;
    end
    else begin
-    if seg^.dx*ref^.dy > ref^.dx*seg^.dy then begin
+//    if seg^.dx*ref^.dy > ref^.dx*seg^.dy then begin
+    if (seg^.dx*ref^.dy < ref^.dx*seg^.dy) xor 
+                not((ref^.dy < 0) xor (seg^.dy < 0)) then begin 
+                        //direction of one segment reversed
      result:= sd_right;
     end
     else begin
@@ -786,7 +809,7 @@ begin
   end;
  end;
 end;
-
+(*
 function segdirup(const seg,ref: pseginfoty): segdirty;
 //todo: handle dy = 0, unify with segdirdown
 var
@@ -836,27 +859,26 @@ begin
   end;
  end;
 end;
-
+*)
 procedure tmainfo.triangexe(const sender: TObject);
 // x,y range = $7fff..-$8000 (16 bit X11 space)
 var
  buffer: pointer;
  shuffle: ppseginfoty;
- points: ppointty; 
  nodes: ptrapnodeinfoty;
- deltraps,newtraps: ptrapinfoty;
+ {deltraps,}newtraps: ptrapinfoty;
  newnodes: ptrapnodeinfoty;
 
  function newtrap: ptrapinfoty;
  begin
-  if deltraps = nil then begin
+//  if deltraps = nil then begin
    result:= newtraps;
    inc(newtraps);
-  end
-  else begin
-   result:= deltraps;
-   deltraps:= result^.next;
-  end;
+//  end
+//  else begin
+//   result:= deltraps;
+//   deltraps:= result^.next;
+//  end;
   result^.above:= nil;
   result^.abover:= nil;
   result^.below:= nil;
@@ -1132,35 +1154,24 @@ testvar8:= trold^.below^.abover-traps;
   procedure splittrap(const newright: boolean; const old: ptrapinfoty;
                               var left,right,trnew: ptrapinfoty);
   var
-   trbelow: ptrapinfoty;
-   trbelowr: ptrapinfoty;
    trabove: ptrapinfoty;
    trabover: ptrapinfoty;
    pointbelowpos: xposty;
   begin
-testvar:= old-traps;
    trnew:= newtrap;
    trabove:= old^.above;
    trabover:= old^.abover;
-   trbelow:= old^.below;
-   trbelowr:= old^.belowr;
    trnew^.top:= old^.top;
    trnew^.bottom:= old^.bottom;
    trnew^.left:= old^.left;
    trnew^.right:= old^.right;
    trnew^.above:= trabove;
-   trnew^.below:= trbelow;
-testvar1:= trabove-traps;
-testvar2:= trabover-traps;
-testvar3:= trbelow-traps;
-testvar4:= trbelowr-traps;
    if newright then begin
     old^.right:= aseg;
     trnew^.left:= aseg;
     right:= trnew;
     left:= old;
     old^.abover:= nil;
-//    old^.belowr:= nil;
    end
    else begin
     old^.left:= aseg;
@@ -1171,38 +1182,17 @@ testvar4:= trbelowr-traps;
      old^.above:= old^.abover;
      old^.abover:= nil;
     end;
-    {
-    if old^.belowr <> nil then begin
-     old^.below:= old^.belowr;
-     old^.belowr:= nil;
-    end;
-    }
    end;
    updatebelow(newright,old,trnew);
-   {
-   if trbelow <> nil then begin
-    pointbelowpos:= xpos(trbelow^.top,aseg);
-    if (pointbelowpos = xp_right) xor not newright then begin
-     if (trbelow <> nil) and (trbelow^.above = old) then begin
-      trbelow^.above:= trnew;
-      if (trbelowr <> nil) and (trbelowr^.above = old) then begin
-       trbelowr^.above:= trnew;
-      end;
-     end;
-    end;
-    if trbelowr <> nil then begin
-     left^.belowr:= nil;
-     right^.below:= trbelowr;
-     right^.belowr:= nil;
-    end;
-   end;
-}
    left^.above:= trabove;
    if trabover = nil then begin //no existing segment above
     right^.above:= trabove;
-    if trabove <> nil then begin
-     if trabove^.belowr = nil then begin //first segment
-      trabove^.belowr:= right;
+    if newright or (trabove^.belowr = nil) then begin //first segment
+     trabove^.belowr:= right;
+    end
+    else begin
+     if not newright then begin
+      trabove^.below:= left;
      end;
     end;
    end
@@ -1267,12 +1257,12 @@ if not ((segcounter = stoped.value) and nosegbed.value) then begin
    
                                //split crossed lines by segment
 testvar1:= trap1-traps;
-testvar2:= trap2-traps;
-      
+testvar2:= trap2-traps;      
 testvar3:= trap1l-traps;
 testvar4:= trap1r-traps;
 testvar5:= trbelow-traps;
 testvar6:= trbelowr-traps;
+
    if isright1 then begin                 
     exttrap:= trap1l;
     trap2^.left:= aseg;               //move edge to right
@@ -1296,58 +1286,10 @@ testvar6:= trbelowr-traps;
 testvar7:= exttrap-traps;
    exttrap^.bottom:= trap2^.bottom;
    updatebelow(not isright1,trap2,exttrap);
-(*
-   if (trbelow <> nil) {and (trbelow^.top <> bottompoint)} then begin
-    if isright(trbelow^.top,aseg) xor isright1 then begin
-     if (trbelow <> nil) then begin
-      if trbelow^.above = trap2 then begin
-       trbelow^.above:= exttrap;
-      end;
-      if trbelow^.abover = trap2 then begin
-       trbelow^.abover:= exttrap;
-      end;
-      if (trbelowr <> nil) and (trbelowr^.above = trap2) then begin
-       trbelowr^.above:= exttrap;
-      end;
-     end;
-    end;
-   end;
-*)
    splitnode(not isright1,trap1l,trap1r);
    trap1:= trap2;
   end;
 end;
-{
-testvar:= segb^.trap-traps;
-  with segb^.trap^ do begin
-testvar1:= above-traps;
-testvar2:= abover-traps;
-testvar3:= aseg-segments;
-   if segb^.splitseg = nil then begin //no existing seg
-    above:= trap1l;
-    abover:= trap1r;
-   end
-   else begin
-    if abover = nil then begin //no existing seg above
-     above:= trap1l;
-     abover:= trap1r;
-    end
-    else begin
-testvar4:= segb^.splitseg-segments;
-     if segdirup(aseg,segb^.splitseg) <> sd_right then begin
-      if isright1 then begin
-       above:= trap1l;
-      end;
-     end
-     else begin
-      if not isright1 then begin
-       abover:= trap1r;
-      end;
-     end;
-    end;
-   end;
-  end;
-  }
   segb^.splitseg:= aseg;
 
 dump(traps,newtraps-traps,nodes,'segment1',false);
@@ -1416,8 +1358,8 @@ mwcnoiseinit(1,1);
    shuffle[int1]:= seg1;
   end;
 
-  deltraps:= nil;      //init memory sources
-  newtraps:= traps;
+//  deltraps:= nil;      
+  newtraps:= traps;      //init memory sources
   newnodes:= nodes;
   
   with newnode^ do begin //init root node
@@ -1461,7 +1403,13 @@ if segcounter = stoped.value then begin
  break;
 end;
   end;
-
+if dumperror then begin
+ writeln('****error****                                         ****error****');
+end
+else begin
+ writeln('OK                                                               OK');
+end;
+  
   setlength(ftraps,newtraps-traps);
   for int1:= 0 to high(ftraps) do begin
    with traps[int1] do begin
