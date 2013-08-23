@@ -1,0 +1,127 @@
+object ufrmcharinfofo: tufrmcharinfofo
+  bounds_x = 154
+  bounds_y = 178
+  bounds_cx = 335
+  bounds_cy = 96
+  container.bounds = (
+    0
+    0
+    335
+    96
+  )
+  options = [fo_windowclosecancel, fo_screencentered, fo_modal, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  moduleclassname = 'tmseform'
+  object twidgetgrid1: twidgetgrid
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 322
+    bounds_cy = 82
+    anchors = [an_left, an_top, an_right, an_bottom]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 15
+        captions.count = 3
+        captions.items = <        
+          item
+          end        
+          item
+            caption = 'Allocated'
+            font.style = [fs_bold]
+            font.name = 'stf_default'
+            font.xscale = 1
+            font.dummy = 0
+          end        
+          item
+            caption = 'Document'
+            font.style = [fs_bold]
+            font.name = 'stf_default'
+            font.xscale = 1
+            font.dummy = 0
+          end>
+      end>
+    rowcount = 3
+    datacols.count = 3
+    datacols.options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item[tstringedit1]
+        colorselect = -1610612719
+        width = 167
+        options = [co_readonly, co_rowselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tstringedit1'
+        dataclass = tgridmsestringdatalist
+        data = (
+          (
+            'words'
+            'characters with spaces'
+            'characters with no spaces'
+          )
+        )
+      end    
+      item[tintegeredit1]
+        width = 78
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tintegeredit1'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            0
+            0
+            0
+          )
+        )
+      end    
+      item[tintegeredit2]
+        width = 70
+        options = [co_readonly, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tintegeredit2'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            0
+            0
+            0
+          )
+        )
+      end>
+    datarowheight = 15
+    reffontheight = 13
+    object tstringedit1: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 167
+      bounds_cy = 15
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      reffontheight = 13
+    end
+    object tintegeredit1: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 168
+      bounds_y = 0
+      bounds_cx = 78
+      bounds_cy = 15
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      reffontheight = 13
+    end
+    object tintegeredit2: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 247
+      bounds_y = 0
+      bounds_cx = 70
+      bounds_cy = 15
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      value = 2
+      reffontheight = 13
+    end
+  end
+end
