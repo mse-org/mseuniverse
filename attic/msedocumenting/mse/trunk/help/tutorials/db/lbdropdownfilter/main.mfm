@@ -1,4 +1,5 @@
 object mainfo: tmainfo
+  visible = False
   bounds_x = 187
   bounds_y = 239
   bounds_cx = 399
@@ -9,10 +10,13 @@ object mainfo: tmainfo
     399
     263
   )
+  statfile = tstatfile1
   caption = 'MSEide+MSEgui'
   moduleclassname = 'tmainform'
   object tdbwidgetgrid1: tdbwidgetgrid
+    frame.sbvert.buttonlength = 0
     frame.sbvert.pagesize = 0.28571428571429
+    taborder = 1
     bounds_x = 8
     bounds_y = 40
     bounds_cx = 382
@@ -80,7 +84,7 @@ object mainfo: tmainfo
     end
   end
   object tdbnavigator1: tdbnavigator
-    taborder = 1
+    taborder = 2
     bounds_x = 8
     bounds_y = 8
     datasource = dataso
@@ -89,22 +93,28 @@ object mainfo: tmainfo
     dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
   end
   object dropdownedit: tdropdownlisteditlb
-    taborder = 2
     bounds_x = 8
     bounds_y = 232
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
     dropdown.lookupbuffer = lb
     dropdown.optionslb = [olb_copyitems]
-    dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_livefilter, deo_colsizing]
+    dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_livefilter, deo_colsizing, deo_savestate]
     dropdown.cols.count = 2
+    dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
     dropdown.cols.items = <    
       item
+        width = 80
+        options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
         linewidth = 1
       end    
       item
+        width = 200
+        options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
         fieldno = 1
       end>
     dropdown.onfilter = filterexe
-    dropdown.width = 300
+    dropdown.width = -1
     reffontheight = 14
   end
   object ds: tlocaldataset
@@ -123,8 +133,8 @@ object mainfo: tmainfo
         Precision = 0
         Size = 200
       end>
-    left = 32
-    top = 96
+    left = 136
+    top = 232
   end
   object lb: tdblookupbuffer
     datasource = dataso
@@ -134,12 +144,17 @@ object mainfo: tmainfo
       'string2'
     )
     optionsdb = [olbdb_invalidateifmodified]
-    left = 144
-    top = 96
+    left = 256
+    top = 232
   end
   object dataso: tmsedatasource
     DataSet = ds
-    left = 80
-    top = 96
+    left = 184
+    top = 232
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 296
+    top = 232
   end
 end

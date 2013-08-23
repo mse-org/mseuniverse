@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mdb,msebufdataset,
  msedatabase,msedb,mseifiglob,msesqldb,msqldb,sysutils,mselocaldataset,
  mselookupbuffer,msedataedits,msedbedit,mseedit,msegraphedits,msegrids,
- mseificomp,mseificompglob,msescrollbar,msestrings,msetypes;
+ mseificomp,mseificompglob,msescrollbar,msestrings,msetypes,msestatfile;
 
 type
  tmainfo = class(tmainform)
@@ -18,6 +18,7 @@ type
    tdbstringedit2: tdbstringedit;
    tdbnavigator1: tdbnavigator;
    dropdownedit: tdropdownlisteditlb;
+   tstatfile1: tstatfile;
    procedure filterexe(const sender: tcustomlookupbuffer;
                    const physindex: Integer; var valid: Boolean);
  end;
@@ -31,8 +32,8 @@ procedure tmainfo.filterexe(const sender: tcustomlookupbuffer;
                const physindex: Integer; var valid: Boolean);
 begin
  if dropdownedit.text <> '' then begin
-  valid:= msestringsearch(
-        dropdownedit.text,sender.textvalue[1,physindex],1,[so_wordstart]) > 0;
+  valid:= msestringsearch(dropdownedit.text,
+                   sender.textvalue[1,physindex],1,[so_wordstart]) > 0;
  end;
 end;
 
