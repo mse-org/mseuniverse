@@ -113,9 +113,68 @@ object mainfo: tmainfo
         options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
         fieldno = 1
       end>
+    dropdown.onbeforefilter = beforefilterexe
     dropdown.onfilter = filterexe
     dropdown.width = -1
     reffontheight = 14
+  end
+  object caseinsed: tbooleanedit
+    frame.caption = 'case insensitive'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      92
+      2
+    )
+    taborder = 3
+    bounds_x = 120
+    bounds_y = 235
+    bounds_cx = 105
+    bounds_cy = 16
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = searchoptionenteredexe
+  end
+  object wordstarted: tbooleaneditradio
+    Tag = 2
+    frame.caption = 'wordstart'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      54
+      2
+    )
+    taborder = 4
+    bounds_x = 232
+    bounds_y = 235
+    bounds_cx = 67
+    bounds_cy = 16
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = searchoptionenteredexe
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_cantoggle]
+  end
+  object wholeworded: tbooleaneditradio
+    Tag = 1
+    frame.caption = 'wholeword'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      63
+      2
+    )
+    taborder = 5
+    bounds_x = 304
+    bounds_y = 235
+    bounds_cx = 76
+    bounds_cy = 16
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = searchoptionenteredexe
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_cantoggle]
   end
   object ds: tlocaldataset
     logfilename = 'test.db'
@@ -133,8 +192,8 @@ object mainfo: tmainfo
         Precision = 0
         Size = 200
       end>
-    left = 136
-    top = 232
+    left = 56
+    top = 120
   end
   object lb: tdblookupbuffer
     datasource = dataso
@@ -144,17 +203,17 @@ object mainfo: tmainfo
       'string2'
     )
     optionsdb = [olbdb_invalidateifmodified]
-    left = 256
-    top = 232
+    left = 184
+    top = 120
   end
   object dataso: tmsedatasource
     DataSet = ds
-    left = 184
-    top = 232
+    left = 104
+    top = 120
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
-    left = 296
-    top = 232
+    left = 232
+    top = 120
   end
 end
