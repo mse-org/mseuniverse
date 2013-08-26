@@ -153,17 +153,18 @@ imageselector=9
  active=1
  visible=1
 stringlisteditor=5
- [integerlisteditor]
- x=182
- y=208
- cx=133
- cy=298
+ [stringlisteditor]
+ x=177
+ y=203
+ cx=275
+ cy=237
 imagelisteditor=34
  [imagelisteditorfo.filedialog]
  filenames=1
-  /D:/workmseideweb/memomse/icons/information.png
+  /D:/workmseideweb/memomse/icons/cross-circle.png
  lastdir=/D:/workmseideweb/memomse/icons/
  filehistory=10
+  /D:/workmseideweb/memomse/icons/cross-circle.png
   /D:/workmseideweb/memomse/icons/information.png
   /D:/workmseideweb/memomse/icons/arrow-circle-225-left.png
   /D:/workmseideweb/memomse/icons/583552.png
@@ -173,7 +174,6 @@ imagelisteditor=34
   /D:/workmseideweb/memomse/icons/New.png
   /D:/icons/icons/textfield.png
   /D:/icons/icons/text_underline.png
-  /D:/icons/icons/new.png
  filefilterindex=0
  filefilter="*.jpg" "*.jpeg" "*.bmp" "*.ico" "*.png" "*.pnm" "*.pgm" "*.pbm" "*.tga" "*.tif" "*.tiff" "*.xpm"
  filecolwidth=174
@@ -404,30 +404,36 @@ settingsstorage=0
 settingsprojecttree=0
 settingsautoload=0
 settingsautosave=0
-modulenames=7
+modulenames=9
  AZTHEMEEDITFO
  MAINFO
  COLORDIALOGFO
  REALENTERFO
  STRINGENTERFO
  MSESYSENVMANAGEREDITORFO
- UFRMCHARINFOFO
-moduletypes=7
+ UABOUTFRMFO
+ UDMACTIONMO
+ UTABEDITORFO
+moduletypes=9
  TAZTHEMEEDITFO
  TMAINFO
  TCOLORDIALOGFO
  TREALENTERFO
  TSTRINGENTERFO
  TMSESYSENVMANAGEREDITORFO
- TUFRMCHARINFOFO
-modulefiles=7
+ TUABOUTFRMFO
+ TUDMACTIONMO
+ TUTABEDITORFO
+modulefiles=9
  /d:/projectmseide/mseuniverse-mseuniverse/add-on/lib/addon/azskin/azthemeedit.mfm
  /d:/workmseideweb/memomse/src/main.mfm
  /E:/mseide/lib/common/dialogs/msecolordialog.mfm
  /E:/mseide/lib/common/dialogs/mserealenter.mfm
  /E:/mseide/lib/common/dialogs/msestringenter.mfm
  /E:/mseide/lib/common/designutils/msesysenvmanagereditor.mfm
- /D:/workmseideweb/memomse/src/ufrmcharinfo.mfm
+ /d:/workmseideweb/memomse/src/uaboutfrm.mfm
+ /d:/workmseideweb/memomse/src/udmaction.mfm
+ /d:/workmseideweb/memomse/src/utabeditorform.mfm
 befcommandon=0
 makeoptionson=4
  63
@@ -638,7 +644,7 @@ cy=0
 progparamhistory=0
 envvarons=0
 [layout]
-windowlayout=559
+windowlayout=551
  [mainfo.openform]
  filenames=1
   /C:/mseide/apps/ide/main.mfm
@@ -653,19 +659,19 @@ windowlayout=559
  cy=0
  [mainfo.projectfiledia]
  filenames=1
-  /D:/workmseideweb/pacmanxg4/pacmanxg.prj
- lastdir=/D:/workmseideweb/pacmanxg4/
- filehistory=10
-  /D:/workmseideweb/pacmanxg4/pacmanxg.prj
-  /D:/workmseideweb/memomse/src/memomse.prj
-  /D:/projectmseide/encodin/encoding.prj
   /E:/mseide/apps/ide/mseide.prj
+ lastdir=/E:/mseide/apps/ide/
+ filehistory=10
+  /E:/mseide/apps/ide/mseide.prj
+  /D:/workmseideweb/memomse/src/memomse.prj
+  /D:/projectmseide/pacmanxg4/pacmanxg.prj
+  /D:/projectmseide/pacmanxg/pacmanXG.prj
+  /D:/workmseideweb/pacmanexpress/pacmanexpress.prj
+  /D:/workmseideweb/pacmanxg4/pacmanxg.prj
+  /D:/projectmseide/encodin/encoding.prj
   /C:/mseide/apps/ide/mseide.prj
   /D:/workmseideweb/mememse/src/memomse.prj
   /C:/mseide/apps/demo/demo.prj
-  /D:/projectmseide/mseuniverse-mseuniverse/attic/msedocumenting/mse/trunk/contributed/miha/MDISample.prj
-  /D:/projectmseide/mseuniverse-mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/subforms/tabsubform/tabsubform.prj
-  /D:/projectmseide/mseuniverse-mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/nogui/rttistat/rttistat.prj
  filefilterindex=0
  filefilter=*.prj
  filecolwidth=174
@@ -674,11 +680,10 @@ windowlayout=559
  cx=711
  cy=323
  [mainfo.openfile]
- filenames=1
-  /D:/workmseideweb/memomse/src/ufrmcharinfo.mfm
+ filenames=0
  filehistory=10
-  /D:/workmseideweb/memomse/src/ufrmcharinfo.mfm
   /E:/mseide/apps/ide/sourcepage.mfm
+  /D:/workmseideweb/memomse/src/ufrmcharinfo.mfm
   /d:/projectmseide/mseuniverse-mseuniverse/add-on/lib/addon/azskin/azthemeedit.mfm
   /D:/workmseideweb/memomse/src/encode/JclCharsets.pas
   /E:/mseide/apps/ide/finddialogform.mfm
@@ -699,7 +704,7 @@ windowlayout=559
  useroptions=15488
  [mainfo]
  splitdir=0
- useroptions=127
+ useroptions=123
  stackedunder=
  parent=
  mdistate=0
@@ -709,14 +714,10 @@ windowlayout=559
  ncy=0
  x=5
  y=33
- cx=294
+ cx=354
  cy=74
  rcx=0
  rcy=0
- children=2
-  basedock,0,19,284,40
-  statdisp,0,1,284,17
- focusedchild=0
  wsize=0
  active=1
  visible=1
@@ -938,24 +939,24 @@ windowlayout=559
  ny=0
  ncx=0
  ncy=0
- x=583
- y=158
- cx=280
- cy=641
+ x=562
+ y=144
+ cx=302
+ cy=599
  rcx=0
  rcy=0
  wsize=0
  active=0
  visible=1
  [objectinspectorfo.grid]
- propcolwidthref=270
- width0=137
+ propcolwidthref=292
+ width0=149
  sortdescend0=0
- width1=127
+ width1=137
  sortdescend1=0
  [symbolfo]
  splitdir=0
- useroptions=16511
+ useroptions=16507
  stackedunder=disassfo
  parent=
  mdistate=0
@@ -969,9 +970,6 @@ windowlayout=559
  cy=137
  rcx=0
  rcy=0
- children=1
-  grid,0,0,351,137
- focusedchild=-1
  wsize=0
  active=0
  visible=0
@@ -1034,11 +1032,11 @@ windowlayout=559
  ncx=0
  ncy=0
  x=0
- y=359
- cx=545
- cy=66
- rcx=545
- rcy=425
+ y=431
+ cx=538
+ cy=60
+ rcx=538
+ rcy=491
  [componentstorefo]
  splitdir=0
  useroptions=24675
@@ -1105,24 +1103,24 @@ windowlayout=559
  [componentpalettefo]
  splitdir=0
  useroptions=24683
- stackedunder=mainfo.panel1
+ stackedunder=objectinspectorfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=319
- y=30
- cx=519
- cy=81
+ x=376
+ y=31
+ cx=487
+ cy=72
  rcx=0
  rcy=0
  wsize=0
  active=0
  visible=1
  [componentpalettefo.componentpages]
- activetab=1
+ activetab=0
  [debuggerfo]
  splitdir=0
  useroptions=24683
@@ -1135,7 +1133,7 @@ windowlayout=559
  ncy=0
  x=0
  y=0
- cx=284
+ cx=344
  cy=40
  rcx=0
  rcy=0
@@ -1151,8 +1149,8 @@ windowlayout=559
  ncy=0
  x=0
  y=0
- cx=545
- cy=425
+ cx=538
+ cy=491
  rcx=0
  rcy=0
  [actionsmo.watchesonact]
@@ -1189,10 +1187,10 @@ windowlayout=559
  ny=0
  ncx=0
  ncy=0
- x=10
- y=370
- cx=555
- cy=425
+ x=-2
+ y=252
+ cx=548
+ cy=491
  rcx=0
  rcy=0
  wsize=0
@@ -1214,29 +1212,46 @@ findhistory=10
  mse_
  listsourceitems
 findoptions=1
-editpos=2
- 19,13
- 0,9
+editpos=5
+ 0,-1073741823
+ 0,26
+ 0,232
+ 0,49
+ 0,4
 bookmarks0=0
 bookmarks1=0
-sourcefiles=2
- /d:/workmseideweb/memomse/src/memomse.pas
+bookmarks2=0
+bookmarks3=0
+bookmarks4=0
+sourcefiles=5
+ /D:/workmseideweb/memomse/src/memomse.pas
  /D:/workmseideweb/memomse/src/main.pas
-relpaths=2
+ /d:/workmseideweb/memomse/src/udmaction.pas
+ /D:/workmseideweb/memomse/src/utabeditorform.pas
+ /D:/workmseideweb/memomse/src/uaboutfrm.pas
+relpaths=5
  memomse.pas
  main.pas
-ismoduletexts=2
+ udmaction.pas
+ utabeditorform.pas
+ uaboutfrm.pas
+ismoduletexts=5
  0
  0
-modules=7
+ 0
+ 0
+ 0
+modules=9
  /E:/mseide/lib/common/dialogs/mserealenter.mfm
  /E:/mseide/lib/common/dialogs/msestringenter.mfm
  /E:/mseide/lib/common/dialogs/msecolordialog.mfm
  /E:/mseide/lib/common/designutils/msesysenvmanagereditor.mfm
  /d:/workmseideweb/memomse/src/main.mfm
+ /d:/workmseideweb/memomse/src/udmaction.mfm
  /d:/projectmseide/mseuniverse-mseuniverse/add-on/lib/addon/azskin/azthemeedit.mfm
- /D:/workmseideweb/memomse/src/ufrmcharinfo.mfm
-moduleoptions=7
+ /d:/workmseideweb/memomse/src/utabeditorform.mfm
+ /d:/workmseideweb/memomse/src/uaboutfrm.mfm
+moduleoptions=9
  0
  0
  0
@@ -1244,15 +1259,21 @@ moduleoptions=7
  0
  0
  0
-visiblemodules=7
+ 0
+ 0
+visiblemodules=9
  0
  0
  0
  0
  -1
- 0
  -1
-nomenumodules=7
+ 0
+ 0
+ 0
+nomenumodules=9
+ 0
+ 0
  0
  0
  0
@@ -1261,9 +1282,15 @@ nomenumodules=7
  0
  0
 [sourcefo.tabwidget]
+order=5
+ 0
+ 4
+ 1
+ 2
+ 3
 tabsize=112
 firsttab=0
-index=0
+index=3
 [targetconsole]
 finddtext=
 findhistory=0

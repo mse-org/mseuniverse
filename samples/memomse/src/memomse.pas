@@ -5,13 +5,14 @@ program memomse;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
- msegui,mseforms,main, sysutils;
+ msegui,mseforms,main, sysutils, udmaction;
 begin
+ application.createdatamodule(tudmactionmo, udmactionmo);
  application.createform(tmainfo,mainfo); 
  if Length(paramstr(1)) > 0 then begin
-   mainfo.simpletext.loadfromfile(paramstr(1));
-   EditFileName := paramstr(1);
-   mainfo.showinfo;
+   udmactionmo.openfile(paramstr(1));
+ end else begin
+   udmactionmo.makenew;
  end;
  application.run;
 end.

@@ -1,6 +1,6 @@
 object ufrmcharinfofo: tufrmcharinfofo
-  bounds_x = 154
-  bounds_y = 178
+  bounds_x = 205
+  bounds_y = 299
   bounds_cx = 335
   bounds_cy = 96
   container.bounds = (
@@ -9,7 +9,8 @@ object ufrmcharinfofo: tufrmcharinfofo
     335
     96
   )
-  options = [fo_windowclosecancel, fo_screencentered, fo_modal, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  optionswindow = [wo_message, wo_notaskbar]
+  options = [fo_freeonclose, fo_windowclosecancel, fo_screencentered, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   moduleclassname = 'tmseform'
   object twidgetgrid1: twidgetgrid
     bounds_x = 8
