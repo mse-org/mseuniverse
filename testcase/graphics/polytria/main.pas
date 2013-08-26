@@ -1104,7 +1104,7 @@ testvar8:= trold^.below^.abover-traps;
      trnew^.below:= trold^.below;
      with trold^.below^ do begin
       if abover = nil then begin  //single trap above
-{
+//{
        if newright then begin
         abover:= trnew;
        end
@@ -1112,7 +1112,7 @@ testvar8:= trold^.below^.abover-traps;
         abover:= trold;
         above:= trnew;
        end;
-}
+//}
       end
       else begin
        if aisright then begin
@@ -1209,6 +1209,7 @@ testvar8:= trold^.below^.abover-traps;
   end; //splittrap
   
  var
+  sd1: segdirty;
   sega,segb: pseginfoty;
   trap1,trap2,trap1l,trap1r,trbelow,trbelowr,exttrap: ptrapinfoty;
   isright1,isright2,bo2: boolean;
@@ -1235,7 +1236,26 @@ testvar8:= trold^.below^.abover-traps;
    sega^.splitseg:= aseg;
   end
   else begin
+   trap1:= sega^.splitseg^.trap;
+   sd1:= segdirdown(sega^.splitseg,aseg);
+   case sd1 of
+    sd_up: begin //existing edge above
+     trap1:= sega^.trap;
+     isright1:= isright(trap1^.below^.top,aseg);
+    end;
+    sd_right: begin
+     trap1:= trap1^.above^.below;
+     isright1:= true;
+    end;
+    else begin
+     trap1:= trap1^.above^.belowr;
+     isright1:= false;
+    end;
+   end;
+   splittrap(not isright1,trap1,trap1l,trap1r,trap1);
+{
    trap1:= findtrap(sega^.b,segb^.b);
+testvar:= trap1-traps;
    if trap1^.abover <> nil then begin //existing edge above
     isright1:= isright(trap1^.below^.top,aseg);
    end
@@ -1243,7 +1263,9 @@ testvar8:= trold^.below^.abover-traps;
     isright1:= segdirdown(sega^.splitseg,aseg) = sd_right; 
    end;
    splittrap(not isright1,trap1,trap1l,trap1r,trap1);
+}
   end;
+
 dump(traps,newtraps-traps,nodes,'segment0',true);
 testvar1:= trap1l-traps;
 testvar2:= trap1r-traps;
@@ -1277,6 +1299,10 @@ testvar6:= trbelowr-traps;
    if isright1 then begin                 
     exttrap:= trap1l;
     trap2^.left:= aseg;               //move edge to right
+    if trap2^.above = exttrap then begin
+     trap2^.above:= trap2^.abover;
+     trap2^.abover:= nil;
+    end;
     trap1l^.bottom:= trap2^.bottom;
     trap1r:= trap2;
     trap1l^.below:= trbelow;
@@ -1285,6 +1311,9 @@ testvar6:= trbelowr-traps;
    else begin
     exttrap:= trap1r;
     trap2^.right:= aseg;              //move edge to left
+    if trap2^.abover = exttrap then begin
+     trap2^.abover:= nil;
+    end;
     trap1l:= trap2;
     if trbelowr <> nil then begin
      trap1r^.below:= trbelowr;
