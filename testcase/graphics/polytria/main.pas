@@ -27,6 +27,8 @@ type
    stoped: tintegeredit;
    noseged: tbooleanedit;
    nosegbed: tbooleanedit;
+   noaed: tbooleanedit;
+   nobed: tbooleanedit;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -1038,6 +1040,10 @@ var
    seg1: pseginfoty;
 //   trleft,trright: ptrapinfoty;
   begin
+   if trold^.below = nil then begin
+    exit; //crossing
+   end;
+
    if newright then begin
     seg1:= trold^.right;
 //    trleft:= trold;
@@ -1056,7 +1062,6 @@ testvar5:= trold^.above-traps;
 testvar6:= trold^.abover-traps;
 testvar7:= trold^.below^.above-traps;
 testvar8:= trold^.below^.abover-traps;
-
    aisright:= isright(trold^.below^.top,seg1);
    if trold^.below^.top = bottompoint then begin  //last
     if trold^.belowr <> nil then begin            //existing segment below
@@ -1424,17 +1429,26 @@ mwcnoiseinit(1,1);
    end;
 writeln('************************************** (',segcounter,')');
 dumpseg(seg1);
+if segcounter = stoped.value then begin
+ testvar:= 0;
+end;
+
+if not((segcounter = stoped.value) and noaed.value) then begin
    if not (sf_pointhandled in seg2^.flags) then begin
     handlepoint(seg2);
 dump(traps,newtraps-traps,nodes,'point A',false);
    end;
+end;
+if not((segcounter = stoped.value) and nobed.value) then begin
    if not (sf_pointhandled in seg1^.flags) then begin
     handlepoint(seg1);
 dump(traps,newtraps-traps,nodes,'point B',false);
    end;
+end;
 writeln('----------------');
 dumpseg(seg1);
-if (segcounter = stoped.value) and noseged.value then begin
+if (segcounter = stoped.value) and 
+                  (noseged.value or noaed.value or nobed.value) then begin
  break;
 end;
    handlesegment(seg1);
@@ -1446,6 +1460,7 @@ end;
   end;
 if dumperror then begin
  writeln('****error****                                         ****error****');
+ guibeep;
 end
 else begin
  writeln('OK                                                               OK');

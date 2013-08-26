@@ -1,21 +1,21 @@
 object mainfo: tmainfo
-  bounds_x = 30
+  bounds_x = 32
   bounds_y = 183
-  bounds_cx = 632
+  bounds_cx = 713
   bounds_cy = 340
   container.bounds = (
     0
     0
-    632
+    713
     340
   )
   statfile = tstatfile1
   caption = 'MSEide+MSEgui'
   moduleclassname = 'tmainform'
   object grid: twidgetgrid
-    bounds_x = 485
+    bounds_x = 510
     bounds_y = 8
-    bounds_cx = 146
+    bounds_cx = 202
     bounds_cy = 281
     anchors = [an_top, an_right, an_bottom]
     optionsgrid = [og_rowmoving, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_appendempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -104,7 +104,7 @@ object mainfo: tmainfo
       2
     )
     taborder = 1
-    bounds_x = 481
+    bounds_x = 506
     bounds_y = 295
     bounds_cx = 58
     bounds_cy = 16
@@ -117,7 +117,7 @@ object mainfo: tmainfo
     visible = True
     bounds_x = 8
     bounds_y = 8
-    bounds_cx = 472
+    bounds_cx = 489
     bounds_cy = 330
     anchors = [an_left, an_top, an_right, an_bottom]
     object tridisp: tpaintbox
@@ -169,7 +169,7 @@ object mainfo: tmainfo
       taborder = 4
       bounds_x = 299
       bounds_y = 0
-      bounds_cx = 173
+      bounds_cx = 190
       bounds_cy = 330
       anchors = [an_left, an_right]
       onresize = layoutexe
@@ -210,7 +210,7 @@ object mainfo: tmainfo
   end
   object tbutton1: tbutton
     taborder = 3
-    bounds_x = 592
+    bounds_x = 617
     bounds_y = 296
     bounds_cx = 34
     bounds_cy = 20
@@ -221,7 +221,7 @@ object mainfo: tmainfo
   object stoped: tintegeredit
     frame.dummy = 0
     taborder = 4
-    bounds_x = 544
+    bounds_x = 569
     bounds_y = 296
     bounds_cx = 44
     anchors = [an_right, an_bottom]
@@ -240,7 +240,7 @@ object mainfo: tmainfo
       2
     )
     taborder = 5
-    bounds_x = 480
+    bounds_x = 505
     bounds_y = 319
     bounds_cx = 51
     bounds_cy = 16
@@ -257,9 +257,43 @@ object mainfo: tmainfo
       2
     )
     taborder = 6
-    bounds_x = 544
+    bounds_x = 569
     bounds_y = 319
     bounds_cx = 58
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = tstatfile1
+  end
+  object noaed: tbooleanedit
+    frame.caption = 'noa'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      24
+      2
+    )
+    taborder = 7
+    bounds_x = 633
+    bounds_y = 319
+    bounds_cx = 37
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = tstatfile1
+  end
+  object nobed: tbooleanedit
+    frame.caption = 'nob'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      24
+      2
+    )
+    taborder = 8
+    bounds_x = 673
+    bounds_y = 319
+    bounds_cx = 37
     bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = tstatfile1
