@@ -1236,11 +1236,12 @@ testvar8:= trold^.below^.abover-traps;
    sega^.splitseg:= aseg;
   end
   else begin
-   trap1:= sega^.splitseg^.trap;
+     trap1:= sega^.trap;
+//   trap1:= sega^.splitseg^.trap;
    sd1:= segdirdown(sega^.splitseg,aseg);
    case sd1 of
     sd_up: begin //existing edge above
-     trap1:= sega^.trap;
+//     trap1:= sega^.trap;
      isright1:= isright(trap1^.below^.top,aseg);
     end;
     sd_right: begin
