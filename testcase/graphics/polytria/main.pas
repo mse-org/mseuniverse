@@ -53,6 +53,7 @@ type
    procedure saveexe(const sender: TObject);
   private
    ftraps: array of trapdispinfoty;
+   fdiags: segmentarty;
    procedure invalidisp;
    function polyvalues: pointarty;
  end;
@@ -1378,6 +1379,7 @@ var
  seg1,seg2: pseginfoty;
  sizetraps,sizenodes: integer;
  ppt1,ppt2: ppointty;
+ bo1: boolean;
   
 begin
 mwcnoiseinit(1,1);
@@ -1503,6 +1505,8 @@ else begin
 end;
   
   setlength(ftraps,newtraps-traps);
+  setlength(fdiags,length(ftraps)); //max
+  int2:= 0;
   for int1:= 0 to high(ftraps) do begin
    with traps[int1] do begin
     if top = nil then begin
@@ -1557,8 +1561,32 @@ end;
       ftraps[int1][2].x:= calcx(bottom^.y,right^);
      end;
     end;
+    if (top <> nil) and (bottom <> nil) and 
+                                (left <> nil) and (right <> nil) then begin
+     seg1:= left-1;
+     if seg1 < segments then begin
+      inc(seg1,npoints);
+     end;
+     seg2:= right-1;
+     if seg2 < segments then begin
+      inc(seg2,npoints);
+     end;
+     bo1:= not(
+          (top = left^.b) and (bottom = seg1^.b) or
+          (bottom = left^.b) and (top = seg1^.b) or
+          (top = right^.b) and (bottom = seg2^.b) or
+          (bottom = right^.b) and (top = seg2^.b));
+     if bo1 then begin
+      with fdiags[int2] do begin
+       a:= top^;
+       b:= bottom^;
+      end;
+      inc(int2);
+     end;
+    end;
    end;
   end;
+  setlength(fdiags,int2);
 //  freemem(buffer);
   invalidisp;
  end;  
@@ -1610,6 +1638,7 @@ begin
  for int1:= 0 to high(ftraps) do begin
   acanvas.drawlines(ftraps[int1],true,cl_green);
  end;
+ acanvas.drawlinesegments(fdiags,cl_blue);
  acanvas.dashes:= #1#3;
  acanvas.drawlines(ar1,true,cl_red);
  for int1:= 0 to high(ftraps) do begin
