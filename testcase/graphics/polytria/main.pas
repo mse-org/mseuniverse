@@ -1492,6 +1492,8 @@ if segcounter = stoped.value then begin
  break;
 end;
   end;
+writeln('points: ',npoints,' traps: ',newtraps-traps, ' nodes: ',newnodes-nodes,
+ ' ',formatfloatmse((newnodes-nodes)/npoints,'0.00'));
 if dumperror then begin
  writeln('****error****                                         ****error****');
  guibeep;
