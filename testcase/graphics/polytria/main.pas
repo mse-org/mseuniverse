@@ -6,7 +6,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,
  msewidgets,msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,
  msestrings,msetypes,msewidgetgrid,msegraphedits,msescrollbar,msestatfile,
- msesplitter,msechartedit,msebitmap;
+ msesplitter,msechartedit,msebitmap,msedatanodes,msefiledialog,mselistbrowser,
+ msesys;
 
 type
  trapdispinfoty = array[0..3] of pointty;
@@ -14,7 +15,7 @@ type
  tmainfo = class(tmainform)
    grid: twidgetgrid;
    smoothed: tbooleanedit;
-   tstatfile1: tstatfile;
+   projectstat: tstatfile;
    tsimplewidget1: tsimplewidget;
    tridisp: tpaintbox;
    tsplitter1: tsplitter;
@@ -29,6 +30,13 @@ type
    nosegbed: tbooleanedit;
    noaed: tbooleanedit;
    nobed: tbooleanedit;
+   findxed: tintegeredit;
+   findyed: tintegeredit;
+   tbutton2: tbutton;
+   projectfile: tfilenameedit;
+   tbutton3: tbutton;
+   mainstat: tstatfile;
+   tbutton4: tbutton;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -36,6 +44,13 @@ type
    procedure layoutexe(const sender: TObject);
    procedure triangexe(const sender: TObject);
    procedure tripaexe(const sender: twidget; const acanvas: tcanvas);
+   procedure findedexe(const sender: TObject);
+   procedure destroyexe(const sender: TObject);
+   procedure filenamesetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure saveasexe(const sender: TObject);
+   procedure statwriteexe(const sender: TObject; const writer: tstatwriter);
+   procedure saveexe(const sender: TObject);
   private
    ftraps: array of trapdispinfoty;
    procedure invalidisp;
@@ -355,7 +370,7 @@ var
    write('+');
    case n^.kind of
     tnk_trap: begin
-     writeln('(',inttostr(n^.trap-atraps),')');
+     writeln('(',inttostr(n^.trap-atraps),')$',hextostr(ptruint(n)));
     end;
     tnk_x: begin
      writeln('X=',n^.seg-segments);
@@ -862,12 +877,53 @@ begin
  end;
 end;
 *)
+var
+ nodes: ptrapnodeinfoty;
+ pointsar: pointarty;
+ 
+function findtrap(const apoint,second: ppointty): ptrapinfoty;
+                    //second used if apoint is on edge
+var
+ no1,no2: ptrapnodeinfoty;
+ int1: integer;
+begin
+ write('Search ',apoint^.x,':',apoint^.y);
+ no1:= nodes;
+ while true do begin
+  no2:= no1^.l;
+  case no1^.kind of
+   tnk_trap: begin
+    result:= no1^.trap;
+    break;
+   end;
+   tnk_y: begin
+    if isbelow(apoint,no1^.y) then begin
+     no2:= no1^.r;
+    end;
+   end;
+   tnk_x: begin
+    int1:= xdist(apoint,no1^.seg);
+    if int1 = 0 then begin
+     int1:= xdist(second,no1^.seg);
+    end;
+    if int1 > 0 then begin
+     no2:= no1^.r;
+    end;
+   end;
+  end;
+  no1:= no2;
+ end;
+writeln(' found trap ',result-traps);
+end;
+
+var
+ buffer: pointer;
+
 procedure tmainfo.triangexe(const sender: TObject);
 // x,y range = $7fff..-$8000 (16 bit X11 space)
 var
- buffer: pointer;
  shuffle: ppseginfoty;
- nodes: ptrapnodeinfoty;
+// nodes: ptrapnodeinfoty;
  {deltraps,}newtraps: ptrapinfoty;
  newnodes: ptrapnodeinfoty;
 
@@ -885,6 +941,7 @@ var
   result^.abover:= nil;
   result^.below:= nil;
   result^.belowr:= nil;
+  result^.node:= nil;
 //  result^.right:= nil;
  end;
  
@@ -903,41 +960,6 @@ var
   result^.trap:= atrap;
   result^.p:= aparent;
   atrap^.node:= result;
- end;
-
- function findtrap(const apoint,second: ppointty): ptrapinfoty;
-                     //second used if apoint is on edge
- var
-  no1,no2: ptrapnodeinfoty;
-  int1: integer;
- begin
-  write('Search ',apoint^.x,':',apoint^.y);
-  no1:= nodes;
-  while true do begin
-   no2:= no1^.l;
-   case no1^.kind of
-    tnk_trap: begin
-     result:= no1^.trap;
-     break;
-    end;
-    tnk_y: begin
-     if isbelow(apoint,no1^.y) then begin
-      no2:= no1^.r;
-     end;
-    end;
-    tnk_x: begin
-     int1:= xdist(apoint,no1^.seg);
-     if int1 = 0 then begin
-      int1:= xdist(second,no1^.seg);
-     end;
-     if int1 > 0 then begin
-      no2:= no1^.r;
-     end;
-    end;
-   end;
-   no1:= no2;
-  end;
-writeln(' found trap ',result-traps);
  end;
    
  procedure handlepoint(const seg: pseginfoty);
@@ -1016,19 +1038,29 @@ var
   begin
    if newright then begin
     noabove:= ltrap^.node;
+    noleft:= newnode(ltrap,noabove);
+    noright:= rtrap^.node;
+    if noright = nil then begin //new trap
+     noright:= newnode(rtrap,noabove);
+    end;
    end
    else begin
     noabove:= rtrap^.node;
+    noright:= newnode(rtrap,noabove);
+    noleft:= ltrap^.node;
+    if noleft = nil then begin //new trap
+     noleft:= newnode(ltrap,noabove);
+    end;
    end;
-   noleft:= newnode(ltrap,noabove);       // (Tb) ->     (s)
-   noright:= newnode(rtrap,noabove);      //         (Tl)   (Tr)
+//   noleft:= newnode(ltrap,noabove);       // (Tb) ->     (s)
+//   noright:= newnode(rtrap,noabove);      //         (Tl)   (Tr)
    with noabove^ do begin
-    l:= noleft;
-    r:= noright;
+    l:= noleft;           // (Tb) ->     (s)
+    r:= noright;          //         (Tl)   (Tr)
     kind:= tnk_x;
     seg:= aseg;
    end;
-  end; //splitnode
+  end; //splitnode horz
 
   var
    bottompoint: ppointty;
@@ -1342,7 +1374,6 @@ dump(traps,newtraps-traps,nodes,'segment1',false);
  end;
 
 var
- ar1: pointarty;
  int1,int2: integer;
  seg1,seg2: pseginfoty;
  sizetraps,sizenodes: integer;
@@ -1351,13 +1382,16 @@ var
 begin
 mwcnoiseinit(1,1);
  if grid.rowcount > 1 then begin
-  ar1:= polyvalues;
-  npoints:= length(ar1);
-  points:= pointer(ar1);
+  pointsar:= polyvalues;
+  npoints:= length(pointsar);
+  points:= pointer(pointsar);
  
    //todo: check maximal buffer size
   sizetraps:= 4*npoints*sizeof(trapinfoty);
   sizenodes:= 8*npoints*sizeof(trapnodeinfoty);
+  if buffer <> nil then begin
+   freemem(buffer);
+  end;
   getmem(buffer,npoints*(sizeof(seginfoty)+sizeof(pseginfoty)) + 
                                                 sizetraps + sizenodes);
   segments:= buffer;
@@ -1523,7 +1557,7 @@ end;
     end;
    end;
   end;
-  freemem(buffer);
+//  freemem(buffer);
   invalidisp;
  end;  
 end;
@@ -1583,6 +1617,51 @@ begin
                     (ftraps[int1][0].y+ftraps[int1][2].y)div 2,
        0,0),[tf_xcentered,tf_ycentered]);
  end;
+end;
+
+procedure tmainfo.findedexe(const sender: TObject);
+var
+ pt1: pointty;
+begin
+ if buffer <> nil then begin
+  pt1.x:= findxed.value;
+  pt1.y:= findyed.value; 
+  findtrap(@pt1,@pt1);
+ end;
+end;
+
+procedure tmainfo.destroyexe(const sender: TObject);
+begin
+ if buffer <> nil then begin
+  freemem(buffer);
+ end;
+end;
+
+procedure tmainfo.filenamesetexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ if avalue <> '' then begin
+  projectstat.readstat(avalue);
+ end;
+end;
+
+procedure tmainfo.saveasexe(const sender: TObject);
+begin
+ if projectfile.controller.execute(fdk_save) = mr_ok then begin
+  projectfile.value:= projectfile.controller.filename;
+  projectstat.writestat(projectfile.value);
+ end;
+end;
+
+procedure tmainfo.statwriteexe(const sender: TObject;
+               const writer: tstatwriter);
+begin
+ projectstat.writestat(projectfile.value);
+end;
+
+procedure tmainfo.saveexe(const sender: TObject);
+begin
+ projectstat.writestat(projectfile.value);
 end;
 
 end.

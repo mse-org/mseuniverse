@@ -9,14 +9,15 @@ object mainfo: tmainfo
     713
     340
   )
-  statfile = tstatfile1
+  statfile = mainstat
   caption = 'MSEide+MSEgui'
+  ondestroy = destroyexe
   moduleclassname = 'tmainform'
   object grid: twidgetgrid
-    bounds_x = 510
+    bounds_x = 502
     bounds_y = 8
-    bounds_cx = 202
-    bounds_cy = 281
+    bounds_cx = 210
+    bounds_cy = 225
     anchors = [an_top, an_right, an_bottom]
     optionsgrid = [og_rowmoving, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_appendempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -51,7 +52,7 @@ object mainfo: tmainfo
         dataclass = tgridrealdatalist
       end>
     datarowheight = 16
-    statfile = tstatfile1
+    statfile = projectstat
     reffontheight = 14
     object xed: trealedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -109,7 +110,7 @@ object mainfo: tmainfo
     bounds_cx = 58
     bounds_cy = 16
     anchors = [an_right, an_bottom]
-    statfile = tstatfile1
+    statfile = projectstat
     ondataentered = datentexe
   end
   object tsimplewidget1: tsimplewidget
@@ -140,7 +141,7 @@ object mainfo: tmainfo
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = polydisp
       linkright = tridisp
-      statfile = tstatfile1
+      statfile = projectstat
     end
     object polydisp: tpaintbox
       color = -1610612730
@@ -163,7 +164,7 @@ object mainfo: tmainfo
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = tridisp
       linkright = charted
-      statfile = tstatfile1
+      statfile = projectstat
     end
     object charted: txychartedit
       taborder = 4
@@ -210,9 +211,9 @@ object mainfo: tmainfo
   end
   object tbutton1: tbutton
     taborder = 3
-    bounds_x = 617
+    bounds_x = 609
     bounds_y = 296
-    bounds_cx = 34
+    bounds_cx = 25
     bounds_cy = 20
     anchors = [an_right, an_bottom]
     state = [as_localonexecute]
@@ -223,9 +224,9 @@ object mainfo: tmainfo
     taborder = 4
     bounds_x = 569
     bounds_y = 296
-    bounds_cx = 44
+    bounds_cx = 36
     anchors = [an_right, an_bottom]
-    statfile = tstatfile1
+    statfile = projectstat
     value = -1
     min = -1
     reffontheight = 14
@@ -245,7 +246,7 @@ object mainfo: tmainfo
     bounds_cx = 51
     bounds_cy = 16
     anchors = [an_right, an_bottom]
-    statfile = tstatfile1
+    statfile = projectstat
   end
   object nosegbed: tbooleanedit
     frame.caption = 'nosegb'
@@ -262,7 +263,7 @@ object mainfo: tmainfo
     bounds_cx = 58
     bounds_cy = 16
     anchors = [an_right, an_bottom]
-    statfile = tstatfile1
+    statfile = projectstat
   end
   object noaed: tbooleanedit
     frame.caption = 'noa'
@@ -279,7 +280,7 @@ object mainfo: tmainfo
     bounds_cx = 37
     bounds_cy = 16
     anchors = [an_right, an_bottom]
-    statfile = tstatfile1
+    statfile = projectstat
   end
   object nobed: tbooleanedit
     frame.caption = 'nob'
@@ -296,11 +297,95 @@ object mainfo: tmainfo
     bounds_cx = 37
     bounds_cy = 16
     anchors = [an_right, an_bottom]
-    statfile = tstatfile1
+    statfile = projectstat
   end
-  object tstatfile1: tstatfile
-    filename = 'status.sta'
+  object findxed: tintegeredit
+    frame.dummy = 0
+    taborder = 9
+    bounds_x = 529
+    bounds_y = 272
+    bounds_cx = 36
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    min = -1
+    reffontheight = 14
+  end
+  object findyed: tintegeredit
+    frame.dummy = 0
+    taborder = 10
+    bounds_x = 569
+    bounds_y = 272
+    bounds_cx = 36
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    min = -1
+    reffontheight = 14
+  end
+  object tbutton2: tbutton
+    taborder = 11
+    bounds_x = 608
+    bounds_y = 272
+    bounds_cx = 26
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localonexecute]
+    onexecute = findedexe
+  end
+  object projectfile: tfilenameedit
+    frame.button.imagenr = 17
+    taborder = 12
+    bounds_x = 504
+    bounds_y = 240
+    bounds_cx = 204
+    anchors = [an_right, an_bottom]
+    statfile = mainstat
+    textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+    onsetvalue = filenamesetexe
+    controller.filterlist.data = (
+      (
+        'tria'
+        '*.tria'
+      )
+      (
+        'all'
+        '*'
+      )
+    )
+    controller.defaultext = 'tria'
+    controller.options = [fdo_checkexist, fdo_savelastdir]
+    reffontheight = 14
+  end
+  object tbutton3: tbutton
+    taborder = 13
+    bounds_x = 648
+    bounds_y = 296
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'saveas'
+    onexecute = saveasexe
+  end
+  object tbutton4: tbutton
+    taborder = 14
+    bounds_x = 648
+    bounds_y = 272
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'save'
+    onexecute = saveexe
+  end
+  object projectstat: tstatfile
+    filename = 'test.tria'
     left = 176
     top = 112
+  end
+  object mainstat: tstatfile
+    filename = 'polytria.sta'
+    onstatwrite = statwriteexe
+    left = 176
+    top = 72
   end
 end
