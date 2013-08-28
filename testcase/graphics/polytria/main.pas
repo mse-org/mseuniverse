@@ -156,8 +156,9 @@ type
  segflagsty = set of segflagty;
  ppseginfoty = ^pseginfoty;
  seginfoty = record
+  previous: pseginfoty;
   flags: segflagsty;
-  b: ppointty;        //a is in previous segment
+  b: ppointty;      //a is in previous segment
   dx,dy: integer;     //a-b
   trap: ptrapinfoty;  //inserted trap for b
   splitseg: pseginfoty;   //segment for horizontal split at b
@@ -172,11 +173,27 @@ type
    tnk_trap: (trap: ptrapinfoty);
  end;
 
+ diaginfoty = record
+  top,bottom: ppointty;
+ end;
+ pdiaginfoty = ^diaginfoty;
+
+const
+ trapcountfact = 4;    //todo: check maximal buffer size
+ nodecountfact = 8;
+ diagcountfact = 1;
+ trapnodesize = sizeof(trapnodeinfoty)*trapcountfact;
+ diagsize = sizeof(diaginfoty)*diagcountfact;
+{$if diagsize > trapnodesize}
+ {$error 'diagonal memory overflow'}
+{$endif}
+
 var
  traps: ptrapinfoty;
  segments: pseginfoty;
  points: ppointty;
  npoints: integer;
+ diags: pdiaginfoty;
 
 function calcx(const y: integer; const seg: seginfoty): integer;
 var
@@ -752,7 +769,7 @@ begin
  result:= xdist(point,ref) >= 0;
 end;
 
-
+{
 function segbefore(const seg: pseginfoty): pseginfoty;
 begin
  result:= seg-1;
@@ -760,7 +777,7 @@ begin
   inc(result,npoints);
  end;
 end;
-
+}
 function segdirdown(const seg,ref: pseginfoty): segdirty;
 //todo: handle dy = 0, unify with segdirup
 var
@@ -777,17 +794,17 @@ begin
 //  dys:= seg^.dy;
 //  dyr:= ref^.dy;
   
-  segcommon:= segbefore(seg);
+  segcommon:= seg^.previous;
   if segcommon = ref then begin
    ptseg:= seg^.b;
-   ptref:= segbefore(ref)^.b;
+   ptref:= ref^.previous^.b;
 //   dxs:= -dxs;
 //   dys:= -dys;
   end
   else begin
-   segcommon:= segbefore(ref);
+   segcommon:= ref^.previous;
    if segcommon = seg then begin
-    ptseg:= segbefore(seg)^.b;
+    ptseg:= seg^.previous^.b;
     ptref:= ref^.b;
    end
    else begin
@@ -952,6 +969,73 @@ var
   inc(newnodes);
  end;
 
+var
+ toptrap: ptrapinfoty = nil;
+
+ function finddiags: integer; //return count
+ var
+  newdiags: pdiaginfoty;
+
+  procedure finddown(const atrap,astop: ptrapinfoty);
+
+   procedure findup(const atrap,astop: ptrapinfoty);
+   var
+    tr1: ptrapinfoty;
+   begin
+    tr1:= atrap;
+    while true do begin
+     with tr1^ do begin
+      if abover <> nil then begin
+       findup(abover,tr1);
+      end;
+      if (left = right^.previous) or (right = left^.previous) then begin
+       break; //triangle
+      end;
+      tr1:= above;
+     end;
+    end;
+    finddown(tr1,astop);
+   end;
+   
+  var
+   tr1: ptrapinfoty;
+   lefta,righta: pseginfoty;
+  begin
+   tr1:= atrap;
+   repeat
+    with tr1^ do begin
+     if abover <> nil then begin
+      findup(abover,tr1);
+     end;
+     lefta:= left^.previous;
+     righta:=right^.previous;
+     if not((top = left^.b) and (bottom = lefta^.b) or
+            (bottom = left^.b) and (top = lefta^.b) or
+            (top = right^.b) and (bottom = righta^.b) or
+            (bottom = right^.b) and (top = righta^.b)) then begin
+      newdiags^.top:= top;
+      newdiags^.bottom:= bottom;
+      inc(newdiags);
+     end;
+     if belowr <> nil then begin
+      finddown(belowr,astop);
+     end;
+     if (tr1^.left = righta) and (bottom = righta^.b) or 
+        (tr1^.right = lefta) and (bottom = lefta^.b) then begin
+      break; //triangle below
+     end;
+    end;
+    tr1:= tr1^.below;
+   until tr1 = astop;
+  end;
+
+ begin
+  diags:= pointer(nodes);
+  newdiags:= diags;
+  finddown(toptrap,nil);
+  result:= newdiags-diags;
+ end;
+ 
  function newnode(const atrap: ptrapinfoty; 
                      const aparent: ptrapnodeinfoty): ptrapnodeinfoty;
  begin
@@ -1255,17 +1339,11 @@ testvar8:= trold^.below^.abover-traps;
  begin
   if sf_reverse in aseg^.flags then begin
    sega:= aseg;
-   segb:= aseg - 1;
-   if segb < segments then begin
-    inc(segb,npoints);
-   end;
+   segb:= aseg^.previous;
   end
   else begin
    segb:= aseg;
-   sega:= aseg - 1;
-   if sega < segments then begin
-    inc(sega,npoints);
-   end;
+   sega:= aseg^.previous;
   end;
   bottompoint:= segb^.trap^.top;
   if sega^.splitseg = nil then begin //no existing edge
@@ -1274,21 +1352,25 @@ testvar8:= trold^.below^.abover-traps;
    sega^.splitseg:= aseg;
   end
   else begin
-     trap1:= sega^.trap;
-//   trap1:= sega^.splitseg^.trap;
+   trap1:= sega^.trap;
    sd1:= segdirdown(sega^.splitseg,aseg);
    case sd1 of
     sd_up: begin //existing edge above
-//     trap1:= sega^.trap;
      isright1:= isright(trap1^.below^.top,aseg);
     end;
     sd_right: begin
      trap1:= trap1^.above^.below;
      isright1:= true;
+     if (trap1^.above = traps) then begin
+      toptrap:= trap1;
+     end;
     end;
     else begin
      trap1:= trap1^.above^.belowr;
      isright1:= false;
+     if (trap1^.above = traps) then begin
+      toptrap:= trap1;
+     end;
     end;
    end;
    splittrap(not isright1,trap1,trap1l,trap1r,trap1);
@@ -1388,9 +1470,8 @@ mwcnoiseinit(1,1);
   npoints:= length(pointsar);
   points:= pointer(pointsar);
  
-   //todo: check maximal buffer size
-  sizetraps:= 4*npoints*sizeof(trapinfoty);
-  sizenodes:= 8*npoints*sizeof(trapnodeinfoty);
+  sizetraps:= trapcountfact*npoints*sizeof(trapinfoty);
+  sizenodes:= nodecountfact*npoints*sizeof(trapnodeinfoty);
   if buffer <> nil then begin
    freemem(buffer);
   end;
@@ -1403,10 +1484,11 @@ mwcnoiseinit(1,1);
   ppt1:= points;
   ppt2:= points+npoints-1;
   seg1:= segments;
-  seg2:= seg1 + npoints;
+//  seg2:= seg1 + npoints;
   for int1:= npoints-1 downto 0 do begin //init segments
    shuffle[int1]:= seg1;
    with seg1^ do begin
+    previous:= seg1-1;
     splitseg:= nil;
     trap:= nil;
 //    splittrap:= nil;
@@ -1428,11 +1510,12 @@ mwcnoiseinit(1,1);
       include(flags,sf_reverse);
      end;      
     end;
-    inc(seg1);
     ppt2:= ppt1;
     inc(ppt1);
    end;
+   inc(seg1);
   end;
+  segments^.previous:= segments + npoints - 1;
   for int1:= npoints-1 downto 0 do begin //shuffle segments
    int2:= mwcnoise mod npoints;
    seg1:= shuffle[int2];
@@ -1459,10 +1542,7 @@ mwcnoiseinit(1,1);
  
   for segcounter:= npoints-1 downto 0 do begin
    seg1:= shuffle[segcounter];
-   seg2:= seg1-1;
-   if seg2 < segments then begin
-    inc(seg2,npoints);
-   end;
+   seg2:= seg1^.previous;
 writeln('************************************** (',segcounter,')');
 dumpseg(seg1);
 if segcounter = stoped.value then begin
@@ -1494,7 +1574,7 @@ if segcounter = stoped.value then begin
  break;
 end;
   end;
-writeln('points: ',npoints,' traps: ',newtraps-traps, ' nodes: ',newnodes-nodes,
+writeln('toptrap: ',trapval(toptrap),' points: ',npoints,' traps: ',newtraps-traps, ' nodes: ',newnodes-nodes,
  ' ',formatfloatmse((newnodes-nodes)/npoints,'0.00'));
 if dumperror then begin
  writeln('****error****                                         ****error****');
@@ -1505,7 +1585,12 @@ else begin
 end;
   
   setlength(ftraps,newtraps-traps);
-  setlength(fdiags,length(ftraps)); //max
+  setlength(fdiags,finddiags);
+  for int1:= 0 to high(fdiags) do begin
+   fdiags[int1].a:= diags[int1].top^;
+   fdiags[int1].b:= diags[int1].bottom^;
+  end;
+  
   int2:= 0;
   for int1:= 0 to high(ftraps) do begin
    with traps[int1] do begin
@@ -1561,6 +1646,7 @@ end;
       ftraps[int1][2].x:= calcx(bottom^.y,right^);
      end;
     end;
+    {
     if (top <> nil) and (bottom <> nil) and 
                                 (left <> nil) and (right <> nil) then begin
      seg1:= left-1;
@@ -1584,9 +1670,10 @@ end;
       inc(int2);
      end;
     end;
+    }
    end;
   end;
-  setlength(fdiags,int2);
+//  setlength(fdiags,int2);
 //  freemem(buffer);
   invalidisp;
  end;  
