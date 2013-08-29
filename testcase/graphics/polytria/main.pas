@@ -828,6 +828,7 @@ end;
 var
  nodes: ptrapnodeinfoty;
  pointsar: pointarty;
+ nodescopy: ptrapnodeinfoty = nil;
  
 function findtrap(const apoint,second: ppointty): ptrapinfoty;
                     //second used if apoint is on edge
@@ -1509,7 +1510,13 @@ end
 else begin
  writeln('OK                                                               OK');
 end;
-  
+
+  if nodescopy <> nil then begin
+   freemem(nodescopy);
+  end;
+  int1:= (newnode-nodes)*sizeof(trapnodeinfoty);
+  getmem(nodescopy,int1);
+  move(nodes^,nodescopy^,int1);
   setlength(ftraps,newtraps-traps);
   setlength(fdiags,finddiags);
   setlength(fmountains,length(fdiags));
@@ -1600,35 +1607,8 @@ end;
       ftraps[int1][2].x:= calcx(bottom^.y,right^);
      end;
     end;
-    {
-    if (top <> nil) and (bottom <> nil) and 
-                                (left <> nil) and (right <> nil) then begin
-     seg1:= left-1;
-     if seg1 < segments then begin
-      inc(seg1,npoints);
-     end;
-     seg2:= right-1;
-     if seg2 < segments then begin
-      inc(seg2,npoints);
-     end;
-     bo1:= not(
-          (top = left^.b) and (bottom = seg1^.b) or
-          (bottom = left^.b) and (top = seg1^.b) or
-          (top = right^.b) and (bottom = seg2^.b) or
-          (bottom = right^.b) and (top = seg2^.b));
-     if bo1 then begin
-      with fdiags[int2] do begin
-       a:= top^;
-       b:= bottom^;
-      end;
-      inc(int2);
-     end;
-    end;
-    }
    end;
   end;
-//  setlength(fdiags,int2);
-//  freemem(buffer);
   invalidisp;
  end;  
 end;
@@ -1694,7 +1674,8 @@ var
 begin
  if buffer <> nil then begin
   pt1.x:= findxed.value;
-  pt1.y:= findyed.value; 
+  pt1.y:= findyed.value;
+  nodes:= nodescopy;
   findtrap(@pt1,@pt1);
  end;
 end;
@@ -1703,6 +1684,7 @@ procedure tmainfo.destroyexe(const sender: TObject);
 begin
  if buffer <> nil then begin
   freemem(buffer);
+  freemem(nodescopy);
  end;
 end;
 
