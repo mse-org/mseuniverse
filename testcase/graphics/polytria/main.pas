@@ -54,6 +54,7 @@ type
   private
    ftraps: array of trapdispinfoty;
    fdiags: segmentarty;
+   fmountains: pointararty;
    procedure invalidisp;
    function polyvalues: pointarty;
  end;
@@ -145,7 +146,6 @@ type
  ptrapnodeinfoty = ^trapnodeinfoty;
 
  trapinfoty = record
-//  next: ptrapinfoty; //for deleted list //todo: remove next
   top,bottom: ppointty;  
   left,right: pseginfoty;
   node: ptrapnodeinfoty;
@@ -157,12 +157,12 @@ type
  ppseginfoty = ^pseginfoty;
  seginfoty = record
   previous: pseginfoty;
+//  next: pseginfoty;
   flags: segflagsty;
-  b: ppointty;      //a is in previous segment
-  dx,dy: integer;     //a-b
-  trap: ptrapinfoty;  //inserted trap for b
+  b: ppointty;            //a is in previous segment
+  dx,dy: integer;         //a-b
+  trap: ptrapinfoty;      //inserted trap for b
   splitseg: pseginfoty;   //segment for horizontal split at b
-//  splittrap: ptrapinfoty; //trap for horizontal split at b
  end;
  
  trapnodeinfoty = record
@@ -174,7 +174,8 @@ type
  end;
 
  diaginfoty = record
-  top,bottom: ppointty;
+  top,basetop,basebottom,chainstart: pseginfoty;
+  bottomup: boolean;
  end;
  pdiaginfoty = ^diaginfoty;
 
@@ -769,37 +770,20 @@ begin
  result:= xdist(point,ref) >= 0;
 end;
 
-{
-function segbefore(const seg: pseginfoty): pseginfoty;
-begin
- result:= seg-1;
- if result < segments then begin
-  inc(result,npoints);
- end;
-end;
-}
 function segdirdown(const seg,ref: pseginfoty): segdirty;
-//todo: handle dy = 0, unify with segdirup
+//todo: handle dy = 0
 var
  segcommon: pseginfoty;
  ptseg,ptref: ppointty;
-// dxs,dxr,dys,dyr: integer;
 begin
  if seg = ref then begin
   result:= sd_same;
  end
  else begin
-//  dxs:= seg^.dx;
-//  dxr:= ref^.dx;
-//  dys:= seg^.dy;
-//  dyr:= ref^.dy;
-  
   segcommon:= seg^.previous;
   if segcommon = ref then begin
    ptseg:= seg^.b;
    ptref:= ref^.previous^.b;
-//   dxs:= -dxs;
-//   dys:= -dys;
   end
   else begin
    segcommon:= ref^.previous;
@@ -811,8 +795,6 @@ begin
     result:= sd_none;
     exit;
    end;
-//   dxr:= -dxr;
-//   dyr:= -dyr;
   end;
 testvar1:= seg-segments;
 testvar2:= ref-segments;
@@ -831,7 +813,6 @@ testvar4:= ptref-points;
     end;
    end
    else begin
-//    if seg^.dx*ref^.dy > ref^.dx*seg^.dy then begin
     if (seg^.dx*ref^.dy < ref^.dx*seg^.dy) xor 
                 not((ref^.dy < 0) xor (seg^.dy < 0)) then begin 
                         //direction of one segment reversed
@@ -844,57 +825,6 @@ testvar4:= ptref-points;
   end;
  end;
 end;
-(*
-function segdirup(const seg,ref: pseginfoty): segdirty;
-//todo: handle dy = 0, unify with segdirdown
-var
- segcommon: pseginfoty;
- ptseg,ptref: ppointty;
-begin
- if seg = ref then begin
-  result:= sd_same;
- end
- else begin
-  segcommon:= segbefore(seg);
-  if segcommon = ref then begin
-   ptseg:= seg^.b;
-   ptref:= segbefore(ref)^.b;
-  end
-  else begin
-   segcommon:= segbefore(ref);
-   if segcommon = seg then begin
-    ptseg:= segbefore(seg)^.b;
-    ptref:= ref^.b;
-   end
-   else begin
-    result:= sd_none;
-    exit;
-   end;
-  end;
-  if not isbelow(segcommon^.b,ptseg) then begin
-   result:= sd_down;
-  end
-  else begin
-   if ptseg^.x = ptref^.x then begin
-    if isbelow(ptseg,ptref) then begin
-     result:= sd_left;
-    end
-    else begin
-     result:= sd_right;
-    end;
-   end
-   else begin
-    if seg^.dx*ref^.dy > ref^.dx*seg^.dy then begin
-     result:= sd_right;
-    end
-    else begin
-     result:= sd_left;
-    end;
-   end;
-  end;
- end;
-end;
-*)
 var
  nodes: ptrapnodeinfoty;
  pointsar: pointarty;
@@ -941,26 +871,18 @@ procedure tmainfo.triangexe(const sender: TObject);
 // x,y range = $7fff..-$8000 (16 bit X11 space)
 var
  shuffle: ppseginfoty;
-// nodes: ptrapnodeinfoty;
- {deltraps,}newtraps: ptrapinfoty;
+ newtraps: ptrapinfoty;
  newnodes: ptrapnodeinfoty;
 
  function newtrap: ptrapinfoty;
  begin
-//  if deltraps = nil then begin
-   result:= newtraps;
-   inc(newtraps);
-//  end
-//  else begin
-//   result:= deltraps;
-//   deltraps:= result^.next;
-//  end;
+  result:= newtraps;
+  inc(newtraps);
   result^.above:= nil;
   result^.abover:= nil;
   result^.below:= nil;
   result^.belowr:= nil;
   result^.node:= nil;
-//  result^.right:= nil;
  end;
  
  function newnode: ptrapnodeinfoty;
@@ -998,9 +920,33 @@ var
    end;
    
   var
-   tr1: ptrapinfoty;
+   tr1,toptrap: ptrapinfoty;
    lefta,righta: pseginfoty;
+
+   procedure makediag;
+   begin
+    with tr1^ do begin
+     newdiags^.top:= segments+(toptrap^.top-points);
+     newdiags^.basetop:= segments+(top-points);
+     newdiags^.basebottom:= segments+(bottom-points);
+            //close chain below
+     if newdiags^.basebottom^.previous = newdiags^.top then begin
+      newdiags^.bottomup:= false;
+      newdiags^.basebottom^.previous:= newdiags^.basetop;
+     end
+     else begin
+      newdiags^.bottomup:= true;
+      newdiags^.chainstart:= newdiags^.basetop^.previous;
+      newdiags^.basetop^.previous:= newdiags^.basebottom;
+     end;
+     inc(newdiags);
+     toptrap:= tr1;
+    end;
+   end; //makediag
+var
+ hasdiag: boolean;   
   begin
+   toptrap:= atrap;
    tr1:= atrap;
    repeat
     with tr1^ do begin
@@ -1009,13 +955,15 @@ var
      end;
      lefta:= left^.previous;
      righta:=right^.previous;
-     if not((top = left^.b) and (bottom = lefta^.b) or
+     if (top = left^.b) and (bottom = lefta^.b) or
             (bottom = left^.b) and (top = lefta^.b) or
             (top = right^.b) and (bottom = righta^.b) or
-            (bottom = right^.b) and (top = righta^.b)) then begin
-      newdiags^.top:= top;
-      newdiags^.bottom:= bottom;
-      inc(newdiags);
+            (bottom = right^.b) and (top = righta^.b) then begin
+      hasdiag:= false;
+     end
+     else begin
+      hasdiag:= true;
+      makediag;
      end;
      if belowr <> nil then begin
       finddown(belowr,astop);
@@ -1027,6 +975,9 @@ var
     end;
     tr1:= tr1^.below;
    until tr1 = astop;
+   if not hasdiag then begin
+    makediag;
+   end;
   end;
 
  begin
@@ -1083,20 +1034,6 @@ testvar:= tpupper-traps;
     end;
    end;
   end;
-  {
-  if tpbelow <> nil then begin
-   if tpbelow^.above = tpupper then begin
-    tpbelow^.above:= tplower;
-   end
-   else begin
-    tpbelow^.abover:= tplower;
-   end;
-  end;
-  if tpbelowr <> nil then begin
-   tpbelowr^.above:= tplower;
-//   tpbelowr^.abover:= nil;
-  end;
-  }
   tpupper^.below:= tplower;
   tpupper^.belowr:= nil;            //no split segment
   seg^.trap:= tplower;
@@ -1374,17 +1311,6 @@ testvar8:= trold^.below^.abover-traps;
     end;
    end;
    splittrap(not isright1,trap1,trap1l,trap1r,trap1);
-{
-   trap1:= findtrap(sega^.b,segb^.b);
-testvar:= trap1-traps;
-   if trap1^.abover <> nil then begin //existing edge above
-    isright1:= isright(trap1^.below^.top,aseg);
-   end
-   else begin
-    isright1:= segdirdown(sega^.splitseg,aseg) = sd_right; 
-   end;
-   splittrap(not isright1,trap1,trap1l,trap1r,trap1);
-}
   end;
 
 dump(traps,newtraps-traps,nodes,'segment0',true);
@@ -1484,14 +1410,13 @@ mwcnoiseinit(1,1);
   ppt1:= points;
   ppt2:= points+npoints-1;
   seg1:= segments;
-//  seg2:= seg1 + npoints;
   for int1:= npoints-1 downto 0 do begin //init segments
    shuffle[int1]:= seg1;
    with seg1^ do begin
     previous:= seg1-1;
+//    next:= seg1+1;
     splitseg:= nil;
     trap:= nil;
-//    splittrap:= nil;
     flags:= [];
     b:= ppt1;
     dx:= ppt2^.x-ppt1^.x; //b->a slope
@@ -1516,6 +1441,7 @@ mwcnoiseinit(1,1);
    inc(seg1);
   end;
   segments^.previous:= segments + npoints - 1;
+//  (segments+npoints-1)^.next:= segments;
   for int1:= npoints-1 downto 0 do begin //shuffle segments
    int2:= mwcnoise mod npoints;
    seg1:= shuffle[int2];
@@ -1586,9 +1512,37 @@ end;
   
   setlength(ftraps,newtraps-traps);
   setlength(fdiags,finddiags);
+  setlength(fmountains,length(fdiags));
   for int1:= 0 to high(fdiags) do begin
-   fdiags[int1].a:= diags[int1].top^;
-   fdiags[int1].b:= diags[int1].bottom^;
+   with diags[int1] do begin
+    fdiags[int1].a:= basetop^.b^;
+    fdiags[int1].b:= basebottom^.b^;
+    setlength(fmountains[int1],1);
+    if bottomup then begin
+     fmountains[int1][0]:= basetop^.b^;
+     seg1:= chainstart;
+     while true do begin
+      setlength(fmountains[int1],high(fmountains[int1])+2);
+      fmountains[int1][high(fmountains[int1])]:= seg1^.b^;
+      if seg1 = basebottom then begin
+       break;
+      end;
+      seg1:= seg1^.previous;
+     end;
+    end
+    else begin
+     fmountains[int1][0]:= basebottom^.b^;
+     seg1:= top;
+     while true do begin
+      setlength(fmountains[int1],high(fmountains[int1])+2);
+      fmountains[int1][high(fmountains[int1])]:= seg1^.b^;
+      if seg1 = basetop then begin
+       break;
+      end;
+      seg1:= seg1^.previous;
+     end;
+    end;
+   end;
   end;
   
   int2:= 0;
@@ -1716,12 +1670,9 @@ var
  int1: integer;
 begin
  ar1:= polyvalues;
- {
- for int1:= 0 to high(ftraps) do begin
-  acanvas.drawline(ftraps[int1][0],ftraps[int1][2],cl_gray);
-  acanvas.drawline(ftraps[int1][1],ftraps[int1][3],cl_gray);
- end;  
- }
+ for int1:= 0 to high(fmountains) do begin
+  acanvas.fillpolygon(fmountains[int1],hsbtorgb((int1*50) mod 360,20,100));
+ end;
  for int1:= 0 to high(ftraps) do begin
   acanvas.drawlines(ftraps[int1],true,cl_green);
  end;
