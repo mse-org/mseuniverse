@@ -157,7 +157,7 @@ type
  ppseginfoty = ^pseginfoty;
  seginfoty = record
   previous: pseginfoty;
-//  next: pseginfoty;
+  next: pseginfoty;
   flags: segflagsty;
   b: ppointty;            //a is in previous segment
   dx,dy: integer;         //a-b
@@ -894,7 +894,7 @@ var
 
 var
  toptrap: ptrapinfoty = nil;
-
+(*
  function finddiags: integer; //return count
  var
   newdiags: pdiaginfoty;
@@ -910,6 +910,9 @@ var
      with tr1^ do begin
       if abover <> nil then begin
        findup(abover,tr1);
+      end;
+      if (left = nil) or (right = nil) then begin
+       exit; //error because of segment crossing
       end;
       if (left = right^.previous) or (right = left^.previous) then begin
        break; //triangle
@@ -951,6 +954,10 @@ var
    tr1:= atrap;
    repeat
     with tr1^ do begin
+     if (left = nil) or (right = nil) or 
+                 (top = nil) or (bottom = nil) then begin
+      exit; //error because of segment crossing
+     end;
      if abover <> nil then begin
       findup(abover,tr1);
      end;
@@ -987,7 +994,60 @@ var
   finddown(toptrap,nil);
   result:= newdiags-diags;
  end;
- 
+*) 
+
+ function finddiags: integer; //returns count
+ var
+  newdiags: pdiaginfoty;
+  tr1: ptrapinfoty;
+  lefta,righta: pseginfoty;
+
+  procedure makediag;
+  begin
+   with tr1^ do begin
+    newdiags^.basetop:= segments+(top-points);
+    newdiags^.basebottom:= segments+(bottom-points);
+    if newdiags^.basetop > newdiags^.basebottom then begin
+     newdiags^.bottomup:= false;
+     newdiags^.top:= newdiags^.basebottom^.previous;
+     newdiags^.chainstart:= newdiags^.basetop^.next;
+     newdiags^.basebottom^.previous:= newdiags^.basetop^.next;
+     newdiags^.basetop^.next:= newdiags^.basetop^.previous; 
+    end
+    else begin
+     newdiags^.bottomup:= true;
+     newdiags^.top:= newdiags^.basebottom^.next;
+     newdiags^.chainstart:= newdiags^.basetop^.previous;
+     newdiags^.basebottom^.previous:= newdiags^.basetop^.next;
+     newdiags^.basetop^.next:= newdiags^.basetop^.previous; 
+    end;
+   end;
+   inc(newdiags);
+  end; //makediag
+  
+ begin
+  diags:= pointer(nodes);
+  newdiags:= diags;
+  tr1:= newtraps;
+  repeat
+   dec(tr1);
+testvar:= tr1-traps;
+   with tr1^ do begin
+    if (left <> nil) and (right <> nil) then begin
+     lefta:= left^.previous;
+     righta:= right^.previous;
+     if not((top = left^.b) and (bottom = lefta^.b) or
+            (bottom = left^.b) and (top = lefta^.b) or
+            (top = right^.b) and (bottom = righta^.b) or
+            (bottom = right^.b) and (top = righta^.b)) then begin
+      makediag;
+     end;
+    end;
+   end;
+  until tr1 = traps;
+  result:= newdiags-diags;
+ end;
+
  function newnode(const atrap: ptrapinfoty; 
                      const aparent: ptrapnodeinfoty): ptrapnodeinfoty;
  begin
@@ -1415,7 +1475,7 @@ mwcnoiseinit(1,1);
    shuffle[int1]:= seg1;
    with seg1^ do begin
     previous:= seg1-1;
-//    next:= seg1+1;
+    next:= seg1+1;
     splitseg:= nil;
     trap:= nil;
     flags:= [];
