@@ -155,11 +155,14 @@ type
  segflagty = (sf_pointhandled,sf_reverse); //sf_reverse -> b below a
  segflagsty = set of segflagty;
  ppseginfoty = ^pseginfoty;
- seginfoty = record
+ segheaderty = record
   previous: pseginfoty;
   next: pseginfoty;
-  flags: segflagsty;
   b: ppointty;            //a is in previous segment
+ end;
+ seginfoty = record
+  h: segheaderty;
+  flags: segflagsty;
   dx,dy: integer;         //a-b
   trap: ptrapinfoty;      //inserted trap for b
   splitseg: pseginfoty;   //segment for horizontal split at b
@@ -174,7 +177,8 @@ type
  end;
 
  diaginfoty = record
-  top,basetop,basebottom,chainstart: pseginfoty;
+  baseb,baset: pseginfoty;      //bottom,top
+  closeb,closet: segheaderty;   //bottom,top
   bottomup: boolean;
  end;
  pdiaginfoty = ^diaginfoty;
@@ -202,13 +206,13 @@ var
 begin
  with seg do begin
   if dy = 0 then begin
-   int1:= y - b^.y;
+   int1:= y - h.b^.y;
    if int1 > 0 then begin
     result:= bigint;
    end
    else begin
     if int1 = 0 then begin
-     result:= b^.x;
+     result:= h.b^.x;
      exit;
     end
     else begin
@@ -218,7 +222,7 @@ begin
    result:= result * dx;
   end
   else begin
-   result:= b^.x + (y - b^.y) * dx div dy;
+   result:= h.b^.x + (y - h.b^.y) * dx div dy;
   end;
  end;
 end;
@@ -231,13 +235,13 @@ begin
  with seg^ do begin
   if dy = 0 then begin
    result:= bigint;
-   if y < seg^.b^.y then begin
+   if y < seg^.h.b^.y then begin
     result:= -bigint;
    end;
    result:= result*dx;
   end
   else begin
-   result:= b^.x + ((y - b^.y)*dx) div dy;
+   result:= h.b^.x + ((y - h.b^.y)*dx) div dy;
   end;
  end;
 end;
@@ -355,7 +359,7 @@ begin
   inc(seg1,npoints);
  end;
  writeln(rstring(inttostr(seg-segments),3),
-        pointval(seg1^.b),' ',pointval(seg^.b),' ',
+        pointval(seg1^.h.b),' ',pointval(seg^.h.b),' ',
         trapval(seg1^.trap),' ',trapval(nil{seg1^.splittrap}),' ',
         trapval(seg^.trap),' ',trapval(nil{seg^.splittrap}),' ');
 end;
@@ -444,12 +448,12 @@ testvar:= seg-segments;
    end;
 testvar1:= seg1-segments;
    if sf_reverse in seg^.flags then begin
-    top:= seg^.b;
-    bottom:= seg1^.b;
+    top:= seg^.h.b;
+    bottom:= seg1^.h.b;
    end
    else begin
-    top:= seg1^.b;
-    bottom:= seg^.b;
+    top:= seg1^.h.b;
+    bottom:= seg^.h.b;
    end;
   end;
  end; //getpoints
@@ -739,11 +743,11 @@ function xdist(const point: ppointty; ref: pseginfoty): integer;
  //true if point right of segment
 begin
  if ref^.dy = 0 then begin
-  result:= (point^.y - ref^.b^.y) * ref^.dx; //dx = 1|-1
+  result:= (point^.y - ref^.h.b^.y) * ref^.dx; //dx = 1|-1
  end
  else begin
 //todo: no division
-  result:= point^.x -(ref^.b^.x + (point^.y-ref^.b^.y)*ref^.dx div ref^.dy);
+  result:= point^.x -(ref^.h.b^.x + (point^.y-ref^.h.b^.y)*ref^.dx div ref^.dy);
  end;
 end;
 
@@ -780,16 +784,16 @@ begin
   result:= sd_same;
  end
  else begin
-  segcommon:= seg^.previous;
+  segcommon:= seg^.h.previous;
   if segcommon = ref then begin
-   ptseg:= seg^.b;
-   ptref:= ref^.previous^.b;
+   ptseg:= seg^.h.b;
+   ptref:= ref^.h.previous^.h.b;
   end
   else begin
-   segcommon:= ref^.previous;
+   segcommon:= ref^.h.previous;
    if segcommon = seg then begin
-    ptseg:= seg^.previous^.b;
-    ptref:= ref^.b;
+    ptseg:= seg^.h.previous^.h.b;
+    ptref:= ref^.h.b;
    end
    else begin
     result:= sd_none;
@@ -800,7 +804,7 @@ testvar1:= seg-segments;
 testvar2:= ref-segments;
 testvar3:= ptseg-points;
 testvar4:= ptref-points;
-  if isbelow(segcommon^.b,ptseg) then begin
+  if isbelow(segcommon^.h.b,ptseg) then begin
    result:= sd_up;
   end
   else begin
@@ -1004,27 +1008,38 @@ var
 
   procedure makediag;
   begin
-   with tr1^ do begin
-    newdiags^.basetop:= segments+(top-points);
-    newdiags^.basebottom:= segments+(bottom-points);
-    if newdiags^.basetop > newdiags^.basebottom then begin
-     newdiags^.bottomup:= false;
-     newdiags^.top:= newdiags^.basebottom^.previous;
-     newdiags^.chainstart:= newdiags^.basetop^.next;
-     newdiags^.basebottom^.previous:= newdiags^.basetop^.next;
-     newdiags^.basetop^.next:= newdiags^.basetop^.previous; 
+   with tr1^,newdiags^ do begin
+    baset:= segments+(top-points);
+    baseb:= segments+(bottom-points);
+    closet.b:= baset^.h.b;
+    closeb.b:= baseb^.h.b;
+    if baset > baseb then begin
+     bottomup:= false;
+     closeb.next:= @closet;
+     closet.previous:= @closeb;
+     closeb.previous:= baseb^.h.previous;
+     closeb.previous^.h.next:= @closeb;
+     closet.next:= baset^.h.next;
+     closet.next^.h.previous:= @closet;
+     baseb^.h.previous:= baset;
+     baset^.h.next:= baseb;
     end
     else begin
      newdiags^.bottomup:= true;
-     newdiags^.top:= newdiags^.basebottom^.next;
-     newdiags^.chainstart:= newdiags^.basetop^.previous;
-     newdiags^.basebottom^.previous:= newdiags^.basetop^.next;
-     newdiags^.basetop^.next:= newdiags^.basetop^.previous; 
+     closet.next:= @closeb;
+     closeb.previous:= @closet;
+     closet.previous:= baset^.h.previous;
+     closet.previous^.h.next:= @closet;
+     closeb.next:= baseb^.h.next;
+     closeb.next^.h.previous:= @closeb;
+     baset^.h.previous:= baseb;
+     baseb^.h.next:= baset;
     end;
    end;
    inc(newdiags);
   end; //makediag
-  
+var
+ dia1: pdiaginfoty;  
  begin
   diags:= pointer(nodes);
   newdiags:= diags;
@@ -1034,17 +1049,52 @@ var
 testvar:= tr1-traps;
    with tr1^ do begin
     if (left <> nil) and (right <> nil) then begin
-     lefta:= left^.previous;
-     righta:= right^.previous;
-     if not((top = left^.b) and (bottom = lefta^.b) or
-            (bottom = left^.b) and (top = lefta^.b) or
-            (top = right^.b) and (bottom = righta^.b) or
-            (bottom = right^.b) and (top = righta^.b)) then begin
-      makediag;
+     lefta:= left^.h.previous;
+     righta:= right^.h.previous;
+     if not((top = left^.h.b) and (bottom = lefta^.h.b) or
+            (bottom = left^.h.b) and (top = lefta^.h.b) or
+            (top = right^.h.b) and (bottom = righta^.h.b) or
+            (bottom = right^.h.b) and (top = righta^.h.b)) then begin
+testvar:= tr1-traps;
+      with newdiags^ do begin
+       baset:= segments+(top-points);
+       baseb:= segments+(bottom-points);
+       closet.b:= baset^.h.b;
+       closeb.b:= baseb^.h.b;
+       bottomup:= baset < baseb;
+       inc(newdiags);
+      end;
      end;
     end;
    end;
   until tr1 = traps;
+  dia1:= diags;
+  while dia1 <> newdiags do begin
+   with dia1^ do begin
+    if bottomup then begin
+     closet.next:= @closeb;
+     closeb.previous:= @closet;
+     closet.previous:= baset^.h.previous;
+     closet.previous^.h.next:= @closet;
+     closeb.next:= baseb^.h.next;
+     closeb.next^.h.previous:= @closeb;
+     baset^.h.previous:= baseb;
+     baseb^.h.next:= baset;
+    end
+    else begin
+     closeb.next:= @closet;
+     closet.previous:= @closeb;
+     closeb.previous:= baseb^.h.previous;
+     closeb.previous^.h.next:= @closeb;
+     closet.next:= baset^.h.next;
+     closet.next^.h.previous:= @closet;
+     baseb^.h.previous:= baset;
+     baset^.h.next:= baseb;
+    end;
+   end;
+   inc(dia1);
+  end;
+
   result:= newdiags-diags;
  end;
 
@@ -1065,7 +1115,7 @@ testvar:= tr1-traps;
   no1,nol,nor: ptrapnodeinfoty;
   ppt1: ppointty;
  begin
-  ppt1:= seg^.b;
+  ppt1:= seg^.h.b;
   tpupper:= findtrap(ppt1,ppt1);
 testvar:= tpupper-traps;
   tplower:= newtrap;            //split trap, lower
@@ -1337,11 +1387,11 @@ testvar8:= trold^.below^.abover-traps;
  begin
   if sf_reverse in aseg^.flags then begin
    sega:= aseg;
-   segb:= aseg^.previous;
+   segb:= aseg^.h.previous;
   end
   else begin
    segb:= aseg;
-   sega:= aseg^.previous;
+   sega:= aseg^.h.previous;
   end;
   bottompoint:= segb^.trap^.top;
   if sega^.splitseg = nil then begin //no existing edge
@@ -1474,12 +1524,12 @@ mwcnoiseinit(1,1);
   for int1:= npoints-1 downto 0 do begin //init segments
    shuffle[int1]:= seg1;
    with seg1^ do begin
-    previous:= seg1-1;
-    next:= seg1+1;
+    h.previous:= seg1-1;
+    h.next:= seg1+1;
     splitseg:= nil;
     trap:= nil;
     flags:= [];
-    b:= ppt1;
+    h.b:= ppt1;
     dx:= ppt2^.x-ppt1^.x; //b->a slope
     dy:= ppt2^.y-ppt1^.y; //b->a slope
     if dy = 0 then begin
@@ -1501,7 +1551,7 @@ mwcnoiseinit(1,1);
    end;
    inc(seg1);
   end;
-  segments^.previous:= segments + npoints - 1;
+  segments^.h.previous:= segments + npoints - 1;
 //  (segments+npoints-1)^.next:= segments;
   for int1:= npoints-1 downto 0 do begin //shuffle segments
    int2:= mwcnoise mod npoints;
@@ -1529,7 +1579,7 @@ mwcnoiseinit(1,1);
  
   for segcounter:= npoints-1 downto 0 do begin
    seg1:= shuffle[segcounter];
-   seg2:= seg1^.previous;
+   seg2:= seg1^.h.previous;
 writeln('************************************** (',segcounter,')');
 dumpseg(seg1);
 if segcounter = stoped.value then begin
@@ -1580,38 +1630,24 @@ end;
   setlength(ftraps,newtraps-traps);
   setlength(fdiags,finddiags);
   setlength(fmountains,length(fdiags));
+writeln('diag b   t');
   for int1:= 0 to high(fdiags) do begin
    with diags[int1] do begin
-    fdiags[int1].a:= basetop^.b^;
-    fdiags[int1].b:= basebottom^.b^;
-    setlength(fmountains[int1],1);
-    if bottomup then begin
-     fmountains[int1][0]:= basetop^.b^;
-     seg1:= chainstart;
-     while true do begin
-      setlength(fmountains[int1],high(fmountains[int1])+2);
-      fmountains[int1][high(fmountains[int1])]:= seg1^.b^;
-      if seg1 = basebottom then begin
-       break;
-      end;
-      seg1:= seg1^.previous;
-     end;
-    end
-    else begin
-     fmountains[int1][0]:= basebottom^.b^;
-     seg1:= top;
-     while true do begin
-      setlength(fmountains[int1],high(fmountains[int1])+2);
-      fmountains[int1][high(fmountains[int1])]:= seg1^.b^;
-      if seg1 = basetop then begin
-       break;
-      end;
-      seg1:= seg1^.previous;
-     end;
-    end;
+    fdiags[int1].a:= baset^.h.b^;
+    fdiags[int1].b:= baseb^.h.b^;
+write(rstring(inttostr(int1),3),' ',rstring(inttostr(baseb^.h.b-points),3),' ',
+                   rstring(inttostr(baset^.h.b-points),3),':');
+    seg1:= baseb;
+    fmountains[int1]:= nil;
+    repeat
+     setlength(fmountains[int1],high(fmountains[int1])+2);
+     fmountains[int1][high(fmountains[int1])]:= seg1^.h.b^;
+write(' ',inttostr(seg1^.h.b-points));
+     seg1:= seg1^.h.next;
+    until seg1 = baseb;
    end;
+writeln;
   end;
-  
   int2:= 0;
   for int1:= 0 to high(ftraps) do begin
    with traps[int1] do begin
