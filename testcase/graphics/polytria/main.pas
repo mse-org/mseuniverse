@@ -11,7 +11,12 @@ uses
 
 type
  trapdispinfoty = array[0..3] of pointty;
- 
+
+ mountaininfoty = record
+  chain: pointarty;
+ end;
+ mountaininfoarty = array of mountaininfoty;
+  
  tmainfo = class(tmainform)
    grid: twidgetgrid;
    smoothed: tbooleanedit;
@@ -54,7 +59,7 @@ type
   private
    ftraps: array of trapdispinfoty;
    fdiags: segmentarty;
-   fmountains: pointararty;
+   fmountains: mountaininfoarty;
    procedure invalidisp;
    function polyvalues: pointarty;
  end;
@@ -166,6 +171,7 @@ type
   dx,dy: integer;         //a-b
   trap: ptrapinfoty;      //inserted trap for b
   splitseg: pseginfoty;   //segment for horizontal split at b
+  diags: array[0..2] of pseginfoty;
  end;
  
  trapnodeinfoty = record
@@ -1040,6 +1046,7 @@ var
   end; //makediag
 var
  dia1: pdiaginfoty;  
+ topseg,bottomseg: pseginfoty;
  begin
   diags:= pointer(nodes);
   newdiags:= diags;
@@ -1049,25 +1056,56 @@ var
 testvar:= tr1-traps;
    with tr1^ do begin
     if (left <> nil) and (right <> nil) then begin
+testvar:= tr1-traps;
      lefta:= left^.h.previous;
      righta:= right^.h.previous;
      if not((top = left^.h.b) and (bottom = lefta^.h.b) or
             (bottom = left^.h.b) and (top = lefta^.h.b) or
             (top = right^.h.b) and (bottom = righta^.h.b) or
             (bottom = right^.h.b) and (top = righta^.h.b)) then begin
-testvar:= tr1-traps;
+      topseg:= segments+(top-points);
+      bottomseg:= segments+(bottom-points);
+      with topseg^ do begin
+       if diags[0] <> nil then begin
+        if diags[1] <> nil then begin
+         diags[2]:= bottomseg;
+        end
+        else begin
+         diags[1]:= bottomseg;
+        end;
+       end
+       else begin
+        diags[0]:= bottomseg;
+       end;
+      end;
+      with bottomseg^ do begin
+       if diags[0] <> nil then begin
+        if diags[1] <> nil then begin
+         diags[2]:= topseg;
+        end
+        else begin
+         diags[1]:= topseg;
+        end;
+       end
+       else begin
+        diags[0]:= topseg;
+       end;
+      end;
+      {
       with newdiags^ do begin
        baset:= segments+(top-points);
        baseb:= segments+(bottom-points);
        closet.b:= baset^.h.b;
        closeb.b:= baseb^.h.b;
        bottomup:= baset < baseb;
-       inc(newdiags);
       end;
+      inc(newdiags);
+      }
      end;
     end;
    end;
   until tr1 = traps;
+  {
   dia1:= diags;
   while dia1 <> newdiags do begin
    with dia1^ do begin
@@ -1094,7 +1132,7 @@ testvar:= tr1-traps;
    end;
    inc(dia1);
   end;
-
+}
   result:= newdiags-diags;
  end;
 
@@ -1499,7 +1537,53 @@ var
  sizetraps,sizenodes: integer;
  ppt1,ppt2: ppointty;
  bo1: boolean;
-  
+
+ procedure findmountains(const aseg: pseginfoty);
+ var
+  seg1,seg2: pseginfoty; 
+  int1: integer;
+ begin
+  setlength(fmountains,high(fmountains)+2);
+  seg1:= aseg;
+  with fmountains[high(fmountains)] do begin
+   repeat
+testvar:= seg1-segments;
+    with seg1^ do begin
+     setlength(chain,high(chain)+2);
+     chain[high(chain)]:= h.b^;
+     seg2:= nil;
+     int1:= 0;
+     if diags[0] <> nil then begin
+      seg2:= diags[0];
+     end;
+     if (seg2 <> aseg) and ((diags[1] > seg2) or (diags[1] = aseg)) then begin
+      seg2:= diags[1];
+      int1:= 1;
+     end;
+     if (seg2 <> aseg) and ((diags[2] > seg2)  or (diags[2] = aseg)) then begin
+      seg2:= diags[2];
+      int1:= 2;
+     end;
+     if seg2 <> nil then begin
+      diags[int1]:= nil; //eat
+      if seg2 <> aseg then begin //new mountain
+       setlength(fdiags,high(fdiags)+2);
+       with fdiags[high(fdiags)] do begin
+        a:= seg1^.h.b^;;
+        b:= seg2^.h.b^;
+       end;
+       findmountains(seg1);
+      end;
+      seg1:= seg2;
+     end
+     else begin
+      seg1:= seg1^.h.next;
+     end;
+    end;
+   until seg1 = aseg;
+  end;
+ end;
+   
 begin
 mwcnoiseinit(1,1);
  if grid.rowcount > 1 then begin
@@ -1529,6 +1613,10 @@ mwcnoiseinit(1,1);
     splitseg:= nil;
     trap:= nil;
     flags:= [];
+    diags[0]:= nil;
+    diags[1]:= nil;
+    diags[2]:= nil;
+    
     h.b:= ppt1;
     dx:= ppt2^.x-ppt1^.x; //b->a slope
     dy:= ppt2^.y-ppt1^.y; //b->a slope
@@ -1552,7 +1640,7 @@ mwcnoiseinit(1,1);
    inc(seg1);
   end;
   segments^.h.previous:= segments + npoints - 1;
-//  (segments+npoints-1)^.next:= segments;
+  (segments+npoints-1)^.h.next:= segments;
   for int1:= npoints-1 downto 0 do begin //shuffle segments
    int2:= mwcnoise mod npoints;
    seg1:= shuffle[int2];
@@ -1628,26 +1716,10 @@ end;
   getmem(nodescopy,int1);
   move(nodes^,nodescopy^,int1);
   setlength(ftraps,newtraps-traps);
-  setlength(fdiags,finddiags);
-  setlength(fmountains,length(fdiags));
-writeln('diag b   t');
-  for int1:= 0 to high(fdiags) do begin
-   with diags[int1] do begin
-    fdiags[int1].a:= baset^.h.b^;
-    fdiags[int1].b:= baseb^.h.b^;
-write(rstring(inttostr(int1),3),' ',rstring(inttostr(baseb^.h.b-points),3),' ',
-                   rstring(inttostr(baset^.h.b-points),3),':');
-    seg1:= baseb;
-    fmountains[int1]:= nil;
-    repeat
-     setlength(fmountains[int1],high(fmountains[int1])+2);
-     fmountains[int1][high(fmountains[int1])]:= seg1^.h.b^;
-write(' ',inttostr(seg1^.h.b-points));
-     seg1:= seg1^.h.next;
-    until seg1 = baseb;
-   end;
-writeln;
-  end;
+  finddiags;
+  fdiags:= nil;
+  fmountains:= nil;
+  findmountains(segments);
   int2:= 0;
   for int1:= 0 to high(ftraps) do begin
    with traps[int1] do begin
@@ -1747,7 +1819,8 @@ var
 begin
  ar1:= polyvalues;
  for int1:= 0 to high(fmountains) do begin
-  acanvas.fillpolygon(fmountains[int1],hsbtorgb((int1*50) mod 360,20,100));
+  acanvas.fillpolygon(fmountains[int1].chain,
+                            hsbtorgb((int1*50) mod 360,20,100));
  end;
  for int1:= 0 to high(ftraps) do begin
   acanvas.drawlines(ftraps[int1],true,cl_green);
