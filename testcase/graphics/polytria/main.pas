@@ -1006,6 +1006,114 @@ var
  end;
 *) 
 
+procedure finddiags;
+
+  function checkdiag(const atrap: ptrapinfoty; const up: boolean): boolean; 
+               //false if error or triangle
+  var
+   topseg,bottomseg,lefta,righta: pseginfoty;
+  begin
+   result:= true;
+   with atrap^ do begin
+    if (left = nil) or (right = nil) then begin //segment crossing
+     result:= false;
+     exit;
+    end;
+    lefta:= left^.h.previous;
+    righta:= right^.h.previous;
+    if (left = righta) and (up xor (left^.h.b = bottom)) or 
+       (right = lefta) and (up xor (right^.h.b = bottom)) then begin //triangle
+     result:= false;
+    end;   
+    if not((top = left^.h.b) and (bottom = lefta^.h.b) or
+           (bottom = left^.h.b) and (top = lefta^.h.b) or
+           (top = right^.h.b) and (bottom = righta^.h.b) or
+           (bottom = right^.h.b) and (top = righta^.h.b)) then begin
+     topseg:= segments+(top-points);
+     bottomseg:= segments+(bottom-points);
+     with topseg^ do begin
+      if diags[0] <> nil then begin
+       if diags[1] <> nil then begin
+        diags[2]:= bottomseg;
+       end
+       else begin
+        diags[1]:= bottomseg;
+       end;
+      end
+      else begin
+       diags[0]:= bottomseg;
+      end;
+     end;
+     with bottomseg^ do begin
+      if diags[0] <> nil then begin
+       if diags[1] <> nil then begin
+        diags[2]:= topseg;
+       end
+       else begin
+        diags[1]:= topseg;
+       end;
+      end
+      else begin
+       diags[0]:= topseg;
+      end;
+     end;
+    end;
+   end;
+  end; //checkdiag
+
+ procedure findup(const atrap: ptrapinfoty); forward;
+ 
+ procedure finddown(const atrap: ptrapinfoty);
+ var
+  tr1: ptrapinfoty;
+ begin
+  tr1:= atrap;
+  while checkdiag(tr1,false) do begin
+   with tr1^ do begin
+    if belowr <> nil then begin
+     finddown(belowr);
+    end;
+    if below^.above = tr1 then begin
+     if below^.abover <> nil then begin
+      findup(below^.abover);
+     end;
+    end
+    else begin
+     findup(below^.above);
+    end;
+    tr1:= below;
+   end;
+  end;  
+ end;
+
+ procedure findup(const atrap: ptrapinfoty);
+ var
+  tr1: ptrapinfoty;
+ begin
+  tr1:= atrap;
+  while checkdiag(tr1,true) do begin
+   with tr1^ do begin
+    if abover <> nil then begin
+     findup(abover);     
+    end;
+    if above^.below = tr1 then begin
+     if above^.belowr <> nil then begin
+      finddown(above^.belowr);
+     end;
+    end
+    else begin
+     finddown(above^.below);
+    end;
+    tr1:= above;
+   end;
+  end;  
+ end;
+  
+begin
+ finddown(toptrap);
+end;
+
+(*
  function finddiags: integer; //returns count
  var
   newdiags: pdiaginfoty;
@@ -1135,6 +1243,7 @@ testvar:= tr1-traps;
 }
   result:= newdiags-diags;
  end;
+*)
 
  function newnode(const atrap: ptrapinfoty; 
                      const aparent: ptrapnodeinfoty): ptrapnodeinfoty;
@@ -1542,12 +1651,14 @@ var
  var
   seg1,seg2: pseginfoty; 
   int1: integer;
+  mountainindex: integer;
  begin
-  setlength(fmountains,high(fmountains)+2);
+  mountainindex:= high(fmountains)+1;
+  setlength(fmountains,mountainindex+2);
   seg1:= aseg;
-  with fmountains[high(fmountains)] do begin
-   repeat
+  repeat
 testvar:= seg1-segments;
+   with fmountains[mountainindex] do begin
     with seg1^ do begin
      setlength(chain,high(chain)+2);
      chain[high(chain)]:= h.b^;
@@ -1580,8 +1691,8 @@ testvar:= seg1-segments;
       seg1:= seg1^.h.next;
      end;
     end;
-   until seg1 = aseg;
-  end;
+   end;
+  until seg1 = aseg;
  end;
    
 begin
