@@ -11,12 +11,15 @@ uses
 
 type
  trapdispinfoty = array[0..3] of pointty;
-
+ xpointfixedty = record
+  x,y: integer;
+ end;
+ 
  mountaininfoty = record
   chain: pointarty;
  end;
  mountaininfoarty = array of mountaininfoty;
-  
+
  tmainfo = class(tmainform)
    grid: twidgetgrid;
    smoothed: tbooleanedit;
@@ -181,22 +184,32 @@ type
    tnk_x: (seg: pseginfoty);
    tnk_trap: (trap: ptrapinfoty);
  end;
-
+{
  diaginfoty = record
   baseb,baset: pseginfoty;      //bottom,top
   closeb,closet: segheaderty;   //bottom,top
   bottomup: boolean;
  end;
  pdiaginfoty = ^diaginfoty;
+}
 
+ trianglety = array[0..2] of xpointfixedty;
+ ptrianglety = ^trianglety;
+ 
 const
  trapcountfact = 4;    //todo: check maximal buffer size
  nodecountfact = 8;
- diagcountfact = 1;
- trapnodesize = sizeof(trapnodeinfoty)*trapcountfact;
- diagsize = sizeof(diaginfoty)*diagcountfact;
-{$if diagsize > trapnodesize}
- {$error 'diagonal memory overflow'}
+ mountaincountfact = 1;
+ trianglecountfact = 1;
+ trapsize = sizeof(trapinfoty)*trapcountfact;
+ trapnodesize = sizeof(trapnodeinfoty)*nodecountfact;
+ mountainsize = (3 * sizeof(pointty)) * mountaincountfact;
+                        //worst case
+ trianglesize = sizeof(trianglety) * trianglecountfact;
+ firstsize = trapsize+trapnodesize;
+ secondsize = mountainsize+trianglesize;
+{$if secondsize > firstsize}
+ {$error 'mountain-triangles memory overflow'}
 {$endif}
 
 var
@@ -204,7 +217,7 @@ var
  segments: pseginfoty;
  points: ppointty;
  npoints: integer;
- diags: pdiaginfoty;
+// diags: pdiaginfoty;
 
 function calcx(const y: integer; const seg: seginfoty): integer;
 var
@@ -1006,6 +1019,10 @@ var
  end;
 *) 
 
+function angdelta(const a,b: pointty): integer;
+begin
+end;
+
 procedure finddiags;
 
   function checkdiag(const atrap: ptrapinfoty; const up: boolean): boolean; 
@@ -1015,7 +1032,8 @@ procedure finddiags;
   begin
    result:= true;
    with atrap^ do begin
-    if (left = nil) or (right = nil) then begin //segment crossing
+    if (left = nil) or (right = nil) or 
+             (top = nil) or (bottom = nil) then begin //segment crossing
      result:= false;
      exit;
     end;
@@ -1646,7 +1664,7 @@ var
  sizetraps,sizenodes: integer;
  ppt1,ppt2: ppointty;
  bo1: boolean;
-
+(*
  procedure findmountains(const aseg: pseginfoty);
  var
   seg1,seg2: pseginfoty; 
@@ -1694,6 +1712,69 @@ testvar:= seg1-segments;
    end;
   until seg1 = aseg;
  end;
+*)
+var
+ triangles,newtriangle: ptrianglety;
+ newmountain: ppointty;
+ 
+ procedure findmountains(const aseg: pseginfoty);
+ var
+  seg1,seg2: pseginfoty; 
+  int1: integer;
+  start: ppointty;
+ begin
+  start:= newmountain;
+//  mountainindex:= high(fmountains)+1;
+//  setlength(fmountains,mountainindex+2);
+  seg1:= aseg;
+  repeat
+//   with fmountains[mountainindex] do begin
+   with seg1^ do begin
+//     setlength(chain,high(chain)+2);
+//     chain[high(chain)]:= h.b^;
+    newmountain^:= h.b^;
+    inc(newmountain);
+    seg2:= nil;
+    int1:= 0;
+    if diags[0] <> nil then begin
+     seg2:= diags[0];
+    end;
+    if (seg2 <> aseg) and ((diags[1] > seg2) or (diags[1] = aseg)) then begin
+     seg2:= diags[1];
+     int1:= 1;
+    end;
+    if (seg2 <> aseg) and ((diags[2] > seg2)  or (diags[2] = aseg)) then begin
+     seg2:= diags[2];
+     int1:= 2;
+    end;
+    if seg2 <> nil then begin
+     diags[int1]:= nil; //eat
+     if seg2 <> aseg then begin //new mountain
+setlength(fdiags,high(fdiags)+2);
+with fdiags[high(fdiags)] do begin
+a:= seg1^.h.b^;;
+b:= seg2^.h.b^;
+end;
+      findmountains(seg1);
+     end;
+     seg1:= seg2;
+    end
+    else begin
+     seg1:= seg1^.h.next;
+    end;
+   end;
+  until seg1 = aseg;
+
+setlength(fmountains,high(fmountains)+2);
+with fmountains[high(fmountains)] do begin
+ setlength(chain,newmountain-start);
+ for int1:= 0 to high(chain) do begin
+  chain[int1]:= start[int1];
+ end;
+end;
+
+  newmountain:= start;
+ end;
    
 begin
 mwcnoiseinit(1,1);
@@ -1702,8 +1783,8 @@ mwcnoiseinit(1,1);
   npoints:= length(pointsar);
   points:= pointer(pointsar);
  
-  sizetraps:= trapcountfact*npoints*sizeof(trapinfoty);
-  sizenodes:= nodecountfact*npoints*sizeof(trapnodeinfoty);
+  sizetraps:= npoints*trapsize;
+  sizenodes:= npoints*trapnodesize;
   if buffer <> nil then begin
    freemem(buffer);
   end;
@@ -1826,68 +1907,70 @@ end;
   int1:= (newnode-nodes)*sizeof(trapnodeinfoty);
   getmem(nodescopy,int1);
   move(nodes^,nodescopy^,int1);
-  setlength(ftraps,newtraps-traps);
-  finddiags;
-  fdiags:= nil;
-  fmountains:= nil;
-  findmountains(segments);
-  int2:= 0;
-  for int1:= 0 to high(ftraps) do begin
-   with traps[int1] do begin
-    if top = nil then begin
-     ftraps[int1][0].y:= 0;
-     ftraps[int1][1].y:= 0;
-    end
-    else begin
-     ftraps[int1][0].y:= top^.y;
-     ftraps[int1][1].y:= top^.y;
-    end;
-    if bottom = nil then begin
-     ftraps[int1][2].y:= tridisp.height-1;
-     ftraps[int1][3].y:= tridisp.height-1;
-    end
-    else begin
-     ftraps[int1][2].y:= bottom^.y;
-     ftraps[int1][3].y:= bottom^.y;
-    end;
-    if left = nil then begin
-     ftraps[int1][0].x:= 0;
-     ftraps[int1][3].x:= 0;
-    end
-    else begin
-     if top = nil then begin
-      ftraps[int1][0].x:= 0;
-     end
-     else begin
-      ftraps[int1][0].x:= calcx(top^.y,left^);
-     end;
-     if bottom = nil then begin
-      ftraps[int1][3].x:= tridisp.width-1;
-     end
-     else begin
-      ftraps[int1][3].x:= calcx(bottom^.y,left^);
-     end;
-    end;
-    if right = nil then begin
-     ftraps[int1][1].x:= tridisp.width-1;
-     ftraps[int1][2].x:= tridisp.width-1;
-    end
-    else begin
-     if top = nil then begin
-      ftraps[int1][1].x:= tridisp.width-1;
-     end
-     else begin
-      ftraps[int1][1].x:= calcx(top^.y,right^);
-     end;
-     if bottom = nil then begin
-      ftraps[int1][2].x:= 0;
-     end
-     else begin
-      ftraps[int1][2].x:= calcx(bottom^.y,right^);
-     end;
-    end;
+setlength(ftraps,newtraps-traps);
+int2:= 0;
+for int1:= 0 to high(ftraps) do begin
+ with traps[int1] do begin
+  if top = nil then begin
+   ftraps[int1][0].y:= 0;
+   ftraps[int1][1].y:= 0;
+  end
+  else begin
+   ftraps[int1][0].y:= top^.y;
+   ftraps[int1][1].y:= top^.y;
+  end;
+  if bottom = nil then begin
+   ftraps[int1][2].y:= tridisp.height-1;
+   ftraps[int1][3].y:= tridisp.height-1;
+  end
+  else begin
+   ftraps[int1][2].y:= bottom^.y;
+   ftraps[int1][3].y:= bottom^.y;
+  end;
+  if left = nil then begin
+   ftraps[int1][0].x:= 0;
+   ftraps[int1][3].x:= 0;
+  end
+  else begin
+   if top = nil then begin
+    ftraps[int1][0].x:= 0;
+   end
+   else begin
+    ftraps[int1][0].x:= calcx(top^.y,left^);
+   end;
+   if bottom = nil then begin
+    ftraps[int1][3].x:= tridisp.width-1;
+   end
+   else begin
+    ftraps[int1][3].x:= calcx(bottom^.y,left^);
    end;
   end;
+  if right = nil then begin
+   ftraps[int1][1].x:= tridisp.width-1;
+   ftraps[int1][2].x:= tridisp.width-1;
+  end
+  else begin
+   if top = nil then begin
+    ftraps[int1][1].x:= tridisp.width-1;
+   end
+   else begin
+    ftraps[int1][1].x:= calcx(top^.y,right^);
+   end;
+   if bottom = nil then begin
+    ftraps[int1][2].x:= 0;
+   end
+   else begin
+    ftraps[int1][2].x:= calcx(bottom^.y,right^);
+   end;
+  end;
+ end;
+end;
+  finddiags;
+  fdiags:= nil;
+  newmountain:= pointer(traps); //traps not used anymore
+  triangles:= pointer(newmountain)+npoints*mountainsize;
+  newtriangle:= triangles;
+  findmountains(segments);
   invalidisp;
  end;  
 end;
