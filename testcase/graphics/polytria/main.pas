@@ -7,7 +7,7 @@ uses
  msewidgets,msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,
  msestrings,msetypes,msewidgetgrid,msegraphedits,msescrollbar,msestatfile,
  msesplitter,msechartedit,msebitmap,msedatanodes,msefiledialog,mselistbrowser,
- msesys;
+ msesys,msedispwidgets,mserichstring;
 
 type
  trapdispinfoty = array[0..3] of pointty;
@@ -45,6 +45,7 @@ type
    tbutton3: tbutton;
    mainstat: tstatfile;
    tbutton4: tbutton;
+   angdisp: tintegerdisp;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -75,10 +76,21 @@ var
  testvar,testvar1,testvar2,testvar3,testvar4,testvar5,testvar6,
  testvar7,testvar8: integer;
 
+function angdelta(const a,b,c: pointty): integer; forward;
+
 procedure tmainfo.invalidisp;
+var
+ ar1: pointarty;
 begin
  polydisp.invalidate;
  tridisp.invalidate;
+ if grid.rowcount >= 3 then begin
+  ar1:= polyvalues;
+  angdisp.value:= angdelta(ar1[0],ar1[1],ar1[2]);
+ end
+ else begin
+  angdisp.value:= 0;
+ end;
 end;
  
 procedure tmainfo.datentexe(const sender: TObject);
@@ -891,6 +903,40 @@ end;
 var
  buffer: pointer;
 
+function angdelta(const a,b,c: pointty): integer;
+    //>0 -> ccw, a.y <= b.y <= c.y
+var
+ dx1,dy1,dx2,dy2: integer;
+
+ procedure calctandiff;
+ begin
+  dy1:= b.y - a.y;
+  dy2:= c.y - b.y;
+  result:= dx2*dy1 - dx1*dy2; //y is top-down
+ end; //calctandiff
+
+begin
+ dx1:= b.x - a.x;
+ dx2:= c.x - b.x;
+ if dx1 >= 0 then begin
+  if dx2 < 0 then begin
+   result:= -1;
+  end
+  else begin
+   calctandiff;
+  end;
+ end
+ else begin
+  if dx2 > 0 then begin
+   result:= 1;
+  end
+  else begin
+   calctandiff;
+//   result:= -result;
+  end;
+ end;
+end;
+
 procedure tmainfo.triangexe(const sender: TObject);
 // x,y range = $7fff..-$8000 (16 bit X11 space)
 var
@@ -1018,10 +1064,6 @@ var
   result:= newdiags-diags;
  end;
 *) 
-
-function angdelta(const a,b: pointty): integer;
-begin
-end;
 
 procedure finddiags;
 
@@ -1967,6 +2009,7 @@ for int1:= 0 to high(ftraps) do begin
 end;
   finddiags;
   fdiags:= nil;
+  fmountains:= nil;
   newmountain:= pointer(traps); //traps not used anymore
   triangles:= pointer(newmountain)+npoints*mountainsize;
   newtriangle:= triangles;
