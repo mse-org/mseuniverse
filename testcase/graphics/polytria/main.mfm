@@ -386,6 +386,24 @@ object mainfo: tmainfo
     anchors = [an_right, an_bottom]
     reffontheight = 14
   end
+  object tridisped: tbooleanedit
+    frame.caption = 'triangles'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      51
+      2
+    )
+    taborder = 16
+    bounds_x = 618
+    bounds_y = 311
+    bounds_cx = 64
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+  end
   object projectstat: tstatfile
     filename = 'test.tria'
     left = 176

@@ -14,11 +14,17 @@ type
  xpointfixedty = record
   x,y: integer;
  end;
+ pxpointfixedty = ^xpointfixedty;
  
  mountaininfoty = record
   chain: pointarty;
  end;
  mountaininfoarty = array of mountaininfoty;
+ 
+ trity = record
+  p: array[0..2] of pointty;
+ end;
+ triarty = array of trity;
 
  tmainfo = class(tmainform)
    grid: twidgetgrid;
@@ -46,6 +52,7 @@ type
    mainstat: tstatfile;
    tbutton4: tbutton;
    angdisp: tintegerdisp;
+   tridisped: tbooleanedit;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -64,6 +71,7 @@ type
    ftraps: array of trapdispinfoty;
    fdiags: segmentarty;
    fmountains: mountaininfoarty;
+   ftriangles: triarty;
    procedure invalidisp;
    function polyvalues: pointarty;
  end;
@@ -207,7 +215,12 @@ type
 
  trianglety = array[0..2] of xpointfixedty;
  ptrianglety = ^trianglety;
- 
+ pmountainpointty = ^mountainpointty;
+ mountainpointty = record
+  p: ppointty;
+  prev: pmountainpointty; 
+  next: pmountainpointty;
+ end;
 const
  trapcountfact = 4;    //todo: check maximal buffer size
  nodecountfact = 8;
@@ -215,7 +228,7 @@ const
  trianglecountfact = 1;
  trapsize = sizeof(trapinfoty)*trapcountfact;
  trapnodesize = sizeof(trapnodeinfoty)*nodecountfact;
- mountainsize = (3 * sizeof(pointty)) * mountaincountfact;
+ mountainsize = (3 * sizeof(mountainpointty)) * mountaincountfact;
                         //worst case
  trianglesize = sizeof(trianglety) * trianglecountfact;
  firstsize = trapsize+trapnodesize;
@@ -771,14 +784,17 @@ begin
 end;
 
 function xdist(const point: ppointty; ref: pseginfoty): integer;
- //true if point right of segment
 begin
  if ref^.dy = 0 then begin
   result:= (point^.y - ref^.h.b^.y) * ref^.dx; //dx = 1|-1
  end
  else begin
 //todo: no division
-  result:= point^.x -(ref^.h.b^.x + (point^.y-ref^.h.b^.y)*ref^.dx div ref^.dy);
+//  result:= point^.x -(ref^.h.b^.x + (point^.y-ref^.h.b^.y)*ref^.dx div ref^.dy);
+  result:= ref^.dy*(point^.x - ref^.h.b^.x) - (point^.y-ref^.h.b^.y)*ref^.dx;
+  if ref^.dy < 0 then begin
+   result:= -result;
+  end;
  end;
 end;
 
@@ -963,270 +979,27 @@ var
 
 var
  toptrap: ptrapinfoty = nil;
-(*
- function finddiags: integer; //return count
- var
-  newdiags: pdiaginfoty;
-
-  procedure finddown(const atrap,astop: ptrapinfoty);
-
-   procedure findup(const atrap,astop: ptrapinfoty);
-   var
-    tr1: ptrapinfoty;
-   begin
-    tr1:= atrap;
-    while true do begin
-     with tr1^ do begin
-      if abover <> nil then begin
-       findup(abover,tr1);
-      end;
-      if (left = nil) or (right = nil) then begin
-       exit; //error because of segment crossing
-      end;
-      if (left = right^.previous) or (right = left^.previous) then begin
-       break; //triangle
-      end;
-      tr1:= above;
-     end;
-    end;
-    finddown(tr1,astop);
-   end;
-   
-  var
-   tr1,toptrap: ptrapinfoty;
-   lefta,righta: pseginfoty;
-
-   procedure makediag;
-   begin
-    with tr1^ do begin
-     newdiags^.top:= segments+(toptrap^.top-points);
-     newdiags^.basetop:= segments+(top-points);
-     newdiags^.basebottom:= segments+(bottom-points);
-            //close chain below
-     if newdiags^.basebottom^.previous = newdiags^.top then begin
-      newdiags^.bottomup:= false;
-      newdiags^.basebottom^.previous:= newdiags^.basetop;
-     end
-     else begin
-      newdiags^.bottomup:= true;
-      newdiags^.chainstart:= newdiags^.basetop^.previous;
-      newdiags^.basetop^.previous:= newdiags^.basebottom;
-     end;
-     inc(newdiags);
-     toptrap:= tr1;
-    end;
-   end; //makediag
-var
- hasdiag: boolean;   
-  begin
-   toptrap:= atrap;
-   tr1:= atrap;
-   repeat
-    with tr1^ do begin
-     if (left = nil) or (right = nil) or 
-                 (top = nil) or (bottom = nil) then begin
-      exit; //error because of segment crossing
-     end;
-     if abover <> nil then begin
-      findup(abover,tr1);
-     end;
-     lefta:= left^.previous;
-     righta:=right^.previous;
-     if (top = left^.b) and (bottom = lefta^.b) or
-            (bottom = left^.b) and (top = lefta^.b) or
-            (top = right^.b) and (bottom = righta^.b) or
-            (bottom = right^.b) and (top = righta^.b) then begin
-      hasdiag:= false;
-     end
-     else begin
-      hasdiag:= true;
-      makediag;
-     end;
-     if belowr <> nil then begin
-      finddown(belowr,astop);
-     end;
-     if (tr1^.left = righta) and (bottom = righta^.b) or 
-        (tr1^.right = lefta) and (bottom = lefta^.b) then begin
-      break; //triangle below
-     end;
-    end;
-    tr1:= tr1^.below;
-   until tr1 = astop;
-   if not hasdiag then begin
-    makediag;
-   end;
-  end;
-
- begin
-  diags:= pointer(nodes);
-  newdiags:= diags;
-  finddown(toptrap,nil);
-  result:= newdiags-diags;
- end;
-*) 
-
-procedure finddiags;
-
-  function checkdiag(const atrap: ptrapinfoty; const up: boolean): boolean; 
-               //false if error or triangle
-  var
-   topseg,bottomseg,lefta,righta: pseginfoty;
-  begin
-   result:= true;
-   with atrap^ do begin
-    if (left = nil) or (right = nil) or 
-             (top = nil) or (bottom = nil) then begin //segment crossing
-     result:= false;
-     exit;
-    end;
-    lefta:= left^.h.previous;
-    righta:= right^.h.previous;
-    if (left = righta) and (up xor (left^.h.b = bottom)) or 
-       (right = lefta) and (up xor (right^.h.b = bottom)) then begin //triangle
-     result:= false;
-    end;   
-    if not((top = left^.h.b) and (bottom = lefta^.h.b) or
-           (bottom = left^.h.b) and (top = lefta^.h.b) or
-           (top = right^.h.b) and (bottom = righta^.h.b) or
-           (bottom = right^.h.b) and (top = righta^.h.b)) then begin
-     topseg:= segments+(top-points);
-     bottomseg:= segments+(bottom-points);
-     with topseg^ do begin
-      if diags[0] <> nil then begin
-       if diags[1] <> nil then begin
-        diags[2]:= bottomseg;
-       end
-       else begin
-        diags[1]:= bottomseg;
-       end;
-      end
-      else begin
-       diags[0]:= bottomseg;
-      end;
-     end;
-     with bottomseg^ do begin
-      if diags[0] <> nil then begin
-       if diags[1] <> nil then begin
-        diags[2]:= topseg;
-       end
-       else begin
-        diags[1]:= topseg;
-       end;
-      end
-      else begin
-       diags[0]:= topseg;
-      end;
-     end;
-    end;
-   end;
-  end; //checkdiag
-
- procedure findup(const atrap: ptrapinfoty); forward;
  
- procedure finddown(const atrap: ptrapinfoty);
- var
-  tr1: ptrapinfoty;
- begin
-  tr1:= atrap;
-  while checkdiag(tr1,false) do begin
-   with tr1^ do begin
-    if belowr <> nil then begin
-     finddown(belowr);
-    end;
-    if below^.above = tr1 then begin
-     if below^.abover <> nil then begin
-      findup(below^.abover);
+ procedure finddiags;
+ 
+   function checkdiag(const atrap: ptrapinfoty; const up: boolean): boolean; 
+                //false if error or triangle
+   var
+    topseg,bottomseg,lefta,righta: pseginfoty;
+   begin
+    result:= true;
+    with atrap^ do begin
+     if (left = nil) or (right = nil) or 
+              (top = nil) or (bottom = nil) then begin //segment crossing
+      result:= false;
+      exit;
      end;
-    end
-    else begin
-     findup(below^.above);
-    end;
-    tr1:= below;
-   end;
-  end;  
- end;
-
- procedure findup(const atrap: ptrapinfoty);
- var
-  tr1: ptrapinfoty;
- begin
-  tr1:= atrap;
-  while checkdiag(tr1,true) do begin
-   with tr1^ do begin
-    if abover <> nil then begin
-     findup(abover);     
-    end;
-    if above^.below = tr1 then begin
-     if above^.belowr <> nil then begin
-      finddown(above^.belowr);
-     end;
-    end
-    else begin
-     finddown(above^.below);
-    end;
-    tr1:= above;
-   end;
-  end;  
- end;
-  
-begin
- finddown(toptrap);
-end;
-
-(*
- function finddiags: integer; //returns count
- var
-  newdiags: pdiaginfoty;
-  tr1: ptrapinfoty;
-  lefta,righta: pseginfoty;
-
-  procedure makediag;
-  begin
-   with tr1^,newdiags^ do begin
-    baset:= segments+(top-points);
-    baseb:= segments+(bottom-points);
-    closet.b:= baset^.h.b;
-    closeb.b:= baseb^.h.b;
-    if baset > baseb then begin
-     bottomup:= false;
-     closeb.next:= @closet;
-     closet.previous:= @closeb;
-     closeb.previous:= baseb^.h.previous;
-     closeb.previous^.h.next:= @closeb;
-     closet.next:= baset^.h.next;
-     closet.next^.h.previous:= @closet;
-     baseb^.h.previous:= baset;
-     baset^.h.next:= baseb;
-    end
-    else begin
-     newdiags^.bottomup:= true;
-     closet.next:= @closeb;
-     closeb.previous:= @closet;
-     closet.previous:= baset^.h.previous;
-     closet.previous^.h.next:= @closet;
-     closeb.next:= baseb^.h.next;
-     closeb.next^.h.previous:= @closeb;
-     baset^.h.previous:= baseb;
-     baseb^.h.next:= baset;
-    end;
-   end;
-   inc(newdiags);
-  end; //makediag
-var
- dia1: pdiaginfoty;  
- topseg,bottomseg: pseginfoty;
- begin
-  diags:= pointer(nodes);
-  newdiags:= diags;
-  tr1:= newtraps;
-  repeat
-   dec(tr1);
-testvar:= tr1-traps;
-   with tr1^ do begin
-    if (left <> nil) and (right <> nil) then begin
-testvar:= tr1-traps;
      lefta:= left^.h.previous;
      righta:= right^.h.previous;
+     if (left = righta) and (up xor (left^.h.b = bottom)) or 
+        (right = lefta) and (up xor (right^.h.b = bottom)) then begin //triangle
+      result:= false;
+     end;   
      if not((top = left^.h.b) and (bottom = lefta^.h.b) or
             (bottom = left^.h.b) and (top = lefta^.h.b) or
             (top = right^.h.b) and (bottom = righta^.h.b) or
@@ -1259,51 +1032,61 @@ testvar:= tr1-traps;
         diags[0]:= topseg;
        end;
       end;
-      {
-      with newdiags^ do begin
-       baset:= segments+(top-points);
-       baseb:= segments+(bottom-points);
-       closet.b:= baset^.h.b;
-       closeb.b:= baseb^.h.b;
-       bottomup:= baset < baseb;
-      end;
-      inc(newdiags);
-      }
      end;
     end;
-   end;
-  until tr1 = traps;
-  {
-  dia1:= diags;
-  while dia1 <> newdiags do begin
-   with dia1^ do begin
-    if bottomup then begin
-     closet.next:= @closeb;
-     closeb.previous:= @closet;
-     closet.previous:= baset^.h.previous;
-     closet.previous^.h.next:= @closet;
-     closeb.next:= baseb^.h.next;
-     closeb.next^.h.previous:= @closeb;
-     baset^.h.previous:= baseb;
-     baseb^.h.next:= baset;
-    end
-    else begin
-     closeb.next:= @closet;
-     closet.previous:= @closeb;
-     closeb.previous:= baseb^.h.previous;
-     closeb.previous^.h.next:= @closeb;
-     closet.next:= baset^.h.next;
-     closet.next^.h.previous:= @closet;
-     baseb^.h.previous:= baset;
-     baset^.h.next:= baseb;
+   end; //checkdiag
+ 
+  procedure findup(const atrap: ptrapinfoty); forward;
+  
+  procedure finddown(const atrap: ptrapinfoty);
+  var
+   tr1: ptrapinfoty;
+  begin
+   tr1:= atrap;
+   while checkdiag(tr1,false) do begin
+    with tr1^ do begin
+     if belowr <> nil then begin
+      finddown(belowr);
+     end;
+     if below^.above = tr1 then begin
+      if below^.abover <> nil then begin
+       findup(below^.abover);
+      end;
+     end
+     else begin
+      findup(below^.above);
+     end;
+     tr1:= below;
     end;
-   end;
-   inc(dia1);
-  end;
-}
-  result:= newdiags-diags;
- end;
-*)
+   end;  
+  end; //finddown
+ 
+  procedure findup(const atrap: ptrapinfoty);
+  var
+   tr1: ptrapinfoty;
+  begin
+   tr1:= atrap;
+   while checkdiag(tr1,true) do begin
+    with tr1^ do begin
+     if abover <> nil then begin
+      findup(abover);     
+     end;
+     if above^.below = tr1 then begin
+      if above^.belowr <> nil then begin
+       finddown(above^.belowr);
+      end;
+     end
+     else begin
+      finddown(above^.below);
+     end;
+     tr1:= above;
+    end;
+   end;  
+  end; //findup
+   
+ begin
+  finddown(toptrap);
+ end; //finddiags
 
  function newnode(const atrap: ptrapinfoty; 
                      const aparent: ptrapnodeinfoty): ptrapnodeinfoty;
@@ -1314,7 +1097,7 @@ testvar:= tr1-traps;
   result^.trap:= atrap;
   result^.p:= aparent;
   atrap^.node:= result;
- end;
+ end; //newnode
    
  procedure handlepoint(const seg: pseginfoty);
  var
@@ -1365,7 +1148,7 @@ testvar:= tpupper-traps;
   no1^.y:= ppt1;
   
   include(seg^.flags,sf_pointhandled);
- end;
+ end; //handlepoint
 
 var
  segcounter: integer;
@@ -1392,8 +1175,6 @@ var
      noleft:= newnode(ltrap,noabove);
     end;
    end;
-//   noleft:= newnode(ltrap,noabove);       // (Tb) ->     (s)
-//   noright:= newnode(rtrap,noabove);      //         (Tl)   (Tr)
    with noabove^ do begin
     l:= noleft;           // (Tb) ->     (s)
     r:= noright;          //         (Tl)   (Tr)
@@ -1410,7 +1191,6 @@ var
    int1: integer;
    aisright: boolean;
    seg1: pseginfoty;
-//   trleft,trright: ptrapinfoty;
   begin
    if trold^.below = nil then begin
     exit; //crossing
@@ -1418,13 +1198,9 @@ var
 
    if newright then begin
     seg1:= trold^.right;
-//    trleft:= trold;
-//    trright:= trnew;
    end
    else begin
     seg1:= trold^.left;
-//    trleft:= trnew;
-//    trright:= trold;
    end;
 testvar1:= trold-traps;
 testvar2:= trnew-traps;
@@ -1481,7 +1257,6 @@ testvar8:= trold^.below^.abover-traps;
      trnew^.below:= trold^.below;
      with trold^.below^ do begin
       if abover = nil then begin  //single trap above
-//{
        if newright then begin
         abover:= trnew;
        end
@@ -1489,7 +1264,6 @@ testvar8:= trold^.below^.abover-traps;
         abover:= trold;
         above:= trnew;
        end;
-//}
       end
       else begin
        if aisright then begin
@@ -1530,7 +1304,7 @@ testvar8:= trold^.below^.abover-traps;
      end;
     end;
    end;
-  end;
+  end; //updatebelow
     
   procedure splittrap(const newright: boolean; const old: ptrapinfoty;
                               var left,right,trnew: ptrapinfoty);
@@ -1611,9 +1385,15 @@ testvar8:= trold^.below^.abover-traps;
    sd1:= segdirdown(sega^.splitseg,aseg);
    case sd1 of
     sd_up: begin //existing edge above
+     if trap1^.below = nil then begin
+      exit; //error
+     end;
      isright1:= isright(trap1^.below^.top,aseg);
     end;
     sd_right: begin
+     if trap1^.above = nil then begin
+      exit; //error
+     end;
      trap1:= trap1^.above^.below;
      isright1:= true;
      if (trap1^.above = traps) then begin
@@ -1621,6 +1401,9 @@ testvar8:= trold^.below^.abover-traps;
      end;
     end;
     else begin
+     if trap1^.above = nil then begin
+      exit; //error
+     end;
      trap1:= trap1^.above^.belowr;
      isright1:= false;
      if (trap1^.above = traps) then begin
@@ -1706,75 +1489,25 @@ var
  sizetraps,sizenodes: integer;
  ppt1,ppt2: ppointty;
  bo1: boolean;
-(*
- procedure findmountains(const aseg: pseginfoty);
- var
-  seg1,seg2: pseginfoty; 
-  int1: integer;
-  mountainindex: integer;
- begin
-  mountainindex:= high(fmountains)+1;
-  setlength(fmountains,mountainindex+2);
-  seg1:= aseg;
-  repeat
-testvar:= seg1-segments;
-   with fmountains[mountainindex] do begin
-    with seg1^ do begin
-     setlength(chain,high(chain)+2);
-     chain[high(chain)]:= h.b^;
-     seg2:= nil;
-     int1:= 0;
-     if diags[0] <> nil then begin
-      seg2:= diags[0];
-     end;
-     if (seg2 <> aseg) and ((diags[1] > seg2) or (diags[1] = aseg)) then begin
-      seg2:= diags[1];
-      int1:= 1;
-     end;
-     if (seg2 <> aseg) and ((diags[2] > seg2)  or (diags[2] = aseg)) then begin
-      seg2:= diags[2];
-      int1:= 2;
-     end;
-     if seg2 <> nil then begin
-      diags[int1]:= nil; //eat
-      if seg2 <> aseg then begin //new mountain
-       setlength(fdiags,high(fdiags)+2);
-       with fdiags[high(fdiags)] do begin
-        a:= seg1^.h.b^;;
-        b:= seg2^.h.b^;
-       end;
-       findmountains(seg1);
-      end;
-      seg1:= seg2;
-     end
-     else begin
-      seg1:= seg1^.h.next;
-     end;
-    end;
-   end;
-  until seg1 = aseg;
- end;
-*)
-var
  triangles,newtriangle: ptrianglety;
- newmountain: ppointty;
+ newmountain: pmountainpointty;
  
- procedure findmountains(const aseg: pseginfoty);
+ procedure findmountains(const aseg: pseginfoty; const first: boolean);
  var
   seg1,seg2: pseginfoty; 
   int1: integer;
-  start: ppointty;
+  start: pmountainpointty;
+  rightside,bottomup: boolean;
+  pttop,ptbottom,pt1,pt2: pmountainpointty;
+  dy,dx: integer;
  begin
   start:= newmountain;
-//  mountainindex:= high(fmountains)+1;
-//  setlength(fmountains,mountainindex+2);
   seg1:= aseg;
   repeat
-//   with fmountains[mountainindex] do begin
    with seg1^ do begin
-//     setlength(chain,high(chain)+2);
-//     chain[high(chain)]:= h.b^;
-    newmountain^:= h.b^;
+    newmountain^.prev:= newmountain-1;
+    newmountain^.next:= newmountain+1;
+    newmountain^.p:= h.b;
     inc(newmountain);
     seg2:= nil;
     int1:= 0;
@@ -1797,7 +1530,7 @@ with fdiags[high(fdiags)] do begin
 a:= seg1^.h.b^;;
 b:= seg2^.h.b^;
 end;
-      findmountains(seg1);
+      findmountains(seg1,false);
      end;
      seg1:= seg2;
     end
@@ -1811,12 +1544,166 @@ setlength(fmountains,high(fmountains)+2);
 with fmountains[high(fmountains)] do begin
  setlength(chain,newmountain-start);
  for int1:= 0 to high(chain) do begin
-  chain[int1]:= start[int1];
+  chain[int1]:= start[int1].p^;
  end;
 end;
 
-  newmountain:= start;
+  dec(newmountain); //last
+  start^.prev:= nil;
+  newmountain^.next:= nil;
+  if first then begin
+   ptbottom:= start;
+   pttop:= start;
+   pt1:= start;
+   repeat
+    if isbelow(pt1^.p,ptbottom^.p) then begin
+     ptbottom:= pt1;
+    end;
+    if isbelow(pttop^.p,pt1^.p) then begin
+     pttop:= pt1;
+    end;
+    pt1:= pt1^.next;
+   until pt1 = nil;   
+   {
+   start^.prev:= newmountain;
+   newmountain^.next:= start;
+   if ptbottom^.next = pttop then begin
+    ptbottom^.next:= nil;
+    pttop^.prev:= nil;
+   end
+   else begin
+    pttop^.next:= nil;
+    ptbottom^.prev:= nil;
+   end;
+   }
+  end
+  else begin
+   if isbelow(start^.p,newmountain^.p) then begin
+    ptbottom:= start;
+    pttop:= newmountain;
+   end
+   else begin
+    ptbottom:= newmountain;
+    pttop:= start;
+   end;
+   if pttop^.next <> nil then begin
+    if isbelow(pttop^.next^.p,ptbottom^.p) then begin
+     ptbottom:= pttop^.next;
+    end;
+   end
+   else begin
+    if isbelow(pttop^.prev^.p,ptbottom^.p) then begin
+      ptbottom:= pttop^.prev;
+    end
+   end;
+   if ptbottom^.next <> nil then begin
+    if not isbelow(ptbottom^.next^.p,pttop^.p) then begin
+     pttop:= ptbottom^.next;
+    end;
+   end
+   else begin
+    if isbelow(ptbottom^.prev^.p,pttop^.p) then begin
+     pttop:= ptbottom^.prev;
+    end;
+   end;
+  end;
+  start^.prev:= newmountain;
+  newmountain^.next:= start;
+  if ptbottom^.next = pttop then begin
+   ptbottom^.next:= nil;
+   pttop^.prev:= nil;
+  end
+  else begin
+   pttop^.next:= nil;
+   ptbottom^.prev:= nil;
+  end;
+if tridisped.value then begin
+  if pttop^.p^.y <> ptbottom^.p^.y then begin //not empty
+   bottomup:= ptbottom^.prev = nil;
+   if bottomup then begin
+    pt1:= ptbottom^.next;
+   end
+   else begin
+    pt1:= pttop^.next;
+   end;
+   pt2:= pt1;
+   int1:= 0;
+   dx:= pttop^.p^.x - ptbottom^.p^.x;
+   dy:= pttop^.p^.y - ptbottom^.p^.y; //always negative
+   repeat
+    int1:= dy*(pt1^.p^.x - pttop^.p^.x) - (pt1^.p^.y-pttop^.p^.y)*dx;
+    pt1:= pt1^.next;
+   until (int1 <> 0) or (pt1 = nil);
+   if int1 <> 0 then begin //not empty
+    rightside:= int1 < 0;
+    pt1:= pt2;
+    bo1:= false;
+    while true do begin
+     int1:= angdelta(pt1^.prev^.p^,pt1^.p^,pt1^.next^.p^);
+     if int1 <> 0 then begin  //not empty
+      if (int1 > 0) xor rightside xor bottomup then begin //cut ear
+       with pt1^.prev^.p^ do begin
+        pxpointfixedty(newtriangle)^.x:= x*65536;
+        pxpointfixedty(newtriangle)^.y:= y*65536;
+       end;
+       inc(pxpointfixedty(newtriangle));
+       with pt1^.p^ do begin
+        pxpointfixedty(newtriangle)^.x:= x*65536;
+        pxpointfixedty(newtriangle)^.y:= y*65536;
+       end;
+       inc(pxpointfixedty(newtriangle));
+       with pt1^.next^.p^ do begin
+        pxpointfixedty(newtriangle)^.x:= x*65536;
+        pxpointfixedty(newtriangle)^.y:= y*65536;
+       end;
+       inc(pxpointfixedty(newtriangle));
+      end
+      else begin       //no ear, try next
+       if bo1 then begin
+        pt1:= pt1^.prev;
+        if pt1^.prev = nil then begin
+         pt1:= pt1^.next;
+         bo1:= false;
+        end;
+       end
+       else begin
+        pt1:= pt1^.next;
+        if pt1^.next = nil then begin
+         pt1:= pt1^.prev;
+         bo1:= true;
+        end;
+       end;
+       continue;
+      end;
+     end;
+     pt1^.prev^.next:= pt1^.next;
+     pt1^.next^.prev:= pt1^.prev;
+     pt1:= pt1^.prev;
+     if pt1^.prev = nil then begin
+      pt1:= pt1^.next;
+      if pt1^.next = nil then begin
+       break;
+      end;
+     end;
+    end;
+   end;
+  end;
+end;
+  newmountain:= start; //restore
+
+setlength(ftriangles,newtriangle-triangles);
+for int1:= 0 to high(ftriangles) do begin
+ with ftriangles[int1] do begin
+  p[0].x:= triangles[int1][0].x div 65536;
+  p[0].y:= triangles[int1][0].y div 65536;
+  p[1].x:= triangles[int1][1].x div 65536;
+  p[1].y:= triangles[int1][1].y div 65536;
+  p[2].x:= triangles[int1][2].x div 65536;
+  p[2].y:= triangles[int1][2].y div 65536;
  end;
+end;
+
+ end; //findmountains
    
 begin
 mwcnoiseinit(1,1);
@@ -2013,7 +1900,7 @@ end;
   newmountain:= pointer(traps); //traps not used anymore
   triangles:= pointer(newmountain)+npoints*mountainsize;
   newtriangle:= triangles;
-  findmountains(segments);
+  findmountains(segments,true);
   invalidisp;
  end;  
 end;
@@ -2055,9 +1942,17 @@ var
  int1: integer;
 begin
  ar1:= polyvalues;
- for int1:= 0 to high(fmountains) do begin
-  acanvas.fillpolygon(fmountains[int1].chain,
-                            hsbtorgb((int1*50) mod 360,20,100));
+ if tridisped.value then begin
+  for int1:= 0 to high(ftriangles) do begin
+   acanvas.fillpolygon(ftriangles[int1].p,
+                             hsbtorgb((int1*50) mod 360,20,100));
+  end;
+ end
+ else begin
+  for int1:= 0 to high(fmountains) do begin
+   acanvas.fillpolygon(fmountains[int1].chain,
+                             hsbtorgb((int1*50) mod 360,20,100));
+  end;
  end;
  for int1:= 0 to high(ftraps) do begin
   acanvas.drawlines(ftraps[int1],true,cl_green);
