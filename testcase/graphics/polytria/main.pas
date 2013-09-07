@@ -1563,76 +1563,18 @@ end;
   dec(newmountain); //last
   start^.prev:= nil;
   newmountain^.next:= nil;
-//  if true{first} then begin
-   ptbottom:= start;
-   pttop:= start;
-   pt1:= start;
-   repeat
-    if isbelow(pt1^.p,ptbottom^.p) then begin
-     ptbottom:= pt1;
-    end;
-    if isbelow(pttop^.p,pt1^.p) then begin
-     pttop:= pt1;
-    end;
-    pt1:= pt1^.next;
-   until pt1 = nil;   
-   {
-   start^.prev:= newmountain;
-   newmountain^.next:= start;
-   if ptbottom^.next = pttop then begin
-    ptbottom^.next:= nil;
-    pttop^.prev:= nil;
-   end
-   else begin
-    pttop^.next:= nil;
-    ptbottom^.prev:= nil;
+  ptbottom:= start;
+  pttop:= start;
+  pt1:= start;
+  repeat
+   if isbelow(pt1^.p,ptbottom^.p) then begin
+    ptbottom:= pt1;
    end;
-   }
-//  end;
-  (*
-  else begin
-   if isbelow(start^.p,newmountain^.p) then begin
-    ptbottom:= start;
-    pttop:= newmountain;
-   end
-   else begin
-    ptbottom:= newmountain;
-    pttop:= start;
+   if isbelow(pttop^.p,pt1^.p) then begin
+    pttop:= pt1;
    end;
-   if pttop^.next <> nil then begin
-    if isbelow(pttop^.next^.p,ptbottom^.p) then begin
-     ptbottom:= pttop^.next;
-    end
-    else begin
-     if isbelow(pttop^.p,pttop^.next^.p) then begin
-      pttop:= pttop^.next;
-     end;
-    end;
-   end
-   else begin
-    if isbelow(ptbottom^.next^.p,ptbottom^.p) then begin
-     ptbottom:= ptbottom^.next;
-    end
-    else begin
-     if isbelow(pttop^.p,ptbottom^.next^.p) then begin
-      pttop:= ptbottom^.next;
-     end;
-    end;
-   end;
-   {
-   if ptbottom^.next <> nil then begin
-    if not isbelow(ptbottom^.next^.p,pttop^.p) then begin
-     pttop:= ptbottom^.next;
-    end;
-   end
-   else begin
-    if isbelow(ptbottom^.prev^.p,pttop^.p) then begin
-     pttop:= ptbottom^.prev;
-    end;
-   end;
-   }
-  end;
-  *)
+   pt1:= pt1^.next;
+  until pt1 = nil;   
   start^.prev:= newmountain;
   newmountain^.next:= start;
   if ptbottom^.next = pttop then begin
@@ -1643,7 +1585,6 @@ end;
    pttop^.next:= nil;
    ptbottom^.prev:= nil;
   end;
-if tridisped.value then begin
   if pttop^.p^.y <> ptbottom^.p^.y then begin //not empty
    bottomup:= ptbottom^.prev = nil;
    if bottomup then begin
@@ -1718,7 +1659,6 @@ if tridisped.value then begin
     end;
    end;
   end;
-end;
   newmountain:= start; //restore
 
 setlength(ftriangles,newtriangle-triangles);
@@ -1734,9 +1674,11 @@ for int1:= 0 to high(ftriangles) do begin
 end;
 
  end; //findmountains
-   
+var
+ noisestate: mwcinfoty;   
 begin
-mwcnoiseinit(1,1);
+ noisestate.fw:= $a91b43f5; //"random" seed
+ noisestate.fz:= $730c9a26; //"random" seed
  if grid.rowcount > 1 then begin
   pointsar:= polyvalues;
   npoints:= length(pointsar);
@@ -1793,13 +1735,12 @@ mwcnoiseinit(1,1);
   segments^.h.previous:= segments + npoints - 1;
   (segments+npoints-1)^.h.next:= segments;
   for int1:= npoints-1 downto 0 do begin //shuffle segments
-   int2:= mwcnoise mod npoints;
+   int2:= mwcnoise(noisestate) mod npoints;
    seg1:= shuffle[int2];
    shuffle[int2]:= shuffle[int1];
    shuffle[int1]:= seg1;
   end;
 
-//  deltraps:= nil;      
   newtraps:= traps;      //init memory sources
   newnodes:= nodes;
   
