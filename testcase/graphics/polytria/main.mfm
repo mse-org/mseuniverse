@@ -397,8 +397,26 @@ object mainfo: tmainfo
     )
     taborder = 16
     bounds_x = 618
-    bounds_y = 311
+    bounds_y = 303
     bounds_cx = 64
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+  end
+  object numdisped: tbooleanedit
+    frame.caption = 'numbers'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      53
+      2
+    )
+    taborder = 17
+    bounds_x = 618
+    bounds_y = 319
+    bounds_cx = 66
     bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat

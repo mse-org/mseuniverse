@@ -53,6 +53,7 @@ type
    tbutton4: tbutton;
    angdisp: tintegerdisp;
    tridisped: tbooleanedit;
+   numdisped: tbooleanedit;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -936,7 +937,12 @@ begin
  dx2:= c.x - b.x;
  if dx1 >= 0 then begin
   if dx2 < 0 then begin
-   result:= -1;
+   if c.y-a.y < 0 then begin
+    result:= 1;
+   end
+   else begin
+    result:= -1;
+   end;
   end
   else begin
    calctandiff;
@@ -944,7 +950,12 @@ begin
  end
  else begin
   if dx2 > 0 then begin
-   result:= 1;
+   if c.y-a.y < 0 then begin
+    result:= -1;
+   end
+   else begin
+    result:= 1;
+   end;
   end
   else begin
    calctandiff;
@@ -1500,6 +1511,7 @@ var
   rightside,bottomup: boolean;
   pttop,ptbottom,pt1,pt2: pmountainpointty;
   dy,dx: integer;
+  searchcount: integer;
  begin
   start:= newmountain;
   seg1:= aseg;
@@ -1551,7 +1563,7 @@ end;
   dec(newmountain); //last
   start^.prev:= nil;
   newmountain^.next:= nil;
-  if first then begin
+//  if true{first} then begin
    ptbottom:= start;
    pttop:= start;
    pt1:= start;
@@ -1576,7 +1588,8 @@ end;
     ptbottom^.prev:= nil;
    end;
    }
-  end
+//  end;
+  (*
   else begin
    if isbelow(start^.p,newmountain^.p) then begin
     ptbottom:= start;
@@ -1589,13 +1602,24 @@ end;
    if pttop^.next <> nil then begin
     if isbelow(pttop^.next^.p,ptbottom^.p) then begin
      ptbottom:= pttop^.next;
+    end
+    else begin
+     if isbelow(pttop^.p,pttop^.next^.p) then begin
+      pttop:= pttop^.next;
+     end;
     end;
    end
    else begin
-    if isbelow(pttop^.prev^.p,ptbottom^.p) then begin
-      ptbottom:= pttop^.prev;
+    if isbelow(ptbottom^.next^.p,ptbottom^.p) then begin
+     ptbottom:= ptbottom^.next;
     end
+    else begin
+     if isbelow(pttop^.p,ptbottom^.next^.p) then begin
+      pttop:= ptbottom^.next;
+     end;
+    end;
    end;
+   {
    if ptbottom^.next <> nil then begin
     if not isbelow(ptbottom^.next^.p,pttop^.p) then begin
      pttop:= ptbottom^.next;
@@ -1606,7 +1630,9 @@ end;
      pttop:= ptbottom^.prev;
     end;
    end;
+   }
   end;
+  *)
   start^.prev:= newmountain;
   newmountain^.next:= start;
   if ptbottom^.next = pttop then begin
@@ -1638,10 +1664,12 @@ if tridisped.value then begin
     rightside:= int1 < 0;
     pt1:= pt2;
     bo1:= false;
-    while true do begin
+    searchcount:= 0;
+    while searchcount < 4 do begin //else error
      int1:= angdelta(pt1^.prev^.p^,pt1^.p^,pt1^.next^.p^);
      if int1 <> 0 then begin  //not empty
       if (int1 > 0) xor rightside xor bottomup then begin //cut ear
+       searchcount:= 0;
        with pt1^.prev^.p^ do begin
         pxpointfixedty(newtriangle)^.x:= x*65536;
         pxpointfixedty(newtriangle)^.y:= y*65536;
@@ -1662,6 +1690,7 @@ if tridisped.value then begin
        if bo1 then begin
         pt1:= pt1^.prev;
         if pt1^.prev = nil then begin
+         inc(searchcount);
          pt1:= pt1^.next;
          bo1:= false;
         end;
@@ -1669,6 +1698,7 @@ if tridisped.value then begin
        else begin
         pt1:= pt1^.next;
         if pt1^.next = nil then begin
+         inc(searchcount);
          pt1:= pt1^.prev;
          bo1:= true;
         end;
@@ -1945,13 +1975,13 @@ begin
  if tridisped.value then begin
   for int1:= 0 to high(ftriangles) do begin
    acanvas.fillpolygon(ftriangles[int1].p,
-                             hsbtorgb((int1*50) mod 360,20,100));
+                             hsbtorgb((int1*50) mod 360,50,100));
   end;
  end
  else begin
   for int1:= 0 to high(fmountains) do begin
    acanvas.fillpolygon(fmountains[int1].chain,
-                             hsbtorgb((int1*50) mod 360,20,100));
+                             hsbtorgb((int1*50) mod 360,50,100));
   end;
  end;
  for int1:= 0 to high(ftraps) do begin
@@ -1961,11 +1991,13 @@ begin
  acanvas.dashes:= #1#3;
  acanvas.drawlines(ar1,true,cl_red);
  for int1:= 0 to high(ftraps) do begin
-  drawtext(acanvas,inttostr(int1),
-  mr((ftraps[int1][0].x+ftraps[int1][1].x+ftraps[int1][2].x+
+  if numdisped.value then begin
+   drawtext(acanvas,inttostr(int1),
+     mr((ftraps[int1][0].x+ftraps[int1][1].x+ftraps[int1][2].x+
                   ftraps[int1][3].x) div 4,
                     (ftraps[int1][0].y+ftraps[int1][2].y)div 2,
        0,0),[tf_xcentered,tf_ycentered]);
+  end;
  end;
 end;
 
