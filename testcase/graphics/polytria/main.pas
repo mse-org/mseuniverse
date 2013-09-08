@@ -54,6 +54,7 @@ type
    angdisp: tintegerdisp;
    tridisped: tbooleanedit;
    numdisped: tbooleanedit;
+   sated: tintegeredit;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -1000,7 +1001,7 @@ var
    begin
     result:= true;
     with atrap^ do begin
-     if (left = nil) or (right = nil) or 
+     if (atrap = nil) or (left = nil) or (right = nil) or 
               (top = nil) or (bottom = nil) then begin //segment crossing
       result:= false;
       exit;
@@ -1647,13 +1648,13 @@ end;
        continue;
       end;
      end;
-     pt1^.prev^.next:= pt1^.next;
+     pt1^.prev^.next:= pt1^.next; //delete node
      pt1^.next^.prev:= pt1^.prev;
      pt1:= pt1^.prev;
      if pt1^.prev = nil then begin
       pt1:= pt1^.next;
       if pt1^.next = nil then begin
-       break;
+       break;                    //finished
       end;
      end;
     end;
@@ -1916,13 +1917,13 @@ begin
  if tridisped.value then begin
   for int1:= 0 to high(ftriangles) do begin
    acanvas.fillpolygon(ftriangles[int1].p,
-                             hsbtorgb((int1*50) mod 360,50,100));
+                             hsbtorgb((int1*50) mod 360,sated.value,100));
   end;
  end
  else begin
   for int1:= 0 to high(fmountains) do begin
    acanvas.fillpolygon(fmountains[int1].chain,
-                             hsbtorgb((int1*50) mod 360,50,100));
+                             hsbtorgb((int1*50) mod 360,sated.value,100));
   end;
  end;
  for int1:= 0 to high(ftraps) do begin
