@@ -80,7 +80,8 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,msearrayutils,msenoise,mseformatstr,sysutils,msedrawtext;
+ main_mfm,msearrayutils,msenoise,mseformatstr,sysutils,msedrawtext,
+ msepolytria;
 var 
  testvar,testvar1,testvar2,testvar3,testvar4,testvar5,testvar6,
  testvar7,testvar8: integer;
@@ -959,7 +960,6 @@ begin
   end
   else begin
    calctandiff;
-//   result:= -result;
   end;
  end;
 end;
