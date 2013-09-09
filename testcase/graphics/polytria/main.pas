@@ -162,7 +162,7 @@ function comparey(const l,r): integer;
 begin
  result:= ppointty(l)^.y - ppointty(r)^.y;
  if result = 0 then begin
-  result:= @l-@r;
+  result:= ppointty(l)-ppointty(r);
  end;
 end;
 
@@ -316,7 +316,10 @@ begin
   end
   else begin
    y:= trapdumpinfoty(r).t^.top^.y;
-   result:= trapdumpinfoty(l).t^.top^.y - y
+   result:= trapdumpinfoty(l).t^.top^.y - y;
+   if result = 0 then begin
+    result:= trapdumpinfoty(l).t^.top-trapdumpinfoty(r).t^.top;
+   end;
   end;
  end;
  if result = 0 then begin
@@ -787,12 +790,33 @@ begin
 end;
 
 function xdist(const point: ppointty; ref: pseginfoty): integer;
+var
+ int1: integer;
 begin
  if ref^.dy = 0 then begin
-  result:= (point^.y - ref^.h.b^.y) * ref^.dx; //dx = 1|-1
+  result:= point^.y - ref^.h.b^.y;
+  if result = 0 then begin
+   if ref = segments then begin
+    int1:= npoints-1;
+   end
+   else begin
+    int1:= 1;
+   end;
+   if not (sf_reverse in ref^.flags) then begin
+    int1:= -int1;
+   end;
+   result:= int1*(point^.x - ref^.h.b^.x) - (point-ref^.h.b)*ref^.dx;
+   if not (sf_reverse in ref^.flags) then begin
+    result:= -result;
+   end;
+  end
+  else begin
+   if not (sf_reverse in ref^.flags) then begin //??????
+    result:= -result;
+   end;
+  end;
  end
  else begin
-//todo: no division
 //  result:= point^.x -(ref^.h.b^.x + (point^.y-ref^.h.b^.y)*ref^.dx div ref^.dy);
   result:= ref^.dy*(point^.x - ref^.h.b^.x) - (point^.y-ref^.h.b^.y)*ref^.dx;
   if ref^.dy < 0 then begin
@@ -800,7 +824,7 @@ begin
   end;
  end;
 end;
-
+{
 function xpos(const point: ppointty; ref: pseginfoty): xposty;
 var
  int1: integer;
@@ -816,7 +840,7 @@ begin
   end;
  end;
 end;
-
+}
 function isright(const point: ppointty; ref: pseginfoty): boolean;
  //true if point right of segment
 begin
@@ -825,7 +849,6 @@ begin
 end;
 
 function segdirdown(const seg,ref: pseginfoty): segdirty;
-//todo: handle dy = 0
 var
  segcommon: pseginfoty;
  ptseg,ptref: ppointty;
@@ -858,22 +881,53 @@ testvar4:= ptref-points;
    result:= sd_up;
   end
   else begin
+   result:= sd_left;
    if ptseg^.x = ptref^.x then begin
     if isbelow(ptseg,ptref) then begin
      result:= sd_right;
-    end
-    else begin
-     result:= sd_left;
     end;
    end
    else begin
-    if (seg^.dx*ref^.dy < ref^.dx*seg^.dy) xor 
-                not((ref^.dy < 0) xor (seg^.dy < 0)) then begin 
-                        //direction of one segment reversed
-     result:= sd_right;
+    if seg^.dy = 0 then begin
+     if ref^.dy = 0 then begin
+      if ptref^.x-segcommon^.h.b^.x < 0 then begin
+       if ptseg^.x-segcommon^.h.b^.x > 0 then begin
+        result:= sd_right;
+       end
+       else begin
+        if isbelow(ptseg,ptref) then begin
+         result:= sd_right;
+        end;
+       end;
+      end
+      else begin
+       if ptseg^.x-segcommon^.h.b^.x > 0 then begin
+        if isbelow(ptref,ptseg) then begin
+         result:= sd_right;
+        end;
+       end;
+      end;
+     end
+     else begin
+      if ptseg^.x-segcommon^.h.b^.x >= 0 then begin
+       result:= sd_right;
+      end;
+     end;
     end
     else begin
-     result:= sd_left;
+     if ref^.dy = 0 then begin
+      if ptref^.x-segcommon^.h.b^.x < 0 then begin
+       result:= sd_right;
+      end;
+     end
+     else begin
+      if (seg^.dx*ref^.dy < ref^.dx*seg^.dy) xor 
+       not((sf_reverse in ref^.flags) xor (sf_reverse in seg^.flags)) then begin 
+  //                not((ref^.dy < 0) xor (seg^.dy < 0)) then begin 
+                          //direction of one segment reversed
+       result:= sd_right;
+      end;
+     end;
     end;
    end;
   end;
@@ -1222,7 +1276,6 @@ testvar5:= trold^.above-traps;
 testvar6:= trold^.abover-traps;
 testvar7:= trold^.below^.above-traps;
 testvar8:= trold^.below^.abover-traps;
-   aisright:= isright(trold^.below^.top,seg1);
    if trold^.below^.top = bottompoint then begin  //last
     if trold^.belowr <> nil then begin            //existing segment below
      if newright then begin
@@ -1265,6 +1318,7 @@ testvar8:= trold^.below^.abover-traps;
     end;
    end
    else begin //not last
+    aisright:= isright(trold^.below^.top,seg1);
     if trold^.belowr = nil then begin //no existing segment below
      trnew^.below:= trold^.below;
      with trold^.below^ do begin
@@ -1696,8 +1750,8 @@ begin
   shuffle:= pointer(segments+npoints);
   traps:= pointer(shuffle+npoints);
   nodes:= pointer(traps)+sizetraps;
-  ppt1:= points;
-  ppt2:= points+npoints-1;
+  ppt1:= points;            //b
+  ppt2:= points+npoints-1;  //a
   seg1:= segments;
   for int1:= npoints-1 downto 0 do begin //init segments
    shuffle[int1]:= seg1;
@@ -1716,11 +1770,11 @@ begin
     dy:= ppt2^.y-ppt1^.y; //b->a slope
     if dy = 0 then begin
      if ppt2 > ppt1 then begin
-      dx:= -1;
+//      dx:= -1;
       include(flags,sf_reverse);
      end
      else begin
-      dx:= 1;
+//      dx:= 1;
      end;
     end
     else begin
