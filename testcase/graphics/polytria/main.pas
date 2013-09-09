@@ -1254,7 +1254,6 @@ var
 
   procedure updatebelow(const newright: boolean; const trold,trnew: ptrapinfoty);
   var
-   int1: integer;
    aisright: boolean;
    seg1: pseginfoty;
   begin
@@ -1377,7 +1376,6 @@ testvar8:= trold^.below^.abover-traps;
   var
    trabove: ptrapinfoty;
    trabover: ptrapinfoty;
-   pointbelowpos: xposty;
   begin
    trnew:= newtrap;
    trabove:= old^.above;
@@ -1429,7 +1427,7 @@ testvar8:= trold^.below^.abover-traps;
   sd1: segdirty;
   sega,segb: pseginfoty;
   trap1,trap2,trap1l,trap1r,trbelow,trbelowr,exttrap: ptrapinfoty;
-  isright1,isright2,bo2: boolean;
+  isright1: boolean;
   
  begin
   if sf_reverse in aseg^.flags then begin
@@ -1485,16 +1483,12 @@ testvar1:= trap1l-traps;
 testvar2:= trap1r-traps;
 testvar4:= segb^.trap-traps;
 
-  bo2:= false;
 if not ((segcounter = stoped.value) and nosegbed.value) then begin
   while trap1^.below <> nil do begin
    trap2:= trap1^.below;
    if trap2^.top = bottompoint then begin
     break;
-   end; 
-   bo2:= true;
-
-
+   end;
    isright1:= isright(trap2^.top,aseg); //point right of segment   
    if (trap1^.belowr <> nil) and not isright1 then begin
     trap2:= trap1^.belowr;
@@ -1770,11 +1764,7 @@ begin
     dy:= ppt2^.y-ppt1^.y; //b->a slope
     if dy = 0 then begin
      if ppt2 > ppt1 then begin
-//      dx:= -1;
       include(flags,sf_reverse);
-     end
-     else begin
-//      dx:= 1;
      end;
     end
     else begin
