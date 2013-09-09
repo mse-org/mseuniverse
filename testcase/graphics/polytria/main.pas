@@ -55,6 +55,10 @@ type
    tridisped: tbooleanedit;
    numdisped: tbooleanedit;
    sated: tintegeredit;
+   scaleed: trealedit;
+   offsxed: trealedit;
+   offsyed: trealedit;
+   tbutton5: tbutton;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -69,12 +73,14 @@ type
    procedure saveasexe(const sender: TObject);
    procedure statwriteexe(const sender: TObject; const writer: tstatwriter);
    procedure saveexe(const sender: TObject);
+   procedure clrexe(const sender: TObject);
   private
    ftraps: array of trapdispinfoty;
    fdiags: segmentarty;
    fmountains: mountaininfoarty;
    ftriangles: triarty;
    procedure invalidisp;
+   procedure xyvalues(out xar,yar: realarty);
    function polyvalues: pointarty;
  end;
 var
@@ -104,12 +110,27 @@ begin
  end;
 end;
  
+procedure tmainfo.xyvalues(out xar,yar: realarty);
+var
+ int1: integer;
+begin
+  xar:= xed.gridvalues;
+  yar:= yed.gridvalues;
+  for int1:= 0 to high(xar) do begin
+   xar[int1]:= (xar[int1]+offsxed.value)/scaleed.value;
+   yar[int1]:= (yar[int1]+offsyed.value)/scaleed.value;
+  end;
+end;
+
 procedure tmainfo.datentexe(const sender: TObject);
+var
+ xar,yar: realarty;
 begin
  invalidisp;
+ xyvalues(xar,yar);
  with charted.traces[0] do begin
-  xdata:= xed.gridvalues;
-  ydata:= yed.gridvalues;
+  xdata:= xar;
+  ydata:= yar;
  end;
 end;
 
@@ -1923,9 +1944,17 @@ end;
 
 procedure tmainfo.setpointexe(const sender: TObject; var avalue: complexarty;
                var accept: Boolean);
+var
+ ar1: complexarty;
+ int1: integer;
 begin
- xed.griddata.assignre(avalue);  
- yed.griddata.assignim(avalue);
+ setlength(ar1,length(avalue));
+ for int1:= 0 to high(ar1) do begin
+  ar1[int1].re:= (avalue[int1].re-offsxed.value)*scaleed.value;
+  ar1[int1].im:= (avalue[int1].im-offsyed.value)*scaleed.value;
+ end;
+ xed.griddata.assignre(ar1);  
+ yed.griddata.assignim(ar1);
  invalidisp;
 end;
 
@@ -1933,14 +1962,16 @@ function tmainfo.polyvalues: pointarty;
 var
  int1: integer;
  fx,fy: real;
+ xar,yar: realarty;
 begin
  fx:= charted.width;
  fy:= charted.height;
+ xyvalues(xar,yar);
  setlength(result,grid.rowcount);
  for int1:= 0 to high(result) do begin
   with result[int1] do begin
-   x:= round(xed[int1]*fx);
-   y:= round(yed[int1]*fy);
+   x:= round(xar[int1]*fx);
+   y:= round(yar[int1]*fy);
   end;
  end;
 end;
@@ -2032,6 +2063,12 @@ end;
 procedure tmainfo.saveexe(const sender: TObject);
 begin
  projectstat.writestat(projectfile.value);
+end;
+
+procedure tmainfo.clrexe(const sender: TObject);
+begin
+ grid.clear;
+ datentexe(nil);
 end;
 
 end.
