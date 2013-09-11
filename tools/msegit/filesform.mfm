@@ -88,7 +88,7 @@ object filesfo: tfilesfo
     top = 40
   end
   object commitact: taction
-    caption = '&Commit'
+    caption = '&Commit/Stage/Unstage'
     onexecute = commitexe
     onupdate = commitupdateexe
     left = 128
@@ -116,7 +116,7 @@ object filesfo: tfilesfo
     top = 152
   end
   object removeact: taction
-    caption = '&Untrack/remove'
+    caption = '&Untrack/Remove'
     onexecute = removeexe
     onupdate = removeupdateexe
     left = 128
