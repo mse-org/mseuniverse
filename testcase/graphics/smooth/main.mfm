@@ -1,7 +1,234 @@
 object mainfo: tmainfo
-  bounds_x = 291
-  bounds_y = 247
-  bounds_cx = 403
+  bounds_x = 79
+  bounds_y = 183
+  bounds_cx = 709
   bounds_cy = 280
+  container.bounds = (
+    0
+    0
+    709
+    280
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
   moduleclassname = 'tmainform'
+  object di: tpaintbox
+    color = -1610612730
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 187
+    bounds_cy = 234
+    anchors = [an_left, an_top, an_bottom]
+    onpaint = paintexe
+  end
+  object smoothed: tbooleanedit
+    frame.caption = 'smooth'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      45
+      2
+    )
+    taborder = 1
+    bounds_x = 16
+    bounds_y = 255
+    bounds_cx = 58
+    bounds_cy = 16
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = datent
+  end
+  object liwied: tintegeredit
+    frame.caption = 'linewidth'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 80
+    bounds_y = 239
+    bounds_cx = 52
+    bounds_cy = 37
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = datent
+    reffontheight = 14
+  end
+  object caped: tenumtypeedit
+    frame.caption = 'capstyle'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 144
+    bounds_y = 239
+    bounds_cx = 68
+    bounds_cy = 37
+    anchors = [an_left, an_bottom]
+    ondataentered = datent
+    value = 0
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = initcapexe
+    reffontheight = 14
+  end
+  object joined: tenumtypeedit
+    frame.caption = 'joinstyle'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 216
+    bounds_y = 239
+    bounds_cx = 68
+    bounds_cy = 37
+    anchors = [an_left, an_bottom]
+    ondataentered = datent
+    value = 0
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = initjoinexe
+    reffontheight = 14
+  end
+  object pointsdi: tpaintbox
+    color = -1610612730
+    frame.levelo = -1
+    frame.localprops = [frl_levelo]
+    frame.dummy = 0
+    taborder = 5
+    bounds_x = 192
+    bounds_y = 0
+    bounds_cx = 162
+    bounds_cy = 234
+    anchors = [an_left, an_top, an_bottom]
+    onpaint = pintspaexe
+  end
+  object pointsed: txychartedit
+    frame.levelo = -1
+    frame.localprops = [frl_levelo]
+    taborder = 6
+    bounds_x = 360
+    bounds_y = 0
+    bounds_cx = 154
+    bounds_cy = 234
+    anchors = [an_left, an_top, an_bottom]
+    traces.count = 1
+    traces.options = [cto_stockglyphs]
+    traces.xserstart = 0
+    traces.xstart = 0
+    traces.ystart = 0
+    traces.xrange = 1
+    traces.xserrange = 1
+    traces.yrange = 1
+    traces.image_widthmm = 0
+    traces.image_heighthmm = 0
+    traces.legend_x = 0
+    traces.legend_y = 0
+    traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 1
+        ystart = 0
+        options = [cto_stockglyphs]
+        imagenr = 45
+      end>
+    xstart = 0
+    ystart = 0
+    xrange = 1
+    yrange = 1
+    xdials.start = 0
+    xdials.range = 1
+    ydials.start = 0
+    ydials.range = 1
+    statfile = tstatfile1
+    ondataentered = pointsdatentexe
+  end
+  object grid: twidgetgrid
+    taborder = 7
+    bounds_x = 520
+    bounds_y = 0
+    bounds_cx = 178
+    bounds_cy = 234
+    anchors = [an_left, an_top, an_bottom]
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 30
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'X'
+          end        
+          item
+            caption = 'Y'
+          end>
+      end>
+    datacols.count = 2
+    datacols.items = <    
+      item[xpointed]
+        widgetname = 'xpointed'
+        dataclass = tgridintegerdatalist
+      end    
+      item[ypointed]
+        widgetname = 'ypointed'
+        dataclass = tgridintegerdatalist
+      end>
+    datarowheight = 16
+    onrowdatachanged = rowcochaexe
+    reffontheight = 14
+    object xpointed: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      ondataentered = pointeddatentexe
+      reffontheight = 14
+    end
+    object ypointed: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 51
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      ondataentered = pointeddatentexe
+      reffontheight = 14
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 96
+    top = 80
+  end
 end
