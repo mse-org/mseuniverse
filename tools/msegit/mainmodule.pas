@@ -1679,6 +1679,11 @@ end;
 
 function tmainmo.pull(const aremote,aremotebranch: msestring): boolean;
 begin
+ result:= fetch(aremote,aremotebranch);
+ if result then begin
+  result:= merge(''); //merge fetch head
+ end;
+(*
  if aremote = '' then begin
   result:= execgitconsole('pull');
  end
@@ -1687,6 +1692,7 @@ begin
    fgit.encodestring(aremote+' '+aremotebranch){+' '+
    fgit.encodestringparam('+refs/heads/*:refs/remotes/'+aremote+'/*')});
  end;
+*)
 end;
 
 function tmainmo.push(const aremote,aremotebranch: msestring): boolean;
