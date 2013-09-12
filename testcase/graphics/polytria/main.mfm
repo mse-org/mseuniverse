@@ -124,15 +124,6 @@ object mainfo: tmainfo
     bounds_cx = 455
     bounds_cy = 330
     anchors = [an_left, an_top, an_right, an_bottom]
-    object tridisp: tpaintbox
-      color = -1610612730
-      bounds_x = 139
-      bounds_y = 0
-      bounds_cx = 157
-      bounds_cy = 330
-      anchors = [an_left]
-      onpaint = tripaexe
-    end
     object tsplitter1: tsplitter
       color = -1879048189
       taborder = 1
@@ -210,6 +201,15 @@ object mainfo: tmainfo
       ydials.start = 0
       ydials.range = 1
       onsetvalue = setpointexe
+    end
+    object tridisp: tpaintbox
+      color = -1610612730
+      bounds_x = 139
+      bounds_y = 0
+      bounds_cx = 157
+      bounds_cy = 330
+      anchors = [an_left]
+      onpaint = tripaexe
     end
   end
   object tbutton1: tbutton

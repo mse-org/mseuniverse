@@ -957,7 +957,7 @@ end;
 var
  nodes: ptrapnodeinfoty;
  pointsar: pointarty;
- nodescopy: ptrapnodeinfoty = nil;
+// nodescopy: ptrapnodeinfoty = nil;
  
 function findtrap(const apoint,second: ppointty): ptrapinfoty;
                     //second used if apoint is on edge
@@ -1069,59 +1069,59 @@ var
  
  procedure finddiags;
  
-   function checkdiag(const atrap: ptrapinfoty; const up: boolean): boolean; 
-                //false if error or triangle
-   var
-    topseg,bottomseg,lefta,righta: pseginfoty;
-   begin
-    result:= true;
-    with atrap^ do begin
-     if (atrap = nil) or (left = nil) or (right = nil) or 
-              (top = nil) or (bottom = nil) then begin //segment crossing
-      result:= false;
-      exit;
-     end;
-     lefta:= left^.h.previous;
-     righta:= right^.h.previous;
-     if (left = righta) and (up xor (left^.h.b = bottom)) or 
-        (right = lefta) and (up xor (right^.h.b = bottom)) then begin //triangle
-      result:= false;
-     end;   
-     if not((top = left^.h.b) and (bottom = lefta^.h.b) or
-            (bottom = left^.h.b) and (top = lefta^.h.b) or
-            (top = right^.h.b) and (bottom = righta^.h.b) or
-            (bottom = right^.h.b) and (top = righta^.h.b)) then begin
-      topseg:= segments+(top-points);
-      bottomseg:= segments+(bottom-points);
-      with topseg^ do begin
-       if diags[0] <> nil then begin
-        if diags[1] <> nil then begin
-         diags[2]:= bottomseg;
-        end
-        else begin
-         diags[1]:= bottomseg;
-        end;
+  function checkdiag(const atrap: ptrapinfoty; const up: boolean): boolean; 
+               //false if error or triangle
+  var
+   topseg,bottomseg,lefta,righta: pseginfoty;
+  begin
+   result:= true;
+   with atrap^ do begin
+    if (atrap = nil) or (left = nil) or (right = nil) or 
+             (top = nil) or (bottom = nil) then begin //segment crossing
+     result:= false;
+     exit;
+    end;
+    lefta:= left^.h.previous;
+    righta:= right^.h.previous;
+    if (left = righta) and (up xor (left^.h.b = bottom)) or 
+       (right = lefta) and (up xor (right^.h.b = bottom)) then begin //triangle
+     result:= false;
+    end;   
+    if not((top = left^.h.b) and (bottom = lefta^.h.b) or
+           (bottom = left^.h.b) and (top = lefta^.h.b) or
+           (top = right^.h.b) and (bottom = righta^.h.b) or
+           (bottom = right^.h.b) and (top = righta^.h.b)) then begin
+     topseg:= segments+(top-points);
+     bottomseg:= segments+(bottom-points);
+     with topseg^ do begin
+      if diags[0] <> nil then begin
+       if diags[1] <> nil then begin
+        diags[2]:= bottomseg;
        end
        else begin
-        diags[0]:= bottomseg;
+        diags[1]:= bottomseg;
        end;
+      end
+      else begin
+       diags[0]:= bottomseg;
       end;
-      with bottomseg^ do begin
-       if diags[0] <> nil then begin
-        if diags[1] <> nil then begin
-         diags[2]:= topseg;
-        end
-        else begin
-         diags[1]:= topseg;
-        end;
+     end;
+     with bottomseg^ do begin
+      if diags[0] <> nil then begin
+       if diags[1] <> nil then begin
+        diags[2]:= topseg;
        end
        else begin
-        diags[0]:= topseg;
+        diags[1]:= topseg;
        end;
+      end
+      else begin
+       diags[0]:= topseg;
       end;
      end;
     end;
-   end; //checkdiag
+   end;
+  end; //checkdiag
  
   procedure findup(const atrap: ptrapinfoty); forward;
   
@@ -1866,13 +1866,14 @@ end
 else begin
  writeln('OK                                                               OK');
 end;
-
+{
   if nodescopy <> nil then begin
    freemem(nodescopy);
   end;
   int1:= (newnode-nodes)*sizeof(trapnodeinfoty);
   getmem(nodescopy,int1);
   move(nodes^,nodescopy^,int1);
+}
 setlength(ftraps,newtraps-traps);
 int2:= 0;
 for int1:= 0 to high(ftraps) do begin
@@ -1986,33 +1987,43 @@ end;
 procedure tmainfo.tripaexe(const sender: twidget; const acanvas: tcanvas);
 var
  ar1: pointarty;
- int1: integer;
+ int1,int2: integer;
 begin
  ar1:= polyvalues;
  if tridisped.value then begin
-  for int1:= 0 to high(ftriangles) do begin
-   acanvas.fillpolygon(ftriangles[int1].p,
+  for int1:= 0 to high(debugtriangles) do begin
+   acanvas.fillpolygon(debugtriangles[int1].p,
                              hsbtorgb((int1*50) mod 360,sated.value,100));
   end;
  end
  else begin
-  for int1:= 0 to high(fmountains) do begin
-   acanvas.fillpolygon(fmountains[int1].chain,
+  for int1:= 0 to high(debugmountains) do begin
+   acanvas.fillpolygon(debugmountains[int1].chain,
                              hsbtorgb((int1*50) mod 360,sated.value,100));
   end;
  end;
- for int1:= 0 to high(ftraps) do begin
-  acanvas.drawlines(ftraps[int1],true,cl_green);
+ for int1:= 0 to high(debugtraps) do begin
+  for int2:= 0 to 3 do begin
+   with debugtraps[int1][int2] do begin
+    if x = maxint then begin
+     x:= tridisp.width-1;
+    end;
+    if y = maxint then begin
+     y:= tridisp.height-1;
+    end;
+   end;
+  end;
+  acanvas.drawlines(debugtraps[int1],true,cl_green);
  end;
- acanvas.drawlinesegments(fdiags,cl_blue);
+ acanvas.drawlinesegments(debugdiags,cl_blue);
  acanvas.dashes:= #1#3;
  acanvas.drawlines(ar1,true,cl_red);
- for int1:= 0 to high(ftraps) do begin
+ for int1:= 0 to high(debugtraps) do begin
   if numdisped.value then begin
    drawtext(acanvas,inttostr(int1),
-     mr((ftraps[int1][0].x+ftraps[int1][1].x+ftraps[int1][2].x+
-                  ftraps[int1][3].x) div 4,
-                    (ftraps[int1][0].y+ftraps[int1][2].y)div 2,
+     mr((debugtraps[int1][0].x+debugtraps[int1][1].x+debugtraps[int1][2].x+
+                  debugtraps[int1][3].x) div 4,
+       (debugtraps[int1][0].y+debugtraps[int1][2].y)div 2,
        0,0),[tf_xcentered,tf_ycentered]);
   end;
  end;
@@ -2022,19 +2033,21 @@ procedure tmainfo.findedexe(const sender: TObject);
 var
  pt1: pointty;
 begin
+{
  if buffer <> nil then begin
   pt1.x:= findxed.value;
   pt1.y:= findyed.value;
   nodes:= nodescopy;
   findtrap(@pt1,@pt1);
  end;
+}
 end;
 
 procedure tmainfo.destroyexe(const sender: TObject);
 begin
  if buffer <> nil then begin
   freemem(buffer);
-  freemem(nodescopy);
+//  freemem(nodescopy);
  end;
 end;
 
