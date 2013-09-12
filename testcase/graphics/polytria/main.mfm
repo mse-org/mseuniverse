@@ -11,7 +11,6 @@ object mainfo: tmainfo
   )
   statfile = mainstat
   caption = 'MSEide+MSEgui'
-  ondestroy = destroyexe
   moduleclassname = 'tmainform'
   object grid: twidgetgrid
     bounds_x = 468
@@ -220,7 +219,6 @@ object mainfo: tmainfo
     bounds_cy = 20
     anchors = [an_right, an_bottom]
     state = [as_localonexecute]
-    onexecute = triangexe
   end
   object stoped: tintegeredit
     frame.dummy = 0
@@ -230,6 +228,7 @@ object mainfo: tmainfo
     bounds_cx = 36
     anchors = [an_right, an_bottom]
     statfile = projectstat
+    ondataentered = datentexe
     value = -1
     min = -1
     reffontheight = 14
@@ -250,6 +249,7 @@ object mainfo: tmainfo
     bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
+    ondataentered = datentexe
   end
   object nosegbed: tbooleanedit
     frame.caption = 'nosegb'
@@ -267,6 +267,7 @@ object mainfo: tmainfo
     bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
+    ondataentered = datentexe
   end
   object noaed: tbooleanedit
     frame.caption = 'noa'
@@ -284,6 +285,7 @@ object mainfo: tmainfo
     bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
+    ondataentered = datentexe
   end
   object nobed: tbooleanedit
     frame.caption = 'nob'
@@ -301,6 +303,7 @@ object mainfo: tmainfo
     bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
+    ondataentered = datentexe
   end
   object findxed: tintegeredit
     frame.dummy = 0
