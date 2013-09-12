@@ -72,6 +72,7 @@ object mainfo: tmainfo
     bounds_cx = 68
     bounds_cy = 37
     anchors = [an_left, an_bottom]
+    statfile = tstatfile1
     ondataentered = datent
     value = 0
     dropdown.cols.count = 1
@@ -95,6 +96,7 @@ object mainfo: tmainfo
     bounds_cx = 68
     bounds_cy = 37
     anchors = [an_left, an_bottom]
+    statfile = tstatfile1
     ondataentered = datent
     value = 0
     dropdown.cols.count = 1
