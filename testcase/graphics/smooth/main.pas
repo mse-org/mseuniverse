@@ -21,6 +21,7 @@ type
    grid: twidgetgrid;
    xpointed: tintegeredit;
    ypointed: tintegeredit;
+   dashesed: thexstringedit;
    procedure datent(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure initcapexe(const sender: tenumtypeedit);
@@ -53,6 +54,7 @@ begin
  acanvas.linewidth:= liwied.value; 
  acanvas.capstyle:= capstylety(caped.value);
  acanvas.joinstyle:= joinstylety(joined.value);
+ acanvas.dashes:= dashesed.value;
 end;
 
 procedure tmainfo.paintexe(const sender: twidget; const acanvas: tcanvas);
@@ -69,6 +71,7 @@ procedure tmainfo.paintexe(const sender: twidget; const acanvas: tcanvas);
   acanvas.smooth:= false;
   acanvas.capstyle:= cs_butt;
   acanvas.linewidth:= 0;
+  acanvas.dashes:= '';
   acanvas.drawline(mp(20,20),mp(10,20));
   acanvas.drawline(mp(20,20),mp(20,10));
   acanvas.drawline(mp(30,20-offs),mp(30,15-offs));
