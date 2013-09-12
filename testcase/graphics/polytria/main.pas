@@ -191,6 +191,7 @@ begin
  end;
 {$endif}
  ar1:= polyvalues;
+{$ifdef mse_debugpolytria1}
  if tridisped.value then begin
   for int1:= 0 to high(debugtriangles) do begin
    acanvas.fillpolygon(debugtriangles[int1].p,
@@ -217,8 +218,10 @@ begin
   acanvas.drawlines(debugtraps[int1],true,cl_green);
  end;
  acanvas.drawlinesegments(debugdiags,cl_blue);
+{$endif}
  acanvas.dashes:= #1#3;
  acanvas.drawlines(ar1,true,cl_red);
+{$ifdef mse_debugpolytria1}
  for int1:= 0 to high(debugtraps) do begin
   if numdisped.value then begin
    drawtext(acanvas,inttostr(int1),
@@ -228,6 +231,7 @@ begin
        0,0),[tf_xcentered,tf_ycentered]);
   end;
  end;
+{$endif}
 end;
 
 procedure tmainfo.findedexe(const sender: TObject);
