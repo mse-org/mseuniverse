@@ -26,7 +26,6 @@ uses
 procedure tmainfo.runexe(const sender: TObject);
 var
  r2: real;
- n: integer;
  int1,int2,int3,int4: integer;
  stream1: ttextstream;
  step: real;
@@ -36,9 +35,9 @@ begin
  stream1.writeln('(');
  for int1:= 0 to maxwied.value do begin
   stream1.write(' (');
-  int3:= int1 div 2;
+  int3:= (int1+1) div 2 - 1;
   if int3 > 0 then begin
-   step:= scaleed.value / int1;
+   step:= 2*scaleed.value / int1;
    for int2:= 1 to int3 do begin
     if int2 <> 1 then begin
      stream1.write(',');
@@ -54,7 +53,7 @@ begin
    stream1.write('0');
    int3:= 1;
   end;
-  for int2:= int3 to maxwied.value div 2 - 1 do begin
+  for int2:= int3 to maxwied.value div 2 - 2 do begin
    stream1.write([',',0]);
   end;
   stream1.write(')');
