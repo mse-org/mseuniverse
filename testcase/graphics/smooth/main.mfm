@@ -242,9 +242,27 @@ object mainfo: tmainfo
     bounds_y = 239
     bounds_cx = 148
     bounds_cy = 37
+    anchors = [an_left, an_bottom]
     statfile = tstatfile1
     ondataentered = datent
     reffontheight = 14
+  end
+  object closeded: tbooleanedit
+    frame.caption = 'closed'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      40
+      2
+    )
+    taborder = 9
+    bounds_x = 448
+    bounds_y = 255
+    bounds_cx = 53
+    bounds_cy = 16
+    statfile = tstatfile1
+    ondataentered = datent
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'

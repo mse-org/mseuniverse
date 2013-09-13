@@ -22,6 +22,7 @@ type
    xpointed: tintegeredit;
    ypointed: tintegeredit;
    dashesed: thexstringedit;
+   closeded: tbooleanedit;
    procedure datent(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure initcapexe(const sender: tenumtypeedit);
@@ -192,7 +193,7 @@ begin
    y:= h-round(py[int1]);
   end;
  end;
- acanvas.drawlines(ar1);
+ acanvas.drawlines(ar1,closeded.value);
 end;
 
 end.
