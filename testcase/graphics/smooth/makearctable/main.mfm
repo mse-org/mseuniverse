@@ -1,7 +1,83 @@
 object mainfo: tmainfo
-  bounds_x = 291
-  bounds_y = 247
-  bounds_cx = 403
-  bounds_cy = 280
+  bounds_x = 123
+  bounds_y = 208
+  bounds_cx = 301
+  bounds_cy = 97
+  container.bounds = (
+    0
+    0
+    301
+    97
+  )
+  statfile = tstatfile1
   moduleclassname = 'tmainform'
+  object maxwied: tintegeredit
+    frame.caption = 'max. linewidth'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      28
+      0
+    )
+    bounds_x = 8
+    bounds_y = 15
+    bounds_cx = 80
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 10
+    reffontheight = 14
+  end
+  object scaleed: tintegeredit
+    frame.caption = 'scale'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 88
+    bounds_y = 15
+    bounds_cx = 52
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 256
+    reffontheight = 14
+  end
+  object tbutton1: tbutton
+    taborder = 2
+    bounds_x = 240
+    bounds_y = 64
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'run'
+    onexecute = runexe
+  end
+  object filenameed: tfilenameedit
+    frame.button.imagenr = 17
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 64
+    bounds_cx = 220
+    textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+    value = 'test.arc'
+    controller.filename = 'test.arc'
+    controller.filter = '*.arc'
+    controller.filterlist.data = (
+      (
+        'arctable file'
+        '*.arc'
+      )
+    )
+    controller.options = [fdo_save, fdo_checkexist, fdo_savelastdir]
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 200
+    top = 8
+  end
 end
