@@ -79,8 +79,8 @@ begin
   fti:= fstart;
  end
  else begin
+  ti.enabled:= false;
   if fn > 0 then begin
-   ti.enabled:= false;
    intdi.value:= ((fti-fstart)/1000000)/fn;
    ndi.value:= fn;
    writeln;

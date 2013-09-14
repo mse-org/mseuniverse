@@ -1,12 +1,12 @@
 object mainfo: tmainfo
   bounds_x = 218
   bounds_y = 221
-  bounds_cx = 293
+  bounds_cx = 322
   bounds_cy = 104
   container.bounds = (
     0
     0
-    293
+    322
     104
   )
   statfile = tstatfile1
@@ -17,13 +17,13 @@ object mainfo: tmainfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     bounds_x = 16
-    bounds_y = 8
-    bounds_cy = 35
+    bounds_y = 7
+    bounds_cy = 37
     statfile = tstatfile1
     onsetvalue = setintervalexe
     value = 1
@@ -34,7 +34,7 @@ object mainfo: tmainfo
     valuestart = 0
     min = -Inf
     max = 1E+038
-    reffontheight = 13
+    reffontheight = 14
   end
   object mmtimered: tbooleanedit
     frame.caption = 'mmtimer (Windows)'
@@ -42,14 +42,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      97
-      1
+      115
+      2
     )
     taborder = 1
     bounds_x = 128
     bounds_y = 27
-    bounds_cx = 110
-    bounds_cy = 15
+    bounds_cx = 128
+    bounds_cy = 16
     statfile = tstatfile1
     onsetvalue = setmmtimerexe
   end
@@ -59,14 +59,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      19
-      1
+      21
+      2
     )
     taborder = 2
-    bounds_x = 248
+    bounds_x = 272
     bounds_y = 27
-    bounds_cx = 32
-    bounds_cy = 15
+    bounds_cx = 34
+    bounds_cy = 16
     onsetvalue = runsetexe
   end
   object ndi: tintegerdisp
@@ -74,34 +74,34 @@ object mainfo: tmainfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 3
     bounds_x = 128
-    bounds_y = 48
-    bounds_cy = 33
-    reffontheight = 13
+    bounds_y = 47
+    bounds_cy = 35
+    reffontheight = 14
   end
   object intdi: trealdisp
     frame.caption = 'Interval'
     frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 4
     bounds_x = 16
-    bounds_y = 48
-    bounds_cy = 33
+    bounds_y = 47
+    bounds_cy = 35
     valuerange = 1
     valuestart = 0
     format = '0..00000G'
     value = -Inf
-    reffontheight = 13
+    reffontheight = 14
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
