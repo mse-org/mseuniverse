@@ -43,9 +43,11 @@ begin
      stream1.write(',');
     end;
     int4:= round(sqrt(r2-(int2*step)*(int2*step)));
+   {
     if int4 >= scaleed.value then begin
      int4:= scaleed.value - 1;
     end;
+   }
     stream1.write(int4);
    end;
   end

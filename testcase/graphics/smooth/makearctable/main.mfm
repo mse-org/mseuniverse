@@ -25,7 +25,7 @@ object mainfo: tmainfo
     bounds_cx = 80
     bounds_cy = 37
     statfile = tstatfile1
-    value = 10
+    value = 20
     reffontheight = 14
   end
   object scaleed: tintegeredit
@@ -43,7 +43,7 @@ object mainfo: tmainfo
     bounds_cx = 52
     bounds_cy = 37
     statfile = tstatfile1
-    value = 256
+    value = 128
     reffontheight = 14
   end
   object tbutton1: tbutton
