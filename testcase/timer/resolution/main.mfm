@@ -1,0 +1,114 @@
+object mainfo: tmainfo
+  bounds_x = 218
+  bounds_y = 221
+  bounds_cx = 293
+  bounds_cy = 104
+  container.bounds = (
+    0
+    0
+    293
+    104
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object intervaled: trealedit
+    frame.caption = 'Interval (s)'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    bounds_x = 16
+    bounds_y = 8
+    bounds_cy = 35
+    statfile = tstatfile1
+    onsetvalue = setintervalexe
+    value = 1
+    valuedefault = -Inf
+    formatedit = '0..00000G'
+    formatdisp = '0..00000G'
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 13
+  end
+  object mmtimered: tbooleanedit
+    frame.caption = 'mmtimer (Windows)'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      97
+      1
+    )
+    taborder = 1
+    bounds_x = 128
+    bounds_y = 27
+    bounds_cx = 110
+    bounds_cy = 15
+    statfile = tstatfile1
+    onsetvalue = setmmtimerexe
+  end
+  object tbooleanedit1: tbooleanedit
+    frame.caption = 'run'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      19
+      1
+    )
+    taborder = 2
+    bounds_x = 248
+    bounds_y = 27
+    bounds_cx = 32
+    bounds_cy = 15
+    onsetvalue = runsetexe
+  end
+  object ndi: tintegerdisp
+    frame.caption = 'Interval count'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 128
+    bounds_y = 48
+    bounds_cy = 33
+    reffontheight = 13
+  end
+  object intdi: trealdisp
+    frame.caption = 'Interval'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 16
+    bounds_y = 48
+    bounds_cy = 33
+    valuerange = 1
+    valuestart = 0
+    format = '0..00000G'
+    value = -Inf
+    reffontheight = 13
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 88
+  end
+  object ti: ttimer
+    ontimer = tiexe
+    left = 168
+  end
+end
