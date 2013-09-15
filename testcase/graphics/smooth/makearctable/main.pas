@@ -42,7 +42,7 @@ begin
     if int2 <> 1 then begin
      stream1.write(',');
     end;
-    int4:= round(sqrt(r2-(int2*step)*(int2*step)));
+    int4:= scaleed.value - round(sqrt(r2-(int2*step)*(int2*step)));
    {
     if int4 >= scaleed.value then begin
      int4:= scaleed.value - 1;

@@ -28,6 +28,7 @@ object mainfo: tmainfo
     tab_fontactivetab.xscale = 1
     tab_fontactivetab.dummy = 0
     tab_frame.hiddenedges = [edg_bottom]
+    tab_frame.localprops = [frl_hiddenedges]
     tab_frame.template = headerframe
     tab_face.template = tabbarface
     tab_face.dummy = 0
@@ -37,9 +38,10 @@ object mainfo: tmainfo
     tab_captionframe_bottom = 6
     tab_coloractivetab = -2147483642
     tab_frametab.hiddenedges = [edg_bottom]
+    tab_frametab.localprops = [frl_hiddenedges]
     tab_frametab.template = tabframe
     tab_frametab.dummy = 0
-    tab_size = 20
+    tab_size = 28
     tab_sizemin = 14
     object ttabpage1: ttabpage
       face.template = tabpagefacea
