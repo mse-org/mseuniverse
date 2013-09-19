@@ -7,7 +7,7 @@ uses
  msewidgets,msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,
  msestrings,msetypes,msewidgetgrid,msegraphedits,msescrollbar,msestatfile,
  msesplitter,msechartedit,msebitmap,msedatanodes,msefiledialog,mselistbrowser,
- msesys,msedispwidgets,mserichstring;
+ msesys,msedispwidgets,mserichstring,msecolordialog;
 
 type
  trapdispinfoty = array[0..3] of pointty;
@@ -28,7 +28,6 @@ type
 
  tmainfo = class(tmainform)
    grid: twidgetgrid;
-   smoothed: tbooleanedit;
    projectstat: tstatfile;
    tsimplewidget1: tsimplewidget;
    tridisp: tpaintbox;
@@ -59,6 +58,16 @@ type
    offsxed: trealedit;
    offsyed: trealedit;
    tbutton5: tbutton;
+   brushed: tbooleanedit;
+   bru: tbitmapcomp;
+   smoothed: tbooleanedit;
+   xoffs: tintegeredit;
+   yoffs: tintegeredit;
+   tsplitter3: tsplitter;
+   brumono: tbitmapcomp;
+   monoed: tbooleanedit;
+   foregrounded: tcoloredit;
+   backgrounded: tcoloredit;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -133,10 +142,24 @@ end;
 procedure tmainfo.paintexe(const sender: twidget; const acanvas: tcanvas);
 var
  ar1: pointarty;
+ co1: colorty;
 begin
  ar1:= polyvalues;
  acanvas.smooth:= smoothed.value;
- acanvas.fillpolygon(ar1,cl_blue);
+ if monoed.value then begin
+  brumono.bitmap.colorforeground:= foregrounded.value;
+  brumono.bitmap.colorbackground:= backgrounded.value;
+  acanvas.brush:= brumono.bitmap;
+ end
+ else begin
+  acanvas.brush:= bru.bitmap;
+ end;
+ acanvas.brushorigin:= mp(xoffs.value,yoffs.value);
+ co1:= cl_black;
+ if brushed.value then begin
+  co1:= cl_brush;
+ end;
+ acanvas.fillpolygon(ar1,co1);
 end;
 
 procedure tmainfo.setpointexe(const sender: TObject; var avalue: complexarty;

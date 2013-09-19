@@ -97,30 +97,12 @@ object mainfo: tmainfo
       reffontheight = 14
     end
   end
-  object smoothed: tbooleanedit
-    frame.caption = 'smooth'
-    frame.dummy = 0
-    frame.outerframe = (
-      0
-      1
-      45
-      2
-    )
-    taborder = 1
-    bounds_x = 472
-    bounds_y = 263
-    bounds_cx = 58
-    bounds_cy = 16
-    anchors = [an_right, an_bottom]
-    statfile = projectstat
-    ondataentered = datentexe
-  end
   object tsimplewidget1: tsimplewidget
-    taborder = 2
+    taborder = 1
     visible = True
-    bounds_x = 8
+    bounds_x = 0
     bounds_y = 8
-    bounds_cx = 455
+    bounds_cx = 463
     bounds_cy = 330
     anchors = [an_left, an_top, an_right, an_bottom]
     object tsplitter1: tsplitter
@@ -137,13 +119,16 @@ object mainfo: tmainfo
       statfile = projectstat
     end
     object polydisp: tpaintbox
-      color = -1610612730
+      color = 16773856
+      face.image.source = bru
+      face.localprops = [fal_image]
+      face.dummy = 0
       taborder = 2
-      bounds_x = 4
+      bounds_x = 3
       bounds_y = 0
-      bounds_cx = 132
-      bounds_cy = 330
-      anchors = [an_left]
+      bounds_cx = 133
+      bounds_cy = 210
+      anchors = [an_left, an_top, an_bottom]
       onpaint = paintexe
     end
     object tsplitter2: tsplitter
@@ -163,7 +148,7 @@ object mainfo: tmainfo
       taborder = 4
       bounds_x = 299
       bounds_y = 0
-      bounds_cx = 156
+      bounds_cx = 164
       bounds_cy = 330
       anchors = [an_left, an_right]
       onresize = layoutexe
@@ -210,9 +195,122 @@ object mainfo: tmainfo
       anchors = [an_left]
       onpaint = tripaexe
     end
+    object brushed: tbooleanedit
+      frame.caption = 'brush'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        1
+        35
+        2
+      )
+      taborder = 5
+      bounds_x = 8
+      bounds_y = 279
+      bounds_cx = 48
+      bounds_cy = 16
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+    end
+    object smoothed: tbooleanedit
+      frame.caption = 'smooth'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        1
+        45
+        2
+      )
+      taborder = 6
+      bounds_x = 64
+      bounds_y = 279
+      bounds_cx = 58
+      bounds_cy = 16
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+    end
+    object xoffs: tintegeredit
+      frame.dummy = 0
+      taborder = 7
+      bounds_x = 8
+      bounds_y = 304
+      bounds_cx = 52
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      min = -10000
+      reffontheight = 14
+    end
+    object yoffs: tintegeredit
+      frame.dummy = 0
+      taborder = 8
+      bounds_x = 72
+      bounds_y = 304
+      bounds_cx = 52
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      min = -10000
+      reffontheight = 14
+    end
+    object tsplitter3: tsplitter
+      color = -1879048189
+      taborder = 9
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 3
+      bounds_cy = 234
+      anchors = [an_left, an_top, an_bottom]
+      options = [spo_hmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkright = polydisp
+    end
+    object monoed: tbooleanedit
+      frame.caption = 'mono'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        1
+        35
+        2
+      )
+      taborder = 10
+      bounds_x = 8
+      bounds_y = 263
+      bounds_cx = 48
+      bounds_cy = 16
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+    end
+    object foregrounded: tcoloredit
+      frame.buttonellipse.imagenr = 17
+      taborder = 11
+      bounds_x = 8
+      bounds_y = 216
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      value = -1610612729
+      dropdown.options = [deo_autodropdown, deo_keydropdown]
+      reffontheight = 14
+    end
+    object backgrounded: tcoloredit
+      frame.buttonellipse.imagenr = 17
+      taborder = 12
+      bounds_x = 8
+      bounds_y = 240
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      value = -1610612727
+      dropdown.options = [deo_autodropdown, deo_keydropdown]
+      reffontheight = 14
+    end
   end
   object tbutton1: tbutton
-    taborder = 3
+    taborder = 2
     bounds_x = 575
     bounds_y = 264
     bounds_cx = 25
@@ -222,7 +320,7 @@ object mainfo: tmainfo
   end
   object stoped: tintegeredit
     frame.dummy = 0
-    taborder = 4
+    taborder = 3
     bounds_x = 535
     bounds_y = 264
     bounds_cx = 36
@@ -242,7 +340,7 @@ object mainfo: tmainfo
       38
       2
     )
-    taborder = 5
+    taborder = 4
     bounds_x = 471
     bounds_y = 287
     bounds_cx = 51
@@ -260,7 +358,7 @@ object mainfo: tmainfo
       45
       2
     )
-    taborder = 6
+    taborder = 5
     bounds_x = 535
     bounds_y = 287
     bounds_cx = 58
@@ -278,7 +376,7 @@ object mainfo: tmainfo
       24
       2
     )
-    taborder = 7
+    taborder = 6
     bounds_x = 599
     bounds_y = 287
     bounds_cx = 37
@@ -296,7 +394,7 @@ object mainfo: tmainfo
       24
       2
     )
-    taborder = 8
+    taborder = 7
     bounds_x = 639
     bounds_y = 287
     bounds_cx = 37
@@ -307,7 +405,7 @@ object mainfo: tmainfo
   end
   object findxed: tintegeredit
     frame.dummy = 0
-    taborder = 9
+    taborder = 8
     bounds_x = 495
     bounds_y = 240
     bounds_cx = 36
@@ -318,7 +416,7 @@ object mainfo: tmainfo
   end
   object findyed: tintegeredit
     frame.dummy = 0
-    taborder = 10
+    taborder = 9
     bounds_x = 535
     bounds_y = 240
     bounds_cx = 36
@@ -328,7 +426,7 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   object tbutton2: tbutton
-    taborder = 11
+    taborder = 10
     bounds_x = 574
     bounds_y = 240
     bounds_cx = 26
@@ -339,7 +437,7 @@ object mainfo: tmainfo
   end
   object projectfile: tfilenameedit
     frame.button.imagenr = 17
-    taborder = 12
+    taborder = 11
     bounds_x = 470
     bounds_y = 208
     bounds_cx = 204
@@ -362,7 +460,7 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   object tbutton3: tbutton
-    taborder = 13
+    taborder = 12
     bounds_x = 614
     bounds_y = 264
     bounds_cx = 50
@@ -373,7 +471,7 @@ object mainfo: tmainfo
     onexecute = saveasexe
   end
   object tbutton4: tbutton
-    taborder = 14
+    taborder = 13
     bounds_x = 614
     bounds_y = 240
     bounds_cx = 50
@@ -385,7 +483,7 @@ object mainfo: tmainfo
   end
   object angdisp: tintegerdisp
     frame.dummy = 0
-    taborder = 15
+    taborder = 14
     bounds_x = 470
     bounds_y = 312
     bounds_cx = 76
@@ -402,7 +500,7 @@ object mainfo: tmainfo
       51
       2
     )
-    taborder = 16
+    taborder = 15
     bounds_x = 552
     bounds_y = 303
     bounds_cx = 64
@@ -420,7 +518,7 @@ object mainfo: tmainfo
       53
       2
     )
-    taborder = 17
+    taborder = 16
     bounds_x = 552
     bounds_y = 319
     bounds_cx = 66
@@ -431,7 +529,7 @@ object mainfo: tmainfo
   end
   object sated: tintegeredit
     frame.dummy = 0
-    taborder = 18
+    taborder = 17
     bounds_x = 623
     bounds_y = 312
     bounds_cx = 36
@@ -451,7 +549,7 @@ object mainfo: tmainfo
       0
       0
     )
-    taborder = 19
+    taborder = 18
     bounds_x = 470
     bounds_y = 167
     bounds_cx = 60
@@ -476,7 +574,7 @@ object mainfo: tmainfo
       0
       0
     )
-    taborder = 20
+    taborder = 19
     bounds_x = 534
     bounds_y = 167
     bounds_cx = 60
@@ -501,7 +599,7 @@ object mainfo: tmainfo
       0
       0
     )
-    taborder = 21
+    taborder = 20
     bounds_x = 598
     bounds_y = 167
     bounds_cx = 60
@@ -518,7 +616,7 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   object tbutton5: tbutton
-    taborder = 22
+    taborder = 21
     bounds_x = 472
     bounds_y = 240
     bounds_cx = 18
@@ -538,5 +636,71 @@ object mainfo: tmainfo
     onstatwrite = statwriteexe
     left = 176
     top = 72
+  end
+  object bru: tbitmapcomp
+    bitmap.transparentcolor = -2147483642
+    bitmap.options = [bmo_masked, bmo_colormask]
+    bitmap.origformat = 'png'
+    bitmap.image = {
+      0000000006000000100000001000000068030000000000000000000000000000
+      0000000000000000000000000000000000000000FFFFFF11000000030058FF01
+      005BF901097EF9012D9FFB013CA9FC012995F7010565EB010035CD0100000004
+      FFFFFF01000000020057F9011B87FC017CDBFF01D2FDFF01F3FFFF01F8FFFF01
+      F1FFFF01C9F9FF0161C6FD010353DC0100157B0100000002FFFFFF0100000001
+      0057F8014DA3FE01C2F7F701DBF6F101E6FFFF01DDFFFF01DCFFFF01DDFFFF01
+      E7FFFF01DAF6ED0188F3FB010962E1010009460100000001FFFFFF010057FE01
+      2588FC01A7F1EB0185908D01888B8B0190D2D201AFFFFF01ACFFFF01AFFFFF01
+      8AC5C5018A8A8A018E9B950152ECF801002A830100000001FFFFFF01005BF801
+      3AE3FF0165BFB801E7D8D801FDE9E9017EA1A10162F9F9016BFFFF015DF2F201
+      8DA0A001FFF4F401DBCBCA011AC6C901009EF90100011901FFFFFF01007DF801
+      05FFFF0149BEBE01F3DEDE017F7676017388880107F1F10109FFFF010AE4E401
+      7D7F7F0185808001F3E1DF0120B8C40100D0FF0100176701FFFFFF01009DFC01
+      00FFFF011ACCCC01D3BBBB011C0D0D013258580100FDFD0100FFFF0103F6F601
+      2F3F3F012C1F1F01D0C4C3010CBED50100D6FF010034A001FFFFFF0100A5FB01
+      00FFFF0100F3F30150AAA9016B6F6F010FB3B30100FFFF03169F9F0176777601
+      3FAAB10100DAF80100CAFF010039AD01FFFFFF01008FF50100FFFF0200F7F701
+      00E8EA0100FFFF0100FEFF0300FFFF0100E2EB0100E2FC0100D4FF0100BBFF01
+      00259401FFFFFF01005EE90100F9FF0100FFFF0140E1FF0179E4FF0170DCFB01
+      6AD6F70165D2F4015FCCF2015AC8EF0157C3EF0112B9FB0100CAFF01009BFF01
+      00074E01FFFFFF01002EC60100BCFB0100FFFF015BE1FF01FFF9F901FFF4F201
+      FFECEA01FBE3E201F4DDDC01F3D6D301EACACC011CAEF70100C4FF010052DE01
+      00000901FFFFFF01000000010045D70100F2FF010EF6FF01C6E2FC01FFF7F201
+      F8EEEB01F1E6E301EEE0DC01F7DBD2017FB7E30100B9FF01008BFF0100064901
+      00000001FFFFFF0100000001000731010044A40100E6FF0119EFFF0194DCF901
+      D5E1EE01DCDDE701C3D3E30168BEED0104B7FF010089FF010010720100000002
+      FFFFFF010000000200000201001C64010087E30100BDFF010CC3FF0113BDFF01
+      05AFFF010093FF01004DD1010004440100000003FFFFFF010000000400000E01
+      000D4C0100278401002C9501001C7B0100043E0100000601000000048C010000
+      000000140404040165656501C4C4C401F1F1F101FBFBFB01EEEEEE01BDBDBD01
+      6060600109090901020202010000000529292901C2C2C201FFFFFF07BCBCBC01
+      2B2B2B01060606010000000327272701E6E6E601FFFFFF09DDDDDD0131313101
+      080808010000000106060601C5C5C501FFFFFF0BC1C1C1011F1F1F0100000001
+      61616101FFFFFF0D7171710100000001C4C4C401FFFFFF0DC1C1C10100000001
+      F0F0F001FFFFFF0DE5E5E50100000001F9F9F901FFFFFF0DEDEDED0100000001
+      EAEAEA01FFFFFF0DE4E4E40100000001B5B5B501FFFFFF0DC4C4C40100000001
+      4E4E4E01FFFFFF0CFDFDFD01898989010000000108080801AEAEAE01FFFFFF0B
+      C5C5C5015757570100000001020202011F1F1F01CECECE01FFFFFF09DADADA01
+      6B6B6B013C3C3C01000000020505050126262601AFAFAF01F9F9F901FFFFFF05
+      F8F8F801C0C0C0016A6A6A01434343011C1C1C0100000003060606011C1C1C01
+      60606001AEAEAE01D7D7D701E1E1E101D8D8D801B8B8B8018383830155555501
+      3B3B3B011C1C1C0107070701
+    }
+    left = 32
+    top = 16
+  end
+  object brumono: tbitmapcomp
+    bitmap.transparentcolor = -2147483642
+    bitmap.options = [bmo_monochrome]
+    bitmap.origformat = 'png'
+    bitmap.colorforeground = -1610612729
+    bitmap.colorbackground = -1610612727
+    bitmap.image = {
+      0000000001000000100000001000000040000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000FC3F0000F81F0000F00F0000E0070000C003000080010000
+      0000000000000000000000000000000000000000
+    }
+    left = 32
+    top = 48
   end
 end

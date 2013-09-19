@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,
  msewidgets,msegraphedits,mseificomp,mseificompglob,mseifiglob,msescrollbar,
  msetypes,msestatfile,msedataedits,mseedit,msestrings,msechartedit,msegrids,
- msewidgetgrid;
+ msewidgetgrid,msedispwidgets,mserichstring,msebitmap,msecolordialog;
 
 type
  tmainfo = class(tmainform)
@@ -23,6 +23,17 @@ type
    ypointed: tintegeredit;
    dashesed: thexstringedit;
    closeded: tbooleanedit;
+   tandisp: trealdisp;
+   sindisp: trealdisp;
+   cosdisp: trealdisp;
+   bru: tbitmapcomp;
+   brushed: tbooleanedit;
+   monoed: tbooleanedit;
+   backgrounded: tcoloredit;
+   foregrounded: tcoloredit;
+   brumono: tbitmapcomp;
+   yoffs: tintegeredit;
+   xoffs: tintegeredit;
    procedure datent(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure initcapexe(const sender: tenumtypeedit);
@@ -49,8 +60,28 @@ begin
 end;
 
 procedure tmainfo.setupcanvas(const acanvas: tcanvas);
+var
+ co1: colorty;
 begin
- acanvas.color:= cl_black;
+ if brushed.value then begin
+  if monoed.value then begin
+   brumono.bitmap.colorforeground:= foregrounded.value;
+   brumono.bitmap.colorbackground:= backgrounded.value;
+   acanvas.brush:= brumono.bitmap;
+  end
+  else begin
+   acanvas.brush:= bru.bitmap;
+  end;
+  acanvas.brushorigin:= mp(xoffs.value,yoffs.value);
+  co1:= cl_black;
+  if brushed.value then begin
+   co1:= cl_brush;
+  end;
+  acanvas.color:= co1;
+ end
+ else begin
+  acanvas.color:= cl_black;
+ end;
  acanvas.smooth:= smoothed.value;
  acanvas.linewidth:= liwied.value; 
  acanvas.capstyle:= capstylety(caped.value);
@@ -99,7 +130,9 @@ begin
  acanvas.drawline(mp(20,30),mp(20,55));
  acanvas.drawlines([mp(20,80),mp(50,80),mp(50,120),mp(20,120)]);
  acanvas.move(mp(60,0));
+ acanvas.color:= cl_black;
  drawmarker;
+ setupcanvas(acanvas);
  acanvas.drawline(mp(55,20),mp(30,20));
  acanvas.drawline(mp(20,55),mp(20,30));
  acanvas.drawlines([mp(20,120),mp(50,120),mp(50,80),mp(20,80)]);
@@ -181,6 +214,8 @@ var
  ar1: pointarty;
  int1: integer;
  h: integer;
+ dxa,dya,dxb,dyb: integer;
+ rea1,rea2,wa,wb: real;
 begin
  setupcanvas(acanvas);
  px:= xpointed.griddata.datapo;
@@ -194,6 +229,37 @@ begin
   end;
  end;
  acanvas.drawlines(ar1,closeded.value);
+ if length(ar1) >= 3 then begin
+  dxa:= ar1[0].x-ar1[1].x;
+  dya:= ar1[0].y-ar1[1].y;
+  dxb:= ar1[2].x-ar1[1].x;
+  dyb:= ar1[2].y-ar1[1].y;
+  rea1:= -(dxa*dyb - dxb*dya);
+  rea2:= (dxa*dxb + dya*dyb);
+  if rea2 <> 0 then begin
+   tandisp.value:= rea1/rea2;
+  end
+  else begin
+   tandisp.clear;
+  end;
+  wa:= sqrt(dxa*dxa+dya*dya);  
+  wb:= sqrt(dxb*dxb+dyb*dyb);
+  rea1:= -(dxa*dyb - dxb*dya);
+  rea2:= (wa*wb);
+  if rea2 <> 0 then begin
+   sindisp.value:= rea1/rea2;
+   cosdisp.value:= (dxa*dxb + dya*dyb)/rea2;
+  end
+  else begin
+   sindisp.clear;
+   cosdisp.clear;
+  end;
+ end
+ else begin
+  tandisp.clear;
+  sindisp.clear;
+  cosdisp.clear;
+ end;
 end;
 
 end.

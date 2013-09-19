@@ -20,8 +20,8 @@ order17=0
 order18=0
 order19=0
 [projectoptions]
-projectdir=/home/mse/packs/standard/git/mseuniverse/testcase/graphics/smooth
-projectfilename=/home/mse/packs/standard/git/mseuniverse/testcase/graphics/smooth/smooth.prj
+projectdir=/home/mse/packs/standard/git/mseuniverse/testcase/graphics/radeon
+projectfilename=/home/mse/packs/standard/git/mseuniverse/testcase/graphics/radeon/radeontest.prj
 options=83
  [projectoptionsfo.twidgetgrid3]
  propcolwidthref=801
@@ -502,12 +502,12 @@ envvarons=0
 windowlayout=559
  [mainfo.openform]
  filenames=1
-  /home/mse/packs/standard/git/mseide-msegui/apps/ide/sourceform.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/guitemplates.mfm
  filehistory=5
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/guitemplates.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/main.mfm
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/sourceform.mfm
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/actionsmodule.mfm
-  /home/mse/packs/standard/git/mseide-msegui/apps/ide/main.mfm
-  /home/mse/packs/standard/git/mseide-msegui/apps/ide/guitemplates.mfm
   /home/mse/packs/standard/git/mseide-msegui/lib/common/dialogs/msefiledialogres.mfm
  filefilterindex=0
  filefilter=*.mfm
@@ -518,36 +518,36 @@ windowlayout=559
  cy=0
  [mainfo.projectfiledia]
  filenames=1
-  /home/mse/packs/standard/git/mseuniverse/testcase/graphics/smooth/mse_smooth.prj
- lastdir=/home/mse/packs/standard/git/mseuniverse/testcase/graphics/smooth/
+  /home/mse/packs/standard/git/mseuniverse/testcase/graphics/arctria/mse_arctria.prj
+ lastdir=/home/mse/packs/standard/git/mseuniverse/testcase/graphics/arctria/
  filehistory=10
-  /home/mse/packs/standard/git/mseuniverse/testcase/graphics/smooth/mse_smooth.prj
-  /home/mse/packs/standard/git/mseuniverse/testcase/graphics/smooth/smooth.prj
   /home/mse/packs/standard/git/mseuniverse/testcase/graphics/arctria/mse_arctria.prj
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
   /home/mse/packs/standard/git/mseuniverse/testcase/graphics/polytria/mse_polytria.prj
+  /home/mse/packs/standard/git/mseuniverse/testcase/graphics/smooth/mse_smooth.prj
   /home/mse/proj/msegui/testcase/mse/audio/envelope/envelope.prj
   /home/mse/packs/standard/git/mseuniverse/testcase/graphics/smooth/makearctable/mse_makearctable.prj
   /home/mse/proj/test3/test.prj
   /home/mse/packs/standard/git/mseide-msegui/apps/facedemo/mse_facedemo.prj
   /home/mse/packs/standard/git/mseide-msegui/apps/demo/mse_demo.prj
+  /home/mse/packs/standard/git/mseuniverse/testcase/timer/resolution/mse_resolution.prj
  filefilterindex=0
  filefilter=*.prj
- filecolwidth=100
- x=0
- y=0
- cx=0
- cy=0
+ filecolwidth=115
+ x=312
+ y=25
+ cx=588
+ cy=307
  [mainfo.openfile]
  filenames=0
  filehistory=2
   /home/mse/proj/msegui/testcase/jean-pierre/Demo/main.pas
   /D:/MSE/Livre/DemoMSE/Demo.pas
  filefilterindex=0
- filefilter="*.pp" "*.pas" "*.inc" "*.dpr" "*.h" "*.c"
+ filefilter="*.pp" "*.pas" "*.inc" "*.dpr"
  filecolwidth=174
- x=218
- y=210
+ x=234
+ y=140
  cx=588
  cy=314
  [mainfo.basedock]
@@ -556,7 +556,7 @@ windowlayout=559
  [mainfo]
  splitdir=0
  useroptions=33554555
- stackedunder=
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -570,7 +570,7 @@ windowlayout=559
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -638,7 +638,7 @@ windowlayout=559
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=symbolfo
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
@@ -657,7 +657,7 @@ windowlayout=559
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=cpui386fo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -808,7 +808,7 @@ windowlayout=559
  [symbolfo]
  splitdir=0
  useroptions=16507
- stackedunder=targetconsolefo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -898,8 +898,8 @@ windowlayout=559
  y=411
  cx=724
  cy=80
- rcx=830
- rcy=595
+ rcx=815
+ rcy=599
  [componentstorefo]
  splitdir=0
  useroptions=24675
@@ -966,7 +966,7 @@ windowlayout=559
  [componentpalettefo]
  splitdir=0
  useroptions=24683
- stackedunder=mainfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
