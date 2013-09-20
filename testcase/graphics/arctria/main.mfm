@@ -15,17 +15,17 @@ object mainfo: tmainfo
     color = -1610612730
     bounds_x = 2
     bounds_y = 8
-    bounds_cx = 187
+    bounds_cx = 299
     bounds_cy = 351
     anchors = [an_left, an_top, an_bottom]
     onpaint = paintexe
   end
   object grid: twidgetgrid
     taborder = 1
-    bounds_x = 352
+    bounds_x = 464
     bounds_y = 8
     bounds_cx = 178
-    bounds_cy = 415
+    bounds_cy = 143
     anchors = [an_left, an_top, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -88,10 +88,10 @@ object mainfo: tmainfo
     frame.levelo = -1
     frame.localprops = [frl_levelo]
     taborder = 2
-    bounds_x = 192
+    bounds_x = 304
     bounds_y = 8
     bounds_cx = 154
-    bounds_cy = 415
+    bounds_cy = 351
     anchors = [an_left, an_top, an_bottom]
     traces.count = 1
     traces.options = [cto_stockglyphs]
@@ -317,6 +317,50 @@ object mainfo: tmainfo
     value = -1610612729
     dropdown.options = [deo_autodropdown, deo_keydropdown]
     reffontheight = 14
+  end
+  object anged: txychartedit
+    frame.levelo = -1
+    frame.localprops = [frl_levelo]
+    taborder = 14
+    bounds_x = 464
+    bounds_y = 160
+    bounds_cx = 178
+    bounds_cy = 199
+    anchors = [an_left, an_top, an_bottom]
+    traces.count = 1
+    traces.options = [cto_stockglyphs]
+    traces.xserstart = 0
+    traces.xstart = 0
+    traces.ystart = 0
+    traces.xrange = 1
+    traces.xserrange = 1
+    traces.yrange = 1
+    traces.image_widthmm = 0
+    traces.image_heighthmm = 0
+    traces.legend_x = 0
+    traces.legend_y = 0
+    traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 1
+        ystart = 0
+        options = [cto_stockglyphs]
+        imagenr = 45
+      end>
+    xstart = 0
+    ystart = 0
+    xrange = 1
+    yrange = 1
+    xdials.start = 0
+    xdials.range = 1
+    ydials.start = 0
+    ydials.range = 1
+    statfile = tstatfile1
+    ondataentered = pointsdatentexe
   end
   object brumono: tbitmapcomp
     bitmap.transparentcolor = -2147483642

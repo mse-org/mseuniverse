@@ -29,6 +29,7 @@ type
    monoed: tbooleanedit;
    xoffs: tintegeredit;
    foregrounded: tcoloredit;
+   anged: txychartedit;
    procedure datentexe(const sender: TObject);
    procedure pointsdatentexe(const sender: TObject);
    procedure pointeddatentexe(const sender: TObject);
@@ -44,7 +45,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm;
+ main_mfm,math;
 
 procedure tmainfo.initcapexe(const sender: tenumtypeedit);
 begin
@@ -149,8 +150,10 @@ procedure tmainfo.paintexe(const sender: twidget; const acanvas: tcanvas);
 var
  px,py: pinteger;
  ar1: pointarty;
+ ar2: complexarty;
  int1: integer;
  h: integer;
+ rea1,rea2: realty;
 begin
  setupcanvas(acanvas);
  px:= xpointed.griddata.datapo;
@@ -164,8 +167,25 @@ begin
   end;
  end;
  if length(ar1) >= 2 then begin
-  acanvas.drawellipse(mr(ar1[0].x,ar1[0].y,ar1[1].x-ar1[0].x,
+  acanvas.drawellipse1(mr(ar1[0].x,ar1[0].y,ar1[1].x-ar1[0].x,
                        ar1[1].y-ar1[0].y));
+  acanvas.move(mp(100,0));
+  acanvas.fillellipse1(mr(ar1[0].x,ar1[0].y,ar1[1].x-ar1[0].x,
+                       ar1[1].y-ar1[0].y));
+  acanvas.move(mp(-100,100));
+  ar2:= anged.traces[0].xydata;
+  if length(ar2) >= 3 then begin
+   rea1:= arctan2((ar2[0].im-ar2[1].im),ar2[0].re-ar2[1].re);
+   rea2:= arctan2((ar2[2].im-ar2[1].im),ar2[2].re-ar2[1].re);
+   acanvas.drawarc1(mr(ar1[0].x,ar1[0].y,ar1[1].x-ar1[0].x,
+                       ar1[1].y-ar1[0].y),rea1,rea2-rea1);
+   acanvas.move(mp(100,0));
+   acanvas.fillarcchord1(mr(ar1[0].x,ar1[0].y,ar1[1].x-ar1[0].x,
+                       ar1[1].y-ar1[0].y),rea1,rea2-rea1);
+   acanvas.move(mp(-100,100));
+   acanvas.fillarcpieslice1(mr(ar1[0].x,ar1[0].y,ar1[1].x-ar1[0].x,
+                       ar1[1].y-ar1[0].y),rea1,rea2-rea1);
+  end;
  end;
 end;
 
