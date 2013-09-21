@@ -160,6 +160,12 @@ begin
   co1:= cl_brush;
  end;
  acanvas.fillpolygon(ar1,co1);
+ if monoed.value then begin
+  acanvas.move(mp(0,200));
+  brumono.bitmap.colorforeground:= backgrounded.value;
+  brumono.bitmap.colorbackground:= foregrounded.value;
+  acanvas.fillpolygon(ar1,co1);
+ end;
 end;
 
 procedure tmainfo.setpointexe(const sender: TObject; var avalue: complexarty;
