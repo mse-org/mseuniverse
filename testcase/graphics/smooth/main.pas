@@ -80,7 +80,7 @@ begin
   acanvas.color:= co1;
  end
  else begin
-  acanvas.color:= cl_black;
+  acanvas.color:= foregrounded.value;
  end;
  acanvas.smooth:= smoothed.value;
  acanvas.linewidth:= liwied.value; 
