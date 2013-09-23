@@ -68,6 +68,8 @@ type
    monoed: tbooleanedit;
    foregrounded: tcoloredit;
    backgrounded: tcoloredit;
+   linewidthed: tintegeredit;
+   linedisp: tpaintbox;
    procedure datentexe(const sender: TObject);
    procedure paintexe(const sender: twidget; const acanvas: tcanvas);
    procedure setpointexe(const sender: TObject; var avalue: complexarty;
@@ -81,6 +83,7 @@ type
    procedure statwriteexe(const sender: TObject; const writer: tstatwriter);
    procedure saveexe(const sender: TObject);
    procedure clrexe(const sender: TObject);
+   procedure paintlineexe(const sender: twidget; const acanvas: tcanvas);
   private
    ftraps: array of trapdispinfoty;
    fdiags: segmentarty;
@@ -104,6 +107,7 @@ procedure tmainfo.invalidisp;
 var
  ar1: pointarty;
 begin
+ linedisp.invalidate;
  polydisp.invalidate;
  tridisp.invalidate;
 end;
@@ -155,17 +159,34 @@ begin
   acanvas.brush:= bru.bitmap;
  end;
  acanvas.brushorigin:= mp(xoffs.value,yoffs.value);
- co1:= cl_black;
+ co1:= foregrounded.value;
  if brushed.value then begin
   co1:= cl_brush;
  end;
  acanvas.fillpolygon(ar1,co1);
+ acanvas.move(mp(0,200));
  if monoed.value then begin
-  acanvas.move(mp(0,200));
   brumono.bitmap.colorforeground:= backgrounded.value;
   brumono.bitmap.colorbackground:= foregrounded.value;
-  acanvas.fillpolygon(ar1,co1);
+ end
+ else begin
+  if not brushed.value then begin
+   co1:= backgrounded.value;
+  end;
  end;
+ acanvas.fillpolygon(ar1,co1);
+end;
+
+procedure tmainfo.paintlineexe(const sender: twidget; const acanvas: tcanvas);
+var
+ ar1: pointarty;
+begin
+ ar1:= polyvalues;
+ acanvas.linewidth:= linewidthed.value;
+ acanvas.smooth:= smoothed.value;
+ acanvas.drawlines(ar1,false,foregrounded.value);
+ acanvas.move(mp(0,200));  
+ acanvas.drawlines(ar1,true,backgrounded.value);
 end;
 
 procedure tmainfo.setpointexe(const sender: TObject; var avalue: complexarty;

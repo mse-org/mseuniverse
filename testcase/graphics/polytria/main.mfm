@@ -1,19 +1,19 @@
 object mainfo: tmainfo
   bounds_x = 29
   bounds_y = 183
-  bounds_cx = 679
+  bounds_cx = 856
   bounds_cy = 491
   container.bounds = (
     0
     0
-    679
+    856
     491
   )
   statfile = mainstat
   caption = 'MSEide+MSEgui'
   moduleclassname = 'tmainform'
   object grid: twidgetgrid
-    bounds_x = 468
+    bounds_x = 645
     bounds_y = 8
     bounds_cx = 210
     bounds_cy = 304
@@ -102,17 +102,17 @@ object mainfo: tmainfo
     visible = True
     bounds_x = 0
     bounds_y = 8
-    bounds_cx = 463
+    bounds_cx = 640
     bounds_cy = 481
     anchors = [an_left, an_top, an_right, an_bottom]
     object tsplitter1: tsplitter
       color = -1879048189
       taborder = 1
-      bounds_x = 136
+      bounds_x = 280
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 481
-      anchors = [an_left]
+      bounds_cy = 361
+      anchors = [an_left, an_top, an_bottom]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = polydisp
       linkright = tridisp
@@ -124,7 +124,7 @@ object mainfo: tmainfo
       face.localprops = [fal_image]
       face.dummy = 0
       taborder = 2
-      bounds_x = 3
+      bounds_x = 147
       bounds_y = 0
       bounds_cx = 133
       bounds_cy = 361
@@ -134,11 +134,11 @@ object mainfo: tmainfo
     object tsplitter2: tsplitter
       color = -1879048189
       taborder = 3
-      bounds_x = 296
+      bounds_x = 440
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 481
-      anchors = [an_left]
+      bounds_cy = 361
+      anchors = [an_left, an_top, an_bottom]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = tridisp
       linkright = charted
@@ -146,11 +146,11 @@ object mainfo: tmainfo
     end
     object charted: txychartedit
       taborder = 4
-      bounds_x = 299
+      bounds_x = 443
       bounds_y = 0
-      bounds_cx = 164
-      bounds_cy = 481
-      anchors = [an_left, an_right]
+      bounds_cx = 197
+      bounds_cy = 361
+      anchors = [an_left, an_top, an_right, an_bottom]
       onresize = layoutexe
       traces.count = 1
       traces.options = [cto_stockglyphs]
@@ -188,11 +188,11 @@ object mainfo: tmainfo
     end
     object tridisp: tpaintbox
       color = -1610612730
-      bounds_x = 139
+      bounds_x = 283
       bounds_y = 0
       bounds_cx = 157
-      bounds_cy = 481
-      anchors = [an_left]
+      bounds_cy = 361
+      anchors = [an_left, an_top, an_bottom]
       onpaint = tripaexe
     end
     object brushed: tbooleanedit
@@ -260,12 +260,13 @@ object mainfo: tmainfo
     object tsplitter3: tsplitter
       color = -1879048189
       taborder = 9
-      bounds_x = 0
+      bounds_x = 144
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 385
+      bounds_cy = 361
       anchors = [an_left, an_top, an_bottom]
       options = [spo_hmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = linedisp
       linkright = polydisp
     end
     object monoed: tbooleanedit
@@ -312,10 +313,42 @@ object mainfo: tmainfo
       dropdown.options = [deo_autodropdown, deo_keydropdown]
       reffontheight = 13
     end
+    object linewidthed: tintegeredit
+      frame.caption = 'penwidth'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        16
+        0
+        0
+      )
+      taborder = 13
+      bounds_x = 112
+      bounds_y = 376
+      bounds_cx = 52
+      bounds_cy = 35
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      reffontheight = 13
+    end
+    object linedisp: tpaintbox
+      color = -1610612730
+      face.image.source = bru
+      face.localprops = [fal_image]
+      face.dummy = 0
+      taborder = 14
+      bounds_x = 1
+      bounds_y = 0
+      bounds_cx = 143
+      bounds_cy = 361
+      anchors = [an_left, an_top, an_bottom]
+      onpaint = paintlineexe
+    end
   end
   object tbutton1: tbutton
     taborder = 2
-    bounds_x = 575
+    bounds_x = 752
     bounds_y = 415
     bounds_cx = 25
     bounds_cy = 20
@@ -325,7 +358,7 @@ object mainfo: tmainfo
   object stoped: tintegeredit
     frame.dummy = 0
     taborder = 3
-    bounds_x = 535
+    bounds_x = 712
     bounds_y = 416
     bounds_cx = 36
     bounds_cy = 19
@@ -346,7 +379,7 @@ object mainfo: tmainfo
       1
     )
     taborder = 4
-    bounds_x = 471
+    bounds_x = 648
     bounds_y = 438
     bounds_cx = 45
     bounds_cy = 15
@@ -364,7 +397,7 @@ object mainfo: tmainfo
       1
     )
     taborder = 5
-    bounds_x = 535
+    bounds_x = 712
     bounds_y = 438
     bounds_cx = 51
     bounds_cy = 15
@@ -382,7 +415,7 @@ object mainfo: tmainfo
       1
     )
     taborder = 6
-    bounds_x = 599
+    bounds_x = 776
     bounds_y = 438
     bounds_cx = 34
     bounds_cy = 15
@@ -400,7 +433,7 @@ object mainfo: tmainfo
       1
     )
     taborder = 7
-    bounds_x = 639
+    bounds_x = 816
     bounds_y = 438
     bounds_cx = 34
     bounds_cy = 15
@@ -411,7 +444,7 @@ object mainfo: tmainfo
   object findxed: tintegeredit
     frame.dummy = 0
     taborder = 8
-    bounds_x = 495
+    bounds_x = 672
     bounds_y = 392
     bounds_cx = 36
     bounds_cy = 19
@@ -423,7 +456,7 @@ object mainfo: tmainfo
   object findyed: tintegeredit
     frame.dummy = 0
     taborder = 9
-    bounds_x = 535
+    bounds_x = 712
     bounds_y = 392
     bounds_cx = 36
     bounds_cy = 19
@@ -434,7 +467,7 @@ object mainfo: tmainfo
   end
   object tbutton2: tbutton
     taborder = 10
-    bounds_x = 574
+    bounds_x = 751
     bounds_y = 391
     bounds_cx = 26
     bounds_cy = 20
@@ -445,7 +478,7 @@ object mainfo: tmainfo
   object projectfile: tfilenameedit
     frame.button.imagenr = 17
     taborder = 11
-    bounds_x = 470
+    bounds_x = 647
     bounds_y = 360
     bounds_cx = 204
     bounds_cy = 19
@@ -469,7 +502,7 @@ object mainfo: tmainfo
   end
   object tbutton3: tbutton
     taborder = 12
-    bounds_x = 614
+    bounds_x = 791
     bounds_y = 415
     bounds_cx = 50
     bounds_cy = 20
@@ -480,7 +513,7 @@ object mainfo: tmainfo
   end
   object tbutton4: tbutton
     taborder = 13
-    bounds_x = 614
+    bounds_x = 791
     bounds_y = 391
     bounds_cx = 50
     bounds_cy = 20
@@ -492,7 +525,7 @@ object mainfo: tmainfo
   object angdisp: tintegerdisp
     frame.dummy = 0
     taborder = 14
-    bounds_x = 470
+    bounds_x = 647
     bounds_y = 464
     bounds_cx = 76
     bounds_cy = 17
@@ -509,7 +542,7 @@ object mainfo: tmainfo
       1
     )
     taborder = 15
-    bounds_x = 552
+    bounds_x = 729
     bounds_y = 454
     bounds_cx = 57
     bounds_cy = 15
@@ -527,7 +560,7 @@ object mainfo: tmainfo
       1
     )
     taborder = 16
-    bounds_x = 552
+    bounds_x = 729
     bounds_y = 470
     bounds_cx = 57
     bounds_cy = 15
@@ -538,7 +571,7 @@ object mainfo: tmainfo
   object sated: tintegeredit
     frame.dummy = 0
     taborder = 17
-    bounds_x = 623
+    bounds_x = 800
     bounds_y = 464
     bounds_cx = 36
     bounds_cy = 19
@@ -559,7 +592,7 @@ object mainfo: tmainfo
       0
     )
     taborder = 18
-    bounds_x = 470
+    bounds_x = 647
     bounds_y = 320
     bounds_cx = 60
     bounds_cy = 35
@@ -584,7 +617,7 @@ object mainfo: tmainfo
       0
     )
     taborder = 19
-    bounds_x = 534
+    bounds_x = 711
     bounds_y = 320
     bounds_cx = 60
     bounds_cy = 35
@@ -609,7 +642,7 @@ object mainfo: tmainfo
       0
     )
     taborder = 20
-    bounds_x = 598
+    bounds_x = 775
     bounds_y = 320
     bounds_cx = 60
     bounds_cy = 35
@@ -626,7 +659,7 @@ object mainfo: tmainfo
   end
   object tbutton5: tbutton
     taborder = 21
-    bounds_x = 472
+    bounds_x = 649
     bounds_y = 391
     bounds_cx = 18
     bounds_cy = 20
