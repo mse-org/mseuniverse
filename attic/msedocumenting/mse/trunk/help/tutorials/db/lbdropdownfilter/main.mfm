@@ -1,0 +1,219 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 187
+  bounds_y = 239
+  bounds_cx = 399
+  bounds_cy = 263
+  container.bounds = (
+    0
+    0
+    399
+    263
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tdbwidgetgrid1: tdbwidgetgrid
+    frame.sbvert.buttonlength = 0
+    frame.sbvert.pagesize = 0.28571428571429
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 40
+    bounds_cx = 382
+    bounds_cy = 185
+    anchors = [an_left, an_top, an_right, an_bottom]
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'string1'
+          end        
+          item
+            caption = 'string2'
+          end>
+      end>
+    datacols.count = 2
+    datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item[tdbstringedit1]
+        width = 107
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tdbstringedit1'
+      end    
+      item[tdbstringedit2]
+        width = 238
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tdbstringedit2'
+      end>
+    datalink.datasource = dataso
+    datarowheight = 16
+    reffontheight = 14
+    object tdbstringedit1: tdbstringedit
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 107
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.fieldname = 'string1'
+      reffontheight = 14
+    end
+    object tdbstringedit2: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 108
+      bounds_y = 0
+      bounds_cx = 238
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.fieldname = 'string2'
+      reffontheight = 14
+    end
+  end
+  object tdbnavigator1: tdbnavigator
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 8
+    datasource = dataso
+    dialogbutton.imagenr = 17
+    dialogbutton.hint = 'Dialog'
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+  end
+  object dropdownedit: tdropdownlisteditlb
+    bounds_x = 8
+    bounds_y = 232
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    dropdown.lookupbuffer = lb
+    dropdown.optionslb = [olb_copyitems]
+    dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_livefilter, deo_colsizing, deo_savestate]
+    dropdown.cols.count = 2
+    dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+    dropdown.cols.items = <    
+      item
+        width = 80
+        options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+        linewidth = 1
+      end    
+      item
+        width = 200
+        options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+        fieldno = 1
+      end>
+    dropdown.onbeforefilter = beforefilterexe
+    dropdown.onfilter = filterexe
+    dropdown.width = -1
+    reffontheight = 14
+  end
+  object caseinsed: tbooleanedit
+    frame.caption = 'case insensitive'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      92
+      2
+    )
+    taborder = 3
+    bounds_x = 120
+    bounds_y = 235
+    bounds_cx = 105
+    bounds_cy = 16
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = searchoptionenteredexe
+  end
+  object wordstarted: tbooleaneditradio
+    Tag = 2
+    frame.caption = 'wordstart'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      54
+      2
+    )
+    taborder = 4
+    bounds_x = 232
+    bounds_y = 235
+    bounds_cx = 67
+    bounds_cy = 16
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = searchoptionenteredexe
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_cantoggle]
+  end
+  object wholeworded: tbooleaneditradio
+    Tag = 1
+    frame.caption = 'wholeword'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      63
+      2
+    )
+    taborder = 5
+    bounds_x = 304
+    bounds_y = 235
+    bounds_cx = 76
+    bounds_cy = 16
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = searchoptionenteredexe
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_cantoggle]
+  end
+  object ds: tlocaldataset
+    logfilename = 'test.db'
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'string1'
+        DataType = ftString
+        Precision = 0
+        Size = 20
+      end    
+      item
+        Name = 'string2'
+        DataType = ftString
+        Precision = 0
+        Size = 200
+      end>
+    left = 56
+    top = 120
+  end
+  object lb: tdblookupbuffer
+    datasource = dataso
+    textfields.count = 2
+    textfields.items = (
+      'string1'
+      'string2'
+    )
+    optionsdb = [olbdb_invalidateifmodified]
+    left = 184
+    top = 120
+  end
+  object dataso: tmsedatasource
+    DataSet = ds
+    left = 104
+    top = 120
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 232
+    top = 120
+  end
+end

@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,
  msewidgets,msescrollbar,msetabs,sysutils,msestatfile,msebitmap,msedataedits,
  msedatanodes,mseedit,msefiledialog,msegrids,mseifiglob,mselistbrowser,
- msestrings,msesys,msetypes,msegraphedits;
+ msestrings,msesys,msetypes,msegraphedits,msesplitter;
 
 type
  toptionsfo = class(tmseform)
@@ -41,6 +41,7 @@ type
    patchtool: thistoryedit;
    repostatfilename: tstringedit;
    diffencoding: tenumtypeedit;
+   tspacer1: tspacer;
    procedure repostafnasetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure diffencinitexe(const sender: tenumtypeedit);

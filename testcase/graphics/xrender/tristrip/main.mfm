@@ -1,0 +1,25 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 186
+  bounds_cy = 169
+  container.bounds = (
+    0
+    0
+    186
+    169
+  )
+  caption = 'MSEgui'
+  moduleclassname = 'tmainform'
+  object xrenderwidget: twindowwidget
+    frame.levelo = -1
+    frame.localprops = [frl_levelo]
+    frame.dummy = 0
+    bounds_x = 16
+    bounds_y = 16
+    bounds_cx = 154
+    bounds_cy = 130
+    fpsmax = -1
+    onclientpaint = clientpaintexe
+  end
+end

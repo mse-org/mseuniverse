@@ -1,0 +1,186 @@
+object mainfo: tmainfo
+  bounds_x = 30
+  bounds_y = 147
+  bounds_cx = 600
+  bounds_cy = 425
+  bounds_cxmin = 600
+  bounds_cymin = 360
+  container.bounds = (
+    0
+    0
+    600
+    425
+  )
+  options = [fo_main, fo_terminateonclose, fo_screencentered, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  caption = 'Simple text editor'
+  icon.transparentcolor = -2147483642
+  icon.options = [bmo_masked]
+  icon.origformat = 'png'
+  icon.image = {
+    0000000002000000100000001000000004030000000000000000000000000000
+    0000000000000000000000000000000000000000FFFFFF11C99B6403C6986201
+    C3955F01C0925C01FFFFFF02B3855001AE804C01A97B4701A37642019E703D01
+    986B3801FFFFFF01C99B6402D3AE8201D0AC8001CEA97D01CBA67B01C6A07401
+    B7895301B2844F01BB956A01B8946A01B4906601AF8B6201AB875E0192643201
+    996C3901C6996301C89A6301FAFAFA03F8F8F801D9C6B101B1834E01AC7E4A01
+    D7C4AF01F9F9F9048B5D2C0197693801C6996301C5976001FAFAFA01CDCDCD01
+    CACACA01C6C6C601F2F2F201DDD8D201EBE5DF01FCFCFC01CCCCCC01C9C9C901
+    BDBDBD01F9F9F9018457260191633301C6996301C1935C01FAFAFA01F2F2F201
+    EFEFEF01EAEAEA01D5D5D501B5B5B501DFDFDF01F5F5F501F1F1F101ECECEC01
+    DEDEDE01F9F9F9017D5020018A5E2D01C6986201BC8E5801FAFAFA01CCCCCC01
+    CACACA01C5C5C501D4D4D401A7A7A701D8D8D801F5F5F501CBCBCB01C7C7C701
+    BBBBBB01F8F8F801774A1A0184582801C2956001B7895301FAFAFA01F1F1F101
+    EDEDED01E9E9E901D4D4D401A6A6A601D8D8D801F5F5F501EFEFEF01EBEBEB01
+    DCDCDC01F8F8F801714415017F532301BE915C01B1834E01F9F9F901CCCCCC01
+    C9C9C901C5C5C501D3D3D301A6A6A601D8D8D801F4F4F401CACACA01C6C6C601
+    BABABA01F8F8F8016B3E10017A4D1E01BA8D5801AB7D4901F9F9F901F1F1F101
+    EDEDED01E7E7E701D3D3D301A5A5A501D7D7D701F4F4F401EEEEEE01EAEAEA01
+    DCDCDC01F8F8F80166390B0174481A01B6885401A5774301F9F9F903F8F8F801
+    F1F1F101E3E3E301F3F3F301F8F8F801F9F9F901F8F8F801E9E9E901F8F8F801
+    6235070170441601B0834F019E703D01986B3801936533018D602E01875A2901
+    82542401AB907401AA8F7301724516016D401101693C0D0165380A0161340601
+    5E3103016C3F1201AB7E4A01B38B5D067D512101794C1D01B38B5D06683C0E01
+    A37642019E703D01986B3801936533018D602E01875A29018254240193683901
+    90653601724516016D401101693C0D0165380A01613406015E3103015B2E0101
+    FFFFFF0682542401764919017144150182542401FFFFFF160000FFFF7E7EFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC003FFFF0000FFFF
+  }
+  onshow = on_mainfrm_show
+  moduleclassname = 'tmainform'
+  object ttoolbar2: ttoolbar
+    optionswidget1 = []
+    cursor = cr_arrow
+    frame.framewidth = 1
+    frame.localprops = [frl_framewidth]
+    bounds_x = -1
+    bounds_y = 0
+    bounds_cx = 566
+    bounds_cy = 30
+    anchors = [an_left, an_top, an_right]
+    buttons.count = 15
+    buttons.imagelist = udmactionmo.timagelist1
+    buttons.items = <    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 0
+        action = udmactionmo.actNew
+        state = [as_localimagelist, as_localimagenr, as_localcolor]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 1
+        action = udmactionmo.actOpen
+        state = [as_localimagelist, as_localimagenr, as_localcolor]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        state = [as_localimagelist, as_localcolor]
+        options = [mao_separator]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 2
+        action = udmactionmo.actSave
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 3
+        action = udmactionmo.actSaveAs
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        state = [as_localimagelist]
+        options = [mao_separator]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 4
+        action = udmactionmo.actUndo
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 5
+        action = udmactionmo.actRedo
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        state = [as_localimagelist]
+        options = [mao_separator]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 6
+        action = udmactionmo.actCopy
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 7
+        action = udmactionmo.actCut
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 8
+        action = udmactionmo.actPaste
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        state = [as_localimagelist]
+        options = [mao_separator]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 9
+        action = udmactionmo.actFind
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        state = [as_localimagelist]
+        options = [mao_separator]
+      end>
+  end
+  object ttabwidget1: ttabwidget
+    bounds_x = -2
+    bounds_y = 32
+    bounds_cx = 599
+    bounds_cy = 391
+    anchors = [an_left, an_top, an_right, an_bottom]
+    taborder = 1
+    onactivepagechanged = on_tab_change
+    tab_options = [tabo_dragsource, tabo_dragdest]
+    tab_frame.localprops = [frl_framewidth, frl_hiddenedges]
+    tab_captionframe_left = 5
+    tab_captionframe_top = 3
+    tab_captionframe_right = 5
+    tab_captionframe_bottom = 3
+    tab_frametab.framewidth = 1
+    tab_frametab.hiddenedges = [edg_right, edg_left, edg_bottom]
+    tab_frametab.localprops = [frl_framewidth, frl_hiddenedges]
+    tab_frametab.dummy = 0
+    tab_size = 15
+    tab_sizemax = 10
+  end
+  object tbutton1: tbutton
+    frame.framewidth = 1
+    frame.localprops = [frl_framewidth]
+    frame.dummy = 0
+    taborder = 2
+    bounds_x = 566
+    bounds_y = 0
+    bounds_cx = 31
+    bounds_cy = 30
+    anchors = [an_top, an_right]
+    state = [as_localimagelist, as_localimagenr]
+    action = udmactionmo.actclosePage
+    imagelist = udmactionmo.timagelist1
+    imagenr = 14
+  end
+end

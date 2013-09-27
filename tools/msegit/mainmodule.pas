@@ -50,7 +50,6 @@ type
    fshowuntrackeditems: boolean;
    fshowignoreditems: boolean;
    fmaxlog: integer;
-   fshowutc: boolean;
    fdiffcontextn: integer;
    fdifftool: msestring;
    fmergetool: msestring;
@@ -62,6 +61,8 @@ type
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
    procedure setgitcommand(const avalue: msestring);
+   procedure setshowutc(const avalue: boolean);
+   function getshowutc: boolean;
   public
    constructor create(const aowner: tmainmo);
   published
@@ -71,7 +72,7 @@ type
                                              write setshowignoreditems;
    property gitcommand: msestring read getgitcommand write setgitcommand;
    property maxlog: integer read fmaxlog write fmaxlog;
-   property showutc: boolean read fshowutc write fshowutc;
+   property showutc: boolean read getshowutc write setshowutc;
    property diffcontextn: integer read fdiffcontextn write fdiffcontextn;
    property splitdiffs: boolean read fsplitdiffs write fsplitdiffs;
    property difftool: msestring read fdifftool write fdifftool;
@@ -225,7 +226,7 @@ type
   public
    constructor create;
    destructor destroy; override;
-   procedure clear; reintroduce;
+   procedure clear; override;
    procedure add(const aremote: msestring; const ainfo: refsinfoty);
    function getitemsbycommit(const  acommit: msestring): refsitemarty;
  end;
@@ -297,6 +298,7 @@ type
    frefreshpending: boolean;
    fstashes: stashinfoarty;
    ftmpfiles: filenamearty;
+   fshowlocal: boolean;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(var aitem: gitfileinfoty);
    procedure setactiveremote(const avalue: msestring);
@@ -319,6 +321,7 @@ type
    procedure sethidelocalbranch(const abranch: msestring; const avalue: boolean);
    function gethideremote(const aremote: msestring): boolean;
    procedure sethideremote(const aremote: msestring; const avalue: boolean);
+   procedure setshowlocal(const avalue: boolean);
   protected
    fgitbackgroundprocess: prochandlety;
    function findlocalbranch(const abranch: msestring): plocalbranchinfoty;
@@ -417,6 +420,7 @@ type
    procedure updateremotesorder;
    procedure updateremotebranchorder;
    function isrepoloaded: boolean;
+   property showlocal: boolean read fshowlocal write setshowlocal;
    property repo: filenamety read frepo write setrepo;
                   //absolute path to repo dir
    property reporoot: filenamety read freporoot;
@@ -506,7 +510,7 @@ uses
  gitconsole,commitqueryform,revertqueryform,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msemacros,main,filesform,
  gitdirtreeform,defaultstat,clonequeryform,commitmessageform,
- diffwindow;
+ diffwindow,logform;
   
 const
  defaultfileicon = 0;
@@ -1679,6 +1683,11 @@ end;
 
 function tmainmo.pull(const aremote,aremotebranch: msestring): boolean;
 begin
+ result:= fetch(aremote,aremotebranch);
+ if result then begin
+  result:= merge(''); //merge fetch head
+ end;
+(*
  if aremote = '' then begin
   result:= execgitconsole('pull');
  end
@@ -1687,6 +1696,7 @@ begin
    fgit.encodestring(aremote+' '+aremotebranch){+' '+
    fgit.encodestringparam('+refs/heads/*:refs/remotes/'+aremote+'/*')});
  end;
+*)
 end;
 
 function tmainmo.push(const aremote,aremotebranch: msestring): boolean;
@@ -2450,6 +2460,14 @@ begin
  repostatf.filename:= fopt.repostatfilename;
 end;
 
+procedure tmainmo.setshowlocal(const avalue: boolean);
+begin
+ fshowlocal:= avalue;
+ if logfo <> nil then begin
+  logfo.commitdate.showlocal:= avalue;
+ end;
+end;
+
 { tmsegitfileitem }
 
 constructor tmsegitfileitem.create;
@@ -2716,6 +2734,16 @@ begin
  fowner.fgit.gitcommand:= avalue;
 end;
 
+procedure tmsegitoptions.setshowutc(const avalue: boolean);
+begin
+ fowner.showlocal:= not avalue;
+end;
+
+function tmsegitoptions.getshowutc: boolean;
+begin
+ result:= not fowner.showlocal;
+end;
+
 { trepostat }
 
 constructor trepostat.create;
@@ -2763,8 +2791,8 @@ end;
 
 destructor trefsitemlist.destroy;
 begin
- fnamelist.free;
  inherited;
+ fnamelist.free;
 end;
 
 procedure trefsitemlist.add(const aremote: msestring; const ainfo: refsinfoty);

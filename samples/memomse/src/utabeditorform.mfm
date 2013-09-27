@@ -1,0 +1,230 @@
+object utabeditorfo: tutabeditorfo
+  bounds_x = 307
+  bounds_y = 157
+  bounds_cx = 563
+  bounds_cy = 371
+  container.bounds = (
+    0
+    0
+    563
+    371
+  )
+  onclosequery = on_editor_close_query
+  moduleclassname = 'ttabform'
+  object mygrid: twidgetgrid
+    optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autoheight]
+    frame.localprops = [frl_frameimagelist]
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 561
+    bounds_cy = 344
+    anchors = [an_left, an_top, an_right, an_bottom]
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_autoappend, og_rowheight, og_colchangeontabkey, og_wrapcol, og_autopopup]
+    rowcount = 1
+    datacols.count = 3
+    datacols.colorselect = -2147483645
+    datacols.newrowcol = 1
+    datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item
+        colorselect = -2147483645
+        width = 22
+        options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+      end    
+      item[simpletext]
+        frame.hiddenedges = [edg_right, edg_top, edg_left, edg_bottom]
+        frame.localprops = [frl_hiddenedges]
+        frame.dummy = 0
+        colorselect = -2147483645
+        width = 511
+        options = [co_focusselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcolorfocused, co1_rowreadonly, co1_autorowheight]
+        widgetname = 'simpletext'
+        dataclass = tgridrichstringdatalist
+        data = (
+          (
+            ''
+          )
+        )
+      end    
+      item
+        colorselect = -2147483645
+        width = 21
+        options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+      end>
+    datarowlinewidth = 0
+    reffontheight = 13
+    object simpletext: tsyntaxedit
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 23
+      bounds_y = 0
+      bounds_cx = 511
+      font.height = 15
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      caretwidth = 2
+      optionsedit1 = [oe1_keyexecute]
+      textflags = [tf_ycentered, tf_wordbreak]
+      textflagsactive = [tf_ycentered, tf_wordbreak]
+      encoding = ce_utf8n
+      ontextmouseevent = on_txt_mouse
+      oneditnotifcation = on_editnotif
+      reffontheight = 18
+    end
+  end
+  object tsimplewidget3: tsimplewidget
+    taborder = 1
+    visible = True
+    bounds_x = 0
+    bounds_y = 346
+    bounds_cx = 565
+    bounds_cy = 25
+    anchors = [an_left, an_right, an_bottom]
+    object tsimplewidget2: tsimplewidget
+      optionswidget1 = []
+      visible = True
+      bounds_x = 61
+      bounds_y = 0
+      bounds_cx = 420
+      bounds_cy = 23
+      anchors = [an_left, an_top, an_right]
+      object dispRC: tstringdisp
+        frame.dummy = 0
+        bounds_x = 0
+        bounds_y = 1
+        bounds_cx = 104
+        bounds_cy = 21
+        anchors = [an_left, an_top, an_bottom]
+        font.height = 12
+        font.name = 'stf_roman'
+        font.xscale = 1
+        font.dummy = 0
+        reffontheight = 15
+      end
+      object dispInfo: tstringdisp
+        frame.dummy = 0
+        taborder = 1
+        bounds_x = 104
+        bounds_y = 1
+        bounds_cx = 92
+        bounds_cy = 21
+        anchors = [an_left, an_top, an_bottom]
+        font.height = 12
+        font.name = 'stf_roman'
+        font.xscale = 1
+        font.dummy = 0
+        reffontheight = 15
+      end
+      object dispFilePath: tstringdisp
+        frame.dummy = 0
+        taborder = 2
+        bounds_x = 197
+        bounds_y = 1
+        bounds_cx = 220
+        bounds_cy = 21
+        anchors = [an_left, an_top, an_right, an_bottom]
+        font.height = 12
+        font.name = 'stf_roman'
+        font.xscale = 1
+        font.dummy = 0
+        textflags = [tf_ycentered, tf_ellipseleft]
+        reffontheight = 15
+      end
+    end
+    object tsimplewidget1: tsimplewidget
+      optionswidget1 = []
+      taborder = 1
+      visible = True
+      bounds_x = 480
+      bounds_y = 1
+      bounds_cx = 83
+      bounds_cy = 23
+      anchors = [an_top, an_right]
+      object tbutton1: tbutton
+        bounds_x = 32
+        bounds_y = 0
+        bounds_cx = 25
+        bounds_cy = 23
+        state = [as_localimagelist, as_localimagenr]
+        action = udmactionmo.actZoomIn
+        imagelist = udmactionmo.timagelist1
+        imagenr = 11
+      end
+      object tbutton3: tbutton
+        taborder = 1
+        bounds_x = 58
+        bounds_y = 0
+        bounds_cx = 25
+        bounds_cy = 23
+        anchors = [an_top, an_right, an_bottom]
+        state = [as_localimagelist, as_localimagenr]
+        action = udmactionmo.actZoomOut
+        imagelist = udmactionmo.timagelist1
+        imagenr = 12
+      end
+      object btnShowInfo: tbutton
+        color = -2147483645
+        taborder = 2
+        bounds_x = 2
+        bounds_y = 0
+        bounds_cx = 25
+        bounds_cy = 23
+        state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+        imagelist = udmactionmo.timagelist1
+        imagenr = 13
+      end
+    end
+    object dispencode: tstringdisp
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.dummy = 0
+      taborder = 2
+      bounds_x = 2
+      bounds_y = 1
+      bounds_cx = 58
+      bounds_cy = 22
+      text = 'Encode'
+      font.height = 12
+      font.style = [fs_bold]
+      font.name = 'stf_roman'
+      font.xscale = 1
+      font.dummy = 0
+      textflags = [tf_xcentered, tf_ycentered]
+      reffontheight = 15
+    end
+  end
+  object Flaintoolbar: ttoolbar
+    taborder = 2
+    visible = False
+    bounds_x = 23
+    bounds_y = 50
+    bounds_cx = 78
+    bounds_cy = 26
+    bounds_cxmax = 78
+    bounds_cymax = 26
+    anchors = [an_right, an_bottom]
+    buttons.count = 3
+    buttons.imagelist = udmactionmo.timagelist1
+    buttons.items = <    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 6
+        action = udmactionmo.actCopy
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 7
+        action = udmactionmo.actCut
+        state = [as_localimagelist, as_localimagenr]
+      end    
+      item
+        imagelist = udmactionmo.timagelist1
+        imagenr = 8
+        action = udmactionmo.actPaste
+        state = [as_localimagelist, as_localimagenr]
+      end>
+  end
+end

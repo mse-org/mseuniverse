@@ -1,0 +1,1 @@
+Shows an example of a text editor in mseide using tsyntaxedit.

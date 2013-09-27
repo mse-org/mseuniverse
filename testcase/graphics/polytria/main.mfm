@@ -1,0 +1,740 @@
+object mainfo: tmainfo
+  bounds_x = 29
+  bounds_y = 183
+  bounds_cx = 856
+  bounds_cy = 491
+  container.bounds = (
+    0
+    0
+    856
+    491
+  )
+  statfile = mainstat
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object grid: twidgetgrid
+    bounds_x = 645
+    bounds_y = 0
+    bounds_cx = 210
+    bounds_cy = 312
+    anchors = [an_top, an_right, an_bottom]
+    optionsgrid = [og_rowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_appendempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 34
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'X'
+          end        
+          item
+            caption = 'Y'
+          end>
+      end>
+    datacols.count = 2
+    datacols.options = [co_savevalue, co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
+    datacols.items = <    
+      item[xed]
+        options = [co_savevalue, co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
+        name = 'xval'
+        widgetname = 'xed'
+        dataclass = tgridrealdatalist
+      end    
+      item[yed]
+        options = [co_savevalue, co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
+        name = 'yval'
+        widgetname = 'yed'
+        dataclass = tgridrealdatalist
+      end>
+    datarowheight = 16
+    statfile = projectstat
+    reffontheight = 14
+    object xed: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      ondataentered = datentexe
+      value = -Inf
+      valuedefault = 0
+      formatedit = '0'
+      formatdisp = '0'
+      valuerange = 1
+      valuestart = 0
+      min = -1
+      max = 1
+      reffontheight = 14
+    end
+    object yed: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 51
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      ondataentered = datentexe
+      value = -Inf
+      valuedefault = 0
+      formatedit = '0'
+      formatdisp = '0'
+      valuerange = 1
+      valuestart = 0
+      min = -1
+      max = 1
+      reffontheight = 14
+    end
+  end
+  object tsimplewidget1: tsimplewidget
+    taborder = 1
+    visible = True
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 640
+    bounds_cy = 489
+    anchors = [an_left, an_top, an_right, an_bottom]
+    object tsplitter1: tsplitter
+      color = -1879048189
+      taborder = 1
+      bounds_x = 280
+      bounds_y = 0
+      bounds_cx = 3
+      bounds_cy = 369
+      anchors = [an_left, an_top, an_bottom]
+      options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = polydisp
+      linkright = tridisp
+      statfile = projectstat
+    end
+    object polydisp: tpaintbox
+      color = 16773856
+      face.image.source = bru
+      face.localprops = [fal_image]
+      face.dummy = 0
+      taborder = 2
+      bounds_x = 147
+      bounds_y = 0
+      bounds_cx = 133
+      bounds_cy = 369
+      anchors = [an_left, an_top, an_bottom]
+      onpaint = paintexe
+    end
+    object tsplitter2: tsplitter
+      color = -1879048189
+      taborder = 3
+      bounds_x = 440
+      bounds_y = 0
+      bounds_cx = 3
+      bounds_cy = 369
+      anchors = [an_left, an_top, an_bottom]
+      options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = tridisp
+      linkright = charted
+      statfile = projectstat
+    end
+    object charted: txychartedit
+      taborder = 4
+      bounds_x = 443
+      bounds_y = 0
+      bounds_cx = 197
+      bounds_cy = 369
+      anchors = [an_left, an_top, an_right, an_bottom]
+      onresize = layoutexe
+      traces.count = 1
+      traces.options = [cto_stockglyphs]
+      traces.xserstart = 0
+      traces.xstart = 0
+      traces.ystart = 0
+      traces.xrange = 1
+      traces.xserrange = 1
+      traces.yrange = 1
+      traces.image_widthmm = 0
+      traces.image_heighthmm = 0
+      traces.legend_x = 0
+      traces.legend_y = 0
+      traces.items = <      
+        item
+          widthmm = 0.3
+          xserrange = 1
+          xserstart = 0
+          xrange = 1
+          xstart = 0
+          yrange = -1
+          ystart = 1
+          options = [cto_stockglyphs]
+          imagenr = 45
+        end>
+      xstart = 0
+      ystart = 0
+      xrange = 1
+      yrange = 1
+      xdials.start = 0
+      xdials.range = 1
+      ydials.start = 0
+      ydials.range = 1
+      onsetvalue = setpointexe
+    end
+    object tridisp: tpaintbox
+      color = -1610612730
+      bounds_x = 283
+      bounds_y = 0
+      bounds_cx = 157
+      bounds_cy = 369
+      anchors = [an_left, an_top, an_bottom]
+      onpaint = tripaexe
+    end
+    object brushed: tbooleanedit
+      frame.caption = 'brush'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        1
+        35
+        2
+      )
+      taborder = 5
+      bounds_x = 8
+      bounds_y = 438
+      bounds_cx = 48
+      bounds_cy = 16
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+    end
+    object smoothed: tbooleanedit
+      frame.caption = 'smooth'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        1
+        45
+        2
+      )
+      taborder = 6
+      bounds_x = 64
+      bounds_y = 438
+      bounds_cx = 58
+      bounds_cy = 16
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+    end
+    object xoffs: tintegeredit
+      frame.dummy = 0
+      taborder = 7
+      bounds_x = 8
+      bounds_y = 463
+      bounds_cx = 52
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      min = -10000
+      reffontheight = 14
+    end
+    object yoffs: tintegeredit
+      frame.dummy = 0
+      taborder = 8
+      bounds_x = 72
+      bounds_y = 463
+      bounds_cx = 52
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      min = -10000
+      reffontheight = 14
+    end
+    object tsplitter3: tsplitter
+      color = -1879048189
+      taborder = 9
+      bounds_x = 144
+      bounds_y = 0
+      bounds_cx = 3
+      bounds_cy = 369
+      anchors = [an_left, an_top, an_bottom]
+      options = [spo_hmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = linedisp
+      linkright = polydisp
+      statfile = projectstat
+    end
+    object monoed: tbooleanedit
+      frame.caption = 'mono'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        1
+        35
+        2
+      )
+      taborder = 10
+      bounds_x = 8
+      bounds_y = 422
+      bounds_cx = 48
+      bounds_cy = 16
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+    end
+    object foregrounded: tcoloredit
+      frame.buttonellipse.imagenr = 17
+      taborder = 11
+      bounds_x = 8
+      bounds_y = 375
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      value = -1610612729
+      dropdown.options = [deo_autodropdown, deo_keydropdown]
+      reffontheight = 14
+    end
+    object backgrounded: tcoloredit
+      frame.buttonellipse.imagenr = 17
+      taborder = 12
+      bounds_x = 8
+      bounds_y = 399
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      value = -1610612727
+      dropdown.options = [deo_autodropdown, deo_keydropdown]
+      reffontheight = 14
+    end
+    object linewidthed: tintegeredit
+      frame.caption = 'penwidth'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 13
+      bounds_x = 112
+      bounds_y = 382
+      bounds_cx = 52
+      bounds_cy = 37
+      anchors = [an_left, an_bottom]
+      statfile = projectstat
+      ondataentered = datentexe
+      reffontheight = 14
+    end
+    object linedisp: tpaintbox
+      color = -1610612730
+      face.image.source = bru
+      face.localprops = [fal_image]
+      face.dummy = 0
+      taborder = 14
+      bounds_x = 1
+      bounds_y = 0
+      bounds_cx = 143
+      bounds_cy = 369
+      anchors = [an_left, an_top, an_bottom]
+      onpaint = paintlineexe
+    end
+  end
+  object tbutton1: tbutton
+    taborder = 2
+    bounds_x = 752
+    bounds_y = 415
+    bounds_cx = 25
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localonexecute]
+  end
+  object stoped: tintegeredit
+    frame.dummy = 0
+    taborder = 3
+    bounds_x = 712
+    bounds_y = 415
+    bounds_cx = 36
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+    value = -1
+    min = -1
+    reffontheight = 14
+  end
+  object noseged: tbooleanedit
+    frame.caption = 'noseg'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      38
+      2
+    )
+    taborder = 4
+    bounds_x = 648
+    bounds_y = 438
+    bounds_cx = 51
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+  end
+  object nosegbed: tbooleanedit
+    frame.caption = 'nosegb'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      45
+      2
+    )
+    taborder = 5
+    bounds_x = 712
+    bounds_y = 438
+    bounds_cx = 58
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+  end
+  object noaed: tbooleanedit
+    frame.caption = 'noa'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      24
+      2
+    )
+    taborder = 6
+    bounds_x = 776
+    bounds_y = 438
+    bounds_cx = 37
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+  end
+  object nobed: tbooleanedit
+    frame.caption = 'nob'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      24
+      2
+    )
+    taborder = 7
+    bounds_x = 816
+    bounds_y = 438
+    bounds_cx = 37
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+  end
+  object findxed: tintegeredit
+    frame.dummy = 0
+    taborder = 8
+    bounds_x = 672
+    bounds_y = 391
+    bounds_cx = 36
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    min = -1
+    reffontheight = 14
+  end
+  object findyed: tintegeredit
+    frame.dummy = 0
+    taborder = 9
+    bounds_x = 712
+    bounds_y = 391
+    bounds_cx = 36
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    min = -1
+    reffontheight = 14
+  end
+  object tbutton2: tbutton
+    taborder = 10
+    bounds_x = 751
+    bounds_y = 391
+    bounds_cx = 26
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localonexecute]
+    onexecute = findedexe
+  end
+  object projectfile: tfilenameedit
+    frame.button.imagenr = 17
+    taborder = 11
+    bounds_x = 647
+    bounds_y = 359
+    bounds_cx = 204
+    anchors = [an_right, an_bottom]
+    statfile = mainstat
+    textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+    onsetvalue = filenamesetexe
+    controller.filterlist.data = (
+      (
+        'tria'
+        '*.tria'
+      )
+      (
+        'all'
+        '*'
+      )
+    )
+    controller.defaultext = 'tria'
+    controller.options = [fdo_checkexist, fdo_savelastdir]
+    reffontheight = 14
+  end
+  object tbutton3: tbutton
+    taborder = 12
+    bounds_x = 791
+    bounds_y = 415
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'saveas'
+    onexecute = saveasexe
+  end
+  object tbutton4: tbutton
+    taborder = 13
+    bounds_x = 791
+    bounds_y = 391
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'save'
+    onexecute = saveexe
+  end
+  object angdisp: tintegerdisp
+    frame.dummy = 0
+    taborder = 14
+    bounds_x = 647
+    bounds_y = 463
+    bounds_cx = 76
+    bounds_cy = 18
+    anchors = [an_right, an_bottom]
+    reffontheight = 14
+  end
+  object tridisped: tbooleanedit
+    frame.caption = 'triangles'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      51
+      2
+    )
+    taborder = 15
+    bounds_x = 729
+    bounds_y = 454
+    bounds_cx = 64
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+  end
+  object numdisped: tbooleanedit
+    frame.caption = 'numbers'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      53
+      2
+    )
+    taborder = 16
+    bounds_x = 729
+    bounds_y = 470
+    bounds_cx = 66
+    bounds_cy = 16
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+  end
+  object sated: tintegeredit
+    frame.dummy = 0
+    taborder = 17
+    bounds_x = 800
+    bounds_y = 463
+    bounds_cx = 36
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+    value = 30
+    max = 100
+    reffontheight = 14
+  end
+  object scaleed: trealedit
+    frame.caption = 'scale'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 18
+    bounds_x = 647
+    bounds_y = 318
+    bounds_cx = 60
+    bounds_cy = 37
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+    value = 1
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = 1E-007
+    max = 10000000
+    reffontheight = 14
+  end
+  object offsxed: trealedit
+    frame.caption = 'offsx'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 19
+    bounds_x = 711
+    bounds_y = 318
+    bounds_cx = 60
+    bounds_cy = 37
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+    value = 0
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -10000000
+    max = 10000000
+    reffontheight = 14
+  end
+  object offsyed: trealedit
+    frame.caption = 'offsy'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 20
+    bounds_x = 775
+    bounds_y = 318
+    bounds_cx = 60
+    bounds_cy = 37
+    anchors = [an_right, an_bottom]
+    statfile = projectstat
+    ondataentered = datentexe
+    value = 0
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -10000000
+    max = 10000000
+    reffontheight = 14
+  end
+  object tbutton5: tbutton
+    taborder = 21
+    bounds_x = 649
+    bounds_y = 391
+    bounds_cx = 18
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'clr'
+    onexecute = clrexe
+  end
+  object projectstat: tstatfile
+    filename = 'test.tria'
+    left = 176
+    top = 112
+  end
+  object mainstat: tstatfile
+    filename = 'polytria.sta'
+    onstatwrite = statwriteexe
+    left = 176
+    top = 72
+  end
+  object bru: tbitmapcomp
+    bitmap.transparentcolor = -2147483642
+    bitmap.options = [bmo_masked, bmo_colormask]
+    bitmap.origformat = 'png'
+    bitmap.image = {
+      0000000006000000100000001000000068030000000000000000000000000000
+      0000000000000000000000000000000000000000FFFFFF11000000030058FF01
+      005BF901097EF9012D9FFB013CA9FC012995F7010565EB010035CD0100000004
+      FFFFFF01000000020057F9011B87FC017CDBFF01D2FDFF01F3FFFF01F8FFFF01
+      F1FFFF01C9F9FF0161C6FD010353DC0100157B0100000002FFFFFF0100000001
+      0057F8014DA3FE01C2F7F701DBF6F101E6FFFF01DDFFFF01DCFFFF01DDFFFF01
+      E7FFFF01DAF6ED0188F3FB010962E1010009460100000001FFFFFF010057FE01
+      2588FC01A7F1EB0185908D01888B8B0190D2D201AFFFFF01ACFFFF01AFFFFF01
+      8AC5C5018A8A8A018E9B950152ECF801002A830100000001FFFFFF01005BF801
+      3AE3FF0165BFB801E7D8D801FDE9E9017EA1A10162F9F9016BFFFF015DF2F201
+      8DA0A001FFF4F401DBCBCA011AC6C901009EF90100011901FFFFFF01007DF801
+      05FFFF0149BEBE01F3DEDE017F7676017388880107F1F10109FFFF010AE4E401
+      7D7F7F0185808001F3E1DF0120B8C40100D0FF0100176701FFFFFF01009DFC01
+      00FFFF011ACCCC01D3BBBB011C0D0D013258580100FDFD0100FFFF0103F6F601
+      2F3F3F012C1F1F01D0C4C3010CBED50100D6FF010034A001FFFFFF0100A5FB01
+      00FFFF0100F3F30150AAA9016B6F6F010FB3B30100FFFF03169F9F0176777601
+      3FAAB10100DAF80100CAFF010039AD01FFFFFF01008FF50100FFFF0200F7F701
+      00E8EA0100FFFF0100FEFF0300FFFF0100E2EB0100E2FC0100D4FF0100BBFF01
+      00259401FFFFFF01005EE90100F9FF0100FFFF0140E1FF0179E4FF0170DCFB01
+      6AD6F70165D2F4015FCCF2015AC8EF0157C3EF0112B9FB0100CAFF01009BFF01
+      00074E01FFFFFF01002EC60100BCFB0100FFFF015BE1FF01FFF9F901FFF4F201
+      FFECEA01FBE3E201F4DDDC01F3D6D301EACACC011CAEF70100C4FF010052DE01
+      00000901FFFFFF01000000010045D70100F2FF010EF6FF01C6E2FC01FFF7F201
+      F8EEEB01F1E6E301EEE0DC01F7DBD2017FB7E30100B9FF01008BFF0100064901
+      00000001FFFFFF0100000001000731010044A40100E6FF0119EFFF0194DCF901
+      D5E1EE01DCDDE701C3D3E30168BEED0104B7FF010089FF010010720100000002
+      FFFFFF010000000200000201001C64010087E30100BDFF010CC3FF0113BDFF01
+      05AFFF010093FF01004DD1010004440100000003FFFFFF010000000400000E01
+      000D4C0100278401002C9501001C7B0100043E0100000601000000048C010000
+      000000140404040165656501C4C4C401F1F1F101FBFBFB01EEEEEE01BDBDBD01
+      6060600109090901020202010000000529292901C2C2C201FFFFFF07BCBCBC01
+      2B2B2B01060606010000000327272701E6E6E601FFFFFF09DDDDDD0131313101
+      080808010000000106060601C5C5C501FFFFFF0BC1C1C1011F1F1F0100000001
+      61616101FFFFFF0D7171710100000001C4C4C401FFFFFF0DC1C1C10100000001
+      F0F0F001FFFFFF0DE5E5E50100000001F9F9F901FFFFFF0DEDEDED0100000001
+      EAEAEA01FFFFFF0DE4E4E40100000001B5B5B501FFFFFF0DC4C4C40100000001
+      4E4E4E01FFFFFF0CFDFDFD01898989010000000108080801AEAEAE01FFFFFF0B
+      C5C5C5015757570100000001020202011F1F1F01CECECE01FFFFFF09DADADA01
+      6B6B6B013C3C3C01000000020505050126262601AFAFAF01F9F9F901FFFFFF05
+      F8F8F801C0C0C0016A6A6A01434343011C1C1C0100000003060606011C1C1C01
+      60606001AEAEAE01D7D7D701E1E1E101D8D8D801B8B8B8018383830155555501
+      3B3B3B011C1C1C0107070701
+    }
+    left = 32
+    top = 16
+  end
+  object brumono: tbitmapcomp
+    bitmap.transparentcolor = -2147483642
+    bitmap.options = [bmo_monochrome]
+    bitmap.origformat = 'png'
+    bitmap.colorforeground = -1610612729
+    bitmap.colorbackground = -1610612727
+    bitmap.image = {
+      0000000001000000100000001000000040000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000FC3F0000F81F0000F00F0000E0070000C003000080010000
+      0000000000000000000000000000000000000000
+    }
+    left = 32
+    top = 48
+  end
+end

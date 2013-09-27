@@ -1,0 +1,24 @@
+object uaboutfrmfo: tuaboutfrmfo
+  bounds_x = 33
+  bounds_y = 271
+  bounds_cx = 363
+  bounds_cy = 333
+  container.bounds = (
+    0
+    0
+    363
+    333
+  )
+  moduleclassname = 'ttabform'
+  object tmemoedit1: tmemoedit
+    frame.sbhorz.pagesize = 1
+    frame.sbvert.pagesize = 1
+    frame.localprops = [frl_colorclient]
+    bounds_x = 8
+    bounds_y = 48
+    bounds_cx = 341
+    bounds_cy = 276
+    anchors = [an_left, an_top, an_right, an_bottom]
+    reffontheight = 13
+  end
+end

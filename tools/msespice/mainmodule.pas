@@ -431,9 +431,9 @@ begin
    if execute(fdk_new) = mr_ok then begin
     projectmainstat.filename:= controller.filename;
     projectmainstat.writestat;
+    fprojectloaded:= true;
    end;
   end;
-  fprojectloaded:= true;
   updateprojectstate;
  end;
 end;
