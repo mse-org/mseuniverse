@@ -10,6 +10,7 @@ object mainfo: tmainfo
     471
   )
   statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
   moduleclassname = 'tmainform'
   object di: tpaintbox
     color = -1610612730
