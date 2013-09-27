@@ -14,9 +14,9 @@ object mainfo: tmainfo
   moduleclassname = 'tmainform'
   object grid: twidgetgrid
     bounds_x = 645
-    bounds_y = 8
+    bounds_y = 0
     bounds_cx = 210
-    bounds_cy = 304
+    bounds_cy = 312
     anchors = [an_top, an_right, an_bottom]
     optionsgrid = [og_rowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_appendempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -28,7 +28,7 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 15
+        height = 16
         captions.count = 2
         captions.items = <        
           item
@@ -55,7 +55,7 @@ object mainfo: tmainfo
       end>
     datarowheight = 16
     statfile = projectstat
-    reffontheight = 13
+    reffontheight = 14
     object xed: trealedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
@@ -74,7 +74,7 @@ object mainfo: tmainfo
       valuestart = 0
       min = -1
       max = 1
-      reffontheight = 13
+      reffontheight = 14
     end
     object yed: trealedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -94,16 +94,16 @@ object mainfo: tmainfo
       valuestart = 0
       min = -1
       max = 1
-      reffontheight = 13
+      reffontheight = 14
     end
   end
   object tsimplewidget1: tsimplewidget
     taborder = 1
     visible = True
     bounds_x = 0
-    bounds_y = 8
+    bounds_y = 0
     bounds_cx = 640
-    bounds_cy = 481
+    bounds_cy = 489
     anchors = [an_left, an_top, an_right, an_bottom]
     object tsplitter1: tsplitter
       color = -1879048189
@@ -111,7 +111,7 @@ object mainfo: tmainfo
       bounds_x = 280
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 361
+      bounds_cy = 369
       anchors = [an_left, an_top, an_bottom]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = polydisp
@@ -127,7 +127,7 @@ object mainfo: tmainfo
       bounds_x = 147
       bounds_y = 0
       bounds_cx = 133
-      bounds_cy = 361
+      bounds_cy = 369
       anchors = [an_left, an_top, an_bottom]
       onpaint = paintexe
     end
@@ -137,7 +137,7 @@ object mainfo: tmainfo
       bounds_x = 440
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 361
+      bounds_cy = 369
       anchors = [an_left, an_top, an_bottom]
       options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = tridisp
@@ -149,7 +149,7 @@ object mainfo: tmainfo
       bounds_x = 443
       bounds_y = 0
       bounds_cx = 197
-      bounds_cy = 361
+      bounds_cy = 369
       anchors = [an_left, an_top, an_right, an_bottom]
       onresize = layoutexe
       traces.count = 1
@@ -191,7 +191,7 @@ object mainfo: tmainfo
       bounds_x = 283
       bounds_y = 0
       bounds_cx = 157
-      bounds_cy = 361
+      bounds_cy = 369
       anchors = [an_left, an_top, an_bottom]
       onpaint = tripaexe
     end
@@ -201,14 +201,14 @@ object mainfo: tmainfo
       frame.outerframe = (
         0
         1
-        30
-        1
+        35
+        2
       )
       taborder = 5
       bounds_x = 8
-      bounds_y = 430
-      bounds_cx = 43
-      bounds_cy = 15
+      bounds_y = 438
+      bounds_cx = 48
+      bounds_cy = 16
       anchors = [an_left, an_bottom]
       statfile = projectstat
       ondataentered = datentexe
@@ -219,14 +219,14 @@ object mainfo: tmainfo
       frame.outerframe = (
         0
         1
-        38
-        1
+        45
+        2
       )
       taborder = 6
       bounds_x = 64
-      bounds_y = 430
-      bounds_cx = 51
-      bounds_cy = 15
+      bounds_y = 438
+      bounds_cx = 58
+      bounds_cy = 16
       anchors = [an_left, an_bottom]
       statfile = projectstat
       ondataentered = datentexe
@@ -235,27 +235,25 @@ object mainfo: tmainfo
       frame.dummy = 0
       taborder = 7
       bounds_x = 8
-      bounds_y = 456
+      bounds_y = 463
       bounds_cx = 52
-      bounds_cy = 19
       anchors = [an_left, an_bottom]
       statfile = projectstat
       ondataentered = datentexe
       min = -10000
-      reffontheight = 13
+      reffontheight = 14
     end
     object yoffs: tintegeredit
       frame.dummy = 0
       taborder = 8
       bounds_x = 72
-      bounds_y = 456
+      bounds_y = 463
       bounds_cx = 52
-      bounds_cy = 19
       anchors = [an_left, an_bottom]
       statfile = projectstat
       ondataentered = datentexe
       min = -10000
-      reffontheight = 13
+      reffontheight = 14
     end
     object tsplitter3: tsplitter
       color = -1879048189
@@ -263,11 +261,12 @@ object mainfo: tmainfo
       bounds_x = 144
       bounds_y = 0
       bounds_cx = 3
-      bounds_cy = 361
+      bounds_cy = 369
       anchors = [an_left, an_top, an_bottom]
       options = [spo_hmove, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
       linkleft = linedisp
       linkright = polydisp
+      statfile = projectstat
     end
     object monoed: tbooleanedit
       frame.caption = 'mono'
@@ -275,14 +274,14 @@ object mainfo: tmainfo
       frame.outerframe = (
         0
         1
-        29
-        1
+        35
+        2
       )
       taborder = 10
       bounds_x = 8
-      bounds_y = 414
-      bounds_cx = 42
-      bounds_cy = 15
+      bounds_y = 422
+      bounds_cx = 48
+      bounds_cy = 16
       anchors = [an_left, an_bottom]
       statfile = projectstat
       ondataentered = datentexe
@@ -291,46 +290,44 @@ object mainfo: tmainfo
       frame.buttonellipse.imagenr = 17
       taborder = 11
       bounds_x = 8
-      bounds_y = 368
-      bounds_cy = 19
+      bounds_y = 375
       anchors = [an_left, an_bottom]
       statfile = projectstat
       ondataentered = datentexe
       value = -1610612729
       dropdown.options = [deo_autodropdown, deo_keydropdown]
-      reffontheight = 13
+      reffontheight = 14
     end
     object backgrounded: tcoloredit
       frame.buttonellipse.imagenr = 17
       taborder = 12
       bounds_x = 8
-      bounds_y = 392
-      bounds_cy = 19
+      bounds_y = 399
       anchors = [an_left, an_bottom]
       statfile = projectstat
       ondataentered = datentexe
       value = -1610612727
       dropdown.options = [deo_autodropdown, deo_keydropdown]
-      reffontheight = 13
+      reffontheight = 14
     end
     object linewidthed: tintegeredit
       frame.caption = 'penwidth'
       frame.dummy = 0
       frame.outerframe = (
         0
-        16
+        17
         0
         0
       )
       taborder = 13
       bounds_x = 112
-      bounds_y = 376
+      bounds_y = 382
       bounds_cx = 52
-      bounds_cy = 35
+      bounds_cy = 37
       anchors = [an_left, an_bottom]
       statfile = projectstat
       ondataentered = datentexe
-      reffontheight = 13
+      reffontheight = 14
     end
     object linedisp: tpaintbox
       color = -1610612730
@@ -341,7 +338,7 @@ object mainfo: tmainfo
       bounds_x = 1
       bounds_y = 0
       bounds_cx = 143
-      bounds_cy = 361
+      bounds_cy = 369
       anchors = [an_left, an_top, an_bottom]
       onpaint = paintlineexe
     end
@@ -359,15 +356,14 @@ object mainfo: tmainfo
     frame.dummy = 0
     taborder = 3
     bounds_x = 712
-    bounds_y = 416
+    bounds_y = 415
     bounds_cx = 36
-    bounds_cy = 19
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
     value = -1
     min = -1
-    reffontheight = 13
+    reffontheight = 14
   end
   object noseged: tbooleanedit
     frame.caption = 'noseg'
@@ -375,14 +371,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      32
-      1
+      38
+      2
     )
     taborder = 4
     bounds_x = 648
     bounds_y = 438
-    bounds_cx = 45
-    bounds_cy = 15
+    bounds_cx = 51
+    bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
@@ -393,14 +389,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      38
-      1
+      45
+      2
     )
     taborder = 5
     bounds_x = 712
     bounds_y = 438
-    bounds_cx = 51
-    bounds_cy = 15
+    bounds_cx = 58
+    bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
@@ -411,14 +407,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      21
-      1
+      24
+      2
     )
     taborder = 6
     bounds_x = 776
     bounds_y = 438
-    bounds_cx = 34
-    bounds_cy = 15
+    bounds_cx = 37
+    bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
@@ -429,14 +425,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      21
-      1
+      24
+      2
     )
     taborder = 7
     bounds_x = 816
     bounds_y = 438
-    bounds_cx = 34
-    bounds_cy = 15
+    bounds_cx = 37
+    bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
@@ -445,25 +441,23 @@ object mainfo: tmainfo
     frame.dummy = 0
     taborder = 8
     bounds_x = 672
-    bounds_y = 392
+    bounds_y = 391
     bounds_cx = 36
-    bounds_cy = 19
     anchors = [an_right, an_bottom]
     statfile = projectstat
     min = -1
-    reffontheight = 13
+    reffontheight = 14
   end
   object findyed: tintegeredit
     frame.dummy = 0
     taborder = 9
     bounds_x = 712
-    bounds_y = 392
+    bounds_y = 391
     bounds_cx = 36
-    bounds_cy = 19
     anchors = [an_right, an_bottom]
     statfile = projectstat
     min = -1
-    reffontheight = 13
+    reffontheight = 14
   end
   object tbutton2: tbutton
     taborder = 10
@@ -479,9 +473,8 @@ object mainfo: tmainfo
     frame.button.imagenr = 17
     taborder = 11
     bounds_x = 647
-    bounds_y = 360
+    bounds_y = 359
     bounds_cx = 204
-    bounds_cy = 19
     anchors = [an_right, an_bottom]
     statfile = mainstat
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
@@ -498,7 +491,7 @@ object mainfo: tmainfo
     )
     controller.defaultext = 'tria'
     controller.options = [fdo_checkexist, fdo_savelastdir]
-    reffontheight = 13
+    reffontheight = 14
   end
   object tbutton3: tbutton
     taborder = 12
@@ -526,11 +519,11 @@ object mainfo: tmainfo
     frame.dummy = 0
     taborder = 14
     bounds_x = 647
-    bounds_y = 464
+    bounds_y = 463
     bounds_cx = 76
-    bounds_cy = 17
+    bounds_cy = 18
     anchors = [an_right, an_bottom]
-    reffontheight = 13
+    reffontheight = 14
   end
   object tridisped: tbooleanedit
     frame.caption = 'triangles'
@@ -538,14 +531,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      44
-      1
+      51
+      2
     )
     taborder = 15
     bounds_x = 729
     bounds_y = 454
-    bounds_cx = 57
-    bounds_cy = 15
+    bounds_cx = 64
+    bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
@@ -556,14 +549,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      44
-      1
+      53
+      2
     )
     taborder = 16
     bounds_x = 729
     bounds_y = 470
-    bounds_cx = 57
-    bounds_cy = 15
+    bounds_cx = 66
+    bounds_cy = 16
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
@@ -572,30 +565,29 @@ object mainfo: tmainfo
     frame.dummy = 0
     taborder = 17
     bounds_x = 800
-    bounds_y = 464
+    bounds_y = 463
     bounds_cx = 36
-    bounds_cy = 19
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
     value = 30
     max = 100
-    reffontheight = 13
+    reffontheight = 14
   end
   object scaleed: trealedit
     frame.caption = 'scale'
     frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 18
     bounds_x = 647
-    bounds_y = 320
+    bounds_y = 318
     bounds_cx = 60
-    bounds_cy = 35
+    bounds_cy = 37
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
@@ -605,22 +597,22 @@ object mainfo: tmainfo
     valuestart = 0
     min = 1E-007
     max = 10000000
-    reffontheight = 13
+    reffontheight = 14
   end
   object offsxed: trealedit
     frame.caption = 'offsx'
     frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 19
     bounds_x = 711
-    bounds_y = 320
+    bounds_y = 318
     bounds_cx = 60
-    bounds_cy = 35
+    bounds_cy = 37
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
@@ -630,22 +622,22 @@ object mainfo: tmainfo
     valuestart = 0
     min = -10000000
     max = 10000000
-    reffontheight = 13
+    reffontheight = 14
   end
   object offsyed: trealedit
     frame.caption = 'offsy'
     frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 20
     bounds_x = 775
-    bounds_y = 320
+    bounds_y = 318
     bounds_cx = 60
-    bounds_cy = 35
+    bounds_cy = 37
     anchors = [an_right, an_bottom]
     statfile = projectstat
     ondataentered = datentexe
@@ -655,7 +647,7 @@ object mainfo: tmainfo
     valuestart = 0
     min = -10000000
     max = 10000000
-    reffontheight = 13
+    reffontheight = 14
   end
   object tbutton5: tbutton
     taborder = 21

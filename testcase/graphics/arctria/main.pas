@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,
  msewidgets,msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,
  msestrings,msetypes,msewidgetgrid,msechartedit,msebitmap,msestatfile,
- msecolordialog,msegraphedits,msescrollbar;
+ msecolordialog,msegraphedits,msescrollbar,msedispwidgets,mserichstring;
 
 type
  tmainfo = class(tmainform)
@@ -30,6 +30,8 @@ type
    xoffs: tintegeredit;
    foregrounded: tcoloredit;
    anged: txychartedit;
+   startdi: trealdisp;
+   extentdi: trealdisp;
    procedure datentexe(const sender: TObject);
    procedure pointsdatentexe(const sender: TObject);
    procedure pointeddatentexe(const sender: TObject);
@@ -110,6 +112,7 @@ begin
    im:= py[int1]/h;
   end;
  end;
+ pointsed.traces[0].xydata:= ar1;
  di.invalidate;
 end;
 
@@ -185,6 +188,12 @@ begin
    acanvas.move(mp(-100,100));
    acanvas.fillarcpieslice1(mr(ar1[0].x,ar1[0].y,ar1[1].x-ar1[0].x,
                        ar1[1].y-ar1[0].y),rea1,rea2-rea1);
+   startdi.value:= rea1;
+   extentdi.value:= rea2-rea1;
+  end
+  else begin
+   startdi.value:= emptyreal;
+   extentdi.value:= emptyreal;
   end;
  end;
 end;

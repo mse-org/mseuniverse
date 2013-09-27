@@ -1,6 +1,6 @@
 object mainfo: tmainfo
-  bounds_x = 49
-  bounds_y = 54
+  bounds_x = 15
+  bounds_y = 143
   bounds_cx = 645
   bounds_cy = 471
   container.bounds = (
@@ -361,6 +361,46 @@ object mainfo: tmainfo
     ydials.range = 1
     statfile = tstatfile1
     ondataentered = pointsdatentexe
+  end
+  object startdi: trealdisp
+    frame.caption = 'startang'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 15
+    bounds_x = 360
+    bounds_y = 367
+    bounds_cx = 68
+    bounds_cy = 35
+    valuerange = 1
+    valuestart = 0
+    format = '0.000'
+    value = -Inf
+    reffontheight = 14
+  end
+  object extentdi: trealdisp
+    frame.caption = 'extentang'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 16
+    bounds_x = 432
+    bounds_y = 367
+    bounds_cx = 68
+    bounds_cy = 35
+    valuerange = 1
+    valuestart = 0
+    format = '0.000'
+    value = -Inf
+    reffontheight = 14
   end
   object brumono: tbitmapcomp
     bitmap.transparentcolor = -2147483642

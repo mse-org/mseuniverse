@@ -182,6 +182,7 @@ begin
    im:= py[int1]/h;
   end;
  end;
+ pointsed.traces[0].xydata:= ar1;
  pointsdi.invalidate;
 end;
 
