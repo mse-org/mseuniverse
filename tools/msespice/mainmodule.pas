@@ -202,9 +202,9 @@ var
 
 implementation
 uses
- mainmodule_mfm,main,msefileutils,consoleform,msestream,plotsform,
+ mainmodule_mfm,main,consoleform,msestream,plotsform,
  mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform,paramform,
- msestockobjects,typinfo,msearrayutils,optionsform;
+ msestockobjects,typinfo,msearrayutils,optionsform,msefileutils;
 
 { tglobaloptions }
 
