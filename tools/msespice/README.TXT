@@ -1,11 +1,11 @@
 MSEspice, GUI for Ngspice
-Version 0.8.8, 2013-02-25
+Version 1.0 2013-09-28
 
 - Download and install ngspice from
 http://sourceforge.net/projects/ngspice/
 
-- Download msespice_i386_linux_0_8_8.tar.gz on Linux or
-msespice_i386_win32_0_8_8.zip on Windows from
+- Download msespice_i386_linux_1_0.tar.gz on Linux or
+msespice_i386_win32_1_0.zip on Windows from
 http://sourceforge.net/projects/mseuniverse/
 
 - Extract them into a directory of your choice (MYDIRECTORY).
@@ -20,7 +20,7 @@ If the ngspice program is not in path select it in
 
 MSEide+MSEgui development environment is here:
 http://sourceforge.net/projects/mseide-msegui/
-MSEspice 0.8.8 needs MSEide+MSEgui git master branch from here:
+MSEspice 1.0 needs MSEide+MSEgui git master branch from here:
 http://gitorious.org/mseide-msegui
 
 Have a lot of fun!
