@@ -76,13 +76,13 @@ inherited chartfo: tchartfo
   moduleclassname = 'tspicefo'
   object chart: txychartedit[0]
     frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
-    frame.zoomwidthstep = 1.1
-    frame.zoomheightstep = 1.1
     frame.framei_left = 10
     frame.framei_top = 10
     frame.framei_right = 10
     frame.framei_bottom = 10
     frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.zoomwidthstep = 1.1
+    frame.zoomheightstep = 1.1
     bounds_x = 0
     bounds_y = 15
     bounds_cx = 349

@@ -409,7 +409,8 @@ begin
    fprojectloaded:= false;
    updateprojectstate;
    projectmainstat.writestat;
-   plotsfo.tabs.clear;
+//   plotsfo.tabs.clear;
+   plotsfo.clear;
    paramfo.grid.clear;
    mainfo.setstattext('');
    fprojectoptions.free;
@@ -426,16 +427,17 @@ end;
 
 procedure tmainmo.newproject;
 begin
- if closeproject then begin
-  with projectfiledialog do begin
-   if execute(fdk_new) = mr_ok then begin
-    projectmainstat.filename:= controller.filename;
-    projectmainstat.writestat;
-    fprojectloaded:= true;
-   end;
+ with projectfiledialog do begin
+  controller.filename:= '';
+  if (execute(fdk_new) = mr_ok) and closeproject then begin
+   projectmainstat.filename:= controller.filename;
+   projectmainstat.writestat;
+   plotsfo.init;
+   fprojectloaded:= true;
+   netlistfo.activate;
   end;
-  updateprojectstate;
  end;
+ updateprojectstate;
 end;
 
 procedure tmainmo.updateprojectstate;

@@ -205,6 +205,7 @@ end;
 
 function tnetlistfo.dosaveas: modalresultty;
 begin
+ filedialog.controller.filename:= edit.filename;
  result:= filedialog.execute(fdk_save);
  if result = mr_ok then begin
   save(filedialog.controller.filename);

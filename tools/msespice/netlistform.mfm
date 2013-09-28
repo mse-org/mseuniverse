@@ -7,6 +7,7 @@ inherited netlistfo: tnetlistfo
     435
     354
   )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
   caption = 'Netlist'
   icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
@@ -76,6 +77,7 @@ inherited netlistfo: tnetlistfo
     fixcols.items = <    
       item
         width = 29
+        textflags = [tf_right, tf_ycentered]
         numstart = 1
         numstep = 1
       end>

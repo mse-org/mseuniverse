@@ -168,7 +168,8 @@ var
 begin
  bo1:= false;
  bo2:= false;
- adials.count:= scalegrid.datarowhigh+1;
+// adials.count:= scalegrid.datarowhigh+1;
+ adials.count:= scalegrid.rowcount;
  for int1:= 0 to adials.count-1 do begin
   updatedial(adials[int1],int1,bo1,bo2);
  end;

@@ -52,6 +52,7 @@ object mainmo: tmainmo
     controller.defaultext = 'msp'
     controller.options = [fdo_checkexist, fdo_single, fdo_chdir, fdo_savelastdir]
     controller.captionopen = 'Open MSEspice Project'
+    controller.captionsave = 'Save MSEspice Project'
     controller.captionnew = 'New MSEspice Project'
     dialogkind = fdk_open
     left = 320

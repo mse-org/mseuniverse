@@ -42,6 +42,8 @@ type
    function getchartcaption: msestring;
    procedure updatechartsettings;
    procedure activatechartnode(const anode: ttreelistedititem);
+   procedure clear;
+   procedure init;
  end;
  
 var
@@ -216,6 +218,17 @@ begin
  else begin
   wi1.parentwidget.activate;
  end;
+end;
+
+procedure tplotsfo.init;
+begin
+ createpage(-1);
+end;
+
+procedure tplotsfo.clear;
+begin
+ tabs.clear;
+ fchartnum:= 0;
 end;
 
 end.

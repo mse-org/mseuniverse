@@ -320,6 +320,7 @@ begin
     imagenr:= foptfo.tracesymbol[int1];
     legend_caption:= foptfo.tracelegend[int1];
     visible:= not foptfo.hidetrace[int1];
+    smooth:= foptfo.tracesmooth[int1];
    end;
   end;
   checkscale(foptfo.xscalefo,false);

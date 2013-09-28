@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msesplitter,
  msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
  msecolordialog,msewidgets,scalegridform,mseact,mseactions,spiceform,
- msegraphedits;
+ msegraphedits,mseificomp,mseificompglob,msescrollbar;
 
 type
  tchartoptionsfo = class(tspicefo)
@@ -44,6 +44,7 @@ type
    xscalefo: tscalegridfo;
    tracekey: tintegeredit;
    hidetrace: tbooleanedit;
+   tracesmooth: tbooleanedit;
    procedure datamodifiedexe(const sender: TObject);
    procedure showchartexe(const sender: TObject);
    procedure showplotexe(const sender: TObject);
