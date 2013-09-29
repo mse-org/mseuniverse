@@ -69,7 +69,7 @@ end;
 
 procedure tstashfo.applyexe(const sender: TObject);
 begin
- if askyesno('Do you want to apply "'+messageed.value+'"?') then begin
+ if askconfirmation('Do you want to apply "'+messageed.value+'"?') then begin
   if mainmo.execgitconsole('stash apply '+
            mainmo.git.encodestringparam(stashed.value)) then begin
    mainmo.reload;
@@ -79,7 +79,7 @@ end;
 
 procedure tstashfo.clearexe(const sender: TObject);
 begin
- if askyesno('Do you want to delete all stashes?') then begin
+ if askconfirmation('Do you want to delete all stashes?') then begin
   if mainmo.execgitconsole('stash clear') then begin
    refreshstash;
   end;
@@ -88,7 +88,7 @@ end;
 
 procedure tstashfo.dropexe(const sender: TObject);
 begin
- if askyesno('Do you want to delete "'+messageed.value+'"?') then begin
+ if askconfirmation('Do you want to delete "'+messageed.value+'"?') then begin
   if mainmo.execgitconsole('stash drop '+
                     mainmo.git.encodestringparam(stashed.value)) then begin
    refreshstash;

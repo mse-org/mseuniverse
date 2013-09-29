@@ -128,7 +128,7 @@ var
  ar1: msegitfileitemarty;
 begin
  ar1:= msegitfileitemarty(filelist.fileitemed.selecteditems);
- if askyesno('Do you want to add '+inttostrmse(length(ar1))+ 
+ if askconfirmation('Do you want to add '+inttostrmse(length(ar1))+ 
                         ' files?') then begin
   if mainmo.add(tgitdirtreenode(gitdirtreefo.treeed.item),ar1) then begin
    mainfo.reload;

@@ -179,7 +179,7 @@ var
  ar1: gitdirtreenodearty;
 begin
  ar1:= gitdirtreenodearty(treeed.selecteditems);
- if askyesno('Do you want to add '+inttostrmse(length(ar1))+ 
+ if askconfirmation('Do you want to add '+inttostrmse(length(ar1))+ 
                         ' directories?') then begin
   if mainmo.add(ar1) then begin
    mainfo.reloadact.execute;

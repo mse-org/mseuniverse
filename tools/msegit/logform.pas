@@ -369,7 +369,7 @@ begin
   showmessage('Cherry-pick not possible in sub-directories.','ERROR');
  end
  else begin
-  if askyesno('Do you want to apply the changes of the selected commits to '+
+  if askconfirmation('Do you want to apply the changes of the selected commits to '+
                  mainmo.activebranch+'?') then begin
    ar1:= grid.datacols.selectedrows;
    setlength(ar2,length(ar1));

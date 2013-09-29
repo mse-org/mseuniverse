@@ -105,7 +105,7 @@ end;
 
 procedure tremovequeryfo.removeexe(const sender: TObject);
 begin
- if askyesno('Do you want to remove the selected files?') then begin
+ if askconfirmation('Do you want to remove the selected files?') then begin
   window.modalresult:= mr_ok;
  end;
 end;
@@ -117,7 +117,7 @@ end;
 
 procedure tremovequeryfo.untrackexe(const sender: TObject);
 begin
- if askyesno('Do you want to untrack the selected files?') then begin
+ if askconfirmation('Do you want to untrack the selected files?') then begin
   funtrack:= true;
   window.modalresult:= mr_ok;
  end;

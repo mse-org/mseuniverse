@@ -111,6 +111,7 @@ type
    procedure rebasebranchexe(const sender: TObject);
    procedure remotecheckoutexe(const sender: TObject);
   private
+   fcheckoutcommit: msestring;
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
   protected
@@ -122,6 +123,8 @@ type
    procedure setactivelocallog(const abranch: msestring);
    procedure setactiveremotelog(const aremote,abranch: msestring);
    procedure createbranch(const acommit: msestring);
+   property checkoutcommit: msestring read fcheckoutcommit 
+                                                    write fcheckoutcommit;
  end;
  
 var
@@ -163,6 +166,9 @@ begin
    localbranchcommit[int1]:= info.commit;
    if active then begin
     localactive.checkedrow:= int1;
+    if info.commit = fcheckoutcommit then begin
+     mainmo.repostat.activelocallogbranch:= info.name;
+    end;
    end;
    if info.name = mainmo.repostat.activelocallogbranch then begin
     locallogbranch.checkedrow:= int1;
@@ -176,6 +182,7 @@ begin
    localtrackbranch[int1]:= trackremote <> '';
   end;
  end;
+ fcheckoutcommit:= '';
  int3:= 0;
  for int1:= 0 to high(mainmo.remotesinfo) do begin
   with mainmo.remotesinfo[int1] do begin
@@ -226,13 +233,6 @@ begin
    end;
   end;
  end;
- {
- with remotegrid do begin
-  if rowcount > 0 then begin
-   optionsgrid:= optionsgrid + [og_autofirstrow,og_autoappend];
-  end;
- end;
- }
 end;
  
 procedure tbranchfo.localbranchsetexe(const sender: TObject;
@@ -241,8 +241,8 @@ begin
  accept:= checkname(avalue);
  if accept then begin
   if localbranch.value = '' then begin
-   accept:= askyesno('Do you want to create branch '+avalue+' from '+lineend+
-                  mainmo.commithint(localbranchcommit.value)+'?',confcaption);
+   accept:= askconfirmation('Do you want to create branch '+avalue+' from '+lineend+
+                  mainmo.commithint(localbranchcommit.value)+'?');
    if accept then begin
     accept:= mainmo.createbranch('',avalue,logfo.currentcommit);
     if accept then begin
@@ -251,8 +251,8 @@ begin
    end;
   end
   else begin
-   accept:= askyesno('Do you want to rename branch "'+
-                      localbranch.value+'" to "'+avalue+'"?',confcaption);
+   accept:= askconfirmation('Do you want to rename branch "'+
+                      localbranch.value+'" to "'+avalue+'"?');
    if accept then begin
     if not mainmo.renamebranch('',localbranch.value,avalue) then begin
      avalue:= localbranch.value;
@@ -274,8 +274,8 @@ begin
  if accept then begin
   mstr1:= currentremote;
   if remotebranch.value = '' then begin
-   accept:= askyesno('Do you want to create remote branch '+
-   mstr1+'/'+avalue+' from '+ mainmo.activebranch+'?',confcaption);
+   accept:= askconfirmation('Do you want to create remote branch '+
+   mstr1+'/'+avalue+' from '+ mainmo.activebranch+'?');
    if accept then begin
     accept:= mainmo.createbranch(mstr1,avalue,'');
    end;
@@ -312,8 +312,8 @@ end;
 procedure tbranchfo.localactivesetexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
 begin
- accept:= askyesno('Do you want to switch to branch "'+
-                      localbranch.value+'"?',confcaption) and
+ accept:= askconfirmation('Do you want to switch to branch "'+
+                      localbranch.value+'"?') and
                       mainmo.checkoutbranch(localbranch.value);
  if accept then begin
   if mainmo.linkremotebranch[mainmo.activeremote,localbranch.value] then begin
@@ -392,7 +392,7 @@ begin
    mstr1:= mainmo.activeremotebranch[remote.value];
    if mainmo.linkremotebranch[remote.value,mstr1] and 
                                    (mstr1 <> mainmo.activebranch) then begin
-    if askyesno('Do you want to switch to branch "'+mstr1+'"?',confcaption) and
+    if askconfirmation('Do you want to switch to branch "'+mstr1+'"?') and
                                       mainmo.checkoutbranch(mstr1) then begin
      setactivelocallog(mstr1);
     end;
@@ -429,8 +429,8 @@ begin
    if (mainmo.activeremote = currentremote) and 
                       (mainmo.activebranch <> remotebranch.value) and
        mainmo.linkremotebranch[mainmo.activeremote,remotebranch.value] then begin
-    if askyesno('Do you want to switch to branch "'+
-      remotebranch.value+'"?',confcaption) and
+    if askconfirmation('Do you want to switch to branch "'+
+      remotebranch.value+'"?') and
                  mainmo.checkoutbranch(remotebranch.value) then begin
      setactivelocallog(remotebranch.value);
     end;
@@ -486,8 +486,8 @@ procedure tbranchfo.localrowsdeleteexe(const sender: tcustomgrid;
 // mstr1,mstr2: msestring;
 begin
  if localbranch.value <> '' then begin
-  if not askyesno('Do you want to delete branch '+localbranch.value+'?',
-                                                            confcaption) or
+  if not askconfirmation(
+           'Do you want to delete branch '+localbranch.value+'?') or
                 not mainmo.deletebranch('',localbranch.value) then begin
    acount:= 0;
   end;
@@ -502,8 +502,8 @@ begin
  if remotebranch.value <> '' then begin
   if remote.value = '' then begin
    mstr1:= currentremote;
-   if not askyesno('Do you want to delete branch '+
-                     mstr1 +' ' + remotebranch.value+'?',confcaption) or
+   if not askconfirmation('Do you want to delete branch '+
+                     mstr1 +' ' + remotebranch.value+'?') or
                  not mainmo.deletebranch(mstr1,remotebranch.value) then begin
     acount:= 0;
    end;
@@ -709,8 +709,8 @@ procedure tbranchfo.hideremotebranchsetexe(const sender: TObject;
                
 begin
  if not mainmo.repostat.showhiddenbranches then begin
-  accept:= askyesno('Do you want to hide '+
-                       currentremote+'/'+remotebranch.value+'?',confcaption);
+  accept:= askconfirmation('Do you want to hide '+
+                       currentremote+'/'+remotebranch.value+'?');
  end;
  if accept then begin
   if remote.value = '' then begin
@@ -726,8 +726,8 @@ procedure tbranchfo.sethidelocalbranchexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
 begin
  if not mainmo.repostat.showhiddenbranches then begin
-  accept:= askyesno('Do you want to hide '+
-                       localbranch.value+'?',confcaption);
+  accept:= askconfirmation('Do you want to hide '+
+                       localbranch.value+'?');
  end;
  if accept then begin
   mainmo.hidelocalbranch[localbranch.value]:= avalue;
@@ -783,8 +783,8 @@ begin
     showmessage('No active remote branch.','ERROR');
    end
    else begin
-    if not askyesno('Do you want to track '+
-             localbranch.value+' by '+remotetargetref+'?',confcaption) or
+    if not askconfirmation('Do you want to track '+
+             localbranch.value+' by '+remotetargetref+'?') or
           not setbranchtracking(localbranch.value,activeremote,
                              activeremotebranch[activeremote]) then begin
      accept:= false;
@@ -792,7 +792,7 @@ begin
    end;
   end
   else begin
-   if not askyesno('Do you want to remove remote racking?',confcaption) or
+   if not askconfirmation('Do you want to remove remote racking?') or
              not setbranchtracking(localbranch.value,'','') then begin
     accept:= false;
    end;
@@ -816,8 +816,8 @@ procedure tbranchfo.pushbranchexe(const sender: TObject);
 var
  bra,braref: msestring;
 begin
- if askyesno('Do you want to push branch '+pushbranchtext+'?',
-                                                   confcaption) then begin
+ if askconfirmation('Do you want to push branch '+
+                                       pushbranchtext+'?') then begin
   with mainmo do begin
    bra:= localbranch.value;
    braref:= branchref+bra;
@@ -870,7 +870,7 @@ var
  mstr1: msestring;
 begin
  mstr1:= currentremote+'/'+remotebranch.value;
- if askyesno('Do you want to checkout ' + mstr1+'?') and
+ if askconfirmation('Do you want to checkout ' + mstr1+'?') and
               mainmo.checkoutbranch(mstr1) then begin
   mainfo.reload;
  end;

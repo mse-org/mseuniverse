@@ -145,7 +145,7 @@ end;
 
 procedure tcommitqueryfo.stageexe(const sender: TObject);
 begin
- if askyesno('Do you want to stage?') then begin
+ if askconfirmation('Do you want to stage?') then begin
   fkind:= ck_stage;
   window.modalresult:= mr_ok;
  end;
@@ -153,7 +153,7 @@ end;
 
 procedure tcommitqueryfo.unstageexe(const sender: TObject);
 begin
- if askyesno('Do you want to unstage?') then begin
+ if askconfirmation('Do you want to unstage?') then begin
   fkind:= ck_unstage;
   window.modalresult:= mr_ok;
  end;
@@ -162,7 +162,7 @@ end;
 procedure tcommitqueryfo.amendexe(const sender: TObject);
 begin
  if checkmessage then begin
-  if askyesno('Do you want to amend?') then begin
+  if askconfirmation('Do you want to amend?') then begin
    fkind:= ck_amend;
    window.modalresult:= mr_ok;
   end;
@@ -172,7 +172,7 @@ end;
 procedure tcommitqueryfo.commitexe(const sender: TObject);
 begin
  if checkmessage then begin
-  if askyesno('Do you want to commit?') then begin
+  if askconfirmation('Do you want to commit?') then begin
    fkind:= ck_commit;
    window.modalresult:= mr_ok;
   end;

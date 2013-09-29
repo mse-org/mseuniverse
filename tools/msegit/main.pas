@@ -353,7 +353,7 @@ end;
 
 procedure tmainfo.resetmergeexe(const sender: TObject);
 begin
- if askyesno('Do you want to reset the merge operation?',confcaption) then begin
+ if askconfirmation('Do you want to reset the merge operation?') then begin
   if mainmo.mergereset then begin
    reload;
   end;
@@ -367,7 +367,7 @@ end;
 
 procedure tmainfo.rebasecontinueexe(const sender: TObject);
 begin
-// if askyesno('Do you want to continue the current rebase operation?') then begin
+// if askconfirmation('Do you want to continue the current rebase operation?') then begin
   if mainmo.rebasecontinue then begin
 //   reload;
   end;
@@ -377,7 +377,7 @@ end;
 
 procedure tmainfo.rebaseskipexe(const sender: TObject);
 begin
-// if askyesno('Do you want to skip the current rebase operation?') then begin
+// if askconfirmation('Do you want to skip the current rebase operation?') then begin
   if mainmo.rebaseskip then begin
 //   reload;
   end;
@@ -388,8 +388,7 @@ end;
 procedure tmainfo.rebaseabortexe(const sender: TObject);
 
 begin
- if askyesno('Do you want to abort the rebase operation?',
-                                                confcaption) then begin
+ if askconfirmation('Do you want to abort the rebase operation?') then begin
   if mainmo.rebaseabort then begin
    reload;
   end;
@@ -434,8 +433,8 @@ end;
 procedure tmainfo.pullfromexe(const sender: TObject);
 begin
  with mainmo do begin
-  if askyesno('Do you want to fetch and merge data from '+
-         remotetargetref+' to '+activebranch+'?',confcaption) then begin
+  if askconfirmation('Do you want to fetch and merge data from '+
+         remotetargetref+' to '+activebranch+'?') then begin
    pull(activeremote,mainmo.activeremotebranch[activeremote]);
    self.reload;
   end;
@@ -444,8 +443,8 @@ end;
 
 procedure tmainfo.merge(const aref: msestring);
 begin
- if askyesno('Do you want to merge "'+aref+'" to "'+
-                             mainmo.activebranch+'"?',confcaption)  then begin
+ if askconfirmation('Do you want to merge "'+aref+'" to "'+
+                             mainmo.activebranch+'"?')  then begin
   mainmo.merge(aref);
   reload;
  end;
@@ -458,8 +457,8 @@ begin
    showmessage('Rebase not possible in sub-directories.','ERROR');
   end
   else begin
-   if askyesno('Do you want to rebase '+ activebranch +
-                  ' from '+aref+'?',confcaption) then begin
+   if askconfirmation('Do you want to rebase '+ activebranch +
+                  ' from '+aref+'?') then begin
     rebase(aref);
     self.reload; //show possible merge conflict
    end;
@@ -470,14 +469,24 @@ end;
 procedure tmainfo.checkout(const aref: msestring; const partial: boolean);
 var
  bo1: boolean;
+ mstr1: msestring;
 begin
- if askyesno('Do you want to checkout ' + aref+'?') then begin
+ if partial then begin
+  mstr1:= 'files from '+aref;
+ end
+ else begin
+  mstr1:= aref;
+ end;
+ if askconfirmation('Do you want to checkout ' + mstr1+'?') then begin
   if partial then begin
    bo1:= mainmo.checkout(aref,gitdirtreefo.currentitem,
                             filesfo.filelist.currentitems);
   end
   else begin
    bo1:= mainmo.checkout(aref);
+   if bo1 then begin
+    branchfo.checkoutcommit:= aref; 
+   end;
   end;
   if bo1 then begin
    reload;
@@ -503,8 +512,8 @@ end;
 procedure tmainfo.pustohexe(const sender: TObject);
 begin
  with mainmo do begin
-  if askyesno('Do you want to push '+activebranch+' to '+
-        remotetargetref+'?',confcaption) and 
+  if askconfirmation('Do you want to push '+activebranch+' to '+
+        remotetargetref+'?') and 
         push(activeremote,activeremotebranch[activeremote]) then begin
    self.reload;
   end;
@@ -668,7 +677,7 @@ procedure tmainfo.stashsaveexe(const sender: TObject);
 var
  mstr1: msestring;
 begin
- if askyesno('Do you want to save and reset local changes?',confcaption)
+ if askconfirmation('Do you want to save and reset local changes?')
        and (stringenter(mstr1,'Message','Stash') = mr_ok)
        and mainmo.stashsave(mstr1) then begin
   reload;
@@ -677,8 +686,8 @@ end;
 
 procedure tmainfo.stashpopexe(const sender: TObject);
 begin
- if askyesno('Do you want to restore "'+mainmo.stashes[0].message+'"?',
-                                   confcaption) and mainmo.stashpop then begin
+ if askconfirmation('Do you want to restore "'+
+                 mainmo.stashes[0].message+'"?') and mainmo.stashpop then begin
   reload;
  end;
 end;

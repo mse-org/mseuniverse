@@ -108,7 +108,7 @@ end;
 
 procedure tdiffwindowfo.revertexe(const sender: TObject);
 begin
- if askyesno('Do you want to revert "'+currentpath+'"?') then begin
+ if askconfirmation('Do you want to revert "'+currentpath+'"?') then begin
   mainmo.revert(currentpath);
  end;
 end;

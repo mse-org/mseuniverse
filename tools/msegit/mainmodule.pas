@@ -31,7 +31,7 @@ const
  defaultdiffcontextn = 3;
  defaultdiffencoding = ce_utf8n;
  defaultrepostatfilename = '.msegitrepo.sta';
- confcaption = 'Confirmation';
+// confcaption = 'Confirmation';
 type
  tmsegitfileitem = class(tgitfileitem)
   protected
