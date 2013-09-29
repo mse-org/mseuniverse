@@ -7,9 +7,6 @@ optionsfo.sta=57
  filenames=1
   ps2pdf.bat
  lastdir=
- filehistory=2
-  /C:/Programme/gs/gs8.63/lib/ps2pdf.bat
-  /ps2pdf
  filefilterindex=-1
  filefilter=
  filecolwidth=174
@@ -18,9 +15,6 @@ optionsfo.sta=57
  cx=588
  cy=307
  [optionsfo.ngspice]
- filenames=1
-  /E:/download/spice/spice/bin/ngspice.exe
- lastdir=/E:/download/spice/spice/bin/
  filehistory=0
  filefilterindex=0
  filefilter=
@@ -36,11 +30,6 @@ optionsfo.sta=57
  width1=68
  sortdescend1=0
  [optionsfo.netlist]
- filenames=1
-  /F:/proj/mseuniverse/tools/msespice/examples/rclowpass.cir
- lastdir=/F:/proj/mseuniverse/tools/msespice/examples/
- filehistory=1
-  /home/mse/packs/standard/git/mseuniverse/tools/msespice/test.cir
  filefilterindex=0
  filefilter=*.cir
  filecolwidth=174
@@ -131,7 +120,7 @@ client_0=201
   1
   2
  [mainmo.projectoptionscomp]
- netlist=/home/mse/packs/standard/git/mseuniverse/tools/msespice/examples/rclowpass.cir
+ netlist=rclowpass.cir
  netlistrel=rclowpass.cir
  libfiles=0
  libnames=0
@@ -1162,11 +1151,6 @@ clients=70
  firsttab=0
  index=1
 [netlistfo.filedialog]
-filenames=1
- /F:/proj/mseuniverse/tools/msespice/examples/rclowpass.cir
-lastdir=/F:/proj/mseuniverse/tools/msespice/examples/
-filehistory=1
- /home/mse/packs/standard/git/mseuniverse/tools/msespice/test.cir
 filefilterindex=0
 filefilter=*.cir
 filecolwidth=174
