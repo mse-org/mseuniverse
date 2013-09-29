@@ -52,7 +52,7 @@ inherited tagsfo: ttagsfo
     datacols.sortcoldefault = 3
     datacols.options = [co_readonly, co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[treeed]
         coloractive = -1879048185
         width = 167
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
@@ -60,7 +60,7 @@ inherited tagsfo: ttagsfo
         dataclass = ttreeitemeditlist
         datalist.options = [no_nofreeitems]
       end    
-      item
+      item[messageed]
         coloractive = -1879048185
         width = 229
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
@@ -69,7 +69,7 @@ inherited tagsfo: ttagsfo
         widgetname = 'messageed'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[commited]
         coloractive = -1879048185
         colorfocused = -1879048185
         width = 93
@@ -77,14 +77,14 @@ inherited tagsfo: ttagsfo
         widgetname = 'commited'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[commitdateed]
         coloractive = -1879048185
         width = 131
         options = [co_readonly, co_proportional, co_savestate, co_sortdescend, co_mousescrollrow]
         widgetname = 'commitdateed'
         dataclass = tgridrealdatalist
       end    
-      item
+      item[committered]
         coloractive = -1879048185
         width = 109
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
@@ -171,7 +171,7 @@ inherited tagsfo: ttagsfo
   end
   object tpopupmenu1: tpopupmenu[3]
     onupdate = updateexe
-    menu.submenu.count = 3
+    menu.submenu.count = 4
     menu.submenu.items = <    
       item
         caption = 'Delete Tag'
@@ -190,6 +190,12 @@ inherited tagsfo: ttagsfo
         name = 'branch'
         state = [as_localcaption, as_localonexecute]
         onexecute = branchexe
+      end    
+      item
+        caption = 'Checkout'
+        name = 'checkout'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = checkoutexe
       end>
     left = 184
     top = 88

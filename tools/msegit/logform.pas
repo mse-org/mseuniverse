@@ -346,11 +346,7 @@ end;
 
 procedure tlogfo.checkoutexe(const sender: TObject);
 begin
- if askyesno('Do you want to checkout ' + commit.value+'?') and
-              mainmo.checkout(commit.value,gitdirtreefo.currentitem,
-                            filesfo.filelist.currentitems) then begin
-  mainfo.reload;
- end;
+ mainfo.checkout(commit.value,true);
 end;
 
 procedure tlogfo.branchexe(const sender: TObject);

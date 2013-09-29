@@ -119,6 +119,7 @@ type
    hastagdialogstat: boolean;
    procedure merge(const aref: msestring);
    procedure rebase(const aref: msestring);
+   procedure checkout(const aref: msestring; const partial: boolean);
    procedure reload;
    procedure refreshdiff;
    property refreshing: boolean read frefreshing;
@@ -462,6 +463,24 @@ begin
     rebase(aref);
     self.reload; //show possible merge conflict
    end;
+  end;
+ end;
+end;
+
+procedure tmainfo.checkout(const aref: msestring; const partial: boolean);
+var
+ bo1: boolean;
+begin
+ if askyesno('Do you want to checkout ' + aref+'?') then begin
+  if partial then begin
+   bo1:= mainmo.checkout(aref,gitdirtreefo.currentitem,
+                            filesfo.filelist.currentitems);
+  end
+  else begin
+   bo1:= mainmo.checkout(aref);
+  end;
+  if bo1 then begin
+   reload;
   end;
  end;
 end;

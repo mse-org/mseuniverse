@@ -25,6 +25,7 @@ type
    procedure branchexe(const sender: TObject);
    procedure sortexe(const sender: tcustomgrid; const index1: Integer;
                    const index2: Integer; var aresult: Integer);
+   procedure checkoutexe(const sender: TObject);
   private
    fexpandedsave: expandedinfoarty;
    ftagstreebefore: tgittagstreenode;  
@@ -122,6 +123,7 @@ begin
  sender.menu.itembyname('delete').enabled:= bo1;
  sender.menu.itembyname('push').enabled:= bo1 and (mainmo.activeremote <> '');
  sender.menu.itembyname('branch').enabled:= bo1;
+ sender.menu.itembyname('checkout').enabled:= bo1;
 end;
 
 procedure ttagsfo.deletetagexe(const sender: TObject);
@@ -149,6 +151,11 @@ end;
 procedure ttagsfo.branchexe(const sender: TObject);
 begin
  branchfo.createbranch(commited.value);
+end;
+
+procedure ttagsfo.checkoutexe(const sender: TObject);
+begin
+ mainfo.checkout(commited.value,false);
 end;
 
 procedure ttagsfo.sortexe(const sender: tcustomgrid; const index1: Integer;

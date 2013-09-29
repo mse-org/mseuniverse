@@ -358,8 +358,9 @@ type
    
    function checkoutbranch(const aname: msestring): boolean;
    function checkout(const atreeish: msestring;
-                                const anode: tgitdirtreenode;
-                                const afiles: msegitfileitemarty): boolean;
+                     const anode: tgitdirtreenode;
+                     const afiles: msegitfileitemarty): boolean;
+   function checkout(const atreeish: msestring): boolean;
 
    function fetch(const aremote,aremotebranch: msestring): boolean;
    function fetchall: boolean;
@@ -1800,6 +1801,11 @@ function tmainmo.checkout(const atreeish: msestring;
 begin
  result:= execgitconsole('checkout '+atreeish+' '+
                                  encodepathparams(anode,afiles));
+end;
+
+function tmainmo.checkout(const atreeish: msestring): boolean;
+begin
+ result:= execgitconsole('checkout '+atreeish);
 end;
 
 function tmainmo.renamebranch(const aremote: msestring;
