@@ -327,7 +327,7 @@ begin
     richconcat1(rstr1,'Branch: ',[fs_force]);
     richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
     richconcat1(rstr1,' Log: ',[fs_force]);
-    richconcat1(rstr1,mainmo.repostat.activelogcommit,[fs_bold]);
+    richconcat1(rstr1,mainmo.repostat.activelogcommit(false),[fs_bold]);
     richconcat1(rstr1,' Remote: ',[fs_force]);
     richconcat1(rstr1,mainmo.remotetargetref,[fs_bold]);
     statdisp.richvalue:= rstr1;
@@ -362,7 +362,7 @@ end;
 
 procedure tmainfo.rebaseexe(const sender: TObject);
 begin
- rebase(mainmo.repostat.activelogcommit);
+ rebase(mainmo.repostat.activelogcommit(false));
 end;
 
 procedure tmainfo.rebasecontinueexe(const sender: TObject);
@@ -497,7 +497,7 @@ end;
 
 procedure tmainfo.mergefromexe(const sender: TObject);
 begin
- merge(mainmo.repostat.activelogcommit);
+ merge(mainmo.repostat.activelogcommit(false));
 end;
 
 procedure tmainfo.pustohexe(const sender: TObject);
@@ -543,7 +543,7 @@ begin
  mainmen.menu.itembynames(['file','close']).enabled:= bo1;
  commitallact.enabled:= bo1;
  mstr1:= mainmo.remotetargetref;
- mstr2:= mainmo.repostat.activelogcommit;
+ mstr2:= mainmo.repostat.activelogcommit(false);
  pushact.enabled:= bo2;
  pushtoact.enabled:= bo2 and (mstr1 <> '') and bo3;
  pushtoact.caption:= '&Push to '+mstr1;

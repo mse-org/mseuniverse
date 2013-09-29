@@ -134,7 +134,7 @@ var
  maxlog1: integer;
 begin
  application.lock;
- mstr1:= mainmo.repostat.activelogcommit;
+ mstr1:= mainmo.repostat.activelogcommit(true);
  fpath1:= fpath;
  maxlog1:= mainmo.opt.maxlog;
  if sender <> nil then begin

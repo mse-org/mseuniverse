@@ -164,7 +164,7 @@ type
   public
    constructor create;
    procedure reset;
-   function activelogcommit: msestring;
+   function activelogcommit(const commitsha: boolean): msestring;
   published
    property activeremote: msestring read factiveremote write factiveremote;
    property activelocallogbranch: msestring read factivelocallogbranch 
@@ -2771,11 +2771,23 @@ begin
  flogfilterdatemax:= emptydatetime;
 end;
 
-function trepostat.activelogcommit: msestring;
+function trepostat.activelogcommit(const commitsha: boolean): msestring;
+var
+ int1: integer;
 begin
  result:= '';
  if activelocallogbranch <> '' then begin
   result:= activelocallogbranch;
+  if commitsha then begin
+   for int1:= 0 to high(mainmo.branches) do begin
+    with mainmo.branches[int1] do begin
+     if info.name = result then begin
+      result:= info.commit;
+      break;
+     end;
+    end;
+   end;
+  end;
  end
  else begin
   if activeremotelog <> '' then begin
