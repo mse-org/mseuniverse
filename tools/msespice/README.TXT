@@ -1,11 +1,17 @@
 MSEspice, GUI for Ngspice
-Version 1.0 2013-09-28
+Version 1.0a 2013-09-29
 
 - Download and install ngspice from
 http://sourceforge.net/projects/ngspice/
 
-- Download msespice_i386_linux_1_0.tar.gz on Linux or
-msespice_i386_win32_1_0.zip on Windows from
+Note: The Windows standard download is the GUI-version of ngspice.
+There will be a a ngspice error message window with the GUI version
+at every simulation run. The console version of ngspice for Windows
+does not suffer from that problem. Currently there is no compiled
+console version available.
+
+- Download msespice_i386_linux_1_0a.tar.gz on Linux or
+msespice_i386_win32_1_0a.zip on Windows from
 http://sourceforge.net/projects/mseuniverse/
 
 - Extract them into a directory of your choice (MYDIRECTORY).
