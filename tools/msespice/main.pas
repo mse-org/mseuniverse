@@ -26,7 +26,7 @@ uses
  dockform,msebitmap,msesplitter,msedispwidgets,mserichstring;
 
 const
- versiontext = '1.1';
+ versiontext = '1.0a';
 type
  messagetextkindty = (mtk_info,mtk_running,mtk_finished,mtk_error,mtk_signal);
 
@@ -92,7 +92,11 @@ procedure tmainfo.loadedexe(const sender: TObject);
 begin
  mainmo.projectoptionscomp.dialogclass:= toptionsfo;
  if mainmo.projectmainstat.filename <> '' then begin
-  mainmo.loadproject('');
+  try
+   mainmo.loadproject('');
+  except
+   application.handleexception;
+  end;
  end;
 end;
 
