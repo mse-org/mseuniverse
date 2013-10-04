@@ -10,13 +10,15 @@ at every simulation run. The console version of ngspice for Windows
 does not suffer from that problem. Currently there is no compiled
 console version available.
 
-- Download msespice_i386_linux_1_0a.tar.gz on Linux or
+- Download msespice_i386_linux_1_0a.tar.gz or msespice_x86_64_linux_1_0a.tar.gz
+on Linux or
 msespice_i386_win32_1_0a.zip on Windows from
 http://sourceforge.net/projects/mseuniverse/
 
 - Extract them into a directory of your choice (MYDIRECTORY).
-- On Linux cd in MYDIRECTORY/msespice_i386_linux, start msespice,
-on Windows cd in MYDIRECTORY\msespice_i386_win32, start msespice.exe.
+- On Linux cd in MYDIRECTORY/msespice_i386_linux or 
+  MYDIRECTORY/msespice_x86_64_linux, start msespice,
+  on Windows cd in MYDIRECTORY\msespice_i386_win32, start msespice.exe.
 
 - 'File'-'Open Project', select 'examples/rclowpass.msp'.
 - Pess F9.
