@@ -320,7 +320,16 @@ begin
     imagenr:= foptfo.tracesymbol[int1];
     legend_caption:= foptfo.tracelegend[int1];
     visible:= not foptfo.hidetrace[int1];
+   {$ifdef mse_hastracesmooth}
     smooth:= foptfo.tracesmooth[int1];
+   {$else}
+    if foptfo.tracesmooth[int1] then begin
+     options:= options+[cto_smooth];
+    end
+    else begin
+     options:= options-[cto_smooth];
+    end;
+   {$endif}
    end;
   end;
   checkscale(foptfo.xscalefo,false);

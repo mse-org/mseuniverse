@@ -24,10 +24,33 @@ on Windows cd in MYDIRECTORY\msespice_i386_win32, start msespice.exe.
 If the ngspice program is not in path select it in 
 'Options'-'Global'-'Ngspice Program'.
 
-MSEide+MSEgui development environment is here:
+How to compile MSEspice
+-----------------------
+MSEspice is made with MSEide+MSEgui cross platform development environment
+for Free Pascal:
 http://sourceforge.net/projects/mseide-msegui/
-MSEspice 1.0 needs MSEide+MSEgui git master branch from here:
-http://gitorious.org/mseide-msegui
+Source is here:
+https://gitorious.org/mseide-msegui repository mseide-msegui
+
+First step is to install Free Pascal and MSEide+MSEgui 
+
+1. Download and install FPC 2.6.2, you can get it from 
+   http://www.freepascal.org/download.var
+2. Download mseide_msegui_src_3_0.zip and mseide_i386_win32_3_0.zip or
+   mseide_i386_linux_3_0.tar.gz or mseide_x84_64_linux_3_0.tar.gz
+   http://sourceforge.net/projects/mseide-msegui/files/mseide-msegui/3.0/
+3. Extract them to a directory of your choice ('yourdirectory') .
+4. Run 'yourdirectory/bin/mseide' on linux or 
+   'yourdirectory\bin\mseide.exe' on windows.
+5. In 'Settings'-'Configure MSEide'-'${MSEDIR}' select 'yourdirectory/msegui'.
+6. In 'Project'-'Open' select 'yourdirectory/msegui/apps/demo/demo.prj'.
+7. 'Target'-'Continue'.
+
+If that works get the MSEspice sources from here:
+https://gitorious.org/mseuniverse repository mseuniverse, tools/msespice.
+
+In MSEide 'Project'-'Open', select tools/msespice/msespice.prj, press F9.
+The project will be compiled and started in debugger.
 
 Have a lot of fun!
 
