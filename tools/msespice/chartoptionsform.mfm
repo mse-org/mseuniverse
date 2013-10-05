@@ -152,7 +152,7 @@ inherited chartoptionsfo: tchartoptionsfo
     datacols.items = <    
       item[hidetrace]
         width = 16
-        options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
         name = 'hidetrace'
         widgetname = 'hidetrace'
         dataclass = tgridintegerdatalist
@@ -216,7 +216,7 @@ inherited chartoptionsfo: tchartoptionsfo
       end    
       item[tracesmooth]
         width = 16
-        options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
         name = 'values10'
         widgetname = 'tracesmooth'
         dataclass = tgridintegerdatalist
@@ -382,27 +382,27 @@ inherited chartoptionsfo: tchartoptionsfo
       ondataentered = datamodifiedexe
       reffontheight = 14
     end
-    object tracekey: tintegeredit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 11
-      visible = False
-      bounds_x = 601
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      reffontheight = 14
-    end
     object tracesmooth: tbooleanedit
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 12
+      taborder = 11
       bounds_x = 584
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
       ondataentered = datamodifiedexe
       visible = False
+    end
+    object tracekey: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 12
+      visible = False
+      bounds_x = 601
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      reffontheight = 14
     end
   end
   inline yscalefo: tscalegridfo[2]
