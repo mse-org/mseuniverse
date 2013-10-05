@@ -392,7 +392,7 @@ begin
  if result and fprojectloaded then begin
   if fmodified then begin
    case askyesnocancel('Project '+projectmainstat.filename+
-                                     ' is modified. Save?') of
+                                     ' is modified. Save?','Confirmation') of
     mr_yes,mr_no: begin
     end;
     else begin
@@ -573,6 +573,7 @@ begin
      if stepactive.value then begin
       ar1:= exptags;
       stream2.writeln(' set curplot = '+varplotname);
+//      stream2.writeln(str1);
       for int2:= 0 to stepgrid.datarowhigh do begin
        stream2.writeln(' let b'+inttostr(int2)+' = '+stepdest[int2]);
                                      //backup original values

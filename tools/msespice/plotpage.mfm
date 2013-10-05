@@ -103,15 +103,13 @@ inherited plotpagefo: tplotpagefo
     tab_size = 18
     statfile = mainmo.projectstat1
     object ttabpage1: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
       taborder = 1
       bounds_x = 0
       bounds_y = 18
       bounds_cx = 612
       bounds_cy = 168
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = '&Run Parameters,Charts'
+      caption = 'Run Parameters,Charts'
       object tracegrid: twidgetgrid
         popupmenu = gridpopup
         bounds_x = 0
@@ -329,15 +327,13 @@ inherited plotpagefo: tplotpagefo
       end
     end
     object ttabpage3: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
       taborder = 3
       bounds_x = 0
       bounds_y = 18
       bounds_cx = 612
       bounds_cy = 168
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Extra &Vectors'
+      caption = 'Extra Vectors'
       object savegrid: twidgetgrid
         bounds_x = 0
         bounds_y = 0
@@ -389,15 +385,13 @@ inherited plotpagefo: tplotpagefo
       end
     end
     object ttabpage2: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
       taborder = 2
       bounds_x = 0
       bounds_y = 18
       bounds_cx = 612
       bounds_cy = 168
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = '&Stepping'
+      caption = 'Stepping'
       object stepactive: tbooleanedit
         frame.caption = 'active'
         frame.dummy = 0

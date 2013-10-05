@@ -26,7 +26,7 @@ uses
  dockform,msebitmap,msesplitter,msedispwidgets,mserichstring;
 
 const
- versiontext = '1.0a';
+ versiontext = '1.1';
 type
  messagetextkindty = (mtk_info,mtk_running,mtk_finished,mtk_error,mtk_signal);
 
