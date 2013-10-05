@@ -648,13 +648,14 @@ begin
     end;
    end;
   end;
+  stream2.writeln(' quit');
   stream2.writeln('.endc'+lineend+'.END');
  finally
   stream2.free;
  end;
  consolefo.term.clear;
  str1:= tosysfilepath(fglobaloptions.ngspice,true)+
-   ' -b '+tosysfilepath(fspicefile,true);
+   ' '+tosysfilepath(fspicefile,true);
  consolefo.term.addline('> '+str1);
  consolefo.beginsimu;
  try
