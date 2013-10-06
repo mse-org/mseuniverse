@@ -25,7 +25,8 @@ object mainfo: tmainfo
     bounds_y = 23
     bounds_cy = 37
     ondataentered = dataenteredexe
-    min = -2147483646
+    min = -1000000
+    max = 1000000
     reffontheight = 14
   end
   object b: tintegeredit
@@ -43,7 +44,8 @@ object mainfo: tmainfo
     bounds_y = 23
     bounds_cy = 37
     ondataentered = dataenteredexe
-    min = -2147483646
+    min = -1000000
+    max = 1000000
     reffontheight = 14
   end
   object res: tintegerdisp
