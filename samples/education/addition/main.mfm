@@ -1,0 +1,75 @@
+object mainfo: tmainfo
+  bounds_x = 4
+  bounds_y = 148
+  bounds_cx = 363
+  bounds_cy = 118
+  container.bounds = (
+    0
+    0
+    363
+    118
+  )
+  caption = 'MSEide+MSEgui Adder'
+  moduleclassname = 'tmainform'
+  object a: tintegeredit
+    frame.caption = 'A'
+    frame.captionpos = cp_top
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 16
+    bounds_y = 23
+    bounds_cy = 37
+    ondataentered = dataenteredexe
+    min = -2147483646
+    reffontheight = 14
+  end
+  object b: tintegeredit
+    frame.caption = 'B'
+    frame.captionpos = cp_top
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 128
+    bounds_y = 23
+    bounds_cy = 37
+    ondataentered = dataenteredexe
+    min = -2147483646
+    reffontheight = 14
+  end
+  object res: tintegerdisp
+    frame.caption = 'A + B ='
+    frame.captionpos = cp_top
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 248
+    bounds_y = 24
+    bounds_cy = 35
+    reffontheight = 14
+  end
+  object tbutton1: tbutton
+    taborder = 3
+    bounds_x = 296
+    bounds_y = 80
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Exit'
+    onexecute = exitexe
+  end
+end
