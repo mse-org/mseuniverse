@@ -1,0 +1,103 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 104
+  bounds_y = 210
+  bounds_cx = 403
+  bounds_cy = 280
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tsimplewidget1: tsimplewidget
+    face.fade_direction = gd_down
+    face.localprops = [fal_fadirection]
+    face.template = tfacecomp1
+    face.dummy = 0
+    visible = True
+    bounds_x = 0
+    bounds_y = 195
+    bounds_cx = 403
+    bounds_cy = 85
+    anchors = [an_bottom]
+  end
+  object tsimplewidget4: tsimplewidget
+    taborder = 1
+    visible = True
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 403
+    bounds_cy = 192
+    anchors = [an_top]
+    object tsimplewidget3: tsimplewidget
+      face.template = tfacecomp1
+      face.dummy = 0
+      visible = True
+      bounds_x = 194
+      bounds_y = 0
+      bounds_cx = 209
+      bounds_cy = 192
+      anchors = [an_right]
+    end
+    object tsplitter1: tsplitter
+      color = -1879048189
+      taborder = 1
+      bounds_x = 191
+      bounds_y = 0
+      bounds_cx = 3
+      bounds_cy = 192
+      anchors = [an_left]
+      options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = tsimplewidget2
+      linkright = tsimplewidget3
+      statfile = tstatfile1
+    end
+    object tsimplewidget2: tsimplewidget
+      face.template = tfacecomp1
+      face.dummy = 0
+      taborder = 2
+      visible = True
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 191
+      bounds_cy = 192
+      anchors = [an_left]
+    end
+  end
+  object tsplitter2: tsplitter
+    color = -1879048189
+    taborder = 2
+    bounds_x = 0
+    bounds_y = 192
+    bounds_cx = 403
+    bounds_cy = 3
+    anchors = [an_top]
+    options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linktop = tsimplewidget4
+    linkbottom = tsimplewidget1
+    statfile = tstatfile1
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 216
+    top = 80
+  end
+  object tfacecomp1: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612731
+      9737364
+    )
+    left = 40
+    top = 72
+  end
+end
