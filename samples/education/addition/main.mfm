@@ -3,6 +3,20 @@ object mainfo: tmainfo
   bounds_y = 148
   bounds_cx = 363
   bounds_cy = 118
+  container.face.fade_pos.count = 3
+  container.face.fade_pos.items = (
+    0
+    0.51068376068376
+    1
+  )
+  container.face.fade_color.count = 3
+  container.face.fade_color.items = (
+    -1610612731
+    11842740
+    -1610612733
+  )
+  container.face.localprops = [fal_fadirection]
+  container.face.dummy = 0
   container.bounds = (
     0
     0
@@ -12,6 +26,7 @@ object mainfo: tmainfo
   caption = 'MSEide+MSEgui Adder'
   moduleclassname = 'tmainform'
   object a: tintegeredit
+    color = -2147483645
     frame.caption = 'A'
     frame.captionpos = cp_top
     frame.dummy = 0
@@ -30,6 +45,7 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   object b: tintegeredit
+    color = -2147483645
     frame.caption = 'B'
     frame.captionpos = cp_top
     frame.dummy = 0
@@ -49,6 +65,7 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   object res: tintegerdisp
+    color = -2147483645
     frame.caption = 'A + B ='
     frame.captionpos = cp_top
     frame.dummy = 0
@@ -58,6 +75,19 @@ object mainfo: tmainfo
       0
       0
     )
+    face.fade_pos.count = 2
+    face.fade_pos.items = (
+      0
+      1
+    )
+    face.fade_color.count = 2
+    face.fade_color.items = (
+      10926317
+      9017540
+    )
+    face.fade_direction = gd_down
+    face.localprops = [fal_fadirection]
+    face.dummy = 0
     taborder = 2
     bounds_x = 248
     bounds_y = 24
@@ -65,6 +95,21 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   object tbutton1: tbutton
+    face.fade_pos.count = 3
+    face.fade_pos.items = (
+      0
+      0.55769230769231
+      1
+    )
+    face.fade_color.count = 3
+    face.fade_color.items = (
+      -1610612731
+      11184810
+      -1610612733
+    )
+    face.fade_direction = gd_up
+    face.localprops = [fal_fadirection]
+    face.dummy = 0
     taborder = 3
     bounds_x = 296
     bounds_y = 80
