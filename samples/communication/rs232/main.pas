@@ -73,7 +73,7 @@ end;
 
 procedure tmainfo.befdropexe(const sender: TObject);
 begin
- port.port.close;
+ port.active:= false;
  sleep(500); //sometimes necessary on windows
 end;
 
