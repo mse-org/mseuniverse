@@ -26,6 +26,8 @@ type
    procedure sendtextexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure inputavaileexe(const sender: tcustomcommpipes);
+   procedure befdropexe(const sender: TObject);
+   procedure afterdrop(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
@@ -59,9 +61,24 @@ begin
 end;
 
 procedure tmainfo.inputavaileexe(const sender: tcustomcommpipes);
+var
+ str1: string;
 begin
- rxdata[0].readpipe(sender.rx);
+ str1:= sender.rx.readdatastring;
+ rxdata[0].readpipe(str1);
+// rxdata[0].readpipe(sender.rx); //direct alternative
+
  rxdata.showrow(bigint); //show last row
+end;
+
+procedure tmainfo.befdropexe(const sender: TObject);
+begin
+ port.active:= false;
+end;
+
+procedure tmainfo.afterdrop(const sender: TObject);
+begin
+ port.active:= activeed.value;
 end;
 
 end.
