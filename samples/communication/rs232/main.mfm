@@ -43,7 +43,6 @@ object mainfo: tmainfo
     bounds_y = 26
     bounds_cx = 47
     bounds_cy = 16
-    statfile = tstatfile1
     onsetvalue = setactiveexe
   end
   object senddtexted: thistoryedit
