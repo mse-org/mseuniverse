@@ -35,7 +35,7 @@ var
 implementation
 
 uses
- main_mfm;
+ main_mfm,sysutils;
 
 procedure tmainfo.clearexe(const sender: TObject);
 begin
@@ -73,7 +73,8 @@ end;
 
 procedure tmainfo.befdropexe(const sender: TObject);
 begin
- port.active:= false;
+ port.port.close;
+ sleep(500); //sometimes necessary on windows
 end;
 
 procedure tmainfo.afterdrop(const sender: TObject);
