@@ -44,12 +44,16 @@ end;
 procedure tmainfo.portsetexe(const sender: TObject; var avalue: commnrty;
                var accept: Boolean);
 begin
- if avalue = cnr_invalid then begin
-  port.port.commname:= tcommselector(sender).valuename;
- end
- else begin
-  port.port.commname:= '';
-  port.port.commnr:= avalue;
+ try
+  if avalue = cnr_invalid then begin
+   port.port.commname:= tcommselector(sender).valuename;
+  end
+  else begin
+   port.port.commname:= '';
+   port.port.commnr:= avalue;
+  end;
+ finally
+  activeed.value:= port.active; //reset in case of error
  end;
 end;
 
