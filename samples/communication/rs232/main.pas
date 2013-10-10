@@ -61,6 +61,7 @@ end;
 procedure tmainfo.inputavaileexe(const sender: tcustomcommpipes);
 begin
  rxdata[0].readpipe(sender.rx);
+ rxdata.showrow(bigint); //show last row
 end;
 
 end.
