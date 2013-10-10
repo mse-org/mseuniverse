@@ -16,18 +16,18 @@ object mainfo: tmainfo
     frame.caption = 'Port'
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     bounds_x = 8
-    bounds_y = 7
-    bounds_cy = 37
+    bounds_y = 8
+    bounds_cy = 35
     statfile = tstatfile1
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
     onsetvalue = portsetexe
-    onbeforedropdown = befdropexe
-    onafterclosedropdown = afterdrop
-    reffontheight = 14
+    ongetactivecommnr = getactivecommexe
+    reffontheight = 13
   end
   object activeed: tbooleanedit
     frame.caption = 'active'
@@ -35,14 +35,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      34
-      2
+      32
+      1
     )
     taborder = 1
     bounds_x = 120
     bounds_y = 26
-    bounds_cx = 47
-    bounds_cy = 16
+    bounds_cx = 45
+    bounds_cy = 15
     statfile = tstatfile1
     onsetvalue = setactiveexe
   end
@@ -50,15 +50,15 @@ object mainfo: tmainfo
     frame.caption = 'Tx-Text'
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 2
     bounds_x = 8
-    bounds_y = 55
+    bounds_y = 56
     bounds_cx = 388
-    bounds_cy = 37
+    bounds_cy = 35
     statfile = tstatfile1
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
     onsetvalue = sendtextexe
@@ -66,7 +66,7 @@ object mainfo: tmainfo
     dropdown.cols.items = <    
       item
       end>
-    reffontheight = 14
+    reffontheight = 13
   end
   object rxdata: tstringgrid
     frame.levelo = -1
@@ -74,15 +74,15 @@ object mainfo: tmainfo
     frame.localprops = [frl_levelo]
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 3
     bounds_x = 8
-    bounds_y = 103
+    bounds_y = 104
     bounds_cx = 386
-    bounds_cy = 139
+    bounds_cy = 138
     anchors = [an_left, an_top, an_bottom]
     datacols.count = 1
     datacols.width = 1000
@@ -101,8 +101,8 @@ object mainfo: tmainfo
         numstep = 1
       end>
     rowcountmax = 10000
-    datarowheight = 16
-    reffontheight = 14
+    datarowheight = 15
+    reffontheight = 13
   end
   object clearbu: tbutton
     taborder = 4
@@ -120,17 +120,17 @@ object mainfo: tmainfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 5
     bounds_x = 176
-    bounds_y = 7
-    bounds_cy = 37
+    bounds_y = 8
+    bounds_cy = 35
     statfile = tstatfile1
     value = #10
-    reffontheight = 14
+    reffontheight = 13
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'

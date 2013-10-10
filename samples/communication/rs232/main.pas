@@ -26,8 +26,7 @@ type
    procedure sendtextexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure inputavaileexe(const sender: tcustomcommpipes);
-   procedure befdropexe(const sender: TObject);
-   procedure afterdrop(const sender: TObject);
+   procedure getactivecommexe(const sender: TObject; var avalue: commnrty);
  end;
 var
  mainfo: tmainfo;
@@ -45,7 +44,13 @@ end;
 procedure tmainfo.portsetexe(const sender: TObject; var avalue: commnrty;
                var accept: Boolean);
 begin
- port.port.commnr:= avalue;
+ if avalue = cnr_invalid then begin
+  port.port.commname:= tcommselector(sender).valuename;
+ end
+ else begin
+  port.port.commname:= '';
+  port.port.commnr:= avalue;
+ end;
 end;
 
 procedure tmainfo.setactiveexe(const sender: TObject; var avalue: Boolean;
@@ -71,15 +76,11 @@ begin
  rxdata.showrow(bigint); //show last row
 end;
 
-procedure tmainfo.befdropexe(const sender: TObject);
+procedure tmainfo.getactivecommexe(const sender: TObject; var avalue: commnrty);
 begin
- port.active:= false;
- sleep(500); //sometimes necessary on windows
-end;
-
-procedure tmainfo.afterdrop(const sender: TObject);
-begin
- port.active:= activeed.value;
+ if port.active then begin
+  avalue:= port.port.commnr;
+ end;
 end;
 
 end.
