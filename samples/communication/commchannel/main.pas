@@ -31,6 +31,7 @@ type
                    var adata: AnsiString; var aflags: commresponseflagsty);
    procedure seteorexe(const sender: TObject; var avalue: AnsiString;
                    var accept: Boolean);
+   procedure getactivecomexe(const sender: TObject; var avalue: commnrty);
  end;
 var
  mainfo: tmainfo;
@@ -55,6 +56,9 @@ procedure tmainfo.setactiveexe(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
  conn.connected:= avalue;
+ if not avalue then begin
+  port.active:= false;
+ end;
 end;
 
 procedure tmainfo.sendtextexe(const sender: TObject; var avalue: msestring;
@@ -67,7 +71,8 @@ procedure tmainfo.responseexe(const sender: tcustomsercommchannel;
                var adata: AnsiString; var aflags: commresponseflagsty);
 begin
  rxdata[0].readpipe(adata+c_linefeed);
-// statusdisp.value:= settostring(typeinfo(commresponseflagsty),integer(aflags));
+ statusdisp.value:= settostring(ptypeinfo(typeinfo(commresponseflagsty)),
+                                                       integer(aflags),false);
  rxdata.showrow(bigint);
 end;
 
@@ -75,6 +80,13 @@ procedure tmainfo.seteorexe(const sender: TObject; var avalue: AnsiString;
                var accept: Boolean);
 begin
  conn.eor:= avalue;
+end;
+
+procedure tmainfo.getactivecomexe(const sender: TObject; var avalue: commnrty);
+begin
+ if port.active and (port.port.commname = '') then begin
+  avalue:= port.port.commnr;
+ end;
 end;
 
 end.

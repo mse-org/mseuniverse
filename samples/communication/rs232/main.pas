@@ -82,7 +82,7 @@ end;
 
 procedure tmainfo.getactivecommexe(const sender: TObject; var avalue: commnrty);
 begin
- if port.active then begin
+ if port.active and (port.port.commname = '') then begin
   avalue:= port.port.commnr;
  end;
 end;
