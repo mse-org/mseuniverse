@@ -49,7 +49,25 @@ end;
 procedure tmainfo.portsetexe(const sender: TObject; var avalue: commnrty;
                var accept: Boolean);
 begin
- port.port.commnr:= avalue;
+ try
+  if avalue = cnr_invalid then begin 
+   port.port.commname:= tcommselector(sender).valuename; //special comm name
+  end
+  else begin
+   port.port.commname:= '';         
+   port.port.commnr:= avalue;               //normal comm number
+  end;
+ finally
+  activeed.value:= port.active; //reset in case of error
+ end;
+end;
+
+procedure tmainfo.getactivecomexe(const sender: TObject; var avalue: commnrty);
+begin
+ //add current port to dropdownlist
+ if port.active and (port.port.commname = '') then begin
+  avalue:= port.port.commnr;
+ end;
 end;
 
 procedure tmainfo.setactiveexe(const sender: TObject; var avalue: Boolean;
@@ -80,13 +98,6 @@ procedure tmainfo.seteorexe(const sender: TObject; var avalue: AnsiString;
                var accept: Boolean);
 begin
  conn.eor:= avalue;
-end;
-
-procedure tmainfo.getactivecomexe(const sender: TObject; var avalue: commnrty);
-begin
- if port.active and (port.port.commname = '') then begin
-  avalue:= port.port.commnr;
- end;
 end;
 
 end.
