@@ -18,8 +18,8 @@ order15=0
 order16=0
 order17=0
 [projectoptions]
-projectdir=/F:/git/mseuniverse/samples/communication/rs232
-projectfilename=/F:/git/mseuniverse/samples/communication/rs232/rs232.prj
+projectdir=/F:/git/mseuniverse/samples/communication/r232direct
+projectfilename=/F:/git/mseuniverse/samples/communication/r232direct/rs232direct.prj
 options=83
  [projectoptionsfo.twidgetgrid3]
  propcolwidthref=801
@@ -290,7 +290,7 @@ modulenames=1
 moduletypes=1
  TMAINFO
 modulefiles=1
- /F:/git/mseuniverse/samples/communication/rs232/main.mfm
+ /F:/git/mseuniverse/samples/communication/r232direct/main.mfm
 befcommandon=0
 makeoptionson=4
  63
@@ -518,12 +518,12 @@ windowlayout=557
  cy=0
  [mainfo.projectfiledia]
  filenames=1
-  /F:/git/mseuniverse/samples/communication/rs232/mse_rs232.prj
- lastdir=/F:/git/mseuniverse/samples/communication/rs232/
+  /F:/git/mseuniverse/samples/communication/r232direct/mse_rs232direct.prj
+ lastdir=/F:/git/mseuniverse/samples/communication/r232direct/
  filehistory=10
+  /F:/git/mseuniverse/samples/communication/r232direct/mse_rs232direct.prj
   /F:/git/mseuniverse/samples/communication/rs232/mse_rs232.prj
   /F:/git/mseuniverse/samples/communication/rs232/rs232.prj
-  /F:/git/mseuniverse/samples/communication/r232direct/mse_rs232direct.prj
   /F:/git/mseuniverse/samples/communication/commchannel/mse_commchannel.prj
   /F:/git/mseuniverse/samples/communication/commchannel/commchannel.prj
   /G:/test1/test.prj
@@ -544,7 +544,7 @@ windowlayout=557
   /home/mse/proj/msegui/testcase/jean-pierre/Demo/main.pas
   /D:/MSE/Livre/DemoMSE/Demo.pas
  filefilterindex=0
- filefilter="*.pp" "*.pas" "*.inc" "*.dpr"
+ filefilter="*.pp" "*.pas" "*.inc" "*.dpr" "*.lpr"
  filecolwidth=174
  x=0
  y=0
@@ -599,10 +599,10 @@ windowlayout=557
  ny=0
  ncx=0
  ncy=0
- x=0
- y=0
- cx=0
- cy=0
+ x=37
+ y=270
+ cx=349
+ cy=276
  rcx=0
  rcy=0
  wsize=0
@@ -611,7 +611,7 @@ windowlayout=557
  [memoryfo]
  splitdir=0
  useroptions=16507
- stackedunder=componentstorefo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -638,7 +638,7 @@ windowlayout=557
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=watchfo
+ stackedunder=projecttreefo
  parent=
  mdistate=0
  nx=0
@@ -657,7 +657,7 @@ windowlayout=557
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=symbolfo
+ stackedunder=watchfo
  parent=
  mdistate=0
  nx=0
@@ -673,7 +673,7 @@ windowlayout=557
  [projecttreefo]
  splitdir=0
  useroptions=16491
- stackedunder=memoryfo
+ stackedunder=stackfo
  parent=
  mdistate=0
  nx=0
@@ -708,10 +708,10 @@ windowlayout=557
  ny=0
  ncx=0
  ncy=0
- x=0
- y=0
- cx=0
- cy=0
+ x=407
+ y=349
+ cx=254
+ cy=180
  rcx=0
  rcy=0
  wsize=0
@@ -762,7 +762,7 @@ windowlayout=557
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- stackedunder=cpui386fo
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -783,7 +783,7 @@ windowlayout=557
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=disassfo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -808,7 +808,7 @@ windowlayout=557
  [symbolfo]
  splitdir=0
  useroptions=16507
- stackedunder=breakpointsfo
+ stackedunder=watchpointsfo
  parent=
  mdistate=0
  nx=0
@@ -898,8 +898,8 @@ windowlayout=557
  y=411
  cx=724
  cy=80
- rcx=836
- rcy=801
+ rcx=818
+ rcy=887
  [componentstorefo]
  splitdir=0
  useroptions=24675
@@ -1024,7 +1024,7 @@ windowlayout=557
  irqoff=0
  splitdir=0
  useroptions=16491
- stackedunder=watchpointsfo
+ stackedunder=threadsfo
  parent=
  mdistate=0
  nx=0
@@ -1043,7 +1043,7 @@ windowlayout=557
  [mainfo.panel1]
  splitdir=2
  useroptions=32235
- stackedunder=mainfo
+ stackedunder=formdesignerfo
  parent=
  mdistate=0
  nx=0
@@ -1066,21 +1066,21 @@ finddtext=
 findhistory=0
 findoptions=1
 editpos=2
- 0,-1073741823
+ 0,0
  0,0
 bookmarks0=0
 bookmarks1=0
 sourcefiles=2
- /home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/rs232.pas
- /F:/git/mseuniverse/samples/communication/rs232/main.pas
+ /F:/git/mseuniverse/samples/communication/r232direct/rs232direct.pas
+ /F:/git/mseuniverse/samples/communication/r232direct/main.pas
 relpaths=2
- rs232.pas
+ rs232direct.pas
  main.pas
 ismoduletexts=2
  0
  0
 modules=1
- /F:/git/mseuniverse/samples/communication/rs232/main.mfm
+ /F:/git/mseuniverse/samples/communication/r232direct/main.mfm
 moduleoptions=1
  0
 visiblemodules=1

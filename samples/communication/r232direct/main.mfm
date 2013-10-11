@@ -10,7 +10,7 @@ object mainfo: tmainfo
     280
   )
   statfile = tstatfile1
-  caption = 'MSEide+MSEgui RS232'
+  caption = 'MSEide+MSEgui RS232 direct'
   moduleclassname = 'tmainform'
   object ported: tcommselector
     frame.caption = 'Port'
@@ -138,8 +138,15 @@ object mainfo: tmainfo
     top = 136
   end
   object port: tsercommcomp
-    pipes.oninputavailable = inputavaileexe
+    options = [sco_nopipe]
     left = 88
+    top = 136
+  end
+  object ttimer1: ttimer
+    interval = 100000
+    ontimer = timerexe
+    enabled = True
+    left = 144
     top = 136
   end
 end
