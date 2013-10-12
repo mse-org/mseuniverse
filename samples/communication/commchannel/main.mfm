@@ -1,63 +1,29 @@
 object mainfo: tmainfo
   bounds_x = 215
   bounds_y = 236
-  bounds_cx = 403
+  bounds_cx = 583
   bounds_cy = 290
   container.bounds = (
     0
     0
-    403
+    583
     290
   )
   statfile = tstatfile1
   caption = 'MSEide+MSEgui RS232'
   moduleclassname = 'tmainform'
-  object ported: tcommselector
-    frame.caption = 'Port'
-    frame.outerframe = (
-      0
-      16
-      0
-      0
-    )
-    bounds_x = 8
-    bounds_y = 8
-    bounds_cy = 35
-    statfile = tstatfile1
-    dropdown.options = [deo_autodropdown, deo_keydropdown]
-    onsetvalue = portsetexe
-    ongetactivecommnr = getactivecomexe
-    reffontheight = 13
-  end
-  object activeed: tbooleanedit
-    frame.caption = 'active'
-    frame.dummy = 0
-    frame.outerframe = (
-      0
-      1
-      32
-      1
-    )
-    taborder = 1
-    bounds_x = 120
-    bounds_y = 26
-    bounds_cx = 45
-    bounds_cy = 15
-    onsetvalue = setactiveexe
-  end
   object senddtexted: thistoryedit
     frame.caption = 'Tx-Text'
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
-    taborder = 2
     bounds_x = 8
-    bounds_y = 56
-    bounds_cx = 388
-    bounds_cy = 35
+    bounds_y = 63
+    bounds_cx = 568
+    bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
@@ -66,7 +32,7 @@ object mainfo: tmainfo
     dropdown.cols.items = <    
       item
       end>
-    reffontheight = 13
+    reffontheight = 14
   end
   object rxdata: tstringgrid
     frame.levelo = -1
@@ -74,15 +40,15 @@ object mainfo: tmainfo
     frame.localprops = [frl_levelo]
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
-    taborder = 3
+    taborder = 1
     bounds_x = 8
-    bounds_y = 104
-    bounds_cx = 386
-    bounds_cy = 140
+    bounds_y = 111
+    bounds_cx = 566
+    bounds_cy = 133
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
     datacols.width = 1000
@@ -101,12 +67,12 @@ object mainfo: tmainfo
         numstep = 1
       end>
     rowcountmax = 10000
-    datarowheight = 15
-    reffontheight = 13
+    datarowheight = 16
+    reffontheight = 14
   end
   object clearbu: tbutton
-    taborder = 4
-    bounds_x = 344
+    taborder = 2
+    bounds_x = 524
     bounds_y = 263
     bounds_cx = 50
     bounds_cy = 20
@@ -115,52 +81,67 @@ object mainfo: tmainfo
     caption = '&clear'
     onexecute = clearexe
   end
-  object eor: thexstringedit
-    frame.caption = 'EOR-data'
-    frame.dummy = 0
-    frame.outerframe = (
-      0
-      16
-      0
-      0
-    )
-    taborder = 5
-    bounds_x = 176
-    bounds_y = 8
-    bounds_cy = 35
-    statfile = tstatfile1
-    value = #10
-    onsetvalue = seteorexe
-    reffontheight = 13
-  end
   object statusdisp: tstringdisp
     frame.caption = 'Status'
     frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
-    taborder = 6
+    taborder = 3
     bounds_x = 8
-    bounds_y = 249
+    bounds_y = 247
     bounds_cx = 332
-    bounds_cy = 33
+    bounds_cy = 35
     anchors = [an_left, an_bottom]
-    reffontheight = 13
+    reffontheight = 14
+  end
+  inline portfra: tportsettingsfra
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 8
+    inherited ported: tcommselector
+    end
+    inherited bauded: tenumtypeedit
+      dropdown.cols.items = <      
+        item
+        end>
+    end
+    inherited databitsed: tenumtypeedit
+      dropdown.cols.items = <      
+        item
+        end>
+    end
+    inherited parityed: tenumtypeedit
+      dropdown.cols.items = <      
+        item
+        end>
+    end
+    inherited stopbited: tenumtypeedit
+      dropdown.cols.items = <      
+        item
+        end>
+    end
+    inherited eor: thexstringedit
+      onsetvalue = seteorexe
+    end
+    inherited activeed: tbooleanedit
+    end
+    inherited port: tsercommcomp
+    end
+    inherited tstatfile1: tstatfile
+      statfile = tstatfile1
+    end
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
     left = 16
     top = 136
   end
-  object port: tsercommcomp
-    left = 88
-    top = 136
-  end
   object conn: tasynsercommchannel
-    sercomm = port
+    sercomm = portfra.port
     eor = #10
     onresponse = responseexe
     left = 144
