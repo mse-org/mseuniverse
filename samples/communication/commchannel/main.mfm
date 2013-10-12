@@ -10,20 +10,20 @@ object mainfo: tmainfo
     290
   )
   statfile = tstatfile1
-  caption = 'MSEide+MSEgui RS232'
+  caption = 'MSEide+MSEgui commchannel'
   moduleclassname = 'tmainform'
   object senddtexted: thistoryedit
     frame.caption = 'Tx-Text'
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     bounds_x = 8
-    bounds_y = 63
+    bounds_y = 64
     bounds_cx = 568
-    bounds_cy = 37
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
@@ -32,7 +32,7 @@ object mainfo: tmainfo
     dropdown.cols.items = <    
       item
       end>
-    reffontheight = 14
+    reffontheight = 13
   end
   object rxdata: tstringgrid
     frame.levelo = -1
@@ -40,15 +40,15 @@ object mainfo: tmainfo
     frame.localprops = [frl_levelo]
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 1
     bounds_x = 8
-    bounds_y = 111
+    bounds_y = 112
     bounds_cx = 566
-    bounds_cy = 133
+    bounds_cy = 132
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
     datacols.width = 1000
@@ -67,11 +67,11 @@ object mainfo: tmainfo
         numstep = 1
       end>
     rowcountmax = 10000
-    datarowheight = 16
-    reffontheight = 14
+    datarowheight = 15
+    reffontheight = 13
   end
   object clearbu: tbutton
-    taborder = 2
+    taborder = 3
     bounds_x = 524
     bounds_y = 263
     bounds_cx = 50
@@ -86,20 +86,20 @@ object mainfo: tmainfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
-    taborder = 3
+    taborder = 4
     bounds_x = 8
-    bounds_y = 247
+    bounds_y = 249
     bounds_cx = 332
-    bounds_cy = 35
+    bounds_cy = 33
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 13
   end
   inline portfra: tportsettingsfra
-    taborder = 4
+    taborder = 2
     bounds_x = 8
     bounds_y = 8
     inherited ported: tcommselector
