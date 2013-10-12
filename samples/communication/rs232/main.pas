@@ -6,27 +6,19 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msecommport,
  msecommutils,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,
  msestrings,msetypes,msegraphedits,msescrollbar,msegrids,msesimplewidgets,
- msewidgets,msestatfile,msesercomm;
+ msewidgets,msestatfile,msesercomm,portsettingsframe;
 
 type
  tmainfo = class(tmainform)
-   ported: tcommselector;
-   activeed: tbooleanedit;
    senddtexted: thistoryedit;
    rxdata: tstringgrid;
    clearbu: tbutton;
    tstatfile1: tstatfile;
-   port: tsercommcomp;
-   eor: thexstringedit;
+   portfra: tportsettingsfra;
    procedure clearexe(const sender: TObject);
-   procedure portsetexe(const sender: TObject; var avalue: commnrty;
-                   var accept: Boolean);
-   procedure setactiveexe(const sender: TObject; var avalue: Boolean;
-                   var accept: Boolean);
    procedure sendtextexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure inputavaileexe(const sender: tcustomcommpipes);
-   procedure getactivecommexe(const sender: TObject; var avalue: commnrty);
  end;
 var
  mainfo: tmainfo;
@@ -41,40 +33,10 @@ begin
  rxdata.clear;
 end;
 
-procedure tmainfo.portsetexe(const sender: TObject; var avalue: commnrty;
-               var accept: Boolean);
-begin
- try
-  if avalue = cnr_invalid then begin //special comm name
-   port.port.commname:= tcommselector(sender).valuename;
-  end
-  else begin
-   port.port.commname:= '';          //normal comm nr
-   port.port.commnr:= avalue;
-  end;
- finally
-  activeed.value:= port.active; //reset in case of error
- end;
-end;
-
-procedure tmainfo.getactivecommexe(const sender: TObject; var avalue: commnrty);
-begin
- //add current port to dropdown list
- if port.active and (port.port.commname = '') then begin
-  avalue:= port.port.commnr;
- end;
-end;
-
-procedure tmainfo.setactiveexe(const sender: TObject; var avalue: Boolean;
-               var accept: Boolean);
-begin
- port.active:= avalue;
-end;
-
 procedure tmainfo.sendtextexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
- port.pipes.tx.write(avalue+eor.value);
+ portfra.port.pipes.tx.write(avalue+portfra.eor.value);
 end;
 
 procedure tmainfo.inputavaileexe(const sender: tcustomcommpipes);

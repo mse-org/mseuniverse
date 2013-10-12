@@ -1,0 +1,177 @@
+object portsettingsfra: tportsettingsfra
+  frame.levelo = 1
+  frame.leveli = -1
+  frame.framei_left = 2
+  frame.framei_top = 2
+  frame.framei_right = 2
+  frame.framei_bottom = 2
+  frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+  frame.dummy = 0
+  bounds_x = 651
+  bounds_y = 181
+  bounds_cx = 567
+  bounds_cy = 45
+  optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
+  optionslayout = [lao_placex, lao_aligny]
+  align_glue = wam_center
+  place_mindist = 8
+  place_maxdist = 8
+  onloaded = loadedexe
+  moduleclassname = 'tsubform'
+  object ported: tcommselector
+    frame.caption = 'Port'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 4
+    bounds_y = 4
+    bounds_cy = 37
+    statfile = tstatfile1
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
+    onsetvalue = portsetexe
+    ongetactivecommnr = getactivecommexe
+    reffontheight = 14
+  end
+  object bauded: tenumtypeedit
+    frame.caption = 'Baud'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 112
+    bounds_y = 4
+    bounds_cx = 76
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 0
+    min = 0
+    onsetvalue = baudset
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = baudinit
+    reffontheight = 14
+  end
+  object databitsed: tenumtypeedit
+    frame.caption = 'Databits'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 196
+    bounds_y = 4
+    bounds_cx = 76
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 0
+    min = 0
+    onsetvalue = databitsset
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = databitsinit
+    reffontheight = 14
+  end
+  object parityed: tenumtypeedit
+    frame.caption = 'Parity'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 280
+    bounds_y = 4
+    bounds_cx = 76
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 0
+    min = 0
+    onsetvalue = parityset
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = parityinit
+    reffontheight = 14
+  end
+  object stopbited: tenumtypeedit
+    frame.caption = 'Stopbits'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 364
+    bounds_y = 4
+    bounds_cx = 76
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 0
+    min = 0
+    onsetvalue = stopbitset
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = stobbitsinit
+    reffontheight = 14
+  end
+  object eor: thexstringedit
+    frame.caption = 'EOR-data'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 448
+    bounds_y = 4
+    bounds_cx = 60
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = #10
+    reffontheight = 14
+  end
+  object activeed: tbooleanedit
+    frame.caption = 'active'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      34
+      2
+    )
+    taborder = 6
+    bounds_x = 516
+    bounds_y = 24
+    bounds_cx = 47
+    bounds_cy = 16
+    onsetvalue = activeset
+  end
+  object port: tsercommcomp
+    left = 48
+    top = 16
+  end
+  object tstatfile1: tstatfile
+    options = [sfo_transaction, sfo_savedata, sfo_activatorread, sfo_activatorwrite]
+    left = 136
+    top = 16
+  end
+end
