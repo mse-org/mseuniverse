@@ -27,7 +27,7 @@ uses
  plotsform,netlistform,paramform;
 begin
 // application.createdatamodule(tskinmo,skinmo);
- application.createdatamodule(tguitemplatesmo,guitemplatesmo);
+// application.createdatamodule(tguitemplatesmo,guitemplatesmo);
  msebegingloballoading;
 // application.createdatamodule(tmainmo,mainmo);
  application.createform(tmainfo,mainfo);

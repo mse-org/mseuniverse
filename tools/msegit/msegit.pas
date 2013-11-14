@@ -30,7 +30,7 @@ uses
  msegui,mseforms,main,mainmodule,gitdirtreeform,filesform,stashform,guitemplates,
  remotesform,gitconsole,diffwindow,branchform,logform,tagsform;
 begin
- application.createdatamodule(tguitemplatesmo,guitemplatesmo);
+// application.createdatamodule(tguitemplatesmo,guitemplatesmo);
  application.createform(tgitdirtreefo,gitdirtreefo);
  application.createform(tfilesfo,filesfo);
  application.createform(tstashfo,stashfo);
