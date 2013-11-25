@@ -786,7 +786,8 @@ procedure tmainmo.readmergeinfo;
 var
  str1,str2: string;
 begin
- if tryreadfiledatastring('.git/MERGE_HEAD',str1) then begin
+ if tryreadfiledatastring('.git/MERGE_HEAD',str1) or 
+         tryreadfiledatastring('.git/CHERRY_PICK_HEAD',str1) then begin
   fmergehead:= utf8tostring(str1);
   if tryreadfiledatastring('.git/MERGE_MSG',str2) then begin
    fmergemessage:= utf8tostring(str2);
