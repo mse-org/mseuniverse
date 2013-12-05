@@ -136,8 +136,13 @@ type
  end;
  
  tgittagstreerootnode = class(tgittagstreenode)
-  public
+  private
+   floaded: boolean;
+  protected
    procedure load;
+  public
+   procedure reset;
+   procedure update;
  end;
  
  trepostat = class(toptions)
@@ -920,7 +925,7 @@ begin
    end;
    fgit.status(frepo,getorigin,ffilecache,fgitstate);
    loadstash;
-   ftagstree.load;
+   ftagstree.reset;
    fdirtree.loaddirtree(frepo);
    fdirtree.sort(false,true);
    fgit.lsfiles(frepo,false,false,false,true,fgitstate,ffilecache);
@@ -2914,6 +2919,20 @@ begin
   end;
  end;
  sort(false,true);
+end;
+
+procedure tgittagstreerootnode.reset;
+begin
+ floaded:= false;
+ clear;
+end;
+
+procedure tgittagstreerootnode.update;
+begin
+ if not floaded then begin
+  floaded:= true;
+  load;
+ end;
 end;
 
 end.

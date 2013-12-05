@@ -29,11 +29,12 @@ type
   private
    fexpandedsave: expandedinfoarty;
    ftagstreebefore: tgittagstreenode;  
+   procedure updategrid;
   public
    procedure savestate;
    procedure restorestate;
+   procedure dorefresh; override;
    procedure dorepoloaded; override;
-//   procedure dorefresh; override;
    procedure doclear; override;
  end;
  
@@ -69,15 +70,28 @@ begin
  }
 end;
 
+procedure ttagsfo.updategrid;
+begin
+ mainmo.tagstree.update;
+ grid.sorted:= false;
+ treeed.itemlist.addchildren(mainmo.tagstree); 
+ grid.sorted:= true;
+end;
+
+procedure ttagsfo.dorefresh;
+begin
+ updategrid;
+end;
+
 procedure ttagsfo.dorepoloaded;
 begin
 // mainmo.tagstree.expanded:= true;
  if mainfo.refreshing then begin
   grid.clear;
  end;
- grid.sorted:= false;
- treeed.itemlist.addchildren(mainmo.tagstree); 
- grid.sorted:= true;
+ if visible then begin
+  updategrid;
+ end;
 end;
 
 procedure ttagsfo.doclear;

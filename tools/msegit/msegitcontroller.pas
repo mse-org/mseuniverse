@@ -291,6 +291,8 @@ type
    function getsha1(const arev: msestring): msestring;
    function getrefinfo(const arev: msestring;
                                  out ainfo: refinfoty): boolean;
+   function getrefinfo(const prefix: msestring; const arev: msestringarty;
+                                 out ainfo: refinfoarty): boolean;
    function fmtmergemsg(const arev: msestring;
                                       out amessage: msestring): boolean;
    function issha1(const avalue: string; var asha1: string): boolean;
@@ -1095,7 +1097,34 @@ parseerror:
  }
  end;
 end;
-
+//{
+function tgitcontroller.tagsshow(out adest: tagsinfoarty): boolean;
+var
+ mstr1: msestring;
+ ar1: msestringarty;
+ int1: integer;
+ ar2: refinfoarty;
+begin
+ adest:= nil;
+ result:= commandresult1('tag',mstr1);
+ if result then begin
+  ar1:= breaklines(mstr1);
+  if high(ar1) > 0 then begin
+   result:= getrefinfo(tagref,ar1,ar2);
+   setlength(adest,length(ar2));
+   for int1:= 0 to high(adest) do begin
+    with adest[int1] do begin
+     ref.kind:= refk_tag;
+     ref.name:= ar1[int1];
+     info:= ar2[int1];
+     ref.commit:= info.commit;
+    end;
+   end;
+  end;
+ end;
+end;
+//}
+{
 function tgitcontroller.tagsshow(out adest: tagsinfoarty): boolean;
 var
  mstr1: msestring;
@@ -1119,7 +1148,7 @@ begin
   end;
  end;
 end;
-
+}
 function tgitcontroller.branchshow(out adest: localbranchinfoarty;
                            out activebranch,activecommit: msestring): boolean;
 var
@@ -1680,6 +1709,94 @@ begin
  if result then begin
   result:= decodecommit(mstr1,@ainfo,nil);
  end;
+end;
+
+function tgitcontroller.getrefinfo(const prefix: msestring; 
+               const arev: msestringarty; out ainfo: refinfoarty): boolean;
+var
+ po,poend: pmsechar;
+
+ function item(out res: msestring): boolean;
+ var
+  po1,po2,po3,po4: pmsechar;
+ begin
+  po1:= po;
+  po4:= poend;
+  inc(po1);
+  while (po1^ = c_return) or (po1^ = c_linefeed) do begin
+   inc(po1);
+  end;
+  po2:= po1;
+  while (po1^ <> #0) and (po1 < po4) do begin
+   inc(po1);
+  end;
+  po3:= po1;
+  res:= psubstr(po2,po3);
+  result:= po1 >= po4;
+  po:= po1;
+ end;
+
+var
+ mstr1,mstr2: msestring;
+ str1: string;
+ int1,int2,int3: integer;
+ bo1: boolean;
+ lwo1: longword;
+begin
+ setlength(ainfo,length(arev)); //max
+ int1:= 0;
+ int2:= 0;
+ while int2 <= high(arev) do begin
+  str1:= '';
+  int3:= 0;
+  while (int2 <= high(arev)) and (int3 < 50) do begin
+   if arev[int2] <> '' then begin
+    str1:= str1+' '+encodestringparam(prefix+arev[int2]);
+   end;
+   inc(int2);
+   inc(int3);
+  end;
+//writefiledatastring('test.txt',
+//     'git show --format=format:"%x00%H%x00%cN%x00%ct%x00%s%x00" -s'+str1+
+//                                                             '>test1.txt');
+  result:= commandresult1(
+ //   'show --format=raw -s'+str1,mstr1);
+    'show --format=format:"%x00%H%x00%cN%x00%ct%x00%s%x00" -s'+str1,mstr1);
+  if not result then begin
+   break;
+  end;
+  if mstr1 <> '' then begin
+   po:= pmsechar(mstr1);
+   poend:= po+length(mstr1);
+   dec(po);
+   while int1 < int2 do begin
+    with ainfo[int1] do begin
+     commitdate:= emptydatetime;
+     if item(mstr2) then begin //dummy
+      break;
+     end;
+     if item(commit) then begin
+      break;
+     end;
+     if item(committer) then begin
+      break;
+     end;     
+     bo1:= item(mstr2);
+     if trystrtointmse(mstr2,lwo1) then begin
+      commitdate:= unixtodatetime(lwo1);
+     end;
+     if bo1 then begin
+      break;
+     end;
+     if item(message) then begin
+      break;
+     end;
+    end;
+    inc(int1);
+   end;
+  end;
+ end;
+ setlength(ainfo,int1);
 end;
 
 function tgitcontroller.fmtmergemsg(const arev: msestring;
