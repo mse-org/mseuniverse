@@ -1720,12 +1720,12 @@ var
  var
   po1,po2,po3,po4: pmsechar;
  begin
-  po1:= po;
+  po1:= po+1;
   po4:= poend;
-  inc(po1);
-  while (po1^ = c_return) or (po1^ = c_linefeed) do begin
-   inc(po1);
-  end;
+//  inc(po1);
+//  while (po1^ = c_return) or (po1^ = c_linefeed) do begin
+//   inc(po1);
+//  end;
   po2:= po1;
   while (po1^ <> #0) and (po1 < po4) do begin
    inc(po1);
