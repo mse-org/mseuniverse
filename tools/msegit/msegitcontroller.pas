@@ -1715,19 +1715,17 @@ function tgitcontroller.getrefinfo(const prefix: msestring;
                const arev: msestringarty; out ainfo: refinfoarty): boolean;
 var
  po,poend: pmsechar;
-
+const
+ sepchar = msechar(#1); //#0 does not work on windows
+ 
  function item(out res: msestring): boolean;
  var
   po1,po2,po3,po4: pmsechar;
  begin
   po1:= po+1;
   po4:= poend;
-//  inc(po1);
-//  while (po1^ = c_return) or (po1^ = c_linefeed) do begin
-//   inc(po1);
-//  end;
   po2:= po1;
-  while (po1^ <> #0) and (po1 < po4) do begin
+  while (po1^ <> sepchar) and (po1 < po4) do begin
    inc(po1);
   end;
   po3:= po1;
@@ -1761,7 +1759,7 @@ begin
 //                                                             '>test1.txt');
   result:= commandresult1(
  //   'show --format=raw -s'+str1,mstr1);
-    'show --format=format:"%x00%H%x00%cN%x00%ct%x00%s%x00" -s'+str1,mstr1);
+    'show --format=format:"%x01%H%x01%cN%x01%ct%x01%s%x01" -s'+str1,mstr1);
   if not result then begin
    break;
   end;
