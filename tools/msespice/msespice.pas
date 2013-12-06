@@ -23,7 +23,7 @@ program msespice;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
- msegui,mseforms,main,mainmodule,guitemplates,mseclasses,consoleform,
+ msegui,mseforms,main,mainmodule,loadguitemplates,mseclasses,consoleform,
  plotsform,netlistform,paramform;
 begin
 // application.createdatamodule(tskinmo,skinmo);

@@ -115,6 +115,6 @@ begin
  skin.active:= not sysenv.defined[ord(env_ns)];
 end;
 
-initialization
- application.createdatamodule(tguitemplatesmo,guitemplatesmo);
+//initialization
+// application.createdatamodule(tguitemplatesmo,guitemplatesmo);
 end.
