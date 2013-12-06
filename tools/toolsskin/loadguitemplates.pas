@@ -3,7 +3,7 @@ unit loadguitemplates;
 interface
 implementation
 uses
- msegit,guitemplates;
+ msegui,guitemplates;
 initialization
  application.createdatamodule(tguitemplatesmo,guitemplatesmo);
 end.
