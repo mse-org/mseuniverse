@@ -319,9 +319,12 @@ settingsstorage=0
 settingsprojecttree=0
 settingsautoload=0
 settingsautosave=0
-modulenames=0
-moduletypes=0
-modulefiles=0
+modulenames=1
+ MAINFO
+moduletypes=1
+ TMAINFO
+modulefiles=1
+ /home/mse/packs/standard/git/mseuniverse/samples/db/gridcolorlines/main.mfm
 befcommandon=0
 makeoptionson=4
  63
@@ -509,7 +512,22 @@ panels=1
  panel1
 units=
  (
- a=0,4132,6,Pascal Units
+ a=0,4148,6,Pascal Units
+ c=1
+  (
+  file=../../skin/defaultskin.pas
+  kind=1
+  a=0,4116,2,defaultskin.pas
+  c=1
+   (
+   file=../../skin/defaultskin.mfm
+   kind=2
+   a=0,5140,0,defaultskin
+   classtype=tdefaultskinmo
+   formname=defaultskinmo
+   instancevarname=defaultskinmo
+   )
+  )
  )
 cmodules=
  (
@@ -574,8 +592,9 @@ windowlayout=568
  cy=307
  [mainfo.openfile]
  filenames=1
-  /home/mse/packs/standard/git/mseuniverse/samples/db/gridcolorlines/main.pas
+  /home/mse/packs/standard/git/mseuniverse/samples/skin/defaultskin.pas
  filehistory=10
+  /home/mse/packs/standard/git/mseuniverse/samples/skin/defaultskin.pas
   /home/mse/packs/standard/git/mseuniverse/samples/db/gridcolorlines/main.pas
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/breakpointsform.pas
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/syntaxdefs/pascal.sdef
@@ -585,7 +604,6 @@ windowlayout=568
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/main.pas
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/actionsmodule.pas
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/sourceform.pas
-  /home/mse/packs/standard/git/mseide-msegui/apps/ide/sourcepage.pas
  filefilterindex=0
  filefilter="*.pp" "*.pas" "*.inc" "*.dpr"
  filecolwidth=174
@@ -681,7 +699,7 @@ windowlayout=568
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=objectinspectorfo
+ stackedunder=formdesignerfo
  parent=
  mdistate=0
  nx=0
@@ -716,7 +734,7 @@ windowlayout=568
  [projecttreefo]
  splitdir=0
  useroptions=16491
- stackedunder=memoryfo
+ stackedunder=formdesignerfo
  parent=
  mdistate=0
  nx=0
@@ -731,7 +749,7 @@ windowlayout=568
  rcy=0
  wsize=0
  active=0
- visible=0
+ visible=1
  [projecttreefo.grid]
  propcolwidthref=547
  width0=141
@@ -740,7 +758,7 @@ windowlayout=568
  sortdescend1=0
  sorted=0
  col=0
- row=0
+ row=-1073741823
  rowheight=16
  [stackfo]
  splitdir=0
@@ -805,7 +823,7 @@ windowlayout=568
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- stackedunder=projecttreefo
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -826,7 +844,7 @@ windowlayout=568
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=targetconsolefo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -841,12 +859,12 @@ windowlayout=568
  rcy=0
  wsize=0
  active=0
- visible=0
+ visible=1
  [objectinspectorfo.grid]
- propcolwidthref=347
- width0=113
+ propcolwidthref=291
+ width0=95
  sortdescend0=0
- width1=187
+ width1=190
  sortdescend1=0
  [symbolfo]
  splitdir=0
@@ -1009,7 +1027,7 @@ windowlayout=568
  [componentpalettefo]
  splitdir=0
  useroptions=24683
- stackedunder=mainfo.panel1
+ stackedunder=projecttreefo
  parent=
  mdistate=0
  nx=0
@@ -1108,28 +1126,31 @@ hintheight=0
 finddtext=
 findhistory=0
 findoptions=1
-editpos=2
- 0,-1073741823
+editpos=1
  0,0
 bookmarks0=0
-bookmarks1=0
-sourcefiles=2
+sourcefiles=1
  /home/mse/packs/standard/git/mseuniverse/samples/db/gridcolorlines/main.pas
- /home/mse/packs/standard/git/mseuniverse/samples/db/gridcolorlines/main.mfm
-relpaths=2
+relpaths=1
  main.pas
- main.mfm
-ismoduletexts=2
+ismoduletexts=1
+ 0
+modules=2
+ /home/mse/packs/standard/git/mseuniverse/samples/skin/defaultskin.mfm
+ /home/mse/packs/standard/git/mseuniverse/samples/db/gridcolorlines/main.mfm
+moduleoptions=2
+ 0
+ 0
+visiblemodules=2
  0
  -1
-modules=0
-moduleoptions=0
-visiblemodules=0
-nomenumodules=0
+nomenumodules=2
+ -1
+ 0
 [sourcefo.tabwidget]
 tabsize=134
 firsttab=0
-index=1
+index=0
 [targetconsole]
 finddtext=
 findhistory=0
