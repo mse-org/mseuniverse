@@ -1,0 +1,110 @@
+object defaultskinmo: tdefaultskinmo
+  bounds_cx = 483
+  bounds_cy = 132
+  left = 103
+  top = 153
+  moduleclassname = 'tmsedatamodule'
+  object fadevertkonvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_down
+    left = 24
+    top = 16
+  end
+  object fadehorzconvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    left = 24
+    top = 40
+  end
+  object fadehorzconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_left
+    left = 144
+    top = 40
+  end
+  object fadevertconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_up
+    left = 144
+    top = 16
+  end
+  object skin: tskincontroller
+    active = True
+    extenders = 0
+    sb_horz_facebutton = fadevertkonvex
+    sb_horz_faceendbutton = fadevertkonvex
+    sb_vert_facebutton = fadehorzconvex
+    sb_vert_faceendbutton = fadehorzconvex
+    stepbutton_face = fadehorzconvex
+    widget_color = -2147483645
+    container_face = fadehorzconvex
+    grid_fixrows_face = fadevertkonvex
+    button_face = fadevertkonvex
+    databutton_face = fadevertkonvex
+    framebutton_face = fadehorzconvex
+    tabbar_horz_face = fadevertconcave
+    tabbar_horz_tab_face = fadevertkonvex
+    tabbar_horzopo_face = fadevertconcave
+    tabbar_horzopo_tab_face = fadevertkonvex
+    tabbar_vert_face = fadehorzconcave
+    tabbar_vert_tab_face = fadevertkonvex
+    tabbar_vertopo_face = fadehorzconcave
+    tabbar_vertopo_tab_face = fadevertkonvex
+    mainmenu_face = fadevertconcave
+    left = 24
+    top = 72
+  end
+  object fadecontainer: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612731
+      13421772
+    )
+    left = 144
+    top = 72
+  end
+  object nullface: tfacecomp
+    left = 272
+    top = 16
+  end
+end
