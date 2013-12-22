@@ -1,12 +1,12 @@
 object mainfo: tmainfo
   bounds_x = 100
   bounds_y = 265
-  bounds_cx = 403
+  bounds_cx = 562
   bounds_cy = 280
   container.bounds = (
     0
     0
-    403
+    562
     280
   )
   caption = 'MSEide+MSEgui'
@@ -32,7 +32,7 @@ object mainfo: tmainfo
     taborder = 1
     bounds_x = 8
     bounds_y = 40
-    bounds_cx = 386
+    bounds_cx = 249
     bounds_cy = 234
     anchors = [an_left, an_top, an_right, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -67,10 +67,12 @@ object mainfo: tmainfo
     datacols.count = 2
     datacols.items = <    
       item[colornumed]
+        onafterdrawcell = afraw
         widgetname = 'colornumed'
       end    
       item[stringed]
         width = 156
+        onbeforedrawcell = befdraw
         widgetname = 'stringed'
       end>
     datalink.datasource = dataso
@@ -103,6 +105,48 @@ object mainfo: tmainfo
       datalink.fieldname = 'str1'
       reffontheight = 14
     end
+  end
+  object tdbstringgrid1: tdbstringgrid
+    frame.sbvert.pagesize = 0.5
+    taborder = 2
+    bounds_x = 280
+    bounds_y = 40
+    bounds_cx = 266
+    bounds_cy = 226
+    datacols.count = 2
+    datacols.items = <    
+      item
+        width = 70
+        datafield = 'color'
+        textflags = [tf_right, tf_ycentered, tf_noselect]
+      end    
+      item
+        width = 140
+        onbeforedrawcell = befdraw
+        onafterdrawcell = afraw
+        datafield = 'str1'
+      end>
+    datalink.datasource = dataso
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'color'
+          end        
+          item
+            caption = 'str1'
+          end>
+      end>
+    datarowheight = 16
+    reffontheight = 14
   end
   object ds: tlocaldataset
     logfilename = 'test.db'

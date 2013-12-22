@@ -97,8 +97,10 @@ function unifyexpression(aexpression: msestring): msestring;
 const
  plotnames: array[plotkindty] of string = ('dc','ac','tran');
  stepfunctions: array[stepkindty] of string =(
-  //(sk_lin,sk_log,sk_gauss,sk_agauss,sk_unif,sk_aunif,sk_limit);
-       '',    '',    'gauss', 'agauss', 'unif', 'aunif', 'limit');
+  //(sk_lin,sk_log,sk_gauss,     sk_agauss,    sk_unif,    sk_aunif,);
+     '',    '',    'mse_gauss', 'mse_agauss', 'mse_unif', 'mse_aunif',
+     //sk_limit
+      'mse_limit');
 
 implementation
 uses

@@ -554,11 +554,11 @@ begin
   stream2.writeln('.control');
   stream2.writeln(' set appendwrite');
   stream2.writeln(
-  ' define unif(nom, rvar) (nom + (nom*rvar) * sunif(0))'+lineend+
-  ' define aunif(nom, avar) (nom + avar * sunif(0))'+lineend+
-  ' define gauss(nom, rvar, sig) (nom + (nom*rvar)/sig * sgauss(0))'+lineend+
-  ' define agauss(nom, avar, sig) (nom + avar/sig * sgauss(0))'+lineend+
-  ' define limit(nom, avar) (nom + ((sgauss(0) >= 0) ? avar : -avar))');
+  ' define mse_unif(nom, rvar) (nom + (nom*rvar) * sunif(0))'+lineend+
+  ' define mse_aunif(nom, avar) (nom + avar * sunif(0))'+lineend+
+  ' define mse_gauss(nom, rvar, sig) (nom + (nom*rvar)/sig * sgauss(0))'+lineend+
+  ' define mse_agauss(nom, avar, sig) (nom + avar/sig * sgauss(0))'+lineend+
+  ' define mse_limit(nom, avar) (nom + ((sgauss(0) >= 0) ? avar : -avar))');
   stream2.writeln(' set curplot = new');
   for int1:= 0 to plotsfo.tabs.count - 1 do begin
    with tplotpagefo(plotsfo.tabs[int1]) do begin
