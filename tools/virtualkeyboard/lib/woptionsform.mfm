@@ -1,0 +1,150 @@
+inherited woptionsfo: twoptionsfo
+  optionsskin = [osk_noskin]
+  frame.font.color = -1610612730
+  frame.font.height = 13
+  frame.font.xscale = 1
+  frame.font.dummy = 0
+  frame.template = frmkeyboardfo.framecont
+  frame.dummy = 0
+  face.template = frmkeyboardfo.facecont
+  face.dummy = 0
+  bounds_x = 170
+  bounds_y = 299
+  bounds_cx = 639
+  bounds_cy = 207
+  moduleclassname = 'tkeypanelfo'
+  object wlang: tstringgrid[0]
+    optionswidget = [ow_focusbackonesc, ow_mousewheel, ow_destroywidgets]
+    color = -2147483645
+    frame.caption = 'Language'
+    frame.font.color = -1610612730
+    frame.font.height = 13
+    frame.font.xscale = 1
+    frame.font.dummy = 0
+    frame.template = frmkeyboardfo.framebutton
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    bounds_x = 18
+    bounds_y = 41
+    bounds_cx = 306
+    bounds_cy = 148
+    font.color = -1610612730
+    font.height = 13
+    font.name = 'stf_default'
+    font.xscale = 1
+    font.dummy = 0
+    datacols.count = 2
+    datacols.linecolor = -1610612730
+    datacols.linecolorfix = -1610612730
+    datacols.options = [co_readonly, co_focusselect, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item
+        linecolor = -1610612730
+        linecolorfix = -1610612730
+        options = [co_readonly, co_focusselect, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+        datalist.data = (
+          'US'
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        linecolor = -1610612730
+        linecolorfix = -1610612730
+        width = 252
+        options = [co_readonly, co_focusselect, co_rowselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        datalist.data = (
+          'US Keyboard'
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        frame.localprops = [frl_framewidth]
+        frame.dummy = 0
+        face.template = frmkeyboardfo.facefunct
+        face.dummy = 0
+        height = 18
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'Code'
+          end        
+          item
+            caption = 'Name'
+          end>
+      end>
+    rowcount = 1
+    datarowheight = 18
+    reffontheight = 16
+  end
+  object btnclose: tstockglyphbutton[1]
+    Tag = -1
+    optionswidget = [ow_destroywidgets]
+    frame.frameface_list = frmkeyboardfo.facelistfunct
+    frame.frameface_offsetmouse = 1
+    frame.frameface_offsetclicked = 1
+    frame.frameface_offsetactive = 1
+    frame.frameface_offsetactivemouse = 1
+    frame.frameface_offsetactiveclicked = 1
+    frame.font.color = -1610612730
+    frame.font.height = 13
+    frame.font.xscale = 1
+    frame.font.dummy = 0
+    frame.localprops1 = [frl1_framefacelist, frl1_framefaceoffsetmouse, frl1_framefaceoffsetclicked, frl1_framefaceoffsetactive, frl1_framefaceoffsetactivemouse, frl1_framefaceoffsetactiveclicked]
+    frame.template = frmkeyboardfo.framebutton
+    frame.dummy = 0
+    taborder = 1
+    bounds_x = 513
+    bounds_y = 146
+    bounds_cx = 112
+    bounds_cy = 45
+    state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+    caption = 'Close'
+    font.color = -1610612730
+    font.height = 13
+    font.style = [fs_bold]
+    font.name = 'stf_default'
+    font.xscale = 1
+    font.dummy = 0
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+    onexecute = closeexe
+  end
+  object wautocapital: tbooleanedit[2]
+    optionswidget = [ow_destroywidgets]
+    color = -2147483645
+    frame.levelo = 0
+    frame.framewidth = 1
+    frame.colorframe = -1610612730
+    frame.colorclient = -2147483645
+    frame.caption = 'Auto capitalize first letter'
+    frame.captiondist = 0
+    frame.font.color = -1610612730
+    frame.font.height = 13
+    frame.font.xscale = 1
+    frame.font.dummy = 0
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = [frl1_captiondist]
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      2
+      145
+      3
+    )
+    face.template = frmkeyboardfo.facefunct
+    face.dummy = 0
+    taborder = 2
+    bounds_x = 18
+    bounds_y = 17
+    bounds_cx = 158
+    bounds_cy = 18
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+  end
+end

@@ -1,0 +1,192 @@
+object frmkeyboardfo: tfrmkeyboardfo
+  optionswidget = [ow_mousewheel, ow_destroywidgets, ow_hinton]
+  optionsskin = [osk_noskin]
+  visible = False
+  bounds_x = 228
+  bounds_y = 379
+  bounds_cx = 634
+  bounds_cy = 202
+  container.optionswidget = [ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets]
+  container.frame.framewidth = 1
+  container.frame.colorframe = -1610612730
+  container.frame.localprops = [frl_framewidth, frl_colorframe]
+  container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
+  container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
+  container.bounds = (
+    0
+    0
+    634
+    202
+  )
+  optionswindow = [wo_popup, wo_noactivate]
+  onwidgetactivechanged = widgetactivechangeexe
+  onasyncevent = asynceventexe
+  moduleclassname = 'tmseform'
+  object facewarn2: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      16726072
+      16751772
+    )
+    template.fade_direction = gd_up
+    left = 480
+    top = 120
+  end
+  object facefunct2: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      217
+      6842595
+    )
+    template.fade_direction = gd_up
+    left = 480
+    top = 32
+  end
+  object facelistwarn: tfacelist
+    list.count = 2
+    list.items = <    
+      item
+        template = facewarn
+        dummy = 0
+      end    
+      item
+        template = facewarn2
+        dummy = 0
+      end>
+    left = 144
+  end
+  object facelistfunct: tfacelist
+    list.count = 2
+    list.items = <    
+      item
+        template = facefunct
+        dummy = 0
+      end    
+      item
+        template = facefunct2
+        dummy = 0
+      end>
+    left = 144
+    top = 32
+  end
+  object facenormal2: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      3684408
+      8421504
+    )
+    template.fade_direction = gd_up
+    left = 320
+    top = 48
+  end
+  object facelistnormal: tfacelist
+    list.count = 2
+    list.items = <    
+      item
+        template = facenormal
+        dummy = 0
+      end    
+      item
+        template = facenormal2
+        dummy = 0
+      end>
+    left = 144
+    top = 64
+  end
+  object facecont: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612734
+      5000268
+    )
+    template.fade_direction = gd_up
+    left = 16
+    top = 48
+  end
+  object facefunct: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      191
+      4934609
+    )
+    template.fade_direction = gd_up
+    left = 480
+    top = 8
+  end
+  object framebutton: tframecomp
+    template.framewidth = 1
+    template.colorframe = -1610612730
+    template.font.color = -1610612730
+    template.font.height = 13
+    template.font.xscale = 1
+    template.font.dummy = 0
+    template.optionsskin = [fso_flat]
+    left = 144
+    top = 88
+  end
+  object facenormal: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612734
+      5000268
+    )
+    template.fade_direction = gd_up
+    left = 320
+    top = 72
+  end
+  object facewarn: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612729
+      16741749
+    )
+    template.fade_direction = gd_up
+    left = 480
+    top = 88
+  end
+  object framecont: tframecomp
+    template.framewidth = 1
+    template.colorframe = -1610612730
+    template.font.color = -1610612730
+    template.font.height = 13
+    template.font.xscale = 1
+    template.font.dummy = 0
+    left = 16
+    top = 80
+  end
+end

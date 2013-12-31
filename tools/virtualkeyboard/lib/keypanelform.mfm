@@ -1,0 +1,9 @@
+object keypanelfo: tkeypanelfo
+  optionswidget = [ow_parenttabfocus, ow_arrowfocusin, ow_arrowfocusout, ow_destroywidgets]
+  visible = False
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 124
+  bounds_cy = 100
+  moduleclassname = 'tsubform'
+end
