@@ -1166,6 +1166,7 @@ inherited wcharsfo: twcharsfo
     onexecute = keybuttonexe
   end
   object btnu: tstockglyphbutton[36]
+    Tag = 6
     optionswidget = [ow_destroywidgets]
     frame.frameface_list = frmkeyboardfo.facelistnormal
     frame.frameface_offsetmouse = 1
