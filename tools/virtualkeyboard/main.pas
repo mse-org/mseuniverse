@@ -31,12 +31,19 @@ type
    tfacecomp3: tfacecomp;
    trealedit4: trealedit;
    tstringedit3: tstringedit;
+   procedure showformmodal(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,frmkeyboard;
+ main_mfm,frmkeyboard,frmmodal;
 
+
+procedure tmainfo.showformmodal(const sender: TObject);
+begin
+ application.createform(tfrmmodalfo, frmmodalfo);
+ frmmodalfo.show(true);
+end;
 
 end.

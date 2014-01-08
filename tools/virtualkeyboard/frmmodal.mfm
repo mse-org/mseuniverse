@@ -1,0 +1,66 @@
+object frmmodalfo: tfrmmodalfo
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 494
+  bounds_cy = 270
+  container.bounds = (
+    0
+    0
+    494
+    270
+  )
+  options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  moduleclassname = 'tmseform'
+  object tbutton2: tbutton
+    bounds_x = 312
+    bounds_y = 32
+    bounds_cx = 114
+    bounds_cy = 19
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Close'
+    onexecute = closeform
+  end
+  object tintegeredit1: tintegeredit
+    frame.caption = 'Integer'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 200
+    bounds_y = 14
+    bounds_cy = 39
+    reffontheight = 15
+  end
+  object tmemoedit1: tmemoedit
+    frame.sbhorz.pagesize = 1
+    frame.sbvert.pagesize = 1
+    frame.caption = 'Memo'
+    frame.localprops = [frl_colorclient]
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 14
+    bounds_cx = 188
+    bounds_cy = 87
+    reffontheight = 15
+  end
+  object tcalendardatetimeedit1: tcalendardatetimeedit
+    taborder = 3
+    bounds_x = 112
+    bounds_y = 120
+    bounds_cy = 21
+    value = -Inf
+    min = -Inf
+    max = 401768.99999
+    reffontheight = 15
+  end
+end

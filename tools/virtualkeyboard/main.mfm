@@ -128,8 +128,9 @@ object mainfo: tmainfo
     bounds_y = 32
     bounds_cx = 114
     bounds_cy = 19
-    state = [as_localcaption]
+    state = [as_localcaption, as_localonexecute]
     caption = 'Button 1'
+    onexecute = showformmodal
   end
   object tintegeredit1: tintegeredit
     frame.caption = 'Integer'
@@ -354,6 +355,10 @@ object mainfo: tmainfo
   end
   object tframecomp1: tframecomp
     template.framewidth = 1
+    template.framei_left = 1
+    template.framei_top = 1
+    template.framei_right = 1
+    template.framei_bottom = 1
     left = 200
     top = 176
   end

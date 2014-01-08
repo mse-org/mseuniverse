@@ -27,7 +27,7 @@ order24=0
 [projectoptions]
 projectdir=/home/wahono/msegui/MSEProject/Acosys/virtualkeyboard
 projectfilename=/home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/virtualkeyboard.prj
-findinfiledialog=37
+findinfiledialog=46
  [findinfileadialogfo.subdirs]
  value=1
  [findinfileadialogfo.inopenfiles]
@@ -44,8 +44,9 @@ findinfiledialog=37
   "*.pas" "*.pp" "*.inc"
  [findinfileadialogfo.dir]
  filenames=1
-  /C:/msegui/lib/common/
- filehistory=1
+  /home/wahono/msegui/lib/common/
+ filehistory=2
+  /home/wahono/msegui/lib/common/
   /C:/msegui/lib/common/
  filefilterindex=0
  filefilter="*.pas" "*.pp" "*.inc"
@@ -55,10 +56,18 @@ findinfiledialog=37
  cx=0
  cy=0
  [findinfileadialogfo.findtext]
- value=cantoggle
- history=2
+ value=window.modal
+ history=10
+  window.modal
+  ml_none
+  createdropdownwidget
+  internaldropdown
+  createdropdown
+  showdropdown
+  dropdown
+  wo_noactivate
+  include
   cantoggle
-  
  [findinfileadialogfo]
  stackedunder=
  x=268
@@ -74,14 +83,17 @@ finddialog=8
  y=205
  cx=331
  cy=116
-replacedialog=17
+replacedialog=20
  [replacedialogfo.promptonreplace]
  value=1
  [replacedialogfo.selectedonly]
  value=0
  [replacedialogfo.replacetext]
- value=btnaposthrope
- history=4
+ value=if not (ss_shift in fshiftstate) then
+ history=7
+  if not (ss_shift in fshiftstate) then
+  (ss_shift in fshiftstate)
+  fshiftstate,false
   btnaposthrope
   tstockglyphbutton
   tstockglyphbutton1 (tstockglyphbutton)
@@ -119,7 +131,7 @@ options=99
  sorted=0
  col=0
  row=0
- rowheight=15
+ rowheight=17
  [projectoptionsfo.newfile]
  firsttab=0
  index=2
@@ -141,9 +153,9 @@ options=99
  sortdescend6=0
  [projectoptionsfo.macrosplitter]
  x=0
- y=175
+ y=174
  xprop=1
- yprop=0.34362934362934
+ yprop=0.3443579766537
  [projectoptionsfo.macrogrid]
  propcolwidthref=580
  sortdescend0=0
@@ -185,7 +197,7 @@ options=99
  index=0
  [projectoptionsfo.tabwidget]
  firsttab=0
- index=0
+ index=3
  [projectoptionsfo]
  stackedunder=
  x=151
@@ -241,6 +253,18 @@ fadeeditor=24
  wsize=0
  active=1
  visible=1
+stringlisteditor=5
+ [stringlisteditor]
+ x=177
+ y=203
+ cx=275
+ cy=237
+colordialog=5
+ [colordialogfo]
+ x=140
+ y=234
+ cx=342
+ cy=303
 compnamedialog=5
  [compnametreefo]
  x=533
@@ -461,12 +485,30 @@ settingsstorage=0
 settingsprojecttree=0
 settingsautoload=0
 settingsautosave=0
-modulenames=1
+modulenames=7
+ FRMKEYBOARDFO
+ FRMMODALFO
  MAINFO
-moduletypes=1
+ COLORDIALOGFO
+ FILEDIALOGFO
+ FILEDIALOGRES
+ MSEPOPUPCALENDARFO
+moduletypes=7
+ TFRMKEYBOARDFO
+ TFRMMODALFO
  TMAINFO
-modulefiles=1
+ TCOLORDIALOGFO
+ TFILEDIALOGFO
+ TFILEDIALOGRES
+ TPOPUPCALENDARFO
+modulefiles=7
+ /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/frmkeyboard.mfm
+ /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/frmmodal.mfm
  /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/main.mfm
+ /home/wahono/msegui/lib/common/dialogs/msecolordialog.mfm
+ /home/wahono/msegui/lib/common/dialogs/msefiledialog.mfm
+ /home/wahono/msegui/lib/common/dialogs/msefiledialogres.mfm
+ /home/wahono/msegui/lib/common/dialogs/msepopupcalendar.mfm
 befcommandon=2
  0
  0
@@ -618,7 +660,7 @@ macrovalues=40
  -Os -Xs -XX
  C:\msegui\libi386-win32
  -Twin32
-macrogroup=4
+macrogroup=1
 groupcomments=6
  i386-win32
  i386-linux
@@ -810,11 +852,11 @@ defaultmake=1
 on=1
  -1
 path=1
- /C:/msegui/lib/common/kernel/msegui.pas
+ /home/wahono/msegui/lib/common/editwidgets/msecalendardatetimeedit.pas
 line=1
- 14111
+ 129
 address=1
- 4373993
+ 136617385
 addbkpt=1
  0
 ignore=1
@@ -849,12 +891,14 @@ cy=0
 progparamhistory=0
 envvarons=0
 [layout]
-windowlayout=540
+windowlayout=542
  [mainfo.openform]
- filenames=0
- filehistory=0
+ filenames=1
+  /home/wahono/msegui/lib/common/dialogs/msefiledialogres.mfm
+ filehistory=1
+  /home/wahono/msegui/lib/common/dialogs/msefiledialogres.mfm
  filefilterindex=0
- filefilter=
+ filefilter=*.mfm
  filecolwidth=174
  x=0
  y=0
@@ -881,6 +925,7 @@ windowlayout=540
  [mainfo.openfile]
  filenames=0
  filehistory=10
+  /home/wahono/msegui/lib/common/dialogs/msecolordialog.pas
   /C:/msegui/MSEProject/Acosys/acosysv4/frmkeyboard.pas
   /C:/msegui/lib/addon/repaz/frmevaldialog.pas
   /C:/msegui/lib/common/kernel/mseevent.pas
@@ -890,7 +935,6 @@ windowlayout=540
   /home/wahono/msegui/lib/addon/repaz/repazmultitablereporth.inc
   /home/wahono/msegui/lib/addon/repaz/repazclasses.pas
   /home/wahono/msegui/lib/addon/repaz/repazdesign.pas
-  /home/wahono/msegui/lib/addon/repaz/universalprinter.pas
  filefilterindex=0
  filefilter="*.pp" "*.pas" "*.inc" "*.dpr"
  filecolwidth=174
@@ -986,7 +1030,7 @@ windowlayout=540
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=symbolfo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -1005,7 +1049,7 @@ windowlayout=540
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=componentstorefo
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
@@ -1021,7 +1065,7 @@ windowlayout=540
  [projecttreefo]
  splitdir=0
  useroptions=16491
- stackedunder=watchpointsfo
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -1110,7 +1154,7 @@ windowlayout=540
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- stackedunder=findinfilefo
+ stackedunder=watchpointsfo
  parent=
  mdistate=0
  nx=0
@@ -1131,7 +1175,7 @@ windowlayout=540
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=mainfo
+ stackedunder=formdesignerfo
  parent=
  mdistate=0
  nx=0
@@ -1148,15 +1192,15 @@ windowlayout=540
  active=0
  visible=1
  [objectinspectorfo.grid]
- propcolwidthref=306
- width0=144
+ propcolwidthref=291
+ width0=137
  sortdescend0=0
- width1=156
+ width1=148
  sortdescend1=0
  [symbolfo]
  splitdir=0
  useroptions=147579
- stackedunder=watchfo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
@@ -1229,15 +1273,15 @@ windowlayout=540
  ncx=0
  ncy=0
  x=0
- y=374
- cx=1356
- cy=258
- rcx=1356
- rcy=632
+ y=369
+ cx=1350
+ cy=253
+ rcx=1350
+ rcy=622
  [componentstorefo]
  splitdir=0
  useroptions=24675
- stackedunder=targetconsolefo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -1393,29 +1437,38 @@ windowlayout=540
 [edit]
 hintwidth=0
 hintheight=0
-finddtext=btnaposthore
-findhistory=5
- btnaposthore
- tbutton
- finputwidget
- dataedit
- fdataedit
+finddtext=fdropdown
+findhistory=10
+ fdropdown
+ show
+ application
+ fmodalwindow
+ modalwindow
+ flooplevel
+ loop
+ if (ss_shift in fshiftstate) then
+ btnshift.tag=0
+ btnshift.tag
 findoptions=1
-editpos=14
+editpos=18
+ 0,-1073741823
+ 0,4
+ 4,361
+ 0,-1073741823
+ 0,7
  0,-1073741823
  0,-1073741823
  0,-1073741823
  0,-1073741823
  0,-1073741823
+ 0,561
  0,0
  0,-1073741823
+ 0,154
+ 0,173
  0,-1073741823
  0,-1073741823
  0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,0
 bookmarks0=0
 bookmarks1=0
 bookmarks2=0
@@ -1430,37 +1483,49 @@ bookmarks10=0
 bookmarks11=0
 bookmarks12=0
 bookmarks13=0
-sourcefiles=14
- /C:/msegui/MSEProject/Acosys/virtualkeyboard/virtualkeyboard.pas
- /C:/msegui/MSEProject/Acosys/virtualkeyboard/main.pas
- /C:/msegui/MSEProject/Acosys/virtualkeyboard/frmkeyboard.pas
- /C:/msegui/lib/common/kernel/mseskin.pas
- /C:/msegui/lib/common/widgets/msewidgets.pas
+bookmarks14=0
+bookmarks15=0
+bookmarks16=0
+bookmarks17=0
+sourcefiles=18
+ /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/virtualkeyboard.pas
+ /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/main.pas
+ /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/frmkeyboard.pas
+ /home/wahono/msegui/apps/ide/main.pas
+ /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/frmmodal.pas
  /home/wahono/msegui/lib/common/kernel/msegui.pas
- /C:/msegui/lib/common/widgets/mseforms.pas
- /C:/msegui/lib/common/editwidgets/msedataedits.pas
- /C:/msegui/lib/common/kernel/msekeyboard.pas
- /c:/msegui/apps/ide/main.pas
- /C:/msegui/lib/common/editwidgets/msegraphedits.pas
- /C:/msegui/lib/common/kernel/mseact.pas
- /C:/msegui/lib/common/widgets/msesimplewidgets.pas
- /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/frmkeyboard.mfm
-relpaths=14
+ /home/wahono/msegui/lib/common/kernel/mseguiglob.pas
+ /home/wahono/msegui/lib/common/db/msedbedit.pas
+ /home/wahono/msegui/lib/common/editwidgets/msedataedits.pas
+ /home/wahono/msegui/lib/common/editwidgets/msedropdownlist.pas
+ /home/wahono/msegui/lib/common/dialogs/msefiledialog.pas
+ /home/wahono/msegui/lib/common/dialogs/msefiledialogres.pas
+ /home/wahono/msegui/lib/common/editwidgets/msecalendardatetimeedit.pas
+ /home/wahono/msegui/lib/common/dialogs/msecolordialog.pas
+ /home/wahono/msegui/lib/common/dialogs/msepopupcalendar.pas
+ /home/wahono/msegui/lib/common/editwidgets/mseedit.pas
+ /home/wahono/msegui/lib/common/widgets/mseforms.pas
+ /home/wahono/msegui/lib/common/kernel/mseclasses.pas
+relpaths=18
  virtualkeyboard.pas
  main.pas
  frmkeyboard.pas
- ../../../lib/common/kernel/mseskin.pas
- ../../../lib/common/widgets/msewidgets.pas
- ../../../lib/common/kernel/msegui.pas
- ../../../lib/common/widgets/mseforms.pas
- ../../../lib/common/editwidgets/msedataedits.pas
- ../../../lib/common/kernel/msekeyboard.pas
  ../../../apps/ide/main.pas
- ../../../lib/common/editwidgets/msegraphedits.pas
- ../../../lib/common/kernel/mseact.pas
- ../../../lib/common/widgets/msesimplewidgets.pas
- frmkeyboard.mfm
-ismoduletexts=14
+ frmmodal.pas
+ ../../../lib/common/kernel/msegui.pas
+ ../../../lib/common/kernel/mseguiglob.pas
+ ../../../lib/common/db/msedbedit.pas
+ ../../../lib/common/editwidgets/msedataedits.pas
+ ../../../lib/common/editwidgets/msedropdownlist.pas
+ ../../../lib/common/dialogs/msefiledialog.pas
+ ../../../lib/common/dialogs/msefiledialogres.pas
+ ../../../lib/common/editwidgets/msecalendardatetimeedit.pas
+ ../../../lib/common/dialogs/msecolordialog.pas
+ ../../../lib/common/dialogs/msepopupcalendar.pas
+ ../../../lib/common/editwidgets/mseedit.pas
+ ../../../lib/common/widgets/mseforms.pas
+ ../../../lib/common/kernel/mseclasses.pas
+ismoduletexts=18
  0
  0
  0
@@ -1474,19 +1539,66 @@ ismoduletexts=14
  0
  0
  0
- -1
-modules=1
+ 0
+ 0
+ 0
+ 0
+ 0
+modules=7
  /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/main.mfm
-moduleoptions=1
+ /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/frmkeyboard.mfm
+ /home/wahono/msegui/MSEProject/Acosys/virtualkeyboard/frmmodal.mfm
+ /home/wahono/msegui/lib/common/dialogs/msefiledialog.mfm
+ /home/wahono/msegui/lib/common/dialogs/msefiledialogres.mfm
+ /home/wahono/msegui/lib/common/dialogs/msecolordialog.mfm
+ /home/wahono/msegui/lib/common/dialogs/msepopupcalendar.mfm
+moduleoptions=7
  0
-visiblemodules=1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+visiblemodules=7
  -1
-nomenumodules=1
+ -1
+ -1
+ -1
+ -1
+ -1
+ -1
+nomenumodules=7
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
  0
 [sourcefo.tabwidget]
+order=18
+ 0
+ 1
+ 5
+ 4
+ 2
+ 13
+ 7
+ 8
+ 9
+ 17
+ 15
+ 10
+ 12
+ 14
+ 16
+ 11
+ 6
+ 3
 tabsize=134
 firsttab=0
-index=13
+index=4
 [targetconsole]
 finddtext=
 findhistory=0

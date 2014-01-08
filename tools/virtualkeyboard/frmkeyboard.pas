@@ -211,7 +211,7 @@ var
  frmkeyboardfo: tfrmkeyboardfo;
 implementation
 uses
- frmkeyboard_mfm,msekeyboard;
+ frmkeyboard_mfm,msekeyboard,msesysutils;
 
 destructor tfrmkeyboardfo.destroy;
 begin
