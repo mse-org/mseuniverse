@@ -1,0 +1,1213 @@
+object frmkeyboardfo: tfrmkeyboardfo
+  optionswidget = [ow_mousewheel, ow_destroywidgets, ow_hinton]
+  visible = False
+  bounds_x = 195
+  bounds_y = 211
+  bounds_cx = 632
+  bounds_cy = 200
+  container.optionswidget = [ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets]
+  container.frame.framewidth = 1
+  container.frame.localprops = [frl_framewidth]
+  container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
+  container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
+  container.bounds = (
+    0
+    0
+    632
+    200
+  )
+  optionswindow = [wo_popup, wo_noactivate]
+  onwidgetactivechanged = widgetactivechangeexe
+  onshow = form_onshow
+  moduleclassname = 'tmseform'
+  object wsymbols: tsimplewidget
+    taborder = 2
+    bounds_x = 1
+    bounds_y = 1
+    bounds_cx = 432
+    bounds_cy = 200
+    object btncaret: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      bounds_x = 56
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '^'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btncaret_onexecute
+    end
+    object btnabc: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 1
+      bounds_x = 8
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'ABC'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnabc_onexecute
+    end
+    object btnslash: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 2
+      bounds_x = 104
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '/'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnslash_onexecute
+    end
+    object btnasterisk: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 3
+      bounds_x = 56
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '*'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnasterisk_onexecute
+    end
+    object btnnext: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 4
+      bounds_x = 8
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_invisible, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_arrowright
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btnnext_onexecute
+    end
+    object btnprev: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 5
+      bounds_x = 8
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_arrowleft
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnprev_onexecute
+    end
+    object btnminus: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 6
+      bounds_x = 56
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '-'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnminus_onexecute
+    end
+    object btnUnderscore: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 7
+      bounds_x = 104
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '_'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnunderscore_onexecute
+    end
+    object btnequal: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 8
+      bounds_x = 152
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '='
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btnequal_onexecute
+    end
+    object btnnumsign: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 9
+      bounds_x = 152
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '#'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnnumsign_onexecute
+    end
+    object btnat: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 10
+      bounds_x = 104
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '@'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnat_onexecute
+    end
+    object btneclam: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 11
+      bounds_x = 56
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '!'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btneclam_onexecute
+    end
+    object btntab: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 12
+      bounds_x = 8
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Tab'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btntab_onexecute
+    end
+    object btnparenleft: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 13
+      bounds_x = 344
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '('
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnparentleft_onexecute
+    end
+    object btnampersand: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 14
+      bounds_x = 296
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '&&'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnampersand_onexecute
+    end
+    object btnpercent: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 15
+      bounds_x = 248
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '%'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnpercent_onexecute
+    end
+    object btndollar: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 16
+      bounds_x = 200
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '$'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btndollar_onexecute
+    end
+    object btncolon: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 17
+      bounds_x = 344
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ':'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btncolon_onexecute
+    end
+    object btnsemicolon: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 18
+      bounds_x = 296
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ';'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnsemicolon_onexecute
+    end
+    object btnbackslash: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 19
+      bounds_x = 248
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '\'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnbackslash_onexecute
+    end
+    object btnplus: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 20
+      bounds_x = 200
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '+'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnplus_onexecute
+    end
+    object btnvertbar: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 21
+      bounds_x = 344
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '|'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnvertbar_onexecute
+    end
+    object btnrightbrace: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 22
+      bounds_x = 296
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '}'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnrightbrace_onexecute
+    end
+    object btnleftbrace: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 23
+      bounds_x = 248
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '{'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnleftbrace_onexecute
+    end
+    object btnrightbracket: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 24
+      bounds_x = 200
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ']'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnrightbracket_onexecute
+    end
+    object btnleftbracket: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 25
+      bounds_x = 152
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '['
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnleftbracket_onexecute
+    end
+    object btnspace2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 26
+      bounds_x = 344
+      bounds_y = 152
+      bounds_cx = 88
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Space'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnspace_onexecute
+    end
+    object btnright2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 27
+      bounds_x = 296
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_arrowrightsmall
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnright_onexecute
+    end
+    object btnleft2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 28
+      bounds_x = 248
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_arrowleftsmall
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnleft_onexecute
+    end
+    object btnless: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 29
+      bounds_x = 152
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '<'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnless_onexecute
+    end
+    object btnsection: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 30
+      bounds_x = 104
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '`'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnsection_onexecute
+    end
+    object btntilde: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 31
+      bounds_x = 392
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '~'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btntilde_onexecute
+    end
+    object btndoublequote: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 32
+      bounds_x = 392
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '"'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btndoublequote_onexecute
+    end
+    object btnparenright: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 33
+      bounds_x = 392
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ')'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnparentright_onexecute
+    end
+    object btngreater: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 34
+      bounds_x = 200
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '>'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btngreater_onexecute
+    end
+  end
+  object wnumbers: tsimplewidget
+    visible = True
+    bounds_x = 432
+    bounds_y = 0
+    bounds_cx = 200
+    bounds_cy = 200
+    object btnenter: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      bounds_x = 104
+      bounds_y = 152
+      bounds_cx = 88
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Enter'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnenter_onexecute
+    end
+    object btndec: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 1
+      bounds_x = 56
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '.'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btndec_onexecute
+    end
+    object btn0: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 2
+      bounds_x = 8
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '0'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn0_onexecute
+    end
+    object btn9: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 3
+      bounds_x = 104
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '9'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn9_onexecute
+    end
+    object btn8: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 4
+      bounds_x = 56
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '8'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn8_onexecute
+    end
+    object btn7: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 5
+      bounds_x = 8
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '7'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn7_onexecute
+    end
+    object btn4: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 6
+      bounds_x = 8
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '4'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn4_onexecute
+    end
+    object btn5: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 7
+      bounds_x = 56
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '5'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn5_onexecute
+    end
+    object btn6: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 8
+      bounds_x = 104
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '6'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn6_onexecute
+    end
+    object btndel: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 9
+      bounds_x = 152
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Del'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btndel_onexecute
+    end
+    object btnback: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 10
+      bounds_x = 152
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Back'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnback_onexecute
+    end
+    object btn3: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 11
+      bounds_x = 104
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '3'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn3_onexecute
+    end
+    object btn2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 12
+      bounds_x = 56
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '2'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn2_onexecute
+    end
+    object btn1: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 13
+      bounds_x = 8
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '1'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btn1_onexecute
+    end
+  end
+  object woptions: tsimplewidget
+    taborder = 3
+    bounds_x = 1
+    bounds_y = 1
+    bounds_cx = 632
+    bounds_cy = 200
+    object wautocapital: tbooleanedit
+      optionswidget = [ow_destroywidgets]
+      frame.caption = 'Auto capitalize first letter'
+      frame.dummy = 0
+      frame.outerframe = (
+        0
+        2
+        154
+        2
+      )
+      bounds_x = 16
+      bounds_y = 15
+      bounds_cx = 167
+      bounds_cy = 17
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+    end
+    object btnclose: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 1
+      bounds_x = 504
+      bounds_y = 144
+      bounds_cx = 112
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Close'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btncloseoptions_onexecute
+    end
+    object wlang: tstringgrid
+      optionswidget = [ow_focusbackonesc, ow_mousewheel, ow_destroywidgets]
+      frame.caption = 'Language'
+      frame.outerframe = (
+        0
+        18
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 16
+      bounds_y = 39
+      bounds_cx = 306
+      bounds_cy = 148
+      datacols.count = 2
+      datacols.options = [co_readonly, co_focusselect, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+      datacols.items = <      
+        item
+          options = [co_readonly, co_focusselect, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+          datalist.data = (
+            'US'
+          )
+          valuefalse = '0'
+          valuetrue = '1'
+        end      
+        item
+          width = 250
+          options = [co_readonly, co_focusselect, co_rowselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+          datalist.data = (
+            'US Keyboard'
+          )
+          valuefalse = '0'
+          valuetrue = '1'
+        end>
+      fixrows.count = 1
+      fixrows.items = <      
+        item
+          height = 17
+        end>
+      rowcount = 1
+      datarowheight = 17
+      reffontheight = 15
+    end
+  end
+  object wchars: tsimplewidget
+    taborder = 1
+    bounds_x = 1
+    bounds_y = 1
+    bounds_cx = 632
+    bounds_cy = 200
+    object btnctrl: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      bounds_x = 56
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
+      glyph = stg_checkedradio
+      caption = 'Ctrl'
+      imagepos = ip_bottomcenter
+      colorglyph = -1610612734
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnctrl_onexecute
+    end
+    object btnsymbols: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 1
+      bounds_x = 8
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '&&123'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnsymbols_onexecute
+    end
+    object btnx: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 2
+      bounds_x = 104
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'X'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnx_onexecute
+    end
+    object btnz: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 3
+      bounds_x = 56
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Z'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnz_onexecute
+    end
+    object btnshift: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 4
+      bounds_x = 8
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
+      glyph = stg_checkedradio
+      caption = 'Shift'
+      imagepos = ip_bottomcenter
+      colorglyph = -1610612734
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btnshift_onexecute
+    end
+    object btna: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 5
+      bounds_x = 28
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'A'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btna_onexecute
+    end
+    object btns: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 6
+      bounds_x = 76
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'S'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btns_onexecute
+    end
+    object btnd: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 7
+      bounds_x = 124
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'D'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnd_onexecute
+    end
+    object btnf: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 8
+      bounds_x = 172
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'F'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btnf_onexecute
+    end
+    object btnr: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 9
+      bounds_x = 152
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'R'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnr_onexecute
+    end
+    object btne: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 10
+      bounds_x = 104
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'E'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btne_onexecute
+    end
+    object btnw: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 11
+      bounds_x = 56
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'W'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnw_onexecute
+    end
+    object btnq: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 12
+      bounds_x = 8
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Q'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnq_onexecute
+    end
+    object btni: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 13
+      bounds_x = 344
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'I'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btni_onexecute
+    end
+    object btnu: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 14
+      bounds_x = 296
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'U'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnu_onexecute
+    end
+    object btny: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 15
+      bounds_x = 248
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Y'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btny_onexecute
+    end
+    object btnt: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 16
+      bounds_x = 200
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'T'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnt_onexecute
+    end
+    object btnback2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 17
+      bounds_x = 488
+      bounds_y = 8
+      bounds_cx = 88
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Backspace'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnback_onexecute
+    end
+    object btno: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 18
+      bounds_x = 392
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'O'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btno_onexecute
+    end
+    object btnp: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 19
+      bounds_x = 440
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'P'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnp_onexecute
+    end
+    object btnk: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 20
+      bounds_x = 364
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'K'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btnk_onexecute
+    end
+    object btnj: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 21
+      bounds_x = 316
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'J'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnj_onexecute
+    end
+    object btnh: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 22
+      bounds_x = 268
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'H'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnh_onexecute
+    end
+    object btng: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 23
+      bounds_x = 220
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'G'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btng_onexecute
+    end
+    object btnaposthrope: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 24
+      bounds_x = 460
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ''''
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btnaposthrope_onexecute
+    end
+    object btnl: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 25
+      bounds_x = 412
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'L'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnl_onexecute
+    end
+    object btnenter2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 26
+      bounds_x = 508
+      bounds_y = 56
+      bounds_cx = 116
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Enter'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btnenter_onexecute
+    end
+    object btnquestion: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 27
+      bounds_x = 488
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '?'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnquestion_onexecute
+    end
+    object btnperiod: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 28
+      bounds_x = 440
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '.'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnperiod_onexecute
+    end
+    object btncomma: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 29
+      bounds_x = 392
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ','
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btncomma_onexecute
+    end
+    object btnm: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 30
+      bounds_x = 344
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'M'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnm_onexecute
+    end
+    object btnn: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 31
+      bounds_x = 296
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'N'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnn_onexecute
+    end
+    object btnb: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 32
+      bounds_x = 248
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'B'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnb_onexecute
+    end
+    object btnv: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 33
+      bounds_x = 200
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'V'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnv_onexecute
+    end
+    object btnc: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 34
+      bounds_x = 152
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'C'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnc_onexecute
+    end
+    object btnup: tstockglyphbutton
+      taborder = 35
+      bounds_x = 536
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_arrowupsmall
+      onexecute = btnup_onexecute
+    end
+    object btndown: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 36
+      bounds_x = 536
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_arrowdownsmall
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btndown_onexecute
+    end
+    object btnleft: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 37
+      bounds_x = 488
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_arrowleftsmall
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnleft_onexecute
+    end
+    object btnright: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 38
+      bounds_x = 584
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_arrowrightsmall
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnright_onexecute
+    end
+    object btnspace: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 39
+      bounds_x = 104
+      bounds_y = 152
+      bounds_cx = 376
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Space'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnspace_onexecute
+    end
+    object btndel2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      taborder = 40
+      bounds_x = 584
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Del'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btndel_onexecute
+    end
+    object btnoptions: tstockglyphbutton
+      taborder = 41
+      bounds_x = 584
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_settings
+      onexecute = btnoptions_onexecute
+    end
+  end
+end

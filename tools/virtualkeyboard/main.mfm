@@ -1,0 +1,400 @@
+object mainfo: tmainfo
+  bounds_x = 156
+  bounds_y = 203
+  bounds_cx = 640
+  bounds_cy = 417
+  container.bounds = (
+    0
+    0
+    640
+    417
+  )
+  moduleclassname = 'tmainform'
+  object trealedit1: trealedit
+    frame.caption = 'Real edit'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    bounds_x = 532
+    bounds_y = 70
+    bounds_cy = 39
+    anchors = [an_top, an_right]
+    value = -Inf
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 15
+  end
+  object tmemoedit1: tmemoedit
+    frame.sbhorz.pagesize = 1
+    frame.sbvert.pagesize = 1
+    frame.caption = 'Memo'
+    frame.localprops = [frl_colorclient]
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 14
+    bounds_cx = 188
+    bounds_cy = 87
+    reffontheight = 15
+  end
+  object tstringedit1: tstringedit
+    frame.caption = 'String edit'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 109
+    bounds_cx = 624
+    bounds_cy = 39
+    anchors = [an_left, an_top, an_right]
+    reffontheight = 15
+  end
+  object trealedit2: trealedit
+    frame.caption = 'Real edit'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 198
+    bounds_cx = 172
+    bounds_cy = 39
+    value = -Inf
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 15
+  end
+  object tdropdownlistedit1: tdropdownlistedit
+    frame.caption = 'dropdown'
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 460
+    bounds_y = 369
+    bounds_cx = 172
+    bounds_cy = 39
+    anchors = [an_right, an_bottom]
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+        data = (
+          'wrdgwdrge'
+          'fetherher'
+          'dtherthwre'
+        )
+      end>
+    reffontheight = 15
+  end
+  object tbutton1: tbutton
+    taborder = 5
+    bounds_x = 496
+    bounds_y = 296
+    bounds_cx = 82
+    bounds_cy = 19
+    state = [as_localcaption]
+    caption = 'Button 2'
+  end
+  object tbutton2: tbutton
+    taborder = 6
+    bounds_x = 312
+    bounds_y = 32
+    bounds_cx = 114
+    bounds_cy = 19
+    state = [as_localcaption]
+    caption = 'Button 1'
+  end
+  object tintegeredit1: tintegeredit
+    frame.caption = 'Integer'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 200
+    bounds_y = 14
+    bounds_cy = 39
+    reffontheight = 15
+  end
+  object tint64edit1: tint64edit
+    frame.caption = 'Integer 64'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 8
+    bounds_x = 532
+    bounds_y = 199
+    bounds_cy = 39
+    anchors = [an_top, an_right]
+    max = 9223372036854775807
+    reffontheight = 15
+  end
+  object twidgetgrid1: twidgetgrid
+    taborder = 9
+    bounds_x = 8
+    bounds_y = 256
+    bounds_cx = 442
+    bounds_cy = 154
+    anchors = [an_left, an_top, an_right, an_bottom]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 17
+      end>
+    rowcount = 3
+    datacols.count = 4
+    datacols.items = <    
+      item[tstringedit2]
+        width = 114
+        widgetname = 'tstringedit2'
+        dataclass = tgridmsestringdatalist
+        data = (
+          (
+            'row 1'
+            'row 2'
+            'row 3'
+          )
+        )
+      end    
+      item[tintegeredit2]
+        width = 90
+        widgetname = 'tintegeredit2'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            0
+            0
+            0
+          )
+        )
+      end    
+      item[trealedit3]
+        width = 90
+        widgetname = 'trealedit3'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            -Inf
+            -Inf
+            -Inf
+          )
+        )
+      end    
+      item[tdropdownlistedit2]
+        width = 98
+        widgetname = 'tdropdownlistedit2'
+        dataclass = tgridmsestringdatalist
+        data = (
+          (
+            ''
+            ''
+            ''
+          )
+        )
+      end>
+    datarowheight = 17
+    reffontheight = 15
+    object tstringedit2: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 114
+      bounds_cy = 17
+      reffontheight = 15
+    end
+    object tintegeredit2: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 115
+      bounds_y = 0
+      bounds_cx = 90
+      bounds_cy = 17
+      reffontheight = 15
+    end
+    object trealedit3: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 206
+      bounds_y = 0
+      bounds_cx = 90
+      bounds_cy = 17
+      value = -Inf
+      valuedefault = -Inf
+      valuerange = 1
+      valuestart = 0
+      min = -Inf
+      max = 1E+038
+      reffontheight = 15
+    end
+    object tdropdownlistedit2: tdropdownlistedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.color = -1879048187
+      taborder = 4
+      visible = False
+      bounds_x = 297
+      bounds_y = 0
+      bounds_cx = 98
+      bounds_cy = 17
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          data = (
+            'One'
+            'Two'
+            'Three'
+            'Four'
+          )
+        end>
+      reffontheight = 15
+    end
+  end
+  object trealedit4: trealedit
+    frame.caption = 'Real edit (read only)'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 10
+    bounds_x = 499
+    bounds_y = 254
+    bounds_cx = 133
+    bounds_cy = 39
+    anchors = [an_top, an_right]
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+    value = 1200000.23
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 15
+  end
+  object tstringedit3: tstringedit
+    frame.caption = 'String edit (read only)'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 11
+    bounds_x = 8
+    bounds_y = 152
+    bounds_cx = 624
+    bounds_cy = 39
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+    value = 'read only string edit'
+    reffontheight = 15
+  end
+  object tskincontroller1: tskincontroller
+    active = True
+    extenders = 0
+    widget_colorcaptionframe = -2147483645
+    dataedit_frame = tframecomp1
+    container_face = tfacecomp3
+    container_frame = tframecomp3
+    grid_frame = tframecomp1
+    button_face = tfacecomp2
+    button_frame = tframecomp2
+    databutton_face = tfacecomp2
+    databutton_frame = tframecomp2
+    slider_frame = tframecomp2
+    left = 64
+    top = 48
+  end
+  object tframecomp1: tframecomp
+    template.framewidth = 1
+    left = 200
+    top = 176
+  end
+  object tframecomp2: tframecomp
+    template.framewidth = 1
+    template.optionsskin = [fso_flat]
+    left = 376
+    top = 208
+  end
+  object tfacecomp2: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612732
+      13619151
+    )
+    template.fade_direction = gd_down
+    left = 288
+    top = 208
+  end
+  object tframecomp3: tframecomp
+    template.framewidth = 1
+    left = 480
+    top = 240
+  end
+  object tfacecomp3: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612731
+      -1610612730
+    )
+    left = 392
+    top = 240
+  end
+end
