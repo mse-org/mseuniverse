@@ -193,6 +193,7 @@ type
    procedure btnnext_onexecute(const sender: TObject);
    procedure btncloseoptions_onexecute(const sender: TObject);
    procedure btnoptions_onexecute(const sender: TObject);
+   procedure form_created(const sender: TObject);
   protected
    finputwidget: twidget;
    fshiftstate: shiftstatesty;
@@ -319,11 +320,12 @@ var
 begin
  bo1:= false;
  if (newwidget <> nil) then begin
-  if not checkdescendent(newwidget) and ((newwidget is tcustomdataedit) and not tcustomdataedit(newwidget).readonly) then begin
+  if not checkdescendent(newwidget) and ((newwidget is tcustomdataedit) and not tcustomdataedit(newwidget).readonly) 
+   and not (newwidget is tcustomdropdownedit) then begin
    if (newwidget is tcustomrealedit) then begin
     bo1:= true;
     btndec.visible:= true;
-    self.width:= 200;
+    self.width:= 202;
     wnumbers.left:= 0;
     wnumbers.visible:= true;
     wchars.visible:= false;
@@ -332,7 +334,7 @@ begin
    end else if (newwidget is tcustomintegeredit) or (newwidget is tcustomint64edit) then begin
     bo1:= true;
     btndec.visible:= false;
-    self.width:= 200;
+    self.width:= 202;
     wnumbers.left:= 0;
     wnumbers.visible:= true;
     wchars.visible:= false;
@@ -341,7 +343,7 @@ begin
    end else if (newwidget is tcustomstringedit) then begin
     bo1:= true;
     btndec.visible:= true;
-    self.width:= 632;
+    self.width:= 634;
     wnumbers.left:= 432;
     wnumbers.visible:= false;
     wchars.visible:= true;
@@ -624,7 +626,7 @@ begin
    changeupper;
   end else begin
    exclude(fshiftstate, ss_shift);
-   btnshift.colorglyph:= cl_black;
+   btnshift.colorglyph:= btnshift.font.color;
    changelower;
   end;
   finputwidget.window.postkeyevent(key_shift,fshiftstate,false,'');
@@ -733,7 +735,7 @@ begin
    btnctrl.colorglyph:= cl_ltgreen;
   end else begin
    exclude(fshiftstate, ss_ctrl);
-   btnctrl.colorglyph:= cl_black;
+   btnctrl.colorglyph:= btnctrl.font.color;
   end;
  end;
 end;
@@ -1002,6 +1004,17 @@ begin
  wchars.visible:= false;
  wsymbols.visible:= false;
  woptions.visible:= true;
+end;
+
+procedure tfrmkeyboardfo.form_created(const sender: TObject);
+begin
+ btnleft.colorglyph:= btnleft.font.color;
+ btnright.colorglyph:= btnright.font.color;
+ btnup.colorglyph:= btnup.font.color;
+ btndown.colorglyph:= btndown.font.color;
+ btnoptions.colorglyph:= btnoptions.font.color;
+ btnctrl.colorglyph:= btnctrl.font.color;
+ btnshift.colorglyph:= btnshift.font.color;
 end;
 
 end.

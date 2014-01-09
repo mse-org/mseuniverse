@@ -3,8 +3,8 @@ object frmkeyboardfo: tfrmkeyboardfo
   visible = False
   bounds_x = 195
   bounds_y = 211
-  bounds_cx = 632
-  bounds_cy = 200
+  bounds_cx = 634
+  bounds_cy = 202
   container.optionswidget = [ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets]
   container.frame.framewidth = 1
   container.frame.localprops = [frl_framewidth]
@@ -13,10 +13,11 @@ object frmkeyboardfo: tfrmkeyboardfo
   container.bounds = (
     0
     0
-    632
-    200
+    634
+    202
   )
   optionswindow = [wo_popup, wo_noactivate, wo_buttonendmodal]
+  oncreated = form_created
   onwidgetactivechanged = widgetactivechangeexe
   onshow = form_onshow
   moduleclassname = 'tmseform'
@@ -25,7 +26,7 @@ object frmkeyboardfo: tfrmkeyboardfo
     bounds_x = 1
     bounds_y = 1
     bounds_cx = 436
-    bounds_cy = 200
+    bounds_cy = 202
     object btncaret: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
       bounds_x = 56
@@ -34,10 +35,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '^'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btncaret_onexecute
     end
@@ -50,10 +47,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'ABC'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnabc_onexecute
     end
@@ -66,10 +59,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '/'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnslash_onexecute
     end
@@ -82,10 +71,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '*'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnasterisk_onexecute
     end
@@ -98,10 +83,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_invisible, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       glyph = stg_arrowright
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnnext_onexecute
     end
@@ -114,10 +95,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       glyph = stg_arrowleft
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnprev_onexecute
     end
@@ -130,10 +107,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '-'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnminus_onexecute
     end
@@ -146,10 +119,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '_'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnunderscore_onexecute
     end
@@ -162,10 +131,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '='
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnequal_onexecute
     end
@@ -178,10 +143,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '#'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnnumsign_onexecute
     end
@@ -194,10 +155,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '@'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnat_onexecute
     end
@@ -210,10 +167,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '!'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btneclam_onexecute
     end
@@ -226,10 +179,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Tab'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btntab_onexecute
     end
@@ -242,10 +191,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '('
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnparentleft_onexecute
     end
@@ -258,10 +203,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '&&'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnampersand_onexecute
     end
@@ -274,26 +215,18 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '%'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnpercent_onexecute
     end
     object btndollar: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
       taborder = 16
-      bounds_x = 200
+      bounds_x = 202
       bounds_y = 8
       bounds_cx = 40
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '$'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btndollar_onexecute
     end
@@ -306,10 +239,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = ':'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btncolon_onexecute
     end
@@ -322,10 +251,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = ';'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnsemicolon_onexecute
     end
@@ -338,26 +263,18 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '\'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnbackslash_onexecute
     end
     object btnplus: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
       taborder = 20
-      bounds_x = 200
+      bounds_x = 202
       bounds_y = 56
       bounds_cx = 40
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '+'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnplus_onexecute
     end
@@ -370,10 +287,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '|'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnvertbar_onexecute
     end
@@ -386,10 +299,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '}'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnrightbrace_onexecute
     end
@@ -402,26 +311,18 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '{'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnleftbrace_onexecute
     end
     object btnrightbracket: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
       taborder = 24
-      bounds_x = 200
+      bounds_x = 202
       bounds_y = 104
       bounds_cx = 40
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = ']'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnrightbracket_onexecute
     end
@@ -434,10 +335,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '['
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnleftbracket_onexecute
     end
@@ -450,10 +347,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Space'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnspace_onexecute
     end
@@ -466,10 +359,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       glyph = stg_arrowrightsmall
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnright_onexecute
     end
@@ -482,10 +371,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       glyph = stg_arrowleftsmall
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnleft_onexecute
     end
@@ -498,10 +383,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '<'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnless_onexecute
     end
@@ -514,10 +395,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '`'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnsection_onexecute
     end
@@ -530,10 +407,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '~'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btntilde_onexecute
     end
@@ -546,10 +419,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '"'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btndoublequote_onexecute
     end
@@ -562,26 +431,18 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = ')'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnparentright_onexecute
     end
     object btngreater: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
       taborder = 34
-      bounds_x = 200
+      bounds_x = 202
       bounds_y = 152
       bounds_cx = 40
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '>'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btngreater_onexecute
     end
@@ -590,8 +451,8 @@ object frmkeyboardfo: tfrmkeyboardfo
     taborder = 3
     bounds_x = 1
     bounds_y = 1
-    bounds_cx = 632
-    bounds_cy = 200
+    bounds_cx = 634
+    bounds_cy = 202
     object wautocapital: tbooleanedit
       optionswidget = [ow_destroywidgets]
       frame.caption = 'Auto capitalize first letter'
@@ -672,8 +533,8 @@ object frmkeyboardfo: tfrmkeyboardfo
     visible = True
     bounds_x = 432
     bounds_y = 0
-    bounds_cx = 200
-    bounds_cy = 200
+    bounds_cx = 202
+    bounds_cy = 202
     object btnenter: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
       bounds_x = 104
@@ -846,8 +707,8 @@ object frmkeyboardfo: tfrmkeyboardfo
     taborder = 1
     bounds_x = 1
     bounds_y = 1
-    bounds_cx = 632
-    bounds_cy = 200
+    bounds_cx = 634
+    bounds_cy = 202
     object btnctrl: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
       bounds_x = 56
@@ -858,10 +719,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       glyph = stg_checkedradio
       caption = 'Ctrl'
       imagepos = ip_bottomcenter
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       colorglyph = -1610612734
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnctrl_onexecute
@@ -875,10 +732,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '&&123'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnsymbols_onexecute
     end
@@ -891,10 +744,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'X'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnx_onexecute
     end
@@ -907,10 +756,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Z'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnz_onexecute
     end
@@ -925,10 +770,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       glyph = stg_checkedradio
       caption = 'Shift'
       imagepos = ip_bottomcenter
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       colorglyph = -1610612734
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnshift_onexecute
@@ -942,10 +783,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'A'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btna_onexecute
     end
@@ -958,10 +795,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'S'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btns_onexecute
     end
@@ -974,10 +807,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'D'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnd_onexecute
     end
@@ -990,10 +819,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'F'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnf_onexecute
     end
@@ -1006,10 +831,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'R'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnr_onexecute
     end
@@ -1022,10 +843,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'E'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btne_onexecute
     end
@@ -1038,10 +855,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'W'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnw_onexecute
     end
@@ -1054,10 +867,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Q'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnq_onexecute
     end
@@ -1070,10 +879,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'I'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btni_onexecute
     end
@@ -1086,10 +891,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'U'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnu_onexecute
     end
@@ -1102,26 +903,18 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Y'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btny_onexecute
     end
     object btnt: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
       taborder = 16
-      bounds_x = 200
+      bounds_x = 202
       bounds_y = 8
       bounds_cx = 40
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'T'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnt_onexecute
     end
@@ -1134,10 +927,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Backspace'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnback_onexecute
     end
@@ -1150,10 +939,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'O'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btno_onexecute
     end
@@ -1166,10 +951,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'P'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnp_onexecute
     end
@@ -1182,10 +963,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'K'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnk_onexecute
     end
@@ -1198,10 +975,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'J'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnj_onexecute
     end
@@ -1214,10 +987,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'H'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnh_onexecute
     end
@@ -1230,10 +999,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'G'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btng_onexecute
     end
@@ -1246,10 +1011,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = ''''
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnaposthrope_onexecute
     end
@@ -1262,10 +1023,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'L'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnl_onexecute
     end
@@ -1278,10 +1035,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Enter'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnenter_onexecute
     end
@@ -1294,10 +1047,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '?'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnquestion_onexecute
     end
@@ -1310,10 +1059,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '.'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnperiod_onexecute
     end
@@ -1326,10 +1071,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = ','
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btncomma_onexecute
     end
@@ -1342,10 +1083,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'M'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnm_onexecute
     end
@@ -1358,10 +1095,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'N'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnn_onexecute
     end
@@ -1374,26 +1107,18 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'B'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnb_onexecute
     end
     object btnv: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
       taborder = 33
-      bounds_x = 200
+      bounds_x = 202
       bounds_y = 104
       bounds_cx = 40
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'V'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnv_onexecute
     end
@@ -1406,10 +1131,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'C'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnc_onexecute
     end
@@ -1444,10 +1165,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       glyph = stg_arrowleftsmall
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnleft_onexecute
     end
@@ -1460,10 +1177,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       glyph = stg_arrowrightsmall
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnright_onexecute
     end
@@ -1476,10 +1189,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Space'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnspace_onexecute
     end
@@ -1492,10 +1201,6 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Del'
-      font.height = 14
-      font.name = 'stf_default'
-      font.xscale = 1
-      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btndel_onexecute
     end
