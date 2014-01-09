@@ -2,8 +2,8 @@ object frmkeyboardfo: tfrmkeyboardfo
   optionswidget = [ow_mousewheel, ow_destroywidgets, ow_hinton]
   optionsskin = [osk_noskin]
   visible = False
-  bounds_x = 195
-  bounds_y = 211
+  bounds_x = 134
+  bounds_y = 188
   bounds_cx = 634
   bounds_cy = 202
   container.optionswidget = [ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets]
@@ -2646,8 +2646,8 @@ object frmkeyboardfo: tfrmkeyboardfo
     )
     template.fade_color.count = 2
     template.fade_color.items = (
-      -1610612727
-      6053119
+      191
+      4934609
     )
     template.fade_direction = gd_up
     left = 264

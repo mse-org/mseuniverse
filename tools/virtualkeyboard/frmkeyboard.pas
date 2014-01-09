@@ -220,8 +220,11 @@ var
  frmkeyboardfo: tfrmkeyboardfo;
 implementation
 uses
- frmkeyboard_mfm,msekeyboard,msesysutils;
+ frmkeyboard_mfm,msekeyboard,msesysutils,msedropdownlist;
 
+type
+ tcustomdropdownedit1 = class(tcustomdropdownedit);
+ 
 destructor tfrmkeyboardfo.destroy;
 begin
  unlinkinputwidget;
@@ -316,7 +319,7 @@ end;
 procedure tfrmkeyboardfo.updatewindowpos;
 begin
  if finputwidget <> nil then begin
-  widgetrect:= placeclientpopuprect(finputwidget,mr(nullpoint,finputwidget.size),
+  widgetrect:= placepopuprect(finputwidget,mr(nullpoint,finputwidget.size),
                                                   cp_bottomleft,size);
  end;
 end;
@@ -329,7 +332,8 @@ begin
  bo1:= false;
  if (newwidget <> nil) then begin
   if not checkdescendent(newwidget) and ((newwidget is tcustomdataedit) and not tcustomdataedit(newwidget).readonly) 
-   and not (newwidget is tcustomdropdownedit) then begin
+   and not ((newwidget is tcustomdropdownedit) and (deo_selectonly in tcustomdropdownedit1(newwidget).fdropdown.options)) 
+   or ((newwidget is tcustomstringgrid) and not (co_readonly in tcustomstringgrid(newwidget).datacols.options)) then begin
    if (newwidget is tcustomrealedit) then begin
     bo1:= true;
     btndec.visible:= true;
@@ -358,13 +362,27 @@ begin
     wsymbols.visible:= false;
     woptions.visible:= false;
     changelower;
+   end else if (newwidget is tcustomstringgrid) then begin
+    bo1:= true;
+    btndec.visible:= true;
+    self.width:= 634;
+    wnumbers.left:= 432;
+    wnumbers.visible:= false;
+    wchars.visible:= true;
+    wsymbols.visible:= false;
+    woptions.visible:= false;
+    changelower;
    end;
   end;
  end;
  if bo1 then begin
   linkinputwidget(newwidget);
   updatewindowpos;
-  show(ml_none,newwidget.window);
+  if newwidget.window.modal then begin
+   show(ml_none,application.mainwindow); //still trouble in modal form
+  end else begin
+   show(ml_none,newwidget.window);
+  end;
  end else begin
   unlinkinputwidget;
   hide;
