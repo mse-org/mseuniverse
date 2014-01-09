@@ -1,5 +1,6 @@
 object frmkeyboardfo: tfrmkeyboardfo
   optionswidget = [ow_mousewheel, ow_destroywidgets, ow_hinton]
+  optionsskin = [osk_noskin]
   visible = False
   bounds_x = 195
   bounds_y = 211
@@ -7,7 +8,8 @@ object frmkeyboardfo: tfrmkeyboardfo
   bounds_cy = 202
   container.optionswidget = [ow_subfocus, ow_mousetransparent, ow_mousewheel, ow_destroywidgets]
   container.frame.framewidth = 1
-  container.frame.localprops = [frl_framewidth]
+  container.frame.colorframe = -1610612730
+  container.frame.localprops = [frl_framewidth, frl_colorframe]
   container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
   container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
   container.bounds = (
@@ -16,438 +18,14 @@ object frmkeyboardfo: tfrmkeyboardfo
     634
     202
   )
-  optionswindow = [wo_popup, wo_noactivate, wo_buttonendmodal]
+  optionswindow = [wo_popup, wo_noactivate]
   oncreated = form_created
   onwidgetactivechanged = widgetactivechangeexe
   onshow = form_onshow
   moduleclassname = 'tmseform'
-  object wsymbols: tsimplewidget
-    taborder = 2
-    bounds_x = 1
-    bounds_y = 1
-    bounds_cx = 436
-    bounds_cy = 202
-    object btncaret: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      bounds_x = 56
-      bounds_y = 152
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '^'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btncaret_onexecute
-    end
-    object btnabc: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 1
-      bounds_x = 8
-      bounds_y = 152
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = 'ABC'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnabc_onexecute
-    end
-    object btnslash: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 2
-      bounds_x = 104
-      bounds_y = 104
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '/'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnslash_onexecute
-    end
-    object btnasterisk: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 3
-      bounds_x = 56
-      bounds_y = 104
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '*'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnasterisk_onexecute
-    end
-    object btnnext: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 4
-      bounds_x = 8
-      bounds_y = 104
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_invisible, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      glyph = stg_arrowright
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
-      onexecute = btnnext_onexecute
-    end
-    object btnprev: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 5
-      bounds_x = 8
-      bounds_y = 56
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      glyph = stg_arrowleft
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnprev_onexecute
-    end
-    object btnminus: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 6
-      bounds_x = 56
-      bounds_y = 56
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '-'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnminus_onexecute
-    end
-    object btnUnderscore: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 7
-      bounds_x = 104
-      bounds_y = 56
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '_'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnunderscore_onexecute
-    end
-    object btnequal: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 8
-      bounds_x = 152
-      bounds_y = 56
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '='
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
-      onexecute = btnequal_onexecute
-    end
-    object btnnumsign: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 9
-      bounds_x = 152
-      bounds_y = 8
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '#'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnnumsign_onexecute
-    end
-    object btnat: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 10
-      bounds_x = 104
-      bounds_y = 8
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '@'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnat_onexecute
-    end
-    object btneclam: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 11
-      bounds_x = 56
-      bounds_y = 8
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '!'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btneclam_onexecute
-    end
-    object btntab: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 12
-      bounds_x = 8
-      bounds_y = 8
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = 'Tab'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btntab_onexecute
-    end
-    object btnparenleft: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 13
-      bounds_x = 344
-      bounds_y = 8
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '('
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnparentleft_onexecute
-    end
-    object btnampersand: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 14
-      bounds_x = 296
-      bounds_y = 8
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '&&'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnampersand_onexecute
-    end
-    object btnpercent: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 15
-      bounds_x = 248
-      bounds_y = 8
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '%'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnpercent_onexecute
-    end
-    object btndollar: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 16
-      bounds_x = 202
-      bounds_y = 8
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '$'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btndollar_onexecute
-    end
-    object btncolon: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 17
-      bounds_x = 344
-      bounds_y = 56
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = ':'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
-      onexecute = btncolon_onexecute
-    end
-    object btnsemicolon: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 18
-      bounds_x = 296
-      bounds_y = 56
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = ';'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnsemicolon_onexecute
-    end
-    object btnbackslash: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 19
-      bounds_x = 248
-      bounds_y = 56
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '\'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnbackslash_onexecute
-    end
-    object btnplus: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 20
-      bounds_x = 202
-      bounds_y = 56
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '+'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnplus_onexecute
-    end
-    object btnvertbar: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 21
-      bounds_x = 344
-      bounds_y = 104
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '|'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnvertbar_onexecute
-    end
-    object btnrightbrace: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 22
-      bounds_x = 296
-      bounds_y = 104
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '}'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnrightbrace_onexecute
-    end
-    object btnleftbrace: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 23
-      bounds_x = 248
-      bounds_y = 104
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '{'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnleftbrace_onexecute
-    end
-    object btnrightbracket: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 24
-      bounds_x = 202
-      bounds_y = 104
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = ']'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnrightbracket_onexecute
-    end
-    object btnleftbracket: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 25
-      bounds_x = 152
-      bounds_y = 104
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '['
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnleftbracket_onexecute
-    end
-    object btnspace2: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 26
-      bounds_x = 344
-      bounds_y = 152
-      bounds_cx = 88
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = 'Space'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnspace_onexecute
-    end
-    object btnright2: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 27
-      bounds_x = 296
-      bounds_y = 152
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      glyph = stg_arrowrightsmall
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnright_onexecute
-    end
-    object btnleft2: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 28
-      bounds_x = 248
-      bounds_y = 152
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      glyph = stg_arrowleftsmall
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnleft_onexecute
-    end
-    object btnless: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 29
-      bounds_x = 152
-      bounds_y = 152
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '<'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnless_onexecute
-    end
-    object btnsection: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 30
-      bounds_x = 104
-      bounds_y = 152
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '`'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnsection_onexecute
-    end
-    object btntilde: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 31
-      bounds_x = 392
-      bounds_y = 104
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '~'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btntilde_onexecute
-    end
-    object btndoublequote: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 32
-      bounds_x = 392
-      bounds_y = 56
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '"'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
-      onexecute = btndoublequote_onexecute
-    end
-    object btnparenright: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 33
-      bounds_x = 392
-      bounds_y = 8
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = ')'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btnparentright_onexecute
-    end
-    object btngreater: tstockglyphbutton
-      optionswidget = [ow_destroywidgets]
-      taborder = 34
-      bounds_x = 202
-      bounds_y = 152
-      bounds_cx = 40
-      bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
-      caption = '>'
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
-      onexecute = btngreater_onexecute
-    end
-  end
   object woptions: tsimplewidget
+    face.template = facecont
+    face.dummy = 0
     taborder = 3
     bounds_x = 1
     bounds_y = 1
@@ -455,22 +33,40 @@ object frmkeyboardfo: tfrmkeyboardfo
     bounds_cy = 202
     object wautocapital: tbooleanedit
       optionswidget = [ow_destroywidgets]
+      color = -2147483645
+      frame.colorclient = -2147483645
       frame.caption = 'Auto capitalize first letter'
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.localprops = [frl_colorclient]
+      frame.template = tframecomp1
       frame.dummy = 0
       frame.outerframe = (
         0
         2
-        154
-        2
+        145
+        3
       )
+      face.template = facefunct
+      face.dummy = 0
       bounds_x = 16
       bounds_y = 15
-      bounds_cx = 167
-      bounds_cy = 17
+      bounds_cx = 158
+      bounds_cy = 18
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
     end
     object btnclose: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 1
       bounds_x = 504
       bounds_y = 144
@@ -478,7 +74,9 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Close'
-      font.height = 14
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
       font.name = 'stf_default'
       font.xscale = 1
       font.dummy = 0
@@ -487,7 +85,13 @@ object frmkeyboardfo: tfrmkeyboardfo
     end
     object wlang: tstringgrid
       optionswidget = [ow_focusbackonesc, ow_mousewheel, ow_destroywidgets]
+      color = -2147483645
       frame.caption = 'Language'
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
       frame.outerframe = (
         0
         18
@@ -499,10 +103,19 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_y = 39
       bounds_cx = 306
       bounds_cy = 148
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       datacols.count = 2
+      datacols.linecolor = -1610612730
+      datacols.linecolorfix = -1610612730
       datacols.options = [co_readonly, co_focusselect, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
       datacols.items = <      
         item
+          linecolor = -1610612730
+          linecolorfix = -1610612730
           options = [co_readonly, co_focusselect, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
           datalist.data = (
             'US'
@@ -511,7 +124,9 @@ object frmkeyboardfo: tfrmkeyboardfo
           valuetrue = '1'
         end      
         item
-          width = 250
+          linecolor = -1610612730
+          linecolorfix = -1610612730
+          width = 252
           options = [co_readonly, co_focusselect, co_rowselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
           datalist.data = (
             'US Keyboard'
@@ -522,14 +137,947 @@ object frmkeyboardfo: tfrmkeyboardfo
       fixrows.count = 1
       fixrows.items = <      
         item
-          height = 17
+          frame.localprops = [frl_framewidth]
+          frame.template = tframecomp1
+          frame.dummy = 0
+          face.template = facefunct
+          face.dummy = 0
+          height = 18
+          captions.count = 2
+          captions.items = <          
+            item
+              caption = 'Code'
+            end          
+            item
+              caption = 'Name'
+            end>
         end>
       rowcount = 1
-      datarowheight = 17
-      reffontheight = 15
+      datarowheight = 18
+      reffontheight = 16
+    end
+  end
+  object wsymbols: tsimplewidget
+    face.template = facecont
+    face.dummy = 0
+    taborder = 2
+    bounds_x = 1
+    bounds_y = 1
+    bounds_cx = 436
+    bounds_cy = 202
+    object btncaret: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      bounds_x = 56
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '^'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btncaret_onexecute
+    end
+    object btnabc: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
+      taborder = 1
+      bounds_x = 8
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'ABC'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnabc_onexecute
+    end
+    object btnslash: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 2
+      bounds_x = 104
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '/'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnslash_onexecute
+    end
+    object btnasterisk: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 3
+      bounds_x = 56
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '*'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnasterisk_onexecute
+    end
+    object btnnext: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
+      taborder = 4
+      bounds_x = 8
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_invisible, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
+      glyph = stg_arrowright
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btnnext_onexecute
+    end
+    object btnprev: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
+      taborder = 5
+      bounds_x = 8
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
+      glyph = stg_arrowleft
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnprev_onexecute
+    end
+    object btnminus: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 6
+      bounds_x = 56
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '-'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnminus_onexecute
+    end
+    object btnUnderscore: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 7
+      bounds_x = 104
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '_'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnunderscore_onexecute
+    end
+    object btnequal: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 8
+      bounds_x = 152
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '='
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btnequal_onexecute
+    end
+    object btnnumsign: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 9
+      bounds_x = 152
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '#'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnnumsign_onexecute
+    end
+    object btnat: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 10
+      bounds_x = 104
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '@'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnat_onexecute
+    end
+    object btneclam: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 11
+      bounds_x = 56
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '!'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btneclam_onexecute
+    end
+    object btntab: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
+      taborder = 12
+      bounds_x = 8
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Tab'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btntab_onexecute
+    end
+    object btnparenleft: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 13
+      bounds_x = 344
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '('
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnparentleft_onexecute
+    end
+    object btnampersand: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 14
+      bounds_x = 296
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '&&'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnampersand_onexecute
+    end
+    object btnpercent: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 15
+      bounds_x = 248
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '%'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnpercent_onexecute
+    end
+    object btndollar: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 16
+      bounds_x = 202
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '$'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btndollar_onexecute
+    end
+    object btncolon: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 17
+      bounds_x = 344
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ':'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btncolon_onexecute
+    end
+    object btnsemicolon: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 18
+      bounds_x = 296
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ';'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnsemicolon_onexecute
+    end
+    object btnbackslash: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 19
+      bounds_x = 248
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '\'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnbackslash_onexecute
+    end
+    object btnplus: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 20
+      bounds_x = 202
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '+'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnplus_onexecute
+    end
+    object btnvertbar: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 21
+      bounds_x = 344
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '|'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnvertbar_onexecute
+    end
+    object btnrightbrace: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 22
+      bounds_x = 296
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '}'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnrightbrace_onexecute
+    end
+    object btnleftbrace: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 23
+      bounds_x = 248
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '{'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnleftbrace_onexecute
+    end
+    object btnrightbracket: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 24
+      bounds_x = 202
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ']'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnrightbracket_onexecute
+    end
+    object btnleftbracket: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 25
+      bounds_x = 152
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '['
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnleftbracket_onexecute
+    end
+    object btnspace2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
+      taborder = 26
+      bounds_x = 344
+      bounds_y = 152
+      bounds_cx = 88
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Space'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnspace_onexecute
+    end
+    object btnright2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
+      taborder = 27
+      bounds_x = 296
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
+      glyph = stg_arrowrightsmall
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnright_onexecute
+    end
+    object btnleft2: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
+      taborder = 28
+      bounds_x = 248
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
+      glyph = stg_arrowleftsmall
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnleft_onexecute
+    end
+    object btnless: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 29
+      bounds_x = 152
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '<'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnless_onexecute
+    end
+    object btnsection: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 30
+      bounds_x = 104
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '`'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnsection_onexecute
+    end
+    object btntilde: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 31
+      bounds_x = 392
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '~'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btntilde_onexecute
+    end
+    object btndoublequote: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 32
+      bounds_x = 392
+      bounds_y = 56
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '"'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
+      onexecute = btndoublequote_onexecute
+    end
+    object btnparenright: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 33
+      bounds_x = 392
+      bounds_y = 8
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = ')'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btnparentright_onexecute
+    end
+    object btngreater: tstockglyphbutton
+      optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
+      taborder = 34
+      bounds_x = 202
+      bounds_y = 152
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = '>'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
+      onexecute = btngreater_onexecute
     end
   end
   object wnumbers: tsimplewidget
+    face.template = facecont
+    face.dummy = 0
     visible = True
     bounds_x = 432
     bounds_y = 0
@@ -537,17 +1085,39 @@ object frmkeyboardfo: tfrmkeyboardfo
     bounds_cy = 202
     object btnenter: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       bounds_x = 104
       bounds_y = 152
       bounds_cx = 88
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Enter'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnenter_onexecute
     end
     object btndec: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 1
       bounds_x = 56
       bounds_y = 152
@@ -555,11 +1125,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '.'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btndec_onexecute
     end
     object btn0: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 2
       bounds_x = 8
       bounds_y = 152
@@ -567,11 +1151,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '0'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn0_onexecute
     end
     object btn9: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 3
       bounds_x = 104
       bounds_y = 104
@@ -579,11 +1177,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '9'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn9_onexecute
     end
     object btn8: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 4
       bounds_x = 56
       bounds_y = 104
@@ -591,11 +1203,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '8'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn8_onexecute
     end
     object btn7: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 5
       bounds_x = 8
       bounds_y = 104
@@ -603,11 +1229,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '7'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn7_onexecute
     end
     object btn4: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 6
       bounds_x = 8
       bounds_y = 56
@@ -615,11 +1255,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '4'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn4_onexecute
     end
     object btn5: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 7
       bounds_x = 56
       bounds_y = 56
@@ -627,11 +1281,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '5'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn5_onexecute
     end
     object btn6: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 8
       bounds_x = 104
       bounds_y = 56
@@ -639,11 +1307,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '6'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn6_onexecute
     end
     object btndel: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facewarn
+      face.dummy = 0
       taborder = 9
       bounds_x = 152
       bounds_y = 56
@@ -651,11 +1333,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Del'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btndel_onexecute
     end
     object btnback: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facewarn
+      face.dummy = 0
       taborder = 10
       bounds_x = 152
       bounds_y = 8
@@ -663,11 +1359,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Back'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnback_onexecute
     end
     object btn3: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 11
       bounds_x = 104
       bounds_y = 8
@@ -675,11 +1385,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '3'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn3_onexecute
     end
     object btn2: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 12
       bounds_x = 56
       bounds_y = 8
@@ -687,11 +1411,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '2'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn2_onexecute
     end
     object btn1: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 13
       bounds_x = 8
       bounds_y = 8
@@ -699,18 +1437,82 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '1'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btn1_onexecute
     end
+    object btnhide2: tstockglyphbutton
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facewarn
+      face.dummy = 0
+      taborder = 14
+      bounds_x = 153
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Hide'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      onexecute = btnhide_onexecute
+    end
   end
   object wchars: tsimplewidget
+    face.template = facecont
+    face.dummy = 0
     taborder = 1
     bounds_x = 1
     bounds_y = 1
     bounds_cx = 634
     bounds_cy = 202
+    object btnhide: tstockglyphbutton
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facewarn
+      face.dummy = 0
+      taborder = 42
+      bounds_x = 584
+      bounds_y = 104
+      bounds_cx = 40
+      bounds_cy = 40
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      caption = 'Hide'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      onexecute = btnhide_onexecute
+    end
     object btnctrl: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       bounds_x = 56
       bounds_y = 152
       bounds_cx = 40
@@ -719,12 +1521,26 @@ object frmkeyboardfo: tfrmkeyboardfo
       glyph = stg_checkedradio
       caption = 'Ctrl'
       imagepos = ip_bottomcenter
-      colorglyph = -1610612734
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnctrl_onexecute
     end
     object btnsymbols: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 1
       bounds_x = 8
       bounds_y = 152
@@ -732,11 +1548,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '&&123'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnsymbols_onexecute
     end
     object btnx: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 2
       bounds_x = 104
       bounds_y = 104
@@ -744,11 +1574,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'X'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnx_onexecute
     end
     object btnz: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 3
       bounds_x = 56
       bounds_y = 104
@@ -756,11 +1600,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Z'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnz_onexecute
     end
     object btnshift: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 4
       bounds_x = 8
       bounds_y = 104
@@ -770,12 +1628,26 @@ object frmkeyboardfo: tfrmkeyboardfo
       glyph = stg_checkedradio
       caption = 'Shift'
       imagepos = ip_bottomcenter
-      colorglyph = -1610612734
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnshift_onexecute
     end
     object btna: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 5
       bounds_x = 28
       bounds_y = 56
@@ -783,11 +1655,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'A'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btna_onexecute
     end
     object btns: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 6
       bounds_x = 76
       bounds_y = 56
@@ -795,11 +1681,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'S'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btns_onexecute
     end
     object btnd: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 7
       bounds_x = 124
       bounds_y = 56
@@ -807,11 +1707,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'D'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnd_onexecute
     end
     object btnf: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 8
       bounds_x = 172
       bounds_y = 56
@@ -819,11 +1733,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'F'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnf_onexecute
     end
     object btnr: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 9
       bounds_x = 152
       bounds_y = 8
@@ -831,11 +1759,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'R'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnr_onexecute
     end
     object btne: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 10
       bounds_x = 104
       bounds_y = 8
@@ -843,11 +1785,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'E'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btne_onexecute
     end
     object btnw: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 11
       bounds_x = 56
       bounds_y = 8
@@ -855,11 +1811,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'W'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnw_onexecute
     end
     object btnq: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 12
       bounds_x = 8
       bounds_y = 8
@@ -867,11 +1837,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Q'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnq_onexecute
     end
     object btni: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 13
       bounds_x = 344
       bounds_y = 8
@@ -879,11 +1863,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'I'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btni_onexecute
     end
     object btnu: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 14
       bounds_x = 296
       bounds_y = 8
@@ -891,11 +1889,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'U'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnu_onexecute
     end
     object btny: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 15
       bounds_x = 248
       bounds_y = 8
@@ -903,11 +1915,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Y'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btny_onexecute
     end
     object btnt: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 16
       bounds_x = 202
       bounds_y = 8
@@ -915,11 +1941,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'T'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnt_onexecute
     end
     object btnback2: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facewarn
+      face.dummy = 0
       taborder = 17
       bounds_x = 488
       bounds_y = 8
@@ -927,11 +1967,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Backspace'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnback_onexecute
     end
     object btno: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 18
       bounds_x = 392
       bounds_y = 8
@@ -939,11 +1993,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'O'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btno_onexecute
     end
     object btnp: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 19
       bounds_x = 440
       bounds_y = 8
@@ -951,11 +2019,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'P'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnp_onexecute
     end
     object btnk: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 20
       bounds_x = 364
       bounds_y = 56
@@ -963,11 +2045,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'K'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnk_onexecute
     end
     object btnj: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 21
       bounds_x = 316
       bounds_y = 56
@@ -975,11 +2071,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'J'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnj_onexecute
     end
     object btnh: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 22
       bounds_x = 268
       bounds_y = 56
@@ -987,11 +2097,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'H'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnh_onexecute
     end
     object btng: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 23
       bounds_x = 220
       bounds_y = 56
@@ -999,11 +2123,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'G'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btng_onexecute
     end
     object btnaposthrope: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 24
       bounds_x = 460
       bounds_y = 56
@@ -1011,11 +2149,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = ''''
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnaposthrope_onexecute
     end
     object btnl: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 25
       bounds_x = 412
       bounds_y = 56
@@ -1023,11 +2175,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'L'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnl_onexecute
     end
     object btnenter2: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 26
       bounds_x = 508
       bounds_y = 56
@@ -1035,11 +2201,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localchecked, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Enter'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus, bo_cantoggle]
       onexecute = btnenter_onexecute
     end
     object btnquestion: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 27
       bounds_x = 488
       bounds_y = 104
@@ -1047,11 +2227,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '?'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnquestion_onexecute
     end
     object btnperiod: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 28
       bounds_x = 440
       bounds_y = 104
@@ -1059,11 +2253,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = '.'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnperiod_onexecute
     end
     object btncomma: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 29
       bounds_x = 392
       bounds_y = 104
@@ -1071,11 +2279,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = ','
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btncomma_onexecute
     end
     object btnm: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 30
       bounds_x = 344
       bounds_y = 104
@@ -1083,11 +2305,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'M'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnm_onexecute
     end
     object btnn: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 31
       bounds_x = 296
       bounds_y = 104
@@ -1095,11 +2331,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'N'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnn_onexecute
     end
     object btnb: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 32
       bounds_x = 248
       bounds_y = 104
@@ -1107,11 +2357,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'B'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnb_onexecute
     end
     object btnv: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 33
       bounds_x = 202
       bounds_y = 104
@@ -1119,11 +2383,25 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'V'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnv_onexecute
     end
     object btnc: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facenormal
+      face.dummy = 0
       taborder = 34
       bounds_x = 152
       bounds_y = 104
@@ -1131,69 +2409,153 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'C'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnc_onexecute
     end
     object btnup: tstockglyphbutton
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 35
       bounds_x = 536
       bounds_y = 104
       bounds_cx = 40
       bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
       glyph = stg_arrowupsmall
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
       onexecute = btnup_onexecute
     end
     object btndown: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 36
       bounds_x = 536
       bounds_y = 152
       bounds_cx = 40
       bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
       glyph = stg_arrowdownsmall
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btndown_onexecute
     end
     object btnleft: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 37
       bounds_x = 488
       bounds_y = 152
       bounds_cx = 40
       bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
       glyph = stg_arrowleftsmall
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnleft_onexecute
     end
     object btnright: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 38
       bounds_x = 584
       bounds_y = 152
       bounds_cx = 40
       bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
       glyph = stg_arrowrightsmall
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnright_onexecute
     end
     object btnspace: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 39
       bounds_x = 104
       bounds_y = 152
-      bounds_cx = 376
+      bounds_cx = 328
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Space'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btnspace_onexecute
     end
     object btndel2: tstockglyphbutton
       optionswidget = [ow_destroywidgets]
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facewarn
+      face.dummy = 0
       taborder = 40
       bounds_x = 584
       bounds_y = 8
@@ -1201,18 +2563,109 @@ object frmkeyboardfo: tfrmkeyboardfo
       bounds_cy = 40
       state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
       caption = 'Del'
+      font.color = -1610612730
+      font.height = 13
+      font.style = [fs_bold]
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
       onexecute = btndel_onexecute
     end
     object btnoptions: tstockglyphbutton
+      frame.font.color = -1610612730
+      frame.font.height = 13
+      frame.font.xscale = 1
+      frame.font.dummy = 0
+      frame.template = tframecomp1
+      frame.dummy = 0
+      face.template = facefunct
+      face.dummy = 0
       taborder = 41
-      bounds_x = 584
-      bounds_y = 104
+      bounds_x = 440
+      bounds_y = 152
       bounds_cx = 40
       bounds_cy = 40
-      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
+      state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localonexecute]
       glyph = stg_settings
+      font.color = -1610612730
+      font.height = 13
+      font.name = 'stf_default'
+      font.xscale = 1
+      font.dummy = 0
+      colorglyph = -1610612730
       onexecute = btnoptions_onexecute
     end
+  end
+  object facewarn: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612729
+      16741749
+    )
+    template.fade_direction = gd_up
+    left = 448
+    top = 80
+  end
+  object facenormal: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612734
+      5000268
+    )
+    template.fade_direction = gd_up
+    left = 320
+    top = 72
+  end
+  object tframecomp1: tframecomp
+    template.framewidth = 1
+    template.colorframe = -1610612730
+    template.font.color = -1610612730
+    template.font.height = 13
+    template.font.xscale = 1
+    template.font.dummy = 0
+    template.optionsskin = [fso_flat]
+    left = 320
+    top = 112
+  end
+  object facefunct: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612727
+      6053119
+    )
+    template.fade_direction = gd_up
+    left = 264
+    top = 96
+  end
+  object facecont: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612734
+      5000268
+    )
+    template.fade_direction = gd_up
+    left = 136
+    top = 96
   end
 end

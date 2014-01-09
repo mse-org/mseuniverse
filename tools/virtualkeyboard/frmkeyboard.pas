@@ -104,6 +104,13 @@ type
    wautocapital: tbooleanedit;
    btnclose: tstockglyphbutton;
    wlang: tstringgrid;
+   btnhide: tstockglyphbutton;
+   btnhide2: tstockglyphbutton;
+   facewarn: tfacecomp;
+   facenormal: tfacecomp;
+   tframecomp1: tframecomp;
+   facefunct: tfacecomp;
+   facecont: tfacecomp;
    procedure widgetactivechangeexe(const oldwidget: twidget;
                    const newwidget: twidget);
    procedure btn1_onexecute(const sender: TObject);
@@ -194,11 +201,12 @@ type
    procedure btncloseoptions_onexecute(const sender: TObject);
    procedure btnoptions_onexecute(const sender: TObject);
    procedure form_created(const sender: TObject);
+   procedure btnhide_onexecute(const sender: TObject);
   protected
    finputwidget: twidget;
    fshiftstate: shiftstatesty;
    procedure changelower;
-   PROCEDURE changeupper;
+   procedure changeupper;
    procedure linkinputwidget(const awidget: twidget);
    procedure unlinkinputwidget;
    procedure updatewindowpos;
@@ -308,7 +316,7 @@ end;
 procedure tfrmkeyboardfo.updatewindowpos;
 begin
  if finputwidget <> nil then begin
-  widgetrect:= placepopuprect(finputwidget,mr(nullpoint,finputwidget.size),
+  widgetrect:= placeclientpopuprect(finputwidget,mr(nullpoint,finputwidget.size),
                                                   cp_bottomleft,size);
  end;
 end;
@@ -622,7 +630,7 @@ begin
  if finputwidget <> nil then begin
   if not (ss_shift in fshiftstate) then begin
    include(fshiftstate, ss_shift);
-   btnshift.colorglyph:= cl_ltgreen;
+   btnshift.colorglyph:= cl_red;
    changeupper;
   end else begin
    exclude(fshiftstate, ss_shift);
@@ -732,7 +740,7 @@ begin
  if finputwidget <> nil then begin
   if not (ss_ctrl in fshiftstate) then begin
    include(fshiftstate, ss_ctrl);
-   btnctrl.colorglyph:= cl_ltgreen;
+   btnctrl.colorglyph:= cl_red;
   end else begin
    exclude(fshiftstate, ss_ctrl);
    btnctrl.colorglyph:= btnctrl.font.color;
@@ -1010,11 +1018,19 @@ procedure tfrmkeyboardfo.form_created(const sender: TObject);
 begin
  btnleft.colorglyph:= btnleft.font.color;
  btnright.colorglyph:= btnright.font.color;
+ btnleft2.colorglyph:= btnleft2.font.color;
+ btnright2.colorglyph:= btnright2.font.color;
  btnup.colorglyph:= btnup.font.color;
  btndown.colorglyph:= btndown.font.color;
  btnoptions.colorglyph:= btnoptions.font.color;
  btnctrl.colorglyph:= btnctrl.font.color;
  btnshift.colorglyph:= btnshift.font.color;
+end;
+
+procedure tfrmkeyboardfo.btnhide_onexecute(const sender: TObject);
+begin
+ unlinkinputwidget;
+ hide;
 end;
 
 end.
