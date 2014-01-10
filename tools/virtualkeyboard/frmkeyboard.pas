@@ -111,6 +111,12 @@ type
    tframecomp1: tframecomp;
    facefunct: tfacecomp;
    facecont: tfacecomp;
+   facelistnormal: tfacelist;
+   facenormal2: tfacecomp;
+   facelistfunct: tfacelist;
+   facelistwarn: tfacelist;
+   facefunct2: tfacecomp;
+   facewarn2: tfacecomp;
    procedure widgetactivechangeexe(const oldwidget: twidget;
                    const newwidget: twidget);
    procedure btn1_onexecute(const sender: TObject);
@@ -220,7 +226,7 @@ var
  frmkeyboardfo: tfrmkeyboardfo;
 implementation
 uses
- frmkeyboard_mfm,msekeyboard,msesysutils,msedropdownlist;
+ frmkeyboard_mfm,msekeyboard,msesysutils,msedropdownlist,msetextedit,msewidgetgrid;
 
 type
  tcustomdropdownedit1 = class(tcustomdropdownedit);
@@ -317,10 +323,20 @@ begin
 end;
 
 procedure tfrmkeyboardfo.updatewindowpos;
+var
+ arect : rectty;
 begin
  if finputwidget <> nil then begin
-  widgetrect:= placepopuprect(finputwidget,mr(nullpoint,finputwidget.size),
-                                                  cp_bottomleft,size);
+  if finputwidget.window.modal then begin
+   arect:= placepopuprect(finputwidget.rootwidget,mr(nullpoint,finputwidget.rootwidget.size),cp_bottomleft,size);
+   if testintersectrect(arect,finputwidget.widgetclientrect) then begin
+    widgetrect:= placepopuprect(finputwidget,mr(nullpoint,finputwidget.size),cp_bottomleft,size);
+   end else begin
+    widgetrect:= arect;
+   end;
+  end else begin                                                 
+   widgetrect:= placepopuprect(finputwidget,mr(nullpoint,finputwidget.size),cp_bottomleft,size);
+  end;
  end;
 end;
 
@@ -333,12 +349,13 @@ begin
  if (newwidget <> nil) then begin
   if not checkdescendent(newwidget) and ((newwidget is tcustomdataedit) and not tcustomdataedit(newwidget).readonly) 
    and not ((newwidget is tcustomdropdownedit) and (deo_selectonly in tcustomdropdownedit1(newwidget).fdropdown.options)) 
-   or ((newwidget is tcustomstringgrid) and not (co_readonly in tcustomstringgrid(newwidget).datacols.options)) then begin
+   or ((newwidget is tcustomstringgrid) and not (co_readonly in tcustomstringgrid(newwidget).datacols.options)) 
+   or ((newwidget is tcustomtextedit) and not tcustomtextedit(newwidget).readonly) then begin
    if (newwidget is tcustomrealedit) then begin
     bo1:= true;
     btndec.visible:= true;
-    self.width:= 202;
-    wnumbers.left:= 0;
+    self.width:= 207;
+    wnumbers.left:= 8;
     wnumbers.visible:= true;
     wchars.visible:= false;
     wsymbols.visible:= false;
@@ -346,17 +363,17 @@ begin
    end else if (newwidget is tcustomintegeredit) or (newwidget is tcustomint64edit) then begin
     bo1:= true;
     btndec.visible:= false;
-    self.width:= 202;
-    wnumbers.left:= 0;
+    self.width:= 207;
+    wnumbers.left:= 8;
     wnumbers.visible:= true;
     wchars.visible:= false;
     wsymbols.visible:= false;
     woptions.visible:= false;
-   end else if (newwidget is tcustomstringedit) then begin
+   end else if (newwidget is tcustomstringedit) or (newwidget is tcustomtextedit) then begin
     bo1:= true;
     btndec.visible:= true;
-    self.width:= 634;
-    wnumbers.left:= 432;
+    self.width:= 639;
+    wnumbers.left:= 441;
     wnumbers.visible:= false;
     wchars.visible:= true;
     wsymbols.visible:= false;
@@ -365,8 +382,8 @@ begin
    end else if (newwidget is tcustomstringgrid) then begin
     bo1:= true;
     btndec.visible:= true;
-    self.width:= 634;
-    wnumbers.left:= 432;
+    self.width:= 639;
+    wnumbers.left:= 441;
     wnumbers.visible:= false;
     wchars.visible:= true;
     wsymbols.visible:= false;
@@ -379,7 +396,7 @@ begin
   linkinputwidget(newwidget);
   updatewindowpos;
   if newwidget.window.modal then begin
-   show(ml_none,application.mainwindow); //still trouble in modal form
+   show(ml_none,newwidget.window);
   end else begin
    show(ml_none,newwidget.window);
   end;
@@ -489,14 +506,14 @@ end;
 procedure tfrmkeyboardfo.btnback_onexecute(const sender: TObject);
 begin
  if finputwidget <> nil then begin
-  finputwidget.window.postkeyevent(key_Backspace,fshiftstate,false,'');
+  finputwidget.window.postkeyevent(key_Backspace,[],false,'');
  end;
 end;
 
 procedure tfrmkeyboardfo.btndel_onexecute(const sender: TObject);
 begin
  if finputwidget <> nil then begin
-  finputwidget.window.postkeyevent(key_Delete,fshiftstate,false,'');
+  finputwidget.window.postkeyevent(key_Delete,[],false,'');
  end;
 end;
 
@@ -741,14 +758,14 @@ end;
 procedure tfrmkeyboardfo.btnup_onexecute(const sender: TObject);
 begin
  if finputwidget <> nil then begin
-  finputwidget.window.postkeyevent(key_Up,fshiftstate,false,'');
+  finputwidget.window.postkeyevent(key_Up,[],false,'');
  end;
 end;
 
 procedure tfrmkeyboardfo.btnsymbols_onexecute(const sender: TObject);
 begin
  wchars.visible:= false;
- wnumbers.left:= 432;
+ wnumbers.left:= 441;
  wnumbers.visible:= true;
  wsymbols.visible:= true;
 end;
@@ -769,28 +786,28 @@ end;
 procedure tfrmkeyboardfo.btnspace_onexecute(const sender: TObject);
 begin
  if finputwidget <> nil then begin
-  finputwidget.window.postkeyevent(key_Space,fshiftstate,false,' ');
+  finputwidget.window.postkeyevent(key_Space,[],false,' ');
  end;
 end;
 
 procedure tfrmkeyboardfo.btnleft_onexecute(const sender: TObject);
 begin
  if finputwidget <> nil then begin
-  finputwidget.window.postkeyevent(key_Left,fshiftstate,false,'');
+  finputwidget.window.postkeyevent(key_Left,[],false,'');
  end;
 end;
 
 procedure tfrmkeyboardfo.btnright_onexecute(const sender: TObject);
 begin
  if finputwidget <> nil then begin
-  finputwidget.window.postkeyevent(key_Right,fshiftstate,false,'');
+  finputwidget.window.postkeyevent(key_Right,[],false,'');
  end;
 end;
 
 procedure tfrmkeyboardfo.btndown_onexecute(const sender: TObject);
 begin
  if finputwidget <> nil then begin
-  finputwidget.window.postkeyevent(key_Down,fshiftstate,false,'');
+  finputwidget.window.postkeyevent(key_Down,[],false,'');
  end;
 end;
 
