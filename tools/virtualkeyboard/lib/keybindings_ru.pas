@@ -7,64 +7,45 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 }
-unit keybindings;
+unit keybindings_ru;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msestrings,msekeyboard;
-
-const
- keymax = 99;
-type
- keyinfoty = record
-  key: keyty;
-  chars: msestring;
-  caption: msestring; //('' -> same as chars)
- end;
- keybindingsty = array[0..keymax] of keyinfoty;
- pkeybindingsty = ^keybindingsty;
- 
- keyboardlangty = record
-  name: msestring;
-  lower: pkeybindingsty;
-  upper: pkeybindingsty;
- end;
-
- keylangty = (kl_en,kl_de,kl_ru,kl_uzcyr,kl_fr,kl_es,kl_zh);
+ msestrings,msekeyboard,keybindings;
 
 const
  qwertylower: keybindingsty = (
-  (key: key_q; chars: 'q'; caption: ''),                 //0     
-  (key: key_w; chars: 'w'; caption: ''),                 //1
-  (key: key_e; chars: 'e'; caption: ''),                 //2     
-  (key: key_r; chars: 'r'; caption: ''),                 //3     
-  (key: key_t; chars: 't'; caption: ''),                 //4     
-  (key: key_y; chars: 'y'; caption: ''),                 //5     
-  (key: key_u; chars: 'u'; caption: ''),                 //6     
-  (key: key_i; chars: 'i'; caption: ''),                 //7     
-  (key: key_o; chars: 'o'; caption: ''),                 //8     
-  (key: key_p; chars: 'p'; caption: ''),                 //9     
+  (key: key_q ; chars: #1081; caption: ''),                 //0
+  (key: key_w ; chars: #1094; caption: ''),                 //1
+  (key: key_e ; chars: #1091; caption: ''),                 //2
+  (key: key_r ; chars: #1082; caption: ''),                 //3
+  (key: key_t ; chars: #1077; caption: ''),                 //4
+  (key: key_y ; chars: #1085; caption: ''),                 //5
+  (key: key_u ; chars: #1075; caption: ''),                 //6
+  (key: key_i ; chars: #1096; caption: ''),                 //7
+  (key: key_o ; chars: #1097; caption: ''),                 //8
+  (key: key_p ; chars: #1079; caption: ''),                 //9
   (key: key_backspace; chars: ''; caption: 'Backspace'), //10     
   (key: key_delete; chars: ''; caption: 'Del'),          //11     
-  (key: key_a; chars: 'a'; caption: ''),                 //12    
-  (key: key_s; chars: 's'; caption: ''),                 //13    
-  (key: key_d; chars: 'd'; caption: ''),                 //14    
-  (key: key_f; chars: 'f'; caption: ''),                 //15    
-  (key: key_g; chars: 'g'; caption: ''),                 //16    
-  (key: key_h; chars: 'h'; caption: ''),                 //17    
-  (key: key_j; chars: 'j'; caption: ''),                 //18    
-  (key: key_k; chars: 'k'; caption: ''),                 //19    
-  (key: key_l; chars: 'l'; caption: ''),                 //20     
+  (key: key_a ; chars: #1092; caption: ''),                 //12
+  (key: key_s ; chars: #1099; caption: ''),                 //13
+  (key: key_d ; chars: #1074; caption: ''),                 //14
+  (key: key_f ; chars: #1072; caption: ''),                 //15
+  (key: key_g ; chars: #1087; caption: ''),                 //16
+  (key: key_h ; chars: #1088; caption: ''),                 //17
+  (key: key_j ; chars: #1086; caption: ''),                 //18
+  (key: key_k ; chars: #1083; caption: ''),                 //19
+  (key: key_l ; chars: #1076; caption: ''),                 //20
   (key: key_apostrophe; chars: ''''; caption: ''),       //21     
   (key: key_return; chars: ''; caption: 'Enter'),        //22    
   (key: key_shift; chars: ''; caption: 'Shift'),         //23    
-  (key: key_z; chars: 'z'; caption: ''),                 //24    
-  (key: key_x; chars: 'x'; caption: ''),                 //25    
-  (key: key_c; chars: 'c'; caption: ''),                 //26    
-  (key: key_v; chars: 'v'; caption: ''),                 //27    
-  (key: key_b; chars: 'b'; caption: ''),                 //28    
-  (key: key_n; chars: 'n'; caption: ''),                 //29    
-  (key: key_m; chars: 'm'; caption: ''),                 //30    
+  (key: key_z ; chars: #1103; caption: ''),                 //24
+  (key: key_x ; chars: #1095; caption: ''),                 //25
+  (key: key_c ; chars: #1089; caption: ''),                 //26
+  (key: key_v ; chars: #1084; caption: ''),                 //27
+  (key: key_b ; chars: #1080; caption: ''),                 //28
+  (key: key_n ; chars: #1090; caption: ''),                 //29
+  (key: key_m ; chars: #1100; caption: ''),                 //30
   (key: key_comma; chars: ','; caption: ''),             //31     
   (key: key_period; chars: '.'; caption: ''),            //32     
   (key: key_question; chars: '?'; caption: ''),          //33    
@@ -140,37 +121,37 @@ const
  );
  
  qwertyupper: keybindingsty = (
-  (key: key_q; chars: 'Q'; caption: ''),                 //0     
-  (key: key_w; chars: 'W'; caption: ''),                 //1
-  (key: key_e; chars: 'E'; caption: ''),                 //2     
-  (key: key_r; chars: 'R'; caption: ''),                 //3     
-  (key: key_t; chars: 'T'; caption: ''),                 //4     
-  (key: key_y; chars: 'Y'; caption: ''),                 //5     
-  (key: key_u; chars: 'U'; caption: ''),                 //6     
-  (key: key_i; chars: 'I'; caption: ''),                 //7     
-  (key: key_o; chars: 'O'; caption: ''),                 //8     
-  (key: key_p; chars: 'P'; caption: ''),                 //9     
+  (key: key_q ; chars: #1049; caption: ''),                 //0
+  (key: key_w ; chars: #1062; caption: ''),                 //1
+  (key: key_e ; chars: #1059; caption: ''),                 //2
+  (key: key_r ; chars: #1050; caption: ''),                 //3
+  (key: key_t ; chars: #1045; caption: ''),                 //4
+  (key: key_y ; chars: #1053; caption: ''),                 //5
+  (key: key_u ; chars: #1043; caption: ''),                 //6
+  (key: key_i ; chars: #1064; caption: ''),                 //7
+  (key: key_o ; chars: #1065; caption: ''),                 //8
+  (key: key_p ; chars: #1047; caption: ''),                 //9
   (key: key_backspace; chars: ''; caption: 'Backspace'), //10     
   (key: key_delete; chars: ''; caption: 'Del'),          //11     
-  (key: key_a; chars: 'A'; caption: ''),                 //12    
-  (key: key_s; chars: 'S'; caption: ''),                 //13    
-  (key: key_d; chars: 'D'; caption: ''),                 //14    
-  (key: key_f; chars: 'F'; caption: ''),                 //15    
-  (key: key_g; chars: 'G'; caption: ''),                 //16    
-  (key: key_h; chars: 'H'; caption: ''),                 //17    
-  (key: key_j; chars: 'J'; caption: ''),                 //18    
-  (key: key_k; chars: 'K'; caption: ''),                 //19    
-  (key: key_l; chars: 'L'; caption: ''),                 //20     
+  (key: key_a ; chars: #1060; caption: ''),                 //12
+  (key: key_s ; chars: #1067; caption: ''),                 //13
+  (key: key_d ; chars: #1042; caption: ''),                 //14
+  (key: key_f ; chars: #1040; caption: ''),                 //15
+  (key: key_g ; chars: #1055; caption: ''),                 //16
+  (key: key_h ; chars: #1056; caption: ''),                 //17
+  (key: key_j ; chars: #1054; caption: ''),                 //18
+  (key: key_k ; chars: #1051; caption: ''),                 //19
+  (key: key_l ; chars: #1044; caption: ''),                 //20
   (key: key_quotedbl; chars: '"'; caption: ''),          //21     
   (key: key_return; chars: ''; caption: 'Enter'),        //22    
   (key: key_shift; chars: ''; caption: 'Shift'),         //23    
-  (key: key_z; chars: 'Z'; caption: ''),                 //24    
-  (key: key_x; chars: 'X'; caption: ''),                 //25    
-  (key: key_c; chars: 'C'; caption: ''),                 //26    
-  (key: key_v; chars: 'V'; caption: ''),                 //27    
-  (key: key_b; chars: 'B'; caption: ''),                 //28    
-  (key: key_n; chars: 'N'; caption: ''),                 //29    
-  (key: key_m; chars: 'M'; caption: ''),                 //20    
+  (key: key_z ; chars: #1071; caption: ''),                 //24
+  (key: key_x ; chars: #1063; caption: ''),                 //25
+  (key: key_c ; chars: #1057; caption: ''),                 //26
+  (key: key_v ; chars: #1052; caption: ''),                 //27
+  (key: key_b ; chars: #1048; caption: ''),                 //28
+  (key: key_n ; chars: #1058; caption: ''),                 //29
+  (key: key_m ; chars: #1068; caption: ''),                 //30
   (key: key_semicolon; chars: ';'; caption: ''),         //31     
   (key: key_division; chars: '/'; caption: ''),          //32     
   (key: key_exclam; chars: '!'; caption: ''),            //33    
@@ -243,45 +224,9 @@ const
   (key: key_none; chars: ''; caption: ''),               //98    
   (key: key_none; chars: ''; caption: '')                //99     
  );
-
-var
- keyboardlangs: array of keyboardlangty;
- keylang : keylangty;
- 
-procedure setitem(var item: keyboardlangty;
-           const name: msestring;
-           const qwertylowerpo: pkeybindingsty;
-           const qwertyupperpo: pkeybindingsty);
-
-procedure registerkeyboardlang(const name: msestring; const qwertylowerpo: pkeybindingsty; const qwertyupperpo: pkeybindingsty);
  
 implementation
 
-procedure setitem(var item: keyboardlangty;
-           const name: msestring;
-           const qwertylowerpo: pkeybindingsty;
-           const qwertyupperpo: pkeybindingsty);
-begin
- item.name:= name;
- item.lower:= qwertylowerpo;
- item.upper:= qwertyupperpo;
-end;
-
-procedure registerkeyboardlang(const name: msestring; const qwertylowerpo: pkeybindingsty; const qwertyupperpo: pkeybindingsty);
-var
- int1: integer;
-begin
- for int1:= 0 to high(keyboardlangs) do begin
-  if keyboardlangs[int1].name = name then begin
-   setitem(keyboardlangs[int1],name,qwertylowerpo,qwertyupperpo);
-   exit;
-  end;
- end;
- setlength(keyboardlangs,high(keyboardlangs)+2);
- setitem(keyboardlangs[high(keyboardlangs)],name,qwertylowerpo,qwertyupperpo);
-end;
-
 initialization
- registerkeyboardlang('English',@qwertylower,@qwertyupper);
- keylang:= kl_en;
+ registerkeyboardlang(#1056#1091#1089#1089#1082#1072#1103,@qwertylower,@qwertyupper);
 end.

@@ -7,30 +7,11 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 }
-unit keybindings;
+unit keybindings_de;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msestrings,msekeyboard;
-
-const
- keymax = 99;
-type
- keyinfoty = record
-  key: keyty;
-  chars: msestring;
-  caption: msestring; //('' -> same as chars)
- end;
- keybindingsty = array[0..keymax] of keyinfoty;
- pkeybindingsty = ^keybindingsty;
- 
- keyboardlangty = record
-  name: msestring;
-  lower: pkeybindingsty;
-  upper: pkeybindingsty;
- end;
-
- keylangty = (kl_en,kl_de,kl_ru,kl_uzcyr,kl_fr,kl_es,kl_zh);
+ msestrings,msekeyboard,keybindings;
 
 const
  qwertylower: keybindingsty = (
@@ -243,45 +224,9 @@ const
   (key: key_none; chars: ''; caption: ''),               //98    
   (key: key_none; chars: ''; caption: '')                //99     
  );
-
-var
- keyboardlangs: array of keyboardlangty;
- keylang : keylangty;
- 
-procedure setitem(var item: keyboardlangty;
-           const name: msestring;
-           const qwertylowerpo: pkeybindingsty;
-           const qwertyupperpo: pkeybindingsty);
-
-procedure registerkeyboardlang(const name: msestring; const qwertylowerpo: pkeybindingsty; const qwertyupperpo: pkeybindingsty);
  
 implementation
 
-procedure setitem(var item: keyboardlangty;
-           const name: msestring;
-           const qwertylowerpo: pkeybindingsty;
-           const qwertyupperpo: pkeybindingsty);
-begin
- item.name:= name;
- item.lower:= qwertylowerpo;
- item.upper:= qwertyupperpo;
-end;
-
-procedure registerkeyboardlang(const name: msestring; const qwertylowerpo: pkeybindingsty; const qwertyupperpo: pkeybindingsty);
-var
- int1: integer;
-begin
- for int1:= 0 to high(keyboardlangs) do begin
-  if keyboardlangs[int1].name = name then begin
-   setitem(keyboardlangs[int1],name,qwertylowerpo,qwertyupperpo);
-   exit;
-  end;
- end;
- setlength(keyboardlangs,high(keyboardlangs)+2);
- setitem(keyboardlangs[high(keyboardlangs)],name,qwertylowerpo,qwertyupperpo);
-end;
-
 initialization
- registerkeyboardlang('English',@qwertylower,@qwertyupper);
- keylang:= kl_en;
+ registerkeyboardlang('Deutch',@qwertylower,@qwertyupper);
 end.

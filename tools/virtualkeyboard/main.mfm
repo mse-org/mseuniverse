@@ -1,13 +1,13 @@
 object mainfo: tmainfo
   bounds_x = 156
   bounds_y = 203
-  bounds_cx = 640
-  bounds_cy = 417
+  bounds_cx = 890
+  bounds_cy = 463
   container.bounds = (
     0
     0
-    640
-    417
+    890
+    463
   )
   moduleclassname = 'tmainform'
   object trealedit1: trealedit
@@ -15,13 +15,13 @@ object mainfo: tmainfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      18
+      16
       0
       0
     )
-    bounds_x = 532
-    bounds_y = 70
-    bounds_cy = 39
+    bounds_x = 782
+    bounds_y = 72
+    bounds_cy = 35
     anchors = [an_top, an_right]
     value = -Inf
     valuedefault = -Inf
@@ -29,7 +29,7 @@ object mainfo: tmainfo
     valuestart = 0
     min = -Inf
     max = 1E+038
-    reffontheight = 15
+    reffontheight = 13
   end
   object tmemoedit1: tmemoedit
     frame.sbhorz.pagesize = 1
@@ -38,69 +38,69 @@ object mainfo: tmainfo
     frame.localprops = [frl_colorclient]
     frame.outerframe = (
       0
-      18
+      16
       0
       0
     )
     taborder = 1
     bounds_x = 8
-    bounds_y = 14
+    bounds_y = 16
     bounds_cx = 188
-    bounds_cy = 87
-    reffontheight = 15
+    bounds_cy = 83
+    reffontheight = 13
   end
   object tstringedit1: tstringedit
     frame.caption = 'String edit'
     frame.dummy = 0
     frame.outerframe = (
       0
-      18
+      16
       0
       0
     )
     taborder = 2
     bounds_x = 8
-    bounds_y = 109
-    bounds_cx = 624
-    bounds_cy = 39
+    bounds_y = 111
+    bounds_cx = 874
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
-    reffontheight = 15
+    reffontheight = 13
   end
   object trealedit2: trealedit
     frame.caption = 'Real edit'
     frame.dummy = 0
     frame.outerframe = (
       0
-      18
+      16
       0
       0
     )
     taborder = 3
     bounds_x = 8
-    bounds_y = 198
+    bounds_y = 200
     bounds_cx = 172
-    bounds_cy = 39
+    bounds_cy = 35
     value = -Inf
     valuedefault = -Inf
     valuerange = 1
     valuestart = 0
     min = -Inf
     max = 1E+038
-    reffontheight = 15
+    reffontheight = 13
   end
   object tdropdownlistedit1: tdropdownlistedit
     frame.caption = 'dropdown'
     frame.outerframe = (
       0
-      18
+      16
       0
       0
     )
     taborder = 4
-    bounds_x = 460
-    bounds_y = 369
+    bounds_x = 710
+    bounds_y = 419
     bounds_cx = 172
-    bounds_cy = 39
+    bounds_cy = 35
     anchors = [an_right, an_bottom]
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -111,7 +111,7 @@ object mainfo: tmainfo
           'dtherthwre'
         )
       end>
-    reffontheight = 15
+    reffontheight = 13
   end
   object tbutton1: tbutton
     taborder = 5
@@ -137,44 +137,51 @@ object mainfo: tmainfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      18
+      16
       0
       0
     )
     taborder = 7
     bounds_x = 200
-    bounds_y = 14
-    bounds_cy = 39
-    reffontheight = 15
+    bounds_y = 16
+    bounds_cy = 35
+    reffontheight = 13
   end
   object tint64edit1: tint64edit
     frame.caption = 'Integer 64'
     frame.dummy = 0
     frame.outerframe = (
       0
-      18
+      16
       0
       0
     )
     taborder = 8
-    bounds_x = 532
-    bounds_y = 199
-    bounds_cy = 39
+    bounds_x = 782
+    bounds_y = 201
+    bounds_cy = 35
     anchors = [an_top, an_right]
     max = 9223372036854775807
-    reffontheight = 15
+    reffontheight = 13
   end
   object twidgetgrid1: twidgetgrid
+    frame.caption = 'Widget Grid'
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
     taborder = 9
     bounds_x = 8
-    bounds_y = 256
-    bounds_cx = 442
-    bounds_cy = 154
+    bounds_y = 240
+    bounds_cx = 340
+    bounds_cy = 216
     anchors = [an_left, an_top, an_right, an_bottom]
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 17
+        height = 15
       end>
     rowcount = 3
     datacols.count = 4
@@ -228,7 +235,7 @@ object mainfo: tmainfo
         )
       end>
     datarowheight = 17
-    reffontheight = 15
+    reffontheight = 13
     object tstringedit2: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
@@ -238,7 +245,7 @@ object mainfo: tmainfo
       bounds_y = 0
       bounds_cx = 114
       bounds_cy = 17
-      reffontheight = 15
+      reffontheight = 13
     end
     object tintegeredit2: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
@@ -249,7 +256,7 @@ object mainfo: tmainfo
       bounds_y = 0
       bounds_cx = 90
       bounds_cy = 17
-      reffontheight = 15
+      reffontheight = 13
     end
     object trealedit3: trealedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -266,7 +273,7 @@ object mainfo: tmainfo
       valuestart = 0
       min = -Inf
       max = 1E+038
-      reffontheight = 15
+      reffontheight = 13
     end
     object tdropdownlistedit2: tdropdownlistedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -291,7 +298,7 @@ object mainfo: tmainfo
             'Four'
           )
         end>
-      reffontheight = 15
+      reffontheight = 13
     end
   end
   object trealedit4: trealedit
@@ -299,15 +306,15 @@ object mainfo: tmainfo
     frame.dummy = 0
     frame.outerframe = (
       0
-      18
+      16
       0
       0
     )
     taborder = 10
-    bounds_x = 499
-    bounds_y = 254
+    bounds_x = 749
+    bounds_y = 256
     bounds_cx = 133
-    bounds_cy = 39
+    bounds_cy = 35
     anchors = [an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
     value = 1200000.23
@@ -316,26 +323,218 @@ object mainfo: tmainfo
     valuestart = 0
     min = -Inf
     max = 1E+038
-    reffontheight = 15
+    reffontheight = 13
   end
   object tstringedit3: tstringedit
     frame.caption = 'String edit (read only)'
     frame.dummy = 0
     frame.outerframe = (
       0
-      18
+      16
       0
       0
     )
     taborder = 11
     bounds_x = 8
-    bounds_y = 152
-    bounds_cx = 624
-    bounds_cy = 39
+    bounds_y = 154
+    bounds_cx = 874
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
     value = 'read only string edit'
-    reffontheight = 15
+    reffontheight = 13
+  end
+  object tfilenameedit1: tfilenameedit
+    frame.caption = 'Filenameedit'
+    frame.button.imagenr = 17
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 12
+    bounds_x = 200
+    bounds_y = 64
+    bounds_cy = 35
+    reffontheight = 13
+  end
+  object tstringgrid1: tstringgrid
+    taborder = 13
+    bounds_x = 360
+    bounds_y = 256
+    bounds_cx = 338
+    bounds_cy = 202
+    anchors = [an_left, an_top, an_right, an_bottom]
+    datacols.count = 3
+    datacols.items = <    
+      item
+        width = 100
+        datalist.data = (
+          'row 1'
+          'row 2'
+          'row 3'
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        width = 89
+        datalist.data = (
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        width = 122
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        datalist.data = (
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 15
+      end>
+    rowcount = 40
+    datarowheight = 15
+    reffontheight = 13
+  end
+  object wvkbd: tbooleanedit
+    frame.caption = 'Virtual keyboard'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      81
+      1
+    )
+    taborder = 14
+    bounds_x = 792
+    bounds_y = 7
+    bounds_cx = 94
+    bounds_cy = 15
+    anchors = [an_top, an_right]
+    onchange = wvkbd_onchange
   end
   object tskincontroller1: tskincontroller
     active = True

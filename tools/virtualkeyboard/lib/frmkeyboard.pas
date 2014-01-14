@@ -5,8 +5,9 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,
  msewidgets,mseedit,mseimage,msegraphedits,mseificomp,mseificompglob,mseifiglob,
- msescrollbar,msetypes,msedataedits,msestrings,msegrids,mclasses,keybindings,
- keypanelform;
+ msescrollbar,msetypes,msedataedits,msestrings,msegrids,mclasses,keypanelform,keybindings,
+ keybindings_de,keybindings_ru,keybindings_uzcyr,keybindings_es,keybindings_zh,keybindings_fr;
+ 
 type
  widgetkindty = (wik_string,wik_integer,wik_real);
  panelkindty = (pk_none,pk_abc,pk_123,pk_symbol,pk_options);
@@ -46,10 +47,10 @@ type
    procedure updatewindowpos;
    procedure objectevent(const sender: tobject; 
                         const event: objecteventty); override;
-   procedure updatebuttons;
    procedure updateshiftstate();
   public
    destructor destroy; override;
+   procedure updatebuttons;
    procedure showkeyboard(const awidget: twidget);
    procedure keybuttonexe(const sender: TObject);
    procedure selectpanel(const akind: panelkindty);
@@ -248,15 +249,11 @@ var
  si1: sizety;
 begin
  if ss_shift in fshiftstate then begin
-  if fbindingupper = nil then begin
-   fbindingupper:= defaultkeybindingupper;
-  end;
+  fbindingupper:= keyboardlangs[ord(keylang)].upper;
   po1:= fbindingupper;
  end
  else begin
-  if fbinding = nil then begin
-   fbinding:= defaultkeybinding;
-  end;
+  fbinding:= keyboardlangs[ord(keylang)].lower;
   po1:= fbinding;
  end;
  updatepanel(fpanel1,po1^);

@@ -1,4 +1,4 @@
-program virtualkeyboard;
+program testvirtualkeyboard;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 {$ifdef FPC}
  {$ifdef mswindows}{$apptype console}{$endif}
@@ -8,6 +8,5 @@ uses
  msegui,main,frmkeyboard;
 begin
  application.createform(tmainfo,mainfo);
- application.createform(tfrmkeyboardfo,frmkeyboardfo);
  application.run;
 end.

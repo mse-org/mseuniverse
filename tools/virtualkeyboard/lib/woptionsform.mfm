@@ -12,6 +12,7 @@ inherited woptionsfo: twoptionsfo
   bounds_y = 299
   bounds_cx = 639
   bounds_cy = 207
+  onloaded = form_onloaded
   moduleclassname = 'tkeypanelfo'
   object wlang: tstringgrid[0]
     optionswidget = [ow_focusbackonesc, ow_mousewheel, ow_destroywidgets]
@@ -46,9 +47,6 @@ inherited woptionsfo: twoptionsfo
         linecolor = -1610612730
         linecolorfix = -1610612730
         options = [co_readonly, co_focusselect, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
-        datalist.data = (
-          'US'
-        )
         valuefalse = '0'
         valuetrue = '1'
       end    
@@ -57,9 +55,6 @@ inherited woptionsfo: twoptionsfo
         linecolorfix = -1610612730
         width = 252
         options = [co_readonly, co_focusselect, co_rowselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-        datalist.data = (
-          'US Keyboard'
-        )
         valuefalse = '0'
         valuetrue = '1'
       end>
@@ -80,8 +75,8 @@ inherited woptionsfo: twoptionsfo
             caption = 'Name'
           end>
       end>
-    rowcount = 1
     datarowheight = 18
+    oncellevent = wlang_oncellevent
     reffontheight = 16
   end
   object btnclose: tstockglyphbutton[1]

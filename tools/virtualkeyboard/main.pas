@@ -5,7 +5,9 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mseskin,msedataedits,
  mseedit,mseificomp,mseificompglob,mseifiglob,msestrings,msetimer,
- msedispwidgets,mserichstring,msesimplewidgets,msewidgets,msegrids,msewidgetgrid;
+ msedispwidgets,mserichstring,msesimplewidgets,msewidgets,msegrids,
+ msewidgetgrid,msebitmap,msedatanodes,msefiledialog,mselistbrowser,msesys,
+ msegraphedits,msescrollbar;
 
 type
  tmainfo = class(tmainform)
@@ -31,19 +33,31 @@ type
    tfacecomp3: tfacecomp;
    trealedit4: trealedit;
    tstringedit3: tstringedit;
+   tfilenameedit1: tfilenameedit;
+   tstringgrid1: tstringgrid;
+   wvkbd: tbooleanedit;
    procedure showformmodal(const sender: TObject);
+   procedure wvkbd_onchange(const sender: TObject);
  end;
 var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,frmkeyboard,frmmodal;
+ main_mfm,virtualkeyboard,frmmodal;
 
 
 procedure tmainfo.showformmodal(const sender: TObject);
 begin
  application.createform(tfrmmodalfo, frmmodalfo);
  frmmodalfo.show(true);
+end;
+
+procedure tmainfo.wvkbd_onchange(const sender: TObject);
+begin
+ if wvkbd.value then
+  enabledvirtualkeyboard
+ else
+  disabledvirtualkeyboard;  
 end;
 
 end.
