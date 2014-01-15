@@ -1,0 +1,97 @@
+object mainfo: tmainfo
+  bounds_x = 145
+  bounds_y = 230
+  bounds_cx = 403
+  bounds_cy = 280
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object proged: tfilenameedit
+    frame.caption = 'Progam'
+    frame.button.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 15
+    bounds_cx = 324
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    value = './echo'
+    controller.filename = './echo'
+    controller.lastdir = './'
+    reffontheight = 14
+  end
+  object runbu: tbutton
+    taborder = 1
+    bounds_x = 344
+    bounds_y = 32
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_top, an_right]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'run'
+    onexecute = runexe
+  end
+  object txtexted: tstringedit
+    frame.caption = 'TX-text'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    hint = 'Enter q for terminating the echo program'
+    bounds_x = 8
+    bounds_y = 71
+    bounds_cx = 385
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+    onsetvalue = setvalueexe
+    reffontheight = 14
+  end
+  object grid: tstringgrid
+    frame.caption = 'RX-text'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 111
+    bounds_cx = 386
+    bounds_cy = 163
+    anchors = [an_left, an_top, an_right, an_bottom]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 1000
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    datarowlinewidth = 0
+    datarowheight = 16
+    reffontheight = 14
+  end
+  object proc: tmseprocess
+    options = [pro_output, pro_input, pro_errorouttoout, pro_winpipewritehandles]
+    output.oninputavailable = inputavailexe
+    onprocfinished = procfinishedexe
+    left = 96
+    top = 168
+  end
+end
