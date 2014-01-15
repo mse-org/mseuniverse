@@ -195,6 +195,7 @@ procedure tfrmkeyboardfo.keybuttonexe(const sender: TObject);
 var
  i1: integer;
  po1: pkeybindingsty;
+ ss1: shiftstatesty;
 begin
  if (finputwidget <> nil) and (sender is tcomponent) then begin
   i1:= tcomponent(sender).tag;
@@ -205,13 +206,19 @@ begin
    else begin
     po1:= fbinding;
    end;
+   ss1:= fshiftstate;
    with po1^[i1] do begin
-    case i1 of
-     10, 11, 22, 36, 43, 47, 53, 91:
-      finputwidget.window.postkeyevent(key,[],false,chars)
-    else
-     finputwidget.window.postkeyevent(key,fshiftstate,false,chars);
+    if shiftstate <> [] then begin
+     ss1:= shiftstate;
+     if shiftstate = [ss_none] then begin
+      ss1:= [];
+     end;
+//    case i1 of
+//     10, 11, 22, 36, 43, 47, 53, 91:
+//      finputwidget.window.postkeyevent(key,[],false,chars)
+//    else
     end;
+    finputwidget.window.postkeyevent(key,ss1,false,chars);
    end;
   end;
  end;
