@@ -244,7 +244,7 @@ begin
    accept:= askconfirmation('Do you want to create branch '+avalue+' from '+lineend+
                   mainmo.commithint(localbranchcommit.value)+'?');
    if accept then begin
-    accept:= mainmo.createbranch('',avalue,logfo.currentcommit);
+    accept:= mainmo.createbranch('',avalue,localbranchcommit.value);
     if accept then begin
      mainmo.updatelocalbranchorder;
     end;
