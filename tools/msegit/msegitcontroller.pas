@@ -291,7 +291,7 @@ type
    function getsha1(const arev: msestring): msestring;
    function getrefinfo(const arev: msestring;
                                  out ainfo: refinfoty): boolean;
-   function getrefinfo(const prefix: msestring; const arev: msestringarty;
+   function getrefinfo({const prefix: msestring;} const shas: msestringarty;
                                  out ainfo: refinfoarty): boolean;
    function fmtmergemsg(const arev: msestring;
                                       out amessage: msestring): boolean;
@@ -1099,23 +1099,56 @@ parseerror:
 end;
 //{
 function tgitcontroller.tagsshow(out adest: tagsinfoarty): boolean;
+const
+ shalen = 40;
 var
- mstr1: msestring;
- ar1: msestringarty;
+ mstr1,mstr2: msestring;
+ ar1,ar3: msestringarty;
  int1: integer;
  ar2: refinfoarty;
+ po1,po2,po3,ps: pmsechar;
 begin
  adest:= nil;
- result:= commandresult1('tag',mstr1);
+ result:= commandresult1('show-ref --tags',mstr1);
  if result then begin
-  ar1:= breaklines(mstr1);
+  int1:= 0;
+  po1:= pmsechar(mstr1);
+  ps:= po1;
+  while true do begin
+   if po1^ = c_linefeed then begin
+    po2:= ps + shalen;
+    if (po2 < po1) and (po2^ = ' ') then begin
+     if additem(ar1,psubstr(ps,po2),int1) then begin
+      setlength(ar3,length(ar1));
+     end;
+     po3:= po1;
+     while (po3^ <> '/') and (po3 > po2) do begin
+      dec(po3);
+     end;
+     if (po1-1)^ = c_return then  begin
+      mstr2:= psubstr(po3+1,po1-1);
+     end
+     else begin
+      mstr2:= psubstr(po3+1,po1);
+     end;
+     ar3[int1-1]:= mstr2;
+     ps:= po1+1;
+    end;
+   end;
+   if po1^ = #0 then begin
+    break;
+   end;
+   inc(po1);
+  end;
+  setlength(ar1,int1);
+  setlength(ar3,int1);
   if high(ar1) > 0 then begin
-   result:= getrefinfo(tagref,ar1,ar2);
+   result:= getrefinfo(ar1,ar2);
    setlength(adest,length(ar2));
    for int1:= 0 to high(adest) do begin
     with adest[int1] do begin
      ref.kind:= refk_tag;
-     ref.name:= ar1[int1];
+     ref.name:= ar3[int1];
      info:= ar2[int1];
      ref.commit:= info.commit;
     end;
@@ -1711,12 +1744,13 @@ begin
  end;
 end;
 
-function tgitcontroller.getrefinfo(const prefix: msestring; 
-               const arev: msestringarty; out ainfo: refinfoarty): boolean;
+function tgitcontroller.getrefinfo({const prefix: msestring; }
+               const shas: msestringarty; out ainfo: refinfoarty): boolean;
 var
  po,poend: pmsechar;
 const
  sepchar = msechar(#1); //#0 does not work on windows
+ maxitems = 50; //duplicate shas's are omited in git-show result!
  
  function item(out res: msestring): boolean;
  var
@@ -1740,61 +1774,86 @@ var
  int1,int2,int3: integer;
  bo1: boolean;
  lwo1: longword;
+ ar1: msestringarty;
+ ar2: integerarty;
 begin
- setlength(ainfo,length(arev)); //max
- int1:= 0;
- int2:= 0;
- while int2 <= high(arev) do begin
-  str1:= '';
-  int3:= 0;
-  while (int2 <= high(arev)) and (int3 < 50) do begin
-   if arev[int2] <> '' then begin
-    str1:= str1+' '+encodestringparam(prefix+arev[int2]);
+ setlength(ainfo,length(shas)); //max
+ result:= true;
+ if shas <> nil then begin
+  ar1:= copy(shas);
+  sortarray(ar1,sms_up,ar2);
+  mstr1:= ar1[0];
+  for int1:= 1 to high(ar1) do begin
+   if ar1[int1] = mstr1 then begin         //remove duplicates
+    ar1[int1]:= '';
+   end
+   else begin
+    mstr1:= ar1[int1];
    end;
-   inc(int2);
-   inc(int3);
   end;
-//writefiledatastring('test.txt',
-//     'git show --format=format:"%x00%H%x00%cN%x00%ct%x00%s%x00" -s'+str1+
-//                                                             '>test1.txt');
-  result:= commandresult1(
- //   'show --format=raw -s'+str1,mstr1);
-    'show --format=format:"%x01%H%x01%cN%x01%ct%x01%s%x01" -s'+str1,mstr1);
-  if not result then begin
-   break;
-  end;
-  if mstr1 <> '' then begin
-   po:= pmsechar(mstr1);
-   poend:= po+length(mstr1);
-   dec(po);
-   while int1 < int2 do begin
-    with ainfo[int1] do begin
-     commitdate:= emptydatetime;
-     if item(mstr2) then begin //dummy
-      break;
+  int1:= 0;
+  int2:= 0;
+  while int2 <= high(shas) do begin
+   str1:= '';
+   int3:= 0;
+   while (int2 <= high(shas)) and 
+                         ((int3 < maxitems) or (ar1[int2] = '')) do begin
+    mstr1:= ar1[int2];
+    if mstr1 <> '' then begin
+     str1:= str1+' '+ar1[int2];
+     inc(int3);
+    end;
+    inc(int2);
+   end;
+ //writefiledatastring('test.txt',
+ //     'git show --format=format:"%x00%H%x00%cN%x00%ct%x00%s%x00" -s'+str1+
+ //                                                             '>test1.txt');
+   result:= commandresult1(
+ //    'show --format=format:"%x01%H%x01%cN%x01%ct%x01%s%x01" -s '+str1,mstr1);
+     'show --format=format:"%x01%cN%x01%ct%x01%s%x01" -s '+str1,mstr1);
+   if not result then begin
+    break;
+   end;
+   if mstr1 <> '' then begin
+    po:= pmsechar(mstr1);
+    poend:= po+length(mstr1);
+    dec(po);
+    while int1 < int2 do begin
+     with ainfo[ar2[int1]] do begin
+      commitdate:= emptydatetime;
+      commit:= shas[ar2[int1]];
+      if item(mstr2) then begin //dummy
+       break;
+      end;
+      {
+      if item(commit) then begin
+       break;
+      end;
+      }
+      if item(committer) then begin
+       break;
+      end;     
+      bo1:= item(mstr2);
+      if trystrtointmse(mstr2,lwo1) then begin
+       commitdate:= unixtodatetime(lwo1);
+      end;
+      if bo1 then begin
+       break;
+      end;
+      if item(message) then begin
+       break;
+      end;
      end;
-     if item(commit) then begin
-      break;
-     end;
-     if item(committer) then begin
-      break;
-     end;     
-     bo1:= item(mstr2);
-     if trystrtointmse(mstr2,lwo1) then begin
-      commitdate:= unixtodatetime(lwo1);
-     end;
-     if bo1 then begin
-      break;
-     end;
-     if item(message) then begin
-      break;
+     inc(int1);
+     while ar1[int1] = '' do begin        //copy duplicates
+      ainfo[ar2[int1]]:= ainfo[ar2[int1-1]];
+      inc(int1);
      end;
     end;
-    inc(int1);
    end;
   end;
+  setlength(ainfo,int1);
  end;
- setlength(ainfo,int1);
 end;
 
 function tgitcontroller.fmtmergemsg(const arev: msestring;

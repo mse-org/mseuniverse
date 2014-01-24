@@ -123,7 +123,7 @@ type
    procedure reload;
    procedure refreshdiff;
    property refreshing: boolean read frefreshing;
-   procedure updatestate;
+   procedure updatestate(const message: msestring = '');
    procedure objchanged(const refreshlog: boolean);
    procedure diffchanged;
    procedure beginbackground;
@@ -275,63 +275,71 @@ begin
  end;
 end;
 
-procedure tmainfo.updatestate;
+procedure tmainfo.updatestate(const message: msestring = '');
 var
  ar1: msestringarty;
  int1: integer;
  rstr1: richstringty;
  col1: colorty;
 begin
- with mainmo do begin
+ with statdisp do begin
+  color:= cl_default;
+  value:= '';
+  hint:= '';
+  font.color:= cl_text;
+ end;
+ if message <> '' then begin
   with statdisp do begin
-   color:= cl_default;
-   value:= '';
-   hint:= '';
-   font.color:= cl_text;
+   value:= message;
+   font.color:= cl_red;
   end;
-  if isrepoloaded then begin
-   if mergehead <> '' then begin
-    statdisp.color:= mergecolor;
-    ar1:= breaklines(mergemessage);
-    if high(ar1) >= 0 then begin
-     statdisp.value:= ar1[0];
-     if ar1[high(ar1)] = '' then begin
-      setlength(ar1,high(ar1));
-     end;
-     int1:= 1;
-     if (high(ar1) >= 1) and (ar1[1] = '') then begin
-      inc(int1);
-     end;
-     if int1 <= high(ar1) then begin
-      statdisp.hint:= concatstrings(copy(ar1,int1,bigint),lineend);
+ end
+ else begin
+  with mainmo do begin
+   if isrepoloaded then begin
+    if mergehead <> '' then begin
+     statdisp.color:= mergecolor;
+     ar1:= breaklines(mergemessage);
+     if high(ar1) >= 0 then begin
+      statdisp.value:= ar1[0];
+      if ar1[high(ar1)] = '' then begin
+       setlength(ar1,high(ar1));
+      end;
+      int1:= 1;
+      if (high(ar1) >= 1) and (ar1[1] = '') then begin
+       inc(int1);
+      end;
+      if int1 <= high(ar1) then begin
+       statdisp.hint:= concatstrings(copy(ar1,int1,bigint),lineend);
+      end;
+     end
+     else begin
+      statdisp.value:= 'Merging';
      end;
     end
     else begin
-     statdisp.value:= 'Merging';
-    end;
-   end
-   else begin
-    col1:= cl_ltgreen;
-    if rebasing then begin
-     col1:= mergecolor;
-     richconcat1(rstr1,'Rebasing ',[fs_bold]);
-    end;
-    if mainmo.dirtree.gitstatey * [gist_modified,gist_deleted] <> [] then begin
-     col1:= cl_ltred;
-    end
-    else begin
-     if mainmo.dirtree.gitstatex * [gist_modified,gist_added] <> [] then begin
-      statdisp.font.color:=  cl_dkred;
+     col1:= cl_ltgreen;
+     if rebasing then begin
+      col1:= mergecolor;
+      richconcat1(rstr1,'Rebasing ',[fs_bold]);
      end;
+     if mainmo.dirtree.gitstatey * [gist_modified,gist_deleted] <> [] then begin
+      col1:= cl_ltred;
+     end
+     else begin
+      if mainmo.dirtree.gitstatex * [gist_modified,gist_added] <> [] then begin
+       statdisp.font.color:=  cl_dkred;
+      end;
+     end;
+     richconcat1(rstr1,'Branch: ',[fs_force]);
+     richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
+     richconcat1(rstr1,' Log: ',[fs_force]);
+     richconcat1(rstr1,mainmo.repostat.activelogcommit(false),[fs_bold]);
+     richconcat1(rstr1,' Remote: ',[fs_force]);
+     richconcat1(rstr1,mainmo.remotetargetref,[fs_bold]);
+     statdisp.richvalue:= rstr1;
+     statdisp.color:= col1;
     end;
-    richconcat1(rstr1,'Branch: ',[fs_force]);
-    richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
-    richconcat1(rstr1,' Log: ',[fs_force]);
-    richconcat1(rstr1,mainmo.repostat.activelogcommit(false),[fs_bold]);
-    richconcat1(rstr1,' Remote: ',[fs_force]);
-    richconcat1(rstr1,mainmo.remotetargetref,[fs_bold]);
-    statdisp.richvalue:= rstr1;
-    statdisp.color:= col1;
    end;
   end;
  end;

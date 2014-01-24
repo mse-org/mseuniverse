@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2013 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2014 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -516,7 +516,7 @@ uses
  gitconsole,commitqueryform,revertqueryform,removequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msemacros,main,filesform,
  gitdirtreeform,defaultstat,clonequeryform,commitmessageform,
- diffwindow,logform;
+ diffwindow,logform,tagsform;
   
 const
  defaultfileicon = 0;
@@ -735,7 +735,7 @@ begin
  factivebranch:= '';
  factivecommit:= '';
  fdirtree.clear;
- ftagstree.clear;
+ ftagstree.reset;
  ffilecache.clear;
  freeandnil(fgitstate);
  frefsinfo.clear;
@@ -821,6 +821,7 @@ begin
   setcurrentdirmse(freporoot);
   application.beginwait;
   try
+   mainfo.updatestate('*** Reading Repo ***');
    readmergeinfo;
    if activeremote = '' then begin
     frepostat.activeremote:= 'origin';
@@ -925,7 +926,7 @@ begin
    end;
    fgit.status(frepo,getorigin,ffilecache,fgitstate);
    loadstash;
-   ftagstree.reset;
+//   ftagstree.reset;
    fdirtree.loaddirtree(frepo);
    fdirtree.sort(false,true);
    fgit.lsfiles(frepo,false,false,false,true,fgitstate,ffilecache);
@@ -936,11 +937,12 @@ begin
    if clearconsole then begin
     gitconsolefo.init;
    end;
+   tagstree.update;
   finally
    application.endwait;
   end;
   fhasremote:= high(fremotesinfo) >= 0;
- 
+   
   branchfo.dorefresh;
   branchfo.setactiveremotelog(repostat.activeremotelog,
                                  repostat.activeremotelogbranch);
@@ -2882,6 +2884,7 @@ var
  n2: tgittagstreenode;
 // po1: pmsechar;
 begin
+ mainfo.updatestate('*** Reading Tags ***');
  clear;
  if mainmo.git.tagsshow(ar1) then begin
   for int1:= high(ar1) downto 0 do begin
@@ -2919,6 +2922,7 @@ begin
   end;
  end;
  sort(false,true);
+ mainfo.updatestate();
 end;
 
 procedure tgittagstreerootnode.reset;
