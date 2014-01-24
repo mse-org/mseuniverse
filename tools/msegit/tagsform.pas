@@ -73,6 +73,7 @@ end;
 procedure ttagsfo.updategrid;
 begin
 // mainmo.tagstree.update;
+ grid.clear;
  grid.sorted:= false;
  treeed.itemlist.addchildren(mainmo.tagstree); 
  grid.sorted:= true;
