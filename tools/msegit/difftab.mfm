@@ -19,11 +19,16 @@ object difftabfo: tdifftabfo
     fixcols.count = 1
     fixcols.items = <    
       item
+        color = -1610612731
         linewidth = 0
         width = 35
         textflags = [tf_right, tf_ycentered]
         numstart = 1
         numstep = 1
+        font.color = -1610612733
+        font.name = 'stf_default'
+        font.xscale = 1
+        font.dummy = 0
       end>
     datacols.count = 1
     datacols.options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
