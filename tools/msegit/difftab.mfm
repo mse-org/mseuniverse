@@ -16,6 +16,15 @@ object difftabfo: tdifftabfo
     bounds_cx = 487
     bounds_cy = 323
     anchors = []
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        linewidth = 0
+        width = 35
+        textflags = [tf_right, tf_ycentered]
+        numstart = 1
+        numstep = 1
+      end>
     datacols.count = 1
     datacols.options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
