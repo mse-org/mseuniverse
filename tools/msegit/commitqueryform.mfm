@@ -156,9 +156,9 @@ object commitqueryfo: tcommitqueryfo
       visible = True
       bounds_x = 379
       bounds_y = 0
-      bounds_cx = 319
+      bounds_cx = 317
       bounds_cy = 259
-      anchors = [an_right]
+      anchors = []
       container.optionsskin = [osk_framebuttononly, osk_container, osk_noclientsize]
       container.frame.colorclient = -1610612730
       container.frame.localprops = [frl_colorclient]
@@ -167,13 +167,13 @@ object commitqueryfo: tcommitqueryfo
       container.bounds = (
         0
         0
-        319
+        317
         259
       )
       options = [fo_savepos, fo_savezorder]
       statfile = diff.tstatfile1
       inherited tabs: ttabwidget
-        bounds_cx = 319
+        bounds_cx = 317
         bounds_cy = 259
         visible = False
       end
@@ -186,15 +186,26 @@ object commitqueryfo: tcommitqueryfo
       inherited tpopupmenu1: tpopupmenu
         menu.submenu.items = <        
           item
+          end        
+          item
+          end        
+          item
+          end        
+          item
           end>
-        left = 160
-        top = 56
+        left = 152
+        top = 16
       end
       inherited externaldiffact: taction
         left = 40
         top = 56
       end
       inherited refreshthread: tthreadcomp
+        top = 144
+      end
+      inherited findindiffact: taction
+      end
+      inherited repeatfind: taction
       end
     end
     object tsimplewidget2: tsimplewidget
@@ -270,6 +281,7 @@ object commitqueryfo: tcommitqueryfo
           datacols.items = <          
             item[selected]
               colorfocused = -1879048185
+              width = 50
               options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
             end          
             item[originstate]
@@ -280,7 +292,7 @@ object commitqueryfo: tcommitqueryfo
             end          
             item[fileitemed]
               colorfocused = -1879048185
-              width = 320
+              width = 286
               options = [co_readonly, co_leftbuttonfocusonly, co_fill, co_savestate, co_mousescrollrow]
               datalist.imagealignment = [al_right, al_ycentered]
               datalist.captionpos = cp_top
@@ -288,16 +300,20 @@ object commitqueryfo: tcommitqueryfo
             end>
           oncellevent = celleventexe
           inherited selected: tbooleanedit[0]
+            bounds_cx = 50
             onsetvalue = selectsetexe
           end
           inherited fileitemed: titemedit[1]
-            bounds_cx = 320
+            bounds_x = 85
+            bounds_cx = 286
             textflags = [tf_ycentered, tf_clipo, tf_noselect, tf_ellipseleft]
             oncellevent = celleventexe
           end
           inherited filestate: tdataicon[2]
+            bounds_x = 68
           end
           inherited originstate: tdataicon[3]
+            bounds_x = 51
           end
         end
         inherited checkpopup: tpopupmenu

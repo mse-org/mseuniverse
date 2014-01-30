@@ -568,6 +568,7 @@ object mainmo: tmainmo
   end
   object repostatf: tstatfile
     filename = '.msegitrepo.sta'
+    savedmemoryfiles = '*.sta'
     top = 112
   end
   object repoobj: trttistat

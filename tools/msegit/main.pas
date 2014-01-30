@@ -23,7 +23,7 @@ uses
  msedockpanelform,msestrings,msestatfile,mseact,mseactions,mseifiglob,msebitmap,
  msedataedits,mseedit,msetypes,msegraphedits,msesplitter,msedispwidgets,
  msetimer,mserichstring,msesimplewidgets,msewidgets,msegrids,mseifigui,
- mseifilink;
+ mseifilink,finddialogform;
 const
  versiontext = '1.6.9';
 type
@@ -117,6 +117,7 @@ type
    function fetchedtarget: msestring;
   public
    hastagdialogstat: boolean;
+   findinfo: findinfoty;
    procedure merge(const aref: msestring);
    procedure rebase(const aref: msestring);
    procedure checkout(const aref: msestring; const partial: boolean);
@@ -234,6 +235,7 @@ begin
   statdisp.hint:= '';
   statdisp.color:= cl_default;
   hastagdialogstat:= false;
+  findinfo.text:= '';
  end;
 end;
 

@@ -17,8 +17,14 @@ inherited diffwindowfo: tdiffwindowfo
   end
   inherited tpopupmenu1: tpopupmenu
     onupdate = popupupdateexe1
-    menu.submenu.count = 6
+    menu.submenu.count = 9
     menu.submenu.items = <    
+      item
+      end    
+      item
+      end    
+      item
+      end    
       item
       end    
       item
@@ -80,5 +86,9 @@ inherited diffwindowfo: tdiffwindowfo
     dialogkind = fdk_save
     left = 168
     top = 240
+  end
+  inherited findindiffact: taction[11]
+  end
+  inherited repeatfind: taction[12]
   end
 end

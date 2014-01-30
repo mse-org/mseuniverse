@@ -32,8 +32,17 @@ inherited difffo: tdifffo
   end
   object tpopupmenu1: tpopupmenu[3]
     onupdate = popupupdateexe
-    menu.submenu.count = 1
+    menu.submenu.count = 4
     menu.submenu.items = <    
+      item
+        action = findindiffact
+      end    
+      item
+        action = repeatfind
+      end    
+      item
+        options = [mao_separator, mao_shortcutcaption]
+      end    
       item
         action = externaldiffact
       end>
@@ -44,11 +53,34 @@ inherited difffo: tdifffo
     caption = 'Difftool'
     onexecute = externaldiffexe
     left = 168
-    top = 120
+    top = 40
   end
   object refreshthread: tthreadcomp[5]
     onexecute = refreshexe
     left = 48
     top = 168
+  end
+  object findindiffact: taction[6]
+    caption = '&Find'
+    options = [ao_updateonidle, ao_localshortcut]
+    onexecute = findexe
+    onupdate = findupdate
+    left = 168
+    top = 56
+    sc = (
+      1
+      16454
+    )
+  end
+  object repeatfind: taction[7]
+    caption = 'Search &again'
+    options = [ao_localshortcut]
+    onexecute = repeatfindexe
+    left = 168
+    top = 72
+    sc = (
+      1
+      306
+    )
   end
 end

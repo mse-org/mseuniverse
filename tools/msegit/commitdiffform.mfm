@@ -27,12 +27,24 @@ inherited commitdifffo: tcommitdifffo
   inherited tpopupmenu1: tpopupmenu[4]
     menu.submenu.items = <    
       item
+      end    
+      item
+      end    
+      item
+      end    
+      item
+        action = findindiffact
         caption = 'External &diff'
         state = [as_localcaption, as_localonexecute]
+        onexecute = findexe
       end>
   end
   inherited externaldiffact: taction[5]
   end
   inherited refreshthread: tthreadcomp[6]
+  end
+  inherited findindiffact: taction[7]
+  end
+  inherited repeatfind: taction[8]
   end
 end

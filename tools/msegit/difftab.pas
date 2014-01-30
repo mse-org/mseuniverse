@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2014 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,12 +21,15 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msetabs,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mseeditglob,
- msetextedit;
+ msetextedit,finddialogform;
 type
  tdifftabfo = class(ttabform)
    grid: twidgetgrid;
    ed: ttextedit;
   protected
+   ffindpos: gridcoordty;
+  public
+   procedure find(var ainfo: findinfoty);
  end;
 //var
 // difftabfo: tdifftabfo;
@@ -35,5 +38,10 @@ uses
  difftab_mfm;
  
 { tdifftabfo }
+
+procedure tdifftabfo.find(var ainfo: findinfoty);
+begin
+ findintextedit(ed,ainfo,ffindpos);
+end;
 
 end.
