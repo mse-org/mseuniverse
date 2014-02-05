@@ -1,0 +1,133 @@
+object mainfo: tmainfo
+  frame.grip_size = 10
+  frame.grip_options = [go_lockbutton]
+  frame.dummy = 0
+  visible = False
+  bounds_x = 180
+  bounds_y = 214
+  bounds_cx = 403
+  bounds_cy = 280
+  container.bounds = (
+    0
+    16
+    393
+    264
+  )
+  dragdock.splitdir = sd_horz
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
+  mainmenu = mainmen
+  options = [fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = mainsta
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tdockform'
+  object mainmen: tmainmenu
+    menu.submenu.count = 3
+    menu.submenu.items = <    
+      item
+        caption = '&Exit'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = exitexe
+      end    
+      item
+        submenu.count = 6
+        submenu.items = <        
+          item
+            submenu.count = 3
+            submenu.items = <            
+              item
+                options = [mao_separator, mao_shortcutcaption]
+              end            
+              item
+                caption = '&New Panel'
+                state = [as_localcaption, as_localonexecute]
+                onexecute = newpanelexe
+              end            
+              item
+                caption = '&Reset Layout'
+                state = [as_localcaption, as_localonexecute]
+                onexecute = resetleayoutexe
+              end>
+            caption = '&Panels'
+            name = 'panels'
+            state = [as_localcaption]
+          end        
+          item
+            action = showaact
+          end        
+          item
+            action = showbact
+          end        
+          item
+            action = showcact
+          end        
+          item
+            action = showdact
+          end        
+          item
+            action = showeact
+          end>
+        caption = '&View'
+        name = 'view'
+        state = [as_localcaption]
+      end    
+      item
+        caption = '&Help'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = helpexe
+      end>
+    left = 8
+    top = 8
+  end
+  object panelcontroller: tdockpanelformcontroller
+    menu = mainmen
+    statfile = mainsta
+    statfileclient = panelsta
+    menunamepath = 'view.panels'
+    optionsgrip = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_lockbutton]
+    left = 104
+    top = 8
+  end
+  object showaact: taction
+    caption = '&A'
+    onexecute = showaexe
+    left = 8
+    top = 48
+  end
+  object showbact: taction
+    caption = '&B'
+    onexecute = showbexe
+    left = 8
+    top = 64
+  end
+  object showcact: taction
+    caption = '&C'
+    onexecute = showcexe
+    left = 8
+    top = 80
+  end
+  object showdact: taction
+    caption = '&D'
+    onexecute = showdexe
+    left = 8
+    top = 96
+  end
+  object showeact: taction
+    caption = '&E'
+    onexecute = showeexe
+    left = 8
+    top = 112
+  end
+  object mainsta: tstatfile
+    filename = 'dockpanelcontroller.sta'
+    savedmemoryfiles = '*.sta'
+    onfilemissing = statmissingexe
+    left = 216
+    top = 8
+  end
+  object panelsta: tstatfile
+    filename = 'panel.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 296
+    top = 8
+  end
+end

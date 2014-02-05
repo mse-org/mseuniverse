@@ -1,0 +1,29 @@
+object afo: tafo
+  color = 16764108
+  frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
+  frame.dummy = 0
+  visible = False
+  bounds_x = 4
+  bounds_y = 623
+  bounds_cx = 159
+  bounds_cy = 100
+  container.bounds = (
+    0
+    0
+    149
+    100
+  )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
+  statfile = mainfo.mainsta
+  caption = 'A'
+  moduleclassname = 'tdockform'
+  object tlabel1: tlabel
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 7
+    bounds_cy = 14
+    caption = 'A'
+    reffontheight = 14
+  end
+end
