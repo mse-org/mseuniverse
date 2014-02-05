@@ -15,7 +15,7 @@ object cfo: tcfo
     100
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
-  statfile = mainfo.mainsta
+  statfile = mainfo.panelsta
   caption = 'C'
   moduleclassname = 'tdockform'
   object tlabel1: tlabel

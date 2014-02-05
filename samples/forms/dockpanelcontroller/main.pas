@@ -91,17 +91,78 @@ begin
  astream:= ttextstringcopystream.create(  
          //default layout, text made by pasting the text of the *.sta file
          //and RightClick-'Convert to Pascal string'
+
 '[mainfo.mainsta]'+lineend+
-'savedmemoryfiles=0'+lineend+
-'[mainfo.panelcontroller]'+lineend+
-'panels=3'+lineend+
-' panel1'+lineend+
-' panel2'+lineend+
-' panel3'+lineend+
-'clients=63'+lineend+
-' [mainfo.panelcontroller.panel1]'+lineend+
-' splitdir=2'+lineend+
-' useroptions=32239'+lineend+
+'savedmemoryfiles=1'+lineend+
+' panel.sta'+lineend+
+'panel.sta=123'+lineend+
+' [efo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=16507'+lineend+
+' parent=mainfo.panelcontroller.panel2.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=0'+lineend+
+' y=0'+lineend+
+' cx=209'+lineend+
+' cy=129'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' [dfo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=16507'+lineend+
+' parent=mainfo.panelcontroller.panel2.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=0'+lineend+
+' y=0'+lineend+
+' cx=209'+lineend+
+' cy=129'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' [cfo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=16507'+lineend+
+' parent=mainfo.panelcontroller.panel1.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=0'+lineend+
+' y=0'+lineend+
+' cx=208'+lineend+
+' cy=157'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' [bfo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=16507'+lineend+
+' parent=mainfo.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=2'+lineend+
+' y=44'+lineend+
+' cx=430'+lineend+
+' cy=144'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' [afo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=49275'+lineend+
 ' parent=mainfo.container'+lineend+
 ' visible=1'+lineend+
 ' mdistate=0'+lineend+
@@ -111,15 +172,11 @@ begin
 ' ncy=0'+lineend+
 ' x=2'+lineend+
 ' y=2'+lineend+
-' cx=436'+lineend+
-' cy=179'+lineend+
+' cx=430'+lineend+
+' cy=39'+lineend+
 ' rcx=0'+lineend+
 ' rcy=0'+lineend+
-' children=2'+lineend+
-'  dfo,0,32,426,147'+lineend+
-'  cfo,0,0,426,29'+lineend+
-' focusedchild=0'+lineend+
-' [mainfo.panelcontroller.panel2]'+lineend+
+' [mainfo.panelcontroller.panel1]'+lineend+
 ' splitdir=1'+lineend+
 ' useroptions=32239'+lineend+
 ' parent=mainfo.container'+lineend+
@@ -130,22 +187,46 @@ begin
 ' ncx=0'+lineend+
 ' ncy=0'+lineend+
 ' x=2'+lineend+
-' y=184'+lineend+
-' cx=436'+lineend+
-' cy=173'+lineend+
+' y=191'+lineend+
+' cx=430'+lineend+
+' cy=157'+lineend+
 ' rcx=0'+lineend+
 ' rcy=0'+lineend+
 ' children=2'+lineend+
-'  panel3,70,0,356,173'+lineend+
-'  efo,0,0,67,173'+lineend+
-' focusedchild=0'+lineend+
-' [mainfo.panelcontroller.panel3]'+lineend+
+'  cfo,0,0,208,157'+lineend+
+'  panel2,211,0,209,157'+lineend+
+' focusedchild=1'+lineend+
+' [mainfo.panelcontroller.panel2]'+lineend+
 ' splitdir=3'+lineend+
 ' useroptions=32239'+lineend+
 ' order=2'+lineend+
-'  bfo'+lineend+
-'  afo'+lineend+
-' activetab=1'+lineend+
+'  dfo'+lineend+
+'  efo'+lineend+
+' activetab=0'+lineend+
+' parent=mainfo.panelcontroller.panel1.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=211'+lineend+
+' y=0'+lineend+
+' cx=209'+lineend+
+' cy=157'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' children=1'+lineend+
+'  ,0,0,209,147'+lineend+
+' focusedchild=0'+lineend+
+'[mainfo.panelcontroller]'+lineend+
+'panels=2'+lineend+
+' panel1'+lineend+
+' panel2'+lineend+
+'clients=123'+lineend+
+' [efo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=16507'+lineend+
 ' parent=mainfo.panelcontroller.panel2.container'+lineend+
 ' visible=1'+lineend+
 ' mdistate=0'+lineend+
@@ -153,18 +234,122 @@ begin
 ' ny=0'+lineend+
 ' ncx=0'+lineend+
 ' ncy=0'+lineend+
-' x=70'+lineend+
+' x=0'+lineend+
 ' y=0'+lineend+
-' cx=356'+lineend+
-' cy=173'+lineend+
+' cx=209'+lineend+
+' cy=129'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' [dfo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=16507'+lineend+
+' parent=mainfo.panelcontroller.panel2.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=0'+lineend+
+' y=0'+lineend+
+' cx=209'+lineend+
+' cy=129'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' [cfo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=16507'+lineend+
+' parent=mainfo.panelcontroller.panel1.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=0'+lineend+
+' y=0'+lineend+
+' cx=208'+lineend+
+' cy=157'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' [bfo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=16507'+lineend+
+' parent=mainfo.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=2'+lineend+
+' y=44'+lineend+
+' cx=430'+lineend+
+' cy=144'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' [afo]'+lineend+
+' splitdir=0'+lineend+
+' useroptions=49275'+lineend+
+' parent=mainfo.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=2'+lineend+
+' y=2'+lineend+
+' cx=430'+lineend+
+' cy=39'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' [mainfo.panelcontroller.panel1]'+lineend+
+' splitdir=1'+lineend+
+' useroptions=32239'+lineend+
+' parent=mainfo.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=2'+lineend+
+' y=191'+lineend+
+' cx=430'+lineend+
+' cy=157'+lineend+
+' rcx=0'+lineend+
+' rcy=0'+lineend+
+' children=2'+lineend+
+'  cfo,0,0,208,157'+lineend+
+'  panel2,211,0,209,157'+lineend+
+' focusedchild=1'+lineend+
+' [mainfo.panelcontroller.panel2]'+lineend+
+' splitdir=3'+lineend+
+' useroptions=32239'+lineend+
+' order=2'+lineend+
+'  dfo'+lineend+
+'  efo'+lineend+
+' activetab=0'+lineend+
+' parent=mainfo.panelcontroller.panel1.container'+lineend+
+' visible=1'+lineend+
+' mdistate=0'+lineend+
+' nx=0'+lineend+
+' ny=0'+lineend+
+' ncx=0'+lineend+
+' ncy=0'+lineend+
+' x=211'+lineend+
+' y=0'+lineend+
+' cx=209'+lineend+
+' cy=157'+lineend+
 ' rcx=0'+lineend+
 ' rcy=0'+lineend+
 ' children=1'+lineend+
-'  ,0,0,356,163'+lineend+
+'  ,0,0,209,147'+lineend+
 ' focusedchild=0'+lineend+
 '[mainfo]'+lineend+
 'splitdir=2'+lineend+
-'useroptions=15491'+lineend+
+'useroptions=15747'+lineend+
 'stackedunder='+lineend+
 'parent='+lineend+
 'mdistate=0'+lineend+
@@ -172,96 +357,17 @@ begin
 'ny=0'+lineend+
 'ncx=0'+lineend+
 'ncy=0'+lineend+
-'x=110'+lineend+
-'y=261'+lineend+
-'cx=450'+lineend+
-'cy=375'+lineend+
+'x=36'+lineend+
+'y=171'+lineend+
+'cx=444'+lineend+
+'cy=366'+lineend+
 'rcx=0'+lineend+
 'rcy=0'+lineend+
 'wsize=0'+lineend+
 'active=1'+lineend+
 'visible=1'+lineend+
-'[efo]'+lineend+
-'splitdir=0'+lineend+
-'useroptions=16507'+lineend+
-'parent=mainfo.panelcontroller.panel2.container'+lineend+
-'visible=1'+lineend+
-'mdistate=0'+lineend+
-'nx=0'+lineend+
-'ny=0'+lineend+
-'ncx=0'+lineend+
-'ncy=0'+lineend+
-'x=0'+lineend+
-'y=0'+lineend+
-'cx=67'+lineend+
-'cy=173'+lineend+
-'rcx=0'+lineend+
-'rcy=0'+lineend+
-'[dfo]'+lineend+
-'splitdir=0'+lineend+
-'useroptions=16507'+lineend+
-'parent=mainfo.panelcontroller.panel1.container'+lineend+
-'visible=1'+lineend+
-'mdistate=0'+lineend+
-'nx=0'+lineend+
-'ny=0'+lineend+
-'ncx=0'+lineend+
-'ncy=0'+lineend+
-'x=0'+lineend+
-'y=32'+lineend+
-'cx=426'+lineend+
-'cy=147'+lineend+
-'rcx=0'+lineend+
-'rcy=0'+lineend+
-'[cfo]'+lineend+
-'splitdir=0'+lineend+
-'useroptions=49275'+lineend+
-'parent=mainfo.panelcontroller.panel1.container'+lineend+
-'visible=1'+lineend+
-'mdistate=0'+lineend+
-'nx=0'+lineend+
-'ny=0'+lineend+
-'ncx=0'+lineend+
-'ncy=0'+lineend+
-'x=0'+lineend+
-'y=0'+lineend+
-'cx=426'+lineend+
-'cy=29'+lineend+
-'rcx=0'+lineend+
-'rcy=0'+lineend+
-'[bfo]'+lineend+
-'splitdir=0'+lineend+
-'useroptions=16507'+lineend+
-'parent=mainfo.panelcontroller.panel3.container'+lineend+
-'visible=1'+lineend+
-'mdistate=0'+lineend+
-'nx=0'+lineend+
-'ny=0'+lineend+
-'ncx=0'+lineend+
-'ncy=0'+lineend+
-'x=0'+lineend+
-'y=0'+lineend+
-'cx=356'+lineend+
-'cy=145'+lineend+
-'rcx=0'+lineend+
-'rcy=0'+lineend+
-'[afo]'+lineend+
-'splitdir=0'+lineend+
-'useroptions=16507'+lineend+
-'parent=mainfo.panelcontroller.panel3.container'+lineend+
-'visible=1'+lineend+
-'mdistate=0'+lineend+
-'nx=0'+lineend+
-'ny=0'+lineend+
-'ncx=0'+lineend+
-'ncy=0'+lineend+
-'x=0'+lineend+
-'y=0'+lineend+
-'cx=356'+lineend+
-'cy=145'+lineend+
-'rcx=0'+lineend+
-'rcy=0'+lineend+
 '');
+         
 end;
 
 end.
