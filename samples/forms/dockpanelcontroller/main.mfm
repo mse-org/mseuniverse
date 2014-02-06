@@ -19,6 +19,7 @@ object mainfo: tmainfo
   options = [fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainsta
   caption = 'MSEide+MSEgui'
+  onasyncevent = asynceventex
   moduleclassname = 'tdockform'
   object mainmen: tmainmenu
     menu.submenu.count = 3
@@ -32,7 +33,7 @@ object mainfo: tmainfo
         submenu.count = 6
         submenu.items = <        
           item
-            submenu.count = 3
+            submenu.count = 4
             submenu.items = <            
               item
                 options = [mao_separator, mao_shortcutcaption]
@@ -46,6 +47,12 @@ object mainfo: tmainfo
                 caption = '&Reset Layout'
                 state = [as_localcaption, as_localonexecute]
                 onexecute = resetleayoutexe
+              end            
+              item
+                caption = '&Design-time Layout'
+                state = [as_localcaption, as_localonexecute]
+                options = [mao_shortcutcaption, mao_asyncexecute]
+                onexecute = designtimeexe
               end>
             caption = '&Panels'
             name = 'panels'
@@ -81,7 +88,7 @@ object mainfo: tmainfo
   object panelcontroller: tdockpanelformcontroller
     menu = mainmen
     statfile = mainsta
-    statfileclient = panelsta
+    statfileclient = mainsta
     menunamepath = 'view.panels'
     optionsgrip = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_lockbutton]
     left = 104
@@ -119,15 +126,8 @@ object mainfo: tmainfo
   end
   object mainsta: tstatfile
     filename = 'dockpanelcontroller.sta'
-    savedmemoryfiles = '*.sta'
     onfilemissing = statmissingexe
     left = 216
-    top = 8
-  end
-  object panelsta: tstatfile
-    filename = 'panel.sta'
-    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    left = 296
     top = 8
   end
 end

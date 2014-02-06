@@ -17,7 +17,6 @@ type
    showdact: taction;
    showeact: taction;
    mainsta: tstatfile;
-   panelsta: tstatfile;
    procedure exitexe(const sender: TObject);
    procedure newpanelexe(const sender: TObject);
    procedure showaexe(const sender: TObject);
@@ -29,6 +28,8 @@ type
    procedure statmissingexe(const sender: tstatfile; const afilename: msestring;
                    var astream: ttextstream; var aretry: Boolean);
    procedure resetleayoutexe(const sender: TObject);
+   procedure designtimeexe(const sender: TObject);
+   procedure asynceventex(const sender: TObject; var atag: Integer);
  end;
 var
  mainfo: tmainfo;
@@ -80,8 +81,31 @@ end;
 procedure tmainfo.resetleayoutexe(const sender: TObject);
 begin
  trydeletefile(mainsta.filename);
- mainsta.readstat;
- panelsta.readstat;
+ mainsta.readstat();
+end;
+
+procedure tmainfo.asynceventex(const sender: TObject; var atag: Integer);
+begin
+ if atag = 1 then begin
+  afo.parentwidget:= nil;
+  bfo.parentwidget:= nil;
+  cfo.parentwidget:= nil;
+  dfo.parentwidget:= nil;
+  efo.parentwidget:= nil;
+  panelcontroller.removepanels;
+  reloadmodules();
+  show;
+  afo.show;
+  bfo.show;
+  cfo.show;
+  dfo.show;
+  efo.show;
+ end;
+end;
+
+procedure tmainfo.designtimeexe(const sender: TObject);
+begin
+ asyncevent(1);
 end;
 
 procedure tmainfo.statmissingexe(const sender: tstatfile;
@@ -92,261 +116,10 @@ begin
          //default layout, text made by pasting the text of the *.sta file
          //and RightClick-'Convert to Pascal string'
 
-'[mainfo.mainsta]'+lineend+
-'savedmemoryfiles=1'+lineend+
-' panel.sta'+lineend+
-'panel.sta=123'+lineend+
-' [efo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=16507'+lineend+
-' parent=mainfo.panelcontroller.panel2.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=0'+lineend+
-' y=0'+lineend+
-' cx=209'+lineend+
-' cy=129'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [dfo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=16507'+lineend+
-' parent=mainfo.panelcontroller.panel2.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=0'+lineend+
-' y=0'+lineend+
-' cx=209'+lineend+
-' cy=129'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [cfo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=16507'+lineend+
-' parent=mainfo.panelcontroller.panel1.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=0'+lineend+
-' y=0'+lineend+
-' cx=208'+lineend+
-' cy=157'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [bfo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=16507'+lineend+
-' parent=mainfo.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=2'+lineend+
-' y=44'+lineend+
-' cx=430'+lineend+
-' cy=144'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [afo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=49275'+lineend+
-' parent=mainfo.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=2'+lineend+
-' y=2'+lineend+
-' cx=430'+lineend+
-' cy=39'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [mainfo.panelcontroller.panel1]'+lineend+
-' splitdir=1'+lineend+
-' useroptions=32239'+lineend+
-' parent=mainfo.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=2'+lineend+
-' y=191'+lineend+
-' cx=430'+lineend+
-' cy=157'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' children=2'+lineend+
-'  cfo,0,0,208,157'+lineend+
-'  panel2,211,0,209,157'+lineend+
-' focusedchild=1'+lineend+
-' [mainfo.panelcontroller.panel2]'+lineend+
-' splitdir=3'+lineend+
-' useroptions=32239'+lineend+
-' order=2'+lineend+
-'  dfo'+lineend+
-'  efo'+lineend+
-' activetab=0'+lineend+
-' parent=mainfo.panelcontroller.panel1.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=211'+lineend+
-' y=0'+lineend+
-' cx=209'+lineend+
-' cy=157'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' children=1'+lineend+
-'  ,0,0,209,147'+lineend+
-' focusedchild=0'+lineend+
 '[mainfo.panelcontroller]'+lineend+
 'panels=2'+lineend+
-' panel1'+lineend+
-' panel2'+lineend+
-'clients=123'+lineend+
-' [efo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=16507'+lineend+
-' parent=mainfo.panelcontroller.panel2.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=0'+lineend+
-' y=0'+lineend+
-' cx=209'+lineend+
-' cy=129'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [dfo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=16507'+lineend+
-' parent=mainfo.panelcontroller.panel2.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=0'+lineend+
-' y=0'+lineend+
-' cx=209'+lineend+
-' cy=129'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [cfo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=16507'+lineend+
-' parent=mainfo.panelcontroller.panel1.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=0'+lineend+
-' y=0'+lineend+
-' cx=208'+lineend+
-' cy=157'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [bfo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=16507'+lineend+
-' parent=mainfo.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=2'+lineend+
-' y=44'+lineend+
-' cx=430'+lineend+
-' cy=144'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [afo]'+lineend+
-' splitdir=0'+lineend+
-' useroptions=49275'+lineend+
-' parent=mainfo.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=2'+lineend+
-' y=2'+lineend+
-' cx=430'+lineend+
-' cy=39'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' [mainfo.panelcontroller.panel1]'+lineend+
-' splitdir=1'+lineend+
-' useroptions=32239'+lineend+
-' parent=mainfo.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=2'+lineend+
-' y=191'+lineend+
-' cx=430'+lineend+
-' cy=157'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' children=2'+lineend+
-'  cfo,0,0,208,157'+lineend+
-'  panel2,211,0,209,157'+lineend+
-' focusedchild=1'+lineend+
-' [mainfo.panelcontroller.panel2]'+lineend+
-' splitdir=3'+lineend+
-' useroptions=32239'+lineend+
-' order=2'+lineend+
-'  dfo'+lineend+
-'  efo'+lineend+
-' activetab=0'+lineend+
-' parent=mainfo.panelcontroller.panel1.container'+lineend+
-' visible=1'+lineend+
-' mdistate=0'+lineend+
-' nx=0'+lineend+
-' ny=0'+lineend+
-' ncx=0'+lineend+
-' ncy=0'+lineend+
-' x=211'+lineend+
-' y=0'+lineend+
-' cx=209'+lineend+
-' cy=157'+lineend+
-' rcx=0'+lineend+
-' rcy=0'+lineend+
-' children=1'+lineend+
-'  ,0,0,209,147'+lineend+
-' focusedchild=0'+lineend+
+' panel3'+lineend+
+' panel4'+lineend+
 '[mainfo]'+lineend+
 'splitdir=2'+lineend+
 'useroptions=15747'+lineend+
@@ -357,8 +130,8 @@ begin
 'ny=0'+lineend+
 'ncx=0'+lineend+
 'ncy=0'+lineend+
-'x=36'+lineend+
-'y=171'+lineend+
+'x=289'+lineend+
+'y=141'+lineend+
 'cx=444'+lineend+
 'cy=366'+lineend+
 'rcx=0'+lineend+
@@ -366,6 +139,129 @@ begin
 'wsize=0'+lineend+
 'active=1'+lineend+
 'visible=1'+lineend+
+'[efo]'+lineend+
+'splitdir=0'+lineend+
+'useroptions=16507'+lineend+
+'parent=mainfo.panelcontroller.panel3.container'+lineend+
+'visible=1'+lineend+
+'mdistate=0'+lineend+
+'nx=0'+lineend+
+'ny=0'+lineend+
+'ncx=0'+lineend+
+'ncy=0'+lineend+
+'x=0'+lineend+
+'y=0'+lineend+
+'cx=208'+lineend+
+'cy=158'+lineend+
+'rcx=0'+lineend+
+'rcy=0'+lineend+
+'[dfo]'+lineend+
+'splitdir=0'+lineend+
+'useroptions=16507'+lineend+
+'parent=mainfo.panelcontroller.panel3.container'+lineend+
+'visible=1'+lineend+
+'mdistate=0'+lineend+
+'nx=0'+lineend+
+'ny=0'+lineend+
+'ncx=0'+lineend+
+'ncy=0'+lineend+
+'x=0'+lineend+
+'y=0'+lineend+
+'cx=208'+lineend+
+'cy=158'+lineend+
+'rcx=0'+lineend+
+'rcy=0'+lineend+
+'[cfo]'+lineend+
+'splitdir=0'+lineend+
+'useroptions=16507'+lineend+
+'parent=mainfo.panelcontroller.panel4.container'+lineend+
+'visible=1'+lineend+
+'mdistate=0'+lineend+
+'nx=0'+lineend+
+'ny=0'+lineend+
+'ncx=0'+lineend+
+'ncy=0'+lineend+
+'x=0'+lineend+
+'y=0'+lineend+
+'cx=209'+lineend+
+'cy=186'+lineend+
+'rcx=0'+lineend+
+'rcy=0'+lineend+
+'[bfo]'+lineend+
+'splitdir=0'+lineend+
+'useroptions=16507'+lineend+
+'parent=mainfo.container'+lineend+
+'visible=1'+lineend+
+'mdistate=0'+lineend+
+'nx=0'+lineend+
+'ny=0'+lineend+
+'ncx=0'+lineend+
+'ncy=0'+lineend+
+'x=2'+lineend+
+'y=47'+lineend+
+'cx=430'+lineend+
+'cy=112'+lineend+
+'rcx=0'+lineend+
+'rcy=0'+lineend+
+'[afo]'+lineend+
+'splitdir=0'+lineend+
+'useroptions=49275'+lineend+
+'parent=mainfo.container'+lineend+
+'visible=1'+lineend+
+'mdistate=0'+lineend+
+'nx=0'+lineend+
+'ny=0'+lineend+
+'ncx=0'+lineend+
+'ncy=0'+lineend+
+'x=2'+lineend+
+'y=2'+lineend+
+'cx=430'+lineend+
+'cy=42'+lineend+
+'rcx=0'+lineend+
+'rcy=0'+lineend+
+'[mainfo.panelcontroller.panel3]'+lineend+
+'splitdir=3'+lineend+
+'useroptions=32239'+lineend+
+'order=2'+lineend+
+' dfo'+lineend+
+' efo'+lineend+
+'activetab=0'+lineend+
+'parent=mainfo.panelcontroller.panel4.container'+lineend+
+'visible=1'+lineend+
+'mdistate=0'+lineend+
+'nx=0'+lineend+
+'ny=0'+lineend+
+'ncx=0'+lineend+
+'ncy=0'+lineend+
+'x=212'+lineend+
+'y=0'+lineend+
+'cx=208'+lineend+
+'cy=186'+lineend+
+'rcx=0'+lineend+
+'rcy=0'+lineend+
+'children=1'+lineend+
+' ,0,0,208,176'+lineend+
+'focusedchild=0'+lineend+
+'[mainfo.panelcontroller.panel4]'+lineend+
+'splitdir=1'+lineend+
+'useroptions=32239'+lineend+
+'parent=mainfo.container'+lineend+
+'visible=1'+lineend+
+'mdistate=0'+lineend+
+'nx=0'+lineend+
+'ny=0'+lineend+
+'ncx=0'+lineend+
+'ncy=0'+lineend+
+'x=2'+lineend+
+'y=162'+lineend+
+'cx=430'+lineend+
+'cy=186'+lineend+
+'rcx=0'+lineend+
+'rcy=0'+lineend+
+'children=2'+lineend+
+' cfo,0,0,209,186'+lineend+
+' panel3,212,0,208,186'+lineend+
+'focusedchild=1'+lineend+
 '');
          
 end;
