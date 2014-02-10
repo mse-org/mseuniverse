@@ -3,8 +3,6 @@ object filelistframefo: tfilelistframefo
   bounds_y = 284
   bounds_cx = 299
   bounds_cy = 197
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
@@ -41,19 +39,19 @@ object filelistframefo: tfilelistframefo
     datacols.sortcoldefault = 2
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[originstate]
         width = 16
         options = [co_readonly, co_nofocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'originstate'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[filestate]
         width = 16
         options = [co_readonly, co_nofocus, co_fixwidth, co_savestate, co_mousescrollrow]
         widgetname = 'filestate'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[fileitemed]
         width = 230
         options = [co_readonly, co_leftbuttonfocusonly, co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_savestate, co_mousescrollrow]
         widgetname = 'fileitemed'

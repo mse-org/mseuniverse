@@ -1,7 +1,7 @@
 object commitqueryfo: tcommitqueryfo
   visible = False
-  bounds_x = 113
-  bounds_y = 249
+  bounds_x = 38
+  bounds_y = 146
   bounds_cx = 696
   bounds_cy = 287
   container.bounds = (
@@ -141,8 +141,8 @@ object commitqueryfo: tcommitqueryfo
     object tsplitter2: tsplitter
       color = -1879048189
       taborder = 1
-      bounds_x = 376
-      bounds_y = 0
+      bounds_x = 304
+      bounds_y = -16
       bounds_cx = 3
       bounds_cy = 258
       anchors = [an_left, an_top, an_bottom]
@@ -154,11 +154,11 @@ object commitqueryfo: tcommitqueryfo
     inline diff: tcommitdifffo
       frame = nil
       visible = True
-      bounds_x = 379
+      bounds_x = 307
       bounds_y = 0
-      bounds_cx = 317
+      bounds_cx = 389
       bounds_cy = 259
-      anchors = []
+      anchors = [an_left, an_right]
       container.optionsskin = [osk_framebuttononly, osk_container, osk_noclientsize]
       container.frame.colorclient = -1610612730
       container.frame.localprops = [frl_colorclient]
@@ -167,13 +167,13 @@ object commitqueryfo: tcommitqueryfo
       container.bounds = (
         0
         0
-        317
+        389
         259
       )
       options = [fo_savepos, fo_savezorder]
       statfile = diff.tstatfile1
       inherited tabs: ttabwidget
-        bounds_cx = 317
+        bounds_cx = 389
         bounds_cy = 259
         visible = False
       end
@@ -186,15 +186,16 @@ object commitqueryfo: tcommitqueryfo
       inherited tpopupmenu1: tpopupmenu
         menu.submenu.items = <        
           item
+            action = commitdifffo.findindiffact
+          end        
+          item
+            action = commitdifffo.repeatfind
           end        
           item
           end        
           item
-          end        
-          item
+            action = commitdifffo.findindiffact
           end>
-        left = 152
-        top = 16
       end
       inherited externaldiffact: taction
         left = 40
@@ -214,7 +215,7 @@ object commitqueryfo: tcommitqueryfo
       visible = True
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 376
+      bounds_cx = 304
       bounds_cy = 259
       anchors = [an_left]
       object messageed: tmemoedit
@@ -231,7 +232,7 @@ object commitqueryfo: tcommitqueryfo
         taborder = 1
         bounds_x = 0
         bounds_y = 144
-        bounds_cx = 376
+        bounds_cx = 304
         bounds_cy = 116
         anchors = [an_bottom]
         optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
@@ -242,7 +243,7 @@ object commitqueryfo: tcommitqueryfo
         taborder = 2
         bounds_x = 0
         bounds_y = 141
-        bounds_cx = 376
+        bounds_cx = 304
         bounds_cy = 3
         anchors = [an_top]
         options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
@@ -253,17 +254,17 @@ object commitqueryfo: tcommitqueryfo
       inline filelist: tfilechecklistframefo
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 376
+        bounds_cx = 304
         bounds_cy = 141
         anchors = [an_top]
         container.bounds = (
           0
           0
-          376
+          304
           141
         )
         inherited grid: twidgetgrid
-          bounds_cx = 376
+          bounds_cx = 304
           bounds_cy = 141
           fixrows.items = <          
             item
@@ -277,43 +278,30 @@ object commitqueryfo: tcommitqueryfo
                 item
                 end>
             end>
-          datacols.colorfocused = -1879048185
           datacols.items = <          
             item[selected]
-              colorfocused = -1879048185
-              width = 50
-              options = [co_drawfocus, co_fixwidth, co_savestate, co_mousescrollrow]
             end          
             item[originstate]
-              colorfocused = -1879048185
             end          
             item[filestate]
-              colorfocused = -1879048185
             end          
             item[fileitemed]
-              colorfocused = -1879048185
-              width = 286
-              options = [co_readonly, co_leftbuttonfocusonly, co_fill, co_savestate, co_mousescrollrow]
+              width = 248
               datalist.imagealignment = [al_right, al_ycentered]
               datalist.captionpos = cp_top
               datalist.data = (              )
             end>
-          oncellevent = celleventexe
           inherited selected: tbooleanedit[0]
-            bounds_cx = 50
             onsetvalue = selectsetexe
           end
           inherited fileitemed: titemedit[1]
-            bounds_x = 85
-            bounds_cx = 286
+            bounds_cx = 248
             textflags = [tf_ycentered, tf_clipo, tf_noselect, tf_ellipseleft]
             oncellevent = celleventexe
           end
           inherited filestate: tdataicon[2]
-            bounds_x = 68
           end
           inherited originstate: tdataicon[3]
-            bounds_x = 51
           end
         end
         inherited checkpopup: tpopupmenu
