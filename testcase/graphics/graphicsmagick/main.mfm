@@ -334,7 +334,7 @@ object mainfo: tmainfo
     onexecute = pingexe
   end
   object roted: trealedit
-    frame.caption = 'rotation 0..1'
+    frame.caption = 'rotation'#176
     frame.dummy = 0
     frame.outerframe = (
       0
@@ -350,7 +350,7 @@ object mainfo: tmainfo
     statfile = tstatfile1
     value = 0
     valuedefault = -Inf
-    valuerange = 0.1591549430919
+    valuerange = 57.2957795130823
     valuestart = 0
     min = -1000
     max = 1E+038
@@ -366,8 +366,9 @@ object mainfo: tmainfo
       0
     )
     taborder = 18
-    bounds_x = 648
+    bounds_x = 640
     bounds_y = 49
+    bounds_cx = 108
     bounds_cy = 37
     statfile = tstatfile1
     value = -2147483645
