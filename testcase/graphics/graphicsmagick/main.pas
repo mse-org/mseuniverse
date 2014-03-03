@@ -4,9 +4,9 @@ interface
 uses
  mseglob,mseguiglob,msegraphics,msegraphutils,msegui,msesimplewidgets,
  msewidgets,msedragglob,msescrollbar,msestat,msestatfile,msestream,msestrings,
- sysutils,mseforms,mseclasses,msetypes,msetabs,mseifiglob,
- msecolordialog,msedataedits,mseedit,msebitmap,msefiledialog,
- msedispwidgets,mseevent,mseapplication,mseimage,msegraphedits;
+ sysutils,mseforms,mseclasses,msetypes,msetabs,mseifiglob,msecolordialog,
+ msedataedits,mseedit,msebitmap,msefiledialog,msedispwidgets,mseevent,
+ mseapplication,mseimage,msegraphedits,mseificomp,mseificompglob,msemenus;
 
 type
   
@@ -38,6 +38,12 @@ type
    bgcoled: tcoloredit;
    densed: trealedit;
    rotmonomasked: tbooleanedit;
+   filtered: tenumtypeedit;
+   rotaftscaed: tbooleanedit;
+   sampleed: tbooleanedit;
+   resizeed: tbooleanedit;
+   blured: trealedit;
+   rotbefscaed: tbooleanedit;
    procedure magickexe(const sender: TObject);
    procedure builtinexe(const sender: TObject);
    procedure writeexe(const sender: TObject);
@@ -56,6 +62,15 @@ type
    procedure pasizeexe(const sender: twidget; const acanvas: tcanvas);
    procedure sidatent(const sender: TObject);
    procedure pingexe(const sender: TObject);
+   procedure typeintexe(const sender: tenumtypeedit);
+   procedure samplesetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure resizesetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure rotbefsetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure rotaftsetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
   public
  end;
   
@@ -119,7 +134,7 @@ begin
                removefileext(fname)+'.'+format.value,
                           string(format.value),
        [qed.value,widthed.value,heighted.value,roted.value,bgcoled.value,
-        densed.value]);
+        densed.value,rotmonomasked.valuebitmask,filtered.value,blured.value]);
   tdi.value:= (now-t1)*(24*60*60);
  finally
   application.endwait();
@@ -135,7 +150,7 @@ begin
   t1:= now;
   formatdi.value:= di2.bitmap.loadfromfile(tfilenameedit1.value,'',
     [indexed.value,widthed.value,heighted.value,roted.value,bgcoled.value,
-    densed.value,rotmonomasked.valuetagbit]);
+    densed.value,rotmonomasked.valuebitmask,filtered.value,blured.value]);
   tdi.value:= (now-t1)*(24*60*60);
  finally
   application.endwait();
@@ -229,6 +244,47 @@ begin
  finally
   application.endwait();
   stream1.free;
+ end;
+end;
+
+procedure tmainfo.typeintexe(const sender: tenumtypeedit);
+begin
+ sender.typeinfopo:= typeinfo(filtertypes);
+end;
+
+procedure tmainfo.samplesetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  resizeed.value:= false;
+  blured.enabled:= false;
+  filtered.enabled:= false;
+ end;
+end;
+
+procedure tmainfo.resizesetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  sampleed.value:= false;
+ end;
+ blured.enabled:= avalue;
+ filtered.enabled:= avalue;
+end;
+
+procedure tmainfo.rotbefsetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  rotaftscaed.value:= false;
+ end;
+end;
+
+procedure tmainfo.rotaftsetexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  rotbefscaed.value:= false;
  end;
 end;
 
