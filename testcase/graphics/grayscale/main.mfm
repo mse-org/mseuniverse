@@ -1,0 +1,21 @@
+object mainfo: tmainfo
+  bounds_x = 38
+  bounds_y = 215
+  bounds_cx = 403
+  bounds_cy = 280
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localonexecute]
+    onexecute = exe
+  end
+end
