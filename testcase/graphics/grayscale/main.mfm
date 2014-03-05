@@ -1,19 +1,19 @@
 object mainfo: tmainfo
   bounds_x = 38
   bounds_y = 215
-  bounds_cx = 403
-  bounds_cy = 280
+  bounds_cx = 444
+  bounds_cy = 338
   container.bounds = (
     0
     0
-    403
-    280
+    444
+    338
   )
   statfile = tstatfile1
   moduleclassname = 'tmainform'
   object tbutton1: tbutton
     bounds_x = 8
-    bounds_y = 8
+    bounds_y = 64
     bounds_cx = 82
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
@@ -24,15 +24,23 @@ object mainfo: tmainfo
     frame.levelo = -1
     frame.localprops = [frl_levelo]
     taborder = 1
-    bounds_x = 104
-    bounds_y = 32
-    bounds_cx = 250
+    bounds_x = 120
+    bounds_y = 88
+    bounds_cx = 306
     bounds_cy = 218
   end
-  object tenumtypeedit1: tenumtypeedit
+  object kinded: tenumtypeedit
+    frame.caption = 'kind'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
     taborder = 2
-    bounds_x = 104
-    bounds_y = 8
+    bounds_x = 120
+    bounds_y = 7
+    bounds_cy = 37
     statfile = tstatfile1
     value = 2
     onsetvalue = kindsetexe
@@ -43,9 +51,260 @@ object mainfo: tmainfo
     oninit = kindinitexe
     reffontheight = 14
   end
+  object tbutton3: tbutton
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 88
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'clear'
+    onexecute = clearexe
+  end
+  object cxed: tintegeredit
+    frame.caption = 'cx'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 120
+    bounds_y = 47
+    bounds_cx = 44
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 20
+    reffontheight = 14
+  end
+  object cyed: tintegeredit
+    frame.caption = 'cy'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 168
+    bounds_y = 47
+    bounds_cx = 44
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 30
+    reffontheight = 14
+  end
+  object bgcoled: tcoloredit
+    frame.caption = 'bgcolor'
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 224
+    bounds_y = 47
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = -1610612734
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
+    reffontheight = 14
+  end
+  object fgcoled: tcoloredit
+    frame.caption = 'fgcolor'
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 224
+    bounds_y = 7
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = -1610612730
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
+    reffontheight = 14
+  end
+  object tbutton4: tbutton
+    taborder = 8
+    bounds_x = 8
+    bounds_y = 136
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'init'
+    onexecute = initex
+  end
+  object tbutton5: tbutton
+    taborder = 9
+    bounds_x = 8
+    bounds_y = 112
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'setsize'
+    onexecute = setsizeexe
+  end
+  object tbutton6: tbutton
+    taborder = 10
+    bounds_x = 8
+    bounds_y = 160
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'line'
+    onexecute = lineexe
+  end
+  object tbutton2: tbutton
+    taborder = 11
+    bounds_x = 64
+    bounds_y = 160
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'line'
+    onexecute = masklineexe
+  end
+  object tbutton7: tbutton
+    frame.caption = 'mask'
+    frame.captionpos = cp_top
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 12
+    bounds_x = 64
+    bounds_y = 119
+    bounds_cx = 50
+    bounds_cy = 37
+    state = [as_localcaption, as_localonexecute]
+    caption = 'init'
+    onexecute = maskinitexe
+  end
+  object maskfgcoled: tcoloredit
+    frame.caption = 'maskfgcolor'
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 13
+    bounds_x = 328
+    bounds_y = 7
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = -1610612730
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
+    reffontheight = 14
+  end
+  object maskbgcoled: tcoloredit
+    frame.caption = 'maskbgcolor'
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 14
+    bounds_x = 328
+    bounds_y = 47
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = -1610612734
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
+    reffontheight = 14
+  end
+  object tbutton8: tbutton
+    taborder = 15
+    bounds_x = 8
+    bounds_y = 184
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'circle'
+    onexecute = circexe
+  end
+  object tbutton9: tbutton
+    taborder = 16
+    bounds_x = 64
+    bounds_y = 184
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'circle'
+    onexecute = maskcircexe
+  end
+  object maskeded: tbooleanedit
+    frame.caption = 'masked'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      48
+      2
+    )
+    taborder = 17
+    bounds_x = 120
+    bounds_y = 311
+    bounds_cx = 61
+    bounds_cy = 16
+    statfile = tstatfile1
+    ondataentered = checkoptions
+    onsetvalue = setmaskedexe
+  end
+  object graymasked: tbooleanedit
+    frame.caption = 'graymask'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      57
+      2
+    )
+    taborder = 18
+    bounds_x = 192
+    bounds_y = 311
+    bounds_cx = 70
+    bounds_cy = 16
+    statfile = tstatfile1
+    ondataentered = checkoptions
+    onsetvalue = graymasksetexe
+  end
+  object colormasked: tbooleanedit
+    frame.caption = 'colormask'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      61
+      2
+    )
+    taborder = 19
+    bounds_x = 272
+    bounds_y = 311
+    bounds_cx = 74
+    bounds_cy = 16
+    statfile = tstatfile1
+    ondataentered = checkoptions
+    onsetvalue = colormasksetexe
+  end
   object tstatfile1: tstatfile
     filename = 'status.sta'
-    left = 176
-    top = 120
+    left = 192
+    top = 152
   end
 end
