@@ -1,15 +1,16 @@
 object mainfo: tmainfo
   bounds_x = 38
   bounds_y = 215
-  bounds_cx = 444
-  bounds_cy = 338
+  bounds_cx = 624
+  bounds_cy = 369
   container.bounds = (
     0
     0
-    444
-    338
+    624
+    369
   )
   statfile = tstatfile1
+  onloaded = loadedexe
   moduleclassname = 'tmainform'
   object tbutton1: tbutton
     bounds_x = 8
@@ -26,8 +27,9 @@ object mainfo: tmainfo
     taborder = 1
     bounds_x = 120
     bounds_y = 88
-    bounds_cx = 306
+    bounds_cx = 202
     bounds_cy = 218
+    onpaint = dipaexe
   end
   object kinded: tenumtypeedit
     frame.caption = 'kind'
@@ -202,7 +204,7 @@ object mainfo: tmainfo
       0
     )
     taborder = 13
-    bounds_x = 328
+    bounds_x = 432
     bounds_y = 7
     bounds_cy = 37
     statfile = tstatfile1
@@ -220,7 +222,7 @@ object mainfo: tmainfo
       0
     )
     taborder = 14
-    bounds_x = 328
+    bounds_x = 432
     bounds_y = 47
     bounds_cy = 37
     statfile = tstatfile1
@@ -301,6 +303,142 @@ object mainfo: tmainfo
     statfile = tstatfile1
     ondataentered = checkoptions
     onsetvalue = colormasksetexe
+  end
+  object transpcoled: tcoloredit
+    frame.caption = 'transparent color'
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 20
+    bounds_x = 8
+    bounds_y = 207
+    bounds_cy = 37
+    statfile = tstatfile1
+    statpriority = 1
+    value = -2147483647
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
+    onsetvalue = transpcolsetexe
+    reffontheight = 14
+  end
+  object piddi: tintegerdisp
+    frame.caption = 'pid'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 21
+    bounds_x = 8
+    bounds_y = 7
+    bounds_cx = 52
+    bounds_cy = 35
+    reffontheight = 14
+  end
+  object stretchxed: tbooleanedit
+    frame.caption = 'stretchx'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      45
+      2
+    )
+    taborder = 22
+    bounds_x = 120
+    bounds_y = 327
+    bounds_cx = 58
+    bounds_cy = 16
+    statfile = tstatfile1
+    onsetvalue = setstretchxexe
+  end
+  object stretchyed: tbooleanedit
+    frame.caption = 'stretchy'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      45
+      2
+    )
+    taborder = 23
+    bounds_x = 192
+    bounds_y = 327
+    bounds_cx = 58
+    bounds_cy = 16
+    statfile = tstatfile1
+    onsetvalue = setstretchyexe
+  end
+  object intpoled: tbooleanedit
+    frame.caption = 'intpol'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      33
+      2
+    )
+    taborder = 24
+    bounds_x = 272
+    bounds_y = 327
+    bounds_cx = 46
+    bounds_cy = 16
+    statfile = tstatfile1
+    onsetvalue = setintpolexe
+  end
+  object bmbgcoled: tcoloredit
+    frame.caption = 'bmbgcolor'
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 25
+    bounds_x = 328
+    bounds_y = 47
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = -1610612734
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
+    onsetvalue = setbmbgcolsetexe
+    reffontheight = 14
+  end
+  object bmfgcoled: tcoloredit
+    frame.caption = 'bmfgcolor'
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 26
+    bounds_x = 328
+    bounds_y = 7
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = -1610612730
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
+    onsetvalue = setbmfgcolsetexe
+    reffontheight = 14
+  end
+  object madi: tpaintbox
+    frame.levelo = -1
+    frame.localprops = [frl_levelo]
+    frame.dummy = 0
+    taborder = 27
+    bounds_x = 328
+    bounds_y = 88
+    bounds_cx = 202
+    bounds_cy = 218
+    onpaint = maskpaexe
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'

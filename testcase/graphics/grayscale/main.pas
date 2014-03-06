@@ -5,7 +5,8 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msedataedits,
  mseedit,mseificomp,mseificompglob,mseifiglob,msestrings,msesimplewidgets,
- mseimage,msestatfile,msecolordialog,msegraphedits,msescrollbar;
+ mseimage,msestatfile,msecolordialog,msegraphedits,msescrollbar,msedispwidgets,
+ mserichstring;
 
 type
  tmainfo = class(tmainform)
@@ -30,6 +31,14 @@ type
    maskeded: tbooleanedit;
    graymasked: tbooleanedit;
    colormasked: tbooleanedit;
+   transpcoled: tcoloredit;
+   piddi: tintegerdisp;
+   stretchxed: tbooleanedit;
+   stretchyed: tbooleanedit;
+   intpoled: tbooleanedit;
+   bmbgcoled: tcoloredit;
+   bmfgcoled: tcoloredit;
+   madi: tpaintbox;
    procedure exe(const sender: TObject);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
                    var accept: Boolean);
@@ -49,12 +58,27 @@ type
                    var accept: Boolean);
    procedure colormasksetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
+   procedure transpcolsetexe(const sender: TObject; var avalue: colorty;
+                   var accept: Boolean);
+   procedure loadedexe(const sender: TObject);
+   procedure setstretchyexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure setstretchxexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure setintpolexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure setbmfgcolsetexe(const sender: TObject; var avalue: colorty;
+                   var accept: Boolean);
+   procedure setbmbgcolsetexe(const sender: TObject; var avalue: colorty;
+                   var accept: Boolean);
+   procedure dipaexe(const sender: twidget; const acanvas: tcanvas);
+   procedure maskpaexe(const sender: twidget; const acanvas: tcanvas);
  end;
 var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm;
+ main_mfm,mseprocutils;
  
 procedure tmainfo.exe(const sender: TObject);
 var
@@ -145,6 +169,74 @@ procedure tmainfo.colormasksetexe(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
  di.bitmap.colormask:= avalue;
+end;
+
+procedure tmainfo.transpcolsetexe(const sender: TObject; var avalue: colorty;
+               var accept: Boolean);
+begin
+ di.bitmap.transparentcolor:= avalue;
+end;
+
+procedure tmainfo.loadedexe(const sender: TObject);
+begin
+ piddi.value:= getpid;
+end;
+
+procedure tmainfo.setstretchyexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  di.bitmap.alignment:= di.bitmap.alignment + [al_stretchy];
+ end
+ else begin
+  di.bitmap.alignment:= di.bitmap.alignment - [al_stretchy];
+ end;
+end;
+
+procedure tmainfo.setstretchxexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  di.bitmap.alignment:= di.bitmap.alignment + [al_stretchx];
+ end
+ else begin
+  di.bitmap.alignment:= di.bitmap.alignment - [al_stretchx];
+ end;
+end;
+
+procedure tmainfo.setintpolexe(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  di.bitmap.alignment:= di.bitmap.alignment + [al_intpol];
+ end
+ else begin
+  di.bitmap.alignment:= di.bitmap.alignment - [al_intpol];
+ end;
+end;
+
+procedure tmainfo.setbmfgcolsetexe(const sender: TObject; var avalue: colorty;
+               var accept: Boolean);
+begin
+ di.bitmap.colorforeground:= avalue;
+end;
+
+procedure tmainfo.setbmbgcolsetexe(const sender: TObject; var avalue: colorty;
+               var accept: Boolean);
+begin
+ di.bitmap.colorbackground:= avalue;
+end;
+
+procedure tmainfo.dipaexe(const sender: twidget; const acanvas: tcanvas);
+begin
+ madi.invalidate();
+end;
+
+procedure tmainfo.maskpaexe(const sender: twidget; const acanvas: tcanvas);
+begin
+ if di.bitmap.masked then begin
+  di.bitmap.mask.paint(acanvas,nullpoint);
+ end;
 end;
 
 end.
