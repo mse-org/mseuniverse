@@ -39,6 +39,11 @@ type
    bmbgcoled: tcoloredit;
    bmfgcoled: tcoloredit;
    madi: tpaintbox;
+   opaed: tcoloredit;
+   clipreged: tbooleanedit;
+   destdi: timage;
+   destkinded: tenumtypeedit;
+   destbged: tcoloredit;
    procedure exe(const sender: TObject);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
                    var accept: Boolean);
@@ -73,12 +78,17 @@ type
                    var accept: Boolean);
    procedure dipaexe(const sender: twidget; const acanvas: tcanvas);
    procedure maskpaexe(const sender: twidget; const acanvas: tcanvas);
+   procedure opasetexe(const sender: TObject; var avalue: colorty;
+                   var accept: Boolean);
+   procedure dipabaexe(const sender: twidget; const acanvas: tcanvas);
+   procedure destkindset(const sender: TObject; var avalue: Integer;
+                   var accept: Boolean);
  end;
 var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,mseprocutils;
+ main_mfm,mseprocutils,typinfo;
  
 procedure tmainfo.exe(const sender: TObject);
 var
@@ -151,6 +161,15 @@ begin
   graymasked.value:= graymask;
   colormasked.value:= colormask;
  end;
+ di.frame.caption:= getenumname(typeinfo(bitmapkindty),ord(di.bitmap.kind));
+ if di.bitmap.masked then begin
+  madi.frame.caption:= getenumname(
+                        typeinfo(bitmapkindty),ord(di.bitmap.mask.kind));
+ end
+ else begin
+  madi.frame.caption:= '';
+ end;
+ di.invalidate;
 end;
 
 procedure tmainfo.setmaskedexe(const sender: TObject; var avalue: Boolean;
@@ -180,6 +199,7 @@ end;
 procedure tmainfo.loadedexe(const sender: TObject);
 begin
  piddi.value:= getpid;
+ destdi.bitmap.size:= destdi.clientsize;
 end;
 
 procedure tmainfo.setstretchyexe(const sender: TObject; var avalue: Boolean;
@@ -230,6 +250,8 @@ end;
 procedure tmainfo.dipaexe(const sender: twidget; const acanvas: tcanvas);
 begin
  madi.invalidate();
+ destdi.bitmap.init(destbged.value);
+ di.bitmap.paint(destdi.bitmap.canvas,mr(nullpoint,destdi.bitmap.size));
 end;
 
 procedure tmainfo.maskpaexe(const sender: twidget; const acanvas: tcanvas);
@@ -237,6 +259,25 @@ begin
  if di.bitmap.masked then begin
   di.bitmap.mask.paint(acanvas,nullpoint);
  end;
+end;
+
+procedure tmainfo.opasetexe(const sender: TObject; var avalue: colorty;
+               var accept: Boolean);
+begin
+ di.bitmap.opacity:= avalue;
+end;
+
+procedure tmainfo.dipabaexe(const sender: twidget; const acanvas: tcanvas);
+begin
+ if clipreged.value then begin
+  acanvas.subcliprect(mr(0,0,20,20));
+ end;
+end;
+
+procedure tmainfo.destkindset(const sender: TObject; var avalue: Integer;
+               var accept: Boolean);
+begin
+ destdi.bitmap.kind:= bitmapkindty(avalue);
 end;
 
 end.
