@@ -44,6 +44,8 @@ type
    destdi: timage;
    destkinded: tenumtypeedit;
    destbged: tcoloredit;
+   fillcoled: tcoloredit;
+   filldi: timage;
    procedure exe(const sender: TObject);
    procedure kindsetexe(const sender: TObject; var avalue: Integer;
                    var accept: Boolean);
@@ -200,6 +202,7 @@ procedure tmainfo.loadedexe(const sender: TObject);
 begin
  piddi.value:= getpid;
  destdi.bitmap.size:= destdi.clientsize;
+ filldi.bitmap.size:= filldi.clientsize;
 end;
 
 procedure tmainfo.setstretchyexe(const sender: TObject; var avalue: Boolean;
@@ -252,6 +255,9 @@ begin
  madi.invalidate();
  destdi.bitmap.init(destbged.value);
  di.bitmap.paint(destdi.bitmap.canvas,mr(nullpoint,destdi.bitmap.size));
+ filldi.bitmap.init(destbged.value);
+ filldi.bitmap.canvas.brush:= di.bitmap;
+ filldi.bitmap.canvas.fillrect(mr(20,20,50,70),fillcoled.value);
 end;
 
 procedure tmainfo.maskpaexe(const sender: twidget; const acanvas: tcanvas);
@@ -278,6 +284,7 @@ procedure tmainfo.destkindset(const sender: TObject; var avalue: Integer;
                var accept: Boolean);
 begin
  destdi.bitmap.kind:= bitmapkindty(avalue);
+ filldi.bitmap.kind:= bitmapkindty(avalue);
 end;
 
 end.

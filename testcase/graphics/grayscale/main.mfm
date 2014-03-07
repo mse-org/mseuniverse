@@ -1,12 +1,12 @@
 object mainfo: tmainfo
   bounds_x = 38
   bounds_y = 215
-  bounds_cx = 754
+  bounds_cx = 805
   bounds_cy = 353
   container.bounds = (
     0
     0
-    754
+    805
     353
   )
   statfile = tstatfile1
@@ -450,7 +450,7 @@ object mainfo: tmainfo
     taborder = 27
     bounds_x = 328
     bounds_y = 104
-    bounds_cx = 202
+    bounds_cx = 114
     bounds_cy = 202
     onpaint = maskpaexe
   end
@@ -506,9 +506,9 @@ object mainfo: tmainfo
     face.localprops = [fal_image]
     face.dummy = 0
     taborder = 30
-    bounds_x = 536
+    bounds_x = 456
     bounds_y = 104
-    bounds_cx = 202
+    bounds_cx = 138
     bounds_cy = 202
   end
   object destkinded: tenumtypeedit
@@ -552,6 +552,46 @@ object mainfo: tmainfo
     value = -1879048187
     dropdown.options = [deo_autodropdown, deo_keydropdown]
     reffontheight = 14
+  end
+  object fillcoled: tcoloredit
+    frame.caption = 'fillcolor'
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 33
+    bounds_x = 640
+    bounds_y = 47
+    bounds_cy = 37
+    statfile = tstatfile1
+    ondataentered = checkoptions
+    value = -2147483644
+    dropdown.options = [deo_autodropdown, deo_keydropdown]
+    reffontheight = 14
+  end
+  object filldi: timage
+    frame.levelo = -1
+    frame.localprops = [frl_levelo]
+    face.image.origformat = 'png'
+    face.image.alignment = [al_tiled]
+    face.image.image = {
+      000000000000000010000000100000007C000000000000000000000000000000
+      0000000000000000000000000000000000000000666666089999990866666608
+      9999990866666608999999086666660899999908666666089999990866666608
+      9999990866666608999999086666660899999910666666089999990866666608
+      9999990866666608999999086666660899999908666666089999990866666608
+      99999908666666089999990866666608
+    }
+    face.localprops = [fal_image]
+    face.dummy = 0
+    taborder = 34
+    bounds_x = 608
+    bounds_y = 104
+    bounds_cx = 130
+    bounds_cy = 202
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
