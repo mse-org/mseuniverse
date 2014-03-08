@@ -516,13 +516,18 @@ end;
 
 procedure tbranchfo.localcreateexe(const sender: TObject);
 begin
- if sender = nil then begin
-  localgrid.appinsrow(bigint); //called from other form
- end
- else begin
-  localgrid.appinsrow(localgrid.row+1);
+ with localgrid do begin
+  if sender = nil then begin
+   appinsrow(bigint); //called from other form
+  end
+  else begin
+   appinsrow(localgrid.row+1);
+   if row > 0 then begin
+    localbranchcommit[row]:= localbranchcommit[row-1];
+   end;
+  end;
+  col:= 1;
  end;
- localgrid.col:= 1;
 end;
 
 procedure tbranchfo.localdeleteexe(const sender: TObject);
