@@ -235,7 +235,7 @@ end;
 procedure tmainfo.paintexe(const sender: TObject);
 begin
  with di2.bitmap do begin
-  if monochrome then begin
+  if kind = bmk_mono then begin
    init(cl_0);
    di2.bitmap.canvas.drawline(mp(0,0),mp(width-1,height-1),cl_1);
   end
