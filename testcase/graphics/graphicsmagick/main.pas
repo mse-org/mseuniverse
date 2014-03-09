@@ -23,9 +23,9 @@ type
    tbutton3: tbutton;
    tbutton4: tbutton;
    format: tstringedit;
-   monoed: tbooleanedit;
+   monoed: tbooleaneditradio;
    maskeded: tbooleanedit;
-   colormasked: tbooleanedit;
+   colormasked: tbooleaneditradio;
    bgcled: tcoloredit;
    fgcled: tcoloredit;
    tbutton5: tbutton;
@@ -44,6 +44,8 @@ type
    resizeed: tbooleanedit;
    blured: trealedit;
    rotbefscaed: tbooleanedit;
+   graymasked: tbooleaneditradio;
+   grayed: tbooleaneditradio;
    procedure magickexe(const sender: TObject);
    procedure builtinexe(const sender: TObject);
    procedure writeexe(const sender: TObject);
@@ -70,6 +72,10 @@ type
    procedure rotbefsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure rotaftsetexe(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure graymaskset(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure grayset(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
   public
  end;
@@ -157,8 +163,20 @@ begin
  end;
  cxdi.value:= di2.bitmap.width;
  cydi.value:= di2.bitmap.height;
- monoed.value:= di2.bitmap.monochrome;
+ case di2.bitmap.kind of
+  bmk_mono: begin
+   monoed.value:= true;
+  end;
+  bmk_gray: begin
+   grayed.value:= true;
+  end;
+  else begin
+   monoed.value:= false;
+   grayed.value:= false;
+  end;
+ end;
  maskeded.value:= di2.bitmap.masked;
+ graymasked.value:= di2.bitmap.graymask;
  colormasked.value:= di2.bitmap.colormask;
 end;
 
@@ -166,6 +184,12 @@ procedure tmainfo.colormaskset(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
  di2.bitmap.colormask:= avalue;
+end;
+
+procedure tmainfo.graymaskset(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ di2.bitmap.graymask:= avalue;
 end;
 
 procedure tmainfo.maskedset(const sender: TObject; var avalue: Boolean;
@@ -177,7 +201,23 @@ end;
 procedure tmainfo.monoset(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
- di2.bitmap.monochrome:= avalue;
+ if avalue then begin
+  di2.bitmap.kind:= bmk_mono;
+ end
+ else begin
+  di2.bitmap.kind:= bmk_rgb;
+ end;
+end;
+
+procedure tmainfo.grayset(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  di2.bitmap.kind:= bmk_gray;
+ end
+ else begin
+  di2.bitmap.kind:= bmk_rgb;
+ end;
 end;
 
 procedure tmainfo.setbgexe(const sender: TObject; var avalue: colorty;
