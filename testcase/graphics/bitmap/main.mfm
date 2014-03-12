@@ -14,7 +14,7 @@ object mainfo: tmainfo
   optionswindow = [wo_groupleader, wo_taskbar]
   options = [fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'main'
+  caption = 'MSEide+MSEgui'
   onloaded = loadedexe
   moduleclassname = 'tdockform'
   object ima: timage
@@ -22,7 +22,7 @@ object mainfo: tmainfo
     frame.localprops = [frl_levelo]
     bounds_x = 8
     bounds_y = 96
-    bounds_cx = 146
+    bounds_cx = 186
     bounds_cy = 154
     bitmap.transparentcolor = -2147483642
     bitmap.options = [bmo_masked, bmo_colormask]
@@ -1196,14 +1196,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      49
-      1
+      57
+      2
     )
     taborder = 1
-    bounds_x = 72
+    bounds_x = 88
     bounds_y = 55
-    bounds_cx = 62
-    bounds_cy = 15
+    bounds_cx = 70
+    bounds_cy = 16
     ondataentered = datentexe
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_cantoggle]
     onsetvalue = graymaskset
@@ -1215,14 +1215,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      50
-      1
+      61
+      2
     )
     taborder = 2
-    bounds_x = 136
+    bounds_x = 168
     bounds_y = 55
-    bounds_cx = 63
-    bounds_cy = 15
+    bounds_cx = 74
+    bounds_cy = 16
     ondataentered = datentexe
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_cantoggle]
     onsetvalue = colormaskset
@@ -1232,7 +1232,6 @@ object mainfo: tmainfo
     taborder = 3
     bounds_x = 16
     bounds_y = 32
-    bounds_cy = 19
     ondataentered = datentexe
     onsetvalue = kindset
     dropdown.cols.count = 1
@@ -1240,7 +1239,7 @@ object mainfo: tmainfo
       item
       end>
     oninit = initexe
-    reffontheight = 13
+    reffontheight = 14
   end
   object maskeded: tbooleanedit
     frame.caption = 'masked'
@@ -1248,14 +1247,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      39
-      1
+      48
+      2
     )
     taborder = 4
     bounds_x = 16
     bounds_y = 55
-    bounds_cx = 52
-    bounds_cy = 15
+    bounds_cx = 61
+    bounds_cy = 16
     ondataentered = datentexe
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_cantoggle]
     onsetvalue = maskedset
@@ -1266,7 +1265,6 @@ object mainfo: tmainfo
     bounds_x = 16
     bounds_y = 8
     bounds_cx = 220
-    bounds_cy = 19
     statfile = tstatfile1
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     controller.filterlist.data = (
@@ -1275,7 +1273,7 @@ object mainfo: tmainfo
         '*.png'
       )
     )
-    reffontheight = 13
+    reffontheight = 14
   end
   object tbutton1: tbutton
     taborder = 6
@@ -1294,18 +1292,17 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      33
+      38
       0
     )
     taborder = 7
     bounds_x = 8
     bounds_y = 256
-    bounds_cx = 133
-    bounds_cy = 19
+    bounds_cx = 138
     ondataentered = datentexe
     dropdown.options = [deo_autodropdown, deo_keydropdown]
     onsetvalue = setbmpfg
-    reffontheight = 13
+    reffontheight = 14
   end
   object bmpbged: tcoloredit
     frame.caption = 'bmpbg'
@@ -1314,18 +1311,17 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      35
+      42
       0
     )
     taborder = 8
     bounds_x = 8
     bounds_y = 280
-    bounds_cx = 135
-    bounds_cy = 19
+    bounds_cx = 142
     ondataentered = datentexe
     dropdown.options = [deo_autodropdown, deo_keydropdown]
     onsetvalue = setbmpbg
-    reffontheight = 13
+    reffontheight = 14
   end
   object fged: tcoloredit
     frame.caption = 'fg'
@@ -1341,11 +1337,10 @@ object mainfo: tmainfo
     bounds_x = 8
     bounds_y = 328
     bounds_cx = 113
-    bounds_cy = 19
     statfile = tstatfile1
     value = -1610612734
     dropdown.options = [deo_autodropdown, deo_keydropdown]
-    reffontheight = 13
+    reffontheight = 14
   end
   object bged: tcoloredit
     frame.caption = 'bg'
@@ -1354,22 +1349,21 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      15
+      17
       0
     )
     taborder = 10
     bounds_x = 8
     bounds_y = 352
-    bounds_cx = 115
-    bounds_cy = 19
+    bounds_cx = 117
     statfile = tstatfile1
     value = -1610612730
     dropdown.options = [deo_autodropdown, deo_keydropdown]
-    reffontheight = 13
+    reffontheight = 14
   end
   object tbutton3: tbutton
     taborder = 11
-    bounds_x = 128
+    bounds_x = 144
     bounds_y = 336
     bounds_cx = 50
     bounds_cy = 19
@@ -1384,18 +1378,17 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      23
+      28
       0
     )
     taborder = 12
     bounds_x = 8
     bounds_y = 400
-    bounds_cx = 123
-    bounds_cy = 19
+    bounds_cx = 128
     statfile = tstatfile1
     value = -1610612730
     dropdown.options = [deo_autodropdown, deo_keydropdown]
-    reffontheight = 13
+    reffontheight = 14
   end
   object mfged: tcoloredit
     frame.caption = 'mfg'
@@ -1404,22 +1397,21 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      21
+      24
       0
     )
     taborder = 13
     bounds_x = 8
     bounds_y = 376
-    bounds_cx = 121
-    bounds_cy = 19
+    bounds_cx = 124
     statfile = tstatfile1
     value = -1610612734
     dropdown.options = [deo_autodropdown, deo_keydropdown]
-    reffontheight = 13
+    reffontheight = 14
   end
   object tbutton4: tbutton
     taborder = 14
-    bounds_x = 128
+    bounds_x = 144
     bounds_y = 384
     bounds_cx = 50
     bounds_cy = 19
@@ -1434,18 +1426,17 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      48
+      56
       0
     )
     taborder = 15
     bounds_x = 8
     bounds_y = 304
-    bounds_cx = 148
-    bounds_cy = 19
+    bounds_cx = 156
     ondataentered = datentexe
     dropdown.options = [deo_autodropdown, deo_keydropdown]
     onsetvalue = setbmptrans
-    reffontheight = 13
+    reffontheight = 14
   end
   object stretchxed: tbooleanedit
     frame.caption = 'stretchx'
@@ -1453,14 +1444,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      43
-      1
+      45
+      2
     )
     taborder = 16
     bounds_x = 16
     bounds_y = 71
-    bounds_cx = 56
-    bounds_cy = 15
+    bounds_cx = 58
+    bounds_cy = 16
     statfile = tstatfile1
     onsetvalue = setstretchx
   end
@@ -1470,14 +1461,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      43
-      1
+      45
+      2
     )
     taborder = 17
-    bounds_x = 72
+    bounds_x = 88
     bounds_y = 71
-    bounds_cx = 56
-    bounds_cy = 15
+    bounds_cx = 58
+    bounds_cy = 16
     statfile = tstatfile1
     onsetvalue = setstretchy
   end
@@ -1487,14 +1478,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      29
-      1
+      33
+      2
     )
     taborder = 18
-    bounds_x = 136
+    bounds_x = 168
     bounds_y = 71
-    bounds_cx = 42
-    bounds_cy = 15
+    bounds_cx = 46
+    bounds_cy = 16
     statfile = tstatfile1
     onsetvalue = setintpol
   end
@@ -1505,24 +1496,22 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      38
+      41
       0
     )
     taborder = 19
     bounds_x = 120
     bounds_y = 32
-    bounds_cx = 138
-    bounds_cy = 19
+    bounds_cx = 141
     statfile = tstatfile1
     dropdown.options = [deo_autodropdown, deo_keydropdown]
     onsetvalue = setopa
-    reffontheight = 13
+    reffontheight = 14
   end
   object destkinded: tenumtypeedit
     taborder = 20
     bounds_x = 264
     bounds_y = 32
-    bounds_cy = 19
     ondataentered = datentexe
     value = 2
     onsetvalue = dkindset
@@ -1531,15 +1520,15 @@ object mainfo: tmainfo
       item
       end>
     oninit = initexe
-    reffontheight = 13
+    reffontheight = 14
   end
   object dima: timage
     frame.leveli = -1
     frame.localprops = [frl_leveli]
     taborder = 21
-    bounds_x = 216
+    bounds_x = 208
     bounds_y = 96
-    bounds_cx = 170
+    bounds_cx = 186
     bounds_cy = 154
   end
   object tstatfile1: tstatfile

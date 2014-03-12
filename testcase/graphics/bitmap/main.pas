@@ -75,7 +75,7 @@ var
 implementation
 uses
  main_mfm,mseformatstr,msemime,msedatalist,mseprocutils,msefileutils,
- mseformatpngread,windows,mseguiintf;
+ mseformatpngread,mseguiintf;
 
 procedure tmainfo.check;
 begin
