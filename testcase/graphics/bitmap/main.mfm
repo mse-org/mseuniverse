@@ -20,6 +20,18 @@ object mainfo: tmainfo
   object ima: timage
     frame.levelo = -1
     frame.localprops = [frl_levelo]
+    face.image.origformat = 'png'
+    face.image.alignment = [al_tiled]
+    face.image.image = {
+      000000000000000010000000100000007C000000000000000000000000000000
+      0000000000000000000000000000000000000000666666089999990866666608
+      9999990866666608999999086666660899999908666666089999990866666608
+      9999990866666608999999086666660899999910666666089999990866666608
+      9999990866666608999999086666660899999908666666089999990866666608
+      99999908666666089999990866666608
+    }
+    face.localprops = [fal_image]
+    face.dummy = 0
     bounds_x = 8
     bounds_y = 96
     bounds_cx = 186
@@ -1531,9 +1543,115 @@ object mainfo: tmainfo
     bounds_cx = 186
     bounds_cy = 154
   end
+  object piddi: tintegerdisp
+    frame.caption = 'pid'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      20
+      0
+    )
+    taborder = 22
+    bounds_x = 296
+    bounds_y = 8
+    bounds_cx = 88
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object clipxed: tintegeredit
+    frame.caption = 'clipcx'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 23
+    bounds_x = 208
+    bounds_y = 255
+    bounds_cx = 44
+    bounds_cy = 37
+    statfile = tstatfile1
+    ondataentered = datentexe
+    reffontheight = 14
+  end
+  object clipyed: tintegeredit
+    frame.caption = 'clipcy'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 24
+    bounds_x = 256
+    bounds_y = 255
+    bounds_cx = 44
+    bounds_cy = 37
+    statfile = tstatfile1
+    ondataentered = datentexe
+    reffontheight = 14
+  end
+  object clipbmped: tbooleanedit
+    frame.caption = 'clipregion'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      57
+      2
+    )
+    taborder = 25
+    bounds_x = 312
+    bounds_y = 271
+    bounds_cx = 70
+    bounds_cy = 16
+    statfile = tstatfile1
+    ondataentered = datentexe
+  end
+  object tbutton2: tbutton
+    taborder = 26
+    bounds_x = 320
+    bounds_y = 304
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'print'
+    onexecute = printexe
+  end
+  object colorspaceed: tenumtypeedit
+    taborder = 27
+    bounds_x = 208
+    bounds_y = 304
+    statfile = tstatfile1
+    value = 0
+    onsetvalue = colorspaceset
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = colorspaceinitexe
+    reffontheight = 14
+  end
   object tstatfile1: tstatfile
     filename = 'status.sta'
-    left = 296
-    top = 8
+    left = 232
+    top = 144
+  end
+  object printer: tpostscriptprinter
+    canvas.font.color = -1610612734
+    canvas.font.xscale = 1
+    canvas.font.dummy = 0
+    canvas.ppmm = 10
+    pa_width = 210
+    pa_height = 297
+    pa_size = sps_a4
+    tabulators.defaultdist = 0
+    left = 264
+    top = 344
   end
 end
