@@ -1,0 +1,143 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 322
+  bounds_cy = 280
+  container.bounds = (
+    0
+    0
+    322
+    280
+  )
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tdbstringgrid1: tdbstringgrid
+    frame.sbvert.pagesize = 0.5
+    frame.caption = 'Ctrl+LeftClk for row selection'
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 16
+    bounds_y = 15
+    bounds_cx = 202
+    bounds_cy = 211
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 166
+        options = [co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        datafield = 'f1'
+      end>
+    datalink.datasource = dso
+    datalink.fieldname_selected = 'selsta'
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+        numstart = 1
+        numstep = 1
+      end>
+    datarowheight = 16
+    reffontheight = 14
+  end
+  object digri: twidgetgrid
+    taborder = 1
+    bounds_x = 224
+    bounds_y = 32
+    bounds_cx = 82
+    bounds_cy = 194
+    fixcols.count = 1
+    fixcols.width = 20
+    fixcols.items = <    
+      item
+        width = 20
+        numstart = 1
+        numstep = 1
+      end>
+    datacols.count = 1
+    datacols.items = <    
+      item[seldi]
+        widgetname = 'seldi'
+        dataclass = tgridintegerdatalist
+      end>
+    datarowheight = 16
+    reffontheight = 14
+    object seldi: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      reffontheight = 14
+    end
+  end
+  object tdbnavigator1: tdbnavigator
+    taborder = 2
+    bounds_x = 16
+    bounds_y = 232
+    datasource = dso
+    dialogbutton.imagenr = 17
+    dialogbutton.hint = 'Dialog'
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+  end
+  object tbutton1: tbutton
+    taborder = 3
+    bounds_x = 224
+    bounds_y = 8
+    bounds_cx = 82
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'selected rows'
+    onexecute = showselexe
+  end
+  object ds: tlocaldataset
+    logfilename = 'test.db'
+    Active = True
+    controller.fields.count = 1
+    controller.fields.fields = (
+      (
+        ft_string
+      )
+      <      
+        item
+          DisplayWidth = 0
+          FieldName = 'f1'
+          Index = 0
+          Size = 0
+        end>
+    )
+    FieldDefs = <    
+      item
+        Name = 'f1'
+        DataType = ftString
+        Precision = 0
+        Size = 0
+      end    
+      item
+        Name = 'selsta'
+        DataType = ftInteger
+        Precision = 0
+        Size = 0
+      end>
+    left = 32
+    top = 64
+    object selfield: tmselongintfield
+      FieldName = 'selsta'
+      Index = 1
+      left = 80
+      top = 96
+    end
+  end
+  object dso: tmsedatasource
+    DataSet = ds
+    left = 80
+    top = 64
+  end
+end
