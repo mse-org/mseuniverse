@@ -34,7 +34,8 @@ begin
  digri.clear;
  for int1:= 0 to ds.recordcount - 1 do begin
   if ds.currentasinteger[selfield,int1] <> 0 then begin
-   tintegerdatalist(seldi.griddata).add(int1+1);
+   tintegerdatalist(seldi.griddata).add(int1+1); //version 3.2
+//   seldi.griddata.add(int1+1);                 //version 3.3
   end;
  end;
  digri.endupdate();
