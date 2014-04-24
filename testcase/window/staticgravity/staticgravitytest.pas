@@ -8,8 +8,8 @@ uses
  x,xlib,xutil,msetypes,mseguiintf;
 
 const
- xpos1 = 50;
- ypos1 = 50;
+ xpos1 = 100;
+ ypos1 = 100;
  width1 = 200;
  height1 = 100;
 
