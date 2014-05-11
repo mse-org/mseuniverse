@@ -41,8 +41,8 @@ object mainfo: tmainfo
     tab_frametab.localprops = [frl_hiddenedges]
     tab_frametab.template = tabframe
     tab_frametab.dummy = 0
-    tab_size = 28
     tab_sizemin = 14
+    tab_size = 28
     object ttabpage1: ttabpage
       face.template = tabpagefacea
       face.dummy = 0
@@ -80,7 +80,7 @@ object mainfo: tmainfo
   object imli: timagelist
     width = 4
     height = 4
-    masked = False
+    options = []
     count = 35
     left = 272
     top = 32
