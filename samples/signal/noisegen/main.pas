@@ -7,7 +7,7 @@ uses
  msestrings,msesignal,msesigaudio,msesignoise,msechartedit,msedataedits,mseedit,
  mseificomp,mseificompglob,mseifiglob,msesiggui,msestatfile,msesigfft,
  msesigfftgui,msegraphedits,msescrollbar,msedispwidgets,mserichstring,
- msesplitter,msesimplewidgets;
+ msesplitter,msesimplewidgets,msefilter;
 
 type
  tmainfo = class(tmainform)
@@ -20,12 +20,13 @@ type
    scope: tsigscope;
    sampcount: tslider;
    sampcountdi: tintegerdisp;
-   pink: tbooleanedit;
    tsplitter1: tsplitter;
+   kinded: tenumtypeedit;
    procedure onclosexe(const sender: TObject);
    procedure samcountsetexe(const sender: TObject; var avalue: realty;
                    var accept: Boolean);
-   procedure pinksetexe(const sender: TObject; var avalue: Boolean;
+   procedure typinitexe(const sender: tenumtypeedit);
+   procedure kindsetexe(const sender: TObject; var avalue: Integer;
                    var accept: Boolean);
  end;
 var
@@ -46,15 +47,15 @@ begin
  sampcountdi.value:= noise.samplecount;
 end;
 
-procedure tmainfo.pinksetexe(const sender: TObject; var avalue: Boolean;
+procedure tmainfo.typinitexe(const sender: tenumtypeedit);
+begin
+ sender.typeinfopo:= typeinfo(noisekindty);
+end;
+
+procedure tmainfo.kindsetexe(const sender: TObject; var avalue: Integer;
                var accept: Boolean);
 begin
- if avalue then begin
-  noise.kind:= nk_pink;
- end
- else begin
-  noise.kind:= nk_white;
- end;
+ noise.kind:= noisekindty(avalue);
 end;
 
 end.

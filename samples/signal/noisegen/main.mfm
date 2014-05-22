@@ -25,10 +25,10 @@ object mainfo: tmainfo
       4
       0
     )
-    bounds_x = 53
-    bounds_y = 43
+    bounds_x = 52
+    bounds_y = 35
     bounds_cx = 27
-    bounds_cy = 215
+    bounds_cy = 199
     anchors = [an_left, an_top, an_bottom]
     statfile = sta
     value = 0
@@ -271,21 +271,21 @@ object mainfo: tmainfo
     sampler.refreshus = 500000
   end
   object sampcount: tslider
-    frame.caption = 'samp'#10'count'
+    frame.caption = 'crest'
     frame.captionpos = cp_top
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     frame.dummy = 0
     frame.outerframe = (
-      7
-      31
-      7
+      4
+      17
+      5
       0
     )
     taborder = 3
-    bounds_x = 9
-    bounds_y = 29
-    bounds_cx = 34
-    bounds_cy = 229
+    bounds_x = 11
+    bounds_y = 35
+    bounds_cx = 29
+    bounds_cy = 199
     anchors = [an_left, an_top, an_bottom]
     statfile = sta
     value = 0
@@ -296,33 +296,16 @@ object mainfo: tmainfo
   object sampcountdi: tintegerdisp
     frame.dummy = 0
     taborder = 4
-    bounds_x = 16
-    bounds_y = 8
+    bounds_x = 15
+    bounds_y = 240
     bounds_cx = 20
     bounds_cy = 18
+    anchors = [an_left, an_bottom]
     reffontheight = 14
-  end
-  object pink: tbooleanedit
-    frame.caption = 'pink'
-    frame.captionpos = cp_bottom
-    frame.dummy = 0
-    frame.outerframe = (
-      6
-      0
-      6
-      17
-    )
-    taborder = 5
-    bounds_x = 53
-    bounds_y = 8
-    bounds_cx = 25
-    bounds_cy = 30
-    statfile = sta
-    onsetvalue = pinksetexe
   end
   object tsplitter1: tsplitter
     color = -1879048189
-    taborder = 6
+    taborder = 5
     bounds_x = 272
     bounds_y = 8
     bounds_cx = 4
@@ -332,6 +315,22 @@ object mainfo: tmainfo
     linkleft = scope
     linkright = fft
     statfile = sta
+  end
+  object kinded: tenumtypeedit
+    taborder = 6
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 76
+    statfile = sta
+    value = 0
+    min = 0
+    onsetvalue = kindsetexe
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = typinitexe
+    reffontheight = 14
   end
   object cont: tsigcontroller
     samplefrequ = 44100
