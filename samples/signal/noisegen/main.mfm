@@ -25,7 +25,8 @@ object mainfo: tmainfo
       4
       0
     )
-    bounds_x = 52
+    taborder = 1
+    bounds_x = 12
     bounds_y = 35
     bounds_cx = 27
     bounds_cy = 199
@@ -43,7 +44,7 @@ object mainfo: tmainfo
     frame.leveli = -1
     frame.colorclient = -2147483645
     frame.localprops = [frl_leveli, frl_firight, frl_colorclient]
-    taborder = 1
+    taborder = 3
     bounds_x = 276
     bounds_y = 8
     bounds_cx = 246
@@ -56,7 +57,7 @@ object mainfo: tmainfo
     traces.xstart = 0
     traces.ystart = 0
     traces.xrange = 1
-    traces.xserrange = 1
+    traces.xserrange = 22050
     traces.yrange = 1
     traces.image_widthmm = 0
     traces.image_heighthmm = 0
@@ -65,10 +66,10 @@ object mainfo: tmainfo
     traces.items = <    
       item
         widthmm = 0.3
-        xserrange = 1
+        xserrange = 22050
         xserstart = 0
-        xrange = 1
-        xstart = 0.01
+        xrange = 22000
+        xstart = 10
         yrange = 0.999
         ystart = 0.001
         options = [cto_logx, cto_logy]
@@ -80,14 +81,14 @@ object mainfo: tmainfo
     xrange = 1
     yrange = 1
     xdials.count = 1
-    xdials.start = 0
-    xdials.range = 1
+    xdials.start = 10
+    xdials.range = 22000
     xdials.items = <    
       item
         options = [do_log]
         widthmm = 0.3
-        start = 43.066
-        range = 20000
+        start = 10
+        range = 22000
         ticks.count = 2
         ticks.items = <        
           item
@@ -139,6 +140,7 @@ object mainfo: tmainfo
         expend = -Inf
         value = 0
       end>
+    sampler.bufferlength = 65536
     sampler.trigger.offset = 0
     sampler.trigger.gain = 1
     sampler.trigger.min = -Inf
@@ -157,13 +159,12 @@ object mainfo: tmainfo
     sampler.refreshus = 500000
     sampler.windowfuncpar0 = 0
     sampler.windowfuncpar1 = 0
-    fftcount = 4096
   end
   object scope: tsigscope
     frame.levelo = -1
     frame.colorclient = -2147483645
     frame.localprops = [frl_levelo, frl_firight, frl_colorclient]
-    taborder = 2
+    taborder = 4
     bounds_x = 88
     bounds_y = 8
     bounds_cx = 184
@@ -281,8 +282,8 @@ object mainfo: tmainfo
       5
       0
     )
-    taborder = 3
-    bounds_x = 11
+    taborder = 2
+    bounds_x = 47
     bounds_y = 35
     bounds_cx = 29
     bounds_cy = 199
@@ -295,8 +296,8 @@ object mainfo: tmainfo
   end
   object sampcountdi: tintegerdisp
     frame.dummy = 0
-    taborder = 4
-    bounds_x = 15
+    taborder = 5
+    bounds_x = 51
     bounds_y = 240
     bounds_cx = 20
     bounds_cy = 18
@@ -305,7 +306,7 @@ object mainfo: tmainfo
   end
   object tsplitter1: tsplitter
     color = -1879048189
-    taborder = 5
+    taborder = 6
     bounds_x = 272
     bounds_y = 8
     bounds_cx = 4
@@ -317,7 +318,6 @@ object mainfo: tmainfo
     statfile = sta
   end
   object kinded: tenumtypeedit
-    taborder = 6
     bounds_x = 8
     bounds_y = 8
     bounds_cx = 76
@@ -373,7 +373,7 @@ object mainfo: tmainfo
     offset.expstart = -Inf
     offset.expend = -Inf
     offset.value = 0
-    cutofffrequ = 0.001
+    cutofffrequ = 0.0001
     left = 128
     top = 104
   end
