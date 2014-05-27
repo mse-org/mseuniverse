@@ -477,6 +477,7 @@ inherited branchfo: tbranchfo
       end    
       item
         caption = '&Delete Branch'
+        name = 'deletebranch'
         state = [as_localcaption, as_localonexecute]
         options = [mao_shortcutcaption, mao_nocandefocus]
         onexecute = localdeleteexe

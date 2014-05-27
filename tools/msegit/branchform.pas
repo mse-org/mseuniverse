@@ -857,6 +857,9 @@ begin
    enabled:= (localbranch.value <> '') and 
          (mainmo.findremotebranch(mainmo.activeremote,localbranch.value) = nil);
   end;
+  with sender.menu.itembyname('deletebranch') do begin
+   enabled:= not localactive.value;
+  end;
  end;
 end;
 
