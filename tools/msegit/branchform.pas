@@ -395,6 +395,10 @@ begin
     if askconfirmation('Do you want to switch to branch "'+mstr1+'"?') and
                                       mainmo.checkoutbranch(mstr1) then begin
      setactivelocallog(mstr1);
+    end
+    else begin
+     accept:= false;
+     exit;
     end;
    end;
   end;
@@ -433,6 +437,10 @@ begin
       remotebranch.value+'"?') and
                  mainmo.checkoutbranch(remotebranch.value) then begin
      setactivelocallog(remotebranch.value);
+    end
+    else begin
+     accept:= false;
+     exit;
     end;
    end;
   end;
