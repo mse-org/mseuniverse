@@ -142,7 +142,7 @@ object commitqueryfo: tcommitqueryfo
       color = -1879048189
       taborder = 1
       bounds_x = 304
-      bounds_y = -16
+      bounds_y = 0
       bounds_cx = 3
       bounds_cy = 258
       anchors = [an_left, an_top, an_bottom]
@@ -186,10 +186,8 @@ object commitqueryfo: tcommitqueryfo
       inherited tpopupmenu1: tpopupmenu
         menu.submenu.items = <        
           item
-            action = commitdifffo.findindiffact
           end        
           item
-            action = commitdifffo.repeatfind
           end        
           item
           end        
