@@ -1746,11 +1746,13 @@ end;
 
 function tgitcontroller.getrefinfo({const prefix: msestring; }
                const shas: msestringarty; out ainfo: refinfoarty): boolean;
+//duplicate shas's are omited in git-show result!
 var
  po,poend: pmsechar;
 const
  sepchar = msechar(#1); //#0 does not work on windows
- maxitems = 50; //duplicate shas's are omited in git-show result!
+ sepstr = '%x01';
+ maxitems = 1; //git show is unreliable with multiple objects
  
  function item(out res: msestring): boolean;
  var
@@ -1791,8 +1793,8 @@ begin
     mstr1:= ar1[int1];
    end;
   end;
-  int1:= 0;
-  int2:= 0;
+  int1:= 0; //result index
+  int2:= 0; //
   while int2 <= high(shas) do begin
    str1:= '';
    int3:= 0;
@@ -1810,7 +1812,8 @@ begin
  //                                                             '>test1.txt');
    result:= commandresult1(
  //    'show --format=format:"%x01%H%x01%cN%x01%ct%x01%s%x01" -s '+str1,mstr1);
-     'show --format=format:"%x01%cN%x01%ct%x01%s%x01" -s '+str1,mstr1);
+     'show --format=format:"'+
+     sepstr+'%cN'+sepstr+'%ct'+sepstr+'%s'+sepstr+'" -s '+str1,mstr1);     
    if not result then begin
     break;
    end;

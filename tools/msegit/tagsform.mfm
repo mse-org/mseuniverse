@@ -19,6 +19,13 @@ inherited tagsfo: ttagsfo
     bounds_cy = 354
     anchors = []
     optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 39
+        numstart = 1
+        numstep = 1
+      end>
     fixrows.count = 1
     fixrows.items = <    
       item
@@ -54,7 +61,7 @@ inherited tagsfo: ttagsfo
     datacols.items = <    
       item[treeed]
         coloractive = -1879048185
-        width = 167
+        width = 159
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
@@ -62,7 +69,7 @@ inherited tagsfo: ttagsfo
       end    
       item[messageed]
         coloractive = -1879048185
-        width = 229
+        width = 217
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_noautocolwidth]
         oncellevent = messagecellevent
@@ -72,21 +79,21 @@ inherited tagsfo: ttagsfo
       item[commited]
         coloractive = -1879048185
         colorfocused = -1879048185
-        width = 93
+        width = 88
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'commited'
         dataclass = tgridmsestringdatalist
       end    
       item[commitdateed]
         coloractive = -1879048185
-        width = 131
+        width = 124
         options = [co_readonly, co_proportional, co_savestate, co_sortdescend, co_mousescrollrow]
         widgetname = 'commitdateed'
         dataclass = tgridrealdatalist
       end    
       item[committered]
         coloractive = -1879048185
-        width = 109
+        width = 103
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'committered'
         dataclass = tgridmsestringdatalist
@@ -105,7 +112,7 @@ inherited tagsfo: ttagsfo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 167
+      bounds_cx = 159
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       onupdaterowvalues = updaterowvaluesexe
@@ -116,9 +123,9 @@ inherited tagsfo: ttagsfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 168
+      bounds_x = 160
       bounds_y = 0
-      bounds_cx = 229
+      bounds_cx = 217
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
@@ -128,9 +135,9 @@ inherited tagsfo: ttagsfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 398
+      bounds_x = 378
       bounds_y = 0
-      bounds_cx = 93
+      bounds_cx = 88
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       font.name = 'fo_sha'
@@ -143,9 +150,9 @@ inherited tagsfo: ttagsfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 492
+      bounds_x = 467
       bounds_y = 0
-      bounds_cx = 131
+      bounds_cx = 124
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       value = -Inf
@@ -160,9 +167,9 @@ inherited tagsfo: ttagsfo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 624
+      bounds_x = 592
       bounds_y = 0
-      bounds_cx = 109
+      bounds_cx = 103
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
