@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2014 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -67,22 +67,23 @@ uses
 procedure tremotesfo.refresh;
 var
  ar1: remoteinfoarty;
- int1: integer;
+ int1,int2: integer;
 begin
  grid.beginupdate;
  ar1:= mainmo.remotesinfo;
- grid.rowcount:= length(ar1);
-// remoteactive.checkedrow:= -1;
+ grid.rowcount:= length(ar1); //max
+ int2:= 0;
  for int1:= 0 to high(ar1) do begin
   with ar1[int1] do begin
-   remote[int1]:= name;
-   fetch[int1]:= fetchurl;
-   push[int1]:= pushurl;
-//   if name = mainmo.activeremote then begin
-//    remoteactive.checkedrow:= int1;
-//   end;
+   if not svn then begin
+    remote[int2]:= name;
+    fetch[int2]:= fetchurl;
+    push[int2]:= pushurl;
+    inc(int2);
+   end;
   end;
  end;
+ grid.rowcount:= int2;
  grid.endupdate;
 end;
 

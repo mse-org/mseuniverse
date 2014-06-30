@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msegraphedits,
  msememodialog,mseact,mseactions,msegitcontroller,msesplitter,dispform,
- msesimplewidgets,msewidgets,mseguithreadcomp,msethreadcomp;
+ msesimplewidgets,msewidgets,mseguithreadcomp,msethreadcomp,mseificomp,
+ mseificompglob,msescrollbar;
 
 type
  tbranchfo = class(tdispfo)
@@ -51,6 +52,7 @@ type
    mergeremoteact: taction;
    rebaseremoteact: taction;
    rebaseact: taction;
+   svnflag: tbooleanedit;
    procedure remotebranchsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure remoteactivesetexe(const sender: TObject; var avalue: Boolean;
@@ -155,83 +157,95 @@ var
 begin
  showhidden:= mainmo.repostat.showhiddenbranches;
  showhiddenact.checked:= showhidden;
- 
- localgrid.rowcount:= length(mainmo.branches);
- locallogbranch.checkedrow:= -1;
- localactive.checkedrow:= -1;
- for int1:= 0 to localgrid.rowhigh do begin
-  with mainmo.branches[int1] do begin
-   localbranchhidden[int1]:= hidden;
-   localbranch[int1]:= info.name;
-   localbranchcommit[int1]:= info.commit;
-   if active then begin
-    localactive.checkedrow:= int1;
-    if info.commit = fcheckoutcommit then begin
-     mainmo.repostat.activelocallogbranch:= info.name;
+
+ localgrid.beginupdate();
+ remotegrid.beginupdate();
+ try
+  localgrid.clear();
+  remotegrid.clear();
+  localgrid.rowcount:= length(mainmo.branches);
+  locallogbranch.checkedrow:= -1;
+  localactive.checkedrow:= -1;
+  for int1:= 0 to localgrid.rowhigh do begin
+   with mainmo.branches[int1] do begin
+    localbranchhidden[int1]:= hidden;
+    localbranch[int1]:= info.name;
+    localbranchcommit[int1]:= info.commit;
+    if active then begin
+     localactive.checkedrow:= int1;
+     if info.commit = fcheckoutcommit then begin
+      mainmo.repostat.activelocallogbranch:= info.name;
+     end;
     end;
-   end;
-   if info.name = mainmo.repostat.activelocallogbranch then begin
-    locallogbranch.checkedrow:= int1;
-   end;
-   if active then begin
-    localgrid.rowcolorstate[int1]:= 0;
-   end
-   else begin
-    localgrid.rowcolorstate[int1]:= -1;
-   end;
-   localtrackbranch[int1]:= trackremote <> '';
-  end;
- end;
- fcheckoutcommit:= '';
- int3:= 0;
- for int1:= 0 to high(mainmo.remotesinfo) do begin
-  with mainmo.remotesinfo[int1] do begin
-   if name <> '' then begin
-    remotegrid.rowcount:= 1 + int3 + length(branches);
-    remote[int3]:= name;
-    remotebranchhidden[int3]:= hidden;
-    foldlevel[int3]:= 0;
-    bo2:= mainmo.repostat.activeremotelog = name;
-    mstr1:= mainmo.activeremotebranch[name];
-    bo1:= name = mainmo.activeremote;
-    if bo1 then begin
-     remoteactive[int3]:= true;
-     remotegrid.rowcolorstate[int3]:= 0;
+    if info.name = mainmo.repostat.activelocallogbranch then begin
+     locallogbranch.checkedrow:= int1;
+    end;
+    if active then begin
+     localgrid.rowcolorstate[int1]:= 0;
     end
     else begin
-     remoteactive[int3]:= false;
-     remotegrid.rowcolorstate[int3]:= -1;
+     localgrid.rowcolorstate[int1]:= -1;
     end;
-    remotegrid.datacols.mergecols(int3,0,2);
-    inc(int3);
-    for int2:= 0 to high(branches) do begin
-     with branches[int2] do begin
-      remotebranch[int3]:= info.name;
-      remotebranchhidden[int3]:= hidden;
-      foldlevel[int3]:= 1;
-      remotebranchcommit[int3]:= info.commit;
-      remotebranchlink[int3]:= linklocalbranch;
-      if bo2 and (info.name = mainmo.repostat.activeremotelogbranch) then begin
-       remotelogbranch.checkedrow:= int3;
-      end;
-      if info.name = mstr1 then begin
-       remoteactive[int3]:= true;
-       if bo1 then begin
-        remotegrid.rowcolorstate[int3]:= 0;
+    localtrackbranch[int1]:= trackremote <> '';
+   end;
+  end;
+  fcheckoutcommit:= '';
+  int3:= 0;
+  for int1:= 0 to high(mainmo.remotesinfo) do begin
+   with mainmo.remotesinfo[int1] do begin
+    if not hidden {name <> '' }then begin
+     remotegrid.rowcount:= 1 + int3 + length(branches);
+     remote[int3]:= name;
+     remotebranchhidden[int3]:= hidden;
+     svnflag[int3]:= svn;
+     foldlevel[int3]:= 0;
+     bo2:= not svn and (mainmo.repostat.activeremotelog = name) or
+           svn and (mainmo.repostat.activeremotelog = svnremotename);
+     mstr1:= mainmo.activeremotebranch[name];
+     bo1:= name = mainmo.activeremote;
+     if bo1 then begin
+      remoteactive[int3]:= true;
+      remotegrid.rowcolorstate[int3]:= 0;
+     end
+     else begin
+      remoteactive[int3]:= false;
+      remotegrid.rowcolorstate[int3]:= -1;
+     end;
+     remotegrid.datacols.mergecols(int3,0,2);
+     inc(int3);
+     for int2:= 0 to high(branches) do begin
+      with branches[int2] do begin
+       remotebranch[int3]:= info.name;
+       remotebranchhidden[int3]:= hidden;
+       svnflag[int3]:= info.kind = refk_svnbranch;
+       foldlevel[int3]:= 1;
+       remotebranchcommit[int3]:= info.commit;
+       remotebranchlink[int3]:= linklocalbranch;
+       if bo2 and (info.name = mainmo.repostat.activeremotelogbranch) then begin
+        remotelogbranch.checkedrow:= int3;
+       end;
+       if info.name = mstr1 then begin
+        remoteactive[int3]:= true;
+        if bo1 then begin
+         remotegrid.rowcolorstate[int3]:= 0;
+        end
+        else begin
+         remotegrid.rowcolorstate[int3]:= -1;
+        end;
        end
        else begin
+        remoteactive[int3]:= false;
         remotegrid.rowcolorstate[int3]:= -1;
        end;
-      end
-      else begin
-       remoteactive[int3]:= false;
-       remotegrid.rowcolorstate[int3]:= -1;
       end;
+      inc(int3);
      end;
-     inc(int3);
     end;
    end;
   end;
+ finally
+  localgrid.endupdate();
+  remotegrid.endupdate();
  end;
 end;
  
@@ -303,7 +317,12 @@ begin
  result:= '';
  for int1:= arow downto 0 do begin
   if remote[int1] <> '' then begin
-   result:= remote[int1];
+   if not svnflag[int1 ]then begin
+    result:= remote[int1];
+   end
+   else begin
+    result:= svnremotename;
+   end;
    break;
   end;
  end;
@@ -358,7 +377,8 @@ begin
  remotelogbranch.checkedrow:= -1;
  if aremote <> '' then begin
   for int1:= 0 to remotegrid.rowhigh do begin
-   if remote[int1] = aremote then begin
+   if (remote[int1] = aremote) or svnflag[int1] and 
+                             (aremote = svnremotename) then begin
     for int2:= int1+1 to remotegrid.rowhigh do begin
      if remote[int2] <> '' then begin
       goto errorlab;
@@ -386,6 +406,9 @@ var
  bo1: boolean;
  rowbefore: integer;
 begin
+ if svnflag.value then begin
+  avalue:= false;
+ end;
  rowbefore:= remotegrid.row;
  if remote.value <> '' then begin  //switch remote
   if avalue then begin
@@ -659,7 +682,7 @@ end;
 procedure tbranchfo.linkbranchsetexe(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
- if remote.value = '' then begin
+ if not svnflag.value and (remote.value = '') then begin
   mainmo.linkremotebranch[currentremote,remotebranch.value]:= avalue;
  end
  else begin

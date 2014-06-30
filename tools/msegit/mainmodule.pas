@@ -2799,9 +2799,17 @@ begin
  end
  else begin
   if activeremotelog <> '' then begin
-   result:= activeremotelog;
-   if activeremotelogbranch <> '' then begin
-    result:= result+'/'+activeremotelogbranch;
+   result:= 'remotes';
+   if activeremotelog = ' ' then begin //svn
+    if activeremotelogbranch <> '' then begin
+     result:= result+'/'+activeremotelogbranch;
+    end;
+   end
+   else begin
+    result:= activeremotelog;
+    if activeremotelogbranch <> '' then begin
+     result:= result+'/'+activeremotelogbranch;
+    end;
    end;
   end;
  end;

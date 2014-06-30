@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2013 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2014 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ const
  defaultgitcommand = 'git';
  branchref = 'refs/heads/';
  tagref = 'refs/tags/';
- 
+ svnremotename = 'remotes';
  
 type
  commitkindty = (ck_none,ck_stage,ck_unstage,ck_amend,ck_commit,ck_revert,
@@ -127,7 +127,8 @@ type
 
  addfilecallbackeventty = procedure(var afile: gitfileinfoty) of object;
  
- refskindty = (refk_none,refk_localbranch,refk_remotebranch,refk_tag);
+ refskindty = (refk_none,refk_localbranch,refk_remotebranch,refk_tag,
+               refk_svnbranch);
  refsinfoty = record
   name: msestring;
   commit: msestring;
@@ -160,6 +161,7 @@ type
   branches: remotebranchinfoarty;
   activebranch: msestring;
   hidden: boolean;
+  svn: boolean;
  end;
  premoteinfoty = ^remoteinfoty;
  remoteinfoarty = array of remoteinfoty;
@@ -967,6 +969,7 @@ var
  po1,po2,po3,pend: pmsechar;
  remotename: msestring;
  destindex: integer;
+ issvn: boolean;
 label
  parseerror,nextline;
 begin
@@ -1014,7 +1017,14 @@ begin
    end;
    po2:= msestrscan(po1,msechar('/'));
    po3:= msestrscan(po1,c_linefeed);
-   if (po2 <> nil) and (po3 = nil) or (po3 > po2) then begin
+   if po2 = nil then begin
+    po2:= po3;
+   end;
+   if po2 = nil then begin
+    po2:= pend;
+   end;
+   issvn:= false;
+//   if {(po2 <> nil) and} (po3 = nil) or (po3 > po2) then begin
     if ((po2-po1) <> length(remotename)) or 
             not msestartsstr(pointer(remotename),po1) then begin //next repo
      remotename:= psubstr(po1,po2);
@@ -1025,8 +1035,18 @@ begin
        break;
       end;
      end;
-     if destindex < 0 then begin
-      goto nextline;
+     if destindex < 0 then begin  //probably SVN
+      if (adest = nil) or not adest[high(adest)].svn then begin
+       setlength(adest,high(adest)+2);
+       with adest[high(adest)] do begin
+        svn:= true;
+        name:= '*SVN*';
+       end;
+      end;
+      destindex:= high(adest);
+      po2:= po1-1;
+      issvn:= true;
+//      goto nextline;
      end;
     end;
     inc(po2);        //'remotes/<remote>/'
@@ -1037,7 +1057,12 @@ begin
     with adest[destindex] do begin
      setlength(branches,high(branches)+2);
      with branches[high(branches)].info do begin
-      kind:= refk_remotebranch;
+      if issvn then begin
+       kind:= refk_svnbranch;
+      end
+      else begin
+       kind:= refk_remotebranch;
+      end;
       name:= psubstr(po2,po1);
       mseskipspace(po1);
       if po1 >= pend then begin
@@ -1055,10 +1080,10 @@ begin
       end;
      end;
     end;
-   end
-   else begin
-    po2:= po1;
-   end;
+//   end
+//   else begin
+//    po2:= po1;
+//   end;
 nextline:
    po1:= po3;
    if po1 = nil then begin

@@ -67,7 +67,7 @@ inherited branchfo: tbranchfo
     rowcolors.items = (
       -1879048185
     )
-    datacols.count = 8
+    datacols.count = 9
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[remote]
@@ -78,7 +78,7 @@ inherited branchfo: tbranchfo
         dataclass = tgridmsestringdatalist
       end    
       item[remotebranch]
-        width = 28
+        width = 13
         options = [co_fill, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranch'
         dataclass = tgridmsestringdatalist
@@ -121,6 +121,12 @@ inherited branchfo: tbranchfo
         name = 'foldlevel'
         widgetname = 'foldlevel'
         dataclass = tgridintegerdatalist
+      end    
+      item[svnflag]
+        width = 14
+        options = [co_invisible, co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+        widgetname = 'svnflag'
+        dataclass = tgridintegerdatalist
       end>
     datarowheight = 16
     statfile = mainfo.formsta
@@ -148,7 +154,7 @@ inherited branchfo: tbranchfo
       visible = False
       bounds_x = 60
       bounds_y = 0
-      bounds_cx = 28
+      bounds_cx = 13
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       onsetvalue = remotebranchsetexe
@@ -159,7 +165,7 @@ inherited branchfo: tbranchfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 89
+      bounds_x = 74
       bounds_y = 0
       bounds_cx = 52
       bounds_cy = 16
@@ -172,7 +178,7 @@ inherited branchfo: tbranchfo
     object remoteactive: tbooleaneditradio
       optionsskin = [osk_framebuttononly]
       taborder = 4
-      bounds_x = 142
+      bounds_x = 127
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
@@ -184,7 +190,7 @@ inherited branchfo: tbranchfo
     object remotelogbranch: tbooleaneditradio
       optionsskin = [osk_framebuttononly]
       taborder = 5
-      bounds_x = 159
+      bounds_x = 144
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
@@ -197,7 +203,7 @@ inherited branchfo: tbranchfo
     object remotebranchlink: tbooleanedit
       optionsskin = [osk_framebuttononly]
       taborder = 6
-      bounds_x = 176
+      bounds_x = 161
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
@@ -208,7 +214,7 @@ inherited branchfo: tbranchfo
     object remotebranchhidden: tbooleanedit
       optionsskin = [osk_framebuttononly]
       taborder = 7
-      bounds_x = 193
+      bounds_x = 178
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
@@ -221,13 +227,24 @@ inherited branchfo: tbranchfo
       optionsskin = [osk_framebuttononly]
       taborder = 8
       visible = False
-      bounds_x = 210
+      bounds_x = 195
       bounds_y = 0
       bounds_cx = 19
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       valuedefault = 1
       reffontheight = 14
+    end
+    object svnflag: tbooleanedit
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 9
+      bounds_x = 215
+      bounds_y = 0
+      bounds_cx = 14
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      visible = False
     end
   end
   object localgrid: twidgetgrid[1]
