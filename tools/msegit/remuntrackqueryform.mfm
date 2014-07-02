@@ -1,0 +1,92 @@
+inherited remuntrackqueryfo: tremuntrackqueryfo
+  bounds_x = 109
+  bounds_y = 231
+  container.bounds = (
+    0
+    0
+    343
+    283
+  )
+  moduleclassname = 'tremovequeryfo'
+  inherited tbutton1: tbutton
+  end
+  inherited filecountdisp: tintegerdisp
+  end
+  inherited filelist: tfilechecklistframefo
+    container.bounds = (
+      0
+      0
+      343
+      250
+    )
+    inherited grid: twidgetgrid
+      fixrows.items = <      
+        item
+          captions.items = <          
+            item
+            end          
+            item
+            end          
+            item
+            end          
+            item
+            end>
+        end>
+      datacols.items = <      
+        item[selected]
+        end      
+        item[originstate]
+        end      
+        item[filestate]
+        end      
+        item[fileitemed]
+          datalist.imagealignment = [al_right, al_ycentered]
+          datalist.captionpos = cp_top
+          datalist.data = (          )
+        end>
+      inherited originstate: tdataicon
+      end
+      inherited filestate: tdataicon
+      end
+      inherited fileitemed: titemedit
+      end
+      inherited selected: tbooleanedit
+      end
+    end
+    inherited checkpopup: tpopupmenu
+      menu.submenu.items = <      
+        item
+        end      
+        item
+        end>
+    end
+  end
+  object removebu: tbutton[3]
+    taborder = 3
+    bounds_x = 232
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Remove'
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+    onupdate = removeupdateexe
+    onexecute = removeexe
+  end
+  object untrackbu: tbutton[4]
+    taborder = 4
+    bounds_x = 176
+    bounds_y = 256
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localinvisible, as_localcaption, as_localonexecute]
+    caption = '&Untrack'
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+    onupdate = removeupdateexe
+    onexecute = untrackexe
+  end
+  inherited tstatfile1: tstatfile[5]
+  end
+end

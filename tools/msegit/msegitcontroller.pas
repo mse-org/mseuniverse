@@ -320,6 +320,7 @@ function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
 function checkcancommit(const astate: gitstatedataty): boolean;
 function checkcanrevert(const astate: gitstatedataty): boolean;
 function checkcanremove(const astate: gitstatedataty): boolean;
+function checkcandelete(const astate: gitstatedataty): boolean;
 function gitfilepath(const apath: filenamety;
                                       const relative: boolean): filenamety;
 
@@ -363,6 +364,13 @@ function checkcanremove(const astate: gitstatedataty): boolean;
 begin
  with astate do begin
   result:= statey * [gist_untracked,gist_ignored] = [];
+ end;
+end;
+
+function checkcandelete(const astate: gitstatedataty): boolean;
+begin
+ with astate do begin
+  result:= gist_untracked in statey;
  end;
 end;
   

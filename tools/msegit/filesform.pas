@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msedatanodes,
  mselistbrowser,msegraphedits,mseact,mseactions,mainmodule,filelistframe,
- msetimer;
+ msetimer,mseificomp,mseificompglob;
 
 type
  tfilesfo = class(tdockform)
@@ -33,6 +33,7 @@ type
    revertact: taction;
    mergetoolact: taction;
    removeact: taction;
+   deleteact: taction;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure commitexe(const sender: TObject);
@@ -48,6 +49,8 @@ type
    procedure removeexe(const sender: TObject);
    procedure popupupdate(const sender: tcustommenu);
    procedure mergetoolonupdate(const sender: tcustomaction);
+   procedure deleteexe(const sender: TObject);
+   procedure deleteupdate(const sender: tcustomaction);
   private
    fpath: filenamety;
    ffilebefore: msestring;
@@ -165,6 +168,21 @@ begin
  end;
 end;
 
+procedure tfilesfo.deleteupdate(const sender: tcustomaction);
+begin
+ sender.enabled:=  mainmo.candelete(
+                      msegitfileitemarty(filelist.fileitemed.selecteditems));
+end;
+
+procedure tfilesfo.deleteexe(const sender: TObject);
+begin
+ if mainmo.delete(tgitdirtreenode(gitdirtreefo.treeed.item),
+             msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
+  mainfo.reload();
+  activate;
+ end;
+end;
+
 procedure tfilesfo.cellevexe(const sender: TObject; var info: celleventinfoty);
 begin
  if isrowenter(info) or isrowexit(info,true) then begin
@@ -245,5 +263,6 @@ procedure tfilesfo.mergetoolonupdate(const sender: tcustomaction);
 begin
  mergetoolact.enabled:= mainmo.canmergetool and (currentfilepath <> '');
 end;
+
 
 end.

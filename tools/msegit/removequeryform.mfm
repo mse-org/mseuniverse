@@ -24,19 +24,6 @@ object removequeryfo: tremovequeryfo
     caption = '&Cancel'
     modalresult = mr_cancel
   end
-  object remove: tbutton
-    taborder = 1
-    bounds_x = 232
-    bounds_y = 256
-    bounds_cx = 50
-    bounds_cy = 20
-    anchors = [an_right, an_bottom]
-    state = [as_localcaption, as_localonexecute]
-    caption = '&Remove'
-    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
-    onupdate = removeupdateexe
-    onexecute = removeexe
-  end
   object filecountdisp: tintegerdisp
     frame.caption = 'Filecount'
     frame.captionpos = cp_left
@@ -47,7 +34,7 @@ object removequeryfo: tremovequeryfo
       0
       0
     )
-    taborder = 2
+    taborder = 1
     bounds_x = 8
     bounds_y = 257
     bounds_cx = 97
@@ -56,7 +43,7 @@ object removequeryfo: tremovequeryfo
     reffontheight = 14
   end
   inline filelist: tfilechecklistframefo
-    taborder = 3
+    taborder = 2
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 343
@@ -106,7 +93,6 @@ object removequeryfo: tremovequeryfo
       inherited fileitemed: titemedit
         bounds_x = 85
         bounds_cx = 253
-        oncellevent = celleventexe
       end
       inherited selected: tbooleanedit
         bounds_cx = 50
@@ -120,19 +106,6 @@ object removequeryfo: tremovequeryfo
         item
         end>
     end
-  end
-  object tbutton2: tbutton
-    taborder = 4
-    bounds_x = 176
-    bounds_y = 256
-    bounds_cx = 50
-    bounds_cy = 20
-    anchors = [an_right, an_bottom]
-    state = [as_localinvisible, as_localcaption, as_localonexecute]
-    caption = '&Untrack'
-    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
-    onupdate = removeupdateexe
-    onexecute = untrackexe
   end
   object tstatfile1: tstatfile
     filename = 'revertqueryfo.sta'

@@ -414,6 +414,10 @@ type
                                const untrack: boolean): boolean; overload;
    function remove(const anode: tgitdirtreenode;
                     const aitems: msegitfileitemarty): boolean; overload;
+   function candelete(const aitems: msegitfileitemarty): boolean; overload;
+   function delete(const afiles: filenamearty): boolean; overload;
+   function delete(const anode: tgitdirtreenode;
+                    const aitems: msegitfileitemarty): boolean; overload;
    function mergetoolcall(const afiles: filenamearty): boolean;
    function patchtoolcall(const afile: filenamety;
                 const basecommit,theircommit: msestring;
@@ -513,7 +517,8 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,
- gitconsole,commitqueryform,revertqueryform,removequeryform,
+ gitconsole,commitqueryform,revertqueryform,
+ removequeryform,remuntrackqueryform,deletequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msemacros,main,filesform,
  gitdirtreeform,defaultstat,clonequeryform,commitmessageform,
  diffwindow,logform,tagsform;
@@ -1548,7 +1553,7 @@ var
 begin
  result:= false;
  for int1:= 0 to high(aitems) do begin
-  if checkcanrevert(aitems[int1].fgitstate) then begin
+  if checkcanremove(aitems[int1].fgitstate) then begin
    result:= true;
    break;
   end;
@@ -1558,7 +1563,26 @@ end;
 function tmainmo.remove(const anode: tgitdirtreenode;
                const aitems: msegitfileitemarty): boolean;
 begin
- result:= tremovequeryfo.create(nil).exec(anode,aitems);
+ result:= tremuntrackqueryfo.create(nil).exec(anode,aitems);
+end;
+
+function tmainmo.delete(const anode: tgitdirtreenode;
+               const aitems: msegitfileitemarty): boolean;
+begin
+ result:= tdeletequeryfo.create(nil).exec(anode,aitems);
+end;
+
+function tmainmo.candelete(const aitems: msegitfileitemarty): boolean;
+var
+ int1: integer;
+begin
+ result:= false;
+ for int1:= 0 to high(aitems) do begin
+  if checkcandelete(aitems[int1].fgitstate) then begin
+   result:= true;
+   break;
+  end;
+ end;
 end;
 
 function tmainmo.remove(const afiles: filenamearty;
@@ -1591,6 +1615,16 @@ begin
   for int1:= high(ar1) downto 0 do begin
    ar1[int1].free;
   end;
+ end;
+end;
+
+function tmainmo.delete(const afiles: filenamearty): boolean;
+var
+ int1: integer;
+begin
+ result:= true;
+ for int1:= 0 to high(afiles) do begin
+  result:= result and trydeletefile(afiles[int1]);
  end;
 end;
 
