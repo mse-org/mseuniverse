@@ -721,7 +721,7 @@ var
  int1,int2: integer;
 begin
  formatmacros.add(['REAL'],[realformat]);
- bmp1:= tmaskedbitmap.create(true);
+ bmp1:= tmaskedbitmap.create(bmk_mono);
  bmp1.masked:= true;
  int2:= 0;
  setlength(tracesymbolnames,ord(lasttracesymbol)-ord(firsttracesymbol)+1);
