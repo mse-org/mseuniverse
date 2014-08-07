@@ -26,7 +26,7 @@ program msegit;
  {$endif}
 {$endif}
 uses
- {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
+ {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
  msegui,mseforms,main,mainmodule,gitdirtreeform,filesform,stashform,skinmodule,
  remotesform,gitconsole,diffwindow,branchform,logform,tagsform;
 begin
