@@ -367,8 +367,8 @@ end;
 procedure tchartfo.childmouseexe(const sender: twidget;
                var ainfo: mouseeventinfoty);
 begin
- if msegui.isdblclick(ainfo) then begin
-  optionsact.execute;
+ if msegui.eatdblclick(ainfo) then begin
+  optionsact.execute();
  end;
 end;
 
