@@ -16,15 +16,15 @@ object mainfo: tmainfo
     frame.captionpos = cp_top
     frame.dummy = 0
     frame.outerframe = (
-      6
+      8
       17
-      7
+      8
       0
     )
     taborder = 6
-    bounds_x = 466
+    bounds_x = 464
     bounds_y = 15
-    bounds_cx = 26
+    bounds_cx = 29
     bounds_cy = 30
     onsetvalue = setbool
   end
@@ -71,12 +71,12 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       31
-      0
+      11
       0
     )
     bounds_x = 8
     bounds_y = 1
-    bounds_cx = 52
+    bounds_cx = 63
     bounds_cy = 51
     onsetvalue = setint
     reffontheight = 14
@@ -96,7 +96,12 @@ object mainfo: tmainfo
     bounds_cx = 44
     bounds_cy = 37
     onsetvalue = floatset
-    valuerange =  1.0000000000000000E+0000
+    value = -Inf
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
     reffontheight = 14
   end
   object int64ed: tint64edit
@@ -174,33 +179,33 @@ object mainfo: tmainfo
       end>
     datacols.count = 6
     datacols.items = <    
-      item
+      item[intlist]
         width = 41
         widgetname = 'intlist'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[intara]
         width = 31
         widgetname = 'intara'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[intarb]
         width = 24
         widgetname = 'intarb'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[mstrara]
         width = 31
         widgetname = 'mstrara'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[boolara]
         width = 20
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'boolara'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[colorara]
         width = 75
         widgetname = 'colorara'
         dataclass = tgridenumdatalist
@@ -208,7 +213,6 @@ object mainfo: tmainfo
     datarowheight = 16
     reffontheight = 14
     object intlist: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
@@ -220,7 +224,6 @@ object mainfo: tmainfo
       reffontheight = 14
     end
     object intara: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
@@ -232,7 +235,6 @@ object mainfo: tmainfo
       reffontheight = 14
     end
     object intarb: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
@@ -244,7 +246,6 @@ object mainfo: tmainfo
       reffontheight = 14
     end
     object mstrara: tstringedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
@@ -256,7 +257,6 @@ object mainfo: tmainfo
       reffontheight = 14
     end
     object boolara: tbooleanedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 5
       bounds_x = 131
@@ -267,7 +267,6 @@ object mainfo: tmainfo
       visible = False
     end
     object colorara: tcoloredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645
@@ -355,7 +354,12 @@ object mainfo: tmainfo
     bounds_cx = 44
     bounds_cy = 37
     statfile = stated
-    valuerange =  1.0000000000000000E+0000
+    value = -Inf
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
     reffontheight = 14
   end
   object int641: tint64edit
@@ -382,13 +386,13 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       31
-      0
+      6
       0
     )
     taborder = 7
     bounds_x = 8
     bounds_y = 241
-    bounds_cx = 52
+    bounds_cx = 58
     bounds_cy = 51
     statfile = stated
     reffontheight = 14
@@ -453,33 +457,33 @@ object mainfo: tmainfo
       end>
     datacols.count = 6
     datacols.items = <    
-      item
+      item[intlist1]
         width = 34
         widgetname = 'intlist1'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[intar1]
         width = 32
         widgetname = 'intar1'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[intar2]
         width = 25
         widgetname = 'intar2'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[mstrar1]
         width = 38
         widgetname = 'mstrar1'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[boolar1]
         width = 21
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'boolar1'
         dataclass = tgridintegerdatalist
       end    
-      item
+      item[colorar1]
         width = 74
         widgetname = 'colorar1'
         dataclass = tgridenumdatalist
@@ -488,7 +492,6 @@ object mainfo: tmainfo
     statfile = stated
     reffontheight = 14
     object intlist1: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
@@ -499,7 +502,6 @@ object mainfo: tmainfo
       reffontheight = 14
     end
     object intar1: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
@@ -510,7 +512,6 @@ object mainfo: tmainfo
       reffontheight = 14
     end
     object intar2: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
@@ -521,7 +522,6 @@ object mainfo: tmainfo
       reffontheight = 14
     end
     object mstrar1: tstringedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
@@ -532,7 +532,6 @@ object mainfo: tmainfo
       reffontheight = 14
     end
     object boolar1: tbooleanedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
       optionsskin = [osk_framebuttononly]
       taborder = 5
       bounds_x = 133
@@ -542,7 +541,6 @@ object mainfo: tmainfo
       visible = False
     end
     object colorar1: tcoloredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645
@@ -565,15 +563,15 @@ object mainfo: tmainfo
     frame.captionpos = cp_top
     frame.dummy = 0
     frame.outerframe = (
-      6
+      8
       17
-      7
+      8
       0
     )
     taborder = 13
-    bounds_x = 466
+    bounds_x = 464
     bounds_y = 255
-    bounds_cx = 26
+    bounds_cx = 29
     bounds_cy = 30
   end
   object colored: tcoloredit
