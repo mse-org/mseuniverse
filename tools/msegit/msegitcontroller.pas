@@ -1881,7 +1881,7 @@ begin
       end;
      end;
      inc(int1);
-     while ar1[int1] = '' do begin        //copy duplicates
+     while (int1 <= high(ar2)) and (ar1[int1] = '') do begin  //copy duplicates
       ainfo[ar2[int1]]:= ainfo[ar2[int1-1]];
       inc(int1);
      end;
