@@ -9,7 +9,7 @@ object mainfo: tmainfo
     403
     280
   )
-  caption = 'MSEid+MSEgui'
+  caption = 'MSEide+MSEgui'
   moduleclassname = 'tmainform'
   object ttabwidget1: ttabwidget
     bounds_x = 0
