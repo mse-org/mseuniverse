@@ -15,11 +15,7 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
 unit main;
-//
-// treeview with data and state persistence by tstatfile,
-// needs MSEgui SVN trunk rev. 2445+
-// http://sourceforge.net/svn/?group_id=165409
-//
+
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
