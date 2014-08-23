@@ -1,10 +1,14 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 408
   bounds_y = 378
-  bounds_cx = 359
-  bounds_cy = 242
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
+  bounds_cx = 360
+  bounds_cy = 254
+  container.bounds = (
+    0
+    0
+    360
+    254
+  )
   optionswindow = [wo_groupleader]
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   statfile = tstatfile1
@@ -13,6 +17,7 @@ object mainfo: tmainfo
   onasyncevent = asyncev
   moduleclassname = 'tmseform'
   object tdbstringgrid1: tdbstringgrid
+    frame.sbvert.pagesize = 0
     frame.caption = 'Dataset'
     frame.outerframe = (
       0
@@ -23,23 +28,23 @@ object mainfo: tmainfo
     taborder = 4
     bounds_x = 8
     bounds_y = 47
-    bounds_cx = 318
-    bounds_cy = 189
+    bounds_cx = 319
+    bounds_cy = 201
     anchors = [an_left, an_top, an_right, an_bottom]
     options = [dsgo_autofields]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
     datacols.count = 3
     datacols.items = <    
       item
-        width = 140
+        width = 160
         datafield = 'queryField1'
       end    
       item
-        width = 70
+        width = 80
         datafield = 'string2'
       end    
       item
-        width = 70
+        width = 80
         datafield = 'integer1'
         textflags = [tf_right, tf_ycentered, tf_noselect]
       end>
@@ -98,7 +103,6 @@ object mainfo: tmainfo
     taborder = 1
     bounds_x = 8
     bounds_y = 7
-    bounds_cx = 100
     bounds_cy = 37
     reffontheight = 14
   end
@@ -111,7 +115,7 @@ object mainfo: tmainfo
     bounds_cy = 18
     font.color = -1610612730
     font.name = 'stf_default'
-    font.xscale =  1.0000000000000000E+0000
+    font.xscale = 1
     font.dummy = 0
     textflags = [tf_xcentered, tf_ycentered]
     reffontheight = 14
@@ -127,22 +131,20 @@ object mainfo: tmainfo
     onexecute = buttonex
   end
   object slider: tslider
-    optionswidget = [ow_destroywidgets, ow_autoscale]
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     frame.dummy = 0
     taborder = 5
-    bounds_x = 332
+    bounds_x = 333
     bounds_y = 64
     bounds_cx = 19
-    bounds_cy = 172
+    bounds_cy = 184
     anchors = [an_top, an_right, an_bottom]
-    value =  0.0000000000000000E+0000
+    value = 0
     scrollbar.face.dummy = 0
     direction = gd_up
   end
   object channel: tpipeiochannel
     onafterdisconnect = afterdisconn
-    active = True
     left = 264
     top = 72
   end
@@ -204,7 +206,8 @@ object mainfo: tmainfo
     left = 168
   end
   object timer: ttimer
-    interval = -1
+    interval = 1
+    options = [to_single]
     ontimer = ti
     enabled = True
     left = 264
@@ -223,7 +226,6 @@ object mainfo: tmainfo
   object query: ttxsqlquery
     logfilename = 'data.log'
     Active = True
-    AutoCalcFields = True
     params = <>
     IndexDefs = <>
     FieldDefs = <    
@@ -273,7 +275,6 @@ object mainfo: tmainfo
     controller.options = [dso_utf8, dso_autoapply, dso_local]
     ifi.channel = channel
     ifi.linkname = 'dataset'
-    ifi.optionsdb = []
     left = 176
     top = 144
   end

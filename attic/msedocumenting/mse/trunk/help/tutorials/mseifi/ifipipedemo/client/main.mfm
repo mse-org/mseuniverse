@@ -1,16 +1,12 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 24
   bounds_y = 216
-  bounds_cx = 304
+  bounds_cx = 331
   bounds_cy = 113
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
-    304
+    331
     113
   )
   optionswindow = [wo_groupleader]
@@ -31,10 +27,12 @@ object mainfo: tmainfo
     )
     bounds_x = 8
     bounds_y = 11
-    bounds_cx = 281
+    bounds_cx = 308
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+    textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     controller.lastdir = './'
     reffontheight = 14
   end
@@ -44,13 +42,13 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      46
+      54
       2
     )
     taborder = 1
     bounds_x = 9
     bounds_y = 70
-    bounds_cx = 59
+    bounds_cx = 67
     bounds_cy = 16
     onsetvalue = setconnected
   end
@@ -66,7 +64,7 @@ object mainfo: tmainfo
     taborder = 2
     bounds_x = 248
     bounds_y = 52
-    bounds_cx = 39
+    bounds_cx = 63
     bounds_cy = 35
     textflags = [tf_xcentered, tf_right, tf_ycentered]
     reffontheight = 14

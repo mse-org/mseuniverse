@@ -2,7 +2,7 @@ unit main;
 {$ifdef FPC}{$mode objfpc}{$h+}{$INTERFACES CORBA}{$endif}
 interface
 uses
- classes,mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
+ mclasses,mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
  msegraphutils,mseevent,mseclasses,mseforms,msebitmap,msedataedits,msedatanodes,
  mseedit,msefiledialog,msegrids,mselistbrowser,msestrings,msesys,msetypes,
  msegraphedits,msestatfile,mseifi,mseifigui,msedispwidgets;
