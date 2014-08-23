@@ -1,12 +1,8 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 216
   bounds_y = 241
   bounds_cx = 403
   bounds_cy = 280
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.bounds = (
     0
     0
@@ -44,27 +40,27 @@ object mainfo: tmainfo
     datacols.count = 3
     datacols.coloractive = -1879048185
     datacols.items = <    
-      item
+      item[treeedit]
         coloractive = -1879048185
         width = 235
         options = [co_drawfocus, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'treeedit'
+        dataclass = ttreeitemeditlist
       end    
-      item
+      item[stredit]
         coloractive = -1879048185
         width = 111
         widgetname = 'stredit'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[intedit]
         coloractive = -1879048185
         widgetname = 'intedit'
         dataclass = tgridintegerdatalist
       end>
-    datarowheight = 17
+    datarowheight = 16
     reffontheight = 14
     object treeedit: ttreeitemedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645
@@ -74,14 +70,13 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 235
-      bounds_cy = 17
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_locate, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_locate, oe_savevalue, oe_savestate]
       onupdaterowvalues = updaterowvalues
       options = [teo_treecolnavig, teo_treerownavig, teo_keyrowmoving]
       reffontheight = 14
     end
     object stredit: tstringedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645
@@ -92,12 +87,11 @@ object mainfo: tmainfo
       bounds_x = 236
       bounds_y = 0
       bounds_cx = 111
-      bounds_cy = 17
+      bounds_cy = 16
       onsetvalue = strsetvalue
       reffontheight = 14
     end
     object intedit: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645
@@ -108,7 +102,7 @@ object mainfo: tmainfo
       bounds_x = 348
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 17
+      bounds_cy = 16
       onsetvalue = intsetvalue
       reffontheight = 14
     end

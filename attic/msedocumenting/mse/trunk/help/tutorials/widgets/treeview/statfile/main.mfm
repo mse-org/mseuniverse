@@ -1,16 +1,14 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 291
   bounds_y = 247
   bounds_cx = 403
   bounds_cy = 280
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 0
-  container.bounds_cx = 403
-  container.bounds_cy = 280
-  container.frame.dummy = 0
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
   optionswindow = [wo_groupleader]
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   statfile = tstatfile1
@@ -19,18 +17,16 @@ object mainfo: tmainfo
   onloaded = initdata
   moduleclassname = 'tmseform'
   object grid: twidgetgrid
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 403
     bounds_cy = 280
-    frame.dummy = 0
     anchors = []
     optionsgrid = [og_colsizing, og_focuscellonenter, og_savestate, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 17
+        height = 16
         captions.count = 3
         captions.items = <        
           item
@@ -45,79 +41,77 @@ object mainfo: tmainfo
       end>
     datacols.count = 3
     datacols.coloractive = -1879048185
-    datacols.options = [co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[treeedit]
         coloractive = -1879048185
         width = 235
-        options = [co_drawfocus, co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'treeedit'
+        dataclass = ttreeitemeditlist
       end    
-      item
+      item[stredit]
         coloractive = -1879048185
         width = 111
-        options = [co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        options = [co_savestate, co_mousescrollrow]
         widgetname = 'stredit'
+        dataclass = tgridmsestringdatalist
       end    
-      item
+      item[intedit]
         coloractive = -1879048185
-        options = [co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_rowcoloractive, co_mousescrollrow]
+        options = [co_savestate, co_mousescrollrow]
         widgetname = 'intedit'
+        dataclass = tgridintegerdatalist
       end>
-    datarowheight = 17
+    datarowheight = 16
     statfile = tstatfile1
-    reffontheight = 15
+    reffontheight = 14
     object treeedit: ttreeitemedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      bounds_x = 0
-      bounds_y = 0
-      bounds_cx = 235
-      bounds_cy = 17
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.dummy = 0
       taborder = 1
       visible = False
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_locate, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 235
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_locate, oe_savevalue, oe_savestate]
       onupdaterowvalues = updaterowvalues
       options = [teo_treecolnavig, teo_treerownavig, teo_keyrowmoving]
-      reffontheight = 15
+      reffontheight = 14
     end
     object stredit: tstringedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      bounds_x = 236
-      bounds_y = 0
-      bounds_cx = 111
-      bounds_cy = 17
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.dummy = 0
       taborder = 2
       visible = False
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savestate]
+      bounds_x = 236
+      bounds_y = 0
+      bounds_cx = 111
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_savestate]
       onsetvalue = strsetvalue
-      reffontheight = 15
+      reffontheight = 14
     end
     object intedit: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      bounds_x = 348
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 17
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.dummy = 0
       taborder = 3
       visible = False
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savestate]
+      bounds_x = 348
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_savestate]
       onsetvalue = intsetvalue
-      reffontheight = 15
+      reffontheight = 14
     end
   end
   object tstatfile1: tstatfile
