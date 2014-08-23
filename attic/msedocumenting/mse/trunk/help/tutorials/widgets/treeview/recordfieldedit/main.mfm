@@ -1,0 +1,104 @@
+object mainfo: tmainfo
+  bounds_x = 147
+  bounds_y = 240
+  bounds_cx = 403
+  bounds_cy = 280
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Treeview'
+  oncreate = initform
+  onloaded = initdata
+  moduleclassname = 'tmseform'
+  object grid: twidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 403
+    bounds_cy = 280
+    anchors = []
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_savestate, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'Tree'
+          end        
+          item
+            caption = 'Value'
+          end>
+      end>
+    datacols.count = 2
+    datacols.coloractive = -1879048185
+    datacols.items = <    
+      item[treeedit]
+        coloractive = -1879048185
+        width = 227
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'treeedit'
+        dataclass = ttreeitemeditlist
+      end    
+      item[recfielded]
+        coloractive = -1879048185
+        width = 170
+        widgetname = 'recfielded'
+        dataclass = titemeditlist
+      end>
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+    object treeedit: ttreeitemedit
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 227
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_focusrectonreadonly, oe_locate, oe_savevalue, oe_savestate]
+      fieldedit = recfielded
+      options = [teo_treecolnavig, teo_treerownavig, teo_keyrowmoving]
+      reffontheight = 14
+    end
+    object recfielded: trecordfieldedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.options = [fbo_invisible]
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          options = [fbo_invisible]
+        end>
+      taborder = 2
+      visible = False
+      bounds_x = 228
+      bounds_y = 0
+      bounds_cx = 170
+      bounds_cy = 16
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+        end>
+      reffontheight = 14
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 88
+    top = 64
+  end
+end
