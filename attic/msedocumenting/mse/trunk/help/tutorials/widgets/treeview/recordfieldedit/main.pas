@@ -22,28 +22,51 @@ uses
  mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
  msegraphutils,mseevent,mseclasses,mseforms,msedataedits,mseedit,msegrids,
  msestrings,msetypes,msewidgetgrid,msedatanodes,mselistbrowser,msestatfile,
- mseificomp,mseificompglob,mseifiglob;
+ mseificomp,mseificompglob,mseifiglob,msebitmap;
 
 type
+ tmynode = class(ttreelistedititem,irecordfield)
+  private
+   fstrfield: msestring; //index 0
+   fintfield: integer ;  //index 1
+   frealfield: real;     //index 2
+   procedure setstrfield(const avalue: msestring);
+   procedure setintfield(const avalue: integer);
+   procedure setrealfield(const avalue: real);
+  protected
+   function getfieldtext(const fieldindex: integer): msestring;
+   procedure setfieldtext(const fieldindex: integer; var avalue: msestring);
+   function createsubnode: ttreelistitem; override;
+  public
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
+   function getvaluetext: msestring; override;
+   property strfield: msestring read fstrfield write setstrfield;
+   property intfield: integer read fintfield write setintfield;
+   property realfield: real read frealfield write setrealfield;
+ end;
+ 
  tmainfo = class(tmseform)
    grid: twidgetgrid;
    treeedit: ttreeitemedit;
    tstatfile1: tstatfile;
    recfielded: trecordfieldedit;
+   ima: timagelist;
+   stred: tstringedit;
+   inted: tintegeredit;
+   realed: trealedit;
    procedure initdata(const sender: TObject);
    procedure initform(const sender: TObject);
- end;
- 
- tmynode = class(ttreelistedititem)
-  private
-   fstr: msestring;
+   procedure strfieldset(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure intfieldset(const sender: TObject; var avalue: Integer;
+                   var accept: Boolean);
+   procedure realfieldset(const sender: TObject; var avalue: realty;
+                   var accept: Boolean);
   protected
-  public
-   function getvaluetext: msestring; override;
-   procedure setvaluetext(var avalue: msestring); override;
-   procedure dostatread(const reader: tstatreader); override;
-   procedure dostatwrite(const writer: tstatwriter); override;
-   property str: msestring read fstr write fstr;
+   function currentnode(): tmynode;
  end;
  
 var
@@ -51,30 +74,96 @@ var
  
 implementation
 uses
- main_mfm;
+ main_mfm,mseformatstr;
  
 { tmynode }
+
+constructor tmynode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;                                                //image base = -1
+ state:= state + [ns_readonly];
+ add(trecordfielditem.create(irecordfield(self),0,'String Field',true,1));
+ add(trecordfielditem.create(irecordfield(self),1,'Integer Field',true,2));
+ add(trecordfielditem.create(irecordfield(self),2,'Real Field',true,3));
+end;
+
+function tmynode.createsubnode: ttreelistitem;
+begin
+ result:= trecordfielditem.create(irecordfield(self),count,'',true);
+end;
 
 procedure tmynode.dostatread(const reader: tstatreader);
 begin
  inherited;
- str:= reader.readstring('str',str);
+ fstrfield:= reader.readstring('str',fstrfield);
+ fintfield:= reader.readinteger('int',fintfield);
+ frealfield:= reader.readreal('rea',frealfield,emptyreal);
 end;
 
 procedure tmynode.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
- writer.writestring('str',str);
+ writer.writestring('str',fstrfield);
+ writer.writeinteger('int',fintfield);
+ writer.writereal('rea',frealfield);
+end;
+
+procedure tmynode.setstrfield(const avalue: msestring);
+begin
+ fstrfield:= avalue;
+ trecordfielditem(fitems[0]).valuechange();
+end;
+
+procedure tmynode.setintfield(const avalue: integer);
+begin
+ fintfield:= avalue;
+ trecordfielditem(fitems[1]).valuechange();
+end;
+
+procedure tmynode.setrealfield(const avalue: real);
+begin
+ frealfield:= avalue;
+ trecordfielditem(fitems[2]).valuechange();
+end;
+
+function tmynode.getfieldtext(const fieldindex: integer): msestring;
+begin
+ case fieldindex of
+  0: begin
+   result:= fstrfield;
+  end;
+  1: begin
+   result:= inttostrmse(fintfield);
+  end;
+  2: begin
+   result:= realtytostrmse(frealfield);
+  end;
+  else begin
+   result:= '';
+  end;
+ end;
+end;
+
+procedure tmynode.setfieldtext(const fieldindex: integer;
+                                                   var avalue: msestring);
+begin
+ case fieldindex of
+  0: begin
+   fstrfield:= avalue;
+  end;
+  1: begin
+   fintfield:= strtointmse(avalue);
+  end;
+  2: begin
+   frealfield:= strtorealty(avalue);
+  end;
+ end;
 end;
 
 function tmynode.getvaluetext: msestring;
 begin
- result:= fstr;
-end;
-
-procedure tmynode.setvaluetext(var avalue: msestring);
-begin
- fstr:= avalue;
+ result:= ''; //no caption copy in field edit
 end;
 
 { tmainfo }
@@ -90,29 +179,40 @@ begin
   grid.rowcount:= 2; //root nodes
   with tmynode(treeedit[0]) do begin
    caption:= 'AAAAA';
-   add(3,tmynode);
-   items[0].caption:= 'A0';
-   items[1].caption:= 'A1';
-   items[2].caption:= 'A2';
   end;
   with tmynode(treeedit[1]) do begin
    caption:= 'BBBBBBBBBB';
-   add(5,tmynode);
-   items[0].caption:= 'BB0';
-   items[1].caption:= 'B1';
-   with tmynode(items[1]) do begin
-    add(5,tmynode);
-    items[0].caption:= 'B1a';
-    items[1].caption:= 'B1b';
-    items[2].caption:= 'B1c';
-    items[3].caption:= 'B1d';
-    items[4].caption:= 'B1e';
-   end;
-   items[2].caption:= 'BBBBBB2';
-   items[3].caption:= 'B3';
-   items[4].caption:= 'B4';
   end;
  end;
+end;
+
+function tmainfo.currentnode(): tmynode;
+begin
+ result:= nil;
+ if treeedit.item is tmynode then begin
+  result:= tmynode(treeedit.item);
+ end
+ else begin
+  result:= tmynode(treeedit.item.parent);
+ end;
+end;
+
+procedure tmainfo.strfieldset(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ currentnode.strfield:= avalue;
+end;
+
+procedure tmainfo.intfieldset(const sender: TObject; var avalue: Integer;
+               var accept: Boolean);
+begin
+ currentnode.intfield:= avalue;
+end;
+
+procedure tmainfo.realfieldset(const sender: TObject; var avalue: realty;
+               var accept: Boolean);
+begin
+ currentnode.realfield:= avalue;
 end;
 
 end.
