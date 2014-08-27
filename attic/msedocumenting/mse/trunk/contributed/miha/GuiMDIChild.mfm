@@ -43,6 +43,7 @@ object GuiMDIChildFo: TGuiMDIChildfo
   font.xscale = 1
   font.dummy = 0
   options = [fo_freeonclose, fo_defaultpos, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  caption = 'MSEide+MSEgui'
   moduleclassname = 'tdockform'
   object ActionActivate: taction
     onexecute = OnExecuteActionActivate
