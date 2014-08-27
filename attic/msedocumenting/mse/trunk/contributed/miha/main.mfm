@@ -1,32 +1,26 @@
 object MainFo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 116
   bounds_y = 150
   bounds_cx = 395
   bounds_cy = 317
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 15
-  container.bounds_cx = 395
-  container.bounds_cy = 302
   container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
   container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
-  container.frame.dummy = 0
+  container.bounds = (
+    0
+    16
+    395
+    301
+  )
   optionswindow = [wo_groupleader]
   mainmenu = MnuMain
+  font.xscale = 1
   font.dummy = 0
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   statfile = MainSta
-  icon.transparency = -2147483648
   onloaded = OnLoadedForm
   moduleclassname = 'tmseform'
   object MDIArea: tdockpanel
-    optionswidget = [ow_background, ow_destroywidgets, ow_autoscale]
-    bounds_x = 1
-    bounds_y = 1
-    bounds_cx = 393
-    bounds_cy = 298
+    optionswidget = [ow_background, ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_destroywidgets]
     color = -1879048191
     frame.leveli = -2
     frame.framei_left = 1
@@ -36,9 +30,12 @@ object MainFo: tmainfo
     frame.localprops = [frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     frame.grip_size = 0
     frame.dummy = 0
+    bounds_x = 1
+    bounds_y = 1
+    bounds_cx = 393
+    bounds_cy = 314
     anchors = [an_left, an_top, an_right, an_bottom]
     dragdock.optionsdock = [od_candock, od_acceptsdock, od_background]
-    icon.transparency = -2147483648
   end
   object MnuMain: tmainmenu
     menu.submenu.count = 2
@@ -77,16 +74,16 @@ object MainFo: tmainfo
     top = 32
   end
   object ActionExit: taction
-    caption = 'Exit'
     imagelist = Img
+    caption = 'Exit'
     imagenr = 2
     onexecute = OnExecActionExit
     left = 16
     top = 167
   end
   object ActionFileOpen: taction
-    caption = 'Open'
     imagelist = Img
+    caption = 'Open'
     imagenr = 1
     hint = 'Open file'
     onexecute = OnExecActionFileOpen
@@ -106,7 +103,6 @@ object MainFo: tmainfo
         '*'
       )
     )
-    dialogkind = fdk_none
     left = 216
     top = 87
   end
@@ -116,16 +112,15 @@ object MainFo: tmainfo
     top = 175
   end
   object ActionHideMinimized: taction
-    caption = 'Hide minimized'
     imagelist = Img
+    caption = 'Hide minimized'
     imagenr = 3
     onexecute = OnExecActionHideMin
     left = 16
     top = 192
   end
   object Img: timagelist
-    colormask = True
-    transparentcolor = -2147483648
+    options = [bmo_masked, bmo_colormask]
     count = 7
     left = 16
     top = 224

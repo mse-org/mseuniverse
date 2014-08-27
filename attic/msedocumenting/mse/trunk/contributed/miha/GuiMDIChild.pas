@@ -14,7 +14,8 @@ unit GuiMDIChild;
 interface
 
 uses
-  msegui,mseclasses,mseforms,msedock,MSESysUtils,msegraphics,Classes,SysUtils,
+  msegui,mseclasses,mseforms,msedock,msesysutils,msegraphics,classes,
+  mclasses,sysutils,
   mseact, mseactions, msemenus, mseshapes;
 
 type
