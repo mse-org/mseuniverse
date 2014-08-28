@@ -1,0 +1,17 @@
+inherited form3fo: tform3fo
+  color = -1610612715
+  frame.colorframe = -1610612715
+  frame.font.name = ''
+  frame.localprops = [frl_framewidth, frl_colorframe]
+  bounds_x = 113
+  bounds_y = 423
+  container.bounds = (
+    1
+    11
+    198
+    188
+  )
+  dragdock.caption = 'Form 3'
+  caption = 'Form 3'
+  moduleclassname = 'tbasefo'
+end

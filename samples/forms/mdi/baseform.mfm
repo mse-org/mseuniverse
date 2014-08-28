@@ -1,0 +1,26 @@
+object basefo: tbasefo
+  frame.framewidth = 1
+  frame.font.height = 10
+  frame.font.name = 'stf_default'
+  frame.font.xscale = 1
+  frame.font.dummy = 0
+  frame.localprops = [frl_framewidth]
+  frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_minimizebutton, go_normalizebutton, go_maximizebutton, go_floatbutton, go_horz]
+  frame.dummy = 0
+  visible = False
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 200
+  bounds_cy = 200
+  container.bounds = (
+    1
+    11
+    198
+    188
+  )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock]
+  options = [fo_savepos, fo_savezorder, fo_savestate]
+  statfile = mainfo.tstatfile1
+  moduleclassname = 'tdockform'
+end

@@ -1,0 +1,65 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 235
+  bounds_y = 328
+  bounds_cx = 520
+  bounds_cy = 399
+  container.bounds = (
+    0
+    16
+    520
+    383
+  )
+  mainmenu = tmainmenu1
+  options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_delayedreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tdockpanel1: tdockpanel
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 520
+    bounds_cy = 383
+    anchors = []
+    dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_acceptsdock, od_dockparent]
+    statfile = tstatfile1
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    onfilemissing = statmissingexe
+    left = 96
+    top = 96
+  end
+  object tmainmenu1: tmainmenu
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        caption = 'E&xit'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = exitexe
+      end    
+      item
+        submenu.count = 3
+        submenu.items = <        
+          item
+            caption = 'Form &1'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = show1exe
+          end        
+          item
+            caption = 'Form &2'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = show2exe
+          end        
+          item
+            caption = 'Form &3'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = show3exe
+          end>
+        caption = '&View'
+        state = [as_localcaption]
+      end>
+    left = 216
+    top = 96
+  end
+end
