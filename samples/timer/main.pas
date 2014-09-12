@@ -41,10 +41,14 @@ procedure tmainfo.setexe(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
  if avalue then begin
+  application.beginhighrestimer();
   writeln('n   tp (s)  average (s)');
   sum:= 0;
   n:= 0;
   last:= timestamp();
+ end
+ else begin
+  application.endhighrestimer();
  end;
  timer.enabled:= avalue;
 end;
