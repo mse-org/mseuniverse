@@ -1,0 +1,35 @@
+object mainfo: tmainfo
+  bounds_x = 140
+  bounds_y = 231
+  bounds_cx = 209
+  bounds_cy = 77
+  container.bounds = (
+    0
+    0
+    209
+    77
+  )
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tbooleanedit1: tbooleanedit
+    frame.caption = 'active'
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      1
+      34
+      2
+    )
+    bounds_x = 24
+    bounds_y = 15
+    bounds_cx = 47
+    bounds_cy = 16
+    onsetvalue = setexe
+  end
+  object timer: ttimer
+    interval = 80000
+    ontimer = timerexe
+    left = 96
+    top = 16
+  end
+end
