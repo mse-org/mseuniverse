@@ -1,0 +1,101 @@
+object mainfo: tmainfo
+  bounds_x = 132
+  bounds_y = 232
+  bounds_cx = 392
+  bounds_cy = 308
+  container.bounds = (
+    0
+    16
+    392
+    292
+  )
+  mainmenu = tmainmenu1
+  options = [fo_main, fo_terminateonclose, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = mainmo.projectstat
+  caption = 'MSEtest'
+  onclosequery = closequeryexe
+  moduleclassname = 'tmainform'
+  object grid: twidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 392
+    bounds_cy = 292
+    anchors = []
+    optionsgrid = [og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    datacols.count = 1
+    datacols.items = <    
+      item[treeed]
+        width = 107
+        widgetname = 'treeed'
+        dataclass = ttreeitemeditlist
+        datalist.options = [no_nofreeitems]
+        datalist.oncreateitem = createitemexe
+      end>
+    datarowheight = 16
+    reffontheight = 14
+    object treeed: ttreeitemedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 107
+      bounds_cy = 16
+      reffontheight = 14
+    end
+  end
+  object tmainmenu1: tmainmenu
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        submenu.count = 7
+        submenu.items = <        
+          item
+            action = mainmo.openact
+          end        
+          item
+            action = mainmo.saveact
+          end        
+          item
+            action = mainmo.saveasact
+          end        
+          item
+            action = mainmo.newact
+          end        
+          item
+            action = mainmo.closeact
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
+            action = mainmo.exitact
+          end>
+        caption = '&File'
+        state = [as_localcaption]
+      end>
+    left = 200
+    top = 36
+  end
+  object connectmodule: tifiactionendpoint
+    ifilink = mainmo.connectgui
+    onexecute = connectmoduleexe
+    left = 200
+    top = 64
+  end
+  object projectcaption: tifistringendpoint
+    ifilink = mainmo.projectcaption
+    ondatachange = captionchaexe
+    left = 200
+    top = 80
+  end
+end

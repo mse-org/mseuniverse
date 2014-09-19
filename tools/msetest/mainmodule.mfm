@@ -1,0 +1,90 @@
+object mainmo: tmainmo
+  bounds_cx = 331
+  bounds_cy = 176
+  statfile = mainstat
+  oneventloopstart = evenloopstartexe
+  left = 532
+  top = 181
+  moduleclassname = 'tmsedatamodule'
+  object exitact: taction
+    caption = 'E&xit'
+    onexecute = exitexe
+    left = 16
+    top = 128
+  end
+  object newact: taction
+    caption = '&New'
+    left = 16
+    top = 72
+  end
+  object saveact: taction
+    caption = '&Save'
+    onexecute = saveexe
+    left = 16
+    top = 24
+  end
+  object openact: taction
+    caption = '&Open'
+    onexecute = openexe
+    left = 16
+    top = 8
+  end
+  object closeact: taction
+    caption = '&Close'
+    left = 16
+    top = 104
+  end
+  object saveasact: taction
+    caption = 'Save &as'
+    onexecute = saveasexe
+    left = 16
+    top = 40
+  end
+  object projectstat: tstatfile
+    filename = 'status.sta'
+    onstatupdate = projectupdateexe
+    left = 256
+    top = 32
+  end
+  object mainstat: tstatfile
+    filename = 'status.sta'
+    onstatafterread = aftermainstareadexe
+    left = 256
+    top = 8
+  end
+  object taction1: taction
+    left = 128
+    top = 48
+  end
+  object connectgui: tifiactionlinkcomp
+    left = 128
+    top = 88
+  end
+  object trttistat1: trttistat
+    statfile = projectstat
+    ongetobject = getstatobjexe
+    left = 256
+    top = 72
+  end
+  object projectcaption: tifistringlinkcomp
+    left = 128
+    top = 112
+  end
+  object projectfiledialog: tfiledialog
+    statfile = mainstat
+    controller.filterlist.data = (
+      (
+        'MSEtest project'
+        '*.mtp'
+      )
+      (
+        'All'
+        '*'
+      )
+    )
+    controller.defaultext = 'mtp'
+    controller.options = [fdo_checkexist, fdo_single, fdo_savelastdir]
+    left = 256
+    top = 112
+  end
+end
