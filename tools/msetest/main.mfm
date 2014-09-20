@@ -36,6 +36,7 @@ object mainfo: tmainfo
         datalist.oncreateitem = createitemexe
       end>
     datarowheight = 16
+    onrowsdeleted = rowdeletedexe
     reffontheight = 14
     object treeed: ttreeitemedit
       optionswidget1 = [ow1_fontglyphheight]

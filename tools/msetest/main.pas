@@ -20,6 +20,8 @@ type
    procedure captionchaexe(const sender: TObject; var avalue: msestring);
    procedure closequeryexe(const sender: tcustommseform;
                    var amodalresult: modalresultty);
+   procedure rowdeletedexe(const sender: tcustomgrid; const aindex: Integer;
+                   const acount: Integer);
  end;
  
 var
@@ -54,6 +56,12 @@ begin
  if not mainmo.closeproject() then begin
   amodalresult:= mr_none;
  end;
+end;
+
+procedure tmainfo.rowdeletedexe(const sender: tcustomgrid;
+               const aindex: Integer; const acount: Integer);
+begin
+ mainmo.projectchanged();
 end;
 
 end.
