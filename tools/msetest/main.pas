@@ -38,7 +38,7 @@ procedure tmainfo.createitemexe(const sender: tcustomitemlist;
 begin
  item:= ttestnode.create(sender);
  with ttreeitemeditlist(sender) do begin
-  insertparent.insert(item,insertindex);
+  insertparent.insert(item,insertparentindex);
  end;
  mainmo.projectchanged();
 end;

@@ -33,7 +33,6 @@ object mainfo: tmainfo
         width = 107
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
-        datalist.options = [no_nofreeitems]
         datalist.oncreateitem = createitemexe
       end>
     datarowheight = 16

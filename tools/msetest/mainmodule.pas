@@ -135,6 +135,8 @@ begin
 end;
 
 function tmainmo.closeproject(): boolean;
+var
+ n1: ttestnode;
 begin
  result:= true;
  if fmodified then begin
@@ -151,6 +153,10 @@ begin
   end;
  end;
  if result then begin
+  n1:= frootnode;
+  frootnode:= nil;
+  connectgui.controller.execute(); //disconnect
+  frootnode:= n1;
   frootnode.clear();
   fmodified:= false;
   fprojectname:= '';
@@ -196,7 +202,7 @@ end;
 
 procedure tmainmo.evenloopstartexe(const sender: TObject);
 begin
- connectgui.controller.execute();
+// connectgui.controller.execute();
  updatecaption();
 end;
 
