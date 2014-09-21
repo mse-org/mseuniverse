@@ -3,18 +3,6 @@ object mainfo: tmainfo
   bounds_y = 247
   bounds_cx = 143
   bounds_cy = 70
-  container.face.fade_pos.count = 2
-  container.face.fade_pos.items = (
-    0
-    1
-  )
-  container.face.fade_color.count = 2
-  container.face.fade_color.items = (
-    -1610612731
-    -1610612733
-  )
-  container.face.localprops = [fal_fadirection]
-  container.face.dummy = 0
   container.bounds = (
     0
     0
@@ -24,8 +12,10 @@ object mainfo: tmainfo
   caption = 'MSEgui'
   moduleclassname = 'tmainform'
   object tdropdownlistedit1: tdropdownlistedit
+    frame.button.options = [fbo_disabled]
     bounds_x = 24
     bounds_y = 24
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
     dropdown.cols.count = 1
     dropdown.cols.items = <    
       item
