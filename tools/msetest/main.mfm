@@ -16,6 +16,7 @@ object mainfo: tmainfo
   onclosequery = closequeryexe
   moduleclassname = 'tmainform'
   object grid: twidgetgrid
+    popupmenu = tpopupmenu1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 392
@@ -33,9 +34,9 @@ object mainfo: tmainfo
         width = 107
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
-        datalist.oncreateitem = createitemexe
       end>
     datarowheight = 16
+    onrowsinserting = rowinsertingexe
     onrowsdeleted = rowdeletedexe
     reffontheight = 14
     object treeed: ttreeitemedit
@@ -97,5 +98,16 @@ object mainfo: tmainfo
     ondatachange = captionchaexe
     left = 200
     top = 80
+  end
+  object tpopupmenu1: tpopupmenu
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        caption = 'Insert &Group Node'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = insertgroupexe
+      end>
+    left = 200
+    top = 120
   end
 end

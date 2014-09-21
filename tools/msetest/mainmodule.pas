@@ -9,7 +9,24 @@ uses
  msestream,msesys,sysutils;
 
 type
+ testnodekindty = (tnk_none,tnk_group);
+ 
  ttestnode = class(ttreelistedititem)
+  protected
+   procedure statreadsubnode(const reader: tstatreader;
+                                            var anode: ttreelistitem); override;
+   class function kind: testnodekindty; virtual;
+  public
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
+ end;
+ 
+ ttestgroupnode = class(ttestnode)
+  protected
+   class function kind: testnodekindty; override;
+  public
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
  end;
 
  tprojectoptions = class(toptions);
@@ -225,6 +242,51 @@ end;
 procedure tmainmo.aftermainstareadexe(const sender: TObject);
 begin
  loadproject(); 
+end;
+
+{ ttestnode }
+
+procedure ttestnode.statreadsubnode(const reader: tstatreader;
+               var anode: ttreelistitem);
+begin
+ case reader.readinteger('kind',0) of
+  ord(tnk_group): begin
+   anode:= ttestgroupnode.create();
+  end;
+  else begin
+   anode:= ttestnode.create();
+  end;
+ end;
+end;
+
+class function ttestnode.kind: testnodekindty;
+begin
+ result:= tnk_none;
+end;
+
+{ ttestgroupnode }
+
+constructor ttestgroupnode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;
+ include(fstate,ns_subitems);
+end;
+
+class function ttestgroupnode.kind: testnodekindty;
+begin
+ result:= tnk_group;
+end;
+
+procedure ttestnode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+end;
+
+procedure ttestnode.dostatwrite(const writer: tstatwriter);
+begin
+ writer.writeinteger('kind',ord(kind));
+ inherited;
 end;
 
 end.

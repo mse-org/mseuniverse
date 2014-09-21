@@ -14,14 +14,18 @@ type
    treeed: ttreeitemedit;
    connectmodule: tifiactionendpoint;
    projectcaption: tifistringendpoint;
+   tpopupmenu1: tpopupmenu;
    procedure connectmoduleexe(const sender: TObject);
-   procedure createitemexe(const sender: tcustomitemlist;
-                   var item: ttreelistedititem);
+//   procedure createitemexe(const sender: tcustomitemlist;
+//                   var item: ttreelistedititem);
    procedure captionchaexe(const sender: TObject; var avalue: msestring);
    procedure closequeryexe(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure rowdeletedexe(const sender: tcustomgrid; const aindex: Integer;
                    const acount: Integer);
+   procedure insertgroupexe(const sender: TObject);
+   procedure rowinsertingexe(const sender: tcustomgrid; var aindex: Integer;
+                   var acount: Integer);
  end;
  
 var
@@ -34,17 +38,17 @@ procedure tmainfo.connectmoduleexe(const sender: TObject);
 begin
  treeed.itemlist.rootnode:= mainmo.rootnode;
 end;
-
+{
 procedure tmainfo.createitemexe(const sender: tcustomitemlist;
                var item: ttreelistedititem);
 begin
  item:= ttestnode.create(sender);
  with ttreeitemeditlist(sender) do begin
-  insertparent.insert(item,insertparentindex);
+  insertparent.insert(insertparentindex,item);
  end;
  mainmo.projectchanged();
 end;
-
+}
 procedure tmainfo.captionchaexe(const sender: TObject; var avalue: msestring);
 begin
  caption:= 'MSEtest ('+ avalue+')';
@@ -62,6 +66,32 @@ procedure tmainfo.rowdeletedexe(const sender: tcustomgrid;
                const aindex: Integer; const acount: Integer);
 begin
  mainmo.projectchanged();
+end;
+
+procedure tmainfo.insertgroupexe(const sender: TObject);
+begin
+ treeed.itemlist.insert(grid.row,ttestgroupnode.create());
+ mainmo.projectchanged();
+end;
+
+procedure tmainfo.rowinsertingexe(const sender: tcustomgrid;
+               var aindex: Integer; var acount: Integer);
+var
+ n1: ttestnode;
+ n2: ttreelistitem;
+begin
+ if sender.userinput then begin
+  acount:= 0; //handled here
+  n1:= ttestnode.create();
+  n2:= treeed.item;
+  if (n2 is ttestgroupnode) and (n2.count = 0) and n2.expanded then begin
+   n2.add(n1);
+  end
+  else begin
+   treeed.itemlist.insert(aindex,n1);  
+  end;
+  mainmo.projectchanged();
+ end;
 end;
 
 end.

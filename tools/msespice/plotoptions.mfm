@@ -5,15 +5,15 @@ object plotoptionsfo: tplotoptionsfo
   visible = False
   bounds_x = 84
   bounds_y = 71
-  bounds_cx = 217
-  bounds_cy = 100
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  bounds_cx = 50
+  bounds_cy = 50
+  bounds_cxmin = 50
+  bounds_cymin = 50
   container.bounds = (
     0
     0
-    217
-    100
+    50
+    50
   )
   moduleclassname = 'tmseform'
 end
