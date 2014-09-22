@@ -484,7 +484,7 @@ begin
  node1:= ttracenode.create(defaulttracecaption);
  node1.fkey:= fkey;
  inc(fkey); 
- insert(node1,aindex);
+ insert(aindex,node1);
  mainmo.projectmodified;
 end;
 
@@ -807,12 +807,12 @@ begin
     dest:= nil;
     if toindex > fromindex then begin
      dest:= treeed[toindex];
-     dest.insert(treeed[fromindex],0);
+     dest.insert(0,treeed[fromindex]);
     end
     else begin
      if toindex > 0 then begin
       dest:= treeed[toindex-1];
-      dest.parentorself.insert(treeed[fromindex],bigint);
+      dest.parentorself.insert(bigint,treeed[fromindex]);
      end;
     end;
     if dest <> nil then begin
