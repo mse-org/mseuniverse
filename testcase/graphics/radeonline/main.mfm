@@ -1,0 +1,26 @@
+object mainfo: tmainfo
+  frame.dummy = 0
+  bounds_x = 108
+  bounds_y = 628
+  bounds_cx = 268
+  bounds_cy = 38
+  container.frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
+  container.bounds = (
+    0
+    0
+    268
+    38
+  )
+  optionswindow = [wo_groupleader, wo_sysdnd]
+  options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savestate]
+  caption = 'MSEide+MSEgui'
+  onloaded = loadedexe
+  moduleclassname = 'tmseform'
+  object ttimer1: ttimer
+    interval = 2000000
+    ontimer = tiexe
+    enabled = True
+    left = 48
+    top = 8
+  end
+end
