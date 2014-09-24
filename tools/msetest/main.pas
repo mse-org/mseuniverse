@@ -72,6 +72,8 @@ begin
 end;
 
 procedure tmainfo.insertgroupexe(const sender: TObject);
+var
+ n1: ttestgroupnode;
 begin
  treeed.itemlist.insert(grid.row,ttestgroupnode.create());
  mainmo.projectchanged();
@@ -89,6 +91,7 @@ begin
   n2:= treeed.item;
   if (n2 is ttestgroupnode) and (n2.count = 0) and n2.expanded then begin
    n2.add(n1);
+   n2.updateparentnotcheckedstate();
   end
   else begin
    treeed.itemlist.insert(aindex,n1);  
