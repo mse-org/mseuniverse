@@ -9,7 +9,7 @@ uses
  msestream,msesys,sysutils;
 
 type
- testnodekindty = (tnk_none,tnk_group);
+ testnodekindty = (tnk_none,tnk_group,tnk_leaf);
  
  ttestnode = class(ttreelistedititem)
   protected
@@ -17,13 +17,23 @@ type
                                             var anode: ttreelistitem); override;
    class function kind: testnodekindty; virtual;
   public
-   procedure dostatread(const reader: tstatreader); override;
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
    procedure dostatwrite(const writer: tstatwriter); override;
  end;
  
  ttestgroupnode = class(ttestnode)
   protected
    class function kind: testnodekindty; override;
+  public
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
+ end;
+
+ ttestleafnode = class(ttestnode)
+  protected
+   class function kind: testnodekindty; override;
+   procedure dostatread(const reader: tstatreader); override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
@@ -117,6 +127,8 @@ begin
  updateprojectname();
  if fprojectfile <> '' then begin
   projectstat.readstat();
+  frootnode.checked:= true;
+  frootnode.updateparentnotcheckedtree();
   connectgui.controller.execute();
  end;
 end;
@@ -246,6 +258,13 @@ end;
 
 { ttestnode }
 
+constructor ttestnode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;
+ fstate:= fstate + [ns_checkbox,ns_checked,ns_showparentnotchecked];
+end;
+
 procedure ttestnode.statreadsubnode(const reader: tstatreader;
                var anode: ttreelistitem);
 begin
@@ -253,8 +272,11 @@ begin
   ord(tnk_group): begin
    anode:= ttestgroupnode.create();
   end;
+  ord(tnk_leaf): begin
+   anode:= ttestleafnode.create();
+  end;
   else begin
-   anode:= ttestnode.create();
+   anode:= ttestleafnode.create();
   end;
  end;
 end;
@@ -278,14 +300,27 @@ begin
  result:= tnk_group;
 end;
 
-procedure ttestnode.dostatread(const reader: tstatreader);
+procedure ttestnode.dostatwrite(const writer: tstatwriter);
+begin
+ writer.writeinteger('kind',ord(kind));
+ inherited;
+end;
+
+{ ttestleafnode }
+
+constructor ttestleafnode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
 begin
  inherited;
 end;
 
-procedure ttestnode.dostatwrite(const writer: tstatwriter);
+class function ttestleafnode.kind: testnodekindty;
 begin
- writer.writeinteger('kind',ord(kind));
+ result:= tnk_leaf;
+end;
+
+procedure ttestleafnode.dostatread(const reader: tstatreader);
+begin
  inherited;
 end;
 

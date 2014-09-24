@@ -34,8 +34,11 @@ object mainfo: tmainfo
         width = 107
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
+        datalist.options = [no_checkbox]
+        datalist.onitemnotification = itemnotifyexe
       end>
     datarowheight = 16
+    onrowsmoving = rowsmovingexe
     onrowsinserting = rowinsertingexe
     onrowsdeleted = rowdeletedexe
     reffontheight = 14

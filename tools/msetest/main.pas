@@ -26,6 +26,9 @@ type
    procedure insertgroupexe(const sender: TObject);
    procedure rowinsertingexe(const sender: tcustomgrid; var aindex: Integer;
                    var acount: Integer);
+   procedure rowsmovingexe(const sender: tcustomgrid; var fromindex: Integer;
+                   var toindex: Integer; var acount: Integer);
+   procedure itemnotifyexe(const sender: tlistitem; var action: nodeactionty);
  end;
  
 var
@@ -91,6 +94,25 @@ begin
    treeed.itemlist.insert(aindex,n1);  
   end;
   mainmo.projectchanged();
+ end;
+end;
+
+procedure tmainfo.rowsmovingexe(const sender: tcustomgrid;
+               var fromindex: Integer; var toindex: Integer;
+               var acount: Integer);
+begin
+ if sender.userinput then begin
+  treeed.itemlist.moverow(fromindex,toindex);
+  acount:= 0;
+ end;
+end;
+
+procedure tmainfo.itemnotifyexe(const sender: tlistitem;
+               var action: nodeactionty);
+begin
+ if action = na_valuechange then begin
+  mainmo.projectchanged();
+  ttreelistitem(sender).updateparentnotcheckedstate();
  end;
 end;
 
