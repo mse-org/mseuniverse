@@ -10,16 +10,22 @@ uses
 
 type
  testnodekindty = (tnk_none,tnk_group,tnk_leaf);
+ teststatety = (tes_none,tes_ok,tes_error);
  
  ttestnode = class(ttreelistedititem)
+  private
   protected
+   fteststate: teststatety;
    procedure statreadsubnode(const reader: tstatreader;
                                             var anode: ttreelistitem); override;
    class function kind: testnodekindty; virtual;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
+   procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
+   function run(): boolean; virtual; //true if ok
+   property teststate: teststatety read fteststate;
  end;
  
  ttestpathnode = class(ttestnode)
@@ -43,6 +49,7 @@ type
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
+   function run(): boolean; override;
  end;
 
  ttestitem = class(ttestpathnode)
@@ -55,6 +62,7 @@ type
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
+   function run(): boolean; override;
  end;
 
  tprojectoptions = class(toptions);
@@ -304,6 +312,24 @@ begin
  result:= tnk_none;
 end;
 
+procedure ttestnode.dostatwrite(const writer: tstatwriter);
+begin
+ writer.writeinteger('kind',ord(kind));
+ inherited;
+ writer.writeinteger('teststate',ord(fteststate));
+end;
+
+procedure ttestnode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ fteststate:= teststatety(reader.readinteger('teststate',0));
+end;
+
+function ttestnode.run: boolean;
+begin
+ result:= true; //dummy
+end;
+
 { ttestgroupnode }
 
 constructor ttestgroupnode.create(const aowner: tcustomitemlist = nil;
@@ -318,33 +344,25 @@ begin
  result:= tnk_group;
 end;
 
-procedure ttestnode.dostatwrite(const writer: tstatwriter);
+function ttestgroupnode.run(): boolean;
+var
+ int1: integer;
 begin
- writer.writeinteger('kind',ord(kind));
- inherited;
-end;
-
-{ ttestitem }
-
-constructor ttestitem.create(const aowner: tcustomitemlist = nil;
-               const aparent: ttreelistitem = nil);
-begin
- inherited;
-end;
-
-class function ttestitem.kind: testnodekindty;
-begin
- result:= tnk_leaf;
-end;
-
-procedure ttestitem.dostatwrite(const writer: tstatwriter);
-begin
- inherited;
-end;
-
-procedure ttestitem.dostatread(const reader: tstatreader);
-begin
- inherited;
+ result:= true;
+ if treechecked then begin
+  fteststate:= tes_none;
+  if count > 0 then begin
+   fteststate:= tes_ok;
+   for int1:= 0 to count-1 do begin
+    if not ttestnode(fitems[int1]).run() then begin
+     result:= false;
+    end;
+   end;
+  end;
+  if result = false then begin
+   fteststate:= tes_error;
+  end;
+ end;
 end;
 
 { ttestpathnode }
@@ -381,6 +399,38 @@ begin
   n1:= n1.parent
  until not (n1 is ttestpathnode) or 
      (result <> '') and (result[1] = '/');   //stop at root path
+end;
+
+{ ttestitem }
+
+constructor ttestitem.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;
+end;
+
+class function ttestitem.kind: testnodekindty;
+begin
+ result:= tnk_leaf;
+end;
+
+procedure ttestitem.dostatwrite(const writer: tstatwriter);
+begin
+ inherited;
+end;
+
+procedure ttestitem.dostatread(const reader: tstatreader);
+begin
+ inherited;
+end;
+
+function ttestitem.run: boolean;
+begin
+ result:= true;
+ if treechecked then begin
+  fteststate:= tes_ok;
+  result:= true;
+ end;
 end;
 
 end.

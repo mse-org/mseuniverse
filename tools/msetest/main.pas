@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,msedatanodes,mselistbrowser,mseifiendpoint,
- msebitmap,msefiledialog,msesys;
+ msebitmap,msefiledialog,msesys,msegraphedits,msescrollbar;
 
 type
  tmainfo = class(tmainform)
@@ -17,6 +17,7 @@ type
    projectcaption: tifistringendpoint;
    tpopupmenu1: tpopupmenu;
    pathed: tfilenameedit;
+   runbu: tdatabutton;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);
@@ -37,6 +38,7 @@ type
                    var accept: Boolean);
    procedure pathedshowhint(const sender: tdatacol; const arow: Integer;
                    var info: hintinfoty);
+   procedure runexe(const sender: TObject);
  end;
  
 var
@@ -127,6 +129,8 @@ end;
 
 procedure tmainfo.updaterowvalueexe(const sender: TObject;
                const aindex: Integer; const aitem: tlistitem);
+var
+ int1: integer;
 begin
  if aitem is ttestgroupnode then begin
 //  grid.datacols.mergecols(aindex);
@@ -137,6 +141,16 @@ begin
  if aitem is ttestpathnode then begin
   with ttestpathnode(aitem) do begin
    pathed[aindex]:= path;
+   int1:= -1;
+   case teststate of
+    tes_ok: begin
+     int1:= 0;
+    end;
+    tes_error: begin
+     int1:= 1;
+    end;
+   end;
+   grid.rowcolorstate[aindex]:= int1;
   end;
  end;
 end;
@@ -160,6 +174,14 @@ procedure tmainfo.pathedshowhint(const sender: tdatacol; const arow: Integer;
 begin
  if treeed[arow] is ttestpathnode then begin
   info.caption:= ttestpathnode(treeed[arow]).rootfilepath();
+ end;
+end;
+
+procedure tmainfo.runexe(const sender: TObject);
+begin
+ with ttestnode(treeed.item) do begin
+  run();
+  treeed.updateitemvalues(grid.row,rowheight);
  end;
 end;
 
