@@ -22,7 +22,22 @@ type
    procedure dostatwrite(const writer: tstatwriter); override;
  end;
  
- ttestgroupnode = class(ttestnode)
+ ttestpathnode = class(ttestnode)
+  private
+   fpath: filenamety;
+//   fpathabs: filenamety;
+//   fpathrel: filenamety;
+  protected
+   procedure setpath(avalue: filenamety); virtual;
+  public
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
+   function rootfilepath(): msestring;
+   property path: filenamety read fpath write setpath;
+//   property pathrel: filenamety read fpathrel write dosetpath;
+ end;
+ 
+ ttestgroupnode = class(ttestpathnode)
   protected
    class function kind: testnodekindty; override;
   public
@@ -30,10 +45,13 @@ type
               const aparent: ttreelistitem = nil); override;
  end;
 
- ttestleafnode = class(ttestnode)
+ ttestitem = class(ttestpathnode)
+  private
+//   fpathrel: filenamety;
   protected
    class function kind: testnodekindty; override;
    procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
@@ -273,10 +291,10 @@ begin
    anode:= ttestgroupnode.create();
   end;
   ord(tnk_leaf): begin
-   anode:= ttestleafnode.create();
+   anode:= ttestitem.create();
   end;
   else begin
-   anode:= ttestleafnode.create();
+   anode:= ttestitem.create();
   end;
  end;
 end;
@@ -306,22 +324,63 @@ begin
  inherited;
 end;
 
-{ ttestleafnode }
+{ ttestitem }
 
-constructor ttestleafnode.create(const aowner: tcustomitemlist = nil;
+constructor ttestitem.create(const aowner: tcustomitemlist = nil;
                const aparent: ttreelistitem = nil);
 begin
  inherited;
 end;
 
-class function ttestleafnode.kind: testnodekindty;
+class function ttestitem.kind: testnodekindty;
 begin
  result:= tnk_leaf;
 end;
 
-procedure ttestleafnode.dostatread(const reader: tstatreader);
+procedure ttestitem.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
+end;
+
+procedure ttestitem.dostatread(const reader: tstatreader);
+begin
+ inherited;
+end;
+
+{ ttestpathnode }
+
+procedure ttestpathnode.setpath(avalue: filenamety);
+begin
+ fpath:= avalue;
+end;
+
+procedure ttestpathnode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ fpath:= reader.readmsestring('path','');
+// fpathabs:= reader.readmsestring('pathabs','');
+// fpathrel:= reader.readmsestring('pathrel','');
+end;
+
+procedure ttestpathnode.dostatwrite(const writer: tstatwriter);
+begin
+ inherited;
+ writer.writemsestring('path',fpath);
+// writer.writemsestring('pathabs',fpathabs);
+// writer.writemsestring('pathrel',fpathrel);
+end;
+
+function ttestpathnode.rootfilepath: msestring;
+var
+ n1: ttreelistitem;
+begin
+ result:= '';
+ n1:= self;
+ repeat
+  result:= ttestpathnode(n1).fpath+result;
+  n1:= n1.parent
+ until not (n1 is ttestpathnode) or 
+     (result <> '') and (result[1] = '/');   //stop at root path
 end;
 
 end.
