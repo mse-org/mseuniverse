@@ -25,6 +25,7 @@ type
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    function run(): boolean; virtual; //true if ok
+   procedure updateparentteststate(); virtual;
    property teststate: teststatety read fteststate;
  end;
  
@@ -50,6 +51,7 @@ type
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
    function run(): boolean; override;
+   procedure updateparentteststate(); override;
  end;
 
  ttestitem = class(ttestpathnode)
@@ -330,6 +332,13 @@ begin
  result:= true; //dummy
 end;
 
+procedure ttestnode.updateparentteststate();
+begin
+ if parent is ttestnode then begin
+  ttestnode(parent).updateparentteststate();
+ end;
+end;
+
 { ttestgroupnode }
 
 constructor ttestgroupnode.create(const aowner: tcustomitemlist = nil;
@@ -363,6 +372,25 @@ begin
    fteststate:= tes_error;
   end;
  end;
+end;
+
+procedure ttestgroupnode.updateparentteststate();
+var
+ int1: integer;
+begin
+ if count = 0 then begin
+  fteststate:= tes_none;
+ end
+ else begin
+  fteststate:= tes_ok;
+  for int1:= 0 to count-1 do begin
+   if ttestnode(fitems[int1]).fteststate = tes_error then begin
+    fteststate:= tes_error;
+    break;
+   end;
+  end;
+ end;
+ inherited;
 end;
 
 { ttestpathnode }
@@ -428,8 +456,14 @@ function ttestitem.run: boolean;
 begin
  result:= true;
  if treechecked then begin
-  fteststate:= tes_ok;
-  result:= true;
+  if (caption <> '') and (caption[1] = 'E') then begin
+   fteststate:= tes_error;
+   result:= false;
+  end
+  else begin
+   fteststate:= tes_ok;
+   result:= true;
+  end;
  end;
 end;
 

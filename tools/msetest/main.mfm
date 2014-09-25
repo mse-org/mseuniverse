@@ -46,6 +46,7 @@ object mainfo: tmainfo
     )
     datacols.count = 3
     datacols.options = [co_savestate, co_mousescrollrow]
+    datacols.options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
     datacols.items = <    
       item[runbu]
         color = -2147483646
@@ -56,6 +57,7 @@ object mainfo: tmainfo
       item[treeed]
         width = 107
         options = [co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
         datalist.options = [no_checkbox]
@@ -64,6 +66,7 @@ object mainfo: tmainfo
       item[pathed]
         width = 163
         options = [co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         onshowhint = pathedshowhint
         widgetname = 'pathed'
         dataclass = tgridmsestringdatalist
@@ -73,6 +76,7 @@ object mainfo: tmainfo
     onrowsmoving = rowsmovingexe
     onrowsinserting = rowinsertingexe
     onrowsdeleted = rowdeletedexe
+    oncellevent = cellevent
     reffontheight = 14
     object treeed: ttreeitemedit
       optionsskin = [osk_framebuttononly]
@@ -85,8 +89,9 @@ object mainfo: tmainfo
       bounds_y = 0
       bounds_cx = 107
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_locate, oe_savestate, oe_checkvaluepaststatread]
       onupdaterowvalues = updaterowvalueexe
+      options = [teo_treecolnavig]
       reffontheight = 14
     end
     object pathed: tfilenameedit
@@ -105,6 +110,8 @@ object mainfo: tmainfo
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_savestate, oe_checkvaluepaststatread]
       onsetvalue = pathsetexe
+      controller.onbeforeexecute = pathedbeforedialogexe
+      controller.onafterexecute = pathedafterdialogexe
       reffontheight = 14
     end
     object runbu: tdatabutton

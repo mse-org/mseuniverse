@@ -39,6 +39,14 @@ type
    procedure pathedshowhint(const sender: tdatacol; const arow: Integer;
                    var info: hintinfoty);
    procedure runexe(const sender: TObject);
+   procedure cellevent(const sender: TObject; var info: celleventinfoty);
+   procedure pathedbeforedialogexe(const sender: tfiledialogcontroller;
+                   var dialogkind: filedialogkindty;
+                   var aresult: modalresultty);
+   procedure pathedafterdialogexe(const sender: tfiledialogcontroller;
+                   var aresult: modalresultty);
+  protected
+   procedure checkenabledstate();
  end;
  
 var
@@ -123,7 +131,10 @@ procedure tmainfo.itemnotifyexe(const sender: tlistitem;
 begin
  if action = na_valuechange then begin
   mainmo.projectchanged();
-  ttreelistitem(sender).updateparentnotcheckedstate();
+  with ttreelistitem(sender) do begin
+   updateparentnotcheckedstate();
+   treeed.updateitemvalues(index,rowheight)
+  end;
  end;
 end;
 
@@ -142,17 +153,20 @@ begin
   with ttestpathnode(aitem) do begin
    pathed[aindex]:= path;
    int1:= -1;
-   case teststate of
-    tes_ok: begin
-     int1:= 0;
-    end;
-    tes_error: begin
-     int1:= 1;
+   if treechecked then begin
+    case teststate of
+     tes_ok: begin
+      int1:= 0;
+     end;
+     tes_error: begin
+      int1:= 1;
+     end;
     end;
    end;
    grid.rowcolorstate[aindex]:= int1;
   end;
  end;
+ checkenabledstate();
 end;
 
 procedure tmainfo.pathsetexe(const sender: TObject; var avalue: msestring;
@@ -181,7 +195,44 @@ procedure tmainfo.runexe(const sender: TObject);
 begin
  with ttestnode(treeed.item) do begin
   run();
+  updateparentteststate();
   treeed.updateitemvalues(grid.row,rowheight);
+  treeed.updateparentvalues(grid.row);
+ end;
+end;
+
+procedure tmainfo.cellevent(const sender: TObject; var info: celleventinfoty);
+begin
+ if isrowenter(info) then begin
+  checkenabledstate();
+ end;
+end;
+
+procedure tmainfo.checkenabledstate();
+begin
+{
+ if grid.row >= 0 then begin
+  runbu.enabled:= treeed[grid.row].treechecked();
+ end;
+}
+end;
+
+procedure tmainfo.pathedbeforedialogexe(const sender: tfiledialogcontroller;
+               var dialogkind: filedialogkindty; var aresult: modalresultty);
+begin
+ if (treeed.item.parent is ttestpathnode) and (sender.filename <> '') and
+            (sender.filename[1] <> '/') then begin
+  sender.filename:= ttestpathnode(treeed.item.parent).rootfilepath + 
+                                                         sender.filename;
+ end;
+end;
+
+procedure tmainfo.pathedafterdialogexe(const sender: tfiledialogcontroller;
+               var aresult: modalresultty);
+begin
+ if (aresult = mr_ok) and (treeed.item.parent is ttestpathnode) then begin
+  sender.filename:= relativepath(sender.filename,
+                             ttestpathnode(treeed.item.parent).rootfilepath);
  end;
 end;
 
