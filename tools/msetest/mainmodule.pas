@@ -78,7 +78,6 @@ type
    saveasact: taction;
    projectstat: tstatfile;
    mainstat: tstatfile;
-   taction1: taction;
    connectgui: tifiactionlinkcomp;
    trttistat1: trttistat;
    projectcaption: tifistringlinkcomp;
@@ -109,6 +108,7 @@ type
    function saveproject(): boolean;
    function saveasproject(): boolean;
    procedure projectchanged();
+   procedure edit(const aitem: ttestitem);
    property rootnode: ttestnode read frootnode;
    property projectoptions: tprojectoptions read fprojectoptions;
  end;
@@ -282,6 +282,10 @@ end;
 procedure tmainmo.aftermainstareadexe(const sender: TObject);
 begin
  loadproject(); 
+end;
+
+procedure tmainmo.edit(const aitem: ttestitem);
+begin
 end;
 
 { ttestnode }

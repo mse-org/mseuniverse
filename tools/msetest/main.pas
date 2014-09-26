@@ -6,7 +6,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,msedatanodes,mselistbrowser,mseifiendpoint,
- msebitmap,msefiledialog,msesys,msegraphedits,msescrollbar;
+ msebitmap,msefiledialog,msesys,msegraphedits,msescrollbar,msedialog,mseact,
+ mseactions,msedispwidgets,mserichstring,msetimer;
 
 type
  tmainfo = class(tmainform)
@@ -18,6 +19,9 @@ type
    tpopupmenu1: tpopupmenu;
    pathed: tfilenameedit;
    runbu: tdatabutton;
+   commented: tdialogstringedit;
+   editbu: tstockglyphdatabutton;
+   editact: taction;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);
@@ -45,6 +49,7 @@ type
                    var aresult: modalresultty);
    procedure pathedafterdialogexe(const sender: tfiledialogcontroller;
                    var aresult: modalresultty);
+   procedure editexe(const sender: TObject);
   protected
    procedure checkenabledstate();
  end;
@@ -144,9 +149,11 @@ var
  int1: integer;
 begin
  if aitem is ttestgroupnode then begin
+  editbu[aindex]:= -1;
 //  grid.datacols.mergecols(aindex);
  end
  else begin
+  editbu[aindex]:= 0;
 //  grid.datacols.unmergecols(aindex);
  end;
  if aitem is ttestpathnode then begin
@@ -154,16 +161,18 @@ begin
    pathed[aindex]:= path;
    int1:= -1;
    if treechecked then begin
+    int1:= 0;
     case teststate of
      tes_ok: begin
-      int1:= 0;
+      int1:= 1;
      end;
      tes_error: begin
-      int1:= 1;
+      int1:= 2;
      end;
     end;
    end;
    grid.rowcolorstate[aindex]:= int1;
+   runbu[aindex]:= int1;
   end;
  end;
  checkenabledstate();
@@ -234,6 +243,11 @@ begin
   sender.filename:= relativepath(sender.filename,
                              ttestpathnode(treeed.item.parent).rootfilepath);
  end;
+end;
+
+procedure tmainfo.editexe(const sender: TObject);
+begin
+ mainmo.edit(ttestitem(treeed.item));
 end;
 
 end.

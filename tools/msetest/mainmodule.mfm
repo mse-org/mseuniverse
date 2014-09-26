@@ -52,10 +52,6 @@ object mainmo: tmainmo
     left = 256
     top = 8
   end
-  object taction1: taction
-    left = 128
-    top = 48
-  end
   object connectgui: tifiactionlinkcomp
     left = 128
     top = 88
