@@ -58,7 +58,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,mainmodule,msefileutils;
+ main_mfm,mainmodule,msefileutils,editform;
  
 procedure tmainfo.connectmoduleexe(const sender: TObject);
 begin
@@ -246,8 +246,18 @@ begin
 end;
 
 procedure tmainfo.editexe(const sender: TObject);
+var
+ editfo: teditfo;
 begin
- mainmo.edit(ttestitem(treeed.item));
+ editfo:= teditfo.create(nil);
+ try
+  mainmo.beginedit(ttestitem(treeed.item),editfo);
+  if editfo.show(ml_application) = mr_ok then begin
+   mainmo.endedit(ttestitem(treeed.item),editfo);
+  end;
+ finally
+  editfo.destroy();
+ end;
 end;
 
 end.

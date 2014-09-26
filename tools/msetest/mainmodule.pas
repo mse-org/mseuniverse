@@ -11,7 +11,8 @@ uses
 type
  testnodekindty = (tnk_none,tnk_group,tnk_leaf);
  teststatety = (tes_none,tes_ok,tes_error);
- 
+
+{$M+}  //rtti on
  ttestnode = class(ttreelistedititem)
   private
   protected
@@ -27,7 +28,10 @@ type
    function run(): boolean; virtual; //true if ok
    procedure updateparentteststate(); virtual;
    property teststate: teststatety read fteststate;
+  published
+   property caption;
  end;
+{$M-}  //rtti off
  
  ttestpathnode = class(ttestnode)
   private
@@ -108,7 +112,8 @@ type
    function saveproject(): boolean;
    function saveasproject(): boolean;
    procedure projectchanged();
-   procedure edit(const aitem: ttestitem);
+   procedure beginedit(const aitem: ttestitem; const editfo: tmsecomponent);
+   procedure endedit(const aitem: ttestitem; const editfo: tmsecomponent);
    property rootnode: ttestnode read frootnode;
    property projectoptions: tprojectoptions read fprojectoptions;
  end;
@@ -284,8 +289,15 @@ begin
  loadproject(); 
 end;
 
-procedure tmainmo.edit(const aitem: ttestitem);
+procedure tmainmo.beginedit(const aitem: ttestitem; 
+                                       const editfo: tmsecomponent);
 begin
+ objecttovalues(aitem,editfo,'val_');
+end;
+
+procedure tmainmo.endedit(const aitem: ttestitem; const editfo: tmsecomponent);
+begin
+ valuestoobject(editfo,aitem,'val_');
 end;
 
 { ttestnode }
