@@ -1,0 +1,40 @@
+Mode: sms_upiascii Runs: 10
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N:       5 0.000008s    0.000003s     0.000003s    0.000003s     0.000005s 0.000003s
+Mode: sms_upiascii Runs: 10
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N:      50 0.000023s    0.000011s     0.000023s    0.000011s     0.000042s 0.000040s
+Mode: sms_upiascii Runs: 10
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N:     500 0.000270s    0.000109s     0.000262s    0.000116s     0.000586s 0.000336s
+Mode: sms_upiascii Runs: 10
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N:    5000 0.004756s    0.002102s     0.004571s    0.002119s     0.008154s 0.004980s
+Mode: sms_upiascii Runs: 10
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N:   50000 0.090484s    0.055410s     0.055909s    0.051191s     0.061625s 0.048359s
+Mode: sms_upiascii Runs: 10
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N:  500000 1.009370s    1.399610s     0.785799s    0.670823s     0.923275s 0.762513s
+Mode: sms_upiascii Runs: 1
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N: 5000000 16.153133s    19.344172s     13.056134s    14.625353s     23.043495s 18.661415s
+Mode: sms_upiascii Runs: 1
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N: 5000000 15.861528s    18.608355s     12.954851s    14.214067s     22.552871s 18.133555s
+Mode: sms_upiascii Runs: 2
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N: 5000000 15.954516s    18.836129s     12.667220s    13.815845s     22.516577s 18.154619s
+Mode: sms_upiascii Runs: 5
+           MSEgui first MSEgui second MSEgui first MSEgui second fp first    fp second
+           ansistring   ansistring    pchar        pchar         shortstring shortstring
+N: 1000000 2.319368s    3.096984s     1.809602s    2.053424s     3.016536s 2.501383s

@@ -1,0 +1,375 @@
+object mainfo: tmainfo
+  frame.dummy = 0
+  bounds_x = 191
+  bounds_y = 500
+  bounds_cx = 577
+  bounds_cy = 320
+  container.frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
+  container.bounds = (
+    0
+    0
+    577
+    320
+  )
+  optionswindow = [wo_groupleader, wo_sysdnd]
+  options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savestate]
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui sorting benchmark'
+  moduleclassname = 'tmseform'
+  object grid: tstringgrid
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 562
+    bounds_cy = 151
+    anchors = [an_left, an_top, an_right, an_bottom]
+    optionsgrid = [og_rowmoving, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 3
+    datacols.options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item
+        width = 152
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        width = 155
+        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        width = 169
+        options = [co_readonly, co_fill, co_savestate, co_mousescrollrow]
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 78
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'MSEgui ansistring'
+          end        
+          item
+            caption = 'MSEgui pchar'
+          end        
+          item
+            caption = 'fp shortstring'
+          end>
+      end>
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object tbutton2: tbutton
+    taborder = 1
+    bounds_x = 16
+    bounds_y = 192
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'reset'
+    onexecute = resetexe
+  end
+  object sodi: trealdisp
+    frame.dummy = 0
+    taborder = 2
+    bounds_x = 184
+    bounds_y = 192
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object sosumdi: trealdisp
+    frame.caption = 'MSEgui ansistring second'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      164
+      0
+    )
+    taborder = 3
+    bounds_x = 288
+    bounds_y = 192
+    bounds_cx = 264
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object sumdi: trealdisp
+    frame.caption = 'MSEgui ansistring first'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      142
+      0
+    )
+    taborder = 4
+    bounds_x = 288
+    bounds_y = 168
+    bounds_cx = 242
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object ndi: tintegerdisp
+    frame.caption = 'run count'
+    frame.captionpos = cp_left
+    frame.dummy = 0
+    frame.outerframe = (
+      64
+      0
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 80
+    bounds_y = 288
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object modeed: tenumtypeedit
+    taborder = 6
+    bounds_x = 72
+    bounds_y = 192
+    bounds_cx = 108
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = datentexe
+    value = 2
+    min = 0
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    oninit = initexe
+    reffontheight = 14
+  end
+  object di: trealdisp
+    frame.dummy = 0
+    taborder = 7
+    bounds_x = 184
+    bounds_y = 168
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object tbutton1: tbutton
+    taborder = 8
+    bounds_x = 16
+    bounds_y = 168
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'run'
+    onexecute = runexe
+  end
+  object fpsodi: trealdisp
+    frame.dummy = 0
+    taborder = 9
+    bounds_x = 184
+    bounds_y = 288
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object fpsosumdi: trealdisp
+    frame.caption = 'fp shortstring second'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      138
+      0
+    )
+    taborder = 10
+    bounds_x = 288
+    bounds_y = 288
+    bounds_cx = 238
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object fpsumdi: trealdisp
+    frame.caption = 'fp shortstring first'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      116
+      0
+    )
+    taborder = 11
+    bounds_x = 288
+    bounds_y = 264
+    bounds_cx = 216
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object fpdi: trealdisp
+    frame.dummy = 0
+    taborder = 12
+    bounds_x = 184
+    bounds_y = 264
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object ned: tintegeredit
+    frame.caption = 'N'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      12
+      0
+    )
+    taborder = 13
+    bounds_x = 72
+    bounds_y = 168
+    bounds_cx = 96
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    ondataentered = datentexe
+    value = 5000
+    reffontheight = 14
+  end
+  object tbutton3: tbutton
+    taborder = 14
+    bounds_x = 16
+    bounds_y = 216
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_left, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'copy'
+    onexecute = copyexe
+  end
+  object pcharsumdi: trealdisp
+    frame.caption = 'MSEgui pchar first'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      116
+      0
+    )
+    taborder = 15
+    bounds_x = 288
+    bounds_y = 216
+    bounds_cx = 216
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object sopcharsumdi: trealdisp
+    frame.caption = 'MSEgui pchar second'
+    frame.captionpos = cp_right
+    frame.dummy = 0
+    frame.outerframe = (
+      0
+      0
+      138
+      0
+    )
+    taborder = 16
+    bounds_x = 288
+    bounds_y = 240
+    bounds_cx = 238
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object sopchardi: trealdisp
+    frame.dummy = 0
+    taborder = 17
+    bounds_x = 184
+    bounds_y = 240
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object pchardi: trealdisp
+    frame.dummy = 0
+    taborder = 18
+    bounds_x = 184
+    bounds_y = 216
+    bounds_cy = 18
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.000000s'
+    value = 0
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 64
+    top = 112
+  end
+end
