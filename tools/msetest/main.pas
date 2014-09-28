@@ -91,7 +91,9 @@ end;
 procedure tmainfo.rowdeletedexe(const sender: tcustomgrid;
                const aindex: Integer; const acount: Integer);
 begin
- mainmo.projectchanged();
+ if sender.userinput then begin
+  mainmo.projectchanged();
+ end;
 end;
 
 procedure tmainfo.insertgroupexe(const sender: TObject);

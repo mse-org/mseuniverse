@@ -208,18 +208,25 @@ begin
  if fmodified then begin
   result:= askyesnocancel('Project has been modified, save it?');
  end;
- if (result = mr_yes) and (fprojectfile <> '') then begin
-  result:= saveproject();
-  if result = mr_ok then begin
-   n1:= frootnode;
-   frootnode:= nil;
-   connectgui.controller.execute(); //disconnect
-   frootnode:= n1;
-   frootnode.clear();
-   fmodified:= false;
-   fprojectname:= '';
-   fprojectfile:= '';
-   updatecaption();
+ if result <> mr_cancel then begin
+  if fprojectfile <> '' then begin
+   if result = mr_yes then begin
+    result:= saveproject();
+   end
+   else begin
+    result:= mr_ok;
+   end;
+   if result = mr_ok then begin
+    n1:= frootnode;
+    frootnode:= nil;
+    connectgui.controller.execute(); //disconnect
+    frootnode:= n1;
+    frootnode.clear();
+    fmodified:= false;
+    fprojectname:= '';
+    fprojectfile:= '';
+    updatecaption();
+   end;
   end;
  end;
 end;
