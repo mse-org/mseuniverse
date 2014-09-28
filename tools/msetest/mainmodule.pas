@@ -31,11 +31,11 @@ type
   published
    property caption;
  end;
-{$M-}  //rtti off
  
  ttestpathnode = class(ttestnode)
   private
    fpath: filenamety;
+   fcomment: msestring;
 //   fpathabs: filenamety;
 //   fpathrel: filenamety;
   protected
@@ -44,7 +44,9 @@ type
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    function rootfilepath(): msestring;
+  published
    property path: filenamety read fpath write setpath;
+   property comment: msestring read fcomment write fcomment;
 //   property pathrel: filenamety read fpathrel write dosetpath;
  end;
  
@@ -70,6 +72,8 @@ type
               const aparent: ttreelistitem = nil); override;
    function run(): boolean; override;
  end;
+
+{$M-}  //rtti off
 
  tprojectoptions = class(toptions);
   
@@ -107,10 +111,10 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
-   function closeproject(): boolean;
+   function closeproject(): modalresultty;
    procedure openproject();
-   function saveproject(): boolean;
-   function saveasproject(): boolean;
+   function saveproject(): modalresultty;
+   function saveasproject(): modalresultty;
    procedure projectchanged();
    procedure beginedit(const aitem: ttestitem; const editfo: tmsecomponent);
    procedure endedit(const aitem: ttestitem; const editfo: tmsecomponent);
@@ -142,7 +146,7 @@ end;
 
 procedure tmainmo.exitexe(const sender: TObject);
 begin
- if closeproject() then begin
+ if closeproject() <> mr_cancel then begin
   application.terminated:= true;
  end;
 end;
@@ -168,13 +172,13 @@ end;
 
 procedure tmainmo.openproject();
 begin
- if closeproject() and
-              (projectfiledialog.execute(fdk_open) = mr_ok) then begin
+ if (projectfiledialog.execute(fdk_open) = mr_ok) and
+                                    (closeproject() <> mr_cancel) then begin
   loadproject();
  end;
 end;
 
-function tmainmo.saveproject(): boolean;
+function tmainmo.saveproject(): modalresultty;
 begin
  if fprojectfile = '' then begin
   result:= saveasproject();
@@ -183,47 +187,40 @@ begin
   projectstat.writestat();
   fmodified:= false;
   updatecaption();
-  result:= true;
+  result:= mr_ok;
  end;
 end;
 
-function tmainmo.saveasproject(): boolean;
+function tmainmo.saveasproject(): modalresultty;
 begin
- result:= projectfiledialog.execute(fdk_save) = mr_ok;
- if result then begin
+ result:= projectfiledialog.execute(fdk_save);
+ if result = mr_ok then begin
   updateprojectname();
-  saveproject();
- end
+  result:= saveproject();
+ end;
 end;
 
-function tmainmo.closeproject(): boolean;
+function tmainmo.closeproject(): modalresultty;
 var
  n1: ttestnode;
 begin
- result:= true;
+ result:= mr_yes;
  if fmodified then begin
-  case askyesnocancel('Project has been modified, save it?') of
-   mr_yes: begin
-    result:= saveproject();
-   end;
-   mr_no: begin 
-    //do nothing
-   end;
-   else begin
-    result:= false;
-   end;
-  end;
+  result:= askyesnocancel('Project has been modified, save it?');
  end;
- if result then begin
-  n1:= frootnode;
-  frootnode:= nil;
-  connectgui.controller.execute(); //disconnect
-  frootnode:= n1;
-  frootnode.clear();
-  fmodified:= false;
-  fprojectname:= '';
-  fprojectfile:= '';
-  updatecaption();
+ if (result = mr_yes) and (fprojectfile <> '') then begin
+  result:= saveproject();
+  if result = mr_ok then begin
+   n1:= frootnode;
+   frootnode:= nil;
+   connectgui.controller.execute(); //disconnect
+   frootnode:= n1;
+   frootnode.clear();
+   fmodified:= false;
+   fprojectname:= '';
+   fprojectfile:= '';
+   updatecaption();
+  end;
  end;
 end;
 
@@ -298,6 +295,7 @@ end;
 procedure tmainmo.endedit(const aitem: ttestitem; const editfo: tmsecomponent);
 begin
  valuestoobject(editfo,aitem,'val_');
+ projectchanged();
 end;
 
 { ttestnode }
@@ -420,6 +418,7 @@ procedure ttestpathnode.dostatread(const reader: tstatreader);
 begin
  inherited;
  fpath:= reader.readmsestring('path','');
+ fcomment:= reader.readmsestring('comment','');
 // fpathabs:= reader.readmsestring('pathabs','');
 // fpathrel:= reader.readmsestring('pathrel','');
 end;
@@ -428,6 +427,7 @@ procedure ttestpathnode.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
  writer.writemsestring('path',fpath);
+ writer.writemsestring('comment',fcomment);
 // writer.writemsestring('pathabs',fpathabs);
 // writer.writemsestring('pathrel',fpathrel);
 end;

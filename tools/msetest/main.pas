@@ -83,7 +83,7 @@ end;
 procedure tmainfo.closequeryexe(const sender: tcustommseform;
                var amodalresult: modalresultty);
 begin
- if not mainmo.closeproject() then begin
+ if mainmo.closeproject() = mr_cancel then begin
   amodalresult:= mr_none;
  end;
 end;
@@ -159,6 +159,7 @@ begin
  if aitem is ttestpathnode then begin
   with ttestpathnode(aitem) do begin
    pathed[aindex]:= path;
+   commented[aindex]:= comment;
    int1:= -1;
    if treechecked then begin
     int1:= 0;
@@ -254,6 +255,7 @@ begin
   mainmo.beginedit(ttestitem(treeed.item),editfo);
   if editfo.show(ml_application) = mr_ok then begin
    mainmo.endedit(ttestitem(treeed.item),editfo);
+   treeed.updateitemvalues;
   end;
  finally
   editfo.destroy();

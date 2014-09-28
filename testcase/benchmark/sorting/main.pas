@@ -186,7 +186,7 @@ begin
 '           ansistring   ansistring    pchar        pchar         shortstring shortstring'+lineend+
 'N: '+fitstring(ned.disptext,7,sp_right)+' '+
 sumdi.disptext+'    '+sosumdi.disptext+'     '+pcharsumdi.disptext+'    '+sopcharsumdi.disptext+'     '+
-fpsumdi.disptext+' '+fpsosumdi.disptext);
+fpsumdi.disptext+'   '+fpsosumdi.disptext);
  
 end;
 
