@@ -1,4 +1,5 @@
 object mainfo: tmainfo
+  visible = False
   bounds_x = 132
   bounds_y = 232
   bounds_cx = 672

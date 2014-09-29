@@ -15,6 +15,8 @@ type
 {$M+}  //rtti on
  ttestnode = class(ttreelistedititem)
   private
+   function getenabled: boolean;
+   procedure setenabled(const avalue: boolean);
   protected
    fteststate: teststatety;
    procedure statreadsubnode(const reader: tstatreader;
@@ -30,6 +32,7 @@ type
    property teststate: teststatety read fteststate;
   published
    property caption;
+   property enabled: boolean read getenabled write setenabled;
  end;
  
  ttestpathnode = class(ttestnode)
@@ -65,11 +68,11 @@ type
 //   fpathrel: filenamety;
   protected
    class function kind: testnodekindty; override;
-   procedure dostatread(const reader: tstatreader); override;
-   procedure dostatwrite(const writer: tstatwriter); override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
    function run(): boolean; override;
  end;
 
@@ -358,6 +361,16 @@ begin
  if parent is ttestnode then begin
   ttestnode(parent).updateparentteststate();
  end;
+end;
+
+function ttestnode.getenabled: boolean;
+begin
+ result:= checked;
+end;
+
+procedure ttestnode.setenabled(const avalue: boolean);
+begin
+ checked:= avalue;
 end;
 
 { ttestgroupnode }

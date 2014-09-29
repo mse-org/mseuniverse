@@ -42,6 +42,7 @@ object mainmo: tmainmo
   end
   object projectstat: tstatfile
     filename = 'status.sta'
+    savedmemoryfiles = '*.sta'
     onstatupdate = projectupdateexe
     left = 256
     top = 32
