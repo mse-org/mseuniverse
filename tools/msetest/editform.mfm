@@ -268,9 +268,12 @@ object editfo: teditfo
       anchors = [an_left, an_top, an_right]
       reffontheight = 14
     end
-    object val_actualoutput: tstringdisp
+    object val_actualoutput: tstringedit
+      frame.levelo = -1
+      frame.colorclient = -1879048187
       frame.caption = 'Actual'#10'Output'
       frame.captionpos = cp_left
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.dummy = 0
       frame.outerframe = (
         46
@@ -284,6 +287,7 @@ object editfo: teditfo
       bounds_cx = 567
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
     end
     object val_expectederror: tdialogstringedit
@@ -305,9 +309,12 @@ object editfo: teditfo
       anchors = [an_left, an_top, an_right]
       reffontheight = 14
     end
-    object val_actualerror: tstringdisp
+    object val_actualerror: tstringedit
+      frame.levelo = -1
+      frame.colorclient = -1879048187
       frame.caption = 'Actual'#10'Error'
       frame.captionpos = cp_left
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.dummy = 0
       frame.outerframe = (
         42
@@ -321,6 +328,7 @@ object editfo: teditfo
       bounds_cx = 563
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
     end
   end

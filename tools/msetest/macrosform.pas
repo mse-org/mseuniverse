@@ -11,6 +11,7 @@ type
    grid: twidgetgrid;
    val_macronames: tstringedit;
    val_macrovalues: tstringedit;
+   tstatfile1: tstatfile;
  end;
 var
  macrosfo: tmacrosfo;

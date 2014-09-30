@@ -207,8 +207,8 @@ end;
 
 procedure tmainfo.runexe(const sender: TObject);
 begin
+ mainmo.runtest(ttestnode(treeed.item));
  with ttestnode(treeed.item) do begin
-  run();
   updateparentteststate();
   treeed.updateitemvalues(grid.row,rowheight);
   treeed.updateparentvalues(grid.row);

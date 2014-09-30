@@ -9,6 +9,7 @@ object macrosfo: tmacrosfo
     604
     284
   )
+  statfile = tstatfile1
   caption = 'Edit Macros'
   moduleclassname = 'tmseform'
   object grid: twidgetgrid
@@ -54,9 +55,9 @@ object macrosfo: tmacrosfo
         dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
+    statfile = tstatfile1
     reffontheight = 14
     object val_macronames: tstringedit
-      optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
@@ -79,5 +80,11 @@ object macrosfo: tmacrosfo
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
     end
+  end
+  object tstatfile1: tstatfile
+    filename = 'macros.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 128
+    top = 152
   end
 end

@@ -6,13 +6,15 @@ uses
  mseificompglob,mseifiglob,msestat,msestatfile,mseactions,msedatanodes,
  mselistbrowser,mclasses,mserttistat,msestrings,msebitmap,msedataedits,mseedit,
  msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,msemenus,
- msestream,msesys,sysutils,msemacros;
+ msestream,msesys,sysutils,msemacros,mseforms;
 
 type
  testnodekindty = (tnk_none,tnk_group,tnk_leaf);
  teststatety = (tes_none,tes_ok,tes_error);
 
 {$M+}  //rtti on
+ ttestitem = class;
+ 
  ttestnode = class(ttreelistedititem)
   private
    function getenabled: boolean;
@@ -27,7 +29,8 @@ type
               const aparent: ttreelistitem = nil); override;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
-   function run(): boolean; virtual; //true if ok
+   function nexttestitem: ttestitem; virtual;
+//   function run(): boolean; virtual; //true if ok
    procedure updateparentteststate(); virtual;
    property teststate: teststatety read fteststate;
   published
@@ -59,7 +62,7 @@ type
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
-   function run(): boolean; override;
+//   function run(): boolean; override;
    procedure updateparentteststate(); override;
  end;
 
@@ -82,7 +85,7 @@ type
               const aparent: ttreelistitem = nil); override;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
-   function run(): boolean; override;
+//   function run(): boolean; override;
   published
    property compilecommand: msestring read fcompilecommand 
                                               write fcompilecommand;
@@ -145,6 +148,7 @@ type
    fprojectname: msestring;
    fprojectfile: filenamety;
    fmacros: tmacrolist;
+   frunfo: tmseform;
   protected
    procedure updatecaption();
    procedure updateprojectname();
@@ -162,6 +166,9 @@ type
    procedure begineditmacros(const editfo: tmsecomponent);
    procedure endeditmacros(const editfo: tmsecomponent);
    function expandmacros(const avalue: msestring): msestring;
+   
+   function runtest(const aitem: ttestnode): boolean; //true if ok
+   
    property rootnode: ttestnode read frootnode;
    property projectoptions: tprojectoptions read fprojectoptions;
  end;
@@ -170,7 +177,7 @@ var
  mainmo: tmainmo;
 implementation
 uses
- mainmodule_mfm,msewidgets,msefileutils;
+ mainmodule_mfm,msewidgets,msefileutils,runform;
 
 {tmainmo}
 
@@ -185,6 +192,7 @@ end;
 destructor tmainmo.destroy();
 begin
  inherited;
+ frunfo.free();
  fmacros.free();
  frootnode.free();
  fprojectoptions.free();
@@ -374,6 +382,15 @@ begin
  result:= fmacros.expandmacros(avalue);
 end;
 
+function tmainmo.runtest(const aitem: ttestnode): boolean;
+begin
+ result:= false;
+ if frunfo = nil then begin
+  setlinkedvar(trunfo.create(nil),tmsecomponent(frunfo));
+ end;
+ result:= trunfo(frunfo).runtest(aitem);
+end;
+
 { ttestnode }
 
 constructor ttestnode.create(const aowner: tcustomitemlist = nil;
@@ -416,12 +433,12 @@ begin
  inherited;
  fteststate:= teststatety(reader.readinteger('teststate',0));
 end;
-
+{
 function ttestnode.run: boolean;
 begin
  result:= true; //dummy
 end;
-
+}
 procedure ttestnode.updateparentteststate();
 begin
  if parent is ttestnode then begin
@@ -439,6 +456,11 @@ begin
  checked:= avalue;
 end;
 
+function ttestnode.nexttestitem: ttestitem;
+begin
+ result:= nil;
+end;
+
 { ttestgroupnode }
 
 constructor ttestgroupnode.create(const aowner: tcustomitemlist = nil;
@@ -452,7 +474,7 @@ class function ttestgroupnode.kind: testnodekindty;
 begin
  result:= tnk_group;
 end;
-
+{
 function ttestgroupnode.run(): boolean;
 var
  int1: integer;
@@ -473,7 +495,7 @@ begin
   end;
  end;
 end;
-
+}
 procedure ttestgroupnode.updateparentteststate();
 var
  int1: integer;
@@ -571,11 +593,12 @@ begin
  fexpectedexitcode:= reader.readinteger('eec',0);
  factualexitcode:= reader.readinteger('aec',0);
 end;
-
+{
 function ttestitem.run: boolean;
 begin
  result:= true;
  if treechecked then begin
+  mainmo.run
   if (caption <> '') and (caption[1] = 'E') then begin
    fteststate:= tes_error;
    result:= false;
@@ -586,7 +609,7 @@ begin
   end;
  end;
 end;
-
+}
 { tprojectoptions }
 
 procedure tprojectoptions.dostatupdate(const filer: tstatfiler);

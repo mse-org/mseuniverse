@@ -1,13 +1,78 @@
 object runfo: trunfo
+  visible = False
   bounds_x = 337
   bounds_y = 266
-  bounds_cx = 100
-  bounds_cy = 100
+  bounds_cx = 676
+  bounds_cy = 460
   container.bounds = (
     0
     0
-    100
-    100
+    676
+    460
   )
+  statfile = tstatfile1
+  caption = 'Test Run'
+  onshow = showexe
   moduleclassname = 'tmseform'
+  object grid: twidgetgrid
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 676
+    bounds_cy = 410
+    anchors = [an_top, an_bottom]
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    rowcountmax = 1000000
+    datacols.count = 1
+    datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item[term]
+        width = 671
+        options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'term'
+        dataclass = tgridrichstringdatalist
+      end>
+    datarowheight = 14
+    reffontheight = 14
+    object term: tterminal
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 671
+      bounds_cy = 14
+      optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      onprocfinished = procfinishedexe
+      options = [teo_readonly, teo_stripescsequence]
+      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_inactive, pro_winpipewritehandles, pro_ctrlc]
+      reffontheight = 14
+    end
+  end
+  object cancelbu: tbutton
+    taborder = 1
+    bounds_x = 496
+    bounds_y = 424
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_disabled, as_localdisabled, as_localcaption]
+    caption = 'Cancel'
+  end
+  object okbu: tbutton
+    taborder = 2
+    bounds_x = 560
+    bounds_y = 424
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption]
+    caption = 'OK'
+    modalresult = mr_ok
+  end
+  object tstatfile1: tstatfile
+    filename = 'run.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 128
+    top = 152
+  end
 end

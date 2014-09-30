@@ -30,9 +30,9 @@ type
    val_input: tdialogstringedit;
    tbutton3: tbutton;
    val_expectedoutput: tdialogstringedit;
-   val_actualoutput: tstringdisp;
+   val_actualoutput: tstringedit;
    val_expectederror: tdialogstringedit;
-   val_actualerror: tstringdisp;
+   val_actualerror: tstringedit;
    tspacer3: tspacer;
    procedure layoutexe(const sender: TObject);
    procedure macrohintexe(const sender: TObject; var info: hintinfoty);
