@@ -50,6 +50,7 @@ type
    procedure pathedafterdialogexe(const sender: tfiledialogcontroller;
                    var aresult: modalresultty);
    procedure editexe(const sender: TObject);
+   procedure editmacroexe(const sender: TObject);
   protected
    procedure checkenabledstate();
  end;
@@ -58,7 +59,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,mainmodule,msefileutils,editform;
+ main_mfm,mainmodule,msefileutils,editform,macrosform;
  
 procedure tmainfo.connectmoduleexe(const sender: TObject);
 begin
@@ -199,7 +200,8 @@ procedure tmainfo.pathedshowhint(const sender: tdatacol; const arow: Integer;
                var info: hintinfoty);
 begin
  if treeed[arow] is ttestpathnode then begin
-  info.caption:= ttestpathnode(treeed[arow]).rootfilepath();
+  info.caption:= mainmo.expandmacros(
+                         ttestpathnode(treeed[arow]).rootfilepath());
  end;
 end;
 
@@ -259,6 +261,20 @@ begin
    mainmo.endedit(ttestitem(treeed.item),editfo);
    treeed.updateitemvalues;
   end;
+ finally
+  editfo.destroy();
+ end;
+end;
+
+procedure tmainfo.editmacroexe(const sender: TObject);
+var
+ editfo: tmacrosfo;
+begin
+ editfo:= tmacrosfo.create(nil);
+ try
+  mainmo.begineditmacros(editfo);
+  editfo.show(ml_application);
+  mainmo.endeditmacros(editfo);
  finally
   editfo.destroy();
  end;

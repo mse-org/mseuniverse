@@ -6,7 +6,7 @@ uses
  mseificompglob,mseifiglob,msestat,msestatfile,mseactions,msedatanodes,
  mselistbrowser,mclasses,mserttistat,msestrings,msebitmap,msedataedits,mseedit,
  msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,msemenus,
- msestream,msesys,sysutils;
+ msestream,msesys,sysutils,msemacros;
 
 type
  testnodekindty = (tnk_none,tnk_group,tnk_leaf);
@@ -66,6 +66,15 @@ type
  ttestitem = class(ttestpathnode)
   private
 //   fpathrel: filenamety;
+   fcompilecommand: msestring;
+   fruncommand: msestring;
+   finput: msestring;
+   fexpectedoutput: msestring;
+   factualoutput: msestring;
+   fexpectederror: msestring;
+   factualerror: msestring;
+   fexpectedexitcode: integer;
+   factualexitcode: integer;
   protected
    class function kind: testnodekindty; override;
   public
@@ -74,11 +83,39 @@ type
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    function run(): boolean; override;
+  published
+   property compilecommand: msestring read fcompilecommand 
+                                              write fcompilecommand;
+   property runcommand: msestring read fruncommand write fruncommand;
+   property input: msestring read finput write finput;
+   property expectedoutput: msestring read fexpectedoutput
+                                                  write fexpectedoutput;
+   property actualoutput: msestring read factualoutput
+                                                  write factualoutput;
+   property expectederror: msestring read fexpectederror
+                                                  write fexpectederror;
+   property actualerror: msestring read factualerror
+                                                  write factualerror;
+   property expectedexitcode: integer read fexpectedexitcode 
+                                          write fexpectedexitcode;
+   property actualexitcode: integer read factualexitcode 
+                                          write factualexitcode;
  end;
 
 {$M-}  //rtti off
 
- tprojectoptions = class(toptions);
+ tprojectoptions = class(toptions)
+  private
+   fmacronames: msestringarty;
+   fmacrovalues: msestringarty;
+  protected
+   procedure dostatupdate(const filer: tstatfiler); override;
+  public
+   procedure clear();
+  published
+   property macronames: msestringarty read fmacronames write fmacronames;
+   property macrovalues: msestringarty read fmacrovalues write fmacrovalues;
+ end;
   
  tmainmo = class(tmsedatamodule)
    exitact: taction;
@@ -107,6 +144,7 @@ type
    fmodified: boolean;
    fprojectname: msestring;
    fprojectfile: filenamety;
+   fmacros: tmacrolist;
   protected
    procedure updatecaption();
    procedure updateprojectname();
@@ -121,6 +159,9 @@ type
    procedure projectchanged();
    procedure beginedit(const aitem: ttestitem; const editfo: tmsecomponent);
    procedure endedit(const aitem: ttestitem; const editfo: tmsecomponent);
+   procedure begineditmacros(const editfo: tmsecomponent);
+   procedure endeditmacros(const editfo: tmsecomponent);
+   function expandmacros(const avalue: msestring): msestring;
    property rootnode: ttestnode read frootnode;
    property projectoptions: tprojectoptions read fprojectoptions;
  end;
@@ -137,12 +178,14 @@ constructor tmainmo.create(aowner: tcomponent);
 begin
  frootnode:= ttestnode.create();
  fprojectoptions:= tprojectoptions.create();
+ fmacros:= tmacrolist.create([mao_caseinsensitive,mao_curlybraceonly]);
  inherited;
 end;
 
 destructor tmainmo.destroy();
 begin
  inherited;
+ fmacros.free();
  frootnode.free();
  fprojectoptions.free();
 end;
@@ -167,6 +210,7 @@ begin
  updateprojectname();
  if fprojectfile <> '' then begin
   projectstat.readstat();
+  fmacros.setasarray(fprojectoptions.macronames,fprojectoptions.macrovalues);
   frootnode.checked:= true;
   frootnode.updateparentnotcheckedtree();
   connectgui.controller.execute();
@@ -229,6 +273,8 @@ begin
     fprojectname:= '';
     fprojectfile:= '';
     updatecaption();
+    fprojectoptions.clear();
+    fmacros.clear();
    end;
   end;
  end;
@@ -288,7 +334,10 @@ end;
 procedure tmainmo.projectupdateexe(const sender: TObject;
                const filer: tstatfiler);
 begin
+ filer.setsection('tree');
  frootnode.dostatupdate(filer);
+ filer.setsection('options');
+ fprojectoptions.dostatupdate(filer);
 end;
 
 procedure tmainmo.aftermainstareadexe(const sender: TObject);
@@ -306,6 +355,23 @@ procedure tmainmo.endedit(const aitem: ttestitem; const editfo: tmsecomponent);
 begin
  valuestoobject(editfo,aitem,'val_');
  projectchanged();
+end;
+
+procedure tmainmo.begineditmacros(const editfo: tmsecomponent);
+begin
+ objecttovalues(fprojectoptions,editfo,'val_');
+end;
+
+procedure tmainmo.endeditmacros(const editfo: tmsecomponent);
+begin
+ valuestoobject(editfo,fprojectoptions,'val_');
+ fmacros.setasarray(fprojectoptions.macronames,fprojectoptions.macrovalues);
+ projectchanged();
+end;
+
+function tmainmo.expandmacros(const avalue: msestring): msestring;
+begin
+ result:= fmacros.expandmacros(avalue);
 end;
 
 { ttestnode }
@@ -481,11 +547,29 @@ end;
 procedure ttestitem.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
+ writer.writemsestring('cc',fcompilecommand);
+ writer.writemsestring('rc',fruncommand);
+ writer.writemsestring('in',finput);
+ writer.writemsestring('eo',fexpectedoutput);
+ writer.writemsestring('ao',factualoutput);
+ writer.writemsestring('ee',fexpectederror);
+ writer.writemsestring('ae',factualerror);
+ writer.writeinteger('eec',fexpectedexitcode);
+ writer.writeinteger('aec',factualexitcode);
 end;
 
 procedure ttestitem.dostatread(const reader: tstatreader);
 begin
  inherited;
+ fcompilecommand:= reader.readmsestring('cc','');
+ fruncommand:= reader.readmsestring('rc','');
+ finput:= reader.readmsestring('in','');
+ fexpectedoutput:= reader.readmsestring('eo','');
+ factualoutput:= reader.readmsestring('ao','');
+ fexpectederror:= reader.readmsestring('ee','');
+ factualerror:= reader.readmsestring('ae','');
+ fexpectedexitcode:= reader.readinteger('eec',0);
+ factualexitcode:= reader.readinteger('aec',0);
 end;
 
 function ttestitem.run: boolean;
@@ -501,6 +585,21 @@ begin
    result:= true;
   end;
  end;
+end;
+
+{ tprojectoptions }
+
+procedure tprojectoptions.dostatupdate(const filer: tstatfiler);
+begin
+ inherited;
+ filer.updatevalue('macronames',fmacronames);
+ filer.updatevalue('macrovalues',fmacrovalues);
+end;
+
+procedure tprojectoptions.clear;
+begin
+ fmacronames:= nil;
+ fmacrovalues:= nil;
 end;
 
 end.
