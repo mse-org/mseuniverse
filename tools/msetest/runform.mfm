@@ -19,7 +19,7 @@ object runfo: trunfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 676
-    bounds_cy = 346
+    bounds_cy = 356
     anchors = [an_top, an_bottom]
     optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     rowcountmax = 1000000
@@ -49,33 +49,61 @@ object runfo: trunfo
       reffontheight = 14
     end
   end
-  object cancelbu: tbutton
+  object tlayouter1: tlayouter
+    frame.framei_left = 20
+    frame.framei_top = 10
+    frame.framei_right = 20
+    frame.framei_bottom = 10
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.dummy = 0
     taborder = 1
-    bounds_x = 496
-    bounds_y = 360
-    bounds_cx = 50
-    bounds_cy = 20
+    bounds_x = 524
+    bounds_y = 356
+    bounds_cx = 152
+    bounds_cy = 40
     anchors = [an_right, an_bottom]
-    state = [as_disabled, as_localdisabled, as_localcaption, as_localonexecute]
-    caption = 'Cancel'
-    modalresult = mr_cancel
-    onexecute = cancelexe
-  end
-  object okbu: tbutton
-    taborder = 2
-    bounds_x = 560
-    bounds_y = 360
-    bounds_cx = 50
-    bounds_cy = 20
-    anchors = [an_right, an_bottom]
-    state = [as_localcaption]
-    caption = 'OK'
-    modalresult = mr_ok
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linktop = grid
+    options = [spao_gluebottom]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 10
+    place_maxdist = 10
+    place_mode = wam_end
+    object okbu: tbutton
+      optionswidget1 = [ow1_autoscale, ow1_autowidth]
+      bounds_x = 82
+      bounds_y = 10
+      bounds_cx = 50
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_default, as_localdefault, as_localcaption]
+      caption = '&OK'
+      modalresult = mr_ok
+    end
+    object cancelbu: tbutton
+      optionswidget1 = [ow1_autoscale, ow1_autowidth]
+      taborder = 1
+      bounds_x = 20
+      bounds_y = 10
+      bounds_cx = 52
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_disabled, as_localdisabled, as_localcaption]
+      caption = '&Cancel'
+    end
   end
   object tstatfile1: tstatfile
     filename = 'run.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 128
     top = 152
+  end
+  object proc: tmseprocess
+    options = [pro_output, pro_erroroutput, pro_input, pro_winpipewritehandles]
+    input.encoding = ce_utf8n
+    onprocfinished = procfinishedexe
+    left = 136
+    top = 72
   end
 end

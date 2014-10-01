@@ -1,6 +1,6 @@
 object editfo: teditfo
   bounds_x = 225
-  bounds_y = 493
+  bounds_y = 419
   bounds_cx = 596
   bounds_cy = 581
   container.bounds = (

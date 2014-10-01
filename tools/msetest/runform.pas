@@ -5,15 +5,18 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
- msestrings,msewidgetgrid,sysutils,mseterminal,mainmodule,msesimplewidgets;
+ msestrings,msewidgetgrid,sysutils,mseterminal,mainmodule,msesimplewidgets,
+ msesplitter,msepipestream,mseprocess;
 type
  runstatety = (rs_none,rs_compile,rs_test,rs_canceled);
  trunfo = class(tmseform)
    tstatfile1: tstatfile;
    grid: twidgetgrid;
    term: tterminal;
-   cancelbu: tbutton;
+   tlayouter1: tlayouter;
    okbu: tbutton;
+   cancelbu: tbutton;
+   proc: tmseprocess;
    procedure procfinishedexe(const sender: TObject);
    procedure showexe(const sender: TObject);
    procedure cancelexe(const sender: TObject);
@@ -45,8 +48,6 @@ begin
 end;
 }
 function trunfo.runtest(const atestitem: ttestnode): boolean;
-var
- mstr1: msestring;
 begin
  fstate:= rs_none;
  fcurrenttest:= nil;
@@ -89,11 +90,19 @@ end;
 procedure trunfo.dotest();
 var
  mstr1: msestring;
+ int1: integer;
 begin
  fstate:= rs_test;
  mstr1:= mainmo.expandmacros(fcurrenttest.runcommand);
  if mstr1 <> '' then begin
-  term.execprog(mstr1); 
+  int1:= application.unlockall();
+  try
+   proc.commandline:= mstr1;
+   proc.active:= true;
+   proc.input.pipewriter.write(fcurrenttest.input);
+  finally
+   application.relockall(int1);
+  end;
  end
  else begin
   dofinish(true);
@@ -148,9 +157,18 @@ end;
 
 procedure trunfo.cancelexe(const sender: TObject);
 begin
- fstate:= rs_canceled;
- term.terminateprocess();
- term.waitforprocess();
+ case fstate of
+  rs_compile: begin
+   fstate:= rs_canceled;
+   term.terminateprocess();
+   term.waitforprocess();
+  end;
+  rs_test: begin
+   fstate:= rs_canceled;
+   proc.terminate();
+   proc.waitforprocess();
+  end;
+ end;
 end;
 
 end.
