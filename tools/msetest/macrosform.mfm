@@ -9,6 +9,7 @@ object macrosfo: tmacrosfo
     604
     284
   )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Edit Macros'
   moduleclassname = 'tmseform'
@@ -16,8 +17,8 @@ object macrosfo: tmacrosfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 604
-    bounds_cy = 284
-    anchors = []
+    bounds_cy = 244
+    anchors = [an_top, an_bottom]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
@@ -79,6 +80,51 @@ object macrosfo: tmacrosfo
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
+    end
+  end
+  object tlayouter1: tlayouter
+    frame.framei_left = 20
+    frame.framei_top = 10
+    frame.framei_right = 20
+    frame.framei_bottom = 10
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.dummy = 0
+    taborder = 1
+    bounds_x = 452
+    bounds_y = 244
+    bounds_cx = 152
+    bounds_cy = 40
+    anchors = [an_right, an_bottom]
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linktop = grid
+    options = [spao_gluebottom]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 10
+    place_maxdist = 10
+    place_mode = wam_end
+    object okbu: tbutton
+      optionswidget1 = [ow1_autoscale, ow1_autowidth]
+      bounds_x = 20
+      bounds_y = 10
+      bounds_cx = 50
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_default, as_localdefault, as_localcaption]
+      caption = '&OK'
+      modalresult = mr_ok
+    end
+    object cancelbu: tbutton
+      optionswidget1 = [ow1_autoscale, ow1_autowidth]
+      taborder = 1
+      bounds_x = 80
+      bounds_y = 10
+      bounds_cx = 52
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_localcaption]
+      caption = '&Cancel'
+      modalresult = mr_cancel
     end
   end
   object tstatfile1: tstatfile

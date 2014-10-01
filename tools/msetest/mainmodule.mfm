@@ -1,10 +1,10 @@
 object mainmo: tmainmo
-  bounds_cx = 331
+  bounds_cx = 405
   bounds_cy = 176
   statfile = mainstat
   oneventloopstart = evenloopstartexe
-  left = 532
-  top = 181
+  left = 479
+  top = 475
   moduleclassname = 'tmsedatamodule'
   object exitact: taction
     caption = 'E&xit'
@@ -83,5 +83,10 @@ object mainmo: tmainmo
     controller.options = [fdo_checkexist, fdo_single, fdo_savelastdir]
     left = 256
     top = 112
+  end
+  object runtestact: taction
+    onexecute = runtestexe
+    left = 128
+    top = 160
   end
 end

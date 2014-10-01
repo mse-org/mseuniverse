@@ -3,13 +3,14 @@ object runfo: trunfo
   bounds_x = 337
   bounds_y = 266
   bounds_cx = 676
-  bounds_cy = 460
+  bounds_cy = 396
   container.bounds = (
     0
     0
     676
-    460
+    396
   )
+  options = [fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder]
   statfile = tstatfile1
   caption = 'Test Run'
   onshow = showexe
@@ -18,7 +19,7 @@ object runfo: trunfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 676
-    bounds_cy = 410
+    bounds_cy = 346
     anchors = [an_top, an_bottom]
     optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     rowcountmax = 1000000
@@ -44,24 +45,26 @@ object runfo: trunfo
       optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       onprocfinished = procfinishedexe
       options = [teo_readonly, teo_stripescsequence]
-      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_inactive, pro_winpipewritehandles, pro_ctrlc]
+      pipewaitus = 10000
       reffontheight = 14
     end
   end
   object cancelbu: tbutton
     taborder = 1
     bounds_x = 496
-    bounds_y = 424
+    bounds_y = 360
     bounds_cx = 50
     bounds_cy = 20
     anchors = [an_right, an_bottom]
-    state = [as_disabled, as_localdisabled, as_localcaption]
+    state = [as_disabled, as_localdisabled, as_localcaption, as_localonexecute]
     caption = 'Cancel'
+    modalresult = mr_cancel
+    onexecute = cancelexe
   end
   object okbu: tbutton
     taborder = 2
     bounds_x = 560
-    bounds_y = 424
+    bounds_y = 360
     bounds_cx = 50
     bounds_cy = 20
     anchors = [an_right, an_bottom]

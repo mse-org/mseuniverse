@@ -7,7 +7,7 @@ uses
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,mseterminal,mainmodule,msesimplewidgets;
 type
- runstatety = (rs_none,rs_compile,rs_test);
+ runstatety = (rs_none,rs_compile,rs_test,rs_canceled);
  trunfo = class(tmseform)
    tstatfile1: tstatfile;
    grid: twidgetgrid;
@@ -16,6 +16,7 @@ type
    okbu: tbutton;
    procedure procfinishedexe(const sender: TObject);
    procedure showexe(const sender: TObject);
+   procedure cancelexe(const sender: TObject);
   protected
    fstate: runstatety;
    ftestitem: ttestnode;
@@ -23,8 +24,9 @@ type
    ftestok: boolean;
    procedure docompile();
    procedure dotest();
-   procedure dofinish();
+   procedure dofinish(const ok: boolean);
   public
+//   constructor create(const atestitem: ttestnode);
    function runtest(const atestitem: ttestnode): boolean;
                     //true if ok or disabled
  end;
@@ -35,7 +37,13 @@ uses
  runform_mfm;
  
 { trunfo }
-
+{
+constructor trunfo.create(const atestitem: ttestnode);
+begin
+ ftestitem:= atestitem;
+ inherited create(nil);
+end;
+}
 function trunfo.runtest(const atestitem: ttestnode): boolean;
 var
  mstr1: msestring;
@@ -88,12 +96,24 @@ begin
   term.execprog(mstr1); 
  end
  else begin
-  dofinish();
+  dofinish(true);
  end;
 end;
 
-procedure trunfo.dofinish();
+procedure trunfo.dofinish(const ok: boolean);
 begin
+ ftestok:= ok;
+ if fstate = rs_canceled then begin
+  fcurrenttest.setteststate(tes_none);
+ end
+ else begin
+  if ftestok then begin
+   fcurrenttest.setteststate(tes_ok);
+  end
+  else begin
+   fcurrenttest.setteststate(tes_error);
+  end;
+ end;
  cancelbu.enabled:= false;
  okbu.enabled:= true;
 end;
@@ -102,10 +122,19 @@ procedure trunfo.procfinishedexe(const sender: TObject);
 begin
  case fstate of
   rs_compile: begin
-   dotest();
+   fcurrenttest.compileresult:= term.exitcode();
+   if fcurrenttest.compileresult <> 0 then begin
+    dofinish(false);
+   end
+   else begin
+    dotest();
+   end;
   end;
   rs_test: begin
-   dofinish();
+   dofinish(true);
+  end;
+  else begin
+   dofinish(false);
   end;
  end;
 end;
@@ -115,6 +144,13 @@ begin
  if fstate = rs_none then begin
   docompile();
  end;
+end;
+
+procedure trunfo.cancelexe(const sender: TObject);
+begin
+ fstate:= rs_canceled;
+ term.terminateprocess();
+ term.waitforprocess();
 end;
 
 end.

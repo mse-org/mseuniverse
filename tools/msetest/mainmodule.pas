@@ -78,6 +78,7 @@ type
    factualerror: msestring;
    fexpectedexitcode: integer;
    factualexitcode: integer;
+   fcompileresult: integer;
   protected
    class function kind: testnodekindty; override;
   public
@@ -85,12 +86,14 @@ type
               const aparent: ttreelistitem = nil); override;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
+   procedure setteststate(const astate: teststatety);
 //   function run(): boolean; override;
   published
    property compilecommand: msestring read fcompilecommand 
                                               write fcompilecommand;
    property runcommand: msestring read fruncommand write fruncommand;
    property input: msestring read finput write finput;
+   property compileresult: integer read fcompileresult write fcompileresult;
    property expectedoutput: msestring read fexpectedoutput
                                                   write fexpectedoutput;
    property actualoutput: msestring read factualoutput
@@ -133,6 +136,7 @@ type
    trttistat1: trttistat;
    projectcaption: tifistringlinkcomp;
    projectfiledialog: tfiledialog;
+   runtestact: taction;
    procedure exitexe(const sender: TObject);
    procedure openexe(const sender: TObject);
    procedure getstatobjexe(const sender: TObject; var aobject: TObject);
@@ -141,6 +145,7 @@ type
    procedure saveasexe(const sender: TObject);
    procedure projectupdateexe(const sender: TObject; const filer: tstatfiler);
    procedure aftermainstareadexe(const sender: TObject);
+   procedure runtestexe(const sender: TObject);
   private
    frootnode: ttestnode;
    fprojectoptions: tprojectoptions;
@@ -149,6 +154,8 @@ type
    fprojectfile: filenamety;
    fmacros: tmacrolist;
    frunfo: tmseform;
+   feditfo: tmsecomponent;
+   fedititem: ttestitem;
   protected
    procedure updatecaption();
    procedure updateprojectname();
@@ -356,11 +363,15 @@ end;
 procedure tmainmo.beginedit(const aitem: ttestitem; 
                                        const editfo: tmsecomponent);
 begin
+ fedititem:= aitem;
+ feditfo:= editfo;
  objecttovalues(aitem,editfo,'val_');
 end;
 
 procedure tmainmo.endedit(const aitem: ttestitem; const editfo: tmsecomponent);
 begin
+ fedititem:= nil;
+ feditfo:= nil;
  valuestoobject(editfo,aitem,'val_');
  projectchanged();
 end;
@@ -389,6 +400,22 @@ begin
   setlinkedvar(trunfo.create(nil),tmsecomponent(frunfo));
  end;
  result:= trunfo(frunfo).runtest(aitem);
+end;
+
+procedure tmainmo.runtestexe(const sender: TObject);
+var
+ n1: ttestitem;
+begin
+ if (feditfo <> nil) then begin
+  n1:= ttestitem.create;
+  try
+   valuestoobject(feditfo,n1,'val_');   
+   runtest(n1);
+   objecttovalues(n1,feditfo,'val_');   
+  finally
+   n1.destroy();
+  end;
+ end;
 end;
 
 { ttestnode }
@@ -500,15 +527,15 @@ procedure ttestgroupnode.updateparentteststate();
 var
  int1: integer;
 begin
- if count = 0 then begin
-  fteststate:= tes_none;
- end
- else begin
-  fteststate:= tes_ok;
-  for int1:= 0 to count-1 do begin
-   if ttestnode(fitems[int1]).fteststate = tes_error then begin
-    fteststate:= tes_error;
+ fteststate:= tes_none;
+ for int1:= 0 to count-1 do begin
+  with ttestnode(fitems[int1]) do begin
+   if fteststate = tes_error then begin
+    self.fteststate:= tes_error;
     break;
+   end;
+   if fteststate = tes_ok then begin
+    self.fteststate:= tes_ok;
    end;
   end;
  end;
@@ -570,6 +597,7 @@ procedure ttestitem.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
  writer.writemsestring('cc',fcompilecommand);
+ writer.writeinteger('cr',fcompileresult);
  writer.writemsestring('rc',fruncommand);
  writer.writemsestring('in',finput);
  writer.writemsestring('eo',fexpectedoutput);
@@ -584,6 +612,7 @@ procedure ttestitem.dostatread(const reader: tstatreader);
 begin
  inherited;
  fcompilecommand:= reader.readmsestring('cc','');
+ fcompileresult:= reader.readinteger('cr',0);
  fruncommand:= reader.readmsestring('rc','');
  finput:= reader.readmsestring('in','');
  fexpectedoutput:= reader.readmsestring('eo','');
@@ -592,6 +621,12 @@ begin
  factualerror:= reader.readmsestring('ae','');
  fexpectedexitcode:= reader.readinteger('eec',0);
  factualexitcode:= reader.readinteger('aec',0);
+end;
+
+procedure ttestitem.setteststate(const astate: teststatety);
+begin
+ fteststate:= astate;
+ updateparentteststate();
 end;
 {
 function ttestitem.run: boolean;

@@ -273,8 +273,9 @@ begin
  editfo:= tmacrosfo.create(nil);
  try
   mainmo.begineditmacros(editfo);
-  editfo.show(ml_application);
-  mainmo.endeditmacros(editfo);
+  if editfo.show(ml_application) = mr_ok then begin
+   mainmo.endeditmacros(editfo);
+  end;
  finally
   editfo.destroy();
  end;

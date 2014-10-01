@@ -5,13 +5,16 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msedataedits,
  mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestatfile,msestream,
- msestrings,msewidgetgrid,sysutils;
+ msestrings,msewidgetgrid,sysutils,msesplitter,msesimplewidgets;
 type
  tmacrosfo = class(tmseform)
    grid: twidgetgrid;
    val_macronames: tstringedit;
    val_macrovalues: tstringedit;
    tstatfile1: tstatfile;
+   tlayouter1: tlayouter;
+   okbu: tbutton;
+   cancelbu: tbutton;
  end;
 var
  macrosfo: tmacrosfo;

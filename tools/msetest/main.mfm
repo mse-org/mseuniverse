@@ -268,20 +268,20 @@ object mainfo: tmainfo
         state = [as_localcaption, as_localonexecute]
         onexecute = editmacroexe
       end>
-    left = 200
-    top = 36
+    left = 16
+    top = 40
   end
   object connectmodule: tifiactionendpoint
     ifilink = mainmo.connectgui
     onexecute = connectmoduleexe
-    left = 200
-    top = 64
+    left = 16
+    top = 68
   end
   object projectcaption: tifistringendpoint
     ifilink = mainmo.projectcaption
     ondatachange = captionchaexe
-    left = 200
-    top = 80
+    left = 16
+    top = 84
   end
   object tpopupmenu1: tpopupmenu
     menu.submenu.count = 1
@@ -291,12 +291,12 @@ object mainfo: tmainfo
         state = [as_localcaption, as_localonexecute]
         onexecute = insertgroupexe
       end>
-    left = 200
-    top = 120
+    left = 16
+    top = 128
   end
   object editact: taction
     onexecute = editexe
-    left = 344
-    top = 40
+    left = 160
+    top = 42
   end
 end

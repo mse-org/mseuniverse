@@ -1,6 +1,6 @@
 object editfo: teditfo
   bounds_x = 225
-  bounds_y = 250
+  bounds_y = 493
   bounds_cx = 596
   bounds_cy = 581
   container.bounds = (
@@ -9,6 +9,7 @@ object editfo: teditfo
     596
     581
   )
+  options = [fo_cancelonesc, fo_nowindowclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Edit Test Item'
   moduleclassname = 'tmseform'
@@ -95,55 +96,37 @@ object editfo: teditfo
       )
       taborder = 1
       bounds_x = 11
-      bounds_y = 140
+      bounds_y = 150
       bounds_cx = 574
       bounds_cy = 100
       anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
     end
     object val_path: tfilenameedit
-      frame.caption = 'File Path'
+      frame.caption = 'File Path'#10'${FILE}'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]
       frame.button.imagenr = 17
       frame.outerframe = (
         57
+        5
         0
-        0
-        0
+        5
       )
       taborder = 2
       onshowhint = macrohintexe
       bounds_x = 9
       bounds_y = 30
       bounds_cx = 576
-      anchors = [an_left, an_top, an_right]
-      reffontheight = 14
-    end
-    object val_compilecommand: tstringedit
-      frame.caption = 'Compile'#10'Command'
-      frame.captionpos = cp_left
-      frame.localprops1 = [frl1_captiondist]
-      frame.dummy = 0
-      frame.outerframe = (
-        65
-        5
-        0
-        5
-      )
-      taborder = 3
-      onshowhint = macrohintexe
-      bounds_x = 9
-      bounds_y = 60
-      bounds_cx = 576
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
       reffontheight = 14
     end
     object tlayouter4: tlayouter
-      taborder = 4
+      taborder = 3
       bounds_x = 0
-      bounds_y = 440
+      bounds_y = 450
       bounds_cx = 596
       bounds_cy = 30
       anchors = [an_top]
@@ -164,6 +147,7 @@ object editfo: teditfo
         bounds_y = 0
         bounds_cx = 113
         bounds_cy = 30
+        onchange = exitcodechangeexe
         reffontheight = 14
       end
       object tspacer2: tspacer
@@ -175,9 +159,12 @@ object editfo: teditfo
         linkleft = val_expectedexitcode
         linkright = val_actualexitcode
       end
-      object val_actualexitcode: tintegerdisp
+      object val_actualexitcode: tintegeredit
+        frame.levelo = -1
+        frame.colorclient = -2147483645
         frame.caption = 'Actual'#10'Exitcode'
         frame.captionpos = cp_left
+        frame.localprops = [frl_levelo, frl_colorclient]
         frame.dummy = 0
         frame.outerframe = (
           56
@@ -190,16 +177,20 @@ object editfo: teditfo
         bounds_y = 0
         bounds_cx = 108
         bounds_cy = 30
+        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        onchange = exitcodechangeexe
         reffontheight = 14
       end
       object tbutton3: tbutton
+        optionswidget1 = [ow1_autoscale, ow1_autowidth]
         taborder = 3
         bounds_x = 249
         bounds_y = 5
-        bounds_cx = 50
+        bounds_cx = 65
         bounds_cy = 20
         state = [as_localcaption]
-        caption = 'run'
+        action = mainmo.runtestact
+        caption = 'Test Run'
       end
       object tspacer3: tspacer
         taborder = 4
@@ -222,10 +213,10 @@ object editfo: teditfo
         0
         5
       )
-      taborder = 5
+      taborder = 4
       onshowhint = macrohintexe
       bounds_x = 8
-      bounds_y = 100
+      bounds_y = 110
       bounds_cx = 576
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -241,10 +232,10 @@ object editfo: teditfo
         0
         0
       )
-      taborder = 6
+      taborder = 5
       onshowhint = macrohintexe
       bounds_x = 29
-      bounds_y = 250
+      bounds_y = 260
       bounds_cx = 557
       anchors = [an_left, an_top, an_right]
       reffontheight = 14
@@ -259,13 +250,14 @@ object editfo: teditfo
         0
         5
       )
-      taborder = 7
+      taborder = 6
       onshowhint = macrohintexe
       bounds_x = 3
-      bounds_y = 280
+      bounds_y = 290
       bounds_cx = 583
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      onchange = outputputchangeexe
       reffontheight = 14
     end
     object val_actualoutput: tstringedit
@@ -281,13 +273,14 @@ object editfo: teditfo
         0
         6
       )
-      taborder = 8
+      taborder = 7
       bounds_x = 18
-      bounds_y = 320
+      bounds_y = 330
       bounds_cx = 567
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      onchange = outputputchangeexe
       reffontheight = 14
     end
     object val_expectederror: tdialogstringedit
@@ -300,13 +293,14 @@ object editfo: teditfo
         0
         5
       )
-      taborder = 9
+      taborder = 8
       onshowhint = macrohintexe
       bounds_x = 3
-      bounds_y = 360
+      bounds_y = 370
       bounds_cx = 583
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      onchange = errorchangeexe
       reffontheight = 14
     end
     object val_actualerror: tstringedit
@@ -322,14 +316,71 @@ object editfo: teditfo
         0
         6
       )
-      taborder = 10
+      taborder = 9
       bounds_x = 22
-      bounds_y = 400
+      bounds_y = 410
       bounds_cx = 563
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      onchange = errorchangeexe
       reffontheight = 14
+    end
+    object tlayouter5: tlayouter
+      taborder = 10
+      bounds_x = 0
+      bounds_y = 70
+      bounds_cx = 596
+      bounds_cy = 30
+      anchors = [an_top]
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_aligny]
+      align_glue = wam_start
+      object val_compilecommand: tstringedit
+        frame.caption = 'Compile'#10'Command'
+        frame.captionpos = cp_left
+        frame.localprops1 = [frl1_captiondist]
+        frame.dummy = 0
+        frame.outerframe = (
+          65
+          5
+          0
+          5
+        )
+        onshowhint = macrohintexe
+        bounds_x = 9
+        bounds_y = 0
+        bounds_cx = 505
+        bounds_cy = 30
+        anchors = [an_left, an_top, an_right]
+        reffontheight = 14
+      end
+      object tspacer4: tspacer
+        taborder = 1
+        bounds_x = 514
+        bounds_y = 8
+        bounds_cx = 10
+        bounds_cy = 15
+        linkleft = val_compilecommand
+        linkright = val_compileresult
+        options = [spao_glueright]
+      end
+      object val_compileresult: tintegeredit
+        frame.levelo = -1
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_colorclient]
+        frame.dummy = 0
+        taborder = 2
+        hint = 'Compile result'
+        bounds_x = 524
+        bounds_y = 6
+        bounds_cx = 60
+        bounds_cy = 18
+        anchors = [an_top, an_right]
+        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        onchange = compileresultchangeexe
+        reffontheight = 14
+      end
     end
   end
   object tlayouter3: tlayouter
@@ -367,7 +418,7 @@ object editfo: teditfo
       bounds_cx = 50
       bounds_cy = 20
       bounds_cxmin = 50
-      state = [as_localcaption]
+      state = [as_default, as_localdefault, as_localcaption]
       caption = 'OK'
       modalresult = mr_ok
     end
