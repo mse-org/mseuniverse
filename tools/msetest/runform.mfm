@@ -102,6 +102,8 @@ object runfo: trunfo
   object proc: tmseprocess
     options = [pro_output, pro_erroroutput, pro_input, pro_winpipewritehandles]
     input.encoding = ce_utf8n
+    output.oninputavailable = outputrx
+    erroroutput.oninputavailable = errorrx
     onprocfinished = procfinishedexe
     left = 136
     top = 72

@@ -71,11 +71,11 @@ type
 //   fpathrel: filenamety;
    fcompilecommand: msestring;
    fruncommand: msestring;
-   finput: msestring;
-   fexpectedoutput: msestring;
-   factualoutput: msestring;
-   fexpectederror: msestring;
-   factualerror: msestring;
+   finput: string;
+   fexpectedoutput: string;
+   factualoutput: string;
+   fexpectederror: string;
+   factualerror: string;
    fexpectedexitcode: integer;
    factualexitcode: integer;
    fcompileresult: integer;
@@ -92,15 +92,15 @@ type
    property compilecommand: msestring read fcompilecommand 
                                               write fcompilecommand;
    property runcommand: msestring read fruncommand write fruncommand;
-   property input: msestring read finput write finput;
+   property input: string read finput write finput;
    property compileresult: integer read fcompileresult write fcompileresult;
-   property expectedoutput: msestring read fexpectedoutput
+   property expectedoutput: string read fexpectedoutput
                                                   write fexpectedoutput;
-   property actualoutput: msestring read factualoutput
+   property actualoutput: string read factualoutput
                                                   write factualoutput;
-   property expectederror: msestring read fexpectederror
+   property expectederror: string read fexpectederror
                                                   write fexpectederror;
-   property actualerror: msestring read factualerror
+   property actualerror: string read factualerror
                                                   write factualerror;
    property expectedexitcode: integer read fexpectedexitcode 
                                           write fexpectedexitcode;
@@ -172,12 +172,15 @@ type
    procedure endedit(const aitem: ttestitem; const editfo: tmsecomponent);
    procedure begineditmacros(const editfo: tmsecomponent);
    procedure endeditmacros(const editfo: tmsecomponent);
-   function expandmacros(const avalue: msestring): msestring;
-   
+   function expandmacros(const aitem: ttestnode;
+                                   const avalue: msestring): msestring;
+   function expandmacros(const aitem: ttestnode; const avalue: msestring; 
+                           const apath: msestring): msestring;
    function runtest(const aitem: ttestnode): boolean; //true if ok
    
    property rootnode: ttestnode read frootnode;
    property projectoptions: tprojectoptions read fprojectoptions;
+   property edititem: ttestitem read fedititem;
  end;
  
 var
@@ -388,9 +391,22 @@ begin
  projectchanged();
 end;
 
-function tmainmo.expandmacros(const avalue: msestring): msestring;
+function tmainmo.expandmacros(const aitem: ttestnode;
+                                   const avalue: msestring): msestring;
 begin
- result:= fmacros.expandmacros(avalue);
+ if aitem is ttestpathnode then begin
+  result:= msemacros.expandmacros(avalue,fmacros.asarray(['FILE'],
+                                       [ttestpathnode(aitem).rootfilepath]));
+ end
+ else begin
+  result:= fmacros.expandmacros(avalue);
+ end;
+end;
+
+function tmainmo.expandmacros(const aitem: ttestnode; const avalue: msestring; 
+                           const apath: msestring): msestring;
+begin
+ result:= msemacros.expandmacros(avalue,fmacros.asarray(['FILE'],[apath]));
 end;
 
 function tmainmo.runtest(const aitem: ttestnode): boolean;
@@ -599,11 +615,11 @@ begin
  writer.writemsestring('cc',fcompilecommand);
  writer.writeinteger('cr',fcompileresult);
  writer.writemsestring('rc',fruncommand);
- writer.writemsestring('in',finput);
- writer.writemsestring('eo',fexpectedoutput);
- writer.writemsestring('ao',factualoutput);
- writer.writemsestring('ee',fexpectederror);
- writer.writemsestring('ae',factualerror);
+ writer.writebinarystring('in',finput);
+ writer.writebinarystring('eo',fexpectedoutput);
+ writer.writebinarystring('ao',factualoutput);
+ writer.writebinarystring('ee',fexpectederror);
+ writer.writebinarystring('ae',factualerror);
  writer.writeinteger('eec',fexpectedexitcode);
  writer.writeinteger('aec',factualexitcode);
 end;
@@ -614,11 +630,11 @@ begin
  fcompilecommand:= reader.readmsestring('cc','');
  fcompileresult:= reader.readinteger('cr',0);
  fruncommand:= reader.readmsestring('rc','');
- finput:= reader.readmsestring('in','');
- fexpectedoutput:= reader.readmsestring('eo','');
- factualoutput:= reader.readmsestring('ao','');
- fexpectederror:= reader.readmsestring('ee','');
- factualerror:= reader.readmsestring('ae','');
+ finput:= reader.readbinarystring('in','');
+ fexpectedoutput:= reader.readbinarystring('eo','');
+ factualoutput:= reader.readbinarystring('ao','');
+ fexpectederror:= reader.readbinarystring('ee','');
+ factualerror:= reader.readbinarystring('ae','');
  fexpectedexitcode:= reader.readinteger('eec',0);
  factualexitcode:= reader.readinteger('aec',0);
 end;

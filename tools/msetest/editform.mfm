@@ -115,7 +115,7 @@ object editfo: teditfo
         5
       )
       taborder = 2
-      onshowhint = macrohintexe
+      onshowhint = filemacrohintexe
       bounds_x = 9
       bounds_y = 30
       bounds_cx = 576
@@ -222,10 +222,10 @@ object editfo: teditfo
       anchors = [an_left, an_top, an_right]
       reffontheight = 14
     end
-    object val_input: tdialogstringedit
+    object val_input: thexstringedit
       frame.caption = 'Input'
       frame.captionpos = cp_left
-      frame.button.imagenr = 17
+      frame.dummy = 0
       frame.outerframe = (
         35
         0
@@ -240,10 +240,10 @@ object editfo: teditfo
       anchors = [an_left, an_top, an_right]
       reffontheight = 14
     end
-    object val_expectedoutput: tdialogstringedit
+    object val_expectedoutput: thexstringedit
       frame.caption = 'Expected'#10'Output'
       frame.captionpos = cp_left
-      frame.button.imagenr = 17
+      frame.dummy = 0
       frame.outerframe = (
         61
         5
@@ -260,7 +260,7 @@ object editfo: teditfo
       onchange = outputputchangeexe
       reffontheight = 14
     end
-    object val_actualoutput: tstringedit
+    object val_actualoutput: thexstringedit
       frame.levelo = -1
       frame.colorclient = -1879048187
       frame.caption = 'Actual'#10'Output'
@@ -283,10 +283,10 @@ object editfo: teditfo
       onchange = outputputchangeexe
       reffontheight = 14
     end
-    object val_expectederror: tdialogstringedit
+    object val_expectederror: thexstringedit
       frame.caption = 'Expected'#10'Error'
       frame.captionpos = cp_left
-      frame.button.imagenr = 17
+      frame.dummy = 0
       frame.outerframe = (
         61
         5
@@ -303,7 +303,7 @@ object editfo: teditfo
       onchange = errorchangeexe
       reffontheight = 14
     end
-    object val_actualerror: tstringedit
+    object val_actualerror: thexstringedit
       frame.levelo = -1
       frame.colorclient = -1879048187
       frame.caption = 'Actual'#10'Error'

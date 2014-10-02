@@ -20,11 +20,15 @@ type
    procedure procfinishedexe(const sender: TObject);
    procedure showexe(const sender: TObject);
    procedure cancelexe(const sender: TObject);
+   procedure outputrx(const sender: tpipereader);
+   procedure errorrx(const sender: tpipereader);
   protected
    fstate: runstatety;
    ftestitem: ttestnode;
    fcurrenttest: ttestitem;
    ftestok: boolean;
+   foutputbuffer: string;
+   ferrorbuffer: string;
    procedure docompile();
    procedure dotest();
    procedure dofinish(const ok: boolean);
@@ -77,7 +81,7 @@ begin
   cancelbu.enabled:= true;
   okbu.enabled:= false;
   fstate:= rs_compile;
-  mstr1:= mainmo.expandmacros(fcurrenttest.compilecommand);
+  mstr1:= mainmo.expandmacros(fcurrenttest,fcurrenttest.compilecommand);
   if mstr1 <> '' then begin
    term.execprog(mstr1); 
   end
@@ -93,13 +97,17 @@ var
  int1: integer;
 begin
  fstate:= rs_test;
- mstr1:= mainmo.expandmacros(fcurrenttest.runcommand);
+ ferrorbuffer:= '';
+ foutputbuffer:= '';
+ mstr1:= mainmo.expandmacros(fcurrenttest,fcurrenttest.runcommand);
  if mstr1 <> '' then begin
   int1:= application.unlockall();
   try
    proc.commandline:= mstr1;
    proc.active:= true;
-   proc.input.pipewriter.write(fcurrenttest.input);
+   if fcurrenttest.input <> '' then begin
+    proc.input.pipewriter.write(fcurrenttest.input);
+   end;
   finally
    application.relockall(int1);
   end;
@@ -140,7 +148,16 @@ begin
    end;
   end;
   rs_test: begin
-   dofinish(true);
+   with fcurrenttest do begin
+    actualexitcode:= proc.exitcode;
+    actualoutput:= foutputbuffer;
+    foutputbuffer:= '';
+    actualerror:= ferrorbuffer;
+    ferrorbuffer:= '';
+    dofinish((actualexitcode = expectedexitcode) and 
+             (actualoutput = expectedoutput) and
+             (actualerror = expectederror));
+   end;
   end;
   else begin
    dofinish(false);
@@ -169,6 +186,16 @@ begin
    proc.waitforprocess();
   end;
  end;
+end;
+
+procedure trunfo.outputrx(const sender: tpipereader);
+begin
+ foutputbuffer:= foutputbuffer+sender.readdatastring();
+end;
+
+procedure trunfo.errorrx(const sender: tpipereader);
+begin
+ ferrorbuffer:= ferrorbuffer+sender.readdatastring();
 end;
 
 end.

@@ -200,7 +200,7 @@ procedure tmainfo.pathedshowhint(const sender: tdatacol; const arow: Integer;
                var info: hintinfoty);
 begin
  if treeed[arow] is ttestpathnode then begin
-  info.caption:= mainmo.expandmacros(
+  info.caption:= mainmo.expandmacros(ttestpathnode(treeed[arow]),
                          ttestpathnode(treeed[arow]).rootfilepath());
  end;
 end;

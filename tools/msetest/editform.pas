@@ -26,12 +26,12 @@ type
    tspacer2: tspacer;
    val_actualexitcode: tintegeredit;
    val_runcommand: tstringedit;
-   val_input: tdialogstringedit;
+   val_input: thexstringedit;
    tbutton3: tbutton;
-   val_expectedoutput: tdialogstringedit;
-   val_actualoutput: tstringedit;
-   val_expectederror: tdialogstringedit;
-   val_actualerror: tstringedit;
+   val_expectedoutput: thexstringedit;
+   val_actualoutput: thexstringedit;
+   val_expectederror: thexstringedit;
+   val_actualerror: thexstringedit;
    tspacer3: tspacer;
    tlayouter5: tlayouter;
    val_compilecommand: tstringedit;
@@ -43,8 +43,10 @@ type
    procedure outputputchangeexe(const sender: TObject);
    procedure errorchangeexe(const sender: TObject);
    procedure exitcodechangeexe(const sender: TObject);
+   procedure filemacrohintexe(const sender: TObject; var info: hintinfoty);
   protected
    procedure seterror(const adisp: tdataedit; const aerror: boolean);
+   function filemacro(): msestring;
  end;
 
 implementation
@@ -67,7 +69,13 @@ end;
 
 procedure teditfo.macrohintexe(const sender: TObject; var info: hintinfoty);
 begin
- info.caption:= mainmo.expandmacros(tedit(sender).text);
+ info.caption:= mainmo.expandmacros(
+                        mainmo.edititem,tedit(sender).text,filemacro);
+end;
+
+procedure teditfo.filemacrohintexe(const sender: TObject; var info: hintinfoty);
+begin
+ info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'');
 end;
 
 procedure teditfo.seterror(const adisp: tdataedit; const aerror: boolean);
@@ -102,6 +110,19 @@ procedure teditfo.exitcodechangeexe(const sender: TObject);
 begin
  seterror(val_actualexitcode,
          val_expectedexitcode.value <> val_actualexitcode.value);
+end;
+
+function teditfo.filemacro: msestring;
+var
+ n1: ttreelistitem;
+begin
+ n1:= mainmo.edititem.parent;
+ if n1 is ttestpathnode then begin
+  result:= ttestpathnode(n1).rootfilepath+val_path.value;
+ end
+ else begin
+  result:= val_path.value;
+ end; 
 end;
 
 end.
