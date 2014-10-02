@@ -1,4 +1,4 @@
-object editfo: teditfo
+object testeditfo: ttesteditfo
   bounds_x = 225
   bounds_y = 419
   bounds_cx = 596
@@ -251,12 +251,12 @@ object editfo: teditfo
         5
       )
       taborder = 6
-      onshowhint = macrohintexe
       bounds_x = 3
       bounds_y = 290
       bounds_cx = 583
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       onchange = outputputchangeexe
       reffontheight = 14
     end
@@ -279,7 +279,7 @@ object editfo: teditfo
       bounds_cx = 567
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       onchange = outputputchangeexe
       reffontheight = 14
     end
@@ -294,12 +294,12 @@ object editfo: teditfo
         5
       )
       taborder = 8
-      onshowhint = macrohintexe
       bounds_x = 3
       bounds_y = 370
       bounds_cx = 583
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       onchange = errorchangeexe
       reffontheight = 14
     end
@@ -322,7 +322,7 @@ object editfo: teditfo
       bounds_cx = 563
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       onchange = errorchangeexe
       reffontheight = 14
     end

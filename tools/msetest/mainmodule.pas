@@ -27,6 +27,7 @@ type
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
+   procedure assign(const source: ttestnode); virtual;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    function nexttestitem: ttestitem; virtual;
@@ -47,6 +48,7 @@ type
   protected
    procedure setpath(avalue: filenamety); virtual;
   public
+   procedure assign(const source: ttestnode); override;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    function rootfilepath(): msestring;
@@ -84,6 +86,7 @@ type
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
+   procedure assign(const source: ttestnode); override;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    procedure setteststate(const astate: teststatety);
@@ -424,11 +427,13 @@ var
 begin
  if (feditfo <> nil) then begin
   n1:= ttestitem.create;
+  n1.assign(fedititem); //backup
   try
-   valuestoobject(feditfo,n1,'val_');   
-   runtest(n1);
-   objecttovalues(n1,feditfo,'val_');   
+   valuestoobject(feditfo,fedititem,'val_');   //get current values
+   runtest(fedititem);
+   objecttovalues(fedititem,feditfo,'val_');   //store new values
   finally
+   fedititem.assign(n1); //restore
    n1.destroy();
   end;
  end;
@@ -504,6 +509,11 @@ begin
  result:= nil;
 end;
 
+procedure ttestnode.assign(const source: ttestnode);
+begin
+ //dummy
+end;
+
 { ttestgroupnode }
 
 constructor ttestgroupnode.create(const aowner: tcustomitemlist = nil;
@@ -574,6 +584,17 @@ begin
 // fpathrel:= reader.readmsestring('pathrel','');
 end;
 
+procedure ttestpathnode.assign(const source: ttestnode);
+begin
+ inherited;
+ if source is ttestpathnode then begin
+  with ttestpathnode(source) do begin
+   self.fpath:= fpath;
+   self.fcomment:= fcomment;
+  end;
+ end;
+end;
+
 procedure ttestpathnode.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
@@ -595,6 +616,7 @@ begin
  until not (n1 is ttestpathnode) or 
      (result <> '') and (result[1] = '/');   //stop at root path
 end;
+
 
 { ttestitem }
 
@@ -643,6 +665,25 @@ procedure ttestitem.setteststate(const astate: teststatety);
 begin
  fteststate:= astate;
  updateparentteststate();
+end;
+
+procedure ttestitem.assign(const source: ttestnode);
+begin
+ inherited;
+ if source is ttestitem then begin
+  with ttestitem(source) do begin
+   self.fcompilecommand:= fcompilecommand;
+   self.fcompileresult:= fcompileresult;
+   self.fruncommand:= fruncommand;
+   self.finput:= finput;
+   self.fexpectedoutput:= fexpectedoutput;
+   self.factualoutput:= factualoutput;
+   self.fexpectederror:= fexpectederror;
+   self.factualerror:= factualerror;
+   self.fexpectedexitcode:= fexpectedexitcode;
+   self.factualexitcode:= factualexitcode;
+  end;
+ end;
 end;
 {
 function ttestitem.run: boolean;

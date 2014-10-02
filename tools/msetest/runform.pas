@@ -41,7 +41,7 @@ var
  runfo: trunfo;
 implementation
 uses
- runform_mfm;
+ runform_mfm,msesystypes;
  
 { trunfo }
 {
@@ -105,8 +105,18 @@ begin
   try
    proc.commandline:= mstr1;
    proc.active:= true;
-   if fcurrenttest.input <> '' then begin
-    proc.input.pipewriter.write(fcurrenttest.input);
+   if proc.prochandle = invalidprochandle then begin
+    with fcurrenttest do begin
+     actualexitcode:= -1;
+     actualoutput:= '';
+     actualerror:= '';
+    end;
+    dofinish(false);
+   end
+   else begin
+    if fcurrenttest.input <> '' then begin
+     proc.input.pipewriter.write(fcurrenttest.input);
+    end;
    end;
   finally
    application.relockall(int1);
