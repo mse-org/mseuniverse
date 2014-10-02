@@ -59,7 +59,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,mainmodule,msefileutils,testeditform,macrosform;
+ main_mfm,mainmodule,msefileutils,testeditform,groupeditform,macrosform;
  
 procedure tmainfo.connectmoduleexe(const sender: TObject);
 begin
@@ -252,11 +252,17 @@ end;
 
 procedure tmainfo.editexe(const sender: TObject);
 var
- editfo: ttesteditfo;
+ editfo: tmseform;
 begin
- editfo:= ttesteditfo.create(nil);
+ if treeed.item is ttestitem then begin
+  editfo:= ttesteditfo.create(nil);
+ end
+ else begin
+  editfo:= tgroupeditfo.create(nil);
+ end;
+ 
  try
-  mainmo.beginedit(ttestitem(treeed.item),editfo);
+  mainmo.beginedit(ttestnode(treeed.item),editfo);
   if editfo.show(ml_application) = mr_ok then begin
    mainmo.endedit(ttestitem(treeed.item),editfo);
    treeed.updateitemvalues;

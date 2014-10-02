@@ -15,9 +15,9 @@ object testeditfo: ttesteditfo
   moduleclassname = 'tmseform'
   object tlayouter2: tlayouter
     bounds_x = 0
-    bounds_y = 0
+    bounds_y = 8
     bounds_cx = 596
-    bounds_cy = 526
+    bounds_cy = 518
     anchors = [an_top, an_bottom]
     onlayout = layoutexe
     optionslayout = [lao_placey]
@@ -424,7 +424,7 @@ object testeditfo: ttesteditfo
     end
   end
   object tstatfile1: tstatfile
-    filename = 'edit.sta'
+    filename = 'testedit.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 128
     top = 152

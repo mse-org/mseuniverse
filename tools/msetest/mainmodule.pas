@@ -158,7 +158,7 @@ type
    fmacros: tmacrolist;
    frunfo: tmseform;
    feditfo: tmsecomponent;
-   fedititem: ttestitem;
+   fedititem: ttestnode;
   protected
    procedure updatecaption();
    procedure updateprojectname();
@@ -171,8 +171,8 @@ type
    function saveproject(): modalresultty;
    function saveasproject(): modalresultty;
    procedure projectchanged();
-   procedure beginedit(const aitem: ttestitem; const editfo: tmsecomponent);
-   procedure endedit(const aitem: ttestitem; const editfo: tmsecomponent);
+   procedure beginedit(const aitem: ttestnode; const editfo: tmsecomponent);
+   procedure endedit(const aitem: ttestnode; const editfo: tmsecomponent);
    procedure begineditmacros(const editfo: tmsecomponent);
    procedure endeditmacros(const editfo: tmsecomponent);
    function expandmacros(const aitem: ttestnode;
@@ -183,7 +183,7 @@ type
    
    property rootnode: ttestnode read frootnode;
    property projectoptions: tprojectoptions read fprojectoptions;
-   property edititem: ttestitem read fedititem;
+   property edititem: ttestnode read fedititem;
  end;
  
 var
@@ -366,7 +366,7 @@ begin
  loadproject(); 
 end;
 
-procedure tmainmo.beginedit(const aitem: ttestitem; 
+procedure tmainmo.beginedit(const aitem: ttestnode; 
                                        const editfo: tmsecomponent);
 begin
  fedititem:= aitem;
@@ -374,7 +374,7 @@ begin
  objecttovalues(aitem,editfo,'val_');
 end;
 
-procedure tmainmo.endedit(const aitem: ttestitem; const editfo: tmsecomponent);
+procedure tmainmo.endedit(const aitem: ttestnode; const editfo: tmsecomponent);
 begin
  fedititem:= nil;
  feditfo:= nil;

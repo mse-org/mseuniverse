@@ -230,7 +230,6 @@ object mainfo: tmainfo
       glyph = stg_ellipsesmall
       onexecute = editexe
       max = -1
-      valuedisabled = -1
     end
   end
   object tmainmenu1: tmainmenu
