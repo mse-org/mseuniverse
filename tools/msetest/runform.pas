@@ -6,17 +6,21 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,mseterminal,mainmodule,msesimplewidgets,
- msesplitter,msepipestream,mseprocess;
+ msesplitter,msepipestream,mseprocess,msedispwidgets,mserichstring;
 type
  runstatety = (rs_none,rs_compile,rs_test,rs_canceled);
  trunfo = class(tmseform)
    tstatfile1: tstatfile;
    grid: twidgetgrid;
    term: tterminal;
+   proc: tmseprocess;
+   tlayouter2: tlayouter;
    tlayouter1: tlayouter;
    okbu: tbutton;
    cancelbu: tbutton;
-   proc: tmseprocess;
+   tlayouter3: tlayouter;
+   tintegerdisp1: tintegerdisp;
+   tstringdisp1: tstringdisp;
    procedure procfinishedexe(const sender: TObject);
    procedure showexe(const sender: TObject);
    procedure cancelexe(const sender: TObject);
