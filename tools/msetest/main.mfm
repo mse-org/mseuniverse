@@ -37,7 +37,7 @@ object mainfo: tmainfo
             caption = 'Enabled/Caption'
           end        
           item
-            caption = 'Filepath'
+            caption = 'File Path'
           end        
           item
             caption = 'Comment'

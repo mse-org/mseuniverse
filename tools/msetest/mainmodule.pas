@@ -24,10 +24,12 @@ type
    procedure statreadsubnode(const reader: tstatreader;
                                             var anode: ttreelistitem); override;
    class function kind: testnodekindty; virtual;
+   procedure dogetdefaults(); virtual;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
    procedure assign(const source: ttestnode); virtual;
+   procedure getdefaults();
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    function nexttestitem: ttestitem; virtual;
@@ -57,32 +59,63 @@ type
    property comment: msestring read fcomment write fcomment;
 //   property pathrel: filenamety read fpathrel write dosetpath;
  end;
- 
- ttestgroupnode = class(ttestpathnode)
-  protected
-   class function kind: testnodekindty; override;
-  public
-   constructor create(const aowner: tcustomitemlist = nil;
-              const aparent: ttreelistitem = nil); override;
-//   function run(): boolean; override;
-   procedure updateparentteststate(); override;
- end;
 
- ttestitem = class(ttestpathnode)
+ ttestvaluenode = class(ttestpathnode)
   private
-//   fpathrel: filenamety;
    fcompilecommand: msestring;
    fruncommand: msestring;
    finput: string;
    fexpectedoutput: string;
-   factualoutput: string;
    fexpectederror: string;
-   factualerror: string;
    fexpectedexitcode: integer;
-   factualexitcode: integer;
-   fcompileresult: integer;
+  protected
+   procedure dogetdefaults(); override;
+  public
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
+  published
+   property compilecommand: msestring read fcompilecommand 
+                                              write fcompilecommand;
+   property runcommand: msestring read fruncommand write fruncommand;
+   property input: string read finput write finput;
+   property expectedoutput: string read fexpectedoutput
+                                                  write fexpectedoutput;
+   property expectederror: string read fexpectederror
+                                                  write fexpectederror;
+   property expectedexitcode: integer read fexpectedexitcode 
+                                          write fexpectedexitcode;
+ end;
+  
+ ttestgroupnode = class(ttestvaluenode)
+  private
+   fcaptiondefault: msestring;
+   fpathdefault: filenamety;
   protected
    class function kind: testnodekindty; override;
+   procedure dogetdefaults(); override;
+  public
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
+//   function run(): boolean; override;
+   procedure dostatread(const reader: tstatreader); override;
+   procedure dostatwrite(const writer: tstatwriter); override;
+   procedure updateparentteststate(); override;
+  published
+   property captiondefault: msestring read fcaptiondefault 
+                                                  write fcaptiondefault;
+   property pathdefault: msestring read fpathdefault 
+                                                  write fpathdefault;
+ end;
+
+ ttestitem = class(ttestvaluenode)
+  private
+   fcompileresult: integer;
+   factualoutput: string;
+   factualerror: string;
+   factualexitcode: integer;
+  protected
+   class function kind: testnodekindty; override;
+   procedure dogetdefaults(); override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
@@ -92,21 +125,11 @@ type
    procedure setteststate(const astate: teststatety);
 //   function run(): boolean; override;
   published
-   property compilecommand: msestring read fcompilecommand 
-                                              write fcompilecommand;
-   property runcommand: msestring read fruncommand write fruncommand;
-   property input: string read finput write finput;
    property compileresult: integer read fcompileresult write fcompileresult;
-   property expectedoutput: string read fexpectedoutput
-                                                  write fexpectedoutput;
    property actualoutput: string read factualoutput
                                                   write factualoutput;
-   property expectederror: string read fexpectederror
-                                                  write fexpectederror;
    property actualerror: string read factualerror
                                                   write factualerror;
-   property expectedexitcode: integer read fexpectedexitcode 
-                                          write fexpectedexitcode;
    property actualexitcode: integer read factualexitcode 
                                           write factualexitcode;
  end;
@@ -191,6 +214,342 @@ var
 implementation
 uses
  mainmodule_mfm,msewidgets,msefileutils,runform;
+
+{ ttestnode }
+
+constructor ttestnode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;
+ fstate:= fstate + [ns_checkbox,ns_checked,ns_showparentnotchecked];
+end;
+
+procedure ttestnode.statreadsubnode(const reader: tstatreader;
+               var anode: ttreelistitem);
+begin
+ case reader.readinteger('kind',0) of
+  ord(tnk_group): begin
+   anode:= ttestgroupnode.create();
+  end;
+  ord(tnk_leaf): begin
+   anode:= ttestitem.create();
+  end;
+  else begin
+   anode:= ttestitem.create();
+  end;
+ end;
+end;
+
+class function ttestnode.kind: testnodekindty;
+begin
+ result:= tnk_none;
+end;
+
+procedure ttestnode.dostatwrite(const writer: tstatwriter);
+begin
+ writer.writeinteger('kind',ord(kind));
+ inherited;
+ writer.writeinteger('teststate',ord(fteststate));
+end;
+
+procedure ttestnode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ fteststate:= teststatety(reader.readinteger('teststate',0));
+end;
+{
+function ttestnode.run: boolean;
+begin
+ result:= true; //dummy
+end;
+}
+procedure ttestnode.updateparentteststate();
+begin
+ if parent is ttestnode then begin
+  ttestnode(parent).updateparentteststate();
+ end;
+end;
+
+function ttestnode.getenabled: boolean;
+begin
+ result:= checked;
+end;
+
+procedure ttestnode.setenabled(const avalue: boolean);
+begin
+ checked:= avalue;
+end;
+
+function ttestnode.nexttestitem: ttestitem;
+begin
+ result:= nil;
+end;
+
+procedure ttestnode.assign(const source: ttestnode);
+begin
+ //dummy
+end;
+
+procedure ttestnode.dogetdefaults;
+begin
+ //dummy
+end;
+
+procedure ttestnode.getdefaults;
+begin
+ dogetdefaults();
+ change;
+end;
+
+{ ttestgroupnode }
+
+constructor ttestgroupnode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;
+ include(fstate,ns_subitems);
+end;
+
+class function ttestgroupnode.kind: testnodekindty;
+begin
+ result:= tnk_group;
+end;
+{
+function ttestgroupnode.run(): boolean;
+var
+ int1: integer;
+begin
+ result:= true;
+ if treechecked then begin
+  fteststate:= tes_none;
+  if count > 0 then begin
+   fteststate:= tes_ok;
+   for int1:= 0 to count-1 do begin
+    if not ttestnode(fitems[int1]).run() then begin
+     result:= false;
+    end;
+   end;
+  end;
+  if result = false then begin
+   fteststate:= tes_error;
+  end;
+ end;
+end;
+}
+procedure ttestgroupnode.updateparentteststate();
+var
+ int1: integer;
+begin
+ fteststate:= tes_none;
+ for int1:= 0 to count-1 do begin
+  with ttestnode(fitems[int1]) do begin
+   if fteststate = tes_error then begin
+    self.fteststate:= tes_error;
+    break;
+   end;
+   if fteststate = tes_ok then begin
+    self.fteststate:= tes_ok;
+   end;
+  end;
+ end;
+ inherited;
+end;
+
+procedure ttestgroupnode.dostatwrite(const writer: tstatwriter);
+begin
+ inherited;
+ writer.writemsestring('cd',fcaptiondefault);
+ writer.writemsestring('pd',fpathdefault);
+end;
+
+procedure ttestgroupnode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ fcaptiondefault:= reader.readmsestring('cd','');
+ fpathdefault:= reader.readmsestring('pd','');
+end;
+
+procedure ttestgroupnode.dogetdefaults;
+begin
+ inherited;
+ if parent is ttestgroupnode then begin
+  with ttestgroupnode(parent) do begin
+   self.fcaptiondefault:= fcaptiondefault;
+   self.fpathdefault:= fpathdefault;
+  end;
+ end;
+end;
+
+{ ttestpathnode }
+
+procedure ttestpathnode.setpath(avalue: filenamety);
+begin
+ fpath:= avalue;
+end;
+
+procedure ttestpathnode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ fpath:= reader.readmsestring('path','');
+ fcomment:= reader.readmsestring('comment','');
+// fpathabs:= reader.readmsestring('pathabs','');
+// fpathrel:= reader.readmsestring('pathrel','');
+end;
+
+procedure ttestpathnode.assign(const source: ttestnode);
+begin
+ inherited;
+ if source is ttestpathnode then begin
+  with ttestpathnode(source) do begin
+   self.fpath:= fpath;
+   self.fcomment:= fcomment;
+  end;
+ end;
+end;
+
+procedure ttestpathnode.dostatwrite(const writer: tstatwriter);
+begin
+ inherited;
+ writer.writemsestring('path',fpath);
+ writer.writemsestring('comment',fcomment);
+// writer.writemsestring('pathabs',fpathabs);
+// writer.writemsestring('pathrel',fpathrel);
+end;
+
+function ttestpathnode.rootfilepath: msestring;
+var
+ n1: ttreelistitem;
+begin
+ result:= '';
+ n1:= self;
+ repeat
+  result:= ttestpathnode(n1).fpath+result;
+  n1:= n1.parent
+ until not (n1 is ttestpathnode) or 
+     (result <> '') and (result[1] = '/');   //stop at root path
+end;
+
+{ ttestvaluenode }
+
+procedure ttestvaluenode.dostatwrite(const writer: tstatwriter);
+begin
+ inherited;
+ writer.writemsestring('cc',fcompilecommand);
+ writer.writemsestring('rc',fruncommand);
+ writer.writebinarystring('in',finput);
+ writer.writebinarystring('eo',fexpectedoutput);
+ writer.writebinarystring('ee',fexpectederror);
+ writer.writeinteger('eec',fexpectedexitcode);
+end;
+
+procedure ttestvaluenode.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ fcompilecommand:= reader.readmsestring('cc','');
+ fruncommand:= reader.readmsestring('rc','');
+ finput:= reader.readbinarystring('in','');
+ fexpectedoutput:= reader.readbinarystring('eo','');
+ fexpectederror:= reader.readbinarystring('ee','');
+ fexpectedexitcode:= reader.readinteger('eec',0);
+end;
+
+procedure ttestvaluenode.dogetdefaults;
+begin
+ inherited;
+ if parent is ttestvaluenode then begin
+  with ttestvaluenode(parent) do begin
+   self.fcompilecommand:= fcompilecommand;
+   self.fruncommand:= fruncommand;
+   self.finput:= finput;
+   self.fexpectedoutput:= fexpectedoutput;
+   self.fexpectederror:= fexpectederror;
+   self.fexpectedexitcode:= fexpectedexitcode;
+  end;
+ end;
+end;
+
+{ ttestitem }
+
+constructor ttestitem.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;
+end;
+
+class function ttestitem.kind: testnodekindty;
+begin
+ result:= tnk_leaf;
+end;
+
+procedure ttestitem.dostatwrite(const writer: tstatwriter);
+begin
+ inherited;
+ writer.writeinteger('cr',fcompileresult);
+ writer.writebinarystring('ao',factualoutput);
+ writer.writebinarystring('ae',factualerror);
+ writer.writeinteger('aec',factualexitcode);
+end;
+
+procedure ttestitem.dostatread(const reader: tstatreader);
+begin
+ inherited;
+ fcompileresult:= reader.readinteger('cr',0);
+ factualoutput:= reader.readbinarystring('ao','');
+ factualerror:= reader.readbinarystring('ae','');
+ factualexitcode:= reader.readinteger('aec',0);
+end;
+
+procedure ttestitem.setteststate(const astate: teststatety);
+begin
+ fteststate:= astate;
+ updateparentteststate();
+end;
+
+procedure ttestitem.assign(const source: ttestnode);
+begin
+ inherited;
+ if source is ttestitem then begin
+  with ttestitem(source) do begin
+   self.fcompilecommand:= fcompilecommand;
+   self.fcompileresult:= fcompileresult;
+   self.fruncommand:= fruncommand;
+   self.finput:= finput;
+   self.fexpectedoutput:= fexpectedoutput;
+   self.factualoutput:= factualoutput;
+   self.fexpectederror:= fexpectederror;
+   self.factualerror:= factualerror;
+   self.fexpectedexitcode:= fexpectedexitcode;
+   self.factualexitcode:= factualexitcode;
+  end;
+ end;
+end;
+
+procedure ttestitem.dogetdefaults;
+begin
+ inherited;
+ if parent is ttestgroupnode then begin
+  with ttestgroupnode(parent) do begin
+   self.fcaption:= fcaptiondefault;
+  end;
+ end;
+end;
+{
+function ttestitem.run: boolean;
+begin
+ result:= true;
+ if treechecked then begin
+  mainmo.run
+  if (caption <> '') and (caption[1] = 'E') then begin
+   fteststate:= tes_error;
+   result:= false;
+  end
+  else begin
+   fteststate:= tes_ok;
+   result:= true;
+  end;
+ end;
+end;
+}
 
 {tmainmo}
 
@@ -439,269 +798,6 @@ begin
  end;
 end;
 
-{ ttestnode }
-
-constructor ttestnode.create(const aowner: tcustomitemlist = nil;
-               const aparent: ttreelistitem = nil);
-begin
- inherited;
- fstate:= fstate + [ns_checkbox,ns_checked,ns_showparentnotchecked];
-end;
-
-procedure ttestnode.statreadsubnode(const reader: tstatreader;
-               var anode: ttreelistitem);
-begin
- case reader.readinteger('kind',0) of
-  ord(tnk_group): begin
-   anode:= ttestgroupnode.create();
-  end;
-  ord(tnk_leaf): begin
-   anode:= ttestitem.create();
-  end;
-  else begin
-   anode:= ttestitem.create();
-  end;
- end;
-end;
-
-class function ttestnode.kind: testnodekindty;
-begin
- result:= tnk_none;
-end;
-
-procedure ttestnode.dostatwrite(const writer: tstatwriter);
-begin
- writer.writeinteger('kind',ord(kind));
- inherited;
- writer.writeinteger('teststate',ord(fteststate));
-end;
-
-procedure ttestnode.dostatread(const reader: tstatreader);
-begin
- inherited;
- fteststate:= teststatety(reader.readinteger('teststate',0));
-end;
-{
-function ttestnode.run: boolean;
-begin
- result:= true; //dummy
-end;
-}
-procedure ttestnode.updateparentteststate();
-begin
- if parent is ttestnode then begin
-  ttestnode(parent).updateparentteststate();
- end;
-end;
-
-function ttestnode.getenabled: boolean;
-begin
- result:= checked;
-end;
-
-procedure ttestnode.setenabled(const avalue: boolean);
-begin
- checked:= avalue;
-end;
-
-function ttestnode.nexttestitem: ttestitem;
-begin
- result:= nil;
-end;
-
-procedure ttestnode.assign(const source: ttestnode);
-begin
- //dummy
-end;
-
-{ ttestgroupnode }
-
-constructor ttestgroupnode.create(const aowner: tcustomitemlist = nil;
-               const aparent: ttreelistitem = nil);
-begin
- inherited;
- include(fstate,ns_subitems);
-end;
-
-class function ttestgroupnode.kind: testnodekindty;
-begin
- result:= tnk_group;
-end;
-{
-function ttestgroupnode.run(): boolean;
-var
- int1: integer;
-begin
- result:= true;
- if treechecked then begin
-  fteststate:= tes_none;
-  if count > 0 then begin
-   fteststate:= tes_ok;
-   for int1:= 0 to count-1 do begin
-    if not ttestnode(fitems[int1]).run() then begin
-     result:= false;
-    end;
-   end;
-  end;
-  if result = false then begin
-   fteststate:= tes_error;
-  end;
- end;
-end;
-}
-procedure ttestgroupnode.updateparentteststate();
-var
- int1: integer;
-begin
- fteststate:= tes_none;
- for int1:= 0 to count-1 do begin
-  with ttestnode(fitems[int1]) do begin
-   if fteststate = tes_error then begin
-    self.fteststate:= tes_error;
-    break;
-   end;
-   if fteststate = tes_ok then begin
-    self.fteststate:= tes_ok;
-   end;
-  end;
- end;
- inherited;
-end;
-
-{ ttestpathnode }
-
-procedure ttestpathnode.setpath(avalue: filenamety);
-begin
- fpath:= avalue;
-end;
-
-procedure ttestpathnode.dostatread(const reader: tstatreader);
-begin
- inherited;
- fpath:= reader.readmsestring('path','');
- fcomment:= reader.readmsestring('comment','');
-// fpathabs:= reader.readmsestring('pathabs','');
-// fpathrel:= reader.readmsestring('pathrel','');
-end;
-
-procedure ttestpathnode.assign(const source: ttestnode);
-begin
- inherited;
- if source is ttestpathnode then begin
-  with ttestpathnode(source) do begin
-   self.fpath:= fpath;
-   self.fcomment:= fcomment;
-  end;
- end;
-end;
-
-procedure ttestpathnode.dostatwrite(const writer: tstatwriter);
-begin
- inherited;
- writer.writemsestring('path',fpath);
- writer.writemsestring('comment',fcomment);
-// writer.writemsestring('pathabs',fpathabs);
-// writer.writemsestring('pathrel',fpathrel);
-end;
-
-function ttestpathnode.rootfilepath: msestring;
-var
- n1: ttreelistitem;
-begin
- result:= '';
- n1:= self;
- repeat
-  result:= ttestpathnode(n1).fpath+result;
-  n1:= n1.parent
- until not (n1 is ttestpathnode) or 
-     (result <> '') and (result[1] = '/');   //stop at root path
-end;
-
-
-{ ttestitem }
-
-constructor ttestitem.create(const aowner: tcustomitemlist = nil;
-               const aparent: ttreelistitem = nil);
-begin
- inherited;
-end;
-
-class function ttestitem.kind: testnodekindty;
-begin
- result:= tnk_leaf;
-end;
-
-procedure ttestitem.dostatwrite(const writer: tstatwriter);
-begin
- inherited;
- writer.writemsestring('cc',fcompilecommand);
- writer.writeinteger('cr',fcompileresult);
- writer.writemsestring('rc',fruncommand);
- writer.writebinarystring('in',finput);
- writer.writebinarystring('eo',fexpectedoutput);
- writer.writebinarystring('ao',factualoutput);
- writer.writebinarystring('ee',fexpectederror);
- writer.writebinarystring('ae',factualerror);
- writer.writeinteger('eec',fexpectedexitcode);
- writer.writeinteger('aec',factualexitcode);
-end;
-
-procedure ttestitem.dostatread(const reader: tstatreader);
-begin
- inherited;
- fcompilecommand:= reader.readmsestring('cc','');
- fcompileresult:= reader.readinteger('cr',0);
- fruncommand:= reader.readmsestring('rc','');
- finput:= reader.readbinarystring('in','');
- fexpectedoutput:= reader.readbinarystring('eo','');
- factualoutput:= reader.readbinarystring('ao','');
- fexpectederror:= reader.readbinarystring('ee','');
- factualerror:= reader.readbinarystring('ae','');
- fexpectedexitcode:= reader.readinteger('eec',0);
- factualexitcode:= reader.readinteger('aec',0);
-end;
-
-procedure ttestitem.setteststate(const astate: teststatety);
-begin
- fteststate:= astate;
- updateparentteststate();
-end;
-
-procedure ttestitem.assign(const source: ttestnode);
-begin
- inherited;
- if source is ttestitem then begin
-  with ttestitem(source) do begin
-   self.fcompilecommand:= fcompilecommand;
-   self.fcompileresult:= fcompileresult;
-   self.fruncommand:= fruncommand;
-   self.finput:= finput;
-   self.fexpectedoutput:= fexpectedoutput;
-   self.factualoutput:= factualoutput;
-   self.fexpectederror:= fexpectederror;
-   self.factualerror:= factualerror;
-   self.fexpectedexitcode:= fexpectedexitcode;
-   self.factualexitcode:= factualexitcode;
-  end;
- end;
-end;
-{
-function ttestitem.run: boolean;
-begin
- result:= true;
- if treechecked then begin
-  mainmo.run
-  if (caption <> '') and (caption[1] = 'E') then begin
-   fteststate:= tes_error;
-   result:= false;
-  end
-  else begin
-   fteststate:= tes_ok;
-   result:= true;
-  end;
- end;
-end;
-}
 { tprojectoptions }
 
 procedure tprojectoptions.dostatupdate(const filer: tstatfiler);
