@@ -17,6 +17,7 @@ type
  
  ttestnode = class(ttreelistedititem)
   private
+   fnr: integer;
    function getenabled: boolean;
    procedure setenabled(const avalue: boolean);
   protected
@@ -30,23 +31,23 @@ type
               const aparent: ttreelistitem = nil); override;
    procedure assign(const source: ttestnode); virtual;
    procedure getdefaults();
+   procedure number(var alast: integer); virtual;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
-   function nexttestitem: ttestitem; virtual;
-//   function run(): boolean; virtual; //true if ok
+   function nexttestitem(const root: ttestnode): ttestitem; virtual;
    procedure updateparentteststate(); virtual;
    property teststate: teststatety read fteststate;
   published
    property caption;
    property enabled: boolean read getenabled write setenabled;
+   property nr: integer read fnr write fnr;
  end;
+ ptestnode = ^ttestnode;
  
  ttestpathnode = class(ttestnode)
   private
    fpath: filenamety;
    fcomment: msestring;
-//   fpathabs: filenamety;
-//   fpathrel: filenamety;
   protected
    procedure setpath(avalue: filenamety); virtual;
   public
@@ -57,7 +58,6 @@ type
   published
    property path: filenamety read fpath write setpath;
    property comment: msestring read fcomment write fcomment;
-//   property pathrel: filenamety read fpathrel write dosetpath;
  end;
 
  ttestvaluenode = class(ttestpathnode)
@@ -90,21 +90,24 @@ type
   private
    fcaptiondefault: msestring;
    fpathdefault: filenamety;
+   fnrlast: integer;
   protected
    class function kind: testnodekindty; override;
    procedure dogetdefaults(); override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
-//   function run(): boolean; override;
+   procedure number(var alast: integer); override;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    procedure updateparentteststate(); override;
+   function nexttestitem(const root: ttestnode): ttestitem; override;
   published
    property captiondefault: msestring read fcaptiondefault 
                                                   write fcaptiondefault;
    property pathdefault: msestring read fpathdefault 
                                                   write fpathdefault;
+   property nrlast: integer read fnrlast write fnrlast;
  end;
 
  ttestitem = class(ttestvaluenode)
@@ -120,10 +123,10 @@ type
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
    procedure assign(const source: ttestnode); override;
+   procedure number(var alast: integer); override;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    procedure setteststate(const astate: teststatety);
-//   function run(): boolean; override;
   published
    property compileresult: integer read fcompileresult write fcompileresult;
    property actualoutput: string read factualoutput
@@ -194,6 +197,7 @@ type
    function saveproject(): modalresultty;
    function saveasproject(): modalresultty;
    procedure projectchanged();
+   procedure renumber();
    procedure beginedit(const aitem: ttestnode; const editfo: tmsecomponent);
    procedure endedit(const aitem: ttestnode; const editfo: tmsecomponent);
    procedure begineditmacros(const editfo: tmsecomponent);
@@ -280,9 +284,30 @@ begin
  checked:= avalue;
 end;
 
-function ttestnode.nexttestitem: ttestitem;
+function ttestnode.nexttestitem(const root: ttestnode): ttestitem;
+var
+ n1,n2: ttestnode;
+ int1: integer;
 begin
  result:= nil;
+ n1:= self;
+ while (result = nil) and (n1 <> root) do begin
+  with n1 do begin
+   for int1:= fparentindex+1 to fparent.count-1 do begin
+    n2:= ttestnode(ttestnode(fparent).fitems[int1]);
+    if n2.checked then begin
+     if n2 is ttestitem then begin
+      result:= ttestitem(n2);
+     end
+     else begin
+      result:= n2.nexttestitem(root);
+     end;
+     break;
+    end;
+   end;
+  end;
+  n1:= ttestnode(n1.parent);
+ end;
 end;
 
 procedure ttestnode.assign(const source: ttestnode);
@@ -299,6 +324,11 @@ procedure ttestnode.getdefaults;
 begin
  dogetdefaults();
  change;
+end;
+
+procedure ttestnode.number(var alast: integer);
+begin
+ //dummy
 end;
 
 { ttestgroupnode }
@@ -377,6 +407,40 @@ begin
    self.fcaptiondefault:= fcaptiondefault;
    self.fpathdefault:= fpathdefault;
   end;
+ end;
+end;
+
+procedure ttestgroupnode.number(var alast: integer);
+var
+ int1: integer;
+begin
+ fnr:= alast+1;
+ for int1:= 0 to count - 1 do begin
+  ttestnode(fitems[int1]).number(alast);
+ end;
+ fnrlast:= alast;
+end;
+
+function ttestgroupnode.nexttestitem(const root: ttestnode): ttestitem;
+var
+ n1: ttestnode;
+ int1: integer;
+begin
+ result:= nil;
+ for int1:= 0 to count - 1 do begin
+  n1:= ttestnode(fitems[int1]);
+  if n1.checked then begin
+   if n1 is ttestitem then begin
+    result:= ttestitem(n1);
+   end
+   else begin
+    result:= n1.nexttestitem(n1);
+   end;
+   break;
+  end;
+ end;
+ if result = nil then begin
+  result:= inherited nexttestitem(root);
  end;
 end;
 
@@ -533,6 +597,13 @@ begin
   end;
  end;
 end;
+
+procedure ttestitem.number(var alast: integer);
+begin
+ inc(alast);
+ fnr:= alast;
+end;
+
 {
 function ttestitem.run: boolean;
 begin
@@ -593,6 +664,7 @@ begin
   fmacros.setasarray(fprojectoptions.macronames,fprojectoptions.macrovalues);
   frootnode.checked:= true;
   frootnode.updateparentnotcheckedtree();
+  renumber();
   connectgui.controller.execute();
  end;
 end;
@@ -672,6 +744,7 @@ end;
 
 procedure tmainmo.projectchanged();
 begin
+ renumber();
  if not fmodified then begin
   fmodified:= true;
   updatecaption();
@@ -795,6 +868,16 @@ begin
    fedititem.assign(n1); //restore
    n1.destroy();
   end;
+ end;
+end;
+
+procedure tmainmo.renumber;
+var
+ int1,int2: integer;
+begin
+ int2:= 0;
+ for int1:= 0 to frootnode.count-1 do begin
+  ttestnode(frootnode.fitems[int1]).number(int2);
  end;
 end;
 

@@ -37,6 +37,8 @@ type
    val_compilecommand: tstringedit;
    tspacer4: tspacer;
    val_compileresult: tintegeredit;
+   val_nr: tintegerdisp;
+   tspacer5: tspacer;
    procedure layoutexe(const sender: TObject);
    procedure macrohintexe(const sender: TObject; var info: hintinfoty);
    procedure compileresultchangeexe(const sender: TObject);

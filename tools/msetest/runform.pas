@@ -19,8 +19,8 @@ type
    okbu: tbutton;
    cancelbu: tbutton;
    tlayouter3: tlayouter;
-   tintegerdisp1: tintegerdisp;
-   tstringdisp1: tstringdisp;
+   nrdi: tintegerdisp;
+   captiondi: tstringdisp;
    procedure procfinishedexe(const sender: TObject);
    procedure showexe(const sender: TObject);
    procedure cancelexe(const sender: TObject);
@@ -36,6 +36,8 @@ type
    procedure docompile();
    procedure dotest();
    procedure dofinish(const ok: boolean);
+  protected
+   procedure stop();
   public
 //   constructor create(const atestitem: ttestnode);
    function runtest(const atestitem: ttestnode): boolean;
@@ -75,13 +77,12 @@ begin
    fcurrenttest:= ttestitem(ftestitem);
   end
   else begin
-   fcurrenttest:= ftestitem.nexttestitem();
+   fcurrenttest:= ftestitem.nexttestitem(ftestitem);
   end;
- end
- else begin
-  fcurrenttest:= fcurrenttest.nexttestitem();
  end;
  if fcurrenttest <> nil then begin
+  captiondi.value:= fcurrenttest.caption;
+  nrdi.value:= fcurrenttest.nr;
   cancelbu.enabled:= true;
   okbu.enabled:= false;
   fstate:= rs_compile;
@@ -92,6 +93,9 @@ begin
   else begin
    dotest();
   end;
+ end
+ else begin
+  stop();
  end;
 end;
 
@@ -136,6 +140,7 @@ begin
  ftestok:= ok;
  if fstate = rs_canceled then begin
   fcurrenttest.setteststate(tes_none);
+  stop();
  end
  else begin
   if ftestok then begin
@@ -144,7 +149,23 @@ begin
   else begin
    fcurrenttest.setteststate(tes_error);
   end;
+  if ftestitem = fcurrenttest then begin //single
+   stop();
+  end
+  else begin
+   fcurrenttest:= fcurrenttest.nexttestitem(ftestitem);
+   if fcurrenttest = nil then begin
+    stop();
+   end
+   else begin
+    docompile();
+   end;   
+  end;
  end;
+end;
+
+procedure trunfo.stop();
+begin
  cancelbu.enabled:= false;
  okbu.enabled:= true;
 end;

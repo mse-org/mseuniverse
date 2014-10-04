@@ -22,6 +22,7 @@ type
    commented: tdialogstringedit;
    editbu: tstockglyphdatabutton;
    editact: taction;
+   nrdi: tintegeredit;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);
@@ -53,6 +54,7 @@ type
    procedure editmacroexe(const sender: TObject);
   protected
    procedure checkenabledstate();
+   procedure refreshnumbers();
  end;
  
 var
@@ -61,7 +63,9 @@ implementation
 uses
  main_mfm,mainmodule,msefileutils,testeditform,groupeditform,macrosform,
  mseeditglob;
- 
+const
+ captioncol = 2;
+  
 procedure tmainfo.connectmoduleexe(const sender: TObject);
 begin
  treeed.itemlist.rootnode:= mainmo.rootnode;
@@ -95,6 +99,7 @@ procedure tmainfo.rowdeletedexe(const sender: tcustomgrid;
 begin
  if sender.userinput then begin
   mainmo.projectchanged();
+  refreshnumbers();
  end;
 end;
 
@@ -106,7 +111,7 @@ begin
  treeed.itemlist.insert(grid.row,n1);
  n1.getdefaults();
  mainmo.projectchanged();
- grid.col:= 1;
+ grid.col:= captioncol;
  treeed.beginedit();
 end;
 
@@ -131,6 +136,7 @@ begin
   mainmo.projectchanged();
   grid.focuscell(mgc(1,n1.index));
   treeed.beginedit();
+  refreshnumbers();
  end;
 end;
 
@@ -141,6 +147,8 @@ begin
  if sender.userinput then begin
   treeed.itemlist.moverow(fromindex,toindex);
   acount:= 0;
+  mainmo.projectchanged();
+  refreshnumbers();
  end;
 end;
 
@@ -161,6 +169,7 @@ procedure tmainfo.updaterowvalueexe(const sender: TObject;
 var
  int1: integer;
 begin
+ nrdi[aindex]:= ttestnode(aitem).nr;
  if aitem is ttestgroupnode then begin
   editbu[aindex]:= -1;
 //  grid.datacols.mergecols(aindex);
@@ -295,6 +304,22 @@ begin
  finally
   editfo.destroy();
  end;
+end;
+
+procedure tmainfo.refreshnumbers;
+var
+ po1: ptestnode;
+ po2: pinteger;
+ int1: integer;
+begin
+ po1:= treeed.itemlist.datapo;
+ po2:= nrdi.griddata.datapo;
+ for int1:= 0 to grid.rowhigh do begin
+  po2^:= po1^.nr;
+  inc(po1);
+  inc(po2);
+ end;
+ grid[0].invalidate;
 end;
 
 end.

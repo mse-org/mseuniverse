@@ -28,8 +28,11 @@ object mainfo: tmainfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 5
+        captions.count = 6
         captions.items = <        
+          item
+            caption = 'Nr.'
+          end        
           item
             caption = 'Run'
           end        
@@ -51,19 +54,26 @@ object mainfo: tmainfo
       -1610612716
       -1610612717
     )
-    datacols.count = 5
+    datacols.count = 6
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
     datacols.items = <    
+      item[nrdi]
+        color = -1879048187
+        options = [co_readonly, co_nofocus, co_nohscroll, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
+        widgetname = 'nrdi'
+        dataclass = tgridintegerdatalist
+      end    
       item[runbu]
         color = -2147483646
-        options = [co_nofocus, co_drawfocus, co_savestate, co_mousescrollrow]
+        options = [co_nofocus, co_drawfocus, co_nohscroll, co_savestate, co_mousescrollrow]
         widgetname = 'runbu'
         dataclass = tgridintegerdatalist
       end    
       item[treeed]
         width = 107
-        options = [co_savestate, co_mousescrollrow]
+        options = [co_nohscroll, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
@@ -79,7 +89,7 @@ object mainfo: tmainfo
         dataclass = tgridmsestringdatalist
       end    
       item[commented]
-        width = 317
+        width = 266
         options = [co_fill, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'commented'
@@ -102,11 +112,75 @@ object mainfo: tmainfo
     onrowsdeleted = rowdeletedexe
     oncellevent = cellevent
     reffontheight = 14
+    object pathed: tfilenameedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.color = -1879048187
+      frame.button.imagenr = 17
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 163
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_savestate, oe_checkvaluepaststatread]
+      textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+      onsetvalue = pathsetexe
+      controller.onbeforeexecute = pathedbeforedialogexe
+      controller.onafterexecute = pathedafterdialogexe
+      reffontheight = 14
+    end
+    object commented: tdialogstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.button.color = -1879048187
+      frame.button.imagenr = 17
+      taborder = 2
+      visible = False
+      bounds_x = 164
+      bounds_y = 0
+      bounds_cx = 266
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      reffontheight = 14
+    end
+    object editbu: tstockglyphdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      bounds_x = 431
+      bounds_y = 0
+      bounds_cx = 26
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_ellipsesmall
+      onexecute = editexe
+      max = -1
+    end
+    object nrdi: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      textflags = [tf_xcentered, tf_ycentered, tf_noselect]
+      reffontheight = 14
+    end
     object runbu: tdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 1
-      bounds_x = 0
+      bounds_x = 51
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -170,7 +244,7 @@ object mainfo: tmainfo
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       taborder = 2
       visible = False
-      bounds_x = 51
+      bounds_x = 102
       bounds_y = 0
       bounds_cx = 107
       bounds_cy = 16
@@ -178,58 +252,6 @@ object mainfo: tmainfo
       onupdaterowvalues = updaterowvalueexe
       options = [teo_treecolnavig]
       reffontheight = 14
-    end
-    object pathed: tfilenameedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      frame.levelo = 0
-      frame.colorclient = -2147483645
-      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.button.color = -1879048187
-      frame.button.imagenr = 17
-      taborder = 3
-      visible = False
-      bounds_x = 159
-      bounds_y = 0
-      bounds_cx = 163
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_savestate, oe_checkvaluepaststatread]
-      textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
-      onsetvalue = pathsetexe
-      controller.onbeforeexecute = pathedbeforedialogexe
-      controller.onafterexecute = pathedafterdialogexe
-      reffontheight = 14
-    end
-    object commented: tdialogstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      frame.levelo = 0
-      frame.colorclient = -2147483645
-      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.button.color = -1879048187
-      frame.button.imagenr = 17
-      taborder = 4
-      visible = False
-      bounds_x = 323
-      bounds_y = 0
-      bounds_cx = 317
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-      reffontheight = 14
-    end
-    object editbu: tstockglyphdatabutton
-      optionswidget1 = []
-      optionsskin = [osk_framebuttononly]
-      taborder = 5
-      bounds_x = 641
-      bounds_y = 0
-      bounds_cx = 26
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-      state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
-      glyph = stg_ellipsesmall
-      onexecute = editexe
-      max = -1
     end
   end
   object tmainmenu1: tmainmenu
