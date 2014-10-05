@@ -26,7 +26,6 @@ type
    tspacer2: tspacer;
    val_actualexitcode: tintegeredit;
    val_runcommand: tstringedit;
-   val_input: thexstringedit;
    tbutton3: tbutton;
    val_expectedoutput: thexstringedit;
    val_actualoutput: thexstringedit;
@@ -39,6 +38,10 @@ type
    val_compileresult: tintegeredit;
    val_nr: tintegerdisp;
    tspacer5: tspacer;
+   tlayouter6: tlayouter;
+   val_input: thexstringedit;
+   val_inputerror: tbooleandisp;
+   tspacer6: tspacer;
    procedure layoutexe(const sender: TObject);
    procedure macrohintexe(const sender: TObject; var info: hintinfoty);
    procedure compileresultchangeexe(const sender: TObject);
@@ -46,8 +49,9 @@ type
    procedure errorchangeexe(const sender: TObject);
    procedure exitcodechangeexe(const sender: TObject);
    procedure filemacrohintexe(const sender: TObject; var info: hintinfoty);
+   procedure inputerrorchangeexe(const sender: TObject);
   protected
-   procedure seterror(const adisp: tdataedit; const aerror: boolean);
+   procedure seterror(const adisp: twidget; const aerror: boolean);
    function filemacro(): msestring;
  end;
 
@@ -80,7 +84,7 @@ begin
  info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'');
 end;
 
-procedure ttesteditfo.seterror(const adisp: tdataedit; const aerror: boolean);
+procedure ttesteditfo.seterror(const adisp: twidget; const aerror: boolean);
 begin
  if aerror then begin
   adisp.frame.colorclient:= cl_ltred;
@@ -112,6 +116,11 @@ procedure ttesteditfo.exitcodechangeexe(const sender: TObject);
 begin
  seterror(val_actualexitcode,
          val_expectedexitcode.value <> val_actualexitcode.value);
+end;
+
+procedure ttesteditfo.inputerrorchangeexe(const sender: TObject);
+begin
+ seterror(val_inputerror,val_inputerror.value);
 end;
 
 function ttesteditfo.filemacro: msestring;

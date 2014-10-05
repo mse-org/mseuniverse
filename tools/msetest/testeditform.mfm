@@ -245,26 +245,8 @@ object testeditfo: ttesteditfo
       onshowhint = macrohintexe
       bounds_x = 8
       bounds_y = 110
-      bounds_cx = 576
+      bounds_cx = 577
       bounds_cy = 30
-      anchors = [an_left, an_top, an_right]
-      reffontheight = 14
-    end
-    object val_input: thexstringedit
-      frame.caption = 'Input'
-      frame.captionpos = cp_left
-      frame.dummy = 0
-      frame.outerframe = (
-        35
-        0
-        0
-        0
-      )
-      taborder = 5
-      onshowhint = macrohintexe
-      bounds_x = 29
-      bounds_y = 260
-      bounds_cx = 557
       anchors = [an_left, an_top, an_right]
       reffontheight = 14
     end
@@ -278,7 +260,7 @@ object testeditfo: ttesteditfo
         0
         5
       )
-      taborder = 6
+      taborder = 5
       bounds_x = 3
       bounds_y = 290
       bounds_cx = 583
@@ -301,7 +283,7 @@ object testeditfo: ttesteditfo
         0
         6
       )
-      taborder = 7
+      taborder = 6
       bounds_x = 18
       bounds_y = 330
       bounds_cx = 567
@@ -321,10 +303,10 @@ object testeditfo: ttesteditfo
         0
         5
       )
-      taborder = 8
+      taborder = 7
       bounds_x = 3
       bounds_y = 370
-      bounds_cx = 583
+      bounds_cx = 582
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
@@ -344,7 +326,7 @@ object testeditfo: ttesteditfo
         0
         6
       )
-      taborder = 9
+      taborder = 8
       bounds_x = 22
       bounds_y = 410
       bounds_cx = 563
@@ -355,7 +337,7 @@ object testeditfo: ttesteditfo
       reffontheight = 14
     end
     object tlayouter5: tlayouter
-      taborder = 10
+      taborder = 9
       bounds_x = 0
       bounds_y = 70
       bounds_cx = 596
@@ -402,12 +384,67 @@ object testeditfo: ttesteditfo
         hint = 'Compile result'
         bounds_x = 524
         bounds_y = 6
-        bounds_cx = 60
+        bounds_cx = 61
         bounds_cy = 18
         anchors = [an_top, an_right]
         optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
         onchange = compileresultchangeexe
         reffontheight = 14
+      end
+    end
+    object tlayouter6: tlayouter
+      taborder = 10
+      bounds_x = 0
+      bounds_y = 260
+      bounds_cx = 596
+      bounds_cy = 20
+      anchors = [an_top]
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_aligny]
+      align_glue = wam_start
+      object val_input: thexstringedit
+        frame.caption = 'Input'
+        frame.captionpos = cp_left
+        frame.dummy = 0
+        frame.outerframe = (
+          35
+          0
+          0
+          0
+        )
+        onshowhint = macrohintexe
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 523
+        anchors = [an_left, an_top, an_right]
+        reffontheight = 14
+      end
+      object val_inputerror: tbooleandisp
+        frame.captionpos = cp_left
+        frame.dummy = 0
+        taborder = 1
+        hint = 'Write to target input error'
+        bounds_x = 533
+        bounds_y = 1
+        bounds_cx = 52
+        bounds_cy = 18
+        anchors = [an_top, an_right]
+        textflags = [tf_ycentered]
+        onchange = inputerrorchangeexe
+        text_false = ' '
+        text_true = 'Error'
+        reffontheight = 14
+      end
+      object tspacer6: tspacer
+        taborder = 2
+        bounds_x = 523
+        bounds_y = 5
+        bounds_cx = 10
+        bounds_cy = 10
+        anchors = [an_top, an_right]
+        linkleft = val_input
+        linkright = val_inputerror
+        options = [spao_glueright]
       end
     end
   end

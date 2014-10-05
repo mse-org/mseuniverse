@@ -34,7 +34,8 @@ type
    procedure number(var alast: integer); virtual;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
-   function nexttestitem(const root: ttestnode): ttestitem; virtual;
+   function firsttestitem(const startindex: integer = 0): ttestitem;
+   function nexttestitem(const aroot: ttestnode): ttestitem;
    procedure updateparentteststate(); virtual;
    property teststate: teststatety read fteststate;
   published
@@ -101,7 +102,6 @@ type
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
    procedure updateparentteststate(); override;
-   function nexttestitem(const root: ttestnode): ttestitem; override;
   published
    property captiondefault: msestring read fcaptiondefault 
                                                   write fcaptiondefault;
@@ -116,6 +116,7 @@ type
    factualoutput: string;
    factualerror: string;
    factualexitcode: integer;
+   finputerror: boolean;
   protected
    class function kind: testnodekindty; override;
    procedure dogetdefaults(); override;
@@ -128,6 +129,7 @@ type
    procedure dostatwrite(const writer: tstatwriter); override;
    procedure setteststate(const astate: teststatety);
   published
+   property inputerror: boolean read finputerror write finputerror;
    property compileresult: integer read fcompileresult write fcompileresult;
    property actualoutput: string read factualoutput
                                                   write factualoutput;
@@ -284,28 +286,36 @@ begin
  checked:= avalue;
 end;
 
-function ttestnode.nexttestitem(const root: ttestnode): ttestitem;
+function ttestnode.firsttestitem(const startindex: integer = 0): ttestitem;
 var
- n1,n2: ttestnode;
  int1: integer;
+ n1: ttestnode;
+begin
+ result:= nil;
+ for int1:= startindex to count-1 do begin
+  n1:= ttestnode(fitems[int1]);
+  if n1.checked then begin
+   if n1 is ttestitem then begin
+    result:= ttestitem(n1);
+   end
+   else begin
+    result:= n1.firsttestitem();
+   end;
+   if result <> nil then begin
+    break;
+   end;
+  end;
+ end;
+end;
+
+function ttestnode.nexttestitem(const aroot: ttestnode): ttestitem;
+var
+ n1: ttestnode;
 begin
  result:= nil;
  n1:= self;
- while (result = nil) and (n1 <> root) do begin
-  with n1 do begin
-   for int1:= fparentindex+1 to fparent.count-1 do begin
-    n2:= ttestnode(ttestnode(fparent).fitems[int1]);
-    if n2.checked then begin
-     if n2 is ttestitem then begin
-      result:= ttestitem(n2);
-     end
-     else begin
-      result:= n2.nexttestitem(root);
-     end;
-     break;
-    end;
-   end;
-  end;
+ while (result = nil) and (n1 <> aroot) do begin
+  result:= ttestnode(n1.parent).firsttestitem(n1.parentindex+1);
   n1:= ttestnode(n1.parent);
  end;
 end;
@@ -421,29 +431,6 @@ begin
  fnrlast:= alast;
 end;
 
-function ttestgroupnode.nexttestitem(const root: ttestnode): ttestitem;
-var
- n1: ttestnode;
- int1: integer;
-begin
- result:= nil;
- for int1:= 0 to count - 1 do begin
-  n1:= ttestnode(fitems[int1]);
-  if n1.checked then begin
-   if n1 is ttestitem then begin
-    result:= ttestitem(n1);
-   end
-   else begin
-    result:= n1.nexttestitem(n1);
-   end;
-   break;
-  end;
- end;
- if result = nil then begin
-  result:= inherited nexttestitem(root);
- end;
-end;
-
 { ttestpathnode }
 
 procedure ttestpathnode.setpath(avalue: filenamety);
@@ -552,6 +539,7 @@ begin
  writer.writebinarystring('ao',factualoutput);
  writer.writebinarystring('ae',factualerror);
  writer.writeinteger('aec',factualexitcode);
+ writer.writeboolean('ie',finputerror);
 end;
 
 procedure ttestitem.dostatread(const reader: tstatreader);
@@ -561,6 +549,7 @@ begin
  factualoutput:= reader.readbinarystring('ao','');
  factualerror:= reader.readbinarystring('ae','');
  factualexitcode:= reader.readinteger('aec',0);
+ finputerror:= reader.readboolean('ie',false);
 end;
 
 procedure ttestitem.setteststate(const astate: teststatety);
@@ -584,6 +573,7 @@ begin
    self.factualerror:= factualerror;
    self.fexpectedexitcode:= fexpectedexitcode;
    self.factualexitcode:= factualexitcode;
+   self.finputerror:= finputerror;
   end;
  end;
 end;
