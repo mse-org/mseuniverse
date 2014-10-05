@@ -30,6 +30,9 @@ type
    procedure outputrx(const sender: tpipereader);
    procedure errorrx(const sender: tpipereader);
    procedure againexe(const sender: TObject);
+   procedure errorchangeexe(const sender: TObject);
+   procedure actiexe(const sender: TObject);
+   procedure formactiexe(const sender: TObject);
   protected
    fstate: runstatety;
    ftestitem: ttestnode;
@@ -42,17 +45,30 @@ type
    procedure dotest();
    procedure dofinish(const ok: boolean);
   protected
+   fstartwidget: twidget;
    procedure stop();
   public
 //   constructor create(const atestitem: ttestnode);
    function runtest(const atestitem: ttestnode): boolean;
                     //true if ok or disabled
  end;
-var
- runfo: trunfo;
+
+procedure seterror(const adisp: twidget; const aerror: boolean);
+
 implementation
 uses
  runform_mfm,msesystypes;
+
+procedure seterror(const adisp: twidget; const aerror: boolean);
+begin
+ if aerror then begin
+  adisp.frame.colorclient:= cl_ltred;
+ end
+ else begin
+  adisp.frame.colorclient:= cl_active;
+ end;
+end;
+
  
 { trunfo }
 {
@@ -73,6 +89,10 @@ end;
 procedure trunfo.start;
 begin
  ftestok:= true;
+ fstartwidget:= window.focusedwidget;
+ if fstartwidget = nil then begin
+  fstartwidget:= okbu;
+ end;
  cancelbu.enabled:= true;
  okbu.enabled:= false;
  againbu.enabled:= false;
@@ -136,7 +156,7 @@ begin
    else begin
     if fcurrenttest.input <> '' then begin
      try
-      proc.input.pipewriter.write(fcurrenttest.input);
+      proc.input.pipewriter.write(fcurrenttest.input+lineend);
      except
       fcurrenttest.inputerror:= true;
       proc.kill();
@@ -155,13 +175,13 @@ end;
 
 procedure trunfo.dofinish(const ok: boolean);
 begin
- ftestok:= ok;
+ ftestok:= ftestok and ok;
  if fstate = rs_canceled then begin
   fcurrenttest.setteststate(tes_none);
   stop();
  end
  else begin
-  if ftestok then begin
+  if ok then begin
    fcurrenttest.setteststate(tes_ok);
    okdi.value:= okdi.value+1;
   end
@@ -189,6 +209,7 @@ begin
  cancelbu.enabled:= false;
  okbu.enabled:= true;
  againbu.enabled:= true;
+ fstartwidget.setfocus();
 end;
 
 procedure trunfo.procfinishedexe(const sender: TObject);
@@ -206,13 +227,13 @@ begin
   rs_test: begin
    with fcurrenttest do begin
     actualexitcode:= proc.exitcode;
-    actualoutput:= foutputbuffer;
+    actualoutput:= utf8tostring(foutputbuffer);
     foutputbuffer:= '';
-    actualerror:= ferrorbuffer;
+    actualerror:= utf8tostring(ferrorbuffer);
     ferrorbuffer:= '';
     dofinish((actualexitcode = expectedexitcode) and 
-             (actualoutput = expectedoutput) and
-             (actualerror = expectederror));
+             (removelineterminator(actualoutput) = expectedoutput) and
+             (removelineterminator(actualerror) = expectederror));
    end;
   end;
   else begin
@@ -257,6 +278,19 @@ end;
 procedure trunfo.errorrx(const sender: tpipereader);
 begin
  ferrorbuffer:= ferrorbuffer+sender.readdatastring();
+end;
+
+procedure trunfo.errorchangeexe(const sender: TObject);
+begin
+ seterror(twidget(sender),errordi.value <> 0);
+end;
+
+procedure trunfo.actiexe(const sender: TObject);
+begin
+end;
+
+procedure trunfo.formactiexe(const sender: TObject);
+begin
 end;
 
 end.

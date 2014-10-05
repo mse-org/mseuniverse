@@ -65,9 +65,9 @@ type
   private
    fcompilecommand: msestring;
    fruncommand: msestring;
-   finput: string;
-   fexpectedoutput: string;
-   fexpectederror: string;
+   finput: msestring;
+   fexpectedoutput: msestring;
+   fexpectederror: msestring;
    fexpectedexitcode: integer;
   protected
    procedure dogetdefaults(); override;
@@ -78,10 +78,10 @@ type
    property compilecommand: msestring read fcompilecommand 
                                               write fcompilecommand;
    property runcommand: msestring read fruncommand write fruncommand;
-   property input: string read finput write finput;
-   property expectedoutput: string read fexpectedoutput
+   property input: msestring read finput write finput;
+   property expectedoutput: msestring read fexpectedoutput
                                                   write fexpectedoutput;
-   property expectederror: string read fexpectederror
+   property expectederror: msestring read fexpectederror
                                                   write fexpectederror;
    property expectedexitcode: integer read fexpectedexitcode 
                                           write fexpectedexitcode;
@@ -113,8 +113,8 @@ type
  ttestitem = class(ttestvaluenode)
   private
    fcompileresult: integer;
-   factualoutput: string;
-   factualerror: string;
+   factualoutput: msestring;
+   factualerror: msestring;
    factualexitcode: integer;
    finputerror: boolean;
   protected
@@ -131,9 +131,9 @@ type
   published
    property inputerror: boolean read finputerror write finputerror;
    property compileresult: integer read fcompileresult write fcompileresult;
-   property actualoutput: string read factualoutput
+   property actualoutput: msestring read factualoutput
                                                   write factualoutput;
-   property actualerror: string read factualerror
+   property actualerror: msestring read factualerror
                                                   write factualerror;
    property actualexitcode: integer read factualexitcode 
                                           write factualexitcode;
@@ -487,9 +487,9 @@ begin
  inherited;
  writer.writemsestring('cc',fcompilecommand);
  writer.writemsestring('rc',fruncommand);
- writer.writebinarystring('in',finput);
- writer.writebinarystring('eo',fexpectedoutput);
- writer.writebinarystring('ee',fexpectederror);
+ writer.writemsestring('in',finput);
+ writer.writemsestring('eo',fexpectedoutput);
+ writer.writemsestring('ee',fexpectederror);
  writer.writeinteger('eec',fexpectedexitcode);
 end;
 
@@ -498,9 +498,9 @@ begin
  inherited;
  fcompilecommand:= reader.readmsestring('cc','');
  fruncommand:= reader.readmsestring('rc','');
- finput:= reader.readbinarystring('in','');
- fexpectedoutput:= reader.readbinarystring('eo','');
- fexpectederror:= reader.readbinarystring('ee','');
+ finput:= reader.readmsestring('in','');
+ fexpectedoutput:= reader.readmsestring('eo','');
+ fexpectederror:= reader.readmsestring('ee','');
  fexpectedexitcode:= reader.readinteger('eec',0);
 end;
 
@@ -536,8 +536,8 @@ procedure ttestitem.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
  writer.writeinteger('cr',fcompileresult);
- writer.writebinarystring('ao',factualoutput);
- writer.writebinarystring('ae',factualerror);
+ writer.writemsestring('ao',factualoutput);
+ writer.writemsestring('ae',factualerror);
  writer.writeinteger('aec',factualexitcode);
  writer.writeboolean('ie',finputerror);
 end;
@@ -546,8 +546,8 @@ procedure ttestitem.dostatread(const reader: tstatreader);
 begin
  inherited;
  fcompileresult:= reader.readinteger('cr',0);
- factualoutput:= reader.readbinarystring('ao','');
- factualerror:= reader.readbinarystring('ae','');
+ factualoutput:= reader.readmsestring('ao','');
+ factualerror:= reader.readmsestring('ae','');
  factualexitcode:= reader.readinteger('aec',0);
  finputerror:= reader.readboolean('ie',false);
 end;

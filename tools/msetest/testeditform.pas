@@ -27,10 +27,10 @@ type
    val_actualexitcode: tintegeredit;
    val_runcommand: tstringedit;
    tbutton3: tbutton;
-   val_expectedoutput: thexstringedit;
-   val_actualoutput: thexstringedit;
-   val_expectederror: thexstringedit;
-   val_actualerror: thexstringedit;
+   val_expectedoutput: tstringedit;
+   val_actualoutput: tstringedit;
+   val_expectederror: tstringedit;
+   val_actualerror: tstringedit;
    tspacer3: tspacer;
    tlayouter5: tlayouter;
    val_compilecommand: tstringedit;
@@ -39,7 +39,7 @@ type
    val_nr: tintegerdisp;
    tspacer5: tspacer;
    tlayouter6: tlayouter;
-   val_input: thexstringedit;
+   val_input: tstringedit;
    val_inputerror: tbooleandisp;
    tspacer6: tspacer;
    procedure layoutexe(const sender: TObject);
@@ -51,13 +51,12 @@ type
    procedure filemacrohintexe(const sender: TObject; var info: hintinfoty);
    procedure inputerrorchangeexe(const sender: TObject);
   protected
-   procedure seterror(const adisp: twidget; const aerror: boolean);
    function filemacro(): msestring;
  end;
 
 implementation
 uses
- testeditform_mfm,mainmodule;
+ testeditform_mfm,mainmodule,runform;
  
 procedure ttesteditfo.layoutexe(const sender: TObject);
 begin
@@ -84,16 +83,6 @@ begin
  info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'');
 end;
 
-procedure ttesteditfo.seterror(const adisp: twidget; const aerror: boolean);
-begin
- if aerror then begin
-  adisp.frame.colorclient:= cl_ltred;
- end
- else begin
-  adisp.frame.colorclient:= cl_active;
- end;
-end;
-
 procedure ttesteditfo.compileresultchangeexe(const sender: TObject);
 begin
  seterror(val_compileresult,
@@ -103,13 +92,15 @@ end;
 procedure ttesteditfo.outputputchangeexe(const sender: TObject);
 begin
  seterror(val_actualoutput,
-         val_expectedoutput.value <> val_actualoutput.value);
+         val_expectedoutput.value <> 
+                            removelineterminator(val_actualoutput.value));
 end;
 
 procedure ttesteditfo.errorchangeexe(const sender: TObject);
 begin
  seterror(val_actualerror,
-         val_expectederror.value <> val_actualerror.value);
+         val_expectederror.value <> 
+                           removelineterminator(val_actualerror.value));
 end;
 
 procedure ttesteditfo.exitcodechangeexe(const sender: TObject);

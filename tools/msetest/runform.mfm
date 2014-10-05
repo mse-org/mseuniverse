@@ -1,4 +1,5 @@
 object runfo: trunfo
+  onactivate = formactiexe
   visible = False
   bounds_x = 337
   bounds_y = 266
@@ -10,12 +11,14 @@ object runfo: trunfo
     676
     396
   )
-  options = [fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder]
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder]
   statfile = tstatfile1
   caption = 'Test Run'
   onshow = showexe
   moduleclassname = 'tmseform'
   object grid: twidgetgrid
+    taborder = 1
+    onactivate = actiexe
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 676
@@ -51,7 +54,6 @@ object runfo: trunfo
     end
   end
   object tlayouter2: tlayouter
-    taborder = 1
     bounds_x = 0
     bounds_y = 356
     bounds_cx = 676
@@ -194,6 +196,7 @@ object runfo: trunfo
         bounds_y = 0
         bounds_cx = 60
         bounds_cy = 35
+        onchange = errorchangeexe
         reffontheight = 14
       end
     end
@@ -207,7 +210,9 @@ object runfo: trunfo
   object proc: tmseprocess
     options = [pro_output, pro_erroroutput, pro_input, pro_winpipewritehandles]
     input.encoding = ce_utf8n
+    output.encoding = ce_utf8n
     output.oninputavailable = outputrx
+    erroroutput.encoding = ce_utf8n
     erroroutput.oninputavailable = errorrx
     onprocfinished = procfinishedexe
     left = 136

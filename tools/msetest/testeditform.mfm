@@ -250,7 +250,7 @@ object testeditfo: ttesteditfo
       anchors = [an_left, an_top, an_right]
       reffontheight = 14
     end
-    object val_expectedoutput: thexstringedit
+    object val_expectedoutput: tstringedit
       frame.caption = 'Expected'#10'Output'
       frame.captionpos = cp_left
       frame.dummy = 0
@@ -270,7 +270,7 @@ object testeditfo: ttesteditfo
       onchange = outputputchangeexe
       reffontheight = 14
     end
-    object val_actualoutput: thexstringedit
+    object val_actualoutput: tstringedit
       frame.levelo = -1
       frame.colorclient = -1879048187
       frame.caption = 'Actual'#10'Output'
@@ -290,10 +290,11 @@ object testeditfo: ttesteditfo
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      textflags = [tf_noselect]
       onchange = outputputchangeexe
       reffontheight = 14
     end
-    object val_expectederror: thexstringedit
+    object val_expectederror: tstringedit
       frame.caption = 'Expected'#10'Error'
       frame.captionpos = cp_left
       frame.dummy = 0
@@ -313,7 +314,7 @@ object testeditfo: ttesteditfo
       onchange = errorchangeexe
       reffontheight = 14
     end
-    object val_actualerror: thexstringedit
+    object val_actualerror: tstringedit
       frame.levelo = -1
       frame.colorclient = -1879048187
       frame.caption = 'Actual'#10'Error'
@@ -333,6 +334,7 @@ object testeditfo: ttesteditfo
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      textflags = [tf_noselect]
       onchange = errorchangeexe
       reffontheight = 14
     end
@@ -402,7 +404,7 @@ object testeditfo: ttesteditfo
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       optionslayout = [lao_aligny]
       align_glue = wam_start
-      object val_input: thexstringedit
+      object val_input: tstringedit
         frame.caption = 'Input'
         frame.captionpos = cp_left
         frame.dummy = 0
