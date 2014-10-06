@@ -24,6 +24,7 @@ type
    okdi: tintegerdisp;
    errordi: tintegerdisp;
    againbu: tbutton;
+   totaldi: tintegerdisp;
    procedure procfinishedexe(const sender: TObject);
    procedure showexe(const sender: TObject);
    procedure cancelexe(const sender: TObject);
@@ -31,8 +32,7 @@ type
    procedure errorrx(const sender: tpipereader);
    procedure againexe(const sender: TObject);
    procedure errorchangeexe(const sender: TObject);
-   procedure actiexe(const sender: TObject);
-   procedure formactiexe(const sender: TObject);
+   procedure okchaexe(const sender: TObject);
   protected
    fstate: runstatety;
    ftestitem: ttestnode;
@@ -57,7 +57,7 @@ procedure seterror(const adisp: twidget; const aerror: boolean);
 
 implementation
 uses
- runform_mfm,msesystypes;
+ runform_mfm,msesystypes,main;
 
 procedure seterror(const adisp: twidget; const aerror: boolean);
 begin
@@ -205,11 +205,20 @@ begin
 end;
 
 procedure trunfo.stop();
+var
+ n1: ttestnode;
 begin
  cancelbu.enabled:= false;
  okbu.enabled:= true;
  againbu.enabled:= true;
  fstartwidget.setfocus();
+ if fstate = rs_canceled then begin
+  n1:= mainmo.findnumber(fcurrenttest.nr);
+  if n1 <> nil then begin
+   n1.expandtoroot;
+   mainfo.grid.row:= n1.index;
+  end;
+ end;
 end;
 
 procedure trunfo.procfinishedexe(const sender: TObject);
@@ -218,7 +227,12 @@ begin
   rs_compile: begin
    fcurrenttest.compileresult:= term.exitcode();
    if fcurrenttest.compileresult <> 0 then begin
-    dofinish(false);
+    if mainmo.stoponcomperr.checked then begin
+     cancelexe(nil);
+    end
+    else begin
+     dofinish(false);
+    end;
    end
    else begin
     dotest();
@@ -283,14 +297,12 @@ end;
 procedure trunfo.errorchangeexe(const sender: TObject);
 begin
  seterror(twidget(sender),errordi.value <> 0);
+ totaldi.value:= okdi.value + errordi.value;
 end;
 
-procedure trunfo.actiexe(const sender: TObject);
+procedure trunfo.okchaexe(const sender: TObject);
 begin
-end;
-
-procedure trunfo.formactiexe(const sender: TObject);
-begin
+ totaldi.value:= okdi.value + errordi.value;
 end;
 
 end.

@@ -6,11 +6,10 @@ object mainfo: tmainfo
   bounds_cy = 316
   container.bounds = (
     0
-    16
+    0
     672
-    300
+    316
   )
-  mainmenu = tmainmenu1
   options = [fo_main, fo_terminateonclose, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainmo.projectstat
   caption = 'MSEtest'
@@ -19,10 +18,10 @@ object mainfo: tmainfo
   object grid: twidgetgrid
     popupmenu = tpopupmenu1
     bounds_x = 0
-    bounds_y = 0
+    bounds_y = 18
     bounds_cx = 672
-    bounds_cy = 300
-    anchors = []
+    bounds_cy = 298
+    anchors = [an_top, an_bottom]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_colmerged, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixrows.count = 1
     fixrows.items = <    
@@ -73,7 +72,7 @@ object mainfo: tmainfo
       end    
       item[treeed]
         width = 107
-        options = [co_nohscroll, co_savestate, co_mousescrollrow]
+        options = [co_proportional, co_nohscroll, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
@@ -82,7 +81,7 @@ object mainfo: tmainfo
       end    
       item[pathed]
         width = 163
-        options = [co_savestate, co_mousescrollrow]
+        options = [co_proportional, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         onshowhint = pathedshowhint
         widgetname = 'pathed'
@@ -90,7 +89,7 @@ object mainfo: tmainfo
       end    
       item[commented]
         width = 266
-        options = [co_fill, co_savestate, co_mousescrollrow]
+        options = [co_proportional, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'commented'
         dataclass = tgridmsestringdatalist
@@ -100,7 +99,7 @@ object mainfo: tmainfo
         face.template = guitemplatesmo.fadevertkonvex
         face.dummy = 0
         width = 26
-        options = [co_drawfocus, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_nohscroll, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'editbu'
         dataclass = tgridintegerdatalist
@@ -149,20 +148,6 @@ object mainfo: tmainfo
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
-    end
-    object editbu: tstockglyphdatabutton
-      optionswidget1 = []
-      optionsskin = [osk_framebuttononly]
-      taborder = 3
-      bounds_x = 431
-      bounds_y = 0
-      bounds_cx = 26
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-      state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
-      glyph = stg_ellipsesmall
-      onexecute = editexe
-      max = -1
     end
     object nrdi: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
@@ -253,44 +238,194 @@ object mainfo: tmainfo
       options = [teo_treecolnavig]
       reffontheight = 14
     end
+    object editbu: tstockglyphdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      bounds_x = 642
+      bounds_y = 0
+      bounds_cx = 26
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_ellipsesmall
+      onexecute = editexe
+      max = -1
+    end
   end
-  object tmainmenu1: tmainmenu
-    menu.submenu.count = 2
-    menu.submenu.items = <    
-      item
-        submenu.count = 7
-        submenu.items = <        
-          item
-            action = mainmo.openact
-          end        
-          item
-            action = mainmo.saveact
-          end        
-          item
-            action = mainmo.saveasact
-          end        
-          item
-            action = mainmo.newact
-          end        
-          item
-            action = mainmo.closeact
-          end        
-          item
-            options = [mao_separator, mao_shortcutcaption]
-          end        
-          item
-            action = mainmo.exitact
-          end>
-        caption = '&File'
-        state = [as_localcaption]
-      end    
-      item
-        caption = 'Edit Macros'
-        state = [as_localcaption, as_localonexecute]
-        onexecute = editmacroexe
-      end>
-    left = 16
-    top = 40
+  object tlayouter1: tlayouter
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 672
+    bounds_cy = 18
+    anchors = [an_top]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linkbottom = grid
+    optionslayout = [lao_aligny]
+    align_glue = wam_start
+    object tmainmenuwidget1: tmainmenuwidget
+      face.template = guitemplatesmo.fadevertconcave
+      face.dummy = 0
+      bounds_x = 0
+      bounds_y = 1
+      bounds_cx = 333
+      bounds_cy = 16
+      menu.menu.submenu.count = 4
+      menu.menu.submenu.items = <      
+        item
+          submenu.count = 7
+          submenu.items = <          
+            item
+              action = mainmo.openact
+              caption = '&Open'
+              state = [as_localcaption]
+            end          
+            item
+              action = mainmo.saveact
+              caption = '&Save'
+              state = [as_localcaption]
+            end          
+            item
+              action = mainmo.saveasact
+              caption = 'Save &as'
+              state = [as_localcaption]
+            end          
+            item
+              action = mainmo.newact
+              caption = '&New'
+              state = [as_localcaption]
+            end          
+            item
+              action = mainmo.closeact
+              caption = '&Close'
+              state = [as_localcaption]
+            end          
+            item
+              options = [mao_separator, mao_shortcutcaption]
+            end          
+            item
+              action = mainmo.exitact
+              caption = '&Exit'
+              state = [as_localcaption]
+            end>
+          caption = '&File'
+          state = [as_localcaption]
+        end      
+        item
+          caption = '&Run'
+          state = [as_localcaption, as_localonexecute]
+          onexecute = runallexe
+        end      
+        item
+          caption = '&Macros'
+          state = [as_localcaption, as_localonexecute]
+          onexecute = editmacroexe
+        end      
+        item
+          submenu.count = 1
+          submenu.items = <          
+            item
+              action = mainmo.stoponcomperr
+              options = [mao_checkbox, mao_shortcutcaption]
+            end>
+          caption = '&Options'
+          state = [as_localcaption]
+        end>
+    end
+    object tspacer1: tspacer
+      taborder = 1
+      bounds_x = 333
+      bounds_y = 4
+      bounds_cx = 10
+      bounds_cy = 10
+      anchors = [an_top, an_right]
+      linkleft = tmainmenuwidget1
+      linkright = okdi
+      options = [spao_glueright]
+    end
+    object okdi: tintegerdisp
+      frame.caption = 'OK'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        19
+        0
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 343
+      bounds_y = 0
+      bounds_cx = 89
+      bounds_cy = 18
+      anchors = [an_top, an_right]
+      text = ' '
+      reffontheight = 14
+    end
+    object tspacer2: tspacer
+      taborder = 3
+      bounds_x = 432
+      bounds_y = 4
+      bounds_cx = 10
+      bounds_cy = 10
+      anchors = [an_top, an_right]
+      linkleft = okdi
+      linkright = errordi
+      options = [spao_glueright]
+    end
+    object errordi: tintegerdisp
+      frame.colorclient = -1879048185
+      frame.caption = 'Error'
+      frame.captionpos = cp_left
+      frame.localprops = [frl_colorclient]
+      frame.dummy = 0
+      frame.outerframe = (
+        34
+        0
+        0
+        0
+      )
+      taborder = 4
+      bounds_x = 442
+      bounds_y = 0
+      bounds_cx = 104
+      bounds_cy = 18
+      anchors = [an_top, an_right]
+      text = ' '
+      onchange = errorchangeexe
+      reffontheight = 14
+    end
+    object totaldi: tintegerdisp
+      frame.caption = 'Total'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        34
+        0
+        0
+        0
+      )
+      taborder = 5
+      bounds_x = 556
+      bounds_y = 0
+      bounds_cx = 104
+      bounds_cy = 18
+      anchors = [an_top, an_right]
+      text = ' '
+      reffontheight = 14
+    end
+    object tspacer3: tspacer
+      taborder = 6
+      bounds_x = 546
+      bounds_y = 4
+      bounds_cx = 10
+      bounds_cy = 10
+      anchors = [an_top, an_right]
+      linkleft = errordi
+      linkright = totaldi
+      options = [spao_glueright]
+    end
   end
   object connectmodule: tifiactionendpoint
     ifilink = mainmo.connectgui

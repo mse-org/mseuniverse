@@ -6,7 +6,7 @@ uses
  mseificompglob,mseifiglob,msestat,msestatfile,mseactions,msedatanodes,
  mselistbrowser,mclasses,mserttistat,msestrings,msebitmap,msedataedits,mseedit,
  msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,msemenus,
- msestream,msesys,sysutils,msemacros,mseforms;
+ msestream,msesys,sysutils,msemacros,mseforms,msesimplewidgets,msewidgets;
 
 type
  testnodekindty = (tnk_none,tnk_group,tnk_leaf);
@@ -168,6 +168,7 @@ type
    projectcaption: tifistringlinkcomp;
    projectfiledialog: tfiledialog;
    runtestact: taction;
+   stoponcomperr: taction;
    procedure exitexe(const sender: TObject);
    procedure openexe(const sender: TObject);
    procedure getstatobjexe(const sender: TObject; var aobject: TObject);
@@ -177,6 +178,7 @@ type
    procedure projectupdateexe(const sender: TObject; const filer: tstatfiler);
    procedure aftermainstareadexe(const sender: TObject);
    procedure runtestexe(const sender: TObject);
+   procedure stoponcompexe(const sender: TObject);
   private
    frootnode: ttestnode;
    fprojectoptions: tprojectoptions;
@@ -187,6 +189,8 @@ type
    frunfo: tmseform;
    feditfo: tmsecomponent;
    fedititem: ttestnode;
+   fokcount: integer;
+   ferrorcount: integer;
   protected
    procedure updatecaption();
    procedure updateprojectname();
@@ -200,6 +204,7 @@ type
    function saveasproject(): modalresultty;
    procedure projectchanged();
    procedure renumber();
+   function findnumber(const anumber: integer): ttestitem;
    procedure beginedit(const aitem: ttestnode; const editfo: tmsecomponent);
    procedure endedit(const aitem: ttestnode; const editfo: tmsecomponent);
    procedure begineditmacros(const editfo: tmsecomponent);
@@ -209,6 +214,8 @@ type
    function expandmacros(const aitem: ttestnode; const avalue: msestring; 
                            const apath: msestring): msestring;
    function runtest(const aitem: ttestnode): boolean; //true if ok
+   property okcount: integer read fokcount;
+   property errorcount: integer read ferrorcount;
    
    property rootnode: ttestnode read frootnode;
    property projectoptions: tprojectoptions read fprojectoptions;
@@ -219,7 +226,7 @@ var
  mainmo: tmainmo;
 implementation
 uses
- mainmodule_mfm,msewidgets,msefileutils,runform;
+ mainmodule_mfm,msefileutils,runform;
 
 { ttestnode }
 
@@ -840,7 +847,11 @@ begin
  if frunfo = nil then begin
   setlinkedvar(trunfo.create(nil),tmsecomponent(frunfo));
  end;
- result:= trunfo(frunfo).runtest(aitem);
+ with trunfo(frunfo) do begin
+  result:= runtest(aitem);
+  fokcount:= okdi.value;
+  ferrorcount:= errordi.value;
+ end;
 end;
 
 procedure tmainmo.runtestexe(const sender: TObject);
@@ -869,6 +880,43 @@ begin
  for int1:= 0 to frootnode.count-1 do begin
   ttestnode(frootnode.fitems[int1]).number(int2);
  end;
+end;
+
+function tmainmo.findnumber(const anumber: integer): ttestitem;
+ 
+ procedure check(const anode: ttestnode);
+ var
+  int1: integer;
+ begin
+  if anode is ttestitem then begin
+   if anode.fnr = anumber then begin
+    result:= ttestitem(anode);
+    exit;
+   end;
+  end;
+  if anode.nr > anumber then begin
+   exit;
+  end;
+  for int1:= 1 to anode.count do begin
+   if ttestnode(anode.fitems[int1]).nr > anumber then begin
+    check(ttestnode(anode.fitems[int1-1]));
+    exit;
+   end;
+  end;
+  if anode.count > 0 then begin
+   check(ttestnode(anode.fitems[anode.count-1]));
+  end;
+ end;
+ 
+begin
+ result:= nil;
+ check(rootnode);
+end;
+
+
+procedure tmainmo.stoponcompexe(const sender: TObject);
+begin
+ projectchanged();
 end;
 
 { tprojectoptions }

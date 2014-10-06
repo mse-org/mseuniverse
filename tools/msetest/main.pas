@@ -7,11 +7,10 @@ uses
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,msedatanodes,mselistbrowser,mseifiendpoint,
  msebitmap,msefiledialog,msesys,msegraphedits,msescrollbar,msedialog,mseact,
- mseactions,msedispwidgets,mserichstring,msetimer;
+ mseactions,msedispwidgets,mserichstring,msetimer,msemenuwidgets,msesplitter;
 
 type
  tmainfo = class(tmainform)
-   tmainmenu1: tmainmenu;
    grid: twidgetgrid;
    treeed: ttreeitemedit;
    connectmodule: tifiactionendpoint;
@@ -23,6 +22,14 @@ type
    editbu: tstockglyphdatabutton;
    editact: taction;
    nrdi: tintegeredit;
+   tlayouter1: tlayouter;
+   tmainmenuwidget1: tmainmenuwidget;
+   tspacer1: tspacer;
+   okdi: tintegerdisp;
+   tspacer2: tspacer;
+   errordi: tintegerdisp;
+   totaldi: tintegerdisp;
+   tspacer3: tspacer;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);
@@ -52,6 +59,8 @@ type
                    var aresult: modalresultty);
    procedure editexe(const sender: TObject);
    procedure editmacroexe(const sender: TObject);
+   procedure runallexe(const sender: TObject);
+   procedure errorchangeexe(const sender: TObject);
   protected
    procedure checkenabledstate();
    procedure refreshnumbers();
@@ -62,7 +71,7 @@ var
 implementation
 uses
  main_mfm,mainmodule,msefileutils,testeditform,groupeditform,macrosform,
- mseeditglob;
+ mseeditglob,runform;
 const
  captioncol = 2;
   
@@ -226,12 +235,28 @@ end;
 
 procedure tmainfo.runexe(const sender: TObject);
 begin
+ okdi.text:= ' ';
+ errordi.text:= ' ';
+ totaldi.text:= ' ';
+ seterror(errordi,false);
  mainmo.runtest(ttestnode(treeed.item));
  with ttestnode(treeed.item) do begin
   updateparentteststate();
   treeed.updateitemvalues(grid.row,rowheight);
   treeed.updateparentvalues(grid.row);
  end;
+end;
+
+procedure tmainfo.runallexe(const sender: TObject);
+begin
+ mainmo.runtest(mainmo.rootnode);
+ treeed.updateitemvalues(0,grid.rowcount);
+ okdi.text:= '';
+ errordi.text:= '';
+ totaldi.text:= '';
+ okdi.value:= mainmo.okcount;
+ errordi.value:= mainmo.errorcount;
+ totaldi.value:= okdi.value + errordi.value;
 end;
 
 procedure tmainfo.cellevent(const sender: TObject; var info: celleventinfoty);
@@ -320,6 +345,11 @@ begin
   inc(po2);
  end;
  grid[0].invalidate;
+end;
+
+procedure tmainfo.errorchangeexe(const sender: TObject);
+begin
+ seterror(errordi,errordi.value > 0);
 end;
 
 end.

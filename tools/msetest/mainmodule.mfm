@@ -86,7 +86,14 @@ object mainmo: tmainmo
   end
   object runtestact: taction
     onexecute = runtestexe
-    left = 128
-    top = 160
+    left = 256
+    top = 144
+  end
+  object stoponcomperr: taction
+    caption = 'Stop on compile error'
+    statfile = projectstat
+    onexecute = stoponcompexe
+    left = 16
+    top = 176
   end
 end

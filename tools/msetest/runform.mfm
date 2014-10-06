@@ -1,5 +1,4 @@
 object runfo: trunfo
-  onactivate = formactiexe
   visible = False
   bounds_x = 337
   bounds_y = 266
@@ -18,7 +17,6 @@ object runfo: trunfo
   moduleclassname = 'tmseform'
   object grid: twidgetgrid
     taborder = 1
-    onactivate = actiexe
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 676
@@ -180,6 +178,7 @@ object runfo: trunfo
         bounds_y = 0
         bounds_cx = 60
         bounds_cy = 35
+        onchange = okchaexe
         reffontheight = 14
       end
       object errordi: tintegerdisp
@@ -197,6 +196,22 @@ object runfo: trunfo
         bounds_cx = 60
         bounds_cy = 35
         onchange = errorchangeexe
+        reffontheight = 14
+      end
+      object totaldi: tintegerdisp
+        frame.caption = 'Total'
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 4
+        bounds_x = 384
+        bounds_y = 0
+        bounds_cx = 60
+        bounds_cy = 35
         reffontheight = 14
       end
     end

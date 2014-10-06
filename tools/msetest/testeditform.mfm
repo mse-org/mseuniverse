@@ -124,7 +124,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 1
       bounds_x = 11
-      bounds_y = 150
+      bounds_y = 161
       bounds_cx = 574
       bounds_cy = 100
       anchors = [an_left, an_top, an_right]
@@ -154,7 +154,7 @@ object testeditfo: ttesteditfo
     object tlayouter4: tlayouter
       taborder = 3
       bounds_x = 0
-      bounds_y = 450
+      bounds_y = 477
       bounds_cx = 596
       bounds_cy = 30
       anchors = [an_top]
@@ -188,6 +188,7 @@ object testeditfo: ttesteditfo
         linkright = val_actualexitcode
       end
       object val_actualexitcode: tintegeredit
+        optionswidget = [ow_mousefocus, ow_arrowfocus, ow_destroywidgets]
         frame.levelo = -1
         frame.colorclient = -2147483645
         frame.caption = 'Actual'#10'Exitcode'
@@ -218,7 +219,7 @@ object testeditfo: ttesteditfo
         bounds_cy = 20
         state = [as_localcaption]
         action = mainmo.runtestact
-        caption = 'Test Run'
+        caption = 'Test &Run'
       end
       object tspacer3: tspacer
         taborder = 4
@@ -244,7 +245,7 @@ object testeditfo: ttesteditfo
       taborder = 4
       onshowhint = macrohintexe
       bounds_x = 8
-      bounds_y = 110
+      bounds_y = 121
       bounds_cx = 577
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -262,7 +263,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 5
       bounds_x = 3
-      bounds_y = 290
+      bounds_y = 317
       bounds_cx = 583
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -271,6 +272,7 @@ object testeditfo: ttesteditfo
       reffontheight = 14
     end
     object val_actualoutput: tstringedit
+      optionswidget = [ow_mousefocus, ow_arrowfocus, ow_destroywidgets]
       frame.levelo = -1
       frame.colorclient = -1879048187
       frame.caption = 'Actual'#10'Output'
@@ -285,7 +287,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 6
       bounds_x = 18
-      bounds_y = 330
+      bounds_y = 357
       bounds_cx = 567
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -306,7 +308,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 7
       bounds_x = 3
-      bounds_y = 370
+      bounds_y = 397
       bounds_cx = 582
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -315,6 +317,7 @@ object testeditfo: ttesteditfo
       reffontheight = 14
     end
     object val_actualerror: tstringedit
+      optionswidget = [ow_mousefocus, ow_arrowfocus, ow_destroywidgets]
       frame.levelo = -1
       frame.colorclient = -1879048187
       frame.caption = 'Actual'#10'Error'
@@ -329,7 +332,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 8
       bounds_x = 22
-      bounds_y = 410
+      bounds_y = 437
       bounds_cx = 563
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -343,7 +346,7 @@ object testeditfo: ttesteditfo
       bounds_x = 0
       bounds_y = 70
       bounds_cx = 596
-      bounds_cy = 30
+      bounds_cy = 41
       anchors = [an_top]
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       optionslayout = [lao_aligny]
@@ -361,16 +364,16 @@ object testeditfo: ttesteditfo
         )
         onshowhint = macrohintexe
         bounds_x = 9
-        bounds_y = 0
-        bounds_cx = 505
+        bounds_y = 11
+        bounds_cx = 489
         bounds_cy = 30
         anchors = [an_left, an_top, an_right]
         reffontheight = 14
       end
       object tspacer4: tspacer
         taborder = 1
-        bounds_x = 514
-        bounds_y = 8
+        bounds_x = 498
+        bounds_y = 19
         bounds_cx = 10
         bounds_cy = 15
         linkleft = val_compilecommand
@@ -378,18 +381,28 @@ object testeditfo: ttesteditfo
         options = [spao_glueright]
       end
       object val_compileresult: tintegeredit
+        optionswidget = [ow_mousefocus, ow_arrowfocus, ow_destroywidgets]
         frame.levelo = -1
         frame.colorclient = -2147483645
+        frame.caption = 'Exitcode'
         frame.localprops = [frl_levelo, frl_colorclient]
         frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
         taborder = 2
         hint = 'Compile result'
-        bounds_x = 524
-        bounds_y = 6
-        bounds_cx = 61
-        bounds_cy = 18
+        bounds_x = 508
+        bounds_y = 0
+        bounds_cx = 77
+        bounds_cy = 35
         anchors = [an_top, an_right]
         optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        textflags = [tf_xcentered, tf_ycentered, tf_noselect]
+        textflagsactive = [tf_xcentered, tf_ycentered]
         onchange = compileresultchangeexe
         reffontheight = 14
       end
@@ -397,14 +410,15 @@ object testeditfo: ttesteditfo
     object tlayouter6: tlayouter
       taborder = 10
       bounds_x = 0
-      bounds_y = 260
+      bounds_y = 271
       bounds_cx = 596
-      bounds_cy = 20
+      bounds_cy = 36
       anchors = [an_top]
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       optionslayout = [lao_aligny]
       align_glue = wam_start
       object val_input: tstringedit
+        optionswidget = [ow_mousefocus, ow_arrowfocus, ow_destroywidgets]
         frame.caption = 'Input'
         frame.captionpos = cp_left
         frame.dummy = 0
@@ -416,22 +430,27 @@ object testeditfo: ttesteditfo
         )
         onshowhint = macrohintexe
         bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 523
+        bounds_y = 16
+        bounds_cx = 498
         anchors = [an_left, an_top, an_right]
         reffontheight = 14
       end
       object val_inputerror: tbooleandisp
-        frame.captionpos = cp_left
+        frame.caption = 'Writeerror'
         frame.dummy = 0
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
         taborder = 1
         hint = 'Write to target input error'
-        bounds_x = 533
-        bounds_y = 1
-        bounds_cx = 52
-        bounds_cy = 18
+        bounds_x = 508
+        bounds_y = 0
+        bounds_cx = 77
+        bounds_cy = 35
         anchors = [an_top, an_right]
-        textflags = [tf_ycentered]
         onchange = inputerrorchangeexe
         text_false = ' '
         text_true = 'Error'
@@ -439,8 +458,8 @@ object testeditfo: ttesteditfo
       end
       object tspacer6: tspacer
         taborder = 2
-        bounds_x = 523
-        bounds_y = 5
+        bounds_x = 498
+        bounds_y = 21
         bounds_cx = 10
         bounds_cy = 10
         anchors = [an_top, an_right]
