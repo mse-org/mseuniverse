@@ -49,8 +49,7 @@ type
    procedure stop();
   public
 //   constructor create(const atestitem: ttestnode);
-   function runtest(const atestitem: ttestnode): boolean;
-                    //true if ok or disabled
+   function runtest(const atestitem: ttestnode): teststatety;
  end;
 
 procedure seterror(const adisp: twidget; const aerror: boolean);
@@ -78,12 +77,27 @@ begin
  inherited create(nil);
 end;
 }
-function trunfo.runtest(const atestitem: ttestnode): boolean;
+function trunfo.runtest(const atestitem: ttestnode): teststatety;
 begin
  fstate:= rs_none;
  ftestitem:= atestitem;
  show(ml_application);
- result:= ftestok;
+ case fstate of
+  rs_canceled: begin
+   result:= tes_canceled;
+  end;
+  rs_none: begin
+   result:= tes_none;
+  end;
+  else begin
+   if ftestok then begin
+    result:= tes_ok;
+   end
+   else begin
+    result:= tes_error;
+   end;
+  end;
+ end;
 end;
 
 procedure trunfo.start;

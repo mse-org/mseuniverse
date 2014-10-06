@@ -71,7 +71,7 @@ var
 implementation
 uses
  main_mfm,mainmodule,msefileutils,testeditform,groupeditform,macrosform,
- mseeditglob,runform;
+ mseeditglob,runform,msedrawtext;
 const
  captioncol = 2;
   
@@ -248,15 +248,24 @@ begin
 end;
 
 procedure tmainfo.runallexe(const sender: TObject);
+var
+ testres1: teststatety;
 begin
- mainmo.runtest(mainmo.rootnode);
+ testres1:= mainmo.runtest(mainmo.rootnode);
  treeed.updateitemvalues(0,grid.rowcount);
  okdi.text:= '';
  errordi.text:= '';
- totaldi.text:= '';
  okdi.value:= mainmo.okcount;
  errordi.value:= mainmo.errorcount;
  totaldi.value:= okdi.value + errordi.value;
+ if testres1 = tes_canceled then begin
+  totaldi.text:= 'Canceled';
+  totaldi.textflags:= [tf_xcentered,tf_ycentered]
+ end
+ else begin
+  totaldi.text:= '';
+  totaldi.textflags:= [tf_right,tf_ycentered]
+ end;
 end;
 
 procedure tmainfo.cellevent(const sender: TObject; var info: celleventinfoty);

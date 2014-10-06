@@ -10,7 +10,7 @@ uses
 
 type
  testnodekindty = (tnk_none,tnk_group,tnk_leaf);
- teststatety = (tes_none,tes_ok,tes_error);
+ teststatety = (tes_none,tes_ok,tes_error,tes_canceled);
 
 {$M+}  //rtti on
  ttestitem = class;
@@ -213,7 +213,7 @@ type
                                    const avalue: msestring): msestring;
    function expandmacros(const aitem: ttestnode; const avalue: msestring; 
                            const apath: msestring): msestring;
-   function runtest(const aitem: ttestnode): boolean; //true if ok
+   function runtest(const aitem: ttestnode): teststatety;
    property okcount: integer read fokcount;
    property errorcount: integer read ferrorcount;
    
@@ -841,9 +841,9 @@ begin
  result:= msemacros.expandmacros(avalue,fmacros.asarray(['FILE'],[apath]));
 end;
 
-function tmainmo.runtest(const aitem: ttestnode): boolean;
+function tmainmo.runtest(const aitem: ttestnode): teststatety;
 begin
- result:= false;
+ result:= tes_none;
  if frunfo = nil then begin
   setlinkedvar(trunfo.create(nil),tmsecomponent(frunfo));
  end;
