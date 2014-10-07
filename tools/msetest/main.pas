@@ -21,7 +21,6 @@ type
    commented: tdialogstringedit;
    editbu: tstockglyphdatabutton;
    editact: taction;
-   nrdi: tintegeredit;
    tlayouter1: tlayouter;
    tmainmenuwidget1: tmainmenuwidget;
    tspacer1: tspacer;
@@ -30,6 +29,7 @@ type
    errordi: tintegerdisp;
    totaldi: tintegerdisp;
    tspacer3: tspacer;
+   menuitemframe: tframecomp;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);
@@ -61,6 +61,9 @@ type
    procedure editmacroexe(const sender: TObject);
    procedure runallexe(const sender: TObject);
    procedure errorchangeexe(const sender: TObject);
+   procedure runpaintglyphexe(const sender: tcustomintegergraphdataedit;
+                   const acanvas: tcanvas; const avalue: Integer;
+                   const arow: Integer);
   protected
    procedure checkenabledstate();
    procedure refreshnumbers();
@@ -71,9 +74,9 @@ var
 implementation
 uses
  main_mfm,mainmodule,msefileutils,testeditform,groupeditform,macrosform,
- mseeditglob,runform,msedrawtext;
+ mseeditglob,runform,msedrawtext,mseformatstr;
 const
- captioncol = 2;
+ captioncol = 1;
   
 procedure tmainfo.connectmoduleexe(const sender: TObject);
 begin
@@ -178,7 +181,6 @@ procedure tmainfo.updaterowvalueexe(const sender: TObject;
 var
  int1: integer;
 begin
- nrdi[aindex]:= ttestnode(aitem).nr;
  if aitem is ttestgroupnode then begin
   editbu[aindex]:= -1;
 //  grid.datacols.mergecols(aindex);
@@ -341,24 +343,22 @@ begin
 end;
 
 procedure tmainfo.refreshnumbers;
-var
- po1: ptestnode;
- po2: pinteger;
- int1: integer;
 begin
- po1:= treeed.itemlist.datapo;
- po2:= nrdi.griddata.datapo;
- for int1:= 0 to grid.rowhigh do begin
-  po2^:= po1^.nr;
-  inc(po1);
-  inc(po2);
- end;
  grid[0].invalidate;
 end;
 
 procedure tmainfo.errorchangeexe(const sender: TObject);
 begin
  seterror(errordi,errordi.value > 0);
+end;
+
+procedure tmainfo.runpaintglyphexe(const sender: tcustomintegergraphdataedit;
+               const acanvas: tcanvas; const avalue: Integer;
+               const arow: Integer);
+begin
+ acanvas.font.shadow_color:= cl_ltgray;
+ drawtext(acanvas,inttostrmse(ttestnode(treeed[arow]).nr),sender.clientrect,
+                                              [tf_xcentered,tf_ycentered]);
 end;
 
 end.

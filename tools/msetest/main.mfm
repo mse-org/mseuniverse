@@ -10,6 +10,9 @@ object mainfo: tmainfo
     672
     316
   )
+  font.name = 'stf_default'
+  font.xscale = 1
+  font.dummy = 0
   options = [fo_main, fo_terminateonclose, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainmo.projectstat
   caption = 'MSEtest'
@@ -18,20 +21,24 @@ object mainfo: tmainfo
   object grid: twidgetgrid
     popupmenu = tpopupmenu1
     bounds_x = 0
-    bounds_y = 18
+    bounds_y = 20
     bounds_cx = 672
-    bounds_cy = 298
+    bounds_cy = 296
     anchors = [an_top, an_bottom]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_colmerged, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        face.template = guitemplatesmo.fadevertkonvex
+        face.dummy = 0
+        width = 15
+      end>
     fixrows.count = 1
     fixrows.items = <    
       item
         height = 16
         captions.count = 6
         captions.items = <        
-          item
-            caption = 'Nr.'
-          end        
           item
             caption = 'Run'
           end        
@@ -46,6 +53,9 @@ object mainfo: tmainfo
           end        
           item
             caption = 'ED'
+          end        
+          item
+            caption = 'Nr.'
           end>
       end>
     rowcolors.count = 2
@@ -53,17 +63,10 @@ object mainfo: tmainfo
       -1610612716
       -1610612717
     )
-    datacols.count = 6
+    datacols.count = 5
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
     datacols.items = <    
-      item[nrdi]
-        color = -1879048187
-        options = [co_readonly, co_nofocus, co_nohscroll, co_savestate, co_mousescrollrow]
-        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
-        widgetname = 'nrdi'
-        dataclass = tgridintegerdatalist
-      end    
       item[runbu]
         color = -2147483646
         options = [co_nofocus, co_drawfocus, co_nohscroll, co_savestate, co_mousescrollrow]
@@ -71,7 +74,7 @@ object mainfo: tmainfo
         dataclass = tgridintegerdatalist
       end    
       item[treeed]
-        width = 107
+        width = 104
         options = [co_proportional, co_nohscroll, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'treeed'
@@ -80,7 +83,7 @@ object mainfo: tmainfo
         datalist.onitemnotification = itemnotifyexe
       end    
       item[pathed]
-        width = 163
+        width = 159
         options = [co_proportional, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         onshowhint = pathedshowhint
@@ -88,7 +91,7 @@ object mainfo: tmainfo
         dataclass = tgridmsestringdatalist
       end    
       item[commented]
-        width = 266
+        width = 259
         options = [co_proportional, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'commented'
@@ -99,7 +102,7 @@ object mainfo: tmainfo
         face.template = guitemplatesmo.fadevertkonvex
         face.dummy = 0
         width = 26
-        options = [co_drawfocus, co_nohscroll, co_savestate, co_mousescrollrow]
+        options = [co_drawfocus, co_fixwidth, co_nohscroll, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'editbu'
         dataclass = tgridintegerdatalist
@@ -123,7 +126,7 @@ object mainfo: tmainfo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 163
+      bounds_cx = 159
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_savestate, oe_checkvaluepaststatread]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
@@ -142,30 +145,17 @@ object mainfo: tmainfo
       frame.button.imagenr = 17
       taborder = 2
       visible = False
-      bounds_x = 164
+      bounds_x = 160
       bounds_y = 0
-      bounds_cx = 266
+      bounds_cx = 259
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-      reffontheight = 14
-    end
-    object nrdi: tintegeredit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      visible = False
-      bounds_x = 0
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-      textflags = [tf_xcentered, tf_ycentered, tf_noselect]
       reffontheight = 14
     end
     object runbu: tdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 1
-      bounds_x = 51
+      bounds_x = 16
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -219,6 +209,7 @@ object mainfo: tmainfo
           dummy = 0
         end>
       onexecute = runexe
+      onpaintglyph = runpaintglyphexe
       max = -1
       valuedisabled = -1
     end
@@ -227,11 +218,11 @@ object mainfo: tmainfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      taborder = 2
+      taborder = 1
       visible = False
-      bounds_x = 102
+      bounds_x = 67
       bounds_y = 0
-      bounds_cx = 107
+      bounds_cx = 104
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_locate, oe_savestate, oe_checkvaluepaststatread]
       onupdaterowvalues = updaterowvalueexe
@@ -241,7 +232,7 @@ object mainfo: tmainfo
     object editbu: tstockglyphdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 3
+      taborder = 2
       bounds_x = 642
       bounds_y = 0
       bounds_cx = 26
@@ -258,7 +249,7 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 672
-    bounds_cy = 18
+    bounds_cy = 20
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     linkbottom = grid
@@ -268,9 +259,11 @@ object mainfo: tmainfo
       face.template = guitemplatesmo.fadevertconcave
       face.dummy = 0
       bounds_x = 0
-      bounds_y = 1
+      bounds_y = 0
       bounds_cx = 333
-      bounds_cy = 16
+      bounds_cy = 20
+      menu.itemframetemplate = menuitemframe
+      menu.itemframetemplateactive = menuitemframe
       menu.menu.submenu.count = 4
       menu.menu.submenu.items = <      
         item
@@ -314,8 +307,12 @@ object mainfo: tmainfo
         end      
         item
           caption = '&Run'
-          state = [as_localcaption, as_localonexecute]
+          state = [as_localcaption, as_localshortcut, as_localonexecute]
           onexecute = runallexe
+          sc = (
+            1
+            312
+          )
         end      
         item
           caption = '&Macros'
@@ -336,7 +333,7 @@ object mainfo: tmainfo
     object tspacer1: tspacer
       taborder = 1
       bounds_x = 333
-      bounds_y = 4
+      bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
       anchors = [an_top, an_right]
@@ -356,7 +353,7 @@ object mainfo: tmainfo
       )
       taborder = 2
       bounds_x = 343
-      bounds_y = 0
+      bounds_y = 1
       bounds_cx = 89
       bounds_cy = 18
       anchors = [an_top, an_right]
@@ -366,7 +363,7 @@ object mainfo: tmainfo
     object tspacer2: tspacer
       taborder = 3
       bounds_x = 432
-      bounds_y = 4
+      bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
       anchors = [an_top, an_right]
@@ -388,7 +385,7 @@ object mainfo: tmainfo
       )
       taborder = 4
       bounds_x = 442
-      bounds_y = 0
+      bounds_y = 1
       bounds_cx = 104
       bounds_cy = 18
       anchors = [an_top, an_right]
@@ -408,7 +405,7 @@ object mainfo: tmainfo
       )
       taborder = 5
       bounds_x = 556
-      bounds_y = 0
+      bounds_y = 1
       bounds_cx = 104
       bounds_cy = 18
       anchors = [an_top, an_right]
@@ -418,7 +415,7 @@ object mainfo: tmainfo
     object tspacer3: tspacer
       taborder = 6
       bounds_x = 546
-      bounds_y = 4
+      bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
       anchors = [an_top, an_right]
@@ -454,5 +451,11 @@ object mainfo: tmainfo
     onexecute = editexe
     left = 160
     top = 42
+  end
+  object menuitemframe: tframecomp
+    template.levelo = -1
+    template.leveli = 1
+    left = 168
+    top = 72
   end
 end
