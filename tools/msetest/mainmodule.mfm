@@ -14,6 +14,7 @@ object mainmo: tmainmo
   end
   object newact: taction
     caption = '&New'
+    onexecute = newexe
     left = 16
     top = 72
   end
@@ -31,6 +32,7 @@ object mainmo: tmainmo
   end
   object closeact: taction
     caption = '&Close'
+    onexecute = closeexe
     left = 16
     top = 104
   end

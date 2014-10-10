@@ -95,7 +95,12 @@ end;
 }
 procedure tmainfo.captionchaexe(const sender: TObject; var avalue: msestring);
 begin
- caption:= 'MSEtest ('+ avalue+')';
+ if avalue = '' then begin
+  caption:= 'MSEtest';
+ end
+ else begin
+  caption:= 'MSEtest ('+ avalue+')';
+ end;
 end;
 
 procedure tmainfo.closequeryexe(const sender: tcustommseform;

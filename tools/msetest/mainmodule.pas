@@ -179,6 +179,8 @@ type
    procedure aftermainstareadexe(const sender: TObject);
    procedure runtestexe(const sender: TObject);
    procedure stoponcompexe(const sender: TObject);
+   procedure newexe(const sender: TObject);
+   procedure closeexe(const sender: TObject);
   private
    frootnode: ttestnode;
    fprojectoptions: tprojectoptions;
@@ -668,8 +670,8 @@ end;
 
 procedure tmainmo.openproject();
 begin
- if (projectfiledialog.execute(fdk_open) = mr_ok) and
-                                    (closeproject() <> mr_cancel) then begin
+ if (closeproject() <> mr_cancel) and 
+            (projectfiledialog.execute(fdk_open) = mr_ok) then begin
   loadproject();
  end;
 end;
@@ -705,26 +707,35 @@ begin
   result:= askyesnocancel('Project has been modified, save it?');
  end;
  if result <> mr_cancel then begin
-  if fprojectfile <> '' then begin
-   if result = mr_yes then begin
+  if (result = mr_yes) then begin
+   if fprojectfile <> '' then begin
     result:= saveproject();
    end
    else begin
-    result:= mr_ok;
+    if fmodified then begin
+     result:= saveasproject();
+    end
+    else begin
+     result:= mr_ok;
+    end;
    end;
-   if result = mr_ok then begin
-    n1:= frootnode;
-    frootnode:= nil;
-    connectgui.controller.execute(); //disconnect
-    frootnode:= n1;
-    frootnode.clear();
-    fmodified:= false;
-    fprojectname:= '';
-    fprojectfile:= '';
-    updatecaption();
-    fprojectoptions.clear();
-    fmacros.clear();
-   end;
+  end
+  else begin
+   result:= mr_ok;
+  end;
+  if result = mr_ok then begin
+   n1:= frootnode;
+   frootnode:= nil;
+   connectgui.controller.execute(); //disconnect
+   frootnode:= n1;
+   frootnode.clear();
+   fmodified:= false;
+   fprojectname:= '';
+   fprojectfile:= '';
+   updatecaption();
+   fprojectoptions.clear();
+   fmacros.clear();
+   projectfiledialog.controller.filename:= '';
   end;
  end;
 end;
@@ -732,6 +743,32 @@ end;
 procedure tmainmo.openexe(const sender: TObject);
 begin
  openproject();
+end;
+
+procedure tmainmo.saveexe(const sender: TObject);
+begin
+ saveproject();
+end;
+
+procedure tmainmo.saveasexe(const sender: TObject);
+begin
+ saveasproject();
+end;
+
+procedure tmainmo.newexe(const sender: TObject);
+begin
+ if closeproject <> mr_cancel then begin
+  fprojectname:= '<new>';
+  updatecaption();
+  if projectfiledialog.execute(fdk_new) <> mr_cancel then begin
+   updateprojectname();
+  end;
+ end;
+end;
+
+procedure tmainmo.closeexe(const sender: TObject);
+begin
+ closeproject();
 end;
 
 procedure tmainmo.getstatobjexe(const sender: TObject; var aobject: TObject);
@@ -756,7 +793,7 @@ begin
  if fmodified then begin
   mstr1:= '*';
  end;
- if fprojectname = '' then begin
+ if (fprojectname = '') and fmodified then begin
   mstr1:= mstr1 + '<new>';
  end
  else begin
@@ -769,16 +806,6 @@ procedure tmainmo.evenloopstartexe(const sender: TObject);
 begin
 // connectgui.controller.execute();
  updatecaption();
-end;
-
-procedure tmainmo.saveexe(const sender: TObject);
-begin
- saveproject();
-end;
-
-procedure tmainmo.saveasexe(const sender: TObject);
-begin
- saveasproject();
 end;
 
 procedure tmainmo.projectupdateexe(const sender: TObject;
