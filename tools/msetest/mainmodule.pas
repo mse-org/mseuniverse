@@ -735,7 +735,7 @@ begin
    updatecaption();
    fprojectoptions.clear();
    fmacros.clear();
-   projectfiledialog.controller.filename:= '';
+//   projectfiledialog.controller.filename:= '';
   end;
  end;
 end;

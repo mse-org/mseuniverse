@@ -30,6 +30,7 @@ type
    totaldi: tintegerdisp;
    tspacer3: tspacer;
    menuitemframe: tframecomp;
+   menuitemface: tfacelist;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);

@@ -455,7 +455,18 @@ object mainfo: tmainfo
   object menuitemframe: tframecomp
     template.levelo = -1
     template.leveli = 1
+    template.frameface_list = menuitemface
     left = 168
     top = 72
+  end
+  object menuitemface: tfacelist
+    list.count = 1
+    list.items = <    
+      item
+        template = guitemplatesmo.fadevertkonvex
+        dummy = 0
+      end>
+    left = 168
+    top = 104
   end
 end

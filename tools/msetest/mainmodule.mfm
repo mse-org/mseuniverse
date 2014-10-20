@@ -44,13 +44,15 @@ object mainmo: tmainmo
   end
   object projectstat: tstatfile
     filename = 'status.sta'
+    statfile = mainstat
     savedmemoryfiles = '*.sta'
     onstatupdate = projectupdateexe
     left = 256
     top = 32
   end
   object mainstat: tstatfile
-    filename = 'status.sta'
+    filename = '^/.msetools/msetest.sta'
+    options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     onstatafterread = aftermainstareadexe
     left = 256
     top = 8
