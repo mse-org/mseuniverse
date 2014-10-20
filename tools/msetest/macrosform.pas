@@ -10,7 +10,7 @@ type
  tmacrosfo = class(tmseform)
    grid: twidgetgrid;
    val_macronames: tstringedit;
-   val_macrovalues: tstringedit;
+   val_macrovalues: tdialogstringedit;
    tstatfile1: tstatfile;
    tlayouter1: tlayouter;
    okbu: tbutton;
