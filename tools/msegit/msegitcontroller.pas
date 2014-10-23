@@ -1909,8 +1909,8 @@ begin
  else begin
   mstr1:= 'refs/heads/';
  end;
- if not bo1 and tryreadfiledatastring('.git/'+arev,str1) or 
-                    tryreadfiledatastring('.git/'+mstr1+arev,str1) then begin
+ if not bo1 and (tryreadfiledatastring('.git/'+arev,str1) = sye_ok) or 
+          (tryreadfiledatastring('.git/'+mstr1+arev,str1) = sye_ok) then begin
   result:= commandresult2('fmt-merge-msg ',str1,amessage);
  end;
  if amessage = '' then begin

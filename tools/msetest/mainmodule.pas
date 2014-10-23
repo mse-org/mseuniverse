@@ -673,7 +673,7 @@ begin
  updateprojectname();
  if fprojectfile <> '' then begin
   projectstat.readstat();
-  fmacros.setasarray(fprojectoptions.macronames,fprojectoptions.macrovalues);
+  fmacros.setasarray(fprojectoptions.macronames,fprojectoptions.macrovalues,nil);
   frootnode.checked:= true;
   frootnode.updateparentnotcheckedtree();
   renumber();
@@ -859,7 +859,7 @@ end;
 procedure tmainmo.endeditmacros(const editfo: tmsecomponent);
 begin
  valuestoobject(editfo,fprojectoptions,'val_');
- fmacros.setasarray(fprojectoptions.macronames,fprojectoptions.macrovalues);
+ fmacros.setasarray(fprojectoptions.macronames,fprojectoptions.macrovalues,nil);
  projectchanged();
 end;
 

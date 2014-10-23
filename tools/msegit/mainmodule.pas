@@ -796,10 +796,10 @@ procedure tmainmo.readmergeinfo;
 var
  str1,str2: string;
 begin
- if tryreadfiledatastring('.git/MERGE_HEAD',str1) or 
-         tryreadfiledatastring('.git/CHERRY_PICK_HEAD',str1) then begin
+ if (tryreadfiledatastring('.git/MERGE_HEAD',str1) = sye_ok) or 
+     (tryreadfiledatastring('.git/CHERRY_PICK_HEAD',str1) = sye_ok) then begin
   fmergehead:= utf8tostring(str1);
-  if tryreadfiledatastring('.git/MERGE_MSG',str2) then begin
+  if tryreadfiledatastring('.git/MERGE_MSG',str2) = sye_ok then begin
    fmergemessage:= utf8tostring(str2);
   end;
  end;
@@ -1680,7 +1680,7 @@ begin
    end
    else begin
     result:= execconsole(expandmacros(opt.patchtool,
-                initmacros(['BASE','THEIRS','MINE'],[base,their,afile])));
+                initmacros(['BASE','THEIRS','MINE'],[base,their,afile],[])));
    end;
    if result then begin
     setlength(ar1,1);

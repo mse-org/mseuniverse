@@ -54,7 +54,7 @@ var
 implementation
 uses
  netlistform_mfm,msefileutils,msewidgets,mainmodule,msestream,mserichstring,
- plotsform,plotpage;
+ plotsform,plotpage,msesystypes;
 
 const
  spicesyntax = 
@@ -229,7 +229,7 @@ begin
  result:= edit.modified;
  if not result then begin
   result:= true;
-  if ttextstream.trycreate(stream1,edit.filename,fm_read) then begin
+  if ttextstream.trycreate(stream1,edit.filename,fm_read) = sye_ok then begin
                             //else locked or deleted
    try
     stream1.encoding:= edit.encoding;

@@ -324,7 +324,7 @@ begin
             globmacnames.gridvalues,locmacnames.gridvalues],
              [opentodynarraym([filenamebase(projectmainstat.filename),
                                                           netlist.value]),
-              globmacvalues.gridvalues,locmacvalues.gridvalues]);
+              globmacvalues.gridvalues,locmacvalues.gridvalues],[]);
   end;
  end
  else begin
@@ -332,7 +332,7 @@ begin
             fglobaloptions.globmacnames,fprojectoptions.locmacnames],
              [opentodynarraym([filenamebase(projectmainstat.filename),
               fprojectoptions.t.netlist]),
-              fglobaloptions.globmacvalues,fprojectoptions.locmacvalues]);
+              fglobaloptions.globmacvalues,fprojectoptions.locmacvalues],[]);
  end;
 end;
 
@@ -685,7 +685,7 @@ begin
  fsimurunning:= false;
  fspice.reset;
  if (consolefo.term.exitcode <= 1) and 
-                        ttextstream.trycreate(stream1,frawfile) then begin
+                (ttextstream.trycreate(stream1,frawfile) = sye_ok) then begin
   consolefo.term.addline('**** FINISHED ****');
   mainfo.setstattext('Simulation OK',mtk_finished);
   try
@@ -720,7 +720,7 @@ var
  bmp1: tmaskedbitmap;
  int1,int2: integer;
 begin
- formatmacros.add(['REAL'],[realformat]);
+ formatmacros.add(['REAL'],[realformat],[]);
  bmp1:= tmaskedbitmap.create(bmk_mono);
  bmp1.masked:= true;
  int2:= 0;
