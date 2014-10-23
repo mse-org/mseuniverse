@@ -111,7 +111,7 @@ object mainfo: tmainfo
     statfile = mainmo.projectstat
     onrowsmoving = rowsmovingexe
     onrowsinserting = rowinsertingexe
-    onrowsdeleted = rowdeletedexe
+    onrowsdeleting = rowdeleteingexe
     oncellevent = cellevent
     reffontheight = 14
     object pathed: tfilenameedit
@@ -437,20 +437,29 @@ object mainfo: tmainfo
     top = 84
   end
   object tpopupmenu1: tpopupmenu
-    menu.submenu.count = 1
+    menu.submenu.count = 4
     menu.submenu.items = <    
       item
         caption = 'Insert &Group Node'
         state = [as_localcaption, as_localonexecute]
         onexecute = insertgroupexe
+      end    
+      item
+        action = copyitemact
+      end    
+      item
+        action = cutitemact
+      end    
+      item
+        action = pasteitemact
       end>
     left = 16
     top = 128
   end
   object editact: taction
     onexecute = editexe
-    left = 160
-    top = 42
+    left = 328
+    top = 66
   end
   object menuitemframe: tframecomp
     template.levelo = -1
@@ -468,5 +477,35 @@ object mainfo: tmainfo
       end>
     left = 168
     top = 104
+  end
+  object copyitemact: taction
+    caption = 'Copy Item'
+    onexecute = copyitemexe
+    left = 328
+    top = 80
+    sc = (
+      1
+      24643
+    )
+  end
+  object pasteitemact: taction
+    caption = 'Paste Item'
+    onexecute = pasteitemexe
+    left = 328
+    top = 112
+    sc = (
+      1
+      24662
+    )
+  end
+  object cutitemact: taction
+    caption = 'Cut Item'
+    onexecute = cutitemexe
+    left = 328
+    top = 96
+    sc = (
+      1
+      24664
+    )
   end
 end

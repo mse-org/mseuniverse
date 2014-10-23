@@ -7,7 +7,8 @@ uses
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,msedatanodes,mselistbrowser,mseifiendpoint,
  msebitmap,msefiledialog,msesys,msegraphedits,msescrollbar,msedialog,mseact,
- mseactions,msedispwidgets,mserichstring,msetimer,msemenuwidgets,msesplitter;
+ mseactions,msedispwidgets,mserichstring,msetimer,msemenuwidgets,msesplitter,
+ mainmodule;
 
 type
  tmainfo = class(tmainform)
@@ -31,14 +32,15 @@ type
    tspacer3: tspacer;
    menuitemframe: tframecomp;
    menuitemface: tfacelist;
+   copyitemact: taction;
+   pasteitemact: taction;
+   cutitemact: taction;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);
    procedure captionchaexe(const sender: TObject; var avalue: msestring);
    procedure closequeryexe(const sender: tcustommseform;
                    var amodalresult: modalresultty);
-   procedure rowdeletedexe(const sender: tcustomgrid; const aindex: Integer;
-                   const acount: Integer);
    procedure insertgroupexe(const sender: TObject);
    procedure rowinsertingexe(const sender: tcustomgrid; var aindex: Integer;
                    var acount: Integer);
@@ -65,17 +67,25 @@ type
    procedure runpaintglyphexe(const sender: tcustomintegergraphdataedit;
                    const acanvas: tcanvas; const avalue: Integer;
                    const arow: Integer);
+   procedure copyitemexe(const sender: TObject);
+   procedure pasteitemexe(const sender: TObject);
+   procedure cutitemexe(const sender: TObject);
+   procedure rowdeleteingexe(const sender: tcustomgrid; var aindex: Integer;
+                   var acount: Integer);
   protected
+   procedure deleterow(const aindex: integer);
    procedure checkenabledstate();
    procedure refreshnumbers();
+   procedure insertitem(const aitem: ttestnode; const aindex: integer);
  end;
  
 var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,mainmodule,msefileutils,testeditform,groupeditform,macrosform,
- mseeditglob,runform,msedrawtext,mseformatstr;
+ main_mfm,msefileutils,testeditform,groupeditform,macrosform,
+ mseeditglob,runform,msedrawtext,mseformatstr,msestockobjects;
+
 const
  captioncol = 1;
   
@@ -112,12 +122,19 @@ begin
  end;
 end;
 
-procedure tmainfo.rowdeletedexe(const sender: tcustomgrid;
-               const aindex: Integer; const acount: Integer);
+procedure tmainfo.deleterow(const aindex: integer);
+begin
+ treeed.itemlist.delete(aindex);  
+ mainmo.projectchanged();
+ refreshnumbers();
+end;
+
+procedure tmainfo.rowdeleteingexe(const sender: tcustomgrid;
+               var aindex: Integer; var acount: Integer);
 begin
  if sender.userinput then begin
-  mainmo.projectchanged();
-  refreshnumbers();
+  acount:= 0; //handled here
+  deleterow(aindex);
  end;
 end;
 
@@ -126,35 +143,46 @@ var
  n1: ttestgroupnode;
 begin
  n1:= ttestgroupnode.create();
- treeed.itemlist.insert(grid.row,n1);
+ if grid.row < 0 then begin
+  treeed.itemlist.insert(0,n1);
+ end
+ else begin
+  treeed.itemlist.insert(grid.row,n1);
+ end;
  n1.getdefaults();
  mainmo.projectchanged();
  grid.col:= captioncol;
  treeed.beginedit();
 end;
 
+procedure tmainfo.insertitem(const aitem: ttestnode; const aindex: integer);
+var
+ n2: ttreelistitem;
+begin
+ n2:= treeed.item;
+ if (n2 is ttestgroupnode) and (n2.count = 0) and n2.expanded then begin
+  n2.add(aitem);
+  n2.updateparentnotcheckedstate();
+ end
+ else begin
+  treeed.itemlist.insert(aindex,aitem);  
+ end;
+ mainmo.projectchanged();
+ refreshnumbers();
+end;  
+
 procedure tmainfo.rowinsertingexe(const sender: tcustomgrid;
                var aindex: Integer; var acount: Integer);
 var
  n1: ttestitem;
- n2: ttreelistitem;
 begin
  if sender.userinput then begin
   acount:= 0; //handled here
   n1:= ttestitem.create();
-  n2:= treeed.item;
-  if (n2 is ttestgroupnode) and (n2.count = 0) and n2.expanded then begin
-   n2.add(n1);
-   n2.updateparentnotcheckedstate();
-  end
-  else begin
-   treeed.itemlist.insert(aindex,n1);  
-  end;
+  insertitem(n1,aindex);
   n1.getdefaults();
-  mainmo.projectchanged();
   grid.focuscell(mgc(1,n1.index));
   treeed.beginedit();
-  refreshnumbers();
  end;
 end;
 
@@ -365,6 +393,34 @@ begin
  acanvas.font.shadow_color:= cl_ltgray;
  drawtext(acanvas,inttostrmse(ttestnode(treeed[arow]).nr),sender.clientrect,
                                               [tf_xcentered,tf_ycentered]);
+end;
+
+procedure tmainfo.copyitemexe(const sender: TObject);
+begin
+ mainmo.copytoclipboard(ttestnode(treeed.item));
+end;
+
+procedure tmainfo.pasteitemexe(const sender: TObject);
+var
+ item1: ttestnode;
+begin
+ item1:= mainmo.pastefromclipboard;
+ if item1 <> nil then begin
+  insertitem(item1,grid.row);
+ end;
+end;
+
+procedure tmainfo.cutitemexe(const sender: TObject);
+begin
+ if grid.row >= 0 then begin
+  with stockobjects do begin
+   if askok(captions[sc_Delete_row_question],
+                         captions[sc_Confirmation]) then begin
+    mainmo.copytoclipboard(ttestnode(treeed.item));
+    deleterow(grid.row);
+   end;
+  end;
+ end; 
 end;
 
 end.

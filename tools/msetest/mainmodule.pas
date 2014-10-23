@@ -22,6 +22,7 @@ type
    procedure setenabled(const avalue: boolean);
   protected
    fteststate: teststatety;
+   class function createstatsubnode(const reader: tstatreader): ttestnode;
    procedure statreadsubnode(const reader: tstatreader;
                                             var anode: ttreelistitem); override;
    class function kind: testnodekindty; virtual;
@@ -193,10 +194,12 @@ type
    fedititem: ttestnode;
    fokcount: integer;
    ferrorcount: integer;
+   fclipboarditem: ttestnode;
   protected
    procedure updatecaption();
    procedure updateprojectname();
    procedure loadproject();
+   procedure readclipboard(const reader: tstatreader);
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -211,6 +214,7 @@ type
    procedure endedit(const aitem: ttestnode; const editfo: tmsecomponent);
    procedure begineditmacros(const editfo: tmsecomponent);
    procedure endeditmacros(const editfo: tmsecomponent);
+   function expandmacros(const avalue: msestring): msestring;
    function expandmacros(const aitem: ttestnode;
                                    const avalue: msestring): msestring;
    function expandmacros(const aitem: ttestnode; const avalue: msestring; 
@@ -222,6 +226,9 @@ type
    property rootnode: ttestnode read frootnode;
    property projectoptions: tprojectoptions read fprojectoptions;
    property edititem: ttestnode read fedititem;
+   
+   procedure copytoclipboard(const aitem: ttestnode);
+   function pastefromclipboard(): ttestnode;
  end;
  
 var
@@ -239,20 +246,26 @@ begin
  fstate:= fstate + [ns_checkbox,ns_checked,ns_showparentnotchecked];
 end;
 
-procedure ttestnode.statreadsubnode(const reader: tstatreader;
-               var anode: ttreelistitem);
+class function ttestnode.createstatsubnode(
+                                       const reader: tstatreader): ttestnode;
 begin
  case reader.readinteger('kind',0) of
   ord(tnk_group): begin
-   anode:= ttestgroupnode.create();
+   result:= ttestgroupnode.create();
   end;
   ord(tnk_leaf): begin
-   anode:= ttestitem.create();
+   result:= ttestitem.create();
   end;
   else begin
-   anode:= ttestitem.create();
+   result:= ttestitem.create();
   end;
  end;
+end;
+
+procedure ttestnode.statreadsubnode(const reader: tstatreader;
+               var anode: ttreelistitem);
+begin
+ anode:= createstatsubnode(reader);
 end;
 
 class function ttestnode.kind: testnodekindty;
@@ -483,7 +496,7 @@ begin
  result:= '';
  n1:= self;
  repeat
-  result:= ttestpathnode(n1).fpath+result;
+  result:= mainmo.expandmacros(ttestpathnode(n1).fpath)+result;
   n1:= n1.parent
  until not (n1 is ttestpathnode) or 
      (result <> '') and (result[1] = '/');   //stop at root path
@@ -850,6 +863,11 @@ begin
  projectchanged();
 end;
 
+function tmainmo.expandmacros(const avalue: msestring): msestring;
+begin
+ result:= fmacros.expandmacros(avalue);
+end;
+
 function tmainmo.expandmacros(const aitem: ttestnode;
                                    const avalue: msestring): msestring;
 begin
@@ -944,6 +962,34 @@ end;
 procedure tmainmo.stoponcompexe(const sender: TObject);
 begin
  projectchanged();
+end;
+
+procedure tmainmo.copytoclipboard(const aitem: ttestnode);
+begin
+ if aitem <> nil then begin
+  msewidgets.copytoclipboard(utf8tostring(writestat([@aitem.dostatwrite],
+                                                                  'msetest')));
+ end;
+end;
+
+procedure tmainmo.readclipboard(const reader: tstatreader);
+begin
+ fclipboarditem:= ttestnode.createstatsubnode(reader);
+ if fclipboarditem <> nil then begin
+  fclipboarditem.dostatread(reader);
+ end;
+end;
+
+function tmainmo.pastefromclipboard: ttestnode;
+var
+ mstr1: msestring;
+begin
+ fclipboarditem:= nil;
+ if msewidgets.pastefromclipboard(mstr1) then begin
+  readstat([@readclipboard],stringtoutf8(mstr1),'msetest');
+ end;
+ result:= fclipboarditem;
+ fclipboarditem:= nil;
 end;
 
 { tprojectoptions }
