@@ -138,7 +138,8 @@ begin
  fstate:= rs_compile;
  mstr1:= mainmo.expandmacros(fcurrenttest,fcurrenttest.compilecommand);
  if mstr1 <> '' then begin
-  term.execprog(mstr1); 
+  term.execprog(mstr1,
+            mainmo.expandmacros(fcurrenttest,fcurrenttest.compiledirectory)); 
  end
  else begin
   dotest();
@@ -158,6 +159,8 @@ begin
   int1:= application.unlockall();
   try
    proc.commandline:= mstr1;
+   proc.workingdirectory:=
+            mainmo.expandmacros(fcurrenttest,fcurrenttest.compiledirectory);
    proc.active:= true;
    if proc.prochandle = invalidprochandle then begin
     with fcurrenttest do begin

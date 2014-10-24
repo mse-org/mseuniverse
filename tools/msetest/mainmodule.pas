@@ -65,7 +65,9 @@ type
  ttestvaluenode = class(ttestpathnode)
   private
    fcompilecommand: msestring;
+   fcompiledirectory: msestring;
    fruncommand: msestring;
+   frundirectory: msestring;
    finput: msestring;
    fexpectedoutput: msestring;
    fexpectederror: msestring;
@@ -78,7 +80,10 @@ type
   published
    property compilecommand: msestring read fcompilecommand 
                                               write fcompilecommand;
+   property compiledirectory: msestring read fcompiledirectory 
+                                              write fcompiledirectory;
    property runcommand: msestring read fruncommand write fruncommand;
+   property rundirectory: msestring read frundirectory write frundirectory;
    property input: msestring read finput write finput;
    property expectedoutput: msestring read fexpectedoutput
                                                   write fexpectedoutput;
@@ -235,8 +240,8 @@ var
  mainmo: tmainmo;
 implementation
 uses
- mainmodule_mfm,msefileutils,runform;
-
+ mainmodule_mfm,msefileutils,runform,msefilemacros;
+ 
 { ttestnode }
 
 constructor ttestnode.create(const aowner: tcustomitemlist = nil;
@@ -508,7 +513,9 @@ procedure ttestvaluenode.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
  writer.writemsestring('cc',fcompilecommand);
+ writer.writemsestring('cd',fcompiledirectory);
  writer.writemsestring('rc',fruncommand);
+ writer.writemsestring('rd',frundirectory);
  writer.writemsestring('in',finput);
  writer.writemsestring('eo',fexpectedoutput);
  writer.writemsestring('ee',fexpectederror);
@@ -519,7 +526,9 @@ procedure ttestvaluenode.dostatread(const reader: tstatreader);
 begin
  inherited;
  fcompilecommand:= reader.readmsestring('cc','');
+ fcompiledirectory:= reader.readmsestring('cd','');
  fruncommand:= reader.readmsestring('rc','');
+ frundirectory:= reader.readmsestring('rd','');
  finput:= reader.readmsestring('in','');
  fexpectedoutput:= reader.readmsestring('eo','');
  fexpectederror:= reader.readmsestring('ee','');
@@ -641,6 +650,7 @@ begin
  frootnode:= ttestnode.create();
  fprojectoptions:= tprojectoptions.create();
  fmacros:= tmacrolist.create([mao_caseinsensitive,mao_curlybraceonly]);
+ fmacros.setpredefined(filemacros);
  inherited;
 end;
 

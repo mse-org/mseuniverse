@@ -42,6 +42,8 @@ type
    val_input: tstringedit;
    val_inputerror: tbooleandisp;
    tspacer6: tspacer;
+   val_compiledirectory: tstringedit;
+   val_rundirectory: tstringedit;
    procedure layoutexe(const sender: TObject);
    procedure macrohintexe(const sender: TObject; var info: hintinfoty);
    procedure compileresultchangeexe(const sender: TObject);
@@ -60,12 +62,14 @@ uses
  
 procedure ttesteditfo.layoutexe(const sender: TObject);
 begin
- synccaptiondistx([val_caption,val_path,val_compilecommand,val_runcommand,
+ synccaptiondistx([val_caption,val_path,val_compilecommand,val_compiledirectory,
+                   val_runcommand,val_rundirectory,
                    val_comment,val_input,
                    val_expectedoutput,val_actualoutput,
                    val_expectederror,val_actualerror,
                    val_expectedexitcode]);
- alignx(wam_start,[val_caption,val_path,val_compilecommand,val_runcommand,
+ alignx(wam_start,[val_caption,val_path,val_compilecommand,val_compiledirectory,
+                   val_runcommand,val_rundirectory,
                    val_comment,val_input,
                    val_expectedoutput,val_actualoutput,
                    val_expectederror,val_actualerror,
@@ -78,7 +82,8 @@ begin
                         mainmo.edititem,tedit(sender).text,filemacro);
 end;
 
-procedure ttesteditfo.filemacrohintexe(const sender: TObject; var info: hintinfoty);
+procedure ttesteditfo.filemacrohintexe(const sender: TObject;
+                                                 var info: hintinfoty);
 begin
  info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'');
 end;

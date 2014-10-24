@@ -2,23 +2,25 @@ object testeditfo: ttesteditfo
   bounds_x = 225
   bounds_y = 419
   bounds_cx = 596
-  bounds_cy = 581
+  bounds_cy = 637
+  container.onlayout = layoutexe
   container.bounds = (
     0
     0
     596
-    581
+    637
   )
   options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Edit Test Item'
+  onlayout = layoutexe
   moduleclassname = 'tmseform'
   object tlayouter2: tlayouter
     taborder = 1
     bounds_x = 0
     bounds_y = 8
     bounds_cx = 596
-    bounds_cy = 518
+    bounds_cy = 574
     anchors = [an_top, an_bottom]
     onlayout = layoutexe
     optionslayout = [lao_placey]
@@ -124,9 +126,9 @@ object testeditfo: ttesteditfo
       )
       taborder = 1
       bounds_x = 11
-      bounds_y = 161
+      bounds_y = 241
       bounds_cx = 574
-      bounds_cy = 100
+      bounds_cy = 76
       anchors = [an_left, an_top, an_right]
       optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       reffontheight = 14
@@ -154,7 +156,7 @@ object testeditfo: ttesteditfo
     object tlayouter4: tlayouter
       taborder = 3
       bounds_x = 0
-      bounds_y = 477
+      bounds_y = 533
       bounds_cx = 596
       bounds_cy = 30
       anchors = [an_top]
@@ -245,7 +247,7 @@ object testeditfo: ttesteditfo
       taborder = 4
       onshowhint = macrohintexe
       bounds_x = 8
-      bounds_y = 121
+      bounds_y = 161
       bounds_cx = 577
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -263,7 +265,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 5
       bounds_x = 3
-      bounds_y = 317
+      bounds_y = 373
       bounds_cx = 583
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -287,7 +289,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 6
       bounds_x = 18
-      bounds_y = 357
+      bounds_y = 413
       bounds_cx = 567
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -308,7 +310,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 7
       bounds_x = 3
-      bounds_y = 397
+      bounds_y = 453
       bounds_cx = 582
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -332,7 +334,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 8
       bounds_x = 22
-      bounds_y = 437
+      bounds_y = 493
       bounds_cx = 563
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -410,7 +412,7 @@ object testeditfo: ttesteditfo
     object tlayouter6: tlayouter
       taborder = 10
       bounds_x = 0
-      bounds_y = 271
+      bounds_y = 327
       bounds_cx = 596
       bounds_cy = 36
       anchors = [an_top]
@@ -429,9 +431,9 @@ object testeditfo: ttesteditfo
           0
         )
         onshowhint = macrohintexe
-        bounds_x = 0
+        bounds_x = 29
         bounds_y = 16
-        bounds_cx = 498
+        bounds_cx = 469
         anchors = [an_left, an_top, an_right]
         reffontheight = 14
       end
@@ -451,6 +453,7 @@ object testeditfo: ttesteditfo
         bounds_cx = 77
         bounds_cy = 35
         anchors = [an_top, an_right]
+        textflags = [tf_ycentered]
         onchange = inputerrorchangeexe
         text_false = ' '
         text_true = 'Error'
@@ -468,10 +471,50 @@ object testeditfo: ttesteditfo
         options = [spao_glueright]
       end
     end
+    object val_compiledirectory: tstringedit
+      frame.caption = 'Compile'#10'Directory'
+      frame.captionpos = cp_left
+      frame.localprops1 = [frl1_captiondist]
+      frame.dummy = 0
+      frame.outerframe = (
+        59
+        5
+        0
+        5
+      )
+      taborder = 11
+      onshowhint = macrohintexe
+      bounds_x = 14
+      bounds_y = 121
+      bounds_cx = 571
+      bounds_cy = 30
+      anchors = [an_left, an_top, an_right]
+      reffontheight = 14
+    end
+    object val_rundirectory: tstringedit
+      frame.caption = 'Run'#10'Directory'
+      frame.captionpos = cp_left
+      frame.localprops1 = [frl1_captiondist]
+      frame.dummy = 0
+      frame.outerframe = (
+        59
+        5
+        0
+        5
+      )
+      taborder = 12
+      onshowhint = macrohintexe
+      bounds_x = 16
+      bounds_y = 201
+      bounds_cx = 571
+      bounds_cy = 30
+      anchors = [an_left, an_top, an_right]
+      reffontheight = 14
+    end
   end
   object tlayouter3: tlayouter
     bounds_x = 192
-    bounds_y = 536
+    bounds_y = 592
     bounds_cx = 378
     bounds_cy = 20
     anchors = [an_right, an_bottom]
