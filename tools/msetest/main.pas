@@ -72,6 +72,7 @@ type
    procedure cutitemexe(const sender: TObject);
    procedure rowdeleteingexe(const sender: tcustomgrid; var aindex: Integer;
                    var acount: Integer);
+   procedure dataenteredexe(const sender: TObject);
   protected
    procedure deleterow(const aindex: integer);
    procedure checkenabledstate();
@@ -246,6 +247,11 @@ begin
  checkenabledstate();
 end;
 
+procedure tmainfo.dataenteredexe(const sender: TObject);
+begin
+ mainmo.projectchanged();
+end;
+
 procedure tmainfo.pathsetexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 var
@@ -257,7 +263,6 @@ begin
   avalue:= relativepath(fna1+avalue,fna1);
  end;
  ttestpathnode(treeed.item).path:= avalue;
- mainmo.projectchanged();
 end;
 
 procedure tmainfo.pathedshowhint(const sender: tdatacol; const arow: Integer;
@@ -274,7 +279,7 @@ begin
  okdi.text:= ' ';
  errordi.text:= ' ';
  totaldi.text:= ' ';
- seterror(errordi,false);
+ seterror(errordi,ers_none);
  mainmo.runtest(ttestnode(treeed.item));
  with ttestnode(treeed.item) do begin
   updateparentteststate();
@@ -292,8 +297,8 @@ begin
  okdi.text:= '';
  errordi.text:= '';
  okdi.value:= mainmo.okcount;
- errordi.value:= mainmo.errorcount;
  totaldi.value:= okdi.value + errordi.value;
+ errordi.value:= mainmo.errorcount;
  if testres1 = tes_canceled then begin
   totaldi.text:= 'Canceled';
   totaldi.textflags:= [tf_xcentered,tf_ycentered]
@@ -383,7 +388,12 @@ end;
 
 procedure tmainfo.errorchangeexe(const sender: TObject);
 begin
- seterror(errordi,errordi.value > 0);
+ if totaldi.value = 0 then begin
+  seterror(errordi,ers_none);
+ end
+ else begin
+  seterror(errordi,errordi.value > 0);
+ end;
 end;
 
 procedure tmainfo.runpaintglyphexe(const sender: tcustomintegergraphdataedit;

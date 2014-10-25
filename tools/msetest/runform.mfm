@@ -2,12 +2,12 @@ object runfo: trunfo
   visible = False
   bounds_x = 337
   bounds_y = 266
-  bounds_cx = 676
+  bounds_cx = 708
   bounds_cy = 396
   container.bounds = (
     0
     0
-    676
+    708
     396
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder]
@@ -19,7 +19,7 @@ object runfo: trunfo
     taborder = 1
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 676
+    bounds_cx = 708
     bounds_cy = 356
     anchors = [an_top, an_bottom]
     optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -28,7 +28,7 @@ object runfo: trunfo
     datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[term]
-        width = 671
+        width = 703
         options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'term'
         dataclass = tgridrichstringdatalist
@@ -42,19 +42,18 @@ object runfo: trunfo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 671
+      bounds_cx = 703
       bounds_cy = 14
       optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
       onprocfinished = procfinishedexe
       options = [teo_readonly, teo_stripescsequence]
-      pipewaitus = 10000
       reffontheight = 14
     end
   end
   object tlayouter2: tlayouter
     bounds_x = 0
     bounds_y = 356
-    bounds_cx = 676
+    bounds_cx = 708
     bounds_cy = 40
     anchors = [an_bottom]
     optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -69,9 +68,9 @@ object runfo: trunfo
       frame.framei_bottom = 10
       frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
       frame.dummy = 0
-      bounds_x = 464
+      bounds_x = 472
       bounds_y = 0
-      bounds_cx = 212
+      bounds_cx = 236
       bounds_cy = 40
       anchors = [an_top, an_right]
       optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -84,7 +83,7 @@ object runfo: trunfo
       place_mode = wam_end
       object okbu: tbutton
         optionswidget1 = [ow1_autoscale, ow1_autowidth]
-        bounds_x = 142
+        bounds_x = 166
         bounds_y = 10
         bounds_cx = 50
         bounds_cy = 20
@@ -96,7 +95,7 @@ object runfo: trunfo
       object cancelbu: tbutton
         optionswidget1 = [ow1_autoscale, ow1_autowidth]
         taborder = 1
-        bounds_x = 80
+        bounds_x = 104
         bounds_y = 10
         bounds_cx = 52
         bounds_cy = 20
@@ -109,12 +108,17 @@ object runfo: trunfo
         taborder = 2
         bounds_x = 20
         bounds_y = 10
-        bounds_cx = 50
+        bounds_cx = 74
         bounds_cy = 20
         bounds_cxmin = 50
-        state = [as_localcaption, as_localonexecute]
+        state = [as_localcaption, as_localshortcut, as_localonexecute]
         caption = '&Again'
+        options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_shortcutcaption]
         onexecute = againexe
+        sc = (
+          1
+          312
+        )
       end
     end
     object tlayouter3: tlayouter
@@ -124,7 +128,7 @@ object runfo: trunfo
       taborder = 1
       bounds_x = 8
       bounds_y = 0
-      bounds_cx = 456
+      bounds_cx = 464
       bounds_cy = 40
       anchors = [an_left, an_top, an_right]
       optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]

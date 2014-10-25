@@ -9,6 +9,8 @@ uses
  msesplitter,msepipestream,mseprocess,msedispwidgets,mserichstring;
 type
  runstatety = (rs_none,rs_compile,rs_test,rs_canceled);
+ errorstatety = (ers_none,ers_ok,ers_error);
+ 
  trunfo = class(tmseform)
    tstatfile1: tstatfile;
    grid: twidgetgrid;
@@ -52,22 +54,41 @@ type
    function runtest(const atestitem: ttestnode): teststatety;
  end;
 
+procedure seterror(const adisp: twidget; const astate: errorstatety);
 procedure seterror(const adisp: twidget; const aerror: boolean);
 
 implementation
 uses
  runform_mfm,msesystypes,main;
 
+procedure seterror(const adisp: twidget; const astate: errorstatety);
+var
+ co1: colorty;
+begin
+ case astate of
+  ers_ok: begin
+   co1:= cl_ltgreen;
+  end;
+  ers_error: begin
+   co1:= cl_ltred;
+  end;
+  else begin
+   co1:= cl_transparent;
+  end;
+ end;
+ adisp.frame.colorclient:= co1;
+end;
+
+
 procedure seterror(const adisp: twidget; const aerror: boolean);
 begin
  if aerror then begin
-  adisp.frame.colorclient:= cl_ltred;
+  seterror(adisp,ers_error);
  end
  else begin
-  adisp.frame.colorclient:= cl_active;
+  seterror(adisp,ers_ok);
  end;
 end;
-
  
 { trunfo }
 {
@@ -112,6 +133,7 @@ begin
  againbu.enabled:= false;
  okdi.value:= 0;
  errordi.value:= 0;
+ seterror(errordi,ers_none);
  if ftestitem is ttestitem then begin
   fcurrenttest:= ttestitem(ftestitem);
  end
@@ -158,11 +180,12 @@ begin
  if mstr1 <> '' then begin
   int1:= application.unlockall();
   try
+   proc.active:= false;
    proc.commandline:= mstr1;
    proc.workingdirectory:=
             mainmo.expandmacros(fcurrenttest,fcurrenttest.compiledirectory);
    proc.active:= true;
-   if proc.prochandle = invalidprochandle then begin
+   if proc.lastprochandle = invalidprochandle then begin
     with fcurrenttest do begin
      actualexitcode:= -1;
      actualoutput:= '';
@@ -235,6 +258,9 @@ begin
    n1.expandtoroot;
    mainfo.grid.row:= n1.index;
   end;
+ end
+ else begin
+  seterror(errordi,errordi.value <> 0);
  end;
 end;
 

@@ -504,7 +504,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 12
       onshowhint = macrohintexe
-      bounds_x = 16
+      bounds_x = 14
       bounds_y = 201
       bounds_cx = 571
       bounds_cy = 30
