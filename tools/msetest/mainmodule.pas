@@ -25,11 +25,13 @@ type
    class function createstatsubnode(const reader: tstatreader): ttestnode;
    procedure statreadsubnode(const reader: tstatreader;
                                             var anode: ttreelistitem); override;
-   class function kind: testnodekindty; virtual;
+   class function kind(): testnodekindty; virtual;
    procedure dogetdefaults(); virtual;
+   class function baseimagenr(): integer; virtual;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
+   procedure valuechange(); override;
    procedure assign(const source: ttestnode); virtual;
    procedure getdefaults();
    procedure number(var alast: integer); virtual;
@@ -37,6 +39,7 @@ type
    procedure dostatwrite(const writer: tstatwriter); override;
    function firsttestitem(const startindex: integer = 0): ttestitem;
    function nexttestitem(const aroot: ttestnode): ttestitem;
+   procedure updateteststate();
    procedure updateparentteststate(); virtual;
    property teststate: teststatety read fteststate;
   published
@@ -53,6 +56,8 @@ type
   protected
    procedure setpath(avalue: filenamety); virtual;
   public
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
    procedure assign(const source: ttestnode); override;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
@@ -101,6 +106,7 @@ type
   protected
    class function kind: testnodekindty; override;
    procedure dogetdefaults(); override;
+   class function baseimagenr(): integer; override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
@@ -249,6 +255,7 @@ constructor ttestnode.create(const aowner: tcustomitemlist = nil;
 begin
  inherited;
  fstate:= fstate + [ns_checkbox,ns_checked,ns_showparentnotchecked];
+ fimagenr:= baseimagenr();
 end;
 
 class function ttestnode.createstatsubnode(
@@ -289,6 +296,7 @@ procedure ttestnode.dostatread(const reader: tstatreader);
 begin
  inherited;
  fteststate:= teststatety(reader.readinteger('teststate',0));
+ updateteststate();
 end;
 {
 function ttestnode.run: boolean;
@@ -368,6 +376,38 @@ begin
  //dummy
 end;
 
+procedure ttestnode.updateteststate;
+var
+ int1: integer;
+begin
+ int1:= baseimagenr();
+ if checked and not (ns1_parentnotchecked in fstate1) then begin
+  case fteststate of
+   tes_error: begin
+    int1:= int1 + 2;
+   end;
+   tes_ok: begin
+    int1:= int1 + 1;
+   end;
+  end;
+ end;
+ if imagenr <> int1 then begin
+  imagenr:= int1;
+  valuechange();
+ end;
+end;
+
+class function ttestnode.baseimagenr: integer;
+begin
+ result:= 0;
+end;
+
+procedure ttestnode.valuechange;
+begin
+ inherited;
+ updateparentteststate();
+end;
+
 { ttestgroupnode }
 
 constructor ttestgroupnode.create(const aowner: tcustomitemlist = nil;
@@ -406,18 +446,25 @@ end;
 procedure ttestgroupnode.updateparentteststate();
 var
  int1: integer;
+ statebefore: teststatety;
 begin
+ statebefore:= fteststate;
  fteststate:= tes_none;
  for int1:= 0 to count-1 do begin
   with ttestnode(fitems[int1]) do begin
-   if fteststate = tes_error then begin
-    self.fteststate:= tes_error;
-    break;
-   end;
-   if fteststate = tes_ok then begin
-    self.fteststate:= tes_ok;
+   if checked then begin
+    if fteststate = tes_error then begin
+     self.fteststate:= tes_error;
+     break;
+    end;
+    if fteststate = tes_ok then begin
+     self.fteststate:= tes_ok;
+    end;
    end;
   end;
+ end;
+ if fteststate <> statebefore then begin
+  updateteststate();
  end;
  inherited;
 end;
@@ -458,7 +505,18 @@ begin
  fnrlast:= alast;
 end;
 
+class function ttestgroupnode.baseimagenr: integer;
+begin
+ result:= 3;
+end;
+
 { ttestpathnode }
+
+constructor ttestpathnode.create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil);
+begin
+ inherited;
+end;
 
 procedure ttestpathnode.setpath(avalue: filenamety);
 begin

@@ -35,6 +35,7 @@ type
    copyitemact: taction;
    pasteitemact: taction;
    cutitemact: taction;
+   images: timagelist;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);
@@ -216,6 +217,7 @@ procedure tmainfo.updaterowvalueexe(const sender: TObject;
 var
  int1: integer;
 begin
+ ttestnode(aitem).updateteststate();
  if aitem is ttestgroupnode then begin
   editbu[aindex]:= -1;
 //  grid.datacols.mergecols(aindex);
@@ -228,6 +230,7 @@ begin
   with ttestpathnode(aitem) do begin
    pathed[aindex]:= path;
    commented[aindex]:= comment;
+   {
    int1:= -1;
    if treechecked then begin
     int1:= 0;
@@ -239,6 +242,11 @@ begin
       int1:= 2;
      end;
     end;
+   end;
+   }
+   int1:= -1;
+   if treechecked then begin
+    int1:= imagenr mod 3;
    end;
    grid.rowcolorstate[aindex]:= int1;
    runbu[aindex]:= int1;
@@ -297,7 +305,7 @@ begin
  okdi.text:= '';
  errordi.text:= '';
  okdi.value:= mainmo.okcount;
- totaldi.value:= okdi.value + errordi.value;
+ totaldi.value:= okdi.value + mainmo.errorcount;
  errordi.value:= mainmo.errorcount;
  if testres1 = tes_canceled then begin
   totaldi.text:= 'Canceled';
