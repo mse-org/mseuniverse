@@ -164,7 +164,6 @@ begin
  end;
 end;
 
-
 procedure trunfo.docompile();
 var
  mstr1: msestring;
@@ -176,8 +175,15 @@ begin
  fstate:= rs_compile;
  mstr1:= mainmo.expandmacros(fcurrenttest,fcurrenttest.compilecommand);
  if mstr1 <> '' then begin
-  term.execprog(mstr1,
+  try
+   term.execprog(mstr1,
             mainmo.expandmacros(fcurrenttest,fcurrenttest.compiledirectory)); 
+  except
+   on e: exception do begin
+    term.addline(e.message);
+    procfinishedexe(nil);
+   end;
+  end;
  end
  else begin
   dotest();
@@ -200,12 +206,18 @@ begin
    proc.commandline:= mstr1;
    proc.workingdirectory:=
             mainmo.expandmacros(fcurrenttest,fcurrenttest.compiledirectory);
-   proc.active:= true;
+   try
+    proc.active:= true;
+   except
+    on e: exception do begin
+     fcurrenttest.actualerror:= e.message;
+    end;
+   end;
    if proc.lastprochandle = invalidprochandle then begin
     with fcurrenttest do begin
      actualexitcode:= -1;
      actualoutput:= '';
-     actualerror:= '';
+//     actualerror:= '';
     end;
     dofinish(false);
    end
