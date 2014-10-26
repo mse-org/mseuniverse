@@ -500,15 +500,15 @@ end;
 procedure ttestgroupnode.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
- writer.writemsestring('cd',fcaptiondefault);
- writer.writemsestring('pd',fpathdefault);
+ writer.writemsestring('cdef',fcaptiondefault);
+ writer.writemsestring('pdef',fpathdefault);
 end;
 
 procedure ttestgroupnode.dostatread(const reader: tstatreader);
 begin
  inherited;
- fcaptiondefault:= reader.readmsestring('cd','');
- fpathdefault:= reader.readmsestring('pd','');
+ fcaptiondefault:= reader.readmsestring('cdef','');
+ fpathdefault:= reader.readmsestring('pdef','');
 end;
 
 procedure ttestgroupnode.dogetdefaults;
