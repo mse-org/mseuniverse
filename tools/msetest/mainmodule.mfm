@@ -84,7 +84,7 @@ object mainmo: tmainmo
       )
     )
     controller.defaultext = 'mtp'
-    controller.options = [fdo_checkexist, fdo_single, fdo_savelastdir]
+    controller.options = [fdo_checkexist, fdo_single, fdo_chdir, fdo_savelastdir]
     left = 256
     top = 112
   end

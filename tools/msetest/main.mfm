@@ -443,7 +443,7 @@ object mainfo: tmainfo
     top = 84
   end
   object tpopupmenu1: tpopupmenu
-    menu.submenu.count = 4
+    menu.submenu.count = 5
     menu.submenu.items = <    
       item
         caption = 'Insert &Group Node'
@@ -452,20 +452,34 @@ object mainfo: tmainfo
       end    
       item
         action = copyitemact
+        caption = '&Copy Item'
+        state = [as_localcaption]
       end    
       item
         action = cutitemact
+        caption = 'C&ut Item'
+        state = [as_localcaption]
       end    
       item
         action = pasteitemact
+        caption = '&Paste Item'
+        state = [as_localcaption]
+      end    
+      item
+        action = editact
       end>
     left = 16
     top = 128
   end
   object editact: taction
+    caption = '&Edit Item'
     onexecute = editexe
     left = 328
     top = 66
+    sc = (
+      1
+      306
+    )
   end
   object menuitemframe: tframecomp
     template.levelo = -1

@@ -2,13 +2,13 @@ object testeditfo: ttesteditfo
   bounds_x = 225
   bounds_y = 419
   bounds_cx = 596
-  bounds_cy = 637
+  bounds_cy = 573
   container.onlayout = layoutexe
   container.bounds = (
     0
     0
     596
-    637
+    573
   )
   options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
@@ -20,13 +20,13 @@ object testeditfo: ttesteditfo
     bounds_x = 0
     bounds_y = 8
     bounds_cx = 596
-    bounds_cy = 574
+    bounds_cy = 510
     anchors = [an_top, an_bottom]
     onlayout = layoutexe
     optionslayout = [lao_placey]
     align_mode = wam_none
-    place_mindist = 10
-    place_maxdist = 10
+    place_mindist = 5
+    place_maxdist = 5
     object tlayouter1: tlayouter
       optionsskin = [osk_noalignx]
       bounds_x = 0
@@ -126,7 +126,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 1
       bounds_x = 11
-      bounds_y = 241
+      bounds_y = 211
       bounds_cx = 574
       bounds_cy = 76
       anchors = [an_left, an_top, an_right]
@@ -147,7 +147,7 @@ object testeditfo: ttesteditfo
       taborder = 2
       onshowhint = filemacrohintexe
       bounds_x = 9
-      bounds_y = 30
+      bounds_y = 25
       bounds_cx = 576
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -156,7 +156,7 @@ object testeditfo: ttesteditfo
     object tlayouter4: tlayouter
       taborder = 3
       bounds_x = 0
-      bounds_y = 533
+      bounds_y = 473
       bounds_cx = 596
       bounds_cy = 30
       anchors = [an_top]
@@ -217,11 +217,16 @@ object testeditfo: ttesteditfo
         taborder = 3
         bounds_x = 249
         bounds_y = 5
-        bounds_cx = 65
+        bounds_cx = 94
         bounds_cy = 20
-        state = [as_localcaption]
+        state = [as_localcaption, as_localshortcut]
         action = mainmo.runtestact
         caption = 'Test &Run'
+        options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_shortcutcaption]
+        sc = (
+          1
+          312
+        )
       end
       object tspacer3: tspacer
         taborder = 4
@@ -247,7 +252,7 @@ object testeditfo: ttesteditfo
       taborder = 4
       onshowhint = macrohintexe
       bounds_x = 8
-      bounds_y = 161
+      bounds_y = 141
       bounds_cx = 577
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -265,7 +270,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 5
       bounds_x = 3
-      bounds_y = 373
+      bounds_y = 333
       bounds_cx = 583
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -289,7 +294,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 6
       bounds_x = 18
-      bounds_y = 413
+      bounds_y = 368
       bounds_cx = 567
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -310,7 +315,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 7
       bounds_x = 3
-      bounds_y = 453
+      bounds_y = 403
       bounds_cx = 582
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -334,7 +339,7 @@ object testeditfo: ttesteditfo
       )
       taborder = 8
       bounds_x = 22
-      bounds_y = 493
+      bounds_y = 438
       bounds_cx = 563
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -346,7 +351,7 @@ object testeditfo: ttesteditfo
     object tlayouter5: tlayouter
       taborder = 9
       bounds_x = 0
-      bounds_y = 70
+      bounds_y = 60
       bounds_cx = 596
       bounds_cy = 41
       anchors = [an_top]
@@ -412,7 +417,7 @@ object testeditfo: ttesteditfo
     object tlayouter6: tlayouter
       taborder = 10
       bounds_x = 0
-      bounds_y = 327
+      bounds_y = 292
       bounds_cx = 596
       bounds_cy = 36
       anchors = [an_top]
@@ -485,7 +490,7 @@ object testeditfo: ttesteditfo
       taborder = 11
       onshowhint = macrohintexe
       bounds_x = 14
-      bounds_y = 121
+      bounds_y = 106
       bounds_cx = 571
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -505,7 +510,7 @@ object testeditfo: ttesteditfo
       taborder = 12
       onshowhint = macrohintexe
       bounds_x = 14
-      bounds_y = 201
+      bounds_y = 176
       bounds_cx = 571
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
@@ -514,7 +519,7 @@ object testeditfo: ttesteditfo
   end
   object tlayouter3: tlayouter
     bounds_x = 192
-    bounds_y = 592
+    bounds_y = 528
     bounds_cx = 378
     bounds_cy = 20
     anchors = [an_right, an_bottom]

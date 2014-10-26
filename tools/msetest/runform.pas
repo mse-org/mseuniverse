@@ -209,6 +209,11 @@ begin
   end;
  end
  else begin
+  with fcurrenttest do begin
+   actualexitcode:= 0;
+   actualoutput:= '';
+   actualerror:= '';
+  end;
   dofinish(true);
  end;
 end;

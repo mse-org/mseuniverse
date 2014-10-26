@@ -8,6 +8,8 @@ uses
  msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,msemenus,
  msestream,msesys,sysutils,msemacros,mseforms,msesimplewidgets,msewidgets;
 
+const
+ macrogroupcount = 6;
 type
  testnodekindty = (tnk_none,tnk_group,tnk_leaf);
  teststatety = (tes_none,tes_ok,tes_error,tes_canceled);
@@ -157,13 +159,21 @@ type
   private
    fmacronames: msestringarty;
    fmacrovalues: msestringarty;
+   fmacroon: integerarty;
+   fmacrogroup: integer;
+   fgroupcomment: msestringarty;
+   procedure setmacrogroup(avalue: integer);
   protected
    procedure dostatupdate(const filer: tstatfiler); override;
   public
+   constructor create();
    procedure clear();
   published
    property macronames: msestringarty read fmacronames write fmacronames;
    property macrovalues: msestringarty read fmacrovalues write fmacrovalues;
+   property macroon: integerarty read fmacroon write fmacroon;
+   property macrogroup: integer read fmacrogroup write setmacrogroup;
+   property groupcomment: msestringarty read fgroupcomment write fgroupcomment;
  end;
   
  tmainmo = class(tmsedatamodule)
@@ -210,6 +220,7 @@ type
    procedure updatecaption();
    procedure updateprojectname();
    procedure loadproject();
+   procedure updatemacros();
    procedure readclipboard(const reader: tstatreader);
   public
    constructor create(aowner: tcomponent); override;
@@ -246,7 +257,7 @@ var
  mainmo: tmainmo;
 implementation
 uses
- mainmodule_mfm,msefileutils,runform,msefilemacros;
+ mainmodule_mfm,msefileutils,runform,msefilemacros,msebits;
  
 { ttestnode }
 
@@ -599,7 +610,9 @@ begin
  if parent is ttestvaluenode then begin
   with ttestvaluenode(parent) do begin
    self.fcompilecommand:= fcompilecommand;
+   self.fcompiledirectory:= fcompiledirectory;
    self.fruncommand:= fruncommand;
+   self.frundirectory:= frundirectory;
    self.finput:= finput;
    self.fexpectedoutput:= fexpectedoutput;
    self.fexpectederror:= fexpectederror;
@@ -741,7 +754,7 @@ begin
  updateprojectname();
  if fprojectfile <> '' then begin
   projectstat.readstat();
-  fmacros.setasarray(fprojectoptions.macronames,fprojectoptions.macrovalues,nil);
+  updatemacros();
   frootnode.checked:= true;
   frootnode.updateparentnotcheckedtree();
   renumber();
@@ -785,7 +798,7 @@ var
 begin
  result:= mr_yes;
  if fmodified then begin
-  result:= askyesnocancel('Project has been modified, save it?');
+  result:= askyesnocancel('Project has been modified, save it?','CONFIRMATION');
  end;
  if result <> mr_cancel then begin
   if (result = mr_yes) then begin
@@ -927,7 +940,7 @@ end;
 procedure tmainmo.endeditmacros(const editfo: tmsecomponent);
 begin
  valuestoobject(editfo,fprojectoptions,'val_');
- fmacros.setasarray(fprojectoptions.macronames,fprojectoptions.macrovalues,nil);
+ updatemacros();
  projectchanged();
 end;
 
@@ -1060,19 +1073,66 @@ begin
  fclipboarditem:= nil;
 end;
 
+procedure tmainmo.updatemacros();
+var
+ int1,int2,int3,mask: integer;
+ ar1: macroinfoarty;
+begin
+ with fprojectoptions do begin
+  int2:= high(fmacronames);
+  if int2 < high(fmacrovalues) then begin
+   int2:= high(fmacrovalues);
+  end;
+  mask:= bits[fmacrogroup];
+  setlength(ar1,int2+1); //max
+  int3:= 0;
+  for int1:= 0 to int2 do begin
+   if (high(fmacroon) < int1) or (fmacroon[int1] and mask <> 0) then begin
+    with ar1[int3] do begin
+     name:= fmacronames[int1];
+     value:= fmacrovalues[int1];
+    end;
+    inc(int3);
+   end;
+  end;
+  setlength(ar1,int3);
+  fmacros.setasarray(ar1);
+ end;
+end;
+
 { tprojectoptions }
+
+constructor tprojectoptions.create;
+begin
+ inherited;
+ setlength(fgroupcomment,macrogroupcount);
+end;
 
 procedure tprojectoptions.dostatupdate(const filer: tstatfiler);
 begin
  inherited;
- filer.updatevalue('macronames',fmacronames);
- filer.updatevalue('macrovalues',fmacrovalues);
+ setlength(fgroupcomment,macrogroupcount);
+// filer.updatevalue('macronames',fmacronames);
+// filer.updatevalue('macrovalues',fmacrovalues);
 end;
 
 procedure tprojectoptions.clear;
 begin
  fmacronames:= nil;
  fmacrovalues:= nil;
+end;
+
+procedure tprojectoptions.setmacrogroup(avalue: integer);
+begin
+ if avalue < 0 then begin
+  avalue:= 0;
+ end
+ else begin
+  if avalue >= macrogroupcount then begin
+   avalue:= macrogroupcount - 1;
+  end;
+ end;
+ fmacrogroup:= avalue; 
 end;
 
 end.
