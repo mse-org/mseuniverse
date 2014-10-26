@@ -871,6 +871,7 @@ begin
  if closeproject <> mr_cancel then begin
   fprojectname:= '<new>';
   updatecaption();
+  projectfiledialog.controller.filename:= '';
   if projectfiledialog.execute(fdk_new) <> mr_cancel then begin
    updateprojectname();
   end;
