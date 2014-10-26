@@ -73,6 +73,7 @@ type
    fcomment: msestring;
   protected
    procedure setpath(avalue: filenamety); virtual;
+   procedure dogetdefaults(); override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
@@ -591,6 +592,16 @@ begin
   n1:= n1.parent
  until not (n1 is ttestpathnode) or 
      (result <> '') and (result[1] = '/');   //stop at root path
+end;
+
+procedure ttestpathnode.dogetdefaults;
+begin
+ inherited;
+ if parent is ttestpathnode then begin
+  with ttestvaluenode(parent) do begin
+   self.fcomment:= fcomment;
+  end;
+ end;
 end;
 
 { ttestvaluenode }
