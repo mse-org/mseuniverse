@@ -52,6 +52,7 @@ type
    pasteitemact: taction;
    cutitemact: taction;
    images: timagelist;
+   insertgroupnodeact: taction;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);
@@ -92,11 +93,13 @@ type
    procedure dataenteredexe(const sender: TObject);
    procedure commentsetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
+   procedure updatepasteitem(const sender: tcustomaction);
+   procedure updaterowactexe(const sender: tcustomaction);
   protected
    procedure deleterow(const aindex: integer);
    procedure checkenabledstate();
    procedure refreshnumbers();
-   procedure insertitem(const aitem: ttestnode; const aindex: integer);
+   procedure insertitem(const aitem: ttestnode; aindex: integer);
  end;
  
 var
@@ -175,10 +178,13 @@ begin
  treeed.beginedit();
 end;
 
-procedure tmainfo.insertitem(const aitem: ttestnode; const aindex: integer);
+procedure tmainfo.insertitem(const aitem: ttestnode; aindex: integer);
 var
  n2: ttreelistitem;
 begin
+ if aindex < 0 then begin
+  aindex:= 0;
+ end;
  n2:= treeed.item;
  if (n2 is ttestgroupnode) and (n2.count = 0) and n2.expanded then begin
   n2.add(aitem);
@@ -463,6 +469,16 @@ begin
    end;
   end;
  end; 
+end;
+
+procedure tmainfo.updatepasteitem(const sender: tcustomaction);
+begin
+ sender.enabled:= (grid.rowcount = 0) or (grid.row >= 0);
+end;
+
+procedure tmainfo.updaterowactexe(const sender: tcustomaction);
+begin
+ sender.enabled:= grid.row >= 0;
 end;
 
 end.

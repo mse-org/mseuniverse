@@ -448,9 +448,7 @@ object mainfo: tmainfo
     menu.submenu.count = 5
     menu.submenu.items = <    
       item
-        caption = 'Insert &Group Node'
-        state = [as_localcaption, as_localonexecute]
-        onexecute = insertgroupexe
+        action = insertgroupnodeact
       end    
       item
         action = copyitemact
@@ -475,7 +473,9 @@ object mainfo: tmainfo
   end
   object editact: taction
     caption = '&Edit Item'
+    options = [ao_updateonidle]
     onexecute = editexe
+    onupdate = updaterowactexe
     left = 328
     top = 66
     sc = (
@@ -502,7 +502,9 @@ object mainfo: tmainfo
   end
   object copyitemact: taction
     caption = 'Copy Item'
+    options = [ao_updateonidle]
     onexecute = copyitemexe
+    onupdate = updaterowactexe
     left = 328
     top = 80
     sc = (
@@ -512,7 +514,9 @@ object mainfo: tmainfo
   end
   object pasteitemact: taction
     caption = 'Paste Item'
+    options = [ao_updateonidle]
     onexecute = pasteitemexe
+    onupdate = updatepasteitem
     left = 328
     top = 112
     sc = (
@@ -522,7 +526,9 @@ object mainfo: tmainfo
   end
   object cutitemact: taction
     caption = 'Cut Item'
+    options = [ao_updateonidle]
     onexecute = cutitemexe
+    onupdate = updaterowactexe
     left = 328
     top = 96
     sc = (
@@ -1050,5 +1056,13 @@ object mainfo: tmainfo
       FFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFF
       FFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
     }
+  end
+  object insertgroupnodeact: taction
+    caption = 'Insert &Group Node'
+    options = [ao_updateonidle]
+    onexecute = insertgroupexe
+    onupdate = updatepasteitem
+    left = 328
+    top = 128
   end
 end
