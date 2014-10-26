@@ -96,8 +96,15 @@ object mainmo: tmainmo
   object stoponcomperr: taction
     caption = 'Stop on compile error'
     statfile = projectstat
-    onexecute = stoponcompexe
+    onexecute = stoponerrexe
     left = 16
     top = 176
+  end
+  object stoponfirsterr: taction
+    caption = 'Stop on first error'
+    statfile = projectstat
+    onexecute = stoponerrexe
+    left = 16
+    top = 192
   end
 end

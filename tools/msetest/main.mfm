@@ -10,9 +10,6 @@ object mainfo: tmainfo
     672
     316
   )
-  font.name = 'stf_default'
-  font.xscale = 1
-  font.dummy = 0
   options = [fo_main, fo_terminateonclose, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainmo.projectstat
   caption = 'MSEtest'
@@ -156,6 +153,7 @@ object mainfo: tmainfo
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
       ondataentered = dataenteredexe
+      onsetvalue = commentsetexe
       reffontheight = 14
     end
     object runbu: tdatabutton
@@ -327,10 +325,14 @@ object mainfo: tmainfo
           onexecute = editmacroexe
         end      
         item
-          submenu.count = 1
+          submenu.count = 2
           submenu.items = <          
             item
               action = mainmo.stoponcomperr
+              options = [mao_checkbox, mao_shortcutcaption]
+            end          
+            item
+              action = mainmo.stoponfirsterr
               options = [mao_checkbox, mao_shortcutcaption]
             end>
           caption = '&Options'

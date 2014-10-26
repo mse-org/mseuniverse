@@ -1,3 +1,19 @@
+{ MSEtest Copyright (c) 2014 by Martin Schreiber
+   
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+}
 unit mainmodule;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -191,6 +207,7 @@ type
    projectfiledialog: tfiledialog;
    runtestact: taction;
    stoponcomperr: taction;
+   stoponfirsterr: taction;
    procedure exitexe(const sender: TObject);
    procedure openexe(const sender: TObject);
    procedure getstatobjexe(const sender: TObject; var aobject: TObject);
@@ -200,7 +217,7 @@ type
    procedure projectupdateexe(const sender: TObject; const filer: tstatfiler);
    procedure aftermainstareadexe(const sender: TObject);
    procedure runtestexe(const sender: TObject);
-   procedure stoponcompexe(const sender: TObject);
+   procedure stoponerrexe(const sender: TObject);
    procedure newexe(const sender: TObject);
    procedure closeexe(const sender: TObject);
   private
@@ -798,7 +815,7 @@ var
 begin
  result:= mr_yes;
  if fmodified then begin
-  result:= askyesnocancel('Project has been modified, save it?','CONFIRMATION');
+  result:= askyesnocancel('Project has been modified, save it?','Confirmation');
  end;
  if result <> mr_cancel then begin
   if (result = mr_yes) then begin
@@ -1023,7 +1040,7 @@ function tmainmo.findnumber(const anumber: integer): ttestitem;
   if anode.nr > anumber then begin
    exit;
   end;
-  for int1:= 1 to anode.count do begin
+  for int1:= 1 to anode.count-1 do begin
    if ttestnode(anode.fitems[int1]).nr > anumber then begin
     check(ttestnode(anode.fitems[int1-1]));
     exit;
@@ -1040,7 +1057,7 @@ begin
 end;
 
 
-procedure tmainmo.stoponcompexe(const sender: TObject);
+procedure tmainmo.stoponerrexe(const sender: TObject);
 begin
  projectchanged();
 end;

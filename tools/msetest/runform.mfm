@@ -100,8 +100,9 @@ object runfo: trunfo
         bounds_cx = 52
         bounds_cy = 20
         bounds_cxmin = 50
-        state = [as_disabled, as_localdisabled, as_localcaption]
+        state = [as_disabled, as_localdisabled, as_localcaption, as_localonexecute]
         caption = '&Cancel'
+        onexecute = cancelexe
       end
       object againbu: tbutton
         optionswidget1 = [ow1_autoscale, ow1_autowidth]

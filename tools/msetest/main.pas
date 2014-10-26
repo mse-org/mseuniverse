@@ -1,3 +1,19 @@
+{ MSEtest Copyright (c) 2014 by Martin Schreiber
+   
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+}
 unit main;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -74,6 +90,8 @@ type
    procedure rowdeleteingexe(const sender: tcustomgrid; var aindex: Integer;
                    var acount: Integer);
    procedure dataenteredexe(const sender: TObject);
+   procedure commentsetexe(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
   protected
    procedure deleterow(const aindex: integer);
    procedure checkenabledstate();
@@ -271,6 +289,12 @@ begin
   avalue:= relativepath(fna1+avalue,fna1);
  end;
  ttestpathnode(treeed.item).path:= avalue;
+end;
+
+procedure tmainfo.commentsetexe(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ ttestpathnode(treeed.item).comment:= avalue;
 end;
 
 procedure tmainfo.pathedshowhint(const sender: tdatacol; const arow: Integer;

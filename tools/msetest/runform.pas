@@ -1,3 +1,19 @@
+{ MSEtest Copyright (c) 2014 by Martin Schreiber
+   
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+}
 unit runform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -234,7 +250,8 @@ begin
    fcurrenttest.setteststate(tes_error);
    errordi.value:= errordi.value+1;
   end;
-  if ftestitem = fcurrenttest then begin //single
+  if (ftestitem = fcurrenttest) or 
+            (not ok and mainmo.stoponfirsterr.checked) then begin //single
    stop();
   end
   else begin
@@ -275,7 +292,8 @@ begin
   rs_compile: begin
    fcurrenttest.compileresult:= term.exitcode();
    if fcurrenttest.compileresult <> 0 then begin
-    if mainmo.stoponcomperr.checked then begin
+    if (mainmo.stoponcomperr.checked) or 
+                          (mainmo.stoponfirsterr.checked) then begin
      cancelexe(nil);
     end
     else begin
