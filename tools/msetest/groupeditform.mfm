@@ -1,0 +1,453 @@
+object groupeditfo: tgroupeditfo
+  bounds_x = 225
+  bounds_y = 419
+  bounds_cx = 596
+  bounds_cy = 541
+  container.bounds = (
+    0
+    0
+    596
+    541
+  )
+  options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Edit Group Item'
+  moduleclassname = 'tmseform'
+  object tlayouter2: tlayouter
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 8
+    bounds_cx = 596
+    bounds_cy = 478
+    anchors = [an_top, an_bottom]
+    onlayout = layoutexe
+    optionslayout = [lao_placey]
+    align_mode = wam_none
+    place_mindist = 5
+    place_maxdist = 5
+    object tlayouter1: tlayouter
+      optionsskin = [osk_noalignx]
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 596
+      bounds_cy = 20
+      anchors = [an_top]
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_aligny]
+      align_glue = wam_start
+      place_mindist = 10
+      place_maxdist = 10
+      object val_enabled: tbooleanedit
+        frame.options = [cfo_fixright, cfo_captionfocus]
+        frame.caption = 'enabled'
+        frame.localprops1 = [frl1_captionoffset]
+        frame.dummy = 0
+        frame.outerframe = (
+          0
+          1
+          54
+          1
+        )
+        bounds_x = 331
+        bounds_y = 2
+        bounds_cx = 67
+        bounds_cy = 16
+        anchors = [an_top, an_right]
+      end
+      object val_caption: tstringedit
+        frame.caption = 'Caption'
+        frame.captionpos = cp_left
+        frame.localprops1 = [frl1_captiondist]
+        frame.dummy = 0
+        frame.outerframe = (
+          51
+          0
+          0
+          0
+        )
+        taborder = 1
+        bounds_x = 6
+        bounds_y = 0
+        bounds_cx = 315
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        reffontheight = 14
+      end
+      object tspacer1: tspacer
+        taborder = 2
+        bounds_x = 321
+        bounds_y = 3
+        bounds_cx = 10
+        bounds_cy = 15
+        linkleft = val_caption
+        linkright = val_enabled
+        options = [spao_glueright]
+      end
+      object val_nr: tintegerdisp
+        frame.caption = 'Nr.'
+        frame.captionpos = cp_left
+        frame.dummy = 0
+        frame.outerframe = (
+          21
+          0
+          0
+          0
+        )
+        taborder = 3
+        bounds_x = 408
+        bounds_y = 1
+        bounds_cx = 93
+        bounds_cy = 18
+        onchange = nrchangeexe
+        reffontheight = 14
+      end
+      object tspacer5: tspacer
+        taborder = 4
+        bounds_x = 398
+        bounds_y = 3
+        bounds_cx = 10
+        bounds_cy = 15
+        linkleft = val_enabled
+        linkright = val_nr
+        options = [spao_glueright]
+      end
+      object tspacer2: tspacer
+        taborder = 5
+        bounds_x = 501
+        bounds_y = 3
+        bounds_cx = 2
+        bounds_cy = 15
+        linkleft = val_nr
+        linkright = val_nrlast
+        options = [spao_glueright]
+      end
+      object val_nrlast: tintegerdisp
+        frame.caption = '..'
+        frame.captionpos = cp_left
+        frame.dummy = 0
+        frame.outerframe = (
+          11
+          0
+          0
+          0
+        )
+        taborder = 6
+        bounds_x = 503
+        bounds_y = 1
+        bounds_cx = 82
+        bounds_cy = 18
+        onchange = nrchangeexe
+        reffontheight = 14
+      end
+    end
+    object val_comment: tmemoedit
+      frame.sbhorz.pagesize = 1
+      frame.sbvert.pagesize = 1
+      frame.caption = 'Comment'
+      frame.captionpos = cp_left
+      frame.localprops = [frl_colorclient]
+      frame.outerframe = (
+        62
+        0
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 11
+      bounds_y = 279
+      bounds_cx = 574
+      bounds_cy = 68
+      anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      reffontheight = 14
+    end
+    object val_pathdefault: tfilenameedit
+      frame.caption = 'File Path'#10'${FILE}'
+      frame.captionpos = cp_left
+      frame.localprops1 = [frl1_captiondist]
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        57
+        5
+        0
+        5
+      )
+      taborder = 2
+      onshowhint = filemacrohintexe
+      bounds_x = 9
+      bounds_y = 104
+      bounds_cx = 576
+      bounds_cy = 30
+      anchors = [an_left, an_top, an_right]
+      reffontheight = 14
+    end
+    object tlayouter4: tlayouter
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 447
+      bounds_cx = 596
+      bounds_cy = 30
+      anchors = [an_top]
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_aligny]
+      align_glue = wam_start
+      object val_expectedexitcode: tintegeredit
+        frame.caption = 'Expected'#10'Exitcode'
+        frame.captionpos = cp_left
+        frame.dummy = 0
+        frame.outerframe = (
+          61
+          5
+          0
+          5
+        )
+        bounds_x = 8
+        bounds_y = 0
+        bounds_cx = 113
+        bounds_cy = 30
+        reffontheight = 14
+      end
+    end
+    object val_runcommand: tstringedit
+      frame.caption = 'Run'#10'Command'
+      frame.captionpos = cp_left
+      frame.localprops1 = [frl1_captiondist]
+      frame.dummy = 0
+      frame.outerframe = (
+        65
+        5
+        0
+        5
+      )
+      taborder = 4
+      onshowhint = macrohintexe
+      bounds_x = 8
+      bounds_y = 209
+      bounds_cx = 577
+      bounds_cy = 30
+      anchors = [an_left, an_top, an_right]
+      reffontheight = 14
+    end
+    object val_input: tstringedit
+      frame.caption = 'Input'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        35
+        0
+        0
+        0
+      )
+      taborder = 5
+      onshowhint = macrohintexe
+      bounds_x = 29
+      bounds_y = 352
+      bounds_cx = 556
+      anchors = [an_left, an_top, an_right]
+      reffontheight = 14
+    end
+    object val_expectedoutput: tstringedit
+      frame.caption = 'Expected'#10'Output'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        61
+        5
+        0
+        5
+      )
+      taborder = 6
+      bounds_x = 3
+      bounds_y = 377
+      bounds_cx = 582
+      bounds_cy = 30
+      anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      reffontheight = 14
+    end
+    object val_expectederror: tstringedit
+      frame.caption = 'Expected'#10'Error'
+      frame.captionpos = cp_left
+      frame.dummy = 0
+      frame.outerframe = (
+        61
+        5
+        0
+        5
+      )
+      taborder = 7
+      bounds_x = 3
+      bounds_y = 412
+      bounds_cx = 582
+      bounds_cy = 30
+      anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      reffontheight = 14
+    end
+    object tlayouter5: tlayouter
+      taborder = 8
+      bounds_x = 0
+      bounds_y = 139
+      bounds_cx = 596
+      bounds_cy = 30
+      anchors = [an_top]
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_aligny]
+      align_glue = wam_start
+      object val_compilecommand: tstringedit
+        frame.caption = 'Compile'#10'Command'
+        frame.captionpos = cp_left
+        frame.localprops1 = [frl1_captiondist]
+        frame.dummy = 0
+        frame.outerframe = (
+          65
+          5
+          0
+          5
+        )
+        onshowhint = macrohintexe
+        bounds_x = 9
+        bounds_y = 0
+        bounds_cx = 576
+        bounds_cy = 30
+        anchors = [an_left, an_top, an_right]
+        reffontheight = 14
+      end
+    end
+    object tlabel1: tlabel
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autoheight]
+      taborder = 9
+      bounds_x = 0
+      bounds_y = 50
+      bounds_cx = 596
+      bounds_cy = 14
+      anchors = [an_top]
+      caption = '--- Test Node Defaults ---'
+      textflags = [tf_xcentered, tf_ycentered]
+      reffontheight = 14
+    end
+    object val_captiondefault: tstringedit
+      frame.caption = 'Caption'#10'Default'
+      frame.captionpos = cp_left
+      frame.localprops1 = [frl1_captiondist]
+      frame.dummy = 0
+      frame.outerframe = (
+        51
+        5
+        0
+        5
+      )
+      taborder = 10
+      bounds_x = 12
+      bounds_y = 69
+      bounds_cx = 573
+      bounds_cy = 30
+      anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      reffontheight = 14
+    end
+    object val_path: tfilenameedit
+      frame.caption = 'File Path'
+      frame.captionpos = cp_left
+      frame.localprops1 = [frl1_captiondist]
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        57
+        0
+        0
+        0
+      )
+      taborder = 11
+      onshowhint = pathmacrohintexe
+      bounds_x = 8
+      bounds_y = 25
+      bounds_cx = 577
+      anchors = [an_left, an_top, an_right]
+      reffontheight = 14
+    end
+    object val_compiledirectory: tstringedit
+      frame.caption = 'Compile'#10'Directory'
+      frame.captionpos = cp_left
+      frame.localprops1 = [frl1_captiondist]
+      frame.dummy = 0
+      frame.outerframe = (
+        59
+        5
+        0
+        5
+      )
+      taborder = 12
+      onshowhint = macrohintexe
+      bounds_x = 14
+      bounds_y = 174
+      bounds_cx = 571
+      bounds_cy = 30
+      anchors = [an_left, an_top, an_right]
+      reffontheight = 14
+    end
+    object val_rundirectory: tstringedit
+      frame.caption = 'Run'#10'Directory'
+      frame.captionpos = cp_left
+      frame.localprops1 = [frl1_captiondist]
+      frame.dummy = 0
+      frame.outerframe = (
+        59
+        5
+        0
+        5
+      )
+      taborder = 13
+      onshowhint = macrohintexe
+      bounds_x = 14
+      bounds_y = 244
+      bounds_cx = 571
+      bounds_cy = 30
+      anchors = [an_left, an_top, an_right]
+      reffontheight = 14
+    end
+  end
+  object tlayouter3: tlayouter
+    bounds_x = 192
+    bounds_y = 496
+    bounds_cx = 378
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linktop = tlayouter2
+    dist_top = 10
+    options = [spao_gluebottom]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 10
+    place_maxdist = 10
+    place_mode = wam_end
+    object tbutton2: tbutton
+      optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      bounds_x = 326
+      bounds_y = 0
+      bounds_cx = 52
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_localcaption]
+      caption = 'Cancel'
+      modalresult = mr_cancel
+    end
+    object tbutton1: tbutton
+      optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      taborder = 1
+      bounds_x = 266
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_default, as_localdefault, as_localcaption]
+      caption = 'OK'
+      modalresult = mr_ok
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'groupedit.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 128
+    top = 152
+  end
+end
