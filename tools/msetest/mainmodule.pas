@@ -1149,6 +1149,9 @@ procedure tprojectoptions.clear;
 begin
  fmacronames:= nil;
  fmacrovalues:= nil;
+ fmacroon:= nil;
+ fmacrogroup:= 0;
+ fgroupcomment:= nil;
 end;
 
 procedure tprojectoptions.setmacrogroup(avalue: integer);
