@@ -48,6 +48,7 @@ object groupeditfo: tgroupeditfo
           54
           1
         )
+        taborder = 1
         bounds_x = 331
         bounds_y = 2
         bounds_cx = 67
@@ -65,7 +66,6 @@ object groupeditfo: tgroupeditfo
           0
           0
         )
-        taborder = 1
         bounds_x = 6
         bounds_y = 0
         bounds_cx = 315
@@ -151,7 +151,7 @@ object groupeditfo: tgroupeditfo
         0
         0
       )
-      taborder = 1
+      taborder = 8
       bounds_x = 11
       bounds_y = 279
       bounds_cx = 574
@@ -171,7 +171,7 @@ object groupeditfo: tgroupeditfo
         0
         5
       )
-      taborder = 2
+      taborder = 3
       onshowhint = filemacrohintexe
       bounds_x = 9
       bounds_y = 104
@@ -181,7 +181,7 @@ object groupeditfo: tgroupeditfo
       reffontheight = 14
     end
     object tlayouter4: tlayouter
-      taborder = 3
+      taborder = 12
       bounds_x = 0
       bounds_y = 447
       bounds_cx = 596
@@ -218,7 +218,7 @@ object groupeditfo: tgroupeditfo
         0
         5
       )
-      taborder = 4
+      taborder = 6
       onshowhint = macrohintexe
       bounds_x = 8
       bounds_y = 209
@@ -237,7 +237,7 @@ object groupeditfo: tgroupeditfo
         0
         0
       )
-      taborder = 5
+      taborder = 9
       onshowhint = macrohintexe
       bounds_x = 29
       bounds_y = 352
@@ -255,7 +255,7 @@ object groupeditfo: tgroupeditfo
         0
         5
       )
-      taborder = 6
+      taborder = 10
       bounds_x = 3
       bounds_y = 377
       bounds_cx = 582
@@ -274,7 +274,7 @@ object groupeditfo: tgroupeditfo
         0
         5
       )
-      taborder = 7
+      taborder = 11
       bounds_x = 3
       bounds_y = 412
       bounds_cx = 582
@@ -284,7 +284,7 @@ object groupeditfo: tgroupeditfo
       reffontheight = 14
     end
     object tlayouter5: tlayouter
-      taborder = 8
+      taborder = 4
       bounds_x = 0
       bounds_y = 139
       bounds_cx = 596
@@ -315,7 +315,7 @@ object groupeditfo: tgroupeditfo
     end
     object tlabel1: tlabel
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autoheight]
-      taborder = 9
+      taborder = 13
       bounds_x = 0
       bounds_y = 50
       bounds_cx = 596
@@ -336,7 +336,7 @@ object groupeditfo: tgroupeditfo
         0
         5
       )
-      taborder = 10
+      taborder = 2
       bounds_x = 12
       bounds_y = 69
       bounds_cx = 573
@@ -356,7 +356,7 @@ object groupeditfo: tgroupeditfo
         0
         0
       )
-      taborder = 11
+      taborder = 1
       onshowhint = pathmacrohintexe
       bounds_x = 8
       bounds_y = 25
@@ -375,7 +375,7 @@ object groupeditfo: tgroupeditfo
         0
         5
       )
-      taborder = 12
+      taborder = 5
       onshowhint = macrohintexe
       bounds_x = 14
       bounds_y = 174
@@ -395,7 +395,7 @@ object groupeditfo: tgroupeditfo
         0
         5
       )
-      taborder = 13
+      taborder = 7
       onshowhint = macrohintexe
       bounds_x = 14
       bounds_y = 244
