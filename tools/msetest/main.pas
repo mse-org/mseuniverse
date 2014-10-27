@@ -164,16 +164,20 @@ end;
 procedure tmainfo.insertgroupexe(const sender: TObject);
 var
  n1: ttestgroupnode;
+ int1: integer;
 begin
  n1:= ttestgroupnode.create();
  if grid.row < 0 then begin
   treeed.itemlist.insert(0,n1);
+  int1:= 0;
  end
  else begin
+  int1:= grid.row;
   treeed.itemlist.insert(grid.row,n1);
  end;
  n1.getdefaults();
  mainmo.projectchanged();
+ grid.focuscell(mgc(captioncol,int1));
  grid.col:= captioncol;
  treeed.beginedit();
 end;
@@ -193,6 +197,7 @@ begin
  else begin
   treeed.itemlist.insert(aindex,aitem);  
  end;
+ grid.row:= aindex;
  mainmo.projectchanged();
  refreshnumbers();
 end;  
@@ -207,7 +212,7 @@ begin
   n1:= ttestitem.create();
   insertitem(n1,aindex);
   n1.getdefaults();
-  grid.focuscell(mgc(1,n1.index));
+  grid.focuscell(mgc(captioncol,n1.index));
   treeed.beginedit();
  end;
 end;
