@@ -107,32 +107,32 @@ end;
 procedure ttesteditfo.compileresultchangeexe(const sender: TObject);
 begin
  seterror(val_compileresult,
-         val_compileresult.value <> 0);
+         val_compileresult.value <> 0,val_compilecommand);
 end;
 
 procedure ttesteditfo.outputputchangeexe(const sender: TObject);
 begin
  seterror(val_actualoutput,
          val_expectedoutput.value <> 
-                            removelineterminator(val_actualoutput.value));
+            removelineterminator(val_actualoutput.value),val_runcommand);
 end;
 
 procedure ttesteditfo.errorchangeexe(const sender: TObject);
 begin
  seterror(val_actualerror,
          val_expectederror.value <> 
-                           removelineterminator(val_actualerror.value));
+          removelineterminator(val_actualerror.value),val_runcommand);
 end;
 
 procedure ttesteditfo.exitcodechangeexe(const sender: TObject);
 begin
  seterror(val_actualexitcode,
-         val_expectedexitcode.value <> val_actualexitcode.value);
+         val_expectedexitcode.value <> val_actualexitcode.value,val_runcommand);
 end;
 
 procedure ttesteditfo.inputerrorchangeexe(const sender: TObject);
 begin
- seterror(val_inputerror,val_inputerror.value);
+ seterror(val_inputerror,val_inputerror.value,val_runcommand);
 end;
 
 function ttesteditfo.filemacro: msestring;

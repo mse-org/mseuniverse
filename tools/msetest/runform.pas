@@ -71,7 +71,8 @@ type
  end;
 
 procedure seterror(const adisp: twidget; const astate: errorstatety);
-procedure seterror(const adisp: twidget; const aerror: boolean);
+procedure seterror(const adisp: twidget; const aerror: boolean;
+                   const startcommand: tdataedit = nil);
 
 implementation
 uses
@@ -96,13 +97,19 @@ begin
 end;
 
 
-procedure seterror(const adisp: twidget; const aerror: boolean);
+procedure seterror(const adisp: twidget; const aerror: boolean;
+                                  const startcommand: tdataedit = nil);
 begin
- if aerror then begin
-  seterror(adisp,ers_error);
+ if (startcommand <> nil) and startcommand.isnull then begin
+  seterror(adisp,ers_none);
  end
  else begin
-  seterror(adisp,ers_ok);
+  if aerror then begin
+   seterror(adisp,ers_error);
+  end
+  else begin
+   seterror(adisp,ers_ok);
+  end;
  end;
 end;
  
