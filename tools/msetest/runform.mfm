@@ -228,7 +228,7 @@ object runfo: trunfo
     top = 152
   end
   object proc: tmseprocess
-    options = [pro_output, pro_erroroutput, pro_input, pro_winpipewritehandles]
+    options = [pro_output, pro_erroroutput, pro_input, pro_settty, pro_tty, pro_winpipewritehandles]
     input.encoding = ce_utf8n
     output.encoding = ce_utf8n
     output.oninputavailable = outputrx

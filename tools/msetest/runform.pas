@@ -205,6 +205,11 @@ begin
  fstate:= rs_test;
  ferrorbuffer:= '';
  foutputbuffer:= '';
+ with fcurrenttest do begin
+  actualexitcode:= -1;
+  actualoutput:= '';
+  actualerror:= '';
+ end;
  mstr1:= mainmo.expandmacros(fcurrenttest,fcurrenttest.runcommand);
  if mstr1 <> '' then begin
   int1:= application.unlockall();
@@ -221,11 +226,6 @@ begin
     end;
    end;
    if proc.lastprochandle = invalidprochandle then begin
-    with fcurrenttest do begin
-     actualexitcode:= -1;
-     actualoutput:= '';
-//     actualerror:= '';
-    end;
     dofinish(false);
    end
    else begin
