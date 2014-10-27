@@ -172,6 +172,7 @@ object macrosfo: tmacrosfo
         item[val_macrovalues]
           width = 368
           options = [co_focusselect, co_mouseselect, co_keyselect, co_multiselect, co_rowselect, co_fill, co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
+          onshowhint = colhintexe
           widgetname = 'val_macrovalues'
           dataclass = tgridmsestringdatalist
         end>
@@ -272,6 +273,7 @@ object macrosfo: tmacrosfo
         frame.button.color = -1879048187
         frame.button.imagenr = 17
         taborder = 8
+        onshowhint = macrohintexe
         visible = False
         bounds_x = 231
         bounds_y = 0

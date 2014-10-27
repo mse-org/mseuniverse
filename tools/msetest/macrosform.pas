@@ -49,13 +49,17 @@ type
    procedure loadedexe(const sender: TObject);
    procedure closequeryexe(const sender: tcustommseform;
                    var amodalresult: modalresultty);
+   procedure macrohintexe(const sender: TObject; var info: hintinfoty);
+   procedure colhintexe(const sender: tdatacol; const arow: Integer;
+                   var info: hintinfoty);
   protected
    procedure activegroupchanged();
+   procedure macrohint(const avalue: msestring; var info: hintinfoty);
  end;
  
 implementation
 uses
- macrosform_mfm,mainmodule,msearrayutils;
+ macrosform_mfm,mainmodule,msearrayutils,msemacros;
 
 procedure tmacrosfo.activegroupchanged();
 var
@@ -150,6 +154,28 @@ begin
    macrogroup:= selectactivegroupgrid.row;
   end;
  end;
+end;
+
+procedure tmacrosfo.macrohint(const avalue: msestring; var info: hintinfoty);
+var
+ ar1: macroinfoarty;
+begin
+ ar1:= mainmo.macros.asarray;
+ mainmo.macros.setasarray(val_macronames.gridvalues,
+                                    val_macrovalues.gridvalues,nil);
+ info.caption:= mainmo.expandmacros(avalue);
+ mainmo.macros.setasarray(ar1); //restore
+end;
+
+procedure tmacrosfo.macrohintexe(const sender: TObject; var info: hintinfoty);
+begin
+ macrohint(tcustomedit(sender).text,info);
+end;
+
+procedure tmacrosfo.colhintexe(const sender: tdatacol; const arow: Integer;
+               var info: hintinfoty);
+begin
+ macrohint(val_macrovalues[arow],info);
 end;
 
 end.

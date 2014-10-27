@@ -259,6 +259,7 @@ type
                                    const avalue: msestring): msestring;
    function expandmacros(const aitem: ttestnode; const avalue: msestring; 
                            const apath: msestring): msestring;
+   property macros: tmacrolist read fmacros;
    function runtest(const aitem: ttestnode): teststatety;
    property okcount: integer read fokcount;
    property errorcount: integer read ferrorcount;
