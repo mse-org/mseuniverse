@@ -112,16 +112,12 @@ end;
 
 procedure ttesteditfo.outputputchangeexe(const sender: TObject);
 begin
- seterror(val_actualoutput,
-         val_expectedoutput.value <> 
-            removelineterminator(val_actualoutput.value),val_runcommand);
+ seterror(val_expectedoutput,val_actualoutput,val_runcommand);
 end;
 
 procedure ttesteditfo.errorchangeexe(const sender: TObject);
 begin
- seterror(val_actualerror,
-         val_expectederror.value <> 
-          removelineterminator(val_actualerror.value),val_runcommand);
+ seterror(val_expectederror,val_actualerror,val_runcommand);
 end;
 
 procedure ttesteditfo.exitcodechangeexe(const sender: TObject);

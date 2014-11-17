@@ -296,7 +296,7 @@ befcommand=2
 aftcommand=1
  C:\FPC\2.4.2\bin\i386-win32\upx.exe -9 Acosys.exe
 makeoptions=13
- -l -Mobjfpc -Sh -Fcutf8 ${TARGETOPTIONS}
+ -Xg -l -Mobjfpc -Sh -Fcutf8 ${TARGETOPTIONS}
  -gl -O-
  -B -g -CX
  ${OPTIMIZE}

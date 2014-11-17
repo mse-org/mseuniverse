@@ -73,6 +73,9 @@ type
 procedure seterror(const adisp: twidget; const astate: errorstatety);
 procedure seterror(const adisp: twidget; const aerror: boolean;
                    const startcommand: tdataedit = nil);
+procedure seterror(const aexpected: tcustomstringedit; 
+                   const aactual: tcustomstringedit;
+                   const startcommand: tdataedit = nil);
 
 implementation
 uses
@@ -110,6 +113,19 @@ begin
   else begin
    seterror(adisp,ers_ok);
   end;
+ end;
+end;
+
+procedure seterror(const aexpected: tcustomstringedit; 
+                   const aactual: tcustomstringedit;
+                   const startcommand: tdataedit = nil);
+begin
+ if aexpected.value = '' then begin
+  seterror(aactual,ers_none);
+ end
+ else begin
+  seterror(aactual,aexpected.value <> 
+                removelineterminator(aactual.value),startcommand);
  end;
 end;
  
@@ -331,8 +347,10 @@ begin
     actualerror:= utf8tostring(ferrorbuffer);
     ferrorbuffer:= '';
     dofinish((actualexitcode = expectedexitcode) and 
-             (removelineterminator(actualoutput) = expectedoutput) and
-             (removelineterminator(actualerror) = expectederror));
+         ((removelineterminator(actualoutput) = expectedoutput) or 
+                                                   (expectedoutput = '')) and
+         ((removelineterminator(actualerror) = expectederror) or
+                                                   (expectederror = '')));
    end;
   end;
   else begin
