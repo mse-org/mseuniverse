@@ -139,10 +139,10 @@ type
   private
    floaded: boolean;
   protected
-   procedure load;
+   procedure load(const full: boolean);
   public
    procedure reset;
-   procedure update;
+   procedure update(const full: boolean);
  end;
  
  trepostat = class(toptions)
@@ -282,6 +282,7 @@ type
    frepostat: trepostat;
    fdirtree: tgitdirtreerootnode;
    ftagstree: tgittagstreerootnode;
+   ffulltags: boolean;
    ffilecache: tgitfilecache;
    frefsinfo: trefsitemlist;
    fgit: tgitcontroller;
@@ -423,6 +424,7 @@ type
                 const basecommit,theircommit: msestring;
                                        const isindex: boolean): boolean;
    procedure reload;
+   procedure checkfulltags();
    procedure releasedirtree;
    procedure releasetagstree;
    procedure loadstash;
@@ -942,7 +944,8 @@ begin
    if clearconsole then begin
     gitconsolefo.init;
    end;
-   tagstree.update;
+   ffulltags:= tagsfo.visible;
+   tagstree.update(ffulltags);
   finally
    application.endwait;
   end;
@@ -2516,6 +2519,14 @@ begin
  end;
 end;
 
+procedure tmainmo.checkfulltags();
+begin
+ if not ffulltags then begin
+  ffulltags:= true;
+  tagstree.load(ffulltags);
+ end;
+end;
+
 { tmsegitfileitem }
 
 constructor tmsegitfileitem.create;
@@ -2917,7 +2928,7 @@ end;
 
 { tgittagstreerootnode }
 
-procedure tgittagstreerootnode.load;
+procedure tgittagstreerootnode.load(const full: boolean);
 var
  ar1: tagsinfoarty;
  ar2: msestringarty;
@@ -2926,9 +2937,10 @@ var
  n2: tgittagstreenode;
 // po1: pmsechar;
 begin
- mainfo.updatestate('*** Reading Tags ***');
+ floaded:= true;
+ mainfo.updatestate('*** Reading Tags, close tags window for speed-up, press Esc for cancel ***');
  clear;
- if mainmo.git.tagsshow(ar1) then begin
+ if mainmo.git.tagsshow(ar1,full) then begin
   for int1:= high(ar1) downto 0 do begin
    n1:= self;
    with ar1[int1] do begin
@@ -2973,11 +2985,11 @@ begin
  clear;
 end;
 
-procedure tgittagstreerootnode.update;
+procedure tgittagstreerootnode.update(const full: boolean);
 begin
  if not floaded then begin
-  floaded:= true;
-  load;
+//  floaded:= true;
+  load(full);
  end;
 end;
 

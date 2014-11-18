@@ -81,6 +81,7 @@ end;
 
 procedure ttagsfo.dorefresh;
 begin
+ mainmo.checkfulltags();
  updategrid;
 end;
 

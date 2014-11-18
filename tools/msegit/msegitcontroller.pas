@@ -278,7 +278,7 @@ type
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: localbranchinfoarty;
                        out activebranch,activecommit: msestring): boolean;
-   function tagsshow(out adest: tagsinfoarty): boolean;
+   function tagsshow(out adest: tagsinfoarty; const full: boolean): boolean;
    function stashlist(out adest: stashinfoarty): boolean;
    function diff(const commits: msestringarty; const afile: filenamety;
             const acontextn: integer = 3;
@@ -1130,8 +1130,9 @@ parseerror:
  }
  end;
 end;
-//{
-function tgitcontroller.tagsshow(out adest: tagsinfoarty): boolean;
+
+function tgitcontroller.tagsshow(out adest: tagsinfoarty;
+                                         const full: boolean): boolean;
 const
  shalen = 40;
 var
@@ -1176,14 +1177,26 @@ begin
   setlength(ar1,int1);
   setlength(ar3,int1);
   if high(ar1) > 0 then begin
-   result:= getrefinfo(ar1,ar2);
-   setlength(adest,length(ar2));
-   for int1:= 0 to high(adest) do begin
-    with adest[int1] do begin
-     ref.kind:= refk_tag;
-     ref.name:= ar3[int1];
-     info:= ar2[int1];
-     ref.commit:= info.commit;
+   if full then begin
+    result:= getrefinfo(ar1,ar2);
+    setlength(adest,length(ar2));
+    for int1:= 0 to high(adest) do begin
+     with adest[int1] do begin
+      ref.kind:= refk_tag;
+      ref.name:= ar3[int1];
+      info:= ar2[int1];
+      ref.commit:= info.commit;
+     end;
+    end;
+   end
+   else begin
+    setlength(adest,length(ar1));
+    for int1:= 0 to high(ar1) do begin
+     with adest[int1] do begin
+      ref.commit:= ar1[int1];
+      ref.name:= ar3[int1];
+      ref.kind:= refk_tag;
+     end;
     end;
    end;
   end;
@@ -1785,7 +1798,7 @@ var
 const
  sepchar = msechar(#1); //#0 does not work on windows
  sepstr = '%x01';
- maxitems = 1; //git show is unreliable with multiple objects
+ maxitems = 10; //git show is unreliable with multiple objects
  
  function item(out res: msestring): boolean;
  var
@@ -1847,7 +1860,7 @@ begin
  //    'show --format=format:"%x01%H%x01%cN%x01%ct%x01%s%x01" -s '+str1,mstr1);
      'show --format=format:"'+
      sepstr+'%cN'+sepstr+'%ct'+sepstr+'%s'+sepstr+'" -s '+str1,mstr1);     
-   if not result then begin
+   if not result or application.waitescaped() then begin
     break;
    end;
    if mstr1 <> '' then begin
