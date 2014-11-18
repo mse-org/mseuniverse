@@ -1153,6 +1153,7 @@ begin
  fmacroon:= nil;
  fmacrogroup:= 0;
  fgroupcomment:= nil;
+ setlength(fgroupcomment,macrogroupcount);
 end;
 
 procedure tprojectoptions.setmacrogroup(avalue: integer);
