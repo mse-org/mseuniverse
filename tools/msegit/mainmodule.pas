@@ -2938,7 +2938,8 @@ var
 // po1: pmsechar;
 begin
  floaded:= true;
- mainfo.updatestate('*** Reading Tags, close tags window for speed-up, press Esc for cancel ***');
+ mainfo.updatestate(
+  '*** Reading Tags, close tags window for speed-up, press Esc for cancel ***');
  clear;
  if mainmo.git.tagsshow(ar1,full) then begin
   for int1:= high(ar1) downto 0 do begin
