@@ -1,4 +1,4 @@
-object testeditfo: ttesteditfo
+inherited testeditfo: ttesteditfo
   bounds_x = 225
   bounds_y = 419
   bounds_cx = 596
@@ -13,10 +13,9 @@ object testeditfo: ttesteditfo
   options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Edit Test Item'
-  onshow = showexe
   onlayout = layoutexe
-  moduleclassname = 'tmseform'
-  object tlayouter2: tlayouter
+  moduleclassname = 'teditfo'
+  object tlayouter2: tlayouter[0]
     taborder = 1
     bounds_x = 0
     bounds_y = 8
@@ -185,7 +184,7 @@ object testeditfo: ttesteditfo
         bounds_y = 0
         bounds_cx = 113
         bounds_cy = 30
-        empty_textflags = [tf_ycentered]
+        empty_textflags = [tf_right, tf_ycentered]
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_null]
         onchange = exitcodechangeexe
         value = -Inf
@@ -550,7 +549,7 @@ object testeditfo: ttesteditfo
       reffontheight = 14
     end
   end
-  object tlayouter3: tlayouter
+  object tlayouter3: tlayouter[1]
     bounds_x = 192
     bounds_y = 528
     bounds_cx = 378
@@ -589,7 +588,7 @@ object testeditfo: ttesteditfo
       modalresult = mr_ok
     end
   end
-  object tstatfile1: tstatfile
+  object tstatfile1: tstatfile[2]
     filename = 'testedit.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 128

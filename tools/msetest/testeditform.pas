@@ -23,9 +23,10 @@ uses
  mseedit,mseificomp,mseificompglob,mseifiglob,msestatfile,msestream,msestrings,
  sysutils,msesimplewidgets,msegraphedits,msescrollbar,msebitmap,msedatanodes,
  msefiledialog,msegrids,mselistbrowser,msesys,msedialog,msesplitter,
- msedispwidgets,mserichstring;
+ msedispwidgets,mserichstring,editform;
+ 
 type
- ttesteditfo = class(tmseform)
+ ttesteditfo = class(teditfo)
    tstatfile1: tstatfile;
    tlayouter2: tlayouter;
    tlayouter1: tlayouter;
@@ -68,9 +69,10 @@ type
    procedure exitcodechangeexe(const sender: TObject);
    procedure filemacrohintexe(const sender: TObject; var info: hintinfoty);
    procedure inputerrorchangeexe(const sender: TObject);
-   procedure showexe(const sender: TObject);
   protected
    function filemacro(): msestring;
+  public
+   procedure init() override;
  end;
 
 implementation
@@ -151,12 +153,18 @@ begin
  end; 
 end;
 
-procedure ttesteditfo.showexe(const sender: TObject);
+procedure ttesteditfo.init();
 begin
-{
  val_path.empty_text:= lookuptext(val_path);
  val_compilecommand.empty_text:= lookuptext(val_compilecommand);
-}
+ val_compiledirectory.empty_text:= lookuptext(val_compiledirectory);
+ val_runcommand.empty_text:= lookuptext(val_runcommand);
+ val_rundirectory.empty_text:= lookuptext(val_rundirectory);
+ val_comment.empty_text:= lookuptext(val_comment);
+ val_input.empty_text:= lookuptext(val_input);
+ val_expectedoutput.empty_text:= lookuptext(val_expectedoutput);
+ val_expectederror.empty_text:= lookuptext(val_expectederror);
+ val_expectedexitcode.empty_text:= lookuptext(val_expectedexitcode);
 end;
 
 end.

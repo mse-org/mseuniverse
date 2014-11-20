@@ -107,7 +107,7 @@ var
 implementation
 uses
  main_mfm,msefileutils,testeditform,groupeditform,macrosform,
- mseeditglob,runform,msedrawtext,mseformatstr,msestockobjects;
+ mseeditglob,runform,msedrawtext,mseformatstr,msestockobjects,editform;
 
 const
  captioncol = 1;
@@ -389,7 +389,7 @@ end;
 
 procedure tmainfo.editexe(const sender: TObject);
 var
- editfo: tmseform;
+ editfo: teditfo;
 begin
  if treeed.item is ttestitem then begin
   editfo:= ttesteditfo.create(nil);

@@ -7,9 +7,10 @@ uses
  mseedit,mseificomp,mseificompglob,mseifiglob,msestatfile,msestream,msestrings,
  sysutils,msesimplewidgets,msegraphedits,msescrollbar,msebitmap,msedatanodes,
  msefiledialog,msegrids,mselistbrowser,msesys,msedialog,msesplitter,
- msedispwidgets,mserichstring;
+ msedispwidgets,mserichstring,editform;
+
 type
- tgroupeditfo = class(tmseform)
+ tgroupeditfo = class(teditfo)
    tstatfile1: tstatfile;
    tlayouter2: tlayouter;
    tlayouter1: tlayouter;
@@ -46,6 +47,8 @@ type
   protected
    function pathmacro(): msestring;
    function filemacro(): msestring;
+  public
+   procedure init() override;
  end;
 
 implementation
@@ -85,7 +88,7 @@ end;
 
 function tgroupeditfo.filemacro: msestring;
 begin
- result:= pathmacro()+val_pathdefault.value;
+ result:= pathmacro()+lookuptext(val_pathdefault);
 end;
 
 procedure tgroupeditfo.pathmacrohintexe(const sender: TObject;
@@ -119,6 +122,21 @@ begin
   val_nrlast.text:= '';
   val_nr.text:= '';
  end;
+end;
+
+procedure tgroupeditfo.init;
+begin
+ val_captiondefault.empty_text:= lookuptext(val_captiondefault);
+ val_pathdefault.empty_text:= lookuptext(val_pathdefault);
+ val_compilecommand.empty_text:= lookuptext(val_compilecommand);
+ val_compiledirectory.empty_text:= lookuptext(val_compiledirectory);
+ val_runcommand.empty_text:= lookuptext(val_runcommand);
+ val_rundirectory.empty_text:= lookuptext(val_rundirectory);
+ val_comment.empty_text:= lookuptext(val_comment);
+ val_input.empty_text:= lookuptext(val_input);
+ val_expectedoutput.empty_text:= lookuptext(val_expectedoutput);
+ val_expectederror.empty_text:= lookuptext(val_expectederror);
+ val_expectedexitcode.empty_text:= lookuptext(val_expectedexitcode);
 end;
 
 end.

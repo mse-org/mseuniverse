@@ -22,7 +22,8 @@ uses
  mseificompglob,mseifiglob,msestat,msestatfile,mseactions,msedatanodes,
  mselistbrowser,mclasses,mserttistat,msestrings,msebitmap,msedataedits,mseedit,
  msefiledialog,msegraphics,msegraphutils,msegrids,msegui,mseguiglob,msemenus,
- msestream,msesys,sysutils,msemacros,mseforms,msesimplewidgets,msewidgets;
+ msestream,msesys,sysutils,msemacros,mseforms,msesimplewidgets,msewidgets,
+ editform;
 
 const
  macrogroupcount = 6;
@@ -259,8 +260,8 @@ type
    procedure projectchanged();
    procedure renumber();
    function findnumber(const anumber: integer): ttestitem;
-   procedure beginedit(const aitem: ttestnode; const editfo: tmsecomponent);
-   procedure endedit(const aitem: ttestnode; const editfo: tmsecomponent);
+   procedure beginedit(const aitem: ttestnode; const editfo: teditfo);
+   procedure endedit(const aitem: ttestnode; const editfo: teditfo);
    procedure begineditmacros(const editfo: tmsecomponent);
    procedure endeditmacros(const editfo: tmsecomponent);
    function expandmacros(const avalue: msestring): msestring;
@@ -606,8 +607,8 @@ begin
  inherited;
  if parent is ttestgroupnode then begin
   with ttestgroupnode(parent) do begin
-   self.fcaptiondefault:= fcaptiondefault;
-   self.fpathdefault:= fpathdefault;
+//   self.fcaptiondefault:= fcaptiondefault;
+//   self.fpathdefault:= fpathdefault;
   end;
  end;
 end;
@@ -1047,14 +1048,15 @@ begin
 end;
 
 procedure tmainmo.beginedit(const aitem: ttestnode; 
-                                       const editfo: tmsecomponent);
+                                       const editfo: teditfo);
 begin
  fedititem:= aitem;
  feditfo:= editfo;
  objecttovalues(aitem,editfo,'val_');
+ editfo.init();
 end;
 
-procedure tmainmo.endedit(const aitem: ttestnode; const editfo: tmsecomponent);
+procedure tmainmo.endedit(const aitem: ttestnode; const editfo: teditfo);
 begin
  fedititem:= nil;
  feditfo:= nil;
