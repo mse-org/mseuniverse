@@ -67,6 +67,12 @@ type
  end;
  ptestnode = ^ttestnode;
  
+ fieldnumberty = (fn_caption,fn_path,fn_comment,
+                  fn_compilecommand,fn_compiledirectory,
+                  fn_runcommand,fn_rundirectory,
+                  fn_input,fn_expectedoutput,fn_expectederror,
+                  fn_expectedexitcode);
+
  ttestpathnode = class(ttestnode)
   private
    fpath: filenamety;
@@ -95,10 +101,12 @@ type
    finput: msestring;
    fexpectedoutput: msestring;
    fexpectederror: msestring;
-   fexpectedexitcode: integer;
+   fexpectedexitcode: real;
   protected
    procedure dogetdefaults(); override;
   public
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
   published
@@ -113,7 +121,7 @@ type
                                                   write fexpectedoutput;
    property expectederror: msestring read fexpectederror
                                                   write fexpectederror;
-   property expectedexitcode: integer read fexpectedexitcode 
+   property expectedexitcode: real read fexpectedexitcode 
                                           write fexpectedexitcode;
  end;
   
@@ -221,6 +229,7 @@ type
    procedure stoponerrexe(const sender: TObject);
    procedure newexe(const sender: TObject);
    procedure closeexe(const sender: TObject);
+   procedure loadedexe(const sender: TObject);
   private
    frootnode: ttestnode;
    fprojectoptions: tprojectoptions;
@@ -255,10 +264,11 @@ type
    procedure begineditmacros(const editfo: tmsecomponent);
    procedure endeditmacros(const editfo: tmsecomponent);
    function expandmacros(const avalue: msestring): msestring;
-   function expandmacros(const aitem: ttestnode;
-                                   const avalue: msestring): msestring;
+   function expandmacros(const aitem: ttestnode; const avalue: msestring;
+                       const fieldnumber: fieldnumberty): msestring;
    function expandmacros(const aitem: ttestnode; const avalue: msestring; 
-                           const apath: msestring): msestring;
+                               const apath: msestring; 
+                                  const fieldnumber: fieldnumberty): msestring;
    property macros: tmacrolist read fmacros;
    function runtest(const aitem: ttestnode): teststatety;
    property okcount: integer read fokcount;
@@ -271,13 +281,91 @@ type
    procedure copytoclipboard(const aitem: ttestnode);
    function pastefromclipboard(): ttestnode;
  end;
+
+function lookuptext(const aitem: ttestnode;
+                    const fieldnumber: fieldnumberty): msestring;
+function lookuptext(const aedit: tdataedit): msestring;
+function lookupexpectedexitcode(const aitem: ttestitem): realty;
  
 var
  mainmo: tmainmo;
 implementation
 uses
- mainmodule_mfm,msefileutils,runform,msefilemacros,msebits;
+ mainmodule_mfm,msefileutils,runform,msefilemacros,msebits,mseformatstr,
+ msestockobjects;
  
+function lookuptext(const aitem: ttestnode;
+               const fieldnumber: fieldnumberty): msestring;
+var
+ n1: ttestnode;
+begin
+ n1:= ttestnode(aitem.parent);
+ result:= '';
+ while (result = '') and (n1 <> nil) do begin
+  if n1 is ttestgroupnode then begin
+   with ttestgroupnode(n1) do begin
+    case fieldnumber of
+     fn_caption: begin
+      result:= captiondefault;
+     end;
+     fn_path: begin
+      result:= pathdefault;
+     end;
+     fn_comment: begin
+      result:= comment;
+     end;
+     fn_compilecommand: begin
+      result:= compilecommand;
+     end;
+     fn_compiledirectory: begin
+      result:= compiledirectory;
+     end;
+     fn_runcommand: begin
+      result:= runcommand;
+     end;
+     fn_rundirectory: begin
+      result:= rundirectory;
+     end;
+     fn_input: begin
+      result:= input;
+     end;
+     fn_expectedoutput: begin
+      result:= expectedoutput;
+     end;
+     fn_expectederror: begin
+      result:= expectederror;
+     end;
+     fn_expectedexitcode: begin
+      result:= realtytostr(expectedexitcode);
+     end;
+    end;
+   end;
+  end;
+  n1:= ttestnode(n1.parent);
+ end;
+end;
+
+function lookuptext(const aedit: tdataedit): msestring;
+begin
+ result:= lookuptext(mainmo.edititem,fieldnumberty(aedit.tag));
+end;
+
+function lookupexpectedexitcode(const aitem: ttestitem): realty;
+var
+ n1: ttestnode;
+begin
+ n1:= aitem;
+ result:= aitem.expectedexitcode;
+ while (result = emptyreal) and (n1 <> nil) do begin
+  if n1 is ttestgroupnode then begin
+   with ttestgroupnode(n1) do begin
+    result:= expectedexitcode;
+   end;
+  end;
+  n1:= ttestnode(n1.parent);
+ end;
+end;
+
 { ttestnode }
 
 constructor ttestnode.create(const aowner: tcustomitemlist = nil;
@@ -585,11 +673,16 @@ end;
 function ttestpathnode.rootfilepath: msestring;
 var
  n1: ttreelistitem;
+ mstr1: msestring;
 begin
  result:= '';
  n1:= self;
  repeat
-  result:= mainmo.expandmacros(ttestpathnode(n1).fpath)+result;
+  mstr1:= ttestpathnode(n1).fpath;
+  if (mstr1 = '') and (n1 is ttestitem) then begin
+   mstr1:= lookuptext(ttestnode(n1),fn_path);
+  end;
+  result:= mainmo.expandmacros(mstr1)+result;
   n1:= n1.parent
  until not (n1 is ttestpathnode) or 
      (result <> '') and (result[1] = '/');   //stop at root path
@@ -600,12 +693,19 @@ begin
  inherited;
  if parent is ttestpathnode then begin
   with ttestvaluenode(parent) do begin
-   self.fcomment:= fcomment;
+//   self.fcomment:= fcomment;
   end;
  end;
 end;
 
 { ttestvaluenode }
+
+constructor ttestvaluenode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ inherited;
+ fexpectedexitcode:= emptyreal;
+end;
 
 procedure ttestvaluenode.dostatwrite(const writer: tstatwriter);
 begin
@@ -617,7 +717,7 @@ begin
  writer.writemsestring('in',finput);
  writer.writemsestring('eo',fexpectedoutput);
  writer.writemsestring('ee',fexpectederror);
- writer.writeinteger('eec',fexpectedexitcode);
+ writer.writereal('eec',fexpectedexitcode);
 end;
 
 procedure ttestvaluenode.dostatread(const reader: tstatreader);
@@ -630,7 +730,7 @@ begin
  finput:= reader.readmsestring('in','');
  fexpectedoutput:= reader.readmsestring('eo','');
  fexpectederror:= reader.readmsestring('ee','');
- fexpectedexitcode:= reader.readinteger('eec',0);
+ fexpectedexitcode:= reader.readreal('eec',emptyreal);
 end;
 
 procedure ttestvaluenode.dogetdefaults;
@@ -638,14 +738,14 @@ begin
  inherited;
  if parent is ttestvaluenode then begin
   with ttestvaluenode(parent) do begin
-   self.fcompilecommand:= fcompilecommand;
-   self.fcompiledirectory:= fcompiledirectory;
-   self.fruncommand:= fruncommand;
-   self.frundirectory:= frundirectory;
-   self.finput:= finput;
-   self.fexpectedoutput:= fexpectedoutput;
-   self.fexpectederror:= fexpectederror;
-   self.fexpectedexitcode:= fexpectedexitcode;
+//   self.fcompilecommand:= fcompilecommand;
+//   self.fcompiledirectory:= fcompiledirectory;
+//   self.fruncommand:= fruncommand;
+//   self.frundirectory:= frundirectory;
+//   self.finput:= finput;
+//   self.fexpectedoutput:= fexpectedoutput;
+//   self.fexpectederror:= fexpectederror;
+//   self.fexpectedexitcode:= fexpectedexitcode;
   end;
  end;
 end;
@@ -714,7 +814,7 @@ begin
  inherited;
  if parent is ttestgroupnode then begin
   with ttestgroupnode(parent) do begin
-   self.fcaption:= fcaptiondefault;
+//   self.fcaption:= fcaptiondefault;
   end;
  end;
 end;
@@ -979,22 +1079,35 @@ begin
  result:= fmacros.expandmacros(avalue);
 end;
 
-function tmainmo.expandmacros(const aitem: ttestnode;
-                                   const avalue: msestring): msestring;
+function tmainmo.expandmacros(const aitem: ttestnode; const avalue: msestring;
+                                   const fieldnumber: fieldnumberty): msestring;
+var
+ mstr1: msestring;
 begin
+ mstr1:= avalue;
+ if avalue = '' then begin
+  mstr1:= lookuptext(aitem,fieldnumber);
+ end;
  if aitem is ttestpathnode then begin
-  result:= msemacros.expandmacros(avalue,fmacros.asarray(['FILE'],
-                                       [ttestpathnode(aitem).rootfilepath]));
+  result:= msemacros.expandmacros(mstr1,fmacros.asarray(['FILE'],
+                         [ttestpathnode(aitem).rootfilepath]));
  end
  else begin
-  result:= fmacros.expandmacros(avalue);
+  result:= fmacros.expandmacros(mstr1);
  end;
 end;
 
 function tmainmo.expandmacros(const aitem: ttestnode; const avalue: msestring; 
-                           const apath: msestring): msestring;
+                           const apath: msestring; 
+                                  const fieldnumber: fieldnumberty): msestring;
+var
+ mstr1: msestring;
 begin
- result:= msemacros.expandmacros(avalue,fmacros.asarray(['FILE'],[apath]));
+ mstr1:= avalue;
+ if avalue = '' then begin
+  mstr1:= lookuptext(aitem,fieldnumber);
+ end;
+ result:= msemacros.expandmacros(mstr1,fmacros.asarray(['FILE'],[apath]));
 end;
 
 function tmainmo.runtest(const aitem: ttestnode): teststatety;
@@ -1128,6 +1241,11 @@ begin
   setlength(ar1,int3);
   fmacros.setasarray(ar1);
  end;
+end;
+
+procedure tmainmo.loadedexe(const sender: TObject);
+begin
+ stockobjects.fonts[stf_empty].color:= cl_dkgray;
 end;
 
 { tprojectoptions }

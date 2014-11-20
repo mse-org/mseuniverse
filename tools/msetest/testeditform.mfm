@@ -13,6 +13,7 @@ object testeditfo: ttesteditfo
   options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Edit Test Item'
+  onshow = showexe
   onlayout = layoutexe
   moduleclassname = 'tmseform'
   object tlayouter2: tlayouter
@@ -71,7 +72,7 @@ object testeditfo: ttesteditfo
         bounds_x = 6
         bounds_y = 0
         bounds_cx = 387
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
         reffontheight = 14
       end
       object tspacer1: tspacer
@@ -113,6 +114,7 @@ object testeditfo: ttesteditfo
       end
     end
     object val_comment: tmemoedit
+      Tag = 2
       frame.sbhorz.pagesize = 1
       frame.sbvert.pagesize = 1
       frame.caption = 'Comment'
@@ -125,15 +127,18 @@ object testeditfo: ttesteditfo
         0
       )
       taborder = 6
+      onshowhint = macrohintexe
       bounds_x = 11
       bounds_y = 211
       bounds_cx = 574
       bounds_cy = 76
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      empty_textflags = [tf_ycentered]
+      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly]
       reffontheight = 14
     end
     object val_path: tfilenameedit
+      Tag = 1
       frame.caption = 'File Path'#10'${FILE}'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]
@@ -151,6 +156,7 @@ object testeditfo: ttesteditfo
       bounds_cx = 576
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      empty_textflags = [tf_ycentered]
       reffontheight = 14
     end
     object tlayouter4: tlayouter
@@ -163,7 +169,8 @@ object testeditfo: ttesteditfo
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       optionslayout = [lao_aligny]
       align_glue = wam_start
-      object val_expectedexitcode: tintegeredit
+      object val_expectedexitcode: trealedit
+        Tag = 10
         frame.caption = 'Expected'#10'Exitcode'
         frame.captionpos = cp_left
         frame.dummy = 0
@@ -173,11 +180,22 @@ object testeditfo: ttesteditfo
           0
           5
         )
+        onshowhint = macrohintexe
         bounds_x = 8
         bounds_y = 0
         bounds_cx = 113
         bounds_cy = 30
+        empty_textflags = [tf_ycentered]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_null]
         onchange = exitcodechangeexe
+        value = -Inf
+        valuedefault = -Inf
+        formatedit = '0'
+        formatdisp = '0'
+        valuerange = 1
+        valuestart = 0
+        min = 0
+        max = 255
         reffontheight = 14
       end
       object tspacer2: tspacer
@@ -208,7 +226,7 @@ object testeditfo: ttesteditfo
         bounds_y = 0
         bounds_cx = 108
         bounds_cy = 30
-        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
         onchange = exitcodechangeexe
         reffontheight = 14
       end
@@ -239,6 +257,7 @@ object testeditfo: ttesteditfo
       end
     end
     object val_runcommand: tstringedit
+      Tag = 5
       frame.caption = 'Run'#10'Command'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]
@@ -256,9 +275,11 @@ object testeditfo: ttesteditfo
       bounds_cx = 577
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      empty_textflags = [tf_ycentered]
       reffontheight = 14
     end
     object val_expectedoutput: tstringedit
+      Tag = 8
       frame.caption = 'Expected'#10'Output'
       frame.captionpos = cp_left
       frame.dummy = 0
@@ -269,12 +290,14 @@ object testeditfo: ttesteditfo
         5
       )
       taborder = 8
+      onshowhint = macrohintexe
       bounds_x = 3
       bounds_y = 333
       bounds_cx = 583
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      empty_textflags = [tf_ycentered]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       onchange = outputputchangeexe
       reffontheight = 14
     end
@@ -298,12 +321,13 @@ object testeditfo: ttesteditfo
       bounds_cx = 567
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       textflags = [tf_noselect]
       onchange = outputputchangeexe
       reffontheight = 14
     end
     object val_expectederror: tstringedit
+      Tag = 9
       frame.caption = 'Expected'#10'Error'
       frame.captionpos = cp_left
       frame.dummy = 0
@@ -314,12 +338,14 @@ object testeditfo: ttesteditfo
         5
       )
       taborder = 10
+      onshowhint = macrohintexe
       bounds_x = 3
       bounds_y = 403
       bounds_cx = 582
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      empty_textflags = [tf_ycentered]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       onchange = errorchangeexe
       reffontheight = 14
     end
@@ -343,7 +369,7 @@ object testeditfo: ttesteditfo
       bounds_cx = 563
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       textflags = [tf_noselect]
       onchange = errorchangeexe
       reffontheight = 14
@@ -359,6 +385,7 @@ object testeditfo: ttesteditfo
       optionslayout = [lao_aligny]
       align_glue = wam_start
       object val_compilecommand: tstringedit
+        Tag = 3
         frame.caption = 'Compile'#10'Command'
         frame.captionpos = cp_left
         frame.localprops1 = [frl1_captiondist]
@@ -375,6 +402,7 @@ object testeditfo: ttesteditfo
         bounds_cx = 489
         bounds_cy = 30
         anchors = [an_left, an_top, an_right]
+        empty_textflags = [tf_ycentered]
         reffontheight = 14
       end
       object tspacer4: tspacer
@@ -407,7 +435,7 @@ object testeditfo: ttesteditfo
         bounds_cx = 77
         bounds_cy = 35
         anchors = [an_top, an_right]
-        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
         textflags = [tf_xcentered, tf_ycentered, tf_noselect]
         textflagsactive = [tf_xcentered, tf_ycentered]
         onchange = compileresultchangeexe
@@ -425,6 +453,7 @@ object testeditfo: ttesteditfo
       optionslayout = [lao_aligny]
       align_glue = wam_start
       object val_input: tstringedit
+        Tag = 7
         frame.caption = 'Input'
         frame.captionpos = cp_left
         frame.dummy = 0
@@ -439,6 +468,7 @@ object testeditfo: ttesteditfo
         bounds_y = 16
         bounds_cx = 469
         anchors = [an_left, an_top, an_right]
+        empty_textflags = [tf_ycentered]
         reffontheight = 14
       end
       object val_inputerror: tbooleandisp
@@ -476,6 +506,7 @@ object testeditfo: ttesteditfo
       end
     end
     object val_compiledirectory: tstringedit
+      Tag = 4
       frame.caption = 'Compile'#10'Directory'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]
@@ -493,9 +524,11 @@ object testeditfo: ttesteditfo
       bounds_cx = 571
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      empty_textflags = [tf_ycentered]
       reffontheight = 14
     end
     object val_rundirectory: tstringedit
+      Tag = 6
       frame.caption = 'Run'#10'Directory'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]
@@ -513,6 +546,7 @@ object testeditfo: ttesteditfo
       bounds_cx = 571
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
+      empty_textflags = [tf_ycentered]
       reffontheight = 14
     end
   end

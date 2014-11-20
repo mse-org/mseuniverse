@@ -185,7 +185,8 @@ object macrosfo: tmacrosfo
         bounds_x = 0
         bounds_y = 0
         bounds_cy = 16
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick, oe_savestate, oe_autopopupmenu]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick]
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
         value = True
         valuedefault = True
@@ -197,7 +198,8 @@ object macrosfo: tmacrosfo
         bounds_x = 14
         bounds_y = 0
         bounds_cy = 16
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick, oe_savestate, oe_autopopupmenu]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick]
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
         value = True
         valuedefault = True
@@ -209,7 +211,8 @@ object macrosfo: tmacrosfo
         bounds_x = 28
         bounds_y = 0
         bounds_cy = 16
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick, oe_savestate, oe_autopopupmenu]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick]
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
         value = True
         valuedefault = True
@@ -221,7 +224,8 @@ object macrosfo: tmacrosfo
         bounds_x = 42
         bounds_y = 0
         bounds_cy = 16
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick, oe_savestate, oe_autopopupmenu]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick]
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
         value = True
         valuedefault = True
@@ -233,7 +237,8 @@ object macrosfo: tmacrosfo
         bounds_x = 56
         bounds_y = 0
         bounds_cy = 16
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick, oe_savestate, oe_autopopupmenu]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick]
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
         value = True
         valuedefault = True
@@ -245,7 +250,8 @@ object macrosfo: tmacrosfo
         bounds_x = 70
         bounds_y = 0
         bounds_cy = 16
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick, oe_savestate, oe_autopopupmenu]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick]
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
         value = True
         valuedefault = True
@@ -259,8 +265,8 @@ object macrosfo: tmacrosfo
         bounds_y = 0
         bounds_cx = 146
         bounds_cy = 16
-        optionsedit1 = [oe1_autopopupmenu]
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_hintclippedtext, oe_savestate]
+        optionsedit1 = []
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_hintclippedtext]
         reffontheight = 14
       end
       object val_macrovalues: tmemodialogedit
@@ -279,8 +285,8 @@ object macrosfo: tmacrosfo
         bounds_y = 0
         bounds_cx = 368
         bounds_cy = 16
-        optionsedit1 = [oe1_autopopupmenu]
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_hintclippedtext, oe_savestate]
+        optionsedit1 = []
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_hintclippedtext]
         reffontheight = 14
       end
     end
@@ -357,7 +363,8 @@ object macrosfo: tmacrosfo
         bounds_y = 0
         bounds_cx = 14
         bounds_cy = 16
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick, oe_savestate, oe_autopopupmenu]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_autoselect, oe_autoselectonfirstclick]
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         ondataentered = acttiveselectondataentered
         visible = False
       end
@@ -370,8 +377,8 @@ object macrosfo: tmacrosfo
         bounds_y = 0
         bounds_cx = 570
         bounds_cy = 16
-        optionsedit1 = [oe1_autopopupmenu]
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_hintclippedtext, oe_savestate]
+        optionsedit1 = []
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_hintclippedtext]
         reffontheight = 14
       end
     end

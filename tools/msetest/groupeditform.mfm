@@ -56,6 +56,7 @@ object groupeditfo: tgroupeditfo
         anchors = [an_top, an_right]
       end
       object val_caption: tstringedit
+        Tag = -1
         frame.caption = 'Caption'
         frame.captionpos = cp_left
         frame.localprops1 = [frl1_captiondist]
@@ -69,7 +70,7 @@ object groupeditfo: tgroupeditfo
         bounds_x = 6
         bounds_y = 0
         bounds_cx = 315
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
         reffontheight = 14
       end
       object tspacer1: tspacer
@@ -140,6 +141,7 @@ object groupeditfo: tgroupeditfo
       end
     end
     object val_comment: tmemoedit
+      Tag = 2
       frame.sbhorz.pagesize = 1
       frame.sbvert.pagesize = 1
       frame.caption = 'Comment'
@@ -157,10 +159,11 @@ object groupeditfo: tgroupeditfo
       bounds_cx = 574
       bounds_cy = 68
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly]
       reffontheight = 14
     end
     object val_pathdefault: tfilenameedit
+      Tag = 1
       frame.caption = 'File Path'#10'${FILE}'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]
@@ -190,7 +193,8 @@ object groupeditfo: tgroupeditfo
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       optionslayout = [lao_aligny]
       align_glue = wam_start
-      object val_expectedexitcode: tintegeredit
+      object val_expectedexitcode: trealedit
+        Tag = 10
         frame.caption = 'Expected'#10'Exitcode'
         frame.captionpos = cp_left
         frame.dummy = 0
@@ -200,14 +204,25 @@ object groupeditfo: tgroupeditfo
           0
           5
         )
+        onshowhint = macrohintexe
         bounds_x = 8
         bounds_y = 0
         bounds_cx = 113
         bounds_cy = 30
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_null]
+        value = -Inf
+        valuedefault = -Inf
+        formatedit = '0'
+        formatdisp = '0'
+        valuerange = 1
+        valuestart = 0
+        min = 0
+        max = 255
         reffontheight = 14
       end
     end
     object val_runcommand: tstringedit
+      Tag = 5
       frame.caption = 'Run'#10'Command'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]
@@ -228,6 +243,7 @@ object groupeditfo: tgroupeditfo
       reffontheight = 14
     end
     object val_input: tstringedit
+      Tag = 7
       frame.caption = 'Input'
       frame.captionpos = cp_left
       frame.dummy = 0
@@ -246,6 +262,7 @@ object groupeditfo: tgroupeditfo
       reffontheight = 14
     end
     object val_expectedoutput: tstringedit
+      Tag = 8
       frame.caption = 'Expected'#10'Output'
       frame.captionpos = cp_left
       frame.dummy = 0
@@ -256,15 +273,17 @@ object groupeditfo: tgroupeditfo
         5
       )
       taborder = 10
+      onshowhint = macrohintexe
       bounds_x = 3
       bounds_y = 377
       bounds_cx = 582
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       reffontheight = 14
     end
     object val_expectederror: tstringedit
+      Tag = 9
       frame.caption = 'Expected'#10'Error'
       frame.captionpos = cp_left
       frame.dummy = 0
@@ -275,12 +294,13 @@ object groupeditfo: tgroupeditfo
         5
       )
       taborder = 11
+      onshowhint = macrohintexe
       bounds_x = 3
       bounds_y = 412
       bounds_cx = 582
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       reffontheight = 14
     end
     object tlayouter5: tlayouter
@@ -294,6 +314,7 @@ object groupeditfo: tgroupeditfo
       optionslayout = [lao_aligny]
       align_glue = wam_start
       object val_compilecommand: tstringedit
+        Tag = 3
         frame.caption = 'Compile'#10'Command'
         frame.captionpos = cp_left
         frame.localprops1 = [frl1_captiondist]
@@ -337,15 +358,17 @@ object groupeditfo: tgroupeditfo
         5
       )
       taborder = 2
+      onshowhint = macrohintexe
       bounds_x = 12
       bounds_y = 69
       bounds_cx = 573
       bounds_cy = 30
       anchors = [an_left, an_top, an_right]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       reffontheight = 14
     end
     object val_path: tfilenameedit
+      Tag = -1
       frame.caption = 'File Path'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]
@@ -365,6 +388,7 @@ object groupeditfo: tgroupeditfo
       reffontheight = 14
     end
     object val_compiledirectory: tstringedit
+      Tag = 4
       frame.caption = 'Compile'#10'Directory'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]
@@ -385,6 +409,7 @@ object groupeditfo: tgroupeditfo
       reffontheight = 14
     end
     object val_rundirectory: tstringedit
+      Tag = 6
       frame.caption = 'Run'#10'Directory'
       frame.captionpos = cp_left
       frame.localprops1 = [frl1_captiondist]

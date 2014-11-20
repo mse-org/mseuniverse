@@ -21,23 +21,23 @@ inherited stashfo: tstashfo
     datacols.colorfocused = -1879048185
     datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[stashed]
         colorfocused = -1879048185
         width = 120
         options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'stashed'
         dataclass = tgridmsestringdatalist
       end    
-      item
+      item[messageed]
         colorfocused = -1879048185
         width = 309
         options = [co_readonly, co_fill, co_savestate, co_mousescrollrow]
         widgetname = 'messageed'
         dataclass = tgridmsestringdatalist
       end>
-    datarowheight = 15
+    datarowheight = 16
     statfile = mainfo.formsta
-    reffontheight = 13
+    reffontheight = 14
     object stashed: tstringedit
       optionsskin = [osk_framebuttononly]
       taborder = 1
@@ -45,9 +45,10 @@ inherited stashfo: tstashfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 120
-      bounds_cy = 15
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      reffontheight = 13
+      bounds_cy = 16
+      optionsedit1 = []
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      reffontheight = 14
     end
     object messageed: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -57,9 +58,10 @@ inherited stashfo: tstashfo
       bounds_x = 121
       bounds_y = 0
       bounds_cx = 309
-      bounds_cy = 15
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_keyexecute, oe_checkvaluepaststatread, oe_savestate]
-      reffontheight = 13
+      bounds_cy = 16
+      optionsedit1 = []
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      reffontheight = 14
     end
   end
   inherited repoloadedact: taction[1]

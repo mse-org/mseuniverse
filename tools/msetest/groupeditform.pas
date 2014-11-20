@@ -22,7 +22,7 @@ type
    tbutton1: tbutton;
    tspacer1: tspacer;
    tlayouter4: tlayouter;
-   val_expectedexitcode: tintegeredit;
+   val_expectedexitcode: trealedit;
    val_runcommand: tstringedit;
    val_input: tstringedit;
    val_expectedoutput: tstringedit;
@@ -91,20 +91,22 @@ end;
 procedure tgroupeditfo.pathmacrohintexe(const sender: TObject;
                var info: hintinfoty);
 begin
- info.caption:= mainmo.expandmacros(mainmo.edititem,pathmacro,'');
+ info.caption:= mainmo.expandmacros(mainmo.edititem,pathmacro,'',fn_path);
 end;
 
 procedure tgroupeditfo.macrohintexe(const sender: TObject; 
                                                       var info: hintinfoty);
 begin
  info.caption:= mainmo.expandmacros(
-                        mainmo.edititem,tedit(sender).text,filemacro());
+             mainmo.edititem,tedit(sender).text,filemacro(),
+             fieldnumberty(tedit(sender).tag));
+ include(info.flags,hfl_show); //show empty hint
 end;
 
 procedure tgroupeditfo.filemacrohintexe(const sender: TObject;
                                                var info: hintinfoty);
 begin
- info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'');
+ info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'',fn_path);
 end;
 
 procedure tgroupeditfo.nrchangeexe(const sender: TObject);

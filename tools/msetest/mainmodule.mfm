@@ -2,6 +2,7 @@ object mainmo: tmainmo
   bounds_cx = 405
   bounds_cy = 176
   statfile = mainstat
+  onloaded = loadedexe
   oneventloopstart = evenloopstartexe
   left = 479
   top = 475

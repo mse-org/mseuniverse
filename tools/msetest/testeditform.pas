@@ -38,7 +38,7 @@ type
    tbutton1: tbutton;
    tspacer1: tspacer;
    tlayouter4: tlayouter;
-   val_expectedexitcode: tintegeredit;
+   val_expectedexitcode: trealedit;
    tspacer2: tspacer;
    val_actualexitcode: tintegeredit;
    val_runcommand: tstringedit;
@@ -68,6 +68,7 @@ type
    procedure exitcodechangeexe(const sender: TObject);
    procedure filemacrohintexe(const sender: TObject; var info: hintinfoty);
    procedure inputerrorchangeexe(const sender: TObject);
+   procedure showexe(const sender: TObject);
   protected
    function filemacro(): msestring;
  end;
@@ -95,13 +96,14 @@ end;
 procedure ttesteditfo.macrohintexe(const sender: TObject; var info: hintinfoty);
 begin
  info.caption:= mainmo.expandmacros(
-                        mainmo.edititem,tedit(sender).text,filemacro);
+                        mainmo.edititem,tedit(sender).text,filemacro,
+                                     fieldnumberty(tedit(sender).tag));
 end;
 
 procedure ttesteditfo.filemacrohintexe(const sender: TObject;
                                                  var info: hintinfoty);
 begin
- info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'');
+ info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'',fn_path);
 end;
 
 procedure ttesteditfo.compileresultchangeexe(const sender: TObject);
@@ -134,14 +136,27 @@ end;
 function ttesteditfo.filemacro: msestring;
 var
  n1: ttreelistitem;
+ mstr1: msestring;
 begin
+ mstr1:= val_path.value;
+ if mstr1 = '' then begin
+  mstr1:= lookuptext(mainmo.edititem,fn_path);
+ end;
  n1:= mainmo.edititem.parent;
  if n1 is ttestpathnode then begin
-  result:= ttestpathnode(n1).rootfilepath+val_path.value;
+  result:= ttestpathnode(n1).rootfilepath+mstr1;
  end
  else begin
-  result:= val_path.value;
+  result:= mstr1;
  end; 
+end;
+
+procedure ttesteditfo.showexe(const sender: TObject);
+begin
+{
+ val_path.empty_text:= lookuptext(val_path);
+ val_compilecommand.empty_text:= lookuptext(val_compilecommand);
+}
 end;
 
 end.

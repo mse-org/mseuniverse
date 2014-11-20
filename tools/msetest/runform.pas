@@ -196,11 +196,12 @@ begin
  captiondi.value:= fcurrenttest.caption;
  nrdi.value:= fcurrenttest.nr;
  fstate:= rs_compile;
- mstr1:= mainmo.expandmacros(fcurrenttest,fcurrenttest.compilecommand);
+ mstr1:= mainmo.expandmacros(fcurrenttest,fcurrenttest.compilecommand,
+                                                         fn_compilecommand);
  if mstr1 <> '' then begin
   try
-   term.execprog(mstr1,
-            mainmo.expandmacros(fcurrenttest,fcurrenttest.compiledirectory)); 
+   term.execprog(mstr1,mainmo.expandmacros(fcurrenttest,
+                           fcurrenttest.compiledirectory,fn_compiledirectory)); 
   except
    on e: exception do begin
     term.addline(e.message);
@@ -226,14 +227,16 @@ begin
   actualoutput:= '';
   actualerror:= '';
  end;
- mstr1:= mainmo.expandmacros(fcurrenttest,fcurrenttest.runcommand);
+ mstr1:= mainmo.expandmacros(fcurrenttest,fcurrenttest.runcommand,
+                                                            fn_runcommand);
  if mstr1 <> '' then begin
   int1:= application.unlockall();
   try
    proc.active:= false;
    proc.commandline:= mstr1;
    proc.workingdirectory:=
-            mainmo.expandmacros(fcurrenttest,fcurrenttest.compiledirectory);
+            mainmo.expandmacros(fcurrenttest,fcurrenttest.rundirectory,
+                                                            fn_rundirectory);
    try
     proc.active:= true;
    except
@@ -322,6 +325,8 @@ begin
 end;
 
 procedure trunfo.procfinishedexe(const sender: TObject);
+var
+ rea1: realty;
 begin
  case fstate of
   rs_compile: begin
@@ -346,7 +351,8 @@ begin
     foutputbuffer:= '';
     actualerror:= utf8tostring(ferrorbuffer);
     ferrorbuffer:= '';
-    dofinish((actualexitcode = expectedexitcode) and 
+    rea1:= lookupexpectedexitcode(fcurrenttest);
+    dofinish(((rea1 = emptyreal) or (actualexitcode = rea1)) and 
          ((removelineterminator(actualoutput) = expectedoutput) or 
                                                    (expectedoutput = '')) and
          ((removelineterminator(actualerror) = expectederror) or
