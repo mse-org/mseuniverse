@@ -76,14 +76,18 @@ uses
 { tfilesfo }
 
 procedure tfilesfo.loadfiles(const apath: filenamety);
+var
+ int1: integer;
 begin
  fpath:= apath;
  if apath = '' then begin
   filelist.grid.clear;
  end
  else begin
+  int1:= filelist.grid.row;
   filelist.fileitemed.itemlist.assign(listitemarty(mainmo.getfiles(apath)));
   filelist.grid.checksort;
+  filelist.grid.row:= int1;
  end;
 end;
 

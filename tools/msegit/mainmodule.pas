@@ -1529,6 +1529,7 @@ begin
  result:= execgitconsole('checkout '+acommit+' '+
                                fgit.encodepathparam(afile,true));
  if result then begin   
+  updateoperation(ck_modify,afile);
   updateoperation(ck_stage,afile);
  end;
 end;
