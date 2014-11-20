@@ -17,7 +17,7 @@ inherited diffwindowfo: tdiffwindowfo
   end
   inherited tpopupmenu1: tpopupmenu
     onupdate = popupupdateexe1
-    menu.submenu.count = 9
+    menu.submenu.count = 10
     menu.submenu.items = <    
       item
       end    
@@ -43,6 +43,9 @@ inherited diffwindowfo: tdiffwindowfo
         action = revertact
         caption = 'Revert'
         state = [as_localcaption]
+      end    
+      item
+        action = checkoutact
       end>
   end
   inherited externaldiffact: taction
@@ -64,8 +67,8 @@ inherited diffwindowfo: tdiffwindowfo
   object revertact: taction[8]
     caption = 'Caption'
     onexecute = revertexe
-    left = 176
-    top = 208
+    left = 168
+    top = 192
   end
   object savediffact: taction[9]
     caption = '&Save diff File'
@@ -90,5 +93,11 @@ inherited diffwindowfo: tdiffwindowfo
   inherited findindiffact: taction[11]
   end
   inherited repeatfind: taction[12]
+  end
+  object checkoutact: taction[13]
+    caption = 'Checkout'
+    onexecute = checkoutexe
+    left = 168
+    top = 208
   end
 end

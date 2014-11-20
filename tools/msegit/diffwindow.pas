@@ -21,7 +21,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,diffform,mseact,
  mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,mseedit,
- msefiledialog,msegrids,mselistbrowser,msestrings,msesys,msetypes;
+ msefiledialog,msegrids,mselistbrowser,msestrings,msesys,msetypes,mseificomp,
+ mseificompglob;
 
 type
  tdiffwindowfo = class(tdifffo)
@@ -30,6 +31,7 @@ type
    revertact: taction;
    savediffact: taction;
    difffiledialog: tfiledialog;
+   checkoutact: taction;
    procedure patchtoolexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu); override;
    procedure afterstatreadexe(const sender: TObject);
@@ -37,6 +39,7 @@ type
    procedure popupupdateexe1(const sender: tcustommenu);
    procedure revertexe(const sender: TObject);
    procedure savediffexe(const sender: TObject);
+   procedure checkoutexe(const sender: TObject);
   protected
    fcandiffpopup: boolean;
  end;
@@ -104,12 +107,21 @@ procedure tdiffwindowfo.popupupdateexe1(const sender: tcustommenu);
 begin
  popupupdateexe(sender);
  revertact.enabled:= fcandiffpopup and logfo.isbasediff;
+ checkoutact.enabled:= fcandiffpopup and not logfo.isbasediff;
 end;
 
 procedure tdiffwindowfo.revertexe(const sender: TObject);
 begin
  if askconfirmation('Do you want to revert "'+currentpath+'"?') then begin
   mainmo.revert(currentpath);
+ end;
+end;
+
+procedure tdiffwindowfo.checkoutexe(const sender: TObject);
+begin
+ if askconfirmation('Do you want to checkout "'+currentpath+'" from'+lineend+
+                                                  fi.b+'?') then begin
+  mainmo.checkout(fi.b,currentpath);
  end;
 end;
 

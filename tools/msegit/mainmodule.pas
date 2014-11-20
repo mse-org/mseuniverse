@@ -333,6 +333,8 @@ type
    function findlocalbranch(const abranch: msestring): plocalbranchinfoty;
    procedure updateoperation(const aoperation: commitkindty;
                   const afiles: filenamearty; const refreshed: boolean = true);
+   procedure updateoperation(const aoperation: commitkindty;
+                  const afile: filenamety; const refreshed: boolean = true);
    procedure readmergeinfo;
    procedure loadrepo(avalue: filenamety; const clearconsole: boolean);
                        //no const
@@ -367,6 +369,8 @@ type
                      const anode: tgitdirtreenode;
                      const afiles: msegitfileitemarty): boolean;
    function checkout(const atreeish: msestring): boolean;
+   function checkout(const acommit: msestring; 
+                                      const afile: filenamety): boolean;
 
    function fetch(const aremote,aremotebranch: msestring): boolean;
    function fetchall: boolean;
@@ -1301,6 +1305,16 @@ begin
  end;
 end;
 
+procedure tmainmo.updateoperation(const aoperation: commitkindty;
+                  const afile: filenamety; const refreshed: boolean = true);
+var
+ ar1: filenamearty;
+begin
+ setlength(ar1,1);
+ ar1[0]:= afile;
+ updateoperation(aoperation,ar1,refreshed);
+end;
+
 function tmainmo.commit(const afiles: filenamearty;
                         const amessage: msestring;
                         const akind: commitkindty): boolean;
@@ -1506,6 +1520,16 @@ begin
  result:= execgitconsole('checkout '+fgit.encodepathparams(afiles,true));
  if result then begin   
   updateoperation(ck_revert,afiles);
+ end;
+end;
+
+function tmainmo.checkout(const acommit: msestring;
+                                    const afile: filenamety): boolean;
+begin
+ result:= execgitconsole('checkout '+acommit+' '+
+                               fgit.encodepathparam(afile,true));
+ if result then begin   
+  updateoperation(ck_stage,afile);
  end;
 end;
 

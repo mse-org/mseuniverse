@@ -539,7 +539,8 @@ end;
 function tlogfo.isbasediff: boolean;
 begin
  result:= (diffmode.value = 0) and (grid.row = 0) and mainmo.logfilterempty and
-                        (diffbase.checkedrow = -1);
+      (diffbase.checkedrow = -1) and 
+      (mainmo.repostat.activelogcommit(false) = mainmo.activebranch);;
 end;
 
 { tlogitem }
