@@ -1,5 +1,6 @@
 object gitconsolefo: tgitconsolefo
   frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
   frame.dummy = 0
   visible = False
   bounds_x = 104
@@ -45,7 +46,7 @@ object gitconsolefo: tgitconsolefo
       bounds_y = 0
       bounds_cx = 1000
       bounds_cy = 14
-      optionsedit1 = [oe1_keyexecute]
+      optionsedit1 = [oe1_keyexecute, oe1_savevalue]
       font.name = 'stf_fixed'
       font.xscale = 1
       font.dummy = 0

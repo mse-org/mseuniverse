@@ -1,5 +1,6 @@
 object dirtreefo: tgitdirtreefo
   frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
   frame.dummy = 0
   visible = False
   bounds_x = 87
@@ -61,8 +62,8 @@ object dirtreefo: tgitdirtreefo
       bounds_y = 0
       bounds_cx = 95
       bounds_cy = 16
-      optionsedit1 = [oe1_keyexecute]
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_locate, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit1 = [oe1_savevalue]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_locate]
       options = [teo_treecolnavig]
     end
   end

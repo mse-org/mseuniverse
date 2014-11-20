@@ -61,6 +61,7 @@ object mainfo: tmainfo
     anchors = [an_bottom]
     dragdock.optionsdock = [od_savepos, od_savezorder, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
     statfile = formsta
+    dockingareacaption = 'Docking Area'
   end
   object mainmen: tmainmenu
     menu.submenu.count = 5
@@ -291,6 +292,8 @@ object mainfo: tmainfo
     statfile = mainfosta
     statfileclient = formsta
     menunamepath = 'view.panels'
+    dockingareacaption = 'Docking Aarea'
+    optionsgrip = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_lockbutton]
     left = 16
     top = 48
   end

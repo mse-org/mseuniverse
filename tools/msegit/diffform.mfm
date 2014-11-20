@@ -1,5 +1,4 @@
 inherited difffo: tdifffo
-  frame.grip_options = [go_closebutton, go_fixsizebutton]
   bounds_x = 128
   bounds_y = 274
   container.bounds = (
