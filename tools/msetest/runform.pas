@@ -384,12 +384,12 @@ begin
  case fstate of
   rs_compile: begin
    fstate:= rs_canceled;
-   term.terminateprocess();
+   term.killprocess();
    term.waitforprocess();
   end;
   rs_test: begin
    fstate:= rs_canceled;
-   proc.terminate();
+   proc.kill();
    proc.waitforprocess();
   end;
  end;
