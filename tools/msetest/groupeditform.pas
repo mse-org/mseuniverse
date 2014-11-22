@@ -110,6 +110,7 @@ procedure tgroupeditfo.filemacrohintexe(const sender: TObject;
                                                var info: hintinfoty);
 begin
  info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'',fn_path);
+ include(info.flags,hfl_show);
 end;
 
 procedure tgroupeditfo.nrchangeexe(const sender: TObject);

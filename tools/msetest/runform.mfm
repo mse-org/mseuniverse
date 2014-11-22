@@ -16,7 +16,6 @@ object runfo: trunfo
   onshow = showexe
   moduleclassname = 'tmseform'
   object grid: twidgetgrid
-    taborder = 1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 708
@@ -29,7 +28,7 @@ object runfo: trunfo
     datacols.items = <    
       item[term]
         width = 703
-        options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'term'
         dataclass = tgridrichstringdatalist
       end>
@@ -44,14 +43,16 @@ object runfo: trunfo
       bounds_y = 0
       bounds_cx = 703
       bounds_cy = 14
-      optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
-      maxchars = 80
+      maxchars = 120
       onprocfinished = procfinishedexe
-      options = [teo_readonly, teo_stripescsequence]
+      options = [teo_stripescsequence]
+      optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_inactive, pro_detached, pro_allowsetforegroundwindow, pro_sessionleader, pro_settty, pro_tty, pro_echo, pro_icanon, pro_winpipewritehandles, pro_ctrlc]
+      pipewaitus = 1000000
       reffontheight = 14
     end
   end
   object tlayouter2: tlayouter
+    taborder = 1
     bounds_x = 0
     bounds_y = 356
     bounds_cx = 708

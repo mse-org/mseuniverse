@@ -164,6 +164,7 @@ end;
 procedure tmainfo.insertgroupexe(const sender: TObject);
 var
  n1: ttestgroupnode;
+ n2: ttreelistitem;
  int1: integer;
 begin
  n1:= ttestgroupnode.create();
@@ -173,7 +174,13 @@ begin
  end
  else begin
   int1:= grid.row;
-  treeed.itemlist.insert(grid.row,n1);
+  n2:= treeed.item;
+  if (n2 is ttestgroupnode) and (n2.count = 0) and n2.expanded then begin
+   n2.add(n1);
+  end
+  else begin
+   treeed.itemlist.insert(grid.row,n1);
+  end;
  end;
  n1.getdefaults();
  mainmo.projectchanged();

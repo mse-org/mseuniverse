@@ -731,7 +731,7 @@ begin
  finput:= reader.readmsestring('in','');
  fexpectedoutput:= reader.readmsestring('eo','');
  fexpectederror:= reader.readmsestring('ee','');
- fexpectedexitcode:= reader.readreal('eec',emptyreal);
+ fexpectedexitcode:= reader.readreal('eec',emptyreal,0,255,true);
 end;
 
 procedure ttestvaluenode.dogetdefaults;

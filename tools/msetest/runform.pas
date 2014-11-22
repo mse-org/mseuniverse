@@ -311,16 +311,23 @@ begin
  cancelbu.enabled:= false;
  okbu.enabled:= true;
  againbu.enabled:= true;
- fstartwidget.setfocus();
+// fstartwidget.setfocus();
  if fstate = rs_canceled then begin
   n1:= mainmo.findnumber(fcurrenttest.nr);
   if n1 <> nil then begin
    n1.expandtoroot;
    mainfo.grid.row:= n1.index;
   end;
+  term.addline('***CANCELED***');
  end
  else begin
   seterror(errordi,errordi.value <> 0);
+  if errordi.value <> 0 then begin
+   term.addline('***ERROR***');
+  end
+  else begin
+   term.addline('***OK***');
+  end;
  end;
 end;
 

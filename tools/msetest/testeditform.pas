@@ -100,12 +100,14 @@ begin
  info.caption:= mainmo.expandmacros(
                         mainmo.edititem,tedit(sender).text,filemacro,
                                      fieldnumberty(tedit(sender).tag));
+ include(info.flags,hfl_show);
 end;
 
 procedure ttesteditfo.filemacrohintexe(const sender: TObject;
                                                  var info: hintinfoty);
 begin
  info.caption:= mainmo.expandmacros(mainmo.edititem,filemacro,'',fn_path);
+ include(info.flags,hfl_show);
 end;
 
 procedure ttesteditfo.compileresultchangeexe(const sender: TObject);
