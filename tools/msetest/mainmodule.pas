@@ -258,6 +258,7 @@ type
    function saveproject(): modalresultty;
    function saveasproject(): modalresultty;
    procedure projectchanged();
+   procedure resetitemstate();
    procedure renumber();
    function findnumber(const anumber: integer): ttestitem;
    procedure beginedit(const aitem: ttestnode; const editfo: teditfo);
@@ -1248,6 +1249,22 @@ end;
 procedure tmainmo.loadedexe(const sender: TObject);
 begin
  stockobjects.fonts[stf_empty].color:= cl_dkgray;
+end;
+
+procedure tmainmo.resetitemstate;
+
+ procedure doreset(const aitem: ttestnode);
+ var
+  int1: integer;
+ begin
+  aitem.fteststate:= tes_none;
+  for int1:= 0 to aitem.count-1 do begin
+   doreset(ttestnode(aitem.fitems[int1]));
+  end;
+ end; //doreset
+
+begin
+ doreset(frootnode);
 end;
 
 { tprojectoptions }

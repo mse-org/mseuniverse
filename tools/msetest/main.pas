@@ -24,7 +24,7 @@ uses
  msestrings,msewidgetgrid,sysutils,msedatanodes,mselistbrowser,mseifiendpoint,
  msebitmap,msefiledialog,msesys,msegraphedits,msescrollbar,msedialog,mseact,
  mseactions,msedispwidgets,mserichstring,msetimer,msemenuwidgets,msesplitter,
- mainmodule;
+ mainmodule,msesimplewidgets;
 
 type
  tmainfo = class(tmainform)
@@ -53,6 +53,8 @@ type
    cutitemact: taction;
    images: timagelist;
    insertgroupnodeact: taction;
+   tspacer4: tspacer;
+   resetbu: tbutton;
    procedure connectmoduleexe(const sender: TObject);
 //   procedure createitemexe(const sender: tcustomitemlist;
 //                   var item: ttreelistedititem);
@@ -95,11 +97,14 @@ type
                    var accept: Boolean);
    procedure updatepasteitem(const sender: tcustomaction);
    procedure updaterowactexe(const sender: tcustomaction);
+   procedure resetexe(const sender: TObject);
   protected
    procedure deleterow(const aindex: integer);
    procedure checkenabledstate();
    procedure refreshnumbers();
    procedure insertitem(const aitem: ttestnode; aindex: integer);
+   procedure initdisp();
+   procedure updatedisp(const astate: teststatety);
  end;
  
 var
@@ -324,12 +329,17 @@ begin
  end;
 end;
 
-procedure tmainfo.runexe(const sender: TObject);
+procedure tmainfo.initdisp();
 begin
  okdi.text:= ' ';
  errordi.text:= ' ';
  totaldi.text:= ' ';
  seterror(errordi,ers_none);
+end;
+
+procedure tmainfo.runexe(const sender: TObject);
+begin
+ initdisp();
  mainmo.runtest(ttestnode(treeed.item));
  with ttestnode(treeed.item) do begin
   updateparentteststate();
@@ -338,24 +348,42 @@ begin
  end;
 end;
 
-procedure tmainfo.runallexe(const sender: TObject);
-var
- testres1: teststatety;
+procedure tmainfo.updatedisp(const astate: teststatety);
 begin
- testres1:= mainmo.runtest(mainmo.rootnode);
  treeed.updateitemvalues(0,grid.rowcount);
  okdi.text:= '';
  errordi.text:= '';
  okdi.value:= mainmo.okcount;
  totaldi.value:= okdi.value + mainmo.errorcount;
  errordi.value:= mainmo.errorcount;
- if testres1 = tes_canceled then begin
-  totaldi.text:= 'Canceled';
-  totaldi.textflags:= [tf_xcentered,tf_ycentered]
- end
- else begin
-  totaldi.text:= '';
-  totaldi.textflags:= [tf_right,tf_ycentered]
+ case astate of
+  tes_canceled: begin
+   totaldi.text:= 'Canceled';
+   totaldi.textflags:= [tf_xcentered,tf_ycentered]
+  end;
+  tes_none: begin
+   initdisp();
+  end;
+  else begin
+   totaldi.text:= '';
+   totaldi.textflags:= [tf_right,tf_ycentered]
+  end;
+ end;
+end;
+
+procedure tmainfo.runallexe(const sender: TObject);
+var
+ testres1: teststatety;
+begin
+ testres1:= mainmo.runtest(mainmo.rootnode);
+ updatedisp(testres1);
+end;
+
+procedure tmainfo.resetexe(const sender: TObject);
+begin
+ if askconfirmation('Do you want to reset the state of all items?') then begin
+  mainmo.resetitemstate();
+  updatedisp(tes_none);
  end;
 end;
 
