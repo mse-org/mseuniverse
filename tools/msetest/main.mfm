@@ -18,9 +18,9 @@ object mainfo: tmainfo
   object grid: twidgetgrid
     popupmenu = tpopupmenu1
     bounds_x = 0
-    bounds_y = 19
+    bounds_y = 20
     bounds_cx = 672
-    bounds_cy = 297
+    bounds_cy = 296
     anchors = [an_top, an_bottom]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_colmerged, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -33,7 +33,7 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 15
+        height = 16
         captions.count = 6
         captions.items = <        
           item
@@ -108,13 +108,13 @@ object mainfo: tmainfo
         widgetname = 'editbu'
         dataclass = tgridintegerdatalist
       end>
-    datarowheight = 15
+    datarowheight = 16
     statfile = mainmo.projectstat
     onrowsmoving = rowsmovingexe
     onrowsinserting = rowinsertingexe
     onrowsdeleting = rowdeleteingexe
     oncellevent = cellevent
-    reffontheight = 13
+    reffontheight = 14
     object pathed: tfilenameedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
@@ -128,7 +128,7 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 159
-      bounds_cy = 15
+      bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
@@ -136,7 +136,7 @@ object mainfo: tmainfo
       onsetvalue = pathsetexe
       controller.onbeforeexecute = pathedbeforedialogexe
       controller.onafterexecute = pathedafterdialogexe
-      reffontheight = 13
+      reffontheight = 14
     end
     object commented: tdialogstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -151,11 +151,11 @@ object mainfo: tmainfo
       bounds_x = 160
       bounds_y = 0
       bounds_cx = 259
-      bounds_cy = 15
+      bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       ondataentered = dataenteredexe
       onsetvalue = commentsetexe
-      reffontheight = 13
+      reffontheight = 14
     end
     object runbu: tdatabutton
       optionswidget1 = []
@@ -163,7 +163,7 @@ object mainfo: tmainfo
       bounds_x = 16
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 15
+      bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       state = [as_invisible, as_localinvisible, as_localonexecute]
       valuefaces.count = 3
@@ -228,13 +228,13 @@ object mainfo: tmainfo
       bounds_x = 67
       bounds_y = 0
       bounds_cx = 104
-      bounds_cy = 15
+      bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_locate]
       ondataentered = dataenteredexe
       onupdaterowvalues = updaterowvalueexe
       options = [teo_treecolnavig]
-      reffontheight = 13
+      reffontheight = 14
     end
     object editbu: tstockglyphdatabutton
       optionswidget1 = []
@@ -243,7 +243,7 @@ object mainfo: tmainfo
       bounds_x = 642
       bounds_y = 0
       bounds_cx = 26
-      bounds_cy = 15
+      bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
       glyph = stg_ellipsesmall
@@ -256,7 +256,7 @@ object mainfo: tmainfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 672
-    bounds_cy = 19
+    bounds_cy = 20
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     linkbottom = grid
@@ -267,8 +267,8 @@ object mainfo: tmainfo
       face.dummy = 0
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 312
-      bounds_cy = 19
+      bounds_cx = 288
+      bounds_cy = 20
       menu.itemframetemplate = menuitemframe
       menu.itemframetemplateactive = menuitemframe
       menu.menu.submenu.count = 4
@@ -327,7 +327,7 @@ object mainfo: tmainfo
           onexecute = editmacroexe
         end      
         item
-          submenu.count = 2
+          submenu.count = 4
           submenu.items = <          
             item
               action = mainmo.stoponcomperr
@@ -336,6 +336,14 @@ object mainfo: tmainfo
             item
               action = mainmo.stoponfirsterr
               options = [mao_checkbox, mao_shortcutcaption]
+            end          
+            item
+              options = [mao_separator, mao_shortcutcaption]
+            end          
+            item
+              caption = 'About'
+              state = [as_localcaption, as_localonexecute]
+              onexecute = aboutexe
             end>
           caption = '&Options'
           state = [as_localcaption]
@@ -343,8 +351,8 @@ object mainfo: tmainfo
     end
     object tspacer1: tspacer
       taborder = 1
-      bounds_x = 312
-      bounds_y = 4
+      bounds_x = 288
+      bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
       anchors = [an_top, an_right]
@@ -357,24 +365,24 @@ object mainfo: tmainfo
       frame.captionpos = cp_left
       frame.dummy = 0
       frame.outerframe = (
-        17
+        19
         0
         0
         0
       )
       taborder = 2
-      bounds_x = 322
+      bounds_x = 298
       bounds_y = 1
-      bounds_cx = 87
-      bounds_cy = 17
+      bounds_cx = 89
+      bounds_cy = 18
       anchors = [an_top, an_right]
       text = ' '
-      reffontheight = 13
+      reffontheight = 14
     end
     object tspacer2: tspacer
       taborder = 3
-      bounds_x = 409
-      bounds_y = 4
+      bounds_x = 387
+      bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
       anchors = [an_top, an_right]
@@ -388,44 +396,44 @@ object mainfo: tmainfo
       frame.localprops = [frl_colorclient]
       frame.dummy = 0
       frame.outerframe = (
-        27
+        34
         0
         0
         0
       )
       taborder = 4
-      bounds_x = 419
+      bounds_x = 397
       bounds_y = 1
-      bounds_cx = 97
-      bounds_cy = 17
+      bounds_cx = 104
+      bounds_cy = 18
       anchors = [an_top, an_right]
       text = ' '
       onchange = errorchangeexe
-      reffontheight = 13
+      reffontheight = 14
     end
     object totaldi: tintegerdisp
       frame.caption = 'Total'
       frame.captionpos = cp_left
       frame.dummy = 0
       frame.outerframe = (
-        27
+        34
         0
         0
         0
       )
       taborder = 5
-      bounds_x = 526
+      bounds_x = 511
       bounds_y = 1
-      bounds_cx = 97
-      bounds_cy = 17
+      bounds_cx = 104
+      bounds_cy = 18
       anchors = [an_top, an_right]
       text = ' '
-      reffontheight = 13
+      reffontheight = 14
     end
     object tspacer3: tspacer
       taborder = 6
-      bounds_x = 516
-      bounds_y = 4
+      bounds_x = 501
+      bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
       anchors = [an_top, an_right]
@@ -435,8 +443,8 @@ object mainfo: tmainfo
     end
     object tspacer4: tspacer
       taborder = 7
-      bounds_x = 623
-      bounds_y = 4
+      bounds_x = 615
+      bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
       anchors = [an_top, an_right]
@@ -447,9 +455,9 @@ object mainfo: tmainfo
     object resetbu: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth]
       taborder = 8
-      bounds_x = 633
-      bounds_y = 0
-      bounds_cx = 38
+      bounds_x = 625
+      bounds_y = 1
+      bounds_cx = 46
       bounds_cy = 19
       anchors = [an_top, an_right]
       state = [as_localcaption, as_localonexecute]

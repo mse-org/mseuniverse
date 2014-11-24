@@ -26,6 +26,9 @@ uses
  mseactions,msedispwidgets,mserichstring,msetimer,msemenuwidgets,msesplitter,
  mainmodule,msesimplewidgets;
 
+const
+ versiontext = '1.0';
+
 type
  tmainfo = class(tmainform)
    grid: twidgetgrid;
@@ -98,6 +101,7 @@ type
    procedure updatepasteitem(const sender: tcustomaction);
    procedure updaterowactexe(const sender: tcustomaction);
    procedure resetexe(const sender: TObject);
+   procedure aboutexe(const sender: TObject);
   protected
    procedure deleterow(const aindex: integer);
    procedure checkenabledstate();
@@ -519,6 +523,16 @@ end;
 procedure tmainfo.updaterowactexe(const sender: tcustomaction);
 begin
  sender.enabled:= grid.row >= 0;
+end;
+
+procedure tmainfo.aboutexe(const sender: TObject);
+begin
+ showmessage('MSEgui version: '+mseguiversiontext+c_linefeed+
+             'MSEtest version: '+versiontext+c_linefeed+
+             'Host: '+ platformtext+ c_linefeed+
+             c_linefeed+
+             'Copyright 2014'+c_linefeed+
+             'by Martin Schreiber','About MSEtest');
 end;
 
 end.
