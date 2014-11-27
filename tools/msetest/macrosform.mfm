@@ -88,7 +88,7 @@ object macrosfo: tmacrosfo
       bounds_x = 0
       bounds_y = 132
       bounds_cx = 604
-      bounds_cy = 375
+      bounds_cy = 223
       bounds_cymin = 40
       anchors = [an_top, an_bottom]
       optionsgrid = [og_colsizing, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_selectedrowsdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_wrapcol, og_autopopup]
