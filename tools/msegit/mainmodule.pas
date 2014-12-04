@@ -376,6 +376,7 @@ type
    function fetchall: boolean;
    function pull(const aremote,aremotebranch: msestring): boolean;
    function push(const aremote,aremotebranch: msestring): boolean;
+   function pushbranch(const abranch,aremote,aremotebranch: msestring): boolean;
    function merge(asourceref: msestring): boolean;
    function cherrypick(const acommits: msestringarty): boolean;
 
@@ -1770,7 +1771,8 @@ begin
 *)
 end;
 
-function tmainmo.push(const aremote,aremotebranch: msestring): boolean;
+function tmainmo.pushbranch(const abranch,aremote,
+                                       aremotebranch: msestring): boolean;
 var
  str1: string;
 begin
@@ -1784,14 +1786,19 @@ begin
   else begin
    str1:= 'push '+fgit.encodestring(aremote)+' ';
    if aremotebranch <> '' then begin
-    str1:= str1+fgit.encodestringparam(factivebranch+':'+aremotebranch);
+    str1:= str1+fgit.encodestringparam(abranch+':'+aremotebranch);
    end
    else begin
-    str1:= str1+fgit.encodestringparam(factivebranch);
+    str1:= str1+fgit.encodestringparam(abranch);
    end;
    result:= execgitconsole(str1);
   end;
  end;
+end;
+
+function tmainmo.push(const aremote,aremotebranch: msestring): boolean;
+begin
+ result:= pushbranch(factivebranch,aremote,aremotebranch);
 end;
 
 function tmainmo.merge(asourceref: msestring): boolean;
