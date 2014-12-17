@@ -2092,7 +2092,7 @@ var
  int1: integer;
 begin
  if count > 0 then begin
-  puint1:= assignedroot;
+  puint1:= assignedfirst;
   while puint1 <> 0 do begin
    po1:= pgitstateinfoty(pchar(data) + puint1 + sizeof(hashheaderty));
    for int1:= 0 to high(include) do begin
