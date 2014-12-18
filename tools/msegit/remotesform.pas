@@ -191,6 +191,9 @@ end;
 procedure tremotesfo.pushsetexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
+ if fetch.value = '' then begin
+  fetch.value:= avalue;
+ end;
  accept:= changeurl(fetch.value,avalue);
 end;
 
