@@ -16,10 +16,9 @@ order13=0
 order14=0
 order15=0
 order16=0
-order17=0
 [projectoptions]
-projectdir=/home/mse/packs/standard/git/mseuniverse/tools/msetest
-projectfilename=/home/mse/packs/standard/git/mseuniverse/tools/msetest/msetest.prj
+projectdir=/usr/home/mse/packs/standard/git/mseuniverse/tools/msetest
+projectfilename=/usr/home/mse/packs/standard/git/mseuniverse/tools/msetest/msetest.prj
 options=99
  [projectoptionsfo.twidgetgrid3]
  propcolwidthref=788
@@ -395,7 +394,7 @@ filemasks=3
 showgrid=1
 snaptogrid=1
 moveonfirstclick=1
-formdesignerdocking=0
+noformdesignerdocking=0
 gridsizex=8
 gridsizey=8
 autoindent=1
@@ -520,7 +519,7 @@ files=
  a=0,4132,6,Text Files
  )
 [componentstore]
-storedir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
+storedir=/usr/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
 filename=
 [components]
 [selecteditpage]
@@ -615,7 +614,7 @@ windowlayout=564
  [mainfo]
  splitdir=0
  useroptions=33554555
- stackedunder=mainfo.panel1
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -629,7 +628,7 @@ windowlayout=564
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -716,7 +715,7 @@ windowlayout=564
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=cpui386fo
+ stackedunder=objectinspectorfo
  parent=
  mdistate=0
  nx=0
@@ -841,7 +840,7 @@ windowlayout=564
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=targetconsolefo
+ stackedunder=cpuc86_64fo
  parent=
  mdistate=0
  nx=0
@@ -1023,7 +1022,7 @@ windowlayout=564
  [componentpalettefo]
  splitdir=0
  useroptions=24683
- stackedunder=mainfo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -1077,21 +1076,21 @@ windowlayout=564
  checked=1
  [actionsmo.bluedotsonact]
  checked=1
- [cpui386fo]
+ [cpuc86_64fo]
  irqoff=0
  splitdir=0
  useroptions=16491
- stackedunder=watchpointsfo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=312
- y=341
- cx=283
- cy=210
+ x=183
+ y=113
+ cx=352
+ cy=277
  rcx=0
  rcy=0
  wsize=0
@@ -1100,7 +1099,7 @@ windowlayout=564
  [mainfo.panel1]
  splitdir=2
  useroptions=32235
- stackedunder=
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -1114,7 +1113,7 @@ windowlayout=564
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
 [targetconsole]
 finddtext=
