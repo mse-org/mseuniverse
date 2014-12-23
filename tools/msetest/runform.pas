@@ -51,6 +51,8 @@ type
    procedure againexe(const sender: TObject);
    procedure errorchangeexe(const sender: TObject);
    procedure okchaexe(const sender: TObject);
+   procedure sendtextexe(const sender: TObject; var atext: msestring;
+                   var donotsend: Boolean);
   protected
    fstate: runstatety;
    ftestitem: ttestnode;
@@ -419,6 +421,15 @@ end;
 procedure trunfo.okchaexe(const sender: TObject);
 begin
  totaldi.value:= okdi.value + errordi.value;
+end;
+
+procedure trunfo.sendtextexe(const sender: TObject; var atext: msestring;
+               var donotsend: Boolean);
+begin
+ if okbu.enabled then begin
+  donotsend:= true;
+  window.modalresult:= mr_ok;
+ end;
 end;
 
 end.

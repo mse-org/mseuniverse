@@ -112,12 +112,14 @@ type
    procedure rebaseremotebranchexe(const sender: TObject);
    procedure rebasebranchexe(const sender: TObject);
    procedure remotecheckoutexe(const sender: TObject);
+   procedure pushlocalbranchexe(const sender: TObject);
   private
    fcheckoutcommit: msestring;
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
   protected
    function currentremote(arow: integer = -1): msestring;
+   function currentremotebranch(): msestring;
    procedure doclear; override;
    property showhidden: boolean read getshowhidden write setshowhidden;
   public
@@ -578,6 +580,9 @@ begin
   sender.menu.itembyname('checkout').enabled:= bo1;
   sender.menu.itembyname('merge').enabled:= bo1 and not mainmo.merging;
   sender.menu.itembyname('rebase').enabled:= bo1 and not mainmo.rebasing;
+  sender.menu.itembyname('pushlocalbranch').enabled:= bo1 and 
+        (mainmo.activebranch <> '') and (remotebranch.value <> '') and
+                       (system.pos('(detached from',mainmo.activebranch) = 0);
   if bo1 then begin
    for int1:= 0 to localgrid.rowhigh do begin
     if localbranch[int1] = remotebranch.value then begin
@@ -904,14 +909,29 @@ begin
  mainfo.rebase(currentremote+'/'+remotebranch.value);
 end;
 
+function tbranchfo.currentremotebranch(): msestring;
+begin
+ result:= currentremote+'/'+remotebranch.value;
+end;
+
 procedure tbranchfo.remotecheckoutexe(const sender: TObject);
 var
  mstr1: msestring;
 begin
- mstr1:= currentremote+'/'+remotebranch.value;
+ mstr1:= currentremotebranch();
  if askconfirmation('Do you want to checkout ' + mstr1+'?') and
               mainmo.checkoutbranch(mstr1) then begin
   mainfo.reload;
+ end;
+end;
+
+procedure tbranchfo.pushlocalbranchexe(const sender: TObject);
+begin
+ if askconfirmation('Do you want to push '+mainmo.activebranch+' to '+
+                            currentremotebranch()+'?') and 
+          mainmo.pushbranch(mainmo.activebranch,
+                      currentremote,remotebranch.value) then begin
+  mainfo.reload();
  end;
 end;
 

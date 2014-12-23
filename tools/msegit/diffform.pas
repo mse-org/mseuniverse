@@ -184,10 +184,17 @@ begin
 end;
 
 procedure tdifffo.dorefresh;
+var
+ int1: integer;
 begin
- refreshthread.terminate;
- terminateprocess(fgitproc);
- refreshthread.run;
+ int1:= application.unlockall();
+ try
+  refreshthread.terminate;
+  terminateprocess(fgitproc);
+  refreshthread.run;
+ finally
+  application.relockall(int1);
+ end;
 end;
 
 procedure tdifffo.refreshexe(const sender: tthreadcomp);
