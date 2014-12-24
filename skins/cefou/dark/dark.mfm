@@ -1,0 +1,687 @@
+object darkmo: tdarkmo
+  bounds_cx = 944
+  bounds_cy = 470
+  left = 348
+  top = 272
+  moduleclassname = 'tmsedatamodule'
+  object tskincontroller1: tskincontroller
+    active = True
+    extenders = 0
+    colors.count = 3
+    colors.colorshadow = 2697513
+    colors.colorlight = 5855577
+    colors.colorhighlight = 6184542
+    colors.items = <    
+      item
+        color = -1879048181
+        rgb = 2039583
+      end    
+      item
+        color = -1879048182
+        rgb = 16745510
+      end    
+      item
+        color = -1879048183
+        rgb = 15592941
+      end>
+    font_default.gloss_color = -2147483642
+    sb_horz_facebutton = SliderFaceButtonHoriz
+    sb_horz_faceendbutton = SliderFaceEndButtonHoriz
+    sb_horz_framebutton = SliderFrameButtonHoriz
+    sb_horz_frameendbutton1 = SliderFrameEndButton1Horiz
+    sb_horz_frameendbutton2 = SliderFrameEndBUtton1Vertical
+    sb_vert_facebutton = SliderFaceButtonVertical
+    sb_vert_faceendbutton = SliderFaceEndButtonVertical
+    sb_vert_framebutton = SliderFrameButtonVertical
+    sb_vert_frameendbutton1 = SliderFrameEndBUtton1Vertical
+    sb_vert_frameendbutton2 = SliderFrameEndBUtton2Vertical
+    stepbutton_frame = StepButtonFrame
+    stepbutton_face = StepButtonFace
+    widget_colorcaptionframe = -2147483645
+    dispwidget_face = EditFace
+    dispwidget_frame = DispWidgetFrame
+    dataedit_face = EditFace
+    dataedit_frame = EditFrame
+    dataedit_empty_fontstyle = [fs_bold]
+    booleanedit_face = BooleanEditFace
+    booleanedit_frame = BooleanEditFrame
+    container_face = ContainerFace
+    groupbox_face = GroupBoxFace
+    groupbox_frame = GroupBoxFrame
+    grid_face = GridFace
+    grid_frame = GridFrame
+    grid_fixrows_face = GridFixedRowFace
+    grid_fixrows_frame = GridFixedRowFrame
+    grid_fixcols_face = GridFixedColFace
+    grid_fixcols_frame = GridFixedColFrame
+    grid_datacols_face = GridDataColFace
+    grid_datacols_frame = GridDataColFrame
+    button_face = buttonface
+    button_frame = buttonframe
+    button_font.color = 15592941
+    button_font.gloss_color = 1513239
+    button_font.gloss_shiftx = 1
+    button_font.style = [fs_bold]
+    button_font.xscale = 1
+    button_font.dummy = 0
+    databutton_face = buttonface
+    databutton_frame = buttonframe
+    slider_face = SliderFace
+    slider_frame = SliderFrame
+    slider_sb_horz_facebutton = SliderFaceButtonHoriz
+    slider_sb_horz_faceendbutton = SliderFaceEndButtonHoriz
+    slider_sb_horz_framebutton = SliderFrameButtonHoriz
+    slider_sb_horz_frameendbutton1 = SliderFrameEndButton1Horiz
+    slider_sb_horz_frameendbutton2 = SliderFrameEndButton2Horiz
+    slider_sb_vert_facebutton = SliderFaceButtonVertical
+    slider_sb_vert_faceendbutton = SliderFaceEndButtonVertical
+    slider_sb_vert_framebutton = SliderFrameButtonVertical
+    slider_sb_vert_frameendbutton1 = SliderFrameEndBUtton1Vertical
+    slider_sb_vert_frameendbutton2 = SliderFrameEndBUtton2Vertical
+    framebutton_face = FaceButton
+    framebutton_frame = FrameButton
+    tabbar_horz_face = TabBarHorizFace
+    tabbar_horz_frame = TabBarHorizFrame
+    tabbar_horz_tab_frame = TabBarTabFrame
+    tabbar_horz_tab_face = TabBarTabFace
+    tabbar_horz_tab_faceactive = TabBarTabFaceActive
+    toolbar_horz_face = ToolBarFace
+    toolbar_horz_frame = ToolBarFrame
+    toolbar_horz_buttonface = ToolBarButtonFace
+    tabpage_face = TabFace
+    tabpage_frame = TabFrame
+    popupmenu_face = MenuPopupFace
+    popupmenu_frame = MenuPopupFrame
+    popupmenu_itemface = MenuItemFace
+    popupmenu_itemframe = MenuItemFrame
+    popupmenu_itemfaceactive = MenuItemFaceActive
+    popupmenu_itemframeactive = MenuItemFrameActive
+    popupmenu_separatorframe = MenuPopupSeparatorFrame
+    popupmenu_checkboxframe = MenuPopupCheckBxFrame
+    mainmenu_face = MenuFace
+    mainmenu_frame = MenuFrame
+    mainmenu_itemface = MenuItemFace
+    mainmenu_itemframe = MenuItemFrame
+    mainmenu_itemfaceactive = MenuItemFaceActive
+    mainmenu_itemframeactive = MenuItemFrameActive
+    mainmenu_separatorframe = MenuSeparatorFrame
+    mainmenu_popupface = MenuPopupFace
+    mainmenu_popupframe = MenuPopupFrame
+    mainmenu_popupitemface = MenuPopupItemFace
+    mainmenu_popupitemframe = MenuPopupItemFrame
+    mainmenu_popupitemfaceactive = MenuPopupItemFaceActive
+    mainmenu_popupitemframeactive = MenuPopupItemFrameActive
+    left = 8
+    top = 24
+  end
+  object buttonface: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      5263440
+      4276545
+    )
+    template.fade_direction = gd_down
+    left = 160
+    top = 16
+  end
+  object buttonframe: tframecomp
+    template.framewidth = 1
+    template.colorframe = 526344
+    template.font.color = -1610612730
+    template.font.xscale = 1
+    template.font.dummy = 0
+    template.optionsskin = [fso_nomouseanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 160
+    top = 48
+  end
+  object EditFace: tfacecomp
+    template.fade_pos.count = 1
+    template.fade_pos.items = (
+      0
+    )
+    template.fade_color.count = 1
+    template.fade_color.items = (
+      5197647
+    )
+    left = 160
+    top = 80
+  end
+  object EditFrame: tframecomp
+    template.levelo = -1
+    template.framewidth = 1
+    template.colorframe = 1315860
+    template.font.color = 9408399
+    template.font.xscale = 1
+    template.font.dummy = 0
+    template.colorshadow = 3552822
+    template.colorhlwidth = 0
+    left = 160
+    top = 112
+  end
+  object ContainerFace: tfacecomp
+    template.fade_pos.count = 1
+    template.fade_pos.items = (
+      0
+    )
+    template.fade_color.count = 1
+    template.fade_color.items = (
+      4342338
+    )
+    left = 160
+    top = 144
+  end
+  object GroupBoxFrame: tframecomp
+    template.levelo = 1
+    template.leveli = -1
+    template.colorshadow = 2368548
+    template.colorhlwidth = 0
+    left = 160
+    top = 176
+  end
+  object GroupBoxFace: tfacecomp
+    template.fade_pos.count = 1
+    template.fade_pos.items = (
+      0
+    )
+    template.fade_color.count = 1
+    template.fade_color.items = (
+      4342338
+    )
+    left = 160
+    top = 208
+  end
+  object DispWidgetFrame: tframecomp
+    template.levelo = -1
+    template.optionsskin = [fso_nomouseanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 160
+    top = 240
+  end
+  object ToolBarFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      4013373
+      2829099
+    )
+    template.fade_direction = gd_down
+    left = 272
+    top = 16
+  end
+  object ToolBarFrame: tframecomp
+    template.levelo = 1
+    template.leveli = -1
+    left = 272
+    top = 48
+  end
+  object ToolBarButtonFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      4671303
+      3158064
+    )
+    template.fade_direction = gd_down
+    left = 272
+    top = 80
+  end
+  object BooleanEditFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14606046
+      11382189
+    )
+    template.fade_direction = gd_up
+    left = 272
+    top = 112
+  end
+  object BooleanEditFrame: tframecomp
+    template.levelo = -1
+    template.framewidth = 1
+    template.optionsskin = [fso_nomouseanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 272
+    top = 144
+  end
+  object GridDataColFace: tfacecomp
+    template.fade_pos.count = 1
+    template.fade_pos.items = (
+      0
+    )
+    template.fade_color.count = 1
+    template.fade_color.items = (
+      5197647
+    )
+    left = 272
+    top = 176
+  end
+  object GridFace: tfacecomp
+    template.fade_pos.count = 1
+    template.fade_pos.items = (
+      0
+    )
+    template.fade_color.count = 1
+    template.fade_color.items = (
+      5197647
+    )
+    left = 272
+    top = 208
+  end
+  object GridFixedColFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      4539717
+      2829099
+    )
+    template.fade_direction = gd_down
+    left = 392
+    top = 16
+  end
+  object GridFixedRowFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      4539717
+      2829099
+    )
+    template.fade_direction = gd_down
+    left = 392
+    top = 48
+  end
+  object GridFrame: tframecomp
+    template.levelo = -1
+    left = 392
+    top = 80
+  end
+  object GridFixedColFrame: tframecomp
+    template.levelo = 1
+    template.leveli = -1
+    left = 392
+    top = 112
+  end
+  object GridFixedRowFrame: tframecomp
+    template.levelo = 1
+    template.leveli = -1
+    left = 392
+    top = 144
+  end
+  object GridDataColFrame: tframecomp
+    left = 272
+    top = 240
+  end
+  object SliderFaceButtonHoriz: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      6052956
+      3026478
+    )
+    template.fade_direction = gd_down
+    left = 392
+    top = 176
+  end
+  object SliderFaceEndButtonHoriz: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      6052956
+      3026478
+    )
+    template.fade_direction = gd_down
+    left = 392
+    top = 208
+  end
+  object SliderFrameButtonHoriz: tframecomp
+    template.framewidth = 1
+    template.colorframe = 1513239
+    template.optionsskin = [fso_flat, fso_nomouseanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 392
+    top = 240
+  end
+  object SliderFrameEndButton1Horiz: tframecomp
+    template.framewidth = 1
+    template.colorframe = 1513239
+    template.optionsskin = [fso_flat, fso_nomouseanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 552
+    top = 16
+  end
+  object SliderFrameEndButton2Horiz: tframecomp
+    template.framewidth = 1
+    template.optionsskin = [fso_flat, fso_nomouseanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 552
+    top = 48
+  end
+  object SliderFace: tfacecomp
+    template.fade_pos.count = 1
+    template.fade_pos.items = (
+      0
+    )
+    template.fade_color.count = 1
+    template.fade_color.items = (
+      0
+    )
+    left = 552
+    top = 80
+  end
+  object SliderFrame: tframecomp
+    template.levelo = 1
+    template.leveli = -1
+    template.optionsskin = [fso_flat, fso_nomouseanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 552
+    top = 112
+  end
+  object SliderFaceButtonVertical: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      6052956
+      3026478
+    )
+    template.fade_direction = gd_down
+    left = 552
+    top = 144
+  end
+  object SliderFaceEndButtonVertical: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      6052956
+      3026478
+    )
+    template.fade_direction = gd_down
+    left = 552
+    top = 176
+  end
+  object SliderFrameButtonVertical: tframecomp
+    template.framewidth = 1
+    template.colorframe = 1513239
+    template.optionsskin = [fso_flat, fso_nomouseanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 552
+    top = 208
+  end
+  object SliderFrameEndBUtton1Vertical: tframecomp
+    template.framewidth = 1
+    template.colorframe = 1513239
+    template.optionsskin = [fso_flat, fso_nomouseanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 552
+    top = 240
+  end
+  object SliderFrameEndBUtton2Vertical: tframecomp
+    template.framewidth = 1
+    template.colorframe = 1513239
+    template.optionsskin = [fso_flat, fso_nomouseanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    left = 736
+    top = 16
+  end
+  object MenuFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      3552822
+      1513239
+    )
+    template.fade_direction = gd_down
+    left = 736
+    top = 48
+  end
+  object MenuFrame: tframecomp
+    template.framewidth = 1
+    template.optionsskin = [fso_flat, fso_noanim, fso_nomouseanim, fso_noclickanim, fso_nofocusanim]
+    left = 736
+    top = 80
+  end
+  object MenuItemFace: tfacecomp
+    left = 736
+    top = 112
+  end
+  object MenuItemFaceActive: tfacecomp
+    template.fade_pos.count = 1
+    template.fade_pos.items = (
+      0
+    )
+    template.fade_color.count = 1
+    template.fade_color.items = (
+      14260224
+    )
+    left = 736
+    top = 144
+  end
+  object MenuItemFrame: tframecomp
+    template.optionsskin = [fso_flat, fso_noanim, fso_nomouseanim, fso_noclickanim]
+    left = 736
+    top = 176
+  end
+  object MenuItemFrameActive: tframecomp
+    template.optionsskin = [fso_flat, fso_noanim, fso_nomouseanim, fso_noclickanim]
+    left = 736
+    top = 208
+  end
+  object MenuPopupCheckBxFrame: tframecomp
+    left = 736
+    top = 240
+  end
+  object MenuPopupFace: tfacecomp
+    template.fade_pos.count = 1
+    template.fade_pos.items = (
+      0
+    )
+    template.fade_color.count = 1
+    template.fade_color.items = (
+      3552822
+    )
+    left = 160
+    top = 312
+  end
+  object MenuPopupFrame: tframecomp
+    template.framewidth = 1
+    template.optionsskin = [fso_flat]
+    left = 160
+    top = 344
+  end
+  object MenuPopupItemFace: tfacecomp
+    left = 272
+    top = 312
+  end
+  object MenuPopupItemFaceActive: tfacecomp
+    template.fade_pos.count = 1
+    template.fade_pos.items = (
+      0
+    )
+    template.fade_color.count = 1
+    template.fade_color.items = (
+      14260224
+    )
+    left = 272
+    top = 344
+  end
+  object MenuPopupItemFrame: tframecomp
+    template.optionsskin = [fso_flat, fso_noanim, fso_nomouseanim, fso_noclickanim, fso_nofocusanim]
+    left = 448
+    top = 312
+  end
+  object MenuPopupItemFrameActive: tframecomp
+    template.optionsskin = [fso_flat, fso_noanim, fso_nomouseanim, fso_noclickanim, fso_nofocusanim]
+    left = 448
+    top = 344
+  end
+  object MenuPopupSeparatorFrame: tframecomp
+    left = 608
+    top = 312
+  end
+  object MenuSeparatorFrame: tframecomp
+    left = 608
+    top = 344
+  end
+  object StepButtonFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      6052956
+      3158064
+    )
+    template.fade_direction = gd_down
+    left = 392
+    top = 280
+  end
+  object StepButtonFrame: tframecomp
+    template.framewidth = 1
+    template.colorframe = 1184274
+    template.hiddenedges = [edg_right, edg_top, edg_bottom]
+    template.optionsskin = [fso_flat, fso_nomouseanim]
+    left = 552
+    top = 280
+  end
+  object FrameButton: tframecomp
+    template.framewidth = 1
+    template.colorframe = 1513239
+    template.hiddenedges = [edg_right, edg_top, edg_bottom]
+    template.optionsskin = [fso_flat, fso_nomouseanim]
+    left = 160
+    top = 280
+  end
+  object FaceButton: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      6052956
+      3026478
+    )
+    template.fade_direction = gd_down
+    left = 272
+    top = 280
+  end
+  object TabFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      3881787
+      3026478
+    )
+    template.fade_direction = gd_down
+    left = 800
+    top = 288
+  end
+  object TabFrame: tframecomp
+    template.levelo = 1
+    template.leveli = -1
+    template.hiddenedges = [edg_top]
+    left = 800
+    top = 320
+  end
+  object TabBarHorizFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      3881787
+      2697513
+    )
+    template.fade_direction = gd_down
+    left = 160
+    top = 376
+  end
+  object TabBarHorizFrame: tframecomp
+    template.levelo = 1
+    template.leveli = -1
+    template.hiddenedges = [edg_bottom]
+    template.optionsskin = [fso_nomouseanim, fso_nofocusanim]
+    left = 272
+    top = 376
+  end
+  object TabBarTabFace: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      4868682
+      2171169
+    )
+    template.fade_direction = gd_up
+    left = 400
+    top = 376
+  end
+  object TabBarTabFaceActive: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      4868682
+      2171169
+    )
+    template.fade_direction = gd_down
+    left = 520
+    top = 376
+  end
+  object TabBarTabFrame: tframecomp
+    template.framewidth = 1
+    template.optionsskin = [fso_nomouseanim]
+    left = 680
+    top = 376
+  end
+end
