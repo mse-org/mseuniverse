@@ -13,7 +13,7 @@ type
    senddtexted: thistoryedit;
    rxdata: tstringgrid;
    clearbu: tbutton;
-   tstatfile1: tstatfile;
+   portstatx: tstatfile;
    portfra: tportsettingsfra;
    procedure clearexe(const sender: TObject);
    procedure sendtextexe(const sender: TObject; var avalue: msestring;

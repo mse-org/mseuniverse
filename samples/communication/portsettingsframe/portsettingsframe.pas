@@ -16,7 +16,7 @@ type
    stopbited: tenumtypeedit;
    eor: thexstringedit;
    activeed: tbooleanedit;
-   tstatfile1: tstatfile;
+   portstat: tstatfile;
    procedure baudinit(const sender: tenumtypeedit);
    procedure databitsinit(const sender: tenumtypeedit);
    procedure parityinit(const sender: tenumtypeedit);

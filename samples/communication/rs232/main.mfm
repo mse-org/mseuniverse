@@ -1,12 +1,12 @@
 object mainfo: tmainfo
   bounds_x = 215
   bounds_y = 236
-  bounds_cx = 604
+  bounds_cx = 658
   bounds_cy = 354
   container.bounds = (
     0
     0
-    604
+    658
     354
   )
   statfile = tstatfile1
@@ -23,11 +23,12 @@ object mainfo: tmainfo
     taborder = 1
     bounds_x = 8
     bounds_y = 63
-    bounds_cx = 589
+    bounds_cx = 643
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+    optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     onsetvalue = sendtextexe
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -48,7 +49,7 @@ object mainfo: tmainfo
     taborder = 2
     bounds_x = 8
     bounds_y = 111
-    bounds_cx = 587
+    bounds_cx = 641
     bounds_cy = 205
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
@@ -73,7 +74,7 @@ object mainfo: tmainfo
   end
   object clearbu: tbutton
     taborder = 3
-    bounds_x = 545
+    bounds_x = 599
     bounds_y = 330
     bounds_cx = 50
     bounds_cy = 20
@@ -85,9 +86,11 @@ object mainfo: tmainfo
   inline portfra: tportsettingsfra
     bounds_x = 8
     bounds_y = 8
+    bounds_cx = 621
     inherited ported: tcommselector
     end
     inherited bauded: tenumtypeedit
+      bounds_cx = 92
       dropdown.cols.items = <      
         item
         end>
@@ -98,23 +101,29 @@ object mainfo: tmainfo
         end>
     end
     inherited parityed: tenumtypeedit
+      bounds_x = 296
+      bounds_cx = 92
       dropdown.cols.items = <      
         item
         end>
     end
     inherited stopbited: tenumtypeedit
+      bounds_x = 396
+      bounds_cx = 92
       dropdown.cols.items = <      
         item
         end>
     end
     inherited eor: thexstringedit
+      bounds_x = 496
     end
     inherited activeed: tbooleanedit
+      bounds_x = 564
     end
     inherited port: tsercommcomp
       pipes.oninputavailable = inputavaileexe
     end
-    inherited tstatfile1: tstatfile
+    inherited portstat: tstatfile
       statfile = tstatfile1
     end
   end
