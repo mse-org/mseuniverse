@@ -67,10 +67,17 @@ type
    TabBarTabFace: tfacecomp;
    TabBarTabFaceActive: tfacecomp;
    TabBarTabFrame: tframecomp;
+   procedure onactivate(const sender: TObject);
  end;
 var
  darkmo: tdarkmo;
 implementation
 uses
  dark_mfm;
+procedure tdarkmo.onactivate(const sender: TObject);
+begin
+  // empty method
+  
+end;
+
 end.
