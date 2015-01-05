@@ -121,7 +121,9 @@ procedure tdiffwindowfo.checkoutexe(const sender: TObject);
 begin
  if askconfirmation('Do you want to checkout "'+currentpath+'" from'+lineend+
                                                   fi.b+'?') then begin
-  mainmo.checkout(fi.b,currentpath);
+  if mainmo.checkout(fi.b,currentpath) then begin
+   mainmo.reload();
+  end;
  end;
 end;
 
