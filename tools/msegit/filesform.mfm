@@ -1,12 +1,15 @@
 object filesfo: tfilesfo
+  frame.localprops = []
+  frame.localprops1 = []
   frame.grip_size = 10
   frame.grip_options = [go_closebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
-  frame.dummy = 0
   visible = False
   bounds_x = 103
   bounds_y = 143
   bounds_cx = 445
   bounds_cy = 354
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -132,5 +135,12 @@ object filesfo: tfilesfo
     onupdate = deleteupdate
     left = 216
     top = 112
+  end
+  object commitstagedact: taction
+    caption = '&Commit/Stage/Unstage'
+    onexecute = commitstagedexe
+    onupdate = commitupdateexe
+    left = 224
+    top = 64
   end
 end

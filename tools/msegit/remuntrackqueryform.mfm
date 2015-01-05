@@ -5,19 +5,56 @@ inherited remuntrackqueryfo: tremuntrackqueryfo
     0
     0
     343
-    283
+    286
   )
   moduleclassname = 'tremovequeryfo'
-  inherited tbutton1: tbutton
-  end
-  inherited filecountdisp: tintegerdisp
+  inherited tlayouter2: tlayouter
+    inherited filecountdisp: tintegerdisp
+    end
+    inherited tlayouter1: tlayouter
+      bounds_x = 161
+      bounds_cx = 178
+      inherited tbutton1: tbutton
+        bounds_x = 126
+      end
+      object removebu: tbutton[1]
+        optionswidget1 = [ow1_autoscale, ow1_autowidth]
+        taborder = 1
+        bounds_x = 63
+        bounds_y = 0
+        bounds_cx = 59
+        bounds_cy = 20
+        bounds_cxmin = 50
+        anchors = [an_right, an_bottom]
+        state = [as_localcaption, as_localonexecute]
+        caption = '&Remove'
+        options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+        onupdate = removeupdateexe
+        onexecute = removeexe
+      end
+      object untrackbu: tbutton[2]
+        optionswidget1 = [ow1_autoscale, ow1_autowidth]
+        taborder = 2
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 59
+        bounds_cy = 20
+        bounds_cxmin = 50
+        anchors = [an_right, an_bottom]
+        state = [as_localinvisible, as_localcaption, as_localonexecute]
+        caption = '&Untrack'
+        options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+        onupdate = removeupdateexe
+        onexecute = untrackexe
+      end
+    end
   end
   inherited filelist: tfilechecklistframefo
     container.bounds = (
       0
       0
       343
-      250
+      258
     )
     inherited grid: twidgetgrid
       fixrows.items = <      
@@ -61,32 +98,6 @@ inherited remuntrackqueryfo: tremuntrackqueryfo
         end>
     end
   end
-  object removebu: tbutton[3]
-    taborder = 3
-    bounds_x = 232
-    bounds_y = 256
-    bounds_cx = 50
-    bounds_cy = 20
-    anchors = [an_right, an_bottom]
-    state = [as_localcaption, as_localonexecute]
-    caption = '&Remove'
-    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
-    onupdate = removeupdateexe
-    onexecute = removeexe
-  end
-  object untrackbu: tbutton[4]
-    taborder = 4
-    bounds_x = 176
-    bounds_y = 256
-    bounds_cx = 50
-    bounds_cy = 20
-    anchors = [an_right, an_bottom]
-    state = [as_localinvisible, as_localcaption, as_localonexecute]
-    caption = '&Untrack'
-    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
-    onupdate = removeupdateexe
-    onexecute = untrackexe
-  end
-  inherited tstatfile1: tstatfile[5]
+  inherited tstatfile1: tstatfile
   end
 end

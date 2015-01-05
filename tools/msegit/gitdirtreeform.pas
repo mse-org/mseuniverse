@@ -21,7 +21,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedock,msestatfile,
  msedataedits,mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,
- msedatanodes,mselistbrowser,mseact,mseactions,msebitmap,mainmodule;
+ msedatanodes,mselistbrowser,mseact,mseactions,msebitmap,mainmodule,mseificomp,
+ mseificompglob;
 
 type
  tgitdirtreefo = class(tdockform)
@@ -35,6 +36,7 @@ type
    addact: taction;
    revertact: taction;
    removeact: taction;
+   commitstagedact: taction;
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);

@@ -3,61 +3,94 @@ object removequeryfo: tremovequeryfo
   bounds_x = 109
   bounds_y = 231
   bounds_cx = 343
-  bounds_cy = 283
+  bounds_cy = 286
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
     343
-    283
+    286
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Untrack/remove Files'
   moduleclassname = 'tmseform'
-  object tbutton1: tbutton
-    bounds_x = 288
-    bounds_y = 256
-    bounds_cx = 50
-    bounds_cy = 20
-    anchors = [an_right, an_bottom]
-    state = [as_default, as_localdefault, as_localcaption]
-    caption = '&Cancel'
-    modalresult = mr_cancel
-  end
-  object filecountdisp: tintegerdisp
-    frame.caption = 'Filecount'
-    frame.captionpos = cp_left
-    frame.dummy = 0
-    frame.outerframe = (
-      53
-      0
-      0
-      0
-    )
+  object tlayouter2: tlayouter
+    frame.framei_left = 4
+    frame.framei_top = 4
+    frame.framei_right = 4
+    frame.framei_bottom = 4
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.localprops1 = []
     taborder = 1
-    bounds_x = 8
-    bounds_y = 257
-    bounds_cx = 97
-    bounds_cy = 18
-    anchors = [an_left, an_bottom]
-    reffontheight = 14
+    bounds_x = 0
+    bounds_y = 258
+    bounds_cx = 343
+    bounds_cy = 28
+    anchors = [an_bottom]
+    optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linktop = filelist
+    options = [spao_gluebottom]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    object filecountdisp: tintegerdisp
+      frame.caption = 'Filecount'
+      frame.captionpos = cp_left
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        60
+        0
+        0
+        0
+      )
+      bounds_x = 4
+      bounds_y = 5
+      bounds_cx = 104
+      bounds_cy = 18
+      reffontheight = 14
+    end
+    object tlayouter1: tlayouter
+      taborder = 1
+      bounds_x = 287
+      bounds_y = 4
+      bounds_cx = 52
+      bounds_cy = 20
+      optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_placex, lao_aligny]
+      align_glue = wam_start
+      place_mindist = 4
+      place_maxdist = 4
+      object tbutton1: tbutton
+        optionswidget1 = [ow1_autoscale, ow1_autowidth]
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 52
+        bounds_cy = 20
+        bounds_cxmin = 50
+        state = [as_default, as_localdefault, as_localcaption]
+        caption = '&Cancel'
+        modalresult = mr_cancel
+      end
+    end
   end
   inline filelist: tfilechecklistframefo
-    taborder = 2
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 343
-    bounds_cy = 250
-    anchors = [an_top, an_bottom]
+    bounds_cy = 258
+    anchors = [an_top]
     container.bounds = (
       0
       0
       343
-      250
+      258
     )
     inherited grid: twidgetgrid
       bounds_cx = 343
-      bounds_cy = 250
+      bounds_cy = 258
       fixrows.items = <      
         item
           captions.items = <          

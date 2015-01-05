@@ -1,12 +1,15 @@
 object dirtreefo: tgitdirtreefo
+  frame.localprops = []
+  frame.localprops1 = []
   frame.grip_size = 10
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
-  frame.dummy = 0
   visible = False
   bounds_x = 87
   bounds_y = 291
   bounds_cx = 445
   bounds_cy = 354
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -20,6 +23,8 @@ object dirtreefo: tgitdirtreefo
   caption = 'DirTree'
   moduleclassname = 'tdockform'
   object grid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
     popupmenu = gridpopup
     onenter = gridenterexe
     bounds_x = 0
@@ -56,6 +61,7 @@ object dirtreefo: tgitdirtreefo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
       taborder = 1
       visible = False
       bounds_x = 0
@@ -137,5 +143,12 @@ object dirtreefo: tgitdirtreefo
     onupdate = removeupdateexe
     left = 176
     top = 104
+  end
+  object commitstagedact: taction
+    caption = '&Commit staged'
+    onexecute = commitstagedexe
+    onupdate = commitupdataexe
+    left = 280
+    top = 40
   end
 end

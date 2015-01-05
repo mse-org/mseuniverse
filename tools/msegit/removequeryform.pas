@@ -22,16 +22,18 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mainmodule,msestatfile,
  filelistframe,msesimplewidgets,msewidgets,msegraphedits,mseifiglob,msetypes,
  msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog,
- msegitcontroller,commitdiffform,msegrids,filechecklistframe;
+ msegitcontroller,commitdiffform,msegrids,filechecklistframe,mserichstring;
 type
  tremovequeryfo = class(tmseform)
-   tbutton1: tbutton;
    revert: tbutton;
-   filecountdisp: tintegerdisp;
    tstatfile1: tstatfile;
 //   diff: tcommitdifffo;
    tsplitter2: tsplitter;
    filelist: tfilechecklistframefo;
+   tlayouter2: tlayouter;
+   filecountdisp: tintegerdisp;
+   tlayouter1: tlayouter;
+   tbutton1: tbutton;
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
 //   procedure celleventexe(const sender: TObject; var info: celleventinfoty);

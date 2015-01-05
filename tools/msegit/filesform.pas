@@ -34,6 +34,7 @@ type
    mergetoolact: taction;
    removeact: taction;
    deleteact: taction;
+   commitstagedact: taction;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure commitexe(const sender: TObject);
@@ -51,6 +52,7 @@ type
    procedure mergetoolonupdate(const sender: tcustomaction);
    procedure deleteexe(const sender: TObject);
    procedure deleteupdate(const sender: tcustomaction);
+   procedure commitstagedexe(const sender: TObject);
   private
    fpath: filenamety;
    ffilebefore: msestring;
@@ -117,6 +119,14 @@ begin
  end;
 end;
 
+procedure tfilesfo.commitstagedexe(const sender: TObject);
+begin
+ if mainmo.commit(tgitdirtreenode(gitdirtreefo.treeed.item), 
+        msegitfileitemarty(filelist.fileitemed.selecteditems),true) then begin
+  activate;
+ end;
+end;
+
 procedure tfilesfo.commitupdateexe(const sender: tcustomaction);
 begin
  sender.enabled:= filelist.fileitemed.selecteditems <> nil;
@@ -168,6 +178,7 @@ procedure tfilesfo.removeexe(const sender: TObject);
 begin
  if mainmo.remove(tgitdirtreenode(gitdirtreefo.treeed.item),
              msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
+  mainfo.reload(); //get new changed item
   activate;
  end;
 end;
