@@ -889,8 +889,12 @@ begin
     with info1 do begin
      data.stateinfo.filename:= psubstr(po1,po2);
      data.stateinfo.data.statey:= [gist_untracked];
+     po3:= astate.find(data.stateinfo.filename);
     end;     
-    callback(info1);
+    if (po3 = nil) or (po3^.statex = [gist_untracked]) and
+            (gist_untracked in po3^.statey) then begin //no stashed untracking
+     callback(info1);
+    end;
     po1:= po2+1;
    end;
   end;

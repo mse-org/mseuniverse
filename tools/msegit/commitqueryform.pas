@@ -73,7 +73,7 @@ var
 implementation
 uses
  commitqueryform_mfm,msedatanodes,lastmessageform,msearrayutils,main,
- logform,gitdirtreeform,filesform;
+ logform,gitdirtreeform,filesform,msefileutils;
 
 { tcommitqueryfo }
  
@@ -82,6 +82,7 @@ function tcommitqueryfo.exec(const aroot: tgitdirtreenode;
                        const staged: boolean): boolean;
 var
  ar1: msegitfileitemarty;
+ ar2,ar3: filenamearty;
  int1,int2: integer;
  needsrefresh: boolean;
 begin
@@ -115,7 +116,29 @@ begin
                                                             messageed.value);
    end
    else begin
-    result:= mainmo.commit(filelist.selectedfiles(aroot),messageed.value,fkind);
+    ar1:= filelist.checkeditems();
+    ar2:= filelist.selectedfiles(aroot);
+    setlength(ar3,length(ar2));
+    try
+     for int1:= 0 to high(ar1) do begin
+      if (gist_deleted in ar1[int1].gitstate.statex) and 
+                                 findfile(ar2[int1]) then begin
+       ar3[int1]:= intermediatefilename(ar2[int1]);
+       renamefile(ar2[int1],ar3[int1],false); 
+                                        //remove untracked files intermediately
+      end;
+     end;
+     result:= mainmo.commit(ar2,messageed.value,fkind);
+    finally
+     for int1:= 0 to high(ar3) do begin
+      if ar3[int1] <> '' then begin
+       try
+        renamefile(ar3[int1],ar2[int1],false); //restore untracked files
+       except
+       end;
+      end;
+     end;
+    end;
    end;
    if result then begin
     needsrefresh:= false;
