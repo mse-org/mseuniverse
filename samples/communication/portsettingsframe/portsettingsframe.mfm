@@ -8,8 +8,8 @@ object portsettingsfra: tportsettingsfra
   frame.localprops1 = []
   bounds_x = 95
   bounds_y = 145
-  bounds_cx = 566
-  bounds_cy = 41
+  bounds_cx = 574
+  bounds_cy = 43
   optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
   optionslayout = [lao_placex, lao_aligny]
   align_glue = wam_start
@@ -23,18 +23,18 @@ object portsettingsfra: tportsettingsfra
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     bounds_x = 4
     bounds_y = 2
-    bounds_cy = 35
+    bounds_cy = 37
     statfile = portstat
     dropdown.options = [deo_autodropdown, deo_keydropdown]
     onsetvalue = portsetexe
     ongetactivecommnr = getactivecommexe
-    reffontheight = 13
+    reffontheight = 14
   end
   object bauded: tenumtypeedit
     frame.caption = 'Baud'
@@ -42,7 +42,7 @@ object portsettingsfra: tportsettingsfra
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
@@ -50,7 +50,7 @@ object portsettingsfra: tportsettingsfra
     bounds_x = 196
     bounds_y = 2
     bounds_cx = 76
-    bounds_cy = 35
+    bounds_cy = 37
     statfile = portstat
     value = 0
     min = 0
@@ -60,7 +60,7 @@ object portsettingsfra: tportsettingsfra
       item
       end>
     oninit = baudinit
-    reffontheight = 13
+    reffontheight = 14
   end
   object databitsed: tenumtypeedit
     frame.caption = 'Databits'
@@ -68,7 +68,7 @@ object portsettingsfra: tportsettingsfra
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
@@ -76,7 +76,7 @@ object portsettingsfra: tportsettingsfra
     bounds_x = 112
     bounds_y = 2
     bounds_cx = 76
-    bounds_cy = 35
+    bounds_cy = 37
     statfile = portstat
     value = 0
     min = 0
@@ -86,7 +86,7 @@ object portsettingsfra: tportsettingsfra
       item
       end>
     oninit = databitsinit
-    reffontheight = 13
+    reffontheight = 14
   end
   object parityed: tenumtypeedit
     frame.caption = 'Parity'
@@ -94,7 +94,7 @@ object portsettingsfra: tportsettingsfra
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
@@ -102,7 +102,7 @@ object portsettingsfra: tportsettingsfra
     bounds_x = 280
     bounds_y = 2
     bounds_cx = 76
-    bounds_cy = 35
+    bounds_cy = 37
     statfile = portstat
     value = 0
     min = 0
@@ -112,7 +112,7 @@ object portsettingsfra: tportsettingsfra
       item
       end>
     oninit = parityinit
-    reffontheight = 13
+    reffontheight = 14
   end
   object stopbited: tenumtypeedit
     frame.caption = 'Stopbits'
@@ -120,7 +120,7 @@ object portsettingsfra: tportsettingsfra
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
@@ -128,7 +128,7 @@ object portsettingsfra: tportsettingsfra
     bounds_x = 364
     bounds_y = 2
     bounds_cx = 76
-    bounds_cy = 35
+    bounds_cy = 37
     statfile = portstat
     value = 0
     min = 0
@@ -138,7 +138,7 @@ object portsettingsfra: tportsettingsfra
       item
       end>
     oninit = stobbitsinit
-    reffontheight = 13
+    reffontheight = 14
   end
   object eor: thexstringedit
     frame.caption = 'EOR-data'
@@ -146,7 +146,7 @@ object portsettingsfra: tportsettingsfra
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
@@ -154,10 +154,10 @@ object portsettingsfra: tportsettingsfra
     bounds_x = 448
     bounds_y = 2
     bounds_cx = 60
-    bounds_cy = 35
+    bounds_cy = 37
     statfile = portstat
     value = #10
-    reffontheight = 13
+    reffontheight = 14
   end
   object activeed: tbooleanedit
     frame.caption = 'active'
@@ -165,15 +165,15 @@ object portsettingsfra: tportsettingsfra
     frame.localprops1 = []
     frame.outerframe = (
       0
-      0
-      32
+      1
+      40
       1
     )
     taborder = 6
     bounds_x = 516
-    bounds_y = 20
-    bounds_cx = 46
-    bounds_cy = 15
+    bounds_y = 21
+    bounds_cx = 54
+    bounds_cy = 16
     onsetvalue = activeset
   end
   object port: tsercommcomp

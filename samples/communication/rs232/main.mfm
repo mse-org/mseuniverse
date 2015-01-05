@@ -20,15 +20,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 1
     bounds_x = 8
-    bounds_y = 64
+    bounds_y = 63
     bounds_cx = 643
-    bounds_cy = 35
+    bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
@@ -38,7 +38,7 @@ object mainfo: tmainfo
     dropdown.cols.items = <    
       item
       end>
-    reffontheight = 13
+    reffontheight = 14
   end
   object rxdata: tstringgrid
     frame.levelo = -1
@@ -47,15 +47,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 2
     bounds_x = 8
-    bounds_y = 112
+    bounds_y = 111
     bounds_cx = 641
-    bounds_cy = 204
+    bounds_cy = 205
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
     datacols.width = 1000
@@ -74,8 +74,8 @@ object mainfo: tmainfo
         numstep = 1
       end>
     rowcountmax = 10000
-    datarowheight = 15
-    reffontheight = 13
+    datarowheight = 16
+    reffontheight = 14
   end
   object clearbu: tbutton
     taborder = 3
@@ -91,7 +91,7 @@ object mainfo: tmainfo
   inline portfra: tportsettingsfra
     bounds_x = 8
     bounds_y = 8
-    bounds_cx = 614
+    bounds_cx = 622
     inherited ported: tcommselector
     end
     inherited bauded: tenumtypeedit
