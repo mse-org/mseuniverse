@@ -2599,6 +2599,12 @@ begin
   lstr1.len:= po1-lstr1.po;
  end;
  n1:= tgitdirtreenode(finditembycaption(lstr1));
+ if (n1 = nil) and (po1 <> nil) then begin
+  n1:= tgitdirtreenode.create();    //list deleted directories
+  n1.caption:= lstringtostring(lstr1);
+  add(n1);
+  sort(false);
+ end;
  if n1 <> nil then begin
   if po1 <> nil then begin
    aname.po:= po1+1;
