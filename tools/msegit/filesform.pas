@@ -35,6 +35,7 @@ type
    removeact: taction;
    deleteact: taction;
    commitstagedact: taction;
+   renameact: taction;
    procedure udaterowvaluesexe(const sender: TObject; const aindex: Integer;
                    const aitem: tlistitem);
    procedure commitexe(const sender: TObject);
@@ -53,6 +54,8 @@ type
    procedure deleteexe(const sender: TObject);
    procedure deleteupdate(const sender: tcustomaction);
    procedure commitstagedexe(const sender: TObject);
+   procedure renamexe(const sender: TObject);
+   procedure renameupdate(const sender: tcustomaction);
   private
    fpath: filenamety;
    ffilebefore: msestring;
@@ -277,6 +280,16 @@ end;
 procedure tfilesfo.mergetoolonupdate(const sender: tcustomaction);
 begin
  mergetoolact.enabled:= mainmo.canmergetool and (currentfilepath <> '');
+end;
+
+procedure tfilesfo.renamexe(const sender: TObject);
+begin
+ mainmo.rename(currentfilepath);
+end;
+
+procedure tfilesfo.renameupdate(const sender: tcustomaction);
+begin
+ sender.enabled:= currentitem <> nil;
 end;
 
 

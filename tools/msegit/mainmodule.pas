@@ -424,6 +424,8 @@ type
    function delete(const afiles: filenamearty): boolean; overload;
    function delete(const anode: tgitdirtreenode;
                     const aitems: msegitfileitemarty): boolean; overload;
+   function rename(const afilename: filenamety): boolean; //true if ok
+   
    function mergetoolcall(const afiles: filenamearty): boolean;
    function patchtoolcall(const afile: filenamety;
                 const basecommit,theircommit: msestring;
@@ -528,7 +530,7 @@ uses
  removequeryform,remuntrackqueryform,deletequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msemacros,main,filesform,
  gitdirtreeform,defaultstat,clonequeryform,commitmessageform,
- diffwindow,logform,tagsform;
+ diffwindow,logform,tagsform,renamequeryform;
   
 const
  defaultfileicon = 0;
@@ -2556,6 +2558,21 @@ begin
  if not ffulltags then begin
   ffulltags:= true;
   tagstree.load(ffulltags);
+ end;
+end;
+
+function tmainmo.rename(const afilename: filenamety): boolean;
+var
+ fna1: filenamety;
+begin
+ result:= false;
+ fna1:= trenamequeryfo.create(nil).exec(afilename);
+ if fna1 <> '' then begin
+  if execgitconsole('mv '+fgit.encodepathparam(afilename,false)+' '+
+               fgit.encodepathparam(fna1,false)) then begin
+   mainfo.reload();
+   result:= true;
+  end;
  end;
 end;
 

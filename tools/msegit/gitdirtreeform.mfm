@@ -94,7 +94,7 @@ object dirtreefo: tgitdirtreefo
   end
   object gridpopup: tpopupmenu
     onupdate = popupupdateexe
-    menu.submenu.count = 5
+    menu.submenu.count = 6
     menu.submenu.items = <    
       item
         action = commitact
@@ -104,6 +104,9 @@ object dirtreefo: tgitdirtreefo
       end    
       item
         action = restoreact
+      end    
+      item
+        action = renameact
       end    
       item
         options = [mao_separator, mao_shortcutcaption]
@@ -150,5 +153,12 @@ object dirtreefo: tgitdirtreefo
     onupdate = commitupdataexe
     left = 280
     top = 40
+  end
+  object renameact: taction
+    caption = 'Re&name'
+    onexecute = renameexe
+    onupdate = renameupdate
+    left = 176
+    top = 120
   end
 end

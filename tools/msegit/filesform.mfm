@@ -71,7 +71,7 @@ object filesfo: tfilesfo
   end
   object gridpopup: tpopupmenu
     onupdate = popupupdate
-    menu.submenu.count = 6
+    menu.submenu.count = 7
     menu.submenu.items = <    
       item
         action = commitact
@@ -87,6 +87,9 @@ object filesfo: tfilesfo
       end    
       item
         action = deleteact
+      end    
+      item
+        action = renameact
       end    
       item
         action = mergetoolact
@@ -120,7 +123,7 @@ object filesfo: tfilesfo
     onexecuteaction = mergetoolexe
     onupdate = mergetoolonupdate
     left = 128
-    top = 152
+    top = 184
   end
   object removeact: taction
     caption = '&Untrack/Remove'
@@ -142,5 +145,12 @@ object filesfo: tfilesfo
     onupdate = commitupdateexe
     left = 224
     top = 64
+  end
+  object renameact: taction
+    caption = 'Re&name'
+    onexecute = renamexe
+    onupdate = renameupdate
+    left = 128
+    top = 128
   end
 end

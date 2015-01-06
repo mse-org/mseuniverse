@@ -37,6 +37,7 @@ type
    restoreact: taction;
    removeact: taction;
    commitstagedact: taction;
+   renameact: taction;
    procedure loadedexe(const sender: TObject);
    procedure closedexe(const sender: TObject);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -53,6 +54,8 @@ type
    procedure removeupdateexe(const sender: tcustomaction);
    procedure openrepoexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu);
+   procedure renameupdate(const sender: tcustomaction);
+   procedure renameexe(const sender: TObject);
   private
    fexpandedsave: expandedinfoarty;
    fdirbefore: filenamety;
@@ -264,6 +267,16 @@ end;
 procedure tgitdirtreefo.popupupdateexe(const sender: tcustommenu);
 begin
  sender.menu.itembyname('openrepo').enabled:= treeed.item <> nil;
+end;
+
+procedure tgitdirtreefo.renameupdate(const sender: tcustomaction);
+begin
+ sender.enabled:= currentitem <> nil;
+end;
+
+procedure tgitdirtreefo.renameexe(const sender: TObject);
+begin
+ mainmo.rename(currentitem.gitbasepath);
 end;
 
 end.
