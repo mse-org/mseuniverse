@@ -379,6 +379,7 @@ type
    function pushbranch(const abranch,aremote,aremotebranch: msestring): boolean;
    function merge(asourceref: msestring): boolean;
    function cherrypick(const acommits: msestringarty): boolean;
+   function revert(const acommits: msestringarty): boolean;
 
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
    function cancommit(const aitems: gitdirtreenodearty): boolean; overload;
@@ -526,7 +527,7 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,
- gitconsole,commitqueryform,revertqueryform,
+ gitconsole,commitqueryform,restorequeryform,
  removequeryform,remuntrackqueryform,deletequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msemacros,main,filesform,
  gitdirtreeform,defaultstat,clonequeryform,commitmessageform,
@@ -1515,7 +1516,7 @@ end;
 function tmainmo.restore(const anode: tgitdirtreenode;
                const aitems: msegitfileitemarty): boolean;
 begin
- result:= trevertqueryfo.create(nil).exec(anode,aitems);
+ result:= trestorequeryfo.create(nil).exec(anode,aitems);
 end;
 
 function tmainmo.restore(const afiles: filenamearty): boolean;
@@ -1851,6 +1852,21 @@ begin
    str1:= str1+' '+fgit.encodestring(acommits[int1]);
   end;
   result:= execgitconsole('cherry-pick '+str1);
+ end;
+end;
+
+function tmainmo.revert(const acommits: msestringarty): boolean;
+var
+ int1: integer;
+ str1: string;
+begin
+ result:= false;
+ if acommits <> nil then begin
+  str1:= '';
+  for int1:= 0 to high(acommits) do begin
+   str1:= str1+' '+fgit.encodestring(acommits[int1]);
+  end;
+  result:= execgitconsole('revert -n '+str1);
  end;
 end;
 

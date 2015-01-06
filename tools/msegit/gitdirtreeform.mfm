@@ -86,7 +86,7 @@ object dirtreefo: tgitdirtreefo
     top = 16
   end
   object commitact: taction
-    caption = '&Commit'
+    caption = '&Commit/Stage/Unstage'
     onexecute = commitexe
     onupdate = commitupdataexe
     left = 176

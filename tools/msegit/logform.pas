@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,dispform,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mainmodule,
  msegraphedits,mseact,mseactions,mselistbrowser,msedatanodes,msethreadcomp,
- msesystypes,classes,mclasses;
+ msesystypes,classes,mclasses,mseificomp,mseificompglob;
 
 type
  logbranchinfoty = record
@@ -59,6 +59,7 @@ type
    diffmode: tdatabutton;
    tagact: taction;
    refreshthread: tthreadcomp;
+   revertact: taction;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -76,6 +77,7 @@ type
    procedure tagexe(const sender: TObject);
    procedure dorefreshexe(const sender: tthreadcomp);
    procedure filtereditexe(const sender: TObject);
+   procedure revertexe(const sender: TObject);
   private
    fpath: filenamety;
   protected
@@ -341,7 +343,9 @@ begin
  checkoutact.enabled:= bo1;
  branchact.enabled:= bo1;
  tagact.enabled:= bo1;
- cherrypickact.enabled:= bo1 and (diffmode.value = 1); 
+ cherrypickact.enabled:= bo1 and (diffmode.value = 1);
+ revertact.enabled:= cherrypickact.enabled and 
+          (mainmo.activebranch = mainmo.repostat.activelocallogbranch);
 end;
 
 procedure tlogfo.checkoutexe(const sender: TObject);
@@ -377,6 +381,28 @@ begin
     ar2[int1]:= commit[ar1[int1]];
    end;
    mainmo.cherrypick(ar2);
+   mainfo.reload;
+  end;
+ end;
+end;
+
+procedure tlogfo.revertexe(const sender: TObject);
+var
+ ar1: integerarty;
+ ar2: msestringarty;
+ int1: integer;
+begin
+ if mainmo.repobase <> '' then begin
+  showmessage('Reverting commits not possible in sub-directories.','ERROR');
+ end
+ else begin
+  if askconfirmation('Do you want to revert the selected commits?') then begin
+   ar1:= grid.datacols.selectedrows;
+   setlength(ar2,length(ar1));
+   for int1:= 0 to high(ar1) do begin
+    ar2[int1]:= commit[ar1[int1]];
+   end;
+   mainmo.revert(ar2);
    mainfo.reload;
   end;
  end;

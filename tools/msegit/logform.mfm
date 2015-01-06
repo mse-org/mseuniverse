@@ -12,6 +12,8 @@ inherited logfo: tlogfo
   caption = 'Log'
   moduleclassname = 'tdispfo'
   object grid: twidgetgrid[0]
+    frame.localprops = []
+    frame.localprops1 = []
     popupmenu = tpopupmenu1
     bounds_x = 0
     bounds_y = 0
@@ -29,7 +31,7 @@ inherited logfo: tlogfo
         captions.items = <        
           item
             caption = 'N'
-            face.dummy = 0
+            face.localprops = []
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
@@ -131,7 +133,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_noskin]
       color = 12316091
       taborder = 4
-      hint = 'D: Show differential diffs.'#10'C: Show commit diffs., enable cherry-pick.'
+      hint = 'D: Show differential diffs.'#10'C: Show commit diffs., enable cherry-pick and revert.'
       bounds_x = 39
       bounds_y = 2
       bounds_cx = 16
@@ -172,7 +174,7 @@ inherited logfo: tlogfo
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       font.name = 'fo_sha'
       font.xscale = 1
-      font.dummy = 0
+      font.localprops = [flp_xscale]
       reffontheight = 14
     end
     object commitdate: tdatetimeedit
@@ -238,7 +240,7 @@ inherited logfo: tlogfo
   inherited repoclosedact: taction[2]
   end
   object tpopupmenu1: tpopupmenu[3]
-    menu.submenu.count = 7
+    menu.submenu.count = 8
     menu.submenu.items = <    
       item
         action = mainmo.filterresetact
@@ -260,6 +262,9 @@ inherited logfo: tlogfo
       end    
       item
         action = cherrypickact
+      end    
+      item
+        action = revertact
       end>
     left = 56
     top = 152
@@ -293,5 +298,11 @@ inherited logfo: tlogfo
     onexecute = dorefreshexe
     left = 296
     top = 104
+  end
+  object revertact: taction[9]
+    caption = 'Revert C&ommit'
+    onexecute = revertexe
+    left = 56
+    top = 240
   end
 end
