@@ -22,17 +22,20 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,mainmodule,msestatfile,
  filelistframe,msesimplewidgets,msewidgets,msegraphedits,mseifiglob,msetypes,
  msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog,
- msegitcontroller,commitdiffform,msegrids,filechecklistframe,msetimer;
+ msegitcontroller,commitdiffform,msegrids,filechecklistframe,msetimer,
+ mserichstring;
 type
  trevertqueryfo = class(tmseform)
+   tstatfile1: tstatfile;
+   difftimer: ttimer;
+   tlayouter1: tlayouter;
    tbutton1: tbutton;
    restorebu: tbutton;
    filecountdisp: tintegerdisp;
-   tstatfile1: tstatfile;
-   diff: tcommitdifffo;
+   tsimplewidget1: tsimplewidget;
    tsplitter2: tsplitter;
    filelist: tfilechecklistframefo;
-   difftimer: ttimer;
+   diff: tcommitdifffo;
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure restoreupdateexe(const sender: tcustombutton);

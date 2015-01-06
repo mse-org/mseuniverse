@@ -17,177 +17,202 @@ object revertqueryfo: trevertqueryfo
   caption = 'Restore'
   oncreate = createexe
   moduleclassname = 'tmseform'
-  object tbutton1: tbutton
-    optionswidget1 = [ow1_autoscale, ow1_autowidth]
-    taborder = 2
-    bounds_x = 168
-    bounds_y = 256
-    bounds_cx = 52
-    bounds_cy = 20
-    bounds_cxmin = 50
-    anchors = [an_left, an_bottom]
-    state = [as_default, as_localdefault, as_localcaption]
-    caption = '&Cancel'
-    modalresult = mr_cancel
-  end
-  object restorebu: tbutton
-    optionswidget1 = [ow1_autoscale, ow1_autowidth]
-    taborder = 3
-    bounds_x = 112
-    bounds_y = 256
-    bounds_cx = 59
-    bounds_cy = 20
-    bounds_cxmin = 50
-    anchors = [an_left, an_bottom]
-    state = [as_localcaption, as_localonexecute]
-    caption = '&Restore'
-    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
-    onupdate = restoreupdateexe
-    onexecute = restoreexe
-  end
-  object filecountdisp: tintegerdisp
-    frame.caption = 'Filecount'
-    frame.captionpos = cp_left
-    frame.localprops = []
+  object tlayouter1: tlayouter
+    frame.framei_left = 4
+    frame.framei_top = 4
+    frame.framei_right = 4
+    frame.framei_bottom = 4
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
     frame.localprops1 = []
-    frame.outerframe = (
-      60
-      0
-      0
-      0
-    )
-    taborder = 4
-    bounds_x = 1
-    bounds_y = 257
-    bounds_cx = 104
-    bounds_cy = 18
+    bounds_x = 0
+    bounds_y = 255
+    bounds_cx = 239
+    bounds_cy = 28
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linktop = tsimplewidget1
+    options = [spao_gluebottom]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 8
+    place_maxdist = 8
+    object tbutton1: tbutton
+      optionswidget1 = [ow1_autoscale, ow1_autowidth]
+      bounds_x = 183
+      bounds_y = 4
+      bounds_cx = 52
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_default, as_localdefault, as_localcaption]
+      caption = '&Cancel'
+      modalresult = mr_cancel
+    end
+    object restorebu: tbutton
+      optionswidget1 = [ow1_autoscale, ow1_autowidth]
+      taborder = 1
+      bounds_x = 116
+      bounds_y = 4
+      bounds_cx = 59
+      bounds_cy = 20
+      bounds_cxmin = 50
+      state = [as_localcaption, as_localonexecute]
+      caption = '&Restore'
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
+      onupdate = restoreupdateexe
+      onexecute = restoreexe
+    end
+    object filecountdisp: tintegerdisp
+      frame.caption = 'Filecount'
+      frame.captionpos = cp_left
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        60
+        0
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 4
+      bounds_y = 5
+      bounds_cx = 104
+      bounds_cy = 18
+      reffontheight = 14
+    end
   end
-  inline diff: tcommitdifffo
-    frame = nil
+  object tsimplewidget1: tsimplewidget
     taborder = 1
     visible = True
-    bounds_x = 235
-    bounds_y = 0
-    bounds_cx = 316
-    bounds_cy = 250
-    anchors = [an_top, an_right, an_bottom]
-    container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
-    container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
-    container.bounds = (
-      0
-      0
-      316
-      250
-    )
-    options = [fo_savepos, fo_savezorder]
-    statfile = diff.tstatfile1
-    inherited tabs: ttabwidget
-      bounds_cx = 316
-      bounds_cy = 250
-      tab_frame.buttonpos = sbp_right
-      tab_frame.buttonslast = False
-    end
-    inherited repoloadedact: taction
-    end
-    inherited tstatfile1: tstatfile
-    end
-    inherited repoclosedact: taction
-    end
-    inherited tpopupmenu1: tpopupmenu
-      menu.submenu.items = <      
-        item
-        end      
-        item
-        end      
-        item
-        end      
-        item
-        end>
-      top = 56
-    end
-    inherited externaldiffact: taction
-      top = 80
-    end
-    inherited refreshthread: tthreadcomp
-    end
-    inherited findindiffact: taction
-    end
-    inherited repeatfind: taction
-    end
-  end
-  object tsplitter2: tsplitter
-    color = -1879048189
-    taborder = 5
-    bounds_x = 232
-    bounds_y = -8
-    bounds_cx = 3
-    bounds_cy = 250
-    anchors = [an_left, an_top, an_bottom]
-    options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
-    linkleft = filelist
-    linkright = diff
-    statfile = tstatfile1
-  end
-  inline filelist: tfilechecklistframefo
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 232
-    bounds_cy = 250
-    anchors = [an_left, an_top, an_bottom]
-    container.bounds = (
-      0
-      0
-      232
-      250
-    )
-    inherited grid: twidgetgrid
-      bounds_cx = 232
-      bounds_cy = 250
-      fixrows.items = <      
-        item
-          captions.items = <          
-            item
-            end          
-            item
-            end          
-            item
-            end          
-            item
-            end>
-        end>
-      datacols.items = <      
-        item[selected]
-        end      
-        item[originstate]
-        end      
-        item[filestate]
-        end      
-        item[fileitemed]
-          width = 176
-          datalist.imagealignment = [al_right, al_ycentered]
-          datalist.captionpos = cp_top
-          datalist.data = (          )
-        end>
-      inherited selected: tbooleanedit[0]
-        onsetvalue = selectsetexe
+    bounds_cx = 554
+    bounds_cy = 255
+    anchors = [an_left, an_top, an_right]
+    object tsplitter2: tsplitter
+      color = -1879048189
+      bounds_x = 232
+      bounds_y = 0
+      bounds_cx = 3
+      bounds_cy = 255
+      anchors = [an_left]
+      options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = filelist
+      linkright = diff
+      statfile = tstatfile1
+    end
+    inline filelist: tfilechecklistframefo
+      taborder = 1
+      bounds_x = 2
+      bounds_y = 0
+      bounds_cx = 230
+      bounds_cy = 255
+      anchors = [an_left]
+      container.bounds = (
+        0
+        0
+        230
+        255
+      )
+      inherited grid: twidgetgrid
+        bounds_cx = 230
+        bounds_cy = 255
+        fixrows.items = <        
+          item
+            captions.items = <            
+              item
+              end            
+              item
+              end            
+              item
+              end            
+              item
+              end>
+          end>
+        datacols.items = <        
+          item[selected]
+          end        
+          item[originstate]
+          end        
+          item[filestate]
+          end        
+          item[fileitemed]
+            width = 174
+            datalist.imagealignment = [al_right, al_ycentered]
+            datalist.captionpos = cp_top
+            datalist.data = (            )
+          end>
+        inherited selected: tbooleanedit[0]
+          onsetvalue = selectsetexe
+        end
+        inherited fileitemed: titemedit[1]
+          bounds_cx = 174
+          oncellevent = celleventexe
+        end
+        inherited filestate: tdataicon[2]
+        end
+        inherited originstate: tdataicon[3]
+        end
       end
-      inherited fileitemed: titemedit[1]
-        bounds_cx = 176
-        oncellevent = celleventexe
-      end
-      inherited filestate: tdataicon[2]
-      end
-      inherited originstate: tdataicon[3]
+      inherited checkpopup: tpopupmenu
+        menu.submenu.items = <        
+          item
+          end        
+          item
+          end>
       end
     end
-    inherited checkpopup: tpopupmenu
-      menu.submenu.items = <      
-        item
-        end      
-        item
-        end>
+    inline diff: tcommitdifffo
+      frame = nil
+      taborder = 2
+      visible = True
+      bounds_x = 235
+      bounds_y = 0
+      bounds_cx = 318
+      bounds_cy = 255
+      anchors = [an_right]
+      container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
+      container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
+      container.bounds = (
+        0
+        0
+        318
+        255
+      )
+      options = [fo_savepos, fo_savezorder]
+      statfile = diff.tstatfile1
+      inherited tabs: ttabwidget
+        bounds_cx = 318
+        bounds_cy = 255
+        tab_frame.buttonpos = sbp_right
+        tab_frame.buttonslast = False
+      end
+      inherited repoloadedact: taction
+      end
+      inherited tstatfile1: tstatfile
+      end
+      inherited repoclosedact: taction
+      end
+      inherited tpopupmenu1: tpopupmenu
+        menu.submenu.items = <        
+          item
+          end        
+          item
+          end        
+          item
+          end        
+          item
+          end>
+        top = 56
+      end
+      inherited externaldiffact: taction
+        top = 80
+      end
+      inherited refreshthread: tthreadcomp
+      end
+      inherited findindiffact: taction
+      end
+      inherited repeatfind: taction
+      end
     end
   end
   object tstatfile1: tstatfile
