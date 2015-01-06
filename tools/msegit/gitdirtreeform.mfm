@@ -112,7 +112,7 @@ object dirtreefo: tgitdirtreefo
         options = [mao_separator, mao_shortcutcaption]
       end    
       item
-        caption = '&Open git  repo'
+        caption = '&Open git repo'
         name = 'openrepo'
         state = [as_localcaption, as_localonexecute]
         onexecute = openrepoexe
