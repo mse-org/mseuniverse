@@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit revertqueryform;
+unit restorequeryform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
@@ -24,8 +24,9 @@ uses
  msedispwidgets,msestrings,msedataedits,mseedit,msesplitter,msememodialog,
  msegitcontroller,commitdiffform,msegrids,filechecklistframe,msetimer,
  mserichstring;
+ 
 type
- trevertqueryfo = class(tmseform)
+ trestorequeryfo = class(tmseform)
    tstatfile1: tstatfile;
    difftimer: ttimer;
    tlayouter1: tlayouter;
@@ -54,11 +55,11 @@ type
 
 implementation
 uses
- revertqueryform_mfm,msedatanodes,lastmessageform,msearrayutils,main;
+ restorequeryform_mfm,msedatanodes,lastmessageform,msearrayutils,main;
 
-{ trevertqueryfo }
+{ trestorequeryfo }
  
-function trevertqueryfo.exec(const aroot: tgitdirtreenode;
+function trestorequeryfo.exec(const aroot: tgitdirtreenode;
                        const aitems: msegitfileitemarty): boolean;
 var
  ar1: msegitfileitemarty;
@@ -93,7 +94,7 @@ begin
  end;
 end;
 
-procedure trevertqueryfo.selectsetexe(const sender: TObject;
+procedure trestorequeryfo.selectsetexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
 begin
  if avalue then begin
@@ -104,7 +105,7 @@ begin
  end;
 end;
 
-procedure trevertqueryfo.checkallexe(const sender: tobject;
+procedure trestorequeryfo.checkallexe(const sender: tobject;
                const acheck: boolean);
 begin
  if acheck then begin
@@ -115,12 +116,12 @@ begin
  end;
 end;
 
-procedure trevertqueryfo.restoreupdateexe(const sender: tcustombutton);
+procedure trestorequeryfo.restoreupdateexe(const sender: tcustombutton);
 begin
  sender.enabled:= filecountdisp.value > 0;
 end;
 
-procedure trevertqueryfo.celleventexe(const sender: TObject;
+procedure trestorequeryfo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
  if isrowenter(info) then begin
@@ -129,20 +130,20 @@ begin
  end;
 end;
 
-procedure trevertqueryfo.restoreexe(const sender: TObject);
+procedure trestorequeryfo.restoreexe(const sender: TObject);
 begin
  if askyesno('Do you want to restore?') then begin
   window.modalresult:= mr_ok;
  end;
 end;
 
-procedure trevertqueryfo.createexe(const sender: TObject);
+procedure trestorequeryfo.createexe(const sender: TObject);
 begin
  diff.iscommits:= true;
  filelist.oncheckall:= {$ifdef FPC}@{$endif}checkallexe;
 end;
 
-procedure trevertqueryfo.difftiexe(const sender: TObject);
+procedure trestorequeryfo.difftiexe(const sender: TObject);
 begin
  diff.refresh(froot,filelist.currentitem,'','');
 end;

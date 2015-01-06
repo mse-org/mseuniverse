@@ -1,4 +1,4 @@
-object revertqueryfo: trevertqueryfo
+object restorequeryfo: trestorequeryfo
   visible = False
   bounds_x = 113
   bounds_y = 249
