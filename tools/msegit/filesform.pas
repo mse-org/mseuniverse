@@ -30,7 +30,7 @@ type
    commitact: taction;
    addact: taction;
    filelist: tfilelistframefo;
-   revertact: taction;
+   restoreact: taction;
    mergetoolact: taction;
    removeact: taction;
    deleteact: taction;
@@ -43,8 +43,8 @@ type
    procedure addexe(const sender: TObject);
    procedure cellevexe(const sender: TObject; var info: celleventinfoty);
    procedure gridenterexe(const sender: TObject);
-   procedure revertupdateexe(const sender: tcustomaction);
-   procedure revertexe(const sender: TObject);
+   procedure restoreupdateexe(const sender: tcustomaction);
+   procedure restoreexe(const sender: TObject);
    procedure mergetoolexe(const sender: tcustomaction);
    procedure removeupdateexe(const sender: tcustomaction);
    procedure removeexe(const sender: TObject);
@@ -154,15 +154,15 @@ begin
  activate;
 end;
 
-procedure tfilesfo.revertupdateexe(const sender: tcustomaction);
+procedure tfilesfo.restoreupdateexe(const sender: tcustomaction);
 begin
  sender.enabled:=  mainmo.canrevert(
                       msegitfileitemarty(filelist.fileitemed.selecteditems));
 end;
 
-procedure tfilesfo.revertexe(const sender: TObject);
+procedure tfilesfo.restoreexe(const sender: TObject);
 begin
- if mainmo.revert(tgitdirtreenode(gitdirtreefo.treeed.item),
+ if mainmo.restore(tgitdirtreenode(gitdirtreefo.treeed.item),
              msegitfileitemarty(filelist.fileitemed.selecteditems)) then begin
   activate;
  end;

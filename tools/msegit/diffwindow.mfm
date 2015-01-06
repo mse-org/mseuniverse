@@ -40,9 +40,7 @@ inherited diffwindowfo: tdiffwindowfo
         options = [mao_separator, mao_shortcutcaption]
       end    
       item
-        action = revertact
-        caption = 'Revert'
-        state = [as_localcaption]
+        action = restoreact
       end    
       item
         action = checkoutact
@@ -64,9 +62,9 @@ inherited diffwindowfo: tdiffwindowfo
   end
   inherited refreshthread: tthreadcomp[7]
   end
-  object revertact: taction[8]
-    caption = 'Caption'
-    onexecute = revertexe
+  object restoreact: taction[8]
+    caption = 'Restore'
+    onexecute = restoreexe
     left = 168
     top = 192
   end

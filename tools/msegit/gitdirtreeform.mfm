@@ -103,7 +103,7 @@ object dirtreefo: tgitdirtreefo
         action = addact
       end    
       item
-        action = revertact
+        action = restoreact
       end    
       item
         options = [mao_separator, mao_shortcutcaption]
@@ -130,10 +130,10 @@ object dirtreefo: tgitdirtreefo
     left = 176
     top = 88
   end
-  object revertact: taction
-    caption = '&Revert'
-    onexecute = revertexe
-    onupdate = revertupdateexe
+  object restoreact: taction
+    caption = '&Restore'
+    onexecute = restoreexe
+    onupdate = restoreupdateexe
     left = 176
     top = 56
   end

@@ -34,7 +34,7 @@ type
    gridpopup: tpopupmenu;
    reporefreshsedact: taction;
    addact: taction;
-   revertact: taction;
+   restoreact: taction;
    removeact: taction;
    commitstagedact: taction;
    procedure loadedexe(const sender: TObject);
@@ -46,8 +46,8 @@ type
    procedure addexe(const sender: TObject);
    procedure addupdateexe(const sender: tcustomaction);
    procedure gridenterexe(const sender: TObject);
-   procedure revertupdateexe(const sender: tcustomaction);
-   procedure revertexe(const sender: TObject);
+   procedure restoreupdateexe(const sender: tcustomaction);
+   procedure restoreexe(const sender: TObject);
    procedure commitstagedexe(const sender: TObject);
    procedure removeexe(const sender: TObject);
    procedure removeupdateexe(const sender: tcustomaction);
@@ -206,14 +206,14 @@ begin
  mainfo.objchanged(true);
 end;
 
-procedure tgitdirtreefo.revertupdateexe(const sender: tcustomaction);
+procedure tgitdirtreefo.restoreupdateexe(const sender: tcustomaction);
 begin
  sender.enabled:= mainmo.canrevert(gitdirtreenodearty(treeed.selecteditems));
 end;
 
-procedure tgitdirtreefo.revertexe(const sender: TObject);
+procedure tgitdirtreefo.restoreexe(const sender: TObject);
 begin
- if mainmo.revert(gitdirtreenodearty(treeed.selecteditems)) then begin
+ if mainmo.restore(gitdirtreenodearty(treeed.selecteditems)) then begin
   activate;
  end;
 end;

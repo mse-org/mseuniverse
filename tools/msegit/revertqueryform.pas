@@ -26,7 +26,7 @@ uses
 type
  trevertqueryfo = class(tmseform)
    tbutton1: tbutton;
-   revert: tbutton;
+   restorebu: tbutton;
    filecountdisp: tintegerdisp;
    tstatfile1: tstatfile;
    diff: tcommitdifffo;
@@ -35,9 +35,9 @@ type
    difftimer: ttimer;
    procedure selectsetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
-   procedure revertupdateexe(const sender: tcustombutton);
+   procedure restoreupdateexe(const sender: tcustombutton);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
-   procedure revertexe(const sender: TObject);
+   procedure restoreexe(const sender: TObject);
    procedure createexe(const sender: TObject);
    procedure difftiexe(const sender: TObject);
   private
@@ -80,7 +80,7 @@ begin
   filelist.grid.row:= 0;
   difftimer.restart; //show first diff
   if show(ml_application) = mr_ok then begin
-   result:= mainmo.revert(filelist.selectedfiles(aroot));
+   result:= mainmo.restore(filelist.selectedfiles(aroot));
    if result then begin
     mainfo.updatestate;
    end;
@@ -112,7 +112,7 @@ begin
  end;
 end;
 
-procedure trevertqueryfo.revertupdateexe(const sender: tcustombutton);
+procedure trevertqueryfo.restoreupdateexe(const sender: tcustombutton);
 begin
  sender.enabled:= filecountdisp.value > 0;
 end;
@@ -126,9 +126,9 @@ begin
  end;
 end;
 
-procedure trevertqueryfo.revertexe(const sender: TObject);
+procedure trevertqueryfo.restoreexe(const sender: TObject);
 begin
- if askyesno('Do you want to revert?') then begin
+ if askyesno('Do you want to restore?') then begin
   window.modalresult:= mr_ok;
  end;
 end;

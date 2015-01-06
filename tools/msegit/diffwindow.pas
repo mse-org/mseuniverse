@@ -28,7 +28,7 @@ type
  tdiffwindowfo = class(tdifffo)
    patchact: taction;
    mergetoolact: taction;
-   revertact: taction;
+   restoreact: taction;
    savediffact: taction;
    difffiledialog: tfiledialog;
    checkoutact: taction;
@@ -37,7 +37,7 @@ type
    procedure afterstatreadexe(const sender: TObject);
    procedure mergetoolexe(const sender: TObject);
    procedure popupupdateexe1(const sender: tcustommenu);
-   procedure revertexe(const sender: TObject);
+   procedure restoreexe(const sender: TObject);
    procedure savediffexe(const sender: TObject);
    procedure checkoutexe(const sender: TObject);
   protected
@@ -106,14 +106,14 @@ end;
 procedure tdiffwindowfo.popupupdateexe1(const sender: tcustommenu);
 begin
  popupupdateexe(sender);
- revertact.enabled:= fcandiffpopup and logfo.isbasediff;
+ restoreact.enabled:= fcandiffpopup and logfo.isbasediff;
  checkoutact.enabled:= fcandiffpopup and not logfo.isbasediff;
 end;
 
-procedure tdiffwindowfo.revertexe(const sender: TObject);
+procedure tdiffwindowfo.restoreexe(const sender: TObject);
 begin
- if askconfirmation('Do you want to revert "'+currentpath+'"?') then begin
-  mainmo.revert(currentpath);
+ if askconfirmation('Do you want to restore "'+currentpath+'"?') then begin
+  mainmo.restore(currentpath);
  end;
 end;
 

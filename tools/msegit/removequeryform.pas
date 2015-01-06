@@ -25,7 +25,6 @@ uses
  msegitcontroller,commitdiffform,msegrids,filechecklistframe,mserichstring;
 type
  tremovequeryfo = class(tmseform)
-   revert: tbutton;
    tstatfile1: tstatfile;
 //   diff: tcommitdifffo;
    tsplitter2: tsplitter;

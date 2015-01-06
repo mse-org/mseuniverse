@@ -4,8 +4,8 @@ object revertqueryfo: trevertqueryfo
   bounds_y = 249
   bounds_cx = 553
   bounds_cy = 283
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -14,47 +14,52 @@ object revertqueryfo: trevertqueryfo
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'Revert'
+  caption = 'Restore'
   oncreate = createexe
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
+    optionswidget1 = [ow1_autoscale, ow1_autowidth]
     taborder = 2
     bounds_x = 168
     bounds_y = 256
-    bounds_cx = 50
+    bounds_cx = 52
     bounds_cy = 20
+    bounds_cxmin = 50
     anchors = [an_left, an_bottom]
     state = [as_default, as_localdefault, as_localcaption]
     caption = '&Cancel'
     modalresult = mr_cancel
   end
-  object revert: tbutton
+  object restorebu: tbutton
+    optionswidget1 = [ow1_autoscale, ow1_autowidth]
     taborder = 3
     bounds_x = 112
     bounds_y = 256
-    bounds_cx = 50
+    bounds_cx = 59
     bounds_cy = 20
+    bounds_cxmin = 50
     anchors = [an_left, an_bottom]
     state = [as_localcaption, as_localonexecute]
-    caption = '&Revert'
+    caption = '&Restore'
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_updateonidle]
-    onupdate = revertupdateexe
-    onexecute = revertexe
+    onupdate = restoreupdateexe
+    onexecute = restoreexe
   end
   object filecountdisp: tintegerdisp
     frame.caption = 'Filecount'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
-      53
+      60
       0
       0
       0
     )
     taborder = 4
-    bounds_x = 8
+    bounds_x = 1
     bounds_y = 257
-    bounds_cx = 97
+    bounds_cx = 104
     bounds_cy = 18
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -81,6 +86,8 @@ object revertqueryfo: trevertqueryfo
     inherited tabs: ttabwidget
       bounds_cx = 316
       bounds_cy = 250
+      tab_frame.buttonpos = sbp_right
+      tab_frame.buttonslast = False
     end
     inherited repoloadedact: taction
     end
@@ -91,6 +98,12 @@ object revertqueryfo: trevertqueryfo
     inherited tpopupmenu1: tpopupmenu
       menu.submenu.items = <      
         item
+        end      
+        item
+        end      
+        item
+        end      
+        item
         end>
       top = 56
     end
@@ -99,9 +112,12 @@ object revertqueryfo: trevertqueryfo
     end
     inherited refreshthread: tthreadcomp
     end
+    inherited findindiffact: taction
+    end
+    inherited repeatfind: taction
+    end
   end
   object tsplitter2: tsplitter
-    optionswidget = [ow_destroywidgets]
     color = -1879048189
     taborder = 5
     bounds_x = 232
@@ -142,18 +158,14 @@ object revertqueryfo: trevertqueryfo
             end>
         end>
       datacols.items = <      
-        item
-          dataclass = tgridintegerdatalist
+        item[selected]
         end      
-        item
-          dataclass = tgridintegerdatalist
+        item[originstate]
         end      
-        item
-          dataclass = tgridintegerdatalist
+        item[filestate]
         end      
-        item
+        item[fileitemed]
           width = 176
-          dataclass = titemeditlist
           datalist.imagealignment = [al_right, al_ycentered]
           datalist.captionpos = cp_top
           datalist.data = (          )

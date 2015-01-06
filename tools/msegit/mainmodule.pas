@@ -408,10 +408,10 @@ type
                    const aitems: msegitfileitemarty): boolean; overload;
    function canrevert(const aitems: msegitfileitemarty): boolean; overload;
    function canrevert(const aitems: gitdirtreenodearty): boolean; overload;
-   function revert(const aitems: gitdirtreenodearty): boolean; overload;
-   function revert(const afiles: filenamearty): boolean; overload;
-   function revert(const afile: filenamety): boolean; overload;
-   function revert(const anode: tgitdirtreenode;
+   function restore(const aitems: gitdirtreenodearty): boolean; overload;
+   function restore(const afiles: filenamearty): boolean; overload;
+   function restore(const afile: filenamety): boolean; overload;
+   function restore(const anode: tgitdirtreenode;
                    const aitems: msegitfileitemarty): boolean; overload;
    function canremove(const aitems: msegitfileitemarty): boolean; overload;
    function canremove(const aitems: gitdirtreenodearty): boolean; overload;
@@ -1510,13 +1510,13 @@ begin
  end;
 end;
 
-function tmainmo.revert(const anode: tgitdirtreenode;
+function tmainmo.restore(const anode: tgitdirtreenode;
                const aitems: msegitfileitemarty): boolean;
 begin
  result:= trevertqueryfo.create(nil).exec(anode,aitems);
 end;
 
-function tmainmo.revert(const afiles: filenamearty): boolean;
+function tmainmo.restore(const afiles: filenamearty): boolean;
 begin
  result:= execgitconsole('checkout '+fgit.encodepathparams(afiles,true));
  if result then begin   
@@ -1535,16 +1535,16 @@ begin
  end;
 end;
 
-function tmainmo.revert(const afile: filenamety): boolean;
+function tmainmo.restore(const afile: filenamety): boolean;
 var
  ar1: filenamearty;
 begin
  setlength(ar1,1);
  ar1[0]:= afile;
- result:= revert(ar1);
+ result:= restore(ar1);
 end;
 
-function tmainmo.revert(const aitems: gitdirtreenodearty): boolean;
+function tmainmo.restore(const aitems: gitdirtreenodearty): boolean;
  const
   mask1: gitstatedataty = (statex: []; statey : [gist_modified]);
   mask2: gitstatedataty = (statex: []; statey : [gist_deleted]);
@@ -1555,7 +1555,7 @@ var
 begin 
  ar1:= getfilelist(aitems,[mask1,mask2],n1);
  try
-  result:= revert(n1,ar1);
+  result:= restore(n1,ar1);
  finally
   for int1:= high(ar1) downto 0 do begin
    ar1[int1].free;

@@ -77,7 +77,7 @@ object filesfo: tfilesfo
         action = commitact
       end    
       item
-        action = revertact
+        action = restoreact
       end    
       item
         action = addact
@@ -108,10 +108,10 @@ object filesfo: tfilesfo
     left = 128
     top = 80
   end
-  object revertact: taction
-    caption = '&Revert'
-    onexecute = revertexe
-    onupdate = revertupdateexe
+  object restoreact: taction
+    caption = '&Restore'
+    onexecute = restoreexe
+    onupdate = restoreupdateexe
     left = 128
     top = 96
   end
