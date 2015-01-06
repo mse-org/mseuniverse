@@ -1,24 +1,30 @@
 inherited deletequeryfo: tdeletequeryfo
-  bounds_x = 109
-  bounds_y = 231
+  bounds_x = 144
+  bounds_y = 234
+  bounds_cx = 345
+  bounds_cy = 297
   container.bounds = (
     0
     0
-    343
-    286
+    345
+    297
   )
+  caption = 'Delete Files'
   moduleclassname = 'tremovequeryfo'
   inherited tlayouter2: tlayouter
+    bounds_y = 269
+    bounds_cx = 345
     inherited filecountdisp: tintegerdisp
     end
     inherited tlayouter1: tlayouter
-      bounds_x = 233
+      bounds_x = 235
       bounds_cx = 106
       inherited tbutton1: tbutton
+        bounds_x = 54
       end
       object removebu: tbutton[1]
         taborder = 1
-        bounds_x = 56
+        bounds_x = 0
         bounds_y = 0
         bounds_cx = 50
         bounds_cy = 20
@@ -32,13 +38,17 @@ inherited deletequeryfo: tdeletequeryfo
     end
   end
   inherited filelist: tfilechecklistframefo
+    bounds_cx = 345
+    bounds_cy = 269
     container.bounds = (
       0
       0
-      343
-      258
+      345
+      269
     )
     inherited grid: twidgetgrid
+      bounds_cx = 345
+      bounds_cy = 269
       fixrows.items = <      
         item
           captions.items = <          
@@ -59,6 +69,7 @@ inherited deletequeryfo: tdeletequeryfo
         item[filestate]
         end      
         item[fileitemed]
+          width = 255
           datalist.imagealignment = [al_right, al_ycentered]
           datalist.captionpos = cp_top
           datalist.data = (          )
@@ -68,8 +79,10 @@ inherited deletequeryfo: tdeletequeryfo
       inherited filestate: tdataicon
       end
       inherited fileitemed: titemedit
+        bounds_cx = 255
       end
       inherited selected: tbooleanedit
+        onsetvalue = nil
       end
     end
     inherited checkpopup: tpopupmenu
