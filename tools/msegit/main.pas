@@ -299,7 +299,7 @@ begin
  else begin
   with mainmo do begin
    if isrepoloaded then begin
-    if mergehead <> '' then begin
+    if (mergehead <> '') then begin
      statdisp.color:= mergecolor;
      ar1:= breaklines(mergemessage);
      if high(ar1) >= 0 then begin
@@ -316,7 +316,12 @@ begin
       end;
      end
      else begin
-      statdisp.value:= 'Merging';
+      if reverting then begin
+       statdisp.value:= 'Reverting';
+      end
+      else begin
+       statdisp.value:= 'Merging';
+      end;
      end;
     end
     else begin
@@ -363,9 +368,28 @@ end;
 
 procedure tmainfo.resetmergeexe(const sender: TObject);
 begin
- if askconfirmation('Do you want to reset the merge operation?') then begin
-  if mainmo.mergereset then begin
-   reload;
+ if mainmo.reverting then begin
+  if askconfirmation('Do you want to reset the revert operation?') then begin
+   if mainmo.revertreset then begin
+    reload;
+   end;
+  end;
+ end
+ else begin
+  if mainmo.cherrypicking then begin
+   if askconfirmation(
+                'Do you want to reset the cherry-pick operation?') then begin
+    if mainmo.cherrypickreset then begin
+     reload;
+    end;
+   end;
+  end
+  else begin
+   if askconfirmation('Do you want to reset the merge operation?') then begin
+    if mainmo.mergereset then begin
+     reload;
+    end;
+   end;
   end;
  end;
 end;

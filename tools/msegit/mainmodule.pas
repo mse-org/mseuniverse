@@ -297,6 +297,8 @@ type
    fmergehead: msestring;
    fmergemessage: msestring;
    frebasing: boolean;
+   freverting: boolean;
+   fcherrypicking: boolean;
    fbranches: localbranchinfoarty;
    factivebranch: msestring;
    factivecommit: msestring;
@@ -384,17 +386,19 @@ type
    function cancommit(const anode: tgitdirtreenode): boolean; overload;
    function cancommit(const aitems: gitdirtreenodearty): boolean; overload;
    function cancommit(const aitems: msegitfileitemarty): boolean; overload;
-   function commit(const aitems: gitdirtreenodearty;
-                           staged: boolean): boolean; overload;
+   function commit(const aitems: gitdirtreenodearty; staged: boolean;
+                        const amessage: msestring = ''): boolean; overload;
    function commit(const anode: tgitdirtreenode;
-                     const aitems: msegitfileitemarty;
-                     const staged: boolean): boolean; overload;
+                     const aitems: msegitfileitemarty; const staged: boolean;
+                        const amessage: msestring = ''): boolean; overload;
    function commit(const afiles: filenamearty;
                           const amessage: msestring;
                           const akind: commitkindty): boolean; overload;
    function commitall: boolean;
    function mergecommit: boolean;
    function mergereset: boolean;
+   function revertreset: boolean;
+   function cherrypickreset: boolean;
    function canmergetool: boolean;
    function rebase(const aupstream: msestring): boolean;
    function rebasecontinue: boolean;
@@ -453,6 +457,8 @@ type
    function logfilterempty: boolean;
    function merging: boolean;
    function rebasing: boolean;
+   function reverting: boolean;
+   function cherrypicking: boolean;
    property mergehead: msestring read fmergehead;
    property mergemessage: msestring read fmergemessage;
    
@@ -806,14 +812,17 @@ procedure tmainmo.readmergeinfo;
 var
  str1,str2: string;
 begin
+ frebasing:= finddir('.git/rebase-apply');
+ freverting:= findfile('.git/REVERT_HEAD');
+ fcherrypicking:= findfile('.git/CHERRY_PICK_HEAD');
  if (tryreadfiledatastring('.git/MERGE_HEAD',str1) = sye_ok) or 
-     (tryreadfiledatastring('.git/CHERRY_PICK_HEAD',str1) = sye_ok) then begin
+     (tryreadfiledatastring('.git/CHERRY_PICK_HEAD',str1) = sye_ok) or
+     (tryreadfiledatastring('.git/REVERT_HEAD',str1) = sye_ok) then begin
   fmergehead:= utf8tostring(str1);
   if tryreadfiledatastring('.git/MERGE_MSG',str2) = sye_ok then begin
    fmergemessage:= utf8tostring(str2);
   end;
  end;
- frebasing:= finddir('.git/rebase-apply');
 end;
 
 procedure tmainmo.loadstash;
@@ -1186,8 +1195,8 @@ begin
  end;
 end;
 
-function tmainmo.commit(const aitems: gitdirtreenodearty;
-                                  staged: boolean): boolean;
+function tmainmo.commit(const aitems: gitdirtreenodearty; staged: boolean;
+                         const amessage: msestring = ''): boolean;
  const
   mask1: gitstatedataty = (statex: []; statey : [gist_modified]);
   mask1a: gitstatedataty = (statex: []; statey : [gist_deleted]);
@@ -1209,7 +1218,7 @@ begin
   ar1:= getfilelist(aitems,[mask1,mask1a,mask2,mask3,mask4],n1);
  end;
  try
-  result:= commit(n1,ar1,staged);
+  result:= commit(n1,ar1,staged,amessage);
  finally
   for int1:= high(ar1) downto 0 do begin
    ar1[int1].free;
@@ -1232,10 +1241,10 @@ begin
 end;
 
 function tmainmo.commit(const anode: tgitdirtreenode;
-                         const aitems: msegitfileitemarty;
-                         const staged: boolean): boolean;
+                       const aitems: msegitfileitemarty; const staged: boolean;
+                        const amessage: msestring = ''): boolean;
 begin
- result:= tcommitqueryfo.create(nil).exec(anode,aitems,staged);
+ result:= tcommitqueryfo.create(nil).exec(anode,aitems,staged,amessage);
 end;
 
 procedure updatecommitinfo(const akind: commitkindty;
@@ -1381,12 +1390,22 @@ var
 begin
  setlength(ar1,1);
  ar1[0]:= fdirtree;
- result:= commit(ar1,true);
+ result:= commit(ar1,true,mergemessage);
 end;
 
 function tmainmo.mergereset: boolean;
 begin
- result:= execgitconsole('reset --merge');
+ result:= execgitconsole('merge --abort');
+end;
+
+function tmainmo.revertreset: boolean;
+begin
+ result:= execgitconsole('revert --abort');
+end;
+
+function tmainmo.cherrypickreset: boolean;
+begin
+ result:= execgitconsole('cherry-pick --abort');
 end;
 
 function tmainmo.getcommitmessage(const acaption: msestring;
@@ -1883,6 +1902,16 @@ end;
 function tmainmo.rebasing: boolean;
 begin
  result:= frebasing;
+end;
+
+function tmainmo.reverting: boolean;
+begin
+ result:= freverting;
+end;
+
+function tmainmo.cherrypicking: boolean;
+begin
+ result:= fcherrypicking;
 end;
 
 function tmainmo.checkoutbranch(const aname: msestring): boolean;
@@ -2506,7 +2535,7 @@ end;
 
 function tmainmo.canmergetool: boolean;
 begin
- result:= (merging or rebasing) and (opt.mergetool <> '');
+ result:= (merging or rebasing or reverting) and (opt.mergetool <> '');
 end;
 
 procedure tmainmo.refreshthreadexe(const sender: tthreadcomp);

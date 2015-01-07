@@ -64,7 +64,8 @@ type
    procedure checkallexe(const sender: tobject; const acheck: boolean);
   public
    function exec(const aroot: tgitdirtreenode;
-           const aitems: msegitfileitemarty; const staged: boolean): boolean;
+           const aitems: msegitfileitemarty; const staged: boolean;
+           const amessage: msestring): boolean;
  end;
 
 var
@@ -78,8 +79,8 @@ uses
 { tcommitqueryfo }
  
 function tcommitqueryfo.exec(const aroot: tgitdirtreenode;
-                       const aitems: msegitfileitemarty;
-                       const staged: boolean): boolean;
+                       const aitems: msegitfileitemarty; const staged: boolean;
+                       const amessage: msestring): boolean;
 var
  ar1: msegitfileitemarty;
  ar2,ar3: filenamearty;
@@ -90,7 +91,12 @@ begin
  try
   fstaged:= staged;
   froot:= aroot;
-  messageed.value:= mainmo.repostat.commitmessage;
+  if amessage <> '' then begin
+   messageed.value:= amessage;
+  end
+  else begin
+   messageed.value:= mainmo.repostat.commitmessage;
+  end;
   setlength(ar1,length(aitems));
   int2:= 0;
   needsrefresh:= true;

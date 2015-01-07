@@ -1,6 +1,6 @@
 inherited deletequeryfo: tdeletequeryfo
-  bounds_x = 144
-  bounds_y = 234
+  bounds_x = 109
+  bounds_y = 230
   bounds_cx = 345
   bounds_cy = 297
   container.bounds = (
@@ -12,7 +12,7 @@ inherited deletequeryfo: tdeletequeryfo
   caption = 'Delete Files'
   moduleclassname = 'tremovequeryfo'
   inherited tlayouter2: tlayouter
-    bounds_y = 269
+    bounds_y = 267
     bounds_cx = 345
     inherited filecountdisp: tintegerdisp
     end
@@ -39,16 +39,16 @@ inherited deletequeryfo: tdeletequeryfo
   end
   inherited filelist: tfilechecklistframefo
     bounds_cx = 345
-    bounds_cy = 269
+    bounds_cy = 267
     container.bounds = (
       0
       0
       345
-      269
+      267
     )
     inherited grid: twidgetgrid
       bounds_cx = 345
-      bounds_cy = 269
+      bounds_cy = 267
       fixrows.items = <      
         item
           captions.items = <          

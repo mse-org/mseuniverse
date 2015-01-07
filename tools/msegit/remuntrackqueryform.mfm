@@ -1,6 +1,4 @@
 inherited remuntrackqueryfo: tremuntrackqueryfo
-  bounds_x = 109
-  bounds_y = 231
   container.bounds = (
     0
     0
