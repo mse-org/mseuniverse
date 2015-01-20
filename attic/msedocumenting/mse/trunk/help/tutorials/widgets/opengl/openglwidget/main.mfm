@@ -1,12 +1,10 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 53
   bounds_y = 238
   bounds_cx = 219
   bounds_cy = 260
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -20,14 +18,13 @@ object mainfo: tmainfo
   onshow = showexe
   moduleclassname = 'tmseform'
   object openglwidget: topenglwidget
-    optionswidget = [ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
     frame.leveli = -1
     frame.framei_left = 10
     frame.framei_top = 10
     frame.framei_right = 10
     frame.framei_bottom = 10
     frame.localprops = [frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    frame.dummy = 0
+    frame.localprops1 = []
     taborder = 4
     bounds_x = 8
     bounds_y = 8
@@ -42,17 +39,18 @@ object mainfo: tmainfo
   object roty: trealedit
     frame.caption = 'roty'
     frame.captionpos = cp_right
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      22
+      27
       0
     )
     taborder = 1
     bounds_x = 10
     bounds_y = 209
-    bounds_cx = 74
+    bounds_cx = 79
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
     ondataentered = rotentexe
@@ -67,17 +65,18 @@ object mainfo: tmainfo
   object fps: trealedit
     frame.caption = 'fpsmax'
     frame.captionpos = cp_right
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      43
+      47
       0
     )
     taborder = 3
     bounds_x = 98
     bounds_y = 185
-    bounds_cx = 95
+    bounds_cx = 99
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
     onsetvalue = fpssetvalue
@@ -92,16 +91,17 @@ object mainfo: tmainfo
   object rotx: trealedit
     frame.caption = 'rotx'
     frame.captionpos = cp_right
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      22
+      27
       0
     )
     bounds_x = 10
     bounds_y = 185
-    bounds_cx = 74
+    bounds_cx = 79
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
     ondataentered = rotentexe
@@ -116,17 +116,18 @@ object mainfo: tmainfo
   object fpsdisp: trealdisp
     frame.caption = 'fps'
     frame.captionpos = cp_right
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      20
+      22
       0
     )
     taborder = 5
     bounds_x = 98
     bounds_y = 209
-    bounds_cx = 72
+    bounds_cx = 74
     bounds_cy = 18
     anchors = [an_left, an_bottom]
     valuerange = 1
@@ -138,17 +139,18 @@ object mainfo: tmainfo
   object rotz: trealedit
     frame.caption = 'rotz'
     frame.captionpos = cp_right
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      22
+      26
       0
     )
     taborder = 2
     bounds_x = 10
     bounds_y = 233
-    bounds_cx = 74
+    bounds_cx = 78
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
     ondataentered = rotentexe
