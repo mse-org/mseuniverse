@@ -1,6 +1,4 @@
 inherited diffwindowfo: tdiffwindowfo
-  bounds_x = 128
-  bounds_y = 274
   container.bounds = (
     0
     0
@@ -44,6 +42,7 @@ inherited diffwindowfo: tdiffwindowfo
       end    
       item
         action = checkoutact
+        options = [mao_shortcutcaption, mao_asyncexecute]
       end>
   end
   inherited externaldiffact: taction
