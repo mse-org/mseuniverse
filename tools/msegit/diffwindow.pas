@@ -49,7 +49,8 @@ var
 
 implementation
 uses
- diffwindow_mfm,mainmodule,difftab,logform,msewidgets,msefileutils,msestream;
+ diffwindow_mfm,mainmodule,difftab,logform,msewidgets,msefileutils,msestream,
+ main;
  
 procedure tdiffwindowfo.patchtoolexe(const sender: TObject);
 var
@@ -122,7 +123,7 @@ begin
  if askconfirmation('Do you want to checkout "'+currentpath+'" from'+lineend+
                                                   fi.b+'?') then begin
   if mainmo.checkout(fi.b,currentpath) then begin
-   mainmo.reload();
+   mainfo.diffchanged();
   end;
  end;
 end;
