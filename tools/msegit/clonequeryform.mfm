@@ -3,8 +3,8 @@ object clonequeryfo: tclonequeryfo
   bounds_y = 128
   bounds_cx = 587
   bounds_cy = 135
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -17,6 +17,8 @@ object clonequeryfo: tclonequeryfo
   moduleclassname = 'tmseform'
   object clonedired: tfilenameedit
     frame.caption = 'Destination directory'
+    frame.localprops = []
+    frame.localprops1 = []
     frame.button.imagenr = 17
     frame.outerframe = (
       0
@@ -24,13 +26,14 @@ object clonequeryfo: tclonequeryfo
       0
       0
     )
+    taborder = 1
     bounds_x = 8
-    bounds_y = 15
+    bounds_y = 55
     bounds_cx = 572
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
     controller.options = [fdo_directory, fdo_savelastdir]
     controller.captionopen = 'Select destination directory'
     reffontheight = 14
@@ -59,20 +62,21 @@ object clonequeryfo: tclonequeryfo
   end
   object cloneurled: thistoryedit
     frame.caption = 'Source URL'
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
       0
       0
     )
-    taborder = 1
     bounds_x = 8
-    bounds_y = 55
+    bounds_y = 7
     bounds_cx = 572
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
     dropdown.cols.count = 1
     dropdown.cols.items = <    
       item
