@@ -292,5 +292,4 @@ begin
  sender.enabled:= currentitem <> nil;
 end;
 
-
 end.

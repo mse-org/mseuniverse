@@ -117,6 +117,7 @@ begin
   mainfo.objchanged(true);
   fna1:= syncfilesfo(true);
   gitconsolefo.synctodirtree(fna1);
+  filesfo.filelist.grid.datacols.clearselection;
  end;
 end;
 
