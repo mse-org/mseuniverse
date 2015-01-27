@@ -1,6 +1,4 @@
 inherited netlistfo: tnetlistfo
-  bounds_x = 100
-  bounds_y = 100
   container.bounds = (
     0
     0
@@ -67,6 +65,8 @@ inherited netlistfo: tnetlistfo
   onidle = idleexe
   moduleclassname = 'tspicefo'
   object grid: twidgetgrid[0]
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
@@ -104,8 +104,8 @@ inherited netlistfo: tnetlistfo
       bounds_cy = 14
       font.name = 'stf_courier'
       font.xscale = 1
-      font.dummy = 0
-      optionsedit = [oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      font.localprops = [flp_xscale]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       ontextedited = textedexe
       syntaxpainter = syntaxpainter
       options = [seo_autoindent, seo_markbrackets]
@@ -145,11 +145,15 @@ inherited netlistfo: tnetlistfo
     top = 112
   end
   object saveact: taction[4]
-    caption = 'Save Netlist'
+    caption = 'Save N&etlist'
     onexecute = saveexe
     onupdate = saveupdateexe
     left = 200
     top = 152
+    sc = (
+      1
+      16467
+    )
   end
   object saveasact: taction[5]
     caption = 'Save Netlist as'
