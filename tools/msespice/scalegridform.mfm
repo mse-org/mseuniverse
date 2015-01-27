@@ -6,6 +6,8 @@ object scalegridfo: tscalegridfo
   anchors = [an_left]
   moduleclassname = 'tsubform'
   object scalegrid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 697
@@ -24,8 +26,12 @@ object scalegridfo: tscalegridfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 15
+        captions.count = 16
         captions.items = <        
+          item
+            caption = 'H'
+            hint = 'Hide scale'
+          end        
           item
             caption = 'log'
           end        
@@ -80,8 +86,20 @@ object scalegridfo: tscalegridfo
           end>
       end>
     rowcount = 1
-    datacols.count = 15
+    datacols.count = 16
     datacols.items = <    
+      item[hidescale]
+        width = 18
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
+        name = 'values15'
+        widgetname = 'hidescale'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            0
+          )
+        )
+      end    
       item[log]
         width = 18
         options = [co_drawfocus, co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
@@ -252,12 +270,12 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 1
-      bounds_x = 0
+      bounds_x = 19
       bounds_y = 0
       bounds_cx = 18
       bounds_cy = 16
       statfile = mainmo.projectstat2
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
       ondataentered = datamodifiedexe
       visible = False
       onsetvalue = setlogexe
@@ -267,7 +285,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 19
+      bounds_x = 38
       bounds_y = 0
       bounds_cx = 31
       bounds_cy = 16
@@ -286,7 +304,7 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 3
-      bounds_x = 51
+      bounds_x = 70
       bounds_y = 0
       bounds_cx = 27
       bounds_cy = 16
@@ -298,7 +316,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 79
+      bounds_x = 98
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -313,7 +331,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 130
+      bounds_x = 149
       bounds_y = 0
       bounds_cx = 29
       bounds_cy = 16
@@ -332,7 +350,7 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 6
-      bounds_x = 160
+      bounds_x = 179
       bounds_y = 0
       bounds_cx = 27
       bounds_cy = 16
@@ -343,11 +361,11 @@ object scalegridfo: tscalegridfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 7
-      bounds_x = 188
+      bounds_x = 207
       bounds_y = 0
       bounds_cx = 16
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
       ondataentered = datamodifiedexe
       visible = False
       value = True
@@ -359,11 +377,11 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 8
       visible = False
-      bounds_x = 205
+      bounds_x = 224
       bounds_y = 0
       bounds_cx = 75
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
       ondataentered = datamodifiedexe
       onsetvalue = setvalueexe
       value = 0
@@ -382,11 +400,11 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 9
       visible = False
-      bounds_x = 281
+      bounds_x = 300
       bounds_y = 0
       bounds_cx = 75
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
       ondataentered = datamodifiedexe
       onsetvalue = setvalueexe
       value = 1
@@ -405,11 +423,11 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 10
       visible = False
-      bounds_x = 357
+      bounds_x = 376
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
       ondataentered = datamodifiedexe
       value = 0
       valuedefault = 0
@@ -425,11 +443,11 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 11
       visible = False
-      bounds_x = 408
+      bounds_x = 427
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
       ondataentered = datamodifiedexe
       value = 0
       valuedefault = 0
@@ -445,7 +463,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 12
       visible = False
-      bounds_x = 459
+      bounds_x = 478
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -456,7 +474,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 13
       visible = False
-      bounds_x = 510
+      bounds_x = 529
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -477,7 +495,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 14
       visible = False
-      bounds_x = 561
+      bounds_x = 580
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -498,7 +516,7 @@ object scalegridfo: tscalegridfo
       optionsskin = [osk_framebuttononly]
       taborder = 15
       visible = False
-      bounds_x = 612
+      bounds_x = 631
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -513,6 +531,20 @@ object scalegridfo: tscalegridfo
       min = -Inf
       max = 1E+038
       reffontheight = 14
+    end
+    object hidescale: tbooleanedit
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 16
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 18
+      bounds_cy = 16
+      statfile = mainmo.projectstat2
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      ondataentered = datamodifiedexe
+      visible = False
+      ifilink = mainmo.booleanlink
     end
   end
 end

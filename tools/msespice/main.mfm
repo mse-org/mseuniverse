@@ -1,13 +1,16 @@
 object mainfo: tmainfo
+  frame.localprops = []
+  frame.localprops1 = []
   frame.grip_size = 10
   frame.grip_options = [go_closebutton, go_topbutton, go_backgroundbutton, go_lockbutton]
-  frame.dummy = 0
   visible = False
   bounds_x = 149
   bounds_y = 221
   bounds_cx = 411
   bounds_cy = 117
   anchors = [an_left, an_top, an_bottom]
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     16
@@ -27,13 +30,14 @@ object mainfo: tmainfo
     visible = True
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 403
+    bounds_cx = 401
     bounds_cy = 18
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky]
     linkbottom = dockfo1
     object statdisp: tstringdisp
-      frame.dummy = 0
+      frame.localprops = []
+      frame.localprops1 = []
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 403
@@ -41,7 +45,7 @@ object mainfo: tmainfo
       anchors = [an_top]
       font.name = 'stf_default'
       font.xscale = 1
-      font.dummy = 0
+      font.localprops = [flp_xscale]
       reffontheight = 14
     end
   end
@@ -51,14 +55,14 @@ object mainfo: tmainfo
     visible = True
     bounds_x = 0
     bounds_y = 18
-    bounds_cx = 403
-    bounds_cy = 66
+    bounds_cx = 401
+    bounds_cy = 83
     anchors = [an_top, an_bottom]
     container.bounds = (
       0
       0
-      403
-      66
+      401
+      83
     )
     dragdock.optionsdock = [od_canfloat, od_candock, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize]
     options = [fo_globalshortcuts]

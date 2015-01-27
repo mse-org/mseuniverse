@@ -1,6 +1,4 @@
 inherited chartoptionsfo: tchartoptionsfo
-  bounds_x = 100
-  bounds_y = 100
   bounds_cx = 738
   bounds_cy = 331
   container.bounds = (
@@ -88,6 +86,8 @@ inherited chartoptionsfo: tchartoptionsfo
     statfile = mainmo.projectstat3
   end
   object tracesgrid: twidgetgrid[1]
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 3
     bounds_x = 0
     bounds_y = 0
@@ -253,7 +253,8 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 62
       bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       ondataentered = datamodifiedexe
       reffontheight = 14
     end
@@ -265,7 +266,8 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       ondataentered = datamodifiedexe
       reffontheight = 14
     end
@@ -294,7 +296,8 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 129
       bounds_cy = 16
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       ondataentered = datamodifiedexe
       reffontheight = 14
     end
@@ -307,7 +310,8 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       ondataentered = datamodifiedexe
       reffontheight = 14
     end
@@ -333,6 +337,7 @@ inherited chartoptionsfo: tchartoptionsfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
       frame.button.color = -1879048187
       frame.buttonellipse.color = -1879048187
       frame.buttonellipse.imagenr = 17
@@ -342,7 +347,7 @@ inherited chartoptionsfo: tchartoptionsfo
       bounds_y = 0
       bounds_cx = 85
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
       ondataentered = datamodifiedexe
       value = -1610612734
       valuedefault = -1610612734
@@ -355,6 +360,7 @@ inherited chartoptionsfo: tchartoptionsfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
       frame.button.color = -1879048187
       taborder = 9
       visible = False
@@ -432,7 +438,11 @@ inherited chartoptionsfo: tchartoptionsfo
             item
             end          
             item
+              hint = ''
+            end          
+            item
               caption = 'left'
+              hint = 'Sub division count'
             end          
             item
             end          
@@ -459,6 +469,8 @@ inherited chartoptionsfo: tchartoptionsfo
             end>
         end>
       datacols.items = <      
+        item[hidescale]
+        end      
         item[log]
         end      
         item[intervalco]
@@ -512,22 +524,24 @@ inherited chartoptionsfo: tchartoptionsfo
       inherited autoscale: tbooleanedit[8]
       end
       inherited unittext: tstringedit[9]
-        bounds_x = 415
+        bounds_x = 434
       end
       inherited range: trealedit[10]
       end
       inherited endmargin: trealedit[11]
-        bounds_x = 386
+        bounds_x = 405
         bounds_cx = 28
       end
       inherited mka: trealedit
-        bounds_x = 466
+        bounds_x = 485
       end
       inherited mkb: trealedit
-        bounds_x = 517
+        bounds_x = 536
       end
-      inherited mkb_a: trealedit
-        bounds_x = 568
+      inherited hidescale: tbooleanedit[14]
+      end
+      inherited mkb_a: trealedit[15]
+        bounds_x = 587
       end
     end
   end
@@ -570,7 +584,11 @@ inherited chartoptionsfo: tchartoptionsfo
             item
             end          
             item
+              hint = ''
+            end          
+            item
               caption = 'top'
+              hint = 'Sub division count'
             end          
             item
             end          
@@ -597,6 +615,8 @@ inherited chartoptionsfo: tchartoptionsfo
             end>
         end>
       datacols.items = <      
+        item[hidescale]
+        end      
         item[log]
         end      
         item[intervalco]
@@ -648,25 +668,27 @@ inherited chartoptionsfo: tchartoptionsfo
       inherited oppos: tbooleanedit[7]
       end
       inherited autoscale: tbooleanedit[8]
-        face.dummy = 0
+        face.localprops = []
       end
       inherited unittext: tstringedit[9]
-        bounds_x = 415
+        bounds_x = 434
       end
       inherited range: trealedit[10]
       end
       inherited endmargin: trealedit[11]
-        bounds_x = 386
+        bounds_x = 405
         bounds_cx = 28
       end
       inherited mka: trealedit
-        bounds_x = 466
+        bounds_x = 485
       end
       inherited mkb: trealedit
-        bounds_x = 517
+        bounds_x = 536
       end
-      inherited mkb_a: trealedit
-        bounds_x = 568
+      inherited hidescale: tbooleanedit[14]
+      end
+      inherited mkb_a: trealedit[15]
+        bounds_x = 587
       end
     end
   end

@@ -21,7 +21,7 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedataedits,mseedit,
  msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,msegraphedits,
- mserealsumedit,msedial,msechart;
+ mserealsumedit,msedial,msechart,mseificomp,mseificompglob,msescrollbar;
 type
  tscalegridfo = class(tsubform)
    scalegrid: twidgetgrid;
@@ -40,6 +40,7 @@ type
    mka: trealedit;
    mkb: trealedit;
    mkb_a: trealedit;
+   hidescale: tbooleanedit;
    procedure datamodifiedexe(const sender: TObject);
    procedure setvalueexe(const sender: TObject; var avalue: realty;
                    var accept: Boolean);
@@ -51,9 +52,12 @@ type
                    var accept: Boolean);
    procedure mkb_asetexe(const sender: TObject; var avalue: realty;
                    var accept: Boolean);
-  public
+  private
+   fboxlineseen: boolean;
+  protected
    procedure updatedial(const adial: tcustomdialcontroller;
                   const aindex: integer; var hasnormal,hasopposite: boolean);
+  public
    procedure updatechart(const achart: tcustomchart; const adials: tchartdials);
  end;
 var
@@ -86,11 +90,17 @@ var
  bo1: boolean;
 begin
  with adial do begin
-  if aindex = 0 then begin
-   options:= [do_sideline,do_boxline];
+  if not hidescale[aindex] then begin 
+   if not fboxlineseen then begin
+    fboxlineseen:= true;
+    options:= [do_sideline,do_boxline];
+   end
+   else begin
+    options:= [do_sideline];
+   end;
   end
   else begin
-   options:= [do_sideline];
+   options:= [do_invisible,do_sideline];
   end;
   opposite:= oppos[aindex];
   range:= self.range[aindex];
@@ -170,6 +180,7 @@ begin
  bo2:= false;
 // adials.count:= scalegrid.datarowhigh+1;
  adials.count:= scalegrid.rowcount;
+ fboxlineseen:= false;
  for int1:= 0 to adials.count-1 do begin
   updatedial(adials[int1],int1,bo1,bo2);
  end;
