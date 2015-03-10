@@ -312,6 +312,8 @@ type
    procedure setactiveremote(const avalue: msestring);
    procedure updatecommit(var aitem: gitfileinfoty);
    function getactiveremotebranch(const aremote: msestring): msestring;
+   function getactiveremotebranches(const aremote: msestring):
+                                                remotebranchinfoarty;
    procedure setactiveremotebranch(const aremote: msestring;
                             const abranch: msestring);
    procedure readremote(const aindex: integer; const avalue: msestring);
@@ -505,6 +507,8 @@ type
    property activeremote: msestring read factiveremote write setactiveremote;
    property activeremotebranch[const aremote: msestring]: msestring read
                      getactiveremotebranch write setactiveremotebranch;
+   property activeremotebranches[const aremote: msestring]: 
+                         remotebranchinfoarty read getactiveremotebranches;
    property linkremotebranch[const aremote: msestring;
               const abranch: msestring]: boolean read getlinkremotebranch 
                               write setlinkremotebranch;
@@ -2055,6 +2059,22 @@ begin
   with fremotesinfo[int1] do begin
    if name = aremote then begin
     result:= activebranch;
+    break;
+   end;
+  end;
+ end;
+end;
+
+function tmainmo.getactiveremotebranches(
+                             const aremote: msestring): remotebranchinfoarty;
+var
+ int1: integer;
+begin
+ result:= nil;
+ for int1:= 0 to high(fremotesinfo) do begin
+  with fremotesinfo[int1] do begin
+   if name = aremote then begin
+    result:= branches;
     break;
    end;
   end;
