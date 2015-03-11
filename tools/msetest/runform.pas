@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,mseterminal,mainmodule,msesimplewidgets,
- msesplitter,msepipestream,mseprocess,msedispwidgets,mserichstring;
+ msesplitter,msepipestream,mseprocess,msedispwidgets,mserichstring,
+ msegraphedits;
 type
  runstatety = (rs_none,rs_compile,rs_test,rs_canceled);
  errorstatety = (ers_none,ers_ok,ers_error);
@@ -77,6 +78,7 @@ procedure seterror(const adisp: twidget; const aerror: boolean;
                    const startcommand: tdataedit = nil);
 procedure seterror(const aexpected: tcustomstringedit; 
                    const aactual: tcustomstringedit;
+                   const any: tcustombooleanedit;
                    const startcommand: tdataedit = nil);
 
 implementation
@@ -120,9 +122,10 @@ end;
 
 procedure seterror(const aexpected: tcustomstringedit; 
                    const aactual: tcustomstringedit;
+                   const any: tcustombooleanedit;
                    const startcommand: tdataedit = nil);
 begin
- if aexpected.value = '' then begin
+ if any.value then begin
   seterror(aactual,ers_none);
  end
  else begin

@@ -566,6 +566,7 @@ inherited testeditfo: ttesteditfo
         bounds_y = 8
         bounds_cx = 38
         bounds_cy = 16
+        onchange = outputputchangeexe
       end
     end
     object tlayouter8: tlayouter
@@ -626,6 +627,7 @@ inherited testeditfo: ttesteditfo
         bounds_y = 8
         bounds_cx = 38
         bounds_cy = 16
+        onchange = errorchangeexe
       end
     end
   end
