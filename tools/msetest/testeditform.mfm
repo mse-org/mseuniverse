@@ -42,8 +42,8 @@ inherited testeditfo: ttesteditfo
       object val_enabled: tbooleanedit
         frame.options = [cfo_fixright, cfo_captionfocus]
         frame.caption = 'enabled'
+        frame.localprops = []
         frame.localprops1 = [frl1_captionoffset]
-        frame.dummy = 0
         frame.outerframe = (
           0
           1
@@ -60,8 +60,8 @@ inherited testeditfo: ttesteditfo
       object val_caption: tstringedit
         frame.caption = 'Caption'
         frame.captionpos = cp_left
+        frame.localprops = []
         frame.localprops1 = [frl1_captiondist]
-        frame.dummy = 0
         frame.outerframe = (
           51
           0
@@ -87,7 +87,8 @@ inherited testeditfo: ttesteditfo
       object val_nr: tintegerdisp
         frame.caption = 'Nr.'
         frame.captionpos = cp_left
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           21
           0
@@ -119,6 +120,7 @@ inherited testeditfo: ttesteditfo
       frame.caption = 'Comment'
       frame.captionpos = cp_left
       frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
       frame.outerframe = (
         62
         0
@@ -140,6 +142,7 @@ inherited testeditfo: ttesteditfo
       Tag = 1
       frame.caption = 'File Path'#10'${FILE}'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
       frame.button.imagenr = 17
       frame.outerframe = (
@@ -159,7 +162,7 @@ inherited testeditfo: ttesteditfo
       reffontheight = 14
     end
     object tlayouter4: tlayouter
-      taborder = 12
+      taborder = 10
       bounds_x = 0
       bounds_y = 473
       bounds_cx = 596
@@ -172,7 +175,8 @@ inherited testeditfo: ttesteditfo
         Tag = 10
         frame.caption = 'Expected'#10'Exitcode'
         frame.captionpos = cp_left
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           61
           5
@@ -213,7 +217,7 @@ inherited testeditfo: ttesteditfo
         frame.caption = 'Actual'#10'Exitcode'
         frame.captionpos = cp_left
         frame.localprops = [frl_levelo, frl_colorclient]
-        frame.dummy = 0
+        frame.localprops1 = []
         frame.outerframe = (
           56
           6
@@ -259,8 +263,8 @@ inherited testeditfo: ttesteditfo
       Tag = 5
       frame.caption = 'Run'#10'Command'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
-      frame.dummy = 0
       frame.outerframe = (
         65
         5
@@ -277,29 +281,6 @@ inherited testeditfo: ttesteditfo
       empty_textflags = [tf_ycentered]
       reffontheight = 14
     end
-    object val_expectedoutput: tstringedit
-      Tag = 8
-      frame.caption = 'Expected'#10'Output'
-      frame.captionpos = cp_left
-      frame.dummy = 0
-      frame.outerframe = (
-        61
-        5
-        0
-        5
-      )
-      taborder = 8
-      onshowhint = macrohintexe
-      bounds_x = 3
-      bounds_y = 333
-      bounds_cx = 583
-      bounds_cy = 30
-      anchors = [an_left, an_top, an_right]
-      empty_textflags = [tf_ycentered]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      onchange = outputputchangeexe
-      reffontheight = 14
-    end
     object val_actualoutput: tstringedit
       optionswidget = [ow_mousefocus, ow_arrowfocus, ow_destroywidgets]
       frame.levelo = -1
@@ -307,14 +288,14 @@ inherited testeditfo: ttesteditfo
       frame.caption = 'Actual'#10'Output'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
         46
         6
         0
         6
       )
-      taborder = 9
+      taborder = 8
       bounds_x = 18
       bounds_y = 368
       bounds_cx = 567
@@ -325,29 +306,6 @@ inherited testeditfo: ttesteditfo
       onchange = outputputchangeexe
       reffontheight = 14
     end
-    object val_expectederror: tstringedit
-      Tag = 9
-      frame.caption = 'Expected'#10'Error'
-      frame.captionpos = cp_left
-      frame.dummy = 0
-      frame.outerframe = (
-        61
-        5
-        0
-        5
-      )
-      taborder = 10
-      onshowhint = macrohintexe
-      bounds_x = 3
-      bounds_y = 403
-      bounds_cx = 582
-      bounds_cy = 30
-      anchors = [an_left, an_top, an_right]
-      empty_textflags = [tf_ycentered]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      onchange = errorchangeexe
-      reffontheight = 14
-    end
     object val_actualerror: tstringedit
       optionswidget = [ow_mousefocus, ow_arrowfocus, ow_destroywidgets]
       frame.levelo = -1
@@ -355,14 +313,14 @@ inherited testeditfo: ttesteditfo
       frame.caption = 'Actual'#10'Error'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
         42
         6
         0
         6
       )
-      taborder = 11
+      taborder = 9
       bounds_x = 22
       bounds_y = 438
       bounds_cx = 563
@@ -387,8 +345,8 @@ inherited testeditfo: ttesteditfo
         Tag = 3
         frame.caption = 'Compile'#10'Command'
         frame.captionpos = cp_left
+        frame.localprops = []
         frame.localprops1 = [frl1_captiondist]
-        frame.dummy = 0
         frame.outerframe = (
           65
           5
@@ -420,7 +378,7 @@ inherited testeditfo: ttesteditfo
         frame.colorclient = -2147483645
         frame.caption = 'Exitcode'
         frame.localprops = [frl_levelo, frl_colorclient]
-        frame.dummy = 0
+        frame.localprops1 = []
         frame.outerframe = (
           0
           17
@@ -455,7 +413,8 @@ inherited testeditfo: ttesteditfo
         Tag = 7
         frame.caption = 'Input'
         frame.captionpos = cp_left
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           35
           0
@@ -472,7 +431,8 @@ inherited testeditfo: ttesteditfo
       end
       object val_inputerror: tbooleandisp
         frame.caption = 'Writeerror'
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           0
           17
@@ -508,8 +468,8 @@ inherited testeditfo: ttesteditfo
       Tag = 4
       frame.caption = 'Compile'#10'Directory'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
-      frame.dummy = 0
       frame.outerframe = (
         59
         5
@@ -530,8 +490,8 @@ inherited testeditfo: ttesteditfo
       Tag = 6
       frame.caption = 'Run'#10'Directory'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
-      frame.dummy = 0
       frame.outerframe = (
         59
         5
@@ -547,6 +507,126 @@ inherited testeditfo: ttesteditfo
       anchors = [an_left, an_top, an_right]
       empty_textflags = [tf_ycentered]
       reffontheight = 14
+    end
+    object tlayouter7: tlayouter
+      taborder = 11
+      bounds_x = 0
+      bounds_y = 333
+      bounds_cx = 596
+      bounds_cy = 30
+      anchors = [an_top]
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_aligny]
+      align_glue = wam_start
+      object tspacer7: tspacer
+        bounds_x = 498
+        bounds_y = 10
+        bounds_cx = 10
+        bounds_cy = 10
+        anchors = [an_top, an_right]
+        linkleft = val_expectedoutput
+        linkright = val_anyoutput
+      end
+      object val_expectedoutput: tstringedit
+        Tag = 8
+        frame.caption = 'Expected'#10'Output'
+        frame.captionpos = cp_left
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          61
+          5
+          0
+          5
+        )
+        taborder = 1
+        onshowhint = macrohintexe
+        bounds_x = 3
+        bounds_y = 0
+        bounds_cx = 495
+        bounds_cy = 30
+        anchors = [an_left, an_top, an_right]
+        empty_textflags = [tf_ycentered]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+        onchange = outputputchangeexe
+        reffontheight = 14
+      end
+      object val_anyoutput: tbooleanedit
+        frame.caption = 'any'
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          0
+          1
+          25
+          2
+        )
+        taborder = 2
+        bounds_x = 508
+        bounds_y = 8
+        bounds_cx = 38
+        bounds_cy = 16
+      end
+    end
+    object tlayouter8: tlayouter
+      taborder = 12
+      bounds_x = 0
+      bounds_y = 403
+      bounds_cx = 596
+      bounds_cy = 30
+      anchors = [an_top]
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_aligny]
+      align_glue = wam_start
+      object tspacer8: tspacer
+        bounds_x = 501
+        bounds_y = 10
+        bounds_cx = 10
+        bounds_cy = 10
+        anchors = [an_top, an_right]
+        linkleft = val_expectederror
+        linkright = val_anyerror
+      end
+      object val_expectederror: tstringedit
+        Tag = 9
+        frame.caption = 'Expected'#10'Error'
+        frame.captionpos = cp_left
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          61
+          5
+          0
+          5
+        )
+        taborder = 1
+        onshowhint = macrohintexe
+        bounds_x = 3
+        bounds_y = 0
+        bounds_cx = 498
+        bounds_cy = 30
+        anchors = [an_left, an_top, an_right]
+        empty_textflags = [tf_ycentered]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+        onchange = errorchangeexe
+        reffontheight = 14
+      end
+      object val_anyerror: tbooleanedit
+        frame.caption = 'any'
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          0
+          1
+          25
+          2
+        )
+        taborder = 2
+        bounds_x = 511
+        bounds_y = 8
+        bounds_cx = 38
+        bounds_cy = 16
+      end
     end
   end
   object tlayouter3: tlayouter[1]

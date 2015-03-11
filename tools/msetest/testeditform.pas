@@ -44,9 +44,7 @@ type
    val_actualexitcode: tintegeredit;
    val_runcommand: tstringedit;
    tbutton3: tbutton;
-   val_expectedoutput: tstringedit;
    val_actualoutput: tstringedit;
-   val_expectederror: tstringedit;
    val_actualerror: tstringedit;
    tspacer3: tspacer;
    tlayouter5: tlayouter;
@@ -61,6 +59,14 @@ type
    tspacer6: tspacer;
    val_compiledirectory: tstringedit;
    val_rundirectory: tstringedit;
+   tlayouter7: tlayouter;
+   tspacer7: tspacer;
+   val_expectedoutput: tstringedit;
+   tlayouter8: tlayouter;
+   tspacer8: tspacer;
+   val_expectederror: tstringedit;
+   val_anyerror: tbooleanedit;
+   val_anyoutput: tbooleanedit;
    procedure layoutexe(const sender: TObject);
    procedure macrohintexe(const sender: TObject; var info: hintinfoty);
    procedure compileresultchangeexe(const sender: TObject);

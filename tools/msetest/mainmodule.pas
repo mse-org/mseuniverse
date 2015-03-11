@@ -101,7 +101,9 @@ type
    frundirectory: msestring;
    finput: msestring;
    fexpectedoutput: msestring;
+   fanyoutput: boolean;
    fexpectederror: msestring;
+   fanyerror: boolean;
    fexpectedexitcode: real;
   protected
    procedure dogetdefaults(); override;
@@ -120,10 +122,12 @@ type
    property input: msestring read finput write finput;
    property expectedoutput: msestring read fexpectedoutput
                                                   write fexpectedoutput;
+   property anyoutput: boolean read fanyoutput write fanyoutput;
    property expectederror: msestring read fexpectederror
                                                   write fexpectederror;
    property expectedexitcode: real read fexpectedexitcode 
                                           write fexpectedexitcode;
+   property anyerror: boolean read fanyerror write fanyerror;
  end;
   
  ttestgroupnode = class(ttestvaluenode)
@@ -718,7 +722,9 @@ begin
  writer.writemsestring('rd',frundirectory);
  writer.writemsestring('in',finput);
  writer.writemsestring('eo',fexpectedoutput);
+ writer.writeboolean('ao',fanyoutput);
  writer.writemsestring('ee',fexpectederror);
+ writer.writeboolean('ae',fanyerror);
  writer.writereal('eec',fexpectedexitcode);
 end;
 
@@ -731,7 +737,9 @@ begin
  frundirectory:= reader.readmsestring('rd','');
  finput:= reader.readmsestring('in','');
  fexpectedoutput:= reader.readmsestring('eo','');
+ fanyoutput:= reader.readboolean('ao',false);
  fexpectederror:= reader.readmsestring('ee','');
+ fanyerror:= reader.readboolean('ae',false);
  fexpectedexitcode:= reader.readreal('eec',emptyreal,0,255,true);
 end;
 

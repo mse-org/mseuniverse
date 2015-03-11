@@ -362,10 +362,8 @@ begin
     ferrorbuffer:= '';
     rea1:= lookupexpectedexitcode(fcurrenttest);
     dofinish(((rea1 = emptyreal) or (actualexitcode = rea1)) and 
-         ((removelineterminator(actualoutput) = expectedoutput) or 
-                                                   (expectedoutput = '')) and
-         ((removelineterminator(actualerror) = expectederror) or
-                                                   (expectederror = '')));
+       (anyoutput or (removelineterminator(actualoutput) = expectedoutput)) and
+       (anyerror or (removelineterminator(actualerror) = expectederror)));
    end;
   end;
   else begin
