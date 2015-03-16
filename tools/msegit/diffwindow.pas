@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,diffform,mseact,
  mseactions,mseifiglob,msebitmap,msedataedits,msedatanodes,mseedit,
  msefiledialog,msegrids,mselistbrowser,msestrings,msesys,msetypes,mseificomp,
- mseificompglob;
+ mseificompglob,msegraphedits,msescrollbar,msesplitter;
 
 type
  tdiffwindowfo = class(tdifffo)
@@ -32,6 +32,8 @@ type
    savediffact: taction;
    difffiledialog: tfiledialog;
    checkoutact: taction;
+   diffmode: tdatabutton;
+   tspacer1: tspacer;
    procedure patchtoolexe(const sender: TObject);
    procedure popupupdateexe(const sender: tcustommenu); override;
    procedure afterstatreadexe(const sender: TObject);

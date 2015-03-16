@@ -139,9 +139,9 @@ inherited logfo: tlogfo
       bounds_cx = 16
       bounds_cy = 16
       statfile = mainmo.mainstat
+      ifilink = diffmodelink
       state = [as_localcaption, as_localcolor]
       caption = 'D'
-      onsetvalue = modeselexe
       value = 0
       min = 0
       max = 1
@@ -304,5 +304,11 @@ inherited logfo: tlogfo
     onexecute = revertexe
     left = 56
     top = 240
+  end
+  object diffmodelink: tifiintegerlinkcomp[10]
+    controller.max = 1
+    controller.onclientsetvalue = diffmodeexe
+    left = 208
+    top = 64
   end
 end

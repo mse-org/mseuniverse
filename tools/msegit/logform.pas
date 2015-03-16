@@ -60,6 +60,7 @@ type
    tagact: taction;
    refreshthread: tthreadcomp;
    revertact: taction;
+   diffmodelink: tifiintegerlinkcomp;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -70,14 +71,15 @@ type
                    var item: tlistedititem);
    procedure branchexe(const sender: TObject);
    procedure cherrypickexe(const sender: TObject);
-   procedure modeselexe(const sender: TObject; var avalue: Integer;
-                   var accept: Boolean);
    procedure messagecelleventexe(const sender: TObject;
                    var info: celleventinfoty);
    procedure tagexe(const sender: TObject);
    procedure dorefreshexe(const sender: tthreadcomp);
    procedure filtereditexe(const sender: TObject);
    procedure revertexe(const sender: TObject);
+   procedure diffmodeexe(const sender: TObject; const aclient: iificlient;
+                   var avalue: Integer; var accept: Boolean;
+                   const aindex: Integer);
   private
    fpath: filenamety;
   protected
@@ -459,8 +461,8 @@ begin
  end;
 end;
 
-procedure tlogfo.modeselexe(const sender: TObject; var avalue: Integer;
-               var accept: Boolean);
+procedure tlogfo.diffmodeexe(const sender: TObject; const aclient: iificlient;
+               var avalue: Integer; var accept: Boolean; const aindex: Integer);
 begin
  case avalue of
   1: begin

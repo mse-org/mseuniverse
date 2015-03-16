@@ -8,12 +8,70 @@ inherited diffwindowfo: tdiffwindowfo
   onstatafterread = afterstatreadexe
   moduleclassname = 'tdifffo'
   inherited tabs: ttabwidget
+    bounds_cx = 415
+    anchors = [an_left, an_right]
   end
-  inherited repoloadedact: taction
+  object diffmode: tdatabutton[1]
+    optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_noautosizeanright]
+    taborder = 1
+    bounds_x = 415
+    bounds_y = 0
+    bounds_cx = 20
+    bounds_cy = 354
+    anchors = [an_right]
+    ifilink = logfo.diffmodelink
+    state = [as_localcaption]
+    valuefaces.count = 2
+    valuefaces.items = <    
+      item
+        fade_pos.count = 1
+        fade_pos.items = (
+          0
+        )
+        fade_color.count = 1
+        fade_color.items = (
+          12316091
+        )
+        localprops = []
+      end    
+      item
+        fade_pos.count = 1
+        fade_pos.items = (
+          0
+        )
+        fade_color.count = 1
+        fade_color.items = (
+          15580091
+        )
+        localprops = []
+      end>
+    valuecaptions.count = 2
+    valuecaptions.items = (
+      'Delta Diff'
+      'Commit Diff'
+    )
+    textflags = [tf_xcentered, tf_ycentered, tf_rotate90]
+    value = 0
+    min = 0
+    max = 1
+    reffontheight = 14
   end
-  inherited repoclosedact: taction
+  object tspacer1: tspacer[2]
+    taborder = 2
+    bounds_x = 415
+    bounds_y = 128
+    bounds_cx = 3
+    bounds_cy = 50
+    linkleft = tabs
+    linkright = diffmode
+    dist_right = -3
+    options = [spao_glueright]
   end
-  inherited tpopupmenu1: tpopupmenu
+  inherited repoloadedact: taction[3]
+  end
+  inherited repoclosedact: taction[4]
+  end
+  inherited tpopupmenu1: tpopupmenu[5]
     onupdate = popupupdateexe1
     menu.submenu.count = 10
     menu.submenu.items = <    
@@ -44,35 +102,35 @@ inherited diffwindowfo: tdiffwindowfo
         action = checkoutact
       end>
   end
-  inherited externaldiffact: taction
+  inherited externaldiffact: taction[6]
   end
-  object patchact: taction[5]
+  object patchact: taction[7]
     caption = 'Patchtool'
     onexecute = patchtoolexe
     left = 168
     top = 136
   end
-  object mergetoolact: taction[6]
+  object mergetoolact: taction[8]
     caption = 'Mergetool'
     onexecute = mergetoolexe
     left = 168
     top = 152
   end
-  inherited refreshthread: tthreadcomp[7]
+  inherited refreshthread: tthreadcomp[9]
   end
-  object restoreact: taction[8]
+  object restoreact: taction[10]
     caption = 'Restore'
     onexecute = restoreexe
     left = 168
     top = 192
   end
-  object savediffact: taction[9]
+  object savediffact: taction[11]
     caption = '&Save diff File'
     onexecute = savediffexe
     left = 168
     top = 168
   end
-  object difffiledialog: tfiledialog[10]
+  object difffiledialog: tfiledialog[12]
     controller.filterlist.data = (
       (
         'diff files'
@@ -86,11 +144,11 @@ inherited diffwindowfo: tdiffwindowfo
     left = 168
     top = 240
   end
-  inherited findindiffact: taction[11]
+  inherited findindiffact: taction[13]
   end
-  inherited repeatfind: taction[12]
+  inherited repeatfind: taction[14]
   end
-  object checkoutact: taction[13]
+  object checkoutact: taction[15]
     caption = 'Checkout'
     onexecute = checkoutexe
     left = 168
