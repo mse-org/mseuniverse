@@ -133,7 +133,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_noskin]
       color = 12316091
       taborder = 4
-      hint = 'D: Show differential diffs.'#10'C: Show commit diffs., enable cherry-pick and revert.'
+      hint = 'D: Show difference diffs.'#10'C: Show commit diffs., enable cherry-pick and revert.'
       bounds_x = 39
       bounds_y = 2
       bounds_cx = 16

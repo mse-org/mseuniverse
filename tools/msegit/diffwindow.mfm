@@ -47,7 +47,7 @@ inherited diffwindowfo: tdiffwindowfo
       end>
     valuecaptions.count = 2
     valuecaptions.items = (
-      'Delta Diff'
+      'Difference Diff'
       'Commit Diff'
     )
     textflags = [tf_xcentered, tf_ycentered, tf_rotate90]
