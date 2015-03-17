@@ -8,17 +8,19 @@ inherited diffwindowfo: tdiffwindowfo
   onstatafterread = afterstatreadexe
   moduleclassname = 'tdifffo'
   inherited tabs: ttabwidget
+    bounds_x = 20
     bounds_cx = 415
     anchors = [an_left, an_right]
+    tab_size = 118
   end
   object diffmode: tdatabutton[1]
     optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_noautosizeanright]
     taborder = 1
-    bounds_x = 415
+    bounds_x = 0
     bounds_y = 0
     bounds_cx = 20
     bounds_cy = 354
-    anchors = [an_right]
+    anchors = [an_left]
     ifilink = logfo.diffmodelink
     state = [as_localcaption]
     valuefaces.count = 2
@@ -58,14 +60,13 @@ inherited diffwindowfo: tdiffwindowfo
   end
   object tspacer1: tspacer[2]
     taborder = 2
-    bounds_x = 415
-    bounds_y = 128
+    bounds_x = 20
+    bounds_y = 56
     bounds_cx = 3
     bounds_cy = 50
-    linkleft = tabs
-    linkright = diffmode
+    linkleft = diffmode
+    linkright = tabs
     dist_right = -3
-    options = [spao_glueright]
   end
   inherited repoloadedact: taction[3]
   end
