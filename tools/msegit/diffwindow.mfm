@@ -15,6 +15,9 @@ inherited diffwindowfo: tdiffwindowfo
   end
   object diffmode: tdatabutton[1]
     optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_noautosizeanright]
+    frame.optionsskin = [fso_flat]
+    frame.localprops = [frl_optionsskin]
+    frame.localprops1 = []
     taborder = 1
     bounds_x = 0
     bounds_y = 0
