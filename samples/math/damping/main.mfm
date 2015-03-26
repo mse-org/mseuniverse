@@ -1,0 +1,230 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 118
+  bounds_y = 250
+  bounds_cx = 392
+  bounds_cy = 180
+  anchors = [an_top, an_right]
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    392
+    180
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object disp: tdial
+    frame.levelo = 1
+    frame.leveli = -1
+    frame.framei_left = 8
+    frame.framei_top = 5
+    frame.framei_right = 8
+    frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_fitop, frl_firight]
+    frame.localprops1 = []
+    face.fade_pos.count = 2
+    face.fade_pos.items = (
+      0
+      1
+    )
+    face.fade_color.count = 2
+    face.fade_color.items = (
+      -1610612731
+      16777128
+    )
+    face.fade_direction = gd_up
+    face.localprops = [fal_fadirection]
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 260
+    bounds_cy = 87
+    anchors = [an_left, an_top, an_right, an_bottom]
+    dial.options = [do_opposite, do_smooth]
+    dial.widthmm = 0.3
+    dial.start = 0
+    dial.range = 10
+    dial.markers.count = 1
+    dial.markers.items = <    
+      item
+        color = -1610612729
+        widthmm = 0
+        escapement = 0
+        value = 0
+        options = [dmo_limitoverload]
+      end>
+    dial.ticks.count = 2
+    dial.ticks.items = <    
+      item
+        widthmm = 0
+        length = 10
+        caption = '0'
+        escapement = 0
+        intervalcount = 10
+        options = [dto_rotatetext]
+      end    
+      item
+        widthmm = 0
+        length = 5
+        escapement = 0
+        intervalcount = 20
+      end>
+    dial.angle = 0.2
+    fitframe_left = 5
+    fitframe_top = 13
+    fitframe_right = 11
+    options = []
+  end
+  object valueed: trealedit
+    frame.caption = 'Set &Value'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 135
+    bounds_cy = 37
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    onsetvalue = valueset
+    value = 0
+    valuedefault = -Inf
+    formatedit = '0.00'
+    formatdisp = '0.00'
+    valuerange = 10
+    valuestart = 0
+    min = -1E+038
+    max = 1E+038
+    reffontheight = 14
+  end
+  object slider: tslider
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.localprops1 = []
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 104
+    bounds_cx = 260
+    anchors = [an_left, an_right, an_bottom]
+    value = 0
+    scrollbar.face.localprops = []
+    onsetvalue = sliderset
+  end
+  object samplinged: trealedit
+    frame.caption = '&Sampling Time'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 280
+    bounds_y = 7
+    bounds_cy = 37
+    anchors = [an_top, an_right]
+    statfile = tstatfile1
+    ondataentered = paramchangeexe
+    value = 0.01
+    valuedefault = -Inf
+    formatdisp = '0.#ms'
+    valuerange = 1000
+    valuestart = 0
+    min = 0.001
+    max = 1
+    reffontheight = 14
+  end
+  object damped: trealedit
+    frame.caption = '&Damping'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 280
+    bounds_y = 87
+    bounds_cy = 37
+    anchors = [an_top, an_right]
+    statfile = tstatfile1
+    ondataentered = paramchangeexe
+    value = 0.6
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = 0.1
+    max = 0.9
+    reffontheight = 14
+  end
+  object lped: trealedit
+    frame.caption = 'LP &Frequency'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 280
+    bounds_y = 47
+    bounds_cy = 37
+    anchors = [an_top, an_right]
+    statfile = tstatfile1
+    ondataentered = paramchangeexe
+    value = 0.5
+    valuedefault = -Inf
+    formatdisp = '0.###Hz'
+    valuerange = 1
+    valuestart = 0
+    min = 0.1
+    max = 1000
+    reffontheight = 14
+  end
+  object currentvalue: trealdisp
+    frame.caption = 'Current Value'
+    frame.captiondist = 2
+    frame.localprops = []
+    frame.localprops1 = [frl1_captiondist]
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 120
+    bounds_y = 135
+    bounds_cy = 36
+    anchors = [an_left, an_bottom]
+    valuerange = 10
+    valuestart = 0
+    format = '0.###'
+    ondatachange = dispdatachange
+    value = -Inf
+    reffontheight = 14
+  end
+  object timer: ttimer
+    interval = 10000
+    options = [to_leak, to_highres]
+    ontimer = tiexe
+    left = 80
+    top = 56
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 144
+    top = 56
+  end
+end
