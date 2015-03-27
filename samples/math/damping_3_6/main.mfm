@@ -219,7 +219,7 @@ object mainfo: tmainfo
   end
   object timer: ttimer
     interval = 10000
-    options = [to_leak, to_highres]
+    options = [to_leak]
     ontimer = tiexe
     left = 80
     top = 56
