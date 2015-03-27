@@ -1,7 +1,7 @@
 object mainfo: tmainfo
   visible = False
-  bounds_x = 405
-  bounds_y = 360
+  bounds_x = 128
+  bounds_y = 325
   bounds_cx = 392
   bounds_cy = 180
   anchors = [an_top, an_right]
@@ -73,9 +73,9 @@ object mainfo: tmainfo
         intervalcount = 20
       end>
     dial.angle = 0.2
-    fitframe_left = 5
-    fitframe_top = 13
-    fitframe_right = 11
+    fitframe_left = 10
+    fitframe_top = 16
+    fitframe_right = 10
     options = []
   end
   object valueed: trealedit
@@ -84,13 +84,13 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     bounds_x = 8
-    bounds_y = 137
-    bounds_cy = 35
+    bounds_y = 135
+    bounds_cy = 37
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
     onsetvalue = valueset
@@ -102,7 +102,7 @@ object mainfo: tmainfo
     valuestart = 0
     min = -1E+038
     max = 1E+038
-    reffontheight = 13
+    reffontheight = 14
   end
   object slider: tslider
     optionswidget = [ow_mousewheel, ow_destroywidgets]
@@ -123,14 +123,14 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 1
     bounds_x = 280
-    bounds_y = 8
-    bounds_cy = 35
+    bounds_y = 7
+    bounds_cy = 37
     anchors = [an_top, an_right]
     statfile = tstatfile1
     ondataentered = paramchangeexe
@@ -141,7 +141,7 @@ object mainfo: tmainfo
     valuestart = 0
     min = 0.001
     max = 1
-    reffontheight = 13
+    reffontheight = 14
   end
   object damped: trealedit
     frame.caption = '&Damping'
@@ -149,14 +149,14 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 3
     bounds_x = 280
-    bounds_y = 88
-    bounds_cy = 35
+    bounds_y = 87
+    bounds_cy = 37
     anchors = [an_top, an_right]
     statfile = tstatfile1
     ondataentered = paramchangeexe
@@ -166,7 +166,7 @@ object mainfo: tmainfo
     valuestart = 0
     min = 0.1
     max = 0.9
-    reffontheight = 13
+    reffontheight = 14
   end
   object lped: trealedit
     frame.caption = 'LP &Frequency'
@@ -174,14 +174,14 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     taborder = 2
     bounds_x = 280
-    bounds_y = 48
-    bounds_cy = 35
+    bounds_y = 47
+    bounds_cy = 37
     anchors = [an_top, an_right]
     statfile = tstatfile1
     ondataentered = paramchangeexe
@@ -192,7 +192,7 @@ object mainfo: tmainfo
     valuestart = 0
     min = 0.1
     max = 1000
-    reffontheight = 13
+    reffontheight = 14
   end
   object currentvalue: trealdisp
     frame.caption = 'Current Value'
@@ -201,21 +201,21 @@ object mainfo: tmainfo
     frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
       0
-      17
+      18
       0
       0
     )
     taborder = 6
     bounds_x = 120
-    bounds_y = 137
-    bounds_cy = 34
+    bounds_y = 135
+    bounds_cy = 36
     anchors = [an_left, an_bottom]
     valuerange = 10
     valuestart = 0
     format = '0.00'
     ondatachange = dispdatachange
     value = -Inf
-    reffontheight = 13
+    reffontheight = 14
   end
   object timer: ttimer
     interval = 10000

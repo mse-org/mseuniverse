@@ -80,7 +80,9 @@ begin
  Ua:= Ue*fb0 + fz1;
  fz1:= fz2 + Ue*fb1 - fa1*Ua;
  fz2:= Ue*fb2 - fa2*Ua;
- currentvalue.value:= Ua;
+ if abs(currentvalue.value - Ua) > 0.0002 then begin
+  currentvalue.value:= Ua;
+ end;
 end;
 
 procedure tmainfo.dispdatachange(const sender: TObject; var avalue: Real);
