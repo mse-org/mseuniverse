@@ -53,14 +53,25 @@ procedure tmainfo.paramchangeexe(const sender: TObject);
 var
  w0T: real; //normalised lowpass frequency
  damp: real;
+ dcgaincorr: real;
 begin
  w0T:= 2*pi*lped.value*samplinged.value;
  damp:= damped.value;
+ dcgaincorr:= (-w0T*exp(-w0T*damp)*sin(w0T*sqrt(-damp*damp +1)))/
+              (sqrt(-damp*damp + 1)*
+                (2*cos(w0T*sqrt(-damp*damp +1))*exp(-w0T*damp) -
+                 exp(-2*w0T*damp) - 1
+                )
+              );
  fb0:= 0;
  fb1:= (w0T/(sqrt(1-damp*damp))) * exp(-damp*w0T) * sin(w0T*sqrt(1-damp*damp));
  fb2:= 0;
  fa1:= -2*exp(-damp*w0T)*cos(w0T*sqrt(1-damp*damp));
  fa2:= exp(-2*damp*w0T); 
+
+ fb0:= fb0/dcgaincorr; 
+ fb1:= fb1/dcgaincorr; 
+ fb2:= fb2/dcgaincorr;
  
  timer.interval:= round(samplinged.value*1000000); //micro seconds
  timer.enabled:= true;
