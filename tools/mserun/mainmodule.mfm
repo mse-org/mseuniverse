@@ -52,7 +52,7 @@ object mainmo: tmainmo
     top = 32
   end
   object mainstat: tstatfile
-    filename = '^/.msetools/msetest.sta'
+    filename = '^/.msetools/mserun.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     onstatafterread = aftermainstareadexe
     left = 256

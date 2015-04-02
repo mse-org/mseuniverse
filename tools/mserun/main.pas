@@ -1,4 +1,4 @@
-{ MSEtest Copyright (c) 2014 by Martin Schreiber
+{ MSEtest Copyright (c) 2014-2015 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ uses
  mainmodule,msesimplewidgets;
 
 const
- versiontext = '1.0';
+ versiontext = '1.1';
 
 type
  tmainfo = class(tmainform)
@@ -139,10 +139,10 @@ end;
 procedure tmainfo.captionchaexe(const sender: TObject; var avalue: msestring);
 begin
  if avalue = '' then begin
-  caption:= 'MSEtest';
+  caption:= 'MSErun';
  end
  else begin
-  caption:= 'MSEtest ('+ avalue+')';
+  caption:= 'MSErun ('+ avalue+')';
  end;
 end;
 
@@ -528,10 +528,10 @@ end;
 procedure tmainfo.aboutexe(const sender: TObject);
 begin
  showmessage('MSEgui version: '+mseguiversiontext+c_linefeed+
-             'MSEtest version: '+versiontext+c_linefeed+
+             'MSErun version: '+versiontext+c_linefeed+
              'Host: '+ platformtext+ c_linefeed+
              c_linefeed+
-             'Copyright 2014'+c_linefeed+
+             'Copyright 2014-2015'+c_linefeed+
              'by Martin Schreiber','About MSEtest');
 end;
 
