@@ -1,6 +1,6 @@
 object mainmo: tmainmo
-  bounds_cx = 405
-  bounds_cy = 176
+  bounds_cx = 493
+  bounds_cy = 267
   statfile = mainstat
   onloaded = loadedexe
   oneventloopstart = evenloopstartexe
@@ -77,14 +77,14 @@ object mainmo: tmainmo
     controller.filterlist.data = (
       (
         'MSEtest project'
-        '*.mtp'
+        '*.mrp'
       )
       (
         'All'
         '*'
       )
     )
-    controller.defaultext = 'mtp'
+    controller.defaultext = 'mrp'
     controller.options = [fdo_checkexist, fdo_single, fdo_chdir, fdo_savelastdir]
     left = 256
     top = 112
