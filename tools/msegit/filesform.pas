@@ -284,7 +284,7 @@ end;
 
 procedure tfilesfo.renamexe(const sender: TObject);
 begin
- mainmo.rename(currentfilepath);
+ mainmo.rename(currentfilepath,currentitem);
 end;
 
 procedure tfilesfo.renameupdate(const sender: tcustomaction);

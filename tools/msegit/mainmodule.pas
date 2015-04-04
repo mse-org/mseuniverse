@@ -431,7 +431,8 @@ type
    function delete(const afiles: filenamearty): boolean; overload;
    function delete(const anode: tgitdirtreenode;
                     const aitems: msegitfileitemarty): boolean; overload;
-   function rename(const afilename: filenamety): boolean; //true if ok
+   function rename(const afilename: filenamety;
+                            const aitem: tmsegitfileitem): boolean; //true if ok
    
    function mergetoolcall(const afiles: filenamearty): boolean;
    function patchtoolcall(const afile: filenamety;
@@ -2626,15 +2627,26 @@ begin
  end;
 end;
 
-function tmainmo.rename(const afilename: filenamety): boolean;
+function tmainmo.rename(const afilename: filenamety;
+                            const aitem: tmsegitfileitem): boolean;
 var
  fna1: filenamety;
+ bo1: boolean;
 begin
  result:= false;
  fna1:= trenamequeryfo.create(nil).exec(afilename);
  if fna1 <> '' then begin
-  if execgitconsole('mv '+fgit.encodepathparam(afilename,false)+' '+
-               fgit.encodepathparam(fna1,false)) then begin
+  if (aitem = nil) or not (gist_untracked in aitem.statey) then begin
+   bo1:= execgitconsole('mv '+fgit.encodepathparam(afilename,false)+' '+
+                                            fgit.encodepathparam(fna1,false));
+  end
+  else begin
+   bo1:= msefileutils.renamefile(afilename,fna1,false);
+   if not bo1 then begin
+    showerror('File exists.');
+   end;
+  end;
+  if bo1 then begin
    mainfo.reload();
    result:= true;
   end;

@@ -277,7 +277,7 @@ end;
 
 procedure tgitdirtreefo.renameexe(const sender: TObject);
 begin
- mainmo.rename(currentitem.gitbasepath);
+ mainmo.rename(currentitem.gitbasepath,nil);
 end;
 
 end.
