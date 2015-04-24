@@ -4,8 +4,8 @@ object mainfo: tmainfo
   bounds_cx = 270
   bounds_cy = 89
   anchors = [an_left, an_top, an_right]
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -19,44 +19,73 @@ object mainfo: tmainfo
   onshow = showexe
   moduleclassname = 'tmainform'
   object password: tstringedit
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 8
-    bounds_y = 32
+    bounds_y = 31
     bounds_cx = 252
+    bounds_cy = 19
     anchors = [an_left, an_top, an_right]
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
-    reffontheight = 14
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    reffontheight = 13
     pwchar = 42
   end
   object prompt: tstringdisp
+    optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autoheight]
     taborder = 1
     bounds_x = 8
     bounds_y = 8
     bounds_cx = 260
-    bounds_cy = 18
+    bounds_cy = 13
     anchors = [an_left, an_top, an_right]
-    reffontheight = 14
+    reffontheight = 13
   end
-  object tbutton1: tbutton
+  object tspacer1: tspacer
     taborder = 2
-    bounds_x = 152
-    bounds_y = 64
+    bounds_x = 104
+    bounds_y = 21
     bounds_cx = 50
-    bounds_cy = 19
-    anchors = [an_top, an_right]
-    state = [as_default, as_localdefault, as_localcaption]
-    caption = '&OK'
-    modalresult = mr_ok
+    bounds_cy = 10
+    linktop = prompt
+    linkbottom = password
   end
-  object tbutton2: tbutton
+  object texpandingwidget1: texpandingwidget
     taborder = 3
-    bounds_x = 208
-    bounds_y = 64
-    bounds_cx = 50
+    bounds_x = 8
+    bounds_y = 60
+    bounds_cx = 250
     bounds_cy = 19
-    anchors = [an_top, an_right]
-    state = [as_localcaption]
-    caption = '&Cancel'
-    modalresult = mr_cancel
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    object tbutton2: tbutton
+      bounds_x = 200
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 19
+      anchors = [an_top, an_right]
+      state = [as_localcaption]
+      caption = '&Cancel'
+      modalresult = mr_cancel
+    end
+    object tbutton1: tbutton
+      taborder = 1
+      bounds_x = 144
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 19
+      anchors = [an_top, an_right]
+      state = [as_default, as_localdefault, as_localcaption]
+      caption = '&OK'
+      modalresult = mr_ok
+    end
+  end
+  object tspacer2: tspacer
+    taborder = 4
+    bounds_x = 104
+    bounds_y = 50
+    bounds_cx = 50
+    bounds_cy = 10
+    linktop = password
+    linkbottom = texpandingwidget1
   end
 end

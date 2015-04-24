@@ -5,14 +5,17 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msedataedits,mseedit,
  mseifiglob,msestrings,msetypes,msedispwidgets,mserichstring,msesimplewidgets,
- msewidgets;
+ msewidgets,msesplitter;
 
 type
  tmainfo = class(tmainform)
    password: tstringedit;
    prompt: tstringdisp;
-   tbutton1: tbutton;
+   tspacer1: tspacer;
+   texpandingwidget1: texpandingwidget;
    tbutton2: tbutton;
+   tbutton1: tbutton;
+   tspacer2: tspacer;
    procedure loadedexe(const sender: TObject);
    procedure closequeryexe(const sender: tcustommseform;
                    var amodalresult: modalresultty);
