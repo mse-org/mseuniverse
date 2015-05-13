@@ -186,6 +186,7 @@ begin
  setlength(ar2,i2);
  mainmo.macros.setasarray(ar2);
  info.caption:= mainmo.expandmacros(avalue);
+ include(info.flags,hfl_show);
  mainmo.macros.setasarray(ar1); //restore
 end;
 

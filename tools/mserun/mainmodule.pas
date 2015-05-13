@@ -968,7 +968,6 @@ begin
    updatecaption();
    fprojectoptions.clear();
    fmacros.clear();
-//   projectfiledialog.controller.filename:= '';
   end;
  end;
 end;
@@ -1002,7 +1001,9 @@ end;
 
 procedure tmainmo.closeexe(const sender: TObject);
 begin
- closeproject();
+ if closeproject() <> mr_cancel then begin
+  projectfiledialog.controller.filename:= '';
+ end;
 end;
 
 procedure tmainmo.getstatobjexe(const sender: TObject; var aobject: TObject);
@@ -1053,6 +1054,10 @@ end;
 
 procedure tmainmo.aftermainstareadexe(const sender: TObject);
 begin
+ if guitemplatesmo.sysenv.defined[ord(env_filename)] then begin
+  projectfiledialog.controller.filename:= 
+                      guitemplatesmo.sysenv.value[ord(env_filename)];
+ end;
  loadproject(); 
 end;
 

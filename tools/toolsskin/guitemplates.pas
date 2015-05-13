@@ -22,17 +22,17 @@ uses
  msesysenv,msemacros;
 
 type
- envvarty = (env_macrodef,env_vargroup,env_np,env_ns{,
+ envvarty = (env_macrodef,env_vargroup,env_np,env_ns,{
              env_fpcdir,env_fpclibdir,env_msedir,env_mselibdir,env_syntaxdefdir,
              env_templatedir,env_compstoredir,env_compiler,env_debugger,
-             env_exeext,env_target,
-             env_filename});
+             env_exeext,env_target,}
+             env_filename);
 const
  sysenvvalues: array[envvarty] of argumentdefty =
   ((kind: ak_pararg; name: '-macrodef'; anames: nil; flags: []; initvalue: ''),
    (kind: ak_pararg; name: '-macrogroup'; anames: nil; flags: []; initvalue: ''),
    (kind: ak_par; name: 'np'; anames: nil; flags: []; initvalue: ''), //no project
-   (kind: ak_par; name: 'ns'; anames: nil; flags: []; initvalue: '') //no skin
+   (kind: ak_par; name: 'ns'; anames: nil; flags: []; initvalue: ''), //no skin
    {
    (kind: ak_envvar; name: 'FPCDIR'; anames: nil; flags: []; initvalue: ''),
    (kind: ak_envvar; name: 'FPCLIBDIR'; anames: nil; flags: []; initvalue: ''),
@@ -44,8 +44,8 @@ const
    (kind: ak_envvar; name: 'COMPILER'; anames: nil; flags: []; initvalue: ''),
    (kind: ak_envvar; name: 'DEBUGGER'; anames: nil; flags: []; initvalue: ''),
    (kind: ak_envvar; name: 'EXEEXT'; anames: nil; flags: []; initvalue: ''),
-   (kind: ak_envvar; name: 'TARGET'; anames: nil; flags: []; initvalue: ''),
-   (kind: ak_arg; name: ''; anames: nil; flags: []; initvalue: '')}
+   (kind: ak_envvar; name: 'TARGET'; anames: nil; flags: []; initvalue: ''),}
+   (kind: ak_arg; name: ''; anames: nil; flags: []; initvalue: '')
   );
 
 // firstenvvarmacro = env_fpcdir;   
