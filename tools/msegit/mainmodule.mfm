@@ -2,6 +2,7 @@ object mainmo: tmainmo
   bounds_cx = 395
   bounds_cy = 195
   statfile = mainstat
+  oneventloopstart = startexe
   onasyncevent = asynceventexe
   left = 267
   top = 163

@@ -274,6 +274,7 @@ type
                    const amodalresult: modalresultty);
    procedure filterresetexe(const sender: TObject);
    procedure mainstatafterreadexe(const sender: TObject);
+   procedure startexe(const sender: TObject);
   private
    frepo: filenamety;
    freporoot: filenamety;
@@ -538,7 +539,7 @@ implementation
 
 uses
  mainmodule_mfm,msefileutils,sysutils,msearrayutils,msesysintf,
- gitconsole,commitqueryform,restorequeryform,
+ gitconsole,commitqueryform,restorequeryform,skinmodule,guitemplates,
  removequeryform,remuntrackqueryform,deletequeryform,
  branchform,remotesform,mseformatstr,mseprocutils,msemacros,main,filesform,
  gitdirtreeform,defaultstat,clonequeryform,commitmessageform,
@@ -2650,6 +2651,13 @@ begin
    mainfo.reload();
    result:= true;
   end;
+ end;
+end;
+
+procedure tmainmo.startexe(const sender: TObject);
+begin
+ if skinmo.sysenv.defined[ord(env_filename)] then begin
+  repo:= skinmo.sysenv.value[ord(env_filename)];
  end;
 end;
 

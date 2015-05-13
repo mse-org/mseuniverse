@@ -27,7 +27,7 @@ program msegit;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
- msegui,mseforms,main,mainmodule,gitdirtreeform,filesform,stashform,skinmodule,
+ skinmodule,msegui,mseforms,main,mainmodule,gitdirtreeform,filesform,stashform,
  remotesform,gitconsole,diffwindow,branchform,logform,tagsform;
 begin
 // application.createdatamodule(tguitemplatesmo,guitemplatesmo);
