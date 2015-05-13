@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2012-2014 by Martin Schreiber
+{ MSEspice Copyright (c) 2012-2015 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,7 +15,6 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
 unit main;
-//under construction
 
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -26,7 +25,7 @@ uses
  dockform,msebitmap,msesplitter,msedispwidgets,mserichstring;
 
 const
- versiontext = '1.6';
+ versiontext = '1.8';
 type
  messagetextkindty = (mtk_info,mtk_running,mtk_finished,mtk_error,mtk_signal);
 
@@ -153,7 +152,7 @@ begin
              'MSEgui version: '+mseguiversiontext+c_linefeed+             
              'Host: '+ platformtext+ c_linefeed+
              c_linefeed+
-             'Copyright 1999-2014'+c_linefeed+
+             copyrighttext+c_linefeed+
              'by Martin Schreiber'
              ,'About MSEspice');
 end;

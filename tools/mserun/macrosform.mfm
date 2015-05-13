@@ -4,6 +4,8 @@ object macrosfo: tmacrosfo
   bounds_y = 266
   bounds_cx = 604
   bounds_cy = 396
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -22,7 +24,7 @@ object macrosfo: tmacrosfo
     frame.framei_right = 20
     frame.framei_bottom = 10
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    frame.dummy = 0
+    frame.localprops1 = []
     bounds_x = 452
     bounds_y = 356
     bounds_cx = 152
@@ -179,7 +181,6 @@ object macrosfo: tmacrosfo
       datarowheight = 16
       reffontheight = 14
       object e0: tbooleanedit
-        Tag = 1
         optionsskin = [osk_framebuttononly]
         taborder = 1
         bounds_x = 0
@@ -192,7 +193,7 @@ object macrosfo: tmacrosfo
         valuedefault = True
       end
       object e1: tbooleanedit
-        Tag = 2
+        Tag = 1
         optionsskin = [osk_framebuttononly]
         taborder = 2
         bounds_x = 14
@@ -205,7 +206,7 @@ object macrosfo: tmacrosfo
         valuedefault = True
       end
       object e2: tbooleanedit
-        Tag = 4
+        Tag = 2
         optionsskin = [osk_framebuttononly]
         taborder = 3
         bounds_x = 28
@@ -218,7 +219,7 @@ object macrosfo: tmacrosfo
         valuedefault = True
       end
       object e3: tbooleanedit
-        Tag = 8
+        Tag = 3
         optionsskin = [osk_framebuttononly]
         taborder = 4
         bounds_x = 42
@@ -231,7 +232,7 @@ object macrosfo: tmacrosfo
         valuedefault = True
       end
       object e4: tbooleanedit
-        Tag = 16
+        Tag = 4
         optionsskin = [osk_framebuttononly]
         taborder = 5
         bounds_x = 56
@@ -244,7 +245,7 @@ object macrosfo: tmacrosfo
         valuedefault = True
       end
       object e5: tbooleanedit
-        Tag = 32
+        Tag = 5
         optionsskin = [osk_framebuttononly]
         taborder = 6
         bounds_x = 70
@@ -276,6 +277,13 @@ object macrosfo: tmacrosfo
         frame.levelo = 0
         frame.colorclient = -2147483645
         frame.localprops = [frl_levelo, frl_colorclient]
+        frame.localprops1 = []
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+            imagenr = 17
+          end>
         frame.button.color = -1879048187
         frame.button.imagenr = 17
         taborder = 8

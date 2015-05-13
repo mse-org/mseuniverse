@@ -203,6 +203,7 @@ var
 implementation
 uses
  mainmodule_mfm,main,consoleform,msestream,plotsform,
+ guitemplates,msefilemacros,mseenvmacros,
  mseformatstr,plotpage,sysutils,msefloattostr,math,netlistform,paramform,
  msestockobjects,typinfo,msearrayutils,optionsform,msefileutils;
 
@@ -334,6 +335,7 @@ begin
               fprojectoptions.t.netlist]),
               fglobaloptions.globmacvalues,fprojectoptions.locmacvalues],[]);
  end;
+ result:= initmacros([result,getcommandlinemacros,filemacros,envmacros]);
 end;
 
 procedure tmainmo.expandprojectmacros;

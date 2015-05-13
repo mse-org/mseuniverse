@@ -25,7 +25,7 @@ uses
  msetimer,mserichstring,msesimplewidgets,msewidgets,msegrids,mseifigui,
  mseifilink,finddialogform;
 const
- versiontext = '2.3';
+ versiontext = '2.4';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
@@ -697,7 +697,7 @@ begin
  showmessage('MSEgit version: '+versiontext+c_linefeed+
              'MSEgui version: '+mseguiversiontext+c_linefeed+
              c_linefeed+
-             'Copyright 2011-2014'+c_linefeed+
+             copyrighttext+c_linefeed+
              'by Martin Schreiber'
              ,'About MSEgit');
 end;

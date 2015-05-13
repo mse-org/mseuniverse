@@ -297,8 +297,8 @@ var
  mainmo: tmainmo;
 implementation
 uses
- mainmodule_mfm,msefileutils,runform,msefilemacros,msebits,mseformatstr,
- msestockobjects;
+ mainmodule_mfm,msefileutils,runform,msefilemacros,mseenvmacros,msebits,
+ mseformatstr,msestockobjects,guitemplates;
  
 function lookuptext(const aitem: ttestnode;
                const fieldnumber: fieldnumberty): msestring;
@@ -860,7 +860,7 @@ begin
  frootnode:= ttestnode.create();
  fprojectoptions:= tprojectoptions.create();
  fmacros:= tmacrolist.create([mao_caseinsensitive,mao_curlybraceonly]);
- fmacros.setpredefined(filemacros);
+ fmacros.setpredefined([getcommandlinemacros,filemacros,envmacros]);
  inherited;
 end;
 
@@ -1237,7 +1237,10 @@ begin
   if int2 < high(fmacrovalues) then begin
    int2:= high(fmacrovalues);
   end;
-  mask:= bits[fmacrogroup];
+  int1:= fmacrogroup+1;
+  guitemplatesmo.sysenv.getintegervalue(int1,ord(env_vargroup),1,6);
+  dec(int1);
+  mask:= bits[int1];
   setlength(ar1,int2+1); //max
   int3:= 0;
   for int1:= 0 to int2 do begin

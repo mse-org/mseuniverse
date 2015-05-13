@@ -53,13 +53,14 @@ type
    procedure colhintexe(const sender: tdatacol; const arow: Integer;
                    var info: hintinfoty);
   protected
+   fmacrogroup: int32;
    procedure activegroupchanged();
    procedure macrohint(const avalue: msestring; var info: hintinfoty);
  end;
  
 implementation
 uses
- macrosform_mfm,mainmodule,msearrayutils,msemacros;
+ macrosform_mfm,mainmodule,msearrayutils,msemacros,msebits;
 
 procedure tmacrosfo.activegroupchanged();
 var
@@ -80,7 +81,8 @@ begin
    macrogrid.datacols[int1].color:= cl_default;
   end;
  end;
- mainmo.projectoptions.macrogroup:= int2;
+ fmacrogroup:= int2;
+// mainmo.projectoptions.macrogroup:= int2;
 end;
 
 procedure tmacrosfo.selectactiveonrowsmoved(const sender: tcustomgrid;
@@ -124,12 +126,15 @@ begin
   ar1:= macroon;
   macrogrid.rowcount:= length(ar1);
   for int1:= 0 to high(ar1) do begin
+   e0.gridvaluebitmask[int1]:= ar1[int1];
+   {
    e0.gridupdatetagvalue(int1,ar1[int1]);
    e1.gridupdatetagvalue(int1,ar1[int1]);
    e2.gridupdatetagvalue(int1,ar1[int1]);
    e3.gridupdatetagvalue(int1,ar1[int1]);
    e4.gridupdatetagvalue(int1,ar1[int1]);
    e5.gridupdatetagvalue(int1,ar1[int1]);
+   }
   end;
   activemacroselect[macrogroup]:= true;
   activegroupchanged();
@@ -145,9 +150,12 @@ begin
  if amodalresult = mr_ok then begin
   setlength(ar1,macrogrid.datarowhigh+1);
   for int1:= 0 to high(ar1) do begin
+   ar1[int1]:= e0.gridvaluebitmask[int1];
+  {
    ar1[int1]:=  e0.gridvaluetag(int1,0) or e1.gridvaluetag(int1,0) or
                     e2.gridvaluetag(int1,0) or e3.gridvaluetag(int1,0) or
                     e4.gridvaluetag(int1,0) or e5.gridvaluetag(int1,0);
+  }
   end;
   with mainmo.projectoptions do begin
    macroon:= ar1;
@@ -158,11 +166,25 @@ end;
 
 procedure tmacrosfo.macrohint(const avalue: msestring; var info: hintinfoty);
 var
- ar1: macroinfoarty;
+ ar1,ar2: macroinfoarty;
+ i1,i2: int32;
+ ca1: card32;
 begin
  ar1:= mainmo.macros.asarray;
- mainmo.macros.setasarray(val_macronames.gridvalues,
-                                    val_macrovalues.gridvalues,nil);
+ setlength(ar2,macrogrid.datarowhigh+1);
+ ca1:= bits[fmacrogroup];
+ i2:= 0;
+ for i1:= 0 to high(ar2) do begin
+  if e0.gridvaluebitmask[i1] and ca1 <> 0 then begin
+   with ar2[i2] do begin
+    name:= val_macronames[i1];
+    value:= val_macrovalues[i1];
+   end;
+   inc(i2);
+  end;
+ end;
+ setlength(ar2,i2);
+ mainmo.macros.setasarray(ar2);
  info.caption:= mainmo.expandmacros(avalue);
  mainmo.macros.setasarray(ar1); //restore
 end;

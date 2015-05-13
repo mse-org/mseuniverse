@@ -27,7 +27,7 @@ uses
  mainmodule,msesimplewidgets;
 
 const
- versiontext = '1.1';
+ versiontext = '1.2';
 
 type
  tmainfo = class(tmainform)
@@ -531,7 +531,7 @@ begin
              'MSErun version: '+versiontext+c_linefeed+
              'Host: '+ platformtext+ c_linefeed+
              c_linefeed+
-             'Copyright 2014-2015'+c_linefeed+
+             copyrighttext+c_linefeed+
              'by Martin Schreiber','About MSEtest');
 end;
 

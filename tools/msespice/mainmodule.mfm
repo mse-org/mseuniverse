@@ -1,6 +1,6 @@
 object mainmo: tmainmo
-  bounds_cx = 462
-  bounds_cy = 295
+  bounds_cx = 502
+  bounds_cy = 309
   statfile = mainstat
   oncreate = createexe
   left = 151
@@ -181,9 +181,9 @@ object mainmo: tmainmo
     top = 216
   end
   object tracesymbols: timagelist
-    monochrome = True
     width = 15
     height = 15
+    options = [bmo_monochrome, bmo_masked]
     left = 152
     top = 200
   end
