@@ -162,6 +162,7 @@ type
    procedure getfilenamexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure schematicexe(const sender: TObject);
+   procedure mainafterreadexe(const sender: TObject);
   private
    fprojectloaded: boolean;
    fsimurunning: boolean;
@@ -424,7 +425,9 @@ end;
 
 procedure tmainmo.closeprojectexe(const sender: TObject);
 begin
- closeproject;
+ if closeproject then begin
+  projectmainstat.filename:= '';
+ end;
  updateprojectstate;
 end;
 
@@ -826,6 +829,13 @@ begin
  else begin
   schematiccapture.commandline:= fglobaloptions.texp.schematiccapture;
   schematiccapture.active:= true;
+ end;
+end;
+
+procedure tmainmo.mainafterreadexe(const sender: TObject);
+begin
+ if guitemplatesmo.sysenv.defined[ord(env_filename)] then begin
+  projectmainstat.filename:= guitemplatesmo.sysenv.value[ord(env_filename)];
  end;
 end;
 
