@@ -297,8 +297,8 @@ var
  mainmo: tmainmo;
 implementation
 uses
- mainmodule_mfm,msefileutils,runform,msefilemacros,mseenvmacros,msebits,
- mseformatstr,msestockobjects,guitemplates;
+ mainmodule_mfm,msefileutils,runform,msefilemacros,mseenvmacros,msemacmacros,
+ msebits,mseformatstr,msestockobjects,guitemplates;
  
 function lookuptext(const aitem: ttestnode;
                const fieldnumber: fieldnumberty): msestring;
@@ -860,7 +860,7 @@ begin
  frootnode:= ttestnode.create();
  fprojectoptions:= tprojectoptions.create();
  fmacros:= tmacrolist.create([mao_caseinsensitive,mao_curlybraceonly]);
- fmacros.setpredefined([getcommandlinemacros,filemacros,envmacros]);
+ fmacros.setpredefined([macmacros,filemacros,getcommandlinemacros,envmacros]);
  inherited;
 end;
 
