@@ -5,7 +5,7 @@ object mainmo: tmainmo
   onloaded = loadedexe
   oneventloopstart = evenloopstartexe
   left = 479
-  top = 475
+  top = 455
   moduleclassname = 'tmsedatamodule'
   object exitact: taction
     caption = 'E&xit'

@@ -1,4 +1,4 @@
- MSEtest Copyright (c) 2014 by Martin Schreiber
+ MSErun Copyright (c) 2015 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,10 +14,35 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.2014-09-19 mse
 
-MSEtest is a unit test and program group compile tool.
+MSErun is a unit test and program group compile tool.
+
+Command line paramers:
+--macrogroup=<n>
+ Use 'Macros'-'Active group' number <n>, <n> = 1..6.
+--macrodef=<name>,<value>{,<name>,<value>}
+ Macro definition, will be overridden by 'Macros'. Example:
+ --macrodef=MAC1,abc,MAC2,def
+ defines ${MAC1} with value 'abc' and ${MAC2} with value 'def'.
+--fontalias=<alias>,<fontname>[,<fontheight>[,<fontwidth>[,<options>[,<xscale>]
+                              [,<ancestor>]]]]
+ Change the used fonts. <alias> can be stf_default, stf_menu or mseide_source.
 
 Predefined macros:
 ${FILE}        the file path of the current item.
+
+Macro functions:
+${MAC_IFDEF(macroname)} returns the macro value if defined.
+${MAC_IFDEF(macroname,notdefinedvalue)} returns the macro value if defined,
+ notdefinedvalue otherwise.
+${MAC_IFDEF(macroname,notdefinedvalue,definedvalue)}
+ returns definedvalue if macroname is defined, notdefinedvalue otherwise.
+
+Environment macros:
+${ENV_VAR(variablename)} returns the macro value if defined.
+${ENV_VAR(variablename,notdefinedvalue)} returns the variable value if defined,
+ notdefinedvalue otherwise.
+${ENV_VAR(variablename,notdefinedvalue,definedvalue)}
+ returns definedvalue if variablename is defined, notdefinedvalue otherwise.
 
 File path macros, format is ${FILE_*(fileparameter)} or ${FILE_*("fileparameter")}:
 FILE_MSE       convert to MSE format.

@@ -16,13 +16,29 @@ order13=0
 order14=0
 order15=0
 order16=0
-order17=0
-order18=0
-order19=0
-order20=0
 [projectoptions]
 projectdir=/home/mse/packs/standard/git/mseuniverse/tools/mserun
 projectfilename=/home/mse/packs/standard/git/mseuniverse/tools/mserun/mserun.prj
+settings=19
+ [settingsfo.macrogrid]
+ propcolwidthref=288
+ width0=152
+ sortdescend0=0
+ width1=129
+ sortdescend1=0
+ [settingsfo.tsplitter2]
+ x=192
+ y=16
+ xprop=0.57879656160458
+ yprop=1
+ [settingsfo]
+ x=100
+ y=106
+ cx=349
+ cy=570
+ wsize=0
+ active=1
+ visible=1
 mainfile=${PROJECTNAME}.pas
 targetfile=${PROJECTNAME}${EXEEXT}
 messageoutputfile=
@@ -325,6 +341,7 @@ afterconnect=
 beforeload=
 afterload=
 beforerun=
+sourcebase=
 sourcedirs=4
  ${MSEDIR}lib/addon/*/
  ${MSEDIR}lib/common/kernel/$TARGETOSDIR/
@@ -349,6 +366,7 @@ startupbkpt=0
 startupbkpton=0
 gdbsimulator=0
 gdbserverstartonce=0
+gdbloadtimeout=
 gdbserverwait=0
 nogdbserverexit=0
 gdbservertty=0
@@ -409,7 +427,7 @@ files=
  a=0,4132,6,Text Files
  )
 [componentstore]
-storedir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
+storedir=/home/mse/proj/dist/mseguidist/test/msegui/apps/ide/compstore/
 filename=
 [components]
 [selecteditpage]
@@ -428,20 +446,45 @@ hintheight=0
 finddtext=
 findhistory=0
 findoptions=1
-editpos=0
-sourcefiles=0
-relpaths=0
-ismoduletexts=0
+editpos=4
+ 0,0
+ 0,-1073741823
+ 0,-1073741823
+ 0,-1073741823
+bookmarks0=0
+bookmarks1=0
+bookmarks2=0
+bookmarks3=0
+sourcefiles=4
+ /home/mse/packs/standard/git/mseuniverse/tools/msegit/README.TXT
+ /home/mse/packs/standard/git/mseuniverse/tools/mserun/README.TXT
+ /home/mse/packs/standard/git/mseide-msegui/README.TXT
+ /home/mse/packs/standard/git/mseuniverse/tools/msespice/README.TXT
+relpaths=4
+ ../msegit/README.TXT
+ README.TXT
+ ../../../mseide-msegui/README.TXT
+ ../msespice/README.TXT
+ismoduletexts=4
+ 0
+ 0
+ 0
+ 0
 modules=0
 moduleoptions=0
 visiblemodules=0
 nomenumodules=0
 [sourcefo.tabwidget]
-tabsize=60
+order=4
+ 0
+ 1
+ 3
+ 2
+tabsize=138
 firsttab=0
-index=-1
+index=0
 [layout]
-windowlayout=531
+windowlayout=549
  [mainfo.openform]
  filenames=0
  filehistory=0
@@ -454,31 +497,35 @@ windowlayout=531
  cy=0
  [mainfo.projectfiledia]
  filenames=1
-  /home/mse/packs/standard/git/mseuniverse/tools/mserun/mse_mserun.prj
- lastdir=/home/mse/packs/standard/git/mseuniverse/tools/mserun/
+  /home/mse/proj/dist/mseguidist/test/msegui/apps/demo/demo.prj
+ lastdir=/home/mse/proj/dist/mseguidist/test/msegui/apps/demo/
  filehistory=10
-  /home/mse/packs/standard/git/mseuniverse/tools/mserun/mse_mserun.prj
+  /home/mse/proj/dist/mseguidist/test/msegui/apps/demo/demo.prj
   /home/mse/packs/standard/git/mseuniverse/tools/mserun/mserun.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/mserun/msetest.prj
   /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
+  /home/mse/packs/standard/git/mseuniverse/tools/mserun/mse_mserun.prj
+  /home/mse/packs/standard/git/mseuniverse/tools/mserun/msetest.prj
   /home/mse/proj/msegui/testcase/minoshi/skins/skins/test/test.prj
   /home/mse/proj/msegui/testcase/minoshi/skins/skins/center/alsc.prj
   /home/mse/packs/standard/git/mseuniverse/tools/msespice/mse_msespice.prj
   /home/mse/packs/standard/git/mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/widgets/opengl/openglwidget/mse_openglwidget.prj
-  /home/mse/packs/standard/git/mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/widgets/opengl/openglwidget/openglwidget.prj
  filefilterindex=0
  filefilter=*.prj
- filecolwidth=174
+ filecolwidth=117
  x=0
  y=0
  cx=0
  cy=0
  [mainfo.openfile]
  filenames=0
- filehistory=0
- filefilterindex=0
- filefilter=
+ filehistory=4
+  /home/mse/packs/standard/git/mseuniverse/tools/msespice/README.TXT
+  /home/mse/packs/standard/git/mseide-msegui/README.TXT
+  /home/mse/packs/standard/git/mseuniverse/tools/mserun/README.TXT
+  /home/mse/packs/standard/git/mseuniverse/tools/msegit/README.TXT
+ filefilterindex=2
+ filefilter=*
  filecolwidth=174
  x=0
  y=0
@@ -490,7 +537,7 @@ windowlayout=531
  [mainfo]
  splitdir=0
  useroptions=123
- stackedunder=componentpalettefo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -504,7 +551,7 @@ windowlayout=531
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -533,10 +580,10 @@ windowlayout=531
  ny=0
  ncx=0
  ncy=0
- x=37
- y=270
- cx=349
- cy=276
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -572,7 +619,7 @@ windowlayout=531
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=findinfilefo
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -642,10 +689,10 @@ windowlayout=531
  ny=0
  ncx=0
  ncy=0
- x=407
- y=349
- cx=254
- cy=180
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -660,10 +707,10 @@ windowlayout=531
  ny=0
  ncx=0
  ncy=0
- x=537
- y=26
- cx=483
- cy=210
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -737,7 +784,7 @@ windowlayout=531
  [symbolfo]
  splitdir=0
  useroptions=16507
- stackedunder=targetconsolefo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
@@ -755,7 +802,21 @@ windowlayout=531
  visible=0
  [symbolfo.grid]
  propcolwidthref=222
- values0=0
+ values0=14
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
  width0=111
  sortdescend0=0
  width1=135
@@ -817,7 +878,7 @@ windowlayout=531
  [componentstorefo]
  splitdir=0
  useroptions=24699
- stackedunder=disassfo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
@@ -880,7 +941,7 @@ windowlayout=531
  [componentpalettefo]
  splitdir=0
  useroptions=24683
- stackedunder=
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
@@ -894,7 +955,7 @@ windowlayout=531
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [componentpalettefo.componentpages]
  activetab=0
@@ -926,8 +987,8 @@ windowlayout=531
  ncy=0
  x=0
  y=0
- cx=724
- cy=491
+ cx=1006
+ cy=595
  rcx=0
  rcy=0
  [actionsmo.watchesonact]
@@ -965,9 +1026,9 @@ windowlayout=531
  ncx=0
  ncy=0
  x=4
- y=201
- cx=734
- cy=491
+ y=128
+ cx=1016
+ cy=595
  rcx=0
  rcy=0
  wsize=0
