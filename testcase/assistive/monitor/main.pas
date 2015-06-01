@@ -56,14 +56,14 @@ end;
 
 procedure tassistivemonitor.doenter(const sender: iassistiveclient);
 begin
- track(sender,'doenter');
+ track(sender,'<doenter>');
 end;
 
 procedure tassistivemonitor.clientmouseevent(const sender: iassistiveclient;
                var info: mouseeventinfoty);
 begin
- track(sender,'clientmouseevent '+getenumname(typeinfo(eventkindty),
-                                                         ord(info.eventkind)));
+ track(sender,'<clientmouseevent '+getenumname(typeinfo(eventkindty),
+                                              ord(info.eventkind))+'>');
 end;
 
 procedure tassistivemonitor.track(const sender: iassistiveclient;
@@ -72,10 +72,10 @@ var
  mstr1: msestring;
  inst1: tobject;               
 begin
- mstr1:= '';
+ mstr1:= '<'+sender.getassistivename+'> ';
  inst1:= sender.getinstance();
  if inst1 is tcomponent then begin
-  mstr1:= tcomponent(inst1).name+' ';
+  mstr1:= mstr1+tcomponent(inst1).name+' ';
  end;
  fgrid.appendrow(mstr1+atext);
  fgrid.showlastrow();
