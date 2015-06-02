@@ -41,7 +41,7 @@ object mainfo: tmainfo
     bounds_cx = 82
     bounds_cy = 20
     state = [as_localcaption]
-    caption = 'button1'
+    caption = 'button&1'
   end
   object tbutton2: tbutton
     taborder = 1
@@ -49,8 +49,9 @@ object mainfo: tmainfo
     bounds_y = 16
     bounds_cx = 82
     bounds_cy = 20
-    state = [as_localcaption]
-    caption = 'button2'
+    state = [as_default, as_localdefault, as_localcaption, as_localonexecute]
+    caption = 'button&2'
+    onexecute = exe
   end
   object tstringedit1: tstringedit
     frame.caption = 'stringedit1'
