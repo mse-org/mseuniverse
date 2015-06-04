@@ -33,7 +33,7 @@ var
  bmp1: tmaskedbitmap;
 begin
  flist1:= tfiledatalist.create;
- bmp1:= tmaskedbitmap.create(false);
+ bmp1:= tmaskedbitmap.create(bmk_rgb);
  application.beginwait;
  try
   flist1.adddirectory(avalue,fil_name,graphicfilemasks,[fa_all],[],

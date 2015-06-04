@@ -1,68 +1,55 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 291
   bounds_y = 242
   bounds_cx = 403
   bounds_cy = 280
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 0
-  container.bounds_cx = 403
-  container.bounds_cy = 280
-  container.frame.dummy = 0
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
   optionswindow = [wo_groupleader]
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   statfile = tstatfile1
   caption = 'Simple StringGrid Example'
   moduleclassname = 'tmseform'
   object tgroupbox2: tgroupbox
-    bounds_x = 128
-    bounds_y = 2
-    bounds_cx = 266
-    bounds_cy = 112
-    bounds_cxmin = 266
     frame.caption = 'Grid Text'
     frame.captiondist = -10
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    frame.dummy = 0
-    frame.outerframe = (
-      0
-      6
-      0
-      0
-    )
-    anchors = [an_left, an_top, an_right]
+    frame.localprops1 = [frl1_captiondist]
     taborder = 1
+    bounds_x = 128
+    bounds_y = 8
+    bounds_cx = 266
+    bounds_cy = 106
+    bounds_cxmin = 266
+    anchors = [an_left, an_top, an_right]
     object coled: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 8
-      bounds_y = 22
-      bounds_cx = 50
-      bounds_cy = 20
       frame.caption = 'Col'
       frame.captionpos = cp_right
       frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
         0
         0
         22
         0
       )
+      bounds_x = 8
+      bounds_y = 16
+      bounds_cx = 50
       statfile = tstatfile1
       reffontheight = 14
     end
     object rowed: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 72
-      bounds_y = 22
-      bounds_cx = 56
-      bounds_cy = 20
       frame.caption = 'Row'
       frame.captionpos = cp_right
       frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
         0
         0
@@ -70,102 +57,91 @@ object mainfo: tmainfo
         0
       )
       taborder = 1
+      bounds_x = 72
+      bounds_y = 16
+      bounds_cx = 56
       statfile = tstatfile1
       reffontheight = 14
     end
     object tstringedit1: tstringedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 8
-      bounds_y = 51
-      bounds_cx = 210
-      bounds_cy = 20
       frame.caption = 'Set Text'
       frame.captionpos = cp_right
       frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
         0
         0
-        46
+        54
         0
       )
-      anchors = [an_left, an_top, an_right]
       taborder = 2
+      bounds_x = 8
+      bounds_y = 45
+      bounds_cx = 218
+      anchors = [an_left, an_top, an_right]
       statfile = tstatfile1
       onsetvalue = settext
       reffontheight = 14
     end
     object tbutton4: tbutton
+      taborder = 3
       bounds_x = 184
-      bounds_y = 78
+      bounds_y = 72
       bounds_cx = 66
       bounds_cy = 22
       anchors = [an_top, an_right]
-      taborder = 3
       state = [as_localcaption, as_localonexecute]
       caption = 'Get Text'
       onexecute = button4_click
     end
     object textdi: tstringdisp
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 4
       bounds_x = 8
-      bounds_y = 80
+      bounds_y = 74
       bounds_cx = 164
       bounds_cy = 18
-      frame.dummy = 0
       anchors = [an_left, an_top, an_right]
-      taborder = 4
       reffontheight = 14
     end
   end
   object tgroupbox3: tgroupbox
-    bounds_x = 8
-    bounds_y = 2
-    bounds_cx = 106
-    bounds_cy = 112
     frame.caption = 'Grid Layout'
     frame.captiondist = -10
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    frame.dummy = 0
-    frame.outerframe = (
-      0
-      6
-      0
-      0
-    )
+    frame.localprops1 = [frl1_captiondist]
     taborder = 2
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 106
+    bounds_cy = 106
     object colsed: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 16
-      bounds_y = 30
-      bounds_cx = 57
-      bounds_cy = 20
       frame.caption = 'Cols'
       frame.captionpos = cp_right
       frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
         0
         0
         29
         0
       )
+      bounds_x = 16
+      bounds_y = 24
+      bounds_cx = 57
       statfile = tstatfile1
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
       onchange = layoutcha
       onsetvalue = colssetval
       value = 1
       reffontheight = 14
     end
     object rowsed: tintegeredit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 16
-      bounds_y = 70
-      bounds_cx = 63
-      bounds_cy = 20
       frame.caption = 'Rows'
       frame.captionpos = cp_right
       frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
         0
         0
@@ -173,8 +149,11 @@ object mainfo: tmainfo
         0
       )
       taborder = 1
+      bounds_x = 16
+      bounds_y = 64
+      bounds_cx = 63
       statfile = tstatfile1
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
       onchange = layoutcha
       onsetvalue = rowssetval
       value = 1
@@ -182,20 +161,21 @@ object mainfo: tmainfo
     end
   end
   object grid: tstringgrid
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.localprops1 = []
     bounds_x = 8
     bounds_y = 120
     bounds_cx = 386
     bounds_cy = 146
-    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    frame.dummy = 0
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
     datacols.items = <    
       item
         datalist.data = (
-          0
+          ''
         )
+        valuefalse = '0'
+        valuetrue = '1'
       end>
     fixcols.count = 1
     fixcols.items = <    
@@ -212,6 +192,7 @@ object mainfo: tmainfo
     rowcount = 1
     datarowheight = 16
     statfile = tstatfile1
+    statpriority = 1
     reffontheight = 14
   end
   object tstatfile1: tstatfile

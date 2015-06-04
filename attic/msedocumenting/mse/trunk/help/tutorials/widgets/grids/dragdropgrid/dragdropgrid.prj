@@ -17,6 +17,7 @@ order14=0
 order15=0
 order16=0
 order17=0
+order18=0
 [projectoptions]
 projectdir=/home/mse/packs/standard/git/mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/widgets/grids/dragdropgrid
 projectfilename=/home/mse/packs/standard/git/mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/widgets/grids/dragdropgrid/dragdropgrid.prj
@@ -208,9 +209,14 @@ newfoforms=11
  ${TEMPLATEDIR}default/report.mfm
  ${TEMPLATEDIR}default/pascform.mfm
  ${TEMPLATEDIR}default/inheritedform.mfm
+forcezorder=0
+stripmessageesc=0
 copymessages=0
 closemessages=1
 checkmethods=1
+colorerror=-1610612712
+colorwarning=-1610612717
+colornote=-1610612716
 usercolors=30
  0
  0
@@ -340,6 +346,7 @@ newinheritedforms=11
  0
  0
  -1
+uid=0
 sourcefilemasks=3
  "*.pas" "*.dpr" "*.lpr" "*.pp" "*.inc"
  "*.c" "*.cc" "*.h"
@@ -359,10 +366,12 @@ filemasks=3
 showgrid=1
 snaptogrid=1
 moveonfirstclick=1
+noformdesignerdocking=0
 gridsizex=8
 gridsizey=8
 autoindent=1
 blockindent=1
+linenumberson=0
 rightmarginon=1
 rightmarginchars=80
 scrollheight=0
@@ -387,6 +396,7 @@ debugcommand=${DEBUGGER}
 debugoptions=
 debugtarget=
 runcommand=
+xtermcommand=xterm -S${PTSN}/${PTSH}
 remoteconnection=
 uploadcommand=
 gdbprocessor=Auto
@@ -397,6 +407,7 @@ afterconnect=
 beforeload=
 afterload=
 beforerun=
+sourcebase=
 sourcedirs=4
  ${MSEDIR}lib/addon/*/
  ${MSELIBDIR}kernel/$TARGETOSDIR/
@@ -411,6 +422,7 @@ defineson=0
 stoponexception=0
 valuehints=1
 activateonbreak=1
+raiseonbreak=1
 showconsole=0
 externalconsole=0
 settty=1
@@ -420,6 +432,7 @@ startupbkpt=0
 startupbkpton=0
 gdbsimulator=0
 gdbserverstartonce=0
+gdbloadtimeout=
 gdbserverwait=0
 nogdbserverexit=0
 gdbservertty=0
@@ -491,24 +504,60 @@ cx=0
 cy=0
 [progparams]
 progparamhistory=0
+workdirparamhistory=0
 envvarons=0
+[edit]
+hintwidth=0
+hintheight=0
+finddtext=
+findhistory=0
+findoptions=1
+editpos=0
+sourcefiles=0
+relpaths=0
+ismoduletexts=0
+modules=0
+moduleoptions=0
+visiblemodules=0
+nomenumodules=0
+[sourcefo.tabwidget]
+tabsize=134
+firsttab=0
+index=-1
 [layout]
-windowlayout=535
+windowlayout=558
+ [mainfo.openform]
+ filenames=1
+  /home/mse/packs/standard/git/mseide-msegui/lib/common/dialogs/msefiledialogres.mfm
+ filehistory=6
+  /home/mse/packs/standard/git/mseide-msegui/lib/common/dialogs/msefiledialogres.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/guitemplates.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/sourceform.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/disassform.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/actionsmodule.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/main.mfm
+ filefilterindex=0
+ filefilter=*.mfm
+ filecolwidth=137
+ x=0
+ y=0
+ cx=0
+ cy=0
  [mainfo.projectfiledia]
  filenames=1
-  /home/mse/packs/standard/git/mseide-msegui/tools/i18n/mse_msei18n.prj
- lastdir=/home/mse/packs/standard/git/mseide-msegui/tools/i18n/
+  /home/mse/packs/standard/git/mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/widgets/grids/dragdropgrid/mse_dragdropgrid.prj
+ lastdir=/home/mse/packs/standard/git/mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/widgets/grids/dragdropgrid/
  filehistory=10
-  /home/mse/packs/standard/git/mseide-msegui/tools/i18n/mse_msei18n.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/msespice/mse_msespice.prj
-  /home/mse/proj/test3/test3.prj
+  /home/mse/packs/standard/git/mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/widgets/grids/dragdropgrid/mse_dragdropgrid.prj
+  /home/mse/packs/standard/git/mseuniverse/attic/msedocumenting/mse/trunk/help/tutorials/widgets/grids/dragdropgrid/dragdropgrid.prj
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/msegit/mse_msegit.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/msegit/msegit.prj
-  /home/mse/proj/msegui/testcase/ivankob/noparams7/noparams/noparms.prj
-  /home/mse/proj/msegui/testcase/liuzg/bug1/bug/fff.prj
-  /home/mse/packs/standard/git/mseuniverse/tools/msegit/passwordenter/msegitpw.prj
-  /home/mse/packs/standard/git/yellowpim/mse_pim.prj
+  /home/mse/packs/standard/git/mselang/mselang/mse_mselang.prj
+  /home/mse/proj/test3/test3.prj
+  /home/mse/packs/standard/git/mseuniverse/testcase/assistive/monitor/mse_assistivemonitor.prj
+  /home/mse/packs/standard/git/mselang/mselang/compiler/mse_mlc.prj
+  /home/mse/proj/msegui/testcase/mse/db/sqlite/manyrec/manyrec.prj
+  /home/mse/packs/standard/git/mselang/mselang/grammargen/mse_grammargen.prj
+  /home/mse/packs/standard/git/mselang/mselang/test.prj
  filefilterindex=0
  filefilter=*.prj
  filecolwidth=135
@@ -533,7 +582,7 @@ windowlayout=535
  useroptions=15488
  [mainfo]
  splitdir=0
- useroptions=127
+ useroptions=123
  stackedunder=mainfo.panel1
  parent=
  mdistate=0
@@ -547,9 +596,6 @@ windowlayout=535
  cy=74
  rcx=0
  rcy=0
- children=2
-  container,0,16,276,58
-  ,0,0,276,16
  wsize=0
  active=0
  visible=1
@@ -580,10 +626,10 @@ windowlayout=535
  ny=0
  ncx=0
  ncy=0
- x=37
- y=270
- cx=349
- cy=276
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -592,7 +638,7 @@ windowlayout=535
  [memoryfo]
  splitdir=0
  useroptions=16507
- stackedunder=findinfilefo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -619,7 +665,7 @@ windowlayout=535
  [disassfo]
  splitdir=0
  useroptions=16491
- stackedunder=watchpointsfo
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
@@ -638,7 +684,7 @@ windowlayout=535
  [findinfilefo]
  splitdir=0
  useroptions=16491
- stackedunder=symbolfo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -654,7 +700,7 @@ windowlayout=535
  [projecttreefo]
  splitdir=0
  useroptions=16491
- stackedunder=breakpointsfo
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -689,10 +735,10 @@ windowlayout=535
  ny=0
  ncx=0
  ncy=0
- x=407
- y=349
- cx=254
- cy=180
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -718,7 +764,6 @@ windowlayout=535
  visible=0
  [watchpointsfo.grid]
  propcolwidthref=352
- width0=16
  sortdescend0=0
  values1=1
   0
@@ -743,7 +788,7 @@ windowlayout=535
  [breakpointsfo]
  splitdir=0
  useroptions=16491
- stackedunder=watchfo
+ stackedunder=projecttreefo
  parent=
  mdistate=0
  nx=0
@@ -764,7 +809,7 @@ windowlayout=535
  [objectinspectorfo]
  splitdir=0
  useroptions=16491
- stackedunder=targetconsolefo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -788,8 +833,8 @@ windowlayout=535
  sortdescend1=0
  [symbolfo]
  splitdir=0
- useroptions=16511
- stackedunder=componentstorefo
+ useroptions=16507
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
@@ -802,14 +847,26 @@ windowlayout=535
  cy=137
  rcx=0
  rcy=0
- children=1
-  container,0,0,351,137
  wsize=0
  active=0
  visible=0
  [symbolfo.grid]
  propcolwidthref=222
- values0=0
+ values0=14
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
  width0=111
  sortdescend0=0
  width1=135
@@ -837,14 +894,12 @@ windowlayout=535
  propcolwidthref=105
  values0=0
  values0_ci=-1
- width0=13
  sortdescend0=0
  values1=0
  width1=152
  sortdescend1=0
  values3=0
  values3_ci=-1
- width3=12
  sortdescend3=0
  values4=0
  values4_ci=-1
@@ -872,8 +927,8 @@ windowlayout=535
  rcy=566
  [componentstorefo]
  splitdir=0
- useroptions=24675
- stackedunder=cpui386fo
+ useroptions=24699
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
@@ -967,7 +1022,7 @@ windowlayout=535
  x=0
  y=0
  cx=276
- cy=38
+ cy=22
  rcx=0
  rcy=0
  [sourcefo]
@@ -994,7 +1049,7 @@ windowlayout=535
  irqoff=0
  splitdir=0
  useroptions=16491
- stackedunder=projecttreefo
+ stackedunder=watchfo
  parent=
  mdistate=0
  nx=0
@@ -1029,20 +1084,7 @@ windowlayout=535
  wsize=0
  active=0
  visible=1
-[edit]
-hintwidth=0
-hintheight=0
+[targetconsole]
 finddtext=
 findhistory=0
 findoptions=1
-editpos=0
-sourcefiles=0
-relpaths=0
-ismoduletexts=0
-modules=0
-visiblemodules=0
-nomenumodules=0
-[sourcefo.tabwidget]
-tabsize=134
-firsttab=0
-index=-1

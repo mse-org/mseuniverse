@@ -4,7 +4,7 @@ interface
 uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msegrids,msestrings,
- msetypes,msedrag;
+ msetypes,msedrag,msedragglob;
 
 type
  tmainfo = class(tmainform)

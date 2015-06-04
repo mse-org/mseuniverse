@@ -36,7 +36,7 @@ uses
 
 procedure tmainfo.layoutcha(const sender: TObject);
 begin
- //set grid size before loading grid content fron statfile
+ //set grid size before loading grid content from statfile
  grid.datacols.count:= colsed.value;
  grid.rowcount:= rowsed.value;
 end;
