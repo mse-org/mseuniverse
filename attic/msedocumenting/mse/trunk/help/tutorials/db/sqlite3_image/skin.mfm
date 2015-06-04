@@ -1,11 +1,9 @@
 object skinmo: tskinmo
+  bounds_cx = 370
+  bounds_cy = 114
   left = 236
   top = 271
   moduleclassname = 'tmsedatamodule'
-  size = (
-    370
-    114
-  )
   object nullface: tfacecomp
     left = 272
     top = 16
@@ -13,8 +11,8 @@ object skinmo: tskinmo
   object fadecontainer: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -27,8 +25,8 @@ object skinmo: tskinmo
   object fadehorzconcave: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -42,8 +40,8 @@ object skinmo: tskinmo
   object fadevertconcave: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -76,7 +74,8 @@ object skinmo: tskinmo
     tabbar_vert_tab_face = fadevertkonvex
     tabbar_vertopo_face = fadehorzconcave
     tabbar_vertopo_tab_face = fadevertkonvex
-    toolbar_buttonface = fadehorzconvex
+    toolbar_horz_buttonface = fadehorzconvex
+    toolbar_vert_buttonface = fadevertkonvex
     mainmenu_face = fadevertconcave
     left = 24
     top = 72
@@ -84,8 +83,8 @@ object skinmo: tskinmo
   object fadehorzconvex: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (
@@ -98,8 +97,8 @@ object skinmo: tskinmo
   object fadevertkonvex: tfacecomp
     template.fade_pos.count = 2
     template.fade_pos.items = (
-       0.0000000000000000E+0000
-       1.0000000000000000E+0000
+      0
+      1
     )
     template.fade_color.count = 2
     template.fade_color.items = (

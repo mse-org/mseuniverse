@@ -4,6 +4,8 @@ object mainfo: tmainfo
   bounds_y = 239
   bounds_cx = 399
   bounds_cy = 263
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -16,6 +18,8 @@ object mainfo: tmainfo
   object tdbwidgetgrid1: tdbwidgetgrid
     frame.sbvert.buttonlength = 0
     frame.sbvert.pagesize = 0.28571428571429
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 1
     bounds_x = 8
     bounds_y = 40
@@ -84,6 +88,8 @@ object mainfo: tmainfo
     end
   end
   object tdbnavigator1: tdbnavigator
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 2
     bounds_x = 8
     bounds_y = 8
@@ -93,6 +99,8 @@ object mainfo: tmainfo
     dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
   end
   object dropdownedit: tdropdownlisteditlb
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 8
     bounds_y = 232
     anchors = [an_left, an_bottom]
@@ -120,17 +128,18 @@ object mainfo: tmainfo
   end
   object caseinsed: tbooleanedit
     frame.caption = 'case insensitive'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       1
-      92
+      103
       2
     )
     taborder = 3
     bounds_x = 120
     bounds_y = 235
-    bounds_cx = 105
+    bounds_cx = 116
     bounds_cy = 16
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
@@ -139,17 +148,18 @@ object mainfo: tmainfo
   object wordstarted: tbooleaneditradio
     Tag = 2
     frame.caption = 'wordstart'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       1
-      54
+      63
       2
     )
     taborder = 4
     bounds_x = 232
     bounds_y = 235
-    bounds_cx = 67
+    bounds_cx = 76
     bounds_cy = 16
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
@@ -159,17 +169,18 @@ object mainfo: tmainfo
   object wholeworded: tbooleaneditradio
     Tag = 1
     frame.caption = 'wholeword'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       1
-      63
+      69
       2
     )
     taborder = 5
     bounds_x = 304
     bounds_y = 235
-    bounds_cx = 76
+    bounds_cx = 82
     bounds_cy = 16
     anchors = [an_left, an_bottom]
     statfile = tstatfile1

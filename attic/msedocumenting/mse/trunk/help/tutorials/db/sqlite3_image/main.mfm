@@ -2,12 +2,14 @@ object mainfo: tmainfo
   optionswidget1 = [ow1_autowidth]
   bounds_x = 88
   bounds_y = 211
-  bounds_cx = 403
+  bounds_cx = 379
   bounds_cy = 442
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    403
+    379
     442
   )
   statfile = tstatfile1
@@ -15,9 +17,12 @@ object mainfo: tmainfo
   onasyncevent = asyncex
   moduleclassname = 'tmainform'
   object tdbwidgetgrid1: tdbwidgetgrid
+    frame.sbvert.pagesize = 0.5
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 227
-    bounds_cx = 403
+    bounds_cx = 379
     bounds_cy = 215
     anchors = [an_top, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -41,12 +46,12 @@ object mainfo: tmainfo
       end>
     datacols.count = 2
     datacols.items = <    
-      item
+      item[thumb]
         options = [co_nofocus, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'thumb'
       end    
-      item
-        width = 316
+      item[tdbstringedit1]
+        width = 292
         options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tdbstringedit1'
       end>
@@ -58,29 +63,29 @@ object mainfo: tmainfo
       optionswidget = [ow_destroywidgets]
       optionsskin = [osk_framebuttononly, osk_container]
       frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom, frl_colorclient]
+      frame.localprops1 = []
       taborder = 1
       visible = False
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 50
-      bitmap.options = [bmo_masked, bmo_colormask]
+      bitmap.options = [bmo_masked, bmo_graymask]
       bitmap.alignment = [al_xcentered, al_ycentered]
       datalink.datasource = dataso
       datalink.fieldname = 'thumb'
     end
     object tdbstringedit1: tdbstringedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.framei_left = 3
       frame.localprops = [frl_levelo, frl_fileft]
-      frame.dummy = 0
+      frame.localprops1 = []
       taborder = 2
       visible = False
       bounds_x = 51
       bounds_y = 0
-      bounds_cx = 316
+      bounds_cx = 292
       bounds_cy = 50
       textflags = [tf_ycentered, tf_wordbreak, tf_noselect]
       textflagsactive = [tf_ycentered, tf_wordbreak]
@@ -90,10 +95,11 @@ object mainfo: tmainfo
     end
   end
   object tsplitter1: tsplitter
+    color = -1879048189
     taborder = 1
     bounds_x = 0
     bounds_y = 224
-    bounds_cx = 403
+    bounds_cx = 379
     bounds_cy = 3
     anchors = [an_top]
     options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
@@ -105,20 +111,25 @@ object mainfo: tmainfo
     optionswidget1 = [ow1_autowidth]
     frame.leveli = 1
     frame.localprops = [frl_leveli]
+    frame.localprops1 = []
     taborder = 2
     bounds_x = 68
     bounds_y = 0
     bounds_cx = 222
     datasource = dataso
+    dialogbutton.imagenr = 17
+    dialogbutton.hint = 'Dialog'
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
   end
   object image: tdbdataimage
     frame.levelo = -1
     frame.leveli = 1
     frame.localprops = [frl_levelo, frl_leveli]
+    frame.localprops1 = []
     taborder = 3
     bounds_x = 0
     bounds_y = 24
-    bounds_cx = 403
+    bounds_cx = 379
     bounds_cy = 200
     anchors = [an_top]
     bitmap.alignment = [al_xcentered, al_ycentered]
@@ -126,7 +137,8 @@ object mainfo: tmainfo
     datalink.fieldname = 'image'
   end
   object tdbstringdisp1: tdbstringdisp
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 4
     bounds_x = 4
     bounds_y = 3
@@ -163,6 +175,7 @@ object mainfo: tmainfo
       item
         Name = '$PRIMARY_KEY$'
       end>
+    tablename = 'table1'
     database = conn
     AfterInsert = insertexe
     Transaction = trans
@@ -203,7 +216,7 @@ object mainfo: tmainfo
         item
           FieldName = 'pk'
           Index = 0
-          ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
         end      
         item
           DisplayWidth = 10
@@ -247,6 +260,7 @@ object mainfo: tmainfo
       item
         Name = '$PRIMARY_KEY$'
       end>
+    tablename = 'table1'
     database = conn
     Transaction = trans
     transactionwrite = writetrans
@@ -263,7 +277,7 @@ object mainfo: tmainfo
         Precision = -1
         Size = 0
       end>
-    controller.options = [dso_utf8, dso_autoapply, dso_refreshwaitcursor]
+    controller.options = [dso_utf8, dso_waitcursor, dso_autoapply]
     left = 8
     top = 152
   end
@@ -297,7 +311,7 @@ object mainfo: tmainfo
     top = 152
   end
   object pklink: tfieldparamlink
-    datafield = 'pk'
+    fieldname = 'pk'
     datasource = dataso
     destdataset = imagequery
     paramname = 'pkpar'
