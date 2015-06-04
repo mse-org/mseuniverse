@@ -85,4 +85,39 @@ object mainfo: tmainfo
     bounds_cy = 37
     reffontheight = 14
   end
+  object tbooleanedit1: tbooleanedit
+    frame.caption = 't&booleanedit1'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      91
+      2
+    )
+    taborder = 5
+    bounds_x = 232
+    bounds_y = 19
+    bounds_cx = 104
+    bounds_cy = 16
+  end
+  object tslider1: tslider
+    frame.caption = 'tslider1'
+    frame.captionpos = cp_topleft
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 232
+    bounds_y = 39
+    bounds_cx = 169
+    bounds_cy = 37
+    value = 0
+    scrollbar.face.localprops = []
+  end
 end

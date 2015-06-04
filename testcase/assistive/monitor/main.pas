@@ -3,10 +3,10 @@ unit main;
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- mseassistive,msegrids,msestrings,msesimplewidgets,msedataedits,mseedit,
- mseificomp,mseificompglob,mseifiglob,msestatfile,msestream,sysutils,
- mseact;
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mseassistive,
+ msegrids,msestrings,msesimplewidgets,msedataedits,mseedit,mseificomp,
+ mseificompglob,mseifiglob,msestatfile,msestream,sysutils,mseact,msegraphedits,
+ msescrollbar;
 
 type
  tassistivemonitor = class(tobject,iassistiveserver)
@@ -20,11 +20,12 @@ type
     //iassistiveserver
    procedure doenter(const sender: iassistiveclient);
    procedure clientmouseevent(const sender: iassistiveclient;
-                                           var info: mouseeventinfoty);
+                                           const info: mouseeventinfoty);
    procedure dofocuschanged(const oldwidget,newwidget: iassistiveclient);
    procedure dokeydown(const sender: iassistiveclient;
                                         const info: keyeventinfoty);
    procedure doactionexecute(const sender: tobject; const info: actioninfoty);
+   procedure dochange(const sender: iassistiveclient);
   public
    constructor create(const agrid: tstringgrid);
    destructor destroy(); override;
@@ -36,6 +37,8 @@ type
    tbutton2: tbutton;
    tstringedit1: tstringedit;
    tstringedit2: tstringedit;
+   tbooleanedit1: tbooleanedit;
+   tslider1: tslider;
    procedure createexe(const sender: TObject);
    procedure destroyexe(const sender: TObject);
    procedure exe(const sender: TObject);
@@ -111,7 +114,7 @@ begin
 end;
 
 procedure tassistivemonitor.clientmouseevent(const sender: iassistiveclient;
-               var info: mouseeventinfoty);
+               const info: mouseeventinfoty);
 begin
  track('<clientmouseevent '+getenumname(typeinfo(eventkindty),
                        ord(info.eventkind))+'>',sender,'');
@@ -139,6 +142,11 @@ procedure tassistivemonitor.doactionexecute(const sender: tobject;
                const info: actioninfoty);
 begin
  track('<doactionexecute>',sender,'');
+end;
+
+procedure tassistivemonitor.dochange(const sender: iassistiveclient);
+begin
+ track('<dochange>',sender,'');
 end;
 
 { tmainfo }
