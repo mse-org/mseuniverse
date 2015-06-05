@@ -22,7 +22,7 @@ type
    sdCommanSystem: tstringdisp;
    sdQuality: tstringdisp;
    procedure previewmodechanged(const sender: TObject);
-   procedure printernamecheck(const sender: tdataedit; const quiet: Boolean;
+   procedure printernamecheck(const sender: tcustomdataedit; const quiet: Boolean;
                    var accept: Boolean);
  end;
  
@@ -44,7 +44,7 @@ begin
 end;
 
 
-procedure tprintersetupformw32fo.printernamecheck(const sender: tdataedit;
+procedure tprintersetupformw32fo.printernamecheck(const sender: tcustomdataedit;
                const quiet: Boolean; var accept: Boolean);
 begin
  if not dmprint.queuenamecheck(seQueueName.editor.text) then accept:= false;

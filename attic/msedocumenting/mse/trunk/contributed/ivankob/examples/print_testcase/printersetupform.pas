@@ -24,7 +24,7 @@ type
    seQueueName: tstringedit;
    procedure nopreviewentered(const sender: TObject);
    procedure usepreviewentered(const sender: TObject);
-   procedure queuenamecheck(const sender: tdataedit; const quiet: Boolean;
+   procedure queuenamecheck(const sender: tcustomdataedit; const quiet: Boolean;
                    var accept: Boolean);
    procedure qualityinit(const sender: tcustomkeystringedit);
  end;
@@ -52,7 +52,7 @@ begin
   kseDialogProgram.enabled:= (sender as tbooleaneditradio).value;
 end;
 
-procedure tprintersetupfo.queuenamecheck(const sender: tdataedit;
+procedure tprintersetupfo.queuenamecheck(const sender: tcustomdataedit;
                const quiet: Boolean; var accept: Boolean);
 begin
  if not dmprint.queuenamecheck(seQueueName.editor.text) then accept:= false;

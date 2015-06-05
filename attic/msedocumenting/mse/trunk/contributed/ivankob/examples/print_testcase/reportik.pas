@@ -18,7 +18,7 @@ type
    treportpage1: treportpage;
    treppagenumdisp1: treppagenumdisp;
    trepprintdatedisp1: trepprintdatedisp;
-   procedure beforerender(const sender: TObject);
+   procedure beforerender(const sender: tcustomreport);
    procedure datarender(const sender: tcustomrecordband; var empty: Boolean);
    procedure footerrender(const sender: tcustomrecordband; var empty: Boolean);
  end;
@@ -37,7 +37,7 @@ uses
 var
  stuff_sum: double;
  
-procedure treportikre.beforerender(const sender: TObject);
+procedure treportikre.beforerender(const sender: tcustomreport);
 begin
  stuff_sum:= 0;
 end;

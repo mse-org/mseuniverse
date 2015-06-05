@@ -1,17 +1,18 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
+  frame.localprops = []
+  frame.localprops1 = []
   bounds_x = 50
   bounds_y = 87
-  bounds_cx = 395
-  bounds_cy = 290
-  frame.dummy = 0
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 0
-  container.bounds_cx = 395
-  container.bounds_cy = 290
-  container.frame.dummy = 0
+  bounds_cx = 401
+  bounds_cy = 302
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    401
+    302
+  )
   optionswindow = [wo_groupleader]
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   caption = 'SQLite3 data types testcase'
@@ -26,13 +27,10 @@ object mainfo: tmainfo
     modalresult = mr_canclose
   end
   object booleanedit: tdbbooleanedit
-    bounds_x = 52
-    bounds_y = 103
-    bounds_cx = 73
-    bounds_cy = 16
     frame.caption = 'BOOLEAN'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       60
       1
@@ -40,19 +38,19 @@ object mainfo: tmainfo
       2
     )
     taborder = 1
-    datafield = 'booleanf1'
-    datasource = ds
-    optionsdb = [oed_autopost]
+    bounds_x = 52
+    bounds_y = 103
+    bounds_cx = 73
+    bounds_cy = 16
+    datalink.datasource = ds
+    datalink.fieldname = 'booleanf1'
+    datalink.options = [oed_autopost]
   end
   object smallintedit: tdbintegeredit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 52
-    bounds_y = 80
-    bounds_cx = 160
-    bounds_cy = 20
     frame.caption = 'SMALLINT'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       60
       0
@@ -60,132 +58,134 @@ object mainfo: tmainfo
       0
     )
     taborder = 2
-    datafield = 'smallintf1'
-    datasource = ds
-    optionsdb = [oed_autopost]
+    bounds_x = 52
+    bounds_y = 80
+    bounds_cx = 160
+    datalink.datasource = ds
+    datalink.fieldname = 'smallintf1'
+    datalink.options = [oed_autopost]
     min = -32767
     max = 32767
     reffontheight = 14
   end
   object integeredit: tdbintegeredit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 56
-    bounds_y = 8
-    bounds_cx = 156
-    bounds_cy = 20
     frame.caption = 'INTEGER'
     frame.captionpos = cp_left
-    frame.dummy = 0
-    frame.outerframe = (
-      56
-      0
-      0
-      0
-    )
-    taborder = 3
-    datafield = 'integerf1'
-    datasource = ds
-    optionsdb = [oed_autopost]
-    min = -2147483647
-    reffontheight = 14
-  end
-  object largeintedit: tdbintegeredit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 50
-    bounds_y = 32
-    bounds_cx = 162
-    bounds_cy = 20
-    frame.caption = 'LARGEINT'
-    frame.captionpos = cp_left
-    frame.dummy = 0
-    frame.outerframe = (
-      62
-      0
-      0
-      0
-    )
-    taborder = 4
-    datafield = 'largeintf1'
-    datasource = ds
-    optionsdb = [oed_autopost]
-    min = -899999999
-    max = 899999999
-    reffontheight = 14
-  end
-  object numericedit: tdbrealedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 53
-    bounds_y = 160
-    bounds_cx = 159
-    bounds_cy = 20
-    frame.caption = 'NUMERIC'
-    frame.captionpos = cp_left
-    frame.dummy = 0
-    frame.outerframe = (
-      59
-      0
-      0
-      0
-    )
-    taborder = 5
-    datafield = 'numericf1'
-    datasource = ds
-    optionsdb = [oed_autopost]
-    reffontheight = 14
-    val =  1.2345678900000000E+0005
-  end
-  object realedit: tdbrealedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 17
-    bounds_y = 136
-    bounds_cx = 195
-    bounds_cy = 20
-    frame.caption = 'REALFLOATDBL'
-    frame.captionpos = cp_left
-    frame.dummy = 0
-    frame.outerframe = (
-      95
-      0
-      0
-      0
-    )
-    taborder = 6
-    datafield = 'realfloatdoublef1'
-    datasource = ds
-    optionsdb = [oed_autopost]
-    reffontheight = 14
-    val =  1.0000000000000000E+0038
-  end
-  object varcharedit: tdbstringedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 233
-    bounds_y = 8
-    bounds_cx = 155
-    bounds_cy = 20
-    frame.caption = 'VarCHAR'
-    frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       55
       0
       0
       0
     )
+    taborder = 3
+    bounds_x = 57
+    bounds_y = 8
+    bounds_cx = 155
+    datalink.datasource = ds
+    datalink.fieldname = 'integerf1'
+    datalink.options = [oed_autopost]
+    min = -2147483647
+    reffontheight = 14
+  end
+  object largeintedit: tdbintegeredit
+    frame.caption = 'LARGEINT'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      61
+      0
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 51
+    bounds_y = 32
+    bounds_cx = 161
+    datalink.datasource = ds
+    datalink.fieldname = 'largeintf1'
+    datalink.options = [oed_autopost]
+    min = -899999999
+    max = 899999999
+    reffontheight = 14
+  end
+  object numericedit: tdbrealedit
+    frame.caption = 'NUMERIC'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      58
+      0
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 54
+    bounds_y = 160
+    bounds_cx = 158
+    datalink.datasource = ds
+    datalink.fieldname = 'numericf1'
+    datalink.options = [oed_autopost]
+    min = -Inf
+    max = 1E+038
+    valuerange = 1
+    valuestart = 0
+    reffontheight = 14
+  end
+  object realedit: tdbrealedit
+    frame.caption = 'REALFLOATDBL'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      93
+      0
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 19
+    bounds_y = 136
+    bounds_cx = 193
+    datalink.datasource = ds
+    datalink.fieldname = 'realfloatdoublef1'
+    datalink.options = [oed_autopost]
+    min = -Inf
+    max = 1E+038
+    valuerange = 1
+    valuestart = 0
+    reffontheight = 14
+  end
+  object varcharedit: tdbstringedit
+    frame.caption = 'VarCHAR'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      57
+      0
+      0
+      0
+    )
     taborder = 7
-    datafield = 'vcharf1'
-    datasource = ds
-    optionsdb = [oed_autopost]
+    bounds_x = 231
+    bounds_y = 8
+    bounds_cx = 157
+    datalink.datasource = ds
+    datalink.fieldname = 'vcharf1'
+    datalink.options = [oed_autopost]
     reffontheight = 14
   end
   object textedit: tdbmemoedit
-    bounds_x = 256
-    bounds_y = 32
-    bounds_cx = 132
-    bounds_cy = 20
+    frame.sbhorz.pagesize = 1
+    frame.sbvert.pagesize = 1
     frame.caption = 'TEXT'
     frame.captionpos = cp_left
     frame.localprops = [frl_colorclient]
-    frame.dummy = 0
+    frame.localprops1 = []
     frame.outerframe = (
       32
       0
@@ -193,27 +193,27 @@ object mainfo: tmainfo
       0
     )
     taborder = 8
+    bounds_x = 256
+    bounds_y = 32
+    bounds_cx = 132
     textflags = [tf_wordbreak, tf_noselect]
     textflagsactive = [tf_wordbreak]
-    datafield = 'textf1'
-    datasource = ds
-    optionsdb = [oed_autopost]
+    datalink.datasource = ds
+    datalink.fieldname = 'textf1'
+    datalink.options = [oed_autopost]
+    reffontheight = 14
   end
   object blobdisplay: tdbdataimage
-    bounds_x = 221
-    bounds_y = 64
-    bounds_cx = 165
-    bounds_cy = 130
     frame.levelo = 1
     frame.leveli = -1
     frame.caption = 'BLOB'
     frame.captionpos = cp_left
-    frame.font.xscale =  1.0000000000000000E+0000
-    frame.font.dummy = 0
+    frame.font.xscale = 1
+    frame.font.localprops = [flp_xscale]
     frame.localprops = [frl_levelo, frl_leveli]
-    frame.dummy = 0
+    frame.localprops1 = []
     frame.outerframe = (
-      35
+      34
       0
       0
       0
@@ -472,131 +472,132 @@ object mainfo: tmainfo
       92929201C9C9C901E8E8E801F8F8F801F5F5F501D6D6D6019E9E9E0143434301
       000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000F9
     }
-    face.localprops = [fal_fatransparency]
-    face.dummy = 0
+    face.localprops = [fal_faopacity]
     taborder = 9
     hint = 'Use the right click menu'#10'to load/save/clear'#10'the image'
     popupmenu = blobpopup
     onpopup = popupdisplay
+    bounds_x = 222
+    bounds_y = 64
+    bounds_cx = 164
+    bounds_cy = 130
     bitmap.alignment = [al_xcentered, al_ycentered, al_fit]
-    datafield = 'blobf1'
-    datasource = ds
+    datalink.datasource = ds
+    datalink.fieldname = 'blobf1'
   end
   object timeedit: tdbdatetimeedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 82
-    bounds_y = 264
-    bounds_cx = 130
-    bounds_cy = 20
     frame.caption = 'TIME'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
-      30
+      31
       0
       0
       0
     )
     taborder = 10
-    datafield = 'timef1'
-    datasource = ds
-    optionsdb = [oed_autopost]
+    bounds_x = 81
+    bounds_y = 264
+    bounds_cx = 131
+    datalink.datasource = ds
+    datalink.fieldname = 'timef1'
+    datalink.options = [oed_autopost]
+    min = -Inf
+    max = 365000.99999
     kind = dtk_time
     reffontheight = 14
-    val =  8.2986111111111108E-0002
-    ma =  3.6500099998999998E+0005
   end
   object datetimeedit: tdbdatetimeedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 51
-    bounds_y = 216
-    bounds_cx = 193
-    bounds_cy = 20
     frame.caption = 'DATETIME'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
-      61
+      63
       0
       0
       0
     )
     taborder = 11
-    datafield = 'datetimef1'
-    datasource = ds
+    bounds_x = 49
+    bounds_y = 216
+    bounds_cx = 195
+    datalink.datasource = ds
+    datalink.fieldname = 'datetimef1'
+    min = -Inf
+    max = 365000.99999
     kind = dtk_datetime
     reffontheight = 14
-    val =  3.9173082986111112E+0004
-    ma =  3.6500099998999998E+0005
   end
   object dateedit: tdbdatetimeedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 78
-    bounds_y = 240
-    bounds_cx = 134
-    bounds_cy = 20
     frame.caption = 'DATE'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
-      34
+      35
       0
       0
       0
     )
     taborder = 12
-    datafield = 'datef1'
-    datasource = ds
-    optionsdb = [oed_autopost]
+    bounds_x = 77
+    bounds_y = 240
+    bounds_cx = 135
+    datalink.datasource = ds
+    datalink.fieldname = 'datef1'
+    datalink.options = [oed_autopost]
+    min = -Inf
+    max = 365000.99999
     reffontheight = 14
-    val =  3.9173000000000000E+0004
-    ma =  3.6500099998999998E+0005
   end
   object wordedit: tdbintegeredit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 71
-    bounds_y = 56
-    bounds_cx = 142
-    bounds_cy = 20
     frame.caption = 'WORD'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
-      41
+      40
       0
       0
       0
     )
     taborder = 13
-    datafield = 'wordf1'
-    datasource = ds
-    optionsdb = [oed_autopost]
+    bounds_x = 72
+    bounds_y = 56
+    bounds_cx = 141
+    datalink.datasource = ds
+    datalink.fieldname = 'wordf1'
+    datalink.options = [oed_autopost]
     max = 65535
     reffontheight = 14
   end
   object currencyedit: tdbrealedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 40
-    bounds_y = 184
-    bounds_cx = 204
-    bounds_cy = 20
     frame.caption = 'CURRENCY'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
-      72
+      68
       0
       0
       0
     )
     taborder = 14
-    datafield = 'currencyf1'
-    datasource = ds
-    optionsdb = [oed_autopost]
+    bounds_x = 44
+    bounds_y = 184
+    bounds_cx = 200
+    datalink.datasource = ds
+    datalink.fieldname = 'currencyf1'
+    datalink.options = [oed_autopost]
+    min = -Inf
+    max = 1E+038
     formatedit = '0.##'
     formatdisp = '0.##'
+    valuerange = 1
+    valuestart = 0
     reffontheight = 14
-    val =  9.8765432100123463E+0009
   end
   object conn: tsqlite3connection
     Connected = True
@@ -612,6 +613,7 @@ object mainfo: tmainfo
     top = 256
   end
   object qry: tmsesqlquery
+    Active = True
     params = <>
     SQL.data = (
       'select * from datatypes_test;'
@@ -635,94 +637,94 @@ object mainfo: tmainfo
       ';'
     )
     IndexDefs = <>
+    tablename = 'datatypes_test'
     StatementType = stSelect
     database = conn
-    Active = True
     Transaction = trans
     FieldDefs = <    
       item
         Name = 'integerf1'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'largeintf1'
         DataType = ftLargeint
         Precision = -1
-        Size = 8
+        Size = 0
       end    
       item
         Name = 'wordf1'
         DataType = ftWord
         Precision = -1
-        Size = 2
+        Size = 0
       end    
       item
         Name = 'smallintf1'
         DataType = ftSmallint
         Precision = -1
-        Size = 2
+        Size = 0
       end    
       item
         Name = 'booleanf1'
         DataType = ftBoolean
         Precision = -1
-        Size = 2
+        Size = 0
       end    
       item
         Name = 'realfloatdoublef1'
         DataType = ftFloat
         Precision = -1
-        Size = 8
+        Size = 0
       end    
       item
         Name = 'datetimef1'
         DataType = ftDateTime
         Precision = -1
-        Size = 8
+        Size = 0
       end    
       item
         Name = 'datef1'
         DataType = ftDate
         Precision = -1
-        Size = 8
+        Size = 0
       end    
       item
         Name = 'timef1'
         DataType = ftTime
         Precision = -1
-        Size = 8
+        Size = 0
       end    
       item
         Name = 'numericf1'
         DataType = ftBCD
-        Precision = -1
-        Size = 8
+        Precision = 18
+        Size = 4
       end    
       item
         Name = 'currencyf1'
         DataType = ftCurrency
         Precision = -1
-        Size = 8
+        Size = 0
       end    
       item
         Name = 'vcharf1'
         DataType = ftString
         Precision = -1
-        Size = 255
+        Size = 0
       end    
       item
         Name = 'textf1'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'blobf1'
         DataType = ftBlob
         Precision = -1
-        Size = 4
+        Size = 0
       end>
     controller.fields.count = 13
     controller.fields.fields = (
@@ -743,25 +745,18 @@ object mainfo: tmainfo
       )
       <      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'integerf1'
+          Index = 0
         end      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'largeintf1'
           Index = 1
         end      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'wordf1'
           Index = 2
         end      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'smallintf1'
           Index = 3
         end      
@@ -772,53 +767,51 @@ object mainfo: tmainfo
           displayvalues = 'True;False'
         end      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'realfloatdoublef1'
           Index = 5
+          MaxValue = 0
+          MinValue = 0
           Precision = -1
         end      
         item
-          DisplayWidth = 10
           FieldName = 'datetimef1'
           Index = 6
         end      
         item
-          DisplayWidth = 10
           FieldName = 'datef1'
           Index = 7
         end      
         item
-          DisplayWidth = 10
           FieldName = 'timef1'
           Index = 8
         end      
         item
-          AlignMent = taRightJustify
           DisplayWidth = 15
           FieldName = 'numericf1'
           Index = 9
-          Precision = 15
+          MaxValue = 0
+          MinValue = 0
           Size = 8
         end      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'currencyf1'
           Index = 10
+          Currency = True
+          MaxValue = 0
+          MinValue = 0
           Precision = -1
         end      
         item
           DisplayWidth = 255
           FieldName = 'vcharf1'
           Index = 11
-          Size = 255
+          Size = 0
         end      
         item
           DisplayWidth = 10
           FieldName = 'textf1'
           Index = 12
-          Size = 4
+          BlobType = ftBlob
           Transliterate = False
         end>
     )
@@ -829,7 +822,7 @@ object mainfo: tmainfo
       DisplayWidth = 10
       FieldName = 'blobf1'
       Index = 13
-      Size = 4
+      BlobType = ftBlob
       imagecachekb = 1000
       left = 200
       top = 96
@@ -868,7 +861,6 @@ object mainfo: tmainfo
     controller.options = [fdo_file, fdo_checkexist, fdo_savelastdir]
     controller.captionopen = 'Open JPG-file'
     controller.captionsave = 'Save JPG-file'
-    dialogkind = fdk_none
     left = 299
     top = 216
   end

@@ -26,7 +26,7 @@ var
 implementation
 
 uses
- dmprint_mfm,
+ dmprint_mfm,msearrayutils,
  sysutils, // inttostr
  msewidgets, // showmessage
  mseprocutils, // activateprocesswindow, execmse*
@@ -202,7 +202,7 @@ begin
  if print_cmd <> '' then begin // if(1)
 
   if usegui then begin // if(2)
-   print_ph:= execmse2(print_cmd,nil,nil,nil,false,-1,false);
+   print_ph:= execmse2(print_cmd);
    activateprocesswindow(print_ph);
     waitforprocess(print_ph); // GUI : don't autocomplete
    result:= 0; // GUI : always OK

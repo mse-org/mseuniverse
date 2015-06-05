@@ -1,67 +1,66 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 27
   bounds_y = 149
   bounds_cx = 682
   bounds_cy = 433
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 28
-  container.bounds_cx = 682
-  container.bounds_cy = 405
-  container.frame.dummy = 0
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    28
+    682
+    405
+  )
   optionswindow = [wo_groupleader]
   mainmenu = mnuMain
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   caption = 'Testcase project for TReport/TMemDataSet'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
+    frame.colorclient = 15132415
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = ftButtons
     bounds_x = 231
     bounds_y = 355
     bounds_cx = 106
     bounds_cy = 49
-    frame.colorclient = 15132415
-    frame.localprops = [frl_colorclient]
-    frame.template = ftButtons
-    frame.dummy = 0
     anchors = [an_left, an_bottom]
     state = [as_localcaption, as_localonexecute]
     caption = 'Show report'#13'(all records)'
     onexecute = reportexec
   end
   object tbutton2: tbutton
+    frame.colorclient = -1610612733
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = ftButtons
+    taborder = 1
     bounds_x = 624
     bounds_y = 371
     bounds_cx = 56
     bounds_cy = 33
-    frame.colorclient = -1610612733
-    frame.localprops = [frl_colorclient]
-    frame.template = ftButtons
-    frame.dummy = 0
     anchors = [an_right, an_bottom]
-    taborder = 1
     state = [as_localcaption]
     caption = 'Exit'
     font.color = -1610612730
     font.name = 'stf_default'
-    font.xscale =  1.0000000000000000E+0000
-    font.dummy = 0
+    font.xscale = 1
+    font.localprops = [flp_color, flp_xscale]
     modalresult = mr_canclose
   end
   object wgrdMain: tdbwidgetgrid
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
+    frame.colorclient = -1610612733
+    frame.sbvert.pagesize = 0.5
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    taborder = 2
+    hint = 'Ctrl+Ins - inserts new record,'#10'Ctrl+Del - deletes record'
     bounds_x = 0
     bounds_y = 2
     bounds_cx = 682
     bounds_cy = 348
-    frame.colorclient = -1610612733
-    frame.localprops = [frl_colorclient]
-    frame.dummy = 0
     anchors = [an_top, an_bottom]
-    taborder = 2
-    hint = 'Ctrl+Ins - inserts new record,'#10'Ctrl+Del - deletes record'
-    datasource = ds
     optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
@@ -77,7 +76,7 @@ object mainfo: tmainfo
         color = 12643264
         frame.leveli = -1
         frame.localprops = [frl_leveli]
-        frame.dummy = 0
+        frame.localprops1 = []
         height = 30
         captions.count = 3
         captions.items = <        
@@ -99,225 +98,230 @@ object mainfo: tmainfo
         font.extraspace = -7
         font.style = [fs_bold]
         font.name = 'stf_default'
-        font.xscale =  1.0000000000000000E+0000
-        font.dummy = 0
+        font.xscale = 1
+        font.localprops = [flp_style, flp_xscale]
       end>
     datacols.count = 3
+    datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item
+      item[tdbmemoedit1]
         frame.leveli = -2
         frame.framei_left = 3
         frame.localprops = [frl_leveli, frl_fileft]
-        frame.dummy = 0
+        frame.localprops1 = []
         face.fade_pos.count = 2
         face.fade_pos.items = (
-           0.0000000000000000E+0000
-           1.0000000000000000E+0000
+          0
+          1
         )
         face.fade_color.count = 2
         face.fade_color.items = (
           16764159
           -1610612712
         )
-        face.localprops = [fal_fatransparency]
-        face.dummy = 0
+        face.localprops = [fal_faopacity]
         width = 445
-        options = [co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tdbmemoedit1'
       end    
-      item
+      item[tdbrealedit1]
         frame.leveli = -2
         frame.framei_right = 3
         frame.localprops = [frl_leveli, frl_firight]
-        frame.dummy = 0
+        frame.localprops1 = []
         face.fade_pos.count = 2
         face.fade_pos.items = (
-           0.0000000000000000E+0000
-           1.0000000000000000E+0000
+          0
+          1
         )
         face.fade_color.count = 2
         face.fade_color.items = (
           -1610612712
           13238271
         )
-        face.localprops = [fal_fatransparency]
-        face.dummy = 0
+        face.localprops = [fal_faopacity]
         width = 109
-        options = [co_proportional, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tdbrealedit1'
       end    
-      item
+      item[tdbdataimage1]
         frame.leveli = -1
         frame.framewidth = 2
         frame.colorframe = -1610612715
         frame.localprops = [frl_leveli, frl_framewidth, frl_colorframe]
-        frame.dummy = 0
+        frame.localprops1 = []
         face.fade_pos.count = 2
         face.fade_pos.items = (
-           0.0000000000000000E+0000
-           1.0000000000000000E+0000
+          0
+          1
         )
         face.fade_color.count = 2
         face.fade_color.items = (
           14606079
           16764879
         )
-        face.localprops = [fal_fatransparency]
-        face.dummy = 0
+        face.localprops = [fal_faopacity]
         width = 77
+        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'tdbdataimage1'
       end>
     datalink.options = [gdo_propscrollbar, gdo_thumbtrack]
+    datalink.datasource = ds
     datarowheight = 74
     reffontheight = 14
     object tdbmemoedit1: tdbmemoedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
-      bounds_x = 0
-      bounds_y = 0
-      bounds_cx = 445
-      bounds_cy = 74
       color = -1879048186
       frame.levelo = 0
+      frame.sbhorz.pagesize = 1
       frame.sbvert.options = [sbo_thumbtrack, sbo_show]
       frame.sbvert.width = 12
       frame.sbvert.buttonlength = 7
       frame.sbvert.buttonminlength = 5
-      frame.sbvert.faceendbutton.localprops = [fal_fatransparency]
-      frame.sbvert.faceendbutton.dummy = 0
+      frame.sbvert.faceendbutton.localprops = [fal_faopacity]
       frame.sbvert.color = 12549758
+      frame.sbvert.pagesize = 0.73469387755102
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       taborder = 1
       visible = False
-      optionsedit = [oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_resetselectonexit, oe_endonenter, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      font.xscale =  1.0000000000000000E+0000
-      font.dummy = 0
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 445
+      bounds_cy = 74
+      optionsedit1 = [oe1_multiline, oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_resetselectonexit, oe_endonenter]
+      font.xscale = 1
+      font.localprops = [flp_xscale]
       textflags = [tf_wordbreak, tf_noselect]
       textflagsactive = [tf_wordbreak]
-      datafield = 'fldMemo'
-      datasource = ds
-      optionsdb = [oed_autopost]
+      datalink.datasource = ds
+      datalink.fieldname = 'fldMemo'
+      datalink.options = [oed_autopost]
+      reffontheight = 14
     end
     object tdbrealedit1: tdbrealedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
-      bounds_x = 446
-      bounds_y = 0
-      bounds_cx = 109
-      bounds_cy = 74
       color = -1879048186
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_firight, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       taborder = 2
       visible = False
-      datafield = 'fldFloat'
-      datasource = ds
-      optionsdb = [oed_autopost]
+      bounds_x = 446
+      bounds_y = 0
+      bounds_cx = 109
+      bounds_cy = 74
+      datalink.datasource = ds
+      datalink.fieldname = 'fldFloat'
+      datalink.options = [oed_autopost]
+      min = -Inf
+      max = 1E+038
       formatedit = '0.00'
       formatdisp = '0.00'
+      valuerange = 1
+      valuestart = 0
       reffontheight = 14
-      val =  9.9909999999999997E+0001
     end
     object tdbdataimage1: tdbdataimage
-      bounds_x = 556
-      bounds_y = 0
-      bounds_cx = 77
-      bounds_cy = 74
       color = -1879048186
       frame.framewidth = 2
       frame.colorframe = -1610612729
       frame.localprops = [frl_leveli, frl_framewidth, frl_colorframe, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       taborder = 3
       popupmenu = pmPhoto
       visible = False
+      bounds_x = 556
+      bounds_y = 0
+      bounds_cx = 77
+      bounds_cy = 74
       bitmap.alignment = [al_xcentered, al_ycentered, al_fit]
-      datafield = 'fldBlob'
-      datasource = ds
+      datalink.datasource = ds
+      datalink.fieldname = 'fldBlob'
     end
   end
   object tgroupbox1: tgroupbox
-    bounds_x = 0
-    bounds_y = 356
-    bounds_cx = 197
-    bounds_cy = 48
     frame.colorclient = 16777177
     frame.localprops = [frl_colorclient]
-    frame.dummy = 0
-    anchors = [an_left, an_bottom]
+    frame.localprops1 = []
     taborder = 3
+    bounds_x = 0
+    bounds_y = 356
+    bounds_cx = 228
+    bounds_cy = 48
+    anchors = [an_left, an_bottom]
     optionsscale = [osc_expandx]
     object tlabel2: tlabel
-      bounds_x = 8
-      bounds_y = 8
-      bounds_cx = 158
-      bounds_cy = 16
       color = -2147483645
       frame.colorclient = -2147483647
       frame.caption = 'Ctrl + Ins:'
       frame.captionpos = cp_left
       frame.font.style = [fs_bold]
       frame.font.name = 'stf_default'
-      frame.font.xscale =  1.0000000000000000E+0000
-      frame.font.dummy = 0
+      frame.font.xscale = 1
+      frame.font.localprops = [flp_style, flp_xscale]
       frame.localprops = [frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        56
+        72
         1
         0
         1
       )
+      bounds_x = 8
+      bounds_y = 8
+      bounds_cx = 189
+      bounds_cy = 16
       caption = 'inserts new record'
       reffontheight = 14
     end
     object tlabel3: tlabel
-      bounds_x = 8
-      bounds_y = 28
-      bounds_cx = 177
-      bounds_cy = 16
       color = -2147483645
       frame.caption = 'Ctrl + Del:'
       frame.captionpos = cp_left
       frame.font.style = [fs_bold]
       frame.font.name = 'stf_default'
-      frame.font.xscale =  1.0000000000000000E+0000
-      frame.font.dummy = 0
-      frame.dummy = 0
+      frame.font.xscale = 1
+      frame.font.localprops = [flp_style, flp_xscale]
+      frame.localprops = []
+      frame.localprops1 = []
       frame.outerframe = (
-        57
+        74
         1
         0
         1
       )
       taborder = 1
+      bounds_x = 8
+      bounds_y = 28
+      bounds_cx = 216
+      bounds_cy = 16
       caption = 'deletes current record'
       reffontheight = 14
     end
   end
   object tbutton3: tbutton
+    frame.colorclient = 15132415
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = ftButtons
+    taborder = 4
     bounds_x = 362
     bounds_y = 355
     bounds_cx = 100
     bounds_cy = 49
-    frame.colorclient = 15132415
-    frame.localprops = [frl_colorclient]
-    frame.template = ftButtons
-    frame.dummy = 0
     anchors = [an_left, an_bottom]
-    taborder = 4
     state = [as_localcaption, as_localonexecute]
     caption = 'Show report'#13'(current record)'
     onexecute = reportcurrexec
   end
   object tspacer2: tspacer
+    taborder = 5
     bounds_x = 337
     bounds_y = 360
     bounds_cx = 25
     bounds_cy = 42
-    taborder = 5
     linkleft = tbutton1
     linkright = tbutton3
   end
@@ -373,23 +377,27 @@ object mainfo: tmainfo
   end
   object qry: tmsesqlquery
     logfilename = './data.bin'
+    Active = True
     params = <>
     IndexDefs = <>
-    Active = True
     FieldDefs = <    
       item
         Name = 'fldMemo'
         DataType = ftMemo
-        Size = 8
+        Precision = 0
+        Size = 0
       end    
       item
         Name = 'fldFloat'
         DataType = ftFloat
+        Precision = 0
+        Size = 0
       end    
       item
         Name = 'fldBlob'
         DataType = ftBlob
-        Size = 8
+        Precision = 0
+        Size = 0
       end>
     controller.options = [dso_autoapply, dso_local]
     left = 36
@@ -397,7 +405,8 @@ object mainfo: tmainfo
     object fldLongText: tmsememofield
       DisplayWidth = 10
       FieldName = 'fldMemo'
-      Size = 8
+      Index = 0
+      BlobType = ftBlob
       Transliterate = False
       left = 80
       top = 112
@@ -406,18 +415,18 @@ object mainfo: tmainfo
       DisplayWidth = 10
       FieldName = 'fldBlob'
       Index = 1
-      Size = 8
+      BlobType = ftBlob
       imagecachekb = 10000
       left = 576
       top = 112
     end
     object fldFloatStuff: tmsefloatfield
-      AlignMent = taRightJustify
-      DisplayWidth = 10
       FieldName = 'fldFloat'
       Index = 2
       DisplayFormat = '0.##'
       EditFormat = '0.##'
+      MaxValue = 0
+      MinValue = 0
       left = 408
       top = 112
     end
@@ -461,7 +470,7 @@ object mainfo: tmainfo
   object ilActions: timagelist
     width = 30
     height = 24
-    colormask = True
+    options = [bmo_masked, bmo_colormask]
     count = 3
     left = 536
     top = 184
@@ -744,7 +753,6 @@ object mainfo: tmainfo
     controller.options = [fdo_file, fdo_checkexist, fdo_savelastdir]
     controller.captionopen = 'Image file to load from'
     controller.captionsave = 'Image file to save to'
-    dialogkind = fdk_none
     left = 536
     top = 136
   end
