@@ -107,7 +107,7 @@ object mainfo: tmainfo
     statfile = tstatfile1
     dropdown.lookupbuffer = lb
     dropdown.optionslb = [olb_copyitems]
-    dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_livefilter, deo_colsizing, deo_savestate]
+    dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_livefilter, deo_customfilter, deo_colsizing, deo_savestate]
     dropdown.cols.count = 2
     dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
     dropdown.cols.items = <    
