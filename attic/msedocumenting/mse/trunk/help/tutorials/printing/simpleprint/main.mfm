@@ -1,16 +1,16 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 291
   bounds_y = 247
   bounds_cx = 403
   bounds_cy = 280
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 0
-  container.bounds_cx = 403
-  container.bounds_cy = 280
-  container.frame.dummy = 0
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
   optionswindow = [wo_groupleader]
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   moduleclassname = 'tmseform'
@@ -20,21 +20,19 @@ object mainfo: tmainfo
     bounds_cx = 50
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
-    autosize_cx = 0
-    autosize_cy = 0
     caption = 'Print'
     onexecute = printex
   end
   object printer: tpostscriptprinter
     canvas.font.color = -1610612734
-    canvas.font.xscale =  1.0000000000000000E+0000
-    canvas.font.dummy = 0
-    canvas.ppmm =  1.0000000000000000E+0001
-    pa_width =  2.1000000000000000E+0002
-    pa_height =  2.9700000000000000E+0002
+    canvas.font.height = 40
+    canvas.font.xscale = 1
+    canvas.font.localprops = [flp_color, flp_xscale]
+    canvas.ppmm = 10
+    pa_width = 210
+    pa_height = 297
     pa_size = sps_a4
-    pa_orientation = pao_portrait
-    tabulators.defaultdist =  0.0000000000000000E+0000
+    tabulators.defaultdist = 0
     left = 192
     top = 40
   end

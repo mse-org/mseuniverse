@@ -49,7 +49,6 @@ object occupationseditfo: toccupationseditfo
       taborder = 2
     end
     inherited lblChangedLegend: tlabel
-      taborder = 1
     end
     inherited actSaveAll: taction
     end
@@ -67,9 +66,10 @@ object occupationseditfo: toccupationseditfo
       frame.sbvert.pagesize = 0.5
       frame.localprops = []
       frame.localprops1 = []
+      taborder = 1
       bounds_x = 8
       bounds_y = 8
-      bounds_cx = 377
+      bounds_cx = 385
       bounds_cy = 218
       anchors = [an_left, an_top, an_right]
       fixcols.count = 1
@@ -107,7 +107,7 @@ object occupationseditfo: toccupationseditfo
           frame.framei_left = 10
           frame.localprops = [frl_fileft]
           frame.localprops1 = []
-          width = 327
+          width = 335
           options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
           widgetname = 'seOccupation'
         end>
@@ -125,7 +125,7 @@ object occupationseditfo: toccupationseditfo
         visible = False
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 327
+        bounds_cx = 335
         bounds_cy = 16
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
         datalink.datasource = refsdatamo.dsOccupations

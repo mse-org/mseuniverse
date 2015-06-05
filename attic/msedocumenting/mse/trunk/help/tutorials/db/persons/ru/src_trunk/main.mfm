@@ -32,6 +32,7 @@ object mainfo: tmainfo
     optionsgrid = [og_colsizing, og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_autopopup]
     datacols.count = 7
     datacols.colorselect = -1610612713
+    datacols.options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.optionsedit = [scoe_undoonesc, scoe_eatreturn, scoe_autoselect, scoe_autoselectonfirstclick, scoe_caretonreadonly]
     datacols.items = <    
       item
@@ -40,6 +41,7 @@ object mainfo: tmainfo
         frame.localprops1 = []
         colorselect = -1610612713
         width = 133
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         onshowhint = shownamehint
         datafield = 'descr'
       end    
@@ -49,6 +51,7 @@ object mainfo: tmainfo
         frame.localprops1 = []
         colorselect = -1610612713
         width = 101
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         datafield = 'country'
       end    
       item
@@ -57,6 +60,7 @@ object mainfo: tmainfo
         frame.localprops1 = []
         colorselect = -1610612713
         width = 89
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         datafield = 'occupation'
       end    
       item
@@ -65,6 +69,7 @@ object mainfo: tmainfo
         frame.localprops1 = []
         colorselect = -1610612713
         width = 94
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         datafield = 'feature'
       end    
       item
@@ -73,18 +78,21 @@ object mainfo: tmainfo
         frame.localprops1 = []
         colorselect = -1610612713
         width = 70
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         datafield = 'sexual_potention'
         textflags = [tf_right, tf_ycentered, tf_noselect]
       end    
       item
         colorselect = -1610612713
         width = 89
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         datafield = 'dateofbirth'
         textflags = [tf_xcentered, tf_ycentered, tf_noselect]
       end    
       item
         colorselect = -1610612713
         width = 53
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
         datafield = 'if_happy'
         textflags = [tf_xcentered, tf_ycentered, tf_noselect]
       end>
@@ -539,7 +547,7 @@ object mainfo: tmainfo
     top = 290
     sc = (
       1
-      20486
+      16646
     )
   end
   object actDelete: taction

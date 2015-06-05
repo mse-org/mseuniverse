@@ -49,7 +49,6 @@ object continentseditfo: tcontinentseditfo
       taborder = 2
     end
     inherited lblChangedLegend: tlabel
-      taborder = 1
     end
     inherited actSaveAll: taction
     end
@@ -67,9 +66,10 @@ object continentseditfo: tcontinentseditfo
       frame.sbvert.pagesize = 0.5
       frame.localprops = []
       frame.localprops1 = []
+      taborder = 1
       bounds_x = 8
       bounds_y = 8
-      bounds_cx = 378
+      bounds_cx = 386
       bounds_cy = 218
       anchors = [an_left, an_top, an_right]
       fixcols.count = 1
@@ -110,7 +110,7 @@ object continentseditfo: tcontinentseditfo
           frame.framei_left = 10
           frame.localprops = [frl_fileft]
           frame.localprops1 = []
-          width = 171
+          width = 175
           options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
           widgetname = 'seContinent'
         end      
@@ -118,7 +118,7 @@ object continentseditfo: tcontinentseditfo
           frame.framei_left = 10
           frame.localprops = [frl_fileft]
           frame.localprops1 = []
-          width = 154
+          width = 158
           options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
           widgetname = 'lbnePlanet'
         end>
@@ -136,7 +136,7 @@ object continentseditfo: tcontinentseditfo
         visible = False
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 171
+        bounds_cx = 175
         bounds_cy = 16
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
         datalink.datasource = refsdatamo.dsContinents
@@ -151,9 +151,9 @@ object continentseditfo: tcontinentseditfo
         frame.button.color = -1879048187
         taborder = 2
         visible = False
-        bounds_x = 172
+        bounds_x = 176
         bounds_y = 0
-        bounds_cx = 154
+        bounds_cx = 158
         bounds_cy = 16
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
         datalink.datasource = refsdatamo.dsContinents

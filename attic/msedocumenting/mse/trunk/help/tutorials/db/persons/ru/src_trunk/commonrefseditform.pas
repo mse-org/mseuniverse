@@ -53,7 +53,7 @@ begin
     actDelete.enabled:= recordcount > 0;
     actUnDoAll.enabled:=  changecount > 0;
     actSaveAll.enabled:= changecount > 0;
-//    actUnDo.enabled:=  updatestatus = usModified;
+    actUnDo.enabled:=  updatestatus <> usunModified;
   end;
 end;
 
@@ -63,8 +63,8 @@ begin
   if parentwidget.container.canclose(nil) then begin
     with dsContents.dataset as tmsesqlquery do begin
       applyupdates;
-      (transaction as tmsesqltransaction).commit;
-      active:= true;
+      (transaction as tmsesqltransaction).commitretaining();
+//      active:= true;
     end;
   end;
   isexpected:= false;  
@@ -72,7 +72,7 @@ end;
 
 procedure tcommonrefseditfo.undoexecute(const sender: TObject);
 begin
-//  (dsContents.dataset as tmsesqlquery).cancelupdate;
+  (dsContents.dataset as tmsesqlquery).cancelupdate;
 end;
 
 procedure tcommonrefseditfo.addexecute(const sender: TObject);
@@ -98,6 +98,7 @@ procedure tcommonrefseditfo.commonrefseditfoclosequery(const sender: tcustommsef
                var amodalresult: modalresultty);
 begin
   with dsContents.dataset as tmsesqlquery do begin
+    checkbrowsemode();
     if (not isexpected) and (changecount > 0) then begin
        showmessage(
         'There are unsaved changes in the table. Fix them !',

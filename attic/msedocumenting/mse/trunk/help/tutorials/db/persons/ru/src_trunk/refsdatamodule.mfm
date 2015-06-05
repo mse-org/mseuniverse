@@ -49,6 +49,7 @@ object refsdatamo: trefsdatamo
           Transliterate = False
         end>
     )
+    controller.options = []
     left = 16
     top = 16
   end
@@ -110,6 +111,7 @@ object refsdatamo: trefsdatamo
           Transliterate = False
         end>
     )
+    controller.options = []
     left = 16
     top = 48
   end
@@ -171,6 +173,7 @@ object refsdatamo: trefsdatamo
           Transliterate = False
         end>
     )
+    controller.options = []
     left = 16
     top = 80
   end
@@ -219,6 +222,7 @@ object refsdatamo: trefsdatamo
           Transliterate = False
         end>
     )
+    controller.options = []
     left = 16
     top = 112
   end
@@ -267,6 +271,7 @@ object refsdatamo: trefsdatamo
           Transliterate = False
         end>
     )
+    controller.options = []
     left = 16
     top = 144
   end

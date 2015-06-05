@@ -99,6 +99,7 @@ object commonrefseditfo: tcommonrefseditfo
     caption = 'UnDo All'
   end
   object lblAddedLegend: tlabel
+    optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autoheight]
     frame.leveli = -2
     frame.colorclient = 16760832
     frame.caption = 'added'
@@ -115,11 +116,12 @@ object commonrefseditfo: tcommonrefseditfo
     taborder = 1
     bounds_x = 8
     bounds_y = 272
-    bounds_cx = 56
+    bounds_cx = 84
     bounds_cy = 18
     reffontheight = 14
   end
   object lblChangedLegend: tlabel
+    optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autoheight]
     frame.leveli = -2
     frame.colorclient = -1610612728
     frame.caption = 'changed'
@@ -135,7 +137,7 @@ object commonrefseditfo: tcommonrefseditfo
     )
     bounds_x = 8
     bounds_y = 296
-    bounds_cx = 71
+    bounds_cx = 99
     bounds_cy = 18
     reffontheight = 14
   end
