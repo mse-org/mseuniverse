@@ -3,7 +3,9 @@ unit editform;
 interface
 uses
  msegui,mseclasses,mseforms,msesimplewidgets,msedbedit,mselookupbuffer,
- msedataedits,msedb;
+ msedataedits,msedb,mseapplication,msedbcalendardatetimeedit,mseedit,mseglob,
+ mseguiglob,mseificomp,mseificompglob,mseifiglob,msemenus,msestat,msestatfile,
+ msestream,msestrings,msetypes,sysutils;
 
 type
  teditfo = class(tmseform)
@@ -33,7 +35,7 @@ type
                    const physindex: Integer; var valid: Boolean);
    procedure countriesfilter(const sender: tcustomlookupbuffer;
                    const physindex: Integer; var valid: Boolean);
-   procedure sexpotentioncheckvalue(const sender: tdataedit;
+   procedure sexpotentioncheckvalue(const sender: tcustomdataedit;
                    const quiet: Boolean; var accept: Boolean);
 
  end;
@@ -46,7 +48,6 @@ uses
  editform_mfm,
  refsdatamodule,
  main,
- sysutils,
  msewidgets
 ;
 
@@ -136,7 +137,7 @@ begin
 
 end;
 
-procedure teditfo.sexpotentioncheckvalue(const sender: tdataedit;
+procedure teditfo.sexpotentioncheckvalue(const sender: tcustomdataedit;
                const quiet: Boolean; var accept: Boolean);
 var
   f1: double;
@@ -157,8 +158,5 @@ begin
   end;
 
 end;
-
-
-               
 
 end.

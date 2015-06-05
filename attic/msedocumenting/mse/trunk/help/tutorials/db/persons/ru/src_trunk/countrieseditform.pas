@@ -2,7 +2,7 @@ unit countrieseditform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$INTERFACES CORBA}{$endif}
 interface
 uses
- msegui,mseclasses,mseforms,commonrefseditform,msedbedit,msegrids,db;
+ msegui,mseclasses,mseforms,commonrefseditform,msedbedit,msegrids,mdb;
 
 type
  tcountrieseditfo = class(tmseform)
@@ -27,7 +27,8 @@ uses
 procedure tcountrieseditfo.countrieseditfocreated(const sender: TObject);
 begin
   application.createdatamodule(trefsdatamo, refsdatamo);
-  commonrefseditfo1.dsContents.dataset := grdCountries.datasource.dataset;
+  commonrefseditfo1.dsContents.dataset := 
+                         grdCountries.datalink.datasource.dataset;
 end;
 
 procedure tcountrieseditfo.countrieseditfodestroyed(const sender: TObject);

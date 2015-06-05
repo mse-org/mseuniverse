@@ -1,34 +1,33 @@
 object refsdatamo: trefsdatamo
+  bounds_cx = 417
+  bounds_cy = 186
   left = 162
   top = 223
   moduleclassname = 'tmsedatamodule'
-  size = (
-    417
-    186
-  )
   object qryPlanets: tmsesqlquery
     Active = True
-    database = mainfo.conn
-    Transaction = mainfo.trans
     params = <>
-    SQL.Strings = (
+    SQL.data = (
       'select * from planets order by id;'
     )
     IndexDefs = <>
     UsePrimaryKeyAsKey = False
+    tablename = 'planets'
     StatementType = stSelect
+    database = mainfo.conn
+    Transaction = mainfo.trans
     FieldDefs = <    
       item
         Name = 'id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'descr'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end>
     controller.fields.count = 2
     controller.fields.fields = (
@@ -38,16 +37,15 @@ object refsdatamo: trefsdatamo
       )
       <      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'id'
-          ProviderFlags = [pfInKey]
+          Index = 0
+          optionsfield = [of_visible, of_inkey]
         end      
         item
           DisplayWidth = 10
           FieldName = 'descr'
           Index = 1
-          Size = 4
+          BlobType = ftBlob
           Transliterate = False
         end>
     )
@@ -56,34 +54,35 @@ object refsdatamo: trefsdatamo
   end
   object qryContinents: tmsesqlquery
     Active = True
-    BeforeOpen = qrycontinentsbeforeopen
-    database = mainfo.conn
-    Transaction = mainfo.trans
     params = <>
-    SQL.Strings = (
+    SQL.data = (
       'select * from continents order by id;'
     )
     IndexDefs = <>
     UsePrimaryKeyAsKey = False
+    tablename = 'continents'
     StatementType = stSelect
+    database = mainfo.conn
+    BeforeOpen = qrycontinentsbeforeopen
+    Transaction = mainfo.trans
     FieldDefs = <    
       item
         Name = 'id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'planet_id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'descr'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end>
     controller.fields.count = 3
     controller.fields.fields = (
@@ -94,23 +93,20 @@ object refsdatamo: trefsdatamo
       )
       <      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'id'
-          ProviderFlags = [pfInKey]
+          Index = 0
+          optionsfield = [of_visible, of_inkey]
         end      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'planet_id'
           Index = 1
-          ProviderFlags = [pfInUpdate]
+          optionsfield = [of_visible, of_ininsert, of_inupdate]
         end      
         item
           DisplayWidth = 10
           FieldName = 'descr'
           Index = 2
-          Size = 4
+          BlobType = ftBlob
           Transliterate = False
         end>
     )
@@ -119,34 +115,35 @@ object refsdatamo: trefsdatamo
   end
   object qryCountries: tmsesqlquery
     Active = True
-    BeforeOpen = qrycountriesbeforeopen
-    database = mainfo.conn
-    Transaction = mainfo.trans
     params = <>
-    SQL.Strings = (
+    SQL.data = (
       'select * from countries order by id;'
     )
     IndexDefs = <>
     UsePrimaryKeyAsKey = False
+    tablename = 'countries'
     StatementType = stSelect
+    database = mainfo.conn
+    BeforeOpen = qrycountriesbeforeopen
+    Transaction = mainfo.trans
     FieldDefs = <    
       item
         Name = 'id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'continent_id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'descr'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end>
     controller.fields.count = 3
     controller.fields.fields = (
@@ -157,23 +154,20 @@ object refsdatamo: trefsdatamo
       )
       <      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'id'
-          ProviderFlags = [pfInKey]
+          Index = 0
+          optionsfield = [of_visible, of_inkey]
         end      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'continent_id'
           Index = 1
-          ProviderFlags = [pfInUpdate]
+          optionsfield = [of_visible, of_ininsert, of_inupdate]
         end      
         item
           DisplayWidth = 10
           FieldName = 'descr'
           Index = 2
-          Size = 4
+          BlobType = ftBlob
           Transliterate = False
         end>
     )
@@ -182,27 +176,28 @@ object refsdatamo: trefsdatamo
   end
   object qryOccupations: tmsesqlquery
     Active = True
-    database = mainfo.conn
-    Transaction = mainfo.trans
     params = <>
-    SQL.Strings = (
+    SQL.data = (
       'select * from occupations order by id;'
     )
     IndexDefs = <>
     UsePrimaryKeyAsKey = False
+    tablename = 'occupations'
     StatementType = stSelect
+    database = mainfo.conn
+    Transaction = mainfo.trans
     FieldDefs = <    
       item
         Name = 'id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'descr'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end>
     controller.fields.count = 2
     controller.fields.fields = (
@@ -212,16 +207,15 @@ object refsdatamo: trefsdatamo
       )
       <      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'id'
-          ProviderFlags = [pfInKey]
+          Index = 0
+          optionsfield = [of_visible, of_inkey]
         end      
         item
           DisplayWidth = 10
           FieldName = 'descr'
           Index = 1
-          Size = 4
+          BlobType = ftBlob
           Transliterate = False
         end>
     )
@@ -230,27 +224,28 @@ object refsdatamo: trefsdatamo
   end
   object qryFeatures: tmsesqlquery
     Active = True
-    database = mainfo.conn
-    Transaction = mainfo.trans
     params = <>
-    SQL.Strings = (
+    SQL.data = (
       'select * from features order by id;'
     )
     IndexDefs = <>
     UsePrimaryKeyAsKey = False
+    tablename = 'features'
     StatementType = stSelect
+    database = mainfo.conn
+    Transaction = mainfo.trans
     FieldDefs = <    
       item
         Name = 'id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'descr'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end>
     controller.fields.count = 2
     controller.fields.fields = (
@@ -260,16 +255,15 @@ object refsdatamo: trefsdatamo
       )
       <      
         item
-          AlignMent = taRightJustify
-          DisplayWidth = 10
           FieldName = 'id'
-          ProviderFlags = [pfInKey]
+          Index = 0
+          optionsfield = [of_visible, of_inkey]
         end      
         item
           DisplayWidth = 10
           FieldName = 'descr'
           Index = 1
-          Size = 4
+          BlobType = ftBlob
           Transliterate = False
         end>
     )

@@ -2,9 +2,9 @@ unit commonrefseditform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$INTERFACES CORBA}{$endif}
 interface
 uses
- msegui,mseclasses,mseforms,msesimplewidgets,mseactions,msedb,
+ msegui,mseglob,mseclasses,mseforms,msesimplewidgets,mseactions,msedb,
  // provides "tfield"
- db
+ mdb
 ;
 
 type

@@ -3,73 +3,70 @@ object editfo: teditfo
   bounds_y = 171
   bounds_cx = 379
   bounds_cy = 334
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 0
-  container.bounds_cx = 379
-  container.bounds_cy = 334
-  container.frame.dummy = 0
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    379
+    334
+  )
   options = [fo_screencentered, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
-  icon.transparency = -2147483648
   oncreate = editfocreated
   ondestroyed = editfodestroyed
   moduleclassname = 'tmseform'
   object btnOk: tbutton
+    frame.colorclient = -1610612714
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = mainfo.ftButtons
+    taborder = 7
     bounds_x = 152
     bounds_y = 296
     bounds_cx = 90
     bounds_cy = 30
-    frame.colorclient = -1610612714
-    frame.localprops = [frl_colorclient]
-    frame.template = mainfo.ftButtons
-    frame.dummy = 0
-    taborder = 7
     state = [as_localcaption]
     caption = '&Ok'
     modalresult = mr_ok
   end
   object btnCancel: tbutton
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.template = mainfo.ftButtons
+    taborder = 8
     bounds_x = 312
     bounds_y = 296
     bounds_cx = 58
     bounds_cy = 30
-    frame.template = mainfo.ftButtons
-    frame.dummy = 0
-    taborder = 8
     state = [as_localcaption]
     caption = '&Cancel'
     modalresult = mr_cancel
   end
   object seName: tdbstringedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 13
-    bounds_y = 16
-    bounds_cx = 327
-    bounds_cy = 20
     frame.caption = 'Name'
     frame.captionpos = cp_left
     frame.captiondist = 15
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
-      51
+      53
       0
       0
       0
     )
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_notnull, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-    datafield = 'descr'
-    datasource = mainfo.dsPersons
+    bounds_x = 11
+    bounds_y = 16
+    bounds_cx = 329
+    optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_notnull]
+    datalink.datasource = mainfo.dsPersons
+    datalink.fieldname = 'descr'
     reffontheight = 14
   end
   object cbPlanets: tenumeditlb
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 16
-    bounds_y = 47
-    bounds_cx = 148
-    bounds_cy = 37
     frame.caption = 'Planet'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -77,22 +74,22 @@ object editfo: teditfo
       0
     )
     taborder = 9
-    onsetvalue = planetchanged
+    bounds_x = 16
+    bounds_y = 47
+    bounds_cx = 148
+    bounds_cy = 37
     dropdown.lookupbuffer = refsdatamo.lbufPlanets
     dropdown.cols.count = 1
     dropdown.cols.items = <    
       item
       end>
+    onsetvalue = planetchanged
     reffontheight = 14
   end
   object cbContinents: tenumeditlb
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 184
-    bounds_y = 47
-    bounds_cx = 156
-    bounds_cy = 37
     frame.caption = 'Continent'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -100,35 +97,38 @@ object editfo: teditfo
       0
     )
     taborder = 10
-    onsetvalue = continentchanged
+    bounds_x = 184
+    bounds_y = 47
+    bounds_cx = 156
+    bounds_cy = 37
     dropdown.lookupbuffer = refsdatamo.lbufContinents
     dropdown.cols.count = 1
     dropdown.cols.items = <    
       item
       end>
     dropdown.onfilter = continentsfilter
+    onsetvalue = continentchanged
     reffontheight = 14
   end
   object cbCountries: tdbenumeditlb
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 53
-    bounds_y = 96
-    bounds_cx = 295
-    bounds_cy = 20
     frame.caption = 'Country'
     frame.captionpos = cp_left
     frame.captiondist = 15
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
-      59
+      65
       0
       0
       0
     )
     taborder = 1
+    bounds_x = 47
+    bounds_y = 96
+    bounds_cx = 301
     ondataentered = countryentered
-    datafield = 'country_id'
-    datasource = mainfo.dsPersons
+    datalink.datasource = mainfo.dsPersons
+    datalink.fieldname = 'country_id'
     dropdown.lookupbuffer = refsdatamo.lbufCountries
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -138,25 +138,24 @@ object editfo: teditfo
     reffontheight = 14
   end
   object cbOccupations: tdbenumeditlb
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 33
-    bounds_y = 128
-    bounds_cx = 315
-    bounds_cy = 20
     frame.caption = 'Occupation'
     frame.captionpos = cp_left
     frame.captiondist = 15
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
-      79
+      88
       0
       0
       0
     )
     taborder = 2
+    bounds_x = 24
+    bounds_y = 128
+    bounds_cx = 324
     ondataentered = occupationentered
-    datafield = 'occupation_id'
-    datasource = mainfo.dsPersons
+    datalink.datasource = mainfo.dsPersons
+    datalink.fieldname = 'occupation_id'
     dropdown.lookupbuffer = refsdatamo.lbufOccupations
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -165,25 +164,24 @@ object editfo: teditfo
     reffontheight = 14
   end
   object cbFeatures: tdbenumeditlb
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 53
-    bounds_y = 160
-    bounds_cx = 295
-    bounds_cy = 20
     frame.caption = 'Feature'
     frame.captionpos = cp_left
     frame.captiondist = 15
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
-      59
+      66
       0
       0
       0
     )
     taborder = 3
+    bounds_x = 46
+    bounds_y = 160
+    bounds_cx = 302
     ondataentered = featureentered
-    datafield = 'feature_id'
-    datasource = mainfo.dsPersons
+    datalink.datasource = mainfo.dsPersons
+    datalink.fieldname = 'feature_id'
     dropdown.lookupbuffer = refsdatamo.lbufFeatures
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -192,91 +190,91 @@ object editfo: teditfo
     reffontheight = 14
   end
   object reSexPotention: tdbrealedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 18
-    bounds_y = 192
-    bounds_cx = 146
-    bounds_cy = 20
     frame.caption = 'Sex. potention'
     frame.captionpos = cp_left
     frame.captiondist = 15
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
-      94
+      108
       0
       0
       0
     )
     taborder = 4
+    bounds_x = 4
+    bounds_y = 192
+    bounds_cx = 160
     oncheckvalue = sexpotentioncheckvalue
-    datafield = 'sexual_potention'
-    datasource = mainfo.dsPersons
+    datalink.datasource = mainfo.dsPersons
+    datalink.fieldname = 'sexual_potention'
+    min = -Inf
+    max = 1E+038
     formatedit = '##.##'
     formatdisp = '##.##'
+    valuerange = 1
+    valuestart = 0
     reffontheight = 14
-    val = 0
   end
   object beHappy: tdbbooleantextedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 50
-    bounds_y = 256
-    bounds_cx = 162
-    bounds_cy = 20
     frame.caption = 'Happy ?'
     frame.captionpos = cp_left
     frame.captiondist = 15
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
-      62
+      66
       0
       0
       0
     )
     taborder = 6
+    bounds_x = 46
+    bounds_y = 256
+    bounds_cx = 166
     text_false = #1059#1074#1099
     text_true = #1045#1097#1077' '#1082#1072#1082
-    datafield = 'if_happy'
-    datasource = mainfo.dsPersons
+    datalink.datasource = mainfo.dsPersons
+    datalink.fieldname = 'if_happy'
     reffontheight = 14
   end
   object lblDateFormatHint: tlabel
+    taborder = 12
     bounds_x = 224
     bounds_y = 224
     bounds_cx = 0
     bounds_cy = 14
-    taborder = 12
     reffontheight = 14
   end
   object lblSexPotentionHint: tlabel
+    taborder = 11
     bounds_x = 176
     bounds_y = 192
-    bounds_cx = 56
+    bounds_cx = 65
     bounds_cy = 14
-    taborder = 11
     caption = '(0..100) %'
     reffontheight = 14
   end
   object cdeDateOfBirth: tdbcalendardatetimeedit
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 29
-    bounds_y = 224
-    bounds_cx = 183
-    bounds_cy = 20
     frame.caption = 'Date of birth'
     frame.captionpos = cp_left
     frame.captiondist = 15
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
-      83
+      96
       0
       0
       0
     )
     taborder = 5
-    datafield = 'dateofbirth'
-    datasource = mainfo.dsPersons
+    bounds_x = 16
+    bounds_y = 224
+    bounds_cx = 196
+    datalink.datasource = mainfo.dsPersons
+    datalink.fieldname = 'dateofbirth'
+    min = -Inf
+    max = 73050
     reffontheight = 14
-    val = 0
-    ma = 73050
   end
 end

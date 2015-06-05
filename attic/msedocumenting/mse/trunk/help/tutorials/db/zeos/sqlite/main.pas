@@ -3,7 +3,7 @@ unit main;
 interface
 uses
  msegui,mseclasses,mseevent,mseforms,msegraphics,msemenus,msestat,ZConnection,
- db,msedb,msezeos,sysutils,msedataedits,msedbedit,mseedit,msegraphutils,
+ mdb,msedb,msezeos,sysutils,msedataedits,msedbedit,mseedit,msegraphutils,
  msegrids,msesimplewidgets,msestrings,msetypes,msewidgetgrid,msewidgets,
  msestatfile;
 

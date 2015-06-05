@@ -4,7 +4,7 @@ interface
 uses
  msegui,mseclasses,mseforms,commonrefseditform,msedbedit,
  msegrids, // provides "tcustomgrid"
- db // // provides "tdataset"
+ mdb // // provides "tdataset"
 ;
 
 type
@@ -36,7 +36,7 @@ end;
 procedure tplanetseditfo.planetseditfocreated(const sender: TObject);
 begin
   application.createdatamodule(trefsdatamo, refsdatamo);
-  commonrefseditfo1.dsContents.dataset := grdPlanets.datasource.dataset;
+  commonrefseditfo1.dsContents.dataset := grdPlanets.datalink.datasource.dataset;
 end;
 
 procedure tplanetseditfo.grdplanetsupdaterowdata(const sender: tcustomgrid;

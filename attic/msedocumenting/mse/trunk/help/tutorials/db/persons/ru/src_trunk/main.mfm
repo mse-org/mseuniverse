@@ -1,131 +1,110 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 35
   bounds_y = 146
-  bounds_cx = 705
-  bounds_cy = 411
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 22
-  container.bounds_cx = 705
-  container.bounds_cy = 389
-  container.frame.dummy = 0
+  bounds_cx = 719
+  bounds_cy = 413
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.taborder = 1
+  container.bounds = (
+    0
+    22
+    719
+    391
+  )
   optionswindow = [wo_groupleader]
   mainmenu = mnuMain
-  font.colorshadow = -2147483648
-  font.xscale =  1.0000000000000000E+0000
-  font.dummy = 0
+  font.xscale = 1
+  font.localprops = [flp_shadow_color, flp_xscale]
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   caption = 'The Galaxy Data Keeper'
-  icon.transparency = -2147483648
   moduleclassname = 'tmseform'
   object grdPersons: tdbstringgrid
-    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_focusbackonesc, ow_mousewheel, ow_destroywidgets, ow_hinton, ow_fontglyphheight, ow_autoscale]
+    frame.sbvert.pagesize = 0.45
+    frame.localprops = []
+    frame.localprops1 = []
+    popupmenu = pupPersons
     bounds_x = 8
     bounds_y = 8
-    bounds_cx = 688
-    bounds_cy = 322
-    frame.dummy = 0
+    bounds_cx = 697
+    bounds_cy = 332
     anchors = [an_left, an_top, an_right, an_bottom]
-    popupmenu = pupPersons
-    datasource = dsPersons
     optionsgrid = [og_colsizing, og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_autopopup]
     datacols.count = 7
     datacols.colorselect = -1610612713
-    datacols.coloractive = -2147483648
-    datacols.options = [co_readonly, co_focusselect, co_rowselect, co_proportional, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
     datacols.optionsedit = [scoe_undoonesc, scoe_eatreturn, scoe_autoselect, scoe_autoselectonfirstclick, scoe_caretonreadonly]
     datacols.items = <    
       item
         frame.framei_left = 5
         frame.localprops = [frl_fileft]
-        frame.dummy = 0
+        frame.localprops1 = []
         colorselect = -1610612713
-        coloractive = -2147483648
         width = 133
-        options = [co_readonly, co_focusselect, co_rowselect, co_proportional, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
         onshowhint = shownamehint
         datafield = 'descr'
       end    
       item
         frame.framei_left = 5
         frame.localprops = [frl_fileft]
-        frame.dummy = 0
+        frame.localprops1 = []
         colorselect = -1610612713
-        coloractive = -2147483648
         width = 101
-        options = [co_readonly, co_focusselect, co_rowselect, co_proportional, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
         datafield = 'country'
       end    
       item
         frame.framei_left = 5
         frame.localprops = [frl_fileft]
-        frame.dummy = 0
+        frame.localprops1 = []
         colorselect = -1610612713
-        coloractive = -2147483648
         width = 89
-        options = [co_readonly, co_focusselect, co_rowselect, co_proportional, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
         datafield = 'occupation'
       end    
       item
         frame.framei_left = 5
         frame.localprops = [frl_fileft]
-        frame.dummy = 0
+        frame.localprops1 = []
         colorselect = -1610612713
-        coloractive = -2147483648
         width = 94
-        options = [co_readonly, co_focusselect, co_rowselect, co_proportional, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
         datafield = 'feature'
       end    
       item
         frame.framei_right = 5
         frame.localprops = [frl_firight]
-        frame.dummy = 0
+        frame.localprops1 = []
         colorselect = -1610612713
-        coloractive = -2147483648
         width = 70
-        options = [co_readonly, co_focusselect, co_rowselect, co_proportional, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
         datafield = 'sexual_potention'
         textflags = [tf_right, tf_ycentered, tf_noselect]
       end    
       item
         colorselect = -1610612713
-        coloractive = -2147483648
         width = 89
-        options = [co_readonly, co_focusselect, co_rowselect, co_proportional, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
         datafield = 'dateofbirth'
         textflags = [tf_xcentered, tf_ycentered, tf_noselect]
       end    
       item
         colorselect = -1610612713
-        coloractive = -2147483648
         width = 53
-        options = [co_readonly, co_focusselect, co_rowselect, co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
         datafield = 'if_happy'
         textflags = [tf_xcentered, tf_ycentered, tf_noselect]
       end>
     datalink.options = [gdo_propscrollbar, gdo_thumbtrack]
+    datalink.datasource = dsPersons
     fixcols.count = 1
-    fixcols.coloractive = -2147483648
     fixcols.items = <    
       item
-        coloractive = -2147483648
         width = 32
         numstart = 1
         numstep = 1
       end>
     fixrows.count = 1
-    fixrows.coloractive = -2147483648
     fixrows.items = <    
       item
         frame.levelo = 1
         frame.leveli = -1
         frame.colorclient = -1610612716
         frame.localprops = [frl_levelo, frl_leveli, frl_framewidth, frl_colorframe, frl_fitop, frl_fibottom, frl_colorclient]
-        frame.dummy = 0
-        coloractive = -2147483648
+        frame.localprops1 = []
         height = 36
         captions.count = 7
         captions.items = <        
@@ -161,59 +140,60 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   object btnExit: tbutton
-    bounds_x = 603
-    bounds_y = 349
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.template = ftButtons
+    taborder = 1
+    bounds_x = 612
+    bounds_y = 359
     bounds_cx = 58
     bounds_cy = 29
-    frame.template = ftButtons
-    frame.dummy = 0
     anchors = [an_right, an_bottom]
-    taborder = 1
     state = [as_localcaption]
     action = actExit
     caption = 'E&xit'
   end
   object btnEdit: tbutton
-    bounds_x = 226
-    bounds_y = 343
-    bounds_cx = 71
-    bounds_cy = 30
     frame.colorclient = 13172680
     frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
     frame.template = ftButtons
-    frame.dummy = 0
-    anchors = [an_right, an_bottom]
     taborder = 2
+    bounds_x = 235
+    bounds_y = 353
+    bounds_cx = 71
+    bounds_cy = 30
+    anchors = [an_right, an_bottom]
     state = [as_localcaption]
     action = actEdit
     caption = '&Edit..'
   end
   object btnAdd: tbutton
-    bounds_x = 338
-    bounds_y = 343
-    bounds_cx = 79
-    bounds_cy = 30
     frame.colorclient = 13158655
     frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
     frame.template = ftButtons
-    frame.dummy = 0
-    anchors = [an_right, an_bottom]
     taborder = 3
+    bounds_x = 347
+    bounds_y = 353
+    bounds_cx = 79
+    bounds_cy = 30
+    anchors = [an_right, an_bottom]
     state = [as_localcaption]
     action = actAdd
     caption = '&Add..'
   end
   object btnDelete: tbutton
-    bounds_x = 458
-    bounds_y = 343
-    bounds_cx = 79
-    bounds_cy = 30
     frame.colorclient = 16763080
     frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
     frame.template = ftButtons
-    frame.dummy = 0
-    anchors = [an_right, an_bottom]
     taborder = 4
+    bounds_x = 467
+    bounds_y = 353
+    bounds_cx = 79
+    bounds_cy = 30
+    anchors = [an_right, an_bottom]
     state = [as_localcaption]
     action = actDelete
     caption = '&Delete..'
@@ -242,8 +222,9 @@ object mainfo: tmainfo
     top = 352
   end
   object qryPersons: tmsesqlquery
+    Active = True
     params = <>
-    SQL.Strings = (
+    SQL.data = (
       'select'
       '  a.id,'
       '  a.feature_id,'
@@ -265,91 +246,92 @@ object mainfo: tmainfo
     )
     IndexDefs = <>
     UsePrimaryKeyAsKey = False
+    tablename = 'persons'
     StatementType = stSelect
     database = conn
-    Active = True
     Transaction = trans
     FieldDefs = <    
       item
         Name = 'id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'feature_id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'occupation_id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'country_id'
         DataType = ftInteger
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'descr'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'sexual_potention'
         DataType = ftFloat
         Precision = -1
-        Size = 8
+        Size = 0
       end    
       item
         Name = 'photo'
         DataType = ftBlob
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'country'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'occupation'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'feature'
         DataType = ftMemo
         Precision = -1
-        Size = 4
+        Size = 0
       end    
       item
         Name = 'if_happy'
         DataType = ftBoolean
         Precision = -1
-        Size = 1
+        Size = 0
       end    
       item
         Name = 'dateofbirth'
         DataType = ftDate
         Precision = -1
-        Size = 8
+        Size = 0
       end>
     onapplyrecupdate = personsupdate
     left = 80
     top = 328
     object fldSexPotention: tmsefloatfield
-      AlignMent = taRightJustify
-      DisplayWidth = 10
       FieldName = 'sexual_potention'
+      Index = 0
       DisplayFormat = '##.##'
+      MaxValue = 0
+      MinValue = 0
       left = 432
       top = 114
     end
@@ -362,39 +344,30 @@ object mainfo: tmainfo
       top = 98
     end
     object fldCountryId: tmselongintfield
-      AlignMent = taRightJustify
-      DisplayWidth = 10
       FieldName = 'country_id'
       Index = 2
       left = 176
       top = 98
     end
     object fldOccupationId: tmselongintfield
-      AlignMent = taRightJustify
-      DisplayWidth = 10
       FieldName = 'occupation_id'
       Index = 3
       left = 272
       top = 162
     end
     object fldFeatureId: tmselongintfield
-      AlignMent = taRightJustify
-      DisplayWidth = 10
       FieldName = 'feature_id'
       Index = 4
       left = 376
       top = 90
     end
     object fldPersonId: tmselongintfield
-      AlignMent = taRightJustify
-      DisplayWidth = 10
       FieldName = 'id'
       Index = 5
       left = 184
       top = 328
     end
     object fldDateOfBirth: tmsedatefield
-      DisplayWidth = 10
       FieldName = 'dateofbirth'
       Index = 6
       left = 520
@@ -404,7 +377,7 @@ object mainfo: tmainfo
       DisplayWidth = 10
       FieldName = 'descr'
       Index = 7
-      Size = 4
+      BlobType = ftBlob
       Transliterate = False
       left = 80
       top = 110
@@ -413,7 +386,7 @@ object mainfo: tmainfo
       DisplayWidth = 10
       FieldName = 'country'
       Index = 8
-      Size = 4
+      BlobType = ftBlob
       Transliterate = False
       left = 168
       top = 118
@@ -422,7 +395,7 @@ object mainfo: tmainfo
       DisplayWidth = 10
       FieldName = 'occupation'
       Index = 9
-      Size = 4
+      BlobType = ftBlob
       Transliterate = False
       left = 272
       top = 182
@@ -431,7 +404,7 @@ object mainfo: tmainfo
       DisplayWidth = 10
       FieldName = 'feature'
       Index = 10
-      Size = 4
+      BlobType = ftBlob
       Transliterate = False
       left = 360
       top = 134
@@ -471,13 +444,18 @@ object mainfo: tmainfo
     top = 352
   end
   object actExit: taction
-    shortcut = 16465
     onexecute = appexit
     left = 24
+    sc = (
+      1
+      16465
+    )
   end
   object mnuMain: tmainmenu
     popupitemframetemplate = ftMainMenuPopupItem
     popupitemframetemplateactive = ftMainMenuPopupItem
+    itemframetemplate = ftMainMenuItem
+    itemframetemplateactive = ftMainMenuItem
     menu.submenu.count = 3
     menu.submenu.items = <    
       item
@@ -533,13 +511,10 @@ object mainfo: tmainfo
         caption = '&Help'
         state = [as_localcaption]
       end>
-    menu.font.colorshadow = -2147483648
     menu.font.height = 13
     menu.font.name = 'stf_helvetica'
-    menu.font.xscale =  1.0000000000000000E+0000
-    menu.font.dummy = 0
-    itemframetemplate = ftMainMenuItem
-    itemframetemplateactive = ftMainMenuItem
+    menu.font.xscale = 1
+    menu.font.localprops = [flp_shadow_color, flp_xscale]
     left = 336
   end
   object ftMainMenuItem: tframecomp
@@ -550,22 +525,31 @@ object mainfo: tmainfo
     top = 166
   end
   object actEdit: taction
-    shortcut = 16453
     onexecute = editformshow
     left = 216
     top = 290
+    sc = (
+      1
+      16453
+    )
   end
   object actAdd: taction
-    shortcut = 20486
     onexecute = addformshow
     left = 320
     top = 290
+    sc = (
+      1
+      20486
+    )
   end
   object actDelete: taction
-    shortcut = 16452
     onexecute = deleterecord
     left = 440
     top = 290
+    sc = (
+      1
+      16452
+    )
   end
   object pupPersons: tpopupmenu
     menu.submenu.count = 3

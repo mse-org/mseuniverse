@@ -2,7 +2,7 @@ unit occupationseditform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$INTERFACES CORBA}{$endif}
 interface
 uses
- msegui,mseclasses,mseforms,commonrefseditform,msedbedit,msegrids,db;
+ msegui,mseclasses,mseforms,commonrefseditform,msedbedit,msegrids,mdb;
 
 type
  toccupationseditfo = class(tmseform)
@@ -27,7 +27,8 @@ uses
 procedure toccupationseditfo.occupationseditfocreated(const sender: TObject);
 begin
   application.createdatamodule(trefsdatamo, refsdatamo);
-  commonrefseditfo1.dsContents.dataset := grdOccupations.datasource.dataset;
+  commonrefseditfo1.dsContents.dataset := 
+                                  grdOccupations.datalink.datasource.dataset;
 end;
 
 procedure toccupationseditfo.occupationseditfodestroyed(const sender: TObject);

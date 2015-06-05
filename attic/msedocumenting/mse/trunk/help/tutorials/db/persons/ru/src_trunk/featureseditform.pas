@@ -2,7 +2,7 @@ unit featureseditform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$INTERFACES CORBA}{$endif}
 interface
 uses
- msegui,mseclasses,mseforms,commonrefseditform,msedbedit,msegrids,db,
+ msegui,mseclasses,mseforms,commonrefseditform,msedbedit,msegrids,mdb,
  msedataedits;
 
 type
@@ -27,7 +27,8 @@ uses
 procedure tfeatureseditfo.featureseditfocreated(const sender: TObject);
 begin
   application.createdatamodule(trefsdatamo, refsdatamo);
-  commonrefseditfo1.dsContents.dataset := grdFeatures.datasource.dataset;
+  commonrefseditfo1.dsContents.dataset := 
+                                  grdFeatures.datalink.datasource.dataset;
 end;
 
 procedure tfeatureseditfo.featureseditfodestroyed(const sender: TObject);

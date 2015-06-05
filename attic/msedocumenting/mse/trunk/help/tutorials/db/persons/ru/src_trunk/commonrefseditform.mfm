@@ -1,145 +1,142 @@
 object commonrefseditfo: tcommonrefseditfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 61
   bounds_y = 155
-  bounds_cx = 401
-  bounds_cy = 323
+  bounds_cx = 410
+  bounds_cy = 332
   anchors = []
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 0
-  container.bounds_cx = 401
-  container.bounds_cy = 323
-  container.frame.dummy = 0
-  icon.transparency = -2147483648
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    410
+    332
+  )
   onclosequery = commonrefseditfoclosequery
   moduleclassname = 'tmseform'
   object btnSaveAll: tbutton
+    frame.colorclient = 16763135
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = mainfo.ftButtons
+    taborder = 7
     bounds_x = 8
     bounds_y = 232
     bounds_cx = 74
     bounds_cy = 28
-    frame.colorclient = 16763135
-    frame.localprops = [frl_colorclient]
-    frame.template = mainfo.ftButtons
-    frame.dummy = 0
-    taborder = 7
     state = [as_disabled, as_localcaption]
     action = actSaveAll
     caption = 'Save All'
   end
   object btnUnDo: tbutton
+    frame.colorclient = -1879048188
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = mainfo.ftButtons
+    taborder = 6
     bounds_x = 168
     bounds_y = 232
     bounds_cx = 58
     bounds_cy = 28
-    frame.colorclient = -1879048188
-    frame.localprops = [frl_colorclient]
-    frame.template = mainfo.ftButtons
-    frame.dummy = 0
-    taborder = 6
     state = [as_disabled, as_localcaption]
     action = actUnDo
     caption = 'UnDo'
   end
   object btnAdd: tbutton
+    frame.colorclient = 13158650
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = mainfo.ftButtons
+    taborder = 4
     bounds_x = 240
     bounds_y = 232
     bounds_cx = 66
     bounds_cy = 28
-    frame.colorclient = 13158650
-    frame.localprops = [frl_colorclient]
-    frame.template = mainfo.ftButtons
-    frame.dummy = 0
-    taborder = 4
     state = [as_localcaption]
     action = actAdd
     caption = 'Add'
   end
   object btnDelete: tbutton
+    frame.colorclient = 16763080
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = mainfo.ftButtons
+    taborder = 3
     bounds_x = 320
     bounds_y = 232
     bounds_cx = 74
     bounds_cy = 28
-    frame.colorclient = 16763080
-    frame.localprops = [frl_colorclient]
-    frame.template = mainfo.ftButtons
-    frame.dummy = 0
-    taborder = 3
     state = [as_disabled, as_localcaption]
     action = actDelete
     caption = 'Delete'
   end
   object btnClose: tbutton
+    frame.colorclient = -1610612714
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = mainfo.ftButtons
+    taborder = 2
     bounds_x = 128
     bounds_y = 272
     bounds_cx = 266
     bounds_cy = 44
-    frame.colorclient = -1610612714
-    frame.localprops = [frl_colorclient]
-    frame.template = mainfo.ftButtons
-    frame.dummy = 0
-    taborder = 2
     state = [as_localcaption]
     caption = 'Close'
     modalresult = mr_windowclosed
   end
   object btnUnDoAll: tbutton
+    frame.colorclient = -1879048188
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.template = mainfo.ftButtons
+    taborder = 5
     bounds_x = 96
     bounds_y = 232
     bounds_cx = 66
     bounds_cy = 28
-    frame.colorclient = -1879048188
-    frame.localprops = [frl_colorclient]
-    frame.template = mainfo.ftButtons
-    frame.dummy = 0
-    taborder = 5
     state = [as_disabled, as_localcaption]
     action = actUnDoAll
     caption = 'UnDo All'
   end
   object lblAddedLegend: tlabel
-    optionswidget = [ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 8
-    bounds_y = 272
-    bounds_cx = 83
-    bounds_cy = 16
     frame.leveli = -2
     frame.colorclient = 16760832
     frame.caption = 'added'
     frame.captionpos = cp_right
     frame.captiondist = 10
     frame.localprops = [frl_leveli, frl_framewidth, frl_colorframe, frl_colorclient]
-    frame.dummy = 0
+    frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
       0
       0
-      47
+      52
       0
     )
     taborder = 1
+    bounds_x = 8
+    bounds_y = 272
+    bounds_cx = 56
+    bounds_cy = 18
     reffontheight = 14
   end
   object lblChangedLegend: tlabel
-    optionswidget = [ow_mousewheel, ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-    bounds_x = 8
-    bounds_y = 296
-    bounds_cx = 96
-    bounds_cy = 16
     frame.leveli = -2
     frame.colorclient = -1610612728
     frame.caption = 'changed'
     frame.captionpos = cp_right
     frame.captiondist = 10
     frame.localprops = [frl_leveli, frl_colorclient]
-    frame.dummy = 0
+    frame.localprops1 = [frl1_captiondist]
     frame.outerframe = (
       0
       0
-      60
+      67
       0
     )
+    bounds_x = 8
+    bounds_y = 296
+    bounds_cx = 71
+    bounds_cy = 18
     reffontheight = 14
   end
   object actSaveAll: taction

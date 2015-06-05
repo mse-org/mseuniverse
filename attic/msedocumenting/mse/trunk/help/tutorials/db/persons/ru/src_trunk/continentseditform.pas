@@ -4,7 +4,7 @@ interface
 uses
  msegui,mseclasses,mseforms,commonrefseditform,msedbedit,
  msegrids,
- db;
+ mdb;
 
 type
  tcontinentseditfo = class(tmseform)
@@ -28,7 +28,8 @@ uses
 procedure tcontinentseditfo.continentseditfocreated(const sender: TObject);
 begin
   application.createdatamodule(trefsdatamo, refsdatamo);
-  commonrefseditfo1.dsContents.dataset := grdContinents.datasource.dataset;
+  commonrefseditfo1.dsContents.dataset := 
+                                   grdContinents.datalink.datasource.dataset;
 end;
 
 procedure tcontinentseditfo.continentseditfodestroyed(const sender: TObject);

@@ -4,7 +4,7 @@ interface
 uses
  msegui,mseclasses,mseforms,msepqconnection,msesqldb,msedb,msedbedit,mseactions,
  msesimplewidgets,msemenus,db,msegrids,planetseditform,continentseditform,
- countrieseditform,featureseditform, occupationseditform;
+ countrieseditform,featureseditform, occupationseditform,mseglob;
  
 type
  tmainfo = class(tmseform)
@@ -97,7 +97,7 @@ begin
           applyupdates; 
 		  trans.commit; 
 		  active:= true;
-		  locate(prevkey, fldPersonId);
+		  locate([fldPersonId],[prevkey],[],[]);
         end else begin
           cancel;
         end;
@@ -126,7 +126,7 @@ begin
 		  last;
         end else begin
           cancel;
-          locate(prevkey, fldPersonId);  
+          locate([fldPersonId],[prevkey],[],[]);  
         end;
       end;
       
