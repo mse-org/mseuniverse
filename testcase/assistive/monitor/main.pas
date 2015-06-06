@@ -3,10 +3,11 @@ unit main;
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mseassistive,
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
+ mseassistiveserver,mseassistiveclient,
  msegrids,msestrings,msesimplewidgets,msedataedits,mseedit,mseificomp,
  mseificompglob,mseifiglob,msestatfile,msestream,sysutils,mseact,msegraphedits,
- msescrollbar;
+ msescrollbar,msetoolbar,msemenuwidgets,msebitmap,mseshapes;
 
 type
  tassistivemonitor = class(tobject,iassistiveserver)
@@ -19,6 +20,10 @@ type
                                                      const atext: msestring);
     //iassistiveserver
    procedure doenter(const sender: iassistiveclient);
+   procedure doitementer(const sender: iassistiveclient; //sender can be nil
+                            const items: shapeinfoarty; const aindex: integer);
+   procedure doitementer(const sender: iassistiveclient;
+                         const items: menucellinfoarty; const aindex: integer);
    procedure clientmouseevent(const sender: iassistiveclient;
                                            const info: mouseeventinfoty);
    procedure dofocuschanged(const oldwidget,newwidget: iassistiveclient);
@@ -39,9 +44,17 @@ type
    tstringedit2: tstringedit;
    tbooleanedit1: tbooleanedit;
    tslider1: tslider;
+   ttoolbar1: ttoolbar;
+   tmainmenuwidget1: tmainmenuwidget;
+   tfacecomp1: tfacecomp;
+   tframecomp1: tframecomp;
+   tframecomp2: tframecomp;
+   tfacecomp2: tfacecomp;
+   timagelist1: timagelist;
    procedure createexe(const sender: TObject);
    procedure destroyexe(const sender: TObject);
    procedure exe(const sender: TObject);
+   procedure exitexe(const sender: TObject);
   private
    fmonitor: tassistivemonitor;
  end;
@@ -113,6 +126,18 @@ begin
  track('<doenter>',sender,'');
 end;
 
+procedure tassistivemonitor.doitementer(const sender: iassistiveclient;
+               const items: shapeinfoarty; const aindex: integer);
+begin
+ track('<doitementer shape>',sender,inttostr(aindex));
+end;
+
+procedure tassistivemonitor.doitementer(const sender: iassistiveclient;
+                        const items: menucellinfoarty; const aindex: integer);
+begin
+ track('<doitementer menu>',sender,inttostr(aindex));
+end;
+
 procedure tassistivemonitor.clientmouseevent(const sender: iassistiveclient;
                const info: mouseeventinfoty);
 begin
@@ -164,6 +189,11 @@ end;
 procedure tmainfo.exe(const sender: TObject);
 begin
  guibeep();
+end;
+
+procedure tmainfo.exitexe(const sender: TObject);
+begin
+ application.terminated:= true;
 end;
 
 end.
