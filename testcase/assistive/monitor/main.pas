@@ -4,10 +4,10 @@ interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- mseassistiveserver,mseassistiveclient,
- msegrids,msestrings,msesimplewidgets,msedataedits,mseedit,mseificomp,
- mseificompglob,mseifiglob,msestatfile,msestream,sysutils,mseact,msegraphedits,
- msescrollbar,msetoolbar,msemenuwidgets,msebitmap,mseshapes;
+ mseassistiveserver,mseassistiveclient,msegrids,msestrings,msesimplewidgets,
+ msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestatfile,
+ msestream,sysutils,mseact,msegraphedits,msescrollbar,msetoolbar,msemenuwidgets,
+ msebitmap,mseshapes,msewidgetgrid;
 
 type
  tassistivemonitor = class(tobject,iassistiveserver)
@@ -31,6 +31,8 @@ type
                                         const info: keyeventinfoty);
    procedure doactionexecute(const sender: tobject; const info: actioninfoty);
    procedure dochange(const sender: iassistiveclient);
+   procedure docellevent(const sender: iassistiveclient; 
+                                      const info: celleventinfoty);
   public
    constructor create(const agrid: tstringgrid);
    destructor destroy(); override;
@@ -51,6 +53,7 @@ type
    tframecomp2: tframecomp;
    tfacecomp2: tfacecomp;
    timagelist1: timagelist;
+   tstringgrid1: tstringgrid;
    procedure createexe(const sender: TObject);
    procedure destroyexe(const sender: TObject);
    procedure exe(const sender: TObject);
@@ -154,13 +157,15 @@ end;
 procedure tassistivemonitor.dokeydown(const sender: iassistiveclient;
                const info: keyeventinfoty);
 begin
- track('<dokeydown '+
-//          getenumname(typeinfo(eventkindty),ord(info.eventkind)) + ' ' +
-          getshortcutname(shortcutty(info.key)) + ' "'+info.chars + '" ' +
-  settostring(ptypeinfo(typeinfo(shiftstatesty)),
-                              int32(info.shiftstate),true) + ' ' +
-  settostring(ptypeinfo(typeinfo(eventstatesty)),
-                              int32(info.eventstate),true) + '>',sender,'');
+ with info do begin
+  track('<dokeydown '+
+ //          getenumname(typeinfo(eventkindty),ord(info.eventkind)) + ' ' +
+           getshortcutname(shortcutty(key)) + ' "'+chars + '" ' +
+   settostring(ptypeinfo(typeinfo(shiftstate)),
+                               int32(shiftstate),true) + ' ' +
+   settostring(ptypeinfo(typeinfo(eventstate)),
+                               int32(eventstate),true) + '>',sender,'');
+ end;
 end;
 
 procedure tassistivemonitor.doactionexecute(const sender: tobject;
@@ -172,6 +177,14 @@ end;
 procedure tassistivemonitor.dochange(const sender: iassistiveclient);
 begin
  track('<dochange>',sender,'');
+end;
+
+procedure tassistivemonitor.docellevent(const sender: iassistiveclient;
+               const info: celleventinfoty);
+begin
+ track('<docellevent>',sender,getenumname(typeinfo(info.eventkind),
+           int32(info.eventkind))+' col:'+inttostr(info.cell.col)+
+                                 ' row:'+inttostr(info.cell.row));
 end;
 
 { tmainfo }
