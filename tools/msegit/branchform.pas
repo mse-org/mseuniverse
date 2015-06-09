@@ -137,7 +137,7 @@ var
 implementation
 
 uses
- branchform_mfm,mainmodule,main,msefileutils,mseeditglob,logform;
+ branchform_mfm,mainmodule,main,msefileutils,mseeditglob,logform,msestringenter;
 const
  hiddencolor = $fff0f0;
  
@@ -571,7 +571,6 @@ end;
 procedure tbranchfo.remotepopupupdateexe(const sender: tcustommenu);
 var
  bo1: boolean;
- int1: integer;
 begin
  sender.menu.visible:= mainmo.isrepoloaded;
  if sender.menu.visible then begin
@@ -583,6 +582,7 @@ begin
   sender.menu.itembyname('pushlocalbranch').enabled:= bo1 and 
         (mainmo.activebranch <> '') and (remotebranch.value <> '') and
                        (system.pos('(detached from',mainmo.activebranch) = 0);
+{
   if bo1 then begin
    for int1:= 0 to localgrid.rowhigh do begin
     if localbranch[int1] = remotebranch.value then begin
@@ -591,6 +591,7 @@ begin
     end;
    end;
   end;
+}
   sender.menu.itembyname('create').enabled:= bo1;
  end;
 end;
@@ -614,8 +615,35 @@ end;
 procedure tbranchfo.remotecreatelocalbranchexe(const sender: TObject);
 var
  bo1,bo2: boolean;
+ int1: int32;
+ branchname1: msestring;
 begin
- if mainmo.createbranch('',remotebranch.value,
+ branchname1:= remotebranch.value;
+ repeat
+  bo1:= false;
+  for int1:= 0 to localgrid.rowhigh do begin
+   if msecomparetext(localbranch[int1],branchname1) = 0 then begin
+    bo1:= true;
+    break;
+   end;
+  end;
+  if bo1 then begin
+   case stringenter(branchname1,'Name exists, change local branch name',
+                                                  'Create local branch') of
+    mr_ok: begin
+     if branchname1 = '' then begin
+      branchname1:= remotebranch.value;
+     end;
+     continue;
+    end;
+    else begin
+     exit;
+    end;
+   end;
+  end;
+ until not bo1;
+
+ if mainmo.createbranch('',branchname1,
                     currentremote+'/'+remotebranch.value) then begin
   localgrid.row:= localgrid.appendrow;
   localbranch.value:= remotebranch.value;
