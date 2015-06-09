@@ -2261,14 +2261,22 @@ function tmainmo.matchingremotebranch: msestring;
 var
  po1: premoteinfoty;
  int1: integer;
+ mstr1: msestring;
+ info1: localbranchinfoty;
 begin
  result:= '';
  if (activeremote <> '') and (activebranch <> '') then begin
   po1:= findremote(activeremote);
-  if po1 <> nil then begin
+  if (po1 <> nil) and branchbyname(activebranch,info1) then begin
+   if info1.trackremote = activeremote then begin
+    mstr1:= info1.trackbranch;
+   end
+   else begin
+    mstr1:= activebranch;
+   end;
    for int1:= 0 to high(po1^.branches) do begin
-    if po1^.branches[int1].info.name = activebranch then begin
-     result:= activeremote+'/'+activebranch;
+    if po1^.branches[int1].info.name = mstr1 then begin
+     result:= activeremote+'/'+mstr1;
      break;
     end;
    end;
