@@ -598,16 +598,17 @@ begin
  pullact.enabled:= bo2;
  pullfromact.enabled:= bo2 and (mstr1 <> '') and bo3;;
  pullfromact.caption:= 'P&ull from '+mstr1;
- mergeact.enabled:= bo2 and (mstr3 <> '');
+ mergeact.enabled:= bo2 and (mstr3 <> '') and (mstr3 <> mstr2);
  mergeact.caption:= 'Merge from '+mstr3;
- mergefromact.enabled:= bo2 and (mstr2 <> '');
+ mergefromact.enabled:= bo2 and (mstr2 <> '') and
+                                            (mstr2 <> mainmo.activebranch);
 //                      (mainmo.activeremotebranch[mainmo.activeremote] <> '');
  mergefromact.caption:= 'Merge from '+mstr2;
  resetmergeact.enabled:= mainmo.merging;
 
- rebaseact.enabled:= bo2 and (mstr3 <> '');
+ rebaseact.enabled:= mergeact.enabled;
  rebaseact.caption:= 'Rebase from '+mstr3;
- rebasefromact.enabled:= bo2;
+ rebasefromact.enabled:= mergefromact.enabled;
  rebasefromact.caption:= 'Rebase from '+mstr2;
  rebasecontinueact.enabled:= mainmo.rebasing;
  rebaseskipact.enabled:= mainmo.rebasing;
