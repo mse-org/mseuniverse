@@ -487,7 +487,6 @@ type
    function deleteremote(const aremote: msestring): boolean;
    function setbranchtracking(
                  const abranch,aremote,aremotebranch: msestring): boolean;
-   
    function createtmpfile(out dest: filenamety; const afilename: filenamety;
              const acaption: msestring; const acommit: msestring = '';
              const isindex: boolean = false): boolean;

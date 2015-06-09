@@ -332,20 +332,25 @@ end;
 
 procedure tbranchfo.localactivesetexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
+var
+ info1: localbranchinfoty;
 begin
  accept:= askconfirmation('Do you want to switch to branch "'+
                       localbranch.value+'"?') and
                       mainmo.checkoutbranch(localbranch.value);
  if accept then begin
-  if mainmo.linkremotebranch[mainmo.activeremote,localbranch.value] then begin
-   mainmo.activeremotebranch[mainmo.activeremote]:= localbranch.value;
+  if mainmo.branchbyname(localbranch.value,info1) and 
+                                   (info1.trackremote <> '') then begin
+   if mainmo.linkremotebranch[info1.trackremote,info1.trackbranch] then begin
+    mainmo.activeremotebranch[info1.trackremote]:= info1.trackbranch;
+    mainmo.activeremote:= info1.trackremote;
+   end;
   end;
   mainmo.repostat.activelocallogbranch:= localbranch.value;
   locallogbranch.value:= true;
   mainfo.reload;
   accept:= false;
  end;
- exit;
 end;
 
 procedure tbranchfo.setactivelocallog(const abranch: msestring);
@@ -402,6 +407,39 @@ end;
 
 procedure tbranchfo.remoteactivesetexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
+
+ function checklinkbranch(const abranch: msestring): boolean;
+ var
+  i1: int32;
+ begin
+  result:= true;
+  if mainmo.linkremotebranch[currentremote,abranch] then begin
+   for i1:= 0 to high(mainmo.branches) do begin
+    with mainmo.branches[i1] do begin
+     if (trackremote = currentremote) and 
+             (trackbranch = abranch) then begin
+      if info.name <> mainmo.activebranch then begin
+       case askconfirmationcancel('Do you want to switch to branch "'+
+         info.name+'"?') of
+        mr_yes: begin
+         result:= mainmo.checkoutbranch(info.name);
+         if result then begin
+          setactivelocallog(info.name);
+         end;
+        end;
+        mr_no: begin
+        end;
+        else begin
+         result:= false;
+        end;
+       end;
+      end;
+     end;
+    end;
+   end;
+  end;
+ end;
+
 var
  int1: integer;
  mstr1: msestring;
@@ -414,17 +452,9 @@ begin
  rowbefore:= remotegrid.row;
  if remote.value <> '' then begin  //switch remote
   if avalue then begin
-   mstr1:= mainmo.activeremotebranch[remote.value];
-   if mainmo.linkremotebranch[remote.value,mstr1] and 
-                                   (mstr1 <> mainmo.activebranch) then begin
-    if askconfirmation('Do you want to switch to branch "'+mstr1+'"?') and
-                                      mainmo.checkoutbranch(mstr1) then begin
-     setactivelocallog(mstr1);
-    end
-    else begin
-     accept:= false;
-     exit;
-    end;
+   if not checklinkbranch(mainmo.activeremotebranch[currentremote]) then begin
+    accept:= false;
+    exit;
    end;
   end;
   bo1:= false;
@@ -455,15 +485,8 @@ begin
  end 
  else begin                    //switch remote branch
   if avalue then begin
-   if (mainmo.activeremote = currentremote) and 
-                      (mainmo.activebranch <> remotebranch.value) and
-       mainmo.linkremotebranch[mainmo.activeremote,remotebranch.value] then begin
-    if askconfirmation('Do you want to switch to branch "'+
-      remotebranch.value+'"?') and
-                 mainmo.checkoutbranch(remotebranch.value) then begin
-     setactivelocallog(remotebranch.value);
-    end
-    else begin
+   if (mainmo.activeremote = currentremote) then begin
+    if not checklinkbranch(remotebranch.value) then begin
      accept:= false;
      exit;
     end;
