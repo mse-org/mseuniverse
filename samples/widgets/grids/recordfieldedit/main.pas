@@ -34,9 +34,10 @@ type
    procedure setintfield(const avalue: integer);
    procedure setrealfield(const avalue: real);
   protected
+   function createsubnode: ttreelistitem; override;
+    //irecordfield
    function getfieldtext(const fieldindex: integer): msestring;
    procedure setfieldtext(const fieldindex: integer; var avalue: msestring);
-   function createsubnode: ttreelistitem; override;
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
