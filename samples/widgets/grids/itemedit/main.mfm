@@ -1,7 +1,75 @@
 object mainfo: tmainfo
-  bounds_x = 291
-  bounds_y = 247
-  bounds_cx = 403
-  bounds_cy = 280
+  bounds_x = 692
+  bounds_y = 459
+  bounds_cx = 333
+  bounds_cy = 366
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    333
+    366
+  )
+  oncreate = createexe
   moduleclassname = 'tmainform'
+  object twidgetgrid1: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 8
+    bounds_y = 64
+    bounds_cx = 306
+    bounds_cy = 234
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    rowcount = 5
+    datacols.count = 1
+    datacols.items = <    
+      item[itemed]
+        width = 128
+        widgetname = 'itemed'
+        dataclass = titemeditlist
+        datalist.data = (        )
+      end>
+    datarowheight = 16
+    reffontheight = 14
+    object itemed: titemedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 128
+      bounds_cy = 16
+      valueedits.count = 1
+      valueedits.items = <      
+        item
+          editwidget = trealedit1
+        end>
+      reffontheight = 14
+      object trealedit1: trealedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        visible = False
+        bounds_x = 30
+        bounds_y = 5
+        bounds_cy = 16
+        value = -Inf
+        valuedefault = -Inf
+        valuerange = 1
+        valuestart = 0
+        min = -Inf
+        max = 1E+038
+        reffontheight = 14
+      end
+    end
+  end
 end

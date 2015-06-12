@@ -22,7 +22,7 @@ uses
  mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
  msegraphutils,mseevent,mseclasses,mseforms,msedataedits,mseedit,msegrids,
  msestrings,msetypes,msewidgetgrid,msedatanodes,mselistbrowser,msestatfile,
- mseificomp,mseificompglob,mseifiglob,msebitmap;
+ mseificomp,mseificompglob,mseifiglob,msebitmap,msevaluenodes;
 
 type
  tmynode = class(ttreelistedititem,irecordfield)
