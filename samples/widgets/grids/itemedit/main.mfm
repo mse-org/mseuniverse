@@ -49,10 +49,13 @@ object mainfo: tmainfo
       bounds_y = 0
       bounds_cx = 128
       bounds_cy = 16
-      valueedits.count = 1
+      valueedits.count = 2
       valueedits.items = <      
         item
           editwidget = trealedit1
+        end      
+        item
+          editwidget = tintegeredit1
         end>
       reffontheight = 14
       object trealedit1: trealedit
@@ -68,6 +71,16 @@ object mainfo: tmainfo
         valuestart = 0
         min = -Inf
         max = 1E+038
+        reffontheight = 14
+      end
+      object tintegeredit1: tintegeredit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 1
+        visible = False
+        bounds_x = 14
+        bounds_y = 5
+        bounds_cy = 16
         reffontheight = 14
       end
     end
