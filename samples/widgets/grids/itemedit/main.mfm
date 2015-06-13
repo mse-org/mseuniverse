@@ -1,14 +1,14 @@
 object mainfo: tmainfo
-  bounds_x = 692
-  bounds_y = 459
-  bounds_cx = 333
+  bounds_x = 573
+  bounds_y = 463
+  bounds_cx = 489
   bounds_cy = 366
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    333
+    489
     366
   )
   oncreate = createexe
@@ -17,9 +17,14 @@ object mainfo: tmainfo
     frame.localprops = []
     frame.localprops1 = []
     bounds_x = 8
-    bounds_y = 64
-    bounds_cx = 306
-    bounds_cy = 234
+    bounds_y = 8
+    bounds_cx = 210
+    bounds_cy = 346
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        numstep = 1
+      end>
     fixrows.count = 1
     fixrows.items = <    
       item
@@ -34,7 +39,7 @@ object mainfo: tmainfo
         dataclass = titemeditlist
         datalist.data = (        )
       end>
-    datarowheight = 16
+    datarowheight = 24
     reffontheight = 14
     object itemed: titemedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -48,19 +53,37 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 128
-      bounds_cy = 16
-      valueedits.count = 2
+      bounds_cy = 24
+      valueedits.count = 6
       valueedits.items = <      
         item
           editwidget = trealedit1
         end      
         item
+          valueindex = 4
+          editwidget = tbooleanedit1
+        end      
+        item
+          valueindex = 1
           editwidget = tintegeredit1
+        end      
+        item
+          valueindex = 2
+          editwidget = tstringedit1
+        end      
+        item
+          valueindex = 3
+          editwidget = tdatetimeedit1
+        end      
+        item
+          valueindex = 5
+          editwidget = tslider1
         end>
       reffontheight = 14
       object trealedit1: trealedit
         optionswidget1 = [ow1_fontglyphheight]
         optionsskin = [osk_framebuttononly]
+        color = 14400255
         visible = False
         bounds_x = 30
         bounds_y = 5
@@ -76,6 +99,7 @@ object mainfo: tmainfo
       object tintegeredit1: tintegeredit
         optionswidget1 = [ow1_fontglyphheight]
         optionsskin = [osk_framebuttononly]
+        color = 13238259
         taborder = 1
         visible = False
         bounds_x = 14
@@ -83,6 +107,216 @@ object mainfo: tmainfo
         bounds_cy = 16
         reffontheight = 14
       end
+      object tdatetimeedit1: tdatetimeedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        color = 16756928
+        frame.levelo = 0
+        frame.framewidth = 1
+        frame.colorframe = -1610612723
+        frame.localprops = [frl_levelo, frl_framewidth, frl_colorframe]
+        frame.localprops1 = []
+        taborder = 2
+        visible = False
+        bounds_x = 14
+        bounds_y = 5
+        bounds_cy = 16
+        value = -Inf
+        valuedefault = -Inf
+        min = -Inf
+        max = 401768.99999
+        reffontheight = 14
+      end
+      object tstringedit1: tstringedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        color = 15007684
+        taborder = 3
+        visible = False
+        bounds_x = 16
+        bounds_y = 0
+        bounds_cy = 16
+        reffontheight = 14
+      end
+      object tslider1: tslider
+        optionswidget1 = []
+        optionsskin = [osk_framebuttononly]
+        color = -1879048187
+        taborder = 5
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 128
+        bounds_cy = 24
+        anchors = []
+        visible = False
+        value = 0
+        scrollbar.options = [sbo_moveauto, sbo_showauto, sbo_valuekeys, sbo_noarrowkeys, sbo_nopagekeys, sbo_noreflectedclick]
+        scrollbar.face.localprops = []
+      end
+      object tbooleanedit1: tbooleanedit
+        optionswidget1 = []
+        optionsskin = [osk_framebuttononly]
+        color = 16765066
+        frame.levelo = 0
+        frame.framewidth = 2
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_framewidth, frl_colorclient]
+        frame.localprops1 = []
+        taborder = 4
+        bounds_x = 46
+        bounds_y = 1
+        bounds_cx = 21
+        bounds_cy = 22
+        visible = False
+      end
+    end
+  end
+  object tbutton1: tbutton
+    taborder = 1
+    bounds_x = 320
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 20
+  end
+  object tbutton2: tbutton
+    taborder = 2
+    bounds_x = 408
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 20
+  end
+  object twidgetgrid2: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 3
+    bounds_x = 240
+    bounds_y = 56
+    bounds_cx = 226
+    bounds_cy = 242
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    rowcount = 5
+    datacols.count = 4
+    datacols.items = <    
+      item[tslider2]
+        color = -2147483646
+        width = 83
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tslider2'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            -Inf
+            -Inf
+            -Inf
+            -Inf
+            -Inf
+          )
+        )
+      end    
+      item[tprogressbar1]
+        width = 37
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tprogressbar1'
+        dataclass = tgridrealdatalist
+        data = (
+          (
+            -Inf
+            -Inf
+            -Inf
+            -Inf
+            -Inf
+          )
+        )
+      end    
+      item[tdatabutton1]
+        color = -2147483646
+        widgetname = 'tdatabutton1'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            -1
+            -1
+            -1
+            -1
+            -1
+          )
+        )
+      end    
+      item[tdatabutton2]
+        color = -2147483646
+        widgetname = 'tdatabutton2'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            -1
+            -1
+            -1
+            -1
+            -1
+          )
+        )
+      end>
+    reffontheight = 14
+    object tslider2: tslider
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 83
+      visible = False
+      value = 0
+      scrollbar.options = [sbo_moveauto, sbo_showauto, sbo_valuekeys, sbo_noarrowkeys, sbo_nopagekeys, sbo_noreflectedclick]
+      scrollbar.face.localprops = []
+    end
+    object tprogressbar1: tprogressbar
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      bounds_x = 84
+      bounds_y = 0
+      bounds_cx = 37
+      visible = False
+      bar_face.fade_pos.count = 1
+      bar_face.fade_pos.items = (
+        0
+      )
+      bar_face.fade_color.count = 1
+      bar_face.fade_color.items = (
+        -1610612715
+      )
+      bar_face.localprops = []
+      bar_frame.localprops = []
+      bar_frame.localprops1 = []
+      valuerange = 100
+      valuestart = 0
+      value = 0
+      format = '0%'
+    end
+    object tdatabutton1: tdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      color = 14352384
+      taborder = 3
+      bounds_x = 122
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 20
+      state = [as_invisible, as_localinvisible, as_localcolor]
+    end
+    object tdatabutton2: tdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      bounds_x = 173
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 20
+      state = [as_invisible, as_localinvisible]
     end
   end
 end
