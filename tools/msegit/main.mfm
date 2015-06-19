@@ -302,8 +302,6 @@ object mainfo: tmainfo
     top = 48
   end
   object formsta: tstatfile
-    filename = 'formfo.sta'
-    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     statfile = mainmo.mainstat
     onstatafterread = formstaafterreadexe
     left = 136
