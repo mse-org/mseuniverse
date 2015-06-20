@@ -25,6 +25,8 @@ type
    tslider2: tslider;
    tslider1: tslider;
    tdatabutton2: tdatabutton;
+   tstringedit2: tstringedit;
+   tstringedit3: tstringedit;
    procedure createexe(const sender: TObject);
  end;
 var
@@ -32,8 +34,38 @@ var
 
 implementation
 uses
- main_mfm,msedatalist,msevaluenodes;
+ main_mfm,msedatalist,msevaluenodes,msevaluenodesglob;
 
+type
+ trecitem = class(trecordlistedititem)
+  private
+   fstrval: msestring; //2
+   fintval: int32;     //1
+  protected 
+   procedure getvalueinfo(out avalues: recvaluearty); override;
+   procedure setvalue(const atype: listdatatypety;
+         const aindex: int32; const getvaluemethod: getvaluemethodty); override;
+ end;
+
+{ trecitem }
+
+procedure trecitem.getvalueinfo(out avalues: recvaluearty);
+begin
+ setlength(avalues,2);
+ initvalueinfo(2,fstrval,avalues[0]);
+ initvalueinfo(1,fintval,avalues[1]);
+end;
+
+procedure trecitem.setvalue(const atype: listdatatypety; const aindex: int32;
+               const getvaluemethod: getvaluemethodty);
+begin
+ case aindex of
+  2: getvaluemethod(fstrval);
+  1: getvaluemethod(fintval);
+ end;
+end;
+
+ 
 procedure tmainfo.createexe(const sender: TObject);
 begin
 {
@@ -43,6 +75,7 @@ begin
  itemed.itemlist.add(tdatetimevaluelistedititem.create());
  itemed.itemlist.add(tbooleanvaluelistedititem.create());
 }
+ itemed.itemlist.add(trecitem.create());
  itemed.itemlist.add(trealvaluelistedititem.create(0));
  itemed.itemlist.add(tintegervaluelistedititem.create(1));
  itemed.itemlist.add(tstringvaluelistedititem.create(2));

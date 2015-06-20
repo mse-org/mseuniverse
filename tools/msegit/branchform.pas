@@ -933,8 +933,8 @@ begin
  if sender.menu.visible then begin
   with sender.menu.itembyname('pushbranch') do begin
    caption:= 'Push branch ' + pushbranchtext;
-   enabled:= (localbranch.value <> '') and 
-         (mainmo.findremotebranch(mainmo.activeremote,localbranch.value) = nil);
+   enabled:= (localbranch.value <> ''){ and 
+         (mainmo.findremotebranch(mainmo.activeremote,localbranch.value) = nil)};
   end;
   with sender.menu.itembyname('deletebranch') do begin
    enabled:= not localactive.value;

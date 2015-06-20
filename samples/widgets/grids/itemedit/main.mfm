@@ -1,14 +1,14 @@
 object mainfo: tmainfo
-  bounds_x = 573
+  bounds_x = 418
   bounds_y = 463
-  bounds_cx = 489
+  bounds_cx = 644
   bounds_cy = 366
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    489
+    644
     366
   )
   oncreate = createexe
@@ -18,8 +18,9 @@ object mainfo: tmainfo
     frame.localprops1 = []
     bounds_x = 8
     bounds_y = 8
-    bounds_cx = 210
+    bounds_cx = 346
     bounds_cy = 346
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
       item
@@ -31,16 +32,53 @@ object mainfo: tmainfo
         height = 16
       end>
     rowcount = 5
-    datacols.count = 1
+    datacols.count = 3
     datacols.items = <    
+      item[tstringedit3]
+        widgetname = 'tstringedit3'
+        dataclass = tgridmsestringdatalist
+        data = (
+          (
+            ''
+            ''
+            ''
+            ''
+            ''
+          )
+        )
+      end    
       item[itemed]
-        width = 128
+        width = 190
         widgetname = 'itemed'
         dataclass = titemeditlist
         datalist.data = (        )
+      end    
+      item[tstringedit2]
+        widgetname = 'tstringedit2'
+        dataclass = tgridmsestringdatalist
+        data = (
+          (
+            ''
+            ''
+            ''
+            ''
+            ''
+          )
+        )
       end>
-    datarowheight = 24
+    datarowheight = 23
     reffontheight = 14
+    object tstringedit3: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 23
+      reffontheight = 14
+    end
     object itemed: titemedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
@@ -48,12 +86,12 @@ object mainfo: tmainfo
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.localprops1 = []
-      taborder = 1
+      taborder = 2
       visible = False
-      bounds_x = 0
+      bounds_x = 51
       bounds_y = 0
-      bounds_cx = 128
-      bounds_cy = 24
+      bounds_cx = 190
+      bounds_cy = 23
       valueedits.count = 6
       valueedits.items = <      
         item
@@ -80,33 +118,6 @@ object mainfo: tmainfo
           editwidget = tslider1
         end>
       reffontheight = 14
-      object trealedit1: trealedit
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        color = 14400255
-        visible = False
-        bounds_x = 30
-        bounds_y = 5
-        bounds_cy = 16
-        value = -Inf
-        valuedefault = -Inf
-        valuerange = 1
-        valuestart = 0
-        min = -Inf
-        max = 1E+038
-        reffontheight = 14
-      end
-      object tintegeredit1: tintegeredit
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        color = 13238259
-        taborder = 1
-        visible = False
-        bounds_x = 14
-        bounds_y = 5
-        bounds_cy = 16
-        reffontheight = 14
-      end
       object tdatetimeedit1: tdatetimeedit
         optionswidget1 = [ow1_fontglyphheight]
         optionsskin = [osk_framebuttononly]
@@ -118,7 +129,7 @@ object mainfo: tmainfo
         frame.localprops1 = []
         taborder = 2
         visible = False
-        bounds_x = 14
+        bounds_x = 38
         bounds_y = 5
         bounds_cy = 16
         value = -Inf
@@ -127,27 +138,16 @@ object mainfo: tmainfo
         max = 401768.99999
         reffontheight = 14
       end
-      object tstringedit1: tstringedit
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        color = 15007684
-        taborder = 3
-        visible = False
-        bounds_x = 16
-        bounds_y = 0
-        bounds_cy = 16
-        reffontheight = 14
-      end
       object tslider1: tslider
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         color = -1879048187
         taborder = 5
-        bounds_x = 0
+        bounds_x = 32
         bounds_y = 0
-        bounds_cx = 128
-        bounds_cy = 24
-        anchors = []
+        bounds_cx = 158
+        bounds_cy = 23
+        anchors = [an_left, an_right]
         visible = False
         value = 0
         scrollbar.options = [sbo_moveauto, sbo_showauto, sbo_valuekeys, sbo_noarrowkeys, sbo_nopagekeys, sbo_noreflectedclick]
@@ -169,6 +169,58 @@ object mainfo: tmainfo
         bounds_cy = 22
         visible = False
       end
+      object tstringedit1: tstringedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        color = 15007684
+        taborder = 3
+        visible = False
+        bounds_x = 32
+        bounds_y = 0
+        bounds_cx = 60
+        bounds_cy = 16
+        reffontheight = 14
+      end
+      object trealedit1: trealedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        color = 14400255
+        visible = False
+        bounds_x = 91
+        bounds_y = 5
+        bounds_cx = 60
+        bounds_cy = 16
+        value = -Inf
+        valuedefault = -Inf
+        valuerange = 1
+        valuestart = 0
+        min = -Inf
+        max = 1E+038
+        reffontheight = 14
+      end
+      object tintegeredit1: tintegeredit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        color = 13238259
+        taborder = 1
+        visible = False
+        bounds_x = 86
+        bounds_y = 5
+        bounds_cx = 52
+        bounds_cy = 16
+        reffontheight = 14
+      end
+    end
+    object tstringedit2: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 242
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 23
+      reffontheight = 14
     end
   end
   object tbutton1: tbutton
@@ -189,8 +241,8 @@ object mainfo: tmainfo
     frame.localprops = []
     frame.localprops1 = []
     taborder = 3
-    bounds_x = 240
-    bounds_y = 56
+    bounds_x = 376
+    bounds_y = 64
     bounds_cx = 226
     bounds_cy = 242
     fixrows.count = 1
