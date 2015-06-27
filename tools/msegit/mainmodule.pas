@@ -2628,6 +2628,9 @@ begin
  if logfo <> nil then begin
   logfo.commitdate.showlocal:= avalue;
  end;
+ if tagsfo <> nil then begin
+  tagsfo.commitdateed.showlocal:= avalue;
+ end;
 end;
 
 procedure tmainmo.checkfulltags();
