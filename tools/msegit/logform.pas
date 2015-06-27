@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,dispform,msedataedits,
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mainmodule,
  msegraphedits,mseact,mseactions,mselistbrowser,msedatanodes,msethreadcomp,
- msesystypes,classes,mclasses,mseificomp,mseificompglob;
+ msesystypes,classes,mclasses,mseificomp,mseificompglob,msestatfile,msestream,
+ sysutils;
 
 type
  logbranchinfoty = record
@@ -61,6 +62,8 @@ type
    refreshthread: tthreadcomp;
    revertact: taction;
    diffmodelink: tifiintegerlinkcomp;
+   authordate: tdatetimeedit;
+   author: tstringedit;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -125,6 +128,8 @@ var
  po2,po4: pmsestring;
  po3: pdatetime;
  po5: pinteger;
+ pauthordate: pdatetimeaty;
+ pauthor: pmsestringaty;
  int1,int2: integer;
  ar2: refsitemarty;
  fm1: formatinfoarty;
@@ -148,6 +153,7 @@ begin
  
  if (mstr1 <> '') and mainmo.git.revlist(ar1,mstr1,fpath1,
                             maxlog1,skip,
+                            mainmo.repostat.logfilterauthor,
                             mainmo.repostat.logfiltercommit,
                             mainmo.repostat.logfilterdatemin,
                             mainmo.repostat.logfilterdatemax,
@@ -175,6 +181,8 @@ begin
    po3:= commitdate.griddata.datapo;
    po4:= committer.griddata.datapo;
    po5:= num.griddata.datapo;
+   pauthordate:= authordate.griddata.datapo;
+   pauthor:= author.griddata.datapo;
    fm1:= setcolorbackground(nil,0,bigint,cl_transparent);
    for int1:= skip to high(ar1)+skip do begin
     with ar1[int1-skip] do begin
@@ -231,6 +239,8 @@ begin
      pdatetimeaty(po3)^[int1]:= commitdate;
      pmsestringaty(po4)^[int1]:= committer;
      pintegeraty(po5)^[int1]:= int1;
+     pauthordate^[int1]:= authordate;
+     pauthor^[int1]:= author;
     end;
    end;
    if (skip = 0) and (grid.rowcount > 0) then begin
@@ -526,6 +536,7 @@ begin
   updatecell('committer',logfiltercommitter <> '');
   updatecell('commitdate',(logfilterdatemin <> emptydatetime) or 
                   (logfilterdatemax <> emptydatetime));
+  updatecell('author',logfilterauthor <> '');
   updatecell('message',logfiltermessage <> '');
  end;
 end;

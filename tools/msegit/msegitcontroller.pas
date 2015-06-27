@@ -169,6 +169,8 @@ type
  refinfoty = record
   commit: msestring;
   message: msestring;
+  author: msestring;
+  authordate: tdatetime; //utc
   committer: msestring;
   commitdate: tdatetime; //utc
  end;
@@ -303,6 +305,7 @@ type
    function revlist(out alist: refinfoarty; 
                 const abranch: msestring; const apath: filenamety = '';
                 const maxcount: integer = 0; const skip: integer = 0;
+                const authorfilter: msestring = ''; 
                 const commitfilter: msestring = ''; 
                 const commitdatemin: tdatetime = emptydatetime;
                 const commitdatemax: tdatetime = emptydatetime;
@@ -1390,7 +1393,7 @@ begin
 end;
 
 type
- recordkindty = (rk_none,rk_commit,rk_committer,rk_message);
+ recordkindty = (rk_none,rk_commit,rk_author,rk_committer,rk_message);
  recdefty = record
   name: msestring;
  end;
@@ -1403,6 +1406,7 @@ const
          (     
           (name: ''),             //rk_none
           (name: 'commit'),       //rk_commit
+          (name: 'author'),       //rk_author
           (name: 'committer'),    //rk_committer
           (name: '   ')           //rk_message
          );
@@ -1504,6 +1508,16 @@ begin
    else begin
     if pinfo1 <> nil then begin
      case k1 of
+      rk_author: begin
+       revfind(po3,' ',po4);
+       revfind(po4,' ',po5);
+       if po5 <> nil then begin
+        if trystrtointmse(psubstr(po5+1,po4),lwo1) then begin
+         pinfo1^.authordate:= unixtodatetime(lwo1);
+         pinfo1^.author:= psubstr(po2+1,po5);
+        end;
+       end;
+      end;
       rk_committer: begin
        revfind(po3,' ',po4);
        revfind(po4,' ',po5);
@@ -1539,6 +1553,7 @@ end;
 function tgitcontroller.revlist(out alist: refinfoarty; 
                const abranch: msestring; const apath: filenamety = '';
                const maxcount: integer = 0; const skip: integer = 0;
+               const authorfilter: msestring = ''; 
                const commitfilter: msestring = ''; 
                const commitdatemin: tdatetime = emptydatetime;
                const commitdatemax: tdatetime = emptydatetime;
@@ -1552,6 +1567,9 @@ var
 begin
  alist:= nil;
  str1:= 'rev-list --pretty=raw -i ';
+ if authorfilter <> '' then begin
+  str1:= str1 + '--author='+encodestringparam(authorfilter)+' ';
+ end;
  if commitdatemin <> emptydatetime then begin
   str1:= str1 + '--since='+encodedatetimeparam(commitdatemin)+' ';
  end;

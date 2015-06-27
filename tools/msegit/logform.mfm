@@ -1,5 +1,5 @@
 inherited logfo: tlogfo
-  bounds_x = 472
+  bounds_x = 495
   bounds_y = 103
   bounds_cx = 547
   container.bounds = (
@@ -27,7 +27,7 @@ inherited logfo: tlogfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 6
+        captions.count = 8
         captions.items = <        
           item
             caption = 'N'
@@ -47,11 +47,19 @@ inherited logfo: tlogfo
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
-            caption = 'Date'
+            caption = 'Commit Date'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Committer'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'Author Date'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'Author'
             options = [dco_colsort, dco_hintclippedtext]
           end>
       end>
@@ -59,7 +67,7 @@ inherited logfo: tlogfo
     rowcolors.items = (
       12316091
     )
-    datacols.count = 6
+    datacols.count = 8
     datacols.colorfocused = -1879048185
     datacols.sortcol = 0
     datacols.sortcoldefault = 0
@@ -123,6 +131,24 @@ inherited logfo: tlogfo
         name = 'committer'
         widgetname = 'committer'
         dataclass = tgridmsestringdatalist
+      end    
+      item[authordate]
+        colorfocused = -1879048185
+        width = 85
+        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
+        name = 'authordate'
+        widgetname = 'authordate'
+        dataclass = tgridrealdatalist
+      end    
+      item[author]
+        colorfocused = -1879048185
+        width = 119
+        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
+        name = 'author'
+        widgetname = 'author'
+        dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
     statfile = mainfo.formsta
@@ -151,7 +177,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
-      bounds_x = 0
+      bounds_x = -230
       bounds_y = 0
       bounds_cx = 167
       bounds_cy = 16
@@ -166,7 +192,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 168
+      bounds_x = -62
       bounds_y = 0
       bounds_cx = 99
       bounds_cy = 16
@@ -182,7 +208,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 268
+      bounds_x = 38
       bounds_y = 0
       bounds_cx = 116
       bounds_cy = 16
@@ -204,9 +230,44 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 385
+      bounds_x = 155
       bounds_y = 0
       bounds_cx = 117
+      bounds_cy = 16
+      optionsedit1 = []
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      reffontheight = 14
+    end
+    object authordate: tdatetimeedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 5
+      visible = False
+      bounds_x = 273
+      bounds_y = 0
+      bounds_cx = 85
+      bounds_cy = 16
+      optionsedit1 = []
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      textflags = [tf_ycentered, tf_noselect]
+      value = -Inf
+      valuedefault = -Inf
+      formatedit = '${dt}'
+      formatdisp = '${dt}'
+      min = -Inf
+      max = 401768.99999
+      kind = dtk_datetime
+      options = [dteo_showlocal]
+      reffontheight = 14
+    end
+    object author: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 6
+      visible = False
+      bounds_x = 359
+      bounds_y = 0
+      bounds_cx = 119
       bounds_cy = 16
       optionsedit1 = []
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]

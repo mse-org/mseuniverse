@@ -165,6 +165,7 @@ type
    fremotebranchorder: msestringarty;
    fshowhiddenbranches: boolean;
    flogfiltercommit: msestring;
+   flogfilterauthor: msestring;
    flogfiltercommitter: msestring;
    flogfilterdatemin: tdatetime;
    flogfilterdatemax: tdatetime;
@@ -199,6 +200,8 @@ type
                                                   write fremotebranchorder;
    property showhiddenbranches: boolean read fshowhiddenbranches
                                                   write fshowhiddenbranches;
+   property logfilterauthor: msestring read flogfilterauthor
+                                             write flogfilterauthor;
    property logfiltercommit: msestring read flogfiltercommit
                                                 write flogfiltercommit;
    property logfiltercommitter: msestring read flogfiltercommitter
@@ -2585,6 +2588,7 @@ begin
    (frepostat.logfiltercommitter = '') and
    (frepostat.logfilterdatemin = emptydatetime) and
    (frepostat.logfilterdatemax = emptydatetime) and
+   (frepostat.logfilterauthor = '') and
    (frepostat.logfiltermessage = '')
   );
 end;
@@ -2606,6 +2610,7 @@ procedure tmainmo.filterresetexe(const sender: TObject);
 begin
  with frepostat do begin
   logfiltercommit:= '';
+  logfilterauthor:= '';
   logfiltercommitter:= '';
   logfilterdatemin:= emptydatetime;
   logfilterdatemax:= emptydatetime;

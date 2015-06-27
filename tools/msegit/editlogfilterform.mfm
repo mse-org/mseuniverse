@@ -2,45 +2,46 @@ object editlogfilterfo: teditlogfilterfo
   visible = False
   bounds_x = 144
   bounds_y = 244
-  bounds_cx = 284
-  bounds_cy = 201
+  bounds_cx = 283
+  bounds_cy = 251
   container.frame.clientheightmin = 170
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    284
-    201
+    283
+    251
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Edit log Filter'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
-    bounds_x = 226
-    bounds_y = 172
+    bounds_x = 225
+    bounds_y = 214
     bounds_cx = 50
     bounds_cy = 20
-    anchors = [an_right, an_bottom]
+    anchors = [an_top, an_right]
     state = [as_localcaption]
     caption = '&Cancel'
     modalresult = mr_cancel
   end
   object tbutton2: tbutton
     taborder = 1
-    bounds_x = 170
-    bounds_y = 172
+    bounds_x = 169
+    bounds_y = 214
     bounds_cx = 50
     bounds_cy = 20
-    anchors = [an_right, an_bottom]
+    anchors = [an_top, an_right]
     state = [as_default, as_localdefault, as_localcaption]
     caption = '&OK'
     modalresult = mr_ok
   end
   object logfiltercommit: tstringedit
     frame.caption = 'Commit'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -50,14 +51,15 @@ object editlogfilterfo: teditlogfilterfo
     taborder = 2
     bounds_x = 8
     bounds_y = 7
-    bounds_cx = 268
+    bounds_cx = 267
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     reffontheight = 14
   end
   object logfilterdatemin: tdatetimeedit
-    frame.caption = 'Date min'
-    frame.dummy = 0
+    frame.caption = 'Commit Date min'
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -76,8 +78,9 @@ object editlogfilterfo: teditlogfilterfo
     reffontheight = 14
   end
   object logfilterdatemax: tdatetimeedit
-    frame.caption = 'Date max'
-    frame.dummy = 0
+    frame.caption = 'Commit Date max'
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -97,7 +100,8 @@ object editlogfilterfo: teditlogfilterfo
   end
   object logfiltercommitter: tstringedit
     frame.caption = 'Committer Regex'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -107,14 +111,15 @@ object editlogfilterfo: teditlogfilterfo
     taborder = 5
     bounds_x = 8
     bounds_y = 87
-    bounds_cx = 268
+    bounds_cx = 267
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     reffontheight = 14
   end
   object logfiltermessage: tstringedit
     frame.caption = 'Message Regex'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -123,8 +128,26 @@ object editlogfilterfo: teditlogfilterfo
     )
     taborder = 6
     bounds_x = 8
+    bounds_y = 167
+    bounds_cx = 267
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    reffontheight = 14
+  end
+  object logfilterauthor: tstringedit
+    frame.caption = 'Author Regex'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 8
     bounds_y = 127
-    bounds_cx = 268
+    bounds_cx = 267
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     reffontheight = 14
@@ -133,6 +156,6 @@ object editlogfilterfo: teditlogfilterfo
     filename = 'editlogfilterfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 8
-    top = 168
+    top = 216
   end
 end

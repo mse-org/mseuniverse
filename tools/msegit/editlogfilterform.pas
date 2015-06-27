@@ -21,7 +21,8 @@ uses
  mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msestatfile,
  msesimplewidgets,msewidgets,mseificomp,mseificompglob,mseifiglob,msegrids,
- mseifigui,mseifilink,msestrings,msetypes,msedataedits,mseedit;
+ mseifigui,mseifilink,msestrings,msetypes,msedataedits,mseedit,msestream,
+ sysutils;
 type
  teditlogfilterfo = class(tmseform)
    tstatfile1: tstatfile;
@@ -32,6 +33,7 @@ type
    logfilterdatemax: tdatetimeedit;
    logfiltercommitter: tstringedit;
    logfiltermessage: tstringedit;
+   logfilterauthor: tstringedit;
  end;
 
 implementation
