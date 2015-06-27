@@ -191,6 +191,8 @@ inherited logfo: tlogfo
       textflags = [tf_ycentered, tf_noselect]
       value = -Inf
       valuedefault = -Inf
+      formatedit = '${dt}'
+      formatdisp = '${dt}'
       min = -Inf
       max = 401768.99999
       kind = dtk_datetime

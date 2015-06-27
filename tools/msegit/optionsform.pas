@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,
  msewidgets,msescrollbar,msetabs,sysutils,msestatfile,msebitmap,msedataedits,
  msedatanodes,mseedit,msefiledialog,msegrids,mseifiglob,mselistbrowser,
- msestrings,msesys,msetypes,msegraphedits,msesplitter;
+ msestrings,msesys,msetypes,msegraphedits,msesplitter,mseificomp,mseificompglob,
+ msestream;
 
 type
  toptionsfo = class(tmseform)
@@ -32,16 +33,20 @@ type
    ttabpage1: ttabpage;
    tstatfile1: tstatfile;
    gitcommand: tfilenameedit;
-   maxlog: tintegeredit;
-   showutc: tbooleanedit;
-   diffcontextn: tintegeredit;
-   difftool: thistoryedit;
-   mergetool: thistoryedit;
-   splitdiffs: tbooleanedit;
    patchtool: thistoryedit;
    repostatfilename: tstringedit;
-   diffencoding: tenumtypeedit;
    tspacer1: tspacer;
+   texpandingwidget1: texpandingwidget;
+   mergetool: thistoryedit;
+   difftool: thistoryedit;
+   showutc: tbooleanedit;
+   dateformat: tstringedit;
+   texpandingwidget2: texpandingwidget;
+   diffencoding: tenumtypeedit;
+   diffcontextn: tintegeredit;
+   splitdiffs: tbooleanedit;
+   maxlog: tintegeredit;
+   tspacer2: tspacer;
    procedure repostafnasetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure diffencinitexe(const sender: tenumtypeedit);
@@ -51,7 +56,7 @@ procedure editoptions;
 
 implementation
 uses
- optionsform_mfm,mserttistat,mainmodule,msestream;
+ optionsform_mfm,mserttistat,mainmodule;
  
 procedure editoptions;
 var

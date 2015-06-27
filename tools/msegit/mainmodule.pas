@@ -57,12 +57,14 @@ type
    fsplitdiffs: boolean;
    frepostatfilename: msestring;
    fdiffencoding: integer;
+   fdateformat: msestring;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
    procedure setgitcommand(const avalue: msestring);
    procedure setshowutc(const avalue: boolean);
    function getshowutc: boolean;
+   procedure setdateformat(avalue: msestring);
   public
    constructor create(const aowner: tmainmo);
   published
@@ -73,6 +75,7 @@ type
    property gitcommand: msestring read getgitcommand write setgitcommand;
    property maxlog: integer read fmaxlog write fmaxlog;
    property showutc: boolean read getshowutc write setshowutc;
+   property dateformat: msestring read fdateformat write setdateformat;
    property diffcontextn: integer read fdiffcontextn write fdiffcontextn;
    property splitdiffs: boolean read fsplitdiffs write fsplitdiffs;
    property difftool: msestring read fdifftool write fdifftool;
@@ -2948,6 +2951,18 @@ end;
 function tmsegitoptions.getshowutc: boolean;
 begin
  result:= not fowner.showlocal;
+end;
+
+procedure tmsegitoptions.setdateformat(avalue: msestring);
+begin
+ fdateformat:= avalue;
+ if avalue = '' then begin
+  avalue:= 'c';
+ end;
+ with formatmacros() do begin
+  clear;
+  addmac('dt',avalue);
+ end;
 end;
 
 { trepostat }
