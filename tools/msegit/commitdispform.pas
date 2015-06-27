@@ -5,20 +5,16 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,dispform,
  msedispwidgets,mserichstring,msestrings,msedataedits,mseedit,mseificomp,
- mseificompglob,mseifiglob,msestatfile,msestream,sysutils,msesplitter;
+ mseificompglob,mseifiglob,msestatfile,msestream,sysutils,msesplitter,msegrids,
+ msewidgetgrid,mseeditglob,msetextedit,msesyntaxedit;
 
 type
  tcommitdispfo = class(tdispfo)
-   tspacer1: tspacer;
-   parentdi: tstringdisp;
-   commitdi: tstringdisp;
-   texpandingwidget1: texpandingwidget;
-   messagedi: tmemoedit;
-   authordatedi: tdatetimedisp;
-   authordi: tstringdisp;
-   committerdi: tstringdisp;
-   treedi: tstringdisp;
-   commitdatedi: tdatetimedisp;
+   grid: twidgetgrid;
+   disp: tsyntaxedit;
+   captions: tstringedit;
+   procedure textmouseexe(const sender: TObject;
+                   var info: textmouseeventinfoty);
   protected
    procedure dorefresh; override;
    procedure doclear; override;
@@ -27,7 +23,7 @@ var
  commitdispfo: tcommitdispfo;
 implementation
 uses
- commitdispform_mfm,logform;
+ commitdispform_mfm,logform,mseformatstr,msegridsglob;
  
 { tcommitdispfo }
 
@@ -37,27 +33,37 @@ begin
   doclear();
  end
  else begin
-  commitdi.value:= logfo.commit.value;
-  parentdi.value:= logfo.parent.value;
-  commitdatedi.value:= logfo.commitdate.value;
-  treedi.value:= logfo.tree.value;
-  committerdi.value:= logfo.committer.value;
-  authordi.value:= logfo.author.value;
-  authordatedi.value:= logfo.authordate.value;
-  messagedi.value:= tlogitem(logfo.message.item).origmessage;
+  grid.rowcount:= 8;
+  captions[0]:= 'Commit:';
+  disp[0]:= logfo.commit.value;
+  captions[1]:= 'Commit Date:';
+  disp[1]:= datetimetostring(logfo.commitdate.value,'${dt}');
+  captions[2]:= 'Parent:';
+  disp[2]:= logfo.parent.value;
+  captions[3]:= 'Tree:';
+  disp[3]:= logfo.tree.value;
+  captions[4]:= 'Committer:';
+  disp[4]:= logfo.committer.value;
+  captions[5]:= 'Author:';
+  disp[5]:= logfo.author.value;
+  captions[6]:= 'Author Date:';
+  disp[6]:= datetimetostring(logfo.authordate.value,'${dt}');
+  captions[7]:= 'Message:';
+  disp[7]:= tlogitem(logfo.message.item).origmessage;
  end;
 end;
 
 procedure tcommitdispfo.doclear;
 begin
- commitdi.clear();
- parentdi.clear();
- commitdatedi.clear();
- treedi.clear();
- committerdi.clear();
- authordi.clear();
- authordatedi.clear();
- messagedi.value:= '';
+ grid.clear();
+end;
+
+procedure tcommitdispfo.textmouseexe(const sender: TObject;
+               var info: textmouseeventinfoty);
+begin
+ if (info.pos.row = 2) and istextdblclick(info) then begin
+  logfo.findcommit(disp.wordatpos(info.pos,' '+lineend,[]));
+ end;
 end;
 
 end.

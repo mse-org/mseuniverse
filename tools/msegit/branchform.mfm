@@ -352,6 +352,7 @@ inherited branchfo: tbranchfo
     onrowsmoved = localbranchrowmovedexe
     onrowsdeleting = localrowsdeleteexe
     onrowsdeleted = localrowsdeletedexe
+    oncellevent = branchcelleventexe
     reffontheight = 14
     object localactive: tbooleaneditradio
       optionsskin = [osk_framebuttononly]

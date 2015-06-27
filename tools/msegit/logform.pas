@@ -101,9 +101,9 @@ type
    constructor create(aowner: tcomponent); override;
    procedure refresh(const adir: tgitdirtreenode; const afile: tmsegitfileitem);
    function currentcommit: msestring;
-   function isbasediff: boolean; 
+   function isbasediff: boolean;
            //true if diffwindow shows diff to head
-//   function currentcommithint: msestring;
+   function findcommit(const acommit: msestring): boolean;
  end;
 
 var
@@ -487,16 +487,16 @@ begin
  case avalue of
   1: begin
    setrefmode(false);
-   diffmode.caption:= 'C';
-   diffmode.color:= $EDBBBB;
+//   diffmode.caption:= 'C';
+//   diffmode.color:= $EDBBBB;
    grid.rowcolorstate[diffbase.checkedrow]:= -1;
    diffbase.checkedrow:= -1;
    grid.datacols.options:= grid.datacols.options + 
                                     [co_keyselect,co_mouseselect];
   end;
   else begin
-   diffmode.caption:= 'D';
-   diffmode.color:= $BBEDBB;
+//   diffmode.caption:= 'D';
+//   diffmode.color:= $BBEDBB;
    grid.datacols.clearselection;
    grid.datacols.options:= grid.datacols.options - 
                                    [co_keyselect,co_mouseselect];
@@ -590,6 +590,35 @@ begin
  result:= (diffmode.value = 0) and (grid.row = 0) and mainmo.logfilterempty and
       (diffbase.checkedrow = -1) and 
       (mainmo.repostat.activelogcommit(false) = mainmo.activebranch);;
+end;
+
+function tlogfo.findcommit(const acommit: msestring): boolean;
+var
+ i1: int32;
+begin
+ diffmode.value:= 1;
+ diffmode.checkvalue();
+ application.beginwait();
+ try
+  result:= false;
+  i1:= 0;
+  repeat
+   for i1:= i1 to grid.rowhigh do begin
+    if commit[i1] = acommit then begin
+     grid.row:= i1;
+     result:= true;
+     exit;
+    end;
+   end;
+   i1:= grid.rowcount;
+   getmorerowsexe(nil,i1);
+  until grid.rowcount = i1;
+ finally
+  application.endwait();
+ end;
+ if not result then begin
+  showerror('Commit '+acommit+' not found.');
+ end;
 end;
 
 { tlogitem }

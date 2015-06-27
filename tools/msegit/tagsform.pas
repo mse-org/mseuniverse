@@ -26,6 +26,7 @@ type
    procedure sortexe(const sender: tcustomgrid; const index1: Integer;
                    const index2: Integer; var aresult: Integer);
    procedure checkoutexe(const sender: TObject);
+   procedure celleventexe(const sender: TObject; var info: celleventinfoty);
   private
    fexpandedsave: expandedinfoarty;
    ftagstreebefore: tgittagstreenode;  
@@ -43,7 +44,7 @@ var
  
 implementation
 uses
- tagsform_mfm,sysutils,main,msegridsglob,msewidgets,branchform;
+ tagsform_mfm,sysutils,main,msegridsglob,msewidgets,branchform,logform;
  
 { ttagsfo }
 
@@ -178,6 +179,14 @@ procedure ttagsfo.sortexe(const sender: tcustomgrid; const index1: Integer;
                const index2: Integer; var aresult: Integer);
 begin
  treeed.comparerow(index1,index2,aresult);
+end;
+
+procedure ttagsfo.celleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if iscellclick(info,[ccr_dblclick,ccr_nokeyreturn]) then begin
+  logfo.findcommit(commited.value);
+ end;
 end;
 
 end.

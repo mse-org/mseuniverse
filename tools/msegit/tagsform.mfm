@@ -102,6 +102,7 @@ inherited tagsfo: ttagsfo
       end>
     datarowheight = 16
     statfile = mainfo.formsta
+    oncellevent = celleventexe
     onsort = sortexe
     reffontheight = 14
     object treeed: ttreeitemedit

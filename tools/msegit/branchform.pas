@@ -113,6 +113,8 @@ type
    procedure rebasebranchexe(const sender: TObject);
    procedure remotecheckoutexe(const sender: TObject);
    procedure pushlocalbranchexe(const sender: TObject);
+   procedure branchcelleventexe(const sender: TObject;
+                   var info: celleventinfoty);
   private
    fcheckoutcommit: msestring;
    function getshowhidden: boolean;
@@ -692,6 +694,9 @@ begin
    remote.color:= cl_white;
   end;
  end;
+ if iscellclick(info,[ccr_dblclick,ccr_nokeyreturn]) then begin
+  logfo.findcommit(remotebranchcommit.value);
+ end;
 end;
 
 procedure tbranchfo.remoterowinsertexe(const sender: tcustomgrid;
@@ -983,6 +988,14 @@ begin
           mainmo.pushbranch(mainmo.activebranch,
                       currentremote,remotebranch.value) then begin
   mainfo.reload();
+ end;
+end;
+
+procedure tbranchfo.branchcelleventexe(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if iscellclick(info,[ccr_dblclick,ccr_nokeyreturn]) then begin
+  logfo.findcommit(localbranchcommit.value);
  end;
 end;
 
