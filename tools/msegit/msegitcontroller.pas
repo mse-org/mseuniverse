@@ -168,6 +168,8 @@ type
 
  refinfoty = record
   commit: msestring;
+  parent: msestring;
+  tree: msestring;
   message: msestring;
   author: msestring;
   authordate: tdatetime; //utc
@@ -1393,7 +1395,8 @@ begin
 end;
 
 type
- recordkindty = (rk_none,rk_commit,rk_author,rk_committer,rk_message);
+ recordkindty = (rk_none,rk_commit,rk_parent,rk_tree,
+                                    rk_author,rk_committer,rk_message);
  recdefty = record
   name: msestring;
  end;
@@ -1406,6 +1409,8 @@ const
          (     
           (name: ''),             //rk_none
           (name: 'commit'),       //rk_commit
+          (name: 'parent'),       //rk_parent
+          (name: 'tree'),         //rk_tree
           (name: 'author'),       //rk_author
           (name: 'committer'),    //rk_committer
           (name: '   ')           //rk_message
@@ -1508,6 +1513,15 @@ begin
    else begin
     if pinfo1 <> nil then begin
      case k1 of
+      rk_parent: begin
+       if pinfo1^.parent <> '' then begin
+        pinfo1^.parent:= pinfo1^.parent+lineend;
+       end;
+       pinfo1^.parent:= pinfo1^.parent+psubstr(po2+1,po3);
+      end;
+      rk_tree: begin
+       pinfo1^.tree:= psubstr(po2+1,po3);
+      end;
       rk_author: begin
        revfind(po3,' ',po4);
        revfind(po4,' ',po5);

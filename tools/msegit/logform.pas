@@ -64,6 +64,7 @@ type
    diffmodelink: tifiintegerlinkcomp;
    authordate: tdatetimeedit;
    author: tstringedit;
+   parent: tstringedit;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -128,6 +129,7 @@ var
  po2,po4: pmsestring;
  po3: pdatetime;
  po5: pinteger;
+ pparent: pmsestringaty;
  pauthordate: pdatetimeaty;
  pauthor: pmsestringaty;
  int1,int2: integer;
@@ -178,6 +180,7 @@ begin
    grid.rowcount:= length(ar1)+skip;
    po1:= message.griddata.datapo;
    po2:= commit.griddata.datapo;
+   pparent:= parent.griddata.datapo;
    po3:= commitdate.griddata.datapo;
    po4:= committer.griddata.datapo;
    po5:= num.griddata.datapo;
@@ -236,6 +239,7 @@ begin
       end;
      end;
      pmsestringaty(po2)^[int1]:= commit;
+     pparent^[int1]:= parent;
      pdatetimeaty(po3)^[int1]:= commitdate;
      pmsestringaty(po4)^[int1]:= committer;
      pintegeraty(po5)^[int1]:= int1;

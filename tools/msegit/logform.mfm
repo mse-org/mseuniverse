@@ -1,5 +1,5 @@
 inherited logfo: tlogfo
-  bounds_x = 495
+  bounds_x = 472
   bounds_y = 103
   bounds_cx = 547
   container.bounds = (
@@ -27,7 +27,7 @@ inherited logfo: tlogfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 8
+        captions.count = 9
         captions.items = <        
           item
             caption = 'N'
@@ -44,6 +44,10 @@ inherited logfo: tlogfo
           end        
           item
             caption = 'Commit'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'Parent'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
@@ -67,7 +71,7 @@ inherited logfo: tlogfo
     rowcolors.items = (
       12316091
     )
-    datacols.count = 8
+    datacols.count = 9
     datacols.colorfocused = -1879048185
     datacols.sortcol = 0
     datacols.sortcoldefault = 0
@@ -112,6 +116,13 @@ inherited logfo: tlogfo
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         name = 'commit'
         widgetname = 'commit'
+        dataclass = tgridmsestringdatalist
+      end    
+      item[parent]
+        colorfocused = -1879048185
+        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
+        widgetname = 'parent'
         dataclass = tgridmsestringdatalist
       end    
       item[commitdate]
@@ -177,7 +188,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
-      bounds_x = -230
+      bounds_x = 0
       bounds_y = 0
       bounds_cx = 167
       bounds_cy = 16
@@ -192,7 +203,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = -62
+      bounds_x = 168
       bounds_y = 0
       bounds_cx = 99
       bounds_cy = 16
@@ -208,7 +219,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 38
+      bounds_x = 319
       bounds_y = 0
       bounds_cx = 116
       bounds_cy = 16
@@ -230,7 +241,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 155
+      bounds_x = 436
       bounds_y = 0
       bounds_cx = 117
       bounds_cy = 16
@@ -243,7 +254,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 273
+      bounds_x = 554
       bounds_y = 0
       bounds_cx = 85
       bounds_cy = 16
@@ -265,12 +276,28 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 359
+      bounds_x = 640
       bounds_y = 0
       bounds_cx = 119
       bounds_cy = 16
       optionsedit1 = []
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      reffontheight = 14
+    end
+    object parent: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 7
+      visible = False
+      bounds_x = 268
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit1 = []
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      font.name = 'fo_sha'
+      font.xscale = 1
+      font.localprops = [flp_xscale]
       reffontheight = 14
     end
     object num: tintegeredit
