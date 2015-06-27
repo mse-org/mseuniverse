@@ -134,6 +134,7 @@ begin
                                                   'Integer Field',true,2));
  add(trecordfieldvalueitem.create(irecordvaluefield(self),2,
                                                       'Real Field',true,3));
+ include(fstate1,ns1_nodefaultimagelist);
 end;
 
 function tmynode.createsubnode: ttreelistitem;
@@ -174,41 +175,6 @@ begin
  frealfield:= avalue;
  trecordfielditem(fitems[2]).valuechange();
 end;
-{
-function tmynode.getfieldtext(const fieldindex: integer): msestring;
-begin
- case fieldindex of
-  0: begin
-   result:= fstrfield;
-  end;
-  1: begin
-   result:= inttostrmse(fintfield);
-  end;
-  2: begin
-   result:= realtytostrmse(frealfield);
-  end;
-  else begin
-   result:= '';
-  end;
- end;
-end;
-
-procedure tmynode.setfieldtext(const fieldindex: integer;
-                                                   var avalue: msestring);
-begin
- case fieldindex of
-  0: begin
-   fstrfield:= avalue;
-  end;
-  1: begin
-   fintfield:= strtointmse(avalue);
-  end;
-  2: begin
-   frealfield:= strtorealty(avalue);
-  end;
- end;
-end;
-}
 
 function tmynode.getvaluetext: msestring;
 begin
