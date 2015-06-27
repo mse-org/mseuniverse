@@ -2,14 +2,14 @@ object mainfo: tmainfo
   visible = False
   bounds_x = 30
   bounds_y = 419
-  bounds_cx = 589
+  bounds_cx = 594
   bounds_cy = 366
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    589
+    594
     366
   )
   statfile = tstatfile1
@@ -35,6 +35,11 @@ object mainfo: tmainfo
     fixrows.items = <    
       item
         height = 16
+        captions.count = 1
+        captions.items = <        
+          item
+            caption = 'Value(s)'
+          end>
       end>
     datacols.count = 1
     datacols.items = <    
@@ -45,7 +50,7 @@ object mainfo: tmainfo
         datalist.options = [no_createvalueitems]
         datalist.onstatreaditem = statreaditemexe
       end>
-    datarowheight = 26
+    datarowheight = 28
     statfile = tstatfile1
     reffontheight = 14
     object itemed: titemedit
@@ -60,7 +65,7 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 189
-      bounds_cy = 26
+      bounds_cy = 28
       valueedits.count = 8
       valueedits.items = <      
         item
