@@ -106,6 +106,8 @@ object mainfo: tmainfo
         submenu.items = <        
           item
             action = commitallact
+            caption = 'C&ommit/Stage/Unstage all'
+            state = [as_localcaption]
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
