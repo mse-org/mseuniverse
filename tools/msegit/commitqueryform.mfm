@@ -4,6 +4,8 @@ object commitqueryfo: tcommitqueryfo
   bounds_y = 146
   bounds_cx = 696
   bounds_cy = 287
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -21,10 +23,10 @@ object commitqueryfo: tcommitqueryfo
     frame.framei_right = 3
     frame.framei_bottom = 4
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    frame.dummy = 0
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 259
-    bounds_cx = 485
+    bounds_cx = 523
     bounds_cy = 28
     anchors = [an_left, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
@@ -37,9 +39,9 @@ object commitqueryfo: tcommitqueryfo
     place_maxdist = 5
     object tbutton1: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
-      bounds_x = 433
+      bounds_x = 468
       bounds_y = 4
-      bounds_cx = 49
+      bounds_cx = 52
       bounds_cy = 20
       anchors = [an_left, an_bottom]
       state = [as_default, as_localdefault, as_localcaption]
@@ -49,9 +51,9 @@ object commitqueryfo: tcommitqueryfo
     object commit: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 1
-      bounds_x = 374
+      bounds_x = 407
       bounds_y = 4
-      bounds_cx = 54
+      bounds_cx = 56
       bounds_cy = 20
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
@@ -63,9 +65,9 @@ object commitqueryfo: tcommitqueryfo
     object amend: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 2
-      bounds_x = 320
+      bounds_x = 349
       bounds_y = 4
-      bounds_cx = 49
+      bounds_cx = 53
       bounds_cy = 20
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
@@ -76,9 +78,9 @@ object commitqueryfo: tcommitqueryfo
     object stage: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 3
-      bounds_x = 273
+      bounds_x = 297
       bounds_y = 4
-      bounds_cx = 42
+      bounds_cx = 47
       bounds_cy = 20
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
@@ -89,9 +91,9 @@ object commitqueryfo: tcommitqueryfo
     object unstage: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 4
-      bounds_x = 211
+      bounds_x = 229
       bounds_y = 4
-      bounds_cx = 57
+      bounds_cx = 63
       bounds_cy = 20
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
@@ -102,9 +104,9 @@ object commitqueryfo: tcommitqueryfo
     object tbutton2: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       taborder = 5
-      bounds_x = 104
+      bounds_x = 111
       bounds_y = 4
-      bounds_cx = 102
+      bounds_cx = 113
       bounds_cy = 20
       anchors = [an_left, an_bottom]
       state = [as_localcaption, as_localonexecute]
@@ -114,9 +116,10 @@ object commitqueryfo: tcommitqueryfo
     object filecountdisp: tintegerdisp
       frame.caption = 'Filecount'
       frame.captionpos = cp_left
-      frame.dummy = 0
+      frame.localprops = []
+      frame.localprops1 = []
       frame.outerframe = (
-        53
+        60
         0
         0
         0
@@ -124,7 +127,7 @@ object commitqueryfo: tcommitqueryfo
       taborder = 6
       bounds_x = 2
       bounds_y = 5
-      bounds_cx = 97
+      bounds_cx = 104
       bounds_cy = 18
       anchors = [an_left, an_bottom]
       reffontheight = 14
@@ -176,6 +179,8 @@ object commitqueryfo: tcommitqueryfo
         bounds_cx = 389
         bounds_cy = 259
         visible = False
+        tab_frame.buttonpos = sbp_right
+        tab_frame.buttonslast = False
       end
       inherited repoloadedact: taction
       end
@@ -221,6 +226,7 @@ object commitqueryfo: tcommitqueryfo
         frame.sbvert.pagesize = 1
         frame.caption = 'Commit Message'
         frame.localprops = [frl_colorclient]
+        frame.localprops1 = []
         frame.outerframe = (
           0
           17
@@ -233,7 +239,7 @@ object commitqueryfo: tcommitqueryfo
         bounds_cx = 304
         bounds_cy = 116
         anchors = [an_bottom]
-        optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+        optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_focusrectonreadonly]
         reffontheight = 14
       end
       object tsplitter1: tsplitter

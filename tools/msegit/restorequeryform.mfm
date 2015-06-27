@@ -101,7 +101,7 @@ object restorequeryfo: trestorequeryfo
       statfile = tstatfile1
     end
     inline filelist: tfilechecklistframefo
-      taborder = 1
+      taborder = 2
       bounds_x = 2
       bounds_y = 0
       bounds_cx = 230
@@ -163,7 +163,7 @@ object restorequeryfo: trestorequeryfo
     end
     inline diff: tcommitdifffo
       frame = nil
-      taborder = 2
+      taborder = 1
       visible = True
       bounds_x = 235
       bounds_y = 0

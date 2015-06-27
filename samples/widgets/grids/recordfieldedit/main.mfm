@@ -3,6 +3,8 @@ object mainfo: tmainfo
   bounds_y = 240
   bounds_cx = 403
   bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -17,6 +19,8 @@ object mainfo: tmainfo
   onloaded = initdata
   moduleclassname = 'tmseform'
   object grid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 403
@@ -55,7 +59,7 @@ object mainfo: tmainfo
         width = 170
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'recfielded'
-        dataclass = titemeditlist
+        dataclass = trecordfielditemeditlist
       end>
     datarowheight = 16
     statfile = tstatfile1
@@ -65,13 +69,15 @@ object mainfo: tmainfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
       taborder = 1
       visible = False
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 227
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_focusrectonreadonly, oe_locate, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_focusrectonreadonly, oe_locate]
       fieldedit = recfielded
       options = [teo_treecolnavig, teo_treerownavig, teo_keyrowmoving]
       reffontheight = 14
@@ -82,6 +88,7 @@ object mainfo: tmainfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
       frame.button.options = [fbo_invisible]
       frame.buttons.count = 1
       frame.buttons.items = <      
@@ -94,7 +101,7 @@ object mainfo: tmainfo
       bounds_y = 0
       bounds_cx = 170
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item
@@ -104,7 +111,8 @@ object mainfo: tmainfo
   end
   object stred: tstringedit
     frame.caption = 'Set strfield'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -120,7 +128,8 @@ object mainfo: tmainfo
   end
   object inted: tintegeredit
     frame.caption = 'Set intfield'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -136,7 +145,8 @@ object mainfo: tmainfo
   end
   object realed: trealedit
     frame.caption = 'Set realfield'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
