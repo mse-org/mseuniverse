@@ -50,13 +50,14 @@ type
    procedure repostafnasetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure diffencinitexe(const sender: tenumtypeedit);
+   procedure showdatetimehintexe(const sender: TObject; var info: hintinfoty);
  end;
 
 procedure editoptions;
 
 implementation
 uses
- optionsform_mfm,mserttistat,mainmodule;
+ optionsform_mfm,mserttistat,mainmodule,mseformatstr,msedate;
  
 procedure editoptions;
 var
@@ -81,6 +82,18 @@ end;
 procedure toptionsfo.diffencinitexe(const sender: tenumtypeedit);
 begin
  sender.typeinfopo:= typeinfo(charencodingty);
+end;
+
+procedure toptionsfo.showdatetimehintexe(const sender: TObject;
+               var info: hintinfoty);
+begin
+ info.caption:= dateformat.text+lineend;
+ if showutc.value then begin
+  info.caption:= info.caption + formatdatetimemse(dateformat.text,nowutc);
+ end
+ else begin
+  info.caption:= info.caption + formatdatetimemse(dateformat.text,nowlocal);
+ end;
 end;
 
 end.

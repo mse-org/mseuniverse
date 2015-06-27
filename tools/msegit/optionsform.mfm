@@ -215,6 +215,7 @@ object optionsfo: toptionsfo
             113
             5
           )
+          onshowhint = showdatetimehintexe
           bounds_x = 0
           bounds_y = 6
           bounds_cx = 237

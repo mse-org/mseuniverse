@@ -39,6 +39,7 @@ type
    function compare(const r: tlistitem;
                           const acasesensitive: boolean): integer; override;
   public
+   property origmessage: msestring read fmessage;
  end;
 
  plogitem = ^tlogitem;
@@ -65,6 +66,7 @@ type
    authordate: tdatetimeedit;
    author: tstringedit;
    parent: tstringedit;
+   tree: tstringedit;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -112,7 +114,7 @@ implementation
 uses
  logform_mfm,msegitcontroller,main,gitdirtreeform,filesform,msewidgets,
  mserichstring,branchform,mseeditglob,msegridsglob,tagdialogform,
- mseprocutils,editlogfilterform;
+ mseprocutils,editlogfilterform,commitdispform;
 
 { tlogfo }
 
@@ -130,6 +132,7 @@ var
  po3: pdatetime;
  po5: pinteger;
  pparent: pmsestringaty;
+ ptree: pmsestringaty;
  pauthordate: pdatetimeaty;
  pauthor: pmsestringaty;
  int1,int2: integer;
@@ -181,6 +184,7 @@ begin
    po1:= message.griddata.datapo;
    po2:= commit.griddata.datapo;
    pparent:= parent.griddata.datapo;
+   ptree:= tree.griddata.datapo;
    po3:= commitdate.griddata.datapo;
    po4:= committer.griddata.datapo;
    po5:= num.griddata.datapo;
@@ -240,6 +244,7 @@ begin
      end;
      pmsestringaty(po2)^[int1]:= commit;
      pparent^[int1]:= parent;
+     ptree^[int1]:= tree;
      pdatetimeaty(po3)^[int1]:= commitdate;
      pmsestringaty(po4)^[int1]:= committer;
      pintegeraty(po5)^[int1]:= int1;
@@ -348,6 +353,7 @@ procedure tlogfo.celleventexe(const sender: TObject; var info: celleventinfoty);
 begin
  if visible and isrowenter(info,true) {and (diffbase.checkedrow >= 0)} then begin
   mainfo.diffchanged;
+  commitdispfo.refresh();
  end;
 end;
 

@@ -1,0 +1,197 @@
+inherited commitdispfo: tcommitdispfo
+  bounds_cx = 391
+  bounds_cy = 365
+  container.bounds = (
+    0
+    0
+    381
+    365
+  )
+  dragdock.caption = 'Current Commit'
+  moduleclassname = 'tdispfo'
+  object tspacer1: tspacer[0]
+    visible = True
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 381
+    bounds_cy = 43
+    anchors = [an_top]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linkbottom = texpandingwidget1
+    object parentdi: tstringdisp
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autoheight]
+      frame.colorclient = -1879048185
+      frame.caption = 'Parent'
+      frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 192
+      bounds_y = 8
+      bounds_cx = 180
+      bounds_cy = 35
+      options = [dwo_hintclippedtext]
+      reffontheight = 14
+    end
+    object commitdi: tstringdisp
+      frame.colorclient = -1879048185
+      frame.caption = 'Commit'
+      frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 8
+      bounds_y = 8
+      bounds_cx = 180
+      bounds_cy = 35
+      options = [dwo_hintclippedtext]
+      reffontheight = 14
+    end
+  end
+  object texpandingwidget1: texpandingwidget[1]
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 43
+    bounds_cx = 381
+    bounds_cy = 314
+    anchors = [an_top, an_bottom]
+    object messagedi: tmemoedit
+      optionswidget = [ow_mousefocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
+      frame.options = [cfo_nofocusrect]
+      frame.levelo = -1
+      frame.colorclient = -1879048185
+      frame.caption = 'Message'
+      frame.localprops = [frl_levelo, frl_colorclient]
+      frame.localprops1 = []
+      frame.sbhorz.pagesize = 1
+      frame.sbvert.pagesize = 1
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 8
+      bounds_y = 165
+      bounds_cx = 364
+      bounds_cy = 145
+      anchors = [an_left, an_top, an_right, an_bottom]
+      optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_hintclippedtext]
+      reffontheight = 14
+    end
+    object authordatedi: tdatetimedisp
+      frame.colorclient = -1879048185
+      frame.caption = 'Author Date'
+      frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 8
+      bounds_y = 125
+      bounds_cx = 180
+      bounds_cy = 35
+      options = [dwo_hintclippedtext]
+      format = '${dt}'
+      value = -Inf
+      reffontheight = 14
+    end
+    object authordi: tstringdisp
+      frame.colorclient = -1879048185
+      frame.caption = 'Author'
+      frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 8
+      bounds_y = 85
+      bounds_cx = 364
+      bounds_cy = 35
+      anchors = [an_left, an_top, an_right]
+      options = [dwo_hintclippedtext]
+      reffontheight = 14
+    end
+    object committerdi: tstringdisp
+      frame.colorclient = -1879048185
+      frame.caption = 'Committer'
+      frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 3
+      bounds_x = 8
+      bounds_y = 45
+      bounds_cx = 364
+      bounds_cy = 35
+      anchors = [an_left, an_top, an_right]
+      options = [dwo_hintclippedtext]
+      reffontheight = 14
+    end
+    object treedi: tstringdisp
+      frame.colorclient = -1879048185
+      frame.caption = 'Tree'
+      frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 4
+      bounds_x = 192
+      bounds_y = 5
+      bounds_cx = 180
+      bounds_cy = 35
+      options = [dwo_hintclippedtext]
+      reffontheight = 14
+    end
+    object commitdatedi: tdatetimedisp
+      frame.colorclient = -1879048185
+      frame.caption = 'Commit Date'
+      frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 5
+      bounds_x = 8
+      bounds_y = 5
+      bounds_cx = 180
+      bounds_cy = 35
+      options = [dwo_hintclippedtext]
+      format = '${dt}'
+      value = -Inf
+      reffontheight = 14
+    end
+  end
+  inherited repoloadedact: taction[2]
+  end
+  inherited repoclosedact: taction[3]
+  end
+end

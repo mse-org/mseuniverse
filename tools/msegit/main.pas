@@ -110,6 +110,7 @@ type
                    var adialogclass: custommseformclassty);
    procedure rebaseactexe(const sender: TObject);
    procedure terminatequeryexe(var terminate: Boolean);
+   procedure showcurrentcommitexe(const sender: TObject);
   private
    frefreshing: boolean;
    fbackgroundcount: integer;
@@ -138,7 +139,7 @@ implementation
 uses
  main_mfm,gitdirtreeform,mainmodule,optionsform,filesform,stashform,remotesform,
  gitconsole,diffwindow,sysutils,branchform,msegitcontroller,
- logform,msestringenter,tagsform,editlogfilterform;
+ logform,msestringenter,tagsform,editlogfilterform,commitdispform;
 const
  mergecolor = $ffb030;
   
@@ -187,6 +188,11 @@ end;
 procedure tmainfo.showlogexe(const sender: TObject);
 begin
  logfo.activate;
+end;
+
+procedure tmainfo.showcurrentcommitexe(const sender: TObject);
+begin
+ commitdispfo.activate();
 end;
 
 procedure tmainfo.gitconsoleshowexe(const sender: TObject);

@@ -182,7 +182,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 16
+        submenu.count = 17
         submenu.items = <        
           item
             submenu.count = 2
@@ -245,6 +245,11 @@ object mainfo: tmainfo
             caption = '&Log'
             state = [as_localcaption, as_localonexecute]
             onexecute = showlogexe
+          end        
+          item
+            caption = 'Current &Commit'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = showcurrentcommitexe
           end        
           item
             caption = '&Stashes'

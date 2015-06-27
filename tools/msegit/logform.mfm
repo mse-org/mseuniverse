@@ -1,11 +1,11 @@
 inherited logfo: tlogfo
   bounds_x = 472
   bounds_y = 103
-  bounds_cx = 547
+  bounds_cx = 571
   container.bounds = (
     0
     0
-    537
+    561
     354
   )
   dragdock.caption = 'Log'
@@ -17,7 +17,7 @@ inherited logfo: tlogfo
     popupmenu = tpopupmenu1
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 537
+    bounds_cx = 561
     bounds_cy = 354
     anchors = []
     optionsgrid = [og_colsizing, og_colmoving, og_focuscellonenter, og_savestate, og_sorted, og_rowheight, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -27,7 +27,7 @@ inherited logfo: tlogfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 9
+        captions.count = 10
         captions.items = <        
           item
             caption = 'N'
@@ -65,13 +65,15 @@ inherited logfo: tlogfo
           item
             caption = 'Author'
             options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
           end>
       end>
     rowcolors.count = 1
     rowcolors.items = (
       12316091
     )
-    datacols.count = 9
+    datacols.count = 10
     datacols.colorfocused = -1879048185
     datacols.sortcol = 0
     datacols.sortcoldefault = 0
@@ -160,6 +162,14 @@ inherited logfo: tlogfo
         name = 'author'
         widgetname = 'author'
         dataclass = tgridmsestringdatalist
+      end    
+      item[tree]
+        colorfocused = -1879048185
+        options = [co_focusselect, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+        options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
+        name = 'tree'
+        widgetname = 'tree'
+        dataclass = tgridmsestringdatalist
       end>
     datarowheight = 16
     statfile = mainfo.formsta
@@ -188,7 +198,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
-      bounds_x = 0
+      bounds_x = -308
       bounds_y = 0
       bounds_cx = 167
       bounds_cy = 16
@@ -203,7 +213,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 168
+      bounds_x = -140
       bounds_y = 0
       bounds_cx = 99
       bounds_cy = 16
@@ -219,7 +229,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 319
+      bounds_x = 11
       bounds_y = 0
       bounds_cx = 116
       bounds_cy = 16
@@ -241,7 +251,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 436
+      bounds_x = 128
       bounds_y = 0
       bounds_cx = 117
       bounds_cy = 16
@@ -254,7 +264,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 554
+      bounds_x = 246
       bounds_y = 0
       bounds_cx = 85
       bounds_cy = 16
@@ -276,7 +286,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 640
+      bounds_x = 332
       bounds_y = 0
       bounds_cx = 119
       bounds_cy = 16
@@ -289,7 +299,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 268
+      bounds_x = -40
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -298,6 +308,17 @@ inherited logfo: tlogfo
       font.name = 'fo_sha'
       font.xscale = 1
       font.localprops = [flp_xscale]
+      reffontheight = 14
+    end
+    object tree: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 8
+      visible = False
+      bounds_x = 452
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
       reffontheight = 14
     end
     object num: tintegeredit
