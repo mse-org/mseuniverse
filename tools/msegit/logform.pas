@@ -659,7 +659,7 @@ begin
   end;
  end;
  if not result then begin
-  showerror('Commit '+acommit+' not found.');
+  showerror('Commit '+acommit+lineend+'not found in current log list.');
  end;
 end;
 
