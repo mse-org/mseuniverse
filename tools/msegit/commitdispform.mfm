@@ -24,7 +24,7 @@ inherited commitdispfo: tcommitdispfo
     datacols.items = <    
       item[captions]
         width = 108
-        options = [co_readonly, co_drawfocus, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_nofocus, co_drawfocus, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autorowheight]
         widgetname = 'captions'
         dataclass = tgridmsestringdatalist
