@@ -626,6 +626,7 @@ var
  ar2: msestringarty;
  mstr1: msestring;
  bo1: boolean;
+ commit1: msestring;
 begin
  result:= false;
  mstr1:= mainmo.repostat.activelogcommit(false);
@@ -644,6 +645,7 @@ begin
    end;
    if dogetrevs(ar1,'',acommit,1,0) and 
                                     (ar1 <> nil) then begin
+    commit1:= ar1[0].commit;
     if not bo1 and (ar2 <> nil) then begin
      showmessage('Commit '+acommit+lineend+
              'not found in current log list.'+lineend+
@@ -663,7 +665,7 @@ begin
       i1:= 0;
       repeat
        for i1:= i1 to grid.rowhigh do begin
-        if commit[i1] = acommit then begin
+        if commit[i1] = commit1 then begin
          grid.row:= i1;
          result:= true;
          exit;
@@ -685,7 +687,7 @@ begin
   end;
  end;
  if not result then begin
-  showerror('Commit '+acommit+lineend+'not found in current log list.');
+  showerror('Commit '+acommit+lineend+'not found.');
  end;
 end;
 
