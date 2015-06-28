@@ -33,23 +33,21 @@ begin
   doclear();
  end
  else begin
-  grid.rowcount:= 8;
+  grid.rowcount:= 6;
   captions[0]:= 'Commit:';
   disp[0]:= logfo.commit.value;
-  captions[1]:= 'Commit Date:';
-  disp[1]:= datetimetostring(logfo.commitdate.value,'${dt}');
-  captions[2]:= 'Parent:';
-  disp[2]:= logfo.parent.value;
-  captions[3]:= 'Tree:';
-  disp[3]:= logfo.tree.value;
-  captions[4]:= 'Committer:';
-  disp[4]:= logfo.committer.value;
-  captions[5]:= 'Author:';
-  disp[5]:= logfo.author.value;
-  captions[6]:= 'Author Date:';
-  disp[6]:= datetimetostring(logfo.authordate.value,'${dt}');
-  captions[7]:= 'Message:';
-  disp[7]:= tlogitem(logfo.message.item).origmessage;
+  captions[1]:= 'Parent:';
+  disp[1]:= logfo.parent.value;
+  captions[2]:= 'Tree:';
+  disp[2]:= logfo.tree.value;
+  captions[3]:= 'Committer:';
+  disp[3]:= datetimetostring(logfo.commitdate.value,'${dt}')+' '+
+                                                   logfo.committer.value;
+  captions[4]:= 'Author:';
+  disp[4]:= datetimetostring(logfo.authordate.value,'${dt}')+' '+
+                                                   logfo.author.value;
+  captions[5]:= 'Message:';
+  disp[5]:= tlogitem(logfo.message.item).origmessage;
  end;
 end;
 
@@ -61,7 +59,7 @@ end;
 procedure tcommitdispfo.textmouseexe(const sender: TObject;
                var info: textmouseeventinfoty);
 begin
- if (info.pos.row = 2) and istextdblclick(info) then begin
+ if (info.pos.row = 1) and istextdblclick(info) then begin
   logfo.findcommit(disp.wordatpos(info.pos,' '+lineend,[]));
  end;
 end;
