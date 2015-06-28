@@ -654,7 +654,7 @@ begin
 //     fcommitbranches:= ar2;
      diffmode.value:= 1;
      diffmode.checkvalue();
-     getrevs1(nil,0,1);
+     getrevs1(nil,0);
      exit;
     end;
     if bo1 then begin

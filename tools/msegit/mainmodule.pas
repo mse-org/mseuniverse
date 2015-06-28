@@ -3021,7 +3021,7 @@ begin
     end;
    end
    else begin
-    result:= activeremotelog;
+    result:= result+'/'+activeremotelog;
     if activeremotelogbranch <> '' then begin
      result:= result+'/'+activeremotelogbranch;
     end;
