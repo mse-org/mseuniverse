@@ -631,7 +631,10 @@ begin
  mstr1:= mainmo.repostat.activelogcommit(false);
  if mstr1 <> '' then begin
   if mainmo.git.findbranches(acommit,ar2) then begin
-   mainmo.repostat.logfiltercommit:= '';
+   if mainmo.repostat.logfiltercommit <> '' then begin
+    mainmo.repostat.logfiltercommit:= '';
+    grid.clear();
+   end;
    bo1:= false;
    for i1:= 0 to high(ar2) do begin
     if ar2[i1] = mstr1 then begin
