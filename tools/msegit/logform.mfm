@@ -79,7 +79,7 @@ inherited logfo: tlogfo
     datacols.colorfocused = -1879048185
     datacols.sortcol = 0
     datacols.sortcoldefault = 0
-    datacols.options = [co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+    datacols.options = [co_drawfocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
     datacols.options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
     datacols.items = <    
       item[num]
@@ -87,7 +87,7 @@ inherited logfo: tlogfo
         colorselect = -1879048185
         colorfocused = -1879048185
         width = 36
-        options = [co_readonly, co_nofocus, co_focusselect, co_rowselect, co_fixpos, co_nohscroll, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_nofocus, co_drawfocus, co_focusselect, co_rowselect, co_fixpos, co_nohscroll, co_savestate, co_mousescrollrow]
         widgetname = 'num'
         dataclass = tgridintegerdatalist
       end    
@@ -105,7 +105,7 @@ inherited logfo: tlogfo
       item[message]
         colorfocused = -1879048185
         width = 167
-        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_autorowheight, co1_noautocolwidth]
         name = 'message'
         oncellevent = messagecelleventexe
@@ -116,7 +116,7 @@ inherited logfo: tlogfo
       item[commit]
         colorfocused = -1879048185
         width = 99
-        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         name = 'commit'
         widgetname = 'commit'
@@ -124,7 +124,7 @@ inherited logfo: tlogfo
       end    
       item[parent]
         colorfocused = -1879048185
-        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'parent'
         dataclass = tgridmsestringdatalist
@@ -132,7 +132,7 @@ inherited logfo: tlogfo
       item[commitdate]
         colorfocused = -1879048185
         width = 116
-        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         name = 'commitdate'
         widgetname = 'commitdate'
@@ -141,7 +141,7 @@ inherited logfo: tlogfo
       item[committer]
         colorfocused = -1879048185
         width = 117
-        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         name = 'committer'
         widgetname = 'committer'
@@ -150,7 +150,7 @@ inherited logfo: tlogfo
       item[authordate]
         colorfocused = -1879048185
         width = 85
-        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         name = 'authordate'
         widgetname = 'authordate'
@@ -159,7 +159,7 @@ inherited logfo: tlogfo
       item[author]
         colorfocused = -1879048185
         width = 119
-        options = [co_readonly, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         name = 'author'
         widgetname = 'author'
@@ -167,7 +167,7 @@ inherited logfo: tlogfo
       end    
       item[tree]
         colorfocused = -1879048185
-        options = [co_focusselect, co_rowselect, co_savevalue, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_focusselect, co_rowselect, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         name = 'tree'
         widgetname = 'tree'
@@ -350,6 +350,8 @@ inherited logfo: tlogfo
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
       reffontheight = 14
     end
     object num: tintegeredit

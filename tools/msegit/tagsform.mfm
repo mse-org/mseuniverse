@@ -59,12 +59,12 @@ inherited tagsfo: ttagsfo
     datacols.coloractive = -1879048185
     datacols.sortcol = 3
     datacols.sortcoldefault = 3
-    datacols.options = [co_readonly, co_savestate, co_mousescrollrow]
+    datacols.options = [co_readonly, co_drawfocus, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[treeed]
         coloractive = -1879048185
         width = 159
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'treeed'
         dataclass = ttreeitemeditlist
         datalist.options = [no_nofreeitems]
@@ -72,7 +72,7 @@ inherited tagsfo: ttagsfo
       item[messageed]
         coloractive = -1879048185
         width = 217
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly, co1_noautocolwidth]
         oncellevent = messagecellevent
         widgetname = 'messageed'
@@ -82,21 +82,21 @@ inherited tagsfo: ttagsfo
         coloractive = -1879048185
         colorfocused = -1879048185
         width = 88
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'commited'
         dataclass = tgridmsestringdatalist
       end    
       item[commitdateed]
         coloractive = -1879048185
         width = 124
-        options = [co_readonly, co_proportional, co_savestate, co_sortdescend, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_proportional, co_savestate, co_sortdescend, co_mousescrollrow]
         widgetname = 'commitdateed'
         dataclass = tgridrealdatalist
       end    
       item[committered]
         coloractive = -1879048185
         width = 103
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'committered'
         dataclass = tgridmsestringdatalist
       end>

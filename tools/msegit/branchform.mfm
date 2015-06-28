@@ -75,7 +75,7 @@ inherited branchfo: tbranchfo
       item[remote]
         width = 59
         onbeforedrawcell = befremotecoldraw
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remote'
         dataclass = tgridmsestringdatalist
       end    
@@ -87,7 +87,7 @@ inherited branchfo: tbranchfo
       end    
       item[remotebranchcommit]
         width = 52
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'remotebranchcommit'
         dataclass = tgridmsestringdatalist
       end    
@@ -322,7 +322,7 @@ inherited branchfo: tbranchfo
         dataclass = tgridmsestringdatalist
       end    
       item[localbranchcommit]
-        options = [co_readonly, co_proportional, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
         widgetname = 'localbranchcommit'
         dataclass = tgridmsestringdatalist
       end    
