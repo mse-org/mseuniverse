@@ -649,7 +649,7 @@ begin
     if not bo1 and (ar2 <> nil) then begin
      showmessage('Commit '+acommit+lineend+
              'not found in current log list.'+lineend+
-             'it is available in '+lineend+concatstrings(ar2,lineend),'Hint');
+             'It is available in '+lineend+concatstrings(ar2,lineend),'Hint');
      mainmo.repostat.logfiltercommit:= acommit;
 //     fcommitbranches:= ar2;
      diffmode.value:= 1;
@@ -687,7 +687,7 @@ begin
   end;
  end;
  if not result then begin
-  showerror('Commit '+acommit+lineend+'not found.');
+  showerror('Commit '+acommit+lineend+'not found in current log list.');
  end;
 end;
 
