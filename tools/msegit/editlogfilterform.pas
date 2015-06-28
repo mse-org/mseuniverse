@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msestatfile,
  msesimplewidgets,msewidgets,mseificomp,mseificompglob,mseifiglob,msegrids,
  mseifigui,mseifilink,msestrings,msetypes,msedataedits,mseedit,msestream,
- sysutils,msesplitter;
+ sysutils,msesplitter,msegraphedits,msescrollbar;
 type
  teditlogfilterfo = class(tmseform)
    tstatfile1: tstatfile;
@@ -35,6 +35,7 @@ type
    logfiltermessage: tstringedit;
    logfilterauthor: tstringedit;
    tsplitter1: tsplitter;
+   logfiltercasesens: tbooleanedit;
  end;
 
 implementation

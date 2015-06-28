@@ -1,7 +1,7 @@
 object editlogfilterfo: teditlogfilterfo
   visible = False
-  bounds_x = 144
-  bounds_y = 244
+  bounds_x = 31
+  bounds_y = 241
   bounds_cx = 365
   bounds_cy = 251
   container.frame.clientheightmin = 170
@@ -172,10 +172,26 @@ object editlogfilterfo: teditlogfilterfo
     linkright = logfilterdatemax
     statfile = tstatfile1
   end
+  object logfiltercasesens: tbooleanedit
+    frame.caption = 'Case sensitive'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      93
+      2
+    )
+    taborder = 9
+    bounds_x = 8
+    bounds_y = 215
+    bounds_cx = 106
+    bounds_cy = 16
+  end
   object tstatfile1: tstatfile
     filename = 'editlogfilterfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    left = 8
+    left = 160
     top = 216
   end
 end

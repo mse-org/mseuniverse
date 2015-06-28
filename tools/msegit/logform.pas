@@ -139,7 +139,8 @@ begin
                             mainmo.repostat.logfilterdatemin,
                             mainmo.repostat.logfilterdatemax,
                             mainmo.repostat.logfiltercommitter,
-                            mainmo.repostat.logfiltermessage);
+                            mainmo.repostat.logfiltermessage,
+                            mainmo.repostat.logfiltercasesens);
 end;
 
 procedure tlogfo.getrevs1(const sender: tthreadcomp; const skip: integer;
