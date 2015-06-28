@@ -97,7 +97,8 @@ type
    function dogetrevs(out alist: refinfoarty; const abranch: msestring;
               const acommitfilter: msestring; const amaxcount: integer;
               const askip: integer): boolean;
-   procedure getrevs1(const sender: tthreadcomp; const skip: integer);
+   procedure getrevs1(const sender: tthreadcomp; const skip: integer;
+                                             const maxcount: int32 = 0);
    procedure getrevs(const async: boolean; const skip: integer);
    procedure setrefmode(const avalue: boolean);
   public
@@ -141,7 +142,8 @@ begin
                             mainmo.repostat.logfiltermessage);
 end;
 
-procedure tlogfo.getrevs1(const sender: tthreadcomp; const skip: integer);
+procedure tlogfo.getrevs1(const sender: tthreadcomp; const skip: integer;
+                                                const maxcount: int32 = 0);
 var
  ar1: refinfoarty;
  po1: plogitem;
@@ -166,8 +168,10 @@ var
 begin
  application.lock;
  mstr1:= mainmo.repostat.activelogcommit(true);
-// fpath1:= fpath;
- maxlog1:= mainmo.opt.maxlog;
+ maxlog1:= maxcount;
+ if maxlog1 <= 0 then begin
+  maxlog1:= mainmo.opt.maxlog;
+ end;
  if sender <> nil then begin
   mainfo.beginbackground;
  end;
@@ -627,6 +631,7 @@ begin
  mstr1:= mainmo.repostat.activelogcommit(false);
  if mstr1 <> '' then begin
   if mainmo.git.findbranches(acommit,ar2) then begin
+   mainmo.repostat.logfiltercommit:= '';
    bo1:= false;
    for i1:= 0 to high(ar2) do begin
     if ar2[i1] = mstr1 then begin
@@ -634,26 +639,44 @@ begin
      break;
     end;
    end;
-   if bo1 and dogetrevs(ar1,'',acommit,1,0) and 
+   if dogetrevs(ar1,'',acommit,1,0) and 
                                     (ar1 <> nil) then begin
-    diffmode.value:= 1;
-    diffmode.checkvalue();
-    application.beginwait();
-    try
-     i1:= 0;
-     repeat
-      for i1:= i1 to grid.rowhigh do begin
-       if commit[i1] = acommit then begin
-        grid.row:= i1;
-        result:= true;
-        exit;
+    if not bo1 and (ar2 <> nil) then begin
+     showmessage('Commit '+acommit+lineend+
+             'not found in current log list.'+lineend+
+             'it is available in '+lineend+concatstrings(ar2,lineend),'Hint');
+     mainmo.repostat.logfiltercommit:= acommit;
+//     fcommitbranches:= ar2;
+     diffmode.value:= 1;
+     diffmode.checkvalue();
+     getrevs1(nil,0,1);
+     exit;
+    end;
+    if bo1 then begin
+     diffmode.value:= 1;
+     diffmode.checkvalue();
+     application.beginwait();
+     try
+      i1:= 0;
+      repeat
+       for i1:= i1 to grid.rowhigh do begin
+        if commit[i1] = acommit then begin
+         grid.row:= i1;
+         result:= true;
+         exit;
+        end;
        end;
-      end;
-      i1:= grid.rowcount;
-      getmorerowsexe(nil,i1);
-     until grid.rowcount = i1;
-    finally
-     application.endwait();
+       i1:= grid.rowcount;
+       if i1 > 5000 then begin
+        getrevs1(nil,i1,5000);
+       end
+       else begin
+        getrevs1(nil,i1,i1);
+       end;
+      until grid.rowcount = i1;
+     finally
+      application.endwait();
+     end;
     end;
    end;
   end;

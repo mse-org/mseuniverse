@@ -23,17 +23,26 @@ var
  commitdispfo: tcommitdispfo;
 implementation
 uses
- commitdispform_mfm,logform,mseformatstr,msegridsglob;
+ commitdispform_mfm,logform,mseformatstr,msegridsglob,mainmodule;
  
 { tcommitdispfo }
 
 procedure tcommitdispfo.dorefresh;
+var
+ bo1: boolean;
+ ar1: msestringarty;
 begin
  if logfo.grid.row < 0 then begin
   doclear();
  end
  else begin
-  grid.rowcount:= 6;
+  bo1:= mainmo.repostat.logfiltercommit <> '';
+  if bo1 then begin
+   grid.rowcount:= 7;
+  end
+  else begin
+   grid.rowcount:= 6;
+  end;
   captions[0]:= 'Commit:';
   disp[0]:= logfo.commit.value;
   captions[1]:= 'Parent:';
@@ -46,8 +55,17 @@ begin
   captions[4]:= 'Author:';
   disp[4]:= datetimetostring(logfo.authordate.value,'${dt}')+' '+
                                                    logfo.author.value;
-  captions[5]:= 'Message:';
-  disp[5]:= tlogitem(logfo.message.item).origmessage;
+  if bo1 then begin
+   captions[5]:= 'Branches:';
+   if mainmo.git.findbranches(mainmo.repostat.logfiltercommit,ar1) then begin
+    disp[5]:= concatstrings(ar1,lineend);
+   end
+   else begin
+    disp[5]:= '';
+   end;
+  end;  
+  captions[grid.rowhigh]:= 'Message:';
+  disp[grid.rowhigh]:= tlogitem(logfo.message.item).origmessage;
  end;
 end;
 
