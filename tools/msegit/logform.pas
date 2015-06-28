@@ -23,7 +23,7 @@ uses
  mseedit,msegrids,mseifiglob,msestrings,msetypes,msewidgetgrid,mainmodule,
  msegraphedits,mseact,mseactions,mselistbrowser,msedatanodes,msethreadcomp,
  msesystypes,classes,mclasses,mseificomp,mseificompglob,msestatfile,msestream,
- sysutils;
+ sysutils,msegitcontroller;
 
 type
  logbranchinfoty = record
@@ -94,6 +94,9 @@ type
    procedure dorepoloaded; override;
    procedure dorefresh; override;
    procedure doclear; override;   
+   function dogetrevs(out alist: refinfoarty; const abranch: msestring;
+              const acommitfilter: msestring; const amaxcount: integer;
+              const askip: integer): boolean;
    procedure getrevs1(const sender: tthreadcomp; const skip: integer);
    procedure getrevs(const async: boolean; const skip: integer);
    procedure setrefmode(const avalue: boolean);
@@ -112,7 +115,7 @@ var
 implementation
 
 uses
- logform_mfm,msegitcontroller,main,gitdirtreeform,filesform,msewidgets,
+ logform_mfm,main,gitdirtreeform,filesform,msewidgets,
  mserichstring,branchform,mseeditglob,msegridsglob,tagdialogform,
  mseprocutils,editlogfilterform,commitdispform;
 
@@ -122,6 +125,20 @@ constructor tlogfo.create(aowner: tcomponent);
 begin
  fgitproc:= invalidprochandle;
  inherited;
+end;
+
+function tlogfo.dogetrevs(out alist: refinfoarty; const abranch: msestring;
+              const acommitfilter: msestring; const amaxcount: integer;
+              const askip: integer): boolean;
+begin
+ result:= mainmo.git.revlist(alist,abranch,fpath,
+                            amaxcount,askip,
+                            mainmo.repostat.logfilterauthor,
+                            acommitfilter,
+                            mainmo.repostat.logfilterdatemin,
+                            mainmo.repostat.logfilterdatemax,
+                            mainmo.repostat.logfiltercommitter,
+                            mainmo.repostat.logfiltermessage);
 end;
 
 procedure tlogfo.getrevs1(const sender: tthreadcomp; const skip: integer);
@@ -144,18 +161,19 @@ var
  currentbranch,currentremote,currentremotebranch: msestring;
  first: boolean;
  lastvisrow: integer; 
- fpath1: msestring;
+// fpath1: msestring;
  maxlog1: integer;
 begin
  application.lock;
  mstr1:= mainmo.repostat.activelogcommit(true);
- fpath1:= fpath;
+// fpath1:= fpath;
  maxlog1:= mainmo.opt.maxlog;
  if sender <> nil then begin
   mainfo.beginbackground;
  end;
  application.unlock;
  
+{
  if (mstr1 <> '') and mainmo.git.revlist(ar1,mstr1,fpath1,
                             maxlog1,skip,
                             mainmo.repostat.logfilterauthor,
@@ -164,6 +182,9 @@ begin
                             mainmo.repostat.logfilterdatemax,
                             mainmo.repostat.logfiltercommitter,
                             mainmo.repostat.logfiltermessage) then begin
+}
+ if (mstr1 <> '') and dogetrevs(ar1,mstr1,mainmo.repostat.logfiltercommit,
+                                                      maxlog1,skip) then begin
   application.lock;
   try
    if sender <> nil then begin
@@ -595,26 +616,30 @@ end;
 function tlogfo.findcommit(const acommit: msestring): boolean;
 var
  i1: int32;
+ ar1: refinfoarty;
 begin
- diffmode.value:= 1;
- diffmode.checkvalue();
- application.beginwait();
- try
-  result:= false;
-  i1:= 0;
-  repeat
-   for i1:= i1 to grid.rowhigh do begin
-    if commit[i1] = acommit then begin
-     grid.row:= i1;
-     result:= true;
-     exit;
+ result:= false;
+ if dogetrevs(ar1,mainmo.repostat.activelogcommit(true),acommit,1,0) and 
+                                  (ar1 <> nil) then begin
+  diffmode.value:= 1;
+  diffmode.checkvalue();
+  application.beginwait();
+  try
+   i1:= 0;
+   repeat
+    for i1:= i1 to grid.rowhigh do begin
+     if commit[i1] = acommit then begin
+      grid.row:= i1;
+      result:= true;
+      exit;
+     end;
     end;
-   end;
-   i1:= grid.rowcount;
-   getmorerowsexe(nil,i1);
-  until grid.rowcount = i1;
- finally
-  application.endwait();
+    i1:= grid.rowcount;
+    getmorerowsexe(nil,i1);
+   until grid.rowcount = i1;
+  finally
+   application.endwait();
+  end;
  end;
  if not result then begin
   showerror('Commit '+acommit+' not found.');
