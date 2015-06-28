@@ -100,6 +100,7 @@ type
    procedure getrevs1(const sender: tthreadcomp; const skip: integer;
                                              const maxcount: int32 = 0);
    procedure getrevs(const async: boolean; const skip: integer);
+   procedure updatefilterdisp();
    procedure setrefmode(const avalue: boolean);
   public
    constructor create(aowner: tcomponent); override;
@@ -540,9 +541,8 @@ end;
 
 const
  filtercolor = $e0c0c0;
- 
-procedure tlogfo.setrefmode(const avalue: boolean);
 
+procedure tlogfo.updatefilterdisp();
  procedure updatecell(const aname: string; const filtered: boolean);
  begin
   with grid.fixrows[-1].captions[
@@ -559,7 +559,18 @@ procedure tlogfo.setrefmode(const avalue: boolean);
    end;
   end;
  end; //updatecell
+begin
+ with mainmo.repostat do begin
+  updatecell('commit',logfiltercommit <> '');
+  updatecell('committer',logfiltercommitter <> '');
+  updatecell('commitdate',(logfilterdatemin <> emptydatetime) or 
+                  (logfilterdatemax <> emptydatetime));
+  updatecell('author',logfilterauthor <> '');
+  updatecell('message',logfiltermessage <> '');
+ end;
+end;
  
+procedure tlogfo.setrefmode(const avalue: boolean); 
 begin
  with grid.fixrows[-1].captions[0] do begin
   if avalue then begin
@@ -569,14 +580,7 @@ begin
    color:= cl_parent;
   end;
  end;
- with mainmo.repostat do begin
-  updatecell('commit',logfiltercommit <> '');
-  updatecell('committer',logfiltercommitter <> '');
-  updatecell('commitdate',(logfilterdatemin <> emptydatetime) or 
-                  (logfilterdatemax <> emptydatetime));
-  updatecell('author',logfilterauthor <> '');
-  updatecell('message',logfiltermessage <> '');
- end;
+ updatefilterdisp();
 end;
 
 procedure tlogfo.messagecelleventexe(const sender: TObject;
@@ -689,6 +693,7 @@ begin
  end;
  if not result then begin
   showerror('Commit '+acommit+lineend+'not found in current log list.');
+  updatefilterdisp();
  end;
 end;
 
