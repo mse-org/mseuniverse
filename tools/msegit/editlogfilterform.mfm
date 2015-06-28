@@ -95,6 +95,7 @@ object editlogfilterfo: teditlogfilterfo
     bounds_y = 47
     bounds_cx = 172
     bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
     value = -Inf
     valuedefault = -Inf
     formatedit = '${dt}'
@@ -157,6 +158,19 @@ object editlogfilterfo: teditlogfilterfo
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     reffontheight = 14
+  end
+  object tsplitter1: tsplitter
+    color = -1879048189
+    taborder = 8
+    visible = False
+    bounds_x = 180
+    bounds_y = 56
+    bounds_cx = 4
+    bounds_cy = 26
+    options = [spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linkleft = logfilterdatemin
+    linkright = logfilterdatemax
+    statfile = tstatfile1
   end
   object tstatfile1: tstatfile
     filename = 'editlogfilterfo.sta'
