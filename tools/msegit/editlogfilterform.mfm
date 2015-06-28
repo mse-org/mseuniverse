@@ -2,7 +2,7 @@ object editlogfilterfo: teditlogfilterfo
   visible = False
   bounds_x = 144
   bounds_y = 244
-  bounds_cx = 283
+  bounds_cx = 365
   bounds_cy = 251
   container.frame.clientheightmin = 170
   container.frame.localprops = []
@@ -10,7 +10,7 @@ object editlogfilterfo: teditlogfilterfo
   container.bounds = (
     0
     0
-    283
+    365
     251
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -18,7 +18,7 @@ object editlogfilterfo: teditlogfilterfo
   caption = 'Edit log Filter'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
-    bounds_x = 225
+    bounds_x = 307
     bounds_y = 214
     bounds_cx = 50
     bounds_cy = 20
@@ -29,7 +29,7 @@ object editlogfilterfo: teditlogfilterfo
   end
   object tbutton2: tbutton
     taborder = 1
-    bounds_x = 169
+    bounds_x = 251
     bounds_y = 214
     bounds_cx = 50
     bounds_cy = 20
@@ -51,7 +51,7 @@ object editlogfilterfo: teditlogfilterfo
     taborder = 2
     bounds_x = 8
     bounds_y = 7
-    bounds_cx = 267
+    bounds_cx = 349
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     reffontheight = 14
@@ -69,12 +69,15 @@ object editlogfilterfo: teditlogfilterfo
     taborder = 3
     bounds_x = 8
     bounds_y = 47
-    bounds_cx = 132
+    bounds_cx = 172
     bounds_cy = 37
     value = -Inf
     valuedefault = -Inf
+    formatedit = '${dt}'
+    formatdisp = '${dt}'
     min = -Inf
     max = 401768.99999
+    kind = dtk_datetime
     reffontheight = 14
   end
   object logfilterdatemax: tdatetimeedit
@@ -88,14 +91,17 @@ object editlogfilterfo: teditlogfilterfo
       0
     )
     taborder = 4
-    bounds_x = 144
+    bounds_x = 184
     bounds_y = 47
-    bounds_cx = 132
+    bounds_cx = 172
     bounds_cy = 37
     value = -Inf
     valuedefault = -Inf
+    formatedit = '${dt}'
+    formatdisp = '${dt}'
     min = -Inf
     max = 401768.99999
+    kind = dtk_datetime
     reffontheight = 14
   end
   object logfiltercommitter: tstringedit
@@ -111,7 +117,7 @@ object editlogfilterfo: teditlogfilterfo
     taborder = 5
     bounds_x = 8
     bounds_y = 87
-    bounds_cx = 267
+    bounds_cx = 349
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     reffontheight = 14
@@ -129,7 +135,7 @@ object editlogfilterfo: teditlogfilterfo
     taborder = 6
     bounds_x = 8
     bounds_y = 167
-    bounds_cx = 267
+    bounds_cx = 349
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     reffontheight = 14
@@ -147,7 +153,7 @@ object editlogfilterfo: teditlogfilterfo
     taborder = 7
     bounds_x = 8
     bounds_y = 127
-    bounds_cx = 267
+    bounds_cx = 349
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     reffontheight = 14
