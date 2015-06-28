@@ -282,6 +282,8 @@ type
    function remoteshow(out adest: remoteinfoarty): boolean;
    function branchshow(out adest: localbranchinfoarty;
                        out activebranch,activecommit: msestring): boolean;
+   function findbranches(const acommit: msestring;
+                                 out abranches: msestringarty): boolean;
    function tagsshow(out adest: tagsinfoarty; const full: boolean): boolean;
    function stashlist(out adest: stashinfoarty): boolean;
    function diff(const commits: msestringarty; const afile: filenamety;
@@ -1302,6 +1304,30 @@ begin
    end;
   end;
  end;
+end;
+
+function tgitcontroller.findbranches(const acommit: msestring;
+                                 out abranches: msestringarty): boolean;
+var
+ mstr1: msestring;
+ i1: int32;
+begin
+ abranches:= nil;
+ result:= commandresult1('branch -a --contains '+acommit,mstr1);
+ if result then begin
+  abranches:= breaklines(mstr1);
+  if abranches <> nil then begin
+   setlength(abranches,high(abranches)); //remove trailing lineend
+  end;
+  for i1:= 0 to high(abranches) do begin
+   if abranches[i1] <> '' then begin
+    if abranches[i1][1] = '*' then begin
+     abranches[i1][1]:= ' ';
+    end;
+    abranches[i1]:= trim(abranches[i1]);
+   end;
+  end;
+ end; 
 end;
 
 function tgitcontroller.diff(const a,b: msestring; const afile: filenamety;

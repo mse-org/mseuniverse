@@ -284,6 +284,7 @@ begin
    if diffbase.checkedrow >= 0 then begin
     mainfo.diffchanged;
    end;
+   commitdispfo.refresh();
   finally
    application.unlock;
   end;
@@ -293,6 +294,7 @@ begin
   try
    mainfo.endbackground;
    grid.clear;
+   commitdispfo.refresh();
   finally
    application.unlock;
   end;
@@ -617,28 +619,43 @@ function tlogfo.findcommit(const acommit: msestring): boolean;
 var
  i1: int32;
  ar1: refinfoarty;
+ ar2: msestringarty;
+ mstr1: msestring;
+ bo1: boolean;
 begin
  result:= false;
- if dogetrevs(ar1,mainmo.repostat.activelogcommit(true),acommit,1,0) and 
-                                  (ar1 <> nil) then begin
-  diffmode.value:= 1;
-  diffmode.checkvalue();
-  application.beginwait();
-  try
-   i1:= 0;
-   repeat
-    for i1:= i1 to grid.rowhigh do begin
-     if commit[i1] = acommit then begin
-      grid.row:= i1;
-      result:= true;
-      exit;
-     end;
+ mstr1:= mainmo.repostat.activelogcommit(false);
+ if mstr1 <> '' then begin
+  if mainmo.git.findbranches(acommit,ar2) then begin
+   bo1:= false;
+   for i1:= 0 to high(ar2) do begin
+    if ar2[i1] = mstr1 then begin
+     bo1:= true;
+     break;
     end;
-    i1:= grid.rowcount;
-    getmorerowsexe(nil,i1);
-   until grid.rowcount = i1;
-  finally
-   application.endwait();
+   end;
+   if bo1 and dogetrevs(ar1,'',acommit,1,0) and 
+                                    (ar1 <> nil) then begin
+    diffmode.value:= 1;
+    diffmode.checkvalue();
+    application.beginwait();
+    try
+     i1:= 0;
+     repeat
+      for i1:= i1 to grid.rowhigh do begin
+       if commit[i1] = acommit then begin
+        grid.row:= i1;
+        result:= true;
+        exit;
+       end;
+      end;
+      i1:= grid.rowcount;
+      getmorerowsexe(nil,i1);
+     until grid.rowcount = i1;
+    finally
+     application.endwait();
+    end;
+   end;
   end;
  end;
  if not result then begin
