@@ -289,6 +289,7 @@ var
  int1: integer;
  rstr1: richstringty;
  col1: colorty;
+ mstr1: msestring;
 begin
  with statdisp do begin
   color:= cl_default;
@@ -347,7 +348,17 @@ begin
      richconcat1(rstr1,'Branch: ',[fs_force]);
      richconcat1(rstr1,mainmo.activebranch,[fs_bold]);
      richconcat1(rstr1,' Log: ',[fs_force]);
-     richconcat1(rstr1,mainmo.repostat.activelogcommit(false),[fs_bold]);
+     mstr1:= mainmo.repostat.logfiltercommit;
+     if mstr1 <> '' then begin
+      mstr1:= copy(mstr1,1,8);
+     end
+     else begin
+      mstr1:= mainmo.repostat.activelogcommit(false);
+      if (mstr1 = '') then begin
+       mstr1:= 'HEAD';
+      end;
+     end;
+     richconcat1(rstr1,mstr1,[fs_bold]);
      richconcat1(rstr1,' Remote: ',[fs_force]);
      richconcat1(rstr1,mainmo.remotetargetref,[fs_bold]);
      statdisp.richvalue:= rstr1;

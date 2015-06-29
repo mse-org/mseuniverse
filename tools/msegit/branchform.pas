@@ -722,10 +722,11 @@ procedure tbranchfo.localactivelogsetexe(const sender: TObject;
 begin
  if avalue then begin
   setactivelocallog(localbranch.value);
-//  remotelogbranch.checkedrow:= -1;
-//  mainmo.repostat.activelogbranch:= localbranch.value;
-  mainfo.objchanged(true);
+ end
+ else begin
+  setactivelocallog('');
  end;
+ mainfo.objchanged(true);
 end;
 
 procedure tbranchfo.remoteactivelogsetexe(const sender: TObject;
@@ -736,8 +737,11 @@ begin
  end;
  if avalue then begin
   setactiveremotelog(currentremote(remotegrid.row),remotebranch.value);
-  mainfo.objchanged(true);
+ end
+ else begin
+  setactiveremotelog('','');
  end;
+ mainfo.objchanged(true);
 end;
 
 procedure tbranchfo.linkbranchsetexe(const sender: TObject; var avalue: Boolean;

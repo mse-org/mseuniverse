@@ -179,7 +179,9 @@ begin
   mainfo.beginbackground;
  end;
  application.unlock;
- 
+ if mstr1 = '' then begin
+  mstr1:= 'HEAD';
+ end; 
  if (mstr1 <> '') and dogetrevs(ar1,mstr1,mainmo.repostat.logfiltercommit,
                                                       maxlog1,skip) then begin
   application.lock;
@@ -630,6 +632,7 @@ begin
   if mainmo.git.findbranches(acommit,ar2) then begin
    if mainmo.repostat.logfiltercommit <> '' then begin
     mainmo.repostat.logfiltercommit:= '';
+    mainfo.updatestate(); //show log branch in status display
     grid.clear();
    end;
    bo1:= false;
@@ -651,6 +654,7 @@ begin
      diffmode.value:= 1;
      diffmode.checkvalue();
      getrevs1(nil,0);
+     mainfo.updatestate(); //show commit in status display
      exit;
     end;
     if bo1 then begin
