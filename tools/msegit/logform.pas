@@ -283,7 +283,7 @@ begin
    if diffbase.checkedrow >= 0 then begin
     mainfo.diffchanged;
    end;
-   commitdispfo.refresh();
+//   commitdispfo.refresh(); //done asynchronouse by delay timer
   finally
    application.unlock;
   end;
@@ -293,7 +293,7 @@ begin
   try
    mainfo.endbackground;
    grid.clear;
-   commitdispfo.refresh();
+//   commitdispfo.refresh();
   finally
    application.unlock;
   end;
@@ -375,7 +375,7 @@ procedure tlogfo.celleventexe(const sender: TObject; var info: celleventinfoty);
 begin
  if visible and isrowenter(info,true) {and (diffbase.checkedrow >= 0)} then begin
   mainfo.diffchanged;
-  commitdispfo.refresh();
+//  commitdispfo.refresh();
  end;
 end;
 

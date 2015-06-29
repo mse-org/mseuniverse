@@ -13,10 +13,10 @@ inherited commitdispfo: tcommitdispfo
     frame.localprops = []
     frame.localprops1 = []
     bounds_x = 0
-    bounds_y = 0
+    bounds_y = 26
     bounds_cx = 381
-    bounds_cy = 365
-    anchors = []
+    bounds_cy = 339
+    anchors = [an_top, an_bottom]
     optionsgrid = [og_colsizing, og_focuscellonenter, og_rowheight, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 2
     datacols.options = [co_readonly, co_drawfocus, co_savestate, co_mousescrollrow]
@@ -71,8 +71,37 @@ inherited commitdispfo: tcommitdispfo
       reffontheight = 14
     end
   end
-  inherited repoloadedact: taction[1]
+  object tspacer1: tspacer[1]
+    taborder = 1
+    visible = True
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 196
+    bounds_cy = 22
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linkbottom = grid
+    dist_bottom = 4
+    object listbranches: tbooleanedit
+      frame.options = [cfo_fixtop, cfo_captionfocus]
+      frame.caption = 'List Branches (can be slow)'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        1
+        175
+        2
+      )
+      bounds_x = 8
+      bounds_y = 6
+      bounds_cx = 188
+      bounds_cy = 16
+      statfile = mainfo.mainfosta
+      ondataentered = listbranachesdatentexe
+    end
   end
-  inherited repoclosedact: taction[2]
+  inherited repoloadedact: taction[2]
+  end
+  inherited repoclosedact: taction[3]
   end
 end

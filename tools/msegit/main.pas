@@ -649,6 +649,7 @@ var
  ar1: integerarty;
  ar2: msestringarty;
 begin
+ commitdispfo.refresh();
  if logfo.visible then begin
 //  objectrefreshtimer.firependingandstop;
   if logfo.diffmode.value = 1 then begin
