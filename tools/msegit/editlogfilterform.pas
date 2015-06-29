@@ -26,8 +26,6 @@ uses
 type
  teditlogfilterfo = class(tmseform)
    tstatfile1: tstatfile;
-   tbutton1: tbutton;
-   tbutton2: tbutton;
    logfiltercommit: tstringedit;
    logfilterdatemin: tdatetimeedit;
    logfilterdatemax: tdatetimeedit;
@@ -35,6 +33,12 @@ type
    logfiltermessage: tstringedit;
    logfilterauthor: tstringedit;
    tsplitter1: tsplitter;
+   tlayouter1: tlayouter;
+   tlayouter2: tlayouter;
+   tbutton1: tbutton;
+   tbutton2: tbutton;
+   tlayouter3: tlayouter;
+   logfiltercomplexregex: tbooleanedit;
    logfiltercasesens: tbooleanedit;
  end;
 

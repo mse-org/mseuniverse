@@ -315,7 +315,8 @@ type
                 const commitdatemax: tdatetime = emptydatetime;
                 const committerfilter: msestring = ''; 
                 const messagefilter: msestring = '';
-                const casesens: boolean = false): boolean;
+                const casesens: boolean = false;
+                const complexregex: boolean = false): boolean;
    procedure setprociddest(var adest: prochandlety); //sets threadvar   
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
@@ -1600,7 +1601,8 @@ function tgitcontroller.revlist(out alist: refinfoarty;
                const commitdatemax: tdatetime = emptydatetime;
                const committerfilter: msestring = ''; 
                const messagefilter: msestring = '';
-               const casesens: boolean = false): boolean;
+               const casesens: boolean = false;
+               const complexregex: boolean = false): boolean;
 
 var
  mstr1: msestring;
@@ -1611,6 +1613,9 @@ begin
  str1:= 'rev-list --pretty=raw ';
  if not casesens then begin
   str1:= str1 + '-i ';
+ end;
+ if complexregex then begin
+  str1:= str1 + '-E ';
  end;
  if authorfilter <> '' then begin
   str1:= str1 + '--author='+encodestringparam(authorfilter)+' ';

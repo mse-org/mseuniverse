@@ -141,7 +141,8 @@ begin
                             mainmo.repostat.logfilterdatemax,
                             mainmo.repostat.logfiltercommitter,
                             mainmo.repostat.logfiltermessage,
-                            mainmo.repostat.logfiltercasesens);
+                            mainmo.repostat.logfiltercasesens,
+                            mainmo.repostat.logfiltercomplexregex);
 end;
 
 procedure tlogfo.getrevs1(const sender: tthreadcomp; const skip: integer;
@@ -179,16 +180,6 @@ begin
  end;
  application.unlock;
  
-{
- if (mstr1 <> '') and mainmo.git.revlist(ar1,mstr1,fpath1,
-                            maxlog1,skip,
-                            mainmo.repostat.logfilterauthor,
-                            mainmo.repostat.logfiltercommit,
-                            mainmo.repostat.logfilterdatemin,
-                            mainmo.repostat.logfilterdatemax,
-                            mainmo.repostat.logfiltercommitter,
-                            mainmo.repostat.logfiltermessage) then begin
-}
  if (mstr1 <> '') and dogetrevs(ar1,mstr1,mainmo.repostat.logfiltercommit,
                                                       maxlog1,skip) then begin
   application.lock;

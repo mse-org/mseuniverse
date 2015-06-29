@@ -171,6 +171,7 @@ type
    flogfilterdatemax: tdatetime;
    flogfiltermessage: msestring;
    flogfiltercasesens: boolean;
+   flogfiltercomplexregex: boolean;
   public
    constructor create;
    procedure reset;
@@ -215,6 +216,8 @@ type
                                                 write flogfiltermessage;
    property logfiltercasesens: boolean read flogfiltercasesens
                                                 write flogfiltercasesens;
+   property logfiltercomplexregex: boolean read flogfiltercomplexregex
+                                                write flogfiltercomplexregex;
  end;
 
  trefsitem = class
