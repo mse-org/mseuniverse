@@ -721,6 +721,7 @@ procedure tbranchfo.localactivelogsetexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
 begin
  if avalue then begin
+  mainmo.repostat.logfiltercommit:= '';
   setactivelocallog(localbranch.value);
  end
  else begin
@@ -732,16 +733,19 @@ end;
 procedure tbranchfo.remoteactivelogsetexe(const sender: TObject;
                var avalue: Boolean; var accept: Boolean);
 begin
- if remote.value <> '' then begin
+ if remote.value <> '' then begin //invalid row
   avalue:= false;
- end;
- if avalue then begin
-  setactiveremotelog(currentremote(remotegrid.row),remotebranch.value);
  end
  else begin
-  setactiveremotelog('','');
+  if avalue then begin
+   mainmo.repostat.logfiltercommit:= '';
+   setactiveremotelog(currentremote(remotegrid.row),remotebranch.value);
+  end
+  else begin
+   setactiveremotelog('','');
+  end;
+  mainfo.objchanged(true);
  end;
- mainfo.objchanged(true);
 end;
 
 procedure tbranchfo.linkbranchsetexe(const sender: TObject; var avalue: Boolean;
