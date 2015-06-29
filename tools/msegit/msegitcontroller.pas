@@ -1150,13 +1150,13 @@ const
  shalen = 40;
 var
  mstr1,mstr2: msestring;
- ar1,ar3: msestringarty;
- int1: integer;
+ ar1,ar3,ar4,ar5: msestringarty;
+ int1,i2,i3: int32;
  ar2: refinfoarty;
  po1,po2,po3,ps: pmsechar;
 begin
  adest:= nil;
- result:= commandresult1('show-ref --tags',mstr1);
+ result:= commandresult1('show-ref -d --tags',mstr1);
  if result then begin
   int1:= 0;
   po1:= pmsechar(mstr1);
@@ -1187,16 +1187,33 @@ begin
    end;
    inc(po1);
   end;
-  setlength(ar1,int1);
-  setlength(ar3,int1);
-  if high(ar1) > 0 then begin
+  setlength(ar4,int1);
+  setlength(ar5,int1);
+  i2:= 0;
+  for int1:= 0 to int1 - 1 do begin
+   i3:= length(ar3[int1]);
+   if (i3 >= 3) and (copy(ar3[int1],i3-2,3) = '^{}') then begin
+    if i2 > 0 then begin
+     dec(i2);    
+     ar4[i2]:= ar1[int1];
+    end;
+   end
+   else begin
+    ar4[i2]:= ar1[int1]; //commit
+    ar5[i2]:= ar3[int1]; //ref
+   end;
+   inc(i2);
+  end;
+  setlength(ar4,i2);
+  setlength(ar5,i2);
+  if high(ar4) > 0 then begin
    if full then begin
-    result:= getrefinfo(ar1,ar2);
+    result:= getrefinfo(ar4,ar2);
     setlength(adest,length(ar2));
     for int1:= 0 to high(adest) do begin
      with adest[int1] do begin
       ref.kind:= refk_tag;
-      ref.name:= ar3[int1];
+      ref.name:= ar5[int1];
       info:= ar2[int1];
       ref.commit:= info.commit;
      end;
@@ -1204,10 +1221,10 @@ begin
    end
    else begin
     setlength(adest,length(ar1));
-    for int1:= 0 to high(ar1) do begin
+    for int1:= 0 to high(ar4) do begin
      with adest[int1] do begin
-      ref.commit:= ar1[int1];
-      ref.name:= ar3[int1];
+      ref.commit:= ar4[int1];
+      ref.name:= ar5[int1];
       ref.kind:= refk_tag;
      end;
     end;
