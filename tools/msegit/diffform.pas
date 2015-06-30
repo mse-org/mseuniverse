@@ -48,6 +48,8 @@ type
    procedure findupdate(const sender: tcustomaction);
    procedure findexe(const sender: TObject);
    procedure repeatfindexe(const sender: TObject);
+   procedure terminateexe(const sender: tthreadcomp);
+   procedure asyncexe(const sender: TObject; var atag: Integer);
   private
    procedure showdiff(const dest: tdifftabfo; const text: msestringarty);
    procedure cleartabs;
@@ -55,6 +57,7 @@ type
    fi: refreshinfoty;
    fcanexternaldiff: boolean;
    fgitproc: prochandlety;
+   fdifftext: msestringarty;
    function currentpath: filenamety;
    procedure dorefresh; override;
    procedure doclear; override;
@@ -190,7 +193,8 @@ begin
  int1:= application.unlockall();
  try
   refreshthread.terminate;
-  terminateprocess(fgitproc);
+  killprocess(fgitproc);
+//  terminateprocess(fgitproc);
   refreshthread.run;
  finally
   application.relockall(int1);
@@ -199,20 +203,16 @@ end;
 
 procedure tdifffo.refreshexe(const sender: tthreadcomp);
 var
- int1,int2,int3: integer;
  ar1: msestringarty;
- ar3: filenamearty;
- captions,hints: msestringarty;
- ar2: msestringararty;
- mstr1: msestring;
- diffcontextn1: integer;
  fi1: refreshinfoty;
+ diffcontextn1: integer;
 begin
  mainmo.git.setprociddest(fgitproc);
  application.lock;
  fi1:= fi;
  diffcontextn1:= mainmo.opt.diffcontextn;
  mainfo.beginbackground;
+ fdifftext:= nil;
  application.unlock;
  with fi1 do begin 
   if iscommits then begin
@@ -230,10 +230,41 @@ begin
    end;
   end;
  end;
- application.lock;
+ if not sender.terminated then begin
+  application.lock;
+  fdifftext:= ar1;
+  application.unlock();
+ end;
+end;
+
+procedure tdifffo.terminateexe(const sender: tthreadcomp);
+begin
+ asyncevent(0,[peo_first]);
+end;
+
+procedure tdifffo.asyncexe(const sender: TObject; var atag: Integer);
+
+ function checkterminate(): boolean;
+ begin
+  result:= {sender.terminated or} application.waitescaped();
+  if result then begin
+   tabs.clear;
+  end;
+ end; //checkterminate
+
+var
+ int1,int2,int3: integer;
+ ar1: msestringarty;
+ ar3: filenamearty;
+ captions,hints: msestringarty;
+ ar2: msestringararty;
+ mstr1: msestring;
+begin
+ ar1:= fdifftext;
+ fdifftext:= nil;
+ application.beginwait();
  try
-  mainfo.endbackground;
-  if sender.terminated then begin
+  if checkterminate() then begin
    exit;
   end;
   int2:= -1;
@@ -248,6 +279,9 @@ begin
     end;
    end;
    for int1:= 0 to high(ar1) do begin
+    if checkterminate() then begin
+     exit;
+    end;
     if msestartsstr('diff ',ar1[int1]) then begin
      if int2 >= 0 then begin   
       additem(ar2,copy(ar1,int2,int1-int2));
@@ -284,9 +318,15 @@ begin
     tabs[int2].free;
    end;
    for int2:= tabs.count to high(ar2) do begin  
+    if checkterminate() then begin
+     exit;
+    end;
     tabs.add(itabpage(tdifftabfo.create(nil)));
    end;
    for int1:= 0 to tabs.count - 1 do begin
+    if checkterminate() then begin
+     exit;
+    end;
     with tdifftabfo(tabs[int1]) do begin
      caption:= captions[int1];
      tabhint:= hints[int1];
@@ -305,7 +345,8 @@ begin
    tabs.endupdate;
   end;
  finally
-  application.unlock;
+  mainfo.endbackground();
+  application.endwait();
  end;
 end;
 

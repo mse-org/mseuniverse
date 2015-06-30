@@ -222,11 +222,11 @@ object commitqueryfo: tcommitqueryfo
       bounds_cy = 259
       anchors = [an_left]
       object messageed: tmemoedit
-        frame.sbhorz.pagesize = 1
-        frame.sbvert.pagesize = 1
         frame.caption = 'Commit Message'
         frame.localprops = [frl_colorclient]
         frame.localprops1 = []
+        frame.sbhorz.pagesize = 1
+        frame.sbvert.pagesize = 1
         frame.outerframe = (
           0
           17

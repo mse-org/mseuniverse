@@ -234,6 +234,7 @@ type
               const ainfo: prefinfoty; const alist: prefinfoarty): boolean;
                               //false if empty
   public
+   
    constructor create(aowner: tcomponent); override;
    procedure resetversioncheck;
    function getconfig(const varname: string; out varvalue: msestring): boolean;
@@ -317,7 +318,7 @@ type
                 const messagefilter: msestring = '';
                 const casesens: boolean = false;
                 const complexregex: boolean = false): boolean;
-   procedure setprociddest(var adest: prochandlety); //sets threadvar   
+   procedure setprociddest(var adest: prochandlety); //sets threadvar
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
@@ -518,12 +519,12 @@ var
  str1: string;
  opt1: processoptionsty;
 begin
- opt1:= [pro_inactive];
+ opt1:= [pro_inactive{,pro_escapekill}];
  if application.ismainthread then begin
   opt1:= [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages];
  end;
- result:= getprocessoutput(currentgitprocesspo^,
-          encodegitcommand(acommand),ainputdata,str1,ferrormessage,-1,opt1) = 0;
+ result:= getprocessoutput(currentgitprocesspo^,encodegitcommand(acommand),
+                                    ainputdata,str1,ferrormessage,-1,opt1) = 0;
  adest:= decodestring(str1,aencoding);
 end;
 

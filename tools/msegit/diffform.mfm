@@ -9,6 +9,7 @@ inherited difffo: tdifffo
   )
   dragdock.caption = 'diff'
   caption = 'diff'
+  onasyncevent = asyncexe
   moduleclassname = 'tdispfo'
   object tabs: ttabwidget[0]
     bounds_x = 0
@@ -59,6 +60,7 @@ inherited difffo: tdifffo
   end
   object refreshthread: tthreadcomp[5]
     onexecute = refreshexe
+    onterminate = terminateexe
     left = 48
     top = 168
   end
