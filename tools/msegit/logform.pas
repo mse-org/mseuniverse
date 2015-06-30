@@ -649,6 +649,8 @@ begin
    end;
    if dogetrevs(ar1,'',acommit,1,0) and 
                                     (ar1 <> nil) then begin
+    diffmode.value:= 1;
+    diffmode.checkvalue();
     commit1:= ar1[0].commit;
     if not bo1 and (ar2 <> nil) then begin
      showmessage('Commit '+acommit+lineend+
@@ -656,15 +658,11 @@ begin
              'It is available in '+lineend+concatstrings(ar2,lineend),'Hint');
      mainmo.repostat.logfiltercommit:= acommit;
 //     fcommitbranches:= ar2;
-     diffmode.value:= 1;
-     diffmode.checkvalue();
      getrevs1(nil,0);
      mainfo.updatestate(); //show commit in status display
      exit;
     end;
     if bo1 then begin
-     diffmode.value:= 1;
-     diffmode.checkvalue();
      application.beginwait();
      try
       i1:= 0;
