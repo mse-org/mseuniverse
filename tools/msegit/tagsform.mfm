@@ -20,7 +20,7 @@ inherited tagsfo: ttagsfo
     bounds_cx = 769
     bounds_cy = 354
     anchors = []
-    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_colmoving, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
       item
