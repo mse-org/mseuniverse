@@ -1168,10 +1168,16 @@ begin
      if additem(ar1,psubstr(ps,po2),int1) then begin
       setlength(ar3,length(ar1));
      end;
+     po3:= po2+11;          //' refs/tags/'
+     if po3 >= po1 then begin
+      po3:= po2; //invalid trailer
+     end;
+     {
      po3:= po1;
      while (po3^ <> '/') and (po3 > po2) do begin
       dec(po3);
      end;
+     }
      if (po1-1)^ = c_return then  begin
       mstr2:= psubstr(po3+1,po1-1);
      end
