@@ -229,7 +229,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
-      bounds_x = -308
+      bounds_x = 0
       bounds_y = 0
       bounds_cx = 167
       bounds_cy = 16
@@ -244,7 +244,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = -140
+      bounds_x = 168
       bounds_y = 0
       bounds_cx = 99
       bounds_cy = 16
@@ -260,7 +260,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = -40
+      bounds_x = 268
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -276,7 +276,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 11
+      bounds_x = 319
       bounds_y = 0
       bounds_cx = 116
       bounds_cy = 16
@@ -298,7 +298,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 128
+      bounds_x = 436
       bounds_y = 0
       bounds_cx = 117
       bounds_cy = 16
@@ -311,7 +311,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 246
+      bounds_x = 554
       bounds_y = 0
       bounds_cx = 85
       bounds_cy = 16
@@ -333,7 +333,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 332
+      bounds_x = 640
       bounds_y = 0
       bounds_cx = 119
       bounds_cy = 16
@@ -346,7 +346,7 @@ inherited logfo: tlogfo
       optionsskin = [osk_framebuttononly]
       taborder = 8
       visible = False
-      bounds_x = 452
+      bounds_x = 760
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
