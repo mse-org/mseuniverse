@@ -168,7 +168,6 @@ var
  lastvisrow: integer; 
 // fpath1: msestring;
  maxlog1: integer;
- rowcountbefore: int32;
 begin
  application.lock;
  mstr1:= mainmo.repostat.activelogcommit(true);
@@ -201,7 +200,6 @@ begin
    currentbranch:= mainmo.activebranch;
    currentremote:= mainmo.activeremote;
    currentremotebranch:= mainmo.activeremotebranch[currentremote];
-   rowcountbefore:= grid.rowcount;
    grid.rowcount:= length(ar1)+skip;
    po1:= message.griddata.datapo;
    po2:= commit.griddata.datapo;
@@ -277,12 +275,12 @@ begin
    if (skip = 0) and (grid.rowcount > 0) then begin
     grid.row:= 0;
    end;
-   grid.rowdatachanged(mgc(invalidaxis,rowcountbefore),
-                                           grid.rowcount-rowcountbefore);
+   grid.rowdatachanged(mgc(invalidaxis,skip),
+                                           grid.rowcount-skip);
    
 //   grid.endupdate(grid.datacols.sortcol = 0);
    grid.endupdate((grid.datacols.sortcol = 0) and 
-           not (co_sortdescend in grid.datacols[0].options),rowcountbefore);
+           not (co_sortdescend in grid.datacols[0].options),skip);
                      //no complete refresh necessary
    if skip > 0 then begin
     grid.showrow(lastvisrow);
