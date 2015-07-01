@@ -749,7 +749,7 @@ begin
    dir:= clonedired.value;
    url:= cloneurled.value;
    closerepo;
-   if execgitconsole('clone '+fgit.encodestringparam(url)+' '+
+   if execgitconsole('clone --progress '+fgit.encodestringparam(url)+' '+
                                    fgit.encodepathparam(dir,false)) then begin
     loadrepo(dir,false);
    end;
