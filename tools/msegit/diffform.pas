@@ -237,16 +237,19 @@ begin
  end;
 end;
 
+const
+ difftag = 83267593;
+ 
 procedure tdifffo.terminateexe(const sender: tthreadcomp);
 begin
- asyncevent(0,[peo_first]);
+ asyncevent(difftag,[peo_first]);
 end;
 
 procedure tdifffo.asyncexe(const sender: TObject; var atag: Integer);
 
  function checkterminate(): boolean;
  begin
-  result:= {sender.terminated or} application.waitescaped();
+  result:= application.waitescaped();
   if result then begin
    tabs.clear;
   end;
@@ -260,9 +263,13 @@ var
  ar2: msestringararty;
  mstr1: msestring;
 begin
+ if atag <> difftag then begin
+  exit;
+ end;
  ar1:= fdifftext;
  fdifftext:= nil;
  application.beginwait();
+ tabs.beginupdate;
  try
   if checkterminate() then begin
    exit;
@@ -304,16 +311,13 @@ begin
    end;
   end;
   if ar2 = nil then begin
-   tabs.beginupdate;
    for int2:= tabs.count-1 downto 1 do begin
     tabs[int2].free;
    end;
    tdifftabfo(tabs[0]).grid.clear;
    tabs.activepageindex:= 0;
-   tabs.endupdate;  
   end
   else begin
-   tabs.beginupdate;
    for int2:= tabs.count-1 downto length(ar2) do begin
     tabs[int2].free;
    end;
@@ -342,9 +346,9 @@ begin
      end;
     end;
    end;
-   tabs.endupdate;
   end;
  finally
+  tabs.endupdate;  
   mainfo.endbackground();
   application.endwait();
  end;
