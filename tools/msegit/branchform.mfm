@@ -200,7 +200,7 @@ inherited branchfo: tbranchfo
       bounds_cx = 16
       bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol, bo_cantoggle]
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
       onsetvalue = remoteactivelogsetexe
       group = 1
@@ -403,7 +403,7 @@ inherited branchfo: tbranchfo
       bounds_cx = 16
       bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol, bo_cantoggle]
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol]
       visible = False
       onsetvalue = localactivelogsetexe
       group = 1
