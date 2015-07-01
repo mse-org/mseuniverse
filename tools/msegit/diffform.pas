@@ -103,7 +103,9 @@ begin
  for int1:= tabs.count - 1 downto 1 do begin
   tabs[int1].free;
  end;
- tdifftabfo(tabs[0]).grid.clear;
+ if tabs.count > 0 then begin
+  tdifftabfo(tabs[0]).grid.clear; //canceled otherwise
+ end;
  tabs.endupdate;
 end;
 

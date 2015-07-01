@@ -749,6 +749,7 @@ procedure tmainfo.beginbackground;
 begin
  if fbackgroundcount = 0 then begin
   waiticon.width:= 16;
+  waiticon.anim_enabled:= true;
  end;
  inc(fbackgroundcount);
 end;
@@ -758,6 +759,8 @@ begin
  dec(fbackgroundcount);
  if fbackgroundcount = 0 then begin
   waiticon.width:= 0;
+  waiticon.anim_enabled:= false;
+  waiticon.animrestart;
  end;
 end;
 
