@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2014 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2015 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1180,10 +1180,10 @@ begin
      end;
      }
      if (po1-1)^ = c_return then  begin
-      mstr2:= psubstr(po3+1,po1-1);
+      mstr2:= psubstr(po3,po1-1);
      end
      else begin
-      mstr2:= psubstr(po3+1,po1);
+      mstr2:= psubstr(po3,po1);
      end;
      ar3[int1-1]:= mstr2;
      ps:= po1+1;
