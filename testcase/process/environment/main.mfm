@@ -1,0 +1,168 @@
+object mainfo: tmainfo
+  bounds_x = 160
+  bounds_y = 246
+  bounds_cx = 479
+  bounds_cy = 437
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    479
+    437
+  )
+  statfile = tstatfile1
+  moduleclassname = 'tmainform'
+  object twidgetgrid1: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 190
+    bounds_cx = 479
+    bounds_cy = 247
+    anchors = [an_top, an_bottom]
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    rowcountmax = 1000
+    datacols.count = 1
+    datacols.innerframe_top = 0
+    datacols.innerframe_bottom = 0
+    datacols.items = <    
+      item[term]
+        width = 1000
+        widgetname = 'term'
+        dataclass = tgridrichstringdatalist
+      end>
+    datarowheight = 14
+    reffontheight = 14
+    object term: tterminal
+      optionswidget1 = [ow1_fontlineheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 1000
+      bounds_cy = 14
+      optionsedit = [oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_focusrectonreadonly, oe_hintclippedtext]
+      reffontheight = 14
+    end
+  end
+  object par: tstringgrid
+    frame.caption = 'params'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 0
+    bounds_y = 39
+    bounds_cx = 234
+    bounds_cy = 147
+    anchors = [an_left, an_top, an_bottom]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 200
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 25
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object env: tstringgrid
+    frame.caption = 'envvars'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 240
+    bounds_y = 39
+    bounds_cx = 234
+    bounds_cy = 147
+    anchors = [an_left, an_top, an_bottom]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 200
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 25
+        numstart = 1
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object tbutton1: tbutton
+    bounds_x = 424
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'exec'
+    onexecute = exe
+  end
+  object shell: tbooleanedit
+    frame.caption = 'shell'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      32
+      2
+    )
+    taborder = 4
+    bounds_x = 16
+    bounds_y = 15
+    bounds_cx = 45
+    bounds_cy = 16
+    statfile = tstatfile1
+  end
+  object proc: tmseprocess
+    left = 200
+    top = 256
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 88
+    top = 256
+  end
+end
