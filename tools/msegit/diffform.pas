@@ -271,7 +271,7 @@ begin
  ar1:= fdifftext;
  fdifftext:= nil;
  application.beginwait();
- tabs.beginupdate;
+ tabs.beginupdate();
  try
   if checkterminate() then begin
    exit;
@@ -316,11 +316,16 @@ begin
    for int2:= tabs.count-1 downto 1 do begin
     tabs[int2].free;
    end;
-   tdifftabfo(tabs[0]).grid.clear;
-   tabs.activepageindex:= 0;
+   if tabs.count > 0 then begin
+    tdifftabfo(tabs[0]).grid.clear;
+    tabs.activepageindex:= 0;
+   end;
   end
   else begin
    for int2:= tabs.count-1 downto length(ar2) do begin
+    if checkterminate() then begin
+     exit;
+    end;
     tabs[int2].free;
    end;
    for int2:= tabs.count to high(ar2) do begin  
