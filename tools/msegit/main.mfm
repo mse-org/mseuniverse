@@ -64,8 +64,8 @@ object mainfo: tmainfo
     bounds_y = 18
     bounds_cx = 415
     bounds_cy = 244
-    anchors = [an_bottom]
-    dragdock.optionsdock = [od_savepos, od_savezorder, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
+    anchors = [an_top, an_bottom]
+    dragdock.optionsdock = [od_savezorder, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
     statfile = formsta
     dockingareacaption = 'Docking Area'
   end
