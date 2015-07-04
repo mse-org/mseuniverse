@@ -630,26 +630,22 @@ var
   po1:= pointer(mstr1);
   po3:= po1 + length(mstr1);
   while po1 < po3 do begin
-   if po1^ = c_return then begin
+   while (po1^ = c_return) or (po1^ = c_linefeed) do begin
     inc(po1);
    end;
-   if po1^ <> c_linefeed then begin
-    break; //invalid
+   po2:= po1;
+   while (po1^ <> #0) do begin //mstr1 has internal trailing #0
+    inc(po1);
    end;
-   inc(po1); //skip empy header
-   while (po1 < po3) and (po1^ <> #0) do begin
-    po2:= po1;
-    while po2^ <> #0 do begin
-     inc(po2);
-    end;
+   if po1 > po2 then begin
     with stat1 do begin
-     filename:= psubstr(po1,po2);
+     filename:= psubstr(po2,po1);
      data.statex:= [];
      data.statey:= aflags;
     end;
     callback(stat1);
-    po1:= po2+1;
    end;
+   inc(po1); //skip #0
   end;
  end;
 
