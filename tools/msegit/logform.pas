@@ -67,6 +67,8 @@ type
    author: tstringedit;
    parent: tstringedit;
    tree: tstringedit;
+   diffdiffact: taction;
+   commitdiffact: taction;
    procedure diffbasesetexe(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure celleventexe(const sender: TObject; var info: celleventinfoty);
@@ -86,6 +88,7 @@ type
    procedure diffmodeexe(const sender: TObject; const aclient: iificlient;
                    var avalue: Integer; var accept: Boolean;
                    const aindex: Integer);
+   procedure diffmodeactexe(const sender: TObject);
   private
    fpath: filenamety;
   protected
@@ -120,7 +123,7 @@ uses
  logform_mfm,main,gitdirtreeform,filesform,msewidgets,
  mserichstring,branchform,mseeditglob,msegridsglob,tagdialogform,
  mseprocutils,editlogfilterform,commitdispform;
-
+ 
 { tlogfo }
 
 constructor tlogfo.create(aowner: tcomponent);
@@ -520,6 +523,8 @@ begin
    diffbase.checkedrow:= -1;
    grid.datacols.options:= grid.datacols.options + 
                                     [co_keyselect,co_mouseselect];
+   diffdiffact.checked:= false;
+   commitdiffact.checked:= true;
   end;
   else begin
 //   diffmode.caption:= 'D';
@@ -530,10 +535,26 @@ begin
    if grid.row >= 0 then begin
     grid.datacols.rowselected[grid.row]:= true;
    end;
+   diffdiffact.checked:= true;
+   commitdiffact.checked:= false;
   end;
  end;
  if visible and mainmo.isrepoloaded then begin
   mainfo.diffchanged;
+ end;
+end;
+
+procedure tlogfo.diffmodeactexe(const sender: TObject);
+begin
+ if diffdiffact.checked then begin
+  diffmode.value:= 0;
+  diffmode.checkvalue();
+ end
+ else begin
+  if commitdiffact.checked then begin
+   diffmode.value:= 1;
+   diffmode.checkvalue();
+  end;
  end;
 end;
 

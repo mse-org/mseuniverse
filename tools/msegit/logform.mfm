@@ -455,4 +455,24 @@ inherited logfo: tlogfo
     left = 208
     top = 64
   end
+  object diffdiffact: taction[11]
+    caption = 'Difference Diff'
+    onexecute = diffmodeactexe
+    left = 208
+    top = 128
+    sc = (
+      1
+      16452
+    )
+  end
+  object commitdiffact: taction[12]
+    caption = 'Commit diff'
+    onexecute = diffmodeactexe
+    left = 208
+    top = 144
+    sc = (
+      1
+      16451
+    )
+  end
 end

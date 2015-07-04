@@ -184,7 +184,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 17
+        submenu.count = 19
         submenu.items = <        
           item
             submenu.count = 2
@@ -224,6 +224,14 @@ object mainfo: tmainfo
           item
             action = branchfo.showhiddenact
             options = [mao_checkbox, mao_shortcutcaption]
+          end        
+          item
+            action = logfo.commitdiffact
+            options = [mao_radiobutton, mao_shortcutcaption]
+          end        
+          item
+            action = logfo.diffdiffact
+            options = [mao_radiobutton, mao_shortcutcaption]
           end        
           item
             options = [mao_separator, mao_shortcutcaption]
