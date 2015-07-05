@@ -26,7 +26,7 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 15
       end>
     rowcountmax = 1000
     datacols.count = 1
@@ -39,7 +39,7 @@ object mainfo: tmainfo
         dataclass = tgridrichstringdatalist
       end>
     datarowheight = 14
-    reffontheight = 14
+    reffontheight = 13
     object term: tterminal
       optionswidget1 = [ow1_fontlineheight]
       optionsskin = [osk_framebuttononly]
@@ -50,7 +50,8 @@ object mainfo: tmainfo
       bounds_cx = 1000
       bounds_cy = 14
       optionsedit = [oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_focusrectonreadonly, oe_hintclippedtext]
-      reffontheight = 14
+      onreceivetext = receiveexe
+      reffontheight = 13
     end
   end
   object par: tstringgrid
@@ -59,15 +60,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 2
     bounds_x = 0
-    bounds_y = 39
+    bounds_y = 40
     bounds_cx = 234
-    bounds_cy = 147
+    bounds_cy = 146
     anchors = [an_left, an_top, an_bottom]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 1
@@ -86,10 +87,11 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 15
       end>
+    datarowheight = 19
     statfile = tstatfile1
-    reffontheight = 14
+    reffontheight = 13
   end
   object env: tstringgrid
     frame.caption = 'envvars'
@@ -97,15 +99,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 3
     bounds_x = 240
-    bounds_y = 39
+    bounds_y = 40
     bounds_cx = 234
-    bounds_cy = 147
+    bounds_cy = 146
     anchors = [an_left, an_top, an_bottom]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 1
@@ -125,10 +127,11 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 15
       end>
+    datarowheight = 19
     statfile = tstatfile1
-    reffontheight = 14
+    reffontheight = 13
   end
   object tbutton1: tbutton
     bounds_x = 424
@@ -146,14 +149,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      32
-      2
+      24
+      1
     )
     taborder = 4
     bounds_x = 16
     bounds_y = 15
-    bounds_cx = 45
-    bounds_cy = 16
+    bounds_cx = 37
+    bounds_cy = 15
     statfile = tstatfile1
   end
   object proc: tmseprocess

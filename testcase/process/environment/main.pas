@@ -6,7 +6,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,mseforms,msepipestream,
  mseprocess,msesimplewidgets,msewidgets,msedataedits,mseedit,msegrids,
  mseificomp,mseificompglob,mseifiglob,msestatfile,msestream,msestrings,msetypes,
- msewidgetgrid,sysutils,mseterminal,msegraphedits,msescrollbar;
+ msewidgetgrid,sysutils,mseterminal,msegraphedits,msescrollbar,msetimer,
+ msedispwidgets,mserichstring;
 
 type
  tmainfo = class(tmainform)
@@ -19,12 +20,14 @@ type
    env: tstringgrid;
    shell: tbooleanedit;
    procedure exe(const sender: TObject);
+   procedure receiveexe(const sender: TObject; var atext: AnsiString;
+                   const errorinput: Boolean);
  end;
 var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,msefileutils;
+ main_mfm,msefileutils{$ifdef mswindows},windows{$endif};
  
 procedure tmainfo.exe(const sender: TObject);
 var
@@ -46,6 +49,14 @@ begin
  end;
  term.execprog(fna1,'',par.datacols[0].datalist.asarray,
                                    env.datacols[0].datalist.asarray);
+end;
+
+procedure tmainfo.receiveexe(const sender: TObject; var atext: AnsiString;
+               const errorinput: Boolean);
+begin
+{$ifdef mswindows}
+// oemtochar(pchar(atext),pchar(atext));
+{$endif}
 end;
 
 end.
