@@ -7,7 +7,8 @@ uses
  mseprocess,msesimplewidgets,msewidgets,msedataedits,mseedit,msegrids,
  mseificomp,mseificompglob,mseifiglob,msestatfile,msestream,msestrings,msetypes,
  msewidgetgrid,sysutils,mseterminal,msegraphedits,msescrollbar,msetimer,
- msedispwidgets,mserichstring;
+ msedispwidgets,mserichstring,msebitmap,msedatanodes,msefiledialog,
+ mselistbrowser,msesys;
 
 type
  tmainfo = class(tmainform)
@@ -19,9 +20,8 @@ type
    par: tstringgrid;
    env: tstringgrid;
    shell: tbooleanedit;
+   commandline: tfilenameedit;
    procedure exe(const sender: TObject);
-   procedure receiveexe(const sender: TObject; var atext: AnsiString;
-                   const errorinput: Boolean);
  end;
 var
  mainfo: tmainfo;
@@ -30,15 +30,8 @@ uses
  main_mfm,msefileutils{$ifdef mswindows},windows{$endif};
  
 procedure tmainfo.exe(const sender: TObject);
-var
- fna1: filenamety;
 begin
  term.clear();
-{$ifdef mswindows}
- fna1:= filepath('testproc/testproc.exe');
-{$else}
- fna1:= filepath('testproc/testproc');
-{$endif}
  if shell.value then begin
   term.optionsprocess:= term.optionsprocess + [pro_shell];
   term.optionsprocess:= term.optionsprocess - [pro_noshell];
@@ -47,16 +40,8 @@ begin
   term.optionsprocess:= term.optionsprocess - [pro_shell];
   term.optionsprocess:= term.optionsprocess + [pro_noshell];
  end;
- term.execprog(fna1,'',par.datacols[0].datalist.asarray,
+ term.execprog(commandline.value,'',par.datacols[0].datalist.asarray,
                                    env.datacols[0].datalist.asarray);
-end;
-
-procedure tmainfo.receiveexe(const sender: TObject; var atext: AnsiString;
-               const errorinput: Boolean);
-begin
-{$ifdef mswindows}
-// oemtochar(pchar(atext),pchar(atext));
-{$endif}
 end;
 
 end.

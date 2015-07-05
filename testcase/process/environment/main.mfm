@@ -18,9 +18,9 @@ object mainfo: tmainfo
     frame.localprops1 = []
     taborder = 1
     bounds_x = 0
-    bounds_y = 190
+    bounds_y = 198
     bounds_cx = 479
-    bounds_cy = 247
+    bounds_cy = 239
     anchors = [an_top, an_bottom]
     optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixrows.count = 1
@@ -50,7 +50,7 @@ object mainfo: tmainfo
       bounds_cx = 1000
       bounds_cy = 14
       optionsedit = [oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_focusrectonreadonly, oe_hintclippedtext]
-      onreceivetext = receiveexe
+      textflags = [tf_ycentered, tf_ellipseleft]
       reffontheight = 13
     end
   end
@@ -66,7 +66,7 @@ object mainfo: tmainfo
     )
     taborder = 2
     bounds_x = 0
-    bounds_y = 40
+    bounds_y = 48
     bounds_cx = 234
     bounds_cy = 146
     anchors = [an_left, an_top, an_bottom]
@@ -105,7 +105,7 @@ object mainfo: tmainfo
     )
     taborder = 3
     bounds_x = 240
-    bounds_y = 40
+    bounds_y = 48
     bounds_cx = 234
     bounds_cy = 146
     anchors = [an_left, an_top, an_bottom]
@@ -135,9 +135,10 @@ object mainfo: tmainfo
   end
   object tbutton1: tbutton
     bounds_x = 424
-    bounds_y = 8
+    bounds_y = 24
     bounds_cx = 50
     bounds_cy = 20
+    anchors = [an_top, an_right]
     state = [as_localcaption, as_localonexecute]
     caption = 'exec'
     onexecute = exe
@@ -154,10 +155,36 @@ object mainfo: tmainfo
     )
     taborder = 4
     bounds_x = 16
-    bounds_y = 15
+    bounds_y = 23
     bounds_cx = 37
     bounds_cy = 15
     statfile = tstatfile1
+  end
+  object commandline: tfilenameedit
+    frame.caption = 'Command line'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        imagenr = 17
+      end>
+    frame.button.imagenr = 17
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 64
+    bounds_y = 8
+    bounds_cx = 348
+    bounds_cy = 35
+    anchors = [an_left, an_top, an_right]
+    statfile = tstatfile1
+    controller.options = [fdo_relative, fdo_savelastdir]
+    reffontheight = 13
   end
   object proc: tmseprocess
     left = 200
