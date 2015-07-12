@@ -3,6 +3,8 @@ object mainfo: tmainfo
   bounds_y = 241
   bounds_cx = 403
   bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -15,6 +17,8 @@ object mainfo: tmainfo
   onloaded = initdata
   moduleclassname = 'tmseform'
   object grid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 403
@@ -65,13 +69,14 @@ object mainfo: tmainfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
       taborder = 1
       visible = False
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 235
       bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_locate, oe_savevalue, oe_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_locate]
       onupdaterowvalues = updaterowvalues
       options = [teo_treecolnavig, teo_treerownavig, teo_keyrowmoving]
       reffontheight = 14
@@ -81,7 +86,7 @@ object mainfo: tmainfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       taborder = 2
       visible = False
       bounds_x = 236
@@ -96,7 +101,7 @@ object mainfo: tmainfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       taborder = 3
       visible = False
       bounds_x = 348

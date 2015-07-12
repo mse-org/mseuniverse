@@ -20,7 +20,8 @@ interface
 uses
  mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
  msegraphutils,mseevent,mseclasses,mseforms,msedataedits,mseedit,msegrids,
- msestrings,msetypes,msewidgetgrid,msedatanodes,mselistbrowser,msestatfile;
+ msestrings,msetypes,msewidgetgrid,msedatanodes,mselistbrowser,msestatfile,
+ msedrawtext;
  
 type
  tmainfo = class(tmseform)
@@ -46,12 +47,46 @@ type
    property str: msestring read fstr write fstr;
  end;
  
+ tboldnode = class(tmynode)
+  protected
+   ffont: tfont;
+  public
+   constructor create(const aowner: tcustomitemlist = nil;
+              const aparent: ttreelistitem = nil); override;
+   destructor destroy; override;
+   procedure updatecaption(var alayoutinfo: listitemlayoutinfoty;
+                                var ainfo: drawtextinfoty); override;
+  end;
+ 
 var
  mainfo: tmainfo;
+ 
 implementation
 uses
  main_mfm;
  
+{ tboldnode }
+
+constructor tboldnode.create(const aowner: tcustomitemlist = nil;
+               const aparent: ttreelistitem = nil);
+begin
+ ffont:= tfont.create();
+ ffont.bold:= true;
+ inherited;
+end;
+
+destructor tboldnode.destroy;
+begin
+ inherited;
+ ffont.free;
+end;
+
+procedure tboldnode.updatecaption(var alayoutinfo: listitemlayoutinfoty;
+               var ainfo: drawtextinfoty);
+begin
+ ainfo.font:= ffont;
+end;
+
 { tmainfo }
 
 procedure tmainfo.initdata(const sender: TObject);
@@ -59,7 +94,7 @@ var
  node1: tmynode;
 begin
 
- node1:= tmynode.create;  //first root node
+ node1:= tboldnode.create;  //first root node
  with node1 do begin
   caption:= 'A';
   str:= mselowercase(caption);
@@ -92,7 +127,7 @@ begin
  end;
  treeedit.itemlist.add(node1); //itemlist owns the item
  
- node1:= tmynode.create;  //second root node
+ node1:= tboldnode.create;  //second root node
  with node1 do begin
   caption:= 'B';
   str:= mselowercase(caption);
