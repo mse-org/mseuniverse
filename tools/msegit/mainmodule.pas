@@ -372,8 +372,8 @@ type
    procedure closerepo;
    function getcommitmessage(const acaption: msestring;
                                             var amessage: msestring): boolean;
-   function execgitconsole(const acommand: string): boolean;
-   function execconsole(const acommand: string): boolean;
+   function execgitconsole(const acommand: msestring): boolean;
+   function execconsole(const acommand: msestring): boolean;
                         //true if OK
    function getpath(const adir: tgitdirtreenode;
                            const afilename: filenamety): filenamety;
@@ -1440,7 +1440,7 @@ begin
  end;
 end;
 
-function tmainmo.execgitconsole(const acommand: string): boolean;
+function tmainmo.execgitconsole(const acommand: msestring): boolean;
 begin
  result:= gitconsolefo.execgit(acommand);
  if not result then begin
@@ -1448,7 +1448,7 @@ begin
  end;
 end;
 
-function tmainmo.execconsole(const acommand: string): boolean;
+function tmainmo.execconsole(const acommand: msestring): boolean;
 begin
  result:= gitconsolefo.exec(acommand);
  if not result then begin

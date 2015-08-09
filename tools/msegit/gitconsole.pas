@@ -39,13 +39,13 @@ type
   protected
    procedure refreshprompt;
    function prompt: msestring;
-   function doexec(const acommand: string; const agit: boolean): boolean;
+   function doexec(const acommand: msestring; const agit: boolean): boolean;
   public
    procedure synctodirtree(const apath: filenamety);
    procedure init;
    procedure clear;
-   function execgit(const acommand: string): boolean;
-   function exec(const acommand: string): boolean;
+   function execgit(const acommand: msestring): boolean;
+   function exec(const acommand: msestring): boolean;
  end;
  
 var
@@ -153,7 +153,7 @@ begin
  end;
 end;
 
-function tgitconsolefo.doexec(const acommand: string;
+function tgitconsolefo.doexec(const acommand: msestring;
                                             const agit: boolean): boolean;
 var
  mstr1: msestring;
@@ -190,12 +190,12 @@ begin
  end;
 end;
 
-function tgitconsolefo.execgit(const acommand: string): boolean;
+function tgitconsolefo.execgit(const acommand: msestring): boolean;
 begin
  result:= doexec(acommand,true);
 end;
 
-function tgitconsolefo.exec(const acommand: string): boolean;
+function tgitconsolefo.exec(const acommand: msestring): boolean;
 begin
  result:= doexec(acommand,false);
 end;

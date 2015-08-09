@@ -1574,7 +1574,7 @@ begin
        revfind(po3,' ',po4);
        revfind(po4,' ',po5);
        if po5 <> nil then begin
-        if trystrtointmse(psubstr(po5+1,po4),lwo1) then begin
+        if trystrtoint(psubstr(po5+1,po4),lwo1) then begin
          pinfo1^.authordate:= unixtodatetime(lwo1);
          pinfo1^.author:= psubstr(po2+1,po5);
         end;
@@ -1584,7 +1584,7 @@ begin
        revfind(po3,' ',po4);
        revfind(po4,' ',po5);
        if po5 <> nil then begin
-        if trystrtointmse(psubstr(po5+1,po4),lwo1) then begin
+        if trystrtoint(psubstr(po5+1,po4),lwo1) then begin
          pinfo1^.commitdate:= unixtodatetime(lwo1);
          pinfo1^.committer:= psubstr(po2+1,po5);
         end;
@@ -1835,7 +1835,7 @@ begin
        break;
       end;     
       bo1:= item(mstr2);
-      if trystrtointmse(mstr2,lwo1) then begin
+      if trystrtoint(mstr2,lwo1) then begin
        commitdate:= unixtodatetime(lwo1);
       end;
       if bo1 then begin
