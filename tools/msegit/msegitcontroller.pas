@@ -215,9 +215,9 @@ type
    procedure filearraycallback(var ainfo: gitfileinfoty);
    procedure filecachecallback(var ainfo: gitfileinfoty);
   protected
-   function execcommand(const acommand: string;
+   function execcommand(const acommand: msestring;
                                 const useshell: boolean): boolean;
-   function commandresult1(const acommand: string; out adest: msestring;
+   function commandresult1(const acommand: msestring; out adest: msestring;
                const aencoding: charencodingty = ce_utf8n): boolean;
    function commandresult2(const acommand: msestring;  const ainputdata: string;
                            out adest: msestring;
@@ -237,7 +237,8 @@ type
    
    constructor create(aowner: tcomponent); override;
    procedure resetversioncheck;
-   function getconfig(const varname: string; out varvalue: msestring): boolean;
+   function getconfig(const varname: msestring; 
+                              out varvalue: msestring): boolean;
                   //false if unset
    function checkrefformat(const aref: msestring): boolean;
 //   function encodegitcommand(const acommand: string): string; overload;
@@ -417,7 +418,8 @@ end;
 
 function tgitcontroller.canvarset: boolean;
 var
- str1,str2: string;
+ str1,str2: msestring;
+ str3: string;
 {$ifdef windows}
  mstr1,mstr2: msestring;
 {$endif}
@@ -430,7 +432,7 @@ begin
    str2:= defaultgitcommand;
   end;
   fcanvarset:= getprocessoutput(str2 +
-    ' -c color.ui=false --version','',str1,-1,[pro_inactive]) = 0;
+    ' -c color.ui=false --version','',str3,-1,[pro_inactive]) = 0;
   result:= fcanvarset;
   if result then begin
    fcommandlinevars:= ' -c color.ui=false';
@@ -505,7 +507,8 @@ end;
 }
 function tgitcontroller.encodestringparam(const avalue: msestring): msestring;
 begin
- result:= stringtoutf8(quoteescapedstring(avalue,'"'));
+// result:= stringtoutf8(quoteescapedstring(avalue,'"'));
+ result:= quoteescapedstring(avalue,'"');
 end;
 
 function tgitcontroller.noemptystringparam(const avalue: msestring): msestring;
@@ -534,14 +537,14 @@ begin
  adest:= decodestring(str1,aencoding);
 end;
 
-function tgitcontroller.commandresult1(const acommand: string;
+function tgitcontroller.commandresult1(const acommand: msestring;
                out adest: msestring;
                const aencoding: charencodingty = ce_utf8n): boolean;
 begin
  result:= commandresult2(acommand,'',adest,aencoding);
 end;
 
-function tgitcontroller.execcommand(const acommand: string;
+function tgitcontroller.execcommand(const acommand: msestring;
                              const useshell: boolean): boolean;
 var
  opt1: processoptionsty;
@@ -656,7 +659,7 @@ var
  end;
 
 var
- fna1: string;
+ fna1: msestring;
 
 begin
  fna1:= encodepathparam(apath,false);
@@ -776,7 +779,7 @@ function tgitcontroller.lsfiles(const apath,repodir: filenamety;
                out afiles: filenamearty): boolean;
 var
  mstr1,mstr2: msestring;
- str2{,str3}: string;
+ str2{,str3}: msestring;
 begin
  str2:= 'ls-files --full-name ';
  result:= commandresult1(str2+encodepathparam(apath,false),mstr1);
@@ -800,7 +803,7 @@ function tgitcontroller.lsfiles1(const apath: filenamety;
             const callback: addfilecallbackeventty): boolean;
 var
  mstr1: msestring;
- str2: string;
+ str2: msestring;
  int1: integer;
  po1,po2: pmsechar;
  po3: pgitstatedataty;
@@ -966,7 +969,7 @@ end;
 function tgitcontroller.cat(const source: filenamety; const dest: filenamety;
                const commit: msestring): boolean;
 var
- str1: string;
+ str1: msestring;
 begin
  str1:= 'cat-file blob ' + encodestringparam(commit+':'+source) +' >'+
                                          tosysfilepath(quotefilename(dest));
@@ -976,7 +979,7 @@ end;
 function tgitcontroller.cat(const dest: filenamety;
                  const aindex: msestring): boolean;
 var
- str1: string;
+ str1: msestring;
 begin
  str1:= 'cat-file blob ' + encodestringparam(aindex) +' >'+
                                          tosysfilepath(quotefilename(dest));
@@ -1365,7 +1368,7 @@ var
  mstr1: msestring;
 begin
  result:= nil;
- if commandresult1('diff --unified='+inttostr(acontextn)+' '+
+ if commandresult1('diff --unified='+inttostrmse(acontextn)+' '+
                        noemptystringparam(a)+noemptystringparam(b)+
             ' -- '+encodepathparam(afile,true),mstr1,aencoding) then begin
   result:= breaklines(mstr1);
@@ -1380,7 +1383,7 @@ var
  mstr1: msestring;
 begin
  result:= nil;
- if commandresult1('diff --unified='+inttostr(acontextn)+' '+
+ if commandresult1('diff --unified='+inttostrmse(acontextn)+' '+
                        '--cached '+noemptystringparam(b)+
                        ' -- '+encodepathparam(afile,true),mstr1,
                        aencoding) then begin
@@ -1395,12 +1398,12 @@ function tgitcontroller.diff(const commits: msestringarty;
 var
  mstr1: msestring;
  int1: integer;
- str1: string;
+ str1: msestring;
 begin
  result:= nil;
  if commits <> nil then begin
-  str1:= 'log -n'+inttostr(length(commits))+' --unified='+inttostr(acontextn)+
-            ' --full-index -p --pretty=format:';
+  str1:= 'log -n'+inttostrmse(length(commits))+' --unified='+
+           inttostrmse(acontextn)+' --full-index -p --pretty=format:';
   for int1:= 0 to high(commits) do begin
    str1:= str1 + ' '+encodestringparam(commits[int1]);
   end;
@@ -1632,7 +1635,7 @@ function tgitcontroller.revlist(out alist: refinfoarty;
 
 var
  mstr1: msestring;
- str1: string;
+ str1: msestring;
  
 begin
  alist:= nil;
@@ -1659,10 +1662,10 @@ begin
   str1:= str1 + '--grep='+encodestringparam(messagefilter)+' ';
  end;
  if maxcount > 0 then begin
-  str1:= str1 + '--max-count='+inttostr(maxcount)+' ';
+  str1:= str1 + '--max-count='+inttostrmse(maxcount)+' ';
  end;
  if skip > 0 then begin
-  str1:= str1+'--skip='+inttostr(skip)+' ';
+  str1:= str1+'--skip='+inttostrmse(skip)+' ';
  end;
  if commitfilter <> '' then begin
   str1:= str1 + encodestringparam(commitfilter);
@@ -1776,7 +1779,7 @@ const
 
 var
  mstr1,mstr2: msestring;
- str1: string;
+ str1: msestring;
  int1,int2,int3: integer;
  bo1: boolean;
  lwo1: longword;
@@ -1910,7 +1913,7 @@ begin
  result:= datetimetostring(aparam,'II');
 end;
 
-function tgitcontroller.getconfig(const varname: string;
+function tgitcontroller.getconfig(const varname: msestring;
                out varvalue: msestring): boolean;
 begin
  varvalue:= '';

@@ -145,7 +145,7 @@ begin
   stream1.encoding:= charencodingty(mainmo.opt.diffencoding);
   with tdifftabfo(tabs.activepage) do begin
    for int1:= 0 to grid.rowhigh do begin
-    stream1.writestrln(ed[int1]);
+    stream1.writestrln(ansistring(ed[int1]));
    end;
   end;   
   try
