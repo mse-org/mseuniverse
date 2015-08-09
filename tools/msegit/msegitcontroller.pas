@@ -209,7 +209,7 @@ type
    fcanvarset: boolean;
    fhasaskpassvar: boolean;
    fhasdisplayvar: boolean;
-   fcommandlinevars: string;
+   fcommandlinevars: msestring;
    procedure arraycallback(const astatus: gitstateinfoty);
    procedure cachecallback(const astatus: gitstateinfoty);
    procedure filearraycallback(var ainfo: gitfileinfoty);
@@ -219,7 +219,7 @@ type
                                 const useshell: boolean): boolean;
    function commandresult1(const acommand: string; out adest: msestring;
                const aencoding: charencodingty = ce_utf8n): boolean;
-   function commandresult2(const acommand: string;  const ainputdata: string;
+   function commandresult2(const acommand: msestring;  const ainputdata: string;
                            out adest: msestring;
                       const aencoding: charencodingty = ce_utf8n): boolean;
    function status1(const callback: addstatecallbackeventty;
@@ -240,16 +240,17 @@ type
    function getconfig(const varname: string; out varvalue: msestring): boolean;
                   //false if unset
    function checkrefformat(const aref: msestring): boolean;
-   function encodegitcommand(const acommand: string): string; overload;
-   function encodegitcommand(const acommand: msestring): string; overload;
-   function encodestring(const avalue: msestring): string;
-   function encodestringparam(const avalue: msestring): string;
-   function noemptystringparam(const avalue: msestring): string;
+//   function encodegitcommand(const acommand: string): string; overload;
+//   function encodegitcommand(const acommand: msestring): string; overload;
+   function encodegitcommand(const acommand: msestring): msestring; overload;
+   function encodestring(const avalue: msestring): msestring;
+   function encodestringparam(const avalue: msestring): msestring;
+   function noemptystringparam(const avalue: msestring): msestring;
    function encodepathparam(const apath: filenamety;
-                                  const relative: boolean): string;
+                                  const relative: boolean): msestring;
    function encodepathparams(const apath: filenamearty;
-                                  const relative: boolean): string;
-   function encodedatetimeparam(const aparam: tdatetime): string;
+                                  const relative: boolean): msestring;
+   function encodedatetimeparam(const aparam: tdatetime): msestring;
    
    function status(const apath: filenamety; const aorigin: msestring;
                         out astatus: gitstateinfoarty): boolean; overload;
@@ -453,7 +454,7 @@ begin
  end;
 end;
 
-function tgitcontroller.encodegitcommand(const acommand: string): string;
+function tgitcontroller.encodegitcommand(const acommand: msestring): msestring;
 begin
  if fgitcommand = '' then begin
   result:= defaultgitcommand;
@@ -466,20 +467,20 @@ begin
  end;
  result:= result + ' --no-pager '+ acommand;
 end;
-
+{
 function tgitcontroller.encodegitcommand(const acommand: msestring): string;
 begin
  result:= encodegitcommand(encodestring(acommand));
 end;
-
+}
 function tgitcontroller.encodepathparam(const apath: filenamety;
-                                      const relative: boolean): string;
+                                      const relative: boolean): msestring;
 begin
  result:= quotefilename(gitfilepath(apath,relative));
 end;
 
 function tgitcontroller.encodepathparams(const apath: filenamearty;
-               const relative: boolean): string;
+               const relative: boolean): msestring;
 var
  int1: integer;
 begin
@@ -492,17 +493,22 @@ begin
  end;
 end;
 
+function tgitcontroller.encodestring(const avalue: msestring): msestring;
+begin
+ result:= avalue;
+end;
+{
 function tgitcontroller.encodestring(const avalue: msestring): string;
 begin
  result:= stringtoutf8(avalue);
 end;
-
-function tgitcontroller.encodestringparam(const avalue: msestring): string;
+}
+function tgitcontroller.encodestringparam(const avalue: msestring): msestring;
 begin
  result:= stringtoutf8(quoteescapedstring(avalue,'"'));
 end;
 
-function tgitcontroller.noemptystringparam(const avalue: msestring): string;
+function tgitcontroller.noemptystringparam(const avalue: msestring): msestring;
 begin
  if avalue <> '' then begin
   result:= encodestringparam(avalue) + ' ';
@@ -512,7 +518,7 @@ begin
  end;
 end;
 
-function tgitcontroller.commandresult2(const acommand: string;
+function tgitcontroller.commandresult2(const acommand: msestring;
                const ainputdata: string; out adest: msestring;
                const aencoding: charencodingty = ce_utf8n): boolean;
 var
@@ -1899,7 +1905,7 @@ begin
  currentgitprocesspo:= @adest;
 end;
 
-function tgitcontroller.encodedatetimeparam(const aparam: tdatetime): string;
+function tgitcontroller.encodedatetimeparam(const aparam: tdatetime): msestring;
 begin
  result:= datetimetostring(aparam,'II');
 end;

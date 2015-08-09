@@ -363,7 +363,7 @@ type
                                const amask: array of gitstatedataty; 
                                 out aroot: tgitdirtreenode): msegitfileitemarty;
    function encodepathparams(const adir: tgitdirtreenode;
-                               const afiles: msegitfileitemarty): string;
+                               const afiles: msegitfileitemarty): msestring;
    function getremote(const aremotetarget: msestring): msestring;
    procedure delayedrefresh;
   public
@@ -1349,7 +1349,7 @@ function tmainmo.commit(const afiles: filenamearty;
                         const amessage: msestring;
                         const akind: commitkindty): boolean;
 var
- str1: string;
+ str1: msestring;
 begin
  result:= false;
  if (afiles <> nil) or (akind = ck_amend) then begin
@@ -1656,7 +1656,7 @@ end;
 function tmainmo.remove(const afiles: filenamearty;
                                  const untrack: boolean): boolean;
 var
- str1: string;
+ str1: msestring;
 begin
  str1:= 'rm ';
  if untrack then begin
@@ -1813,7 +1813,7 @@ end;
 function tmainmo.pushbranch(const abranch,aremote,
                                        aremotebranch: msestring): boolean;
 var
- str1: string;
+ str1: msestring;
 begin
  if aremote = '' then begin
   result:= execgitconsole('push');
@@ -1843,7 +1843,7 @@ end;
 function tmainmo.merge(asourceref: msestring): boolean;
 var
  mstr1: msestring;
- str1: string;
+ str1: msestring;
 begin
  if asourceref = '' then begin
   asourceref:= 'FETCH_HEAD';
@@ -1879,7 +1879,7 @@ end;
 function tmainmo.cherrypick(const acommits: msestringarty): boolean;
 var
  int1: integer;
- str1: string;
+ str1: msestring;
 begin
  result:= false;
  if acommits <> nil then begin
@@ -1894,7 +1894,7 @@ end;
 function tmainmo.revert(const acommits: msestringarty): boolean;
 var
  int1: integer;
- str1: string;
+ str1: msestring;
 begin
  result:= false;
  if acommits <> nil then begin
@@ -2137,7 +2137,7 @@ begin
  reader.readrecordarray('remotes',reccountset,readremote);
 {$endif}
  diffwindowfo.difffiledialog.controller.lastdir:= 
-                                       reader.readstring('diffdir','');
+                                       reader.readmsestring('diffdir','');
 end;
 
 procedure tmainmo.repowriteexe(const sender: TObject;
@@ -2145,7 +2145,7 @@ procedure tmainmo.repowriteexe(const sender: TObject;
 begin
  writer.writerecordarray('remotes',length(fremotesinfo),
                                       {$ifdef FPC}@{$endif}writeremote);
- writer.writestring('diffdir',diffwindowfo.difffiledialog.controller.lastdir);
+ writer.writemsestring('diffdir',diffwindowfo.difffiledialog.controller.lastdir);
 end;
 
 function tmainmo.remotetarget: msestring;
@@ -2224,7 +2224,7 @@ begin
 end;
 
 function tmainmo.encodepathparams(const adir: tgitdirtreenode;
-               const afiles: msegitfileitemarty): string;
+               const afiles: msegitfileitemarty): msestring;
 var
  ar1: msestringarty;
  fna1: filenamety;

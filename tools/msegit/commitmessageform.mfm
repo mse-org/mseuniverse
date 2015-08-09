@@ -4,8 +4,8 @@ object commitmessagefo: tcommitmessagefo
   bounds_y = 271
   bounds_cx = 399
   bounds_cy = 185
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -17,27 +17,30 @@ object commitmessagefo: tcommitmessagefo
   moduleclassname = 'tmseform'
   object messageed: tmemoedit
     frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.sbhorz.pagesize = 1
+    frame.sbvert.pagesize = 1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 399
     bounds_cy = 155
     anchors = [an_top, an_bottom]
     statfile = tstatfile1
-    optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_focusrectonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
-    reffontheight = 14
+    optionsedit = [oe_closequery, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_nofirstarrownavig, oe_focusrectonreadonly]
+    reffontheight = 13
   end
   object tlayouter1: tlayouter
     taborder = 1
     bounds_x = 288
     bounds_y = 160
     bounds_cx = 105
-    bounds_cy = 20
-    anchors = [an_top, an_right]
+    bounds_cy = 19
+    anchors = [an_right, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
     dist_top = 5
     options = [spao_gluebottom]
     optionslayout = [lao_placex, lao_aligny]
-    align_glue = wam_center
+    align_glue = wam_start
     place_mindist = 5
     place_maxdist = 5
     place_mode = wam_end
@@ -46,12 +49,12 @@ object commitmessagefo: tcommitmessagefo
       bounds_x = 55
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 20
+      bounds_cy = 19
       bounds_cxmin = 50
       state = [as_localdefault, as_localcaption]
       caption = '&Cancel'
       modalresult = mr_cancel
-      reffontheight = 14
+      reffontheight = 13
     end
     object tbutton3: tbutton
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
@@ -59,13 +62,13 @@ object commitmessagefo: tcommitmessagefo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 20
+      bounds_cy = 19
       bounds_cxmin = 50
       state = [as_default, as_localdefault, as_localcaption, as_localonexecute]
       caption = '&OK'
       modalresult = mr_ok
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_asyncexecute]
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   object tstatfile1: tstatfile
