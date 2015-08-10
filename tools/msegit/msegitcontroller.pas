@@ -418,7 +418,7 @@ end;
 
 function tgitcontroller.canvarset: boolean;
 var
- str1,str2: msestring;
+ str2: msestring;
  str3: string;
 {$ifdef windows}
  mstr1,mstr2: msestring;
