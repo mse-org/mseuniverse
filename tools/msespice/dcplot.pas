@@ -44,12 +44,12 @@ uses
 
 function tdcplotfo.getplotstatement: string;
 begin
- result:= 'dc '+source.value+' '+start.asstring+' '+
-                             stop.asstring+' '+increment.asstring;
+ result:= ansistring('dc '+source.value+' '+start.asstring+' '+
+                             stop.asstring+' '+increment.asstring);
  if not(source2.isnull or start2.isnull or stop2.isnull or 
                                         increment2.isnull) then begin
-  result:= result + ' '+source2.value+' '+start2.asstring+' '+
-                             stop2.asstring+' '+increment2.asstring;
+  result:= result + ' '+ansistring(source2.value+' '+start2.asstring+' '+
+                             stop2.asstring+' '+increment2.asstring);
  end;
 end;
 

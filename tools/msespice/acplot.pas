@@ -66,7 +66,7 @@ function tacplotfo.getplotstatement: string;
 begin
  result:= 'ac '+acsteptags[acstepkindty(stepkind.value)]+' '+
               inttostr(stepcount.value)+ ' ' +
-             doubletostring(fstart.value)+' '+doubletostring(fstop.value);
+     ansistring(doubletostring(fstart.value)+' '+doubletostring(fstop.value));
 end;
 
 function tacplotfo.getxvalue: string;

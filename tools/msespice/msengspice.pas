@@ -292,13 +292,13 @@ begin
     with fplots[plotnum] do begin
      case infokind of
       ik_title: begin
-       title:= str1;
+       title:= msestring(str1);
       end;
       ik_date: begin
-       date:= str1;
+       date:= msestring(str1);
       end;
       ik_plotname: begin
-       plotname:= str1;
+       plotname:= msestring(str1);
       end;
       ik_flags: begin
        if str1 <> '' then begin
@@ -333,7 +333,8 @@ begin
           setlength(vars,int1+1);
           with vars[int1] do begin
            expression:= ar1[2];
-           unifiedexpression:= removebrackets(unifyexpression(expression));
+           unifiedexpression:= removebrackets(unifyexpression(
+                                                  msestring(expression)));
            unitname:= ar1[3];
           end;
           inc(int1);

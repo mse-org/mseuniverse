@@ -1,18 +1,19 @@
 inherited dcplotfo: tdcplotfo
   bounds_x = 109
   bounds_y = 238
-  bounds_cx = 430
+  bounds_cx = 431
   bounds_cy = 86
   container.bounds = (
     0
     0
-    430
+    431
     86
   )
   moduleclassname = 'tplotoptionsfo'
   object stop: trealedit[0]
     frame.caption = 'Stop'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -37,7 +38,8 @@ inherited dcplotfo: tdcplotfo
   end
   object start: trealedit[1]
     frame.caption = 'Start'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -63,7 +65,8 @@ inherited dcplotfo: tdcplotfo
   end
   object source: tstringedit[2]
     frame.caption = 'Source'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -81,7 +84,8 @@ inherited dcplotfo: tdcplotfo
   end
   object increment: trealedit[3]
     frame.caption = 'Increment'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -107,17 +111,18 @@ inherited dcplotfo: tdcplotfo
   end
   object increment2: trealedit[4]
     frame.caption = 'Increment 2'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
-      0
+      1
       0
     )
     taborder = 4
     bounds_x = 352
     bounds_y = 47
-    bounds_cx = 76
+    bounds_cx = 77
     bounds_cy = 37
     statfile = mainmo.projectstat1
     value = -Inf
@@ -133,7 +138,8 @@ inherited dcplotfo: tdcplotfo
   end
   object stop2: trealedit[5]
     frame.caption = 'Stop 2'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -159,7 +165,8 @@ inherited dcplotfo: tdcplotfo
   end
   object start2: trealedit[6]
     frame.caption = 'Start 2'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -185,7 +192,8 @@ inherited dcplotfo: tdcplotfo
   end
   object source2: tstringedit[7]
     frame.caption = 'Source 2'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17

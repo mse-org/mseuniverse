@@ -1,19 +1,20 @@
 inherited acplotfo: tacplotfo
   bounds_x = 53
   bounds_y = 618
-  bounds_cx = 377
+  bounds_cx = 386
   bounds_cy = 55
   bounds_cymin = 55
   container.bounds = (
     0
     0
-    377
+    386
     55
   )
   moduleclassname = 'tplotoptionsfo'
   object fstop: trealedit[0]
     frame.caption = 'Stop (Hz)'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -39,7 +40,8 @@ inherited acplotfo: tacplotfo
   end
   object fstart: trealedit[1]
     frame.caption = 'Start (Hz)'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -66,6 +68,8 @@ inherited acplotfo: tacplotfo
   end
   object stepkind: tenumedit[2]
     frame.caption = 'Step Kind'
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -95,17 +99,18 @@ inherited acplotfo: tacplotfo
   end
   object stepcount: tintegeredit[3]
     frame.caption = 'Step Count'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
-      11
+      20
       0
     )
     taborder = 3
     bounds_x = 312
     bounds_y = 7
-    bounds_cx = 63
+    bounds_cx = 72
     bounds_cy = 37
     statfile = mainmo.projectstat1
     value = 10
