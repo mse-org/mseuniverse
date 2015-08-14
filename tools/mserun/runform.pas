@@ -209,7 +209,7 @@ begin
                            fcurrenttest.compiledirectory,fn_compiledirectory)); 
   except
    on e: exception do begin
-    term.addline(e.message);
+    term.addline(msestring(e.message));
     procfinishedexe(nil);
    end;
   end;
@@ -246,7 +246,7 @@ begin
     proc.active:= true;
    except
     on e: exception do begin
-     fcurrenttest.actualerror:= e.message;
+     fcurrenttest.actualerror:= msestring(e.message);
     end;
    end;
    if proc.lastprochandle = invalidprochandle then begin
