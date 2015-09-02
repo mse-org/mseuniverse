@@ -25,6 +25,16 @@ type
    tbutton2: tbutton;
    tbutton3: tbutton;
    tbutton4: tbutton;
+   tsimplewidget2: tsimplewidget;
+   tsplitter2: tsplitter;
+   tsplitter3: tsplitter;
+   tsplitter4: tsplitter;
+   tsimplewidget3: tsimplewidget;
+   tsimplewidget4: tsimplewidget;
+   tsimplewidget5: tsimplewidget;
+   tstringedit4: tstringedit;
+   tstringedit5: tstringedit;
+   tbutton5: tbutton;
  end;
 var
  mainfo: tmainfo;

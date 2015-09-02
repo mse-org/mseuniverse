@@ -2,14 +2,14 @@ object mainfo: tmainfo
   bounds_x = 127
   bounds_y = 237
   bounds_cx = 525
-  bounds_cy = 280
+  bounds_cy = 444
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     525
-    280
+    444
   )
   statfile = tstatfile1
   caption = 'MSEide+MSEgui'
@@ -112,7 +112,7 @@ object mainfo: tmainfo
     bounds_x = 8
     bounds_y = 80
     bounds_cx = 508
-    bounds_cy = 194
+    bounds_cy = 358
     anchors = [an_left, an_top, an_right, an_bottom]
     object tscrollbox1: tscrollbox
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
@@ -137,7 +137,7 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 508
-      bounds_cy = 92
+      bounds_cy = 104
       anchors = [an_top]
       object tstringedit2: tstringedit
         frame.localprops = []
@@ -182,12 +182,12 @@ object mainfo: tmainfo
       color = -1879048189
       taborder = 1
       bounds_x = 0
-      bounds_y = 92
+      bounds_y = 220
       bounds_cx = 508
       bounds_cy = 3
       anchors = [an_top]
       options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
-      linktop = tscrollbox1
+      linktop = tsimplewidget2
       linkbottom = tmemoedit2
       statfile = tstatfile1
     end
@@ -198,12 +198,111 @@ object mainfo: tmainfo
       frame.sbvert.pagesize = 1
       taborder = 2
       bounds_x = 0
-      bounds_y = 95
+      bounds_y = 223
       bounds_cx = 508
-      bounds_cy = 98
+      bounds_cy = 206
       anchors = [an_top, an_bottom]
       statfile = tstatfile1
       reffontheight = 14
+    end
+    object tsimplewidget2: tsimplewidget
+      taborder = 3
+      visible = True
+      bounds_x = 0
+      bounds_y = 107
+      bounds_cx = 508
+      bounds_cy = 113
+      anchors = [an_top]
+      object tsplitter3: tsplitter
+        color = -1879048189
+        bounds_x = 160
+        bounds_y = 0
+        bounds_cx = 3
+        bounds_cy = 113
+        anchors = [an_left]
+        options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+        linkleft = tsimplewidget3
+        linkright = tsimplewidget4
+        statfile = tstatfile1
+      end
+      object tsplitter4: tsplitter
+        color = -1879048189
+        taborder = 1
+        bounds_x = 344
+        bounds_y = 0
+        bounds_cx = 3
+        bounds_cy = 113
+        anchors = [an_left]
+        options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+        linkleft = tsimplewidget4
+        linkright = tsimplewidget5
+        statfile = tstatfile1
+      end
+      object tsimplewidget3: tsimplewidget
+        taborder = 2
+        visible = True
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 160
+        bounds_cy = 113
+        anchors = [an_left]
+        object tstringedit4: tstringedit
+          frame.localprops = []
+          frame.localprops1 = []
+          bounds_x = 0
+          bounds_y = 5
+          bounds_cx = 152
+          anchors = [an_left, an_top, an_right]
+          reffontheight = 14
+        end
+      end
+      object tsimplewidget4: tsimplewidget
+        taborder = 3
+        visible = True
+        bounds_x = 163
+        bounds_y = 0
+        bounds_cx = 181
+        bounds_cy = 113
+        anchors = [an_left]
+        object tbutton5: tbutton
+          bounds_x = 8
+          bounds_y = 5
+          bounds_cx = 165
+          bounds_cy = 20
+          anchors = [an_left, an_top, an_right]
+        end
+      end
+      object tsimplewidget5: tsimplewidget
+        taborder = 4
+        visible = True
+        bounds_x = 347
+        bounds_y = 0
+        bounds_cx = 161
+        bounds_cy = 113
+        anchors = [an_right]
+        object tstringedit5: tstringedit
+          frame.localprops = []
+          frame.localprops1 = []
+          bounds_x = 8
+          bounds_y = 5
+          bounds_cx = 153
+          anchors = [an_left, an_top, an_right]
+          reffontheight = 14
+        end
+      end
+    end
+    object tsplitter2: tsplitter
+      color = -1879048189
+      taborder = 4
+      bounds_x = 0
+      bounds_y = 104
+      bounds_cx = 508
+      bounds_cy = 3
+      anchors = [an_top]
+      options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linktop = tscrollbox1
+      linkbottom = tsimplewidget2
+      statfile = tstatfile1
     end
   end
   object tstatfile1: tstatfile
