@@ -115,6 +115,7 @@ type
    procedure pushlocalbranchexe(const sender: TObject);
    procedure branchcelleventexe(const sender: TObject;
                    var info: celleventinfoty);
+   procedure fetchexe(const sender: TObject);
   private
    fcheckoutcommit: msestring;
    function getshowhidden: boolean;
@@ -945,7 +946,7 @@ begin
  sender.menu.visible:= mainmo.isrepoloaded;
  if sender.menu.visible then begin
   with sender.menu.itembyname('pushbranch') do begin
-   caption:= 'Push branch ' + pushbranchtext;
+   caption:= '&Push branch ' + pushbranchtext;
    enabled:= (localbranch.value <> ''){ and 
          (mainmo.findremotebranch(mainmo.activeremote,localbranch.value) = nil)};
   end;
@@ -1004,6 +1005,13 @@ procedure tbranchfo.branchcelleventexe(const sender: TObject;
 begin
  if iscellclick(info,[ccr_dblclick,ccr_nokeyreturn]) then begin
   logfo.findcommit(localbranchcommit.value);
+ end;
+end;
+
+procedure tbranchfo.fetchexe(const sender: TObject);
+begin
+ if mainmo.fetch(currentremote,remotebranch.value) then begin
+  mainfo.reload();
  end;
 end;
 

@@ -452,46 +452,54 @@ inherited branchfo: tbranchfo
   end
   object remotepopup: tpopupmenu[5]
     onupdate = remotepopupupdateexe
-    menu.submenu.count = 7
+    menu.submenu.count = 9
     menu.submenu.items = <    
       item
-        caption = 'Create remote Branch'
+        caption = '&Fetch'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = fetchexe
+      end    
+      item
+        options = [mao_separator, mao_shortcutcaption]
+      end    
+      item
+        caption = '&Create remote Branch'
         state = [as_invisible, as_localinvisible, as_localcaption, as_localonexecute]
         onexecute = remotecreateexe
       end    
       item
-        caption = 'Delete remote Branch'
+        caption = '&Delete remote Branch'
         name = 'delete'
         state = [as_localcaption, as_localonexecute]
         onexecute = remotedeleteexe
       end    
       item
         action = mergeremoteact
-        caption = 'Merge remote Branch'
+        caption = '&Merge remote Branch'
         name = 'merge'
         state = [as_localcaption, as_localonexecute]
         onexecute = mergeremotebranchexe
       end    
       item
         action = rebaseremoteact
-        caption = 'Rebase remote Branch'
+        caption = '&Rebase remote Branch'
         name = 'rebase'
         state = [as_localcaption]
       end    
       item
-        caption = 'Create local Branch'
+        caption = 'Create local &Branch'
         name = 'create'
         state = [as_localcaption, as_localonexecute]
         onexecute = remotecreatelocalbranchexe
       end    
       item
-        caption = 'Checkout'
+        caption = '&Checkout'
         name = 'checkout'
         state = [as_localcaption, as_localonexecute]
         onexecute = remotecheckoutexe
       end    
       item
-        caption = 'Push local Branch'
+        caption = '&Push local Branch'
         name = 'pushlocalbranch'
         state = [as_localcaption, as_localonexecute]
         onexecute = pushlocalbranchexe
@@ -524,7 +532,7 @@ inherited branchfo: tbranchfo
         action = rebaseact
       end    
       item
-        caption = 'Push Branch to'
+        caption = '&Push Branch to'
         name = 'pushbranch'
         state = [as_localcaption, as_localonexecute]
         onexecute = pushbranchexe
@@ -543,6 +551,8 @@ inherited branchfo: tbranchfo
     menu.submenu.items = <    
       item
         action = showhiddenact
+        caption = '&Show hidden Branches'
+        state = [as_localcaption]
         options = [mao_checkbox, mao_shortcutcaption]
       end>
     left = 40
