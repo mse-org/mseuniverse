@@ -114,7 +114,7 @@ end;
 procedure tchartoptionsfo.tracecelleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
- if iscellclick(info,[ccr_dblclick]) then begin
+ if iscellclick(info,[ccr_dblclick,ccr_nokeyreturn]) then begin
   plotact.execute;
  end;
 end;
@@ -122,7 +122,7 @@ end;
 procedure tchartoptionsfo.dialcelleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
- if iscellclick(info,[ccr_dblclick]) then begin
+ if iscellclick(info,[ccr_dblclick,ccr_nokeyreturn]) then begin
   chartact.execute;
  end;
 end;

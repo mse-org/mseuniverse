@@ -697,7 +697,8 @@ end;
 procedure tplotpagefo.celleventexe(const sender: TObject;
                var info: celleventinfoty);
 begin
- if iscellclick(info,[ccr_dblclick]){ and not treeed.focused} then begin
+ if iscellclick(info,[ccr_dblclick,ccr_nokeyreturn])
+                                     { and not treeed.focused} then begin
   tplotnode(treeed.item).showchart;
  end;
 end;
