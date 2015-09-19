@@ -13,7 +13,7 @@ type
    conn: tmsemysqlconnection;
    trans: tmsesqltransaction;
    query: tmsesqlquery;
-   tmsedatasource1: tmsedatasource;
+   dataso: tmsedatasource;
    dbnav: tdbnavigator;
    grid: tdbstringgrid;
  end;

@@ -17,7 +17,7 @@ object mainfo: tmainfo
     frame.localprops1 = []
     bounds_x = 8
     bounds_y = 40
-    datasource = tmsedatasource1
+    datasource = dataso
     dialogbutton.imagenr = 17
     dialogbutton.hint = 'Dialog'
     dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
@@ -53,7 +53,7 @@ object mainfo: tmainfo
         datafield = 'rea1'
         textflags = [tf_right, tf_ycentered, tf_noselect]
       end>
-    datalink.datasource = tmsedatasource1
+    datalink.datasource = dataso
     fixcols.count = 1
     fixcols.items = <    
       item
@@ -137,7 +137,7 @@ object mainfo: tmainfo
     left = 136
     top = 8
   end
-  object tmsedatasource1: tmsedatasource
+  object dataso: tmsedatasource
     DataSet = query
     left = 200
     top = 8

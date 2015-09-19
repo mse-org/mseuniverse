@@ -19,4 +19,4 @@ In "grid.datalink.datasource" select "dataso".
 Set "grid.options.dsgo_autofields to "true".
 Set "query.active" to "true".
 
-The database should contain a table "table1" with a autoinc primary key field.
+The database should contain a table "table1" with an autoinc primary key field.
