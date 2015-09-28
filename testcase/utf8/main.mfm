@@ -1,0 +1,251 @@
+object mainfo: tmainfo
+  bounds_x = 290
+  bounds_y = 181
+  bounds_cx = 241
+  bounds_cy = 571
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    241
+    571
+  )
+  statfile = tstatfile1
+  caption = 'E'#55357#56832'F'#228#196
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 24
+    bounds_y = 16
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localonexecute]
+    onexecute = exe
+  end
+  object ed: tstringedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 48
+    bounds_cx = 228
+    statfile = tstatfile1
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    onsetvalue = setva
+    reffontheight = 14
+  end
+  object di: tstringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 80
+    bounds_cx = 228
+    bounds_cy = 18
+    font.colorbackground = -1610612712
+    font.name = 'stf_default'
+    font.localprops = [flp_colorbackground]
+    reffontheight = 14
+  end
+  object tintegeredit1: tintegeredit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 104
+    statfile = tstatfile1
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    onsetvalue = sethex
+    base = nb_hex
+    reffontheight = 14
+  end
+  object hdi1: tintegerdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 4
+    bounds_x = 112
+    bounds_y = 104
+    bounds_cx = 44
+    bounds_cy = 18
+    base = nb_hex
+    bitcount = 16
+    reffontheight = 14
+  end
+  object hdi2: tintegerdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 5
+    bounds_x = 160
+    bounds_y = 104
+    bounds_cx = 44
+    bounds_cy = 18
+    base = nb_hex
+    bitcount = 16
+    reffontheight = 14
+  end
+  object hdi3: tintegerdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 6
+    bounds_x = 112
+    bounds_y = 128
+    bounds_cx = 92
+    bounds_cy = 18
+    base = nb_hex
+    reffontheight = 14
+  end
+  object errdi: tstringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 7
+    bounds_x = 80
+    bounds_y = 16
+    bounds_cx = 148
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object h8di: tbytestringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 8
+    bounds_x = 112
+    bounds_y = 152
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object h16di: tintegerdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 9
+    bounds_x = 112
+    bounds_y = 176
+    bounds_cy = 18
+    base = nb_hex
+    reffontheight = 14
+  end
+  object validisp: tstringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 10
+    bounds_x = 112
+    bounds_y = 200
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object storeedexe: tstringedit
+    frame.caption = 'storeinvalid'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 11
+    bounds_x = 8
+    bounds_y = 231
+    bounds_cx = 228
+    bounds_cy = 37
+    statfile = tstatfile1
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    onsetvalue = storeed
+    reffontheight = 14
+  end
+  object storedi: tstringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 12
+    bounds_x = 8
+    bounds_y = 280
+    bounds_cx = 228
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object storedi2: tstringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 13
+    bounds_x = 8
+    bounds_y = 304
+    bounds_cx = 228
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object thexstringedit1: thexstringedit
+    frame.caption = 'hex'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 14
+    bounds_x = 8
+    bounds_y = 327
+    bounds_cx = 228
+    bounds_cy = 37
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    onsetvalue = hexset
+    reffontheight = 14
+  end
+  object list: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 15
+    bounds_x = 8
+    bounds_y = 408
+    bounds_cx = 114
+    bounds_cy = 154
+    anchors = [an_left, an_top, an_bottom]
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item[listed]
+        width = 78
+        widgetname = 'listed'
+        dataclass = tgridintegerdatalist
+      end>
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+    object listed: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 78
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+      ondataentered = listdatent
+      base = nb_hex
+      reffontheight = 14
+    end
+  end
+  object edtest: tstringedit
+    frame.caption = 'edittest'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 16
+    bounds_x = 8
+    bounds_y = 367
+    bounds_cx = 228
+    bounds_cy = 37
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 16
+    top = 168
+  end
+end
