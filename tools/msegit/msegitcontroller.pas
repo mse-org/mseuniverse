@@ -218,10 +218,10 @@ type
    function execcommand(const acommand: msestring;
                                 const useshell: boolean): boolean;
    function commandresult1(const acommand: msestring; out adest: msestring;
-               const aencoding: charencodingty = ce_utf8n): boolean;
+               const aencoding: charencodingty = ce_utf8): boolean;
    function commandresult2(const acommand: msestring;  const ainputdata: string;
                            out adest: msestring;
-                      const aencoding: charencodingty = ce_utf8n): boolean;
+                      const aencoding: charencodingty = ce_utf8): boolean;
    function status1(const callback: addstatecallbackeventty;
                 const apath: filenamety; const aorigin: msestring): boolean;
    function lsfiles1(const apath: filenamety; const excludetracked: boolean;
@@ -291,13 +291,13 @@ type
    function stashlist(out adest: stashinfoarty): boolean;
    function diff(const commits: msestringarty; const afile: filenamety;
             const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8n): msestringarty; overload;
+             const aencoding: charencodingty = ce_utf8): msestringarty; overload;
    function diff(const a,b: msestring; const afile: filenamety;
                  const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8n): msestringarty; overload;
+             const aencoding: charencodingty = ce_utf8): msestringarty; overload;
    function diff(const b: msestring; const afile: filenamety;
                  const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8n): msestringarty; overload;
+             const aencoding: charencodingty = ce_utf8): msestringarty; overload;
                        //cached
    function getsha1(const arev: msestring): msestring;
    function getrefinfo(const arev: msestring;
@@ -523,7 +523,7 @@ end;
 
 function tgitcontroller.commandresult2(const acommand: msestring;
                const ainputdata: string; out adest: msestring;
-               const aencoding: charencodingty = ce_utf8n): boolean;
+               const aencoding: charencodingty = ce_utf8): boolean;
 var
  str1: string;
  opt1: processoptionsty;
@@ -539,7 +539,7 @@ end;
 
 function tgitcontroller.commandresult1(const acommand: msestring;
                out adest: msestring;
-               const aencoding: charencodingty = ce_utf8n): boolean;
+               const aencoding: charencodingty = ce_utf8): boolean;
 begin
  result:= commandresult2(acommand,'',adest,aencoding);
 end;
@@ -1363,7 +1363,7 @@ end;
 
 function tgitcontroller.diff(const a,b: msestring; const afile: filenamety;
                                   const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8n): msestringarty;
+             const aencoding: charencodingty = ce_utf8): msestringarty;
 var
  mstr1: msestring;
 begin
@@ -1377,7 +1377,7 @@ end;
 
 function tgitcontroller.diff(const b: msestring; const afile: filenamety;
                  const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8n): msestringarty;
+             const aencoding: charencodingty = ce_utf8): msestringarty;
                        //cached
 var
  mstr1: msestring;
@@ -1394,7 +1394,7 @@ end;
 function tgitcontroller.diff(const commits: msestringarty;
                  const afile: filenamety;
                  const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8n): msestringarty;
+             const aencoding: charencodingty = ce_utf8): msestringarty;
 var
  mstr1: msestring;
  int1: integer;

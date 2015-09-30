@@ -29,7 +29,7 @@ uses
 const
  defaultmaxlog = 50;
  defaultdiffcontextn = 3;
- defaultdiffencoding = ce_utf8n;
+ defaultdiffencoding = ce_utf8;
  defaultrepostatfilename = '.msegitrepo.sta';
 // confcaption = 'Confirmation';
 type
