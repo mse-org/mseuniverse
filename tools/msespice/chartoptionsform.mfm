@@ -528,20 +528,20 @@ inherited chartoptionsfo: tchartoptionsfo
       end
       inherited range: trealedit[10]
       end
-      inherited endmargin: trealedit[11]
+      inherited endmargin: trealedit
         bounds_x = 405
         bounds_cx = 28
       end
-      inherited mka: trealedit
+      inherited mka: trealedit[12]
         bounds_x = 485
       end
-      inherited mkb: trealedit
-        bounds_x = 536
+      inherited hidescale: tbooleanedit[13]
       end
-      inherited hidescale: tbooleanedit[14]
-      end
-      inherited mkb_a: trealedit[15]
+      inherited mkb_a: trealedit[14]
         bounds_x = 587
+      end
+      inherited mkb: trealedit[15]
+        bounds_x = 536
       end
     end
   end
@@ -675,20 +675,20 @@ inherited chartoptionsfo: tchartoptionsfo
       end
       inherited range: trealedit[10]
       end
-      inherited endmargin: trealedit[11]
+      inherited endmargin: trealedit
         bounds_x = 405
         bounds_cx = 28
       end
-      inherited mka: trealedit
+      inherited mka: trealedit[12]
         bounds_x = 485
       end
-      inherited mkb: trealedit
-        bounds_x = 536
+      inherited hidescale: tbooleanedit[13]
       end
-      inherited hidescale: tbooleanedit[14]
-      end
-      inherited mkb_a: trealedit[15]
+      inherited mkb_a: trealedit[14]
         bounds_x = 587
+      end
+      inherited mkb: trealedit[15]
+        bounds_x = 536
       end
     end
   end

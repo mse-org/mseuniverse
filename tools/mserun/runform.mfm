@@ -4,6 +4,8 @@ object runfo: trunfo
   bounds_y = 266
   bounds_cx = 708
   bounds_cy = 396
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -16,6 +18,8 @@ object runfo: trunfo
   onshow = showexe
   moduleclassname = 'tmseform'
   object grid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 708
@@ -70,7 +74,7 @@ object runfo: trunfo
       frame.framei_right = 20
       frame.framei_bottom = 10
       frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-      frame.dummy = 0
+      frame.localprops1 = []
       bounds_x = 472
       bounds_y = 0
       bounds_cx = 236
@@ -128,7 +132,7 @@ object runfo: trunfo
     object tlayouter3: tlayouter
       frame.framei_bottom = 5
       frame.localprops = [frl_fibottom]
-      frame.dummy = 0
+      frame.localprops1 = []
       taborder = 1
       bounds_x = 8
       bounds_y = 0
@@ -142,7 +146,8 @@ object runfo: trunfo
       place_maxdist = 10
       object nrdi: tintegerdisp
         frame.caption = 'Test Nr.'
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           0
           17
@@ -157,7 +162,8 @@ object runfo: trunfo
       end
       object captiondi: tstringdisp
         frame.caption = 'Caption'
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           0
           17
@@ -174,7 +180,8 @@ object runfo: trunfo
       end
       object okdi: tintegerdisp
         frame.caption = 'OK'
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           0
           17
@@ -191,7 +198,8 @@ object runfo: trunfo
       end
       object errordi: tintegerdisp
         frame.caption = 'Error'
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           0
           17
@@ -208,7 +216,8 @@ object runfo: trunfo
       end
       object totaldi: tintegerdisp
         frame.caption = 'Total'
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           0
           17
@@ -232,10 +241,10 @@ object runfo: trunfo
   end
   object proc: tmseprocess
     options = [pro_output, pro_erroroutput, pro_input, pro_settty, pro_tty, pro_winpipewritehandles]
-    input.encoding = ce_utf8n
-    output.encoding = ce_utf8n
+    input.encoding = ce_utf8
+    output.encoding = ce_utf8
     output.oninputavailable = outputrx
-    erroroutput.encoding = ce_utf8n
+    erroroutput.encoding = ce_utf8
     erroroutput.oninputavailable = errorrx
     onprocfinished = procfinishedexe
     left = 136
