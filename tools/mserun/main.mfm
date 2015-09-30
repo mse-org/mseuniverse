@@ -126,6 +126,12 @@ object mainfo: tmainfo
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+        end>
       frame.button.color = -1879048187
       frame.button.imagenr = 17
       taborder = 1
@@ -150,6 +156,12 @@ object mainfo: tmainfo
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+        end>
       frame.button.color = -1879048187
       frame.button.imagenr = 17
       taborder = 2
@@ -271,7 +283,7 @@ object mainfo: tmainfo
       face.template = guitemplatesmo.fadevertconcave
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 288
+      bounds_cx = 287
       bounds_cy = 20
       menu.itemframetemplate = menuitemframe
       menu.itemframetemplateactive = menuitemframe
@@ -355,7 +367,7 @@ object mainfo: tmainfo
     end
     object tspacer1: tspacer
       taborder = 1
-      bounds_x = 288
+      bounds_x = 287
       bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
@@ -370,15 +382,15 @@ object mainfo: tmainfo
       frame.localprops = []
       frame.localprops1 = []
       frame.outerframe = (
-        20
+        19
         0
         0
         0
       )
       taborder = 2
-      bounds_x = 297
+      bounds_x = 306
       bounds_y = 1
-      bounds_cx = 90
+      bounds_cx = 89
       bounds_cy = 18
       anchors = [an_top, an_right]
       text = ' '
@@ -386,7 +398,7 @@ object mainfo: tmainfo
     end
     object tspacer2: tspacer
       taborder = 3
-      bounds_x = 387
+      bounds_x = 395
       bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
@@ -401,14 +413,15 @@ object mainfo: tmainfo
       frame.localprops = [frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
-        30
+        34
         0
         0
         0
       )
       taborder = 4
-      bounds_x = 405
+      bounds_x = 397
       bounds_y = 1
+      bounds_cx = 104
       bounds_cy = 18
       anchors = [an_top, an_right]
       text = ' '
@@ -421,14 +434,15 @@ object mainfo: tmainfo
       frame.localprops = []
       frame.localprops1 = []
       frame.outerframe = (
-        30
+        34
         0
         0
         0
       )
       taborder = 5
-      bounds_x = 515
+      bounds_x = 514
       bounds_y = 1
+      bounds_cx = 104
       bounds_cy = 18
       anchors = [an_top, an_right]
       text = ' '
@@ -436,7 +450,7 @@ object mainfo: tmainfo
     end
     object tspacer3: tspacer
       taborder = 6
-      bounds_x = 505
+      bounds_x = 501
       bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
@@ -447,7 +461,7 @@ object mainfo: tmainfo
     end
     object tspacer4: tspacer
       taborder = 7
-      bounds_x = 615
+      bounds_x = 618
       bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
@@ -459,9 +473,9 @@ object mainfo: tmainfo
     object resetbu: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth]
       taborder = 8
-      bounds_x = 628
+      bounds_x = 625
       bounds_y = 1
-      bounds_cx = 43
+      bounds_cx = 46
       bounds_cy = 19
       anchors = [an_top, an_right]
       state = [as_localcaption, as_localonexecute]
