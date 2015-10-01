@@ -145,7 +145,7 @@ object runfo: trunfo
       place_mindist = 10
       place_maxdist = 10
       object nrdi: tintegerdisp
-        frame.caption = 'Test Nr.'
+        frame.caption = 'Run Nr.'
         frame.localprops = []
         frame.localprops1 = []
         frame.outerframe = (
