@@ -49,11 +49,7 @@ https://gitlab.com/groups/mseuniverse repository mseuniverse, tools/msespice.
 In MSEide 'Project'-'Open', select tools/msespice/msespice.prj, press F9.
 The project will be compiled and started in debugger.
 
-Have a lot of fun!
-
-Martin
-
-Command line paramers:
+Command line parameters:
 --macrodef=<name>,<value>{,<name>,<value>}
  Example:
  --macrodef=MAC1,abc,MAC2,def
@@ -91,3 +87,7 @@ FILE_NAMEBASE  no directory and no name extension part.
 FILE_EXT       file name extension.
 FILE_NONAME    directory part only.
 FILE_NOEXT     no file name extension.
+
+Have a lot of fun!
+
+Martin
