@@ -1,5 +1,5 @@
 MSEspice, GUI for Ngspice
-Version 2.08 2015-09-30
+Version 2.0 2015-09-30
 
 - Download and install ngspice from
 http://sourceforge.net/projects/ngspice/
@@ -32,10 +32,10 @@ https://gitlab.com/groups/mseide-msegui repository mseide-msegui
 
 First step is to install Free Pascal and MSEide+MSEgui 
 
-1. Download and install FPC 2.6.4, you can get it from 
+1. Download and install FPC 2.6.4 or FPC 3.0, you can get it from 
    http://www.freepascal.org/download.var
-2. Download mseide_msegui_src_3_8.zip and the mseide_* archive for your system.
-   http://sourceforge.net/projects/mseide-msegui/files/mseide-msegui/3.8/
+2. Download mseide_msegui_src_4_0.zip and the mseide_* archive for your system.
+   http://sourceforge.net/projects/mseide-msegui/files/mseide-msegui/4.0/
 3. Extract them to a directory of your choice ('yourdirectory') .
 4. Run 'yourdirectory/bin/mseide' on linux or 
    'yourdirectory\bin\mseide.exe' on windows.
