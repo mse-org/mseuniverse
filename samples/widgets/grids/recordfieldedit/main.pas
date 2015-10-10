@@ -97,7 +97,7 @@ end;
 procedure tmynode.dostatread(const reader: tstatreader);
 begin
  inherited;
- fstrfield:= reader.readstring('str',fstrfield);
+ fstrfield:= reader.readmsestring('str',fstrfield);
  fintfield:= reader.readinteger('int',fintfield);
  frealfield:= reader.readreal('rea',frealfield,emptyreal);
 end;
@@ -105,7 +105,7 @@ end;
 procedure tmynode.dostatwrite(const writer: tstatwriter);
 begin
  inherited;
- writer.writestring('str',fstrfield);
+ writer.writemsestring('str',fstrfield);
  writer.writeinteger('int',fintfield);
  writer.writereal('rea',frealfield);
 end;
@@ -154,7 +154,7 @@ begin
    fstrfield:= avalue;
   end;
   1: begin
-   fintfield:= strtointmse(avalue);
+   fintfield:= strtoint(avalue);
   end;
   2: begin
    frealfield:= strtorealty(avalue);
