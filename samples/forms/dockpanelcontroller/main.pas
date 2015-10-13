@@ -115,14 +115,13 @@ begin
  astream:= ttextstringcopystream.create(  
          //default layout, text made by pasting the text of the *.sta file
          //and RightClick-'Convert to Pascal string'
-
 '[mainfo.panelcontroller]'+lineend+
 'panels=2'+lineend+
 ' panel3'+lineend+
 ' panel4'+lineend+
 '[mainfo]'+lineend+
 'splitdir=2'+lineend+
-'useroptions=15747'+lineend+
+'useroptions=15491'+lineend+
 'stackedunder='+lineend+
 'parent='+lineend+
 'mdistate=0'+lineend+
@@ -130,8 +129,8 @@ begin
 'ny=0'+lineend+
 'ncx=0'+lineend+
 'ncy=0'+lineend+
-'x=289'+lineend+
-'y=141'+lineend+
+'x=47'+lineend+
+'y=165'+lineend+
 'cx=444'+lineend+
 'cy=366'+lineend+
 'rcx=0'+lineend+
@@ -141,7 +140,7 @@ begin
 'visible=1'+lineend+
 '[efo]'+lineend+
 'splitdir=0'+lineend+
-'useroptions=16507'+lineend+
+'useroptions=134234235'+lineend+
 'parent=mainfo.panelcontroller.panel3.container'+lineend+
 'visible=1'+lineend+
 'mdistate=0'+lineend+
@@ -157,7 +156,7 @@ begin
 'rcy=0'+lineend+
 '[dfo]'+lineend+
 'splitdir=0'+lineend+
-'useroptions=16507'+lineend+
+'useroptions=134234235'+lineend+
 'parent=mainfo.panelcontroller.panel3.container'+lineend+
 'visible=1'+lineend+
 'mdistate=0'+lineend+
@@ -173,7 +172,7 @@ begin
 'rcy=0'+lineend+
 '[cfo]'+lineend+
 'splitdir=0'+lineend+
-'useroptions=16507'+lineend+
+'useroptions=134234235'+lineend+
 'parent=mainfo.panelcontroller.panel4.container'+lineend+
 'visible=1'+lineend+
 'mdistate=0'+lineend+
@@ -189,7 +188,7 @@ begin
 'rcy=0'+lineend+
 '[bfo]'+lineend+
 'splitdir=0'+lineend+
-'useroptions=16507'+lineend+
+'useroptions=134234235'+lineend+
 'parent=mainfo.container'+lineend+
 'visible=1'+lineend+
 'mdistate=0'+lineend+
@@ -205,7 +204,7 @@ begin
 'rcy=0'+lineend+
 '[afo]'+lineend+
 'splitdir=0'+lineend+
-'useroptions=49275'+lineend+
+'useroptions=134267003'+lineend+
 'parent=mainfo.container'+lineend+
 'visible=1'+lineend+
 'mdistate=0'+lineend+
@@ -221,7 +220,7 @@ begin
 'rcy=0'+lineend+
 '[mainfo.panelcontroller.panel3]'+lineend+
 'splitdir=3'+lineend+
-'useroptions=32239'+lineend+
+'useroptions=134249967'+lineend+
 'order=2'+lineend+
 ' dfo'+lineend+
 ' efo'+lineend+
@@ -244,7 +243,7 @@ begin
 'focusedchild=0'+lineend+
 '[mainfo.panelcontroller.panel4]'+lineend+
 'splitdir=1'+lineend+
-'useroptions=32239'+lineend+
+'useroptions=134249967'+lineend+
 'parent=mainfo.container'+lineend+
 'visible=1'+lineend+
 'mdistate=0'+lineend+
