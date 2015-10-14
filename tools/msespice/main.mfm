@@ -6,16 +6,16 @@ object mainfo: tmainfo
   visible = False
   bounds_x = 149
   bounds_y = 221
-  bounds_cx = 411
-  bounds_cy = 117
+  bounds_cx = 434
+  bounds_cy = 155
   anchors = [an_left, an_top, an_bottom]
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     16
-    401
-    101
+    424
+    139
   )
   dragdock.optionsdock = [od_savepos, od_savezorder, od_dockparent]
   mainmenu = mainme
@@ -30,7 +30,7 @@ object mainfo: tmainfo
     visible = True
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 401
+    bounds_cx = 424
     bounds_cy = 18
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky]
@@ -40,7 +40,7 @@ object mainfo: tmainfo
       frame.localprops1 = []
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 403
+      bounds_cx = 424
       bounds_cy = 18
       anchors = [an_top]
       font.name = 'stf_default'
@@ -55,16 +55,16 @@ object mainfo: tmainfo
     visible = True
     bounds_x = 0
     bounds_y = 18
-    bounds_cx = 401
-    bounds_cy = 83
+    bounds_cx = 424
+    bounds_cy = 119
     anchors = [an_top, an_bottom]
     container.bounds = (
       0
       0
-      401
-      83
+      424
+      119
     )
-    dragdock.optionsdock = [od_canfloat, od_candock, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize]
+    dragdock.optionsdock = [od_canfloat, od_candock, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize, od_captionhint]
     options = [fo_globalshortcuts]
     inherited popupme: tpopupmenu
       menu.submenu.items = <      

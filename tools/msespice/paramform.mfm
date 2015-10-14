@@ -1,6 +1,4 @@
 inherited paramfo: tparamfo
-  bounds_x = 100
-  bounds_y = 100
   container.bounds = (
     0
     0
@@ -47,6 +45,8 @@ inherited paramfo: tparamfo
   }
   moduleclassname = 'tspicefo'
   object grid: twidgetgrid[0]
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
@@ -103,6 +103,13 @@ inherited paramfo: tparamfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+        end>
       frame.button.color = -1879048187
       frame.button.imagenr = 17
       taborder = 2

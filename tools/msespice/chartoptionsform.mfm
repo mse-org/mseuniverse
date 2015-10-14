@@ -7,7 +7,7 @@ inherited chartoptionsfo: tchartoptionsfo
     728
     331
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize, od_captionhint]
   options = [fo_closeonesc, fo_savepos, fo_savezorder, fo_savestate]
   icon.transparentcolor = -2147483642
   icon.image = {
@@ -528,17 +528,17 @@ inherited chartoptionsfo: tchartoptionsfo
       end
       inherited range: trealedit[10]
       end
-      inherited endmargin: trealedit
-        bounds_x = 405
-        bounds_cx = 28
-      end
-      inherited mka: trealedit[12]
+      inherited mka: trealedit[11]
         bounds_x = 485
       end
-      inherited hidescale: tbooleanedit[13]
+      inherited hidescale: tbooleanedit[12]
       end
-      inherited mkb_a: trealedit[14]
+      inherited mkb_a: trealedit[13]
         bounds_x = 587
+      end
+      inherited endmargin: trealedit[14]
+        bounds_x = 405
+        bounds_cx = 28
       end
       inherited mkb: trealedit[15]
         bounds_x = 536
@@ -675,17 +675,17 @@ inherited chartoptionsfo: tchartoptionsfo
       end
       inherited range: trealedit[10]
       end
-      inherited endmargin: trealedit
-        bounds_x = 405
-        bounds_cx = 28
-      end
-      inherited mka: trealedit[12]
+      inherited mka: trealedit[11]
         bounds_x = 485
       end
-      inherited hidescale: tbooleanedit[13]
+      inherited hidescale: tbooleanedit[12]
       end
-      inherited mkb_a: trealedit[14]
+      inherited mkb_a: trealedit[13]
         bounds_x = 587
+      end
+      inherited endmargin: trealedit[14]
+        bounds_x = 405
+        bounds_cx = 28
       end
       inherited mkb: trealedit[15]
         bounds_x = 536

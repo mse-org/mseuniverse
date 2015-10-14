@@ -5,7 +5,7 @@ inherited netlistfo: tnetlistfo
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize, od_captionhint]
   caption = 'Netlist'
   icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
@@ -106,9 +106,9 @@ inherited netlistfo: tnetlistfo
       font.xscale = 1
       font.localprops = [flp_xscale]
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      options = [seo_autoindent, seo_markbrackets]
       ontextedited = textedexe
       syntaxpainter = syntaxpainter
-      options = [seo_autoindent, seo_markbrackets]
       reffontheight = 14
     end
   end

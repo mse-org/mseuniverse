@@ -1,14 +1,12 @@
 inherited consolefo: tconsolefo
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_lockbutton]
-  bounds_x = 100
-  bounds_y = 100
   container.bounds = (
     0
     0
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize, od_captionhint]
   options = [fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfo.panelsta
   caption = 'Spice Console'
@@ -46,6 +44,8 @@ inherited consolefo: tconsolefo
   }
   moduleclassname = 'tspicefo'
   object grid: twidgetgrid[0]
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
@@ -62,7 +62,7 @@ inherited consolefo: tconsolefo
       end>
     datarowlinewidth = 0
     datarowheight = 14
-    reffontheight = 13
+    reffontheight = 14
     object term: tterminal
       optionswidget1 = [ow1_fontlineheight]
       optionsskin = [osk_framebuttononly]
@@ -72,10 +72,10 @@ inherited consolefo: tconsolefo
       bounds_y = 0
       bounds_cx = 1000
       bounds_cy = 14
-      optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+      optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly]
       font.name = 'stf_fixed'
       font.xscale = 1
-      font.dummy = 0
+      font.localprops = [flp_xscale]
       maxchars = 120
       onprocfinished = procfinishedexe
       options = [teo_readonly]

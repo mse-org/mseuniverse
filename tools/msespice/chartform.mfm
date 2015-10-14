@@ -1,4 +1,5 @@
 inherited chartfo: tchartfo
+  onbeforepaint = beforepaintexe
   bounds_x = 98
   bounds_y = 309
   bounds_cx = 359
@@ -10,7 +11,7 @@ inherited chartfo: tchartfo
     349
     297
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize, od_captionhint]
   font.height = 10
   font.name = 'Arial'
   options = [fo_savepos, fo_savezorder, fo_savestate]
@@ -72,7 +73,6 @@ inherited chartfo: tchartfo
     FA909002FFFCFC01FFFFFF18
   }
   onchildmouseevent = childmouseexe
-  onbeforepaint = beforepaintexe
   moduleclassname = 'tspicefo'
   object chart: txychartedit[0]
     frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
@@ -81,6 +81,7 @@ inherited chartfo: tchartfo
     frame.framei_right = 10
     frame.framei_bottom = 10
     frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.localprops1 = []
     frame.zoomwidthstep = 1.1
     frame.zoomheightstep = 1.1
     bounds_x = 0
@@ -121,7 +122,7 @@ inherited chartfo: tchartfo
     ydials.range = 1
     fitframe_bottom = 1
     activetrace = -1
-    optionsedit = [oe_readonly, oe_savevalue, oe_savestate, oe_checkvaluepaststatread]
+    optionsedit = [oe_readonly]
     tracehint_captionx = 'x: 0..######g'
     tracehint_captiony = 'y: 0..######g'
     options = [ceo_tracehint, ceo_markerhint]
@@ -142,7 +143,7 @@ inherited chartfo: tchartfo
       color = -1610612730
       frame.levelo = 0
       frame.localprops = [frl_levelo]
-      frame.dummy = 0
+      frame.localprops1 = []
       visible = False
       bounds_x = 0
       bounds_y = 0

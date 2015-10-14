@@ -1,27 +1,27 @@
 object spicefo: tspicefo
+  frame.localprops = []
+  frame.localprops1 = []
   frame.grip_size = 10
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
-  frame.dummy = 0
   popupmenu = popupme
   visible = False
   bounds_x = 100
   bounds_y = 100
   bounds_cx = 445
   bounds_cy = 354
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
   container.frame.framei_left = 0
   container.frame.framei_top = 0
   container.frame.framei_right = 0
   container.frame.framei_bottom = 0
   container.frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize, od_captionhint]
   statfile = mainmo.projectstat2
   moduleclassname = 'tdockform'
   object printpanel: taction

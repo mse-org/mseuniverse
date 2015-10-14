@@ -8,7 +8,7 @@ inherited plotsfo: tplotsfo
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_canfloat, od_candock, od_proportional, od_propsize, od_captionhint]
   options = [fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfo.panelsta
   caption = 'Plots'
@@ -66,6 +66,8 @@ inherited plotsfo: tplotsfo
     anchors = []
     popupmenu = popupmen
     tab_options = [tabo_dragsource, tabo_dragdest]
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
     tab_size = 18
     statfile = mainfo.panelsta
   end
