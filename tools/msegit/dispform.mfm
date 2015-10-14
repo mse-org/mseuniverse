@@ -1,19 +1,22 @@
 object dispfo: tdispfo
+  frame.localprops = []
+  frame.localprops1 = []
   frame.grip_size = 10
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
-  frame.dummy = 0
   visible = False
   bounds_x = 100
   bounds_y = 100
   bounds_cx = 445
   bounds_cy = 354
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
     435
     354
   )
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize, od_captionhint]
   options = [fo_closeonesc, fo_keycloseifwinonly, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfo.formsta
   onshow = showexe

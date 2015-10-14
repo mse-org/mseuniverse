@@ -17,7 +17,7 @@ object gitconsolefo: tgitconsolefo
     354
   )
   dragdock.caption = 'git Console'
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_canfloat, od_candock, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_canfloat, od_candock, od_propsize, od_captionhint]
   statfile = mainfo.formsta
   caption = 'git Console'
   moduleclassname = 'tdockform'
@@ -41,7 +41,7 @@ object gitconsolefo: tgitconsolefo
       end>
     datarowlinewidth = 0
     datarowheight = 14
-    reffontheight = 13
+    reffontheight = 14
     object termed: tterminal
       optionsskin = [osk_framebuttononly]
       taborder = 1

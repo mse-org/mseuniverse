@@ -1,12 +1,15 @@
 object remotesfo: tremotesfo
+  frame.localprops = []
+  frame.localprops1 = []
   frame.grip_size = 10
   frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton]
-  frame.dummy = 0
   visible = False
   bounds_x = 170
   bounds_y = 229
   bounds_cx = 445
   bounds_cy = 354
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -14,11 +17,13 @@ object remotesfo: tremotesfo
     354
   )
   dragdock.caption = 'Remotes'
-  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_canfloat, od_candock, od_propsize]
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_canfloat, od_candock, od_propsize, od_captionhint]
   statfile = mainfo.formsta
   caption = 'Remotes'
   moduleclassname = 'tdockform'
   object grid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 435
@@ -98,6 +103,13 @@ object remotesfo: tremotesfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+        end>
       frame.button.color = -1879048187
       frame.button.imagenr = 17
       taborder = 2
@@ -118,6 +130,13 @@ object remotesfo: tremotesfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+        end>
       frame.button.color = -1879048187
       frame.button.imagenr = 17
       taborder = 3
