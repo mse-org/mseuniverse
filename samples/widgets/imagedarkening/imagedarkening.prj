@@ -19,8 +19,8 @@ order16=0
 order17=0
 order18=0
 [projectoptions]
-projectdir=/home/mse/packs/standard/git/mseuniverse/samples/widgets/blendpos
-projectfilename=/home/mse/packs/standard/git/mseuniverse/samples/widgets/blendpos/blendpos.prj
+projectdir=/home/mse/packs/standard/git/mseuniverse/samples/widgets/imagedarkening
+projectfilename=/home/mse/packs/standard/git/mseuniverse/samples/widgets/imagedarkening/imagedarkening.prj
 mainfile=${PROJECTNAME}.pas
 targetfile=${PROJECTNAME}${EXEEXT}
 messageoutputfile=
@@ -203,12 +203,9 @@ settingsstorage=0
 settingsprojecttree=0
 settingsautoload=0
 settingsautosave=0
-modulenames=1
- MAINFO
-moduletypes=1
- TMAINFO
-modulefiles=1
- /home/mse/packs/standard/git/mseuniverse/samples/widgets/blendpos/main.mfm
+modulenames=0
+moduletypes=0
+modulefiles=0
 befcommandon=0
 makeoptionson=4
  63
@@ -431,34 +428,20 @@ hintheight=0
 finddtext=
 findhistory=0
 findoptions=1
-editpos=2
- 0,-1073741823
- 0,0
-bookmarks0=0
-bookmarks1=0
-sourcefiles=2
- /home/mse/packs/standard/git/mseuniverse/samples/widgets/blendpos/blendpos.pas
- /home/mse/packs/standard/git/mseuniverse/samples/widgets/blendpos/main.pas
-relpaths=2
- blendpos.pas
- main.pas
-ismoduletexts=2
- 0
- 0
-modules=1
- /home/mse/packs/standard/git/mseuniverse/samples/widgets/blendpos/main.mfm
-moduleoptions=1
- 0
-visiblemodules=1
- -1
-nomenumodules=1
- 0
+editpos=0
+sourcefiles=0
+relpaths=0
+ismoduletexts=0
+modules=0
+moduleoptions=0
+visiblemodules=0
+nomenumodules=0
 [sourcefo.tabwidget]
 tabsize=114
 firsttab=0
-index=1
+index=-1
 [layout]
-windowlayout=563
+windowlayout=544
  [mainfo.openform]
  filenames=0
  filecolwidth=0
@@ -505,7 +488,7 @@ windowlayout=563
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -534,10 +517,10 @@ windowlayout=563
  ny=0
  ncx=0
  ncy=0
- x=37
- y=270
- cx=349
- cy=276
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -546,7 +529,7 @@ windowlayout=563
  [memoryfo]
  splitdir=0
  useroptions=134234235
- stackedunder=cpui386fo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
@@ -573,7 +556,7 @@ windowlayout=563
  [disassfo]
  splitdir=0
  useroptions=134234219
- stackedunder=componentstorefo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -592,7 +575,7 @@ windowlayout=563
  [findinfilefo]
  splitdir=0
  useroptions=134234219
- stackedunder=disassfo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -608,7 +591,7 @@ windowlayout=563
  [projecttreefo]
  splitdir=0
  useroptions=134234219
- stackedunder=memoryfo
+ stackedunder=breakpointsfo
  parent=
  mdistate=0
  nx=0
@@ -659,10 +642,10 @@ windowlayout=563
  ny=0
  ncx=0
  ncy=0
- x=120
- y=368
- cx=483
- cy=210
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -690,7 +673,7 @@ windowlayout=563
  [breakpointsfo]
  splitdir=0
  useroptions=134234219
- stackedunder=projecttreefo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
@@ -736,7 +719,7 @@ windowlayout=563
  [symbolfo]
  splitdir=0
  useroptions=134234235
- stackedunder=componentpalettefo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -949,7 +932,7 @@ windowlayout=563
  irqoff=0
  splitdir=0
  useroptions=134234219
- stackedunder=findinfilefo
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
@@ -968,7 +951,7 @@ windowlayout=563
  [mainfo.panel1]
  splitdir=2
  useroptions=167804395
- stackedunder=mainfo
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -987,7 +970,7 @@ windowlayout=563
  [mainfo.panel2]
  splitdir=2
  useroptions=167804395
- stackedunder=_mse_mainfo_mse_
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -998,25 +981,6 @@ windowlayout=563
  y=189
  cx=323
  cy=534
- rcx=0
- rcy=0
- wsize=0
- active=0
- visible=1
- [_mse_mainfo_mse_]
- splitdir=0
- useroptions=134234235
- stackedunder=mainfo.panel1
- parent=
- mdistate=0
- nx=0
- ny=0
- ncx=0
- ncy=0
- x=241
- y=207
- cx=234
- cy=233
  rcx=0
  rcy=0
  wsize=0
