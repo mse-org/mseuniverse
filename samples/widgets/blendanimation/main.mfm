@@ -12,17 +12,41 @@ object mainfo: tmainfo
     226
   )
   caption = 'MSEide+MSEgui'
+  oncreate = createexe
   moduleclassname = 'tmainform'
-  object timage1: timage
+  object image: timage
     frame.levelo = 1
     frame.leveli = -1
     frame.framewidth = 1
     frame.colorframe = -1879048187
-    frame.frameface_list = tfacelist1
-    frame.frameface_offset = -1
-    frame.frameface_offsetmouse = 1
     frame.localprops = [frl_levelo, frl_leveli, frl_framewidth, frl_colorframe]
     frame.localprops1 = [frl1_framefacelist, frl1_framefaceoffset, frl1_framefaceoffsetmouse]
+    face.options = [fao_overlay]
+    face.fade_pos.count = 1
+    face.fade_pos.items = (
+      0
+    )
+    face.fade_color.count = 1
+    face.fade_color.items = (
+      -1610612733
+    )
+    face.fade_opapos.count = 4
+    face.fade_opapos.items = (
+      0
+      0.115537848605578
+      0.25099601593626
+      1
+    )
+    face.fade_opacolor.count = 4
+    face.fade_opacolor.items = (
+      0
+      3026478
+      15263976
+      16777215
+    )
+    face.fade_direction = gd_down
+    face.fade_opacity = -1610612734
+    face.localprops = [fal_options, fal_fadirection, fal_faopacity]
     bounds_x = 8
     bounds_y = 8
     bounds_cx = 210
@@ -3283,40 +3307,11 @@ object mainfo: tmainfo
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000000000
     }
+    onclientmouseevent = clientmouseexe
   end
-  object tfacelist1: tfacelist
-    list.count = 1
-    list.items = <    
-      item
-        options = [fao_overlay]
-        fade_pos.count = 1
-        fade_pos.items = (
-          0
-        )
-        fade_color.count = 1
-        fade_color.items = (
-          -1610612733
-        )
-        fade_opapos.count = 5
-        fade_opapos.items = (
-          0
-          0.13346613545817
-          0.21115537848606
-          0.29482071713147
-          1
-        )
-        fade_opacolor.count = 5
-        fade_opacolor.items = (
-          -1610612734
-          789516
-          11645361
-          15066597
-          -1610612730
-        )
-        fade_direction = gd_down
-        localprops = [fal_options, fal_fadirection, fal_faopacity]
-      end>
-    left = 120
+  object timer: ttimer
+    ontimer = timerexe
+    left = 80
     top = 168
   end
 end
