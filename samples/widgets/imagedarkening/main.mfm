@@ -5,6 +5,17 @@ object mainfo: tmainfo
   bounds_cy = 226
   container.frame.localprops = []
   container.frame.localprops1 = []
+  container.face.fade_pos.count = 2
+  container.face.fade_pos.items = (
+    0
+    1
+  )
+  container.face.fade_color.count = 2
+  container.face.fade_color.items = (
+    -1610612731
+    -1610612733
+  )
+  container.face.localprops = [fal_fadirection]
   container.bounds = (
     0
     0
@@ -3316,7 +3327,7 @@ object mainfo: tmainfo
         fade_direction = gd_down
         localprops = [fal_options, fal_fadirection, fal_faopacity]
       end>
-    left = 120
-    top = 168
+    left = 16
+    top = 184
   end
 end

@@ -1,10 +1,21 @@
 object mainfo: tmainfo
-  bounds_x = 291
-  bounds_y = 247
+  bounds_x = 202
+  bounds_y = 184
   bounds_cx = 226
   bounds_cy = 226
   container.frame.localprops = []
   container.frame.localprops1 = []
+  container.face.fade_pos.count = 2
+  container.face.fade_pos.items = (
+    0
+    1
+  )
+  container.face.fade_color.count = 2
+  container.face.fade_color.items = (
+    -1610612731
+    -1610612733
+  )
+  container.face.localprops = [fal_fadirection]
   container.bounds = (
     0
     0
@@ -42,7 +53,7 @@ object mainfo: tmainfo
       0
       3026478
       15263976
-      16777215
+      -1610612730
     )
     face.fade_direction = gd_down
     face.fade_opacity = -1610612734
@@ -3311,7 +3322,7 @@ object mainfo: tmainfo
   end
   object timer: ttimer
     ontimer = timerexe
-    left = 80
-    top = 168
+    left = 16
+    top = 184
   end
 end

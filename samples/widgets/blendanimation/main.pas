@@ -25,7 +25,7 @@ uses
 
 const
  fps = 20;
- animtime = 0.5; //seconds 
+ animtime = 0.3; //seconds 
  opacitystep = 1/(animtime*fps);
 
 procedure tmainfo.timerexe(const sender: TObject);
