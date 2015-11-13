@@ -28,6 +28,11 @@ const
  animtime = 0.3; //seconds 
  opacitystep = 1/(animtime*fps);
 
+procedure tmainfo.createexe(const sender: TObject);
+begin
+ timer.interval:= round(1000000 / fps); //micro seconds
+end;
+
 procedure tmainfo.timerexe(const sender: TObject);
 begin
  if fup then begin
@@ -45,11 +50,6 @@ begin
   end;
  end;
  image.face.fade_opacity:= opacitycolor(fopacity);
-end;
-
-procedure tmainfo.createexe(const sender: TObject);
-begin
- timer.interval:= round(1000000 / fps); //micro seconds
 end;
 
 procedure tmainfo.clientmouseexe(const sender: twidget;
