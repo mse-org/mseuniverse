@@ -25,6 +25,7 @@ const
  branchref = 'refs/heads/';
  tagref = 'refs/tags/';
  svnremotename = 'remotes';
+ trunctag = '***truncated***';
  
 type
  commitkindty = (ck_none,ck_stage,ck_unstage,ck_amend,ck_commit,ck_revert,
@@ -218,10 +219,14 @@ type
    function execcommand(const acommand: msestring;
                                 const useshell: boolean): boolean;
    function commandresult1(const acommand: msestring; out adest: msestring;
-               const aencoding: charencodingty = ce_utf8): boolean;
+                           const aencoding: charencodingty = ce_utf8;
+                                     const amaxdatalen: integer = 0): int32;
+                                     //returns exitcode, -2 if maxdata reached
    function commandresult2(const acommand: msestring;  const ainputdata: string;
                            out adest: msestring;
-                      const aencoding: charencodingty = ce_utf8): boolean;
+                              const aencoding: charencodingty = ce_utf8;
+                                     const amaxdatalen: integer = 0): int32;
+                                     //returns exitcode, -2 if maxdata reached
    function status1(const callback: addstatecallbackeventty;
                 const apath: filenamety; const aorigin: msestring): boolean;
    function lsfiles1(const apath: filenamety; const excludetracked: boolean;
@@ -294,10 +299,12 @@ type
              const aencoding: charencodingty = ce_utf8): msestringarty; overload;
    function diff(const a,b: msestring; const afile: filenamety;
                  const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8): msestringarty; overload;
+             const aencoding: charencodingty = ce_utf8;
+             const amaxdatalen: integer = 0): msestringarty; overload;
    function diff(const b: msestring; const afile: filenamety;
                  const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8): msestringarty; overload;
+             const aencoding: charencodingty = ce_utf8;
+             const amaxdatalen: integer = 0): msestringarty; overload;
                        //cached
    function getsha1(const arev: msestring): msestring;
    function getrefinfo(const arev: msestring;
@@ -431,8 +438,8 @@ begin
   if str2 = '' then begin
    str2:= defaultgitcommand;
   end;
-  fcanvarset:= getprocessoutput(str2 +
-    ' -c color.ui=false --version','',str3,-1,[pro_inactive]) = 0;
+  fcanvarset:= (getprocessoutput(str2 +
+    ' -c color.ui=false --version','',str3,-1,[pro_inactive]) = 0);
   result:= fcanvarset;
   if result then begin
    fcommandlinevars:= ' -c color.ui=false';
@@ -523,7 +530,8 @@ end;
 
 function tgitcontroller.commandresult2(const acommand: msestring;
                const ainputdata: string; out adest: msestring;
-               const aencoding: charencodingty = ce_utf8): boolean;
+               const aencoding: charencodingty = ce_utf8;
+               const amaxdatalen: integer = 0): int32;
 var
  str1: string;
  opt1: processoptionsty;
@@ -533,15 +541,16 @@ begin
   opt1:= [pro_waitcursor,pro_checkescape,pro_inactive,pro_processmessages];
  end;
  result:= getprocessoutput(currentgitprocesspo^,encodegitcommand(acommand),
-                                    ainputdata,str1,ferrormessage,-1,opt1) = 0;
+                  ainputdata,str1,ferrormessage,-1,opt1,nil,amaxdatalen);
  adest:= decodestring(str1,aencoding);
 end;
 
 function tgitcontroller.commandresult1(const acommand: msestring;
                out adest: msestring;
-               const aencoding: charencodingty = ce_utf8): boolean;
+               const aencoding: charencodingty = ce_utf8;
+               const amaxdatalen: integer = 0): int32;
 begin
- result:= commandresult2(acommand,'',adest,aencoding);
+ result:= commandresult2(acommand,'',adest,aencoding,amaxdatalen);
 end;
 
 function tgitcontroller.execcommand(const acommand: msestring;
@@ -663,7 +672,7 @@ var
 
 begin
  fna1:= encodepathparam(apath,false);
- result:= commandresult1('status -z --porcelain '+fna1,mstr1);
+ result:= (commandresult1('status -z --porcelain '+fna1,mstr1) = 0);
  if result and (mstr1 <> '') then begin
   po1:= pointer(mstr1);
   po3:= po1 + length(mstr1);
@@ -708,12 +717,12 @@ begin
   end;
  end;
  if result and (aorigin <> '') then begin
-  if commandresult1('log -z --name-only --format=format: '+aorigin+
-                        '..HEAD '+fna1,mstr1) and (mstr1 <> '') then begin
+  if (commandresult1('log -z --name-only --format=format: '+aorigin+
+                        '..HEAD '+fna1,mstr1) = 0) and (mstr1 <> '') then begin
    scan([gist_pushpending]);
   end;
-  if commandresult1('log -z --name-only --format=format: '+
-       'HEAD..'+aorigin+' '+fna1,mstr1) and (mstr1 <> '') then begin
+  if (commandresult1('log -z --name-only --format=format: '+
+       'HEAD..'+aorigin+' '+fna1,mstr1) = 0) and (mstr1 <> '') then begin
    scan([gist_mergepending]);
   end;
  end;
@@ -782,14 +791,14 @@ var
  str2{,str3}: msestring;
 begin
  str2:= 'ls-files --full-name ';
- result:= commandresult1(str2+encodepathparam(apath,false),mstr1);
+ result:= (commandresult1(str2+encodepathparam(apath,false),mstr1) = 0);
  if result and (includeuntracked or includeignored) then begin
   str2:= str2 + '--other --exclude='+
                               encodepathparam(repodir+'*/',true)+' ';
   if not includeignored then begin
    str2:= str2 + '--exclude-standard ';
   end;
-  result:= commandresult1(str2+encodepathparam(apath,false),mstr2);
+  result:= (commandresult1(str2+encodepathparam(apath,false),mstr2) = 0);
   mstr1:= mstr1+mstr2;
  end;
  afiles:= breaklines(mstr1);
@@ -819,7 +828,7 @@ begin
    str2:= str2 + '-r ';
   end;
   str2:= str2 + '-z HEAD ';
-  result:= commandresult1(str2+encodepathparam(apath+'/',false),mstr1);
+  result:= (commandresult1(str2+encodepathparam(apath+'/',false),mstr1) = 0);
   if result and (mstr1 <> '') then begin
    po1:= pointer(mstr1);
    while true do begin
@@ -888,7 +897,7 @@ begin
   if not includeignored then begin
    str2:= str2 + '--exclude-standard ';
   end;
-  result:= commandresult1(str2 + encodepathparam(apath,true),mstr1);
+  result:= (commandresult1(str2 + encodepathparam(apath,true),mstr1) = 0);
   if mstr1 <> '' then begin
    info1.data.stateinfo.data.statex:= [];
    info1.data.stateinfo.data.statey:= [gist_untracked];
@@ -1000,7 +1009,7 @@ var
 label
  parseerror,nextline;
 begin
- result:= commandresult1('remote -v show',mstr1);
+ result:= (commandresult1('remote -v show',mstr1) = 0);
  if result then begin
   ar1:= breaklines(mstr1);
   setlength(adest,length(ar1));//max
@@ -1031,7 +1040,7 @@ begin
   else begin
    setlength(adest,int2+1);
   end;
-  if not commandresult1('branch -r -v --no-abbrev',mstr1) then begin
+  if not (commandresult1('branch -r -v --no-abbrev',mstr1) = 0) then begin
    goto parseerror;
   end;
   po1:= pmsechar(mstr1);
@@ -1162,7 +1171,7 @@ var
  po1,po2,po3,ps: pmsechar;
 begin
  adest:= nil;
- result:= commandresult1('show-ref -d --tags',mstr1);
+ result:= (commandresult1('show-ref -d --tags',mstr1) = 0);
  if result then begin
   int1:= 0;
   po1:= pmsechar(mstr1);
@@ -1281,7 +1290,7 @@ begin
  adest:= nil;
  activebranch:= '';
  activecommit:= '';
- result:= commandresult1('branch -vv --no-abbrev',mstr1); 
+ result:= (commandresult1('branch -vv --no-abbrev',mstr1) = 0); 
  if result then begin
   ar1:= breaklines(mstr1);
   if ar1 <> nil then begin
@@ -1344,7 +1353,7 @@ var
  i1: int32;
 begin
  abranches:= nil;
- result:= commandresult1('branch -a --contains '+acommit,mstr1);
+ result:= (commandresult1('branch -a --contains '+acommit,mstr1) = 0);
  if result then begin
   abranches:= breaklines(mstr1);
   if abranches <> nil then begin
@@ -1363,31 +1372,44 @@ end;
 
 function tgitcontroller.diff(const a,b: msestring; const afile: filenamety;
                                   const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8): msestringarty;
+             const aencoding: charencodingty = ce_utf8;
+             const amaxdatalen: integer = 0): msestringarty;
 var
  mstr1: msestring;
+ i1: int32;
 begin
  result:= nil;
- if commandresult1('diff --unified='+inttostrmse(acontextn)+' '+
+ i1:= commandresult1('diff --unified='+inttostrmse(acontextn)+' '+
                        noemptystringparam(a)+noemptystringparam(b)+
-            ' -- '+encodepathparam(afile,true),mstr1,aencoding) then begin
+                   ' -- '+encodepathparam(afile,true),mstr1,aencoding,
+                                                  amaxdatalen);
+ if (i1 = 0) or (i1 = -2) then begin
   result:= breaklines(mstr1);
+  if i1 = -2 then begin
+   additem(result,trunctag);
+  end;
  end;
 end;
 
 function tgitcontroller.diff(const b: msestring; const afile: filenamety;
                  const acontextn: integer = 3;
-             const aencoding: charencodingty = ce_utf8): msestringarty;
+             const aencoding: charencodingty = ce_utf8;
+             const amaxdatalen: integer = 0): msestringarty;
                        //cached
 var
  mstr1: msestring;
+ i1: int32;
 begin
  result:= nil;
- if commandresult1('diff --unified='+inttostrmse(acontextn)+' '+
+ i1:= commandresult1('diff --unified='+inttostrmse(acontextn)+' '+
                        '--cached '+noemptystringparam(b)+
                        ' -- '+encodepathparam(afile,true),mstr1,
-                       aencoding) then begin
+                       aencoding,amaxdatalen);
+ if (i1 = 0) or (i1 = -2) then begin
   result:= breaklines(mstr1);
+  if i1 = -2 then begin
+   additem(result,trunctag);
+  end;
  end;
 end;
 
@@ -1408,7 +1430,7 @@ begin
    str1:= str1 + ' '+encodestringparam(commits[int1]);
   end;
   str1:= str1 + ' -- '+encodepathparam(afile,true);
-  if commandresult1(str1,mstr1,aencoding) then begin
+  if (commandresult1(str1,mstr1,aencoding) = 0) then begin
    result:= breaklines(mstr1);
   end;
  end;
@@ -1681,7 +1703,7 @@ begin
  if apath <> '' then begin
   str1:= str1 + '-- '+encodepathparam(apath,true);
  end;
- result:= commandresult1(str1,mstr1);
+ result:= (commandresult1(str1,mstr1) = 0);
  if result then begin
   decodecommit(mstr1,nil,@alist);
  end;
@@ -1718,7 +1740,7 @@ var
  mstr1: msestring;
 begin
  adest:= nil;
- result:= commandresult1('stash list',mstr1);
+ result:= (commandresult1('stash list',mstr1) = 0);
  if mstr1 <> '' then begin
   po1:= pointer(mstr1);
   po2:= po1;
@@ -1744,8 +1766,8 @@ var
  mstr1: msestring;
 begin
  ainfo.commitdate:= emptydatetime;
- result:= commandresult1('show --format=raw -s '+
-             encodestringparam(arev),mstr1);
+ result:= (commandresult1('show --format=raw -s '+
+             encodestringparam(arev),mstr1) = 0);
  if result then begin
   result:= decodecommit(mstr1,@ainfo,nil);
  end;
@@ -1817,10 +1839,10 @@ begin
  //writefiledatastring('test.txt',
  //     'git show --format=format:"%x00%H%x00%cN%x00%ct%x00%s%x00" -s'+str1+
  //                                                             '>test1.txt');
-   result:= commandresult1(
+   result:= (commandresult1(
  //    'show --format=format:"%x01%H%x01%cN%x01%ct%x01%s%x01" -s '+str1,mstr1);
      'show --format=format:"'+
-     sepstr+'%cN'+sepstr+'%ct'+sepstr+'%s'+sepstr+'" -s '+str1,mstr1);     
+     sepstr+'%cN'+sepstr+'%ct'+sepstr+'%s'+sepstr+'" -s '+str1,mstr1) = 0);
    if not result or application.waitescaped() then begin
     break;
    end;
@@ -1885,7 +1907,7 @@ begin
  end;
  if not bo1 and (tryreadfiledatastring('.git/'+arev,str1) = sye_ok) or 
           (tryreadfiledatastring('.git/'+mstr1+arev,str1) = sye_ok) then begin
-  result:= commandresult2('fmt-merge-msg ',str1,amessage);
+  result:= (commandresult2('fmt-merge-msg ',str1,amessage) = 0);
  end;
  if amessage = '' then begin
   amessage:= 'Merge from '+arev+'.'+lineend;
@@ -1917,7 +1939,7 @@ function tgitcontroller.getconfig(const varname: msestring;
                out varvalue: msestring): boolean;
 begin
  varvalue:= '';
- result:= commandresult1('config '+varname,varvalue) and (varvalue <> '');
+ result:= (commandresult1('config '+varname,varvalue) = 0) and (varvalue <> '');
  if result and (varvalue[length(varvalue)] = c_linefeed) then begin
   setlength(varvalue,length(varvalue)-1);
   if (varvalue <> '') and (varvalue[length(varvalue)] = c_return) then begin

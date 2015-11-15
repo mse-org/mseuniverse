@@ -18,7 +18,7 @@ inherited difffo: tdifffo
     bounds_cy = 354
     anchors = []
     popupmenu = tpopupmenu1
-    tab_options = [tabo_vertical, tabo_opposite, tabo_multitabsonly, tabo_tabsizing, tabo_sorted, tabo_hintclippedtext]
+    tab_options = [tabo_vertical, tabo_opposite, tabo_multitabsonly, tabo_tabsizing, tabo_hintclippedtext]
     tab_frame.buttonpos = sbp_top
     tab_frame.buttonslast = True
     tab_frame.localprops = []

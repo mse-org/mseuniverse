@@ -25,7 +25,7 @@ uses
  msetimer,mserichstring,msesimplewidgets,msewidgets,msegrids,mseifigui,
  mseifilink,finddialogform;
 const
- versiontext = '2.6.2';
+ versiontext = '2.6.3';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;

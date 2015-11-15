@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2012 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2015 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,6 +47,10 @@ type
    splitdiffs: tbooleanedit;
    maxlog: tintegeredit;
    tspacer2: tspacer;
+   texpandingwidget3: texpandingwidget;
+   maxdiffsize: tintegeredit;
+   maxdiffcount: tintegeredit;
+   tspacer3: tspacer;
    procedure repostafnasetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure diffencinitexe(const sender: tenumtypeedit);

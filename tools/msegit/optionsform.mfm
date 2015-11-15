@@ -2,14 +2,14 @@ object optionsfo: toptionsfo
   visible = False
   bounds_x = 236
   bounds_y = 237
-  bounds_cx = 447
+  bounds_cx = 603
   bounds_cy = 298
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    447
+    603
     298
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -18,7 +18,7 @@ object optionsfo: toptionsfo
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
     optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-    bounds_x = 375
+    bounds_x = 531
     bounds_y = 272
     bounds_cx = 62
     bounds_cy = 20
@@ -33,7 +33,7 @@ object optionsfo: toptionsfo
   object tbutton2: tbutton
     optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
     taborder = 1
-    bounds_x = 320
+    bounds_x = 476
     bounds_y = 272
     bounds_cx = 50
     bounds_cy = 20
@@ -47,7 +47,7 @@ object optionsfo: toptionsfo
   object ttabwidget1: ttabwidget
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 447
+    bounds_cx = 603
     bounds_cy = 266
     anchors = [an_top, an_bottom]
     taborder = 2
@@ -61,7 +61,7 @@ object optionsfo: toptionsfo
       taborder = 1
       bounds_x = 0
       bounds_y = 18
-      bounds_cx = 447
+      bounds_cx = 603
       bounds_cy = 248
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Options'
@@ -83,7 +83,7 @@ object optionsfo: toptionsfo
         )
         bounds_x = 8
         bounds_y = 6
-        bounds_cx = 432
+        bounds_cx = 588
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         statfile = mainmo.mainstat
@@ -99,11 +99,11 @@ object optionsfo: toptionsfo
           0
           0
         )
-        taborder = 1
+        taborder = 4
         hint = 'Macros: $BASE $THEIRS $MINE'
         bounds_x = 8
         bounds_y = 157
-        bounds_cx = 432
+        bounds_cx = 588
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         statfile = mainmo.mainstat
@@ -124,10 +124,10 @@ object optionsfo: toptionsfo
           0
           0
         )
-        taborder = 2
+        taborder = 5
         bounds_x = 8
         bounds_y = 197
-        bounds_cx = 432
+        bounds_cx = 588
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         statfile = mainmo.mainstat
@@ -135,7 +135,7 @@ object optionsfo: toptionsfo
         reffontheight = 14
       end
       object texpandingwidget1: texpandingwidget
-        taborder = 3
+        taborder = 1
         bounds_x = 8
         bounds_y = 46
         bounds_cx = 237
@@ -225,7 +225,7 @@ object optionsfo: toptionsfo
         end
       end
       object texpandingwidget2: texpandingwidget
-        taborder = 4
+        taborder = 2
         bounds_x = 255
         bounds_y = 46
         bounds_cx = 160
@@ -242,6 +242,7 @@ object optionsfo: toptionsfo
             84
             0
           )
+          taborder = 3
           bounds_x = 0
           bounds_y = 88
           bounds_cx = 160
@@ -263,7 +264,7 @@ object optionsfo: toptionsfo
             106
             0
           )
-          taborder = 1
+          taborder = 2
           bounds_x = 0
           bounds_y = 62
           bounds_cx = 134
@@ -280,7 +281,7 @@ object optionsfo: toptionsfo
             60
             2
           )
-          taborder = 2
+          taborder = 1
           bounds_x = 0
           bounds_y = 39
           bounds_cx = 73
@@ -298,7 +299,6 @@ object optionsfo: toptionsfo
             94
             0
           )
-          taborder = 3
           bounds_x = 0
           bounds_y = 11
           bounds_cx = 130
@@ -307,7 +307,7 @@ object optionsfo: toptionsfo
         end
       end
       object tspacer2: tspacer
-        taborder = 5
+        taborder = 6
         bounds_x = 245
         bounds_y = 86
         bounds_cx = 10
@@ -315,11 +315,70 @@ object optionsfo: toptionsfo
         linkleft = texpandingwidget1
         linkright = texpandingwidget2
       end
+      object texpandingwidget3: texpandingwidget
+        taborder = 3
+        bounds_x = 425
+        bounds_y = 46
+        bounds_cx = 147
+        bounds_cy = 114
+        optionsscale = [osc_expandx, osc_shrinkx, osc_expandshrinkx, osc_expandshrinky]
+        object maxdiffsize: tintegeredit
+          frame.caption = 'Max diff size'#10'(kB)'
+          frame.captionpos = cp_right
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.outerframe = (
+            0
+            5
+            77
+            5
+          )
+          taborder = 1
+          bounds_x = 0
+          bounds_y = 33
+          bounds_cx = 131
+          bounds_cy = 30
+          statfile = mainmo.mainstat
+          value = 100
+          min = 1
+          max = 1000
+          reffontheight = 14
+        end
+        object maxdiffcount: tintegeredit
+          frame.caption = 'Max. diff count'
+          frame.captionpos = cp_right
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.outerframe = (
+            0
+            0
+            94
+            0
+          )
+          bounds_x = 0
+          bounds_y = 11
+          bounds_cx = 147
+          statfile = mainmo.mainstat
+          value = 50
+          min = 1
+          max = 100
+          reffontheight = 14
+        end
+      end
+      object tspacer3: tspacer
+        taborder = 7
+        bounds_x = 415
+        bounds_y = 86
+        bounds_cx = 10
+        bounds_cy = 50
+        linkleft = texpandingwidget2
+        linkright = texpandingwidget3
+      end
     end
   end
   object tspacer1: tspacer
     taborder = 3
-    bounds_x = 370
+    bounds_x = 526
     bounds_y = 272
     bounds_cx = 5
     bounds_cy = 18

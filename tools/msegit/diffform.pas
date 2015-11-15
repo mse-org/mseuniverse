@@ -224,11 +224,13 @@ begin
   else begin
    if cached then begin
     ar1:= mainmo.git.diff(b,path,diffcontextn1,
-                charencodingty(mainmo.opt.diffencoding));
+                charencodingty(mainmo.opt.diffencoding),
+                mainmo.opt.maxdiffsize*1000);
    end
    else begin
     ar1:= mainmo.git.diff(a,b,path,diffcontextn1,
-                charencodingty(mainmo.opt.diffencoding));
+                charencodingty(mainmo.opt.diffencoding),
+                                       mainmo.opt.maxdiffsize*1000);
    end;
   end;
  end;
@@ -263,7 +265,9 @@ var
  ar3: filenamearty;
  captions,hints: msestringarty;
  ar2: msestringararty;
+ intar1: integerarty;
  mstr1: msestring;
+ truncated: boolean;
 begin
  if atag <> difftag then begin
   exit;
@@ -287,6 +291,7 @@ begin
      mstr1:= '';
     end;
    end;
+   truncated:= (ar1 <> nil) and (ar1[high(ar1)] = trunctag);
    for int1:= 0 to high(ar1) do begin
     if checkterminate() then begin
      exit;
@@ -299,10 +304,22 @@ begin
      additem(hints,msestring(copy(ar3[high(ar3)],int3,bigint)));
      additem(captions,filename(hints[high(hints)]));
      int2:= int1;
+     if length(captions) >= mainmo.opt.maxdiffcount then begin
+      truncated:= true;
+      break;
+     end;
     end;
    end;
    if int2 >= 0 then begin
     additem(ar2,copy(ar1,int2,bigint));
+   end;
+   sortarray(captions,sms_upi,intar1);
+   orderarray(intar1,hints);
+   orderarray(intar1,ar2);
+   if truncated then begin
+    additem(captions,'*truncated*');
+    additem(hints,'');
+    additem(ar2,nil);
    end;
   end
   else begin

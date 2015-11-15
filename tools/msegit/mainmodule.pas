@@ -58,6 +58,8 @@ type
    frepostatfilename: msestring;
    fdiffencoding: integer;
    fdateformat: msestring;
+   fmaxdiffcount: integer;
+   fmaxdiffsize: integer;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -84,6 +86,8 @@ type
    property repostatfilename: msestring read frepostatfilename 
                                             write frepostatfilename;
    property diffencoding: integer read fdiffencoding write fdiffencoding;
+   property maxdiffcount: integer read fmaxdiffcount write fmaxdiffcount;
+   property maxdiffsize: integer read fmaxdiffsize write fmaxdiffsize;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
@@ -2933,6 +2937,8 @@ begin
  fmaxlog:= defaultmaxlog;
  fdiffcontextn:= defaultdiffcontextn;
  fdiffencoding:= ord(defaultdiffencoding);
+ fmaxdiffcount:= 50;
+ fmaxdiffsize:= 100;
 end;
 
 procedure tmsegitoptions.setshowignoreditems(const avalue: boolean);
