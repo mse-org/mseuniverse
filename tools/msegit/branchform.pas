@@ -671,10 +671,11 @@ begin
 
  if mainmo.createbranch('',branchname1,
                     currentremote+'/'+remotebranch.value) then begin
-  localgrid.row:= localgrid.appendrow;
+  localgrid.appinsrow(localgrid.row+1,true);
   localbranch.value:= remotebranch.value;
   localbranchcommit.value:= remotebranchcommit.value;
   remotebranchlink.value:= true;
+  mainmo.updatelocalbranchorder();
   bo1:= true;
   linkbranchsetexe(nil,bo1,bo2);
  end;
