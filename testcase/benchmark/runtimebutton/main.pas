@@ -26,7 +26,7 @@ implementation
 uses
  main_mfm;
 const
- smallbuttonsize: sizety = (cx: 5; cy: 5);
+ smallbuttonsize: sizety = (cx: 7; cy: 7);
  
 type
  tsmallbutton = class(tbutton)
