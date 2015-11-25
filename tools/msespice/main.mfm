@@ -30,7 +30,7 @@ object mainfo: tmainfo
     visible = True
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 424
+    bounds_cx = 426
     bounds_cy = 18
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky]
@@ -40,7 +40,7 @@ object mainfo: tmainfo
       frame.localprops1 = []
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 424
+      bounds_cx = 426
       bounds_cy = 18
       anchors = [an_top]
       font.name = 'stf_default'
@@ -55,14 +55,14 @@ object mainfo: tmainfo
     visible = True
     bounds_x = 0
     bounds_y = 18
-    bounds_cx = 424
-    bounds_cy = 119
+    bounds_cx = 426
+    bounds_cy = 104
     anchors = [an_top, an_bottom]
     container.bounds = (
       0
       0
-      424
-      119
+      426
+      104
     )
     dragdock.optionsdock = [od_canfloat, od_candock, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize, od_captionhint]
     options = [fo_globalshortcuts]
