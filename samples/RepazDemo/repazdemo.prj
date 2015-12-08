@@ -896,7 +896,7 @@ windowlayout=619
  [mainfo]
  splitdir=0
  useroptions=301990011
- stackedunder=
+ stackedunder=mainfo.panel5
  parent=
  mdistate=0
  nx=0
@@ -974,7 +974,7 @@ windowlayout=619
  [disassfo]
  splitdir=0
  useroptions=268451947
- stackedunder=_mse_mainfo_mse_
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1138,7 +1138,7 @@ windowlayout=619
  [symbolfo]
  splitdir=0
  useroptions=268583035
- stackedunder=repazdesignfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1238,7 +1238,7 @@ windowlayout=619
  [componentstorefo]
  splitdir=0
  useroptions=268460155
- stackedunder=symbolfo
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -1357,7 +1357,7 @@ windowlayout=619
  irqoff=0
  splitdir=0
  useroptions=268451947
- stackedunder=componentstorefo
+ stackedunder=repazdesignfo
  parent=
  mdistate=0
  nx=0
@@ -1414,7 +1414,7 @@ windowlayout=619
   findinfilefo
   panel1
  activetab=2
- stackedunder=mainfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1449,7 +1449,7 @@ windowlayout=619
  [_mse_mainfo_mse_]
  splitdir=0
  useroptions=268451963
- stackedunder=mainfo.panel5
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
