@@ -34,8 +34,9 @@ unit repazchart;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseclasses,classes,msegui,msegraphics,msetypes,msewidgets,msegraphutils,mseconsts,
- msearrayprops,mseguiglob,msedrawtext,msestrings,msedb,db,repaztypes,repazconsts,
+ mseclasses,classes,mclasses,msegui,msegraphics,msetypes,msewidgets,
+ msegraphutils,mseconsts,
+ msearrayprops,mseguiglob,msedrawtext,msestrings,msedb,mdb,repaztypes,repazconsts,
  mseformatstr,msqldb,mseglob,msesys,typinfo,msestockobjects,sysutils,
  variants,msebitmap,mseformatbmpicoread,mseformatjpgread,mseformatpngread,mseformatpngwrite,
  math;
@@ -443,7 +444,7 @@ end;
 
 constructor TChartItems.create(const aowner: TraCustomChart);
 begin
- inherited;
+ inherited create(aowner);
  fformat:= '';  
  fbold:= false;
  fitalic:= false;
@@ -454,7 +455,7 @@ begin
  ffontname:= defaultfontnamechart;
  ffontsize:= defaultfontsizechart;
  ffontcolor:= cl_black;
- fbitmap:= tmaskedbitmap.create(false);
+ fbitmap:= tmaskedbitmap.create(bmk_rgb);
  fellipse:= el_None;
  ftextoptions:= [];
  fowner:= aowner;

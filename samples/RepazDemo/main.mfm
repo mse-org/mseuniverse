@@ -1,12 +1,10 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
-  bounds_x = 59
-  bounds_y = 101
+  bounds_x = 457
+  bounds_y = 399
   bounds_cx = 736
   bounds_cy = 527
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -68,23 +66,25 @@ object mainfo: tmainfo
   moduleclassname = 'tmainform'
   object tfilelistview1: tfilelistview
     frame.caption = 'Repaz files'
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      17
       0
       0
     )
     bounds_x = 6
-    bounds_y = 232
+    bounds_y = 231
     bounds_cx = 130
-    bounds_cy = 230
+    bounds_cy = 231
     anchors = [an_left, an_top, an_bottom]
     cellwidth = 122
     cellheight = 15
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 15
+        height = 16
         captions.count = 1
         captions.items = <        
           item
@@ -94,12 +94,12 @@ object mainfo: tmainfo
     optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
     options = [lvo_readonly, lvo_mousemoving, lvo_drawfocus, lvo_leftbuttonfocusonly, lvo_focusselect, lvo_mouseselect, lvo_casesensitive]
     filelist.options = [flo_sortname]
-    reffontheight = 13
+    reffontheight = 14
   end
   object timage1: timage
     optionsskin = [osk_noskin, osk_container]
-    frame.zoomwidthstep = 1
-    frame.zoomheightstep = 1
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 1
     bounds_x = -1
     bounds_y = 472
@@ -1121,16 +1121,17 @@ object mainfo: tmainfo
     anchors = [an_left, an_top, an_right, an_bottom]
     taborder = 3
     activepageindex = 0
-    tab_size = 17
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
+    tab_size = 18
     object ttabpage1: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 1
-      visible = True
       bounds_x = 0
-      bounds_y = 17
+      bounds_y = 18
       bounds_cx = 586
-      bounds_cy = 497
+      bounds_cy = 496
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Chart'
       object TRepazChart1: TRepazChart
@@ -1160,6 +1161,7 @@ object mainfo: tmainfo
             Values.FillPattern = stb_none
             Values.FillColor = -1610612729
             Values.LabelLegend = 'Barang A'
+            Values.Visible = True
             Values.Ellipse = el_None
             Values.TextOptions = []
             Values.DataField = 'y1'
@@ -1174,6 +1176,7 @@ object mainfo: tmainfo
             Values.FillPattern = stb_hatchup4
             Values.FillColor = -1610612715
             Values.LabelLegend = 'Barang B'
+            Values.Visible = True
             Values.Ellipse = el_None
             Values.TextOptions = []
             Values.DataField = 'y2'
@@ -1200,11 +1203,11 @@ object mainfo: tmainfo
         left = 6
         top = 29
         width = 574
-        height = 462
+        height = 461
         bounds_x = 6
         bounds_y = 29
         bounds_cx = 574
-        bounds_cy = 462
+        bounds_cy = 461
         color = -1610612730
         anchors = [an_left, an_top, an_right, an_bottom]
         hint = 'Double click this to switch chart type...'
@@ -1213,20 +1216,20 @@ object mainfo: tmainfo
         taborder = 1
         bounds_x = 8
         bounds_y = 7
-        bounds_cx = 171
-        bounds_cy = 13
+        bounds_cx = 223
+        bounds_cy = 14
         caption = 'Double click to change chart type...'
-        reffontheight = 13
+        reffontheight = 14
       end
     end
     object ttabpage2: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 2
       bounds_x = 0
-      bounds_y = 17
+      bounds_y = 18
       bounds_cx = 586
-      bounds_cy = 497
+      bounds_cy = 496
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Report Designer'
       object tdockpanel1: tdockpanel
@@ -1234,20 +1237,20 @@ object mainfo: tmainfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 586
-        bounds_cy = 497
+        bounds_cy = 496
         anchors = []
         dragdock.tab_options = [tabo_dragsource, tabo_dragdest, tabo_autopopup]
         dragdock.optionsdock = [od_savepos, od_savezorder, od_savechildren, od_tabed]
       end
     end
     object ttabpage3: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 3
       bounds_x = 0
-      bounds_y = 17
+      bounds_y = 18
       bounds_cx = 586
-      bounds_cy = 497
+      bounds_cy = 496
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Report Preview'
       object tdockpanel2: tdockpanel
@@ -1255,7 +1258,7 @@ object mainfo: tmainfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 586
-        bounds_cy = 497
+        bounds_cy = 496
         anchors = []
         dragdock.tab_options = [tabo_dragsource, tabo_dragdest, tabo_autopopup]
       end
@@ -1383,7 +1386,7 @@ object mainfo: tmainfo
           DisplayWidth = 0
           FieldName = 'ProductID'
           Index = 2
-          ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
           Size = 0
         end      
         item
@@ -1538,7 +1541,7 @@ object mainfo: tmainfo
           DisplayWidth = 0
           FieldName = 'SupplierID'
           Index = 0
-          ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
           Size = 0
         end      
         item
@@ -1664,7 +1667,7 @@ object mainfo: tmainfo
           DisplayWidth = 0
           FieldName = 'CatID'
           Index = 0
-          ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
           Size = 0
         end      
         item
@@ -1760,7 +1763,7 @@ object mainfo: tmainfo
           DisplayWidth = 0
           FieldName = 'AccountID'
           Index = 0
-          ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
           Size = 0
         end      
         item
@@ -1871,7 +1874,7 @@ object mainfo: tmainfo
           DisplayWidth = 100
           FieldName = 'CompanyName'
           Index = 0
-          ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
           Size = 0
         end      
         item
@@ -2010,7 +2013,7 @@ object mainfo: tmainfo
           DisplayWidth = 0
           FieldName = 'GroupID'
           Index = 0
-          ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
           Size = 0
         end      
         item

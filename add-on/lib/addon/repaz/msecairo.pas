@@ -16,7 +16,8 @@ unit msecairo;
 interface
 
 uses
- msegraphics,mseguiglob,mseclasses,classes,msegraphutils,msestream,msestrings,msetypes,
+ msegraphics,mseguiglob,mseclasses,classes,mclasses,
+ msegraphutils,msestream,msestrings,msetypes,
  msedrawtext,mserichstring,cairo,msefileutils,msebitmap;
 
 type

@@ -29,7 +29,7 @@ interface
 
 
 uses
-  Classes, SysUtils, dynlibs,
+  Classes,mclasses, SysUtils, dynlibs,
   {$ifdef UseLibC}
   {$IFDEF darwin}
   miniCupsLibc

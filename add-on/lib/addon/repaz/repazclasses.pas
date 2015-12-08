@@ -16,9 +16,10 @@ unit repazclasses;
 {$ifdef FPC}{$mode objfpc}{$h+}{$GOTO ON}{$interfaces corba}{$endif}
 interface
 uses
- mseclasses,classes,msegui,msegraphics,msetypes,msewidgets,msegraphutils,
+ mseclasses,classes,mclasses,msegui,msegraphics,msetypes,
+ msewidgets,msegraphutils,
  msestream,msearrayprops,mseguiglob,repazdialog,repazlookupbuffers,
- msedrawtext,msestrings,msedb,db,mseobjectpicker,msestat,msestatfile,
+ msedrawtext,msestrings,msedb,mdb,mseobjectpicker,msestat,msestatfile,
  msepointer,mselookupbuffer,mseformatstr,msqldb,repaztypes,msesqlquery,
  mseglob,msesys,repazdatasources,typinfo,universalprinter,universalprintertype,
  repazglob,repazpreviewform,msesqldb,repazchart,barcode,msearrayutils,
@@ -746,6 +747,7 @@ type
    procedure statreading;
    procedure statread;
    function getstatvarname: msestring;
+   function getstatpriority: integer;
    //ireport
    function getreport: TRepaz;
    procedure previewdestroyed(const avalue:boolean);
@@ -903,7 +905,8 @@ type
 implementation
 uses
  sysutils,msefiledialog,msefileutils,frmevaldialog,msecommport,
- repazconsts,mseconsts,msegraphicstream,msedial,msesysintf,msesysutils;
+ repazconsts,mseconsts,msegraphicstream,msedial,msesysintf,msesysutils,
+ mseobjecttext;
 type
  tcomponent1 = class(tcomponent);
 
@@ -1423,7 +1426,7 @@ begin
  ffontname:= defaultrepfontname;
  ffontsize:= defaultrepfontsize;
  ffontcolor:= defaultrepfontcolor;
- fbitmap:= tmaskedbitmap.create(false);
+ fbitmap:= tmaskedbitmap.create(bmk_rgb);
  fellipse:= el_None;
  ftextoptions:= [];
 end;
@@ -1825,7 +1828,7 @@ begin
   end;
  end;
  if (fbarcodetype<>bcCodeNone) and (ftext<>'') then begin
-  fbarcodebitmap:= tmaskedbitmap.create(false);
+  fbarcodebitmap:= tmaskedbitmap.create(bmk_rgb);
   fbarcodebitmap.alignment:= [al_xcentered];
   fbarcode.BarcodeType:= fbarcodetype;
   fbarcode.datastring:= Text;
@@ -1837,7 +1840,7 @@ begin
     round((fwidth-fleftmargin-frightmargin)*TraTabulators(self.fowner).pixelperunit),
     TraTabulators(self.fowner).pixelheight);
   fbarcode.drawbarcode(arect,fbarcodebitmap);
-  fbitmapstr:= fbarcodebitmap.writetostring('jpg',[]);
+  fbitmapstr:= fbarcodebitmap.writetostring('jpeg',[]);
   ftext:= '';
   fvalue:= '';
   fbarcodebitmap.free;
@@ -2393,7 +2396,7 @@ var
  ftextflags: textflagsty;
 begin
  tmpfont:= tfont.create;
- fbitmapfield:= tmaskedbitmap.create(false);
+ fbitmapfield:= tmaskedbitmap.create(bmk_rgb);
  //draw zebra or backcolor
  if count>0 then begin
   tmprect.cy:= adest.cy;
@@ -3080,7 +3083,7 @@ begin
  freportheader2show:= hrs_FirstPageOnly;
  freportfootershow:= frs_LastPageOnly;
  freportfooteroptions:= defaultfreportoptions;
- fbitmap:= tmaskedbitmap.create(false);
+ fbitmap:= tmaskedbitmap.create(bmk_rgb);
  fobjectpicker:= tobjectpicker.create(iobjectpicker(self),org_widget);
  fpickkind:= -1;
  fpickarrayindex:= -1;
@@ -5815,7 +5818,7 @@ begin
    try
     while textstream.position < textstream.Size do begin
      binstream.Position:= 0;
-     objecttexttobinary(textstream,binstream);
+     objecttexttobinarymse(textstream,binstream);
      binstream.Write(listend,sizeof(listend));
      binstream.Position:= 0;
      reader:= treader.create(binstream,4096);
@@ -5921,6 +5924,11 @@ end;
 function TRepaz.getstatvarname: msestring;
 begin
  result:= fstatvarname;
+end;
+
+function TRepaz.getstatpriority: integer;
+begin
+ result:= 0; //todo 2015-12-08
 end;
 
 function TRepaz.getreport: TRepaz;

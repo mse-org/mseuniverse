@@ -7,8 +7,8 @@ object frmaboutfo: tfrmaboutfo
   bounds_cymin = 355
   bounds_cxmax = 443
   bounds_cymax = 355
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
   container.frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
   container.bounds = (
@@ -23,8 +23,8 @@ object frmaboutfo: tfrmaboutfo
   moduleclassname = 'tmseform'
   object timage1: timage
     optionsskin = [osk_noskin, osk_container]
-    frame.zoomwidthstep = 1
-    frame.zoomheightstep = 1
+    frame.localprops = []
+    frame.localprops1 = []
     frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
     frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
     bounds_x = 16
@@ -939,115 +939,132 @@ object frmaboutfo: tfrmaboutfo
     bounds_cy = 170
     taborder = 1
     activepageindex = 0
-    tab_size = 19
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
+    tab_size = 18
     object ttabpage1: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
       frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
       taborder = 1
-      visible = True
       bounds_x = 0
-      bounds_y = 19
+      bounds_y = 18
       bounds_cx = 410
-      bounds_cy = 151
+      bounds_cy = 152
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'About'
       object tmemoedit1: tmemoedit
         frame.localprops = [frl_colorclient]
+        frame.localprops1 = []
+        frame.sbhorz.pagesize = 1
+        frame.sbvert.pagesize = 1
         bounds_x = 11
         bounds_y = 11
         bounds_cx = 388
         bounds_cy = 131
-        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit]
         value = 'Repaz is report engine for FreePascal and use library from MSEgui, designed to run inside IDE MSEide.'#13#10#13#10'Repaz is released as open source report engine under licence GNU General Public Licences'
+        reffontheight = 14
       end
     end
     object ttabpage2: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
       frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
       taborder = 2
       bounds_x = 0
-      bounds_y = 19
+      bounds_y = 18
       bounds_cx = 410
-      bounds_cy = 151
+      bounds_cy = 152
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Contributors'
       object tmemoedit2: tmemoedit
         frame.localprops = [frl_colorclient]
+        frame.localprops1 = []
+        frame.sbhorz.pagesize = 1
+        frame.sbvert.pagesize = 1
         bounds_x = 11
         bounds_y = 11
         bounds_cx = 388
         bounds_cy = 131
-        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit]
         value = '- Domingo Alvarez Duarte'
+        reffontheight = 14
       end
     end
     object ttabpage3: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
       frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
       taborder = 3
       bounds_x = 0
-      bounds_y = 19
+      bounds_y = 18
       bounds_cx = 410
-      bounds_cy = 151
+      bounds_cy = 152
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Special Thanks'
       object tmemoedit3: tmemoedit
         frame.localprops = [frl_colorclient]
+        frame.localprops1 = []
+        frame.sbhorz.pagesize = 1
+        frame.sbvert.pagesize = 1
         bounds_x = 11
         bounds_y = 11
         bounds_cx = 388
         bounds_cy = 131
-        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit]
         value = 'Special thanks for :'#13#10'- Martin Schreiber, developer of MSEide+ MSEgui.'#13#10'- FreePascal Team.'
+        reffontheight = 14
       end
     end
     object ttabpage4: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       frame.sbhorz.options = [sbo_thumbtrack, sbo_moveauto]
       frame.sbvert.options = [sbo_thumbtrack, sbo_moveauto]
       taborder = 4
       bounds_x = 0
-      bounds_y = 19
+      bounds_y = 18
       bounds_cx = 410
-      bounds_cy = 151
+      bounds_cy = 152
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Licence'
       object tmemoedit4: tmemoedit
         frame.localprops = [frl_colorclient]
+        frame.localprops1 = []
+        frame.sbhorz.pagesize = 0.98921832884097
+        frame.sbvert.pagesize = 0.35714285714286
         bounds_x = 11
         bounds_y = 11
         bounds_cx = 388
         bounds_cy = 131
-        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit]
         value = 'License Agreement:'#10#13#10'This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.'#13#10#13#10'The source code of the Repaz libraries and packages are distributed under the Library GNU General Public License with the following  modification: '#13#10#13#10'As a special exception, the copyright holders of this library give you permission to link this library with independent modules to produce an executable, regardless of the license terms of these independent modules, and to copy and distribute the resulting executable under terms of your choice, provided that you also meet, for each linked independent module, the terms and conditions of the license of that module. An independent module is a module which is not derived from or based on this library.   '
+        reffontheight = 14
       end
     end
   end
   object tstringdisp1: tstringdisp
     frame.levelo = 0
     frame.localprops = [frl_levelo]
-    frame.dummy = 0
+    frame.localprops1 = []
     taborder = 2
     bounds_x = 264
     bounds_y = 17
     bounds_cx = 164
-    bounds_cy = 91
+    bounds_cy = 90
     font.color = -1610612727
     font.height = 12
     font.style = [fs_bold]
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_style, flp_xscale]
     textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
     value = 'Version : 1.0.50'#10#10'Copyright (c) 2011 :'#13#10'Sri Wahono'
-    reffontheight = 15
+    reffontheight = 14
   end
   object tbutton1: tbutton
     taborder = 3

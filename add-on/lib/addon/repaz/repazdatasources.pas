@@ -34,7 +34,8 @@ unit repazdatasources;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- classes,mseclasses,db,msedb,msearrayprops,repazevaluatortype,msebufdataset;
+ classes,mclasses,mseclasses,mdb,msedb,msearrayprops,repazevaluatortype,
+ msebufdataset;
 type
  trepazdatasources = class;
  
@@ -201,7 +202,9 @@ begin
    if adataset<>'' then begin
     if lowercase(adataset)=lowercase(fdatasources[i].datasource.name) then begin
      if fdatasources[i].datasource.dataset.recordcount>0 then begin
-      if tmsebufdataset(fdatasources[i].datasource.dataset).locate([fdatasources[i].datasource.dataset.fieldbyname(keyname)],keyvalue,[false],[],[])=loc_ok then begin
+      if tmsebufdataset(fdatasources[i].datasource.dataset).locate(
+             [fdatasources[i].datasource.dataset.fieldbyname(keyname)],
+                                       keyvalue,[false],[],[])=loc_ok then begin
        result:=fdatasources[i].datasource.dataset.fieldbyname(fieldvaluename).asvariant;
       end;
      end;

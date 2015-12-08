@@ -28,7 +28,7 @@ unit compdesignintf;
 
 interface
 uses
- classes,msegraphutils,mselist,sysutils,typinfo,msebitmap,
+ classes,mclasses,msegraphutils,mselist,sysutils,typinfo,msebitmap,
  msetypes,msestrings,msegraphics,msegui,mseglob,msearrayutils,
  mseclasses,msestat,msehash,mseobjecttext;
 
@@ -348,7 +348,7 @@ begin
      end;
      class1:= class1.ClassParent;
     end;
-    classes.registerclass(info.classtyp);
+    mclasses.registerclass(info.classtyp);
     add(info);
    end;
   end;

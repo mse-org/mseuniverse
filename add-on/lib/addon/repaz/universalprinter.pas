@@ -16,9 +16,11 @@ unit universalprinter;
 interface
 
 uses
- msegui,mseclasses,sysutils,classes,msegraphics,mseguiglob,msegraphutils,msestrings,msetypes,
+ msegui,mseclasses,sysutils,classes,mclasses,
+ msegraphics,mseguiglob,msegraphutils,msestrings,msetypes,
  cairo,universalprintertype,msefileutils,msebitmap,pagesetupdlg,msewidgets
- {$IFDEF windows},windows,gdiapi,cairowin32{$ENDIF},mseglob,msestat,msestatfile,msesysintf
+ {$IFDEF windows},windows,gdiapi,cairowin32{$ENDIF},mseglob,msestat,
+ msestatfile,msesysintf
  {$IFDEF LINUX},cupsapi,msestream{$ENDIF},msecommport;
 
 const
@@ -119,6 +121,7 @@ type
    procedure setpaperheight(const avalue: real);
    //icanvas
    procedure gcneeded(const sender: tcanvas);
+   function getkind: bitmapkindty;
    function getmonochrome: boolean;
    function getsize: sizety;
    procedure getcanvasimage(const bgr: boolean; var aimage: maskedimagety);
@@ -135,6 +138,7 @@ type
    procedure statreading;
    procedure statread;
    function getstatvarname: msestring;
+   function getstatpriority: integer;
    function getpapername: msestring;
   public
    ffilename: filenamety;
@@ -375,7 +379,7 @@ var
  adata: pbyte;
  acolor: rgbtriplety;
 begin
- if aimage.monochrome then begin
+ if aimage.kind = bmk_mono then begin
   result:= nil;
   stridewidth:= cairo_format_stride_for_width(aformat,aimage.size.cx);
   int1:= aimage.size.cy*stridewidth;
@@ -1651,6 +1655,11 @@ begin
  end;
 end;
 
+function tuniversalprinter.getkind: bitmapkindty;
+begin
+ result:= bmk_rgb; //??? correct? 2015-12-08 mse
+end;
+
 function tuniversalprinter.getmonochrome: boolean;
 begin
  result:= false;
@@ -1927,6 +1936,11 @@ end;
 function tuniversalprinter.getstatvarname: msestring;
 begin
  result:= fstatvarname;
+end;
+
+function tuniversalprinter.getstatpriority: integer;
+begin
+ result:= 0; //todo 2015-12-08 mse
 end;
 
 function tuniversalprinter.getpapername: msestring;
@@ -2344,7 +2358,7 @@ initialization
  gdifunctions[gdf_drawellipse]:= {$ifdef FPC}@{$endif}gdi_drawellipse;
  gdifunctions[gdf_drawarc]:= {$ifdef FPC}@{$endif}gdi_drawarc;
  gdifunctions[gdf_fillrect]:= {$ifdef FPC}@{$endif}gdi_fillrect;
- gdifunctions[gdf_fillelipse]:= {$ifdef FPC}@{$endif}gdi_fillelipse;
+ gdifunctions[gdf_fillellipse]:= {$ifdef FPC}@{$endif}gdi_fillelipse;
  gdifunctions[gdf_fillarc]:= {$ifdef FPC}@{$endif}gdi_fillarc;
  gdifunctions[gdf_fillpolygon]:= {$ifdef FPC}@{$endif}gdi_fillpolygon;
  gdifunctions[gdf_drawstring16]:= {$ifdef FPC}@{$endif}gdi_drawstring16;

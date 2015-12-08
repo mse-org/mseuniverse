@@ -34,7 +34,7 @@ unit repazlookupbuffers;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseclasses,classes,mselookupbuffer,msearrayprops;
+ mseclasses,classes,mclasses,mselookupbuffer,msearrayprops;
 type
  trepazlookupbuffers = class;
  

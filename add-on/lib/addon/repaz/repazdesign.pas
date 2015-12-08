@@ -38,7 +38,8 @@ interface
 uses
  mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
  msegraphutils,mseevent,mseclasses,mseforms,msesimplewidgets,msewidgets,
- msebitmap,msetabs,msedataedits,msestrings,msetypes,classes,db,msegrids,
+ msebitmap,msetabs,msedataedits,msestrings,msetypes,
+ classes,mclasses,mdb,msegrids,
  msesplitter,compdesigner,msedial,msedispwidgets,
  repaz_bmp,compdesignintf,msedb,msefiledialog,msesys,sysutils,
  typinfo,mselookupbuffer,msestatfile,msetoolbar,repazglob,msedock,msesqldb,
@@ -412,7 +413,7 @@ begin
  if cpaper.widgetcount<=1 then begin
   showmessage(uc(ord(rcsMsgmin1page)));
  end else begin
-  fdelpage:= cpaper.findwidget(cpage.value);
+  fdelpage:= cpaper.findchild(cpage.value);
   if fdelpage<>nil then begin
    if askyesno(uc(ord(rcsMsgdeletepage)),uc(ord(rcsCapdeletepage)),mr_cancel) then begin
     for int1:=0 to cpaper.widgetcount-1 do begin
@@ -475,7 +476,7 @@ begin
  for int1:=0 to cpaper.widgetcount-1 do begin
   TraPage(cpaper.widgets[int1]).visible:= false;
  end;
- widget1:= cpaper.findwidget(cpage.value);
+ widget1:= cpaper.findchild(cpage.value);
  if widget1<>nil then begin
   TraPage(widget1).visible:= true;
   factivepage:= cpage.value;

@@ -37,7 +37,8 @@ interface
 uses
  mseglob,mseguiglob,mseapplication,msestat,msegui,msegraphics,msegraphutils,
  mseclasses,mseforms,msesimplewidgets,msedataedits,mseedit,msestrings,
- msedispwidgets,msegraphedits,msetabs,classes,sysutils,universalprintertype,
+ msedispwidgets,msegraphedits,msetabs,classes,mclasses,
+ sysutils,universalprintertype,
  msegrids,msesplitter,msecommutils;
  
 type

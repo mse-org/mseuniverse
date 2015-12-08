@@ -35,7 +35,8 @@ unit repazglob;
 {$ifdef FPC}{$mode objfpc}{$h+}{$GOTO ON}{$interfaces corba}{$endif}
 interface
 uses
- classes,msegui,msedrawtext,msegraphutils,msegraphics,variants,repazchart,barcode,
+ classes,mclasses,msegui,msedrawtext,msegraphutils,msegraphics,
+ variants,repazchart,barcode,
  msestrings,sysutils,msebitmap,universalprinter,universalprintertype,mseformatpngread,mseformatbmpicoread,
  mseformatjpgread,mseformatstr,repaztypes,mseglob,mselookupbuffer,msesysutils;
 
@@ -191,7 +192,7 @@ var
  afont: tfont;
 begin
  if length(ametapages)>0 then begin
-  tmpbmp:= tmaskedbitmap.create(false);
+  tmpbmp:= tmaskedbitmap.create(bmk_rgb);
   tmpbmp.masked:= true;
   afont:= tfont.create;
   if ametapages[apage].bitmap.image.pixels<>nil then begin

@@ -51,7 +51,7 @@ object datamo: tdatamo
     top = 275
   end
   object tfaceframe: tfacecomp
-    template.image.transparency = -1879048186
+    template.image.opacity = -1879048186
     template.fade_pos.count = 2
     template.fade_pos.items = (
       0
@@ -256,7 +256,7 @@ object datamo: tdatamo
     booleanedit_face = tfaceboolean
     booleanedit_frame = tframeboolean
     container_face = tfaceform
-    container_ftrame = tframeform
+    container_frame = tframeform
     groupbox_face = tfaceframe
     groupbox_frame = tframeframe
     grid_frame = tframegrid
@@ -267,7 +267,7 @@ object datamo: tdatamo
     button_font.color = 16777215
     button_font.shadow_color = -1610612734
     button_font.xscale = 1
-    button_font.dummy = 0
+    button_font.localprops = [flp_color, flp_shadow_color, flp_xscale]
     framebutton_colorglyph = 130
     framebutton_face = tfaceframebutton
     framebutton_frame = tframeframebutton
@@ -358,8 +358,6 @@ object datamo: tdatamo
     template.frameimage_offsetmouse = 24
     template.frameimage_offsetclicked = 16
     template.frameimage_offsetactive = 8
-    template.frameimage_offsetactivemouse = 24
-    template.frameimage_offsetactiveclicked = 16
     left = 128
     top = 248
   end
@@ -551,7 +549,7 @@ object datamo: tdatamo
     top = 368
   end
   object tfacetabpage: tfacecomp
-    template.image.transparency = -1879048186
+    template.image.opacity = -1879048186
     template.fade_pos.count = 4
     template.fade_pos.items = (
       0

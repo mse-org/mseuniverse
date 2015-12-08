@@ -27,7 +27,8 @@ unit compdesigner;
 
 interface
 uses
- classes,TypInfo,msegui,mseevent,msegraphutils,msegraphics,mseclasses,msemenus,msedoublereallisteditor,
+ msedragglob,classes,mclasses,TypInfo,msegui,mseevent,msegraphutils,msegraphics,
+ mseclasses,msemenus,msedoublereallisteditor,msestream,
  msestrings,msewidgets,mseglob,compdesignintf,msetoolbar,mseact,msegrids,msewidgetgrid,msedatalist,
  mselistbrowser,msedatanodes,mselist,msetypes,mseguiglob,sysutils,msestringintlisteditor,
  mseedit,mseforms,msearrayutils,msedropdownlist,mseeditglob,msedrag,mseobjecttext;
@@ -126,7 +127,7 @@ type
    fmoveonfirstclick: boolean;
    fonresize,fonchange: notifyeventty;
    fonmouseevent: mouseeventty;
-   fcomponents: tcomponents;
+   fcomponentslist: tcomponents;
    frootcomp: tcomponent;
    fpopupmenu: tpopupmenu;
    fcopyproperty: tpersistent;
@@ -1181,7 +1182,7 @@ implementation
 uses
  msekeyboard,msepointer,msebits,
  msestockobjects,msedrawtext,mseshapes,
- mseactions,msestream,msesys,
+ mseactions,msesys,
  mseformatstr,msearrayprops,msebitmap,
  msefiledialog,mseimagelisteditor,
  msestringlisteditor,msedoublestringlisteditor,msereallisteditor,
@@ -1343,8 +1344,8 @@ var
 begin
  result:= nil;
  acount:= 0;
- for int2:= 0 to fcomponents.count - 1 do begin
-  comp1:= fcomponents.next^.instance;
+ for int2:= 0 to fcomponentslist.count - 1 do begin
+  comp1:= fcomponentslist.next^.instance;
   if comp1.InheritsFrom(acomponentclass) then begin
      additem(result,comp1.name,acount);
   end;
@@ -1358,10 +1359,10 @@ var
  int1,int2: integer;
  comp1: tcomponent;
 begin
- setlength(result,fcomponents.count);
+ setlength(result,fcomponentslist.count);
  int2:= 0;
  for int1:= 0 to high(result) do begin
-  comp1:= fcomponents.next^.instance;
+  comp1:= fcomponentslist.next^.instance;
   if comp1.InheritsFrom(acomponentclass) then begin
    result[int2]:= comp1;
    inc(int2);
@@ -1711,7 +1712,7 @@ procedure tradesignselections.deletenames(acomp: tcomponent);
 var
  int1: integer;
 begin
- fowner.fcomponents.delete(ptruint(acomp));
+ fowner.fcomponentslist.delete(ptruint(acomp));
  if acomp.componentcount>0 then begin
   for int1:=0 to acomp.componentcount-1 do begin
    deletenames(acomp.components[int1]);
@@ -1792,7 +1793,7 @@ begin
  fgridsizex:= defaultgridsizex;
  fgridsizey:= defaultgridsizey;
  fselections:= tradesignselections.create(self);
- fcomponents:= tcomponents.create;
+ fcomponentslist:= tcomponents.create;
  frootcomp:= tcomponent.create(nil);
  fmodified:= false;
 end;
@@ -1801,7 +1802,7 @@ destructor tcomponentdesigner.destroy;
 begin
  inherited;
  fselections.free;
- fcomponents.free;
+ fcomponentslist.free;
  freeandnil(frootcomp);
 end;
 
@@ -2051,7 +2052,7 @@ begin
    if not isopen then begin
     acomp.name:= getcomponentname(classname);
    end;
-   fcomponents.add(acomp);
+   fcomponentslist.add(acomp);
    if widgetcount>0 then begin
     for int1:=0 to widgetcount-1 do begin
      addchildsname(tcomponent(widgets[int1]),isopen);
@@ -2063,7 +2064,7 @@ begin
    if not isopen then begin
     name:= getcomponentname(classname);
    end;
-   fcomponents.add(acomp);
+   fcomponentslist.add(acomp);
    if componentcount>0 then begin
     for int1:=0 to componentcount-1 do begin
      addchildsname(components[int1],isopen);
@@ -2201,7 +2202,7 @@ begin
    try
     while textstream.position < textstream.Size do begin
      binstream.Position:= 0;
-     objecttexttobinary(textstream,binstream);
+     objecttexttobinarymse(textstream,binstream);
      binstream.Write(listend,sizeof(listend));
      binstream.Position:= 0;
      reader:= treader.create(binstream,4096);
@@ -2448,7 +2449,7 @@ begin
    try
     while textstream.position < textstream.Size do begin
      binstream.Position:= 0;
-     objecttexttobinary(textstream,binstream);
+     objecttexttobinarymse(textstream,binstream);
      binstream.Write(listend,sizeof(listend));
      binstream.Position:= 0;
      reader:= treader.create(binstream,4096);
@@ -2468,7 +2469,7 @@ begin
        end;
       end;
       fselections.clear;
-      fcomponents.clear;
+      fcomponentslist.clear;
       for int1:= frootcomp.componentcount - 1 downto 0 do begin
        comp2:= frootcomp.components[int1]; 
        if comp2.getparentcomponent = nil then begin
@@ -2498,7 +2499,7 @@ end;
 
 function tcomponentdesigner.componentlist: stringarty;
 begin
- result:= fcomponents.getlistnames;
+ result:= fcomponentslist.getlistnames;
 end;
 
 function tcomponentdesigner.selectioncount:integer;
@@ -2508,7 +2509,7 @@ end;
 
 procedure tcomponentdesigner.clearcomponents;
 begin
- fcomponents.clear;
+ fcomponentslist.clear;
 end;
 
 procedure tcomponentdesigner.componentmodified(const acomponent: tobject);
@@ -2983,12 +2984,12 @@ var
  int1,int2: integer;
  name1: string;
 begin
- if fcomponents.count=0 then begin
+ if fcomponentslist.count=0 then begin
   result:= aclassname + '1';
  end else begin
   int2:= 1;
   name1:=aclassname + inttostr(int2);
-  while fcomponents.getcomponent(name1)<>nil do begin
+  while fcomponentslist.getcomponent(name1)<>nil do begin
    inc(int2);
    name1:=aclassname + inttostr(int2);
   end;
@@ -3466,7 +3467,7 @@ constructor tobjectinspector.create(aowner: tcomponent);
 begin
  inherited create(aowner);
  foptionsgrid:=[og_colsizing,og_colmoving,og_focuscellonenter,og_colchangeontabkey,og_noresetselect];
- foptionswidget:= [ow_mousefocus,ow_tabfocus,ow_arrowfocus,ow_focusbackonesc,ow_mousewheel,ow_destroywidgets,ow_fontglyphheight,ow_autoscale];
+ foptionswidget:= [ow_mousefocus,ow_tabfocus,ow_arrowfocus,ow_focusbackonesc,ow_mousewheel,ow_destroywidgets];
  fshowmethodproperty:= true;
  fcomponentinfos:= tcomponentinfos.create;
  if not (csdesigning in componentstate) then begin
@@ -3476,9 +3477,9 @@ begin
   props.optionsedit:= [oe_readonly,oe_undoonesc,oe_closequery,oe_checkmrcancel,oe_exitoncursor,oe_resetselectonexit,oe_locate,oe_savestate];
   props.optionsskin:= [osk_noskin];
   props.options:= [teo_treecolnavig,teo_keyrowmoving];
-  props.optionswidget:= [ow_mousefocus,ow_tabfocus,ow_arrowfocus,ow_arrowfocusin,ow_arrowfocusout,ow_destroywidgets,ow_fontglyphheight,ow_autoscale];
-  values.optionsedit:= [oe_undoonesc,oe_closequery,oe_checkmrcancel,oe_exitoncursor,oe_forcereturncheckvalue,oe_eatreturn,oe_resetselectonexit,oe_autoselect,oe_autoselectonfirstclick,oe_autopopupmenu,oe_savestate];
-  values.optionswidget:= [ow_mousefocus,ow_tabfocus,ow_arrowfocus,ow_arrowfocusin,ow_arrowfocusout,ow_destroywidgets,ow_fontglyphheight];
+  props.optionswidget:= [ow_mousefocus,ow_tabfocus,ow_arrowfocus,ow_arrowfocusin,ow_arrowfocusout,ow_destroywidgets];
+  values.optionsedit:= [oe_undoonesc,oe_closequery,oe_checkmrcancel,oe_exitoncursor,oe_forcereturncheckvalue,oe_eatreturn,oe_resetselectonexit,oe_autoselect,oe_autoselectonfirstclick,oe_savestate];
+  values.optionswidget:= [ow_mousefocus,ow_tabfocus,ow_arrowfocus,ow_arrowfocusin,ow_arrowfocusout,ow_destroywidgets];
   values.dropdown.options:= [deo_autodropdown,deo_keydropdown,deo_cliphint];
   values.frame.buttons.count:= 2;
   values.frame.buttons[0].imagenr:= 14;
@@ -3498,8 +3499,8 @@ begin
   props.onupdaterowvalues:= {$ifdef FPC}@{$endif}propupdaterowvalue;
   props.onpopup:= {$ifdef FPC}@{$endif}propsonpopup;
   datacols.count:=2;
-  datacols[0].options:= [co_readonly,co_drawfocus,co_mouseselect,co_keyselect,co_multiselect,co_proportional,co_savestate,co_rowfont,co_rowcolor,co_zebracolor];
-  datacols[1].options:= [co_fill,co_savestate,co_rowfont,co_zebracolor];
+  datacols[0].options:= [co_readonly,co_drawfocus,co_mouseselect,co_keyselect,co_multiselect,co_proportional,co_savestate];
+  datacols[1].options:= [co_fill,co_savestate];
   twidgetcol1(datacols.cols[0]).setwidget(props);
   twidgetcol1(datacols.cols[1]).setwidget(values);
   props.itemlist.oncreateitem:= {$ifdef FPC}@{$endif}propscreatenode;
@@ -5779,10 +5780,10 @@ begin
    if value <> getvalue then begin
     int1:= pos('<',value);
     if int1 > 0 then begin
-     comp:= fdesigner.fcomponents.getcomponent(copy(value,1,int1-1));
+     comp:= fdesigner.fcomponentslist.getcomponent(copy(value,1,int1-1));
     end
     else begin
-     comp:= fdesigner.fcomponents.getcomponent(value);
+     comp:= fdesigner.fcomponentslist.getcomponent(value);
     end;
     if (comp = nil) or not comp.InheritsFrom(gettypedata(ftypeinfo)^.classtype) then begin
      properror;
@@ -7122,16 +7123,16 @@ begin
    filename:= filedir(filename);
    if execute = mr_ok then begin
     statfile.writestat;
-    bmp:= tmaskedbitmap.create(false);
+    bmp:= tmaskedbitmap.create(bmk_rgb);
     try
-     bmp.loadfromfile(filename,graphicfilefilterlabel(filterindex));
+     bmp.loadfromfile(filename,graphicfilefilterlabel(filterindex),[]);
      for int1:= 0 to high(fprops) do begin
       bmp1:= tmaskedbitmap(getpointervalue(int1));
       if bmp1 <> nil then begin
        bmp.alignment:= bmp1.alignment;
        bmp.colorbackground:= bmp1.colorbackground;
        bmp.colorforeground:= bmp1.colorforeground;
-       bmp.transparency:= bmp1.transparency;
+       bmp.opacity:= bmp1.opacity;
        bmp.transparentcolor:= bmp1.transparentcolor;
       end;
       setordvalue(int1,ptruint(bmp));

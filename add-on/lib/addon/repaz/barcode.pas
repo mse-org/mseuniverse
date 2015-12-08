@@ -17,7 +17,7 @@ unit barcode;
 interface
 
 uses
- sysutils,classes,msegraphics,msegraphutils,msebitmap;
+ sysutils,classes,mclasses,msegraphics,msegraphutils,msebitmap;
 
 type
  barcodety = (

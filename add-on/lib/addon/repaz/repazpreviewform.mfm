@@ -5,8 +5,8 @@ object repazpreviewfo: trepazpreviewfo
   bounds_cx = 672
   bounds_cy = 468
   anchors = []
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     16
@@ -94,10 +94,10 @@ object repazpreviewfo: trepazpreviewfo
   ondestroy = repazpreviewfo_ondestroy
   moduleclassname = 'tdockform'
   object tscrollbox1: tscrollbox
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
     color = -1879048191
-    frame.optionsscroll = [oscr_zoom, oscr_key, oscr_mousewheel]
-    frame.zoomwidthstep = 1
-    frame.zoomheightstep = 1
+    frame.localprops = []
+    frame.localprops1 = []
     frame.sbvert.onbeforeevent = tscrollbox1_onbeforeevent
     taborder = 2
     bounds_x = 0
@@ -112,7 +112,7 @@ object repazpreviewfo: trepazpreviewfo
       frame.colorframe = -1610612734
       frame.colorclient = -1610612730
       frame.localprops = [frl_framewidth]
-      frame.dummy = 0
+      frame.localprops1 = []
       bounds_x = 7
       bounds_y = 8
       bounds_cx = 298
@@ -132,6 +132,8 @@ object repazpreviewfo: trepazpreviewfo
     object ttoolbar1: ttoolbar
       optionswidget1 = [ow1_autowidth, ow1_autoheight]
       color = -2147483645
+      frame.localprops = []
+      frame.localprops1 = []
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 128
@@ -170,6 +172,8 @@ object repazpreviewfo: trepazpreviewfo
       options = [tbo_novert, tbo_shortcuthint]
     end
     object cbzoom: tdropdownlistedit
+      frame.localprops = []
+      frame.localprops1 = []
       frame.button.width = 24
       frame.button.color = -2147483646
       frame.button.imagelist = timagelist1
@@ -184,7 +188,7 @@ object repazpreviewfo: trepazpreviewfo
       font.style = [fs_bold]
       font.name = 'stf_default'
       font.xscale = 1
-      font.dummy = 0
+      font.localprops = [flp_style, flp_xscale]
       textflags = [tf_xcentered, tf_ycentered, tf_noselect]
       ondataentered = btnzoom_onexecute
       value = '125 %'
@@ -207,24 +211,25 @@ object repazpreviewfo: trepazpreviewfo
     object cpage: tintegeredit
       frame.caption = 'Page'
       frame.captionpos = cp_left
-      frame.dummy = 0
+      frame.localprops = []
+      frame.localprops1 = []
       frame.outerframe = (
-        32
+        35
         0
         0
         0
       )
       taborder = 1
       hint = 'Page number'
-      bounds_x = 130
+      bounds_x = 127
       bounds_y = 0
-      bounds_cx = 76
+      bounds_cx = 79
       bounds_cy = 32
       font.height = 11
       font.style = [fs_bold]
       font.name = 'stf_default'
       font.xscale = 1
-      font.dummy = 0
+      font.localprops = [flp_style, flp_xscale]
       textflags = [tf_xcentered, tf_ycentered, tf_noselect]
       onchange = cpage_onchange
       min = 1
@@ -233,6 +238,8 @@ object repazpreviewfo: trepazpreviewfo
     object ttoolbar2: ttoolbar
       optionswidget1 = [ow1_autowidth, ow1_autoheight]
       color = -2147483645
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 4
       bounds_x = 372
       bounds_y = 0
@@ -305,25 +312,27 @@ object repazpreviewfo: trepazpreviewfo
     object callpage: tintegeredit
       frame.caption = 'From'
       frame.captionpos = cp_left
-      frame.dummy = 0
+      frame.localprops = []
+      frame.localprops1 = []
       frame.outerframe = (
-        31
+        34
         0
         0
         0
       )
       taborder = 2
       hint = 'Total of pages'
-      bounds_x = 204
+      bounds_x = 201
       bounds_y = 0
-      bounds_cx = 75
+      bounds_cx = 78
       bounds_cy = 32
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_savevalue, oe_savestate]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
       font.height = 11
       font.style = [fs_bold]
       font.name = 'stf_default'
       font.xscale = 1
-      font.dummy = 0
+      font.localprops = [flp_style, flp_xscale]
       textflags = [tf_xcentered, tf_ycentered, tf_noselect]
       min = 1
       reffontheight = 13
@@ -610,7 +619,7 @@ object repazpreviewfo: trepazpreviewfo
     top = 116
   end
   object timagelist1: timagelist
-    colormask = True
+    options = [bmo_masked, bmo_colormask]
     count = 16
     left = 455
     top = 84

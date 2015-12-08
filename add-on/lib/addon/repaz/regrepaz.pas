@@ -34,7 +34,7 @@ unit regrepaz;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- classes,msecomponenteditors,msedesignintf,sysutils,repazclasses,
+ classes,mclasses,msecomponenteditors,msedesignintf,sysutils,repazclasses,
  repazdatasources,mseglob,repazpreview,repazevaluator,frmevaldialog,
  repazconsts,repazlookupbuffers,repazchart,universalprinter;
 

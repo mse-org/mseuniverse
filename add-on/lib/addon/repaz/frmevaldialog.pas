@@ -37,7 +37,7 @@ interface
 uses
  mseglob,mseguiglob,mseapplication,msestat,msegui,msegraphics,msegraphutils,
  mseclasses,mseforms,msestrings,msesimplewidgets,msewidgets,
- msegrids,repazdatasources,repazevaluator,repazconsts,classes,mseconsts,
+ msegrids,repazdatasources,repazevaluator,repazconsts,classes,mclasses,mseconsts,
  repazevaluatortype,msesplitter,msetypes,msewidgetgrid,
  msegridsglob,sysutils,mseeditglob,msesyntaxedit,msetextedit,msesyntaxpainter,msedispwidgets;
 

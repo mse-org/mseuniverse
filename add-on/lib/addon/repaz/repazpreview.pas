@@ -37,7 +37,7 @@ unit repazpreview;
 
 interface
 uses
- classes,msegui,msegraphutils,msegraphics,mseclasses,typinfo,
+ classes,mclasses,msegui,msegraphutils,msegraphics,mseclasses,typinfo,
  msestrings,msewidgets,mseglob,msesimplewidgets,
  msedataedits,repazglob,repazchart,mseguiglob,
  mseeditglob;
@@ -116,7 +116,7 @@ begin
   tmpstring.frame.framei_top:= 0;
   tmpstring.optionsskin:= [osk_noskin];
   tmpstring.optionswidget:= [ow_mousefocus];
-  tmpstring.optionsedit:= [oe_readonly,oe_undoonesc,oe_exitoncursor,oe_autoselect,oe_autoselectonfirstclick,oe_autopopupmenu,oe_hintclippedtext];
+  tmpstring.optionsedit:= [oe_readonly,oe_undoonesc,oe_exitoncursor,oe_autoselect,oe_autoselectonfirstclick,oe_hintclippedtext];
   insertwidget(tmpstring,makepoint(0,0));
  end;
  findhistory:= nil;
