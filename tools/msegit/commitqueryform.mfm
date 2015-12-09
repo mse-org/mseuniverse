@@ -179,8 +179,7 @@ object commitqueryfo: tcommitqueryfo
         bounds_cx = 389
         bounds_cy = 259
         visible = False
-        tab_frame.buttonpos = sbp_right
-        tab_frame.buttonslast = False
+        tab_options = [tabo_multitabsonly, tabo_notabs]
       end
       inherited repoloadedact: taction
       end

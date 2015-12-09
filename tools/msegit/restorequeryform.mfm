@@ -183,8 +183,7 @@ object restorequeryfo: trestorequeryfo
       inherited tabs: ttabwidget
         bounds_cx = 318
         bounds_cy = 255
-        tab_frame.buttonpos = sbp_right
-        tab_frame.buttonslast = False
+        tab_options = [tabo_multitabsonly, tabo_notabs]
       end
       inherited repoloadedact: taction
       end
