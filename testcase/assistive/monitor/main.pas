@@ -7,7 +7,8 @@ uses
  mseassistiveserver,mseassistiveclient,msegrids,msestrings,msesimplewidgets,
  msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestatfile,
  msestream,sysutils,mseact,msegraphedits,msescrollbar,msetoolbar,msemenuwidgets,
- msebitmap,mseshapes,msewidgetgrid;
+ msebitmap,mseshapes,msewidgetgrid,msedispwidgets,mserichstring,mseeditglob,
+ msetextedit;
 
 type
  tassistivemonitor = class(tobject,iassistiveserver)
@@ -31,7 +32,7 @@ type
                                         const info: keyeventinfoty);
    procedure doactionexecute(const sender: tobject; const info: actioninfoty);
    procedure dochange(const sender: iassistiveclient);
-   procedure docellevent(const sender: iassistiveclient; 
+   procedure docellevent(const sender: iassistiveclientgrid;
                                       const info: celleventinfoty);
   public
    constructor create(const agrid: tstringgrid);
@@ -39,7 +40,7 @@ type
  end;
  
  tmainfo = class(tmainform)
-   grid: tstringgrid;
+   stringgrid: tstringgrid;
    tbutton1: tbutton;
    tbutton2: tbutton;
    tstringedit1: tstringedit;
@@ -54,12 +55,23 @@ type
    tfacecomp2: tfacecomp;
    timagelist1: timagelist;
    tstringgrid1: tstringgrid;
+   widgetgrid: twidgetgrid;
+   tstringedit3: tstringedit;
+   tintegeredit1: tintegeredit;
+   tstatfile1: tstatfile;
+   assistivecaption: tstringdisp;
+   assistivetext: tstringdisp;
+   assistivename: tstringdisp;
+   ttextedit1: ttextedit;
    procedure createexe(const sender: TObject);
    procedure destroyexe(const sender: TObject);
    procedure exe(const sender: TObject);
    procedure exitexe(const sender: TObject);
   private
    fmonitor: tassistivemonitor;
+  public
+   procedure showvalues(const sender: iassistiveclient);
+   procedure showtext(const atext: msestring);
  end;
  
 var
@@ -67,7 +79,7 @@ var
 
 implementation
 uses
- main_mfm,typinfo,mclasses,mseactions;
+ main_mfm,typinfo,mclasses,mseactions,mseformatstr,msegridsglob;
 
 function getname(const sender: iassistiveclient): msestring;
 begin
@@ -118,7 +130,7 @@ begin
  else begin
   mstr1:= '';
   if sender is tcomponent then begin
-   mstr1:= tcomponent(sender).name+' ';
+   mstr1:= msestring(tcomponent(sender).name+' ');
   end;
   track(prefix,iassistiveclient(nil),mstr1+atext);
  end;
@@ -127,25 +139,28 @@ end;
 procedure tassistivemonitor.doenter(const sender: iassistiveclient);
 begin
  track('<doenter>',sender,'');
+ mainfo.showvalues(sender);
 end;
 
 procedure tassistivemonitor.doitementer(const sender: iassistiveclient;
                const items: shapeinfoarty; const aindex: integer);
 begin
- track('<doitementer shape>',sender,inttostr(aindex));
+ track('<doitementer shape>',sender,inttostrmse(aindex));
+ mainfo.showvalues(sender);
 end;
 
 procedure tassistivemonitor.doitementer(const sender: iassistiveclient;
                         const items: menucellinfoarty; const aindex: integer);
 begin
- track('<doitementer menu>',sender,inttostr(aindex));
+ track('<doitementer menu>',sender,inttostrmse(aindex));
+ mainfo.showvalues(sender);
 end;
 
 procedure tassistivemonitor.clientmouseevent(const sender: iassistiveclient;
                const info: mouseeventinfoty);
 begin
- track('<clientmouseevent '+getenumname(typeinfo(eventkindty),
-                       ord(info.eventkind))+'>',sender,'');
+ track('<clientmouseevent '+msestring(getenumname(typeinfo(eventkindty),
+                       ord(info.eventkind)))+'>',sender,'');
 end;
 
 procedure tassistivemonitor.dofocuschanged(const oldwidget: iassistiveclient;
@@ -161,10 +176,10 @@ begin
   track('<dokeydown '+
  //          getenumname(typeinfo(eventkindty),ord(info.eventkind)) + ' ' +
            getshortcutname(shortcutty(key)) + ' "'+chars + '" ' +
-   settostring(ptypeinfo(typeinfo(shiftstate)),
+   msestring(settostring(ptypeinfo(typeinfo(shiftstate)),
                                int32(shiftstate),true) + ' ' +
    settostring(ptypeinfo(typeinfo(eventstate)),
-                               int32(eventstate),true) + '>',sender,'');
+                               int32(eventstate),true) + '>'),sender,'');
  end;
 end;
 
@@ -179,19 +194,22 @@ begin
  track('<dochange>',sender,'');
 end;
 
-procedure tassistivemonitor.docellevent(const sender: iassistiveclient;
+procedure tassistivemonitor.docellevent(const sender: iassistiveclientgrid;
                const info: celleventinfoty);
 begin
- track('<docellevent>',sender,getenumname(typeinfo(info.eventkind),
-           int32(info.eventkind))+' col:'+inttostr(info.cell.col)+
-                                 ' row:'+inttostr(info.cell.row));
+ track('<docellevent>',sender,msestring(getenumname(typeinfo(info.eventkind),
+           int32(info.eventkind)))+' col:'+inttostrmse(info.cell.col)+
+                                 ' row:'+inttostrmse(info.cell.row));
+ if info.eventkind = cek_enter then begin
+  mainfo.showtext(sender.getassistivecelltext(info.cell));
+ end;
 end;
 
 { tmainfo }
 
 procedure tmainfo.createexe(const sender: TObject);
 begin
- fmonitor:= tassistivemonitor.create(grid);
+ fmonitor:= tassistivemonitor.create(stringgrid);
 end;
 
 procedure tmainfo.destroyexe(const sender: TObject);
@@ -207,6 +225,20 @@ end;
 procedure tmainfo.exitexe(const sender: TObject);
 begin
  application.terminated:= true;
+end;
+
+procedure tmainfo.showvalues(const sender: iassistiveclient);
+begin
+ assistivename.value:= sender.getassistivename();
+ assistivecaption.value:= sender.getassistivecaption();
+ assistivetext.value:= sender.getassistivetext();
+end;
+
+procedure tmainfo.showtext(const atext: msestring);
+begin
+ assistivename.value:= '';
+ assistivecaption.value:= '';
+ assistivetext.value:= atext;
 end;
 
 end.

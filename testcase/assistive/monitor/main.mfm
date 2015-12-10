@@ -1,29 +1,30 @@
 object mainfo: tmainfo
   bounds_x = 170
   bounds_y = 210
-  bounds_cx = 823
-  bounds_cy = 280
+  bounds_cx = 920
+  bounds_cy = 368
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    823
-    280
+    920
+    368
   )
+  statfile = tstatfile1
   caption = 'MSEide+MSEgui'
   oncreate = createexe
   ondestroy = destroyexe
   moduleclassname = 'tmainform'
-  object grid: tstringgrid
+  object stringgrid: tstringgrid
     frame.localprops = []
     frame.localprops1 = []
     taborder = 4
     bounds_x = 0
     bounds_y = 82
-    bounds_cx = 823
-    bounds_cy = 198
-    anchors = [an_top, an_bottom]
+    bounds_cx = 367
+    bounds_cy = 196
+    anchors = [an_left, an_top, an_bottom]
     datacols.count = 1
     datacols.items = <    
       item
@@ -31,8 +32,14 @@ object mainfo: tmainfo
         valuefalse = '0'
         valuetrue = '1'
       end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
     rowcountmax = 10000
     datarowheight = 16
+    statfile = tstatfile1
     reffontheight = 14
   end
   object tbutton1: tbutton
@@ -67,6 +74,7 @@ object mainfo: tmainfo
     bounds_x = 16
     bounds_y = 39
     bounds_cy = 37
+    statfile = tstatfile1
     reffontheight = 14
   end
   object tstringedit2: tstringedit
@@ -83,6 +91,7 @@ object mainfo: tmainfo
     bounds_x = 120
     bounds_y = 39
     bounds_cy = 37
+    statfile = tstatfile1
     reffontheight = 14
   end
   object tbooleanedit1: tbooleanedit
@@ -92,13 +101,13 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       1
-      78
+      91
       2
     )
     taborder = 5
     bounds_x = 232
     bounds_y = 19
-    bounds_cx = 91
+    bounds_cx = 104
     bounds_cy = 16
   end
   object tslider1: tslider
@@ -117,6 +126,7 @@ object mainfo: tmainfo
     bounds_y = 39
     bounds_cx = 137
     bounds_cy = 37
+    statfile = tstatfile1
     value = 0
     scrollbar.face.localprops = []
   end
@@ -199,13 +209,13 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       17
-      18
+      17
       0
     )
     taborder = 8
     bounds_x = 492
     bounds_y = 29
-    bounds_cx = 101
+    bounds_cx = 113
     bounds_cy = 41
     menu.Name = 'themenu'
     menu.itemframetemplate = tframecomp1
@@ -289,10 +299,10 @@ object mainfo: tmainfo
       0
     )
     taborder = 9
-    bounds_x = 592
-    bounds_y = 2
+    bounds_x = 664
+    bounds_y = 65
     bounds_cx = 226
-    bounds_cy = 75
+    bounds_cy = 213
     datacols.count = 3
     datacols.items = <    
       item
@@ -343,14 +353,148 @@ object mainfo: tmainfo
             caption = '0'
           end        
           item
-            caption = '1'
+            caption = '2'
           end        
           item
-            caption = '2'
+            caption = '1'
           end>
       end>
     rowcount = 5
     datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object widgetgrid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 10
+    bounds_x = 376
+    bounds_y = 82
+    bounds_cx = 282
+    bounds_cy = 196
+    anchors = [an_left, an_top, an_bottom]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'tstringedit'
+          end        
+          item
+            caption = 'tintegeredit'
+          end        
+          item
+            caption = 'ttextedit'
+          end>
+      end>
+    datacols.count = 3
+    datacols.items = <    
+      item[tstringedit3]
+        width = 93
+        widgetname = 'tstringedit3'
+        dataclass = tgridmsestringdatalist
+      end    
+      item[tintegeredit1]
+        width = 91
+        widgetname = 'tintegeredit1'
+        dataclass = tgridintegerdatalist
+      end    
+      item[ttextedit1]
+        width = 131
+        widgetname = 'ttextedit1'
+        dataclass = tgridrichstringdatalist
+      end>
+    datarowheight = 14
+    statfile = tstatfile1
+    reffontheight = 14
+    object tstringedit3: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 93
+      bounds_cy = 14
+      reffontheight = 14
+    end
+    object tintegeredit1: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 94
+      bounds_y = 0
+      bounds_cx = 91
+      bounds_cy = 14
+      reffontheight = 14
+    end
+    object ttextedit1: ttextedit
+      optionswidget1 = [ow1_fontlineheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 186
+      bounds_y = 0
+      bounds_cx = 131
+      bounds_cy = 14
+      reffontheight = 14
+    end
+  end
+  object assistivecaption: tstringdisp
+    frame.caption = 'Assistive Caption'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 11
+    bounds_x = 8
+    bounds_y = 319
+    bounds_cx = 364
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object assistivetext: tstringdisp
+    frame.caption = 'Assistive Text'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 12
+    bounds_x = 376
+    bounds_y = 319
+    bounds_cx = 364
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object assistivename: tstringdisp
+    frame.caption = 'Assistive Name'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 13
+    bounds_x = 8
+    bounds_y = 279
+    bounds_cx = 364
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
     reffontheight = 14
   end
   object tfacecomp1: tfacecomp
@@ -368,8 +512,8 @@ object mainfo: tmainfo
       11382189
       8224125
     )
-    left = 480
-    top = 88
+    left = 648
+    top = 8
   end
   object tframecomp1: tframecomp
     template.framewidth = 1
@@ -378,8 +522,8 @@ object mainfo: tmainfo
     template.framei_top = 1
     template.framei_right = 5
     template.framei_bottom = 1
-    left = 480
-    top = 136
+    left = 760
+    top = 8
   end
   object tframecomp2: tframecomp
     template.framewidth = 1
@@ -388,8 +532,8 @@ object mainfo: tmainfo
     template.framei_top = 1
     template.framei_right = 5
     template.framei_bottom = 1
-    left = 480
-    top = 152
+    left = 760
+    top = 32
   end
   object tfacecomp2: tfacecomp
     template.fade_pos.count = 5
@@ -408,14 +552,14 @@ object mainfo: tmainfo
       11380627
       8224125
     )
-    left = 480
-    top = 104
+    left = 648
+    top = 32
   end
   object timagelist1: timagelist
     options = [bmo_masked, bmo_graymask]
     count = 4
-    left = 376
-    top = 96
+    left = 696
+    top = 88
     image = {
       00000000120000002000000020000000E8090000000000000000000000000000
       0000000000000000000000000000000000000000000000070076EA010073E701
@@ -531,5 +675,10 @@ object mainfo: tmainfo
       000011FFF3DA57000057DAF3F00300000000FFFFFFFFFFFFFFFFFFFFFFFFFF00
       00001FF77C0F000000000F7CF71F00000000FFFFFFFFFFFFFFFFFFFFFFFFFF00
     }
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 56
+    top = 168
   end
 end
