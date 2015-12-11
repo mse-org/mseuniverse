@@ -1,6 +1,6 @@
 object mainfo: tmainfo
-  bounds_x = 170
-  bounds_y = 210
+  bounds_x = 86
+  bounds_y = 198
   bounds_cx = 920
   bounds_cy = 368
   container.frame.localprops = []
@@ -159,8 +159,8 @@ object mainfo: tmainfo
     face.fade_direction = gd_down
     face.localprops = [fal_fadirection]
     taborder = 7
-    bounds_x = 376
-    bounds_y = 29
+    bounds_x = 672
+    bounds_y = 13
     bounds_cx = 108
     bounds_cy = 47
     buttons.count = 4
@@ -213,8 +213,8 @@ object mainfo: tmainfo
       0
     )
     taborder = 8
-    bounds_x = 492
-    bounds_y = 29
+    bounds_x = 788
+    bounds_y = 13
     bounds_cx = 113
     bounds_cy = 41
     menu.Name = 'themenu'
@@ -303,6 +303,7 @@ object mainfo: tmainfo
     bounds_y = 65
     bounds_cx = 226
     bounds_cy = 213
+    anchors = [an_left, an_top, an_bottom]
     datacols.count = 3
     datacols.items = <    
       item
@@ -406,18 +407,17 @@ object mainfo: tmainfo
         widgetname = 'ttextedit1'
         dataclass = tgridrichstringdatalist
       end>
-    datarowheight = 14
+    datarowheight = 16
     statfile = tstatfile1
     reffontheight = 14
     object tstringedit3: tstringedit
-      optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 93
-      bounds_cy = 14
+      bounds_cy = 16
       reffontheight = 14
     end
     object tintegeredit1: tintegeredit
@@ -428,7 +428,7 @@ object mainfo: tmainfo
       bounds_x = 94
       bounds_y = 0
       bounds_cx = 91
-      bounds_cy = 14
+      bounds_cy = 16
       reffontheight = 14
     end
     object ttextedit1: ttextedit
@@ -439,7 +439,7 @@ object mainfo: tmainfo
       bounds_x = 186
       bounds_y = 0
       bounds_cx = 131
-      bounds_cy = 14
+      bounds_cy = 16
       reffontheight = 14
     end
   end
@@ -455,8 +455,8 @@ object mainfo: tmainfo
     )
     taborder = 11
     bounds_x = 8
-    bounds_y = 319
-    bounds_cx = 364
+    bounds_y = 327
+    bounds_cx = 196
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -472,8 +472,8 @@ object mainfo: tmainfo
       0
     )
     taborder = 12
-    bounds_x = 376
-    bounds_y = 319
+    bounds_x = 208
+    bounds_y = 327
     bounds_cx = 364
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -491,10 +491,236 @@ object mainfo: tmainfo
     )
     taborder = 13
     bounds_x = 8
-    bounds_y = 279
-    bounds_cx = 364
+    bounds_y = 287
+    bounds_cx = 196
     bounds_cy = 35
     anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object intval: tintegerdisp
+    frame.caption = 'Integervalue'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 14
+    bounds_x = 312
+    bounds_y = 287
+    bounds_cx = 92
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object stringval: tstringdisp
+    frame.caption = 'Stringvalue'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 15
+    bounds_x = 208
+    bounds_y = 287
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object realval: trealdisp
+    frame.caption = 'Realvalue'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 16
+    bounds_x = 408
+    bounds_y = 287
+    bounds_cx = 92
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    valuerange = 1
+    valuestart = 0
+    format = '0.###'
+    value = -Inf
+    reffontheight = 14
+  end
+  object datetimeval: tdatetimedisp
+    frame.caption = 'Datetimevalue'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 17
+    bounds_x = 504
+    bounds_y = 287
+    bounds_cx = 92
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    value = -Inf
+    reffontheight = 14
+  end
+  object tintegeredit2: tintegeredit
+    frame.caption = 'integeredit2'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 18
+    bounds_x = 384
+    bounds_y = -1
+    bounds_cy = 37
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object trealedit1: trealedit
+    frame.caption = 'realedit1'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 19
+    bounds_x = 384
+    bounds_y = 39
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = -Inf
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = -Inf
+    max = 1E+038
+    reffontheight = 14
+  end
+  object tdatetimeedit1: tdatetimeedit
+    frame.caption = 'datetimeedit1'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 20
+    bounds_x = 488
+    bounds_y = 39
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = -Inf
+    valuedefault = -Inf
+    min = -Inf
+    max = 401768.99999
+    reffontheight = 14
+  end
+  object colmindi: tintegerdisp
+    frame.caption = 'colmin'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 21
+    bounds_x = 688
+    bounds_y = 287
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object colmaxdi: tintegerdisp
+    frame.caption = 'colmax'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 22
+    bounds_x = 792
+    bounds_y = 287
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object rowmaxdi: tintegerdisp
+    frame.caption = 'rowmax'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 23
+    bounds_x = 792
+    bounds_y = 327
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object rowmindi: tintegerdisp
+    frame.caption = 'rowmin'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 24
+    bounds_x = 688
+    bounds_y = 327
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    reffontheight = 14
+  end
+  object boolval: tbooleandisp
+    frame.caption = 'Boolvalue'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      2
+      0
+    )
+    taborder = 25
+    bounds_x = 600
+    bounds_y = 287
+    bounds_cx = 62
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    textflags = [tf_ycentered]
+    text_false = 'F'
+    text_true = 'T'
     reffontheight = 14
   end
   object tfacecomp1: tfacecomp
@@ -512,8 +738,8 @@ object mainfo: tmainfo
       11382189
       8224125
     )
-    left = 648
-    top = 8
+    left = 112
+    top = 112
   end
   object tframecomp1: tframecomp
     template.framewidth = 1
@@ -522,8 +748,8 @@ object mainfo: tmainfo
     template.framei_top = 1
     template.framei_right = 5
     template.framei_bottom = 1
-    left = 760
-    top = 8
+    left = 224
+    top = 112
   end
   object tframecomp2: tframecomp
     template.framewidth = 1
@@ -532,8 +758,8 @@ object mainfo: tmainfo
     template.framei_top = 1
     template.framei_right = 5
     template.framei_bottom = 1
-    left = 760
-    top = 32
+    left = 224
+    top = 136
   end
   object tfacecomp2: tfacecomp
     template.fade_pos.count = 5
@@ -552,8 +778,8 @@ object mainfo: tmainfo
       11380627
       8224125
     )
-    left = 648
-    top = 32
+    left = 112
+    top = 136
   end
   object timagelist1: timagelist
     options = [bmo_masked, bmo_graymask]

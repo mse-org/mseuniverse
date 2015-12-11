@@ -63,6 +63,18 @@ type
    assistivetext: tstringdisp;
    assistivename: tstringdisp;
    ttextedit1: ttextedit;
+   intval: tintegerdisp;
+   stringval: tstringdisp;
+   realval: trealdisp;
+   datetimeval: tdatetimedisp;
+   tintegeredit2: tintegeredit;
+   trealedit1: trealedit;
+   tdatetimeedit1: tdatetimeedit;
+   colmindi: tintegerdisp;
+   colmaxdi: tintegerdisp;
+   rowmaxdi: tintegerdisp;
+   rowmindi: tintegerdisp;
+   boolval: tbooleandisp;
    procedure createexe(const sender: TObject);
    procedure destroyexe(const sender: TObject);
    procedure exe(const sender: TObject);
@@ -192,6 +204,7 @@ end;
 procedure tassistivemonitor.dochange(const sender: iassistiveclient);
 begin
  track('<dochange>',sender,'');
+ mainfo.showvalues(sender);
 end;
 
 procedure tassistivemonitor.docellevent(const sender: iassistiveclientgrid;
@@ -228,10 +241,63 @@ begin
 end;
 
 procedure tmainfo.showvalues(const sender: iassistiveclient);
+var
+ dataintf: iifidatalink;
+ valueprop: ppropinfo;
+ flags: assistiveflagsty;
+ rea1: real;
 begin
+ flags:= sender.getassistiveflags();
  assistivename.value:= sender.getassistivename();
  assistivecaption.value:= sender.getassistivecaption();
  assistivetext.value:= sender.getassistivetext();
+ stringval.clear();
+ intval.clear();
+ realval.clear();
+ datetimeval.clear();
+ boolval.clear();
+ if not (asf_gridcell in flags) then begin
+  colmindi.clear();
+  colmaxdi.clear();
+  rowmindi.clear();
+  rowmaxdi.clear();
+ end;
+
+ if asf_grid in flags then begin
+  with iassistiveclientgrid(sender).getassistivegridinfo() do begin
+   colmindi.value:= colmin;
+   colmaxdi.value:= colmax;
+   rowmindi.value:= rowmin;
+   rowmaxdi.value:= rowmax;
+  end;
+ end;
+  
+ dataintf:= sender.getifidatalinkintf();
+ if dataintf <> nil then begin
+  valueprop:= dataintf.getvalueprop();
+  if valueprop <> nil then begin
+   case valueprop^.proptype^.kind of
+    tkustring: begin
+     stringval.value:= getunicodestrprop(sender.getinstance(),valueprop);
+    end;
+    tkinteger: begin
+     intval.value:= getordprop(sender.getinstance(),valueprop);
+    end;
+    tkfloat: begin
+     rea1:= getfloatprop(sender.getinstance(),valueprop);
+     if asf_datetime in flags then begin
+      datetimeval.value:= rea1;
+     end
+     else begin
+      realval.value:= rea1;
+     end;
+    end;
+    tkbool: begin
+     boolval.value:= getordprop(sender.getinstance,valueprop) <> 0;
+    end;
+   end;
+  end;
+ end;
 end;
 
 procedure tmainfo.showtext(const atext: msestring);
