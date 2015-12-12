@@ -283,7 +283,7 @@ object mainfo: tmainfo
       face.template = guitemplatesmo.fadevertconcave
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 287
+      bounds_cx = 288
       bounds_cy = 20
       menu.itemframetemplate = menuitemframe
       menu.itemframetemplateactive = menuitemframe
@@ -367,7 +367,7 @@ object mainfo: tmainfo
     end
     object tspacer1: tspacer
       taborder = 1
-      bounds_x = 287
+      bounds_x = 288
       bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
@@ -388,17 +388,17 @@ object mainfo: tmainfo
         0
       )
       taborder = 2
-      bounds_x = 306
+      bounds_x = 301
       bounds_y = 1
       bounds_cx = 89
       bounds_cy = 18
       anchors = [an_top, an_right]
-      text = ' '
+      options = [dwo_blank]
       reffontheight = 14
     end
     object tspacer2: tspacer
       taborder = 3
-      bounds_x = 395
+      bounds_x = 390
       bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
@@ -424,7 +424,7 @@ object mainfo: tmainfo
       bounds_cx = 104
       bounds_cy = 18
       anchors = [an_top, an_right]
-      text = ' '
+      options = [dwo_blank]
       onchange = errorchangeexe
       reffontheight = 14
     end
@@ -440,12 +440,12 @@ object mainfo: tmainfo
         0
       )
       taborder = 5
-      bounds_x = 514
+      bounds_x = 511
       bounds_y = 1
       bounds_cx = 104
       bounds_cy = 18
       anchors = [an_top, an_right]
-      text = ' '
+      options = [dwo_blank]
       reffontheight = 14
     end
     object tspacer3: tspacer
@@ -461,7 +461,7 @@ object mainfo: tmainfo
     end
     object tspacer4: tspacer
       taborder = 7
-      bounds_x = 618
+      bounds_x = 615
       bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10

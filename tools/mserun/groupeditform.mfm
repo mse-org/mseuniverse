@@ -40,8 +40,8 @@ inherited groupeditfo: tgroupeditfo
       object val_enabled: tbooleanedit
         frame.options = [cfo_fixright, cfo_captionfocus]
         frame.caption = 'enabled'
+        frame.localprops = []
         frame.localprops1 = [frl1_captionoffset]
-        frame.dummy = 0
         frame.outerframe = (
           0
           1
@@ -59,8 +59,8 @@ inherited groupeditfo: tgroupeditfo
         Tag = -1
         frame.caption = 'Caption'
         frame.captionpos = cp_left
+        frame.localprops = []
         frame.localprops1 = [frl1_captiondist]
-        frame.dummy = 0
         frame.outerframe = (
           51
           0
@@ -86,7 +86,8 @@ inherited groupeditfo: tgroupeditfo
       object val_nr: tintegerdisp
         frame.caption = 'Nr.'
         frame.captionpos = cp_left
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           21
           0
@@ -124,7 +125,8 @@ inherited groupeditfo: tgroupeditfo
       object val_nrlast: tintegerdisp
         frame.caption = '..'
         frame.captionpos = cp_left
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           11
           0
@@ -142,11 +144,12 @@ inherited groupeditfo: tgroupeditfo
     end
     object val_comment: tmemoedit
       Tag = 2
-      frame.sbhorz.pagesize = 1
-      frame.sbvert.pagesize = 1
       frame.caption = 'Comment'
       frame.captionpos = cp_left
       frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      frame.sbhorz.pagesize = 1
+      frame.sbvert.pagesize = 1
       frame.outerframe = (
         62
         0
@@ -167,7 +170,13 @@ inherited groupeditfo: tgroupeditfo
       Tag = 1
       frame.caption = 'File Path'#10'${FILE}'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
       frame.button.imagenr = 17
       frame.outerframe = (
         57
@@ -199,7 +208,8 @@ inherited groupeditfo: tgroupeditfo
         Tag = 10
         frame.caption = 'Expected'#10'Exitcode'
         frame.captionpos = cp_left
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           61
           5
@@ -228,8 +238,8 @@ inherited groupeditfo: tgroupeditfo
       Tag = 5
       frame.caption = 'Run'#10'Command'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
-      frame.dummy = 0
       frame.outerframe = (
         65
         5
@@ -250,7 +260,8 @@ inherited groupeditfo: tgroupeditfo
       Tag = 7
       frame.caption = 'Input'
       frame.captionpos = cp_left
-      frame.dummy = 0
+      frame.localprops = []
+      frame.localprops1 = []
       frame.outerframe = (
         35
         0
@@ -270,7 +281,8 @@ inherited groupeditfo: tgroupeditfo
       Tag = 8
       frame.caption = 'Expected'#10'Output'
       frame.captionpos = cp_left
-      frame.dummy = 0
+      frame.localprops = []
+      frame.localprops1 = []
       frame.outerframe = (
         61
         5
@@ -292,7 +304,8 @@ inherited groupeditfo: tgroupeditfo
       Tag = 9
       frame.caption = 'Expected'#10'Error'
       frame.captionpos = cp_left
-      frame.dummy = 0
+      frame.localprops = []
+      frame.localprops1 = []
       frame.outerframe = (
         61
         5
@@ -324,8 +337,8 @@ inherited groupeditfo: tgroupeditfo
         Tag = 3
         frame.caption = 'Compile'#10'Command'
         frame.captionpos = cp_left
+        frame.localprops = []
         frame.localprops1 = [frl1_captiondist]
-        frame.dummy = 0
         frame.outerframe = (
           65
           5
@@ -357,8 +370,8 @@ inherited groupeditfo: tgroupeditfo
     object val_captiondefault: tstringedit
       frame.caption = 'Caption'#10'Default'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
-      frame.dummy = 0
       frame.outerframe = (
         51
         5
@@ -380,7 +393,13 @@ inherited groupeditfo: tgroupeditfo
       Tag = -1
       frame.caption = 'File Path'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
       frame.button.imagenr = 17
       frame.outerframe = (
         57
@@ -400,8 +419,8 @@ inherited groupeditfo: tgroupeditfo
       Tag = 4
       frame.caption = 'Compile'#10'Directory'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
-      frame.dummy = 0
       frame.outerframe = (
         59
         5
@@ -422,8 +441,8 @@ inherited groupeditfo: tgroupeditfo
       Tag = 6
       frame.caption = 'Run'#10'Directory'
       frame.captionpos = cp_left
+      frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
-      frame.dummy = 0
       frame.outerframe = (
         59
         5

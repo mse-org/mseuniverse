@@ -335,9 +335,10 @@ end;
 
 procedure tmainfo.initdisp();
 begin
- okdi.text:= ' ';
- errordi.text:= ' ';
- totaldi.text:= ' ';
+ okdi.clear();
+ errordi.clear();
+ totaldi.clear();
+ totaldi.text:= '';
  seterror(errordi,ers_none);
 end;
 
@@ -355,11 +356,10 @@ end;
 procedure tmainfo.updatedisp(const astate: teststatety);
 begin
  treeed.updateitemvalues(0,grid.rowcount);
- okdi.text:= '';
- errordi.text:= '';
  okdi.value:= mainmo.okcount;
  totaldi.value:= okdi.value + mainmo.errorcount;
  errordi.value:= mainmo.errorcount;
+ totaldi.text:= '';
  case astate of
   tes_canceled: begin
    totaldi.text:= 'Canceled';
@@ -369,7 +369,6 @@ begin
    initdisp();
   end;
   else begin
-   totaldi.text:= '';
    totaldi.textflags:= [tf_right,tf_ycentered]
   end;
  end;
