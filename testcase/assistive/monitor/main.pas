@@ -199,6 +199,7 @@ procedure tassistivemonitor.doactionexecute(const sender: tobject;
                const info: actioninfoty);
 begin
  track('<doactionexecute>',sender,'');
+ guibeep();
 end;
 
 procedure tassistivemonitor.dochange(const sender: iassistiveclient);
