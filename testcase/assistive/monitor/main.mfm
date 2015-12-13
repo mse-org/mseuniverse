@@ -354,10 +354,10 @@ object mainfo: tmainfo
             caption = '0'
           end        
           item
-            caption = '2'
+            caption = '1'
           end        
           item
-            caption = '1'
+            caption = '2'
           end>
       end>
     rowcount = 5

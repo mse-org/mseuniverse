@@ -208,6 +208,7 @@ var
  ar1: msestringarty;
  fi1: refreshinfoty;
  diffcontextn1: integer;
+ i1: int32;
 begin
  mainmo.git.setprociddest(fgitproc);
  application.lock;
@@ -222,15 +223,14 @@ begin
                 charencodingty(mainmo.opt.diffencoding));
   end
   else begin
+   i1:= mainmo.opt.maxdiffsize*mainmo.opt.maxdiffcount*1000;
    if cached then begin
     ar1:= mainmo.git.diff(b,path,diffcontextn1,
-                charencodingty(mainmo.opt.diffencoding),
-                mainmo.opt.maxdiffsize*1000);
+                charencodingty(mainmo.opt.diffencoding),i1);
    end
    else begin
     ar1:= mainmo.git.diff(a,b,path,diffcontextn1,
-                charencodingty(mainmo.opt.diffencoding),
-                                       mainmo.opt.maxdiffsize*1000);
+                charencodingty(mainmo.opt.diffencoding),i1);
    end;
   end;
  end;
