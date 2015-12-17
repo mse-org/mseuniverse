@@ -75,6 +75,8 @@ type
    rowmaxdi: tintegerdisp;
    rowmindi: tintegerdisp;
    boolval: tbooleandisp;
+   assistivehint: tstringdisp;
+   assistivecaretindex: tintegerdisp;
    procedure createexe(const sender: TObject);
    procedure destroyexe(const sender: TObject);
    procedure exe(const sender: TObject);
@@ -150,27 +152,30 @@ end;
 
 procedure tassistivemonitor.doenter(const sender: iassistiveclient);
 begin
- track('<doenter>',sender,'');
  mainfo.showvalues(sender);
+ track('<doenter>',sender,'');
 end;
 
 procedure tassistivemonitor.doitementer(const sender: iassistiveclient;
                const items: shapeinfoarty; const aindex: integer);
 begin
- track('<doitementer shape>',sender,inttostrmse(aindex));
  mainfo.showvalues(sender);
+ track('<doitementer shape>',sender,inttostrmse(aindex));
 end;
 
 procedure tassistivemonitor.doitementer(const sender: iassistiveclient;
                         const items: menucellinfoarty; const aindex: integer);
 begin
- track('<doitementer menu>',sender,inttostrmse(aindex));
  mainfo.showvalues(sender);
+ track('<doitementer menu>',sender,inttostrmse(aindex));
 end;
 
 procedure tassistivemonitor.clientmouseevent(const sender: iassistiveclient;
                const info: mouseeventinfoty);
 begin
+ if info.eventkind in [ek_clientmouseenter,ek_buttonpress] then begin
+  mainfo.showvalues(sender);
+ end;
  track('<clientmouseevent '+msestring(getenumname(typeinfo(eventkindty),
                        ord(info.eventkind)))+'>',sender,'');
 end;
@@ -185,6 +190,7 @@ procedure tassistivemonitor.dokeydown(const sender: iassistiveclient;
                const info: keyeventinfoty);
 begin
  with info do begin
+ mainfo.showvalues(sender);
   track('<dokeydown '+
  //          getenumname(typeinfo(eventkindty),ord(info.eventkind)) + ' ' +
            getshortcutname(shortcutty(key)) + ' "'+chars + '" ' +
@@ -204,8 +210,8 @@ end;
 
 procedure tassistivemonitor.dochange(const sender: iassistiveclient);
 begin
- track('<dochange>',sender,'');
  mainfo.showvalues(sender);
+ track('<dochange>',sender,'');
 end;
 
 procedure tassistivemonitor.docellevent(const sender: iassistiveclientgrid;
@@ -252,6 +258,8 @@ begin
  assistivename.value:= sender.getassistivename();
  assistivecaption.value:= sender.getassistivecaption();
  assistivetext.value:= sender.getassistivetext();
+ assistivehint.value:= sender.getassistivehint();
+ assistivecaretindex.value:= sender.getassistivecaretindex();
  stringval.clear();
  intval.clear();
  realval.clear();
