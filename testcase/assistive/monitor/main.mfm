@@ -2,14 +2,14 @@ object mainfo: tmainfo
   bounds_x = 86
   bounds_y = 198
   bounds_cx = 920
-  bounds_cy = 368
+  bounds_cy = 577
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     920
-    368
+    577
   )
   statfile = tstatfile1
   caption = 'MSEide+MSEgui'
@@ -21,9 +21,9 @@ object mainfo: tmainfo
     frame.localprops1 = []
     taborder = 4
     bounds_x = 0
-    bounds_y = 82
+    bounds_y = 234
     bounds_cx = 367
-    bounds_cy = 196
+    bounds_cy = 253
     anchors = [an_left, an_top, an_bottom]
     datacols.count = 1
     datacols.items = <    
@@ -309,9 +309,9 @@ object mainfo: tmainfo
     )
     taborder = 9
     bounds_x = 664
-    bounds_y = 65
+    bounds_y = 217
     bounds_cx = 226
-    bounds_cy = 213
+    bounds_cy = 270
     anchors = [an_left, an_top, an_bottom]
     datacols.count = 3
     datacols.items = <    
@@ -379,9 +379,9 @@ object mainfo: tmainfo
     frame.localprops1 = []
     taborder = 10
     bounds_x = 376
-    bounds_y = 82
+    bounds_y = 234
     bounds_cx = 282
-    bounds_cy = 196
+    bounds_cy = 253
     anchors = [an_left, an_top, an_bottom]
     fixrows.count = 1
     fixrows.items = <    
@@ -464,7 +464,7 @@ object mainfo: tmainfo
     )
     taborder = 11
     bounds_x = 8
-    bounds_y = 327
+    bounds_y = 536
     bounds_cx = 196
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -482,7 +482,7 @@ object mainfo: tmainfo
     )
     taborder = 12
     bounds_x = 208
-    bounds_y = 327
+    bounds_y = 536
     bounds_cx = 196
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -500,7 +500,7 @@ object mainfo: tmainfo
     )
     taborder = 13
     bounds_x = 8
-    bounds_y = 287
+    bounds_y = 496
     bounds_cx = 196
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -518,7 +518,7 @@ object mainfo: tmainfo
     )
     taborder = 14
     bounds_x = 312
-    bounds_y = 287
+    bounds_y = 496
     bounds_cx = 92
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -536,7 +536,7 @@ object mainfo: tmainfo
     )
     taborder = 15
     bounds_x = 208
-    bounds_y = 287
+    bounds_y = 496
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -553,7 +553,7 @@ object mainfo: tmainfo
     )
     taborder = 16
     bounds_x = 408
-    bounds_y = 287
+    bounds_y = 496
     bounds_cx = 92
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -575,7 +575,7 @@ object mainfo: tmainfo
     )
     taborder = 17
     bounds_x = 504
-    bounds_y = 287
+    bounds_y = 496
     bounds_cx = 92
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -655,7 +655,7 @@ object mainfo: tmainfo
     )
     taborder = 21
     bounds_x = 688
-    bounds_y = 287
+    bounds_y = 496
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -672,7 +672,7 @@ object mainfo: tmainfo
     )
     taborder = 22
     bounds_x = 792
-    bounds_y = 287
+    bounds_y = 496
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -689,7 +689,7 @@ object mainfo: tmainfo
     )
     taborder = 23
     bounds_x = 792
-    bounds_y = 327
+    bounds_y = 536
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -706,7 +706,7 @@ object mainfo: tmainfo
     )
     taborder = 24
     bounds_x = 688
-    bounds_y = 327
+    bounds_y = 536
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -723,7 +723,7 @@ object mainfo: tmainfo
     )
     taborder = 25
     bounds_x = 600
-    bounds_y = 287
+    bounds_y = 496
     bounds_cx = 62
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -744,7 +744,7 @@ object mainfo: tmainfo
     )
     taborder = 26
     bounds_x = 408
-    bounds_y = 327
+    bounds_y = 536
     bounds_cx = 188
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -762,11 +762,97 @@ object mainfo: tmainfo
     )
     taborder = 27
     bounds_x = 600
-    bounds_y = 327
+    bounds_y = 536
     bounds_cx = 69
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
+  end
+  object ttabbar1: ttabbar
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 28
+    bounds_x = 16
+    bounds_y = 96
+    bounds_cx = 306
+    bounds_cy = 18
+    tabs.count = 4
+    tabs.hint = 'tabshint'
+    tabs.items = <    
+      item
+        caption = 'tabbara'
+        hint = 'tabshinta'
+      end    
+      item
+        caption = 'tabbarb'
+        hint = 'tabshintb'
+      end    
+      item
+        caption = 'tabbarc'
+        hint = 'tabshintc'
+      end    
+      item
+        caption = 'tabbard'
+        hint = 'tabshintd'
+      end>
+  end
+  object ttabwidget1: ttabwidget
+    bounds_x = 16
+    bounds_y = 120
+    bounds_cx = 306
+    bounds_cy = 98
+    taborder = 29
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
+    tab_size = 18
+    object ttabpage1: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 306
+      bounds_cy = 80
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'tabbpagea'
+      tabhint = 'tabpahinta'
+    end
+    object ttabpage2: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 306
+      bounds_cy = 80
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'tabpageb'
+      tabhint = 'tabpahintb'
+    end
+    object ttabpage3: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 306
+      bounds_cy = 80
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'tabpagec'
+      tabhint = 'tabpahintc'
+    end
+    object ttabpage4: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 4
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 306
+      bounds_cy = 80
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'tabpaged'
+      tabhint = 'tabpahintd'
+    end
   end
   object tfacecomp1: tfacecomp
     template.fade_pos.count = 4
@@ -783,8 +869,8 @@ object mainfo: tmainfo
       11382189
       8224125
     )
-    left = 112
-    top = 112
+    left = 120
+    top = 280
   end
   object tframecomp1: tframecomp
     template.framewidth = 1
@@ -793,8 +879,8 @@ object mainfo: tmainfo
     template.framei_top = 1
     template.framei_right = 5
     template.framei_bottom = 1
-    left = 224
-    top = 112
+    left = 232
+    top = 280
   end
   object tframecomp2: tframecomp
     template.framewidth = 1
@@ -803,8 +889,8 @@ object mainfo: tmainfo
     template.framei_top = 1
     template.framei_right = 5
     template.framei_bottom = 1
-    left = 224
-    top = 136
+    left = 232
+    top = 304
   end
   object tfacecomp2: tfacecomp
     template.fade_pos.count = 5
@@ -823,8 +909,8 @@ object mainfo: tmainfo
       11380627
       8224125
     )
-    left = 112
-    top = 136
+    left = 120
+    top = 304
   end
   object timagelist1: timagelist
     options = [bmo_masked, bmo_graymask]
@@ -949,7 +1035,7 @@ object mainfo: tmainfo
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
-    left = 56
-    top = 168
+    left = 64
+    top = 336
   end
 end

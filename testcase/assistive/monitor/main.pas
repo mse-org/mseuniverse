@@ -8,7 +8,7 @@ uses
  msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestatfile,
  msestream,sysutils,mseact,msegraphedits,msescrollbar,msetoolbar,msemenuwidgets,
  msebitmap,mseshapes,msewidgetgrid,msedispwidgets,mserichstring,mseeditglob,
- msetextedit;
+ msetextedit,msedragglob,msetabs;
 
 type
  tassistivemonitor = class(tobject,iassistiveserver)
@@ -77,6 +77,12 @@ type
    boolval: tbooleandisp;
    assistivehint: tstringdisp;
    assistivecaretindex: tintegerdisp;
+   ttabbar1: ttabbar;
+   ttabwidget1: ttabwidget;
+   ttabpage1: ttabpage;
+   ttabpage2: ttabpage;
+   ttabpage3: ttabpage;
+   ttabpage4: ttabpage;
    procedure createexe(const sender: TObject);
    procedure destroyexe(const sender: TObject);
    procedure exe(const sender: TObject);
