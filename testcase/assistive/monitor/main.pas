@@ -83,6 +83,7 @@ type
    ttabpage2: ttabpage;
    ttabpage3: ttabpage;
    ttabpage4: ttabpage;
+   gridcell: tbooleandisp;
    procedure createexe(const sender: TObject);
    procedure destroyexe(const sender: TObject);
    procedure exe(const sender: TObject);
@@ -196,7 +197,7 @@ procedure tassistivemonitor.dokeydown(const sender: iassistiveclient;
                const info: keyeventinfoty);
 begin
  with info do begin
- mainfo.showvalues(sender);
+  mainfo.showvalues(sender);
   track('<dokeydown '+
  //          getenumname(typeinfo(eventkindty),ord(info.eventkind)) + ' ' +
            getshortcutname(shortcutty(key)) + ' "'+chars + '" ' +
@@ -286,7 +287,8 @@ begin
    rowmaxdi.value:= rowmax;
   end;
  end;
-  
+ gridcell.value:= asf_gridcell in flags;
+   
  dataintf:= sender.getifidatalinkintf();
  if dataintf <> nil then begin
   valueprop:= dataintf.getvalueprop();

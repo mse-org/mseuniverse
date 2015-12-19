@@ -656,6 +656,7 @@ object mainfo: tmainfo
     taborder = 21
     bounds_x = 688
     bounds_y = 496
+    bounds_cx = 52
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -671,8 +672,9 @@ object mainfo: tmainfo
       0
     )
     taborder = 22
-    bounds_x = 792
+    bounds_x = 744
     bounds_y = 496
+    bounds_cx = 60
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -688,8 +690,9 @@ object mainfo: tmainfo
       0
     )
     taborder = 23
-    bounds_x = 792
+    bounds_x = 744
     bounds_y = 536
+    bounds_cx = 60
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -707,6 +710,7 @@ object mainfo: tmainfo
     taborder = 24
     bounds_x = 688
     bounds_y = 536
+    bounds_cx = 52
     bounds_cy = 35
     anchors = [an_left, an_bottom]
     reffontheight = 14
@@ -853,6 +857,27 @@ object mainfo: tmainfo
       caption = 'tabpaged'
       tabhint = 'tabpahintd'
     end
+  end
+  object gridcell: tbooleandisp
+    frame.caption = 'Gridcell'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 30
+    bounds_x = 808
+    bounds_y = 496
+    bounds_cx = 52
+    bounds_cy = 35
+    anchors = [an_left, an_bottom]
+    textflags = [tf_ycentered]
+    text_false = 'F'
+    text_true = 'T'
+    reffontheight = 14
   end
   object tfacecomp1: tfacecomp
     template.fade_pos.count = 4
