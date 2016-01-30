@@ -4,8 +4,8 @@ object optionsfo: toptionsfo
   bounds_y = 200
   bounds_cx = 372
   bounds_cy = 408
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -22,26 +22,28 @@ object optionsfo: toptionsfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 372
-    bounds_cy = 377
+    bounds_cy = 378
     anchors = [an_top, an_bottom]
     activepageindex = 0
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
     tab_size = 18
     statfile = tstatfile1
     object ttabpage2: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 2
       bounds_x = 0
       bounds_y = 18
       bounds_cx = 372
-      bounds_cy = 359
+      bounds_cy = 360
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Project'
       object tlayouter2: tlayouter
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 372
-        bounds_cy = 47
+        bounds_cy = 45
         anchors = [an_top]
         optionsscale = [osc_expandy, osc_shrinky]
         optionslayout = [lao_placey]
@@ -50,10 +52,17 @@ object optionsfo: toptionsfo
         place_options = [plo_propmargin]
         object netlist: tremotefilenameedit
           frame.caption = 'Spice Netlist'
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              imagenr = 17
+            end>
           frame.button.imagenr = 17
           frame.outerframe = (
             0
-            17
+            16
             0
             0
           )
@@ -61,27 +70,29 @@ object optionsfo: toptionsfo
           bounds_x = 8
           bounds_y = 5
           bounds_cx = 355
-          bounds_cy = 37
+          bounds_cy = 35
           anchors = [an_left, an_top, an_right]
           statfile = tstatfile1
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savevalue, oe_savestate]
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
           textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
           value = '${PROJECTNAME}.cir'
           onsetvalue = netlistsetexe
           dialog = netlistfo.filedialog
-          reffontheight = 14
+          reffontheight = 13
         end
       end
       object tlayouter3: tlayouter
         taborder = 1
         bounds_x = 0
-        bounds_y = 49
+        bounds_y = 47
         bounds_cx = 372
-        bounds_cy = 310
+        bounds_cy = 311
         anchors = [an_top, an_bottom]
         linktop = tlayouter2
         dist_top = 2
         object libgrid: twidgetgrid
+          frame.localprops = []
+          frame.localprops1 = []
           bounds_x = 0
           bounds_y = 1
           bounds_cx = 372
@@ -91,7 +102,7 @@ object optionsfo: toptionsfo
           fixrows.count = 1
           fixrows.items = <          
             item
-              height = 16
+              height = 15
               captions.count = 2
               captions.items = <              
                 item
@@ -119,14 +130,21 @@ object optionsfo: toptionsfo
               widgetname = 'libnames'
               dataclass = tgridmsestringdatalist
             end>
-          datarowheight = 16
+          datarowheight = 15
           statfile = tstatfile1
-          reffontheight = 14
+          reffontheight = 13
           object libfiles: tremotefilenameedit
             optionsskin = [osk_framebuttononly]
             frame.levelo = 0
             frame.colorclient = -2147483645
             frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+            frame.localprops1 = []
+            frame.buttons.count = 1
+            frame.buttons.items = <            
+              item
+                color = -1879048187
+                imagenr = 17
+              end>
             frame.button.color = -1879048187
             frame.button.imagenr = 17
             taborder = 1
@@ -135,11 +153,11 @@ object optionsfo: toptionsfo
             bounds_x = 0
             bounds_y = 0
             bounds_cx = 295
-            bounds_cy = 16
-            optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
+            bounds_cy = 15
+            optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
             textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
             dialog = mainmo.libfiledialog
-            reffontheight = 14
+            reffontheight = 13
           end
           object libnames: tstringedit
             optionswidget1 = [ow1_fontglyphheight]
@@ -150,9 +168,9 @@ object optionsfo: toptionsfo
             bounds_x = 296
             bounds_y = 0
             bounds_cx = 71
-            bounds_cy = 16
-            optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-            reffontheight = 14
+            bounds_cy = 15
+            optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+            reffontheight = 13
           end
         end
         object tsplitter1: tsplitter
@@ -169,17 +187,19 @@ object optionsfo: toptionsfo
           statfile = tstatfile1
         end
         object localmacrogrid: twidgetgrid
+          frame.localprops = []
+          frame.localprops1 = []
           taborder = 2
           bounds_x = 0
           bounds_y = 150
           bounds_cx = 372
-          bounds_cy = 159
+          bounds_cy = 160
           anchors = [an_top, an_bottom]
           optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
           fixrows.count = 1
           fixrows.items = <          
             item
-              height = 16
+              height = 15
               captions.count = 2
               captions.items = <              
                 item
@@ -206,9 +226,9 @@ object optionsfo: toptionsfo
               widgetname = 'locmacvalues'
               dataclass = tgridmsestringdatalist
             end>
-          datarowheight = 16
+          datarowheight = 15
           statfile = tstatfile1
-          reffontheight = 14
+          reffontheight = 13
           object locmacnames: tstringedit
             optionsskin = [osk_framebuttononly]
             taborder = 1
@@ -216,9 +236,9 @@ object optionsfo: toptionsfo
             bounds_x = 0
             bounds_y = 0
             bounds_cx = 86
-            bounds_cy = 16
-            optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-            reffontheight = 14
+            bounds_cy = 15
+            optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+            reffontheight = 13
           end
           object locmacvalues: tstringedit
             optionswidget1 = [ow1_fontglyphheight]
@@ -228,28 +248,28 @@ object optionsfo: toptionsfo
             bounds_x = 87
             bounds_y = 0
             bounds_cx = 280
-            bounds_cy = 16
-            optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-            reffontheight = 14
+            bounds_cy = 15
+            optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+            reffontheight = 13
           end
         end
       end
     end
     object ttabpage1: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 1
       bounds_x = 0
       bounds_y = 18
       bounds_cx = 372
-      bounds_cy = 359
+      bounds_cy = 360
       anchors = []
       caption = '&Global'
       object tlayouter4: tlayouter
         bounds_x = 0
         bounds_y = -2
         bounds_cx = 372
-        bounds_cy = 173
+        bounds_cy = 165
         bounds_cymin = 20
         anchors = [an_top]
         optionsscale = [osc_expandy, osc_shrinky]
@@ -261,12 +281,12 @@ object optionsfo: toptionsfo
         object tlayouter5: tlayouter
           frame.framei_left = 8
           frame.localprops = [frl_fileft]
-          frame.dummy = 0
+          frame.localprops1 = []
           taborder = 3
           bounds_x = 0
-          bounds_y = 131
+          bounds_y = 125
           bounds_cx = 372
-          bounds_cy = 37
+          bounds_cy = 35
           bounds_cymin = 20
           anchors = [an_top]
           optionsscale = [osc_expandy, osc_shrinky]
@@ -276,66 +296,82 @@ object optionsfo: toptionsfo
           place_maxdist = 5
           object chartfontheight: tintegeredit
             frame.caption = 'Height (Pixel)'
-            frame.dummy = 0
+            frame.localprops = []
+            frame.localprops1 = []
             frame.outerframe = (
               0
-              17
-              31
+              16
+              22
               0
             )
             bounds_x = 8
             bounds_y = 0
-            bounds_cx = 75
-            bounds_cy = 37
+            bounds_cx = 66
+            bounds_cy = 35
             value = 12
             min = 5
             max = 30
-            reffontheight = 14
+            reffontheight = 13
           end
           object chartfontname: tstringedit
             frame.caption = 'Chart Font Name'
-            frame.dummy = 0
+            frame.localprops = []
+            frame.localprops1 = []
             frame.outerframe = (
               0
-              17
+              16
               0
               0
             )
             taborder = 1
-            bounds_x = 88
+            bounds_x = 79
             bounds_y = 0
-            bounds_cy = 37
+            bounds_cy = 35
             value = 'Arial'
-            reffontheight = 14
+            reffontheight = 13
           end
         end
         object ps2pdf: tfilenameedit
           frame.caption = 'ps2pdf Program'
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              imagenr = 17
+            end>
           frame.button.imagenr = 17
           frame.outerframe = (
             0
-            17
+            16
             0
             0
           )
           taborder = 1
           onshowhint = macrohintexe
           bounds_x = 8
-          bounds_y = 47
+          bounds_y = 45
           bounds_cx = 356
-          bounds_cy = 37
+          bounds_cy = 35
           anchors = [an_left, an_top, an_right]
           statfile = tstatfile1
           textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
           onsetvalue = setps2pdfexe
-          reffontheight = 14
+          reffontheight = 13
         end
         object ngspice: tfilenameedit
           frame.caption = 'Ngspice Program'
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              imagenr = 17
+            end>
           frame.button.imagenr = 17
           frame.outerframe = (
             0
-            17
+            16
             0
             0
           )
@@ -343,43 +379,52 @@ object optionsfo: toptionsfo
           bounds_x = 8
           bounds_y = 5
           bounds_cx = 356
-          bounds_cy = 37
+          bounds_cy = 35
           anchors = [an_left, an_top, an_right]
           statfile = tstatfile1
           textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
           onsetvalue = setngspiceexe
-          reffontheight = 14
+          reffontheight = 13
         end
-        object schematiccapture: tstringedit
+        object schematiccapture: tfilenameedit
           frame.caption = 'Schematic Capture Program'
-          frame.dummy = 0
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              imagenr = 17
+            end>
+          frame.button.imagenr = 17
           frame.outerframe = (
             0
-            17
+            16
             0
             0
           )
           taborder = 2
           onshowhint = macrohintexe
           bounds_x = 8
-          bounds_y = 89
-          bounds_cx = 354
-          bounds_cy = 37
-          reffontheight = 14
+          bounds_y = 85
+          bounds_cx = 356
+          bounds_cy = 35
+          reffontheight = 13
         end
       end
       object twidgetgrid2: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
         taborder = 1
         bounds_x = 0
-        bounds_y = 171
+        bounds_y = 163
         bounds_cx = 372
-        bounds_cy = 187
+        bounds_cy = 196
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixrows.count = 1
         fixrows.items = <        
           item
-            height = 16
+            height = 15
             captions.count = 2
             captions.items = <            
               item
@@ -407,9 +452,9 @@ object optionsfo: toptionsfo
             widgetname = 'globmacvalues'
             dataclass = tgridmsestringdatalist
           end>
-        datarowheight = 16
+        datarowheight = 15
         statfile = tstatfile1
-        reffontheight = 14
+        reffontheight = 13
         object globmacnames: tstringedit
           optionsskin = [osk_framebuttononly]
           taborder = 1
@@ -417,9 +462,9 @@ object optionsfo: toptionsfo
           bounds_x = 0
           bounds_y = 0
           bounds_cx = 86
-          bounds_cy = 16
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-          reffontheight = 14
+          bounds_cy = 15
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          reffontheight = 13
         end
         object globmacvalues: tstringedit
           optionswidget1 = [ow1_fontglyphheight]
@@ -429,9 +474,9 @@ object optionsfo: toptionsfo
           bounds_x = 87
           bounds_y = 0
           bounds_cx = 280
-          bounds_cy = 16
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_savestate, oe_checkvaluepaststatread]
-          reffontheight = 14
+          bounds_cy = 15
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          reffontheight = 13
         end
       end
     end
@@ -439,16 +484,16 @@ object optionsfo: toptionsfo
   object tlayouter1: tlayouter
     taborder = 1
     bounds_x = 260
-    bounds_y = 382
+    bounds_y = 383
     bounds_cx = 105
-    bounds_cy = 20
+    bounds_cy = 19
     anchors = [an_right, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
     linktop = ttabwidget1
     dist_top = 5
     options = [spao_gluebottom]
     optionslayout = [lao_placex, lao_aligny]
-    align_glue = wam_center
+    align_glue = wam_start
     place_mindist = 5
     place_maxdist = 5
     place_mode = wam_end
@@ -457,12 +502,12 @@ object optionsfo: toptionsfo
       bounds_x = 55
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 20
+      bounds_cy = 19
       bounds_cxmin = 50
       state = [as_localdefault, as_localcaption]
       caption = 'Cancel'
       modalresult = mr_cancel
-      reffontheight = 14
+      reffontheight = 13
     end
     object tbutton2: tbutton
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
@@ -470,25 +515,25 @@ object optionsfo: toptionsfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 50
-      bounds_cy = 20
+      bounds_cy = 19
       bounds_cxmin = 50
       state = [as_default, as_localdefault, as_localcaption]
       caption = 'OK'
       modalresult = mr_ok
-      reffontheight = 14
+      reffontheight = 13
     end
   end
   object macdisp: tstringdisp
     taborder = 2
     onshowhint = defamachintexe
     bounds_x = 3
-    bounds_y = 383
+    bounds_y = 384
     bounds_cx = 257
-    bounds_cy = 18
+    bounds_cy = 17
     anchors = [an_left, an_right, an_bottom]
     options = [dwo_hintclippedtext]
     value = '${PROJECTNAME}, ${NETLIST}'
-    reffontheight = 14
+    reffontheight = 13
   end
   object tstatfile1: tstatfile
     filename = 'optionsfo.sta'
