@@ -23,7 +23,7 @@ uses
  mseedit,mseificomp,mseificompglob,mseifiglob,msestatfile,msestream,msestrings,
  sysutils,msesimplewidgets,msegraphedits,msescrollbar,msebitmap,msedatanodes,
  msefiledialog,msegrids,mselistbrowser,msesys,msedialog,msesplitter,
- msedispwidgets,mserichstring,editform;
+ msedispwidgets,mserichstring,editform,msememodialog;
  
 type
  ttesteditfo = class(teditfo)
@@ -54,17 +54,17 @@ type
    val_nr: tintegerdisp;
    tspacer5: tspacer;
    tlayouter6: tlayouter;
-   val_input: tstringedit;
+   val_input: tmemodialogedit;
    val_inputerror: tbooleandisp;
    tspacer6: tspacer;
    val_compiledirectory: tstringedit;
    val_rundirectory: tstringedit;
    tlayouter7: tlayouter;
    tspacer7: tspacer;
-   val_expectedoutput: tstringedit;
+   val_expectedoutput: tmemodialogedit;
    tlayouter8: tlayouter;
    tspacer8: tspacer;
-   val_expectederror: tstringedit;
+   val_expectederror: tmemodialogedit;
    val_anyerror: tbooleanedit;
    val_anyoutput: tbooleanedit;
    procedure layoutexe(const sender: TObject);

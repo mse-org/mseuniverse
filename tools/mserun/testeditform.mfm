@@ -1,4 +1,5 @@
 inherited testeditfo: ttesteditfo
+  visible = False
   bounds_x = 225
   bounds_y = 419
   bounds_cx = 596
@@ -115,12 +116,12 @@ inherited testeditfo: ttesteditfo
     end
     object val_comment: tmemoedit
       Tag = 2
-      frame.sbhorz.pagesize = 1
-      frame.sbvert.pagesize = 1
       frame.caption = 'Comment'
       frame.captionpos = cp_left
       frame.localprops = [frl_colorclient]
       frame.localprops1 = []
+      frame.sbhorz.pagesize = 1
+      frame.sbvert.pagesize = 1
       frame.outerframe = (
         62
         0
@@ -144,6 +145,11 @@ inherited testeditfo: ttesteditfo
       frame.captionpos = cp_left
       frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
       frame.button.imagenr = 17
       frame.outerframe = (
         57
@@ -409,12 +415,18 @@ inherited testeditfo: ttesteditfo
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       optionslayout = [lao_aligny]
       align_glue = wam_start
-      object val_input: tstringedit
+      object val_input: tmemodialogedit
         Tag = 7
         frame.caption = 'Input'
         frame.captionpos = cp_left
         frame.localprops = []
         frame.localprops1 = []
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            imagenr = 17
+          end>
+        frame.button.imagenr = 17
         frame.outerframe = (
           35
           0
@@ -527,12 +539,18 @@ inherited testeditfo: ttesteditfo
         linkleft = val_expectedoutput
         linkright = val_anyoutput
       end
-      object val_expectedoutput: tstringedit
+      object val_expectedoutput: tmemodialogedit
         Tag = 8
         frame.caption = 'Expected'#10'Output'
         frame.captionpos = cp_left
         frame.localprops = []
         frame.localprops1 = []
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            imagenr = 17
+          end>
+        frame.button.imagenr = 17
         frame.outerframe = (
           61
           5
@@ -588,12 +606,18 @@ inherited testeditfo: ttesteditfo
         linkleft = val_expectederror
         linkright = val_anyerror
       end
-      object val_expectederror: tstringedit
+      object val_expectederror: tmemodialogedit
         Tag = 9
         frame.caption = 'Expected'#10'Error'
         frame.captionpos = cp_left
         frame.localprops = []
         frame.localprops1 = []
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            imagenr = 17
+          end>
+        frame.button.imagenr = 17
         frame.outerframe = (
           61
           5

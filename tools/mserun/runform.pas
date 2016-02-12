@@ -359,14 +359,14 @@ begin
   rs_test: begin
    with fcurrenttest do begin
     actualexitcode:= proc.exitcode;
-    actualoutput:= utf8tostring(foutputbuffer);
+    actualoutput:= removelineterminator(utf8tostring(foutputbuffer));
     foutputbuffer:= '';
-    actualerror:= utf8tostring(ferrorbuffer);
+    actualerror:= removelineterminator(utf8tostring(ferrorbuffer));
     ferrorbuffer:= '';
     rea1:= lookupexpectedexitcode(fcurrenttest);
     dofinish(((rea1 = emptyreal) or (actualexitcode = rea1)) and 
-       (anyoutput or (removelineterminator(actualoutput) = expectedoutput)) and
-       (anyerror or (removelineterminator(actualerror) = expectederror)));
+       (anyoutput or (actualoutput = expectedoutput)) and
+       (anyerror or (actualerror = expectederror)));
    end;
   end;
   else begin
