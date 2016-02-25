@@ -1,4 +1,4 @@
- MSErun Copyright (c) 2015 by Martin Schreiber
+ MSErun Copyright (c) 2015-2016 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

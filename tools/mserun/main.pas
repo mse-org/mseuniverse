@@ -526,8 +526,8 @@ end;
 
 procedure tmainfo.aboutexe(const sender: TObject);
 begin
- showmessage('MSEgui version: '+mseguiversiontext+c_linefeed+
-             'MSErun version: '+versiontext+c_linefeed+
+ showmessage('MSErun version: '+versiontext+c_linefeed+
+             'MSEgui version: '+mseguiversiontext+c_linefeed+
              'Host: '+ platformtext+ c_linefeed+
              c_linefeed+
              copyrighttext+c_linefeed+

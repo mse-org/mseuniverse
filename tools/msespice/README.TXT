@@ -1,5 +1,5 @@
 MSEspice, GUI for Ngspice
-Version 2.0.2 2015-11-13
+Version 2.0.4 2016-02-24
 
 - Download and install ngspice from
 http://sourceforge.net/projects/ngspice/
