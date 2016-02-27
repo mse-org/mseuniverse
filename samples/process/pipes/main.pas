@@ -49,7 +49,7 @@ end;
 procedure tmainfo.setvalueexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
- proc.input.writeln(avalue);
+ proc.input.pipewriter.writeln(avalue);
 end;
 
 end.
