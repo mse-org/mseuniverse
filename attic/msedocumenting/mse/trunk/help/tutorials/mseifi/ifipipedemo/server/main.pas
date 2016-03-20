@@ -45,7 +45,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- classes,clientform,main_mfm;
+ classes,mclasses,clientform,main_mfm;
 const
  showtime = 2000000;
   
