@@ -90,7 +90,7 @@ object restorequeryfo: trestorequeryfo
     anchors = [an_left, an_top, an_right]
     object tsplitter2: tsplitter
       color = -1879048189
-      taborder = 1
+      taborder = 2
       bounds_x = 232
       bounds_y = 0
       bounds_cx = 3
@@ -102,7 +102,7 @@ object restorequeryfo: trestorequeryfo
       statfile = tstatfile1
     end
     inline filelist: tfilechecklistframefo
-      taborder = 2
+      taborder = 1
       bounds_x = 2
       bounds_y = 0
       bounds_cx = 230
