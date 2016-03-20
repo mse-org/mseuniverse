@@ -3,6 +3,8 @@ object clientfo: tclientfo
   bounds_y = 378
   bounds_cx = 380
   bounds_cy = 254
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     27
@@ -11,12 +13,13 @@ object clientfo: tclientfo
   )
   optionswindow = [wo_windowcentermessage]
   mainmenu = menu
-  options = [fo_terminateonclose, fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   caption = 'MSEifi Demo Clientform transferred from Server'
   moduleclassname = 'tmseform'
   object tstringedit1: tstringedit
     frame.caption = 'Editwidget'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -39,7 +42,8 @@ object clientfo: tclientfo
     caption = 'Button'
   end
   object buttondisp: tstringdisp
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 2
     bounds_x = 176
     bounds_y = 19
@@ -48,13 +52,15 @@ object clientfo: tclientfo
     font.color = -1610612730
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_xscale]
     textflags = [tf_xcentered, tf_ycentered]
     reffontheight = 14
   end
   object tdbstringgrid1: tdbstringgrid
     frame.sbvert.pagesize = 0
     frame.caption = 'Dataset'
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
@@ -90,9 +96,9 @@ object clientfo: tclientfo
     frame.framei_right = 2
     frame.framei_bottom = 0
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    frame.dummy = 0
+    frame.localprops1 = []
+    face.localprops = []
     face.template = fadehorzconcave
-    face.dummy = 0
     taborder = 4
     bounds_x = 353
     bounds_y = 57
@@ -111,9 +117,8 @@ object clientfo: tclientfo
       160
     )
     bar_face.localprops = [fal_fadirection]
-    bar_face.dummy = 0
     bar_frame.localprops = [frl_levelo, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    bar_frame.dummy = 0
+    bar_frame.localprops1 = []
     valuerange = 100
     valuestart = 0
     value = 0
@@ -124,14 +129,15 @@ object clientfo: tclientfo
     frame.levelo = -1
     frame.leveli = 1
     frame.localprops = [frl_levelo, frl_leveli]
+    frame.localprops1 = []
     taborder = 5
     bounds_x = 8
     bounds_y = 195
     bounds_cx = 204
     anchors = [an_left, an_bottom]
     datasource = datasource
+    buttonface.localprops = []
     buttonface.template = fadehorzconcave
-    buttonface.dummy = 0
     dialogbutton.imagenr = 17
     dialogbutton.hint = 'Dialog'
     dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
