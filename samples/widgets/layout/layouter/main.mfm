@@ -1,0 +1,84 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  moduleclassname = 'tmainform'
+  object tlayouter2: tlayouter
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 386
+    bounds_cy = 20
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_center
+    place_mindist = 8
+    object tlayouter3: tlayouter
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 127
+      bounds_cy = 20
+      optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_placex, lao_aligny]
+      align_glue = wam_center
+      place_mindist = 4
+      place_maxdist = 4
+      object tbutton4: tbutton
+        optionswidget1 = [ow1_autoscale, ow1_autowidth]
+        bounds_x = 76
+        bounds_y = 0
+        bounds_cx = 51
+        bounds_cy = 20
+        state = [as_localcaption]
+        caption = '&Delete'
+      end
+      object tbutton5: tbutton
+        optionswidget1 = [ow1_autoscale, ow1_autowidth]
+        taborder = 1
+        bounds_x = 38
+        bounds_y = 0
+        bounds_cx = 34
+        bounds_cy = 20
+        state = [as_localcaption]
+        caption = '&Edit'
+      end
+      object tbutton6: tbutton
+        optionswidget1 = [ow1_autoscale, ow1_autowidth]
+        taborder = 2
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 34
+        bounds_cy = 20
+        state = [as_localcaption]
+        caption = '&Add'
+      end
+    end
+    object tstringedit2: tstringedit
+      frame.caption = 'Edit'
+      frame.captionpos = cp_left
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        27
+        0
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 243
+      bounds_y = 0
+      bounds_cx = 143
+      bounds_cxmin = 100
+      reffontheight = 14
+    end
+  end
+end
