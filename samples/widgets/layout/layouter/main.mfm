@@ -23,6 +23,7 @@ object mainfo: tmainfo
     align_glue = wam_center
     place_mindist = 8
     object tlayouter3: tlayouter
+      taborder = 1
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 127
@@ -73,7 +74,6 @@ object mainfo: tmainfo
         0
         0
       )
-      taborder = 1
       bounds_x = 243
       bounds_y = 0
       bounds_cx = 143

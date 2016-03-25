@@ -15,10 +15,22 @@ type
    tbutton3: tbutton;
    tspacer2: tspacer;
    tstringedit1: tstringedit;
+   tspacer3: tspacer;
+   tintegeredit1: tintegeredit;
+   tstatfile1: tstatfile;
+   procedure fontsetexe(const sender: TObject; var avalue: Integer;
+                   var accept: Boolean);
  end;
 var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm;
+ main_mfm,msestockobjects;
+ 
+procedure tmainfo.fontsetexe(const sender: TObject; var avalue: Integer;
+               var accept: Boolean);
+begin
+ stockobjects.fonts[stf_default].height:= avalue;
+end;
+
 end.
