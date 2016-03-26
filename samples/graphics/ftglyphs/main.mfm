@@ -1,0 +1,187 @@
+object mainfo: tmainfo
+  bounds_x = 276
+  bounds_y = 295
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  statfile = tstatfile1
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    frame.localprops = []
+    frame.localprops1 = []
+    face.fade_pos.count = 2
+    face.fade_pos.items = (
+      0
+      1
+    )
+    face.fade_color.count = 2
+    face.fade_color.items = (
+      -1610612731
+      7697781
+    )
+    face.localprops = [fal_fadirection]
+    taborder = 1
+    bounds_x = 24
+    bounds_y = 136
+    bounds_cx = 50
+    bounds_cy = 44
+    state = [as_localimagelist, as_localimagenr]
+    imagelist = imagelist
+    imagenr = 0
+  end
+  object tbutton2: tbutton
+    face.fade_pos.count = 2
+    face.fade_pos.items = (
+      0
+      1
+    )
+    face.fade_color.count = 2
+    face.fade_color.items = (
+      -1610612731
+      7237230
+    )
+    face.localprops = [fal_fadirection]
+    taborder = 2
+    bounds_x = 88
+    bounds_y = 136
+    bounds_cx = 50
+    bounds_cy = 44
+    state = [as_localimagelist, as_localimagenr]
+    imagelist = imagelist
+    imagenr = 0
+  end
+  object tbutton3: tbutton
+    face.image.source = bitmapcomp
+    face.image.alignment = [al_xcentered, al_ycentered, al_tiled]
+    face.fade_pos.count = 2
+    face.fade_pos.items = (
+      0
+      1
+    )
+    face.fade_color.count = 2
+    face.fade_color.items = (
+      -1610612731
+      9737364
+    )
+    face.localprops = [fal_fadirection, fal_image]
+    taborder = 3
+    bounds_x = 152
+    bounds_y = 136
+    bounds_cx = 122
+    bounds_cy = 108
+  end
+  object filenameed: tfilenameedit
+    frame.caption = 'Font File'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        imagenr = 17
+      end>
+    frame.button.imagenr = 17
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 15
+    bounds_cx = 388
+    bounds_cy = 37
+    statfile = tstatfile1
+    textflags = [tf_noselect, tf_ellipseleft]
+    ondataentered = dataeneredexe
+    value = 'FontAwesome.otf'
+    controller.filename = 'FontAwesome.otf'
+    reffontheight = 14
+  end
+  object codepointed: tintegeredit
+    frame.caption = 'Codepoint'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      67
+      0
+      0
+      0
+    )
+    bounds_x = 13
+    bounds_y = 64
+    bounds_cx = 135
+    statfile = tstatfile1
+    ondataentered = dataeneredexe
+    value = 61683
+    base = nb_hex
+    bitcount = 21
+    max = 1114111
+    reffontheight = 14
+  end
+  object colored: tcoloredit
+    frame.caption = 'Color'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      35
+      0
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 261
+    bounds_y = 64
+    bounds_cx = 135
+    statfile = tstatfile1
+    ondataentered = dataeneredexe
+    value = -1879048183
+    reffontheight = 14
+  end
+  object heighted: tintegeredit
+    frame.caption = 'Height'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      44
+      0
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 164
+    bounds_y = 64
+    bounds_cx = 88
+    statfile = tstatfile1
+    ondataentered = dataeneredexe
+    value = 30
+    min = 5
+    max = 100
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 232
+    top = 104
+  end
+  object bitmapcomp: tbitmapcomp
+    left = 16
+    top = 208
+  end
+  object imagelist: timagelist
+    options = [bmo_masked, bmo_graymask]
+    left = 16
+    top = 240
+  end
+end
