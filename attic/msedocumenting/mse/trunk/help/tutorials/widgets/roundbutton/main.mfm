@@ -1,16 +1,15 @@
 object mainfo: tmainfo
   bounds_x = 228
   bounds_y = 255
-  bounds_cx = 360
-  bounds_cy = 273
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  bounds_cx = 581
+  bounds_cy = 356
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.face.image.transparentcolor = -2147483642
-  container.face.image.options = [bmo_masked]
   container.face.image.alignment = [al_tiled]
-  container.face.image.transparency = 10526880
+  container.face.image.opacity = 5526612
   container.face.image.image = {
-    00000000020000001E0000001E00000048070000000000000000000000000000
+    00000000000000001E0000001E00000048070000000000000000000000000000
     000000000000000000000000000000000000000066996604FFFFFF0166996605
     FFFFFF0166996605FFFFFF0166996604FFFFFF0166996601FFFFFF0166996601
     FFFFFF0166996601FFFFFF0166996601FFFFFF0166996601FFFFFF1366996601
@@ -69,11 +68,7 @@ object mainfo: tmainfo
     FFFFFF0166996601FFFFFF0166996604FFFFFF0166996601FFFFFF0166996601
     FFFFFF0166996602FFFFFF0366996601FFFFFF0166996601FFFFFF0366996601
     FFFFFF0166996601FFFFFF0366996601FFFFFF0166996601FFFFFF0466996601
-    FFFFFF0166996601FFFFFF0166996601FFFFFF0166996601FFFFFF01EFFB5E15
-    01005015FFFF5F1500004015FFFF7F3500004015FFFF5F1501005015EFFB5E15
-    288A4215ABAA7A35B8AA4315872A5C15F5EA5515852A1405BDAAF73DA0AA0000
-    BFAAFF3F802A0000FFEAFF3F802A0000BFAAFF3FA0AA0000BDAAF73D852A1405
-    F5EA5515872A5C15B8AA4315ABAA7A35288A4215
+    FFFFFF0166996601FFFFFF0166996601FFFFFF0166996601FFFFFF01
   }
   container.face.fade_pos.count = 3
   container.face.fade_pos.items = (
@@ -88,12 +83,11 @@ object mainfo: tmainfo
     14147808
   )
   container.face.localprops = [fal_image]
-  container.face.dummy = 0
   container.bounds = (
     0
     0
-    360
-    273
+    581
+    356
   )
   caption = 'MSEide+MSEgui Button Demo'
   moduleclassname = 'tmainform'
@@ -107,17 +101,17 @@ object mainfo: tmainfo
     frame.caption = 'RichButton A'
     frame.captionpos = cp_right
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom, frl_optionsskin]
-    frame.dummy = 0
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      73
+      83
       0
     )
     taborder = 1
     bounds_x = 24
     bounds_y = 16
-    bounds_cx = 123
+    bounds_cx = 133
     bounds_cy = 50
     state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolor, as_localonexecute]
     caption = 'A'
@@ -126,7 +120,7 @@ object mainfo: tmainfo
     font.height = 20
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_shadow_color, flp_xscale, flp_height]
     imagelist = backgroundimagelist
     imagenr = 0
     imagenrmouse = 1
@@ -144,17 +138,17 @@ object mainfo: tmainfo
     frame.caption = 'DataButton A'
     frame.captionpos = cp_right
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom, frl_optionsskin]
-    frame.dummy = 0
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      74
+      87
       0
     )
     taborder = 2
     bounds_x = 24
     bounds_y = 66
-    bounds_cx = 124
+    bounds_cx = 137
     bounds_cy = 50
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_ellipsemouse]
     state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolor]
@@ -168,7 +162,7 @@ object mainfo: tmainfo
     font.height = 20
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_shadow_color, flp_xscale, flp_height]
     caption = 'A'
     imagelist = backgroundimagelist
     imageoffsetmouse = 1
@@ -193,17 +187,17 @@ object mainfo: tmainfo
     frame.caption = 'DataButton B'
     frame.captionpos = cp_right
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom, frl_optionsskin]
-    frame.dummy = 0
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      75
+      87
       0
     )
     taborder = 4
     bounds_x = 24
     bounds_y = 166
-    bounds_cx = 125
+    bounds_cx = 137
     bounds_cy = 50
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_ellipsemouse]
     state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolor]
@@ -217,7 +211,7 @@ object mainfo: tmainfo
     font.height = 20
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_shadow_color, flp_xscale, flp_height]
     caption = 'B'
     imagelist = backgroundimagelist
     imageoffsetmouse = 1
@@ -242,17 +236,17 @@ object mainfo: tmainfo
     frame.caption = 'RichButton B'
     frame.captionpos = cp_right
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom, frl_optionsskin]
-    frame.dummy = 0
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      74
+      83
       0
     )
     taborder = 3
     bounds_x = 24
     bounds_y = 116
-    bounds_cx = 124
+    bounds_cx = 133
     bounds_cy = 50
     state = [as_localcaption, as_localimagelist, as_localimagenr, as_localcolor, as_localonexecute]
     caption = 'B'
@@ -261,7 +255,7 @@ object mainfo: tmainfo
     font.height = 20
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_shadow_color, flp_xscale, flp_height]
     imagelist = backgroundimagelist
     imagenr = 0
     imagenrmouse = 1
@@ -273,17 +267,18 @@ object mainfo: tmainfo
     color = -2147483645
     frame.caption = 'Value DataButton A'
     frame.captionpos = cp_right
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      108
+      126
       0
     )
     taborder = 7
     bounds_x = 184
     bounds_y = 82
-    bounds_cx = 144
+    bounds_cx = 162
     bounds_cy = 18
     textflags = [tf_xcentered, tf_right, tf_ycentered]
     reffontheight = 14
@@ -292,17 +287,18 @@ object mainfo: tmainfo
     color = -2147483645
     frame.caption = 'Value DataButton B'
     frame.captionpos = cp_right
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      109
+      126
       0
     )
     taborder = 8
     bounds_x = 184
     bounds_y = 182
-    bounds_cx = 145
+    bounds_cx = 162
     bounds_cy = 18
     textflags = [tf_xcentered, tf_right, tf_ycentered]
     reffontheight = 14
@@ -326,11 +322,11 @@ object mainfo: tmainfo
     frame.colorclient = -2147483645
     frame.caption = 'Semi-transparent Edit Widget'
     frame.localprops = [frl_levelo, frl_leveli, frl_fileft, frl_firight, frl_colorclient]
-    frame.dummy = 0
+    frame.localprops1 = []
     frame.outerframe = (
       0
       17
-      3
+      26
       0
     )
     face.fade_pos.count = 2
@@ -344,24 +340,23 @@ object mainfo: tmainfo
       -1610612730
     )
     face.fade_direction = gd_down
-    face.fade_transparency = 11579568
-    face.localprops = [fal_fadirection, fal_fatransparency]
-    face.dummy = 0
+    face.fade_opacity = 5197647
+    face.localprops = [fal_fadirection, fal_faopacity]
     taborder = 6
     bounds_x = 184
     bounds_y = 109
-    bounds_cx = 163
-    bounds_cy = 45
+    bounds_cx = 186
+    bounds_cy = 47
     font.color = 14052096
     font.shadow_color = -1610612733
     font.gloss_color = -1610612730
     font.height = 20
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_shadow_color, flp_gloss_color, flp_xscale, flp_height]
     textflagsactive = [tf_ycentered, tf_underlineselect]
     value = 'Edit Text'
-    reffontheight = 22
+    reffontheight = 24
   end
   object tbutton2: tbutton
     color = -2147483645
@@ -371,25 +366,22 @@ object mainfo: tmainfo
     frame.framei_bottom = 7
     frame.frameface_list = tfacelist1
     frame.frameface_offsetmouse = 1
-    frame.frameface_offsetclicked = 2
-    frame.frameface_offsetactivemouse = 1
-    frame.frameface_offsetactiveclicked = 2
+    frame.frameface_offsetclicked = 1
     frame.optionsskin = [fso_flat, fso_noanim, fso_nodefaultrect, fso_noinnerrect]
     frame.caption = 'Button with FaceList'
     frame.captionpos = cp_right
     frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom, frl_optionsskin]
-    frame.localprops1 = [frl1_framefacelist, frl1_framefaceoffsetmouse, frl1_framefaceoffsetclicked, frl1_framefaceoffsetactivemouse, frl1_framefaceoffsetactiveclicked]
-    frame.dummy = 0
+    frame.localprops1 = [frl1_framefacelist, frl1_framefaceoffsetmouse, frl1_framefaceoffsetclicked]
     frame.outerframe = (
       0
       0
-      113
+      129
       0
     )
     taborder = 5
     bounds_x = 24
     bounds_y = 216
-    bounds_cx = 163
+    bounds_cx = 179
     bounds_cy = 50
     state = [as_localimagelist, as_localimagenr, as_localcolor, as_localonexecute]
     imagelist = foregroundimagelist
@@ -400,7 +392,7 @@ object mainfo: tmainfo
   object backgroundimagelist: timagelist
     width = 50
     height = 50
-    colormask = True
+    options = [bmo_masked, bmo_colormask]
     count = 6
     left = 184
     top = 40
@@ -3572,7 +3564,6 @@ object mainfo: tmainfo
           05050501080808010A0A0A020808080105050501030303010101010100000014
         }
         localprops = [fal_image]
-        dummy = 0
       end    
       item
         image.transparentcolor = -2147483642
@@ -3998,7 +3989,6 @@ object mainfo: tmainfo
           05050501080808010A0A0A020808080105050501030303010101010100000014
         }
         localprops = [fal_image]
-        dummy = 0
       end    
       item
         image.transparentcolor = -2147483642
@@ -4436,7 +4426,6 @@ object mainfo: tmainfo
           0A0A0A020808080105050501030303010101010100000014
         }
         localprops = [fal_image]
-        dummy = 0
       end>
     left = 200
     top = 216
@@ -4444,7 +4433,7 @@ object mainfo: tmainfo
   object foregroundimagelist: timagelist
     width = 24
     height = 24
-    colormask = True
+    options = [bmo_masked, bmo_colormask]
     count = 1
     left = 200
     top = 240
