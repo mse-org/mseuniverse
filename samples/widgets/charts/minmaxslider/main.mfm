@@ -1,0 +1,178 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 280
+  bounds_y = 247
+  bounds_cx = 364
+  bounds_cy = 121
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    364
+    121
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object value1disp: trealdisp
+    frame.caption = 'Stop'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      32
+      0
+      0
+      0
+    )
+    bounds_x = 128
+    bounds_y = 80
+    bounds_cy = 18
+    valuerange = 1
+    valuestart = 0
+    format = '0.0000'
+    value = 1
+    reffontheight = 14
+  end
+  object value0disp: trealdisp
+    frame.caption = 'Start'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      34
+      0
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 14
+    bounds_y = 80
+    bounds_cx = 102
+    bounds_cy = 18
+    valuerange = 1
+    valuestart = 0
+    format = '0.0000'
+    value = 0
+    reffontheight = 14
+  end
+  object txychartedit1: txychartedit
+    frame.levelo = -1
+    frame.leveli = 1
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.localprops1 = []
+    face.fade_pos.count = 2
+    face.fade_pos.items = (
+      0
+      1
+    )
+    face.fade_color.count = 2
+    face.fade_color.items = (
+      14277081
+      9539985
+    )
+    face.fade_direction = gd_down
+    face.localprops = [fal_fadirection]
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 16
+    bounds_cx = 346
+    bounds_cy = 50
+    anchors = [an_left, an_top, an_right]
+    traces.count = 1
+    traces.xserstart = 0
+    traces.xstart = 0
+    traces.ystart = 0
+    traces.xrange = 1
+    traces.xserrange = 1
+    traces.yrange = 1
+    traces.image_widthmm = 0
+    traces.image_heighthmm = 0
+    traces.legend_x = 0
+    traces.legend_y = 0
+    traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 1
+        ystart = 0
+      end>
+    facechart.fade_pos.count = 2
+    facechart.fade_pos.items = (
+      0
+      1
+    )
+    facechart.fade_color.count = 2
+    facechart.fade_color.items = (
+      15592941
+      11579568
+    )
+    facechart.fade_direction = gd_left
+    facechart.localprops = [fal_fadirection]
+    xstart = 0
+    ystart = 0
+    xrange = 1
+    yrange = 1
+    xdials.count = 1
+    xdials.start = 0
+    xdials.range = 1
+    xdials.items = <    
+      item
+        widthmm = 0.3
+        start = 0
+        range = 1
+        markers.count = 2
+        markers.items = <        
+          item
+            color = -1610612728
+            widthmm = 1
+            caption = '0.00'
+            captiondist = 0
+            captionoffset = -15
+            escapement = 0
+            value = 0
+            options = [dmo_savevalue]
+          end        
+          item
+            color = -1610612729
+            widthmm = 1
+            caption = '0.00'
+            captiondist = 0
+            captionoffset = 15
+            escapement = 0
+            value = 1
+            options = [dmo_savevalue]
+          end>
+        ticks.count = 1
+        ticks.items = <        
+          item
+            widthmm = 0
+            caption = '0.0'
+            captiondist = 0
+            escapement = 0
+            intervalcount = 10
+            options = [dto_opposite]
+          end>
+      end>
+    ydials.start = 0
+    ydials.range = 1
+    fitframe_left = 34
+    fitframe_top = 14
+    fitframe_right = 34
+    fitframe_bottom = 14
+    statfile = tstatfile1
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    options = [ceo_markerthumbtrack]
+    optionschart = [oca_autofittop, oca_autofitbottom]
+    onsetmarker = setmarkerexe
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 240
+    top = 80
+  end
+end
