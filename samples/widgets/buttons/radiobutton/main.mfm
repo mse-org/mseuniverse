@@ -1,0 +1,236 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 255
+  bounds_cy = 251
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    255
+    251
+  )
+  statfile = tstatfile1
+  moduleclassname = 'tmainform'
+  object tdatabutton1: tdatabutton
+    bounds_x = 16
+    bounds_y = 16
+    bounds_cx = 50
+    bounds_cy = 20
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+    valuefaces.count = 1
+    valuefaces.items = <    
+      item
+        fade_pos.count = 1
+        fade_pos.items = (
+          0
+        )
+        fade_color.count = 1
+        fade_color.items = (
+          -1610612729
+        )
+        localprops = []
+      end>
+  end
+  object tdatabutton2: tdatabutton
+    taborder = 1
+    bounds_x = 16
+    bounds_y = 16
+    bounds_cx = 50
+    bounds_cy = 20
+    statfile = tstatfile1
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+    valuefaces.count = 1
+    valuefaces.items = <    
+      item
+        fade_pos.count = 1
+        fade_pos.items = (
+          0
+        )
+        fade_color.count = 1
+        fade_color.items = (
+          -1610612729
+        )
+        localprops = []
+      end>
+  end
+  object tdatabutton3: tdatabutton
+    taborder = 2
+    bounds_x = 72
+    bounds_y = 16
+    bounds_cx = 50
+    bounds_cy = 20
+    statfile = tstatfile1
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+    valuefaces.count = 1
+    valuefaces.items = <    
+      item
+        fade_pos.count = 1
+        fade_pos.items = (
+          0
+        )
+        fade_color.count = 1
+        fade_color.items = (
+          -1610612729
+        )
+        localprops = []
+      end>
+  end
+  object tdatabutton4: tdatabutton
+    taborder = 3
+    bounds_x = 128
+    bounds_y = 16
+    bounds_cx = 50
+    bounds_cy = 20
+    statfile = tstatfile1
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+    valuefaces.count = 1
+    valuefaces.items = <    
+      item
+        fade_pos.count = 1
+        fade_pos.items = (
+          0
+        )
+        fade_color.count = 1
+        fade_color.items = (
+          -1610612729
+        )
+        localprops = []
+      end>
+  end
+  object tdatabutton5: tdatabutton
+    taborder = 4
+    bounds_x = 184
+    bounds_y = 16
+    bounds_cx = 50
+    bounds_cy = 20
+    statfile = tstatfile1
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+    valuefaces.count = 1
+    valuefaces.items = <    
+      item
+        fade_pos.count = 1
+        fade_pos.items = (
+          0
+        )
+        fade_color.count = 1
+        fade_color.items = (
+          -1610612729
+        )
+        localprops = []
+      end>
+  end
+  object twidgetgrid1: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 5
+    bounds_x = 16
+    bounds_y = 56
+    bounds_cx = 218
+    bounds_cy = 170
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_appendempty, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    rowcount = 5
+    datacols.count = 2
+    datacols.items = <    
+      item[tstringedit1]
+        width = 183
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tstringedit1'
+        dataclass = tgridmsestringdatalist
+        data = (
+          (
+            ''
+            ''
+            ''
+            ''
+            ''
+          )
+        )
+      end    
+      item[tdatabutton6]
+        color = -2147483646
+        width = 29
+        widgetname = 'tdatabutton6'
+        dataclass = tgridintegerdatalist
+        data = (
+          (
+            -1
+            -1
+            -1
+            -1
+            -1
+          )
+        )
+      end>
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+    object tstringedit1: tstringedit
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 183
+      bounds_cy = 16
+      reffontheight = 14
+    end
+    object tdatabutton6: tdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      bounds_x = 184
+      bounds_y = 0
+      bounds_cx = 29
+      bounds_cy = 16
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitemcol, bo_cantoggle]
+      state = [as_invisible, as_localinvisible]
+      valuefaces.count = 2
+      valuefaces.items = <      
+        item
+          fade_pos.count = 1
+          fade_pos.items = (
+            0
+          )
+          fade_color.count = 1
+          fade_color.items = (
+            -1610612729
+          )
+          localprops = []
+        end      
+        item
+          fade_pos.count = 3
+          fade_pos.items = (
+            0
+            0.5
+            1
+          )
+          fade_color.count = 3
+          fade_color.items = (
+            -1610612729
+            -1610612724
+            -1610612729
+          )
+          fade_direction = gd_up
+          localprops = [fal_fadirection]
+        end>
+      valuecaptions.count = 2
+      valuecaptions.items = (
+        'a'
+        'A'
+      )
+      max = 1
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 64
+    top = 184
+  end
+end
