@@ -351,7 +351,6 @@ inherited chartoptionsfo: tchartoptionsfo
       ondataentered = datamodifiedexe
       value = -1610612734
       valuedefault = -1610612734
-      dropdown.options = [deo_autodropdown, deo_keydropdown]
       reffontheight = 14
     end
     object tracesymbol: tenumedit
@@ -438,11 +437,9 @@ inherited chartoptionsfo: tchartoptionsfo
             item
             end          
             item
-              hint = ''
             end          
             item
               caption = 'left'
-              hint = 'Sub division count'
             end          
             item
             end          
@@ -584,11 +581,9 @@ inherited chartoptionsfo: tchartoptionsfo
             item
             end          
             item
-              hint = ''
             end          
             item
               caption = 'top'
-              hint = 'Sub division count'
             end          
             item
             end          

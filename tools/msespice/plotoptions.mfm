@@ -9,6 +9,8 @@ object plotoptionsfo: tplotoptionsfo
   bounds_cy = 50
   bounds_cxmin = 50
   bounds_cymin = 50
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
