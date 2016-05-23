@@ -1,0 +1,40 @@
+object popupfo: tpopupfo
+  color = -1879048180
+  frame.levelo = 1
+  frame.localprops = [frl_levelo]
+  frame.localprops1 = []
+  visible = False
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 233
+  bounds_cy = 88
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    1
+    1
+    231
+    86
+  )
+  optionswindow = [wo_popup]
+  onapplicationevent = applicationev
+  moduleclassname = 'tmseform'
+  object tslider1: tslider
+    color = -1879048187
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 16
+    bounds_y = 16
+    value = 0
+  end
+  object tstringedit1: tstringedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 16
+    bounds_y = 48
+    bounds_cx = 201
+    ondataentered = dataenteredev
+    reffontheight = 14
+  end
+end
