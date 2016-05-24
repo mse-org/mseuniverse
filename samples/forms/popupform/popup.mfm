@@ -17,6 +17,7 @@ object popupfo: tpopupfo
     86
   )
   optionswindow = [wo_popup]
+  onapplicationactivechanged = applicationactivechangedev
   onapplicationevent = applicationev
   moduleclassname = 'tmseform'
   object tslider1: tslider

@@ -13,6 +13,7 @@ type
    procedure applicationev(const sender: tactcomponent; var aevent: tmseevent;
                    var handled: Boolean);
    procedure dataenteredev(const sender: TObject);
+   procedure applicationactivechangedev(const avalue: Boolean);
   protected
    frefpos: pointty;
    fplacementrect: rectty;
@@ -87,6 +88,11 @@ end;
 procedure tpopupfo.dataenteredev(const sender: TObject);
 begin
  release();
+end;
+
+procedure tpopupfo.applicationactivechangedev(const avalue: Boolean);
+begin
+ visible:= avalue;
 end;
 
 end.
