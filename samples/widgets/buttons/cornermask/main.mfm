@@ -2,7 +2,7 @@ object mainfo: tmainfo
   bounds_x = 291
   bounds_y = 247
   bounds_cx = 329
-  bounds_cy = 280
+  bounds_cy = 266
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.face.fade_pos.count = 2
@@ -20,7 +20,7 @@ object mainfo: tmainfo
     0
     0
     329
-    280
+    266
   )
   caption = 'MSEide+MSEgui'
   moduleclassname = 'tmainform'
