@@ -1,0 +1,121 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 274
+  bounds_cy = 182
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    274
+    182
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object grid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 274
+    bounds_cy = 142
+    anchors = [an_top, an_bottom]
+    optionsgrid = [og_focuscellonenter, og_autofirstrow, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        captions.data = (
+          'Col1'
+          'Col2'
+          'Col3'
+          'Col4'
+          'Col5'
+        )
+      end>
+    rowcount = 5
+    datacols.count = 2
+    datacols.items = <    
+      item[colorname]
+        color = -1879048187
+        width = 68
+        options = [co_readonly, co_nofocus, co_nohscroll, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'colorname'
+        dataclass = tgridmsestringdatalist
+        data = (
+          (
+            'Color1'
+            'Color2'
+            'Color3'
+            'Color4'
+            'Color5'
+          )
+        )
+      end    
+      item[colored]
+        width = 125
+        widgetname = 'colored'
+        dataclass = tgridenumdatalist
+        data = (
+          (
+            -2147483647
+            -2147483647
+            -2147483647
+            -2147483647
+            -2147483647
+          )
+        )
+      end>
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+    object colored: tcoloredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.button.color = -1879048187
+      frame.buttonellipse.color = -1879048187
+      frame.buttonellipse.imagenr = 17
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 125
+      bounds_cy = 16
+      value = -2147483647
+      valuedefault = -2147483647
+      reffontheight = 14
+    end
+    object colorname: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      visible = False
+      bounds_x = 51
+      bounds_y = 0
+      bounds_cx = 68
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+      reffontheight = 14
+    end
+  end
+  object tbutton1: tbutton
+    taborder = 1
+    bounds_x = 208
+    bounds_y = 152
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Reset'
+    onexecute = resetev
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 80
+    top = 104
+  end
+end
