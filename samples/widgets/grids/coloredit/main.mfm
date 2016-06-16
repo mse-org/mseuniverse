@@ -115,7 +115,7 @@ object mainfo: tmainfo
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
-    left = 80
+    left = 72
     top = 104
   end
 end
