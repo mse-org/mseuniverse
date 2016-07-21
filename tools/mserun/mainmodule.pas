@@ -50,7 +50,7 @@ type
   public
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
-   procedure valuechange(); override;
+   procedure valuechange(const delta: nodestatesty = []); override;
    procedure assign(const source: ttestnode); virtual;
    procedure getdefaults();
    procedure number(var alast: integer); virtual;
@@ -526,7 +526,7 @@ begin
  result:= 0;
 end;
 
-procedure ttestnode.valuechange;
+procedure ttestnode.valuechange(const delta: nodestatesty = []);
 begin
  inherited;
  updateparentteststate();

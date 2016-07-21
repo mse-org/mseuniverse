@@ -268,6 +268,9 @@ object mainfo: tmainfo
     end
   end
   object tlayouter1: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    face.localprops = []
+    face.template = guitemplatesmo.fadevertkonvex
     taborder = 1
     bounds_x = 0
     bounds_y = 0
@@ -275,12 +278,11 @@ object mainfo: tmainfo
     bounds_cy = 20
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    linkbottom = grid
     optionslayout = [lao_aligny]
     align_glue = wam_start
+    linkbottom = grid
     object tmainmenuwidget1: tmainmenuwidget
-      face.localprops = []
-      face.template = guitemplatesmo.fadevertconcave
+      optionsskin = [osk_noclientsize]
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 288
@@ -388,7 +390,7 @@ object mainfo: tmainfo
         0
       )
       taborder = 2
-      bounds_x = 301
+      bounds_x = 298
       bounds_y = 1
       bounds_cx = 89
       bounds_cy = 18
@@ -398,7 +400,7 @@ object mainfo: tmainfo
     end
     object tspacer2: tspacer
       taborder = 3
-      bounds_x = 390
+      bounds_x = 387
       bounds_y = 5
       bounds_cx = 10
       bounds_cy = 10
@@ -538,6 +540,8 @@ object mainfo: tmainfo
     template.levelo = -1
     template.leveli = 1
     template.frameface_list = menuitemface
+    template.clientsizeextend_cx = 0
+    template.clientsizeextend_cy = 0
     left = 168
     top = 72
   end
