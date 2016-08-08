@@ -31,7 +31,7 @@ inherited tagsfo: ttagsfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 18
         captions.count = 5
         captions.items = <        
           item
@@ -100,13 +100,12 @@ inherited tagsfo: ttagsfo
         widgetname = 'committered'
         dataclass = tgridmsestringdatalist
       end>
-    datarowheight = 16
+    datarowheight = 18
     statfile = mainfo.formsta
     oncellevent = celleventexe
     onsort = sortexe
-    reffontheight = 14
+    reffontheight = 16
     object treeed: ttreeitemedit
-      optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645
@@ -117,11 +116,11 @@ inherited tagsfo: ttagsfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 159
-      bounds_cy = 16
+      bounds_cy = 18
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       onupdaterowvalues = updaterowvaluesexe
-      reffontheight = 14
+      reffontheight = 16
     end
     object messageed: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -131,10 +130,10 @@ inherited tagsfo: ttagsfo
       bounds_x = 160
       bounds_y = 0
       bounds_cx = 217
-      bounds_cy = 16
+      bounds_cy = 18
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      reffontheight = 14
+      reffontheight = 16
     end
     object commited: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -144,13 +143,13 @@ inherited tagsfo: ttagsfo
       bounds_x = 378
       bounds_y = 0
       bounds_cx = 88
-      bounds_cy = 16
+      bounds_cy = 18
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_homeonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       font.name = 'fo_sha'
       font.xscale = 1
       font.localprops = [flp_xscale]
-      reffontheight = 14
+      reffontheight = 16
     end
     object commitdateed: tdatetimeedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -160,7 +159,7 @@ inherited tagsfo: ttagsfo
       bounds_x = 467
       bounds_y = 0
       bounds_cx = 124
-      bounds_cy = 16
+      bounds_cy = 18
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       textflags = [tf_ycentered, tf_noselect]
@@ -171,7 +170,7 @@ inherited tagsfo: ttagsfo
       min = -Inf
       max = 401768.99999
       kind = dtk_datetime
-      reffontheight = 14
+      reffontheight = 16
     end
     object committered: tstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -181,10 +180,10 @@ inherited tagsfo: ttagsfo
       bounds_x = 592
       bounds_y = 0
       bounds_cx = 103
-      bounds_cy = 16
+      bounds_cy = 18
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      reffontheight = 14
+      reffontheight = 16
     end
   end
   inherited repoloadedact: taction[1]
