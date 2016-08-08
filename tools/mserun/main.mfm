@@ -107,7 +107,7 @@ object mainfo: tmainfo
         face.localprops = []
         face.template = guitemplatesmo.fadevertkonvex
         width = 26
-        options = [co_drawfocus, co_fixwidth, co_nohscroll, co_savestate, co_mousescrollrow]
+        options = [co_fixwidth, co_nohscroll, co_savestate, co_mousescrollrow]
         options1 = [co1_rowfont, co1_zebracolor, co1_rowcoloractive, co1_rowcolorfocused, co1_rowreadonly]
         widgetname = 'editbu'
         dataclass = tgridintegerdatalist

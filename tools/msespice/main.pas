@@ -25,7 +25,7 @@ uses
  dockform,msebitmap,msesplitter,msedispwidgets,mserichstring;
 
 const
- versiontext = '2.0.4';
+ versiontext = '2.0.6';
 type
  messagetextkindty = (mtk_info,mtk_running,mtk_finished,mtk_error,mtk_signal);
 

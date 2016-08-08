@@ -27,7 +27,7 @@ uses
  mainmodule,msesimplewidgets;
 
 const
- versiontext = '1.4.4';
+ versiontext = '1.4.6';
 
 type
  tmainfo = class(tmainform)
