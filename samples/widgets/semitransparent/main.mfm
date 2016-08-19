@@ -1,0 +1,64 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 317
+  bounds_cy = 198
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    317
+    198
+  )
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 96
+    bounds_y = 56
+    bounds_cx = 122
+    bounds_cy = 84
+    state = [as_localcaption]
+    caption = 'BUTTON'
+    font.color = -1610612723
+    font.shadow_color = 6029312
+    font.height = 24
+    font.style = [fs_bold]
+    font.name = 'stf_default'
+    font.localprops = [flp_color, flp_shadow_color, flp_gloss_color, flp_style, flp_height]
+  end
+  object fader: texpandingwidget
+    color = -2147483645
+    face.options = [fao_alphafadeall]
+    face.fade_pos.count = 4
+    face.fade_pos.items = (
+      0
+      0.1792828685259
+      0.30677290836653
+      1
+    )
+    face.fade_color.count = 4
+    face.fade_color.items = (
+      16777215
+      16645629
+      11119017
+      3881787
+    )
+    face.localprops = [fal_options, fal_fadirection]
+    taborder = 1
+    bounds_x = 72
+    bounds_y = 80
+    bounds_cx = 164
+    bounds_cy = 20
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    object tstringedit1: tstringedit
+      frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 164
+      value = 'Edit Widget with fade......'
+      reffontheight = 14
+    end
+  end
+end
