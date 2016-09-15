@@ -1,0 +1,699 @@
+object mainfo: tmainfo
+  bounds_x = 79
+  bounds_y = 231
+  bounds_cx = 851
+  bounds_cy = 635
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    851
+    635
+  )
+  statfile = tstatfile1
+  oncreate = createev
+  moduleclassname = 'tmainform'
+  object tbooleanedit1: tbooleanedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 48
+    onsetvalue = connsetev
+  end
+  object tdbstringgrid1: tdbstringgrid
+    frame.sbvert.pagesize = 1
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 80
+    bounds_cx = 826
+    bounds_cy = 210
+    anchors = [an_left, an_top, an_right]
+    options = [dsgo_autofields]
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 3
+    datacols.items = <    
+      item
+        width = 80
+        datafield = 'PK'
+        textflags = [tf_right, tf_ycentered, tf_noselect]
+      end    
+      item
+        width = 160
+        datafield = 'STR1'
+      end    
+      item
+        width = 80
+        datafield = 'TEXTBLOB'
+      end>
+    datalink.datasource = dataso
+    datalink.navigator = tdbnavigator1
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'PK'
+          end        
+          item
+            caption = 'STR1'
+          end        
+          item
+            caption = 'TEXTBLOB'
+          end>
+      end>
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object tdbnavigator1: tdbnavigator
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 4
+    bounds_x = 208
+    bounds_y = 40
+    bounds_cx = 272
+    datasource = dataso
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit]
+    dialogbutton.imagenr = 17
+    dialogbutton.hint = 'Dialog'
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+  end
+  object tdatetimeedit1: tdatetimeedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 5
+    bounds_x = 336
+    bounds_y = 8
+    value = -Inf
+    valuedefault = -Inf
+    min = -Inf
+    max = 401768.99999
+    reffontheight = 14
+  end
+  object tbooleanedit2: tbooleanedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 40
+    bounds_y = 48
+    onsetvalue = ressetev
+  end
+  object tbooleanedit3: tbooleanedit
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 160
+    bounds_y = 48
+    onsetvalue = querysetev
+  end
+  object tdbstringedit1: tdbstringedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 6
+    bounds_x = 8
+    bounds_y = 296
+    datalink.fieldname = 'bytes7'
+    reffontheight = 14
+  end
+  object tdbstringedit2: tdbstringedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 7
+    bounds_x = 112
+    bounds_y = 296
+    datalink.fieldname = 'varbytes10'
+    reffontheight = 14
+  end
+  object tdbstringedit3: tdbstringedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 8
+    bounds_x = 216
+    bounds_y = 296
+    bounds_cx = 164
+    datalink.fieldname = 'guid1'
+    reffontheight = 14
+  end
+  object bu1: tbutton
+    taborder = 9
+    bounds_x = 16
+    bounds_y = 360
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'event1'
+    onexecute = fireexe
+  end
+  object bu2: tbutton
+    taborder = 10
+    bounds_x = 72
+    bounds_y = 360
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'event2'
+    onexecute = fireexe
+  end
+  object bu3: tbutton
+    taborder = 11
+    bounds_x = 128
+    bounds_y = 360
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'event3'
+    onexecute = fireexe
+  end
+  object bu4: tbutton
+    taborder = 12
+    bounds_x = 184
+    bounds_y = 360
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'event4'
+    onexecute = fireexe
+  end
+  object tintegerdisp1: tintegerdisp
+    Tag = 1
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 13
+    bounds_x = 16
+    bounds_y = 392
+    bounds_cx = 52
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object tbutton5: tbutton
+    taborder = 14
+    bounds_x = 296
+    bounds_y = 360
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'commit'
+    onexecute = commitexe
+  end
+  object tintegerdisp2: tintegerdisp
+    Tag = 2
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 15
+    bounds_x = 72
+    bounds_y = 392
+    bounds_cx = 52
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object tintegerdisp3: tintegerdisp
+    Tag = 3
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 16
+    bounds_x = 128
+    bounds_y = 392
+    bounds_cx = 52
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object tintegerdisp4: tintegerdisp
+    Tag = 4
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 17
+    bounds_x = 184
+    bounds_y = 392
+    bounds_cx = 52
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object tbooleanedit4: tbooleanedit
+    Tag = 1
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 18
+    bounds_x = 32
+    bounds_y = 344
+    onsetvalue = setevenaev
+  end
+  object tbooleanedit5: tbooleanedit
+    Tag = 2
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 19
+    bounds_x = 88
+    bounds_y = 344
+    onsetvalue = setevenaev
+  end
+  object tbooleanedit6: tbooleanedit
+    Tag = 3
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 20
+    bounds_x = 144
+    bounds_y = 344
+    onsetvalue = setevenaev
+  end
+  object tbooleanedit7: tbooleanedit
+    Tag = 4
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 21
+    bounds_x = 200
+    bounds_y = 344
+    onsetvalue = setevenaev
+  end
+  object tbutton1: tbutton
+    Tag = 1
+    taborder = 22
+    bounds_x = 16
+    bounds_y = 424
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localonexecute]
+    onexecute = fire2exe
+  end
+  object tbutton2: tbutton
+    Tag = 2
+    taborder = 23
+    bounds_x = 72
+    bounds_y = 424
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localonexecute]
+    onexecute = fire2exe
+  end
+  object tbutton3: tbutton
+    Tag = 3
+    taborder = 24
+    bounds_x = 128
+    bounds_y = 424
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localonexecute]
+    onexecute = fire2exe
+  end
+  object tbutton4: tbutton
+    Tag = 4
+    taborder = 25
+    bounds_x = 184
+    bounds_y = 424
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localonexecute]
+    onexecute = fire2exe
+  end
+  object tbutton6: tbutton
+    taborder = 26
+    bounds_x = 104
+    bounds_y = 48
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'sqlres'
+    onexecute = sqlresexe
+  end
+  object memodi: tstringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 27
+    bounds_x = 16
+    bounds_y = 448
+    bounds_cy = 114
+    textflags = [tf_ycentered, tf_wordbreak]
+    reffontheight = 14
+  end
+  object versiondi: tstringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 28
+    bounds_x = 120
+    bounds_y = 448
+    bounds_cx = 716
+    bounds_cy = 162
+    textflags = [tf_wordbreak]
+    reffontheight = 14
+  end
+  object maivers: tintegerdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 29
+    bounds_x = 280
+    bounds_y = 424
+    bounds_cx = 60
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object minvers: tintegerdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 30
+    bounds_x = 344
+    bounds_y = 424
+    bounds_cx = 52
+    bounds_cy = 18
+    reffontheight = 14
+  end
+  object tbooleanedit8: tbooleanedit
+    frame.caption = 'returning'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      61
+      2
+    )
+    taborder = 31
+    bounds_x = 480
+    bounds_y = 7
+    bounds_cx = 74
+    bounds_cy = 16
+    onsetvalue = returningev
+  end
+  object tdbintegerdisp1: tdbintegerdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 32
+    bounds_x = 584
+    bounds_y = 8
+    bounds_cy = 18
+    datalink.datasource = datso2
+    datalink.fieldname = 'pk'
+    reffontheight = 14
+  end
+  object conn: tmseibconnection
+    DatabaseName = '/db/firebird_3_0/test.fdb'
+    onafterconnect = connev
+    Password = 'masterkey'
+    Transaction = trans
+    UserName = 'SYSDBA'
+    HostName = 'localhost/3051'
+    controller.options = [dbo_bcdtofloatif]
+    Dialect = 3
+    left = 8
+    top = 8
+  end
+  object trans: tmsesqltransaction
+    Database = conn
+    left = 72
+    top = 8
+  end
+  object query: tmsesqlquery
+    params = <>
+    SQL.data = (
+      'select pk,str1,textblob,bytes7,varbytes10,guid1 from table1;'
+    )
+    IndexDefs = <    
+      item
+        Name = 'PK_TABLE1_1'
+      end>
+    tablename = 'table1'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'STR1'
+        DataType = ftString
+        Precision = -1
+        Size = 20
+      end    
+      item
+        Name = 'TEXTBLOB'
+        DataType = ftMemo
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'BYTES7'
+        DataType = ftBytes
+        Precision = -1
+        Size = 7
+      end    
+      item
+        Name = 'VARBYTES10'
+        DataType = ftVarBytes
+        Precision = -1
+        Size = 10
+      end    
+      item
+        Name = 'GUID1'
+        DataType = ftBytes
+        Precision = -1
+        Size = 16
+      end>
+    controller.fields.count = 2
+    controller.fields.fields = (
+      (
+        ft_largeint
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'PK'
+          Index = 0
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          DisplayWidth = 20
+          FieldName = 'STR1'
+          Index = 1
+          Size = 0
+        end>
+    )
+    left = 144
+    top = 8
+  end
+  object blobf: tmsememofield
+    DisplayWidth = 10
+    FieldName = 'TEXTBLOB'
+    Index = -1
+    BlobType = ftBlob
+    Transliterate = False
+    left = 168
+    top = 136
+  end
+  object binblob: tmsegraphicfield
+    DisplayWidth = 10
+    FieldName = 'BINBLOB'
+    Index = -1
+    BlobType = ftBlob
+    cachekb = 100000
+    left = 248
+    top = 136
+  end
+  object dataso: tmsedatasource
+    DataSet = query
+    left = 224
+    top = 8
+  end
+  object sqlres: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'INT1'
+        DataType = ftInteger
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'STR1'
+        DataType = ftString
+        Precision = -1
+        Size = 20
+      end    
+      item
+        Name = 'BO1'
+        DataType = ftUnknown
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TEXTBLOB'
+        DataType = ftMemo
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'BINBLOB'
+        DataType = ftBlob
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'FLO1'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DO1'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TI1'
+        DataType = ftTime
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'DA1'
+        DataType = ftDate
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'TS1'
+        DataType = ftDateTime
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'BCD1'
+        DataType = ftBCD
+        Precision = 18
+        Size = 3
+      end    
+      item
+        Name = 'BCD2'
+        DataType = ftFloat
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'AR1'
+        DataType = ftArray
+        Precision = -1
+        Size = 0
+      end    
+      item
+        Name = 'BYTES7'
+        DataType = ftBytes
+        Precision = -1
+        Size = 7
+      end    
+      item
+        Name = 'VARBYTES10'
+        DataType = ftVarBytes
+        Precision = -1
+        Size = 10
+      end    
+      item
+        Name = 'GUID1'
+        DataType = ftBytes
+        Precision = -1
+        Size = 16
+      end>
+    params = <>
+    sql.data = (
+      'select * from table1'
+    )
+    database = conn
+    transaction = trans
+    left = 72
+    top = 48
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 64
+    top = 192
+  end
+  object event1: tdbevent
+    Tag = 1
+    database = conn
+    eventname = 'event1'
+    onexecute = eventexe
+    left = 16
+    top = 320
+  end
+  object event2: tdbevent
+    Tag = 2
+    database = conn
+    eventname = 'event2'
+    onexecute = eventexe
+    left = 88
+    top = 320
+  end
+  object event3: tdbevent
+    Tag = 3
+    database = conn
+    eventname = 'event3'
+    onexecute = eventexe
+    left = 160
+    top = 320
+  end
+  object event4: tdbevent
+    Tag = 4
+    database = conn
+    eventname = 'event4'
+    onexecute = eventexe
+    left = 232
+    top = 320
+  end
+  object eventstatement: tsqlstatement
+    params = <>
+    sql.macros.count = 1
+    sql.macros.items = <    
+      item
+        name = 'evname'
+      end>
+    sql.data = (
+      'execute block as begin post_event ''${evname}'' ; end'
+    )
+    transaction = eventtrans
+    left = 312
+    top = 320
+  end
+  object eventtrans: tmsesqltransaction
+    left = 312
+    top = 336
+  end
+  object query2: tmsesqlquery
+    ParseSQL = False
+    params = <>
+    SQL.data = (
+      'insert into table1 (STR1) values (''aabbccdd'') returning pk;'
+    )
+    IndexDefs = <>
+    StatementType = stSelect
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+        Precision = -1
+        Size = 0
+      end>
+    left = 488
+    top = 40
+  end
+  object datso2: tmsedatasource
+    DataSet = query2
+    left = 560
+    top = 40
+  end
+end
