@@ -385,6 +385,38 @@ object mainfo: tmainfo
     datalink.fieldname = 'pk'
     reffontheight = 14
   end
+  object rowsret: tintegerdisp
+    frame.caption = 'rowsreturned'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 33
+    bounds_x = 464
+    bounds_y = 295
+    bounds_cy = 35
+    reffontheight = 14
+  end
+  object rowsaff: tintegerdisp
+    frame.caption = 'rowsaffected'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 34
+    bounds_x = 568
+    bounds_y = 295
+    bounds_cy = 35
+    reffontheight = 14
+  end
   object conn: tmseibconnection
     DatabaseName = '/db/firebird_3_0/test.fdb'
     onafterconnect = connev

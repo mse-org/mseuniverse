@@ -62,6 +62,8 @@ type
    tbooleanedit8: tbooleanedit;
    tdbintegerdisp1: tdbintegerdisp;
    datso2: tmsedatasource;
+   rowsret: tintegerdisp;
+   rowsaff: tintegerdisp;
    procedure connsetev(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure ressetev(const sender: TObject; var avalue: Boolean;
@@ -119,6 +121,7 @@ ms.free;
 }
 //exit;
  db:= tfbconnection.create(self);
+ db.options:= [fbo_sqlinfo];
  db.transaction:= trans;
  db.username:= 'SYSDBA';
  db.password:= 'masterkey';
@@ -153,6 +156,8 @@ begin
    conn.connected:= false;
   end;
  end;
+ rowsaff.value:= query.rowsaffected;
+ rowsret.value:= query.rowsreturned;
 end;
 
 procedure tmainfo.exeev(const sender: TObject);
@@ -240,6 +245,8 @@ procedure tmainfo.returningev(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
  query2.active:= avalue;
+ rowsaff.value:= query2.rowsaffected;
+ rowsret.value:= query2.rowsreturned;
 end;
 
 end.
