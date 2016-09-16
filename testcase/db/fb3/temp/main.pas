@@ -9,7 +9,7 @@ uses
  mseedit,msegrids,mselookupbuffer,msestatfile,msestream,msestrings,msesqlresult,
  msefbconnection,msesimplewidgets,msedbgraphics,msebitmap,msedatanodes,
  msefiledialog,mselistbrowser,msesys,msedbevents,msedispwidgets,mserichstring,
- msedbdispwidgets;
+ msedbdispwidgets,mseact;
 //['{6C7A2561-16E6-4CAC-B4C6-16171480BE1D}']
 type
  tmainfo = class(tmainform)
@@ -64,6 +64,7 @@ type
    datso2: tmsedatasource;
    rowsret: tintegerdisp;
    rowsaff: tintegerdisp;
+   dbname: tfilenameedit;
    procedure connsetev(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure ressetev(const sender: TObject; var avalue: Boolean;
@@ -82,6 +83,8 @@ type
    procedure sqlresexe(const sender: TObject);
    procedure connev(const sender: tmdatabase);
    procedure returningev(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure createsetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
   public
    db: tfbconnection;
@@ -247,6 +250,26 @@ begin
  query2.active:= avalue;
  rowsaff.value:= query2.rowsaffected;
  rowsret.value:= query2.rowsreturned;
+end;
+
+procedure tmainfo.createsetev(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+var
+ str1: string;
+begin
+ str1:= 'create database '+ansistring(
+  encodesqlstring('localhost/3051:'+avalue)+
+              ' user ''SYSDBA'' password ''masterkey''');
+ try
+  if db <> nil then begin
+   db.createdatabase(str1);
+  end
+  else begin
+   conn.createdatabase(str1);
+  end;
+ except
+  application.handleexception();
+ end;
 end;
 
 end.
