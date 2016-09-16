@@ -93,7 +93,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,msefirebird,firebird,mseformatpngread,mclasses;
+ main_mfm,msefirebird,firebird,mseformatpngread,mclasses,msefileutils;
 
 procedure tmainfo.connsetev(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
@@ -128,8 +128,13 @@ ms.free;
  db.transaction:= trans;
  db.username:= 'SYSDBA';
  db.password:= 'masterkey';
+{$ifdef windows}
+ db.hostname:= 'localhost';
+ db.databasename:= 'e:\db\fb3\test.fdb';
+{$else}
  db.hostname:= 'localhost/3051';
  db.databasename:= '/db/firebird_3_0/test.fdb';
+{$endif}
  if dbo_bcdtofloatif in conn.controller.options then begin
   db.controller.options:= db.controller.options + [dbo_bcdtofloatif];
  end;
@@ -257,9 +262,15 @@ procedure tmainfo.createsetev(const sender: TObject; var avalue: msestring;
 var
  str1: string;
 begin
+{$ifdef windows}
+ str1:= 'create database '+ansistring(
+  encodesqlstring('localhost:'+tosysfilepath(avalue))+
+              ' user ''SYSDBA'' password ''masterkey''');
+{$else}
  str1:= 'create database '+ansistring(
   encodesqlstring('localhost/3051:'+avalue)+
               ' user ''SYSDBA'' password ''masterkey''');
+{$endif}
  try
   if db <> nil then begin
    db.createdatabase(str1);

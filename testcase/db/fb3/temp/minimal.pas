@@ -5,9 +5,8 @@ program minimal;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif} 
- msegui,main,ibase60dyn;
+ msegui,main;
 begin
- initializeibase60(['libfbclient.so.3.0.1']);
  application.createform(tmainfo,mainfo);
  application.run;
 end.
