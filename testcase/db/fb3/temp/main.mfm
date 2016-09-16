@@ -34,7 +34,7 @@ object mainfo: tmainfo
     anchors = [an_left, an_top, an_right]
     options = [dsgo_autofields]
     optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-    datacols.count = 3
+    datacols.count = 2
     datacols.items = <    
       item
         width = 80
@@ -44,10 +44,6 @@ object mainfo: tmainfo
       item
         width = 160
         datafield = 'STR1'
-      end    
-      item
-        width = 80
-        datafield = 'TEXTBLOB'
       end>
     datalink.datasource = dataso
     datalink.navigator = tdbnavigator1
@@ -60,16 +56,13 @@ object mainfo: tmainfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 3
+        captions.count = 2
         captions.items = <        
           item
             caption = 'PK'
           end        
           item
             caption = 'STR1'
-          end        
-          item
-            caption = 'TEXTBLOB'
           end>
       end>
     statfile = tstatfile1
@@ -477,6 +470,7 @@ object mainfo: tmainfo
           Size = 0
         end>
     )
+    controller.options = [dso_postsavepoint, dso_autoapply, dso_autocommitret]
     left = 144
     top = 8
   end
