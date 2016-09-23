@@ -21,8 +21,11 @@ program msekicadbom;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif} 
- msegui,main;
+ loadguitemplates,msegui,mainmodule,main,mseclasses;
 begin
+ msebegingloballoading();
+ application.createdatamodule(tmainmo,mainmo);
  application.createform(tmainfo,mainfo);
+ mseendgloballoading();
  application.run;
 end.

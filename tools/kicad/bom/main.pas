@@ -22,44 +22,101 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,msegrids,
  mseificomp,mseificompglob,mseifiglob,mselistbrowser,msestream,msestrings,
- msesys,sysutils,msesimplewidgets,kicadschemaparser;
+ msesys,sysutils,msesimplewidgets,kicadschemaparser,mseifiendpoint,mdb,
+ msedbedit,msegraphedits,mselookupbuffer,msescrollbar;
 
+const
+ maincaption = 'MSEkicadBOM';
+ versiontext = '0.0';
 type
  tmainfo = class(tmainform)
-   tstatfile1: tstatfile;
-   filepath: tfilenameedit;
-   tbutton1: tbutton;
-   procedure parseev(const sender: TObject);
+   mainfosta: tstatfile;
+   mainmen: tmainmenu;
+   getprojectopenfilename: tifiactionendpoint;
+   updateprojectstate: tifiactionendpoint;
+   getprojectsavefilename: tifiactionendpoint;
+   editprojectsettings: tifiactionendpoint;
+   tdbwidgetgrid1: tdbwidgetgrid;
+   tdbstringedit1: tdbstringedit;
+   tdbstringedit2: tdbstringedit;
+   tdbstringedit3: tdbstringedit;
+   tdbstringedit4: tdbstringedit;
+   tdbstringedit5: tdbstringedit;
+   procedure getfilenameev(const sender: TObject);
+   procedure updateprojectstateev(const sender: TObject);
+   procedure aboutev(const sender: TObject);
+   procedure closequeryev(const sender: tcustommseform;
+                   var amodalresult: modalresultty);
+   procedure editprojectsettingsev(const sender: TObject);
   protected
-   procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
  end;
 var
  mainfo: tmainfo;
+
 implementation
 uses
- main_mfm;
+ main_mfm,mainmodule,msefileutils,projectsettingsform;
  
-procedure tmainfo.parseev(const sender: TObject);
+procedure tmainfo.getfilenameev(const sender: TObject);
 var
- parser: tkicadschemaparser;
- stream: ttextstream;
+ kind: filedialogkindty;
 begin
- parser:= tkicadschemaparser.create(nil);
- parser.oncomp:= @docomp;
- stream:= nil; 
- try
-  stream:= ttextstream.create(filepath.value,fm_read);
-  stream.encoding:= ce_utf8;
-  parser.parse(stream);
- finally
-  parser.destroy();
-  stream.free();
+ kind:= fdk_open;
+ if sender = getprojectsavefilename then begin
+  kind:= fdk_save;
+ end;
+ if mainmo.projectfiledialog.execute(kind) = mr_ok then begin
+  mainoptions.filename:= mainmo.projectfiledialog.controller.filename;
+ end
+ else begin
+  mainoptions.filename:= '';
  end;
 end;
 
-procedure tmainfo.docomp(const sender: tkicadschemaparser;
-               var info: compinfoty);
+procedure tmainfo.updateprojectstateev(const sender: TObject);
+var
+ mstr1: msestring;
 begin
+ if mainmo.hasproject then begin
+  if mainoptions.filename = '' then begin
+   mstr1:= '<new>)';
+  end
+  else begin
+   mstr1:= filename(mainoptions.filename)+')';
+  end;
+  if mainmo.modified then begin
+   mstr1:= maincaption + ' (*'+mstr1;
+  end
+  else begin
+   mstr1:= maincaption + ' ('+mstr1;
+  end;
+ end
+ else begin
+  mstr1:= maincaption;
+ end;
+ caption:= mstr1;
+end;
+
+procedure tmainfo.aboutev(const sender: TObject);
+begin
+ showmessage(maincaption+' version '+versiontext+lineend+
+             'MSEgui version '+mseguiversiontext+lineend+
+             lineend+
+             copyrighttext+lineend+
+             'by Martin Schreiber','About MSEkicadBOM');
+end;
+
+procedure tmainfo.closequeryev(const sender: tcustommseform;
+               var amodalresult: modalresultty);
+begin
+ if not mainmo.doexit() then begin
+  amodalresult:= mr_none;
+ end;
+end;
+
+procedure tmainfo.editprojectsettingsev(const sender: TObject);
+begin
+ tprojectsettingsfo.create(nil).show(ml_application);
 end;
 
 end.

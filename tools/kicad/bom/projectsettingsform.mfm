@@ -1,0 +1,153 @@
+object projectsettingsfo: tprojectsettingsfo
+  visible = False
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 396
+  bounds_cy = 298
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    396
+    298
+  )
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Project Settings'
+  oncreate = createev
+  onclosequery = closequeryev
+  moduleclassname = 'tmseform'
+  object tsplitter1: tsplitter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    color = -2147483645
+    bounds_x = 273
+    bounds_y = 248
+    bounds_cx = 123
+    bounds_cy = 38
+    anchors = [an_right, an_bottom]
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
+    linktop = ttabwidget1
+    grip = stb_none
+    object tbutton2: tbutton
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      taborder = 1
+      bounds_x = 58
+      bounds_y = 16
+      bounds_cx = 52
+      bounds_cy = 22
+      bounds_cxmin = 50
+      anchors = [an_top, an_right]
+      state = [as_localcaption]
+      caption = '&Cancel'
+      modalresult = mr_cancel
+      reffontheight = 14
+    end
+    object tbutton1: tbutton
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      bounds_x = 0
+      bounds_y = 16
+      bounds_cx = 50
+      bounds_cy = 22
+      bounds_cxmin = 50
+      anchors = [an_top, an_right]
+      state = [as_default, as_localdefault, as_localcaption]
+      caption = '&OK'
+      modalresult = mr_ok
+      reffontheight = 14
+    end
+    object tspacer2: tspacer
+      taborder = 2
+      bounds_x = 50
+      bounds_y = 16
+      bounds_cx = 8
+      bounds_cy = 20
+      linkleft = tbutton1
+      linkright = tbutton2
+      options = [spao_glueright]
+    end
+  end
+  object ttabwidget1: ttabwidget
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 396
+    bounds_cy = 248
+    anchors = [an_top]
+    taborder = 1
+    activepageindex = 0
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
+    tab_size = 19
+    object ttabpage1: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 396
+      bounds_cy = 229
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '&Schematic Files'
+      object schematicgrid: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 396
+        bounds_cy = 229
+        anchors = []
+        optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        datacols.count = 1
+        datacols.items = <        
+          item[val_schematics]
+            width = 391
+            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'val_schematics'
+            dataclass = tgridmsestringdatalist
+          end>
+        datarowheight = 16
+        statfile = tstatfile1
+        reffontheight = 14
+        object val_schematics: tfilenameedit
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+              imagenr = 17
+            end>
+          frame.button.color = -1879048187
+          frame.button.imagenr = 17
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 391
+          bounds_cy = 16
+          statfile = tstatfile1
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+          textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+          controller.filterlist.data = (
+            (
+              'KiCad Schematics'
+              '*.sch'
+            )
+          )
+          controller.defaultext = 'sch'
+          controller.captionopen = 'Select KiCad Schematic'
+          reffontheight = 14
+        end
+      end
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'projectsettingsfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 48
+    top = 40
+  end
+end

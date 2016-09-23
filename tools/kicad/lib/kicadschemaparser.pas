@@ -26,6 +26,7 @@ type
   text: msestring;
   name: msestring;
  end;
+ pcompfieldinfoty = ^compfieldinfoty;
  compfieldarty = array of compfieldinfoty;
  
  compinfoty = record

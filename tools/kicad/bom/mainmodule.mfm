@@ -1,0 +1,183 @@
+object mainmo: tmainmo
+  bounds_cx = 368
+  bounds_cy = 444
+  statfile = mainstat
+  left = 100
+  top = 100
+  moduleclassname = 'tmsedatamodule'
+  object projectoptrtti: trttistat
+    statfile = projectstat
+    ongetobject = getprojectoptionsev
+    left = 112
+    top = 24
+  end
+  object projectstat: tstatfile
+    filename = 'status.sta'
+    left = 8
+    top = 24
+  end
+  object mainstat: tstatfile
+    filename = '^/.msetools/msekicadbom.sta'
+    options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    savedmemoryfiles = '*fo.sta'
+    onstatafterread = mainstatreadev
+    left = 8
+  end
+  object mainoptrtti: trttistat
+    statfile = mainstat
+    ongetobject = getmainoptionsev
+    left = 112
+  end
+  object projectfiledialog: tfiledialog
+    statfile = mainstat
+    controller.filterlist.data = (
+      (
+        'MSEkicadBOM'
+        '*.kbm'
+      )
+    )
+    controller.defaultext = 'kbm'
+    controller.options = [fdo_checkexist, fdo_savelastdir]
+    controller.captionopen = 'Open MSEkicadBOM Project'
+    controller.captionsave = 'Save MSEkicadBOM Project'
+    controller.captionnew = 'New MSEkicadBOM Project'
+    left = 224
+  end
+  object getprojectfileopen: tifiactionlinkcomp
+    left = 152
+    top = 88
+  end
+  object openprojectact: taction
+    caption = '&Open Project'
+    onexecute = openprojectev
+    left = 8
+    top = 88
+  end
+  object updateprojectstate: tifiactionlinkcomp
+    left = 152
+    top = 104
+  end
+  object newprojectact: taction
+    caption = '&New Project'
+    onexecute = newprojectev
+    left = 8
+    top = 72
+  end
+  object closeprojectact: taction
+    caption = '&Close Project'
+    onexecute = closeprojectev
+    onupdate = closeprojectupdateev
+    left = 8
+    top = 128
+  end
+  object saveprojectact: taction
+    caption = '&Save Project'
+    onupdate = saveupdateev
+    left = 8
+    top = 144
+  end
+  object saveprojectasact: taction
+    caption = 'Save Project &as'
+    left = 8
+    top = 160
+  end
+  object getprojectfilesave: tifiactionlinkcomp
+    left = 152
+    top = 136
+  end
+  object exitact: taction
+    caption = 'E&xit'
+    onexecute = exitev
+    left = 8
+    top = 176
+  end
+  object projectsettingsact: taction
+    caption = 'Project&settings'
+    onexecute = projectsettingsev
+    onupdate = projectsettingsupdateev
+    left = 8
+    top = 216
+  end
+  object editsettings: tifiactionlinkcomp
+    left = 152
+    top = 56
+  end
+  object compds: tlocaldataset
+    controller.fields.count = 5
+    controller.fields.fields = (
+      (
+        ft_string
+        ft_string
+        ft_string
+        ft_string
+        ft_string
+      )
+      <      
+        item
+          DisplayWidth = 0
+          FieldName = 'REF'
+          Index = 0
+          Size = 0
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'FOOTPRINT'
+          Index = 1
+          Size = 0
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'VALUE'
+          Index = 2
+          Size = 0
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'VALUE1'
+          Index = 3
+          Size = 0
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'VALUE2'
+          Index = 4
+          Size = 0
+        end>
+    )
+    FieldDefs = <    
+      item
+        Name = 'REF'
+        DataType = ftString
+      end    
+      item
+        Name = 'FOOTPRINT'
+        DataType = ftString
+      end    
+      item
+        Name = 'VALUE'
+        DataType = ftString
+      end    
+      item
+        Name = 'VALUE1'
+        DataType = ftString
+      end    
+      item
+        Name = 'VALUE2'
+        DataType = ftString
+      end>
+    left = 16
+    top = 288
+  end
+  object compdso: tmsedatasource
+    DataSet = compds
+    readonly = True
+    left = 104
+    top = 288
+  end
+  object refreshact: taction
+    caption = '&Refresh'
+    onexecute = refreshev
+    left = 8
+    top = 104
+  end
+end
