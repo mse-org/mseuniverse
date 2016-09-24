@@ -8,9 +8,9 @@ object mainfo: tmainfo
   container.frame.localprops1 = []
   container.bounds = (
     0
-    16
+    20
     427
-    275
+    271
   )
   mainmenu = mainmen
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_delayedreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -19,19 +19,22 @@ object mainfo: tmainfo
   onclosequery = closequeryev
   moduleclassname = 'tmainform'
   object tdbwidgetgrid1: tdbwidgetgrid
+    frame.sbvert.buttonlength = 0
     frame.sbvert.pagesize = 1
     frame.localprops = []
     frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 427
-    bounds_cy = 275
+    bounds_cy = 271
     anchors = []
     optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
       item
-        width = 15
+        width = 44
+        numstart = 1
+        numstep = 1
       end>
     fixrows.count = 1
     fixrows.items = <    
@@ -55,6 +58,10 @@ object mainfo: tmainfo
             caption = 'VALUE2'
           end>
       end>
+    rowcolors.count = 1
+    rowcolors.items = (
+      -1610612717
+    )
     datacols.count = 5
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
@@ -80,6 +87,7 @@ object mainfo: tmainfo
         widgetname = 'tdbstringedit5'
       end>
     datalink.datasource = mainmo.compdso
+    datalink.fieldname_color = 'rowstate'
     datarowheight = 16
     statfile = mainfosta
     reffontheight = 14
@@ -160,7 +168,8 @@ object mainfo: tmainfo
     top = 136
   end
   object mainmen: tmainmenu
-    menu.submenu.count = 4
+    itemframetemplate = menuitemframe
+    menu.submenu.count = 5
     menu.submenu.items = <    
       item
         submenu.count = 7
@@ -196,11 +205,14 @@ object mainfo: tmainfo
         action = mainmo.projectsettingsact
       end    
       item
+        action = mainmo.globalsettingsact
+      end    
+      item
         caption = '&About'
         state = [as_localcaption, as_localonexecute]
         onexecute = aboutev
       end>
-    left = 104
+    left = 80
     top = 48
   end
   object getprojectopenfilename: tifiactionendpoint
@@ -222,9 +234,48 @@ object mainfo: tmainfo
     top = 88
   end
   object editprojectsettings: tifiactionendpoint
-    ifilink = mainmo.editsettings
+    ifilink = mainmo.editprojectsettings
     onexecute = editprojectsettingsev
     left = 224
-    top = 40
+    top = 152
+  end
+  object menuitemframe: tframecomp
+    template.levelo = -1
+    template.leveli = 1
+    template.frameface_list = tfacelist1
+    left = 80
+    top = 72
+  end
+  object tfacelist1: tfacelist
+    list.count = 1
+    list.items = <    
+      item
+        fade_pos.count = 2
+        fade_pos.items = (
+          0
+          1
+        )
+        fade_color.count = 2
+        fade_color.items = (
+          16448250
+          11908533
+        )
+        fade_direction = gd_down
+        localprops = [fal_fadirection]
+      end>
+    left = 80
+    top = 96
+  end
+  object editglobalsettings: tifiactionendpoint
+    ifilink = mainmo.editglobalsettings
+    onexecute = editglobalsettingsev
+    left = 224
+    top = 168
+  end
+  object getdbcedentials: tifiactionendpoint
+    ifilink = mainmo.getdbcredentials
+    onexecute = getdbcredentialsev
+    left = 224
+    top = 104
   end
 end

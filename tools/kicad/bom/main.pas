@@ -42,12 +42,18 @@ type
    tdbstringedit3: tdbstringedit;
    tdbstringedit4: tdbstringedit;
    tdbstringedit5: tdbstringedit;
+   menuitemframe: tframecomp;
+   tfacelist1: tfacelist;
+   editglobalsettings: tifiactionendpoint;
+   getdbcedentials: tifiactionendpoint;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure editprojectsettingsev(const sender: TObject);
+   procedure editglobalsettingsev(const sender: TObject);
+   procedure getdbcredentialsev(const sender: TObject);
   protected
  end;
 var
@@ -55,7 +61,8 @@ var
 
 implementation
 uses
- main_mfm,mainmodule,msefileutils,projectsettingsform;
+ main_mfm,mainmodule,msefileutils,projectsettingsform,globalsettingsform,
+ credentialsentryform;
  
 procedure tmainfo.getfilenameev(const sender: TObject);
 var
@@ -66,10 +73,10 @@ begin
   kind:= fdk_save;
  end;
  if mainmo.projectfiledialog.execute(kind) = mr_ok then begin
-  mainoptions.filename:= mainmo.projectfiledialog.controller.filename;
+  globaloptions.filename:= mainmo.projectfiledialog.controller.filename;
  end
  else begin
-  mainoptions.filename:= '';
+  globaloptions.filename:= '';
  end;
 end;
 
@@ -78,11 +85,11 @@ var
  mstr1: msestring;
 begin
  if mainmo.hasproject then begin
-  if mainoptions.filename = '' then begin
+  if globaloptions.filename = '' then begin
    mstr1:= '<new>)';
   end
   else begin
-   mstr1:= filename(mainoptions.filename)+')';
+   mstr1:= filename(globaloptions.filename)+')';
   end;
   if mainmo.modified then begin
    mstr1:= maincaption + ' (*'+mstr1;
@@ -117,6 +124,31 @@ end;
 procedure tmainfo.editprojectsettingsev(const sender: TObject);
 begin
  tprojectsettingsfo.create(nil).show(ml_application);
+end;
+
+procedure tmainfo.editglobalsettingsev(const sender: TObject);
+begin
+ tglobalsettingsfo.create(nil).show(ml_application);
+end;
+
+procedure tmainfo.getdbcredentialsev(const sender: TObject);
+var
+ fo: tcredentialsentryfo;
+begin
+ fo:= tcredentialsentryfo.create(nil);
+ try
+  case fo.show(ml_application) of
+   mr_ok: begin
+    globaloptions.username:= fo.usernameed.value;
+    globaloptions.password:= fo.passworded.value;
+   end;
+   else begin
+    abort();
+   end;
+  end;
+ finally
+  fo.destroy();
+ end;
 end;
 
 end.

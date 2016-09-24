@@ -39,8 +39,6 @@ type
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
  end;
-var
- projectsettingsfo: tprojectsettingsfo;
  
 implementation
 uses

@@ -45,7 +45,7 @@ object mainmo: tmainmo
   end
   object getprojectfileopen: tifiactionlinkcomp
     left = 152
-    top = 88
+    top = 120
   end
   object openprojectact: taction
     caption = '&Open Project'
@@ -55,7 +55,7 @@ object mainmo: tmainmo
   end
   object updateprojectstate: tifiactionlinkcomp
     left = 152
-    top = 104
+    top = 136
   end
   object newprojectact: taction
     caption = '&New Project'
@@ -83,7 +83,7 @@ object mainmo: tmainmo
   end
   object getprojectfilesave: tifiactionlinkcomp
     left = 152
-    top = 136
+    top = 152
   end
   object exitact: taction
     caption = 'E&xit'
@@ -92,58 +92,26 @@ object mainmo: tmainmo
     top = 176
   end
   object projectsettingsact: taction
-    caption = 'Project&settings'
-    onexecute = projectsettingsev
+    caption = '&Project Settings'
     onupdate = projectsettingsupdateev
+    ifilink = editprojectsettings
     left = 8
-    top = 216
+    top = 200
   end
-  object editsettings: tifiactionlinkcomp
+  object editprojectsettings: tifiactionlinkcomp
     left = 152
-    top = 56
+    top = 200
   end
   object compds: tlocaldataset
-    controller.fields.count = 5
-    controller.fields.fields = (
-      (
-        ft_string
-        ft_string
-        ft_string
-        ft_string
-        ft_string
-      )
-      <      
-        item
-          DisplayWidth = 0
-          FieldName = 'REF'
-          Index = 0
-          Size = 0
-        end      
-        item
-          DisplayWidth = 0
-          FieldName = 'FOOTPRINT'
-          Index = 1
-          Size = 0
-        end      
-        item
-          DisplayWidth = 0
-          FieldName = 'VALUE'
-          Index = 2
-          Size = 0
-        end      
-        item
-          DisplayWidth = 0
-          FieldName = 'VALUE1'
-          Index = 3
-          Size = 0
-        end      
-        item
-          DisplayWidth = 0
-          FieldName = 'VALUE2'
-          Index = 4
-          Size = 0
-        end>
-    )
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'REF'
+          end>
+        active = True
+      end>
     FieldDefs = <    
       item
         Name = 'REF'
@@ -166,12 +134,61 @@ object mainmo: tmainmo
         DataType = ftString
       end>
     left = 16
-    top = 288
+    top = 272
+    object c_ref: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'REF'
+      Index = 0
+      left = 24
+      top = 304
+    end
+    object c_footprint: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'FOOTPRINT'
+      Index = 1
+      left = 24
+      top = 320
+    end
+    object c_value: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE'
+      Index = 2
+      left = 24
+      top = 336
+    end
+    object c_value1: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE1'
+      Index = 3
+      left = 24
+      top = 352
+    end
+    object c_value2: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE2'
+      Index = 4
+      left = 24
+      top = 368
+    end
+    object c_stockitempk: tmselargeintfield
+      FieldKind = fkInternalCalc
+      FieldName = 'stockitempk'
+      Index = 5
+      left = 24
+      top = 384
+    end
+    object c_rowstate: tmselongintfield
+      FieldKind = fkInternalCalc
+      FieldName = 'rowstate'
+      Index = 6
+      left = 24
+      top = 400
+    end
   end
   object compdso: tmsedatasource
     DataSet = compds
     readonly = True
-    left = 104
+    left = 16
     top = 288
   end
   object refreshact: taction
@@ -179,5 +196,89 @@ object mainmo: tmainmo
     onexecute = refreshev
     left = 8
     top = 104
+  end
+  object conn: tfbconnection
+    DatabaseName = '/db/firebird_3_0/stock.fdb'
+    onbeforeconnect = beforeconnectev
+    Transaction = trans
+    HostName = 'localhost/3051'
+    Password = 'masterkey'
+    UserName = 'SYSDBA'
+    ongetcredentials = getcredentialsev
+    left = 152
+    top = 256
+  end
+  object getdbcredentials: tifiactionlinkcomp
+    left = 152
+    top = 168
+  end
+  object trans: tmsesqltransaction
+    Database = conn
+    left = 216
+    top = 256
+  end
+  object stockitem: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'value'
+        ParamType = ptInput
+        connector = valpar
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'value1'
+        ParamType = ptInput
+        connector = val1par
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'value2'
+        ParamType = ptInput
+        connector = val2par
+      end>
+    sql.data = (
+      'select PK from components'
+      '  where (:value = "VALUE") and '
+      '        (:value1 is null) or (VALUE1 = :value1) and'
+      '        (:value2 is null) or (VALUE2 = :value2);'
+    )
+    database = conn
+    transaction = trans
+    left = 152
+    top = 288
+  end
+  object globalsettingsact: taction
+    caption = '&Global Settings'
+    ifilink = editglobalsettings
+    left = 8
+    top = 216
+  end
+  object editglobalsettings: tifiactionlinkcomp
+    left = 152
+    top = 216
+  end
+  object valpar: tparamconnector
+    left = 160
+    top = 304
+  end
+  object val1par: tparamconnector
+    left = 160
+    top = 320
+  end
+  object val2par: tparamconnector
+    left = 160
+    top = 336
+  end
+  object s_pk: tsqlresultconnector
+    source = stockitem
+    colname = 'PK'
+    left = 160
+    top = 352
   end
 end

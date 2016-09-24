@@ -22,14 +22,25 @@ uses
  msestatfile,mseact,msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,
  msegraphics,msegraphutils,msegrids,msegui,mseguiglob,mseificomp,mseificompglob,
  mseifiglob,mselistbrowser,msemenus,msestream,msestrings,msesys,sysutils,
- mseactions,mdb,msebufdataset,msedb,mselocaldataset,kicadschemaparser;
+ mseactions,mdb,msebufdataset,msedb,mselocaldataset,kicadschemaparser,
+ msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult;
 
 type
- tmainoptions = class(toptions)
+ tglobaloptions = class(toptions)
   private
    ffilename: filenamety;
+   fusername: msestring;
+   fpassword: msestring;
+   fhostname: msestring;
+   fdatabasename: msestring;
+  public
+   constructor create();
+   property password: msestring read fpassword write fpassword; //not stored
+   property username: msestring read fusername write fusername; //not stored
   published
    property filename: filenamety read ffilename write ffilename;
+   property hostname: msestring read fhostname write fhostname;
+   property databasename: msestring read fdatabasename write fdatabasename;
  end;
 
  tprojectoptions = class(toptions)
@@ -58,10 +69,27 @@ type
    getprojectfilesave: tifiactionlinkcomp;
    exitact: taction;
    projectsettingsact: taction;
-   editsettings: tifiactionlinkcomp;
+   editprojectsettings: tifiactionlinkcomp;
    compds: tlocaldataset;
    compdso: tmsedatasource;
    refreshact: taction;
+   c_ref: tmsestringfield;
+   c_footprint: tmsestringfield;
+   c_value: tmsestringfield;
+   c_value1: tmsestringfield;
+   c_value2: tmsestringfield;
+   conn: tfbconnection;
+   getdbcredentials: tifiactionlinkcomp;
+   trans: tmsesqltransaction;
+   stockitem: tsqlresult;
+   globalsettingsact: taction;
+   editglobalsettings: tifiactionlinkcomp;
+   valpar: tparamconnector;
+   val1par: tparamconnector;
+   val2par: tparamconnector;
+   s_pk: tsqlresultconnector;
+   c_stockitempk: tmselargeintfield;
+   c_rowstate: tmselongintfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -70,10 +98,12 @@ type
    procedure closeprojectev(const sender: TObject);
    procedure exitev(const sender: TObject);
    procedure projectsettingsupdateev(const sender: tcustomaction);
-   procedure projectsettingsev(const sender: TObject);
    procedure saveupdateev(const sender: tcustomaction);
    procedure closeprojectupdateev(const sender: tcustomaction);
    procedure refreshev(const sender: TObject);
+   procedure getcredentialsev(const sender: tcustomsqlconnection;
+                   var ausername: msestring; var apassword: msestring);
+   procedure beforeconnectev(const sender: tmdatabase);
   private
    fhasproject: boolean;
    fmodified: boolean;
@@ -92,7 +122,7 @@ type
  
 var
  mainmo: tmainmo;
- mainoptions: tmainoptions;
+ globaloptions: tglobaloptions;
  projectoptions: tprojectoptions;
  
 implementation
@@ -107,7 +137,7 @@ end;
 
 procedure tmainmo.getmainoptionsev(const sender: TObject; var aobject: TObject);
 begin
- aobject:= mainoptions;
+ aobject:= globaloptions;
 end;
 
 procedure tmainmo.mainstatreadev(const sender: TObject);
@@ -122,9 +152,14 @@ var
  parser: tkicadschemaparser;
  stream: ttextstream;
  i1: int32;
+ recno1: int32;
+ rowstate1: int32;
+ par1,par2,par3: tmseparam;
+ col1: tdbcol;
 begin
  compds.disablecontrols();
  try
+  recno1:= compds.recno;
   compds.active:= false;
   compds.active:= true;
   parser:= tkicadschemaparser.create(nil);
@@ -138,6 +173,36 @@ begin
     stream.destroy();
    end;
   end;
+  par1:= valpar.param;
+  par2:= val1par.param;
+  par3:= val2par.param;
+  stockitem.active:= true;
+  col1:= s_pk.col;
+  for i1:= 0 to compds.recordcount - 1 do begin
+   par1.asmsestring:= compds.currentasmsestring[c_value,i1];
+   par2.asmsestring:= compds.currentasmsestring[c_value1,i1];
+   par3.asmsestring:= compds.currentasmsestring[c_value2,i1];
+   stockitem.refresh();
+   if not stockitem.eof then begin
+    compds.currentaslargeint[c_stockitempk,i1]:= col1.aslargeint;
+    rowstate1:= -1;
+   end
+   else begin
+    rowstate1:= 0;
+   end;
+   compds.currentasinteger[c_rowstate,i1]:= rowstate1;
+  end;
+  if recno1 <= 0 then begin
+   compds.first();
+  end
+  else begin
+   if recno1 > compds.recordcount then begin
+    compds.last();
+   end
+   else begin
+    compds.recno:= recno1;
+   end;
+  end;
  finally
   if compds.active then begin
    compds.post();
@@ -148,7 +213,7 @@ end;
 
 procedure tmainmo.openproject(const afilename: filenamety);
 begin
- mainoptions.filename:= afilename;
+ globaloptions.filename:= afilename;
  projectstat.filename:= afilename;
  try
   projectstat.readstat();
@@ -224,11 +289,11 @@ function tmainmo.saveproject(): boolean;
 begin
  result:= false;
  if fmodified then begin
-  if mainoptions.filename = '' then begin
+  if globaloptions.filename = '' then begin
    getprojectfilesave.controller.execute();
   end;
-  if mainoptions.filename <> '' then begin
-   projectstat.filename:= mainoptions.filename;
+  if globaloptions.filename <> '' then begin
+   projectstat.filename:= globaloptions.filename;
    try
     projectstat.writestat();
     fmodified:= false;
@@ -282,8 +347,8 @@ procedure tmainmo.openprojectev(const sender: TObject);
 begin
  if closeproject() then begin
   getprojectfileopen.controller.execute();
-  if mainoptions.filename <> '' then begin
-   openproject(mainoptions.filename);
+  if globaloptions.filename <> '' then begin
+   openproject(globaloptions.filename);
    statechanged();
   end;
  end;
@@ -292,7 +357,7 @@ end;
 procedure tmainmo.newprojectev(const sender: TObject);
 begin
  if closeproject() then begin
-  mainoptions.filename:= '';
+  globaloptions.filename:= '';
   fhasproject:= true;
   statechanged();
   projectsettingsact.execute(true); //do not check enabled
@@ -314,11 +379,6 @@ begin
  sender.enabled:= hasproject;
 end;
 
-procedure tmainmo.projectsettingsev(const sender: TObject);
-begin
- editsettings.controller.execute();
-end;
-
 procedure tmainmo.closeprojectupdateev(const sender: tcustomaction);
 begin
  sender.enabled:= hasproject;
@@ -327,6 +387,21 @@ end;
 procedure tmainmo.refreshev(const sender: TObject);
 begin
  refresh();
+end;
+
+procedure tmainmo.getcredentialsev(const sender: tcustomsqlconnection;
+               var ausername: msestring; var apassword: msestring);
+begin
+ getdbcredentials.controller.execute;
+ ausername:= globaloptions.username;
+ apassword:= globaloptions.password;
+ globaloptions.fpassword:= '';
+end;
+
+procedure tmainmo.beforeconnectev(const sender: tmdatabase);
+begin
+ conn.hostname:= ansistring(globaloptions.hostname);
+ conn.databasename:= globaloptions.databasename;
 end;
 
 { tprojectoptions }
@@ -340,10 +415,20 @@ begin
  mainmo.refresh();
 end;
 
+{ tmainoptions }
+
+{ tglobaloptions }
+
+constructor tglobaloptions.create();
+begin
+ fhostname:= 'localhost';
+ fdatabasename:= 'stock';
+end;
+
 initialization
- mainoptions:= tmainoptions.create();
+ globaloptions:= tglobaloptions.create();
  projectoptions:= tprojectoptions.create();
 finalization
  projectoptions.free();
- mainoptions.free();
+ globaloptions.free();
 end.

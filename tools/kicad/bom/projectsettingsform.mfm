@@ -97,10 +97,17 @@ object projectsettingsfo: tprojectsettingsfo
         bounds_cy = 229
         anchors = []
         optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 20
+            numstart = 1
+            numstep = 1
+          end>
         datacols.count = 1
         datacols.items = <        
           item[val_schematics]
-            width = 391
+            width = 370
             options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
             widgetname = 'val_schematics'
             dataclass = tgridmsestringdatalist
@@ -126,7 +133,7 @@ object projectsettingsfo: tprojectsettingsfo
           visible = False
           bounds_x = 0
           bounds_y = 0
-          bounds_cx = 391
+          bounds_cx = 370
           bounds_cy = 16
           statfile = tstatfile1
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
