@@ -116,6 +116,8 @@ type
    function closeproject(): boolean; //true if not canceled
    function saveproject(): boolean;  //true if not canceled
    function doexit: boolean;         //true if not canceled
+   procedure begincomponentedit();
+   function endcomponentedit(const acommit: boolean): boolean; //true if ok
    property hasproject: boolean read fhasproject;
    property modified: boolean read fmodified;
  end;
@@ -341,6 +343,15 @@ begin
  if result then begin
   application.terminated:= true;
  end;
+end;
+
+procedure tmainmo.begincomponentedit();
+begin
+end;
+
+function tmainmo.endcomponentedit(const acommit: boolean): boolean;
+begin
+ result:= true;
 end;
 
 procedure tmainmo.openprojectev(const sender: TObject);

@@ -46,6 +46,7 @@ type
    tfacelist1: tfacelist;
    editglobalsettings: tifiactionendpoint;
    getdbcedentials: tifiactionendpoint;
+   tstockglyphdatabutton1: tstockglyphdatabutton;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -54,6 +55,7 @@ type
    procedure editprojectsettingsev(const sender: TObject);
    procedure editglobalsettingsev(const sender: TObject);
    procedure getdbcredentialsev(const sender: TObject);
+   procedure editev(const sender: TObject);
   protected
  end;
 var
@@ -62,7 +64,7 @@ var
 implementation
 uses
  main_mfm,mainmodule,msefileutils,projectsettingsform,globalsettingsform,
- credentialsentryform;
+ credentialsentryform,componenteditform;
  
 procedure tmainfo.getfilenameev(const sender: TObject);
 var
@@ -148,6 +150,22 @@ begin
   end;
  finally
   fo.destroy();
+ end;
+end;
+
+procedure tmainfo.editev(const sender: TObject);
+var
+ res1: modalresultty;
+ fo1: tcomponenteditfo;
+begin
+ mainmo.begincomponentedit();
+ fo1:= tcomponenteditfo.create(nil);
+ try
+  repeat
+   res1:= fo1.show(ml_application);
+  until mainmo.endcomponentedit(res1 = mr_ok);
+ finally
+  fo1.destroy();
  end;
 end;
 
