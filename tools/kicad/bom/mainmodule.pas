@@ -90,6 +90,14 @@ type
    s_pk: tsqlresultconnector;
    c_stockitempk: tmselargeintfield;
    c_rowstate: tmselongintfield;
+   transwrite: tmsesqltransaction;
+   componenteditqu: tmsesqlquery;
+   componenteditdso: tmsedatasource;
+   componentpkpar: tparamconnector;
+   e_pk: tmselargeintfield;
+   e_value: tmsestringfield;
+   e_value1: tmsestringfield;
+   e_value2: tmsestringfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -347,11 +355,31 @@ end;
 
 procedure tmainmo.begincomponentedit();
 begin
+ componentpkpar.param.asid:= c_rowstate.asid;
+ componenteditqu.active:= true;
+ if c_stockitempk.isnull then begin
+  componenteditqu.insert();
+  e_value.asmsestring:= c_value.asmsestring;
+  e_value1.asmsestring:= c_value1.asmsestring;
+  e_value2.asmsestring:= c_value2.asmsestring;
+ end;
 end;
 
 function tmainmo.endcomponentedit(const acommit: boolean): boolean;
 begin
  result:= true;
+ if acommit then begin
+  try
+   componenteditqu.applyupdates();
+   transwrite.commit();
+  except
+   application.handleexception();
+   result:= false;
+  end;
+ end
+ else begin
+  transwrite.rollback();
+ end;
 end;
 
 procedure tmainmo.openprojectev(const sender: TObject);

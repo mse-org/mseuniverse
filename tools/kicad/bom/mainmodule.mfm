@@ -1,6 +1,6 @@
 object mainmo: tmainmo
-  bounds_cx = 368
-  bounds_cy = 444
+  bounds_cx = 457
+  bounds_cy = 496
   statfile = mainstat
   left = 100
   top = 100
@@ -214,6 +214,9 @@ object mainmo: tmainmo
   end
   object trans: tmsesqltransaction
     Database = conn
+    Params.Strings = (
+      'isc_tpb_read'
+    )
     left = 216
     top = 256
   end
@@ -251,7 +254,7 @@ object mainmo: tmainmo
     database = conn
     transaction = trans
     left = 152
-    top = 288
+    top = 344
   end
   object globalsettingsact: taction
     caption = '&Global Settings'
@@ -265,20 +268,109 @@ object mainmo: tmainmo
   end
   object valpar: tparamconnector
     left = 160
-    top = 304
+    top = 328
   end
   object val1par: tparamconnector
     left = 160
-    top = 320
+    top = 312
   end
   object val2par: tparamconnector
     left = 160
-    top = 336
+    top = 296
   end
   object s_pk: tsqlresultconnector
     source = stockitem
     colname = 'PK'
     left = 160
-    top = 352
+    top = 360
+  end
+  object transwrite: tmsesqltransaction
+    Params.Strings = (
+      'isc_tpb_write'
+    )
+    left = 280
+    top = 256
+  end
+  object componenteditqu: tmsesqlquery
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+        connector = componentpkpar
+      end>
+    SQL.data = (
+      'select PK,"VALUE",VALUE1,VALUE2 from COMPONENTS where PK = :pk'
+    )
+    IndexDefs = <    
+      item
+        Name = 'IDX_COMPONENTS1'
+      end    
+      item
+        Name = 'PK_COMPONENTS_0'
+      end>
+    tablename = 'COMPONENTS'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'VALUE'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'VALUE1'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'VALUE2'
+        DataType = ftString
+        Size = 50
+      end>
+    controller.options = []
+    left = 256
+    top = 344
+    object e_pk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 0
+      optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
+      left = 264
+      top = 376
+    end
+    object e_value: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE'
+      Index = 1
+      left = 264
+      top = 392
+    end
+    object e_value2: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE2'
+      Index = 2
+      left = 264
+      top = 424
+    end
+    object e_value1: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE1'
+      Index = 3
+      left = 264
+      top = 408
+    end
+  end
+  object componenteditdso: tmsedatasource
+    DataSet = componenteditqu
+    left = 256
+    top = 360
+  end
+  object componentpkpar: tparamconnector
+    left = 264
+    top = 328
   end
 end
