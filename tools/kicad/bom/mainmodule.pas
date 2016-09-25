@@ -126,6 +126,7 @@ type
    function doexit: boolean;         //true if not canceled
    procedure begincomponentedit();
    function endcomponentedit(const acommit: boolean): boolean; //true if ok
+   function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property hasproject: boolean read fhasproject;
    property modified: boolean read fmodified;
  end;
@@ -168,6 +169,7 @@ var
  col1: tdbcol;
 begin
  compds.disablecontrols();
+ parser:= nil;
  try
   recno1:= compds.recno;
   compds.active:= false;
@@ -189,9 +191,9 @@ begin
   stockitem.active:= true;
   col1:= s_pk.col;
   for i1:= 0 to compds.recordcount - 1 do begin
-   par1.asmsestring:= compds.currentasmsestring[c_value,i1];
-   par2.asmsestring:= compds.currentasmsestring[c_value1,i1];
-   par3.asmsestring:= compds.currentasmsestring[c_value2,i1];
+   par1.asnullmsestring:= compds.currentasmsestring[c_value,i1];
+   par2.asnullmsestring:= compds.currentasmsestring[c_value1,i1];
+   par3.asnullmsestring:= compds.currentasmsestring[c_value2,i1];
    stockitem.refresh();
    if not stockitem.eof then begin
     compds.currentaslargeint[c_stockitempk,i1]:= col1.aslargeint;
@@ -214,10 +216,12 @@ begin
    end;
   end;
  finally
+  parser.free();
   if compds.active then begin
    compds.post();
   end;
   compds.enablecontrols();
+  stockitem.active:= false;
  end;
 end;
 
@@ -380,6 +384,20 @@ begin
  else begin
   transwrite.rollback();
  end;
+ if acommit then begin
+  refresh();
+ end;
+end;
+
+function tmainmo.checkvalueexist(const avalue: msestring;
+               const avalue1: msestring; const avalue2: msestring): boolean;
+begin
+ valpar.param.asnullmsestring:= avalue;
+ val1par.param.asnullmsestring:= avalue1;
+ val2par.param.asnullmsestring:= avalue2;
+ stockitem.refresh();
+ result:= not stockitem.eof;
+ stockitem.active:= false;
 end;
 
 procedure tmainmo.openprojectev(const sender: TObject);

@@ -216,6 +216,8 @@ object mainmo: tmainmo
     Database = conn
     Params.Strings = (
       'isc_tpb_read'
+      'isc_tpb_read_committed'
+      'isc_tpb_rec_version'
     )
     left = 216
     top = 256
@@ -248,8 +250,8 @@ object mainmo: tmainmo
     sql.data = (
       'select PK from components'
       '  where (:value = "VALUE") and '
-      '        (:value1 is null) or (VALUE1 = :value1) and'
-      '        (:value2 is null) or (VALUE2 = :value2);'
+      '        ((:value1 is null) or (VALUE1 = :value1)) and'
+      '        ((:value2 is null) or (VALUE2 = :value2));'
     )
     database = conn
     transaction = trans
@@ -285,6 +287,7 @@ object mainmo: tmainmo
     top = 360
   end
   object transwrite: tmsesqltransaction
+    Database = conn
     Params.Strings = (
       'isc_tpb_write'
     )
@@ -312,6 +315,7 @@ object mainmo: tmainmo
     tablename = 'COMPONENTS'
     database = conn
     Transaction = trans
+    transactionwrite = transwrite
     FieldDefs = <    
       item
         Name = 'PK'
