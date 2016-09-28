@@ -23,7 +23,7 @@ uses
  msegraphics,msegraphutils,msegrids,msegui,mseguiglob,mseificomp,mseificompglob,
  mseifiglob,mselistbrowser,msemenus,msestream,msestrings,msesys,sysutils,
  mseactions,mdb,msebufdataset,msedb,mselocaldataset,kicadschemaparser,
- msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult;
+ msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult,msedbdispwidgets;
 
 type
  tglobaloptions = class(toptions)
@@ -88,7 +88,7 @@ type
    val1par: tparamconnector;
    val2par: tparamconnector;
    s_pk: tsqlresultconnector;
-   c_stockitempk: tmselargeintfield;
+   c_stockitemid: tmselargeintfield;
    c_rowstate: tmselongintfield;
    transwrite: tmsesqltransaction;
    componenteditqu: tmsesqlquery;
@@ -98,6 +98,35 @@ type
    e_value: tmsestringfield;
    e_value1: tmsestringfield;
    e_value2: tmsestringfield;
+   e_footprint: tmselargeintfield;
+   footprintqu: tmsesqlquery;
+   f_pk: tmselargeintfield;
+   f_name: tmsestringfield;
+   footprinteditdso: tmsedatasource;
+   c_footprintname: tmsestringfield;
+   s_footprint: tsqlresultconnector;
+   c_footprintid: tmselargeintfield;
+   footprintinsertcheck: tsqlresult;
+   footprintnamepar: tparamconnector;
+   footprintdeletecheck: tsqlresult;
+   footprintidpar: tparamconnector;
+   fd_value: tsqlresultconnector;
+   fd_value1: tsqlresultconnector;
+   fd_value2: tsqlresultconnector;
+   c_stockvalue: tmsestringfield;
+   c_stockvalue1: tmsestringfield;
+   c_stockvalue2: tmsestringfield;
+   s_value: tsqlresultconnector;
+   s_value1: tsqlresultconnector;
+   s_value2: tsqlresultconnector;
+   editcompact: taction;
+   editfootprintact: taction;
+   editcomponentkindact: taction;
+   compkindqu: tmsesqlquery;
+   k_pk: tmselargeintfield;
+   k_name: tmsestringfield;
+   compkinddso: tmsedatasource;
+   k_designation: tmsestringfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -112,6 +141,9 @@ type
    procedure getcredentialsev(const sender: tcustomsqlconnection;
                    var ausername: msestring; var apassword: msestring);
    procedure beforeconnectev(const sender: tmdatabase);
+   procedure footprintpostev(DataSet: TDataSet);
+   procedure beforefootprintdeleteev(DataSet: TDataSet);
+   procedure compkindupdatedataev(Sender: TObject);
   private
    fhasproject: boolean;
    fmodified: boolean;
@@ -126,6 +158,10 @@ type
    function doexit: boolean;         //true if not canceled
    procedure begincomponentedit();
    function endcomponentedit(const acommit: boolean): boolean; //true if ok
+   procedure beginfootprintedit();
+   function endfootprintedit(const acommit: boolean): boolean; //true if ok
+   procedure begincomponentkindedit();
+   function endcomponentkindedit(const acommit: boolean): boolean; //true if ok
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property hasproject: boolean read fhasproject;
    property modified: boolean read fmodified;
@@ -166,7 +202,7 @@ var
  recno1: int32;
  rowstate1: int32;
  par1,par2,par3: tmseparam;
- col1: tdbcol;
+ col1,col2,col3,col4,col5: tdbcol;
 begin
  compds.disablecontrols();
  parser:= nil;
@@ -185,18 +221,27 @@ begin
     stream.destroy();
    end;
   end;
+  footprintqu.controller.refresh(false);  
   par1:= valpar.param;
   par2:= val1par.param;
   par3:= val2par.param;
   stockitem.active:= true;
   col1:= s_pk.col;
+  col2:= s_footprint.col;
+  col3:= s_value.col;
+  col4:= s_value1.col;
+  col5:= s_value2.col;
   for i1:= 0 to compds.recordcount - 1 do begin
    par1.asnullmsestring:= compds.currentasmsestring[c_value,i1];
    par2.asnullmsestring:= compds.currentasmsestring[c_value1,i1];
    par3.asnullmsestring:= compds.currentasmsestring[c_value2,i1];
    stockitem.refresh();
    if not stockitem.eof then begin
-    compds.currentaslargeint[c_stockitempk,i1]:= col1.aslargeint;
+    compds.currentaslargeint[c_stockitemid,i1]:= col1.aslargeint;
+    compds.currentaslargeint[c_footprintid,i1]:= col2.aslargeint;
+    compds.currentasmsestring[c_stockvalue,i1]:= col3.asmsestring;
+    compds.currentasmsestring[c_stockvalue1,i1]:= col4.asmsestring;
+    compds.currentasmsestring[c_stockvalue2,i1]:= col5.asmsestring;
     rowstate1:= -1;
    end
    else begin
@@ -204,6 +249,7 @@ begin
    end;
    compds.currentasinteger[c_rowstate,i1]:= rowstate1;
   end;
+  componenteditqu.controller.refresh(false);
   if recno1 <= 0 then begin
    compds.first();
   end
@@ -359,14 +405,16 @@ end;
 
 procedure tmainmo.begincomponentedit();
 begin
- componentpkpar.param.asid:= c_rowstate.asid;
- componenteditqu.active:= true;
- if c_stockitempk.isnull then begin
+ footprintqu.controller.refresh(false);
+ compkindqu.controller.refresh(false);
+ componentpkpar.param.asid:= c_stockitemid.asid;
+ componenteditqu.controller.refresh(false);
+ if componenteditqu.eof then begin
   componenteditqu.insert();
   e_value.asmsestring:= c_value.asmsestring;
   e_value1.asmsestring:= c_value1.asmsestring;
   e_value2.asmsestring:= c_value2.asmsestring;
- end;
+ end
 end;
 
 function tmainmo.endcomponentedit(const acommit: boolean): boolean;
@@ -374,6 +422,13 @@ begin
  result:= true;
  if acommit then begin
   try
+   if (componenteditqu.state = dsinsert) and 
+                   checkvalueexist(e_value.asmsestring,
+                          e_value1.asmsestring,e_value2.asmsestring) then begin
+    showmessage('Stock component with this value key exists.','ERROR');
+    result:= false;
+    exit;
+   end;   
    componenteditqu.applyupdates();
    transwrite.commit();
   except
@@ -387,6 +442,46 @@ begin
  if acommit then begin
   refresh();
  end;
+end;
+
+procedure tmainmo.beginfootprintedit();
+begin
+ footprintqu.active:= true;
+ footprintqu.indexlocal[0].find([e_footprint]);
+end;
+
+function tmainmo.endfootprintedit(const acommit: boolean): boolean;
+begin
+ result:= true;
+ if acommit then begin
+  try
+   footprintqu.applyupdates();
+   transwrite.commit();
+  except
+   application.handleexception();
+   result:= false;
+  end;
+ end
+ else begin
+  if footprintqu.changecount > 0 then begin
+   if not askyesno('The footprint data has been modified.'+lineend+
+            'Do you want to cancel modifications?') then begin
+    result:= false;
+   end
+   else begin
+    footprintqu.cancelupdates();
+   end;
+  end;
+ end;
+end;
+
+procedure tmainmo.begincomponentkindedit();
+begin
+end;
+
+function tmainmo.endcomponentkindedit(const acommit: boolean): boolean;
+begin
+ result:= true;
 end;
 
 function tmainmo.checkvalueexist(const avalue: msestring;
@@ -457,8 +552,39 @@ end;
 
 procedure tmainmo.beforeconnectev(const sender: tmdatabase);
 begin
- conn.hostname:= ansistring(globaloptions.hostname);
+ conn.hostname:= globaloptions.hostname;
  conn.databasename:= globaloptions.databasename;
+end;
+
+procedure tmainmo.footprintpostev(DataSet: TDataSet);
+begin
+ footprintnamepar.param.asmsestring:= f_name.asmsestring;
+ footprintinsertcheck.refresh();
+ if not footprintinsertcheck.eof then begin
+  showmessage('Footprint with this name already exists.','ERROR');
+  abort();
+ end;
+end;
+
+procedure tmainmo.beforefootprintdeleteev(DataSet: TDataSet);
+begin
+ footprintidpar.param.asid:= f_pk.asid;
+ footprintdeletecheck.refresh();
+ if not footprintdeletecheck.eof then begin
+  showmessage('Footprint can not be deleted,'+lineend+
+              'it is in use by component "'+fd_value.col.asmsestring+','+
+                            fd_value1.col.asmsestring+','+
+                            fd_value2.col.asmsestring+'"','ERROR');
+  abort();
+ end;
+end;
+
+procedure tmainmo.compkindupdatedataev(Sender: TObject);
+begin
+ if (k_designation.asmsestring = '') or 
+                  (k_designation.value = k_name.curvalue) then begin
+  k_designation.asmsestring:= k_name.asmsestring;
+ end;
 end;
 
 { tprojectoptions }

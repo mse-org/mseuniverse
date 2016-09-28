@@ -1,0 +1,222 @@
+object footprinteditfo: tfootprinteditfo
+  visible = False
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 622
+  bounds_cy = 306
+  container.frame.clientheightmin = 281
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    622
+    306
+  )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Edit Footprints'
+  moduleclassname = 'tmseform'
+  object tdbnavigator1: tdbnavigator
+    optionswidget1 = [ow1_autoscale, ow1_autoheight]
+    frame.buttonpos = sbp_top
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 599
+    bounds_y = 0
+    bounds_cx = 23
+    bounds_cy = 230
+    anchors = [an_top, an_right]
+    datasource = mainmo.footprinteditdso
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_autoedit]
+    buttonface.localprops = []
+    buttonface.template = mainfo.vertkonvex
+    dialogbutton.imagenr = 17
+    dialogbutton.hint = 'Dialog'
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+  end
+  object tsplitter1: tsplitter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    color = -2147483645
+    taborder = 1
+    bounds_x = 494
+    bounds_y = 255
+    bounds_cx = 123
+    bounds_cy = 38
+    anchors = [an_right, an_bottom]
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
+    linktop = tdbwidgetgrid1
+    grip = stb_none
+    object tbutton2: tbutton
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      taborder = 1
+      bounds_x = 58
+      bounds_y = 16
+      bounds_cx = 52
+      bounds_cy = 22
+      bounds_cxmin = 50
+      anchors = [an_top, an_right]
+      state = [as_localcaption]
+      caption = '&Cancel'
+      modalresult = mr_cancel
+      reffontheight = 14
+    end
+    object tbutton1: tbutton
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      bounds_x = 0
+      bounds_y = 16
+      bounds_cx = 50
+      bounds_cy = 22
+      bounds_cxmin = 50
+      anchors = [an_top, an_right]
+      state = [as_default, as_localdefault, as_localcaption, as_localonexecute]
+      caption = '&OK'
+      modalresult = mr_ok
+      reffontheight = 14
+    end
+    object tspacer2: tspacer
+      taborder = 2
+      bounds_x = 50
+      bounds_y = 16
+      bounds_cx = 8
+      bounds_cy = 20
+      linkleft = tbutton1
+      linkright = tbutton2
+      options = [spao_glueright]
+    end
+  end
+  object tdbwidgetgrid1: tdbwidgetgrid
+    frame.sbvert.pagesize = 1
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 2
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 599
+    bounds_cy = 255
+    anchors = [an_left, an_top, an_right]
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 4
+        captions.items = <        
+          item
+            caption = 'Name'
+          end        
+          item
+            caption = 'Area (mm^2)'
+          end        
+          item
+            caption = 'Created'
+          end        
+          item
+            caption = 'Modified'
+          end>
+      end>
+    datacols.count = 4
+    datacols.items = <    
+      item[nameed]
+        width = 104
+        widgetname = 'nameed'
+      end    
+      item[areaed]
+        width = 90
+        widgetname = 'areaed'
+      end    
+      item[tdbdatetimeedit1]
+        color = -1879048185
+        width = 115
+        widgetname = 'tdbdatetimeedit1'
+      end    
+      item[tdbdatetimeedit2]
+        color = -1879048185
+        width = 115
+        widgetname = 'tdbdatetimeedit2'
+      end>
+    datalink.datasource = mainmo.footprinteditdso
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+    object nameed: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 104
+      bounds_cy = 16
+      datalink.datasource = mainmo.footprinteditdso
+      datalink.navigator = tdbnavigator1
+      datalink.fieldname = 'NAME'
+      reffontheight = 14
+    end
+    object areaed: tdbrealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 105
+      bounds_y = 0
+      bounds_cx = 90
+      bounds_cy = 16
+      datalink.datasource = mainmo.footprinteditdso
+      datalink.navigator = tdbnavigator1
+      datalink.fieldname = 'AREA'
+      min = -Inf
+      max = 1E+038
+      formatedit = '0.#'
+      formatdisp = '0.#'
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
+    object tdbdatetimeedit1: tdbdatetimeedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 196
+      bounds_y = 0
+      bounds_cx = 115
+      bounds_cy = 16
+      datalink.datasource = mainmo.footprinteditdso
+      datalink.fieldname = 'TSCREATE'
+      min = -Inf
+      max = 401768.99999
+      formatdisp = 'yyyy-mm-dd hh:nn:ss'
+      kind = dtk_datetime
+      reffontheight = 14
+    end
+    object tdbdatetimeedit2: tdbdatetimeedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 312
+      bounds_y = 0
+      bounds_cx = 115
+      bounds_cy = 16
+      datalink.datasource = mainmo.footprinteditdso
+      datalink.fieldname = 'TSMODIFY'
+      min = -Inf
+      max = 401768.99999
+      formatdisp = 'yyyy-mm-dd hh:nn:ss'
+      kind = dtk_datetime
+      reffontheight = 14
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'footprinteditorfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 32
+    top = 80
+  end
+end

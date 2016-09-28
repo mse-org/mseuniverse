@@ -2,14 +2,14 @@ object mainfo: tmainfo
   visible = False
   bounds_x = 291
   bounds_y = 247
-  bounds_cx = 427
+  bounds_cx = 749
   bounds_cy = 291
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     20
-    427
+    749
     271
   )
   mainmenu = mainmen
@@ -25,7 +25,7 @@ object mainfo: tmainfo
     frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 427
+    bounds_cx = 749
     bounds_cy = 271
     anchors = []
     optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -36,14 +36,26 @@ object mainfo: tmainfo
         numstart = 1
         numstep = 1
       end>
-    fixrows.count = 1
+    fixrows.count = 2
     fixrows.items = <    
       item
         height = 16
-        captions.count = 6
+        captions.count = 10
         captions.items = <        
           item
             caption = 'REF'
+          end        
+          item
+            caption = 'VALUE'
+          end        
+          item
+            caption = 'VALUE1'
+          end        
+          item
+            caption = 'VALUE2'
+          end        
+          item
+            caption = 'FOOTPR.'
           end        
           item
             caption = 'FOOTPR.'
@@ -61,34 +73,81 @@ object mainfo: tmainfo
             caption = 'ED'
             hint = 'Edit Stock Component'
           end>
+      end    
+      item
+        height = 16
+        captions.count = 10
+        captions.items = <        
+          item
+            color = -1610612714
+            caption = 'Schematic'
+            face.localprops = []
+            mergecols = 4
+          end        
+          item
+          end        
+          item
+          end        
+          item
+          end        
+          item
+          end        
+          item
+            color = -1610612712
+            caption = 'Stock'
+            face.localprops = []
+            mergecols = 4
+          end        
+          item
+          end        
+          item
+          end        
+          item
+          end        
+          item
+          end>
       end>
     rowcolors.count = 1
     rowcolors.items = (
       -1610612717
     )
-    datacols.count = 6
+    datacols.count = 10
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
-      item[tdbstringedit1]
+      item[nameed]
         options = [co_savestate, co_mousescrollrow]
-        widgetname = 'tdbstringedit1'
+        widgetname = 'nameed'
       end    
-      item[tdbstringedit2]
+      item[valueed]
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'valueed'
+      end    
+      item[value1ed]
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'value1ed'
+      end    
+      item[valu2ed]
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'valu2ed'
+      end    
+      item[footpred]
+        linewidth = 2
         width = 67
         options = [co_savestate, co_mousescrollrow]
+        widgetname = 'footpred'
+      end    
+      item[tdbstringedit2]
+        width = 70
         widgetname = 'tdbstringedit2'
       end    
+      item[tdbstringedit1]
+        widgetname = 'tdbstringedit1'
+      end    
       item[tdbstringedit3]
-        options = [co_savestate, co_mousescrollrow]
         widgetname = 'tdbstringedit3'
       end    
-      item[tdbstringedit4]
-        options = [co_savestate, co_mousescrollrow]
-        widgetname = 'tdbstringedit4'
-      end    
-      item[tdbstringedit5]
-        options = [co_savestate, co_mousescrollrow]
-        widgetname = 'tdbstringedit5'
+      item[footprstock]
+        widgetname = 'footprstock'
       end    
       item[tstockglyphdatabutton1]
         color = -2147483646
@@ -102,7 +161,7 @@ object mainfo: tmainfo
     datarowheight = 16
     statfile = mainfosta
     reffontheight = 14
-    object tdbstringedit1: tdbstringedit
+    object nameed: tdbstringedit
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
@@ -115,26 +174,12 @@ object mainfo: tmainfo
       datalink.fieldname = 'REF'
       reffontheight = 14
     end
-    object tdbstringedit2: tdbstringedit
+    object valueed: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
       bounds_x = 51
-      bounds_y = 0
-      bounds_cx = 67
-      bounds_cy = 16
-      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      datalink.datasource = mainmo.compdso
-      datalink.fieldname = 'FOOTPRINT'
-      reffontheight = 14
-    end
-    object tdbstringedit3: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 3
-      visible = False
-      bounds_x = 119
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -143,12 +188,12 @@ object mainfo: tmainfo
       datalink.fieldname = 'VALUE'
       reffontheight = 14
     end
-    object tdbstringedit4: tdbstringedit
+    object value1ed: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 4
+      taborder = 3
       visible = False
-      bounds_x = 170
+      bounds_x = 102
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -157,23 +202,90 @@ object mainfo: tmainfo
       datalink.fieldname = 'VALUE1'
       reffontheight = 14
     end
-    object tdbstringedit5: tdbstringedit
+    object valu2ed: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 5
+      taborder = 4
       visible = False
-      bounds_x = 221
+      bounds_x = 153
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'VALUE2'
+      reffontheight = 14
+    end
+    object footpred: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 5
+      visible = False
+      bounds_x = 204
+      bounds_y = 0
+      bounds_cx = 67
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'FOOTPRINT'
+      reffontheight = 14
+    end
+    object tdbstringedit2: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 6
+      visible = False
+      bounds_x = 273
+      bounds_y = 0
+      bounds_cx = 70
+      bounds_cy = 16
+      datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'footprintname'
+      reffontheight = 14
+    end
+    object tdbstringedit1: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 7
+      visible = False
+      bounds_x = 344
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'stockvalue'
+      reffontheight = 14
+    end
+    object tdbstringedit3: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 8
+      visible = False
+      bounds_x = 395
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'stockvalue1'
+      reffontheight = 14
+    end
+    object footprstock: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 9
+      visible = False
+      bounds_x = 446
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'stockvalue2'
       reffontheight = 14
     end
     object tstockglyphdatabutton1: tstockglyphdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      bounds_x = 382
+      bounds_x = 704
       bounds_y = 0
       bounds_cx = 26
       bounds_cy = 16
@@ -186,12 +298,12 @@ object mainfo: tmainfo
   object mainfosta: tstatfile
     filename = 'mainfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    left = 56
-    top = 136
+    left = 24
+    top = 192
   end
   object mainmen: tmainmenu
     itemframetemplate = menuitemframe
-    menu.submenu.count = 5
+    menu.submenu.count = 6
     menu.submenu.items = <    
       item
         submenu.count = 7
@@ -222,6 +334,21 @@ object mainfo: tmainfo
       end    
       item
         action = mainmo.refreshact
+      end    
+      item
+        submenu.count = 3
+        submenu.items = <        
+          item
+            action = mainmo.editcompact
+          end        
+          item
+            action = mainmo.editfootprintact
+          end        
+          item
+            action = mainmo.editcomponentkindact
+          end>
+        caption = '&Stock'
+        state = [as_localcaption]
       end    
       item
         action = mainmo.projectsettingsact
@@ -299,5 +426,34 @@ object mainfo: tmainfo
     onexecute = getdbcredentialsev
     left = 224
     top = 104
+  end
+  object horzkonvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612731
+      -1610612733
+    )
+    left = 80
+    top = 128
+  end
+  object vertkonvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612731
+      -1610612733
+    )
+    template.fade_direction = gd_down
+    left = 80
+    top = 144
   end
 end

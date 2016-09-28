@@ -21,6 +21,7 @@ object projectsettingsfo: tprojectsettingsfo
   object tsplitter1: tsplitter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     color = -2147483645
+    taborder = 1
     bounds_x = 273
     bounds_y = 248
     bounds_cx = 123
@@ -73,7 +74,6 @@ object projectsettingsfo: tprojectsettingsfo
     bounds_cx = 396
     bounds_cy = 248
     anchors = [an_top]
-    taborder = 1
     activepageindex = 0
     tab_frame.localprops = []
     tab_frame.localprops1 = []
