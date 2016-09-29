@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msesplitter,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestatfile,
  msestream,msestrings,sysutils,msesimplewidgets,mdb,msedbedit,msegraphedits,
- msegrids,mselookupbuffer,msescrollbar;
+ msegrids,mselookupbuffer,msescrollbar,mseactions;
 type
  tcomponentlistfo = class(tmseform)
    tsplitter1: tsplitter;
@@ -15,15 +15,35 @@ type
    tspacer2: tspacer;
    texpandingwidget1: texpandingwidget;
    tdbnavigator1: tdbnavigator;
-   tdbwidgetgrid1: tdbwidgetgrid;
+   grid: tdbwidgetgrid;
    valueed: tdbstringedit;
    value1ed: tdbstringedit;
    value2ed: tdbstringedit;
    tstatfile1: tstatfile;
+   kinded: tdbenum64editdb;
+   footprinted: tdbenum64editdb;
+   edititemact: taction;
+   procedure edititemev(const sender: TObject);
  end;
-var
- componentlistfo: tcomponentlistfo;
+
 implementation
 uses
- componentlistform_mfm;
+ componentlistform_mfm,mainmodule,componenteditform;
+ 
+procedure tcomponentlistfo.edititemev(const sender: TObject);
+var
+ res1: modalresultty;
+ fo1: tcomponenteditfo;
+begin
+ mainmo.begincomponentedit(mainmo.sc_pk);
+ fo1:= tcomponenteditfo.create(nil);
+ try
+  repeat
+   res1:= fo1.show(ml_application);
+  until mainmo.endcomponentedit(res1 = mr_ok);
+ finally
+  fo1.destroy();
+ end;
+end;
+
 end.

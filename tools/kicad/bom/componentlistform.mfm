@@ -11,6 +11,7 @@ object componentlistfo: tcomponentlistfo
     563
     454
   )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Stock Components'
   moduleclassname = 'tmseform'
@@ -85,11 +86,13 @@ object componentlistfo: tcomponentlistfo
       visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit, dbnb_dialog]
       buttonface.localprops = []
       buttonface.template = mainfo.vertkonvex
+      autoedit = True
       dialogbutton.imagenr = 17
       dialogbutton.hint = 'Dialog'
+      dialogbutton.action = edititemact
       dialogbutton.state = [as_disabled, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
     end
-    object tdbwidgetgrid1: tdbwidgetgrid
+    object grid: tdbwidgetgrid
       frame.sbvert.pagesize = 1
       frame.localprops = []
       frame.localprops1 = []
@@ -99,7 +102,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 539
       bounds_cy = 414
       anchors = [an_left, an_top, an_bottom]
-      optionsgrid = [og_colsizing, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+      optionsgrid = [og_colsizing, og_focuscellonenter, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
       fixcols.count = 1
       fixcols.items = <      
         item
@@ -109,19 +112,31 @@ object componentlistfo: tcomponentlistfo
       fixrows.items = <      
         item
           height = 16
-          captions.count = 3
+          captions.count = 5
           captions.items = <          
             item
               caption = 'Value'
+              options = [dco_colsort, dco_hintclippedtext]
             end          
             item
               caption = 'Value1'
+              options = [dco_colsort, dco_hintclippedtext]
             end          
             item
               caption = 'Value2'
+              options = [dco_colsort, dco_hintclippedtext]
+            end          
+            item
+              caption = 'Footprint'
+              options = [dco_colsort, dco_hintclippedtext]
+            end          
+            item
+              caption = 'Kind'
+              options = [dco_colsort, dco_hintclippedtext]
             end>
         end>
-      datacols.count = 3
+      datacols.count = 5
+      datacols.sortcoldefault = 0
       datacols.items = <      
         item[valueed]
           widgetname = 'valueed'
@@ -131,6 +146,12 @@ object componentlistfo: tcomponentlistfo
         end      
         item[value2ed]
           widgetname = 'value2ed'
+        end      
+        item[footprinted]
+          widgetname = 'footprinted'
+        end      
+        item[kinded]
+          widgetname = 'kinded'
         end>
       datalink.datasource = mainmo.stockcomponentsdso
       datalink.navigator = tdbnavigator1
@@ -179,6 +200,76 @@ object componentlistfo: tcomponentlistfo
         datalink.fieldname = 'VALUE2'
         reffontheight = 14
       end
+      object kinded: tdbenum64editdb
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.button.color = -1879048187
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+          end>
+        taborder = 4
+        visible = False
+        bounds_x = 204
+        bounds_y = 0
+        bounds_cx = 50
+        bounds_cy = 16
+        datalink.datasource = mainmo.stockcomponentsdso
+        datalink.navigator = tdbnavigator1
+        datalink.fieldname = 'COMPONENTKIND'
+        datalink.fieldnametext = 'KINDNAME'
+        dropdown.datasource = mainmo.compkinddso
+        dropdown.keyfield = 'PK'
+        dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+        dropdown.cols.count = 2
+        dropdown.cols.items = <        
+          item
+            datafield = 'NAME'
+          end        
+          item
+            width = 100
+            datafield = 'DESIGNATION'
+          end>
+        reffontheight = 14
+      end
+      object footprinted: tdbenum64editdb
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.button.color = -1879048187
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+          end>
+        taborder = 5
+        visible = False
+        bounds_x = 153
+        bounds_y = 0
+        bounds_cx = 50
+        bounds_cy = 16
+        datalink.datasource = mainmo.stockcomponentsdso
+        datalink.navigator = tdbnavigator1
+        datalink.fieldname = 'FOOTPRINT'
+        datalink.fieldnametext = 'FOOTPRINTNAME'
+        dropdown.datasource = mainmo.footprintdso
+        dropdown.keyfield = 'PK'
+        dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+        dropdown.cols.count = 1
+        dropdown.cols.items = <        
+          item
+            datafield = 'NAME'
+          end>
+        reffontheight = 14
+      end
     end
   end
   object tstatfile1: tstatfile
@@ -186,5 +277,10 @@ object componentlistfo: tcomponentlistfo
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 48
     top = 64
+  end
+  object edititemact: taction
+    onexecute = edititemev
+    left = 168
+    top = 56
   end
 end

@@ -102,7 +102,7 @@ type
    footprintqu: tmsesqlquery;
    f_pk: tmselargeintfield;
    f_name: tmsestringfield;
-   footprinteditdso: tmsedatasource;
+   footprintdso: tmsedatasource;
    c_footprintname: tmsestringfield;
    s_footprint: tsqlresultconnector;
    c_footprintid: tmselargeintfield;
@@ -124,6 +124,7 @@ type
    compkinddeletecheck: tsqlresult;
    stockcomponentsqu: tmsesqlquery;
    stockcomponentsdso: tmsedatasource;
+   sc_pk: tmselargeintfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -162,7 +163,7 @@ type
    function closeproject(): boolean; //true if not canceled
    function saveproject(): boolean;  //true if not canceled
    function doexit: boolean;         //true if not canceled
-   procedure begincomponentedit();
+   procedure begincomponentedit(const idfield: tmselargeintfield);
    function endcomponentedit(const acommit: boolean): boolean; //true if ok
    procedure beginfootprintedit();
    function endfootprintedit(const acommit: boolean): boolean; //true if ok
@@ -411,11 +412,11 @@ begin
  end;
 end;
 
-procedure tmainmo.begincomponentedit();
+procedure tmainmo.begincomponentedit(const idfield: tmselargeintfield);
 begin
  footprintqu.controller.refresh(false);
  compkindqu.controller.refresh(false);
- componentpkpar.param.asid:= c_stockitemid.asid;
+ componentpkpar.param.asid:= idfield.asid;
  componenteditqu.controller.refresh(false);
  if componenteditqu.eof then begin
   componenteditqu.insert();
@@ -508,12 +509,17 @@ end;
 procedure tmainmo.begincomponentsedit();
 begin
  stockcomponentsqu.controller.refresh(false);
+ stockcomponentsqu.indexlocal.indexbyname('MAIN').find(
+                                 [c_stockvalue,c_stockvalue1,c_stockvalue2]);
 end;
 
 function tmainmo.endcomponentsedit(const acommit: boolean): boolean;
 begin
- result:= true;
- stockcomponentsqu.active:= false;
+ result:= endedit(acommit,stockcomponentsqu,'component');
+ if result then begin
+  stockcomponentsqu.active:= false;
+  refresh();
+ end;
 end;
 
 function tmainmo.checkvalueexist(const avalue: msestring;

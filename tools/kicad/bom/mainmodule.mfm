@@ -507,6 +507,7 @@ object mainmo: tmainmo
     end
   end
   object componenteditdso: tmsedatasource
+    AutoEdit = False
     DataSet = componenteditqu
     left = 256
     top = 360
@@ -623,7 +624,7 @@ object mainmo: tmainmo
       top = 392
     end
   end
-  object footprinteditdso: tmsedatasource
+  object footprintdso: tmsedatasource
     AutoEdit = False
     DataSet = footprintqu
     left = 416
@@ -873,9 +874,60 @@ object mainmo: tmainmo
     top = 288
   end
   object stockcomponentsqu: tmsesqlquery
+    indexlocal.count = 6
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
+      item
+        fields.count = 3
+        fields.items = <        
+          item
+            fieldname = 'VALUE'
+          end        
+          item
+            fieldname = 'VALUE1'
+          end        
+          item
+            fieldname = 'VALUE2'
+          end>
+        active = True
+        name = 'MAIN'
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'VALUE1'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'VALUE2'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'FOOTPRINTNAME'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'KINDNAME'
+          end>
+      end>
     params = <>
     SQL.data = (
-      'select PK,"VALUE",VALUE1,VALUE2,FOOTPRINT,COMPONENTKIND from COMPONENTS'
+      'select a.PK,a."VALUE",a.VALUE1,a.VALUE2,a.FOOTPRINT,a.COMPONENTKIND,'
+      '       b.NAME as footprintname, c.NAME as kindname from '
+      '    COMPONENTS a '
+      '    left join FOOTPRINTS b on a.FOOTPRINT = b.PK'
+      '    left join COMPONENTKINDS c on a.COMPONENTKIND = c.PK'
     )
     IndexDefs = <    
       item
@@ -893,6 +945,7 @@ object mainmo: tmainmo
     tablename = 'COMPONENTS'
     database = conn
     Transaction = trans
+    transactionwrite = transwrite
     FieldDefs = <    
       item
         Name = 'PK'
@@ -920,9 +973,76 @@ object mainmo: tmainmo
       item
         Name = 'COMPONENTKIND'
         DataType = ftLargeint
+      end    
+      item
+        Name = 'FOOTPRINTNAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'KINDNAME'
+        DataType = ftString
+        Size = 20
       end>
+    controller.fields.count = 7
+    controller.fields.fields = (
+      (
+        ft_string
+        ft_string
+        ft_string
+        ft_largeint
+        ft_largeint
+        ft_string
+        ft_string
+      )
+      <      
+        item
+          DisplayWidth = 50
+          FieldName = 'VALUE'
+          Index = 0
+          Size = 50
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'VALUE1'
+          Index = 1
+          Size = 50
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'VALUE2'
+          Index = 2
+          Size = 50
+        end      
+        item
+          FieldName = 'FOOTPRINT'
+          Index = 3
+        end      
+        item
+          FieldName = 'COMPONENTKIND'
+          Index = 4
+        end      
+        item
+          DisplayWidth = 20
+          FieldName = 'FOOTPRINTNAME'
+          Index = 5
+          optionsfield = [of_visible]
+        end      
+        item
+          DisplayWidth = 20
+          FieldName = 'KINDNAME'
+          Index = 6
+          optionsfield = [of_visible]
+        end>
+    )
     left = 416
     top = 56
+    object sc_pk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 7
+      left = 424
+      top = 88
+    end
   end
   object stockcomponentsdso: tmsedatasource
     AutoEdit = False

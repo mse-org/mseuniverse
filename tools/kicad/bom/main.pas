@@ -173,9 +173,10 @@ var
  res1: modalresultty;
  fo1: tcomponenteditfo;
 begin
- mainmo.begincomponentedit();
+ mainmo.begincomponentedit(mainmo.c_stockitemid);
  fo1:= tcomponenteditfo.create(nil);
  try
+  fo1.navig.nonavig:= true;
   repeat
    res1:= fo1.show(ml_application);
   until mainmo.endcomponentedit(res1 = mr_ok);
