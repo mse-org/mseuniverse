@@ -54,38 +54,17 @@ type
 
 implementation
 uses
- componenteditform_mfm,mainmodule,footprinteditform,componentkindeditform;
+ componenteditform_mfm,mainmodule,footprinteditform,componentkindeditform,
+ main;
  
 procedure tcomponenteditfo.editfootprintev(const sender: TObject);
-var
- res1: modalresultty;
- fo1: tfootprinteditfo;
 begin
- mainmo.beginfootprintedit();
- fo1:= tfootprinteditfo.create(nil);
- try
-  repeat
-   res1:= fo1.show(ml_application);
-  until mainmo.endfootprintedit(res1 = mr_ok);
- finally
-  fo1.destroy();
- end;
+ mainfo.editfootprint(sender);
 end;
 
 procedure tcomponenteditfo.editkindev(const sender: TObject);
-var
- res1: modalresultty;
- fo1: tcomponentkindeditfo;
 begin
- mainmo.begincomponentkindedit();
- fo1:= tcomponentkindeditfo.create(nil);
- try
-  repeat
-   res1:= fo1.show(ml_application);
-  until mainmo.endcomponentkindedit(res1 = mr_ok);
- finally
-  fo1.destroy();
- end;
+ mainfo.editcomponentkind(sender);
 end;
 
 end.

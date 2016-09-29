@@ -107,26 +107,23 @@ type
    s_footprint: tsqlresultconnector;
    c_footprintid: tmselargeintfield;
    footprintinsertcheck: tsqlresult;
-   footprintnamepar: tparamconnector;
    footprintdeletecheck: tsqlresult;
-   footprintidpar: tparamconnector;
-   fd_value: tsqlresultconnector;
-   fd_value1: tsqlresultconnector;
-   fd_value2: tsqlresultconnector;
    c_stockvalue: tmsestringfield;
    c_stockvalue1: tmsestringfield;
    c_stockvalue2: tmsestringfield;
    s_value: tsqlresultconnector;
    s_value1: tsqlresultconnector;
    s_value2: tsqlresultconnector;
-   editcompact: taction;
-   editfootprintact: taction;
-   editcomponentkindact: taction;
    compkindqu: tmsesqlquery;
    k_pk: tmselargeintfield;
    k_name: tmsestringfield;
    compkinddso: tmsedatasource;
    k_designation: tmsestringfield;
+   e_componentkind: tmselargeintfield;
+   compkindinsertcheck: tsqlresult;
+   compkinddeletecheck: tsqlresult;
+   stockcomponentsqu: tmsesqlquery;
+   stockcomponentsdso: tmsedatasource;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -144,12 +141,21 @@ type
    procedure footprintpostev(DataSet: TDataSet);
    procedure beforefootprintdeleteev(DataSet: TDataSet);
    procedure compkindupdatedataev(Sender: TObject);
+   procedure beforecompkinddeleteev(DataSet: TDataSet);
+   procedure compkindpostev(DataSet: TDataSet);
   private
    fhasproject: boolean;
    fmodified: boolean;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
+   procedure beginedit(const aquery: tmsesqlquery; const afield: tfield);
+   function endedit(const acommit: boolean; const aquery: tmsesqlquery;
+                       const amessage: msestring): boolean;
+   procedure dodeletecheck(const asqlres: tsqlresult; 
+                                               const aid: tmselargeintfield);
+   procedure doinsertcheck(const asqlres: tsqlresult;
+                                            const aname: tmsestringfield);
   public
    procedure openproject(const afilename: filenamety);
    procedure refresh();
@@ -162,6 +168,8 @@ type
    function endfootprintedit(const acommit: boolean): boolean; //true if ok
    procedure begincomponentkindedit();
    function endcomponentkindedit(const acommit: boolean): boolean; //true if ok
+   procedure begincomponentsedit();
+   function endcomponentsedit(const acommit: boolean): boolean; //true if ok
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property hasproject: boolean read fhasproject;
    property modified: boolean read fmodified;
@@ -444,18 +452,13 @@ begin
  end;
 end;
 
-procedure tmainmo.beginfootprintedit();
-begin
- footprintqu.active:= true;
- footprintqu.indexlocal[0].find([e_footprint]);
-end;
-
-function tmainmo.endfootprintedit(const acommit: boolean): boolean;
+function tmainmo.endedit(const acommit: boolean; const aquery: tmsesqlquery;
+                       const amessage: msestring): boolean;
 begin
  result:= true;
  if acommit then begin
   try
-   footprintqu.applyupdates();
+   aquery.applyupdates();
    transwrite.commit();
   except
    application.handleexception();
@@ -463,25 +466,54 @@ begin
   end;
  end
  else begin
-  if footprintqu.changecount > 0 then begin
-   if not askyesno('The footprint data has been modified.'+lineend+
-            'Do you want to cancel modifications?') then begin
+  if aquery.changecount > 0 then begin
+   if not askyesno('The data of '+amessage+' has been modified.'+lineend+
+            'Do you want to cancel the modifications?') then begin
     result:= false;
    end
    else begin
-    footprintqu.cancelupdates();
+    aquery.cancelupdates();
    end;
   end;
  end;
 end;
 
+procedure tmainmo.beginedit(const aquery: tmsesqlquery;
+                                                 const afield: tfield);
+begin
+ aquery.active:= true;
+ aquery.indexlocal[0].find([afield]);
+end;
+
+procedure tmainmo.beginfootprintedit();
+begin
+ beginedit(footprintqu,e_footprint);
+end;
+
+function tmainmo.endfootprintedit(const acommit: boolean): boolean;
+begin
+ result:= endedit(acommit,footprintqu,'footprint');
+end;
+
 procedure tmainmo.begincomponentkindedit();
 begin
+ beginedit(compkindqu,e_componentkind);
 end;
 
 function tmainmo.endcomponentkindedit(const acommit: boolean): boolean;
 begin
+ result:= endedit(acommit,compkindqu,'component kind');
+end;
+
+procedure tmainmo.begincomponentsedit();
+begin
+ stockcomponentsqu.controller.refresh(false);
+end;
+
+function tmainmo.endcomponentsedit(const acommit: boolean): boolean;
+begin
  result:= true;
+ stockcomponentsqu.active:= false;
 end;
 
 function tmainmo.checkvalueexist(const avalue: msestring;
@@ -556,27 +588,40 @@ begin
  conn.databasename:= globaloptions.databasename;
 end;
 
-procedure tmainmo.footprintpostev(DataSet: TDataSet);
+procedure tmainmo.doinsertcheck(const asqlres: tsqlresult;
+                                            const aname: tmsestringfield);
 begin
- footprintnamepar.param.asmsestring:= f_name.asmsestring;
- footprintinsertcheck.refresh();
- if not footprintinsertcheck.eof then begin
-  showmessage('Footprint with this name already exists.','ERROR');
+ asqlres.params[0].asmsestring:= aname.asmsestring;
+ asqlres.refresh();
+ if not asqlres.eof then begin
+  showmessage('Record with this name already exists.','ERROR');
   abort();
  end;
 end;
 
-procedure tmainmo.beforefootprintdeleteev(DataSet: TDataSet);
+procedure tmainmo.dodeletecheck(const asqlres: tsqlresult; 
+                                            const aid: tmselargeintfield);
 begin
- footprintidpar.param.asid:= f_pk.asid;
- footprintdeletecheck.refresh();
- if not footprintdeletecheck.eof then begin
-  showmessage('Footprint can not be deleted,'+lineend+
-              'it is in use by component "'+fd_value.col.asmsestring+','+
-                            fd_value1.col.asmsestring+','+
-                            fd_value2.col.asmsestring+'"','ERROR');
+ asqlres.params[0].asid:= aid.asid;
+ asqlres.refresh();
+ if not asqlres.eof then begin
+  showmessage('Record can not be deleted,'+lineend+
+              'it is in use by component "'+
+              asqlres.cols.colbyname('VALUE').asmsestring+','+
+              asqlres.cols.colbyname('VALUE1').asmsestring+','+
+              asqlres.cols.colbyname('VALUE1').asmsestring+'"','ERROR');
   abort();
  end;
+end;
+
+procedure tmainmo.footprintpostev(DataSet: TDataSet);
+begin
+ doinsertcheck(footprintinsertcheck,f_name);
+end;
+
+procedure tmainmo.beforefootprintdeleteev(DataSet: TDataSet);
+begin
+ dodeletecheck(footprintdeletecheck,f_pk);
 end;
 
 procedure tmainmo.compkindupdatedataev(Sender: TObject);
@@ -585,6 +630,16 @@ begin
                   (k_designation.value = k_name.curvalue) then begin
   k_designation.asmsestring:= k_name.asmsestring;
  end;
+end;
+
+procedure tmainmo.beforecompkinddeleteev(DataSet: TDataSet);
+begin
+ dodeletecheck(compkinddeletecheck,k_pk);
+end;
+
+procedure tmainmo.compkindpostev(DataSet: TDataSet);
+begin
+ doinsertcheck(compkindinsertcheck,k_name);
 end;
 
 { tprojectoptions }

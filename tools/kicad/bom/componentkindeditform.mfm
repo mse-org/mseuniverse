@@ -11,6 +11,9 @@ object componentkindeditfo: tcomponentkindeditfo
     627
     333
   )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Cpmponentkinds'
   moduleclassname = 'tmseform'
   object tdbnavigator1: tdbnavigator
     optionswidget1 = [ow1_autoscale, ow1_autoheight]
@@ -137,6 +140,7 @@ object componentkindeditfo: tcomponentkindeditfo
       end>
     datalink.datasource = mainmo.compkinddso
     datarowheight = 16
+    statfile = tstatfile1
     reffontheight = 14
     object nameed: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -199,5 +203,11 @@ object componentkindeditfo: tcomponentkindeditfo
       kind = dtk_datetime
       reffontheight = 14
     end
+  end
+  object tstatfile1: tstatfile
+    filename = 'componentkindeditfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 80
+    top = 96
   end
 end

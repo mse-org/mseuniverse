@@ -19,6 +19,7 @@ type
    tdbdatetimeedit1: tdbdatetimeedit;
    tdbdatetimeedit2: tdbdatetimeedit;
    designationed: tdbstringedit;
+   tstatfile1: tstatfile;
  end;
 var
  componentkindeditfo: tcomponentkindeditfo;

@@ -23,7 +23,7 @@ uses
  mseact,msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,msegrids,
  mseificomp,mseificompglob,mseifiglob,mselistbrowser,msestream,msestrings,
  msesys,sysutils,msesimplewidgets,kicadschemaparser,mseifiendpoint,mdb,
- msedbedit,msegraphedits,mselookupbuffer,msescrollbar;
+ msedbedit,msegraphedits,mselookupbuffer,msescrollbar,mseactions;
 
 const
  maincaption = 'MSEkicadBOM';
@@ -53,6 +53,9 @@ type
    tdbstringedit3: tdbstringedit;
    horzkonvex: tfacecomp;
    vertkonvex: tfacecomp;
+   editfootprintact: taction;
+   editcompkindact: taction;
+   editcomponentsact: taction;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -62,15 +65,21 @@ type
    procedure editglobalsettingsev(const sender: TObject);
    procedure getdbcredentialsev(const sender: TObject);
    procedure editev(const sender: TObject);
+   procedure editfootprint(const sender: tobject);
+   procedure editcomponentkind(const sender: tobject);
+   procedure editcomponents(const sender: TObject);
   protected
+  public
  end;
+ 
 var
  mainfo: tmainfo;
 
 implementation
 uses
  main_mfm,mainmodule,msefileutils,projectsettingsform,globalsettingsform,
- credentialsentryform,componenteditform;
+ credentialsentryform,componenteditform,footprinteditform,componentkindeditform,
+ componentlistform;
  
 procedure tmainfo.getfilenameev(const sender: TObject);
 var
@@ -170,6 +179,54 @@ begin
   repeat
    res1:= fo1.show(ml_application);
   until mainmo.endcomponentedit(res1 = mr_ok);
+ finally
+  fo1.destroy();
+ end;
+end;
+
+procedure tmainfo.editfootprint(const sender: tobject);
+var
+ res1: modalresultty;
+ fo1: tfootprinteditfo;
+begin
+ mainmo.beginfootprintedit();
+ fo1:= tfootprinteditfo.create(nil);
+ try
+  repeat
+   res1:= fo1.show(ml_application);
+  until mainmo.endfootprintedit(res1 = mr_ok);
+ finally
+  fo1.destroy();
+ end;
+end;
+
+procedure tmainfo.editcomponentkind(const sender: tobject);
+var
+ res1: modalresultty;
+ fo1: tcomponentkindeditfo;
+begin
+ mainmo.begincomponentkindedit();
+ fo1:= tcomponentkindeditfo.create(nil);
+ try
+  repeat
+   res1:= fo1.show(ml_application);
+  until mainmo.endcomponentkindedit(res1 = mr_ok);
+ finally
+  fo1.destroy();
+ end;
+end;
+
+procedure tmainfo.editcomponents(const sender: TObject);
+var
+ res1: modalresultty;
+ fo1: tcomponentlistfo;
+begin
+ mainmo.begincomponentsedit();
+ fo1:= tcomponentlistfo.create(nil);
+ try
+  repeat
+   res1:= fo1.show(ml_application);
+  until mainmo.endcomponentsedit(res1 = mr_ok);
  finally
   fo1.destroy();
  end;

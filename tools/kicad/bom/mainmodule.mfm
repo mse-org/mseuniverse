@@ -443,12 +443,11 @@ object mainmo: tmainmo
         Name = 'COMPONENTKIND'
         DataType = ftLargeint
       end>
-    controller.fields.count = 3
+    controller.fields.count = 2
     controller.fields.fields = (
       (
         ft_datetime
         ft_datetime
-        ft_largeint
       )
       <      
         item
@@ -458,10 +457,6 @@ object mainmo: tmainmo
         item
           FieldName = 'TSMODIFY'
           Index = 1
-        end      
-        item
-          FieldName = 'COMPONENTKIND'
-          Index = 2
         end>
     )
     controller.options = []
@@ -469,7 +464,7 @@ object mainmo: tmainmo
     top = 344
     object e_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 3
+      Index = 2
       optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 264
       top = 376
@@ -477,7 +472,7 @@ object mainmo: tmainmo
     object e_value: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE'
-      Index = 4
+      Index = 3
       Size = 0
       left = 264
       top = 392
@@ -485,7 +480,7 @@ object mainmo: tmainmo
     object e_value2: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE2'
-      Index = 5
+      Index = 4
       Size = 0
       left = 264
       top = 424
@@ -493,16 +488,22 @@ object mainmo: tmainmo
     object e_value1: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE1'
-      Index = 6
+      Index = 5
       Size = 0
       left = 264
       top = 408
     end
     object e_footprint: tmselargeintfield
       FieldName = 'FOOTPRINT'
-      Index = 7
+      Index = 6
       left = 264
       top = 440
+    end
+    object e_componentkind: tmselargeintfield
+      FieldName = 'COMPONENTKIND'
+      Index = 7
+      left = 264
+      top = 456
     end
   end
   object componenteditdso: tmsedatasource
@@ -522,7 +523,6 @@ object mainmo: tmainmo
           item
             fieldname = 'PK'
           end>
-        active = True
       end    
       item
         fields.items = <        
@@ -530,6 +530,7 @@ object mainmo: tmainmo
             fieldname = 'NAME'
             options = [ifo_caseinsensitive]
           end>
+        active = True
       end>
     params = <    
       item
@@ -623,6 +624,7 @@ object mainmo: tmainmo
     end
   end
   object footprinteditdso: tmsedatasource
+    AutoEdit = False
     DataSet = footprintqu
     left = 416
     top = 360
@@ -645,7 +647,6 @@ object mainmo: tmainmo
         DataType = ftUnknown
         Name = 'name'
         ParamType = ptInput
-        connector = footprintnamepar
       end>
     sql.data = (
       'select null from FOOTPRINTS where NAME = :name'
@@ -654,10 +655,6 @@ object mainmo: tmainmo
     transaction = trans
     left = 416
     top = 312
-  end
-  object footprintnamepar: tparamconnector
-    left = 424
-    top = 296
   end
   object footprintdeletecheck: tsqlresult
     fielddefs = <    
@@ -679,15 +676,8 @@ object mainmo: tmainmo
     params = <    
       item
         DataType = ftUnknown
-        Name = 'name'
-        ParamType = ptInput
-        connector = footprintnamepar
-      end    
-      item
-        DataType = ftUnknown
         Name = 'id'
         ParamType = ptInput
-        connector = footprintidpar
       end>
     sql.data = (
       'select "VALUE",VALUE1,VALUE2 from COMPONENTS where FOOTPRINT = :id'
@@ -695,29 +685,7 @@ object mainmo: tmainmo
     database = conn
     transaction = trans
     left = 416
-    top = 216
-  end
-  object footprintidpar: tparamconnector
-    left = 424
-    top = 200
-  end
-  object fd_value: tsqlresultconnector
-    source = footprintdeletecheck
-    colname = 'VALUE'
-    left = 424
-    top = 232
-  end
-  object fd_value1: tsqlresultconnector
-    source = footprintdeletecheck
-    colname = 'VALUE1'
-    left = 424
-    top = 248
-  end
-  object fd_value2: tsqlresultconnector
-    source = footprintdeletecheck
-    colname = 'VALUE2'
-    left = 424
-    top = 264
+    top = 288
   end
   object s_value: tsqlresultconnector
     source = stockitem
@@ -737,21 +705,6 @@ object mainmo: tmainmo
     left = 160
     top = 424
   end
-  object editcompact: taction
-    caption = 'Edit &Components'
-    left = 336
-    top = 48
-  end
-  object editfootprintact: taction
-    caption = 'Edit &Footprints'
-    left = 336
-    top = 64
-  end
-  object editcomponentkindact: taction
-    caption = 'Edit Component-&Kinds'
-    left = 336
-    top = 80
-  end
   object compkindqu: tmsesqlquery
     indexlocal.count = 2
     indexlocal.items = <    
@@ -760,7 +713,6 @@ object mainmo: tmainmo
           item
             fieldname = 'PK'
           end>
-        active = True
       end    
       item
         fields.items = <        
@@ -768,6 +720,7 @@ object mainmo: tmainmo
             fieldname = 'NAME'
             options = [ifo_caseinsensitive]
           end>
+        active = True
       end>
     params = <    
       item
@@ -788,6 +741,8 @@ object mainmo: tmainmo
       end>
     tablename = 'COMPONENTKINDS'
     database = conn
+    BeforePost = compkindpostev
+    BeforeDelete = beforecompkinddeleteev
     Transaction = trans
     transactionwrite = transwrite
     FieldDefs = <    
@@ -859,9 +814,120 @@ object mainmo: tmainmo
     end
   end
   object compkinddso: tmsedatasource
+    AutoEdit = False
     DataSet = compkindqu
     OnUpdateData = compkindupdatedataev
     left = 592
     top = 360
+  end
+  object compkindinsertcheck: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'CONSTANT'
+        DataType = ftString
+        Size = 1
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'name'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select null from COMPONENTKINDS where NAME = :name'
+    )
+    database = conn
+    transaction = trans
+    left = 592
+    top = 312
+  end
+  object compkinddeletecheck: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'VALUE'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'VALUE1'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'VALUE2'
+        DataType = ftString
+        Size = 50
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select "VALUE",VALUE1,VALUE2 from COMPONENTS where COMPONENTKIND = :id'
+    )
+    database = conn
+    transaction = trans
+    left = 592
+    top = 288
+  end
+  object stockcomponentsqu: tmsesqlquery
+    params = <>
+    SQL.data = (
+      'select PK,"VALUE",VALUE1,VALUE2,FOOTPRINT,COMPONENTKIND from COMPONENTS'
+    )
+    IndexDefs = <    
+      item
+        Name = 'FK_COMPONENTS_0'
+      end    
+      item
+        Name = 'FK_COMPONENTS_1'
+      end    
+      item
+        Name = 'IDX_COMPONENTS1'
+      end    
+      item
+        Name = 'PK_COMPONENTS_0'
+      end>
+    tablename = 'COMPONENTS'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'VALUE'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'VALUE1'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'VALUE2'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'FOOTPRINT'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'COMPONENTKIND'
+        DataType = ftLargeint
+      end>
+    left = 416
+    top = 56
+  end
+  object stockcomponentsdso: tmsedatasource
+    AutoEdit = False
+    DataSet = stockcomponentsqu
+    left = 416
+    top = 72
   end
 end
