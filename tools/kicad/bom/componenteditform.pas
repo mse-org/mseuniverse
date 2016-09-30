@@ -45,9 +45,9 @@ type
    strip0: texpandingwidget;
    navig: tdbnavigator;
    strip4: tlayouter;
-   tdbenum64editdb2: tdbenum64editdb;
    tdbenum64editdb3: tdbenum64editdb;
    tsimplewidget2: tsimplewidget;
+   tdbstringedit1: tdbstringedit;
    procedure editfootprintev(const sender: TObject);
    procedure editkindev(const sender: TObject);
  end;

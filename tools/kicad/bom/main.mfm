@@ -94,7 +94,7 @@ object mainfo: tmainfo
           end        
           item
             color = -1610612712
-            caption = 'Stock'
+            caption = 'Database'
             face.localprops = []
             mergecols = 4
           end        
@@ -345,6 +345,9 @@ object mainfo: tmainfo
         action = mainmo.refreshact
       end    
       item
+        action = mainmo.projectsettingsact
+      end    
+      item
         submenu.count = 3
         submenu.items = <        
           item
@@ -356,11 +359,8 @@ object mainfo: tmainfo
           item
             action = editcompkindact
           end>
-        caption = '&Stock'
+        caption = '&Database'
         state = [as_localcaption]
-      end    
-      item
-        action = mainmo.projectsettingsact
       end    
       item
         action = mainmo.globalsettingsact

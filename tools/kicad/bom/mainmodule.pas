@@ -122,9 +122,15 @@ type
    e_componentkind: tmselargeintfield;
    compkindinsertcheck: tsqlresult;
    compkinddeletecheck: tsqlresult;
-   stockcomponentsqu: tmsesqlquery;
-   stockcomponentsdso: tmsedatasource;
+   stockcompqu: tmsesqlquery;
+   stockcompdso: tmsedatasource;
    sc_pk: tmselargeintfield;
+   sc_value: tmsestringfield;
+   sc_value1: tmsestringfield;
+   sc_value2: tmsestringfield;
+   stockcompdetailqu: tmsesqlquery;
+   stockcompdetaildso: tmsedatasource;
+   stockcompdetaillink: tfieldparamlink;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -400,6 +406,8 @@ begin
  projectoptions.destroy();
  projectoptions:= tprojectoptions.create(); //initial state
  fhasproject:= false;
+ projectfiledialog.controller.filename:= '';
+ globaloptions.filename:= '';
  result:= true;
  statechanged();
 end;
@@ -416,6 +424,22 @@ procedure tmainmo.begincomponentedit(const idfield: tmselargeintfield);
 begin
  footprintqu.controller.refresh(false);
  compkindqu.controller.refresh(false);
+ if idfield = nil then begin
+  stockcompqu.controller.refresh(true);
+ end
+ else begin
+  stockcompqu.controller.refresh(false);
+  if idfield.isnull then begin
+   stockcompqu.insert();
+   sc_value.asmsestring:= c_value.asmsestring;
+   sc_value1.asmsestring:= c_value1.asmsestring;
+   sc_value2.asmsestring:= c_value2.asmsestring;
+  end
+  else begin
+   stockcompqu.indexlocal[0].find([idfield]);
+  end; 
+ end;
+{
  componentpkpar.param.asid:= idfield.asid;
  componenteditqu.controller.refresh(false);
  if componenteditqu.eof then begin
@@ -424,6 +448,7 @@ begin
   e_value1.asmsestring:= c_value1.asmsestring;
   e_value2.asmsestring:= c_value2.asmsestring;
  end
+}
 end;
 
 function tmainmo.endcomponentedit(const acommit: boolean): boolean;
@@ -508,16 +533,16 @@ end;
 
 procedure tmainmo.begincomponentsedit();
 begin
- stockcomponentsqu.controller.refresh(false);
- stockcomponentsqu.indexlocal.indexbyname('MAIN').find(
+ stockcompqu.controller.refresh(false);
+ stockcompqu.indexlocal.indexbyname('MAIN').find(
                                  [c_stockvalue,c_stockvalue1,c_stockvalue2]);
 end;
 
 function tmainmo.endcomponentsedit(const acommit: boolean): boolean;
 begin
- result:= endedit(acommit,stockcomponentsqu,'component');
+ result:= endedit(acommit,stockcompqu,'component');
  if result then begin
-  stockcomponentsqu.active:= false;
+//  stockcompqu.active:= false;
   refresh();
  end;
 end;

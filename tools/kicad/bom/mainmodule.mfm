@@ -508,7 +508,7 @@ object mainmo: tmainmo
   end
   object componenteditdso: tmsedatasource
     AutoEdit = False
-    DataSet = componenteditqu
+    DataSet = stockcompqu
     left = 256
     top = 360
   end
@@ -873,7 +873,7 @@ object mainmo: tmainmo
     left = 592
     top = 288
   end
-  object stockcomponentsqu: tmsesqlquery
+  object stockcompqu: tmsesqlquery
     indexlocal.count = 6
     indexlocal.items = <    
       item
@@ -984,12 +984,9 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 20
       end>
-    controller.fields.count = 7
+    controller.fields.count = 4
     controller.fields.fields = (
       (
-        ft_string
-        ft_string
-        ft_string
         ft_largeint
         ft_largeint
         ft_string
@@ -997,57 +994,126 @@ object mainmo: tmainmo
       )
       <      
         item
-          DisplayWidth = 50
-          FieldName = 'VALUE'
-          Index = 0
-          Size = 50
-        end      
-        item
-          DisplayWidth = 50
-          FieldName = 'VALUE1'
-          Index = 1
-          Size = 50
-        end      
-        item
-          DisplayWidth = 50
-          FieldName = 'VALUE2'
-          Index = 2
-          Size = 50
-        end      
-        item
           FieldName = 'FOOTPRINT'
-          Index = 3
+          Index = 0
         end      
         item
           FieldName = 'COMPONENTKIND'
-          Index = 4
+          Index = 1
         end      
         item
           DisplayWidth = 20
           FieldName = 'FOOTPRINTNAME'
-          Index = 5
+          Index = 2
           optionsfield = [of_visible]
         end      
         item
           DisplayWidth = 20
           FieldName = 'KINDNAME'
-          Index = 6
+          Index = 3
           optionsfield = [of_visible]
         end>
     )
+    controller.options = [dso_editonapplyerror, dso_autoapply, dso_autocommitret]
     left = 416
     top = 56
     object sc_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 7
+      Index = 4
       left = 424
       top = 88
     end
+    object sc_value: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE'
+      Index = 5
+      left = 424
+      top = 104
+    end
+    object sc_value1: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE2'
+      Index = 6
+      left = 424
+      top = 120
+    end
+    object sc_value2: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE1'
+      Index = 7
+      left = 424
+      top = 136
+    end
   end
-  object stockcomponentsdso: tmsedatasource
+  object stockcompdso: tmsedatasource
     AutoEdit = False
-    DataSet = stockcomponentsqu
+    DataSet = stockcompqu
     left = 416
     top = 72
+  end
+  object stockcompdetailqu: tmsesqlquery
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end>
+    SQL.data = (
+      'select a.PK,a.TSCREATE,a.TSMODIFY,b.DESIGNATION from COMPONENTS a'
+      ' left join COMPONENTKINDS b on a.COMPONENTKIND = b.PK'
+      '   where a.PK = :pk'
+    )
+    IndexDefs = <    
+      item
+        Name = 'FK_COMPONENTS_0'
+      end    
+      item
+        Name = 'FK_COMPONENTS_1'
+      end    
+      item
+        Name = 'IDX_COMPONENTS1'
+      end    
+      item
+        Name = 'PK_COMPONENTS_0'
+      end>
+    tablename = 'COMPONENTS'
+    database = conn
+    Transaction = trans
+    transactionwrite = transwrite
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'DESIGNATION'
+        DataType = ftString
+        Size = 50
+      end>
+    left = 600
+    top = 56
+  end
+  object stockcompdetaildso: tmsedatasource
+    DataSet = stockcompdetailqu
+    left = 600
+    top = 72
+  end
+  object stockcompdetaillink: tfieldparamlink
+    fieldname = 'PK'
+    datasource = stockcompdso
+    destdataset = stockcompdetailqu
+    paramname = 'pk'
+    delayus = 500000
+    options = [fplo_autorefresh, fplo_syncmasterpost, fplo_syncmastercancel, fplo_syncmastercheckbrowsemode, fplo_syncmasteredit, fplo_syncmasterinsert]
+    left = 608
+    top = 40
   end
 end

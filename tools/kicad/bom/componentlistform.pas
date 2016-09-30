@@ -35,7 +35,7 @@ var
  res1: modalresultty;
  fo1: tcomponenteditfo;
 begin
- mainmo.begincomponentedit(mainmo.sc_pk);
+ mainmo.begincomponentedit(nil);
  fo1:= tcomponenteditfo.create(nil);
  try
   repeat

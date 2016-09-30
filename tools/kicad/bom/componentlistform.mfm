@@ -1,4 +1,5 @@
 object componentlistfo: tcomponentlistfo
+  visible = False
   bounds_x = 337
   bounds_y = 266
   bounds_cx = 563
@@ -13,7 +14,7 @@ object componentlistfo: tcomponentlistfo
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'Stock Components'
+  caption = 'Components'
   moduleclassname = 'tmseform'
   object tsplitter1: tsplitter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -82,7 +83,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 24
       bounds_cy = 288
       anchors = [an_left, an_top, an_right]
-      datasource = mainmo.stockcomponentsdso
+      datasource = mainmo.stockcompdso
       visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit, dbnb_dialog]
       buttonface.localprops = []
       buttonface.template = mainfo.vertkonvex
@@ -153,7 +154,7 @@ object componentlistfo: tcomponentlistfo
         item[kinded]
           widgetname = 'kinded'
         end>
-      datalink.datasource = mainmo.stockcomponentsdso
+      datalink.datasource = mainmo.stockcompdso
       datalink.navigator = tdbnavigator1
       datarowheight = 16
       statfile = tstatfile1
@@ -167,7 +168,7 @@ object componentlistfo: tcomponentlistfo
         bounds_y = 0
         bounds_cx = 50
         bounds_cy = 16
-        datalink.datasource = mainmo.stockcomponentsdso
+        datalink.datasource = mainmo.stockcompdso
         datalink.navigator = tdbnavigator1
         datalink.fieldname = 'VALUE'
         reffontheight = 14
@@ -181,7 +182,7 @@ object componentlistfo: tcomponentlistfo
         bounds_y = 0
         bounds_cx = 50
         bounds_cy = 16
-        datalink.datasource = mainmo.stockcomponentsdso
+        datalink.datasource = mainmo.stockcompdso
         datalink.navigator = tdbnavigator1
         datalink.fieldname = 'VALUE1'
         reffontheight = 14
@@ -195,46 +196,9 @@ object componentlistfo: tcomponentlistfo
         bounds_y = 0
         bounds_cx = 50
         bounds_cy = 16
-        datalink.datasource = mainmo.stockcomponentsdso
+        datalink.datasource = mainmo.stockcompdso
         datalink.navigator = tdbnavigator1
         datalink.fieldname = 'VALUE2'
-        reffontheight = 14
-      end
-      object kinded: tdbenum64editdb
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        frame.levelo = 0
-        frame.colorclient = -2147483645
-        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-        frame.localprops1 = []
-        frame.button.color = -1879048187
-        frame.buttons.count = 1
-        frame.buttons.items = <        
-          item
-            color = -1879048187
-          end>
-        taborder = 4
-        visible = False
-        bounds_x = 204
-        bounds_y = 0
-        bounds_cx = 50
-        bounds_cy = 16
-        datalink.datasource = mainmo.stockcomponentsdso
-        datalink.navigator = tdbnavigator1
-        datalink.fieldname = 'COMPONENTKIND'
-        datalink.fieldnametext = 'KINDNAME'
-        dropdown.datasource = mainmo.compkinddso
-        dropdown.keyfield = 'PK'
-        dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
-        dropdown.cols.count = 2
-        dropdown.cols.items = <        
-          item
-            datafield = 'NAME'
-          end        
-          item
-            width = 100
-            datafield = 'DESIGNATION'
-          end>
         reffontheight = 14
       end
       object footprinted: tdbenum64editdb
@@ -250,13 +214,13 @@ object componentlistfo: tcomponentlistfo
           item
             color = -1879048187
           end>
-        taborder = 5
+        taborder = 4
         visible = False
         bounds_x = 153
         bounds_y = 0
         bounds_cx = 50
         bounds_cy = 16
-        datalink.datasource = mainmo.stockcomponentsdso
+        datalink.datasource = mainmo.stockcompdso
         datalink.navigator = tdbnavigator1
         datalink.fieldname = 'FOOTPRINT'
         datalink.fieldnametext = 'FOOTPRINTNAME'
@@ -267,6 +231,43 @@ object componentlistfo: tcomponentlistfo
         dropdown.cols.items = <        
           item
             datafield = 'NAME'
+          end>
+        reffontheight = 14
+      end
+      object kinded: tdbenum64editdb
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.button.color = -1879048187
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+          end>
+        taborder = 5
+        visible = False
+        bounds_x = 204
+        bounds_y = 0
+        bounds_cx = 50
+        bounds_cy = 16
+        datalink.datasource = mainmo.stockcompdso
+        datalink.navigator = tdbnavigator1
+        datalink.fieldname = 'COMPONENTKIND'
+        datalink.fieldnametext = 'KINDNAME'
+        dropdown.datasource = mainmo.compkinddso
+        dropdown.keyfield = 'PK'
+        dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+        dropdown.cols.count = 2
+        dropdown.cols.items = <        
+          item
+            datafield = 'NAME'
+          end        
+          item
+            width = 100
+            datafield = 'DESIGNATION'
           end>
         reffontheight = 14
       end
