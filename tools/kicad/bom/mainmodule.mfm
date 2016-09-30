@@ -1064,24 +1064,16 @@ object mainmo: tmainmo
         ParamType = ptInput
       end>
     SQL.data = (
-      'select a.PK,a.TSCREATE,a.TSMODIFY,b.DESIGNATION from COMPONENTS a'
-      ' left join COMPONENTKINDS b on a.COMPONENTKIND = b.PK'
-      '   where a.PK = :pk'
+      'select PK,TSCREATE,TSMODIFY,DESIGNATION from COMPONENTDETAILS where PK = :pk'
     )
     IndexDefs = <    
       item
-        Name = 'FK_COMPONENTS_0'
+        Name = 'FK_COMPONENTDETAILS_0'
       end    
       item
-        Name = 'FK_COMPONENTS_1'
-      end    
-      item
-        Name = 'IDX_COMPONENTS1'
-      end    
-      item
-        Name = 'PK_COMPONENTS_0'
+        Name = 'PK_COMPONENTDETAILS_0'
       end>
-    tablename = 'COMPONENTS'
+    tablename = 'COMPONENTDETAILS'
     database = conn
     Transaction = trans
     transactionwrite = transwrite
@@ -1108,6 +1100,7 @@ object mainmo: tmainmo
     streamingversion = 1
   end
   object stockcompdetaildso: tmsedatasource
+    AutoEdit = False
     DataSet = stockcompdetailqu
     left = 600
     top = 72
@@ -1118,7 +1111,14 @@ object mainmo: tmainmo
     destdataset = stockcompdetailqu
     paramname = 'pk'
     delayus = 500000
-    options = [fplo_autorefresh, fplo_syncmasterpost, fplo_syncmastercancel, fplo_syncmastercheckbrowsemode, fplo_syncmasteredit, fplo_syncmasterinsert]
+    options = [fplo_autorefresh, fplo_syncmasterpost, fplo_syncmastercancel, fplo_syncmasteredit, fplo_syncmasterinsert, fplo_syncmasterdelete, fplo_syncslaveedit]
+    destfields.count = 1
+    destfields.items = <    
+      item
+        datasource = stockcompdso
+        fieldname = 'PK'
+        destfieldname = 'PK'
+      end>
     left = 608
     top = 40
   end

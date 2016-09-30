@@ -328,6 +328,7 @@ object componenteditfo: tcomponenteditfo
         bounds_y = 0
         bounds_cx = 276
         bounds_cy = 23
+        statfile = tstatfile1
         datasource = mainmo.stockcompdso
         visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit]
         buttonface.localprops = []
@@ -368,6 +369,8 @@ object componenteditfo: tcomponenteditfo
         bounds_cx = 347
         bounds_cy = 37
         datalink.datasource = mainmo.stockcompdetaildso
+        datalink.navigator = navig
+        datalink.fieldname = 'DESIGNATION'
         reffontheight = 14
       end
     end

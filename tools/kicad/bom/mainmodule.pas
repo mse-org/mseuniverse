@@ -454,6 +454,7 @@ end;
 function tmainmo.endcomponentedit(const acommit: boolean): boolean;
 begin
  result:= true;
+{
  if acommit then begin
   try
    if (componenteditqu.state = dsinsert) and 
@@ -476,6 +477,7 @@ begin
  if acommit then begin
   refresh();
  end;
+}
 end;
 
 function tmainmo.endedit(const acommit: boolean; const aquery: tmsesqlquery;
