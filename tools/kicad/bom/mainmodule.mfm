@@ -135,6 +135,7 @@ object mainmo: tmainmo
       end>
     left = 16
     top = 272
+    streamingversion = 1
     object c_ref: tmsestringfield
       DisplayWidth = 20
       FieldName = 'REF'
@@ -357,6 +358,7 @@ object mainmo: tmainmo
     top = 256
   end
   object componenteditqu: tmsesqlquery
+    options = []
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -459,9 +461,9 @@ object mainmo: tmainmo
           Index = 1
         end>
     )
-    controller.options = []
     left = 256
     top = 344
+    streamingversion = 1
     object e_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 2
@@ -517,6 +519,7 @@ object mainmo: tmainmo
     top = 328
   end
   object footprintqu: tmsesqlquery
+    options = []
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -604,9 +607,9 @@ object mainmo: tmainmo
           Precision = -1
         end>
     )
-    controller.options = []
     left = 416
     top = 344
+    streamingversion = 1
     object f_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 3
@@ -707,6 +710,7 @@ object mainmo: tmainmo
     top = 424
   end
   object compkindqu: tmsesqlquery
+    options = []
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -787,9 +791,9 @@ object mainmo: tmainmo
           optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
         end>
     )
-    controller.options = []
     left = 592
     top = 344
+    streamingversion = 1
     object k_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 2
@@ -874,6 +878,7 @@ object mainmo: tmainmo
     top = 288
   end
   object stockcompqu: tmsesqlquery
+    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
     indexlocal.count = 6
     indexlocal.items = <    
       item
@@ -1014,9 +1019,9 @@ object mainmo: tmainmo
           optionsfield = [of_visible]
         end>
     )
-    controller.options = [dso_editonapplyerror, dso_autoapply, dso_autocommitret]
     left = 416
     top = 56
+    streamingversion = 1
     object sc_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 4
@@ -1100,6 +1105,7 @@ object mainmo: tmainmo
       end>
     left = 600
     top = 56
+    streamingversion = 1
   end
   object stockcompdetaildso: tmsedatasource
     DataSet = stockcompdetailqu
