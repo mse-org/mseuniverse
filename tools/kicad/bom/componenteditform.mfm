@@ -1,384 +1,246 @@
-object componenteditfo: tcomponenteditfo
-  visible = False
-  bounds_x = 337
-  bounds_y = 266
-  bounds_cx = 547
-  bounds_cy = 279
-  container.frame.localprops = []
-  container.frame.localprops1 = []
+inherited componenteditfo: tcomponenteditfo
+  bounds_cx = 517
   container.bounds = (
     0
     0
-    547
-    279
+    517
+    406
   )
-  options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
-  statfile = tstatfile1
-  caption = 'Edit Component'
-  moduleclassname = 'tmseform'
-  object tsplitter1: tsplitter
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    color = -2147483645
-    bounds_x = 424
-    bounds_y = 232
-    bounds_cx = 123
-    bounds_cy = 38
-    anchors = [an_right, an_bottom]
-    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
-    linktop = texpandingwidget1
-    grip = stb_none
-    object tbutton2: tbutton
-      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-      taborder = 1
-      bounds_x = 58
-      bounds_y = 16
-      bounds_cx = 52
-      bounds_cy = 22
-      bounds_cxmin = 50
-      anchors = [an_top, an_right]
-      state = [as_localcaption]
-      caption = '&Cancel'
-      modalresult = mr_cancel
-      reffontheight = 14
+  caption = 'Component'
+  onclose = closeev
+  moduleclassname = 'trecordeditfo'
+  inherited stripe0: tlayouter
+    taborder = 3
+    bounds_cx = 517
+    inherited tlayouter2: tlayouter
+      bounds_x = 334
+      inherited tsmodify: tdbdatetimedisp
+      end
+      inherited tscreate: tdbdatetimedisp
+      end
     end
-    object tbutton1: tbutton
-      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-      bounds_x = 0
-      bounds_y = 16
-      bounds_cx = 50
-      bounds_cy = 22
-      bounds_cxmin = 50
-      anchors = [an_top, an_right]
-      state = [as_default, as_localdefault, as_localcaption, as_localonexecute]
-      caption = '&OK'
-      modalresult = mr_ok
-      reffontheight = 14
-    end
-    object tspacer2: tspacer
-      taborder = 2
-      bounds_x = 50
-      bounds_y = 16
-      bounds_cx = 8
-      bounds_cy = 20
-      linkleft = tbutton1
-      linkright = tbutton2
-      options = [spao_glueright]
+    inherited navig: tdbnavigator
     end
   end
-  object texpandingwidget1: texpandingwidget
-    taborder = 1
-    bounds_x = 0
-    bounds_y = 0
-    bounds_cx = 547
-    bounds_cy = 232
-    anchors = [an_top, an_bottom]
-    optionsscale = [osc_expandx, osc_expandy, osc_expandshrinkx, osc_expandshrinky]
-    object strip1: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-      bounds_x = 8
-      bounds_y = 27
-      bounds_cx = 530
-      bounds_cy = 35
-      anchors = [an_left, an_top, an_right]
-      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-      optionslayout = [lao_placex, lao_aligny]
-      align_glue = wam_start
-      place_options = [plo_scalesize, plo_scalefullref]
-      linktop = strip0
-      dist_top = 4
-      object tdbdatetimedisp1: tdbdatetimedisp
-        frame.caption = 'Createed'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        bounds_x = 183
-        bounds_y = 0
-        bounds_cx = 163
-        bounds_cy = 35
-        options = [dwo_hintclippedtext]
-        format = 'yyyy-mm-dd hh:nn:ss'
-        kind = dtk_datetime
-        datalink.datasource = mainmo.stockcompdetaildso
-        datalink.fieldname = 'TSCREATE'
-        reffontheight = 14
-      end
-      object tdbdatetimedisp2: tdbdatetimedisp
-        frame.caption = 'Modified'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        taborder = 1
-        bounds_x = 367
-        bounds_y = 0
-        bounds_cx = 163
-        bounds_cy = 35
-        options = [dwo_hintclippedtext]
-        format = 'yyyy-mm-dd hh:nn:ss'
-        kind = dtk_datetime
-        datalink.datasource = mainmo.stockcompdetaildso
-        datalink.fieldname = 'TSMODIFY'
-        reffontheight = 14
-      end
-      object tsimplewidget1: tsimplewidget
-        taborder = 2
-        bounds_x = 0
-        bounds_y = 21
-        bounds_cx = 163
-        bounds_cy = 10
-      end
-    end
-    object strip2: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-      taborder = 1
-      bounds_x = 8
-      bounds_y = 66
-      bounds_cx = 530
-      bounds_cy = 37
-      anchors = [an_left, an_top, an_right]
-      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-      optionslayout = [lao_placex, lao_aligny]
-      align_glue = wam_start
-      place_options = [plo_scalesize, plo_scalefullref]
-      linktop = strip1
-      dist_top = 4
-      object value2ed: tdbstringedit
-        frame.caption = 'Value2'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        bounds_x = 367
-        bounds_y = 0
-        bounds_cx = 163
-        bounds_cy = 37
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-        datalink.datasource = mainmo.componenteditdso
-        datalink.navigator = navig
-        datalink.fieldname = 'VALUE2'
-        reffontheight = 14
-      end
-      object value1ed: tdbstringedit
-        frame.caption = 'Value1'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        taborder = 1
-        bounds_x = 183
-        bounds_y = 0
-        bounds_cx = 163
-        bounds_cy = 37
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-        datalink.datasource = mainmo.componenteditdso
-        datalink.navigator = navig
-        datalink.fieldname = 'VALUE1'
-        reffontheight = 14
-      end
-      object valueed: tdbstringedit
-        frame.caption = 'Value'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        taborder = 2
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 163
-        bounds_cy = 37
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-        datalink.datasource = mainmo.componenteditdso
-        datalink.navigator = navig
-        datalink.fieldname = 'VALUE'
-        reffontheight = 14
-      end
-    end
-    object strip3: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+  object stripe2: tlayouter[1]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    bounds_x = 8
+    bounds_y = 40
+    bounds_cx = 502
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_scalesize]
+    linktop = stripe0
+    dist_top = 4
+    object value2ed: tdbstringedit
+      frame.caption = 'Value2'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
       taborder = 2
-      bounds_x = 8
-      bounds_y = 107
-      bounds_cx = 530
+      bounds_x = 336
+      bounds_y = 0
+      bounds_cx = 164
       bounds_cy = 37
-      anchors = [an_left, an_top, an_right]
-      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-      optionslayout = [lao_placex, lao_aligny]
-      align_glue = wam_start
-      place_options = [plo_scalesize, plo_scalefullref]
-      linktop = strip2
-      dist_top = 4
-      object footprinted: tdbenum64editdb
-        frame.caption = 'Footprint'
-        frame.font.localprops = []
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.buttons.count = 2
-        frame.buttons.items = <        
-          item
-            imagenr = 17
-            onexecute = editfootprintev
-          end        
-          item
-          end>
-        frame.activebutton = 1
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 163
-        bounds_cy = 37
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-        font.localprops = []
-        datalink.datasource = mainmo.componenteditdso
-        datalink.navigator = navig
-        datalink.fieldname = 'FOOTPRINT'
-        dropdown.datasource = mainmo.footprintdso
-        dropdown.keyfield = 'PK'
-        dropdown.cols.count = 1
-        dropdown.cols.items = <        
-          item
-            datafield = 'NAME'
-          end>
-        reffontheight = 14
-      end
-      object tdbenum64editdb3: tdbenum64editdb
-        frame.caption = 'Comp.-Kind'
-        frame.font.localprops = []
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.buttons.count = 2
-        frame.buttons.items = <        
-          item
-            imagenr = 17
-            onexecute = editkindev
-          end        
-          item
-          end>
-        frame.activebutton = 1
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        taborder = 1
-        bounds_x = 185
-        bounds_y = 0
-        bounds_cx = 161
-        bounds_cy = 37
-        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-        font.localprops = []
-        datalink.datasource = mainmo.componenteditdso
-        datalink.navigator = navig
-        datalink.fieldname = 'COMPONENTKIND'
-        dropdown.datasource = mainmo.compkinddso
-        dropdown.keyfield = 'PK'
-        dropdown.cols.count = 1
-        dropdown.cols.items = <        
-          item
-            datafield = 'NAME'
-          end>
-        reffontheight = 14
-      end
-      object tsimplewidget2: tsimplewidget
-        taborder = 2
-        bounds_x = 367
-        bounds_y = 22
-        bounds_cx = 163
-        bounds_cy = 10
-      end
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'VALUE2'
+      reffontheight = 14
     end
-    object strip0: texpandingwidget
-      taborder = 3
+    object value1ed: tdbstringedit
+      frame.caption = 'Value1'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 168
+      bounds_y = 0
+      bounds_cx = 164
+      bounds_cy = 37
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'VALUE1'
+      reffontheight = 14
+    end
+    object valueed: tdbstringedit
+      frame.caption = 'Value'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 276
-      bounds_cy = 23
-      optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-      object navig: tdbnavigator
-        optionswidget1 = [ow1_autoscale, ow1_autowidth]
-        frame.localprops = []
-        frame.localprops1 = []
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 276
-        bounds_cy = 23
-        statfile = tstatfile1
-        datasource = mainmo.stockcompdso
-        visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit]
-        buttonface.localprops = []
-        buttonface.template = mainfo.horzkonvex
-        dialogbutton.imagenr = 17
-        dialogbutton.hint = 'Dialog'
-        dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
-      end
-    end
-    object strip4: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-      taborder = 4
-      bounds_x = 8
-      bounds_y = 148
-      bounds_cx = 530
+      bounds_cx = 164
       bounds_cy = 37
-      anchors = [an_left, an_top, an_right]
-      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-      optionslayout = [lao_placex, lao_aligny]
-      align_glue = wam_start
-      place_mindist = 4
-      place_maxdist = 4
-      place_options = [plo_scalesize, plo_scalefullref]
-      linktop = strip3
-      dist_top = 4
-      object tdbstringedit1: tdbstringedit
-        frame.caption = 'Designation'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 347
-        bounds_cy = 37
-        datalink.datasource = mainmo.stockcompdetaildso
-        datalink.navigator = navig
-        datalink.fieldname = 'DESIGNATION'
-        reffontheight = 14
-      end
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'VALUE'
+      reffontheight = 14
     end
   end
-  object tstatfile1: tstatfile
-    filename = 'componenteditfo.sta'
-    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    left = 8
-    top = 192
+  object stripe3: tlayouter[2]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 81
+    bounds_cx = 502
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_scalesize]
+    linktop = stripe2
+    dist_top = 4
+    object footprinted: tdbenum64editdb
+      frame.caption = 'Footprint'
+      frame.font.localprops = []
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 2
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+          onexecute = editfootprintev
+        end      
+        item
+        end>
+      frame.activebutton = 1
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 164
+      bounds_cy = 37
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      font.localprops = []
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'FOOTPRINT'
+      dropdown.datasource = mainmo.footprintdso
+      dropdown.keyfield = 'PK'
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      reffontheight = 14
+    end
+    object compkinded: tdbenum64editdb
+      frame.caption = 'Comp.-Kind'
+      frame.font.localprops = []
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 2
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+          onexecute = editcompkindev
+        end      
+        item
+        end>
+      frame.activebutton = 1
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 168
+      bounds_y = 0
+      bounds_cx = 164
+      bounds_cy = 37
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      font.localprops = []
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'COMPONENTKIND'
+      dropdown.datasource = mainmo.compkinddso
+      dropdown.keyfield = 'PK'
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      reffontheight = 14
+    end
+    object tsimplewidget2: tsimplewidget
+      taborder = 2
+      bounds_x = 336
+      bounds_y = 22
+      bounds_cx = 164
+      bounds_cy = 10
+    end
+  end
+  object stripe4: tlayouter[3]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 122
+    bounds_cx = 502
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_scalesize]
+    linktop = stripe3
+    dist_top = 4
+    object tdbstringedit1: tdbstringedit
+      frame.caption = 'Designation'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 333
+      bounds_cy = 37
+      datalink.datasource = mainmo.stockcompdetaildso
+      datalink.navigator = navig
+      datalink.fieldname = 'DESIGNATION'
+      reffontheight = 14
+    end
+  end
+  inherited dataso: tmsedatasource[4]
+    DataSet = mainmo.stockcompqu
+  end
+  inherited tstatfile1: tstatfile[5]
+    filename = 'componeteditfo.sta'
   end
 end

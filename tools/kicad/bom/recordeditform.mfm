@@ -1,0 +1,119 @@
+object recordeditfo: trecordeditfo
+  visible = False
+  bounds_x = 367
+  bounds_y = 592
+  bounds_cx = 512
+  bounds_cy = 406
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    512
+    406
+  )
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  onclosequery = closequeryev
+  moduleclassname = 'tmseform'
+  object stripe0: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 512
+    bounds_cy = 36
+    anchors = [an_top]
+    optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex]
+    object tlayouter2: tlayouter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+      bounds_x = 329
+      bounds_y = 0
+      bounds_cx = 183
+      bounds_cy = 36
+      anchors = [an_top, an_right]
+      optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_placey]
+      place_maxdist = 0
+      object tsmodify: tdbdatetimedisp
+        frame.caption = 'M'
+        frame.captionpos = cp_left
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          13
+          0
+          0
+          0
+        )
+        hint = 'Modification timestamp'
+        bounds_x = 0
+        bounds_y = 18
+        bounds_cx = 183
+        bounds_cy = 18
+        anchors = [an_top, an_right]
+        options = [dwo_hintclippedtext]
+        format = 'yyyy-mm-d hh:nn:ss'
+        kind = dtk_datetime
+        datalink.datasource = dataso
+        datalink.fieldname = 'TSMODIFY'
+        reffontheight = 14
+      end
+      object tscreate: tdbdatetimedisp
+        frame.caption = 'C'
+        frame.captionpos = cp_left
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          11
+          0
+          0
+          0
+        )
+        taborder = 1
+        hint = 'Creation timestamp'
+        bounds_x = 2
+        bounds_y = 0
+        bounds_cx = 181
+        bounds_cy = 18
+        anchors = [an_top, an_right]
+        options = [dwo_hintclippedtext]
+        format = 'yyyy-mm-d hh:nn:ss'
+        kind = dtk_datetime
+        datalink.datasource = dataso
+        datalink.fieldname = 'TSCREATE'
+        reffontheight = 14
+      end
+    end
+    object navig: tdbnavigator
+      optionswidget1 = [ow1_autoscale, ow1_autowidth]
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 276
+      bounds_cy = 23
+      statfile = tstatfile1
+      datasource = dataso
+      visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit]
+      buttonface.localprops = []
+      buttonface.template = mainfo.horzkonvex
+      autoedit = True
+      dialogbutton.imagenr = 17
+      dialogbutton.hint = 'Dialog'
+      dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+    end
+  end
+  object dataso: tmsedatasource
+    AutoEdit = False
+    left = 344
+    top = 8
+  end
+  object tstatfile1: tstatfile
+    filename = 'recordedit.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 416
+    top = 8
+  end
+end

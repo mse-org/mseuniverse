@@ -1,68 +1,62 @@
-{ MSEkicad Copyright (c) 2016 by Martin Schreiber
-   
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-}
 unit componenteditform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
- mdb,mseact,msedataedits,msedbedit,mseedit,msegraphedits,msegrids,mseificomp,
- mseificompglob,mseifiglob,mselookupbuffer,msescrollbar,msestream,msestrings,
- sysutils,msesplitter,msesimplewidgets,msedbdispwidgets;
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
+ recordeditform,msesplitter,mdb,mseact,msedataedits,msedbedit,mseedit,
+ msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
+ msescrollbar,msestatfile,msestream,msestrings,sysutils,msedb;
 
 type
- tcomponenteditfo = class(tmseform)
-   tstatfile1: tstatfile;
-   tsplitter1: tsplitter;
-   tbutton2: tbutton;
-   tbutton1: tbutton;
-   tspacer2: tspacer;
-   texpandingwidget1: texpandingwidget;
-   strip1: tlayouter;
-   tdbdatetimedisp1: tdbdatetimedisp;
-   tdbdatetimedisp2: tdbdatetimedisp;
-   tsimplewidget1: tsimplewidget;
-   strip2: tlayouter;
+ tcomponenteditfo = class(trecordeditfo)
+   stripe2: tlayouter;
    value2ed: tdbstringedit;
    value1ed: tdbstringedit;
    valueed: tdbstringedit;
-   strip3: tlayouter;
+   stripe3: tlayouter;
    footprinted: tdbenum64editdb;
-   strip0: texpandingwidget;
-   navig: tdbnavigator;
-   strip4: tlayouter;
-   tdbenum64editdb3: tdbenum64editdb;
+   compkinded: tdbenum64editdb;
    tsimplewidget2: tsimplewidget;
+   stripe4: tlayouter;
    tdbstringedit1: tdbstringedit;
+   procedure closeev(const sender: TObject);
    procedure editfootprintev(const sender: TObject);
-   procedure editkindev(const sender: TObject);
+   procedure editcompkindev(const sender: TObject);
+  public
+   constructor create(const idfield: tmselargeintfield;
+                                        const nonavig: boolean); reintroduce;
  end;
-
 implementation
 uses
- componenteditform_mfm,mainmodule,footprinteditform,componentkindeditform,
- main;
- 
+ componenteditform_mfm,mainmodule,main;
+
+{ tcomponenteditfo }
+
+constructor tcomponenteditfo.create(const idfield: tmselargeintfield;
+                                                    const nonavig: boolean);
+begin
+ mainmo.begincomponentedit(idfield);
+ inherited create(nil);
+ if nonavig then begin
+  navig.options:= navig.options + [dno_nonavig,dno_noinsert];
+ end
+ else begin
+  navig.options:= navig.options - [dno_nonavig,dno_noinsert];
+ end;
+end;
+
+procedure tcomponenteditfo.closeev(const sender: TObject);
+begin
+ mainmo.endcomponentedit(dno_nonavig in navig.options); //true -> full refresh
+end;
+
 procedure tcomponenteditfo.editfootprintev(const sender: TObject);
 begin
  mainfo.editfootprint(sender);
 end;
 
-procedure tcomponenteditfo.editkindev(const sender: TObject);
+procedure tcomponenteditfo.editcompkindev(const sender: TObject);
 begin
  mainfo.editcomponentkind(sender);
 end;

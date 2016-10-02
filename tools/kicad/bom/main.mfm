@@ -71,7 +71,7 @@ object mainfo: tmainfo
           end        
           item
             caption = 'ED'
-            hint = 'Edit Stock Component'
+            hint = 'Edit Component'
           end>
       end    
       item
@@ -96,7 +96,7 @@ object mainfo: tmainfo
             color = -1610612712
             caption = 'Database'
             face.localprops = []
-            mergecols = 4
+            mergecols = 3
           end        
           item
           end        
@@ -105,6 +105,8 @@ object mainfo: tmainfo
           item
           end        
           item
+            color = -1610612712
+            face.localprops = []
           end>
       end>
     rowcolors.count = 1

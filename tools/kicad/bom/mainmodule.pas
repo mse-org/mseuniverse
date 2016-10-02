@@ -81,13 +81,8 @@ type
    conn: tfbconnection;
    getdbcredentials: tifiactionlinkcomp;
    trans: tmsesqltransaction;
-   stockitem: tsqlresult;
    globalsettingsact: taction;
    editglobalsettings: tifiactionlinkcomp;
-   valpar: tparamconnector;
-   val1par: tparamconnector;
-   val2par: tparamconnector;
-   s_pk: tsqlresultconnector;
    c_stockitemid: tmselargeintfield;
    c_rowstate: tmselongintfield;
    transwrite: tmsesqltransaction;
@@ -104,16 +99,12 @@ type
    f_name: tmsestringfield;
    footprintdso: tmsedatasource;
    c_footprintname: tmsestringfield;
-   s_footprint: tsqlresultconnector;
    c_footprintid: tmselargeintfield;
    footprintinsertcheck: tsqlresult;
    footprintdeletecheck: tsqlresult;
    c_stockvalue: tmsestringfield;
    c_stockvalue1: tmsestringfield;
    c_stockvalue2: tmsestringfield;
-   s_value: tsqlresultconnector;
-   s_value1: tsqlresultconnector;
-   s_value2: tsqlresultconnector;
    compkindqu: tmsesqlquery;
    k_pk: tmselargeintfield;
    k_name: tmsestringfield;
@@ -131,6 +122,7 @@ type
    stockcompdetailqu: tmsesqlquery;
    stockcompdetaildso: tmsedatasource;
    stockcompdetaillink: tfieldparamlink;
+   sc_footprint: tmselargeintfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -150,9 +142,14 @@ type
    procedure compkindupdatedataev(Sender: TObject);
    procedure beforecompkinddeleteev(DataSet: TDataSet);
    procedure compkindpostev(DataSet: TDataSet);
+   procedure stockcompbeforepostev(DataSet: TDataSet);
+   procedure aftercopyrecordev(DataSet: TDataSet);
+   procedure beforecopyrecordev(DataSet: TDataSet);
+   procedure bforecompcopyev(DataSet: TDataSet);
   private
    fhasproject: boolean;
    fmodified: boolean;
+   foldname: msestring;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -169,12 +166,13 @@ type
    function closeproject(): boolean; //true if not canceled
    function saveproject(): boolean;  //true if not canceled
    function doexit: boolean;         //true if not canceled
+
    procedure begincomponentedit(const idfield: tmselargeintfield);
-   function endcomponentedit(const acommit: boolean): boolean; //true if ok
+   procedure endcomponentedit(const fullrefresh: boolean);
    procedure beginfootprintedit();
-   function endfootprintedit(const acommit: boolean): boolean; //true if ok
+   procedure endfootprintedit();
    procedure begincomponentkindedit();
-   function endcomponentkindedit(const acommit: boolean): boolean; //true if ok
+   procedure endcomponentkindedit();
    procedure begincomponentsedit();
    function endcomponentsedit(const acommit: boolean): boolean; //true if ok
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
@@ -204,8 +202,8 @@ end;
 
 procedure tmainmo.mainstatreadev(const sender: TObject);
 begin
- if projectfiledialog.controller.filename <> '' then begin
-  openproject(projectfiledialog.controller.filename);
+ if globaloptions.filename <> '' then begin
+  openproject(globaloptions.filename);
  end;
 end;
 
@@ -216,73 +214,92 @@ var
  i1: int32;
  recno1: int32;
  rowstate1: int32;
- par1,par2,par3: tmseparam;
- col1,col2,col3,col4,col5: tdbcol;
+ bm1: bookmarkdataty;
 begin
- compds.disablecontrols();
- parser:= nil;
+ application.beginwait();
  try
-  recno1:= compds.recno;
-  compds.active:= false;
-  compds.active:= true;
-  parser:= tkicadschemaparser.create(nil);
-  parser.oncomp:= @docomp;
-  for i1:= 0 to high(projectoptions.schematics) do begin
-   stream:= ttextstream.create(projectoptions.schematics[i1],fm_read);
-   try
-    stream.encoding:= ce_utf8;
-    parser.parse(stream);
-   finally
-    stream.destroy();
+  compds.disablecontrols();
+  parser:= nil;
+  try
+   recno1:= compds.recno;
+   compds.active:= false;
+   compds.active:= true;
+   parser:= tkicadschemaparser.create(nil);
+   parser.oncomp:= @docomp;
+   for i1:= 0 to high(projectoptions.schematics) do begin
+    stream:= ttextstream.create(projectoptions.schematics[i1],fm_read);
+    try
+     stream.encoding:= ce_utf8;
+     parser.parse(stream);
+    finally
+     stream.destroy();
+    end;
    end;
-  end;
-  footprintqu.controller.refresh(false);  
-  par1:= valpar.param;
-  par2:= val1par.param;
-  par3:= val2par.param;
-  stockitem.active:= true;
-  col1:= s_pk.col;
-  col2:= s_footprint.col;
-  col3:= s_value.col;
-  col4:= s_value1.col;
-  col5:= s_value2.col;
-  for i1:= 0 to compds.recordcount - 1 do begin
-   par1.asnullmsestring:= compds.currentasmsestring[c_value,i1];
-   par2.asnullmsestring:= compds.currentasmsestring[c_value1,i1];
-   par3.asnullmsestring:= compds.currentasmsestring[c_value2,i1];
-   stockitem.refresh();
-   if not stockitem.eof then begin
-    compds.currentaslargeint[c_stockitemid,i1]:= col1.aslargeint;
-    compds.currentaslargeint[c_footprintid,i1]:= col2.aslargeint;
-    compds.currentasmsestring[c_stockvalue,i1]:= col3.asmsestring;
-    compds.currentasmsestring[c_stockvalue1,i1]:= col4.asmsestring;
-    compds.currentasmsestring[c_stockvalue2,i1]:= col5.asmsestring;
-    rowstate1:= -1;
+   footprintqu.controller.refresh(false);
+   stockcompqu.controller.refresh(true);
+   for i1:= 0 to compds.recordcount - 1 do begin
+    if stockcompqu.indexlocal[1].find(
+                   [compds.currentasmsestring[c_value,i1],
+                    compds.currentasmsestring[c_value1,i1],
+                    compds.currentasmsestring[c_value2,i1]],
+                   [compds.currentisnull[c_value,i1],
+                    compds.currentisnull[c_value1,i1],
+                    compds.currentisnull[c_value2,i1]],bm1) then begin
+     compds.currentaslargeint[c_stockitemid,i1]:= 
+                   stockcompqu.currentbmaslargeint[sc_pk,bm1];
+     compds.currentaslargeint[c_footprintid,i1]:=
+                   stockcompqu.currentbmaslargeint[sc_footprint,bm1];
+     compds.currentasmsestring[c_stockvalue,i1]:= 
+                   stockcompqu.currentbmasmsestring[sc_value,bm1];
+     compds.currentasmsestring[c_stockvalue1,i1]:= 
+                   stockcompqu.currentbmasmsestring[sc_value1,bm1];
+     compds.currentasmsestring[c_stockvalue2,i1]:=
+                   stockcompqu.currentbmasmsestring[sc_value2,bm1];
+     rowstate1:= -1;
+    end
+    else begin
+     rowstate1:= 0;
+    end;
+  {
+    par1.asnullmsestring:= compds.currentasmsestring[c_value,i1];
+    par2.asnullmsestring:= compds.currentasmsestring[c_value1,i1];
+    par3.asnullmsestring:= compds.currentasmsestring[c_value2,i1];
+    stockitem.refresh();
+    if not stockitem.eof then begin
+     compds.currentaslargeint[c_stockitemid,i1]:= col1.aslargeint;
+     compds.currentaslargeint[c_footprintid,i1]:= col2.aslargeint;
+     compds.currentasmsestring[c_stockvalue,i1]:= col3.asmsestring;
+     compds.currentasmsestring[c_stockvalue1,i1]:= col4.asmsestring;
+     compds.currentasmsestring[c_stockvalue2,i1]:= col5.asmsestring;
+     rowstate1:= -1;
+    end
+    else begin
+     rowstate1:= 0;
+    end;
+   }
+    compds.currentasinteger[c_rowstate,i1]:= rowstate1;
+   end;
+   componenteditqu.controller.refresh(false);
+   if recno1 <= 0 then begin
+    compds.first();
    end
    else begin
-    rowstate1:= 0;
+    if recno1 > compds.recordcount then begin
+     compds.last();
+    end
+    else begin
+     compds.recno:= recno1;
+    end;
    end;
-   compds.currentasinteger[c_rowstate,i1]:= rowstate1;
-  end;
-  componenteditqu.controller.refresh(false);
-  if recno1 <= 0 then begin
-   compds.first();
-  end
-  else begin
-   if recno1 > compds.recordcount then begin
-    compds.last();
-   end
-   else begin
-    compds.recno:= recno1;
+  finally
+   parser.free();
+   if compds.active then begin
+    compds.post();
    end;
+   compds.enablecontrols();
   end;
  finally
-  parser.free();
-  if compds.active then begin
-   compds.post();
-  end;
-  compds.enablecontrols();
-  stockitem.active:= false;
+  application.endwait();
  end;
 end;
 
@@ -406,8 +423,8 @@ begin
  projectoptions.destroy();
  projectoptions:= tprojectoptions.create(); //initial state
  fhasproject:= false;
- projectfiledialog.controller.filename:= '';
- globaloptions.filename:= '';
+// projectfiledialog.controller.filename:= '';
+// globaloptions.filename:= '';
  result:= true;
  statechanged();
 end;
@@ -431,9 +448,9 @@ begin
   stockcompqu.controller.refresh(false);
   if idfield.isnull then begin
    stockcompqu.insert();
-   sc_value.asmsestring:= c_value.asmsestring;
-   sc_value1.asmsestring:= c_value1.asmsestring;
-   sc_value2.asmsestring:= c_value2.asmsestring;
+   sc_value.asnullmsestring:= c_value.asnullmsestring;
+   sc_value1.asnullmsestring:= c_value1.asnullmsestring;
+   sc_value2.asnullmsestring:= c_value2.asnullmsestring;
   end
   else begin
    stockcompqu.indexlocal[0].find([idfield]);
@@ -451,33 +468,11 @@ begin
 }
 end;
 
-function tmainmo.endcomponentedit(const acommit: boolean): boolean;
+procedure tmainmo.endcomponentedit(const fullrefresh: boolean);
 begin
- result:= true;
-{
- if acommit then begin
-  try
-   if (componenteditqu.state = dsinsert) and 
-                   checkvalueexist(e_value.asmsestring,
-                          e_value1.asmsestring,e_value2.asmsestring) then begin
-    showmessage('Stock component with this value key exists.','ERROR');
-    result:= false;
-    exit;
-   end;   
-   componenteditqu.applyupdates();
-   transwrite.commit();
-  except
-   application.handleexception();
-   result:= false;
-  end;
- end
- else begin
-  transwrite.rollback();
- end;
- if acommit then begin
+ if fullrefresh then begin
   refresh();
  end;
-}
 end;
 
 function tmainmo.endedit(const acommit: boolean; const aquery: tmsesqlquery;
@@ -518,9 +513,9 @@ begin
  beginedit(footprintqu,e_footprint);
 end;
 
-function tmainmo.endfootprintedit(const acommit: boolean): boolean;
+procedure tmainmo.endfootprintedit();
 begin
- result:= endedit(acommit,footprintqu,'footprint');
+ //dummy
 end;
 
 procedure tmainmo.begincomponentkindedit();
@@ -528,9 +523,9 @@ begin
  beginedit(compkindqu,e_componentkind);
 end;
 
-function tmainmo.endcomponentkindedit(const acommit: boolean): boolean;
+procedure tmainmo.endcomponentkindedit();
 begin
- result:= endedit(acommit,compkindqu,'component kind');
+ //dummy
 end;
 
 procedure tmainmo.begincomponentsedit();
@@ -551,13 +546,10 @@ end;
 
 function tmainmo.checkvalueexist(const avalue: msestring;
                const avalue1: msestring; const avalue2: msestring): boolean;
+var
+ bm1: bookmarkdataty;
 begin
- valpar.param.asnullmsestring:= avalue;
- val1par.param.asnullmsestring:= avalue1;
- val2par.param.asnullmsestring:= avalue2;
- stockitem.refresh();
- result:= not stockitem.eof;
- stockitem.active:= false;
+ result:= stockcompqu.indexlocal[1].find([avalue1,avalue,avalue2],[],bm1);
 end;
 
 procedure tmainmo.openprojectev(const sender: TObject);
@@ -624,6 +616,7 @@ end;
 procedure tmainmo.doinsertcheck(const asqlres: tsqlresult;
                                             const aname: tmsestringfield);
 begin
+exit;
  asqlres.params[0].asmsestring:= aname.asmsestring;
  asqlres.refresh();
  if not asqlres.eof then begin
@@ -635,6 +628,7 @@ end;
 procedure tmainmo.dodeletecheck(const asqlres: tsqlresult; 
                                             const aid: tmselargeintfield);
 begin
+exit;
  asqlres.params[0].asid:= aid.asid;
  asqlres.refresh();
  if not asqlres.eof then begin
@@ -675,6 +669,38 @@ begin
  doinsertcheck(compkindinsertcheck,k_name);
 end;
 
+procedure tmainmo.stockcompbeforepostev(DataSet: TDataSet);
+var
+ bm1: bookmarkdataty;
+begin
+ with tmsesqlquery(dataset) do begin
+  if indexlocal[1].find([sc_value,sc_value1,sc_value2],bm1,false,false,true) and
+                           (currentbmasid[sc_pk,bm1] <> sc_pk.asid) then begin
+   showmessage('Component with this values exist.','ERROR');
+   abort();
+  end;
+ end;
+end;
+
+procedure tmainmo.beforecopyrecordev(DataSet: TDataSet);
+begin
+ with dataset.fieldbyname('NAME') do begin
+  foldname:= asmsestring;
+ end;
+end;
+
+procedure tmainmo.aftercopyrecordev(DataSet: TDataSet);
+begin
+ with dataset.fieldbyname('NAME') do begin
+  asmsestring:= foldname+'_copy';
+ end;
+end;
+
+procedure tmainmo.bforecompcopyev(DataSet: TDataSet);
+begin
+ stockcompdetailqu.controller.copyrecord();
+end;
+
 { tprojectoptions }
 
 procedure tprojectoptions.storevalues(const asource: tmsecomponent;
@@ -702,4 +728,5 @@ initialization
 finalization
  projectoptions.free();
  globaloptions.free();
-end.
+end
+.

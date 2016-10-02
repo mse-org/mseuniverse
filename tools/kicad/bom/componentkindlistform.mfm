@@ -1,0 +1,79 @@
+inherited componentkindlistfo: tcomponentkindlistfo
+  container.bounds = (
+    0
+    0
+    558
+    393
+  )
+  caption = 'Componentkinds'
+  onclose = closeev
+  moduleclassname = 'tlisteditfo'
+  inherited navig: tdbnavigator
+  end
+  inherited grid: tdbwidgetgrid
+    fixcols.items = <    
+      item
+      end>
+    fixrows.items = <    
+      item
+        captions.count = 4
+        captions.items = <        
+          item
+          end        
+          item
+            caption = 'Designation'
+          end        
+          item
+            caption = 'Created'
+          end        
+          item
+            caption = 'Modified'
+          end>
+      end>
+    datacols.count = 4
+    datacols.colorder = (
+      'nameed'
+      'tdbstringedit1'
+      'tdcreateed'
+      'tdmodifyed'
+    )
+    datacols.items = <    
+      item[nameed]
+      end    
+      item[tdbstringedit1]
+        width = 143
+        widgetname = 'tdbstringedit1'
+      end    
+      item[tdcreateed]
+      end    
+      item[tdmodifyed]
+      end>
+    inherited tdcreateed: tdbdatetimeedit[0]
+      bounds_x = 249
+    end
+    inherited nameed: tdbstringedit[1]
+    end
+    object tdbstringedit1: tdbstringedit[2]
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 105
+      bounds_y = 0
+      bounds_cx = 143
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.navigator = listeditfo.navig
+      datalink.fieldname = 'DESIGNATION'
+      reffontheight = 14
+    end
+    inherited tdmodifyed: tdbdatetimeedit[3]
+      bounds_x = 365
+    end
+  end
+  inherited tstatfile1: tstatfile
+  end
+  inherited dataso: tmsedatasource
+    DataSet = mainmo.compkindqu
+  end
+end

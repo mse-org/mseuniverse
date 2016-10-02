@@ -266,61 +266,6 @@ object mainmo: tmainmo
     left = 216
     top = 256
   end
-  object stockitem: tsqlresult
-    fielddefs = <    
-      item
-        Name = 'PK'
-        DataType = ftLargeint
-      end    
-      item
-        Name = 'FOOTPRINT'
-        DataType = ftLargeint
-      end    
-      item
-        Name = 'VALUE'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'VALUE1'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'VALUE2'
-        DataType = ftString
-        Size = 50
-      end>
-    params = <    
-      item
-        DataType = ftUnknown
-        Name = 'value'
-        ParamType = ptInput
-        connector = valpar
-      end    
-      item
-        DataType = ftUnknown
-        Name = 'value1'
-        ParamType = ptInput
-        connector = val1par
-      end    
-      item
-        DataType = ftUnknown
-        Name = 'value2'
-        ParamType = ptInput
-        connector = val2par
-      end>
-    sql.data = (
-      'select PK,FOOTPRINT,"VALUE",VALUE1,VALUE2 from components'
-      '  where (:value = "VALUE") and '
-      '        ((:value1 is null) or (VALUE1 = :value1)) and'
-      '        ((:value2 is null) or (VALUE2 = :value2));'
-    )
-    database = conn
-    transaction = trans
-    left = 152
-    top = 344
-  end
   object globalsettingsact: taction
     caption = '&Global Settings'
     ifilink = editglobalsettings
@@ -331,25 +276,8 @@ object mainmo: tmainmo
     left = 152
     top = 216
   end
-  object valpar: tparamconnector
-    left = 160
-    top = 328
-  end
-  object val1par: tparamconnector
-    left = 160
-    top = 312
-  end
-  object val2par: tparamconnector
-    left = 160
-    top = 296
-  end
-  object s_pk: tsqlresultconnector
-    source = stockitem
-    colname = 'PK'
-    left = 160
-    top = 360
-  end
   object transwrite: tmsesqltransaction
+    Action = caRollback
     Database = conn
     Params.Strings = (
       'isc_tpb_write'
@@ -519,7 +447,7 @@ object mainmo: tmainmo
     top = 328
   end
   object footprintqu: tmsesqlquery
-    options = []
+    options = [bdo_editonapplyerror, bdo_rollbackonupdateerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -591,36 +519,38 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 0
-          optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+          Index = 2
+          optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 1
-          optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+          Index = 3
+          optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end      
         item
           FieldName = 'AREA'
-          Index = 2
+          Index = 4
           MaxValue = 0
           MinValue = 0
           Precision = -1
         end>
     )
+    controller.onbeforecopyrecord = beforecopyrecordev
+    controller.onaftercopyrecord = aftercopyrecordev
     left = 416
     top = 344
     streamingversion = 1
     object f_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 3
-      optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
+      Index = 0
+      optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 424
       top = 376
     end
     object f_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 4
+      Index = 1
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 424
@@ -632,12 +562,6 @@ object mainmo: tmainmo
     DataSet = footprintqu
     left = 416
     top = 360
-  end
-  object s_footprint: tsqlresultconnector
-    source = stockitem
-    colname = 'FOOTPRINT'
-    left = 160
-    top = 376
   end
   object footprintinsertcheck: tsqlresult
     fielddefs = <    
@@ -691,26 +615,8 @@ object mainmo: tmainmo
     left = 416
     top = 288
   end
-  object s_value: tsqlresultconnector
-    source = stockitem
-    colname = 'VALUE'
-    left = 160
-    top = 392
-  end
-  object s_value1: tsqlresultconnector
-    source = stockitem
-    colname = 'VALUE1'
-    left = 160
-    top = 408
-  end
-  object s_value2: tsqlresultconnector
-    source = stockitem
-    colname = 'VALUE2'
-    left = 160
-    top = 424
-  end
   object compkindqu: tmsesqlquery
-    options = []
+    options = [bdo_editonapplyerror, bdo_rollbackonupdateerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -782,29 +688,31 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 0
-          optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+          Index = 3
+          optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 1
-          optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+          Index = 4
+          optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end>
     )
+    controller.onbeforecopyrecord = beforecopyrecordev
+    controller.onaftercopyrecord = aftercopyrecordev
     left = 592
     top = 344
     streamingversion = 1
     object k_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 2
-      optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
+      Index = 0
+      optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 600
       top = 376
     end
     object k_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 3
+      Index = 1
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 600
@@ -813,7 +721,7 @@ object mainmo: tmainmo
     object k_designation: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESIGNATION'
-      Index = 4
+      Index = 2
       left = 600
       top = 408
     end
@@ -878,7 +786,7 @@ object mainmo: tmainmo
     top = 288
   end
   object stockcompqu: tmsesqlquery
-    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
+    options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_rollbackonupdateerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 6
     indexlocal.items = <    
       item
@@ -928,7 +836,11 @@ object mainmo: tmainmo
       end>
     params = <>
     SQL.data = (
-      'select a.PK,a."VALUE",a.VALUE1,a.VALUE2,a.FOOTPRINT,a.COMPONENTKIND,'
+      'select a.PK,a.TSCREATE,a.TSMODIFY,a."VALUE",VALUE1,VALUE2,'
+      '--       coalesce(a."VALUE",'''')as "VALUE",'
+      '--       coalesce(a.VALUE1,'''')as VALUE1,'
+      '--       coalesce(a.VALUE2,'''')as VALUE2,'
+      '       a.FOOTPRINT,a.COMPONENTKIND,'
       '       b.NAME as footprintname, c.NAME as kindname from '
       '    COMPONENTS a '
       '    left join FOOTPRINTS b on a.FOOTPRINT = b.PK'
@@ -949,12 +861,21 @@ object mainmo: tmainmo
       end>
     tablename = 'COMPONENTS'
     database = conn
+    BeforePost = stockcompbeforepostev
     Transaction = trans
     transactionwrite = transwrite
     FieldDefs = <    
       item
         Name = 'PK'
         DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
       end    
       item
         Name = 'VALUE'
@@ -989,65 +910,85 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 20
       end>
-    controller.fields.count = 4
+    controller.fields.count = 5
     controller.fields.fields = (
       (
         ft_largeint
-        ft_largeint
         ft_string
         ft_string
+        ft_datetime
+        ft_datetime
       )
       <      
         item
-          FieldName = 'FOOTPRINT'
-          Index = 0
-        end      
-        item
           FieldName = 'COMPONENTKIND'
-          Index = 1
+          Index = 0
         end      
         item
           DisplayWidth = 20
           FieldName = 'FOOTPRINTNAME'
-          Index = 2
+          Index = 1
           optionsfield = [of_visible]
+          Size = 0
         end      
         item
           DisplayWidth = 20
           FieldName = 'KINDNAME'
-          Index = 3
+          Index = 2
           optionsfield = [of_visible]
+          Size = 0
+        end      
+        item
+          FieldName = 'TSCREATE'
+          Index = 3
+          optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 4
+          optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end>
     )
+    controller.onbeforecopyrecord = bforecompcopyev
     left = 416
     top = 56
     streamingversion = 1
     object sc_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 4
+      Index = 5
+      optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 424
       top = 88
     end
     object sc_value: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE'
-      Index = 5
-      left = 424
-      top = 104
-    end
-    object sc_value1: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'VALUE2'
       Index = 6
+      Size = 0
       left = 424
       top = 120
     end
-    object sc_value2: tmsestringfield
+    object sc_value1: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE1'
       Index = 7
+      Size = 0
       left = 424
       top = 136
+    end
+    object sc_value2: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE2'
+      Index = 8
+      Size = 0
+      left = 424
+      top = 152
+    end
+    object sc_footprint: tmselargeintfield
+      FieldName = 'FOOTPRINT'
+      Index = 9
+      left = 424
+      top = 104
     end
   end
   object stockcompdso: tmsedatasource
@@ -1095,6 +1036,24 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 50
       end>
+    controller.fields.count = 2
+    controller.fields.fields = (
+      (
+        ft_largeint
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'PK'
+          Index = 0
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'DESIGNATION'
+          Index = 1
+          Size = 50
+        end>
+    )
     left = 600
     top = 56
     streamingversion = 1
@@ -1111,7 +1070,7 @@ object mainmo: tmainmo
     destdataset = stockcompdetailqu
     paramname = 'pk'
     delayus = 500000
-    options = [fplo_autorefresh, fplo_syncmasterpost, fplo_syncmastercancel, fplo_syncmasteredit, fplo_syncmasterinsert, fplo_syncmasterdelete, fplo_syncslaveedit]
+    options = [fplo_autorefresh, fplo_syncmasterpost, fplo_delayedsyncmasterpost, fplo_syncmastercancel, fplo_syncmasteredit, fplo_syncmasterinsert, fplo_syncmasterdelete, fplo_syncslaveedit]
     destfields.count = 1
     destfields.items = <    
       item

@@ -1,0 +1,84 @@
+inherited footprintlistfo: tfootprintlistfo
+  container.bounds = (
+    0
+    0
+    558
+    393
+  )
+  caption = 'Footprints'
+  onclose = closeev
+  moduleclassname = 'tlisteditfo'
+  inherited navig: tdbnavigator
+  end
+  inherited grid: tdbwidgetgrid
+    fixcols.items = <    
+      item
+      end>
+    fixrows.items = <    
+      item
+        captions.count = 4
+        captions.items = <        
+          item
+          end        
+          item
+            caption = 'Area (mm^2)'
+          end        
+          item
+            caption = 'Created'
+          end        
+          item
+            caption = 'Modified'
+          end>
+      end>
+    datacols.count = 4
+    datacols.colorder = (
+      'nameed'
+      'areaed'
+      'tdcreateed'
+      'tdmodifyed'
+    )
+    datacols.items = <    
+      item[nameed]
+      end    
+      item[areaed]
+        width = 93
+        widgetname = 'areaed'
+      end    
+      item[tdcreateed]
+      end    
+      item[tdmodifyed]
+      end>
+    inherited tdcreateed: tdbdatetimeedit[0]
+      bounds_x = 199
+    end
+    inherited tdmodifyed: tdbdatetimeedit[1]
+      bounds_x = 315
+    end
+    inherited nameed: tdbstringedit[2]
+    end
+    object areaed: tdbrealedit[3]
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 105
+      bounds_y = 0
+      bounds_cx = 93
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'AREA'
+      min = -Inf
+      max = 1E+038
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
+  end
+  inherited tstatfile1: tstatfile
+  end
+  inherited dataso: tmsedatasource
+    DataSet = mainmo.footprintqu
+  end
+end

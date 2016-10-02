@@ -23,7 +23,7 @@ uses
  mseact,msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,msegrids,
  mseificomp,mseificompglob,mseifiglob,mselistbrowser,msestream,msestrings,
  msesys,sysutils,msesimplewidgets,kicadschemaparser,mseifiendpoint,mdb,
- msedbedit,msegraphedits,mselookupbuffer,msescrollbar,mseactions;
+ msedbedit,msegraphedits,mselookupbuffer,msescrollbar,mseactions,mseskin;
 
 const
  maincaption = 'MSEkicadBOM';
@@ -70,6 +70,8 @@ type
    procedure editcomponents(const sender: TObject);
   protected
   public
+   procedure checkeditclose(const adataso: tdatasource;
+                                        var amodalresult: modalresultty);
  end;
  
 var
@@ -78,9 +80,30 @@ var
 implementation
 uses
  main_mfm,mainmodule,msefileutils,projectsettingsform,globalsettingsform,
- credentialsentryform,componenteditform,footprinteditform,componentkindeditform,
- componentlistform;
+ credentialsentryform,componenteditform,footprintlistform,componentkindeditform,
+ componentlistform,componentkindlistform,msesqldb;
  
+procedure tmainfo.checkeditclose(const adataso: tdatasource;
+                                        var amodalresult: modalresultty);
+begin
+ if adataso.dataset.state in [dsedit,dsinsert] then begin
+  case askyesnocancel('Record has been modified.'+lineend+
+         'Do you want to store the modifications?','CONFIRMATION') of
+   mr_yes: begin
+    if not tmsesqlquery(adataso.dataset).controller.post() then begin
+     amodalresult:= mr_none;
+    end;
+   end;
+   mr_no: begin
+    adataso.dataset.cancel();
+   end;
+   else begin
+    amodalresult:= mr_none;
+   end;
+  end;
+ end;
+end;
+
 procedure tmainfo.getfilenameev(const sender: TObject);
 var
  kind: filedialogkindty;
@@ -169,52 +192,18 @@ begin
 end;
 
 procedure tmainfo.editev(const sender: TObject);
-var
- res1: modalresultty;
- fo1: tcomponenteditfo;
 begin
- mainmo.begincomponentedit(mainmo.c_stockitemid);
- fo1:= tcomponenteditfo.create(nil);
- try
-  fo1.navig.nonavig:= true;
-  repeat
-   res1:= fo1.show(ml_application);
-  until mainmo.endcomponentedit(res1 = mr_ok);
- finally
-  fo1.destroy();
- end;
+ tcomponenteditfo.create(mainmo.c_stockitemid,true).show(ml_application);
 end;
 
 procedure tmainfo.editfootprint(const sender: tobject);
-var
- res1: modalresultty;
- fo1: tfootprinteditfo;
 begin
- mainmo.beginfootprintedit();
- fo1:= tfootprinteditfo.create(nil);
- try
-  repeat
-   res1:= fo1.show(ml_application);
-  until mainmo.endfootprintedit(res1 = mr_ok);
- finally
-  fo1.destroy();
- end;
+ tfootprintlistfo.create().show(ml_application);
 end;
 
 procedure tmainfo.editcomponentkind(const sender: tobject);
-var
- res1: modalresultty;
- fo1: tcomponentkindeditfo;
 begin
- mainmo.begincomponentkindedit();
- fo1:= tcomponentkindeditfo.create(nil);
- try
-  repeat
-   res1:= fo1.show(ml_application);
-  until mainmo.endcomponentkindedit(res1 = mr_ok);
- finally
-  fo1.destroy();
- end;
+ tcomponentkindlistfo.create().show(ml_application);
 end;
 
 procedure tmainfo.editcomponents(const sender: TObject);
