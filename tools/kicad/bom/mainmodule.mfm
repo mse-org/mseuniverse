@@ -637,38 +637,89 @@ object mainmo: tmainmo
         fields.items = <        
           item
             fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
           end        
           item
             fieldname = 'VALUE1'
+            options = [ifo_caseinsensitive]
           end        
           item
             fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
           end>
         active = True
         name = 'MAIN'
       end    
       item
+        fields.count = 3
         fields.items = <        
           item
             fieldname = 'VALUE1'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
+        fields.count = 3
         fields.items = <        
           item
             fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE1'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
+        fields.count = 4
         fields.items = <        
           item
             fieldname = 'FOOTPRINTNAME'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE1'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
+        fields.count = 4
         fields.items = <        
           item
             fieldname = 'KINDNAME'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE1'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
           end>
       end>
     params = <>
