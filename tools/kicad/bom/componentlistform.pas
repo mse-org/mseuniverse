@@ -18,6 +18,8 @@ type
    value2ed: tdbstringedit;
    footprinted: tdbenum64editdb;
    kinded: tdbenum64editdb;
+   valuefilter: tenum64editdb;
+   valueselector: tenum64editdb;
    procedure edititemev(const sender: TObject);
  end;
 

@@ -54,8 +54,11 @@ object componentlistfo: tcomponentlistfo
       item
         width = 15
       end>
-    fixrows.count = 1
+    fixrows.count = 2
     fixrows.items = <    
+      item
+        height = 16
+      end    
       item
         height = 16
         captions.count = 5
@@ -86,6 +89,10 @@ object componentlistfo: tcomponentlistfo
     datacols.items = <    
       item[valueed]
         widgetname = 'valueed'
+        fixwidgetnames = (
+          'valueselector'
+          ''
+        )
       end    
       item[value1ed]
         widgetname = 'value1ed'
@@ -218,6 +225,51 @@ object componentlistfo: tcomponentlistfo
           width = 100
           datafield = 'DESIGNATION'
         end>
+      reffontheight = 14
+    end
+    object valueselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      bounds_x = 0
+      bounds_y = 17
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.stockcompdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 5
+      dropdown.cols.items = <      
+        item
+          caption = 'Value'
+          datafield = 'VALUE'
+        end      
+        item
+          caption = 'Value1'
+          datafield = 'VALUE1'
+        end      
+        item
+          caption = 'Value2'
+          datafield = 'VALUE2'
+        end      
+        item
+          caption = 'Footprint'
+          datafield = 'FOOTPRINTNAME'
+        end      
+        item
+          caption = 'Kind'
+          datafield = 'KINDNAME'
+        end>
+      value = -1
+      valuedefault = -1
       reffontheight = 14
     end
   end

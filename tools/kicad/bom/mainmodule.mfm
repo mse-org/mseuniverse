@@ -285,167 +285,6 @@ object mainmo: tmainmo
     left = 280
     top = 256
   end
-  object componenteditqu: tmsesqlquery
-    options = []
-    indexlocal.count = 2
-    indexlocal.items = <    
-      item
-        fields.items = <        
-          item
-            fieldname = 'PK'
-          end>
-      end    
-      item
-        fields.count = 3
-        fields.items = <        
-          item
-            fieldname = 'VALUE'
-          end        
-          item
-            fieldname = 'VALUE1'
-          end        
-          item
-            fieldname = 'VALUE2'
-          end>
-        active = True
-      end>
-    params = <    
-      item
-        DataType = ftUnknown
-        Name = 'pk'
-        ParamType = ptInput
-        connector = componentpkpar
-      end>
-    SQL.data = (
-      'select PK,TSCREATE,TSMODIFY,"VALUE",VALUE1,VALUE2,'
-      '     FOOTPRINT,COMPONENTKIND from COMPONENTS where PK = :pk'
-    )
-    IndexDefs = <    
-      item
-        Name = 'FK_COMPONENTS_0'
-      end    
-      item
-        Name = 'FK_COMPONENTS_1'
-      end    
-      item
-        Name = 'IDX_COMPONENTS1'
-      end    
-      item
-        Name = 'PK_COMPONENTS_0'
-      end>
-    tablename = 'COMPONENTS'
-    database = conn
-    Transaction = trans
-    transactionwrite = transwrite
-    FieldDefs = <    
-      item
-        Name = 'PK'
-        DataType = ftLargeint
-      end    
-      item
-        Name = 'TSCREATE'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'TSMODIFY'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'VALUE'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'VALUE1'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'VALUE2'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'FOOTPRINT'
-        DataType = ftLargeint
-      end    
-      item
-        Name = 'COMPONENTKIND'
-        DataType = ftLargeint
-      end>
-    controller.fields.count = 2
-    controller.fields.fields = (
-      (
-        ft_datetime
-        ft_datetime
-      )
-      <      
-        item
-          FieldName = 'TSCREATE'
-          Index = 0
-        end      
-        item
-          FieldName = 'TSMODIFY'
-          Index = 1
-        end>
-    )
-    left = 256
-    top = 344
-    streamingversion = 1
-    object e_pk: tmselargeintfield
-      FieldName = 'PK'
-      Index = 2
-      optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
-      left = 264
-      top = 376
-    end
-    object e_value: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'VALUE'
-      Index = 3
-      Size = 0
-      left = 264
-      top = 392
-    end
-    object e_value2: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'VALUE2'
-      Index = 4
-      Size = 0
-      left = 264
-      top = 424
-    end
-    object e_value1: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'VALUE1'
-      Index = 5
-      Size = 0
-      left = 264
-      top = 408
-    end
-    object e_footprint: tmselargeintfield
-      FieldName = 'FOOTPRINT'
-      Index = 6
-      left = 264
-      top = 440
-    end
-    object e_componentkind: tmselargeintfield
-      FieldName = 'COMPONENTKIND'
-      Index = 7
-      left = 264
-      top = 456
-    end
-  end
-  object componenteditdso: tmsedatasource
-    AutoEdit = False
-    DataSet = stockcompqu
-    left = 256
-    top = 360
-  end
-  object componentpkpar: tparamconnector
-    left = 264
-    top = 328
-  end
   object footprintqu: tmsesqlquery
     options = [bdo_editonapplyerror, bdo_rollbackonupdateerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 2
@@ -469,7 +308,6 @@ object mainmo: tmainmo
         DataType = ftUnknown
         Name = 'pk'
         ParamType = ptInput
-        connector = componentpkpar
       end>
     SQL.data = (
       'select PK,TSCREATE,TSMODIFY,NAME,AREA from FOOTPRINTS'
@@ -519,17 +357,17 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 2
+          Index = 0
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 3
+          Index = 1
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end      
         item
           FieldName = 'AREA'
-          Index = 4
+          Index = 2
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -542,7 +380,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object f_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 0
+      Index = 3
       optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 424
       top = 376
@@ -550,7 +388,7 @@ object mainmo: tmainmo
     object f_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 1
+      Index = 4
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 424
@@ -638,7 +476,6 @@ object mainmo: tmainmo
         DataType = ftUnknown
         Name = 'pk'
         ParamType = ptInput
-        connector = componentpkpar
       end>
     SQL.data = (
       'select PK,TSCREATE,TSMODIFY,NAME,DESIGNATION from COMPONENTKINDS'
@@ -688,12 +525,12 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 3
+          Index = 0
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 4
+          Index = 1
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end>
     )
@@ -704,7 +541,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object k_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 0
+      Index = 2
       optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 600
       top = 376
@@ -712,7 +549,7 @@ object mainmo: tmainmo
     object k_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 1
+      Index = 3
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 600
@@ -721,7 +558,7 @@ object mainmo: tmainmo
     object k_designation: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESIGNATION'
-      Index = 2
+      Index = 4
       left = 600
       top = 408
     end
@@ -910,10 +747,9 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 20
       end>
-    controller.fields.count = 5
+    controller.fields.count = 4
     controller.fields.fields = (
       (
-        ft_largeint
         ft_string
         ft_string
         ft_datetime
@@ -921,31 +757,27 @@ object mainmo: tmainmo
       )
       <      
         item
-          FieldName = 'COMPONENTKIND'
-          Index = 0
-        end      
-        item
           DisplayWidth = 20
           FieldName = 'FOOTPRINTNAME'
-          Index = 1
+          Index = 0
           optionsfield = [of_visible]
           Size = 0
         end      
         item
           DisplayWidth = 20
           FieldName = 'KINDNAME'
-          Index = 2
+          Index = 1
           optionsfield = [of_visible]
           Size = 0
         end      
         item
           FieldName = 'TSCREATE'
-          Index = 3
+          Index = 2
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 4
+          Index = 3
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end>
     )
@@ -955,7 +787,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object sc_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 5
+      Index = 4
       optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 424
       top = 88
@@ -963,29 +795,35 @@ object mainmo: tmainmo
     object sc_value: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE'
-      Index = 6
-      Size = 0
-      left = 424
-      top = 120
-    end
-    object sc_value1: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'VALUE1'
-      Index = 7
+      Index = 5
       Size = 0
       left = 424
       top = 136
     end
-    object sc_value2: tmsestringfield
+    object sc_value1: tmsestringfield
       DisplayWidth = 20
-      FieldName = 'VALUE2'
-      Index = 8
+      FieldName = 'VALUE1'
+      Index = 6
       Size = 0
       left = 424
       top = 152
     end
+    object sc_value2: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE2'
+      Index = 7
+      Size = 0
+      left = 424
+      top = 168
+    end
     object sc_footprint: tmselargeintfield
       FieldName = 'FOOTPRINT'
+      Index = 8
+      left = 424
+      top = 120
+    end
+    object sc_componentkind: tmselargeintfield
+      FieldName = 'COMPONENTKIND'
       Index = 9
       left = 424
       top = 104

@@ -462,6 +462,7 @@ object mainfo: tmainfo
     top = 8
   end
   object query: tmsesqlquery
+    options = [bdo_postsavepoint, bdo_autoapply, bdo_autocommitret]
     params = <>
     SQL.data = (
       'select pk,str1,textblob,bytes7,varbytes10,guid1 from table1 order by pk'
@@ -527,9 +528,9 @@ object mainfo: tmainfo
           Size = 0
         end>
     )
-    controller.options = [dso_postsavepoint, dso_autoapply, dso_autocommitret]
     left = 144
     top = 8
+    streamingversion = 1
   end
   object blobf: tmsememofield
     DisplayWidth = 10
@@ -728,6 +729,7 @@ object mainfo: tmainfo
       end>
     left = 488
     top = 40
+    streamingversion = 1
   end
   object datso2: tmsedatasource
     DataSet = query2

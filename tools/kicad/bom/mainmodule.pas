@@ -86,14 +86,6 @@ type
    c_stockitemid: tmselargeintfield;
    c_rowstate: tmselongintfield;
    transwrite: tmsesqltransaction;
-   componenteditqu: tmsesqlquery;
-   componenteditdso: tmsedatasource;
-   componentpkpar: tparamconnector;
-   e_pk: tmselargeintfield;
-   e_value: tmsestringfield;
-   e_value1: tmsestringfield;
-   e_value2: tmsestringfield;
-   e_footprint: tmselargeintfield;
    footprintqu: tmsesqlquery;
    f_pk: tmselargeintfield;
    f_name: tmsestringfield;
@@ -110,7 +102,6 @@ type
    k_name: tmsestringfield;
    compkinddso: tmsedatasource;
    k_designation: tmsestringfield;
-   e_componentkind: tmselargeintfield;
    compkindinsertcheck: tsqlresult;
    compkinddeletecheck: tsqlresult;
    stockcompqu: tmsesqlquery;
@@ -123,6 +114,7 @@ type
    stockcompdetaildso: tmsedatasource;
    stockcompdetaillink: tfieldparamlink;
    sc_footprint: tmselargeintfield;
+   sc_componentkind: tmselargeintfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -279,7 +271,7 @@ begin
    }
     compds.currentasinteger[c_rowstate,i1]:= rowstate1;
    end;
-   componenteditqu.controller.refresh(false);
+//   componenteditqu.controller.refresh(false);
    if recno1 <= 0 then begin
     compds.first();
    end
@@ -456,16 +448,6 @@ begin
    stockcompqu.indexlocal[0].find([idfield]);
   end; 
  end;
-{
- componentpkpar.param.asid:= idfield.asid;
- componenteditqu.controller.refresh(false);
- if componenteditqu.eof then begin
-  componenteditqu.insert();
-  e_value.asmsestring:= c_value.asmsestring;
-  e_value1.asmsestring:= c_value1.asmsestring;
-  e_value2.asmsestring:= c_value2.asmsestring;
- end
-}
 end;
 
 procedure tmainmo.endcomponentedit(const fullrefresh: boolean);
@@ -510,7 +492,7 @@ end;
 
 procedure tmainmo.beginfootprintedit();
 begin
- beginedit(footprintqu,e_footprint);
+ beginedit(footprintqu,sc_footprint);
 end;
 
 procedure tmainmo.endfootprintedit();
@@ -520,7 +502,7 @@ end;
 
 procedure tmainmo.begincomponentkindedit();
 begin
- beginedit(compkindqu,e_componentkind);
+ beginedit(compkindqu,sc_componentkind);
 end;
 
 procedure tmainmo.endcomponentkindedit();
