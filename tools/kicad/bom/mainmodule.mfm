@@ -479,7 +479,8 @@ object mainmo: tmainmo
         ParamType = ptInput
       end>
     SQL.data = (
-      'select PK,TSCREATE,TSMODIFY,NAME,DESIGNATION from COMPONENTKINDS'
+      'select PK,TSCREATE,TSMODIFY,NAME,DESIGNATION,'
+      '       PARAMETER1,PARAMETER2,PARAMETER3,PARAMETER4 from COMPONENTKINDS'
     )
     IndexDefs = <    
       item
@@ -516,12 +517,36 @@ object mainmo: tmainmo
         Name = 'DESIGNATION'
         DataType = ftString
         Size = 50
+      end    
+      item
+        Name = 'PARAMETER1'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'PARAMETER2'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'PARAMETER3'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'PARAMETER4'
+        DataType = ftString
+        Size = 50
       end>
-    controller.fields.count = 2
+    controller.fields.count = 6
     controller.fields.fields = (
       (
         ft_datetime
         ft_datetime
+        ft_string
+        ft_string
+        ft_string
+        ft_string
       )
       <      
         item
@@ -533,6 +558,30 @@ object mainmo: tmainmo
           FieldName = 'TSMODIFY'
           Index = 1
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'PARAMETER1'
+          Index = 2
+          Size = 50
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'PARAMETER2'
+          Index = 3
+          Size = 50
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'PARAMETER3'
+          Index = 4
+          Size = 50
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'PARAMETER4'
+          Index = 5
+          Size = 50
         end>
     )
     controller.onbeforecopyrecord = beforecopyrecordev
@@ -542,7 +591,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object k_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 2
+      Index = 6
       optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 600
       top = 376
@@ -550,7 +599,7 @@ object mainmo: tmainmo
     object k_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 3
+      Index = 7
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 600
@@ -559,7 +608,8 @@ object mainmo: tmainmo
     object k_designation: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESIGNATION'
-      Index = 4
+      Index = 8
+      Size = 0
       left = 600
       top = 408
     end

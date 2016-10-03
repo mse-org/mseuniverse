@@ -9,6 +9,9 @@ inherited footprintlistfo: tfootprintlistfo
   onclose = closeev
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
+    bounds_cy = 253
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_autoedit]
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
   end
   inherited grid: tdbwidgetgrid
     fixcols.items = <    
@@ -80,5 +83,7 @@ inherited footprintlistfo: tfootprintlistfo
   end
   inherited dataso: tmsedatasource
     DataSet = mainmo.footprintqu
+  end
+  inherited dialogact: taction
   end
 end

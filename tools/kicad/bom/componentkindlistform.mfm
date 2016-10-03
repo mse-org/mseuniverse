@@ -9,6 +9,7 @@ inherited componentkindlistfo: tcomponentkindlistfo
   onclose = closeev
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
+    dialogbutton.hint = 'Dialog (F3)'
   end
   inherited grid: tdbwidgetgrid
     fixcols.items = <    
@@ -72,8 +73,12 @@ inherited componentkindlistfo: tcomponentkindlistfo
     end
   end
   inherited tstatfile1: tstatfile
+    filename = 'componentkindlistfo.sta'
   end
   inherited dataso: tmsedatasource
     DataSet = mainmo.compkindqu
+  end
+  inherited dialogact: taction
+    onexecute = dialogev
   end
 end

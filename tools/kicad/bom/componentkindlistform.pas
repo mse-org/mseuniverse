@@ -13,13 +13,14 @@ type
    designationed: tdbstringedit;
    tdbstringedit1: tdbstringedit;
    procedure closeev(const sender: TObject);
+   procedure dialogev(const sender: TObject);
   public
    constructor create(); reintroduce;
  end;
 
 implementation
 uses
- componentkindlistform_mfm,mainmodule;
+ componentkindlistform_mfm,mainmodule,componentkindeditform;
 
 { tcomponentkindlistform }
 
@@ -32,6 +33,11 @@ end;
 procedure tcomponentkindlistfo.closeev(const sender: TObject);
 begin
  mainmo.endcomponentkindedit();
+end;
+
+procedure tcomponentkindlistfo.dialogev(const sender: TObject);
+begin
+ tcomponentkindeditfo.create(nil).show(ml_application);
 end;
 
 end.
