@@ -1,0 +1,161 @@
+inherited componentkindeditfo: tcomponentkindeditfo
+  container.bounds = (
+    0
+    0
+    512
+    406
+  )
+  caption = 'Componentkind'
+  moduleclassname = 'trecordnameeditfo'
+  inherited stripe0: tlayouter
+    taborder = 1
+    inherited tlayouter2: tlayouter
+      inherited tsmodify: tdbdatetimedisp
+      end
+      inherited tscreate: tdbdatetimedisp
+      end
+    end
+    inherited navig: tdbnavigator
+    end
+  end
+  inherited stripe1: tlayouter
+    taborder = 0
+    inherited nameselector: tenum64editdb
+      frame.buttons.items = <      
+        item
+        end>
+      dropdown.cols.items = <      
+        item
+        end>
+      onsetvalue = selectorev
+    end
+  end
+  inherited stripe2: tlayouter
+    inherited nameed: tdbstringedit
+      frame.caption = '&Name'
+    end
+  end
+  object tlayouter1: tlayouter[3]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 104
+    bounds_cx = 498
+    bounds_cy = 201
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placey]
+    place_mindist = 4
+    place_maxdist = 4
+    object designationed: tdbstringedit
+      frame.caption = '&Designation'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 498
+      bounds_cy = 37
+      anchors = [an_top]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'DESIGNATION'
+      reffontheight = 14
+    end
+    object param1ed: tdbstringedit
+      frame.caption = 'Parameter &1'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 41
+      bounds_cx = 498
+      bounds_cy = 37
+      anchors = [an_top]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'PARAMETER1'
+      reffontheight = 14
+    end
+    object param2ed: tdbstringedit
+      frame.caption = 'Parameter &2'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 82
+      bounds_cx = 498
+      bounds_cy = 37
+      anchors = [an_top]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'PARAMETER2'
+      reffontheight = 14
+    end
+    object param4ed: tdbstringedit
+      frame.caption = 'Parameter &4'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 164
+      bounds_cx = 498
+      bounds_cy = 37
+      anchors = [an_top]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'PARAMETER4'
+      reffontheight = 14
+    end
+    object param3ed: tdbstringedit
+      frame.caption = 'Parameter &3'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 4
+      bounds_x = 0
+      bounds_y = 123
+      bounds_cx = 498
+      bounds_cy = 37
+      anchors = [an_top]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'PARAMETER3'
+      reffontheight = 14
+    end
+  end
+  inherited dataso: tmsedatasource[4]
+    DataSet = mainmo.compkindqu
+  end
+  inherited tstatfile1: tstatfile[5]
+    filename = 'componentkindeditfo.sta'
+  end
+end

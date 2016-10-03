@@ -1,0 +1,94 @@
+inherited recordnameeditfo: trecordnameeditfo
+  container.bounds = (
+    0
+    0
+    512
+    406
+  )
+  moduleclassname = 'trecordeditfo'
+  inherited stripe0: tlayouter
+    inherited tlayouter2: tlayouter
+      inherited tsmodify: tdbdatetimedisp
+      end
+      inherited tscreate: tdbdatetimedisp
+      end
+    end
+    inherited navig: tdbnavigator
+    end
+  end
+  object stripe1: tlayouter[1]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 36
+    bounds_cx = 497
+    bounds_cy = 20
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    linktop = stripe0
+    object nameselector: tenum64editdb
+      frame.captionpos = cp_right
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 188
+      dropdown.datasource = dataso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      value = -1
+      valuedefault = -1
+      onsetvalue = selectorev
+      reffontheight = 14
+    end
+  end
+  object stripe2: tlayouter[2]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 60
+    bounds_cx = 497
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    linktop = stripe1
+    dist_top = 4
+    object nameed: tdbstringedit
+      frame.caption = 'Name'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 188
+      bounds_cy = 37
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'NAME'
+      reffontheight = 14
+    end
+  end
+  inherited dataso: tmsedatasource[3]
+  end
+  inherited tstatfile1: tstatfile[4]
+  end
+end
