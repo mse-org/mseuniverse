@@ -109,6 +109,7 @@ object mainmo: tmainmo
         fields.items = <        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
         active = True
       end>
@@ -876,6 +877,7 @@ object mainmo: tmainmo
     object sc_componentkind: tmselargeintfield
       FieldName = 'COMPONENTKIND'
       Index = 9
+      OnValidate = componentkindvalidateev
       left = 424
       top = 104
     end
@@ -925,27 +927,27 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 50
       end>
-    controller.fields.count = 2
+    controller.fields.count = 1
     controller.fields.fields = (
       (
         ft_largeint
-        ft_string
       )
       <      
         item
           FieldName = 'PK'
           Index = 0
-        end      
-        item
-          DisplayWidth = 50
-          FieldName = 'DESIGNATION'
-          Index = 1
-          Size = 50
         end>
     )
     left = 600
     top = 56
     streamingversion = 1
+    object scd_designation: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'DESIGNATION'
+      Index = 1
+      left = 608
+      top = 88
+    end
   end
   object stockcompdetaildso: tmsedatasource
     AutoEdit = False

@@ -46,7 +46,7 @@ type
    tfacelist1: tfacelist;
    editglobalsettings: tifiactionendpoint;
    getdbcedentials: tifiactionendpoint;
-   tstockglyphdatabutton1: tstockglyphdatabutton;
+   editbutton: tstockglyphdatabutton;
    footprstock: tdbstringedit;
    tdbstringedit1: tdbstringedit;
    tdbstringedit2: tdbstringedit;
@@ -68,6 +68,7 @@ type
    procedure editfootprint(const sender: tobject);
    procedure editcomponentkind(const sender: tobject);
    procedure editcomponents(const sender: TObject);
+   procedure cellev(const sender: TObject; var info: celleventinfoty);
   protected
   public
    procedure checkeditclose(const adataso: tdatasource;
@@ -90,7 +91,7 @@ begin
   case askyesnocancel('Record has been modified.'+lineend+
          'Do you want to store the modifications?','CONFIRMATION') of
    mr_yes: begin
-    if not tmsesqlquery(adataso.dataset).controller.post() then begin
+    if not tmsesqlquery(adataso.dataset).post1() then begin
      amodalresult:= mr_none;
     end;
    end;
@@ -207,6 +208,18 @@ begin
 end;
 
 procedure tmainfo.editcomponents(const sender: TObject);
+begin
+ tcomponentlistfo.create.show(ml_application);
+end;
+
+procedure tmainfo.cellev(const sender: TObject; var info: celleventinfoty);
+begin
+ if iscellclick(info,[ccr_dblclick]) then begin
+  editbutton.execute();
+ end;
+end;
+{
+procedure tmainfo.editcomponents(const sender: TObject);
 var
  res1: modalresultty;
  fo1: tcomponentlistfo;
@@ -221,5 +234,5 @@ begin
   fo1.destroy();
  end;
 end;
-
+}
 end.

@@ -151,17 +151,18 @@ object mainfo: tmainfo
       item[footprstock]
         widgetname = 'footprstock'
       end    
-      item[tstockglyphdatabutton1]
+      item[editbutton]
         color = -2147483646
         width = 26
         options = [co_nohscroll, co_savestate, co_mousescrollrow]
-        widgetname = 'tstockglyphdatabutton1'
+        widgetname = 'editbutton'
         dataclass = tgridintegerdatalist
       end>
     datalink.datasource = mainmo.compdso
     datalink.fieldname_color = 'rowstate'
     datarowheight = 16
     statfile = mainfosta
+    oncellevent = cellev
     reffontheight = 14
     object nameed: tdbstringedit
       optionsskin = [osk_framebuttononly]
@@ -293,7 +294,7 @@ object mainfo: tmainfo
       datalink.fieldname = 'stockvalue2'
       reffontheight = 14
     end
-    object tstockglyphdatabutton1: tstockglyphdatabutton
+    object editbutton: tstockglyphdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       bounds_x = 704

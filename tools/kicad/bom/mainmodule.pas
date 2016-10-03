@@ -115,6 +115,7 @@ type
    stockcompdetaillink: tfieldparamlink;
    sc_footprint: tmselargeintfield;
    sc_componentkind: tmselargeintfield;
+   scd_designation: tmsestringfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -138,10 +139,12 @@ type
    procedure aftercopyrecordev(DataSet: TDataSet);
    procedure beforecopyrecordev(DataSet: TDataSet);
    procedure bforecompcopyev(DataSet: TDataSet);
+   procedure componentkindvalidateev(Sender: TField);
   private
    fhasproject: boolean;
    fmodified: boolean;
    foldname: msestring;
+   fcompappliedcount: card32;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -161,6 +164,8 @@ type
 
    procedure begincomponentedit(const idfield: tmselargeintfield);
    procedure endcomponentedit(const fullrefresh: boolean);
+   procedure begincomponentlistedit();
+   procedure endcomponentlistedit();
    procedure beginfootprintedit();
    procedure endfootprintedit();
    procedure begincomponentkindedit();
@@ -179,7 +184,7 @@ var
  
 implementation
 uses
- mainmodule_mfm,msewidgets;
+ mainmodule_mfm,msewidgets,variants;
 
 procedure tmainmo.getprojectoptionsev(const sender: TObject;
                var aobject: TObject);
@@ -196,6 +201,58 @@ procedure tmainmo.mainstatreadev(const sender: TObject);
 begin
  if globaloptions.filename <> '' then begin
   openproject(globaloptions.filename);
+ end;
+end;
+
+procedure tmainmo.docomp(const sender: tkicadschemaparser;
+               var info: compinfoty);
+//todo: make field names variable               
+
+ function checkfield(const aname: msestring; const info: compfieldinfoty;
+                     var val: msestring; var nval: boolean): boolean;
+ begin
+  if info.name = aname then begin
+   if info.text <> '' then begin
+    val:= info.text;
+    nval:= false;
+   end;
+   result:= true;
+  end
+  else begin
+   result:= false;
+  end;
+ end;//checkfield
+
+var
+ footpr,val,val1,val2: msestring;
+ nfootpr,nval,nval1,nval2: boolean; //nullflags
+ po1,pe: pcompfieldinfoty;
+ bm1: bookmarkdataty;
+begin
+ if (info.reference <> '') and (info.reference[1] <> '#') then begin
+                                          //skip power marks
+  nfootpr:= true;
+  nval:= true;
+  nval1:= true;
+  nval2:= true;
+  po1:= pointer(info.fields);
+  pe:= po1 + length(info.fields);
+  while po1 < pe do begin
+   if not checkfield('FOOTPRINT',po1^,footpr,nfootpr) then begin
+    if not checkfield('VALUE',po1^,val,nval) then begin
+     if not checkfield('VALUE1',po1^,val1,nval1) then begin
+      if not checkfield('VALUE2',po1^,val2,nval2) then begin
+      end;
+     end;
+    end
+   end;
+   inc(po1);
+  end;
+  if not compds.indexlocal[0].find([info.reference],[],bm1) then begin
+   compds.controller.appendrecord1([info.reference,footpr,val,val1,val2],
+                                            [false,nfootpr,nval,nval1,nval2]);
+    //duplicates are several units in same case
+  end;
  end;
 end;
 
@@ -227,6 +284,7 @@ begin
      stream.destroy();
     end;
    end;
+   
    footprintqu.controller.refresh(false);
    stockcompqu.controller.refresh(true);
    for i1:= 0 to compds.recordcount - 1 do begin
@@ -252,26 +310,8 @@ begin
     else begin
      rowstate1:= 0;
     end;
-  {
-    par1.asnullmsestring:= compds.currentasmsestring[c_value,i1];
-    par2.asnullmsestring:= compds.currentasmsestring[c_value1,i1];
-    par3.asnullmsestring:= compds.currentasmsestring[c_value2,i1];
-    stockitem.refresh();
-    if not stockitem.eof then begin
-     compds.currentaslargeint[c_stockitemid,i1]:= col1.aslargeint;
-     compds.currentaslargeint[c_footprintid,i1]:= col2.aslargeint;
-     compds.currentasmsestring[c_stockvalue,i1]:= col3.asmsestring;
-     compds.currentasmsestring[c_stockvalue1,i1]:= col4.asmsestring;
-     compds.currentasmsestring[c_stockvalue2,i1]:= col5.asmsestring;
-     rowstate1:= -1;
-    end
-    else begin
-     rowstate1:= 0;
-    end;
-   }
     compds.currentasinteger[c_rowstate,i1]:= rowstate1;
    end;
-//   componenteditqu.controller.refresh(false);
    if recno1 <= 0 then begin
     compds.first();
    end
@@ -321,54 +361,6 @@ begin
  updateprojectstate.controller.execute()
 end;
 
-procedure tmainmo.docomp(const sender: tkicadschemaparser;
-               var info: compinfoty);
-//todo: make field names variable               
-
- function checkfield(const aname: msestring; const info: compfieldinfoty;
-                     var val: msestring; var nval: boolean): boolean;
- begin
-  if info.name = aname then begin
-   if info.text <> '' then begin
-    val:= info.text;
-    nval:= false;
-   end;
-   result:= true;
-  end
-  else begin
-   result:= false;
-  end;
- end;//checkfield
-
-var
- footpr,val,val1,val2: msestring;
- nfootpr,nval,nval1,nval2: boolean; //nullflags
- po1,pe: pcompfieldinfoty;
-begin
- if (info.reference <> '') and (info.reference[1] <> '#') then begin
-                                          //skip power marks
-  nfootpr:= true;
-  nval:= true;
-  nval1:= true;
-  nval2:= true;
-  po1:= pointer(info.fields);
-  pe:= po1 + length(info.fields);
-  while po1 < pe do begin
-   if not checkfield('FOOTPRINT',po1^,footpr,nfootpr) then begin
-    if not checkfield('VALUE',po1^,val,nval) then begin
-     if not checkfield('VALUE1',po1^,val1,nval1) then begin
-      if not checkfield('VALUE2',po1^,val2,nval2) then begin
-      end;
-     end;
-    end
-   end;
-   inc(po1);
-  end;
-  compds.controller.appendrecord1([info.reference,footpr,val,val1,val2],
-                                            [false,nfootpr,nval,nval1,nval2]);
- end;
-end;
-
 function tmainmo.saveproject(): boolean;
 begin
  result:= false;
@@ -415,8 +407,6 @@ begin
  projectoptions.destroy();
  projectoptions:= tprojectoptions.create(); //initial state
  fhasproject:= false;
-// projectfiledialog.controller.filename:= '';
-// globaloptions.filename:= '';
  result:= true;
  statechanged();
 end;
@@ -431,6 +421,7 @@ end;
 
 procedure tmainmo.begincomponentedit(const idfield: tmselargeintfield);
 begin
+ fcompappliedcount:= stockcompqu.appliedcount;
  footprintqu.controller.refresh(false);
  compkindqu.controller.refresh(false);
  if idfield = nil then begin
@@ -452,7 +443,19 @@ end;
 
 procedure tmainmo.endcomponentedit(const fullrefresh: boolean);
 begin
- if fullrefresh then begin
+ if fullrefresh and (fcompappliedcount <> stockcompqu.appliedcount) then begin
+  refresh();
+ end;
+end;
+
+procedure tmainmo.begincomponentlistedit();
+begin
+ fcompappliedcount:= stockcompqu.appliedcount;
+end;
+
+procedure tmainmo.endcomponentlistedit();
+begin
+ if fcompappliedcount <> stockcompqu.appliedcount then begin
   refresh();
  end;
 end;
@@ -473,7 +476,7 @@ begin
  else begin
   if aquery.changecount > 0 then begin
    if not askyesno('The data of '+amessage+' has been modified.'+lineend+
-            'Do you want to cancel the modifications?') then begin
+            'Do you want to store the modifications?') then begin
     result:= false;
    end
    else begin
@@ -681,6 +684,33 @@ end;
 procedure tmainmo.bforecompcopyev(DataSet: TDataSet);
 begin
  stockcompdetailqu.controller.copyrecord();
+end;
+
+procedure tmainmo.componentkindvalidateev(Sender: TField);
+var
+ bufferval: variant;
+ oldid: int64;
+ newid: int64;
+ ms1: msestring;
+ bm1: bookmarkdataty;
+ bo1: boolean;
+begin
+ newid:= sender.aslargeint;
+ bufferval:= sender.buffervalue;
+ bo1:= true;
+ if not varisnull(bufferval) then begin
+  oldid:= bufferval;
+  if compkindqu.indexlocal[0].find([oldid],[],bm1) then begin
+   ms1:= compkindqu.currentbmasmsestring[k_designation,bm1];
+   bo1:= (scd_designation.asmsestring = '') or
+                                (scd_designation.asmsestring = ms1);
+  end;
+ end;
+ if bo1 and compkindqu.indexlocal[0].find([newid],[],bm1) then begin
+             //synchronize designation with new kind
+  scd_designation.asmsestring:= 
+                   compkindqu.currentbmasmsestring[k_designation,bm1];
+ end;
 end;
 
 { tprojectoptions }

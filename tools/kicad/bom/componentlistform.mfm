@@ -12,11 +12,13 @@ object componentlistfo: tcomponentlistfo
     563
     454
   )
-  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Components'
+  onclosequery = closequeryev
+  onclose = closeev
   moduleclassname = 'tmseform'
-  object tdbnavigator1: tdbnavigator
+  object navig: tdbnavigator
     optionswidget1 = [ow1_autoscale, ow1_autoheight]
     frame.buttonpos = sbp_top
     frame.localprops = []
@@ -26,7 +28,7 @@ object componentlistfo: tcomponentlistfo
     bounds_cx = 23
     bounds_cy = 276
     anchors = [an_left, an_top, an_right]
-    datasource = mainmo.stockcompdso
+    datasource = dataso
     visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit, dbnb_dialog]
     buttonface.localprops = []
     buttonface.template = mainfo.vertkonvex
@@ -122,10 +124,11 @@ object componentlistfo: tcomponentlistfo
           'tenum64editdb5'
         )
       end>
-    datalink.datasource = mainmo.stockcompdso
-    datalink.navigator = tdbnavigator1
+    datalink.datasource = dataso
+    datalink.navigator = navig
     datarowheight = 16
     statfile = tstatfile1
+    oncellevent = cellev
     reffontheight = 14
     object valueed: tdbstringedit
       optionsskin = [osk_framebuttononly]
@@ -136,8 +139,8 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = mainmo.stockcompdso
-      datalink.navigator = tdbnavigator1
+      datalink.datasource = dataso
+      datalink.navigator = navig
       datalink.fieldname = 'VALUE'
       reffontheight = 14
     end
@@ -151,8 +154,8 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = mainmo.stockcompdso
-      datalink.navigator = tdbnavigator1
+      datalink.datasource = dataso
+      datalink.navigator = navig
       datalink.fieldname = 'VALUE1'
       reffontheight = 14
     end
@@ -166,8 +169,8 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = mainmo.stockcompdso
-      datalink.navigator = tdbnavigator1
+      datalink.datasource = dataso
+      datalink.navigator = navig
       datalink.fieldname = 'VALUE2'
       reffontheight = 14
     end
@@ -191,8 +194,8 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = mainmo.stockcompdso
-      datalink.navigator = tdbnavigator1
+      datalink.datasource = dataso
+      datalink.navigator = navig
       datalink.fieldname = 'FOOTPRINT'
       datalink.fieldnametext = 'FOOTPRINTNAME'
       dropdown.datasource = mainmo.footprintdso
@@ -225,8 +228,8 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = mainmo.stockcompdso
-      datalink.navigator = tdbnavigator1
+      datalink.datasource = dataso
+      datalink.navigator = navig
       datalink.fieldname = 'COMPONENTKIND'
       datalink.fieldnametext = 'KINDNAME'
       dropdown.datasource = mainmo.compkinddso
@@ -258,7 +261,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cy = 16
       statfile = tstatfile1
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = mainmo.stockcompdso
+      dropdown.datasource = dataso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
@@ -318,7 +321,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cy = 16
       statfile = tstatfile1
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = mainmo.stockcompdso
+      dropdown.datasource = dataso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
@@ -378,7 +381,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cy = 16
       statfile = tstatfile1
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = mainmo.stockcompdso
+      dropdown.datasource = dataso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
@@ -438,7 +441,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cy = 16
       statfile = tstatfile1
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = mainmo.stockcompdso
+      dropdown.datasource = dataso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
@@ -498,7 +501,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cy = 16
       statfile = tstatfile1
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = mainmo.stockcompdso
+      dropdown.datasource = dataso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
@@ -552,6 +555,11 @@ object componentlistfo: tcomponentlistfo
   object edititemact: taction
     onexecute = edititemev
     left = 168
-    top = 56
+    top = 64
+  end
+  object dataso: tmsedatasource
+    DataSet = mainmo.stockcompqu
+    left = 280
+    top = 64
   end
 end
