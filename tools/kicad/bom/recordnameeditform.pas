@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  recordeditform,msesplitter,mdb,mseact,msedataedits,msedbedit,mseedit,
  msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
- msescrollbar,msestatfile,msestream,msestrings,sysutils;
+ msescrollbar,msestatfile,msestream,msestrings,sysutils,msedbdispwidgets;
 
 type
  trecordnameeditfo = class(trecordeditfo)
@@ -14,6 +14,7 @@ type
    nameselector: tenum64editdb;
    stripe2: tlayouter;
    nameed: tdbstringedit;
+   iddisp: tdbintegerdisp;
    procedure selectorev(const sender: TObject; var avalue: Int64;
                    var accept: Boolean);
  end;

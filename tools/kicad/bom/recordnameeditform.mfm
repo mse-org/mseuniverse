@@ -1,19 +1,37 @@
 inherited recordnameeditfo: trecordnameeditfo
+  bounds_cx = 701
   container.bounds = (
     0
     0
-    512
+    701
     406
   )
   moduleclassname = 'trecordeditfo'
   inherited stripe0: tlayouter
+    bounds_cx = 701
+    optionslayout = [lao_placex, lao_aligny]
     inherited tlayouter2: tlayouter
+      bounds_x = 463
+      linkleft = iddisp
       inherited tsmodify: tdbdatetimedisp
       end
       inherited tscreate: tdbdatetimedisp
       end
     end
     inherited navig: tdbnavigator
+      bounds_y = 7
+    end
+    object iddisp: tdbintegerdisp[2]
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 2
+      bounds_x = 331
+      bounds_y = 9
+      bounds_cx = 132
+      bounds_cy = 18
+      datalink.datasource = dataso
+      datalink.fieldname = 'PK'
+      reffontheight = 14
     end
   end
   object stripe1: tlayouter[1]
@@ -21,7 +39,7 @@ inherited recordnameeditfo: trecordnameeditfo
     taborder = 1
     bounds_x = 8
     bounds_y = 36
-    bounds_cx = 497
+    bounds_cx = 686
     bounds_cy = 20
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -59,7 +77,7 @@ inherited recordnameeditfo: trecordnameeditfo
     taborder = 2
     bounds_x = 8
     bounds_y = 60
-    bounds_cx = 497
+    bounds_cx = 686
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -84,6 +102,7 @@ inherited recordnameeditfo: trecordnameeditfo
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'NAME'
+      datalink.options = [oed_focusoninsert]
       reffontheight = 14
     end
   end

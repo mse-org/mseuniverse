@@ -476,7 +476,7 @@ object mainfo: tmainfo
   end
   object editcompkindact: taction
     caption = 'Component&kinds'
-    onexecute = editcomponentkind
+    onexecute = editcomponentkindlist
     left = 440
     top = 72
   end

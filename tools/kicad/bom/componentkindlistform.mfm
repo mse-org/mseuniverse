@@ -9,7 +9,6 @@ inherited componentkindlistfo: tcomponentkindlistfo
   onclose = closeev
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
-    dialogbutton.hint = 'Dialog (F3)'
   end
   inherited grid: tdbwidgetgrid
     fixcols.items = <    

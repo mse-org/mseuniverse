@@ -1,15 +1,18 @@
 inherited componentkindeditfo: tcomponentkindeditfo
+  bounds_cx = 522
   container.bounds = (
     0
     0
-    512
+    522
     406
   )
   caption = 'Componentkind'
   moduleclassname = 'trecordnameeditfo'
   inherited stripe0: tlayouter
     taborder = 1
+    bounds_cx = 591
     inherited tlayouter2: tlayouter
+      bounds_x = 408
       inherited tsmodify: tdbdatetimedisp
       end
       inherited tscreate: tdbdatetimedisp
@@ -17,9 +20,13 @@ inherited componentkindeditfo: tcomponentkindeditfo
     end
     inherited navig: tdbnavigator
     end
+    inherited iddisp: tdbintegerdisp
+      bounds_x = 276
+    end
   end
   inherited stripe1: tlayouter
     taborder = 0
+    bounds_cx = 513
     inherited nameselector: tenum64editdb
       frame.buttons.items = <      
         item
@@ -27,12 +34,53 @@ inherited componentkindeditfo: tcomponentkindeditfo
       dropdown.cols.items = <      
         item
         end>
-      onsetvalue = selectorev
     end
   end
   inherited stripe2: tlayouter
+    bounds_cx = 513
+    place_mindist = 4
+    place_maxdist = 4
     inherited nameed: tdbstringedit
       frame.caption = '&Name'
+    end
+    object footprinted: tdbenum64editdb[1]
+      frame.caption = 'Footprint'
+      frame.font.localprops = []
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 2
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+          onexecute = footprintedev
+        end      
+        item
+        end>
+      frame.activebutton = 1
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 192
+      bounds_y = 0
+      bounds_cx = 188
+      bounds_cy = 37
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      font.localprops = []
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'FOOTPRINT'
+      dropdown.datasource = mainmo.footprintdso
+      dropdown.keyfield = 'PK'
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      reffontheight = 14
     end
   end
   object tlayouter1: tlayouter[3]
@@ -40,17 +88,23 @@ inherited componentkindeditfo: tcomponentkindeditfo
     taborder = 3
     bounds_x = 8
     bounds_y = 104
-    bounds_cx = 498
+    bounds_cx = 508
     bounds_cy = 201
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placey]
     place_mindist = 4
     place_maxdist = 4
-    object designationed: tdbstringedit
+    object designationed: tdbdialogstringedit
       frame.caption = '&Designation'
       frame.localprops = []
       frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
       frame.outerframe = (
         0
         17
@@ -59,7 +113,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 498
+      bounds_cx = 508
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
@@ -67,10 +121,16 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.fieldname = 'DESIGNATION'
       reffontheight = 14
     end
-    object param1ed: tdbstringedit
+    object param1ed: tdbdialogstringedit
       frame.caption = 'Parameter &1'
       frame.localprops = []
       frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
       frame.outerframe = (
         0
         17
@@ -80,7 +140,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       taborder = 1
       bounds_x = 0
       bounds_y = 41
-      bounds_cx = 498
+      bounds_cx = 508
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
@@ -88,10 +148,16 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.fieldname = 'PARAMETER1'
       reffontheight = 14
     end
-    object param2ed: tdbstringedit
+    object param2ed: tdbdialogstringedit
       frame.caption = 'Parameter &2'
       frame.localprops = []
       frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
       frame.outerframe = (
         0
         17
@@ -101,7 +167,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       taborder = 2
       bounds_x = 0
       bounds_y = 82
-      bounds_cx = 498
+      bounds_cx = 508
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
@@ -109,10 +175,16 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.fieldname = 'PARAMETER2'
       reffontheight = 14
     end
-    object param4ed: tdbstringedit
+    object param4ed: tdbdialogstringedit
       frame.caption = 'Parameter &4'
       frame.localprops = []
       frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
       frame.outerframe = (
         0
         17
@@ -122,7 +194,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       taborder = 3
       bounds_x = 0
       bounds_y = 164
-      bounds_cx = 498
+      bounds_cx = 508
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
@@ -130,10 +202,16 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.fieldname = 'PARAMETER4'
       reffontheight = 14
     end
-    object param3ed: tdbstringedit
+    object param3ed: tdbdialogstringedit
       frame.caption = 'Parameter &3'
       frame.localprops = []
       frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
       frame.outerframe = (
         0
         17
@@ -143,7 +221,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       taborder = 4
       bounds_x = 0
       bounds_y = 123
-      bounds_cx = 498
+      bounds_cx = 508
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso

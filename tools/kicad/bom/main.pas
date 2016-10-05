@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,msegrids,
  mseificomp,mseificompglob,mseifiglob,mselistbrowser,msestream,msestrings,
- msesys,sysutils,msesimplewidgets,kicadschemaparser,mseifiendpoint,mdb,
+ msesys,sysutils,msesimplewidgets,kicadschemaparser,mseifiendpoint,mdb,msedb,
  msedbedit,msegraphedits,mselookupbuffer,msescrollbar,mseactions,mseskin;
 
 const
@@ -66,13 +66,15 @@ type
    procedure getdbcredentialsev(const sender: TObject);
    procedure editev(const sender: TObject);
    procedure editfootprint(const sender: tobject);
-   procedure editcomponentkind(const sender: tobject);
+   procedure editcomponentkindlist(const sender: tobject);
    procedure editcomponents(const sender: TObject);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
   protected
   public
    procedure checkeditclose(const adataso: tdatasource;
                                         var amodalresult: modalresultty);
+   procedure editcomponentkind(const aid: tmselargeintfield);
+   procedure editfootprint(const aid: tmselargeintfield);
  end;
  
 var
@@ -103,6 +105,11 @@ begin
    end;
   end;
  end;
+end;
+
+procedure tmainfo.editcomponentkind(const aid: tmselargeintfield);
+begin
+ tcomponentkindeditfo.create(aid).show(ml_application);
 end;
 
 procedure tmainfo.getfilenameev(const sender: TObject);
@@ -199,10 +206,15 @@ end;
 
 procedure tmainfo.editfootprint(const sender: tobject);
 begin
- tfootprintlistfo.create().show(ml_application);
+ tfootprintlistfo.create(mainmo.sc_footprint).show(ml_application);
 end;
 
-procedure tmainfo.editcomponentkind(const sender: tobject);
+procedure tmainfo.editfootprint(const aid: tmselargeintfield);
+begin
+ tfootprintlistfo.create(aid).show(ml_application);
+end;
+
+procedure tmainfo.editcomponentkindlist(const sender: tobject);
 begin
  tcomponentkindlistfo.create().show(ml_application);
 end;

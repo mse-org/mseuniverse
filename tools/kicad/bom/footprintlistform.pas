@@ -6,14 +6,14 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,listeditform,
  mdb,mseact,msedataedits,msedbedit,mseedit,msegraphedits,msegrids,mseificomp,
  mseificompglob,mseifiglob,mselookupbuffer,msescrollbar,msestatfile,msestream,
- msestrings,sysutils;
+ msestrings,sysutils,msedb;
 
 type
  tfootprintlistfo = class(tlisteditfo)
    areaed: tdbrealedit;
    procedure closeev(const sender: TObject);
   public
-   constructor create(); reintroduce;
+   constructor create(const aid: tmselargeintfield); reintroduce;
  end;
 
 implementation
@@ -22,10 +22,10 @@ uses
 
 { tfootprintlistfo }
 
-constructor tfootprintlistfo.create();
+constructor tfootprintlistfo.create(const aid: tmselargeintfield);
 begin
- mainmo.beginfootprintedit();
- create(nil);
+ mainmo.beginfootprintedit(aid);
+ inherited create(nil);
 end;
 
 procedure tfootprintlistfo.closeev(const sender: TObject);

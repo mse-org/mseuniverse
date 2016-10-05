@@ -23,7 +23,8 @@ uses
  msegraphics,msegraphutils,msegrids,msegui,mseguiglob,mseificomp,mseificompglob,
  mseifiglob,mselistbrowser,msemenus,msestream,msestrings,msesys,sysutils,
  mseactions,mdb,msebufdataset,msedb,mselocaldataset,kicadschemaparser,
- msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult,msedbdispwidgets;
+ msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
+ msemacros,mclasses;
 
 type
  tglobaloptions = class(toptions)
@@ -116,6 +117,18 @@ type
    sc_footprint: tmselargeintfield;
    sc_componentkind: tmselargeintfield;
    scd_designation: tmsestringfield;
+   scd_parameter1: tmsestringfield;
+   scd_parameter2: tmsestringfield;
+   scd_parameter3: tmsestringfield;
+   scd_parameter4: tmsestringfield;
+   k_parameter1: tmsestringfield;
+   k_parameter2: tmsestringfield;
+   k_parameter3: tmsestringfield;
+   k_parameter4: tmsestringfield;
+   k_footprint: tmselargeintfield;
+   k_footprintname: tmsestringfield;
+   sc_footprintname: tmsestringfield;
+   sc_kindname: tmsestringfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -139,12 +152,15 @@ type
    procedure aftercopyrecordev(DataSet: TDataSet);
    procedure beforecopyrecordev(DataSet: TDataSet);
    procedure bforecompcopyev(DataSet: TDataSet);
-   procedure componentkindvalidateev(Sender: TField);
+//   procedure componentkindvalidateev(Sender: TField);
+   procedure stockcompinternalcalcev(const sender: tmsebufdataset;
+                   const fetching: Boolean);
   private
    fhasproject: boolean;
    fmodified: boolean;
    foldname: msestring;
    fcompappliedcount: card32;
+   fmacros: tmacrolist;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -156,6 +172,8 @@ type
    procedure doinsertcheck(const asqlres: tsqlresult;
                                             const aname: tmsestringfield);
   public
+   constructor create(aowner: tcomponent); override;
+   destructor destroy(); override;
    procedure openproject(const afilename: filenamety);
    procedure refresh();
    function closeproject(): boolean; //true if not canceled
@@ -166,7 +184,7 @@ type
    procedure endcomponentedit(const fullrefresh: boolean);
    procedure begincomponentlistedit();
    procedure endcomponentlistedit();
-   procedure beginfootprintedit();
+   procedure beginfootprintedit(const idfield: tmselargeintfield);
    procedure endfootprintedit();
    procedure begincomponentkindedit();
    procedure endcomponentkindedit();
@@ -175,6 +193,7 @@ type
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property hasproject: boolean read fhasproject;
    property modified: boolean read fmodified;
+   function expandcomponentmacros(const afield: tmsestringfield): msestring;
  end;
  
 var
@@ -184,7 +203,61 @@ var
  
 implementation
 uses
- mainmodule_mfm,msewidgets,variants;
+ mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
+ mseenvmacros;
+
+{ tmainmo }
+type
+ macronamety = (
+    mn_value,mn_value1,mn_value2,mn_footprint,
+    mn_designation,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
+    mn_k_footprint,mn_k_designation,
+    mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
+
+const
+ macronames: array[macronamety] of msestring = (
+//mn_value,mn_value1,mn_value2,mn_footprint,
+    'value', 'value1', 'value2', 'footprint',
+//mn_designation,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
+    'designation', 'parameter1', 'parameter2', 'parameter3', 'parameter4',
+//mn_k_footprint,mn_k_designation,
+    'k_footprint', 'k_designation',
+//mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
+    'k_parameter1', 'k_parameter2', 'k_parameter3', 'k_parameter4'
+ );
+var
+ macroitems: array[macronamety] of pmacroinfoty; 
+
+constructor tmainmo.create(aowner: tcomponent);
+var
+ ma1: macronamety;
+begin
+ fmacros:= tmacrolist.create([mao_caseinsensitive],
+   initmacros([
+               //0       1        2        3
+
+    initmacros(macronames,
+{
+    ['value','value1','value2','footprint',
+   //4             5            6            7            8
+    'designation','parameter1','parameter2','parameter3','parameter4',
+   //9             10
+    'k_footprint','k_designation',
+   //11             12             13             14
+    'k_parameter1','k_parameter2','k_parameter3','k_parameter4'
+    ],}[],[]),
+    strmacros(),filemacros(),macmacros(),envmacros()]));
+ for ma1:= low(macroitems) to high(macroitems) do begin
+  fmacros.find(macronames[ma1],macroitems[ma1]);
+ end;
+ inherited;
+end;
+
+destructor tmainmo.destroy();
+begin
+ inherited;
+ fmacros.free();
+end;
 
 procedure tmainmo.getprojectoptionsev(const sender: TObject;
                var aobject: TObject);
@@ -421,14 +494,11 @@ end;
 
 procedure tmainmo.begincomponentedit(const idfield: tmselargeintfield);
 begin
+ footprintqu.active:= true;
+ compkindqu.active:= true;
+ stockcompqu.active:= true;
  fcompappliedcount:= stockcompqu.appliedcount;
- footprintqu.controller.refresh(false);
- compkindqu.controller.refresh(false);
- if idfield = nil then begin
-  stockcompqu.controller.refresh(true);
- end
- else begin
-  stockcompqu.controller.refresh(false);
+ if idfield <> nil then begin
   if idfield.isnull then begin
    stockcompqu.insert();
    sc_value.asnullmsestring:= c_value.asnullmsestring;
@@ -450,6 +520,14 @@ end;
 
 procedure tmainmo.begincomponentlistedit();
 begin
+ application.beginwait();
+ try
+  footprintqu.controller.refresh(false);
+  compkindqu.controller.refresh(false);
+  stockcompqu.controller.refresh(true);
+ finally
+  application.endwait();
+ end;
  fcompappliedcount:= stockcompqu.appliedcount;
 end;
 
@@ -493,9 +571,9 @@ begin
  aquery.indexlocal[0].find([afield]);
 end;
 
-procedure tmainmo.beginfootprintedit();
+procedure tmainmo.beginfootprintedit(const idfield: tmselargeintfield);
 begin
- beginedit(footprintqu,sc_footprint);
+ beginedit(footprintqu,idfield);
 end;
 
 procedure tmainmo.endfootprintedit();
@@ -535,6 +613,77 @@ var
  bm1: bookmarkdataty;
 begin
  result:= stockcompqu.indexlocal[1].find([avalue1,avalue,avalue2],[],bm1);
+end;
+
+function tmainmo.expandcomponentmacros(
+                     const afield: tmsestringfield): msestring;
+var
+ bm1: bookmarkdataty;
+ ms1: msestring;
+ bo1: boolean;
+begin
+ result:= '';
+ stockcompdetailqu.controller.checkrefresh(); //make pending refresh
+ bo1:= not sc_componentkind.isnull and 
+                      compkindqu.indexlocal[0].find([sc_componentkind],bm1);
+ ms1:= afield.asmsestring;
+ if (ms1 = '') and bo1 then begin
+  if afield = scd_designation then begin
+   ms1:= compkindqu.currentbmasmsestring[k_designation,bm1];
+  end
+  else begin
+   if afield = scd_parameter1 then begin
+    ms1:= compkindqu.currentbmasmsestring[k_parameter1,bm1];
+   end
+   else begin
+    if afield = scd_parameter2 then begin
+     ms1:= compkindqu.currentbmasmsestring[k_parameter2,bm1];
+    end
+    else begin
+     if afield = scd_parameter3 then begin
+      ms1:= compkindqu.currentbmasmsestring[k_parameter3,bm1];
+     end
+     else begin
+      if afield = scd_parameter4 then begin
+       ms1:= compkindqu.currentbmasmsestring[k_parameter4,bm1];
+      end;
+     end;
+    end;
+   end;
+  end;
+ end;
+ macroitems[mn_value]^.value:= sc_value.asmsestring;
+ macroitems[mn_value1]^.value:= sc_value1.asmsestring;
+ macroitems[mn_value2]^.value:= sc_value2.asmsestring;
+ macroitems[mn_footprint]^.value:= sc_footprintname.asmsestring;
+ macroitems[mn_designation]^.value:= scd_designation.asmsestring;
+ macroitems[mn_parameter1]^.value:= scd_parameter1.asmsestring;
+ macroitems[mn_parameter2]^.value:= scd_parameter2.asmsestring;
+ macroitems[mn_parameter3]^.value:= scd_parameter3.asmsestring;
+ macroitems[mn_parameter4]^.value:= scd_parameter4.asmsestring;
+ if bo1 then begin
+  macroitems[mn_k_footprint]^.value:= 
+                         compkindqu.currentbmasmsestring[k_footprintname,bm1];
+  macroitems[mn_k_designation]^.value:= 
+                         compkindqu.currentbmasmsestring[k_designation,bm1];
+  macroitems[mn_k_parameter1]^.value:= 
+                         compkindqu.currentbmasmsestring[k_parameter1,bm1];
+  macroitems[mn_k_parameter2]^.value:= 
+                         compkindqu.currentbmasmsestring[k_parameter2,bm1];
+  macroitems[mn_k_parameter3]^.value:= 
+                         compkindqu.currentbmasmsestring[k_parameter3,bm1];
+  macroitems[mn_k_parameter4]^.value:= 
+                         compkindqu.currentbmasmsestring[k_parameter4,bm1];
+ end
+ else begin
+  macroitems[mn_k_footprint]^.value:= '';
+  macroitems[mn_k_designation]^.value:= '';
+  macroitems[mn_k_parameter1]^.value:= '';
+  macroitems[mn_k_parameter2]^.value:= '';
+  macroitems[mn_k_parameter3]^.value:= '';
+  macroitems[mn_k_parameter4]^.value:= '';
+ end;
+ result:= fmacros.expandmacros(ms1);
 end;
 
 procedure tmainmo.openprojectev(const sender: TObject);
@@ -686,30 +835,33 @@ begin
  stockcompdetailqu.controller.copyrecord();
 end;
 
-procedure tmainmo.componentkindvalidateev(Sender: TField);
+procedure tmainmo.stockcompinternalcalcev(const sender: tmsebufdataset;
+               const fetching: Boolean);
 var
- bufferval: variant;
- oldid: int64;
- newid: int64;
- ms1: msestring;
  bm1: bookmarkdataty;
  bo1: boolean;
 begin
- newid:= sender.aslargeint;
- bufferval:= sender.buffervalue;
- bo1:= true;
- if not varisnull(bufferval) then begin
-  oldid:= bufferval;
-  if compkindqu.indexlocal[0].find([oldid],[],bm1) then begin
-   ms1:= compkindqu.currentbmasmsestring[k_designation,bm1];
-   bo1:= (scd_designation.asmsestring = '') or
-                                (scd_designation.asmsestring = ms1);
+ if sc_footprint.isnull then begin
+  bo1:= false;
+  if not sc_componentkind.isnull then begin
+   if compkindqu.indexlocal[0].find([sc_componentkind],bm1) then begin
+    if footprintqu.indexlocal[0].find(
+               [compkindqu.currentbmasid[k_footprint,bm1]],[],bm1) then begin
+
+     sc_footprintname.asmsestring:= 
+                footprintqu.currentbmasmsestring[f_name,bm1];
+     bo1:= true;
+    end;
+   end;
   end;
- end;
- if bo1 and compkindqu.indexlocal[0].find([newid],[],bm1) then begin
-             //synchronize designation with new kind
-  scd_designation.asmsestring:= 
-                   compkindqu.currentbmasmsestring[k_designation,bm1];
+  if not bo1 then begin
+   sc_footprintname.clear;
+  end;
+ end
+ else begin
+  if footprintqu.indexlocal[0].find([sc_footprint],bm1) then begin
+   sc_footprintname.asmsestring:= footprintqu.currentbmasmsestring[f_name,bm1];
+  end;
  end;
 end;
 

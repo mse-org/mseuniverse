@@ -34,7 +34,7 @@ object listeditfo: tlisteditfo
     shortcut_prior = 0
     shortcut_next = 0
     dialogbutton.imagenr = 17
-    dialogbutton.hint = 'Dialog'
+    dialogbutton.hint = 'Dialog (F3)'
     dialogbutton.action = dialogact
     dialogbutton.state = [as_disabled, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localshortcut, as_localonexecute]
     dialogbutton.shortcut = 306
@@ -105,6 +105,7 @@ object listeditfo: tlisteditfo
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'NAME'
+      datalink.options = [oed_focusoninsert]
       reffontheight = 14
     end
     object tdcreateed: tdbdatetimeedit
