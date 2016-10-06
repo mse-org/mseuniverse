@@ -11,14 +11,17 @@ uses
 type
  tfootprintlistfo = class(tlisteditfo)
    areaed: tdbrealedit;
+   tdbenum64editdb1: tdbenum64editdb;
+   idented: tdbstringedit;
    procedure closeev(const sender: TObject);
+   procedure libeditev(const sender: TObject);
   public
    constructor create(const aid: tmselargeintfield); reintroduce;
  end;
 
 implementation
 uses
- footprintlistform_mfm,mainmodule;
+ footprintlistform_mfm,mainmodule,main;
 
 { tfootprintlistfo }
 
@@ -31,6 +34,11 @@ end;
 procedure tfootprintlistfo.closeev(const sender: TObject);
 begin
  mainmo.endfootprintedit();
+end;
+
+procedure tfootprintlistfo.libeditev(const sender: TObject);
+begin
+ mainfo.editfootprintlibev(nil);
 end;
 
 end.

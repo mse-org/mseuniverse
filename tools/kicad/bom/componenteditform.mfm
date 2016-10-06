@@ -125,6 +125,7 @@ inherited componenteditfo: tcomponenteditfo
       frame.buttons.items = <      
         item
           imagenr = 17
+          options = [fbo_executeonclientdblclick]
           onexecute = editfootprintev
         end      
         item
@@ -168,6 +169,7 @@ inherited componenteditfo: tcomponenteditfo
       frame.buttons.items = <      
         item
           imagenr = 17
+          options = [fbo_executeonclientdblclick]
           onexecute = editcompkindev
         end      
         item

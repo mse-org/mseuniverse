@@ -27,7 +27,6 @@ uses
 
 const
  maincaption = 'MSEkicadBOM';
- versiontext = '0.0';
 type
  tmainfo = class(tmainform)
    mainfosta: tstatfile;
@@ -56,6 +55,8 @@ type
    editfootprintact: taction;
    editcompkindact: taction;
    editcomponentsact: taction;
+   editfootprintlibact: taction;
+   tdbstringedit4: tdbstringedit;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -65,10 +66,11 @@ type
    procedure editglobalsettingsev(const sender: TObject);
    procedure getdbcredentialsev(const sender: TObject);
    procedure editev(const sender: TObject);
-   procedure editfootprint(const sender: tobject);
+   procedure editfootprintev(const sender: tobject);
    procedure editcomponentkindlist(const sender: tobject);
    procedure editcomponents(const sender: TObject);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
+   procedure editfootprintlibev(const sender: TObject);
   protected
   public
    procedure checkeditclose(const adataso: tdatasource;
@@ -83,7 +85,8 @@ var
 implementation
 uses
  main_mfm,mainmodule,msefileutils,projectsettingsform,globalsettingsform,
- credentialsentryform,componenteditform,footprintlistform,componentkindeditform,
+ credentialsentryform,componenteditform,footprintlistform,footprintliblistform,
+ componentkindeditform,
  componentlistform,componentkindlistform,msesqldb;
  
 procedure tmainfo.checkeditclose(const adataso: tdatasource;
@@ -204,9 +207,14 @@ begin
  tcomponenteditfo.create(mainmo.c_stockitemid,true).show(ml_application);
 end;
 
-procedure tmainfo.editfootprint(const sender: tobject);
+procedure tmainfo.editfootprintev(const sender: tobject);
 begin
  tfootprintlistfo.create(mainmo.sc_footprint).show(ml_application);
+end;
+
+procedure tmainfo.editfootprintlibev(const sender: TObject);
+begin
+ tfootprintliblistfo.create(mainmo.f_pk).show(ml_application);
 end;
 
 procedure tmainfo.editfootprint(const aid: tmselargeintfield);
@@ -230,6 +238,7 @@ begin
   editbutton.execute();
  end;
 end;
+
 {
 procedure tmainfo.editcomponents(const sender: TObject);
 var

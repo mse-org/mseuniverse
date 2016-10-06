@@ -20,9 +20,15 @@ inherited footprintlistfo: tfootprintlistfo
       end>
     fixrows.items = <    
       item
-        captions.count = 4
+        captions.count = 6
         captions.items = <        
           item
+          end        
+          item
+            caption = 'Ident'
+          end        
+          item
+            caption = 'Library'
           end        
           item
             caption = 'Area (mm^2)'
@@ -34,15 +40,25 @@ inherited footprintlistfo: tfootprintlistfo
             caption = 'Modified'
           end>
       end>
-    datacols.count = 4
+    datacols.count = 6
     datacols.colorder = (
       'nameed'
+      'idented'
+      'tdbenum64editdb1'
       'areaed'
       'tdcreateed'
       'tdmodifyed'
     )
     datacols.items = <    
       item[nameed]
+      end    
+      item[idented]
+        width = 77
+        widgetname = 'idented'
+      end    
+      item[tdbenum64editdb1]
+        width = 87
+        widgetname = 'tdbenum64editdb1'
       end    
       item[areaed]
         width = 93
@@ -53,19 +69,57 @@ inherited footprintlistfo: tfootprintlistfo
       item[tdmodifyed]
       end>
     inherited tdcreateed: tdbdatetimeedit[0]
-      bounds_x = 199
+      bounds_x = 365
     end
     inherited tdmodifyed: tdbdatetimeedit[1]
-      bounds_x = 315
+      bounds_x = 481
     end
     inherited nameed: tdbstringedit[2]
     end
-    object areaed: tdbrealedit[3]
+    object tdbenum64editdb1: tdbenum64editdb[3]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.buttons.count = 2
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+          options = [fbo_enabled, fbo_executeonclientdblclick]
+          onexecute = libeditev
+        end      
+        item
+        end>
+      frame.activebutton = 1
       taborder = 4
       visible = False
-      bounds_x = 105
+      bounds_x = 183
+      bounds_y = 0
+      bounds_cx = 87
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'LIBRARY'
+      datalink.fieldnametext = 'libname'
+      dropdown.datasource = mainmo.footprintlibdso
+      dropdown.keyfield = 'PK'
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      reffontheight = 14
+    end
+    object areaed: tdbrealedit[4]
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 5
+      visible = False
+      bounds_x = 271
       bounds_y = 0
       bounds_cx = 93
       bounds_cy = 16
@@ -77,6 +131,20 @@ inherited footprintlistfo: tfootprintlistfo
       max = 1E+038
       valuerange = 1
       valuestart = 0
+      reffontheight = 14
+    end
+    object idented: tdbstringedit[5]
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 6
+      visible = False
+      bounds_x = 105
+      bounds_y = 0
+      bounds_cx = 77
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'IDENT'
       reffontheight = 14
     end
   end

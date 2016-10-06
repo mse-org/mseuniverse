@@ -20,9 +20,6 @@ inherited componentkindeditfo: tcomponentkindeditfo
     end
     inherited navig: tdbnavigator
     end
-    inherited iddisp: tdbintegerdisp
-      bounds_x = 276
-    end
   end
   inherited stripe1: tlayouter
     taborder = 0
@@ -52,6 +49,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       frame.buttons.items = <      
         item
           imagenr = 17
+          options = [fbo_executeonclientdblclick]
           onexecute = footprintedev
         end      
         item

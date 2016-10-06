@@ -14,7 +14,6 @@ type
    nameselector: tenum64editdb;
    stripe2: tlayouter;
    nameed: tdbstringedit;
-   iddisp: tdbintegerdisp;
    procedure selectorev(const sender: TObject; var avalue: Int64;
                    var accept: Boolean);
  end;

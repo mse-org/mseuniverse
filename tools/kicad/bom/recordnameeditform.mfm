@@ -11,8 +11,7 @@ inherited recordnameeditfo: trecordnameeditfo
     bounds_cx = 701
     optionslayout = [lao_placex, lao_aligny]
     inherited tlayouter2: tlayouter
-      bounds_x = 463
-      linkleft = iddisp
+      bounds_x = 518
       inherited tsmodify: tdbdatetimedisp
       end
       inherited tscreate: tdbdatetimedisp
@@ -20,18 +19,6 @@ inherited recordnameeditfo: trecordnameeditfo
     end
     inherited navig: tdbnavigator
       bounds_y = 7
-    end
-    object iddisp: tdbintegerdisp[2]
-      frame.localprops = []
-      frame.localprops1 = []
-      taborder = 2
-      bounds_x = 331
-      bounds_y = 9
-      bounds_cx = 132
-      bounds_cy = 18
-      datalink.datasource = dataso
-      datalink.fieldname = 'PK'
-      reffontheight = 14
     end
   end
   object stripe1: tlayouter[1]

@@ -23,7 +23,7 @@ uses
  msesplitter,msesimplewidgets,msedragglob,msescrollbar,msetabs,mseact,
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,msebitmap,msedatanodes,msefiledialog,
- mselistbrowser,msesys;
+ mselistbrowser,msesys,msegraphedits;
 type
  tprojectsettingsfo = class(tmseform)
    tstatfile1: tstatfile;
@@ -35,9 +35,19 @@ type
    ttabpage1: ttabpage;
    schematicgrid: twidgetgrid;
    val_schematics: tfilenameedit;
+   ttabpage2: ttabpage;
+   strip1: tlayouter;
+   val_compfootprint: tfilenameedit;
+   val_compfootprintwarn: tbooleanedit;
+   strip0: tlayouter;
+   tlabel1: tlabel;
+   tlabel2: tlabel;
+   strip2: tlayouter;
+   val_reportencoding: tenumtypeedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
+   procedure initencodingev(const sender: tenumtypeedit);
  end;
  
 implementation
@@ -57,6 +67,11 @@ end;
 procedure tprojectsettingsfo.createev(const sender: TObject);
 begin
  projectoptions.loadvalues(self,valueprefix);
+end;
+
+procedure tprojectsettingsfo.initencodingev(const sender: tenumtypeedit);
+begin
+ sender.typeinfopo:= typeinfo(charencodingty);
 end;
 
 end.

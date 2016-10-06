@@ -50,7 +50,7 @@ object componentlistfo: tcomponentlistfo
     bounds_cx = 539
     bounds_cy = 454
     anchors = [an_left]
-    optionsgrid = [og_colsizing, og_focuscellonenter, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
       item
@@ -174,6 +174,20 @@ object componentlistfo: tcomponentlistfo
       datalink.fieldname = 'VALUE2'
       reffontheight = 14
     end
+    object footprinttdi: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 153
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'footprintname'
+      reffontheight = 14
+    end
     object kinded: tdbenum64editdb
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
@@ -187,7 +201,7 @@ object componentlistfo: tcomponentlistfo
         item
           color = -1879048187
         end>
-      taborder = 4
+      taborder = 5
       visible = False
       bounds_x = 204
       bounds_y = 0
@@ -210,20 +224,6 @@ object componentlistfo: tcomponentlistfo
           width = 100
           datafield = 'DESIGNATION'
         end>
-      reffontheight = 14
-    end
-    object footprinttdi: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 5
-      visible = False
-      bounds_x = 153
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'footprintname'
       reffontheight = 14
     end
     object valueselector: tenum64editdb
@@ -405,66 +405,6 @@ object componentlistfo: tcomponentlistfo
       onsetvalue = rowselectev
       reffontheight = 14
     end
-    object kindselector: tenum64editdb
-      optionswidget1 = [ow1_fontglyphheight]
-      frame.levelo = 0
-      frame.localprops = [frl_levelo]
-      frame.localprops1 = []
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-        end>
-      taborder = 3
-      bounds_x = 204
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      statfile = tstatfile1
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = dataso
-      dropdown.keyfield = 'PK'
-      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 5
-      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-      dropdown.cols.linewidth = 1
-      dropdown.cols.items = <      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Kind'
-          datafield = 'KINDNAME'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Value'
-          datafield = 'VALUE'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Value1'
-          datafield = 'VALUE1'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Value2'
-          datafield = 'VALUE2'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprint'
-          datafield = 'FOOTPRINTNAME'
-        end>
-      dropdown.width = -1
-      value = -1
-      valuedefault = -1
-      onsetvalue = rowselectev
-      reffontheight = 14
-    end
     object footprintselector: tenum64editdb
       optionswidget1 = [ow1_fontglyphheight]
       frame.levelo = 0
@@ -474,7 +414,7 @@ object componentlistfo: tcomponentlistfo
       frame.buttons.items = <      
         item
         end>
-      taborder = 4
+      taborder = 3
       bounds_x = 153
       bounds_y = 0
       bounds_cx = 50
@@ -518,6 +458,66 @@ object componentlistfo: tcomponentlistfo
           linewidth = 1
           caption = 'Kind'
           datafield = 'KINDNAME'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object kindselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 4
+      bounds_x = 204
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = dataso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 5
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Kind'
+          datafield = 'KINDNAME'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value'
+          datafield = 'VALUE'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value1'
+          datafield = 'VALUE1'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value2'
+          datafield = 'VALUE2'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Footprint'
+          datafield = 'FOOTPRINTNAME'
         end>
       dropdown.width = -1
       value = -1

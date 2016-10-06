@@ -45,62 +45,62 @@ object mainmo: tmainmo
   end
   object getprojectfileopen: tifiactionlinkcomp
     left = 152
-    top = 120
+    top = 160
   end
   object openprojectact: taction
     caption = '&Open Project'
     onexecute = openprojectev
     left = 8
-    top = 88
+    top = 152
   end
   object updateprojectstate: tifiactionlinkcomp
     left = 152
-    top = 136
+    top = 176
   end
   object newprojectact: taction
     caption = '&New Project'
     onexecute = newprojectev
     left = 8
-    top = 72
+    top = 136
   end
   object closeprojectact: taction
     caption = '&Close Project'
     onexecute = closeprojectev
     onupdate = closeprojectupdateev
     left = 8
-    top = 128
+    top = 168
   end
   object saveprojectact: taction
     caption = '&Save Project'
     onupdate = saveupdateev
     left = 8
-    top = 144
+    top = 184
   end
   object saveprojectasact: taction
     caption = 'Save Project &as'
     left = 8
-    top = 160
+    top = 200
   end
   object getprojectfilesave: tifiactionlinkcomp
     left = 152
-    top = 152
+    top = 192
   end
   object exitact: taction
     caption = 'E&xit'
     onexecute = exitev
     left = 8
-    top = 176
+    top = 216
   end
   object projectsettingsact: taction
     caption = '&Project Settings'
     onupdate = projectsettingsupdateev
     ifilink = editprojectsettings
     left = 8
-    top = 200
+    top = 240
   end
   object editprojectsettings: tifiactionlinkcomp
     left = 152
-    top = 200
+    top = 240
   end
   object compds: tlocaldataset
     indexlocal.count = 1
@@ -114,6 +114,10 @@ object mainmo: tmainmo
         active = True
       end>
     FieldDefs = <    
+      item
+        Name = 'TIMESTAMP'
+        DataType = ftString
+      end    
       item
         Name = 'REF'
         DataType = ftString
@@ -135,112 +139,127 @@ object mainmo: tmainmo
         DataType = ftString
       end>
     left = 16
-    top = 272
+    top = 352
     streamingversion = 1
     object c_ref: tmsestringfield
       DisplayWidth = 20
       FieldName = 'REF'
       Index = 0
       left = 24
-      top = 304
+      top = 384
+    end
+    object c_timestamp: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'TIMESTAMP'
+      Index = 1
+      left = 24
+      top = 400
     end
     object c_footprint: tmsestringfield
       DisplayWidth = 20
       FieldName = 'FOOTPRINT'
-      Index = 1
+      Index = 2
       left = 24
-      top = 320
+      top = 416
     end
     object c_value: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE'
-      Index = 2
+      Index = 3
       left = 24
-      top = 336
+      top = 432
     end
     object c_value1: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE1'
-      Index = 3
+      Index = 4
       left = 24
-      top = 352
+      top = 448
     end
     object c_value2: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE2'
-      Index = 4
+      Index = 5
       left = 24
-      top = 368
+      top = 464
     end
     object c_stockitemid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'stockitemid'
-      Index = 5
+      Index = 6
       left = 24
-      top = 384
+      top = 480
     end
     object c_rowstate: tmselongintfield
       FieldKind = fkInternalCalc
       FieldName = 'rowstate'
-      Index = 6
+      Index = 7
       left = 24
-      top = 400
+      top = 496
     end
     object c_footprintname: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'footprintname'
-      Index = 7
+      Index = 8
       KeyFields = 'footprintid'
       LookupDataSet = footprintqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       left = 24
-      top = 416
+      top = 512
     end
     object c_footprintid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'footprintid'
-      Index = 8
+      Index = 9
       left = 24
-      top = 432
+      top = 528
     end
     object c_stockvalue: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'stockvalue'
-      Index = 9
+      Index = 10
       left = 24
-      top = 448
+      top = 544
     end
     object c_stockvalue1: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'stockvalue1'
-      Index = 10
+      Index = 11
       left = 24
-      top = 464
+      top = 560
     end
     object c_stockvalue2: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'stockvalue2'
-      Index = 11
+      Index = 12
       left = 24
-      top = 480
+      top = 576
+    end
+    object c_componentkind: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkInternalCalc
+      FieldName = 'componentkind'
+      Index = 13
+      left = 24
+      top = 592
     end
   end
   object compdso: tmsedatasource
     DataSet = compds
     readonly = True
     left = 16
-    top = 288
+    top = 368
   end
   object refreshact: taction
     caption = '&Refresh'
     onexecute = refreshev
     left = 8
-    top = 104
+    top = 56
   end
   object conn: tfbconnection
     DatabaseName = '/db/firebird_3_0/stock.fdb'
@@ -251,11 +270,11 @@ object mainmo: tmainmo
     UserName = 'SYSDBA'
     ongetcredentials = getcredentialsev
     left = 152
-    top = 256
+    top = 336
   end
   object getdbcredentials: tifiactionlinkcomp
     left = 152
-    top = 168
+    top = 208
   end
   object trans: tmsesqltransaction
     Database = conn
@@ -265,17 +284,17 @@ object mainmo: tmainmo
       'isc_tpb_rec_version'
     )
     left = 216
-    top = 256
+    top = 336
   end
   object globalsettingsact: taction
     caption = '&Global Settings'
     ifilink = editglobalsettings
     left = 8
-    top = 216
+    top = 256
   end
   object editglobalsettings: tifiactionlinkcomp
     left = 152
-    top = 216
+    top = 256
   end
   object transwrite: tmsesqltransaction
     Action = caRollback
@@ -284,7 +303,7 @@ object mainmo: tmainmo
       'isc_tpb_write'
     )
     left = 280
-    top = 256
+    top = 336
   end
   object footprintqu: tmsesqlquery
     options = [bdo_editonapplyerror, bdo_rollbackonupdateerror, bdo_autoapply, bdo_autocommit]
@@ -311,14 +330,17 @@ object mainmo: tmainmo
         ParamType = ptInput
       end>
     SQL.data = (
-      'select PK,TSCREATE,TSMODIFY,NAME,AREA from FOOTPRINTS'
+      'select PK,TSCREATE,TSMODIFY,NAME,IDENT,LIBRARY,AREA from FOOTPRINTS'
     )
     IndexDefs = <    
       item
-        Name = 'IDX_FOOTPRINTS1'
+        Name = 'FK_FOOTPRINTS_0'
       end    
       item
         Name = 'PK_FOOTPRINTS_0'
+      end    
+      item
+        Name = 'UNQ_FOOTPRINTS_0'
       end>
     tablename = 'FOOTPRINTS'
     database = conn
@@ -345,15 +367,25 @@ object mainmo: tmainmo
         Size = 20
       end    
       item
+        Name = 'IDENT'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'LIBRARY'
+        DataType = ftLargeint
+      end    
+      item
         Name = 'AREA'
         DataType = ftFloat
       end>
-    controller.fields.count = 3
+    controller.fields.count = 4
     controller.fields.fields = (
       (
         ft_datetime
         ft_datetime
         ft_float
+        ft_largeint
       )
       <      
         item
@@ -372,6 +404,10 @@ object mainmo: tmainmo
           MaxValue = 0
           MinValue = 0
           Precision = -1
+        end      
+        item
+          FieldName = 'LIBRARY'
+          Index = 3
         end>
     )
     controller.onbeforecopyrecord = beforecopyrecordev
@@ -381,7 +417,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object f_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 3
+      Index = 4
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
       left = 424
       top = 376
@@ -389,11 +425,45 @@ object mainmo: tmainmo
     object f_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 4
+      Index = 5
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      OnValidate = footprintnamevalidateev
       Size = 0
       left = 424
       top = 392
+    end
+    object f_libname: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkLookup
+      FieldName = 'libname'
+      Index = 6
+      KeyFields = 'LIBRARY'
+      LookupDataSet = footprintlibqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'NAME'
+      Size = 0
+      left = 424
+      top = 424
+    end
+    object f_libident: tmsestringfield
+      DisplayWidth = 0
+      FieldKind = fkLookup
+      FieldName = 'libident'
+      Index = 7
+      KeyFields = 'LIBRARY'
+      LookupDataSet = footprintlibqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'IDENT'
+      Size = 0
+      left = 424
+      top = 440
+    end
+    object f_ident: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'IDENT'
+      Index = 8
+      left = 424
+      top = 408
     end
   end
   object footprintdso: tmsedatasource
@@ -421,7 +491,7 @@ object mainmo: tmainmo
     database = conn
     transaction = trans
     left = 416
-    top = 312
+    top = 304
   end
   object footprintdeletecheck: tsqlresult
     fielddefs = <    
@@ -554,12 +624,12 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 9
+          Index = 0
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 10
+          Index = 1
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end>
     )
@@ -570,7 +640,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object k_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 0
+      Index = 2
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
       left = 600
       top = 376
@@ -578,7 +648,7 @@ object mainmo: tmainmo
     object k_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 1
+      Index = 3
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 600
@@ -587,7 +657,7 @@ object mainmo: tmainmo
     object k_designation: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESIGNATION'
-      Index = 2
+      Index = 4
       Size = 0
       left = 600
       top = 440
@@ -595,7 +665,7 @@ object mainmo: tmainmo
     object k_parameter1: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER1'
-      Index = 3
+      Index = 5
       Size = 0
       left = 600
       top = 456
@@ -603,7 +673,7 @@ object mainmo: tmainmo
     object k_parameter2: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER2'
-      Index = 4
+      Index = 6
       Size = 0
       left = 600
       top = 472
@@ -611,7 +681,7 @@ object mainmo: tmainmo
     object k_parameter3: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER3'
-      Index = 5
+      Index = 7
       Size = 0
       left = 600
       top = 488
@@ -619,14 +689,14 @@ object mainmo: tmainmo
     object k_parameter4: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER4'
-      Index = 6
+      Index = 8
       Size = 0
       left = 600
       top = 504
     end
     object k_footprint: tmselargeintfield
       FieldName = 'FOOTPRINT'
-      Index = 7
+      Index = 9
       left = 600
       top = 408
     end
@@ -634,7 +704,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'footprintname'
-      Index = 8
+      Index = 10
       KeyFields = 'FOOTPRINT'
       LookupDataSet = footprintqu
       LookupKeyFields = 'PK'
@@ -669,7 +739,7 @@ object mainmo: tmainmo
     database = conn
     transaction = trans
     left = 592
-    top = 312
+    top = 304
   end
   object compkinddeletecheck: tsqlresult
     fielddefs = <    
@@ -1098,5 +1168,116 @@ object mainmo: tmainmo
       end>
     left = 608
     top = 40
+  end
+  object footprintlibqu: tmsesqlquery
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <>
+    SQL.data = (
+      'select * from FOOTPRINTLIBS'
+    )
+    IndexDefs = <    
+      item
+        Name = 'PK_FOOTPRINTLIBS_0'
+      end    
+      item
+        Name = 'UNQ_FOOTPRINTLIBS_0'
+      end>
+    tablename = 'FOOTPRINTLIBS'
+    database = conn
+    Transaction = trans
+    transactionwrite = transwrite
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'IDENT'
+        DataType = ftString
+        Size = 50
+      end>
+    controller.fields.count = 3
+    controller.fields.fields = (
+      (
+        ft_largeint
+        ft_datetime
+        ft_datetime
+      )
+      <      
+        item
+          FieldName = 'PK'
+          Index = 0
+          optionsfield = [of_visible, of_inwhere, of_inkey, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          FieldName = 'TSCREATE'
+          Index = 1
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 2
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end>
+    )
+    left = 416
+    top = 480
+    streamingversion = 1
+    object fl_ident: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'IDENT'
+      Index = 3
+      left = 424
+      top = 528
+    end
+    object fl_name: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'NAME'
+      Index = 4
+      OnValidate = footprintlibnamevalidateev
+      left = 424
+      top = 512
+    end
+  end
+  object footprintlibdso: tmsedatasource
+    AutoEdit = False
+    DataSet = footprintlibqu
+    left = 416
+    top = 496
+  end
+  object cmplistact: taction
+    caption = 'Component-&Footprintlist'
+    onexecute = componentfootprintlistev
+    onupdate = validprojectupdateev
+    left = 8
+    top = 72
   end
 end

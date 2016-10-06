@@ -26,6 +26,9 @@ uses
  msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
  msemacros,mclasses;
 
+const
+ versiontext = '0.0';
+
 type
  tglobaloptions = class(toptions)
   private
@@ -44,14 +47,30 @@ type
    property databasename: msestring read fdatabasename write fdatabasename;
  end;
 
+ filekindty = (fk_componentfootprint);
  tprojectoptions = class(toptions)
   private
    fschematics: msestringarty;
+   ffilenames: array[filekindty] of msestring;
+   ffilewarnings: array[filekindty] of boolean;
+   ffileencoding: charencodingty;
+   freportencoding: int32;
+   procedure setreportencoding(const avalue: int32);
   public
+   constructor create();
    procedure storevalues(const asource: tmsecomponent;
                                const prefix: string = '') override;
+   function getfilename(const akind: filekindty; 
+                                 out afile: filenamety): boolean; //true if ok
+   property fileencoding: charencodingty read ffileencoding;
   published
    property schematics: msestringarty read fschematics write fschematics;
+   property compfootprint: msestring read ffilenames[fk_componentfootprint]
+                                        write ffilenames[fk_componentfootprint];
+   property compfootprintwarn: boolean 
+                           read ffilewarnings[fk_componentfootprint]
+                                     write ffilewarnings[fk_componentfootprint];
+   property reportencoding: int32 read freportencoding write setreportencoding;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -129,6 +148,16 @@ type
    k_footprintname: tmsestringfield;
    sc_footprintname: tmsestringfield;
    sc_kindname: tmsestringfield;
+   footprintlibqu: tmsesqlquery;
+   footprintlibdso: tmsedatasource;
+   f_libname: tmsestringfield;
+   cmplistact: taction;
+   f_libident: tmsestringfield;
+   f_ident: tmsestringfield;
+   c_timestamp: tmsestringfield;
+   fl_name: tmsestringfield;
+   fl_ident: tmsestringfield;
+   c_componentkind: tmsestringfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -155,12 +184,17 @@ type
 //   procedure componentkindvalidateev(Sender: TField);
    procedure stockcompinternalcalcev(const sender: tmsebufdataset;
                    const fetching: Boolean);
+   procedure validprojectupdateev(const sender: tcustomaction);
+   procedure componentfootprintlistev(const sender: TObject);
+   procedure footprintlibnamevalidateev(Sender: TField);
+   procedure footprintnamevalidateev(Sender: TField);
   private
    fhasproject: boolean;
    fmodified: boolean;
    foldname: msestring;
    fcompappliedcount: card32;
    fmacros: tmacrolist;
+   fprojectname: msestring;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -186,12 +220,15 @@ type
    procedure endcomponentlistedit();
    procedure beginfootprintedit(const idfield: tmselargeintfield);
    procedure endfootprintedit();
+   procedure beginfootprintlibedit(const idfield: tmselargeintfield);
+   procedure endfootprintlibedit();
    procedure begincomponentkindedit();
    procedure endcomponentkindedit();
    procedure begincomponentsedit();
    function endcomponentsedit(const acommit: boolean): boolean; //true if ok
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property hasproject: boolean read fhasproject;
+   property projectname: msestring read fprojectname;
    property modified: boolean read fmodified;
    function expandcomponentmacros(const afield: tmsestringfield): msestring;
  end;
@@ -204,7 +241,7 @@ var
 implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
- mseenvmacros;
+ mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate;
 
 { tmainmo }
 type
@@ -322,8 +359,9 @@ begin
    inc(po1);
   end;
   if not compds.indexlocal[0].find([info.reference],[],bm1) then begin
-   compds.controller.appendrecord1([info.reference,footpr,val,val1,val2],
-                                            [false,nfootpr,nval,nval1,nval2]);
+   compds.controller.appendrecord1([info.reference,info.timestamp,
+                                     footpr,val,val1,val2],
+                                       [false,false,nfootpr,nval,nval1,nval2]);
     //duplicates are several units in same case
   end;
  end;
@@ -336,7 +374,8 @@ var
  i1: int32;
  recno1: int32;
  rowstate1: int32;
- bm1: bookmarkdataty;
+ bm1,bm2: bookmarkdataty;
+ id1,id2: int64;
 begin
  application.beginwait();
  try
@@ -358,6 +397,7 @@ begin
     end;
    end;
    
+   footprintlibqu.controller.refresh(false);
    footprintqu.controller.refresh(false);
    stockcompqu.controller.refresh(true);
    for i1:= 0 to compds.recordcount - 1 do begin
@@ -370,14 +410,22 @@ begin
                     compds.currentisnull[c_value2,i1]],bm1) then begin
      compds.currentaslargeint[c_stockitemid,i1]:= 
                    stockcompqu.currentbmaslargeint[sc_pk,bm1];
-     compds.currentaslargeint[c_footprintid,i1]:=
-                   stockcompqu.currentbmaslargeint[sc_footprint,bm1];
+     id1:= stockcompqu.currentbmasid[sc_footprint,bm1];
+     if (id1 < 0) then begin
+      id2:= stockcompqu.currentbmasid[sc_componentkind,bm1];
+      if (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2) then begin
+       id1:= compkindqu.currentbmasid[k_footprint,bm2];
+      end;
+     end;
+     compds.currentasid[c_footprintid,i1]:= id1;
      compds.currentasmsestring[c_stockvalue,i1]:= 
                    stockcompqu.currentbmasmsestring[sc_value,bm1];
      compds.currentasmsestring[c_stockvalue1,i1]:= 
                    stockcompqu.currentbmasmsestring[sc_value1,bm1];
      compds.currentasmsestring[c_stockvalue2,i1]:=
                    stockcompqu.currentbmasmsestring[sc_value2,bm1];
+     compds.currentasmsestring[c_componentkind,i1]:=
+                   stockcompqu.currentbmasmsestring[sc_kindname,bm1];
      rowstate1:= -1;
     end
     else begin
@@ -415,6 +463,7 @@ begin
  try
   projectstat.readstat();
   fhasproject:= true;
+  fprojectname:= filenamebase(afilename);
   fmodified:= false;
   refresh();
  except
@@ -479,6 +528,7 @@ begin
  compds.active:= false;
  projectoptions.destroy();
  projectoptions:= tprojectoptions.create(); //initial state
+ fprojectname:= '';
  fhasproject:= false;
  result:= true;
  statechanged();
@@ -577,6 +627,16 @@ begin
 end;
 
 procedure tmainmo.endfootprintedit();
+begin
+ //dummy
+end;
+
+procedure tmainmo.beginfootprintlibedit(const idfield: tmselargeintfield);
+begin
+ beginedit(footprintlibqu,idfield);
+end;
+
+procedure tmainmo.endfootprintlibedit();
 begin
  //dummy
 end;
@@ -865,7 +925,106 @@ begin
  end;
 end;
 
+procedure tmainmo.validprojectupdateev(const sender: tcustomaction);
+begin
+ sender.enabled:= hasproject and (compds.recordcount > 0);
+end;
+
+procedure tmainmo.componentfootprintlistev(const sender: TObject);
+var
+ fna1: filenamety;
+ i1: int32;
+ stream1: ttextstream;
+ id1,id2: int64;
+ bm1,bm2: bookmarkdataty;
+ footprintident1: msestring;
+begin
+ if projectoptions.getfilename(fk_componentfootprint,fna1) then begin
+  stream1:= ttextstream.createtransaction(fna1);
+  try
+   stream1.encoding:= projectoptions.fileencoding;
+   stream1.usewritebuffer:= true;
+   stream1.writeln('Cmp-Mod V01 Created by MSEkicadBOM V'+versiontext+
+               ' date = '+formatdatetimemse('III',nowutc())+' UTC');
+   for i1:= 0 to compds.recordcount - 1 do begin
+    footprintident1:= '';
+    id1:= compds.currentasid[c_stockitemid,i1];
+    if (id1 >= 0) and stockcompqu.indexlocal[0].find([id1],[],bm1) then begin
+     id1:= stockcompqu.currentbmasid[sc_footprint,bm1];
+     if (id1 < 0) then begin
+      id2:= stockcompqu.currentbmasid[sc_componentkind,bm1];
+      if (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2) then begin
+       id1:= compkindqu.currentbmasid[k_footprint,bm2];
+      end;
+     end;
+    end;
+    if (id1 >= 0) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
+     footprintident1:= footprintqu.currentbmasmsestring[f_libident,bm1] + ':'+
+                        footprintqu.currentbmasmsestring[f_ident,bm1];
+    end;
+    if footprintident1 <> '' then begin
+     stream1.writeln();
+     stream1.writeln('BeginCmp');
+     stream1.writeln('TimeStamp = '+
+                             compds.currentasmsestring[c_timestamp,i1]+';');
+     stream1.writeln('Reference = '+
+                             compds.currentasmsestring[c_ref,i1]+';');
+     stream1.writeln('IdModule = '+ footprintident1+';');
+     stream1.writeln('EndCmp');
+    end;
+   end;
+   stream1.writeln();
+   stream1.writeln('EndListe');
+  finally
+   stream1.destroy();
+  end;
+ end;
+end;
+
+procedure tmainmo.footprintlibnamevalidateev(Sender: TField);
+var
+ mstr1: msestring;
+begin
+ mstr1:= fl_ident.asmsestring;
+ if (mstr1 = '') or not varisnull(fl_name.buffervalue) and 
+                      (msestring(fl_name.buffervalue) = mstr1) then begin
+  fl_ident.asmsestring:= fl_name.asmsestring;
+ end;
+end;
+
+procedure tmainmo.footprintnamevalidateev(Sender: TField);
+var
+ mstr1: msestring;
+begin
+ mstr1:= f_ident.asmsestring;
+ if (mstr1 = '') or not varisnull(f_name.buffervalue) and 
+                      (msestring(f_name.buffervalue) = mstr1) then begin
+  f_ident.asmsestring:= f_name.asmsestring;
+ end;
+end;
+
 { tprojectoptions }
+
+procedure tprojectoptions.setreportencoding(const avalue: int32);
+begin
+ freportencoding:= avalue;
+ if (avalue >= 0) and (avalue <= ord(high(charencodingty))) then begin
+  ffileencoding:= charencodingty(avalue);
+ end
+ else begin
+  ffileencoding:= ce_utf8;
+ end;
+end;
+
+constructor tprojectoptions.create();
+var
+ fiki: filekindty;
+begin
+ for fiki:= low(ffilewarnings) to high(ffilewarnings) do begin
+  ffilewarnings[fiki]:= true;
+ end;
+ reportencoding:= ord(ce_utf8);
+end;
 
 procedure tprojectoptions.storevalues(const asource: tmsecomponent;
                const prefix: string = '');
@@ -874,6 +1033,29 @@ begin
  mainmo.fmodified:= true;
  mainmo.statechanged();
  mainmo.refresh();
+end;
+
+const
+ fileextensions: array[filekindty] of msestring = ('cmp');
+ 
+function tprojectoptions.getfilename(const akind: filekindty;
+                                     out afile: filenamety): boolean;
+begin
+ result:= false;
+ afile:= ffilenames[akind];
+ if afile = '' then begin
+  if mainmo.hasproject then begin
+   afile:= mainmo.projectname+'.'+fileextensions[akind];
+  end;
+ end;
+ if afile <> '' then begin
+  result:= true;
+  if ffilewarnings[akind] and findfile(afile) and 
+          not askyesno('File "'+afile+'" exists.'+lineend+
+       'Do you want to overwrite it?','CONFIRMATION') then begin
+   result:= false;
+  end;
+ end;
 end;
 
 { tmainoptions }

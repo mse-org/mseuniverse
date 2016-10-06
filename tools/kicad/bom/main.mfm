@@ -40,7 +40,7 @@ object mainfo: tmainfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 10
+        captions.count = 11
         captions.items = <        
           item
             caption = 'REF'
@@ -70,13 +70,16 @@ object mainfo: tmainfo
             caption = 'VALUE2'
           end        
           item
+            caption = 'Kind'
+          end        
+          item
             caption = 'ED'
             hint = 'Edit Component'
           end>
       end    
       item
         height = 16
-        captions.count = 10
+        captions.count = 11
         captions.items = <        
           item
             color = -1610612714
@@ -96,7 +99,9 @@ object mainfo: tmainfo
             color = -1610612712
             caption = 'Database'
             face.localprops = []
-            mergecols = 3
+            mergecols = 4
+          end        
+          item
           end        
           item
           end        
@@ -113,7 +118,7 @@ object mainfo: tmainfo
     rowcolors.items = (
       -1610612717
     )
-    datacols.count = 10
+    datacols.count = 11
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[nameed]
@@ -150,6 +155,10 @@ object mainfo: tmainfo
       end    
       item[footprstock]
         widgetname = 'footprstock'
+      end    
+      item[tdbstringedit4]
+        width = 95
+        widgetname = 'tdbstringedit4'
       end    
       item[editbutton]
         color = -2147483646
@@ -294,6 +303,19 @@ object mainfo: tmainfo
       datalink.fieldname = 'stockvalue2'
       reffontheight = 14
     end
+    object tdbstringedit4: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 10
+      visible = False
+      bounds_x = 497
+      bounds_y = 0
+      bounds_cx = 95
+      bounds_cy = 16
+      datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'componentkind'
+      reffontheight = 14
+    end
     object editbutton: tstockglyphdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
@@ -315,7 +337,7 @@ object mainfo: tmainfo
   end
   object mainmen: tmainmenu
     itemframetemplate = menuitemframe
-    menu.submenu.count = 6
+    menu.submenu.count = 7
     menu.submenu.items = <    
       item
         submenu.count = 7
@@ -348,19 +370,31 @@ object mainfo: tmainfo
         action = mainmo.refreshact
       end    
       item
+        submenu.count = 1
+        submenu.items = <        
+          item
+            action = mainmo.cmplistact
+          end>
+        caption = 'R&eporting'
+        state = [as_localcaption]
+      end    
+      item
         action = mainmo.projectsettingsact
       end    
       item
-        submenu.count = 3
+        submenu.count = 4
         submenu.items = <        
           item
             action = editcomponentsact
           end        
           item
+            action = editcompkindact
+          end        
+          item
             action = editfootprintact
           end        
           item
-            action = editcompkindact
+            action = editfootprintlibact
           end>
         caption = '&Database'
         state = [as_localcaption]
@@ -470,7 +504,7 @@ object mainfo: tmainfo
   end
   object editfootprintact: taction
     caption = '&Footprints'
-    onexecute = editfootprint
+    onexecute = editfootprintev
     left = 440
     top = 56
   end
@@ -478,12 +512,18 @@ object mainfo: tmainfo
     caption = 'Component&kinds'
     onexecute = editcomponentkindlist
     left = 440
-    top = 72
+    top = 104
   end
   object editcomponentsact: taction
     caption = '&Components'
     onexecute = editcomponents
     left = 440
-    top = 88
+    top = 120
+  end
+  object editfootprintlibact: taction
+    caption = 'Footprint&libraries'
+    onexecute = editfootprintlibev
+    left = 440
+    top = 72
   end
 end

@@ -63,7 +63,7 @@ end;
 
 procedure tcomponenteditfo.editfootprintev(const sender: TObject);
 begin
- mainfo.editfootprint(sender);
+ mainfo.editfootprintev(sender);
 end;
 
 procedure tcomponenteditfo.editcompkindev(const sender: TObject);
