@@ -24,6 +24,7 @@ inherited componenteditfo: tcomponenteditfo
   end
   object stripe2: tlayouter[1]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 1
     bounds_x = 8
     bounds_y = 40
     bounds_cx = 502
@@ -102,7 +103,6 @@ inherited componenteditfo: tcomponenteditfo
   end
   object stripe3: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 1
     bounds_x = 8
     bounds_y = 81
     bounds_cx = 502
@@ -137,6 +137,7 @@ inherited componenteditfo: tcomponenteditfo
         0
         0
       )
+      taborder = 1
       bounds_x = 168
       bounds_y = 0
       bounds_cx = 164
@@ -181,7 +182,6 @@ inherited componenteditfo: tcomponenteditfo
         0
         0
       )
-      taborder = 1
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 164
