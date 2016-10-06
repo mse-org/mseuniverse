@@ -1,0 +1,84 @@
+inherited footprintliblistfo: tfootprintliblistfo
+  container.bounds = (
+    0
+    0
+    558
+    393
+  )
+  caption = 'Footprint Libraries'
+  moduleclassname = 'tlisteditfo'
+  inherited navig: tdbnavigator
+    bounds_cy = 253
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_autoedit]
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localshortcut, as_localonexecute]
+  end
+  inherited grid: tdbwidgetgrid
+    fixcols.items = <    
+      item
+      end>
+    fixrows.items = <    
+      item
+        captions.count = 4
+        captions.items = <        
+          item
+          end        
+          item
+            caption = 'Ident'
+          end        
+          item
+            caption = 'Created'
+          end        
+          item
+            caption = 'Modified'
+          end>
+      end>
+    datacols.count = 4
+    datacols.colorder = (
+      'nameed'
+      'tdbstringedit1'
+      'tdcreateed'
+      'tdmodifyed'
+    )
+    datacols.items = <    
+      item[nameed]
+      end    
+      item[tdbstringedit1]
+        width = 80
+        widgetname = 'tdbstringedit1'
+      end    
+      item[tdcreateed]
+      end    
+      item[tdmodifyed]
+      end>
+    inherited nameed: tdbstringedit
+    end
+    inherited tdcreateed: tdbdatetimeedit
+      bounds_x = 186
+    end
+    inherited tdmodifyed: tdbdatetimeedit
+      bounds_x = 302
+    end
+    object tdbstringedit1: tdbstringedit[3]
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 105
+      bounds_y = 0
+      bounds_cx = 80
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'IDENT'
+      reffontheight = 14
+    end
+  end
+  inherited tstatfile1: tstatfile
+    filename = 'footprintliblistfo.sta'
+  end
+  inherited dataso: tmsedatasource
+    DataSet = mainmo.footprintlibqu
+  end
+  inherited dialogact: taction
+  end
+end
