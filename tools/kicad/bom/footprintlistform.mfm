@@ -19,7 +19,7 @@ inherited footprintlistfo: tfootprintlistfo
       end>
     fixrows.items = <    
       item
-        captions.count = 6
+        captions.count = 7
         captions.items = <        
           item
           end        
@@ -33,18 +33,22 @@ inherited footprintlistfo: tfootprintlistfo
             caption = 'Area (mm^2)'
           end        
           item
+            caption = 'Comment'
+          end        
+          item
             caption = 'Created'
           end        
           item
             caption = 'Modified'
           end>
       end>
-    datacols.count = 6
+    datacols.count = 7
     datacols.colorder = (
       'nameed'
       'idented'
       'tdbenum64editdb1'
       'areaed'
+      'commented'
       'tdcreateed'
       'tdmodifyed'
     )
@@ -63,24 +67,27 @@ inherited footprintlistfo: tfootprintlistfo
         width = 93
         widgetname = 'areaed'
       end    
+      item[commented]
+      end    
       item[tdcreateed]
       end    
       item[tdmodifyed]
       end>
     inherited tdcreateed: tdbdatetimeedit[0]
-      bounds_x = 365
+      bounds_x = 270
     end
     inherited tdmodifyed: tdbdatetimeedit[1]
-      bounds_x = 481
+      bounds_x = 386
     end
     inherited nameed: tdbstringedit[2]
+      bounds_x = -192
     end
     object idented: tdbstringedit[3]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 105
+      bounds_x = -87
       bounds_y = 0
       bounds_cx = 77
       bounds_cy = 16
@@ -109,7 +116,7 @@ inherited footprintlistfo: tfootprintlistfo
       frame.activebutton = 1
       taborder = 5
       visible = False
-      bounds_x = 183
+      bounds_x = -9
       bounds_y = 0
       bounds_cx = 87
       bounds_cy = 16
@@ -132,7 +139,7 @@ inherited footprintlistfo: tfootprintlistfo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 271
+      bounds_x = 79
       bounds_y = 0
       bounds_cx = 93
       bounds_cy = 16
@@ -145,6 +152,13 @@ inherited footprintlistfo: tfootprintlistfo
       valuerange = 1
       valuestart = 0
       reffontheight = 14
+    end
+    inherited commented: tdbmemodialogedit[6]
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 7
+      bounds_x = 173
     end
   end
   inherited tstatfile1: tstatfile

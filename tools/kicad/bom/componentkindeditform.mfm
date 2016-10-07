@@ -10,15 +10,17 @@ inherited componentkindeditfo: tcomponentkindeditfo
   moduleclassname = 'trecordnameeditfo'
   inherited stripe0: tlayouter
     taborder = 1
-    bounds_cx = 591
+    bounds_cx = 522
+    optionslayout = [lao_placex]
     inherited tlayouter2: tlayouter
-      bounds_x = 408
+      bounds_x = 339
       inherited tsmodify: tdbdatetimedisp
       end
       inherited tscreate: tdbdatetimedisp
       end
     end
     inherited navig: tdbnavigator
+      bounds_y = 0
     end
   end
   inherited stripe1: tlayouter
@@ -41,7 +43,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       frame.caption = '&Name'
     end
     object footprinted: tdbenum64editdb[1]
-      frame.caption = 'Footprint'
+      frame.caption = '&Footprint'
       frame.font.localprops = []
       frame.localprops = []
       frame.localprops1 = []
@@ -87,13 +89,13 @@ inherited componentkindeditfo: tcomponentkindeditfo
     bounds_x = 8
     bounds_y = 104
     bounds_cx = 508
-    bounds_cy = 201
+    bounds_cy = 242
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placey]
     place_mindist = 4
     place_maxdist = 4
-    object designationed: tdbdialogstringedit
+    object designationed: tdbmemodialogedit
       frame.caption = '&Designation'
       frame.localprops = []
       frame.localprops1 = []
@@ -119,7 +121,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.fieldname = 'DESIGNATION'
       reffontheight = 14
     end
-    object param1ed: tdbdialogstringedit
+    object param1ed: tdbmemodialogedit
       frame.caption = 'Parameter &1'
       frame.localprops = []
       frame.localprops1 = []
@@ -146,7 +148,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.fieldname = 'PARAMETER1'
       reffontheight = 14
     end
-    object param2ed: tdbdialogstringedit
+    object param2ed: tdbmemodialogedit
       frame.caption = 'Parameter &2'
       frame.localprops = []
       frame.localprops1 = []
@@ -173,8 +175,8 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.fieldname = 'PARAMETER2'
       reffontheight = 14
     end
-    object param4ed: tdbdialogstringedit
-      frame.caption = 'Parameter &4'
+    object commented: tdbmemodialogedit
+      frame.caption = '&Comment'
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -191,16 +193,16 @@ inherited componentkindeditfo: tcomponentkindeditfo
       )
       taborder = 3
       bounds_x = 0
-      bounds_y = 164
+      bounds_y = 205
       bounds_cx = 508
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
       datalink.navigator = navig
-      datalink.fieldname = 'PARAMETER4'
+      datalink.fieldname = 'COMMENT'
       reffontheight = 14
     end
-    object param3ed: tdbdialogstringedit
+    object param3ed: tdbmemodialogedit
       frame.caption = 'Parameter &3'
       frame.localprops = []
       frame.localprops1 = []
@@ -225,6 +227,33 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'PARAMETER3'
+      reffontheight = 14
+    end
+    object tdbmemodialogedit2: tdbmemodialogedit
+      frame.caption = 'Parameter &4'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 5
+      bounds_x = 0
+      bounds_y = 164
+      bounds_cx = 508
+      bounds_cy = 37
+      anchors = [an_top]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'PARAMETER4'
       reffontheight = 14
     end
   end

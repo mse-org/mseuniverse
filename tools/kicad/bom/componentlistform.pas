@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msesplitter,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestatfile,
  msestream,msestrings,sysutils,msesimplewidgets,mdb,msedbedit,msegraphedits,
- msegrids,mselookupbuffer,msescrollbar,mseactions,listeditform,msedb;
+ msegrids,mselookupbuffer,msescrollbar,mseactions,listeditform,msedb,msedbdialog;
 type
  tcomponentlistfo = class(tmseform)
    tstatfile1: tstatfile;

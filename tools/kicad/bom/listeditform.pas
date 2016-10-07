@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mdb,mseact,
  msedataedits,msedbedit,mseedit,msegraphedits,msegrids,mseificomp,
  mseificompglob,mseifiglob,mselookupbuffer,msescrollbar,msestatfile,msestream,
- msestrings,sysutils,msedb,mseactions;
+ msestrings,sysutils,msedb,mseactions,msedbdialog;
 type
  tlisteditfo = class(tmseform)
    navig: tdbnavigator;
@@ -17,6 +17,7 @@ type
    tdmodifyed: tdbdatetimeedit;
    dataso: tmsedatasource;
    dialogact: taction;
+   commented: tdbmemodialogedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure cellev(const sender: TObject; var info: celleventinfoty);

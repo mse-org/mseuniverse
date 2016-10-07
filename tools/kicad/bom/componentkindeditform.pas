@@ -12,11 +12,12 @@ type
  tcomponentkindeditfo = class(trecordnameeditfo)
    tlayouter1: tlayouter;
    designationed: tdbdialogstringedit;
-   param1ed: tdbdialogstringedit;
-   param2ed: tdbdialogstringedit;
-   param4ed: tdbdialogstringedit;
-   param3ed: tdbdialogstringedit;
+   param1ed: tdbmemodialogedit;
+   param2ed: tdbmemodialogedit;
+   commented: tdbmemodialogedit;
+   param3ed: tdbmemodialogedit;
    footprinted: tdbenum64editdb;
+   tdbmemodialogedit2: tdbmemodialogedit;
    procedure footprintedev(const sender: TObject);
  end;
 

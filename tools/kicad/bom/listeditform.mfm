@@ -59,10 +59,13 @@ object listeditfo: tlisteditfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 3
+        captions.count = 4
         captions.items = <        
           item
             caption = 'Name'
+          end        
+          item
+            caption = 'Comment'
           end        
           item
             caption = 'Created'
@@ -71,11 +74,15 @@ object listeditfo: tlisteditfo
             caption = 'Modified'
           end>
       end>
-    datacols.count = 3
+    datacols.count = 4
     datacols.items = <    
       item[nameed]
         width = 104
         widgetname = 'nameed'
+      end    
+      item[commented]
+        width = 96
+        widgetname = 'commented'
       end    
       item[tdcreateed]
         color = -1879048185
@@ -113,7 +120,7 @@ object listeditfo: tlisteditfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 105
+      bounds_x = 202
       bounds_y = 0
       bounds_cx = 115
       bounds_cy = 16
@@ -132,7 +139,7 @@ object listeditfo: tlisteditfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 221
+      bounds_x = 318
       bounds_y = 0
       bounds_cx = 115
       bounds_cy = 16
@@ -144,6 +151,32 @@ object listeditfo: tlisteditfo
       max = 401768.99999
       formatdisp = 'yyyy-mm-dd hh:nn:ss'
       kind = dtk_datetime
+      reffontheight = 14
+    end
+    object commented: tdbmemodialogedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+        end>
+      frame.button.color = -1879048187
+      frame.button.imagenr = 17
+      taborder = 4
+      visible = False
+      bounds_x = 105
+      bounds_y = 0
+      bounds_cx = 96
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'COMMENT'
       reffontheight = 14
     end
   end

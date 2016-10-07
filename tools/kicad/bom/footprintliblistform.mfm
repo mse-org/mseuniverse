@@ -18,12 +18,15 @@ inherited footprintliblistfo: tfootprintliblistfo
       end>
     fixrows.items = <    
       item
-        captions.count = 4
+        captions.count = 5
         captions.items = <        
           item
           end        
           item
             caption = 'Ident'
+          end        
+          item
+            caption = 'Comment'
           end        
           item
             caption = 'Created'
@@ -32,10 +35,11 @@ inherited footprintliblistfo: tfootprintliblistfo
             caption = 'Modified'
           end>
       end>
-    datacols.count = 4
+    datacols.count = 5
     datacols.colorder = (
       'nameed'
       'tdbstringedit1'
+      'commented'
       'tdcreateed'
       'tdmodifyed'
     )
@@ -46,16 +50,16 @@ inherited footprintliblistfo: tfootprintliblistfo
         width = 80
         widgetname = 'tdbstringedit1'
       end    
+      item[commented]
+      end    
       item[tdcreateed]
       end    
       item[tdmodifyed]
       end>
-    inherited nameed: tdbstringedit
+    inherited tdcreateed: tdbdatetimeedit[0]
+      bounds_x = 283
     end
-    inherited tdcreateed: tdbdatetimeedit
-      bounds_x = 186
-    end
-    object tdbstringedit1: tdbstringedit[2]
+    object tdbstringedit1: tdbstringedit[1]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 4
@@ -69,8 +73,17 @@ inherited footprintliblistfo: tfootprintliblistfo
       datalink.fieldname = 'IDENT'
       reffontheight = 14
     end
+    inherited commented: tdbmemodialogedit[2]
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 5
+      bounds_x = 186
+    end
     inherited tdmodifyed: tdbdatetimeedit[3]
-      bounds_x = 302
+      bounds_x = 399
+    end
+    inherited nameed: tdbstringedit[4]
     end
   end
   inherited tstatfile1: tstatfile

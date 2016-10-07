@@ -15,7 +15,6 @@ inherited componentkindlistfo: tcomponentkindlistfo
       end>
     fixrows.items = <    
       item
-        captions.count = 4
         captions.items = <        
           item
           end        
@@ -23,18 +22,17 @@ inherited componentkindlistfo: tcomponentkindlistfo
             caption = 'Designation'
           end        
           item
-            caption = 'Created'
           end        
           item
-            caption = 'Modified'
           end>
       end>
-    datacols.count = 4
+    datacols.count = 5
     datacols.colorder = (
       'nameed'
       'tdbstringedit1'
       'tdcreateed'
       'tdmodifyed'
+      'commented'
     )
     datacols.items = <    
       item[nameed]
@@ -46,6 +44,8 @@ inherited componentkindlistfo: tcomponentkindlistfo
       item[tdcreateed]
       end    
       item[tdmodifyed]
+      end    
+      item[commented]
       end>
     inherited tdcreateed: tdbdatetimeedit[0]
       bounds_x = 249
@@ -66,7 +66,14 @@ inherited componentkindlistfo: tcomponentkindlistfo
       datalink.fieldname = 'DESIGNATION'
       reffontheight = 14
     end
-    inherited tdmodifyed: tdbdatetimeedit[3]
+    inherited commented: tdbmemodialogedit
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 5
+      bounds_x = 481
+    end
+    inherited tdmodifyed: tdbdatetimeedit[4]
       bounds_x = 365
     end
   end

@@ -38,7 +38,7 @@ inherited componenteditfo: tcomponenteditfo
     linktop = stripe0
     dist_top = 4
     object value2ed: tdbstringedit
-      frame.caption = 'Value2'
+      frame.caption = 'Va&lue2'
       frame.localprops = []
       frame.localprops1 = []
       frame.outerframe = (
@@ -59,7 +59,7 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
     object value1ed: tdbstringedit
-      frame.caption = 'Value1'
+      frame.caption = 'V&alue1'
       frame.localprops = []
       frame.localprops1 = []
       frame.outerframe = (
@@ -80,7 +80,7 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
     object valueed: tdbstringedit
-      frame.caption = 'Value'
+      frame.caption = '&Value'
       frame.localprops = []
       frame.localprops1 = []
       frame.outerframe = (
@@ -116,7 +116,7 @@ inherited componenteditfo: tcomponenteditfo
     linktop = stripe2
     dist_top = 4
     object footprinted: tdbenum64editdb
-      frame.caption = 'Footprint'
+      frame.caption = '&Footprint'
       frame.font.localprops = []
       frame.localprops = []
       frame.localprops1 = []
@@ -161,7 +161,7 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
     object compkinded: tdbenum64editdb
-      frame.caption = 'Comp.-Kind'
+      frame.caption = 'Comp.-&Kind'
       frame.font.localprops = []
       frame.localprops = []
       frame.localprops1 = []
@@ -214,18 +214,17 @@ inherited componenteditfo: tcomponenteditfo
     bounds_x = 8
     bounds_y = 122
     bounds_cx = 502
-    bounds_cy = 37
+    bounds_cy = 242
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_placex, lao_aligny]
+    optionslayout = [lao_placey]
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    place_options = [plo_scalesize]
     linktop = stripe3
     dist_top = 4
-    object designationed: tdbdialogstringedit
-      frame.caption = 'Designation'
+    object designationed: tdbmemodialogedit
+      frame.caption = '&Designation'
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -255,25 +254,8 @@ inherited componenteditfo: tcomponenteditfo
       datalink.fieldname = 'DESIGNATION'
       reffontheight = 14
     end
-  end
-  object stripe5: tlayouter[4]
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 4
-    bounds_x = 8
-    bounds_y = 163
-    bounds_cx = 502
-    bounds_cy = 37
-    anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_placex, lao_aligny]
-    align_glue = wam_start
-    place_mindist = 4
-    place_maxdist = 4
-    place_options = [plo_scalesize]
-    linktop = stripe4
-    dist_top = 4
-    object parameter1ed: tdbdialogstringedit
-      frame.caption = 'Parameter 1'
+    object parameter1ed: tdbmemodialogedit
+      frame.caption = 'Parameter &1'
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -288,9 +270,10 @@ inherited componenteditfo: tcomponenteditfo
         0
         0
       )
+      taborder = 1
       onshowhint = macrohintev
       bounds_x = 0
-      bounds_y = 0
+      bounds_y = 41
       bounds_cx = 502
       bounds_cy = 37
       anchors = [an_top]
@@ -303,25 +286,8 @@ inherited componenteditfo: tcomponenteditfo
       datalink.fieldname = 'PARAMETER1'
       reffontheight = 14
     end
-  end
-  object stripe6: tlayouter[5]
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 5
-    bounds_x = 8
-    bounds_y = 204
-    bounds_cx = 502
-    bounds_cy = 37
-    anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_placex, lao_aligny]
-    align_glue = wam_start
-    place_mindist = 4
-    place_maxdist = 4
-    place_options = [plo_scalesize]
-    linktop = stripe5
-    dist_top = 4
-    object parameter2ed: tdbdialogstringedit
-      frame.caption = 'Parameter 2'
+    object parameter2ed: tdbmemodialogedit
+      frame.caption = 'Parameter &2'
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -336,9 +302,10 @@ inherited componenteditfo: tcomponenteditfo
         0
         0
       )
+      taborder = 2
       onshowhint = macrohintev
       bounds_x = 0
-      bounds_y = 0
+      bounds_y = 82
       bounds_cx = 502
       bounds_cy = 37
       anchors = [an_top]
@@ -351,25 +318,8 @@ inherited componenteditfo: tcomponenteditfo
       datalink.fieldname = 'PARAMETER2'
       reffontheight = 14
     end
-  end
-  object stripe7: tlayouter[6]
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 6
-    bounds_x = 8
-    bounds_y = 245
-    bounds_cx = 502
-    bounds_cy = 37
-    anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_placex, lao_aligny]
-    align_glue = wam_start
-    place_mindist = 4
-    place_maxdist = 4
-    place_options = [plo_scalesize]
-    linktop = stripe6
-    dist_top = 4
-    object parameter3ed: tdbdialogstringedit
-      frame.caption = 'Parameter 3'
+    object parameter3ed: tdbmemodialogedit
+      frame.caption = 'Parameter &3'
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -384,9 +334,10 @@ inherited componenteditfo: tcomponenteditfo
         0
         0
       )
+      taborder = 3
       onshowhint = macrohintev
       bounds_x = 0
-      bounds_y = 0
+      bounds_y = 123
       bounds_cx = 502
       bounds_cy = 37
       anchors = [an_top]
@@ -399,25 +350,8 @@ inherited componenteditfo: tcomponenteditfo
       datalink.fieldname = 'PARAMETER3'
       reffontheight = 14
     end
-  end
-  object stripe8: tlayouter[7]
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 7
-    bounds_x = 8
-    bounds_y = 286
-    bounds_cx = 502
-    bounds_cy = 37
-    anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_placex, lao_aligny]
-    align_glue = wam_start
-    place_mindist = 4
-    place_maxdist = 4
-    place_options = [plo_scalesize]
-    linktop = stripe7
-    dist_top = 4
-    object parameter4ed: tdbdialogstringedit
-      frame.caption = 'Parameter 4'
+    object parameter4ed: tdbmemodialogedit
+      frame.caption = 'Parameter &4'
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -432,9 +366,10 @@ inherited componenteditfo: tcomponenteditfo
         0
         0
       )
+      taborder = 4
       onshowhint = macrohintev
       bounds_x = 0
-      bounds_y = 0
+      bounds_y = 164
       bounds_cx = 502
       bounds_cy = 37
       anchors = [an_top]
@@ -447,12 +382,44 @@ inherited componenteditfo: tcomponenteditfo
       datalink.fieldname = 'PARAMETER4'
       reffontheight = 14
     end
+    object commented: tdbmemodialogedit
+      frame.caption = '&Comment'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 5
+      onshowhint = macrohintev
+      bounds_x = 0
+      bounds_y = 205
+      bounds_cx = 502
+      bounds_cy = 37
+      anchors = [an_top]
+      empty_fontstyle = [fs_italic]
+      empty_textflags = [tf_ycentered]
+      empty_options = [eo_showfocused]
+      empty_textcolor = -1879048173
+      datalink.datasource = mainmo.stockcompdetaildso
+      datalink.navigator = navig
+      datalink.fieldname = 'COMMENT'
+      reffontheight = 14
+    end
   end
-  inherited dataso: tmsedatasource[8]
+  inherited dataso: tmsedatasource[4]
     DataSet = mainmo.stockcompqu
     OnDataChange = datachangeev
   end
-  inherited tstatfile1: tstatfile[9]
+  inherited tstatfile1: tstatfile[5]
     filename = 'componeteditfo.sta'
   end
 end

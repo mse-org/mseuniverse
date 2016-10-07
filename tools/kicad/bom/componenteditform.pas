@@ -19,16 +19,13 @@ type
    compkinded: tdbenum64editdb;
    tsimplewidget2: tsimplewidget;
    stripe4: tlayouter;
-   designationed: tdbdialogstringedit;
-   stripe5: tlayouter;
-   parameter1ed: tdbdialogstringedit;
-   stripe6: tlayouter;
-   parameter2ed: tdbdialogstringedit;
-   stripe7: tlayouter;
-   parameter3ed: tdbdialogstringedit;
-   stripe8: tlayouter;
-   parameter4ed: tdbdialogstringedit;
+   designationed: tdbmemodialogedit;
 //   procedure closeev(const sender: TObject);
+   parameter1ed: tdbmemodialogedit;
+   parameter2ed: tdbmemodialogedit;
+   parameter3ed: tdbmemodialogedit;
+   parameter4ed: tdbmemodialogedit;
+   commented: tdbmemodialogedit;
    procedure editfootprintev(const sender: TObject);
    procedure editcompkindev(const sender: TObject);
    procedure datachangeev(Sender: TObject; Field: TField);
@@ -69,6 +66,7 @@ end;
 procedure tcomponenteditfo.editcompkindev(const sender: TObject);
 begin
  mainfo.editcomponentkind(mainmo.sc_componentkind);
+// datachangeev(nil,nil); //refresh empty text
 end;
 
 procedure tcomponenteditfo.datachangeev(Sender: TObject; Field: TField);
