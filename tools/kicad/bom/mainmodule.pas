@@ -578,7 +578,7 @@ end;
 
 procedure tmainmo.begincomponentlistedit();
 begin
- beginedit(stockcompqu,nil);
+ beginedit(stockcompqu,c_stockitemid);
 end;
 
 procedure tmainmo.beginedit(const aquery: tmsesqlquery;

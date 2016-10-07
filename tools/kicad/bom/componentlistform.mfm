@@ -214,6 +214,7 @@ object componentlistfo: tcomponentlistfo
       dropdown.datasource = mainmo.compkinddso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
       dropdown.cols.count = 2
       dropdown.cols.items = <      
         item
@@ -239,6 +240,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       dropdown.datasource = dataso
       dropdown.keyfield = 'PK'
@@ -299,6 +301,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       dropdown.datasource = dataso
       dropdown.keyfield = 'PK'
@@ -359,6 +362,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       dropdown.datasource = dataso
       dropdown.keyfield = 'PK'
@@ -419,6 +423,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       dropdown.datasource = dataso
       dropdown.keyfield = 'PK'
@@ -479,6 +484,7 @@ object componentlistfo: tcomponentlistfo
       bounds_cx = 50
       bounds_cy = 16
       statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       dropdown.datasource = dataso
       dropdown.keyfield = 'PK'

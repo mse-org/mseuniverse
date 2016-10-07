@@ -75,6 +75,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.fieldname = 'FOOTPRINT'
       dropdown.datasource = mainmo.footprintdso
       dropdown.keyfield = 'PK'
+      dropdown.optionsdb = [odb_directdata]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item

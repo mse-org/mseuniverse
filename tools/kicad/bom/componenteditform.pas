@@ -61,12 +61,13 @@ end;
 procedure tcomponenteditfo.editfootprintev(const sender: TObject);
 begin
  mainfo.editfootprintev(sender);
+ datachangeev(nil,nil); //refresh empty text
 end;
 
 procedure tcomponenteditfo.editcompkindev(const sender: TObject);
 begin
  mainfo.editcomponentkind(mainmo.sc_componentkind);
-// datachangeev(nil,nil); //refresh empty text
+ datachangeev(nil,nil); //refresh empty text
 end;
 
 procedure tcomponenteditfo.datachangeev(Sender: TObject; Field: TField);
