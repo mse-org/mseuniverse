@@ -11,7 +11,7 @@ uses
 type
  tfootprintliblistfo = class(tlisteditfo)
    tdbstringedit1: tdbstringedit;
-   procedure closeev(const sender: TObject);
+//   procedure closeev(const sender: TObject);
   public
    constructor create(const aid: tmselargeintfield); reintroduce;
  end;
@@ -27,10 +27,10 @@ begin
  mainmo.beginfootprintlibedit(aid);
  inherited create(nil);
 end;
-
+{
 procedure tfootprintliblistfo.closeev(const sender: TObject);
 begin
  mainmo.endfootprintlibedit();
 end;
-
+}
 end.

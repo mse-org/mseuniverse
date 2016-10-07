@@ -24,11 +24,11 @@ object listeditfo: tlisteditfo
     bounds_x = 537
     bounds_y = 0
     bounds_cx = 23
-    bounds_cy = 276
+    bounds_cy = 299
     anchors = [an_top, an_right]
     statfile = tstatfile1
     datasource = dataso
-    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_autoedit, dbnb_dialog]
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit, dbnb_dialog]
     buttonface.localprops = []
     buttonface.template = mainfo.vertkonvex
     shortcut_prior = 0

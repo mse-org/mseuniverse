@@ -12,7 +12,7 @@ type
  tcomponentkindlistfo = class(tlisteditfo)
    designationed: tdbstringedit;
    tdbstringedit1: tdbstringedit;
-   procedure closeev(const sender: TObject);
+ //  procedure closeev(const sender: TObject);
    procedure dialogev(const sender: TObject);
   public
    constructor create(); reintroduce;
@@ -29,12 +29,12 @@ begin
  mainmo.begincomponentkindedit();
  create(nil);
 end;
-
+{
 procedure tcomponentkindlistfo.closeev(const sender: TObject);
 begin
  mainmo.endcomponentkindedit();
 end;
-
+}
 procedure tcomponentkindlistfo.dialogev(const sender: TObject);
 begin
  tcomponentkindeditfo.create(nil).show(ml_application);

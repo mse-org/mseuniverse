@@ -7,7 +7,6 @@ inherited componenteditfo: tcomponenteditfo
     406
   )
   caption = 'Component'
-  onclose = closeev
   moduleclassname = 'trecordeditfo'
   inherited stripe0: tlayouter
     taborder = 3

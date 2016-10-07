@@ -8,8 +8,8 @@ inherited footprintliblistfo: tfootprintliblistfo
   caption = 'Footprint Libraries'
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
-    bounds_cy = 253
-    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_autoedit]
+    bounds_cy = 276
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit]
     dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localshortcut, as_localonexecute]
   end
   inherited grid: tdbwidgetgrid
@@ -55,10 +55,7 @@ inherited footprintliblistfo: tfootprintliblistfo
     inherited tdcreateed: tdbdatetimeedit
       bounds_x = 186
     end
-    inherited tdmodifyed: tdbdatetimeedit
-      bounds_x = 302
-    end
-    object tdbstringedit1: tdbstringedit[3]
+    object tdbstringedit1: tdbstringedit[2]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 4
@@ -71,6 +68,9 @@ inherited footprintliblistfo: tfootprintliblistfo
       datalink.navigator = navig
       datalink.fieldname = 'IDENT'
       reffontheight = 14
+    end
+    inherited tdmodifyed: tdbdatetimeedit[3]
+      bounds_x = 302
     end
   end
   inherited tstatfile1: tstatfile

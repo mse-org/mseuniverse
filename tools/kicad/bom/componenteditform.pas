@@ -28,7 +28,7 @@ type
    parameter3ed: tdbdialogstringedit;
    stripe8: tlayouter;
    parameter4ed: tdbdialogstringedit;
-   procedure closeev(const sender: TObject);
+//   procedure closeev(const sender: TObject);
    procedure editfootprintev(const sender: TObject);
    procedure editcompkindev(const sender: TObject);
    procedure datachangeev(Sender: TObject; Field: TField);
@@ -55,12 +55,12 @@ begin
   navig.options:= navig.options - [dno_nonavig,dno_noinsert];
  end;
 end;
-
+{
 procedure tcomponenteditfo.closeev(const sender: TObject);
 begin
  mainmo.endcomponentedit(dno_nonavig in navig.options); //true -> full refresh
 end;
-
+}
 procedure tcomponenteditfo.editfootprintev(const sender: TObject);
 begin
  mainfo.editfootprintev(sender);

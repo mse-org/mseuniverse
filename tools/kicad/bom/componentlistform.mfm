@@ -16,7 +16,6 @@ object componentlistfo: tcomponentlistfo
   statfile = tstatfile1
   caption = 'Components'
   onclosequery = closequeryev
-  onclose = closeev
   moduleclassname = 'tmseform'
   object navig: tdbnavigator
     optionswidget1 = [ow1_autoscale, ow1_autoheight]

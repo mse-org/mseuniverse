@@ -13,7 +13,7 @@ type
    areaed: tdbrealedit;
    tdbenum64editdb1: tdbenum64editdb;
    idented: tdbstringedit;
-   procedure closeev(const sender: TObject);
+ //  procedure closeev(const sender: TObject);
    procedure libeditev(const sender: TObject);
   public
    constructor create(const aid: tmselargeintfield); reintroduce;
@@ -30,12 +30,12 @@ begin
  mainmo.beginfootprintedit(aid);
  inherited create(nil);
 end;
-
+{
 procedure tfootprintlistfo.closeev(const sender: TObject);
 begin
  mainmo.endfootprintedit();
 end;
-
+}
 procedure tfootprintlistfo.libeditev(const sender: TObject);
 begin
  mainfo.editfootprintlibev(nil);

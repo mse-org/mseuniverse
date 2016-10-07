@@ -6,11 +6,10 @@ inherited footprintlistfo: tfootprintlistfo
     393
   )
   caption = 'Footprints'
-  onclose = closeev
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
-    bounds_cy = 253
-    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_autoedit]
+    bounds_cy = 276
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit]
     dialogbutton.hint = 'Dialog'
     dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
   end
@@ -76,7 +75,21 @@ inherited footprintlistfo: tfootprintlistfo
     end
     inherited nameed: tdbstringedit[2]
     end
-    object tdbenum64editdb1: tdbenum64editdb[3]
+    object idented: tdbstringedit[3]
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      visible = False
+      bounds_x = 105
+      bounds_y = 0
+      bounds_cx = 77
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'IDENT'
+      reffontheight = 14
+    end
+    object tdbenum64editdb1: tdbenum64editdb[4]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
@@ -94,7 +107,7 @@ inherited footprintlistfo: tfootprintlistfo
         item
         end>
       frame.activebutton = 1
-      taborder = 4
+      taborder = 5
       visible = False
       bounds_x = 183
       bounds_y = 0
@@ -114,10 +127,10 @@ inherited footprintlistfo: tfootprintlistfo
         end>
       reffontheight = 14
     end
-    object areaed: tdbrealedit[4]
+    object areaed: tdbrealedit[5]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 5
+      taborder = 6
       visible = False
       bounds_x = 271
       bounds_y = 0
@@ -131,20 +144,6 @@ inherited footprintlistfo: tfootprintlistfo
       max = 1E+038
       valuerange = 1
       valuestart = 0
-      reffontheight = 14
-    end
-    object idented: tdbstringedit[5]
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 6
-      visible = False
-      bounds_x = 105
-      bounds_y = 0
-      bounds_cx = 77
-      bounds_cy = 16
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'IDENT'
       reffontheight = 14
     end
   end

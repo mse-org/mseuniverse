@@ -40,7 +40,7 @@ object mainfo: tmainfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 11
+        captions.count = 9
         captions.items = <        
           item
             caption = 'REF'
@@ -55,22 +55,16 @@ object mainfo: tmainfo
             caption = 'VALUE2'
           end        
           item
-            caption = 'FOOTPR.'
+            caption = 'FOOTPRINT'
           end        
           item
-            caption = 'FOOTPR.'
-          end        
-          item
-            caption = 'VALUE'
-          end        
-          item
-            caption = 'VALUE1'
-          end        
-          item
-            caption = 'VALUE2'
+            caption = 'Footprint'
           end        
           item
             caption = 'Kind'
+          end        
+          item
+            caption = 'Designation'
           end        
           item
             caption = 'ED'
@@ -106,19 +100,19 @@ object mainfo: tmainfo
           item
           end        
           item
-          end        
-          item
-          end        
-          item
             color = -1610612712
             face.localprops = []
+          end        
+          item
+          end        
+          item
           end>
       end>
     rowcolors.count = 1
     rowcolors.items = (
       -1610612717
     )
-    datacols.count = 11
+    datacols.count = 9
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[nameed]
@@ -147,23 +141,19 @@ object mainfo: tmainfo
         width = 70
         widgetname = 'tdbstringedit2'
       end    
-      item[tdbstringedit1]
-        widgetname = 'tdbstringedit1'
-      end    
-      item[tdbstringedit3]
-        widgetname = 'tdbstringedit3'
-      end    
-      item[footprstock]
-        widgetname = 'footprstock'
-      end    
       item[tdbstringedit4]
         width = 95
         widgetname = 'tdbstringedit4'
       end    
+      item[designation]
+        width = 217
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'designation'
+      end    
       item[editbutton]
         color = -2147483646
         width = 26
-        options = [co_nohscroll, co_savestate, co_mousescrollrow]
+        options = [co_savestate, co_mousescrollrow]
         widgetname = 'editbutton'
         dataclass = tgridintegerdatalist
       end>
@@ -261,54 +251,26 @@ object mainfo: tmainfo
       datalink.fieldname = 'footprintname'
       reffontheight = 14
     end
-    object tdbstringedit1: tdbstringedit
+    object designation: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 344
+      bounds_x = 440
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 217
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = mainmo.compdso
-      datalink.fieldname = 'stockvalue'
-      reffontheight = 14
-    end
-    object tdbstringedit3: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 8
-      visible = False
-      bounds_x = 395
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = mainmo.compdso
-      datalink.fieldname = 'stockvalue1'
-      reffontheight = 14
-    end
-    object footprstock: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 9
-      visible = False
-      bounds_x = 446
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = mainmo.compdso
-      datalink.fieldname = 'stockvalue2'
+      datalink.fieldname = 'designation'
       reffontheight = 14
     end
     object tdbstringedit4: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 10
+      taborder = 8
       visible = False
-      bounds_x = 497
+      bounds_x = 344
       bounds_y = 0
       bounds_cx = 95
       bounds_cy = 16
@@ -319,7 +281,8 @@ object mainfo: tmainfo
     object editbutton: tstockglyphdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      bounds_x = 704
+      taborder = 9
+      bounds_x = 658
       bounds_y = 0
       bounds_cx = 26
       bounds_cy = 16

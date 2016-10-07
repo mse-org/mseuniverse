@@ -46,10 +46,8 @@ type
    editglobalsettings: tifiactionendpoint;
    getdbcedentials: tifiactionendpoint;
    editbutton: tstockglyphdatabutton;
-   footprstock: tdbstringedit;
-   tdbstringedit1: tdbstringedit;
+   designation: tdbstringedit;
    tdbstringedit2: tdbstringedit;
-   tdbstringedit3: tdbstringedit;
    horzkonvex: tfacecomp;
    vertkonvex: tfacecomp;
    editfootprintact: taction;
@@ -91,7 +89,10 @@ uses
  
 procedure tmainfo.checkeditclose(const adataso: tdatasource;
                                         var amodalresult: modalresultty);
+var
+ modres1: modalresultty;
 begin
+ modres1:= amodalresult;
  if adataso.dataset.state in [dsedit,dsinsert] then begin
   case askyesnocancel('Record has been modified.'+lineend+
          'Do you want to store the modifications?','CONFIRMATION') of
@@ -107,6 +108,9 @@ begin
     amodalresult:= mr_none;
    end;
   end;
+ end;
+ if modres1 = amodalresult then begin
+  mainmo.endedit();
  end;
 end;
 

@@ -6,7 +6,6 @@ inherited componentkindlistfo: tcomponentkindlistfo
     393
   )
   caption = 'Componentkinds'
-  onclose = closeev
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
   end

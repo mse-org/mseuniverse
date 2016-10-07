@@ -114,9 +114,6 @@ type
    c_footprintid: tmselargeintfield;
    footprintinsertcheck: tsqlresult;
    footprintdeletecheck: tsqlresult;
-   c_stockvalue: tmsestringfield;
-   c_stockvalue1: tmsestringfield;
-   c_stockvalue2: tmsestringfield;
    compkindqu: tmsesqlquery;
    k_pk: tmselargeintfield;
    k_name: tmsestringfield;
@@ -158,6 +155,13 @@ type
    fl_name: tmsestringfield;
    fl_ident: tmsestringfield;
    c_componentkind: tmsestringfield;
+   footprintlibinsertcheck: tsqlresult;
+   footprintlibdeletecheck: tsqlresult;
+   fl_pk: tmselargeintfield;
+   c_designation: tmsestringfield;
+   c_stockvalue2: tmsestringfield;
+   c_stockvalue1: tmsestringfield;
+   c_stockvalue: tmsestringfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -173,7 +177,7 @@ type
                    var ausername: msestring; var apassword: msestring);
    procedure beforeconnectev(const sender: tmdatabase);
    procedure footprintpostev(DataSet: TDataSet);
-   procedure beforefootprintdeleteev(DataSet: TDataSet);
+   procedure footprintdeleteev(DataSet: TDataSet);
    procedure compkindupdatedataev(Sender: TObject);
    procedure beforecompkinddeleteev(DataSet: TDataSet);
    procedure compkindpostev(DataSet: TDataSet);
@@ -188,48 +192,50 @@ type
    procedure componentfootprintlistev(const sender: TObject);
    procedure footprintlibnamevalidateev(Sender: TField);
    procedure footprintnamevalidateev(Sender: TField);
+   procedure aftercommitev(const sender: TSQLTransaction);
+   procedure footprintlibdeleteev(DataSet: TDataSet);
+   procedure footprintlibpostev(DataSet: TDataSet);
   private
    fhasproject: boolean;
    fmodified: boolean;
    foldname: msestring;
-   fcompappliedcount: card32;
+   fcommitcount: card32;
+//   fcompappliedcount: card32;
    fmacros: tmacrolist;
    fprojectname: msestring;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
    procedure beginedit(const aquery: tmsesqlquery; const afield: tfield);
-   function endedit(const acommit: boolean; const aquery: tmsesqlquery;
-                       const amessage: msestring): boolean;
    procedure dodeletecheck(const asqlres: tsqlresult; 
-                                               const aid: tmselargeintfield);
+                                               const aid: tmselargeintfield;
+                                               const recname: msestring);
    procedure doinsertcheck(const asqlres: tsqlresult;
                                             const aname: tmsestringfield);
+//   function endedit(const acommit: boolean; const aquery: tmsesqlquery;
+//                       const amessage: msestring): boolean;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
    procedure openproject(const afilename: filenamety);
+   procedure endedit();
    procedure refresh();
    function closeproject(): boolean; //true if not canceled
    function saveproject(): boolean;  //true if not canceled
    function doexit: boolean;         //true if not canceled
 
-   procedure begincomponentedit(const idfield: tmselargeintfield);
-   procedure endcomponentedit(const fullrefresh: boolean);
-   procedure begincomponentlistedit();
-   procedure endcomponentlistedit();
-   procedure beginfootprintedit(const idfield: tmselargeintfield);
-   procedure endfootprintedit();
-   procedure beginfootprintlibedit(const idfield: tmselargeintfield);
-   procedure endfootprintlibedit();
-   procedure begincomponentkindedit();
-   procedure endcomponentkindedit();
    procedure begincomponentsedit();
-   function endcomponentsedit(const acommit: boolean): boolean; //true if ok
+   procedure begincomponentlistedit();
+   procedure begincomponentedit(const idfield: tmselargeintfield);
+   procedure beginfootprintlibedit(const idfield: tmselargeintfield);
+   procedure beginfootprintedit(const idfield: tmselargeintfield);
+   procedure begincomponentkindedit();
+
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property hasproject: boolean read fhasproject;
    property projectname: msestring read fprojectname;
    property modified: boolean read fmodified;
+   function expandcomponentmacros(const atext: msestring): msestring;
    function expandcomponentmacros(const afield: tmsestringfield): msestring;
  end;
  
@@ -374,7 +380,7 @@ var
  i1: int32;
  recno1: int32;
  rowstate1: int32;
- bm1,bm2: bookmarkdataty;
+ bm2: bookmarkdataty;
  id1,id2: int64;
 begin
  application.beginwait();
@@ -399,39 +405,44 @@ begin
    
    footprintlibqu.controller.refresh(false);
    footprintqu.controller.refresh(false);
-   stockcompqu.controller.refresh(true);
-   for i1:= 0 to compds.recordcount - 1 do begin
-    if stockcompqu.indexlocal[1].find(
-                   [compds.currentasmsestring[c_value,i1],
-                    compds.currentasmsestring[c_value1,i1],
-                    compds.currentasmsestring[c_value2,i1]],
-                   [compds.currentisnull[c_value,i1],
-                    compds.currentisnull[c_value1,i1],
-                    compds.currentisnull[c_value2,i1]],bm1) then begin
-     compds.currentaslargeint[c_stockitemid,i1]:= 
-                   stockcompqu.currentbmaslargeint[sc_pk,bm1];
-     id1:= stockcompqu.currentbmasid[sc_footprint,bm1];
-     if (id1 < 0) then begin
-      id2:= stockcompqu.currentbmasid[sc_componentkind,bm1];
-      if (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2) then begin
-       id1:= compkindqu.currentbmasid[k_footprint,bm2];
+   stockcompqu.disablecontrols();
+   try
+    stockcompqu.controller.refresh(true);
+    for i1:= 0 to compds.recordcount - 1 do begin
+     if stockcompqu.indexlocal[1].find(
+                    [compds.currentasmsestring[c_value,i1],
+                     compds.currentasmsestring[c_value1,i1],
+                     compds.currentasmsestring[c_value2,i1]],
+                    [compds.currentisnull[c_value,i1],
+                     compds.currentisnull[c_value1,i1],
+                     compds.currentisnull[c_value2,i1]]) then begin
+      compds.currentasid[c_stockitemid,i1]:= sc_pk.asid;
+      id1:= sc_footprint.asid;
+      if (id1 < 0) then begin
+       id2:= sc_componentkind.asid;
+       if (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2) then begin
+        id1:= compkindqu.currentbmasid[k_footprint,bm2];
+       end;
       end;
+      compds.currentasid[c_footprintid,i1]:= id1;
+      compds.currentasmsestring[c_stockvalue,i1]:= sc_value.asmsestring;
+      compds.currentasmsestring[c_stockvalue1,i1]:= sc_value1.asmsestring;
+      compds.currentasmsestring[c_stockvalue2,i1]:= sc_value2.asmsestring;
+      compds.currentasmsestring[c_componentkind,i1]:= sc_kindname.asmsestring;
+      stockcompdetailqu.params[0].asid:= sc_pk.asid; 
+                           //manually because of disablecontrols
+      stockcompdetailqu.controller.refresh(false);
+      compds.currentasmsestring[c_designation,i1]:=
+                                        expandcomponentmacros(scd_designation);
+      rowstate1:= -1;
+     end
+     else begin
+      rowstate1:= 0;
      end;
-     compds.currentasid[c_footprintid,i1]:= id1;
-     compds.currentasmsestring[c_stockvalue,i1]:= 
-                   stockcompqu.currentbmasmsestring[sc_value,bm1];
-     compds.currentasmsestring[c_stockvalue1,i1]:= 
-                   stockcompqu.currentbmasmsestring[sc_value1,bm1];
-     compds.currentasmsestring[c_stockvalue2,i1]:=
-                   stockcompqu.currentbmasmsestring[sc_value2,bm1];
-     compds.currentasmsestring[c_componentkind,i1]:=
-                   stockcompqu.currentbmasmsestring[sc_kindname,bm1];
-     rowstate1:= -1;
-    end
-    else begin
-     rowstate1:= 0;
+     compds.currentasinteger[c_rowstate,i1]:= rowstate1;
     end;
-    compds.currentasinteger[c_rowstate,i1]:= rowstate1;
+   finally
+    stockcompqu.enablecontrols();
    end;
    if recno1 <= 0 then begin
     compds.first();
@@ -471,6 +482,13 @@ begin
   application.handleexception();
  end;
  statechanged();
+end;
+
+procedure tmainmo.endedit();
+begin
+ if (application.modallevel = 1) and (fcommitcount <> 0) then begin
+  refresh();
+ end;
 end;
 
 procedure tmainmo.saveupdateev(const sender: tcustomaction);
@@ -544,10 +562,7 @@ end;
 
 procedure tmainmo.begincomponentedit(const idfield: tmselargeintfield);
 begin
- footprintqu.active:= true;
- compkindqu.active:= true;
- stockcompqu.active:= true;
- fcompappliedcount:= stockcompqu.appliedcount;
+ beginedit(stockcompqu,nil);
  if idfield <> nil then begin
   if idfield.isnull then begin
    stockcompqu.insert();
@@ -561,64 +576,26 @@ begin
  end;
 end;
 
-procedure tmainmo.endcomponentedit(const fullrefresh: boolean);
-begin
- if fullrefresh and (fcompappliedcount <> stockcompqu.appliedcount) then begin
-  refresh();
- end;
-end;
-
 procedure tmainmo.begincomponentlistedit();
 begin
- application.beginwait();
- try
-  footprintqu.controller.refresh(false);
-  compkindqu.controller.refresh(false);
-  stockcompqu.controller.refresh(true);
- finally
-  application.endwait();
- end;
- fcompappliedcount:= stockcompqu.appliedcount;
-end;
-
-procedure tmainmo.endcomponentlistedit();
-begin
- if fcompappliedcount <> stockcompqu.appliedcount then begin
-  refresh();
- end;
-end;
-
-function tmainmo.endedit(const acommit: boolean; const aquery: tmsesqlquery;
-                       const amessage: msestring): boolean;
-begin
- result:= true;
- if acommit then begin
-  try
-   aquery.applyupdates();
-   transwrite.commit();
-  except
-   application.handleexception();
-   result:= false;
-  end;
- end
- else begin
-  if aquery.changecount > 0 then begin
-   if not askyesno('The data of '+amessage+' has been modified.'+lineend+
-            'Do you want to store the modifications?') then begin
-    result:= false;
-   end
-   else begin
-    aquery.cancelupdates();
-   end;
-  end;
- end;
+ beginedit(stockcompqu,nil);
 end;
 
 procedure tmainmo.beginedit(const aquery: tmsesqlquery;
                                                  const afield: tfield);
 begin
+ footprintlibqu.active:= true;
+ compkindqu.active:= true;
+ footprintqu.active:= true;
+ stockcompdetailqu.active:= true;
+ stockcompqu.active:= true;
  aquery.active:= true;
- aquery.indexlocal[0].find([afield]);
+ if afield <> nil then begin
+  aquery.indexlocal[0].find([afield]);
+ end;
+ if application.modallevel = 0 then begin
+  fcommitcount:= 0;
+ end;
 end;
 
 procedure tmainmo.beginfootprintedit(const idfield: tmselargeintfield);
@@ -626,19 +603,9 @@ begin
  beginedit(footprintqu,idfield);
 end;
 
-procedure tmainmo.endfootprintedit();
-begin
- //dummy
-end;
-
 procedure tmainmo.beginfootprintlibedit(const idfield: tmselargeintfield);
 begin
  beginedit(footprintlibqu,idfield);
-end;
-
-procedure tmainmo.endfootprintlibedit();
-begin
- //dummy
 end;
 
 procedure tmainmo.begincomponentkindedit();
@@ -646,25 +613,12 @@ begin
  beginedit(compkindqu,sc_componentkind);
 end;
 
-procedure tmainmo.endcomponentkindedit();
-begin
- //dummy
-end;
-
 procedure tmainmo.begincomponentsedit();
 begin
  stockcompqu.controller.refresh(false);
  stockcompqu.indexlocal.indexbyname('MAIN').find(
                                  [c_stockvalue,c_stockvalue1,c_stockvalue2]);
-end;
-
-function tmainmo.endcomponentsedit(const acommit: boolean): boolean;
-begin
- result:= endedit(acommit,stockcompqu,'component');
- if result then begin
-//  stockcompqu.active:= false;
-  refresh();
- end;
+ beginedit(stockcompqu,nil);
 end;
 
 function tmainmo.checkvalueexist(const avalue: msestring;
@@ -675,17 +629,17 @@ begin
  result:= stockcompqu.indexlocal[1].find([avalue1,avalue,avalue2],[],bm1);
 end;
 
-function tmainmo.expandcomponentmacros(
-                     const afield: tmsestringfield): msestring;
+function tmainmo.expandcomponentmacros(const atext: msestring): msestring;
 var
  bm1: bookmarkdataty;
- ms1: msestring;
+// ms1: msestring;
  bo1: boolean;
 begin
  result:= '';
  stockcompdetailqu.controller.checkrefresh(); //make pending refresh
  bo1:= not sc_componentkind.isnull and 
                       compkindqu.indexlocal[0].find([sc_componentkind],bm1);
+{
  ms1:= afield.asmsestring;
  if (ms1 = '') and bo1 then begin
   if afield = scd_designation then begin
@@ -712,6 +666,7 @@ begin
    end;
   end;
  end;
+}
  macroitems[mn_value]^.value:= sc_value.asmsestring;
  macroitems[mn_value1]^.value:= sc_value1.asmsestring;
  macroitems[mn_value2]^.value:= sc_value2.asmsestring;
@@ -743,7 +698,46 @@ begin
   macroitems[mn_k_parameter3]^.value:= '';
   macroitems[mn_k_parameter4]^.value:= '';
  end;
- result:= fmacros.expandmacros(ms1);
+ result:= fmacros.expandmacros(atext);
+end;
+
+function tmainmo.expandcomponentmacros(
+                     const afield: tmsestringfield): msestring;
+var
+ bm1: bookmarkdataty;
+ ms1: msestring;
+ bo1: boolean;
+begin
+ stockcompdetailqu.controller.checkrefresh(); //make pending refresh
+ bo1:= not sc_componentkind.isnull and 
+                      compkindqu.indexlocal[0].find([sc_componentkind],bm1);
+ ms1:= afield.asmsestring;
+ if (ms1 = '') and bo1 then begin
+  if afield = scd_designation then begin
+   ms1:= compkindqu.currentbmasmsestring[k_designation,bm1];
+  end
+  else begin
+   if afield = scd_parameter1 then begin
+    ms1:= compkindqu.currentbmasmsestring[k_parameter1,bm1];
+   end
+   else begin
+    if afield = scd_parameter2 then begin
+     ms1:= compkindqu.currentbmasmsestring[k_parameter2,bm1];
+    end
+    else begin
+     if afield = scd_parameter3 then begin
+      ms1:= compkindqu.currentbmasmsestring[k_parameter3,bm1];
+     end
+     else begin
+      if afield = scd_parameter4 then begin
+       ms1:= compkindqu.currentbmasmsestring[k_parameter4,bm1];
+      end;
+     end;
+    end;
+   end;
+  end;
+ end;
+ result:= expandcomponentmacros(ms1);
 end;
 
 procedure tmainmo.openprojectev(const sender: TObject);
@@ -810,27 +804,35 @@ end;
 procedure tmainmo.doinsertcheck(const asqlres: tsqlresult;
                                             const aname: tmsestringfield);
 begin
-exit;
- asqlres.params[0].asmsestring:= aname.asmsestring;
- asqlres.refresh();
- if not asqlres.eof then begin
-  showmessage('Record with this name already exists.','ERROR');
-  abort();
+ if aname.dataset.state = dsinsert then begin
+  asqlres.params[0].asmsestring:= aname.asmsestring;
+  asqlres.refresh();
+  if not asqlres.eof then begin
+   showmessage('Record with this name already exists.','ERROR');
+   abort();
+  end;
  end;
 end;
 
 procedure tmainmo.dodeletecheck(const asqlres: tsqlresult; 
-                                            const aid: tmselargeintfield);
+                                const aid: tmselargeintfield;
+                                             const recname: msestring);
 begin
-exit;
  asqlres.params[0].asid:= aid.asid;
  asqlres.refresh();
  if not asqlres.eof then begin
-  showmessage('Record can not be deleted,'+lineend+
+  if asqlres.cols.count > 1 then begin
+   showmessage('Record can not be deleted,'+lineend+
               'it is in use by component "'+
               asqlres.cols.colbyname('VALUE').asmsestring+','+
               asqlres.cols.colbyname('VALUE1').asmsestring+','+
               asqlres.cols.colbyname('VALUE1').asmsestring+'"','ERROR');
+  end
+  else begin
+   showmessage('Record can not be deleted,'+lineend+
+              'it is in use by '+recname+' "'+
+              asqlres.cols.colbyname('NAME').asmsestring+'"','ERROR');
+  end;
   abort();
  end;
 end;
@@ -840,9 +842,19 @@ begin
  doinsertcheck(footprintinsertcheck,f_name);
 end;
 
-procedure tmainmo.beforefootprintdeleteev(DataSet: TDataSet);
+procedure tmainmo.footprintdeleteev(DataSet: TDataSet);
 begin
- dodeletecheck(footprintdeletecheck,f_pk);
+ dodeletecheck(footprintdeletecheck,f_pk,'');
+end;
+
+procedure tmainmo.footprintlibpostev(DataSet: TDataSet);
+begin
+ doinsertcheck(footprintlibinsertcheck,fl_name);
+end;
+
+procedure tmainmo.footprintlibdeleteev(DataSet: TDataSet);
+begin
+ dodeletecheck(footprintlibdeletecheck,fl_pk,'footprint');
 end;
 
 procedure tmainmo.compkindupdatedataev(Sender: TObject);
@@ -855,7 +867,7 @@ end;
 
 procedure tmainmo.beforecompkinddeleteev(DataSet: TDataSet);
 begin
- dodeletecheck(compkinddeletecheck,k_pk);
+ dodeletecheck(compkinddeletecheck,k_pk,'');
 end;
 
 procedure tmainmo.compkindpostev(DataSet: TDataSet);
@@ -1001,6 +1013,11 @@ begin
                       (msestring(f_name.buffervalue) = mstr1) then begin
   f_ident.asmsestring:= f_name.asmsestring;
  end;
+end;
+
+procedure tmainmo.aftercommitev(const sender: TSQLTransaction);
+begin
+ inc(fcommitcount);
 end;
 
 { tprojectoptions }

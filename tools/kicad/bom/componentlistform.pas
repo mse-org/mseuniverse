@@ -28,7 +28,7 @@ type
    procedure edititemev(const sender: TObject);
    procedure rowselectev(const sender: TObject; var avalue: Int64;
                    var accept: Boolean);
-   procedure closeev(const sender: TObject);
+//   procedure closeev(const sender: TObject);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
@@ -57,12 +57,12 @@ begin
  mainmo.stockcompqu.indexlocal[0].find([avalue],[]);
  grid.setfocus();
 end;
-
+{
 procedure tcomponentlistfo.closeev(const sender: TObject);
 begin
  mainmo.endcomponentlistedit();
 end;
-
+}
 procedure tcomponentlistfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 begin
