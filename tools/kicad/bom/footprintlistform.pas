@@ -16,7 +16,7 @@ type
  //  procedure closeev(const sender: TObject);
    procedure libeditev(const sender: TObject);
   public
-   constructor create(const aid: tmselargeintfield); reintroduce;
+//   constructor create(const aid: tmselargeintfield); reintroduce;
  end;
 
 implementation
@@ -24,12 +24,13 @@ uses
  footprintlistform_mfm,mainmodule,main;
 
 { tfootprintlistfo }
-
+{
 constructor tfootprintlistfo.create(const aid: tmselargeintfield);
 begin
  mainmo.beginfootprintedit(aid);
  inherited create(nil);
 end;
+}
 {
 procedure tfootprintlistfo.closeev(const sender: TObject);
 begin

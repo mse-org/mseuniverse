@@ -1,18 +1,18 @@
 inherited componenteditfo: tcomponenteditfo
-  bounds_cx = 517
+  bounds_cx = 683
   container.bounds = (
     0
     0
-    517
+    683
     406
   )
   caption = 'Component'
   moduleclassname = 'trecordeditfo'
   inherited stripe0: tlayouter
     taborder = 3
-    bounds_cx = 517
+    bounds_cx = 683
     inherited tlayouter2: tlayouter
-      bounds_x = 334
+      bounds_x = 500
       inherited tsmodify: tdbdatetimedisp
       end
       inherited tscreate: tdbdatetimedisp
@@ -26,7 +26,7 @@ inherited componenteditfo: tcomponenteditfo
     taborder = 1
     bounds_x = 8
     bounds_y = 40
-    bounds_cx = 502
+    bounds_cx = 668
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -99,12 +99,19 @@ inherited componenteditfo: tcomponenteditfo
       datalink.fieldname = 'VALUE'
       reffontheight = 14
     end
+    object tsimplewidget3: tsimplewidget
+      taborder = 3
+      bounds_x = 504
+      bounds_y = 22
+      bounds_cx = 164
+      bounds_cy = 10
+    end
   end
   object stripe3: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     bounds_x = 8
     bounds_y = 81
-    bounds_cx = 502
+    bounds_cx = 668
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -200,12 +207,96 @@ inherited componenteditfo: tcomponenteditfo
         end>
       reffontheight = 14
     end
-    object tsimplewidget2: tsimplewidget
+    object distributored: tdbenum64editdb
+      frame.caption = '&Distributor'
+      frame.font.localprops = []
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 2
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+          options = [fbo_executeonclientdblclick]
+          onexecute = editdistributorev
+        end      
+        item
+        end>
+      frame.activebutton = 1
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
       taborder = 2
-      bounds_x = 336
-      bounds_y = 22
+      bounds_x = 504
+      bounds_y = 0
       bounds_cx = 164
-      bounds_cy = 10
+      bounds_cy = 37
+      empty_fontstyle = [fs_italic]
+      empty_textflags = [tf_ycentered]
+      empty_options = [eo_showfocused]
+      empty_textcolor = -1879048173
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      font.localprops = []
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'DISTRIBUTOR'
+      datalink.fieldnametext = 'distributorname'
+      dropdown.datasource = mainmo.distributordso
+      dropdown.keyfield = 'PK'
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      reffontheight = 14
+    end
+    object manufacturered: tdbenum64editdb
+      frame.caption = '&Manufacturer'
+      frame.font.localprops = []
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 2
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+          options = [fbo_executeonclientdblclick]
+          onexecute = editmanufacturerev
+        end      
+        item
+        end>
+      frame.activebutton = 1
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 3
+      bounds_x = 336
+      bounds_y = 0
+      bounds_cx = 164
+      bounds_cy = 37
+      empty_fontstyle = [fs_italic]
+      empty_textflags = [tf_ycentered]
+      empty_options = [eo_showfocused]
+      empty_textcolor = -1879048173
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      font.localprops = []
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'MANUFACTURER'
+      dropdown.datasource = mainmo.manufacturerdso
+      dropdown.keyfield = 'PK'
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      reffontheight = 14
     end
   end
   object stripe4: tlayouter[3]
@@ -213,7 +304,7 @@ inherited componenteditfo: tcomponenteditfo
     taborder = 2
     bounds_x = 8
     bounds_y = 122
-    bounds_cx = 502
+    bounds_cx = 668
     bounds_cy = 242
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -242,7 +333,7 @@ inherited componenteditfo: tcomponenteditfo
       onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 502
+      bounds_cx = 668
       bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
@@ -274,7 +365,7 @@ inherited componenteditfo: tcomponenteditfo
       onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 41
-      bounds_cx = 502
+      bounds_cx = 668
       bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
@@ -306,7 +397,7 @@ inherited componenteditfo: tcomponenteditfo
       onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 82
-      bounds_cx = 502
+      bounds_cx = 668
       bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
@@ -338,7 +429,7 @@ inherited componenteditfo: tcomponenteditfo
       onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 123
-      bounds_cx = 502
+      bounds_cx = 668
       bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
@@ -370,7 +461,7 @@ inherited componenteditfo: tcomponenteditfo
       onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 164
-      bounds_cx = 502
+      bounds_cx = 668
       bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
@@ -402,7 +493,7 @@ inherited componenteditfo: tcomponenteditfo
       onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 205
-      bounds_cx = 502
+      bounds_cx = 668
       bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]

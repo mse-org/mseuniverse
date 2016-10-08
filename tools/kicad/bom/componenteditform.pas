@@ -17,7 +17,6 @@ type
    stripe3: tlayouter;
    footprinted: tdbenum64editdb;
    compkinded: tdbenum64editdb;
-   tsimplewidget2: tsimplewidget;
    stripe4: tlayouter;
    designationed: tdbmemodialogedit;
 //   procedure closeev(const sender: TObject);
@@ -26,10 +25,15 @@ type
    parameter3ed: tdbmemodialogedit;
    parameter4ed: tdbmemodialogedit;
    commented: tdbmemodialogedit;
+   tsimplewidget3: tsimplewidget;
+   distributored: tdbenum64editdb;
+   manufacturered: tdbenum64editdb;
    procedure editfootprintev(const sender: TObject);
    procedure editcompkindev(const sender: TObject);
    procedure datachangeev(Sender: TObject; Field: TField);
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
+   procedure editmanufacturerev(const sender: TObject);
+   procedure editdistributorev(const sender: TObject);
   public
    constructor create(const idfield: tmselargeintfield;
                                         const nonavig: boolean); reintroduce;
@@ -60,7 +64,7 @@ end;
 }
 procedure tcomponenteditfo.editfootprintev(const sender: TObject);
 begin
- mainfo.editfootprintev(sender);
+ mainfo.editfootprint(mainmo.sc_footprint);
  datachangeev(nil,nil); //refresh empty text
 end;
 
@@ -68,6 +72,16 @@ procedure tcomponenteditfo.editcompkindev(const sender: TObject);
 begin
  mainfo.editcomponentkind(mainmo.sc_componentkind);
  datachangeev(nil,nil); //refresh empty text
+end;
+
+procedure tcomponenteditfo.editmanufacturerev(const sender: TObject);
+begin
+ mainfo.editmanufacturer(mainmo.sc_manufacturer);
+end;
+
+procedure tcomponenteditfo.editdistributorev(const sender: TObject);
+begin
+ mainfo.editdistributor(mainmo.sc_distributor);
 end;
 
 procedure tcomponenteditfo.datachangeev(Sender: TObject; Field: TField);

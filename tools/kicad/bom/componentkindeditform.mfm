@@ -1,19 +1,19 @@
 inherited componentkindeditfo: tcomponentkindeditfo
-  bounds_cx = 522
+  bounds_cx = 650
   container.bounds = (
     0
     0
-    522
+    650
     406
   )
   caption = 'Componentkind'
   moduleclassname = 'trecordnameeditfo'
   inherited stripe0: tlayouter
     taborder = 1
-    bounds_cx = 522
+    bounds_cx = 650
     optionslayout = [lao_placex]
     inherited tlayouter2: tlayouter
-      bounds_x = 339
+      bounds_x = 467
       inherited tsmodify: tdbdatetimedisp
       end
       inherited tscreate: tdbdatetimedisp
@@ -25,22 +25,24 @@ inherited componentkindeditfo: tcomponentkindeditfo
   end
   inherited stripe1: tlayouter
     taborder = 0
-    bounds_cx = 513
+    bounds_cx = 641
     inherited nameselector: tenum64editdb
       frame.buttons.items = <      
         item
         end>
+      bounds_cx = 156
       dropdown.cols.items = <      
         item
         end>
     end
   end
   inherited stripe2: tlayouter
-    bounds_cx = 513
+    bounds_cx = 636
     place_mindist = 4
     place_maxdist = 4
     inherited nameed: tdbstringedit
       frame.caption = '&Name'
+      bounds_cx = 156
     end
     object footprinted: tdbenum64editdb[1]
       frame.caption = '&Footprint'
@@ -64,9 +66,9 @@ inherited componentkindeditfo: tcomponentkindeditfo
         0
       )
       taborder = 1
-      bounds_x = 192
+      bounds_x = 160
       bounds_y = 0
-      bounds_cx = 188
+      bounds_cx = 156
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       font.localprops = []
@@ -83,13 +85,102 @@ inherited componentkindeditfo: tcomponentkindeditfo
         end>
       reffontheight = 14
     end
+    object distributored: tdbenum64editdb[2]
+      frame.caption = '&Distributor'
+      frame.font.localprops = []
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 2
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+          options = [fbo_executeonclientdblclick]
+        end      
+        item
+        end>
+      frame.activebutton = 1
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 480
+      bounds_y = 0
+      bounds_cx = 156
+      bounds_cy = 37
+      empty_fontstyle = [fs_italic]
+      empty_textflags = [tf_ycentered]
+      empty_options = [eo_showfocused]
+      empty_textcolor = -1879048173
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      font.localprops = []
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'DISTRIBUTOR'
+      datalink.fieldnametext = 'distributorname'
+      dropdown.datasource = mainmo.distributordso
+      dropdown.keyfield = 'PK'
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      reffontheight = 14
+    end
+    object manufacturered: tdbenum64editdb[3]
+      frame.caption = '&Manufacturer'
+      frame.font.localprops = []
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 2
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+          options = [fbo_executeonclientdblclick]
+        end      
+        item
+        end>
+      frame.activebutton = 1
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 3
+      bounds_x = 320
+      bounds_y = 0
+      bounds_cx = 156
+      bounds_cy = 37
+      empty_fontstyle = [fs_italic]
+      empty_textflags = [tf_ycentered]
+      empty_options = [eo_showfocused]
+      empty_textcolor = -1879048173
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      font.localprops = []
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'MANUFACTURER'
+      dropdown.datasource = mainmo.manufacturerdso
+      dropdown.keyfield = 'PK'
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      reffontheight = 14
+    end
   end
   object tlayouter1: tlayouter[3]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
     bounds_y = 104
-    bounds_cx = 508
+    bounds_cx = 636
     bounds_cy = 242
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -114,7 +205,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 508
+      bounds_cx = 636
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
@@ -141,7 +232,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       taborder = 1
       bounds_x = 0
       bounds_y = 41
-      bounds_cx = 508
+      bounds_cx = 636
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
@@ -168,7 +259,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       taborder = 2
       bounds_x = 0
       bounds_y = 82
-      bounds_cx = 508
+      bounds_cx = 636
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
@@ -195,7 +286,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       taborder = 3
       bounds_x = 0
       bounds_y = 205
-      bounds_cx = 508
+      bounds_cx = 636
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
@@ -222,7 +313,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       taborder = 4
       bounds_x = 0
       bounds_y = 123
-      bounds_cx = 508
+      bounds_cx = 636
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
@@ -249,7 +340,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       taborder = 5
       bounds_x = 0
       bounds_y = 164
-      bounds_cx = 508
+      bounds_cx = 636
       bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso

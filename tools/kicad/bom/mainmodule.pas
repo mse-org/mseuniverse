@@ -112,15 +112,11 @@ type
    footprintdso: tmsedatasource;
    c_footprintname: tmsestringfield;
    c_footprintid: tmselargeintfield;
-   footprintinsertcheck: tsqlresult;
-   footprintdeletecheck: tsqlresult;
    compkindqu: tmsesqlquery;
    k_pk: tmselargeintfield;
    k_name: tmsestringfield;
    compkinddso: tmsedatasource;
    k_designation: tmsestringfield;
-   compkindinsertcheck: tsqlresult;
-   compkinddeletecheck: tsqlresult;
    stockcompqu: tmsesqlquery;
    stockcompdso: tmsedatasource;
    sc_pk: tmselargeintfield;
@@ -143,7 +139,6 @@ type
    k_parameter4: tmsestringfield;
    k_footprint: tmselargeintfield;
    k_footprintname: tmsestringfield;
-   sc_footprintname: tmsestringfield;
    sc_kindname: tmsestringfield;
    footprintlibqu: tmsesqlquery;
    footprintlibdso: tmsedatasource;
@@ -155,13 +150,35 @@ type
    fl_name: tmsestringfield;
    fl_ident: tmsestringfield;
    c_componentkind: tmsestringfield;
-   footprintlibinsertcheck: tsqlresult;
-   footprintlibdeletecheck: tsqlresult;
    fl_pk: tmselargeintfield;
    c_designation: tmsestringfield;
    c_stockvalue2: tmsestringfield;
    c_stockvalue1: tmsestringfield;
    c_stockvalue: tmsestringfield;
+   manufacturerdso: tmsedatasource;
+   manufacturerqu: tmsesqlquery;
+   m_ident: tmsestringfield;
+   m_name: tmsestringfield;
+   m_pk: tmselargeintfield;
+   distributordso: tmsedatasource;
+   distributorqu: tmsesqlquery;
+   d_ident: tmsestringfield;
+   d_name: tmsestringfield;
+   d_pk: tmselargeintfield;
+   deletetest: tsqlresult;
+   inserttest: tsqlresult;
+   c_manufacturerid: tmselargeintfield;
+   c_distributorid: tmselargeintfield;
+   c_componentkindid: tmselargeintfield;
+   k_manufacturer: tmselargeintfield;
+   k_distributor: tmselargeintfield;
+   sc_manufacturer: tmselargeintfield;
+   sc_distributor: tmselargeintfield;
+   sc_footprintname: tmsestringfield;
+   sc_manufacturername: tmsestringfield;
+   sc_distributorname: tmsestringfield;
+   k_distributorname: tmsestringfield;
+   k_manufacturername: tmsestringfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -176,44 +193,40 @@ type
    procedure getcredentialsev(const sender: tcustomsqlconnection;
                    var ausername: msestring; var apassword: msestring);
    procedure beforeconnectev(const sender: tmdatabase);
-   procedure footprintpostev(DataSet: TDataSet);
-   procedure footprintdeleteev(DataSet: TDataSet);
    procedure compkindupdatedataev(Sender: TObject);
-   procedure beforecompkinddeleteev(DataSet: TDataSet);
-   procedure compkindpostev(DataSet: TDataSet);
+   procedure cmpkinddeletecheckev(DataSet: TDataSet);
    procedure stockcompbeforepostev(DataSet: TDataSet);
    procedure aftercopyrecordev(DataSet: TDataSet);
    procedure beforecopyrecordev(DataSet: TDataSet);
    procedure bforecompcopyev(DataSet: TDataSet);
-//   procedure componentkindvalidateev(Sender: TField);
    procedure stockcompinternalcalcev(const sender: tmsebufdataset;
                    const fetching: Boolean);
    procedure validprojectupdateev(const sender: tcustomaction);
    procedure componentfootprintlistev(const sender: TObject);
-   procedure footprintlibnamevalidateev(Sender: TField);
-   procedure footprintnamevalidateev(Sender: TField);
    procedure aftercommitev(const sender: TSQLTransaction);
-   procedure footprintlibdeleteev(DataSet: TDataSet);
-   procedure footprintlibpostev(DataSet: TDataSet);
+   procedure footprintdeletecheckev(DataSet: TDataSet);
+   procedure namecheckev(DataSet: TDataSet);
+   procedure validatenameidentev(Sender: TField);
+   procedure distributordeletecheckev(DataSet: TDataSet);
+   procedure maufaturerdeletecheckev(DataSet: TDataSet);
   private
    fhasproject: boolean;
    fmodified: boolean;
    foldname: msestring;
    fcommitcount: card32;
-//   fcompappliedcount: card32;
    fmacros: tmacrolist;
    fprojectname: msestring;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
-   procedure beginedit(const aquery: tmsesqlquery; const afield: tfield);
    procedure dodeletecheck(const asqlres: tsqlresult; 
                                                const aid: tmselargeintfield;
                                                const recname: msestring);
+   procedure deletecheck(const id: tmselargeintfield;
+                                 const references: array of tmselargeintfield);
+   procedure insertcheck(const namefield: tmsestringfield);
    procedure doinsertcheck(const asqlres: tsqlresult;
                                             const aname: tmsestringfield);
-//   function endedit(const acommit: boolean; const aquery: tmsesqlquery;
-//                       const amessage: msestring): boolean;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -224,12 +237,9 @@ type
    function saveproject(): boolean;  //true if not canceled
    function doexit: boolean;         //true if not canceled
 
+   procedure beginedit(const aquery: tmsesqlquery; const afield: tfield);
    procedure begincomponentsedit();
-   procedure begincomponentlistedit();
    procedure begincomponentedit(const idfield: tmselargeintfield);
-   procedure beginfootprintlibedit(const idfield: tmselargeintfield);
-   procedure beginfootprintedit(const idfield: tmselargeintfield);
-   procedure begincomponentkindedit();
 
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property hasproject: boolean read fhasproject;
@@ -243,6 +253,8 @@ var
  mainmo: tmainmo;
  globaloptions: tglobaloptions;
  projectoptions: tprojectoptions;
+
+procedure errormessage(const message: msestring);
  
 implementation
 uses
@@ -252,24 +264,29 @@ uses
 { tmainmo }
 type
  macronamety = (
-    mn_value,mn_value1,mn_value2,mn_footprint,
+    mn_value,mn_value1,mn_value2,mn_footprint,mn_manufacturer,mn_distributor,
     mn_designation,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
-    mn_k_footprint,mn_k_designation,
+    mn_k_footprint,mn_k_manufacturer,mn_k_distributor,mn_k_designation,
     mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
 
 const
  macronames: array[macronamety] of msestring = (
-//mn_value,mn_value1,mn_value2,mn_footprint,
-    'value', 'value1', 'value2', 'footprint',
+//mn_value,mn_value1,mn_value2,mn_footprint,mn_manufacturer,mn_distributor,
+    'value', 'value1', 'value2', 'footprint', 'manufacturer', 'distributor',
 //mn_designation,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
     'designation', 'parameter1', 'parameter2', 'parameter3', 'parameter4',
-//mn_k_footprint,mn_k_designation,
-    'k_footprint', 'k_designation',
+//mn_k_footprint,mn_k_manufacturer,mn_k_distributor,mn_k_designation,
+    'k_footprint', 'k_manufacturer', 'k_distributor', 'k_designation',
 //mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
     'k_parameter1', 'k_parameter2', 'k_parameter3', 'k_parameter4'
  );
 var
  macroitems: array[macronamety] of pmacroinfoty; 
+
+procedure errormessage(const message: msestring);
+begin
+ showmessage(message,'ERROR');
+end;
 
 constructor tmainmo.create(aowner: tcomponent);
 var
@@ -277,18 +294,7 @@ var
 begin
  fmacros:= tmacrolist.create([mao_caseinsensitive],
    initmacros([
-               //0       1        2        3
-
-    initmacros(macronames,
-{
-    ['value','value1','value2','footprint',
-   //4             5            6            7            8
-    'designation','parameter1','parameter2','parameter3','parameter4',
-   //9             10
-    'k_footprint','k_designation',
-   //11             12             13             14
-    'k_parameter1','k_parameter2','k_parameter3','k_parameter4'
-    ],}[],[]),
+    initmacros(macronames,[],[]),
     strmacros(),filemacros(),macmacros(),envmacros()]));
  for ma1:= low(macroitems) to high(macroitems) do begin
   fmacros.find(macronames[ma1],macroitems[ma1]);
@@ -576,14 +582,11 @@ begin
  end;
 end;
 
-procedure tmainmo.begincomponentlistedit();
-begin
- beginedit(stockcompqu,c_stockitemid);
-end;
-
 procedure tmainmo.beginedit(const aquery: tmsesqlquery;
                                                  const afield: tfield);
 begin
+ manufacturerqu.active:= true;
+ distributorqu.active:= true;
  footprintlibqu.active:= true;
  compkindqu.active:= true;
  footprintqu.active:= true;
@@ -596,21 +599,6 @@ begin
  if application.modallevel = 0 then begin
   fcommitcount:= 0;
  end;
-end;
-
-procedure tmainmo.beginfootprintedit(const idfield: tmselargeintfield);
-begin
- beginedit(footprintqu,idfield);
-end;
-
-procedure tmainmo.beginfootprintlibedit(const idfield: tmselargeintfield);
-begin
- beginedit(footprintlibqu,idfield);
-end;
-
-procedure tmainmo.begincomponentkindedit();
-begin
- beginedit(compkindqu,sc_componentkind);
 end;
 
 procedure tmainmo.begincomponentsedit();
@@ -671,6 +659,8 @@ begin
  macroitems[mn_value1]^.value:= sc_value1.asmsestring;
  macroitems[mn_value2]^.value:= sc_value2.asmsestring;
  macroitems[mn_footprint]^.value:= sc_footprintname.asmsestring;
+ macroitems[mn_manufacturer]^.value:= sc_manufacturername.asmsestring;
+ macroitems[mn_distributor]^.value:= sc_distributorname.asmsestring;
  macroitems[mn_designation]^.value:= scd_designation.asmsestring;
  macroitems[mn_parameter1]^.value:= scd_parameter1.asmsestring;
  macroitems[mn_parameter2]^.value:= scd_parameter2.asmsestring;
@@ -678,17 +668,21 @@ begin
  macroitems[mn_parameter4]^.value:= scd_parameter4.asmsestring;
  if bo1 then begin
   macroitems[mn_k_footprint]^.value:= 
-                         compkindqu.currentbmasmsestring[k_footprintname,bm1];
+                       compkindqu.currentbmasmsestring[k_footprintname,bm1];
+  macroitems[mn_k_manufacturer]^.value:= 
+                       compkindqu.currentbmasmsestring[k_manufacturername,bm1];
+  macroitems[mn_k_distributor]^.value:= 
+                       compkindqu.currentbmasmsestring[k_distributorname,bm1];
   macroitems[mn_k_designation]^.value:= 
-                         compkindqu.currentbmasmsestring[k_designation,bm1];
+                       compkindqu.currentbmasmsestring[k_designation,bm1];
   macroitems[mn_k_parameter1]^.value:= 
-                         compkindqu.currentbmasmsestring[k_parameter1,bm1];
+                       compkindqu.currentbmasmsestring[k_parameter1,bm1];
   macroitems[mn_k_parameter2]^.value:= 
-                         compkindqu.currentbmasmsestring[k_parameter2,bm1];
+                       compkindqu.currentbmasmsestring[k_parameter2,bm1];
   macroitems[mn_k_parameter3]^.value:= 
-                         compkindqu.currentbmasmsestring[k_parameter3,bm1];
+                       compkindqu.currentbmasmsestring[k_parameter3,bm1];
   macroitems[mn_k_parameter4]^.value:= 
-                         compkindqu.currentbmasmsestring[k_parameter4,bm1];
+                       compkindqu.currentbmasmsestring[k_parameter4,bm1];
  end
  else begin
   macroitems[mn_k_footprint]^.value:= '';
@@ -837,24 +831,55 @@ begin
  end;
 end;
 
-procedure tmainmo.footprintpostev(DataSet: TDataSet);
+procedure tmainmo.deletecheck(const id: tmselargeintfield;
+                                const references: array of tmselargeintfield);
+var
+ i1: int32;
+ mstr1,mstr2: msestring;
 begin
- doinsertcheck(footprintinsertcheck,f_name);
+ for i1:= 0 to high(references) do begin
+  with references[i1] do begin
+   deletetest.active:= false;
+   mstr1:= msestring(tmsesqlquery(dataset).tablename);
+   mstr2:= msestring(fieldname);
+   deletetest.sql.macros.itembyname('table').value.text:= mstr1;
+   deletetest.sql.macros.itembyname('field').value.text:= mstr2;
+   deletetest.params[0].asid:= id.asid;
+   deletetest.active:= true;
+   if not deletetest.eof then begin
+    errormessage('Record can not be deleted,'+lineend+
+              'it is in use by '+mstr1+' "'+deletetest.cols[0].asmsestring+'"');
+    deletetest.active:= false;
+    abort(); 
+   end;
+  end;
+ end;
+ deletetest.active:= false;
 end;
 
-procedure tmainmo.footprintdeleteev(DataSet: TDataSet);
+procedure tmainmo.insertcheck(const namefield: tmsestringfield);
 begin
- dodeletecheck(footprintdeletecheck,f_pk,'');
+ inserttest.active:= false;
+ inserttest.sql.macros.itembyname('table').value.text:= 
+                        msestring(tmsesqlquery(namefield.dataset).tablename);
+ inserttest.params[0].asmsestring:= namefield.asmsestring;
+ inserttest.active:= true;
+ if not inserttest.eof then begin
+  errormessage('Record with this name already exists.');
+  inserttest.active:= false;
+  abort();
+ end;
+ inserttest.active:= false;
 end;
 
-procedure tmainmo.footprintlibpostev(DataSet: TDataSet);
+procedure tmainmo.namecheckev(DataSet: TDataSet);
 begin
- doinsertcheck(footprintlibinsertcheck,fl_name);
+ insertcheck(tmsestringfield(dataset.fieldbyname('NAME')));
 end;
 
-procedure tmainmo.footprintlibdeleteev(DataSet: TDataSet);
+procedure tmainmo.footprintdeletecheckev(DataSet: TDataSet);
 begin
- dodeletecheck(footprintlibdeletecheck,fl_pk,'footprint');
+ deletecheck(f_pk,[sc_footprint,k_footprint]);
 end;
 
 procedure tmainmo.compkindupdatedataev(Sender: TObject);
@@ -865,14 +890,9 @@ begin
  end;
 end;
 
-procedure tmainmo.beforecompkinddeleteev(DataSet: TDataSet);
+procedure tmainmo.cmpkinddeletecheckev(DataSet: TDataSet);
 begin
- dodeletecheck(compkinddeletecheck,k_pk,'');
-end;
-
-procedure tmainmo.compkindpostev(DataSet: TDataSet);
-begin
- doinsertcheck(compkindinsertcheck,k_name);
+ deletecheck(k_pk,[sc_componentkind]);
 end;
 
 procedure tmainmo.stockcompbeforepostev(DataSet: TDataSet);
@@ -993,31 +1013,32 @@ begin
  end;
 end;
 
-procedure tmainmo.footprintlibnamevalidateev(Sender: TField);
-var
- mstr1: msestring;
-begin
- mstr1:= fl_ident.asmsestring;
- if (mstr1 = '') or not varisnull(fl_name.buffervalue) and 
-                      (msestring(fl_name.buffervalue) = mstr1) then begin
-  fl_ident.asmsestring:= fl_name.asmsestring;
- end;
-end;
-
-procedure tmainmo.footprintnamevalidateev(Sender: TField);
-var
- mstr1: msestring;
-begin
- mstr1:= f_ident.asmsestring;
- if (mstr1 = '') or not varisnull(f_name.buffervalue) and 
-                      (msestring(f_name.buffervalue) = mstr1) then begin
-  f_ident.asmsestring:= f_name.asmsestring;
- end;
-end;
-
 procedure tmainmo.aftercommitev(const sender: TSQLTransaction);
 begin
  inc(fcommitcount);
+end;
+
+procedure tmainmo.validatenameidentev(Sender: TField);
+var
+ mstr1: msestring;
+ identfield: tfield;
+begin                      //synchronise NAME->IDENT
+ identfield:= sender.dataset.fieldbyname('IDENT');
+ mstr1:= identfield.asmsestring;
+ if (mstr1 = '') or not varisnull(sender.buffervalue) and 
+                      (msestring(sender.buffervalue) = mstr1) then begin
+  identfield.asmsestring:= sender.asmsestring;
+ end;
+end;
+
+procedure tmainmo.distributordeletecheckev(DataSet: TDataSet);
+begin
+ deletecheck(d_pk,[sc_distributor,k_distributor]);
+end;
+
+procedure tmainmo.maufaturerdeletecheckev(DataSet: TDataSet);
+begin
+ deletecheck(m_pk,[sc_manufacturer,k_manufacturer]);
 end;
 
 { tprojectoptions }

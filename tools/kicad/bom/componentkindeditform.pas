@@ -18,6 +18,8 @@ type
    param3ed: tdbmemodialogedit;
    footprinted: tdbenum64editdb;
    tdbmemodialogedit2: tdbmemodialogedit;
+   distributored: tdbenum64editdb;
+   manufacturered: tdbenum64editdb;
    procedure footprintedev(const sender: TObject);
  end;
 

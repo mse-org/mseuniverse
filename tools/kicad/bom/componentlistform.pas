@@ -25,6 +25,8 @@ type
    dataso: tmsedatasource;
    grid: tdbwidgetgrid;
    footprinttdi: tdbstringedit;
+   manufacturered: tdbenum64editdb;
+   distributored: tdbenum64editdb;
    procedure edititemev(const sender: TObject);
    procedure rowselectev(const sender: TObject; var avalue: Int64;
                    var accept: Boolean);
@@ -33,19 +35,19 @@ type
                    var amodalresult: modalresultty);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
   public
-   constructor create(); reintroduce;
+ //  constructor create(); reintroduce;
  end;
 
 implementation
 uses
  componentlistform_mfm,mainmodule,componenteditform,main;
- 
+{
 constructor tcomponentlistfo.create();
 begin
  mainmo.begincomponentlistedit();
  create(nil);
 end;
-
+}
 procedure tcomponentlistfo.edititemev(const sender: TObject);
 begin
  tcomponenteditfo.create(nil,false).show(ml_application);

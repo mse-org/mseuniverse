@@ -1,4 +1,4 @@
-unit footprintliblistform;
+unit manufacturerlistform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
@@ -9,29 +9,22 @@ uses
  msestream,msestrings,sysutils;
 
 type
- tfootprintliblistfo = class(tlisteditfo)
-   tdbstringedit1: tdbstringedit;
-//   procedure closeev(const sender: TObject);
+ tmanufacturerlistfo = class(tlisteditfo)
+   idented: tdbstringedit;
   public
 //   constructor create(const aid: tmselargeintfield); reintroduce;
  end;
 
 implementation
 uses
- footprintliblistform_mfm,mainmodule;
- 
-{ tfootprintliblistfo }
+ manufacturerlistform_mfm,mainmodule;
+
+{ tmanufacturerlistfo }
 {
-constructor tfootprintliblistfo.create(const aid: tmselargeintfield);
+constructor tmanufacturerlistfo.create(const aid: tmselargeintfield);
 begin
- mainmo.beginfootprintlibedit(aid);
+ mainmo.beginmanufactureredit(aid);
  inherited create(nil);
-end;
-}
-{
-procedure tfootprintliblistfo.closeev(const sender: TObject);
-begin
- mainmo.endfootprintlibedit();
 end;
 }
 end.

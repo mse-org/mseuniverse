@@ -141,64 +141,64 @@ object mainmo: tmainmo
         Name = 'VALUE2'
         DataType = ftString
       end>
-    left = 168
-    top = 264
+    left = 8
+    top = 248
     streamingversion = 1
     object c_ref: tmsestringfield
       DisplayWidth = 20
       FieldName = 'REF'
       Index = 0
-      left = 176
-      top = 296
+      left = 16
+      top = 280
     end
     object c_timestamp: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TIMESTAMP'
       Index = 1
-      left = 176
-      top = 312
+      left = 16
+      top = 296
     end
     object c_footprint: tmsestringfield
       DisplayWidth = 20
       FieldName = 'FOOTPRINT'
       Index = 2
-      left = 176
-      top = 328
+      left = 16
+      top = 312
     end
     object c_value: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE'
       Index = 3
-      left = 176
-      top = 344
+      left = 16
+      top = 328
     end
     object c_value1: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE1'
       Index = 4
-      left = 176
-      top = 360
+      left = 16
+      top = 344
     end
     object c_value2: tmsestringfield
       DisplayWidth = 20
       FieldName = 'VALUE2'
       Index = 5
-      left = 176
-      top = 376
+      left = 16
+      top = 360
     end
     object c_stockitemid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'stockitemid'
       Index = 6
-      left = 176
-      top = 392
+      left = 16
+      top = 376
     end
     object c_rowstate: tmselongintfield
       FieldKind = fkInternalCalc
       FieldName = 'rowstate'
       Index = 7
-      left = 176
-      top = 408
+      left = 16
+      top = 392
     end
     object c_footprintname: tmsestringfield
       DisplayWidth = 20
@@ -209,62 +209,83 @@ object mainmo: tmainmo
       LookupDataSet = footprintqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
-      left = 176
-      top = 424
+      left = 16
+      top = 408
     end
     object c_footprintid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'footprintid'
       Index = 9
-      left = 176
-      top = 440
+      left = 16
+      top = 424
     end
     object c_componentkind: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'componentkind'
       Index = 10
-      left = 176
-      top = 456
+      left = 16
+      top = 440
     end
     object c_designation: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'designation'
       Index = 11
-      left = 176
-      top = 472
+      left = 16
+      top = 456
     end
     object c_stockvalue: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'stockvalue'
       Index = 12
-      left = 176
-      top = 488
+      left = 16
+      top = 472
     end
     object c_stockvalue1: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'stockvalue1'
       Index = 13
-      left = 176
-      top = 504
+      left = 16
+      top = 488
     end
     object c_stockvalue2: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'stockvalue2'
       Index = 14
-      left = 176
-      top = 520
+      left = 16
+      top = 504
+    end
+    object c_manufacturerid: tmselargeintfield
+      FieldKind = fkInternalCalc
+      FieldName = 'manufacturerid'
+      Index = 15
+      left = 16
+      top = 560
+    end
+    object c_distributorid: tmselargeintfield
+      FieldKind = fkInternalCalc
+      FieldName = 'distributorid'
+      Index = 16
+      left = 16
+      top = 576
+    end
+    object c_componentkindid: tmselargeintfield
+      FieldKind = fkInternalCalc
+      FieldName = 'componentkindid'
+      Index = 17
+      left = 16
+      top = 544
     end
   end
   object compdso: tmsedatasource
     DataSet = compds
     readonly = True
-    left = 168
-    top = 280
+    left = 8
+    top = 264
   end
   object refreshact: taction
     caption = '&Refresh'
@@ -357,8 +378,8 @@ object mainmo: tmainmo
       end>
     tablename = 'FOOTPRINTS'
     database = conn
-    BeforePost = footprintpostev
-    BeforeDelete = footprintdeleteev
+    BeforePost = namecheckev
+    BeforeDelete = footprintdeletecheckev
     Transaction = trans
     transactionwrite = transwrite
     FieldDefs = <    
@@ -432,30 +453,30 @@ object mainmo: tmainmo
           DisplayWidth = 500
           FieldName = 'COMMENT'
           Index = 4
-          Size = 500
+          Size = 0
         end>
     )
     controller.onbeforecopyrecord = beforecopyrecordev
     controller.onaftercopyrecord = aftercopyrecordev
     left = 368
-    top = 288
+    top = 384
     streamingversion = 1
     object f_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
       left = 376
-      top = 320
+      top = 416
     end
     object f_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
       Index = 6
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      OnValidate = footprintnamevalidateev
+      OnValidate = validatenameidentev
       Size = 0
       left = 376
-      top = 336
+      top = 432
     end
     object f_libname: tmsestringfield
       DisplayWidth = 20
@@ -468,7 +489,7 @@ object mainmo: tmainmo
       LookupResultField = 'NAME'
       Size = 0
       left = 376
-      top = 368
+      top = 464
     end
     object f_libident: tmsestringfield
       DisplayWidth = 0
@@ -481,7 +502,7 @@ object mainmo: tmainmo
       LookupResultField = 'IDENT'
       Size = 0
       left = 376
-      top = 384
+      top = 480
     end
     object f_ident: tmsestringfield
       DisplayWidth = 20
@@ -490,66 +511,14 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 376
-      top = 352
+      top = 448
     end
   end
   object footprintdso: tmsedatasource
     AutoEdit = False
     DataSet = footprintqu
     left = 368
-    top = 304
-  end
-  object footprintinsertcheck: tsqlresult
-    fielddefs = <    
-      item
-        Name = 'CONSTANT'
-        DataType = ftString
-        Size = 1
-      end>
-    params = <    
-      item
-        DataType = ftUnknown
-        Name = 'name'
-        ParamType = ptInput
-      end>
-    sql.data = (
-      'select null from FOOTPRINTS where NAME = :name'
-    )
-    database = conn
-    transaction = trans
-    left = 368
-    top = 264
-  end
-  object footprintdeletecheck: tsqlresult
-    fielddefs = <    
-      item
-        Name = 'VALUE'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'VALUE1'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'VALUE2'
-        DataType = ftString
-        Size = 50
-      end>
-    params = <    
-      item
-        DataType = ftUnknown
-        Name = 'id'
-        ParamType = ptInput
-      end>
-    sql.data = (
-      'select "VALUE",VALUE1,VALUE2 from COMPONENTS where FOOTPRINT = :id'
-    )
-    database = conn
-    transaction = trans
-    left = 368
-    top = 240
+    top = 400
   end
   object compkindqu: tmsesqlquery
     options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
@@ -576,12 +545,18 @@ object mainmo: tmainmo
         ParamType = ptInput
       end>
     SQL.data = (
-      'select PK,TSCREATE,TSMODIFY,NAME,FOOTPRINT,DESIGNATION,'
+      'select PK,TSCREATE,TSMODIFY,NAME,FOOTPRINT,MANUFACTURER,DISTRIBUTOR,DESIGNATION,'
       '       PARAMETER1,PARAMETER2,PARAMETER3,PARAMETER4,COMMENT from COMPONENTKINDS'
     )
     IndexDefs = <    
       item
         Name = 'FK_COMPONENTKINDS_0'
+      end    
+      item
+        Name = 'FK_COMPONENTKINDS_1'
+      end    
+      item
+        Name = 'FK_COMPONENTKINDS_2'
       end    
       item
         Name = 'PK_COMPONENTKINDS_0'
@@ -591,8 +566,8 @@ object mainmo: tmainmo
       end>
     tablename = 'COMPONENTKINDS'
     database = conn
-    BeforePost = compkindpostev
-    BeforeDelete = beforecompkinddeleteev
+    BeforePost = namecheckev
+    BeforeDelete = cmpkinddeletecheckev
     Transaction = trans
     transactionwrite = transwrite
     FieldDefs = <    
@@ -615,6 +590,14 @@ object mainmo: tmainmo
       end    
       item
         Name = 'FOOTPRINT'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'MANUFACTURER'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'DISTRIBUTOR'
         DataType = ftLargeint
       end    
       item
@@ -669,20 +652,20 @@ object mainmo: tmainmo
           DisplayWidth = 500
           FieldName = 'COMMENT'
           Index = 2
-          Size = 500
+          Size = 0
         end>
     )
     controller.onbeforecopyrecord = beforecopyrecordev
     controller.onaftercopyrecord = aftercopyrecordev
     left = 544
-    top = 288
+    top = 384
     streamingversion = 1
     object k_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 3
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
       left = 552
-      top = 320
+      top = 416
     end
     object k_name: tmsestringfield
       DisplayWidth = 20
@@ -691,7 +674,7 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 552
-      top = 336
+      top = 432
     end
     object k_designation: tmsestringfield
       DisplayWidth = 20
@@ -699,7 +682,7 @@ object mainmo: tmainmo
       Index = 5
       Size = 0
       left = 552
-      top = 384
+      top = 480
     end
     object k_parameter1: tmsestringfield
       DisplayWidth = 0
@@ -707,7 +690,7 @@ object mainmo: tmainmo
       Index = 6
       Size = 0
       left = 552
-      top = 400
+      top = 496
     end
     object k_parameter2: tmsestringfield
       DisplayWidth = 0
@@ -715,7 +698,7 @@ object mainmo: tmainmo
       Index = 7
       Size = 0
       left = 552
-      top = 416
+      top = 512
     end
     object k_parameter3: tmsestringfield
       DisplayWidth = 0
@@ -723,7 +706,7 @@ object mainmo: tmainmo
       Index = 8
       Size = 0
       left = 552
-      top = 432
+      top = 528
     end
     object k_parameter4: tmsestringfield
       DisplayWidth = 0
@@ -731,13 +714,13 @@ object mainmo: tmainmo
       Index = 9
       Size = 0
       left = 552
-      top = 448
+      top = 544
     end
     object k_footprint: tmselargeintfield
       FieldName = 'FOOTPRINT'
       Index = 10
       left = 552
-      top = 352
+      top = 448
     end
     object k_footprintname: tmsestringfield
       DisplayWidth = 20
@@ -750,7 +733,47 @@ object mainmo: tmainmo
       LookupResultField = 'NAME'
       Size = 0
       left = 552
-      top = 368
+      top = 464
+    end
+    object k_manufacturer: tmselargeintfield
+      FieldName = 'MANUFACTURER'
+      Index = 12
+      left = 552
+      top = 560
+    end
+    object k_distributor: tmselargeintfield
+      FieldName = 'DISTRIBUTOR'
+      Index = 13
+      left = 552
+      top = 592
+    end
+    object k_manufacturername: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkLookup
+      FieldName = 'manufacturername'
+      Index = 14
+      KeyFields = 'MANUFACTURER'
+      LookupDataSet = footprintqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'NAME'
+      optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 552
+      top = 576
+    end
+    object k_distributorname: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkLookup
+      FieldName = 'distributorname'
+      Index = 15
+      KeyFields = 'DISTRIBUTOR'
+      LookupDataSet = distributorqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'NAME'
+      optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 552
+      top = 608
     end
   end
   object compkinddso: tmsedatasource
@@ -758,59 +781,7 @@ object mainmo: tmainmo
     DataSet = compkindqu
     OnUpdateData = compkindupdatedataev
     left = 544
-    top = 304
-  end
-  object compkindinsertcheck: tsqlresult
-    fielddefs = <    
-      item
-        Name = 'CONSTANT'
-        DataType = ftString
-        Size = 1
-      end>
-    params = <    
-      item
-        DataType = ftUnknown
-        Name = 'name'
-        ParamType = ptInput
-      end>
-    sql.data = (
-      'select null from COMPONENTKINDS where NAME = :name'
-    )
-    database = conn
-    transaction = trans
-    left = 544
-    top = 264
-  end
-  object compkinddeletecheck: tsqlresult
-    fielddefs = <    
-      item
-        Name = 'VALUE'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'VALUE1'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'VALUE2'
-        DataType = ftString
-        Size = 50
-      end>
-    params = <    
-      item
-        DataType = ftUnknown
-        Name = 'id'
-        ParamType = ptInput
-      end>
-    sql.data = (
-      'select "VALUE",VALUE1,VALUE2 from COMPONENTS where COMPONENTKIND = :id'
-    )
-    database = conn
-    transaction = trans
-    left = 544
-    top = 240
+    top = 400
   end
   object stockcompqu: tmsesqlquery
     options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
@@ -920,7 +891,7 @@ object mainmo: tmainmo
       '--       coalesce(a."VALUE",'''')as "VALUE",'
       '--       coalesce(a.VALUE1,'''')as VALUE1,'
       '--       coalesce(a.VALUE2,'''')as VALUE2,'
-      '       a.FOOTPRINT,a.COMPONENTKIND'
+      '       a.FOOTPRINT,a.COMPONENTKIND,a.MANUFACTURER,a.DISTRIBUTOR'
       '--       b.NAME as footprintname, c.NAME as kindname'
       '    from COMPONENTS a '
       '--    left join FOOTPRINTS b on a.FOOTPRINT = b.PK'
@@ -932,6 +903,12 @@ object mainmo: tmainmo
       end    
       item
         Name = 'FK_COMPONENTS_1'
+      end    
+      item
+        Name = 'FK_COMPONENTS_2'
+      end    
+      item
+        Name = 'FK_COMPONENTS_3'
       end    
       item
         Name = 'IDX_COMPONENTS1'
@@ -978,6 +955,14 @@ object mainmo: tmainmo
       end    
       item
         Name = 'COMPONENTKIND'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'MANUFACTURER'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'DISTRIBUTOR'
         DataType = ftLargeint
       end>
     controller.fields.count = 2
@@ -1045,27 +1030,73 @@ object mainmo: tmainmo
       left = 376
       top = 104
     end
-    object sc_footprintname: tmsestringfield
-      DisplayWidth = 20
-      FieldKind = fkInternalCalc
-      FieldName = 'footprintname'
-      Index = 8
-      optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      left = 376
-      top = 152
-    end
     object sc_kindname: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'kindname'
-      Index = 9
+      Index = 8
       KeyFields = 'COMPONENTKIND'
       LookupDataSet = compkindqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
       left = 376
       top = 120
+    end
+    object sc_distributor: tmselargeintfield
+      FieldName = 'DISTRIBUTOR'
+      Index = 9
+      left = 376
+      top = 248
+    end
+    object sc_manufacturer: tmselargeintfield
+      FieldName = 'MANUFACTURER'
+      Index = 10
+      left = 376
+      top = 216
+    end
+    object sc_footprintname: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkLookup
+      FieldName = 'footprintname'
+      Index = 11
+      KeyFields = 'FOOTPRINT'
+      LookupDataSet = footprintqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'NAME'
+      optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 376
+      top = 152
+    end
+    object sc_manufacturername: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkLookup
+      FieldName = 'manufacturername'
+      Index = 12
+      KeyFields = 'MANUFACTURER'
+      LookupDataSet = footprintqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'NAME'
+      optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 376
+      top = 232
+    end
+    object sc_distributorname: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkLookup
+      FieldName = 'distributorname'
+      Index = 13
+      KeyFields = 'DISTRIBUTOR'
+      LookupDataSet = distributorqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'NAME'
+      optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 376
+      top = 264
     end
   end
   object stockcompdso: tmsedatasource
@@ -1257,8 +1288,8 @@ object mainmo: tmainmo
       end>
     tablename = 'FOOTPRINTLIBS'
     database = conn
-    BeforePost = footprintlibpostev
-    BeforeDelete = footprintlibdeleteev
+    BeforePost = namecheckev
+    BeforeDelete = footprintdeletecheckev
     Transaction = trans
     transactionwrite = transwrite
     FieldDefs = <    
@@ -1311,11 +1342,11 @@ object mainmo: tmainmo
           DisplayWidth = 500
           FieldName = 'COMMENT'
           Index = 2
-          Size = 500
+          Size = 0
         end>
     )
     left = 368
-    top = 472
+    top = 568
     streamingversion = 1
     object fl_ident: tmsestringfield
       DisplayWidth = 20
@@ -1324,31 +1355,31 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 376
-      top = 536
+      top = 632
     end
     object fl_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
       Index = 4
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      OnValidate = footprintlibnamevalidateev
+      OnValidate = validatenameidentev
       Size = 0
       left = 376
-      top = 520
+      top = 616
     end
     object fl_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 376
-      top = 504
+      top = 600
     end
   end
   object footprintlibdso: tmsedatasource
     AutoEdit = False
     DataSet = footprintlibqu
     left = 368
-    top = 488
+    top = 584
   end
   object cmplistact: taction
     caption = 'Component-&Footprintlist'
@@ -1357,46 +1388,300 @@ object mainmo: tmainmo
     left = 8
     top = 80
   end
-  object footprintlibinsertcheck: tsqlresult
-    fielddefs = <    
-      item
-        Name = 'CONSTANT'
-        DataType = ftString
-        Size = 1
-      end>
-    params = <    
-      item
-        DataType = ftUnknown
-        Name = 'name'
-        ParamType = ptInput
-      end>
-    sql.data = (
-      'select null from FOOTPRINTLIBS where NAME = :name'
-    )
-    database = conn
-    transaction = trans
-    left = 368
-    top = 448
+  object manufacturerdso: tmsedatasource
+    AutoEdit = False
+    DataSet = manufacturerqu
+    left = 176
+    top = 328
   end
-  object footprintlibdeletecheck: tsqlresult
-    fielddefs = <    
+  object manufacturerqu: tmsesqlquery
+    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <>
+    SQL.data = (
+      'select * from MANUFACTURERS'
+    )
+    IndexDefs = <    
+      item
+        Name = 'PK_MANUFACTURERS_0'
+      end    
+      item
+        Name = 'UNQ_MANUFACTURERS_0'
+      end>
+    tablename = 'MANUFACTURERS'
+    database = conn
+    BeforePost = namecheckev
+    BeforeDelete = maufaturerdeletecheckev
+    Transaction = trans
+    transactionwrite = transwrite
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
       item
         Name = 'NAME'
         DataType = ftString
         Size = 20
+      end    
+      item
+        Name = 'IDENT'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
       end>
+    controller.fields.count = 3
+    controller.fields.fields = (
+      (
+        ft_datetime
+        ft_datetime
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'TSCREATE'
+          Index = 0
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 1
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          DisplayWidth = 500
+          FieldName = 'COMMENT'
+          Index = 2
+          Size = 0
+        end>
+    )
+    left = 176
+    top = 312
+    streamingversion = 1
+    object m_ident: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'IDENT'
+      Index = 3
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 184
+      top = 376
+    end
+    object m_name: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'NAME'
+      Index = 4
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      OnValidate = validatenameidentev
+      Size = 0
+      left = 184
+      top = 360
+    end
+    object m_pk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 5
+      optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
+      left = 184
+      top = 344
+    end
+  end
+  object distributordso: tmsedatasource
+    AutoEdit = False
+    DataSet = distributorqu
+    left = 176
+    top = 424
+  end
+  object distributorqu: tmsesqlquery
+    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <>
+    SQL.data = (
+      'select * from DISTRIBUTORS'
+    )
+    IndexDefs = <    
+      item
+        Name = 'PK_DISTRIBUTORS_0'
+      end    
+      item
+        Name = 'UNQ_DISTRIBUTORS_0'
+      end>
+    tablename = 'DISTRIBUTORS'
+    database = conn
+    BeforePost = namecheckev
+    BeforeDelete = distributordeletecheckev
+    Transaction = trans
+    transactionwrite = transwrite
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'IDENT'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    controller.fields.count = 3
+    controller.fields.fields = (
+      (
+        ft_datetime
+        ft_datetime
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'TSCREATE'
+          Index = 0
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 1
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          DisplayWidth = 500
+          FieldName = 'COMMENT'
+          Index = 2
+          Size = 0
+        end>
+    )
+    left = 176
+    top = 408
+    streamingversion = 1
+    object d_ident: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'IDENT'
+      Index = 3
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 184
+      top = 472
+    end
+    object d_name: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'NAME'
+      Index = 4
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      OnValidate = validatenameidentev
+      Size = 0
+      left = 184
+      top = 456
+    end
+    object d_pk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 5
+      optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
+      left = 184
+      top = 440
+    end
+  end
+  object deletetest: tsqlresult
+    fielddefs = <>
     params = <    
       item
         DataType = ftUnknown
         Name = 'id'
         ParamType = ptInput
       end>
+    sql.macros.count = 2
+    sql.macros.items = <    
+      item
+        name = 'table'
+      end    
+      item
+        name = 'field'
+      end>
     sql.data = (
-      'select NAME from FOOTPRINTS where LIBRARY = :id'
+      'select NAME from ${table} where ${field} = :id'
     )
     database = conn
     transaction = trans
-    left = 368
-    top = 424
+    left = 656
+    top = 184
+  end
+  object inserttest: tsqlresult
+    fielddefs = <>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'name'
+        ParamType = ptInput
+      end>
+    sql.macros.count = 2
+    sql.macros.items = <    
+      item
+        name = 'table'
+      end    
+      item
+        name = 'field'
+      end>
+    sql.data = (
+      'select NULL from ${table} where NAME = :name'
+    )
+    database = conn
+    transaction = trans
+    left = 552
+    top = 184
   end
 end

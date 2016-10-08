@@ -1,11 +1,11 @@
-inherited componentkindlistfo: tcomponentkindlistfo
+inherited distributorlistfo: tdistributorlistfo
   container.bounds = (
     0
     0
     558
     393
   )
-  caption = 'Componentkinds'
+  caption = 'Distributors'
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
   end
@@ -15,77 +15,79 @@ inherited componentkindlistfo: tcomponentkindlistfo
       end>
     fixrows.items = <    
       item
+        captions.count = 5
         captions.items = <        
           item
           end        
           item
-            caption = 'Designation'
+            caption = 'Ident'
           end        
           item
+            caption = 'Comment'
           end        
           item
+            caption = 'Created'
+          end        
+          item
+            caption = 'Modified'
           end>
       end>
     datacols.count = 5
     datacols.colorder = (
       'nameed'
-      'tdbstringedit1'
+      'idented'
+      'commented'
       'tdcreateed'
       'tdmodifyed'
-      'commented'
     )
     datacols.items = <    
       item[nameed]
       end    
-      item[tdbstringedit1]
-        width = 143
-        widgetname = 'tdbstringedit1'
+      item[idented]
+        width = 83
+        widgetname = 'idented'
+      end    
+      item[commented]
       end    
       item[tdcreateed]
       end    
       item[tdmodifyed]
-      end    
-      item[commented]
       end>
-    inherited tdcreateed: tdbdatetimeedit[0]
-      taborder = 2
-      bounds_x = 249
+    inherited nameed: tdbstringedit
     end
-    inherited nameed: tdbstringedit[1]
-    end
-    inherited commented: tdbmemodialogedit[2]
-      frame.buttons.items = <      
-        item
-        end>
-      taborder = 4
-      bounds_x = 481
-    end
-    object tdbstringedit1: tdbstringedit[3]
+    object idented: tdbstringedit[1]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
       bounds_x = 105
       bounds_y = 0
-      bounds_cx = 143
+      bounds_cx = 83
       bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
-      datalink.navigator = listeditfo.navig
-      datalink.fieldname = 'DESIGNATION'
+      datalink.navigator = navig
+      datalink.fieldname = 'IDENT'
       reffontheight = 14
     end
+    inherited commented: tdbmemodialogedit[2]
+      frame.buttons.items = <      
+        item
+        end>
+      bounds_x = 189
+    end
+    inherited tdcreateed: tdbdatetimeedit[3]
+      bounds_x = 286
+    end
     inherited tdmodifyed: tdbdatetimeedit[4]
-      taborder = 3
-      bounds_x = 365
+      bounds_x = 402
     end
   end
   inherited tstatfile1: tstatfile
-    filename = 'componentkindlistfo.sta'
   end
   inherited dataso: tmsedatasource
-    DataSet = mainmo.compkindqu
+    DataSet = mainmo.distributorqu
   end
   inherited dialogact: taction
-    onexecute = dialogev
   end
 end

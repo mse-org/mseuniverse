@@ -21,12 +21,24 @@ type
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
- end;
+   procedure loadedev(const sender: TObject);
+  private
+   fidfield: tmselargeintfield;
+  public
+   constructor create(const aid: tmselargeintfield); reintroduce;
+end;
 
 implementation
 uses
- listeditform_mfm,main;
+ listeditform_mfm,main,mainmodule,msesqldb;
  
+constructor tlisteditfo.create(const aid: tmselargeintfield);
+begin
+ fidfield:= aid;
+ inherited create(nil);
+ fidfield:= nil;
+end;
+
 procedure tlisteditfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 begin
@@ -38,6 +50,11 @@ begin
  if iscellclick(info,[ccr_dblclick]) then begin
   navig.dialogbutton.execute();
  end;
+end;
+
+procedure tlisteditfo.loadedev(const sender: TObject);
+begin
+ mainmo.beginedit(tmsesqlquery(dataso.dataset),fidfield);
 end;
 
 end.

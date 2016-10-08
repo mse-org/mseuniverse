@@ -15,7 +15,7 @@ type
  //  procedure closeev(const sender: TObject);
    procedure dialogev(const sender: TObject);
   public
-   constructor create(); reintroduce;
+//   constructor create(); reintroduce;
  end;
 
 implementation
@@ -23,12 +23,13 @@ uses
  componentkindlistform_mfm,mainmodule,componentkindeditform;
 
 { tcomponentkindlistform }
-
+{
 constructor tcomponentkindlistfo.create();
 begin
  mainmo.begincomponentkindedit();
- create(nil);
+ inherited create(nil);
 end;
+}
 {
 procedure tcomponentkindlistfo.closeev(const sender: TObject);
 begin

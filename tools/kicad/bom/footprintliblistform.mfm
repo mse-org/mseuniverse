@@ -57,12 +57,19 @@ inherited footprintliblistfo: tfootprintliblistfo
       item[tdmodifyed]
       end>
     inherited tdcreateed: tdbdatetimeedit[0]
+      taborder = 2
       bounds_x = 283
     end
-    object tdbstringedit1: tdbstringedit[1]
+    inherited tdmodifyed: tdbdatetimeedit[1]
+      taborder = 3
+      bounds_x = 399
+    end
+    inherited nameed: tdbstringedit[2]
+    end
+    object tdbstringedit1: tdbstringedit[3]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 4
+      taborder = 5
       visible = False
       bounds_x = 105
       bounds_y = 0
@@ -73,17 +80,12 @@ inherited footprintliblistfo: tfootprintliblistfo
       datalink.fieldname = 'IDENT'
       reffontheight = 14
     end
-    inherited commented: tdbmemodialogedit[2]
+    inherited commented: tdbmemodialogedit[4]
       frame.buttons.items = <      
         item
         end>
-      taborder = 5
+      taborder = 4
       bounds_x = 186
-    end
-    inherited tdmodifyed: tdbdatetimeedit[3]
-      bounds_x = 399
-    end
-    inherited nameed: tdbstringedit[4]
     end
   end
   inherited tstatfile1: tstatfile

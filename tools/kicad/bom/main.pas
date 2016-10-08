@@ -55,6 +55,8 @@ type
    editcomponentsact: taction;
    editfootprintlibact: taction;
    tdbstringedit4: tdbstringedit;
+   editmanufactureract: taction;
+   editdistributoract: taction;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -69,12 +71,16 @@ type
    procedure editcomponents(const sender: TObject);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
    procedure editfootprintlibev(const sender: TObject);
+   procedure editmanufacturerev(const sender: TObject);
+   procedure editdistributorev(const sender: TObject);
   protected
   public
    procedure checkeditclose(const adataso: tdatasource;
                                         var amodalresult: modalresultty);
    procedure editcomponentkind(const aid: tmselargeintfield);
    procedure editfootprint(const aid: tmselargeintfield);
+   procedure editmanufacturer(const aid: tmselargeintfield);
+   procedure editdistributor(const aid: tmselargeintfield);
  end;
  
 var
@@ -84,7 +90,7 @@ implementation
 uses
  main_mfm,mainmodule,msefileutils,projectsettingsform,globalsettingsform,
  credentialsentryform,componenteditform,footprintlistform,footprintliblistform,
- componentkindeditform,
+ componentkindeditform,manufacturerlistform,distributorlistform,
  componentlistform,componentkindlistform,msesqldb;
  
 procedure tmainfo.checkeditclose(const adataso: tdatasource;
@@ -226,14 +232,34 @@ begin
  tfootprintlistfo.create(aid).show(ml_application);
 end;
 
+procedure tmainfo.editmanufacturer(const aid: tmselargeintfield);
+begin
+ tmanufacturerlistfo.create(aid).show(ml_application);
+end;
+
+procedure tmainfo.editdistributor(const aid: tmselargeintfield);
+begin
+ tdistributorlistfo.create(aid).show(ml_application);
+end;
+
 procedure tmainfo.editcomponentkindlist(const sender: tobject);
 begin
- tcomponentkindlistfo.create().show(ml_application);
+ tcomponentkindlistfo.create(mainmo.c_componentkindid).show(ml_application);
+end;
+
+procedure tmainfo.editmanufacturerev(const sender: TObject);
+begin
+ tmanufacturerlistfo.create(mainmo.c_manufacturerid).show(ml_application);
+end;
+
+procedure tmainfo.editdistributorev(const sender: TObject);
+begin
+ tdistributorlistfo.create(mainmo.c_distributorid).show(ml_application);
 end;
 
 procedure tmainfo.editcomponents(const sender: TObject);
 begin
- tcomponentlistfo.create.show(ml_application);
+ tcomponentlistfo.create(mainmo.c_stockitemid).show(ml_application);
 end;
 
 procedure tmainfo.cellev(const sender: TObject; var info: celleventinfoty);
