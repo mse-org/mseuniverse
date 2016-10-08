@@ -15,6 +15,7 @@ object componentlistfo: tcomponentlistfo
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Components'
+  onloaded = loadedev
   onclosequery = closequeryev
   moduleclassname = 'tmseform'
   object navig: tdbnavigator
@@ -133,9 +134,17 @@ object componentlistfo: tcomponentlistfo
       end    
       item[manufacturered]
         widgetname = 'manufacturered'
+        fixwidgetnames = (
+          ''
+          'manufacturerselector'
+        )
       end    
       item[distributored]
         widgetname = 'distributored'
+        fixwidgetnames = (
+          ''
+          'distributorselector'
+        )
       end>
     datalink.datasource = dataso
     datalink.navigator = navig
@@ -263,6 +272,7 @@ object componentlistfo: tcomponentlistfo
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'MANUFACTURER'
+      datalink.fieldnametext = 'manufacturername'
       dropdown.datasource = mainmo.manufacturerdso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
@@ -301,6 +311,7 @@ object componentlistfo: tcomponentlistfo
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'DISTRIBUTOR'
+      datalink.fieldnametext = 'distributorname'
       dropdown.datasource = mainmo.distributordso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
@@ -589,6 +600,128 @@ object componentlistfo: tcomponentlistfo
           linewidth = 1
           caption = 'Kind'
           datafield = 'KINDNAME'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value'
+          datafield = 'VALUE'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value1'
+          datafield = 'VALUE1'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value2'
+          datafield = 'VALUE2'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Footprint'
+          datafield = 'FOOTPRINTNAME'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object manufacturerselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 5
+      bounds_x = 255
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = dataso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 5
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Manufacturer'
+          datafield = 'manufacturername'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value'
+          datafield = 'VALUE'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value1'
+          datafield = 'VALUE1'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value2'
+          datafield = 'VALUE2'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Footprint'
+          datafield = 'FOOTPRINTNAME'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object distributorselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 6
+      bounds_x = 306
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = dataso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 5
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Distributor'
+          datafield = 'distributorname'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]

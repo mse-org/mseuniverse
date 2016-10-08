@@ -23,6 +23,8 @@ type
    footprintselector: tenum64editdb;
    kindselector: tenum64editdb;
    dataso: tmsedatasource;
+   manufacturerselector: tenum64editdb;
+   distributorselector: tenum64editdb;
    grid: tdbwidgetgrid;
    footprinttdi: tdbstringedit;
    manufacturered: tdbenum64editdb;
@@ -30,24 +32,27 @@ type
    procedure edititemev(const sender: TObject);
    procedure rowselectev(const sender: TObject; var avalue: Int64;
                    var accept: Boolean);
-//   procedure closeev(const sender: TObject);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
+   procedure loadedev(const sender: TObject);
+  private
+   fidfield: tmselargeintfield;
   public
- //  constructor create(); reintroduce;
+   constructor create(const aid: tmselargeintfield); reintroduce;
  end;
 
 implementation
 uses
- componentlistform_mfm,mainmodule,componenteditform,main;
-{
-constructor tcomponentlistfo.create();
+ componentlistform_mfm,mainmodule,componenteditform,main,msesqldb;
+
+constructor tcomponentlistfo.create(const aid: tmselargeintfield);
 begin
- mainmo.begincomponentlistedit();
- create(nil);
+ fidfield:= aid;
+ inherited create(nil);
+ fidfield:= nil;
 end;
-}
+
 procedure tcomponentlistfo.edititemev(const sender: TObject);
 begin
  tcomponenteditfo.create(nil,false).show(ml_application);
@@ -59,12 +64,7 @@ begin
  mainmo.stockcompqu.indexlocal[0].find([avalue],[]);
  grid.setfocus();
 end;
-{
-procedure tcomponentlistfo.closeev(const sender: TObject);
-begin
- mainmo.endcomponentlistedit();
-end;
-}
+
 procedure tcomponentlistfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 begin
@@ -74,9 +74,14 @@ end;
 procedure tcomponentlistfo.cellev(const sender: TObject;
                var info: celleventinfoty);
 begin
- if iscellclick(info,[ccr_dblclick]) then begin
+ if (info.cell.row >= 0) and iscellclick(info,[ccr_dblclick]) then begin
   navig.dialogbutton.execute();
  end;
+end;
+
+procedure tcomponentlistfo.loadedev(const sender: TObject);
+begin
+ mainmo.beginedit(tmsesqlquery(dataso.dataset),fidfield);
 end;
 
 end.

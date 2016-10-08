@@ -785,7 +785,7 @@ object mainmo: tmainmo
   end
   object stockcompqu: tmsesqlquery
     options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
-    indexlocal.count = 6
+    indexlocal.count = 8
     indexlocal.items = <    
       item
         fields.items = <        
@@ -868,6 +868,46 @@ object mainmo: tmainmo
         fields.items = <        
           item
             fieldname = 'KINDNAME'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE1'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
+          end>
+      end    
+      item
+        fields.count = 4
+        fields.items = <        
+          item
+            fieldname = 'manufacturername'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE1'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
+          end>
+      end    
+      item
+        fields.count = 4
+        fields.items = <        
+          item
+            fieldname = 'distributorname'
             options = [ifo_caseinsensitive]
           end        
           item
@@ -1076,7 +1116,7 @@ object mainmo: tmainmo
       FieldName = 'manufacturername'
       Index = 12
       KeyFields = 'MANUFACTURER'
-      LookupDataSet = footprintqu
+      LookupDataSet = manufacturerqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
