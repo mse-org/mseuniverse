@@ -24,7 +24,7 @@ uses
  mseifiglob,mselistbrowser,msemenus,msestream,msestrings,msesys,sysutils,
  mseactions,mdb,msebufdataset,msedb,mselocaldataset,kicadschemaparser,
  msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
- msemacros,mclasses;
+ msemacros,mclasses,msedbedit,msegraphedits,mselookupbuffer,msescrollbar;
 
 const
  versiontext = '0.0';
@@ -149,7 +149,7 @@ type
    c_timestamp: tmsestringfield;
    fl_name: tmsestringfield;
    fl_ident: tmsestringfield;
-   c_componentkind: tmsestringfield;
+   c_componentkindname: tmsestringfield;
    fl_pk: tmselargeintfield;
    c_designation: tmsestringfield;
    c_stockvalue2: tmsestringfield;
@@ -179,6 +179,8 @@ type
    sc_distributorname: tmsestringfield;
    k_distributorname: tmsestringfield;
    k_manufacturername: tmsestringfield;
+   c_manufacturername: tmsestringfield;
+   c_distributorname: tmsestringfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -374,7 +376,7 @@ begin
    compds.controller.appendrecord1([info.reference,info.timestamp,
                                      footpr,val,val1,val2],
                                        [false,false,nfootpr,nval,nval1,nval2]);
-    //duplicates are several units in same case
+    //duplicates are several units in same housing
   end;
  end;
 end;
@@ -388,6 +390,7 @@ var
  rowstate1: int32;
  bm2: bookmarkdataty;
  id1,id2: int64;
+ bo1: boolean;
 begin
  application.beginwait();
  try
@@ -409,6 +412,8 @@ begin
     end;
    end;
    
+   manufacturerqu.controller.refresh(false);
+   distributorqu.controller.refresh(false);
    footprintlibqu.controller.refresh(false);
    footprintqu.controller.refresh(false);
    stockcompqu.disablecontrols();
@@ -423,18 +428,32 @@ begin
                      compds.currentisnull[c_value1,i1],
                      compds.currentisnull[c_value2,i1]]) then begin
       compds.currentasid[c_stockitemid,i1]:= sc_pk.asid;
+
+      id2:= sc_componentkind.asid;
+      compds.currentasid[c_componentkindid,i1]:= id2;
+      bo1:= (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2);
+
       id1:= sc_footprint.asid;
-      if (id1 < 0) then begin
-       id2:= sc_componentkind.asid;
-       if (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2) then begin
-        id1:= compkindqu.currentbmasid[k_footprint,bm2];
-       end;
+      if (id1 < 0) and bo1 then begin
+       id1:= compkindqu.currentbmasid[k_footprint,bm2];
       end;
       compds.currentasid[c_footprintid,i1]:= id1;
+
+      id1:= sc_manufacturer.asid;
+      if (id1 < 0) and bo1 then begin
+       id1:= compkindqu.currentbmasid[k_manufacturer,bm2];
+      end;
+      compds.currentasid[c_manufacturerid,i1]:= id1;
+
+      id1:= sc_distributor.asid;
+      if (id1 < 0) and bo1 then begin
+       id1:= compkindqu.currentbmasid[k_distributor,bm2];
+      end;
+      compds.currentasid[c_distributorid,i1]:= id1;
+
       compds.currentasmsestring[c_stockvalue,i1]:= sc_value.asmsestring;
       compds.currentasmsestring[c_stockvalue1,i1]:= sc_value1.asmsestring;
       compds.currentasmsestring[c_stockvalue2,i1]:= sc_value2.asmsestring;
-      compds.currentasmsestring[c_componentkind,i1]:= sc_kindname.asmsestring;
       stockcompdetailqu.params[0].asid:= sc_pk.asid; 
                            //manually because of disablecontrols
       stockcompdetailqu.controller.refresh(false);

@@ -47,16 +47,18 @@ type
    getdbcedentials: tifiactionendpoint;
    editbutton: tstockglyphdatabutton;
    designation: tdbstringedit;
-   tdbstringedit2: tdbstringedit;
+   footprint: tdbstringedit;
    horzkonvex: tfacecomp;
    vertkonvex: tfacecomp;
    editfootprintact: taction;
    editcompkindact: taction;
    editcomponentsact: taction;
    editfootprintlibact: taction;
-   tdbstringedit4: tdbstringedit;
+   kind: tdbstringedit;
    editmanufactureract: taction;
    editdistributoract: taction;
+   manufacturer: tdbstringedit;
+   distributor: tdbstringedit;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -127,13 +129,13 @@ end;
 
 procedure tmainfo.getfilenameev(const sender: TObject);
 var
- kind: filedialogkindty;
+ kind1: filedialogkindty;
 begin
- kind:= fdk_open;
+ kind1:= fdk_open;
  if sender = getprojectsavefilename then begin
-  kind:= fdk_save;
+  kind1:= fdk_save;
  end;
- if mainmo.projectfiledialog.execute(kind) = mr_ok then begin
+ if mainmo.projectfiledialog.execute(kind1) = mr_ok then begin
   globaloptions.filename:= mainmo.projectfiledialog.controller.filename;
  end
  else begin

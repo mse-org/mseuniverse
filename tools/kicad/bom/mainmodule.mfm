@@ -210,22 +210,26 @@ object mainmo: tmainmo
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       left = 16
-      top = 408
+      top = 504
     end
     object c_footprintid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'footprintid'
       Index = 9
       left = 16
-      top = 424
+      top = 488
     end
-    object c_componentkind: tmsestringfield
+    object c_componentkindname: tmsestringfield
       DisplayWidth = 20
-      FieldKind = fkInternalCalc
-      FieldName = 'componentkind'
+      FieldKind = fkLookup
+      FieldName = 'componentkindname'
       Index = 10
+      KeyFields = 'componentkindid'
+      LookupDataSet = compkindqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'NAME'
       left = 16
-      top = 440
+      top = 536
     end
     object c_designation: tmsestringfield
       DisplayWidth = 20
@@ -233,7 +237,7 @@ object mainmo: tmainmo
       FieldName = 'designation'
       Index = 11
       left = 16
-      top = 456
+      top = 416
     end
     object c_stockvalue: tmsestringfield
       DisplayWidth = 20
@@ -241,7 +245,7 @@ object mainmo: tmainmo
       FieldName = 'stockvalue'
       Index = 12
       left = 16
-      top = 472
+      top = 432
     end
     object c_stockvalue1: tmsestringfield
       DisplayWidth = 20
@@ -249,7 +253,7 @@ object mainmo: tmainmo
       FieldName = 'stockvalue1'
       Index = 13
       left = 16
-      top = 488
+      top = 448
     end
     object c_stockvalue2: tmsestringfield
       DisplayWidth = 20
@@ -257,28 +261,52 @@ object mainmo: tmainmo
       FieldName = 'stockvalue2'
       Index = 14
       left = 16
-      top = 504
+      top = 464
     end
     object c_manufacturerid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'manufacturerid'
       Index = 15
       left = 16
-      top = 560
+      top = 552
     end
     object c_distributorid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'distributorid'
       Index = 16
       left = 16
-      top = 576
+      top = 584
     end
     object c_componentkindid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'componentkindid'
       Index = 17
       left = 16
-      top = 544
+      top = 520
+    end
+    object c_manufacturername: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkLookup
+      FieldName = 'manufaturername'
+      Index = 18
+      KeyFields = 'manufacturerid'
+      LookupDataSet = manufacturerqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'NAME'
+      left = 16
+      top = 568
+    end
+    object c_distributorname: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkLookup
+      FieldName = 'distributorname'
+      Index = 19
+      KeyFields = 'distributorid'
+      LookupDataSet = distributorqu
+      LookupKeyFields = 'PK'
+      LookupResultField = 'NAME'
+      left = 16
+      top = 600
     end
   end
   object compdso: tmsedatasource
@@ -458,15 +486,15 @@ object mainmo: tmainmo
     )
     controller.onbeforecopyrecord = beforecopyrecordev
     controller.onaftercopyrecord = aftercopyrecordev
-    left = 368
-    top = 384
+    left = 376
+    top = 312
     streamingversion = 1
     object f_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
-      left = 376
-      top = 416
+      left = 384
+      top = 344
     end
     object f_name: tmsestringfield
       DisplayWidth = 20
@@ -475,8 +503,8 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnValidate = validatenameidentev
       Size = 0
-      left = 376
-      top = 432
+      left = 384
+      top = 360
     end
     object f_libname: tmsestringfield
       DisplayWidth = 20
@@ -488,8 +516,8 @@ object mainmo: tmainmo
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       Size = 0
-      left = 376
-      top = 464
+      left = 384
+      top = 392
     end
     object f_libident: tmsestringfield
       DisplayWidth = 0
@@ -501,8 +529,8 @@ object mainmo: tmainmo
       LookupKeyFields = 'PK'
       LookupResultField = 'IDENT'
       Size = 0
-      left = 376
-      top = 480
+      left = 384
+      top = 408
     end
     object f_ident: tmsestringfield
       DisplayWidth = 20
@@ -510,15 +538,15 @@ object mainmo: tmainmo
       Index = 9
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 376
-      top = 448
+      left = 384
+      top = 376
     end
   end
   object footprintdso: tmsedatasource
     AutoEdit = False
     DataSet = footprintqu
-    left = 368
-    top = 400
+    left = 376
+    top = 328
   end
   object compkindqu: tmsesqlquery
     options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
@@ -657,15 +685,15 @@ object mainmo: tmainmo
     )
     controller.onbeforecopyrecord = beforecopyrecordev
     controller.onaftercopyrecord = aftercopyrecordev
-    left = 544
-    top = 384
+    left = 552
+    top = 312
     streamingversion = 1
     object k_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 3
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
-      left = 552
-      top = 416
+      left = 560
+      top = 344
     end
     object k_name: tmsestringfield
       DisplayWidth = 20
@@ -673,54 +701,54 @@ object mainmo: tmainmo
       Index = 4
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 552
-      top = 432
+      left = 560
+      top = 360
     end
     object k_designation: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESIGNATION'
       Index = 5
       Size = 0
-      left = 552
-      top = 480
+      left = 560
+      top = 408
     end
     object k_parameter1: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER1'
       Index = 6
       Size = 0
-      left = 552
-      top = 496
+      left = 560
+      top = 424
     end
     object k_parameter2: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER2'
       Index = 7
       Size = 0
-      left = 552
-      top = 512
+      left = 560
+      top = 440
     end
     object k_parameter3: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER3'
       Index = 8
       Size = 0
-      left = 552
-      top = 528
+      left = 560
+      top = 456
     end
     object k_parameter4: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER4'
       Index = 9
       Size = 0
-      left = 552
-      top = 544
+      left = 560
+      top = 472
     end
     object k_footprint: tmselargeintfield
       FieldName = 'FOOTPRINT'
       Index = 10
-      left = 552
-      top = 448
+      left = 560
+      top = 376
     end
     object k_footprintname: tmsestringfield
       DisplayWidth = 20
@@ -732,20 +760,20 @@ object mainmo: tmainmo
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       Size = 0
-      left = 552
-      top = 464
+      left = 560
+      top = 392
     end
     object k_manufacturer: tmselargeintfield
       FieldName = 'MANUFACTURER'
       Index = 12
-      left = 552
-      top = 560
+      left = 560
+      top = 488
     end
     object k_distributor: tmselargeintfield
       FieldName = 'DISTRIBUTOR'
       Index = 13
-      left = 552
-      top = 592
+      left = 560
+      top = 520
     end
     object k_manufacturername: tmsestringfield
       DisplayWidth = 20
@@ -758,8 +786,8 @@ object mainmo: tmainmo
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 552
-      top = 576
+      left = 560
+      top = 504
     end
     object k_distributorname: tmsestringfield
       DisplayWidth = 20
@@ -772,16 +800,16 @@ object mainmo: tmainmo
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 552
-      top = 608
+      left = 560
+      top = 536
     end
   end
   object compkinddso: tmsedatasource
     AutoEdit = False
     DataSet = compkindqu
     OnUpdateData = compkindupdatedataev
-    left = 544
-    top = 400
+    left = 552
+    top = 328
   end
   object stockcompqu: tmsesqlquery
     options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
@@ -1385,8 +1413,8 @@ object mainmo: tmainmo
           Size = 0
         end>
     )
-    left = 368
-    top = 568
+    left = 376
+    top = 440
     streamingversion = 1
     object fl_ident: tmsestringfield
       DisplayWidth = 20
@@ -1394,8 +1422,8 @@ object mainmo: tmainmo
       Index = 3
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 376
-      top = 632
+      left = 384
+      top = 504
     end
     object fl_name: tmsestringfield
       DisplayWidth = 20
@@ -1404,22 +1432,22 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnValidate = validatenameidentev
       Size = 0
-      left = 376
-      top = 616
+      left = 384
+      top = 488
     end
     object fl_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
-      left = 376
-      top = 600
+      left = 384
+      top = 472
     end
   end
   object footprintlibdso: tmsedatasource
     AutoEdit = False
     DataSet = footprintlibqu
-    left = 368
-    top = 584
+    left = 376
+    top = 456
   end
   object cmplistact: taction
     caption = 'Component-&Footprintlist'
@@ -1431,7 +1459,7 @@ object mainmo: tmainmo
   object manufacturerdso: tmsedatasource
     AutoEdit = False
     DataSet = manufacturerqu
-    left = 176
+    left = 184
     top = 328
   end
   object manufacturerqu: tmsesqlquery
@@ -1522,7 +1550,7 @@ object mainmo: tmainmo
           Size = 0
         end>
     )
-    left = 176
+    left = 184
     top = 312
     streamingversion = 1
     object m_ident: tmsestringfield
@@ -1531,7 +1559,7 @@ object mainmo: tmainmo
       Index = 3
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 184
+      left = 192
       top = 376
     end
     object m_name: tmsestringfield
@@ -1541,21 +1569,21 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnValidate = validatenameidentev
       Size = 0
-      left = 184
+      left = 192
       top = 360
     end
     object m_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
-      left = 184
+      left = 192
       top = 344
     end
   end
   object distributordso: tmsedatasource
     AutoEdit = False
     DataSet = distributorqu
-    left = 176
+    left = 184
     top = 424
   end
   object distributorqu: tmsesqlquery
@@ -1646,7 +1674,7 @@ object mainmo: tmainmo
           Size = 0
         end>
     )
-    left = 176
+    left = 184
     top = 408
     streamingversion = 1
     object d_ident: tmsestringfield
@@ -1655,7 +1683,7 @@ object mainmo: tmainmo
       Index = 3
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 184
+      left = 192
       top = 472
     end
     object d_name: tmsestringfield
@@ -1665,14 +1693,14 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnValidate = validatenameidentev
       Size = 0
-      left = 184
+      left = 192
       top = 456
     end
     object d_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
-      left = 184
+      left = 192
       top = 440
     end
   end
@@ -1698,7 +1726,7 @@ object mainmo: tmainmo
     database = conn
     transaction = trans
     left = 656
-    top = 184
+    top = 200
   end
   object inserttest: tsqlresult
     fielddefs = <>
@@ -1722,6 +1750,6 @@ object mainmo: tmainmo
     database = conn
     transaction = trans
     left = 552
-    top = 184
+    top = 200
   end
 end

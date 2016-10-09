@@ -27,7 +27,7 @@ object componentlistfo: tcomponentlistfo
     bounds_y = 0
     bounds_cx = 23
     bounds_cy = 276
-    anchors = [an_left, an_top, an_right]
+    anchors = [an_top, an_right]
     datasource = dataso
     visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit, dbnb_dialog]
     buttonface.localprops = []
