@@ -116,7 +116,7 @@ type
    k_pk: tmselargeintfield;
    k_name: tmsestringfield;
    compkinddso: tmsedatasource;
-   k_designation: tmsestringfield;
+   k_description: tmsestringfield;
    stockcompqu: tmsesqlquery;
    stockcompdso: tmsedatasource;
    sc_pk: tmselargeintfield;
@@ -128,7 +128,7 @@ type
    stockcompdetaillink: tfieldparamlink;
    sc_footprint: tmselargeintfield;
    sc_componentkind: tmselargeintfield;
-   scd_designation: tmsestringfield;
+   scd_description: tmsestringfield;
    scd_parameter1: tmsestringfield;
    scd_parameter2: tmsestringfield;
    scd_parameter3: tmsestringfield;
@@ -151,7 +151,7 @@ type
    fl_ident: tmsestringfield;
    c_componentkindname: tmsestringfield;
    fl_pk: tmselargeintfield;
-   c_designation: tmsestringfield;
+   c_description: tmsestringfield;
    c_stockvalue2: tmsestringfield;
    c_stockvalue1: tmsestringfield;
    c_stockvalue: tmsestringfield;
@@ -199,7 +199,7 @@ type
    procedure getcredentialsev(const sender: tcustomsqlconnection;
                    var ausername: msestring; var apassword: msestring);
    procedure beforeconnectev(const sender: tmdatabase);
-   procedure compkindupdatedataev(Sender: TObject);
+//   procedure compkindupdatedataev(Sender: TObject);
    procedure cmpkinddeletecheckev(DataSet: TDataSet);
    procedure stockcompbeforepostev(DataSet: TDataSet);
    procedure aftercopyrecordev(DataSet: TDataSet);
@@ -271,8 +271,8 @@ uses
 type
  macronamety = (
     mn_value,mn_value1,mn_value2,mn_footprint,mn_manufacturer,mn_distributor,
-    mn_designation,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
-    mn_k_footprint,mn_k_manufacturer,mn_k_distributor,mn_k_designation,
+    mn_description,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
+    mn_k_footprint,mn_k_manufacturer,mn_k_distributor,mn_k_description,
     mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
 
 const
@@ -280,9 +280,9 @@ const
 //mn_value,mn_value1,mn_value2,mn_footprint,mn_manufacturer,mn_distributor,
     'value', 'value1', 'value2', 'footprint', 'manufacturer', 'distributor',
 //mn_designation,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
-    'designation', 'parameter1', 'parameter2', 'parameter3', 'parameter4',
-//mn_k_footprint,mn_k_manufacturer,mn_k_distributor,mn_k_designation,
-    'k_footprint', 'k_manufacturer', 'k_distributor', 'k_designation',
+    'description', 'parameter1', 'parameter2', 'parameter3', 'parameter4',
+//mn_k_footprint,mn_k_manufacturer,mn_k_distributor,mn_k_description,
+    'k_footprint', 'k_manufacturer', 'k_distributor', 'k_description',
 //mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
     'k_parameter1', 'k_parameter2', 'k_parameter3', 'k_parameter4'
  );
@@ -471,8 +471,8 @@ begin
       stockcompdetailqu.params[0].asid:= sc_pk.asid; 
                            //manually because of disablecontrols
       stockcompdetailqu.controller.refresh(false);
-      compds.currentasmsestring[c_designation,i1]:=
-                                        expandcomponentmacros(scd_designation);
+      compds.currentasmsestring[c_description,i1]:=
+                                        expandcomponentmacros(scd_description);
       rowstate1:= -1;
      end
      else begin
@@ -680,7 +680,7 @@ begin
  macroitems[mn_footprint]^.value:= sc_footprintname.asmsestring;
  macroitems[mn_manufacturer]^.value:= sc_manufacturername.asmsestring;
  macroitems[mn_distributor]^.value:= sc_distributorname.asmsestring;
- macroitems[mn_designation]^.value:= scd_designation.asmsestring;
+ macroitems[mn_description]^.value:= scd_description.asmsestring;
  macroitems[mn_parameter1]^.value:= scd_parameter1.asmsestring;
  macroitems[mn_parameter2]^.value:= scd_parameter2.asmsestring;
  macroitems[mn_parameter3]^.value:= scd_parameter3.asmsestring;
@@ -690,7 +690,7 @@ begin
   updatemacro(k_footprintname,mn_footprint,mn_k_footprint);
   updatemacro(k_manufacturername,mn_manufacturer,mn_k_manufacturer);
   updatemacro(k_distributorname,mn_distributor,mn_k_distributor);
-  updatemacro(k_designation,mn_designation,mn_k_designation);
+  updatemacro(k_description,mn_description,mn_k_description);
   updatemacro(k_parameter1,mn_parameter1,mn_k_parameter1);
   updatemacro(k_parameter2,mn_parameter2,mn_k_parameter2);
   updatemacro(k_parameter3,mn_parameter3,mn_k_parameter3);
@@ -700,7 +700,7 @@ begin
   macroitems[mn_k_footprint]^.value:= '';
   macroitems[mn_k_manufacturer]^.value:= '';
   macroitems[mn_k_distributor]^.value:= '';
-  macroitems[mn_k_designation]^.value:= '';
+  macroitems[mn_k_description]^.value:= '';
   macroitems[mn_k_parameter1]^.value:= '';
   macroitems[mn_k_parameter2]^.value:= '';
   macroitems[mn_k_parameter3]^.value:= '';
@@ -721,8 +721,8 @@ begin
                       compkindqu.indexlocal[0].find([sc_componentkind],bm1);
  ms1:= afield.asmsestring;
  if (ms1 = '') and bo1 then begin
-  if afield = scd_designation then begin
-   ms1:= compkindqu.currentbmasmsestring[k_designation,bm1];
+  if afield = scd_description then begin
+   ms1:= compkindqu.currentbmasmsestring[k_description,bm1];
   end
   else begin
    if afield = scd_parameter1 then begin
@@ -858,6 +858,14 @@ begin
    mstr2:= msestring(fieldname);
    deletetest.sql.macros.itembyname('table').value.text:= mstr1;
    deletetest.sql.macros.itembyname('field').value.text:= mstr2;
+   if references[i1].dataset = stockcompqu then begin
+    mstr2:= '(coalesce("VALUE",'''')||'',''||coalesce(VALUE1,'''')||'+
+              ''',''||coalesce(VALUE2,'''')) as NAME';
+   end
+   else begin
+    mstr2:= 'NAME';
+   end;
+   deletetest.sql.macros.itembyname('fields').value.text:= mstr2;
    deletetest.params[0].asid:= id.asid;
    deletetest.active:= true;
    if not deletetest.eof then begin
@@ -877,8 +885,7 @@ begin
  inserttest.sql.macros.itembyname('table').value.text:= 
                         msestring(tmsesqlquery(namefield.dataset).tablename);
  inserttest.params[0].asmsestring:= namefield.asmsestring;
- inserttest.params[1].asid:= 
-            tmselargeintfield(namefield.dataset.fieldbyname('PK')).asid;
+ inserttest.params[1].asid:= namefield.dataset.fieldbyname('PK').asid;
  inserttest.active:= true;
  if not inserttest.eof then begin
   errormessage('Record with this name already exists.');
@@ -897,7 +904,7 @@ procedure tmainmo.footprintdeletecheckev(DataSet: TDataSet);
 begin
  deletecheck(f_pk,[sc_footprint,k_footprint]);
 end;
-
+{
 procedure tmainmo.compkindupdatedataev(Sender: TObject);
 begin
  if (k_designation.asmsestring = '') or 
@@ -905,7 +912,7 @@ begin
   k_designation.asmsestring:= k_name.asmsestring;
  end;
 end;
-
+}
 procedure tmainmo.cmpkinddeletecheckev(DataSet: TDataSet);
 begin
  deletecheck(k_pk,[sc_componentkind]);

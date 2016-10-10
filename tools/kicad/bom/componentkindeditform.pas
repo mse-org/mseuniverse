@@ -27,7 +27,7 @@ uses
 type
  tcomponentkindeditfo = class(trecordnameeditfo)
    tlayouter1: tlayouter;
-   designationed: tdbdialogstringedit;
+   descriptioned: tdbdialogstringedit;
    param1ed: tdbmemodialogedit;
    param2ed: tdbmemodialogedit;
    commented: tdbmemodialogedit;

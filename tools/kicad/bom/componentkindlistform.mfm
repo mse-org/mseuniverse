@@ -19,7 +19,7 @@ inherited componentkindlistfo: tcomponentkindlistfo
           item
           end        
           item
-            caption = 'Designation'
+            caption = 'Description'
           end        
           item
           end        
@@ -29,7 +29,7 @@ inherited componentkindlistfo: tcomponentkindlistfo
     datacols.count = 5
     datacols.colorder = (
       'nameed'
-      'tdbstringedit1'
+      'descriptioned'
       'tdcreateed'
       'tdmodifyed'
       'commented'
@@ -37,9 +37,9 @@ inherited componentkindlistfo: tcomponentkindlistfo
     datacols.items = <    
       item[nameed]
       end    
-      item[tdbstringedit1]
+      item[descriptioned]
         width = 143
-        widgetname = 'tdbstringedit1'
+        widgetname = 'descriptioned'
       end    
       item[tdcreateed]
       end    
@@ -60,7 +60,11 @@ inherited componentkindlistfo: tcomponentkindlistfo
       taborder = 4
       bounds_x = 481
     end
-    object tdbstringedit1: tdbstringedit[3]
+    inherited tdmodifyed: tdbdatetimeedit
+      taborder = 3
+      bounds_x = 365
+    end
+    object descriptioned: tdbstringedit[4]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
@@ -71,12 +75,8 @@ inherited componentkindlistfo: tcomponentkindlistfo
       bounds_cy = 16
       datalink.datasource = dataso
       datalink.navigator = listeditfo.navig
-      datalink.fieldname = 'DESIGNATION'
+      datalink.fieldname = 'DESCRIPTION'
       reffontheight = 14
-    end
-    inherited tdmodifyed: tdbdatetimeedit[4]
-      taborder = 3
-      bounds_x = 365
     end
   end
   inherited tstatfile1: tstatfile

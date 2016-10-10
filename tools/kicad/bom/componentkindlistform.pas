@@ -27,7 +27,7 @@ uses
 type
  tcomponentkindlistfo = class(tlisteditfo)
    designationed: tdbstringedit;
-   tdbstringedit1: tdbstringedit;
+   descriptioned: tdbstringedit;
  //  procedure closeev(const sender: TObject);
    procedure dialogev(const sender: TObject);
   public

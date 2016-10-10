@@ -61,13 +61,13 @@ type
    footpred: tdbstringedit;
    footprint: tdbstringedit;
    kind: tdbstringedit;
-   designation: tdbstringedit;
+   description: tdbstringedit;
    manufacturer: tdbstringedit;
    distributor: tdbstringedit;
    editbutton: tstockglyphdatabutton;
    footprintselector: tenum64editdb;
    kindselector: tenum64editdb;
-   designationselect: tenum64editdb;
+   descriptionselect: tenum64editdb;
    manufacturerselect: tenum64editdb;
    distributorselect: tenum64editdb;
    tdbdataicon1: tdbdataicon;

@@ -34,7 +34,7 @@ type
    footprinted: tdbenum64editdb;
    compkinded: tdbenum64editdb;
    stripe4: tlayouter;
-   designationed: tdbmemodialogedit;
+   descriptioned: tdbmemodialogedit;
 //   procedure closeev(const sender: TObject);
    parameter1ed: tdbmemodialogedit;
    parameter2ed: tdbmemodialogedit;
@@ -111,8 +111,8 @@ begin
     footprinted.empty_text:= 
                      compkindqu.currentbmasmsestring[k_footprintname,bm1];
 
-    designationed.empty_text:= 
-                     compkindqu.currentbmasmsestring[k_designation,bm1];
+    descriptioned.empty_text:= 
+                     compkindqu.currentbmasmsestring[k_description,bm1];
     parameter1ed.empty_text:= compkindqu.currentbmasmsestring[k_parameter1,bm1];
     parameter2ed.empty_text:= compkindqu.currentbmasmsestring[k_parameter2,bm1];
     parameter3ed.empty_text:= compkindqu.currentbmasmsestring[k_parameter3,bm1];
@@ -120,7 +120,7 @@ begin
    end
    else begin
     footprinted.empty_text:= '';
-    designationed.empty_text:= '';
+    descriptioned.empty_text:= '';
     parameter1ed.empty_text:= '';
     parameter2ed.empty_text:= '';
     parameter3ed.empty_text:= '';

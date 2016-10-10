@@ -198,7 +198,7 @@ object mainmo: tmainmo
         fields.count = 2
         fields.items = <        
           item
-            fieldname = 'designation'
+            fieldname = 'description'
             options = [ifo_caseinsensitive]
           end        
           item
@@ -378,10 +378,10 @@ object mainmo: tmainmo
       left = 16
       top = 552
     end
-    object c_designation: tmsestringfield
+    object c_description: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
-      FieldName = 'designation'
+      FieldName = 'description'
       Index = 12
       left = 16
       top = 432
@@ -729,7 +729,7 @@ object mainmo: tmainmo
         ParamType = ptInput
       end>
     SQL.data = (
-      'select PK,TSCREATE,TSMODIFY,NAME,FOOTPRINT,MANUFACTURER,DISTRIBUTOR,DESIGNATION,'
+      'select PK,TSCREATE,TSMODIFY,NAME,FOOTPRINT,MANUFACTURER,DISTRIBUTOR,DESCRIPTION,'
       '       PARAMETER1,PARAMETER2,PARAMETER3,PARAMETER4,COMMENT from COMPONENTKINDS'
     )
     IndexDefs = <    
@@ -785,7 +785,7 @@ object mainmo: tmainmo
         DataType = ftLargeint
       end    
       item
-        Name = 'DESIGNATION'
+        Name = 'DESCRIPTION'
         DataType = ftString
         Size = 200
       end    
@@ -860,9 +860,9 @@ object mainmo: tmainmo
       left = 560
       top = 360
     end
-    object k_designation: tmsestringfield
+    object k_description: tmsestringfield
       DisplayWidth = 20
-      FieldName = 'DESIGNATION'
+      FieldName = 'DESCRIPTION'
       Index = 5
       Size = 0
       left = 560
@@ -963,7 +963,6 @@ object mainmo: tmainmo
   object compkinddso: tmsedatasource
     AutoEdit = False
     DataSet = compkindqu
-    OnUpdateData = compkindupdatedataev
     left = 552
     top = 328
   end
@@ -1338,7 +1337,7 @@ object mainmo: tmainmo
         ParamType = ptInput
       end>
     SQL.data = (
-      'select PK,TSCREATE,TSMODIFY,DESIGNATION,'
+      'select PK,TSCREATE,TSMODIFY,DESCRIPTION,'
       '       PARAMETER1,PARAMETER2,PARAMETER3,PARAMETER4,COMMENT from COMPONENTDETAILS where PK = :pk'
     )
     IndexDefs = <    
@@ -1366,7 +1365,7 @@ object mainmo: tmainmo
         DataType = ftDateTime
       end    
       item
-        Name = 'DESIGNATION'
+        Name = 'DESCRIPTION'
         DataType = ftString
         Size = 200
       end    
@@ -1411,15 +1410,15 @@ object mainmo: tmainmo
           DisplayWidth = 500
           FieldName = 'COMMENT'
           Index = 1
-          Size = 500
+          Size = 0
         end>
     )
     left = 552
     top = 56
     streamingversion = 1
-    object scd_designation: tmsestringfield
+    object scd_description: tmsestringfield
       DisplayWidth = 20
-      FieldName = 'DESIGNATION'
+      FieldName = 'DESCRIPTION'
       Index = 2
       Size = 0
       left = 560
@@ -1868,8 +1867,11 @@ object mainmo: tmainmo
         Name = 'id'
         ParamType = ptInput
       end>
-    sql.macros.count = 2
+    sql.macros.count = 3
     sql.macros.items = <    
+      item
+        name = 'fields'
+      end    
       item
         name = 'table'
       end    
@@ -1877,7 +1879,7 @@ object mainmo: tmainmo
         name = 'field'
       end>
     sql.data = (
-      'select NAME from ${table} where ${field} = :id'
+      'select ${fields} from ${table} where ${field} = :id'
     )
     database = conn
     transaction = trans
@@ -1891,6 +1893,15 @@ object mainmo: tmainmo
         DataType = ftUnknown
         Name = 'name'
         ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        ParamType = ptInput
       end>
     sql.macros.count = 2
     sql.macros.items = <    
@@ -1901,7 +1912,7 @@ object mainmo: tmainmo
         name = 'field'
       end>
     sql.data = (
-      'select NULL from ${table} where NAME = :name'
+      'select NULL from ${table} where (NAME = :name) and ((:pk is null)  or (PK <> :pk))'
     )
     database = conn
     transaction = trans
