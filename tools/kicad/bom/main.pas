@@ -298,21 +298,4 @@ begin
  sender.enabled:= grid.row >= 0; //has active row
 end;
 
-{
-procedure tmainfo.editcomponents(const sender: TObject);
-var
- res1: modalresultty;
- fo1: tcomponentlistfo;
-begin
- mainmo.begincomponentsedit();
- fo1:= tcomponentlistfo.create(nil);
- try
-  repeat
-   res1:= fo1.show(ml_application);
-  until mainmo.endcomponentsedit(res1 = mr_ok);
- finally
-  fo1.destroy();
- end;
-end;
-}
 end.
