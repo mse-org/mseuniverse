@@ -43,6 +43,11 @@ object mainfo: tmainfo
         captions.count = 12
         captions.items = <        
           item
+            color = -1610612717
+            face.localprops = []
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
             caption = 'REF'
             options = [dco_colsort, dco_hintclippedtext]
           end        
@@ -84,9 +89,7 @@ object mainfo: tmainfo
           end        
           item
             caption = 'ED'
-            hint = 'Edit Component'
-          end        
-          item
+            hint = 'Edit component (F3)'
           end>
       end    
       item
@@ -96,6 +99,8 @@ object mainfo: tmainfo
         height = 16
         captions.count = 12
         captions.items = <        
+          item
+          end        
           item
             color = -1610612714
             caption = 'Schematic'
@@ -127,17 +132,20 @@ object mainfo: tmainfo
           item
             color = -1610612712
             face.localprops = []
-          end        
-          item
           end>
       end>
     rowcolors.count = 1
     rowcolors.items = (
       -1610612717
     )
-    datacols.count = 11
+    datacols.count = 12
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
+      item[tdbdataicon1]
+        width = 15
+        options = [co_drawfocus, co_savestate, co_mousescrollrow]
+        widgetname = 'tdbdataicon1'
+      end    
       item[nameed]
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'nameed'
@@ -204,7 +212,7 @@ object mainfo: tmainfo
         )
       end    
       item[designation]
-        width = 115
+        width = 99
         options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widthmin = 50
         widgetname = 'designation'
@@ -247,7 +255,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
-      bounds_x = 0
+      bounds_x = 16
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -262,7 +270,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 51
+      bounds_x = 67
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -277,7 +285,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 102
+      bounds_x = 118
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -292,7 +300,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 153
+      bounds_x = 169
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -307,7 +315,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 204
+      bounds_x = 220
       bounds_y = 0
       bounds_cx = 67
       bounds_cy = 16
@@ -322,7 +330,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 273
+      bounds_x = 289
       bounds_y = 0
       bounds_cx = 70
       bounds_cy = 16
@@ -336,7 +344,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 344
+      bounds_x = 360
       bounds_y = 0
       bounds_cx = 95
       bounds_cy = 16
@@ -349,9 +357,9 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 8
       visible = False
-      bounds_x = 440
+      bounds_x = 456
       bounds_y = 0
-      bounds_cx = 115
+      bounds_cx = 99
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = mainmo.compdso
@@ -388,14 +396,29 @@ object mainfo: tmainfo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 11
+      hint = 'Edit component (F3)'
       bounds_x = 658
       bounds_y = 0
       bounds_cx = 26
       bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_asyncexecute]
+      state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr]
+      action = editcomponentact
       glyph = stg_ellipsesmall
-      onexecute = editev
+    end
+    object tdbdataicon1: tdbdataicon
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 12
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 15
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      visible = False
+      datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'rowstate'
     end
     object refselector: tenum64editdb
       optionswidget1 = [ow1_fontglyphheight]
@@ -406,7 +429,7 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
-      bounds_x = 0
+      bounds_x = 16
       bounds_y = 17
       bounds_cx = 50
       bounds_cy = 16
@@ -461,7 +484,7 @@ object mainfo: tmainfo
         item
         end>
       taborder = 1
-      bounds_x = 51
+      bounds_x = 67
       bounds_y = 17
       bounds_cx = 50
       bounds_cy = 16
@@ -504,7 +527,7 @@ object mainfo: tmainfo
         item
         end>
       taborder = 2
-      bounds_x = 102
+      bounds_x = 118
       bounds_y = 17
       bounds_cx = 50
       bounds_cy = 16
@@ -547,7 +570,7 @@ object mainfo: tmainfo
         item
         end>
       taborder = 3
-      bounds_x = 153
+      bounds_x = 169
       bounds_y = 17
       bounds_cx = 50
       bounds_cy = 16
@@ -590,7 +613,7 @@ object mainfo: tmainfo
         item
         end>
       taborder = 4
-      bounds_x = 204
+      bounds_x = 220
       bounds_y = 17
       bounds_cx = 67
       bounds_cy = 16
@@ -633,7 +656,7 @@ object mainfo: tmainfo
         item
         end>
       taborder = 5
-      bounds_x = 273
+      bounds_x = 289
       bounds_y = 17
       bounds_cx = 70
       bounds_cy = 16
@@ -676,7 +699,7 @@ object mainfo: tmainfo
         item
         end>
       taborder = 6
-      bounds_x = 344
+      bounds_x = 360
       bounds_y = 17
       bounds_cx = 95
       bounds_cy = 16
@@ -719,9 +742,9 @@ object mainfo: tmainfo
         item
         end>
       taborder = 7
-      bounds_x = 440
+      bounds_x = 456
       bounds_y = 17
-      bounds_cx = 115
+      bounds_cx = 99
       bounds_cy = 16
       statfile = mainfosta
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
@@ -1053,5 +1076,16 @@ object mainfo: tmainfo
     onexecute = editdistributorev
     left = 440
     top = 104
+  end
+  object editcomponentact: taction
+    options = [ao_localshortcut]
+    onexecute = editev
+    onupdate = updateeditev
+    left = 440
+    top = 160
+    sc = (
+      1
+      306
+    )
   end
 end

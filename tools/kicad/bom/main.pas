@@ -69,6 +69,8 @@ type
    designationselect: tenum64editdb;
    manufacturerselect: tenum64editdb;
    distributorselect: tenum64editdb;
+   tdbdataicon1: tdbdataicon;
+   editcomponentact: taction;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -87,6 +89,7 @@ type
    procedure editdistributorev(const sender: TObject);
    procedure rowselectev(const sender: TObject; var avalue: Int64;
                    var accept: Boolean);
+   procedure updateeditev(const sender: tcustomaction);
   protected
   public
    procedure checkeditclose(const adataso: tdatasource;
@@ -278,8 +281,8 @@ end;
 
 procedure tmainfo.cellev(const sender: TObject; var info: celleventinfoty);
 begin
- if iscellclick(info,[ccr_dblclick]) then begin
-  editbutton.execute();
+ if iscellclick(info,[ccr_dblclick,ccr_nokeyreturn]) then begin
+  editcomponentact.asyncexecute();
  end;
 end;
 
@@ -288,6 +291,11 @@ procedure tmainfo.rowselectev(const sender: TObject; var avalue: Int64;
 begin
  mainmo.compds.indexlocal[0].find([avalue],[]);
  grid.setfocus();
+end;
+
+procedure tmainfo.updateeditev(const sender: tcustomaction);
+begin
+ sender.enabled:= grid.row >= 0; //has active row
 end;
 
 {

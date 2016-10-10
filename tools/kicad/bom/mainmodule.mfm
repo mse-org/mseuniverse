@@ -106,7 +106,7 @@ object mainmo: tmainmo
     top = 208
   end
   object compds: tlocaldataset
-    indexlocal.count = 11
+    indexlocal.count = 12
     indexlocal.items = <    
       item
         fields.items = <        
@@ -131,6 +131,7 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
@@ -142,6 +143,7 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
@@ -153,6 +155,7 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
@@ -164,6 +167,7 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
@@ -175,6 +179,7 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
@@ -186,6 +191,7 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
@@ -197,6 +203,7 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
@@ -208,6 +215,7 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
@@ -219,6 +227,19 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
+            options = [ifo_caseinsensitive]
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'rowstate'
+            options = [ifo_desc]
+          end        
+          item
+            fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
       end>
     FieldDefs = <    
