@@ -2,14 +2,14 @@ object mainfo: tmainfo
   visible = False
   bounds_x = 291
   bounds_y = 247
-  bounds_cx = 749
+  bounds_cx = 829
   bounds_cy = 291
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     20
-    749
+    829
     271
   )
   mainmenu = mainmen
@@ -25,7 +25,7 @@ object mainfo: tmainfo
     frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 749
+    bounds_cx = 829
     bounds_cy = 271
     anchors = []
     optionsgrid = [og_colsizing, og_focuscellonenter, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -40,7 +40,7 @@ object mainfo: tmainfo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 12
+        captions.count = 13
         captions.items = <        
           item
             color = -1610612717
@@ -72,6 +72,10 @@ object mainfo: tmainfo
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
+            caption = 'Area(mm^2)'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
             caption = 'Kind'
             options = [dco_colsort, dco_hintclippedtext]
           end        
@@ -97,7 +101,7 @@ object mainfo: tmainfo
       end    
       item
         height = 16
-        captions.count = 12
+        captions.count = 13
         captions.items = <        
           item
           end        
@@ -130,6 +134,8 @@ object mainfo: tmainfo
           item
           end        
           item
+          end        
+          item
             color = -1610612712
             face.localprops = []
           end>
@@ -138,7 +144,7 @@ object mainfo: tmainfo
     rowcolors.items = (
       -1610612717
     )
-    datacols.count = 12
+    datacols.count = 13
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[tdbdataicon1]
@@ -202,8 +208,16 @@ object mainfo: tmainfo
           ''
         )
       end    
+      item[areaed]
+        widgetname = 'areaed'
+        fixwidgetnames = (
+          ''
+          'areadisp'
+          ''
+        )
+      end    
       item[kind]
-        width = 95
+        width = 67
         widgetname = 'kind'
         fixwidgetnames = (
           ''
@@ -212,7 +226,7 @@ object mainfo: tmainfo
         )
       end    
       item[designation]
-        width = 99
+        width = 156
         options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widthmin = 50
         widgetname = 'designation'
@@ -344,9 +358,9 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 360
+      bounds_x = 411
       bounds_y = 0
-      bounds_cx = 95
+      bounds_cx = 67
       bounds_cy = 16
       datalink.datasource = mainmo.compdso
       datalink.fieldname = 'componentkindname'
@@ -357,9 +371,9 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 8
       visible = False
-      bounds_x = 456
+      bounds_x = 479
       bounds_y = 0
-      bounds_cx = 99
+      bounds_cx = 156
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = mainmo.compdso
@@ -371,7 +385,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 9
       visible = False
-      bounds_x = 556
+      bounds_x = 636
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -384,7 +398,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 10
       visible = False
-      bounds_x = 607
+      bounds_x = 687
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -397,7 +411,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 11
       hint = 'Edit component (F3)'
-      bounds_x = 658
+      bounds_x = 738
       bounds_y = 0
       bounds_cx = 26
       bounds_cy = 16
@@ -419,6 +433,23 @@ object mainfo: tmainfo
       visible = False
       datalink.datasource = mainmo.compdso
       datalink.fieldname = 'rowstate'
+    end
+    object areaed: tdbrealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 13
+      visible = False
+      bounds_x = 360
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'area'
+      min = -Inf
+      max = 1E+038
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
     end
     object refselector: tenum64editdb
       optionswidget1 = [ow1_fontglyphheight]
@@ -699,9 +730,9 @@ object mainfo: tmainfo
         item
         end>
       taborder = 6
-      bounds_x = 360
+      bounds_x = 411
       bounds_y = 17
-      bounds_cx = 95
+      bounds_cx = 67
       bounds_cy = 16
       statfile = mainfosta
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
@@ -742,9 +773,9 @@ object mainfo: tmainfo
         item
         end>
       taborder = 7
-      bounds_x = 456
+      bounds_x = 479
       bounds_y = 17
-      bounds_cx = 99
+      bounds_cx = 156
       bounds_cy = 16
       statfile = mainfosta
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
@@ -785,7 +816,7 @@ object mainfo: tmainfo
         item
         end>
       taborder = 8
-      bounds_x = 556
+      bounds_x = 636
       bounds_y = 17
       bounds_cx = 50
       bounds_cy = 16
@@ -828,7 +859,7 @@ object mainfo: tmainfo
         item
         end>
       taborder = 9
-      bounds_x = 607
+      bounds_x = 687
       bounds_y = 17
       bounds_cx = 50
       bounds_cy = 16
@@ -859,6 +890,22 @@ object mainfo: tmainfo
       value = -1
       valuedefault = -1
       onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object areadisp: trealdisp
+      optionswidget1 = [ow1_fontglyphheight]
+      color = -1879048185
+      taborder = 10
+      onshowhint = hintareaev
+      bounds_x = 360
+      bounds_y = 17
+      bounds_cx = 50
+      bounds_cy = 16
+      valuerange = 1
+      valuestart = 0
+      format = '0.#'
+      ifilink = mainmo.totarea
+      value = -Inf
       reffontheight = 14
     end
   end

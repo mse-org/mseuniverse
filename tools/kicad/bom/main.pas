@@ -23,7 +23,8 @@ uses
  mseact,msebitmap,msedataedits,msedatanodes,mseedit,msefiledialog,msegrids,
  mseificomp,mseificompglob,mseifiglob,mselistbrowser,msestream,msestrings,
  msesys,sysutils,msesimplewidgets,kicadschemaparser,mseifiendpoint,mdb,msedb,
- msedbedit,msegraphedits,mselookupbuffer,msescrollbar,mseactions,mseskin;
+ msedbedit,msegraphedits,mselookupbuffer,msescrollbar,mseactions,mseskin,
+ msedispwidgets,mserichstring;
 
 const
  maincaption = 'MSEkicadBOM';
@@ -71,6 +72,8 @@ type
    distributorselect: tenum64editdb;
    tdbdataicon1: tdbdataicon;
    editcomponentact: taction;
+   areaed: tdbrealedit;
+   areadisp: trealdisp;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -90,6 +93,7 @@ type
    procedure rowselectev(const sender: TObject; var avalue: Int64;
                    var accept: Boolean);
    procedure updateeditev(const sender: tcustomaction);
+   procedure hintareaev(const sender: TObject; var info: hintinfoty);
   protected
   public
    procedure checkeditclose(const adataso: tdatasource;
@@ -296,6 +300,11 @@ end;
 procedure tmainfo.updateeditev(const sender: tcustomaction);
 begin
  sender.enabled:= grid.row >= 0; //has active row
+end;
+
+procedure tmainfo.hintareaev(const sender: TObject; var info: hintinfoty);
+begin
+ info.caption:= 'Total footprint area:'+lineend+areadisp.disptext+'mm^2';
 end;
 
 end.

@@ -182,6 +182,9 @@ type
    c_manufacturername: tmsestringfield;
    c_distributorname: tmsestringfield;
    c_pk: tmselargeintfield;
+   c_area: tmsefloatfield;
+   f_area: tmsefloatfield;
+   totarea: tifireallinkcomp;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -262,7 +265,7 @@ procedure errormessage(const message: msestring);
 implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
- mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate;
+ mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal;
 
 { tmainmo }
 type
@@ -389,14 +392,16 @@ var
  i1: int32;
  recno1: int32;
  rowstate1: int32;
- bm2: bookmarkdataty;
+ bm1,bm2: bookmarkdataty;
  id1,id2: int64;
  bo1: boolean;
+ area1,f1: flo64;
 begin
  application.beginwait();
  try
   compds.disablecontrols();
   parser:= nil;
+  area1:= 0;
   try
    recno1:= compds.recno;
    compds.active:= false;
@@ -440,6 +445,13 @@ begin
        id1:= compkindqu.currentbmasid[k_footprint,bm2];
       end;
       compds.currentasid[c_footprintid,i1]:= id1;
+      if (id1 >= 0) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
+       f1:= footprintqu.currentbmasfloat[f_area,bm1];
+       if f1 <> emptyfloat64 then begin
+        compds.currentasfloat[c_area,i1]:= f1;
+        area1:= area1 + f1;
+       end;
+      end;
 
       id1:= sc_manufacturer.asid;
       if (id1 < 0) and bo1 then begin
@@ -489,6 +501,7 @@ begin
     compds.post();
    end;
    compds.enablecontrols();
+   totarea.controller.value:= area1;
   end;
  finally
   application.endwait();
@@ -864,6 +877,8 @@ begin
  inserttest.sql.macros.itembyname('table').value.text:= 
                         msestring(tmsesqlquery(namefield.dataset).tablename);
  inserttest.params[0].asmsestring:= namefield.asmsestring;
+ inserttest.params[1].asid:= 
+            tmselargeintfield(namefield.dataset.fieldbyname('PK')).asid;
  inserttest.active:= true;
  if not inserttest.eof then begin
   errormessage('Record with this name already exists.');

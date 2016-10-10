@@ -106,7 +106,7 @@ object mainmo: tmainmo
     top = 208
   end
   object compds: tlocaldataset
-    indexlocal.count = 12
+    indexlocal.count = 13
     indexlocal.items = <    
       item
         fields.items = <        
@@ -236,6 +236,17 @@ object mainmo: tmainmo
           item
             fieldname = 'rowstate'
             options = [ifo_desc]
+          end        
+          item
+            fieldname = 'REF'
+            options = [ifo_caseinsensitive]
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'area'
           end        
           item
             fieldname = 'REF'
@@ -444,6 +455,15 @@ object mainmo: tmainmo
       left = 16
       top = 616
     end
+    object c_area: tmsefloatfield
+      FieldKind = fkInternalCalc
+      FieldName = 'area'
+      Index = 21
+      MaxValue = 0
+      MinValue = 0
+      left = 160
+      top = 520
+    end
   end
   object compdso: tmsedatasource
     DataSet = compds
@@ -582,12 +602,11 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 500
       end>
-    controller.fields.count = 5
+    controller.fields.count = 4
     controller.fields.fields = (
       (
         ft_datetime
         ft_datetime
-        ft_float
         ft_largeint
         ft_string
       )
@@ -603,20 +622,13 @@ object mainmo: tmainmo
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
-          FieldName = 'AREA'
-          Index = 2
-          MaxValue = 0
-          MinValue = 0
-          Precision = -1
-        end      
-        item
           FieldName = 'LIBRARY'
-          Index = 3
+          Index = 2
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 4
+          Index = 3
           Size = 0
         end>
     )
@@ -627,7 +639,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object f_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 5
+      Index = 4
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
       left = 384
       top = 344
@@ -635,7 +647,7 @@ object mainmo: tmainmo
     object f_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 6
+      Index = 5
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnValidate = validatenameidentev
       Size = 0
@@ -646,36 +658,44 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'libname'
-      Index = 7
+      Index = 6
       KeyFields = 'LIBRARY'
       LookupDataSet = footprintlibqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       Size = 0
       left = 384
-      top = 392
+      top = 408
     end
     object f_libident: tmsestringfield
       DisplayWidth = 0
       FieldKind = fkLookup
       FieldName = 'libident'
-      Index = 8
+      Index = 7
       KeyFields = 'LIBRARY'
       LookupDataSet = footprintlibqu
       LookupKeyFields = 'PK'
       LookupResultField = 'IDENT'
       Size = 0
       left = 384
-      top = 408
+      top = 424
     end
     object f_ident: tmsestringfield
       DisplayWidth = 20
       FieldName = 'IDENT'
-      Index = 9
+      Index = 8
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 384
       top = 376
+    end
+    object f_area: tmsefloatfield
+      FieldName = 'AREA'
+      Index = 9
+      MaxValue = 0
+      MinValue = 0
+      left = 384
+      top = 392
     end
   end
   object footprintdso: tmsedatasource
@@ -1550,7 +1570,7 @@ object mainmo: tmainmo
         end>
     )
     left = 376
-    top = 440
+    top = 480
     streamingversion = 1
     object fl_ident: tmsestringfield
       DisplayWidth = 20
@@ -1559,7 +1579,7 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 384
-      top = 504
+      top = 544
     end
     object fl_name: tmsestringfield
       DisplayWidth = 20
@@ -1569,21 +1589,21 @@ object mainmo: tmainmo
       OnValidate = validatenameidentev
       Size = 0
       left = 384
-      top = 488
+      top = 528
     end
     object fl_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 384
-      top = 472
+      top = 512
     end
   end
   object footprintlibdso: tmsedatasource
     AutoEdit = False
     DataSet = footprintlibqu
     left = 376
-    top = 456
+    top = 496
   end
   object cmplistact: taction
     caption = 'Component-&Footprintlist'
@@ -1887,5 +1907,13 @@ object mainmo: tmainmo
     transaction = trans
     left = 552
     top = 200
+  end
+  object totarea: tifireallinkcomp
+    controller.value = -Inf
+    controller.valuedefault = -Inf
+    controller.min = -Inf
+    controller.max = 1E+038
+    left = 456
+    top = 392
   end
 end
