@@ -181,6 +181,7 @@ type
    k_manufacturername: tmsestringfield;
    c_manufacturername: tmsestringfield;
    c_distributorname: tmsestringfield;
+   c_pk: tmselargeintfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -372,10 +373,10 @@ begin
    end;
    inc(po1);
   end;
-  if not compds.indexlocal[0].find([info.reference],[],bm1) then begin
-   compds.controller.appendrecord1([info.reference,info.timestamp,
-                                     footpr,val,val1,val2],
-                                       [false,false,nfootpr,nval,nval1,nval2]);
+  if not compds.indexlocal[1].find([info.reference],[],bm1) then begin
+   compds.controller.appendrecord1([compds.recordcount,info.reference,
+                                    info.timestamp,footpr,val,val1,val2],
+                                 [false,false,false,nfootpr,nval,nval1,nval2]);
     //duplicates are several units in same housing
   end;
  end;
@@ -417,6 +418,7 @@ begin
    footprintlibqu.controller.refresh(false);
    footprintqu.controller.refresh(false);
    stockcompqu.disablecontrols();
+   stockcompdetailqu.disablecontrols();
    try
     stockcompqu.controller.refresh(true);
     for i1:= 0 to compds.recordcount - 1 do begin
@@ -468,6 +470,7 @@ begin
     end;
    finally
     stockcompqu.enablecontrols();
+    stockcompdetailqu.enablecontrols();
    end;
    if recno1 <= 0 then begin
     compds.first();
@@ -639,41 +642,25 @@ end;
 function tmainmo.expandcomponentmacros(const atext: msestring): msestring;
 var
  bm1: bookmarkdataty;
-// ms1: msestring;
  bo1: boolean;
+
+ procedure updatemacro(const afield: tmsestringfield; 
+                         const componentmacro,kindmacro: macronamety);
+ var
+  ms1: msestring;
+ begin
+  ms1:= compkindqu.currentbmasmsestring[afield,bm1];
+  macroitems[kindmacro]^.value:= ms1;
+  if macroitems[componentmacro]^.value = '' then begin
+   macroitems[componentmacro]^.value:= ms1;
+  end;
+ end; //updatemacro
+
 begin
  result:= '';
  stockcompdetailqu.controller.checkrefresh(); //make pending refresh
  bo1:= not sc_componentkind.isnull and 
                       compkindqu.indexlocal[0].find([sc_componentkind],bm1);
-{
- ms1:= afield.asmsestring;
- if (ms1 = '') and bo1 then begin
-  if afield = scd_designation then begin
-   ms1:= compkindqu.currentbmasmsestring[k_designation,bm1];
-  end
-  else begin
-   if afield = scd_parameter1 then begin
-    ms1:= compkindqu.currentbmasmsestring[k_parameter1,bm1];
-   end
-   else begin
-    if afield = scd_parameter2 then begin
-     ms1:= compkindqu.currentbmasmsestring[k_parameter2,bm1];
-    end
-    else begin
-     if afield = scd_parameter3 then begin
-      ms1:= compkindqu.currentbmasmsestring[k_parameter3,bm1];
-     end
-     else begin
-      if afield = scd_parameter4 then begin
-       ms1:= compkindqu.currentbmasmsestring[k_parameter4,bm1];
-      end;
-     end;
-    end;
-   end;
-  end;
- end;
-}
  macroitems[mn_value]^.value:= sc_value.asmsestring;
  macroitems[mn_value1]^.value:= sc_value1.asmsestring;
  macroitems[mn_value2]^.value:= sc_value2.asmsestring;
@@ -685,26 +672,21 @@ begin
  macroitems[mn_parameter2]^.value:= scd_parameter2.asmsestring;
  macroitems[mn_parameter3]^.value:= scd_parameter3.asmsestring;
  macroitems[mn_parameter4]^.value:= scd_parameter4.asmsestring;
+
  if bo1 then begin
-  macroitems[mn_k_footprint]^.value:= 
-                       compkindqu.currentbmasmsestring[k_footprintname,bm1];
-  macroitems[mn_k_manufacturer]^.value:= 
-                       compkindqu.currentbmasmsestring[k_manufacturername,bm1];
-  macroitems[mn_k_distributor]^.value:= 
-                       compkindqu.currentbmasmsestring[k_distributorname,bm1];
-  macroitems[mn_k_designation]^.value:= 
-                       compkindqu.currentbmasmsestring[k_designation,bm1];
-  macroitems[mn_k_parameter1]^.value:= 
-                       compkindqu.currentbmasmsestring[k_parameter1,bm1];
-  macroitems[mn_k_parameter2]^.value:= 
-                       compkindqu.currentbmasmsestring[k_parameter2,bm1];
-  macroitems[mn_k_parameter3]^.value:= 
-                       compkindqu.currentbmasmsestring[k_parameter3,bm1];
-  macroitems[mn_k_parameter4]^.value:= 
-                       compkindqu.currentbmasmsestring[k_parameter4,bm1];
+  updatemacro(k_footprintname,mn_footprint,mn_k_footprint);
+  updatemacro(k_manufacturername,mn_manufacturer,mn_k_manufacturer);
+  updatemacro(k_distributorname,mn_distributor,mn_k_distributor);
+  updatemacro(k_designation,mn_designation,mn_k_designation);
+  updatemacro(k_parameter1,mn_parameter1,mn_k_parameter1);
+  updatemacro(k_parameter2,mn_parameter2,mn_k_parameter2);
+  updatemacro(k_parameter3,mn_parameter3,mn_k_parameter3);
+  updatemacro(k_parameter4,mn_parameter4,mn_k_parameter4);
  end
  else begin
   macroitems[mn_k_footprint]^.value:= '';
+  macroitems[mn_k_manufacturer]^.value:= '';
+  macroitems[mn_k_distributor]^.value:= '';
   macroitems[mn_k_designation]^.value:= '';
   macroitems[mn_k_parameter1]^.value:= '';
   macroitems[mn_k_parameter2]^.value:= '';

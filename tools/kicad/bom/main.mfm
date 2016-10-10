@@ -18,7 +18,7 @@ object mainfo: tmainfo
   caption = 'MSEkicadBOM'
   onclosequery = closequeryev
   moduleclassname = 'tmainform'
-  object tdbwidgetgrid1: tdbwidgetgrid
+  object grid: tdbwidgetgrid
     frame.sbvert.buttonlength = 0
     frame.sbvert.pagesize = 1
     frame.localprops = []
@@ -36,50 +36,65 @@ object mainfo: tmainfo
         numstart = 1
         numstep = 1
       end>
-    fixrows.count = 2
+    fixrows.count = 3
     fixrows.items = <    
       item
         height = 16
-        captions.count = 11
+        captions.count = 12
         captions.items = <        
           item
             caption = 'REF'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'VALUE'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'VALUE1'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'VALUE2'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'FOOTPRINT'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Footprint'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Kind'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Designation'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Manufacturer'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Distributor'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'ED'
             hint = 'Edit Component'
+          end        
+          item
           end>
       end    
       item
         height = 16
-        captions.count = 11
+      end    
+      item
+        height = 16
+        captions.count = 12
         captions.items = <        
           item
             color = -1610612714
@@ -112,6 +127,8 @@ object mainfo: tmainfo
           item
             color = -1610612712
             face.localprops = []
+          end        
+          item
           end>
       end>
     rowcolors.count = 1
@@ -124,44 +141,94 @@ object mainfo: tmainfo
       item[nameed]
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'nameed'
+        fixwidgetnames = (
+          ''
+          'refselector'
+          ''
+        )
       end    
       item[valueed]
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'valueed'
+        fixwidgetnames = (
+          ''
+          'valueselector'
+          ''
+        )
       end    
       item[value1ed]
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'value1ed'
+        fixwidgetnames = (
+          ''
+          'value1selector'
+          ''
+        )
       end    
       item[valu2ed]
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'valu2ed'
+        fixwidgetnames = (
+          ''
+          'value2selector'
+          ''
+        )
       end    
       item[footpred]
         linewidth = 2
         width = 67
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'footpred'
+        fixwidgetnames = (
+          ''
+          'footprselector'
+          ''
+        )
       end    
       item[footprint]
         width = 70
         widgetname = 'footprint'
+        fixwidgetnames = (
+          ''
+          'footprintselector'
+          ''
+        )
       end    
       item[kind]
         width = 95
         widgetname = 'kind'
+        fixwidgetnames = (
+          ''
+          'kindselector'
+          ''
+        )
       end    
       item[designation]
         width = 115
         options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widthmin = 50
         widgetname = 'designation'
+        fixwidgetnames = (
+          ''
+          'designationselect'
+          ''
+        )
       end    
       item[manufacturer]
         widgetname = 'manufacturer'
+        fixwidgetnames = (
+          ''
+          'manufacturerselect'
+          ''
+        )
       end    
       item[distributor]
         widgetname = 'distributor'
+        fixwidgetnames = (
+          ''
+          'distributorselect'
+          ''
+        )
       end    
       item[editbutton]
         color = -2147483646
@@ -291,23 +358,10 @@ object mainfo: tmainfo
       datalink.fieldname = 'designation'
       reffontheight = 14
     end
-    object editbutton: tstockglyphdatabutton
-      optionswidget1 = []
-      optionsskin = [osk_framebuttononly]
-      taborder = 9
-      bounds_x = 658
-      bounds_y = 0
-      bounds_cx = 26
-      bounds_cy = 16
-      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
-      glyph = stg_ellipsesmall
-      onexecute = editev
-    end
     object manufacturer: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 10
+      taborder = 9
       visible = False
       bounds_x = 556
       bounds_y = 0
@@ -320,7 +374,7 @@ object mainfo: tmainfo
     object distributor: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 11
+      taborder = 10
       visible = False
       bounds_x = 607
       bounds_y = 0
@@ -328,6 +382,460 @@ object mainfo: tmainfo
       bounds_cy = 16
       datalink.datasource = mainmo.compdso
       datalink.fieldname = 'distributorname'
+      reffontheight = 14
+    end
+    object editbutton: tstockglyphdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 11
+      bounds_x = 658
+      bounds_y = 0
+      bounds_cx = 26
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
+      glyph = stg_ellipsesmall
+      onexecute = editev
+    end
+    object refselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      bounds_x = 0
+      bounds_y = 17
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 4
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'VALUE'
+          datafield = 'VALUE'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'VALUE1'
+          datafield = 'VALUE1'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'VALUE2'
+          datafield = 'VALUE2'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object valueselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 1
+      bounds_x = 51
+      bounds_y = 17
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'VALUE'
+          datafield = 'VALUE'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object value1selector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 2
+      bounds_x = 102
+      bounds_y = 17
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'VALUE1'
+          datafield = 'VALUE1'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object value2selector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 3
+      bounds_x = 153
+      bounds_y = 17
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'VALUE2'
+          datafield = 'VALUE2'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object footprselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 4
+      bounds_x = 204
+      bounds_y = 17
+      bounds_cx = 67
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'FOOTPRINT'
+          datafield = 'FOOTPRINT'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object footprintselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 5
+      bounds_x = 273
+      bounds_y = 17
+      bounds_cx = 70
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Footprint'
+          datafield = 'footprintname'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object kindselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 6
+      bounds_x = 344
+      bounds_y = 17
+      bounds_cx = 95
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Kind'
+          datafield = 'componentkindname'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object designationselect: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 7
+      bounds_x = 440
+      bounds_y = 17
+      bounds_cx = 115
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Designation'
+          datafield = 'designation'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object manufacturerselect: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 8
+      bounds_x = 556
+      bounds_y = 17
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Manufacturer'
+          datafield = 'manufaturername'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object distributorselect: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 9
+      bounds_x = 607
+      bounds_y = 17
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Distributor'
+          datafield = 'distributorname'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
       reffontheight = 14
     end
   end

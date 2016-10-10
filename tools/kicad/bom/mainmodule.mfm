@@ -106,8 +106,14 @@ object mainmo: tmainmo
     top = 208
   end
   object compds: tlocaldataset
-    indexlocal.count = 1
+    indexlocal.count = 11
     indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'pk'
+          end>
+      end    
       item
         fields.items = <        
           item
@@ -115,8 +121,111 @@ object mainmo: tmainmo
             options = [ifo_caseinsensitive]
           end>
         active = True
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'VALUE1'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'FOOTPRINT'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'footprintname'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'componentkindname'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'designation'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'manufaturername'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+          end>
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'distributorname'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+          end>
       end>
     FieldDefs = <    
+      item
+        Name = 'pk'
+        DataType = ftLargeint
+      end    
       item
         Name = 'TIMESTAMP'
         DataType = ftString
@@ -144,169 +253,175 @@ object mainmo: tmainmo
     left = 8
     top = 248
     streamingversion = 1
-    object c_ref: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'REF'
+    object c_pk: tmselargeintfield
+      FieldName = 'pk'
       Index = 0
       left = 16
       top = 280
     end
-    object c_timestamp: tmsestringfield
+    object c_ref: tmsestringfield
       DisplayWidth = 20
-      FieldName = 'TIMESTAMP'
+      FieldName = 'REF'
       Index = 1
       left = 16
       top = 296
     end
-    object c_footprint: tmsestringfield
+    object c_timestamp: tmsestringfield
       DisplayWidth = 20
-      FieldName = 'FOOTPRINT'
+      FieldName = 'TIMESTAMP'
       Index = 2
       left = 16
       top = 312
     end
-    object c_value: tmsestringfield
+    object c_footprint: tmsestringfield
       DisplayWidth = 20
-      FieldName = 'VALUE'
+      FieldName = 'FOOTPRINT'
       Index = 3
       left = 16
       top = 328
     end
-    object c_value1: tmsestringfield
+    object c_value: tmsestringfield
       DisplayWidth = 20
-      FieldName = 'VALUE1'
+      FieldName = 'VALUE'
       Index = 4
       left = 16
       top = 344
     end
-    object c_value2: tmsestringfield
+    object c_value1: tmsestringfield
       DisplayWidth = 20
-      FieldName = 'VALUE2'
+      FieldName = 'VALUE1'
       Index = 5
       left = 16
       top = 360
     end
-    object c_stockitemid: tmselargeintfield
-      FieldKind = fkInternalCalc
-      FieldName = 'stockitemid'
+    object c_value2: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'VALUE2'
       Index = 6
       left = 16
       top = 376
     end
-    object c_rowstate: tmselongintfield
+    object c_stockitemid: tmselargeintfield
       FieldKind = fkInternalCalc
-      FieldName = 'rowstate'
+      FieldName = 'stockitemid'
       Index = 7
       left = 16
       top = 392
+    end
+    object c_rowstate: tmselongintfield
+      FieldKind = fkInternalCalc
+      FieldName = 'rowstate'
+      Index = 8
+      left = 16
+      top = 408
     end
     object c_footprintname: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'footprintname'
-      Index = 8
+      Index = 9
       KeyFields = 'footprintid'
       LookupDataSet = footprintqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       left = 16
-      top = 504
+      top = 520
     end
     object c_footprintid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'footprintid'
-      Index = 9
+      Index = 10
       left = 16
-      top = 488
+      top = 504
     end
     object c_componentkindname: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'componentkindname'
-      Index = 10
+      Index = 11
       KeyFields = 'componentkindid'
       LookupDataSet = compkindqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       left = 16
-      top = 536
+      top = 552
     end
     object c_designation: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'designation'
-      Index = 11
+      Index = 12
       left = 16
-      top = 416
+      top = 432
     end
     object c_stockvalue: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'stockvalue'
-      Index = 12
+      Index = 13
       left = 16
-      top = 432
+      top = 448
     end
     object c_stockvalue1: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'stockvalue1'
-      Index = 13
+      Index = 14
       left = 16
-      top = 448
+      top = 464
     end
     object c_stockvalue2: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkInternalCalc
       FieldName = 'stockvalue2'
-      Index = 14
+      Index = 15
       left = 16
-      top = 464
+      top = 480
     end
     object c_manufacturerid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'manufacturerid'
-      Index = 15
+      Index = 16
       left = 16
-      top = 552
+      top = 568
     end
     object c_distributorid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'distributorid'
-      Index = 16
+      Index = 17
       left = 16
-      top = 584
+      top = 600
     end
     object c_componentkindid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'componentkindid'
-      Index = 17
+      Index = 18
       left = 16
-      top = 520
+      top = 536
     end
     object c_manufacturername: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'manufaturername'
-      Index = 18
+      Index = 19
       KeyFields = 'manufacturerid'
       LookupDataSet = manufacturerqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       left = 16
-      top = 568
+      top = 584
     end
     object c_distributorname: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'distributorname'
-      Index = 19
+      Index = 20
       KeyFields = 'distributorid'
       LookupDataSet = distributorqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       left = 16
-      top = 600
+      top = 616
     end
   end
   object compdso: tmsedatasource

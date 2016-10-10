@@ -35,30 +35,40 @@ type
    updateprojectstate: tifiactionendpoint;
    getprojectsavefilename: tifiactionendpoint;
    editprojectsettings: tifiactionendpoint;
-   tdbwidgetgrid1: tdbwidgetgrid;
-   nameed: tdbstringedit;
-   footpred: tdbstringedit;
-   valueed: tdbstringedit;
-   value1ed: tdbstringedit;
-   valu2ed: tdbstringedit;
    menuitemframe: tframecomp;
    tfacelist1: tfacelist;
    editglobalsettings: tifiactionendpoint;
    getdbcedentials: tifiactionendpoint;
-   editbutton: tstockglyphdatabutton;
-   designation: tdbstringedit;
-   footprint: tdbstringedit;
    horzkonvex: tfacecomp;
    vertkonvex: tfacecomp;
    editfootprintact: taction;
    editcompkindact: taction;
    editcomponentsact: taction;
    editfootprintlibact: taction;
-   kind: tdbstringedit;
    editmanufactureract: taction;
    editdistributoract: taction;
+   grid: tdbwidgetgrid;
+   refselector: tenum64editdb;
+   valueselector: tenum64editdb;
+   value1selector: tenum64editdb;
+   value2selector: tenum64editdb;
+   footprselector: tenum64editdb;
+   nameed: tdbstringedit;
+   valueed: tdbstringedit;
+   value1ed: tdbstringedit;
+   valu2ed: tdbstringedit;
+   footpred: tdbstringedit;
+   footprint: tdbstringedit;
+   kind: tdbstringedit;
+   designation: tdbstringedit;
    manufacturer: tdbstringedit;
    distributor: tdbstringedit;
+   editbutton: tstockglyphdatabutton;
+   footprintselector: tenum64editdb;
+   kindselector: tenum64editdb;
+   designationselect: tenum64editdb;
+   manufacturerselect: tenum64editdb;
+   distributorselect: tenum64editdb;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -75,6 +85,8 @@ type
    procedure editfootprintlibev(const sender: TObject);
    procedure editmanufacturerev(const sender: TObject);
    procedure editdistributorev(const sender: TObject);
+   procedure rowselectev(const sender: TObject; var avalue: Int64;
+                   var accept: Boolean);
   protected
   public
    procedure checkeditclose(const adataso: tdatasource;
@@ -269,6 +281,13 @@ begin
  if iscellclick(info,[ccr_dblclick]) then begin
   editbutton.execute();
  end;
+end;
+
+procedure tmainfo.rowselectev(const sender: TObject; var avalue: Int64;
+               var accept: Boolean);
+begin
+ mainmo.compds.indexlocal[0].find([avalue],[]);
+ grid.setfocus();
 end;
 
 {
