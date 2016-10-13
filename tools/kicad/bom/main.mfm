@@ -352,10 +352,25 @@ object mainfo: tmainfo
       datalink.fieldname = 'VALUE2'
       reffontheight = 14
     end
-    object footpred: tdbstringedit
+    object footprintinfoed: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 6
+      visible = False
+      bounds_x = 220
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      datalink.datasource = mainmo.compdso
+      datalink.fieldname = 'FOOTPRINTINFO'
+      reffontheight = 14
+    end
+    object footpred: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 7
       visible = False
       bounds_x = 271
       bounds_y = 0
@@ -370,7 +385,7 @@ object mainfo: tmainfo
     object footprint: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 7
+      taborder = 8
       visible = False
       bounds_x = 340
       bounds_y = 0
@@ -384,7 +399,7 @@ object mainfo: tmainfo
     object areaed: tdbrealedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 8
+      taborder = 9
       visible = False
       bounds_x = 411
       bounds_y = 0
@@ -401,7 +416,7 @@ object mainfo: tmainfo
     object kind: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 9
+      taborder = 10
       visible = False
       bounds_x = 462
       bounds_y = 0
@@ -414,7 +429,7 @@ object mainfo: tmainfo
     object description: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 10
+      taborder = 11
       visible = False
       bounds_x = 530
       bounds_y = 0
@@ -428,7 +443,7 @@ object mainfo: tmainfo
     object manufacturer: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 11
+      taborder = 12
       visible = False
       bounds_x = 636
       bounds_y = 0
@@ -441,7 +456,7 @@ object mainfo: tmainfo
     object distributor: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 12
+      taborder = 13
       visible = False
       bounds_x = 687
       bounds_y = 0
@@ -454,7 +469,7 @@ object mainfo: tmainfo
     object editbutton: tstockglyphdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 13
+      taborder = 14
       hint = 'Edit component (F3)'
       bounds_x = 738
       bounds_y = 0
@@ -465,21 +480,6 @@ object mainfo: tmainfo
       state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr]
       action = editcomponentact
       glyph = stg_ellipsesmall
-    end
-    object footprintinfoed: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 14
-      visible = False
-      bounds_x = 220
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = mainmo.compdso
-      datalink.fieldname = 'FOOTPRINTINFO'
-      reffontheight = 14
     end
     object refselector: tenum64editdb
       optionswidget1 = [ow1_fontglyphheight]
@@ -664,7 +664,7 @@ object mainfo: tmainfo
       onsetvalue = rowselectev
       reffontheight = 14
     end
-    object footprselector: tenum64editdb
+    object footprintinfoselector: tenum64editdb
       optionswidget1 = [ow1_fontglyphheight]
       frame.levelo = 0
       frame.localprops = [frl_levelo]
@@ -674,6 +674,49 @@ object mainfo: tmainfo
         item
         end>
       taborder = 4
+      bounds_x = 220
+      bounds_y = 17
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = mainfosta
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.compdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'FOOPTRINTINFO'
+          datafield = 'FOOTPRINTINFO'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'REF'
+          datafield = 'REF'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object footprselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 5
       bounds_x = 271
       bounds_y = 17
       bounds_cx = 67
@@ -716,7 +759,7 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
-      taborder = 5
+      taborder = 6
       bounds_x = 340
       bounds_y = 17
       bounds_cx = 70
@@ -753,7 +796,7 @@ object mainfo: tmainfo
     object areadisp: trealdisp
       optionswidget1 = [ow1_fontglyphheight]
       color = -1879048185
-      taborder = 6
+      taborder = 7
       onshowhint = hintareaev
       bounds_x = 411
       bounds_y = 17
@@ -775,7 +818,7 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
-      taborder = 7
+      taborder = 8
       bounds_x = 462
       bounds_y = 17
       bounds_cx = 67
@@ -818,7 +861,7 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
-      taborder = 8
+      taborder = 9
       bounds_x = 530
       bounds_y = 17
       bounds_cx = 105
@@ -861,7 +904,7 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
-      taborder = 9
+      taborder = 10
       bounds_x = 636
       bounds_y = 17
       bounds_cx = 50
@@ -904,7 +947,7 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
-      taborder = 10
+      taborder = 11
       bounds_x = 687
       bounds_y = 17
       bounds_cx = 50
@@ -938,55 +981,12 @@ object mainfo: tmainfo
       onsetvalue = rowselectev
       reffontheight = 14
     end
-    object footprintinfoselector: tenum64editdb
-      optionswidget1 = [ow1_fontglyphheight]
-      frame.levelo = 0
-      frame.localprops = [frl_levelo]
-      frame.localprops1 = []
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-        end>
-      taborder = 11
-      bounds_x = 220
-      bounds_y = 17
-      bounds_cx = 50
-      bounds_cy = 16
-      statfile = mainfosta
-      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = mainmo.compdso
-      dropdown.keyfield = 'PK'
-      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 2
-      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-      dropdown.cols.linewidth = 1
-      dropdown.cols.items = <      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'FOOPTRINTINFO'
-          datafield = 'FOOTPRINTINFO'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'REF'
-          datafield = 'REF'
-        end>
-      dropdown.width = -1
-      value = -1
-      valuedefault = -1
-      onsetvalue = rowselectev
-      reffontheight = 14
-    end
   end
   object mainfosta: tstatfile
     filename = 'mainfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 24
-    top = 192
+    top = 216
   end
   object mainmen: tmainmenu
     itemframetemplate = menuitemframe
@@ -1032,9 +1032,6 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        action = mainmo.projectsettingsact
-      end    
-      item
         submenu.count = 6
         submenu.items = <        
           item
@@ -1059,6 +1056,9 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
+        action = mainmo.projectsettingsact
+      end    
+      item
         action = mainmo.globalsettingsact
       end    
       item
@@ -1067,38 +1067,38 @@ object mainfo: tmainfo
         onexecute = aboutev
       end>
     left = 80
-    top = 48
+    top = 72
   end
   object getprojectopenfilename: tifiactionendpoint
     ifilink = mainmo.getprojectfileopen
     onexecute = getfilenameev
     left = 224
-    top = 56
+    top = 80
   end
   object updateprojectstate: tifiactionendpoint
     ifilink = mainmo.updateprojectstate
     onexecute = updateprojectstateev
     left = 224
-    top = 72
+    top = 96
   end
   object getprojectsavefilename: tifiactionendpoint
     ifilink = mainmo.getprojectfilesave
     onexecute = getfilenameev
     left = 224
-    top = 88
+    top = 112
   end
   object editprojectsettings: tifiactionendpoint
     ifilink = mainmo.editprojectsettings
     onexecute = editprojectsettingsev
     left = 224
-    top = 152
+    top = 176
   end
   object menuitemframe: tframecomp
     template.levelo = -1
     template.leveli = 1
     template.frameface_list = tfacelist1
     left = 80
-    top = 72
+    top = 96
   end
   object tfacelist1: tfacelist
     list.count = 1
@@ -1118,19 +1118,19 @@ object mainfo: tmainfo
         localprops = [fal_fadirection]
       end>
     left = 80
-    top = 96
+    top = 120
   end
   object editglobalsettings: tifiactionendpoint
     ifilink = mainmo.editglobalsettings
     onexecute = editglobalsettingsev
     left = 224
-    top = 168
+    top = 192
   end
   object getdbcedentials: tifiactionendpoint
     ifilink = mainmo.getdbcredentials
     onexecute = getdbcredentialsev
     left = 224
-    top = 104
+    top = 128
   end
   object horzkonvex: tfacecomp
     template.fade_pos.count = 2
@@ -1144,7 +1144,7 @@ object mainfo: tmainfo
       -1610612733
     )
     left = 80
-    top = 128
+    top = 152
   end
   object vertkonvex: tfacecomp
     template.fade_pos.count = 2
@@ -1159,50 +1159,50 @@ object mainfo: tmainfo
     )
     template.fade_direction = gd_down
     left = 80
-    top = 144
+    top = 168
   end
   object editfootprintact: taction
     caption = '&Footprints'
     onexecute = editfootprintev
     left = 440
-    top = 56
+    top = 80
   end
   object editcompkindact: taction
     caption = 'Component&kinds'
     onexecute = editcomponentkindlist
     left = 440
-    top = 128
+    top = 152
   end
   object editcomponentsact: taction
     caption = '&Components'
     onexecute = editcomponents
     left = 440
-    top = 144
+    top = 168
   end
   object editfootprintlibact: taction
     caption = 'Footprint&libraries'
     onexecute = editfootprintlibev
     left = 440
-    top = 72
+    top = 96
   end
   object editmanufactureract: taction
     caption = '&Manufacturers'
     onexecute = editmanufacturerev
     left = 440
-    top = 88
+    top = 112
   end
   object editdistributoract: taction
     caption = '&Distributors'
     onexecute = editdistributorev
     left = 440
-    top = 104
+    top = 128
   end
   object editcomponentact: taction
     options = [ao_localshortcut]
     onexecute = editev
     onupdate = updateeditev
     left = 440
-    top = 160
+    top = 184
     sc = (
       1
       306

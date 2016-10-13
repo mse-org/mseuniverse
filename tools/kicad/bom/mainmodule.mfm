@@ -409,48 +409,24 @@ object mainmo: tmainmo
       left = 16
       top = 448
     end
-    object c_stockvalue: tmsestringfield
-      DisplayWidth = 20
-      FieldKind = fkInternalCalc
-      FieldName = 'stockvalue'
-      Index = 14
-      left = 16
-      top = 464
-    end
-    object c_stockvalue1: tmsestringfield
-      DisplayWidth = 20
-      FieldKind = fkInternalCalc
-      FieldName = 'stockvalue1'
-      Index = 15
-      left = 16
-      top = 480
-    end
-    object c_stockvalue2: tmsestringfield
-      DisplayWidth = 20
-      FieldKind = fkInternalCalc
-      FieldName = 'stockvalue2'
-      Index = 16
-      left = 16
-      top = 496
-    end
     object c_manufacturerid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'manufacturerid'
-      Index = 17
+      Index = 14
       left = 16
       top = 560
     end
     object c_distributorid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'distributorid'
-      Index = 18
+      Index = 15
       left = 16
       top = 576
     end
     object c_componentkindid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'componentkindid'
-      Index = 19
+      Index = 16
       left = 16
       top = 544
     end
@@ -458,7 +434,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'manufaturername'
-      Index = 20
+      Index = 17
       KeyFields = 'manufacturerid'
       LookupDataSet = manufacturerqu
       LookupKeyFields = 'PK'
@@ -470,7 +446,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'distributorname'
-      Index = 21
+      Index = 18
       KeyFields = 'distributorid'
       LookupDataSet = distributorqu
       LookupKeyFields = 'PK'
@@ -481,7 +457,7 @@ object mainmo: tmainmo
     object c_area: tmsefloatfield
       FieldKind = fkInternalCalc
       FieldName = 'area'
-      Index = 22
+      Index = 19
       MaxValue = 0
       MinValue = 0
       left = 16

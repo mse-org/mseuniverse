@@ -1,4 +1,5 @@
 object componentlistfo: tcomponentlistfo
+  hint = 'F10 = store record and close window.'
   visible = False
   bounds_x = 337
   bounds_y = 266
@@ -12,7 +13,7 @@ object componentlistfo: tcomponentlistfo
     563
     454
   )
-  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_freeonclose, fo_closeonesc, fo_closeonf10, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Components'
   onloaded = loadedev
@@ -207,10 +208,25 @@ object componentlistfo: tcomponentlistfo
       datalink.fieldname = 'VALUE2'
       reffontheight = 14
     end
-    object footprinttdi: tdbstringedit
+    object tdbstringedit2: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 4
+      visible = False
+      bounds_x = 153
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'FOOTPRINTINFO'
+      reffontheight = 14
+    end
+    object footprinttdi: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 5
       visible = False
       bounds_x = 204
       bounds_y = 0
@@ -234,7 +250,7 @@ object componentlistfo: tcomponentlistfo
         item
           color = -1879048187
         end>
-      taborder = 5
+      taborder = 6
       visible = False
       bounds_x = 255
       bounds_y = 0
@@ -273,7 +289,7 @@ object componentlistfo: tcomponentlistfo
         item
           color = -1879048187
         end>
-      taborder = 6
+      taborder = 7
       visible = False
       bounds_x = 306
       bounds_y = 0
@@ -312,7 +328,7 @@ object componentlistfo: tcomponentlistfo
         item
           color = -1879048187
         end>
-      taborder = 7
+      taborder = 8
       visible = False
       bounds_x = 357
       bounds_y = 0
@@ -336,21 +352,6 @@ object componentlistfo: tcomponentlistfo
           width = 100
           datafield = 'IDENT'
         end>
-      reffontheight = 14
-    end
-    object tdbstringedit2: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 8
-      visible = False
-      bounds_x = 153
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'FOOTPRINTINFO'
       reffontheight = 14
     end
     object valueselector: tenum64editdb
@@ -553,7 +554,7 @@ object componentlistfo: tcomponentlistfo
       onsetvalue = rowselectev
       reffontheight = 14
     end
-    object footprintselector: tenum64editdb
+    object footprintinfoselector: tenum64editdb
       optionswidget1 = [ow1_fontglyphheight]
       frame.levelo = 0
       frame.localprops = [frl_levelo]
@@ -563,6 +564,73 @@ object componentlistfo: tcomponentlistfo
         item
         end>
       taborder = 3
+      bounds_x = 153
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = dataso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 6
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Footprintinfo'
+          datafield = 'FOOTPRINTINFO'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value'
+          datafield = 'VALUE'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value1'
+          datafield = 'VALUE1'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Value2'
+          datafield = 'VALUE2'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Footprint'
+          datafield = 'FOOTPRINTNAME'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'Kind'
+          datafield = 'KINDNAME'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object footprintselector: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 4
       bounds_x = 204
       bounds_y = 0
       bounds_cx = 50
@@ -629,7 +697,7 @@ object componentlistfo: tcomponentlistfo
       frame.buttons.items = <      
         item
         end>
-      taborder = 4
+      taborder = 5
       bounds_x = 255
       bounds_y = 0
       bounds_cx = 50
@@ -696,7 +764,7 @@ object componentlistfo: tcomponentlistfo
       frame.buttons.items = <      
         item
         end>
-      taborder = 5
+      taborder = 6
       bounds_x = 306
       bounds_y = 0
       bounds_cx = 50
@@ -763,7 +831,7 @@ object componentlistfo: tcomponentlistfo
       frame.buttons.items = <      
         item
         end>
-      taborder = 6
+      taborder = 7
       bounds_x = 357
       bounds_y = 0
       bounds_cx = 50
@@ -814,73 +882,6 @@ object componentlistfo: tcomponentlistfo
           linewidth = 1
           caption = 'Footprint'
           datafield = 'FOOTPRINTNAME'
-        end>
-      dropdown.width = -1
-      value = -1
-      valuedefault = -1
-      onsetvalue = rowselectev
-      reffontheight = 14
-    end
-    object footprintinfoselector: tenum64editdb
-      optionswidget1 = [ow1_fontglyphheight]
-      frame.levelo = 0
-      frame.localprops = [frl_levelo]
-      frame.localprops1 = []
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-        end>
-      taborder = 7
-      bounds_x = 153
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      statfile = tstatfile1
-      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = dataso
-      dropdown.keyfield = 'PK'
-      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 6
-      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-      dropdown.cols.linewidth = 1
-      dropdown.cols.items = <      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprintinfo'
-          datafield = 'FOOTPRINTINFO'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Value'
-          datafield = 'VALUE'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Value1'
-          datafield = 'VALUE1'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Value2'
-          datafield = 'VALUE2'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprint'
-          datafield = 'FOOTPRINTNAME'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Kind'
-          datafield = 'KINDNAME'
         end>
       dropdown.width = -1
       value = -1

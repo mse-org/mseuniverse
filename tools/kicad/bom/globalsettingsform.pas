@@ -48,8 +48,10 @@ const
 procedure tglobalsettingsfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 begin
- if amodalresult = mr_ok then begin
+ if amodalresult in [mr_ok,mr_f10] then begin
   globaloptions.storevalues(self,valueprefix);
+  mainmo.conn.connected:= false;
+  mainmo.refresh();
  end;
 end;
 

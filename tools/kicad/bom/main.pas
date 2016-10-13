@@ -123,18 +123,25 @@ var
 begin
  modres1:= amodalresult;
  if adataso.dataset.state in [dsedit,dsinsert] then begin
-  case askyesnocancel('Record has been modified.'+lineend+
-         'Do you want to store the modifications?','CONFIRMATION') of
-   mr_yes: begin
-    if not tmsesqlquery(adataso.dataset).post1() then begin
+  if amodalresult = mr_f10 then begin
+   if not tmsesqlquery(adataso.dataset).post1() then begin
+    amodalresult:= mr_none;
+   end;
+  end
+  else begin
+   case askyesnocancel('Record has been modified.'+lineend+
+          'Do you want to store the modifications?','CONFIRMATION') of
+    mr_yes: begin
+     if not tmsesqlquery(adataso.dataset).post1() then begin
+      amodalresult:= mr_none;
+     end;
+    end;
+    mr_no: begin
+     adataso.dataset.cancel();
+    end;
+    else begin
      amodalresult:= mr_none;
     end;
-   end;
-   mr_no: begin
-    adataso.dataset.cancel();
-   end;
-   else begin
-    amodalresult:= mr_none;
    end;
   end;
  end;
@@ -222,7 +229,7 @@ begin
  fo:= tcredentialsentryfo.create(nil);
  try
   case fo.show(ml_application) of
-   mr_ok: begin
+   mr_ok,mr_f10: begin
     globaloptions.username:= fo.usernameed.value;
     globaloptions.password:= fo.passworded.value;
    end;

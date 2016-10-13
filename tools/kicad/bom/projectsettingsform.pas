@@ -44,6 +44,10 @@ type
    tlabel2: tlabel;
    strip2: tlayouter;
    val_reportencoding: tenumtypeedit;
+   ttabpage3: ttabpage;
+   libaliasgrid: twidgetgrid;
+   val_libident: tstringedit;
+   val_libalias: tstringedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
@@ -59,7 +63,7 @@ const
 procedure tprojectsettingsfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 begin
- if amodalresult = mr_ok then begin
+ if amodalresult in [mr_ok,mr_f10] then begin
   projectoptions.storevalues(self,valueprefix);
  end;
 end;

@@ -55,6 +55,8 @@ type
    ffilewarnings: array[filekindty] of boolean;
    ffileencoding: charencodingty;
    freportencoding: int32;
+   flibident: msestringarty;
+   flibalias: msestringarty;
    procedure setreportencoding(const avalue: int32);
   public
    constructor create();
@@ -71,6 +73,8 @@ type
                            read ffilewarnings[fk_componentfootprint]
                                      write ffilewarnings[fk_componentfootprint];
    property reportencoding: int32 read freportencoding write setreportencoding;
+   property libident: msestringarty read flibident write flibident;
+   property libalias: msestringarty read flibalias write flibalias;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -152,9 +156,6 @@ type
    c_componentkindname: tmsestringfield;
    fl_pk: tmselargeintfield;
    c_description: tmsestringfield;
-   c_stockvalue2: tmsestringfield;
-   c_stockvalue1: tmsestringfield;
-   c_stockvalue: tmsestringfield;
    manufacturerdso: tmsedatasource;
    manufacturerqu: tmsesqlquery;
    m_ident: tmsestringfield;
@@ -490,9 +491,9 @@ begin
       end;
       compds.currentasid[c_distributorid,i1]:= id1;
 
-      compds.currentasmsestring[c_stockvalue,i1]:= sc_value.asmsestring;
-      compds.currentasmsestring[c_stockvalue1,i1]:= sc_value1.asmsestring;
-      compds.currentasmsestring[c_stockvalue2,i1]:= sc_value2.asmsestring;
+//      compds.currentasmsestring[c_stockvalue,i1]:= sc_value.asmsestring;
+//      compds.currentasmsestring[c_stockvalue1,i1]:= sc_value1.asmsestring;
+//      compds.currentasmsestring[c_stockvalue2,i1]:= sc_value2.asmsestring;
       stockcompdetailqu.params[0].asid:= sc_pk.asid; 
                            //manually because of disablecontrols
       stockcompdetailqu.controller.refresh(false);
@@ -665,8 +666,9 @@ end;
 procedure tmainmo.begincomponentsedit();
 begin
  stockcompqu.controller.refresh(false);
- stockcompqu.indexlocal.indexbyname('MAIN').find(
-                                 [c_stockvalue,c_stockvalue1,c_stockvalue2]);
+ stockcompqu.indexlocal[0].find([c_stockitemid]);
+// stockcompqu.indexlocal.indexbyname('MAIN').find(
+//                                 [c_stockvalue,c_stockvalue1,c_stockvalue2]);
  beginedit(stockcompqu,nil);
 end;
 
@@ -1045,11 +1047,13 @@ end;
 procedure tmainmo.componentfootprintlistev(const sender: TObject);
 var
  fna1: filenamety;
- i1: int32;
+ i1,i2: int32;
  stream1: ttextstream;
  id1,id2: int64;
  bm1,bm2: bookmarkdataty;
  footprintident1: msestring;
+ s1: msestring;
+ p1,p2,ps1,ps2,pe: pmsestring;
 begin
  if projectoptions.getfilename(fk_componentfootprint,fna1) then begin
   stream1:= ttextstream.createtransaction(fna1);
@@ -1058,6 +1062,16 @@ begin
    stream1.usewritebuffer:= true;
    stream1.writeln('Cmp-Mod V01 Created by MSEkicadBOM V'+versiontext+
                ' date = '+formatdatetimemse('III',nowutc())+' UTC');
+   i1:= high(projectoptions.libident);
+   
+   i2:= high(projectoptions.libalias);
+   if i2 < i1 then begin
+    i1:= i2;
+   end;
+   ps1:= pointer(projectoptions.libident);
+   pe:= ps1 + i1;
+   ps2:= pointer(projectoptions.libalias);
+   
    for i1:= 0 to compds.recordcount - 1 do begin
     footprintident1:= '';
     id1:= compds.currentasid[c_stockitemid,i1];
@@ -1071,7 +1085,18 @@ begin
      end;
     end;
     if (id1 >= 0) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
-     footprintident1:= footprintqu.currentbmasmsestring[f_libident,bm1] + ':'+
+     s1:= footprintqu.currentbmasmsestring[f_libident,bm1];
+     p1:= ps1;
+     p2:= ps2;
+     while p1 <= pe do begin
+      if s1 = p1^ then begin
+       s1:= p2^;
+       break;
+      end;
+      inc(p1);
+      inc(p2);
+     end;
+     footprintident1:= s1 + ':'+
                         footprintqu.currentbmasmsestring[f_ident,bm1];
     end;
     if footprintident1 <> '' then begin

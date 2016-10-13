@@ -60,11 +60,7 @@ inherited componentkindlistfo: tcomponentkindlistfo
       taborder = 4
       bounds_x = 481
     end
-    inherited tdmodifyed: tdbdatetimeedit
-      taborder = 3
-      bounds_x = 365
-    end
-    object descriptioned: tdbstringedit[4]
+    object descriptioned: tdbstringedit[3]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
@@ -77,6 +73,10 @@ inherited componentkindlistfo: tcomponentkindlistfo
       datalink.navigator = listeditfo.navig
       datalink.fieldname = 'DESCRIPTION'
       reffontheight = 14
+    end
+    inherited tdmodifyed: tdbdatetimeedit[4]
+      taborder = 3
+      bounds_x = 365
     end
   end
   inherited tstatfile1: tstatfile

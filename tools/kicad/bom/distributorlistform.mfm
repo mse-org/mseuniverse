@@ -55,19 +55,7 @@ inherited distributorlistfo: tdistributorlistfo
       end>
     inherited nameed: tdbstringedit
     end
-    inherited commented: tdbmemodialogedit
-      frame.buttons.items = <      
-        item
-        end>
-      bounds_x = 189
-    end
-    inherited tdcreateed: tdbdatetimeedit
-      bounds_x = 286
-    end
-    inherited tdmodifyed: tdbdatetimeedit
-      bounds_x = 402
-    end
-    object idented: tdbstringedit[4]
+    object idented: tdbstringedit[1]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
@@ -81,6 +69,18 @@ inherited distributorlistfo: tdistributorlistfo
       datalink.navigator = navig
       datalink.fieldname = 'IDENT'
       reffontheight = 14
+    end
+    inherited commented: tdbmemodialogedit[2]
+      frame.buttons.items = <      
+        item
+        end>
+      bounds_x = 189
+    end
+    inherited tdcreateed: tdbdatetimeedit[3]
+      bounds_x = 286
+    end
+    inherited tdmodifyed: tdbdatetimeedit[4]
+      bounds_x = 402
     end
   end
   inherited tstatfile1: tstatfile

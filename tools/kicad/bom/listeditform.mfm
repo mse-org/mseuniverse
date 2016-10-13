@@ -1,4 +1,5 @@
 object listeditfo: tlisteditfo
+  hint = 'F10 = store record and close window.'
   visible = False
   bounds_x = 337
   bounds_y = 266
@@ -12,7 +13,7 @@ object listeditfo: tlisteditfo
     558
     393
   )
-  options = [fo_freeonclose, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_freeonclose, fo_cancelonesc, fo_closeonf10, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   onloaded = loadedev
   onclosequery = closequeryev

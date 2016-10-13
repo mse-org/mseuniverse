@@ -96,6 +96,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
         item
           imagenr = 17
           options = [fbo_executeonclientdblclick]
+          onexecute = editdistributorev
         end      
         item
         end>
@@ -141,6 +142,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
         item
           imagenr = 17
           options = [fbo_executeonclientdblclick]
+          onexecute = editmanufactorerev
         end      
         item
         end>
@@ -355,5 +357,13 @@ inherited componentkindeditfo: tcomponentkindeditfo
   end
   inherited tstatfile1: tstatfile[5]
     filename = 'componentkindeditfo.sta'
+  end
+  object footprintedact: taction[6]
+    left = 168
+    top = 112
+    sc = (
+      1
+      306
+    )
   end
 end

@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  recordnameeditform,msesplitter,mdb,mseact,msedataedits,msedbedit,mseedit,
  msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
- msescrollbar,msestatfile,msestream,msestrings,sysutils,msedbdialog;
+ msescrollbar,msestatfile,msestream,msestrings,sysutils,msedbdialog,mseactions;
 
 type
  tcomponentkindeditfo = class(trecordnameeditfo)
@@ -36,7 +36,10 @@ type
    param4ed: tdbmemodialogedit;
    distributored: tdbenum64editdb;
    manufacturered: tdbenum64editdb;
+   footprintedact: taction;
    procedure footprintedev(const sender: TObject);
+   procedure editmanufactorerev(const sender: TObject);
+   procedure editdistributorev(const sender: TObject);
  end;
 
 implementation
@@ -46,6 +49,16 @@ uses
 procedure tcomponentkindeditfo.footprintedev(const sender: TObject);
 begin
  mainfo.editfootprint(mainmo.k_footprint);
+end;
+
+procedure tcomponentkindeditfo.editmanufactorerev(const sender: TObject);
+begin
+ mainfo.editmanufacturer(mainmo.k_manufacturer);
+end;
+
+procedure tcomponentkindeditfo.editdistributorev(const sender: TObject);
+begin
+ mainfo.editdistributor(mainmo.k_distributor);
 end;
 
 end.

@@ -78,6 +78,79 @@ object projectsettingsfo: tprojectsettingsfo
     tab_frame.localprops = []
     tab_frame.localprops1 = []
     tab_size = 19
+    statfile = tstatfile1
+    object ttabpage1: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 396
+      bounds_cy = 229
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '&Schematic Files'
+      object schematicgrid: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 396
+        bounds_cy = 229
+        anchors = []
+        optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 20
+            numstart = 1
+            numstep = 1
+          end>
+        datacols.count = 1
+        datacols.items = <        
+          item[val_schematics]
+            width = 370
+            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'val_schematics'
+            dataclass = tgridmsestringdatalist
+          end>
+        datarowheight = 16
+        statfile = tstatfile1
+        reffontheight = 14
+        object val_schematics: tfilenameedit
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+              imagenr = 17
+            end>
+          frame.button.color = -1879048187
+          frame.button.imagenr = 17
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 370
+          bounds_cy = 16
+          statfile = tstatfile1
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+          textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+          controller.filterlist.data = (
+            (
+              'KiCad Schematics'
+              '*.sch'
+            )
+          )
+          controller.defaultext = 'sch'
+          controller.captionopen = 'Select KiCad Schematic'
+          reffontheight = 14
+        end
+      end
+    end
     object ttabpage2: ttabpage
       frame.levelo = -1
       frame.leveli = 1
@@ -220,17 +293,17 @@ object projectsettingsfo: tprojectsettingsfo
         end
       end
     end
-    object ttabpage1: ttabpage
+    object ttabpage3: ttabpage
       frame.localprops = []
       frame.localprops1 = []
-      taborder = 1
+      taborder = 3
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 396
       bounds_cy = 229
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = '&Schematic Files'
-      object schematicgrid: twidgetgrid
+      caption = '&Footprint Libraryalias'
+      object libaliasgrid: twidgetgrid
         frame.localprops = []
         frame.localprops1 = []
         bounds_x = 0
@@ -238,7 +311,7 @@ object projectsettingsfo: tprojectsettingsfo
         bounds_cx = 396
         bounds_cy = 229
         anchors = []
-        optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_sorted, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
         fixcols.items = <        
           item
@@ -246,48 +319,63 @@ object projectsettingsfo: tprojectsettingsfo
             numstart = 1
             numstep = 1
           end>
-        datacols.count = 1
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 2
+            captions.items = <            
+              item
+                caption = 'Ident'
+                options = [dco_colsort, dco_hintclippedtext]
+              end            
+              item
+                caption = 'Alias'
+                options = [dco_colsort, dco_hintclippedtext]
+              end>
+          end>
+        datacols.count = 2
+        datacols.sortcol = 0
+        datacols.sortcoldefault = 0
+        datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
         datacols.items = <        
-          item[val_schematics]
-            width = 370
-            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-            widgetname = 'val_schematics'
+          item[val_libident]
+            width = 178
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'val_libident'
+            dataclass = tgridmsestringdatalist
+          end        
+          item[val_libalias]
+            width = 191
+            options = [co_fill, co_savestate, co_mousescrollrow]
+            widgetname = 'val_libalias'
             dataclass = tgridmsestringdatalist
           end>
         datarowheight = 16
         statfile = tstatfile1
         reffontheight = 14
-        object val_schematics: tfilenameedit
+        object val_libident: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
-          frame.levelo = 0
-          frame.colorclient = -2147483645
-          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-          frame.localprops1 = []
-          frame.buttons.count = 1
-          frame.buttons.items = <          
-            item
-              color = -1879048187
-              imagenr = 17
-            end>
-          frame.button.color = -1879048187
-          frame.button.imagenr = 17
           taborder = 1
           visible = False
           bounds_x = 0
           bounds_y = 0
-          bounds_cx = 370
+          bounds_cx = 178
           bounds_cy = 16
-          statfile = tstatfile1
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-          textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
-          controller.filterlist.data = (
-            (
-              'KiCad Schematics'
-              '*.sch'
-            )
-          )
-          controller.defaultext = 'sch'
-          controller.captionopen = 'Select KiCad Schematic'
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          reffontheight = 14
+        end
+        object val_libalias: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          visible = False
+          bounds_x = 179
+          bounds_y = 0
+          bounds_cx = 191
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           reffontheight = 14
         end
       end

@@ -1,4 +1,5 @@
 object recordeditfo: trecordeditfo
+  hint = 'F10 = store record and close window.'
   visible = False
   bounds_x = 367
   bounds_y = 592
@@ -12,7 +13,7 @@ object recordeditfo: trecordeditfo
     512
     406
   )
-  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_freeonclose, fo_closeonesc, fo_closeonf10, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   onclosequery = closequeryev
   moduleclassname = 'tmseform'
