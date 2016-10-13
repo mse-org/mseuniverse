@@ -55,6 +55,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
         item
           imagenr = 17
           options = [fbo_executeonclientdblclick]
+          shortcut = 306
           onexecute = footprintedev
         end      
         item
@@ -96,6 +97,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
         item
           imagenr = 17
           options = [fbo_executeonclientdblclick]
+          shortcut = 306
           onexecute = editdistributorev
         end      
         item
@@ -142,6 +144,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
         item
           imagenr = 17
           options = [fbo_executeonclientdblclick]
+          shortcut = 243
           onexecute = editmanufactorerev
         end      
         item
@@ -357,13 +360,5 @@ inherited componentkindeditfo: tcomponentkindeditfo
   end
   inherited tstatfile1: tstatfile[5]
     filename = 'componentkindeditfo.sta'
-  end
-  object footprintedact: taction[6]
-    left = 168
-    top = 112
-    sc = (
-      1
-      306
-    )
   end
 end

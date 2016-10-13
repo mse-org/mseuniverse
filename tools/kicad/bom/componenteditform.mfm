@@ -146,6 +146,7 @@ inherited componenteditfo: tcomponenteditfo
         item
           imagenr = 17
           options = [fbo_executeonclientdblclick]
+          shortcut = 306
           onexecute = editfootprintev
         end      
         item
@@ -191,6 +192,7 @@ inherited componenteditfo: tcomponenteditfo
         item
           imagenr = 17
           options = [fbo_executeonclientdblclick]
+          shortcut = 306
           onexecute = editcompkindev
         end      
         item
@@ -231,6 +233,7 @@ inherited componenteditfo: tcomponenteditfo
         item
           imagenr = 17
           options = [fbo_executeonclientdblclick]
+          shortcut = 306
           onexecute = editdistributorev
         end      
         item
@@ -277,6 +280,7 @@ inherited componenteditfo: tcomponenteditfo
         item
           imagenr = 17
           options = [fbo_executeonclientdblclick]
+          shortcut = 306
           onexecute = editmanufacturerev
         end      
         item

@@ -36,7 +36,6 @@ type
    param4ed: tdbmemodialogedit;
    distributored: tdbenum64editdb;
    manufacturered: tdbenum64editdb;
-   footprintedact: taction;
    procedure footprintedev(const sender: TObject);
    procedure editmanufactorerev(const sender: TObject);
    procedure editdistributorev(const sender: TObject);
