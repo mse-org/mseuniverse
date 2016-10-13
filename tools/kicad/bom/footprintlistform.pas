@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,listeditform,
  mdb,mseact,msedataedits,msedbedit,mseedit,msegraphedits,msegrids,mseificomp,
  mseificompglob,mseifiglob,mselookupbuffer,msescrollbar,msestatfile,msestream,
- msestrings,sysutils,msedb;
+ msestrings,sysutils,msedb,msedbdialog;
 
 type
  tfootprintlistfo = class(tlisteditfo)
@@ -30,6 +30,7 @@ type
    tdbenum64editdb1: tdbenum64editdb;
    idented: tdbstringedit;
  //  procedure closeev(const sender: TObject);
+   descriptioned: tdbmemodialogedit;
    procedure libeditev(const sender: TObject);
   public
 //   constructor create(const aid: tmselargeintfield); reintroduce;

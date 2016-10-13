@@ -185,6 +185,9 @@ type
    c_area: tmsefloatfield;
    f_area: tmsefloatfield;
    totarea: tifireallinkcomp;
+   f_description: tmsestringfield;
+   sc_footprintinfo: tmsestringfield;
+   c_footprintinfo: tmsestringfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -270,19 +273,34 @@ uses
 { tmainmo }
 type
  macronamety = (
-    mn_value,mn_value1,mn_value2,mn_footprint,mn_manufacturer,mn_distributor,
+    mn_value,mn_value1,mn_value2,
+    mn_footprint,mn_footprintident,mn_footprintlibrary,
+    mn_footprintdescription,
+    mn_manufacturer,mn_distributor,
     mn_description,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
-    mn_k_footprint,mn_k_manufacturer,mn_k_distributor,mn_k_description,
+    mn_k_footprint,mn_k_footprintident,mn_k_footprintlibrary,
+    mn_k_footprintdescription,
+    mn_k_manufacturer,mn_k_distributor,mn_k_description,
     mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
 
 const
  macronames: array[macronamety] of msestring = (
-//mn_value,mn_value1,mn_value2,mn_footprint,mn_manufacturer,mn_distributor,
-    'value', 'value1', 'value2', 'footprint', 'manufacturer', 'distributor',
+//mn_value,mn_value1,mn_value2,
+    'value', 'value1', 'value2',
+//mn_footprint,mn_footprintident,mn_footprintlibrary,
+    'footprint', 'footprintident', 'footprintlibrary',
+//mn_footprintdescription,
+    'footprintdescription',
+//mn_manufacturer,mn_distributor,
+    'manufacturer', 'distributor',
 //mn_designation,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
     'description', 'parameter1', 'parameter2', 'parameter3', 'parameter4',
-//mn_k_footprint,mn_k_manufacturer,mn_k_distributor,mn_k_description,
-    'k_footprint', 'k_manufacturer', 'k_distributor', 'k_description',
+//mn_k_footprint,mn_k_footprintident,mn_k_footprintlibrary,
+    'k_footprint','k_footprintident','k_footprintlibrary',
+//mn_k_footprintdescription,
+    'k_footprintdescription',
+//mn_k_manufacturer,mn_k_distributor,mn_k_description,
+    'k_manufacturer', 'k_distributor', 'k_description',
 //mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
     'k_parameter1', 'k_parameter2', 'k_parameter3', 'k_parameter4'
  );
@@ -352,8 +370,8 @@ procedure tmainmo.docomp(const sender: tkicadschemaparser;
  end;//checkfield
 
 var
- footpr,val,val1,val2: msestring;
- nfootpr,nval,nval1,nval2: boolean; //nullflags
+ footpr,val,val1,val2,footprinfo: msestring;
+ nfootpr,nval,nval1,nval2,nfootprinfo: boolean; //nullflags
  po1,pe: pcompfieldinfoty;
  bm1: bookmarkdataty;
 begin
@@ -363,6 +381,7 @@ begin
   nval:= true;
   nval1:= true;
   nval2:= true;
+  nfootprinfo:= true;
   po1:= pointer(info.fields);
   pe:= po1 + length(info.fields);
   while po1 < pe do begin
@@ -370,6 +389,9 @@ begin
     if not checkfield('VALUE',po1^,val,nval) then begin
      if not checkfield('VALUE1',po1^,val1,nval1) then begin
       if not checkfield('VALUE2',po1^,val2,nval2) then begin
+       if not checkfield('FOOTPRINTINFO',po1^,footprinfo,
+                                                  nfootprinfo) then begin
+       end;
       end;
      end;
     end
@@ -378,8 +400,8 @@ begin
   end;
   if not compds.indexlocal[1].find([info.reference],[],bm1) then begin
    compds.controller.appendrecord1([compds.recordcount,info.reference,
-                                    info.timestamp,footpr,val,val1,val2],
-                                 [false,false,false,nfootpr,nval,nval1,nval2]);
+                    info.timestamp,footpr,val,val1,val2,footprinfo],
+                    [false,false,false,nfootpr,nval,nval1,nval2,nfootprinfo]);
     //duplicates are several units in same housing
   end;
  end;
@@ -417,6 +439,7 @@ begin
      stream.destroy();
     end;
    end;
+   compds.post(); //last inserted record
    
    manufacturerqu.controller.refresh(false);
    distributorqu.controller.refresh(false);
@@ -430,10 +453,12 @@ begin
      if stockcompqu.indexlocal[1].find(
                     [compds.currentasmsestring[c_value,i1],
                      compds.currentasmsestring[c_value1,i1],
-                     compds.currentasmsestring[c_value2,i1]],
+                     compds.currentasmsestring[c_value2,i1],
+                     compds.currentasmsestring[c_footprintinfo,i1]],
                     [compds.currentisnull[c_value,i1],
                      compds.currentisnull[c_value1,i1],
-                     compds.currentisnull[c_value2,i1]]) then begin
+                     compds.currentisnull[c_value2,i1],
+                     compds.currentisnull[c_footprintinfo,i1]]) then begin
       compds.currentasid[c_stockitemid,i1]:= sc_pk.asid;
 
       id2:= sc_componentkind.asid;
@@ -610,6 +635,7 @@ begin
    sc_value.asnullmsestring:= c_value.asnullmsestring;
    sc_value1.asnullmsestring:= c_value1.asnullmsestring;
    sc_value2.asnullmsestring:= c_value2.asnullmsestring;
+   sc_footprintinfo.asnullmsestring:= c_footprintinfo.asnullmsestring;
   end
   else begin
    stockcompqu.indexlocal[0].find([idfield]);
@@ -653,21 +679,22 @@ begin
 end;
 
 function tmainmo.expandcomponentmacros(const atext: msestring): msestring;
-var
- bm1: bookmarkdataty;
- bo1: boolean;
 
- procedure updatemacro(const afield: tmsestringfield; 
+ procedure updatemacro(const abm: bookmarkdataty; const afield: tfield; 
                          const componentmacro,kindmacro: macronamety);
  var
   ms1: msestring;
  begin
-  ms1:= compkindqu.currentbmasmsestring[afield,bm1];
+  ms1:= tmsesqlquery(afield.dataset).currentbmasmsestring[afield,abm];
   macroitems[kindmacro]^.value:= ms1;
   if macroitems[componentmacro]^.value = '' then begin
    macroitems[componentmacro]^.value:= ms1;
   end;
  end; //updatemacro
+
+var
+ bm1,bm2: bookmarkdataty;
+ bo1: boolean;
 
 begin
  result:= '';
@@ -677,7 +704,22 @@ begin
  macroitems[mn_value]^.value:= sc_value.asmsestring;
  macroitems[mn_value1]^.value:= sc_value1.asmsestring;
  macroitems[mn_value2]^.value:= sc_value2.asmsestring;
- macroitems[mn_footprint]^.value:= sc_footprintname.asmsestring;
+ if footprintqu.indexlocal[0].find([sc_footprint],bm2) then begin
+  macroitems[mn_footprint]^.value:= 
+                            footprintqu.currentbmasmsestring[f_name,bm2];
+  macroitems[mn_footprintident]^.value:= 
+                            footprintqu.currentbmasmsestring[f_ident,bm2];
+  macroitems[mn_footprintlibrary]^.value:= 
+                            footprintqu.currentbmasmsestring[f_libname,bm2];
+  macroitems[mn_footprintdescription]^.value:= 
+                            footprintqu.currentbmasmsestring[f_description,bm2];
+ end
+ else begin
+  macroitems[mn_footprint]^.value:= '';
+  macroitems[mn_footprintident]^.value:= '';
+  macroitems[mn_footprintlibrary]^.value:= '';
+  macroitems[mn_footprintdescription]^.value:= '';
+ end;
  macroitems[mn_manufacturer]^.value:= sc_manufacturername.asmsestring;
  macroitems[mn_distributor]^.value:= sc_distributorname.asmsestring;
  macroitems[mn_description]^.value:= scd_description.asmsestring;
@@ -687,17 +729,32 @@ begin
  macroitems[mn_parameter4]^.value:= scd_parameter4.asmsestring;
 
  if bo1 then begin
-  updatemacro(k_footprintname,mn_footprint,mn_k_footprint);
-  updatemacro(k_manufacturername,mn_manufacturer,mn_k_manufacturer);
-  updatemacro(k_distributorname,mn_distributor,mn_k_distributor);
-  updatemacro(k_description,mn_description,mn_k_description);
-  updatemacro(k_parameter1,mn_parameter1,mn_k_parameter1);
-  updatemacro(k_parameter2,mn_parameter2,mn_k_parameter2);
-  updatemacro(k_parameter3,mn_parameter3,mn_k_parameter3);
-  updatemacro(k_parameter4,mn_parameter4,mn_k_parameter4);
+  if footprintqu.indexlocal[0].find(
+            [compkindqu.currentbmasid[k_footprint,bm1]],[],bm2) then begin
+   updatemacro(bm2,f_name,mn_footprint,mn_k_footprint);
+   updatemacro(bm2,f_ident,mn_footprintident,mn_k_footprintident);
+   updatemacro(bm2,f_libname,mn_footprintlibrary,mn_k_footprintlibrary);
+   updatemacro(bm2,f_description,mn_footprintdescription,
+                                                 mn_k_footprintdescription);
+  end
+  else begin
+   macroitems[mn_k_footprint]^.value:= '';
+   macroitems[mn_k_footprintident]^.value:= '';
+   macroitems[mn_k_footprintlibrary]^.value:= '';
+   macroitems[mn_k_footprintdescription]^.value:= '';
+  end;
+  updatemacro(bm1,k_manufacturername,mn_manufacturer,mn_k_manufacturer);
+  updatemacro(bm1,k_distributorname,mn_distributor,mn_k_distributor);
+  updatemacro(bm1,k_description,mn_description,mn_k_description);
+  updatemacro(bm1,k_parameter1,mn_parameter1,mn_k_parameter1);
+  updatemacro(bm1,k_parameter2,mn_parameter2,mn_k_parameter2);
+  updatemacro(bm1,k_parameter3,mn_parameter3,mn_k_parameter3);
+  updatemacro(bm1,k_parameter4,mn_parameter4,mn_k_parameter4);
  end
  else begin
   macroitems[mn_k_footprint]^.value:= '';
+  macroitems[mn_k_footprintident]^.value:= '';
+  macroitems[mn_k_footprintdescription]^.value:= '';
   macroitems[mn_k_manufacturer]^.value:= '';
   macroitems[mn_k_distributor]^.value:= '';
   macroitems[mn_k_description]^.value:= '';
@@ -923,7 +980,7 @@ var
  bm1: bookmarkdataty;
 begin
  with tmsesqlquery(dataset) do begin
-  if indexlocal[1].find([sc_value,sc_value1,sc_value2],bm1,false,false,true) and
+  if indexlocal[1].find([sc_value,sc_value1,sc_value2,sc_footprintinfo],bm1,false,false,true) and
                            (currentbmasid[sc_pk,bm1] <> sc_pk.asid) then begin
    showmessage('Component with this values exist.','ERROR');
    abort();

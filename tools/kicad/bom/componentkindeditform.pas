@@ -26,14 +26,14 @@ uses
 
 type
  tcomponentkindeditfo = class(trecordnameeditfo)
-   tlayouter1: tlayouter;
+   stripe3: tlayouter;
    descriptioned: tdbdialogstringedit;
    param1ed: tdbmemodialogedit;
    param2ed: tdbmemodialogedit;
    commented: tdbmemodialogedit;
    param3ed: tdbmemodialogedit;
    footprinted: tdbenum64editdb;
-   tdbmemodialogedit2: tdbmemodialogedit;
+   param4ed: tdbmemodialogedit;
    distributored: tdbenum64editdb;
    manufacturered: tdbenum64editdb;
    procedure footprintedev(const sender: TObject);

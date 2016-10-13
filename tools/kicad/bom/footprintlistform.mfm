@@ -19,18 +19,24 @@ inherited footprintlistfo: tfootprintlistfo
       end>
     fixrows.items = <    
       item
-        captions.count = 7
+        captions.count = 8
         captions.items = <        
           item
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Ident'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Library'
+            options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Area (mm^2)'
+          end        
+          item
+            caption = 'Description'
           end        
           item
             caption = 'Comment'
@@ -42,12 +48,15 @@ inherited footprintlistfo: tfootprintlistfo
             caption = 'Modified'
           end>
       end>
-    datacols.count = 7
+    datacols.count = 8
+    datacols.sortcol = 0
+    datacols.sortcoldefault = 0
     datacols.colorder = (
       'nameed'
       'idented'
       'tdbenum64editdb1'
       'areaed'
+      'descriptioned'
       'commented'
       'tdcreateed'
       'tdmodifyed'
@@ -67,6 +76,9 @@ inherited footprintlistfo: tfootprintlistfo
         width = 93
         widgetname = 'areaed'
       end    
+      item[descriptioned]
+        widgetname = 'descriptioned'
+      end    
       item[commented]
       end    
       item[tdcreateed]
@@ -75,11 +87,11 @@ inherited footprintlistfo: tfootprintlistfo
       end>
     inherited tdcreateed: tdbdatetimeedit[0]
       taborder = 2
-      bounds_x = 462
+      bounds_x = 513
     end
     inherited tdmodifyed: tdbdatetimeedit[1]
       taborder = 3
-      bounds_x = 578
+      bounds_x = 629
     end
     inherited nameed: tdbstringedit[2]
     end
@@ -88,7 +100,7 @@ inherited footprintlistfo: tfootprintlistfo
         item
         end>
       taborder = 4
-      bounds_x = 365
+      bounds_x = 416
     end
     object idented: tdbstringedit[4]
       optionswidget1 = [ow1_fontglyphheight]
@@ -161,8 +173,35 @@ inherited footprintlistfo: tfootprintlistfo
       valuestart = 0
       reffontheight = 14
     end
+    object descriptioned: tdbmemodialogedit[7]
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+        end>
+      frame.button.color = -1879048187
+      frame.button.imagenr = 17
+      taborder = 8
+      visible = False
+      bounds_x = 365
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'DESCRIPTION'
+      reffontheight = 14
+    end
   end
   inherited tstatfile1: tstatfile
+    filename = 'footprintlistfo.sta'
   end
   inherited dataso: tmsedatasource
     DataSet = mainmo.footprintqu

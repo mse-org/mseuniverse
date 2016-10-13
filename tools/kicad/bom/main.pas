@@ -74,6 +74,8 @@ type
    editcomponentact: taction;
    areaed: tdbrealedit;
    areadisp: trealdisp;
+   footprintinfoed: tdbstringedit;
+   footprintinfoselector: tenum64editdb;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);

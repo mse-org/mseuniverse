@@ -45,6 +45,8 @@ type
    footprinttdi: tdbstringedit;
    manufacturered: tdbenum64editdb;
    distributored: tdbenum64editdb;
+   tdbstringedit2: tdbstringedit;
+   footprintinfoselector: tenum64editdb;
    procedure edititemev(const sender: TObject);
    procedure rowselectev(const sender: TObject; var avalue: Int64;
                    var accept: Boolean);

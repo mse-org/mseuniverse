@@ -99,6 +99,8 @@ object recordeditfo: trecordeditfo
       visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit]
       buttonface.localprops = []
       buttonface.template = mainfo.horzkonvex
+      shortcut_insert = 16646
+      shortcut_delete = 16647
       autoedit = True
       dialogbutton.imagenr = 17
       dialogbutton.hint = 'Dialog'

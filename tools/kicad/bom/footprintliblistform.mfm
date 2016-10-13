@@ -66,7 +66,14 @@ inherited footprintliblistfo: tfootprintliblistfo
     end
     inherited nameed: tdbstringedit[2]
     end
-    object tdbstringedit1: tdbstringedit[3]
+    inherited commented: tdbmemodialogedit[3]
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 4
+      bounds_x = 186
+    end
+    object tdbstringedit1: tdbstringedit[4]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
@@ -79,13 +86,6 @@ inherited footprintliblistfo: tfootprintliblistfo
       datalink.navigator = navig
       datalink.fieldname = 'IDENT'
       reffontheight = 14
-    end
-    inherited commented: tdbmemodialogedit[4]
-      frame.buttons.items = <      
-        item
-        end>
-      taborder = 4
-      bounds_x = 186
     end
   end
   inherited tstatfile1: tstatfile

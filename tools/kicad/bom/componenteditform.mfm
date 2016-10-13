@@ -23,7 +23,6 @@ inherited componenteditfo: tcomponenteditfo
   end
   object stripe2: tlayouter[1]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 1
     bounds_x = 8
     bounds_y = 40
     bounds_cx = 668
@@ -99,16 +98,31 @@ inherited componenteditfo: tcomponenteditfo
       datalink.fieldname = 'VALUE'
       reffontheight = 14
     end
-    object tsimplewidget3: tsimplewidget
+    object footprintinfoed: tdbstringedit
+      frame.caption = '&Footprintinfo'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
       taborder = 3
       bounds_x = 504
-      bounds_y = 22
+      bounds_y = 0
       bounds_cx = 164
-      bounds_cy = 10
+      bounds_cy = 37
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'FOOTPRINTINFO'
+      reffontheight = 14
     end
   end
   object stripe3: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 1
     bounds_x = 8
     bounds_y = 81
     bounds_cx = 668
@@ -228,7 +242,7 @@ inherited componenteditfo: tcomponenteditfo
         0
         0
       )
-      taborder = 2
+      taborder = 3
       bounds_x = 504
       bounds_y = 0
       bounds_cx = 164
@@ -274,7 +288,7 @@ inherited componenteditfo: tcomponenteditfo
         0
         0
       )
-      taborder = 3
+      taborder = 2
       bounds_x = 336
       bounds_y = 0
       bounds_cx = 164
@@ -508,6 +522,7 @@ inherited componenteditfo: tcomponenteditfo
   end
   inherited dataso: tmsedatasource[4]
     DataSet = mainmo.stockcompqu
+    OnStateChange = statechangeev
     OnDataChange = datachangeev
   end
   inherited tstatfile1: tstatfile[5]

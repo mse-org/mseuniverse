@@ -41,22 +41,25 @@ type
    parameter3ed: tdbmemodialogedit;
    parameter4ed: tdbmemodialogedit;
    commented: tdbmemodialogedit;
-   tsimplewidget3: tsimplewidget;
    distributored: tdbenum64editdb;
    manufacturered: tdbenum64editdb;
+   footprintinfoed: tdbstringedit;
    procedure editfootprintev(const sender: TObject);
    procedure editcompkindev(const sender: TObject);
    procedure datachangeev(Sender: TObject; Field: TField);
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
    procedure editmanufacturerev(const sender: TObject);
    procedure editdistributorev(const sender: TObject);
+   procedure statechangeev(Sender: TObject);
+  private
+   fstatebefore: tdatasetstate;
   public
    constructor create(const idfield: tmselargeintfield;
                                         const nonavig: boolean); reintroduce;
  end;
 implementation
 uses
- componenteditform_mfm,mainmodule,main,msebufdataset;
+ componenteditform_mfm,mainmodule,main,msebufdataset,msesqldb;
 
 { tcomponenteditfo }
 
@@ -71,6 +74,7 @@ begin
  else begin
   navig.options:= navig.options - [dno_nonavig,dno_noinsert];
  end;
+ fstatebefore:= dataso.dataset.state;
 end;
 {
 procedure tcomponenteditfo.closeev(const sender: TObject);
@@ -136,6 +140,20 @@ begin
  info.caption:= mainmo.expandcomponentmacros(
                          tmsestringfield(tdbstringedit(sender).datalink.field));
  include(info.flags,hfl_show); //show empty hint
+end;
+
+procedure tcomponenteditfo.statechangeev(Sender: TObject);
+var
+ ds1: tdatasetstate;
+begin
+ with tmsesqlquery(dataso.dataset) do begin
+  ds1:= state;
+  if (dno_nonavig in navig.options) and (ds1 = dsbrowse) and 
+             (fstatebefore = dsinsert) and controller.canceling then begin
+   window.modalresult:= mr_cancel;
+  end;
+ end;
+ fstatebefore:= ds1;
 end;
 
 end.
