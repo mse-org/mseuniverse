@@ -129,7 +129,7 @@ object mainfo: tmainfo
             color = -1610612712
             caption = 'Database'
             face.localprops = []
-            mergecols = 4
+            mergecols = 5
           end        
           item
           end        
