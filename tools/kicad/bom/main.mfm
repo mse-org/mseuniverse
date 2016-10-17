@@ -405,6 +405,7 @@ object mainfo: tmainfo
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
+      textflagsactive = [tf_right, tf_ycentered]
       datalink.datasource = mainmo.compdso
       datalink.fieldname = 'area'
       min = -Inf

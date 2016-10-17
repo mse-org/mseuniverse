@@ -87,30 +87,33 @@ inherited footprintlistfo: tfootprintlistfo
       end>
     inherited tdcreateed: tdbdatetimeedit[0]
       taborder = 2
-      bounds_x = 513
+      bounds_x = 497
     end
     inherited tdmodifyed: tdbdatetimeedit[1]
       taborder = 3
-      bounds_x = 629
+      bounds_x = 613
     end
     inherited nameed: tdbstringedit[2]
+      bounds_x = -16
     end
     inherited commented: tdbmemodialogedit[3]
       frame.buttons.items = <      
         item
         end>
       taborder = 4
-      bounds_x = 416
+      bounds_x = 400
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
     end
     object idented: tdbstringedit[4]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 105
+      bounds_x = 89
       bounds_y = 0
       bounds_cx = 77
       bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'IDENT'
@@ -136,10 +139,11 @@ inherited footprintlistfo: tfootprintlistfo
       frame.activebutton = 1
       taborder = 6
       visible = False
-      bounds_x = 183
+      bounds_x = 167
       bounds_y = 0
       bounds_cx = 87
       bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'LIBRARY'
@@ -159,7 +163,7 @@ inherited footprintlistfo: tfootprintlistfo
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 271
+      bounds_x = 255
       bounds_y = 0
       bounds_cx = 93
       bounds_cy = 16
@@ -190,10 +194,11 @@ inherited footprintlistfo: tfootprintlistfo
       frame.button.imagenr = 17
       taborder = 8
       visible = False
-      bounds_x = 365
+      bounds_x = 349
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'DESCRIPTION'

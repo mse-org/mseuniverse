@@ -60,7 +60,11 @@ inherited componentkindlistfo: tcomponentkindlistfo
       taborder = 4
       bounds_x = 481
     end
-    object descriptioned: tdbstringedit[3]
+    inherited tdmodifyed: tdbdatetimeedit
+      taborder = 3
+      bounds_x = 365
+    end
+    object descriptioned: tdbstringedit[4]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
@@ -69,14 +73,11 @@ inherited componentkindlistfo: tcomponentkindlistfo
       bounds_y = 0
       bounds_cx = 143
       bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
       datalink.navigator = listeditfo.navig
       datalink.fieldname = 'DESCRIPTION'
       reffontheight = 14
-    end
-    inherited tdmodifyed: tdbdatetimeedit[4]
-      taborder = 3
-      bounds_x = 365
     end
   end
   inherited tstatfile1: tstatfile
