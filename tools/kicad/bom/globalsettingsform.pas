@@ -31,17 +31,22 @@ type
    tbutton2: tbutton;
    tbutton1: tbutton;
    tspacer2: tspacer;
-   texpandingwidget1: texpandingwidget;
+   ttabwidget1: ttabwidget;
+   maintab: ttabpage;
    val_databasename: tstringedit;
    val_hostname: tstringedit;
+   prodplottab: ttabpage;
+   prodplotstacktabs: ttabwidget;
+   plotstackmenu: tpopupmenu;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
+   procedure newprodplotpageev(const sender: TObject);
  end;
  
 implementation
 uses
- globalsettingsform_mfm,mainmodule;
+ globalsettingsform_mfm,mainmodule,productionpage;
 const
  valueprefix = 'val_';
   
@@ -58,6 +63,11 @@ end;
 procedure tglobalsettingsfo.createev(const sender: TObject);
 begin
  globaloptions.loadvalues(self,valueprefix);
+end;
+
+procedure tglobalsettingsfo.newprodplotpageev(const sender: TObject);
+begin
+ prodplotstacktabs.add(itabpage(tproductionpagefo.create(nil)));
 end;
 
 end.

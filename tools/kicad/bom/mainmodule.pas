@@ -226,6 +226,7 @@ type
    fcommitcount: card32;
    fmacros: tmacrolist;
    fprojectname: msestring;
+   fplotkinds: msestringarty;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -257,6 +258,7 @@ type
    property modified: boolean read fmodified;
    function expandcomponentmacros(const atext: msestring): msestring;
    function expandcomponentmacros(const afield: tmsestringfield): msestring;
+   property plotkinds: msestringarty read fplotkinds;
  end;
  
 var

@@ -2,15 +2,15 @@ object globalsettingsfo: tglobalsettingsfo
   visible = False
   bounds_x = 337
   bounds_y = 266
-  bounds_cx = 270
-  bounds_cy = 162
+  bounds_cx = 430
+  bounds_cy = 378
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    270
-    162
+    430
+    378
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
@@ -21,14 +21,13 @@ object globalsettingsfo: tglobalsettingsfo
   object tsplitter1: tsplitter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     color = -2147483645
-    taborder = 1
-    bounds_x = 147
-    bounds_y = 112
+    bounds_x = 307
+    bounds_y = 328
     bounds_cx = 123
     bounds_cy = 38
     anchors = [an_right, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
-    linktop = texpandingwidget1
+    linktop = ttabwidget1
     grip = stb_none
     object tbutton2: tbutton
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
@@ -68,47 +67,92 @@ object globalsettingsfo: tglobalsettingsfo
       options = [spao_glueright]
     end
   end
-  object texpandingwidget1: texpandingwidget
+  object ttabwidget1: ttabwidget
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 270
-    bounds_cy = 112
+    bounds_cx = 430
+    bounds_cy = 328
     anchors = [an_top]
-    optionsscale = [osc_expandy, osc_expandshrinkx, osc_expandshrinky]
-    object val_databasename: tstringedit
-      frame.caption = '&Databasename'
+    taborder = 1
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
+    tab_size = 19
+    object maintab: ttabpage
       frame.localprops = []
       frame.localprops1 = []
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
       taborder = 1
-      bounds_x = 8
-      bounds_y = 47
-      bounds_cx = 254
-      bounds_cy = 37
-      anchors = [an_left, an_top, an_right]
-      reffontheight = 14
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 430
+      bounds_cy = 309
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Main'
+      object val_databasename: tstringedit
+        frame.caption = '&Databasename'
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        bounds_x = 8
+        bounds_y = 47
+        bounds_cx = 399
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        reffontheight = 14
+      end
+      object val_hostname: tstringedit
+        frame.caption = '&Hostname'
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 1
+        bounds_x = 8
+        bounds_y = 7
+        bounds_cx = 399
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        reffontheight = 14
+      end
     end
-    object val_hostname: tstringedit
-      frame.caption = '&Hostname'
+    object prodplottab: ttabpage
       frame.localprops = []
       frame.localprops1 = []
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
-      bounds_x = 8
-      bounds_y = 7
-      bounds_cx = 254
-      bounds_cy = 37
-      anchors = [an_left, an_top, an_right]
-      reffontheight = 14
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 430
+      bounds_cy = 309
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Production'
+      object prodplotstacktabs: ttabwidget
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 430
+        bounds_cy = 309
+        frame.caption = 'Plot stack, use RightClick for new page'
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        anchors = [an_top, an_bottom]
+        popupmenu = plotstackmenu
+        tab_frame.localprops = []
+        tab_frame.localprops1 = []
+        tab_size = 19
+      end
     end
   end
   object tstatfile1: tstatfile
@@ -116,5 +160,16 @@ object globalsettingsfo: tglobalsettingsfo
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 8
     top = 112
+  end
+  object plotstackmenu: tpopupmenu
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        caption = '&New Page'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = newprodplotpageev
+      end>
+    left = 192
+    top = 80
   end
 end
