@@ -30,19 +30,36 @@ const
  versiontext = '0.0';
 
 type
+ prodplotinfoty = record
+  name: msestring;
+  layernames: msestringarty;
+  plotfiles: msestringarty;
+  plotformats: integerarty;
+ end; 
+ prodplotinfoarty = array of prodplotinfoty;
+ 
  tglobaloptions = class(toptions)
   private
-   ffilename: filenamety;
+//   ffilename: filenamety;
    fusername: msestring;
    fpassword: msestring;
    fhostname: msestring;
    fdatabasename: msestring;
+   fprodplotdefines: prodplotinfoarty;
+   fprodplotnames: msestringarty;
+   procedure setprodplotdefines(const avalue: prodplotinfoarty);
+  protected
+   procedure dostatread(const reader: tstatreader) override;
+   procedure dostatwrite(const writer: tstatwriter) override;
   public
    constructor create();
    property password: msestring read fpassword write fpassword; //not stored
    property username: msestring read fusername write fusername; //not stored
+   property prodplotdefines: prodplotinfoarty read fprodplotdefines 
+                                                    write setprodplotdefines;
+   property prodplotnames: msestringarty read fprodplotnames;
   published
-   property filename: filenamety read ffilename write ffilename;
+//   property filename: filenamety read ffilename write ffilename;
    property hostname: msestring read fhostname write fhostname;
    property databasename: msestring read fdatabasename write fdatabasename;
  end;
@@ -57,6 +74,7 @@ type
    freportencoding: int32;
    flibident: msestringarty;
    flibalias: msestringarty;
+   fplotstack: msestring;
    procedure setreportencoding(const avalue: int32);
   public
    constructor create();
@@ -75,6 +93,7 @@ type
    property reportencoding: int32 read freportencoding write setreportencoding;
    property libident: msestringarty read flibident write flibident;
    property libalias: msestringarty read flibalias write flibalias;
+   property plotstack: msestring read fplotstack write fplotstack;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -189,6 +208,7 @@ type
    f_description: tmsestringfield;
    sc_footprintinfo: tmsestringfield;
    c_footprintinfo: tmsestringfield;
+   createplotsact: taction;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -219,14 +239,17 @@ type
    procedure validatenameidentev(Sender: TField);
    procedure distributordeletecheckev(DataSet: TDataSet);
    procedure maufaturerdeletecheckev(DataSet: TDataSet);
+   procedure mainstatupdateev(const sender: TObject; const filer: tstatfiler);
   private
    fhasproject: boolean;
    fmodified: boolean;
    foldname: msestring;
    fcommitcount: card32;
    fmacros: tmacrolist;
+   fprojectfile: filenamety;
    fprojectname: msestring;
    fplotkinds: msestringarty;
+   ffileformats: msestringarty;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -253,12 +276,14 @@ type
    procedure begincomponentedit(const idfield: tmselargeintfield);
 
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
+   property projectfile: filenamety read fprojectfile write fprojectfile;
    property hasproject: boolean read fhasproject;
    property projectname: msestring read fprojectname;
    property modified: boolean read fmodified;
    function expandcomponentmacros(const atext: msestring): msestring;
    function expandcomponentmacros(const afield: tmsestringfield): msestring;
    property plotkinds: msestringarty read fplotkinds;
+   property fileformats: msestringarty read ffileformats;
  end;
  
 var
@@ -267,11 +292,13 @@ var
  projectoptions: tprojectoptions;
 
 procedure errormessage(const message: msestring);
+function layertoplotname(const layername: msestring): msestring;
  
 implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
- mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal;
+ mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
+ msearrayutils;
 
 { tmainmo }
 type
@@ -315,6 +342,62 @@ begin
  showmessage(message,'ERROR');
 end;
 
+type
+ plotkindty = (
+    pk_f_crtyrd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
+    pk_f_cu,
+    pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
+    pk_in7cu,pk_in8cu,pk_in9cu,pk_in10cu,pk_in11cu,pk_in12cu,
+    pk_in13cu,pk_in14cu,pk_in15cu,pk_in16cu,pk_in17cu,pk_in18cu,
+    pk_in19cu,pk_in20cu,pk_in21cu,pk_in22cu,pk_in23cu,pk_in24cu,
+    pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
+    pk_b_cu,
+    pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
+    pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
+ );
+ 
+const
+ plotkindnames: array[plotkindty] of msestring = (
+//  pk_f_crtyrd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
+    'F.CrcYrd','F.Fab','F.Adhes','F.Paste','F.SilkS','F.mask',
+//  pk_f_cu,
+    'F.Cu',
+//  pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
+    'In1.Cu','In2.Cu','In3.Cu','In4.Cu','In5.Cu','In6.Cu',
+//  pk_in7cu,pk_in8cu,pk_in9cu,pk_in10cu,pk_in11cu,pk_in12cu,
+    'In7.Cu','In8.Cu','In9.Cu','In10.Cu','In11.Cu','In12.Cu',
+//  pk_in13cu,pk_in14cu,pk_in15cu,pk_in16cu,pk_in17cu,pk_in18cu,
+    'In13.Cu','In14.Cu','In15.Cu','In16.Cu','In17.Cu','In18.Cu',
+//  pk_in19cu,pk_in20cu,pk_in21cu,pk_in22cu,pk_in23cu,pk_in24cu,
+    'In19.Cu','In20.Cu','In21.Cu','In22.Cu','In23.Cu','In24.Cu',
+//  pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
+    'In29.Cu','In26.Cu','In27.Cu','In28.Cu','In29.Cu','In30.Cu',
+//  pk_b_cu,
+    'B.Cu',
+//  pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
+    'B.Mmask','B.SilkS','B.Paste','B.Adhes','B.Fab','B.CrtYd',
+//  pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
+    'Edge.Cuts','Margin','Eco1.User','Eco2.User','Cmts.User','Dwgs.User'
+ );
+
+type
+ fileformatty = (
+  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
+ );
+const
+ fileformatnames: array[fileformatty] of msestring = (
+//  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
+    'Gerber','Postscript','SVG','DXF','HPGL','PDF'
+ );
+
+function layertoplotname(const layername: msestring): msestring;
+begin
+ result:= mselowercase(layername);
+ replacechar1(result,'.','_');
+end;
+
+{ tmainmo }
+
 constructor tmainmo.create(aowner: tcomponent);
 var
  ma1: macronamety;
@@ -326,6 +409,8 @@ begin
  for ma1:= low(macroitems) to high(macroitems) do begin
   fmacros.find(macronames[ma1],macroitems[ma1]);
  end;
+ fplotkinds:= plotkindnames;
+ ffileformats:= fileformatnames;
  inherited;
 end;
 
@@ -348,8 +433,8 @@ end;
 
 procedure tmainmo.mainstatreadev(const sender: TObject);
 begin
- if globaloptions.filename <> '' then begin
-  openproject(globaloptions.filename);
+ if fprojectfile <> '' then begin
+  openproject(fprojectfile);
  end;
 end;
 
@@ -538,11 +623,12 @@ end;
 
 procedure tmainmo.openproject(const afilename: filenamety);
 begin
- globaloptions.filename:= afilename;
+// globaloptions.filename:= afilename;
  projectstat.filename:= afilename;
  try
   projectstat.readstat();
   fhasproject:= true;
+  fprojectfile:= afilename;
   fprojectname:= filenamebase(afilename);
   fmodified:= false;
   refresh();
@@ -574,11 +660,11 @@ function tmainmo.saveproject(): boolean;
 begin
  result:= false;
  if fmodified then begin
-  if globaloptions.filename = '' then begin
+  if fprojectfile = '' then begin
    getprojectfilesave.controller.execute();
   end;
-  if globaloptions.filename <> '' then begin
-   projectstat.filename:= globaloptions.filename;
+  if fprojectfile <> '' then begin
+   projectstat.filename:= fprojectfile;
    try
     projectstat.writestat();
     fmodified:= false;
@@ -615,6 +701,7 @@ begin
  compds.active:= false;
  projectoptions.destroy();
  projectoptions:= tprojectoptions.create(); //initial state
+ fprojectfile:= '';
  fprojectname:= '';
  fhasproject:= false;
  result:= true;
@@ -813,8 +900,8 @@ procedure tmainmo.openprojectev(const sender: TObject);
 begin
  if closeproject() then begin
   getprojectfileopen.controller.execute();
-  if globaloptions.filename <> '' then begin
-   openproject(globaloptions.filename);
+  if fprojectfile <> '' then begin
+   openproject(fprojectfile);
    statechanged();
   end;
  end;
@@ -823,7 +910,7 @@ end;
 procedure tmainmo.newprojectev(const sender: TObject);
 begin
  if closeproject() then begin
-  globaloptions.filename:= '';
+  fprojectfile:= '';
   fhasproject:= true;
   statechanged();
   projectsettingsact.execute(true); //do not check enabled
@@ -1148,6 +1235,12 @@ begin
  deletecheck(m_pk,[sc_manufacturer,k_manufacturer]);
 end;
 
+procedure tmainmo.mainstatupdateev(const sender: TObject;
+               const filer: tstatfiler);
+begin
+ filer.updatevalue('projectfile',fprojectfile);
+end;
+
 { tprojectoptions }
 
 procedure tprojectoptions.setreportencoding(const avalue: int32);
@@ -1203,14 +1296,74 @@ begin
  end;
 end;
 
-{ tmainoptions }
-
 { tglobaloptions }
 
 constructor tglobaloptions.create();
 begin
  fhostname:= 'localhost';
  fdatabasename:= 'stock';
+end;
+
+procedure tglobaloptions.setprodplotdefines(const avalue: prodplotinfoarty);
+var
+ i1: int32;
+begin
+ fprodplotdefines:= avalue;
+ setlength(fprodplotnames,length(fprodplotdefines));
+ for i1:= 0 to high(fprodplotdefines) do begin
+  fprodplotnames[i1]:= fprodplotdefines[i1].name;
+ end;
+end;
+
+procedure tglobaloptions.dostatread(const reader: tstatreader);
+var
+ count1: int32;
+ i1,i2: int32;
+begin
+ inherited;
+ if reader.beginlist('prodplotstack') then begin
+  count1:= 0;
+  while reader.beginlist('item'+inttostrmse(count1)) do begin
+   additem(fprodplotdefines,typeinfo(fprodplotdefines),count1);
+   with fprodplotdefines[count1-1] do begin
+    name:= reader.readmsestring('name','');
+    layernames:= reader.readarray('layernames',msestringarty(nil));
+    plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
+    plotformats:= reader.readarray('plotformats',integerarty(nil));
+    for i1:= 0 to high(plotformats) do begin
+     i2:= plotformats[i1];
+     if (i2 < 0) or (i2 > ord(high(fileformatty))) then begin
+      plotformats[i1]:= 0;
+     end;
+    end;
+   end;
+   reader.endlist();
+  end;
+  reader.endlist();
+  setlength(fprodplotdefines,count1);
+  prodplotdefines:= fprodplotdefines; //build name array
+ end;
+end;
+
+procedure tglobaloptions.dostatwrite(const writer: tstatwriter);
+var
+ i1: int32;
+begin
+ inherited;
+ if fprodplotdefines <> nil then begin
+  writer.beginlist('prodplotstack');
+  for i1:= 0 to high(fprodplotdefines) do begin
+   writer.beginlist('item'+inttostrmse(i1));
+   with fprodplotdefines[i1] do begin
+    writer.writemsestring('name',name);
+    writer.writearray('layernames',layernames);
+    writer.writearray('plotfiles',plotfiles);
+    writer.writearray('plotformats',plotformats);
+   end;
+   writer.endlist();
+  end;
+  writer.endlist();
+ end;
 end;
 
 initialization

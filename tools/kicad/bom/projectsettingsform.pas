@@ -48,6 +48,8 @@ type
    libaliasgrid: twidgetgrid;
    val_libident: tstringedit;
    val_libalias: tstringedit;
+   tlayouter2: tlayouter;
+   val_plotstack: tdropdownlistedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
@@ -71,6 +73,7 @@ end;
 procedure tprojectsettingsfo.createev(const sender: TObject);
 begin
  projectoptions.loadvalues(self,valueprefix);
+ val_plotstack.dropdown.cols[0].asarray:= globaloptions.prodplotnames;
 end;
 
 procedure tprojectsettingsfo.initencodingev(const sender: tenumtypeedit);

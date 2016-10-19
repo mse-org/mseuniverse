@@ -52,17 +52,46 @@ const
   
 procedure tglobalsettingsfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
+var
+ ar1: prodplotinfoarty;
+ i1: int32;
 begin
  if amodalresult in [mr_ok,mr_f10] then begin
   globaloptions.storevalues(self,valueprefix);
-  mainmo.conn.connected:= false;
-  mainmo.refresh();
+  setlength(ar1,prodplotstacktabs.count);
+  for i1:= 0 to high(ar1) do begin
+   with tproductionpagefo(prodplotstacktabs.items[i1]),ar1[i1] do begin
+    name:= nameed.value;
+    layernames:= layered.griddata.asarray;
+    plotformats:= plotformated.griddata.asarray;
+    plotfiles:= plotfileed.griddata.asarray;
+   end;
+  end;
+  globaloptions.prodplotdefines:= ar1;
+  if mainmo.conn.connected then begin
+   mainmo.conn.connected:= false;
+   mainmo.refresh();
+  end;
  end;
 end;
 
 procedure tglobalsettingsfo.createev(const sender: TObject);
+var
+ i1: int32;
+ fo1: tproductionpagefo;
 begin
  globaloptions.loadvalues(self,valueprefix);
+ for i1:= 0 to high(globaloptions.prodplotdefines) do begin
+  fo1:= tproductionpagefo.create(nil);
+  with globaloptions.prodplotdefines[i1] do begin
+   fo1.caption:= name;
+   fo1.nameed.value:= name;
+   fo1.layered.griddata.asarray:= layernames;
+   fo1.plotfileed.griddata.asarray:= plotfiles;
+   fo1.plotformated.griddata.asarray:= plotformats;
+   prodplotstacktabs.add(itabpage(fo1));
+  end;
+ end;
 end;
 
 procedure tglobalsettingsfo.newprodplotpageev(const sender: TObject);

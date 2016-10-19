@@ -11,6 +11,7 @@ object productionpagefo: tproductionpagefo
     323
     315
   )
+  oncreate = createev
   moduleclassname = 'ttabform'
   object tlayouter1: tlayouter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -24,7 +25,7 @@ object productionpagefo: tproductionpagefo
     align_glue = wam_start
     linkbottom = plotsgrid
     dist_bottom = 4
-    object tstringedit1: tstringedit
+    object nameed: tstringedit
       frame.caption = 'Name'
       frame.localprops = []
       frame.localprops1 = []
@@ -43,7 +44,7 @@ object productionpagefo: tproductionpagefo
     end
   end
   object plotsgrid: twidgetgrid
-    frame.caption = 'Files'
+    frame.caption = 'Plotfiles'
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -56,7 +57,7 @@ object productionpagefo: tproductionpagefo
     bounds_x = 0
     bounds_y = 41
     bounds_cx = 323
-    bounds_cy = 288
+    bounds_cy = 274
     anchors = [an_top, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -70,22 +71,38 @@ object productionpagefo: tproductionpagefo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 1
+        captions.count = 3
         captions.items = <        
           item
-            caption = 'Kind/Layer'
+            caption = 'Layer'
+          end        
+          item
+            caption = 'Filename'
+          end        
+          item
+            caption = 'Format'
           end>
       end>
-    datacols.count = 1
+    datacols.count = 3
     datacols.items = <    
-      item[plotkinded]
+      item[layered]
         width = 88
-        widgetname = 'plotkinded'
+        widgetname = 'layered'
         dataclass = tgridmsestringdatalist
+      end    
+      item[plotfileed]
+        width = 83
+        widgetname = 'plotfileed'
+        dataclass = tgridmsestringdatalist
+      end    
+      item[plotformated]
+        width = 80
+        widgetname = 'plotformated'
+        dataclass = tgridenumdatalist
       end>
     datarowheight = 16
     reffontheight = 14
-    object plotkinded: tdropdownlistedit
+    object layered: tdropdownlistedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
@@ -104,12 +121,49 @@ object productionpagefo: tproductionpagefo
       bounds_y = 0
       bounds_cx = 88
       bounds_cy = 16
-      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      onsetvalue = layersetev
+      dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item
         end>
-      onbeforedropdown = befkinddropdownev
+      reffontheight = 14
+    end
+    object plotfileed: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 89
+      bounds_y = 0
+      bounds_cx = 83
+      bounds_cy = 16
+      reffontheight = 14
+    end
+    object plotformated: tenumedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.button.color = -1879048187
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+        end>
+      taborder = 3
+      visible = False
+      bounds_x = 173
+      bounds_y = 0
+      bounds_cx = 80
+      bounds_cy = 16
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+        end>
       reffontheight = 14
     end
   end

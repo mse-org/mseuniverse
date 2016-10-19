@@ -151,6 +151,93 @@ object projectsettingsfo: tprojectsettingsfo
         end
       end
     end
+    object ttabpage3: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 396
+      bounds_cy = 229
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '&Footprint Libraryalias'
+      object libaliasgrid: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 396
+        bounds_cy = 229
+        anchors = []
+        optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_sorted, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 20
+            numstart = 1
+            numstep = 1
+          end>
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 2
+            captions.items = <            
+              item
+                caption = 'Ident'
+                options = [dco_colsort, dco_hintclippedtext]
+              end            
+              item
+                caption = 'Alias'
+                options = [dco_colsort, dco_hintclippedtext]
+              end>
+          end>
+        datacols.count = 2
+        datacols.sortcol = 0
+        datacols.sortcoldefault = 0
+        datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item[val_libident]
+            width = 178
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'val_libident'
+            dataclass = tgridmsestringdatalist
+          end        
+          item[val_libalias]
+            width = 191
+            options = [co_fill, co_savestate, co_mousescrollrow]
+            widgetname = 'val_libalias'
+            dataclass = tgridmsestringdatalist
+          end>
+        datarowheight = 16
+        statfile = tstatfile1
+        reffontheight = 14
+        object val_libident: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 178
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          reffontheight = 14
+        end
+        object val_libalias: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          visible = False
+          bounds_x = 179
+          bounds_y = 0
+          bounds_cx = 191
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          reffontheight = 14
+        end
+      end
+    end
     object ttabpage2: ttabpage
       frame.levelo = -1
       frame.leveli = 1
@@ -163,7 +250,7 @@ object projectsettingsfo: tprojectsettingsfo
       bounds_cx = 396
       bounds_cy = 229
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = '&Filenames'
+      caption = '&Reporting'
       object strip1: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         bounds_x = 2
@@ -292,90 +379,42 @@ object projectsettingsfo: tprojectsettingsfo
           reffontheight = 14
         end
       end
-    end
-    object ttabpage3: ttabpage
-      frame.localprops = []
-      frame.localprops1 = []
-      taborder = 3
-      bounds_x = 0
-      bounds_y = 19
-      bounds_cx = 396
-      bounds_cy = 229
-      anchors = [an_left, an_top, an_right, an_bottom]
-      caption = '&Footprint Libraryalias'
-      object libaliasgrid: twidgetgrid
-        frame.localprops = []
-        frame.localprops1 = []
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 396
-        bounds_cy = 229
-        anchors = []
-        optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_sorted, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-        fixcols.count = 1
-        fixcols.items = <        
-          item
-            width = 20
-            numstart = 1
-            numstep = 1
-          end>
-        fixrows.count = 1
-        fixrows.items = <        
-          item
-            height = 16
-            captions.count = 2
-            captions.items = <            
-              item
-                caption = 'Ident'
-                options = [dco_colsort, dco_hintclippedtext]
-              end            
-              item
-                caption = 'Alias'
-                options = [dco_colsort, dco_hintclippedtext]
-              end>
-          end>
-        datacols.count = 2
-        datacols.sortcol = 0
-        datacols.sortcoldefault = 0
-        datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
-        datacols.items = <        
-          item[val_libident]
-            width = 178
-            options = [co_proportional, co_savestate, co_mousescrollrow]
-            widgetname = 'val_libident'
-            dataclass = tgridmsestringdatalist
-          end        
-          item[val_libalias]
-            width = 191
-            options = [co_fill, co_savestate, co_mousescrollrow]
-            widgetname = 'val_libalias'
-            dataclass = tgridmsestringdatalist
-          end>
-        datarowheight = 16
-        statfile = tstatfile1
-        reffontheight = 14
-        object val_libident: tstringedit
-          optionswidget1 = [ow1_fontglyphheight]
-          optionsskin = [osk_framebuttononly]
-          taborder = 1
-          visible = False
-          bounds_x = 0
+      object tlayouter2: tlayouter
+        optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+        taborder = 3
+        bounds_x = 2
+        bounds_y = 102
+        bounds_cx = 392
+        bounds_cy = 37
+        anchors = [an_top]
+        optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+        optionslayout = [lao_placex, lao_aligny]
+        align_glue = wam_start
+        place_mindist = 4
+        place_maxdist = 4
+        place_options = [plo_endmargin, plo_propmargin]
+        linktop = strip2
+        object val_plotstack: tdropdownlistedit
+          frame.caption = 'Plotstack'
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+            end>
+          frame.outerframe = (
+            0
+            17
+            0
+            0
+          )
+          bounds_x = 4
           bounds_y = 0
-          bounds_cx = 178
-          bounds_cy = 16
-          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          reffontheight = 14
-        end
-        object val_libalias: tstringedit
-          optionswidget1 = [ow1_fontglyphheight]
-          optionsskin = [osk_framebuttononly]
-          taborder = 2
-          visible = False
-          bounds_x = 179
-          bounds_y = 0
-          bounds_cx = 191
-          bounds_cy = 16
-          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          bounds_cy = 37
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
           reffontheight = 14
         end
       end

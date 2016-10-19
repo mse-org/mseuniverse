@@ -20,6 +20,7 @@ object mainmo: tmainmo
     filename = '^/.msetools/msekicadbom.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*fo.sta'
+    onstatupdate = mainstatupdateev
     onstatafterread = mainstatreadev
     left = 8
     top = 8
@@ -2026,5 +2027,10 @@ object mainmo: tmainmo
     controller.max = 1E+038
     left = 456
     top = 392
+  end
+  object createplotsact: taction
+    caption = 'Create &Plots'
+    left = 120
+    top = 64
   end
 end

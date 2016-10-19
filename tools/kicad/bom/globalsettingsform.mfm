@@ -31,7 +31,6 @@ object globalsettingsfo: tglobalsettingsfo
     grip = stb_none
     object tbutton2: tbutton
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-      taborder = 1
       bounds_x = 58
       bounds_y = 16
       bounds_cx = 52
@@ -45,6 +44,7 @@ object globalsettingsfo: tglobalsettingsfo
     end
     object tbutton1: tbutton
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      taborder = 1
       bounds_x = 0
       bounds_y = 16
       bounds_cx = 50
@@ -74,9 +74,11 @@ object globalsettingsfo: tglobalsettingsfo
     bounds_cy = 328
     anchors = [an_top]
     taborder = 1
+    activepageindex = 0
     tab_frame.localprops = []
     tab_frame.localprops1 = []
     tab_size = 19
+    statfile = tstatfile1
     object maintab: ttabpage
       frame.localprops = []
       frame.localprops1 = []
@@ -152,6 +154,7 @@ object globalsettingsfo: tglobalsettingsfo
         tab_frame.localprops = []
         tab_frame.localprops1 = []
         tab_size = 19
+        statfile = tstatfile1
       end
     end
   end

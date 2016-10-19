@@ -9,28 +9,41 @@ uses
 type
  tproductionpagefo = class(ttabform)
    tlayouter1: tlayouter;
-   tstringedit1: tstringedit;
+   nameed: tstringedit;
    plotsgrid: twidgetgrid;
-   plotkinded: tdropdownlistedit;
-   procedure befkinddropdownev(const sender: TObject);
+   layered: tdropdownlistedit;
+   plotfileed: tstringedit;
+   plotformated: tenumedit;
    procedure namesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
+   procedure layersetev(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure createev(const sender: TObject);
  end;
-var
- productionpagefo: tproductionpagefo;
+
 implementation
 uses
  productionpage_mfm,mainmodule;
- 
-procedure tproductionpagefo.befkinddropdownev(const sender: TObject);
+
+procedure tproductionpagefo.createev(const sender: TObject);
 begin
- tdropdownlistedit(sender).dropdown.cols[0].asarray:= mainmo.plotkinds;
+ layered.dropdown.cols[0].asarray:= mainmo.plotkinds;
+ plotformated.dropdown.cols[0].asarray:= mainmo.fileformats;
 end;
 
 procedure tproductionpagefo.namesetev(const sender: TObject;
                var avalue: msestring; var accept: Boolean);
 begin
  caption:= avalue;
+end;
+
+procedure tproductionpagefo.layersetev(const sender: TObject;
+               var avalue: msestring; var accept: Boolean);
+begin
+ if (plotfileed.value = '') or 
+           (plotfileed.value = layertoplotname(layered.value)) then begin
+  plotfileed.value:= layertoplotname(avalue);
+ end;
 end;
 
 end.

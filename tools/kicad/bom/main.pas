@@ -164,10 +164,10 @@ begin
   kind1:= fdk_save;
  end;
  if mainmo.projectfiledialog.execute(kind1) = mr_ok then begin
-  globaloptions.filename:= mainmo.projectfiledialog.controller.filename;
+  mainmo.projectfile:= mainmo.projectfiledialog.controller.filename;
  end
  else begin
-  globaloptions.filename:= '';
+  mainmo.projectfile:= '';
  end;
 end;
 
@@ -176,11 +176,11 @@ var
  mstr1: msestring;
 begin
  if mainmo.hasproject then begin
-  if globaloptions.filename = '' then begin
+  if mainmo.projectname = '' then begin
    mstr1:= '<new>)';
   end
   else begin
-   mstr1:= filename(globaloptions.filename)+')';
+   mstr1:= mainmo.projectname+')';
   end;
   if mainmo.modified then begin
    mstr1:= maincaption + ' (*'+mstr1;
@@ -191,6 +191,7 @@ begin
  end
  else begin
   mstr1:= maincaption;
+  areadisp.clear();
  end;
  caption:= mstr1;
 end;
