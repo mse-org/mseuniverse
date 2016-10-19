@@ -354,6 +354,8 @@ a "units" tag is required, and a "descriptions" tag as well
 	<description file="xml/mselistbrowser.xml"/>
 	<description file="xml/msegui.xml"/>
 	<description file="xml/msegrids.xml"/>
+	<description file="xml/mseedit.xml"/>
+	<description file="xml/mseeditglob.xml"/>
 
 
 </descriptions>
