@@ -2769,7 +2769,7 @@ var
 begin
  alayoutinfo.variable.extra.image.cx:= 16;
  inherited;
- if acanvas <> nil then begin
+ if not alayoutinfo.variable.calcautocellsize then begin
   int1:= getoriginicon;
   if int1 >= 0 then begin
    with alayoutinfo do begin
