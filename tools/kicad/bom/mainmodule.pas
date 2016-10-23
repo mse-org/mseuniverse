@@ -24,7 +24,8 @@ uses
  mseifiglob,mselistbrowser,msemenus,msestream,msestrings,msesys,sysutils,
  mseactions,mdb,msebufdataset,msedb,mselocaldataset,kicadschemaparser,
  msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
- msemacros,mclasses,msedbedit,msegraphedits,mselookupbuffer,msescrollbar;
+ msemacros,mclasses,msedbedit,msegraphedits,mselookupbuffer,msescrollbar,
+ msepython,pythonconsoleform;
 
 const
  versiontext = '0.0';
@@ -64,7 +65,8 @@ type
    property databasename: msestring read fdatabasename write fdatabasename;
  end;
 
- filekindty = (fk_componentfootprint);
+ filekindty = (fk_componentfootprint,fk_board);
+ 
  tprojectoptions = class(toptions)
   private
    fschematics: msestringarty;
@@ -90,6 +92,8 @@ type
    property compfootprintwarn: boolean 
                            read ffilewarnings[fk_componentfootprint]
                                      write ffilewarnings[fk_componentfootprint];
+   property board: msestring read ffilenames[fk_board]
+                                        write ffilenames[fk_board];
    property reportencoding: int32 read freportencoding write setreportencoding;
    property libident: msestringarty read flibident write flibident;
    property libalias: msestringarty read flibalias write flibalias;
@@ -209,6 +213,7 @@ type
    sc_footprintinfo: tmsestringfield;
    c_footprintinfo: tmsestringfield;
    createplotsact: taction;
+   python: tpythonscript;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -240,6 +245,7 @@ type
    procedure distributordeletecheckev(DataSet: TDataSet);
    procedure maufaturerdeletecheckev(DataSet: TDataSet);
    procedure mainstatupdateev(const sender: TObject; const filer: tstatfiler);
+   procedure createplotsev(const sender: TObject);
   private
    fhasproject: boolean;
    fmodified: boolean;
@@ -250,6 +256,7 @@ type
    fprojectname: msestring;
    fplotkinds: msestringarty;
    ffileformats: msestringarty;
+   fpythonconsole: tpythonconsolefo;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -261,6 +268,11 @@ type
    procedure insertcheck(const namefield: tmsestringfield);
    procedure doinsertcheck(const asqlres: tsqlresult;
                                             const aname: tmsestringfield);
+   function execpy(const ascript: msestring; const params: array of msestring;
+                                                 const last: boolean) : boolean;
+                                     //true if ok
+   procedure beginpy(const acaption: msestring);
+   procedure endpy();
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -970,6 +982,33 @@ begin
  end;
 end;
 
+function tmainmo.execpy(const ascript: msestring;
+               const params: array of msestring;
+               const last: boolean): boolean;
+var
+ i1: int32;
+begin
+ python.params.count:= high(params) + 2;
+ python.params[0]:= '-';
+ for i1:= 0 to high(params) do begin
+  python.params[i1+1]:= params[i1];
+ end;
+ python.scripts.itembyname(ascript).execute(0);
+ fpythonconsole.show(last);
+ result:= python.exitcode = 0;
+end;
+
+procedure tmainmo.beginpy(const acaption: msestring);
+begin
+ fpythonconsole:= tpythonconsolefo.create(nil);
+ fpythonconsole.caption:= acaption;
+end;
+
+procedure tmainmo.endpy();
+begin
+ freeandnil(fpythonconsole);
+end;
+
 procedure tmainmo.dodeletecheck(const asqlres: tsqlresult; 
                                 const aid: tmselargeintfield;
                                              const recname: msestring);
@@ -1241,6 +1280,44 @@ begin
  filer.updatevalue('projectfile',fprojectfile);
 end;
 
+procedure tmainmo.createplotsev(const sender: TObject);
+var
+ i1,i2: int32;
+begin
+ if projectoptions.board = '' then begin
+  errormessage('Boardfile not defined in projectoptions');
+  exit;
+ end;
+ i2:= -1;
+ for i1:= 0 to high(globaloptions.prodplotdefines) do begin
+  with globaloptions.prodplotdefines[i1] do begin
+   if name = projectoptions.plotstack then begin
+    i2:= i1;
+    break;
+   end;
+  end;
+ end;
+ if i2 < 0 then begin
+  errormessage('Plotstack "'+projectoptions.plotstack+'"'+lineend+
+               'is invalid');
+  exit;
+ end;
+ beginpy('Create Plots');
+ try
+  with globaloptions.prodplotdefines[i2] do begin
+   for i1:= 0 to high(layernames) do begin
+    if not execpy('plotfile',[tosysfilepath(projectoptions.board),
+                  layernames[i1],plotfiles[i1],
+                  plotkinds[plotformats[i1]]],i1 = high(layernames)) then begin
+     break;
+    end;
+   end;
+  end;
+ finally
+  endpy();
+ end;
+end;
+
 { tprojectoptions }
 
 procedure tprojectoptions.setreportencoding(const avalue: int32);
@@ -1274,7 +1351,7 @@ begin
 end;
 
 const
- fileextensions: array[filekindty] of msestring = ('cmp');
+ fileextensions: array[filekindty] of msestring = ('cmp','kicad_pcb');
  
 function tprojectoptions.getfilename(const akind: filekindty;
                                      out afile: filenamety): boolean;
@@ -1336,6 +1413,17 @@ begin
       plotformats[i1]:= 0;
      end;
     end;
+    i1:= high(layernames);
+    if i1 > high(plotfiles) then begin
+     i1:= high(plotfiles);
+    end;
+    if i1 > high(plotformats) then begin
+     i1:= high(plotformats);
+    end;
+    inc(i1);
+    setlength(layernames,i1);
+    setlength(plotfiles,i1);
+    setlength(plotformats,i1);
    end;
    reader.endlist();
   end;

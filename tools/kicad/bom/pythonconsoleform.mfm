@@ -1,0 +1,56 @@
+object pythonconsolefo: tpythonconsolefo
+  visible = False
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 514
+  bounds_cy = 464
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    514
+    464
+  )
+  options = [fo_freeonclose, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  moduleclassname = 'tmseform'
+  object twidgetgrid1: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 514
+    bounds_cy = 464
+    anchors = []
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item[term]
+        width = 1200
+        widgetname = 'term'
+        dataclass = tgridrichstringdatalist
+      end>
+    datarowheight = 14
+    reffontheight = 14
+    object term: tterminal
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 1200
+      bounds_cy = 14
+      process = mainmo.python
+      onprocfinished = procfinishedev
+      onsendtext = sendtextev
+      reffontheight = 14
+    end
+  end
+  object tstatfile1: tstatfile
+    filename = 'pythonconsolefo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 88
+    top = 56
+  end
+end

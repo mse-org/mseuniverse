@@ -2,14 +2,14 @@ object projectsettingsfo: tprojectsettingsfo
   visible = False
   bounds_x = 337
   bounds_y = 266
-  bounds_cx = 396
+  bounds_cx = 388
   bounds_cy = 298
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    396
+    388
     298
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -22,7 +22,7 @@ object projectsettingsfo: tprojectsettingsfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     color = -2147483645
     taborder = 1
-    bounds_x = 273
+    bounds_x = 265
     bounds_y = 248
     bounds_cx = 123
     bounds_cy = 38
@@ -71,7 +71,7 @@ object projectsettingsfo: tprojectsettingsfo
   object ttabwidget1: ttabwidget
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 396
+    bounds_cx = 388
     bounds_cy = 248
     anchors = [an_top]
     activepageindex = 0
@@ -85,7 +85,7 @@ object projectsettingsfo: tprojectsettingsfo
       taborder = 1
       bounds_x = 0
       bounds_y = 19
-      bounds_cx = 396
+      bounds_cx = 388
       bounds_cy = 229
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Schematic Files'
@@ -94,7 +94,7 @@ object projectsettingsfo: tprojectsettingsfo
         frame.localprops1 = []
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 396
+        bounds_cx = 388
         bounds_cy = 229
         anchors = []
         optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -108,7 +108,7 @@ object projectsettingsfo: tprojectsettingsfo
         datacols.count = 1
         datacols.items = <        
           item[val_schematics]
-            width = 370
+            width = 362
             options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
             widgetname = 'val_schematics'
             dataclass = tgridmsestringdatalist
@@ -134,7 +134,7 @@ object projectsettingsfo: tprojectsettingsfo
           visible = False
           bounds_x = 0
           bounds_y = 0
-          bounds_cx = 370
+          bounds_cx = 362
           bounds_cy = 16
           statfile = tstatfile1
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
@@ -157,16 +157,16 @@ object projectsettingsfo: tprojectsettingsfo
       taborder = 3
       bounds_x = 0
       bounds_y = 19
-      bounds_cx = 396
+      bounds_cx = 388
       bounds_cy = 229
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = '&Footprint Libraryalias'
+      caption = '&Footprint Library-Alias'
       object libaliasgrid: twidgetgrid
         frame.localprops = []
         frame.localprops1 = []
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 396
+        bounds_cx = 388
         bounds_cy = 229
         anchors = []
         optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_sorted, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -198,13 +198,13 @@ object projectsettingsfo: tprojectsettingsfo
         datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
         datacols.items = <        
           item[val_libident]
-            width = 178
+            width = 174
             options = [co_proportional, co_savestate, co_mousescrollrow]
             widgetname = 'val_libident'
             dataclass = tgridmsestringdatalist
           end        
           item[val_libalias]
-            width = 191
+            width = 187
             options = [co_fill, co_savestate, co_mousescrollrow]
             widgetname = 'val_libalias'
             dataclass = tgridmsestringdatalist
@@ -219,7 +219,7 @@ object projectsettingsfo: tprojectsettingsfo
           visible = False
           bounds_x = 0
           bounds_y = 0
-          bounds_cx = 178
+          bounds_cx = 174
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           reffontheight = 14
@@ -229,9 +229,9 @@ object projectsettingsfo: tprojectsettingsfo
           optionsskin = [osk_framebuttononly]
           taborder = 2
           visible = False
-          bounds_x = 179
+          bounds_x = 175
           bounds_y = 0
-          bounds_cx = 191
+          bounds_cx = 187
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           reffontheight = 14
@@ -247,7 +247,7 @@ object projectsettingsfo: tprojectsettingsfo
       taborder = 2
       bounds_x = 0
       bounds_y = 19
-      bounds_cx = 396
+      bounds_cx = 388
       bounds_cy = 229
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Reporting'
@@ -255,7 +255,7 @@ object projectsettingsfo: tprojectsettingsfo
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         bounds_x = 2
         bounds_y = 28
-        bounds_cx = 392
+        bounds_cx = 384
         bounds_cy = 37
         anchors = [an_top]
         optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -283,7 +283,7 @@ object projectsettingsfo: tprojectsettingsfo
           )
           bounds_x = 4
           bounds_y = 0
-          bounds_cx = 367
+          bounds_cx = 359
           bounds_cy = 37
           anchors = [an_left, an_top, an_right]
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
@@ -301,7 +301,7 @@ object projectsettingsfo: tprojectsettingsfo
           frame.localprops = []
           frame.localprops1 = []
           taborder = 1
-          bounds_x = 375
+          bounds_x = 367
           bounds_y = 21
           value = True
         end
@@ -311,7 +311,7 @@ object projectsettingsfo: tprojectsettingsfo
         taborder = 1
         bounds_x = 5
         bounds_y = 0
-        bounds_cx = 388
+        bounds_cx = 380
         bounds_cy = 28
         anchors = [an_left, an_top, an_right]
         optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -329,7 +329,7 @@ object projectsettingsfo: tprojectsettingsfo
         end
         object tlabel2: tlabel
           taborder = 1
-          bounds_x = 330
+          bounds_x = 322
           bounds_y = 0
           bounds_cx = 58
           bounds_cy = 28
@@ -339,12 +339,12 @@ object projectsettingsfo: tprojectsettingsfo
           reffontheight = 14
         end
       end
-      object strip2: tlayouter
+      object strip3: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         taborder = 2
         bounds_x = 2
-        bounds_y = 65
-        bounds_cx = 392
+        bounds_y = 102
+        bounds_cx = 384
         bounds_cy = 37
         anchors = [an_top]
         optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -353,7 +353,7 @@ object projectsettingsfo: tprojectsettingsfo
         place_mindist = 4
         place_maxdist = 4
         place_options = [plo_endmargin, plo_propmargin]
-        linktop = strip1
+        linktop = strip2
         object val_reportencoding: tenumtypeedit
           frame.caption = 'Encoding'
           frame.localprops = []
@@ -379,12 +379,12 @@ object projectsettingsfo: tprojectsettingsfo
           reffontheight = 14
         end
       end
-      object tlayouter2: tlayouter
+      object strip4: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         taborder = 3
         bounds_x = 2
-        bounds_y = 102
-        bounds_cx = 392
+        bounds_y = 139
+        bounds_cx = 384
         bounds_cy = 37
         anchors = [an_top]
         optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -393,7 +393,7 @@ object projectsettingsfo: tprojectsettingsfo
         place_mindist = 4
         place_maxdist = 4
         place_options = [plo_endmargin, plo_propmargin]
-        linktop = strip2
+        linktop = strip3
         object val_plotstack: tdropdownlistedit
           frame.caption = 'Plotstack'
           frame.localprops = []
@@ -418,7 +418,69 @@ object projectsettingsfo: tprojectsettingsfo
           reffontheight = 14
         end
       end
+      object strip2: tlayouter
+        optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+        taborder = 4
+        bounds_x = 2
+        bounds_y = 65
+        bounds_cx = 384
+        bounds_cy = 37
+        anchors = [an_top]
+        optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+        optionslayout = [lao_placex, lao_aligny]
+        align_glue = wam_start
+        place_mindist = 4
+        place_maxdist = 4
+        place_options = [plo_endmargin, plo_propmargin]
+        linktop = strip1
+        object val_board: tfilenameedit
+          frame.caption = 'Boardfile(*.kicad_pcb)'
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              imagenr = 17
+            end>
+          frame.button.imagenr = 17
+          frame.outerframe = (
+            0
+            17
+            0
+            0
+          )
+          bounds_x = 4
+          bounds_y = 0
+          bounds_cx = 359
+          bounds_cy = 37
+          anchors = [an_left, an_top, an_right]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+          textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+          controller.filterlist.data = (
+            (
+              'Kicad Board File'
+              '*.kicad_pcb'
+            )
+          )
+          controller.defaultext = 'kicad_brd'
+          reffontheight = 14
+        end
+        object tsimplewidget2: tsimplewidget
+          taborder = 1
+          bounds_x = 367
+          bounds_y = 21
+          bounds_cx = 13
+          bounds_cy = 13
+        end
+      end
     end
+  end
+  object tsimplewidget1: tsimplewidget
+    taborder = 2
+    bounds_x = 120
+    bounds_y = 264
+    bounds_cx = 13
+    bounds_cy = 13
   end
   object tstatfile1: tstatfile
     filename = 'projectsettingsfo.sta'

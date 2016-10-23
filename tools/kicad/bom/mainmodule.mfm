@@ -2030,7 +2030,25 @@ object mainmo: tmainmo
   end
   object createplotsact: taction
     caption = 'Create &Plots'
+    onexecute = createplotsev
+    onupdate = validprojectupdateev
     left = 120
     top = 64
+  end
+  object python: tpythonscript
+    scripts.count = 1
+    scripts.items = <    
+      item
+        name = 'plotfile'
+        script.data = (
+          'import sys'
+          'print len(sys.argv)'
+          'print str(sys.argv)'
+        )
+      end>
+    filename = '/usr/bin/python'
+    options = [pro_output, pro_input, pro_errorouttoout, pro_noshell, pro_winpipewritehandles]
+    left = 592
+    top = 8
   end
 end
