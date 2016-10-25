@@ -33,6 +33,10 @@ const
 type
  prodplotinfoty = record
   name: msestring;
+  plotdir: filenamety;
+  createplotzipfile: boolean;
+  plotzipfilename: filenamety;
+  plotzipdir: filenamety;
   layernames: msestringarty;
   plotfiles: msestringarty;
   plotformats: integerarty;
@@ -77,6 +81,9 @@ type
    flibident: msestringarty;
    flibalias: msestringarty;
    fplotstack: msestring;
+   fprojectname: msestring;
+   fprojectmacronames: msestringarty;
+   fprojectmacrovalues: msestringarty;
    procedure setreportencoding(const avalue: int32);
   public
    constructor create();
@@ -98,6 +105,11 @@ type
    property libident: msestringarty read flibident write flibident;
    property libalias: msestringarty read flibalias write flibalias;
    property plotstack: msestring read fplotstack write fplotstack;
+   property projectname: msestring read fprojectname write fprojectname;
+   property projectmacronames: msestringarty read fprojectmacronames
+                                                     write fprojectmacronames;
+   property projectmacrovalues: msestringarty read fprojectmacrovalues
+                                                     write fprojectmacrovalues;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -251,12 +263,17 @@ type
    fmodified: boolean;
    foldname: msestring;
    fcommitcount: card32;
-   fmacros: tmacrolist;
+   fcomponentmacros: tmacrolist;
+   fprojectmacros: tmacrolist;
    fprojectfile: filenamety;
    fprojectname: msestring;
    fplotkinds: msestringarty;
+   flayercodes: msestringarty;
    ffileformats: msestringarty;
+   ffileformatcodes: msestringarty;
    fpythonconsole: tpythonconsolefo;
+   flastprojectfile: filenamety;
+   ffileformatexts: msestringarty;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -294,8 +311,14 @@ type
    property modified: boolean read fmodified;
    function expandcomponentmacros(const atext: msestring): msestring;
    function expandcomponentmacros(const afield: tmsestringfield): msestring;
+   function expandprojectmacros(const atext: msestring): msestring;
+   procedure updateprojectmacros(const anames: msestringarty; 
+                                             const avalues: msestringarty);
    property plotkinds: msestringarty read fplotkinds;
+   property layercodes: msestringarty read flayercodes;
    property fileformats: msestringarty read ffileformats;
+   property fileformatcodes: msestringarty read ffileformatcodes;
+   property fileformatexts: msestringarty read ffileformatexts;
  end;
  
 var
@@ -314,40 +337,50 @@ uses
 
 { tmainmo }
 type
- macronamety = (
-    mn_value,mn_value1,mn_value2,
-    mn_footprint,mn_footprintident,mn_footprintlibrary,
-    mn_footprintdescription,
-    mn_manufacturer,mn_distributor,
-    mn_description,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
-    mn_k_footprint,mn_k_footprintident,mn_k_footprintlibrary,
-    mn_k_footprintdescription,
-    mn_k_manufacturer,mn_k_distributor,mn_k_description,
-    mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
+ componentmacronamety = (
+    cmn_value,cmn_value1,cmn_value2,
+    cmn_footprint,cmn_footprintident,cmn_footprintlibrary,
+    cmn_footprintdescription,
+    cmn_manufacturer,cmn_distributor,
+    cmn_description,cmn_parameter1,cmn_parameter2,cmn_parameter3,
+    cmn_parameter4,
+    cmn_k_footprint,cmn_k_footprintident,cmn_k_footprintlibrary,
+    cmn_k_footprintdescription,
+    cmn_k_manufacturer,cmn_k_distributor,cmn_k_description,
+    cmn_k_parameter1,cmn_k_parameter2,cmn_k_parameter3,cmn_k_parameter4);
 
 const
- macronames: array[macronamety] of msestring = (
-//mn_value,mn_value1,mn_value2,
-    'value', 'value1', 'value2',
-//mn_footprint,mn_footprintident,mn_footprintlibrary,
-    'footprint', 'footprintident', 'footprintlibrary',
-//mn_footprintdescription,
-    'footprintdescription',
-//mn_manufacturer,mn_distributor,
-    'manufacturer', 'distributor',
-//mn_designation,mn_parameter1,mn_parameter2,mn_parameter3,mn_parameter4,
-    'description', 'parameter1', 'parameter2', 'parameter3', 'parameter4',
-//mn_k_footprint,mn_k_footprintident,mn_k_footprintlibrary,
-    'k_footprint','k_footprintident','k_footprintlibrary',
-//mn_k_footprintdescription,
-    'k_footprintdescription',
-//mn_k_manufacturer,mn_k_distributor,mn_k_description,
-    'k_manufacturer', 'k_distributor', 'k_description',
-//mn_k_parameter1,mn_k_parameter2,mn_k_parameter3,mn_k_parameter4);
-    'k_parameter1', 'k_parameter2', 'k_parameter3', 'k_parameter4'
+ componentmacronames: array[componentmacronamety] of msestring = (
+//cmn_value,cmn_value1,cmn_value2,
+     'value',  'value1',  'value2',
+//cmn_footprint,cmn_footprintident,cmn_footprintlibrary,
+     'footprint',  'footprintident',  'footprintlibrary',
+//cmn_footprintdescription,
+     'footprintdescription',
+//cmn_manufacturer,cmn_distributor,
+     'manufacturer',  'distributor',
+//cmn_designation,cmn_parameter1,cmn_parameter2,cmn_parameter3,
+     'description',  'parameter1',  'parameter2',  'parameter3',
+//cmn_parameter4,
+     'parameter4',
+//cmn_k_footprint,cmn_k_footprintident,cmn_k_footprintlibrary,
+     'k_footprint',  'k_footprintident',  'k_footprintlibrary',
+//cmn_k_footprintdescription,
+     'k_footprintdescription',
+//cmn_k_manufacturer,cmn_k_distributor,cmn_k_description,
+     'k_manufacturer',  'k_distributor',  'k_description',
+//cmn_k_parameter1,cmn_k_parameter2,cmn_k_parameter3,cmn_k_parameter4);
+     'k_parameter1',  'k_parameter2',  'k_parameter3',  'k_parameter4'
+ );
+type
+ projectmacronamety = (pmn_projectname);
+const
+ projectmacronames: array[projectmacronamety] of msestring = (
+//pmn_projectname,
+     'PROJECTNAME'
  );
 var
- macroitems: array[macronamety] of pmacroinfoty; 
+ componentmacroitems: array[componentmacronamety] of pmacroinfoty; 
 
 procedure errormessage(const message: msestring);
 begin
@@ -356,7 +389,7 @@ end;
 
 type
  plotkindty = (
-    pk_f_crtyrd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
+    pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
     pk_f_cu,
     pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
     pk_in7cu,pk_in8cu,pk_in9cu,pk_in10cu,pk_in11cu,pk_in12cu,
@@ -370,8 +403,8 @@ type
  
 const
  plotkindnames: array[plotkindty] of msestring = (
-//  pk_f_crtyrd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
-    'F.CrcYrd','F.Fab','F.Adhes','F.Paste','F.SilkS','F.mask',
+//  pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
+    'F.CrtYd','F.Fab','F.Adhes','F.Paste','F.SilkS','F.mask',
 //  pk_f_cu,
     'F.Cu',
 //  pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
@@ -391,6 +424,28 @@ const
 //  pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
     'Edge.Cuts','Margin','Eco1.User','Eco2.User','Cmts.User','Dwgs.User'
  );
+ layercodes: array[plotkindty] of msestring = (
+//  pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
+    'F_CrtYd','F_Fab','F_Adhes','F_Paste','F_SilkS','F_mask',
+//  pk_f_cu,
+    'F_Cu',
+//  pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
+    'In1_Cu','In2_Cu','In3_Cu','In4_Cu','In5_Cu','In6_Cu',
+//  pk_in7cu,pk_in8cu,pk_in9cu,pk_in10cu,pk_in11cu,pk_in12cu,
+    'In7_Cu','In8_Cu','In9_Cu','In10_Cu','In11_Cu','In12_Cu',
+//  pk_in13cu,pk_in14cu,pk_in15cu,pk_in16cu,pk_in17cu,pk_in18cu,
+    'In13_Cu','In14_Cu','In15_Cu','In16_Cu','In17_Cu','In18_Cu',
+//  pk_in19cu,pk_in20cu,pk_in21cu,pk_in22cu,pk_in23cu,pk_in24cu,
+    'In19_Cu','In20_Cu','In21_Cu','In22_Cu','In23_Cu','In24_Cu',
+//  pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
+    'In29_Cu','In26_Cu','In27_Cu','In28_Cu','In29_Cu','In30_Cu',
+//  pk_b_cu,
+    'B_Cu',
+//  pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
+    'B_Mmask','B_SilkS','B_Paste','B_Adhes','B_Fab','B_CrtYd',
+//  pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
+    'Edge_Cuts','Margin','Eco1_User','Eco2_User','Cmts_User','Dwgs_User'
+ );
 
 type
  fileformatty = (
@@ -400,6 +455,16 @@ const
  fileformatnames: array[fileformatty] of msestring = (
 //  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
     'Gerber','Postscript','SVG','DXF','HPGL','PDF'
+ );
+
+ fileformatcodes: array[fileformatty] of msestring = (
+//  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
+    'GERBER','POST','SVG','DXF','HPGL','PDF'
+ );
+
+ fileformatexts: array[fileformatty] of msestring = (
+//  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
+      'gbr',    'ps',         'svg', 'dxf', 'plt', 'pdf'
  );
 
 function layertoplotname(const layername: msestring): msestring;
@@ -412,24 +477,30 @@ end;
 
 constructor tmainmo.create(aowner: tcomponent);
 var
- ma1: macronamety;
+ ma1: componentmacronamety;
 begin
- fmacros:= tmacrolist.create([mao_caseinsensitive],
+ fcomponentmacros:= tmacrolist.create([mao_caseinsensitive],
    initmacros([
-    initmacros(macronames,[],[]),
+    initmacros(componentmacronames,[],[]),
     strmacros(),filemacros(),macmacros(),envmacros()]));
- for ma1:= low(macroitems) to high(macroitems) do begin
-  fmacros.find(macronames[ma1],macroitems[ma1]);
+ for ma1:= low(componentmacroitems) to high(componentmacroitems) do begin
+  fcomponentmacros.find(componentmacronames[ma1],
+                                      componentmacroitems[ma1]);
  end;
+ fprojectmacros:= tmacrolist.create([mao_caseinsensitive],[]);
  fplotkinds:= plotkindnames;
+ flayercodes:= mainmodule.layercodes;
  ffileformats:= fileformatnames;
+ ffileformatcodes:= mainmodule.fileformatcodes;
+ ffileformatexts:= mainmodule.fileformatexts;
  inherited;
 end;
 
 destructor tmainmo.destroy();
 begin
  inherited;
- fmacros.free();
+ fcomponentmacros.free();
+ fprojectmacros.free();
 end;
 
 procedure tmainmo.getprojectoptionsev(const sender: TObject;
@@ -445,8 +516,8 @@ end;
 
 procedure tmainmo.mainstatreadev(const sender: TObject);
 begin
- if fprojectfile <> '' then begin
-  openproject(fprojectfile);
+ if flastprojectfile <> '' then begin
+  openproject(flastprojectfile);
  end;
 end;
 
@@ -642,7 +713,11 @@ begin
   fhasproject:= true;
   fprojectfile:= afilename;
   fprojectname:= filenamebase(afilename);
+  setcurrentdirmse(filedir(fprojectfile));
+  flastprojectfile:= fprojectfile;
   fmodified:= false;
+  updateprojectmacros(projectoptions.projectmacronames,
+                                         projectoptions.projectmacrovalues);
   refresh();
  except
   compds.active:= false;
@@ -784,14 +859,14 @@ end;
 function tmainmo.expandcomponentmacros(const atext: msestring): msestring;
 
  procedure updatemacro(const abm: bookmarkdataty; const afield: tfield; 
-                         const componentmacro,kindmacro: macronamety);
+                  const componentmacro,kindmacro: componentmacronamety);
  var
   ms1: msestring;
  begin
   ms1:= tmsesqlquery(afield.dataset).currentbmasmsestring[afield,abm];
-  macroitems[kindmacro]^.value:= ms1;
-  if macroitems[componentmacro]^.value = '' then begin
-   macroitems[componentmacro]^.value:= ms1;
+  componentmacroitems[kindmacro]^.value:= ms1;
+  if componentmacroitems[componentmacro]^.value = '' then begin
+   componentmacroitems[componentmacro]^.value:= ms1;
   end;
  end; //updatemacro
 
@@ -804,69 +879,72 @@ begin
  stockcompdetailqu.controller.checkrefresh(); //make pending refresh
  bo1:= not sc_componentkind.isnull and 
                       compkindqu.indexlocal[0].find([sc_componentkind],bm1);
- macroitems[mn_value]^.value:= sc_value.asmsestring;
- macroitems[mn_value1]^.value:= sc_value1.asmsestring;
- macroitems[mn_value2]^.value:= sc_value2.asmsestring;
+ componentmacroitems[cmn_value]^.value:= sc_value.asmsestring;
+ componentmacroitems[cmn_value1]^.value:= sc_value1.asmsestring;
+ componentmacroitems[cmn_value2]^.value:= sc_value2.asmsestring;
  if footprintqu.indexlocal[0].find([sc_footprint],bm2) then begin
-  macroitems[mn_footprint]^.value:= 
-                            footprintqu.currentbmasmsestring[f_name,bm2];
-  macroitems[mn_footprintident]^.value:= 
-                            footprintqu.currentbmasmsestring[f_ident,bm2];
-  macroitems[mn_footprintlibrary]^.value:= 
-                            footprintqu.currentbmasmsestring[f_libname,bm2];
-  macroitems[mn_footprintdescription]^.value:= 
-                            footprintqu.currentbmasmsestring[f_description,bm2];
+  componentmacroitems[cmn_footprint]^.value:= 
+                     footprintqu.currentbmasmsestring[f_name,bm2];
+  componentmacroitems[cmn_footprintident]^.value:= 
+                     footprintqu.currentbmasmsestring[f_ident,bm2];
+  componentmacroitems[cmn_footprintlibrary]^.value:= 
+                     footprintqu.currentbmasmsestring[f_libname,bm2];
+  componentmacroitems[cmn_footprintdescription]^.value:= 
+                     footprintqu.currentbmasmsestring[f_description,bm2];
  end
  else begin
-  macroitems[mn_footprint]^.value:= '';
-  macroitems[mn_footprintident]^.value:= '';
-  macroitems[mn_footprintlibrary]^.value:= '';
-  macroitems[mn_footprintdescription]^.value:= '';
+  componentmacroitems[cmn_footprint]^.value:= '';
+  componentmacroitems[cmn_footprintident]^.value:= '';
+  componentmacroitems[cmn_footprintlibrary]^.value:= '';
+  componentmacroitems[cmn_footprintdescription]^.value:= '';
  end;
- macroitems[mn_manufacturer]^.value:= sc_manufacturername.asmsestring;
- macroitems[mn_distributor]^.value:= sc_distributorname.asmsestring;
- macroitems[mn_description]^.value:= scd_description.asmsestring;
- macroitems[mn_parameter1]^.value:= scd_parameter1.asmsestring;
- macroitems[mn_parameter2]^.value:= scd_parameter2.asmsestring;
- macroitems[mn_parameter3]^.value:= scd_parameter3.asmsestring;
- macroitems[mn_parameter4]^.value:= scd_parameter4.asmsestring;
+ componentmacroitems[cmn_manufacturer]^.value:= 
+                                    sc_manufacturername.asmsestring;
+ componentmacroitems[cmn_distributor]^.value:= 
+                                     sc_distributorname.asmsestring;
+ componentmacroitems[cmn_description]^.value:= 
+                                     scd_description.asmsestring;
+ componentmacroitems[cmn_parameter1]^.value:= scd_parameter1.asmsestring;
+ componentmacroitems[cmn_parameter2]^.value:= scd_parameter2.asmsestring;
+ componentmacroitems[cmn_parameter3]^.value:= scd_parameter3.asmsestring;
+ componentmacroitems[cmn_parameter4]^.value:= scd_parameter4.asmsestring;
 
  if bo1 then begin
   if footprintqu.indexlocal[0].find(
             [compkindqu.currentbmasid[k_footprint,bm1]],[],bm2) then begin
-   updatemacro(bm2,f_name,mn_footprint,mn_k_footprint);
-   updatemacro(bm2,f_ident,mn_footprintident,mn_k_footprintident);
-   updatemacro(bm2,f_libname,mn_footprintlibrary,mn_k_footprintlibrary);
-   updatemacro(bm2,f_description,mn_footprintdescription,
-                                                 mn_k_footprintdescription);
+   updatemacro(bm2,f_name,cmn_footprint,cmn_k_footprint);
+   updatemacro(bm2,f_ident,cmn_footprintident,cmn_k_footprintident);
+   updatemacro(bm2,f_libname,cmn_footprintlibrary,cmn_k_footprintlibrary);
+   updatemacro(bm2,f_description,cmn_footprintdescription,
+                                              cmn_k_footprintdescription);
   end
   else begin
-   macroitems[mn_k_footprint]^.value:= '';
-   macroitems[mn_k_footprintident]^.value:= '';
-   macroitems[mn_k_footprintlibrary]^.value:= '';
-   macroitems[mn_k_footprintdescription]^.value:= '';
+   componentmacroitems[cmn_k_footprint]^.value:= '';
+   componentmacroitems[cmn_k_footprintident]^.value:= '';
+   componentmacroitems[cmn_k_footprintlibrary]^.value:= '';
+   componentmacroitems[cmn_k_footprintdescription]^.value:= '';
   end;
-  updatemacro(bm1,k_manufacturername,mn_manufacturer,mn_k_manufacturer);
-  updatemacro(bm1,k_distributorname,mn_distributor,mn_k_distributor);
-  updatemacro(bm1,k_description,mn_description,mn_k_description);
-  updatemacro(bm1,k_parameter1,mn_parameter1,mn_k_parameter1);
-  updatemacro(bm1,k_parameter2,mn_parameter2,mn_k_parameter2);
-  updatemacro(bm1,k_parameter3,mn_parameter3,mn_k_parameter3);
-  updatemacro(bm1,k_parameter4,mn_parameter4,mn_k_parameter4);
+  updatemacro(bm1,k_manufacturername,cmn_manufacturer,cmn_k_manufacturer);
+  updatemacro(bm1,k_distributorname,cmn_distributor,cmn_k_distributor);
+  updatemacro(bm1,k_description,cmn_description,cmn_k_description);
+  updatemacro(bm1,k_parameter1,cmn_parameter1,cmn_k_parameter1);
+  updatemacro(bm1,k_parameter2,cmn_parameter2,cmn_k_parameter2);
+  updatemacro(bm1,k_parameter3,cmn_parameter3,cmn_k_parameter3);
+  updatemacro(bm1,k_parameter4,cmn_parameter4,cmn_k_parameter4);
  end
  else begin
-  macroitems[mn_k_footprint]^.value:= '';
-  macroitems[mn_k_footprintident]^.value:= '';
-  macroitems[mn_k_footprintdescription]^.value:= '';
-  macroitems[mn_k_manufacturer]^.value:= '';
-  macroitems[mn_k_distributor]^.value:= '';
-  macroitems[mn_k_description]^.value:= '';
-  macroitems[mn_k_parameter1]^.value:= '';
-  macroitems[mn_k_parameter2]^.value:= '';
-  macroitems[mn_k_parameter3]^.value:= '';
-  macroitems[mn_k_parameter4]^.value:= '';
+  componentmacroitems[cmn_k_footprint]^.value:= '';
+  componentmacroitems[cmn_k_footprintident]^.value:= '';
+  componentmacroitems[cmn_k_footprintdescription]^.value:= '';
+  componentmacroitems[cmn_k_manufacturer]^.value:= '';
+  componentmacroitems[cmn_k_distributor]^.value:= '';
+  componentmacroitems[cmn_k_description]^.value:= '';
+  componentmacroitems[cmn_k_parameter1]^.value:= '';
+  componentmacroitems[cmn_k_parameter2]^.value:= '';
+  componentmacroitems[cmn_k_parameter3]^.value:= '';
+  componentmacroitems[cmn_k_parameter4]^.value:= '';
  end;
- result:= fmacros.expandmacros(atext);
+ result:= fcomponentmacros.expandmacros(atext);
 end;
 
 function tmainmo.expandcomponentmacros(
@@ -908,6 +986,27 @@ begin
  result:= expandcomponentmacros(ms1);
 end;
 
+function tmainmo.expandprojectmacros(const atext: msestring): msestring;
+begin
+ result:= fprojectmacros.expandmacros(atext);
+end;
+
+procedure tmainmo.updateprojectmacros(const anames: msestringarty; 
+                                                  const avalues: msestringarty);
+begin
+ fprojectmacros.clear();
+ fprojectmacros.add(initmacros([
+                  strmacros(),filemacros(),macmacros(),envmacros(),          
+                                  initmacros(projectmacronames,[],[])]));
+ fprojectmacros.add(anames,avalues,[]);
+ with fprojectmacros.itembyname(projectmacronames[pmn_projectname])^ do begin
+  value:= projectoptions.projectname;
+  if value = '' then begin
+   value:= self.projectname;
+  end;
+ end;
+end;
+
 procedure tmainmo.openprojectev(const sender: TObject);
 begin
  if closeproject() then begin
@@ -932,6 +1031,7 @@ end;
 procedure tmainmo.closeprojectev(const sender: TObject);
 begin
  closeproject();
+ flastprojectfile:= '';
 end;
 
 procedure tmainmo.exitev(const sender: TObject);
@@ -1277,12 +1377,15 @@ end;
 procedure tmainmo.mainstatupdateev(const sender: TObject;
                const filer: tstatfiler);
 begin
- filer.updatevalue('projectfile',fprojectfile);
+ filer.updatevalue('projectfile',flastprojectfile);
 end;
 
 procedure tmainmo.createplotsev(const sender: TObject);
 var
  i1,i2: int32;
+ board1,boardname1,plotdir1: filenamety;
+ ar1,ar2: filenamearty;
+ s1,s2,s3: msestring;
 begin
  if projectoptions.board = '' then begin
   errormessage('Boardfile not defined in projectoptions');
@@ -1304,13 +1407,47 @@ begin
  end;
  beginpy('Create Plots');
  try
+  board1:= tosysfilepath(filepath(expandprojectmacros(projectoptions.board)));
+  boardname1:= filenamebase(board1);
   with globaloptions.prodplotdefines[i2] do begin
+   plotdir1:= tosysfilepath(filepath(expandprojectmacros(plotdir),fk_dir));
+   setlength(ar1,length(layernames));
+   setlength(ar2,2*length(layernames)); //source,dest
    for i1:= 0 to high(layernames) do begin
-    if not execpy('plotfile',[tosysfilepath(projectoptions.board),
-                  layernames[i1],plotfiles[i1],
-                  plotkinds[plotformats[i1]]],i1 = high(layernames)) then begin
+    s1:= layercodes[i1];
+    ar1[i1]:= plotdir1+boardname1+'-'+s1+'.'+fileformatexts[plotformats[i1]];
+    if not execpy('plotfile',[board1,plotdir1,
+                       fileformatcodes[plotformats[i1]],s1],
+                   (i1 = high(layernames)) and not createplotzipfile) then begin
      break;
     end;
+    if plotfiles[i1] <> '' then begin
+     splitfilepath(ar1[i1],s1,s2,s3);
+     s2:= s1 + filename(expandprojectmacros(plotfiles[i1]));
+     if not hasfileext(s2) then begin
+      s2:= s2 + s3;
+     end;
+     ar2[2*i1]:= s2;
+     renamefile(ar1[i1],ar2[2*i1]);
+    end
+    else begin
+     ar2[2*i1]:= ar1[i1];
+    end;
+   end;
+   if createplotzipfile then begin
+    s1:= filename(filepath(expandprojectmacros(plotzipdir),fk_file,true));
+                     //single directory level only
+    for i1:= 0 to high(ar1) do begin
+     s2:= filename(ar2[2*i1]);
+     if s1 <> '' then begin
+      s2:= tosysfilepath(s1+'/'+s2);
+     end;
+     ar2[2*i1+1]:= s2;
+    end;
+     
+    insertitem(ar2,0,tosysfilepath(filepath(plotdir1,
+                                     expandprojectmacros(plotzipfilename))));
+    execpy('createzip',ar2,true); //zipfile,zipdir,{file}
    end;
   end;
  finally
@@ -1345,6 +1482,8 @@ procedure tprojectoptions.storevalues(const asource: tmsecomponent;
                const prefix: string = '');
 begin
  inherited;
+ mainmo.updateprojectmacros(projectoptions.projectmacronames,
+                                           projectoptions.projectmacrovalues);
  mainmo.fmodified:= true;
  mainmo.statechanged();
  mainmo.refresh();
@@ -1365,6 +1504,7 @@ begin
  end;
  if afile <> '' then begin
   result:= true;
+  afile:= mainmo.expandprojectmacros(afile);
   if ffilewarnings[akind] and findfile(afile) and 
           not askyesno('File "'+afile+'" exists.'+lineend+
        'Do you want to overwrite it?','CONFIRMATION') then begin
@@ -1404,6 +1544,10 @@ begin
    additem(fprodplotdefines,typeinfo(fprodplotdefines),count1);
    with fprodplotdefines[count1-1] do begin
     name:= reader.readmsestring('name','');
+    plotdir:= reader.readmsestring('plotdir','');
+    createplotzipfile:= reader.readboolean('createplotzip',false);
+    plotzipfilename:= reader.readmsestring('plotzipfile','');
+    plotzipdir:= reader.readmsestring('plotzipdir','');
     layernames:= reader.readarray('layernames',msestringarty(nil));
     plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
     plotformats:= reader.readarray('plotformats',integerarty(nil));
@@ -1444,6 +1588,10 @@ begin
    writer.beginlist('item'+inttostrmse(i1));
    with fprodplotdefines[i1] do begin
     writer.writemsestring('name',name);
+    writer.writemsestring('plotdir',plotdir);
+    writer.writeboolean('createplotzip',createplotzipfile);
+    writer.writemsestring('plotzipfile',plotzipfilename);
+    writer.writemsestring('plotzipdir',plotzipdir);
     writer.writearray('layernames',layernames);
     writer.writearray('plotfiles',plotfiles);
     writer.writearray('plotformats',plotformats);

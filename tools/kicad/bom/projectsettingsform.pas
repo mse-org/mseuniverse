@@ -52,12 +52,22 @@ type
    val_plotstack: tdropdownlistedit;
    strip2: tlayouter;
    val_board: tfilenameedit;
-   tsimplewidget1: tsimplewidget;
    tsimplewidget2: tsimplewidget;
+   macropage: ttabpage;
+   tlayouter1: tlayouter;
+   val_projectname: tstringedit;
+   twidgetgrid1: twidgetgrid;
+   val_projectmacronames: tstringedit;
+   val_projectmacrovalues: tstringedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
    procedure initencodingev(const sender: tenumtypeedit);
+   procedure projectmacrohintev(const sender: TObject; var info: hintinfoty);
+   procedure showprojectmacrohintcolev(const sender: tdatacol;
+                   const arow: Integer; var info: hintinfoty);
+  protected
+   procedure projectmacrohint(const atext: msestring; var info: hintinfoty);
  end;
  
 implementation
@@ -83,6 +93,32 @@ end;
 procedure tprojectsettingsfo.initencodingev(const sender: tenumtypeedit);
 begin
  sender.typeinfopo:= typeinfo(charencodingty);
+end;
+
+procedure tprojectsettingsfo.projectmacrohint(const atext: msestring;
+                                                      var info: hintinfoty);
+var
+ s1: msestring;
+begin
+ s1:= projectoptions.projectname;
+ projectoptions.projectname:= val_projectname.value;
+ mainmo.updateprojectmacros(val_projectmacronames.griddata.asarray,
+                              val_projectmacrovalues.griddata.asarray);
+ projectoptions.projectname:= s1;
+ info.caption:= mainmo.expandprojectmacros(atext);
+ include(info.flags,hfl_show); //show empty caption
+end;
+
+procedure tprojectsettingsfo.projectmacrohintev(const sender: TObject;
+               var info: hintinfoty);
+begin
+ projectmacrohint(tdataedit(sender).text,info);
+end;
+
+procedure tprojectsettingsfo.showprojectmacrohintcolev(const sender: tdatacol;
+               const arow: Integer; var info: hintinfoty);
+begin
+ projectmacrohint(val_projectmacrovalues[arow],info);
 end;
 
 end.

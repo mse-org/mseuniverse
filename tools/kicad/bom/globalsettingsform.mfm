@@ -2,14 +2,14 @@ object globalsettingsfo: tglobalsettingsfo
   visible = False
   bounds_x = 337
   bounds_y = 266
-  bounds_cx = 430
+  bounds_cx = 662
   bounds_cy = 378
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    430
+    662
     378
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -21,7 +21,7 @@ object globalsettingsfo: tglobalsettingsfo
   object tsplitter1: tsplitter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     color = -2147483645
-    bounds_x = 307
+    bounds_x = 539
     bounds_y = 328
     bounds_cx = 123
     bounds_cy = 38
@@ -70,7 +70,7 @@ object globalsettingsfo: tglobalsettingsfo
   object ttabwidget1: ttabwidget
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 430
+    bounds_cx = 662
     bounds_cy = 328
     anchors = [an_top]
     taborder = 1
@@ -85,7 +85,7 @@ object globalsettingsfo: tglobalsettingsfo
       taborder = 1
       bounds_x = 0
       bounds_y = 19
-      bounds_cx = 430
+      bounds_cx = 662
       bounds_cy = 309
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Main'
@@ -101,7 +101,7 @@ object globalsettingsfo: tglobalsettingsfo
         )
         bounds_x = 8
         bounds_y = 47
-        bounds_cx = 399
+        bounds_cx = 645
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         reffontheight = 14
@@ -119,7 +119,7 @@ object globalsettingsfo: tglobalsettingsfo
         taborder = 1
         bounds_x = 8
         bounds_y = 7
-        bounds_cx = 399
+        bounds_cx = 645
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         reffontheight = 14
@@ -131,14 +131,14 @@ object globalsettingsfo: tglobalsettingsfo
       taborder = 2
       bounds_x = 0
       bounds_y = 19
-      bounds_cx = 430
+      bounds_cx = 662
       bounds_cy = 309
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Production'
       object prodplotstacktabs: ttabwidget
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 430
+        bounds_cx = 662
         bounds_cy = 309
         frame.caption = 'Plot stack, use RightClick for new page'
         frame.localprops = []

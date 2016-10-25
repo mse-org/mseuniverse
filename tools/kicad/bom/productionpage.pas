@@ -5,7 +5,8 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msetabs,
  msesplitter,mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,
- msestatfile,msestream,msestrings,sysutils,msegrids,msewidgetgrid;
+ msestatfile,msestream,msestrings,sysutils,msegrids,msewidgetgrid,msebitmap,
+ msedatanodes,msefiledialog,mselistbrowser,msesys,msegraphedits,msescrollbar;
 type
  tproductionpagefo = class(ttabform)
    tlayouter1: tlayouter;
@@ -14,11 +15,22 @@ type
    layered: tdropdownlistedit;
    plotfileed: tstringedit;
    plotformated: tenumedit;
+   plotdired: tfilenameedit;
+   tlayouter2: tlayouter;
+   plotzipfilenameed: tfilenameedit;
+   tlayouter3: tlayouter;
+   createplotziped: tbooleanedit;
+   plotzipdired: tstringedit;
    procedure namesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure layersetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure createev(const sender: TObject);
+   procedure showhintev(const sender: TObject; var info: hintinfoty);
+   procedure hintplotfilenamecolev(const sender: tdatacol; const arow: Integer;
+                   var info: hintinfoty);
+  protected
+   procedure hintmacros(const atext: msestring; var info: hintinfoty);
  end;
 
 implementation
@@ -44,6 +56,25 @@ begin
            (plotfileed.value = layertoplotname(layered.value)) then begin
   plotfileed.value:= layertoplotname(avalue);
  end;
+end;
+
+procedure tproductionpagefo.hintmacros(const atext: msestring;
+               var info: hintinfoty);
+begin
+ info.caption:= mainmo.expandprojectmacros(atext);
+ include(info.flags,hfl_show); //hint empty text
+end;
+
+procedure tproductionpagefo.showhintev(const sender: TObject;
+               var info: hintinfoty);
+begin
+ hintmacros(tedit(sender).text,info);
+end;
+
+procedure tproductionpagefo.hintplotfilenamecolev(const sender: tdatacol;
+               const arow: Integer; var info: hintinfoty);
+begin
+ hintmacros(plotfileed[arow],info);
 end;
 
 end.

@@ -2036,14 +2036,35 @@ object mainmo: tmainmo
     top = 64
   end
   object python: tpythonscript
-    scripts.count = 1
+    scripts.count = 2
     scripts.items = <    
       item
         name = 'plotfile'
         script.data = (
           'import sys'
-          'print len(sys.argv)'
-          'print str(sys.argv)'
+          '#import pcbnew'
+          'import plotitem'
+          'plotitem.plotitem(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])'
+          '#pcbfilename, outputdir, format, layer'
+          ''
+          '#boardfilename = sys.argv[1]'
+          '#board = LoadBoard(filename)'
+          '#print boardfilename'
+        )
+      end    
+      item
+        name = 'createzip'
+        script.data = (
+          'from sys import *'
+          'from zipfile import *'
+          'print ''*Writing ZIP file'''
+          'print argv[1]'
+          'zip = ZipFile(argv[1],''w'',ZIP_DEFLATED)'
+          'for i in range(2,len(argv)-1,2):'
+          ' print ''*Add file'''
+          ' print argv[i]'
+          ' zip.write(argv[i],argv[i+1])'
+          'zip.close()'
         )
       end>
     filename = '/usr/bin/python'

@@ -1,15 +1,15 @@
 object productionpagefo: tproductionpagefo
   bounds_x = 337
   bounds_y = 266
-  bounds_cx = 323
-  bounds_cy = 315
+  bounds_cx = 731
+  bounds_cy = 443
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    323
-    315
+    731
+    443
   )
   oncreate = createev
   moduleclassname = 'ttabform'
@@ -17,13 +17,15 @@ object productionpagefo: tproductionpagefo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     bounds_x = 8
     bounds_y = 0
-    bounds_cx = 307
+    bounds_cx = 715
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placex, lao_aligny]
     align_glue = wam_start
-    linkbottom = plotsgrid
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_endmargin]
     dist_bottom = 4
     object nameed: tstringedit
       frame.caption = 'Name'
@@ -42,6 +44,32 @@ object productionpagefo: tproductionpagefo
       onsetvalue = namesetev
       reffontheight = 14
     end
+    object plotdired: tfilenameedit
+      frame.caption = 'Plot Directory'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      onshowhint = showhintev
+      bounds_x = 104
+      bounds_y = 0
+      bounds_cx = 611
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      controller.options = [fdo_directory, fdo_savelastdir]
+      reffontheight = 14
+    end
   end
   object plotsgrid: twidgetgrid
     frame.caption = 'Plotfiles'
@@ -55,9 +83,9 @@ object productionpagefo: tproductionpagefo
     )
     taborder = 1
     bounds_x = 0
-    bounds_y = 41
-    bounds_cx = 323
-    bounds_cy = 274
+    bounds_y = 83
+    bounds_cx = 731
+    bounds_cy = 360
     anchors = [an_top, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -78,25 +106,31 @@ object productionpagefo: tproductionpagefo
           end        
           item
             caption = 'Filename'
+            hint = 'Empty -> use default'
           end        
           item
             caption = 'Format'
           end>
       end>
     datacols.count = 3
+    datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[layered]
-        width = 88
+        width = 179
+        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'layered'
         dataclass = tgridmsestringdatalist
       end    
       item[plotfileed]
-        width = 83
+        width = 286
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        onshowhint = hintplotfilenamecolev
         widgetname = 'plotfileed'
         dataclass = tgridmsestringdatalist
       end    
       item[plotformated]
-        width = 80
+        width = 237
+        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'plotformated'
         dataclass = tgridenumdatalist
       end>
@@ -119,7 +153,7 @@ object productionpagefo: tproductionpagefo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 88
+      bounds_cx = 179
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       onsetvalue = layersetev
@@ -135,9 +169,9 @@ object productionpagefo: tproductionpagefo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 89
+      bounds_x = 180
       bounds_y = 0
-      bounds_cx = 83
+      bounds_cx = 286
       bounds_cy = 16
       reffontheight = 14
     end
@@ -156,14 +190,107 @@ object productionpagefo: tproductionpagefo
         end>
       taborder = 3
       visible = False
-      bounds_x = 173
+      bounds_x = 467
       bounds_y = 0
-      bounds_cx = 80
+      bounds_cx = 237
       bounds_cy = 16
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item
         end>
+      reffontheight = 14
+    end
+  end
+  object tlayouter2: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 37
+    bounds_cx = 715
+    bounds_cy = 42
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_endmargin]
+    linktop = tlayouter1
+    linkbottom = plotsgrid
+    dist_bottom = 4
+    object plotzipfilenameed: tfilenameedit
+      frame.caption = 'ZIP-Filename (empty -> projectname)'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      onshowhint = showhintev
+      bounds_x = 104
+      bounds_y = 0
+      bounds_cx = 435
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      controller.filterlist.data = (
+        (
+          'Zip-Files'
+          '*.zip'
+        )
+      )
+      controller.defaultext = 'zip'
+      reffontheight = 14
+    end
+    object tlayouter3: tlayouter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 12
+      bounds_cx = 100
+      bounds_cy = 30
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      optionslayout = [lao_aligny]
+      align_glue = wam_start
+      object createplotziped: tbooleanedit
+        frame.caption = 'Create'#10'ZIP-File'
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          0
+          8
+          48
+          9
+        )
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 61
+        bounds_cy = 30
+      end
+    end
+    object plotzipdired: tstringedit
+      frame.caption = 'Main directotry in ZIP'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 2
+      onshowhint = showhintev
+      bounds_x = 543
+      bounds_y = 0
+      bounds_cx = 172
+      bounds_cy = 37
       reffontheight = 14
     end
   end

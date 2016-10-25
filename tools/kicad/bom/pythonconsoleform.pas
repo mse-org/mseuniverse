@@ -41,7 +41,7 @@ begin
  else begin
   term.addline('***** ERROR '+inttostrmse(i1)+' ******');
  end;
- term.addline('Press Enter');
+ term.addchars('Press Enter ');
 end;
 
 procedure tpythonconsolefo.sendtextev(const sender: TObject;
