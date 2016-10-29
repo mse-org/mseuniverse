@@ -3,6 +3,8 @@ object mainfo: tmainfo
   bounds_y = 247
   bounds_cx = 308
   bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -13,6 +15,8 @@ object mainfo: tmainfo
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   moduleclassname = 'tmseform'
   object tdbnavigator1: tdbnavigator
+    frame.localprops = []
+    frame.localprops1 = []
     bounds_x = 8
     bounds_y = 0
     bounds_cx = 288
@@ -24,12 +28,14 @@ object mainfo: tmainfo
   end
   object tdbwidgetgrid1: tdbwidgetgrid
     frame.sbvert.pagesize = 0.5
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 1
     bounds_x = 8
     bounds_y = 32
     bounds_cx = 290
     bounds_cy = 242
-    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autoappend, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
       item
@@ -55,7 +61,7 @@ object mainfo: tmainfo
       frame.levelo = 0
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       taborder = 1
       visible = False
       bounds_x = 0
@@ -68,6 +74,7 @@ object mainfo: tmainfo
     end
   end
   object tmsesqlquery1: tmsesqlquery
+    options = [bdo_local]
     logfilename = 'test.db'
     indexlocal.count = 1
     indexlocal.items = <    
@@ -92,9 +99,9 @@ object mainfo: tmainfo
         Precision = 0
         Size = 50
       end>
-    controller.options = [dso_local]
     left = 16
     top = 184
+    streamingversion = 1
     object text1fi: tmsestringfield
       DisplayWidth = 50
       FieldName = 'text1'

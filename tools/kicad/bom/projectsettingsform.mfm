@@ -513,6 +513,7 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_y = 0
           bounds_cx = 372
           bounds_cy = 37
+          anchors = [an_left, an_top, an_right]
           reffontheight = 14
         end
       end
