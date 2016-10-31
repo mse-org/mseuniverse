@@ -54,7 +54,8 @@ type
    constructor create(const aowner: tcustomitemlist = nil;
               const aparent: ttreelistitem = nil); override;
    destructor destroy; override;
-   procedure updatecaption(var alayoutinfo: listitemlayoutinfoty;
+   procedure updatecaption(const acanvas: tcanvas; 
+                   var alayoutinfo: listitemlayoutinfoty;
                                 var ainfo: drawtextinfoty); override;
   end;
  
@@ -81,10 +82,12 @@ begin
  ffont.free;
 end;
 
-procedure tboldnode.updatecaption(var alayoutinfo: listitemlayoutinfoty;
-               var ainfo: drawtextinfoty);
+procedure tboldnode.updatecaption(const acanvas: tcanvas;
+                                     var alayoutinfo: listitemlayoutinfoty;
+                                                   var ainfo: drawtextinfoty);
 begin
  ainfo.font:= ffont;
+ inherited;
 end;
 
 { tmainfo }
