@@ -1,0 +1,73 @@
+object docupagefo: tdocupagefo
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 479
+  bounds_cy = 357
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    479
+    357
+  )
+  moduleclassname = 'ttabform'
+  object tlayouter1: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    bounds_x = 8
+    bounds_y = 0
+    bounds_cx = 464
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_endmargin]
+    dist_bottom = 4
+    object nameed: tstringedit
+      frame.caption = 'Name'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      hint = 'Caption for main menu item'
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 92
+      bounds_cy = 37
+      onsetvalue = namesetev
+      reffontheight = 14
+    end
+    object plotdired: tfilenameedit
+      frame.caption = 'Plot Directory'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 96
+      bounds_y = 0
+      bounds_cx = 368
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      controller.options = [fdo_directory, fdo_savelastdir]
+      reffontheight = 14
+    end
+  end
+end

@@ -46,6 +46,11 @@ type
  end; 
  prodplotinfoarty = array of prodplotinfoty;
  
+ docuinfoty = record
+  name: msestring;
+ end; 
+ docuinfoarty = array of docuinfoty;
+ 
  tglobaloptions = class(toptions)
   private
 //   ffilename: filenamety;
@@ -55,7 +60,10 @@ type
    fdatabasename: msestring;
    fprodplotdefines: prodplotinfoarty;
    fprodplotnames: msestringarty;
+   fdocudefines: docuinfoarty;
+   fdocunames: msestringarty;
    procedure setprodplotdefines(const avalue: prodplotinfoarty);
+   procedure setdocudefines(const avalue: docuinfoarty);
   protected
    procedure dostatread(const reader: tstatreader) override;
    procedure dostatwrite(const writer: tstatwriter) override;
@@ -66,6 +74,9 @@ type
    property prodplotdefines: prodplotinfoarty read fprodplotdefines 
                                                     write setprodplotdefines;
    property prodplotnames: msestringarty read fprodplotnames;
+   property docudefines: docuinfoarty read fdocudefines 
+                                                    write setdocudefines;
+   property docunames: msestringarty read fdocunames;
   published
 //   property filename: filenamety read ffilename write ffilename;
    property hostname: msestring read fhostname write fhostname;
@@ -84,6 +95,7 @@ type
    flibident: msestringarty;
    flibalias: msestringarty;
    fplotstack: msestring;
+   fdocustack: msestring;
    fprojectname: msestring;
    fprojectmacronames: msestringarty;
    fprojectmacrovalues: msestringarty;
@@ -108,6 +120,7 @@ type
    property libident: msestringarty read flibident write flibident;
    property libalias: msestringarty read flibalias write flibalias;
    property plotstack: msestring read fplotstack write fplotstack;
+   property docustack: msestring read fdocustack write fdocustack;
    property projectname: msestring read fprojectname write fprojectname;
    property projectmacronames: msestringarty read fprojectmacronames
                                                      write fprojectmacronames;
@@ -1535,6 +1548,17 @@ begin
  end;
 end;
 
+procedure tglobaloptions.setdocudefines(const avalue: docuinfoarty);
+var
+ i1: int32;
+begin
+ fdocudefines:= avalue;
+ setlength(fdocunames,length(fdocudefines));
+ for i1:= 0 to high(fdocudefines) do begin
+  fdocunames[i1]:= fdocudefines[i1].name;
+ end;
+end;
+
 procedure tglobaloptions.dostatread(const reader: tstatreader);
 var
  count1: int32;
@@ -1578,6 +1602,45 @@ begin
   setlength(fprodplotdefines,count1);
   prodplotdefines:= fprodplotdefines; //build name array
  end;
+ if reader.beginlist('docustack') then begin
+  count1:= 0;
+  while reader.beginlist('item'+inttostrmse(count1)) do begin
+   additem(fdocudefines,typeinfo(fdocudefines),count1);
+   with fdocudefines[count1-1] do begin
+    name:= reader.readmsestring('name','');
+    {
+    plotdir:= reader.readmsestring('plotdir','');
+    createplotzipfile:= reader.readboolean('createplotzip',false);
+    plotzipfilename:= reader.readmsestring('plotzipfile','');
+    plotzipdir:= reader.readmsestring('plotzipdir','');
+    layernames:= reader.readarray('layernames',msestringarty(nil));
+    plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
+    plotformats:= reader.readarray('plotformats',integerarty(nil));
+    for i1:= 0 to high(plotformats) do begin
+     i2:= plotformats[i1];
+     if (i2 < 0) or (i2 > ord(high(fileformatty))) then begin
+      plotformats[i1]:= 0;
+     end;
+    end;
+    i1:= high(layernames);
+    if i1 > high(plotfiles) then begin
+     i1:= high(plotfiles);
+    end;
+    if i1 > high(plotformats) then begin
+     i1:= high(plotformats);
+    end;
+    inc(i1);
+    setlength(layernames,i1);
+    setlength(plotfiles,i1);
+    setlength(plotformats,i1);
+    }
+   end;
+   reader.endlist();
+  end;
+  reader.endlist();
+  setlength(fdocudefines,count1);
+  docudefines:= fdocudefines; //build name array
+ end;
 end;
 
 procedure tglobaloptions.dostatwrite(const writer: tstatwriter);
@@ -1598,6 +1661,26 @@ begin
     writer.writearray('layernames',layernames);
     writer.writearray('plotfiles',plotfiles);
     writer.writearray('plotformats',plotformats);
+   end;
+   writer.endlist();
+  end;
+  writer.endlist();
+ end;
+ if fdocudefines <> nil then begin
+  writer.beginlist('docustack');
+  for i1:= 0 to high(fdocudefines) do begin
+   writer.beginlist('item'+inttostrmse(i1));
+   with fdocudefines[i1] do begin
+    writer.writemsestring('name',name);
+    {
+    writer.writemsestring('plotdir',plotdir);
+    writer.writeboolean('createplotzip',createplotzipfile);
+    writer.writemsestring('plotzipfile',plotzipfilename);
+    writer.writemsestring('plotzipdir',plotzipdir);
+    writer.writearray('layernames',layernames);
+    writer.writearray('plotfiles',plotfiles);
+    writer.writearray('plotformats',plotformats);
+    }
    end;
    writer.endlist();
   end;

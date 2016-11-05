@@ -23,7 +23,7 @@ uses
  msesplitter,msesimplewidgets,msedragglob,msescrollbar,msetabs,mseact,
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,msebitmap,msedatanodes,msefiledialog,
- mselistbrowser,msesys;
+ mselistbrowser,msesys,mseactions;
 type
  tglobalsettingsfo = class(tmseform)
    tstatfile1: tstatfile;
@@ -31,22 +31,26 @@ type
    tbutton2: tbutton;
    tbutton1: tbutton;
    tspacer2: tspacer;
-   ttabwidget1: ttabwidget;
+   tabs: ttabwidget;
    maintab: ttabpage;
    val_databasename: tstringedit;
    val_hostname: tstringedit;
    prodplottab: ttabpage;
    prodplotstacktabs: ttabwidget;
-   plotstackmenu: tpopupmenu;
+   pagemenu: tpopupmenu;
+   docutab: ttabpage;
+   docustacktabs: ttabwidget;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
-   procedure newprodplotpageev(const sender: TObject);
+   procedure newpageev(const sender: TObject);
+   procedure deletepageev(const sender: tobject);
+   procedure pagepopupupdateev(const sender: tcustommenu);
  end;
  
 implementation
 uses
- globalsettingsform_mfm,mainmodule,productionpage;
+ globalsettingsform_mfm,mainmodule,productionpage,docupage;
 const
  valueprefix = 'val_';
   
@@ -54,6 +58,7 @@ procedure tglobalsettingsfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 var
  ar1: prodplotinfoarty;
+ ar2: docuinfoarty;
  i1: int32;
 begin
  if amodalresult in [mr_ok,mr_f10] then begin
@@ -72,6 +77,13 @@ begin
    end;
   end;
   globaloptions.prodplotdefines:= ar1;
+  setlength(ar2,prodplotstacktabs.count);
+  for i1:= 0 to high(ar2) do begin
+   with tdocupagefo(docustacktabs.items[i1]),ar2[i1] do begin
+    name:= nameed.value;
+   end;
+  end;
+  globaloptions.docudefines:= ar2;
   if mainmo.conn.connected then begin
    mainmo.conn.connected:= false;
    mainmo.refresh();
@@ -83,6 +95,7 @@ procedure tglobalsettingsfo.createev(const sender: TObject);
 var
  i1: int32;
  fo1: tproductionpagefo;
+ fo2: tdocupagefo;
 begin
  globaloptions.loadvalues(self,valueprefix);
  for i1:= 0 to high(globaloptions.prodplotdefines) do begin
@@ -100,11 +113,53 @@ begin
    prodplotstacktabs.add(itabpage(fo1));
   end;
  end;
+ for i1:= 0 to high(globaloptions.docudefines) do begin
+  fo2:= tdocupagefo.create(nil);
+  with globaloptions.docudefines[i1] do begin
+   fo2.caption:= name;
+   fo2.nameed.value:= name;
+   docustacktabs.add(itabpage(fo2));
+  end;
+ end;
 end;
 
-procedure tglobalsettingsfo.newprodplotpageev(const sender: TObject);
+procedure tglobalsettingsfo.newpageev(const sender: TObject);
 begin
- prodplotstacktabs.add(itabpage(tproductionpagefo.create(nil)));
+ if prodplotstacktabs.checkdescendent(application.lastshowmenuwidget) then begin
+  prodplotstacktabs.add(itabpage(tproductionpagefo.create(nil)));
+ end
+ else begin
+  docustacktabs.add(itabpage(tdocupagefo.create(nil)));
+ end;
+end;
+
+procedure tglobalsettingsfo.deletepageev(const sender: tobject);
+
+ procedure checkdelete(const atabwidget: ttabwidget);
+ var
+  pag1: ttabform;
+ begin
+  pag1:= ttabform(atabwidget.activepage);
+  if (pag1 <> nil) and askconfirmation(
+      'Do you want to delete page "'+pag1.caption+'"?') then begin
+   pag1.release();
+  end;
+ end; //checkdelete
+ 
+begin
+ if prodplotstacktabs.checkdescendent(application.lastshowmenuwidget) then begin
+  checkdelete(prodplotstacktabs);
+ end
+ else begin
+  checkdelete(docustacktabs);
+ end;
+end;
+
+procedure tglobalsettingsfo.pagepopupupdateev(const sender: tcustommenu);
+begin
+ with sender.menu.itembyname('delete') do begin
+  enabled:= ttabwidget(application.lastshowmenuwidget).activepage <> nil;
+ end;
 end;
 
 end.

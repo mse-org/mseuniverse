@@ -27,7 +27,7 @@ object globalsettingsfo: tglobalsettingsfo
     bounds_cy = 38
     anchors = [an_right, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
-    linktop = ttabwidget1
+    linktop = tabs
     grip = stb_none
     object tbutton2: tbutton
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
@@ -67,7 +67,7 @@ object globalsettingsfo: tglobalsettingsfo
       options = [spao_glueright]
     end
   end
-  object ttabwidget1: ttabwidget
+  object tabs: ttabwidget
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 662
@@ -140,7 +140,7 @@ object globalsettingsfo: tglobalsettingsfo
         bounds_y = 0
         bounds_cx = 662
         bounds_cy = 309
-        frame.caption = 'Plot stack, use RightClick for new page'
+        frame.caption = 'Plot stack, use RightClick for new or delete page'
         frame.localprops = []
         frame.localprops1 = []
         frame.outerframe = (
@@ -150,7 +150,39 @@ object globalsettingsfo: tglobalsettingsfo
           0
         )
         anchors = [an_top, an_bottom]
-        popupmenu = plotstackmenu
+        popupmenu = pagemenu
+        tab_frame.localprops = []
+        tab_frame.localprops1 = []
+        tab_size = 19
+        statfile = tstatfile1
+      end
+    end
+    object docutab: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 662
+      bounds_cy = 309
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Documentation'
+      object docustacktabs: ttabwidget
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 662
+        bounds_cy = 309
+        frame.caption = 'Documentaton sets, use RightClick for new or delete page'
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        anchors = [an_top, an_bottom]
+        popupmenu = pagemenu
         tab_frame.localprops = []
         tab_frame.localprops1 = []
         tab_size = 19
@@ -164,13 +196,20 @@ object globalsettingsfo: tglobalsettingsfo
     left = 8
     top = 112
   end
-  object plotstackmenu: tpopupmenu
-    menu.submenu.count = 1
+  object pagemenu: tpopupmenu
+    onupdate = pagepopupupdateev
+    menu.submenu.count = 2
     menu.submenu.items = <    
       item
         caption = '&New Page'
         state = [as_localcaption, as_localonexecute]
-        onexecute = newprodplotpageev
+        onexecute = newpageev
+      end    
+      item
+        caption = '&Delete Page'
+        name = 'delete'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = deletepageev
       end>
     left = 192
     top = 80
