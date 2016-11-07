@@ -48,6 +48,8 @@ type
  
  docuinfoty = record
   name: msestring;
+  titles: msestringarty;
+  pagekinds: integerarty;
  end; 
  docuinfoarty = array of docuinfoty;
  
@@ -290,6 +292,7 @@ type
    fpythonconsole: tpythonconsolefo;
    flastprojectfile: filenamety;
    ffileformatexts: msestringarty;
+   fdocupagekinds: msestringarty;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -335,6 +338,7 @@ type
    property fileformats: msestringarty read ffileformats;
    property fileformatcodes: msestringarty read ffileformatcodes;
    property fileformatexts: msestringarty read ffileformatexts;
+   property docupagekinds: msestringarty read fdocupagekinds;
  end;
  
 var
@@ -467,6 +471,8 @@ type
  fileformatty = (
   ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
  );
+ docupagekindty = (dpk_layerplot);
+ 
 const
  fileformatnames: array[fileformatty] of msestring = (
 //  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
@@ -483,6 +489,11 @@ const
       'gbr',    'ps',         'svg', 'dxf', 'plt', 'pdf'
  );
 
+ docupagekinds: array[docupagekindty] of msestring = (
+// dpk_layerplot
+       'PCB layerplot'
+ );
+ 
 function layertoplotname(const layername: msestring): msestring;
 begin
  result:= mselowercase(layername);
@@ -509,6 +520,7 @@ begin
  ffileformats:= fileformatnames;
  ffileformatcodes:= mainmodule.fileformatcodes;
  ffileformatexts:= mainmodule.fileformatexts;
+ fdocupagekinds:= mainmodule.docupagekinds;
  inherited;
 end;
 
@@ -1608,6 +1620,8 @@ begin
    additem(fdocudefines,typeinfo(fdocudefines),count1);
    with fdocudefines[count1-1] do begin
     name:= reader.readmsestring('name','');
+    titles:= reader.readarray('titles',msestringarty(nil));
+    pagekinds:= reader.readarray('pagekinds',integerarty(nil));
     {
     plotdir:= reader.readmsestring('plotdir','');
     createplotzipfile:= reader.readboolean('createplotzip',false);
@@ -1672,6 +1686,8 @@ begin
    writer.beginlist('item'+inttostrmse(i1));
    with fdocudefines[i1] do begin
     writer.writemsestring('name',name);
+    writer.writearray('titles',titles);
+    writer.writearray('pagekinds',pagekinds);
     {
     writer.writemsestring('plotdir',plotdir);
     writer.writeboolean('createplotzip',createplotzipfile);

@@ -81,6 +81,8 @@ begin
   for i1:= 0 to high(ar2) do begin
    with tdocupagefo(docustacktabs.items[i1]),ar2[i1] do begin
     name:= nameed.value;
+    titles:= titleed.griddata.asarray;
+    pagekinds:= pagekinded.griddata.asarray;
    end;
   end;
   globaloptions.docudefines:= ar2;
@@ -118,6 +120,8 @@ begin
   with globaloptions.docudefines[i1] do begin
    fo2.caption:= name;
    fo2.nameed.value:= name;
+   fo2.titleed.griddata.asarray:= titles;
+   fo2.pagekinded.griddata.asarray:= pagekinds;
    docustacktabs.add(itabpage(fo2));
   end;
  end;
