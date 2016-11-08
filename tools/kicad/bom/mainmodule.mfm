@@ -2028,9 +2028,9 @@ object mainmo: tmainmo
     left = 456
     top = 392
   end
-  object createplotsact: taction
-    caption = 'Create &Plots'
-    onexecute = createplotsev
+  object prodfilesact: taction
+    caption = '&Production-Files'
+    onexecute = prodfilesev
     onupdate = validprojectupdateev
     left = 120
     top = 64
@@ -2071,5 +2071,12 @@ object mainmo: tmainmo
     options = [pro_output, pro_input, pro_errorouttoout, pro_noshell, pro_winpipewritehandles]
     left = 592
     top = 8
+  end
+  object docusetact: taction
+    caption = '&Docu-Set'
+    onexecute = docusetev
+    onupdate = validprojectupdateev
+    left = 120
+    top = 80
   end
 end

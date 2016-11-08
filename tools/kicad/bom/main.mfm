@@ -1024,13 +1024,16 @@ object mainfo: tmainfo
         action = mainmo.refreshact
       end    
       item
-        submenu.count = 2
+        submenu.count = 3
         submenu.items = <        
           item
             action = mainmo.cmplistact
           end        
           item
-            action = mainmo.createplotsact
+            action = mainmo.prodfilesact
+          end        
+          item
+            action = mainmo.docusetact
           end>
         caption = 'R&eporting'
         state = [as_localcaption]

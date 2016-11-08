@@ -34,6 +34,7 @@ const
  versiontext = '0.0';
 
 type
+ docupagekindty = (dpk_layerplot);
  prodplotinfoty = record
   name: msestring;
   plotdir: filenamety;
@@ -45,11 +46,18 @@ type
   plotformats: integerarty;
  end; 
  prodplotinfoarty = array of prodplotinfoty;
- 
+
+ docuplotpageinfoty = record
+  layername: msestring;
+ end;
+ pdocuplotpageinfoty = ^docuplotpageinfoty;
+ docuplotpageinfoarty = array of docuplotpageinfoty;
+  
  docuinfoty = record
   name: msestring;
   titles: msestringarty;
   pagekinds: integerarty;
+  layerplots: docuplotpageinfoarty;
  end; 
  docuinfoarty = array of docuinfoty;
  
@@ -242,8 +250,9 @@ type
    f_description: tmsestringfield;
    sc_footprintinfo: tmsestringfield;
    c_footprintinfo: tmsestringfield;
-   createplotsact: taction;
+   prodfilesact: taction;
    python: tpythonscript;
+   docusetact: taction;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -275,7 +284,8 @@ type
    procedure distributordeletecheckev(DataSet: TDataSet);
    procedure maufaturerdeletecheckev(DataSet: TDataSet);
    procedure mainstatupdateev(const sender: TObject; const filer: tstatfiler);
-   procedure createplotsev(const sender: TObject);
+   procedure prodfilesev(const sender: TObject);
+   procedure docusetev(const sender: TObject);
   private
    fhasproject: boolean;
    fmodified: boolean;
@@ -471,7 +481,6 @@ type
  fileformatty = (
   ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
  );
- docupagekindty = (dpk_layerplot);
  
 const
  fileformatnames: array[fileformatty] of msestring = (
@@ -491,7 +500,7 @@ const
 
  docupagekinds: array[docupagekindty] of msestring = (
 // dpk_layerplot
-       'PCB layerplot'
+       'PCB Layer-Plot'
  );
  
 function layertoplotname(const layername: msestring): msestring;
@@ -1408,7 +1417,7 @@ begin
  filer.updatevalue('projectfile',flastprojectfile);
 end;
 
-procedure tmainmo.createplotsev(const sender: TObject);
+procedure tmainmo.prodfilesev(const sender: TObject);
 var
  i1,i2: int32;
  board1,boardname1,plotdir1: filenamety;
@@ -1481,6 +1490,11 @@ begin
  finally
   endpy();
  end;
+end;
+
+procedure tmainmo.docusetev(const sender: TObject);
+begin
+ guibeep();
 end;
 
 { tprojectoptions }
@@ -1573,7 +1587,7 @@ end;
 
 procedure tglobaloptions.dostatread(const reader: tstatreader);
 var
- count1: int32;
+ count1,count2: int32;
  i1,i2: int32;
 begin
  inherited;
@@ -1622,32 +1636,18 @@ begin
     name:= reader.readmsestring('name','');
     titles:= reader.readarray('titles',msestringarty(nil));
     pagekinds:= reader.readarray('pagekinds',integerarty(nil));
-    {
-    plotdir:= reader.readmsestring('plotdir','');
-    createplotzipfile:= reader.readboolean('createplotzip',false);
-    plotzipfilename:= reader.readmsestring('plotzipfile','');
-    plotzipdir:= reader.readmsestring('plotzipdir','');
-    layernames:= reader.readarray('layernames',msestringarty(nil));
-    plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
-    plotformats:= reader.readarray('plotformats',integerarty(nil));
-    for i1:= 0 to high(plotformats) do begin
-     i2:= plotformats[i1];
-     if (i2 < 0) or (i2 > ord(high(fileformatty))) then begin
-      plotformats[i1]:= 0;
+    if reader.beginlist('layerplots') then begin
+     count2:= 0;
+     while reader.beginlist('item'+inttostrmse(count2)) do begin
+      additem(layerplots,typeinfo(layerplots),count2);
+      with layerplots[count2-1] do begin
+       layername:= reader.readmsestring('layername','');
+      end;
+      reader.endlist();
      end;
+     reader.endlist();
+     setlength(layerplots,count2);
     end;
-    i1:= high(layernames);
-    if i1 > high(plotfiles) then begin
-     i1:= high(plotfiles);
-    end;
-    if i1 > high(plotformats) then begin
-     i1:= high(plotformats);
-    end;
-    inc(i1);
-    setlength(layernames,i1);
-    setlength(plotfiles,i1);
-    setlength(plotformats,i1);
-    }
    end;
    reader.endlist();
   end;
@@ -1659,7 +1659,7 @@ end;
 
 procedure tglobaloptions.dostatwrite(const writer: tstatwriter);
 var
- i1: int32;
+ i1,i2: int32;
 begin
  inherited;
  if fprodplotdefines <> nil then begin
@@ -1688,15 +1688,15 @@ begin
     writer.writemsestring('name',name);
     writer.writearray('titles',titles);
     writer.writearray('pagekinds',pagekinds);
-    {
-    writer.writemsestring('plotdir',plotdir);
-    writer.writeboolean('createplotzip',createplotzipfile);
-    writer.writemsestring('plotzipfile',plotzipfilename);
-    writer.writemsestring('plotzipdir',plotzipdir);
-    writer.writearray('layernames',layernames);
-    writer.writearray('plotfiles',plotfiles);
-    writer.writearray('plotformats',plotformats);
-    }
+    writer.beginlist('layerplots');
+    for i2:= 0 to high(layerplots) do begin
+     writer.beginlist('item'+inttostrmse(i2));
+     with layerplots[i2] do begin
+      writer.writemsestring('layername',layername);
+     end;
+     writer.endlist();
+    end;
+    writer.endlist();
    end;
    writer.endlist();
   end;

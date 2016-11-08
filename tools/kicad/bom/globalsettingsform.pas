@@ -39,7 +39,7 @@ type
    prodplotstacktabs: ttabwidget;
    pagemenu: tpopupmenu;
    docutab: ttabpage;
-   docustacktabs: ttabwidget;
+   docusettabs: ttabwidget;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
@@ -77,12 +77,13 @@ begin
    end;
   end;
   globaloptions.prodplotdefines:= ar1;
-  setlength(ar2,prodplotstacktabs.count);
+  setlength(ar2,docusettabs.count);
   for i1:= 0 to high(ar2) do begin
-   with tdocupagefo(docustacktabs.items[i1]),ar2[i1] do begin
+   with tdocupagefo(docusettabs.items[i1]),ar2[i1] do begin
     name:= nameed.value;
     titles:= titleed.griddata.asarray;
     pagekinds:= pagekinded.griddata.asarray;
+    layerplots:= plots;
    end;
   end;
   globaloptions.docudefines:= ar2;
@@ -122,7 +123,8 @@ begin
    fo2.nameed.value:= name;
    fo2.titleed.griddata.asarray:= titles;
    fo2.pagekinded.griddata.asarray:= pagekinds;
-   docustacktabs.add(itabpage(fo2));
+   fo2.plots:= layerplots;
+   docusettabs.add(itabpage(fo2));
   end;
  end;
 end;
@@ -133,7 +135,7 @@ begin
   prodplotstacktabs.add(itabpage(tproductionpagefo.create(nil)));
  end
  else begin
-  docustacktabs.add(itabpage(tdocupagefo.create(nil)));
+  docusettabs.add(itabpage(tdocupagefo.create(nil)));
  end;
 end;
 
@@ -155,7 +157,7 @@ begin
   checkdelete(prodplotstacktabs);
  end
  else begin
-  checkdelete(docustacktabs);
+  checkdelete(docusettabs);
  end;
 end;
 

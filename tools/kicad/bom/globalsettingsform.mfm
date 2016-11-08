@@ -167,12 +167,12 @@ object globalsettingsfo: tglobalsettingsfo
       bounds_cy = 309
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Documentation'
-      object docustacktabs: ttabwidget
+      object docusettabs: ttabwidget
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 662
         bounds_cy = 309
-        frame.caption = 'Documentaton sets, use RightClick for new or delete page'
+        frame.caption = 'Docu-Sets, use RightClick for adding or removing set'
         frame.localprops = []
         frame.localprops1 = []
         frame.outerframe = (
@@ -201,12 +201,12 @@ object globalsettingsfo: tglobalsettingsfo
     menu.submenu.count = 2
     menu.submenu.items = <    
       item
-        caption = '&New Page'
+        caption = '&New Set'
         state = [as_localcaption, as_localonexecute]
         onexecute = newpageev
       end    
       item
-        caption = '&Delete Page'
+        caption = '&Delete Set'
         name = 'delete'
         state = [as_localcaption, as_localonexecute]
         onexecute = deletepageev

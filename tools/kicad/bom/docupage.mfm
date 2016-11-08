@@ -12,6 +12,8 @@ object docupagefo: tdocupagefo
     357
   )
   oncreate = createev
+  onselect = selectev
+  ondeselect = deselectev
   moduleclassname = 'ttabform'
   object tlayouter1: tlayouter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -25,7 +27,8 @@ object docupagefo: tdocupagefo
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    place_options = [plo_endmargin]
+    place_options = [plo_scalesize, plo_scalefullref, plo_endmargin]
+    linkbottom = tlayouter2
     dist_bottom = 4
     object nameed: tstringedit
       frame.caption = 'Name'
@@ -45,8 +48,8 @@ object docupagefo: tdocupagefo
       onsetvalue = namesetev
       reffontheight = 14
     end
-    object plotdired: tfilenameedit
-      frame.caption = 'Plot Directory'
+    object docudired: tfilenameedit
+      frame.caption = 'Docu Directory'
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -67,23 +70,28 @@ object docupagefo: tdocupagefo
       bounds_cx = 368
       bounds_cy = 37
       anchors = [an_left, an_top, an_right]
+      statfile = statf
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
+      onsetvalue = setdocudirev
       controller.options = [fdo_directory, fdo_savelastdir]
       reffontheight = 14
     end
   end
-  object twidgetgrid1: twidgetgrid
+  object grid: twidgetgrid
     frame.localprops = []
     frame.localprops1 = []
     taborder = 1
-    bounds_x = 24
-    bounds_y = 152
-    bounds_cx = 426
-    bounds_cy = 170
+    popupmenu = gridpopup
+    bounds_x = 0
+    bounds_y = 82
+    bounds_cx = 479
+    bounds_cy = 275
+    anchors = [an_top, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
       item
-        width = 25
+        width = 52
         numstart = 1
         numstep = 1
       end>
@@ -91,20 +99,48 @@ object docupagefo: tdocupagefo
     fixrows.items = <    
       item
         height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'Title'
+          end        
+          item
+            caption = 'Kind'
+          end        
+          item
+            caption = 'ED'
+            hint = 'Edit page setup (F3)'
+          end>
+        captionsfix.count = 1
+        captionsfix.items = <        
+          item
+            caption = 'Page'
+          end>
       end>
-    datacols.count = 2
+    datacols.count = 3
+    datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[titleed]
         width = 111
+        options = [co_savestate, co_mousescrollrow]
         widgetname = 'titleed'
         dataclass = tgridmsestringdatalist
       end    
       item[pagekinded]
         width = 77
+        options = [co_savestate, co_mousescrollrow]
         widgetname = 'pagekinded'
         dataclass = tgridenumdatalist
+      end    
+      item[docupageeditbu]
+        color = -2147483646
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'docupageeditbu'
+        dataclass = tgridintegerdatalist
       end>
     datarowheight = 16
+    statfile = statf
+    oncellevent = cellev
     reffontheight = 14
     object titleed: tstringedit
       optionsskin = [osk_framebuttononly]
@@ -114,6 +150,7 @@ object docupagefo: tdocupagefo
       bounds_y = 0
       bounds_cx = 111
       bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
       reffontheight = 14
     end
@@ -136,6 +173,7 @@ object docupagefo: tdocupagefo
       bounds_y = 0
       bounds_cx = 77
       bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
@@ -143,5 +181,128 @@ object docupagefo: tdocupagefo
         end>
       reffontheight = 14
     end
+    object docupageeditbu: tstockglyphdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      bounds_x = 190
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      state = [as_invisible, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr]
+      action = docupageeditact
+      glyph = stg_ellipsesmall
+    end
+  end
+  object tlayouter2: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 41
+    bounds_cx = 464
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_scalesize, plo_scalefullref, plo_endmargin]
+    linkbottom = grid
+    dist_bottom = 4
+    object postscriptfileed: tfilenameedit
+      frame.caption = 'Postscript File'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 242
+      bounds_cy = 37
+      statfile = statf
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
+      controller.filterlist.data = (
+        (
+          'Postscript File'
+          '*.ps'
+        )
+      )
+      controller.defaultext = 'ps'
+      controller.options = [fdo_save, fdo_file, fdo_lastdirrelative]
+      controller.captionsave = 'Docu Postscript File'
+      reffontheight = 14
+    end
+    object pdffileed: tfilenameedit
+      frame.caption = 'PDF File'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 246
+      bounds_y = 0
+      bounds_cx = 218
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      statfile = statf
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
+      controller.filterlist.data = (
+        (
+          'Postscript File'
+          '*.ps'
+        )
+      )
+      controller.defaultext = 'pdf'
+      controller.options = [fdo_save, fdo_file, fdo_lastdirrelative]
+      controller.captionsave = 'Docu PDF File'
+      reffontheight = 14
+    end
+  end
+  object docupageeditact: taction
+    caption = 'Edit Docu Page'
+    onexecuteaction = docupageeditev
+    left = 240
+    top = 208
+    sc = (
+      1
+      306
+    )
+  end
+  object gridpopup: tpopupmenu
+    menu.submenu.count = 1
+    menu.submenu.items = <    
+      item
+        action = docupageeditact
+      end>
+    left = 240
+    top = 184
+  end
+  object statf: tstatfile
+    filename = 'docupage.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 32
+    top = 152
   end
 end
