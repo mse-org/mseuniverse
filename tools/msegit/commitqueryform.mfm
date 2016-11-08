@@ -18,6 +18,7 @@ object commitqueryfo: tcommitqueryfo
   oncreate = createexe
   moduleclassname = 'tmseform'
   object bottomstrip: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     frame.framei_left = 2
     frame.framei_top = 4
     frame.framei_right = 3
@@ -30,13 +31,13 @@ object commitqueryfo: tcommitqueryfo
     bounds_cy = 28
     anchors = [an_left, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
-    linktop = mainarea
-    options = [spao_gluebottom]
     optionslayout = [lao_placex, lao_aligny]
     align_leader = filecountdisp
     align_glue = wam_center
     place_mindist = 5
     place_maxdist = 5
+    linktop = mainarea
+    options = [spao_gluebottom]
     object tbutton1: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       bounds_x = 468
@@ -290,15 +291,13 @@ object commitqueryfo: tcommitqueryfo
             end          
             item[fileitemed]
               width = 248
-              datalist.imagealignment = [al_right, al_ycentered]
-              datalist.captionpos = cp_top
-              datalist.data = (              )
             end>
           inherited selected: tbooleanedit[0]
             onsetvalue = selectsetexe
           end
           inherited fileitemed: titemedit[1]
             bounds_cx = 248
+            optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
             oncellevent = celleventexe
           end
           inherited filestate: tdataicon[2]
