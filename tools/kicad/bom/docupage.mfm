@@ -65,6 +65,7 @@ object docupagefo: tdocupagefo
         0
       )
       taborder = 1
+      onshowhint = macrohintev
       bounds_x = 96
       bounds_y = 0
       bounds_cx = 368
@@ -123,6 +124,7 @@ object docupagefo: tdocupagefo
       item[titleed]
         width = 111
         options = [co_savestate, co_mousescrollrow]
+        onshowhint = colmacrohintev
         widgetname = 'titleed'
         dataclass = tgridmsestringdatalist
       end    
@@ -145,6 +147,7 @@ object docupagefo: tdocupagefo
     object titleed: tstringedit
       optionsskin = [osk_framebuttononly]
       taborder = 1
+      onshowhint = macrohintev
       visible = False
       bounds_x = 0
       bounds_y = 0
@@ -211,7 +214,7 @@ object docupagefo: tdocupagefo
     place_options = [plo_scalesize, plo_scalefullref, plo_endmargin]
     linkbottom = grid
     dist_bottom = 4
-    object postscriptfileed: tfilenameedit
+    object psfileed: tfilenameedit
       frame.caption = 'Postscript File'
       frame.localprops = []
       frame.localprops1 = []
@@ -227,6 +230,7 @@ object docupagefo: tdocupagefo
         0
         0
       )
+      onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 242
@@ -240,7 +244,7 @@ object docupagefo: tdocupagefo
         )
       )
       controller.defaultext = 'ps'
-      controller.options = [fdo_save, fdo_file, fdo_lastdirrelative]
+      controller.options = [fdo_save, fdo_file, fdo_basedirrelative]
       controller.captionsave = 'Docu Postscript File'
       reffontheight = 14
     end
@@ -261,6 +265,7 @@ object docupagefo: tdocupagefo
         0
       )
       taborder = 1
+      onshowhint = macrohintev
       bounds_x = 246
       bounds_y = 0
       bounds_cx = 218
@@ -270,12 +275,12 @@ object docupagefo: tdocupagefo
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
       controller.filterlist.data = (
         (
-          'Postscript File'
-          '*.ps'
+          'PDF File'
+          '*.pdf'
         )
       )
       controller.defaultext = 'pdf'
-      controller.options = [fdo_save, fdo_file, fdo_lastdirrelative]
+      controller.options = [fdo_save, fdo_file, fdo_basedirrelative]
       controller.captionsave = 'Docu PDF File'
       reffontheight = 14
     end

@@ -20,7 +20,7 @@ type
    docupageeditact: taction;
    gridpopup: tpopupmenu;
    tlayouter2: tlayouter;
-   postscriptfileed: tfilenameedit;
+   psfileed: tfilenameedit;
    pdffileed: tfilenameedit;
    statf: tstatfile;
    procedure namesetev(const sender: TObject; var avalue: msestring;
@@ -32,6 +32,9 @@ type
    procedure deselectev(const sender: TObject);
    procedure setdocudirev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
+   procedure macrohintev(const sender: TObject; var info: hintinfoty);
+   procedure colmacrohintev(const sender: tdatacol; const arow: Integer;
+                   var info: hintinfoty);
   private
    fplots: docuplotpageinfoarty;
    procedure setdocudir(const avalue: filenamety);
@@ -42,7 +45,7 @@ type
 
 implementation
 uses
- docupage_mfm,layerplotdialog;
+ docupage_mfm,layerplotdialog,msedatalist;
  
 procedure tdocupagefo.namesetev(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
@@ -99,8 +102,21 @@ end;
 procedure tdocupagefo.setdocudir(const avalue: filenamety);
 begin
  docudired.value:= avalue;
- postscriptfileed.controller.lastdir:= avalue;
+ psfileed.controller.lastdir:= avalue;
  pdffileed.controller.lastdir:= avalue;
+ psfileed.controller.basedir:= avalue;
+ pdffileed.controller.basedir:= avalue;
+end;
+
+procedure tdocupagefo.macrohintev(const sender: TObject; var info: hintinfoty);
+begin
+ mainmo.hintmacros(tedit(sender).text,info);
+end;
+
+procedure tdocupagefo.colmacrohintev(const sender: tdatacol;
+               const arow: Integer; var info: hintinfoty);
+begin
+ mainmo.hintmacros(tmsestringdatalist(sender.datalist)[arow],info);
 end;
 
 end.

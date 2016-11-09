@@ -30,7 +30,6 @@ type
    procedure hintplotfilenamecolev(const sender: tdatacol; const arow: Integer;
                    var info: hintinfoty);
   protected
-   procedure hintmacros(const atext: msestring; var info: hintinfoty);
  end;
 
 implementation
@@ -58,23 +57,16 @@ begin
  end;
 end;
 
-procedure tproductionpagefo.hintmacros(const atext: msestring;
-               var info: hintinfoty);
-begin
- info.caption:= mainmo.expandprojectmacros(atext);
- include(info.flags,hfl_show); //hint empty text
-end;
-
 procedure tproductionpagefo.showhintev(const sender: TObject;
                var info: hintinfoty);
 begin
- hintmacros(tedit(sender).text,info);
+ mainmo.hintmacros(tedit(sender).text,info);
 end;
 
 procedure tproductionpagefo.hintplotfilenamecolev(const sender: tdatacol;
                const arow: Integer; var info: hintinfoty);
 begin
- hintmacros(plotfileed[arow],info);
+ mainmo.hintmacros(plotfileed[arow],info);
 end;
 
 end.

@@ -55,6 +55,9 @@ type
   
  docuinfoty = record
   name: msestring;
+  docudir: filenamety;
+  psfile: filenamety;
+  pdffile: filenamety;
   titles: msestringarty;
   pagekinds: integerarty;
   layerplots: docuplotpageinfoarty;
@@ -343,6 +346,8 @@ type
    function expandprojectmacros(const atext: msestring): msestring;
    procedure updateprojectmacros(const anames: msestringarty; 
                                              const avalues: msestringarty);
+   procedure hintmacros(const atext: msestring; var info: hintinfoty);
+
    property plotkinds: msestringarty read fplotkinds;
    property layercodes: msestringarty read flayercodes;
    property fileformats: msestringarty read ffileformats;
@@ -1044,6 +1049,12 @@ begin
  end;
 end;
 
+procedure tmainmo.hintmacros(const atext: msestring; var info: hintinfoty);
+begin
+ info.caption:= expandprojectmacros(atext);
+ include(info.flags,hfl_show); //hint empty text
+end;
+
 procedure tmainmo.openprojectev(const sender: TObject);
 begin
  if closeproject() then begin
@@ -1634,6 +1645,9 @@ begin
    additem(fdocudefines,typeinfo(fdocudefines),count1);
    with fdocudefines[count1-1] do begin
     name:= reader.readmsestring('name','');
+    docudir:= reader.readmsestring('docudir','');
+    psfile:= reader.readmsestring('psfile','');
+    pdffile:= reader.readmsestring('pdffile','');
     titles:= reader.readarray('titles',msestringarty(nil));
     pagekinds:= reader.readarray('pagekinds',integerarty(nil));
     if reader.beginlist('layerplots') then begin
@@ -1686,6 +1700,9 @@ begin
    writer.beginlist('item'+inttostrmse(i1));
    with fdocudefines[i1] do begin
     writer.writemsestring('name',name);
+    writer.writemsestring('docudir',docudir);
+    writer.writemsestring('psfile',psfile);
+    writer.writemsestring('pdffile',pdffile);
     writer.writearray('titles',titles);
     writer.writearray('pagekinds',pagekinds);
     writer.beginlist('layerplots');

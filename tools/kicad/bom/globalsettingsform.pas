@@ -81,6 +81,9 @@ begin
   for i1:= 0 to high(ar2) do begin
    with tdocupagefo(docusettabs.items[i1]),ar2[i1] do begin
     name:= nameed.value;
+    docudir:= docudired.value;
+    psfile:= psfileed.value;
+    pdffile:= pdffileed.value;
     titles:= titleed.griddata.asarray;
     pagekinds:= pagekinded.griddata.asarray;
     layerplots:= plots;
@@ -121,6 +124,9 @@ begin
   with globaloptions.docudefines[i1] do begin
    fo2.caption:= name;
    fo2.nameed.value:= name;
+   fo2.docudir:= docudir;
+   fo2.psfileed.value:= psfile;
+   fo2.pdffileed.value:= pdffile;
    fo2.titleed.griddata.asarray:= titles;
    fo2.pagekinded.griddata.asarray:= pagekinds;
    fo2.plots:= layerplots;
