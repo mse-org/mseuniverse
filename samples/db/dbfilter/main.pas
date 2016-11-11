@@ -21,8 +21,6 @@ type
    tdbstringedit1: tdbstringedit;
    tdbdatetimeedit1: tdbdatetimeedit;
    tdbintegeredit1: tdbintegeredit;
-   tmseibconnection1: tmseibconnection;
-   tmsesqltransaction1: tmsesqltransaction;
    procedure OnfilterRecord(DataSet: TDataSet; var Accept: Boolean);
    procedure beforeendfilteredit(const sender: tmsebufdataset;
                    const akind: filtereditkindty);

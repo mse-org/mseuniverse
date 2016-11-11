@@ -17,8 +17,8 @@ order14=0
 order15=0
 order16=0
 [projectoptions]
-projectdir=/root/my-download/dbfil/mseuniverse-master-0d1d93a3c8d5c37c7a4d009714ae36791d19afe3/attic/msedocumenting/mse/trunk/help/tutorials/db/dbfilter
-projectfilename=/root/my-download/dbfil/mseuniverse-master-0d1d93a3c8d5c37c7a4d009714ae36791d19afe3/attic/msedocumenting/mse/trunk/help/tutorials/db/dbfilter/dbfilter.prj
+projectdir=/root/my-download/dbfil
+projectfilename=/root/my-download/dbfil/dbfilter.prj
 findinfiledialog=42
  [findinfileadialogfo.subdirs]
  value=1
@@ -507,7 +507,7 @@ modulenames=1
 moduletypes=1
  TMAINFO
 modulefiles=1
- /root/my-download/dbfil/mseuniverse-master-0d1d93a3c8d5c37c7a4d009714ae36791d19afe3/attic/msedocumenting/mse/trunk/help/tutorials/db/dbfilter/main.mfm
+ /root/my-download/dbfil/main.mfm
 macrogroup=0
 forcezorder=0
 stripmessageesc=0
@@ -569,7 +569,7 @@ files=
  a=0,4132,6,Text Files
  )
 [componentstore]
-storedir=/root/my-download/msedbnav/mseide-msegui-master-75f57e18f069924352027a246f8e0f309771ba93/apps/ide/compstore/
+storedir=/root/my-applications/mseide-msegui/apps/ide/compstore/
 filename=
 [components]
 [selecteditpage]
@@ -589,16 +589,16 @@ finddtext=
 findhistory=0
 findoptions=1
 editpos=1
- 14,71
+ 0,23
 bookmarks0=0
 sourcefiles=1
- /root/my-download/dbfil/mseuniverse-master-0d1d93a3c8d5c37c7a4d009714ae36791d19afe3/attic/msedocumenting/mse/trunk/help/tutorials/db/dbfilter/main.pas
+ /root/my-download/dbfil/main.pas
 relpaths=1
  main.pas
 ismoduletexts=1
  0
 modules=1
- /root/my-download/dbfil/mseuniverse-master-0d1d93a3c8d5c37c7a4d009714ae36791d19afe3/attic/msedocumenting/mse/trunk/help/tutorials/db/dbfilter/main.mfm
+ /root/my-download/dbfil/main.mfm
 moduleoptions=1
  0
 visiblemodules=1
@@ -610,7 +610,7 @@ tabsize=135
 firsttab=0
 index=0
 [layout]
-windowlayout=562
+windowlayout=563
  [mainfo.openform]
  filenames=0
  filecolwidth=0
@@ -634,7 +634,8 @@ windowlayout=562
  y=0
  cx=0
  cy=0
- filehistory=10
+ filehistory=11
+  /root/my-download/dbfil/main.pas
   /home/mse/packs/standard/svn/mse/trunk/lib/common/report/msereport.pas
   /home/mse/packs/standard/svn/mse/branches/fixes_1_0/lib/common/kernel/msebitmap.pas
   /home/mse/packs/standard/svn/mse/trunk/apps/ide/formdesigner.pas
@@ -646,7 +647,7 @@ windowlayout=562
   /home/mse/packs/standard/svn/mse/branches/fixes_1_0/lib/common/kernel/msegui.pas
   /home/mse/packs/standard/svn/mse/trunk/apps/ide/mse_mseide.prj
  filefilterindex=0
- filefilter=
+ filefilter="*.pp" "*.pas" "*.inc" "*.dpr"
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -879,15 +880,15 @@ windowlayout=562
  [objectinspectorfo]
  splitdir=0
  useroptions=805322859
- stackedunder=componentpalettefo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=3
- y=121
+ x=504
+ y=133
  cx=284
  cy=484
  rcx=0
@@ -1061,14 +1062,14 @@ windowlayout=562
  [componentpalettefo]
  splitdir=0
  useroptions=805331051
- stackedunder=mainfo.panel1
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=345
+ x=347
  y=23
  cx=930
  cy=52
@@ -1076,7 +1077,7 @@ windowlayout=562
  rcy=0
  wsize=0
  active=0
- visible=1
+ visible=0
  [componentpalettefo.componentpages]
  activetab=7
  [debuggerfo]
@@ -1138,7 +1139,7 @@ windowlayout=562
  [mainfo.panel1]
  splitdir=2
  useroptions=805338603
- stackedunder=mainfo
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -1157,7 +1158,7 @@ windowlayout=562
  [_mse_mainfo_mse_]
  splitdir=0
  useroptions=805322875
- stackedunder=objectinspectorfo
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0

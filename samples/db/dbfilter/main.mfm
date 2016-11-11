@@ -27,7 +27,7 @@ object mainfo: tmainfo
     dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
   end
   object tdbwidgetgrid1: tdbwidgetgrid
-    frame.sbvert.pagesize = 0.5
+    frame.sbvert.pagesize = 0
     frame.localprops = []
     frame.localprops1 = []
     taborder = 1
@@ -123,6 +123,8 @@ object mainfo: tmainfo
     end
   end
   object tmsesqlquery1: tmsesqlquery
+    options = [bdo_local]
+    logfilename = 'test.db'
     indexlocal.count = 3
     indexlocal.items = <    
       item
@@ -157,9 +159,7 @@ object mainfo: tmainfo
         Name = 'TABLE01_PK_1'
       end>
     tablename = 'table01'
-    database = tmseibconnection1
     OnFilterRecord = OnfilterRecord
-    Transaction = tmsesqltransaction1
     FieldDefs = <    
       item
         Name = 'LONGINT1'
@@ -203,20 +203,5 @@ object mainfo: tmainfo
     DataSet = tmsesqlquery1
     left = 440
     top = 24
-  end
-  object tmseibconnection1: tmseibconnection
-    Connected = True
-    DatabaseName = 'test2.fdb'
-    Transaction = tmsesqltransaction1
-    Dialect = 3
-    options = [ibo_embedded]
-    left = 480
-    top = 64
-  end
-  object tmsesqltransaction1: tmsesqltransaction
-    Active = True
-    Database = tmseibconnection1
-    left = 528
-    top = 112
   end
 end
