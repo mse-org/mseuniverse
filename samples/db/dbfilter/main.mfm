@@ -1,0 +1,222 @@
+object mainfo: tmainfo
+  bounds_x = 350
+  bounds_y = 109
+  bounds_cx = 616
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    616
+    280
+  )
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  moduleclassname = 'tmseform'
+  object tdbnavigator1: tdbnavigator
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 8
+    bounds_y = 0
+    bounds_cx = 368
+    datasource = tmsedatasource1
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_filter, dbnb_filtermin, dbnb_filtermax, dbnb_filterclear, dbnb_filteronoff, dbnb_find]
+    dialogbutton.imagenr = 17
+    dialogbutton.hint = 'Dialog'
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+  end
+  object tdbwidgetgrid1: tdbwidgetgrid
+    frame.sbvert.pagesize = 0.5
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 32
+    bounds_cx = 370
+    bounds_cy = 242
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autoappend, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 27
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'ftstring'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'ftdate'
+          end        
+          item
+            caption = 'ftinteger'
+          end>
+      end>
+    datacols.count = 3
+    datacols.sortcol = 0
+    datacols.sortcoldefault = 0
+    datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item[tdbstringedit1]
+        width = 100
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tdbstringedit1'
+      end    
+      item[tdbdatetimeedit1]
+        width = 94
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tdbdatetimeedit1'
+      end    
+      item[tdbintegeredit1]
+        width = 126
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tdbintegeredit1'
+      end>
+    datalink.datasource = tmsedatasource1
+    datarowheight = 16
+    reffontheight = 14
+    object tdbstringedit1: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cy = 16
+      datalink.datasource = tmsedatasource1
+      datalink.fieldname = 'TEXT1'
+      reffontheight = 14
+    end
+    object tdbdatetimeedit1: tdbdatetimeedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 101
+      bounds_y = 0
+      bounds_cx = 94
+      bounds_cy = 16
+      datalink.datasource = tmsedatasource1
+      datalink.fieldname = 'DATE1'
+      min = -Inf
+      max = 401768.99999
+      reffontheight = 14
+    end
+    object tdbintegeredit1: tdbintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 196
+      bounds_y = 0
+      bounds_cx = 126
+      bounds_cy = 16
+      datalink.datasource = tmsedatasource1
+      datalink.fieldname = 'LONGINT1'
+      reffontheight = 14
+    end
+  end
+  object tmsesqlquery1: tmsesqlquery
+    indexlocal.count = 3
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'DATE1'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'LONGINT1'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'TEXT1'
+          end>
+        active = True
+      end>
+    afterbeginfilteredit = AfterBeginFilterEdit
+    beforeendfilteredit = beforeendfilteredit
+    afterendfilteredit = afterendfilteredit
+    Active = True
+    params = <>
+    SQL.data = (
+      'select * from table01'
+    )
+    IndexDefs = <    
+      item
+        Name = 'TABLE01_PK_1'
+      end>
+    tablename = 'table01'
+    database = tmseibconnection1
+    OnFilterRecord = OnfilterRecord
+    Transaction = tmsesqltransaction1
+    FieldDefs = <    
+      item
+        Name = 'LONGINT1'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'DATE1'
+        DataType = ftDate
+      end    
+      item
+        Name = 'TEXT1'
+        DataType = ftString
+        Size = 4
+      end>
+    left = 448
+    top = 96
+    streamingversion = 1
+    object text1fi: tmsestringfield
+      DisplayWidth = 50
+      FieldName = 'TEXT1'
+      Index = 0
+      Size = 4
+      left = 504
+      top = 168
+    end
+    object date1fi: tmsedatefield
+      FieldName = 'DATE1'
+      Index = 1
+      left = 504
+      top = 232
+    end
+    object longint1fi: tmselongintfield
+      FieldName = 'LONGINT1'
+      Index = 2
+      optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
+      left = 496
+      top = 200
+    end
+  end
+  object tmsedatasource1: tmsedatasource
+    DataSet = tmsesqlquery1
+    left = 440
+    top = 24
+  end
+  object tmseibconnection1: tmseibconnection
+    Connected = True
+    DatabaseName = 'test2.fdb'
+    Transaction = tmsesqltransaction1
+    Dialect = 3
+    options = [ibo_embedded]
+    left = 480
+    top = 64
+  end
+  object tmsesqltransaction1: tmsesqltransaction
+    Active = True
+    Database = tmseibconnection1
+    left = 528
+    top = 112
+  end
+end
