@@ -239,7 +239,7 @@ object docupagefo: tdocupagefo
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
       controller.filterlist.data = (
         (
-          'Postscript File'
+          'Postscript Files'
           '*.ps'
         )
       )
@@ -275,7 +275,7 @@ object docupagefo: tdocupagefo
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
       controller.filterlist.data = (
         (
-          'PDF File'
+          'PDF Files'
           '*.pdf'
         )
       )
