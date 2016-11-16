@@ -419,8 +419,8 @@ object projectsettingsfo: tprojectsettingsfo
             end>
           reffontheight = 14
         end
-        object val_docustack: tdropdownlistedit
-          frame.caption = 'Docustack'
+        object val_docuset: tdropdownlistedit
+          frame.caption = 'Docuset'
           frame.localprops = []
           frame.localprops1 = []
           frame.buttons.count = 1

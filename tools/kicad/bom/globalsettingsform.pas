@@ -40,6 +40,8 @@ type
    pagemenu: tpopupmenu;
    docutab: ttabpage;
    docusettabs: ttabwidget;
+   val_psviewer: tfilenameedit;
+   val_ps2pdf: tfilenameedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
@@ -66,7 +68,7 @@ begin
   setlength(ar1,prodplotstacktabs.count);
   for i1:= 0 to high(ar1) do begin
    with tproductionpagefo(prodplotstacktabs.items[i1]),ar1[i1] do begin
-    name:= nameed.value;
+    h.name:= nameed.value;
     plotdir:= plotdired.value;
     createplotzipfile:= createplotziped.value;
     plotzipfilename:= plotzipfilenameed.value;
@@ -80,7 +82,7 @@ begin
   setlength(ar2,docusettabs.count);
   for i1:= 0 to high(ar2) do begin
    with tdocupagefo(docusettabs.items[i1]),ar2[i1] do begin
-    name:= nameed.value;
+    h.name:= nameed.value;
     docudir:= docudired.value;
     psfile:= psfileed.value;
     pdffile:= pdffileed.value;
@@ -107,8 +109,8 @@ begin
  for i1:= 0 to high(globaloptions.prodplotdefines) do begin
   fo1:= tproductionpagefo.create(nil);
   with globaloptions.prodplotdefines[i1] do begin
-   fo1.caption:= name;
-   fo1.nameed.value:= name;
+   fo1.caption:= h.name;
+   fo1.nameed.value:= h.name;
    fo1.plotdired.value:= plotdir;
    fo1.createplotziped.value:= createplotzipfile;
    fo1.plotzipfilenameed.value:= plotzipfilename;
@@ -122,8 +124,8 @@ begin
  for i1:= 0 to high(globaloptions.docudefines) do begin
   fo2:= tdocupagefo.create(nil);
   with globaloptions.docudefines[i1] do begin
-   fo2.caption:= name;
-   fo2.nameed.value:= name;
+   fo2.caption:= h.name;
+   fo2.nameed.value:= h.name;
    fo2.docudir:= docudir;
    fo2.psfileed.value:= psfile;
    fo2.pdffileed.value:= pdffile;

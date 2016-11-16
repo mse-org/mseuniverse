@@ -88,7 +88,7 @@ object docupagefo: tdocupagefo
     bounds_cx = 479
     bounds_cy = 275
     anchors = [an_top, an_bottom]
-    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
       item
@@ -119,18 +119,18 @@ object docupagefo: tdocupagefo
           end>
       end>
     datacols.count = 3
-    datacols.options = [co_savestate, co_mousescrollrow]
+    datacols.options = [co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
     datacols.items = <    
       item[titleed]
         width = 111
-        options = [co_savestate, co_mousescrollrow]
+        options = [co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
         onshowhint = colmacrohintev
         widgetname = 'titleed'
         dataclass = tgridmsestringdatalist
       end    
       item[pagekinded]
         width = 77
-        options = [co_savestate, co_mousescrollrow]
+        options = [co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
         widgetname = 'pagekinded'
         dataclass = tgridenumdatalist
       end    

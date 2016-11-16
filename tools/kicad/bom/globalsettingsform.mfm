@@ -124,6 +124,52 @@ object globalsettingsfo: tglobalsettingsfo
         anchors = [an_left, an_top, an_right]
         reffontheight = 14
       end
+      object val_psviewer: tfilenameedit
+        frame.caption = 'Postscript Viewer'
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            imagenr = 17
+          end>
+        frame.button.imagenr = 17
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 2
+        bounds_x = 8
+        bounds_y = 92
+        bounds_cx = 236
+        bounds_cy = 37
+        reffontheight = 14
+      end
+      object val_ps2pdf: tfilenameedit
+        frame.caption = 'ps2pdf'
+        frame.localprops = []
+        frame.localprops1 = []
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            imagenr = 17
+          end>
+        frame.button.imagenr = 17
+        frame.outerframe = (
+          0
+          17
+          0
+          0
+        )
+        taborder = 3
+        bounds_x = 248
+        bounds_y = 92
+        bounds_cx = 236
+        bounds_cy = 37
+        reffontheight = 14
+      end
     end
     object prodplottab: ttabpage
       frame.localprops = []

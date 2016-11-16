@@ -28,15 +28,37 @@ uses
  mseactions,mdb,msebufdataset,msedb,mselocaldataset,kicadschemaparser,
  msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
  msemacros,mclasses,msedbedit,msegraphedits,mselookupbuffer,msescrollbar,
- msepython,pythonconsoleform;
+ msepython,pythonconsoleform,msepostscriptprinter,mseprinter,msepipestream,
+ mseprocess,mseguiprocess;
 
 const
  versiontext = '0.0';
 
 type
+ fileformatty = (
+  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
+ );
+
+ plotkindty = (
+    pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
+    pk_f_cu,
+    pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
+    pk_in7cu,pk_in8cu,pk_in9cu,pk_in10cu,pk_in11cu,pk_in12cu,
+    pk_in13cu,pk_in14cu,pk_in15cu,pk_in16cu,pk_in17cu,pk_in18cu,
+    pk_in19cu,pk_in20cu,pk_in21cu,pk_in22cu,pk_in23cu,pk_in24cu,
+    pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
+    pk_b_cu,
+    pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
+    pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
+ );
+
  docupagekindty = (dpk_layerplot);
- prodplotinfoty = record
+ namedinfoty = record
   name: msestring;
+ end;
+ infoheaderty = namedinfoty;
+ prodplotinfoty = record
+  h: infoheaderty;
   plotdir: filenamety;
   createplotzipfile: boolean;
   plotzipfilename: filenamety;
@@ -44,7 +66,8 @@ type
   layernames: msestringarty;
   plotfiles: msestringarty;
   plotformats: integerarty;
- end; 
+ end;
+ pprodplotinfoty = ^prodplotinfoty;
  prodplotinfoarty = array of prodplotinfoty;
 
  docuplotpageinfoty = record
@@ -54,14 +77,15 @@ type
  docuplotpageinfoarty = array of docuplotpageinfoty;
   
  docuinfoty = record
-  name: msestring;
+  h: infoheaderty;
   docudir: filenamety;
   psfile: filenamety;
   pdffile: filenamety;
   titles: msestringarty;
   pagekinds: integerarty;
   layerplots: docuplotpageinfoarty;
- end; 
+ end;
+ pdocuinfoty = ^docuinfoty;
  docuinfoarty = array of docuinfoty;
  
  tglobaloptions = class(toptions)
@@ -71,6 +95,8 @@ type
    fpassword: msestring;
    fhostname: msestring;
    fdatabasename: msestring;
+   fpsviewer: msestring;
+   fps2pdf: msestring;
    fprodplotdefines: prodplotinfoarty;
    fprodplotnames: msestringarty;
    fdocudefines: docuinfoarty;
@@ -78,22 +104,33 @@ type
    procedure setprodplotdefines(const avalue: prodplotinfoarty);
    procedure setdocudefines(const avalue: docuinfoarty);
   protected
+   procedure readinfoheader(const areader: tstatreader;
+                                                var avalue: infoheaderty);
+   procedure writeinfoheader(const awriter: tstatwriter;
+                                                  const avalue: infoheaderty);
    procedure dostatread(const reader: tstatreader) override;
    procedure dostatwrite(const writer: tstatwriter) override;
   public
    constructor create();
    property password: msestring read fpassword write fpassword; //not stored
    property username: msestring read fusername write fusername; //not stored
+   
    property prodplotdefines: prodplotinfoarty read fprodplotdefines 
                                                     write setprodplotdefines;
    property prodplotnames: msestringarty read fprodplotnames;
    property docudefines: docuinfoarty read fdocudefines 
                                                     write setdocudefines;
    property docunames: msestringarty read fdocunames;
+   function prodplotdefinebyname(const aname: msestring): pprodplotinfoty;
+                     //nil if not found
+   function docudefinebyname(const aname: msestring): pdocuinfoty;
+                     //nil if not found
   published
 //   property filename: filenamety read ffilename write ffilename;
    property hostname: msestring read fhostname write fhostname;
    property databasename: msestring read fdatabasename write fdatabasename;
+   property psviewer: msestring read fpsviewer write fpsviewer;
+   property ps2pdf: msestring read fps2pdf write fps2pdf;
  end;
 
  filekindty = (fk_componentfootprint,fk_board);
@@ -108,7 +145,7 @@ type
    flibident: msestringarty;
    flibalias: msestringarty;
    fplotstack: msestring;
-   fdocustack: msestring;
+   fdocuset: msestring;
    fprojectname: msestring;
    fprojectmacronames: msestringarty;
    fprojectmacrovalues: msestringarty;
@@ -133,7 +170,7 @@ type
    property libident: msestringarty read flibident write flibident;
    property libalias: msestringarty read flibalias write flibalias;
    property plotstack: msestring read fplotstack write fplotstack;
-   property docustack: msestring read fdocustack write fdocustack;
+   property docuset: msestring read fdocuset write fdocuset;
    property projectname: msestring read fprojectname write fprojectname;
    property projectmacronames: msestringarty read fprojectmacronames
                                                      write fprojectmacronames;
@@ -256,6 +293,9 @@ type
    prodfilesact: taction;
    python: tpythonscript;
    docusetact: taction;
+   psprinter: tpostscriptprinter;
+   viewerproc: tguiprocess;
+   ps2pdfproc: tmseprocess;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -322,6 +362,8 @@ type
                                      //true if ok
    procedure beginpy(const acaption: msestring);
    procedure endpy();
+   function getplotkind(const aname: msestring; out akind: plotkindty): boolean;
+                                            //true if OK
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -347,6 +389,15 @@ type
    procedure updateprojectmacros(const anames: msestringarty; 
                                              const avalues: msestringarty);
    procedure hintmacros(const atext: msestring; var info: hintinfoty);
+   function getboardfile(var afilename: filenamety): boolean; //true if ok
+   function plotfile(const aboard: filenamety; const aplotdir: filenamety;
+                      var aplotfile: filenamety; const aformat: fileformatty;
+                       const alayer: plotkindty; const alast: boolean): boolean;
+   function createzipfile(const aarchivename: filenamety;
+          const basedir: filenamety; const afiles: array of filenamety;
+          const alast : boolean): boolean;
+   procedure showpsfile(const afile: filenamety);
+   procedure ps2pdf(const source,dest: msestring);
 
    property plotkinds: msestringarty read fplotkinds;
    property layercodes: msestringarty read flayercodes;
@@ -368,14 +419,14 @@ implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
- msearrayutils;
+ msearrayutils,docureport,docupsreppage;
 
 { tmainmo }
 type
  componentmacronamety = (
     cmn_value,cmn_value1,cmn_value2,
     cmn_footprint,cmn_footprintident,cmn_footprintlibrary,
-    cmn_footprintdescription,
+     cmn_footprintdescription,
     cmn_manufacturer,cmn_distributor,
     cmn_description,cmn_parameter1,cmn_parameter2,cmn_parameter3,
     cmn_parameter4,
@@ -419,22 +470,8 @@ var
 
 procedure errormessage(const message: msestring);
 begin
- showmessage(message,'ERROR');
+ showerror(message);
 end;
-
-type
- plotkindty = (
-    pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
-    pk_f_cu,
-    pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
-    pk_in7cu,pk_in8cu,pk_in9cu,pk_in10cu,pk_in11cu,pk_in12cu,
-    pk_in13cu,pk_in14cu,pk_in15cu,pk_in16cu,pk_in17cu,pk_in18cu,
-    pk_in19cu,pk_in20cu,pk_in21cu,pk_in22cu,pk_in23cu,pk_in24cu,
-    pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
-    pk_b_cu,
-    pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
-    pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
- );
  
 const
  plotkindnames: array[plotkindty] of msestring = (
@@ -482,11 +519,6 @@ const
     'Edge_Cuts','Margin','Eco1_User','Eco2_User','Cmts_User','Dwgs_User'
  );
 
-type
- fileformatty = (
-  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
- );
- 
 const
  fileformatnames: array[fileformatty] of msestring = (
 //  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
@@ -1428,74 +1460,134 @@ begin
  filer.updatevalue('projectfile',flastprojectfile);
 end;
 
-procedure tmainmo.prodfilesev(const sender: TObject);
-var
- i1,i2: int32;
- board1,boardname1,plotdir1: filenamety;
- ar1,ar2: filenamearty;
- s1,s2,s3: msestring;
+function tmainmo.getboardfile(var afilename: filenamety): boolean;
 begin
+ result:= false;
  if projectoptions.board = '' then begin
   errormessage('Boardfile not defined in projectoptions');
   exit;
  end;
- i2:= -1;
- for i1:= 0 to high(globaloptions.prodplotdefines) do begin
-  with globaloptions.prodplotdefines[i1] do begin
-   if name = projectoptions.plotstack then begin
-    i2:= i1;
-    break;
-   end;
+ afilename:= tosysfilepath(filepath(expandprojectmacros(projectoptions.board)));
+ result:= true;
+end;
+
+function tmainmo.plotfile(const aboard: filenamety; const aplotdir: filenamety;
+                      var aplotfile: filenamety; const aformat: fileformatty;
+                       const alayer: plotkindty; const alast: boolean): boolean;
+var
+ dir1: filenamety;
+ d1,n1,s1: filenamety;
+begin
+ if aplotfile <> '' then begin
+  splitfilepath(aplotfile,d1,n1);
+  if isrootdir(d1) then begin
+   dir1:= d1;
+  end
+  else begin
+   dir1:= filepath(aplotdir,d1,fk_dir);
+  end;
+ end
+ else begin
+  dir1:= filepath(aplotdir,fk_dir);
+ end;
+ result:= execpy('plotfile',[aboard,dir1,mainmodule.fileformatcodes[aformat],
+                                          mainmodule.layercodes[alayer]],alast);
+ s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer]+'.'+
+                                       mainmodule.fileformatexts[aformat];
+ if n1 <> '' then begin
+  aplotfile:= dir1+n1;
+  if not hasfileext(aplotfile) then begin
+   aplotfile:= aplotfile+'.'+mainmodule.fileformatexts[aformat];
+  end;
+  renamefile(dir1+s1,aplotfile);
+ end
+ else begin
+  aplotfile:= dir1+s1;
+ end;
+end;
+
+function tmainmo.createzipfile(const aarchivename: filenamety;
+          const basedir: filenamety; const afiles: array of filenamety;
+          const alast : boolean): boolean;
+var
+ i1: int32;
+ ar1: msestringarty;
+ base1,s1: filenamety;
+begin
+ result:= false;
+ ar1:= nil; //compiler warning
+ setlength(ar1,1+2*length(afiles));
+ ar1[0]:= tosysfilepath(filepath(aarchivename));
+ base1:= filepath(basedir);
+ for i1:= 0 to high(afiles) do begin
+  ar1[i1*2+1]:= tosysfilepath(filepath(afiles[i1]));
+  s1:= relativepath(afiles[i1],base1);
+  if msestartsstr('..',s1) then begin
+   fpythonconsole.writeln(
+     'Zip error: File destination not in archive: "'+s1+'"');
+   exit;
+  end;
+  ar1[i1*2+2]:= s1;
+ end;
+ execpy('createzip',ar1,alast); //zipfile,zipdir,{file}
+ result:= true;
+end;
+
+function tmainmo.getplotkind(const aname: msestring;
+                                   out akind: plotkindty): boolean;
+var
+ pk1: plotkindty;
+begin
+ result:= false;
+ akind:= plotkindty(-1);
+ for pk1:= low(plotkindty) to high(plotkindty) do begin
+  if aname = plotkindnames[pk1] then begin
+   akind:= pk1;
+   result:= true;
+   exit;
   end;
  end;
- if i2 < 0 then begin
+ errormessage('Ivalid plotkind "'+aname+'"');
+end;
+
+procedure tmainmo.prodfilesev(const sender: TObject);
+var
+ i1{,i2}: int32;
+ board1,boardname1,plotdir1: filenamety;
+ info1: pprodplotinfoty;
+ ar1{,ar2}: filenamearty;
+ s1,s2,s3: msestring;
+ la1,la2: plotkindty;
+begin
+ if not getboardfile(board1) then begin
+  exit;
+ end;
+ info1:= globaloptions.prodplotdefinebyname(projectoptions.plotstack);
+ if info1 = nil then begin
   errormessage('Plotstack "'+projectoptions.plotstack+'"'+lineend+
                'is invalid');
   exit;
  end;
  beginpy('Create Plots');
  try
-  board1:= tosysfilepath(filepath(expandprojectmacros(projectoptions.board)));
   boardname1:= filenamebase(board1);
-  with globaloptions.prodplotdefines[i2] do begin
+  with info1^ do begin
    plotdir1:= tosysfilepath(filepath(expandprojectmacros(plotdir),fk_dir));
    setlength(ar1,length(layernames));
-   setlength(ar2,2*length(layernames)); //source,dest
    for i1:= 0 to high(layernames) do begin
-    s1:= layercodes[i1];
-    ar1[i1]:= plotdir1+boardname1+'-'+s1+'.'+fileformatexts[plotformats[i1]];
-    if not execpy('plotfile',[board1,plotdir1,
-                       fileformatcodes[plotformats[i1]],s1],
-                   (i1 = high(layernames)) and not createplotzipfile) then begin
+    ar1[i1]:= plotfiles[i1];
+    if not getplotkind(layernames[i1],la2) then begin
      break;
     end;
-    if plotfiles[i1] <> '' then begin
-     splitfilepath(ar1[i1],s1,s2,s3);
-     s2:= s1 + filename(expandprojectmacros(plotfiles[i1]));
-     if not hasfileext(s2) then begin
-      s2:= s2 + s3;
-     end;
-     ar2[2*i1]:= s2;
-     renamefile(ar1[i1],ar2[2*i1]);
-    end
-    else begin
-     ar2[2*i1]:= ar1[i1];
+    if not plotfile(board1,plotdir1,ar1[i1],
+                           fileformatty(plotformats[i1]),la2,
+                  (i1 = high(layernames)) and not createplotzipfile) then begin
+     break;
     end;
    end;
    if createplotzipfile then begin
-    s1:= filename(filepath(expandprojectmacros(plotzipdir),fk_file,true));
-                     //single directory level only
-    for i1:= 0 to high(ar1) do begin
-     s2:= filename(ar2[2*i1]);
-     if s1 <> '' then begin
-      s2:= tosysfilepath(s1+'/'+s2);
-     end;
-     ar2[2*i1+1]:= s2;
-    end;
-     
-    insertitem(ar2,0,tosysfilepath(filepath(plotdir1,
-                                     expandprojectmacros(plotzipfilename))));
-    execpy('createzip',ar2,true); //zipfile,zipdir,{file}
+    createzipfile(filepath(plotdir1,expandprojectmacros(plotzipfilename)),
+                                                           plotdir1,ar1,true);
    end;
   end;
  finally
@@ -1503,9 +1595,115 @@ begin
  end;
 end;
 
-procedure tmainmo.docusetev(const sender: TObject);
+procedure tmainmo.showpsfile(const afile: filenamety);
+var
+ s1: msestring;
 begin
- guibeep();
+ s1:= globaloptions.psviewer;
+ if s1 = '' then begin
+  errormessage('Postscript viewer not defined in global settings.');
+ end
+ else begin
+  viewerproc.filename:= s1;
+  viewerproc.parameter:= afile;
+  viewerproc.active:= true;
+ end;
+end;
+
+procedure tmainmo.ps2pdf(const source: msestring; const dest: msestring);
+begin
+ if globaloptions.ps2pdf = '' then begin
+  errormessage('ps2pdf program not defined in global settings.');
+ end
+ else begin
+  createdirpath(filedir(filepath(dest)));
+  ps2pdfproc.filename:= globaloptions.ps2pdf;
+  ps2pdfproc.parameter:= quotefilename([source,dest]);
+  ps2pdfproc.active:= true;
+  ps2pdfproc.waitforprocess();
+ end;
+end;
+
+procedure tmainmo.docusetev(const sender: TObject);
+var
+ tmpf: msestring;
+ tmpfile: filenamety;
+ tmpfileindex: int32;
+ 
+ procedure inctempfile();
+ begin
+  inc(tmpfileindex);
+  tmpfile:= tmpf+'/f'+inttostrmse(tmpfileindex);
+ end;
+
+var
+ info1: pdocuinfoty;
+ rep: tdocure;
+ i1: int32;
+ error1: boolean;
+ boardfile1,s1: filenamety;
+ pk1: plotkindty;
+begin
+ info1:= globaloptions.docudefinebyname(projectoptions.docuset);
+ if info1 = nil then begin
+  errormessage('Docuset "'+projectoptions.docuset+'"'+lineend+
+               'is invalid');
+  exit;
+ end;
+ rep:= nil;
+ error1:= false;
+ tmpfileindex:= 0;
+ tmpf:= intermediatefilename(msegettempdir()+'msekicadbom');
+ createdirpath(tmpf);
+ beginpy('Create Docu');
+ try
+  rep:= tdocure.create(nil);
+  rep.clear(); //remove defaultpage
+  for i1:= 0 to high(info1^.pagekinds) do begin
+   case docupagekindty(info1^.pagekinds[i1]) of
+    dpk_layerplot: begin
+     inctempfile();
+     if not getboardfile(boardfile1) then begin
+      error1:= true;
+      break;
+     end;
+     with info1^.layerplots[i1] do begin
+      if not getplotkind(layername,pk1) then begin
+       error1:= true;
+       break;
+      end;
+      s1:= tmpfile;
+      if not plotfile(boardfile1,tmpf,s1,ff_postscript,pk1,false) then begin
+       error1:= true;
+       break;
+      end;
+      with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
+       ps.psfile:= s1;
+      end;
+     end;
+    end;
+   end;
+  end;
+  if not error1 then begin
+   inctempfile();
+   tmpfile:= tmpfile+'.ps';
+   rep.render(psprinter,ttextstream.create(tmpfile,fm_create));
+   if info1^.psfile <> '' then begin
+    s1:= expandprojectmacros(info1^.psfile);
+    createdirpath(filedir(filepath(s1)));
+    copyfile(tmpfile,s1);
+    tmpfile:= s1;
+   end;
+   if info1^.pdffile <> '' then begin
+    ps2pdf(tmpfile,expandprojectmacros(info1^.pdffile));
+   end;
+   showpsfile(tmpfile);
+  end;
+ finally
+  deletedir(tmpf);
+  endpy();
+  rep.destroy();
+ end;
 end;
 
 { tprojectoptions }
@@ -1572,6 +1770,41 @@ constructor tglobaloptions.create();
 begin
  fhostname:= 'localhost';
  fdatabasename:= 'stock';
+ fpsviewer:= 'kpdf';
+ fps2pdf:= 'ps2pdf';
+end;
+
+function tglobaloptions.prodplotdefinebyname(
+              const aname: msestring): pprodplotinfoty;
+var
+ p1,pe: pprodplotinfoty;
+begin
+ result:= nil;
+ p1:= pointer(fprodplotdefines);
+ pe:= p1 + length(fprodplotdefines);
+ while p1 < pe do begin
+  if p1^.h.name = aname then begin
+   result:= p1;
+   break;
+  end;
+  inc(p1);
+ end;
+end;
+
+function tglobaloptions.docudefinebyname(const aname: msestring): pdocuinfoty;
+var
+ p1,pe: pdocuinfoty;
+begin
+ result:= nil;
+ p1:= pointer(fdocudefines);
+ pe:= p1 + length(fdocudefines);
+ while p1 < pe do begin
+  if p1^.h.name = aname then begin
+   result:= p1;
+   break;
+  end;
+  inc(p1);
+ end;
 end;
 
 procedure tglobaloptions.setprodplotdefines(const avalue: prodplotinfoarty);
@@ -1581,7 +1814,7 @@ begin
  fprodplotdefines:= avalue;
  setlength(fprodplotnames,length(fprodplotdefines));
  for i1:= 0 to high(fprodplotdefines) do begin
-  fprodplotnames[i1]:= fprodplotdefines[i1].name;
+  fprodplotnames[i1]:= fprodplotdefines[i1].h.name;
  end;
 end;
 
@@ -1592,7 +1825,15 @@ begin
  fdocudefines:= avalue;
  setlength(fdocunames,length(fdocudefines));
  for i1:= 0 to high(fdocudefines) do begin
-  fdocunames[i1]:= fdocudefines[i1].name;
+  fdocunames[i1]:= fdocudefines[i1].h.name;
+ end;
+end;
+
+procedure tglobaloptions.readinfoheader(const areader: tstatreader;
+                                             var avalue: infoheaderty);
+begin
+ with avalue do begin
+  name:= areader.readmsestring('name','');
  end;
 end;
 
@@ -1607,7 +1848,7 @@ begin
   while reader.beginlist('item'+inttostrmse(count1)) do begin
    additem(fprodplotdefines,typeinfo(fprodplotdefines),count1);
    with fprodplotdefines[count1-1] do begin
-    name:= reader.readmsestring('name','');
+    readinfoheader(reader,h);
     plotdir:= reader.readmsestring('plotdir','');
     createplotzipfile:= reader.readboolean('createplotzip',false);
     plotzipfilename:= reader.readmsestring('plotzipfile','');
@@ -1644,7 +1885,7 @@ begin
   while reader.beginlist('item'+inttostrmse(count1)) do begin
    additem(fdocudefines,typeinfo(fdocudefines),count1);
    with fdocudefines[count1-1] do begin
-    name:= reader.readmsestring('name','');
+    readinfoheader(reader,h);
     docudir:= reader.readmsestring('docudir','');
     psfile:= reader.readmsestring('psfile','');
     pdffile:= reader.readmsestring('pdffile','');
@@ -1671,6 +1912,14 @@ begin
  end;
 end;
 
+procedure tglobaloptions.writeinfoheader(const awriter: tstatwriter;
+                                                  const avalue: infoheaderty);
+begin
+ with avalue do begin
+  awriter.writemsestring('name',avalue.name);
+ end;
+end;
+
 procedure tglobaloptions.dostatwrite(const writer: tstatwriter);
 var
  i1,i2: int32;
@@ -1681,7 +1930,7 @@ begin
   for i1:= 0 to high(fprodplotdefines) do begin
    writer.beginlist('item'+inttostrmse(i1));
    with fprodplotdefines[i1] do begin
-    writer.writemsestring('name',name);
+    writeinfoheader(writer,h);
     writer.writemsestring('plotdir',plotdir);
     writer.writeboolean('createplotzip',createplotzipfile);
     writer.writemsestring('plotzipfile',plotzipfilename);
@@ -1699,7 +1948,7 @@ begin
   for i1:= 0 to high(fdocudefines) do begin
    writer.beginlist('item'+inttostrmse(i1));
    with fdocudefines[i1] do begin
-    writer.writemsestring('name',name);
+    writeinfoheader(writer,h);
     writer.writemsestring('docudir',docudir);
     writer.writemsestring('psfile',psfile);
     writer.writemsestring('pdffile',pdffile);

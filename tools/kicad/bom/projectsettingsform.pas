@@ -59,7 +59,7 @@ type
    twidgetgrid1: twidgetgrid;
    val_projectmacronames: tstringedit;
    val_projectmacrovalues: tstringedit;
-   val_docustack: tdropdownlistedit;
+   val_docuset: tdropdownlistedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
@@ -90,7 +90,7 @@ procedure tprojectsettingsfo.createev(const sender: TObject);
 begin
  projectoptions.loadvalues(self,valueprefix);
  val_plotstack.dropdown.cols[0].asarray:= globaloptions.prodplotnames;
- val_docustack.dropdown.cols[0].asarray:= globaloptions.docunames;
+ val_docuset.dropdown.cols[0].asarray:= globaloptions.docunames;
 end;
 
 procedure tprojectsettingsfo.initencodingev(const sender: tenumtypeedit);

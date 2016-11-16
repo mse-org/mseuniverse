@@ -1514,55 +1514,55 @@ object mainmo: tmainmo
           Size = 0
         end>
     )
-    left = 552
-    top = 56
+    left = 544
+    top = 136
     streamingversion = 1
     object scd_description: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
       Index = 2
       Size = 0
-      left = 560
-      top = 88
+      left = 552
+      top = 168
     end
     object scd_parameter1: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER1'
       Index = 3
       Size = 0
-      left = 560
-      top = 104
+      left = 552
+      top = 184
     end
     object scd_parameter2: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER2'
       Index = 4
       Size = 0
-      left = 560
-      top = 120
+      left = 552
+      top = 200
     end
     object scd_parameter3: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER3'
       Index = 5
       Size = 0
-      left = 560
-      top = 136
+      left = 552
+      top = 216
     end
     object scd_parameter4: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER4'
       Index = 6
       Size = 0
-      left = 560
-      top = 152
+      left = 552
+      top = 232
     end
   end
   object stockcompdetaildso: tmsedatasource
     AutoEdit = False
     DataSet = stockcompdetailqu
-    left = 552
-    top = 72
+    left = 544
+    top = 152
   end
   object stockcompdetaillink: tfieldparamlink
     fieldname = 'PK'
@@ -1578,8 +1578,8 @@ object mainmo: tmainmo
         fieldname = 'PK'
         destfieldname = 'PK'
       end>
-    left = 560
-    top = 40
+    left = 552
+    top = 120
   end
   object footprintlibqu: tmsesqlquery
     options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
@@ -1984,8 +1984,8 @@ object mainmo: tmainmo
     )
     database = conn
     transaction = trans
-    left = 656
-    top = 200
+    left = 648
+    top = 280
   end
   object inserttest: tsqlresult
     fielddefs = <>
@@ -2017,8 +2017,8 @@ object mainmo: tmainmo
     )
     database = conn
     transaction = trans
-    left = 552
-    top = 200
+    left = 544
+    top = 280
   end
   object totarea: tifireallinkcomp
     controller.value = -Inf
@@ -2078,5 +2078,25 @@ object mainmo: tmainmo
     onupdate = validprojectupdateev
     left = 120
     top = 80
+  end
+  object psprinter: tpostscriptprinter
+    canvas.font.localprops = []
+    canvas.ppmm = 10
+    pa_width = 210
+    pa_height = 297
+    pa_size = sps_a4
+    tabulators.defaultdist = 0
+    left = 664
+    top = 8
+  end
+  object viewerproc: tguiprocess
+    optionsgui = [prog_waitdialog, prog_continue]
+    left = 592
+    top = 32
+  end
+  object ps2pdfproc: tmseprocess
+    options = [pro_winpipewritehandles, pro_waitcursor, pro_checkescape]
+    left = 592
+    top = 48
   end
 end

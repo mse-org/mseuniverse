@@ -18,6 +18,7 @@ type
    flast: boolean;
   public
    procedure show(const last: boolean);
+   procedure writeln(const atext: msestring);
  end;
 
 implementation
@@ -57,6 +58,12 @@ procedure tpythonconsolefo.show(const last: boolean);
 begin
  flast:= last;
  inherited show(ml_application);
+end;
+
+procedure tpythonconsolefo.writeln(const atext: msestring);
+begin
+ term.addchars(atext);
+ term.addline('');
 end;
 
 end.

@@ -18,12 +18,12 @@ unit docupspage;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msetypes,mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- msereport;
+ msetypes,mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
+ msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msereport,mserepps;
 
 type
  tdocupspagefo = class(treppageform)
+   docu: treppsdisp;
  end;
 
 implementation

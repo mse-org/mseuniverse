@@ -10,7 +10,17 @@ object docupspagefo: tdocupspagefo
   repdesigninfo = (
     177
     159
-    460
-    369
+    826
+    712
   )
+  object docu: treppsdisp
+    frame.framewidth = 1
+    frame.localprops = [frl_framewidth]
+    frame.localprops1 = []
+    bounds_x = 42
+    bounds_y = 12
+    bounds_cx = 500
+    bounds_cy = 534
+    layout = [la_fit]
+  end
 end
