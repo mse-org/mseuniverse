@@ -1,9 +1,9 @@
 object mainmo: tmainmo
   bounds_cx = 861
-  bounds_cy = 580
+  bounds_cy = 587
   statfile = mainstat
-  left = 105
-  top = 204
+  left = 220
+  top = 358
   moduleclassname = 'tmsedatamodule'
   object projectoptrtti: trttistat
     statfile = projectstat
@@ -2090,13 +2090,13 @@ object mainmo: tmainmo
     top = 8
   end
   object viewerproc: tguiprocess
-    optionsgui = [prog_waitdialog, prog_continue]
+    optionsgui = [prog_waitdialog, prog_cancontinue]
     left = 592
     top = 32
   end
   object ps2pdfproc: tmseprocess
     options = [pro_winpipewritehandles, pro_waitcursor, pro_checkescape]
     left = 592
-    top = 48
+    top = 56
   end
 end

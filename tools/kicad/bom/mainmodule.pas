@@ -396,7 +396,7 @@ type
    function createzipfile(const aarchivename: filenamety;
           const basedir: filenamety; const afiles: array of filenamety;
           const alast : boolean): boolean;
-   procedure showpsfile(const afile: filenamety);
+   procedure showpsfile(const afile: filenamety; const cancontinue: boolean);
    procedure ps2pdf(const source,dest: msestring);
 
    property plotkinds: msestringarty read fplotkinds;
@@ -1595,7 +1595,8 @@ begin
  end;
 end;
 
-procedure tmainmo.showpsfile(const afile: filenamety);
+procedure tmainmo.showpsfile(const afile: filenamety; 
+                                           const cancontinue: boolean);
 var
  s1: msestring;
 begin
@@ -1607,6 +1608,7 @@ begin
   viewerproc.filename:= s1;
   viewerproc.parameter:= afile;
   viewerproc.active:= true;
+  viewerproc.cancontinue:= cancontinue;
  end;
 end;
 
@@ -1643,6 +1645,7 @@ var
  error1: boolean;
  boardfile1,s1: filenamety;
  pk1: plotkindty;
+ b1: boolean;
 begin
  info1:= globaloptions.docudefinebyname(projectoptions.docuset);
  if info1 = nil then begin
@@ -1688,7 +1691,9 @@ begin
    inctempfile();
    tmpfile:= tmpfile+'.ps';
    rep.render(psprinter,ttextstream.create(tmpfile,fm_create));
+   b1:= false;
    if info1^.psfile <> '' then begin
+    b1:= true;
     s1:= expandprojectmacros(info1^.psfile);
     createdirpath(filedir(filepath(s1)));
     copyfile(tmpfile,s1);
@@ -1697,7 +1702,7 @@ begin
    if info1^.pdffile <> '' then begin
     ps2pdf(tmpfile,expandprojectmacros(info1^.pdffile));
    end;
-   showpsfile(tmpfile);
+   showpsfile(tmpfile,b1);
   end;
  finally
   deletedir(tmpf);
