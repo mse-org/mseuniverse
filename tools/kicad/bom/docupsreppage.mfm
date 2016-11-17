@@ -1,19 +1,13 @@
-object docupspagefo: tdocupspagefo
-  pagewidth = 190
-  pageheight = 270
-  font.height = 14
-  font.name = 'stf_report'
-  font.localprops = [flp_height]
-  grid_size = 2
-  ppmm = 3
-  moduleclassname = 'treppageform'
+inherited docupsreppa: tdocupsreppa
+  options = [rpo_once]
+  moduleclassname = 'tbasereppa'
   repdesigninfo = (
     177
     159
     826
     712
   )
-  object docu: treppsdisp
+  object ps: treppsdisp[0]
     frame.framewidth = 1
     frame.localprops = [frl_framewidth]
     frame.localprops1 = []
@@ -22,5 +16,6 @@ object docupspagefo: tdocupspagefo
     bounds_cx = 500
     bounds_cy = 534
     layout = [la_fit]
+    options = [bo_once]
   end
 end

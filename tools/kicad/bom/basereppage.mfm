@@ -1,0 +1,16 @@
+object basereppa: tbasereppa
+  pagewidth = 190
+  pageheight = 270
+  font.height = 14
+  font.name = 'stf_report'
+  font.localprops = [flp_height]
+  grid_size = 2
+  ppmm = 3
+  moduleclassname = 'treppageform'
+  repdesigninfo = (
+    177
+    159
+    460
+    369
+  )
+end

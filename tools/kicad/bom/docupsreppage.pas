@@ -14,19 +14,20 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit docupspage;
+unit docupsreppage;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
- msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msereport,mserepps;
+ msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msereport,mserepps,
+ basereppage;
 
 type
- tdocupspagefo = class(treppageform)
-   docu: treppsdisp;
+ tdocupsreppa = class(tbasereppa)
+   ps: treppsdisp;
  end;
 
 implementation
 uses
- docupspage_mfm;
+ docupsreppage_mfm;
 end.

@@ -1,0 +1,23 @@
+object docure: tdocure
+  ppmm = 3
+  pagewidth = 190
+  pageheight = 270
+  font.height = 14
+  font.name = 'stf_report'
+  font.localprops = [flp_height]
+  grid_size = 2
+  options = [reo_waitdialog]
+  dialogtext = 'Creating documentation set...'
+  dialogcaption = 'MSEkicadBOM'
+  repdesigninfo = (
+    177
+    159
+    460
+    369
+  )
+  moduleclassname = 'treport'
+  object treportpage1: treportpage
+    pagewidth = 0
+    pageheight = 0
+  end
+end
