@@ -17,6 +17,7 @@ object globalsettingsfo: tglobalsettingsfo
   caption = 'Global Settings'
   oncreate = createev
   onclosequery = closequeryev
+  onasyncevent = asyncev
   moduleclassname = 'tmseform'
   object tsplitter1: tsplitter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -104,6 +105,7 @@ object globalsettingsfo: tglobalsettingsfo
         bounds_cx = 645
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
+        ondataentered = dbdataenteredev
         reffontheight = 14
       end
       object val_hostname: tstringedit
@@ -122,6 +124,7 @@ object globalsettingsfo: tglobalsettingsfo
         bounds_cx = 645
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
+        ondataentered = dbdataenteredev
         reffontheight = 14
       end
       object val_psviewer: tfilenameedit

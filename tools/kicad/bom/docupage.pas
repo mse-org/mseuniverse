@@ -25,7 +25,6 @@ type
    statf: tstatfile;
    procedure namesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
-   procedure createev(const sender: TObject);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
    procedure docupageeditev(const sender: tcustomaction);
    procedure selectev(const sender: TObject);
@@ -34,28 +33,43 @@ type
                    var accept: Boolean);
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
    procedure colmacrohintev(const sender: tdatacol; const arow: Integer;
-                   var info: hintinfoty);
+                                                        var info: hintinfoty);
   private
-   fplots: docuplotpageinfoarty;
+   fdocupages: docupagearty;
+//   fplots: docuplotpageinfoarty;
+//   fschematics: docuschematicpageinfoarty;
    procedure setdocudir(const avalue: filenamety);
   public
-   property plots: docuplotpageinfoarty read fplots write fplots;
+   constructor create(const apages: docupagearty); reintroduce;
+   destructor destroy(); override;
+   property docupages: docupagearty read fdocupages write fdocupages;
+//   property plots: docuplotpageinfoarty read fplots write fplots;
+//   property schematics: docuschematicpageinfoarty read fschematics
+//                                                         write fschematics;
    property docudir: filenamety write setdocudir;
  end;
 
 implementation
 uses
- docupage_mfm,layerplotdialog,msedatalist;
+ docupage_mfm,layerplotdialog,schematicplotdialog,msedatalist,mserttistat;
  
+constructor tdocupagefo.create(const apages: docupagearty);
+begin
+ inherited create(nil);
+ fdocupages:= docupagearty(dupplicateobjects(objectarty(apages)));
+ pagekinded.dropdown.cols[0].asarray:= mainmo.docupagekinds;
+end;
+
+destructor tdocupagefo.destroy();
+begin
+ docupagesetlength(fdocupages,0);
+ inherited;
+end;
+
 procedure tdocupagefo.namesetev(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
  caption:= avalue;
-end;
-
-procedure tdocupagefo.createev(const sender: TObject);
-begin
- pagekinded.dropdown.cols[0].asarray:= mainmo.docupagekinds;
 end;
 
 procedure tdocupagefo.cellev(const sender: TObject; var info: celleventinfoty);
@@ -67,20 +81,18 @@ end;
 
 procedure tdocupagefo.docupageeditev(const sender: tcustomaction);
 var
- s1: msestring;
+ pag1: tdocupage;
 begin
- case docupagekindty(pagekinded.value) of
+ pag1:= fdocupages[grid.row];
+ case docupagekindty(pagekinded.value+1) of
   dpk_layerplot: begin
-   s1:= titleed.value;
-   if high(fplots) < grid.row then begin
-    setlength(fplots,grid.row+1);
-   end;
-   if tlayerplotdialogfo.create(fplots[grid.row],s1).show(
-                                         ml_application) = mr_ok then begin
-    titleed.value:= s1;
-   end;
+   tlayerplotdialogfo.create(tlayerplotpage(pag1)).show(ml_application);
+  end;
+  dpk_schematic: begin
+   tschematicplotdialogfo.create(tschematicplotpage(pag1)).show(ml_application);
   end;
  end;
+ titleed.value:= pag1.title;
 end;
 
 procedure tdocupagefo.selectev(const sender: TObject);

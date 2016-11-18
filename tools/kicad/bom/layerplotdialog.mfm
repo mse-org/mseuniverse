@@ -16,7 +16,7 @@ object layerplotdialogfo: tlayerplotdialogfo
   caption = 'Docu Layer Plot Page'
   onclose = closeev
   moduleclassname = 'tmseform'
-  object titleed: tstringedit
+  object val_title: tstringedit
     frame.caption = 'Title'
     frame.localprops = []
     frame.localprops1 = []
@@ -26,8 +26,9 @@ object layerplotdialogfo: tlayerplotdialogfo
       0
       0
     )
+    onshowhint = macrohintev
     bounds_x = 8
-    bounds_y = -1
+    bounds_y = 0
     bounds_cx = 474
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
@@ -87,7 +88,7 @@ object layerplotdialogfo: tlayerplotdialogfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 2
     bounds_x = 8
-    bounds_y = 36
+    bounds_y = 37
     bounds_cx = 474
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
@@ -96,8 +97,8 @@ object layerplotdialogfo: tlayerplotdialogfo
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    linktop = titleed
-    object layered: tdropdownlistedit
+    linktop = val_title
+    object val_layername: tdropdownlistedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.caption = 'Layer'

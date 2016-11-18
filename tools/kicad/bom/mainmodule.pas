@@ -52,7 +52,6 @@ type
     pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
  );
 
- docupagekindty = (dpk_layerplot);
  namedinfoty = record
   name: msestring;
  end;
@@ -75,15 +74,61 @@ type
  end;
  pdocuplotpageinfoty = ^docuplotpageinfoty;
  docuplotpageinfoarty = array of docuplotpageinfoty;
-  
+
+ docuschematicpageinfoty = record
+  psfile: filenamety;
+ end;
+ pdocuschematicpageinfoty = ^docuschematicpageinfoty;
+ docuschematicpageinfoarty = array of docuschematicpageinfoty;
+
+ docupagekindty = (dpk_none,dpk_layerplot,dpk_schematic);
+
+ tdocupage = class(toptions)
+  private
+   ftitle: msestring;
+   procedure setkind(const avalue: int32);
+   function getkind: int32;
+  protected
+   class function getpagekind: docupagekindty virtual;
+  public
+   property pagekind: docupagekindty read getpagekind;
+  published
+   property title: msestring read ftitle write ftitle;
+   property kind: int32 read getkind write setkind;
+ end;
+ docupageclassty = class of tdocupage;
+ docupagearty = array of tdocupage;
+ 
+ tlayerplotpage = class(tdocupage)
+  private
+   flayername: msestring;
+  protected
+   class function getpagekind: docupagekindty override;
+  published
+   property layername: msestring read flayername write flayername;
+ end;
+
+ tschematicplotpage = class(tdocupage)
+  private
+   fpsfile: msestring;
+  protected
+   class function getpagekind: docupagekindty override;
+  published
+   property psfile: msestring read fpsfile write fpsfile;
+ end;
+   
  docuinfoty = record
   h: infoheaderty;
   docudir: filenamety;
   psfile: filenamety;
   pdffile: filenamety;
+  pages: docupagearty;
+ {
   titles: msestringarty;
   pagekinds: integerarty;
   layerplots: docuplotpageinfoarty;
+  schematicplots: docuschematicpageinfoarty;
+ }
  end;
  pdocuinfoty = ^docuinfoty;
  docuinfoarty = array of docuinfoty;
@@ -112,6 +157,7 @@ type
    procedure dostatwrite(const writer: tstatwriter) override;
   public
    constructor create();
+   destructor destroy(); override;
    property password: msestring read fpassword write fpassword; //not stored
    property username: msestring read fusername write fusername; //not stored
    
@@ -414,14 +460,41 @@ var
 
 procedure errormessage(const message: msestring);
 function layertoplotname(const layername: msestring): msestring;
- 
+procedure docupagesetlength(var pages: docupagearty; const count: int32);
+function updatedocupageobj(var pages: docupagearty; const index: int32;
+                                         const kind: docupagekindty): tdocupage;
 implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
  msearrayutils,docureport,docupsreppage;
 
+var
+ docupageclasses: array[docupagekindty] of docupageclassty = (
+ //dpk_none,dpk_layerplot, dpk_schematic
+  nil,         tlayerplotpage,tschematicplotpage
+  );
+
+procedure docupagesetlength(var pages: docupagearty; const count: int32);
+var
+ i1: int32;
+begin
+ for i1:= high(pages) downto count do begin
+  pages[i1].free();
+ end;
+ setlength(pages,count);
+end;
+
+function updatedocupageobj(var pages: docupagearty; const index: int32;
+                                        const kind: docupagekindty): tdocupage;
+begin
+ pages[index].free();
+ result:= docupageclasses[kind].create();
+ pages[index]:= result;
+end;
+
 { tmainmo }
+
 type
  componentmacronamety = (
     cmn_value,cmn_value1,cmn_value2,
@@ -535,9 +608,9 @@ const
       'gbr',    'ps',         'svg', 'dxf', 'plt', 'pdf'
  );
 
- docupagekinds: array[docupagekindty] of msestring = (
-// dpk_layerplot
-       'PCB Layer-Plot'
+ docupagekinds: array[0..ord(high(docupagekindty))-1] of msestring = (
+// dpk_layerplot,    dpk_schematic
+   'PCB Layer-Plot','Schematic'
  );
  
 function layertoplotname(const layername: msestring): msestring;
@@ -1662,15 +1735,15 @@ begin
  try
   rep:= tdocure.create(nil);
   rep.clear(); //remove defaultpage
-  for i1:= 0 to high(info1^.pagekinds) do begin
-   case docupagekindty(info1^.pagekinds[i1]) of
+  for i1:= 0 to high(info1^.pages) do begin
+   case info1^.pages[i1].pagekind of
     dpk_layerplot: begin
      inctempfile();
      if not getboardfile(boardfile1) then begin
       error1:= true;
       break;
      end;
-     with info1^.layerplots[i1] do begin
+     with tlayerplotpage(info1^.pages[i1]) do begin
       if not getplotkind(layername,pk1) then begin
        error1:= true;
        break;
@@ -1682,6 +1755,13 @@ begin
       end;
       with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
        ps.psfile:= s1;
+      end;
+     end;
+    end;
+    dpk_schematic: begin
+     with tschematicplotpage(info1^.pages[i1]) do begin
+      with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
+       ps.psfile:= psfile;
       end;
      end;
     end;
@@ -1779,6 +1859,14 @@ begin
  fps2pdf:= 'ps2pdf';
 end;
 
+destructor tglobaloptions.destroy();
+var
+ i1: int32;
+begin
+ docudefines:= nil; //free pages
+ inherited;
+end;
+
 function tglobaloptions.prodplotdefinebyname(
               const aname: msestring): pprodplotinfoty;
 var
@@ -1827,6 +1915,9 @@ procedure tglobaloptions.setdocudefines(const avalue: docuinfoarty);
 var
  i1: int32;
 begin
+ for i1:= 0 to high(fdocudefines) do begin
+  docupagesetlength(fdocudefines[i1].pages,0);
+ end;
  fdocudefines:= avalue;
  setlength(fdocunames,length(fdocudefines));
  for i1:= 0 to high(fdocudefines) do begin
@@ -1846,7 +1937,11 @@ procedure tglobaloptions.dostatread(const reader: tstatreader);
 var
  count1,count2: int32;
  i1,i2: int32;
+ kind1: docupagekindty;
+ page1: tdocupage;
+ ar1: docuinfoarty;
 begin
+ ar1:= nil; //compiler warning
  inherited;
  if reader.beginlist('prodplotstack') then begin
   count1:= 0;
@@ -1888,12 +1983,26 @@ begin
  if reader.beginlist('docustack') then begin
   count1:= 0;
   while reader.beginlist('item'+inttostrmse(count1)) do begin
-   additem(fdocudefines,typeinfo(fdocudefines),count1);
-   with fdocudefines[count1-1] do begin
+   additem(ar1,typeinfo(ar1),count1);
+   with ar1[count1-1] do begin
     readinfoheader(reader,h);
     docudir:= reader.readmsestring('docudir','');
     psfile:= reader.readmsestring('psfile','');
     pdffile:= reader.readmsestring('pdffile','');
+    if reader.beginlist('pages') then begin
+     count2:= 0;
+     while reader.beginlist('item'+inttostrmse(count2)) do begin
+      kind1:= docupagekindty(reader.readinteger('kind',-1)+1);
+      if (kind1 > dpk_none) and (kind1 <= high(kind1)) then begin
+       additem(pointerarty(pages),docupageclasses[kind1].create);
+       pages[high(pages)].readstat(reader,'');
+      end;
+      reader.endlist();
+      inc(count2);
+     end;
+     reader.endlist();
+    end;
+    {
     titles:= reader.readarray('titles',msestringarty(nil));
     pagekinds:= reader.readarray('pagekinds',integerarty(nil));
     if reader.beginlist('layerplots') then begin
@@ -1908,12 +2017,25 @@ begin
      reader.endlist();
      setlength(layerplots,count2);
     end;
+    if reader.beginlist('schematicplots') then begin
+     count2:= 0;
+     while reader.beginlist('item'+inttostrmse(count2)) do begin
+      additem(schematicplots,typeinfo(schematicplots),count2);
+      with schematicplots[count2-1] do begin
+       psfile:= reader.readmsestring('psfile','');
+      end;
+      reader.endlist();
+     end;
+     reader.endlist();
+     setlength(schematicplots,count2);
+    end;
+    }
    end;
    reader.endlist();
   end;
   reader.endlist();
-  setlength(fdocudefines,count1);
-  docudefines:= fdocudefines; //build name array
+  setlength(ar1,count1);
+  docudefines:= ar1; //build name array
  end;
 end;
 
@@ -1957,6 +2079,14 @@ begin
     writer.writemsestring('docudir',docudir);
     writer.writemsestring('psfile',psfile);
     writer.writemsestring('pdffile',pdffile);
+    writer.beginlist('pages');
+    for i2:= 0 to high(pages) do begin
+     writer.beginlist('item'+inttostrmse(i2));
+     pages[i2].writestat(writer,'');
+     writer.endlist();
+    end;
+    writer.endlist();
+{    
     writer.writearray('titles',titles);
     writer.writearray('pagekinds',pagekinds);
     writer.beginlist('layerplots');
@@ -1968,11 +2098,52 @@ begin
      writer.endlist();
     end;
     writer.endlist();
+    writer.beginlist('schematicplots');
+    for i2:= 0 to high(schematicplots) do begin
+     writer.beginlist('item'+inttostrmse(i2));
+     with schematicplots[i2] do begin
+      writer.writemsestring('psfile',psfile);
+     end;
+     writer.endlist();
+    end;
+    writer.endlist();
+ }
    end;
    writer.endlist();
   end;
   writer.endlist();
  end;
+end;
+
+{ tdocupage }
+
+procedure tdocupage.setkind(const avalue: int32);
+begin
+ //dummy
+end;
+
+class function tdocupage.getpagekind: docupagekindty;
+begin
+ result:= dpk_none;
+end;
+
+function tdocupage.getkind: int32;
+begin
+ result:= ord(getpagekind)-1;
+end;
+
+{ tlayerplotpage }
+
+class function tlayerplotpage.getpagekind: docupagekindty;
+begin
+ result:= dpk_layerplot;
+end;
+
+{ tschematicplotpage }
+
+class function tschematicplotpage.getpagekind: docupagekindty;
+begin
+ result:= dpk_schematic;
 end;
 
 initialization

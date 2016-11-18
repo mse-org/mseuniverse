@@ -48,6 +48,10 @@ type
    procedure newpageev(const sender: TObject);
    procedure deletepageev(const sender: tobject);
    procedure pagepopupupdateev(const sender: tcustommenu);
+   procedure dbdataenteredev(const sender: TObject);
+   procedure asyncev(const sender: TObject; var atag: Integer);
+  private
+   fdbchanged: boolean;
  end;
  
 implementation
@@ -55,7 +59,8 @@ uses
  globalsettingsform_mfm,mainmodule,productionpage,docupage;
 const
  valueprefix = 'val_';
-  
+ dbrefreshtag = 72957329;
+   
 procedure tglobalsettingsfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 var
@@ -86,22 +91,38 @@ begin
     docudir:= docudired.value;
     psfile:= psfileed.value;
     pdffile:= pdffileed.value;
-    titles:= titleed.griddata.asarray;
-    pagekinds:= pagekinded.griddata.asarray;
-    layerplots:= plots;
+    docupagesetlength(pages,0);
+    pages:= docupages;
+    docupages:= nil; //no free items in destroy()
+   {
+    docupagesetlength(pages,grid.datarowhigh+1);
+    for i2:= 0 to high(pages) do begin
+     with updatedocupageobj(pages,i2,docupagekindty(pagekinded[i2]+1)) do begin
+      title:= titleed[i2];
+     end;
+    end;
+   }
    end;
   end;
   globaloptions.docudefines:= ar2;
-  if mainmo.conn.connected then begin
-   mainmo.conn.connected:= false;
-   mainmo.refresh();
+  if fdbchanged and mainmo.conn.connected then begin
+   asyncevent(dbrefreshtag,[peo_first]);
   end;
  end;
 end;
 
+procedure tglobalsettingsfo.asyncev(const sender: TObject; var atag: Integer);
+begin
+ if atag = dbrefreshtag then begin
+  mainmo.conn.connected:= false;
+  mainmo.refresh();
+ end;
+end;
+
+
 procedure tglobalsettingsfo.createev(const sender: TObject);
 var
- i1: int32;
+ i1,i2: int32;
  fo1: tproductionpagefo;
  fo2: tdocupagefo;
 begin
@@ -122,16 +143,26 @@ begin
   end;
  end;
  for i1:= 0 to high(globaloptions.docudefines) do begin
-  fo2:= tdocupagefo.create(nil);
   with globaloptions.docudefines[i1] do begin
+   fo2:= tdocupagefo.create(pages);
    fo2.caption:= h.name;
    fo2.nameed.value:= h.name;
    fo2.docudir:= docudir;
    fo2.psfileed.value:= psfile;
    fo2.pdffileed.value:= pdffile;
+   fo2.grid.rowcount:= length(pages);
+   for i2:= 0 to high(pages) do begin
+    with pages[i2] do begin
+     fo2.titleed[i2]:= title;
+     fo2.pagekinded[i2]:= kind;
+    end;
+   end;
+   {
    fo2.titleed.griddata.asarray:= titles;
    fo2.pagekinded.griddata.asarray:= pagekinds;
    fo2.plots:= layerplots;
+   fo2.schematics:= schematicplots;
+   }
    docusettabs.add(itabpage(fo2));
   end;
  end;
@@ -174,6 +205,11 @@ begin
  with sender.menu.itembyname('delete') do begin
   enabled:= ttabwidget(application.lastshowmenuwidget).activepage <> nil;
  end;
+end;
+
+procedure tglobalsettingsfo.dbdataenteredev(const sender: TObject);
+begin
+ fdbchanged:= true;
 end;
 
 end.

@@ -19,12 +19,52 @@ unit schematicplotdialog;
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms;
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msesplitter,
+ msesimplewidgets,mseact,msedataedits,mseedit,mseificomp,mseificompglob,
+ mseifiglob,msestatfile,msestream,msestrings,sysutils,mainmodule,msebitmap,
+ msedatanodes,msefiledialog,msegrids,mselistbrowser,msesys;
 type
  tschematicplotdialogfo = class(tmseform)
+   tsplitter1: tsplitter;
+   tbutton2: tbutton;
+   tbutton1: tbutton;
+   tspacer2: tspacer;
+   tlayouter1: tlayouter;
+   val_title: tstringedit;
+   val_psfile: tfilenameedit;
+   procedure closeev(const sender: TObject);
+   procedure macrohintev(const sender: TObject; var info: hintinfoty);
+  private
+   fpage: tschematicplotpage;
+  public
+   constructor create(const apage: tschematicplotpage);
  end;
 
 implementation
 uses
  schematicplotdialog_mfm;
+ 
+{ tschematicplotdialogfo }
+
+constructor tschematicplotdialogfo.create(const apage: tschematicplotpage);
+begin
+ fpage:= apage;
+ inherited create(nil);
+ apage.loadvalues(self,'val_');
+ caption:= 'PCB-Layer-Plot '+val_title.value;
+end;
+
+procedure tschematicplotdialogfo.closeev(const sender: TObject);
+begin
+ if window.modalresult = mr_ok then begin
+  fpage.storevalues(self,'val_');
+ end;
+end;
+
+procedure tschematicplotdialogfo.macrohintev(const sender: TObject;
+               var info: hintinfoty);
+begin
+ mainmo.hintmacros(tedit(sender).text,info);
+end;
+
 end.

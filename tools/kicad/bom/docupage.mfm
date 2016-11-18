@@ -11,7 +11,6 @@ object docupagefo: tdocupagefo
     479
     357
   )
-  oncreate = createev
   onselect = selectev
   ondeselect = deselectev
   moduleclassname = 'ttabform'
