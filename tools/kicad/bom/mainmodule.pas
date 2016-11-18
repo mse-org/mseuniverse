@@ -86,6 +86,10 @@ type
  tdocupage = class(toptions)
   private
    ftitle: msestring;
+   fmirrorx: boolean;
+   fmirrory: boolean;
+   frotate90: boolean;
+   frotate180: boolean;
    procedure setkind(const avalue: int32);
    function getkind: int32;
   protected
@@ -95,6 +99,10 @@ type
   published
    property title: msestring read ftitle write ftitle;
    property kind: int32 read getkind write setkind;
+   property mirrorx: boolean read fmirrorx write fmirrorx;
+   property mirrory: boolean read fmirrory write fmirrory;
+   property rotate90: boolean read frotate90 write frotate90;
+   property rotate180: boolean read frotate180 write frotate180;
  end;
  docupageclassty = class of tdocupage;
  docupagearty = array of tdocupage;
@@ -469,7 +477,7 @@ implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
- msearrayutils,docureport,docupsreppage;
+ msearrayutils,docureport,docupsreppage,msereport,basereppage,mserepps;
 
 var
  docupageclasses: array[docupagekindty] of docupageclassty = (
@@ -1728,6 +1736,9 @@ var
  boardfile1,s1: filenamety;
  pk1: plotkindty;
  b1: boolean;
+ pac1: reppageformclassty;
+ pa1: tdocupsreppa;
+ la1: layoutflagsty;
 begin
  info1:= globaloptions.docudefinebyname(projectoptions.docuset);
  if info1 = nil then begin
@@ -1745,6 +1756,7 @@ begin
   rep:= tdocure.create(nil);
   rep.clear(); //remove defaultpage
   for i1:= 0 to high(info1^.pages) do begin
+   pa1:= nil;
    case info1^.pages[i1].pagekind of
     dpk_layerplot: begin
      inctempfile();
@@ -1762,18 +1774,45 @@ begin
        error1:= true;
        break;
       end;
+      pac1:= tdocupsreppa;
+      {
       with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
        ps.psfile:= s1;
       end;
+      }
      end;
     end;
     dpk_schematic: begin
      with tschematicplotpage(info1^.pages[i1]) do begin
+      s1:= psfile;
+     {
       with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
        ps.psfile:= psfile;
       end;
+     }
      end;
     end;
+   end;
+   if pac1 <> nil then begin
+    pa1:= tdocupsreppa(pac1.create(nil));
+    pa1.ps.psfile:= s1;
+    la1:= pa1.ps.layout;
+    with info1^.pages[i1] do begin
+     if mirrorx then begin
+      include(la1,la_mirrorx);
+     end;
+     if mirrory then begin
+      include(la1,la_mirrory);
+     end;
+     if rotate90 then begin
+      include(la1,la_rotate90);
+     end;
+     if rotate180 then begin
+      include(la1,la_rotate180);
+     end;
+    end;
+    pa1.ps.layout:= la1;
+    rep.add(pa1);
    end;
   end;
   if not error1 then begin

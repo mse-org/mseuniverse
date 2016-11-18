@@ -38,7 +38,7 @@ object layerplotdialogfo: tlayerplotdialogfo
   object tsplitter1: tsplitter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     color = -2147483645
-    taborder = 1
+    taborder = 2
     bounds_x = 367
     bounds_y = 275
     bounds_cx = 123
@@ -86,7 +86,7 @@ object layerplotdialogfo: tlayerplotdialogfo
   end
   object tlayouter1: tlayouter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 2
+    taborder = 3
     bounds_x = 8
     bounds_y = 37
     bounds_cx = 474
@@ -120,13 +120,27 @@ object layerplotdialogfo: tlayerplotdialogfo
       bounds_y = 0
       bounds_cx = 179
       bounds_cy = 37
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
       dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item
         end>
       reffontheight = 14
+    end
+  end
+  inline plotsettings: tplotsettingsfo
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 74
+    linktop = tlayouter1
+    inherited val_mirrorx: tbooleanedit
+    end
+    inherited val_mirrory: tbooleanedit
+    end
+    inherited val_rotate90: tbooleanedit
+    end
+    inherited val_rotate180: tbooleanedit
     end
   end
   object tstatfile1: tstatfile

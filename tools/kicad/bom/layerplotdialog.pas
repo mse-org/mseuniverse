@@ -5,7 +5,7 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
- msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule;
+ msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings;
 type
  tlayerplotdialogfo = class(tmseform)
    tstatfile1: tstatfile;
@@ -16,6 +16,7 @@ type
    tspacer2: tspacer;
    tlayouter1: tlayouter;
    val_layername: tdropdownlistedit;
+   plotsettings: tplotsettingsfo;
    procedure closeev(const sender: TObject);
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
   private
@@ -35,22 +36,17 @@ uses
 constructor tlayerplotdialogfo.create(const apage: tlayerplotpage);
 begin
  fpage:= apage;
-// ftitle:= @atitle;
-// finfo:= @ainfo;
  inherited create(nil);
  apage.loadvalues(self,'val_');
-// caption:= 'PCB-Layer-Plot '+val_title.value;
-// titleed.value:= ftitle^;
+ apage.loadvalues(plotsettings,'val_');
  val_layername.dropdown.cols[0].asarray:= mainmo.plotkinds;
-// layered.value:= ainfo.layername;
 end;
 
 procedure tlayerplotdialogfo.closeev(const sender: TObject);
 begin
  if window.modalresult = mr_ok then begin
   fpage.storevalues(self,'val_');
-//  ftitle^:= titleed.value;
-//  finfo^.layername:= layered.value;
+  fpage.storevalues(plotsettings,'val_');
  end;
 end;
 

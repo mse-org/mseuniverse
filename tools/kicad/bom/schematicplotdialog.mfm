@@ -64,7 +64,7 @@ object schematicplotdialogfo: tschematicplotdialogfo
   end
   object tlayouter1: tlayouter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 1
+    taborder = 2
     bounds_x = 8
     bounds_y = 37
     bounds_cx = 564
@@ -119,7 +119,7 @@ object schematicplotdialogfo: tschematicplotdialogfo
       0
       0
     )
-    taborder = 2
+    taborder = 3
     onshowhint = macrohintev
     bounds_x = 8
     bounds_y = 0
@@ -128,5 +128,19 @@ object schematicplotdialogfo: tschematicplotdialogfo
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
     reffontheight = 14
+  end
+  inline plotsettings: tplotsettingsfo
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 74
+    linktop = tlayouter1
+    inherited val_mirrorx: tbooleanedit
+    end
+    inherited val_mirrory: tbooleanedit
+    end
+    inherited val_rotate90: tbooleanedit
+    end
+    inherited val_rotate180: tbooleanedit
+    end
   end
 end

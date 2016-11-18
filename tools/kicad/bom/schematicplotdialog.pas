@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msesplitter,
  msesimplewidgets,mseact,msedataedits,mseedit,mseificomp,mseificompglob,
  mseifiglob,msestatfile,msestream,msestrings,sysutils,mainmodule,msebitmap,
- msedatanodes,msefiledialog,msegrids,mselistbrowser,msesys;
+ msedatanodes,msefiledialog,msegrids,mselistbrowser,msesys,plotsettings;
 type
  tschematicplotdialogfo = class(tmseform)
    tsplitter1: tsplitter;
@@ -32,6 +32,7 @@ type
    tlayouter1: tlayouter;
    val_title: tstringedit;
    val_psfile: tfilenameedit;
+   plotsettings: tplotsettingsfo;
    procedure closeev(const sender: TObject);
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
   private
@@ -51,6 +52,7 @@ begin
  fpage:= apage;
  inherited create(nil);
  apage.loadvalues(self,'val_');
+ apage.loadvalues(plotsettings,'val_');
  caption:= 'PCB-Layer-Plot '+val_title.value;
 end;
 
@@ -58,6 +60,7 @@ procedure tschematicplotdialogfo.closeev(const sender: TObject);
 begin
  if window.modalresult = mr_ok then begin
   fpage.storevalues(self,'val_');
+  fpage.storevalues(plotsettings,'val_');
  end;
 end;
 
