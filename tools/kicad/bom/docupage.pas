@@ -1,3 +1,19 @@
+{ MSEkicad Copyright (c) 2016 by Martin Schreiber
+   
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+}
 unit docupage;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
@@ -23,6 +39,7 @@ type
    psfileed: tfilenameedit;
    pdffileed: tfilenameedit;
    statf: tstatfile;
+   pageitems: titemedit;
    procedure namesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
@@ -34,15 +51,24 @@ type
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
    procedure colmacrohintev(const sender: tdatacol; const arow: Integer;
                                                         var info: hintinfoty);
+   procedure titlesetev(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure creatpageitemev(const sender: tcustomitemlist;
+                   var item: tlistedititem);
+   procedure setkindev(const sender: TObject; var avalue: Integer;
+                   var accept: Boolean);
   private
-   fdocupages: docupagearty;
+//   fdocupages: docupagearty;
 //   fplots: docuplotpageinfoarty;
 //   fschematics: docuschematicpageinfoarty;
    procedure setdocudir(const avalue: filenamety);
+   function getdocupages: docupagearty;
+  protected
+   function curpage: tdocupage;
   public
    constructor create(const apages: docupagearty); reintroduce;
    destructor destroy(); override;
-   property docupages: docupagearty read fdocupages write fdocupages;
+   property docupages: docupagearty read getdocupages;
 //   property plots: docuplotpageinfoarty read fplots write fplots;
 //   property schematics: docuschematicpageinfoarty read fschematics
 //                                                         write fschematics;
@@ -52,17 +78,34 @@ type
 implementation
 uses
  docupage_mfm,layerplotdialog,schematicplotdialog,msedatalist,mserttistat;
+
+type
+ tpageitem = class(tlistedititem)
+  private
+   fpage: tdocupage;
+  public
+   destructor destroy(); override;
+ end;
  
 constructor tdocupagefo.create(const apages: docupagearty);
+var
+ i1: int32;
 begin
  inherited create(nil);
- fdocupages:= docupagearty(dupplicateobjects(objectarty(apages)));
+ grid.rowcount:= length(apages);
+ for i1:= 0 to high(apages) do begin
+  tpageitem(pageitems[i1]).fpage:= tdocupage(dupplicateobject(apages[i1]));
+  with apages[i1] do begin
+   titleed[i1]:= title;
+   pagekinded[i1]:= kind;
+  end;
+ end;
  pagekinded.dropdown.cols[0].asarray:= mainmo.docupagekinds;
 end;
 
 destructor tdocupagefo.destroy();
 begin
- docupagesetlength(fdocupages,0);
+// docupagesetlength(fdocupages,0);
  inherited;
 end;
 
@@ -83,16 +126,18 @@ procedure tdocupagefo.docupageeditev(const sender: tcustomaction);
 var
  pag1: tdocupage;
 begin
- pag1:= fdocupages[grid.row];
- case docupagekindty(pagekinded.value+1) of
-  dpk_layerplot: begin
-   tlayerplotdialogfo.create(tlayerplotpage(pag1)).show(ml_application);
+ if canclose(nil) then begin
+  pag1:= tpageitem(pageitems.item).fpage;
+  case docupagekindty(pagekinded.value+1) of
+   dpk_layerplot: begin
+    tlayerplotdialogfo.create(tlayerplotpage(pag1)).show(ml_application);
+   end;
+   dpk_schematic: begin
+    tschematicplotdialogfo.create(tschematicplotpage(pag1)).show(ml_application);
+   end;
   end;
-  dpk_schematic: begin
-   tschematicplotdialogfo.create(tschematicplotpage(pag1)).show(ml_application);
-  end;
+  titleed.value:= pag1.title;
  end;
- titleed.value:= pag1.title;
 end;
 
 procedure tdocupagefo.selectev(const sender: TObject);
@@ -120,6 +165,24 @@ begin
  pdffileed.controller.basedir:= avalue;
 end;
 
+function tdocupagefo.curpage: tdocupage;
+begin
+ result:= tpageitem(pageitems.item).fpage;
+end;
+
+function tdocupagefo.getdocupages: docupagearty;
+var
+ i1: int32;
+begin
+ setlength(result,grid.datarowhigh+1);
+ for i1:= 0 to high(result) do begin
+  with tpageitem(pageitems[i1]) do begin
+   result[i1]:= fpage;
+   fpage:= nil; //no destroy
+  end;
+ end;
+end;
+
 procedure tdocupagefo.macrohintev(const sender: TObject; var info: hintinfoty);
 begin
  mainmo.hintmacros(tedit(sender).text,info);
@@ -129,6 +192,37 @@ procedure tdocupagefo.colmacrohintev(const sender: tdatacol;
                const arow: Integer; var info: hintinfoty);
 begin
  mainmo.hintmacros(tmsestringdatalist(sender.datalist)[arow],info);
+end;
+
+procedure tdocupagefo.titlesetev(const sender: TObject; var avalue: msestring;
+               var accept: Boolean);
+begin
+ if curpage <> nil then begin
+  curpage.title:= avalue;
+ end;
+end;
+
+procedure tdocupagefo.creatpageitemev(const sender: tcustomitemlist;
+               var item: tlistedititem);
+begin
+ item:= tpageitem.create(sender);
+end;
+
+procedure tdocupagefo.setkindev(const sender: TObject; var avalue: Integer;
+               var accept: Boolean);
+begin
+ with tpageitem(pageitems.item) do begin
+  updatedocupageobj(fpage,docupagekindty(avalue+1));
+  fpage.title:= titleed.value;
+ end;
+end;
+
+{ tpageitem }
+
+destructor tpageitem.destroy();
+begin
+ fpage.free();
+ inherited;
 end;
 
 end.

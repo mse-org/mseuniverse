@@ -39,7 +39,7 @@ begin
 // finfo:= @ainfo;
  inherited create(nil);
  apage.loadvalues(self,'val_');
- caption:= 'PCB-Layer-Plot '+val_title.value;
+// caption:= 'PCB-Layer-Plot '+val_title.value;
 // titleed.value:= ftitle^;
  val_layername.dropdown.cols[0].asarray:= mainmo.plotkinds;
 // layered.value:= ainfo.layername;

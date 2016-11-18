@@ -13,7 +13,7 @@ object layerplotdialogfo: tlayerplotdialogfo
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'Docu Layer Plot Page'
+  caption = 'Docu PCB Layer-Plot Page'
   onclose = closeev
   moduleclassname = 'tmseform'
   object val_title: tstringedit

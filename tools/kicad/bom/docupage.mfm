@@ -87,7 +87,7 @@ object docupagefo: tdocupagefo
     bounds_cx = 479
     bounds_cy = 275
     anchors = [an_top, an_bottom]
-    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
       item
@@ -117,7 +117,7 @@ object docupagefo: tdocupagefo
             caption = 'Page'
           end>
       end>
-    datacols.count = 3
+    datacols.count = 4
     datacols.options = [co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
     datacols.items = <    
       item[titleed]
@@ -138,6 +138,13 @@ object docupagefo: tdocupagefo
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'docupageeditbu'
         dataclass = tgridintegerdatalist
+      end    
+      item[pageitems]
+        width = 23
+        options = [co_invisible, co_savevalue, co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
+        widgetname = 'pageitems'
+        dataclass = titemeditlist
+        datalist.oncreateitem = creatpageitemev
       end>
     datarowheight = 16
     statfile = statf
@@ -153,7 +160,7 @@ object docupagefo: tdocupagefo
       bounds_cx = 111
       bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+      onsetvalue = titlesetev
       reffontheight = 14
     end
     object pagekinded: tenumedit
@@ -181,6 +188,7 @@ object docupagefo: tdocupagefo
       dropdown.cols.items = <      
         item
         end>
+      onsetvalue = setkindev
       reffontheight = 14
     end
     object docupageeditbu: tstockglyphdatabutton
@@ -195,6 +203,21 @@ object docupagefo: tdocupagefo
       state = [as_invisible, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr]
       action = docupageeditact
       glyph = stg_ellipsesmall
+    end
+    object pageitems: titemedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      taborder = 4
+      visible = False
+      bounds_x = 241
+      bounds_y = 0
+      bounds_cx = 23
+      bounds_cy = 16
+      reffontheight = 14
     end
   end
   object tlayouter2: tlayouter

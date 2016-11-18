@@ -460,9 +460,11 @@ var
 
 procedure errormessage(const message: msestring);
 function layertoplotname(const layername: msestring): msestring;
-procedure docupagesetlength(var pages: docupagearty; const count: int32);
-function updatedocupageobj(var pages: docupagearty; const index: int32;
-                                         const kind: docupagekindty): tdocupage;
+//procedure docupagesetlength(var pages: docupagearty; const count: int32);
+//function updatedocupageobj(var pages: docupagearty; const index: int32;
+//                                         const kind: docupagekindty): tdocupage;
+procedure updatedocupageobj(var page: tdocupage;
+                                      const kind: docupagekindty);
 implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
@@ -484,13 +486,20 @@ begin
  end;
  setlength(pages,count);
 end;
-
+{
 function updatedocupageobj(var pages: docupagearty; const index: int32;
                                         const kind: docupagekindty): tdocupage;
 begin
  pages[index].free();
  result:= docupageclasses[kind].create();
  pages[index]:= result;
+end;
+}
+procedure updatedocupageobj(var page: tdocupage;
+                                      const kind: docupagekindty);
+begin
+ page.free();
+ page:= docupageclasses[kind].create();
 end;
 
 { tmainmo }

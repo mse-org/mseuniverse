@@ -61,6 +61,64 @@ const
  valueprefix = 'val_';
  dbrefreshtag = 72957329;
    
+procedure tglobalsettingsfo.asyncev(const sender: TObject; var atag: Integer);
+begin
+ if atag = dbrefreshtag then begin
+  mainmo.conn.connected:= false;
+  mainmo.refresh();
+ end;
+end;
+
+procedure tglobalsettingsfo.createev(const sender: TObject);
+var
+ i1: int32;
+ fo1: tproductionpagefo;
+ fo2: tdocupagefo;
+begin
+ globaloptions.loadvalues(self,valueprefix);
+ for i1:= 0 to high(globaloptions.prodplotdefines) do begin
+  fo1:= tproductionpagefo.create(nil);
+  with globaloptions.prodplotdefines[i1] do begin
+   fo1.caption:= h.name;
+   fo1.nameed.value:= h.name;
+   fo1.plotdired.value:= plotdir;
+   fo1.createplotziped.value:= createplotzipfile;
+   fo1.plotzipfilenameed.value:= plotzipfilename;
+   fo1.plotzipdired.value:= plotzipdir;
+   fo1.layered.griddata.asarray:= layernames;
+   fo1.plotfileed.griddata.asarray:= plotfiles;
+   fo1.plotformated.griddata.asarray:= plotformats;
+   prodplotstacktabs.add(itabpage(fo1));
+  end;
+ end;
+ for i1:= 0 to high(globaloptions.docudefines) do begin
+  with globaloptions.docudefines[i1] do begin
+   fo2:= tdocupagefo.create(pages);
+   fo2.caption:= h.name;
+   fo2.nameed.value:= h.name;
+   fo2.docudir:= docudir;
+   fo2.psfileed.value:= psfile;
+   fo2.pdffileed.value:= pdffile;
+  {
+   fo2.grid.rowcount:= length(pages);
+   for i2:= 0 to high(pages) do begin
+    with pages[i2] do begin
+     fo2.titleed[i2]:= title;
+     fo2.pagekinded[i2]:= kind;
+    end;
+   end;
+  }
+   {
+   fo2.titleed.griddata.asarray:= titles;
+   fo2.pagekinded.griddata.asarray:= pagekinds;
+   fo2.plots:= layerplots;
+   fo2.schematics:= schematicplots;
+   }
+   docusettabs.add(itabpage(fo2));
+  end;
+ end;
+end;
+
 procedure tglobalsettingsfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 var
@@ -91,79 +149,14 @@ begin
     docudir:= docudired.value;
     psfile:= psfileed.value;
     pdffile:= pdffileed.value;
-    docupagesetlength(pages,0);
+//    docupagesetlength(pages,0);
     pages:= docupages;
-    docupages:= nil; //no free items in destroy()
-   {
-    docupagesetlength(pages,grid.datarowhigh+1);
-    for i2:= 0 to high(pages) do begin
-     with updatedocupageobj(pages,i2,docupagekindty(pagekinded[i2]+1)) do begin
-      title:= titleed[i2];
-     end;
-    end;
-   }
+//    docupages:= nil; //no free items in destroy()
    end;
   end;
   globaloptions.docudefines:= ar2;
   if fdbchanged and mainmo.conn.connected then begin
    asyncevent(dbrefreshtag,[peo_first]);
-  end;
- end;
-end;
-
-procedure tglobalsettingsfo.asyncev(const sender: TObject; var atag: Integer);
-begin
- if atag = dbrefreshtag then begin
-  mainmo.conn.connected:= false;
-  mainmo.refresh();
- end;
-end;
-
-
-procedure tglobalsettingsfo.createev(const sender: TObject);
-var
- i1,i2: int32;
- fo1: tproductionpagefo;
- fo2: tdocupagefo;
-begin
- globaloptions.loadvalues(self,valueprefix);
- for i1:= 0 to high(globaloptions.prodplotdefines) do begin
-  fo1:= tproductionpagefo.create(nil);
-  with globaloptions.prodplotdefines[i1] do begin
-   fo1.caption:= h.name;
-   fo1.nameed.value:= h.name;
-   fo1.plotdired.value:= plotdir;
-   fo1.createplotziped.value:= createplotzipfile;
-   fo1.plotzipfilenameed.value:= plotzipfilename;
-   fo1.plotzipdired.value:= plotzipdir;
-   fo1.layered.griddata.asarray:= layernames;
-   fo1.plotfileed.griddata.asarray:= plotfiles;
-   fo1.plotformated.griddata.asarray:= plotformats;
-   prodplotstacktabs.add(itabpage(fo1));
-  end;
- end;
- for i1:= 0 to high(globaloptions.docudefines) do begin
-  with globaloptions.docudefines[i1] do begin
-   fo2:= tdocupagefo.create(pages);
-   fo2.caption:= h.name;
-   fo2.nameed.value:= h.name;
-   fo2.docudir:= docudir;
-   fo2.psfileed.value:= psfile;
-   fo2.pdffileed.value:= pdffile;
-   fo2.grid.rowcount:= length(pages);
-   for i2:= 0 to high(pages) do begin
-    with pages[i2] do begin
-     fo2.titleed[i2]:= title;
-     fo2.pagekinded[i2]:= kind;
-    end;
-   end;
-   {
-   fo2.titleed.griddata.asarray:= titles;
-   fo2.pagekinded.griddata.asarray:= pagekinds;
-   fo2.plots:= layerplots;
-   fo2.schematics:= schematicplots;
-   }
-   docusettabs.add(itabpage(fo2));
   end;
  end;
 end;
