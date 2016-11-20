@@ -1,0 +1,72 @@
+object plotsettingsfo: tplotsettingsfo
+  optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 228
+  bounds_cy = 47
+  optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+  moduleclassname = 'tsubform'
+  object val_mirrorx: tbooleanedit
+    frame.caption = 'Mirror horizontal'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      104
+      2
+    )
+    bounds_x = 0
+    bounds_y = 7
+    bounds_cx = 117
+    bounds_cy = 16
+  end
+  object val_mirrory: tbooleanedit
+    frame.caption = 'Mirror vertical'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      88
+      2
+    )
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 31
+    bounds_cx = 101
+    bounds_cy = 16
+  end
+  object val_rotate90: tbooleanedit
+    frame.caption = 'Rotate 90'#176
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      71
+      2
+    )
+    taborder = 2
+    bounds_x = 136
+    bounds_y = 7
+    bounds_cx = 84
+    bounds_cy = 16
+  end
+  object val_rotate180: tbooleanedit
+    frame.caption = 'Rotate 180'#176
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      79
+      2
+    )
+    taborder = 3
+    bounds_x = 136
+    bounds_y = 31
+    bounds_cx = 92
+    bounds_cy = 16
+  end
+end
