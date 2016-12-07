@@ -1,0 +1,66 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  statfile = tstatfile1
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 32
+    bounds_y = 24
+    bounds_cx = 50
+    bounds_cy = 22
+    state = [as_localcaption, as_localonexecute]
+    caption = 'run'
+    onexecute = runev
+  end
+  object counted: tintegeredit
+    frame.caption = 'count'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 88
+    bounds_y = 5
+    bounds_cy = 41
+    statfile = tstatfile1
+    reffontheight = 16
+  end
+  object leveled: tintegeredit
+    frame.caption = 'max level'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 192
+    bounds_y = 5
+    bounds_cy = 41
+    statfile = tstatfile1
+    value = 1
+    min = 1
+    reffontheight = 16
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 16
+    top = 56
+  end
+end
