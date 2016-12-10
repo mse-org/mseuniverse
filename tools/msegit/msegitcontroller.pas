@@ -69,7 +69,7 @@ type
    fdirhash: tpointermsestringhashdatalist;
    ffiledir: msestring;
   protected
-   class function getrecordsize(): int32 override;
+   function getrecordsize(): int32 override;
   public
    constructor create;
    destructor destroy; override;
@@ -113,7 +113,7 @@ type
   private
    fdirpath: filenamety;
   protected
-   class function getrecordsize(): int32 override;
+   function getrecordsize(): int32 override;
    procedure finalizeitem(const aitem: phashdataty); override;
   public
 //   constructor create;
@@ -2040,7 +2040,7 @@ begin
  inherited;
 end;
 
-class function tgitstatecache.getrecordsize(): int32;
+function tgitstatecache.getrecordsize(): int32;
 begin
  result:= sizeof(gitstatehashdataty);
 end;
@@ -2193,7 +2193,7 @@ begin
  inherited create(sizeof(gitfiledataty));
 end;
 }
-class function tgitfilecache.getrecordsize(): int32;
+function tgitfilecache.getrecordsize(): int32;
 begin
  result:= sizeof(gitfilehashdataty);
 end;
