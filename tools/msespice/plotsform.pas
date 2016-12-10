@@ -51,7 +51,7 @@ var
 
 implementation
 uses
- plotsform_mfm,plotpage;
+ plotsform_mfm,plotpage,mseformatstr;
 const
  plotssection = 'plots';
  kindtag = 'kind';
@@ -169,7 +169,7 @@ begin
       if treeed[int3] is tchartnode then begin
        with tchartnode(treeed[int3]) do begin
         if (int2 <= high(aplots)) and (plot <> nil) then begin
-         loaddata(aplots[int2],plot.getxvalue,int4 > 0,destindex[int3]);
+         loaddata(aplots[int2],msestring(plot.getxvalue),int4 > 0,destindex[int3]);
         end
         else begin
          chart.clear(count = 0);
@@ -194,7 +194,7 @@ end;
 function tplotsfo.getchartcaption: msestring;
 begin
  inc(fchartnum);
- result:= 'Chart '+inttostr(fchartnum);
+ result:= 'Chart '+inttostrmse(fchartnum);
 end;
 
 procedure tplotsfo.updatechartsettings;

@@ -354,7 +354,7 @@ end;
 procedure tchartfo.updatechartsettings;
 begin
  with mainmo.globaloptions do begin
-  font.name:= chartfontname;
+  font.name:= string(chartfontname);
   font.height:= chartfontheight;
  end;
 end;
@@ -467,8 +467,8 @@ procedure tchartfo.markerhintexe(const sender: tcustomchartedit;
 var
  markers1: tdialmarkers;
  rea1,rea2: realty;
- mstr1: string;
- mstr2: string;
+ mstr1: msestring;
+ mstr2: msestring;
 
 begin
  if isy then begin

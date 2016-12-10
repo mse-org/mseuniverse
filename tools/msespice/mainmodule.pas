@@ -516,7 +516,7 @@ var
 
 var
  int1,int2: integer;
- str1: string;
+ str1: msestring;
  lstr1: lstringty;
  sk1: stepkindty;
  ar1: stringarty;
@@ -525,13 +525,13 @@ begin
  fspicefile:= replacefileext(projectmainstat.filename,'spi.tmp');
  frawfile:= replacefileext(projectmainstat.filename,'raw.tmp');
  deletefile(frawfile);
- writestatement:= ' write '+tosysfilepath(frawfile,true);
+ writestatement:= ' write '+string(tosysfilepath(frawfile,true));
                                        //'write' must be lowercase!
  try
   stream2:= ttextstream.create(fspicefile,fm_create);
   for int1:= 0 to netlistfo.grid.rowhigh do begin
    str1:= netlistfo.edit[int1];
-   nextword(str1,lstr1);
+   nextword(string(str1),lstr1);
    if lstringicomp(lstr1,'.END') = 0 then begin
     break;
    end;
@@ -540,7 +540,7 @@ begin
   with paramfo do begin
    for int1:= 0 to grid.datarowhigh do begin
     stream2.writeln('.param '+paramname[int1]+'='+
-                             spicelines(paramexpression[int1]));
+                             msestring(spicelines(paramexpression[int1])));
    end;
   end;
 
@@ -581,17 +581,19 @@ begin
       stream2.writeln(' set curplot = '+varplotname);
 //      stream2.writeln(str1);
       for int2:= 0 to stepgrid.datarowhigh do begin
-       stream2.writeln(' let b'+inttostr(int2)+' = '+stepdest[int2]);
+       stream2.writeln(' let b'+inttostr(int2)+' = '+string(stepdest[int2]));
                                      //backup original values
        sk1:= stepkindty(stepkind[int2]);
        if (stepcount.value > 0) and (sk1 <= sk_log) then begin
         if sk1 = sk_log then begin
          stream2.writeln(' let a'+inttostr(int2)+' = '+
-            doubletostring(ln(stepstop[int2]/stepstart[int2])/stepcount.value));
+            string(doubletostring(ln(stepstop[int2]/stepstart[int2])/
+                                                          stepcount.value)));
         end
         else begin //lin
          stream2.writeln(' let a'+inttostr(int2)+' = '+
-            doubletostring((stepstop[int2]-stepstart[int2])/stepcount.value));
+            string(doubletostring((stepstop[int2]-
+                                       stepstart[int2])/stepcount.value)));
         end;
        end;
       end;
@@ -602,14 +604,14 @@ begin
        case sk1 of
         sk_gauss,sk_agauss: begin
          stream2.writeln('  alter '+stepdest[int2]+' = '+
-           stepfunctions[sk1]+'('+
+           msestring(stepfunctions[sk1])+'('+
                            doubletostring(stepstart[int2])+','+
                            doubletostring(stepstop[int2])+','+
                            doubletostring(stepsigma[int2])+')');
         end;
         sk_unif,sk_aunif,sk_limit: begin
          stream2.writeln('  alter '+stepdest[int2]+' = '+
-           stepfunctions[sk1]+'('+
+           msestring(stepfunctions[sk1])+'('+
                            doubletostring(stepstart[int2])+','+
                            doubletostring(stepstop[int2])+')');
         end;
@@ -622,12 +624,12 @@ begin
           if stepkindty(stepkind[int2]) = sk_log then begin
            stream2.writeln('  alter '+stepdest[int2]+' = '+
                doubletostring(stepstart[int2])+
-               '*exp('+varplotname+'.n*'+varplotname+'.a'+inttostr(int2)+')');
+               '*exp('+varplotname+'.n*'+varplotname+'.a'+inttostrmse(int2)+')');
           end
           else begin //lin
            stream2.writeln('  alter '+stepdest[int2]+' = '+
                         doubletostring(stepstart[int2])+
-                        '+'+varplotname+'.n*'+varplotname+'.a'+inttostr(int2));
+                        '+'+varplotname+'.n*'+varplotname+'.a'+inttostrmse(int2));
           end;
          end;
         end;
@@ -636,13 +638,13 @@ begin
       stream2.writeln('  '+getplotstatement);
       stream2.writeln('  let '+varplotname+'.n = '+varplotname+'.n + 1');
       for int2:= 1 to high(expressions) do begin
-       stream2.writeln('  let '+exptag(int2)+'='+expressions[int2]);
+       stream2.writeln('  let '+exptag(int2)+'='+string(expressions[int2]));
       end;
       dowrite(ar1,' ');
       stream2.writeln(' end');
       for int2:= 0 to stepgrid.datarowhigh do begin //restore original values
        stream2.writeln(' alter '+stepdest[int2]+' = '+
-                                    varplotname+'.b'+inttostr(int2));
+                                    varplotname+'.b'+inttostrmse(int2));
       end;
      end
      else begin
@@ -666,7 +668,7 @@ begin
  consolefo.term.addline('> '+str1);
  consolefo.beginsimu;
  try
-  consolefo.term.execprog(str1);
+  consolefo.term.execprog(msestring(str1));
  except
   application.handleexception;
   consolefo.endsimu;
@@ -735,7 +737,7 @@ begin
   stockobjects.glyphs.getimage(int1,bmp1);
   tracesymbols.addimage(bmp1);
   tracesymbolnames[int2]:= 
-                    copy(getenumname(typeinfo(stockglyphty),int1),5,bigint);
+           msestring(copy(getenumname(typeinfo(stockglyphty),int1),5,bigint));
   inc(int2);  
  end;
  bmp1.free;
@@ -767,9 +769,9 @@ begin
  end
  else begin
   ar1:= breaklines(atext);
-  result:= ar1[0];
+  result:= string(ar1[0]);
   for int1:= 1 to high(ar1) do begin
-   result:= result + lineend + '+ '+ar1[int1];
+   result:= result + lineend + '+ '+string(ar1[int1]);
   end;
  end;
 end;
