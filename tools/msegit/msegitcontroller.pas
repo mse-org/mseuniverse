@@ -47,36 +47,46 @@ type
   statey: gitstatesty;
  end;
  pgitstatedataty = ^gitstatedataty;
+ 
  gitstateinfoty = record
-  filename: filenamety;
+  filename: filenamety; //-> msestringdataty.key
   data: gitstatedataty;
  end;
  pgitstateinfoty = ^gitstateinfoty;
  gitstateinfoarty = array of gitstateinfoty;
 
+ gitstatehashdataty = record
+  header: hashheaderty;
+  data: gitstateinfoty;
+ end;
+ pgitstatehashdataty = ^gitstatehashdataty;
+
  gitstateiteratorprocty = procedure(var aitem: gitstateinfoty) of object; 
+ 
  tgitstatecache = class(tmsestringhashdatalist)
   private
    freporoot: filenamety;
    fdirhash: tpointermsestringhashdatalist;
    ffiledir: msestring;
+  protected
+   class function getrecordsize(): int32 override;
   public
    constructor create;
    destructor destroy; override;
    function getrepodir(const apath: filenamety): filenamety;
                 //returns apath - reporoot
-   function add(const aname: msestring): pgitstatedataty;
-   function addunique(const akey: msestring): pgitstatedataty;
-   function find(const aname: msestring): pgitstatedataty;
-   function first: pgitstateinfoty;
-   function next: pgitstateinfoty;
+   function add(const aname: msestring): pgitstatehashdataty;
+   function addunique(const akey: msestring): pgitstatehashdataty;
+   function find(const aname: msestring): pgitstatehashdataty;
+   function first: pgitstatehashdataty;
+   function next: pgitstatehashdataty;
    procedure iterate(const include: array of gitstatedataty;
                    const aiterator: gitstateiteratorprocty); overload;
    procedure iterate(const adir: msestring;
                             const include: array of gitstatedataty;
                   const aiterator: gitstateiteratorprocty); overload;
-   procedure iterate(const adir: msestring;
-                  const include: array of gitstatedataty); overload;
+//   procedure iterate(const adir: msestring;
+//                  const include: array of gitstatedataty); overload;
    property reporoot: filenamety read freporoot write freporoot;
  end;
 
@@ -87,22 +97,29 @@ type
  end;
  pgitfiledataty = ^gitfiledataty;
  gitfileinfoty = record
-  dirpath: filenamety; //key
+  dirpath: filenamety; //-> msestringdataty.key
   data: gitfiledataty;
  end;
+ 
+ gitfilehashdataty = record
+  header: hashheaderty;
+  data: gitfileinfoty;
+ end;
+ pgitfilehashdataty = ^gitfilehashdataty;
 
- gitfileiteratorprocty = procedure(var aitem: gitfileinfoty) of object;
+ gitfileiteratorprocty = procedure(const aitem: pgitfilehashdataty) of object;
  
  tgitfilecache = class(tmsestringhashdatalist)
   private
    fdirpath: filenamety;
   protected
-   procedure finalizeitem(var aitemdata); override;
+   class function getrecordsize(): int32 override;
+   procedure finalizeitem(const aitem: phashdataty); override;
   public
-   constructor create;
-   function add(const adirpath: filenamety): pgitfiledataty; overload;
-   function add(var ainfo: gitfileinfoty): pgitfiledataty; overload;
-   function add(const astatus: gitstateinfoty): pgitfiledataty; overload;
+//   constructor create;
+   function add(const adirpath: filenamety): pgitfilehashdataty; overload;
+   function add(var ainfo: gitfileinfoty): pgitfilehashdataty; overload;
+   function add(const astatus: gitstateinfoty): pgitfilehashdataty; overload;
    procedure iterate(const akey: msestring;
                      const aiterator: gitfileiteratorprocty); overload;
  end;
@@ -753,7 +770,7 @@ begin
  if (ffilecache <> nil) and (gist_added in astatus.data.statex) then begin
   ffilecache.add(astatus);
  end;
- with fstatecache.addunique(astatus.filename)^ do begin
+ with fstatecache.addunique(astatus.filename)^.data.data do begin
   statex:= statex + astatus.data.statex;
   statey:= statey + astatus.data.statey;
   if statey * [gist_pushpending,gist_mergepending] = 
@@ -815,7 +832,7 @@ var
  str2: msestring;
  int1: integer;
  po1,po2: pmsechar;
- po3: pgitstatedataty;
+ po3: pgitstatehashdataty;
 // fna1: filenamety;
  repodir: filenamety;
  info1: gitfileinfoty;
@@ -876,8 +893,8 @@ begin
      move(po1^,pointer(data.stateinfo.filename)^,int1*sizeof(msechar));
      po3:= astate.find(data.stateinfo.filename);
      if po3 <> nil then begin
-      data.stateinfo.data.statex:= po3^.statex;
-      data.stateinfo.data.statey:= po3^.statey;
+      data.stateinfo.data.statex:= po3^.data.data.statex;
+      data.stateinfo.data.statey:= po3^.data.data.statey;
      end
      else begin
       data.stateinfo.data.statex:= [];
@@ -915,8 +932,9 @@ begin
      data.stateinfo.data.statey:= [gist_untracked];
      po3:= astate.find(data.stateinfo.filename);
     end;     
-    if (po3 = nil) or (po3^.statex = [gist_untracked]) and
-            (gist_untracked in po3^.statey) then begin //no stashed untracking
+    if (po3 = nil) or (po3^.data.data.statex = [gist_untracked]) and
+                     (gist_untracked in po3^.data.data.statey) then begin 
+                                              //no stashed untracking
      callback(info1);
     end;
     po1:= po2+1;
@@ -2011,7 +2029,8 @@ end;
 
 constructor tgitstatecache.create;
 begin
- inherited create(sizeof(gitstatedataty));
+// inherited create(sizeof(gitstatedataty));
+ inherited create();
  fdirhash:= tpointermsestringhashdatalist.create;
 end;
 
@@ -2021,22 +2040,27 @@ begin
  inherited;
 end;
 
-function tgitstatecache.add(const aname: msestring): pgitstatedataty;
+class function tgitstatecache.getrecordsize(): int32;
+begin
+ result:= sizeof(gitstatehashdataty);
+end;
+
+function tgitstatecache.add(const aname: msestring): pgitstatehashdataty;
 var
  mstr1: msestring;
 begin
- result:= inherited add(aname);
+ result:= pgitstatehashdataty(inherited add(aname));
  mstr1:= filedir(aname);
  if mstr1 = ffiledir then begin
   mstr1:= ffiledir; //reuse memory
  end;
  ffiledir:= mstr1;
- fdirhash.add(mstr1,
-         pointer(ptruint(pchar(result)-pchar(data)-sizeof(msestringdataty))));
+ fdirhash.add(mstr1,pointer(ptrint(@result^.data-fdata)));
+//         pointer(ptruint(pchar(result)-pchar(data)-sizeof(msestringdataty))));
          //pgitstateinfoty
 end;
 
-function tgitstatecache.addunique(const akey: msestring): pgitstatedataty;
+function tgitstatecache.addunique(const akey: msestring): pgitstatehashdataty;
 begin
  result:= find(akey);
  if result = nil then begin
@@ -2044,19 +2068,19 @@ begin
  end;
 end;
 
-function tgitstatecache.find(const aname: msestring): pgitstatedataty;
+function tgitstatecache.find(const aname: msestring): pgitstatehashdataty;
 begin
- result:= inherited find(aname);
+ result:= pgitstatehashdataty(inherited find(aname));
 end;
 
-function tgitstatecache.first: pgitstateinfoty;
+function tgitstatecache.first: pgitstatehashdataty;
 begin
- result:= pointer(inherited first);
+ result:= pgitstatehashdataty(inherited first);
 end;
 
-function tgitstatecache.next: pgitstateinfoty;
+function tgitstatecache.next: pgitstatehashdataty;
 begin
- result:= pointer(inherited next);
+ result:= pgitstatehashdataty(inherited next);
 end;
 
 function tgitstatecache.getrepodir(const apath: filenamety): filenamety;
@@ -2070,24 +2094,24 @@ end;
 procedure tgitstatecache.iterate(const include: array of gitstatedataty;
                                       const aiterator: gitstateiteratorprocty);
 var
- po1: pgitstateinfoty;
+ po1: pgitstatehashdataty;
  puint1: ptruint;
  int1: integer;
 begin
  if count > 0 then begin
   puint1:= assignedfirst;
   while puint1 <> 0 do begin
-   po1:= pgitstateinfoty(pchar(data) + puint1 + sizeof(hashheaderty));
+   po1:= pgitstatehashdataty(pchar(data) + puint1);
    for int1:= 0 to high(include) do begin
     with include[int1] do begin
-     if (po1^.data.statex*statex = statex) and 
-                             (po1^.data.statey*statey = statey) then begin
-      aiterator(po1^);
+     if (po1^.data.data.statex*statex = statex) and 
+                             (po1^.data.data.statey*statey = statey) then begin
+      aiterator(po1^.data);
       break;
      end;
     end;
    end;
-   inc(puint1,phashdataty(pchar(po1)-sizeof(hashheaderty))^.header.nextlist);
+   inc(puint1,po1^.header.nextlist);
   end;  
  end;
 end;
@@ -2111,7 +2135,7 @@ begin
 {$warnings on}
   ha1:= hashkey(adir);
   while true do begin
-   if (po1^.header.hash = ha1) and checkkey(adir,po1^.data) then begin
+   if (po1^.header.hash = ha1) and checkkey(adir,phashdataty(po1)) then begin
     po2:= pointer(pchar(data) + ptruint(po1^.data.data));
     for int1:= 0 to high(include) do begin
      with include[int1] do begin
@@ -2131,12 +2155,12 @@ begin
   end;
  end;
 end;
-
+{
 procedure tgitstatecache.iterate(const adir: msestring;
                const include: array of gitstatedataty);
 begin
 end;
-
+}
 { tgitfileitem }
 
 constructor tgitfileitem.create;
@@ -2163,30 +2187,35 @@ begin
 end;
 
 { tgitfilecache }
-
+{
 constructor tgitfilecache.create;
 begin
  inherited create(sizeof(gitfiledataty));
 end;
-
-procedure tgitfilecache.finalizeitem(var aitemdata);
+}
+class function tgitfilecache.getrecordsize(): int32;
 begin
- finalize(gitfileinfoty(aitemdata).data);
+ result:= sizeof(gitfilehashdataty);
+end;
+
+procedure tgitfilecache.finalizeitem(const aitem: phashdataty);
+begin
+ finalize(pgitfilehashdataty(aitem)^.data);
  inherited;
 end;
 
-function tgitfilecache.add(const adirpath: filenamety): pgitfiledataty;
+function tgitfilecache.add(const adirpath: filenamety): pgitfilehashdataty;
 begin
- result:= pgitfiledataty(inherited add(adirpath));
+ result:= pgitfilehashdataty(inherited add(adirpath));
 end;
 
 procedure tgitfilecache.iterate(const akey: msestring;
-               const aiterator: gitfileiteratorprocty);
+                               const aiterator: gitfileiteratorprocty);
 begin
  inherited iterate(akey,msestringiteratorprocty(aiterator));
 end;
 
-function tgitfilecache.add(var ainfo: gitfileinfoty): pgitfiledataty;
+function tgitfilecache.add(var ainfo: gitfileinfoty): pgitfilehashdataty;
 var
  dir,nam: msestring; 
 begin
@@ -2200,11 +2229,11 @@ begin
   end;
   data.stateinfo.filename:= nam;
   result:= add(dir);
-  result^:= data;
+  result^.data.data:= data;
  end;
 end;
 
-function tgitfilecache.add(const astatus: gitstateinfoty): pgitfiledataty;
+function tgitfilecache.add(const astatus: gitstateinfoty): pgitfilehashdataty;
 
 var
  dir,nam: msestring; 
@@ -2217,7 +2246,7 @@ begin
   fdirpath:= dir;
  end;
  result:= add(dir);
- with result^.stateinfo do begin
+ with result^.data.data.stateinfo do begin
   filename:= nam;
   data:= astatus.data;
  end;

@@ -14,13 +14,13 @@ object mainfo: tmainfo
   statfile = tstatfile1
   moduleclassname = 'tmainform'
   object tbutton1: tbutton
-    bounds_x = 32
+    bounds_x = 8
     bounds_y = 24
-    bounds_cx = 50
+    bounds_cx = 74
     bounds_cy = 22
     state = [as_localcaption, as_localonexecute]
-    caption = 'run'
-    onexecute = runev
+    caption = 'runstore'
+    onexecute = runstoreev
   end
   object counted: tintegeredit
     frame.caption = 'count'
@@ -58,9 +58,19 @@ object mainfo: tmainfo
     min = 1
     reffontheight = 16
   end
+  object tbutton2: tbutton
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 64
+    bounds_cx = 74
+    bounds_cy = 22
+    state = [as_localcaption, as_localonexecute]
+    caption = 'runtree'
+    onexecute = runtreeev
+  end
   object tstatfile1: tstatfile
     filename = 'status.sta'
-    left = 16
-    top = 56
+    left = 304
+    top = 16
   end
 end
