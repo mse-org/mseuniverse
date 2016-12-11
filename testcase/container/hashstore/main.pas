@@ -36,7 +36,7 @@ type
  
  ttesthashstore = class(thashstore)
   protected
-   class function getrecordsize(): int32 override;
+   function getrecordsize(): int32 override;
   public
 //   constructor create();
    function add(const idents: identvecty;
@@ -175,7 +175,9 @@ type
 
  ttesthashtree = class(thashtree)
   protected
-   class function getrecordsize(): int32 override;
+   function getrecordsize(): int32 override;
+   procedure dump(const aitem: ptesttreehashdataty; const adata: pointer);
+   procedure inititem(const aitem: phashdataty) override;
   public
 //   constructor create();
    function add(const idents: identvecty;
@@ -194,6 +196,7 @@ var
  store: ttesthashtree;
  p1: ptesttreehashdataty;
  o1,o2: hashoffsetty;
+ str1: string;
 label
  errorlab;
 begin
@@ -295,6 +298,10 @@ begin
   goto errorlab;
  end;
  writeln('OK4');
+ writeln('root');
+ str1:= ' ';
+ store.iteratechildren(store.root(o1),
+                  treehashelementiteratorprocty(@store.dump),@str1);
 errorlab:
  store.destroy();
 end;
@@ -306,7 +313,7 @@ begin
  inherited create(sizeof(testdataty));
 end;
 }
-class function ttesthashstore.getrecordsize(): int32;
+function ttesthashstore.getrecordsize(): int32;
 begin
  result:= sizeof(testhashdataty);
 end;
@@ -339,9 +346,29 @@ begin
  inherited create(sizeof(testdataty));
 end;
 }
-class function ttesthashtree.getrecordsize(): int32;
+function ttesthashtree.getrecordsize(): int32;
 begin
  result:= sizeof(testtreehashdataty);
+end;
+
+procedure ttesthashtree.dump(const aitem: ptesttreehashdataty;
+               const adata: pointer);
+begin
+ writeln(pstring(adata)^,aitem^.data.data,
+             ' l:',aitem^.header.data.header.element.parentlevel,
+             ' r:',aitem^.header.data.header.element.refcount,
+             ' c:',aitem^.header.data.header.children);
+
+ pstring(adata)^:= pstring(adata)^+' ';
+ iteratechildren(ptreeelementhashdataty(aitem),
+                         treehashelementiteratorprocty(@dump),adata);
+ setlength(pstring(adata)^,length(pstring(adata)^)-1);
+end;
+
+procedure ttesthashtree.inititem(const aitem: phashdataty);
+begin
+ inherited;
+ ptesttreehashdataty(aitem)^.data.data:= -123;
 end;
 {
 constructor ttesthashtree.create();
