@@ -2036,20 +2036,25 @@ object mainmo: tmainmo
     top = 64
   end
   object python: tpythonscript
-    scripts.count = 2
+    scripts.count = 3
     scripts.items = <    
       item
         name = 'plotfile'
         script.data = (
           'import sys'
-          '#import pcbnew'
           'import plotitem'
           'plotitem.plotitem(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])'
           '#pcbfilename, outputdir, format, layer'
           ''
-          '#boardfilename = sys.argv[1]'
-          '#board = LoadBoard(filename)'
-          '#print boardfilename'
+        )
+      end    
+      item
+        name = 'drillfile'
+        script.data = (
+          'import sys'
+          'import drillfile'
+          'drillfile.drillfile(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])'
+          '#pcbfilename, outputfile, format, layer'
         )
       end    
       item

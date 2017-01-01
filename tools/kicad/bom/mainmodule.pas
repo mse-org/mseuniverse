@@ -49,9 +49,13 @@ type
     pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
     pk_b_cu,
     pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
-    pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
+    pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user,
+    pk_drillmap
  );
+const
+ drillplots = [pk_drillmap];
 
+type
  namedinfoty = record
   name: msestring;
  end;
@@ -447,12 +451,18 @@ type
    function plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
                        const alayer: plotkindty; const alast: boolean): boolean;
+   function drillfile(const aboard: filenamety; const adrillfile: filenamety;
+                       const aformat: fileformatty;
+                       const alayer: plotkindty; const alast: boolean): boolean;
    function createzipfile(const aarchivename: filenamety;
           const basedir: filenamety; const afiles: array of filenamety;
           const alast : boolean): boolean;
    procedure showpsfile(const afile: filenamety; const cancontinue: boolean);
    procedure ps2pdf(const source,dest: msestring);
 
+   procedure createdocuset();
+   procedure createprodfiles();
+   
    property plotkinds: msestringarty read fplotkinds;
    property layercodes: msestringarty read flayercodes;
    property fileformats: msestringarty read ffileformats;
@@ -584,7 +594,9 @@ const
 //  pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
     'B.Mmask','B.SilkS','B.Paste','B.Adhes','B.Fab','B.CrtYd',
 //  pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
-    'Edge.Cuts','Margin','Eco1.User','Eco2.User','Cmts.User','Dwgs.User'
+    'Edge.Cuts','Margin','Eco1.User','Eco2.User','Cmts.User','Dwgs.User',
+//  pk_drillmap
+    'Drill.Map'
  );
  layercodes: array[plotkindty] of msestring = (
 //  pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
@@ -606,7 +618,9 @@ const
 //  pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
     'B_Mmask','B_SilkS','B_Paste','B_Adhes','B_Fab','B_CrtYd',
 //  pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
-    'Edge_Cuts','Margin','Eco1_User','Eco2_User','Cmts_User','Dwgs_User'
+    'Edge_Cuts','Margin','Eco1_User','Eco2_User','Cmts_User','Dwgs_User',
+//  pk_drillmap
+    'Drill_Map'
  );
 
 const
@@ -1580,7 +1594,8 @@ begin
  else begin
   dir1:= filepath(aplotdir,fk_dir);
  end;
- result:= execpy('plotfile',[aboard,dir1,mainmodule.fileformatcodes[aformat],
+ result:= execpy('plotfile',
+      [aboard,tosysfilepath(dir1),mainmodule.fileformatcodes[aformat],
                                           mainmodule.layercodes[alayer]],alast);
  s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer]+'.'+
                                        mainmodule.fileformatexts[aformat];
@@ -1594,6 +1609,15 @@ begin
  else begin
   aplotfile:= dir1+s1;
  end;
+end;
+
+function tmainmo.drillfile(const aboard: filenamety;
+               const adrillfile: filenamety; const aformat: fileformatty;
+               const alayer: plotkindty; const alast: boolean): boolean;
+begin
+ result:= execpy('drillfile',
+      [aboard,tosysfilepath(adrillfile),mainmodule.fileformatcodes[aformat],
+                                          mainmodule.layercodes[alayer]],alast);
 end;
 
 function tmainmo.createzipfile(const aarchivename: filenamety;
@@ -1640,7 +1664,7 @@ begin
  errormessage('Ivalid plotkind "'+aname+'"');
 end;
 
-procedure tmainmo.prodfilesev(const sender: TObject);
+procedure tmainmo.createprodfiles();
 var
  i1{,i2}: int32;
  board1,boardname1,plotdir1: filenamety;
@@ -1685,6 +1709,11 @@ begin
  end;
 end;
 
+procedure tmainmo.prodfilesev(const sender: TObject);
+begin
+ createprodfiles();
+end;
+
 procedure tmainmo.showpsfile(const afile: filenamety; 
                                            const cancontinue: boolean);
 var
@@ -1716,7 +1745,7 @@ begin
  end;
 end;
 
-procedure tmainmo.docusetev(const sender: TObject);
+procedure tmainmo.createdocuset();
 var
  tmpf: msestring;
  tmpfile: filenamety;
@@ -1726,7 +1755,7 @@ var
  begin
   inc(tmpfileindex);
   tmpfile:= tmpf+'/f'+inttostrmse(tmpfileindex);
- end;
+ end;//inctempfile
 
 var
  info1: pdocuinfoty;
@@ -1756,7 +1785,7 @@ begin
   rep:= tdocure.create(nil);
   rep.clear(); //remove defaultpage
   for i1:= 0 to high(info1^.pages) do begin
-   pa1:= nil;
+   pac1:= nil;
    case info1^.pages[i1].pagekind of
     dpk_layerplot: begin
      inctempfile();
@@ -1770,20 +1799,25 @@ begin
        break;
       end;
       s1:= tmpfile;
-      if not plotfile(boardfile1,tmpf,s1,ff_postscript,pk1,false) then begin
-       error1:= true;
-       break;
+      if pk1 in drillplots then begin
+       if not drillfile(boardfile1,tmpf+'/'+s1,
+                              ff_postscript,pk1,false) then begin
+        error1:= true;
+        break;
+       end;
+      end
+      else begin
+       if not plotfile(boardfile1,tmpf,s1,ff_postscript,pk1,false) then begin
+        error1:= true;
+        break;
+       end;
       end;
       pac1:= tdocupsreppa;
-      {
-      with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
-       ps.psfile:= s1;
-      end;
-      }
      end;
     end;
     dpk_schematic: begin
      with tschematicplotpage(info1^.pages[i1]) do begin
+      pac1:= tdocupsreppa;
       s1:= psfile;
      {
       with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
@@ -1837,6 +1871,11 @@ begin
   endpy();
   rep.destroy();
  end;
+end;
+
+procedure tmainmo.docusetev(const sender: TObject);
+begin
+ createdocuset();
 end;
 
 { tprojectoptions }
