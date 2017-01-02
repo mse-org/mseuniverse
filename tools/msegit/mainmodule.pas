@@ -243,7 +243,7 @@ type
   protected
    fitems: refsitemarty;
    fitemscount: integer;
-   procedure listitems(var item: objectmsestringdataty);
+   procedure listitems(const aitem: pobjectmsestringhashdataty);
   public
    constructor create;
    destructor destroy; override;
@@ -325,9 +325,9 @@ type
    ftmpfiles: filenamearty;
    fshowlocal: boolean;
    procedure setrepo(avalue: filenamety); //no const!
-   procedure addfiles(var aitem: gitfileinfoty);
+   procedure addfiles(const aitem: pgitfilehashdataty);
    procedure setactiveremote(const avalue: msestring);
-   procedure updatecommit(var aitem: gitfileinfoty);
+   procedure updatecommit(const aitem: pgitfilehashdataty);
    function getactiveremotebranch(const aremote: msestring): msestring;
    function getactiveremotebranches(const aremote: msestring):
                                                 remotebranchinfoarty;
@@ -1032,12 +1032,12 @@ begin
  aobject:= fopt;
 end;
 
-procedure tmainmo.addfiles(var aitem: gitfileinfoty);
+procedure tmainmo.addfiles(const aitem: pgitfilehashdataty);
 var
  n1: tmsegitfileitem;
 // int1: integer;
 begin
- with aitem.data.stateinfo do begin 
+ with aitem^.data.data.stateinfo do begin 
   if filename <> '' then begin
    n1:= tmsegitfileitem.create;
  {$ifdef FPC}
@@ -1301,10 +1301,10 @@ begin
  end;
 end;
 
-procedure tmainmo.updatecommit(var aitem: gitfileinfoty);
+procedure tmainmo.updatecommit(const aitem: pgitfilehashdataty);
 begin
- if aitem.data.stateinfo.filename = fnam then begin
-  updatecommitinfo(fkind,aitem.data.stateinfo.data);
+ if aitem^.data.data.stateinfo.filename = fnam then begin
+  updatecommitinfo(fkind,aitem^.data.data.stateinfo.data);
  end;
 end;
 
@@ -1312,13 +1312,13 @@ procedure tmainmo.updateoperation(const aoperation: commitkindty;
                const afiles: filenamearty; const refreshed: boolean = true);
 var
  int1: integer;
- po1: pgitstatedataty;
+ po1: pgitstatehashdataty;
  dir: filenamety;
 begin
  for int1:= 0 to high(afiles) do begin
   po1:= fgitstate.find(afiles[int1]);
   if po1 <> nil then begin
-   updatecommitinfo(aoperation,po1^);
+   updatecommitinfo(aoperation,po1^.data.data);
   end;
   fkind:= aoperation;
   splitfilepath(afiles[int1],dir,fnam);
@@ -2833,7 +2833,7 @@ procedure tgitdirtreerootnode.updatestate(const areporoot,arepo: filenamety;
 var
  lstr1: lmsestringty;
  int1,int2: integer;
- po1: pgitstateinfoty;
+ po1: pgitstatehashdataty;
  
  procedure checkuntracked(const anode: tgitdirtreenode; const apath: filenamety);
  var
@@ -2875,9 +2875,9 @@ begin
  checkuntracked(self,astate.getrepodir(arepo));
  for int1:= astate.count - 1 downto 0 do begin
   po1:= astate.next;
-  lstr1.po:= pmsechar(po1^.filename)+int2;
-  lstr1.len:= length(po1^.filename)-int2;
-  setstate(po1^,lstr1);
+  lstr1.po:= pmsechar(po1^.data.filename)+int2;
+  lstr1.len:= length(po1^.data.filename)-int2;
+  setstate(po1^.data,lstr1);
  end;
 end;
 
@@ -2888,7 +2888,7 @@ var
  info: fileinfoty;
  n1: tmsegitfileitem;
  int1: integer;
- po1: pgitstatedataty;
+ po1: pgitstatehashdataty;
  pref: filenamety;
 begin
  result:= nil;
@@ -2906,8 +2906,8 @@ begin
     po1:= gitstate.find(pref+info.name);
     if po1 <> nil then begin
      with n1 do begin
-      fgitstate.statex:= po1^.statex;
-      fgitstate.statey:= po1^.statey;
+      fgitstate.statex:= po1^.data.data.statex;
+      fgitstate.statey:= po1^.data.data.statey;
       fimagenr:= statetofileicon(fgitstate);
      {
       int2:= defaultfileicon;
@@ -3067,9 +3067,9 @@ begin
  fnamelist.add(n1);
 end;
 
-procedure trefsitemlist.listitems(var item: objectmsestringdataty);
+procedure trefsitemlist.listitems(const aitem: pobjectmsestringhashdataty);
 begin
- additem(pointerarty(fitems),item.data,fitemscount);
+ additem(pointerarty(fitems),aitem^.data.data,fitemscount);
 end;
 
 function trefsitemlist.getitemsbycommit(const acommit: msestring): refsitemarty;
