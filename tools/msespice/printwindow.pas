@@ -114,11 +114,12 @@ begin
    if fna3 = '' then begin
     fna3:= 'msespice.pdf';
    end;
-   str1:= tosysfilepath(fna2,true)+
-         ' -sPAPERSIZE='+lowercase(pasize.pagesizename)+' '+fna1+' '+fna3;
-   int1:= execwaitmse(str1);
+   str1:= string(tosysfilepath(fna2,true)+
+         ' -sPAPERSIZE='+lowercase(pasize.pagesizename)+' '+fna1+' '+fna3);
+   int1:= execwaitmse(msestring(str1));
    if int1 <> 0 then begin
-    showmessage('ps2pdf error '+inttostr(int1)+' with command'+lineend+str1,
+    showmessage(msestring(
+                 'ps2pdf error '+inttostr(int1)+' with command'+lineend+str1),
                                                                       'ERROR');
    end;
   finally

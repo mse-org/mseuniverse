@@ -182,7 +182,7 @@ type
 implementation
 uses
  plotpage_mfm,dcplot,acplot,transplot,mseeditglob,msechart,plotsform,
- msearrayutils,mainmodule;
+ msearrayutils,mainmodule,mseformatstr;
 
 const
  plotclasses: array[plotkindty] of plotsfoclassty = (
@@ -416,7 +416,7 @@ begin
        ydata:= getdata(yexpression,ky);
       end;
       if xexpression = '' then begin
-       mstr1:= adata.vars[0].expression;
+       mstr1:= msestring(adata.vars[0].expression);
       end
       else begin
        mstr1:= xexpression;
@@ -461,7 +461,7 @@ begin
  int1:= 0;
 lab1:
  inc(int1);
- result:= 'Trace '+inttostr(int1);
+ result:= 'Trace '+inttostrmse(int1);
  for int2:= 0 to fcount - 1 do begin
   if fitems[int2].caption = result then begin
    goto lab1;
@@ -606,7 +606,7 @@ begin
    sortarray(ar2);
    mstr1:= '';
    int2:= 0;
-   mstr2:= fplot.getxvalue;
+   mstr2:= msestring(fplot.getxvalue);
    for int1:= 0 to high(ar2) do begin
     if ar2[int1] <> mstr1 then begin
      mstr1:= ar2[int1];

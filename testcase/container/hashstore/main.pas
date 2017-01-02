@@ -28,6 +28,7 @@ type
  ptestdataty = ^testdataty;
  
  ttesthashstore = class(thashstore)
+   function getrecordsize(): int32 override;
   public
    constructor create();
    function add(const idents: identvecty): ptestdataty;
@@ -65,6 +66,10 @@ begin
   with store.add(vec1)^ do begin
    data:= i1;
   end;
+   function getrecordsize(): int32 override;
+   procedure dump(const aitem: ptesttreehashdataty; const adata: pointer);
+   procedure inititem(const aitem: phashdataty) override;
+ str1: string;
  end;
  writeln('** read');
  c1:= startvalue;
@@ -134,6 +139,10 @@ begin
   goto errorlab;
  end;
  writeln('OK3');
+ writeln('root');
+ str1:= ' ';
+ store.iteratechildren(store.root(o1),
+                  treehashelementiteratorprocty(@store.dump),@str1);
 errorlab:
  store.destroy();
 end;
@@ -144,8 +153,30 @@ constructor ttesthashstore.create();
 begin
  inherited create(sizeof(testdataty));
 end;
+function ttesthashstore.getrecordsize(): int32;
 
 function ttesthashstore.add(const idents: identvecty): ptestdataty;
+function ttesthashtree.getrecordsize(): int32;
+end;
+
+procedure ttesthashtree.dump(const aitem: ptesttreehashdataty;
+               const adata: pointer);
+begin
+ writeln(pstring(adata)^,aitem^.data.data,
+             ' l:',aitem^.header.data.header.element.parentlevel,
+             ' r:',aitem^.header.data.header.element.refcount,
+             ' c:',aitem^.header.data.header.children);
+
+ pstring(adata)^:= pstring(adata)^+' ';
+ iteratechildren(ptreeelementhashdataty(aitem),
+                         treehashelementiteratorprocty(@dump),adata);
+ setlength(pstring(adata)^,length(pstring(adata)^)-1);
+end;
+
+procedure ttesthashtree.inititem(const aitem: phashdataty);
+begin
+ inherited;
+ ptesttreehashdataty(aitem)^.data.data:= -123;
 begin
  result:= ptestdataty(inherited add(idents));
 end;

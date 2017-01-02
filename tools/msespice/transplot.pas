@@ -40,10 +40,10 @@ uses
 
 function ttransplotfo.getplotstatement: string;
 begin
- result:= 'tran 1 '+doubletostring(tstart.value+tlen.value)+' '+
-                      doubletostring(tstart.value);
+ result:= 'tran 1 '+string(doubletostring(tstart.value+tlen.value)+' '+
+                      doubletostring(tstart.value));
  if minstep.value <> emptyreal then begin
-  result:= result+' '+doubletostring(minstep.value)
+  result:= result+' '+string(doubletostring(minstep.value));
  end;
  if uic.value then begin
   result:= result + ' uic';

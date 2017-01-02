@@ -60,6 +60,7 @@ type
    freporoot: filenamety;
    fdirhash: tpointermsestringhashdatalist;
    ffiledir: msestring;
+   function getrecordsize(): int32 override;
   public
    constructor create;
    destructor destroy; override;
@@ -97,7 +98,7 @@ type
   private
    fdirpath: filenamety;
   protected
-   procedure finalizeitem(var aitemdata); override;
+   function getrecordsize(): int32 override;
   public
    constructor create;
    function add(const adirpath: filenamety): pgitfiledataty; overload;
@@ -2021,7 +2022,7 @@ begin
  inherited;
 end;
 
-function tgitstatecache.add(const aname: msestring): pgitstatedataty;
+function tgitstatecache.getrecordsize(): int32;
 var
  mstr1: msestring;
 begin
@@ -2168,6 +2169,7 @@ constructor tgitfilecache.create;
 begin
  inherited create(sizeof(gitfiledataty));
 end;
+function tgitfilecache.getrecordsize(): int32;
 
 procedure tgitfilecache.finalizeitem(var aitemdata);
 begin

@@ -14,7 +14,7 @@ object mainfo: tmainfo
   statfile = tstatfile1
   moduleclassname = 'tmainform'
   object tbutton1: tbutton
-    bounds_x = 32
+    taborder = 1
     bounds_y = 24
     bounds_cx = 50
     bounds_cy = 22
@@ -32,7 +32,7 @@ object mainfo: tmainfo
       0
       0
     )
-    taborder = 1
+    taborder = 2
     bounds_x = 88
     bounds_y = 5
     bounds_cy = 41
@@ -49,7 +49,7 @@ object mainfo: tmainfo
       0
       0
     )
-    taborder = 2
+    taborder = 3
     bounds_x = 192
     bounds_y = 5
     bounds_cy = 41
