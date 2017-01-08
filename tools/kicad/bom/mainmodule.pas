@@ -1584,7 +1584,7 @@ var
 begin
  if aplotfile <> '' then begin
   splitfilepath(aplotfile,d1,n1);
-  if isrootdir(d1) then begin
+  if not isrelativepath(d1) then begin
    dir1:= d1;
   end
   else begin
@@ -1800,7 +1800,7 @@ begin
       end;
       s1:= tmpfile;
       if pk1 in drillplots then begin
-       if not drillfile(boardfile1,tmpf+'/'+s1,
+       if not drillfile(boardfile1,{tmpf+'/'+}s1,
                               ff_postscript,pk1,false) then begin
         error1:= true;
         break;
