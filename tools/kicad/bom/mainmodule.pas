@@ -1800,6 +1800,7 @@ begin
       end;
       s1:= tmpfile;
       if pk1 in drillplots then begin
+       s1:= s1+'.'+mainmodule.fileformatexts[ff_postscript];
        if not drillfile(boardfile1,{tmpf+'/'+}s1,
                               ff_postscript,pk1,false) then begin
         error1:= true;
