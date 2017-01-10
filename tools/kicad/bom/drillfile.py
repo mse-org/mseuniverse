@@ -3,17 +3,23 @@
 #
 from kicadcommon import *
 
-def drillfile(apcbfilename,aoutputfile,aformat,alayer): 
- print '*Drill ',alayer,' Format:',aformat,' to'
+def drillfile(apcbfilename,aoutputfile,akind,
+                                    alayera,alayerb,anonplated,aformat):
+ print '*Drill ',akind,'Layers:',alayera,':',alayerb,' nonplated:',anonplated,\
+                ' Format:',aformat,' to'
  print aoutputfile
 
- drill = drillenums[drillnames.index(alayer)]
+ kind = drillenums[drillnames.index(akind)]
  format = formatenums[formatnames.index(aformat)]
- 
+ layera = layerenums[layernames.index(alayera)]
+ layerb = layerenums[layernames.index(alayerb)]
  board = LoadBoard(apcbfilename)
  drlwriter = EXCELLON_WRITER(board)
  drlwriter.SetMapFileFormat(format)
-# f = open(aoutputfile,'w')
- print 'format:',format
- if drill == DRILL_MAP:
+ if kind == DRILL_MAP:
+  pair = base_seqVect()
+#  pair.first = alayera;
+#  pair.second = alayerb;
+  print pair
+  drlwriter.BuildHolesList(pair,anonplated)
   drlwriter.GenDrillMapFile(aoutputfile,format)

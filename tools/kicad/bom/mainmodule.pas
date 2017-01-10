@@ -35,6 +35,8 @@ const
  versiontext = '0.0';
 
 type
+ drillfilekindty = (dfk_map);
+ 
  fileformatty = (
   ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
  );
@@ -125,6 +127,7 @@ type
   private
    flayeraname: msestring;
    flayerbname: msestring;
+   fnonplated: boolean;
   protected
    class function getpagekind: docupagekindty override;
   public
@@ -132,6 +135,7 @@ type
   published
    property layeraname: msestring read flayeraname write flayeraname;
    property layerbname: msestring read flayerbname write flayerbname;
+   property nonplated: boolean read fnonplated write fnonplated;
  end;
 
  tschematicplotpage = class(tdocupage)
@@ -466,8 +470,10 @@ type
                       var aplotfile: filenamety; const aformat: fileformatty;
                        const alayer: plotkindty; const alast: boolean): boolean;
    function drillfile(const aboard: filenamety; const adrillfile: filenamety;
-                       const aformat: fileformatty;
-                       const alayer: plotkindty; const alast: boolean): boolean;
+             const akind: drillfilekindty;
+             const alayera,alayerb: plotkindty; 
+              const anonplated: boolean; const aformat: fileformatty;
+              const alast: boolean): boolean;
    function createzipfile(const aarchivename: filenamety;
           const basedir: filenamety; const afiles: array of filenamety;
           const alast : boolean): boolean;
@@ -638,6 +644,10 @@ const
  );
 
 const
+ drillfilecodes: array[drillfilekindty] of msestring = (
+ //dfk_map
+  'Drill_Map'
+ );
  fileformatnames: array[fileformatty] of msestring = (
 //  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
     'Gerber','Postscript','SVG','DXF','HPGL','PDF'
@@ -1625,13 +1635,17 @@ begin
  end;
 end;
 
-function tmainmo.drillfile(const aboard: filenamety;
-               const adrillfile: filenamety; const aformat: fileformatty;
-               const alayer: plotkindty; const alast: boolean): boolean;
+function tmainmo.drillfile(const aboard: filenamety; const adrillfile: filenamety;
+             const akind: drillfilekindty;
+             const alayera,alayerb: plotkindty; 
+              const anonplated: boolean; const aformat: fileformatty;
+              const alast: boolean): boolean;
 begin
  result:= execpy('drillfile',
-      [aboard,tosysfilepath(adrillfile),mainmodule.fileformatcodes[aformat],
-                                          mainmodule.layercodes[alayer]],alast);
+   [aboard,tosysfilepath(adrillfile),mainmodule.drillfilecodes[akind],
+    mainmodule.layercodes[alayera],mainmodule.layercodes[alayerb],
+                              pyboolean(anonplated),
+                                   mainmodule.fileformatcodes[aformat]],alast);
 end;
 
 function tmainmo.createzipfile(const aarchivename: filenamety;
@@ -1777,7 +1791,7 @@ var
  i1: int32;
  error1: boolean;
  boardfile1,s1: filenamety;
- pk1: plotkindty;
+ pk1,pk2: plotkindty;
  b1: boolean;
  pac1: reppageformclassty;
  pa1: tdocupsreppa;
@@ -1827,9 +1841,14 @@ begin
       break;
      end;
      with tdrillmappage(info1^.pages[i1]) do begin
+      if not getplotkind(layeraname,pk1) or 
+                 not getplotkind(layerbname,pk2) then begin
+       error1:= true;
+       break;
+      end;
       s1:= tmpfile+'.'+mainmodule.fileformatexts[ff_postscript];
-      if not drillfile(boardfile1,{tmpf+'/'+}s1,
-                              ff_postscript,pk1,false) then begin
+      if not drillfile(boardfile1,{tmpf+'/'+}s1,dfk_map,
+                              pk1,pk2,nonplated,ff_postscript,false) then begin
        error1:= true;
        break;
       end;

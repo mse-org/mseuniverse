@@ -5,7 +5,8 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
- msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings;
+ msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings,
+ msegraphedits,msescrollbar;
 type
  tdrillmapdialogfo = class(tmseform)
    tstatfile1: tstatfile;
@@ -18,6 +19,7 @@ type
    val_layeraname: tdropdownlistedit;
    plotsettings: tplotsettingsfo;
    val_layerbname: tdropdownlistedit;
+   val_nonplated: tbooleanedit;
    procedure closeev(const sender: TObject);
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
   private

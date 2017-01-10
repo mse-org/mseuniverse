@@ -2053,8 +2053,9 @@ object mainmo: tmainmo
         script.data = (
           'import sys'
           'import drillfile'
-          'drillfile.drillfile(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])'
-          '#pcbfilename, outputfile, format, layer'
+          'drillfile.drillfile(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],'
+          '                                        sys.argv[5],sys.argv[6],sys.argv[7])'
+          '#pcbfilename, outputfile, kind, layera, layerb, notplated, format'
         )
       end    
       item
