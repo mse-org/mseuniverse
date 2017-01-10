@@ -49,11 +49,11 @@ type
     pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
     pk_b_cu,
     pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
-    pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user,
-    pk_drillmap
+    pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user{,
+    pk_drillmap}
  );
-const
- drillplots = [pk_drillmap];
+//const
+// drillplots = [pk_drillmap];
 
 type
  namedinfoty = record
@@ -85,7 +85,7 @@ type
  pdocuschematicpageinfoty = ^docuschematicpageinfoty;
  docuschematicpageinfoarty = array of docuschematicpageinfoty;
 
- docupagekindty = (dpk_none,dpk_layerplot,dpk_schematic);
+ docupagekindty = (dpk_none,dpk_schematic,dpk_layerplot,dpk_drillmap);
 
  tdocupage = class(toptions)
   private
@@ -118,6 +118,16 @@ type
    class function getpagekind: docupagekindty override;
   published
    property layername: msestring read flayername write flayername;
+ end;
+
+ tdrillmappage = class(tdocupage)
+  private
+   flayeraname: msestring;
+   flayerbname: msestring;
+  protected
+  published
+   property layeraname: msestring read flayeraname write flayeraname;
+   property layerbname: msestring read flayerbname write flayerbname;
  end;
 
  tschematicplotpage = class(tdocupage)
@@ -491,8 +501,8 @@ uses
 
 var
  docupageclasses: array[docupagekindty] of docupageclassty = (
- //dpk_none,dpk_layerplot, dpk_schematic
-  nil,         tlayerplotpage,tschematicplotpage
+ //dpk_none,dpk_schematic,     dpk_layerplot,dpk_drillmap
+  nil,      tschematicplotpage,tlayerplotpage,tdrillmappage
   );
 
 procedure docupagesetlength(var pages: docupagearty; const count: int32);
@@ -594,9 +604,9 @@ const
 //  pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
     'B.Mmask','B.SilkS','B.Paste','B.Adhes','B.Fab','B.CrtYd',
 //  pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
-    'Edge.Cuts','Margin','Eco1.User','Eco2.User','Cmts.User','Dwgs.User',
+    'Edge.Cuts','Margin','Eco1.User','Eco2.User','Cmts.User','Dwgs.User'{,
 //  pk_drillmap
-    'Drill.Map'
+    'Drill.Map'}
  );
  layercodes: array[plotkindty] of msestring = (
 //  pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
@@ -618,9 +628,9 @@ const
 //  pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
     'B_Mmask','B_SilkS','B_Paste','B_Adhes','B_Fab','B_CrtYd',
 //  pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
-    'Edge_Cuts','Margin','Eco1_User','Eco2_User','Cmts_User','Dwgs_User',
+    'Edge_Cuts','Margin','Eco1_User','Eco2_User','Cmts_User','Dwgs_User'{,
 //  pk_drillmap
-    'Drill_Map'
+    'Drill_Map'}
  );
 
 const
@@ -640,8 +650,8 @@ const
  );
 
  docupagekinds: array[0..ord(high(docupagekindty))-1] of msestring = (
-// dpk_layerplot,    dpk_schematic
-   'PCB Layer-Plot','Schematic'
+//(dpk_schematic,dpk_layerplot,dpk_drillmap);
+   'Schematic','PCB Layer-Plot','Drill-Map'
  );
  
 function layertoplotname(const layername: msestring): msestring;
@@ -1799,19 +1809,25 @@ begin
        break;
       end;
       s1:= tmpfile;
-      if pk1 in drillplots then begin
-       s1:= s1+'.'+mainmodule.fileformatexts[ff_postscript];
-       if not drillfile(boardfile1,{tmpf+'/'+}s1,
+      if not plotfile(boardfile1,tmpf,s1,ff_postscript,pk1,false) then begin
+       error1:= true;
+       break;
+      end;
+      pac1:= tdocupsreppa;
+     end;
+    end;
+    dpk_drillmap: begin
+     inctempfile();
+     if not getboardfile(boardfile1) then begin
+      error1:= true;
+      break;
+     end;
+     with tdrillmappage(info1^.pages[i1]) do begin
+      s1:= tmpfile+'.'+mainmodule.fileformatexts[ff_postscript];
+      if not drillfile(boardfile1,{tmpf+'/'+}s1,
                               ff_postscript,pk1,false) then begin
-        error1:= true;
-        break;
-       end;
-      end
-      else begin
-       if not plotfile(boardfile1,tmpf,s1,ff_postscript,pk1,false) then begin
-        error1:= true;
-        break;
-       end;
+       error1:= true;
+       break;
       end;
       pac1:= tdocupsreppa;
      end;
@@ -2233,6 +2249,7 @@ class function tschematicplotpage.getpagekind: docupagekindty;
 begin
  result:= dpk_schematic;
 end;
+
 
 initialization
  globaloptions:= tglobaloptions.create();
