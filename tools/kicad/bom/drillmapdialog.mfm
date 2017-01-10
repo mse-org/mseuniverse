@@ -121,6 +121,7 @@ object drillmapdialogfo: tdrillmapdialogfo
       bounds_cx = 179
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+      value = 'F.Cu'
       dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
@@ -152,6 +153,7 @@ object drillmapdialogfo: tdrillmapdialogfo
       bounds_cx = 179
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+      value = 'B.Cu'
       dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
       dropdown.cols.count = 1
       dropdown.cols.items = <      

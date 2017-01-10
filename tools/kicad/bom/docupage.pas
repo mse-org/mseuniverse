@@ -77,7 +77,8 @@ type
 
 implementation
 uses
- docupage_mfm,layerplotdialog,schematicplotdialog,msedatalist,mserttistat;
+ docupage_mfm,layerplotdialog,schematicplotdialog,drillmapdialog,
+ msedatalist,mserttistat;
 
 type
  tpageitem = class(tlistedititem)
@@ -129,11 +130,14 @@ begin
  if canclose(nil) then begin
   pag1:= tpageitem(pageitems.item).fpage;
   case docupagekindty(pagekinded.value+1) of
+   dpk_schematic: begin
+    tschematicplotdialogfo.create(tschematicplotpage(pag1)).show(ml_application);
+   end;
    dpk_layerplot: begin
     tlayerplotdialogfo.create(tlayerplotpage(pag1)).show(ml_application);
    end;
-   dpk_schematic: begin
-    tschematicplotdialogfo.create(tschematicplotpage(pag1)).show(ml_application);
+   dpk_drillmap: begin
+    tdrillmapdialogfo.create(tdrillmappage(pag1)).show(ml_application);
    end;
   end;
   titleed.value:= pag1.title;

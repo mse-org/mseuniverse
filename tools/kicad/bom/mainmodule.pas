@@ -99,6 +99,7 @@ type
   protected
    class function getpagekind: docupagekindty virtual;
   public
+   constructor create(); virtual;
    property pagekind: docupagekindty read getpagekind;
   published
    property title: msestring read ftitle write ftitle;
@@ -125,6 +126,9 @@ type
    flayeraname: msestring;
    flayerbname: msestring;
   protected
+   class function getpagekind: docupagekindty override;
+  public
+   constructor create(); override;
   published
    property layeraname: msestring read flayeraname write flayeraname;
    property layerbname: msestring read flayerbname write flayerbname;
@@ -2221,6 +2225,11 @@ end;
 
 { tdocupage }
 
+constructor tdocupage.create();
+begin
+ //dummy
+end;
+
 procedure tdocupage.setkind(const avalue: int32);
 begin
  //dummy
@@ -2250,6 +2259,19 @@ begin
  result:= dpk_schematic;
 end;
 
+
+{ tdrillmappage }
+
+class function tdrillmappage.getpagekind: docupagekindty;
+begin
+ result:= dpk_drillmap;
+end;
+
+constructor tdrillmappage.create();
+begin
+ flayeraname:= plotkindnames[pk_f_cu];
+ flayerbname:= plotkindnames[pk_b_cu];
+end;
 
 initialization
  globaloptions:= tglobaloptions.create();

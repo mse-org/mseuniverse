@@ -23,7 +23,7 @@ type
   private
 //   ftitle: pmsestring;
 //   finfo: pdocuplotpageinfoty;
-   fpage: tlayerplotpage;
+   fpage: tdrillmappage;
   public
    constructor create(const apage: tdrillmappage);
  end;
@@ -40,7 +40,8 @@ begin
  inherited create(nil);
  apage.loadvalues(self,'val_');
  apage.loadvalues(plotsettings,'val_');
- val_layername.dropdown.cols[0].asarray:= mainmo.plotkinds;
+ val_layeraname.dropdown.cols[0].asarray:= mainmo.plotkinds;
+ val_layerbname.dropdown.cols[0].asarray:= mainmo.plotkinds;
 end;
 
 procedure tdrillmapdialogfo.closeev(const sender: TObject);
