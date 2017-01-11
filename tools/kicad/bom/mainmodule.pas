@@ -51,12 +51,10 @@ type
     la_in25cu,la_in26cu,la_in27cu,la_in28cu,la_in29cu,la_in30cu,
     la_b_cu,
     la_b_mask,la_b_silks,la_b_paste,la_b_adhes,la_b_fab,la_b_crtyd,
-    la_edge_cuts,la_margin,la_eco1_user,la_eco2_user,la_cmts_user,la_dwgs_user{,
-    pk_drillmap}
+    la_edge_cuts,la_margin,la_eco1_user,la_eco2_user,la_cmts_user,la_dwgs_user
  );
-//const
-// drillplots = [pk_drillmap];
-
+ culayers = la_f_cu..la_b_cu;
+ 
 type
  namedinfoty = record
   name: msestring;
@@ -416,6 +414,7 @@ type
    fprojectname: msestring;
    flayernames: msestringarty;
    flayercodes: msestringarty;
+   fculayernames: msestringarty;
    ffileformats: msestringarty;
    ffileformatcodes: msestringarty;
    fpythonconsole: tpythonconsolefo;
@@ -485,6 +484,7 @@ type
    
    property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
+   property culayernames: msestringarty read fculayernames;
    property fileformats: msestringarty read ffileformats;
    property fileformatcodes: msestringarty read ffileformatcodes;
    property fileformatexts: msestringarty read ffileformatexts;
@@ -679,6 +679,7 @@ end;
 constructor tmainmo.create(aowner: tcomponent);
 var
  ma1: componentmacronamety;
+ i1: int32;
 begin
  fcomponentmacros:= tmacrolist.create([mao_caseinsensitive],
    initmacros([
@@ -689,8 +690,12 @@ begin
                                       componentmacroitems[ma1]);
  end;
  fprojectmacros:= tmacrolist.create([mao_caseinsensitive],[]);
- flayernames:= layernames;
+ flayernames:= mainmodule.layernames;
  flayercodes:= mainmodule.layercodes;
+ setlength(fculayernames,ord(high(culayers))-ord(low(culayers))+1);
+ for i1:= 0 to high(fculayernames) do begin
+  fculayernames[i1]:= mainmodule.layernames[layerty(i1+ord(low(culayers)))];
+ end;
  ffileformats:= fileformatnames;
  ffileformatcodes:= mainmodule.fileformatcodes;
  ffileformatexts:= mainmodule.fileformatexts;
@@ -1754,8 +1759,8 @@ begin
  else begin
   viewerproc.filename:= s1;
   viewerproc.parameter:= afile;
-  viewerproc.active:= true;
   viewerproc.cancontinue:= cancontinue;
+  viewerproc.active:= true;
  end;
 end;
 
