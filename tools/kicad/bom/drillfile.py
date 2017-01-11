@@ -17,7 +17,8 @@ def drillfile(apcbfilename,aoutputfile,akind,
  drlwriter = EXCELLON_WRITER(board)
  drlwriter.SetMapFileFormat(format)
  if kind == DRILL_MAP:
-  pair = base_seqVect()
+  pair = LSEQ()
+  pair.resize(2)
 #  pair.first = alayera;
 #  pair.second = alayerb;
   print pair
