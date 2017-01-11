@@ -81,10 +81,10 @@ begin
   with globaloptions.prodplotdefines[i1] do begin
    fo1.caption:= h.name;
    fo1.nameed.value:= h.name;
-   fo1.plotdired.value:= plotdir;
-   fo1.createplotziped.value:= createplotzipfile;
-   fo1.plotzipfilenameed.value:= plotzipfilename;
-   fo1.plotzipdired.value:= plotzipdir;
+   fo1.productiondired.value:= productiondir;
+   fo1.createproductionziped.value:= createproductionzipfile;
+   fo1.productionzipfilenameed.value:= productionzipfilename;
+   fo1.productionzipdired.value:= productionzipdir;
    fo1.layered.griddata.asarray:= layernames;
    fo1.plotfileed.griddata.asarray:= plotfiles;
    fo1.plotformated.griddata.asarray:= plotformats;
@@ -135,10 +135,10 @@ begin
   for i1:= 0 to high(ar1) do begin
    with tproductionpagefo(prodplotstacktabs.items[i1]),ar1[i1] do begin
     h.name:= nameed.value;
-    plotdir:= plotdired.value;
-    createplotzipfile:= createplotziped.value;
-    plotzipfilename:= plotzipfilenameed.value;
-    plotzipdir:= plotzipdired.value;
+    productiondir:= productiondired.value;
+    createproductionzipfile:= createproductionziped.value;
+    productionzipfilename:= productionzipfilenameed.value;
+    productionzipdir:= productionzipdired.value;
     layernames:= layered.griddata.asarray;
     plotformats:= plotformated.griddata.asarray;
     plotfiles:= plotfileed.griddata.asarray;

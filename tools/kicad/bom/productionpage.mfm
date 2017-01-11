@@ -47,8 +47,8 @@ object productionpagefo: tproductionpagefo
       onsetvalue = namesetev
       reffontheight = 14
     end
-    object plotdired: tfilenameedit
-      frame.caption = 'Plot Directory'
+    object productiondired: tfilenameedit
+      frame.caption = 'Output Directory'
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -93,7 +93,7 @@ object productionpagefo: tproductionpagefo
     linktop = tlayouter1
     linkbottom = ttabwidget1
     dist_bottom = 4
-    object plotzipfilenameed: tfilenameedit
+    object productionzipfilenameed: tfilenameedit
       frame.caption = 'ZIP-Filename (empty -> projectname)'
       frame.localprops = []
       frame.localprops1 = []
@@ -136,7 +136,7 @@ object productionpagefo: tproductionpagefo
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       optionslayout = [lao_aligny]
       align_glue = wam_start
-      object createplotziped: tbooleanedit
+      object createproductionziped: tbooleanedit
         frame.caption = 'Create'#10'ZIP-File'
         frame.localprops = []
         frame.localprops1 = []
@@ -152,7 +152,7 @@ object productionpagefo: tproductionpagefo
         bounds_cy = 30
       end
     end
-    object plotzipdired: tstringedit
+    object productionzipdired: tstringedit
       frame.caption = 'Main directory in ZIP'
       frame.localprops = []
       frame.localprops1 = []
@@ -201,7 +201,7 @@ object productionpagefo: tproductionpagefo
         bounds_cx = 731
         bounds_cy = 341
         anchors = [an_top, an_bottom]
-        optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
         fixcols.items = <        
           item
@@ -271,7 +271,7 @@ object productionpagefo: tproductionpagefo
           bounds_cx = 179
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
           onsetvalue = layersetev
           dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
           dropdown.cols.count = 1
@@ -291,6 +291,7 @@ object productionpagefo: tproductionpagefo
           bounds_cx = 286
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
           reffontheight = 14
         end
         object plotformated: tenumedit
@@ -313,10 +314,12 @@ object productionpagefo: tproductionpagefo
           bounds_cx = 237
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
           dropdown.cols.count = 1
           dropdown.cols.items = <          
             item
             end>
+          valuedefault = 0
           reffontheight = 14
         end
       end
@@ -339,7 +342,7 @@ object productionpagefo: tproductionpagefo
         bounds_cx = 731
         bounds_cy = 341
         anchors = [an_top, an_bottom]
-        optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
         fixcols.items = <        
           item
@@ -385,7 +388,7 @@ object productionpagefo: tproductionpagefo
           end        
           item[nonplateded]
             width = 29
-            options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+            options = [co_drawfocus, co_savestate, co_mousescrollrow]
             widgetname = 'nonplateded'
             dataclass = tgridintegerdatalist
           end        
@@ -399,7 +402,7 @@ object productionpagefo: tproductionpagefo
         datarowheight = 16
         statfile = statf
         reffontheight = 14
-        object layerbed: tdropdownlistedit
+        object layeraed: tdropdownlistedit
           optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           frame.levelo = 0
@@ -414,13 +417,13 @@ object productionpagefo: tproductionpagefo
             end>
           taborder = 1
           visible = False
-          bounds_x = 126
+          bounds_x = 0
           bounds_y = 0
-          bounds_cx = 118
+          bounds_cx = 125
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-          valuedefault = 'B.Cu'
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          valuedefault = 'F.Cu'
           onsetvalue = layersetev
           dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
           dropdown.cols.count = 1
@@ -429,20 +432,7 @@ object productionpagefo: tproductionpagefo
             end>
           reffontheight = 14
         end
-        object drillfileed: tstringedit
-          optionswidget1 = [ow1_fontglyphheight]
-          optionsskin = [osk_framebuttononly]
-          taborder = 2
-          onshowhint = showhintev
-          visible = False
-          bounds_x = 275
-          bounds_y = 0
-          bounds_cx = 429
-          bounds_cy = 16
-          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          reffontheight = 14
-        end
-        object layeraed: tdropdownlistedit
+        object layerbed: tdropdownlistedit
           optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           frame.levelo = 0
@@ -455,15 +445,15 @@ object productionpagefo: tproductionpagefo
             item
               color = -1879048187
             end>
-          taborder = 3
+          taborder = 2
           visible = False
-          bounds_x = 0
+          bounds_x = 126
           bounds_y = 0
-          bounds_cx = 125
+          bounds_cx = 118
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-          valuedefault = 'F.Cu'
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          valuedefault = 'B.Cu'
           onsetvalue = layersetev
           dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
           dropdown.cols.count = 1
@@ -475,13 +465,27 @@ object productionpagefo: tproductionpagefo
         object nonplateded: tbooleanedit
           optionswidget1 = []
           optionsskin = [osk_framebuttononly]
-          taborder = 4
+          taborder = 3
           bounds_x = 245
           bounds_y = 0
           bounds_cx = 29
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           visible = False
+        end
+        object drillfileed: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 4
+          onshowhint = showhintev
+          visible = False
+          bounds_x = 275
+          bounds_y = 0
+          bounds_cx = 429
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          reffontheight = 14
         end
       end
     end

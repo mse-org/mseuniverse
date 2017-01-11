@@ -62,10 +62,10 @@ type
  infoheaderty = namedinfoty;
  prodplotinfoty = record
   h: infoheaderty;
-  plotdir: filenamety;
-  createplotzipfile: boolean;
-  plotzipfilename: filenamety;
-  plotzipdir: filenamety;
+  productiondir: filenamety;
+  createproductionzipfile: boolean;
+  productionzipfilename: filenamety;
+  productionzipdir: filenamety;
   layernames: msestringarty;
   plotfiles: msestringarty;
   plotformats: integerarty;
@@ -1722,7 +1722,8 @@ begin
  try
   boardname1:= filenamebase(board1);
   with info1^ do begin
-   plotdir1:= tosysfilepath(filepath(expandprojectmacros(plotdir),fk_dir));
+   plotdir1:= tosysfilepath(filepath(
+                                    expandprojectmacros(productiondir),fk_dir));
    setlength(ar1,length(layernames));
    for i1:= 0 to high(layernames) do begin
     ar1[i1]:= plotfiles[i1];
@@ -1731,13 +1732,13 @@ begin
     end;
     if not plotfile(board1,plotdir1,ar1[i1],
                            fileformatty(plotformats[i1]),la2,
-                  (i1 = high(layernames)) and not createplotzipfile) then begin
+          (i1 = high(layernames)) and not createproductionzipfile) then begin
      break;
     end;
    end;
-   if createplotzipfile then begin
-    createzipfile(filepath(plotdir1,expandprojectmacros(plotzipfilename)),
-                                                           plotdir1,ar1,true);
+   if createproductionzipfile then begin
+    createzipfile(filepath(plotdir1,
+         expandprojectmacros(productionzipfilename)),plotdir1,ar1,true);
    end;
   end;
  finally
@@ -2084,10 +2085,10 @@ begin
    additem(fprodplotdefines,typeinfo(fprodplotdefines),count1);
    with fprodplotdefines[count1-1] do begin
     readinfoheader(reader,h);
-    plotdir:= reader.readmsestring('plotdir','');
-    createplotzipfile:= reader.readboolean('createplotzip',false);
-    plotzipfilename:= reader.readmsestring('plotzipfile','');
-    plotzipdir:= reader.readmsestring('plotzipdir','');
+    productiondir:= reader.readmsestring('productiondir','');
+    createproductionzipfile:= reader.readboolean('createproductionzip',false);
+    productionzipfilename:= reader.readmsestring('productionzipfile','');
+    productionzipdir:= reader.readmsestring('productionzipdir','');
     layernames:= reader.readarray('layernames',msestringarty(nil));
     plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
     plotformats:= reader.readarray('plotformats',integerarty(nil));
@@ -2208,10 +2209,10 @@ begin
    writer.beginlist('item'+inttostrmse(i1));
    with fprodplotdefines[i1] do begin
     writeinfoheader(writer,h);
-    writer.writemsestring('plotdir',plotdir);
-    writer.writeboolean('createplotzip',createplotzipfile);
-    writer.writemsestring('plotzipfile',plotzipfilename);
-    writer.writemsestring('plotzipdir',plotzipdir);
+    writer.writemsestring('productiondir',productiondir);
+    writer.writeboolean('createproductionzip',createproductionzipfile);
+    writer.writemsestring('productionzipfile',productionzipfilename);
+    writer.writemsestring('productionzipdir',productionzipdir);
     writer.writearray('layernames',layernames);
     writer.writearray('plotfiles',plotfiles);
     writer.writearray('plotformats',plotformats);

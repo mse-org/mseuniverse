@@ -12,12 +12,12 @@ type
  tproductionpagefo = class(ttabform)
    tlayouter1: tlayouter;
    nameed: tstringedit;
-   plotdired: tfilenameedit;
+   productiondired: tfilenameedit;
    tlayouter2: tlayouter;
-   plotzipfilenameed: tfilenameedit;
+   productionzipfilenameed: tfilenameedit;
    tlayouter3: tlayouter;
-   createplotziped: tbooleanedit;
-   plotzipdired: tstringedit;
+   createproductionziped: tbooleanedit;
+   productionzipdired: tstringedit;
    ttabwidget1: ttabwidget;
    ttabpage1: ttabpage;
    plotsgrid: twidgetgrid;
