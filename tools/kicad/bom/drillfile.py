@@ -2,6 +2,10 @@
 # will be moved to MSEgui Python-component later
 #
 from kicadcommon import *
+from pcbnew import *
+
+class LAYER_PAIR:
+ pass
 
 def drillfile(apcbfilename,aoutputfile,akind,
                                     alayera,alayerb,anonplated,aformat):
@@ -17,10 +21,8 @@ def drillfile(apcbfilename,aoutputfile,akind,
  drlwriter = EXCELLON_WRITER(board)
  drlwriter.SetMapFileFormat(format)
  if kind == DRILL_MAP:
-  pair = LSEQ()
-  pair.resize(2)
-#  pair.first = alayera;
-#  pair.second = alayerb;
-  print pair
-  drlwriter.BuildHolesList(pair,anonplated)
+  pair = LAYER_PAIR()
+  pair.first = alayera;
+  pair.second = alayerb;
+#  drlwriter.BuildHolesList(pair,anonplated)
   drlwriter.GenDrillMapFile(aoutputfile,format)
