@@ -2,7 +2,6 @@
 # will be moved to MSEgui Python-component later
 #
 from kicadcommon import *
-from pcbnew import *
 
 class LAYER_PAIR:
  pass

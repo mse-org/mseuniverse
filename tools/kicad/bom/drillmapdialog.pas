@@ -42,8 +42,8 @@ begin
  inherited create(nil);
  apage.loadvalues(self,'val_');
  apage.loadvalues(plotsettings,'val_');
- val_layeraname.dropdown.cols[0].asarray:= mainmo.plotkinds;
- val_layerbname.dropdown.cols[0].asarray:= mainmo.plotkinds;
+ val_layeraname.dropdown.cols[0].asarray:= mainmo.layernames;
+ val_layerbname.dropdown.cols[0].asarray:= mainmo.layernames;
 end;
 
 procedure tdrillmapdialogfo.closeev(const sender: TObject);

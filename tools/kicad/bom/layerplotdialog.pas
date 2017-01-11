@@ -39,7 +39,7 @@ begin
  inherited create(nil);
  apage.loadvalues(self,'val_');
  apage.loadvalues(plotsettings,'val_');
- val_layername.dropdown.cols[0].asarray:= mainmo.plotkinds;
+ val_layername.dropdown.cols[0].asarray:= mainmo.layernames;
 end;
 
 procedure tlayerplotdialogfo.closeev(const sender: TObject);

@@ -41,17 +41,17 @@ type
   ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
  );
 
- plotkindty = (
-    pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
-    pk_f_cu,
-    pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
-    pk_in7cu,pk_in8cu,pk_in9cu,pk_in10cu,pk_in11cu,pk_in12cu,
-    pk_in13cu,pk_in14cu,pk_in15cu,pk_in16cu,pk_in17cu,pk_in18cu,
-    pk_in19cu,pk_in20cu,pk_in21cu,pk_in22cu,pk_in23cu,pk_in24cu,
-    pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
-    pk_b_cu,
-    pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
-    pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user{,
+ layerty = (
+    la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
+    la_f_cu,
+    la_in1cu,la_in2cu,la_in3cu,la_in4cu,la_in5cu,la_in6cu,
+    la_in7cu,la_in8cu,la_in9cu,la_in10cu,la_in11cu,la_in12cu,
+    la_in13cu,la_in14cu,la_in15cu,la_in16cu,la_in17cu,la_in18cu,
+    la_in19cu,la_in20cu,la_in21cu,la_in22cu,la_in23cu,la_in24cu,
+    la_in25cu,la_in26cu,la_in27cu,la_in28cu,la_in29cu,la_in30cu,
+    la_b_cu,
+    la_b_mask,la_b_silks,la_b_paste,la_b_adhes,la_b_fab,la_b_crtyd,
+    la_edge_cuts,la_margin,la_eco1_user,la_eco2_user,la_cmts_user,la_dwgs_user{,
     pk_drillmap}
  );
 //const
@@ -414,7 +414,7 @@ type
    fprojectmacros: tmacrolist;
    fprojectfile: filenamety;
    fprojectname: msestring;
-   fplotkinds: msestringarty;
+   flayernames: msestringarty;
    flayercodes: msestringarty;
    ffileformats: msestringarty;
    ffileformatcodes: msestringarty;
@@ -438,7 +438,7 @@ type
                                      //true if ok
    procedure beginpy(const acaption: msestring);
    procedure endpy();
-   function getplotkind(const aname: msestring; out akind: plotkindty): boolean;
+   function getlayer(const aname: msestring; out akind: layerty): boolean;
                                             //true if OK
   public
    constructor create(aowner: tcomponent); override;
@@ -468,10 +468,10 @@ type
    function getboardfile(var afilename: filenamety): boolean; //true if ok
    function plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
-                       const alayer: plotkindty; const alast: boolean): boolean;
+                       const alayer: layerty; const alast: boolean): boolean;
    function drillfile(const aboard: filenamety; const adrillfile: filenamety;
              const akind: drillfilekindty;
-             const alayera,alayerb: plotkindty; 
+             const alayera,alayerb: layerty; 
               const anonplated: boolean; const aformat: fileformatty;
               const alast: boolean): boolean;
    function createzipfile(const aarchivename: filenamety;
@@ -483,7 +483,7 @@ type
    procedure createdocuset();
    procedure createprodfiles();
    
-   property plotkinds: msestringarty read fplotkinds;
+   property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
    property fileformats: msestringarty read ffileformats;
    property fileformatcodes: msestringarty read ffileformatcodes;
@@ -594,50 +594,50 @@ begin
 end;
  
 const
- plotkindnames: array[plotkindty] of msestring = (
-//  pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
+ layernames: array[layerty] of msestring = (
+//  la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
     'F.CrtYd','F.Fab','F.Adhes','F.Paste','F.SilkS','F.mask',
-//  pk_f_cu,
+//  la_f_cu,
     'F.Cu',
-//  pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
+//  la_in1cu,la_in2cu,la_in3cu,la_in4cu,la_in5cu,la_in6cu,
     'In1.Cu','In2.Cu','In3.Cu','In4.Cu','In5.Cu','In6.Cu',
-//  pk_in7cu,pk_in8cu,pk_in9cu,pk_in10cu,pk_in11cu,pk_in12cu,
+//  la_in7cu,la_in8cu,la_in9cu,la_in10cu,la_in11cu,la_in12cu,
     'In7.Cu','In8.Cu','In9.Cu','In10.Cu','In11.Cu','In12.Cu',
-//  pk_in13cu,pk_in14cu,pk_in15cu,pk_in16cu,pk_in17cu,pk_in18cu,
+//  la_in13cu,la_in14cu,la_in15cu,la_in16cu,la_in17cu,la_in18cu,
     'In13.Cu','In14.Cu','In15.Cu','In16.Cu','In17.Cu','In18.Cu',
-//  pk_in19cu,pk_in20cu,pk_in21cu,pk_in22cu,pk_in23cu,pk_in24cu,
+//  la_in19cu,la_in20cu,la_in21cu,la_in22cu,la_in23cu,la_in24cu,
     'In19.Cu','In20.Cu','In21.Cu','In22.Cu','In23.Cu','In24.Cu',
-//  pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
+//  la_in25cu,la_in26cu,la_in27cu,la_in28cu,la_in29cu,la_in30cu,
     'In29.Cu','In26.Cu','In27.Cu','In28.Cu','In29.Cu','In30.Cu',
-//  pk_b_cu,
+//  la_b_cu,
     'B.Cu',
-//  pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
+//  la_b_mask,la_b_silks,la_b_paste,la_b_adhes,la_b_fab,la_b_crtyd,
     'B.Mmask','B.SilkS','B.Paste','B.Adhes','B.Fab','B.CrtYd',
-//  pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
+//  la_edge_cuts,la_margin,la_eco1_user,la_eco2_user,la_cmts_user,la_dwgs_user
     'Edge.Cuts','Margin','Eco1.User','Eco2.User','Cmts.User','Dwgs.User'{,
 //  pk_drillmap
     'Drill.Map'}
  );
- layercodes: array[plotkindty] of msestring = (
-//  pk_f_crtyd,pk_f_fab,pk_f_adhes,pk_f_paste,pk_f_silks,pk_f_mask,
+ layercodes: array[layerty] of msestring = (
+//  la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
     'F_CrtYd','F_Fab','F_Adhes','F_Paste','F_SilkS','F_mask',
-//  pk_f_cu,
+//  la_f_cu,
     'F_Cu',
-//  pk_in1cu,pk_in2cu,pk_in3cu,pk_in4cu,pk_in5cu,pk_in6cu,
+//  la_in1cu,la_in2cu,la_in3cu,la_in4cu,la_in5cu,la_in6cu,
     'In1_Cu','In2_Cu','In3_Cu','In4_Cu','In5_Cu','In6_Cu',
-//  pk_in7cu,pk_in8cu,pk_in9cu,pk_in10cu,pk_in11cu,pk_in12cu,
+//  la_in7cu,la_in8cu,la_in9cu,la_in10cu,la_in11cu,la_in12cu,
     'In7_Cu','In8_Cu','In9_Cu','In10_Cu','In11_Cu','In12_Cu',
-//  pk_in13cu,pk_in14cu,pk_in15cu,pk_in16cu,pk_in17cu,pk_in18cu,
+//  la_in13cu,la_in14cu,la_in15cu,la_in16cu,la_in17cu,la_in18cu,
     'In13_Cu','In14_Cu','In15_Cu','In16_Cu','In17_Cu','In18_Cu',
-//  pk_in19cu,pk_in20cu,pk_in21cu,pk_in22cu,pk_in23cu,pk_in24cu,
+//  la_in19cu,la_in20cu,la_in21cu,la_in22cu,la_in23cu,la_in24cu,
     'In19_Cu','In20_Cu','In21_Cu','In22_Cu','In23_Cu','In24_Cu',
-//  pk_in25cu,pk_in26cu,pk_in27cu,pk_in28cu,pk_in29cu,pk_in30cu,
+//  la_in25cu,la_in26cu,la_in27cu,la_in28cu,la_in29cu,la_in30cu,
     'In29_Cu','In26_Cu','In27_Cu','In28_Cu','In29_Cu','In30_Cu',
-//  pk_b_cu,
+//  la_b_cu,
     'B_Cu',
-//  pk_b_mask,pk_b_silks,pk_b_paste,pk_b_adhes,pk_b_fab,pk_b_crtyd,
+//  la_b_mask,la_b_silks,la_b_paste,la_b_adhes,la_b_fab,la_b_crtyd,
     'B_Mmask','B_SilkS','B_Paste','B_Adhes','B_Fab','B_CrtYd',
-//  pk_edge_cuts,pk_margin,pk_eco1_user,pk_eco2_user,pk_cmts_user,pk_dwgs_user
+//  la_edge_cuts,la_margin,la_eco1_user,la_eco2_user,la_cmts_user,la_dwgs_user
     'Edge_Cuts','Margin','Eco1_User','Eco2_User','Cmts_User','Dwgs_User'{,
 //  pk_drillmap
     'Drill_Map'}
@@ -689,7 +689,7 @@ begin
                                       componentmacroitems[ma1]);
  end;
  fprojectmacros:= tmacrolist.create([mao_caseinsensitive],[]);
- fplotkinds:= plotkindnames;
+ flayernames:= layernames;
  flayercodes:= mainmodule.layercodes;
  ffileformats:= fileformatnames;
  ffileformatcodes:= mainmodule.fileformatcodes;
@@ -1601,7 +1601,7 @@ end;
 
 function tmainmo.plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
-                       const alayer: plotkindty; const alast: boolean): boolean;
+                       const alayer: layerty; const alast: boolean): boolean;
 var
  dir1: filenamety;
  d1,n1,s1: filenamety;
@@ -1637,7 +1637,7 @@ end;
 
 function tmainmo.drillfile(const aboard: filenamety; const adrillfile: filenamety;
              const akind: drillfilekindty;
-             const alayera,alayerb: plotkindty; 
+             const alayera,alayerb: layerty; 
               const anonplated: boolean; const aformat: fileformatty;
               const alast: boolean): boolean;
 begin
@@ -1675,15 +1675,15 @@ begin
  result:= true;
 end;
 
-function tmainmo.getplotkind(const aname: msestring;
-                                   out akind: plotkindty): boolean;
+function tmainmo.getlayer(const aname: msestring;
+                                   out akind: layerty): boolean;
 var
- pk1: plotkindty;
+ pk1: layerty;
 begin
  result:= false;
- akind:= plotkindty(-1);
- for pk1:= low(plotkindty) to high(plotkindty) do begin
-  if aname = plotkindnames[pk1] then begin
+ akind:= layerty(-1);
+ for pk1:= low(layerty) to high(layerty) do begin
+  if aname = mainmodule.layernames[pk1] then begin
    akind:= pk1;
    result:= true;
    exit;
@@ -1699,7 +1699,7 @@ var
  info1: pprodplotinfoty;
  ar1{,ar2}: filenamearty;
  s1,s2,s3: msestring;
- la1,la2: plotkindty;
+ la1,la2: layerty;
 begin
  if not getboardfile(board1) then begin
   exit;
@@ -1718,7 +1718,7 @@ begin
    setlength(ar1,length(layernames));
    for i1:= 0 to high(layernames) do begin
     ar1[i1]:= plotfiles[i1];
-    if not getplotkind(layernames[i1],la2) then begin
+    if not getlayer(layernames[i1],la2) then begin
      break;
     end;
     if not plotfile(board1,plotdir1,ar1[i1],
@@ -1791,7 +1791,7 @@ var
  i1: int32;
  error1: boolean;
  boardfile1,s1: filenamety;
- pk1,pk2: plotkindty;
+ pk1,pk2: layerty;
  b1: boolean;
  pac1: reppageformclassty;
  pa1: tdocupsreppa;
@@ -1822,7 +1822,7 @@ begin
       break;
      end;
      with tlayerplotpage(info1^.pages[i1]) do begin
-      if not getplotkind(layername,pk1) then begin
+      if not getlayer(layername,pk1) then begin
        error1:= true;
        break;
       end;
@@ -1841,8 +1841,8 @@ begin
       break;
      end;
      with tdrillmappage(info1^.pages[i1]) do begin
-      if not getplotkind(layeraname,pk1) or 
-                 not getplotkind(layerbname,pk2) then begin
+      if not getlayer(layeraname,pk1) or 
+                 not getlayer(layerbname,pk2) then begin
        error1:= true;
        break;
       end;
@@ -2288,8 +2288,8 @@ end;
 
 constructor tdrillmappage.create();
 begin
- flayeraname:= plotkindnames[pk_f_cu];
- flayerbname:= plotkindnames[pk_b_cu];
+ flayeraname:= layernames[la_f_cu];
+ flayerbname:= layernames[la_b_cu];
 end;
 
 initialization

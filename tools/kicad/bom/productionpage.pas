@@ -38,7 +38,7 @@ uses
 
 procedure tproductionpagefo.createev(const sender: TObject);
 begin
- layered.dropdown.cols[0].asarray:= mainmo.plotkinds;
+ layered.dropdown.cols[0].asarray:= mainmo.layernames;
  plotformated.dropdown.cols[0].asarray:= mainmo.fileformats;
 end;
 
