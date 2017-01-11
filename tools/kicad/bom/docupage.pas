@@ -87,7 +87,7 @@ type
   public
    destructor destroy(); override;
  end;
- 
+
 constructor tdocupagefo.create(const apages: docupagearty);
 var
  i1: int32;

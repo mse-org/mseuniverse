@@ -1866,7 +1866,7 @@ begin
     dpk_schematic: begin
      with tschematicplotpage(info1^.pages[i1]) do begin
       pac1:= tdocupsreppa;
-      s1:= psfile;
+      s1:= expandprojectmacros(psfile);
      {
       with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
        ps.psfile:= psfile;
