@@ -12,6 +12,9 @@ object productionpagefo: tproductionpagefo
     443
   )
   oncreate = createev
+  onclose = deselectev
+  onselect = selectev
+  ondeselect = deselectev
   moduleclassname = 'ttabform'
   object tlayouter1: tlayouter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -67,143 +70,15 @@ object productionpagefo: tproductionpagefo
       bounds_cx = 611
       bounds_cy = 37
       anchors = [an_left, an_top, an_right]
+      statfile = statf
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_saveoptions, oe1_checkvalueafterstatread]
       controller.options = [fdo_directory, fdo_savelastdir]
-      reffontheight = 14
-    end
-  end
-  object plotsgrid: twidgetgrid
-    frame.caption = 'Plotfiles'
-    frame.localprops = []
-    frame.localprops1 = []
-    frame.outerframe = (
-      0
-      17
-      0
-      0
-    )
-    taborder = 1
-    bounds_x = 0
-    bounds_y = 83
-    bounds_cx = 731
-    bounds_cy = 360
-    anchors = [an_top, an_bottom]
-    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-    fixcols.count = 1
-    fixcols.items = <    
-      item
-        width = 21
-        numstart = 1
-        numstep = 1
-      end>
-    fixrows.count = 1
-    fixrows.items = <    
-      item
-        height = 16
-        captions.count = 3
-        captions.items = <        
-          item
-            caption = 'Layer'
-          end        
-          item
-            caption = 'Filename'
-            hint = 'Empty -> use default'
-          end        
-          item
-            caption = 'Format'
-          end>
-      end>
-    datacols.count = 3
-    datacols.options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
-    datacols.items = <    
-      item[layered]
-        width = 179
-        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
-        widgetname = 'layered'
-        dataclass = tgridmsestringdatalist
-      end    
-      item[plotfileed]
-        width = 286
-        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-        onshowhint = hintplotfilenamecolev
-        widgetname = 'plotfileed'
-        dataclass = tgridmsestringdatalist
-      end    
-      item[plotformated]
-        width = 237
-        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
-        widgetname = 'plotformated'
-        dataclass = tgridenumdatalist
-      end>
-    datarowheight = 16
-    reffontheight = 14
-    object layered: tdropdownlistedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      frame.levelo = 0
-      frame.colorclient = -2147483645
-      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.localprops1 = []
-      frame.button.color = -1879048187
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-          color = -1879048187
-        end>
-      taborder = 1
-      visible = False
-      bounds_x = 0
-      bounds_y = 0
-      bounds_cx = 179
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      onsetvalue = layersetev
-      dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
-      dropdown.cols.count = 1
-      dropdown.cols.items = <      
-        item
-        end>
-      reffontheight = 14
-    end
-    object plotfileed: tstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 2
-      visible = False
-      bounds_x = 180
-      bounds_y = 0
-      bounds_cx = 286
-      bounds_cy = 16
-      reffontheight = 14
-    end
-    object plotformated: tenumedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      frame.levelo = 0
-      frame.colorclient = -2147483645
-      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.localprops1 = []
-      frame.button.color = -1879048187
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-          color = -1879048187
-        end>
-      taborder = 3
-      visible = False
-      bounds_x = 467
-      bounds_y = 0
-      bounds_cx = 237
-      bounds_cy = 16
-      dropdown.cols.count = 1
-      dropdown.cols.items = <      
-        item
-        end>
       reffontheight = 14
     end
   end
   object tlayouter2: tlayouter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 2
+    taborder = 1
     bounds_x = 8
     bounds_y = 37
     bounds_cx = 715
@@ -216,7 +91,7 @@ object productionpagefo: tproductionpagefo
     place_maxdist = 4
     place_options = [plo_endmargin]
     linktop = tlayouter1
-    linkbottom = plotsgrid
+    linkbottom = ttabwidget1
     dist_bottom = 4
     object plotzipfilenameed: tfilenameedit
       frame.caption = 'ZIP-Filename (empty -> projectname)'
@@ -240,6 +115,8 @@ object productionpagefo: tproductionpagefo
       bounds_cx = 435
       bounds_cy = 37
       anchors = [an_left, an_top, an_right]
+      statfile = statf
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_saveoptions, oe1_checkvalueafterstatread]
       controller.filterlist.data = (
         (
           'Zip-Files'
@@ -276,7 +153,7 @@ object productionpagefo: tproductionpagefo
       end
     end
     object plotzipdired: tstringedit
-      frame.caption = 'Main directotry in ZIP'
+      frame.caption = 'Main directory in ZIP'
       frame.localprops = []
       frame.localprops1 = []
       frame.outerframe = (
@@ -293,5 +170,326 @@ object productionpagefo: tproductionpagefo
       bounds_cy = 37
       reffontheight = 14
     end
+  end
+  object ttabwidget1: ttabwidget
+    bounds_x = 0
+    bounds_y = 83
+    bounds_cx = 731
+    bounds_cy = 360
+    anchors = [an_top, an_bottom]
+    taborder = 2
+    activepageindex = 0
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
+    tab_size = 19
+    statfile = statf
+    object ttabpage1: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 731
+      bounds_cy = 341
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Plotfiles'
+      object plotsgrid: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 731
+        bounds_cy = 341
+        anchors = [an_top, an_bottom]
+        optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 21
+            numstart = 1
+            numstep = 1
+          end>
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 3
+            captions.items = <            
+              item
+                caption = 'Layer'
+              end            
+              item
+                caption = 'Filename'
+                hint = 'Empty -> use default'
+              end            
+              item
+                caption = 'Format'
+              end>
+          end>
+        datacols.count = 3
+        datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item[layered]
+            width = 179
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'layered'
+            dataclass = tgridmsestringdatalist
+          end        
+          item[plotfileed]
+            width = 286
+            options = [co_fill, co_savestate, co_mousescrollrow]
+            onshowhint = hintplotfilenamecolev
+            widgetname = 'plotfileed'
+            dataclass = tgridmsestringdatalist
+          end        
+          item[plotformated]
+            width = 237
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'plotformated'
+            dataclass = tgridenumdatalist
+          end>
+        datarowheight = 16
+        statfile = statf
+        reffontheight = 14
+        object layered: tdropdownlistedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 179
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+          onsetvalue = layersetev
+          dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+        object plotfileed: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          onshowhint = showhintev
+          visible = False
+          bounds_x = 180
+          bounds_y = 0
+          bounds_cx = 286
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          reffontheight = 14
+        end
+        object plotformated: tenumedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 3
+          visible = False
+          bounds_x = 467
+          bounds_y = 0
+          bounds_cx = 237
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+      end
+    end
+    object ttabpage2: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 731
+      bounds_cy = 341
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Drillfiles'
+      object drillgrid: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 731
+        bounds_cy = 341
+        anchors = [an_top, an_bottom]
+        optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 21
+            numstart = 1
+            numstep = 1
+          end>
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 4
+            captions.items = <            
+              item
+                caption = 'Layer A'
+              end            
+              item
+                caption = 'Layer B'
+              end            
+              item
+                caption = 'NPT'
+                hint = 'non plated'
+              end            
+              item
+                caption = 'Filename'
+                hint = 'Empty -> use default'
+              end>
+          end>
+        datacols.count = 4
+        datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item[layeraed]
+            width = 125
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'layeraed'
+            dataclass = tgridmsestringdatalist
+          end        
+          item[layerbed]
+            width = 118
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'layerbed'
+            dataclass = tgridmsestringdatalist
+          end        
+          item[nonplateded]
+            width = 29
+            options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'nonplateded'
+            dataclass = tgridintegerdatalist
+          end        
+          item[drillfileed]
+            width = 429
+            options = [co_fill, co_savestate, co_mousescrollrow]
+            onshowhint = hintdrillfilenamecolev
+            widgetname = 'drillfileed'
+            dataclass = tgridmsestringdatalist
+          end>
+        datarowheight = 16
+        statfile = statf
+        reffontheight = 14
+        object layerbed: tdropdownlistedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 1
+          visible = False
+          bounds_x = 126
+          bounds_y = 0
+          bounds_cx = 118
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+          valuedefault = 'B.Cu'
+          onsetvalue = layersetev
+          dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+        object drillfileed: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          onshowhint = showhintev
+          visible = False
+          bounds_x = 275
+          bounds_y = 0
+          bounds_cx = 429
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          reffontheight = 14
+        end
+        object layeraed: tdropdownlistedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 3
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 125
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+          valuedefault = 'F.Cu'
+          onsetvalue = layersetev
+          dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+        object nonplateded: tbooleanedit
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 4
+          bounds_x = 245
+          bounds_y = 0
+          bounds_cx = 29
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          visible = False
+        end
+      end
+    end
+  end
+  object statf: tstatfile
+    filename = 'prductionpagefo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 32
+    top = 152
   end
 end

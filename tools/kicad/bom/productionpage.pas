@@ -6,21 +6,31 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msetabs,
  msesplitter,mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,
  msestatfile,msestream,msestrings,sysutils,msegrids,msewidgetgrid,msebitmap,
- msedatanodes,msefiledialog,mselistbrowser,msesys,msegraphedits,msescrollbar;
+ msedatanodes,msefiledialog,mselistbrowser,msesys,msegraphedits,msescrollbar,
+ msedragglob;
 type
  tproductionpagefo = class(ttabform)
    tlayouter1: tlayouter;
    nameed: tstringedit;
-   plotsgrid: twidgetgrid;
-   layered: tdropdownlistedit;
-   plotfileed: tstringedit;
-   plotformated: tenumedit;
    plotdired: tfilenameedit;
    tlayouter2: tlayouter;
    plotzipfilenameed: tfilenameedit;
    tlayouter3: tlayouter;
    createplotziped: tbooleanedit;
    plotzipdired: tstringedit;
+   ttabwidget1: ttabwidget;
+   ttabpage1: ttabpage;
+   plotsgrid: twidgetgrid;
+   layered: tdropdownlistedit;
+   plotfileed: tstringedit;
+   plotformated: tenumedit;
+   ttabpage2: ttabpage;
+   drillgrid: twidgetgrid;
+   layerbed: tdropdownlistedit;
+   drillfileed: tstringedit;
+   layeraed: tdropdownlistedit;
+   nonplateded: tbooleanedit;
+   statf: tstatfile;
    procedure namesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure layersetev(const sender: TObject; var avalue: msestring;
@@ -29,6 +39,10 @@ type
    procedure showhintev(const sender: TObject; var info: hintinfoty);
    procedure hintplotfilenamecolev(const sender: tdatacol; const arow: Integer;
                    var info: hintinfoty);
+   procedure hintdrillfilenamecolev(const sender: tdatacol; const arow: Integer;
+                   var info: hintinfoty);
+   procedure selectev(const sender: TObject);
+   procedure deselectev(const sender: TObject);
   protected
  end;
 
@@ -39,6 +53,8 @@ uses
 procedure tproductionpagefo.createev(const sender: TObject);
 begin
  layered.dropdown.cols[0].asarray:= mainmo.layernames;
+ layeraed.dropdown.cols[0].asarray:= mainmo.culayernames;
+ layerbed.dropdown.cols[0].asarray:= mainmo.culayernames;
  plotformated.dropdown.cols[0].asarray:= mainmo.fileformats;
 end;
 
@@ -67,6 +83,22 @@ procedure tproductionpagefo.hintplotfilenamecolev(const sender: tdatacol;
                const arow: Integer; var info: hintinfoty);
 begin
  mainmo.hintmacros(plotfileed[arow],info);
+end;
+
+procedure tproductionpagefo.hintdrillfilenamecolev(const sender: tdatacol;
+               const arow: Integer; var info: hintinfoty);
+begin
+ mainmo.hintmacros(drillfileed[arow],info);
+end;
+
+procedure tproductionpagefo.selectev(const sender: TObject);
+begin
+ statf.readstat();
+end;
+
+procedure tproductionpagefo.deselectev(const sender: TObject);
+begin
+ statf.writestat();
 end;
 
 end.

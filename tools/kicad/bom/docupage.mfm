@@ -11,6 +11,7 @@ object docupagefo: tdocupagefo
     479
     357
   )
+  onclose = deselectev
   onselect = selectev
   ondeselect = deselectev
   moduleclassname = 'ttabform'
@@ -87,7 +88,7 @@ object docupagefo: tdocupagefo
     bounds_cx = 479
     bounds_cy = 275
     anchors = [an_top, an_bottom]
-    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
       item
@@ -327,7 +328,7 @@ object docupagefo: tdocupagefo
     top = 184
   end
   object statf: tstatfile
-    filename = 'docupage.sta'
+    filename = 'docupagefo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 32
     top = 152

@@ -38,8 +38,8 @@ type
    tlayouter2: tlayouter;
    psfileed: tfilenameedit;
    pdffileed: tfilenameedit;
-   statf: tstatfile;
    pageitems: titemedit;
+   statf: tstatfile;
    procedure namesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure cellev(const sender: TObject; var info: celleventinfoty);

@@ -88,6 +88,9 @@ begin
    fo1.layered.griddata.asarray:= layernames;
    fo1.plotfileed.griddata.asarray:= plotfiles;
    fo1.plotformated.griddata.asarray:= plotformats;
+   fo1.layeraed.griddata.asarray:= layeranames;
+   fo1.layerbed.griddata.asarray:= layerbnames;
+   fo1.nonplateded.griddata.asbooleanarray:= nonplated;
    prodplotstacktabs.add(itabpage(fo1));
   end;
  end;
@@ -139,6 +142,9 @@ begin
     layernames:= layered.griddata.asarray;
     plotformats:= plotformated.griddata.asarray;
     plotfiles:= plotfileed.griddata.asarray;
+    layeranames:= layeraed.griddata.asarray;
+    layerbnames:= layerbed.griddata.asarray;
+    nonplated:= nonplateded.griddata.asbooleanarray;
    end;
   end;
   globaloptions.prodplotdefines:= ar1;
