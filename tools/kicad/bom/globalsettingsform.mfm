@@ -12,6 +12,7 @@ object globalsettingsfo: tglobalsettingsfo
     662
     378
   )
+  optionswindow = [wo_windowcentermessage]
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Global Settings'

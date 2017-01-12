@@ -271,8 +271,8 @@ object productionpagefo: tproductionpagefo
           bounds_cx = 179
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
-          onsetvalue = layersetev
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          ondataentered = plotdataenteredev
           dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
           dropdown.cols.count = 1
           dropdown.cols.items = <          
@@ -291,7 +291,8 @@ object productionpagefo: tproductionpagefo
           bounds_cx = 286
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_notnull]
+          onsetvalue = plotfilesetev
           reffontheight = 14
         end
         object plotformated: tenumedit
@@ -314,7 +315,8 @@ object productionpagefo: tproductionpagefo
           bounds_cx = 237
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+          ondataentered = plotdataenteredev
           dropdown.cols.count = 1
           dropdown.cols.items = <          
             item
@@ -422,9 +424,8 @@ object productionpagefo: tproductionpagefo
           bounds_cx = 125
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
-          valuedefault = 'F.Cu'
-          onsetvalue = layersetev
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          ondataentered = drilldataentered
           dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
           dropdown.cols.count = 1
           dropdown.cols.items = <          
@@ -452,9 +453,8 @@ object productionpagefo: tproductionpagefo
           bounds_cx = 118
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
-          valuedefault = 'B.Cu'
-          onsetvalue = layersetev
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          ondataentered = drilldataentered
           dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
           dropdown.cols.count = 1
           dropdown.cols.items = <          
@@ -470,7 +470,9 @@ object productionpagefo: tproductionpagefo
           bounds_y = 0
           bounds_cx = 29
           bounds_cy = 16
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          ondataentered = drilldataentered
           visible = False
         end
         object drillfileed: tstringedit
@@ -484,7 +486,8 @@ object productionpagefo: tproductionpagefo
           bounds_cx = 429
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_hintclippedtext, oe_notnull]
+          onsetvalue = drillfilesetev
           reffontheight = 14
         end
       end

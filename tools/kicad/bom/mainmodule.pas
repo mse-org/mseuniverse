@@ -72,6 +72,7 @@ type
   layeranames: msestringarty;
   layerbnames: msestringarty;
   nonplated: booleanarty;
+  drillfiles: msestringarty;
  end;
  pprodplotinfoty = ^prodplotinfoty;
  prodplotinfoarty = array of prodplotinfoty;
@@ -2092,9 +2093,10 @@ begin
     layernames:= reader.readarray('layernames',msestringarty(nil));
     plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
     plotformats:= reader.readarray('plotformats',integerarty(nil));
-    layerbnames:= reader.readarray('layeranames',msestringarty(nil));
+    layeranames:= reader.readarray('layeranames',msestringarty(nil));
     layerbnames:= reader.readarray('layerbnames',msestringarty(nil));
     nonplated:= reader.readarray('nonplated',booleanarty(nil));
+    drillfiles:= reader.readarray('drillfiles',msestringarty(nil));
     for i1:= 0 to high(plotformats) do begin
      i2:= plotformats[i1];
      if (i2 < 0) or (i2 > ord(high(fileformatty))) then begin
@@ -2108,22 +2110,26 @@ begin
     if i1 > high(plotformats) then begin
      i1:= high(plotformats);
     end;
-    if i1 > high(layeranames) then begin
-     i1:= high(layeranames);
-    end;
+    inc(i1);
+    setlength(layernames,i1);
+    setlength(plotfiles,i1);
+    setlength(plotformats,i1);
+
+    i1:= high(layeranames);
     if i1 > high(layerbnames) then begin
      i1:= high(layerbnames);
     end;
     if i1 > high(nonplated) then begin
      i1:= high(nonplated);
     end;
+    if i1 > high(drillfiles) then begin
+     i1:= high(drillfiles);
+    end;
     inc(i1);
-    setlength(layernames,i1);
-    setlength(plotfiles,i1);
-    setlength(plotformats,i1);
     setlength(layeranames,i1);
     setlength(layerbnames,i1);
     setlength(nonplated,i1);
+    setlength(drillfiles,i1);
    end;
    reader.endlist();
   end;
@@ -2219,6 +2225,7 @@ begin
     writer.writearray('layeranames',layeranames);
     writer.writearray('layerbnames',layerbnames);
     writer.writearray('nonplated',nonplated);
+    writer.writearray('drillfiles',drillfiles);
    end;
    writer.endlist();
   end;

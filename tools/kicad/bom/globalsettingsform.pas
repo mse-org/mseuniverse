@@ -91,6 +91,7 @@ begin
    fo1.layeraed.griddata.asarray:= layeranames;
    fo1.layerbed.griddata.asarray:= layerbnames;
    fo1.nonplateded.griddata.asbooleanarray:= nonplated;
+   fo1.drillfileed.griddata.asarray:= drillfiles;
    prodplotstacktabs.add(itabpage(fo1));
   end;
  end;
@@ -145,6 +146,7 @@ begin
     layeranames:= layeraed.griddata.asarray;
     layerbnames:= layerbed.griddata.asarray;
     nonplated:= nonplateded.griddata.asbooleanarray;
+    drillfiles:= drillfileed.griddata.asarray;
    end;
   end;
   globaloptions.prodplotdefines:= ar1;

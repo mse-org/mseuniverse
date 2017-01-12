@@ -12,6 +12,7 @@ object mainfo: tmainfo
     829
     271
   )
+  optionswindow = [wo_groupleader, wo_taskbar, wo_windowcentermessage]
   mainmenu = mainmen
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_delayedreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfosta

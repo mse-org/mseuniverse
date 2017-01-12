@@ -33,8 +33,6 @@ type
    statf: tstatfile;
    procedure namesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
-   procedure layersetev(const sender: TObject; var avalue: msestring;
-                   var accept: Boolean);
    procedure createev(const sender: TObject);
    procedure showhintev(const sender: TObject; var info: hintinfoty);
    procedure hintplotfilenamecolev(const sender: tdatacol; const arow: Integer;
@@ -43,7 +41,17 @@ type
                    var info: hintinfoty);
    procedure selectev(const sender: TObject);
    procedure deselectev(const sender: TObject);
+   procedure drilldataentered(const sender: TObject);
+   procedure drillfilesetev(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure plotfilesetev(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure plotdataenteredev(const sender: TObject);
   protected
+   function buildplotfilename(): msestring;
+   function checkfileduplicate(const aedit: tcustomstringedit;
+                                          const avalue: msestring): boolean;
+   function builddrillfilename(): msestring;
  end;
 
 implementation
@@ -64,12 +72,74 @@ begin
  caption:= avalue;
 end;
 
-procedure tproductionpagefo.layersetev(const sender: TObject;
+function tproductionpagefo.buildplotfilename(): msestring;
+begin
+ result:= layertoplotname(layered.value);
+end;
+
+function tproductionpagefo.checkfileduplicate(const aedit: tcustomstringedit;
+                                              const avalue: msestring): boolean;
+var
+ i1: int32;
+ s1: msestring;
+begin
+ result:= false;
+ s1:= mseuppercase(avalue);
+ if (avalue <> '') and (s1 <> mseuppercase(aedit.value)) then begin
+  for i1:= 0 to aedit.gridrowhigh do begin
+   if mseuppercase(aedit[i1]) = s1 then begin
+    result:= true;
+    break;
+   end;
+  end;
+ end;
+end;
+
+procedure tproductionpagefo.plotdataenteredev(const sender: TObject);
+var
+ s1: msestring;
+begin
+ s1:= buildplotfilename();
+ if checkfileduplicate(plotfileed,s1) then begin
+  s1:= '';
+ end;
+ plotfileed.value:= s1;
+end;
+
+procedure tproductionpagefo.plotfilesetev(const sender: TObject;
                var avalue: msestring; var accept: Boolean);
 begin
- if (plotfileed.value = '') or 
-           (plotfileed.value = layertoplotname(layered.value)) then begin
-  plotfileed.value:= layertoplotname(avalue);
+ if checkfileduplicate(tcustomstringedit(sender),avalue) then begin
+  errormessage('Duplicate filename.');
+  accept:= false;
+ end;
+end;
+
+function tproductionpagefo.builddrillfilename(): msestring;
+begin
+ result:= layertoplotname(layeraed.value)+'_'+layertoplotname(layerbed.value);
+ if nonplateded.value then begin
+  result:= result+'_npt';
+ end;
+end;
+
+procedure tproductionpagefo.drilldataentered(const sender: TObject);
+var
+ s1: msestring;
+begin
+ s1:= builddrillfilename();
+ if checkfileduplicate(drillfileed,s1) then begin
+  s1:= '';
+ end;
+ drillfileed.value:= s1;
+end;
+
+procedure tproductionpagefo.drillfilesetev(const sender: TObject;
+               var avalue: msestring; var accept: Boolean);
+begin
+ if checkfileduplicate(tcustomstringedit(sender),avalue) then begin
+  errormessage('Duplicate filename.');
+  accept:= false;
  end;
 end;
 
