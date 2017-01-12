@@ -20,9 +20,10 @@ layernames = (
  'F_Mask','Dwgs_User','Cmts_User','Eco1_User','Eco2_User','Edge_Cuts','Margin',
  'B_CrtYd','F_CrtYd','B_Fab','F_Fab')
 
-drillnames = ('Drill_Map')
+drillnames = ('Drill_Map','Excellon')
 DRILL_MAP = 0
-drillenums = (DRILL_MAP,0)
+EXCELLON = 1
+drillenums = (DRILL_MAP,EXCELLON,0)
 
 formatenums = (
  PLOT_FORMAT_HPGL,PLOT_FORMAT_GERBER,PLOT_FORMAT_POST,

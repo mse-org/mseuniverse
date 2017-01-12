@@ -8,20 +8,27 @@ class LAYER_PAIR:
 
 def drillfile(apcbfilename,aoutputfile,akind,
                                     alayera,alayerb,anonplated,aformat):
- print '*Drill ',akind,'Layers:',alayera,':',alayerb,' nonplated:',anonplated,\
-                ' Format:',aformat,' to'
+ print '*Drill ',akind,'Layers:',alayera,':',alayerb,' nonplated:',anonplated,
+ kind = drillenums[drillnames.index(akind)]
+ if kind == DRILL_MAP:
+  print ' Format:',aformat,' to'
+ else:
+  print ' to'
  print aoutputfile
 
- kind = drillenums[drillnames.index(akind)]
  format = formatenums[formatnames.index(aformat)]
  layera = layerenums[layernames.index(alayera)]
  layerb = layerenums[layernames.index(alayerb)]
  board = LoadBoard(apcbfilename)
  drlwriter = EXCELLON_WRITER(board)
  drlwriter.SetMapFileFormat(format)
- if kind == DRILL_MAP:
-  pair = LAYER_PAIR()
-  pair.first = alayera;
-  pair.second = alayerb;
+ pair = LAYER_PAIR()
+ pair.first = alayera;
+ pair.second = alayerb;
 #  drlwriter.BuildHolesList(pair,anonplated)
+ if kind == DRILL_MAP:
   drlwriter.GenDrillMapFile(aoutputfile,format)
+ elif kind == EXCELLON:
+  f1 = file(aoutputfile,'w')
+#  drlwriter.CreateDrillFile(f1)
+  f1.close()

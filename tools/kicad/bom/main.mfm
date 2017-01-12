@@ -470,7 +470,6 @@ object mainfo: tmainfo
     end
     object editbutton: tstockglyphdatabutton
       optionswidget1 = []
-      optionsskin = [osk_framebuttononly]
       taborder = 14
       hint = 'Edit component (F3)'
       bounds_x = 738

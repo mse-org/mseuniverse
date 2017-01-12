@@ -35,7 +35,7 @@ const
  versiontext = '0.0';
 
 type
- drillfilekindty = (dfk_map);
+ drillfilekindty = (dfk_map,dfk_excellon);
  
  fileformatty = (
   ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
@@ -649,8 +649,8 @@ const
 
 const
  drillfilecodes: array[drillfilekindty] of msestring = (
- //dfk_map
-  'Drill_Map'
+ //dfk_map,  dfk_excellon
+  'Drill_Map','Excellon'
  );
  fileformatnames: array[fileformatty] of msestring = (
 //  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
@@ -1733,7 +1733,22 @@ begin
     end;
     if not plotfile(board1,plotdir1,ar1[i1],
                            fileformatty(plotformats[i1]),la2,
-          (i1 = high(layernames)) and not createproductionzipfile) then begin
+          (i1 = high(plotfiles)) and (length(drillfiles) = 0)
+                                and not createproductionzipfile) then begin
+     break;
+    end;
+   end;
+   setlength(ar1,length(ar1)+length(drillfiles));
+   for i1:= 0 to high(drillfiles) do begin
+    s1:= drillfiles[i1]+'.drl';
+    ar1[i1+length(plotfiles)]:= s1;
+    if not getlayer(layeranames[i1],la1) or
+                          not getlayer(layerbnames[i1],la2) then begin
+     break;
+    end;
+    if not drillfile(board1,filepath(plotdir1,s1),dfk_excellon,
+                                      la1,la2,nonplated[i1],ff_gerber, //dummy
+           (i1 = high(drillfiles)) and not createproductionzipfile) then begin
      break;
     end;
    end;

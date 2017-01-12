@@ -117,9 +117,9 @@ end;
 
 function tproductionpagefo.builddrillfilename(): msestring;
 begin
- result:= layertoplotname(layeraed.value)+'_'+layertoplotname(layerbed.value);
+ result:= layertoplotname(layeraed.value)+'-'+layertoplotname(layerbed.value);
  if nonplateded.value then begin
-  result:= result+'_npt';
+  result:= result+'-npth';
  end;
 end;
 
