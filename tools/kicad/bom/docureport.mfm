@@ -6,7 +6,7 @@ object docure: tdocure
   font.name = 'stf_report'
   font.localprops = [flp_height]
   grid_size = 2
-  options = [reo_nothread, reo_waitdialog]
+  options = [reo_waitdialog]
   dialogtext = 'Creating documentation set...'
   dialogcaption = 'MSEkicadBOM'
   repdesigninfo = (

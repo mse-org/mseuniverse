@@ -3,3 +3,7 @@
 *.a
 *.bak
 *.bak?
+*.pyc
+*.dbg
+*~
+*.sta

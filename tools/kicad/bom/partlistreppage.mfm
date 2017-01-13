@@ -1,0 +1,89 @@
+inherited partlistreppagefo: tpartlistreppa
+  moduleclassname = 'tbasereppa'
+  repdesigninfo = (
+    177
+    159
+    460
+    369
+  )
+  object tbandarea1: tbandarea[0]
+    bounds_x = 48
+    bounds_y = 14
+    bounds_cx = 482
+    bounds_cy = 782
+    object header: trecordband
+      bounds_x = 0
+      bounds_y = 42
+      bounds_cx = 482
+      bounds_cy = 18
+      tabs.count = 2
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0.3
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'REF'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 16
+          value = 'PART'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      options = [bo_once, bo_evenpage, bo_oddpage]
+    end
+    object data: trecordband
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 88
+      bounds_cx = 482
+      bounds_cy = 18
+      tabs.count = 2
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = header
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          datafield = 'REF'
+          datasource = mainmo.compdso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 16
+          datafield = 'description'
+          datasource = mainmo.compdso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = mainmo.compdso
+    end
+  end
+end

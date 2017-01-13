@@ -1,0 +1,137 @@
+inherited bomreppa: tbomreppa
+  moduleclassname = 'tbasereppa'
+  repdesigninfo = (
+    180
+    151
+    460
+    369
+  )
+  object tbandarea1: tbandarea[0]
+    bounds_x = 48
+    bounds_y = 14
+    bounds_cx = 482
+    bounds_cy = 782
+    object header: trecordband
+      bounds_x = 0
+      bounds_y = 42
+      bounds_cx = 482
+      bounds_cy = 18
+      tabs.count = 2
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0.3
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'COUNT'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 18.3333333333333
+          value = 'PART/REF'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      options = [bo_once, bo_evenpage, bo_oddpage]
+    end
+    object tbandgroup1: tbandgroup
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 118
+      bounds_cx = 482
+      bounds_cy = 72
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.defaultdist = 0
+      object data1: trecordband
+        bounds_x = 0
+        bounds_y = 18
+        bounds_cx = 482
+        bounds_cy = 18
+        tabs.count = 2
+        tabs.litop_widthmm = 0
+        tabs.lileft_widthmm = 0
+        tabs.livert_widthmm = 0
+        tabs.liright_widthmm = 0
+        tabs.libottom_widthmm = 0
+        tabs.distleft = 0
+        tabs.distright = 0
+        tabs.linksource = header
+        tabs.defaultdist = 0
+        tabs.items = <        
+          item
+            pos = 0
+            datafield = 'count'
+            litop_widthmm = 0
+            livert_widthmm = 0
+            libottom_widthmm = 0
+            distleft = 0
+            distright = 0
+          end        
+          item
+            pos = 18.3333333333333
+            datafield = 'part'
+            litop_widthmm = 0
+            livert_widthmm = 0
+            libottom_widthmm = 0
+            distleft = 0
+            distright = 0
+          end>
+      end
+      object data2: trecordband
+        taborder = 1
+        bounds_x = 0
+        bounds_y = 42
+        bounds_cx = 482
+        bounds_cy = 16
+        optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+        tabs.count = 2
+        tabs.litop_widthmm = 0
+        tabs.lileft_widthmm = 0
+        tabs.livert_widthmm = 0
+        tabs.liright_widthmm = 0
+        tabs.libottom_widthmm = 0
+        tabs.distleft = 0
+        tabs.distright = 0
+        tabs.linksource = data1
+        tabs.defaultdist = 0
+        tabs.items = <        
+          item
+            pos = 0
+            litop_widthmm = 0
+            livert_widthmm = 0
+            libottom_widthmm = 0
+            distleft = 0
+            distright = 0
+          end        
+          item
+            pos = 18.3333333333333
+            textflags = [tf_ycentered, tf_wordbreak]
+            datafield = 'ref'
+            litop_widthmm = 0
+            livert_widthmm = 0
+            libottom_widthmm = 0
+            distleft = 0
+            distright = 0
+          end>
+      end
+    end
+  end
+end

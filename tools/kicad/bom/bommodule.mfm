@@ -1,0 +1,57 @@
+object bommo: tbommo
+  bounds_cx = 100
+  bounds_cy = 100
+  left = 100
+  top = 100
+  moduleclassname = 'tmsedatamodule'
+  object bomds: tlocaldataset
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'part'
+            options = [ifo_caseinsensitive]
+          end>
+      end>
+    FieldDefs = <    
+      item
+        Name = 'count'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'part'
+        DataType = ftString
+      end    
+      item
+        Name = 'ref'
+        DataType = ftString
+      end>
+    AfterOpen = afteropenev
+    left = 18
+    top = 22
+    streamingversion = 1
+  end
+  object bomdso: tmsedatasource
+    DataSet = bomds
+    left = 66
+    top = 22
+  end
+  object count: tmselongintfield
+    Index = -1
+    left = 72
+    top = 40
+  end
+  object part: tmsestringfield
+    DisplayWidth = 20
+    Index = -1
+    left = 72
+    top = 52
+  end
+  object ref: tmsestringfield
+    DisplayWidth = 20
+    Index = -1
+    left = 72
+    top = 64
+  end
+end

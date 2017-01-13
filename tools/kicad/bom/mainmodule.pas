@@ -29,7 +29,7 @@ uses
  msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
  msemacros,mclasses,msedbedit,msegraphedits,mselookupbuffer,msescrollbar,
  msepython,pythonconsoleform,msepostscriptprinter,mseprinter,msepipestream,
- mseprocess,mseguiprocess;
+ mseprocess,mseguiprocess,msereport,mserichstring,msesplitter;
 
 const
  versiontext = '0.0';
@@ -523,7 +523,7 @@ uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
  msearrayutils,docureport,docupsreppage,msereport,basereppage,mserepps,
- partlistreppage;
+ partlistreppage,bomreppage;
 
 var
  docupageclasses: array[docupagekindty] of docupageclassty = (
@@ -1907,6 +1907,9 @@ begin
     end;
     dpk_partlist: begin
      pac1:= tpartlistreppa;
+    end;
+    dpk_bom: begin
+     pac1:= tbomreppa;
     end;
    end;
    if pac1 <> nil then begin

@@ -107,7 +107,7 @@ object mainmo: tmainmo
     top = 208
   end
   object compds: tlocaldataset
-    indexlocal.count = 14
+    indexlocal.count = 15
     indexlocal.items = <    
       item
         fields.items = <        
@@ -265,6 +265,13 @@ object mainmo: tmainmo
             fieldname = 'REF'
             options = [ifo_caseinsensitive]
           end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'stockitemid'
+          end>
+        name = 'stockitem'
       end>
     FieldDefs = <    
       item
