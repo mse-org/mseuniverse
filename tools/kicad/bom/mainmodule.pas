@@ -89,7 +89,8 @@ type
  pdocuschematicpageinfoty = ^docuschematicpageinfoty;
  docuschematicpageinfoarty = array of docuschematicpageinfoty;
 
- docupagekindty = (dpk_none,dpk_schematic,dpk_layerplot,dpk_drillmap);
+ docupagekindty = (dpk_none,dpk_schematic,dpk_layerplot,dpk_drillmap,
+                   dpk_partlist,dpk_bom);
 
  tdocupage = class(toptions)
   private
@@ -148,7 +149,17 @@ type
   published
    property psfile: msestring read fpsfile write fpsfile;
  end;
-   
+
+ tpartlistpage = class(tdocupage)
+  protected
+   class function getpagekind: docupagekindty override;
+ end;
+
+ tbompage = class(tdocupage)
+  protected
+   class function getpagekind: docupagekindty override;
+ end;
+    
  docuinfoty = record
   h: infoheaderty;
   docudir: filenamety;
@@ -511,12 +522,15 @@ implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
- msearrayutils,docureport,docupsreppage,msereport,basereppage,mserepps;
+ msearrayutils,docureport,docupsreppage,msereport,basereppage,mserepps,
+ partlistreppage;
 
 var
  docupageclasses: array[docupagekindty] of docupageclassty = (
  //dpk_none,dpk_schematic,     dpk_layerplot,dpk_drillmap
-  nil,      tschematicplotpage,tlayerplotpage,tdrillmappage
+  nil,      tschematicplotpage,tlayerplotpage,tdrillmappage,
+ //dpk_partlist,dpk_bom
+  tpartlistpage,tbompage
   );
 
 procedure docupagesetlength(var pages: docupagearty; const count: int32);
@@ -668,8 +682,8 @@ const
  );
 
  docupagekinds: array[0..ord(high(docupagekindty))-1] of msestring = (
-//(dpk_schematic,dpk_layerplot,dpk_drillmap);
-   'Schematic','PCB Layer-Plot','Drill-Map'
+//dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
+   'Schematic','PCB Layer-Plot','Drill-Map','Partlist','BOM'
  );
  
 function layertoplotname(const layername: msestring): msestring;
@@ -1891,6 +1905,9 @@ begin
      }
      end;
     end;
+    dpk_partlist: begin
+     pac1:= tpartlistreppa;
+    end;
    end;
    if pac1 <> nil then begin
     pa1:= tdocupsreppa(pac1.create(nil));
@@ -2339,6 +2356,20 @@ constructor tdrillmappage.create();
 begin
  flayeraname:= layernames[la_f_cu];
  flayerbname:= layernames[la_b_cu];
+end;
+
+{ tpartlistpage }
+
+class function tpartlistpage.getpagekind: docupagekindty;
+begin
+ result:= dpk_partlist;
+end;
+
+{ tbompage }
+
+class function tbompage.getpagekind: docupagekindty;
+begin
+ result:= dpk_bom;
 end;
 
 initialization
