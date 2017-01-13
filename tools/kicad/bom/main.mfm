@@ -1035,7 +1035,7 @@ object mainfo: tmainfo
           item
             action = mainmo.docusetact
           end>
-        caption = 'R&eporting'
+        caption = '&Make'
         state = [as_localcaption]
       end    
       item
