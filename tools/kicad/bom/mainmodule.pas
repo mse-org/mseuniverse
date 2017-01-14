@@ -522,8 +522,8 @@ implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
- msearrayutils,docureport,docupsreppage,msereport,basereppage,mserepps,
- partlistreppage,bomreppage;
+ msearrayutils,docureport,docupsreppage,basereppage,mserepps,
+ partlistreppage,bomreppage,bommodule;
 
 var
  docupageclasses: array[docupagekindty] of docupageclassty = (
@@ -1833,7 +1833,7 @@ var
  pk1,pk2: layerty;
  b1: boolean;
  pac1: reppageformclassty;
- pa1: tdocupsreppa;
+ pa1: treppageform;
  la1: layoutflagsty;
 begin
  info1:= globaloptions.docudefinebyname(projectoptions.docuset);
@@ -1910,27 +1910,32 @@ begin
     end;
     dpk_bom: begin
      pac1:= tbomreppa;
+     bommo.bomds.active:= true;
     end;
    end;
    if pac1 <> nil then begin
     pa1:= tdocupsreppa(pac1.create(nil));
-    pa1.ps.psfile:= s1;
-    la1:= pa1.ps.layout;
-    with info1^.pages[i1] do begin
-     if mirrorx then begin
-      include(la1,la_mirrorx);
-     end;
-     if mirrory then begin
-      include(la1,la_mirrory);
-     end;
-     if rotate90 then begin
-      include(la1,la_rotate90);
-     end;
-     if rotate180 then begin
-      include(la1,la_rotate180);
+    if pa1 is tdocupsreppa then begin
+     with tdocupsreppa(pa1) do begin
+      ps.psfile:= s1;
+      la1:= ps.layout;
+      with info1^.pages[i1] do begin
+       if mirrorx then begin
+        include(la1,la_mirrorx);
+       end;
+       if mirrory then begin
+        include(la1,la_mirrory);
+       end;
+       if rotate90 then begin
+        include(la1,la_rotate90);
+       end;
+       if rotate180 then begin
+        include(la1,la_rotate180);
+       end;
+      end;
+      ps.layout:= la1;
      end;
     end;
-    pa1.ps.layout:= la1;
     rep.add(pa1);
    end;
   end;
@@ -1955,6 +1960,7 @@ begin
   deletedir(tmpf);
   endpy();
   rep.destroy();
+  bommo.bomds.active:= false;
  end;
 end;
 

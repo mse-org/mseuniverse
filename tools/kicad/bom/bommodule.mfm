@@ -34,24 +34,7 @@ object bommo: tbommo
   end
   object bomdso: tmsedatasource
     DataSet = bomds
-    left = 66
+    left = 130
     top = 22
-  end
-  object count: tmselongintfield
-    Index = -1
-    left = 72
-    top = 40
-  end
-  object part: tmsestringfield
-    DisplayWidth = 20
-    Index = -1
-    left = 72
-    top = 52
-  end
-  object ref: tmsestringfield
-    DisplayWidth = 20
-    Index = -1
-    left = 72
-    top = 64
   end
 end

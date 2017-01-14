@@ -19,15 +19,12 @@ unit bommodule;
 interface
 uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,mdb,msebufdataset,
- msedb,mseifiglob,mselocaldataset;
+ msedb,mseifiglob,mselocaldataset,msestrings;
 
 type
  tbommo = class(tmsedatamodule)
    bomds: tlocaldataset;
    bomdso: tmsedatasource;
-   count: tmselongintfield;
-   part: tmsestringfield;
-   ref: tmsestringfield;
    procedure afteropenev(DataSet: TDataSet);
  end;
 var
@@ -40,11 +37,56 @@ procedure tbommo.afteropenev(DataSet: TDataSet);
 var
  index1: int32;
  recno1: int32;
+ val,val1,val2,desc: msestring;
+ valbefore,val1before,val2before,descbefore: msestring;
+ reflist: msestring;
+ count1: int32;
+
+ procedure addcomp();
+ begin
+  if count1 > 0 then begin
+   setlength(reflist,length(reflist)-1); //remove trailing space
+   bomds.appendrecord([count1,descbefore,reflist]);
+  end;
+  valbefore:= val;
+  val1before:= val1;
+  val2before:= val2;
+  descbefore:= desc;
+  count1:= 0;
+  reflist:= '';
+ end;//addcomp
+
 begin
  with mainmo.compds do begin
   index1:= indexlocal.activeindex;
   recno1:= recno;
   try
+   bomds.resetindex;
+   indexlocal.indexbyname('comp').active:= true;
+   disablecontrols();
+   valbefore:= '';
+   val1before:= '';
+   val2before:= '';
+   descbefore:= '';
+   reflist:= '';
+   count1:= 0;
+   first();
+   while not eof do begin
+    val:= mseuppercase(mainmo.c_value.asmsestring);
+    val1:= mseuppercase(mainmo.c_value1.asmsestring);
+    val2:= mseuppercase(mainmo.c_value2.asmsestring);
+    desc:= mainmo.c_description.asmsestring;
+    if (val <> valbefore) or (val1 <> val1before) or 
+                        (val2 <> val2before) or (desc <> descbefore) then begin
+     addcomp();
+    end;
+    reflist:= reflist + mainmo.c_ref.asmsestring + ' ';
+    inc(count1);
+    next();
+   end;
+   addcomp();
+   bomds.indexlocal[0].active:= true;
+   bomds.first();
   finally
    indexlocal.activeindex:= index1;
    recno:= recno1;

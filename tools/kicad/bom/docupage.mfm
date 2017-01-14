@@ -129,13 +129,14 @@ object docupagefo: tdocupagefo
         dataclass = tgridmsestringdatalist
       end    
       item[pagekinded]
-        width = 77
+        width = 100
         options = [co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
         widgetname = 'pagekinded'
         dataclass = tgridenumdatalist
       end    
       item[docupageeditbu]
         color = -2147483646
+        width = 22
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'docupageeditbu'
         dataclass = tgridintegerdatalist
@@ -181,7 +182,6 @@ object docupagefo: tdocupagefo
       visible = False
       bounds_x = 112
       bounds_y = 0
-      bounds_cx = 77
       bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
@@ -196,9 +196,9 @@ object docupagefo: tdocupagefo
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
       taborder = 3
-      bounds_x = 190
+      bounds_x = 213
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 22
       bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       state = [as_invisible, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr]
@@ -214,7 +214,7 @@ object docupagefo: tdocupagefo
       frame.localprops1 = []
       taborder = 4
       visible = False
-      bounds_x = 241
+      bounds_x = 236
       bounds_y = 0
       bounds_cx = 23
       bounds_cy = 16

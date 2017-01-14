@@ -267,11 +267,24 @@ object mainmo: tmainmo
           end>
       end    
       item
+        fields.count = 4
         fields.items = <        
           item
-            fieldname = 'stockitemid'
+            fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE1'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'description'
           end>
-        name = 'stockitem'
+        name = 'comp'
       end>
     FieldDefs = <    
       item
