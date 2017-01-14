@@ -118,7 +118,8 @@ end;
 
 procedure tdocupagefo.cellev(const sender: TObject; var info: celleventinfoty);
 begin
- if (info.cell.row >= 0) and iscellclick(info,[ccr_dblclick]) then begin
+ if (info.cell.row >= 0) and iscellclick(info,
+                                  [ccr_dblclick,ccr_nokeyreturn]) then begin
   docupageeditact.execute();
  end;
 end;
