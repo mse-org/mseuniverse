@@ -119,7 +119,7 @@ object mainmo: tmainmo
         fields.items = <        
           item
             fieldname = 'REF'
-            options = [ifo_caseinsensitive]
+            options = [ifo_caseinsensitive, ifo_natural]
           end>
         active = True
       end    
@@ -286,7 +286,7 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'REF'
-            options = [ifo_caseinsensitive]
+            options = [ifo_caseinsensitive, ifo_natural]
           end>
         name = 'comp'
       end>
