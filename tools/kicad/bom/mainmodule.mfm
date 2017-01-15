@@ -267,7 +267,7 @@ object mainmo: tmainmo
           end>
       end    
       item
-        fields.count = 4
+        fields.count = 5
         fields.items = <        
           item
             fieldname = 'VALUE'
@@ -283,6 +283,10 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'description'
+          end        
+          item
+            fieldname = 'REF'
+            options = [ifo_caseinsensitive]
           end>
         name = 'comp'
       end>
