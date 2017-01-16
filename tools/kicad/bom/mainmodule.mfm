@@ -76,12 +76,14 @@ object mainmo: tmainmo
   end
   object saveprojectact: taction
     caption = '&Save Project'
+    onexecute = saveev
     onupdate = saveupdateev
     left = 8
     top = 152
   end
   object saveprojectasact: taction
     caption = 'Save Project &as'
+    onexecute = saveasev
     left = 8
     top = 168
   end

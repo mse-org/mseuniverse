@@ -418,6 +418,8 @@ type
    procedure mainstatupdateev(const sender: TObject; const filer: tstatfiler);
    procedure prodfilesev(const sender: TObject);
    procedure docusetev(const sender: TObject);
+   procedure saveev(const sender: TObject);
+   procedure saveasev(const sender: TObject);
   private
    fhasproject: boolean;
    fmodified: boolean;
@@ -461,7 +463,7 @@ type
    procedure endedit();
    procedure refresh();
    function closeproject(): boolean; //true if not canceled
-   function saveproject(): boolean;  //true if not canceled
+   function saveproject(const saveas: boolean): boolean;  //true if not canceled
    function doexit: boolean;         //true if not canceled
 
    procedure beginedit(const aquery: tmsesqlquery; const afield: tfield);
@@ -968,12 +970,20 @@ begin
  updateprojectstate.controller.execute()
 end;
 
-function tmainmo.saveproject(): boolean;
+function tmainmo.saveproject(const saveas: boolean): boolean;
+var
+ s1: msestring;
 begin
  result:= false;
- if fmodified then begin
-  if fprojectfile = '' then begin
+ if fmodified or saveas then begin
+  if (fprojectfile = '') or saveas then begin
+   s1:= fprojectfile;
+   fprojectfile:= '';
    getprojectfilesave.controller.execute();
+   if saveas and (fprojectfile = '') then begin
+    fprojectfile:= s1;
+    exit;
+   end;
   end;
   if fprojectfile <> '' then begin
    projectstat.filename:= fprojectfile;
@@ -999,7 +1009,7 @@ begin
   case askyesnocancel('Project has been modified.'+lineend+
                       'Do you want to save it?','CONFIRMATION') of
    mr_yes: begin
-    if not saveproject() then begin
+    if not saveproject(false) then begin
      exit;
     end;
    end;
@@ -1967,6 +1977,16 @@ end;
 procedure tmainmo.docusetev(const sender: TObject);
 begin
  createdocuset();
+end;
+
+procedure tmainmo.saveev(const sender: TObject);
+begin
+ saveproject(false);
+end;
+
+procedure tmainmo.saveasev(const sender: TObject);
+begin
+ saveproject(true);
 end;
 
 { tprojectoptions }
