@@ -1,0 +1,9 @@
+inherited listreppa: tlistreppa
+  moduleclassname = 'tbasereppa'
+  repdesigninfo = (
+    177
+    159
+    460
+    369
+  )
+end

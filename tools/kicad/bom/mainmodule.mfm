@@ -2120,6 +2120,7 @@ object mainmo: tmainmo
     tabulators.defaultdist = 0
     left = 664
     top = 8
+    pa_frametop = 30
   end
   object viewerproc: tguiprocess
     optionsgui = [prog_waitdialog, prog_cancontinue]

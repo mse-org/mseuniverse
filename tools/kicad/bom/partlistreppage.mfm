@@ -1,5 +1,5 @@
 inherited partlistreppagefo: tpartlistreppa
-  moduleclassname = 'tbasereppa'
+  moduleclassname = 'tlistreppa'
   repdesigninfo = (
     177
     159

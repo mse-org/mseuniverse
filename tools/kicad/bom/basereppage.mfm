@@ -1,6 +1,6 @@
 object basereppa: tbasereppa
-  pagewidth = 190
-  pageheight = 270
+  pagewidth = 170
+  pageheight = 190
   font.height = 14
   font.name = 'stf_report'
   font.localprops = [flp_height]
