@@ -6,4 +6,46 @@ inherited listreppa: tlistreppa
     460
     369
   )
+  object tbandarea2: tbandarea[0]
+    color = 16762823
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 510
+    bounds_cy = 570
+    object title: trecordband
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 510
+      bounds_cy = 24
+      font.height = 18
+      font.name = 'stf_report'
+      font.localprops = [flp_height]
+      tabs.count = 1
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Title'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      options = [bo_once]
+    end
+  end
+  inherited treppagenumdisp1: treppagenumdisp[1]
+    taborder = 1
+  end
+  inherited trepprintdatedisp1: trepprintdatedisp[2]
+    taborder = 2
+  end
 end

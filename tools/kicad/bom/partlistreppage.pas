@@ -20,11 +20,10 @@ interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,basereppage,
- mdb,mseifiglob,msereport,mserichstring,msesplitter,msestrings;
+ mdb,mseifiglob,msereport,mserichstring,msesplitter,msestrings,listreppage;
 
 type
- tpartlistreppa = class(tbasereppa)
-   tbandarea1: tbandarea;
+ tpartlistreppa = class(tlistreppa)
    header: trecordband;
    data: trecordband;
  end;

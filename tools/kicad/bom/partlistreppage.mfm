@@ -6,15 +6,11 @@ inherited partlistreppagefo: tpartlistreppa
     460
     369
   )
-  object tbandarea1: tbandarea[0]
-    bounds_x = 48
-    bounds_y = 14
-    bounds_cx = 482
-    bounds_cy = 782
-    object header: trecordband
+  inherited tbandarea2: tbandarea
+    object header: trecordband[0]
       bounds_x = 0
       bounds_y = 42
-      bounds_cx = 482
+      bounds_cx = 510
       bounds_cy = 18
       tabs.count = 2
       tabs.litop_widthmm = 0
@@ -46,11 +42,11 @@ inherited partlistreppagefo: tpartlistreppa
         end>
       options = [bo_once, bo_evenpage, bo_oddpage]
     end
-    object data: trecordband
-      taborder = 1
+    object data: trecordband[1]
+      taborder = 2
       bounds_x = 0
       bounds_y = 88
-      bounds_cx = 482
+      bounds_cx = 510
       bounds_cy = 18
       tabs.count = 2
       tabs.litop_widthmm = 0
@@ -85,5 +81,16 @@ inherited partlistreppagefo: tpartlistreppa
         end>
       datasource = mainmo.compdso
     end
+    inherited title: trecordband[2]
+      taborder = 1
+      tabs.items = <      
+        item
+          value = 'Partlist'
+        end>
+    end
+  end
+  inherited treppagenumdisp1: treppagenumdisp
+  end
+  inherited trepprintdatedisp1: trepprintdatedisp
   end
 end

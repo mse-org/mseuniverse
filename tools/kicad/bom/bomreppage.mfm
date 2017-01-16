@@ -6,16 +6,11 @@ inherited bomreppa: tbomreppa
     460
     369
   )
-  object tbandarea1: tbandarea[0]
-    bounds_x = 48
-    bounds_y = 14
-    bounds_cx = 482
-    bounds_cy = 782
-    anchors = [an_left, an_top, an_right, an_bottom]
-    object header: trecordband
+  inherited tbandarea2: tbandarea
+    object header: trecordband[0]
       bounds_x = 0
       bounds_y = 42
-      bounds_cx = 482
+      bounds_cx = 510
       bounds_cy = 18
       tabs.count = 2
       tabs.litop_widthmm = 0
@@ -48,11 +43,11 @@ inherited bomreppa: tbomreppa
         end>
       options = [bo_once, bo_evenpage, bo_oddpage]
     end
-    object tbandgroup1: tbandgroup
-      taborder = 1
+    object tbandgroup1: tbandgroup[1]
+      taborder = 2
       bounds_x = 0
       bounds_y = 118
-      bounds_cx = 482
+      bounds_cx = 510
       bounds_cy = 34
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       tabs.litop_widthmm = 0
@@ -67,7 +62,7 @@ inherited bomreppa: tbomreppa
       object data1: trecordband
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 482
+        bounds_cx = 510
         bounds_cy = 18
         tabs.count = 2
         tabs.litop_widthmm = 0
@@ -105,8 +100,8 @@ inherited bomreppa: tbomreppa
       object data2: trecordband
         taborder = 1
         bounds_x = 0
-        bounds_y = 18
-        bounds_cx = 482
+        bounds_y = 17
+        bounds_cx = 510
         bounds_cy = 16
         optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
         tabs.count = 2
@@ -141,5 +136,16 @@ inherited bomreppa: tbomreppa
           end>
       end
     end
+    inherited title: trecordband[2]
+      taborder = 1
+      tabs.items = <      
+        item
+          value = 'Bill of Material'
+        end>
+    end
+  end
+  inherited treppagenumdisp1: treppagenumdisp
+  end
+  inherited trepprintdatedisp1: trepprintdatedisp
   end
 end

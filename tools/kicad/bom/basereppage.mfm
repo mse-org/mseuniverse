@@ -13,4 +13,19 @@ object basereppa: tbasereppa
     460
     369
   )
+  object treppagenumdisp1: treppagenumdisp
+    bounds_x = 378
+    bounds_y = 546
+    bounds_cx = 77
+    bounds_cy = 16
+    format = '"Page " 0 of 1'
+  end
+  object trepprintdatedisp1: trepprintdatedisp
+    taborder = 1
+    bounds_x = 198
+    bounds_y = 546
+    bounds_cx = 74
+    bounds_cy = 16
+    format = 'i'
+  end
 end

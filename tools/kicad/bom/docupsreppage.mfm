@@ -18,4 +18,10 @@ inherited docupsreppa: tdocupsreppa
     layout = [la_fit]
     options = [bo_once]
   end
+  inherited treppagenumdisp1: treppagenumdisp[1]
+    taborder = 1
+  end
+  inherited trepprintdatedisp1: trepprintdatedisp[2]
+    taborder = 2
+  end
 end

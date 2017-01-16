@@ -21,20 +21,19 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,basereppage,
  mdb,msebufdataset,msedb,mseifiglob,mselocaldataset,msereport,mserichstring,
- msesplitter,msestrings;
+ msesplitter,msestrings,listreppage;
 
 type
- tbomreppa = class(tbasereppa)
-   tbandarea1: tbandarea;
-   header: trecordband;
-   tbandgroup1: tbandgroup;
-   data1: trecordband;
+ tbomreppa = class(tlistreppa)
    count: tmselongintfield;
    part: tmsestringfield;
    ref: tmsestringfield;
-   data2: trecordband;
    ds: tlocaldataset;
    dso: tmsedatasource;
+   header: trecordband;
+   tbandgroup1: tbandgroup;
+   data1: trecordband;
+   data2: trecordband;
  end;
 implementation
 uses
