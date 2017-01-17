@@ -817,117 +817,122 @@ var
  bo1: boolean;
  area1,f1: flo64;
 begin
- application.beginwait();
  try
-  compds.disablecontrols();
-  parser:= nil;
-  area1:= 0;
+  application.beginwait();
   try
-   recno1:= compds.recno;
-   compds.active:= false;
-   compds.active:= true;
-   parser:= tkicadschemaparser.create(nil);
-   parser.oncomp:= @docomp;
-   for i1:= 0 to high(projectoptions.schematics) do begin
-    stream:= ttextstream.create(projectoptions.schematics[i1],fm_read);
-    try
-     stream.encoding:= ce_utf8;
-     parser.parse(stream);
-    finally
-     stream.destroy();
-    end;
-   end;
-   compds.post(); //last inserted record
-   
-   manufacturerqu.controller.refresh(false);
-   distributorqu.controller.refresh(false);
-   footprintlibqu.controller.refresh(false);
-   footprintqu.controller.refresh(false);
-   stockcompqu.disablecontrols();
-   stockcompdetailqu.disablecontrols();
+   compds.disablecontrols();
+   parser:= nil;
+   area1:= 0;
    try
-    stockcompqu.controller.refresh(true);
-    for i1:= 0 to compds.recordcount - 1 do begin
-     if stockcompqu.indexlocal[1].find(
-                    [compds.currentasmsestring[c_value,i1],
-                     compds.currentasmsestring[c_value1,i1],
-                     compds.currentasmsestring[c_value2,i1],
-                     compds.currentasmsestring[c_footprintinfo,i1]],
-                    [compds.currentisnull[c_value,i1],
-                     compds.currentisnull[c_value1,i1],
-                     compds.currentisnull[c_value2,i1],
-                     compds.currentisnull[c_footprintinfo,i1]]) then begin
-      compds.currentasid[c_stockitemid,i1]:= sc_pk.asid;
-
-      id2:= sc_componentkind.asid;
-      compds.currentasid[c_componentkindid,i1]:= id2;
-      bo1:= (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2);
-
-      id1:= sc_footprint.asid;
-      if (id1 < 0) and bo1 then begin
-       id1:= compkindqu.currentbmasid[k_footprint,bm2];
-      end;
-      compds.currentasid[c_footprintid,i1]:= id1;
-      if (id1 >= 0) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
-       f1:= footprintqu.currentbmasfloat[f_area,bm1];
-       if f1 <> emptyfloat64 then begin
-        compds.currentasfloat[c_area,i1]:= f1;
-        area1:= area1 + f1;
-       end;
-      end;
-
-      id1:= sc_manufacturer.asid;
-      if (id1 < 0) and bo1 then begin
-       id1:= compkindqu.currentbmasid[k_manufacturer,bm2];
-      end;
-      compds.currentasid[c_manufacturerid,i1]:= id1;
-
-      id1:= sc_distributor.asid;
-      if (id1 < 0) and bo1 then begin
-       id1:= compkindqu.currentbmasid[k_distributor,bm2];
-      end;
-      compds.currentasid[c_distributorid,i1]:= id1;
-
-//      compds.currentasmsestring[c_stockvalue,i1]:= sc_value.asmsestring;
-//      compds.currentasmsestring[c_stockvalue1,i1]:= sc_value1.asmsestring;
-//      compds.currentasmsestring[c_stockvalue2,i1]:= sc_value2.asmsestring;
-      stockcompdetailqu.params[0].asid:= sc_pk.asid; 
-                           //manually because of disablecontrols
-      stockcompdetailqu.controller.refresh(false);
-      compds.currentasmsestring[c_description,i1]:=
-                                        expandcomponentmacros(scd_description);
-      rowstate1:= -1;
-     end
-     else begin
-      rowstate1:= 0;
+    recno1:= compds.recno;
+    compds.active:= false;
+    compds.active:= true;
+    parser:= tkicadschemaparser.create(nil);
+    parser.oncomp:= @docomp;
+    for i1:= 0 to high(projectoptions.schematics) do begin
+     stream:= ttextstream.create(projectoptions.schematics[i1],fm_read);
+     try
+      stream.encoding:= ce_utf8;
+      parser.parse(stream);
+     finally
+      stream.destroy();
      end;
-     compds.currentasinteger[c_rowstate,i1]:= rowstate1;
     end;
-   finally
-    stockcompqu.enablecontrols();
-    stockcompdetailqu.enablecontrols();
-   end;
-   if recno1 <= 0 then begin
-    compds.first();
-   end
-   else begin
-    if recno1 > compds.recordcount then begin
-     compds.last();
+    compds.post(); //last inserted record
+    
+    manufacturerqu.controller.refresh(false);
+    distributorqu.controller.refresh(false);
+    footprintlibqu.controller.refresh(false);
+    footprintqu.controller.refresh(false);
+    stockcompqu.disablecontrols();
+    stockcompdetailqu.disablecontrols();
+    try
+     stockcompqu.controller.refresh(true);
+     for i1:= 0 to compds.recordcount - 1 do begin
+      if stockcompqu.indexlocal[1].find(
+                     [compds.currentasmsestring[c_value,i1],
+                      compds.currentasmsestring[c_value1,i1],
+                      compds.currentasmsestring[c_value2,i1],
+                      compds.currentasmsestring[c_footprintinfo,i1]],
+                     [compds.currentisnull[c_value,i1],
+                      compds.currentisnull[c_value1,i1],
+                      compds.currentisnull[c_value2,i1],
+                      compds.currentisnull[c_footprintinfo,i1]]) then begin
+       compds.currentasid[c_stockitemid,i1]:= sc_pk.asid;
+ 
+       id2:= sc_componentkind.asid;
+       compds.currentasid[c_componentkindid,i1]:= id2;
+       bo1:= (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2);
+ 
+       id1:= sc_footprint.asid;
+       if (id1 < 0) and bo1 then begin
+        id1:= compkindqu.currentbmasid[k_footprint,bm2];
+       end;
+       compds.currentasid[c_footprintid,i1]:= id1;
+       if (id1 >= 0) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
+        f1:= footprintqu.currentbmasfloat[f_area,bm1];
+        if f1 <> emptyfloat64 then begin
+         compds.currentasfloat[c_area,i1]:= f1;
+         area1:= area1 + f1;
+        end;
+       end;
+ 
+       id1:= sc_manufacturer.asid;
+       if (id1 < 0) and bo1 then begin
+        id1:= compkindqu.currentbmasid[k_manufacturer,bm2];
+       end;
+       compds.currentasid[c_manufacturerid,i1]:= id1;
+ 
+       id1:= sc_distributor.asid;
+       if (id1 < 0) and bo1 then begin
+        id1:= compkindqu.currentbmasid[k_distributor,bm2];
+       end;
+       compds.currentasid[c_distributorid,i1]:= id1;
+ 
+ //      compds.currentasmsestring[c_stockvalue,i1]:= sc_value.asmsestring;
+ //      compds.currentasmsestring[c_stockvalue1,i1]:= sc_value1.asmsestring;
+ //      compds.currentasmsestring[c_stockvalue2,i1]:= sc_value2.asmsestring;
+       stockcompdetailqu.params[0].asid:= sc_pk.asid; 
+                            //manually because of disablecontrols
+       stockcompdetailqu.controller.refresh(false);
+       compds.currentasmsestring[c_description,i1]:=
+                                         expandcomponentmacros(scd_description);
+       rowstate1:= -1;
+      end
+      else begin
+       rowstate1:= 0;
+      end;
+      compds.currentasinteger[c_rowstate,i1]:= rowstate1;
+     end;
+    finally
+     stockcompqu.enablecontrols();
+     stockcompdetailqu.enablecontrols();
+    end;
+    if recno1 <= 0 then begin
+     compds.first();
     end
     else begin
-     compds.recno:= recno1;
+     if recno1 > compds.recordcount then begin
+      compds.last();
+     end
+     else begin
+      compds.recno:= recno1;
+     end;
     end;
+   finally
+    parser.free();
+    if compds.active then begin
+     compds.post();
+    end;
+    compds.enablecontrols();
+    totarea.controller.value:= area1;
    end;
   finally
-   parser.free();
-   if compds.active then begin
-    compds.post();
-   end;
-   compds.enablecontrols();
-   totarea.controller.value:= area1;
+   application.endwait();
   end;
- finally
-  application.endwait();
+ except
+  compds.active:= false;
+  application.handleexception();
  end;
 end;
 

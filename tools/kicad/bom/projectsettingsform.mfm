@@ -98,7 +98,7 @@ object projectsettingsfo: tprojectsettingsfo
         bounds_cx = 388
         bounds_cy = 229
         anchors = []
-        optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
         fixcols.items = <        
           item
@@ -107,10 +107,11 @@ object projectsettingsfo: tprojectsettingsfo
             numstep = 1
           end>
         datacols.count = 1
+        datacols.options = [co_savestate, co_mousescrollrow]
         datacols.items = <        
           item[val_schematics]
             width = 362
-            options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+            options = [co_fill, co_savestate, co_mousescrollrow]
             widgetname = 'val_schematics'
             dataclass = tgridmsestringdatalist
           end>
@@ -138,6 +139,7 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_cx = 362
           bounds_cy = 16
           statfile = tstatfile1
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
           textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
           controller.filterlist.data = (
@@ -148,6 +150,7 @@ object projectsettingsfo: tprojectsettingsfo
           )
           controller.defaultext = 'sch'
           controller.captionopen = 'Select KiCad Schematic'
+          controller.onafterexecute = schematicexecuteev
           reffontheight = 14
         end
       end
@@ -288,6 +291,7 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_cx = 359
           bounds_cy = 37
           anchors = [an_left, an_top, an_right]
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
           textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
           controller.filterlist.data = (
@@ -305,6 +309,7 @@ object projectsettingsfo: tprojectsettingsfo
           taborder = 1
           bounds_x = 367
           bounds_y = 21
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           value = True
         end
       end
@@ -373,6 +378,7 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_x = 4
           bounds_y = 0
           bounds_cy = 37
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           dropdown.cols.count = 1
           dropdown.cols.items = <          
             item
@@ -413,6 +419,7 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_x = 4
           bounds_y = 0
           bounds_cy = 37
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_sorted]
           dropdown.cols.count = 1
           dropdown.cols.items = <          
@@ -438,6 +445,7 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_x = 108
           bounds_y = 0
           bounds_cy = 37
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_sorted]
           dropdown.cols.count = 1
           dropdown.cols.items = <          
@@ -483,6 +491,7 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_cx = 359
           bounds_cy = 37
           anchors = [an_left, an_top, an_right]
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
           textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
           controller.filterlist.data = (
@@ -541,6 +550,7 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_cx = 372
           bounds_cy = 37
           anchors = [an_left, an_top, an_right]
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           reffontheight = 14
         end
       end
@@ -553,7 +563,7 @@ object projectsettingsfo: tprojectsettingsfo
         bounds_cx = 388
         bounds_cy = 183
         anchors = [an_top, an_bottom]
-        optionsgrid = [og_colsizing, og_rowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        optionsgrid = [og_colsizing, og_rowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
         fixcols.items = <        
           item
@@ -575,7 +585,7 @@ object projectsettingsfo: tprojectsettingsfo
               end>
           end>
         datacols.count = 2
-        datacols.options = [co_proportional, co_savevalue, co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
+        datacols.options = [co_proportional, co_savestate, co_cancopy, co_canpaste, co_mousescrollrow]
         datacols.items = <        
           item[val_projectmacronames]
             width = 100

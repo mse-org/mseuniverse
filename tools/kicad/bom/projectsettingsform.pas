@@ -67,6 +67,8 @@ type
    procedure projectmacrohintev(const sender: TObject; var info: hintinfoty);
    procedure showprojectmacrohintcolev(const sender: tdatacol;
                    const arow: Integer; var info: hintinfoty);
+   procedure schematicexecuteev(const sender: tfiledialogcontroller;
+                   var aresult: modalresultty);
   protected
    procedure projectmacrohint(const atext: msestring; var info: hintinfoty);
  end;
@@ -122,6 +124,24 @@ procedure tprojectsettingsfo.showprojectmacrohintcolev(const sender: tdatacol;
                const arow: Integer; var info: hintinfoty);
 begin
  projectmacrohint(val_projectmacrovalues[arow],info);
+end;
+
+procedure tprojectsettingsfo.schematicexecuteev(
+              const sender: tfiledialogcontroller; var aresult: modalresultty);
+var
+ i1,i2: int32;
+begin
+ if (aresult = mr_ok) then begin
+  i1:= length(sender.filenames);
+  if i1 > 1 then begin
+   i2:= schematicgrid.row;
+   schematicgrid.insertrow(i2+1,i1-1);
+   for i1:= 1 to i1-1 do begin
+    val_schematics[i1+i2]:= sender.filenames[i1];
+   end;
+   sender.filenames:= copy(sender.filenames,0,1);
+  end;
+ end;
 end;
 
 end.
