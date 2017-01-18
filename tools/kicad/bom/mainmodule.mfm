@@ -503,11 +503,12 @@ object mainmo: tmainmo
     left = 8
     top = 64
   end
-  object conn: tfbconnection
+  object conn: tfbconnection3
     DatabaseName = '/db/firebird_3_0/stock.fdb'
     onbeforeconnect = beforeconnectev
     Transaction = trans
     HostName = 'localhost/3051'
+    controller.options = [dbo_utf8]
     Password = 'masterkey'
     UserName = 'SYSDBA'
     ongetcredentials = getcredentialsev
@@ -2010,6 +2011,7 @@ object mainmo: tmainmo
     )
     database = conn
     transaction = trans
+    options = [sso_utf8]
     left = 648
     top = 280
   end
@@ -2043,6 +2045,7 @@ object mainmo: tmainmo
     )
     database = conn
     transaction = trans
+    options = [sso_utf8]
     left = 544
     top = 280
   end

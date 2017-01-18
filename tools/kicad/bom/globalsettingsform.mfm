@@ -91,24 +91,6 @@ object globalsettingsfo: tglobalsettingsfo
       bounds_cy = 309
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Main'
-      object val_databasename: tstringedit
-        frame.caption = '&Databasename'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        bounds_x = 8
-        bounds_y = 47
-        bounds_cx = 645
-        bounds_cy = 37
-        anchors = [an_left, an_top, an_right]
-        ondataentered = dbdataenteredev
-        reffontheight = 14
-      end
       object val_hostname: tstringedit
         frame.caption = '&Hostname'
         frame.localprops = []
@@ -119,60 +101,120 @@ object globalsettingsfo: tglobalsettingsfo
           0
           0
         )
-        taborder = 1
         bounds_x = 8
         bounds_y = 7
-        bounds_cx = 645
+        bounds_cx = 570
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         ondataentered = dbdataenteredev
         reffontheight = 14
       end
-      object val_psviewer: tfilenameedit
-        frame.caption = 'Postscript Viewer'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.buttons.count = 1
-        frame.buttons.items = <        
-          item
-            imagenr = 17
-          end>
-        frame.button.imagenr = 17
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
+      object tlayouter1: tlayouter
+        optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+        taborder = 1
+        bounds_x = 8
+        bounds_y = 88
+        bounds_cx = 645
+        bounds_cy = 37
+        anchors = [an_left, an_top, an_right]
+        optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+        optionslayout = [lao_placex, lao_aligny]
+        align_glue = wam_start
+        place_mindist = 4
+        place_maxdist = 4
+        place_options = [plo_scalesize]
+        linktop = tlayouter2
+        object val_psviewer: tfilenameedit
+          frame.caption = 'Postscript Viewer'
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              imagenr = 17
+            end>
+          frame.button.imagenr = 17
+          frame.outerframe = (
+            0
+            17
+            0
+            0
+          )
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 320
+          bounds_cy = 37
+          reffontheight = 14
+        end
+        object val_ps2pdf: tfilenameedit
+          frame.caption = 'ps2pdf'
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              imagenr = 17
+            end>
+          frame.button.imagenr = 17
+          frame.outerframe = (
+            0
+            17
+            0
+            0
+          )
+          taborder = 1
+          bounds_x = 324
+          bounds_y = 0
+          bounds_cx = 319
+          bounds_cy = 37
+          reffontheight = 14
+        end
+      end
+      object tlayouter2: tlayouter
+        optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         taborder = 2
         bounds_x = 8
-        bounds_y = 92
-        bounds_cx = 236
-        bounds_cy = 37
-        reffontheight = 14
-      end
-      object val_ps2pdf: tfilenameedit
-        frame.caption = 'ps2pdf'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.buttons.count = 1
-        frame.buttons.items = <        
-          item
-            imagenr = 17
-          end>
-        frame.button.imagenr = 17
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        taborder = 3
-        bounds_x = 248
-        bounds_y = 92
-        bounds_cx = 236
-        bounds_cy = 37
-        reffontheight = 14
+        bounds_y = 44
+        bounds_cx = 645
+        bounds_cy = 44
+        anchors = [an_left, an_top, an_right]
+        optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+        optionslayout = [lao_placex, lao_aligny]
+        align_glue = wam_start
+        place_mindist = 4
+        place_maxdist = 4
+        place_options = [plo_endmargin]
+        onafterlayout = databaseafterlayoutev
+        linktop = val_hostname
+        object val_databasename: tstringedit
+          frame.caption = '&Databasename'
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.outerframe = (
+            0
+            17
+            0
+            0
+          )
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 570
+          bounds_cy = 37
+          anchors = [an_left, an_top, an_right]
+          ondataentered = dbdataenteredev
+          reffontheight = 14
+        end
+        object tbutton3: tbutton
+          optionswidget1 = [ow1_autowidth, ow1_autoheight]
+          taborder = 1
+          bounds_x = 574
+          bounds_y = 10
+          bounds_cx = 71
+          bounds_cy = 34
+          state = [as_localcaption]
+          action = createdbact
+          caption = 'Create'#10'Database'
+        end
       end
     end
     object prodplottab: ttabpage
@@ -262,6 +304,13 @@ object globalsettingsfo: tglobalsettingsfo
         onexecute = deletepageev
       end>
     left = 192
+    top = 80
+  end
+  object createdbact: taction
+    options = [ao_updateonidle]
+    onexecute = createdbev
+    onupdate = createdbudateev
+    left = 448
     top = 80
   end
 end

@@ -26,10 +26,10 @@ uses
  msegraphics,msegraphutils,msegrids,msegui,mseguiglob,mseificomp,mseificompglob,
  mseifiglob,mselistbrowser,msemenus,msestream,msestrings,msesys,sysutils,
  mseactions,mdb,msebufdataset,msedb,mselocaldataset,kicadschemaparser,
- msedatabase,msefbconnection,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
+ msedatabase,msefbconnection3,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
  msemacros,mclasses,msedbedit,msegraphedits,mselookupbuffer,msescrollbar,
  msepython,pythonconsoleform,msepostscriptprinter,mseprinter,msepipestream,
- mseprocess,mseguiprocess,msereport,mserichstring,msesplitter;
+ mseprocess,mseguiprocess,msereport,mserichstring,msesplitter,msefbservice3;
 
 const
  versiontext = '0.0';
@@ -292,7 +292,7 @@ type
    c_value: tmsestringfield;
    c_value1: tmsestringfield;
    c_value2: tmsestringfield;
-   conn: tfbconnection;
+   conn: tfbconnection3;
    getdbcredentials: tifiactionlinkcomp;
    trans: tmsesqltransaction;
    globalsettingsact: taction;
@@ -420,6 +420,8 @@ type
    procedure docusetev(const sender: TObject);
    procedure saveev(const sender: TObject);
    procedure saveasev(const sender: TObject);
+   procedure serviceerrorev(const sender: tfbservice3; var e: Exception;
+                   var handled: Boolean);
   private
    fhasproject: boolean;
    fmodified: boolean;
@@ -459,6 +461,8 @@ type
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
+   procedure createdatabase(const ahostname: msestring;
+                                        const adbname: msestring);
    procedure openproject(const afilename: filenamety);
    procedure endedit();
    procedure refresh();
@@ -728,6 +732,33 @@ begin
  inherited;
  fcomponentmacros.free();
  fprojectmacros.free();
+end;
+
+procedure tmainmo.createdatabase(const ahostname: msestring;
+               const adbname: msestring);
+var
+ username1,password1: msestring;
+ s1,s2: msestring;
+begin
+ conn.connected:= false;
+ getcredentialsev(nil,username1,password1);
+ {
+ service.username:= stringtoutf8(username1);
+ service.password:= stringtoutf8(password1);
+ if ahostname <> '' then begin
+  s1:= ahostname+':'+adbname;
+ end
+ else begin
+  s1:= adbname;
+ end;
+ service.restorestart(s1,
+         ['/home/mse/packs/standard/git/mseuniverse/tools/kicad/bom/'+
+                                                   'msekicadbom_meta.fbk'],[]);
+ while service.busy() do begin
+  sleep(100);
+  application.processmessages();
+ end;
+ }
 end;
 
 procedure tmainmo.getprojectoptionsev(const sender: TObject;
@@ -1992,6 +2023,13 @@ end;
 procedure tmainmo.saveasev(const sender: TObject);
 begin
  saveproject(true);
+end;
+
+procedure tmainmo.serviceerrorev(const sender: tfbservice3; var e: Exception;
+               var handled: Boolean);
+begin
+ errormessage(utf8tostring(e.message));
+ handled:= true;
 end;
 
 { tprojectoptions }

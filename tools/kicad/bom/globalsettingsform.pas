@@ -33,15 +33,19 @@ type
    tspacer2: tspacer;
    tabs: ttabwidget;
    maintab: ttabpage;
-   val_databasename: tstringedit;
    val_hostname: tstringedit;
    prodplottab: ttabpage;
    prodplotstacktabs: ttabwidget;
    pagemenu: tpopupmenu;
    docutab: ttabpage;
    docusettabs: ttabwidget;
+   tlayouter1: tlayouter;
    val_psviewer: tfilenameedit;
    val_ps2pdf: tfilenameedit;
+   tlayouter2: tlayouter;
+   val_databasename: tstringedit;
+   tbutton3: tbutton;
+   createdbact: taction;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
@@ -50,6 +54,9 @@ type
    procedure pagepopupupdateev(const sender: tcustommenu);
    procedure dbdataenteredev(const sender: TObject);
    procedure asyncev(const sender: TObject; var atag: Integer);
+   procedure databaseafterlayoutev(const sender: tcustomlayouter);
+   procedure createdbudateev(const sender: tcustomaction);
+   procedure createdbev(const sender: TObject);
   private
    fdbchanged: boolean;
  end;
@@ -211,6 +218,26 @@ end;
 procedure tglobalsettingsfo.dbdataenteredev(const sender: TObject);
 begin
  fdbchanged:= true;
+end;
+
+procedure tglobalsettingsfo.databaseafterlayoutev(
+              const sender: tcustomlayouter);
+begin
+ val_hostname.width:= val_databasename.width;
+end;
+
+procedure tglobalsettingsfo.createdbudateev(const sender: tcustomaction);
+begin
+ sender.enabled:= val_databasename.value <> '';
+end;
+
+procedure tglobalsettingsfo.createdbev(const sender: TObject);
+begin
+ if askconfirmation(
+      'Do you want to create an empty MSEkicadBOM database '+lineend+
+                                '"'+val_databasename.value+'"?') then begin
+  mainmo.createdatabase(val_hostname.value,val_databasename.value);
+ end;
 end;
 
 end.
