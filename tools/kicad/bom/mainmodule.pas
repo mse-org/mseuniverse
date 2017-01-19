@@ -530,7 +530,7 @@ uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
  msearrayutils,docureport,docupsreppage,basereppage,mserepps,
- partlistreppage,bomreppage,bommodule;
+ partlistreppage,bomreppage,bommodule,dbdata;
 
 var
  docupageclasses: array[docupagekindty] of docupageclassty = (
@@ -740,6 +740,8 @@ procedure tmainmo.createdatabase(const ahostname: msestring;
 var
  username1,password1: msestring;
  s1,s2: msestring;
+ stream1: tobjectdatastream;
+ stream2: tmsefilestream;
 begin
  conn.connected:= false;
  getcredentialsev(nil,username1,password1);
@@ -747,17 +749,25 @@ begin
  service.password:= stringtoutf8(password1);
  service.hostname:= stringtoutf8(ahostname);
  service.connected:= true;
+ stream1:= tobjectdatastream.create(@dbdata.data);
+ stream2:= nil;
  try
-  service.restorestart(
-         ['/home/mse/packs/standard/git/mseuniverse/tools/kicad/bom/'+
-                                                   'msekicadbom_meta.fbk'],
-                                                                   adbname,[]);
+  s1:= msegettempfilename('msekicadbomdb');
+  stream2:= tmsefilestream.create(s1,fm_create);
+  stream2.copyfrom(stream1,stream1.size);
+  freeandnil(stream2);
+  service.restorestart(s1,adbname,[]);
   while service.busy() do begin
    sleep(100);
    application.processmessages();
   end;
  finally
   service.connected:= false;
+  stream1.free;
+  stream2.free;
+  if s1 <> '' then begin
+   trydeletefile(s1);
+  end;
  end;
 end;
 
