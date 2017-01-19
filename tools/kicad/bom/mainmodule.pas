@@ -26,10 +26,10 @@ uses
  msegraphics,msegraphutils,msegrids,msegui,mseguiglob,mseificomp,mseificompglob,
  mseifiglob,mselistbrowser,msemenus,msestream,msestrings,msesys,sysutils,
  mseactions,mdb,msebufdataset,msedb,mselocaldataset,kicadschemaparser,
- msedatabase,msefbconnection3,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
+ msedatabase,msefb3connection,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
  msemacros,mclasses,msedbedit,msegraphedits,mselookupbuffer,msescrollbar,
  msepython,pythonconsoleform,msepostscriptprinter,mseprinter,msepipestream,
- mseprocess,mseguiprocess,msereport,mserichstring,msesplitter,msefbservice3;
+ mseprocess,mseguiprocess,msereport,mserichstring,msesplitter,msefb3service;
 
 const
  versiontext = '0.0';
@@ -292,7 +292,7 @@ type
    c_value: tmsestringfield;
    c_value1: tmsestringfield;
    c_value2: tmsestringfield;
-   conn: tfbconnection3;
+   conn: tfb3connection;
    getdbcredentials: tifiactionlinkcomp;
    trans: tmsesqltransaction;
    globalsettingsact: taction;
@@ -385,6 +385,7 @@ type
    psprinter: tpostscriptprinter;
    viewerproc: tguiprocess;
    ps2pdfproc: tmseprocess;
+   service: tfb3service;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -420,7 +421,7 @@ type
    procedure docusetev(const sender: TObject);
    procedure saveev(const sender: TObject);
    procedure saveasev(const sender: TObject);
-   procedure serviceerrorev(const sender: tfbservice3; var e: Exception;
+   procedure serviceerrorev(const sender: tfb3service; var e: Exception;
                    var handled: Boolean);
   private
    fhasproject: boolean;
@@ -742,23 +743,22 @@ var
 begin
  conn.connected:= false;
  getcredentialsev(nil,username1,password1);
- {
  service.username:= stringtoutf8(username1);
  service.password:= stringtoutf8(password1);
- if ahostname <> '' then begin
-  s1:= ahostname+':'+adbname;
- end
- else begin
-  s1:= adbname;
- end;
- service.restorestart(s1,
+ service.hostname:= stringtoutf8(ahostname);
+ service.connected:= true;
+ try
+  service.restorestart(
          ['/home/mse/packs/standard/git/mseuniverse/tools/kicad/bom/'+
-                                                   'msekicadbom_meta.fbk'],[]);
- while service.busy() do begin
-  sleep(100);
-  application.processmessages();
+                                                   'msekicadbom_meta.fbk'],
+                                                                   adbname,[]);
+  while service.busy() do begin
+   sleep(100);
+   application.processmessages();
+  end;
+ finally
+  service.connected:= false;
  end;
- }
 end;
 
 procedure tmainmo.getprojectoptionsev(const sender: TObject;
@@ -2025,7 +2025,7 @@ begin
  saveproject(true);
 end;
 
-procedure tmainmo.serviceerrorev(const sender: tfbservice3; var e: Exception;
+procedure tmainmo.serviceerrorev(const sender: tfb3service; var e: Exception;
                var handled: Boolean);
 begin
  errormessage(utf8tostring(e.message));

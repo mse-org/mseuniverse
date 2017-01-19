@@ -503,7 +503,7 @@ object mainmo: tmainmo
     left = 8
     top = 64
   end
-  object conn: tfbconnection3
+  object conn: tfb3connection
     DatabaseName = '/db/firebird_3_0/stock.fdb'
     onbeforeconnect = beforeconnectev
     Transaction = trans
@@ -2134,5 +2134,9 @@ object mainmo: tmainmo
     options = [pro_winpipewritehandles, pro_waitcursor, pro_checkescape]
     left = 592
     top = 56
+  end
+  object service: tfb3service
+    left = 408
+    top = 32
   end
 end
