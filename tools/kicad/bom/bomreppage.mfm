@@ -8,16 +8,21 @@ inherited bomreppa: tbomreppa
   )
   inherited tbandarea2: tbandarea
     object header: trecordband[0]
+      frame.framei_bottom = 3
+      frame.localprops = [frl_fibottom]
+      frame.localprops1 = []
       bounds_x = 0
       bounds_y = 42
       bounds_cx = 510
-      bounds_cy = 18
+      bounds_cy = 19
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       tabs.count = 2
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
       tabs.livert_widthmm = 0
       tabs.liright_widthmm = 0
       tabs.libottom_widthmm = 0.3
+      tabs.libottom_dist = -3
       tabs.distleft = 0
       tabs.distright = 0
       tabs.defaultdist = 0
@@ -48,7 +53,7 @@ inherited bomreppa: tbomreppa
       bounds_x = 0
       bounds_y = 118
       bounds_cx = 510
-      bounds_cy = 34
+      bounds_cy = 57
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
@@ -60,10 +65,12 @@ inherited bomreppa: tbomreppa
       tabs.defaultdist = 0
       datasource = bommo.bomdso
       object data1: trecordband
+        color = 13762498
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 510
-        bounds_cy = 18
+        bounds_cy = 16
+        optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
         tabs.count = 2
         tabs.litop_widthmm = 0
         tabs.lileft_widthmm = 0
@@ -98,9 +105,10 @@ inherited bomreppa: tbomreppa
           end>
       end
       object data2: trecordband
+        color = 13762498
         taborder = 1
         bounds_x = 0
-        bounds_y = 17
+        bounds_y = 41
         bounds_cx = 510
         bounds_cy = 16
         optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -138,6 +146,8 @@ inherited bomreppa: tbomreppa
     end
     inherited title: trecordband[2]
       taborder = 1
+      bounds_cy = 20
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       tabs.items = <      
         item
           value = 'Bill of Material'

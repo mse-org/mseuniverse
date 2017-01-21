@@ -22,21 +22,17 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msesplitter,
  msesimplewidgets,mseact,msedataedits,mseedit,mseificomp,mseificompglob,
  mseifiglob,msestatfile,msestream,msestrings,sysutils,mainmodule,msebitmap,
- msedatanodes,msefiledialog,msegrids,mselistbrowser,msesys,plotsettings;
+ msedatanodes,msefiledialog,msegrids,mselistbrowser,msesys,plotsettings,
+ docupageeditform;
 type
- tschematicplotdialogfo = class(tmseform)
-   tsplitter1: tsplitter;
-   tbutton2: tbutton;
-   tbutton1: tbutton;
-   tspacer2: tspacer;
+ tschematicplotdialogfo = class(tdocupageeditfo)
    tlayouter1: tlayouter;
-   val_title: tstringedit;
    val_psfile: tfilenameedit;
    plotsettings: tplotsettingsfo;
-   procedure closeev(const sender: TObject);
-   procedure macrohintev(const sender: TObject; var info: hintinfoty);
   private
-   fpage: tschematicplotpage;
+  protected
+   procedure loadvalues() override;
+   procedure storevalues() override;
   public
    constructor create(const apage: tschematicplotpage);
  end;
@@ -49,25 +45,20 @@ uses
 
 constructor tschematicplotdialogfo.create(const apage: tschematicplotpage);
 begin
- fpage:= apage;
- inherited create(nil);
- apage.loadvalues(self,'val_');
- apage.loadvalues(plotsettings,'val_');
+ inherited create(apage);
  caption:= 'PCB-Layer-Plot '+val_title.value;
 end;
 
-procedure tschematicplotdialogfo.closeev(const sender: TObject);
+procedure tschematicplotdialogfo.loadvalues();
 begin
- if window.modalresult = mr_ok then begin
-  fpage.storevalues(self,'val_');
-  fpage.storevalues(plotsettings,'val_');
- end;
+ inherited;
+ fpage.loadvalues(plotsettings,'val_');
 end;
 
-procedure tschematicplotdialogfo.macrohintev(const sender: TObject;
-               var info: hintinfoty);
+procedure tschematicplotdialogfo.storevalues();
 begin
- mainmo.hintmacros(tedit(sender).text,info);
+ inherited;
+ fpage.storevalues(plotsettings,'val_');
 end;
 
 end.

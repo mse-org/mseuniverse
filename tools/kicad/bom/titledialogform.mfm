@@ -1,0 +1,45 @@
+inherited titledialogfo: ttitledialogfo
+  visible = False
+  bounds_x = 1118
+  bounds_y = 345
+  container.bounds = (
+    0
+    0
+    554
+    328
+  )
+  moduleclassname = 'tdocupageeditfo'
+  inherited tsplitter1: tsplitter
+    inherited tbutton2: tbutton
+    end
+    inherited tbutton1: tbutton
+    end
+    inherited tspacer2: tspacer
+    end
+  end
+  inherited val_title: tstringedit
+    frame.font.localprops = []
+  end
+  object val_text: tmemoedit[2]
+    frame.caption = 'Text'
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.sbhorz.pagesize = 1
+    frame.sbvert.pagesize = 1
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 47
+    bounds_cx = 536
+    bounds_cy = 217
+    anchors = [an_left, an_top, an_right, an_bottom]
+    reffontheight = 14
+  end
+  inherited tstatfile1: tstatfile[3]
+  end
+end

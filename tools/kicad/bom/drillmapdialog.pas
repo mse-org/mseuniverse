@@ -6,26 +6,18 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings,
- msegraphedits,msescrollbar;
+ msegraphedits,msescrollbar,docupageeditform;
 type
- tdrillmapdialogfo = class(tmseform)
-   tstatfile1: tstatfile;
-   val_title: tstringedit;
-   tsplitter1: tsplitter;
-   tbutton2: tbutton;
-   tbutton1: tbutton;
-   tspacer2: tspacer;
+ tdrillmapdialogfo = class(tdocupageeditfo)
    tlayouter1: tlayouter;
    val_layeraname: tdropdownlistedit;
    plotsettings: tplotsettingsfo;
    val_layerbname: tdropdownlistedit;
    val_nonplated: tbooleanedit;
-   procedure closeev(const sender: TObject);
-   procedure macrohintev(const sender: TObject; var info: hintinfoty);
   private
-//   ftitle: pmsestring;
-//   finfo: pdocuplotpageinfoty;
-   fpage: tdrillmappage;
+  protected
+   procedure loadvalues() override;
+   procedure storevalues() override;
   public
    constructor create(const apage: tdrillmappage);
  end;
@@ -38,26 +30,22 @@ uses
 
 constructor tdrillmapdialogfo.create(const apage: tdrillmappage);
 begin
- fpage:= apage;
- inherited create(nil);
- apage.loadvalues(self,'val_');
- apage.loadvalues(plotsettings,'val_');
+ inherited create(apage);
  val_layeraname.dropdown.cols[0].asarray:= mainmo.culayernames;
  val_layerbname.dropdown.cols[0].asarray:= mainmo.culayernames;
 end;
 
-procedure tdrillmapdialogfo.closeev(const sender: TObject);
+procedure tdrillmapdialogfo.loadvalues();
 begin
- if window.modalresult = mr_ok then begin
-  fpage.storevalues(self,'val_');
-  fpage.storevalues(plotsettings,'val_');
- end;
+ inherited;
+ fpage.loadvalues(plotsettings,'val_');
 end;
 
-procedure tdrillmapdialogfo.macrohintev(const sender: TObject;
-               var info: hintinfoty);
+procedure tdrillmapdialogfo.storevalues();
 begin
- mainmo.hintmacros(tedit(sender).text,info);
+ inherited;
+ fpage.storevalues(plotsettings,'val_');
 end;
+
 
 end.

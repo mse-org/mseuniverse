@@ -2116,6 +2116,7 @@ object mainmo: tmainmo
   end
   object psprinter: tpostscriptprinter
     canvas.font.localprops = []
+    canvas.colorspace = cos_rgb
     canvas.ppmm = 10
     pa_width = 210
     pa_height = 297

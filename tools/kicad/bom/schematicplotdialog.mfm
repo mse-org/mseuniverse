@@ -1,73 +1,33 @@
-object schematicplotdialogfo: tschematicplotdialogfo
+inherited schematicplotdialogfo: tschematicplotdialogfo
+  visible = False
   bounds_x = 337
   bounds_y = 266
-  bounds_cx = 583
-  bounds_cy = 428
-  container.frame.localprops = []
-  container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    583
-    428
+    554
+    328
   )
   options = [fo_freeonclose, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   onclose = closeev
-  moduleclassname = 'tmseform'
-  object tsplitter1: tsplitter
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    color = -2147483645
-    bounds_x = 460
-    bounds_y = 379
-    bounds_cx = 123
-    bounds_cy = 38
-    anchors = [an_right, an_bottom]
-    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
-    grip = stb_none
-    object tbutton2: tbutton
-      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-      bounds_x = 58
-      bounds_y = 16
-      bounds_cx = 52
-      bounds_cy = 22
-      bounds_cxmin = 50
-      anchors = [an_top, an_right]
-      state = [as_localcaption]
-      caption = '&Cancel'
-      modalresult = mr_cancel
-      reffontheight = 14
+  moduleclassname = 'tdocupageeditfo'
+  inherited tsplitter1: tsplitter
+    inherited tbutton2: tbutton
     end
-    object tbutton1: tbutton
-      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-      taborder = 1
-      bounds_x = 0
-      bounds_y = 16
-      bounds_cx = 50
-      bounds_cy = 22
-      bounds_cxmin = 50
-      anchors = [an_top, an_right]
-      state = [as_default, as_localdefault, as_localcaption]
-      caption = '&OK'
-      modalresult = mr_ok
-      reffontheight = 14
+    inherited tbutton1: tbutton
     end
-    object tspacer2: tspacer
-      taborder = 2
-      bounds_x = 50
-      bounds_y = 16
-      bounds_cx = 8
-      bounds_cy = 20
-      linkleft = tbutton1
-      linkright = tbutton2
-      options = [spao_glueright]
+    inherited tspacer2: tspacer
     end
   end
-  object tlayouter1: tlayouter
+  inherited val_title: tstringedit
+    frame.font.localprops = []
+  end
+  object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 2
+    taborder = 3
     bounds_x = 8
     bounds_y = 37
-    bounds_cx = 564
+    bounds_cx = 538
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -75,7 +35,6 @@ object schematicplotdialogfo: tschematicplotdialogfo
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    linktop = val_title
     object val_psfile: tfilenameedit
       frame.caption = 'Schematic Postscript file'
       frame.localprops = []
@@ -97,6 +56,7 @@ object schematicplotdialogfo: tschematicplotdialogfo
       bounds_y = 0
       bounds_cx = 244
       bounds_cy = 37
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_saveoptions, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
       controller.filterlist.data = (
@@ -109,28 +69,8 @@ object schematicplotdialogfo: tschematicplotdialogfo
       reffontheight = 14
     end
   end
-  object val_title: tstringedit
-    frame.caption = 'Title'
-    frame.localprops = []
-    frame.localprops1 = []
-    frame.outerframe = (
-      0
-      17
-      0
-      0
-    )
-    taborder = 3
-    onshowhint = macrohintev
-    bounds_x = 8
-    bounds_y = 0
-    bounds_cx = 564
-    bounds_cy = 37
-    anchors = [an_left, an_top, an_right]
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
-    reffontheight = 14
-  end
-  inline plotsettings: tplotsettingsfo
-    taborder = 1
+  inline plotsettings: tplotsettingsfo[3]
+    taborder = 2
     bounds_x = 8
     bounds_y = 74
     linktop = tlayouter1
@@ -142,5 +82,7 @@ object schematicplotdialogfo: tschematicplotdialogfo
     end
     inherited val_rotate180: tbooleanedit
     end
+  end
+  inherited tstatfile1: tstatfile[4]
   end
 end

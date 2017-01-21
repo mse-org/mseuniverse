@@ -78,7 +78,7 @@ type
 implementation
 uses
  docupage_mfm,layerplotdialog,schematicplotdialog,drillmapdialog,
- msedatalist,mserttistat;
+ msedatalist,mserttistat,titledialogform;
 
 type
  tpageitem = class(tlistedititem)
@@ -98,7 +98,7 @@ begin
   tpageitem(pageitems[i1]).fpage:= tdocupage(dupplicateobject(apages[i1]));
   with apages[i1] do begin
    titleed[i1]:= title;
-   pagekinded[i1]:= kind;
+   pagekinded[i1]:= kindid;
   end;
  end;
  pagekinded.dropdown.cols[0].asarray:= mainmo.docupagekinds;
@@ -131,6 +131,9 @@ begin
  if canclose(nil) then begin
   pag1:= tpageitem(pageitems.item).fpage;
   case docupagekindty(pagekinded.value+1) of
+   dpk_title: begin
+    ttitledialogfo.create(ttitlepage(pag1)).show(ml_application);
+   end;
    dpk_schematic: begin
     tschematicplotdialogfo.create(tschematicplotpage(pag1)).show(ml_application);
    end;

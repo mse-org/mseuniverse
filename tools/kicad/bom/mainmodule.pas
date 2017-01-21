@@ -89,7 +89,7 @@ type
  pdocuschematicpageinfoty = ^docuschematicpageinfoty;
  docuschematicpageinfoarty = array of docuschematicpageinfoty;
 
- docupagekindty = (dpk_none,dpk_schematic,dpk_layerplot,dpk_drillmap,
+ docupagekindty = (dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,
                    dpk_partlist,dpk_bom);
 
  tdocupage = class(toptions)
@@ -99,16 +99,18 @@ type
    fmirrory: boolean;
    frotate90: boolean;
    frotate180: boolean;
-   procedure setkind(const avalue: int32);
-   function getkind: int32;
+   procedure setkind(const avalue: msestring);
+   function getkind(): msestring;
+   function getkindid(): int32;
   protected
    class function getpagekind: docupagekindty virtual;
   public
    constructor create(); virtual;
    property pagekind: docupagekindty read getpagekind;
+   property kindid: int32 read getkindid{ write setkind};
   published
+   property kind: msestring read getkind write setkind;
    property title: msestring read ftitle write ftitle;
-   property kind: int32 read getkind write setkind;
    property mirrorx: boolean read fmirrorx write fmirrorx;
    property mirrory: boolean read fmirrory write fmirrory;
    property rotate90: boolean read frotate90 write frotate90;
@@ -117,6 +119,15 @@ type
  docupageclassty = class of tdocupage;
  docupagearty = array of tdocupage;
  
+ ttitlepage = class(tdocupage)
+  private
+   ftext: msestring;
+  protected
+   class function getpagekind: docupagekindty override;
+  published
+   property text: msestring read ftext write ftext;
+ end;
+
  tlayerplotpage = class(tdocupage)
   private
    flayername: msestring;
@@ -530,12 +541,12 @@ uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
  msearrayutils,docureport,docupsreppage,basereppage,mserepps,
- partlistreppage,bomreppage,bommodule,dbdata;
+ partlistreppage,bomreppage,bommodule,dbdata,titlereppage;
 
 var
  docupageclasses: array[docupagekindty] of docupageclassty = (
- //dpk_none,dpk_schematic,     dpk_layerplot,dpk_drillmap
-  nil,      tschematicplotpage,tlayerplotpage,tdrillmappage,
+ //dpk_none,dpk_title, dpk_schematic,     dpk_layerplot,dpk_drillmap
+  nil,      ttitlepage,tschematicplotpage,tlayerplotpage,tdrillmappage,
  //dpk_partlist,dpk_bom
   tpartlistpage,tbompage
   );
@@ -559,6 +570,7 @@ begin
 end;
 }
 procedure updatedocupageobj(var page: tdocupage;
+
                                       const kind: docupagekindty);
 begin
  page.free();
@@ -688,9 +700,13 @@ const
       'gbr',    'ps',         'svg', 'dxf', 'plt', 'pdf'
  );
 
+ docupageenums: array[docupagekindty] of msestring = (
+//dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
+  '','title','schematic','layerplot','drillmap','partlist','bom'
+ );
  docupagekinds: array[0..ord(high(docupagekindty))-1] of msestring = (
-//dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
-   'Schematic','PCB Layer-Plot','Drill-Map','Partlist','BOM'
+//dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
+   'Title','Schematic','PCB Layer-Plot','Drill-Map','Partlist','BOM'
  );
  
 function layertoplotname(const layername: msestring): msestring;
@@ -1909,7 +1925,11 @@ begin
   rep.clear(); //remove defaultpage
   for i1:= 0 to high(info1^.pages) do begin
    pac1:= nil;
+   pa1:= nil;
    case info1^.pages[i1].pagekind of
+    dpk_title: begin
+     pa1:= ttitlereppa.create(ttitlepage(info1^.pages[i1]));
+    end;
     dpk_layerplot: begin
      inctempfile();
      if not getboardfile(boardfile1) then begin
@@ -1969,8 +1989,10 @@ begin
      bommo.bomds.active:= true;
     end;
    end;
-   if pac1 <> nil then begin
+   if (pac1 <> nil) and (pa1 = nil) then begin
     pa1:= tdocupsreppa(pac1.create(nil));
+   end;
+   if pa1 <> nil then begin
     if pa1 is tdocupsreppa then begin
      with tdocupsreppa(pa1) do begin
       ps.psfile:= s1;
@@ -2188,6 +2210,7 @@ procedure tglobaloptions.dostatread(const reader: tstatreader);
 var
  count1,count2: int32;
  i1,i2: int32;
+ s1: msestring;
  kind1: docupagekindty;
  page1: tdocupage;
  ar1: docuinfoarty;
@@ -2263,8 +2286,13 @@ begin
     if reader.beginlist('pages') then begin
      count2:= 0;
      while reader.beginlist('item'+inttostrmse(count2)) do begin
-      kind1:= docupagekindty(reader.readinteger('kind',-1)+1);
-      if (kind1 > dpk_none) and (kind1 <= high(kind1)) then begin
+      s1:= reader.readmsestring('kind','');
+      for kind1:= high(kind1) downto low(kind1) do begin
+       if s1 = docupageenums[kind1] then begin
+        break;
+       end;
+      end;
+      if (kind1 <> dpk_none) then begin
        additem(pointerarty(pages),docupageclasses[kind1].create);
        pages[high(pages)].readstat(reader,'');
       end;
@@ -2397,7 +2425,12 @@ begin
  //dummy
 end;
 
-procedure tdocupage.setkind(const avalue: int32);
+function tdocupage.getkind(): msestring;
+begin
+ result:= docupageenums[getpagekind];
+end;
+
+procedure tdocupage.setkind(const avalue: msestring);
 begin
  //dummy
 end;
@@ -2407,7 +2440,7 @@ begin
  result:= dpk_none;
 end;
 
-function tdocupage.getkind: int32;
+function tdocupage.getkindid: int32;
 begin
  result:= ord(getpagekind)-1;
 end;
@@ -2452,6 +2485,13 @@ end;
 class function tbompage.getpagekind: docupagekindty;
 begin
  result:= dpk_bom;
+end;
+
+{ ttitlepage }
+
+class function ttitlepage.getpagekind: docupagekindty;
+begin
+ result:= dpk_title;
 end;
 
 initialization
