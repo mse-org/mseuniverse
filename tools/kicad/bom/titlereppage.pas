@@ -40,8 +40,8 @@ uses
 constructor ttitlereppa.create(const apage: ttitlepage);
 begin
  inherited create(nil);
- title.tabs[0].value:= apage.title;
- text.tabs[0].value:= apage.text;
+ title.tabs[0].value:= mainmo.expandprojectmacros(apage.title);
+ text.tabs[0].value:= mainmo.expandprojectmacros(apage.text);
 end;
 
 end.
