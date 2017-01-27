@@ -86,7 +86,7 @@ inherited distributorlistfo: tdistributorlistfo
   inherited tstatfile1: tstatfile
   end
   inherited dataso: tmsedatasource
-    DataSet = mainmo.distributorqu
+    DataSet = vendormo.distributorqu
   end
   inherited dialogact: taction
   end

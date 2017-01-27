@@ -21,14 +21,42 @@ unit vendormodule;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msetypes,mseglob,mseapplication,mseclasses,msedatamodules;
+ msetypes,mseglob,mseapplication,mseclasses,msedatamodules,mdb,msebufdataset,
+ msedatabase,msedb,mseifiglob,msesqldb,msestrings,msqldb,sysutils;
 
 type
  tvendormo = class(tmsedatamodule)
+   distributorqu: tmsesqlquery;
+   d_ident: tmsestringfield;
+   d_name: tmsestringfield;
+   d_pk: tmselargeintfield;
+   distributordso: tmsedatasource;
+   manufacturerqu: tmsesqlquery;
+   m_ident: tmsestringfield;
+   m_name: tmsestringfield;
+   m_pk: tmselargeintfield;
+   manufacturerdso: tmsedatasource;
+   procedure distributordeletecheckev(DataSet: TDataSet);
+   procedure maufaturerdeletecheckev(DataSet: TDataSet);
  end;
 var
  vendormo: tvendormo;
 implementation
 uses
- vendormodule_mfm;
+ vendormodule_mfm,mainmodule;
+ 
+procedure tvendormo.distributordeletecheckev(DataSet: TDataSet);
+begin
+ with mainmo do begin
+  deletecheck(d_pk,[sc_distributor,k_distributor]);
+ end;
+end;
+
+procedure tvendormo.maufaturerdeletecheckev(DataSet: TDataSet);
+begin
+ with mainmo do begin
+  deletecheck(m_pk,[sc_manufacturer,k_manufacturer]);
+ end;
+end;
+
 end.

@@ -15,6 +15,7 @@ inherited componentkindlistfo: tcomponentkindlistfo
       end>
     fixrows.items = <    
       item
+        captions.count = 5
         captions.items = <        
           item
           end        
@@ -24,6 +25,9 @@ inherited componentkindlistfo: tcomponentkindlistfo
           item
           end        
           item
+          end        
+          item
+            caption = 'Comment'
           end>
       end>
     datacols.count = 5

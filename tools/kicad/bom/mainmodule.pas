@@ -357,16 +357,6 @@ type
    c_componentkindname: tmsestringfield;
    fl_pk: tmselargeintfield;
    c_description: tmsestringfield;
-   manufacturerdso: tmsedatasource;
-   manufacturerqu: tmsesqlquery;
-   m_ident: tmsestringfield;
-   m_name: tmsestringfield;
-   m_pk: tmselargeintfield;
-   distributordso: tmsedatasource;
-   distributorqu: tmsesqlquery;
-   d_ident: tmsestringfield;
-   d_name: tmsestringfield;
-   d_pk: tmselargeintfield;
    deletetest: tsqlresult;
    inserttest: tsqlresult;
    c_manufacturerid: tmselargeintfield;
@@ -425,8 +415,6 @@ type
    procedure footprintdeletecheckev(DataSet: TDataSet);
    procedure namecheckev(DataSet: TDataSet);
    procedure validatenameidentev(Sender: TField);
-   procedure distributordeletecheckev(DataSet: TDataSet);
-   procedure maufaturerdeletecheckev(DataSet: TDataSet);
    procedure mainstatupdateev(const sender: TObject; const filer: tstatfiler);
    procedure prodfilesev(const sender: TObject);
    procedure docusetev(const sender: TObject);
@@ -458,8 +446,6 @@ type
    procedure dodeletecheck(const asqlres: tsqlresult; 
                                                const aid: tmselargeintfield;
                                                const recname: msestring);
-   procedure deletecheck(const id: tmselargeintfield;
-                                 const references: array of tmselargeintfield);
    procedure insertcheck(const namefield: tmsestringfield);
    procedure doinsertcheck(const asqlres: tsqlresult;
                                             const aname: tmsestringfield);
@@ -485,6 +471,8 @@ type
    procedure beginedit(const aquery: tmsesqlquery; const afield: tfield);
    procedure begincomponentsedit();
    procedure begincomponentedit(const idfield: tmselargeintfield);
+   procedure deletecheck(const id: tmselargeintfield;
+                                 const references: array of tmselargeintfield);
 
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property projectfile: filenamety read fprojectfile write fprojectfile;
@@ -541,7 +529,7 @@ uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
  msearrayutils,docureport,docupsreppage,basereppage,mserepps,
- partlistreppage,bomreppage,bommodule,dbdata,titlereppage;
+ partlistreppage,bomreppage,bommodule,vendormodule,dbdata,titlereppage;
 
 var
  docupageclasses: array[docupagekindty] of docupageclassty = (
@@ -897,8 +885,8 @@ begin
     end;
     compds.post(); //last inserted record
     
-    manufacturerqu.controller.refresh(false);
-    distributorqu.controller.refresh(false);
+    vendormo.manufacturerqu.controller.refresh(false);
+    vendormo.distributorqu.controller.refresh(false);
     footprintlibqu.controller.refresh(false);
     footprintqu.controller.refresh(false);
     stockcompqu.disablecontrols();
@@ -1120,8 +1108,8 @@ end;
 procedure tmainmo.beginedit(const aquery: tmsesqlquery;
                                                  const afield: tfield);
 begin
- manufacturerqu.active:= true;
- distributorqu.active:= true;
+ vendormo.manufacturerqu.active:= true;
+ vendormo.distributorqu.active:= true;
  footprintlibqu.active:= true;
  compkindqu.active:= true;
  footprintqu.active:= true;
@@ -1665,16 +1653,6 @@ begin                      //synchronise NAME->IDENT
                       (msestring(sender.buffervalue) = mstr1) then begin
   identfield.asmsestring:= sender.asmsestring;
  end;
-end;
-
-procedure tmainmo.distributordeletecheckev(DataSet: TDataSet);
-begin
- deletecheck(d_pk,[sc_distributor,k_distributor]);
-end;
-
-procedure tmainmo.maufaturerdeletecheckev(DataSet: TDataSet);
-begin
- deletecheck(m_pk,[sc_manufacturer,k_manufacturer]);
 end;
 
 procedure tmainmo.mainstatupdateev(const sender: TObject;

@@ -86,7 +86,7 @@ inherited manufacturerlistfo: tmanufacturerlistfo
   inherited tstatfile1: tstatfile
   end
   inherited dataso: tmsedatasource
-    DataSet = mainmo.manufacturerqu
+    DataSet = vendormo.manufacturerqu
   end
   inherited dialogact: taction
   end

@@ -301,7 +301,7 @@ object componentlistfo: tcomponentlistfo
       datalink.navigator = navig
       datalink.fieldname = 'MANUFACTURER'
       datalink.fieldnametext = 'manufacturername'
-      dropdown.datasource = mainmo.manufacturerdso
+      dropdown.datasource = vendormo.manufacturerdso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
@@ -340,7 +340,7 @@ object componentlistfo: tcomponentlistfo
       datalink.navigator = navig
       datalink.fieldname = 'DISTRIBUTOR'
       datalink.fieldnametext = 'distributorname'
-      dropdown.datasource = mainmo.distributordso
+      dropdown.datasource = vendormo.distributordso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]

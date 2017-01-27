@@ -463,7 +463,7 @@ object mainmo: tmainmo
       FieldName = 'manufaturername'
       Index = 17
       KeyFields = 'manufacturerid'
-      LookupDataSet = manufacturerqu
+      LookupDataSet = vendormo.manufacturerqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       left = 168
@@ -475,7 +475,7 @@ object mainmo: tmainmo
       FieldName = 'distributorname'
       Index = 18
       KeyFields = 'distributorid'
-      LookupDataSet = distributorqu
+      LookupDataSet = vendormo.distributorqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       left = 168
@@ -1001,7 +1001,7 @@ object mainmo: tmainmo
       FieldName = 'manufacturername'
       Index = 14
       KeyFields = 'MANUFACTURER'
-      LookupDataSet = footprintqu
+      LookupDataSet = vendormo.manufacturerqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
@@ -1015,7 +1015,7 @@ object mainmo: tmainmo
       FieldName = 'distributorname'
       Index = 15
       KeyFields = 'DISTRIBUTOR'
-      LookupDataSet = distributorqu
+      LookupDataSet = vendormo.distributorqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
@@ -1420,7 +1420,7 @@ object mainmo: tmainmo
       FieldName = 'manufacturername'
       Index = 12
       KeyFields = 'MANUFACTURER'
-      LookupDataSet = manufacturerqu
+      LookupDataSet = vendormo.manufacturerqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
@@ -1434,7 +1434,7 @@ object mainmo: tmainmo
       FieldName = 'distributorname'
       Index = 13
       KeyFields = 'DISTRIBUTOR'
-      LookupDataSet = distributorqu
+      LookupDataSet = vendormo.distributorqu
       LookupKeyFields = 'PK'
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
@@ -1738,254 +1738,6 @@ object mainmo: tmainmo
     onupdate = validprojectupdateev
     left = 8
     top = 80
-  end
-  object manufacturerdso: tmsedatasource
-    AutoEdit = False
-    DataSet = manufacturerqu
-    left = 184
-    top = 296
-  end
-  object manufacturerqu: tmsesqlquery
-    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
-    indexlocal.count = 2
-    indexlocal.items = <    
-      item
-        fields.items = <        
-          item
-            fieldname = 'PK'
-          end>
-      end    
-      item
-        fields.items = <        
-          item
-            fieldname = 'NAME'
-            options = [ifo_caseinsensitive]
-          end>
-        active = True
-      end>
-    params = <>
-    SQL.data = (
-      'select * from MANUFACTURERS'
-    )
-    IndexDefs = <    
-      item
-        Name = 'PK_MANUFACTURERS_0'
-      end    
-      item
-        Name = 'UNQ_MANUFACTURERS_0'
-      end>
-    tablename = 'MANUFACTURERS'
-    database = conn
-    BeforePost = namecheckev
-    BeforeDelete = maufaturerdeletecheckev
-    Transaction = trans
-    transactionwrite = transwrite
-    FieldDefs = <    
-      item
-        Name = 'PK'
-        DataType = ftLargeint
-      end    
-      item
-        Name = 'TSCREATE'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'TSMODIFY'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'NAME'
-        DataType = ftString
-        Size = 20
-      end    
-      item
-        Name = 'IDENT'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'COMMENT'
-        DataType = ftString
-        Size = 500
-      end>
-    controller.fields.count = 3
-    controller.fields.fields = (
-      (
-        ft_datetime
-        ft_datetime
-        ft_string
-      )
-      <      
-        item
-          FieldName = 'TSCREATE'
-          Index = 0
-          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
-        end      
-        item
-          FieldName = 'TSMODIFY'
-          Index = 1
-          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
-        end      
-        item
-          DisplayWidth = 500
-          FieldName = 'COMMENT'
-          Index = 2
-          Size = 0
-        end>
-    )
-    left = 184
-    top = 280
-    streamingversion = 1
-    object m_ident: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'IDENT'
-      Index = 3
-      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      Size = 0
-      left = 192
-      top = 344
-    end
-    object m_name: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'NAME'
-      Index = 4
-      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      OnValidate = validatenameidentev
-      Size = 0
-      left = 192
-      top = 328
-    end
-    object m_pk: tmselargeintfield
-      FieldName = 'PK'
-      Index = 5
-      optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
-      left = 192
-      top = 312
-    end
-  end
-  object distributordso: tmsedatasource
-    AutoEdit = False
-    DataSet = distributorqu
-    left = 184
-    top = 392
-  end
-  object distributorqu: tmsesqlquery
-    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
-    indexlocal.count = 2
-    indexlocal.items = <    
-      item
-        fields.items = <        
-          item
-            fieldname = 'PK'
-          end>
-      end    
-      item
-        fields.items = <        
-          item
-            fieldname = 'NAME'
-            options = [ifo_caseinsensitive]
-          end>
-        active = True
-      end>
-    params = <>
-    SQL.data = (
-      'select * from DISTRIBUTORS'
-    )
-    IndexDefs = <    
-      item
-        Name = 'PK_DISTRIBUTORS_0'
-      end    
-      item
-        Name = 'UNQ_DISTRIBUTORS_0'
-      end>
-    tablename = 'DISTRIBUTORS'
-    database = conn
-    BeforePost = namecheckev
-    BeforeDelete = distributordeletecheckev
-    Transaction = trans
-    transactionwrite = transwrite
-    FieldDefs = <    
-      item
-        Name = 'PK'
-        DataType = ftLargeint
-      end    
-      item
-        Name = 'TSCREATE'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'TSMODIFY'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'NAME'
-        DataType = ftString
-        Size = 20
-      end    
-      item
-        Name = 'IDENT'
-        DataType = ftString
-        Size = 50
-      end    
-      item
-        Name = 'COMMENT'
-        DataType = ftString
-        Size = 500
-      end>
-    controller.fields.count = 3
-    controller.fields.fields = (
-      (
-        ft_datetime
-        ft_datetime
-        ft_string
-      )
-      <      
-        item
-          FieldName = 'TSCREATE'
-          Index = 0
-          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
-        end      
-        item
-          FieldName = 'TSMODIFY'
-          Index = 1
-          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
-        end      
-        item
-          DisplayWidth = 500
-          FieldName = 'COMMENT'
-          Index = 2
-          Size = 0
-        end>
-    )
-    left = 184
-    top = 376
-    streamingversion = 1
-    object d_ident: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'IDENT'
-      Index = 3
-      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      Size = 0
-      left = 192
-      top = 440
-    end
-    object d_name: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'NAME'
-      Index = 4
-      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      OnValidate = validatenameidentev
-      Size = 0
-      left = 192
-      top = 424
-    end
-    object d_pk: tmselargeintfield
-      FieldName = 'PK'
-      Index = 5
-      optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
-      left = 192
-      top = 408
-    end
   end
   object deletetest: tsqlresult
     fielddefs = <>

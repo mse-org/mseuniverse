@@ -260,7 +260,7 @@ inherited componenteditfo: tcomponenteditfo
       datalink.navigator = navig
       datalink.fieldname = 'DISTRIBUTOR'
       datalink.fieldnametext = 'distributorname'
-      dropdown.datasource = mainmo.distributordso
+      dropdown.datasource = vendormo.distributordso
       dropdown.keyfield = 'PK'
       dropdown.optionsdb = [odb_directdata]
       dropdown.cols.count = 1
@@ -306,7 +306,7 @@ inherited componenteditfo: tcomponenteditfo
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'MANUFACTURER'
-      dropdown.datasource = mainmo.manufacturerdso
+      dropdown.datasource = vendormo.manufacturerdso
       dropdown.keyfield = 'PK'
       dropdown.optionsdb = [odb_directdata]
       dropdown.cols.count = 1

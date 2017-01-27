@@ -1,7 +1,249 @@
 object vendormo: tvendormo
-  bounds_cx = 100
-  bounds_cy = 100
+  bounds_cx = 761
+  bounds_cy = 657
   left = 100
   top = 100
   moduleclassname = 'tmsedatamodule'
+  object distributorqu: tmsesqlquery
+    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <>
+    SQL.data = (
+      'select * from DISTRIBUTORS'
+    )
+    IndexDefs = <    
+      item
+        Name = 'PK_DISTRIBUTORS_0'
+      end    
+      item
+        Name = 'UNQ_DISTRIBUTORS_0'
+      end>
+    tablename = 'DISTRIBUTORS'
+    database = mainmo.conn
+    BeforeDelete = distributordeletecheckev
+    Transaction = mainmo.trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'IDENT'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    controller.fields.count = 3
+    controller.fields.fields = (
+      (
+        ft_datetime
+        ft_datetime
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'TSCREATE'
+          Index = 0
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 1
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          DisplayWidth = 500
+          FieldName = 'COMMENT'
+          Index = 2
+          Size = 0
+        end>
+    )
+    left = 24
+    top = 120
+    streamingversion = 1
+    object d_ident: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'IDENT'
+      Index = 3
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 32
+      top = 184
+    end
+    object d_name: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'NAME'
+      Index = 4
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 32
+      top = 168
+    end
+    object d_pk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 5
+      optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
+      left = 32
+      top = 152
+    end
+  end
+  object distributordso: tmsedatasource
+    AutoEdit = False
+    DataSet = distributorqu
+    left = 24
+    top = 136
+  end
+  object manufacturerqu: tmsesqlquery
+    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <>
+    SQL.data = (
+      'select * from MANUFACTURERS'
+    )
+    IndexDefs = <    
+      item
+        Name = 'PK_MANUFACTURERS_0'
+      end    
+      item
+        Name = 'UNQ_MANUFACTURERS_0'
+      end>
+    tablename = 'MANUFACTURERS'
+    database = mainmo.conn
+    BeforeDelete = maufaturerdeletecheckev
+    Transaction = mainmo.trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'IDENT'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    controller.fields.count = 3
+    controller.fields.fields = (
+      (
+        ft_datetime
+        ft_datetime
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'TSCREATE'
+          Index = 0
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 1
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          DisplayWidth = 500
+          FieldName = 'COMMENT'
+          Index = 2
+          Size = 0
+        end>
+    )
+    left = 24
+    top = 24
+    streamingversion = 1
+    object m_ident: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'IDENT'
+      Index = 3
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 32
+      top = 88
+    end
+    object m_name: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'NAME'
+      Index = 4
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      Size = 0
+      left = 32
+      top = 72
+    end
+    object m_pk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 5
+      optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
+      left = 32
+      top = 56
+    end
+  end
+  object manufacturerdso: tmsedatasource
+    AutoEdit = False
+    DataSet = manufacturerqu
+    left = 24
+    top = 40
+  end
 end
