@@ -17,20 +17,18 @@
 //
 // under construction
 //
-program msekicadbom;
+unit vendormodule;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
-{$ifdef FPC}
- {$ifdef mswindows}{$apptype gui}{$endif}
-{$endif}
+interface
 uses
- {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif} 
- loadguitemplates,msegui,mainmodule,vendormodule,bommodule,main,mseclasses;
-begin
- msebegingloballoading();
- application.createdatamodule(tmainmo,mainmo);
- application.createdatamodule(tvendormo,vendormo);
- application.createdatamodule(tbommo,bommo);
- application.createform(tmainfo,mainfo);
- mseendgloballoading();
- application.run;
+ msetypes,mseglob,mseapplication,mseclasses,msedatamodules;
+
+type
+ tvendormo = class(tmsedatamodule)
+ end;
+var
+ vendormo: tvendormo;
+implementation
+uses
+ vendormodule_mfm;
 end.
