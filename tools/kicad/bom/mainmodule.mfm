@@ -657,6 +657,7 @@ object mainmo: tmainmo
           Size = 0
         end>
     )
+    controller.options = [dso_utf8]
     controller.onbeforecopyrecord = beforecopyrecordev
     controller.onaftercopyrecord = aftercopyrecordev
     left = 376
@@ -872,6 +873,7 @@ object mainmo: tmainmo
           Size = 0
         end>
     )
+    controller.options = [dso_utf8]
     controller.onbeforecopyrecord = beforecopyrecordev
     controller.onaftercopyrecord = aftercopyrecordev
     left = 552
@@ -1175,7 +1177,7 @@ object mainmo: tmainmo
       '--       coalesce(a."VALUE",'''')as "VALUE",'
       '--       coalesce(a.VALUE1,'''')as VALUE1,'
       '--       coalesce(a.VALUE2,'''')as VALUE2,'
-      '       a.FOOTPRINT,a.COMPONENTKIND,a.MANUFACTURER,a.DISTRIBUTOR'
+      '       a.FOOTPRINT,a.COMPONENTKIND,a.MANUFACTURER'
       '--       b.NAME as footprintname, c.NAME as kindname'
       '    from COMPONENTS a '
       '--    left join FOOTPRINTS b on a.FOOTPRINT = b.PK'
@@ -1187,9 +1189,6 @@ object mainmo: tmainmo
       end    
       item
         Name = 'FK_COMPONENTS_1'
-      end    
-      item
-        Name = 'FK_COMPONENTS_2'
       end    
       item
         Name = 'FK_COMPONENTS_3'
@@ -1249,10 +1248,6 @@ object mainmo: tmainmo
       item
         Name = 'MANUFACTURER'
         DataType = ftLargeint
-      end    
-      item
-        Name = 'DISTRIBUTOR'
-        DataType = ftLargeint
       end>
     controller.fields.count = 2
     controller.fields.fields = (
@@ -1272,6 +1267,7 @@ object mainmo: tmainmo
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end>
     )
+    controller.options = [dso_utf8]
     controller.onbeforecopyrecord = bforecompcopyev
     left = 368
     top = 56
@@ -1371,6 +1367,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldName = 'FOOTPRINTINFO'
       Index = 12
+      Size = 0
       left = 376
       top = 216
     end
@@ -1621,6 +1618,7 @@ object mainmo: tmainmo
           Size = 0
         end>
     )
+    controller.options = [dso_utf8]
     left = 376
     top = 480
     streamingversion = 1
