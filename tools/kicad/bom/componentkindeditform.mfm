@@ -124,7 +124,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.navigator = navig
       datalink.fieldname = 'DISTRIBUTOR'
       datalink.fieldnametext = 'distributorname'
-      dropdown.datasource = mainmo.distributordso
+      dropdown.datasource = vendormo.distributordso
       dropdown.keyfield = 'PK'
       dropdown.optionsdb = [odb_directdata]
       dropdown.cols.count = 1
@@ -170,7 +170,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'MANUFACTURER'
-      dropdown.datasource = mainmo.manufacturerdso
+      dropdown.datasource = vendormo.manufacturerdso
       dropdown.keyfield = 'PK'
       dropdown.optionsdb = [odb_directdata]
       dropdown.cols.count = 1
@@ -187,14 +187,14 @@ inherited componentkindeditfo: tcomponentkindeditfo
     bounds_x = 8
     bounds_y = 104
     bounds_cx = 636
-    bounds_cy = 242
+    bounds_cy = 120
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_placey]
-    place_mindist = 4
-    place_maxdist = 4
+    optionslayout = [lao_placey, lao_syncpaintwidth]
+    place_maxdist = 0
     object descriptioned: tdbmemodialogedit
       frame.caption = '&Description'
+      frame.captionpos = cp_right
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -205,14 +205,13 @@ inherited componentkindeditfo: tcomponentkindeditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        74
         0
       )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 636
-      bounds_cy = 37
+      bounds_cx = 629
       anchors = [an_top]
       datalink.datasource = dataso
       datalink.navigator = navig
@@ -221,6 +220,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
     end
     object param1ed: tdbmemodialogedit
       frame.caption = 'Parameter &1'
+      frame.captionpos = cp_right
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -231,15 +231,14 @@ inherited componentkindeditfo: tcomponentkindeditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        81
         0
       )
       taborder = 1
       bounds_x = 0
-      bounds_y = 41
+      bounds_y = 20
       bounds_cx = 636
-      bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
       datalink.navigator = navig
@@ -248,6 +247,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
     end
     object param2ed: tdbmemodialogedit
       frame.caption = 'Parameter &2'
+      frame.captionpos = cp_right
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -258,15 +258,14 @@ inherited componentkindeditfo: tcomponentkindeditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        81
         0
       )
       taborder = 2
       bounds_x = 0
-      bounds_y = 82
+      bounds_y = 40
       bounds_cx = 636
-      bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
       datalink.navigator = navig
@@ -275,6 +274,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
     end
     object commented: tdbmemodialogedit
       frame.caption = '&Comment'
+      frame.captionpos = cp_right
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -285,15 +285,14 @@ inherited componentkindeditfo: tcomponentkindeditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        62
         0
       )
       taborder = 5
       bounds_x = 0
-      bounds_y = 205
-      bounds_cx = 636
-      bounds_cy = 37
+      bounds_y = 100
+      bounds_cx = 617
       anchors = [an_top]
       datalink.datasource = dataso
       datalink.navigator = navig
@@ -302,6 +301,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
     end
     object param3ed: tdbmemodialogedit
       frame.caption = 'Parameter &3'
+      frame.captionpos = cp_right
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -312,15 +312,14 @@ inherited componentkindeditfo: tcomponentkindeditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        81
         0
       )
       taborder = 3
       bounds_x = 0
-      bounds_y = 123
+      bounds_y = 60
       bounds_cx = 636
-      bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
       datalink.navigator = navig
@@ -329,6 +328,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
     end
     object param4ed: tdbmemodialogedit
       frame.caption = 'Parameter &4'
+      frame.captionpos = cp_right
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 1
@@ -339,15 +339,14 @@ inherited componentkindeditfo: tcomponentkindeditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        81
         0
       )
       taborder = 4
       bounds_x = 0
-      bounds_y = 164
+      bounds_y = 80
       bounds_cx = 636
-      bounds_cy = 37
       anchors = [an_top]
       datalink.datasource = dataso
       datalink.navigator = navig

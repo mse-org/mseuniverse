@@ -504,7 +504,7 @@ object mainmo: tmainmo
     top = 64
   end
   object conn: tfb3connection
-    DatabaseName = '/db/firebird_3_0/stock.fdb'
+    DatabaseName = '/home/db/firebird_3_0/stock.fdb'
     onbeforeconnect = beforeconnectev
     Transaction = trans
     HostName = 'localhost/3051'

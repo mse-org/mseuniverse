@@ -246,4 +246,178 @@ object vendormo: tvendormo
     left = 24
     top = 40
   end
+  object compdistribqu: tmsesqlquery
+    options = [bdo_autocommitret]
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end>
+    SQL.data = (
+      'select a.PK,a.DISTRIBUTOR,a.LINK,c.NAME,b.PARTNUMBER,b.COMMENT from '
+      ' (select PK,DISTRIBUTOR,LINK from DISTRIBUTORSLINK where LINK = :link) a'
+      ' join DISTCOMPS b on a.PK = b.PK'
+      ' left join DISTRIBUTORS c on a.LINK = c.PK'
+    )
+    SQLUpdate.data = (
+      'update DISTCOMPS SET PARTNUMBER = :PARTNUMBER, COMMENT = :COMMENT where PK = :OLD_PK'
+    )
+    SQLInsert.data = (
+      'insert into DISTCOMPS (PK,PARTNUMBER,COMMENT) values (:PK,:PARTNUMBER,:COMMENT)'
+    )
+    SQLDelete.data = (
+      'delete from DISTRIBUTORSLINK where PK = :pk'
+    )
+    IndexDefs = <>
+    tablename = '(select'
+    database = mainmo.conn
+    Transaction = mainmo.trans
+    transactionwrite = mainmo.transwrite
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'DISTRIBUTOR'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'PARTNUMBER'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    controller.fields.count = 4
+    controller.fields.fields = (
+      (
+        ft_string
+        ft_string
+        ft_string
+        ft_largeint
+      )
+      <      
+        item
+          DisplayWidth = 20
+          FieldName = 'NAME'
+          Index = 0
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'PARTNUMBER'
+          Index = 1
+          Size = 50
+        end      
+        item
+          DisplayWidth = 500
+          FieldName = 'COMMENT'
+          Index = 2
+          Size = 500
+        end      
+        item
+          FieldName = 'LINK'
+          Index = 3
+        end>
+    )
+    controller.options = [dso_utf8]
+    onapplyrecupdate = compdistaplyev
+    left = 200
+    top = 48
+    streamingversion = 1
+    object cd_distributor: tmselargeintfield
+      FieldName = 'DISTRIBUTOR'
+      Index = 4
+      left = 208
+      top = 96
+    end
+    object cd_pk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 5
+      left = 208
+      top = 80
+    end
+  end
+  object compdistselect: tfieldparamlink
+    fieldname = 'PK'
+    datasource = mainmo.stockcompdso
+    destdataset = compdistribqu
+    paramname = 'link'
+    delayus = 500000
+    options = [fplo_autorefresh, fplo_refreshifchangedonly, fplo_syncmastercancel, fplo_syncmastercancelupdates, fplo_syncmasterapplyupdates, fplo_syncmastercheckbrowsemode, fplo_syncslaveedit, fplo_syncslaveinserttoedit]
+    destparams.count = 1
+    destparams.items = <    
+      item
+      end>
+    onmasterdelete = compdistmasterdeleteev
+    left = 208
+    top = 24
+  end
+  object compdistribdso: tmsedatasource
+    AutoEdit = False
+    DataSet = compdistribqu
+    left = 200
+    top = 64
+  end
+  object deletecompdistlinks: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'delete from DISTRIBUTORSLINK where LINK = :link'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 384
+    top = 24
+  end
+  object insertcompdistlinks: tsqlresult
+    fielddefs = <>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'DISTRIBUTOR'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'LINK'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into DISTRIBUTORSLINK (DISTRIBUTOR,LINK) values (:DISTRIBUTOR,:LINK) returning PK'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 384
+    top = 48
+  end
 end

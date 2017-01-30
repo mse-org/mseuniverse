@@ -41,9 +41,13 @@ type
    parameter3ed: tdbmemodialogedit;
    parameter4ed: tdbmemodialogedit;
    commented: tdbmemodialogedit;
-   distributored: tdbenum64editdb;
    manufacturered: tdbenum64editdb;
    footprintinfoed: tdbstringedit;
+   distributorgrid: tdbwidgetgrid;
+   distributored: tdbenum64editdb;
+   partnumed: tdbstringedit;
+   tsimplewidget1: tsimplewidget;
+   tdbmemodialogedit1: tdbmemodialogedit;
    procedure editfootprintev(const sender: TObject);
    procedure editcompkindev(const sender: TObject);
    procedure datachangeev(Sender: TObject; Field: TField);

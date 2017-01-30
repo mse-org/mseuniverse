@@ -887,6 +887,7 @@ begin
     
     vendormo.manufacturerqu.controller.refresh(false);
     vendormo.distributorqu.controller.refresh(false);
+    vendormo.compdistribqu.active:= true;
     footprintlibqu.controller.refresh(false);
     footprintqu.controller.refresh(false);
     stockcompqu.disablecontrols();
@@ -1407,17 +1408,17 @@ begin
  asqlres.params[0].asid:= aid.asid;
  asqlres.refresh();
  if not asqlres.eof then begin
-  if asqlres.cols.count > 1 then begin
+  if asqlres.datacols.count > 1 then begin
    showmessage('Record can not be deleted,'+lineend+
               'it is in use by component "'+
-              asqlres.cols.colbyname('VALUE').asmsestring+','+
-              asqlres.cols.colbyname('VALUE1').asmsestring+','+
-              asqlres.cols.colbyname('VALUE1').asmsestring+'"','ERROR');
+              asqlres.datacols.colbyname('VALUE').asmsestring+','+
+              asqlres.datacols.colbyname('VALUE1').asmsestring+','+
+              asqlres.datacols.colbyname('VALUE1').asmsestring+'"','ERROR');
   end
   else begin
    showmessage('Record can not be deleted,'+lineend+
               'it is in use by '+recname+' "'+
-              asqlres.cols.colbyname('NAME').asmsestring+'"','ERROR');
+              asqlres.datacols.colbyname('NAME').asmsestring+'"','ERROR');
   end;
   abort();
  end;
@@ -1448,7 +1449,8 @@ begin
    deletetest.active:= true;
    if not deletetest.eof then begin
     errormessage('Record can not be deleted,'+lineend+
-              'it is in use by '+mstr1+' "'+deletetest.cols[0].asmsestring+'"');
+              'it is in use by '+mstr1+' "'+
+                             deletetest.datacols[0].asmsestring+'"');
     deletetest.active:= false;
     abort(); 
    end;

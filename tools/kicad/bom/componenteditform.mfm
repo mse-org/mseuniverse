@@ -223,53 +223,6 @@ inherited componenteditfo: tcomponenteditfo
         end>
       reffontheight = 14
     end
-    object distributored: tdbenum64editdb
-      frame.caption = '&Distributor'
-      frame.font.localprops = []
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.buttons.count = 2
-      frame.buttons.items = <      
-        item
-          imagenr = 17
-          options = [fbo_executeonclientdblclick]
-          shortcut = 306
-          onexecute = editdistributorev
-        end      
-        item
-        end>
-      frame.activebutton = 1
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
-      taborder = 3
-      bounds_x = 504
-      bounds_y = 0
-      bounds_cx = 164
-      bounds_cy = 37
-      empty_fontstyle = [fs_italic]
-      empty_textflags = [tf_ycentered]
-      empty_options = [eo_showfocused]
-      empty_textcolor = -1879048173
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      font.localprops = []
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'DISTRIBUTOR'
-      datalink.fieldnametext = 'distributorname'
-      dropdown.datasource = vendormo.distributordso
-      dropdown.keyfield = 'PK'
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 1
-      dropdown.cols.items = <      
-        item
-          datafield = 'NAME'
-        end>
-      reffontheight = 14
-    end
     object manufacturered: tdbenum64editdb
       frame.caption = '&Manufacturer'
       frame.font.localprops = []
@@ -316,6 +269,13 @@ inherited componenteditfo: tcomponenteditfo
         end>
       reffontheight = 14
     end
+    object tsimplewidget1: tsimplewidget
+      taborder = 3
+      bounds_x = 504
+      bounds_y = 21
+      bounds_cx = 164
+      bounds_cy = 12
+    end
   end
   object stripe4: tlayouter[3]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -323,19 +283,21 @@ inherited componenteditfo: tcomponenteditfo
     bounds_x = 8
     bounds_y = 122
     bounds_cx = 668
-    bounds_cy = 242
+    bounds_cy = 120
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_placey]
+    optionslayout = [lao_placey, lao_syncpaintwidth]
     align_glue = wam_start
-    place_mindist = 4
-    place_maxdist = 4
+    place_maxdist = 0
     linktop = stripe3
+    linkbottom = distributorgrid
     dist_top = 4
+    dist_bottom = 2
     object descriptioned: tdbmemodialogedit
       frame.caption = '&Description'
+      frame.captionpos = cp_right
       frame.localprops = []
-      frame.localprops1 = []
+      frame.localprops1 = [frl1_captiondist]
       frame.buttons.count = 1
       frame.buttons.items = <      
         item
@@ -344,15 +306,14 @@ inherited componenteditfo: tcomponenteditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        74
         0
       )
       onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 668
-      bounds_cy = 37
+      bounds_cx = 661
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
@@ -365,8 +326,9 @@ inherited componenteditfo: tcomponenteditfo
     end
     object parameter1ed: tdbmemodialogedit
       frame.caption = 'Parameter &1'
+      frame.captionpos = cp_right
       frame.localprops = []
-      frame.localprops1 = []
+      frame.localprops1 = [frl1_captiondist]
       frame.buttons.count = 1
       frame.buttons.items = <      
         item
@@ -375,16 +337,15 @@ inherited componenteditfo: tcomponenteditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        81
         0
       )
       taborder = 1
       onshowhint = macrohintev
       bounds_x = 0
-      bounds_y = 41
+      bounds_y = 20
       bounds_cx = 668
-      bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
@@ -397,8 +358,9 @@ inherited componenteditfo: tcomponenteditfo
     end
     object parameter2ed: tdbmemodialogedit
       frame.caption = 'Parameter &2'
+      frame.captionpos = cp_right
       frame.localprops = []
-      frame.localprops1 = []
+      frame.localprops1 = [frl1_captiondist]
       frame.buttons.count = 1
       frame.buttons.items = <      
         item
@@ -407,16 +369,15 @@ inherited componenteditfo: tcomponenteditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        81
         0
       )
       taborder = 2
       onshowhint = macrohintev
       bounds_x = 0
-      bounds_y = 82
+      bounds_y = 40
       bounds_cx = 668
-      bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
@@ -429,8 +390,9 @@ inherited componenteditfo: tcomponenteditfo
     end
     object parameter3ed: tdbmemodialogedit
       frame.caption = 'Parameter &3'
+      frame.captionpos = cp_right
       frame.localprops = []
-      frame.localprops1 = []
+      frame.localprops1 = [frl1_captiondist]
       frame.buttons.count = 1
       frame.buttons.items = <      
         item
@@ -439,16 +401,15 @@ inherited componenteditfo: tcomponenteditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        81
         0
       )
       taborder = 3
       onshowhint = macrohintev
       bounds_x = 0
-      bounds_y = 123
+      bounds_y = 60
       bounds_cx = 668
-      bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
@@ -461,8 +422,9 @@ inherited componenteditfo: tcomponenteditfo
     end
     object parameter4ed: tdbmemodialogedit
       frame.caption = 'Parameter &4'
+      frame.captionpos = cp_right
       frame.localprops = []
-      frame.localprops1 = []
+      frame.localprops1 = [frl1_captiondist]
       frame.buttons.count = 1
       frame.buttons.items = <      
         item
@@ -471,16 +433,15 @@ inherited componenteditfo: tcomponenteditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        81
         0
       )
       taborder = 4
       onshowhint = macrohintev
       bounds_x = 0
-      bounds_y = 164
+      bounds_y = 80
       bounds_cx = 668
-      bounds_cy = 37
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
@@ -493,8 +454,9 @@ inherited componenteditfo: tcomponenteditfo
     end
     object commented: tdbmemodialogedit
       frame.caption = '&Comment'
+      frame.captionpos = cp_right
       frame.localprops = []
-      frame.localprops1 = []
+      frame.localprops1 = [frl1_captiondist]
       frame.buttons.count = 1
       frame.buttons.items = <      
         item
@@ -503,16 +465,15 @@ inherited componenteditfo: tcomponenteditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
         0
+        62
         0
       )
       taborder = 5
       onshowhint = macrohintev
       bounds_x = 0
-      bounds_y = 205
-      bounds_cx = 668
-      bounds_cy = 37
+      bounds_y = 100
+      bounds_cx = 649
       anchors = [an_top]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
@@ -524,12 +485,150 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
   end
-  inherited dataso: tmsedatasource[4]
+  object distributorgrid: tdbwidgetgrid[4]
+    frame.sbvert.pagesize = 1
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 244
+    bounds_cx = 669
+    bounds_cy = 162
+    anchors = [an_left, an_top, an_right, an_bottom]
+    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'Distributor'
+          end        
+          item
+            caption = 'Part Number'
+          end        
+          item
+            caption = 'Comment'
+          end>
+      end>
+    datacols.count = 3
+    datacols.items = <    
+      item[distributored]
+        width = 147
+        widgetname = 'distributored'
+      end    
+      item[partnumed]
+        width = 125
+        widgetname = 'partnumed'
+      end    
+      item[tdbmemodialogedit1]
+        width = 359
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'tdbmemodialogedit1'
+      end>
+    datalink.datasource = vendormo.compdistribdso
+    datalink.navigator = navig
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+    object distributored: tdbenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.font.localprops = []
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.buttons.count = 2
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+          shortcut = 306
+          onexecute = editdistributorev
+        end      
+        item
+        end>
+      frame.activebutton = 1
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 147
+      bounds_cy = 16
+      empty_fontstyle = [fs_italic]
+      empty_textflags = [tf_ycentered]
+      empty_options = [eo_showfocused]
+      empty_textcolor = -1879048173
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      font.localprops = []
+      datalink.datasource = vendormo.compdistribdso
+      datalink.navigator = navig
+      datalink.fieldname = 'DISTRIBUTOR'
+      datalink.fieldnametext = 'NAME'
+      dropdown.datasource = vendormo.distributordso
+      dropdown.keyfield = 'PK'
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      reffontheight = 14
+    end
+    object partnumed: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 148
+      bounds_y = 0
+      bounds_cx = 125
+      bounds_cy = 16
+      datalink.datasource = vendormo.compdistribdso
+      datalink.navigator = navig
+      datalink.fieldname = 'PARTNUMBER'
+      reffontheight = 14
+    end
+    object tdbmemodialogedit1: tdbmemodialogedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+        end>
+      frame.button.color = -1879048187
+      frame.button.imagenr = 17
+      taborder = 3
+      visible = False
+      bounds_x = 274
+      bounds_y = 0
+      bounds_cx = 359
+      bounds_cy = 16
+      datalink.datasource = vendormo.compdistribdso
+      datalink.navigator = navig
+      datalink.fieldname = 'COMMENT'
+      reffontheight = 14
+    end
+  end
+  inherited dataso: tmsedatasource[5]
     DataSet = mainmo.stockcompqu
     OnStateChange = statechangeev
     OnDataChange = datachangeev
   end
-  inherited tstatfile1: tstatfile[5]
+  inherited tstatfile1: tstatfile[6]
     filename = 'componeteditfo.sta'
   end
 end

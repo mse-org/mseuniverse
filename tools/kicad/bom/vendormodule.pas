@@ -22,7 +22,7 @@ unit vendormodule;
 interface
 uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,mdb,msebufdataset,
- msedatabase,msedb,mseifiglob,msesqldb,msestrings,msqldb,sysutils;
+ msedatabase,msedb,mseifiglob,msesqldb,msestrings,msqldb,sysutils,msesqlresult;
 
 type
  tvendormo = class(tmsedatamodule)
@@ -36,14 +36,26 @@ type
    m_name: tmsestringfield;
    m_pk: tmselargeintfield;
    manufacturerdso: tmsedatasource;
+   compdistribqu: tmsesqlquery;
+   compdistselect: tfieldparamlink;
+   compdistribdso: tmsedatasource;
+   deletecompdistlinks: tsqlstatement;
+   insertcompdistlinks: tsqlresult;
+   cd_distributor: tmselargeintfield;
+   cd_pk: tmselargeintfield;
    procedure distributordeletecheckev(DataSet: TDataSet);
    procedure maufaturerdeletecheckev(DataSet: TDataSet);
+   procedure compdistmasterdeleteev(const sender: TDataSet;
+                   const master: TDataSet);
+   procedure compdistaplyev(const sender: tmsesqlquery;
+                   const updatekind: TUpdateKind; var asql: msestring;
+                   var done: Boolean);
  end;
 var
  vendormo: tvendormo;
 implementation
 uses
- vendormodule_mfm,mainmodule;
+ vendormodule_mfm,mainmodule,msesqlquery;
  
 procedure tvendormo.distributordeletecheckev(DataSet: TDataSet);
 begin
@@ -56,6 +68,23 @@ procedure tvendormo.maufaturerdeletecheckev(DataSet: TDataSet);
 begin
  with mainmo do begin
   deletecheck(m_pk,[sc_manufacturer,k_manufacturer]);
+ end;
+end;
+
+procedure tvendormo.compdistmasterdeleteev(const sender: TDataSet;
+               const master: TDataSet);
+begin
+ tsqlquery(sender).cancelupdates();
+ deletecompdistlinks.execute([mainmo.sc_pk.value]);
+end;
+
+procedure tvendormo.compdistaplyev(const sender: tmsesqlquery;
+               const updatekind: TUpdateKind; var asql: msestring;
+               var done: Boolean);
+begin
+ if updatekind = ukinsert then begin
+  insertcompdistlinks.refresh([cd_distributor.value,mainmo.sc_pk.value]);
+  cd_pk.asid:= insertcompdistlinks[0].asid;
  end;
 end;
 
