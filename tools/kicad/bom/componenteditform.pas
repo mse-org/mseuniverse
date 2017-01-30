@@ -63,7 +63,7 @@ type
  end;
 implementation
 uses
- componenteditform_mfm,mainmodule,main,msebufdataset,msesqldb;
+ componenteditform_mfm,mainmodule,vendormodule,main,msebufdataset,msesqldb;
 
 { tcomponenteditfo }
 
@@ -105,7 +105,7 @@ end;
 
 procedure tcomponenteditfo.editdistributorev(const sender: TObject);
 begin
- mainfo.editdistributor(mainmo.sc_distributor);
+ mainfo.editdistributor(vendormo.cd_distributor);
 end;
 
 procedure tcomponenteditfo.datachangeev(Sender: TObject; Field: TField);

@@ -367,7 +367,7 @@ object vendormo: tvendormo
     destdataset = compdistribqu
     paramname = 'link'
     delayus = 500000
-    options = [fplo_autorefresh, fplo_refreshifchangedonly, fplo_syncmastercancel, fplo_syncmastercancelupdates, fplo_syncmasterapplyupdates, fplo_syncmastercheckbrowsemode, fplo_syncslaveedit, fplo_syncslaveinserttoedit]
+    options = [fplo_autorefresh, fplo_refreshifchangedonly, fplo_syncmastercancel, fplo_syncmastercancelupdates, fplo_syncmasterapplyupdates, fplo_syncmastercheckbrowsemode, fplo_syncslaveedit, fplo_syncslaveinserttoedit, fplo_syncslavedeletetoedit]
     destparams.count = 1
     destparams.items = <    
       item

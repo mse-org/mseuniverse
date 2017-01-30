@@ -78,7 +78,7 @@ type
 implementation
 uses
  docupage_mfm,layerplotdialog,schematicplotdialog,drillmapdialog,
- msedatalist,mserttistat,titledialogform;
+ msedatalist,mserttistat,titledialogform,bomdialogform;
 
 type
  tpageitem = class(tlistedititem)
@@ -141,7 +141,10 @@ begin
     tlayerplotdialogfo.create(tlayerplotpage(pag1)).show(ml_application);
    end;
    dpk_drillmap: begin
-    tdrillmapdialogfo.create(tdrillmappage(pag1)).show(ml_application);
+    tdrillmapdialogfo.create(tbompage(pag1)).show(ml_application);
+   end;
+   dpk_bom: begin
+    tbomdialogfo.create(tdrillmappage(pag1)).show(ml_application);
    end;
   end;
   titleed.value:= pag1.title;

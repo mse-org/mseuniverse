@@ -66,12 +66,10 @@ type
    kind: tdbstringedit;
    description: tdbstringedit;
    manufacturer: tdbstringedit;
-   distributor: tdbstringedit;
    editbutton: tstockglyphdatabutton;
    footprintselector: tenum64editdb;
    kindselector: tenum64editdb;
    descriptionselect: tenum64editdb;
-   manufacturerselect: tenum64editdb;
    distributorselect: tenum64editdb;
    tdbdataicon1: tdbdataicon;
    editcomponentact: taction;
@@ -79,6 +77,7 @@ type
    areadisp: trealdisp;
    footprintinfoed: tdbstringedit;
    footprintinfoselector: tenum64editdb;
+   manufacturerselect: tenum64editdb;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -114,7 +113,8 @@ var
 
 implementation
 uses
- main_mfm,mainmodule,msefileutils,projectsettingsform,globalsettingsform,
+ main_mfm,mainmodule,vendormodule,msefileutils,projectsettingsform,
+ globalsettingsform,
  credentialsentryform,componenteditform,footprintlistform,footprintliblistform,
  componentkindeditform,manufacturerlistform,distributorlistform,
  componentlistform,componentkindlistform,msesqldb;
@@ -288,7 +288,9 @@ end;
 
 procedure tmainfo.editdistributorev(const sender: TObject);
 begin
- tdistributorlistfo.create(mainmo.c_distributorid).show(ml_application);
+ mainmo.stockcompqu.indexlocal[0].find([mainmo.c_stockitemid]);
+ vendormo.compdistselect.checkrefresh(); //skip delay
+ tdistributorlistfo.create(vendormo.cd_distributor).show(ml_application);
 end;
 
 procedure tmainfo.editcomponents(const sender: TObject);

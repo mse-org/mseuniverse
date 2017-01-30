@@ -360,19 +360,15 @@ type
    deletetest: tsqlresult;
    inserttest: tsqlresult;
    c_manufacturerid: tmselargeintfield;
-   c_distributorid: tmselargeintfield;
    c_componentkindid: tmselargeintfield;
    k_manufacturer: tmselargeintfield;
    k_distributor: tmselargeintfield;
    sc_manufacturer: tmselargeintfield;
-   sc_distributor: tmselargeintfield;
    sc_footprintname: tmsestringfield;
    sc_manufacturername: tmsestringfield;
-   sc_distributorname: tmsestringfield;
    k_distributorname: tmsestringfield;
    k_manufacturername: tmsestringfield;
    c_manufacturername: tmsestringfield;
-   c_distributorname: tmsestringfield;
    c_pk: tmselargeintfield;
    c_area: tmsefloatfield;
    f_area: tmsefloatfield;
@@ -473,6 +469,7 @@ type
    procedure begincomponentedit(const idfield: tmselargeintfield);
    procedure deletecheck(const id: tmselargeintfield;
                                  const references: array of tmselargeintfield);
+   procedure distributordeletecheck(const id: tmselargeintfield);
 
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property projectfile: filenamety read fprojectfile write fprojectfile;
@@ -572,12 +569,12 @@ type
     cmn_value,cmn_value1,cmn_value2,
     cmn_footprint,cmn_footprintident,cmn_footprintlibrary,
      cmn_footprintdescription,
-    cmn_manufacturer,cmn_distributor,
+    cmn_manufacturer,{cmn_distributor,}
     cmn_description,cmn_parameter1,cmn_parameter2,cmn_parameter3,
     cmn_parameter4,
     cmn_k_footprint,cmn_k_footprintident,cmn_k_footprintlibrary,
     cmn_k_footprintdescription,
-    cmn_k_manufacturer,cmn_k_distributor,cmn_k_description,
+    cmn_k_manufacturer,{cmn_k_distributor,}cmn_k_description,
     cmn_k_parameter1,cmn_k_parameter2,cmn_k_parameter3,cmn_k_parameter4);
 
 const
@@ -589,7 +586,7 @@ const
 //cmn_footprintdescription,
      'footprintdescription',
 //cmn_manufacturer,cmn_distributor,
-     'manufacturer',  'distributor',
+     'manufacturer', { 'distributor',}
 //cmn_designation,cmn_parameter1,cmn_parameter2,cmn_parameter3,
      'description',  'parameter1',  'parameter2',  'parameter3',
 //cmn_parameter4,
@@ -599,7 +596,7 @@ const
 //cmn_k_footprintdescription,
      'k_footprintdescription',
 //cmn_k_manufacturer,cmn_k_distributor,cmn_k_description,
-     'k_manufacturer',  'k_distributor',  'k_description',
+     'k_manufacturer',  {'k_distributor',}  'k_description',
 //cmn_k_parameter1,cmn_k_parameter2,cmn_k_parameter3,cmn_k_parameter4);
      'k_parameter1',  'k_parameter2',  'k_parameter3',  'k_parameter4'
  );
@@ -928,13 +925,13 @@ begin
         id1:= compkindqu.currentbmasid[k_manufacturer,bm2];
        end;
        compds.currentasid[c_manufacturerid,i1]:= id1;
- 
+{ 
        id1:= sc_distributor.asid;
        if (id1 < 0) and bo1 then begin
         id1:= compkindqu.currentbmasid[k_distributor,bm2];
        end;
        compds.currentasid[c_distributorid,i1]:= id1;
- 
+} 
  //      compds.currentasmsestring[c_stockvalue,i1]:= sc_value.asmsestring;
  //      compds.currentasmsestring[c_stockvalue1,i1]:= sc_value1.asmsestring;
  //      compds.currentasmsestring[c_stockvalue2,i1]:= sc_value2.asmsestring;
@@ -1186,8 +1183,10 @@ begin
  end;
  componentmacroitems[cmn_manufacturer]^.value:= 
                                     sc_manufacturername.asmsestring;
+{
  componentmacroitems[cmn_distributor]^.value:= 
                                      sc_distributorname.asmsestring;
+}
  componentmacroitems[cmn_description]^.value:= 
                                      scd_description.asmsestring;
  componentmacroitems[cmn_parameter1]^.value:= scd_parameter1.asmsestring;
@@ -1211,7 +1210,7 @@ begin
    componentmacroitems[cmn_k_footprintdescription]^.value:= '';
   end;
   updatemacro(bm1,k_manufacturername,cmn_manufacturer,cmn_k_manufacturer);
-  updatemacro(bm1,k_distributorname,cmn_distributor,cmn_k_distributor);
+//  updatemacro(bm1,k_distributorname,cmn_distributor,cmn_k_distributor);
   updatemacro(bm1,k_description,cmn_description,cmn_k_description);
   updatemacro(bm1,k_parameter1,cmn_parameter1,cmn_k_parameter1);
   updatemacro(bm1,k_parameter2,cmn_parameter2,cmn_k_parameter2);
@@ -1223,7 +1222,7 @@ begin
   componentmacroitems[cmn_k_footprintident]^.value:= '';
   componentmacroitems[cmn_k_footprintdescription]^.value:= '';
   componentmacroitems[cmn_k_manufacturer]^.value:= '';
-  componentmacroitems[cmn_k_distributor]^.value:= '';
+//  componentmacroitems[cmn_k_distributor]^.value:= '';
   componentmacroitems[cmn_k_description]^.value:= '';
   componentmacroitems[cmn_k_parameter1]^.value:= '';
   componentmacroitems[cmn_k_parameter2]^.value:= '';
@@ -1457,6 +1456,10 @@ begin
   end;
  end;
  deletetest.active:= false;
+end;
+
+procedure tmainmo.distributordeletecheck(const id: tmselargeintfield);
+begin
 end;
 
 procedure tmainmo.insertcheck(const namefield: tmsestringfield);

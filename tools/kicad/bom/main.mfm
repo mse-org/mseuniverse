@@ -93,12 +93,12 @@ object mainfo: tmainfo
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
-            caption = 'Distributor'
-            options = [dco_colsort, dco_hintclippedtext]
-          end        
-          item
             caption = 'ED'
             hint = 'Edit component (F3)'
+          end        
+          item
+            caption = 'Distributor'
+            options = [dco_colsort, dco_hintclippedtext]
           end>
       end    
       item
@@ -141,17 +141,17 @@ object mainfo: tmainfo
           item
           end        
           item
-          end        
-          item
             color = -1610612712
             face.localprops = []
+          end        
+          item
           end>
       end>
     rowcolors.count = 1
     rowcolors.items = (
       -1610612717
     )
-    datacols.count = 14
+    datacols.count = 13
     datacols.options = [co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[tdbdataicon1]
@@ -242,7 +242,7 @@ object mainfo: tmainfo
         )
       end    
       item[description]
-        width = 105
+        width = 156
         options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widthmin = 50
         widgetname = 'description'
@@ -254,19 +254,6 @@ object mainfo: tmainfo
       end    
       item[manufacturer]
         widgetname = 'manufacturer'
-        fixwidgetnames = (
-          ''
-          'manufacturerselect'
-          ''
-        )
-      end    
-      item[distributor]
-        widgetname = 'distributor'
-        fixwidgetnames = (
-          ''
-          'distributorselect'
-          ''
-        )
       end    
       item[editbutton]
         color = -2147483646
@@ -435,7 +422,7 @@ object mainfo: tmainfo
       visible = False
       bounds_x = 530
       bounds_y = 0
-      bounds_cx = 105
+      bounds_cx = 156
       bounds_cy = 16
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = mainmo.compdso
@@ -447,7 +434,7 @@ object mainfo: tmainfo
       optionsskin = [osk_framebuttononly]
       taborder = 12
       visible = False
-      bounds_x = 636
+      bounds_x = 687
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
@@ -455,22 +442,9 @@ object mainfo: tmainfo
       datalink.fieldname = 'manufaturername'
       reffontheight = 14
     end
-    object distributor: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 13
-      visible = False
-      bounds_x = 687
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      datalink.datasource = mainmo.compdso
-      datalink.fieldname = 'distributorname'
-      reffontheight = 14
-    end
     object editbutton: tstockglyphdatabutton
       optionswidget1 = []
-      taborder = 14
+      taborder = 13
       hint = 'Edit component (F3)'
       bounds_x = 738
       bounds_y = 0
@@ -865,7 +839,7 @@ object mainfo: tmainfo
       taborder = 9
       bounds_x = 530
       bounds_y = 17
-      bounds_cx = 105
+      bounds_cx = 156
       bounds_cy = 16
       statfile = mainfosta
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
@@ -906,7 +880,7 @@ object mainfo: tmainfo
         item
         end>
       taborder = 10
-      bounds_x = 636
+      bounds_x = 687
       bounds_y = 17
       bounds_cx = 50
       bounds_cy = 16
@@ -936,50 +910,6 @@ object mainfo: tmainfo
       dropdown.width = -1
       value = -1
       valuedefault = -1
-      onsetvalue = rowselectev
-      reffontheight = 14
-    end
-    object distributorselect: tenum64editdb
-      optionswidget1 = [ow1_fontglyphheight]
-      frame.levelo = 0
-      frame.localprops = [frl_levelo]
-      frame.localprops1 = []
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-        end>
-      taborder = 11
-      bounds_x = 687
-      bounds_y = 17
-      bounds_cx = 50
-      bounds_cy = 16
-      statfile = mainfosta
-      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = mainmo.compdso
-      dropdown.keyfield = 'PK'
-      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 2
-      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-      dropdown.cols.linewidth = 1
-      dropdown.cols.items = <      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Distributor'
-          datafield = 'distributorname'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'REF'
-          datafield = 'REF'
-        end>
-      dropdown.width = -1
-      value = -1
-      valuedefault = -1
-      onsetvalue = rowselectev
       reffontheight = 14
     end
   end

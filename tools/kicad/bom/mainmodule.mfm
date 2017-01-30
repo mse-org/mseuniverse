@@ -109,7 +109,7 @@ object mainmo: tmainmo
     top = 208
   end
   object compds: tlocaldataset
-    indexlocal.count = 15
+    indexlocal.count = 14
     indexlocal.items = <    
       item
         fields.items = <        
@@ -226,18 +226,6 @@ object mainmo: tmainmo
         fields.items = <        
           item
             fieldname = 'manufaturername'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'REF'
-            options = [ifo_caseinsensitive]
-          end>
-      end    
-      item
-        fields.count = 2
-        fields.items = <        
-          item
-            fieldname = 'distributorname'
             options = [ifo_caseinsensitive]
           end        
           item
@@ -443,17 +431,10 @@ object mainmo: tmainmo
       left = 16
       top = 536
     end
-    object c_distributorid: tmselargeintfield
-      FieldKind = fkInternalCalc
-      FieldName = 'distributorid'
-      Index = 15
-      left = 16
-      top = 552
-    end
     object c_componentkindid: tmselargeintfield
       FieldKind = fkInternalCalc
       FieldName = 'componentkindid'
-      Index = 16
+      Index = 15
       left = 16
       top = 520
     end
@@ -461,7 +442,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'manufaturername'
-      Index = 17
+      Index = 16
       KeyFields = 'manufacturerid'
       LookupDataSet = vendormo.manufacturerqu
       LookupKeyFields = 'PK'
@@ -469,22 +450,10 @@ object mainmo: tmainmo
       left = 168
       top = 536
     end
-    object c_distributorname: tmsestringfield
-      DisplayWidth = 20
-      FieldKind = fkLookup
-      FieldName = 'distributorname'
-      Index = 18
-      KeyFields = 'distributorid'
-      LookupDataSet = vendormo.distributorqu
-      LookupKeyFields = 'PK'
-      LookupResultField = 'NAME'
-      left = 168
-      top = 552
-    end
     object c_area: tmsefloatfield
       FieldKind = fkInternalCalc
       FieldName = 'area'
-      Index = 19
+      Index = 17
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -1032,7 +1001,7 @@ object mainmo: tmainmo
   end
   object stockcompqu: tmsesqlquery
     options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
-    indexlocal.count = 9
+    indexlocal.count = 8
     indexlocal.items = <    
       item
         fields.items = <        
@@ -1179,30 +1148,6 @@ object mainmo: tmainmo
         fields.items = <        
           item
             fieldname = 'manufacturername'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE1'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE2'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'FOOTPRINTINFO'
-            options = [ifo_caseinsensitive]
-          end>
-      end    
-      item
-        fields.count = 5
-        fields.items = <        
-          item
-            fieldname = 'distributorname'
             options = [ifo_caseinsensitive]
           end        
           item
@@ -1388,15 +1333,9 @@ object mainmo: tmainmo
       left = 376
       top = 120
     end
-    object sc_distributor: tmselargeintfield
-      FieldName = 'DISTRIBUTOR'
-      Index = 9
-      left = 376
-      top = 264
-    end
     object sc_manufacturer: tmselargeintfield
       FieldName = 'MANUFACTURER'
-      Index = 10
+      Index = 9
       left = 376
       top = 232
     end
@@ -1404,7 +1343,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'footprintname'
-      Index = 11
+      Index = 10
       KeyFields = 'FOOTPRINT'
       LookupDataSet = footprintqu
       LookupKeyFields = 'PK'
@@ -1418,7 +1357,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'manufacturername'
-      Index = 12
+      Index = 11
       KeyFields = 'MANUFACTURER'
       LookupDataSet = vendormo.manufacturerqu
       LookupKeyFields = 'PK'
@@ -1428,24 +1367,10 @@ object mainmo: tmainmo
       left = 376
       top = 248
     end
-    object sc_distributorname: tmsestringfield
-      DisplayWidth = 20
-      FieldKind = fkLookup
-      FieldName = 'distributorname'
-      Index = 13
-      KeyFields = 'DISTRIBUTOR'
-      LookupDataSet = vendormo.distributorqu
-      LookupKeyFields = 'PK'
-      LookupResultField = 'NAME'
-      optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      Size = 0
-      left = 376
-      top = 280
-    end
     object sc_footprintinfo: tmsestringfield
       DisplayWidth = 20
       FieldName = 'FOOTPRINTINFO'
-      Index = 14
+      Index = 12
       left = 376
       top = 216
     end

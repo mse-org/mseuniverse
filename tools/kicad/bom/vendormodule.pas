@@ -60,7 +60,7 @@ uses
 procedure tvendormo.distributordeletecheckev(DataSet: TDataSet);
 begin
  with mainmo do begin
-  deletecheck(d_pk,[sc_distributor,k_distributor]);
+  distributordeletecheck(d_pk);
  end;
 end;
 
