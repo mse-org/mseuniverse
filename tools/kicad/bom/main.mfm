@@ -254,6 +254,11 @@ object mainfo: tmainfo
       end    
       item[manufacturer]
         widgetname = 'manufacturer'
+        fixwidgetnames = (
+          ''
+          'manufacturerselect'
+          ''
+        )
       end    
       item[editbutton]
         color = -2147483646

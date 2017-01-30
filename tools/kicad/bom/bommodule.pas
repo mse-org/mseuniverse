@@ -19,12 +19,16 @@ unit bommodule;
 interface
 uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,mdb,msebufdataset,
- msedb,mseifiglob,mselocaldataset,msestrings;
+ msedb,mseifiglob,mselocaldataset,msestrings,msedatabase,msesqldb,msqldb,
+ sysutils;
 
 type
  tbommo = class(tmsedatamodule)
    bomds: tlocaldataset;
    bomdso: tmsedatasource;
+   bom_stockcompid: tmselargeintfield;
+   compdistribdso: tmsedatasource;
+   compdistribqu: tmsesqlquery;
    procedure afteropenev(DataSet: TDataSet);
  end;
 var
@@ -39,6 +43,7 @@ var
  recno1: int32;
  val,val1,val2,desc: msestring;
  valbefore,val1before,val2before,descbefore: msestring;
+ compbefore: int64;
  reflist: msestring;
  count1: int32;
 
@@ -46,12 +51,13 @@ var
  begin
   if count1 > 0 then begin
    setlength(reflist,length(reflist)-1); //remove trailing space
-   bomds.appendrecord([count1,descbefore,reflist]);
+   bomds.appendrecord([count1,descbefore,reflist,compbefore]);
   end;
   valbefore:= val;
   val1before:= val1;
   val2before:= val2;
   descbefore:= desc;
+  compbefore:= mainmo.c_stockitemid.asid;
   count1:= 0;
   reflist:= '';
  end;//addcomp
@@ -61,6 +67,7 @@ begin
   index1:= indexlocal.activeindex;
   recno1:= recno;
   try
+   bomds.disablecontrols();
    bomds.resetindex;
    indexlocal.indexbyname('comp').active:= true;
    disablecontrols();
@@ -87,6 +94,8 @@ begin
    addcomp();
    bomds.indexlocal[0].active:= true;
    bomds.first();
+   bomds.enablecontrols();
+   enablecontrols();
   finally
    indexlocal.activeindex:= index1;
    recno:= recno1;

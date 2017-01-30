@@ -40,11 +40,9 @@ type
    kindselector: tenum64editdb;
    dataso: tmsedatasource;
    manufacturerselector: tenum64editdb;
-   distributorselector: tenum64editdb;
    grid: tdbwidgetgrid;
    footprinttdi: tdbstringedit;
    manufacturered: tdbenum64editdb;
-   distributored: tdbenum64editdb;
    tdbstringedit2: tdbstringedit;
    footprintinfoselector: tenum64editdb;
    procedure edititemev(const sender: TObject);

@@ -7,6 +7,8 @@ inherited bomreppa: tbomreppa
     369
   )
   inherited tbandarea2: tbandarea
+    color = -2147483647
+    bounds_cy = 540
     object header: trecordband[0]
       frame.framei_bottom = 3
       frame.localprops = [frl_fibottom]
@@ -16,7 +18,7 @@ inherited bomreppa: tbomreppa
       bounds_cx = 510
       bounds_cy = 19
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-      tabs.count = 2
+      tabs.count = 3
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
       tabs.livert_widthmm = 0
@@ -29,8 +31,17 @@ inherited bomreppa: tbomreppa
       tabs.items = <      
         item
           pos = 0
-          value = 'COUNT'
-          textflags = [tf_xcentered, tf_ycentered]
+          value = 'QTY'
+          textflags = [tf_right, tf_ycentered]
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 2
+        end      
+        item
+          pos = 18.3333333333333
+          value = 'PART/REF'
           litop_widthmm = 0
           livert_widthmm = 0
           libottom_widthmm = 0
@@ -38,8 +49,8 @@ inherited bomreppa: tbomreppa
           distright = 0
         end      
         item
-          pos = 18.3333333333333
-          value = 'PART/REF'
+          pos = 102.6666666666667
+          textflags = [tf_right, tf_ycentered]
           litop_widthmm = 0
           livert_widthmm = 0
           libottom_widthmm = 0
@@ -53,7 +64,7 @@ inherited bomreppa: tbomreppa
       bounds_x = 0
       bounds_y = 118
       bounds_cx = 510
-      bounds_cy = 57
+      bounds_cy = 39
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
@@ -64,14 +75,17 @@ inherited bomreppa: tbomreppa
       tabs.distright = 0
       tabs.defaultdist = 0
       datasource = bommo.bomdso
+      nextband = data3
+      nextbandiflastofarea = header
+      nextbandifempty = enddummy
+      onafterrender = bandafterrendev
       object data1: trecordband
-        color = 13762498
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 510
         bounds_cy = 16
         optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-        tabs.count = 2
+        tabs.count = 3
         tabs.litop_widthmm = 0
         tabs.lileft_widthmm = 0
         tabs.livert_widthmm = 0
@@ -91,7 +105,7 @@ inherited bomreppa: tbomreppa
             livert_widthmm = 0
             libottom_widthmm = 0
             distleft = 0
-            distright = 1
+            distright = 2
           end        
           item
             pos = 18.3333333333333
@@ -102,13 +116,20 @@ inherited bomreppa: tbomreppa
             libottom_widthmm = 0
             distleft = 0
             distright = 0
+          end        
+          item
+            pos = 102.6666666666667
+            litop_widthmm = 0
+            livert_widthmm = 0
+            libottom_widthmm = 0
+            distleft = 0
+            distright = 0
           end>
       end
       object data2: trecordband
-        color = 13762498
         taborder = 1
         bounds_x = 0
-        bounds_y = 41
+        bounds_y = 23
         bounds_cx = 510
         bounds_cy = 16
         optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -152,6 +173,73 @@ inherited bomreppa: tbomreppa
         item
           value = 'Bill of Material'
         end>
+    end
+    object data3: trecordband[3]
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 210
+      bounds_cx = 510
+      bounds_cy = 18
+      tabs.count = 3
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = header
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          datasource = bommo.compdistribdso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 18.3333333333333
+          datafield = 'NAME'
+          datasource = bommo.compdistribdso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 102.6666666666667
+          textflags = [tf_right, tf_ycentered]
+          datafield = 'PARTNUMBER'
+          datasource = bommo.compdistribdso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = bommo.compdistribdso
+      nextbandiflastofarea = header
+      nextbandifempty = tbandgroup1
+      nextbandiflast = tbandgroup1
+    end
+    object enddummy: trecordband[4]
+      taborder = 4
+      bounds_x = 0
+      bounds_y = 252
+      bounds_cx = 510
+      bounds_cy = 18
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.defaultdist = 0
     end
   end
   inherited treppagenumdisp1: treppagenumdisp

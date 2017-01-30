@@ -167,8 +167,15 @@ type
  end;
 
  tbompage = class(tdocupage)
+  private
+   fshowreferences: boolean;
+   fshowdistributors: boolean;
   protected
    class function getpagekind: docupagekindty override;
+  published
+   property showreferences: boolean read fshowreferences write fshowreferences;
+   property showdistributors: boolean read fshowdistributors
+                                                   write fshowdistributors;
  end;
     
  docuinfoty = record
@@ -1968,7 +1975,7 @@ begin
      pac1:= tpartlistreppa;
     end;
     dpk_bom: begin
-     pac1:= tbomreppa;
+     pa1:= tbomreppa.create(tbompage(info1^.pages[i1]));
      bommo.bomds.active:= true;
     end;
    end;
@@ -2022,6 +2029,7 @@ begin
   endpy();
   rep.destroy();
   bommo.bomds.active:= false;
+  bommo.compdistribqu.active:= false;
  end;
 end;
 

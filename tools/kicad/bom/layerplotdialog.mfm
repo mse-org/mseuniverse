@@ -10,7 +10,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
   )
   statfile = tstatfile1
   caption = 'Docu PCB Layer-Plot Page'
-  onclose = closeev
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
     inherited tbutton2: tbutton

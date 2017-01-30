@@ -268,7 +268,7 @@ object vendormo: tvendormo
       'select a.PK,a.DISTRIBUTOR,a.LINK,c.NAME,b.PARTNUMBER,b.COMMENT from '
       ' (select PK,DISTRIBUTOR,LINK from DISTRIBUTORSLINK where LINK = :link) a'
       ' join DISTCOMPS b on a.PK = b.PK'
-      ' left join DISTRIBUTORS c on a.LINK = c.PK'
+      ' left join DISTRIBUTORS c on a.DISTRIBUTOR = c.PK'
     )
     SQLUpdate.data = (
       'update DISTCOMPS SET PARTNUMBER = :PARTNUMBER, COMMENT = :COMMENT where PK = :OLD_PK'
@@ -325,18 +325,19 @@ object vendormo: tvendormo
           DisplayWidth = 20
           FieldName = 'NAME'
           Index = 0
+          Size = 0
         end      
         item
           DisplayWidth = 50
           FieldName = 'PARTNUMBER'
           Index = 1
-          Size = 50
+          Size = 0
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
           Index = 2
-          Size = 500
+          Size = 0
         end      
         item
           FieldName = 'LINK'

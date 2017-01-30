@@ -99,7 +99,7 @@ object componentlistfo: tcomponentlistfo
       item
         height = 16
       end>
-    datacols.count = 8
+    datacols.count = 7
     datacols.sortcoldefault = 0
     datacols.items = <    
       item[valueed]
@@ -149,13 +149,6 @@ object componentlistfo: tcomponentlistfo
         fixwidgetnames = (
           ''
           'manufacturerselector'
-        )
-      end    
-      item[distributored]
-        widgetname = 'distributored'
-        fixwidgetnames = (
-          ''
-          'distributorselector'
         )
       end>
     datalink.datasource = dataso
@@ -302,45 +295,6 @@ object componentlistfo: tcomponentlistfo
       datalink.fieldname = 'MANUFACTURER'
       datalink.fieldnametext = 'manufacturername'
       dropdown.datasource = vendormo.manufacturerdso
-      dropdown.keyfield = 'PK'
-      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 2
-      dropdown.cols.items = <      
-        item
-          datafield = 'NAME'
-        end      
-        item
-          width = 100
-          datafield = 'IDENT'
-        end>
-      reffontheight = 14
-    end
-    object distributored: tdbenum64editdb
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      frame.levelo = 0
-      frame.colorclient = -2147483645
-      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.localprops1 = []
-      frame.button.color = -1879048187
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-          color = -1879048187
-        end>
-      taborder = 8
-      visible = False
-      bounds_x = 357
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'DISTRIBUTOR'
-      datalink.fieldnametext = 'distributorname'
-      dropdown.datasource = vendormo.distributordso
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
@@ -786,73 +740,6 @@ object componentlistfo: tcomponentlistfo
           linewidth = 1
           caption = 'Manufacturer'
           datafield = 'manufacturername'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Value'
-          datafield = 'VALUE'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Value1'
-          datafield = 'VALUE1'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Value2'
-          datafield = 'VALUE2'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprintinfo'
-          datafield = 'FOOTPRINTINFO'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprint'
-          datafield = 'FOOTPRINTNAME'
-        end>
-      dropdown.width = -1
-      value = -1
-      valuedefault = -1
-      onsetvalue = rowselectev
-      reffontheight = 14
-    end
-    object distributorselector: tenum64editdb
-      optionswidget1 = [ow1_fontglyphheight]
-      frame.levelo = 0
-      frame.localprops = [frl_levelo]
-      frame.localprops1 = []
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-        end>
-      taborder = 7
-      bounds_x = 357
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 16
-      statfile = tstatfile1
-      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      dropdown.datasource = dataso
-      dropdown.keyfield = 'PK'
-      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 6
-      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-      dropdown.cols.linewidth = 1
-      dropdown.cols.items = <      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Distributor'
-          datafield = 'distributorname'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]

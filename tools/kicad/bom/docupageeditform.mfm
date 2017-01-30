@@ -83,7 +83,7 @@ object docupageeditfo: tdocupageeditfo
     reffontheight = 14
   end
   object tstatfile1: tstatfile
-    filename = 'titledialogfo.sta'
+    filename = 'docupageeditfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 64
     top = 112

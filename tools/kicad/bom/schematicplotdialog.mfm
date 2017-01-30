@@ -9,7 +9,6 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     328
   )
   options = [fo_freeonclose, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
-  onclose = closeev
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
     inherited tbutton2: tbutton

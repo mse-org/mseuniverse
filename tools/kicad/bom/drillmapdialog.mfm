@@ -12,6 +12,7 @@ inherited drillmapdialogfo: tdrillmapdialogfo
   caption = 'Docu PCB Drillmap-Plot Page'
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
+    bounds_x = 407
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -21,13 +22,14 @@ inherited drillmapdialogfo: tdrillmapdialogfo
   end
   inherited val_title: tstringedit
     taborder = 2
+    bounds_cx = 514
   end
   object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
     bounds_y = 37
-    bounds_cx = 474
+    bounds_cx = 450
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]

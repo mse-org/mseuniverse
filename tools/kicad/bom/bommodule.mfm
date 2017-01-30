@@ -14,6 +14,31 @@ object bommo: tbommo
             options = [ifo_caseinsensitive]
           end>
       end>
+    controller.fields.count = 3
+    controller.fields.fields = (
+      (
+        ft_longint
+        ft_string
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'count'
+          Index = 0
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'part'
+          Index = 1
+          Size = 0
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'ref'
+          Index = 2
+          Size = 0
+        end>
+    )
     FieldDefs = <    
       item
         Name = 'count'
@@ -26,15 +51,123 @@ object bommo: tbommo
       item
         Name = 'ref'
         DataType = ftString
+      end    
+      item
+        Name = 'stockcompid'
+        DataType = ftLargeint
       end>
     AfterOpen = afteropenev
-    left = 18
-    top = 22
+    left = 10
+    top = 6
     streamingversion = 1
+    object bom_stockcompid: tmselargeintfield
+      FieldName = 'stockcompid'
+      Index = 3
+      left = 16
+      top = 40
+    end
   end
   object bomdso: tmsedatasource
     DataSet = bomds
-    left = 130
+    left = 10
     top = 22
+  end
+  object compdistribdso: tmsedatasource
+    AutoEdit = False
+    DataSet = compdistribqu
+    left = 184
+    top = 24
+  end
+  object compdistribqu: tmsesqlquery
+    options = []
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+        datasource = bomdso
+        fieldname = 'stockcompid'
+      end>
+    SQL.data = (
+      'select a.PK,a.DISTRIBUTOR,a.LINK,c.NAME,b.PARTNUMBER,b.COMMENT from '
+      ' (select PK,DISTRIBUTOR,LINK from DISTRIBUTORSLINK where LINK = :link) a'
+      ' join DISTCOMPS b on a.PK = b.PK'
+      ' left join DISTRIBUTORS c on a.DISTRIBUTOR = c.PK'
+    )
+    SQLUpdate.data = (
+      'update DISTCOMPS SET PARTNUMBER = :PARTNUMBER, COMMENT = :COMMENT where PK = :OLD_PK'
+    )
+    SQLInsert.data = (
+      'insert into DISTCOMPS (PK,PARTNUMBER,COMMENT) values (:PK,:PARTNUMBER,:COMMENT)'
+    )
+    SQLDelete.data = (
+      'delete from DISTRIBUTORSLINK where PK = :pk'
+    )
+    IndexDefs = <>
+    tablename = '(select'
+    database = mainmo.conn
+    Transaction = mainmo.trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'DISTRIBUTOR'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'PARTNUMBER'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    controller.fields.count = 2
+    controller.fields.fields = (
+      (
+        ft_string
+        ft_string
+      )
+      <      
+        item
+          DisplayWidth = 20
+          FieldName = 'NAME'
+          Index = 0
+          Size = 0
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'PARTNUMBER'
+          Index = 1
+          Size = 0
+        end>
+    )
+    controller.options = [dso_utf8]
+    left = 184
+    top = 8
+    streamingversion = 1
   end
 end
