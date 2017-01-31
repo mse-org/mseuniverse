@@ -5,7 +5,7 @@ object vendormo: tvendormo
   top = 100
   moduleclassname = 'tmsedatamodule'
   object distributorqu: tmsesqlquery
-    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
+    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -37,6 +37,7 @@ object vendormo: tvendormo
     database = mainmo.conn
     BeforeDelete = distributordeletecheckev
     Transaction = mainmo.trans
+    transactionwrite = mainmo.transwrite
     FieldDefs = <    
       item
         Name = 'PK'
@@ -126,7 +127,7 @@ object vendormo: tvendormo
     top = 136
   end
   object manufacturerqu: tmsesqlquery
-    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
+    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -158,6 +159,7 @@ object vendormo: tvendormo
     database = mainmo.conn
     BeforeDelete = maufaturerdeletecheckev
     Transaction = mainmo.trans
+    transactionwrite = mainmo.transwrite
     FieldDefs = <    
       item
         Name = 'PK'
@@ -247,7 +249,7 @@ object vendormo: tvendormo
     top = 40
   end
   object compdistribqu: tmsesqlquery
-    options = [bdo_autocommitret]
+    options = [bdo_autocommit]
     indexlocal.count = 1
     indexlocal.items = <    
       item

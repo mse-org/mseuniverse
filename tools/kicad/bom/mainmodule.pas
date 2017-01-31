@@ -390,6 +390,7 @@ type
    viewerproc: tguiprocess;
    ps2pdfproc: tmseprocess;
    service: tfb3service;
+   distdeletetest: tsqlresult;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -476,8 +477,6 @@ type
    procedure begincomponentedit(const idfield: tmselargeintfield);
    procedure deletecheck(const id: tmselargeintfield;
                                  const references: array of tmselargeintfield);
-   procedure distributordeletecheck(const id: tmselargeintfield);
-
    function checkvalueexist(const avalue,avalue1,avalue2: msestring): boolean;
    property projectfile: filenamety read fprojectfile write fprojectfile;
    property hasproject: boolean read fhasproject;
@@ -1434,39 +1433,42 @@ procedure tmainmo.deletecheck(const id: tmselargeintfield;
                                 const references: array of tmselargeintfield);
 var
  i1: int32;
- mstr1,mstr2: msestring;
+ mstr1,mstr2,fna: msestring;
+ deltest: tsqlresult;
 begin
+ if id.dataset = vendormo.distributorqu then begin
+  deltest:= distdeletetest;
+ end
+ else begin
+  deltest:= deletetest;
+ end;
  for i1:= 0 to high(references) do begin
   with references[i1] do begin
-   deletetest.active:= false;
+   deltest.active:= false;
    mstr1:= msestring(tmsesqlquery(dataset).tablename);
-   mstr2:= msestring(fieldname);
-   deletetest.sql.macros.itembyname('table').value.text:= mstr1;
-   deletetest.sql.macros.itembyname('field').value.text:= mstr2;
+   mstr2:= 'b.'+msestring(fieldname);
+   deltest.sql.macros.itembyname('table').value.text:= mstr1;
+   deltest.sql.macros.itembyname('field').value.text:= mstr2;
    if references[i1].dataset = stockcompqu then begin
-    mstr2:= '(coalesce("VALUE",'''')||'',''||coalesce(VALUE1,'''')||'+
-              ''',''||coalesce(VALUE2,'''')) as NAME';
+    mstr2:= '(coalesce(b."VALUE",'''')||'',''||coalesce(b.VALUE1,'''')||'+
+              ''',''||coalesce(b.VALUE2,'''')) as NAME';
    end
    else begin
-    mstr2:= 'NAME';
+    mstr2:= 'b.NAME';
    end;
-   deletetest.sql.macros.itembyname('fields').value.text:= mstr2;
-   deletetest.params[0].asid:= id.asid;
-   deletetest.active:= true;
-   if not deletetest.eof then begin
+   deltest.sql.macros.itembyname('fields').value.text:= mstr2;
+   deltest.params[0].asid:= id.asid;
+   deltest.active:= true;
+   if not deltest.eof then begin
     errormessage('Record can not be deleted,'+lineend+
               'it is in use by '+mstr1+' "'+
-                             deletetest.datacols[0].asmsestring+'"');
-    deletetest.active:= false;
+                             deltest.datacols[0].asmsestring+'"');
+    deltest.active:= false;
     abort(); 
    end;
   end;
  end;
- deletetest.active:= false;
-end;
-
-procedure tmainmo.distributordeletecheck(const id: tmselargeintfield);
-begin
+ deltest.active:= false;
 end;
 
 procedure tmainmo.insertcheck(const namefield: tmsestringfield);

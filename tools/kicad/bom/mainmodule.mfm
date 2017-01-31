@@ -1682,12 +1682,12 @@ object mainmo: tmainmo
         name = 'field'
       end>
     sql.data = (
-      'select ${fields} from ${table} where ${field} = :id'
+      'select ${fields} from ${table} b where ${field} = :id'
     )
     database = conn
     transaction = trans
     options = [sso_utf8]
-    left = 648
+    left = 664
     top = 280
   end
   object inserttest: tsqlresult
@@ -1812,7 +1812,41 @@ object mainmo: tmainmo
     top = 56
   end
   object service: tfb3service
-    left = 408
+    left = 400
     top = 32
+  end
+  object distdeletetest: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 152
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        ParamType = ptInput
+      end>
+    sql.macros.count = 3
+    sql.macros.items = <    
+      item
+        name = 'fields'
+      end    
+      item
+        name = 'table'
+      end    
+      item
+        name = 'field'
+      end>
+    sql.data = (
+      'select ${fields} from (select LINK from DISTRIBUTORSLINK where DISTRIBUTOR = :id) a'
+      '       join ${table} b on b.PK = a.LINK'
+    )
+    database = conn
+    transaction = trans
+    options = [sso_utf8]
+    left = 664
+    top = 304
   end
 end
