@@ -41,7 +41,7 @@ type
    pageitems: titemedit;
    statf: tstatfile;
    tlayouter3: tlayouter;
-   pagefileed: tpagesizeselector;
+   pagesizeed: tpagesizeselector;
    leftmargined: trealedit;
    bottommargined: trealedit;
    topmargined: trealedit;
@@ -64,8 +64,6 @@ type
    procedure creatpageitemev(const sender: tcustomitemlist;
                    var item: tlistedititem);
    procedure setkindev(const sender: TObject; var avalue: Integer;
-                   var accept: Boolean);
-   procedure setpagesizeev(const sender: TObject; var avalue: stdpagesizety;
                    var accept: Boolean);
   private
 //   fdocupages: docupagearty;
@@ -235,21 +233,6 @@ begin
  with tpageitem(pageitems.item) do begin
   updatedocupageobj(fpage,docupagekindty(avalue+1));
   fpage.title:= titleed.value;
- end;
-end;
-
-procedure tdocupagefo.setpagesizeev(const sender: TObject;
-               var avalue: stdpagesizety; var accept: Boolean);
-begin
- if avalue = sps_user then begin
-  pagewidthed.enabled:= true;
-  pageheighted.enabled:= true;
- end
- else begin
-  pagewidthed.enabled:= false;
-  pageheighted.enabled:= false;
-  pagewidthed.value:= stdpagesizes[avalue].width;
-  pageheighted.value:= stdpagesizes[avalue].height;
  end;
 end;
 

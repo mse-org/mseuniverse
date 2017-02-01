@@ -183,6 +183,12 @@ type
   docudir: filenamety;
   psfile: filenamety;
   pdffile: filenamety;
+  pagewidth: flo64;
+  pageheight: flo64;
+  leftmargin: flo64;
+  rightmargin: flo64;
+  topmargin: flo64;
+  bottommargin: flo64;
   pages: docupagearty;
  {
   titles: msestringarty;
@@ -1906,6 +1912,14 @@ begin
                'is invalid');
   exit;
  end;
+ with info1^ do begin
+  psprinter.pa_width:= pagewidth;
+  psprinter.pa_height:= pageheight;
+  psprinter.pa_frameleft:= leftmargin;
+  psprinter.pa_frameright:= rightmargin;
+  psprinter.pa_frametop:= topmargin;
+  psprinter.pa_framebottom:= bottommargin;
+ end;
  rep:= nil;
  error1:= false;
  tmpfileindex:= 0;
@@ -1915,6 +1929,8 @@ begin
  try
   rep:= tdocure.create(nil);
   rep.clear(); //remove defaultpage
+  rep.pagewidth:= psprinter.clientwidth;
+  rep.pageheight:= psprinter.clientheight;
   for i1:= 0 to high(info1^.pages) do begin
 //   pac1:= nil;
    pa1:= nil;
@@ -2279,6 +2295,12 @@ begin
     docudir:= reader.readmsestring('docudir','');
     psfile:= reader.readmsestring('psfile','');
     pdffile:= reader.readmsestring('pdffile','');
+    pagewidth:= reader.readreal('pagewidth',stdpagesizes[sps_a4].width);
+    pageheight:= reader.readreal('pageheight',stdpagesizes[sps_a4].height);
+    leftmargin:= reader.readreal('leftmargin',10.0);
+    rightmargin:= reader.readreal('rightmargin',10.0);
+    topmargin:= reader.readreal('topmargin',10.0);
+    bottommargin:= reader.readreal('bottommargin',10.0);
     if reader.beginlist('pages') then begin
      count2:= 0;
      while reader.beginlist('item'+inttostrmse(count2)) do begin
@@ -2378,6 +2400,12 @@ begin
     writer.writemsestring('docudir',docudir);
     writer.writemsestring('psfile',psfile);
     writer.writemsestring('pdffile',pdffile);
+    writer.writereal('pagewidth',pagewidth);
+    writer.writereal('pageheight',pageheight);
+    writer.writereal('rightmargin',rightmargin);
+    writer.writereal('leftmargin',leftmargin);
+    writer.writereal('topmargin',topmargin);
+    writer.writereal('bottommargin',bottommargin);
     writer.beginlist('pages');
     for i2:= 0 to high(pages) do begin
      writer.beginlist('item'+inttostrmse(i2));

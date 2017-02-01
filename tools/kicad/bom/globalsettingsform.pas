@@ -110,6 +110,12 @@ begin
    fo2.docudir:= docudir;
    fo2.psfileed.value:= psfile;
    fo2.pdffileed.value:= pdffile;
+   fo2.pagesizeed.pagewidth:= pagewidth;
+   fo2.pagesizeed.pageheight:= pageheight;
+   fo2.leftmargined.value:= leftmargin;
+   fo2.rightmargined.value:= rightmargin;
+   fo2.topmargined.value:= topmargin;
+   fo2.bottommargined.value:= bottommargin;
   {
    fo2.grid.rowcount:= length(pages);
    for i2:= 0 to high(pages) do begin
@@ -164,6 +170,12 @@ begin
     docudir:= docudired.value;
     psfile:= psfileed.value;
     pdffile:= pdffileed.value;
+    pagewidth:= pagewidthed.value;
+    pageheight:= pageheighted.value;
+    leftmargin:= leftmargined.value;
+    rightmargin:= rightmargined.value;
+    topmargin:= topmargined.value;
+    bottommargin:= bottommargined.value;
 //    docupagesetlength(pages,0);
     pages:= docupages;
 //    docupages:= nil; //no free items in destroy()
