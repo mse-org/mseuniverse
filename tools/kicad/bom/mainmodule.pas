@@ -99,6 +99,9 @@ type
    fmirrory: boolean;
    frotate90: boolean;
    frotate180: boolean;
+   fscale: flo64;
+   fshifthorz: flo64;
+   fshiftvert: flo64;
    procedure setkind(const avalue: msestring);
    function getkind(): msestring;
    function getkindid(): int32;
@@ -115,6 +118,9 @@ type
    property mirrory: boolean read fmirrory write fmirrory;
    property rotate90: boolean read frotate90 write frotate90;
    property rotate180: boolean read frotate180 write frotate180;
+   property scale: flo64 read fscale write fscale;
+   property shifthorz: flo64 read fshifthorz write fshifthorz;
+   property shiftvert: flo64 read fshiftvert write fshiftvert;
  end;
  docupageclassty = class of tdocupage;
  docupagearty = array of tdocupage;
@@ -1954,7 +1960,7 @@ begin
        error1:= true;
        break;
       end;
-      pa1:= tdocupsreppa.create(nil);
+      pa1:= tdocupsreppa.create(tlayerplotpage(info1^.pages[i1]));
      end;
     end;
     dpk_drillmap: begin
@@ -1975,12 +1981,12 @@ begin
        error1:= true;
        break;
       end;
-      pa1:= tdocupsreppa.create(nil);
+      pa1:= tdocupsreppa.create(tdrillmappage(info1^.pages[i1]));
      end;
     end;
     dpk_schematic: begin
      with tschematicplotpage(info1^.pages[i1]) do begin
-      pa1:= tdocupsreppa.create(nil);
+      pa1:= tdocupsreppa.create(tschematicplotpage(info1^.pages[i1]));
       s1:= expandprojectmacros(psfile);
      {
       with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
@@ -2446,7 +2452,7 @@ end;
 
 constructor tdocupage.create();
 begin
- //dummy
+ fscale:= 1;
 end;
 
 function tdocupage.getkind(): msestring;

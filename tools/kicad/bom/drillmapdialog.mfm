@@ -12,6 +12,7 @@ inherited drillmapdialogfo: tdrillmapdialogfo
   caption = 'Docu PCB Drillmap-Plot Page'
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
+    taborder = 1
     bounds_x = 407
     inherited tbutton2: tbutton
     end
@@ -118,7 +119,6 @@ inherited drillmapdialogfo: tdrillmapdialogfo
     end
   end
   inline plotsettings: tplotsettingsfo[3]
-    taborder = 1
     bounds_x = 8
     bounds_y = 74
     linktop = tlayouter1
@@ -129,6 +129,12 @@ inherited drillmapdialogfo: tdrillmapdialogfo
     inherited val_rotate90: tbooleanedit
     end
     inherited val_rotate180: tbooleanedit
+    end
+    inherited val_scale: trealedit
+    end
+    inherited val_shifthorz: trealedit
+    end
+    inherited val_shiftvert: trealedit
     end
   end
   inherited tstatfile1: tstatfile[4]

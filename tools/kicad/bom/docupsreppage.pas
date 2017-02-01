@@ -20,14 +20,27 @@ interface
 uses
  msetypes,mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
  msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msereport,mserepps,
- basereppage;
+ basereppage,mainmodule;
 
 type
  tdocupsreppa = class(tbasereppa)
    ps: treppsdisp;
+  public
+   constructor create(const apage: tdocupage);
  end;
 
 implementation
 uses
  docupsreppage_mfm;
+
+{ tdocupsreppa }
+
+constructor tdocupsreppa.create(const apage: tdocupage);
+begin
+ inherited create(nil);
+ ps.scale:= apage.scale;
+ ps.shifthorz:= apage.shifthorz;
+ ps.shiftvert:= apage.shiftvert;
+end;
+
 end.

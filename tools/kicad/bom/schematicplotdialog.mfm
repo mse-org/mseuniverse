@@ -11,6 +11,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
   options = [fo_freeonclose, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
+    taborder = 1
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -20,6 +21,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
   end
   inherited val_title: tstringedit
     frame.font.localprops = []
+    taborder = 2
   end
   object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -69,7 +71,6 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     end
   end
   inline plotsettings: tplotsettingsfo[3]
-    taborder = 2
     bounds_x = 8
     bounds_y = 74
     linktop = tlayouter1
@@ -80,6 +81,12 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     inherited val_rotate90: tbooleanedit
     end
     inherited val_rotate180: tbooleanedit
+    end
+    inherited val_scale: trealedit
+    end
+    inherited val_shifthorz: trealedit
+    end
+    inherited val_shiftvert: trealedit
     end
   end
   inherited tstatfile1: tstatfile[4]

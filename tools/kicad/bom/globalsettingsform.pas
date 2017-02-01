@@ -182,6 +182,7 @@ begin
    end;
   end;
   globaloptions.docudefines:= ar2;
+  mainmo.mainstat.writestat();
   if fdbchanged and mainmo.conn.connected then begin
    asyncevent(dbrefreshtag,[peo_first]);
   end;

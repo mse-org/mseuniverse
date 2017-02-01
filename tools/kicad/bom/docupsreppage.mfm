@@ -13,7 +13,10 @@ inherited docupsreppa: tdocupsreppa
     bounds_cx = 510
     bounds_cy = 546
     anchors = [an_top, an_bottom]
-    layout = [la_xcentered, la_ycentered, la_fit]
+    layout = [la_xcentered, la_ycentered]
+    scale = 1
+    shifthorz = 0
+    shiftvert = 0
     options = [bo_once]
   end
   inherited tlayouter1: tlayouter[1]

@@ -12,6 +12,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
   caption = 'Docu PCB Layer-Plot Page'
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
+    taborder = 1
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -21,6 +22,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
   end
   inherited val_title: tstringedit
     frame.font.localprops = []
+    taborder = 2
   end
   object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -67,7 +69,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     end
   end
   inline plotsettings: tplotsettingsfo[3]
-    taborder = 2
     bounds_x = 8
     bounds_y = 74
     linktop = tlayouter1
@@ -78,6 +79,12 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     inherited val_rotate90: tbooleanedit
     end
     inherited val_rotate180: tbooleanedit
+    end
+    inherited val_scale: trealedit
+    end
+    inherited val_shifthorz: trealedit
+    end
+    inherited val_shiftvert: trealedit
     end
   end
   inherited tstatfile1: tstatfile[4]
