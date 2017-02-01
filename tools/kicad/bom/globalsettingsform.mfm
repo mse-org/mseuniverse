@@ -264,7 +264,7 @@ object globalsettingsfo: tglobalsettingsfo
         bounds_y = 0
         bounds_cx = 662
         bounds_cy = 309
-        frame.caption = 'Docu-Sets, use RightClick for adding or removing set'
+        frame.caption = 'Docu-Sets, use RightClick for adding or removing a set'
         frame.localprops = []
         frame.localprops1 = []
         frame.outerframe = (

@@ -1,7 +1,7 @@
 object docure: tdocure
   ppmm = 3
   pagewidth = 190
-  pageheight = 270
+  pageheight = 250
   font.height = 14
   font.name = 'stf_report'
   font.localprops = [flp_height]
@@ -19,5 +19,8 @@ object docure: tdocure
   object treportpage1: treportpage
     pagewidth = 0
     pageheight = 0
+    font.height = 14
+    font.name = 'stf_report'
+    font.localprops = []
   end
 end

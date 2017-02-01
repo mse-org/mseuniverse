@@ -1,14 +1,14 @@
 object docupagefo: tdocupagefo
   bounds_x = 337
   bounds_y = 266
-  bounds_cx = 479
+  bounds_cx = 535
   bounds_cy = 357
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    479
+    535
     357
   )
   onclose = deselectev
@@ -19,7 +19,7 @@ object docupagefo: tdocupagefo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     bounds_x = 8
     bounds_y = 0
-    bounds_cx = 464
+    bounds_cx = 520
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -43,7 +43,7 @@ object docupagefo: tdocupagefo
       hint = 'Caption for main menu item'
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 92
+      bounds_cx = 103
       bounds_cy = 37
       onsetvalue = namesetev
       reffontheight = 14
@@ -66,9 +66,9 @@ object docupagefo: tdocupagefo
       )
       taborder = 1
       onshowhint = macrohintev
-      bounds_x = 96
+      bounds_x = 107
       bounds_y = 0
-      bounds_cx = 368
+      bounds_cx = 413
       bounds_cy = 37
       anchors = [an_left, an_top, an_right]
       statfile = statf
@@ -84,9 +84,9 @@ object docupagefo: tdocupagefo
     taborder = 1
     popupmenu = gridpopup
     bounds_x = 0
-    bounds_y = 82
-    bounds_cx = 479
-    bounds_cy = 275
+    bounds_y = 123
+    bounds_cx = 535
+    bounds_cy = 242
     anchors = [an_top, an_bottom]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -227,7 +227,7 @@ object docupagefo: tdocupagefo
     taborder = 2
     bounds_x = 8
     bounds_y = 41
-    bounds_cx = 464
+    bounds_cx = 520
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -236,7 +236,7 @@ object docupagefo: tdocupagefo
     place_mindist = 4
     place_maxdist = 4
     place_options = [plo_scalesize, plo_scalefullref, plo_endmargin]
-    linkbottom = grid
+    linkbottom = tlayouter3
     dist_bottom = 4
     object psfileed: tfilenameedit
       frame.caption = 'Postscript File'
@@ -257,7 +257,7 @@ object docupagefo: tdocupagefo
       onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 242
+      bounds_cx = 273
       bounds_cy = 37
       statfile = statf
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
@@ -290,9 +290,9 @@ object docupagefo: tdocupagefo
       )
       taborder = 1
       onshowhint = macrohintev
-      bounds_x = 246
+      bounds_x = 277
       bounds_y = 0
-      bounds_cx = 218
+      bounds_cx = 243
       bounds_cy = 37
       anchors = [an_left, an_top, an_right]
       statfile = statf
@@ -306,6 +306,184 @@ object docupagefo: tdocupagefo
       controller.defaultext = 'pdf'
       controller.options = [fdo_save, fdo_file, fdo_basedirrelative]
       controller.captionsave = 'Docu PDF File'
+      reffontheight = 14
+    end
+  end
+  object tlayouter3: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 82
+    bounds_cx = 485
+    bounds_cy = 37
+    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    linkbottom = grid
+    dist_bottom = 4
+    object pagefileed: tpagesizeselector
+      frame.caption = 'Page size'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 76
+      bounds_cy = 37
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+        end>
+      onsetvalue = setpagesizeev
+      reffontheight = 14
+    end
+    object leftmargined: trealedit
+      frame.caption = 'Left-'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 192
+      bounds_y = 0
+      bounds_cx = 52
+      bounds_cy = 37
+      value = 10
+      valuedefault = -Inf
+      valuerange = 1
+      valuestart = 0
+      min = -Inf
+      max = 1E+038
+      reffontheight = 14
+    end
+    object bottommargined: trealedit
+      frame.caption = 'Bottom-Margin(mm)'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        73
+        0
+      )
+      taborder = 2
+      bounds_x = 360
+      bounds_y = 0
+      bounds_cx = 125
+      bounds_cy = 37
+      value = 10
+      valuedefault = -Inf
+      valuerange = 1
+      valuestart = 0
+      min = -Inf
+      max = 1E+038
+      reffontheight = 14
+    end
+    object topmargined: trealedit
+      frame.caption = 'Top-'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 3
+      bounds_x = 304
+      bounds_y = 0
+      bounds_cx = 52
+      bounds_cy = 37
+      value = 10
+      valuedefault = -Inf
+      valuerange = 1
+      valuestart = 0
+      min = -Inf
+      max = 1E+038
+      reffontheight = 14
+    end
+    object rightmargined: trealedit
+      frame.caption = 'Right-'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 4
+      bounds_x = 248
+      bounds_y = 0
+      bounds_cx = 52
+      bounds_cy = 37
+      value = 10
+      valuedefault = -Inf
+      valuerange = 1
+      valuestart = 0
+      min = -Inf
+      max = 1E+038
+      reffontheight = 14
+    end
+    object pagewidthed: trealedit
+      frame.caption = 'Width'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 5
+      bounds_x = 80
+      bounds_y = 0
+      bounds_cx = 52
+      bounds_cy = 37
+      value = 10
+      valuedefault = -Inf
+      valuerange = 1
+      valuestart = 0
+      min = -Inf
+      max = 1E+038
+      reffontheight = 14
+    end
+    object pageheighted: trealedit
+      frame.caption = 'Height'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 6
+      bounds_x = 136
+      bounds_y = 0
+      bounds_cx = 52
+      bounds_cy = 37
+      value = 10
+      valuedefault = -Inf
+      valuerange = 1
+      valuestart = 0
+      min = -Inf
+      max = 1E+038
       reffontheight = 14
     end
   end

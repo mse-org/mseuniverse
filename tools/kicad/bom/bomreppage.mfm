@@ -7,8 +7,8 @@ inherited bomreppa: tbomreppa
     369
   )
   inherited tbandarea2: tbandarea
-    color = -2147483647
     bounds_cy = 540
+    anchors = [an_top, an_bottom]
     object header: trecordband[0]
       frame.framei_bottom = 3
       frame.localprops = [frl_fibottom]
@@ -242,8 +242,12 @@ inherited bomreppa: tbomreppa
       tabs.defaultdist = 0
     end
   end
-  inherited treppagenumdisp1: treppagenumdisp
-  end
-  inherited trepprintdatedisp1: trepprintdatedisp
+  inherited tlayouter1: tlayouter
+    inherited treppagenumdisp1: treppagenumdisp
+    end
+    inherited trepprintdatedisp1: trepprintdatedisp
+    end
+    inherited titledi: trepvaluedisp
+    end
   end
 end

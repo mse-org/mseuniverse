@@ -1,5 +1,5 @@
 inherited docupsreppa: tdocupsreppa
-  options = [rpo_once]
+  options = [rpo_once, rpo_reportpagewidth, rpo_reportpageheight]
   moduleclassname = 'tbasereppa'
   repdesigninfo = (
     177
@@ -8,20 +8,21 @@ inherited docupsreppa: tdocupsreppa
     712
   )
   object ps: treppsdisp[0]
-    frame.framewidth = 1
-    frame.localprops = [frl_framewidth]
-    frame.localprops1 = []
-    bounds_x = 42
-    bounds_y = 12
-    bounds_cx = 500
-    bounds_cy = 534
-    layout = [la_fit]
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 510
+    bounds_cy = 546
+    anchors = [an_top, an_bottom]
+    layout = [la_xcentered, la_ycentered, la_fit]
     options = [bo_once]
   end
-  inherited treppagenumdisp1: treppagenumdisp[1]
+  inherited tlayouter1: tlayouter[1]
     taborder = 1
-  end
-  inherited trepprintdatedisp1: trepprintdatedisp[2]
-    taborder = 2
+    inherited treppagenumdisp1: treppagenumdisp
+    end
+    inherited trepprintdatedisp1: trepprintdatedisp
+    end
+    inherited titledi: trepvaluedisp
+    end
   end
 end

@@ -7,7 +7,6 @@ inherited listreppa: tlistreppa
     369
   )
   object tbandarea2: tbandarea[0]
-    color = 16762823
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 510
@@ -43,10 +42,13 @@ inherited listreppa: tlistreppa
       options = [bo_once]
     end
   end
-  inherited treppagenumdisp1: treppagenumdisp[1]
+  inherited tlayouter1: tlayouter[1]
     taborder = 1
-  end
-  inherited trepprintdatedisp1: trepprintdatedisp[2]
-    taborder = 2
+    inherited treppagenumdisp1: treppagenumdisp
+    end
+    inherited trepprintdatedisp1: trepprintdatedisp
+    end
+    inherited titledi: trepvaluedisp
+    end
   end
 end

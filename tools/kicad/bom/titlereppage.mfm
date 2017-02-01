@@ -6,12 +6,8 @@ inherited titlereppa: ttitlereppa
     460
     369
   )
-  inherited treppagenumdisp1: treppagenumdisp
-  end
-  inherited trepprintdatedisp1: trepprintdatedisp
-  end
-  object title: trecordband[2]
-    taborder = 2
+  object title: trecordband[0]
+    taborder = 1
     bounds_x = 0
     bounds_y = 90
     bounds_cx = 510
@@ -42,8 +38,8 @@ inherited titlereppa: ttitlereppa
       end>
     options = [bo_once]
   end
-  object text: trecordband[3]
-    taborder = 3
+  object text: trecordband[1]
+    taborder = 2
     bounds_x = 0
     bounds_y = 144
     bounds_cx = 510
@@ -70,5 +66,13 @@ inherited titlereppa: ttitlereppa
         distright = 0
       end>
     options = [bo_once]
+  end
+  inherited tlayouter1: tlayouter[2]
+    inherited treppagenumdisp1: treppagenumdisp
+    end
+    inherited trepprintdatedisp1: trepprintdatedisp
+    end
+    inherited titledi: trepvaluedisp
+    end
   end
 end

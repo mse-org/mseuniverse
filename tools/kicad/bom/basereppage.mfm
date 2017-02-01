@@ -1,10 +1,12 @@
 object basereppa: tbasereppa
   pagewidth = 170
   pageheight = 190
+  color = -1610612730
   visible = False
   font.height = 14
   font.name = 'stf_report'
   font.localprops = [flp_height]
+  options = [rpo_reportpagewidth, rpo_reportpageheight]
   grid_size = 2
   ppmm = 3
   moduleclassname = 'treppageform'
@@ -14,19 +16,46 @@ object basereppa: tbasereppa
     460
     369
   )
-  object treppagenumdisp1: treppagenumdisp
-    bounds_x = 378
-    bounds_y = 546
-    bounds_cx = 77
+  object tlayouter1: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    bounds_x = 0
+    bounds_y = 554
+    bounds_cx = 510
     bounds_cy = 16
-    format = '"Page " 0 of 1'
-  end
-  object trepprintdatedisp1: trepprintdatedisp
-    taborder = 1
-    bounds_x = 198
-    bounds_y = 546
-    bounds_cx = 74
-    bounds_cy = 16
-    format = 'i'
+    anchors = [an_bottom]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_mode = wam_start
+    align_glue = wam_start
+    place_maxdist = 4
+    place_mode = wam_end
+    place_options = [plo_endmargin]
+    object treppagenumdisp1: treppagenumdisp
+      bounds_x = 355
+      bounds_y = 0
+      bounds_cx = 77
+      bounds_cy = 16
+      anchors = [an_top, an_right]
+      format = '"Page " 0 of 1'
+    end
+    object trepprintdatedisp1: trepprintdatedisp
+      taborder = 1
+      bounds_x = 436
+      bounds_y = 0
+      bounds_cx = 74
+      bounds_cy = 16
+      anchors = [an_left, an_top, an_right]
+      textflags = [tf_xcentered, tf_ycentered]
+      format = 'i'
+    end
+    object titledi: trepvaluedisp
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 351
+      bounds_cy = 16
+      anchors = [an_left, an_top, an_right]
+      optionsscale = [osc_expandy, osc_shrinky]
+    end
   end
 end

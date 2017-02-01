@@ -1,4 +1,4 @@
-{ MSEkicad Copyright (c) 2016 by Martin Schreiber
+{ MSEkicad Copyright (c) 2016-2017 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ uses
  msesplitter,mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,
  msestatfile,msestream,msestrings,sysutils,msebitmap,msedatanodes,msefiledialog,
  msegrids,mselistbrowser,msesys,msewidgetgrid,msegraphedits,msescrollbar,
- mseactions,mainmodule;
+ mseactions,mainmodule,mseprinter,msesimplewidgets;
 type
  tdocupagefo = class(ttabform)
    tlayouter1: tlayouter;
@@ -40,6 +40,14 @@ type
    pdffileed: tfilenameedit;
    pageitems: titemedit;
    statf: tstatfile;
+   tlayouter3: tlayouter;
+   pagefileed: tpagesizeselector;
+   leftmargined: trealedit;
+   bottommargined: trealedit;
+   topmargined: trealedit;
+   rightmargined: trealedit;
+   pagewidthed: trealedit;
+   pageheighted: trealedit;
    procedure namesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
@@ -56,6 +64,8 @@ type
    procedure creatpageitemev(const sender: tcustomitemlist;
                    var item: tlistedititem);
    procedure setkindev(const sender: TObject; var avalue: Integer;
+                   var accept: Boolean);
+   procedure setpagesizeev(const sender: TObject; var avalue: stdpagesizety;
                    var accept: Boolean);
   private
 //   fdocupages: docupagearty;
@@ -225,6 +235,21 @@ begin
  with tpageitem(pageitems.item) do begin
   updatedocupageobj(fpage,docupagekindty(avalue+1));
   fpage.title:= titleed.value;
+ end;
+end;
+
+procedure tdocupagefo.setpagesizeev(const sender: TObject;
+               var avalue: stdpagesizety; var accept: Boolean);
+begin
+ if avalue = sps_user then begin
+  pagewidthed.enabled:= true;
+  pageheighted.enabled:= true;
+ end
+ else begin
+  pagewidthed.enabled:= false;
+  pageheighted.enabled:= false;
+  pagewidthed.value:= stdpagesizes[avalue].width;
+  pageheighted.value:= stdpagesizes[avalue].height;
  end;
 end;
 

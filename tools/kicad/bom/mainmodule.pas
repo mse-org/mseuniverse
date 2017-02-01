@@ -1896,7 +1896,7 @@ var
  boardfile1,s1: filenamety;
  pk1,pk2: layerty;
  b1: boolean;
- pac1: reppageformclassty;
+// pac1: reppageformclassty;
  pa1: treppageform;
  la1: layoutflagsty;
 begin
@@ -1916,7 +1916,7 @@ begin
   rep:= tdocure.create(nil);
   rep.clear(); //remove defaultpage
   for i1:= 0 to high(info1^.pages) do begin
-   pac1:= nil;
+//   pac1:= nil;
    pa1:= nil;
    case info1^.pages[i1].pagekind of
     dpk_title: begin
@@ -1938,7 +1938,7 @@ begin
        error1:= true;
        break;
       end;
-      pac1:= tdocupsreppa;
+      pa1:= tdocupsreppa.create(nil);
      end;
     end;
     dpk_drillmap: begin
@@ -1959,12 +1959,12 @@ begin
        error1:= true;
        break;
       end;
-      pac1:= tdocupsreppa;
+      pa1:= tdocupsreppa.create(nil);
      end;
     end;
     dpk_schematic: begin
      with tschematicplotpage(info1^.pages[i1]) do begin
-      pac1:= tdocupsreppa;
+      pa1:= tdocupsreppa.create(nil);
       s1:= expandprojectmacros(psfile);
      {
       with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
@@ -1974,22 +1974,25 @@ begin
      end;
     end;
     dpk_partlist: begin
-     pac1:= tpartlistreppa;
+     pa1:= tpartlistreppa.create(tpartlistpage(info1^.pages[i1]));
     end;
     dpk_bom: begin
      pa1:= tbomreppa.create(tbompage(info1^.pages[i1]));
      bommo.bomds.active:= true;
     end;
    end;
+   {
    if (pac1 <> nil) and (pa1 = nil) then begin
     pa1:= tdocupsreppa(pac1.create(nil));
    end;
+   }
    if pa1 <> nil then begin
     if pa1 is tdocupsreppa then begin
      with tdocupsreppa(pa1) do begin
       ps.psfile:= s1;
       la1:= ps.layout;
       with info1^.pages[i1] do begin
+       titledi.value:= title;
        if mirrorx then begin
         include(la1,la_mirrorx);
        end;

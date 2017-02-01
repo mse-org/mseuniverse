@@ -50,7 +50,7 @@ constructor tbomreppa.create(const apage: tbompage);
 var
  s1: msestring;
 begin
- inherited create(nil);
+ inherited create(apage);
  data2.visible:= apage.showreferences;
  s1:= 'PART';
  if apage.showreferences then begin

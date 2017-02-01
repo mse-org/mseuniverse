@@ -8,8 +8,10 @@ uses
 
 type
  tbasereppa = class(treppageform)
+   tlayouter1: tlayouter;
    treppagenumdisp1: treppagenumdisp;
    trepprintdatedisp1: trepprintdatedisp;
+   titledi: trepvaluedisp;
  end;
 var
  basereppa: tbasereppa;
