@@ -12,7 +12,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
   caption = 'Docu PCB Layer-Plot Page'
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
-    taborder = 1
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -28,50 +27,87 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
-    bounds_y = 37
+    bounds_y = 41
     bounds_cx = 538
-    bounds_cy = 37
+    bounds_cy = 194
     anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placex, lao_aligny]
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    object val_layername: tdropdownlistedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      frame.caption = 'Layer'
-      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+    linktop = val_title
+    dist_top = 4
+    object grid: twidgetgrid
+      frame.localprops = []
       frame.localprops1 = []
-      frame.button.color = -1879048187
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-          color = -1879048187
-        end>
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 179
-      bounds_cy = 37
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
-      dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
-      dropdown.cols.count = 1
-      dropdown.cols.items = <      
+      bounds_cx = 538
+      bounds_cy = 194
+      anchors = [an_bottom]
+      optionsgrid = [og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+      fixcols.count = 1
+      fixcols.items = <      
         item
+          width = 29
+          numstart = 1
+          numstep = 1
         end>
+      fixrows.count = 1
+      fixrows.items = <      
+        item
+          height = 16
+          captions.count = 1
+          captions.items = <          
+            item
+              caption = 'Layer'
+            end>
+        end>
+      datacols.count = 1
+      datacols.items = <      
+        item[val_layernames]
+          width = 145
+          widgetname = 'val_layernames'
+          dataclass = tgridmsestringdatalist
+        end>
+      datarowheight = 16
       reffontheight = 14
+      object val_layernames: tdropdownlistedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.button.color = -1879048187
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+          end>
+        taborder = 1
+        visible = False
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 145
+        bounds_cy = 16
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+        dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
+        dropdown.cols.count = 1
+        dropdown.cols.items = <        
+          item
+          end>
+        reffontheight = 14
+      end
     end
   end
   inline plotsettings: tplotsettingsfo[3]
+    taborder = 1
     bounds_x = 8
-    bounds_y = 74
+    bounds_y = 235
+    anchors = [an_left, an_bottom]
     linktop = tlayouter1
+    options = [spao_gluebottom]
     inherited val_mirrorx: tbooleanedit
     end
     inherited val_mirrory: tbooleanedit

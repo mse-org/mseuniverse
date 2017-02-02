@@ -22,12 +22,13 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings,
- docupageeditform;
+ docupageeditform,msegrids,msewidgetgrid;
 type
  tlayerplotdialogfo = class(tdocupageeditfo)
    tlayouter1: tlayouter;
-   val_layername: tdropdownlistedit;
    plotsettings: tplotsettingsfo;
+   grid: twidgetgrid;
+   val_layernames: tdropdownlistedit;
   private
   protected
    procedure loadvalues() override;
@@ -45,7 +46,7 @@ uses
 constructor tlayerplotdialogfo.create(const apage: tlayerplotpage);
 begin
  inherited create(apage);
- val_layername.dropdown.cols[0].asarray:= mainmo.layernames;
+ val_layernames.dropdown.cols[0].asarray:= mainmo.layernames;
 end;
 
 procedure tlayerplotdialogfo.loadvalues();

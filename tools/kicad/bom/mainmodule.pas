@@ -54,7 +54,11 @@ type
     la_edge_cuts,la_margin,la_eco1_user,la_eco2_user,la_cmts_user,la_dwgs_user
  );
  culayers = la_f_cu..la_b_cu;
- 
+ layerinfoty = record
+  layer: layerty;
+ end;
+ layerinfoarty = array of layerinfoty;
+  
 type
  namedinfoty = record
   name: msestring;
@@ -136,11 +140,11 @@ type
 
  tlayerplotpage = class(tdocupage)
   private
-   flayername: msestring;
+   flayernames: msestringarty;
   protected
    class function getpagekind: docupagekindty override;
   published
-   property layername: msestring read flayername write flayername;
+   property layernames: msestringarty read flayernames write flayernames;
  end;
 
  tdrillmappage = class(tdocupage)
@@ -503,7 +507,7 @@ type
    function getboardfile(var afilename: filenamety): boolean; //true if ok
    function plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
-                       const alayer: layerty; const alast: boolean): boolean;
+                   const alayer: layerinfoarty; const alast: boolean): boolean;
    function drillfile(const aboard: filenamety; const adrillfile: filenamety;
              const akind: drillfilekindty;
              const alayera,alayerb: layerty; 
@@ -1700,11 +1704,16 @@ end;
 
 function tmainmo.plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
-                       const alayer: layerty; const alast: boolean): boolean;
+                 const alayer: layerinfoarty; const alast: boolean): boolean;
 var
  dir1: filenamety;
  d1,n1,s1: filenamety;
+ s2: msestring;
+ i1: int32;
 begin
+ if alayer = nil then begin
+  exit;
+ end;
  if aplotfile <> '' then begin
   splitfilepath(aplotfile,d1,n1);
   if not isrelativepath(d1) then begin
@@ -1717,10 +1726,15 @@ begin
  else begin
   dir1:= filepath(aplotdir,fk_dir);
  end;
+ s2:= '';
+ for i1:= 0 to high(alayer) do begin
+  s2:= s2+mainmodule.layercodes[alayer[i1].layer]+',';
+ end;
+ setlength(s2,length(s2)-1); //remove last comma
  result:= execpy('plotfile',
       [aboard,tosysfilepath(dir1),mainmodule.fileformatcodes[aformat],
-                                          mainmodule.layercodes[alayer]],alast);
- s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer]+'.'+
+                                 s2],alast);
+ s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer[0].layer]+'.'+
                                        mainmodule.fileformatexts[aformat];
  if n1 <> '' then begin
   aplotfile:= dir1+n1;
@@ -1799,6 +1813,7 @@ var
  ar1{,ar2}: filenamearty;
  s1,s2,s3: msestring;
  la1,la2: layerty;
+ ar2: layerinfoarty;
 begin
  if not getboardfile(board1) then begin
   exit;
@@ -1821,8 +1836,10 @@ begin
     if not getlayer(layernames[i1],la2) then begin
      break;
     end;
+    setlength(ar2,1);
+    ar2[0].layer:= la2;
     if not plotfile(board1,plotdir1,ar1[i1],
-                           fileformatty(plotformats[i1]),la2,
+                           fileformatty(plotformats[i1]),ar2,
           (i1 = high(plotfiles)) and (length(drillfiles) = 0)
                                 and not createproductionzipfile) then begin
      break;
@@ -1903,7 +1920,7 @@ var
 var
  info1: pdocuinfoty;
  rep: tdocure;
- i1: int32;
+ i1,i2: int32;
  error1: boolean;
  boardfile1,s1: filenamety;
  pk1,pk2: layerty;
@@ -1911,6 +1928,7 @@ var
 // pac1: reppageformclassty;
  pa1: treppageform;
  la1: layoutflagsty;
+ ar1: layerinfoarty;
 begin
  info1:= globaloptions.docudefinebyname(projectoptions.docuset);
  if info1 = nil then begin
@@ -1951,16 +1969,24 @@ begin
       break;
      end;
      with tlayerplotpage(info1^.pages[i1]) do begin
-      if not getlayer(layername,pk1) then begin
-       error1:= true;
+      setlength(ar1,length(layernames));
+      for i2:= 0 to high(ar1) do begin
+       if not getlayer(layernames[i2],ar1[i2].layer) then begin
+        error1:= true;
+        break;
+       end;
+      end;
+      if error1 then begin
        break;
       end;
-      s1:= tmpfile;
-      if not plotfile(boardfile1,tmpf,s1,ff_postscript,pk1,false) then begin
-       error1:= true;
-       break;
+      if ar1 <> nil then begin
+       s1:= tmpfile;
+       if not plotfile(boardfile1,tmpf,s1,ff_postscript,ar1,false) then begin
+        error1:= true;
+        break;
+       end;
+       pa1:= tdocupsreppa.create(tlayerplotpage(info1^.pages[i1]));
       end;
-      pa1:= tdocupsreppa.create(tlayerplotpage(info1^.pages[i1]));
      end;
     end;
     dpk_drillmap: begin

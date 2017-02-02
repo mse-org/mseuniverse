@@ -4,11 +4,14 @@
 from kicadcommon import *
 
 def plotitem(apcbfilename,aoutputdir,aformat,alayer): 
-                                  #alayer = element of layernames
+                         #alayer = commaseparated elements of layernames
  print '*Plot ',alayer,' Format:',aformat,' to'
  print aoutputdir
-
- layer = layerenums[layernames.index(alayer)]
+ lnames = alayer.split(',');
+ layers = []
+ for lname in lnames:
+  layers.append(layerenums[layernames.index(lname)]);
+# layer = layerenums[layernames.index(alayer)]
  format = formatenums[formatnames.index(aformat)]
  
  board = LoadBoard(apcbfilename)
@@ -23,12 +26,11 @@ def plotitem(apcbfilename,aoutputdir,aformat,alayer):
  popt.SetMirror(False)
  popt.SetUseGerberAttributes(True)
  popt.SetExcludeEdgeLayer(True);
- popt.SetScale(1)
  popt.SetUseAuxOrigin(True)
  popt.SetSubtractMaskFromSilk(False)
 
- pctl.SetLayer(layer)
- pctl.OpenPlotfile(alayer,format,'')
- pctl.PlotLayer()
+ pctl.OpenPlotfile(lnames[0],format,'')
+ for la in layers:
+  pctl.SetLayer(la)
+  pctl.PlotLayer()
  pctl.ClosePlot()
-
