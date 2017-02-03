@@ -57,20 +57,32 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       fixrows.items = <      
         item
           height = 16
-          captions.count = 1
+          captions.count = 2
           captions.items = <          
             item
               caption = 'Layer'
+            end          
+            item
+              caption = 'Color'
             end>
         end>
-      datacols.count = 1
+      datacols.count = 2
+      datacols.options = [co_savestate, co_mousescrollrow]
       datacols.items = <      
         item[val_layernames]
           width = 145
+          options = [co_savestate, co_mousescrollrow]
           widgetname = 'val_layernames'
+          dataclass = tgridmsestringdatalist
+        end      
+        item[val_colornames]
+          width = 121
+          options = [co_savestate, co_mousescrollrow]
+          widgetname = 'val_colornames'
           dataclass = tgridmsestringdatalist
         end>
       datarowheight = 16
+      statfile = tstatfile1
       reffontheight = 14
       object val_layernames: tdropdownlistedit
         optionswidget1 = [ow1_fontglyphheight]
@@ -91,7 +103,36 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         bounds_y = 0
         bounds_cx = 145
         bounds_cy = 16
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+        dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
+        dropdown.cols.count = 1
+        dropdown.cols.items = <        
+          item
+          end>
+        reffontheight = 14
+      end
+      object val_colornames: tdropdownlistedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.button.color = -1879048187
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+          end>
+        taborder = 2
+        visible = False
+        bounds_x = 146
+        bounds_y = 0
+        bounds_cx = 121
+        bounds_cy = 16
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
         dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
@@ -124,5 +165,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     end
   end
   inherited tstatfile1: tstatfile[4]
+    filename = 'layerplotpageeditfo.sta'
   end
 end

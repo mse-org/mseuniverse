@@ -1747,7 +1747,7 @@ object mainmo: tmainmo
         script.data = (
           'import sys'
           'import plotitem'
-          'plotitem.plotitem(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])'
+          'plotitem.plotitem(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])'
           '#pcbfilename, outputdir, format, layer'
           ''
         )

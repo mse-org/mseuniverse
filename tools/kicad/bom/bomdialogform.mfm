@@ -49,5 +49,7 @@ inherited bomdialogfo: tbomdialogfo
     bounds_cy = 16
   end
   inherited tstatfile1: tstatfile[4]
+    filename = 'bompageeditfo.sta'
+    left = 56
   end
 end

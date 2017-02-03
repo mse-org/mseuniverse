@@ -56,9 +56,42 @@ type
  culayers = la_f_cu..la_b_cu;
  layerinfoty = record
   layer: layerty;
+  color: msestring;
  end;
  layerinfoarty = array of layerinfoty;
-  
+ 
+ edacolorty = (
+    ec_BLACK,
+    ec_DARKDARKGRAY,
+    ec_DARKGRAY,
+    ec_LIGHTGRAY,
+    ec_WHITE,
+    ec_LIGHTYELLOW,
+    ec_DARKBLUE,
+    ec_DARKGREEN,
+    ec_DARKCYAN,
+    ec_DARKRED,
+    ec_DARKMAGENTA,
+    ec_DARKBROWN,
+    ec_BLUE,
+    ec_GREEN,
+    ec_CYAN,
+    ec_RED,
+    ec_MAGENTA,
+    ec_BROWN,
+    ec_LIGHTBLUE,
+    ec_LIGHTGREEN,
+    ec_LIGHTCYAN,
+    ec_LIGHTRED,
+    ec_LIGHTMAGENTA,
+    ec_YELLOW,
+    ec_PUREBLUE,
+    ec_PUREGREEN,
+    ec_PURECYAN,
+    ec_PURERED,
+    ec_PUREMAGENTA,
+    ec_PUREYELLOW);
+   
 type
  namedinfoty = record
   name: msestring;
@@ -141,10 +174,12 @@ type
  tlayerplotpage = class(tdocupage)
   private
    flayernames: msestringarty;
+   fcolornames: msestringarty;
   protected
    class function getpagekind: docupagekindty override;
   published
    property layernames: msestringarty read flayernames write flayernames;
+   property colornames: msestringarty read fcolornames write fcolornames;
  end;
 
  tdrillmappage = class(tdocupage)
@@ -460,6 +495,7 @@ type
    flastprojectfile: filenamety;
    ffileformatexts: msestringarty;
    fdocupagekinds: msestringarty;
+   fedacolornames: msestringarty;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -524,6 +560,7 @@ type
    
    property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
+   property edacolornames: msestringarty read fedacolornames;
    property culayernames: msestringarty read fculayernames;
    property fileformats: msestringarty read ffileformats;
    property fileformatcodes: msestringarty read ffileformatcodes;
@@ -687,6 +724,38 @@ const
     'Drill_Map'}
  );
 
+ edacolornames: array[edacolorty] of msestring = (
+    'BLACK',
+    'DARKDARKGRAY',
+    'DARKGRAY',
+    'LIGHTGRAY',
+    'WHITE',
+    'LIGHTYELLOW',
+    'DARKBLUE',
+    'DARKGREEN',
+    'DARKCYAN',
+    'DARKRED',
+    'DARKMAGENTA',
+    'DARKBROWN',
+    'BLUE',
+    'GREEN',
+    'CYAN',
+    'RED',
+    'MAGENTA',
+    'BROWN',
+    'LIGHTBLUE',
+    'LIGHTGREEN',
+    'LIGHTCYAN',
+    'LIGHTRED',
+    'LIGHTMAGENTA',
+    'YELLOW',
+    'PUREBLUE',
+    'PUREGREEN',
+    'PURECYAN',
+    'PURERED',
+    'PUREMAGENTA',
+    'PUREYELLOW');
+
 const
  drillfilecodes: array[drillfilekindty] of msestring = (
  //dfk_map,  dfk_excellon
@@ -740,6 +809,7 @@ begin
  fprojectmacros:= tmacrolist.create([mao_caseinsensitive],[]);
  flayernames:= mainmodule.layernames;
  flayercodes:= mainmodule.layercodes;
+ fedacolornames:= mainmodule.edacolornames;
  setlength(fculayernames,ord(high(culayers))-ord(low(culayers))+1);
  for i1:= 0 to high(fculayernames) do begin
   fculayernames[i1]:= mainmodule.layernames[layerty(i1+ord(low(culayers)))];
@@ -1708,7 +1778,7 @@ function tmainmo.plotfile(const aboard: filenamety; const aplotdir: filenamety;
 var
  dir1: filenamety;
  d1,n1,s1: filenamety;
- s2: msestring;
+ s2,s3: msestring;
  i1: int32;
 begin
  if alayer = nil then begin
@@ -1727,13 +1797,18 @@ begin
   dir1:= filepath(aplotdir,fk_dir);
  end;
  s2:= '';
+ s3:= '';
  for i1:= 0 to high(alayer) do begin
-  s2:= s2+mainmodule.layercodes[alayer[i1].layer]+',';
+  with alayer[i1] do begin
+   s2:= s2+mainmodule.layercodes[layer]+',';
+   s3:= s3+color+',';
+  end;
  end;
  setlength(s2,length(s2)-1); //remove last comma
+ setlength(s3,length(s3)-1); //remove last comma
  result:= execpy('plotfile',
       [aboard,tosysfilepath(dir1),mainmodule.fileformatcodes[aformat],
-                                 s2],alast);
+                                 s2,s3],alast);
  s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer[0].layer]+'.'+
                                        mainmodule.fileformatexts[aformat];
  if n1 <> '' then begin
@@ -1975,6 +2050,7 @@ begin
         error1:= true;
         break;
        end;
+       ar1[i2].color:= colornames[i2];
       end;
       if error1 then begin
        break;

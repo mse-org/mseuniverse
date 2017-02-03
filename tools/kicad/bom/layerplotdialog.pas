@@ -29,6 +29,7 @@ type
    plotsettings: tplotsettingsfo;
    grid: twidgetgrid;
    val_layernames: tdropdownlistedit;
+   val_colornames: tdropdownlistedit;
   private
   protected
    procedure loadvalues() override;
@@ -47,6 +48,7 @@ constructor tlayerplotdialogfo.create(const apage: tlayerplotpage);
 begin
  inherited create(apage);
  val_layernames.dropdown.cols[0].asarray:= mainmo.layernames;
+ val_colornames.dropdown.cols[0].asarray:= mainmo.edacolornames;
 end;
 
 procedure tlayerplotdialogfo.loadvalues();

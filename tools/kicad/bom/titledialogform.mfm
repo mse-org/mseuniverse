@@ -41,5 +41,6 @@ inherited titledialogfo: ttitledialogfo
     reffontheight = 14
   end
   inherited tstatfile1: tstatfile[3]
+    filename = 'titlepageeditfo.sta'
   end
 end

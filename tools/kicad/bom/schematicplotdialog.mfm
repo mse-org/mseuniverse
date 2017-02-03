@@ -90,5 +90,6 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     end
   end
   inherited tstatfile1: tstatfile[4]
+    filename = 'schematicplotpageeditfo.sta'
   end
 end
