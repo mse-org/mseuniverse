@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings,
- docupageeditform,msegrids,msewidgetgrid;
+ docupageeditform,msegrids,msewidgetgrid,msegraphedits,msescrollbar;
 type
  tlayerplotdialogfo = class(tdocupageeditfo)
    tlayouter1: tlayouter;
@@ -30,6 +30,17 @@ type
    grid: twidgetgrid;
    val_layernames: tdropdownlistedit;
    val_colornames: tdropdownlistedit;
+   tlayouter4: tlayouter;
+   tlayouter2: tlayouter;
+   val_refon: tbooleanedit;
+   val_refcolor: tdropdownlistedit;
+   tlayouter3: tlayouter;
+   val_valon: tbooleanedit;
+   val_valcolor: tdropdownlistedit;
+   val_drillmarks: tdropdownlistedit;
+   tlayouter5: tlayouter;
+   val_showinvis: tbooleanedit;
+   tdropdownlistedit5: tdropdownlistedit;
   private
   protected
    procedure loadvalues() override;
@@ -49,6 +60,9 @@ begin
  inherited create(apage);
  val_layernames.dropdown.cols[0].asarray:= mainmo.layernames;
  val_colornames.dropdown.cols[0].asarray:= mainmo.edacolornames;
+ val_refcolor.dropdown.cols[0].asarray:= mainmo.edacolornames;
+ val_valcolor.dropdown.cols[0].asarray:= mainmo.edacolornames;
+ val_drillmarks.dropdown.cols[0].asarray:= mainmo.drillmarknames;
 end;
 
 procedure tlayerplotdialogfo.loadvalues();

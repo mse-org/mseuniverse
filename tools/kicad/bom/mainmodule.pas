@@ -59,38 +59,54 @@ type
   color: msestring;
  end;
  layerinfoarty = array of layerinfoty;
+ layerinforecty = record
+  layers: layerinfoarty;
+  refon: boolean;
+  refcolor: msestring;
+  valon: boolean;
+  valcolor: msestring;
+  showinvis: boolean;
+  drillmarks: msestring;
+ end;
  
  edacolorty = (
-    ec_BLACK,
-    ec_DARKDARKGRAY,
-    ec_DARKGRAY,
-    ec_LIGHTGRAY,
-    ec_WHITE,
-    ec_LIGHTYELLOW,
-    ec_DARKBLUE,
-    ec_DARKGREEN,
-    ec_DARKCYAN,
-    ec_DARKRED,
-    ec_DARKMAGENTA,
-    ec_DARKBROWN,
-    ec_BLUE,
-    ec_GREEN,
-    ec_CYAN,
-    ec_RED,
-    ec_MAGENTA,
-    ec_BROWN,
-    ec_LIGHTBLUE,
-    ec_LIGHTGREEN,
-    ec_LIGHTCYAN,
-    ec_LIGHTRED,
-    ec_LIGHTMAGENTA,
-    ec_YELLOW,
-    ec_PUREBLUE,
-    ec_PUREGREEN,
-    ec_PURECYAN,
-    ec_PURERED,
-    ec_PUREMAGENTA,
-    ec_PUREYELLOW);
+  ec_BLACK,
+  ec_DARKDARKGRAY,
+  ec_DARKGRAY,
+  ec_LIGHTGRAY,
+  ec_WHITE,
+  ec_LIGHTYELLOW,
+  ec_DARKBLUE,
+  ec_DARKGREEN,
+  ec_DARKCYAN,
+  ec_DARKRED,
+  ec_DARKMAGENTA,
+  ec_DARKBROWN,
+  ec_BLUE,
+  ec_GREEN,
+  ec_CYAN,
+  ec_RED,
+  ec_MAGENTA,
+  ec_BROWN,
+  ec_LIGHTBLUE,
+  ec_LIGHTGREEN,
+  ec_LIGHTCYAN,
+  ec_LIGHTRED,
+  ec_LIGHTMAGENTA,
+  ec_YELLOW,
+  ec_PUREBLUE,
+  ec_PUREGREEN,
+  ec_PURECYAN,
+  ec_PURERED,
+  ec_PUREMAGENTA,
+  ec_PUREYELLOW
+ );
+
+ drillmarksty = (
+  dm_NO_DRILL_SHAPE,
+  dm_SMALL_DRILL_SHAPE,
+  dm_FULL_DRILL_SHAPE
+ );
    
 type
  namedinfoty = record
@@ -175,11 +191,25 @@ type
   private
    flayernames: msestringarty;
    fcolornames: msestringarty;
+   frefon: boolean;
+   frefcolor: msestring;
+   fvalon: boolean;
+   fvalcolor: msestring;
+   fshowinvis: boolean;
+   fdrillmarks: msestring;
   protected
    class function getpagekind: docupagekindty override;
+  public
+   constructor create(); override;
   published
    property layernames: msestringarty read flayernames write flayernames;
    property colornames: msestringarty read fcolornames write fcolornames;
+   property refon: boolean read frefon write frefon;
+   property refcolor: msestring read frefcolor write frefcolor;
+   property valon: boolean read fvalon write fvalon;
+   property valcolor: msestring read fvalcolor write fvalcolor;
+   property showinvis: boolean read fshowinvis write fshowinvis;
+   property drillmarks: msestring read fdrillmarks write fdrillmarks;
  end;
 
  tdrillmappage = class(tdocupage)
@@ -496,6 +526,7 @@ type
    ffileformatexts: msestringarty;
    fdocupagekinds: msestringarty;
    fedacolornames: msestringarty;
+   fdrillmarknames: msestringarty;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -543,7 +574,7 @@ type
    function getboardfile(var afilename: filenamety): boolean; //true if ok
    function plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
-                   const alayer: layerinfoarty; const alast: boolean): boolean;
+                   const alayer: layerinforecty; const alast: boolean): boolean;
    function drillfile(const aboard: filenamety; const adrillfile: filenamety;
              const akind: drillfilekindty;
              const alayera,alayerb: layerty; 
@@ -561,6 +592,7 @@ type
    property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
    property edacolornames: msestringarty read fedacolornames;
+   property drillmarknames: msestringarty read fdrillmarknames;
    property culayernames: msestringarty read fculayernames;
    property fileformats: msestringarty read ffileformats;
    property fileformatcodes: msestringarty read ffileformatcodes;
@@ -756,6 +788,12 @@ const
     'PUREMAGENTA',
     'PUREYELLOW');
 
+ drillmarknames: array[drillmarksty] of msestring = (
+  'None',
+  'Small',
+  'Full'
+ );
+
 const
  drillfilecodes: array[drillfilekindty] of msestring = (
  //dfk_map,  dfk_excellon
@@ -810,6 +848,7 @@ begin
  flayernames:= mainmodule.layernames;
  flayercodes:= mainmodule.layercodes;
  fedacolornames:= mainmodule.edacolornames;
+ fdrillmarknames:= mainmodule.drillmarknames;
  setlength(fculayernames,ord(high(culayers))-ord(low(culayers))+1);
  for i1:= 0 to high(fculayernames) do begin
   fculayernames[i1]:= mainmodule.layernames[layerty(i1+ord(low(culayers)))];
@@ -1774,14 +1813,14 @@ end;
 
 function tmainmo.plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
-                 const alayer: layerinfoarty; const alast: boolean): boolean;
+                 const alayer: layerinforecty; const alast: boolean): boolean;
 var
  dir1: filenamety;
  d1,n1,s1: filenamety;
  s2,s3: msestring;
  i1: int32;
 begin
- if alayer = nil then begin
+ if alayer.layers = nil then begin
   exit;
  end;
  if aplotfile <> '' then begin
@@ -1798,18 +1837,22 @@ begin
  end;
  s2:= '';
  s3:= '';
- for i1:= 0 to high(alayer) do begin
-  with alayer[i1] do begin
+ for i1:= 0 to high(alayer.layers) do begin
+  with alayer.layers[i1] do begin
    s2:= s2+mainmodule.layercodes[layer]+',';
    s3:= s3+color+',';
   end;
  end;
  setlength(s2,length(s2)-1); //remove last comma
  setlength(s3,length(s3)-1); //remove last comma
- result:= execpy('plotfile',
-      [aboard,tosysfilepath(dir1),mainmodule.fileformatcodes[aformat],
-                                 s2,s3],alast);
- s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer[0].layer]+'.'+
+ with alayer do begin
+  result:= execpy('plotfile',
+      [aboard,tosysfilepath(dir1),mainmodule.fileformatcodes[aformat],s2,s3,
+                                 pyboolstrings[refon],refcolor,
+                                 pyboolstrings[valon],valcolor,
+                                 pyboolstrings[showinvis],drillmarks],alast);
+ end;
+ s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer.layers[0].layer]+'.'+
                                        mainmodule.fileformatexts[aformat];
  if n1 <> '' then begin
   aplotfile:= dir1+n1;
@@ -1888,7 +1931,7 @@ var
  ar1{,ar2}: filenamearty;
  s1,s2,s3: msestring;
  la1,la2: layerty;
- ar2: layerinfoarty;
+ lainf1: layerinforecty;
 begin
  if not getboardfile(board1) then begin
   exit;
@@ -1901,6 +1944,7 @@ begin
  end;
  beginpy('Create Plots');
  try
+  fillchar(lainf1,sizeof(lainf1),0);
   boardname1:= filenamebase(board1);
   with info1^ do begin
    plotdir1:= tosysfilepath(filepath(
@@ -1911,10 +1955,10 @@ begin
     if not getlayer(layernames[i1],la2) then begin
      break;
     end;
-    setlength(ar2,1);
-    ar2[0].layer:= la2;
+    setlength(lainf1.layers,1);
+    lainf1.layers[0].layer:= la2;
     if not plotfile(board1,plotdir1,ar1[i1],
-                           fileformatty(plotformats[i1]),ar2,
+                           fileformatty(plotformats[i1]),lainf1,
           (i1 = high(plotfiles)) and (length(drillfiles) = 0)
                                 and not createproductionzipfile) then begin
      break;
@@ -2003,7 +2047,7 @@ var
 // pac1: reppageformclassty;
  pa1: treppageform;
  la1: layoutflagsty;
- ar1: layerinfoarty;
+ lainf1: layerinforecty;
 begin
  info1:= globaloptions.docudefinebyname(projectoptions.docuset);
  if info1 = nil then begin
@@ -2011,6 +2055,7 @@ begin
                'is invalid');
   exit;
  end;
+ fillchar(lainf1,sizeof(lainf1),0);
  with info1^ do begin
   psprinter.pa_width:= pagewidth;
   psprinter.pa_height:= pageheight;
@@ -2044,20 +2089,26 @@ begin
       break;
      end;
      with tlayerplotpage(info1^.pages[i1]) do begin
-      setlength(ar1,length(layernames));
-      for i2:= 0 to high(ar1) do begin
-       if not getlayer(layernames[i2],ar1[i2].layer) then begin
+      lainf1.refon:= refon;
+      lainf1.refcolor:= refcolor;
+      lainf1.valon:= valon;
+      lainf1.valcolor:= valcolor;
+      lainf1.showinvis:= showinvis;
+      lainf1.drillmarks:= drillmarks;
+      setlength(lainf1.layers,length(layernames));
+      for i2:= 0 to high(lainf1.layers) do begin
+       if not getlayer(layernames[i2],lainf1.layers[i2].layer) then begin
         error1:= true;
         break;
        end;
-       ar1[i2].color:= colornames[i2];
+       lainf1.layers[i2].color:= colornames[i2];
       end;
       if error1 then begin
        break;
       end;
-      if ar1 <> nil then begin
+      if lainf1.layers <> nil then begin
        s1:= tmpfile;
-       if not plotfile(boardfile1,tmpf,s1,ff_postscript,ar1,false) then begin
+       if not plotfile(boardfile1,tmpf,s1,ff_postscript,lainf1,false) then begin
         error1:= true;
         break;
        end;
@@ -2578,6 +2629,12 @@ begin
 end;
 
 { tlayerplotpage }
+
+constructor tlayerplotpage.create();
+begin
+ inherited;
+ fdrillmarks:= 'None';
+end;
 
 class function tlayerplotpage.getpagekind: docupagekindty;
 begin

@@ -42,6 +42,8 @@ object pythonconsolefo: tpythonconsolefo
       bounds_cx = 1200
       bounds_cy = 14
       process = mainmo.python
+      font.name = 'stf_fixed'
+      font.localprops = []
       onprocfinished = procfinishedev
       onsendtext = sendtextev
       reffontheight = 14
