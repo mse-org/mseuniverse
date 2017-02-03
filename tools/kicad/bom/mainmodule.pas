@@ -57,15 +57,15 @@ type
  layerinfoty = record
   layer: layerty;
   color: msestring;
- end;
- layerinfoarty = array of layerinfoty;
- layerinforecty = record
-  layers: layerinfoarty;
   refon: boolean;
   refcolor: msestring;
   valon: boolean;
   valcolor: msestring;
-  showinvis: boolean;
+  invison: boolean;
+ end;
+ layerinfoarty = array of layerinfoty;
+ layerinforecty = record
+  layers: layerinfoarty;
   drillmarks: msestring;
  end;
  
@@ -191,24 +191,25 @@ type
   private
    flayernames: msestringarty;
    fcolornames: msestringarty;
-   frefon: boolean;
-   frefcolor: msestring;
-   fvalon: boolean;
-   fvalcolor: msestring;
-   fshowinvis: boolean;
+   frefon: booleanarty;
+   frefcolor: msestringarty;
+   fvalon: booleanarty;
+   fvalcolor: msestringarty;
+   finvison: booleanarty;
    fdrillmarks: msestring;
   protected
    class function getpagekind: docupagekindty override;
+   procedure dostatread(const reader: tstatreader) override;
   public
    constructor create(); override;
   published
    property layernames: msestringarty read flayernames write flayernames;
    property colornames: msestringarty read fcolornames write fcolornames;
-   property refon: boolean read frefon write frefon;
-   property refcolor: msestring read frefcolor write frefcolor;
-   property valon: boolean read fvalon write fvalon;
-   property valcolor: msestring read fvalcolor write fvalcolor;
-   property showinvis: boolean read fshowinvis write fshowinvis;
+   property refon: booleanarty read frefon write frefon;
+   property refcolor: msestringarty read frefcolor write frefcolor;
+   property valon: booleanarty read fvalon write fvalon;
+   property valcolor: msestringarty read fvalcolor write fvalcolor;
+   property invison: booleanarty read finvison write finvison;
    property drillmarks: msestring read fdrillmarks write fdrillmarks;
  end;
 
@@ -1817,7 +1818,7 @@ function tmainmo.plotfile(const aboard: filenamety; const aplotdir: filenamety;
 var
  dir1: filenamety;
  d1,n1,s1: filenamety;
- s2,s3: msestring;
+ s2,s3,s4,s5,s6,s7,s8: msestring;
  i1: int32;
 begin
  if alayer.layers = nil then begin
@@ -1841,16 +1842,24 @@ begin
   with alayer.layers[i1] do begin
    s2:= s2+mainmodule.layercodes[layer]+',';
    s3:= s3+color+',';
+   s4:= s4+pyboolstrings[refon]+',';
+   s5:= s5+refcolor+',';
+   s6:= s6+pyboolstrings[valon]+',';
+   s7:= s7+valcolor+',';
+   s8:= s8+pyboolstrings[invison]+',';
   end;
  end;
  setlength(s2,length(s2)-1); //remove last comma
  setlength(s3,length(s3)-1); //remove last comma
+ setlength(s4,length(s4)-1); //remove last comma
+ setlength(s5,length(s5)-1); //remove last comma
+ setlength(s6,length(s6)-1); //remove last comma
+ setlength(s7,length(s7)-1); //remove last comma
+ setlength(s8,length(s8)-1); //remove last comma
  with alayer do begin
   result:= execpy('plotfile',
       [aboard,tosysfilepath(dir1),mainmodule.fileformatcodes[aformat],s2,s3,
-                                 pyboolstrings[refon],refcolor,
-                                 pyboolstrings[valon],valcolor,
-                                 pyboolstrings[showinvis],drillmarks],alast);
+                                 s4,s5,s6,s7,s8,drillmarks],alast);
  end;
  s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer.layers[0].layer]+'.'+
                                        mainmodule.fileformatexts[aformat];
@@ -2089,11 +2098,6 @@ begin
       break;
      end;
      with tlayerplotpage(info1^.pages[i1]) do begin
-      lainf1.refon:= refon;
-      lainf1.refcolor:= refcolor;
-      lainf1.valon:= valon;
-      lainf1.valcolor:= valcolor;
-      lainf1.showinvis:= showinvis;
       lainf1.drillmarks:= drillmarks;
       setlength(lainf1.layers,length(layernames));
       for i2:= 0 to high(lainf1.layers) do begin
@@ -2102,6 +2106,11 @@ begin
         break;
        end;
        lainf1.layers[i2].color:= colornames[i2];
+       lainf1.layers[i2].refon:= refon[i2];
+       lainf1.layers[i2].refcolor:= refcolor[i2];
+       lainf1.layers[i2].valon:= valon[i2];
+       lainf1.layers[i2].valcolor:= valcolor[i2];
+       lainf1.layers[i2].invison:= invison[i2];
       end;
       if error1 then begin
        break;
@@ -2639,6 +2648,20 @@ end;
 class function tlayerplotpage.getpagekind: docupagekindty;
 begin
  result:= dpk_layerplot;
+end;
+
+procedure tlayerplotpage.dostatread(const reader: tstatreader);
+var
+ i1: int32;
+begin
+ inherited;
+ i1:= length(flayernames);
+ setlength(fcolornames,i1);
+ setlength(frefon,i1);
+ setlength(frefcolor,i1);
+ setlength(fvalon,i1);
+ setlength(fvalcolor,i1);
+ setlength(finvison,i1);
 end;
 
 { tschematicplotpage }

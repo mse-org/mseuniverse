@@ -31,16 +31,12 @@ type
    val_layernames: tdropdownlistedit;
    val_colornames: tdropdownlistedit;
    tlayouter4: tlayouter;
-   tlayouter2: tlayouter;
    val_refon: tbooleanedit;
    val_refcolor: tdropdownlistedit;
-   tlayouter3: tlayouter;
    val_valon: tbooleanedit;
    val_valcolor: tdropdownlistedit;
+   val_invison: tbooleanedit;
    val_drillmarks: tdropdownlistedit;
-   tlayouter5: tlayouter;
-   val_showinvis: tbooleanedit;
-   tdropdownlistedit5: tdropdownlistedit;
   private
   protected
    procedure loadvalues() override;

@@ -4,13 +4,18 @@
 from kicadcommon import *
 
 def plotitem(apcbfilename,aoutputdir,aformat,alayer,acolor,
-                   arefon,arefcolor,avalon,avalcolor,ashowinvis,adrillmarks): 
+                   arefon,arefcolor,avalon,avalcolor,ainvison,adrillmarks): 
                          #alayer = commaseparated elements of layernames
                          #acolor = commaseparated elements of colornames
  print '*Plot ',alayer,' Format:',aformat,' to'
  print aoutputdir
  lnames = alayer.split(',');
  cnames = acolor.split(',');
+ refons = arefon.split(',');
+ refcolors = arefcolor.split(',');
+ valons = avalon.split(',');
+ valcolors = avalcolor.split(',');
+ invisons = ainvison.split(',');
  layers = []
  colors = []
  hascolor = False
@@ -37,34 +42,17 @@ def plotitem(apcbfilename,aoutputdir,aformat,alayer,acolor,
  popt.SetUseAuxOrigin(True)
  popt.SetSubtractMaskFromSilk(False)
  popt.SetDrillMarksType(drillmarkenums[drillmarknames.index(adrillmarks)])
- popt.SetPlotReference(arefon == 'True')
- popt.SetReferenceColor(colorenums[colornames.index(arefcolor)])
- popt.SetPlotValue(avalon == 'True')
- popt.SetValueColor(colorenums[colornames.index(avalcolor)])
- popt.SetPlotInvisibleText(ashowinvis == 'True')
  pctl.OpenPlotfile(lnames[0],format,'')
-# print popt.GetPlotReference()
-# print popt.GetPlotValue()
-# print popt.GetDrillMarksType()
-# print popt.GetPlotInvisibleText()
  for i1 in range(0,len(layers)):
-  """
-  if True: #i1 == len(layers)-1:
-   popt.SetPlotReference(arefon == 'True')
-   popt.SetReferenceColor(colorenums[colornames.index(arefcolor)])
-   popt.SetPlotValue(avalon == 'True')
-   popt.SetValueColor(colorenums[colornames.index(avalcolor)])
-   popt.SetPlotInvisibleText(ashowinvis == 'True')
-  else:
-   popt.SetPlotReference(False)
-   popt.SetReferenceColor(UNSPECIFIED_COLOR)
-   popt.SetPlotValue(False)
-   popt.SetValueColor(UNSPECIFIED_COLOR)
-   popt.SetPlotInvisibleText(False)
-  """
   pctl.SetLayer(layers[i1])
   pctl.SetColorMode(colors[i1] != UNSPECIFIED_COLOR)
   popt.SetColor(colors[i1])
+  popt.SetPlotReference(refons[i1] == 'True')
+  popt.SetReferenceColor(colorenums[colornames.index(refcolors[i1])])
+  popt.SetPlotValue(valons[i1] == 'True')
+  popt.SetValueColor(colorenums[colornames.index(valcolors[i1])])
+  popt.SetPlotInvisibleText(invisons[i1] == 'True')
+#  pctl.SetLayer(layers[i1])
   pctl.PlotLayer()
  pctl.ClosePlot()
 # print qweq
