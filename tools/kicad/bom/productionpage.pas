@@ -31,6 +31,7 @@ type
    layeraed: tdropdownlistedit;
    nonplateded: tbooleanedit;
    statf: tstatfile;
+   drillmarked: tdropdownlistedit;
    procedure namesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure createev(const sender: TObject);
@@ -64,6 +65,7 @@ begin
  layeraed.dropdown.cols[0].asarray:= mainmo.culayernames;
  layerbed.dropdown.cols[0].asarray:= mainmo.culayernames;
  plotformated.dropdown.cols[0].asarray:= mainmo.fileformats;
+ drillmarked.dropdown.cols[0].asarray:= mainmo.drillmarknames;
 end;
 
 procedure tproductionpagefo.namesetev(const sender: TObject;

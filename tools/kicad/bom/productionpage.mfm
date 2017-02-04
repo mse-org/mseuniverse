@@ -213,7 +213,7 @@ object productionpagefo: tproductionpagefo
         fixrows.items = <        
           item
             height = 16
-            captions.count = 3
+            captions.count = 4
             captions.items = <            
               item
                 caption = 'Layer'
@@ -224,9 +224,12 @@ object productionpagefo: tproductionpagefo
               end            
               item
                 caption = 'Format'
+              end            
+              item
+                caption = 'Drillmark'
               end>
           end>
-        datacols.count = 3
+        datacols.count = 4
         datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
         datacols.items = <        
           item[layered]
@@ -236,17 +239,23 @@ object productionpagefo: tproductionpagefo
             dataclass = tgridmsestringdatalist
           end        
           item[plotfileed]
-            width = 286
+            width = 306
             options = [co_fill, co_savestate, co_mousescrollrow]
             onshowhint = hintplotfilenamecolev
             widgetname = 'plotfileed'
             dataclass = tgridmsestringdatalist
           end        
           item[plotformated]
-            width = 237
+            width = 138
             options = [co_proportional, co_savestate, co_mousescrollrow]
             widgetname = 'plotformated'
             dataclass = tgridenumdatalist
+          end        
+          item[drillmarked]
+            width = 78
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'drillmarked'
+            dataclass = tgridmsestringdatalist
           end>
         datarowheight = 16
         statfile = statf
@@ -288,7 +297,7 @@ object productionpagefo: tproductionpagefo
           visible = False
           bounds_x = 180
           bounds_y = 0
-          bounds_cx = 286
+          bounds_cx = 306
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_notnull]
@@ -310,9 +319,9 @@ object productionpagefo: tproductionpagefo
             end>
           taborder = 3
           visible = False
-          bounds_x = 467
+          bounds_x = 487
           bounds_y = 0
-          bounds_cx = 237
+          bounds_cx = 138
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
@@ -322,6 +331,37 @@ object productionpagefo: tproductionpagefo
             item
             end>
           valuedefault = 0
+          reffontheight = 14
+        end
+        object drillmarked: tdropdownlistedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly, osk_nopaintref]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 4
+          visible = False
+          bounds_x = 626
+          bounds_y = 0
+          bounds_cx = 78
+          bounds_cy = 16
+          anchors = [an_left, an_bottom]
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          value = 'None'
+          valuedefault = 'None'
+          dropdown.options = [deo_selectonly, deo_forceselect, deo_autodropdown, deo_keydropdown, deo_cliphint]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
           reffontheight = 14
         end
       end

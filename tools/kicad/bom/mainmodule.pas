@@ -122,6 +122,7 @@ type
   layernames: msestringarty;
   plotfiles: msestringarty;
   plotformats: integerarty;
+  drillmarks: msestringarty;
   layeranames: msestringarty;
   layerbnames: msestringarty;
   nonplated: booleanarty;
@@ -1994,6 +1995,8 @@ begin
     end;
     setlength(lainf1.layers,1);
     lainf1.layers[0].layer:= la2;
+    setlength(lainf1.drillmarks,1);
+    lainf1.drillmarks:= drillmarks[i1];
     if not plotfile(board1,plotdir1,ar1[i1],
                            fileformatty(plotformats[i1]),lainf1,
           (i1 = high(plotfiles)) and (length(drillfiles) = 0)
@@ -2438,6 +2441,7 @@ begin
     layernames:= reader.readarray('layernames',msestringarty(nil));
     plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
     plotformats:= reader.readarray('plotformats',integerarty(nil));
+    drillmarks:= reader.readarray('drillmarks',msestringarty(nil));
     layeranames:= reader.readarray('layeranames',msestringarty(nil));
     layerbnames:= reader.readarray('layerbnames',msestringarty(nil));
     nonplated:= reader.readarray('nonplated',booleanarty(nil));
@@ -2448,17 +2452,12 @@ begin
       plotformats[i1]:= 0;
      end;
     end;
-    i1:= high(layernames);
-    if i1 > high(plotfiles) then begin
-     i1:= high(plotfiles);
-    end;
-    if i1 > high(plotformats) then begin
-     i1:= high(plotformats);
-    end;
-    inc(i1);
+    i1:= arrayminhigh([pointer(layernames),pointer(plotfiles),
+                       pointer(plotformats),pointer(drillmarks)])+1;
     setlength(layernames,i1);
     setlength(plotfiles,i1);
     setlength(plotformats,i1);
+    setlength(drillmarks,i1);
 
     i1:= high(layeranames);
     if i1 > high(layerbnames) then begin
@@ -2578,6 +2577,7 @@ begin
     writer.writearray('layernames',layernames);
     writer.writearray('plotfiles',plotfiles);
     writer.writearray('plotformats',plotformats);
+    writer.writearray('drillmarks',drillmarks);
     writer.writearray('layeranames',layeranames);
     writer.writearray('layerbnames',layerbnames);
     writer.writearray('nonplated',nonplated);

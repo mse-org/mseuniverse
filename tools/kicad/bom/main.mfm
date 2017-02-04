@@ -965,12 +965,12 @@ object mainfo: tmainfo
             action = mainmo.cmplistact
           end        
           item
-            caption = '&Production-Files'
+            caption = '&Production-File-Stacks'
             name = 'prodfiles'
             state = [as_localcaption]
           end        
           item
-            caption = '&Docu-Set'
+            caption = '&Docu-Sets'
             name = 'docuset'
             state = [as_localcaption]
           end>

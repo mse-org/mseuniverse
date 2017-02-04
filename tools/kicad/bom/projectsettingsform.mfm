@@ -493,7 +493,7 @@ object projectsettingsfo: tprojectsettingsfo
               captions.count = 1
               captions.items = <              
                 item
-                  caption = 'Production files'
+                  caption = 'Production file stacks'
                 end>
             end>
           datacols.count = 1
@@ -558,7 +558,7 @@ object projectsettingsfo: tprojectsettingsfo
               captions.count = 1
               captions.items = <              
                 item
-                  caption = 'Documentation stacks'
+                  caption = 'Documentation sets'
                 end>
             end>
           datacols.count = 1
