@@ -3,14 +3,14 @@ object projectsettingsfo: tprojectsettingsfo
   bounds_x = 337
   bounds_y = 266
   bounds_cx = 388
-  bounds_cy = 298
+  bounds_cy = 418
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     388
-    298
+    418
   )
   optionswindow = [wo_windowcentermessage]
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -24,7 +24,7 @@ object projectsettingsfo: tprojectsettingsfo
     color = -2147483645
     taborder = 1
     bounds_x = 265
-    bounds_y = 248
+    bounds_y = 368
     bounds_cx = 123
     bounds_cy = 38
     anchors = [an_right, an_bottom]
@@ -73,7 +73,7 @@ object projectsettingsfo: tprojectsettingsfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 388
-    bounds_cy = 248
+    bounds_cy = 368
     anchors = [an_top]
     activepageindex = 0
     tab_frame.localprops = []
@@ -87,7 +87,7 @@ object projectsettingsfo: tprojectsettingsfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 388
-      bounds_cy = 229
+      bounds_cy = 349
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Schematic Files'
       object schematicgrid: twidgetgrid
@@ -96,7 +96,7 @@ object projectsettingsfo: tprojectsettingsfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 388
-        bounds_cy = 229
+        bounds_cy = 349
         anchors = []
         optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -162,7 +162,7 @@ object projectsettingsfo: tprojectsettingsfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 388
-      bounds_cy = 229
+      bounds_cy = 349
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Footprint Library-Alias'
       object libaliasgrid: twidgetgrid
@@ -171,7 +171,7 @@ object projectsettingsfo: tprojectsettingsfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 388
-        bounds_cy = 229
+        bounds_cy = 349
         anchors = []
         optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_sorted, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -252,7 +252,7 @@ object projectsettingsfo: tprojectsettingsfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 388
-      bounds_cy = 229
+      bounds_cy = 349
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = '&Reporting'
       object strip1: tlayouter
@@ -361,6 +361,8 @@ object projectsettingsfo: tprojectsettingsfo
         place_maxdist = 4
         place_options = [plo_endmargin, plo_propmargin]
         linktop = strip2
+        linkbottom = tsimplewidget1
+        dist_bottom = 4
         object val_reportencoding: tenumtypeedit
           frame.caption = 'Encoding'
           frame.localprops = []
@@ -393,7 +395,7 @@ object projectsettingsfo: tprojectsettingsfo
         bounds_x = 2
         bounds_y = 139
         bounds_cx = 384
-        bounds_cy = 37
+        bounds_cy = 0
         anchors = [an_top]
         optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
         optionslayout = [lao_placex, lao_aligny]
@@ -402,57 +404,6 @@ object projectsettingsfo: tprojectsettingsfo
         place_maxdist = 4
         place_options = [plo_endmargin, plo_propmargin]
         linktop = strip3
-        object val_plotstack: tdropdownlistedit
-          frame.caption = 'Plotstack'
-          frame.localprops = []
-          frame.localprops1 = []
-          frame.buttons.count = 1
-          frame.buttons.items = <          
-            item
-            end>
-          frame.outerframe = (
-            0
-            17
-            0
-            0
-          )
-          bounds_x = 4
-          bounds_y = 0
-          bounds_cy = 37
-          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_sorted]
-          dropdown.cols.count = 1
-          dropdown.cols.items = <          
-            item
-            end>
-          reffontheight = 14
-        end
-        object val_docuset: tdropdownlistedit
-          frame.caption = 'Docuset'
-          frame.localprops = []
-          frame.localprops1 = []
-          frame.buttons.count = 1
-          frame.buttons.items = <          
-            item
-            end>
-          frame.outerframe = (
-            0
-            17
-            0
-            0
-          )
-          taborder = 1
-          bounds_x = 108
-          bounds_y = 0
-          bounds_cy = 37
-          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-          dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_sorted]
-          dropdown.cols.count = 1
-          dropdown.cols.items = <          
-            item
-            end>
-          reffontheight = 14
-        end
       end
       object strip2: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -511,6 +462,156 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_cy = 13
         end
       end
+      object tsimplewidget1: tsimplewidget
+        taborder = 5
+        visible = True
+        bounds_x = 2
+        bounds_y = 143
+        bounds_cx = 384
+        bounds_cy = 204
+        anchors = [an_top, an_bottom]
+        object productiongrid: twidgetgrid
+          frame.localprops = []
+          frame.localprops1 = []
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 384
+          bounds_cy = 101
+          anchors = [an_top]
+          optionsgrid = [og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+          fixcols.count = 1
+          fixcols.items = <          
+            item
+              width = 26
+              numstart = 1
+              numstep = 1
+            end>
+          fixrows.count = 1
+          fixrows.items = <          
+            item
+              height = 16
+              captions.count = 1
+              captions.items = <              
+                item
+                  caption = 'Production files'
+                end>
+            end>
+          datacols.count = 1
+          datacols.options = [co_savestate, co_mousescrollrow]
+          datacols.items = <          
+            item[val_productionfiles]
+              width = 352
+              options = [co_fill, co_savestate, co_mousescrollrow]
+              widgetname = 'val_productionfiles'
+              dataclass = tgridmsestringdatalist
+            end>
+          datarowheight = 16
+          reffontheight = 14
+          object val_productionfiles: tdropdownlistedit
+            optionsskin = [osk_framebuttononly]
+            frame.levelo = 0
+            frame.colorclient = -2147483645
+            frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+            frame.localprops1 = []
+            frame.button.color = -1879048187
+            frame.buttons.count = 1
+            frame.buttons.items = <            
+              item
+                color = -1879048187
+              end>
+            taborder = 1
+            visible = False
+            bounds_x = 0
+            bounds_y = 0
+            bounds_cx = 352
+            bounds_cy = 16
+            optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+            dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_sorted]
+            dropdown.cols.count = 1
+            dropdown.cols.items = <            
+              item
+              end>
+            reffontheight = 14
+          end
+        end
+        object docugrid: twidgetgrid
+          frame.localprops = []
+          frame.localprops1 = []
+          taborder = 1
+          bounds_x = 0
+          bounds_y = 105
+          bounds_cx = 384
+          bounds_cy = 99
+          anchors = [an_top, an_bottom]
+          optionsgrid = [og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+          fixcols.count = 1
+          fixcols.items = <          
+            item
+              width = 26
+              numstart = 1
+              numstep = 1
+            end>
+          fixrows.count = 1
+          fixrows.items = <          
+            item
+              height = 16
+              captions.count = 1
+              captions.items = <              
+                item
+                  caption = 'Documentation stacks'
+                end>
+            end>
+          datacols.count = 1
+          datacols.options = [co_savestate, co_mousescrollrow]
+          datacols.items = <          
+            item[val_docusets]
+              width = 352
+              options = [co_fill, co_savestate, co_mousescrollrow]
+              widgetname = 'val_docusets'
+              dataclass = tgridmsestringdatalist
+            end>
+          datarowheight = 16
+          reffontheight = 14
+          object val_docusets: tdropdownlistedit
+            optionsskin = [osk_framebuttononly]
+            frame.levelo = 0
+            frame.colorclient = -2147483645
+            frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+            frame.localprops1 = []
+            frame.button.color = -1879048187
+            frame.buttons.count = 1
+            frame.buttons.items = <            
+              item
+                color = -1879048187
+              end>
+            taborder = 1
+            visible = False
+            bounds_x = 0
+            bounds_y = 0
+            bounds_cx = 352
+            bounds_cy = 16
+            optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+            dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_sorted]
+            dropdown.cols.count = 1
+            dropdown.cols.items = <            
+              item
+              end>
+            reffontheight = 14
+          end
+        end
+        object tsplitter2: tsplitter
+          taborder = 2
+          bounds_x = 0
+          bounds_y = 101
+          bounds_cx = 384
+          bounds_cy = 4
+          anchors = [an_top]
+          options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+          linktop = productiongrid
+          linkbottom = docugrid
+          statfile = tstatfile1
+        end
+      end
     end
     object macropage: ttabpage
       frame.localprops = []
@@ -519,7 +620,7 @@ object projectsettingsfo: tprojectsettingsfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 388
-      bounds_cy = 229
+      bounds_cy = 349
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Macros'
       object tlayouter1: tlayouter
@@ -561,7 +662,7 @@ object projectsettingsfo: tprojectsettingsfo
         bounds_x = 0
         bounds_y = 46
         bounds_cx = 388
-        bounds_cy = 183
+        bounds_cy = 303
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1

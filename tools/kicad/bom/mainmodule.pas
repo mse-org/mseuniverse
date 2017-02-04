@@ -333,8 +333,8 @@ type
    freportencoding: int32;
    flibident: msestringarty;
    flibalias: msestringarty;
-   fplotstack: msestring;
-   fdocuset: msestring;
+   fproductionfiles: msestringarty;
+   fdocusets: msestringarty;
    fprojectname: msestring;
    fprojectmacronames: msestringarty;
    fprojectmacrovalues: msestringarty;
@@ -358,8 +358,9 @@ type
    property reportencoding: int32 read freportencoding write setreportencoding;
    property libident: msestringarty read flibident write flibident;
    property libalias: msestringarty read flibalias write flibalias;
-   property plotstack: msestring read fplotstack write fplotstack;
-   property docuset: msestring read fdocuset write fdocuset;
+   property productionfiles: msestringarty read fproductionfiles 
+                                                  write fproductionfiles;
+   property docusets: msestringarty read fdocusets write fdocusets;
    property projectname: msestring read fprojectname write fprojectname;
    property projectmacronames: msestringarty read fprojectmacronames
                                                      write fprojectmacronames;
@@ -587,8 +588,8 @@ type
    procedure showpsfile(const afile: filenamety; const cancontinue: boolean);
    procedure ps2pdf(const source,dest: msestring);
 
-   procedure createdocuset();
-   procedure createprodfiles();
+   procedure createdocuset(const aindex: int32);
+   procedure createprodfiles(const aindex: int32);
    
    property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
@@ -617,7 +618,7 @@ implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
- msearrayutils,docureport,docupsreppage,basereppage,mserepps,
+ msearrayutils,docureport,docupsreppage,basereppage,mserepps,main,
  partlistreppage,bomreppage,bommodule,vendormodule,dbdata,titlereppage;
 
 var
@@ -990,10 +991,31 @@ var
  id1,id2: int64;
  bo1: boolean;
  area1,f1: flo64;
+ menuitem1: tmenuitem;
 begin
  try
   application.beginwait();
   try
+   with mainfo.mainmenu.menu.itembynames(['make','prodfiles']) do begin
+    submenu.clear();
+    for i1:= 0 to high(projectoptions.productionfiles) do begin
+     menuitem1:= tmenuitem.create();
+     menuitem1.action:= prodfilesact;
+     menuitem1.caption:= '&'+projectoptions.productionfiles[i1];
+     submenu.insert(i1,menuitem1);
+    end;
+    enabled:= submenu.count > 0;
+   end;
+   with mainfo.mainmenu.menu.itembynames(['make','docuset']) do begin
+    submenu.clear();
+    for i1:= 0 to high(projectoptions.docusets) do begin
+     menuitem1:= tmenuitem.create();
+     menuitem1.action:= docusetact;
+     menuitem1.caption:= '&'+projectoptions.docusets[i1];
+     submenu.insert(i1,menuitem1);
+    end;
+    enabled:= submenu.count > 0;
+   end;
    compds.disablecontrols();
    parser:= nil;
    area1:= 0;
@@ -1838,6 +1860,11 @@ begin
  end;
  s2:= '';
  s3:= '';
+ s4:= '';
+ s5:= '';
+ s6:= '';
+ s7:= '';
+ s8:= '';
  for i1:= 0 to high(alayer.layers) do begin
   with alayer.layers[i1] do begin
    s2:= s2+mainmodule.layercodes[layer]+',';
@@ -1932,7 +1959,7 @@ begin
  errormessage('Ivalid plotkind "'+aname+'"');
 end;
 
-procedure tmainmo.createprodfiles();
+procedure tmainmo.createprodfiles(const aindex: int32);
 var
  i1{,i2}: int32;
  board1,boardname1,plotdir1: filenamety;
@@ -1945,9 +1972,10 @@ begin
  if not getboardfile(board1) then begin
   exit;
  end;
- info1:= globaloptions.prodplotdefinebyname(projectoptions.plotstack);
+ info1:= globaloptions.prodplotdefinebyname(
+                              projectoptions.productionfiles[aindex]);
  if info1 = nil then begin
-  errormessage('Plotstack "'+projectoptions.plotstack+'"'+lineend+
+  errormessage('Plotstack "'+projectoptions.productionfiles[aindex]+'"'+lineend+
                'is invalid');
   exit;
  end;
@@ -1999,7 +2027,7 @@ end;
 
 procedure tmainmo.prodfilesev(const sender: TObject);
 begin
- createprodfiles();
+ createprodfiles(tmenuitem(sender).index);
 end;
 
 procedure tmainmo.showpsfile(const afile: filenamety; 
@@ -2033,7 +2061,7 @@ begin
  end;
 end;
 
-procedure tmainmo.createdocuset();
+procedure tmainmo.createdocuset(const aindex: int32);
 var
  tmpf: msestring;
  tmpfile: filenamety;
@@ -2058,9 +2086,9 @@ var
  la1: layoutflagsty;
  lainf1: layerinforecty;
 begin
- info1:= globaloptions.docudefinebyname(projectoptions.docuset);
+ info1:= globaloptions.docudefinebyname(projectoptions.docusets[aindex]);
  if info1 = nil then begin
-  errormessage('Docuset "'+projectoptions.docuset+'"'+lineend+
+  errormessage('Docuset "'+projectoptions.docusets[aindex]+'"'+lineend+
                'is invalid');
   exit;
  end;
@@ -2224,7 +2252,7 @@ end;
 
 procedure tmainmo.docusetev(const sender: TObject);
 begin
- createdocuset();
+ createdocuset(tmenuitem(sender).index);
 end;
 
 procedure tmainmo.saveev(const sender: TObject);

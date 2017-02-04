@@ -965,12 +965,17 @@ object mainfo: tmainfo
             action = mainmo.cmplistact
           end        
           item
-            action = mainmo.prodfilesact
+            caption = '&Production-Files'
+            name = 'prodfiles'
+            state = [as_localcaption]
           end        
           item
-            action = mainmo.docusetact
+            caption = '&Docu-Set'
+            name = 'docuset'
+            state = [as_localcaption]
           end>
         caption = '&Make'
+        name = 'make'
         state = [as_localcaption]
       end    
       item

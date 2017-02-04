@@ -49,7 +49,6 @@ type
    val_libident: tstringedit;
    val_libalias: tstringedit;
    strip4: tlayouter;
-   val_plotstack: tdropdownlistedit;
    strip2: tlayouter;
    val_board: tfilenameedit;
    tsimplewidget2: tsimplewidget;
@@ -59,7 +58,12 @@ type
    twidgetgrid1: twidgetgrid;
    val_projectmacronames: tstringedit;
    val_projectmacrovalues: tstringedit;
-   val_docuset: tdropdownlistedit;
+   tsimplewidget1: tsimplewidget;
+   productiongrid: twidgetgrid;
+   docugrid: twidgetgrid;
+   tsplitter2: tsplitter;
+   val_productionfiles: tdropdownlistedit;
+   val_docusets: tdropdownlistedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
@@ -91,8 +95,8 @@ end;
 procedure tprojectsettingsfo.createev(const sender: TObject);
 begin
  projectoptions.loadvalues(self,valueprefix);
- val_plotstack.dropdown.cols[0].asarray:= globaloptions.prodplotnames;
- val_docuset.dropdown.cols[0].asarray:= globaloptions.docunames;
+ val_productionfiles.dropdown.cols[0].asarray:= globaloptions.prodplotnames;
+ val_docusets.dropdown.cols[0].asarray:= globaloptions.docunames;
 end;
 
 procedure tprojectsettingsfo.initencodingev(const sender: tenumtypeedit);
