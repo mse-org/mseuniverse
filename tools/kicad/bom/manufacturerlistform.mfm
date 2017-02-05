@@ -5,7 +5,7 @@ inherited manufacturerlistfo: tmanufacturerlistfo
     558
     393
   )
-  caption = 'Manufacturer'
+  caption = 'Manufacturers'
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
   end
@@ -84,6 +84,7 @@ inherited manufacturerlistfo: tmanufacturerlistfo
     end
   end
   inherited tstatfile1: tstatfile
+    filename = 'manufactlisteditfo.sta'
   end
   inherited dataso: tmsedatasource
     DataSet = vendormo.manufacturerqu

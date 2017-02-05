@@ -78,6 +78,8 @@ type
    footprintinfoed: tdbstringedit;
    footprintinfoselector: tenum64editdb;
    manufacturerselect: tenum64editdb;
+   editdocusetact: taction;
+   editprodfilesact: taction;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -86,7 +88,7 @@ type
    procedure editprojectsettingsev(const sender: TObject);
    procedure editglobalsettingsev(const sender: TObject);
    procedure getdbcredentialsev(const sender: TObject);
-   procedure editev(const sender: TObject);
+   procedure editcomponentev(const sender: TObject);
    procedure editfootprintev(const sender: tobject);
    procedure editcomponentkindlist(const sender: tobject);
    procedure editcomponents(const sender: TObject);
@@ -98,6 +100,8 @@ type
                    var accept: Boolean);
    procedure updateeditev(const sender: tcustomaction);
    procedure hintareaev(const sender: TObject; var info: hintinfoty);
+   procedure editdocusetev(const sender: TObject);
+   procedure editprodstackev(const sender: TObject);
   protected
   public
    procedure checkeditclose(const adataso: tdatasource;
@@ -114,7 +118,7 @@ var
 implementation
 uses
  main_mfm,mainmodule,vendormodule,msefileutils,projectsettingsform,
- globalsettingsform,
+ globalsettingsform,docusetlistform,prodfilestacklistform,
  credentialsentryform,componenteditform,footprintlistform,footprintliblistform,
  componentkindeditform,manufacturerlistform,distributorlistform,
  componentlistform,componentkindlistform,msesqldb;
@@ -246,7 +250,7 @@ begin
  end;
 end;
 
-procedure tmainfo.editev(const sender: TObject);
+procedure tmainfo.editcomponentev(const sender: TObject);
 begin
  tcomponenteditfo.create(mainmo.c_stockitemid,true).show(ml_application);
 end;
@@ -297,6 +301,17 @@ procedure tmainfo.editcomponents(const sender: TObject);
 begin
  tcomponentlistfo.create(mainmo.c_stockitemid).show(ml_application);
 end;
+
+procedure tmainfo.editdocusetev(const sender: TObject);
+begin
+ tdocusetlistfo.create(nil).show(ml_application);
+end;
+
+procedure tmainfo.editprodstackev(const sender: TObject);
+begin
+ tprodfilestacklistfo.create(nil).show(ml_application);
+end;
+
 
 procedure tmainfo.cellev(const sender: TObject; var info: celleventinfoty);
 begin

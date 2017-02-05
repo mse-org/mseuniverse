@@ -1,0 +1,57 @@
+inherited docusetlistfo: tdocusetlistfo
+  container.bounds = (
+    0
+    0
+    558
+    393
+  )
+  caption = 'Docusets'
+  moduleclassname = 'tlisteditfo'
+  inherited navig: tdbnavigator
+  end
+  inherited grid: tdbwidgetgrid
+    fixcols.items = <    
+      item
+      end>
+    fixrows.items = <    
+      item
+        captions.items = <        
+          item
+          end        
+          item
+          end        
+          item
+          end        
+          item
+          end>
+      end>
+    datacols.items = <    
+      item[nameed]
+      end    
+      item[commented]
+      end    
+      item[tdcreateed]
+      end    
+      item[tdmodifyed]
+      end>
+    inherited nameed: tdbstringedit
+    end
+    inherited commented: tdbmemodialogedit
+      frame.buttons.items = <      
+        item
+        end>
+    end
+    inherited tdcreateed: tdbdatetimeedit
+    end
+    inherited tdmodifyed: tdbdatetimeedit
+    end
+  end
+  inherited tstatfile1: tstatfile
+    filename = 'docusetlisteditfo.sta'
+  end
+  inherited dataso: tmsedatasource
+    DataSet = bommo.docusetqu
+  end
+  inherited dialogact: taction
+  end
+end

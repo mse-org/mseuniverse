@@ -84,6 +84,7 @@ inherited distributorlistfo: tdistributorlistfo
     end
   end
   inherited tstatfile1: tstatfile
+    filename = 'distriblisteditfo.sta'
   end
   inherited dataso: tmsedatasource
     DataSet = vendormo.distributorqu

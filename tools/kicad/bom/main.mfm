@@ -1,6 +1,6 @@
 object mainfo: tmainfo
   visible = False
-  bounds_x = 291
+  bounds_x = 293
   bounds_y = 247
   bounds_cx = 829
   bounds_cy = 291
@@ -979,7 +979,7 @@ object mainfo: tmainfo
         state = [as_localcaption]
       end    
       item
-        submenu.count = 6
+        submenu.count = 9
         submenu.items = <        
           item
             action = editcomponentsact
@@ -998,6 +998,15 @@ object mainfo: tmainfo
           end        
           item
             action = editdistributoract
+          end        
+          item
+            options = [mao_separator, mao_shortcutcaption]
+          end        
+          item
+            action = editdocusetact
+          end        
+          item
+            action = editprodfilesact
           end>
         caption = '&Database'
         state = [as_localcaption]
@@ -1146,7 +1155,7 @@ object mainfo: tmainfo
   end
   object editcomponentact: taction
     options = [ao_localshortcut]
-    onexecute = editev
+    onexecute = editcomponentev
     onupdate = updateeditev
     left = 440
     top = 184
@@ -1154,5 +1163,17 @@ object mainfo: tmainfo
       1
       306
     )
+  end
+  object editdocusetact: taction
+    caption = 'D&ocusets'
+    onexecute = editdocusetev
+    left = 440
+    top = 208
+  end
+  object editprodfilesact: taction
+    caption = '&Production File-Stacks'
+    onexecute = editprodstackev
+    left = 440
+    top = 224
   end
 end

@@ -29,6 +29,10 @@ type
    bom_stockcompid: tmselargeintfield;
    compdistribdso: tmsedatasource;
    compdistribqu: tmsesqlquery;
+   docusetqu: tmsesqlquery;
+   docusetdso: tmsedatasource;
+   prodfielstackdso: tmsedatasource;
+   prodfielstackqu: tmsesqlquery;
    procedure afteropenev(DataSet: TDataSet);
  end;
 var

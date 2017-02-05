@@ -170,4 +170,230 @@ object bommo: tbommo
     top = 8
     streamingversion = 1
   end
+  object docusetqu: tmsesqlquery
+    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <>
+    SQL.data = (
+      'select * from DOCUSETS'
+    )
+    IndexDefs = <    
+      item
+        Name = 'PK_DOCUSETS_0'
+      end>
+    tablename = 'DOCUSETS'
+    database = mainmo.conn
+    Transaction = mainmo.trans
+    transactionwrite = mainmo.transwrite
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'DESCRIPTION'
+        DataType = ftString
+        Size = 200
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    controller.fields.count = 6
+    controller.fields.fields = (
+      (
+        ft_datetime
+        ft_datetime
+        ft_string
+        ft_largeint
+        ft_string
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'TSCREATE'
+          Index = 0
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 1
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          DisplayWidth = 500
+          FieldName = 'COMMENT'
+          Index = 2
+          Size = 0
+        end      
+        item
+          FieldName = 'PK'
+          Index = 3
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'NAME'
+          Index = 4
+          Size = 0
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'DESCRIPTION'
+          Index = 5
+          Size = 0
+        end>
+    )
+    controller.options = [dso_utf8]
+    left = 8
+    top = 80
+    streamingversion = 1
+  end
+  object docusetdso: tmsedatasource
+    DataSet = docusetqu
+    left = 8
+    top = 96
+  end
+  object prodfielstackdso: tmsedatasource
+    DataSet = prodfielstackqu
+    left = 184
+    top = 96
+  end
+  object prodfielstackqu: tmsesqlquery
+    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <>
+    SQL.data = (
+      'select * from PRODFILESTACKS'
+    )
+    IndexDefs = <    
+      item
+        Name = 'PK_PRODFILESTACKS_0'
+      end>
+    tablename = 'PRODFILESTACKS'
+    database = mainmo.conn
+    Transaction = mainmo.trans
+    transactionwrite = mainmo.transwrite
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'DESCRIPTION'
+        DataType = ftString
+        Size = 200
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    controller.fields.count = 6
+    controller.fields.fields = (
+      (
+        ft_datetime
+        ft_datetime
+        ft_string
+        ft_largeint
+        ft_string
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'TSCREATE'
+          Index = 0
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 1
+          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+        end      
+        item
+          DisplayWidth = 500
+          FieldName = 'COMMENT'
+          Index = 2
+          Size = 0
+        end      
+        item
+          FieldName = 'PK'
+          Index = 3
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'NAME'
+          Index = 4
+          Size = 0
+        end      
+        item
+          DisplayWidth = 0
+          FieldName = 'DESCRIPTION'
+          Index = 5
+          Size = 0
+        end>
+    )
+    controller.options = [dso_utf8]
+    left = 184
+    top = 80
+    streamingversion = 1
+  end
 end
