@@ -227,8 +227,47 @@ object bommo: tbommo
         Name = 'COMMENT'
         DataType = ftString
         Size = 500
+      end    
+      item
+        Name = 'DOCUDIR'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'PSFILE'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'PDFFILE'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'WIDTH'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'HEIGHT'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'MARGLEFT'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'MARGRIGHT'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'MARGTOP'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'MARGBOTTOM'
+        DataType = ftFloat
       end>
-    controller.fields.count = 6
+    controller.fields.count = 15
     controller.fields.fields = (
       (
         ft_datetime
@@ -237,6 +276,15 @@ object bommo: tbommo
         ft_largeint
         ft_string
         ft_string
+        ft_string
+        ft_string
+        ft_string
+        ft_float
+        ft_float
+        ft_float
+        ft_float
+        ft_float
+        ft_float
       )
       <      
         item
@@ -271,6 +319,72 @@ object bommo: tbommo
           FieldName = 'DESCRIPTION'
           Index = 5
           Size = 0
+        end      
+        item
+          DisplayWidth = 400
+          FieldName = 'DOCUDIR'
+          Index = 6
+          Size = 400
+        end      
+        item
+          DisplayWidth = 400
+          FieldName = 'PSFILE'
+          Index = 7
+          Size = 400
+        end      
+        item
+          DisplayWidth = 400
+          FieldName = 'PDFFILE'
+          Index = 8
+          Size = 400
+        end      
+        item
+          DefaultExpression = '210'
+          FieldName = 'WIDTH'
+          Index = 9
+          MaxValue = 0
+          MinValue = 0
+          Precision = -1
+        end      
+        item
+          DefaultExpression = '297'
+          FieldName = 'HEIGHT'
+          Index = 10
+          MaxValue = 0
+          MinValue = 0
+          Precision = -1
+        end      
+        item
+          DefaultExpression = '10'
+          FieldName = 'MARGLEFT'
+          Index = 11
+          MaxValue = 0
+          MinValue = 0
+          Precision = -1
+        end      
+        item
+          DefaultExpression = '10'
+          FieldName = 'MARGRIGHT'
+          Index = 12
+          MaxValue = 0
+          MinValue = 0
+          Precision = -1
+        end      
+        item
+          DefaultExpression = '10'
+          FieldName = 'MARGTOP'
+          Index = 13
+          MaxValue = 0
+          MinValue = 0
+          Precision = -1
+        end      
+        item
+          DefaultExpression = '10'
+          FieldName = 'MARGBOTTOM'
+          Index = 14
+          MaxValue = 0
+          MinValue = 0
+          Precision = -1
         end>
     )
     controller.options = [dso_utf8]
@@ -284,11 +398,11 @@ object bommo: tbommo
     top = 96
   end
   object prodfielstackdso: tmsedatasource
-    DataSet = prodfielstackqu
+    DataSet = prodfilestackqu
     left = 184
     top = 96
   end
-  object prodfielstackqu: tmsesqlquery
+  object prodfilestackqu: tmsesqlquery
     options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 2
     indexlocal.items = <    
@@ -345,14 +459,37 @@ object bommo: tbommo
         Name = 'COMMENT'
         DataType = ftString
         Size = 500
+      end    
+      item
+        Name = 'OUTPUTDIR'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'CREATEZIP'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'ZIPFILE'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'ZIPMAINDIR'
+        DataType = ftString
+        Size = 400
       end>
-    controller.fields.count = 6
+    controller.fields.count = 10
     controller.fields.fields = (
       (
         ft_datetime
         ft_datetime
         ft_string
         ft_largeint
+        ft_string
+        ft_string
+        ft_string
+        ft_boolean
         ft_string
         ft_string
       )
@@ -389,6 +526,30 @@ object bommo: tbommo
           FieldName = 'DESCRIPTION'
           Index = 5
           Size = 0
+        end      
+        item
+          DisplayWidth = 400
+          FieldName = 'OUTPUTDIR'
+          Index = 6
+          Size = 400
+        end      
+        item
+          DisplayWidth = 5
+          FieldName = 'CREATEZIP'
+          Index = 7
+          displayvalues = 'True;False'
+        end      
+        item
+          DisplayWidth = 400
+          FieldName = 'ZIPFILE'
+          Index = 8
+          Size = 400
+        end      
+        item
+          DisplayWidth = 400
+          FieldName = 'ZIPMAINDIR'
+          Index = 9
+          Size = 400
         end>
     )
     controller.options = [dso_utf8]

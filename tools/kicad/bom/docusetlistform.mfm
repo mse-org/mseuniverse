@@ -53,5 +53,6 @@ inherited docusetlistfo: tdocusetlistfo
     DataSet = bommo.docusetqu
   end
   inherited dialogact: taction
+    onexecute = dialogev
   end
 end

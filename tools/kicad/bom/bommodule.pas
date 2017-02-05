@@ -32,7 +32,7 @@ type
    docusetqu: tmsesqlquery;
    docusetdso: tmsedatasource;
    prodfielstackdso: tmsedatasource;
-   prodfielstackqu: tmsesqlquery;
+   prodfilestackqu: tmsesqlquery;
    procedure afteropenev(DataSet: TDataSet);
  end;
 var

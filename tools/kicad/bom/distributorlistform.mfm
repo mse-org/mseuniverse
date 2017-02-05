@@ -8,6 +8,9 @@ inherited distributorlistfo: tdistributorlistfo
   caption = 'Distributors'
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
+    bounds_cy = 276
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_copyrecord, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit]
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localshortcut, as_localonexecute]
   end
   inherited grid: tdbwidgetgrid
     fixcols.items = <    

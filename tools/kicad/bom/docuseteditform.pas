@@ -14,24 +14,45 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit docusetlistform;
+unit docuseteditform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- listeditform;
+ recordnameeditform,mseact,msedataedits,msedbdialog,mseedit,mseificomp,
+ mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,
+ msesplitter,mseprinter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,
+ msescrollbar;
 
 type
- tdocusetlistfo = class(tlisteditfo)
-   procedure dialogev(const sender: TObject);
+ tdocuseteditfo = class(trecordnameeditfo)
+   docudired: tdbfilenameedit;
+   stripe3: tlayouter;
+   pagesizeed: tpagesizeselector;
+   leftmarged: tdbrealedit;
+   widthed: tdbrealedit;
+   heighted: tdbrealedit;
+   rightmarged: tdbrealedit;
+   topmarged: tdbrealedit;
+   bottommarged: tdbrealedit;
+   procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
+   procedure datachaev(Sender: TObject; Field: TField);
  end;
- 
+
 implementation
 uses
- docusetlistform_mfm,docuseteditform;
+ docuseteditform_mfm;
  
-procedure tdocusetlistfo.dialogev(const sender: TObject);
+procedure tdocuseteditfo.readonlychangeev(const sender: TObject;
+               const avalue: Boolean);
 begin
- tdocuseteditfo.create(nil).show(ml_application);end;
+ pagesizeed.readonly:= avalue;
+end;
+
+procedure tdocuseteditfo.datachaev(Sender: TObject; Field: TField);
+begin
+ pagesizeed.updatesize();
+end;
+
 end.

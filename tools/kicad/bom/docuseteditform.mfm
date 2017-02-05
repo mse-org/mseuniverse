@@ -1,0 +1,260 @@
+inherited docuseteditfo: tdocuseteditfo
+  container.bounds = (
+    0
+    0
+    701
+    406
+  )
+  caption = 'Docuset'
+  moduleclassname = 'trecordnameeditfo'
+  inherited stripe0: tlayouter
+    inherited tlayouter2: tlayouter
+      inherited tsmodify: tdbdatetimedisp
+      end
+      inherited tscreate: tdbdatetimedisp
+      end
+    end
+    inherited navig: tdbnavigator
+      autoedit = False
+      onreadonlychange = readonlychangeev
+    end
+  end
+  inherited stripe1: tlayouter
+    frame.localprops = []
+    frame.localprops1 = []
+    inherited nameselector: tenum64editdb
+      frame.buttons.items = <      
+        item
+        end>
+      dropdown.cols.items = <      
+        item
+        end>
+    end
+  end
+  inherited stripe2: tlayouter
+    frame.localprops = []
+    frame.localprops1 = []
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_endmargin]
+    inherited nameed: tdbstringedit
+    end
+    object docudired: tdbfilenameedit[1]
+      frame.caption = 'Docu directory'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 192
+      bounds_y = 0
+      bounds_cx = 494
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      reffontheight = 14
+    end
+  end
+  object stripe3: tlayouter[3]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 97
+    bounds_cx = 686
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    linktop = stripe2
+    object pagesizeed: tpagesizeselector
+      frame.caption = 'Page size'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 76
+      bounds_cy = 37
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+        end>
+      editwidth = widthed
+      editheight = heighted
+      reffontheight = 14
+    end
+    object leftmarged: tdbrealedit
+      frame.caption = 'Left-'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 208
+      bounds_y = 0
+      bounds_cx = 60
+      bounds_cy = 37
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'MARGLEFT'
+      min = 0
+      max = 1000
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
+    object widthed: tdbrealedit
+      frame.caption = 'Width'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 80
+      bounds_y = 0
+      bounds_cx = 60
+      bounds_cy = 37
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'WIDTH'
+      min = 0
+      max = 1000
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
+    object heighted: tdbrealedit
+      frame.caption = 'Height'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 3
+      bounds_x = 144
+      bounds_y = 0
+      bounds_cx = 60
+      bounds_cy = 37
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'HEIGHT'
+      min = 0
+      max = 1000
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
+    object rightmarged: tdbrealedit
+      frame.caption = 'Right-'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 4
+      bounds_x = 272
+      bounds_y = 0
+      bounds_cx = 60
+      bounds_cy = 37
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'MARGRIGHT'
+      min = 0
+      max = 1000
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
+    object topmarged: tdbrealedit
+      frame.caption = 'Top-'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 5
+      bounds_x = 336
+      bounds_y = 0
+      bounds_cx = 60
+      bounds_cy = 37
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'MARGTOP'
+      min = 0
+      max = 1000
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
+    object bottommarged: tdbrealedit
+      frame.caption = 'Bottom-Margin(mm)'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        65
+        0
+      )
+      taborder = 6
+      bounds_x = 400
+      bounds_y = 0
+      bounds_cx = 125
+      bounds_cy = 37
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'MARGBOTTOM'
+      min = 0
+      max = 1000
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
+  end
+  inherited dataso: tmsedatasource[4]
+    DataSet = bommo.docusetqu
+    OnDataChange = datachaev
+  end
+  inherited tstatfile1: tstatfile[5]
+  end
+end

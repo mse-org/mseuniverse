@@ -8,8 +8,15 @@ uses
 
 type
  tprodfilestacklistfo = class(tlisteditfo)
+   procedure dialogev(const sender: TObject);
  end;
 implementation
 uses
- prodfilestacklistform_mfm;
+ prodfilestacklistform_mfm,prodfilestackeditform;
+ 
+procedure tprodfilestacklistfo.dialogev(const sender: TObject);
+begin
+ tprodfilestackeditfo.create(nil).show(ml_application);
+end;
+
 end.

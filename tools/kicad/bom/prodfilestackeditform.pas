@@ -14,24 +14,21 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit docusetlistform;
+unit prodfilestackeditform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- listeditform;
+ recordnameeditform,mseact,msedataedits,msedbdialog,mseedit,mseificomp,
+ mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,msesplitter;
 
 type
- tdocusetlistfo = class(tlisteditfo)
-   procedure dialogev(const sender: TObject);
+ tprodfilestackeditfo = class(trecordnameeditfo)
+   outputdired: tdbfilenameedit;
+   stripe3: tlayouter;
  end;
- 
 implementation
 uses
- docusetlistform_mfm,docuseteditform;
- 
-procedure tdocusetlistfo.dialogev(const sender: TObject);
-begin
- tdocuseteditfo.create(nil).show(ml_application);end;
+ prodfilestackeditform_mfm;
 end.

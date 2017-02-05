@@ -8,6 +8,7 @@ inherited prodfilestacklistfo: tprodfilestacklistfo
   caption = 'Production File-Stacks'
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
+    ondialogexecute = dialogev
   end
   inherited grid: tdbwidgetgrid
     fixcols.items = <    
@@ -50,7 +51,7 @@ inherited prodfilestacklistfo: tprodfilestacklistfo
     filename = 'prodfilelisteditfo.sta'
   end
   inherited dataso: tmsedatasource
-    DataSet = bommo.prodfielstackqu
+    DataSet = bommo.prodfilestackqu
   end
   inherited dialogact: taction
   end

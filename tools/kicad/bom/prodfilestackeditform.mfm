@@ -1,0 +1,75 @@
+inherited prodfilestackeditfo: tprodfilestackeditfo
+  container.bounds = (
+    0
+    0
+    701
+    406
+  )
+  caption = 'Production File Stack'
+  moduleclassname = 'trecordnameeditfo'
+  inherited stripe0: tlayouter
+    inherited tlayouter2: tlayouter
+      inherited tsmodify: tdbdatetimedisp
+      end
+      inherited tscreate: tdbdatetimedisp
+      end
+    end
+    inherited navig: tdbnavigator
+    end
+  end
+  inherited stripe1: tlayouter
+    inherited nameselector: tenum64editdb
+      frame.buttons.items = <      
+        item
+        end>
+      dropdown.cols.items = <      
+        item
+        end>
+    end
+  end
+  inherited stripe2: tlayouter
+    inherited nameed: tdbstringedit
+    end
+    object outputdired: tdbfilenameedit[1]
+      frame.caption = 'Output directory'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 192
+      bounds_y = 0
+      bounds_cx = 494
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'OUTPUTDIR'
+      reffontheight = 14
+    end
+  end
+  object stripe3: tlayouter[3]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 104
+    bounds_cx = 686
+    bounds_cy = 50
+    anchors = [an_left, an_top, an_right]
+  end
+  inherited dataso: tmsedatasource[4]
+    DataSet = bommo.prodfilestackqu
+  end
+  inherited tstatfile1: tstatfile[5]
+  end
+end
