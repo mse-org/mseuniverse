@@ -530,6 +530,7 @@ type
    fdocupagekinds: msestringarty;
    fedacolornames: msestringarty;
    fdrillmarknames: msestringarty;
+   fid: int64;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -591,6 +592,8 @@ type
 
    procedure createdocuset(const aindex: int32);
    procedure createprodfiles(const aindex: int32);
+
+   function getid(): int64;
    
    property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
@@ -2026,6 +2029,12 @@ begin
  finally
   endpy();
  end;
+end;
+
+function tmainmo.getid(): int64;
+begin
+ dec(fid);
+ result:= fid;
 end;
 
 procedure tmainmo.prodfilesev(const sender: TObject);

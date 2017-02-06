@@ -23,7 +23,7 @@ uses
  recordnameeditform,mseact,msedataedits,msedbdialog,mseedit,mseificomp,
  mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,
  msesplitter,mseprinter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,
- msescrollbar;
+ msescrollbar,msewidgetgrid,msedatanodes,mselistbrowser;
 
 type
  tdocuseteditfo = class(trecordnameeditfo)
@@ -36,8 +36,14 @@ type
    rightmarged: tdbrealedit;
    topmarged: tdbrealedit;
    bottommarged: tdbrealedit;
+   grid: twidgetgrid;
+   titleed: tstringedit;
+   pagekinded: tenumedit;
+   docupageeditbu: tstockglyphdatabutton;
+   pked: tint64edit;
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure datachaev(Sender: TObject; Field: TField);
+   procedure editedev(const sender: TObject);
  end;
 
 implementation
@@ -46,13 +52,29 @@ uses
  
 procedure tdocuseteditfo.readonlychangeev(const sender: TObject;
                const avalue: Boolean);
+const
+ readonlyoptions = [og_autoappend,og_autofirstrow,og_rowinserting,
+                    og_rowdeleting,og_rowmoving];
 begin
  pagesizeed.readonly:= avalue;
+ grid.datacols.readonly:= avalue;
+ if avalue then begin
+  grid.removeappendedrow();
+  grid.optionsgrid:= grid.optionsgrid - readonlyoptions;
+ end
+ else begin
+  grid.optionsgrid:= grid.optionsgrid + readonlyoptions;
+ end;
 end;
 
 procedure tdocuseteditfo.datachaev(Sender: TObject; Field: TField);
 begin
  pagesizeed.updatesize();
+end;
+
+procedure tdocuseteditfo.editedev(const sender: TObject);
+begin
+ dataso.dataset.edit();
 end;
 
 end.

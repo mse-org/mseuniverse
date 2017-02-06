@@ -63,6 +63,7 @@ inherited docuseteditfo: tdocuseteditfo
       anchors = [an_left, an_top, an_right]
       datalink.datasource = dataso
       datalink.navigator = navig
+      controller.options = [fdo_directory, fdo_savelastdir]
       reffontheight = 14
     end
   end
@@ -80,6 +81,8 @@ inherited docuseteditfo: tdocuseteditfo
     place_mindist = 4
     place_maxdist = 4
     linktop = stripe2
+    linkbottom = grid
+    dist_bottom = 4
     object pagesizeed: tpagesizeselector
       frame.caption = 'Page size'
       frame.localprops = []
@@ -251,10 +254,148 @@ inherited docuseteditfo: tdocuseteditfo
       reffontheight = 14
     end
   end
-  inherited dataso: tmsedatasource[4]
+  object grid: twidgetgrid[4]
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 4
+    bounds_x = 0
+    bounds_y = 138
+    bounds_cx = 701
+    bounds_cy = 268
+    anchors = [an_top, an_bottom]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 52
+        numstart = 1
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 4
+        captions.items = <        
+          item
+          end        
+          item
+            caption = 'Title'
+          end        
+          item
+            caption = 'Kind'
+          end        
+          item
+            caption = 'ED'
+            hint = 'Edit page setup (F3)'
+          end>
+        captionsfix.count = 1
+        captionsfix.items = <        
+          item
+            caption = 'Page'
+          end>
+      end>
+    datacols.count = 4
+    datacols.options = [co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item[pked]
+        width = 22
+        options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'pked'
+        dataclass = tgridint64datalist
+      end    
+      item[titleed]
+        width = 111
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'titleed'
+        dataclass = tgridmsestringdatalist
+      end    
+      item[pagekinded]
+        width = 100
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'pagekinded'
+        dataclass = tgridenumdatalist
+      end    
+      item[docupageeditbu]
+        color = -2147483646
+        width = 22
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'docupageeditbu'
+        dataclass = tgridintegerdatalist
+      end>
+    datarowheight = 16
+    onrowsmodified = editedev
+    onedited = editedev
+    reffontheight = 14
+    object pked: tint64edit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 22
+      bounds_cy = 16
+      max = 2147483647
+      ifilink = bommo.dpg_pk
+      reffontheight = 14
+    end
+    object titleed: tstringedit
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 23
+      bounds_y = 0
+      bounds_cx = 111
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      ifilink = bommo.dpg_title
+      reffontheight = 14
+    end
+    object pagekinded: tenumedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.button.color = -1879048187
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+        end>
+      taborder = 3
+      visible = False
+      bounds_x = 135
+      bounds_y = 0
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+        end>
+      ifilink = bommo.dpg_kind
+      reffontheight = 14
+    end
+    object docupageeditbu: tstockglyphdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 4
+      bounds_x = 236
+      bounds_y = 0
+      bounds_cx = 22
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      state = [as_invisible, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr]
+      glyph = stg_ellipsesmall
+    end
+  end
+  inherited dataso: tmsedatasource[5]
     DataSet = bommo.docusetqu
     OnDataChange = datachaev
   end
-  inherited tstatfile1: tstatfile[5]
+  inherited tstatfile1: tstatfile[6]
   end
 end

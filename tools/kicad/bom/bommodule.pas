@@ -20,7 +20,8 @@ interface
 uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,mdb,msebufdataset,
  msedb,mseifiglob,mselocaldataset,msestrings,msedatabase,msesqldb,msqldb,
- sysutils;
+ sysutils,msesqlresult,mseificomp,mseificompglob,mseifiendpoint,mclasses,
+ mseifidbcomp;
 
 type
  tbommo = class(tmsedatamodule)
@@ -33,13 +34,37 @@ type
    docusetdso: tmsedatasource;
    prodfielstackdso: tmsedatasource;
    prodfilestackqu: tmsesqlquery;
+   ds_pk: tmselargeintfield;
+   dpg_pk: tifiint64linkcomp;
+   dpg_title: tifistringlinkcomp;
+   dpg_kind: tifienumlinkcomp;
+   docupagelink: tfieldparamlink;
+   tsqllookupbuffer1: tsqllookupbuffer;
+   docupagequ: tifisqlresult;
+   docupagedso: tconnectedifidatasource;
+   docupageinsert: tsqlstatement;
+   docupageupdate: tsqlstatement;
    procedure afteropenev(DataSet: TDataSet);
+   procedure setdocupageparev(const sender: tfieldparamlink; var done: Boolean);
+   procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
+   procedure datentev(const sender: tcustomificlientcontroller;
+                   const aclient: iificlient; const aindex: Integer);
+  protected
+   procedure updatedocupages();
+  public
+   constructor create(aowner: tcomponent); override;
  end;
 var
  bommo: tbommo;
 implementation
 uses
  bommodule_mfm,mainmodule;
+
+constructor tbommo.create(aowner: tcomponent);
+begin
+ inherited;
+ dpg_kind.c.dropdown.cols[0].asarray:= mainmo.docupagekinds;
+end;
  
 procedure tbommo.afteropenev(DataSet: TDataSet);
 var
@@ -105,6 +130,41 @@ begin
    recno:= recno1;
   end;
  end;
+end;
+
+procedure tbommo.setdocupageparev(const sender: tfieldparamlink;
+               var done: Boolean);
+begin
+ if not docusetqu.controller.posting1 then begin
+  docupagedso.refresh();
+ end;
+end;
+
+procedure tbommo.docupagepostev(const sender: TDataSet; const master: TDataSet);
+begin
+ updatedocupages();
+end;
+
+procedure tbommo.updatedocupages();
+var
+ i1: int32;
+begin
+ with dpg_pk.c.griddata do begin
+  for i1:= 0 to count-1 do begin
+   if items[i1] = 0 then begin
+    docupageinsert.execute([ds_pk.value,i1,dpg_kind.c.griddata[i1],
+                                             dpg_title.c.griddata[i1]]);
+   end
+   else begin
+   end;
+  end;
+ end;
+end;
+
+procedure tbommo.datentev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient; const aindex: Integer);
+begin
+ writeln(dpg_pk.c.datalist.count);
 end;
 
 end.

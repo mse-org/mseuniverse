@@ -171,7 +171,7 @@ object bommo: tbommo
     streamingversion = 1
   end
   object docusetqu: tmsesqlquery
-    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
+    options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -267,13 +267,12 @@ object bommo: tbommo
         Name = 'MARGBOTTOM'
         DataType = ftFloat
       end>
-    controller.fields.count = 15
+    controller.fields.count = 14
     controller.fields.fields = (
       (
         ft_datetime
         ft_datetime
         ft_string
-        ft_largeint
         ft_string
         ft_string
         ft_string
@@ -304,44 +303,39 @@ object bommo: tbommo
           Size = 0
         end      
         item
-          FieldName = 'PK'
-          Index = 3
-          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
-        end      
-        item
           DisplayWidth = 0
           FieldName = 'NAME'
-          Index = 4
+          Index = 3
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'DESCRIPTION'
-          Index = 5
+          Index = 4
           Size = 0
         end      
         item
           DisplayWidth = 400
           FieldName = 'DOCUDIR'
-          Index = 6
+          Index = 5
           Size = 400
         end      
         item
           DisplayWidth = 400
           FieldName = 'PSFILE'
-          Index = 7
+          Index = 6
           Size = 400
         end      
         item
           DisplayWidth = 400
           FieldName = 'PDFFILE'
-          Index = 8
+          Index = 7
           Size = 400
         end      
         item
           DefaultExpression = '210'
           FieldName = 'WIDTH'
-          Index = 9
+          Index = 8
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -349,7 +343,7 @@ object bommo: tbommo
         item
           DefaultExpression = '297'
           FieldName = 'HEIGHT'
-          Index = 10
+          Index = 9
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -357,7 +351,7 @@ object bommo: tbommo
         item
           DefaultExpression = '10'
           FieldName = 'MARGLEFT'
-          Index = 11
+          Index = 10
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -365,7 +359,7 @@ object bommo: tbommo
         item
           DefaultExpression = '10'
           FieldName = 'MARGRIGHT'
-          Index = 12
+          Index = 11
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -373,7 +367,7 @@ object bommo: tbommo
         item
           DefaultExpression = '10'
           FieldName = 'MARGTOP'
-          Index = 13
+          Index = 12
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -381,7 +375,7 @@ object bommo: tbommo
         item
           DefaultExpression = '10'
           FieldName = 'MARGBOTTOM'
-          Index = 14
+          Index = 13
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -391,6 +385,12 @@ object bommo: tbommo
     left = 8
     top = 80
     streamingversion = 1
+    object ds_pk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 14
+      left = 16
+      top = 112
+    end
   end
   object docusetdso: tmsedatasource
     DataSet = docusetqu
@@ -531,7 +531,7 @@ object bommo: tbommo
           DisplayWidth = 400
           FieldName = 'OUTPUTDIR'
           Index = 6
-          Size = 400
+          Size = 0
         end      
         item
           DisplayWidth = 5
@@ -543,18 +543,152 @@ object bommo: tbommo
           DisplayWidth = 400
           FieldName = 'ZIPFILE'
           Index = 8
-          Size = 400
+          Size = 0
         end      
         item
           DisplayWidth = 400
           FieldName = 'ZIPMAINDIR'
           Index = 9
-          Size = 400
+          Size = 0
         end>
     )
     controller.options = [dso_utf8]
     left = 184
     top = 80
     streamingversion = 1
+  end
+  object dpg_pk: tifiint64linkcomp
+    controller.onclientdataentered = datentev
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = docupagedso
+    controller.fieldname = 'PK'
+    controller.max = 2147483647
+    left = 24
+    top = 208
+  end
+  object dpg_title: tifistringlinkcomp
+    controller.onclientdataentered = datentev
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = docupagedso
+    controller.fieldname = 'TITLE'
+    left = 24
+    top = 240
+  end
+  object dpg_kind: tifienumlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = docupagedso
+    controller.fieldname = 'KIND'
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 24
+    top = 224
+  end
+  object docupagelink: tfieldparamlink
+    fieldname = 'PK'
+    datasource = docusetdso
+    delayus = 500000
+    onsetparam = setdocupageparev
+    onmasterpost = docupagepostev
+    left = 16
+    top = 152
+  end
+  object tsqllookupbuffer1: tsqllookupbuffer
+    left = 656
+    top = 80
+  end
+  object docupagequ: tifisqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'KIND'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'TITLE'
+        DataType = ftString
+        Size = 70
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+        datasource = docusetdso
+        fieldname = 'PK'
+      end>
+    sql.data = (
+      'select PK,KIND,TITLE from DOCUPAGES where LINK = :link order by ORDNUM'
+    )
+    database = mainmo.conn
+    transaction = mainmo.trans
+    options = [sso_utf8]
+    left = 16
+    top = 176
+  end
+  object docupagedso: tconnectedifidatasource
+    fields.count = 3
+    fields.items = <    
+      item
+        fieldname = 'PK'
+        datatype = dl_int64
+        sourcefieldname = 'PK'
+      end    
+      item
+        fieldname = 'KIND'
+        datatype = dl_integer
+        sourcefieldname = 'KIND'
+      end    
+      item
+        fieldname = 'TITLE'
+        datatype = dl_msestring
+        sourcefieldname = 'TITLE'
+      end>
+    connection = docupagequ
+    left = 16
+    top = 192
+  end
+  object docupageinsert: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'kind'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'title'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into DOCUPAGES (LINK,ORDNUM,KIND,TITLE) values (:link,:ordnum,:kind,:title)'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 176
+    top = 152
+  end
+  object docupageupdate: tsqlstatement
+    params = <>
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 176
+    top = 176
   end
 end

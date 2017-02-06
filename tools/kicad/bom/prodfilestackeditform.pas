@@ -21,12 +21,16 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  recordnameeditform,mseact,msedataedits,msedbdialog,mseedit,mseificomp,
- mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,msesplitter;
+ mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,
+ msesplitter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,msescrollbar;
 
 type
  tprodfilestackeditfo = class(trecordnameeditfo)
    outputdired: tdbfilenameedit;
    stripe3: tlayouter;
+   createziped: tdbbooleanedit;
+   zipfileed: tdbfilenameedit;
+   mainzipdired: tdbstringedit;
  end;
 implementation
 uses
