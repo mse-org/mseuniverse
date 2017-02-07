@@ -136,7 +136,8 @@ end;
 
 procedure tbommo.docupagerefreshev(const sender: TObject);
 begin
- if not docusetqu.controller.posting1 then begin
+ if not docusetqu.controller.posting1 or 
+                       docusetqu.controller.deleting then begin
   fdeleteddocupages:= nil;
   docupagedso.refresh();
  end;
