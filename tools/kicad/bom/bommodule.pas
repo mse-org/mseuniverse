@@ -39,17 +39,19 @@ type
    dpg_title: tifistringlinkcomp;
    dpg_kind: tifienumlinkcomp;
    docupagelink: tfieldparamlink;
-   tsqllookupbuffer1: tsqllookupbuffer;
    docupagequ: tifisqlresult;
    docupagedso: tconnectedifidatasource;
-   docupageinsert: tsqlstatement;
    docupageupdate: tsqlstatement;
+   docupageinsert: tsqlresult;
+   docupagegrid: tifigridlinkcomp;
+   docupagedelete: tsqlstatement;
    procedure afteropenev(DataSet: TDataSet);
-   procedure setdocupageparev(const sender: tfieldparamlink; var done: Boolean);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
-   procedure datentev(const sender: tcustomificlientcontroller;
-                   const aclient: iificlient; const aindex: Integer);
+   procedure docupagerefreshev(const sender: TObject);
+   procedure docupagedelev(const sender: TObject; var aindex: Integer;
+                   var acount: Integer);
   protected
+   fdeleteddocupages: int64arty;
    procedure updatedocupages();
   public
    constructor create(aowner: tcomponent); override;
@@ -58,7 +60,7 @@ var
  bommo: tbommo;
 implementation
 uses
- bommodule_mfm,mainmodule;
+ bommodule_mfm,mainmodule,msearrayutils;
 
 constructor tbommo.create(aowner: tcomponent);
 begin
@@ -132,10 +134,10 @@ begin
  end;
 end;
 
-procedure tbommo.setdocupageparev(const sender: tfieldparamlink;
-               var done: Boolean);
+procedure tbommo.docupagerefreshev(const sender: TObject);
 begin
  if not docusetqu.controller.posting1 then begin
+  fdeleteddocupages:= nil;
   docupagedso.refresh();
  end;
 end;
@@ -149,22 +151,29 @@ procedure tbommo.updatedocupages();
 var
  i1: int32;
 begin
+ for i1:= 0 to high(fdeleteddocupages) do begin
+  docupagedelete.execute([fdeleteddocupages[i1]]);
+ end;
+ fdeleteddocupages:= nil;
  with dpg_pk.c.griddata do begin
   for i1:= 0 to count-1 do begin
    if items[i1] = 0 then begin
-    docupageinsert.execute([ds_pk.value,i1,dpg_kind.c.griddata[i1],
+    docupageinsert.refresh([ds_pk.value,i1,dpg_kind.c.griddata[i1],
                                              dpg_title.c.griddata[i1]]);
+    items[i1]:= docupageinsert[0].asid;
    end
    else begin
+    docupageupdate.execute([items[i1],i1,dpg_kind.c.griddata[i1],
+                                             dpg_title.c.griddata[i1]]);
    end;
   end;
  end;
 end;
 
-procedure tbommo.datentev(const sender: tcustomificlientcontroller;
-               const aclient: iificlient; const aindex: Integer);
+procedure tbommo.docupagedelev(const sender: TObject; var aindex: Integer;
+               var acount: Integer);
 begin
- writeln(dpg_pk.c.datalist.count);
+ additem(fdeleteddocupages,dpg_pk.c.griddata[aindex]);
 end;
 
 end.

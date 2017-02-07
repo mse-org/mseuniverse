@@ -302,19 +302,16 @@ inherited docuseteditfo: tdocuseteditfo
         width = 22
         options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'pked'
-        dataclass = tgridint64datalist
       end    
       item[titleed]
         width = 111
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'titleed'
-        dataclass = tgridmsestringdatalist
       end    
       item[pagekinded]
         width = 100
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'pagekinded'
-        dataclass = tgridenumdatalist
       end    
       item[docupageeditbu]
         color = -2147483646
@@ -323,6 +320,7 @@ inherited docuseteditfo: tdocuseteditfo
         widgetname = 'docupageeditbu'
         dataclass = tgridintegerdatalist
       end>
+    ifilink = bommo.docupagegrid
     datarowheight = 16
     onrowsmodified = editedev
     onedited = editedev

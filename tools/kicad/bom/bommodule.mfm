@@ -558,7 +558,6 @@ object bommo: tbommo
     streamingversion = 1
   end
   object dpg_pk: tifiint64linkcomp
-    controller.onclientdataentered = datentev
     controller.optionsvalue = [vco_datalist]
     controller.datasource = docupagedso
     controller.fieldname = 'PK'
@@ -567,7 +566,6 @@ object bommo: tbommo
     top = 208
   end
   object dpg_title: tifistringlinkcomp
-    controller.onclientdataentered = datentev
     controller.optionsvalue = [vco_datalist]
     controller.datasource = docupagedso
     controller.fieldname = 'TITLE'
@@ -588,15 +586,10 @@ object bommo: tbommo
   object docupagelink: tfieldparamlink
     fieldname = 'PK'
     datasource = docusetdso
-    delayus = 500000
-    onsetparam = setdocupageparev
+    onrefresh = docupagerefreshev
     onmasterpost = docupagepostev
     left = 16
     top = 152
-  end
-  object tsqllookupbuffer1: tsqllookupbuffer
-    left = 656
-    top = 80
   end
   object docupagequ: tifisqlresult
     fielddefs = <    
@@ -652,7 +645,39 @@ object bommo: tbommo
     left = 16
     top = 192
   end
-  object docupageinsert: tsqlstatement
+  object docupageupdate: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'kind'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'title'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'update DOCUPAGES set ORDNUM = :ordnum, KIND = :kind, TITLE = :title where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 176
+    top = 176
+  end
+  object docupageinsert: tsqlresult
+    fielddefs = <>
     params = <    
       item
         DataType = ftUnknown
@@ -675,7 +700,8 @@ object bommo: tbommo
         ParamType = ptInput
       end>
     sql.data = (
-      'insert into DOCUPAGES (LINK,ORDNUM,KIND,TITLE) values (:link,:ordnum,:kind,:title)'
+      'insert into DOCUPAGES (LINK,ORDNUM,KIND,TITLE) '
+      '     values (:link,:ordnum,:kind,:title) returning PK'
     )
     database = mainmo.conn
     transaction = mainmo.transwrite
@@ -683,12 +709,25 @@ object bommo: tbommo
     left = 176
     top = 152
   end
-  object docupageupdate: tsqlstatement
-    params = <>
+  object docupagegrid: tifigridlinkcomp
+    controller.onrowsdeleting = docupagedelev
+    left = 16
+    top = 264
+  end
+  object docupagedelete: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'delete from DOCUPAGES where PK = :pk'
+    )
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
     left = 176
-    top = 176
+    top = 200
   end
 end
