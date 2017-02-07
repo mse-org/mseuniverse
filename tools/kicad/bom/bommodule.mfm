@@ -336,6 +336,7 @@ object bommo: tbommo
           DefaultExpression = '210'
           FieldName = 'WIDTH'
           Index = 8
+          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -344,6 +345,7 @@ object bommo: tbommo
           DefaultExpression = '297'
           FieldName = 'HEIGHT'
           Index = 9
+          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -352,6 +354,7 @@ object bommo: tbommo
           DefaultExpression = '10'
           FieldName = 'MARGLEFT'
           Index = 10
+          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -360,6 +363,7 @@ object bommo: tbommo
           DefaultExpression = '10'
           FieldName = 'MARGRIGHT'
           Index = 11
+          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -368,6 +372,7 @@ object bommo: tbommo
           DefaultExpression = '10'
           FieldName = 'MARGTOP'
           Index = 12
+          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
           MaxValue = 0
           MinValue = 0
           Precision = -1
@@ -376,6 +381,7 @@ object bommo: tbommo
           DefaultExpression = '10'
           FieldName = 'MARGBOTTOM'
           Index = 13
+          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
           MaxValue = 0
           MinValue = 0
           Precision = -1

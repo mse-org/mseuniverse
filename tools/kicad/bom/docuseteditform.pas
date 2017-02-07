@@ -48,7 +48,7 @@ type
 
 implementation
 uses
- docuseteditform_mfm;
+ docuseteditform_mfm,msesqldb,bommodule;
  
 procedure tdocuseteditfo.readonlychangeev(const sender: TObject;
                const avalue: Boolean);
@@ -74,7 +74,10 @@ end;
 
 procedure tdocuseteditfo.editedev(const sender: TObject);
 begin
- dataso.dataset.edit();
+ if not bommo.docupagedso.refreshing then begin
+  dataso.dataset.edit();
+  dataso.dataset.modify(); //set modified flag
+ end;
 end;
 
 end.
