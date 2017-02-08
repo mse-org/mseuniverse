@@ -135,11 +135,22 @@ begin
 end;
 
 procedure tbommo.docupagerefreshev(const sender: TObject);
+var
+ i1: int32;
 begin
  if not docusetqu.controller.posting1 or 
                        docusetqu.controller.deleting then begin
   fdeleteddocupages:= nil;
-  docupagedso.refresh();
+  if docusetqu.controller.copying() then begin
+   with dpg_pk.c.griddata do begin
+    for i1:= 0 to count-1 do begin
+     items[i1]:= 0; //prepare for insert
+    end;
+   end;
+  end
+  else begin
+   docupagedso.refresh();
+  end;
  end;
 end;
 
