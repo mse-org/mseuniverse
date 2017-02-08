@@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit layerplotdialog;
+unit layerplotdialogform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
@@ -22,11 +22,11 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings,
- docupageeditform,msegrids,msewidgetgrid,msegraphedits,msescrollbar;
+ msegrids,msewidgetgrid,msegraphedits,msescrollbar,
+ plotpageeditform;
 type
- tlayerplotdialogfo = class(tdocupageeditfo)
+ tlayerplotdialogfo = class(tplotpageeditfo)
    tlayouter1: tlayouter;
-   plotsettings: tplotsettingsfo;
    grid: twidgetgrid;
    val_layernames: tdropdownlistedit;
    val_colornames: tdropdownlistedit;
@@ -47,7 +47,7 @@ type
 
 implementation
 uses
- layerplotdialog_mfm;
+ layerplotdialogform_mfm;
 
 { tlayerplotdialogfo }
 {

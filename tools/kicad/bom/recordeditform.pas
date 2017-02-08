@@ -18,13 +18,14 @@ type
    tstatfile1: tstatfile;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
+   procedure macrohintev(const sender: TObject; var info: hintinfoty);
   public
    constructor create(const aid: tmselargeintfield); reintroduce;
  end;
 
 implementation
 uses
- recordeditform_mfm,main,msesqldb;
+ recordeditform_mfm,main,msesqldb,mainmodule;
  
 constructor trecordeditfo.create(const aid: tmselargeintfield);
 begin
@@ -38,6 +39,12 @@ procedure trecordeditfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 begin
  mainfo.checkeditclose(dataso,amodalresult);
+end;
+
+procedure trecordeditfo.macrohintev(const sender: TObject;
+               var info: hintinfoty);
+begin
+ info.caption:= mainmo.expandprojectmacros(tedit(sender).text);
 end;
 
 end.

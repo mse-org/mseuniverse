@@ -5,6 +5,7 @@ inherited bomdialogfo: tbomdialogfo
     554
     328
   )
+  caption = 'Edit BOM Page'
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
     inherited tbutton2: tbutton
@@ -53,7 +54,7 @@ inherited bomdialogfo: tbomdialogfo
     datalink.fieldname = 'SHOWDIST'
   end
   inherited tstatfile1: tstatfile[4]
-    filename = 'bompageeditfo.sta'
+    filename = 'bomdialogfo.sta'
     left = 56
   end
   inherited dataso: tmsedatasource[5]

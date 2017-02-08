@@ -9,6 +9,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     328
   )
   options = [fo_freeonclose, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  caption = 'Edit Schematic Page'
   moduleclassname = 'tplotpageeditfo'
   inherited tsplitter1: tsplitter
     inherited tbutton2: tbutton
@@ -34,7 +35,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    linkbottom = plotsettingsfo1
+    linkbottom = plotsettingsfo
     object val_psfile: tdbfilenameedit
       frame.caption = 'Schematic Postscript file'
       frame.localprops = []
@@ -71,7 +72,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
       reffontheight = 14
     end
   end
-  inherited plotsettingsfo1: tplotsettingsfo[3]
+  inherited plotsettingsfo: tplotsettingsfo[3]
     taborder = 3
     bounds_y = 74
     inherited val_mirrorx: tdbbooleanedit
@@ -99,6 +100,6 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
   inherited dataso: tmsedatasource
   end
   inherited tstatfile1: tstatfile[5]
-    filename = 'schematicplotpageeditfo.sta'
+    filename = 'schematicplotdialogfo.sta'
   end
 end

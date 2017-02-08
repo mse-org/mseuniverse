@@ -1,18 +1,15 @@
-unit plotpageeditform;
+unit partlistdialogform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- docupageeditform,plotsettings;
+ docupageeditform;
 
 type
- tplotpageeditfo = class(tdocupageeditfo)
-   plotsettingsfo: tplotsettingsfo;
+ tpartlistdialogfo = class(tdocupageeditfo)
  end;
-var
- plotpageeditfo: tplotpageeditfo;
 implementation
 uses
- plotpageeditform_mfm;
+ partlistdialogform_mfm;
 end.

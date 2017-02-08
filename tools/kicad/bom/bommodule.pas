@@ -56,6 +56,7 @@ type
    pi_shifthorz: tmsefloatfield;
    pi_shiftvert: tmsefloatfield;
    pi_filename: tmsestringfield;
+   pi_text: tmsestringfield;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
@@ -73,7 +74,7 @@ var
 implementation
 uses
  bommodule_mfm,mainmodule,msearrayutils,titledialogform,msegui,bomdialogform,
- schematicplotdialogform;
+ schematicplotdialogform,partlistdialogform,layerplotdialogform;
 
 constructor tbommo.create(aowner: tcomponent);
 begin
@@ -99,10 +100,13 @@ begin
      res:= tschematicplotdialogfo.create(nil).show(ml_application);
     end;
     dpk_layerplot: begin
- //    tlayerplotdialogfo.create(tlayerplotpage(pag1)).show(ml_application);
+     res:= tlayerplotdialogfo.create(nil).show(ml_application);
     end;
     dpk_drillmap: begin
  //    tdrillmapdialogfo.create(tbompage(pag1)).show(ml_application);
+    end;
+    dpk_partlist: begin
+     res:= tpartlistdialogfo.create(nil).show(ml_application);
     end;
     dpk_bom: begin
      res:= tbomdialogfo.create(nil).show(ml_application);

@@ -11,7 +11,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
   )
   statfile = tstatfile1
   caption = 'Docu PCB Layer-Plot Page'
-  moduleclassname = 'tdocupageeditfo'
+  moduleclassname = 'tplotpageeditfo'
   inherited tsplitter1: tsplitter
     bounds_x = 495
     inherited tbutton2: tbutton
@@ -21,23 +21,23 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tstringedit
+  inherited val_title: tdbstringedit
     frame.font.localprops = []
-    taborder = 2
     bounds_cx = 602
   end
   object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 3
+    taborder = 2
     bounds_x = 8
     bounds_y = 41
     bounds_cx = 602
     bounds_cy = 194
-    anchors = [an_left, an_top, an_right]
+    anchors = [an_left, an_top, an_right, an_bottom]
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
     linktop = val_title
+    linkbottom = plotsettingsfo
     dist_top = 4
     object grid: twidgetgrid
       frame.localprops = []
@@ -282,29 +282,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       end
     end
   end
-  inline plotsettings: tplotsettingsfo[3]
-    taborder = 1
-    bounds_x = 8
-    bounds_y = 235
-    anchors = [an_left, an_bottom]
-    linktop = tlayouter1
-    options = [spao_gluebottom]
-    inherited val_mirrorx: tbooleanedit
-    end
-    inherited val_mirrory: tbooleanedit
-    end
-    inherited val_rotate90: tbooleanedit
-    end
-    inherited val_rotate180: tbooleanedit
-    end
-    inherited val_scale: trealedit
-    end
-    inherited val_shifthorz: trealedit
-    end
-    inherited val_shiftvert: trealedit
-    end
-  end
-  object tlayouter4: tlayouter[4]
+  object tlayouter4: tlayouter[3]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 4
     bounds_x = 8
@@ -319,7 +297,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     place_mindist = 4
     place_maxdist = 4
   end
-  object val_drillmarks: tdropdownlistedit[5]
+  object val_drillmarks: tdropdownlistedit[4]
     optionswidget1 = [ow1_fontglyphheight]
     optionsskin = [osk_framebuttononly, osk_nopaintref]
     frame.caption = 'Drill marks'
@@ -353,7 +331,35 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       end>
     reffontheight = 14
   end
-  inherited tstatfile1: tstatfile[6]
+  inherited plotsettingsfo: tplotsettingsfo[5]
+    taborder = 3
+    bounds_y = 235
+    anchors = [an_left, an_bottom]
+    inherited val_mirrorx: tdbbooleanedit
+      datalink.datasource = dataso
+    end
+    inherited val_mirrory: tdbbooleanedit
+      datalink.datasource = dataso
+    end
+    inherited val_rotate90: tdbbooleanedit
+      datalink.datasource = dataso
+    end
+    inherited val_rotate180: tdbbooleanedit
+      datalink.datasource = dataso
+    end
+    inherited val_scale: tdbrealedit
+      datalink.datasource = dataso
+    end
+    inherited val_shifthorz: tdbrealedit
+      datalink.datasource = dataso
+    end
+    inherited val_shiftvert: tdbrealedit
+      datalink.datasource = dataso
+    end
+  end
+  inherited dataso: tmsedatasource[6]
+  end
+  inherited tstatfile1: tstatfile[7]
     filename = 'layerplotpageeditfo.sta'
   end
 end

@@ -95,6 +95,7 @@ inherited docuseteditfo: tdocuseteditfo
     object titleed: tstringedit
       optionsskin = [osk_framebuttononly]
       taborder = 2
+      onshowhint = macrohintev
       visible = False
       bounds_x = 23
       bounds_y = 0
@@ -375,6 +376,7 @@ inherited docuseteditfo: tdocuseteditfo
         0
       )
       taborder = 1
+      onshowhint = macrohintev
       bounds_x = 192
       bounds_y = 0
       bounds_cx = 494
@@ -382,6 +384,7 @@ inherited docuseteditfo: tdocuseteditfo
       anchors = [an_left, an_top, an_right]
       datalink.datasource = dataso
       datalink.navigator = navig
+      datalink.fieldname = 'DOCUDIR'
       controller.options = [fdo_directory, fdo_savelastdir]
       reffontheight = 14
     end

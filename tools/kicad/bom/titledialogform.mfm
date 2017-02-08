@@ -41,10 +41,12 @@ inherited titledialogfo: ttitledialogfo
     anchors = [an_left, an_top, an_right, an_bottom]
     textflags = [tf_wordbreak, tf_noselect]
     textflagsactive = [tf_wordbreak]
+    datalink.datasource = dataso
+    datalink.fieldname = 'TEXT'
     reffontheight = 14
   end
   inherited tstatfile1: tstatfile[3]
-    filename = 'titlepageeditfo.sta'
+    filename = 'titledialogfo.sta'
   end
   inherited dataso: tmsedatasource[4]
   end

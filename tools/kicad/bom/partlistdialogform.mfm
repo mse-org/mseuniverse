@@ -1,0 +1,25 @@
+inherited partlistdialogfo: tpartlistdialogfo
+  container.bounds = (
+    0
+    0
+    554
+    328
+  )
+  caption = 'Edit Partlist Page'
+  moduleclassname = 'tdocupageeditfo'
+  inherited tsplitter1: tsplitter
+    inherited tbutton2: tbutton
+    end
+    inherited tbutton1: tbutton
+    end
+    inherited tspacer2: tspacer
+    end
+  end
+  inherited val_title: tdbstringedit
+  end
+  inherited tstatfile1: tstatfile
+    filename = 'partlistdialogfo.sta'
+  end
+  inherited dataso: tmsedatasource
+  end
+end

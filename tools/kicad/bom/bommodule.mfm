@@ -951,6 +951,13 @@ object bommo: tbommo
       left = 368
       top = 296
     end
+    object pi_text: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'TEXT'
+      Index = 12
+      left = 368
+      top = 312
+    end
   end
   object pageitempkpar: tparamconnector
     left = 368

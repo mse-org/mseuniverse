@@ -16,7 +16,7 @@ inherited plotpageeditfo: tplotpageeditfo
   end
   inherited val_title: tdbstringedit
   end
-  inline plotsettingsfo1: tplotsettingsfo[2]
+  inline plotsettingsfo: tplotsettingsfo[2]
     taborder = 2
     bounds_x = 8
     bounds_y = 168
