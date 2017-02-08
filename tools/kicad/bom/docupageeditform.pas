@@ -15,13 +15,14 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
 unit docupageeditform;
-{$ifdef FPC}{$mode objfpc}{$h+}{$endif}
+{$ifdef FPC}{$mode objfpc}{$h+}{$goto on}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mainmodule,
  msestatfile,msesplitter,msesimplewidgets,mseact,msedataedits,mseedit,
- mseificomp,mseificompglob,mseifiglob,msestream,msestrings,sysutils;
+ mseificomp,mseificompglob,mseifiglob,msestream,msestrings,sysutils,msedbedit,
+ mdb,msedb;
 type
  tdocupageeditfo = class(tmseform)
    tstatfile1: tstatfile;
@@ -29,16 +30,19 @@ type
    tbutton2: tbutton;
    tbutton1: tbutton;
    tspacer2: tspacer;
-   val_title: tstringedit;
-   procedure closeev(const sender: TObject);
+   val_title: tdbstringedit;
+//   procedure closeev(const sender: TObject);
+   dataso: tmsedatasource;
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
+   procedure closequeryev(const sender: tcustommseform;
+                   var amodalresult: modalresultty);
   private
   protected
-   fpage: tdocupage;
-   procedure loadvalues() virtual;
-   procedure storevalues() virtual;
+//   fpage: tdocupage;
+//   procedure loadvalues() virtual;
+//   procedure storevalues() virtual;
   public
-   constructor create(const apage: tdocupage);
+//   constructor create(const apage: tdocupage);
  end;
 
 implementation
@@ -46,7 +50,7 @@ uses
  docupageeditform_mfm;
 
 { tdocupageeditfo }
-
+{
 constructor tdocupageeditfo.create(const apage: tdocupage);
 begin
  fpage:= apage;
@@ -70,11 +74,40 @@ begin
   storevalues();
  end;
 end;
-
+}
 procedure tdocupageeditfo.macrohintev(const sender: TObject;
                var info: hintinfoty);
 begin
  mainmo.hintmacros(tedit(sender).text,info);
+end;
+
+procedure tdocupageeditfo.closequeryev(const sender: tcustommseform;
+               var amodalresult: modalresultty);
+label
+ lab1;
+begin
+lab1:
+ if dataso.dataset.modified then begin
+  case amodalresult of
+   mr_ok: begin
+    dataso.updaterecord();
+   end;
+   mr_cancel: begin
+   end;
+   else begin
+    case askyesnocancel(
+           'Values have been changed. Do you want to save the changes?') of
+     mr_cancel: begin
+      amodalresult:= mr_none;
+     end;
+     mr_yes: begin
+      amodalresult:= mr_ok;
+      goto lab1;
+     end;
+    end;
+   end;
+  end;
+ end;
 end;
 
 end.

@@ -53,7 +53,7 @@ inherited docuseteditfo: tdocuseteditfo
     datacols.items = <    
       item[pked]
         width = 22
-        options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
+        options = [co_invisible, co_leftbuttonfocusonly, co_middlebuttonfocus, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'pked'
       end    
       item[titleed]
@@ -68,7 +68,7 @@ inherited docuseteditfo: tdocuseteditfo
       end    
       item[docupageeditbu]
         color = -2147483646
-        width = 22
+        width = 24
         options = [co_savestate, co_mousescrollrow]
         widgetname = 'docupageeditbu'
         dataclass = tgridintegerdatalist
@@ -77,6 +77,7 @@ inherited docuseteditfo: tdocuseteditfo
     datarowheight = 16
     onrowsmodified = editedev
     onedited = editedev
+    oncellevent = cellev
     reffontheight = 14
     object pked: tint64edit
       optionswidget1 = [ow1_fontglyphheight]
@@ -136,10 +137,11 @@ inherited docuseteditfo: tdocuseteditfo
       taborder = 4
       bounds_x = 236
       bounds_y = 0
-      bounds_cx = 22
+      bounds_cx = 24
       bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-      state = [as_invisible, as_localinvisible, as_localcaption, as_localimagelist, as_localimagenr]
+      state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr]
+      action = pageeditact
       glyph = stg_ellipsesmall
     end
   end
@@ -401,5 +403,10 @@ inherited docuseteditfo: tdocuseteditfo
     OnDataChange = datachaev
   end
   inherited tstatfile1: tstatfile[6]
+  end
+  object pageeditact: taction[7]
+    onexecuteaction = pageeditev
+    left = 528
+    top = 160
   end
 end

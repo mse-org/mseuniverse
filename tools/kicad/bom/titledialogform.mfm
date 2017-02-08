@@ -8,6 +8,7 @@ inherited titledialogfo: ttitledialogfo
     554
     328
   )
+  caption = 'Edit Title Page'
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
     inherited tbutton2: tbutton
@@ -17,10 +18,10 @@ inherited titledialogfo: ttitledialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tstringedit
+  inherited val_title: tdbstringedit
     frame.font.localprops = []
   end
-  object val_text: tmemoedit[2]
+  object val_text: tdbmemoedit[2]
     frame.caption = 'Text'
     frame.localprops = [frl_colorclient]
     frame.localprops1 = []
@@ -38,9 +39,13 @@ inherited titledialogfo: ttitledialogfo
     bounds_cx = 536
     bounds_cy = 217
     anchors = [an_left, an_top, an_right, an_bottom]
+    textflags = [tf_wordbreak, tf_noselect]
+    textflagsactive = [tf_wordbreak]
     reffontheight = 14
   end
   inherited tstatfile1: tstatfile[3]
     filename = 'titlepageeditfo.sta'
+  end
+  inherited dataso: tmsedatasource[4]
   end
 end

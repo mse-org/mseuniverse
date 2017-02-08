@@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit schematicplotdialog;
+unit schematicplotdialogform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
@@ -23,26 +23,27 @@ uses
  msesimplewidgets,mseact,msedataedits,mseedit,mseificomp,mseificompglob,
  mseifiglob,msestatfile,msestream,msestrings,sysutils,mainmodule,msebitmap,
  msedatanodes,msefiledialog,msegrids,mselistbrowser,msesys,plotsettings,
- docupageeditform;
+ docupageeditform,plotpageeditform,msedbdialog;
 type
- tschematicplotdialogfo = class(tdocupageeditfo)
+ tschematicplotdialogfo = class(tplotpageeditfo)
    tlayouter1: tlayouter;
-   val_psfile: tfilenameedit;
-   plotsettings: tplotsettingsfo;
+   val_psfile: tdbfilenameedit;
   private
   protected
+{
    procedure loadvalues() override;
    procedure storevalues() override;
+}
   public
-   constructor create(const apage: tschematicplotpage);
+//   constructor create(const apage: tschematicplotpage);
  end;
 
 implementation
 uses
- schematicplotdialog_mfm;
+ schematicplotdialogform_mfm;
  
 { tschematicplotdialogfo }
-
+{
 constructor tschematicplotdialogfo.create(const apage: tschematicplotpage);
 begin
  inherited create(apage);
@@ -60,5 +61,5 @@ begin
  inherited;
  fpage.storevalues(plotsettings,'val_');
 end;
-
+}
 end.

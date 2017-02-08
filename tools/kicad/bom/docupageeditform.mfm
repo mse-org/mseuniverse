@@ -12,7 +12,7 @@ object docupageeditfo: tdocupageeditfo
     328
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
-  onclose = closeev
+  onclosequery = closequeryev
   moduleclassname = 'tmseform'
   object tsplitter1: tsplitter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -62,7 +62,7 @@ object docupageeditfo: tdocupageeditfo
       options = [spao_glueright]
     end
   end
-  object val_title: tstringedit
+  object val_title: tdbstringedit
     frame.caption = 'Title'
     frame.localprops = []
     frame.localprops1 = []
@@ -80,6 +80,8 @@ object docupageeditfo: tdocupageeditfo
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+    datalink.datasource = dataso
+    datalink.fieldname = 'TITLE'
     reffontheight = 14
   end
   object tstatfile1: tstatfile
@@ -87,5 +89,10 @@ object docupageeditfo: tdocupageeditfo
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 64
     top = 112
+  end
+  object dataso: tmsedatasource
+    DataSet = bommo.pageitemqu
+    left = 224
+    top = 64
   end
 end

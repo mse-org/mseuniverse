@@ -6,7 +6,7 @@ object plotsettingsfo: tplotsettingsfo
   bounds_cy = 84
   optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
   moduleclassname = 'tsubform'
-  object val_mirrorx: tbooleanedit
+  object val_mirrorx: tdbbooleanedit
     frame.caption = 'Mirror horizontal'
     frame.localprops = []
     frame.localprops1 = []
@@ -21,7 +21,7 @@ object plotsettingsfo: tplotsettingsfo
     bounds_cx = 117
     bounds_cy = 16
   end
-  object val_mirrory: tbooleanedit
+  object val_mirrory: tdbbooleanedit
     frame.caption = 'Mirror vertical'
     frame.localprops = []
     frame.localprops1 = []
@@ -37,7 +37,7 @@ object plotsettingsfo: tplotsettingsfo
     bounds_cx = 101
     bounds_cy = 16
   end
-  object val_rotate90: tbooleanedit
+  object val_rotate90: tdbbooleanedit
     frame.caption = 'Rotate 90'#176
     frame.localprops = []
     frame.localprops1 = []
@@ -53,7 +53,7 @@ object plotsettingsfo: tplotsettingsfo
     bounds_cx = 84
     bounds_cy = 16
   end
-  object val_rotate180: tbooleanedit
+  object val_rotate180: tdbbooleanedit
     frame.caption = 'Rotate 180'#176
     frame.localprops = []
     frame.localprops1 = []
@@ -69,7 +69,7 @@ object plotsettingsfo: tplotsettingsfo
     bounds_cx = 92
     bounds_cy = 16
   end
-  object val_scale: trealedit
+  object val_scale: tdbrealedit
     frame.caption = 'Scale'
     frame.localprops = []
     frame.localprops1 = []
@@ -84,15 +84,13 @@ object plotsettingsfo: tplotsettingsfo
     bounds_y = 47
     bounds_cx = 76
     bounds_cy = 37
-    value = 1
-    valuedefault = -Inf
-    valuerange = 1
-    valuestart = 0
     min = 0.01
     max = 100
+    valuerange = 1
+    valuestart = 0
     reffontheight = 14
   end
-  object val_shifthorz: trealedit
+  object val_shifthorz: tdbrealedit
     frame.caption = 'Shift horz.'
     frame.localprops = []
     frame.localprops1 = []
@@ -107,15 +105,13 @@ object plotsettingsfo: tplotsettingsfo
     bounds_y = 47
     bounds_cx = 76
     bounds_cy = 37
-    value = 0
-    valuedefault = -Inf
-    valuerange = 1
-    valuestart = 0
     min = -10000
     max = 10000
+    valuerange = 1
+    valuestart = 0
     reffontheight = 14
   end
-  object val_shiftvert: trealedit
+  object val_shiftvert: tdbrealedit
     frame.caption = 'Shift vert.(mm)'
     frame.localprops = []
     frame.localprops1 = []
@@ -130,12 +126,10 @@ object plotsettingsfo: tplotsettingsfo
     bounds_y = 47
     bounds_cx = 94
     bounds_cy = 37
-    value = 0
-    valuedefault = -Inf
-    valuerange = 1
-    valuestart = 0
     min = -10000
     max = 10000
+    valuerange = 1
+    valuestart = 0
     reffontheight = 14
   end
 end

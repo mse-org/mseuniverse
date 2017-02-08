@@ -23,7 +23,7 @@ uses
  recordnameeditform,mseact,msedataedits,msedbdialog,mseedit,mseificomp,
  mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,
  msesplitter,mseprinter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,
- msescrollbar,msewidgetgrid,msedatanodes,mselistbrowser;
+ msescrollbar,msewidgetgrid,msedatanodes,mselistbrowser,mseactions;
 
 type
  tdocuseteditfo = class(trecordnameeditfo)
@@ -39,11 +39,14 @@ type
    grid: twidgetgrid;
    titleed: tstringedit;
    pagekinded: tenumedit;
-   docupageeditbu: tstockglyphdatabutton;
    pked: tint64edit;
+   pageeditact: taction;
+   docupageeditbu: tstockglyphdatabutton;
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure datachaev(Sender: TObject; Field: TField);
    procedure editedev(const sender: TObject);
+   procedure cellev(const sender: TObject; var info: celleventinfoty);
+   procedure pageeditev(const sender: tcustomaction);
  end;
 
 implementation
@@ -78,6 +81,19 @@ begin
   dataso.dataset.edit();
   dataso.dataset.modify(); //set modified flag
  end;
+end;
+
+procedure tdocuseteditfo.cellev(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if iscellclick(info,[ccr_dblclick,ccr_nokeyreturn]) then begin
+  pageeditact.execute();
+ end;
+end;
+
+procedure tdocuseteditfo.pageeditev(const sender: tcustomaction);
+begin
+ bommo.editdocupage(grid.row);
 end;
 
 end.

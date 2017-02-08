@@ -140,19 +140,19 @@ begin
   pag1:= tpageitem(pageitems.item).fpage;
   case docupagekindty(pagekinded.value+1) of
    dpk_title: begin
-    ttitledialogfo.create(ttitlepage(pag1)).show(ml_application);
+//    ttitledialogfo.create(ttitlepage(pag1)).show(ml_application);
    end;
    dpk_schematic: begin
-    tschematicplotdialogfo.create(tschematicplotpage(pag1)).show(ml_application);
+//    tschematicplotdialogfo.create(tschematicplotpage(pag1)).show(ml_application);
    end;
    dpk_layerplot: begin
-    tlayerplotdialogfo.create(tlayerplotpage(pag1)).show(ml_application);
+//    tlayerplotdialogfo.create(tlayerplotpage(pag1)).show(ml_application);
    end;
    dpk_drillmap: begin
-    tdrillmapdialogfo.create(tbompage(pag1)).show(ml_application);
+//    tdrillmapdialogfo.create(tbompage(pag1)).show(ml_application);
    end;
    dpk_bom: begin
-    tbomdialogfo.create(tdrillmappage(pag1)).show(ml_application);
+//    tbomdialogfo.create(tdrillmappage(pag1)).show(ml_application);
    end;
   end;
   titleed.value:= pag1.title;

@@ -9,9 +9,8 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     328
   )
   options = [fo_freeonclose, fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
-  moduleclassname = 'tdocupageeditfo'
+  moduleclassname = 'tplotpageeditfo'
   inherited tsplitter1: tsplitter
-    taborder = 1
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -19,13 +18,12 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tstringedit
+  inherited val_title: tdbstringedit
     frame.font.localprops = []
-    taborder = 2
   end
   object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 3
+    taborder = 2
     bounds_x = 8
     bounds_y = 37
     bounds_cx = 538
@@ -36,7 +34,8 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    object val_psfile: tfilenameedit
+    linkbottom = plotsettingsfo1
+    object val_psfile: tdbfilenameedit
       frame.caption = 'Schematic Postscript file'
       frame.localprops = []
       frame.localprops1 = []
@@ -60,6 +59,8 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_saveoptions, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+      datalink.datasource = dataso
+      datalink.fieldname = 'FILENAME'
       controller.filterlist.data = (
         (
           'Postscript files'
@@ -70,26 +71,34 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
       reffontheight = 14
     end
   end
-  inline plotsettings: tplotsettingsfo[3]
-    bounds_x = 8
+  inherited plotsettingsfo1: tplotsettingsfo[3]
+    taborder = 3
     bounds_y = 74
-    linktop = tlayouter1
-    inherited val_mirrorx: tbooleanedit
+    inherited val_mirrorx: tdbbooleanedit
+      datalink.datasource = dataso
     end
-    inherited val_mirrory: tbooleanedit
+    inherited val_mirrory: tdbbooleanedit
+      datalink.datasource = dataso
     end
-    inherited val_rotate90: tbooleanedit
+    inherited val_rotate90: tdbbooleanedit
+      datalink.datasource = dataso
     end
-    inherited val_rotate180: tbooleanedit
+    inherited val_rotate180: tdbbooleanedit
+      datalink.datasource = dataso
     end
-    inherited val_scale: trealedit
+    inherited val_scale: tdbrealedit
+      datalink.datasource = dataso
     end
-    inherited val_shifthorz: trealedit
+    inherited val_shifthorz: tdbrealedit
+      datalink.datasource = dataso
     end
-    inherited val_shiftvert: trealedit
+    inherited val_shiftvert: tdbrealedit
+      datalink.datasource = dataso
     end
   end
-  inherited tstatfile1: tstatfile[4]
+  inherited dataso: tmsedatasource
+  end
+  inherited tstatfile1: tstatfile[5]
     filename = 'schematicplotpageeditfo.sta'
   end
 end

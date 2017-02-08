@@ -737,4 +737,223 @@ object bommo: tbommo
     left = 176
     top = 200
   end
+  object pageitemqu: tmsesqlquery
+    options = [bdo_autoapply, bdo_autocommit]
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+        connector = pageitempkpar
+      end>
+    SQL.data = (
+      'select * from DOCUPAGES where PK = :pk'
+    )
+    IndexDefs = <    
+      item
+        Name = 'FK_DOCUPAGES_0'
+      end    
+      item
+        Name = 'IDX_DOCUPAGES1'
+      end    
+      item
+        Name = 'PK_DOCUPAGES_0'
+      end>
+    tablename = 'DOCUPAGES'
+    database = mainmo.conn
+    Transaction = mainmo.trans
+    transactionwrite = mainmo.transwrite
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'ORDNUM'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end    
+      item
+        Name = 'KIND'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'TITLE'
+        DataType = ftString
+        Size = 70
+      end    
+      item
+        Name = 'MIRRORHORZ'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'MIRRORVERT'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'ROTATE90'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'ROTATE180'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'SCALE'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'SHIFTHORZ'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'SHIFTVERT'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'FILENAME'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'SHOWREF'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'SHOWDIST'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'TEXT'
+        DataType = ftString
+        Size = 2000
+      end>
+    controller.fields.count = 3
+    controller.fields.fields = (
+      (
+        ft_largeint
+        ft_boolean
+        ft_boolean
+      )
+      <      
+        item
+          FieldName = 'PK'
+          Index = 8
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
+        end      
+        item
+          DisplayWidth = 5
+          FieldName = 'SHOWREF'
+          Index = 9
+          displayvalues = 'True;False'
+        end      
+        item
+          DisplayWidth = 5
+          FieldName = 'SHOWDIST'
+          Index = 10
+          displayvalues = 'True;False'
+        end>
+    )
+    controller.options = [dso_utf8]
+    left = 360
+    top = 152
+    streamingversion = 1
+    object pi_title: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'TITLE'
+      Index = 0
+      Size = 0
+      left = 368
+      top = 168
+    end
+    object pi_mirrorhorz: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'MIRRORHORZ'
+      Index = 1
+      displayvalues = 'True;False'
+      left = 368
+      top = 184
+    end
+    object pi_mirrorvert: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'MIRRORVERT'
+      Index = 2
+      displayvalues = 'True;False'
+      left = 368
+      top = 200
+    end
+    object pi_rotate90: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'ROTATE90'
+      Index = 3
+      displayvalues = 'True;False'
+      left = 368
+      top = 216
+    end
+    object pi_rotate180: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'ROTATE180'
+      Index = 4
+      displayvalues = 'True;False'
+      left = 368
+      top = 232
+    end
+    object pi_scale: tmsefloatfield
+      DefaultExpression = '1'
+      FieldName = 'SCALE'
+      Index = 5
+      optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
+      MaxValue = 0
+      MinValue = 0
+      left = 368
+      top = 248
+    end
+    object pi_shifthorz: tmsefloatfield
+      DefaultExpression = '0'
+      FieldName = 'SHIFTHORZ'
+      Index = 6
+      optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
+      MaxValue = 0
+      MinValue = 0
+      left = 368
+      top = 264
+    end
+    object pi_shiftvert: tmsefloatfield
+      DefaultExpression = '0'
+      FieldName = 'SHIFTVERT'
+      Index = 7
+      optionsfield = [of_visible, of_initcopy, of_inupdate, of_inwhere]
+      MaxValue = 0
+      MinValue = 0
+      left = 368
+      top = 280
+    end
+    object pi_filename: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'FILENAME'
+      Index = 11
+      left = 368
+      top = 296
+    end
+  end
+  object pageitempkpar: tparamconnector
+    left = 368
+    top = 136
+  end
 end

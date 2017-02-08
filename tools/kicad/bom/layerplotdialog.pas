@@ -39,10 +39,10 @@ type
    val_drillmarks: tdropdownlistedit;
   private
   protected
-   procedure loadvalues() override;
-   procedure storevalues() override;
+//   procedure loadvalues() override;
+//   procedure storevalues() override;
   public
-   constructor create(const apage: tlayerplotpage);
+//   constructor create(const apage: tlayerplotpage);
  end;
 
 implementation
@@ -50,7 +50,7 @@ uses
  layerplotdialog_mfm;
 
 { tlayerplotdialogfo }
-
+{
 constructor tlayerplotdialogfo.create(const apage: tlayerplotpage);
 begin
  inherited create(apage);
@@ -72,5 +72,5 @@ begin
  inherited;
  fpage.storevalues(plotsettings,'val_');
 end;
-
+}
 end.

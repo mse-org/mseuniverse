@@ -16,10 +16,12 @@ type
    val_nonplated: tbooleanedit;
   private
   protected
+{
    procedure loadvalues() override;
    procedure storevalues() override;
+}
   public
-   constructor create(const apage: tdrillmappage);
+//   constructor create(const apage: tdrillmappage);
  end;
 
 implementation
@@ -27,7 +29,7 @@ uses
  drillmapdialog_mfm;
 
 { tdrillmapdialogfo }
-
+{
 constructor tdrillmapdialogfo.create(const apage: tdrillmappage);
 begin
  inherited create(apage);
@@ -46,6 +48,6 @@ begin
  inherited;
  fpage.storevalues(plotsettings,'val_');
 end;
-
+}
 
 end.

@@ -45,6 +45,17 @@ type
    docupageinsert: tsqlresult;
    docupagegrid: tifigridlinkcomp;
    docupagedelete: tsqlstatement;
+   pageitemqu: tmsesqlquery;
+   pageitempkpar: tparamconnector;
+   pi_title: tmsestringfield;
+   pi_mirrorhorz: tmsebooleanfield;
+   pi_mirrorvert: tmsebooleanfield;
+   pi_rotate90: tmsebooleanfield;
+   pi_rotate180: tmsebooleanfield;
+   pi_scale: tmsefloatfield;
+   pi_shifthorz: tmsefloatfield;
+   pi_shiftvert: tmsefloatfield;
+   pi_filename: tmsestringfield;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
@@ -55,17 +66,55 @@ type
    procedure updatedocupages();
   public
    constructor create(aowner: tcomponent); override;
+   procedure editdocupage(const arow: int32);
  end;
 var
  bommo: tbommo;
 implementation
 uses
- bommodule_mfm,mainmodule,msearrayutils;
+ bommodule_mfm,mainmodule,msearrayutils,titledialogform,msegui,bomdialogform,
+ schematicplotdialogform;
 
 constructor tbommo.create(aowner: tcomponent);
 begin
  inherited;
  dpg_kind.c.dropdown.cols[0].asarray:= mainmo.docupagekinds;
+end;
+
+procedure tbommo.editdocupage(const arow: int32);
+var
+ res: modalresultty;
+begin
+ if arow >= 0 then begin
+  res:= mr_none;
+  docusetqu.checkbrowsemode();
+  pageitempkpar.param.value:= dpg_pk.c.griddata[arow];
+  pageitemqu.controller.refresh();
+  if not pageitemqu.eof then begin
+   case docupagekindty(dpg_kind.c.griddata[arow]+1) of
+    dpk_title: begin
+     res:= ttitledialogfo.create(nil).show(ml_application);
+    end;
+    dpk_schematic: begin
+     res:= tschematicplotdialogfo.create(nil).show(ml_application);
+    end;
+    dpk_layerplot: begin
+ //    tlayerplotdialogfo.create(tlayerplotpage(pag1)).show(ml_application);
+    end;
+    dpk_drillmap: begin
+ //    tdrillmapdialogfo.create(tbompage(pag1)).show(ml_application);
+    end;
+    dpk_bom: begin
+     res:= tbomdialogfo.create(nil).show(ml_application);
+    end;
+   end;
+  end;
+  if res = mr_ok then begin
+   pageitemqu.checkbrowsemode();
+   dpg_title.c.griddata[arow]:= pi_title.asmsestring;
+  end;
+  pageitemqu.active:= false;
+ end;
 end;
  
 procedure tbommo.afteropenev(DataSet: TDataSet);

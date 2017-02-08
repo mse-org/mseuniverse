@@ -14,9 +14,9 @@ inherited bomdialogfo: tbomdialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tstringedit
+  inherited val_title: tdbstringedit
   end
-  object val_showreferences: tbooleanedit[2]
+  object val_showreferences: tdbbooleanedit[2]
     frame.caption = 'Show references'
     frame.localprops = []
     frame.localprops1 = []
@@ -31,8 +31,10 @@ inherited bomdialogfo: tbomdialogfo
     bounds_y = 55
     bounds_cx = 121
     bounds_cy = 16
+    datalink.datasource = dataso
+    datalink.fieldname = 'SHOWREF'
   end
-  object val_showdistributors: tbooleanedit[3]
+  object val_showdistributors: tdbbooleanedit[3]
     frame.caption = 'Show distributors'
     frame.localprops = []
     frame.localprops1 = []
@@ -47,9 +49,13 @@ inherited bomdialogfo: tbomdialogfo
     bounds_y = 79
     bounds_cx = 125
     bounds_cy = 16
+    datalink.datasource = dataso
+    datalink.fieldname = 'SHOWDIST'
   end
   inherited tstatfile1: tstatfile[4]
     filename = 'bompageeditfo.sta'
     left = 56
+  end
+  inherited dataso: tmsedatasource[5]
   end
 end
