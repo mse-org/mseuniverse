@@ -691,6 +691,8 @@ object bommo: tbommo
         DataType = ftUnknown
         Name = 'link'
         ParamType = ptInput
+        datasource = docusetdso
+        fieldname = 'PK'
       end    
       item
         DataType = ftUnknown
@@ -844,11 +846,28 @@ object bommo: tbommo
         Name = 'TEXT'
         DataType = ftString
         Size = 2000
+      end    
+      item
+        Name = 'LAYERA'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'LAYERB'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'NPT'
+        DataType = ftBoolean
       end>
-    controller.fields.count = 2
+    controller.fields.count = 5
     controller.fields.fields = (
       (
         ft_boolean
+        ft_boolean
+        ft_string
+        ft_string
         ft_boolean
       )
       <      
@@ -863,6 +882,24 @@ object bommo: tbommo
           FieldName = 'SHOWDIST'
           Index = 1
           displayvalues = 'True;False'
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'LAYERA'
+          Index = 2
+          Size = 50
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'LAYERB'
+          Index = 3
+          Size = 50
+        end      
+        item
+          DisplayWidth = 5
+          FieldName = 'NPT'
+          Index = 4
+          displayvalues = 'True;False'
         end>
     )
     controller.options = [dso_utf8]
@@ -872,7 +909,7 @@ object bommo: tbommo
     object pi_title: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TITLE'
-      Index = 2
+      Index = 5
       Size = 0
       left = 368
       top = 200
@@ -880,7 +917,7 @@ object bommo: tbommo
     object pi_mirrorhorz: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'MIRRORHORZ'
-      Index = 3
+      Index = 6
       displayvalues = 'True;False'
       left = 368
       top = 216
@@ -888,7 +925,7 @@ object bommo: tbommo
     object pi_mirrorvert: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'MIRRORVERT'
-      Index = 4
+      Index = 7
       displayvalues = 'True;False'
       left = 368
       top = 232
@@ -896,7 +933,7 @@ object bommo: tbommo
     object pi_rotate90: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'ROTATE90'
-      Index = 5
+      Index = 8
       displayvalues = 'True;False'
       left = 368
       top = 248
@@ -904,7 +941,7 @@ object bommo: tbommo
     object pi_rotate180: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'ROTATE180'
-      Index = 6
+      Index = 9
       displayvalues = 'True;False'
       left = 368
       top = 264
@@ -912,7 +949,7 @@ object bommo: tbommo
     object pi_scale: tmsefloatfield
       DefaultExpression = '1'
       FieldName = 'SCALE'
-      Index = 7
+      Index = 10
       optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
@@ -922,7 +959,7 @@ object bommo: tbommo
     object pi_shifthorz: tmsefloatfield
       DefaultExpression = '0'
       FieldName = 'SHIFTHORZ'
-      Index = 8
+      Index = 11
       optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
@@ -932,7 +969,7 @@ object bommo: tbommo
     object pi_shiftvert: tmsefloatfield
       DefaultExpression = '0'
       FieldName = 'SHIFTVERT'
-      Index = 9
+      Index = 12
       optionsfield = [of_visible, of_initcopy, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
@@ -942,20 +979,23 @@ object bommo: tbommo
     object pi_filename: tmsestringfield
       DisplayWidth = 20
       FieldName = 'FILENAME'
-      Index = 10
+      Index = 13
+      Size = 0
       left = 368
       top = 328
     end
     object pi_text: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TEXT'
-      Index = 11
+      Index = 14
+      Size = 0
       left = 368
       top = 344
     end
     object pi_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 12
+      Index = 15
+      optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
       left = 368
       top = 184
     end

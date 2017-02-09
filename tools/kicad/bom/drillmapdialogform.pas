@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings,
- msegraphedits,msescrollbar,docupageeditform,msedbedit;
+ msegraphedits,msescrollbar,docupageeditform,msedbedit,mclasses;
 type
  tdrillmapdialogfo = class(tdocupageeditfo)
    tlayouter1: tlayouter;
@@ -21,7 +21,7 @@ type
    procedure storevalues() override;
 }
   public
-//   constructor create(const apage: tdrillmappage);
+   constructor create(aowner: tcomponent); override;
  end;
 
 implementation
@@ -29,14 +29,14 @@ uses
  drillmapdialogform_mfm;
 
 { tdrillmapdialogfo }
-{
-constructor tdrillmapdialogfo.create(const apage: tdrillmappage);
+
+constructor tdrillmapdialogfo.create(aowner: tcomponent);
 begin
- inherited create(apage);
+ inherited;
  val_layeraname.dropdown.cols[0].asarray:= mainmo.culayernames;
  val_layerbname.dropdown.cols[0].asarray:= mainmo.culayernames;
 end;
-
+{
 procedure tdrillmapdialogfo.loadvalues();
 begin
  inherited;

@@ -1,19 +1,16 @@
 inherited drillmapdialogfo: tdrillmapdialogfo
-  bounds_x = 337
-  bounds_y = 266
-  bounds_cx = 490
+  bounds_x = 62
+  bounds_y = 573
   bounds_cy = 323
   container.bounds = (
     0
     0
-    490
+    554
     323
   )
   caption = 'Docu PCB Drillmap-Plot Page'
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
-    taborder = 1
-    bounds_x = 407
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -22,15 +19,14 @@ inherited drillmapdialogfo: tdrillmapdialogfo
     end
   end
   inherited val_title: tdbstringedit
-    taborder = 2
-    bounds_cx = 514
+    frame.font.localprops = []
   end
   object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
     bounds_y = 37
-    bounds_cx = 450
+    bounds_cx = 538
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -61,6 +57,8 @@ inherited drillmapdialogfo: tdrillmapdialogfo
       bounds_cx = 179
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+      datalink.datasource = dataso
+      datalink.fieldname = 'LAYERA'
       dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
@@ -92,6 +90,8 @@ inherited drillmapdialogfo: tdrillmapdialogfo
       bounds_cx = 179
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+      datalink.datasource = dataso
+      datalink.fieldname = 'LAYERB'
       dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
@@ -114,9 +114,12 @@ inherited drillmapdialogfo: tdrillmapdialogfo
       bounds_y = 20
       bounds_cx = 84
       bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.fieldname = 'NPT'
     end
   end
   inline plotsettings: tplotsettingsfo[3]
+    taborder = 2
     bounds_x = 8
     bounds_y = 74
     linktop = tlayouter1
