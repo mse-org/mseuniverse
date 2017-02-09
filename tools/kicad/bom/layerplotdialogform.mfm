@@ -59,7 +59,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       fixrows.items = <      
         item
           height = 16
-          captions.count = 8
+          captions.count = 9
           captions.items = <          
             item
             end          
@@ -87,9 +87,12 @@ inherited layerplotdialogfo: tlayerplotdialogfo
             item
               caption = 'I'
               hint = 'Show invisible text'
+            end          
+            item
+              caption = 'Drillmarks'
             end>
         end>
-      datacols.count = 8
+      datacols.count = 9
       datacols.options = [co_savestate, co_mousescrollrow]
       datacols.items = <      
         item[pked]
@@ -106,37 +109,35 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           width = 121
           options = [co_savestate, co_mousescrollrow]
           widgetname = 'val_colornames'
-          dataclass = tgridmsestringdatalist
         end      
         item[val_refon]
           width = 16
           options = [co_drawfocus, co_savestate, co_mousescrollrow]
           widgetname = 'val_refon'
-          dataclass = tgridintegerdatalist
         end      
         item[val_refcolor]
           width = 121
           options = [co_savestate, co_mousescrollrow]
           widgetname = 'val_refcolor'
-          dataclass = tgridmsestringdatalist
         end      
         item[val_valon]
           width = 16
           options = [co_drawfocus, co_savestate, co_mousescrollrow]
           widgetname = 'val_valon'
-          dataclass = tgridintegerdatalist
         end      
         item[val_valcolor]
           width = 121
           options = [co_savestate, co_mousescrollrow]
           widgetname = 'val_valcolor'
-          dataclass = tgridmsestringdatalist
         end      
         item[val_invison]
           width = 16
           options = [co_drawfocus, co_savestate, co_mousescrollrow]
           widgetname = 'val_invison'
-          dataclass = tgridintegerdatalist
+        end      
+        item[val_drillmarks]
+          options = [co_savestate, co_mousescrollrow]
+          widgetname = 'val_drillmarks'
         end>
       ifilink = bommo.plotitemgrid
       datarowheight = 16
@@ -159,7 +160,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 1
         visible = False
-        bounds_x = 28
+        bounds_x = -46
         bounds_y = 0
         bounds_cx = 145
         bounds_cy = 16
@@ -188,12 +189,13 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 2
         visible = False
-        bounds_x = 174
+        bounds_x = 100
         bounds_y = 0
         bounds_cx = 121
         bounds_cy = 16
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+        ifilink = bommo.pli_color
         dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
@@ -205,12 +207,13 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 3
-        bounds_x = 296
+        bounds_x = 222
         bounds_y = 0
         bounds_cx = 16
         bounds_cy = 16
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
+        ifilink = bommo.pli_refon
       end
       object val_refcolor: tdropdownlistedit
         optionswidget1 = [ow1_fontglyphheight]
@@ -227,12 +230,13 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 4
         visible = False
-        bounds_x = 313
+        bounds_x = 239
         bounds_y = 0
         bounds_cx = 121
         bounds_cy = 16
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+        ifilink = bommo.pli_refcolor
         dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
@@ -244,12 +248,13 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 5
-        bounds_x = 435
+        bounds_x = 361
         bounds_y = 0
         bounds_cx = 16
         bounds_cy = 16
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
+        ifilink = bommo.pli_valon
       end
       object val_valcolor: tdropdownlistedit
         optionswidget1 = [ow1_fontglyphheight]
@@ -266,12 +271,13 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 6
         visible = False
-        bounds_x = 452
+        bounds_x = 378
         bounds_y = 0
         bounds_cx = 121
         bounds_cy = 16
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+        ifilink = bommo.pli_valcolor
         dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
@@ -283,24 +289,55 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 7
-        bounds_x = 574
+        bounds_x = 500
         bounds_y = 0
         bounds_cx = 16
         bounds_cy = 16
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
+        ifilink = bommo.pli_invison
       end
       object pked: tint64edit
         optionswidget1 = [ow1_fontglyphheight]
         optionsskin = [osk_framebuttononly]
         taborder = 8
         visible = False
-        bounds_x = 0
+        bounds_x = -74
         bounds_y = 0
         bounds_cx = 27
         bounds_cy = 16
         max = 2147483647
         ifilink = bommo.pli_pk
+        reffontheight = 14
+      end
+      object val_drillmarks: tdropdownlistedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly, osk_nopaintref]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.button.color = -1879048187
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+          end>
+        taborder = 9
+        visible = False
+        bounds_x = 517
+        bounds_y = 0
+        bounds_cx = 50
+        bounds_cy = 16
+        anchors = [an_left, an_bottom]
+        optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+        ifilink = bommo.pli_drillmarks
+        dropdown.options = [deo_selectonly, deo_forceselect, deo_autodropdown, deo_keydropdown, deo_cliphint]
+        dropdown.cols.count = 1
+        dropdown.cols.items = <        
+          item
+          end>
         reffontheight = 14
       end
     end
@@ -320,41 +357,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     place_mindist = 4
     place_maxdist = 4
   end
-  object val_drillmarks: tdropdownlistedit[4]
-    optionswidget1 = [ow1_fontglyphheight]
-    optionsskin = [osk_framebuttononly, osk_nopaintref]
-    frame.caption = 'Drill marks'
-    frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-    frame.localprops1 = []
-    frame.button.color = -1879048187
-    frame.buttons.count = 1
-    frame.buttons.items = <    
-      item
-        color = -1879048187
-      end>
-    frame.outerframe = (
-      0
-      17
-      0
-      0
-    )
-    taborder = 5
-    bounds_x = 280
-    bounds_y = 240
-    bounds_cx = 73
-    bounds_cy = 37
-    anchors = [an_left, an_bottom]
-    optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
-    value = 'None'
-    dropdown.options = [deo_selectonly, deo_forceselect, deo_autodropdown, deo_keydropdown, deo_cliphint]
-    dropdown.cols.count = 1
-    dropdown.cols.items = <    
-      item
-      end>
-    reffontheight = 14
-  end
-  inherited plotsettingsfo: tplotsettingsfo[5]
+  inherited plotsettingsfo: tplotsettingsfo[4]
     taborder = 3
     bounds_y = 235
     anchors = [an_left, an_bottom]
@@ -380,9 +383,9 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       datalink.datasource = dataso
     end
   end
-  inherited dataso: tmsedatasource[6]
+  inherited dataso: tmsedatasource[5]
   end
-  inherited tstatfile1: tstatfile[7]
+  inherited tstatfile1: tstatfile[6]
     filename = 'layerplotpageeditfo.sta'
   end
 end

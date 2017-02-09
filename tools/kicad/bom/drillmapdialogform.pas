@@ -1,4 +1,4 @@
-unit drillmapdialog;
+unit drillmapdialogform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
@@ -6,14 +6,14 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings,
- msegraphedits,msescrollbar,docupageeditform;
+ msegraphedits,msescrollbar,docupageeditform,msedbedit;
 type
  tdrillmapdialogfo = class(tdocupageeditfo)
    tlayouter1: tlayouter;
-   val_layeraname: tdropdownlistedit;
+   val_layeraname: tdbdropdownlistedit;
    plotsettings: tplotsettingsfo;
-   val_layerbname: tdropdownlistedit;
-   val_nonplated: tbooleanedit;
+   val_layerbname: tdbdropdownlistedit;
+   val_nonplated: tdbbooleanedit;
   private
   protected
 {
@@ -26,7 +26,7 @@ type
 
 implementation
 uses
- drillmapdialog_mfm;
+ drillmapdialogform_mfm;
 
 { tdrillmapdialogfo }
 {

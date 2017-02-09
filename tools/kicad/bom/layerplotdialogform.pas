@@ -35,8 +35,8 @@ type
    val_valon: tbooleanedit;
    val_valcolor: tdropdownlistedit;
    val_invison: tbooleanedit;
-   val_drillmarks: tdropdownlistedit;
    pked: tint64edit;
+   val_drillmarks: tdropdownlistedit;
    procedure editedev(const sender: TObject);
   private
   protected

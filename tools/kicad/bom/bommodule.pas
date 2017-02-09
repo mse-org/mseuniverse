@@ -71,6 +71,13 @@ type
    plotitemdelete: tsqlstatement;
    plotitemupdate: tsqlstatement;
    plotiteminsert: tsqlresult;
+   pli_refon: tifibooleanlinkcomp;
+   pli_valon: tifibooleanlinkcomp;
+   pli_invison: tifibooleanlinkcomp;
+   pli_drillmarks: tifidropdownlistlinkcomp;
+   pli_color: tifidropdownlistlinkcomp;
+   pli_refcolor: tifidropdownlistlinkcomp;
+   pli_valcolor: tifidropdownlistlinkcomp;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
@@ -102,13 +109,18 @@ var
 implementation
 uses
  bommodule_mfm,mainmodule,msearrayutils,titledialogform,msegui,bomdialogform,
- schematicplotdialogform,partlistdialogform,layerplotdialogform;
+ schematicplotdialogform,partlistdialogform,layerplotdialogform,
+ drillmapdialogform;
 
 constructor tbommo.create(aowner: tcomponent);
 begin
  inherited;
  dpg_kind.c.dropdown.cols[0].asarray:= mainmo.docupagekinds;
  pli_layer.c.dropdown.cols[0].asarray:= mainmo.layernames;
+ pli_color.c.dropdown.cols[0].asarray:= mainmo.edacolornames;
+ pli_refcolor.c.dropdown.cols[0].asarray:= mainmo.edacolornames;
+ pli_valcolor.c.dropdown.cols[0].asarray:= mainmo.edacolornames;
+ pli_drillmarks.c.dropdown.cols[0].asarray:= mainmo.drillmarknames;
 end;
 
 procedure tbommo.editdocupage(const arow: int32);
@@ -132,7 +144,7 @@ begin
      res:= tlayerplotdialogfo.create(nil).show(ml_application);
     end;
     dpk_drillmap: begin
- //    tdrillmapdialogfo.create(tbompage(pag1)).show(ml_application);
+     res:= tdrillmapdialogfo.create(nil).show(ml_application);
     end;
     dpk_partlist: begin
      res:= tpartlistdialogfo.create(nil).show(ml_application);
@@ -336,10 +348,18 @@ end;
 
 function tbommo.getplotitemvalues(const index: int32): variantarty;
 begin
- setlength(result,3);
+ setlength(result,11);
  result[0]:= pli_pk.c.griddata[index];
- result[1]:= index;
- result[2]:= pli_layer.c.griddata[index];
+ result[1]:= pi_pk.value;
+ result[2]:= index;
+ result[3]:= pli_layer.c.griddata[index];
+ result[4]:= pli_color.c.griddata[index];
+ result[5]:= pli_refon.c.griddata[index];
+ result[6]:= pli_refcolor.c.griddata[index];
+ result[7]:= pli_valon.c.griddata[index];
+ result[8]:= pli_valcolor.c.griddata[index];
+ result[9]:= pli_invison.c.griddata[index];
+ result[10]:= pli_drillmarks.c.griddata[index];
 end;
 
 procedure tbommo.plotitempostev(const sender: TDataSet; const master: TDataSet);

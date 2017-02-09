@@ -1056,7 +1056,7 @@ object bommo: tbommo
     top = 176
   end
   object plotitemdso: tconnectedifidatasource
-    fields.count = 2
+    fields.count = 9
     fields.items = <    
       item
         fieldname = 'PK'
@@ -1067,6 +1067,41 @@ object bommo: tbommo
         fieldname = 'LAYER'
         datatype = dl_msestring
         sourcefieldname = 'LAYER'
+      end    
+      item
+        fieldname = 'COLOR'
+        datatype = dl_msestring
+        sourcefieldname = 'COLOR'
+      end    
+      item
+        fieldname = 'REFON'
+        datatype = dl_integer
+        sourcefieldname = 'REFON'
+      end    
+      item
+        fieldname = 'REFCOLOR'
+        datatype = dl_msestring
+        sourcefieldname = 'REFCOLOR'
+      end    
+      item
+        fieldname = 'VALON'
+        datatype = dl_integer
+        sourcefieldname = 'VALON'
+      end    
+      item
+        fieldname = 'VALCOLOR'
+        datatype = dl_msestring
+        sourcefieldname = 'VALCOLOR'
+      end    
+      item
+        fieldname = 'INVISON'
+        datatype = dl_integer
+        sourcefieldname = 'INVISON'
+      end    
+      item
+        fieldname = 'DRILLMARKS'
+        datatype = dl_msestring
+        sourcefieldname = 'DRILLMARKS'
       end>
     connection = plotitemqu
     left = 512
@@ -1135,6 +1170,10 @@ object bommo: tbommo
       end    
       item
         DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
         Name = 'ordnum'
         ParamType = ptInput
       end    
@@ -1142,9 +1181,47 @@ object bommo: tbommo
         DataType = ftUnknown
         Name = 'layer'
         ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'color'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'refon'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'refcolor'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'valon'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'valcolor'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'invison'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'drillmarks'
+        ParamType = ptInput
       end>
     sql.data = (
-      'update PLOTITEMS set ORDNUM = :ordnum, LAYER = :layer where PK = :pk'
+      'update PLOTITEMS set ORDNUM=:ordnum, LAYER=:layer, COLOR=:color,'
+      '        REFON=:refon, REFCOLOR=:refcolor,'
+      '        VALON=:valon, VALCOLOR=:valcolor, INVISON=:invison, DRILLMARKS=:drillmarks'
+      '                     where PK = :pk'
     )
     database = mainmo.conn
     transaction = mainmo.transwrite
@@ -1161,6 +1238,10 @@ object bommo: tbommo
     params = <    
       item
         DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
         Name = 'link'
         ParamType = ptInput
       end    
@@ -1171,27 +1252,113 @@ object bommo: tbommo
       end    
       item
         DataType = ftUnknown
-        Name = 'kind'
-        ParamType = ptInput
-      end    
-      item
-        DataType = ftUnknown
-        Name = 'title'
-        ParamType = ptInput
-      end    
-      item
-        DataType = ftUnknown
         Name = 'layer'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'color'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'refon'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'refcolor'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'valon'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'valcolor'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'invison'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'drillmarks'
         ParamType = ptInput
       end>
     sql.data = (
-      'insert into PLOTITEMS (LINK,ORDNUM,LAYER) '
-      '     values (:link,:ordnum,:layer) returning PK'
+      'insert into PLOTITEMS (LINK,ORDNUM,LAYER,COLOR,REFON,REFCOLOR,VALON,VALCOLOR,INVISON,DRILLMARKS) '
+      '     values (:link,:ordnum,:layer,:color,:refon,:refcolor,:valon,:valcolor,:invison,:drillmarks)'
+      '           returning PK'
     )
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
     left = 760
     top = 144
+  end
+  object pli_refon: tifibooleanlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    left = 520
+    top = 256
+  end
+  object pli_valon: tifibooleanlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    left = 520
+    top = 288
+  end
+  object pli_invison: tifibooleanlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    left = 520
+    top = 320
+  end
+  object pli_drillmarks: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 520
+    top = 336
+  end
+  object pli_color: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    controller.fieldname = 'COLOR'
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 520
+    top = 240
+  end
+  object pli_refcolor: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    controller.fieldname = 'REFCOLOR'
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 520
+    top = 272
+  end
+  object pli_valcolor: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 520
+    top = 304
   end
 end
