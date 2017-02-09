@@ -1193,7 +1193,7 @@ object bommo: tbommo
         ParamType = ptInput
       end>
     sql.data = (
-      'delete from DOCUPAGES where PK = :pk'
+      'delete from PLOTITEMS where PK = :pk'
     )
     database = mainmo.conn
     transaction = mainmo.transwrite
@@ -1362,6 +1362,7 @@ object bommo: tbommo
   object pli_drillmarks: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
+    controller.fieldname = 'DRILLMARKS'
     controller.dropdown.cols.count = 1
     controller.dropdown.cols.items = <    
       item
