@@ -59,8 +59,10 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       fixrows.items = <      
         item
           height = 16
-          captions.count = 7
+          captions.count = 8
           captions.items = <          
+            item
+            end          
             item
               caption = 'Layer'
             end          
@@ -87,14 +89,18 @@ inherited layerplotdialogfo: tlayerplotdialogfo
               hint = 'Show invisible text'
             end>
         end>
-      datacols.count = 7
+      datacols.count = 8
       datacols.options = [co_savestate, co_mousescrollrow]
       datacols.items = <      
+        item[pked]
+          width = 27
+          options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
+          widgetname = 'pked'
+        end      
         item[val_layernames]
           width = 145
           options = [co_savestate, co_mousescrollrow]
           widgetname = 'val_layernames'
-          dataclass = tgridmsestringdatalist
         end      
         item[val_colornames]
           width = 121
@@ -132,8 +138,11 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           widgetname = 'val_invison'
           dataclass = tgridintegerdatalist
         end>
+      ifilink = bommo.plotitemgrid
       datarowheight = 16
       statfile = tstatfile1
+      onrowsmodified = editedev
+      onedited = editedev
       reffontheight = 14
       object val_layernames: tdropdownlistedit
         optionswidget1 = [ow1_fontglyphheight]
@@ -150,12 +159,13 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 1
         visible = False
-        bounds_x = 0
+        bounds_x = 28
         bounds_y = 0
         bounds_cx = 145
         bounds_cy = 16
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+        ifilink = bommo.pli_layer
         dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
@@ -178,7 +188,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 2
         visible = False
-        bounds_x = 146
+        bounds_x = 174
         bounds_y = 0
         bounds_cx = 121
         bounds_cy = 16
@@ -195,7 +205,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 3
-        bounds_x = 268
+        bounds_x = 296
         bounds_y = 0
         bounds_cx = 16
         bounds_cy = 16
@@ -217,7 +227,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 4
         visible = False
-        bounds_x = 285
+        bounds_x = 313
         bounds_y = 0
         bounds_cx = 121
         bounds_cy = 16
@@ -234,7 +244,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 5
-        bounds_x = 407
+        bounds_x = 435
         bounds_y = 0
         bounds_cx = 16
         bounds_cy = 16
@@ -256,7 +266,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 6
         visible = False
-        bounds_x = 424
+        bounds_x = 452
         bounds_y = 0
         bounds_cx = 121
         bounds_cy = 16
@@ -273,12 +283,25 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 7
-        bounds_x = 546
+        bounds_x = 574
         bounds_y = 0
         bounds_cx = 16
         bounds_cy = 16
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
+      end
+      object pked: tint64edit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 8
+        visible = False
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 27
+        bounds_cy = 16
+        max = 2147483647
+        ifilink = bommo.pli_pk
+        reffontheight = 14
       end
     end
   end

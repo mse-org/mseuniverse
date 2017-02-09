@@ -24,6 +24,9 @@ uses
  mseifidbcomp;
 
 type
+ variantarty = array of variant;
+ getvalueseventty = function (const index: int32): variantarty of object;
+ 
  tbommo = class(tmsedatamodule)
    bomds: tlocaldataset;
    bomdso: tmsedatasource;
@@ -57,14 +60,39 @@ type
    pi_shiftvert: tmsefloatfield;
    pi_filename: tmsestringfield;
    pi_text: tmsestringfield;
+   plotitemdso: tconnectedifidatasource;
+   plotitemqu: tifisqlresult;
+   plotitemlink: tfieldparamlink;
+   pi_pk: tmselargeintfield;
+   pageitemdso: tmsedatasource;
+   pli_pk: tifiint64linkcomp;
+   pli_layer: tifidropdownlistlinkcomp;
+   plotitemgrid: tifigridlinkcomp;
+   plotitemdelete: tsqlstatement;
+   plotitemupdate: tsqlstatement;
+   plotiteminsert: tsqlresult;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
    procedure docupagedelev(const sender: TObject; var aindex: Integer;
                    var acount: Integer);
+   procedure plotitempostev(const sender: TDataSet; const master: TDataSet);
+   procedure plotitemrefreshev(const sender: TObject);
+   procedure plotitemdelev(const sender: TObject; var aindex: Integer;
+                   var acount: Integer);
   protected
    fdeleteddocupages: int64arty;
-   procedure updatedocupages();
+   fdeletedplotitems: int64arty;
+   procedure refreshitems(var deleted: int64arty;
+             const pk: tifiint64linkcomp; const query: tmsesqlquery;
+                                    const dataso: tconnectedifidatasource);
+   function getdocupagevalues(const index: int32): variantarty;
+   function getplotitemvalues(const index: int32): variantarty;
+   procedure updateitems(var deleted: int64arty;
+         const pk: tifiint64linkcomp;
+         const deletestatement,updatestatement: tsqlstatement;
+         const insertstatement: tsqlresult;
+         const getvalues: getvalueseventty);
   public
    constructor create(aowner: tcomponent); override;
    procedure editdocupage(const arow: int32);
@@ -80,6 +108,7 @@ constructor tbommo.create(aowner: tcomponent);
 begin
  inherited;
  dpg_kind.c.dropdown.cols[0].asarray:= mainmo.docupagekinds;
+ pli_layer.c.dropdown.cols[0].asarray:= mainmo.layernames;
 end;
 
 procedure tbommo.editdocupage(const arow: int32);
@@ -187,6 +216,34 @@ begin
  end;
 end;
 
+procedure tbommo.refreshitems(var deleted: int64arty;
+             const pk: tifiint64linkcomp; const query: tmsesqlquery;
+                                    const dataso: tconnectedifidatasource);
+var
+ i1: int32;
+begin
+ if not query.controller.posting1 or 
+                       query.controller.deleting then begin
+  deleted:= nil;
+  if query.controller.copying() then begin
+   with pk.c.griddata do begin
+    for i1:= 0 to count-1 do begin
+     items[i1]:= 0; //prepare for insert
+    end;
+   end;
+  end
+  else begin
+   dataso.refresh();
+  end;
+ end;
+end;
+
+procedure tbommo.docupagerefreshev(const sender: TObject);
+begin
+ refreshitems(fdeleteddocupages,dpg_pk,docusetqu,docupagedso);
+end;
+
+{
 procedure tbommo.docupagerefreshev(const sender: TObject);
 var
  i1: int32;
@@ -206,12 +263,48 @@ begin
   end;
  end;
 end;
-
+}
 procedure tbommo.docupagepostev(const sender: TDataSet; const master: TDataSet);
 begin
- updatedocupages();
+ updateitems(fdeleteddocupages,dpg_pk,docupagedelete,docupageupdate,
+                 docupageinsert,@getdocupagevalues);
 end;
 
+procedure tbommo.updateitems(var deleted: int64arty;
+         const pk: tifiint64linkcomp;
+         const deletestatement,updatestatement: tsqlstatement;
+         const insertstatement: tsqlresult;
+         const getvalues: getvalueseventty);
+var
+ i1: int32;
+begin
+ for i1:= 0 to high(deleted) do begin
+  deletestatement.execute([deleted[i1]]);
+ end;
+ deleted:= nil;
+ with pk.c.griddata do begin
+  for i1:= 0 to count-1 do begin
+   if items[i1] = 0 then begin
+    insertstatement.refresh(getvalues(i1));
+    items[i1]:= insertstatement[0].asid;
+   end
+   else begin
+    updatestatement.execute(getvalues(i1));
+   end;
+  end;
+ end;
+end;
+
+function tbommo.getdocupagevalues(const index: int32): variantarty;
+begin
+ setlength(result,4);
+ result[0]:= dpg_pk.c.griddata[index];
+ result[1]:= index;
+ result[2]:= dpg_kind.c.griddata[index];
+ result[3]:= dpg_title.c.griddata[index];
+end;
+
+{
 procedure tbommo.updatedocupages();
 var
  i1: int32;
@@ -234,11 +327,36 @@ begin
   end;
  end;
 end;
-
+}
 procedure tbommo.docupagedelev(const sender: TObject; var aindex: Integer;
                var acount: Integer);
 begin
  additem(fdeleteddocupages,dpg_pk.c.griddata[aindex]);
+end;
+
+function tbommo.getplotitemvalues(const index: int32): variantarty;
+begin
+ setlength(result,3);
+ result[0]:= pli_pk.c.griddata[index];
+ result[1]:= index;
+ result[2]:= pli_layer.c.griddata[index];
+end;
+
+procedure tbommo.plotitempostev(const sender: TDataSet; const master: TDataSet);
+begin
+ updateitems(fdeletedplotitems,pli_pk,plotitemdelete,plotitemupdate,
+                 plotiteminsert,@getplotitemvalues);
+end;
+
+procedure tbommo.plotitemrefreshev(const sender: TObject);
+begin
+ refreshitems(fdeletedplotitems,pli_pk,pageitemqu,plotitemdso);
+end;
+
+procedure tbommo.plotitemdelev(const sender: TObject; var aindex: Integer;
+               var acount: Integer);
+begin
+ additem(fdeletedplotitems,pli_pk.c.griddata[aindex]);
 end;
 
 end.

@@ -593,6 +593,7 @@ object bommo: tbommo
   object docupagelink: tfieldparamlink
     fieldname = 'PK'
     datasource = docusetdso
+    visualcontrol = True
     onrefresh = docupagerefreshev
     onmasterpost = docupagepostev
     left = 16
@@ -738,7 +739,7 @@ object bommo: tbommo
     top = 200
   end
   object pageitemqu: tmsesqlquery
-    options = [bdo_autoapply, bdo_autocommit]
+    options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_autoapply, bdo_autocommit]
     params = <    
       item
         DataType = ftUnknown
@@ -844,29 +845,23 @@ object bommo: tbommo
         DataType = ftString
         Size = 2000
       end>
-    controller.fields.count = 3
+    controller.fields.count = 2
     controller.fields.fields = (
       (
-        ft_largeint
         ft_boolean
         ft_boolean
       )
       <      
         item
-          FieldName = 'PK'
-          Index = 8
-          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
-        end      
-        item
           DisplayWidth = 5
           FieldName = 'SHOWREF'
-          Index = 9
+          Index = 0
           displayvalues = 'True;False'
         end      
         item
           DisplayWidth = 5
           FieldName = 'SHOWDIST'
-          Index = 10
+          Index = 1
           displayvalues = 'True;False'
         end>
     )
@@ -877,90 +872,326 @@ object bommo: tbommo
     object pi_title: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TITLE'
-      Index = 0
+      Index = 2
       Size = 0
       left = 368
-      top = 168
+      top = 200
     end
     object pi_mirrorhorz: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'MIRRORHORZ'
-      Index = 1
-      displayvalues = 'True;False'
-      left = 368
-      top = 184
-    end
-    object pi_mirrorvert: tmsebooleanfield
-      DisplayWidth = 5
-      FieldName = 'MIRRORVERT'
-      Index = 2
-      displayvalues = 'True;False'
-      left = 368
-      top = 200
-    end
-    object pi_rotate90: tmsebooleanfield
-      DisplayWidth = 5
-      FieldName = 'ROTATE90'
       Index = 3
       displayvalues = 'True;False'
       left = 368
       top = 216
     end
-    object pi_rotate180: tmsebooleanfield
+    object pi_mirrorvert: tmsebooleanfield
       DisplayWidth = 5
-      FieldName = 'ROTATE180'
+      FieldName = 'MIRRORVERT'
       Index = 4
       displayvalues = 'True;False'
       left = 368
       top = 232
     end
-    object pi_scale: tmsefloatfield
-      DefaultExpression = '1'
-      FieldName = 'SCALE'
+    object pi_rotate90: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'ROTATE90'
       Index = 5
-      optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
-      MaxValue = 0
-      MinValue = 0
+      displayvalues = 'True;False'
       left = 368
       top = 248
     end
-    object pi_shifthorz: tmsefloatfield
-      DefaultExpression = '0'
-      FieldName = 'SHIFTHORZ'
+    object pi_rotate180: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'ROTATE180'
       Index = 6
-      optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
-      MaxValue = 0
-      MinValue = 0
+      displayvalues = 'True;False'
       left = 368
       top = 264
     end
-    object pi_shiftvert: tmsefloatfield
-      DefaultExpression = '0'
-      FieldName = 'SHIFTVERT'
+    object pi_scale: tmsefloatfield
+      DefaultExpression = '1'
+      FieldName = 'SCALE'
       Index = 7
-      optionsfield = [of_visible, of_initcopy, of_inupdate, of_inwhere]
+      optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
       left = 368
       top = 280
     end
+    object pi_shifthorz: tmsefloatfield
+      DefaultExpression = '0'
+      FieldName = 'SHIFTHORZ'
+      Index = 8
+      optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
+      MaxValue = 0
+      MinValue = 0
+      left = 368
+      top = 296
+    end
+    object pi_shiftvert: tmsefloatfield
+      DefaultExpression = '0'
+      FieldName = 'SHIFTVERT'
+      Index = 9
+      optionsfield = [of_visible, of_initcopy, of_inupdate, of_inwhere]
+      MaxValue = 0
+      MinValue = 0
+      left = 368
+      top = 312
+    end
     object pi_filename: tmsestringfield
       DisplayWidth = 20
       FieldName = 'FILENAME'
-      Index = 11
+      Index = 10
       left = 368
-      top = 296
+      top = 328
     end
     object pi_text: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TEXT'
+      Index = 11
+      left = 368
+      top = 344
+    end
+    object pi_pk: tmselargeintfield
+      FieldName = 'PK'
       Index = 12
       left = 368
-      top = 312
+      top = 184
     end
   end
   object pageitempkpar: tparamconnector
     left = 368
     top = 136
+  end
+  object plotitemqu: tifisqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end    
+      item
+        Name = 'LAYER'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COLOR'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'REFON'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'REFCOLOR'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'VALON'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'VALCOLOR'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'INVISON'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'DRILLMARKS'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'FORMAT'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'FILENAME'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'ORDNUM'
+        DataType = ftInteger
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+        datasource = pageitemdso
+        fieldname = 'PK'
+      end>
+    sql.data = (
+      'select * from PLOTITEMS where LINK = :link order by ORDNUM'
+    )
+    database = mainmo.conn
+    transaction = mainmo.trans
+    options = [sso_utf8]
+    left = 512
+    top = 176
+  end
+  object plotitemdso: tconnectedifidatasource
+    fields.count = 2
+    fields.items = <    
+      item
+        fieldname = 'PK'
+        datatype = dl_int64
+        sourcefieldname = 'PK'
+      end    
+      item
+        fieldname = 'LAYER'
+        datatype = dl_msestring
+        sourcefieldname = 'LAYER'
+      end>
+    connection = plotitemqu
+    left = 512
+    top = 192
+  end
+  object plotitemlink: tfieldparamlink
+    fieldname = 'PK'
+    datasource = pageitemdso
+    visualcontrol = True
+    onrefresh = plotitemrefreshev
+    onmasterpost = plotitempostev
+    left = 512
+    top = 152
+  end
+  object pageitemdso: tmsedatasource
+    DataSet = pageitemqu
+    left = 360
+    top = 168
+  end
+  object pli_pk: tifiint64linkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    controller.fieldname = 'PK'
+    controller.max = 2147483647
+    left = 520
+    top = 208
+  end
+  object pli_layer: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    controller.fieldname = 'LAYER'
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 520
+    top = 224
+  end
+  object plotitemgrid: tifigridlinkcomp
+    controller.onrowsdeleting = plotitemdelev
+    left = 632
+    top = 184
+  end
+  object plotitemdelete: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'delete from DOCUPAGES where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 760
+    top = 192
+  end
+  object plotitemupdate: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layer'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'update PLOTITEMS set ORDNUM = :ordnum, LAYER = :layer where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 760
+    top = 168
+  end
+  object plotiteminsert: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'kind'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'title'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layer'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into PLOTITEMS (LINK,ORDNUM,LAYER) '
+      '     values (:link,:ordnum,:layer) returning PK'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 760
+    top = 144
   end
 end

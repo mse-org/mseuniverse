@@ -22,8 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings,
- msegrids,msewidgetgrid,msegraphedits,msescrollbar,
- plotpageeditform;
+ msegrids,msewidgetgrid,msegraphedits,msescrollbar,plotpageeditform;
 type
  tlayerplotdialogfo = class(tplotpageeditfo)
    tlayouter1: tlayouter;
@@ -37,6 +36,8 @@ type
    val_valcolor: tdropdownlistedit;
    val_invison: tbooleanedit;
    val_drillmarks: tdropdownlistedit;
+   pked: tint64edit;
+   procedure editedev(const sender: TObject);
   private
   protected
 //   procedure loadvalues() override;
@@ -47,7 +48,7 @@ type
 
 implementation
 uses
- layerplotdialogform_mfm;
+ layerplotdialogform_mfm,bommodule;
 
 { tlayerplotdialogfo }
 {
@@ -73,4 +74,12 @@ begin
  fpage.storevalues(plotsettings,'val_');
 end;
 }
+procedure tlayerplotdialogfo.editedev(const sender: TObject);
+begin
+ if not bommo.plotitemdso.refreshing then begin
+  dataso.dataset.edit();
+  dataso.dataset.modify(); //set modified flag
+ end;
+end;
+
 end.
