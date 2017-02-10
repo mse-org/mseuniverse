@@ -23,7 +23,7 @@ uses
  msesplitter,msesimplewidgets,msedragglob,msescrollbar,msetabs,mseact,
  msedataedits,mseedit,msegrids,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,msewidgetgrid,sysutils,msebitmap,msedatanodes,msefiledialog,
- mselistbrowser,msesys,msegraphedits;
+ mselistbrowser,msesys,msegraphedits,msedbedit;
 type
  tprojectsettingsfo = class(tmseform)
    tstatfile1: tstatfile;
@@ -62,8 +62,8 @@ type
    productiongrid: twidgetgrid;
    docugrid: twidgetgrid;
    tsplitter2: tsplitter;
-   val_productionfiles: tdropdownlistedit;
-   val_docusets: tdropdownlistedit;
+   val_productionfiles: tdropdownlisteditdb;
+   val_docusets: tdropdownlisteditdb;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);

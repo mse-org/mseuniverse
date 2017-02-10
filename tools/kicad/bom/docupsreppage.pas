@@ -26,7 +26,7 @@ type
  tdocupsreppa = class(tbasereppa)
    ps: treppsdisp;
   public
-   constructor create(const apage: tdocupage);
+   constructor create(const apage: docupageinfoty);
  end;
 
 implementation
@@ -35,7 +35,7 @@ uses
 
 { tdocupsreppa }
 
-constructor tdocupsreppa.create(const apage: tdocupage);
+constructor tdocupsreppa.create(const apage: docupageinfoty);
 begin
  inherited create(nil);
  ps.scale:= apage.scale;

@@ -27,7 +27,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
   end
   object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 2
+    taborder = 3
     bounds_x = 8
     bounds_y = 41
     bounds_cx = 602
@@ -37,7 +37,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     place_mindist = 4
     place_maxdist = 4
     linktop = val_title
-    linkbottom = plotsettingsfo
     dist_top = 4
     object grid: twidgetgrid
       frame.localprops = []
@@ -145,6 +144,19 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       onrowsmodified = editedev
       onedited = editedev
       reffontheight = 14
+      object pked: tint64edit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 1
+        visible = False
+        bounds_x = -74
+        bounds_y = 0
+        bounds_cx = 27
+        bounds_cy = 16
+        max = 2147483647
+        ifilink = bommo.pli_pk
+        reffontheight = 14
+      end
       object val_layernames: tdropdownlistedit
         optionswidget1 = [ow1_fontglyphheight]
         optionsskin = [osk_framebuttononly]
@@ -158,7 +170,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           item
             color = -1879048187
           end>
-        taborder = 1
+        taborder = 2
         visible = False
         bounds_x = -46
         bounds_y = 0
@@ -187,7 +199,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           item
             color = -1879048187
           end>
-        taborder = 2
+        taborder = 3
         visible = False
         bounds_x = 100
         bounds_y = 0
@@ -206,7 +218,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       object val_refon: tbooleanedit
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
-        taborder = 3
+        taborder = 4
         bounds_x = 222
         bounds_y = 0
         bounds_cx = 16
@@ -228,7 +240,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           item
             color = -1879048187
           end>
-        taborder = 4
+        taborder = 5
         visible = False
         bounds_x = 239
         bounds_y = 0
@@ -247,7 +259,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       object val_valon: tbooleanedit
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
-        taborder = 5
+        taborder = 6
         bounds_x = 361
         bounds_y = 0
         bounds_cx = 16
@@ -269,7 +281,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           item
             color = -1879048187
           end>
-        taborder = 6
+        taborder = 7
         visible = False
         bounds_x = 378
         bounds_y = 0
@@ -288,7 +300,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       object val_invison: tbooleanedit
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
-        taborder = 7
+        taborder = 8
         bounds_x = 500
         bounds_y = 0
         bounds_cx = 16
@@ -296,19 +308,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         visible = False
         ifilink = bommo.pli_invison
-      end
-      object pked: tint64edit
-        optionswidget1 = [ow1_fontglyphheight]
-        optionsskin = [osk_framebuttononly]
-        taborder = 8
-        visible = False
-        bounds_x = -74
-        bounds_y = 0
-        bounds_cx = 27
-        bounds_cy = 16
-        max = 2147483647
-        ifilink = bommo.pli_pk
-        reffontheight = 14
       end
       object val_drillmarks: tdropdownlistedit
         optionswidget1 = [ow1_fontglyphheight]
@@ -333,7 +332,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
         ifilink = bommo.pli_drillmarks
-        dropdown.options = [deo_selectonly, deo_forceselect, deo_autodropdown, deo_keydropdown, deo_cliphint]
+        dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint]
         dropdown.cols.count = 1
         dropdown.cols.items = <        
           item
@@ -358,29 +357,37 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     place_maxdist = 4
   end
   inherited plotsettingsfo: tplotsettingsfo[4]
-    taborder = 3
     bounds_y = 235
     anchors = [an_left, an_bottom]
+    linktop = tlayouter1
+    options = [spao_gluebottom]
     inherited val_mirrorx: tdbbooleanedit
       datalink.datasource = dataso
+      datalink.fieldname = 'MIRRORHORZ'
     end
     inherited val_mirrory: tdbbooleanedit
       datalink.datasource = dataso
+      datalink.fieldname = 'MIRRORVERT'
     end
     inherited val_rotate90: tdbbooleanedit
       datalink.datasource = dataso
+      datalink.fieldname = 'ROTATE90'
     end
     inherited val_rotate180: tdbbooleanedit
       datalink.datasource = dataso
+      datalink.fieldname = 'ROTATE180'
     end
     inherited val_scale: tdbrealedit
       datalink.datasource = dataso
+      datalink.fieldname = 'SCALE'
     end
     inherited val_shifthorz: tdbrealedit
       datalink.datasource = dataso
+      datalink.fieldname = 'SHIFTHORZ'
     end
     inherited val_shiftvert: tdbrealedit
       datalink.datasource = dataso
+      datalink.fieldname = 'SHIFTVERT'
     end
   end
   inherited dataso: tmsedatasource[5]

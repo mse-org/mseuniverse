@@ -38,7 +38,7 @@ type
    enddummy: trecordband;
    procedure bandafterrendev(const sender: tcustomrecordband);
   public
-   constructor create(const apage: tbompage);
+   constructor create(const apage: docupageinfoty);
  end;
 implementation
 uses
@@ -46,22 +46,24 @@ uses
 
 { tbomreppa }
 
-constructor tbomreppa.create(const apage: tbompage);
+constructor tbomreppa.create(const apage: docupageinfoty);
 var
  s1: msestring;
 begin
  inherited create(apage);
- data2.visible:= apage.showreferences;
- s1:= 'PART';
- if apage.showreferences then begin
-  s1:= s1+'/REF';
+ with apage do begin
+  data2.visible:= showreferences;
+  s1:= 'PART';
+  if showreferences then begin
+   s1:= s1+'/REF';
+  end;
+  if showdistributors then begin
+   s1:= s1+'/DISTRIBUTOR';
+   bommo.compdistribqu.active:= true;
+   header.tabs[2].value:= 'PART#';
+  end;
+  header.tabs[1].value:= s1;
  end;
- if apage.showdistributors then begin
-  s1:= s1+'/DISTRIBUTOR';
-  bommo.compdistribqu.active:= true;
-  header.tabs[2].value:= 'PART#';
- end;
- header.tabs[1].value:= s1;
 end;
 
 procedure tbomreppa.bandafterrendev(const sender: tcustomrecordband);

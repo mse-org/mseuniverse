@@ -16,6 +16,7 @@ def plotitem(apcbfilename,aoutputdir,aformat,alayer,acolor,
  valons = avalon.split(',');
  valcolors = avalcolor.split(',');
  invisons = ainvison.split(',');
+ drillmarks = adrillmarks.split(',');
  layers = []
  colors = []
  hascolor = False
@@ -41,7 +42,7 @@ def plotitem(apcbfilename,aoutputdir,aformat,alayer,acolor,
  popt.SetExcludeEdgeLayer(True);
  popt.SetUseAuxOrigin(True)
  popt.SetSubtractMaskFromSilk(False)
- popt.SetDrillMarksType(drillmarkenums[drillmarknames.index(adrillmarks)])
+# popt.SetDrillMarksType(drillmarkenums[drillmarknames.index(adrillmarks)])
  pctl.OpenPlotfile(lnames[0],format,'')
  for i1 in range(0,len(layers)):
   pctl.SetLayer(layers[i1])
@@ -52,6 +53,7 @@ def plotitem(apcbfilename,aoutputdir,aformat,alayer,acolor,
   popt.SetPlotValue(valons[i1] == 'True')
   popt.SetValueColor(colorenums[colornames.index(valcolors[i1])])
   popt.SetPlotInvisibleText(invisons[i1] == 'True')
+  popt.SetDrillMarksType(drillmarkenums[drillmarknames.index(drillmarks[i1])])
 #  pctl.SetLayer(layers[i1])
   pctl.PlotLayer()
  pctl.ClosePlot()

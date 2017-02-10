@@ -11,6 +11,7 @@ inherited drillmapdialogfo: tdrillmapdialogfo
   caption = 'Docu PCB Drillmap-Plot Page'
   moduleclassname = 'tdocupageeditfo'
   inherited tsplitter1: tsplitter
+    taborder = 1
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -20,6 +21,7 @@ inherited drillmapdialogfo: tdrillmapdialogfo
   end
   inherited val_title: tdbstringedit
     frame.font.localprops = []
+    taborder = 2
   end
   object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
@@ -119,23 +121,36 @@ inherited drillmapdialogfo: tdrillmapdialogfo
     end
   end
   inline plotsettings: tplotsettingsfo[3]
-    taborder = 2
     bounds_x = 8
     bounds_y = 74
     linktop = tlayouter1
     inherited val_mirrorx: tdbbooleanedit
+      datalink.datasource = dataso
+      datalink.fieldname = 'MIRRORHORZ'
     end
     inherited val_mirrory: tdbbooleanedit
+      datalink.datasource = dataso
+      datalink.fieldname = 'MIRRORVERT'
     end
     inherited val_rotate90: tdbbooleanedit
+      datalink.datasource = dataso
+      datalink.fieldname = 'ROTATE90'
     end
     inherited val_rotate180: tdbbooleanedit
+      datalink.datasource = dataso
+      datalink.fieldname = 'ROTATE180'
     end
     inherited val_scale: tdbrealedit
+      datalink.datasource = dataso
+      datalink.fieldname = 'SCALE'
     end
     inherited val_shifthorz: tdbrealedit
+      datalink.datasource = dataso
+      datalink.fieldname = 'SHIFTHORZ'
     end
     inherited val_shiftvert: tdbrealedit
+      datalink.datasource = dataso
+      datalink.fieldname = 'SHIFTVERT'
     end
   end
   inherited tstatfile1: tstatfile[4]

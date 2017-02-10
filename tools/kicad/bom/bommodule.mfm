@@ -198,6 +198,7 @@ object bommo: tbommo
       end>
     tablename = 'DOCUSETS'
     database = mainmo.conn
+    OnNewRecord = newdodocusetev
     Transaction = mainmo.trans
     transactionwrite = mainmo.transwrite
     FieldDefs = <    
@@ -267,7 +268,7 @@ object bommo: tbommo
         Name = 'MARGBOTTOM'
         DataType = ftFloat
       end>
-    controller.fields.count = 14
+    controller.fields.count = 5
     controller.fields.fields = (
       (
         ft_datetime
@@ -275,15 +276,6 @@ object bommo: tbommo
         ft_string
         ft_string
         ft_string
-        ft_string
-        ft_string
-        ft_string
-        ft_float
-        ft_float
-        ft_float
-        ft_float
-        ft_float
-        ft_float
       )
       <      
         item
@@ -313,78 +305,6 @@ object bommo: tbommo
           FieldName = 'DESCRIPTION'
           Index = 4
           Size = 0
-        end      
-        item
-          DisplayWidth = 400
-          FieldName = 'DOCUDIR'
-          Index = 5
-          Size = 400
-        end      
-        item
-          DisplayWidth = 400
-          FieldName = 'PSFILE'
-          Index = 6
-          Size = 400
-        end      
-        item
-          DisplayWidth = 400
-          FieldName = 'PDFFILE'
-          Index = 7
-          Size = 400
-        end      
-        item
-          DefaultExpression = '210'
-          FieldName = 'WIDTH'
-          Index = 8
-          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
-          MaxValue = 0
-          MinValue = 0
-          Precision = -1
-        end      
-        item
-          DefaultExpression = '297'
-          FieldName = 'HEIGHT'
-          Index = 9
-          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
-          MaxValue = 0
-          MinValue = 0
-          Precision = -1
-        end      
-        item
-          DefaultExpression = '10'
-          FieldName = 'MARGLEFT'
-          Index = 10
-          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
-          MaxValue = 0
-          MinValue = 0
-          Precision = -1
-        end      
-        item
-          DefaultExpression = '10'
-          FieldName = 'MARGRIGHT'
-          Index = 11
-          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
-          MaxValue = 0
-          MinValue = 0
-          Precision = -1
-        end      
-        item
-          DefaultExpression = '10'
-          FieldName = 'MARGTOP'
-          Index = 12
-          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
-          MaxValue = 0
-          MinValue = 0
-          Precision = -1
-        end      
-        item
-          DefaultExpression = '10'
-          FieldName = 'MARGBOTTOM'
-          Index = 13
-          optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
-          MaxValue = 0
-          MinValue = 0
-          Precision = -1
         end>
     )
     controller.options = [dso_utf8]
@@ -393,10 +313,79 @@ object bommo: tbommo
     streamingversion = 1
     object ds_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 14
+      Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
       left = 16
       top = 112
+    end
+    object ds_docudir: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'DOCUDIR'
+      Index = 6
+      left = 16
+      top = 128
+    end
+    object ds_psfile: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'PSFILE'
+      Index = 7
+      left = 16
+      top = 144
+    end
+    object ds_pdffile: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'PDFFILE'
+      Index = 8
+      left = 16
+      top = 160
+    end
+    object ds_width: tmsefloatfield
+      FieldName = 'WIDTH'
+      Index = 9
+      MaxValue = 0
+      MinValue = 0
+      left = 16
+      top = 176
+    end
+    object ds_height: tmsefloatfield
+      FieldName = 'HEIGHT'
+      Index = 10
+      MaxValue = 0
+      MinValue = 0
+      left = 16
+      top = 192
+    end
+    object ds_margleft: tmsefloatfield
+      FieldName = 'MARGLEFT'
+      Index = 11
+      MaxValue = 0
+      MinValue = 0
+      left = 16
+      top = 208
+    end
+    object ds_margright: tmsefloatfield
+      FieldName = 'MARGRIGHT'
+      Index = 12
+      MaxValue = 0
+      MinValue = 0
+      left = 16
+      top = 224
+    end
+    object ds_margtop: tmsefloatfield
+      FieldName = 'MARGTOP'
+      Index = 13
+      MaxValue = 0
+      MinValue = 0
+      left = 16
+      top = 240
+    end
+    object ds_margbottom: tmsefloatfield
+      FieldName = 'MARGBOTTOM'
+      Index = 14
+      MaxValue = 0
+      MinValue = 0
+      left = 16
+      top = 256
     end
   end
   object docusetdso: tmsedatasource
@@ -569,26 +558,15 @@ object bommo: tbommo
     controller.datasource = docupagedso
     controller.fieldname = 'PK'
     controller.max = 2147483647
-    left = 24
-    top = 208
+    left = 16
+    top = 416
   end
   object dpg_title: tifistringlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = docupagedso
     controller.fieldname = 'TITLE'
-    left = 24
-    top = 240
-  end
-  object dpg_kind: tifienumlinkcomp
-    controller.optionsvalue = [vco_datalist]
-    controller.datasource = docupagedso
-    controller.fieldname = 'KIND'
-    controller.dropdown.cols.count = 1
-    controller.dropdown.cols.items = <    
-      item
-      end>
-    left = 24
-    top = 224
+    left = 16
+    top = 448
   end
   object docupagelink: tfieldparamlink
     fieldname = 'PK'
@@ -596,8 +574,8 @@ object bommo: tbommo
     visualcontrol = True
     onrefresh = docupagerefreshev
     onmasterpost = docupagepostev
-    left = 16
-    top = 152
+    left = 8
+    top = 360
   end
   object docupagequ: tifisqlresult
     fielddefs = <    
@@ -607,7 +585,8 @@ object bommo: tbommo
       end    
       item
         Name = 'KIND'
-        DataType = ftInteger
+        DataType = ftString
+        Size = 50
       end    
       item
         Name = 'TITLE'
@@ -628,8 +607,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.trans
     options = [sso_utf8]
-    left = 16
-    top = 176
+    left = 8
+    top = 384
   end
   object docupagedso: tconnectedifidatasource
     fields.count = 3
@@ -641,7 +620,7 @@ object bommo: tbommo
       end    
       item
         fieldname = 'KIND'
-        datatype = dl_integer
+        datatype = dl_msestring
         sourcefieldname = 'KIND'
       end    
       item
@@ -650,8 +629,8 @@ object bommo: tbommo
         sourcefieldname = 'TITLE'
       end>
     connection = docupagequ
-    left = 16
-    top = 192
+    left = 8
+    top = 400
   end
   object docupageupdate: tsqlstatement
     params = <    
@@ -681,11 +660,15 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 176
-    top = 176
+    left = 168
+    top = 384
   end
   object docupageinsert: tsqlresult
-    fielddefs = <>
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end>
     params = <    
       item
         DataType = ftUnknown
@@ -710,19 +693,19 @@ object bommo: tbommo
         ParamType = ptInput
       end>
     sql.data = (
-      'insert into DOCUPAGES (LINK,ORDNUM,KIND,TITLE) '
-      '     values (:link,:ordnum,:kind,:title) returning PK'
+      'insert into DOCUPAGES (LINK,ORDNUM,KIND,TITLE,SCALE,SHIFTHORZ,SHIFTVERT,LAYERA,LAYERB) '
+      '     values (:link,:ordnum,:kind,:title,1,0,0,''F.Cu'',''B.Cu'') returning PK'
     )
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 176
-    top = 152
+    left = 168
+    top = 360
   end
   object docupagegrid: tifigridlinkcomp
     controller.onrowsdeleting = docupagedelev
-    left = 16
-    top = 264
+    left = 8
+    top = 472
   end
   object docupagedelete: tsqlstatement
     params = <    
@@ -737,8 +720,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 176
-    top = 200
+    left = 168
+    top = 408
   end
   object pageitemqu: tmsesqlquery
     options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_autoapply, bdo_autocommit]
@@ -764,6 +747,7 @@ object bommo: tbommo
       end>
     tablename = 'DOCUPAGES'
     database = mainmo.conn
+    OnNewRecord = newpageitemev
     Transaction = mainmo.trans
     transactionwrite = mainmo.transwrite
     FieldDefs = <    
@@ -794,7 +778,8 @@ object bommo: tbommo
       end    
       item
         Name = 'KIND'
-        DataType = ftInteger
+        DataType = ftString
+        Size = 50
       end    
       item
         Name = 'TITLE'
@@ -861,47 +846,6 @@ object bommo: tbommo
         Name = 'NPT'
         DataType = ftBoolean
       end>
-    controller.fields.count = 5
-    controller.fields.fields = (
-      (
-        ft_boolean
-        ft_boolean
-        ft_string
-        ft_string
-        ft_boolean
-      )
-      <      
-        item
-          DisplayWidth = 5
-          FieldName = 'SHOWREF'
-          Index = 0
-          displayvalues = 'True;False'
-        end      
-        item
-          DisplayWidth = 5
-          FieldName = 'SHOWDIST'
-          Index = 1
-          displayvalues = 'True;False'
-        end      
-        item
-          DisplayWidth = 50
-          FieldName = 'LAYERA'
-          Index = 2
-          Size = 50
-        end      
-        item
-          DisplayWidth = 50
-          FieldName = 'LAYERB'
-          Index = 3
-          Size = 50
-        end      
-        item
-          DisplayWidth = 5
-          FieldName = 'NPT'
-          Index = 4
-          displayvalues = 'True;False'
-        end>
-    )
     controller.options = [dso_utf8]
     left = 360
     top = 152
@@ -909,95 +853,143 @@ object bommo: tbommo
     object pi_title: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TITLE'
-      Index = 5
+      Index = 0
       Size = 0
       left = 368
-      top = 200
+      top = 216
     end
     object pi_mirrorhorz: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'MIRRORHORZ'
-      Index = 6
-      displayvalues = 'True;False'
-      left = 368
-      top = 216
-    end
-    object pi_mirrorvert: tmsebooleanfield
-      DisplayWidth = 5
-      FieldName = 'MIRRORVERT'
-      Index = 7
+      Index = 1
       displayvalues = 'True;False'
       left = 368
       top = 232
     end
-    object pi_rotate90: tmsebooleanfield
+    object pi_mirrorvert: tmsebooleanfield
       DisplayWidth = 5
-      FieldName = 'ROTATE90'
-      Index = 8
+      FieldName = 'MIRRORVERT'
+      Index = 2
       displayvalues = 'True;False'
       left = 368
       top = 248
     end
-    object pi_rotate180: tmsebooleanfield
+    object pi_rotate90: tmsebooleanfield
       DisplayWidth = 5
-      FieldName = 'ROTATE180'
-      Index = 9
+      FieldName = 'ROTATE90'
+      Index = 3
       displayvalues = 'True;False'
       left = 368
       top = 264
     end
-    object pi_scale: tmsefloatfield
-      DefaultExpression = '1'
-      FieldName = 'SCALE'
-      Index = 10
-      optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
-      MaxValue = 0
-      MinValue = 0
+    object pi_rotate180: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'ROTATE180'
+      Index = 4
+      displayvalues = 'True;False'
       left = 368
       top = 280
     end
-    object pi_shifthorz: tmsefloatfield
-      DefaultExpression = '0'
-      FieldName = 'SHIFTHORZ'
-      Index = 11
+    object pi_scale: tmsefloatfield
+      DefaultExpression = '1'
+      FieldName = 'SCALE'
+      Index = 5
       optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
       left = 368
       top = 296
     end
-    object pi_shiftvert: tmsefloatfield
+    object pi_shifthorz: tmsefloatfield
       DefaultExpression = '0'
-      FieldName = 'SHIFTVERT'
-      Index = 12
-      optionsfield = [of_visible, of_initcopy, of_inupdate, of_inwhere]
+      FieldName = 'SHIFTHORZ'
+      Index = 6
+      optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
       left = 368
       top = 312
     end
-    object pi_filename: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'FILENAME'
-      Index = 13
-      Size = 0
+    object pi_shiftvert: tmsefloatfield
+      DefaultExpression = '0'
+      FieldName = 'SHIFTVERT'
+      Index = 7
+      optionsfield = [of_visible, of_initcopy, of_inupdate, of_inwhere]
+      MaxValue = 0
+      MinValue = 0
       left = 368
       top = 328
     end
-    object pi_text: tmsestringfield
+    object pi_filename: tmsestringfield
       DisplayWidth = 20
-      FieldName = 'TEXT'
-      Index = 14
+      FieldName = 'FILENAME'
+      Index = 8
       Size = 0
       left = 368
       top = 344
     end
+    object pi_text: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'TEXT'
+      Index = 9
+      Size = 0
+      left = 368
+      top = 360
+    end
     object pi_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 15
+      Index = 10
       optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
       left = 368
       top = 184
+    end
+    object pi_showdist: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'SHOWDIST'
+      Index = 11
+      displayvalues = 'True;False'
+      left = 368
+      top = 440
+    end
+    object pi_showref: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'SHOWREF'
+      Index = 12
+      displayvalues = 'True;False'
+      left = 368
+      top = 424
+    end
+    object pi_npt: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'NPT'
+      Index = 13
+      displayvalues = 'True;False'
+      left = 368
+      top = 408
+    end
+    object pi_layerb: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'LAYERB'
+      Index = 14
+      Size = 0
+      left = 368
+      top = 392
+    end
+    object pi_layera: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'LAYERA'
+      Index = 15
+      Size = 0
+      left = 368
+      top = 376
+    end
+    object pi_kind: tmsestringfield
+      DisplayWidth = 0
+      FieldName = 'KIND'
+      Index = 16
+      Size = 0
+      left = 368
+      top = 200
     end
   end
   object pageitempkpar: tparamconnector
@@ -1182,8 +1174,8 @@ object bommo: tbommo
   end
   object plotitemgrid: tifigridlinkcomp
     controller.onrowsdeleting = plotitemdelev
-    left = 632
-    top = 184
+    left = 512
+    top = 360
   end
   object plotitemdelete: tsqlstatement
     params = <    
@@ -1344,18 +1336,21 @@ object bommo: tbommo
   object pli_refon: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
+    controller.fieldname = 'REFON'
     left = 520
     top = 256
   end
   object pli_valon: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
+    controller.fieldname = 'VALON'
     left = 520
     top = 288
   end
   object pli_invison: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
+    controller.fieldname = 'INVISON'
     left = 520
     top = 320
   end
@@ -1395,11 +1390,23 @@ object bommo: tbommo
   object pli_valcolor: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
+    controller.fieldname = 'VALCOLOR'
     controller.dropdown.cols.count = 1
     controller.dropdown.cols.items = <    
       item
       end>
     left = 520
     top = 304
+  end
+  object dpg_kind: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = docupagedso
+    controller.fieldname = 'KIND'
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 16
+    top = 432
   end
 end

@@ -105,7 +105,7 @@ begin
  end;
  for i1:= 0 to high(globaloptions.docudefines) do begin
   with globaloptions.docudefines[i1] do begin
-   fo2:= tdocupagefo.create(pages);
+////////////////   fo2:= tdocupagefo.create(pages);
    fo2.caption:= h.name;
    fo2.nameed.value:= h.name;
    fo2.docudir:= docudir;
@@ -179,7 +179,7 @@ begin
     topmargin:= topmargined.value;
     bottommargin:= bottommargined.value;
 //    docupagesetlength(pages,0);
-    pages:= docupages;
+//////////////    pages:= docupages;
 //    docupages:= nil; //no free items in destroy()
    end;
   end;

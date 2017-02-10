@@ -28,7 +28,7 @@ type
    title: trecordband;
    text: trecordband;
   public
-   constructor create(const apage: ttitlepage);
+   constructor create(const apage: docupageinfoty);
  end;
  
 implementation
@@ -37,7 +37,7 @@ uses
 
 { ttitlereppa }
 
-constructor ttitlereppa.create(const apage: ttitlepage);
+constructor ttitlereppa.create(const apage: docupageinfoty);
 begin
  inherited create(nil);
  title.tabs[0].value:= mainmo.expandprojectmacros(apage.title);

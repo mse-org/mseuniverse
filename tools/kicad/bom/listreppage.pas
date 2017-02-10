@@ -12,7 +12,7 @@ type
    tbandarea2: tbandarea;
    title: trecordband;
   public
-    constructor create(const apage: tdocupage);
+    constructor create(const apage: docupageinfoty);
 end;
 
 implementation
@@ -21,7 +21,7 @@ uses
 
 { tlistreppa }
 
-constructor tlistreppa.create(const apage: tdocupage);
+constructor tlistreppa.create(const apage: docupageinfoty);
 begin
  inherited create(nil);
  title.tabs[0].value:= apage.title;

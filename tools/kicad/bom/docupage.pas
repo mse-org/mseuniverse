@@ -85,7 +85,7 @@ type
 
 implementation
 uses
- docupage_mfm,layerplotdialog,schematicplotdialogform,drillmapdialog,
+ docupage_mfm,layerplotdialogform,schematicplotdialogform,drillmapdialogform,
  msedatalist,mserttistat,titledialogform,bomdialogform;
 
 type

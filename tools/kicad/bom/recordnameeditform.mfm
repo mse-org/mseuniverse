@@ -9,7 +9,6 @@ inherited recordnameeditfo: trecordnameeditfo
   moduleclassname = 'trecordeditfo'
   inherited stripe0: tlayouter
     bounds_cx = 701
-    optionslayout = [lao_placex, lao_aligny]
     inherited tlayouter2: tlayouter
       bounds_x = 518
       inherited tsmodify: tdbdatetimedisp
@@ -18,7 +17,7 @@ inherited recordnameeditfo: trecordnameeditfo
       end
     end
     inherited navig: tdbnavigator
-      bounds_y = 7
+      bounds_y = -1
     end
   end
   object stripe1: tlayouter[1]

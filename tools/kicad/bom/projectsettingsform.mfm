@@ -507,7 +507,7 @@ object projectsettingsfo: tprojectsettingsfo
             end>
           datarowheight = 16
           reffontheight = 14
-          object val_productionfiles: tdropdownlistedit
+          object val_productionfiles: tdropdownlisteditdb
             optionsskin = [osk_framebuttononly]
             frame.levelo = 0
             frame.colorclient = -2147483645
@@ -572,7 +572,7 @@ object projectsettingsfo: tprojectsettingsfo
             end>
           datarowheight = 16
           reffontheight = 14
-          object val_docusets: tdropdownlistedit
+          object val_docusets: tdropdownlisteditdb
             optionsskin = [osk_framebuttononly]
             frame.levelo = 0
             frame.colorclient = -2147483645
@@ -591,10 +591,13 @@ object projectsettingsfo: tprojectsettingsfo
             bounds_cx = 352
             bounds_cy = 16
             optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+            dropdown.datasource = bommo.docusetdso
             dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_sorted]
+            dropdown.optionsdb = [odb_opendataset, odb_closedataset, odb_directdata]
             dropdown.cols.count = 1
             dropdown.cols.items = <            
               item
+                datafield = 'NAME'
               end>
             reffontheight = 14
           end

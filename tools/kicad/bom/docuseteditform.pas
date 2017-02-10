@@ -23,12 +23,13 @@ uses
  recordnameeditform,mseact,msedataedits,msedbdialog,mseedit,mseificomp,
  mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,
  msesplitter,mseprinter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,
- msescrollbar,msewidgetgrid,msedatanodes,mselistbrowser,mseactions;
+ msescrollbar,msewidgetgrid,msedatanodes,mselistbrowser,mseactions,msebitmap,
+ msefiledialog,msesys;
 
 type
  tdocuseteditfo = class(trecordnameeditfo)
    docudired: tdbfilenameedit;
-   stripe3: tlayouter;
+   stripe4: tlayouter;
    pagesizeed: tpagesizeselector;
    leftmarged: tdbrealedit;
    widthed: tdbrealedit;
@@ -38,10 +39,13 @@ type
    bottommarged: tdbrealedit;
    grid: twidgetgrid;
    titleed: tstringedit;
-   pagekinded: tenumedit;
+   pagekinded: tdropdownlistedit;
    pked: tint64edit;
    pageeditact: taction;
    docupageeditbu: tstockglyphdatabutton;
+   stripe3: tlayouter;
+   psfileed: tdbfilenameedit;
+   pdffileed: tdbfilenameedit;
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure datachaev(Sender: TObject; Field: TField);
    procedure editedev(const sender: TObject);
@@ -93,6 +97,7 @@ end;
 
 procedure tdocuseteditfo.pageeditev(const sender: tcustomaction);
 begin
+ dataso.dataset.checkbrowsemode();
  bommo.editdocupage(grid.row);
 end;
 

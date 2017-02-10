@@ -62,11 +62,12 @@ type
   valon: boolean;
   valcolor: msestring;
   invison: boolean;
+  drillmarks: msestring;
  end;
  layerinfoarty = array of layerinfoty;
  layerinforecty = record
   layers: layerinfoarty;
-  drillmarks: msestring;
+//  drillmarks: msestring;
  end;
  
  edacolorty = (
@@ -179,6 +180,27 @@ type
  docupageclassty = class of tdocupage;
  docupagearty = array of tdocupage;
  
+ docupageinfoty = record
+  pagekind: docupagekindty;
+  title: msestring;
+  mirrorx: boolean;
+  mirrory: boolean;
+  rotate90: boolean;
+  rotate180: boolean;
+  scale: flo64;
+  shifthorz: flo64;
+  shiftvert: flo64;
+  text: msestring;
+  layers: layerinfoarty;
+  layeraname: msestring;
+  layerbname: msestring;
+  nonplated: boolean;
+  psfile: msestring;
+  showreferences: boolean;
+  showdistributors: boolean;
+ end;
+ docupageinfoarty = array of docupageinfoty;
+ 
  ttitlepage = class(tdocupage)
   private
    ftext: msestring;
@@ -266,7 +288,7 @@ type
   rightmargin: flo64;
   topmargin: flo64;
   bottommargin: flo64;
-  pages: docupagearty;
+  pages: docupageinfoarty;
  {
   titles: msestringarty;
   pagekinds: integerarty;
@@ -546,7 +568,10 @@ type
    procedure beginpy(const acaption: msestring);
    procedure endpy();
    function getlayer(const aname: msestring; out akind: layerty): boolean;
-                                            //true if OK
+                                            //true if ok
+   function docudefinebyname(const aname: msestring;
+                       out ainfo: docuinfoty): boolean;
+                                             //false if not found
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -595,6 +620,7 @@ type
 
    function getid(): int64;
    
+   function getpagekind(const aname: msestring): docupagekindty;
    property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
    property edacolornames: msestringarty read fedacolornames;
@@ -632,7 +658,7 @@ var
  //dpk_partlist,dpk_bom
   tpartlistpage,tbompage
   );
-
+{
 procedure docupagesetlength(var pages: docupagearty; const count: int32);
 var
  i1: int32;
@@ -642,6 +668,7 @@ begin
  end;
  setlength(pages,count);
 end;
+}
 {
 function updatedocupageobj(var pages: docupagearty; const index: int32;
                                         const kind: docupagekindty): tdocupage;
@@ -824,9 +851,9 @@ const
 //dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
   '','title','schematic','layerplot','drillmap','partlist','bom'
  );
- docupagekinds: array[0..ord(high(docupagekindty))-1] of msestring = (
-//dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
-   'Title','Schematic','PCB Layer-Plot','Drill-Map','Partlist','BOM'
+ docupagekinds: array[docupagekindty] of msestring = (
+//dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
+  '','Title','Schematic','PCB Layer-Plot','Drill-Map','Partlist','BOM'
  );
  
 function layertoplotname(const layername: msestring): msestring;
@@ -862,7 +889,10 @@ begin
  ffileformats:= fileformatnames;
  ffileformatcodes:= mainmodule.fileformatcodes;
  ffileformatexts:= mainmodule.fileformatexts;
- fdocupagekinds:= mainmodule.docupagekinds;
+ setlength(fdocupagekinds,ord(high(mainmodule.docupagekinds)));
+ for i1:= 0 to high(fdocupagekinds) do begin
+  fdocupagekinds[i1]:= mainmodule.docupagekinds[docupagekindty(i1+1)];
+ end;
  inherited;
 end;
 
@@ -1844,7 +1874,7 @@ function tmainmo.plotfile(const aboard: filenamety; const aplotdir: filenamety;
 var
  dir1: filenamety;
  d1,n1,s1: filenamety;
- s2,s3,s4,s5,s6,s7,s8: msestring;
+ s2,s3,s4,s5,s6,s7,s8,s9: msestring;
  i1: int32;
 begin
  if alayer.layers = nil then begin
@@ -1869,6 +1899,7 @@ begin
  s6:= '';
  s7:= '';
  s8:= '';
+ s9:= '';
  for i1:= 0 to high(alayer.layers) do begin
   with alayer.layers[i1] do begin
    s2:= s2+mainmodule.layercodes[layer]+',';
@@ -1878,6 +1909,7 @@ begin
    s6:= s6+pyboolstrings[valon]+',';
    s7:= s7+valcolor+',';
    s8:= s8+pyboolstrings[invison]+',';
+   s9:= s9+drillmarks+',';
   end;
  end;
  setlength(s2,length(s2)-1); //remove last comma
@@ -1887,10 +1919,11 @@ begin
  setlength(s6,length(s6)-1); //remove last comma
  setlength(s7,length(s7)-1); //remove last comma
  setlength(s8,length(s8)-1); //remove last comma
+ setlength(s9,length(s9)-1); //remove last comma
  with alayer do begin
   result:= execpy('plotfile',
       [aboard,tosysfilepath(dir1),mainmodule.fileformatcodes[aformat],s2,s3,
-                                 s4,s5,s6,s7,s8,drillmarks],alast);
+                                 s4,s5,s6,s7,s8,s9],alast);
  end;
  s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer.layers[0].layer]+'.'+
                                        mainmodule.fileformatexts[aformat];
@@ -1963,6 +1996,86 @@ begin
  errormessage('Ivalid plotkind "'+aname+'"');
 end;
 
+function tmainmo.getpagekind(const aname: msestring): docupagekindty;
+var
+ pk1: docupagekindty;
+begin
+ result:= dpk_none;
+ for pk1:= succ(dpk_none) to high(docupagekindty) do begin
+  if aname = mainmodule.docupagekinds[pk1] then begin
+   result:= pk1;
+   break;
+  end;
+ end;
+end;
+
+function tmainmo.docudefinebyname(const aname: msestring;
+                                    out ainfo: docuinfoty): boolean;
+var
+ i1,i2: int32;
+begin
+ with ainfo,bommo do begin
+  docusetqu.controller.refresh();
+  result:= docusetqu.indexlocal[1].find([aname],[]);
+  if result then begin
+   docudir:= ds_docudir.asmsestring;
+   psfile:= ds_psfile.asmsestring;
+   pdffile:= ds_pdffile.asmsestring;
+   pagewidth:= ds_width.asfloat;
+   pageheight:= ds_height.asfloat ;
+   leftmargin:= ds_margleft.asfloat;
+   rightmargin:= ds_margright.asfloat;
+   topmargin:= ds_margtop.asfloat;
+   bottommargin:= ds_margbottom.asfloat;
+   docupagedso.refresh();
+   setlength(pages,dpg_pk.c.datalist.count);
+   for i1:= 0 to high(pages) do begin
+    pageitempkpar.param.value:= dpg_pk.c.griddata[i1];
+    pageitemqu.controller.refresh();
+    with pages[i1] do begin
+     pagekind:= getpagekind(pi_kind.asmsestring);
+     title:= pi_title.asmsestring;
+     mirrorx:= pi_mirrorhorz.asboolean;
+     mirrory:= pi_mirrorvert.asboolean;
+     rotate90:= pi_rotate90.asboolean;
+     rotate180:= pi_rotate180.asboolean;
+     scale:= pi_scale.asfloat;
+     shifthorz:= pi_shifthorz.asfloat;
+     shiftvert:= pi_shiftvert.asfloat;
+     text:= pi_text.asmsestring;
+     layeraname:= pi_layera.asmsestring;
+     layerbname:= pi_layerb.asmsestring;
+     nonplated:= pi_npt.asboolean;
+     psfile:= pi_filename.asmsestring;
+     showreferences:= pi_showref.asboolean;
+     showdistributors:= pi_showdist.asboolean;
+     plotitemdso.refresh();
+     setlength(layers,pli_pk.c.griddata.count);
+     for i2:= 0 to high(layers) do begin
+      with layers[i2] do begin
+       getlayer(pli_layer.c.griddata[i2],layer);
+       color:= pli_color.c.griddata[i2];
+       refon:= pli_refon.c.griddata[i2];
+       refcolor:= pli_refcolor.c.griddata[i2];
+       valon:= pli_valon.c.griddata[i2];
+       valcolor:= pli_valcolor.c.griddata[i2];
+       invison:= pli_invison.c.griddata[i2];
+       drillmarks:= pli_drillmarks.c.griddata[i2];
+       if drillmarks = '' then begin
+        drillmarks:= mainmodule.drillmarknames[dm_no_drill_shape];
+       end;
+      end;
+     end;
+    end;
+   end;
+   plotitemdso.active:= false;
+   pageitemqu.active:= false;
+   docusetqu.active:= false;
+   docupagedso.active:= false;
+  end;
+ end;
+end;
+
 procedure tmainmo.createprodfiles(const aindex: int32);
 var
  i1{,i2}: int32;
@@ -1998,8 +2111,8 @@ begin
     end;
     setlength(lainf1.layers,1);
     lainf1.layers[0].layer:= la2;
-    setlength(lainf1.drillmarks,1);
-    lainf1.drillmarks:= drillmarks[i1];
+//    setlength(lainf1.drillmarks,1);
+//    lainf1.drillmarks:= drillmarks[i1];
     if not plotfile(board1,plotdir1,ar1[i1],
                            fileformatty(plotformats[i1]),lainf1,
           (i1 = high(plotfiles)) and (length(drillfiles) = 0)
@@ -2086,7 +2199,7 @@ var
  end;//inctempfile
 
 var
- info1: pdocuinfoty;
+ info1: docuinfoty;
  rep: tdocure;
  i1,i2: int32;
  error1: boolean;
@@ -2098,14 +2211,13 @@ var
  la1: layoutflagsty;
  lainf1: layerinforecty;
 begin
- info1:= globaloptions.docudefinebyname(projectoptions.docusets[aindex]);
- if info1 = nil then begin
+ if not docudefinebyname(projectoptions.docusets[aindex],info1) then begin
   errormessage('Docuset "'+projectoptions.docusets[aindex]+'"'+lineend+
                'is invalid');
   exit;
  end;
  fillchar(lainf1,sizeof(lainf1),0);
- with info1^ do begin
+ with info1 do begin
   psprinter.pa_width:= pagewidth;
   psprinter.pa_height:= pageheight;
   psprinter.pa_frameleft:= leftmargin;
@@ -2124,12 +2236,12 @@ begin
   rep.clear(); //remove defaultpage
   rep.pagewidth:= psprinter.clientwidth;
   rep.pageheight:= psprinter.clientheight;
-  for i1:= 0 to high(info1^.pages) do begin
+  for i1:= 0 to high(info1.pages) do begin
 //   pac1:= nil;
    pa1:= nil;
-   case info1^.pages[i1].pagekind of
+   case info1.pages[i1].pagekind of
     dpk_title: begin
-     pa1:= ttitlereppa.create(ttitlepage(info1^.pages[i1]));
+     pa1:= ttitlereppa.create(info1.pages[i1]);
     end;
     dpk_layerplot: begin
      inctempfile();
@@ -2137,31 +2249,15 @@ begin
       error1:= true;
       break;
      end;
-     with tlayerplotpage(info1^.pages[i1]) do begin
-      lainf1.drillmarks:= drillmarks;
-      setlength(lainf1.layers,length(layernames));
-      for i2:= 0 to high(lainf1.layers) do begin
-       if not getlayer(layernames[i2],lainf1.layers[i2].layer) then begin
-        error1:= true;
-        break;
-       end;
-       lainf1.layers[i2].color:= colornames[i2];
-       lainf1.layers[i2].refon:= refon[i2];
-       lainf1.layers[i2].refcolor:= refcolor[i2];
-       lainf1.layers[i2].valon:= valon[i2];
-       lainf1.layers[i2].valcolor:= valcolor[i2];
-       lainf1.layers[i2].invison:= invison[i2];
-      end;
-      if error1 then begin
-       break;
-      end;
+     with info1.pages[i1] do begin
+      lainf1.layers:= layers;
       if lainf1.layers <> nil then begin
        s1:= tmpfile;
        if not plotfile(boardfile1,tmpf,s1,ff_postscript,lainf1,false) then begin
         error1:= true;
         break;
        end;
-       pa1:= tdocupsreppa.create(tlayerplotpage(info1^.pages[i1]));
+       pa1:= tdocupsreppa.create(info1.pages[i1]);
       end;
      end;
     end;
@@ -2171,7 +2267,7 @@ begin
       error1:= true;
       break;
      end;
-     with tdrillmappage(info1^.pages[i1]) do begin
+     with info1.pages[i1] do begin
       if not getlayer(layeraname,pk1) or 
                  not getlayer(layerbname,pk2) then begin
        error1:= true;
@@ -2183,12 +2279,12 @@ begin
        error1:= true;
        break;
       end;
-      pa1:= tdocupsreppa.create(tdrillmappage(info1^.pages[i1]));
+      pa1:= tdocupsreppa.create(info1.pages[i1]);
      end;
     end;
     dpk_schematic: begin
-     with tschematicplotpage(info1^.pages[i1]) do begin
-      pa1:= tdocupsreppa.create(tschematicplotpage(info1^.pages[i1]));
+     with info1.pages[i1] do begin
+      pa1:= tdocupsreppa.create(info1.pages[i1]);
       s1:= expandprojectmacros(psfile);
      {
       with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
@@ -2198,10 +2294,10 @@ begin
      end;
     end;
     dpk_partlist: begin
-     pa1:= tpartlistreppa.create(tpartlistpage(info1^.pages[i1]));
+     pa1:= tpartlistreppa.create(info1.pages[i1]);
     end;
     dpk_bom: begin
-     pa1:= tbomreppa.create(tbompage(info1^.pages[i1]));
+     pa1:= tbomreppa.create(info1.pages[i1]);
      bommo.bomds.active:= true;
     end;
    end;
@@ -2215,7 +2311,7 @@ begin
      with tdocupsreppa(pa1) do begin
       ps.psfile:= s1;
       la1:= ps.layout;
-      with info1^.pages[i1] do begin
+      with info1.pages[i1] do begin
        titledi.value:= title;
        if mirrorx then begin
         include(la1,la_mirrorx);
@@ -2241,15 +2337,15 @@ begin
    tmpfile:= tmpfile+'.ps';
    rep.render(psprinter,ttextstream.create(tmpfile,fm_create));
    b1:= false;
-   if info1^.psfile <> '' then begin
+   if info1.psfile <> '' then begin
     b1:= true;
-    s1:= expandprojectmacros(info1^.psfile);
+    s1:= expandprojectmacros(info1.psfile);
     createdirpath(filedir(filepath(s1)));
     copyfile(tmpfile,s1);
     tmpfile:= s1;
    end;
-   if info1^.pdffile <> '' then begin
-    ps2pdf(tmpfile,expandprojectmacros(info1^.pdffile));
+   if info1.pdffile <> '' then begin
+    ps2pdf(tmpfile,expandprojectmacros(info1.pdffile));
    end;
    showpsfile(tmpfile,b1);
   end;
@@ -2409,9 +2505,9 @@ var
  i1: int32;
 begin
  for i1:= 0 to high(fdocudefines) do begin
-  docupagesetlength(fdocudefines[i1].pages,0);
+//  docupagesetlength(fdocudefines[i1].pages,0);
  end;
- fdocudefines:= avalue;
+// fdocudefines:= avalue;
  setlength(fdocunames,length(fdocudefines));
  for i1:= 0 to high(fdocudefines) do begin
   fdocunames[i1]:= fdocudefines[i1].h.name;
@@ -2516,7 +2612,7 @@ begin
       end;
       if (kind1 <> dpk_none) then begin
        additem(pointerarty(pages),docupageclasses[kind1].create);
-       pages[high(pages)].readstat(reader,'');
+//       pages[high(pages)].readstat(reader,'');
       end;
       reader.endlist();
       inc(count2);
@@ -2614,7 +2710,7 @@ begin
     writer.beginlist('pages');
     for i2:= 0 to high(pages) do begin
      writer.beginlist('item'+inttostrmse(i2));
-     pages[i2].writestat(writer,'');
+//     pages[i2].writestat(writer,'');
      writer.endlist();
     end;
     writer.endlist();

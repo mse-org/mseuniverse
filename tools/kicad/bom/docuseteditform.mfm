@@ -12,9 +12,9 @@ inherited docuseteditfo: tdocuseteditfo
     frame.localprops1 = []
     taborder = 4
     bounds_x = 0
-    bounds_y = 138
+    bounds_y = 169
     bounds_cx = 701
-    bounds_cy = 268
+    bounds_cy = 237
     anchors = [an_top, an_bottom]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -105,7 +105,7 @@ inherited docuseteditfo: tdocuseteditfo
       ifilink = bommo.dpg_title
       reffontheight = 14
     end
-    object pagekinded: tenumedit
+    object pagekinded: tdropdownlistedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
@@ -125,11 +125,12 @@ inherited docuseteditfo: tdocuseteditfo
       bounds_cy = 16
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+      ifilink = bommo.dpg_kind
+      dropdown.options = [deo_selectonly, deo_forceselect, deo_autodropdown, deo_keydropdown]
       dropdown.cols.count = 1
       dropdown.cols.items = <      
         item
         end>
-      ifilink = bommo.dpg_kind
       reffontheight = 14
     end
     object docupageeditbu: tstockglyphdatabutton
@@ -146,11 +147,11 @@ inherited docuseteditfo: tdocuseteditfo
       glyph = stg_ellipsesmall
     end
   end
-  object stripe3: tlayouter[1]
+  object stripe4: tlayouter[1]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
-    bounds_y = 97
+    bounds_y = 130
     bounds_cx = 686
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
@@ -159,9 +160,8 @@ inherited docuseteditfo: tdocuseteditfo
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    linktop = stripe2
     linkbottom = grid
-    dist_bottom = 4
+    dist_bottom = 2
     object pagesizeed: tpagesizeselector
       frame.caption = 'Page size'
       frame.localprops = []
@@ -354,9 +354,12 @@ inherited docuseteditfo: tdocuseteditfo
   inherited stripe2: tlayouter[3]
     frame.localprops = []
     frame.localprops1 = []
+    bounds_y = 56
     place_mindist = 4
     place_maxdist = 4
     place_options = [plo_endmargin]
+    linkbottom = stripe3
+    dist_top = 0
     inherited nameed: tdbstringedit
     end
     object docudired: tdbfilenameedit[1]
@@ -401,13 +404,101 @@ inherited docuseteditfo: tdocuseteditfo
       end
     end
   end
-  inherited dataso: tmsedatasource[5]
+  object stripe3: tlayouter[5]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 5
+    bounds_x = 8
+    bounds_y = 93
+    bounds_cx = 686
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_scalesize, plo_scalefullref, plo_endmargin]
+    linkbottom = stripe4
+    object psfileed: tdbfilenameedit
+      frame.caption = 'Postscript File'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      onshowhint = macrohintev
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 360
+      bounds_cy = 37
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
+      datalink.datasource = dataso
+      datalink.fieldname = 'PSFILE'
+      controller.filterlist.data = (
+        (
+          'Postscript Files'
+          '*.ps'
+        )
+      )
+      controller.defaultext = 'ps'
+      controller.options = [fdo_save, fdo_file, fdo_basedirrelative]
+      controller.captionsave = 'Docu Postscript File'
+      reffontheight = 14
+    end
+    object pdffileed: tdbfilenameedit
+      frame.caption = 'PDF File'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      onshowhint = macrohintev
+      bounds_x = 364
+      bounds_y = 0
+      bounds_cx = 322
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
+      datalink.datasource = dataso
+      datalink.fieldname = 'PDFFILE'
+      controller.filterlist.data = (
+        (
+          'PDF Files'
+          '*.pdf'
+        )
+      )
+      controller.defaultext = 'pdf'
+      controller.options = [fdo_save, fdo_file, fdo_basedirrelative]
+      controller.captionsave = 'Docu PDF File'
+      reffontheight = 14
+    end
+  end
+  inherited dataso: tmsedatasource[6]
     DataSet = bommo.docusetqu
     OnDataChange = datachaev
   end
-  inherited tstatfile1: tstatfile[6]
+  inherited tstatfile1: tstatfile[7]
   end
-  object pageeditact: taction[7]
+  object pageeditact: taction[8]
     onexecuteaction = pageeditev
     left = 528
     top = 160

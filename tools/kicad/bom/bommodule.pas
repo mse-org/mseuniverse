@@ -40,7 +40,6 @@ type
    ds_pk: tmselargeintfield;
    dpg_pk: tifiint64linkcomp;
    dpg_title: tifistringlinkcomp;
-   dpg_kind: tifienumlinkcomp;
    docupagelink: tfieldparamlink;
    docupagequ: tifisqlresult;
    docupagedso: tconnectedifidatasource;
@@ -78,6 +77,22 @@ type
    pli_color: tifidropdownlistlinkcomp;
    pli_refcolor: tifidropdownlistlinkcomp;
    pli_valcolor: tifidropdownlistlinkcomp;
+   ds_docudir: tmsestringfield;
+   ds_psfile: tmsestringfield;
+   ds_pdffile: tmsestringfield;
+   ds_width: tmsefloatfield;
+   ds_height: tmsefloatfield;
+   ds_margleft: tmsefloatfield;
+   ds_margright: tmsefloatfield;
+   ds_margtop: tmsefloatfield;
+   ds_margbottom: tmsefloatfield;
+   pi_layera: tmsestringfield;
+   pi_layerb: tmsestringfield;
+   pi_npt: tmsebooleanfield;
+   pi_showref: tmsebooleanfield;
+   pi_showdist: tmsebooleanfield;
+   dpg_kind: tifidropdownlistlinkcomp;
+   pi_kind: tmsestringfield;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
@@ -87,6 +102,8 @@ type
    procedure plotitemrefreshev(const sender: TObject);
    procedure plotitemdelev(const sender: TObject; var aindex: Integer;
                    var acount: Integer);
+   procedure newdodocusetev(DataSet: TDataSet);
+   procedure newpageitemev(DataSet: TDataSet);
   protected
    fdeleteddocupages: int64arty;
    fdeletedplotitems: int64arty;
@@ -133,7 +150,7 @@ begin
   pageitempkpar.param.value:= dpg_pk.c.griddata[arow];
   pageitemqu.controller.refresh();
   if not pageitemqu.eof then begin
-   case docupagekindty(dpg_kind.c.griddata[arow]+1) of
+   case mainmo.getpagekind(dpg_kind.c.griddata[arow]) of
     dpk_title: begin
      res:= ttitledialogfo.create(nil).show(ml_application);
     end;
@@ -377,6 +394,25 @@ procedure tbommo.plotitemdelev(const sender: TObject; var aindex: Integer;
                var acount: Integer);
 begin
  additem(fdeletedplotitems,pli_pk.c.griddata[aindex]);
+end;
+
+procedure tbommo.newdodocusetev(DataSet: TDataSet);
+begin
+ ds_height.asfloat:= 297; //a4
+ ds_width.asfloat:= 210;
+ ds_margleft.asfloat:= 10;
+ ds_margright.asfloat:= 10;
+ ds_margtop.asfloat:= 10;
+ ds_margbottom.asfloat:= 10;
+end;
+
+procedure tbommo.newpageitemev(DataSet: TDataSet);
+begin
+ pi_scale.asfloat:= 1;
+ pi_shifthorz.asfloat:= 0;
+ pi_shiftvert.asfloat:= 0;
+ pi_layera.asmsestring:= 'F.Cu';
+ pi_layerb.asmsestring:= 'B.Cu';
 end;
 
 end.
