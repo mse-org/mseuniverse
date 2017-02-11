@@ -526,10 +526,12 @@ object projectsettingsfo: tprojectsettingsfo
             bounds_cx = 352
             bounds_cy = 16
             optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
-            dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_sorted]
+            dropdown.datasource = bommo.prodfielstackdso
+            dropdown.optionsdb = [odb_opendataset, odb_closedataset, odb_directdata]
             dropdown.cols.count = 1
             dropdown.cols.items = <            
               item
+                datafield = 'NAME'
               end>
             reffontheight = 14
           end
@@ -592,7 +594,6 @@ object projectsettingsfo: tprojectsettingsfo
             bounds_cy = 16
             optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
             dropdown.datasource = bommo.docusetdso
-            dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_sorted]
             dropdown.optionsdb = [odb_opendataset, odb_closedataset, odb_directdata]
             dropdown.cols.count = 1
             dropdown.cols.items = <            
