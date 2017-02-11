@@ -399,7 +399,7 @@ object bommo: tbommo
     top = 96
   end
   object prodfilestackqu: tmsesqlquery
-    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
+    options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -475,13 +475,12 @@ object bommo: tbommo
         DataType = ftString
         Size = 400
       end>
-    controller.fields.count = 10
+    controller.fields.count = 9
     controller.fields.fields = (
       (
         ft_datetime
         ft_datetime
         ft_string
-        ft_largeint
         ft_string
         ft_string
         ft_string
@@ -507,44 +506,39 @@ object bommo: tbommo
           Size = 0
         end      
         item
-          FieldName = 'PK'
-          Index = 3
-          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
-        end      
-        item
           DisplayWidth = 0
           FieldName = 'NAME'
-          Index = 4
+          Index = 3
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'DESCRIPTION'
-          Index = 5
+          Index = 4
           Size = 0
         end      
         item
           DisplayWidth = 400
           FieldName = 'OUTPUTDIR'
-          Index = 6
+          Index = 5
           Size = 0
         end      
         item
           DisplayWidth = 5
           FieldName = 'CREATEZIP'
-          Index = 7
+          Index = 6
           displayvalues = 'True;False'
         end      
         item
           DisplayWidth = 400
           FieldName = 'ZIPFILE'
-          Index = 8
+          Index = 7
           Size = 0
         end      
         item
           DisplayWidth = 400
           FieldName = 'ZIPMAINDIR'
-          Index = 9
+          Index = 8
           Size = 0
         end>
     )
@@ -552,6 +546,12 @@ object bommo: tbommo
     left = 184
     top = 80
     streamingversion = 1
+    object pf_pk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 9
+      left = 192
+      top = 112
+    end
   end
   object dpg_pk: tifiint64linkcomp
     controller.optionsvalue = [vco_datalist]
@@ -847,48 +847,48 @@ object bommo: tbommo
         DataType = ftBoolean
       end>
     controller.options = [dso_utf8]
-    left = 360
-    top = 152
+    left = 624
+    top = 160
     streamingversion = 1
     object pi_title: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TITLE'
       Index = 0
       Size = 0
-      left = 368
-      top = 216
+      left = 632
+      top = 224
     end
     object pi_mirrorhorz: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'MIRRORHORZ'
       Index = 1
       displayvalues = 'True;False'
-      left = 368
-      top = 232
+      left = 632
+      top = 240
     end
     object pi_mirrorvert: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'MIRRORVERT'
       Index = 2
       displayvalues = 'True;False'
-      left = 368
-      top = 248
+      left = 632
+      top = 256
     end
     object pi_rotate90: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'ROTATE90'
       Index = 3
       displayvalues = 'True;False'
-      left = 368
-      top = 264
+      left = 632
+      top = 272
     end
     object pi_rotate180: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'ROTATE180'
       Index = 4
       displayvalues = 'True;False'
-      left = 368
-      top = 280
+      left = 632
+      top = 288
     end
     object pi_scale: tmsefloatfield
       DefaultExpression = '1'
@@ -897,8 +897,8 @@ object bommo: tbommo
       optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
-      left = 368
-      top = 296
+      left = 632
+      top = 304
     end
     object pi_shifthorz: tmsefloatfield
       DefaultExpression = '0'
@@ -907,8 +907,8 @@ object bommo: tbommo
       optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
-      left = 368
-      top = 312
+      left = 632
+      top = 320
     end
     object pi_shiftvert: tmsefloatfield
       DefaultExpression = '0'
@@ -917,84 +917,84 @@ object bommo: tbommo
       optionsfield = [of_visible, of_initcopy, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
-      left = 368
-      top = 328
+      left = 632
+      top = 336
     end
     object pi_filename: tmsestringfield
       DisplayWidth = 20
       FieldName = 'FILENAME'
       Index = 8
       Size = 0
-      left = 368
-      top = 344
+      left = 632
+      top = 352
     end
     object pi_text: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TEXT'
       Index = 9
       Size = 0
-      left = 368
-      top = 360
+      left = 632
+      top = 368
     end
     object pi_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 10
       optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
-      left = 368
-      top = 184
+      left = 632
+      top = 192
     end
     object pi_showdist: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'SHOWDIST'
       Index = 11
       displayvalues = 'True;False'
-      left = 368
-      top = 440
+      left = 632
+      top = 448
     end
     object pi_showref: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'SHOWREF'
       Index = 12
       displayvalues = 'True;False'
-      left = 368
-      top = 424
+      left = 632
+      top = 432
     end
     object pi_npt: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'NPT'
       Index = 13
       displayvalues = 'True;False'
-      left = 368
-      top = 408
+      left = 632
+      top = 416
     end
     object pi_layerb: tmsestringfield
       DisplayWidth = 20
       FieldName = 'LAYERB'
       Index = 14
       Size = 0
-      left = 368
-      top = 392
+      left = 632
+      top = 400
     end
     object pi_layera: tmsestringfield
       DisplayWidth = 20
       FieldName = 'LAYERA'
       Index = 15
       Size = 0
-      left = 368
-      top = 376
+      left = 632
+      top = 384
     end
     object pi_kind: tmsestringfield
       DisplayWidth = 0
       FieldName = 'KIND'
       Index = 16
       Size = 0
-      left = 368
-      top = 200
+      left = 632
+      top = 208
     end
   end
   object pageitempkpar: tparamconnector
-    left = 368
-    top = 136
+    left = 632
+    top = 144
   end
   object plotitemqu: tifisqlresult
     fielddefs = <    
@@ -1069,14 +1069,26 @@ object bommo: tbommo
       item
         Name = 'ORDNUM'
         DataType = ftInteger
+      end    
+      item
+        Name = 'LAYERA'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'LAYERB'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'NPT'
+        DataType = ftBoolean
       end>
     params = <    
       item
         DataType = ftUnknown
         Name = 'link'
         ParamType = ptInput
-        datasource = pageitemdso
-        fieldname = 'PK'
       end>
     sql.data = (
       'select * from PLOTITEMS where LINK = :link order by ORDNUM'
@@ -1084,11 +1096,11 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.trans
     options = [sso_utf8]
-    left = 512
-    top = 176
+    left = 776
+    top = 232
   end
   object plotitemdso: tconnectedifidatasource
-    fields.count = 9
+    fields.count = 14
     fields.items = <    
       item
         fieldname = 'PK'
@@ -1134,10 +1146,35 @@ object bommo: tbommo
         fieldname = 'DRILLMARKS'
         datatype = dl_msestring
         sourcefieldname = 'DRILLMARKS'
+      end    
+      item
+        fieldname = 'FORMAT'
+        datatype = dl_msestring
+        sourcefieldname = 'FORMAT'
+      end    
+      item
+        fieldname = 'FILENAME'
+        datatype = dl_msestring
+        sourcefieldname = 'FILENAME'
+      end    
+      item
+        fieldname = 'LAYERA'
+        datatype = dl_msestring
+        sourcefieldname = 'LAYERA'
+      end    
+      item
+        fieldname = 'LAYERB'
+        datatype = dl_msestring
+        sourcefieldname = 'LAYERB'
+      end    
+      item
+        fieldname = 'NPT'
+        datatype = dl_integer
+        sourcefieldname = 'NPT'
       end>
     connection = plotitemqu
-    left = 512
-    top = 192
+    left = 776
+    top = 248
   end
   object plotitemlink: tfieldparamlink
     fieldname = 'PK'
@@ -1145,21 +1182,21 @@ object bommo: tbommo
     visualcontrol = True
     onrefresh = plotitemrefreshev
     onmasterpost = plotitempostev
-    left = 512
-    top = 152
+    left = 776
+    top = 160
   end
   object pageitemdso: tmsedatasource
     DataSet = pageitemqu
-    left = 360
-    top = 168
+    left = 624
+    top = 176
   end
   object pli_pk: tifiint64linkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
     controller.fieldname = 'PK'
     controller.max = 2147483647
-    left = 520
-    top = 208
+    left = 784
+    top = 264
   end
   object pli_layer: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1169,13 +1206,13 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 520
-    top = 224
+    left = 784
+    top = 280
   end
   object plotitemgrid: tifigridlinkcomp
     controller.onrowsdeleting = plotitemdelev
-    left = 512
-    top = 360
+    left = 776
+    top = 448
   end
   object plotitemdelete: tsqlstatement
     params = <    
@@ -1190,8 +1227,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 760
-    top = 192
+    left = 888
+    top = 280
   end
   object plotitemupdate: tsqlstatement
     params = <    
@@ -1248,18 +1285,44 @@ object bommo: tbommo
         DataType = ftUnknown
         Name = 'drillmarks'
         ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'format'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'filename'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layera'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layerb'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'npt'
+        ParamType = ptInput
       end>
     sql.data = (
       'update PLOTITEMS set ORDNUM=:ordnum, LAYER=:layer, COLOR=:color,'
       '        REFON=:refon, REFCOLOR=:refcolor,'
-      '        VALON=:valon, VALCOLOR=:valcolor, INVISON=:invison, DRILLMARKS=:drillmarks'
+      '        VALON=:valon, VALCOLOR=:valcolor, INVISON=:invison, DRILLMARKS=:drillmarks,'
+      '        FORMAT=:format, FILENAME=:filename, LAYERA=:layera, LAYERB=:layerb, NPT=:npt'
       '                     where PK = :pk'
     )
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 760
-    top = 168
+    left = 888
+    top = 256
   end
   object plotiteminsert: tsqlresult
     fielddefs = <    
@@ -1321,38 +1384,65 @@ object bommo: tbommo
         DataType = ftUnknown
         Name = 'drillmarks'
         ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'format'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'filename'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layera'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layerb'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'npt'
+        ParamType = ptInput
       end>
     sql.data = (
-      'insert into PLOTITEMS (LINK,ORDNUM,LAYER,COLOR,REFON,REFCOLOR,VALON,VALCOLOR,INVISON,DRILLMARKS) '
-      '     values (:link,:ordnum,:layer,:color,:refon,:refcolor,:valon,:valcolor,:invison,:drillmarks)'
+      'insert into PLOTITEMS (LINK,ORDNUM,LAYER,COLOR,REFON,REFCOLOR,VALON,VALCOLOR,INVISON,DRILLMARKS,'
+      '       FORMAT,FILENAME,LAYERA,LAYERB,NPT) '
+      '     values (:link,:ordnum,:layer,:color,:refon,:refcolor,:valon,:valcolor,:invison,:drillmarks,'
+      '       :format,:filename,:layera,:layerb,:npt)'
       '           returning PK'
     )
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 760
-    top = 144
+    left = 888
+    top = 232
   end
   object pli_refon: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
     controller.fieldname = 'REFON'
-    left = 520
-    top = 256
+    left = 784
+    top = 312
   end
   object pli_valon: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
     controller.fieldname = 'VALON'
-    left = 520
-    top = 288
+    left = 784
+    top = 344
   end
   object pli_invison: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
     controller.fieldname = 'INVISON'
-    left = 520
-    top = 320
+    left = 784
+    top = 376
   end
   object pli_drillmarks: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1362,8 +1452,8 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 520
-    top = 336
+    left = 784
+    top = 392
   end
   object pli_color: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1373,8 +1463,8 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 520
-    top = 240
+    left = 784
+    top = 296
   end
   object pli_refcolor: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1384,8 +1474,8 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 520
-    top = 272
+    left = 784
+    top = 328
   end
   object pli_valcolor: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1395,8 +1485,8 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 520
-    top = 304
+    left = 784
+    top = 360
   end
   object dpg_kind: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1408,5 +1498,289 @@ object bommo: tbommo
       end>
     left = 16
     top = 432
+  end
+  object proditemlink: tfieldparamlink
+    fieldname = 'PK'
+    datasource = prodfielstackdso
+    visualcontrol = True
+    onrefresh = proditemrefreshev
+    onmasterpost = proditempostev
+    left = 336
+    top = 80
+  end
+  object pli_format: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    controller.fieldname = 'FORMAT'
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 784
+    top = 408
+  end
+  object pli_filename: tifistringlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = plotitemdso
+    controller.fieldname = 'FILENAME'
+    left = 784
+    top = 424
+  end
+  object dri_layera: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = drillitemdso
+    controller.fieldname = 'LAYERA'
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 336
+    top = 208
+  end
+  object dri_layerb: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = drillitemdso
+    controller.fieldname = 'LAYERB'
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 336
+    top = 224
+  end
+  object dri_npt: tifibooleanlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = drillitemdso
+    controller.fieldname = 'NPT'
+    left = 336
+    top = 240
+  end
+  object drillitemqu: tifisqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'ORDNUM'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end    
+      item
+        Name = 'LAYERA'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'LAYERB'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'NPT'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'FILENAME'
+        DataType = ftString
+        Size = 400
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select * from DRILLITEMS where LINK = :link order by ORDNUM'
+    )
+    database = mainmo.conn
+    transaction = mainmo.trans
+    options = [sso_utf8]
+    left = 328
+    top = 160
+  end
+  object drillitemdso: tconnectedifidatasource
+    fields.count = 5
+    fields.items = <    
+      item
+        fieldname = 'PK'
+        datatype = dl_int64
+        sourcefieldname = 'PK'
+      end    
+      item
+        fieldname = 'LAYERA'
+        datatype = dl_msestring
+        sourcefieldname = 'LAYERA'
+      end    
+      item
+        fieldname = 'LAYERB'
+        datatype = dl_msestring
+        sourcefieldname = 'LAYERB'
+      end    
+      item
+        fieldname = 'NPT'
+        datatype = dl_integer
+        sourcefieldname = 'NPT'
+      end    
+      item
+        fieldname = 'FILENAME'
+        datatype = dl_msestring
+        sourcefieldname = 'FILENAME'
+      end>
+    connection = drillitemqu
+    left = 328
+    top = 176
+  end
+  object dri_pk: tifiint64linkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = drillitemdso
+    controller.fieldname = 'PK'
+    controller.max = 2147483647
+    left = 336
+    top = 192
+  end
+  object dri_filename: tifistringlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = drillitemdso
+    controller.fieldname = 'FILENAME'
+    left = 336
+    top = 256
+  end
+  object drillitemdelete: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'delete from DRILLITEMS where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 440
+    top = 208
+  end
+  object drillitemupdate: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layera'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layerb'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'npt'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'filename'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'update DRILLITEMS set ORDNUM=:ordnum, LAYERA=:layera, LAYERB=:layerb,'
+      '        NPT=:npt, FILENAME=:filename'
+      '                     where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 440
+    top = 184
+  end
+  object drilliteminsert: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layera'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'layerb'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'npt'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'filename'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into DRILLITEMS (LINK,ORDNUM,LAYERA,LAYERB,NPT,FILENAME) '
+      '     values (:link,:ordnum,:layera,:layerb,:npt,:filename)'
+      '           returning PK'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 440
+    top = 160
+  end
+  object drillitemgrid: tifigridlinkcomp
+    controller.onrowsdeleting = drillitemdelev
+    left = 328
+    top = 280
   end
 end

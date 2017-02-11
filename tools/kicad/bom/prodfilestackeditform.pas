@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  recordnameeditform,mseact,msedataedits,msedbdialog,mseedit,mseificomp,
  mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,
- msesplitter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,msescrollbar;
+ msesplitter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,msescrollbar,
+ msewidgetgrid,msedragglob,msetabs;
 
 type
  tprodfilestackeditfo = class(trecordnameeditfo)
@@ -31,8 +32,83 @@ type
    createziped: tdbbooleanedit;
    zipfileed: tdbfilenameedit;
    mainzipdired: tdbstringedit;
+   ttabwidget1: ttabwidget;
+   ttabpage1: ttabpage;
+   plotsgrid: twidgetgrid;
+   layered: tdropdownlistedit;
+   plotfileed: tstringedit;
+   plotformated: tdropdownlistedit;
+   drillmarked: tdropdownlistedit;
+   ttabpage2: ttabpage;
+   drillgrid: twidgetgrid;
+   layeraed: tdropdownlistedit;
+   layerbed: tdropdownlistedit;
+   nonplateded: tbooleanedit;
+   drillfileed: tstringedit;
+   plotpk: tint64edit;
+   val_refon: tbooleanedit;
+   val_valon: tbooleanedit;
+   val_invison: tbooleanedit;
+   drillpk: tint64edit;
+   procedure editedev(const sender: TObject);
+   procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
+   procedure formatsetev(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure plotfilesetev(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
+   procedure drillfilesetev(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
  end;
 implementation
 uses
- prodfilestackeditform_mfm;
+ prodfilestackeditform_mfm,bommodule,msefileutils,mainmodule;
+ 
+procedure tprodfilestackeditfo.editedev(const sender: TObject);
+begin
+ if not (bommo.plotitemdso.refreshing or 
+                           bommo.drillitemdso.refreshing) then begin
+  dataso.dataset.edit();
+  dataso.dataset.modify(); //set modified flag
+ end;
+end;
+
+procedure tprodfilestackeditfo.readonlychangeev(const sender: TObject;
+               const avalue: Boolean);
+begin
+ plotsgrid.datacols.readonly:= avalue;
+ if avalue then begin
+  plotsgrid.removeappendedrow();
+ end;
+ plotsgrid.norowedit:= avalue;
+end;
+
+procedure tprodfilestackeditfo.formatsetev(const sender: TObject;
+               var avalue: msestring; var accept: Boolean);
+begin
+ if plotfileed.value <> '' then begin
+  if fileext(plotfileed.value) = 
+      fileformatexts[mainmo.getfileformat(plotformated.value)] then begin
+   plotfileed.value:= replacefileext(plotfileed.value,
+                                fileformatexts[mainmo.getfileformat(avalue)]);
+  end;
+ end;
+end;
+
+procedure tprodfilestackeditfo.plotfilesetev(const sender: TObject;
+               var avalue: msestring; var accept: Boolean);
+begin
+ if not hasfileext(avalue) and (plotformated.value <> '') then begin
+  avalue:= replacefileext(avalue,
+           fileformatexts[mainmo.getfileformat(plotformated.value)]);
+ end;
+end;
+
+procedure tprodfilestackeditfo.drillfilesetev(const sender: TObject;
+               var avalue: msestring; var accept: Boolean);
+begin
+ if (avalue <> '') and not hasfileext(avalue) then begin
+  avalue:= avalue + '.drl';
+ end;
+end;
+
 end.

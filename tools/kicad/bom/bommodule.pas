@@ -93,6 +93,21 @@ type
    pi_showdist: tmsebooleanfield;
    dpg_kind: tifidropdownlistlinkcomp;
    pi_kind: tmsestringfield;
+   proditemlink: tfieldparamlink;
+   pf_pk: tmselargeintfield;
+   pli_format: tifidropdownlistlinkcomp;
+   pli_filename: tifistringlinkcomp;
+   dri_layera: tifidropdownlistlinkcomp;
+   dri_layerb: tifidropdownlistlinkcomp;
+   dri_npt: tifibooleanlinkcomp;
+   drillitemdso: tconnectedifidatasource;
+   drillitemqu: tifisqlresult;
+   dri_pk: tifiint64linkcomp;
+   dri_filename: tifistringlinkcomp;
+   drillitemdelete: tsqlstatement;
+   drillitemupdate: tsqlstatement;
+   drilliteminsert: tsqlresult;
+   drillitemgrid: tifigridlinkcomp;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
@@ -104,14 +119,22 @@ type
                    var acount: Integer);
    procedure newdodocusetev(DataSet: TDataSet);
    procedure newpageitemev(DataSet: TDataSet);
+   procedure proditemrefreshev(const sender: TObject);
+   procedure proditempostev(const sender: TDataSet; const master: TDataSet);
+   procedure drillitemdelev(const sender: TObject; var aindex: Integer;
+                   var acount: Integer);
   protected
    fdeleteddocupages: int64arty;
    fdeletedplotitems: int64arty;
-   procedure refreshitems(var deleted: int64arty;
+   fdeleteddrillitems: int64arty;
+   procedure refreshitems(const alink: tmselargeintfield; 
+             var deleted: int64arty;
              const pk: tifiint64linkcomp; const query: tmsesqlquery;
                                     const dataso: tconnectedifidatasource);
    function getdocupagevalues(const index: int32): variantarty;
    function getplotitemvalues(const index: int32): variantarty;
+   function getproditemvalues(const index: int32): variantarty;
+   function getproddrillitemvalues(const index: int32): variantarty;
    procedure updateitems(var deleted: int64arty;
          const pk: tifiint64linkcomp;
          const deletestatement,updatestatement: tsqlstatement;
@@ -138,6 +161,9 @@ begin
  pli_refcolor.c.dropdown.cols[0].asarray:= mainmo.edacolornames;
  pli_valcolor.c.dropdown.cols[0].asarray:= mainmo.edacolornames;
  pli_drillmarks.c.dropdown.cols[0].asarray:= mainmo.drillmarknames;
+ pli_format.c.dropdown.cols[0].asarray:= mainmo.fileformats;
+ dri_layera.c.dropdown.cols[0].asarray:= mainmo.layernames;
+ dri_layerb.c.dropdown.cols[0].asarray:= mainmo.layernames;
 end;
 
 procedure tbommo.editdocupage(const arow: int32);
@@ -245,7 +271,8 @@ begin
  end;
 end;
 
-procedure tbommo.refreshitems(var deleted: int64arty;
+procedure tbommo.refreshitems(const alink: tmselargeintfield;
+             var deleted: int64arty;
              const pk: tifiint64linkcomp; const query: tmsesqlquery;
                                     const dataso: tconnectedifidatasource);
 var
@@ -262,6 +289,7 @@ begin
    end;
   end
   else begin
+   tifisqlresult(dataso.connection).params[0].value:= alink.value;
    dataso.refresh();
   end;
  end;
@@ -269,7 +297,7 @@ end;
 
 procedure tbommo.docupagerefreshev(const sender: TObject);
 begin
- refreshitems(fdeleteddocupages,dpg_pk,docusetqu,docupagedso);
+ refreshitems(ds_pk,fdeleteddocupages,dpg_pk,docusetqu,docupagedso);
 end;
 
 {
@@ -379,6 +407,36 @@ begin
  result[10]:= pli_drillmarks.c.griddata[index];
 end;
 
+function tbommo.getproditemvalues(const index: int32): variantarty;
+begin
+ setlength(result,13);
+ result[0]:= pli_pk.c.griddata[index];
+ result[1]:= pf_pk.value;
+ result[2]:= index;
+ result[3]:= pli_layer.c.griddata[index];
+ result[4]:= '';//pli_color.c.griddata[index];
+ result[5]:= pli_refon.c.griddata[index];
+ result[6]:= '';//pli_refcolor.c.griddata[index];
+ result[7]:= pli_valon.c.griddata[index];
+ result[8]:= '';//pli_valcolor.c.griddata[index];
+ result[9]:= pli_invison.c.griddata[index];
+ result[10]:= pli_drillmarks.c.griddata[index];
+ result[11]:= pli_format.c.griddata[index];
+ result[12]:= pli_filename.c.griddata[index];
+end;
+
+function tbommo.getproddrillitemvalues(const index: int32): variantarty;
+begin
+ setlength(result,7);
+ result[0]:= dri_pk.c.griddata[index];
+ result[1]:= pf_pk.value;
+ result[2]:= index;
+ result[3]:= dri_layera.c.griddata[index];
+ result[4]:= dri_layerb.c.griddata[index];
+ result[5]:= dri_npt.c.griddata[index];
+ result[6]:= dri_filename.c.griddata[index];
+end;
+
 procedure tbommo.plotitempostev(const sender: TDataSet; const master: TDataSet);
 begin
  updateitems(fdeletedplotitems,pli_pk,plotitemdelete,plotitemupdate,
@@ -387,13 +445,33 @@ end;
 
 procedure tbommo.plotitemrefreshev(const sender: TObject);
 begin
- refreshitems(fdeletedplotitems,pli_pk,pageitemqu,plotitemdso);
+ refreshitems(pi_pk,fdeletedplotitems,pli_pk,pageitemqu,plotitemdso);
 end;
 
 procedure tbommo.plotitemdelev(const sender: TObject; var aindex: Integer;
                var acount: Integer);
 begin
  additem(fdeletedplotitems,pli_pk.c.griddata[aindex]);
+end;
+
+procedure tbommo.proditempostev(const sender: TDataSet; const master: TDataSet);
+begin
+ updateitems(fdeletedplotitems,pli_pk,plotitemdelete,plotitemupdate,
+                 plotiteminsert,@getproditemvalues);
+ updateitems(fdeleteddrillitems,dri_pk,drillitemdelete,drillitemupdate,
+                 drilliteminsert,@getproddrillitemvalues);
+end;
+
+procedure tbommo.proditemrefreshev(const sender: TObject);
+begin
+ refreshitems(pf_pk,fdeletedplotitems,pli_pk,prodfilestackqu,plotitemdso);
+ refreshitems(pf_pk,fdeleteddrillitems,dri_pk,prodfilestackqu,drillitemdso);
+end;
+
+procedure tbommo.drillitemdelev(const sender: TObject; var aindex: Integer;
+               var acount: Integer);
+begin
+ additem(fdeleteddrillitems,dri_pk.c.griddata[aindex]);
 end;
 
 procedure tbommo.newdodocusetev(DataSet: TDataSet);

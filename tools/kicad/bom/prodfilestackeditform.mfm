@@ -15,6 +15,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       end
     end
     inherited navig: tdbnavigator
+      onreadonlychange = readonlychangeev
     end
   end
   inherited stripe1: tlayouter
@@ -47,6 +48,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         0
       )
       taborder = 1
+      onshowhint = macrohintev
       bounds_x = 192
       bounds_y = 0
       bounds_cx = 494
@@ -74,6 +76,8 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
     place_maxdist = 4
     place_options = [plo_endmargin]
     linktop = stripe2
+    linkbottom = ttabwidget1
+    dist_bottom = 4
     object createziped: tdbbooleanedit
       frame.caption = 'Create ZIP file'
       frame.localprops = []
@@ -110,6 +114,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       )
       taborder = 1
       hint = 'Empty -> projectname'
+      onshowhint = macrohintev
       bounds_x = 108
       bounds_y = 0
       bounds_cx = 410
@@ -131,6 +136,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         0
       )
       taborder = 2
+      onshowhint = macrohintev
       bounds_x = 522
       bounds_y = 0
       bounds_cx = 164
@@ -141,9 +147,470 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       reffontheight = 14
     end
   end
-  inherited dataso: tmsedatasource[4]
+  object ttabwidget1: ttabwidget[4]
+    bounds_x = 0
+    bounds_y = 138
+    bounds_cx = 701
+    bounds_cy = 268
+    anchors = [an_top, an_bottom]
+    taborder = 4
+    activepageindex = 0
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
+    tab_size = 19
+    object ttabpage1: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 701
+      bounds_cy = 249
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Plotfiles'
+      object plotsgrid: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 701
+        bounds_cy = 249
+        anchors = [an_top, an_bottom]
+        optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 21
+            numstart = 1
+            numstep = 1
+          end>
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 8
+            captions.items = <            
+              item
+              end            
+              item
+                caption = 'Layer'
+              end            
+              item
+                caption = 'R'
+                hint = 'Show reference text'
+              end            
+              item
+                caption = 'V'
+                hint = 'Show value text'
+              end            
+              item
+                caption = 'I'
+                hint = 'Show invisible text'
+              end            
+              item
+                caption = 'Drillmarks'
+              end            
+              item
+                caption = 'Format'
+              end            
+              item
+                caption = 'Filename'
+                hint = 'Empty -> use default'
+              end>
+          end>
+        datacols.count = 8
+        datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item[plotpk]
+            width = 12
+            options = [co_invisible, co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'plotpk'
+          end        
+          item[layered]
+            width = 171
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'layered'
+          end        
+          item[val_refon]
+            width = 16
+            options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'val_refon'
+          end        
+          item[val_valon]
+            width = 16
+            options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'val_valon'
+          end        
+          item[val_invison]
+            width = 16
+            options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'val_invison'
+          end        
+          item[drillmarked]
+            width = 75
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'drillmarked'
+          end        
+          item[plotformated]
+            width = 132
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'plotformated'
+          end        
+          item[plotfileed]
+            width = 229
+            options = [co_fill, co_savestate, co_mousescrollrow]
+            widgetname = 'plotfileed'
+          end>
+        ifilink = bommo.plotitemgrid
+        datarowheight = 16
+        statfile = tstatfile1
+        onrowsmodified = editedev
+        onedited = editedev
+        reffontheight = 14
+        object layered: tdropdownlistedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 1
+          visible = False
+          bounds_x = 13
+          bounds_y = 0
+          bounds_cx = 171
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          ifilink = bommo.pli_layer
+          dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+        object plotfileed: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          visible = False
+          bounds_x = 445
+          bounds_y = 0
+          bounds_cx = 229
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_notnull]
+          onsetvalue = plotfilesetev
+          ifilink = bommo.pli_filename
+          reffontheight = 14
+        end
+        object plotformated: tdropdownlistedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 3
+          visible = False
+          bounds_x = 312
+          bounds_y = 0
+          bounds_cx = 132
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+          onsetvalue = formatsetev
+          ifilink = bommo.pli_format
+          dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+        object drillmarked: tdropdownlistedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly, osk_nopaintref]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 4
+          visible = False
+          bounds_x = 236
+          bounds_y = 0
+          bounds_cx = 75
+          bounds_cy = 16
+          anchors = [an_left, an_bottom]
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+          ifilink = bommo.pli_drillmarks
+          dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+        object plotpk: tint64edit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 5
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 12
+          bounds_cy = 16
+          max = 2147483647
+          ifilink = bommo.pli_pk
+          reffontheight = 14
+        end
+        object val_refon: tbooleanedit
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 6
+          bounds_x = 185
+          bounds_y = 0
+          bounds_cx = 16
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          visible = False
+          ifilink = bommo.pli_refon
+        end
+        object val_valon: tbooleanedit
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 7
+          bounds_x = 202
+          bounds_y = 0
+          bounds_cx = 16
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          visible = False
+          ifilink = bommo.pli_valon
+        end
+        object val_invison: tbooleanedit
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 8
+          bounds_x = 219
+          bounds_y = 0
+          bounds_cx = 16
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          visible = False
+          ifilink = bommo.pli_invison
+        end
+      end
+    end
+    object ttabpage2: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 701
+      bounds_cy = 249
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Drillfiles'
+      object drillgrid: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 701
+        bounds_cy = 249
+        anchors = [an_top, an_bottom]
+        optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 21
+            numstart = 1
+            numstep = 1
+          end>
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 5
+            captions.items = <            
+              item
+              end            
+              item
+                caption = 'Layer A'
+              end            
+              item
+                caption = 'Layer B'
+              end            
+              item
+                caption = 'NPT'
+                hint = 'non plated'
+              end            
+              item
+                caption = 'Filename'
+                hint = 'Empty -> use default'
+              end>
+          end>
+        datacols.count = 5
+        datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item[drillpk]
+            width = 16
+            options = [co_invisible, co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'drillpk'
+          end        
+          item[layeraed]
+            width = 119
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'layeraed'
+          end        
+          item[layerbed]
+            width = 113
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'layerbed'
+          end        
+          item[nonplateded]
+            width = 29
+            options = [co_drawfocus, co_savestate, co_mousescrollrow]
+            widgetname = 'nonplateded'
+          end        
+          item[drillfileed]
+            width = 393
+            options = [co_fill, co_savestate, co_mousescrollrow]
+            widgetname = 'drillfileed'
+          end>
+        ifilink = bommo.drillitemgrid
+        datarowheight = 16
+        statfile = tstatfile1
+        onrowsmodified = editedev
+        onedited = editedev
+        reffontheight = 14
+        object layeraed: tdropdownlistedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 1
+          visible = False
+          bounds_x = 17
+          bounds_y = 0
+          bounds_cx = 119
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          ifilink = bommo.dri_layera
+          dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+        object layerbed: tdropdownlistedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          frame.levelo = 0
+          frame.colorclient = -2147483645
+          frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.button.color = -1879048187
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              color = -1879048187
+            end>
+          taborder = 2
+          visible = False
+          bounds_x = 137
+          bounds_y = 0
+          bounds_cx = 113
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext, oe_notnull]
+          ifilink = bommo.dri_layerb
+          dropdown.options = [deo_autodropdown, deo_keydropdown, deo_cliphint]
+          dropdown.cols.count = 1
+          dropdown.cols.items = <          
+            item
+            end>
+          reffontheight = 14
+        end
+        object nonplateded: tbooleanedit
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 3
+          bounds_x = 251
+          bounds_y = 0
+          bounds_cx = 29
+          bounds_cy = 16
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          visible = False
+          ifilink = bommo.dri_npt
+        end
+        object drillfileed: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 4
+          visible = False
+          bounds_x = 281
+          bounds_y = 0
+          bounds_cx = 393
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_hintclippedtext, oe_notnull]
+          onsetvalue = drillfilesetev
+          ifilink = bommo.dri_filename
+          reffontheight = 14
+        end
+        object drillpk: tint64edit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 5
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 16
+          bounds_cy = 16
+          max = 2147483647
+          ifilink = bommo.dri_pk
+          reffontheight = 14
+        end
+      end
+    end
+  end
+  inherited dataso: tmsedatasource[5]
     DataSet = bommo.prodfilestackqu
   end
-  inherited tstatfile1: tstatfile[5]
+  inherited tstatfile1: tstatfile[6]
+    filename = 'prodfilefo.sta'
   end
 end

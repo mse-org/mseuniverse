@@ -59,19 +59,13 @@ uses
  
 procedure tdocuseteditfo.readonlychangeev(const sender: TObject;
                const avalue: Boolean);
-const
- readonlyoptions = [og_autoappend,og_autofirstrow,og_rowinserting,
-                    og_rowdeleting,og_rowmoving];
 begin
  pagesizeed.readonly:= avalue;
  grid.datacols.readonly:= avalue;
  if avalue then begin
   grid.removeappendedrow();
-  grid.optionsgrid:= grid.optionsgrid - readonlyoptions;
- end
- else begin
-  grid.optionsgrid:= grid.optionsgrid + readonlyoptions;
  end;
+ grid.norowedit:= avalue;
 end;
 
 procedure tdocuseteditfo.datachaev(Sender: TObject; Field: TField);

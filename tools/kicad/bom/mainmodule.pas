@@ -37,10 +37,17 @@ const
 type
  drillfilekindty = (dfk_map,dfk_excellon);
  
- fileformatty = (
+ fileformatty = (ff_none,
   ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
  );
 
+const
+ fileformatexts: array[fileformatty] of msestring = (
+//ff_none,ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
+  '',     'gbr',    'ps',         'svg', 'dxf', 'plt', 'pdf'
+ );
+
+type
  layerty = (
     la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
     la_f_cu,
@@ -545,10 +552,10 @@ type
    flayercodes: msestringarty;
    fculayernames: msestringarty;
    ffileformats: msestringarty;
-   ffileformatcodes: msestringarty;
+//   ffileformatcodes: msestringarty;
    fpythonconsole: tpythonconsolefo;
    flastprojectfile: filenamety;
-   ffileformatexts: msestringarty;
+//   ffileformatexts: msestringarty;
    fdocupagekinds: msestringarty;
    fedacolornames: msestringarty;
    fdrillmarknames: msestringarty;
@@ -621,14 +628,16 @@ type
    function getid(): int64;
    
    function getpagekind(const aname: msestring): docupagekindty;
+   function getfileformat(const aname: msestring): fileformatty;
+   
    property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
    property edacolornames: msestringarty read fedacolornames;
    property drillmarknames: msestringarty read fdrillmarknames;
    property culayernames: msestringarty read fculayernames;
    property fileformats: msestringarty read ffileformats;
-   property fileformatcodes: msestringarty read ffileformatcodes;
-   property fileformatexts: msestringarty read ffileformatexts;
+//   property fileformatcodes: msestringarty read ffileformatcodes;
+//   property fileformatexts: msestringarty read ffileformatexts;
    property docupagekinds: msestringarty read fdocupagekinds;
  end;
  
@@ -833,18 +842,13 @@ const
   'Drill_Map','Excellon'
  );
  fileformatnames: array[fileformatty] of msestring = (
-//  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
-    'Gerber','Postscript','SVG','DXF','HPGL','PDF'
+// ff_none,ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
+   '',    'Gerber','Postscript','SVG','DXF','HPGL','PDF'
  );
 
  fileformatcodes: array[fileformatty] of msestring = (
-//  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
-    'GERBER','POST','SVG','DXF','HPGL','PDF'
- );
-
- fileformatexts: array[fileformatty] of msestring = (
-//  ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
-      'gbr',    'ps',         'svg', 'dxf', 'plt', 'pdf'
+//ff_none, ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
+   '',    'GERBER','POST','SVG','DXF','HPGL','PDF'
  );
 
  docupageenums: array[docupagekindty] of msestring = (
@@ -886,9 +890,13 @@ begin
  for i1:= 0 to high(fculayernames) do begin
   fculayernames[i1]:= mainmodule.layernames[layerty(i1+ord(low(culayers)))];
  end;
- ffileformats:= fileformatnames;
- ffileformatcodes:= mainmodule.fileformatcodes;
- ffileformatexts:= mainmodule.fileformatexts;
+ setlength(ffileformats,ord(high(mainmodule.fileformatnames)));
+ for i1:= 0 to high(ffileformats) do begin
+  ffileformats[i1]:= mainmodule.fileformatnames[fileformatty(i1+1)];
+ end;
+// ffileformats:= fileformatnames;
+// ffileformatcodes:= mainmodule.fileformatcodes;
+// ffileformatexts:= mainmodule.fileformatexts;
  setlength(fdocupagekinds,ord(high(mainmodule.docupagekinds)));
  for i1:= 0 to high(fdocupagekinds) do begin
   fdocupagekinds[i1]:= mainmodule.docupagekinds[docupagekindty(i1+1)];
@@ -2004,6 +2012,19 @@ begin
  for pk1:= succ(dpk_none) to high(docupagekindty) do begin
   if aname = mainmodule.docupagekinds[pk1] then begin
    result:= pk1;
+   break;
+  end;
+ end;
+end;
+
+function tmainmo.getfileformat(const aname: msestring): fileformatty;
+var
+ ff1: fileformatty;
+begin
+ result:= ff_none;
+ for ff1:= succ(ff_none) to high(fileformatty) do begin
+  if aname = mainmodule.fileformatnames[ff1] then begin
+   result:= ff1;
    break;
   end;
  end;
