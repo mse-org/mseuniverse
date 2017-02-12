@@ -108,6 +108,10 @@ type
    drillitemupdate: tsqlstatement;
    drilliteminsert: tsqlresult;
    drillitemgrid: tifigridlinkcomp;
+   pf_outputdir: tmsestringfield;
+   pf_createzip: tmsebooleanfield;
+   pf_zipfile: tmsestringfield;
+   pf_zipmaindir: tmsestringfield;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);

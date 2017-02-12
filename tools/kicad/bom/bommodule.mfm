@@ -475,16 +475,12 @@ object bommo: tbommo
         DataType = ftString
         Size = 400
       end>
-    controller.fields.count = 9
+    controller.fields.count = 5
     controller.fields.fields = (
       (
         ft_datetime
         ft_datetime
         ft_string
-        ft_string
-        ft_string
-        ft_string
-        ft_boolean
         ft_string
         ft_string
       )
@@ -516,30 +512,6 @@ object bommo: tbommo
           FieldName = 'DESCRIPTION'
           Index = 4
           Size = 0
-        end      
-        item
-          DisplayWidth = 400
-          FieldName = 'OUTPUTDIR'
-          Index = 5
-          Size = 0
-        end      
-        item
-          DisplayWidth = 5
-          FieldName = 'CREATEZIP'
-          Index = 6
-          displayvalues = 'True;False'
-        end      
-        item
-          DisplayWidth = 400
-          FieldName = 'ZIPFILE'
-          Index = 7
-          Size = 0
-        end      
-        item
-          DisplayWidth = 400
-          FieldName = 'ZIPMAINDIR'
-          Index = 8
-          Size = 0
         end>
     )
     controller.options = [dso_utf8]
@@ -548,9 +520,38 @@ object bommo: tbommo
     streamingversion = 1
     object pf_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 9
+      Index = 5
       left = 192
       top = 112
+    end
+    object pf_outputdir: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'OUTPUTDIR'
+      Index = 6
+      left = 192
+      top = 128
+    end
+    object pf_createzip: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'CREATEZIP'
+      Index = 7
+      displayvalues = 'True;False'
+      left = 192
+      top = 144
+    end
+    object pf_zipfile: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'ZIPFILE'
+      Index = 8
+      left = 192
+      top = 160
+    end
+    object pf_zipmaindir: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'ZIPMAINDIR'
+      Index = 9
+      left = 192
+      top = 176
     end
   end
   object dpg_pk: tifiint64linkcomp

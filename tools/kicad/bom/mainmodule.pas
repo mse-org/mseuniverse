@@ -48,7 +48,7 @@ const
  );
 
 type
- layerty = (
+ layerty = (la_none,
     la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
     la_f_cu,
     la_in1cu,la_in2cu,la_in3cu,la_in4cu,la_in5cu,la_in6cu,
@@ -121,20 +121,30 @@ type
   name: msestring;
  end;
  infoheaderty = namedinfoty;
+
+ plotfileinfoty = record
+  filename: msestring;
+  layer: layerinfoty;
+  format: fileformatty;
+ end;
+ plotfilearty = array of plotfileinfoty;
+
+ drillfileinfoty = record
+  filename: msestring;
+  layera: layerty;
+  layerb: layerty;
+  nonplated: boolean;
+ end;
+ drillfilearty = array of drillfileinfoty;
+ 
  prodplotinfoty = record
   h: infoheaderty;
   productiondir: filenamety;
   createproductionzipfile: boolean;
   productionzipfilename: filenamety;
   productionzipdir: filenamety;
-  layernames: msestringarty;
-  plotfiles: msestringarty;
-  plotformats: integerarty;
-  drillmarks: msestringarty;
-  layeranames: msestringarty;
-  layerbnames: msestringarty;
-  nonplated: booleanarty;
-  drillfiles: msestringarty;
+  plotfiles: plotfilearty;
+  drillfiles: drillfilearty;
  end;
  pprodplotinfoty = ^prodplotinfoty;
  prodplotinfoarty = array of prodplotinfoty;
@@ -574,10 +584,14 @@ type
                                      //true if ok
    procedure beginpy(const acaption: msestring);
    procedure endpy();
-   function getlayer(const aname: msestring; out akind: layerty): boolean;
+   procedure getlayerinfo(const aindex: int32; var ainfo: layerinfoty);
+//   function getlayer(const aname: msestring; out akind: layerty): boolean;
                                             //true if ok
    function docudefinebyname(const aname: msestring;
                        out ainfo: docuinfoty): boolean;
+                                             //false if not found
+   function prodplotdefinebyname(const aname: msestring;
+                       out ainfo: prodplotinfoty): boolean;
                                              //false if not found
   public
    constructor create(aowner: tcomponent); override;
@@ -629,6 +643,7 @@ type
    
    function getpagekind(const aname: msestring): docupagekindty;
    function getfileformat(const aname: msestring): fileformatty;
+   function getlayer(const aname: msestring): layerty;
    
    property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
@@ -750,6 +765,8 @@ end;
  
 const
  layernames: array[layerty] of msestring = (
+//  la_none
+    '',
 //  la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
     'F.CrtYd','F.Fab','F.Adhes','F.Paste','F.SilkS','F.mask',
 //  la_f_cu,
@@ -774,6 +791,8 @@ const
     'Drill.Map'}
  );
  layercodes: array[layerty] of msestring = (
+//  la_none,
+    '',
 //  la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
     'F_CrtYd','F_Fab','F_Adhes','F_Paste','F_SilkS','F_mask',
 //  la_f_cu,
@@ -882,7 +901,11 @@ begin
                                       componentmacroitems[ma1]);
  end;
  fprojectmacros:= tmacrolist.create([mao_caseinsensitive],[]);
- flayernames:= mainmodule.layernames;
+ setlength(flayernames,ord(high(mainmodule.layernames)));
+ for i1:= 0 to high(flayernames) do begin
+  flayernames[i1]:= mainmodule.layernames[layerty(i1+1)];
+ end;
+// flayernames:= mainmodule.layernames;
  flayercodes:= mainmodule.layercodes;
  fedacolornames:= mainmodule.edacolornames;
  fdrillmarknames:= mainmodule.drillmarknames;
@@ -1986,7 +2009,7 @@ begin
  execpy('createzip',ar1,alast); //zipfile,zipdir,{file}
  result:= true;
 end;
-
+{
 function tmainmo.getlayer(const aname: msestring;
                                    out akind: layerty): boolean;
 var
@@ -2003,7 +2026,7 @@ begin
  end;
  errormessage('Ivalid plotkind "'+aname+'"');
 end;
-
+}
 function tmainmo.getpagekind(const aname: msestring): docupagekindty;
 var
  pk1: docupagekindty;
@@ -2026,6 +2049,36 @@ begin
   if aname = mainmodule.fileformatnames[ff1] then begin
    result:= ff1;
    break;
+  end;
+ end;
+end;
+
+function tmainmo.getlayer(const aname: msestring): layerty;
+var
+ la1: layerty;
+begin
+ result:= la_none;
+ for la1:= succ(la_none) to high(layerty) do begin
+  if aname = mainmodule.layernames[la1] then begin
+   result:= la1;
+   break;
+  end;
+ end;
+end;
+
+procedure tmainmo.getlayerinfo(const aindex: int32; var ainfo: layerinfoty);
+begin
+ with ainfo,bommo do begin
+  layer:= getlayer(pli_layer.c.griddata[aindex]);
+  color:= pli_color.c.griddata[aindex];
+  refon:= pli_refon.c.griddata[aindex];
+  refcolor:= pli_refcolor.c.griddata[aindex];
+  valon:= pli_valon.c.griddata[aindex];
+  valcolor:= pli_valcolor.c.griddata[aindex];
+  invison:= pli_invison.c.griddata[aindex];
+  drillmarks:= pli_drillmarks.c.griddata[aindex];
+  if drillmarks = '' then begin
+   drillmarks:= mainmodule.drillmarknames[dm_no_drill_shape];
   end;
  end;
 end;
@@ -2073,19 +2126,7 @@ begin
      plotitemdso.refresh();
      setlength(layers,pli_pk.c.griddata.count);
      for i2:= 0 to high(layers) do begin
-      with layers[i2] do begin
-       getlayer(pli_layer.c.griddata[i2],layer);
-       color:= pli_color.c.griddata[i2];
-       refon:= pli_refon.c.griddata[i2];
-       refcolor:= pli_refcolor.c.griddata[i2];
-       valon:= pli_valon.c.griddata[i2];
-       valcolor:= pli_valcolor.c.griddata[i2];
-       invison:= pli_invison.c.griddata[i2];
-       drillmarks:= pli_drillmarks.c.griddata[i2];
-       if drillmarks = '' then begin
-        drillmarks:= mainmodule.drillmarknames[dm_no_drill_shape];
-       end;
-      end;
+      getlayerinfo(i2,layers[i2]);
      end;
     end;
    end;
@@ -2097,11 +2138,45 @@ begin
  end;
 end;
 
+function tmainmo.prodplotdefinebyname(const aname: msestring;
+               out ainfo: prodplotinfoty): boolean;
+var
+ i1: int32;
+begin
+ with ainfo,bommo do begin
+  prodfilestackqu.controller.refresh();
+  result:= prodfilestackqu.indexlocal[1].find([aname],[]);
+  if result then begin
+   productiondir:= expandprojectmacros(pf_outputdir.asmsestring);
+   createproductionzipfile:= pf_createzip.asboolean;
+   productionzipfilename:= expandprojectmacros(pf_zipfile.asmsestring);
+   productionzipdir:= expandprojectmacros(pf_zipmaindir.asmsestring);
+   setlength(plotfiles,pli_pk.c.griddata.count);
+   for i1:= 0 to high(plotfiles) do begin
+    with plotfiles[i1] do begin
+     filename:= expandprojectmacros(pli_filename.c.griddata[i1]);
+     getlayerinfo(i1,layer);
+     format:= getfileformat(pli_format.c.griddata[i1]);
+    end;
+   end;
+   setlength(drillfiles,dri_pk.c.griddata.count);
+   for i1:= 0 to high(drillfiles) do begin
+    with drillfiles[i1] do begin
+     filename:= expandprojectmacros(dri_filename.c.griddata[i1]);
+     layera:= getlayer(dri_layera.c.griddata[i1]);
+     layerb:= getlayer(dri_layerb.c.griddata[i1]);
+     nonplated:= dri_npt.c.griddata[i1];
+    end;
+   end;
+  end;
+ end;
+end;
+
 procedure tmainmo.createprodfiles(const aindex: int32);
 var
  i1{,i2}: int32;
  board1,boardname1,plotdir1: filenamety;
- info1: pprodplotinfoty;
+ info1: prodplotinfoty;
  ar1{,ar2}: filenamearty;
  s1,s2,s3: msestring;
  la1,la2: layerty;
@@ -2110,54 +2185,44 @@ begin
  if not getboardfile(board1) then begin
   exit;
  end;
- info1:= globaloptions.prodplotdefinebyname(
-                              projectoptions.productionfiles[aindex]);
- if info1 = nil then begin
+ if not prodplotdefinebyname(projectoptions.productionfiles[aindex],info1)
+                                                                    then begin
   errormessage('Plotstack "'+projectoptions.productionfiles[aindex]+'"'+lineend+
                'is invalid');
   exit;
  end;
  beginpy('Create Plots');
  try
-  fillchar(lainf1,sizeof(lainf1),0);
   boardname1:= filenamebase(board1);
-  with info1^ do begin
-   plotdir1:= tosysfilepath(filepath(
-                                    expandprojectmacros(productiondir),fk_dir));
-   setlength(ar1,length(layernames));
-   for i1:= 0 to high(layernames) do begin
-    ar1[i1]:= plotfiles[i1];
-    if not getlayer(layernames[i1],la2) then begin
-     break;
-    end;
-    setlength(lainf1.layers,1);
-    lainf1.layers[0].layer:= la2;
-//    setlength(lainf1.drillmarks,1);
-//    lainf1.drillmarks:= drillmarks[i1];
-    if not plotfile(board1,plotdir1,ar1[i1],
-                           fileformatty(plotformats[i1]),lainf1,
-          (i1 = high(plotfiles)) and (length(drillfiles) = 0)
-                                and not createproductionzipfile) then begin
-     break;
+  with info1 do begin
+   plotdir1:= tosysfilepath(filepath(productiondir,fk_dir));
+   setlength(lainf1.layers,1);
+   setlength(ar1,length(plotfiles)+length(drillfiles));
+   for i1:= 0 to high(plotfiles) do begin
+    with plotfiles[i1] do begin
+     lainf1.layers[0]:= layer;
+     s1:= filename;
+     if not plotfile(board1,plotdir1,s1,format,lainf1,
+           (i1 = high(plotfiles)) and (length(drillfiles) = 0)
+                                 and not createproductionzipfile) then begin
+      break;
+     end;
+     ar1[i1]:= s1;
     end;
    end;
-   setlength(ar1,length(ar1)+length(drillfiles));
    for i1:= 0 to high(drillfiles) do begin
-    s1:= drillfiles[i1]+'.drl';
-    ar1[i1+length(plotfiles)]:= s1;
-    if not getlayer(layeranames[i1],la1) or
-                          not getlayer(layerbnames[i1],la2) then begin
-     break;
-    end;
-    if not drillfile(board1,filepath(plotdir1,s1),dfk_excellon,
-                                      la1,la2,nonplated[i1],ff_gerber, //dummy
-           (i1 = high(drillfiles)) and not createproductionzipfile) then begin
-     break;
+    with drillfiles[i1] do begin
+     s1:= filename;
+     if not drillfile(board1,filepath(plotdir1,s1),dfk_excellon,
+                          layera,layerb,nonplated,ff_gerber, //dummy
+            (i1 = high(drillfiles)) and not createproductionzipfile) then begin
+      break;
+     end;
+     ar1[i1+length(plotfiles)]:= s1;
     end;
    end;
    if createproductionzipfile then begin
-    createzipfile(filepath(plotdir1,
-         expandprojectmacros(productionzipfilename)),plotdir1,ar1,true);
+    createzipfile(filepath(plotdir1,productionzipfilename),plotdir1,ar1,true);
    end;
   end;
  finally
@@ -2289,8 +2354,9 @@ begin
       break;
      end;
      with info1.pages[i1] do begin
-      if not getlayer(layeraname,pk1) or 
-                 not getlayer(layerbname,pk2) then begin
+      pk1:= getlayer(layeraname);
+      pk2:= getlayer(layerbname);
+      if (pk1 = la_none) or (pk2 = la_none) then begin
        error1:= true;
        break;
       end;
@@ -2564,14 +2630,15 @@ begin
     createproductionzipfile:= reader.readboolean('createproductionzip',false);
     productionzipfilename:= reader.readmsestring('productionzipfile','');
     productionzipdir:= reader.readmsestring('productionzipdir','');
-    layernames:= reader.readarray('layernames',msestringarty(nil));
-    plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
-    plotformats:= reader.readarray('plotformats',integerarty(nil));
-    drillmarks:= reader.readarray('drillmarks',msestringarty(nil));
-    layeranames:= reader.readarray('layeranames',msestringarty(nil));
-    layerbnames:= reader.readarray('layerbnames',msestringarty(nil));
-    nonplated:= reader.readarray('nonplated',booleanarty(nil));
-    drillfiles:= reader.readarray('drillfiles',msestringarty(nil));
+//    layernames:= reader.readarray('layernames',msestringarty(nil));
+//    plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
+//    plotformats:= reader.readarray('plotformats',integerarty(nil));
+//    drillmarks:= reader.readarray('drillmarks',msestringarty(nil));
+//    layeranames:= reader.readarray('layeranames',msestringarty(nil));
+//    layerbnames:= reader.readarray('layerbnames',msestringarty(nil));
+//    nonplated:= reader.readarray('nonplated',booleanarty(nil));
+//    drillfiles:= reader.readarray('drillfiles',msestringarty(nil));
+{
     for i1:= 0 to high(plotformats) do begin
      i2:= plotformats[i1];
      if (i2 < 0) or (i2 > ord(high(fileformatty))) then begin
@@ -2600,6 +2667,7 @@ begin
     setlength(layerbnames,i1);
     setlength(nonplated,i1);
     setlength(drillfiles,i1);
+}
    end;
    reader.endlist();
   end;
@@ -2701,13 +2769,13 @@ begin
     writer.writemsestring('productionzipfile',productionzipfilename);
     writer.writemsestring('productionzipdir',productionzipdir);
     writer.writearray('layernames',layernames);
-    writer.writearray('plotfiles',plotfiles);
-    writer.writearray('plotformats',plotformats);
-    writer.writearray('drillmarks',drillmarks);
-    writer.writearray('layeranames',layeranames);
-    writer.writearray('layerbnames',layerbnames);
-    writer.writearray('nonplated',nonplated);
-    writer.writearray('drillfiles',drillfiles);
+//    writer.writearray('plotfiles',plotfiles);
+//    writer.writearray('plotformats',plotformats);
+//    writer.writearray('drillmarks',drillmarks);
+//    writer.writearray('layeranames',layeranames);
+//    writer.writearray('layerbnames',layerbnames);
+//    writer.writearray('nonplated',nonplated);
+//    writer.writearray('drillfiles',drillfiles);
    end;
    writer.endlist();
   end;
