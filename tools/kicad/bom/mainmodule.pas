@@ -209,8 +209,8 @@ type
   shiftvert: flo64;
   text: msestring;
   layers: layerinfoarty;
-  layeraname: msestring;
-  layerbname: msestring;
+  layera: layerty;
+  layerb: layerty;
   nonplated: boolean;
   psfile: msestring;
   showreferences: boolean;
@@ -306,12 +306,6 @@ type
   topmargin: flo64;
   bottommargin: flo64;
   pages: docupageinfoarty;
- {
-  titles: msestringarty;
-  pagekinds: integerarty;
-  layerplots: docuplotpageinfoarty;
-  schematicplots: docuschematicpageinfoarty;
- }
  end;
  pdocuinfoty = ^docuinfoty;
  docuinfoarty = array of docuinfoty;
@@ -2092,9 +2086,9 @@ begin
   docusetqu.controller.refresh();
   result:= docusetqu.indexlocal[1].find([aname],[]);
   if result then begin
-   docudir:= ds_docudir.asmsestring;
-   psfile:= ds_psfile.asmsestring;
-   pdffile:= ds_pdffile.asmsestring;
+   docudir:= expandprojectmacros(ds_docudir.asmsestring);
+   psfile:= expandprojectmacros(ds_psfile.asmsestring);
+   pdffile:= expandprojectmacros(ds_pdffile.asmsestring);
    pagewidth:= ds_width.asfloat;
    pageheight:= ds_height.asfloat ;
    leftmargin:= ds_margleft.asfloat;
@@ -2108,7 +2102,7 @@ begin
     pageitemqu.controller.refresh();
     with pages[i1] do begin
      pagekind:= getpagekind(pi_kind.asmsestring);
-     title:= pi_title.asmsestring;
+     title:= expandprojectmacros(pi_title.asmsestring);
      mirrorx:= pi_mirrorhorz.asboolean;
      mirrory:= pi_mirrorvert.asboolean;
      rotate90:= pi_rotate90.asboolean;
@@ -2116,11 +2110,11 @@ begin
      scale:= pi_scale.asfloat;
      shifthorz:= pi_shifthorz.asfloat;
      shiftvert:= pi_shiftvert.asfloat;
-     text:= pi_text.asmsestring;
-     layeraname:= pi_layera.asmsestring;
-     layerbname:= pi_layerb.asmsestring;
+     text:= expandprojectmacros(pi_text.asmsestring);
+     layera:= getlayer(pi_layera.asmsestring);
+     layerb:= getlayer(pi_layerb.asmsestring);
      nonplated:= pi_npt.asboolean;
-     psfile:= pi_filename.asmsestring;
+     psfile:= expandprojectmacros(pi_filename.asmsestring);
      showreferences:= pi_showref.asboolean;
      showdistributors:= pi_showdist.asboolean;
      plotitemdso.refresh();
@@ -2354,15 +2348,13 @@ begin
       break;
      end;
      with info1.pages[i1] do begin
-      pk1:= getlayer(layeraname);
-      pk2:= getlayer(layerbname);
-      if (pk1 = la_none) or (pk2 = la_none) then begin
+      if (layera = la_none) or (layerb = la_none) then begin
        error1:= true;
        break;
       end;
       s1:= tmpfile+'.'+mainmodule.fileformatexts[ff_postscript];
       if not drillfile(boardfile1,{tmpf+'/'+}s1,dfk_map,
-                              pk1,pk2,nonplated,ff_postscript,false) then begin
+                     layera,layerb,nonplated,ff_postscript,false) then begin
        error1:= true;
        break;
       end;
@@ -2372,12 +2364,7 @@ begin
     dpk_schematic: begin
      with info1.pages[i1] do begin
       pa1:= tdocupsreppa.create(info1.pages[i1]);
-      s1:= expandprojectmacros(psfile);
-     {
-      with tdocupsreppa(rep.add(tdocupsreppa.create(nil))) do begin
-       ps.psfile:= psfile;
-      end;
-     }
+      s1:= psfile;
      end;
     end;
     dpk_partlist: begin
@@ -2426,13 +2413,13 @@ begin
    b1:= false;
    if info1.psfile <> '' then begin
     b1:= true;
-    s1:= expandprojectmacros(info1.psfile);
+    s1:= info1.psfile;
     createdirpath(filedir(filepath(s1)));
     copyfile(tmpfile,s1);
     tmpfile:= s1;
    end;
    if info1.pdffile <> '' then begin
-    ps2pdf(tmpfile,expandprojectmacros(info1.pdffile));
+    ps2pdf(tmpfile,info1.pdffile);
    end;
    showpsfile(tmpfile,b1);
   end;
