@@ -163,7 +163,7 @@ type
 
  docupagekindty = (dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,
                    dpk_partlist,dpk_bom);
-
+(*
  tdocupage = class(toptions)
   private
    ftitle: msestring;
@@ -196,7 +196,7 @@ type
  end;
  docupageclassty = class of tdocupage;
  docupagearty = array of tdocupage;
- 
+ *)
  docupageinfoty = record
   pagekind: docupagekindty;
   title: msestring;
@@ -217,7 +217,7 @@ type
   showdistributors: boolean;
  end;
  docupageinfoarty = array of docupageinfoty;
- 
+{
  ttitlepage = class(tdocupage)
   private
    ftext: msestring;
@@ -293,7 +293,7 @@ type
    property showdistributors: boolean read fshowdistributors
                                                    write fshowdistributors;
  end;
-    
+}    
  docuinfoty = record
   h: infoheaderty;
   docudir: filenamety;
@@ -660,15 +660,15 @@ function layertoplotname(const layername: msestring): msestring;
 //procedure docupagesetlength(var pages: docupagearty; const count: int32);
 //function updatedocupageobj(var pages: docupagearty; const index: int32;
 //                                         const kind: docupagekindty): tdocupage;
-procedure updatedocupageobj(var page: tdocupage;
-                                      const kind: docupagekindty);
+//procedure updatedocupageobj(var page: tdocupage;
+//                                      const kind: docupagekindty);
 implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
  msearrayutils,docureport,docupsreppage,basereppage,mserepps,main,
  partlistreppage,bomreppage,bommodule,vendormodule,dbdata,titlereppage;
-
+{
 var
  docupageclasses: array[docupagekindty] of docupageclassty = (
  //dpk_none,dpk_title, dpk_schematic,     dpk_layerplot,dpk_drillmap
@@ -676,6 +676,7 @@ var
  //dpk_partlist,dpk_bom
   tpartlistpage,tbompage
   );
+}
 {
 procedure docupagesetlength(var pages: docupagearty; const count: int32);
 var
@@ -696,6 +697,7 @@ begin
  pages[index]:= result;
 end;
 }
+{
 procedure updatedocupageobj(var page: tdocupage;
 
                                       const kind: docupagekindty);
@@ -703,7 +705,7 @@ begin
  page.free();
  page:= docupageclasses[kind].create();
 end;
-
+}
 { tmainmo }
 
 type
@@ -2602,11 +2604,12 @@ var
  i1,i2: int32;
  s1: msestring;
  kind1: docupagekindty;
- page1: tdocupage;
+// page1: tdocupage;
  ar1: docuinfoarty;
 begin
  ar1:= nil; //compiler warning
  inherited;
+(*
  if reader.beginlist('prodplotstack') then begin
   count1:= 0;
   while reader.beginlist('item'+inttostrmse(count1)) do begin
@@ -2730,6 +2733,7 @@ begin
   setlength(ar1,count1);
   docudefines:= ar1; //build name array
  end;
+ *)
 end;
 
 procedure tglobaloptions.writeinfoheader(const awriter: tstatwriter;
@@ -2818,7 +2822,7 @@ begin
   writer.endlist();
  end;
 end;
-
+(*
 { tdocupage }
 
 constructor tdocupage.create();
@@ -2914,7 +2918,7 @@ class function ttitlepage.getpagekind: docupagekindty;
 begin
  result:= dpk_title;
 end;
-
+*)
 initialization
  globaloptions:= tglobaloptions.create();
  projectoptions:= tprojectoptions.create();

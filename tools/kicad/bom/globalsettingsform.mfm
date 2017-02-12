@@ -29,7 +29,6 @@ object globalsettingsfo: tglobalsettingsfo
     bounds_cy = 38
     anchors = [an_right, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
-    linktop = tabs
     grip = stb_none
     object tbutton2: tbutton
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
@@ -69,242 +68,137 @@ object globalsettingsfo: tglobalsettingsfo
       options = [spao_glueright]
     end
   end
-  object tabs: ttabwidget
-    bounds_x = 0
-    bounds_y = 0
-    bounds_cx = 662
-    bounds_cy = 328
-    anchors = [an_top]
+  object tlayouter1: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 1
-    activepageindex = 0
-    tab_frame.localprops = []
-    tab_frame.localprops1 = []
-    tab_size = 19
-    statfile = tstatfile1
-    object maintab: ttabpage
+    bounds_x = 8
+    bounds_y = 88
+    bounds_cx = 645
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_scalesize]
+    linktop = tlayouter2
+    object val_psviewer: tfilenameedit
+      frame.caption = 'Postscript Viewer'
       frame.localprops = []
       frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 320
+      bounds_cy = 37
+      reffontheight = 14
+    end
+    object val_ps2pdf: tfilenameedit
+      frame.caption = 'ps2pdf'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
       taborder = 1
-      bounds_x = 0
-      bounds_y = 19
-      bounds_cx = 662
-      bounds_cy = 309
-      anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Main'
-      object val_hostname: tstringedit
-        frame.caption = '&Hostname'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        bounds_x = 8
-        bounds_y = 7
-        bounds_cx = 570
-        bounds_cy = 37
-        anchors = [an_left, an_top, an_right]
-        ondataentered = dbdataenteredev
-        reffontheight = 14
-      end
-      object tlayouter1: tlayouter
-        optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-        taborder = 1
-        bounds_x = 8
-        bounds_y = 88
-        bounds_cx = 645
-        bounds_cy = 37
-        anchors = [an_left, an_top, an_right]
-        optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-        optionslayout = [lao_placex, lao_aligny]
-        align_glue = wam_start
-        place_mindist = 4
-        place_maxdist = 4
-        place_options = [plo_scalesize]
-        linktop = tlayouter2
-        object val_psviewer: tfilenameedit
-          frame.caption = 'Postscript Viewer'
-          frame.localprops = []
-          frame.localprops1 = []
-          frame.buttons.count = 1
-          frame.buttons.items = <          
-            item
-              imagenr = 17
-            end>
-          frame.button.imagenr = 17
-          frame.outerframe = (
-            0
-            17
-            0
-            0
-          )
-          bounds_x = 0
-          bounds_y = 0
-          bounds_cx = 320
-          bounds_cy = 37
-          reffontheight = 14
-        end
-        object val_ps2pdf: tfilenameedit
-          frame.caption = 'ps2pdf'
-          frame.localprops = []
-          frame.localprops1 = []
-          frame.buttons.count = 1
-          frame.buttons.items = <          
-            item
-              imagenr = 17
-            end>
-          frame.button.imagenr = 17
-          frame.outerframe = (
-            0
-            17
-            0
-            0
-          )
-          taborder = 1
-          bounds_x = 324
-          bounds_y = 0
-          bounds_cx = 319
-          bounds_cy = 37
-          reffontheight = 14
-        end
-      end
-      object tlayouter2: tlayouter
-        optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-        taborder = 2
-        bounds_x = 8
-        bounds_y = 44
-        bounds_cx = 645
-        bounds_cy = 44
-        anchors = [an_left, an_top, an_right]
-        optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-        optionslayout = [lao_placex, lao_aligny]
-        align_glue = wam_start
-        place_mindist = 4
-        place_maxdist = 4
-        place_options = [plo_endmargin]
-        onafterlayout = databaseafterlayoutev
-        linktop = val_hostname
-        object val_databasename: tstringedit
-          frame.caption = '&Databasename'
-          frame.localprops = []
-          frame.localprops1 = []
-          frame.outerframe = (
-            0
-            17
-            0
-            0
-          )
-          bounds_x = 0
-          bounds_y = 0
-          bounds_cx = 570
-          bounds_cy = 37
-          anchors = [an_left, an_top, an_right]
-          ondataentered = dbdataenteredev
-          reffontheight = 14
-        end
-        object tbutton3: tbutton
-          optionswidget1 = [ow1_autowidth, ow1_autoheight]
-          taborder = 1
-          bounds_x = 574
-          bounds_y = 10
-          bounds_cx = 71
-          bounds_cy = 34
-          state = [as_localcaption]
-          action = createdbact
-          caption = 'Create'#10'Database'
-        end
-      end
+      bounds_x = 324
+      bounds_y = 0
+      bounds_cx = 319
+      bounds_cy = 37
+      reffontheight = 14
     end
-    object prodplottab: ttabpage
+  end
+  object tlayouter2: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 44
+    bounds_cx = 645
+    bounds_cy = 44
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_endmargin]
+    onafterlayout = databaseafterlayoutev
+    linktop = val_hostname
+    object val_databasename: tstringedit
+      frame.caption = '&Databasename'
       frame.localprops = []
       frame.localprops1 = []
-      taborder = 2
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
       bounds_x = 0
-      bounds_y = 19
-      bounds_cx = 662
-      bounds_cy = 309
-      anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Production'
-      object prodplotstacktabs: ttabwidget
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 662
-        bounds_cy = 309
-        frame.caption = 'Production file stacks, use RightClick for adding or removing page'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        anchors = [an_top, an_bottom]
-        popupmenu = pagemenu
-        tab_frame.localprops = []
-        tab_frame.localprops1 = []
-        tab_size = 19
-        statfile = tstatfile1
-      end
+      bounds_y = 0
+      bounds_cx = 570
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      ondataentered = dbdataenteredev
+      reffontheight = 14
     end
-    object docutab: ttabpage
-      frame.localprops = []
-      frame.localprops1 = []
-      taborder = 3
-      bounds_x = 0
-      bounds_y = 19
-      bounds_cx = 662
-      bounds_cy = 309
-      anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Documentation'
-      object docusettabs: ttabwidget
-        bounds_x = 0
-        bounds_y = 0
-        bounds_cx = 662
-        bounds_cy = 309
-        frame.caption = 'Docu-Sets, use RightClick for adding or removing a page'
-        frame.localprops = []
-        frame.localprops1 = []
-        frame.outerframe = (
-          0
-          17
-          0
-          0
-        )
-        anchors = [an_top, an_bottom]
-        popupmenu = pagemenu
-        tab_frame.localprops = []
-        tab_frame.localprops1 = []
-        tab_size = 19
-        statfile = tstatfile1
-      end
+    object tbutton3: tbutton
+      optionswidget1 = [ow1_autowidth, ow1_autoheight]
+      taborder = 1
+      bounds_x = 574
+      bounds_y = 10
+      bounds_cx = 71
+      bounds_cy = 34
+      state = [as_localcaption]
+      action = createdbact
+      caption = 'Create'#10'Database'
     end
+  end
+  object val_hostname: tstringedit
+    frame.caption = '&Hostname'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 7
+    bounds_cx = 570
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    ondataentered = dbdataenteredev
+    reffontheight = 14
   end
   object tstatfile1: tstatfile
     filename = 'globalsettingsfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 8
     top = 112
-  end
-  object pagemenu: tpopupmenu
-    onupdate = pagepopupupdateev
-    menu.submenu.count = 2
-    menu.submenu.items = <    
-      item
-        caption = '&New Set'
-        state = [as_localcaption, as_localonexecute]
-        onexecute = newpageev
-      end    
-      item
-        caption = '&Delete Set'
-        name = 'delete'
-        state = [as_localcaption, as_localonexecute]
-        onexecute = deletepageev
-      end>
-    left = 192
-    top = 80
   end
   object createdbact: taction
     options = [ao_updateonidle]

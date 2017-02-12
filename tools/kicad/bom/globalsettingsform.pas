@@ -31,26 +31,19 @@ type
    tbutton2: tbutton;
    tbutton1: tbutton;
    tspacer2: tspacer;
-   tabs: ttabwidget;
-   maintab: ttabpage;
-   val_hostname: tstringedit;
-   prodplottab: ttabpage;
-   prodplotstacktabs: ttabwidget;
-   pagemenu: tpopupmenu;
-   docutab: ttabpage;
-   docusettabs: ttabwidget;
+   createdbact: taction;
    tlayouter1: tlayouter;
    val_psviewer: tfilenameedit;
    val_ps2pdf: tfilenameedit;
    tlayouter2: tlayouter;
    val_databasename: tstringedit;
    tbutton3: tbutton;
-   createdbact: taction;
+   val_hostname: tstringedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);
-   procedure newpageev(const sender: TObject);
-   procedure deletepageev(const sender: tobject);
+//   procedure newpageev(const sender: TObject);
+//   procedure deletepageev(const sender: tobject);
    procedure pagepopupupdateev(const sender: tcustommenu);
    procedure dbdataenteredev(const sender: TObject);
    procedure asyncev(const sender: TObject; var atag: Integer);
@@ -63,7 +56,7 @@ type
  
 implementation
 uses
- globalsettingsform_mfm,mainmodule,productionpage,docupage;
+ globalsettingsform_mfm,mainmodule;
 const
  valueprefix = 'val_';
  dbrefreshtag = 72957329;
@@ -77,149 +70,19 @@ begin
 end;
 
 procedure tglobalsettingsfo.createev(const sender: TObject);
-var
- i1: int32;
- fo1: tproductionpagefo;
- fo2: tdocupagefo;
 begin
  globaloptions.loadvalues(self,valueprefix);
- for i1:= 0 to high(globaloptions.prodplotdefines) do begin
-  fo1:= tproductionpagefo.create(nil);
-  with globaloptions.prodplotdefines[i1] do begin
-   fo1.caption:= h.name;
-   fo1.nameed.value:= h.name;
-   fo1.productiondired.value:= productiondir;
-   fo1.createproductionziped.value:= createproductionzipfile;
-   fo1.productionzipfilenameed.value:= productionzipfilename;
-   fo1.productionzipdired.value:= productionzipdir;
-//   fo1.layered.griddata.asarray:= layernames;
-//   fo1.plotfileed.griddata.asarray:= plotfiles;
-//   fo1.plotformated.griddata.asarray:= plotformats;
-//   fo1.drillmarked.griddata.asarray:= drillmarks;
-//   fo1.layeraed.griddata.asarray:= layeranames;
-//   fo1.layerbed.griddata.asarray:= layerbnames;
-//   fo1.nonplateded.griddata.asbooleanarray:= nonplated;
-//   fo1.drillfileed.griddata.asarray:= drillfiles;
-   prodplotstacktabs.add(itabpage(fo1));
-  end;
- end;
- for i1:= 0 to high(globaloptions.docudefines) do begin
-  with globaloptions.docudefines[i1] do begin
-////////////////   fo2:= tdocupagefo.create(pages);
-   fo2.caption:= h.name;
-   fo2.nameed.value:= h.name;
-   fo2.docudir:= docudir;
-   fo2.psfileed.value:= psfile;
-   fo2.pdffileed.value:= pdffile;
-   fo2.pagesizeed.pagewidth:= pagewidth;
-   fo2.pagesizeed.pageheight:= pageheight;
-   fo2.leftmargined.value:= leftmargin;
-   fo2.rightmargined.value:= rightmargin;
-   fo2.topmargined.value:= topmargin;
-   fo2.bottommargined.value:= bottommargin;
-  {
-   fo2.grid.rowcount:= length(pages);
-   for i2:= 0 to high(pages) do begin
-    with pages[i2] do begin
-     fo2.titleed[i2]:= title;
-     fo2.pagekinded[i2]:= kind;
-    end;
-   end;
-  }
-   {
-   fo2.titleed.griddata.asarray:= titles;
-   fo2.pagekinded.griddata.asarray:= pagekinds;
-   fo2.plots:= layerplots;
-   fo2.schematics:= schematicplots;
-   }
-   docusettabs.add(itabpage(fo2));
-  end;
- end;
 end;
 
 procedure tglobalsettingsfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
-var
- ar1: prodplotinfoarty;
- ar2: docuinfoarty;
- i1: int32;
 begin
  if amodalresult in [mr_ok,mr_f10] then begin
   globaloptions.storevalues(self,valueprefix);
-  setlength(ar1,prodplotstacktabs.count);
-  for i1:= 0 to high(ar1) do begin
-   with tproductionpagefo(prodplotstacktabs.items[i1]),ar1[i1] do begin
-    h.name:= nameed.value;
-    productiondir:= productiondired.value;
-    createproductionzipfile:= createproductionziped.value;
-    productionzipfilename:= productionzipfilenameed.value;
-    productionzipdir:= productionzipdired.value;
-//    layernames:= layered.griddata.asarray;
-//    plotformats:= plotformated.griddata.asarray;
-//    drillmarks:= drillmarked.griddata.asarray;
-//    plotfiles:= plotfileed.griddata.asarray;
-//    layeranames:= layeraed.griddata.asarray;
-//   layerbnames:= layerbed.griddata.asarray;
-//    nonplated:= nonplateded.griddata.asbooleanarray;
-//    drillfiles:= drillfileed.griddata.asarray;
-   end;
-  end;
-  globaloptions.prodplotdefines:= ar1;
-  setlength(ar2,docusettabs.count);
-  for i1:= 0 to high(ar2) do begin
-   with tdocupagefo(docusettabs.items[i1]),ar2[i1] do begin
-    h.name:= nameed.value;
-    docudir:= docudired.value;
-    psfile:= psfileed.value;
-    pdffile:= pdffileed.value;
-    pagewidth:= pagewidthed.value;
-    pageheight:= pageheighted.value;
-    leftmargin:= leftmargined.value;
-    rightmargin:= rightmargined.value;
-    topmargin:= topmargined.value;
-    bottommargin:= bottommargined.value;
-//    docupagesetlength(pages,0);
-//////////////    pages:= docupages;
-//    docupages:= nil; //no free items in destroy()
-   end;
-  end;
-  globaloptions.docudefines:= ar2;
   mainmo.mainstat.writestat();
   if fdbchanged and mainmo.conn.connected then begin
    asyncevent(dbrefreshtag,[peo_first]);
   end;
- end;
-end;
-
-procedure tglobalsettingsfo.newpageev(const sender: TObject);
-begin
- if prodplotstacktabs.checkdescendent(application.lastshowmenuwidget) then begin
-  prodplotstacktabs.add(itabpage(tproductionpagefo.create(nil)));
- end
- else begin
-  docusettabs.add(itabpage(tdocupagefo.create(nil)));
- end;
-end;
-
-procedure tglobalsettingsfo.deletepageev(const sender: tobject);
-
- procedure checkdelete(const atabwidget: ttabwidget);
- var
-  pag1: ttabform;
- begin
-  pag1:= ttabform(atabwidget.activepage);
-  if (pag1 <> nil) and askconfirmation(
-      'Do you want to delete page "'+pag1.caption+'"?') then begin
-   pag1.release();
-  end;
- end; //checkdelete
- 
-begin
- if prodplotstacktabs.checkdescendent(application.lastshowmenuwidget) then begin
-  checkdelete(prodplotstacktabs);
- end
- else begin
-  checkdelete(docusettabs);
  end;
 end;
 
