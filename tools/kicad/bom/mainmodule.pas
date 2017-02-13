@@ -41,10 +41,17 @@ type
   ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
  );
 
+ docupagekindty = (dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,
+                   dpk_partlist,dpk_bom);
 const
  fileformatexts: array[fileformatty] of msestring = (
 //ff_none,ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
   '',     'gbr',    'ps',         'svg', 'dxf', 'plt', 'pdf'
+ );
+
+ docupagekinds: array[docupagekindty] of msestring = (
+//dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
+  '','Title','Schematic','PCB Layer-Plot','Drill-Map','Partlist','BOM'
  );
 
 type
@@ -161,8 +168,6 @@ type
  pdocuschematicpageinfoty = ^docuschematicpageinfoty;
  docuschematicpageinfoarty = array of docuschematicpageinfoty;
 
- docupagekindty = (dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,
-                   dpk_partlist,dpk_bom);
 (*
  tdocupage = class(toptions)
   private
@@ -869,10 +874,6 @@ const
  docupageenums: array[docupagekindty] of msestring = (
 //dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
   '','title','schematic','layerplot','drillmap','partlist','bom'
- );
- docupagekinds: array[docupagekindty] of msestring = (
-//dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
-  '','Title','Schematic','PCB Layer-Plot','Drill-Map','Partlist','BOM'
  );
  
 function layertoplotname(const layername: msestring): msestring;

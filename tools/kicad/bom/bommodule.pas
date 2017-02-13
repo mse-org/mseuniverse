@@ -112,6 +112,7 @@ type
    pf_createzip: tmsebooleanfield;
    pf_zipfile: tmsestringfield;
    pf_zipmaindir: tmsestringfield;
+   copyplotitems: tsqlstatement;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
@@ -127,10 +128,17 @@ type
    procedure proditempostev(const sender: TDataSet; const master: TDataSet);
    procedure drillitemdelev(const sender: TObject; var aindex: Integer;
                    var acount: Integer);
+   procedure namecopyrecev(DataSet: TDataSet);
+   procedure docusetcopyev(DataSet: TDataSet);
+   procedure docusetbefcopyev(DataSet: TDataSet);
+   procedure docusetaftercancelev(DataSet: TDataSet);
+   procedure docusetafterpostev(const sender: TDataSet; var ok: Boolean);
   protected
    fdeleteddocupages: int64arty;
    fdeletedplotitems: int64arty;
    fdeleteddrillitems: int64arty;
+   fcopyplotpks: array of int64arty;
+   fcopypagepks: int64arty;
    procedure refreshitems(const alink: tmselargeintfield; 
              var deleted: int64arty;
              const pk: tifiint64linkcomp; const query: tmsesqlquery;
@@ -326,9 +334,20 @@ begin
 end;
 }
 procedure tbommo.docupagepostev(const sender: TDataSet; const master: TDataSet);
+var
+ ar1: int64arty;
+ i1: int32;
 begin
  updateitems(fdeleteddocupages,dpg_pk,docupagedelete,docupageupdate,
                  docupageinsert,@getdocupagevalues);
+ if fcopypagepks <> nil then begin
+  ar1:= dpg_pk.c.griddata.asarray;
+  for i1:= 0 to high(ar1) do begin
+   if fcopypagepks[i1] <> 0 then begin //kind = dpk_layerplot
+    copyplotitems.execute([fcopypagepks[i1],ar1[i1]]); //oldlink,newlink
+   end;
+  end;
+ end;
 end;
 
 procedure tbommo.updateitems(var deleted: int64arty;
@@ -495,6 +514,42 @@ begin
  pi_shiftvert.asfloat:= 0;
  pi_layera.asmsestring:= 'F.Cu';
  pi_layerb.asmsestring:= 'B.Cu';
+end;
+
+procedure tbommo.namecopyrecev(DataSet: TDataSet);
+begin
+ with dataset.fieldbyname('NAME') do begin
+  asmsestring:= asmsestring + '-copy';
+ end;
+end;
+
+procedure tbommo.docusetcopyev(DataSet: TDataSet);
+begin
+ namecopyrecev(dataset);
+end;
+
+procedure tbommo.docusetbefcopyev(DataSet: TDataSet);
+var
+ i1: int32;
+ p1: pmsestring;
+begin
+ fcopypagepks:= dpg_pk.c.griddata.asarray;
+ p1:= dpg_kind.c.griddata.datapo;
+ for i1:= 0 to high(fcopypagepks) do begin
+  if p1[i1] <> docupagekinds[dpk_layerplot] then begin
+   fcopypagepks[i1]:= 0;
+  end;
+ end;
+end;
+
+procedure tbommo.docusetaftercancelev(DataSet: TDataSet);
+begin
+ fcopypagepks:= nil;
+end;
+
+procedure tbommo.docusetafterpostev(const sender: TDataSet; var ok: Boolean);
+begin
+ fcopypagepks:= nil;
 end;
 
 end.

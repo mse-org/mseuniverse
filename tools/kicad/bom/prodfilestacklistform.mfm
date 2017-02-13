@@ -8,6 +8,8 @@ inherited prodfilestacklistfo: tprodfilestacklistfo
   caption = 'Production File-Stacks'
   moduleclassname = 'tlisteditfo'
   inherited navig: tdbnavigator
+    bounds_cy = 276
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_autoedit, dbnb_dialog]
     ondialogexecute = dialogev
   end
   inherited grid: tdbwidgetgrid

@@ -198,6 +198,7 @@ object bommo: tbommo
       end>
     tablename = 'DOCUSETS'
     database = mainmo.conn
+    AfterCancel = docusetaftercancelev
     OnNewRecord = newdodocusetev
     Transaction = mainmo.trans
     transactionwrite = mainmo.transwrite
@@ -281,12 +282,12 @@ object bommo: tbommo
         item
           FieldName = 'TSCREATE'
           Index = 0
-          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+          optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
           Index = 1
-          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+          optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           DisplayWidth = 500
@@ -308,6 +309,9 @@ object bommo: tbommo
         end>
     )
     controller.options = [dso_utf8]
+    controller.onafterpost = docusetafterpostev
+    controller.onbeforecopyrecord = docusetbefcopyev
+    controller.onaftercopyrecord = docusetcopyev
     left = 8
     top = 80
     streamingversion = 1
@@ -488,12 +492,12 @@ object bommo: tbommo
         item
           FieldName = 'TSCREATE'
           Index = 0
-          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+          optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
           Index = 1
-          optionsfield = [of_visible, of_inwhere, of_refreshinsert, of_refreshupdate]
+          optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           DisplayWidth = 500
@@ -515,12 +519,14 @@ object bommo: tbommo
         end>
     )
     controller.options = [dso_utf8]
+    controller.onaftercopyrecord = namecopyrecev
     left = 184
     top = 80
     streamingversion = 1
     object pf_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
+      optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
       left = 192
       top = 112
     end
@@ -1783,5 +1789,31 @@ object bommo: tbommo
     controller.onrowsdeleting = drillitemdelev
     left = 328
     top = 280
+  end
+  object copyplotitems: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'oldlink'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'newlink'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into PLOTITEMS '
+      ' (LINK,COMMENT,LAYER,COLOR,REFON,REFCOLOR,VALON,VALCOLOR,'
+      '  INVISON,DRILLMARKS,FORMAT,FILENAME,ORDNUM,LAYERA,LAYERB,NPT) '
+      ' select cast(:newlink as PK) as LINK,COMMENT,LAYER,COLOR,REFON,REFCOLOR,VALON,VALCOLOR,'
+      '  INVISON,DRILLMARKS,FORMAT,FILENAME,ORDNUM,LAYERA,LAYERB,NPT '
+      '                                        from PLOTITEMS where LINK = :oldlink'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 16
+    top = 320
   end
 end

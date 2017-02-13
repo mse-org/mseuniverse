@@ -254,7 +254,7 @@ object projectsettingsfo: tprojectsettingsfo
       bounds_cx = 388
       bounds_cy = 349
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = '&Reporting'
+      caption = '&Make'
       object strip1: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         bounds_x = 2
@@ -626,7 +626,7 @@ object projectsettingsfo: tprojectsettingsfo
       bounds_cx = 388
       bounds_cy = 349
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Macros'
+      caption = 'M&acros'
       object tlayouter1: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         bounds_x = 0
