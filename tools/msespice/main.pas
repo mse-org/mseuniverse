@@ -1,4 +1,4 @@
-{ MSEspice Copyright (c) 2012-2015 by Martin Schreiber
+{ MSEspice Copyright (c) 2012-2017 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ uses
  dockform,msebitmap,msesplitter,msedispwidgets,mserichstring;
 
 const
- versiontext = '2.0.6';
+ versiontext = '2.0.8';
 type
  messagetextkindty = (mtk_info,mtk_running,mtk_finished,mtk_error,mtk_signal);
 

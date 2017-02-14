@@ -1,4 +1,4 @@
-{ MSErun Copyright (c) 2014-2015 by Martin Schreiber
+{ MSErun Copyright (c) 2014-2017 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ uses
  mainmodule,msesimplewidgets;
 
 const
- versiontext = '1.4.6';
+ versiontext = '1.4.8';
 
 type
  tmainfo = class(tmainform)
