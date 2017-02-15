@@ -150,6 +150,12 @@ type
   createproductionzipfile: boolean;
   productionzipfilename: filenamety;
   productionzipdir: filenamety;
+  alldrill: boolean;
+  alldrillpref: msestring;
+  alldrillsuff: msestring;
+  alldrillnpt: boolean;
+  alldrillprefnpt: msestring;
+  alldrillsuffnpt: msestring;
   plotfiles: plotfilearty;
   drillfiles: drillfilearty;
  end;
@@ -2193,6 +2199,13 @@ begin
    createproductionzipfile:= pf_createzip.asboolean;
    productionzipfilename:= expandprojectmacros(pf_zipfile.asmsestring);
    productionzipdir:= expandprojectmacros(pf_zipmaindir.asmsestring);
+   alldrill:= pf_alldrill.asboolean;
+   alldrillpref:= expandprojectmacros(pf_alldrillpref.asmsestring);
+   alldrillsuff:= expandprojectmacros(pf_alldrillsuff.asmsestring);
+   alldrillnpt:= pf_alldrillnpt.asboolean;
+   alldrillprefnpt:= expandprojectmacros(pf_alldrillprefnpt.asmsestring);
+   alldrillsuffnpt:= expandprojectmacros(pf_alldrillsuffnpt.asmsestring);
+   
    setlength(plotfiles,pli_pk.c.griddata.count);
    for i1:= 0 to high(plotfiles) do begin
     with plotfiles[i1] do begin
@@ -2283,14 +2296,15 @@ end;
 
 procedure tmainmo.createprodfiles(const aindex: int32);
 var
- i1{,i2}: int32;
+ i1,i2: int32;
  board1,boardname1,plotdir1: filenamety;
  info1: prodplotinfoty;
- ar1{,ar2}: filenamearty;
+ ar1,ar2: filenamearty;
  s1,s2,s3: msestring;
  la1,la2: layerty;
  lainf1: layerinforecty;
  tmpf: filenamety;
+ hasdrill: boolean;
 begin
  if not getboardfile(board1) then begin
   exit;
@@ -2305,22 +2319,23 @@ begin
  try
   boardname1:= filenamebase(board1);
   with info1 do begin
+   hasdrill:= (drillfiles <> nil) or alldrill or alldrillnpt;
    plotdir1:= tosysfilepath(filepath(productiondir,fk_dir));
    setlength(lainf1.layers,1);
-   setlength(ar1,length(plotfiles)+length(drillfiles));
+   setlength(ar1,length(plotfiles));
    for i1:= 0 to high(plotfiles) do begin
     with plotfiles[i1] do begin
      lainf1.layers[0]:= layer;
      s1:= filename;
      if not plotfile(board1,plotdir1,s1,format,lainf1,
-           (i1 = high(plotfiles)) and (length(drillfiles) = 0)
-                                 and not createproductionzipfile) then begin
+           (i1 = high(plotfiles)) and not hasdrill and 
+                                      not createproductionzipfile) then begin
       break;
      end;
      ar1[i1]:= s1;
     end;
    end;
-   if drillfiles <> nil then begin
+   if hasdrill then begin
     tmpf:= intermediatefilename(msegettempdir()+'msekicadbom');
     createdirpath(tmpf);
     if self.drillfiles(board1,tmpf,true,false,ff_none,
@@ -2331,7 +2346,36 @@ begin
        s2:= tmpf+'/'+getdrillfilename(board1,layera,layerb,nonplated)+'.drl';
        if findfile(s2) then begin
         copyfile(s2,plotdir1+'/'+s1);
-        ar1[i1+length(plotfiles)]:= s1;
+        additem(ar1,s1);
+       end;
+      end;
+     end;
+     i2:= length(boardname1)+1;
+     if alldrill then begin
+      ar2:= searchfilenames('*.drl',tmpf);
+      for i1:= 0 to high(ar2) do begin
+       s1:= ar2[i1];
+       if length(s1) > i2 then begin
+        if pos('-NPTH.drl',s1) <> length(s1) - 8 then begin
+         s1:= copy(s1,i2,bigint);
+         setlength(s1,length(s1)-4); //remove .drl
+         s1:= alldrillpref+s1+alldrillsuff;
+         copyfile(tmpf+'/'+ar2[i1],plotdir1+'/'+s1);
+         additem(ar1,s1);
+        end;
+       end;
+      end;
+     end;
+     if alldrillnpt then begin
+      ar2:= searchfilenames('*-NPTH.drl',tmpf);
+      for i1:= 0 to high(ar2) do begin
+       s1:= ar2[i1];
+       if length(s1) > i2 then begin
+        s1:= copy(s1,i2,bigint);
+        setlength(s1,length(s1)-9); //remove -NPTH.drl 
+        s1:= alldrillprefnpt+s1+alldrillsuffnpt;
+        copyfile(tmpf+'/'+ar2[i1],plotdir1+'/'+s1);
+        additem(ar1,s1);
        end;
       end;
      end;

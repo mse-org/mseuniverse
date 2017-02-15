@@ -50,6 +50,13 @@ type
    val_valon: tbooleanedit;
    val_invison: tbooleanedit;
    drillpk: tint64edit;
+   stripe4: tlayouter;
+   alldrilled: tdbbooleanedit;
+   drillpreved: tdbstringedit;
+   drillsuffed: tdbstringedit;
+   alldrillnpted: tdbbooleanedit;
+   drillprefnpted: tdbstringedit;
+   drillsuffnpted: tdbstringedit;
    procedure editedev(const sender: TObject);
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure formatsetev(const sender: TObject; var avalue: msestring;

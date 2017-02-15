@@ -113,6 +113,12 @@ type
    pf_zipfile: tmsestringfield;
    pf_zipmaindir: tmsestringfield;
    copyplotitems: tsqlstatement;
+   pf_alldrill: tmsebooleanfield;
+   pf_alldrillpref: tmsestringfield;
+   pf_alldrillsuff: tmsestringfield;
+   pf_alldrillnpt: tmsebooleanfield;
+   pf_alldrillprefnpt: tmsestringfield;
+   pf_alldrillsuffnpt: tmsestringfield;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);

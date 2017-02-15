@@ -478,6 +478,34 @@ object bommo: tbommo
         Name = 'ZIPMAINDIR'
         DataType = ftString
         Size = 400
+      end    
+      item
+        Name = 'ALLDRILL'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'ALLDRILLPREF'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'ALLDRILLSUFF'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'ALLDRILLNPT'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'ALLDRILLPREFNPT'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'ALLDRILLSUFFNPT'
+        DataType = ftString
+        Size = 400
       end>
     controller.fields.count = 5
     controller.fields.fields = (
@@ -491,30 +519,30 @@ object bommo: tbommo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 0
+          Index = 5
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 1
+          Index = 6
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 2
+          Index = 7
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'NAME'
-          Index = 3
+          Index = 8
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'DESCRIPTION'
-          Index = 4
+          Index = 9
           Size = 0
         end>
     )
@@ -525,22 +553,23 @@ object bommo: tbommo
     streamingversion = 1
     object pf_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 5
-      optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
+      Index = 0
+      optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 192
       top = 112
     end
     object pf_outputdir: tmsestringfield
       DisplayWidth = 20
       FieldName = 'OUTPUTDIR'
-      Index = 6
+      Index = 1
+      Size = 0
       left = 192
       top = 128
     end
     object pf_createzip: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'CREATEZIP'
-      Index = 7
+      Index = 2
       displayvalues = 'True;False'
       left = 192
       top = 144
@@ -548,16 +577,62 @@ object bommo: tbommo
     object pf_zipfile: tmsestringfield
       DisplayWidth = 20
       FieldName = 'ZIPFILE'
-      Index = 8
+      Index = 3
+      Size = 0
       left = 192
       top = 160
     end
     object pf_zipmaindir: tmsestringfield
       DisplayWidth = 20
       FieldName = 'ZIPMAINDIR'
-      Index = 9
+      Index = 4
+      Size = 0
       left = 192
       top = 176
+    end
+    object pf_alldrill: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'ALLDRILL'
+      Index = 10
+      displayvalues = 'True;False'
+      left = 192
+      top = 192
+    end
+    object pf_alldrillpref: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'ALLDRILLPREF'
+      Index = 11
+      left = 192
+      top = 208
+    end
+    object pf_alldrillsuff: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'ALLDRILLSUFF'
+      Index = 12
+      left = 192
+      top = 224
+    end
+    object pf_alldrillnpt: tmsebooleanfield
+      DisplayWidth = 5
+      FieldName = 'ALLDRILLNPT'
+      Index = 13
+      displayvalues = 'True;False'
+      left = 192
+      top = 240
+    end
+    object pf_alldrillprefnpt: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'ALLDRILLPREFNPT'
+      Index = 14
+      left = 192
+      top = 256
+    end
+    object pf_alldrillsuffnpt: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'ALLDRILLSUFFNPT'
+      Index = 15
+      left = 192
+      top = 272
     end
   end
   object dpg_pk: tifiint64linkcomp
