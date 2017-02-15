@@ -2,6 +2,7 @@
 # will be moved to MSEgui Python-component later
 #
 from pcbnew import *
+truesymbol = 'True'
 layerenums = (
  F_Cu,In1_Cu,In2_Cu,In3_Cu,In4_Cu,In5_Cu,In6_Cu,In7_Cu,
  In8_Cu,In9_Cu,In10_Cu,In11_Cu,In12_Cu,In13_Cu,In14_Cu,In15_Cu,In16_Cu,

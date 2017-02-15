@@ -174,8 +174,8 @@ begin
  pli_valcolor.c.dropdown.cols[0].asarray:= mainmo.edacolornames;
  pli_drillmarks.c.dropdown.cols[0].asarray:= mainmo.drillmarknames;
  pli_format.c.dropdown.cols[0].asarray:= mainmo.fileformats;
- dri_layera.c.dropdown.cols[0].asarray:= mainmo.layernames;
- dri_layerb.c.dropdown.cols[0].asarray:= mainmo.layernames;
+ dri_layera.c.dropdown.cols[0].asarray:= mainmo.culayernames;
+ dri_layerb.c.dropdown.cols[0].asarray:= mainmo.culayernames;
 end;
 
 procedure tbommo.editdocupage(const arow: int32);

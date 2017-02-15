@@ -25,10 +25,10 @@ def drillfile(apcbfilename,aoutputfile,akind,
  pair = LAYER_PAIR()
  pair.first = alayera;
  pair.second = alayerb;
-#  drlwriter.BuildHolesList(pair,anonplated)
+#  drlwriter.BuildHolesList(pair,anonplated == truesymbol) #does not work
  if kind == DRILL_MAP:
   drlwriter.GenDrillMapFile(aoutputfile,format)
  elif kind == EXCELLON:
   f1 = file(aoutputfile,'w')
-#  drlwriter.CreateDrillFile(f1)
+#  drlwriter.CreateDrillFile(f1)             #does not work
   f1.close()

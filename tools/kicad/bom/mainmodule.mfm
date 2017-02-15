@@ -1740,7 +1740,7 @@ object mainmo: tmainmo
     top = 64
   end
   object python: tpythonscript
-    scripts.count = 3
+    scripts.count = 4
     scripts.items = <    
       item
         name = 'plotfile'
@@ -1761,6 +1761,15 @@ object mainmo: tmainmo
           'drillfile.drillfile(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],'
           '                                        sys.argv[5],sys.argv[6],sys.argv[7])'
           '#pcbfilename, outputfile, kind, layera, layerb, notplated, format'
+        )
+      end    
+      item
+        name = 'drillfiles'
+        script.data = (
+          'import sys'
+          'import drillfiles'
+          'drillfiles.drillfiles(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])'
+          ''
         )
       end    
       item

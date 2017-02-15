@@ -76,10 +76,13 @@ procedure tprodfilestackeditfo.readonlychangeev(const sender: TObject;
                const avalue: Boolean);
 begin
  plotsgrid.datacols.readonly:= avalue;
+ drillgrid.datacols.readonly:= avalue;
  if avalue then begin
   plotsgrid.removeappendedrow();
+  drillgrid.removeappendedrow();
  end;
  plotsgrid.norowedit:= avalue;
+ drillgrid.norowedit:= avalue;
 end;
 
 procedure tprodfilestackeditfo.formatsetev(const sender: TObject;

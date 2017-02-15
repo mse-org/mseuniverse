@@ -592,6 +592,9 @@ type
    function prodplotdefinebyname(const aname: msestring;
                        out ainfo: prodplotinfoty): boolean;
                                              //false if not found
+   function getdrillfilename(const boardfile: filenamety;
+                                   const layera,layerb: layerty;
+                                         const nonplated: boolean): msestring;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -629,6 +632,9 @@ type
              const alayera,alayerb: layerty; 
               const anonplated: boolean; const aformat: fileformatty;
               const alast: boolean): boolean;
+   function drillfiles(const aboard: filenamety; const aoutputdir: filenamety;
+                  const builddrill: boolean; const buildmap: boolean;
+                  const mapformat: fileformatty; const alast: boolean): boolean;
    function createzipfile(const aarchivename: filenamety;
           const basedir: filenamety; const afiles: array of filenamety;
           const alast : boolean): boolean;
@@ -769,7 +775,7 @@ const
 //  la_none
     '',
 //  la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
-    'F.CrtYd','F.Fab','F.Adhes','F.Paste','F.SilkS','F.mask',
+    'F.CrtYd','F.Fab','F.Adhes','F.Paste','F.SilkS','F.Mask',
 //  la_f_cu,
     'F.Cu',
 //  la_in1cu,la_in2cu,la_in3cu,la_in4cu,la_in5cu,la_in6cu,
@@ -781,11 +787,11 @@ const
 //  la_in19cu,la_in20cu,la_in21cu,la_in22cu,la_in23cu,la_in24cu,
     'In19.Cu','In20.Cu','In21.Cu','In22.Cu','In23.Cu','In24.Cu',
 //  la_in25cu,la_in26cu,la_in27cu,la_in28cu,la_in29cu,la_in30cu,
-    'In29.Cu','In26.Cu','In27.Cu','In28.Cu','In29.Cu','In30.Cu',
+    'In25.Cu','In26.Cu','In27.Cu','In28.Cu','In29.Cu','In30.Cu',
 //  la_b_cu,
     'B.Cu',
 //  la_b_mask,la_b_silks,la_b_paste,la_b_adhes,la_b_fab,la_b_crtyd,
-    'B.Mmask','B.SilkS','B.Paste','B.Adhes','B.Fab','B.CrtYd',
+    'B.Mask','B.SilkS','B.Paste','B.Adhes','B.Fab','B.CrtYd',
 //  la_edge_cuts,la_margin,la_eco1_user,la_eco2_user,la_cmts_user,la_dwgs_user
     'Edge.Cuts','Margin','Eco1.User','Eco2.User','Cmts.User','Dwgs.User'{,
 //  pk_drillmap
@@ -795,7 +801,7 @@ const
 //  la_none,
     '',
 //  la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
-    'F_CrtYd','F_Fab','F_Adhes','F_Paste','F_SilkS','F_mask',
+    'F_CrtYd','F_Fab','F_Adhes','F_Paste','F_SilkS','F_Mask',
 //  la_f_cu,
     'F_Cu',
 //  la_in1cu,la_in2cu,la_in3cu,la_in4cu,la_in5cu,la_in6cu,
@@ -807,16 +813,44 @@ const
 //  la_in19cu,la_in20cu,la_in21cu,la_in22cu,la_in23cu,la_in24cu,
     'In19_Cu','In20_Cu','In21_Cu','In22_Cu','In23_Cu','In24_Cu',
 //  la_in25cu,la_in26cu,la_in27cu,la_in28cu,la_in29cu,la_in30cu,
-    'In29_Cu','In26_Cu','In27_Cu','In28_Cu','In29_Cu','In30_Cu',
+    'In25_Cu','In26_Cu','In27_Cu','In28_Cu','In29_Cu','In30_Cu',
 //  la_b_cu,
     'B_Cu',
 //  la_b_mask,la_b_silks,la_b_paste,la_b_adhes,la_b_fab,la_b_crtyd,
-    'B_Mmask','B_SilkS','B_Paste','B_Adhes','B_Fab','B_CrtYd',
+    'B_Mask','B_SilkS','B_Paste','B_Adhes','B_Fab','B_CrtYd',
 //  la_edge_cuts,la_margin,la_eco1_user,la_eco2_user,la_cmts_user,la_dwgs_user
     'Edge_Cuts','Margin','Eco1_User','Eco2_User','Cmts_User','Dwgs_User'{,
 //  pk_drillmap
     'Drill_Map'}
  );
+
+ layerdrillnames: array[layerty] of msestring = (
+//  la_none,
+    '',
+//  la_f_crtyd,la_f_fab,la_f_adhes,la_f_paste,la_f_silks,la_f_mask,
+    '',        '',      '',        '',        '',        '',
+//  la_f_cu,
+    'front',
+//  la_in1cu,la_in2cu,la_in3cu,la_in4cu,la_in5cu,la_in6cu,
+    'inner1','inner2','inner3','inner4','inner5','inner6',
+//  la_in7cu,la_in8cu,la_in9cu,la_in10cu,la_in11cu,la_in12cu,
+    'inner7','inner8','inner9','inner10','inner11','inner12',
+//  la_in13cu,la_in14cu,la_in15cu,la_in16cu,la_in17cu,la_in18cu,
+    'inner13','inner14','inner15','inner16','inner17','inner18',
+//  la_in19cu,la_in20cu,la_in21cu,la_in22cu,la_in23cu,la_in24cu,
+    'inner19','inner20','inner21','inner22','inner23','inner24',
+//  la_in25cu,la_in26cu,la_in27cu,la_in28cu,la_in29cu,la_in30cu,
+    'inner25','inner26','inner27','inner28','inner29','inner30',
+//  la_b_cu,
+    'back',
+//  la_b_mask,la_b_silks,la_b_paste,la_b_adhes,la_b_fab,la_b_crtyd,
+    '',       '',        '',        '',        '',      '',
+//  la_edge_cuts,la_margin,la_eco1_user,la_eco2_user,la_cmts_user,la_dwgs_user
+    '',          '',       '',          '',          '',          ''{,
+//  pk_drillmap
+    ''}
+ );
+
 
  edacolornames: array[edacolorty] of msestring = (
     'BLACK',
@@ -1980,6 +2014,17 @@ begin
                                    mainmodule.fileformatcodes[aformat]],alast);
 end;
 
+function tmainmo.drillfiles(const aboard: filenamety;
+               const aoutputdir: filenamety; const builddrill: boolean;
+               const buildmap: boolean; const mapformat: fileformatty; 
+                                              const alast: boolean): boolean;
+begin
+ result:= execpy('drillfiles',
+   [aboard,tosysfilepath(aoutputdir),pyboolean(builddrill),
+                                 pyboolean(buildmap),
+                                 mainmodule.fileformatcodes[mapformat]],alast);
+end;
+
 function tmainmo.createzipfile(const aarchivename: filenamety;
           const basedir: filenamety; const afiles: array of filenamety;
           const alast : boolean): boolean;
@@ -2169,64 +2214,6 @@ begin
  end;
 end;
 
-procedure tmainmo.createprodfiles(const aindex: int32);
-var
- i1{,i2}: int32;
- board1,boardname1,plotdir1: filenamety;
- info1: prodplotinfoty;
- ar1{,ar2}: filenamearty;
- s1,s2,s3: msestring;
- la1,la2: layerty;
- lainf1: layerinforecty;
-begin
- if not getboardfile(board1) then begin
-  exit;
- end;
- if not prodplotdefinebyname(projectoptions.productionfiles[aindex],info1)
-                                                                    then begin
-  errormessage('Plotstack "'+projectoptions.productionfiles[aindex]+'"'+lineend+
-               'is invalid');
-  exit;
- end;
- beginpy('Create Plots');
- try
-  boardname1:= filenamebase(board1);
-  with info1 do begin
-   plotdir1:= tosysfilepath(filepath(productiondir,fk_dir));
-   setlength(lainf1.layers,1);
-   setlength(ar1,length(plotfiles)+length(drillfiles));
-   for i1:= 0 to high(plotfiles) do begin
-    with plotfiles[i1] do begin
-     lainf1.layers[0]:= layer;
-     s1:= filename;
-     if not plotfile(board1,plotdir1,s1,format,lainf1,
-           (i1 = high(plotfiles)) and (length(drillfiles) = 0)
-                                 and not createproductionzipfile) then begin
-      break;
-     end;
-     ar1[i1]:= s1;
-    end;
-   end;
-   for i1:= 0 to high(drillfiles) do begin
-    with drillfiles[i1] do begin
-     s1:= filename;
-     if not drillfile(board1,filepath(plotdir1,s1),dfk_excellon,
-                          layera,layerb,nonplated,ff_gerber, //dummy
-            (i1 = high(drillfiles)) and not createproductionzipfile) then begin
-      break;
-     end;
-     ar1[i1+length(plotfiles)]:= s1;
-    end;
-   end;
-   if createproductionzipfile then begin
-    createzipfile(filepath(plotdir1,productionzipfilename),plotdir1,ar1,true);
-   end;
-  end;
- finally
-  endpy();
- end;
-end;
-
 function tmainmo.getid(): int64;
 begin
  dec(fid);
@@ -2269,6 +2256,115 @@ begin
  end;
 end;
 
+function tmainmo.getdrillfilename(const boardfile: filenamety;
+                                       const layera,layerb: layerty;
+                                         const nonplated: boolean): msestring;
+var
+ la1,la2: layerty;
+ s1: msestring;
+begin
+ s1:= '';
+ if layera < layerb then begin
+  la1:= layera;
+  la2:= layerb;
+ end
+ else begin
+  la1:= layerb;
+  la2:= layera;
+ end;
+ if (la1 <> la_f_cu) or (la2 <> la_b_cu) then begin
+  s1:= '-'+layerdrillnames[la1]+'-'+layerdrillnames[la2];
+ end;
+ if nonplated then begin
+  s1:= s1 + '-NPTH';
+ end;
+ result:= filenamebase(boardfile)+s1;
+end;
+
+procedure tmainmo.createprodfiles(const aindex: int32);
+var
+ i1{,i2}: int32;
+ board1,boardname1,plotdir1: filenamety;
+ info1: prodplotinfoty;
+ ar1{,ar2}: filenamearty;
+ s1,s2,s3: msestring;
+ la1,la2: layerty;
+ lainf1: layerinforecty;
+ tmpf: filenamety;
+begin
+ if not getboardfile(board1) then begin
+  exit;
+ end;
+ if not prodplotdefinebyname(projectoptions.productionfiles[aindex],info1)
+                                                                    then begin
+  errormessage('Plotstack "'+projectoptions.productionfiles[aindex]+'"'+lineend+
+               'is invalid');
+  exit;
+ end;
+ beginpy('Create Plots');
+ try
+  boardname1:= filenamebase(board1);
+  with info1 do begin
+   plotdir1:= tosysfilepath(filepath(productiondir,fk_dir));
+   setlength(lainf1.layers,1);
+   setlength(ar1,length(plotfiles)+length(drillfiles));
+   for i1:= 0 to high(plotfiles) do begin
+    with plotfiles[i1] do begin
+     lainf1.layers[0]:= layer;
+     s1:= filename;
+     if not plotfile(board1,plotdir1,s1,format,lainf1,
+           (i1 = high(plotfiles)) and (length(drillfiles) = 0)
+                                 and not createproductionzipfile) then begin
+      break;
+     end;
+     ar1[i1]:= s1;
+    end;
+   end;
+   if drillfiles <> nil then begin
+    tmpf:= intermediatefilename(msegettempdir()+'msekicadbom');
+    createdirpath(tmpf);
+    if self.drillfiles(board1,tmpf,true,false,ff_none,
+                                     not createproductionzipfile) then begin   
+     for i1:= 0 to high(drillfiles) do begin
+      with drillfiles[i1] do begin
+       s1:= filename;
+       s2:= tmpf+'/'+getdrillfilename(board1,layera,layerb,nonplated)+'.drl';
+       if findfile(s2) then begin
+        copyfile(s2,plotdir1+'/'+s1);
+        ar1[i1+length(plotfiles)]:= s1;
+       end;
+      end;
+     end;
+    end;
+   end;
+
+   {creating individual drillfiles is currently not possible because of
+    limitations in pcbnew.py   
+   for i1:= 0 to high(drillfiles) do begin
+    with drillfiles[i1] do begin
+     s1:= filename;
+     if not drillfile(board1,filepath(plotdir1,s1),dfk_excellon,
+                          layera,layerb,nonplated,ff_gerber, //dummy
+            (i1 = high(drillfiles)) and not createproductionzipfile) then begin
+      break;
+     end;
+     ar1[i1+length(plotfiles)]:= s1;
+    end;
+   end;
+   }
+
+   if createproductionzipfile then begin
+    createzipfile(filepath(plotdir1,productionzipfilename),plotdir1,ar1,true);
+   end;
+  end;
+ finally
+  if tmpf <> '' then begin
+   deletedir(tmpf);
+  end;
+  endpy();
+ end;
+end;
+
 procedure tmainmo.createdocuset(const aindex: int32);
 var
  tmpf: msestring;
@@ -2286,13 +2382,13 @@ var
  rep: tdocure;
  i1,i2: int32;
  error1: boolean;
- boardfile1,s1: filenamety;
+ boardfile1,s1,s2: filenamety;
  pk1,pk2: layerty;
  b1: boolean;
-// pac1: reppageformclassty;
  pa1: treppageform;
  la1: layoutflagsty;
  lainf1: layerinforecty;
+ drillfilesmade: boolean;
 begin
  if not docudefinebyname(projectoptions.docusets[aindex],info1) then begin
   errormessage('Docuset "'+projectoptions.docusets[aindex]+'"'+lineend+
@@ -2313,6 +2409,7 @@ begin
  tmpfileindex:= 0;
  tmpf:= intermediatefilename(msegettempdir()+'msekicadbom');
  createdirpath(tmpf);
+ drillfilesmade:= false;
  beginpy('Create Docu');
  try
   rep:= tdocure.create(nil);
@@ -2320,7 +2417,6 @@ begin
   rep.pagewidth:= psprinter.clientwidth;
   rep.pageheight:= psprinter.clientheight;
   for i1:= 0 to high(info1.pages) do begin
-//   pac1:= nil;
    pa1:= nil;
    case info1.pages[i1].pagekind of
     dpk_title: begin
@@ -2356,12 +2452,30 @@ begin
        break;
       end;
       s1:= tmpfile+'.'+mainmodule.fileformatexts[ff_postscript];
-      if not drillfile(boardfile1,{tmpf+'/'+}s1,dfk_map,
+      
+      {creating individual drillfiles is currently not possible because of
+       limitations in pcbnew.py   
+      if not drillfile(boardfile1,s1,dfk_map,
                      layera,layerb,nonplated,ff_postscript,false) then begin
        error1:= true;
        break;
       end;
-      pa1:= tdocupsreppa.create(info1.pages[i1]);
+      }
+
+      if not drillfilesmade then begin
+       drillfilesmade:= true;
+       if not drillfiles(boardfile1,tmpf,false,true,
+                                          ff_postscript,false) then begin
+        error1:= true;
+        break;
+       end;
+      end;
+      s2:= tmpf+'/'+getdrillfilename(boardfile1,layera,layerb,nonplated)+
+                                                             '-drl_map.ps';
+      if findfile(s2) then begin
+       copyfile(s2,s1);
+       pa1:= tdocupsreppa.create(info1.pages[i1]);
+      end;
      end;
     end;
     dpk_schematic: begin
@@ -2378,11 +2492,6 @@ begin
      bommo.bomds.active:= true;
     end;
    end;
-   {
-   if (pac1 <> nil) and (pa1 = nil) then begin
-    pa1:= tdocupsreppa(pac1.create(nil));
-   end;
-   }
    if pa1 <> nil then begin
     if pa1 is tdocupsreppa then begin
      with tdocupsreppa(pa1) do begin
