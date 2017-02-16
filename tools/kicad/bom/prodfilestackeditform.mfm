@@ -260,6 +260,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
           item[plotfileed]
             width = 229
             options = [co_fill, co_savestate, co_mousescrollrow]
+            onshowhint = gridmacrohintev
             widgetname = 'plotfileed'
           end>
         ifilink = bommo.plotitemgrid
@@ -498,6 +499,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
           item[drillfileed]
             width = 393
             options = [co_fill, co_savestate, co_mousescrollrow]
+            onshowhint = gridmacrohintev
             widgetname = 'drillfileed'
           end>
         ifilink = bommo.drillitemgrid
@@ -849,6 +851,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
           item[posfileed]
             width = 488
             options = [co_fill, co_savestate, co_mousescrollrow]
+            onshowhint = gridmacrohintev
             widgetname = 'posfileed'
           end>
         ifilink = bommo.positemgrid
@@ -922,11 +925,152 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         end
       end
     end
+    object bompage: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 4
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 701
+      bounds_cy = 249
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Partlists'
+      object bomgrid: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 701
+        bounds_cy = 249
+        anchors = [an_top, an_bottom]
+        optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 21
+            numstart = 1
+            numstep = 1
+          end>
+        fixrows.count = 1
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 4
+            captions.items = <            
+              item
+              end            
+              item
+                caption = 'BOM'
+                hint = 'Show reference text'
+              end            
+              item
+                caption = 'Filename'
+                mergerows = 1
+                hint = 'Empty -> use default'
+              end            
+              item
+                caption = 'ED'
+                mergerows = 1
+                hint = 'Force insert attribute for SMD components'
+              end>
+          end>
+        datacols.count = 4
+        datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item[tint64edit3]
+            width = 12
+            options = [co_invisible, co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'tint64edit3'
+          end        
+          item[bomed]
+            width = 41
+            options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'bomed'
+          end        
+          item[partlistfileed]
+            width = 592
+            options = [co_fill, co_savestate, co_mousescrollrow]
+            onshowhint = gridmacrohintev
+            widgetname = 'partlistfileed'
+          end        
+          item[tstockglyphdatabutton1]
+            color = -2147483646
+            width = 26
+            options = [co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'tstockglyphdatabutton1'
+            dataclass = tgridintegerdatalist
+          end>
+        ifilink = bommo.bomitemgrid
+        datarowheight = 16
+        statfile = tstatfile1
+        onrowsmodified = editedev
+        onedited = editedev
+        oncellevent = bomfieldcellev
+        reffontheight = 14
+        object tint64edit3: tint64edit
+          optionsskin = [osk_framebuttononly]
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 12
+          bounds_cy = 16
+          max = 2147483647
+          ifilink = bommo.bom_pk
+          reffontheight = 14
+        end
+        object bomed: tbooleanedit
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          bounds_x = 13
+          bounds_y = 0
+          bounds_cx = 41
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          visible = False
+          ifilink = bommo.bom_bom
+        end
+        object partlistfileed: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 3
+          onshowhint = macrohintev
+          visible = False
+          bounds_x = 55
+          bounds_y = 0
+          bounds_cx = 592
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_notnull]
+          ifilink = bommo.bom_filename
+          reffontheight = 14
+        end
+        object tstockglyphdatabutton1: tstockglyphdatabutton
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 4
+          bounds_x = 648
+          bounds_y = 0
+          bounds_cx = 26
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr, as_localonexecute]
+          action = bomfieldact
+          glyph = stg_ellipsesmall
+        end
+      end
+    end
   end
   inherited dataso: tmsedatasource[5]
     DataSet = bommo.prodfilestackqu
   end
   inherited tstatfile1: tstatfile[6]
     filename = 'prodfilefo.sta'
+  end
+  object bomfieldact: taction[7]
+    onexecuteaction = bomfieldeditev
+    left = 424
+    top = 224
   end
 end

@@ -130,6 +130,25 @@ type
    pos_back: tifibooleanlinkcomp;
    pos_smd: tifibooleanlinkcomp;
    pos_filename: tifistringlinkcomp;
+   bomitemgrid: tifigridlinkcomp;
+   bomitemdelete: tsqlstatement;
+   bomitemupdate: tsqlstatement;
+   bomiteminsert: tsqlresult;
+   bomitemdso: tconnectedifidatasource;
+   bomitemqu: tifisqlresult;
+   bom_pk: tifiint64linkcomp;
+   bom_bom: tifibooleanlinkcomp;
+   bom_filename: tifistringlinkcomp;
+   bomfieldgrid: tifigridlinkcomp;
+   bomfielddelete: tsqlstatement;
+   bomfieldupdate: tsqlstatement;
+   bomfieldinsert: tsqlresult;
+   bomfielddso: tconnectedifidatasource;
+   bomfieldqu: tifisqlresult;
+   bof_pk: tifiint64linkcomp;
+   bof_field: tifidropdownlistlinkcomp;
+   bof_fieldname: tifistringlinkcomp;
+   copybomfields: tsqlstatement;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
@@ -146,19 +165,33 @@ type
    procedure drillitemdelev(const sender: TObject; var aindex: Integer;
                    var acount: Integer);
    procedure namecopyrecev(DataSet: TDataSet);
-   procedure docusetcopyev(DataSet: TDataSet);
    procedure docusetbefcopyev(DataSet: TDataSet);
    procedure docusetaftercancelev(DataSet: TDataSet);
    procedure docusetafterpostev(const sender: TDataSet; var ok: Boolean);
    procedure positemdelev(const sender: TObject; var aindex: Integer;
                    var acount: Integer);
+   procedure bomitemdelev(const sender: TObject; var aindex: Integer;
+                   var acount: Integer);
+   procedure bomfielddelev(const sender: TObject; var aindex: Integer;
+                   var acount: Integer);
+   procedure bomfieldsetev(const sender: tcustomificlientcontroller;
+                   const aclient: iificlient; var avalue: msestring;
+                   var accept: Boolean; const aindex: Integer);
+   procedure prodfilebefcopyev(DataSet: TDataSet);
+   procedure prodfileaftercancelev(DataSet: TDataSet);
+   procedure prodfileafterpostev(const sender: TDataSet; var ok: Boolean);
+  private
+   fbomfieldpk: int64;
   protected
    fdeleteddocupages: int64arty;
    fdeletedplotitems: int64arty;
    fdeleteddrillitems: int64arty;
    fdeletedpositems: int64arty;
+   fdeletedbomitems: int64arty;
+   fdeletedbomfields: int64arty;
    fcopyplotpks: array of int64arty;
    fcopypagepks: int64arty;
+   fcopybompks: int64arty;
    procedure refreshitems(const alink: tmselargeintfield; 
              var deleted: int64arty;
              const pk: tifiint64linkcomp; const query: tmsesqlquery;
@@ -168,6 +201,8 @@ type
    function getproditemvalues(const index: int32): variantarty;
    function getproddrillitemvalues(const index: int32): variantarty;
    function getprodpositemvalues(const index: int32): variantarty;
+   function getprodbomitemvalues(const index: int32): variantarty;
+   function getprodbomfieldvalues(const index: int32): variantarty;
    procedure updateitems(var deleted: int64arty;
          const pk: tifiint64linkcomp;
          const deletestatement,updatestatement: tsqlstatement;
@@ -176,14 +211,17 @@ type
   public
    constructor create(aowner: tcomponent); override;
    procedure editdocupage(const arow: int32);
+   procedure editbomfields(const arow: int32);
  end;
+ 
 var
  bommo: tbommo;
+ 
 implementation
 uses
  bommodule_mfm,mainmodule,msearrayutils,titledialogform,msegui,bomdialogform,
  schematicplotdialogform,partlistdialogform,layerplotdialogform,
- drillmapdialogform;
+ drillmapdialogform,bomfieldeditform;
 
 constructor tbommo.create(aowner: tcomponent);
 begin
@@ -197,6 +235,7 @@ begin
  pli_format.c.dropdown.cols[0].asarray:= mainmo.fileformats;
  dri_layera.c.dropdown.cols[0].asarray:= mainmo.culayernames;
  dri_layerb.c.dropdown.cols[0].asarray:= mainmo.culayernames;
+ bof_field.c.dropdown.cols[0].asarray:= mainmo.bomfieldnames;
 end;
 
 procedure tbommo.editdocupage(const arow: int32);
@@ -235,6 +274,24 @@ begin
    dpg_title.c.griddata[arow]:= pi_title.asmsestring;
   end;
   pageitemqu.active:= false;
+ end;
+end;
+
+procedure tbommo.editbomfields(const arow: int32);
+begin
+ prodfilestackqu.checkbrowsemode();
+ fdeletedbomfields:= nil;
+ fbomfieldpk:= bom_pk.c.griddata[arow];
+ bomfieldqu.params[0].value:= fbomfieldpk;
+ bomfielddso.refresh(); 
+ case tbomfieldeditfo.create(nil).show(ml_application) of
+  mr_ok: begin
+   updateitems(fdeletedbomfields,bof_pk,bomfielddelete,bomfieldupdate,
+                                    bomfieldinsert,@getprodbomfieldvalues);
+   mainmo.transwrite.commit;
+  end;
+  else begin
+  end;
  end;
 end;
  
@@ -493,6 +550,26 @@ begin
  result[6]:= pos_filename.c.griddata[index];
 end;
 
+function tbommo.getprodbomitemvalues(const index: int32): variantarty;
+begin
+ setlength(result,5);
+ result[0]:= bom_pk.c.griddata[index];
+ result[1]:= pf_pk.value;
+ result[2]:= index;
+ result[3]:= bom_bom.c.griddata[index];
+ result[4]:= bom_filename.c.griddata[index];
+end;
+
+function tbommo.getprodbomfieldvalues(const index: int32): variantarty;
+begin
+ setlength(result,5);
+ result[0]:= bof_pk.c.griddata[index];
+ result[1]:= fbomfieldpk;
+ result[2]:= index;
+ result[3]:= bof_field.c.griddata[index];
+ result[4]:= bof_fieldname.c.griddata[index];
+end;
+
 procedure tbommo.plotitempostev(const sender: TDataSet; const master: TDataSet);
 begin
  updateitems(fdeletedplotitems,pli_pk,plotitemdelete,plotitemupdate,
@@ -511,6 +588,9 @@ begin
 end;
 
 procedure tbommo.proditempostev(const sender: TDataSet; const master: TDataSet);
+var
+ ar1: int64arty;
+ i1: int32;
 begin
  updateitems(fdeletedplotitems,pli_pk,plotitemdelete,plotitemupdate,
                  plotiteminsert,@getproditemvalues);
@@ -518,6 +598,16 @@ begin
                  drilliteminsert,@getproddrillitemvalues);
  updateitems(fdeletedpositems,pos_pk,positemdelete,positemupdate,
                  positeminsert,@getprodpositemvalues);
+ updateitems(fdeletedbomitems,bom_pk,bomitemdelete,bomitemupdate,
+                 bomiteminsert,@getprodbomitemvalues);
+ if fcopybompks <> nil then begin
+  ar1:= bom_pk.c.griddata.asarray;
+  for i1:= 0 to high(ar1) do begin
+   if fcopybompks[i1] <> 0 then begin //kind = dpk_layerplot
+    copybomfields.execute([fcopybompks[i1],ar1[i1]]); //oldlink,newlink
+   end;
+  end;
+ end;
 end;
 
 procedure tbommo.proditemrefreshev(const sender: TObject);
@@ -525,6 +615,7 @@ begin
  refreshitems(pf_pk,fdeletedplotitems,pli_pk,prodfilestackqu,plotitemdso);
  refreshitems(pf_pk,fdeleteddrillitems,dri_pk,prodfilestackqu,drillitemdso);
  refreshitems(pf_pk,fdeletedpositems,pos_pk,prodfilestackqu,positemdso);
+ refreshitems(pf_pk,fdeletedbomitems,bom_pk,prodfilestackqu,bomitemdso);
 end;
 
 procedure tbommo.drillitemdelev(const sender: TObject; var aindex: Integer;
@@ -537,6 +628,18 @@ procedure tbommo.positemdelev(const sender: TObject; var aindex: Integer;
                var acount: Integer);
 begin
  additem(fdeletedpositems,pos_pk.c.griddata[aindex]);
+end;
+
+procedure tbommo.bomitemdelev(const sender: TObject; var aindex: Integer;
+               var acount: Integer);
+begin
+ additem(fdeletedbomitems,bom_pk.c.griddata[aindex]);
+end;
+
+procedure tbommo.bomfielddelev(const sender: TObject; var aindex: Integer;
+               var acount: Integer);
+begin
+ additem(fdeletedbomfields,bof_pk.c.griddata[aindex]);
 end;
 
 procedure tbommo.newdodocusetev(DataSet: TDataSet);
@@ -565,11 +668,6 @@ begin
  end;
 end;
 
-procedure tbommo.docusetcopyev(DataSet: TDataSet);
-begin
- namecopyrecev(dataset);
-end;
-
 procedure tbommo.docusetbefcopyev(DataSet: TDataSet);
 var
  i1: int32;
@@ -584,7 +682,22 @@ begin
  end;
 end;
 
+procedure tbommo.prodfilebefcopyev(DataSet: TDataSet);
+begin
+ fcopybompks:= bom_pk.c.griddata.asarray;
+end;
+
+procedure tbommo.prodfileaftercancelev(DataSet: TDataSet);
+begin
+ fcopybompks:= nil;
+end;
+
 procedure tbommo.docusetaftercancelev(DataSet: TDataSet);
+begin
+ fcopypagepks:= nil;
+end;
+
+procedure tbommo.prodfileafterpostev(const sender: TDataSet; var ok: Boolean);
 begin
  fcopypagepks:= nil;
 end;
@@ -594,5 +707,15 @@ begin
  fcopypagepks:= nil;
 end;
 
+procedure tbommo.bomfieldsetev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient; var avalue: msestring;
+               var accept: Boolean; const aindex: Integer);
+begin
+ if (avalue <> '') and 
+    (bof_fieldname.c.griddata[aindex] = '') or
+   (bof_fieldname.c.griddata[aindex] = bof_field.c.griddata[aindex]) then begin
+  bof_fieldname.c.griddata[aindex]:= avalue;
+ end;
+end;
 
 end.

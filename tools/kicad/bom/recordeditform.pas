@@ -19,13 +19,15 @@ type
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
+   procedure gridmacrohintev(const sender: tdatacol; const arow: Integer;
+                   var info: hintinfoty);
   public
    constructor create(const aid: tmselargeintfield); reintroduce;
  end;
 
 implementation
 uses
- recordeditform_mfm,main,msesqldb,mainmodule;
+ recordeditform_mfm,main,msesqldb,mainmodule,msewidgetgrid;
  
 constructor trecordeditfo.create(const aid: tmselargeintfield);
 begin
@@ -45,6 +47,13 @@ procedure trecordeditfo.macrohintev(const sender: TObject;
                var info: hintinfoty);
 begin
  info.caption:= mainmo.expandprojectmacros(tedit(sender).text);
+end;
+
+procedure trecordeditfo.gridmacrohintev(const sender: tdatacol;
+               const arow: Integer; var info: hintinfoty);
+begin
+ info.caption:= mainmo.expandprojectmacros(
+               tstringedit(twidgetcol(sender).editwidget).griddata[arow]);
 end;
 
 end.

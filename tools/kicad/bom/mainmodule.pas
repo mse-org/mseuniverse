@@ -574,6 +574,7 @@ type
    fdocupagekinds: msestringarty;
    fedacolornames: msestringarty;
    fdrillmarknames: msestringarty;
+   fbomfieldnames: msestringarty;
    fid: int64;
   protected
    procedure statechanged();
@@ -662,6 +663,7 @@ type
    property drillmarknames: msestringarty read fdrillmarknames;
    property culayernames: msestringarty read fculayernames;
    property fileformats: msestringarty read ffileformats;
+   property bomfieldnames: msestringarty read fbomfieldnames;
 //   property fileformatcodes: msestringarty read ffileformatcodes;
 //   property fileformatexts: msestringarty read ffileformatexts;
    property docupagekinds: msestringarty read fdocupagekinds;
@@ -726,6 +728,9 @@ end;
 { tmainmo }
 
 type
+ bomfieldsty = (bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
+                bf_footprint,bf_footprintinfo,bf_manufacturer,bf_description,
+                bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4);
  componentmacronamety = (
     cmn_value,cmn_value1,cmn_value2,
     cmn_footprint,cmn_footprintident,cmn_footprintlibrary,
@@ -739,6 +744,14 @@ type
     cmn_k_parameter1,cmn_k_parameter2,cmn_k_parameter3,cmn_k_parameter4);
 
 const
+ bomfields: array[bomfieldsty] of msestring = (
+ //bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
+  '',        'REF', 'VALUE', 'VALUE1', 'VALUE2', 'KIND',
+ //bf_footprint,bf_footprintinfo,bf_manufacturer,bf_description,
+     'FOOTPRINT', 'FOOTPRINTINFO', 'MANUFACTURER', 'DESCRIPTION',
+ //bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4
+     'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4');
+
  componentmacronames: array[componentmacronamety] of msestring = (
 //cmn_value,cmn_value1,cmn_value2,
      'value',  'value1',  'value2',
@@ -953,6 +966,10 @@ begin
  setlength(ffileformats,ord(high(mainmodule.fileformatnames)));
  for i1:= 0 to high(ffileformats) do begin
   ffileformats[i1]:= mainmodule.fileformatnames[fileformatty(i1+1)];
+ end;
+ setlength(fbomfieldnames,ord(high(mainmodule.bomfields)));
+ for i1:= 0 to high(fbomfieldnames) do begin
+  fbomfieldnames[i1]:= mainmodule.bomfields[bomfieldsty(i1+1)];
  end;
 // ffileformats:= fileformatnames;
 // ffileformatcodes:= mainmodule.fileformatcodes;

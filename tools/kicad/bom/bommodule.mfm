@@ -311,7 +311,7 @@ object bommo: tbommo
     controller.options = [dso_utf8]
     controller.onafterpost = docusetafterpostev
     controller.onbeforecopyrecord = docusetbefcopyev
-    controller.onaftercopyrecord = docusetcopyev
+    controller.onaftercopyrecord = namecopyrecev
     left = 8
     top = 80
     streamingversion = 1
@@ -430,6 +430,7 @@ object bommo: tbommo
       end>
     tablename = 'PRODFILESTACKS'
     database = mainmo.conn
+    AfterCancel = prodfileaftercancelev
     Transaction = mainmo.trans
     transactionwrite = mainmo.transwrite
     FieldDefs = <    
@@ -547,6 +548,8 @@ object bommo: tbommo
         end>
     )
     controller.options = [dso_utf8]
+    controller.onafterpost = prodfileafterpostev
+    controller.onbeforecopyrecord = prodfilebefcopyev
     controller.onaftercopyrecord = namecopyrecev
     left = 184
     top = 80
@@ -929,48 +932,48 @@ object bommo: tbommo
         DataType = ftBoolean
       end>
     controller.options = [dso_utf8]
-    left = 624
-    top = 160
+    left = 616
+    top = 24
     streamingversion = 1
     object pi_title: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TITLE'
       Index = 0
       Size = 0
-      left = 632
-      top = 224
+      left = 624
+      top = 88
     end
     object pi_mirrorhorz: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'MIRRORHORZ'
       Index = 1
       displayvalues = 'True;False'
-      left = 632
-      top = 240
+      left = 624
+      top = 104
     end
     object pi_mirrorvert: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'MIRRORVERT'
       Index = 2
       displayvalues = 'True;False'
-      left = 632
-      top = 256
+      left = 624
+      top = 120
     end
     object pi_rotate90: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'ROTATE90'
       Index = 3
       displayvalues = 'True;False'
-      left = 632
-      top = 272
+      left = 624
+      top = 136
     end
     object pi_rotate180: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'ROTATE180'
       Index = 4
       displayvalues = 'True;False'
-      left = 632
-      top = 288
+      left = 624
+      top = 152
     end
     object pi_scale: tmsefloatfield
       DefaultExpression = '1'
@@ -979,8 +982,8 @@ object bommo: tbommo
       optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
-      left = 632
-      top = 304
+      left = 624
+      top = 168
     end
     object pi_shifthorz: tmsefloatfield
       DefaultExpression = '0'
@@ -989,8 +992,8 @@ object bommo: tbommo
       optionsfield = [of_visible, of_initinsert, of_initcopy, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
-      left = 632
-      top = 320
+      left = 624
+      top = 184
     end
     object pi_shiftvert: tmsefloatfield
       DefaultExpression = '0'
@@ -999,84 +1002,84 @@ object bommo: tbommo
       optionsfield = [of_visible, of_initcopy, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
-      left = 632
-      top = 336
+      left = 624
+      top = 200
     end
     object pi_filename: tmsestringfield
       DisplayWidth = 20
       FieldName = 'FILENAME'
       Index = 8
       Size = 0
-      left = 632
-      top = 352
+      left = 624
+      top = 216
     end
     object pi_text: tmsestringfield
       DisplayWidth = 20
       FieldName = 'TEXT'
       Index = 9
       Size = 0
-      left = 632
-      top = 368
+      left = 624
+      top = 232
     end
     object pi_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 10
       optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
-      left = 632
-      top = 192
+      left = 624
+      top = 56
     end
     object pi_showdist: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'SHOWDIST'
       Index = 11
       displayvalues = 'True;False'
-      left = 632
-      top = 448
+      left = 624
+      top = 312
     end
     object pi_showref: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'SHOWREF'
       Index = 12
       displayvalues = 'True;False'
-      left = 632
-      top = 432
+      left = 624
+      top = 296
     end
     object pi_npt: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'NPT'
       Index = 13
       displayvalues = 'True;False'
-      left = 632
-      top = 416
+      left = 624
+      top = 280
     end
     object pi_layerb: tmsestringfield
       DisplayWidth = 20
       FieldName = 'LAYERB'
       Index = 14
       Size = 0
-      left = 632
-      top = 400
+      left = 624
+      top = 264
     end
     object pi_layera: tmsestringfield
       DisplayWidth = 20
       FieldName = 'LAYERA'
       Index = 15
       Size = 0
-      left = 632
-      top = 384
+      left = 624
+      top = 248
     end
     object pi_kind: tmsestringfield
       DisplayWidth = 0
       FieldName = 'KIND'
       Index = 16
       Size = 0
-      left = 632
-      top = 208
+      left = 624
+      top = 72
     end
   end
   object pageitempkpar: tparamconnector
-    left = 632
-    top = 144
+    left = 624
+    top = 8
   end
   object plotitemqu: tifisqlresult
     fielddefs = <    
@@ -1178,8 +1181,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.trans
     options = [sso_utf8]
-    left = 776
-    top = 232
+    left = 768
+    top = 96
   end
   object plotitemdso: tconnectedifidatasource
     fields.count = 14
@@ -1255,8 +1258,8 @@ object bommo: tbommo
         sourcefieldname = 'NPT'
       end>
     connection = plotitemqu
-    left = 776
-    top = 248
+    left = 768
+    top = 112
   end
   object plotitemlink: tfieldparamlink
     fieldname = 'PK'
@@ -1264,21 +1267,21 @@ object bommo: tbommo
     visualcontrol = True
     onrefresh = plotitemrefreshev
     onmasterpost = plotitempostev
-    left = 776
-    top = 160
+    left = 768
+    top = 24
   end
   object pageitemdso: tmsedatasource
     DataSet = pageitemqu
-    left = 624
-    top = 176
+    left = 616
+    top = 40
   end
   object pli_pk: tifiint64linkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
     controller.fieldname = 'PK'
     controller.max = 2147483647
-    left = 784
-    top = 264
+    left = 776
+    top = 128
   end
   object pli_layer: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1288,13 +1291,13 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 784
-    top = 280
+    left = 776
+    top = 144
   end
   object plotitemgrid: tifigridlinkcomp
     controller.onrowsdeleting = plotitemdelev
-    left = 776
-    top = 448
+    left = 768
+    top = 312
   end
   object plotitemdelete: tsqlstatement
     params = <    
@@ -1309,8 +1312,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 888
-    top = 280
+    left = 880
+    top = 144
   end
   object plotitemupdate: tsqlstatement
     params = <    
@@ -1403,8 +1406,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 888
-    top = 256
+    left = 880
+    top = 120
   end
   object plotiteminsert: tsqlresult
     fielddefs = <    
@@ -1502,29 +1505,29 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 888
-    top = 232
+    left = 880
+    top = 96
   end
   object pli_refon: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
     controller.fieldname = 'REFON'
-    left = 784
-    top = 312
+    left = 776
+    top = 176
   end
   object pli_valon: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
     controller.fieldname = 'VALON'
-    left = 784
-    top = 344
+    left = 776
+    top = 208
   end
   object pli_invison: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
     controller.fieldname = 'INVISON'
-    left = 784
-    top = 376
+    left = 776
+    top = 240
   end
   object pli_drillmarks: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1534,8 +1537,8 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 784
-    top = 392
+    left = 776
+    top = 256
   end
   object pli_color: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1545,8 +1548,8 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 784
-    top = 296
+    left = 776
+    top = 160
   end
   object pli_refcolor: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1556,8 +1559,8 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 784
-    top = 328
+    left = 776
+    top = 192
   end
   object pli_valcolor: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1567,8 +1570,8 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 784
-    top = 360
+    left = 776
+    top = 224
   end
   object dpg_kind: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1588,7 +1591,7 @@ object bommo: tbommo
     onrefresh = proditemrefreshev
     onmasterpost = proditempostev
     left = 336
-    top = 80
+    top = 8
   end
   object pli_format: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1598,15 +1601,15 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 784
-    top = 408
+    left = 776
+    top = 272
   end
   object pli_filename: tifistringlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = plotitemdso
     controller.fieldname = 'FILENAME'
-    left = 784
-    top = 424
+    left = 776
+    top = 288
   end
   object dri_layera: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1617,7 +1620,7 @@ object bommo: tbommo
       item
       end>
     left = 336
-    top = 208
+    top = 80
   end
   object dri_layerb: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1628,14 +1631,14 @@ object bommo: tbommo
       item
       end>
     left = 336
-    top = 224
+    top = 96
   end
   object dri_npt: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = drillitemdso
     controller.fieldname = 'NPT'
     left = 336
-    top = 240
+    top = 112
   end
   object drillitemqu: tifisqlresult
     fielddefs = <    
@@ -1696,7 +1699,7 @@ object bommo: tbommo
     transaction = mainmo.trans
     options = [sso_utf8]
     left = 328
-    top = 160
+    top = 32
   end
   object drillitemdso: tconnectedifidatasource
     fields.count = 5
@@ -1728,7 +1731,7 @@ object bommo: tbommo
       end>
     connection = drillitemqu
     left = 328
-    top = 176
+    top = 48
   end
   object dri_pk: tifiint64linkcomp
     controller.optionsvalue = [vco_datalist]
@@ -1736,14 +1739,14 @@ object bommo: tbommo
     controller.fieldname = 'PK'
     controller.max = 2147483647
     left = 336
-    top = 192
+    top = 64
   end
   object dri_filename: tifistringlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = drillitemdso
     controller.fieldname = 'FILENAME'
     left = 336
-    top = 256
+    top = 128
   end
   object drillitemdelete: tsqlstatement
     params = <    
@@ -1759,7 +1762,7 @@ object bommo: tbommo
     transaction = mainmo.transwrite
     options = [sso_utf8]
     left = 440
-    top = 208
+    top = 80
   end
   object drillitemupdate: tsqlstatement
     params = <    
@@ -1806,7 +1809,7 @@ object bommo: tbommo
     transaction = mainmo.transwrite
     options = [sso_utf8]
     left = 440
-    top = 184
+    top = 56
   end
   object drilliteminsert: tsqlresult
     fielddefs = <    
@@ -1858,12 +1861,12 @@ object bommo: tbommo
     transaction = mainmo.transwrite
     options = [sso_utf8]
     left = 440
-    top = 160
+    top = 32
   end
   object drillitemgrid: tifigridlinkcomp
     controller.onrowsdeleting = drillitemdelev
     left = 328
-    top = 280
+    top = 152
   end
   object copyplotitems: tsqlstatement
     params = <    
@@ -1888,13 +1891,13 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 16
-    top = 320
+    left = 880
+    top = 64
   end
   object positemgrid: tifigridlinkcomp
     controller.onrowsdeleting = positemdelev
     left = 328
-    top = 432
+    top = 304
   end
   object positemqu: tifisqlresult
     fielddefs = <    
@@ -1953,7 +1956,7 @@ object bommo: tbommo
     transaction = mainmo.trans
     options = [sso_utf8]
     left = 328
-    top = 312
+    top = 184
   end
   object positemdso: tconnectedifidatasource
     fields.count = 5
@@ -1985,7 +1988,7 @@ object bommo: tbommo
       end>
     connection = positemqu
     left = 328
-    top = 328
+    top = 200
   end
   object positemdelete: tsqlstatement
     params = <    
@@ -2001,7 +2004,7 @@ object bommo: tbommo
     transaction = mainmo.transwrite
     options = [sso_utf8]
     left = 432
-    top = 360
+    top = 232
   end
   object positemupdate: tsqlstatement
     params = <    
@@ -2048,7 +2051,7 @@ object bommo: tbommo
     transaction = mainmo.transwrite
     options = [sso_utf8]
     left = 432
-    top = 336
+    top = 208
   end
   object positeminsert: tsqlresult
     fielddefs = <    
@@ -2100,7 +2103,7 @@ object bommo: tbommo
     transaction = mainmo.transwrite
     options = [sso_utf8]
     left = 432
-    top = 312
+    top = 184
   end
   object pos_pk: tifiint64linkcomp
     controller.optionsvalue = [vco_datalist]
@@ -2108,34 +2111,467 @@ object bommo: tbommo
     controller.fieldname = 'PK'
     controller.max = 2147483647
     left = 336
-    top = 344
+    top = 216
   end
   object pos_front: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = positemdso
     controller.fieldname = 'FRONT'
     left = 336
-    top = 360
+    top = 232
   end
   object pos_back: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = positemdso
     controller.fieldname = 'BACK'
     left = 336
-    top = 376
+    top = 248
   end
   object pos_smd: tifibooleanlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = positemdso
     controller.fieldname = 'SMD'
     left = 336
-    top = 392
+    top = 264
   end
   object pos_filename: tifistringlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = positemdso
     controller.fieldname = 'FILENAME'
     left = 336
+    top = 280
+  end
+  object bomitemgrid: tifigridlinkcomp
+    controller.onrowsdeleting = bomitemdelev
+    left = 328
+    top = 456
+  end
+  object bomitemdelete: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'delete from BOMITEMS where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 432
+    top = 384
+  end
+  object bomitemupdate: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'bom'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'filename'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'update BOMITEMS set ORDNUM=:ordnum, BOM=:bom, FILENAME=:filename'
+      '                     where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 432
+    top = 360
+  end
+  object bomiteminsert: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'front'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'back'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'smd'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'filename'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'bom'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into BOMITEMS (LINK,ORDNUM,BOM,FILENAME) '
+      '     values (:link,:ordnum,:bom,:filename)'
+      '           returning PK'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 432
+    top = 336
+  end
+  object bomitemqu: tifisqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'ORDNUM'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end    
+      item
+        Name = 'BOM'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'FILENAME'
+        DataType = ftString
+        Size = 400
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select * from BOMITEMS where LINK = :link order by ORDNUM'
+    )
+    database = mainmo.conn
+    transaction = mainmo.trans
+    options = [sso_utf8]
+    left = 328
+    top = 336
+  end
+  object bomitemdso: tconnectedifidatasource
+    fields.count = 3
+    fields.items = <    
+      item
+        fieldname = 'PK'
+        datatype = dl_int64
+        sourcefieldname = 'PK'
+      end    
+      item
+        fieldname = 'BOM'
+        datatype = dl_integer
+        sourcefieldname = 'BOM'
+      end    
+      item
+        fieldname = 'FILENAME'
+        datatype = dl_msestring
+        sourcefieldname = 'FILENAME'
+      end>
+    connection = bomitemqu
+    left = 328
+    top = 352
+  end
+  object bom_pk: tifiint64linkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = bomitemdso
+    controller.fieldname = 'PK'
+    controller.max = 2147483647
+    left = 336
+    top = 368
+  end
+  object bom_bom: tifibooleanlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = bomitemdso
+    controller.fieldname = 'BOM'
+    left = 336
+    top = 384
+  end
+  object bom_filename: tifistringlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = bomitemdso
+    controller.fieldname = 'FILENAME'
+    left = 336
+    top = 400
+  end
+  object bomfieldgrid: tifigridlinkcomp
+    controller.onrowsdeleting = bomfielddelev
+    left = 568
+    top = 480
+  end
+  object bomfielddelete: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'delete from BOMFIELDS where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 672
     top = 408
+  end
+  object bomfieldupdate: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'field'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fieldname'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'update BOMFIELDS set ORDNUM=:ordnum, FIELD=:field, FIELDNAME=:fieldname'
+      '                     where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 672
+    top = 384
+  end
+  object bomfieldinsert: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'field'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'fieldname'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into BOMFIELDS (LINK,ORDNUM,FIELD,FIELDNAME) '
+      '     values (:link,:ordnum,:field,:fieldname)'
+      '           returning PK'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 672
+    top = 360
+  end
+  object bomfieldqu: tifisqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'ORDNUM'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end    
+      item
+        Name = 'FIELD'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'FIELDNAME'
+        DataType = ftString
+        Size = 50
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select * from BOMFIELDS where LINK = :link order by ORDNUM'
+    )
+    database = mainmo.conn
+    transaction = mainmo.trans
+    options = [sso_utf8]
+    left = 568
+    top = 360
+  end
+  object bomfielddso: tconnectedifidatasource
+    fields.count = 3
+    fields.items = <    
+      item
+        fieldname = 'PK'
+        datatype = dl_int64
+        sourcefieldname = 'PK'
+      end    
+      item
+        fieldname = 'FIELD'
+        datatype = dl_msestring
+        sourcefieldname = 'FIELD'
+      end    
+      item
+        fieldname = 'FIELDNAME'
+        datatype = dl_msestring
+        sourcefieldname = 'FIELDNAME'
+      end>
+    connection = bomfieldqu
+    left = 568
+    top = 376
+  end
+  object bof_pk: tifiint64linkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = bomfielddso
+    controller.fieldname = 'PK'
+    controller.max = 2147483647
+    left = 576
+    top = 392
+  end
+  object bof_field: tifidropdownlistlinkcomp
+    controller.optionsvalue = [vco_datalist, vco_notnull]
+    controller.datasource = bomfielddso
+    controller.fieldname = 'FIELD'
+    controller.onclientsetvalue = bomfieldsetev
+    controller.dropdown.cols.count = 1
+    controller.dropdown.cols.items = <    
+      item
+      end>
+    left = 576
+    top = 408
+  end
+  object bof_fieldname: tifistringlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = bomfielddso
+    controller.fieldname = 'FIELDNAME'
+    left = 576
+    top = 424
+  end
+  object copybomfields: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'oldlink'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'newlink'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into BOMFIELDS '
+      ' (LINK,COMMENT,ORDNUM,FIELD,FIELDNAME) '
+      ' select cast(:newlink as PK) as LINK,COMMENT,ORDNUM,FIELD,FIELDNAME '
+      '                                        from BOMFIELDS where LINK = :oldlink'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 808
+    top = 360
   end
 end

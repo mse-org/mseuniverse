@@ -23,7 +23,7 @@ uses
  recordnameeditform,mseact,msedataedits,msedbdialog,mseedit,mseificomp,
  mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,
  msesplitter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,msescrollbar,
- msewidgetgrid,msedragglob,msetabs;
+ msewidgetgrid,msedragglob,msetabs,mseactions;
 
 type
  tprodfilestackeditfo = class(trecordnameeditfo)
@@ -64,6 +64,13 @@ type
    posbacked: tbooleanedit;
    posfileed: tstringedit;
    selsmded: tbooleanedit;
+   bompage: ttabpage;
+   bomgrid: twidgetgrid;
+   tint64edit3: tint64edit;
+   bomed: tbooleanedit;
+   partlistfileed: tstringedit;
+   tstockglyphdatabutton1: tstockglyphdatabutton;
+   bomfieldact: taction;
    procedure editedev(const sender: TObject);
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure formatsetev(const sender: TObject; var avalue: msestring;
@@ -72,15 +79,18 @@ type
                    var accept: Boolean);
    procedure drillfilesetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
+   procedure bomfieldeditev(const sender: tcustomaction);
+   procedure bomfieldcellev(const sender: TObject; var info: celleventinfoty);
  end;
 implementation
 uses
- prodfilestackeditform_mfm,bommodule,msefileutils,mainmodule;
+ prodfilestackeditform_mfm,bommodule,msefileutils,mainmodule,msegridsglob,
+ msekeyboard;
  
 procedure tprodfilestackeditfo.editedev(const sender: TObject);
 begin
  if not (bommo.plotitemdso.refreshing or bommo.drillitemdso.refreshing or 
-                                     bommo.positemdso.refreshing) then begin
+     bommo.positemdso.refreshing or bommo.bomitemdso.refreshing) then begin
   dataso.dataset.edit();
   dataso.dataset.modify(); //set modified flag
  end;
@@ -92,14 +102,17 @@ begin
  plotsgrid.datacols.readonly:= avalue;
  drillgrid.datacols.readonly:= avalue;
  posgrid.datacols.readonly:= avalue;
+ bomgrid.datacols.readonly:= avalue;
  if avalue then begin
   plotsgrid.removeappendedrow();
   drillgrid.removeappendedrow();
   posgrid.removeappendedrow();
+  bomgrid.removeappendedrow();
  end;
  plotsgrid.norowedit:= avalue;
  drillgrid.norowedit:= avalue;
  posgrid.norowedit:= avalue;
+ bomgrid.norowedit:= avalue;
 end;
 
 procedure tprodfilestackeditfo.formatsetev(const sender: TObject;
@@ -128,6 +141,20 @@ procedure tprodfilestackeditfo.drillfilesetev(const sender: TObject;
 begin
  if (avalue <> '') and not hasfileext(avalue) then begin
   avalue:= avalue + '.drl';
+ end;
+end;
+
+procedure tprodfilestackeditfo.bomfieldeditev(const sender: tcustomaction);
+begin
+ bommo.editbomfields(bomgrid.row);
+end;
+
+procedure tprodfilestackeditfo.bomfieldcellev(const sender: TObject;
+               var info: celleventinfoty);
+begin
+ if iscellclick(info,[ccr_dblclick]) or (info.eventkind = cek_keydown) and
+                (info.keyeventinfopo^.key = key_f3) then begin
+  bomfieldact.execute();
  end;
 end;
 
