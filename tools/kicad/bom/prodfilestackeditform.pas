@@ -57,6 +57,13 @@ type
    alldrillnpted: tdbbooleanedit;
    drillprefnpted: tdbstringedit;
    drillsuffnpted: tdbstringedit;
+   ttabpage3: ttabpage;
+   posgrid: twidgetgrid;
+   tint64edit2: tint64edit;
+   posfronted: tbooleanedit;
+   posbacked: tbooleanedit;
+   posfileed: tstringedit;
+   selsmded: tbooleaneditradio;
    procedure editedev(const sender: TObject);
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure formatsetev(const sender: TObject; var avalue: msestring;
@@ -72,8 +79,8 @@ uses
  
 procedure tprodfilestackeditfo.editedev(const sender: TObject);
 begin
- if not (bommo.plotitemdso.refreshing or 
-                           bommo.drillitemdso.refreshing) then begin
+ if not (bommo.plotitemdso.refreshing or bommo.drillitemdso.refreshing or 
+                                     bommo.positemdso.refreshing) then begin
   dataso.dataset.edit();
   dataso.dataset.modify(); //set modified flag
  end;
@@ -84,12 +91,15 @@ procedure tprodfilestackeditfo.readonlychangeev(const sender: TObject;
 begin
  plotsgrid.datacols.readonly:= avalue;
  drillgrid.datacols.readonly:= avalue;
+ posgrid.datacols.readonly:= avalue;
  if avalue then begin
   plotsgrid.removeappendedrow();
   drillgrid.removeappendedrow();
+  posgrid.removeappendedrow();
  end;
  plotsgrid.norowedit:= avalue;
  drillgrid.norowedit:= avalue;
+ posgrid.norowedit:= avalue;
 end;
 
 procedure tprodfilestackeditfo.formatsetev(const sender: TObject;

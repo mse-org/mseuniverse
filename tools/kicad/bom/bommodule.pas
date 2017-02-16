@@ -119,6 +119,17 @@ type
    pf_alldrillnpt: tmsebooleanfield;
    pf_alldrillprefnpt: tmsestringfield;
    pf_alldrillsuffnpt: tmsestringfield;
+   positemgrid: tifigridlinkcomp;
+   positemdso: tconnectedifidatasource;
+   positemqu: tifisqlresult;
+   positemdelete: tsqlstatement;
+   positemupdate: tsqlstatement;
+   positeminsert: tsqlresult;
+   pos_pk: tifiint64linkcomp;
+   pos_front: tifibooleanlinkcomp;
+   pos_back: tifibooleanlinkcomp;
+   pos_smd: tifibooleanlinkcomp;
+   pos_filename: tifistringlinkcomp;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
@@ -139,10 +150,13 @@ type
    procedure docusetbefcopyev(DataSet: TDataSet);
    procedure docusetaftercancelev(DataSet: TDataSet);
    procedure docusetafterpostev(const sender: TDataSet; var ok: Boolean);
+   procedure positemdelev(const sender: TObject; var aindex: Integer;
+                   var acount: Integer);
   protected
    fdeleteddocupages: int64arty;
    fdeletedplotitems: int64arty;
    fdeleteddrillitems: int64arty;
+   fdeletedpositems: int64arty;
    fcopyplotpks: array of int64arty;
    fcopypagepks: int64arty;
    procedure refreshitems(const alink: tmselargeintfield; 
@@ -153,6 +167,7 @@ type
    function getplotitemvalues(const index: int32): variantarty;
    function getproditemvalues(const index: int32): variantarty;
    function getproddrillitemvalues(const index: int32): variantarty;
+   function getprodpositemvalues(const index: int32): variantarty;
    procedure updateitems(var deleted: int64arty;
          const pk: tifiint64linkcomp;
          const deletestatement,updatestatement: tsqlstatement;
@@ -466,6 +481,18 @@ begin
  result[6]:= dri_filename.c.griddata[index];
 end;
 
+function tbommo.getprodpositemvalues(const index: int32): variantarty;
+begin
+ setlength(result,7);
+ result[0]:= pos_pk.c.griddata[index];
+ result[1]:= pf_pk.value;
+ result[2]:= index;
+ result[3]:= pos_front.c.griddata[index];
+ result[4]:= pos_back.c.griddata[index];
+ result[5]:= pos_smd.c.griddata[index];
+ result[6]:= pos_filename.c.griddata[index];
+end;
+
 procedure tbommo.plotitempostev(const sender: TDataSet; const master: TDataSet);
 begin
  updateitems(fdeletedplotitems,pli_pk,plotitemdelete,plotitemupdate,
@@ -489,18 +516,27 @@ begin
                  plotiteminsert,@getproditemvalues);
  updateitems(fdeleteddrillitems,dri_pk,drillitemdelete,drillitemupdate,
                  drilliteminsert,@getproddrillitemvalues);
+ updateitems(fdeletedpositems,pos_pk,positemdelete,positemupdate,
+                 positeminsert,@getprodpositemvalues);
 end;
 
 procedure tbommo.proditemrefreshev(const sender: TObject);
 begin
  refreshitems(pf_pk,fdeletedplotitems,pli_pk,prodfilestackqu,plotitemdso);
  refreshitems(pf_pk,fdeleteddrillitems,dri_pk,prodfilestackqu,drillitemdso);
+ refreshitems(pf_pk,fdeletedpositems,pos_pk,prodfilestackqu,positemdso);
 end;
 
 procedure tbommo.drillitemdelev(const sender: TObject; var aindex: Integer;
                var acount: Integer);
 begin
  additem(fdeleteddrillitems,dri_pk.c.griddata[aindex]);
+end;
+
+procedure tbommo.positemdelev(const sender: TObject; var aindex: Integer;
+               var acount: Integer);
+begin
+ additem(fdeletedpositems,pos_pk.c.griddata[aindex]);
 end;
 
 procedure tbommo.newdodocusetev(DataSet: TDataSet);
@@ -557,5 +593,6 @@ procedure tbommo.docusetafterpostev(const sender: TDataSet; var ok: Boolean);
 begin
  fcopypagepks:= nil;
 end;
+
 
 end.

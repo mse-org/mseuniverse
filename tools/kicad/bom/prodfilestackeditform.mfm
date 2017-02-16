@@ -269,7 +269,6 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         onedited = editedev
         reffontheight = 14
         object plotpk: tint64edit
-          optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 1
           visible = False
@@ -507,7 +506,6 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         onedited = editedev
         reffontheight = 14
         object drillpk: tint64edit
-          optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 1
           visible = False
@@ -744,6 +742,180 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
           datalink.datasource = dataso
           datalink.navigator = navig
           datalink.fieldname = 'ALLDRILLSUFFNPT'
+          reffontheight = 14
+        end
+      end
+    end
+    object ttabpage3: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 701
+      bounds_cy = 249
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Posfiles'
+      object posgrid: twidgetgrid
+        frame.localprops = []
+        frame.localprops1 = []
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 701
+        bounds_cy = 249
+        anchors = [an_top, an_bottom]
+        optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+        fixcols.count = 1
+        fixcols.items = <        
+          item
+            width = 21
+            numstart = 1
+            numstep = 1
+          end>
+        fixrows.count = 2
+        fixrows.items = <        
+          item
+            height = 16
+            captions.count = 5
+            captions.items = <            
+              item
+              end            
+              item
+                caption = 'Front'
+                hint = 'Show reference text'
+              end            
+              item
+                caption = 'Back'
+                hint = 'Show value text'
+              end            
+              item
+                caption = 'Insert'#10'SMD'
+                mergerows = 1
+                hint = 'Force insert attribute for SMD components'
+              end            
+              item
+                caption = 'Filename'
+                mergerows = 1
+                hint = 'Empty -> use default'
+              end>
+          end        
+          item
+            height = 16
+            captions.count = 7
+            captions.items = <            
+              item
+              end            
+              item
+                caption = 'Board side'
+                mergecols = 1
+              end            
+              item
+              end            
+              item
+              end            
+              item
+              end            
+              item
+                caption = 'Selection'
+                mergecols = 1
+              end            
+              item
+              end>
+          end>
+        datacols.count = 5
+        datacols.options = [co_proportional, co_savestate, co_mousescrollrow]
+        datacols.items = <        
+          item[tint64edit2]
+            width = 12
+            options = [co_invisible, co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
+            widgetname = 'tint64edit2'
+          end        
+          item[posfronted]
+            width = 63
+            options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'posfronted'
+          end        
+          item[posbacked]
+            width = 57
+            options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'posbacked'
+          end        
+          item[selsmded]
+            options = [co_drawfocus, co_proportional, co_savestate, co_mousescrollrow]
+            widgetname = 'selsmded'
+          end        
+          item[posfileed]
+            width = 488
+            options = [co_fill, co_savestate, co_mousescrollrow]
+            widgetname = 'posfileed'
+          end>
+        ifilink = bommo.positemgrid
+        datarowheight = 16
+        statfile = tstatfile1
+        onrowsmodified = editedev
+        onedited = editedev
+        reffontheight = 14
+        object tint64edit2: tint64edit
+          optionsskin = [osk_framebuttononly]
+          taborder = 1
+          visible = False
+          bounds_x = 0
+          bounds_y = 0
+          bounds_cx = 12
+          bounds_cy = 16
+          max = 2147483647
+          ifilink = bommo.pos_pk
+          reffontheight = 14
+        end
+        object posfronted: tbooleanedit
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 2
+          bounds_x = 13
+          bounds_y = 0
+          bounds_cx = 63
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          visible = False
+          ifilink = bommo.pos_front
+        end
+        object posbacked: tbooleanedit
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 3
+          bounds_x = 77
+          bounds_y = 0
+          bounds_cx = 57
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          visible = False
+          ifilink = bommo.pos_back
+        end
+        object selsmded: tbooleanedit
+          optionswidget1 = []
+          optionsskin = [osk_framebuttononly]
+          taborder = 4
+          bounds_x = 135
+          bounds_y = 0
+          bounds_cx = 50
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          visible = False
+          ifilink = bommo.pos_smd
+        end
+        object posfileed: tstringedit
+          optionswidget1 = [ow1_fontglyphheight]
+          optionsskin = [osk_framebuttononly]
+          taborder = 5
+          visible = False
+          bounds_x = 186
+          bounds_y = 0
+          bounds_cx = 488
+          bounds_cy = 16
+          optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+          optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_notnull]
+          onsetvalue = plotfilesetev
+          ifilink = bommo.pos_filename
           reffontheight = 14
         end
       end

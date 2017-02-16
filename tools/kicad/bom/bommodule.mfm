@@ -519,30 +519,30 @@ object bommo: tbommo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 5
+          Index = 0
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 6
+          Index = 1
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 7
+          Index = 2
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'NAME'
-          Index = 8
+          Index = 3
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'DESCRIPTION'
-          Index = 9
+          Index = 4
           Size = 0
         end>
     )
@@ -553,7 +553,7 @@ object bommo: tbommo
     streamingversion = 1
     object pf_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 0
+      Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 192
       top = 112
@@ -561,7 +561,7 @@ object bommo: tbommo
     object pf_outputdir: tmsestringfield
       DisplayWidth = 20
       FieldName = 'OUTPUTDIR'
-      Index = 1
+      Index = 6
       Size = 0
       left = 192
       top = 128
@@ -569,7 +569,7 @@ object bommo: tbommo
     object pf_createzip: tmsebooleanfield
       DisplayWidth = 5
       FieldName = 'CREATEZIP'
-      Index = 2
+      Index = 7
       displayvalues = 'True;False'
       left = 192
       top = 144
@@ -577,7 +577,7 @@ object bommo: tbommo
     object pf_zipfile: tmsestringfield
       DisplayWidth = 20
       FieldName = 'ZIPFILE'
-      Index = 3
+      Index = 8
       Size = 0
       left = 192
       top = 160
@@ -585,7 +585,7 @@ object bommo: tbommo
     object pf_zipmaindir: tmsestringfield
       DisplayWidth = 20
       FieldName = 'ZIPMAINDIR'
-      Index = 4
+      Index = 9
       Size = 0
       left = 192
       top = 176
@@ -1890,5 +1890,252 @@ object bommo: tbommo
     options = [sso_utf8]
     left = 16
     top = 320
+  end
+  object positemgrid: tifigridlinkcomp
+    controller.onrowsdeleting = positemdelev
+    left = 328
+    top = 432
+  end
+  object positemqu: tifisqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'ORDNUM'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end    
+      item
+        Name = 'FILENAME'
+        DataType = ftString
+        Size = 400
+      end    
+      item
+        Name = 'FRONT'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'BACK'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'SMD'
+        DataType = ftBoolean
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select * from COMPPOSITEMS where LINK = :link order by ORDNUM'
+    )
+    database = mainmo.conn
+    transaction = mainmo.trans
+    options = [sso_utf8]
+    left = 328
+    top = 312
+  end
+  object positemdso: tconnectedifidatasource
+    fields.count = 5
+    fields.items = <    
+      item
+        fieldname = 'PK'
+        datatype = dl_int64
+        sourcefieldname = 'PK'
+      end    
+      item
+        fieldname = 'FRONT'
+        datatype = dl_integer
+        sourcefieldname = 'FRONT'
+      end    
+      item
+        fieldname = 'BACK'
+        datatype = dl_integer
+        sourcefieldname = 'BACK'
+      end    
+      item
+        fieldname = 'SMD'
+        datatype = dl_integer
+        sourcefieldname = 'SMD'
+      end    
+      item
+        fieldname = 'FILENAME'
+        datatype = dl_msestring
+        sourcefieldname = 'FILENAME'
+      end>
+    connection = positemqu
+    left = 328
+    top = 328
+  end
+  object positemdelete: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'delete from COMPPOSITEMS where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 432
+    top = 360
+  end
+  object positemupdate: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'front'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'back'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'smd'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'filename'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'update COMPPOSITEMS set ORDNUM=:ordnum, FRONT=:front, BACK=:back,'
+      '        SMD=:smd, FILENAME=:filename'
+      '                     where PK = :pk'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 432
+    top = 336
+  end
+  object positeminsert: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'front'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'back'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'smd'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'filename'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into COMPPOSITEMS (LINK,ORDNUM,FRONT,BACK,SMD,FILENAME) '
+      '     values (:link,:ordnum,:front,:back,:smd,:filename)'
+      '           returning PK'
+    )
+    database = mainmo.conn
+    transaction = mainmo.transwrite
+    options = [sso_utf8]
+    left = 432
+    top = 312
+  end
+  object pos_pk: tifiint64linkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = positemdso
+    controller.fieldname = 'PK'
+    controller.max = 2147483647
+    left = 336
+    top = 344
+  end
+  object pos_front: tifibooleanlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = positemdso
+    controller.fieldname = 'FRONT'
+    left = 336
+    top = 360
+  end
+  object pos_back: tifibooleanlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = positemdso
+    controller.fieldname = 'BACK'
+    left = 336
+    top = 376
+  end
+  object pos_smd: tifibooleanlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = positemdso
+    controller.fieldname = 'SMD'
+    left = 336
+    top = 392
+  end
+  object pos_filename: tifistringlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = positemdso
+    controller.fieldname = 'FILENAME'
+    left = 336
+    top = 408
   end
 end
