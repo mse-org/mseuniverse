@@ -143,7 +143,20 @@ type
   nonplated: boolean;
  end;
  drillfilearty = array of drillfileinfoty;
+
+ bomfieldinfoty = record
+  field: msestring;
+  fieldname: msestring;
+ end;
+ bomfieldarty = array of bomfieldinfoty;
  
+ bomfileinfoty = record
+  bom: boolean;
+  filename: msestring;
+  fields: bomfieldarty;
+ end;
+ bomfilearty = array of bomfileinfoty;
+  
  prodplotinfoty = record
   h: infoheaderty;
   productiondir: filenamety;
@@ -158,6 +171,7 @@ type
   alldrillsuffnpt: msestring;
   plotfiles: plotfilearty;
   drillfiles: drillfilearty;
+  bomfiles: bomfilearty;
  end;
  pprodplotinfoty = ^prodplotinfoty;
  prodplotinfoarty = array of prodplotinfoty;
@@ -174,40 +188,6 @@ type
  pdocuschematicpageinfoty = ^docuschematicpageinfoty;
  docuschematicpageinfoarty = array of docuschematicpageinfoty;
 
-(*
- tdocupage = class(toptions)
-  private
-   ftitle: msestring;
-   fmirrorx: boolean;
-   fmirrory: boolean;
-   frotate90: boolean;
-   frotate180: boolean;
-   fscale: flo64;
-   fshifthorz: flo64;
-   fshiftvert: flo64;
-   procedure setkind(const avalue: msestring);
-   function getkind(): msestring;
-   function getkindid(): int32;
-  protected
-   class function getpagekind: docupagekindty virtual;
-  public
-   constructor create(); virtual;
-   property pagekind: docupagekindty read getpagekind;
-   property kindid: int32 read getkindid{ write setkind};
-  published
-   property kind: msestring read getkind write setkind;
-   property title: msestring read ftitle write ftitle;
-   property mirrorx: boolean read fmirrorx write fmirrorx;
-   property mirrory: boolean read fmirrory write fmirrory;
-   property rotate90: boolean read frotate90 write frotate90;
-   property rotate180: boolean read frotate180 write frotate180;
-   property scale: flo64 read fscale write fscale;
-   property shifthorz: flo64 read fshifthorz write fshifthorz;
-   property shiftvert: flo64 read fshiftvert write fshiftvert;
- end;
- docupageclassty = class of tdocupage;
- docupagearty = array of tdocupage;
- *)
  docupageinfoty = record
   pagekind: docupagekindty;
   title: msestring;
@@ -228,83 +208,7 @@ type
   showdistributors: boolean;
  end;
  docupageinfoarty = array of docupageinfoty;
-{
- ttitlepage = class(tdocupage)
-  private
-   ftext: msestring;
-  protected
-   class function getpagekind: docupagekindty override;
-  published
-   property text: msestring read ftext write ftext;
- end;
 
- tlayerplotpage = class(tdocupage)
-  private
-   flayernames: msestringarty;
-   fcolornames: msestringarty;
-   frefon: booleanarty;
-   frefcolor: msestringarty;
-   fvalon: booleanarty;
-   fvalcolor: msestringarty;
-   finvison: booleanarty;
-   fdrillmarks: msestring;
-  protected
-   class function getpagekind: docupagekindty override;
-   procedure dostatread(const reader: tstatreader) override;
-  public
-   constructor create(); override;
-  published
-   property layernames: msestringarty read flayernames write flayernames;
-   property colornames: msestringarty read fcolornames write fcolornames;
-   property refon: booleanarty read frefon write frefon;
-   property refcolor: msestringarty read frefcolor write frefcolor;
-   property valon: booleanarty read fvalon write fvalon;
-   property valcolor: msestringarty read fvalcolor write fvalcolor;
-   property invison: booleanarty read finvison write finvison;
-   property drillmarks: msestring read fdrillmarks write fdrillmarks;
- end;
-
- tdrillmappage = class(tdocupage)
-  private
-   flayeraname: msestring;
-   flayerbname: msestring;
-   fnonplated: boolean;
-  protected
-   class function getpagekind: docupagekindty override;
-  public
-   constructor create(); override;
-  published
-   property layeraname: msestring read flayeraname write flayeraname;
-   property layerbname: msestring read flayerbname write flayerbname;
-   property nonplated: boolean read fnonplated write fnonplated;
- end;
-
- tschematicplotpage = class(tdocupage)
-  private
-   fpsfile: msestring;
-  protected
-   class function getpagekind: docupagekindty override;
-  published
-   property psfile: msestring read fpsfile write fpsfile;
- end;
-
- tpartlistpage = class(tdocupage)
-  protected
-   class function getpagekind: docupagekindty override;
- end;
-
- tbompage = class(tdocupage)
-  private
-   fshowreferences: boolean;
-   fshowdistributors: boolean;
-  protected
-   class function getpagekind: docupagekindty override;
-  published
-   property showreferences: boolean read fshowreferences write fshowreferences;
-   property showdistributors: boolean read fshowdistributors
-                                                   write fshowdistributors;
- end;
-}    
  docuinfoty = record
   h: infoheaderty;
   docudir: filenamety;
@@ -323,7 +227,6 @@ type
  
  tglobaloptions = class(toptions)
   private
-//   ffilename: filenamety;
    fusername: msestring;
    fpassword: msestring;
    fhostname: msestring;
@@ -2206,7 +2109,7 @@ end;
 function tmainmo.prodplotdefinebyname(const aname: msestring;
                out ainfo: prodplotinfoty): boolean;
 var
- i1: int32;
+ i1,i2: int32;
 begin
  with ainfo,bommo do begin
   prodfilestackqu.controller.refresh();
@@ -2238,6 +2141,20 @@ begin
      layera:= getlayer(dri_layera.c.griddata[i1]);
      layerb:= getlayer(dri_layerb.c.griddata[i1]);
      nonplated:= dri_npt.c.griddata[i1];
+    end;
+   end;
+   setlength(bomfiles,bom_pk.c.griddata.count);
+   for i1:= 0 to high(bomfiles) do begin
+    with bomfiles[i1] do begin
+     bom:= bom_bom.c.griddata[i1];
+     filename:= expandprojectmacros(bom_filename.c.griddata[i1]);
+     bomfieldqu.params[0].value:= bom_pk.c.griddata[i1];
+     bomfielddso.refresh();
+     setlength(fields,bof_pk.c.griddata.count);
+     for i2:= 0 to high(fields) do begin
+      with fields[i2] do begin
+      end;
+     end;
     end;
    end;
   end;
@@ -2336,6 +2253,11 @@ begin
  try
   boardname1:= filenamebase(board1);
   with info1 do begin
+   for i1:= 0 to high(bomfiles) do begin
+    with bomfiles[i1] do begin
+     writeln(filename);
+    end;
+   end;
    hasdrill:= (drillfiles <> nil) or alldrill or alldrillnpt;
    plotdir1:= tosysfilepath(filepath(productiondir,fk_dir));
    setlength(lainf1.layers,1);

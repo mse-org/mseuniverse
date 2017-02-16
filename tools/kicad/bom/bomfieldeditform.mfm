@@ -12,7 +12,7 @@ object bomfieldeditfo: tbomfieldeditfo
     360
     261
   )
-  options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'BOM Fields'
   moduleclassname = 'tmseform'
