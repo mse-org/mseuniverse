@@ -409,6 +409,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
           optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 8
+          onshowhint = macrohintev
           visible = False
           bounds_x = 445
           bounds_y = 0
@@ -592,6 +593,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
           optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 5
+          onshowhint = macrohintev
           visible = False
           bounds_x = 281
           bounds_y = 0
@@ -789,7 +791,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
                 hint = 'Show value text'
               end            
               item
-                caption = 'Insert'#10'SMD'
+                caption = 'SMD'#10'insert'
                 mergerows = 1
                 hint = 'Force insert attribute for SMD components'
               end            
@@ -812,11 +814,11 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
               item
               end            
               item
+                hint = 'Force insert attribute for SMD components'
               end            
               item
               end            
               item
-                caption = 'Selection'
                 mergecols = 1
               end            
               item
@@ -907,6 +909,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
           optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 5
+          onshowhint = macrohintev
           visible = False
           bounds_x = 186
           bounds_y = 0
@@ -914,7 +917,6 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
           bounds_cy = 16
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_trimright, oe_trimleft, oe_notnull]
-          onsetvalue = plotfilesetev
           ifilink = bommo.pos_filename
           reffontheight = 14
         end

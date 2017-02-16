@@ -63,7 +63,7 @@ type
    posfronted: tbooleanedit;
    posbacked: tbooleanedit;
    posfileed: tstringedit;
-   selsmded: tbooleaneditradio;
+   selsmded: tbooleanedit;
    procedure editedev(const sender: TObject);
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure formatsetev(const sender: TObject; var avalue: msestring;
