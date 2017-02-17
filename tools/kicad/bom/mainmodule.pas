@@ -1,4 +1,4 @@
-{ MSEkicad Copyright (c) 2016 by Martin Schreiber
+{ MSEkicad Copyright (c) 2016-2017 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -436,6 +436,8 @@ type
    ps2pdfproc: tmseprocess;
    service: tfb3service;
    distdeletetest: tsqlresult;
+   c_count: tmselongintfield;
+   stockcompdistribqu: tmsesqlquery;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -471,6 +473,7 @@ type
    procedure saveasev(const sender: TObject);
    procedure serviceerrorev(const sender: tfb3service; var e: Exception;
                    var handled: Boolean);
+   procedure compdetailcalcfields(DataSet: TDataSet);
   private
    fhasproject: boolean;
    fmodified: boolean;
@@ -484,10 +487,8 @@ type
    flayercodes: msestringarty;
    fculayernames: msestringarty;
    ffileformats: msestringarty;
-//   ffileformatcodes: msestringarty;
    fpythonconsole: tpythonconsolefo;
    flastprojectfile: filenamety;
-//   ffileformatexts: msestringarty;
    fdocupagekinds: msestringarty;
    fedacolornames: msestringarty;
    fdrillmarknames: msestringarty;
@@ -508,8 +509,6 @@ type
    procedure beginpy(const acaption: msestring);
    procedure endpy();
    procedure getlayerinfo(const aindex: int32; var ainfo: layerinfoty);
-//   function getlayer(const aname: msestring; out akind: layerty): boolean;
-                                            //true if ok
    function docudefinebyname(const aname: msestring;
                        out ainfo: docuinfoty): boolean;
                                              //false if not found
@@ -595,11 +594,7 @@ var
 
 procedure errormessage(const message: msestring);
 function layertoplotname(const layername: msestring): msestring;
-//procedure docupagesetlength(var pages: docupagearty; const count: int32);
-//function updatedocupageobj(var pages: docupagearty; const index: int32;
-//                                         const kind: docupagekindty): tdocupage;
-//procedure updatedocupageobj(var page: tdocupage;
-//                                      const kind: docupagekindty);
+
 implementation
 uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
@@ -610,10 +605,11 @@ uses
 { tmainmo }
 
 type
- bomfieldsty = (bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
+ bomfieldsty = (bf_none,bf_count,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
                 bf_footprint,bf_footprintinfo,bf_area,bf_manufacturer,
                 bf_description,
-                bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4);
+                bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4,
+                bf_distributor,bf_partnumber);
  componentmacronamety = (
     cmn_value,cmn_value1,cmn_value2,
     cmn_footprint,cmn_footprintident,cmn_footprintlibrary,
@@ -628,31 +624,49 @@ type
 
 const
  bomfieldnames: array[bomfieldsty] of msestring = (
- //bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
-  '',        'REF', 'VALUE', 'VALUE1', 'VALUE2', 'KIND',
+ //bf_none,bf_count,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
+  '',        'COUNT', 'REF', 'VALUE', 'VALUE1', 'VALUE2', 'KIND',
  //bf_footprint,bf_footprintinfo,bf_area,bf_manufacturer,bf_description,
      'FOOTPRINT', 'FOOTPRINTINFO', 'AREA', 'MANUFACTURER', 'DESCRIPTION',
  //bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4
-     'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4');
+     'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4',
+ //bf_distributor,bf_partnumber
+     'DISTRIBUTOR', 'PARTNUMBER');
  bomfields: array[bomfieldsty] of string = (
- //bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
-  '',        'REF', 'VALUE', 'VALUE1', 'VALUE2', 'componentkindname',
+ //bf_none,bf_count,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
+  '',        'count', 'REF', 'VALUE', 'VALUE1', 'VALUE2', 'componentkindname',
  //bf_footprint,bf_footprintinfo,bf_area,bf_manufacturer,bf_description,
      'FOOTPRINT', 'FOOTPRINTINFO', 'area', 'manufacturername', 'description',
  //bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4
-     'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4');
+     'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4',
+ //bf_distributor,bf_partnumber
+     'DISTRIBUTOR', 'PARTNUMBER');
 
  bomkindfields: array[bomfieldsty] of string = (
- //bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
-  '',        '',    '',      '',       '',       '',
+ //bf_none,bf_count,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
+  '',        '',      '',    '',      '',       '',       '',
  //bf_footprint,bf_footprintinfo,bf_area,bf_manufacturer,bf_description,
      '',          '',              '',     '',             '',
  //bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4
-     'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4');
+     'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4',
+ //bf_distributor,bf_partnumber
+     '',            '');
+
+ bomdistribfields: array[bomfieldsty] of string = (
+ //bf_none,bf_count,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
+  '',        '',      '',    '',      '',       '',       '',
+ //bf_footprint,bf_footprintinfo,bf_area,bf_manufacturer,bf_description,
+     '',          '',              '',     '',             '',
+ //bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4
+     '',           '',           '',           '',
+ //bf_distributor,bf_partnumber
+     'NAME', 'PARTNUMBER');
 
  bomdetailfields = [bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4];
                             //in stockcompdetailqu
-                            
+ bomdistfields = [bf_distributor,bf_partnumber];
+                            //in stockcoompdistribqu
+
  componentmacronames: array[componentmacronamety] of msestring = (
 //cmn_value,cmn_value1,cmn_value2,
      'value',  'value1',  'value2',
@@ -1065,6 +1079,7 @@ begin
     try
      stockcompqu.controller.refresh(true);
      for i1:= 0 to compds.recordcount - 1 do begin
+      compds.currentasinteger[c_count,i1]:= 1;
       if stockcompqu.indexlocal[1].find(
                      [compds.currentasmsestring[c_value,i1],
                       compds.currentasmsestring[c_value1,i1],
@@ -1098,16 +1113,6 @@ begin
         id1:= compkindqu.currentbmasid[k_manufacturer,bm2];
        end;
        compds.currentasid[c_manufacturerid,i1]:= id1;
-{ 
-       id1:= sc_distributor.asid;
-       if (id1 < 0) and bo1 then begin
-        id1:= compkindqu.currentbmasid[k_distributor,bm2];
-       end;
-       compds.currentasid[c_distributorid,i1]:= id1;
-} 
- //      compds.currentasmsestring[c_stockvalue,i1]:= sc_value.asmsestring;
- //      compds.currentasmsestring[c_stockvalue1,i1]:= sc_value1.asmsestring;
- //      compds.currentasmsestring[c_stockvalue2,i1]:= sc_value2.asmsestring;
        stockcompdetailqu.params[0].asid:= sc_pk.asid; 
                             //manually because of disablecontrols
        stockcompdetailqu.controller.refresh(false);
@@ -1974,24 +1979,7 @@ begin
  execpy('createzip',ar1,alast); //zipfile,zipdir,{file}
  result:= true;
 end;
-{
-function tmainmo.getlayer(const aname: msestring;
-                                   out akind: layerty): boolean;
-var
- pk1: layerty;
-begin
- result:= false;
- akind:= layerty(-1);
- for pk1:= low(layerty) to high(layerty) do begin
-  if aname = mainmodule.layernames[pk1] then begin
-   akind:= pk1;
-   result:= true;
-   exit;
-  end;
- end;
- errormessage('Ivalid plotkind "'+aname+'"');
-end;
-}
+
 function tmainmo.getpagekind(const aname: msestring): docupagekindty;
 var
  pk1: docupagekindty;
@@ -2047,7 +2035,12 @@ begin
     end;
    end
    else begin
-    afield:= compds.fieldbyname(bomfields[f1]);
+    if f1 in bomdistfields then begin
+     afield:= stockcompdistribqu.fieldbyname(bomdistribfields[f1]);
+    end
+    else begin
+     afield:= compds.fieldbyname(bomfields[f1]);
+    end;
    end;
    break;
   end;
@@ -2253,7 +2246,7 @@ end;
 
 procedure tmainmo.createprodfiles(const aindex: int32);
 var
- i1,i2: int32;
+ i1,i2,i3: int32;
  board1,boardname1,plotdir1: filenamety;
  info1: prodplotinfoty;
  ar1,ar2: filenamearty;
@@ -2261,7 +2254,7 @@ var
  la1,la2: layerty;
  lainf1: layerinforecty;
  tmpf: filenamety;
- hasdrill,hasdetailfield: boolean;
+ hasdrill,hasdetailfield,hasdistfield: boolean;
  cvsstream: ttextdatastream;
  ar3: msestringarty;
  ar4,ar5: fieldarty;
@@ -2368,6 +2361,7 @@ begin
      setlength(ar4,length(fields));
      setlength(ar5,length(fields));
      hasdetailfield:= false;
+     hasdistfield:= false;
      for i2:= 0 to high(ar3) do begin
       with fields[i2] do begin
        ar3[i2]:= fieldname;
@@ -2377,6 +2371,9 @@ begin
        end;
        if ar4[i2].dataset = stockcompdetailqu then begin
         hasdetailfield:= true;
+       end;
+       if ar4[i2].dataset = stockcompdistribqu then begin
+        hasdistfield:= true;
        end;
       end;
      end;
@@ -2393,24 +2390,52 @@ begin
       cvsstream.quotechar:= projectoptions.quotechar;
       cvsstream.writerecord(ar3);
       if bom then begin
+       bommo.isbomcvs:= true;
        ds1:= bommo.bomds;
+       ds1.active:= true;
+       for i2:= 0 to high(ar4) do begin
+        if ar4[i2] = c_count then begin
+         ar4[i2]:= bommo.bom_count;
+        end;
+        if ar4[i2] = c_ref then begin
+         ar4[i2]:= bommo.bom_ref;
+        end;
+       end;
       end
       else begin
        ds1:= compds;
       end;
       ds1.first();
       while not ds1.eof do begin
+       if bom then begin
+        compds.indexlocal[0].find([bommo.bom_comppk]);
+       end;
        if hasdetailfield then begin
         stockcompdetailqu.refresh([c_stockitemid.value]);
        end;
+       if hasdistfield then begin
+        stockcompdistribqu.refresh([c_stockitemid.value]);
+       end;
        for i2:= 0 to high(ar3) do begin
-        ar3[i2]:= ar4[i2].asmsestring;
-        if ar4[i2].dataset = stockcompdetailqu then begin
-         if (ar3[i2] = '') and (ar5[i2] <> nil) then begin
-          compkindqu.indexlocal[0].find([c_componentkindid]);
-          ar3[i2]:= ar5[i2].asmsestring;
+        if ar4[i2].dataset = stockcompdistribqu then begin
+         s2:= '';
+         for i3:= 0 to stockcompdistribqu.recordcount-1 do begin
+          s2:= s2+stockcompdistribqu.currentasmsestring[ar4[i2],i3]+c_tab;
          end;
-         ar3[i2]:= expandcomponentmacros(ar3[i2]);
+         if s2 <> '' then begin
+          setlength(s2,length(s2)-1); //remove last tab
+         end;
+         ar3[i2]:= s2;
+        end
+        else begin
+         ar3[i2]:= ar4[i2].asmsestring;
+         if ar4[i2].dataset = stockcompdetailqu then begin
+          if (ar3[i2] = '') and (ar5[i2] <> nil) then begin
+           compkindqu.indexlocal[0].find([c_componentkindid]);
+           ar3[i2]:= ar5[i2].asmsestring;
+          end;
+          ar3[i2]:= expandcomponentmacros(ar3[i2]);
+         end;
         end;
        end;
        cvsstream.writerecord(ar3);
@@ -2420,6 +2445,7 @@ begin
      finally
       application.endwait();
       bommo.bomds.active:= false;
+      bommo.isbomcvs:= false;
       compds.recno:= recnobefore;
       compds.enablecontrols();
       stockcompdetailqu.enablecontrols();
@@ -2640,6 +2666,10 @@ procedure tmainmo.serviceerrorev(const sender: tfb3service; var e: Exception;
 begin
  errormessage(utf8tostring(e.message));
  handled:= true;
+end;
+
+procedure tmainmo.compdetailcalcfields(DataSet: TDataSet);
+begin
 end;
 
 { tprojectoptions }

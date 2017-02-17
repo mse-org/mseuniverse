@@ -257,7 +257,7 @@ object mainmo: tmainmo
           end>
       end    
       item
-        fields.count = 5
+        fields.count = 6
         fields.items = <        
           item
             fieldname = 'VALUE'
@@ -273,6 +273,9 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'description'
+          end        
+          item
+            fieldname = 'stockitemid'
           end        
           item
             fieldname = 'REF'
@@ -458,6 +461,13 @@ object mainmo: tmainmo
       MinValue = 0
       left = 16
       top = 488
+    end
+    object c_count: tmselongintfield
+      FieldKind = fkInternalCalc
+      FieldName = 'count'
+      Index = 18
+      left = 176
+      top = 312
     end
   end
   object compdso: tmsedatasource
@@ -1399,6 +1409,7 @@ object mainmo: tmainmo
       end>
     tablename = 'COMPONENTDETAILS'
     database = conn
+    OnCalcFields = compdetailcalcfields
     Transaction = trans
     transactionwrite = transwrite
     FieldDefs = <    
@@ -1453,13 +1464,13 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'PK'
-          Index = 0
+          Index = 5
           optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 1
+          Index = 6
           Size = 0
         end>
     )
@@ -1469,7 +1480,7 @@ object mainmo: tmainmo
     object scd_description: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
-      Index = 2
+      Index = 0
       Size = 0
       left = 552
       top = 168
@@ -1477,7 +1488,7 @@ object mainmo: tmainmo
     object scd_parameter1: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER1'
-      Index = 3
+      Index = 1
       Size = 0
       left = 552
       top = 184
@@ -1485,7 +1496,7 @@ object mainmo: tmainmo
     object scd_parameter2: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER2'
-      Index = 4
+      Index = 2
       Size = 0
       left = 552
       top = 200
@@ -1493,7 +1504,7 @@ object mainmo: tmainmo
     object scd_parameter3: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER3'
-      Index = 5
+      Index = 3
       Size = 0
       left = 552
       top = 216
@@ -1501,7 +1512,7 @@ object mainmo: tmainmo
     object scd_parameter4: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER4'
-      Index = 6
+      Index = 4
       Size = 0
       left = 552
       top = 232
@@ -1858,5 +1869,95 @@ object mainmo: tmainmo
     options = [sso_utf8]
     left = 664
     top = 304
+  end
+  object stockcompdistribqu: tmsesqlquery
+    options = []
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+        fieldname = 'stockcompid'
+      end>
+    SQL.data = (
+      'select a.PK,a.DISTRIBUTOR,a.LINK,c.NAME,b.PARTNUMBER,b.COMMENT from '
+      ' (select PK,DISTRIBUTOR,LINK from DISTRIBUTORSLINK where LINK = :link) a'
+      ' join DISTCOMPS b on a.PK = b.PK'
+      ' left join DISTRIBUTORS c on a.DISTRIBUTOR = c.PK'
+    )
+    SQLUpdate.data = (
+      'update DISTCOMPS SET PARTNUMBER = :PARTNUMBER, COMMENT = :COMMENT where PK = :OLD_PK'
+    )
+    SQLInsert.data = (
+      'insert into DISTCOMPS (PK,PARTNUMBER,COMMENT) values (:PK,:PARTNUMBER,:COMMENT)'
+    )
+    SQLDelete.data = (
+      'delete from DISTRIBUTORSLINK where PK = :pk'
+    )
+    IndexDefs = <>
+    tablename = '(select'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'DISTRIBUTOR'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'PARTNUMBER'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    controller.fields.count = 2
+    controller.fields.fields = (
+      (
+        ft_string
+        ft_string
+      )
+      <      
+        item
+          DisplayWidth = 20
+          FieldName = 'NAME'
+          Index = 0
+        end      
+        item
+          DisplayWidth = 50
+          FieldName = 'PARTNUMBER'
+          Index = 1
+          Size = 50
+        end>
+    )
+    controller.options = [dso_utf8]
+    left = 744
+    top = 136
+    streamingversion = 1
   end
 end

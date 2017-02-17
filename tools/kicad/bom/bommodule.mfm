@@ -14,32 +14,11 @@ object bommo: tbommo
             options = [ifo_caseinsensitive]
           end>
       end>
-    controller.fields.count = 3
-    controller.fields.fields = (
-      (
-        ft_longint
-        ft_string
-        ft_string
-      )
-      <      
-        item
-          FieldName = 'count'
-          Index = 0
-        end      
-        item
-          DisplayWidth = 0
-          FieldName = 'part'
-          Index = 1
-          Size = 0
-        end      
-        item
-          DisplayWidth = 0
-          FieldName = 'ref'
-          Index = 2
-          Size = 0
-        end>
-    )
     FieldDefs = <    
+      item
+        Name = 'comppk'
+        DataType = ftLargeint
+      end    
       item
         Name = 'count'
         DataType = ftInteger
@@ -60,11 +39,39 @@ object bommo: tbommo
     left = 10
     top = 6
     streamingversion = 1
-    object bom_stockcompid: tmselargeintfield
-      FieldName = 'stockcompid'
-      Index = 3
+    object bom_comppk: tmselargeintfield
+      FieldName = 'comppk'
+      Index = 0
       left = 16
       top = 40
+    end
+    object bom_count: tmselongintfield
+      FieldName = 'count'
+      Index = 1
+      left = 16
+      top = 56
+    end
+    object bom_part: tmsestringfield
+      DisplayWidth = 0
+      FieldName = 'part'
+      Index = 2
+      Size = 0
+      left = 16
+      top = 72
+    end
+    object bom_ref: tmsestringfield
+      DisplayWidth = 0
+      FieldName = 'ref'
+      Index = 3
+      Size = 0
+      left = 16
+      top = 88
+    end
+    object bom_stockcompid: tmselargeintfield
+      FieldName = 'stockcompid'
+      Index = 4
+      left = 16
+      top = 104
     end
   end
   object bomdso: tmsedatasource
@@ -156,13 +163,12 @@ object bommo: tbommo
           DisplayWidth = 20
           FieldName = 'NAME'
           Index = 0
-          Size = 0
         end      
         item
           DisplayWidth = 50
           FieldName = 'PARTNUMBER'
           Index = 1
-          Size = 0
+          Size = 50
         end>
     )
     controller.options = [dso_utf8]
@@ -313,35 +319,35 @@ object bommo: tbommo
     controller.onbeforecopyrecord = docusetbefcopyev
     controller.onaftercopyrecord = namecopyrecev
     left = 8
-    top = 80
+    top = 144
     streamingversion = 1
     object ds_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
       left = 16
-      top = 112
+      top = 176
     end
     object ds_docudir: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DOCUDIR'
       Index = 6
       left = 16
-      top = 128
+      top = 192
     end
     object ds_psfile: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PSFILE'
       Index = 7
       left = 16
-      top = 144
+      top = 208
     end
     object ds_pdffile: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PDFFILE'
       Index = 8
       left = 16
-      top = 160
+      top = 224
     end
     object ds_width: tmsefloatfield
       FieldName = 'WIDTH'
@@ -349,7 +355,7 @@ object bommo: tbommo
       MaxValue = 0
       MinValue = 0
       left = 16
-      top = 176
+      top = 240
     end
     object ds_height: tmsefloatfield
       FieldName = 'HEIGHT'
@@ -357,7 +363,7 @@ object bommo: tbommo
       MaxValue = 0
       MinValue = 0
       left = 16
-      top = 192
+      top = 256
     end
     object ds_margleft: tmsefloatfield
       FieldName = 'MARGLEFT'
@@ -365,7 +371,7 @@ object bommo: tbommo
       MaxValue = 0
       MinValue = 0
       left = 16
-      top = 208
+      top = 272
     end
     object ds_margright: tmsefloatfield
       FieldName = 'MARGRIGHT'
@@ -373,7 +379,7 @@ object bommo: tbommo
       MaxValue = 0
       MinValue = 0
       left = 16
-      top = 224
+      top = 288
     end
     object ds_margtop: tmsefloatfield
       FieldName = 'MARGTOP'
@@ -381,7 +387,7 @@ object bommo: tbommo
       MaxValue = 0
       MinValue = 0
       left = 16
-      top = 240
+      top = 304
     end
     object ds_margbottom: tmsefloatfield
       FieldName = 'MARGBOTTOM'
@@ -389,18 +395,18 @@ object bommo: tbommo
       MaxValue = 0
       MinValue = 0
       left = 16
-      top = 256
+      top = 320
     end
   end
   object docusetdso: tmsedatasource
     DataSet = docusetqu
     left = 8
-    top = 96
+    top = 160
   end
   object prodfielstackdso: tmsedatasource
     DataSet = prodfilestackqu
     left = 184
-    top = 96
+    top = 144
   end
   object prodfilestackqu: tmsesqlquery
     options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
@@ -552,14 +558,14 @@ object bommo: tbommo
     controller.onbeforecopyrecord = prodfilebefcopyev
     controller.onaftercopyrecord = namecopyrecev
     left = 184
-    top = 80
+    top = 128
     streamingversion = 1
     object pf_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 192
-      top = 112
+      top = 160
     end
     object pf_outputdir: tmsestringfield
       DisplayWidth = 20
@@ -567,7 +573,7 @@ object bommo: tbommo
       Index = 6
       Size = 0
       left = 192
-      top = 128
+      top = 176
     end
     object pf_createzip: tmsebooleanfield
       DisplayWidth = 5
@@ -575,7 +581,7 @@ object bommo: tbommo
       Index = 7
       displayvalues = 'True;False'
       left = 192
-      top = 144
+      top = 192
     end
     object pf_zipfile: tmsestringfield
       DisplayWidth = 20
@@ -583,7 +589,7 @@ object bommo: tbommo
       Index = 8
       Size = 0
       left = 192
-      top = 160
+      top = 208
     end
     object pf_zipmaindir: tmsestringfield
       DisplayWidth = 20
@@ -591,7 +597,7 @@ object bommo: tbommo
       Index = 9
       Size = 0
       left = 192
-      top = 176
+      top = 224
     end
     object pf_alldrill: tmsebooleanfield
       DisplayWidth = 5
@@ -599,21 +605,21 @@ object bommo: tbommo
       Index = 10
       displayvalues = 'True;False'
       left = 192
-      top = 192
+      top = 240
     end
     object pf_alldrillpref: tmsestringfield
       DisplayWidth = 20
       FieldName = 'ALLDRILLPREF'
       Index = 11
       left = 192
-      top = 208
+      top = 256
     end
     object pf_alldrillsuff: tmsestringfield
       DisplayWidth = 20
       FieldName = 'ALLDRILLSUFF'
       Index = 12
       left = 192
-      top = 224
+      top = 272
     end
     object pf_alldrillnpt: tmsebooleanfield
       DisplayWidth = 5
@@ -621,21 +627,21 @@ object bommo: tbommo
       Index = 13
       displayvalues = 'True;False'
       left = 192
-      top = 240
+      top = 288
     end
     object pf_alldrillprefnpt: tmsestringfield
       DisplayWidth = 20
       FieldName = 'ALLDRILLPREFNPT'
       Index = 14
       left = 192
-      top = 256
+      top = 304
     end
     object pf_alldrillsuffnpt: tmsestringfield
       DisplayWidth = 20
       FieldName = 'ALLDRILLSUFFNPT'
       Index = 15
       left = 192
-      top = 272
+      top = 320
     end
   end
   object dpg_pk: tifiint64linkcomp

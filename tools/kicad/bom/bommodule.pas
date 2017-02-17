@@ -149,6 +149,10 @@ type
    bof_field: tifidropdownlistlinkcomp;
    bof_fieldname: tifistringlinkcomp;
    copybomfields: tsqlstatement;
+   bom_count: tmselongintfield;
+   bom_ref: tmsestringfield;
+   bom_part: tmsestringfield;
+   bom_comppk: tmselargeintfield;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);
@@ -182,6 +186,7 @@ type
    procedure prodfileafterpostev(const sender: TDataSet; var ok: Boolean);
   private
    fbomfieldpk: int64;
+   fisbomcvs: boolean;
   protected
    fdeleteddocupages: int64arty;
    fdeletedplotitems: int64arty;
@@ -212,6 +217,7 @@ type
    constructor create(aowner: tcomponent); override;
    procedure editdocupage(const arow: int32);
    procedure editbomfields(const arow: int32);
+   property isbomcvs: boolean read fisbomcvs write fisbomcvs;
  end;
  
 var
@@ -301,7 +307,8 @@ var
  recno1: int32;
  val,val1,val2,desc: msestring;
  valbefore,val1before,val2before,descbefore: msestring;
- compbefore: int64;
+ stockcomp,stockcompbefore: int64;
+ comppk,comppkbefore: int64;
  reflist: msestring;
  count1: int32;
 
@@ -309,17 +316,20 @@ var
  begin
   if count1 > 0 then begin
    setlength(reflist,length(reflist)-1); //remove trailing space
-   bomds.appendrecord([count1,descbefore,reflist,compbefore]);
+   bomds.appendrecord([comppkbefore,count1,descbefore,reflist,stockcompbefore]);
   end;
+  comppkbefore:= comppk;
   valbefore:= val;
   val1before:= val1;
   val2before:= val2;
   descbefore:= desc;
-  compbefore:= mainmo.c_stockitemid.asid;
+  stockcompbefore:= stockcomp;
   count1:= 0;
   reflist:= '';
  end;//addcomp
-
+var
+ refseparator: msechar;
+ 
 begin
  with mainmo.compds do begin
   index1:= indexlocal.activeindex;
@@ -333,19 +343,29 @@ begin
    val1before:= '';
    val2before:= '';
    descbefore:= '';
+   stockcompbefore:= -1;
    reflist:= '';
    count1:= 0;
    first();
+   if fisbomcvs then begin
+    refseparator:= ',';
+   end
+   else begin
+    refseparator:= ' ';
+   end;
    while not eof do begin
+    comppk:= mainmo.c_pk.asid;
     val:= mseuppercase(mainmo.c_value.asmsestring);
     val1:= mseuppercase(mainmo.c_value1.asmsestring);
     val2:= mseuppercase(mainmo.c_value2.asmsestring);
     desc:= mainmo.c_description.asmsestring;
-    if (val <> valbefore) or (val1 <> val1before) or 
-                        (val2 <> val2before) or (desc <> descbefore) then begin
+    stockcomp:= mainmo.c_stockitemid.asid;
+    if fisbomcvs and (stockcomp <> stockcompbefore) or 
+     not fisbomcvs and ((val <> valbefore) or (val1 <> val1before) or 
+                     (val2 <> val2before) or (desc <> descbefore)) then begin
      addcomp();
     end;
-    reflist:= reflist + mainmo.c_ref.asmsestring + ' ';
+    reflist:= reflist + mainmo.c_ref.asmsestring + refseparator;
     inc(count1);
     next();
    end;
