@@ -159,6 +159,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
     tab_frame.localprops = []
     tab_frame.localprops1 = []
     tab_size = 19
+    statfile = tstatfile1
     object ttabpage1: ttabpage
       frame.localprops = []
       frame.localprops1 = []

@@ -225,7 +225,7 @@ object mainmo: tmainmo
         fields.count = 2
         fields.items = <        
           item
-            fieldname = 'manufaturername'
+            fieldname = 'manufacturername'
             options = [ifo_caseinsensitive]
           end        
           item
@@ -441,7 +441,7 @@ object mainmo: tmainmo
     object c_manufacturername: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkLookup
-      FieldName = 'manufaturername'
+      FieldName = 'manufacturername'
       Index = 16
       KeyFields = 'manufacturerid'
       LookupDataSet = vendormo.manufacturerqu

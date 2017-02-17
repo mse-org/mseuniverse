@@ -444,7 +444,7 @@ object mainfo: tmainfo
       bounds_cx = 50
       bounds_cy = 16
       datalink.datasource = mainmo.compdso
-      datalink.fieldname = 'manufaturername'
+      datalink.fieldname = 'manufacturername'
       reffontheight = 14
     end
     object editbutton: tstockglyphdatabutton
@@ -904,7 +904,7 @@ object mainfo: tmainfo
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
           caption = 'Manufacturer'
-          datafield = 'manufaturername'
+          datafield = 'manufacturername'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]

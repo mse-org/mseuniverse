@@ -388,6 +388,46 @@ object projectsettingsfo: tprojectsettingsfo
           oninit = initencodingev
           reffontheight = 14
         end
+        object val_reportseparator: tstringedit
+          frame.caption = 'Separator'
+          frame.captionpos = cp_top
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.outerframe = (
+            22
+            17
+            23
+            0
+          )
+          taborder = 1
+          bounds_x = 108
+          bounds_y = 0
+          bounds_cx = 65
+          bounds_cy = 37
+          textflags = [tf_xcentered, tf_ycentered, tf_noselect]
+          maxlength = 1
+          reffontheight = 14
+        end
+        object val_reportquotechar: tstringedit
+          frame.caption = 'Quotechar'
+          frame.captionpos = cp_top
+          frame.localprops = []
+          frame.localprops1 = []
+          frame.outerframe = (
+            24
+            17
+            24
+            0
+          )
+          taborder = 2
+          bounds_x = 177
+          bounds_y = 0
+          bounds_cx = 68
+          bounds_cy = 37
+          textflags = [tf_xcentered, tf_ycentered, tf_noselect]
+          maxlength = 1
+          reffontheight = 14
+        end
       end
       object strip4: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]

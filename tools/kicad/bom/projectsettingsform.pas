@@ -64,6 +64,8 @@ type
    tsplitter2: tsplitter;
    val_productionfiles: tdropdownlisteditdb;
    val_docusets: tdropdownlisteditdb;
+   val_reportseparator: tstringedit;
+   val_reportquotechar: tstringedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);

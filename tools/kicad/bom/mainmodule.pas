@@ -33,7 +33,9 @@ uses
 
 const
  versiontext = '0.0';
-
+ defaultseparator = ';';
+ defaultquotechar = '"';
+ 
 type
  drillfilekindty = (dfk_map,dfk_excellon);
  
@@ -286,7 +288,13 @@ type
    fprojectname: msestring;
    fprojectmacronames: msestringarty;
    fprojectmacrovalues: msestringarty;
+   freportseparator: msestring;
+   freportquotechar: msestring;
+   fseparator: msechar;
+   fquotechar: msechar;
    procedure setreportencoding(const avalue: int32);
+   procedure setreportseparator(const avalue: msestring);
+   procedure setreportquotechar(const avalue: msestring);
   public
    constructor create();
    procedure storevalues(const asource: tmsecomponent;
@@ -294,6 +302,8 @@ type
    function getfilename(const akind: filekindty; 
                                  out afile: filenamety): boolean; //true if ok
    property fileencoding: charencodingty read ffileencoding;
+   property separator: msechar read fseparator;
+   property quotechar: msechar read fquotechar;
   published
    property schematics: msestringarty read fschematics write fschematics;
    property compfootprint: msestring read ffilenames[fk_componentfootprint]
@@ -304,6 +314,10 @@ type
    property board: msestring read ffilenames[fk_board]
                                         write ffilenames[fk_board];
    property reportencoding: int32 read freportencoding write setreportencoding;
+   property reportseparator: msestring read freportseparator 
+                                              write setreportseparator;
+   property reportquotechar: msestring read freportquotechar
+                                              write setreportquotechar;
    property libident: msestringarty read flibident write flibident;
    property libalias: msestringarty read flibalias write flibalias;
    property productionfiles: msestringarty read fproductionfiles 
@@ -559,6 +573,8 @@ type
    function getpagekind(const aname: msestring): docupagekindty;
    function getfileformat(const aname: msestring): fileformatty;
    function getlayer(const aname: msestring): layerty;
+   procedure getcompfield(const aname: msestring; out afield: tfield;
+                                                  out akindfield: tfield);
    
    property layernames: msestringarty read flayernames;
    property layercodes: msestringarty read flayercodes;
@@ -590,49 +606,13 @@ uses
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
  msearrayutils,docureport,docupsreppage,basereppage,mserepps,main,
  partlistreppage,bomreppage,bommodule,vendormodule,dbdata,titlereppage;
-{
-var
- docupageclasses: array[docupagekindty] of docupageclassty = (
- //dpk_none,dpk_title, dpk_schematic,     dpk_layerplot,dpk_drillmap
-  nil,      ttitlepage,tschematicplotpage,tlayerplotpage,tdrillmappage,
- //dpk_partlist,dpk_bom
-  tpartlistpage,tbompage
-  );
-}
-{
-procedure docupagesetlength(var pages: docupagearty; const count: int32);
-var
- i1: int32;
-begin
- for i1:= high(pages) downto count do begin
-  pages[i1].free();
- end;
- setlength(pages,count);
-end;
-}
-{
-function updatedocupageobj(var pages: docupagearty; const index: int32;
-                                        const kind: docupagekindty): tdocupage;
-begin
- pages[index].free();
- result:= docupageclasses[kind].create();
- pages[index]:= result;
-end;
-}
-{
-procedure updatedocupageobj(var page: tdocupage;
 
-                                      const kind: docupagekindty);
-begin
- page.free();
- page:= docupageclasses[kind].create();
-end;
-}
 { tmainmo }
 
 type
  bomfieldsty = (bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
-                bf_footprint,bf_footprintinfo,bf_manufacturer,bf_description,
+                bf_footprint,bf_footprintinfo,bf_area,bf_manufacturer,
+                bf_description,
                 bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4);
  componentmacronamety = (
     cmn_value,cmn_value1,cmn_value2,
@@ -647,14 +627,32 @@ type
     cmn_k_parameter1,cmn_k_parameter2,cmn_k_parameter3,cmn_k_parameter4);
 
 const
- bomfields: array[bomfieldsty] of msestring = (
+ bomfieldnames: array[bomfieldsty] of msestring = (
  //bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
   '',        'REF', 'VALUE', 'VALUE1', 'VALUE2', 'KIND',
- //bf_footprint,bf_footprintinfo,bf_manufacturer,bf_description,
-     'FOOTPRINT', 'FOOTPRINTINFO', 'MANUFACTURER', 'DESCRIPTION',
+ //bf_footprint,bf_footprintinfo,bf_area,bf_manufacturer,bf_description,
+     'FOOTPRINT', 'FOOTPRINTINFO', 'AREA', 'MANUFACTURER', 'DESCRIPTION',
+ //bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4
+     'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4');
+ bomfields: array[bomfieldsty] of string = (
+ //bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
+  '',        'REF', 'VALUE', 'VALUE1', 'VALUE2', 'componentkindname',
+ //bf_footprint,bf_footprintinfo,bf_area,bf_manufacturer,bf_description,
+     'FOOTPRINT', 'FOOTPRINTINFO', 'area', 'manufacturername', 'description',
  //bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4
      'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4');
 
+ bomkindfields: array[bomfieldsty] of string = (
+ //bf_none,bf_ref,bf_value,bf_value1,bf_value2,bf_kind,
+  '',        '',    '',      '',       '',       '',
+ //bf_footprint,bf_footprintinfo,bf_area,bf_manufacturer,bf_description,
+     '',          '',              '',     '',             '',
+ //bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4
+     'PARAMETER1', 'PARAMETER2', 'PARAMETER3', 'PARAMETER4');
+
+ bomdetailfields = [bf_parameter1,bf_parameter2,bf_parameter3,bf_parameter4];
+                            //in stockcompdetailqu
+                            
  componentmacronames: array[componentmacronamety] of msestring = (
 //cmn_value,cmn_value1,cmn_value2,
      'value',  'value1',  'value2',
@@ -773,7 +771,6 @@ const
     ''}
  );
 
-
  edacolornames: array[edacolorty] of msestring = (
     'BLACK',
     'DARKDARKGRAY',
@@ -870,9 +867,9 @@ begin
  for i1:= 0 to high(ffileformats) do begin
   ffileformats[i1]:= mainmodule.fileformatnames[fileformatty(i1+1)];
  end;
- setlength(fbomfieldnames,ord(high(mainmodule.bomfields)));
+ setlength(fbomfieldnames,ord(high(mainmodule.bomfieldnames)));
  for i1:= 0 to high(fbomfieldnames) do begin
-  fbomfieldnames[i1]:= mainmodule.bomfields[bomfieldsty(i1+1)];
+  fbomfieldnames[i1]:= mainmodule.bomfieldnames[bomfieldsty(i1+1)];
  end;
 // ffileformats:= fileformatnames;
 // ffileformatcodes:= mainmodule.fileformatcodes;
@@ -2034,6 +2031,30 @@ begin
  end;
 end;
 
+procedure tmainmo.getcompfield(const aname: msestring; out afield: tfield;
+                                                  out akindfield: tfield);
+var
+ f1: bomfieldsty;
+begin
+ afield:= nil;
+ akindfield:= nil;
+ for f1:= succ(bf_none) to high(bomfieldsty) do begin
+  if aname = mainmodule.bomfieldnames[f1] then begin
+   if f1 in bomdetailfields then begin
+    afield:= stockcompdetailqu.fieldbyname(bomfields[f1]);
+    if bomkindfields[f1] <> '' then begin
+     akindfield:= compkindqu.fieldbyname(bomkindfields[f1]);
+    end;
+   end
+   else begin
+    afield:= compds.fieldbyname(bomfields[f1]);
+   end;
+   break;
+  end;
+ end;
+ 
+end;
+
 procedure tmainmo.getlayerinfo(const aindex: int32; var ainfo: layerinfoty);
 begin
  with ainfo,bommo do begin
@@ -2153,6 +2174,8 @@ begin
      setlength(fields,bof_pk.c.griddata.count);
      for i2:= 0 to high(fields) do begin
       with fields[i2] do begin
+       field:= bof_field.c.griddata[i2];
+       fieldname:= bof_fieldname.c.griddata[i2];
       end;
      end;
     end;
@@ -2238,7 +2261,13 @@ var
  la1,la2: layerty;
  lainf1: layerinforecty;
  tmpf: filenamety;
- hasdrill: boolean;
+ hasdrill,hasdetailfield: boolean;
+ cvsstream: ttextdatastream;
+ ar3: msestringarty;
+ ar4,ar5: fieldarty;
+ recnobefore: int32;
+ ds1: tdataset;
+ 
 begin
  if not getboardfile(board1) then begin
   exit;
@@ -2253,13 +2282,9 @@ begin
  try
   boardname1:= filenamebase(board1);
   with info1 do begin
-   for i1:= 0 to high(bomfiles) do begin
-    with bomfiles[i1] do begin
-     writeln(filename);
-    end;
-   end;
    hasdrill:= (drillfiles <> nil) or alldrill or alldrillnpt;
    plotdir1:= tosysfilepath(filepath(productiondir,fk_dir));
+   
    setlength(lainf1.layers,1);
    setlength(ar1,length(plotfiles));
    for i1:= 0 to high(plotfiles) do begin
@@ -2274,6 +2299,7 @@ begin
      ar1[i1]:= s1;
     end;
    end;
+   
    if hasdrill then begin
     tmpf:= intermediatefilename(msegettempdir()+'msekicadbom');
     createdirpath(tmpf);
@@ -2335,6 +2361,73 @@ begin
     end;
    end;
    }
+
+   for i1:= 0 to high(bomfiles) do begin
+    with bomfiles[i1] do begin
+     setlength(ar3,length(fields));
+     setlength(ar4,length(fields));
+     setlength(ar5,length(fields));
+     hasdetailfield:= false;
+     for i2:= 0 to high(ar3) do begin
+      with fields[i2] do begin
+       ar3[i2]:= fieldname;
+       getcompfield(field,ar4[i2],ar5[i2]);
+       if ar4[i2] = nil then begin
+        raise exception.create('Invalid BOM field "'+field+'"');
+       end;
+       if ar4[i2].dataset = stockcompdetailqu then begin
+        hasdetailfield:= true;
+       end;
+      end;
+     end;
+     s1:= filename;
+     cvsstream:= ttextdatastream.create(filepath(plotdir1,s1),fm_create);
+     recnobefore:= compds.recno;
+     compds.disablecontrols();
+     stockcompdetailqu.disablecontrols();
+     compkindqu.disablecontrols();
+     application.beginwait();
+     try
+      cvsstream.encoding:= projectoptions.fileencoding;
+      cvsstream.separator:= projectoptions.separator;
+      cvsstream.quotechar:= projectoptions.quotechar;
+      cvsstream.writerecord(ar3);
+      if bom then begin
+       ds1:= bommo.bomds;
+      end
+      else begin
+       ds1:= compds;
+      end;
+      ds1.first();
+      while not ds1.eof do begin
+       if hasdetailfield then begin
+        stockcompdetailqu.refresh([c_stockitemid.value]);
+       end;
+       for i2:= 0 to high(ar3) do begin
+        ar3[i2]:= ar4[i2].asmsestring;
+        if ar4[i2].dataset = stockcompdetailqu then begin
+         if (ar3[i2] = '') and (ar5[i2] <> nil) then begin
+          compkindqu.indexlocal[0].find([c_componentkindid]);
+          ar3[i2]:= ar5[i2].asmsestring;
+         end;
+         ar3[i2]:= expandcomponentmacros(ar3[i2]);
+        end;
+       end;
+       cvsstream.writerecord(ar3);
+       ds1.next();
+      end;
+      additem(ar1,s1);
+     finally
+      application.endwait();
+      bommo.bomds.active:= false;
+      compds.recno:= recnobefore;
+      compds.enablecontrols();
+      stockcompdetailqu.enablecontrols();
+      compkindqu.enablecontrols();
+      cvsstream.destroy();
+     end;
+    end;
+   end;
 
    if createproductionzipfile then begin
     createzipfile(filepath(plotdir1,productionzipfilename),plotdir1,ar1,true);
@@ -2562,6 +2655,28 @@ begin
  end;
 end;
 
+procedure tprojectoptions.setreportseparator(const avalue: msestring);
+begin
+ if avalue = '' then begin
+  freportseparator:= defaultseparator;
+ end
+ else begin
+  freportseparator:= copy(avalue,1,1);
+ end;
+ fseparator:= freportseparator[1];
+end;
+
+procedure tprojectoptions.setreportquotechar(const avalue: msestring);
+begin
+ if avalue = '' then begin
+  freportquotechar:= defaultquotechar;
+ end
+ else begin
+  freportquotechar:= copy(avalue,1,1);
+ end;
+ fquotechar:= freportquotechar[1];
+end;
+
 constructor tprojectoptions.create();
 var
  fiki: filekindty;
@@ -2570,6 +2685,8 @@ begin
   ffilewarnings[fiki]:= true;
  end;
  reportencoding:= ord(ce_utf8);
+ reportseparator:= defaultseparator;
+ reportquotechar:= defaultquotechar;
 end;
 
 procedure tprojectoptions.storevalues(const asource: tmsecomponent;
