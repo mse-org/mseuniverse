@@ -749,7 +749,7 @@ object mainmo: tmainmo
     top = 328
   end
   object compkindqu: tmsesqlquery
-    options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
+    options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
     indexlocal.count = 2
     indexlocal.items = <    
       item
@@ -1279,14 +1279,14 @@ object mainmo: tmainmo
     )
     controller.options = [dso_utf8]
     controller.onbeforecopyrecord = bforecompcopyev
-    left = 368
+    left = 320
     top = 56
     streamingversion = 1
     object sc_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 2
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
-      left = 376
+      left = 328
       top = 88
     end
     object sc_value: tmsestringfield
@@ -1294,7 +1294,7 @@ object mainmo: tmainmo
       FieldName = 'VALUE'
       Index = 3
       Size = 0
-      left = 376
+      left = 328
       top = 168
     end
     object sc_value1: tmsestringfield
@@ -1302,7 +1302,7 @@ object mainmo: tmainmo
       FieldName = 'VALUE1'
       Index = 4
       Size = 0
-      left = 376
+      left = 328
       top = 184
     end
     object sc_value2: tmsestringfield
@@ -1310,19 +1310,19 @@ object mainmo: tmainmo
       FieldName = 'VALUE2'
       Index = 5
       Size = 0
-      left = 376
+      left = 328
       top = 200
     end
     object sc_footprint: tmselargeintfield
       FieldName = 'FOOTPRINT'
       Index = 6
-      left = 376
+      left = 328
       top = 136
     end
     object sc_componentkind: tmselargeintfield
       FieldName = 'COMPONENTKIND'
       Index = 7
-      left = 376
+      left = 328
       top = 104
     end
     object sc_kindname: tmsestringfield
@@ -1336,13 +1336,13 @@ object mainmo: tmainmo
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 376
+      left = 328
       top = 120
     end
     object sc_manufacturer: tmselargeintfield
       FieldName = 'MANUFACTURER'
       Index = 9
-      left = 376
+      left = 328
       top = 232
     end
     object sc_footprintname: tmsestringfield
@@ -1356,7 +1356,7 @@ object mainmo: tmainmo
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 376
+      left = 328
       top = 152
     end
     object sc_manufacturername: tmsestringfield
@@ -1370,7 +1370,7 @@ object mainmo: tmainmo
       LookupResultField = 'NAME'
       optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 376
+      left = 328
       top = 248
     end
     object sc_footprintinfo: tmsestringfield
@@ -1378,14 +1378,15 @@ object mainmo: tmainmo
       FieldName = 'FOOTPRINTINFO'
       Index = 12
       Size = 0
-      left = 376
+      left = 328
       top = 216
     end
   end
   object stockcompdso: tmsedatasource
     AutoEdit = False
     DataSet = stockcompqu
-    left = 368
+    OnDataChange = stockcompdatachaev
+    left = 320
     top = 72
   end
   object stockcompdetailqu: tmsesqlquery
@@ -1464,13 +1465,13 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'PK'
-          Index = 5
+          Index = 0
           optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 6
+          Index = 1
           Size = 0
         end>
     )
@@ -1480,7 +1481,7 @@ object mainmo: tmainmo
     object scd_description: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
-      Index = 0
+      Index = 2
       Size = 0
       left = 552
       top = 168
@@ -1488,7 +1489,7 @@ object mainmo: tmainmo
     object scd_parameter1: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER1'
-      Index = 1
+      Index = 3
       Size = 0
       left = 552
       top = 184
@@ -1496,7 +1497,7 @@ object mainmo: tmainmo
     object scd_parameter2: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER2'
-      Index = 2
+      Index = 4
       Size = 0
       left = 552
       top = 200
@@ -1504,7 +1505,7 @@ object mainmo: tmainmo
     object scd_parameter3: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER3'
-      Index = 3
+      Index = 5
       Size = 0
       left = 552
       top = 216
@@ -1512,7 +1513,7 @@ object mainmo: tmainmo
     object scd_parameter4: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PARAMETER4'
-      Index = 4
+      Index = 6
       Size = 0
       left = 552
       top = 232
@@ -1956,8 +1957,370 @@ object mainmo: tmainmo
         end>
     )
     controller.options = [dso_utf8]
-    left = 744
-    top = 136
+    left = 592
+    top = 88
     streamingversion = 1
+  end
+  object compfootprintgrid: tifigridlinkcomp
+    controller.onrowsdeleting = compfootprintdelev
+    left = 848
+    top = 328
+  end
+  object compfootprintdso: tconnectedifidatasource
+    fields.count = 4
+    fields.items = <    
+      item
+        fieldname = 'PK'
+        datatype = dl_int64
+        sourcefieldname = 'PK'
+      end    
+      item
+        fieldname = 'FOOTPRINT'
+        datatype = dl_int64
+        sourcefieldname = 'FOOTPRINT'
+      end    
+      item
+        fieldname = 'FOOTPRINTINFO'
+        datatype = dl_msestring
+        sourcefieldname = 'FOOTPRINTINFO'
+      end    
+      item
+        fieldname = 'COMMENT'
+        datatype = dl_msestring
+        sourcefieldname = 'COMMENT'
+      end>
+    onafteropen = compfootopenev
+    connection = compfootprintqu
+    left = 848
+    top = 240
+  end
+  object compfootprintqu: tifisqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'FOOTPRINT'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'ORDNUM'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'FOOTPRINTINFO'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+        datasource = stockcompdso
+        fieldname = 'PK'
+      end>
+    sql.data = (
+      'select * from FOOTPRINTLINKS where LINK = :link order by ORDNUM'
+    )
+    database = conn
+    transaction = trans
+    options = [sso_utf8]
+    left = 848
+    top = 224
+  end
+  object compfootprintdelete: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'delete from FOOTPRINTLINKS where PK = :pk'
+    )
+    database = conn
+    transaction = transwrite
+    options = [sso_utf8]
+    left = 856
+    top = 192
+  end
+  object compfootprintupdate: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'footprint'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'footprintinfo'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'comment'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'update FOOTPRINTLINKS set ORDNUM=:ordnum, FOOTPRINT=:footprint, FOOTPRINTINFO=:footprintinfo,'
+      '        COMMENT=:comment'
+      '                     where PK = :pk'
+    )
+    database = conn
+    transaction = transwrite
+    options = [sso_utf8]
+    left = 856
+    top = 168
+  end
+  object compfootprintinsert: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        ParamType = ptUnknown
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ordnum'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'footprint'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'footprintinfo'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'comment'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into FOOTPRINTLINKS (LINK,ORDNUM,FOOTPRINT,FOOTPRINTINFO,COMMENT) '
+      '     values (:link,:ordnum,:footprint,:footprintinfo,:comment)'
+      '           returning PK'
+    )
+    database = conn
+    transaction = transwrite
+    options = [sso_utf8]
+    left = 856
+    top = 144
+  end
+  object copycompfootprints: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'oldlink'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'newlink'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'insert into FOOTPRINTLINKS '
+      ' (LINK,ORDNUM,FOOTPRINT,FOOTPRINTINFO,COMMENT) '
+      ' select cast(:newlink as PK) as LINK,ORDNUM,FOOTPRINT,FOOTPRINTINFO,COMMENT'
+      '                                        from FOOTPRINTLINKS where LINK = :oldlink'
+    )
+    database = conn
+    transaction = transwrite
+    options = [sso_utf8]
+    left = 856
+    top = 112
+  end
+  object cfp_pk: tifiint64linkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = compfootprintdso
+    controller.fieldname = 'PK'
+    controller.max = 2147483647
+    left = 856
+    top = 256
+  end
+  object cfp_footprintinfo: tifistringlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = compfootprintdso
+    controller.fieldname = 'FOOTPRINTINFO'
+    left = 856
+    top = 288
+  end
+  object cfp_comment: tifistringlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = compfootprintdso
+    controller.fieldname = 'COMMENT'
+    left = 856
+    top = 304
+  end
+  object compkindlink: tfieldparamlink
+    fieldname = 'PK'
+    datasource = compkinddso
+    onrefresh = compkindrefreshev
+    onmasterpost = compkindpostev
+    left = 680
+    top = 336
+  end
+  object cfp_footprint: tifiint64linkcomp
+    controller.optionsvalue = [vco_datalist, vco_notnull]
+    controller.datasource = compfootprintdso
+    controller.fieldname = 'FOOTPRINT'
+    controller.max = 2147483647
+    left = 856
+    top = 272
+  end
+  object stockcomplink: tfieldparamlink
+    fieldname = 'PK'
+    datasource = stockcompdso
+    onrefresh = stockcomprefreshev
+    onmasterpost = stockcompostev
+    left = 440
+    top = 56
+  end
+  object ckfp_footprint: tifiint64linkcomp
+    controller.optionsvalue = [vco_datalist, vco_notnull]
+    controller.datasource = compkfootprintdso
+    controller.fieldname = 'FOOTPRINT'
+    controller.max = 2147483647
+    left = 856
+    top = 424
+  end
+  object ckfp_comment: tifistringlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = compkfootprintdso
+    controller.fieldname = 'COMMENT'
+    left = 856
+    top = 456
+  end
+  object ckfp_footprintinfo: tifistringlinkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = compkfootprintdso
+    controller.fieldname = 'FOOTPRINTINFO'
+    left = 856
+    top = 440
+  end
+  object ckfp_pk: tifiint64linkcomp
+    controller.optionsvalue = [vco_datalist]
+    controller.datasource = compkfootprintdso
+    controller.fieldname = 'PK'
+    controller.max = 2147483647
+    left = 856
+    top = 408
+  end
+  object compkfootprintqu: tifisqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'FOOTPRINT'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'ORDNUM'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'FOOTPRINTINFO'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 500
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'link'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select * from FOOTPRINTLINKS where LINK = :link order by ORDNUM'
+    )
+    database = conn
+    transaction = trans
+    options = [sso_utf8]
+    left = 848
+    top = 376
+  end
+  object compkfootprintdso: tconnectedifidatasource
+    fields.count = 4
+    fields.items = <    
+      item
+        fieldname = 'PK'
+        datatype = dl_int64
+        sourcefieldname = 'PK'
+      end    
+      item
+        fieldname = 'FOOTPRINT'
+        datatype = dl_int64
+        sourcefieldname = 'FOOTPRINT'
+      end    
+      item
+        fieldname = 'FOOTPRINTINFO'
+        datatype = dl_msestring
+        sourcefieldname = 'FOOTPRINTINFO'
+      end    
+      item
+        fieldname = 'COMMENT'
+        datatype = dl_msestring
+        sourcefieldname = 'COMMENT'
+      end>
+    connection = compkfootprintqu
+    left = 848
+    top = 392
+  end
+  object compkfootprintgrid: tifigridlinkcomp
+    controller.onrowsdeleting = compkfootprintdelev
+    left = 848
+    top = 496
+  end
+  object nostockcompfootprints: tifibooleanlinkcomp
+    left = 848
+    top = 344
   end
 end

@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  recordnameeditform,msesplitter,mdb,mseact,msedataedits,msedbedit,mseedit,
  msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
- msescrollbar,msestatfile,msestream,msestrings,sysutils,msedbdialog,mseactions;
+ msescrollbar,msestatfile,msestream,msestrings,sysutils,msedbdialog,mseactions,
+ msewidgetgrid,msememodialog;
 
 type
  tcomponentkindeditfo = class(trecordnameeditfo)
@@ -32,18 +33,26 @@ type
    param2ed: tdbmemodialogedit;
    commented: tdbmemodialogedit;
    param3ed: tdbmemodialogedit;
-   footprinted: tdbenum64editdb;
+   footprinted1: tdbenum64editdb;
    param4ed: tdbmemodialogedit;
    distributored: tdbenum64editdb;
    manufacturered: tdbenum64editdb;
+   footprintgrid: twidgetgrid;
+   pked: tint64edit;
+   footprintinfoed: tstringedit;
+   footprintcommented: tmemodialogedit;
+   tenum64editdb1: tenum64editdb;
    procedure footprintedev(const sender: TObject);
    procedure editmanufactorerev(const sender: TObject);
    procedure editdistributorev(const sender: TObject);
+   procedure editev(const sender: TObject);
+   procedure redonlychangeev(const sender: TObject; const avalue: Boolean);
+   procedure updatedataev(Sender: TObject);
  end;
 
 implementation
 uses
- componentkindeditform_mfm,main,mainmodule;
+ componentkindeditform_mfm,main,mainmodule,msesqldb;
  
 procedure tcomponentkindeditfo.footprintedev(const sender: TObject);
 begin
@@ -58,6 +67,35 @@ end;
 procedure tcomponentkindeditfo.editdistributorev(const sender: TObject);
 begin
  mainfo.editdistributor(mainmo.k_distributor);
+end;
+
+procedure tcomponentkindeditfo.editev(const sender: TObject);
+begin
+// if not mainmo.compkfootprintdso.refreshing then begin
+ if not tmsesqlquery(dataso.dataset).controller.canceling then begin
+  dataso.dataset.edit();
+  dataso.dataset.modify(); //set modified flag
+ end;
+end;
+
+procedure tcomponentkindeditfo.redonlychangeev(const sender: TObject;
+               const avalue: Boolean);
+begin
+ with footprintgrid do begin
+  datacols.readonly:= avalue;
+  norowedit:= avalue;
+  if avalue then begin
+   removeappendedrow();
+  end
+  else begin
+   checkreautoappend();
+  end;
+ end;
+end;
+
+procedure tcomponentkindeditfo.updatedataev(Sender: TObject);
+begin
+ footprintgrid.removeappendedrow();
 end;
 
 end.

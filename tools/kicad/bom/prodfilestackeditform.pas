@@ -81,16 +81,20 @@ type
                    var accept: Boolean);
    procedure bomfieldeditev(const sender: tcustomaction);
    procedure bomfieldcellev(const sender: TObject; var info: celleventinfoty);
+   procedure updatedataev(Sender: TObject);
  end;
 implementation
 uses
  prodfilestackeditform_mfm,bommodule,msefileutils,mainmodule,msegridsglob,
- msekeyboard;
+ msekeyboard,msesqldb;
  
 procedure tprodfilestackeditfo.editedev(const sender: TObject);
 begin
- if not (bommo.plotitemdso.refreshing or bommo.drillitemdso.refreshing or 
-     bommo.positemdso.refreshing or bommo.bomitemdso.refreshing) then begin
+// if not (bommo.plotitemdso.refreshing or bommo.drillitemdso.refreshing or 
+//     bommo.positemdso.refreshing or bommo.bomitemdso.refreshing) then begin
+// if not (plotsgrid.autoremoving or drillgrid.autoremoving or
+//         posgrid.autoremoving or bomgrid.autoremoving) then begin
+ if not tmsesqlquery(dataso.dataset).controller.canceling then begin
   dataso.dataset.edit();
   dataso.dataset.modify(); //set modified flag
  end;
@@ -103,16 +107,24 @@ begin
  drillgrid.datacols.readonly:= avalue;
  posgrid.datacols.readonly:= avalue;
  bomgrid.datacols.readonly:= avalue;
+ plotsgrid.norowedit:= avalue;
+ drillgrid.norowedit:= avalue;
+ posgrid.norowedit:= avalue;
+ bomgrid.norowedit:= avalue;
  if avalue then begin
   plotsgrid.removeappendedrow();
   drillgrid.removeappendedrow();
   posgrid.removeappendedrow();
   bomgrid.removeappendedrow();
- end;
- plotsgrid.norowedit:= avalue;
- drillgrid.norowedit:= avalue;
- posgrid.norowedit:= avalue;
- bomgrid.norowedit:= avalue;
+ end
+ else begin
+//  if not tmsesqlquery(dataso.dataset).controller.posting1 then begin
+   plotsgrid.checkreautoappend();
+   drillgrid.checkreautoappend();
+   posgrid.checkreautoappend();
+   bomgrid.checkreautoappend();
+  end;
+// end;
 end;
 
 procedure tprodfilestackeditfo.formatsetev(const sender: TObject;
@@ -156,6 +168,11 @@ begin
                 (info.keyeventinfopo^.key = key_f3) then begin
   bomfieldact.execute();
  end;
+end;
+
+procedure tprodfilestackeditfo.updatedataev(Sender: TObject);
+begin
+ bomgrid.removeappendedrow();
 end;
 
 end.

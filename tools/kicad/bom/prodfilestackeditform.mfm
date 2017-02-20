@@ -1065,6 +1065,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
   end
   inherited dataso: tmsedatasource[5]
     DataSet = bommo.prodfilestackqu
+    OnUpdateData = updatedataev
   end
   inherited tstatfile1: tstatfile[6]
     filename = 'prodfilefo.sta'

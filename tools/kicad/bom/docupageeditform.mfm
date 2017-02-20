@@ -12,6 +12,7 @@ object docupageeditfo: tdocupageeditfo
     328
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
   onclosequery = closequeryev
   moduleclassname = 'tmseform'
   object tsplitter1: tsplitter

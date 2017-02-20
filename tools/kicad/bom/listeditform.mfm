@@ -35,6 +35,7 @@ object listeditfo: tlisteditfo
     buttonface.template = mainfo.vertkonvex
     shortcut_prior = 0
     shortcut_next = 0
+    options = [dno_confirmdelete, dno_confirmcopy, dno_shortcuthint]
     dialogbutton.imagenr = 17
     dialogbutton.hint = 'Dialog (F3)'
     dialogbutton.action = dialogact

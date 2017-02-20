@@ -19,6 +19,7 @@ inherited componenteditfo: tcomponenteditfo
       end
     end
     inherited navig: tdbnavigator
+      onreadonlychange = readonlychangeev
     end
   end
   object stripe2: tlayouter[1]
@@ -145,7 +146,7 @@ inherited componenteditfo: tcomponenteditfo
       frame.buttons.items = <      
         item
           imagenr = 17
-          options = [fbo_executeonclientdblclick]
+          options = [fbo_enabled, fbo_executeonclientdblclick]
           shortcut = 306
           onexecute = editfootprintev
         end      
@@ -191,7 +192,7 @@ inherited componenteditfo: tcomponenteditfo
       frame.buttons.items = <      
         item
           imagenr = 17
-          options = [fbo_executeonclientdblclick]
+          options = [fbo_enabled, fbo_executeonclientdblclick]
           shortcut = 306
           onexecute = editcompkindev
         end      
@@ -232,7 +233,7 @@ inherited componenteditfo: tcomponenteditfo
       frame.buttons.items = <      
         item
           imagenr = 17
-          options = [fbo_executeonclientdblclick]
+          options = [fbo_enabled, fbo_executeonclientdblclick]
           shortcut = 306
           onexecute = editmanufacturerev
         end      
@@ -290,7 +291,7 @@ inherited componenteditfo: tcomponenteditfo
     align_glue = wam_start
     place_maxdist = 0
     linktop = stripe3
-    linkbottom = distributorgrid
+    linkbottom = stripe5
     dist_top = 4
     dist_bottom = 2
     object descriptioned: tdbmemodialogedit
@@ -485,150 +486,330 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
   end
-  object distributorgrid: tdbwidgetgrid[4]
-    frame.sbvert.pagesize = 1
-    frame.localprops = []
-    frame.localprops1 = []
+  object stripe5: tlayouter[4]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 4
-    bounds_x = 8
+    bounds_x = 0
     bounds_y = 244
-    bounds_cx = 669
+    bounds_cx = 683
     bounds_cy = 162
-    anchors = [an_left, an_top, an_right, an_bottom]
-    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-    fixcols.count = 1
-    fixcols.items = <    
-      item
-        width = 15
-      end>
-    fixrows.count = 1
-    fixrows.items = <    
-      item
-        height = 16
-        captions.count = 3
-        captions.items = <        
-          item
-            caption = 'Distributor'
-          end        
-          item
-            caption = 'Part Number'
-          end        
-          item
-            caption = 'Comment'
-          end>
-      end>
-    datacols.count = 3
-    datacols.items = <    
-      item[distributored]
-        width = 147
-        widgetname = 'distributored'
-      end    
-      item[partnumed]
-        width = 125
-        widgetname = 'partnumed'
-      end    
-      item[tdbmemodialogedit1]
-        width = 359
-        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-        widgetname = 'tdbmemodialogedit1'
-      end>
-    datalink.datasource = vendormo.compdistribdso
-    datalink.navigator = navig
-    datarowheight = 16
-    statfile = tstatfile1
-    reffontheight = 14
-    object distributored: tdbenum64editdb
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      frame.levelo = 0
-      frame.colorclient = -2147483645
-      frame.font.localprops = []
-      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+    anchors = [an_top, an_bottom]
+    object distributorgrid: tdbwidgetgrid
+      frame.sbvert.pagesize = 1
+      frame.localprops = []
       frame.localprops1 = []
-      frame.buttons.count = 2
-      frame.buttons.items = <      
+      bounds_x = 0
+      bounds_y = 75
+      bounds_cx = 683
+      bounds_cy = 86
+      anchors = [an_top, an_bottom]
+      optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+      fixcols.count = 1
+      fixcols.items = <      
         item
-          color = -1879048187
-          imagenr = 17
-          shortcut = 306
-          onexecute = editdistributorev
-        end      
-        item
+          width = 15
         end>
-      frame.activebutton = 1
+      fixrows.count = 1
+      fixrows.items = <      
+        item
+          height = 16
+          captions.count = 3
+          captions.items = <          
+            item
+              caption = 'Distributor'
+            end          
+            item
+              caption = 'Part Number'
+            end          
+            item
+              caption = 'Comment'
+            end>
+        end>
+      datacols.count = 3
+      datacols.items = <      
+        item[distributored]
+          width = 147
+          widgetname = 'distributored'
+        end      
+        item[partnumed]
+          width = 125
+          widgetname = 'partnumed'
+        end      
+        item[tdbmemodialogedit1]
+          width = 373
+          options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+          widgetname = 'tdbmemodialogedit1'
+        end>
+      datalink.datasource = vendormo.compdistribdso
+      datalink.navigator = navig
+      datarowheight = 16
+      statfile = tstatfile1
+      reffontheight = 14
+      object distributored: tdbenum64editdb
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.font.localprops = []
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.buttons.count = 2
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+            imagenr = 17
+            shortcut = 306
+            onexecute = editdistributorev
+          end        
+          item
+          end>
+        frame.activebutton = 1
+        taborder = 1
+        visible = False
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 147
+        bounds_cy = 16
+        empty_fontstyle = [fs_italic]
+        empty_textflags = [tf_ycentered]
+        empty_options = [eo_showfocused]
+        empty_textcolor = -1879048173
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+        font.localprops = []
+        datalink.datasource = vendormo.compdistribdso
+        datalink.navigator = navig
+        datalink.fieldname = 'DISTRIBUTOR'
+        datalink.fieldnametext = 'NAME'
+        dropdown.datasource = vendormo.distributordso
+        dropdown.keyfield = 'PK'
+        dropdown.optionsdb = [odb_directdata]
+        dropdown.cols.count = 1
+        dropdown.cols.items = <        
+          item
+            datafield = 'NAME'
+          end>
+        reffontheight = 14
+      end
+      object partnumed: tdbstringedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 2
+        visible = False
+        bounds_x = 148
+        bounds_y = 0
+        bounds_cx = 125
+        bounds_cy = 16
+        datalink.datasource = vendormo.compdistribdso
+        datalink.navigator = navig
+        datalink.fieldname = 'PARTNUMBER'
+        reffontheight = 14
+      end
+      object tdbmemodialogedit1: tdbmemodialogedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+            imagenr = 17
+          end>
+        frame.button.color = -1879048187
+        frame.button.imagenr = 17
+        taborder = 3
+        visible = False
+        bounds_x = 274
+        bounds_y = 0
+        bounds_cx = 373
+        bounds_cy = 16
+        datalink.datasource = vendormo.compdistribdso
+        datalink.navigator = navig
+        datalink.fieldname = 'COMMENT'
+        reffontheight = 14
+      end
+    end
+    object tsplitter1: tsplitter
       taborder = 1
-      visible = False
+      bounds_x = 0
+      bounds_y = 72
+      bounds_cx = 683
+      bounds_cy = 3
+      anchors = [an_top]
+      options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linktop = footprintgrid
+      linkbottom = distributorgrid
+      statfile = tstatfile1
+    end
+    object footprintgrid: twidgetgrid
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 2
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 147
-      bounds_cy = 16
-      empty_fontstyle = [fs_italic]
-      empty_textflags = [tf_ycentered]
-      empty_options = [eo_showfocused]
-      empty_textcolor = -1879048173
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      bounds_cx = 683
+      bounds_cy = 72
+      anchors = [an_top, an_bottom]
+      font.name = 'stf_default'
       font.localprops = []
-      datalink.datasource = vendormo.compdistribdso
-      datalink.navigator = navig
-      datalink.fieldname = 'DISTRIBUTOR'
-      datalink.fieldnametext = 'NAME'
-      dropdown.datasource = vendormo.distributordso
-      dropdown.keyfield = 'PK'
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 1
-      dropdown.cols.items = <      
+      optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+      fixcols.count = 1
+      fixcols.items = <      
         item
-          datafield = 'NAME'
+          width = 29
+          numstart = 1
+          numstep = 1
         end>
-      reffontheight = 14
-    end
-    object partnumed: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 2
-      visible = False
-      bounds_x = 148
-      bounds_y = 0
-      bounds_cx = 125
-      bounds_cy = 16
-      datalink.datasource = vendormo.compdistribdso
-      datalink.navigator = navig
-      datalink.fieldname = 'PARTNUMBER'
-      reffontheight = 14
-    end
-    object tdbmemodialogedit1: tdbmemodialogedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      frame.levelo = 0
-      frame.colorclient = -2147483645
-      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
-      frame.localprops1 = []
-      frame.buttons.count = 1
-      frame.buttons.items = <      
+      fixrows.count = 1
+      fixrows.items = <      
         item
-          color = -1879048187
-          imagenr = 17
+          height = 16
+          captions.count = 5
+          captions.items = <          
+            item
+            end          
+            item
+              caption = 'Footprint'
+            end          
+            item
+              caption = 'Footprintinfo'
+              hint = 'Show invisible text'
+            end          
+            item
+              caption = 'Comment'
+              hint = 'Show Value'
+            end          
+            item
+              caption = 'Footprint'
+            end>
         end>
-      frame.button.color = -1879048187
-      frame.button.imagenr = 17
-      taborder = 3
-      visible = False
-      bounds_x = 274
-      bounds_y = 0
-      bounds_cx = 359
-      bounds_cy = 16
-      datalink.datasource = vendormo.compdistribdso
-      datalink.navigator = navig
-      datalink.fieldname = 'COMMENT'
+      datacols.count = 4
+      datacols.options = [co_savestate, co_mousescrollrow]
+      datacols.font.localprops = []
+      datacols.items = <      
+        item[pked]
+          width = 27
+          options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
+          widgetname = 'pked'
+        end      
+        item[tenum64editdb1]
+          width = 117
+          widgetname = 'tenum64editdb1'
+        end      
+        item[tstringedit2]
+          width = 100
+          widgetname = 'tstringedit2'
+        end      
+        item[footprintcommented]
+          width = 401
+          options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+          widgetname = 'footprintcommented'
+        end>
+      ifilink = mainmo.compfootprintgrid
+      datarowheight = 16
+      statfile = tstatfile1
+      onrowsmodified = editev
+      onedited = editev
       reffontheight = 14
+      object pked: tint64edit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 1
+        visible = False
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 27
+        bounds_cy = 16
+        max = 2147483647
+        ifilink = mainmo.cfp_pk
+        reffontheight = 14
+      end
+      object tenum64editdb1: tenum64editdb
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.button.color = -1879048187
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+          end>
+        taborder = 2
+        visible = False
+        bounds_x = 28
+        bounds_y = 0
+        bounds_cx = 117
+        bounds_cy = 16
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+        ifilink = mainmo.cfp_footprint
+        dropdown.datasource = mainmo.footprintdso
+        dropdown.keyfield = 'PK'
+        dropdown.optionsdb = [odb_directdata]
+        dropdown.cols.count = 1
+        dropdown.cols.items = <        
+          item
+            datafield = 'NAME'
+          end>
+        valuedefault = -1
+        reffontheight = 14
+      end
+      object tstringedit2: tstringedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 3
+        visible = False
+        bounds_x = 146
+        bounds_y = 0
+        bounds_cy = 16
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+        ifilink = mainmo.cfp_footprintinfo
+        reffontheight = 14
+      end
+      object footprintcommented: tmemodialogedit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+            imagenr = 17
+          end>
+        frame.button.color = -1879048187
+        frame.button.imagenr = 17
+        taborder = 4
+        visible = False
+        bounds_x = 247
+        bounds_y = 0
+        bounds_cx = 401
+        bounds_cy = 16
+        optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+        ifilink = mainmo.cfp_comment
+        reffontheight = 14
+      end
     end
   end
   inherited dataso: tmsedatasource[5]
     DataSet = mainmo.stockcompqu
     OnStateChange = statechangeev
     OnDataChange = datachangeev
+    OnUpdateData = updatedataev
   end
   inherited tstatfile1: tstatfile[6]
     filename = 'componeteditfo.sta'
+  end
+  object nofootprints: tifibooleanendpoint[7]
+    ifilink = mainmo.nostockcompfootprints
+    ondatachange = nofootprintschaev
+    left = 240
+    top = 280
   end
 end

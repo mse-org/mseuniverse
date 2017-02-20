@@ -21,11 +21,9 @@ uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,mdb,msebufdataset,
  msedb,mseifiglob,mselocaldataset,msestrings,msedatabase,msesqldb,msqldb,
  sysutils,msesqlresult,mseificomp,mseificompglob,mseifiendpoint,mclasses,
- mseifidbcomp;
+ mseifidbcomp,mainmodule;
 
 type
- variantarty = array of variant;
- getvalueseventty = function (const index: int32): variantarty of object;
  
  tbommo = class(tmsedatamodule)
    bomds: tlocaldataset;
@@ -197,10 +195,6 @@ type
    fcopyplotpks: array of int64arty;
    fcopypagepks: int64arty;
    fcopybompks: int64arty;
-   procedure refreshitems(const alink: tmselargeintfield; 
-             var deleted: int64arty;
-             const pk: tifiint64linkcomp; const query: tmsesqlquery;
-                                    const dataso: tconnectedifidatasource);
    function getdocupagevalues(const index: int32): variantarty;
    function getplotitemvalues(const index: int32): variantarty;
    function getproditemvalues(const index: int32): variantarty;
@@ -208,11 +202,6 @@ type
    function getprodpositemvalues(const index: int32): variantarty;
    function getprodbomitemvalues(const index: int32): variantarty;
    function getprodbomfieldvalues(const index: int32): variantarty;
-   procedure updateitems(var deleted: int64arty;
-         const pk: tifiint64linkcomp;
-         const deletestatement,updatestatement: tsqlstatement;
-         const insertstatement: tsqlresult;
-         const getvalues: getvalueseventty);
   public
    constructor create(aowner: tcomponent); override;
    procedure editdocupage(const arow: int32);
@@ -225,7 +214,7 @@ var
  
 implementation
 uses
- bommodule_mfm,mainmodule,msearrayutils,titledialogform,msegui,bomdialogform,
+ bommodule_mfm,msearrayutils,titledialogform,msegui,bomdialogform,
  schematicplotdialogform,partlistdialogform,layerplotdialogform,
  drillmapdialogform,bomfieldeditform;
 
@@ -381,30 +370,6 @@ begin
  end;
 end;
 
-procedure tbommo.refreshitems(const alink: tmselargeintfield;
-             var deleted: int64arty;
-             const pk: tifiint64linkcomp; const query: tmsesqlquery;
-                                    const dataso: tconnectedifidatasource);
-var
- i1: int32;
-begin
- if not query.controller.posting1 or 
-                       query.controller.deleting then begin
-  deleted:= nil;
-  if query.controller.copying() then begin
-   with pk.c.griddata do begin
-    for i1:= 0 to count-1 do begin
-     items[i1]:= 0; //prepare for insert
-    end;
-   end;
-  end
-  else begin
-   tifisqlresult(dataso.connection).params[0].value:= alink.value;
-   dataso.refresh();
-  end;
- end;
-end;
-
 procedure tbommo.docupagerefreshev(const sender: TObject);
 begin
  refreshitems(ds_pk,fdeleteddocupages,dpg_pk,docusetqu,docupagedso);
@@ -443,31 +408,6 @@ begin
   for i1:= 0 to high(ar1) do begin
    if fcopypagepks[i1] <> 0 then begin //kind = dpk_layerplot
     copyplotitems.execute([fcopypagepks[i1],ar1[i1]]); //oldlink,newlink
-   end;
-  end;
- end;
-end;
-
-procedure tbommo.updateitems(var deleted: int64arty;
-         const pk: tifiint64linkcomp;
-         const deletestatement,updatestatement: tsqlstatement;
-         const insertstatement: tsqlresult;
-         const getvalues: getvalueseventty);
-var
- i1: int32;
-begin
- for i1:= 0 to high(deleted) do begin
-  deletestatement.execute([deleted[i1]]);
- end;
- deleted:= nil;
- with pk.c.griddata do begin
-  for i1:= 0 to count-1 do begin
-   if items[i1] = 0 then begin
-    insertstatement.refresh(getvalues(i1));
-    items[i1]:= insertstatement[0].asid;
-   end
-   else begin
-    updatestatement.execute(getvalues(i1));
    end;
   end;
  end;

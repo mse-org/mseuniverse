@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  recordeditform,msesplitter,mdb,mseact,msedataedits,msedbedit,mseedit,
  msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
- msescrollbar,msestatfile,msestream,msestrings,sysutils,msedb,msedbdialog;
+ msescrollbar,msestatfile,msestream,msestrings,sysutils,msedb,msedbdialog,
+ msewidgetgrid,msememodialog,mseifiendpoint;
 
 type
  tcomponenteditfo = class(trecordeditfo)
@@ -43,11 +44,19 @@ type
    commented: tdbmemodialogedit;
    manufacturered: tdbenum64editdb;
    footprintinfoed: tdbstringedit;
+   tsimplewidget1: tsimplewidget;
+   stripe5: tlayouter;
    distributorgrid: tdbwidgetgrid;
    distributored: tdbenum64editdb;
    partnumed: tdbstringedit;
-   tsimplewidget1: tsimplewidget;
    tdbmemodialogedit1: tdbmemodialogedit;
+   tsplitter1: tsplitter;
+   footprintgrid: twidgetgrid;
+   pked: tint64edit;
+   tenum64editdb1: tenum64editdb;
+   tstringedit2: tstringedit;
+   footprintcommented: tmemodialogedit;
+   nofootprints: tifibooleanendpoint;
    procedure editfootprintev(const sender: TObject);
    procedure editcompkindev(const sender: TObject);
    procedure datachangeev(Sender: TObject; Field: TField);
@@ -55,8 +64,17 @@ type
    procedure editmanufacturerev(const sender: TObject);
    procedure editdistributorev(const sender: TObject);
    procedure statechangeev(Sender: TObject);
+   procedure editev(const sender: TObject);
+   procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
+   procedure nofootprintschaev(const sender: TObject; var avalue: Boolean);
+   procedure updatedataev(Sender: TObject);
   private
    fstatebefore: tdatasetstate;
+   fhaskindfootprints: boolean;
+  protected
+   procedure checkfootprints();
+   procedure resetkindfootprints();
+   procedure refreshkindfootprints();
   public
    constructor create(const idfield: tmselargeintfield;
                                         const nonavig: boolean); reintroduce;
@@ -79,6 +97,7 @@ begin
   navig.options:= navig.options - [dno_nonavig,dno_noinsert];
  end;
  fstatebefore:= dataso.dataset.state;
+ checkfootprints();
 end;
 {
 procedure tcomponenteditfo.closeev(const sender: TObject);
@@ -156,8 +175,81 @@ begin
              (fstatebefore = dsinsert) and controller.canceling then begin
    window.modalresult:= mr_cancel;
   end;
+  checkfootprints();
  end;
  fstatebefore:= ds1;
+end;
+
+procedure tcomponenteditfo.editev(const sender: TObject);
+begin
+// if not mainmo.compfootprintdso.refreshing then begin
+ if not tmsesqlquery(dataso.dataset).controller.canceling then begin
+  dataso.dataset.edit();
+  dataso.dataset.modify(); //set modified flag
+ end;
+end;
+
+procedure tcomponenteditfo.readonlychangeev(const sender: TObject;
+               const avalue: Boolean);
+begin
+ with footprintgrid do begin
+  datacols.readonly:= avalue;
+  norowedit:= avalue;
+  if avalue then begin
+   removeappendedrow();
+  end;  
+  checkfootprints();
+ end;
+end;
+
+procedure tcomponenteditfo.nofootprintschaev(const sender: TObject;
+               var avalue: Boolean);
+begin
+ checkfootprints();
+end;
+
+procedure tcomponenteditfo.checkfootprints();
+begin
+// if (not footprintgrid.entered or not navig.canautoedit) and
+ if not tmsesqlquery(dataso.dataset).controller.posting1 then begin
+  if not (dataso.state in [dsedit,dsinsert]) and nofootprints.value then begin
+   mainmo.getfootprintsfromcompkind();
+   if not fhaskindfootprints then begin
+    fhaskindfootprints:= true;
+    with footprintgrid.datacols.font do begin
+     color:= cl_dkgray;
+     italic:= true;
+    end;
+   end;
+  end
+  else begin
+   resetkindfootprints;
+  end;
+ end;
+end;
+
+procedure tcomponenteditfo.resetkindfootprints();
+begin
+ if fhaskindfootprints then begin
+  mainmo.compfootprintdso.refresh();
+   with footprintgrid.datacols.font do begin
+    color:= cl_text;
+    italic:= false;
+   end;
+  fhaskindfootprints:= false;
+ end;
+end;
+
+procedure tcomponenteditfo.refreshkindfootprints();
+begin
+ if fhaskindfootprints then begin
+  mainmo.getfootprintsfromcompkind();
+ end;
+end;
+
+procedure tcomponenteditfo.updatedataev(Sender: TObject);
+begin
+ footprintgrid.removeappendedrow();
 end;
 
 end.

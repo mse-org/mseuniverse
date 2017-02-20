@@ -2227,27 +2227,12 @@ object bommo: tbommo
       end    
       item
         DataType = ftUnknown
-        Name = 'front'
-        ParamType = ptInput
-      end    
-      item
-        DataType = ftUnknown
-        Name = 'back'
-        ParamType = ptInput
-      end    
-      item
-        DataType = ftUnknown
-        Name = 'smd'
+        Name = 'bom'
         ParamType = ptInput
       end    
       item
         DataType = ftUnknown
         Name = 'filename'
-        ParamType = ptInput
-      end    
-      item
-        DataType = ftUnknown
-        Name = 'bom'
         ParamType = ptInput
       end>
     sql.data = (

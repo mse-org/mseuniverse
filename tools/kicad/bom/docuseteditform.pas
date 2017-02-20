@@ -51,6 +51,7 @@ type
    procedure editedev(const sender: TObject);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
    procedure pageeditev(const sender: tcustomaction);
+   procedure updatedataev(Sender: TObject);
  end;
 
 implementation
@@ -62,10 +63,13 @@ procedure tdocuseteditfo.readonlychangeev(const sender: TObject;
 begin
  pagesizeed.readonly:= avalue;
  grid.datacols.readonly:= avalue;
+ grid.norowedit:= avalue;
  if avalue then begin
   grid.removeappendedrow();
+ end
+ else begin
+  grid.checkreautoappend();
  end;
- grid.norowedit:= avalue;
 end;
 
 procedure tdocuseteditfo.datachaev(Sender: TObject; Field: TField);
@@ -75,7 +79,8 @@ end;
 
 procedure tdocuseteditfo.editedev(const sender: TObject);
 begin
- if not bommo.docupagedso.refreshing then begin
+// if not bommo.docupagedso.refreshing then begin
+ if not tmsesqlquery(dataso.dataset).controller.canceling then begin
   dataso.dataset.edit();
   dataso.dataset.modify(); //set modified flag
  end;
@@ -93,6 +98,11 @@ procedure tdocuseteditfo.pageeditev(const sender: tcustomaction);
 begin
  dataso.dataset.checkbrowsemode();
  bommo.editdocupage(grid.row);
+end;
+
+procedure tdocuseteditfo.updatedataev(Sender: TObject);
+begin
+ grid.removeappendedrow();
 end;
 
 end.

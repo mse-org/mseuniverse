@@ -29,7 +29,8 @@ uses
  msedatabase,msefb3connection,msqldb,msesqldb,msesqlresult,msedbdispwidgets,
  msemacros,mclasses,msedbedit,msegraphedits,mselookupbuffer,msescrollbar,
  msepython,pythonconsoleform,msepostscriptprinter,mseprinter,msepipestream,
- mseprocess,mseguiprocess,msereport,mserichstring,msesplitter,msefb3service;
+ mseprocess,mseguiprocess,msereport,mserichstring,msesplitter,msefb3service,
+ mseifidbcomp;
 
 const
  versiontext = '0.0';
@@ -37,6 +38,9 @@ const
  defaultquotechar = '"';
  
 type
+ variantarty = array of variant;
+ getvalueseventty = function (const index: int32): variantarty of object;
+
  drillfilekindty = (dfk_map,dfk_excellon);
  
  fileformatty = (ff_none,
@@ -438,6 +442,27 @@ type
    distdeletetest: tsqlresult;
    c_count: tmselongintfield;
    stockcompdistribqu: tmsesqlquery;
+   compfootprintgrid: tifigridlinkcomp;
+   compfootprintdso: tconnectedifidatasource;
+   compfootprintqu: tifisqlresult;
+   compfootprintdelete: tsqlstatement;
+   compfootprintupdate: tsqlstatement;
+   compfootprintinsert: tsqlresult;
+   copycompfootprints: tsqlstatement;
+   cfp_pk: tifiint64linkcomp;
+   cfp_footprintinfo: tifistringlinkcomp;
+   cfp_comment: tifistringlinkcomp;
+   compkindlink: tfieldparamlink;
+   cfp_footprint: tifiint64linkcomp;
+   stockcomplink: tfieldparamlink;
+   ckfp_footprint: tifiint64linkcomp;
+   ckfp_comment: tifistringlinkcomp;
+   ckfp_footprintinfo: tifistringlinkcomp;
+   ckfp_pk: tifiint64linkcomp;
+   compkfootprintqu: tifisqlresult;
+   compkfootprintdso: tconnectedifidatasource;
+   compkfootprintgrid: tifigridlinkcomp;
+   nostockcompfootprints: tifibooleanlinkcomp;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -474,6 +499,16 @@ type
    procedure serviceerrorev(const sender: tfb3service; var e: Exception;
                    var handled: Boolean);
    procedure compdetailcalcfields(DataSet: TDataSet);
+   procedure compfootprintdelev(const sender: TObject; var aindex: Integer;
+                   var acount: Integer);
+   procedure compkindpostev(const sender: TDataSet; const master: TDataSet);
+   procedure compkindrefreshev(const sender: TObject);
+   procedure stockcompostev(const sender: TDataSet; const master: TDataSet);
+   procedure stockcomprefreshev(const sender: TObject);
+   procedure compkfootprintdelev(const sender: TObject; var aindex: Integer;
+                   var acount: Integer);
+   procedure compfootopenev(const sender: TObject);
+   procedure stockcompdatachaev(Sender: TObject; Field: TField);
   private
    fhasproject: boolean;
    fmodified: boolean;
@@ -494,6 +529,9 @@ type
    fdrillmarknames: msestringarty;
    fbomfieldnames: msestringarty;
    fid: int64;
+   fdeletedfootprints: int64arty;
+   fdeletedkfootprints: int64arty;
+//   ffootprintlink: int64;
   protected
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
@@ -518,6 +556,8 @@ type
    function getdrillfilename(const boardfile: filenamety;
                                    const layera,layerb: layerty;
                                          const nonplated: boolean): msestring;
+   function getfootprintitemvalues(const index: int32): variantarty;
+   function getkfootprintitemvalues(const index: int32): variantarty;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -546,6 +586,7 @@ type
    procedure updateprojectmacros(const anames: msestringarty; 
                                              const avalues: msestringarty);
    procedure hintmacros(const atext: msestring; var info: hintinfoty);
+
    function getboardfile(var afilename: filenamety): boolean; //true if ok
    function plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
@@ -568,6 +609,7 @@ type
    procedure createprodfiles(const aindex: int32);
 
    function getid(): int64;
+   procedure getfootprintsfromcompkind();
    
    function getpagekind(const aname: msestring): docupagekindty;
    function getfileformat(const aname: msestring): fileformatty;
@@ -594,6 +636,17 @@ var
 
 procedure errormessage(const message: msestring);
 function layertoplotname(const layername: msestring): msestring;
+
+procedure updateitems(var deleted: int64arty;
+      const pk: tifiint64linkcomp;
+      const deletestatement,updatestatement: tsqlstatement;
+      const insertstatement: tsqlresult;
+      const getvalues: getvalueseventty);
+procedure refreshitems(const alink: tmselargeintfield; 
+          var deleted: int64arty;
+          const pk: tifiint64linkcomp; const query: tmsesqlquery;
+                                 const dataso: tconnectedifidatasource);
+
 
 implementation
 uses
@@ -847,6 +900,55 @@ function layertoplotname(const layername: msestring): msestring;
 begin
  result:= mselowercase(layername);
  replacechar1(result,'.','_');
+end;
+
+procedure refreshitems(const alink: tmselargeintfield;
+             var deleted: int64arty;
+             const pk: tifiint64linkcomp; const query: tmsesqlquery;
+                                    const dataso: tconnectedifidatasource);
+var
+ i1: int32;
+begin
+ if not query.controller.posting1 or 
+                       query.controller.deleting then begin
+  deleted:= nil;
+  if query.controller.copying() then begin
+   with pk.c.griddata do begin
+    for i1:= 0 to count-1 do begin
+     items[i1]:= 0; //prepare for insert
+    end;
+   end;
+  end
+  else begin
+   tifisqlresult(dataso.connection).params[0].value:= alink.value;
+   dataso.refresh(500000);
+  end;
+ end;
+end;
+
+procedure updateitems(var deleted: int64arty;
+         const pk: tifiint64linkcomp;
+         const deletestatement,updatestatement: tsqlstatement;
+         const insertstatement: tsqlresult;
+         const getvalues: getvalueseventty);
+var
+ i1: int32;
+begin
+ for i1:= 0 to high(deleted) do begin
+  deletestatement.execute([deleted[i1]]);
+ end;
+ deleted:= nil;
+ with pk.c.griddata do begin
+  for i1:= 0 to count-1 do begin
+   if items[i1] = 0 then begin
+    insertstatement.refresh(getvalues(i1));
+    items[i1]:= insertstatement[0].asid;
+   end
+   else begin
+    updatestatement.execute(getvalues(i1));
+   end;
+  end;
+ end;
 end;
 
 { tmainmo }
@@ -2183,6 +2285,16 @@ begin
  result:= fid;
 end;
 
+procedure tmainmo.getfootprintsfromcompkind();
+begin
+ compkfootprintqu.params[0].value:= sc_componentkind.asid;
+ compkfootprintdso.refresh();
+ cfp_pk.c.griddata.assign(ckfp_pk.c.griddata);
+ cfp_footprint.c.griddata.assign(ckfp_footprint.c.griddata);
+ cfp_footprintinfo.c.griddata.assign(ckfp_footprintinfo.c.griddata);
+ cfp_comment.c.griddata.assign(ckfp_comment.c.griddata);
+end;
+
 procedure tmainmo.prodfilesev(const sender: TObject);
 begin
  createprodfiles(tmenuitem(sender).index);
@@ -2670,6 +2782,79 @@ end;
 
 procedure tmainmo.compdetailcalcfields(DataSet: TDataSet);
 begin
+end;
+
+procedure tmainmo.compfootprintdelev(const sender: TObject; var aindex: Integer;
+               var acount: Integer);
+begin
+ additem(fdeletedfootprints,cfp_pk.c.griddata[aindex]);
+end;
+
+procedure tmainmo.compkfootprintdelev(const sender: TObject;
+               var aindex: Integer; var acount: Integer);
+begin
+ additem(fdeletedkfootprints,ckfp_pk.c.griddata[aindex]);
+end;
+
+function tmainmo.getfootprintitemvalues(const index: int32): variantarty;
+begin
+ setlength(result,6);
+ result[0]:= cfp_pk.c.griddata[index];
+ result[1]:= sc_pk.asid;
+ result[2]:= index;
+ result[3]:= cfp_footprint.c.griddata[index];
+ result[4]:= cfp_footprintinfo.c.griddata[index];
+ result[5]:= cfp_comment.c.griddata[index];
+end;
+
+function tmainmo.getkfootprintitemvalues(const index: int32): variantarty;
+begin
+ setlength(result,6);
+ result[0]:= ckfp_pk.c.griddata[index];
+ result[1]:= k_pk.asid;
+ result[2]:= index;
+ result[3]:= ckfp_footprint.c.griddata[index];
+ result[4]:= ckfp_footprintinfo.c.griddata[index];
+ result[5]:= ckfp_comment.c.griddata[index];
+end;
+
+procedure tmainmo.compkindpostev(const sender: TDataSet;
+               const master: TDataSet);
+begin
+// ffootprintlink:= k_pk.asid;
+ updateitems(fdeletedkfootprints,ckfp_pk,compfootprintdelete,compfootprintupdate,
+                 compfootprintinsert,@getkfootprintitemvalues);
+end;
+
+procedure tmainmo.compkindrefreshev(const sender: TObject);
+begin
+ refreshitems(k_pk,fdeletedkfootprints,ckfp_pk,compkindqu,compkfootprintdso);
+end;
+
+procedure tmainmo.stockcompostev(const sender: TDataSet;
+               const master: TDataSet);
+begin
+// ffootprintlink:= sc_pk.asid;
+ updateitems(fdeletedfootprints,cfp_pk,compfootprintdelete,compfootprintupdate,
+                 compfootprintinsert,@getfootprintitemvalues);
+end;
+
+procedure tmainmo.stockcomprefreshev(const sender: TObject);
+begin
+ refreshitems(sc_pk,fdeletedfootprints,cfp_pk,stockcompqu,compfootprintdso);
+end;
+
+procedure tmainmo.compfootopenev(const sender: TObject);
+begin
+ nostockcompfootprints.c.value:= cfp_pk.c.griddata.count = 0;
+end;
+
+procedure tmainmo.stockcompdatachaev(Sender: TObject; Field: TField);
+begin
+ if ((field = nil) or (field = sc_componentkind)) and 
+                             not stockcompqu.controller.copying then begin
+  compfootprintdso.refresh(500000);
+ end;
 end;
 
 { tprojectoptions }

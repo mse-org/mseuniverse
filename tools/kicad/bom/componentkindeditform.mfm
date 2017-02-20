@@ -20,6 +20,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
     end
     inherited navig: tdbnavigator
       bounds_y = 0
+      onreadonlychange = redonlychangeev
     end
   end
   inherited stripe1: tlayouter
@@ -40,11 +41,12 @@ inherited componentkindeditfo: tcomponentkindeditfo
     bounds_cx = 636
     place_mindist = 4
     place_maxdist = 4
+    place_options = [plo_scalesize]
     inherited nameed: tdbstringedit
       frame.caption = '&Name'
       bounds_cx = 156
     end
-    object footprinted: tdbenum64editdb[1]
+    object footprinted1: tdbenum64editdb[1]
       frame.caption = '&Footprint'
       frame.font.localprops = []
       frame.localprops = []
@@ -191,6 +193,8 @@ inherited componentkindeditfo: tcomponentkindeditfo
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placey, lao_syncpaintwidth]
     place_maxdist = 0
+    linkbottom = footprintgrid
+    dist_bottom = 4
     object descriptioned: tdbmemodialogedit
       frame.caption = '&Description'
       frame.captionpos = cp_right
@@ -353,10 +357,161 @@ inherited componentkindeditfo: tcomponentkindeditfo
       reffontheight = 14
     end
   end
-  inherited dataso: tmsedatasource[4]
-    DataSet = mainmo.compkindqu
+  object footprintgrid: twidgetgrid[4]
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 4
+    bounds_x = 0
+    bounds_y = 228
+    bounds_cx = 650
+    bounds_cy = 178
+    anchors = [an_top, an_bottom]
+    optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 29
+        numstart = 1
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 5
+        captions.items = <        
+          item
+          end        
+          item
+            caption = 'Footprint'
+          end        
+          item
+            caption = 'Footprintinfo'
+            hint = 'Show invisible text'
+          end        
+          item
+            caption = 'Comment'
+            hint = 'Show Value'
+          end        
+          item
+            caption = 'Footprint'
+          end>
+      end>
+    datacols.count = 4
+    datacols.options = [co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item[pked]
+        width = 27
+        options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'pked'
+      end    
+      item[tenum64editdb1]
+        width = 117
+        widgetname = 'tenum64editdb1'
+      end    
+      item[footprintinfoed]
+        width = 100
+        widgetname = 'footprintinfoed'
+      end    
+      item[footprintcommented]
+        width = 368
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'footprintcommented'
+      end>
+    ifilink = mainmo.compkfootprintgrid
+    datarowheight = 16
+    statfile = tstatfile1
+    onrowsmodified = editev
+    onedited = editev
+    reffontheight = 14
+    object pked: tint64edit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 27
+      bounds_cy = 16
+      max = 2147483647
+      ifilink = mainmo.ckfp_pk
+      reffontheight = 14
+    end
+    object tenum64editdb1: tenum64editdb
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.button.color = -1879048187
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+        end>
+      taborder = 2
+      visible = False
+      bounds_x = 28
+      bounds_y = 0
+      bounds_cx = 117
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+      ifilink = mainmo.ckfp_footprint
+      dropdown.datasource = mainmo.footprintdso
+      dropdown.keyfield = 'PK'
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+          datafield = 'NAME'
+        end>
+      valuedefault = -1
+      reffontheight = 14
+    end
+    object footprintinfoed: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 146
+      bounds_y = 0
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      ifilink = mainmo.ckfp_footprintinfo
+      reffontheight = 14
+    end
+    object footprintcommented: tmemodialogedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          color = -1879048187
+          imagenr = 17
+        end>
+      frame.button.color = -1879048187
+      frame.button.imagenr = 17
+      taborder = 4
+      visible = False
+      bounds_x = 247
+      bounds_y = 0
+      bounds_cx = 368
+      bounds_cy = 16
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      ifilink = mainmo.ckfp_comment
+      reffontheight = 14
+    end
   end
-  inherited tstatfile1: tstatfile[5]
+  inherited dataso: tmsedatasource[5]
+    DataSet = mainmo.compkindqu
+    OnUpdateData = updatedataev
+  end
+  inherited tstatfile1: tstatfile[6]
     filename = 'componentkindeditfo.sta'
   end
 end

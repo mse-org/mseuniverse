@@ -9,7 +9,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     618
     328
   )
-  statfile = tstatfile1
   caption = 'Docu PCB Layer-Plot Page'
   moduleclassname = 'tplotpageeditfo'
   inherited tsplitter1: tsplitter
@@ -150,7 +149,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionsskin = [osk_framebuttononly]
         taborder = 1
         visible = False
-        bounds_x = -96
+        bounds_x = 0
         bounds_y = 0
         bounds_cx = 27
         bounds_cy = 16
@@ -173,7 +172,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 2
         visible = False
-        bounds_x = -68
+        bounds_x = 28
         bounds_y = 0
         bounds_cx = 145
         bounds_cy = 16
@@ -202,7 +201,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 3
         visible = False
-        bounds_x = 78
+        bounds_x = 174
         bounds_y = 0
         bounds_cx = 121
         bounds_cy = 16
@@ -220,7 +219,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 4
-        bounds_x = 200
+        bounds_x = 296
         bounds_y = 0
         bounds_cx = 16
         bounds_cy = 16
@@ -243,7 +242,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 5
         visible = False
-        bounds_x = 217
+        bounds_x = 313
         bounds_y = 0
         bounds_cx = 121
         bounds_cy = 16
@@ -261,7 +260,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 6
-        bounds_x = 339
+        bounds_x = 435
         bounds_y = 0
         bounds_cx = 16
         bounds_cy = 16
@@ -284,7 +283,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 7
         visible = False
-        bounds_x = 356
+        bounds_x = 452
         bounds_y = 0
         bounds_cx = 121
         bounds_cy = 16
@@ -302,7 +301,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         optionswidget1 = []
         optionsskin = [osk_framebuttononly]
         taborder = 8
-        bounds_x = 478
+        bounds_x = 574
         bounds_y = 0
         bounds_cx = 16
         bounds_cy = 16
@@ -325,7 +324,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
           end>
         taborder = 9
         visible = False
-        bounds_x = 495
+        bounds_x = 591
         bounds_y = 0
         bounds_cx = 72
         bounds_cy = 16

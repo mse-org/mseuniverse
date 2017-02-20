@@ -394,7 +394,6 @@ inherited docuseteditfo: tdocuseteditfo
   end
   inherited stripe0: tlayouter[4]
     inherited navig: tdbnavigator[0]
-      autoedit = False
       onreadonlychange = readonlychangeev
     end
     inherited tlayouter2: tlayouter[1]
@@ -495,6 +494,7 @@ inherited docuseteditfo: tdocuseteditfo
   inherited dataso: tmsedatasource[6]
     DataSet = bommo.docusetqu
     OnDataChange = datachaev
+    OnUpdateData = updatedataev
   end
   inherited tstatfile1: tstatfile[7]
   end

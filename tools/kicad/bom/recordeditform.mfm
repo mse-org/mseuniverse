@@ -103,8 +103,7 @@ object recordeditfo: trecordeditfo
       buttonface.template = mainfo.horzkonvex
       shortcut_insert = 16646
       shortcut_delete = 16647
-      options = [dno_confirmdelete, dno_confirmcopy, dno_append, dno_shortcuthint, dno_candefocuswindow]
-      autoedit = True
+      options = [dno_confirmdelete, dno_confirmcopy, dno_shortcuthint, dno_candefocuswindow]
       dialogbutton.imagenr = 17
       dialogbutton.hint = 'Dialog'
       dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
