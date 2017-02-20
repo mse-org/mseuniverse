@@ -137,7 +137,7 @@ inherited componenteditfo: tcomponenteditfo
     place_options = [plo_scalesize]
     linktop = stripe2
     dist_top = 4
-    object footprinted: tdbenum64editdb
+    object footprinted1: tdbenum64editdb
       frame.caption = '&Footprint'
       frame.font.localprops = []
       frame.localprops = []
@@ -546,7 +546,6 @@ inherited componenteditfo: tcomponenteditfo
       statfile = tstatfile1
       reffontheight = 14
       object distributored: tdbenum64editdb
-        optionswidget1 = [ow1_fontglyphheight]
         optionsskin = [osk_framebuttononly]
         frame.levelo = 0
         frame.colorclient = -2147483645
@@ -558,6 +557,7 @@ inherited componenteditfo: tcomponenteditfo
           item
             color = -1879048187
             imagenr = 17
+            options = [fbo_enabled]
             shortcut = 306
             onexecute = editdistributorev
           end        
@@ -694,9 +694,9 @@ inherited componenteditfo: tcomponenteditfo
           options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
           widgetname = 'pked'
         end      
-        item[tenum64editdb1]
+        item[footprinted]
           width = 117
-          widgetname = 'tenum64editdb1'
+          widgetname = 'footprinted'
         end      
         item[tstringedit2]
           width = 100
@@ -726,19 +726,24 @@ inherited componenteditfo: tcomponenteditfo
         ifilink = mainmo.cfp_pk
         reffontheight = 14
       end
-      object tenum64editdb1: tenum64editdb
+      object footprinted: tenum64editdb
         optionswidget1 = [ow1_fontglyphheight]
         optionsskin = [osk_framebuttononly]
         frame.levelo = 0
         frame.colorclient = -2147483645
         frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
         frame.localprops1 = []
-        frame.button.color = -1879048187
-        frame.buttons.count = 1
+        frame.buttons.count = 2
         frame.buttons.items = <        
           item
             color = -1879048187
+            imagenr = 17
+            options = [fbo_enabled]
+            onexecute = editfootprintev
+          end        
+          item
           end>
+        frame.activebutton = 1
         taborder = 2
         visible = False
         bounds_x = 28

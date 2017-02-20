@@ -97,7 +97,7 @@ end;
 
 procedure tcomponentlistfo.loadedev(const sender: TObject);
 begin
- mainmo.beginedit(tmsesqlquery(dataso.dataset),fidfield);
+ mainmo.beginedit(tmsesqlquery(dataso.dataset),fidfield.asid);
 end;
 
 end.

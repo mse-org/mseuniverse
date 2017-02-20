@@ -56,7 +56,7 @@ uses
  
 procedure tcomponentkindeditfo.footprintedev(const sender: TObject);
 begin
- mainfo.editfootprint(mainmo.k_footprint);
+ mainfo.editfootprint(mainmo.k_footprint.asid);
 end;
 
 procedure tcomponentkindeditfo.editmanufactorerev(const sender: TObject);

@@ -107,7 +107,8 @@ type
    procedure checkeditclose(const adataso: tdatasource;
                                         var amodalresult: modalresultty);
    procedure editcomponentkind(const aid: tmselargeintfield);
-   procedure editfootprint(const aid: tmselargeintfield);
+//   procedure editfootprint(const aid: tmselargeintfield);
+   procedure editfootprint(const aid: int64);
    procedure editmanufacturer(const aid: tmselargeintfield);
    procedure editdistributor(const aid: tmselargeintfield);
  end;
@@ -265,7 +266,7 @@ begin
  tfootprintliblistfo.create(mainmo.f_pk).show(ml_application);
 end;
 
-procedure tmainfo.editfootprint(const aid: tmselargeintfield);
+procedure tmainfo.editfootprint(const aid: int64);
 begin
  tfootprintlistfo.create(aid).show(ml_application);
 end;

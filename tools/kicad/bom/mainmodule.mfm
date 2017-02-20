@@ -2323,4 +2323,78 @@ object mainmo: tmainmo
     left = 848
     top = 344
   end
+  object footprintlinksqu: tmsesqlquery
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'LINK'
+          end        
+          item
+            fieldname = 'FOOTPRINTINFO'
+          end>
+      end>
+    params = <>
+    SQL.data = (
+      'select LINK,FOOTPRINTINFO,FOOTPRINT from FOOTPRINTLINKS order by LINK,FOOTPRINTINFO,ORDNUM'
+    )
+    IndexDefs = <    
+      item
+        Name = 'FK_FOOTPRINTLINKS_1'
+      end    
+      item
+        Name = 'IDX_FOOTPRINTLINKS1'
+      end    
+      item
+        Name = 'PK_FOOTPRINTLINKS_0'
+      end>
+    tablename = 'FOOTPRINTLINKS'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'LINK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'FOOTPRINTINFO'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'FOOTPRINT'
+        DataType = ftLargeint
+      end>
+    controller.fields.count = 1
+    controller.fields.fields = (
+      (
+        ft_string
+      )
+      <      
+        item
+          DisplayWidth = 50
+          FieldName = 'FOOTPRINTINFO'
+          Index = 0
+          Size = 50
+        end>
+    )
+    controller.options = [dso_utf8]
+    left = 768
+    top = 8
+    streamingversion = 1
+    object fpl_link: tmselargeintfield
+      FieldName = 'LINK'
+      Index = 1
+      left = 776
+      top = 24
+    end
+    object fpl_footprint: tmselargeintfield
+      FieldName = 'FOOTPRINT'
+      Index = 2
+      left = 776
+      top = 40
+    end
+  end
 end

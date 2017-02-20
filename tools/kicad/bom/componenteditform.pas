@@ -32,7 +32,7 @@ type
    value1ed: tdbstringedit;
    valueed: tdbstringedit;
    stripe3: tlayouter;
-   footprinted: tdbenum64editdb;
+   footprinted1: tdbenum64editdb;
    compkinded: tdbenum64editdb;
    stripe4: tlayouter;
    descriptioned: tdbmemodialogedit;
@@ -53,7 +53,7 @@ type
    tsplitter1: tsplitter;
    footprintgrid: twidgetgrid;
    pked: tint64edit;
-   tenum64editdb1: tenum64editdb;
+   footprinted: tenum64editdb;
    tstringedit2: tstringedit;
    footprintcommented: tmemodialogedit;
    nofootprints: tifibooleanendpoint;
@@ -107,7 +107,8 @@ end;
 }
 procedure tcomponenteditfo.editfootprintev(const sender: TObject);
 begin
- mainfo.editfootprint(mainmo.sc_footprint);
+// mainfo.editfootprint(mainmo.sc_footprint);
+ mainfo.editfootprint(footprinted.value);
  datachangeev(nil,nil); //refresh empty text
 end;
 

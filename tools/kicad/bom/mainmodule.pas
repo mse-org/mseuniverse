@@ -463,6 +463,9 @@ type
    compkfootprintdso: tconnectedifidatasource;
    compkfootprintgrid: tifigridlinkcomp;
    nostockcompfootprints: tifibooleanlinkcomp;
+   footprintlinksqu: tmsesqlquery;
+   fpl_link: tmselargeintfield;
+   fpl_footprint: tmselargeintfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -570,7 +573,7 @@ type
    function saveproject(const saveas: boolean): boolean;  //true if not canceled
    function doexit: boolean;         //true if not canceled
 
-   procedure beginedit(const aquery: tmsesqlquery; const afield: tfield);
+   procedure beginedit(const aquery: tmsesqlquery; const aid: int64);
    procedure begincomponentsedit();
    procedure begincomponentedit(const idfield: tmselargeintfield);
    procedure deletecheck(const id: tmselargeintfield;
@@ -1127,6 +1130,7 @@ var
  bo1: boolean;
  area1,f1: flo64;
  menuitem1: tmenuitem;
+ s1: msestring;
 begin
  try
   application.beginwait();
@@ -1176,6 +1180,8 @@ begin
     vendormo.compdistribqu.active:= true;
     footprintlibqu.controller.refresh(false);
     footprintqu.controller.refresh(false);
+    footprintlinksqu.controller.refresh(false);
+
     stockcompqu.disablecontrols();
     stockcompdetailqu.disablecontrols();
     try
@@ -1191,8 +1197,29 @@ begin
                       compds.currentisnull[c_value1,i1],
                       compds.currentisnull[c_value2,i1],
                       compds.currentisnull[c_footprintinfo,i1]]) then begin
-       compds.currentasid[c_stockitemid,i1]:= sc_pk.asid;
- 
+       id1:= sc_pk.asid;
+       compds.currentasid[c_stockitemid,i1]:= id1;
+       id2:= sc_componentkind.asid;
+       compds.currentasid[c_componentkindid,i1]:= id2;
+
+       s1:= compds.currentasmsestring[c_footprintinfo,i1];
+       if footprintlinksqu.indexlocal[0].find([id1,s1],[],bm2) or
+          not sc_componentkind.isnull and 
+               not footprintlinksqu.indexlocal[0].find([id1],[]) and
+                                                  //no component footprints
+                     footprintlinksqu.indexlocal[0].find(
+                                              [id2,s1],[],bm2)then begin
+        id1:= footprintlinksqu.currentbmasid[fpl_footprint,bm2];
+        compds.currentasid[c_footprintid,i1]:= id1;
+        if footprintqu.indexlocal[0].find([id1],[],bm1) then begin
+         f1:= footprintqu.currentbmasfloat[f_area,bm1];
+         if f1 <> emptyfloat64 then begin
+          compds.currentasfloat[c_area,i1]:= f1;
+          area1:= area1 + f1;
+         end;
+        end;
+       end;        
+{       
        id2:= sc_componentkind.asid;
        compds.currentasid[c_componentkindid,i1]:= id2;
        bo1:= (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2);
@@ -1209,7 +1236,7 @@ begin
          area1:= area1 + f1;
         end;
        end;
- 
+}
        id1:= sc_manufacturer.asid;
        if (id1 < 0) and bo1 then begin
         id1:= compkindqu.currentbmasid[k_manufacturer,bm2];
@@ -1368,7 +1395,7 @@ end;
 
 procedure tmainmo.begincomponentedit(const idfield: tmselargeintfield);
 begin
- beginedit(stockcompqu,nil);
+ beginedit(stockcompqu,-1);
  if idfield <> nil then begin
   if idfield.isnull then begin
    stockcompqu.insert();
@@ -1384,7 +1411,7 @@ begin
 end;
 
 procedure tmainmo.beginedit(const aquery: tmsesqlquery;
-                                                 const afield: tfield);
+                                                 const aid: int64);
 begin
  vendormo.manufacturerqu.active:= true;
  vendormo.distributorqu.active:= true;
@@ -1394,8 +1421,8 @@ begin
  stockcompdetailqu.active:= true;
  stockcompqu.active:= true;
  aquery.active:= true;
- if afield <> nil then begin
-  aquery.indexlocal[0].find([afield]);
+ if aid <> -1 then begin
+  aquery.indexlocal[0].find([aid],[]);
  end;
  if application.modallevel = 0 then begin
   fcommitcount:= 0;
@@ -1408,7 +1435,7 @@ begin
  stockcompqu.indexlocal[0].find([c_stockitemid]);
 // stockcompqu.indexlocal.indexbyname('MAIN').find(
 //                                 [c_stockvalue,c_stockvalue1,c_stockvalue2]);
- beginedit(stockcompqu,nil);
+ beginedit(stockcompqu,-1);
 end;
 
 function tmainmo.checkvalueexist(const avalue: msestring;
