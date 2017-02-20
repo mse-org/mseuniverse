@@ -1219,26 +1219,8 @@ begin
          end;
         end;
        end;        
-{       
-       id2:= sc_componentkind.asid;
-       compds.currentasid[c_componentkindid,i1]:= id2;
-       bo1:= (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2);
- 
-       id1:= sc_footprint.asid;
-       if (id1 < 0) and bo1 then begin
-        id1:= compkindqu.currentbmasid[k_footprint,bm2];
-       end;
-       compds.currentasid[c_footprintid,i1]:= id1;
-       if (id1 >= 0) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
-        f1:= footprintqu.currentbmasfloat[f_area,bm1];
-        if f1 <> emptyfloat64 then begin
-         compds.currentasfloat[c_area,i1]:= f1;
-         area1:= area1 + f1;
-        end;
-       end;
-}
        id1:= sc_manufacturer.asid;
-       if (id1 < 0) and bo1 then begin
+       if (id1 = -1) and bo1 then begin
         id1:= compkindqu.currentbmasid[k_manufacturer,bm2];
        end;
        compds.currentasid[c_manufacturerid,i1]:= id1;
@@ -1909,16 +1891,16 @@ begin
    for i1:= 0 to compds.recordcount - 1 do begin
     footprintident1:= '';
     id1:= compds.currentasid[c_stockitemid,i1];
-    if (id1 >= 0) and stockcompqu.indexlocal[0].find([id1],[],bm1) then begin
+    if (id1 <> -1) and stockcompqu.indexlocal[0].find([id1],[],bm1) then begin
      id1:= stockcompqu.currentbmasid[sc_footprint,bm1];
-     if (id1 < 0) then begin
+     if (id1 = -1) then begin
       id2:= stockcompqu.currentbmasid[sc_componentkind,bm1];
-      if (id2 >= 0) and compkindqu.indexlocal[0].find([id2],[],bm2) then begin
+      if (id2 <> -1) and compkindqu.indexlocal[0].find([id2],[],bm2) then begin
        id1:= compkindqu.currentbmasid[k_footprint,bm2];
       end;
      end;
     end;
-    if (id1 >= 0) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
+    if (id1 <> -1) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
      s1:= footprintqu.currentbmasmsestring[f_libident,bm1];
      p1:= ps1;
      p2:= ps2;
@@ -3061,131 +3043,6 @@ var
 begin
  ar1:= nil; //compiler warning
  inherited;
-(*
- if reader.beginlist('prodplotstack') then begin
-  count1:= 0;
-  while reader.beginlist('item'+inttostrmse(count1)) do begin
-   additem(fprodplotdefines,typeinfo(fprodplotdefines),count1);
-   with fprodplotdefines[count1-1] do begin
-    readinfoheader(reader,h);
-    productiondir:= reader.readmsestring('productiondir','');
-    createproductionzipfile:= reader.readboolean('createproductionzip',false);
-    productionzipfilename:= reader.readmsestring('productionzipfile','');
-    productionzipdir:= reader.readmsestring('productionzipdir','');
-//    layernames:= reader.readarray('layernames',msestringarty(nil));
-//    plotfiles:= reader.readarray('plotfiles',msestringarty(nil));
-//    plotformats:= reader.readarray('plotformats',integerarty(nil));
-//    drillmarks:= reader.readarray('drillmarks',msestringarty(nil));
-//    layeranames:= reader.readarray('layeranames',msestringarty(nil));
-//    layerbnames:= reader.readarray('layerbnames',msestringarty(nil));
-//    nonplated:= reader.readarray('nonplated',booleanarty(nil));
-//    drillfiles:= reader.readarray('drillfiles',msestringarty(nil));
-{
-    for i1:= 0 to high(plotformats) do begin
-     i2:= plotformats[i1];
-     if (i2 < 0) or (i2 > ord(high(fileformatty))) then begin
-      plotformats[i1]:= 0;
-     end;
-    end;
-    i1:= arrayminhigh([pointer(layernames),pointer(plotfiles),
-                       pointer(plotformats),pointer(drillmarks)])+1;
-    setlength(layernames,i1);
-    setlength(plotfiles,i1);
-    setlength(plotformats,i1);
-    setlength(drillmarks,i1);
-
-    i1:= high(layeranames);
-    if i1 > high(layerbnames) then begin
-     i1:= high(layerbnames);
-    end;
-    if i1 > high(nonplated) then begin
-     i1:= high(nonplated);
-    end;
-    if i1 > high(drillfiles) then begin
-     i1:= high(drillfiles);
-    end;
-    inc(i1);
-    setlength(layeranames,i1);
-    setlength(layerbnames,i1);
-    setlength(nonplated,i1);
-    setlength(drillfiles,i1);
-}
-   end;
-   reader.endlist();
-  end;
-  reader.endlist();
-  setlength(fprodplotdefines,count1);
-  prodplotdefines:= fprodplotdefines; //build name array
- end;
- if reader.beginlist('docustack') then begin
-  count1:= 0;
-  while reader.beginlist('item'+inttostrmse(count1)) do begin
-   additem(ar1,typeinfo(ar1),count1);
-   with ar1[count1-1] do begin
-    readinfoheader(reader,h);
-    docudir:= reader.readmsestring('docudir','');
-    psfile:= reader.readmsestring('psfile','');
-    pdffile:= reader.readmsestring('pdffile','');
-    pagewidth:= reader.readreal('pagewidth',stdpagesizes[sps_a4].width);
-    pageheight:= reader.readreal('pageheight',stdpagesizes[sps_a4].height);
-    leftmargin:= reader.readreal('leftmargin',10.0);
-    rightmargin:= reader.readreal('rightmargin',10.0);
-    topmargin:= reader.readreal('topmargin',10.0);
-    bottommargin:= reader.readreal('bottommargin',10.0);
-    if reader.beginlist('pages') then begin
-     count2:= 0;
-     while reader.beginlist('item'+inttostrmse(count2)) do begin
-      s1:= reader.readmsestring('kind','');
-      for kind1:= high(kind1) downto low(kind1) do begin
-       if s1 = docupageenums[kind1] then begin
-        break;
-       end;
-      end;
-      if (kind1 <> dpk_none) then begin
-       additem(pointerarty(pages),docupageclasses[kind1].create);
-//       pages[high(pages)].readstat(reader,'');
-      end;
-      reader.endlist();
-      inc(count2);
-     end;
-     reader.endlist();
-    end;
-    {
-    titles:= reader.readarray('titles',msestringarty(nil));
-    pagekinds:= reader.readarray('pagekinds',integerarty(nil));
-    if reader.beginlist('layerplots') then begin
-     count2:= 0;
-     while reader.beginlist('item'+inttostrmse(count2)) do begin
-      additem(layerplots,typeinfo(layerplots),count2);
-      with layerplots[count2-1] do begin
-       layername:= reader.readmsestring('layername','');
-      end;
-      reader.endlist();
-     end;
-     reader.endlist();
-     setlength(layerplots,count2);
-    end;
-    if reader.beginlist('schematicplots') then begin
-     count2:= 0;
-     while reader.beginlist('item'+inttostrmse(count2)) do begin
-      additem(schematicplots,typeinfo(schematicplots),count2);
-      with schematicplots[count2-1] do begin
-       psfile:= reader.readmsestring('psfile','');
-      end;
-      reader.endlist();
-     end;
-     reader.endlist();
-     setlength(schematicplots,count2);
-    end;
-    }
-   end;
-   reader.endlist();
-  end;
-  reader.endlist();
-  setlength(ar1,count1);
-  docudefines:= ar1; //build name array
- end;
- *)
 end;
 
 procedure tglobaloptions.writeinfoheader(const awriter: tstatwriter;
