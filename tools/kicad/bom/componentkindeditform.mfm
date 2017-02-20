@@ -44,51 +44,9 @@ inherited componentkindeditfo: tcomponentkindeditfo
     place_options = [plo_scalesize]
     inherited nameed: tdbstringedit
       frame.caption = '&Name'
-      bounds_cx = 156
+      bounds_cx = 209
     end
-    object footprinted1: tdbenum64editdb[1]
-      frame.caption = '&Footprint'
-      frame.font.localprops = []
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.buttons.count = 2
-      frame.buttons.items = <      
-        item
-          imagenr = 17
-          options = [fbo_executeonclientdblclick]
-          shortcut = 306
-          onexecute = footprintedev
-        end      
-        item
-        end>
-      frame.activebutton = 1
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
-      taborder = 1
-      bounds_x = 160
-      bounds_y = 0
-      bounds_cx = 156
-      bounds_cy = 37
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      font.localprops = []
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'FOOTPRINT'
-      dropdown.datasource = mainmo.footprintdso
-      dropdown.keyfield = 'PK'
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 1
-      dropdown.cols.items = <      
-        item
-          datafield = 'NAME'
-        end>
-      reffontheight = 14
-    end
-    object distributored: tdbenum64editdb[2]
+    object distributored: tdbenum64editdb[1]
       frame.caption = '&Distributor'
       frame.font.localprops = []
       frame.localprops = []
@@ -110,10 +68,10 @@ inherited componentkindeditfo: tcomponentkindeditfo
         0
         0
       )
-      taborder = 3
-      bounds_x = 480
+      taborder = 2
+      bounds_x = 426
       bounds_y = 0
-      bounds_cx = 156
+      bounds_cx = 209
       bounds_cy = 37
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
@@ -135,7 +93,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
         end>
       reffontheight = 14
     end
-    object manufacturered: tdbenum64editdb[3]
+    object manufacturered: tdbenum64editdb[2]
       frame.caption = '&Manufacturer'
       frame.font.localprops = []
       frame.localprops = []
@@ -157,10 +115,10 @@ inherited componentkindeditfo: tcomponentkindeditfo
         0
         0
       )
-      taborder = 2
-      bounds_x = 320
+      taborder = 1
+      bounds_x = 213
       bounds_y = 0
-      bounds_cx = 156
+      bounds_cx = 209
       bounds_cy = 37
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]

@@ -32,7 +32,6 @@ type
    value1ed: tdbstringedit;
    valueed: tdbstringedit;
    stripe3: tlayouter;
-   footprinted1: tdbenum64editdb;
    compkinded: tdbenum64editdb;
    stripe4: tlayouter;
    descriptioned: tdbmemodialogedit;
@@ -43,7 +42,6 @@ type
    parameter4ed: tdbmemodialogedit;
    commented: tdbmemodialogedit;
    manufacturered: tdbenum64editdb;
-   footprintinfoed: tdbstringedit;
    tsimplewidget1: tsimplewidget;
    stripe5: tlayouter;
    distributorgrid: tdbwidgetgrid;

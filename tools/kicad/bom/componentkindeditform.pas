@@ -33,7 +33,6 @@ type
    param2ed: tdbmemodialogedit;
    commented: tdbmemodialogedit;
    param3ed: tdbmemodialogedit;
-   footprinted1: tdbenum64editdb;
    param4ed: tdbmemodialogedit;
    distributored: tdbenum64editdb;
    manufacturered: tdbenum64editdb;

@@ -29,7 +29,7 @@ inherited componenteditfo: tcomponenteditfo
     bounds_cx = 668
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placex, lao_aligny]
     align_glue = wam_start
     place_mindist = 4
@@ -48,9 +48,9 @@ inherited componenteditfo: tcomponenteditfo
         0
       )
       taborder = 2
-      bounds_x = 336
+      bounds_x = 448
       bounds_y = 0
-      bounds_cx = 164
+      bounds_cx = 220
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
@@ -69,9 +69,9 @@ inherited componenteditfo: tcomponenteditfo
         0
       )
       taborder = 1
-      bounds_x = 168
+      bounds_x = 224
       bounds_y = 0
-      bounds_cx = 164
+      bounds_cx = 220
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
@@ -91,33 +91,12 @@ inherited componenteditfo: tcomponenteditfo
       )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 164
+      bounds_cx = 220
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'VALUE'
-      reffontheight = 14
-    end
-    object footprintinfoed: tdbstringedit
-      frame.caption = '&Footprintinfo'
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
-      taborder = 3
-      bounds_x = 504
-      bounds_y = 0
-      bounds_cx = 164
-      bounds_cy = 37
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'FOOTPRINTINFO'
       reffontheight = 14
     end
   end
@@ -137,52 +116,6 @@ inherited componenteditfo: tcomponenteditfo
     place_options = [plo_scalesize]
     linktop = stripe2
     dist_top = 4
-    object footprinted1: tdbenum64editdb
-      frame.caption = '&Footprint'
-      frame.font.localprops = []
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.buttons.count = 2
-      frame.buttons.items = <      
-        item
-          imagenr = 17
-          options = [fbo_enabled, fbo_executeonclientdblclick]
-          shortcut = 306
-          onexecute = editfootprintev
-        end      
-        item
-        end>
-      frame.activebutton = 1
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
-      taborder = 1
-      bounds_x = 168
-      bounds_y = 0
-      bounds_cx = 164
-      bounds_cy = 37
-      empty_fontstyle = [fs_italic]
-      empty_textflags = [tf_ycentered]
-      empty_options = [eo_showfocused]
-      empty_textcolor = -1879048173
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      font.localprops = []
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'FOOTPRINT'
-      dropdown.datasource = mainmo.footprintdso
-      dropdown.keyfield = 'PK'
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 1
-      dropdown.cols.items = <      
-        item
-          datafield = 'NAME'
-        end>
-      reffontheight = 14
-    end
     object compkinded: tdbenum64editdb
       frame.caption = 'Comp.-&Kind'
       frame.font.localprops = []
@@ -207,7 +140,7 @@ inherited componenteditfo: tcomponenteditfo
       )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 164
+      bounds_cx = 220
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       font.localprops = []
@@ -246,10 +179,10 @@ inherited componenteditfo: tcomponenteditfo
         0
         0
       )
-      taborder = 2
-      bounds_x = 336
+      taborder = 1
+      bounds_x = 224
       bounds_y = 0
-      bounds_cx = 164
+      bounds_cx = 220
       bounds_cy = 37
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
@@ -271,10 +204,10 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
     object tsimplewidget1: tsimplewidget
-      taborder = 3
-      bounds_x = 504
+      taborder = 2
+      bounds_x = 448
       bounds_y = 21
-      bounds_cx = 164
+      bounds_cx = 220
       bounds_cy = 12
     end
   end
