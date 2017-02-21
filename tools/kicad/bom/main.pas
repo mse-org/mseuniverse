@@ -258,7 +258,7 @@ end;
 
 procedure tmainfo.editfootprintev(const sender: tobject);
 begin
- tfootprintlistfo.create(mainmo.sc_footprint).show(ml_application);
+ tfootprintlistfo.create(mainmo.c_footprint).show(ml_application);
 end;
 
 procedure tmainfo.editfootprintlibev(const sender: TObject);

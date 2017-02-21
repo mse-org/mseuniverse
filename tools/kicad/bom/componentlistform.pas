@@ -41,9 +41,7 @@ type
    dataso: tmsedatasource;
    manufacturerselector: tenum64editdb;
    grid: tdbwidgetgrid;
-   footprinttdi: tdbstringedit;
    manufacturered: tdbenum64editdb;
-   tdbstringedit2: tdbstringedit;
    footprintinfoselector: tenum64editdb;
    procedure edititemev(const sender: TObject);
    procedure rowselectev(const sender: TObject; var avalue: Int64;

@@ -387,7 +387,6 @@ type
    stockcompdetailqu: tmsesqlquery;
    stockcompdetaildso: tmsedatasource;
    stockcompdetaillink: tfieldparamlink;
-   sc_footprint: tmselargeintfield;
    sc_componentkind: tmselargeintfield;
    scd_description: tmsestringfield;
    scd_parameter1: tmsestringfield;
@@ -398,8 +397,6 @@ type
    k_parameter2: tmsestringfield;
    k_parameter3: tmsestringfield;
    k_parameter4: tmsestringfield;
-   k_footprint: tmselargeintfield;
-   k_footprintname: tmsestringfield;
    sc_kindname: tmsestringfield;
    footprintlibqu: tmsesqlquery;
    footprintlibdso: tmsedatasource;
@@ -420,7 +417,6 @@ type
    k_manufacturer: tmselargeintfield;
    k_distributor: tmselargeintfield;
    sc_manufacturer: tmselargeintfield;
-   sc_footprintname: tmsestringfield;
    sc_manufacturername: tmsestringfield;
    k_distributorname: tmsestringfield;
    k_manufacturername: tmsestringfield;
@@ -430,7 +426,6 @@ type
    f_area: tmsefloatfield;
    totarea: tifireallinkcomp;
    f_description: tmsestringfield;
-   sc_footprintinfo: tmsestringfield;
    c_footprintinfo: tmsestringfield;
    prodfilesact: taction;
    python: tpythonscript;
@@ -536,6 +531,7 @@ type
    fdeletedkfootprints: int64arty;
 //   ffootprintlink: int64;
   protected
+   fcurrentfootprint: int64;
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
    procedure dodeletecheck(const asqlres: tsqlresult; 
@@ -612,7 +608,7 @@ type
    procedure createprodfiles(const aindex: int32);
 
    function getid(): int64;
-   procedure getfootprintsfromcompkind();
+   function getfootprintsfromcompkind(): boolean; //false if there are none
    
    function getpagekind(const aname: msestring): docupagekindty;
    function getfileformat(const aname: msestring): fileformatty;
@@ -1191,12 +1187,10 @@ begin
       if stockcompqu.indexlocal[1].find(
                      [compds.currentasmsestring[c_value,i1],
                       compds.currentasmsestring[c_value1,i1],
-                      compds.currentasmsestring[c_value2,i1],
-                      compds.currentasmsestring[c_footprintinfo,i1]],
+                      compds.currentasmsestring[c_value2,i1]],
                      [compds.currentisnull[c_value,i1],
                       compds.currentisnull[c_value1,i1],
-                      compds.currentisnull[c_value2,i1],
-                      compds.currentisnull[c_footprintinfo,i1]]) then begin
+                      compds.currentisnull[c_value2,i1]]) then begin
        id1:= sc_pk.asid;
        compds.currentasid[c_stockitemid,i1]:= id1;
        id2:= sc_componentkind.asid;
@@ -1205,10 +1199,9 @@ begin
        s1:= compds.currentasmsestring[c_footprintinfo,i1];
        if footprintlinksqu.indexlocal[0].find([id1,s1],[],bm2) or
           not sc_componentkind.isnull and 
-               not footprintlinksqu.indexlocal[0].find([id1],[]) and
-                                                  //no component footprints
-                     footprintlinksqu.indexlocal[0].find(
-                                              [id2,s1],[],bm2)then begin
+          not footprintlinksqu.indexlocal[0].find([id1],[]) and
+                                           //no component footprints
+          footprintlinksqu.indexlocal[0].find([id2,s1],[],bm2)then begin
         id1:= footprintlinksqu.currentbmasid[fpl_footprint,bm2];
         compds.currentasid[c_footprintid,i1]:= id1;
         if footprintqu.indexlocal[0].find([id1],[],bm1) then begin
@@ -1220,13 +1213,14 @@ begin
         end;
        end;        
        id1:= sc_manufacturer.asid;
-       if (id1 = -1) and bo1 then begin
+       if (id1 = -1) and (id2 <> -1) then begin
         id1:= compkindqu.currentbmasid[k_manufacturer,bm2];
        end;
        compds.currentasid[c_manufacturerid,i1]:= id1;
        stockcompdetailqu.params[0].asid:= sc_pk.asid; 
                             //manually because of disablecontrols
        stockcompdetailqu.controller.refresh(false);
+       fcurrentfootprint:= compds.currentasid[c_footprintid,i1];
        compds.currentasmsestring[c_description,i1]:=
                                          expandcomponentmacros(scd_description);
        rowstate1:= -1;
@@ -1384,7 +1378,6 @@ begin
    sc_value.asnullmsestring:= c_value.asnullmsestring;
    sc_value1.asnullmsestring:= c_value1.asnullmsestring;
    sc_value2.asnullmsestring:= c_value2.asnullmsestring;
-   sc_footprintinfo.asnullmsestring:= c_footprintinfo.asnullmsestring;
   end
   else begin
    stockcompqu.indexlocal[0].find([idfield]);
@@ -1403,6 +1396,7 @@ begin
  stockcompdetailqu.active:= true;
  stockcompqu.active:= true;
  aquery.active:= true;
+ fcurrentfootprint:= c_footprintid.asid;
  if aid <> -1 then begin
   aquery.indexlocal[0].find([aid],[]);
  end;
@@ -1444,17 +1438,18 @@ function tmainmo.expandcomponentmacros(const atext: msestring): msestring;
 
 var
  bm1,bm2: bookmarkdataty;
- bo1: boolean;
+ hascomponentkind1: boolean;
 
 begin
  result:= '';
  stockcompdetailqu.controller.checkrefresh(); //make pending refresh
- bo1:= not sc_componentkind.isnull and 
+ hascomponentkind1:= not sc_componentkind.isnull and 
                       compkindqu.indexlocal[0].find([sc_componentkind],bm1);
  componentmacroitems[cmn_value]^.value:= sc_value.asmsestring;
  componentmacroitems[cmn_value1]^.value:= sc_value1.asmsestring;
  componentmacroitems[cmn_value2]^.value:= sc_value2.asmsestring;
- if footprintqu.indexlocal[0].find([sc_footprint],bm2) then begin
+
+ if footprintqu.indexlocal[0].find([fcurrentfootprint],[],bm2) then begin
   componentmacroitems[cmn_footprint]^.value:= 
                      footprintqu.currentbmasmsestring[f_name,bm2];
   componentmacroitems[cmn_footprintident]^.value:= 
@@ -1483,9 +1478,10 @@ begin
  componentmacroitems[cmn_parameter3]^.value:= scd_parameter3.asmsestring;
  componentmacroitems[cmn_parameter4]^.value:= scd_parameter4.asmsestring;
 
- if bo1 then begin
+ if hascomponentkind1 then begin 
+ {
   if footprintqu.indexlocal[0].find(
-            [compkindqu.currentbmasid[k_footprint,bm1]],[],bm2) then begin
+            [compkindqu.currentbmasid[c_footprintid,bm1]],[],bm2) then begin
    updatemacro(bm2,f_name,cmn_footprint,cmn_k_footprint);
    updatemacro(bm2,f_ident,cmn_footprintident,cmn_k_footprintident);
    updatemacro(bm2,f_libname,cmn_footprintlibrary,cmn_k_footprintlibrary);
@@ -1498,6 +1494,7 @@ begin
    componentmacroitems[cmn_k_footprintlibrary]^.value:= '';
    componentmacroitems[cmn_k_footprintdescription]^.value:= '';
   end;
+  }
   updatemacro(bm1,k_manufacturername,cmn_manufacturer,cmn_k_manufacturer);
 //  updatemacro(bm1,k_distributorname,cmn_distributor,cmn_k_distributor);
   updatemacro(bm1,k_description,cmn_description,cmn_k_description);
@@ -1507,9 +1504,9 @@ begin
   updatemacro(bm1,k_parameter4,cmn_parameter4,cmn_k_parameter4);
  end
  else begin
-  componentmacroitems[cmn_k_footprint]^.value:= '';
-  componentmacroitems[cmn_k_footprintident]^.value:= '';
-  componentmacroitems[cmn_k_footprintdescription]^.value:= '';
+//  componentmacroitems[cmn_k_footprint]^.value:= '';
+//  componentmacroitems[cmn_k_footprintident]^.value:= '';
+//  componentmacroitems[cmn_k_footprintdescription]^.value:= '';
   componentmacroitems[cmn_k_manufacturer]^.value:= '';
 //  componentmacroitems[cmn_k_distributor]^.value:= '';
   componentmacroitems[cmn_k_description]^.value:= '';
@@ -1777,7 +1774,7 @@ end;
 
 procedure tmainmo.footprintdeletecheckev(DataSet: TDataSet);
 begin
- deletecheck(f_pk,[sc_footprint,k_footprint]);
+ deletecheck(f_pk,[fpl_footprint]);
 end;
 {
 procedure tmainmo.compkindupdatedataev(Sender: TObject);
@@ -1798,7 +1795,7 @@ var
  bm1: bookmarkdataty;
 begin
  with tmsesqlquery(dataset) do begin
-  if indexlocal[1].find([sc_value,sc_value1,sc_value2,sc_footprintinfo],bm1,false,false,true) and
+  if indexlocal[1].find([sc_value,sc_value1,sc_value2],bm1,false,false,true) and
                            (currentbmasid[sc_pk,bm1] <> sc_pk.asid) then begin
    showmessage('Component with this values exist.','ERROR');
    abort();
@@ -1831,6 +1828,7 @@ var
  bm1: bookmarkdataty;
  bo1: boolean;
 begin
+{
  if sc_footprint.isnull then begin
   bo1:= false;
   if not sc_componentkind.isnull then begin
@@ -1853,6 +1851,7 @@ begin
    sc_footprintname.asmsestring:= footprintqu.currentbmasmsestring[f_name,bm1];
   end;
  end;
+}
 end;
 
 procedure tmainmo.validprojectupdateev(const sender: tcustomaction);
@@ -1890,6 +1889,8 @@ begin
    
    for i1:= 0 to compds.recordcount - 1 do begin
     footprintident1:= '';
+    id1:= compds.currentasid[c_footprintid,i1];
+    {
     id1:= compds.currentasid[c_stockitemid,i1];
     if (id1 <> -1) and stockcompqu.indexlocal[0].find([id1],[],bm1) then begin
      id1:= stockcompqu.currentbmasid[sc_footprint,bm1];
@@ -1900,6 +1901,7 @@ begin
       end;
      end;
     end;
+    }
     if (id1 <> -1) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
      s1:= footprintqu.currentbmasmsestring[f_libident,bm1];
      p1:= ps1;
@@ -2294,10 +2296,11 @@ begin
  result:= fid;
 end;
 
-procedure tmainmo.getfootprintsfromcompkind();
+function tmainmo.getfootprintsfromcompkind(): boolean;
 begin
  compkfootprintqu.params[0].value:= sc_componentkind.asid;
  compkfootprintdso.refresh();
+ result:= ckfp_pk.c.griddata.count > 0;
  cfp_pk.c.griddata.assign(ckfp_pk.c.griddata);
  cfp_footprint.c.griddata.assign(ckfp_footprint.c.griddata);
  cfp_footprintinfo.c.griddata.assign(ckfp_footprintinfo.c.griddata);
@@ -2488,7 +2491,7 @@ begin
        ar3[i2]:= fieldname;
        getcompfield(field,ar4[i2],ar5[i2]);
        if ar4[i2] = nil then begin
-        raise exception.create('Invalid BOM field "'+field+'"');
+        raise exception.create(ansistring('Invalid BOM field "'+field+'"'));
        end;
        if ar4[i2].dataset = stockcompdetailqu then begin
         hasdetailfield:= true;

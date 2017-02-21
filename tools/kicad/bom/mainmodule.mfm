@@ -773,13 +773,10 @@ object mainmo: tmainmo
         ParamType = ptInput
       end>
     SQL.data = (
-      'select PK,TSCREATE,TSMODIFY,NAME,FOOTPRINT,MANUFACTURER,DISTRIBUTOR,DESCRIPTION,'
+      'select PK,TSCREATE,TSMODIFY,NAME,MANUFACTURER,DISTRIBUTOR,DESCRIPTION,'
       '       PARAMETER1,PARAMETER2,PARAMETER3,PARAMETER4,COMMENT from COMPONENTKINDS'
     )
     IndexDefs = <    
-      item
-        Name = 'FK_COMPONENTKINDS_0'
-      end    
       item
         Name = 'FK_COMPONENTKINDS_1'
       end    
@@ -815,10 +812,6 @@ object mainmo: tmainmo
         Name = 'NAME'
         DataType = ftString
         Size = 20
-      end    
-      item
-        Name = 'FOOTPRINT'
-        DataType = ftLargeint
       end    
       item
         Name = 'MANUFACTURER'
@@ -945,34 +938,15 @@ object mainmo: tmainmo
       left = 560
       top = 472
     end
-    object k_footprint: tmselargeintfield
-      FieldName = 'FOOTPRINT'
-      Index = 10
-      left = 560
-      top = 376
-    end
-    object k_footprintname: tmsestringfield
-      DisplayWidth = 20
-      FieldKind = fkLookup
-      FieldName = 'footprintname'
-      Index = 11
-      KeyFields = 'FOOTPRINT'
-      LookupDataSet = footprintqu
-      LookupKeyFields = 'PK'
-      LookupResultField = 'NAME'
-      Size = 0
-      left = 560
-      top = 392
-    end
     object k_manufacturer: tmselargeintfield
       FieldName = 'MANUFACTURER'
-      Index = 12
+      Index = 10
       left = 560
       top = 488
     end
     object k_distributor: tmselargeintfield
       FieldName = 'DISTRIBUTOR'
-      Index = 13
+      Index = 11
       left = 560
       top = 520
     end
@@ -980,7 +954,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'manufacturername'
-      Index = 14
+      Index = 12
       KeyFields = 'MANUFACTURER'
       LookupDataSet = vendormo.manufacturerqu
       LookupKeyFields = 'PK'
@@ -994,7 +968,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'distributorname'
-      Index = 15
+      Index = 13
       KeyFields = 'DISTRIBUTOR'
       LookupDataSet = vendormo.distributorqu
       LookupKeyFields = 'PK'
@@ -1013,7 +987,7 @@ object mainmo: tmainmo
   end
   object stockcompqu: tmsesqlquery
     options = [bdo_postsavepoint, bdo_deletesavepoint, bdo_editonapplyerror, bdo_autoapply, bdo_autocommit]
-    indexlocal.count = 8
+    indexlocal.count = 6
     indexlocal.items = <    
       item
         fields.items = <        
@@ -1022,7 +996,7 @@ object mainmo: tmainmo
           end>
       end    
       item
-        fields.count = 4
+        fields.count = 3
         fields.items = <        
           item
             fieldname = 'VALUE'
@@ -1034,17 +1008,13 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'VALUE2'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'FOOTPRINTINFO'
             options = [ifo_caseinsensitive]
           end>
         active = True
         name = 'MAIN'
       end    
       item
-        fields.count = 4
+        fields.count = 3
         fields.items = <        
           item
             fieldname = 'VALUE1'
@@ -1057,82 +1027,26 @@ object mainmo: tmainmo
           item
             fieldname = 'VALUE2'
             options = [ifo_caseinsensitive]
+          end>
+      end    
+      item
+        fields.count = 3
+        fields.items = <        
+          item
+            fieldname = 'VALUE2'
+            options = [ifo_caseinsensitive]
           end        
           item
-            fieldname = 'FOOTPRINTINFO'
+            fieldname = 'VALUE'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'VALUE1'
             options = [ifo_caseinsensitive]
           end>
       end    
       item
         fields.count = 4
-        fields.items = <        
-          item
-            fieldname = 'VALUE2'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE1'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'FOOTPRINTINFO'
-            options = [ifo_caseinsensitive]
-          end>
-      end    
-      item
-        fields.count = 5
-        fields.items = <        
-          item
-            fieldname = 'FOOTPRINTINFO'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE1'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE2'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'FOOTPRINTINFO'
-            options = [ifo_caseinsensitive]
-          end>
-      end    
-      item
-        fields.count = 5
-        fields.items = <        
-          item
-            fieldname = 'FOOTPRINTNAME'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE1'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'VALUE2'
-            options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'FOOTPRINTINFO'
-            options = [ifo_caseinsensitive]
-          end>
-      end    
-      item
-        fields.count = 5
         fields.items = <        
           item
             fieldname = 'KINDNAME'
@@ -1149,14 +1063,10 @@ object mainmo: tmainmo
           item
             fieldname = 'VALUE2'
             options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'FOOTPRINTINFO'
-            options = [ifo_caseinsensitive]
           end>
       end    
       item
-        fields.count = 5
+        fields.count = 4
         fields.items = <        
           item
             fieldname = 'manufacturername'
@@ -1173,30 +1083,15 @@ object mainmo: tmainmo
           item
             fieldname = 'VALUE2'
             options = [ifo_caseinsensitive]
-          end        
-          item
-            fieldname = 'FOOTPRINTINFO'
-            options = [ifo_caseinsensitive]
           end>
       end>
     oninternalcalcfields = stockcompinternalcalcev
     params = <>
     SQL.data = (
-      'select a.PK,a.TSCREATE,a.TSMODIFY,'
-      '         a."VALUE",a.VALUE1,a.VALUE2,a.FOOTPRINTINFO,'
-      '--       coalesce(a."VALUE",'''')as "VALUE",'
-      '--       coalesce(a.VALUE1,'''')as VALUE1,'
-      '--       coalesce(a.VALUE2,'''')as VALUE2,'
-      '       a.FOOTPRINT,a.COMPONENTKIND,a.MANUFACTURER'
-      '--       b.NAME as footprintname, c.NAME as kindname'
-      '    from COMPONENTS a '
-      '--    left join FOOTPRINTS b on a.FOOTPRINT = b.PK'
-      '--    left join COMPONENTKINDS c on a.COMPONENTKIND = c.PK'
+      'select PK,TSCREATE,TSMODIFY,"VALUE",VALUE1,VALUE2,FOOTPRINTINFO,'
+      '       COMPONENTKIND,MANUFACTURER from COMPONENTS '
     )
     IndexDefs = <    
-      item
-        Name = 'FK_COMPONENTS_0'
-      end    
       item
         Name = 'FK_COMPONENTS_1'
       end    
@@ -1246,10 +1141,6 @@ object mainmo: tmainmo
         Name = 'FOOTPRINTINFO'
         DataType = ftString
         Size = 50
-      end    
-      item
-        Name = 'FOOTPRINT'
-        DataType = ftLargeint
       end    
       item
         Name = 'COMPONENTKIND'
@@ -1313,15 +1204,9 @@ object mainmo: tmainmo
       left = 328
       top = 200
     end
-    object sc_footprint: tmselargeintfield
-      FieldName = 'FOOTPRINT'
-      Index = 6
-      left = 328
-      top = 136
-    end
     object sc_componentkind: tmselargeintfield
       FieldName = 'COMPONENTKIND'
-      Index = 7
+      Index = 6
       left = 328
       top = 104
     end
@@ -1329,7 +1214,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'kindname'
-      Index = 8
+      Index = 7
       KeyFields = 'COMPONENTKIND'
       LookupDataSet = compkindqu
       LookupKeyFields = 'PK'
@@ -1341,29 +1226,15 @@ object mainmo: tmainmo
     end
     object sc_manufacturer: tmselargeintfield
       FieldName = 'MANUFACTURER'
-      Index = 9
+      Index = 8
       left = 328
       top = 232
-    end
-    object sc_footprintname: tmsestringfield
-      DisplayWidth = 20
-      FieldKind = fkLookup
-      FieldName = 'footprintname'
-      Index = 10
-      KeyFields = 'FOOTPRINT'
-      LookupDataSet = footprintqu
-      LookupKeyFields = 'PK'
-      LookupResultField = 'NAME'
-      optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      Size = 0
-      left = 328
-      top = 152
     end
     object sc_manufacturername: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'manufacturername'
-      Index = 11
+      Index = 9
       KeyFields = 'MANUFACTURER'
       LookupDataSet = vendormo.manufacturerqu
       LookupKeyFields = 'PK'
@@ -1372,14 +1243,6 @@ object mainmo: tmainmo
       Size = 0
       left = 328
       top = 248
-    end
-    object sc_footprintinfo: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'FOOTPRINTINFO'
-      Index = 12
-      Size = 0
-      left = 328
-      top = 216
     end
   end
   object stockcompdso: tmsedatasource

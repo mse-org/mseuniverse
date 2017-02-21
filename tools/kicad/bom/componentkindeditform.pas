@@ -40,7 +40,7 @@ type
    pked: tint64edit;
    footprintinfoed: tstringedit;
    footprintcommented: tmemodialogedit;
-   tenum64editdb1: tenum64editdb;
+   footprinted: tenum64editdb;
    procedure footprintedev(const sender: TObject);
    procedure editmanufactorerev(const sender: TObject);
    procedure editdistributorev(const sender: TObject);
@@ -55,7 +55,7 @@ uses
  
 procedure tcomponentkindeditfo.footprintedev(const sender: TObject);
 begin
- mainfo.editfootprint(mainmo.k_footprint.asid);
+ mainfo.editfootprint(footprinted.value);
 end;
 
 procedure tcomponentkindeditfo.editmanufactorerev(const sender: TObject);

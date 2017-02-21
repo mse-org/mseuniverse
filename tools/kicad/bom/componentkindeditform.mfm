@@ -363,9 +363,9 @@ inherited componentkindeditfo: tcomponentkindeditfo
         options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'pked'
       end    
-      item[tenum64editdb1]
+      item[footprinted]
         width = 117
-        widgetname = 'tenum64editdb1'
+        widgetname = 'footprinted'
       end    
       item[footprintinfoed]
         width = 100
@@ -395,7 +395,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       ifilink = mainmo.ckfp_pk
       reffontheight = 14
     end
-    object tenum64editdb1: tenum64editdb
+    object footprinted: tenum64editdb
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0

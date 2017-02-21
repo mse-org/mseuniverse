@@ -134,8 +134,6 @@ begin
   if (field = nil) or (field = sc_componentkind) then begin
    if not sc_componentkind.isnull and 
          compkindqu.indexlocal[0].find([sc_componentkind],bm1) then begin
-    footprinted.empty_text:= 
-                     compkindqu.currentbmasmsestring[k_footprintname,bm1];
 
     descriptioned.empty_text:= 
                      compkindqu.currentbmasmsestring[k_description,bm1];
@@ -212,12 +210,13 @@ begin
 // if (not footprintgrid.entered or not navig.canautoedit) and
  if not tmsesqlquery(dataso.dataset).controller.posting1 then begin
   if not (dataso.state in [dsedit,dsinsert]) and nofootprints.value then begin
-   mainmo.getfootprintsfromcompkind();
-   if not fhaskindfootprints then begin
-    fhaskindfootprints:= true;
-    with footprintgrid.datacols.font do begin
-     color:= cl_dkgray;
-     italic:= true;
+   if mainmo.getfootprintsfromcompkind() then begin
+    if not fhaskindfootprints then begin
+     fhaskindfootprints:= true;
+     with footprintgrid.datacols.font do begin
+      color:= cl_dkgray;
+      italic:= true;
+     end;
     end;
    end;
   end
