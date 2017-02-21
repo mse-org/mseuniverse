@@ -562,7 +562,7 @@ type
    destructor destroy(); override;
    procedure createdatabase(const ahostname: msestring;
                                         const adbname: msestring);
-   procedure openproject(const afilename: filenamety);
+   procedure openproject(const afilename: filenamety; const anew: boolean);
    procedure endedit();
    procedure refresh();
    function closeproject(): boolean; //true if not canceled
@@ -1053,7 +1053,7 @@ end;
 procedure tmainmo.mainstatreadev(const sender: TObject);
 begin
  if flastprojectfile <> '' then begin
-  openproject(flastprojectfile);
+  openproject(flastprojectfile,false);
  end;
 end;
 
@@ -1262,21 +1262,26 @@ begin
  end;
 end;
 
-procedure tmainmo.openproject(const afilename: filenamety);
+procedure tmainmo.openproject(const afilename: filenamety; const anew: boolean);
 begin
 // globaloptions.filename:= afilename;
+ setcurrentdirmse(filedir(afilename));
  projectstat.filename:= afilename;
  try
-  projectstat.readstat();
+  if not anew then begin
+   projectstat.readstat();
+  end;
   fhasproject:= true;
   fprojectfile:= afilename;
   fprojectname:= filenamebase(afilename);
-  setcurrentdirmse(filedir(fprojectfile));
+//  setcurrentdirmse(filedir(fprojectfile));
   flastprojectfile:= fprojectfile;
   fmodified:= false;
   updateprojectmacros(projectoptions.projectmacronames,
                                          projectoptions.projectmacrovalues);
-  refresh();
+  if not anew then begin
+   refresh();
+  end;
  except
   compds.active:= false;
   application.handleexception();
@@ -1589,7 +1594,7 @@ begin
  if closeproject() then begin
   getprojectfileopen.controller.execute();
   if fprojectfile <> '' then begin
-   openproject(fprojectfile);
+   openproject(fprojectfile,false);
    statechanged();
   end;
  end;
@@ -1598,10 +1603,11 @@ end;
 procedure tmainmo.newprojectev(const sender: TObject);
 begin
  if closeproject() then begin
-  fprojectfile:= '';
-  fhasproject:= true;
-  statechanged();
-  projectsettingsact.execute(true); //do not check enabled
+  getprojectfilesave.controller.execute();
+  if fprojectfile <> '' then begin
+   openproject(fprojectfile,true);
+   projectsettingsact.execute(true); //do not check enabled
+  end;
  end;
 end;
 

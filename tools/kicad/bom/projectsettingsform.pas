@@ -90,6 +90,7 @@ procedure tprojectsettingsfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 begin
  if amodalresult in [mr_ok,mr_f10] then begin
+  window.nofocus(); //remove empty rows
   projectoptions.storevalues(self,valueprefix);
  end;
 end;

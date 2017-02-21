@@ -36,6 +36,7 @@ type
   mm: int32;
   timestamp: msestring;
   fields: compfieldarty;
+  duplicates: msestringarty; //AR entries from hierarchical sheets
  end;
  
  tkicadschemaparser = class;
@@ -69,6 +70,29 @@ const
 var
  entitytoken: msestring;
 
+function findstringvalue(const items: msestringarty;
+            const name: msestring; var value: msestring): boolean;
+var
+ p1,pe: pmsestring;
+ i1,i2: int32;
+begin
+ result:= false;
+ p1:= pointer(items);
+ pe:= p1 + length(items);
+ while p1 < pe do begin
+  if pos(name,p1^) = 1 then begin
+   i1:= length(name)+1;
+   i2:= length(p1^);
+   if (p1^[i1] = '"') and (i2 > i1) and (p1^[i2] = '"') then begin
+    result:= true;
+    value:= copy(p1^,i1+1,i2-i1-1);
+   end;
+   break;
+  end;
+  inc(p1);
+ end;
+end;
+
 function isentityend(const atext: msestring): boolean;
 begin
  result:= (atext <> '') and (atext[1] = '$') and 
@@ -76,9 +100,9 @@ begin
 end;
 
 var
- mstr1: msestring;
+ s1,s2: msestring;
  eof1: boolean;
- state,s1: sheetstatety;
+ state,st1: sheetstatety;
  entitystate: int32;
  po1: pmsechar;
  ar1: msestringarty;
@@ -89,12 +113,12 @@ var
 begin
  state:= ss_none;
  repeat
-  eof1:= not asource.readln(mstr1);
-  if mstr1 <> '' then begin
+  eof1:= not asource.readln(s1);
+  if s1 <> '' then begin
    case state of
     ss_none: begin
-     if mstr1[1] = '$' then begin
-      entitytoken:= trimright(copy(mstr1,2,bigint));
+     if s1[1] = '$' then begin
+      entitytoken:= trimright(copy(s1,2,bigint));
       if entitytoken <> '' then begin
        po1:= pointer(entitytoken);
        while (po1^ <> ' ') and (po1^ <> #0) do begin
@@ -103,9 +127,9 @@ begin
        setlength(entitytoken,po1-pmsechar(pointer(entitytoken)));
       end;
       state:= ss_unknown;
-      for s1:= firstentity to high(entitytokens) do begin
-       if entitytokens[s1] = entitytoken then begin
-        state:= s1;
+      for st1:= firstentity to high(entitytokens) do begin
+       if entitytokens[st1] = entitytoken then begin
+        state:= st1;
         entitystate:= 0;
         break;
        end;
@@ -113,7 +137,7 @@ begin
      end;
     end;
     ss_unknown: begin
-     if isentityend(mstr1) then begin
+     if isentityend(s1) then begin
       state:= ss_none; //skip unknown entity
      end;
     end;
@@ -126,17 +150,26 @@ begin
        mm:= 0;
        timestamp:= '';
        fields:= nil;
+       duplicates:= nil;
       end;
       fieldcount:= 0;
       inc(entitystate);
      end;
-     if isentityend(mstr1) and assigned(foncomp) then begin
+     if isentityend(s1) and assigned(foncomp) then begin
       setlength(compinfo.fields,fieldcount);
-      foncomp(self,compinfo);
+      if compinfo.duplicates <> nil then begin
+       for i1:= 0 to high(compinfo.duplicates) do begin
+        compinfo.reference:= compinfo.duplicates[i1];
+        foncomp(self,compinfo);
+       end;
+      end
+      else begin
+       foncomp(self,compinfo);
+      end;
       state:= ss_none;
      end
      else begin
-      ar1:= splitstringquoted(mstr1,' ','"',true);
+      ar1:= splitstringquoted(s1,' ','"',true);
       i1:= high(ar1);
       if ar1[0] <> '' then begin
        case ar1[0][1] of
@@ -145,6 +178,13 @@ begin
           compinfo.name:= ar1[1];
           if i1 >= 2 then begin
            compinfo.reference:= ar1[2];
+          end;
+         end;
+        end;
+        'A': begin
+         if ar1[0][2] = 'R' then begin
+          if findstringvalue(ar1,'Ref=',s2) then begin
+           additem(compinfo.duplicates,s2);
           end;
          end;
         end;
