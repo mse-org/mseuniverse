@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,listeditform,
  mdb,mseact,msedataedits,msedbedit,mseedit,msegraphedits,msegrids,mseificomp,
  mseificompglob,mseifiglob,mselookupbuffer,msescrollbar,msestatfile,msestream,
- msestrings,sysutils,msedb,msedbdialog;
+ msestrings,sysutils,msedb,msedbdialog,msetimer;
 
 type
  tfootprintlistfo = class(tlisteditfo)
@@ -31,15 +31,24 @@ type
    idented: tdbstringedit;
  //  procedure closeev(const sender: TObject);
    descriptioned: tdbmemodialogedit;
+   nameselector: tenum64editdb;
+   identselector: tenum64editdb;
+   libraryselector: tenum64editdb;
+   ttimer1: ttimer;
    procedure libeditev(const sender: TObject);
+   procedure rowselectev(const sender: TObject; var avalue: Int64;
+                   var accept: Boolean);
+   procedure teev(const sender: TObject);
   public
 //   constructor create(const aid: tmselargeintfield); reintroduce;
  end;
 
 implementation
 uses
- footprintlistform_mfm,mainmodule,main;
-
+ footprintlistform_mfm,mainmodule,main,mseeditglob;
+type
+ tdataedit1 = class(tcustomdataedit);
+ 
 { tfootprintlistfo }
 {
 constructor tfootprintlistfo.create(const aid: tmselargeintfield);
@@ -57,6 +66,18 @@ end;
 procedure tfootprintlistfo.libeditev(const sender: TObject);
 begin
  mainfo.editfootprintlibev(nil);
+end;
+
+procedure tfootprintlistfo.rowselectev(const sender: TObject; var avalue: Int64;
+               var accept: Boolean);
+begin
+ mainmo.footprintqu.indexlocal[0].find([avalue],[]);
+ grid.setfocus();
+end;
+
+procedure tfootprintlistfo.teev(const sender: TObject);
+begin
+ writeln(des_dbnull in tdataedit1(nameed).fstate);
 end;
 
 end.

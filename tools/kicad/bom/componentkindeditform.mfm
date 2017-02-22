@@ -408,6 +408,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
           color = -1879048187
           imagenr = 17
           options = [fbo_enabled]
+          action = mainfo.editfootprintact
         end      
         item
         end>

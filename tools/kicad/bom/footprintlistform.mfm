@@ -16,7 +16,12 @@ inherited footprintlistfo: tfootprintlistfo
   inherited grid: tdbwidgetgrid
     fixcols.items = <    
       item
+        fixwidgetnames = (
+          ''
+          ''
+        )
       end>
+    fixrows.count = 2
     fixrows.items = <    
       item
         captions.count = 8
@@ -47,6 +52,9 @@ inherited footprintlistfo: tfootprintlistfo
           item
             caption = 'Modified'
           end>
+      end    
+      item
+        height = 16
       end>
     datacols.count = 8
     datacols.sortcol = 0
@@ -63,14 +71,26 @@ inherited footprintlistfo: tfootprintlistfo
     )
     datacols.items = <    
       item[nameed]
+        fixwidgetnames = (
+          ''
+          'nameselector'
+        )
       end    
       item[idented]
         width = 77
         widgetname = 'idented'
+        fixwidgetnames = (
+          ''
+          'identselector'
+        )
       end    
       item[tdbenum64editdb1]
         width = 87
         widgetname = 'tdbenum64editdb1'
+        fixwidgetnames = (
+          ''
+          'libraryselector'
+        )
       end    
       item[areaed]
         width = 93
@@ -80,10 +100,22 @@ inherited footprintlistfo: tfootprintlistfo
         widgetname = 'descriptioned'
       end    
       item[commented]
+        fixwidgetnames = (
+          ''
+          ''
+        )
       end    
       item[tdcreateed]
+        fixwidgetnames = (
+          ''
+          ''
+        )
       end    
       item[tdmodifyed]
+        fixwidgetnames = (
+          ''
+          ''
+        )
       end>
     inherited tdcreateed: tdbdatetimeedit[0]
       taborder = 2
@@ -203,6 +235,152 @@ inherited footprintlistfo: tfootprintlistfo
       datalink.fieldname = 'DESCRIPTION'
       reffontheight = 14
     end
+    object nameselector: tenum64editdb[8]
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 104
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.footprintdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 3
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'NAME'
+          datafield = 'NAME'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'IDENT'
+          datafield = 'IDENT'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'LIBRARY'
+          datafield = 'libname'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object identselector: tenum64editdb[9]
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 1
+      bounds_x = 105
+      bounds_y = 0
+      bounds_cx = 77
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.footprintdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 3
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'IDENT'
+          datafield = 'IDENT'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'NAME'
+          datafield = 'NAME'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'LIBRARY'
+          datafield = 'libname'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object libraryselector: tenum64editdb[10]
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 2
+      bounds_x = 183
+      bounds_y = 0
+      bounds_cx = 87
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      dropdown.datasource = mainmo.footprintdso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 3
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'LIBRARY'
+          datafield = 'libname'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'NAME'
+          datafield = 'NAME'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'IDENT'
+          datafield = 'IDENT'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
   end
   inherited tstatfile1: tstatfile
     filename = 'footprintlistfo.sta'
@@ -211,5 +389,11 @@ inherited footprintlistfo: tfootprintlistfo
     DataSet = mainmo.footprintqu
   end
   inherited dialogact: taction
+  end
+  object ttimer1: ttimer[5]
+    ontimer = teev
+    enabled = True
+    left = 64
+    top = 160
   end
 end
