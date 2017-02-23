@@ -56,13 +56,16 @@ inherited manufacturerlistfo: tmanufacturerlistfo
       end    
       item[tdmodifyed]
       end>
-    inherited nameed: tdbstringedit
-    end
-    inherited tdmodifyed: tdbdatetimeedit[1]
+    inherited tdmodifyed: tdbdatetimeedit[0]
       bounds_x = 450
     end
-    inherited tdcreateed: tdbdatetimeedit
-      bounds_x = 334
+    inherited nameed: tdbstringedit[1]
+    end
+    inherited commented: tdbmemodialogedit[2]
+      frame.buttons.items = <      
+        item
+        end>
+      bounds_x = 237
     end
     object idented: tdbstringedit[3]
       optionswidget1 = [ow1_fontglyphheight]
@@ -79,11 +82,8 @@ inherited manufacturerlistfo: tmanufacturerlistfo
       datalink.fieldname = 'IDENT'
       reffontheight = 14
     end
-    inherited commented: tdbmemodialogedit[4]
-      frame.buttons.items = <      
-        item
-        end>
-      bounds_x = 237
+    inherited tdcreateed: tdbdatetimeedit[4]
+      bounds_x = 334
     end
   end
   inherited tstatfile1: tstatfile

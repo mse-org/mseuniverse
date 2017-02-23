@@ -195,18 +195,24 @@ object componentlistfo: tcomponentlistfo
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.localprops1 = []
-      frame.button.color = -1879048187
-      frame.buttons.count = 1
+      frame.buttons.count = 2
       frame.buttons.items = <      
         item
           color = -1879048187
+          imagenr = 17
+          options = [fbo_enabled]
+          onexecute = editkindev
+        end      
+        item
         end>
+      frame.activebutton = 1
       taborder = 4
       visible = False
       bounds_x = 152
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
+      statfile = tstatfile1
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
       datalink.navigator = navig
@@ -217,14 +223,21 @@ object componentlistfo: tcomponentlistfo
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
       dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
       dropdown.cols.items = <      
         item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
           datafield = 'NAME'
         end      
         item
           width = 100
-          datafield = 'DESIGNATION'
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          datafield = 'DESCRIPTION'
         end>
+      dropdown.width = -1
       reffontheight = 14
     end
     object manufacturered: tdbenum64editdb
@@ -234,18 +247,24 @@ object componentlistfo: tcomponentlistfo
       frame.colorclient = -2147483645
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
       frame.localprops1 = []
-      frame.button.color = -1879048187
-      frame.buttons.count = 1
+      frame.buttons.count = 2
       frame.buttons.items = <      
         item
           color = -1879048187
+          imagenr = 17
+          options = [fbo_enabled]
+          onexecute = editmanuev
+        end      
+        item
         end>
+      frame.activebutton = 1
       taborder = 5
       visible = False
       bounds_x = 203
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 16
+      statfile = tstatfile1
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       datalink.datasource = dataso
       datalink.navigator = navig
@@ -256,14 +275,21 @@ object componentlistfo: tcomponentlistfo
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
       dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
       dropdown.cols.items = <      
         item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
           datafield = 'NAME'
         end      
         item
           width = 100
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
           datafield = 'IDENT'
         end>
+      dropdown.width = -1
       reffontheight = 14
     end
     object valueselector: tenum64editdb
@@ -286,7 +312,7 @@ object componentlistfo: tcomponentlistfo
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 6
+      dropdown.cols.count = 4
       dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
       dropdown.cols.linewidth = 1
       dropdown.cols.items = <      
@@ -307,18 +333,6 @@ object componentlistfo: tcomponentlistfo
           linewidth = 1
           caption = 'Value2'
           datafield = 'VALUE2'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprintinfo'
-          datafield = 'FOOTPRINTINFO'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprint'
-          datafield = 'FOOTPRINTNAME'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
@@ -353,7 +367,7 @@ object componentlistfo: tcomponentlistfo
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 6
+      dropdown.cols.count = 4
       dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
       dropdown.cols.linewidth = 1
       dropdown.cols.items = <      
@@ -374,18 +388,6 @@ object componentlistfo: tcomponentlistfo
           linewidth = 1
           caption = 'Value2'
           datafield = 'VALUE2'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprintinfo'
-          datafield = 'FOOTPRINTINFO'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprint'
-          datafield = 'FOOTPRINTNAME'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
@@ -420,7 +422,7 @@ object componentlistfo: tcomponentlistfo
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 6
+      dropdown.cols.count = 4
       dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
       dropdown.cols.linewidth = 1
       dropdown.cols.items = <      
@@ -441,18 +443,6 @@ object componentlistfo: tcomponentlistfo
           linewidth = 1
           caption = 'Value1'
           datafield = 'VALUE1'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprintinfo'
-          datafield = 'FOOTPRINTINFO'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprint'
-          datafield = 'FOOTPRINTNAME'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
@@ -487,7 +477,7 @@ object componentlistfo: tcomponentlistfo
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 6
+      dropdown.cols.count = 4
       dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
       dropdown.cols.linewidth = 1
       dropdown.cols.items = <      
@@ -514,18 +504,6 @@ object componentlistfo: tcomponentlistfo
           linewidth = 1
           caption = 'Value2'
           datafield = 'VALUE2'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprintinfo'
-          datafield = 'FOOTPRINTINFO'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprint'
-          datafield = 'FOOTPRINTNAME'
         end>
       dropdown.width = -1
       value = -1
@@ -554,7 +532,7 @@ object componentlistfo: tcomponentlistfo
       dropdown.keyfield = 'PK'
       dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
       dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 6
+      dropdown.cols.count = 4
       dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
       dropdown.cols.linewidth = 1
       dropdown.cols.items = <      
@@ -581,18 +559,6 @@ object componentlistfo: tcomponentlistfo
           linewidth = 1
           caption = 'Value2'
           datafield = 'VALUE2'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprintinfo'
-          datafield = 'FOOTPRINTINFO'
-        end      
-        item
-          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
-          linewidth = 1
-          caption = 'Footprint'
-          datafield = 'FOOTPRINTNAME'
         end>
       dropdown.width = -1
       value = -1

@@ -22,7 +22,9 @@ type
                    var amodalresult: modalresultty);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
    procedure loadedev(const sender: TObject);
-  private
+   procedure rowselectev(const sender: TObject; var avalue: Int64;
+                   var accept: Boolean);
+ private
    fidfield: int64;
   public
    constructor create(const aid: int64); reintroduce;
@@ -55,6 +57,13 @@ end;
 procedure tlisteditfo.loadedev(const sender: TObject);
 begin
  mainmo.beginedit(tmsesqlquery(dataso.dataset),fidfield);
+end;
+
+procedure tlisteditfo.rowselectev(const sender: TObject;
+               var avalue: Int64; var accept: Boolean);
+begin
+ tmsesqlquery(dataso.dataset).indexlocal[0].find([avalue],[]);
+ grid.setfocus();
 end;
 
 end.

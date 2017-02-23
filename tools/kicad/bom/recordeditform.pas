@@ -23,6 +23,7 @@ type
                    var info: hintinfoty);
   public
    constructor create(const aid: tmselargeintfield); reintroduce;
+   constructor create(const aid: int64); reintroduce;
  end;
 
 implementation
@@ -35,6 +36,12 @@ begin
  if aid <> nil then begin
   tmsesqlquery(dataso.dataset).indexlocal[0].find([aid]);
  end;
+end;
+
+constructor trecordeditfo.create(const aid: int64);
+begin
+ inherited create(nil);
+ tmsesqlquery(dataso.dataset).indexlocal[0].find([aid],[]);
 end;
 
 procedure trecordeditfo.closequeryev(const sender: tcustommseform;

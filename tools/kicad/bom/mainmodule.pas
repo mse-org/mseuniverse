@@ -461,6 +461,8 @@ type
    footprintlinksqu: tmsesqlquery;
    fpl_link: tmselargeintfield;
    fpl_footprint: tmselargeintfield;
+   fpdeletetest: tsqlresult;
+   f_library: tmselargeintfield;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -507,6 +509,7 @@ type
                    var acount: Integer);
    procedure compfootopenev(const sender: TObject);
    procedure stockcompdatachaev(Sender: TObject; Field: TField);
+   procedure librarydeletecheckev(DataSet: TDataSet);
   private
    fhasproject: boolean;
    fmodified: boolean;
@@ -1716,7 +1719,7 @@ begin
 end;
 
 procedure tmainmo.deletecheck(const id: tmselargeintfield;
-                                const references: array of tmselargeintfield);
+                      const references: array of tmselargeintfield);
 var
  i1: int32;
  mstr1,mstr2,fna: msestring;
@@ -1726,7 +1729,12 @@ begin
   deltest:= distdeletetest;
  end
  else begin
-  deltest:= deletetest;
+  if id.dataset = footprintqu then begin
+   deltest:= fpdeletetest;
+  end
+  else begin
+   deltest:= deletetest;
+  end;
  end;
  for i1:= 0 to high(references) do begin
   with references[i1] do begin
@@ -1746,9 +1754,23 @@ begin
    deltest.params[0].asid:= id.asid;
    deltest.active:= true;
    if not deltest.eof then begin
+    if deltest = fpdeletetest then begin
+     if not deltest.datacols[1].isnull then begin
+      mstr1:= 'component kind';
+      compkindqu.indexlocal[0].find([deltest.datacols[1].asid],[]);
+     end
+     else begin
+      stockcompqu.indexlocal[0].find([deltest.datacols[2].asid],[]);
+      mstr1:= 'component';
+     end;
+    end
+    else begin
+     tmsesqlquery(dataset).indexlocal[0].find([deltest.datacols[1].asid],[]);
+    end;
     errormessage('Record can not be deleted,'+lineend+
               'it is in use by '+mstr1+' "'+
-                             deltest.datacols[0].asmsestring+'"');
+                             deltest.datacols[0].asmsestring+'"'+ lineend+
+              'and '+inttostrmse(deltest.countrest-1)+' other items');
     deltest.active:= false;
     abort(); 
    end;
@@ -1782,6 +1804,12 @@ procedure tmainmo.footprintdeletecheckev(DataSet: TDataSet);
 begin
  deletecheck(f_pk,[fpl_footprint]);
 end;
+
+procedure tmainmo.librarydeletecheckev(DataSet: TDataSet);
+begin
+ deletecheck(fl_pk,[f_library]);
+end;
+
 {
 procedure tmainmo.compkindupdatedataev(Sender: TObject);
 begin

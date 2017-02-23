@@ -50,6 +50,7 @@ type
    procedure compdistaplyev(const sender: tmsesqlquery;
                    const updatekind: TUpdateKind; var asql: msestring;
                    var done: Boolean);
+   procedure validatenameidentev(Sender: TField);
  end;
 var
  vendormo: tvendormo;
@@ -86,6 +87,11 @@ begin
   insertcompdistlinks.refresh([cd_distributor.value,mainmo.sc_pk.value]);
   cd_pk.asid:= insertcompdistlinks[0].asid;
  end;
+end;
+
+procedure tvendormo.validatenameidentev(Sender: TField);
+begin
+ mainmo.validatenameidentev(sender);
 end;
 
 end.

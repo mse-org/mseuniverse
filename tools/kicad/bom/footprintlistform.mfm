@@ -390,10 +390,4 @@ inherited footprintlistfo: tfootprintlistfo
   end
   inherited dialogact: taction
   end
-  object ttimer1: ttimer[5]
-    ontimer = teev
-    enabled = True
-    left = 64
-    top = 160
-  end
 end

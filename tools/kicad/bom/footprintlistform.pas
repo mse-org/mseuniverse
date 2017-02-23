@@ -34,11 +34,7 @@ type
    nameselector: tenum64editdb;
    identselector: tenum64editdb;
    libraryselector: tenum64editdb;
-   ttimer1: ttimer;
    procedure libeditev(const sender: TObject);
-   procedure rowselectev(const sender: TObject; var avalue: Int64;
-                   var accept: Boolean);
-   procedure teev(const sender: TObject);
   public
 //   constructor create(const aid: tmselargeintfield); reintroduce;
  end;
@@ -68,16 +64,5 @@ begin
  mainfo.editfootprintlibev(nil);
 end;
 
-procedure tfootprintlistfo.rowselectev(const sender: TObject; var avalue: Int64;
-               var accept: Boolean);
-begin
- mainmo.footprintqu.indexlocal[0].find([avalue],[]);
- grid.setfocus();
-end;
-
-procedure tfootprintlistfo.teev(const sender: TObject);
-begin
- writeln(des_dbnull in tdataedit1(nameed).fstate);
-end;
 
 end.

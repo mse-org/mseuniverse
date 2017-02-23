@@ -230,6 +230,7 @@ object vendormo: tvendormo
       FieldName = 'NAME'
       Index = 4
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      OnValidate = validatenameidentev
       Size = 0
       left = 32
       top = 72

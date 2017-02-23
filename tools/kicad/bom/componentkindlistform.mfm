@@ -12,7 +12,12 @@ inherited componentkindlistfo: tcomponentkindlistfo
   inherited grid: tdbwidgetgrid
     fixcols.items = <    
       item
+        fixwidgetnames = (
+          ''
+          ''
+        )
       end>
+    fixrows.count = 2
     fixrows.items = <    
       item
         captions.count = 5
@@ -29,6 +34,9 @@ inherited componentkindlistfo: tcomponentkindlistfo
           item
             caption = 'Comment'
           end>
+      end    
+      item
+        height = 16
       end>
     datacols.count = 5
     datacols.colorder = (
@@ -40,16 +48,38 @@ inherited componentkindlistfo: tcomponentkindlistfo
     )
     datacols.items = <    
       item[nameed]
+        fixwidgetnames = (
+          ''
+          'nameselector'
+        )
       end    
       item[descriptioned]
         width = 143
         widgetname = 'descriptioned'
+        fixwidgetnames = (
+          ''
+          'descriptionselector'
+        )
       end    
       item[tdcreateed]
+        options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
+        fixwidgetnames = (
+          ''
+          ''
+        )
       end    
       item[tdmodifyed]
+        options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
+        fixwidgetnames = (
+          ''
+          ''
+        )
       end    
       item[commented]
+        fixwidgetnames = (
+          ''
+          ''
+        )
       end>
     inherited tdcreateed: tdbdatetimeedit[0]
       taborder = 2
@@ -64,7 +94,11 @@ inherited componentkindlistfo: tcomponentkindlistfo
       taborder = 4
       bounds_x = 481
     end
-    object descriptioned: tdbstringedit[3]
+    inherited tdmodifyed: tdbdatetimeedit
+      taborder = 3
+      bounds_x = 365
+    end
+    object descriptioned: tdbstringedit[4]
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
@@ -79,9 +113,88 @@ inherited componentkindlistfo: tcomponentkindlistfo
       datalink.fieldname = 'DESCRIPTION'
       reffontheight = 14
     end
-    inherited tdmodifyed: tdbdatetimeedit[4]
-      taborder = 3
-      bounds_x = 365
+    object descriptionselector: tenum64editdb[5]
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      bounds_x = 105
+      bounds_y = 0
+      bounds_cx = 143
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      dropdown.datasource = dataso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'DESCRIPTION'
+          datafield = 'DESCRIPTION'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'NAME'
+          datafield = 'NAME'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
+    end
+    object nameselector: tenum64editdb[6]
+      optionswidget1 = [ow1_fontglyphheight]
+      frame.levelo = 0
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 104
+      bounds_cy = 16
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      dropdown.datasource = dataso
+      dropdown.keyfield = 'PK'
+      dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_colsizing, deo_savestate]
+      dropdown.optionsdb = [odb_directdata]
+      dropdown.cols.count = 2
+      dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+      dropdown.cols.linewidth = 1
+      dropdown.cols.items = <      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'NAME'
+          datafield = 'NAME'
+        end      
+        item
+          options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+          linewidth = 1
+          caption = 'DESCRIPTION'
+          datafield = 'DESCRIPTION'
+        end>
+      dropdown.width = -1
+      value = -1
+      valuedefault = -1
+      onsetvalue = rowselectev
+      reffontheight = 14
     end
   end
   inherited tstatfile1: tstatfile

@@ -50,6 +50,8 @@ type
                    var amodalresult: modalresultty);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
    procedure loadedev(const sender: TObject);
+   procedure editkindev(const sender: TObject);
+   procedure editmanuev(const sender: TObject);
   private
    fidfield: tmselargeintfield;
   public
@@ -58,7 +60,8 @@ type
 
 implementation
 uses
- componentlistform_mfm,mainmodule,componenteditform,main,msesqldb;
+ componentlistform_mfm,mainmodule,componenteditform,main,msesqldb,
+ componentkindlistform,componentkindeditform,manufacturerlistform;
 
 constructor tcomponentlistfo.create(const aid: tmselargeintfield);
 begin
@@ -96,6 +99,16 @@ end;
 procedure tcomponentlistfo.loadedev(const sender: TObject);
 begin
  mainmo.beginedit(tmsesqlquery(dataso.dataset),fidfield.asid);
+end;
+
+procedure tcomponentlistfo.editkindev(const sender: TObject);
+begin
+ tcomponentkindeditfo.create(kinded.value).show(ml_application);
+end;
+
+procedure tcomponentlistfo.editmanuev(const sender: TObject);
+begin
+ tmanufacturerlistfo.create(manufacturered.value).show(ml_application);
 end;
 
 end.
