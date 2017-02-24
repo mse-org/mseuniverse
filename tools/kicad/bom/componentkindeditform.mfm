@@ -46,54 +46,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       frame.caption = '&Name'
       bounds_cx = 209
     end
-    object distributored: tdbenum64editdb[1]
-      frame.caption = '&Distributor'
-      frame.font.localprops = []
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.buttons.count = 2
-      frame.buttons.items = <      
-        item
-          imagenr = 17
-          options = [fbo_enabled, fbo_executeonclientdblclick]
-          shortcut = 306
-          onexecute = editdistributorev
-        end      
-        item
-        end>
-      frame.activebutton = 1
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
-      taborder = 2
-      bounds_x = 426
-      bounds_y = 0
-      bounds_cx = 209
-      bounds_cy = 37
-      empty_fontstyle = [fs_italic]
-      empty_textflags = [tf_ycentered]
-      empty_options = [eo_showfocused]
-      empty_textcolor = -1879048173
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      font.localprops = []
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'DISTRIBUTOR'
-      datalink.fieldnametext = 'distributorname'
-      dropdown.datasource = vendormo.distributordso
-      dropdown.keyfield = 'PK'
-      dropdown.optionsdb = [odb_directdata]
-      dropdown.cols.count = 1
-      dropdown.cols.items = <      
-        item
-          datafield = 'NAME'
-        end>
-      reffontheight = 14
-    end
-    object manufacturered: tdbenum64editdb[2]
+    object manufacturered: tdbenum64editdb[1]
       frame.caption = '&Manufacturer'
       frame.font.localprops = []
       frame.localprops = []
@@ -138,6 +91,13 @@ inherited componentkindeditfo: tcomponentkindeditfo
           datafield = 'NAME'
         end>
       reffontheight = 14
+    end
+    object tsimplewidget1: tsimplewidget[2]
+      taborder = 2
+      bounds_x = 426
+      bounds_y = 22
+      bounds_cx = 209
+      bounds_cy = 10
     end
   end
   object stripe3: tlayouter[3]

@@ -540,15 +540,24 @@ object mainmo: tmainmo
           end>
       end    
       item
+        fields.count = 3
         fields.items = <        
           item
             fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'IDENT'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'libname'
             options = [ifo_caseinsensitive]
           end>
         active = True
       end    
       item
-        fields.count = 2
+        fields.count = 3
         fields.items = <        
           item
             fieldname = 'IDENT'
@@ -557,10 +566,14 @@ object mainmo: tmainmo
           item
             fieldname = 'NAME'
             options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'libname'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
-        fields.count = 2
+        fields.count = 3
         fields.items = <        
           item
             fieldname = 'libname'
@@ -568,6 +581,10 @@ object mainmo: tmainmo
           end        
           item
             fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'IDENT'
             options = [ifo_caseinsensitive]
           end>
       end>
@@ -791,7 +808,7 @@ object mainmo: tmainmo
         ParamType = ptInput
       end>
     SQL.data = (
-      'select PK,TSCREATE,TSMODIFY,NAME,MANUFACTURER,DISTRIBUTOR,DESCRIPTION,'
+      'select PK,TSCREATE,TSMODIFY,NAME,MANUFACTURER,DESCRIPTION,'
       '       PARAMETER1,PARAMETER2,PARAMETER3,PARAMETER4,COMMENT from COMPONENTKINDS'
     )
     IndexDefs = <    
@@ -836,10 +853,6 @@ object mainmo: tmainmo
         DataType = ftLargeint
       end    
       item
-        Name = 'DISTRIBUTOR'
-        DataType = ftLargeint
-      end    
-      item
         Name = 'DESCRIPTION'
         DataType = ftString
         Size = 200
@@ -879,18 +892,18 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 0
+          Index = 9
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 1
+          Index = 10
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 2
+          Index = 11
           Size = 0
         end>
     )
@@ -902,7 +915,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object k_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 3
+      Index = 0
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
       left = 664
       top = 344
@@ -910,7 +923,7 @@ object mainmo: tmainmo
     object k_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 4
+      Index = 1
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 664
@@ -919,7 +932,7 @@ object mainmo: tmainmo
     object k_description: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
-      Index = 5
+      Index = 2
       Size = 0
       left = 664
       top = 376
@@ -927,7 +940,7 @@ object mainmo: tmainmo
     object k_parameter1: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER1'
-      Index = 6
+      Index = 3
       Size = 0
       left = 664
       top = 392
@@ -935,7 +948,7 @@ object mainmo: tmainmo
     object k_parameter2: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER2'
-      Index = 7
+      Index = 4
       Size = 0
       left = 664
       top = 408
@@ -943,7 +956,7 @@ object mainmo: tmainmo
     object k_parameter3: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER3'
-      Index = 8
+      Index = 5
       Size = 0
       left = 664
       top = 424
@@ -951,28 +964,22 @@ object mainmo: tmainmo
     object k_parameter4: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER4'
-      Index = 9
+      Index = 6
       Size = 0
       left = 664
       top = 440
     end
     object k_manufacturer: tmselargeintfield
       FieldName = 'MANUFACTURER'
-      Index = 10
+      Index = 7
       left = 664
       top = 456
-    end
-    object k_distributor: tmselargeintfield
-      FieldName = 'DISTRIBUTOR'
-      Index = 11
-      left = 664
-      top = 488
     end
     object k_manufacturername: tmsestringfield
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'manufacturername'
-      Index = 12
+      Index = 8
       KeyFields = 'MANUFACTURER'
       LookupDataSet = vendormo.manufacturerqu
       LookupKeyFields = 'PK'
@@ -981,20 +988,6 @@ object mainmo: tmainmo
       Size = 0
       left = 664
       top = 472
-    end
-    object k_distributorname: tmsestringfield
-      DisplayWidth = 20
-      FieldKind = fkLookup
-      FieldName = 'distributorname'
-      Index = 13
-      KeyFields = 'DISTRIBUTOR'
-      LookupDataSet = vendormo.distributorqu
-      LookupKeyFields = 'PK'
-      LookupResultField = 'NAME'
-      optionsfield = [of_readonly, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      Size = 0
-      left = 664
-      top = 504
     end
   end
   object compkinddso: tmsedatasource
@@ -1425,7 +1418,7 @@ object mainmo: tmainmo
   end
   object footprintlibqu: tmsesqlquery
     options = [bdo_editonapplyerror, bdo_autoapply, bdo_autocommitret]
-    indexlocal.count = 2
+    indexlocal.count = 3
     indexlocal.items = <    
       item
         fields.items = <        
@@ -1434,12 +1427,29 @@ object mainmo: tmainmo
           end>
       end    
       item
+        fields.count = 2
         fields.items = <        
           item
             fieldname = 'NAME'
             options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'IDENT'
+            options = [ifo_caseinsensitive]
           end>
         active = True
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'IDENT'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
       end>
     params = <>
     SQL.data = (
@@ -1514,8 +1524,8 @@ object mainmo: tmainmo
     controller.options = [dso_utf8]
     controller.onbeforecopyrecord = beforecopyrecordev
     controller.onaftercopyrecord = aftercopyrecordev
-    left = 328
-    top = 480
+    left = 504
+    top = 352
     streamingversion = 1
     object fl_ident: tmsestringfield
       DisplayWidth = 20
@@ -1523,8 +1533,8 @@ object mainmo: tmainmo
       Index = 3
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
-      left = 336
-      top = 544
+      left = 512
+      top = 416
     end
     object fl_name: tmsestringfield
       DisplayWidth = 20
@@ -1533,22 +1543,22 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnValidate = validatenameidentev
       Size = 0
-      left = 336
-      top = 528
+      left = 512
+      top = 400
     end
     object fl_pk: tmselargeintfield
       FieldName = 'PK'
       Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
-      left = 336
-      top = 512
+      left = 512
+      top = 384
     end
   end
   object footprintlibdso: tmsedatasource
     AutoEdit = False
     DataSet = footprintlibqu
-    left = 328
-    top = 496
+    left = 504
+    top = 368
   end
   object cmplistact: taction
     caption = 'Component-&Footprintlist'
@@ -1624,7 +1634,7 @@ object mainmo: tmainmo
     controller.valuedefault = -Inf
     controller.min = -Inf
     controller.max = 1E+038
-    left = 408
+    left = 400
     top = 360
   end
   object prodfilesact: taction
@@ -2264,19 +2274,19 @@ object mainmo: tmainmo
         end>
     )
     controller.options = [dso_utf8]
-    left = 480
+    left = 504
     top = 280
     streamingversion = 1
     object fpl_link: tmselargeintfield
       FieldName = 'LINK'
       Index = 1
-      left = 488
+      left = 512
       top = 296
     end
     object fpl_footprint: tmselargeintfield
       FieldName = 'FOOTPRINT'
       Index = 2
-      left = 488
+      left = 512
       top = 312
     end
   end

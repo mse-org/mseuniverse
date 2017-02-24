@@ -11,6 +11,8 @@ uses
 type
  tmanufacturerlistfo = class(tlisteditfo)
    idented: tdbstringedit;
+   nameselector: tenum64editdb;
+   identselect: tenum64editdb;
   public
 //   constructor create(const aid: tmselargeintfield); reintroduce;
  end;

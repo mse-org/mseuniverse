@@ -262,19 +262,19 @@ inherited footprintlistfo: tfootprintlistfo
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
-          caption = 'NAME'
+          caption = 'Name'
           datafield = 'NAME'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
-          caption = 'IDENT'
+          caption = 'Ident'
           datafield = 'IDENT'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
-          caption = 'LIBRARY'
+          caption = 'Library'
           datafield = 'libname'
         end>
       dropdown.width = -1
@@ -311,19 +311,19 @@ inherited footprintlistfo: tfootprintlistfo
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
-          caption = 'IDENT'
+          caption = 'Ident'
           datafield = 'IDENT'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
-          caption = 'NAME'
+          caption = 'Name'
           datafield = 'NAME'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
-          caption = 'LIBRARY'
+          caption = 'Library'
           datafield = 'libname'
         end>
       dropdown.width = -1
@@ -360,19 +360,19 @@ inherited footprintlistfo: tfootprintlistfo
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
-          caption = 'LIBRARY'
+          caption = 'Library'
           datafield = 'libname'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
-          caption = 'NAME'
+          caption = 'Name'
           datafield = 'NAME'
         end      
         item
           options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
           linewidth = 1
-          caption = 'IDENT'
+          caption = 'Ident'
           datafield = 'IDENT'
         end>
       dropdown.width = -1

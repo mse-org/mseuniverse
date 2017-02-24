@@ -415,10 +415,8 @@ type
    c_manufacturerid: tmselargeintfield;
    c_componentkindid: tmselargeintfield;
    k_manufacturer: tmselargeintfield;
-   k_distributor: tmselargeintfield;
    sc_manufacturer: tmselargeintfield;
    sc_manufacturername: tmsestringfield;
-   k_distributorname: tmsestringfield;
    k_manufacturername: tmsestringfield;
    c_manufacturername: tmsestringfield;
    c_pk: tmselargeintfield;

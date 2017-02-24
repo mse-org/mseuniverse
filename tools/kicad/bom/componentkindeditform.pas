@@ -34,16 +34,15 @@ type
    commented: tdbmemodialogedit;
    param3ed: tdbmemodialogedit;
    param4ed: tdbmemodialogedit;
-   distributored: tdbenum64editdb;
    manufacturered: tdbenum64editdb;
    footprintgrid: twidgetgrid;
    pked: tint64edit;
    footprintinfoed: tstringedit;
    footprintcommented: tmemodialogedit;
    footprinted: tenum64editdb;
+   tsimplewidget1: tsimplewidget;
    procedure footprintedev(const sender: TObject);
    procedure editmanufactorerev(const sender: TObject);
-   procedure editdistributorev(const sender: TObject);
    procedure editev(const sender: TObject);
    procedure redonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure updatedataev(Sender: TObject);
@@ -61,11 +60,6 @@ end;
 procedure tcomponentkindeditfo.editmanufactorerev(const sender: TObject);
 begin
  mainfo.editmanufacturer(mainmo.k_manufacturer);
-end;
-
-procedure tcomponentkindeditfo.editdistributorev(const sender: TObject);
-begin
- mainfo.editdistributor(mainmo.k_distributor);
 end;
 
 procedure tcomponentkindeditfo.editev(const sender: TObject);
