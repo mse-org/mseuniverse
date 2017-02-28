@@ -27,11 +27,8 @@ uses
 type
  tglobalsettingsfo = class(tmseform)
    tstatfile1: tstatfile;
-   tsplitter1: tsplitter;
-   tbutton2: tbutton;
-   tbutton1: tbutton;
-   tspacer2: tspacer;
    createdbact: taction;
+   texpandingwidget1: texpandingwidget;
    tlayouter1: tlayouter;
    val_psviewer: tfilenameedit;
    val_ps2pdf: tfilenameedit;
@@ -39,6 +36,10 @@ type
    val_databasename: tfilenameedit;
    tbutton3: tbutton;
    val_hostname: tstringedit;
+   tsplitter1: tsplitter;
+   tbutton2: tbutton;
+   tbutton1: tbutton;
+   tspacer2: tspacer;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);

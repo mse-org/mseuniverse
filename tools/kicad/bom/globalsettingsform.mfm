@@ -3,14 +3,14 @@ object globalsettingsfo: tglobalsettingsfo
   bounds_x = 337
   bounds_y = 266
   bounds_cx = 662
-  bounds_cy = 378
+  bounds_cy = 199
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     662
-    378
+    199
   )
   optionswindow = [wo_windowcentermessage]
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -20,52 +20,59 @@ object globalsettingsfo: tglobalsettingsfo
   onclosequery = closequeryev
   onasyncevent = asyncev
   moduleclassname = 'tmseform'
-  object tsplitter1: tsplitter
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    color = -2147483645
-    bounds_x = 539
-    bounds_y = 328
-    bounds_cx = 123
-    bounds_cy = 38
-    anchors = [an_right, an_bottom]
-    optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
-    grip = stb_none
-    object tbutton2: tbutton
-      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-      bounds_x = 58
-      bounds_y = 16
-      bounds_cx = 52
-      bounds_cy = 22
-      bounds_cxmin = 50
-      anchors = [an_top, an_right]
-      state = [as_localcaption]
-      caption = '&Cancel'
-      modalresult = mr_cancel
-      reffontheight = 14
-    end
-    object tbutton1: tbutton
-      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-      taborder = 1
-      bounds_x = 0
-      bounds_y = 16
-      bounds_cx = 50
-      bounds_cy = 22
-      bounds_cxmin = 50
-      anchors = [an_top, an_right]
-      state = [as_default, as_localdefault, as_localcaption]
-      caption = '&OK'
-      modalresult = mr_ok
-      reffontheight = 14
-    end
-    object tspacer2: tspacer
-      taborder = 2
-      bounds_x = 50
-      bounds_y = 16
-      bounds_cx = 8
-      bounds_cy = 20
-      linkleft = tbutton1
-      linkright = tbutton2
-      options = [spao_glueright]
+  object texpandingwidget1: texpandingwidget
+    bounds_x = 0
+    bounds_y = 118
+    bounds_cx = 662
+    bounds_cy = 79
+    anchors = [an_top, an_bottom]
+    object tsplitter1: tsplitter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+      color = -2147483645
+      bounds_x = 539
+      bounds_y = 27
+      bounds_cx = 123
+      bounds_cy = 38
+      anchors = [an_right, an_bottom]
+      optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
+      grip = stb_none
+      object tbutton2: tbutton
+        optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+        bounds_x = 58
+        bounds_y = 16
+        bounds_cx = 52
+        bounds_cy = 22
+        bounds_cxmin = 50
+        anchors = [an_top, an_right]
+        state = [as_localcaption]
+        caption = '&Cancel'
+        modalresult = mr_cancel
+        reffontheight = 14
+      end
+      object tbutton1: tbutton
+        optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+        taborder = 1
+        bounds_x = 0
+        bounds_y = 16
+        bounds_cx = 50
+        bounds_cy = 22
+        bounds_cxmin = 50
+        anchors = [an_top, an_right]
+        state = [as_default, as_localdefault, as_localcaption]
+        caption = '&OK'
+        modalresult = mr_ok
+        reffontheight = 14
+      end
+      object tspacer2: tspacer
+        taborder = 2
+        bounds_x = 50
+        bounds_y = 16
+        bounds_cx = 8
+        bounds_cy = 20
+        linkleft = tbutton1
+        linkright = tbutton2
+        options = [spao_glueright]
+      end
     end
   end
   object tlayouter1: tlayouter
@@ -83,6 +90,7 @@ object globalsettingsfo: tglobalsettingsfo
     place_maxdist = 4
     place_options = [plo_scalesize]
     linktop = tlayouter2
+    linkbottom = texpandingwidget1
     object val_psviewer: tfilenameedit
       frame.caption = 'Postscript Viewer'
       frame.localprops = []
