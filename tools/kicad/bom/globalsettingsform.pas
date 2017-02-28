@@ -36,7 +36,7 @@ type
    val_psviewer: tfilenameedit;
    val_ps2pdf: tfilenameedit;
    tlayouter2: tlayouter;
-   val_databasename: tstringedit;
+   val_databasename: tfilenameedit;
    tbutton3: tbutton;
    val_hostname: tstringedit;
    procedure closequeryev(const sender: tcustommseform;
@@ -64,7 +64,7 @@ const
 procedure tglobalsettingsfo.asyncev(const sender: TObject; var atag: Integer);
 begin
  if atag = dbrefreshtag then begin
-  mainmo.conn.connected:= false;
+  mainmo.disconnect();
   mainmo.refresh();
  end;
 end;
@@ -82,7 +82,7 @@ begin
   globaloptions.storevalues(self,valueprefix);
   mainmo.mainstat.writestat();
   if fdbchanged and mainmo.conn.connected then begin
-   asyncevent(dbrefreshtag,[peo_first]);
+   asyncevent(dbrefreshtag,[peo_modaldefer]);
   end;
  end;
 end;

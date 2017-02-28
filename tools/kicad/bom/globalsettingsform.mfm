@@ -72,7 +72,7 @@ object globalsettingsfo: tglobalsettingsfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 1
     bounds_x = 8
-    bounds_y = 88
+    bounds_y = 81
     bounds_cx = 645
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
@@ -133,7 +133,7 @@ object globalsettingsfo: tglobalsettingsfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 2
     bounds_x = 8
-    bounds_y = 44
+    bounds_y = 37
     bounds_cx = 645
     bounds_cy = 44
     anchors = [an_left, an_top, an_right]
@@ -145,10 +145,16 @@ object globalsettingsfo: tglobalsettingsfo
     place_options = [plo_endmargin]
     onafterlayout = databaseafterlayoutev
     linktop = val_hostname
-    object val_databasename: tstringedit
+    object val_databasename: tfilenameedit
       frame.caption = '&Databasename'
       frame.localprops = []
       frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
       frame.outerframe = (
         0
         17
@@ -160,7 +166,10 @@ object globalsettingsfo: tglobalsettingsfo
       bounds_cx = 570
       bounds_cy = 37
       anchors = [an_left, an_top, an_right]
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
       ondataentered = dbdataenteredev
+      controller.captionopen = 'Set Database File'
       reffontheight = 14
     end
     object tbutton3: tbutton
@@ -186,8 +195,9 @@ object globalsettingsfo: tglobalsettingsfo
       0
     )
     taborder = 3
+    hint = 'Empty Hostname -> use embedded database'
     bounds_x = 8
-    bounds_y = 7
+    bounds_y = 0
     bounds_cx = 570
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]

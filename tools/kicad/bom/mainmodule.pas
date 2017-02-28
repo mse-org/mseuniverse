@@ -461,6 +461,7 @@ type
    fpl_footprint: tmselargeintfield;
    fpdeletetest: tsqlresult;
    f_library: tmselargeintfield;
+   getprojectfilenew: tifiactionlinkcomp;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -509,6 +510,7 @@ type
    procedure stockcompdatachaev(Sender: TObject; Field: TField);
    procedure librarydeletecheckev(DataSet: TDataSet);
   private
+   fdisconnecting: boolean;
    fhasproject: boolean;
    fmodified: boolean;
    foldname: msestring;
@@ -565,6 +567,7 @@ type
                                         const adbname: msestring);
    procedure openproject(const afilename: filenamety; const anew: boolean);
    procedure endedit();
+   procedure disconnect();
    procedure refresh();
    function closeproject(): boolean; //true if not canceled
    function saveproject(const saveas: boolean): boolean;  //true if not canceled
@@ -909,8 +912,8 @@ procedure refreshitems(const alink: tmselargeintfield;
 var
  i1: int32;
 begin
- if not query.controller.posting1 or 
-                       query.controller.deleting then begin
+ if not mainmo.fdisconnecting and (not query.controller.posting1 or 
+                       query.controller.deleting) then begin
   deleted:= nil;
   if query.controller.copying() then begin
    with pk.c.griddata do begin
@@ -1297,6 +1300,17 @@ begin
  end;
 end;
 
+procedure tmainmo.disconnect();
+begin
+ fdisconnecting:= true;
+ try
+  mainmo.conn.connected:= false;
+ finally
+  fdisconnecting:= false;
+ end;
+// compkfootprintdso.active:= false;
+end;
+
 procedure tmainmo.saveupdateev(const sender: tcustomaction);
 begin
  sender.enabled:= modified;
@@ -1604,7 +1618,7 @@ end;
 procedure tmainmo.newprojectev(const sender: TObject);
 begin
  if closeproject() then begin
-  getprojectfilesave.controller.execute();
+  getprojectfilenew.controller.execute();
   if fprojectfile <> '' then begin
    openproject(fprojectfile,true);
    projectsettingsact.execute(true); //do not check enabled
@@ -2895,7 +2909,7 @@ end;
 
 procedure tmainmo.stockcompdatachaev(Sender: TObject; Field: TField);
 begin
- if ((field = nil) or (field = sc_componentkind)) and 
+ if not fdisconnecting and ((field = nil) or (field = sc_componentkind)) and 
                              not stockcompqu.controller.copying then begin
   compfootprintdso.refresh(500000);
  end;

@@ -1041,7 +1041,7 @@ object mainfo: tmainfo
     ifilink = mainmo.getprojectfilesave
     onexecute = getfilenameev
     left = 224
-    top = 112
+    top = 128
   end
   object editprojectsettings: tifiactionendpoint
     ifilink = mainmo.editprojectsettings
@@ -1086,7 +1086,7 @@ object mainfo: tmainfo
     ifilink = mainmo.getdbcredentials
     onexecute = getdbcredentialsev
     left = 224
-    top = 128
+    top = 144
   end
   object horzkonvex: tfacecomp
     template.fade_pos.count = 2
@@ -1175,5 +1175,11 @@ object mainfo: tmainfo
     onexecute = editprodstackev
     left = 440
     top = 224
+  end
+  object getprojectnewfilename: tifiactionendpoint
+    ifilink = mainmo.getprojectfilenew
+    onexecute = getfilenameev
+    left = 224
+    top = 112
   end
 end

@@ -892,18 +892,18 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 9
+          Index = 0
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 10
+          Index = 1
           optionsfield = [of_readonly, of_visible, of_nocopyrecord, of_inwhere]
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 11
+          Index = 2
           Size = 0
         end>
     )
@@ -915,7 +915,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object k_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 0
+      Index = 3
       optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_inkey, of_refreshinsert]
       left = 664
       top = 344
@@ -923,7 +923,7 @@ object mainmo: tmainmo
     object k_name: tmsestringfield
       DisplayWidth = 20
       FieldName = 'NAME'
-      Index = 1
+      Index = 4
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       Size = 0
       left = 664
@@ -932,7 +932,7 @@ object mainmo: tmainmo
     object k_description: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
-      Index = 2
+      Index = 5
       Size = 0
       left = 664
       top = 376
@@ -940,7 +940,7 @@ object mainmo: tmainmo
     object k_parameter1: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER1'
-      Index = 3
+      Index = 6
       Size = 0
       left = 664
       top = 392
@@ -948,7 +948,7 @@ object mainmo: tmainmo
     object k_parameter2: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER2'
-      Index = 4
+      Index = 7
       Size = 0
       left = 664
       top = 408
@@ -956,7 +956,7 @@ object mainmo: tmainmo
     object k_parameter3: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER3'
-      Index = 5
+      Index = 8
       Size = 0
       left = 664
       top = 424
@@ -964,14 +964,14 @@ object mainmo: tmainmo
     object k_parameter4: tmsestringfield
       DisplayWidth = 0
       FieldName = 'PARAMETER4'
-      Index = 6
+      Index = 9
       Size = 0
       left = 664
       top = 440
     end
     object k_manufacturer: tmselargeintfield
       FieldName = 'MANUFACTURER'
-      Index = 7
+      Index = 10
       left = 664
       top = 456
     end
@@ -979,7 +979,7 @@ object mainmo: tmainmo
       DisplayWidth = 20
       FieldKind = fkLookup
       FieldName = 'manufacturername'
-      Index = 8
+      Index = 11
       KeyFields = 'MANUFACTURER'
       LookupDataSet = vendormo.manufacturerqu
       LookupKeyFields = 'PK'
@@ -2334,5 +2334,9 @@ object mainmo: tmainmo
     options = [sso_utf8]
     left = 856
     top = 80
+  end
+  object getprojectfilenew: tifiactionlinkcomp
+    left = 152
+    top = 112
   end
 end

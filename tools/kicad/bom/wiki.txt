@@ -1,0 +1,14 @@
+# MSEkicadBOM
+MSEkicadBOM is a component and footprint database frontend and documents/production file generator application for KiCad.
+http://kicad-pcb.org/  
+MSEkicadBOM scans the schematic files and extracts the components with their field values. It looks-up the VALUE-, VALUE1- and VALUE2-fields in a component database and selects a footprint library-item based on the settings in the database components and the FOOTPRINTINFO-field.
+
+![kicadmain](/uploads/63b5aac27a82de423377a1d6a6c84281/kicadmain.png)
+Currently MSEkicadBOM does what I need, it can be extended if there is enough interest.
+## 1. Prerequisites
+MSEkicadBOM uses a Firebird 3 database: https://firebirdsql.org/  
+Please download it from  https://www.firebirdsql.org/en/firebird-3-0/ and install the package.
+MSEkicadBOM binaries for Linux and Windows are here:
+Source is here:
+https://gitlab.com/mseide-msegui/mseuniverse/tree/master/tools/kicad/bom
+## 2. Global settings

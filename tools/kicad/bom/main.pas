@@ -80,6 +80,7 @@ type
    manufacturerselect: tenum64editdb;
    editdocusetact: taction;
    editprodfilesact: taction;
+   getprojectnewfilename: tifiactionendpoint;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -170,6 +171,11 @@ begin
  kind1:= fdk_open;
  if sender = getprojectsavefilename then begin
   kind1:= fdk_save;
+ end
+ else begin
+  if sender = getprojectnewfilename then begin
+   kind1:= fdk_new;
+  end;
  end;
  if mainmo.projectfiledialog.execute(kind1) = mr_ok then begin
   mainmo.projectfile:= mainmo.projectfiledialog.controller.filename;

@@ -34,10 +34,18 @@ type
    texpandingwidget1: texpandingwidget;
    passworded: tstringedit;
    usernameed: thistoryedit;
+   procedure afterstatev(const sender: TObject);
  end;
  
 implementation
 uses
  credentialsentryform_mfm,mainmodule;
   
+procedure tcredentialsentryfo.afterstatev(const sender: TObject);
+begin
+ if usernameed.value <> '' then begin
+  passworded.setfocus();
+ end;
+end;
+
 end.
