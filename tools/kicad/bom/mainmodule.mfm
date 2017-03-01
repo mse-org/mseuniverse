@@ -109,7 +109,7 @@ object mainmo: tmainmo
     top = 208
   end
   object compds: tlocaldataset
-    indexlocal.count = 14
+    indexlocal.count = 15
     indexlocal.items = <    
       item
         fields.items = <        
@@ -282,6 +282,18 @@ object mainmo: tmainmo
             options = [ifo_caseinsensitive, ifo_natural]
           end>
         name = 'comp'
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'footprintident'
+            options = [ifo_caseinsensitive]
+          end        
+          item
+            fieldname = 'REF'
+            options = [ifo_caseinsensitive]
+          end>
       end>
     FieldDefs = <    
       item
@@ -468,6 +480,14 @@ object mainmo: tmainmo
       Index = 18
       left = 136
       top = 312
+    end
+    object c_footprintident: tmsestringfield
+      DisplayWidth = 20
+      FieldKind = fkInternalCalc
+      FieldName = 'footprintident'
+      Index = 19
+      left = 136
+      top = 376
     end
   end
   object compdso: tmsedatasource
@@ -2338,5 +2358,9 @@ object mainmo: tmainmo
   object getprojectfilenew: tifiactionlinkcomp
     left = 152
     top = 112
+  end
+  object complookupstate: tifiintegerlinkcomp
+    left = 152
+    top = 416
   end
 end

@@ -62,12 +62,12 @@ type
    value1ed: tdbstringedit;
    valu2ed: tdbstringedit;
    footpred: tdbstringedit;
-   footprint: tdbstringedit;
+   fpnameed: tdbstringedit;
    kind: tdbstringedit;
    description: tdbstringedit;
    manufacturer: tdbstringedit;
    editbutton: tstockglyphdatabutton;
-   footprintselector: tenum64editdb;
+   fpnameselector: tenum64editdb;
    kindselector: tenum64editdb;
    descriptionselect: tenum64editdb;
    distributorselect: tenum64editdb;
@@ -81,6 +81,9 @@ type
    editdocusetact: taction;
    editprodfilesact: taction;
    getprojectnewfilename: tifiactionendpoint;
+   fpidented: tdbstringedit;
+   fpidentselector: tenum64editdb;
+   complookupstate: tifiintegerendpoint;
    procedure getfilenameev(const sender: TObject);
    procedure updateprojectstateev(const sender: TObject);
    procedure aboutev(const sender: TObject);
@@ -103,6 +106,7 @@ type
    procedure hintareaev(const sender: TObject; var info: hintinfoty);
    procedure editdocusetev(const sender: TObject);
    procedure editprodstackev(const sender: TObject);
+   procedure lookupstatechaev(const sender: TObject; var avalue: Integer);
   protected
   public
    procedure checkeditclose(const adataso: tdatasource;
@@ -342,6 +346,24 @@ end;
 procedure tmainfo.hintareaev(const sender: TObject; var info: hintinfoty);
 begin
  info.caption:= 'Total footprint area:'+lineend+areadisp.disptext+'mm^2';
+end;
+
+procedure tmainfo.lookupstatechaev(const sender: TObject; var avalue: Integer);
+var
+ co1: colorty;
+begin
+ case complookupstatety(avalue) of
+  cls_ok: begin
+   co1:= cl_parent;
+  end;
+  cls_warn: begin
+   co1:= cl_ltyellow;
+  end;
+  cls_error: begin
+   co1:= cl_ltred;
+  end;
+ end;
+ grid.fixrows[-1].captions[0].color:= co1;
 end;
 
 end.

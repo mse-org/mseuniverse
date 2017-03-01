@@ -38,6 +38,7 @@ const
  defaultquotechar = '"';
  
 type
+ complookupstatety = (cls_ok,cls_warn,cls_error);
  variantarty = array of variant;
  getvalueseventty = function (const index: int32): variantarty of object;
 
@@ -462,6 +463,8 @@ type
    fpdeletetest: tsqlresult;
    f_library: tmselargeintfield;
    getprojectfilenew: tifiactionlinkcomp;
+   c_footprintident: tmsestringfield;
+   complookupstate: tifiintegerlinkcomp;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -560,6 +563,7 @@ type
                                          const nonplated: boolean): msestring;
    function getfootprintitemvalues(const index: int32): variantarty;
    function getkfootprintitemvalues(const index: int32): variantarty;
+   function gettargetfootprintident(const id1: int64): msestring;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -568,7 +572,7 @@ type
    procedure openproject(const afilename: filenamety; const anew: boolean);
    procedure endedit();
    procedure disconnect();
-   procedure refresh();
+   function refresh(): complookupstatety;
    function closeproject(): boolean; //true if not canceled
    function saveproject(const saveas: boolean): boolean;  //true if not canceled
    function doexit: boolean;         //true if not canceled
@@ -1016,7 +1020,13 @@ var
  stream2: tmsefilestream;
 begin
  conn.connected:= false;
- getcredentialsev(nil,username1,password1);
+ s1:= globaloptions.hostname;
+ globaloptions.hostname:= ahostname;
+ try
+  getcredentialsev(nil,username1,password1); //throws abort in case of cancel
+ finally
+  globaloptions.hostname:= s1;
+ end;
  service.username:= stringtoutf8(username1);
  service.password:= stringtoutf8(password1);
  service.hostname:= stringtoutf8(ahostname);
@@ -1118,7 +1128,7 @@ begin
  end;
 end;
 
-procedure tmainmo.refresh();
+function tmainmo.refresh(): complookupstatety;
 var
  parser: tkicadschemaparser;
  stream: ttextstream;
@@ -1131,7 +1141,9 @@ var
  area1,f1: flo64;
  menuitem1: tmenuitem;
  s1: msestring;
+ hascolor0,hascolor1: boolean;
 begin
+ result:= cls_ok;
  try
   application.beginwait();
   try
@@ -1158,6 +1170,8 @@ begin
    compds.disablecontrols();
    parser:= nil;
    area1:= 0;
+   hascolor0:= false;
+   hascolor1:= false;
    try
     recno1:= compds.recno;
     compds.active:= false;
@@ -1208,6 +1222,8 @@ begin
           footprintlinksqu.indexlocal[0].find([id2,s1],[],bm2)then begin
         id1:= footprintlinksqu.currentbmasid[fpl_footprint,bm2];
         compds.currentasid[c_footprintid,i1]:= id1;
+        compds.currentasmsestring[c_footprintident,i1]:= 
+                                       gettargetfootprintident(id1);
         if footprintqu.indexlocal[0].find([id1],[],bm1) then begin
          f1:= footprintqu.currentbmasfloat[f_area,bm1];
          if f1 <> emptyfloat64 then begin
@@ -1227,10 +1243,19 @@ begin
        fcurrentfootprint:= compds.currentasid[c_footprintid,i1];
        compds.currentasmsestring[c_description,i1]:=
                                          expandcomponentmacros(scd_description);
-       rowstate1:= -1;
+       s1:= compds.currentasmsestring[c_footprintident,i1];
+       if (s1 <> '') and 
+              (s1 <> compds.currentasmsestring[c_footprint,i1]) then begin
+        hascolor0:= true;
+        rowstate1:= 0;
+       end
+       else begin
+        rowstate1:= -1;
+       end;
       end
       else begin
-       rowstate1:= 0;
+       rowstate1:= 1;
+       hascolor1:= true;
       end;
       compds.currentasinteger[c_rowstate,i1]:= rowstate1;
      end;
@@ -1260,10 +1285,19 @@ begin
   finally
    application.endwait();
   end;
+  if hascolor1 then begin
+   result:= cls_error;
+  end
+  else begin
+   if hascolor0 then begin
+    result:= cls_warn;
+   end;
+  end;
  except
   compds.active:= false;
   application.handleexception();
  end;
+ complookupstate.c.value:= ord(result);
 end;
 
 procedure tmainmo.openproject(const afilename: filenamety; const anew: boolean);
@@ -1655,9 +1689,15 @@ end;
 procedure tmainmo.getcredentialsev(const sender: tcustomsqlconnection;
                var ausername: msestring; var apassword: msestring);
 begin
- getdbcredentials.controller.execute;
- ausername:= globaloptions.username;
- apassword:= globaloptions.password;
+ if globaloptions.hostname = '' then begin
+  ausername:= '';
+  apassword:= '';
+ end
+ else begin
+  getdbcredentials.controller.execute;
+  ausername:= globaloptions.username;
+  apassword:= globaloptions.password;
+ end;
  globaloptions.fpassword:= '';
 end;
 
@@ -1905,16 +1945,44 @@ begin
  sender.enabled:= hasproject and (compds.recordcount > 0);
 end;
 
+function tmainmo.gettargetfootprintident(const id1: int64): msestring;
+var
+ s1: msestring;
+ p1,p2,pe: pmsestring;
+ id2: int64;
+ i1,i2: int32;
+ bm1,bm2: bookmarkdataty;
+begin
+ result:= '';
+ if (id1 <> -1) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
+  s1:= footprintqu.currentbmasmsestring[f_libident,bm1];
+  i1:= length(projectoptions.libident);
+  
+  i2:= length(projectoptions.libalias);
+  if i2 < i1 then begin
+   i1:= i2;
+  end;
+  p1:= pointer(projectoptions.libident);
+  pe:= p1 + i1;
+  p2:= pointer(projectoptions.libalias);
+  while p1 < pe do begin
+   if s1 = p1^ then begin
+    s1:= p2^;
+    break;
+   end;
+   inc(p1);
+   inc(p2);
+  end;
+  result:= s1 + ':'+footprintqu.currentbmasmsestring[f_ident,bm1];
+ end;
+end;
+
 procedure tmainmo.componentfootprintlistev(const sender: TObject);
 var
  fna1: filenamety;
- i1,i2: int32;
+ i1: int32;
  stream1: ttextstream;
- id1,id2: int64;
- bm1,bm2: bookmarkdataty;
  footprintident1: msestring;
- s1: msestring;
- p1,p2,ps1,ps2,pe: pmsestring;
 begin
  if projectoptions.getfilename(fk_componentfootprint,fna1) then begin
   stream1:= ttextstream.createtransaction(fna1);
@@ -1923,46 +1991,10 @@ begin
    stream1.usewritebuffer:= true;
    stream1.writeln('Cmp-Mod V01 Created by MSEkicadBOM V'+versiontext+
                ' date = '+formatdatetimemse('III',nowutc())+' UTC');
-   i1:= high(projectoptions.libident);
-   
-   i2:= high(projectoptions.libalias);
-   if i2 < i1 then begin
-    i1:= i2;
-   end;
-   ps1:= pointer(projectoptions.libident);
-   pe:= ps1 + i1;
-   ps2:= pointer(projectoptions.libalias);
    
    for i1:= 0 to compds.recordcount - 1 do begin
-    footprintident1:= '';
-    id1:= compds.currentasid[c_footprintid,i1];
-    {
-    id1:= compds.currentasid[c_stockitemid,i1];
-    if (id1 <> -1) and stockcompqu.indexlocal[0].find([id1],[],bm1) then begin
-     id1:= stockcompqu.currentbmasid[sc_footprint,bm1];
-     if (id1 = -1) then begin
-      id2:= stockcompqu.currentbmasid[sc_componentkind,bm1];
-      if (id2 <> -1) and compkindqu.indexlocal[0].find([id2],[],bm2) then begin
-       id1:= compkindqu.currentbmasid[k_footprint,bm2];
-      end;
-     end;
-    end;
-    }
-    if (id1 <> -1) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
-     s1:= footprintqu.currentbmasmsestring[f_libident,bm1];
-     p1:= ps1;
-     p2:= ps2;
-     while p1 <= pe do begin
-      if s1 = p1^ then begin
-       s1:= p2^;
-       break;
-      end;
-      inc(p1);
-      inc(p2);
-     end;
-     footprintident1:= s1 + ':'+
-                        footprintqu.currentbmasmsestring[f_ident,bm1];
-    end;
+    footprintident1:= 
+               gettargetfootprintident(compds.currentasid[c_footprintid,i1]);
     if footprintident1 <> '' then begin
      stream1.writeln();
      stream1.writeln('BeginCmp');
