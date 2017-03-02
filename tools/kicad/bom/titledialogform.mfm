@@ -50,4 +50,6 @@ inherited titledialogfo: ttitledialogfo
   end
   inherited dataso: tmsedatasource[4]
   end
+  inherited f10act: taction[5]
+  end
 end

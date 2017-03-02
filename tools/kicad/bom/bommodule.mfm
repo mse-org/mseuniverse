@@ -287,30 +287,30 @@ object bommo: tbommo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 0
+          Index = 10
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 1
+          Index = 11
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 2
+          Index = 12
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'NAME'
-          Index = 3
+          Index = 13
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'DESCRIPTION'
-          Index = 4
+          Index = 14
           Size = 0
         end>
     )
@@ -323,35 +323,38 @@ object bommo: tbommo
     streamingversion = 1
     object ds_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 5
-      optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
+      Index = 0
+      optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 16
       top = 176
     end
     object ds_docudir: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DOCUDIR'
-      Index = 6
+      Index = 1
+      Size = 0
       left = 16
       top = 192
     end
     object ds_psfile: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PSFILE'
-      Index = 7
+      Index = 2
+      Size = 0
       left = 16
       top = 208
     end
     object ds_pdffile: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PDFFILE'
-      Index = 8
+      Index = 3
+      Size = 0
       left = 16
       top = 224
     end
     object ds_width: tmsefloatfield
       FieldName = 'WIDTH'
-      Index = 9
+      Index = 4
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -359,7 +362,7 @@ object bommo: tbommo
     end
     object ds_height: tmsefloatfield
       FieldName = 'HEIGHT'
-      Index = 10
+      Index = 5
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -367,7 +370,7 @@ object bommo: tbommo
     end
     object ds_margleft: tmsefloatfield
       FieldName = 'MARGLEFT'
-      Index = 11
+      Index = 6
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -375,7 +378,7 @@ object bommo: tbommo
     end
     object ds_margright: tmsefloatfield
       FieldName = 'MARGRIGHT'
-      Index = 12
+      Index = 7
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -383,7 +386,7 @@ object bommo: tbommo
     end
     object ds_margtop: tmsefloatfield
       FieldName = 'MARGTOP'
-      Index = 13
+      Index = 8
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -391,7 +394,7 @@ object bommo: tbommo
     end
     object ds_margbottom: tmsefloatfield
       FieldName = 'MARGBOTTOM'
-      Index = 14
+      Index = 9
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -868,11 +871,6 @@ object bommo: tbommo
         Size = 500
       end    
       item
-        Name = 'KIND'
-        DataType = ftString
-        Size = 50
-      end    
-      item
         Name = 'TITLE'
         DataType = ftString
         Size = 70
@@ -936,6 +934,15 @@ object bommo: tbommo
       item
         Name = 'NPT'
         DataType = ftBoolean
+      end    
+      item
+        Name = 'KIND'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'DEFLINEWIDTH'
+        DataType = ftFloat
       end>
     controller.options = [dso_utf8]
     left = 616
@@ -1081,6 +1088,14 @@ object bommo: tbommo
       Size = 0
       left = 624
       top = 72
+    end
+    object pi_deflinewidth: tmsefloatfield
+      FieldName = 'DEFLINEWIDTH'
+      Index = 17
+      MaxValue = 0
+      MinValue = 0
+      left = 624
+      top = 328
     end
   end
   object pageitempkpar: tparamconnector

@@ -71,6 +71,8 @@ type
    partlistfileed: tstringedit;
    tstockglyphdatabutton1: tstockglyphdatabutton;
    bomfieldact: taction;
+   stripe2a: tlayouter;
+   commented: tdbmemodialogedit;
    procedure editedev(const sender: TObject);
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure formatsetev(const sender: TObject; var avalue: msestring;

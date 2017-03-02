@@ -29,8 +29,6 @@ type
    designationed: tdbstringedit;
    descriptioned: tdbstringedit;
  //  procedure closeev(const sender: TObject);
-   descriptionselector: tenum64editdb;
-   nameselector: tenum64editdb;
    procedure dialogev(const sender: TObject);
   public
 //   constructor create(); reintroduce;

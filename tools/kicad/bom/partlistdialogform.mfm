@@ -22,4 +22,6 @@ inherited partlistdialogfo: tpartlistdialogfo
   end
   inherited dataso: tmsedatasource
   end
+  inherited f10act: taction
+  end
 end

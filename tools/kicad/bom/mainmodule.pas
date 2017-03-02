@@ -213,6 +213,7 @@ type
   psfile: msestring;
   showreferences: boolean;
   showdistributors: boolean;
+  deflinewidth: flo64;
  end;
  docupageinfoarty = array of docupageinfoty;
 
@@ -465,6 +466,7 @@ type
    getprojectfilenew: tifiactionlinkcomp;
    c_footprintident: tmsestringfield;
    complookupstate: tifiintegerlinkcomp;
+   fieldquery: tsqlresult;
    procedure getprojectoptionsev(const sender: TObject; var aobject: TObject);
    procedure getmainoptionsev(const sender: TObject; var aobject: TObject);
    procedure mainstatreadev(const sender: TObject);
@@ -512,6 +514,7 @@ type
    procedure compfootopenev(const sender: TObject);
    procedure stockcompdatachaev(Sender: TObject; Field: TField);
    procedure librarydeletecheckev(DataSet: TDataSet);
+   procedure afterconnev(const sender: tmdatabase);
   private
    fdisconnecting: boolean;
    fhasproject: boolean;
@@ -572,6 +575,7 @@ type
    procedure openproject(const afilename: filenamety; const anew: boolean);
    procedure endedit();
    procedure disconnect();
+   procedure checkdbcompatibility();
    function refresh(): complookupstatety;
    function closeproject(): boolean; //true if not canceled
    function saveproject(const saveas: boolean): boolean;  //true if not canceled
@@ -597,6 +601,7 @@ type
    function getboardfile(var afilename: filenamety): boolean; //true if ok
    function plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
+                    const adeflinewidth: flo64;
                    const alayer: layerinforecty; const alast: boolean): boolean;
    function drillfile(const aboard: filenamety; const adrillfile: filenamety;
              const akind: drillfilekindty;
@@ -1345,6 +1350,25 @@ begin
 // compkfootprintdso.active:= false;
 end;
 
+procedure tmainmo.checkdbcompatibility();
+
+ function checkfield(const atable,afield,adomain: msestring): boolean; 
+                                                 //true if field exists
+ begin
+  fieldquery.sql.macros[0].value.text:= atable;
+  fieldquery.active:= true;
+  fieldquery.active:= false;
+  result:= fieldquery.fielddefs.indexof(afield) >= 0;
+  if not result then begin
+   conn.executedirect(
+       'alter table "'+atable+'" add "'+afield+'" "'+adomain+'"',transwrite);
+  end; //checkfield
+ end;
+begin
+ checkfield('DOCUPAGES','DEFLINEWIDTH','FLO');
+ transwrite.commit();
+end;
+
 procedure tmainmo.saveupdateev(const sender: tcustomaction);
 begin
  sender.enabled:= modified;
@@ -2051,6 +2075,7 @@ end;
 
 function tmainmo.plotfile(const aboard: filenamety; const aplotdir: filenamety;
                       var aplotfile: filenamety; const aformat: fileformatty;
+                      const adeflinewidth: flo64;
                  const alayer: layerinforecty; const alast: boolean): boolean;
 var
  dir1: filenamety;
@@ -2103,8 +2128,9 @@ begin
  setlength(s9,length(s9)-1); //remove last comma
  with alayer do begin
   result:= execpy('plotfile',
-      [aboard,tosysfilepath(dir1),mainmodule.fileformatcodes[aformat],s2,s3,
-                                 s4,s5,s6,s7,s8,s9],alast);
+      [aboard,tosysfilepath(dir1),mainmodule.fileformatcodes[aformat],
+                  realtytostrmse(adeflinewidth,true),
+                  s2,s3,s4,s5,s6,s7,s8,s9],alast);
  end;
  s1:= filenamebase(aboard)+'-'+mainmodule.layercodes[alayer.layers[0].layer]+'.'+
                                        mainmodule.fileformatexts[aformat];
@@ -2296,6 +2322,7 @@ begin
      psfile:= expandprojectmacros(pi_filename.asmsestring);
      showreferences:= pi_showref.asboolean;
      showdistributors:= pi_showdist.asboolean;
+     deflinewidth:= pi_deflinewidth.asfloat;
      plotitemdso.refresh();
      setlength(layers,pli_pk.c.griddata.count);
      for i2:= 0 to high(layers) do begin
@@ -2486,7 +2513,7 @@ begin
     with plotfiles[i1] do begin
      lainf1.layers[0]:= layer;
      s1:= filename;
-     if not plotfile(board1,plotdir1,s1,format,lainf1,
+     if not plotfile(board1,plotdir1,s1,format,emptyreal,lainf1,
            (i1 = high(plotfiles)) and not hasdrill and 
                                       not createproductionzipfile) then begin
       break;
@@ -2736,7 +2763,8 @@ begin
       lainf1.layers:= layers;
       if lainf1.layers <> nil then begin
        s1:= tmpfile;
-       if not plotfile(boardfile1,tmpf,s1,ff_postscript,lainf1,false) then begin
+       if not plotfile(boardfile1,tmpf,s1,ff_postscript,deflinewidth,
+                                                 lainf1,false) then begin
         error1:= true;
         break;
        end;
@@ -2945,6 +2973,11 @@ begin
                              not stockcompqu.controller.copying then begin
   compfootprintdso.refresh(500000);
  end;
+end;
+
+procedure tmainmo.afterconnev(const sender: tmdatabase);
+begin
+ checkdbcompatibility();
 end;
 
 { tprojectoptions }

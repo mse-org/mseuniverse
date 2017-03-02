@@ -157,4 +157,6 @@ inherited drillmapdialogfo: tdrillmapdialogfo
   end
   inherited dataso: tmsedatasource[5]
   end
+  inherited f10act: taction[6]
+  end
 end

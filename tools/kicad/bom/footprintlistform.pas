@@ -31,9 +31,6 @@ type
    idented: tdbstringedit;
  //  procedure closeev(const sender: TObject);
    descriptioned: tdbmemodialogedit;
-   nameselector: tenum64editdb;
-   identselector: tenum64editdb;
-   libraryselector: tenum64editdb;
    procedure libeditev(const sender: TObject);
   public
 //   constructor create(const aid: tmselargeintfield); reintroduce;

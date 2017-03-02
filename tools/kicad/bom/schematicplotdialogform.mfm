@@ -55,8 +55,9 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
       onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 244
+      bounds_cx = 538
       bounds_cy = 37
+      anchors = [an_top]
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_saveoptions, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
@@ -107,5 +108,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
   end
   inherited tstatfile1: tstatfile[5]
     filename = 'schematicplotdialogfo.sta'
+  end
+  inherited f10act: taction[6]
   end
 end

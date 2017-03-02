@@ -18,6 +18,8 @@ type
    dataso: tmsedatasource;
    dialogact: taction;
    commented: tdbmemodialogedit;
+   nameselector: tenum64editdb;
+   descriptionselector: tenum64editdb;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure cellev(const sender: TObject; var info: celleventinfoty);

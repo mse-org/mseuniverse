@@ -404,7 +404,6 @@ inherited componenteditfo: tcomponenteditfo
         0
       )
       taborder = 5
-      onshowhint = macrohintev
       bounds_x = 0
       bounds_y = 100
       bounds_cx = 649

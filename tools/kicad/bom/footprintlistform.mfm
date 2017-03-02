@@ -57,8 +57,6 @@ inherited footprintlistfo: tfootprintlistfo
         height = 16
       end>
     datacols.count = 8
-    datacols.sortcol = 0
-    datacols.sortcoldefault = 0
     datacols.colorder = (
       'nameed'
       'idented'

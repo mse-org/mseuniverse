@@ -77,6 +77,8 @@ object listeditfo: tlisteditfo
           end>
       end>
     datacols.count = 4
+    datacols.sortcol = 0
+    datacols.sortcoldefault = 0
     datacols.items = <    
       item[nameed]
         width = 104

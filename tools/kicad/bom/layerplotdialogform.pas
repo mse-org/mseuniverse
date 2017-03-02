@@ -22,7 +22,8 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mseact,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,msestream,
  msestrings,sysutils,msesplitter,msesimplewidgets,mainmodule,plotsettings,
- msegrids,msewidgetgrid,msegraphedits,msescrollbar,plotpageeditform;
+ msegrids,msewidgetgrid,msegraphedits,msescrollbar,plotpageeditform,mdb,
+ msedbedit,mselookupbuffer;
 type
  tlayerplotdialogfo = class(tplotpageeditfo)
    tlayouter1: tlayouter;
@@ -37,7 +38,10 @@ type
    val_invison: tbooleanedit;
    pked: tint64edit;
    val_drillmarks: tdropdownlistedit;
+   plotoptcont: tlayouter;
+   linewidthed: tdbrealedit;
    procedure editedev(const sender: TObject);
+   procedure layoutev(const sender: TObject);
   private
   protected
 //   procedure loadvalues() override;
@@ -80,6 +84,11 @@ begin
   dataso.dataset.edit();
   dataso.dataset.modify(); //set modified flag
  end;
+end;
+
+procedure tlayerplotdialogfo.layoutev(const sender: TObject);
+begin
+ aligny(wam_center,[plotsettingsfo.val_shiftvert,linewidthed]);
 end;
 
 end.

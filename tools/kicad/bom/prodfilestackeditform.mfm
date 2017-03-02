@@ -66,7 +66,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
-    bounds_y = 97
+    bounds_y = 136
     bounds_cx = 686
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
@@ -76,7 +76,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
     place_mindist = 4
     place_maxdist = 4
     place_options = [plo_endmargin]
-    linktop = stripe2
+    linktop = stripe2a
     linkbottom = ttabwidget1
     dist_bottom = 4
     object createziped: tdbbooleanedit
@@ -150,9 +150,9 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
   end
   object ttabwidget1: ttabwidget[4]
     bounds_x = 0
-    bounds_y = 138
+    bounds_y = 177
     bounds_cx = 701
-    bounds_cy = 268
+    bounds_cy = 229
     anchors = [an_top, an_bottom]
     taborder = 4
     activepageindex = 0
@@ -167,7 +167,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 701
-      bounds_cy = 249
+      bounds_cy = 210
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Plotfiles'
       object plotsgrid: twidgetgrid
@@ -176,7 +176,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 701
-        bounds_cy = 249
+        bounds_cy = 210
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -432,7 +432,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 701
-      bounds_cy = 249
+      bounds_cy = 210
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Drillfiles'
       object drillgrid: twidgetgrid
@@ -441,7 +441,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         bounds_x = 0
         bounds_y = 41
         bounds_cx = 701
-        bounds_cy = 208
+        bounds_cy = 169
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -758,7 +758,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 701
-      bounds_cy = 249
+      bounds_cy = 210
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Posfiles'
       object posgrid: twidgetgrid
@@ -767,7 +767,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 701
-        bounds_cy = 249
+        bounds_cy = 210
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -933,7 +933,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 701
-      bounds_cy = 249
+      bounds_cy = 210
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Partlists'
       object bomgrid: twidgetgrid
@@ -942,7 +942,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 701
-        bounds_cy = 249
+        bounds_cy = 210
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -1063,14 +1063,53 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       end
     end
   end
-  inherited dataso: tmsedatasource[5]
+  object stripe2a: tlayouter[5]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 5
+    bounds_x = 8
+    bounds_y = 97
+    bounds_cx = 686
+    bounds_cy = 39
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_aligny]
+    linktop = stripe2
+    linkbottom = stripe3
+    object commented: tdbmemodialogedit
+      frame.caption = '&Comment'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 2
+      bounds_cx = 686
+      bounds_cy = 37
+      anchors = [an_top]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'COMMENT'
+      reffontheight = 14
+    end
+  end
+  inherited dataso: tmsedatasource[6]
     DataSet = bommo.prodfilestackqu
     OnUpdateData = updatedataev
   end
-  inherited tstatfile1: tstatfile[6]
+  inherited tstatfile1: tstatfile[7]
     filename = 'prodfilefo.sta'
   end
-  object bomfieldact: taction[7]
+  object bomfieldact: taction[8]
     onexecuteaction = bomfieldeditev
     left = 424
     top = 224

@@ -3,6 +3,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
   bounds_x = 337
   bounds_y = 266
   bounds_cx = 618
+  container.onlayout = layoutev
   container.bounds = (
     0
     0
@@ -10,9 +11,12 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     328
   )
   caption = 'Docu PCB Layer-Plot Page'
+  onlayout = layoutev
   moduleclassname = 'tplotpageeditfo'
   inherited tsplitter1: tsplitter
     bounds_x = 495
+    linkleft = plotoptcont
+    dist_left = 4
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -390,9 +394,45 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       datalink.fieldname = 'SHIFTVERT'
     end
   end
-  inherited dataso: tmsedatasource[5]
+  object plotoptcont: tlayouter[5]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 5
+    bounds_x = 262
+    bounds_y = 235
+    bounds_cx = 229
+    bounds_cy = 81
+    anchors = [an_left, an_right, an_bottom]
+    optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linkleft = plotsettingsfo
+    linktop = tlayouter1
+    object linewidthed: tdbrealedit
+      frame.caption = 'Default line'#10' width (mm)'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        31
+        7
+        0
+      )
+      bounds_x = 7
+      bounds_y = 30
+      bounds_cx = 75
+      bounds_cy = 51
+      datalink.datasource = bommo.pageitemdso
+      datalink.fieldname = 'DEFLINEWIDTH'
+      min = 0
+      max = 1000
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
   end
-  inherited tstatfile1: tstatfile[6]
+  inherited dataso: tmsedatasource[6]
+  end
+  inherited tstatfile1: tstatfile[7]
     filename = 'layerplotpageeditfo.sta'
+  end
+  inherited f10act: taction[8]
   end
 end

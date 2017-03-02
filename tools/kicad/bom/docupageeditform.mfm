@@ -96,4 +96,14 @@ object docupageeditfo: tdocupageeditfo
     left = 224
     top = 64
   end
+  object f10act: taction
+    options = [ao_localshortcut]
+    onexecute = f10ev
+    left = 368
+    top = 64
+    sc = (
+      1
+      313
+    )
+  end
 end
