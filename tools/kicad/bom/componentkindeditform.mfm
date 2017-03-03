@@ -24,7 +24,6 @@ inherited componentkindeditfo: tcomponentkindeditfo
     end
   end
   inherited stripe1: tlayouter
-    taborder = 0
     bounds_cx = 641
     inherited nameselector: tenum64editdb
       frame.buttons.items = <      

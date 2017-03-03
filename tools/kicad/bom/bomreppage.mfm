@@ -18,7 +18,6 @@ inherited bomreppa: tbomreppa
       bounds_y = 42
       bounds_cx = 510
       bounds_cy = 19
-      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       tabs.count = 3
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0

@@ -1,5 +1,4 @@
 inherited titledialogfo: ttitledialogfo
-  visible = False
   bounds_x = 1118
   bounds_y = 345
   container.bounds = (

@@ -557,7 +557,7 @@ inherited docuseteditfo: tdocuseteditfo
       )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 180
+      bounds_cx = 204
       bounds_cy = 37
       datalink.datasource = dataso
       datalink.fieldname = 'FONT'
@@ -570,13 +570,13 @@ inherited docuseteditfo: tdocuseteditfo
       frame.outerframe = (
         0
         17
-        0
+        15
         0
       )
       taborder = 1
-      bounds_x = 184
+      bounds_x = 208
       bounds_y = 0
-      bounds_cx = 76
+      bounds_cx = 75
       bounds_cy = 37
       datalink.datasource = dataso
       datalink.fieldname = 'FONTHEIGHT'

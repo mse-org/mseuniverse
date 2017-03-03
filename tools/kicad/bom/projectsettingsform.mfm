@@ -565,14 +565,30 @@ object projectsettingsfo: tprojectsettingsfo
             bounds_y = 0
             bounds_cx = 352
             bounds_cy = 16
+            statfile = tstatfile1
             optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
             dropdown.datasource = bommo.prodfielstackdso
+            dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
             dropdown.optionsdb = [odb_opendataset, odb_closedataset, odb_directdata]
-            dropdown.cols.count = 1
+            dropdown.cols.count = 2
+            dropdown.cols.width = 100
+            dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
             dropdown.cols.items = <            
               item
+                width = 100
+                options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+                linewidth = 1
+                caption = 'Name'
                 datafield = 'NAME'
+              end            
+              item
+                width = 100
+                options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+                linewidth = 1
+                caption = 'Comment'
+                datafield = 'COMMENT'
               end>
+            dropdown.width = -1
             reffontheight = 14
           end
         end
@@ -632,14 +648,30 @@ object projectsettingsfo: tprojectsettingsfo
             bounds_y = 0
             bounds_cx = 352
             bounds_cy = 16
+            statfile = tstatfile1
             optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
             dropdown.datasource = bommo.docusetdso
+            dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_cliphint, deo_colsizing, deo_savestate]
             dropdown.optionsdb = [odb_opendataset, odb_closedataset, odb_directdata]
-            dropdown.cols.count = 1
+            dropdown.cols.count = 2
+            dropdown.cols.width = 100
+            dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
             dropdown.cols.items = <            
               item
+                width = 100
+                options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+                linewidth = 1
+                caption = 'Name'
                 datafield = 'NAME'
+              end            
+              item
+                width = 100
+                options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect]
+                linewidth = 1
+                caption = 'Comment'
+                datafield = 'COMMENT'
               end>
+            dropdown.width = -1
             reffontheight = 14
           end
         end

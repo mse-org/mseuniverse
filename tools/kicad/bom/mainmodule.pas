@@ -1357,12 +1357,17 @@ end;
 
 procedure tmainmo.checkdbcompatibility();
 
- function checkfield(const atable,afield,adomain: msestring): boolean; 
-                                                 //true if field exists
+ procedure getfielddefs(const atable: msestring);
  begin
   fieldquery.sql.macros[0].value.text:= atable;
   fieldquery.active:= true;
   fieldquery.active:= false;
+ end;
+
+ function checkfield(const atable,afield,adomain: msestring): boolean; 
+                                                 //true if field exists
+ begin
+  getfielddefs(atable);
   result:= fieldquery.fielddefs.indexof(ansistring(afield)) >= 0;
   if not result then begin
    conn.executedirect(
@@ -1375,6 +1380,21 @@ begin
  checkfield('DOCUSETS','FONTHEIGHT','FLO');
  checkfield('DOCUPAGES','FONT','IDENT');
  checkfield('DOCUPAGES','FONTHEIGHT','FLO');
+ getfielddefs('COMPONENTKINDS');
+ if fieldquery.fielddefs.find('NAME').size <> 40 then begin
+  conn.executedirect(
+  'ALTER TABLE COMPONENTKINDS DROP CONSTRAINT UNQ_COMPONENTKINDS_0',transwrite);
+  conn.executedirect(
+  'ALTER TABLE DISTRIBUTORS DROP CONSTRAINT UNQ_DISTRIBUTORS_0',transwrite);
+  conn.executedirect(
+  'ALTER TABLE MANUFACTURERS DROP CONSTRAINT UNQ_MANUFACTURERS_0',transwrite);
+  conn.executedirect(
+  'ALTER TABLE FOOTPRINTLIBS DROP CONSTRAINT UNQ_FOOTPRINTLIBS_0',transwrite);
+  conn.executedirect(
+  'ALTER TABLE FOOTPRINTS DROP CONSTRAINT UNQ_FOOTPRINTS_0',transwrite);
+  conn.executedirect(
+  'ALTER DOMAIN NAME TYPE varchar(40)',transwrite);
+ end;
  transwrite.commit();
 end;
 
@@ -2294,7 +2314,7 @@ end;
 function tmainmo.docudefinebyname(const aname: msestring;
                                     out ainfo: docuinfoty): boolean;
 const
- deffontheight = 12;
+ deffontheight = 10;
  ppmm = 3;
 var
  i1,i2: int32;
@@ -2468,11 +2488,12 @@ begin
  else begin
   createdirpath(filedir(filepath(dest)));
   ps2pdfproc.filename:= globaloptions.ps2pdf;
-  ps2pdfproc.params.count:= 2;
+  ps2pdfproc.params.count:= 3;
   ps2pdfproc.params[0]:= '-g'+
                    inttostrmse(round(pagewidth*mmtoprintscale*10))+'x'+
                    inttostrmse(round(pageheight*mmtoprintscale*10));
-  ps2pdfproc.params[1]:= quotefilename([source,dest]);
+  ps2pdfproc.params[1]:= source;
+  ps2pdfproc.params[2]:= dest;
   ps2pdfproc.active:= true;
   ps2pdfproc.waitforprocess();
  end;
@@ -2892,16 +2913,16 @@ begin
    inctempfile();
    tmpfile:= tmpfile+'.ps';
    rep.render(psprinter,ttextstream.create(tmpfile,fm_create));
+   if info1.pdffile <> '' then begin
+    ps2pdf(tmpfile,filepath(info1.docudir,info1.pdffile),info1.pagewidth,info1.pageheight);
+   end;
    b1:= false;
    if info1.psfile <> '' then begin
     b1:= true;
-    s1:= info1.psfile;
+    s1:= filepath(info1.docudir,info1.psfile);
     createdirpath(filedir(filepath(s1)));
     copyfile(tmpfile,s1);
     tmpfile:= s1;
-   end;
-   if info1.pdffile <> '' then begin
-    ps2pdf(tmpfile,info1.pdffile,info1.pagewidth,info1.pageheight);
    end;
    showpsfile(tmpfile,b1);
   end;

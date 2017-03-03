@@ -8,6 +8,7 @@ inherited recordnameeditfo: trecordnameeditfo
   )
   moduleclassname = 'trecordeditfo'
   inherited stripe0: tlayouter
+    taborder = 1
     bounds_cx = 701
     inherited tlayouter2: tlayouter
       bounds_x = 518
@@ -22,7 +23,6 @@ inherited recordnameeditfo: trecordnameeditfo
   end
   object stripe1: tlayouter[1]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 1
     bounds_x = 8
     bounds_y = 36
     bounds_cx = 686

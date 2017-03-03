@@ -1,5 +1,4 @@
 inherited schematicplotdialogfo: tschematicplotdialogfo
-  visible = False
   bounds_x = 337
   bounds_y = 266
   container.bounds = (

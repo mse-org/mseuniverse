@@ -1,4 +1,5 @@
 object docupageeditfo: tdocupageeditfo
+  visible = False
   bounds_x = 192
   bounds_y = 493
   bounds_cx = 554

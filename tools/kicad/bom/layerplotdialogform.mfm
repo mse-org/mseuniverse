@@ -1,5 +1,4 @@
 inherited layerplotdialogfo: tlayerplotdialogfo
-  visible = False
   bounds_x = 337
   bounds_y = 266
   bounds_cx = 618
