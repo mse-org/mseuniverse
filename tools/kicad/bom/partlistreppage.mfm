@@ -10,6 +10,7 @@ inherited partlistreppagefo: tpartlistreppa
     bounds_cy = 540
     anchors = [an_top, an_bottom]
     object header: trecordband[0]
+      optionswidget1 = [ow1_fontlineheight, ow1_autoscale]
       bounds_x = 0
       bounds_y = 42
       bounds_cx = 510
@@ -20,6 +21,7 @@ inherited partlistreppagefo: tpartlistreppa
       tabs.livert_widthmm = 0
       tabs.liright_widthmm = 0
       tabs.libottom_widthmm = 0.3
+      tabs.libottom_dist = -3
       tabs.distleft = 0
       tabs.distright = 0
       tabs.defaultdist = 0
@@ -43,8 +45,10 @@ inherited partlistreppagefo: tpartlistreppa
           distright = 0
         end>
       options = [bo_once, bo_evenpage, bo_oddpage]
+      reffontheight = 16
     end
     object data: trecordband[1]
+      optionswidget1 = [ow1_fontlineheight, ow1_autoscale]
       taborder = 2
       bounds_x = 0
       bounds_y = 88
@@ -82,13 +86,17 @@ inherited partlistreppagefo: tpartlistreppa
           distright = 0
         end>
       datasource = mainmo.compdso
+      reffontheight = 16
     end
     inherited title: trecordband[2]
       taborder = 1
+      bounds_cy = 25
+      font.height = 20
       tabs.items = <      
         item
           value = 'Partlist'
         end>
+      reffontheight = 23
     end
   end
   inherited tlayouter1: tlayouter

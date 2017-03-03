@@ -19,10 +19,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tdbstringedit
-    frame.font.localprops = []
-  end
-  object tlayouter1: tlayouter[2]
+  object tlayouter1: tlayouter[1]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
@@ -73,7 +70,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
       reffontheight = 14
     end
   end
-  inherited plotsettingsfo: tplotsettingsfo[3]
+  inherited plotsettingsfo: tplotsettingsfo[2]
     bounds_y = 74
     inherited val_mirrorx: tdbbooleanedit
       datalink.datasource = dataso
@@ -104,11 +101,15 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
       datalink.fieldname = 'SHIFTVERT'
     end
   end
-  inherited dataso: tmsedatasource
+  inherited tlayouter2: tlayouter[3]
+    inherited val_title: tdbstringedit
+    end
   end
-  inherited tstatfile1: tstatfile[5]
+  inherited tstatfile1: tstatfile[4]
     filename = 'schematicplotdialogfo.sta'
   end
-  inherited f10act: taction[6]
+  inherited f10act: taction[5]
+  end
+  inherited dataso: tmsedatasource[6]
   end
 end

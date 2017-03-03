@@ -12,7 +12,8 @@ type
    tbandarea2: tbandarea;
    title: trecordband;
   public
-    constructor create(const apage: docupageinfoty);
+    constructor create(const areport: treport; const adocuinfo: docuinfoty;
+                                               const apage: docupageinfoty);
 end;
 
 implementation
@@ -21,9 +22,19 @@ uses
 
 { tlistreppa }
 
-constructor tlistreppa.create(const apage: docupageinfoty);
+constructor tlistreppa.create(const areport: treport; 
+                     const adocuinfo: docuinfoty; const apage: docupageinfoty);
+const
+ titlescale = 1.3;
 begin
- inherited create(nil);
+ inherited;
+ title.font.name:= font.name;
+ if font.height = 0 then begin
+  title.font.height:= round(font.glyphheight*titlescale);
+ end
+ else begin
+  title.font.heightflo:= font.heightflo*titlescale;
+ end;
  title.tabs[0].value:= apage.title;
 end;
 

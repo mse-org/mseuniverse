@@ -6,7 +6,7 @@ inherited partlistdialogfo: tpartlistdialogfo
     328
   )
   caption = 'Edit Partlist Page'
-  moduleclassname = 'tdocupageeditfo'
+  moduleclassname = 'tdoculistpageeditfo'
   inherited tsplitter1: tsplitter
     inherited tbutton2: tbutton
     end
@@ -15,13 +15,21 @@ inherited partlistdialogfo: tpartlistdialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tdbstringedit
-  end
-  inherited tstatfile1: tstatfile
-    filename = 'partlistdialogfo.sta'
+  inherited tlayouter2: tlayouter
+    inherited val_title: tdbstringedit
+    end
+    inherited tlayouter1: tlayouter
+      inherited fonted: tdbstringedit
+      end
+      inherited fontheighted: tdbrealedit
+      end
+    end
   end
   inherited dataso: tmsedatasource
   end
   inherited f10act: taction
+  end
+  inherited tstatfile1: tstatfile
+    filename = 'partlistdialogfo.sta'
   end
 end

@@ -1,4 +1,7 @@
 inherited docupsreppa: tdocupsreppa
+  font.height = 14
+  font.name = 'stf_report'
+  font.localprops = [flp_height]
   options = [rpo_once, rpo_reportpagewidth, rpo_reportpageheight]
   moduleclassname = 'tbasereppa'
   repdesigninfo = (
@@ -21,11 +24,20 @@ inherited docupsreppa: tdocupsreppa
   end
   inherited tlayouter1: tlayouter[1]
     taborder = 1
+    bounds_y = 554
+    bounds_cy = 16
     inherited treppagenumdisp1: treppagenumdisp
+      bounds_x = 356
+      bounds_cx = 77
+      bounds_cy = 16
     end
     inherited trepprintdatedisp1: trepprintdatedisp
+      bounds_x = 436
+      bounds_cx = 74
+      bounds_cy = 16
     end
     inherited titledi: trepvaluedisp
+      bounds_cy = 16
     end
   end
 end

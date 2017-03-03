@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mainmodule,
  msestatfile,msesplitter,msesimplewidgets,mseact,msedataedits,mseedit,
  mseificomp,mseificompglob,mseifiglob,msestream,msestrings,sysutils,msedbedit,
- mdb,msedb,mseactions;
+ mdb,msedb,mseactions,msegraphedits,msegrids,mselookupbuffer,msescrollbar;
 type
  tdocupageeditfo = class(tmseform)
    tstatfile1: tstatfile;
@@ -30,10 +30,11 @@ type
    tbutton2: tbutton;
    tbutton1: tbutton;
    tspacer2: tspacer;
-   val_title: tdbstringedit;
 //   procedure closeev(const sender: TObject);
    dataso: tmsedatasource;
    f10act: taction;
+   tlayouter2: tlayouter;
+   val_title: tdbstringedit;
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);

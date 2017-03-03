@@ -10,6 +10,7 @@ inherited bomreppa: tbomreppa
     bounds_cy = 540
     anchors = [an_top, an_bottom]
     object header: trecordband[0]
+      optionswidget1 = [ow1_fontlineheight, ow1_autoscale]
       frame.framei_bottom = 3
       frame.localprops = [frl_fibottom]
       frame.localprops1 = []
@@ -58,6 +59,7 @@ inherited bomreppa: tbomreppa
           distright = 0
         end>
       options = [bo_once, bo_evenpage, bo_oddpage]
+      reffontheight = 16
     end
     object tbandgroup1: tbandgroup[1]
       taborder = 2
@@ -80,6 +82,7 @@ inherited bomreppa: tbomreppa
       nextbandifempty = enddummy
       onafterrender = bandafterrendev
       object data1: trecordband
+        optionswidget1 = [ow1_fontlineheight, ow1_autoscale]
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 510
@@ -125,8 +128,10 @@ inherited bomreppa: tbomreppa
             distleft = 0
             distright = 0
           end>
+        reffontheight = 16
       end
       object data2: trecordband
+        optionswidget1 = [ow1_fontlineheight, ow1_autoscale]
         taborder = 1
         bounds_x = 0
         bounds_y = 23
@@ -163,6 +168,7 @@ inherited bomreppa: tbomreppa
             distleft = 0
             distright = 0
           end>
+        reffontheight = 16
       end
     end
     inherited title: trecordband[2]
@@ -175,6 +181,7 @@ inherited bomreppa: tbomreppa
         end>
     end
     object data3: trecordband[3]
+      optionswidget1 = [ow1_fontlineheight, ow1_autoscale]
       taborder = 3
       bounds_x = 0
       bounds_y = 210
@@ -225,8 +232,10 @@ inherited bomreppa: tbomreppa
       nextbandiflastofarea = header
       nextbandifempty = tbandgroup1
       nextbandiflast = tbandgroup1
+      reffontheight = 16
     end
     object enddummy: trecordband[4]
+      optionswidget1 = [ow1_fontlineheight, ow1_autoscale]
       taborder = 4
       bounds_x = 0
       bounds_y = 252
@@ -240,6 +249,7 @@ inherited bomreppa: tbomreppa
       tabs.distleft = 0
       tabs.distright = 0
       tabs.defaultdist = 0
+      reffontheight = 16
     end
   end
   inherited tlayouter1: tlayouter

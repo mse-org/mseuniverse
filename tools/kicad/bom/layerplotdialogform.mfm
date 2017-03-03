@@ -24,11 +24,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tdbstringedit
-    frame.font.localprops = []
-    bounds_cx = 602
-  end
-  object tlayouter1: tlayouter[2]
+  object tlayouter1: tlayouter[1]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
@@ -39,7 +35,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    linktop = val_title
     dist_top = 4
     object grid: twidgetgrid
       frame.localprops = []
@@ -345,7 +340,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       end
     end
   end
-  object tlayouter4: tlayouter[3]
+  object tlayouter4: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 4
     bounds_x = 8
@@ -360,7 +355,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     place_mindist = 4
     place_maxdist = 4
   end
-  inherited plotsettingsfo: tplotsettingsfo[4]
+  inherited plotsettingsfo: tplotsettingsfo[3]
     bounds_y = 235
     anchors = [an_left, an_bottom]
     linktop = tlayouter1
@@ -394,7 +389,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       datalink.fieldname = 'SHIFTVERT'
     end
   end
-  object plotoptcont: tlayouter[5]
+  object plotoptcont: tlayouter[4]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 5
     bounds_x = 262
@@ -428,11 +423,16 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       reffontheight = 14
     end
   end
-  inherited dataso: tmsedatasource[6]
+  inherited tlayouter2: tlayouter[5]
+    bounds_cx = 618
+    inherited val_title: tdbstringedit
+    end
   end
-  inherited tstatfile1: tstatfile[7]
+  inherited tstatfile1: tstatfile[6]
     filename = 'layerplotpageeditfo.sta'
   end
-  inherited f10act: taction[8]
+  inherited f10act: taction[7]
+  end
+  inherited dataso: tmsedatasource[8]
   end
 end

@@ -274,6 +274,15 @@ object bommo: tbommo
       item
         Name = 'MARGBOTTOM'
         DataType = ftFloat
+      end    
+      item
+        Name = 'FONT'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'FONTHEIGHT'
+        DataType = ftFloat
       end>
     controller.fields.count = 5
     controller.fields.fields = (
@@ -287,30 +296,30 @@ object bommo: tbommo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 10
+          Index = 12
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 11
+          Index = 13
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 12
+          Index = 14
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'NAME'
-          Index = 13
+          Index = 15
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'DESCRIPTION'
-          Index = 14
+          Index = 16
           Size = 0
         end>
     )
@@ -399,6 +408,22 @@ object bommo: tbommo
       MinValue = 0
       left = 16
       top = 320
+    end
+    object ds_font: tmsestringfield
+      DisplayWidth = 0
+      FieldName = 'FONT'
+      Index = 10
+      Size = 0
+      left = 16
+      top = 336
+    end
+    object ds_fontheight: tmsefloatfield
+      FieldName = 'FONTHEIGHT'
+      Index = 11
+      MaxValue = 0
+      MinValue = 0
+      left = 16
+      top = 352
     end
   end
   object docusetdso: tmsedatasource
@@ -653,14 +678,14 @@ object bommo: tbommo
     controller.fieldname = 'PK'
     controller.max = 2147483647
     left = 16
-    top = 416
+    top = 480
   end
   object dpg_title: tifistringlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = docupagedso
     controller.fieldname = 'TITLE'
     left = 16
-    top = 448
+    top = 512
   end
   object docupagelink: tfieldparamlink
     fieldname = 'PK'
@@ -669,7 +694,7 @@ object bommo: tbommo
     onrefresh = docupagerefreshev
     onmasterpost = docupagepostev
     left = 8
-    top = 360
+    top = 424
   end
   object docupagequ: tifisqlresult
     fielddefs = <    
@@ -702,7 +727,7 @@ object bommo: tbommo
     transaction = mainmo.trans
     options = [sso_utf8]
     left = 8
-    top = 384
+    top = 448
   end
   object docupagedso: tconnectedifidatasource
     fields.count = 3
@@ -724,7 +749,7 @@ object bommo: tbommo
       end>
     connection = docupagequ
     left = 8
-    top = 400
+    top = 464
   end
   object docupageupdate: tsqlstatement
     params = <    
@@ -799,7 +824,7 @@ object bommo: tbommo
   object docupagegrid: tifigridlinkcomp
     controller.onrowsdeleting = docupagedelev
     left = 8
-    top = 472
+    top = 536
   end
   object docupagedelete: tsqlstatement
     params = <    
@@ -942,6 +967,15 @@ object bommo: tbommo
       end    
       item
         Name = 'DEFLINEWIDTH'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'FONT'
+        DataType = ftString
+        Size = 50
+      end    
+      item
+        Name = 'FONTHEIGHT'
         DataType = ftFloat
       end>
     controller.options = [dso_utf8]
@@ -1096,6 +1130,21 @@ object bommo: tbommo
       MinValue = 0
       left = 624
       top = 328
+    end
+    object pi_fontheight: tmsefloatfield
+      FieldName = 'FONTHEIGHT'
+      Index = 18
+      MaxValue = 0
+      MinValue = 0
+      left = 624
+      top = 360
+    end
+    object pi_font: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'FONT'
+      Index = 19
+      left = 624
+      top = 344
     end
   end
   object pageitempkpar: tparamconnector
@@ -1603,7 +1652,7 @@ object bommo: tbommo
       item
       end>
     left = 16
-    top = 432
+    top = 496
   end
   object proditemlink: tfieldparamlink
     fieldname = 'PK'
@@ -2358,8 +2407,8 @@ object bommo: tbommo
   end
   object bomfieldgrid: tifigridlinkcomp
     controller.onrowsdeleting = bomfielddelev
-    left = 568
-    top = 480
+    left = 560
+    top = 544
   end
   object bomfielddelete: tsqlstatement
     params = <    
@@ -2374,8 +2423,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 672
-    top = 408
+    left = 664
+    top = 472
   end
   object bomfieldupdate: tsqlstatement
     params = <    
@@ -2410,8 +2459,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 672
-    top = 384
+    left = 664
+    top = 448
   end
   object bomfieldinsert: tsqlresult
     fielddefs = <    
@@ -2452,8 +2501,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 672
-    top = 360
+    left = 664
+    top = 424
   end
   object bomfieldqu: tifisqlresult
     fielddefs = <    
@@ -2504,8 +2553,8 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.trans
     options = [sso_utf8]
-    left = 568
-    top = 360
+    left = 560
+    top = 424
   end
   object bomfielddso: tconnectedifidatasource
     fields.count = 3
@@ -2526,16 +2575,16 @@ object bommo: tbommo
         sourcefieldname = 'FIELDNAME'
       end>
     connection = bomfieldqu
-    left = 568
-    top = 376
+    left = 560
+    top = 440
   end
   object bof_pk: tifiint64linkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = bomfielddso
     controller.fieldname = 'PK'
     controller.max = 2147483647
-    left = 576
-    top = 392
+    left = 568
+    top = 456
   end
   object bof_field: tifidropdownlistlinkcomp
     controller.optionsvalue = [vco_datalist, vco_notnull]
@@ -2546,15 +2595,15 @@ object bommo: tbommo
     controller.dropdown.cols.items = <    
       item
       end>
-    left = 576
-    top = 408
+    left = 568
+    top = 472
   end
   object bof_fieldname: tifistringlinkcomp
     controller.optionsvalue = [vco_datalist]
     controller.datasource = bomfielddso
     controller.fieldname = 'FIELDNAME'
-    left = 576
-    top = 424
+    left = 568
+    top = 488
   end
   object copybomfields: tsqlstatement
     params = <    
@@ -2577,7 +2626,7 @@ object bommo: tbommo
     database = mainmo.conn
     transaction = mainmo.transwrite
     options = [sso_utf8]
-    left = 808
-    top = 360
+    left = 800
+    top = 424
   end
 end

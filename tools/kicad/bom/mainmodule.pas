@@ -214,6 +214,8 @@ type
   showreferences: boolean;
   showdistributors: boolean;
   deflinewidth: flo64;
+  font: msestring;
+  fontheight: flo64;
  end;
  docupageinfoarty = array of docupageinfoty;
 
@@ -228,6 +230,8 @@ type
   rightmargin: flo64;
   topmargin: flo64;
   bottommargin: flo64;
+  font: msestring;
+  fontheight: flo64;
   pages: docupageinfoarty;
  end;
  pdocuinfoty = ^docuinfoty;
@@ -615,7 +619,8 @@ type
           const basedir: filenamety; const afiles: array of filenamety;
           const alast : boolean): boolean;
    procedure showpsfile(const afile: filenamety; const cancontinue: boolean);
-   procedure ps2pdf(const source,dest: msestring);
+   procedure ps2pdf(const source,dest: msestring;
+                                          const pagewidth,pageheight: flo64);
 
    procedure createdocuset(const aindex: int32);
    procedure createprodfiles(const aindex: int32);
@@ -1358,7 +1363,7 @@ procedure tmainmo.checkdbcompatibility();
   fieldquery.sql.macros[0].value.text:= atable;
   fieldquery.active:= true;
   fieldquery.active:= false;
-  result:= fieldquery.fielddefs.indexof(afield) >= 0;
+  result:= fieldquery.fielddefs.indexof(ansistring(afield)) >= 0;
   if not result then begin
    conn.executedirect(
        'alter table "'+atable+'" add "'+afield+'" "'+adomain+'"',transwrite);
@@ -1366,6 +1371,10 @@ procedure tmainmo.checkdbcompatibility();
  end;
 begin
  checkfield('DOCUPAGES','DEFLINEWIDTH','FLO');
+ checkfield('DOCUSETS','FONT','IDENT');
+ checkfield('DOCUSETS','FONTHEIGHT','FLO');
+ checkfield('DOCUPAGES','FONT','IDENT');
+ checkfield('DOCUPAGES','FONTHEIGHT','FLO');
  transwrite.commit();
 end;
 
@@ -2284,6 +2293,9 @@ end;
 
 function tmainmo.docudefinebyname(const aname: msestring;
                                     out ainfo: docuinfoty): boolean;
+const
+ deffontheight = 12;
+ ppmm = 3;
 var
  i1,i2: int32;
 begin
@@ -2300,6 +2312,14 @@ begin
    rightmargin:= ds_margright.asfloat;
    topmargin:= ds_margtop.asfloat;
    bottommargin:= ds_margbottom.asfloat;
+   font:= ds_font.asmsestring;
+   fontheight:= ds_fontheight.asfloat;
+   if fontheight = emptyreal then begin
+    fontheight:= deffontheight;
+   end
+   else begin
+    fontheight:= fontheight*ppmm;
+   end;
    docupagedso.refresh();
    setlength(pages,dpg_pk.c.datalist.count);
    for i1:= 0 to high(pages) do begin
@@ -2315,6 +2335,11 @@ begin
      scale:= pi_scale.asfloat;
      shifthorz:= pi_shifthorz.asfloat;
      shiftvert:= pi_shiftvert.asfloat;
+     font:= pi_font.asmsestring;
+     fontheight:= pi_fontheight.asfloat;
+     if fontheight <> emptyreal then begin
+      fontheight:= fontheight*ppmm;
+     end;
      text:= expandprojectmacros(pi_text.asmsestring);
      layera:= getlayer(pi_layera.asmsestring);
      layerb:= getlayer(pi_layerb.asmsestring);
@@ -2434,7 +2459,8 @@ begin
  end;
 end;
 
-procedure tmainmo.ps2pdf(const source: msestring; const dest: msestring);
+procedure tmainmo.ps2pdf(const source: msestring; const dest: msestring;
+                                          const pagewidth,pageheight: flo64);
 begin
  if globaloptions.ps2pdf = '' then begin
   errormessage('ps2pdf program not defined in global settings.');
@@ -2442,7 +2468,11 @@ begin
  else begin
   createdirpath(filedir(filepath(dest)));
   ps2pdfproc.filename:= globaloptions.ps2pdf;
-  ps2pdfproc.parameter:= quotefilename([source,dest]);
+  ps2pdfproc.params.count:= 2;
+  ps2pdfproc.params[0]:= '-g'+
+                   inttostrmse(round(pagewidth*mmtoprintscale*10))+'x'+
+                   inttostrmse(round(pageheight*mmtoprintscale*10));
+  ps2pdfproc.params[1]:= quotefilename([source,dest]);
   ps2pdfproc.active:= true;
   ps2pdfproc.waitforprocess();
  end;
@@ -2747,11 +2777,19 @@ begin
   rep.clear(); //remove defaultpage
   rep.pagewidth:= psprinter.clientwidth;
   rep.pageheight:= psprinter.clientheight;
+  with info1 do begin
+   if font <> '' then begin
+    rep.font.name:= ansistring(font);
+   end;
+   if fontheight <> emptyreal then begin
+    rep.font.heightflo:= fontheight * rep.ppmm;
+   end;
+  end;
   for i1:= 0 to high(info1.pages) do begin
    pa1:= nil;
    case info1.pages[i1].pagekind of
     dpk_title: begin
-     pa1:= ttitlereppa.create(info1.pages[i1]);
+     pa1:= ttitlereppa.create(rep,info1,info1.pages[i1]);
     end;
     dpk_layerplot: begin
      inctempfile();
@@ -2768,7 +2806,7 @@ begin
         error1:= true;
         break;
        end;
-       pa1:= tdocupsreppa.create(info1.pages[i1]);
+       pa1:= tdocupsreppa.create(rep,info1,info1.pages[i1]);
       end;
      end;
     end;
@@ -2806,21 +2844,21 @@ begin
                                                              '-drl_map.ps';
       if findfile(s2) then begin
        copyfile(s2,s1);
-       pa1:= tdocupsreppa.create(info1.pages[i1]);
+       pa1:= tdocupsreppa.create(rep,info1,info1.pages[i1]);
       end;
      end;
     end;
     dpk_schematic: begin
      with info1.pages[i1] do begin
-      pa1:= tdocupsreppa.create(info1.pages[i1]);
+      pa1:= tdocupsreppa.create(rep,info1,info1.pages[i1]);
       s1:= psfile;
      end;
     end;
     dpk_partlist: begin
-     pa1:= tpartlistreppa.create(info1.pages[i1]);
+     pa1:= tpartlistreppa.create(rep,info1,info1.pages[i1]);
     end;
     dpk_bom: begin
-     pa1:= tbomreppa.create(info1.pages[i1]);
+     pa1:= tbomreppa.create(rep,info1,info1.pages[i1]);
      bommo.bomds.active:= true;
     end;
    end;
@@ -2847,7 +2885,7 @@ begin
       ps.layout:= la1;
      end;
     end;
-    rep.add(pa1);
+//    rep.add(pa1);
    end;
   end;
   if not error1 then begin
@@ -2863,7 +2901,7 @@ begin
     tmpfile:= s1;
    end;
    if info1.pdffile <> '' then begin
-    ps2pdf(tmpfile,info1.pdffile);
+    ps2pdf(tmpfile,info1.pdffile,info1.pagewidth,info1.pageheight);
    end;
    showpsfile(tmpfile,b1);
   end;

@@ -19,11 +19,7 @@ inherited drillmapdialogfo: tdrillmapdialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tdbstringedit
-    frame.font.localprops = []
-    taborder = 2
-  end
-  object tlayouter1: tlayouter[2]
+  object tlayouter1: tlayouter[1]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
@@ -120,7 +116,7 @@ inherited drillmapdialogfo: tdrillmapdialogfo
       datalink.fieldname = 'NPT'
     end
   end
-  inline plotsettings: tplotsettingsfo[3]
+  inline plotsettings: tplotsettingsfo[2]
     bounds_x = 8
     bounds_y = 74
     linktop = tlayouter1
@@ -153,10 +149,15 @@ inherited drillmapdialogfo: tdrillmapdialogfo
       datalink.fieldname = 'SHIFTVERT'
     end
   end
-  inherited tstatfile1: tstatfile[4]
+  inherited tlayouter2: tlayouter[3]
+    taborder = 2
+    inherited val_title: tdbstringedit
+    end
   end
-  inherited dataso: tmsedatasource[5]
+  inherited dataso: tmsedatasource[4]
   end
-  inherited f10act: taction[6]
+  inherited f10act: taction[5]
+  end
+  inherited tstatfile1: tstatfile[6]
   end
 end

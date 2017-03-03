@@ -63,27 +63,35 @@ object docupageeditfo: tdocupageeditfo
       options = [spao_glueright]
     end
   end
-  object val_title: tdbstringedit
-    frame.caption = 'Title'
-    frame.localprops = []
-    frame.localprops1 = []
-    frame.outerframe = (
-      0
-      17
-      0
-      0
-    )
+  object tlayouter2: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 1
-    onshowhint = macrohintev
-    bounds_x = 8
+    bounds_x = 0
     bounds_y = 0
-    bounds_cx = 538
-    bounds_cy = 37
-    anchors = [an_left, an_top, an_right]
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
-    datalink.datasource = dataso
-    datalink.fieldname = 'TITLE'
-    reffontheight = 14
+    bounds_cx = 554
+    bounds_cy = 42
+    anchors = [an_top]
+    object val_title: tdbstringedit
+      frame.caption = 'Title'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      onshowhint = macrohintev
+      bounds_x = 8
+      bounds_y = 0
+      bounds_cx = 538
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+      datalink.datasource = dataso
+      datalink.fieldname = 'TITLE'
+      reffontheight = 14
+    end
   end
   object tstatfile1: tstatfile
     filename = 'docupageeditfo.sta'

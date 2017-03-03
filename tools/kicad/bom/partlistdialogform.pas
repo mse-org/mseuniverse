@@ -4,10 +4,10 @@ interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- docupageeditform;
+ docupageeditform,doculistpageeditform;
 
 type
- tpartlistdialogfo = class(tdocupageeditfo)
+ tpartlistdialogfo = class(tdoculistpageeditfo)
  end;
 implementation
 uses

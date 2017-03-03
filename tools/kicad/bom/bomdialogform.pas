@@ -5,10 +5,10 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  docupageeditform,msegraphedits,mseificomp,mseificompglob,mseifiglob,
- msescrollbar,msedbedit;
+ msescrollbar,msedbedit,doculistpageeditform;
 
 type
- tbomdialogfo = class(tdocupageeditfo)
+ tbomdialogfo = class(tdoculistpageeditfo)
    val_showreferences: tdbbooleanedit;
    val_showdistributors: tdbbooleanedit;
  end;

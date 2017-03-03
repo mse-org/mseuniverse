@@ -152,6 +152,10 @@ type
    bom_part: tmsestringfield;
    bom_comppk: tmselargeintfield;
    pi_deflinewidth: tmsefloatfield;
+   ds_font: tmsestringfield;
+   ds_fontheight: tmsefloatfield;
+   pi_font: tmsestringfield;
+   pi_fontheight: tmsefloatfield;
    procedure afteropenev(DataSet: TDataSet);
    procedure docupagepostev(const sender: TDataSet; const master: TDataSet);
    procedure docupagerefreshev(const sender: TObject);

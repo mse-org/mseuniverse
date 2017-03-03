@@ -6,7 +6,7 @@ inherited bomdialogfo: tbomdialogfo
     328
   )
   caption = 'Edit BOM Page'
-  moduleclassname = 'tdocupageeditfo'
+  moduleclassname = 'tdoculistpageeditfo'
   inherited tsplitter1: tsplitter
     inherited tbutton2: tbutton
     end
@@ -15,9 +15,7 @@ inherited bomdialogfo: tbomdialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tdbstringedit
-  end
-  object val_showreferences: tdbbooleanedit[2]
+  object val_showreferences: tdbbooleanedit[1]
     frame.caption = 'Show references'
     frame.localprops = []
     frame.localprops1 = []
@@ -27,7 +25,7 @@ inherited bomdialogfo: tbomdialogfo
       108
       2
     )
-    taborder = 2
+    taborder = 1
     bounds_x = 8
     bounds_y = 55
     bounds_cx = 121
@@ -35,7 +33,7 @@ inherited bomdialogfo: tbomdialogfo
     datalink.datasource = dataso
     datalink.fieldname = 'SHOWREF'
   end
-  object val_showdistributors: tdbbooleanedit[3]
+  object val_showdistributors: tdbbooleanedit[2]
     frame.caption = 'Show distributors'
     frame.localprops = []
     frame.localprops1 = []
@@ -53,12 +51,23 @@ inherited bomdialogfo: tbomdialogfo
     datalink.datasource = dataso
     datalink.fieldname = 'SHOWDIST'
   end
-  inherited tstatfile1: tstatfile[4]
+  inherited tlayouter2: tlayouter[3]
+    taborder = 2
+    inherited val_title: tdbstringedit
+    end
+    inherited tlayouter1: tlayouter
+      inherited fonted: tdbstringedit
+      end
+      inherited fontheighted: tdbrealedit
+      end
+    end
+  end
+  inherited dataso: tmsedatasource[4]
+  end
+  inherited f10act: taction[5]
+  end
+  inherited tstatfile1: tstatfile[6]
     filename = 'bomdialogfo.sta'
     left = 56
-  end
-  inherited dataso: tmsedatasource[5]
-  end
-  inherited f10act: taction[6]
   end
 end

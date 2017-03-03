@@ -48,6 +48,9 @@ type
    pdffileed: tdbfilenameedit;
    stripe2a: tlayouter;
    commented: tdbmemodialogedit;
+   stripe5: tlayouter;
+   fonted: tdbstringedit;
+   fontheighted: tdbrealedit;
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure datachaev(Sender: TObject; Field: TField);
    procedure editedev(const sender: TObject);

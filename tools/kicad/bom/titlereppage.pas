@@ -28,7 +28,8 @@ type
    title: trecordband;
    text: trecordband;
   public
-   constructor create(const apage: docupageinfoty);
+   constructor create(const areport: treport; const adocuinfo: docuinfoty;
+                                               const apage: docupageinfoty);
  end;
  
 implementation
@@ -37,11 +38,19 @@ uses
 
 { ttitlereppa }
 
-constructor ttitlereppa.create(const apage: docupageinfoty);
+constructor ttitlereppa.create(const areport: treport; 
+                     const adocuinfo: docuinfoty; const apage: docupageinfoty);
 begin
- inherited create(nil);
+ inherited;
  title.tabs[0].value:= apage.title;
  text.tabs[0].value:= apage.text;
+ title.font.name:= font.name;
+ if text.font.height = 0 then begin
+  title.font.height:= font.glyphheight*2;
+ end
+ else begin
+  title.font.heightflo:= font.heightflo*2;
+ end;
 end;
 
 end.

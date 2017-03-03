@@ -43,7 +43,7 @@ inherited titlereppa: ttitlereppa
     bounds_x = 0
     bounds_y = 144
     bounds_cx = 510
-    bounds_cy = 16
+    bounds_cy = 14
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     tabs.count = 1
     tabs.litop_widthmm = 0

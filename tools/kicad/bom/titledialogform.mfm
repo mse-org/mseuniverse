@@ -18,10 +18,7 @@ inherited titledialogfo: ttitledialogfo
     inherited tspacer2: tspacer
     end
   end
-  inherited val_title: tdbstringedit
-    frame.font.localprops = []
-  end
-  object val_text: tdbmemoedit[2]
+  object val_text: tdbmemoedit[1]
     frame.caption = 'Text'
     frame.localprops = [frl_colorclient]
     frame.localprops1 = []
@@ -33,7 +30,7 @@ inherited titledialogfo: ttitledialogfo
       0
       0
     )
-    taborder = 2
+    taborder = 1
     bounds_x = 8
     bounds_y = 47
     bounds_cx = 536
@@ -45,11 +42,16 @@ inherited titledialogfo: ttitledialogfo
     datalink.fieldname = 'TEXT'
     reffontheight = 14
   end
-  inherited tstatfile1: tstatfile[3]
-    filename = 'titledialogfo.sta'
+  inherited tlayouter2: tlayouter[2]
+    taborder = 2
+    inherited val_title: tdbstringedit
+    end
+  end
+  inherited f10act: taction[3]
   end
   inherited dataso: tmsedatasource[4]
   end
-  inherited f10act: taction[5]
+  inherited tstatfile1: tstatfile[5]
+    filename = 'titledialogfo.sta'
   end
 end

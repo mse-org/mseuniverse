@@ -38,7 +38,8 @@ type
    enddummy: trecordband;
    procedure bandafterrendev(const sender: tcustomrecordband);
   public
-   constructor create(const apage: docupageinfoty);
+   constructor create(const areport: treport; const adocuinfo: docuinfoty;
+                                               const apage: docupageinfoty);
  end;
 implementation
 uses
@@ -46,11 +47,12 @@ uses
 
 { tbomreppa }
 
-constructor tbomreppa.create(const apage: docupageinfoty);
+constructor tbomreppa.create(const areport: treport; 
+                     const adocuinfo: docuinfoty; const apage: docupageinfoty);
 var
  s1: msestring;
 begin
- inherited create(apage);
+ inherited;
  with apage do begin
   data2.visible:= showreferences;
   s1:= 'PART';
