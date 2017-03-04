@@ -76,6 +76,10 @@ object guitemplatesmo: tguitemplatesmo
     grid_fixrows_face = fadevertkonvex
     button_face = fadevertkonvex
     databutton_face = fadevertkonvex
+    slider_sb_horz_facebutton = fadehorzconvex
+    slider_sb_horz_faceendbutton = fadehorzconvex
+    slider_sb_vert_facebutton = fadevertkonvex
+    slider_sb_vert_faceendbutton = fadevertkonvex
     framebutton_face = fadehorzconvex
     tabbar_horz_face = fadevertconcave
     tabbar_horz_tab_face = fadevertkonvex

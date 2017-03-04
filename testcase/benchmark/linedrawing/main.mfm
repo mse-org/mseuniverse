@@ -1,0 +1,188 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 365
+  bounds_cy = 324
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    365
+    324
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  oncreate = createdev
+  moduleclassname = 'tmainform'
+  object slider: tslider
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.localprops1 = []
+    taborder = 6
+    bounds_x = 38
+    bounds_y = 32
+    bounds_cx = 20
+    bounds_cy = 264
+    anchors = [an_left, an_top, an_bottom]
+    statfile = tstatfile1
+    ondataentered = speedentev
+    value = 0
+    direction = gd_up
+  end
+  object speeddi: trealdisp
+    frame.caption = 'Segments/sec'
+    frame.captionpos = cp_right
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      0
+      92
+      0
+    )
+    taborder = 7
+    bounds_x = 168
+    bounds_y = 48
+    bounds_cx = 160
+    bounds_cy = 18
+    valuerange = 1
+    valuestart = 0
+    format = '0..0000g'
+    value = -Inf
+    reffontheight = 14
+  end
+  object paintbox: tpaintbox
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
+    frame.levelo = -1
+    frame.leveli = 1
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.localprops1 = []
+    taborder = 8
+    onpaint = paintev
+    bounds_x = 112
+    bounds_y = 72
+    bounds_cx = 244
+    bounds_cy = 244
+  end
+  object slanted: tbooleanedit
+    frame.caption = 'Slanted'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      51
+      2
+    )
+    taborder = 1
+    bounds_x = 112
+    bounds_y = 15
+    bounds_cx = 64
+    bounds_cy = 16
+    statfile = tstatfile1
+    ondataentered = slantseev
+  end
+  object zerolineed: tbooleanedit
+    frame.caption = '0->1 linewidth'#10'workaround'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      8
+      92
+      9
+    )
+    taborder = 3
+    bounds_x = 256
+    bounds_y = 8
+    bounds_cx = 105
+    bounds_cy = 30
+    statfile = tstatfile1
+    onsetvalue = zerolinesetev
+    value = True
+  end
+  object dasheded: tbooleanedit
+    frame.caption = 'Dashed'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      51
+      2
+    )
+    taborder = 2
+    bounds_x = 184
+    bounds_y = 15
+    bounds_cx = 64
+    bounds_cy = 16
+    statfile = tstatfile1
+  end
+  object maxed: trealedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 84
+    statfile = tstatfile1
+    textflags = [tf_xcentered, tf_right, tf_ycentered, tf_noselect]
+    ondataentered = speedentev
+    value = 100000
+    valuedefault = -Inf
+    formatdisp = '0..0000g'
+    valuerange = 1
+    valuestart = 0
+    min = 80
+    max = 1E+038
+    reffontheight = 14
+  end
+  object mined: trealedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 5
+    bounds_x = 8
+    bounds_y = 300
+    bounds_cx = 84
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    textflags = [tf_xcentered, tf_right, tf_ycentered, tf_noselect]
+    ondataentered = speedentev
+    value = 1000
+    valuedefault = -Inf
+    formatdisp = '0..0000g'
+    valuerange = 1
+    valuestart = 0
+    min = 80
+    max = 1E+038
+    reffontheight = 14
+  end
+  object runed: tbooleanedit
+    frame.caption = 'run'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      24
+      2
+    )
+    bounds_x = 112
+    bounds_y = 49
+    bounds_cx = 37
+    bounds_cy = 16
+    statfile = tstatfile1
+    onsetvalue = runsetev
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 128
+    top = 88
+  end
+  object timer: ttimer
+    options = [to_leak]
+    ontimer = tiev
+    left = 128
+    top = 120
+  end
+end
