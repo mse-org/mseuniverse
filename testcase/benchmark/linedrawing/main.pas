@@ -50,7 +50,7 @@ const
 procedure tmainfo.paintev(const sender: twidget; const acanvas: tcanvas);
 var
  co1: colorty;
- i1: int32;
+ i1,i2: int32;
  ca1: card32;
 begin
  co1:= cl_white;
@@ -65,10 +65,16 @@ begin
  if dasheded.value then begin
   acanvas.dashes:= #2#2;
  end;
- for i1:= 0 to runhigh do begin
+ i2:= 0;
+ if runed.value then begin
+  i2:= runhigh;
+ end;
+ for i1:= 0 to i2 do begin
   acanvas.drawlines(poly);
  end;
- acanvas.fillrect(mr(100,100,10,10),co1);
+ if runed.value then begin
+  acanvas.fillrect(mr(100,100,10,10),co1);
+ end;
  inc(count);
 end;
 
