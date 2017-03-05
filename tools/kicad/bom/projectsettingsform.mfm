@@ -514,10 +514,10 @@ object projectsettingsfo: tprojectsettingsfo
           frame.localprops = []
           frame.localprops1 = []
           bounds_x = 0
-          bounds_y = 0
+          bounds_y = 105
           bounds_cx = 384
-          bounds_cy = 101
-          anchors = [an_top]
+          bounds_cy = 99
+          anchors = [an_top, an_bottom]
           optionsgrid = [og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
           fixcols.count = 1
           fixcols.items = <          
@@ -597,10 +597,10 @@ object projectsettingsfo: tprojectsettingsfo
           frame.localprops1 = []
           taborder = 1
           bounds_x = 0
-          bounds_y = 105
+          bounds_y = 1
           bounds_cx = 384
-          bounds_cy = 99
-          anchors = [an_top, an_bottom]
+          bounds_cy = 100
+          anchors = [an_top]
           optionsgrid = [og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
           fixcols.count = 1
           fixcols.items = <          
@@ -683,8 +683,8 @@ object projectsettingsfo: tprojectsettingsfo
           bounds_cy = 4
           anchors = [an_top]
           options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
-          linktop = productiongrid
-          linkbottom = docugrid
+          linktop = docugrid
+          linkbottom = productiongrid
           statfile = tstatfile1
         end
       end

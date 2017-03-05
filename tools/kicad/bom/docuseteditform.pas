@@ -24,11 +24,23 @@ uses
  mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,
  msesplitter,mseprinter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,
  msescrollbar,msewidgetgrid,msedatanodes,mselistbrowser,mseactions,msebitmap,
- msefiledialog,msesys;
+ msefiledialog,msesys,msedragglob,msetabs;
 
 type
  tdocuseteditfo = class(trecordnameeditfo)
    docudired: tdbfilenameedit;
+   pageeditact: taction;
+   ttabwidget1: ttabwidget;
+   ttabpage1: ttabpage;
+   grid: twidgetgrid;
+   pked: tint64edit;
+   pagekinded: tdropdownlistedit;
+   titleed: tstringedit;
+   docupageeditbu: tstockglyphdatabutton;
+   ttabpage2: ttabpage;
+   stripe5: tlayouter;
+   fonted: tdbstringedit;
+   fontheighted: tdbrealedit;
    stripe4: tlayouter;
    pagesizeed: tpagesizeselector;
    leftmarged: tdbrealedit;
@@ -37,20 +49,11 @@ type
    rightmarged: tdbrealedit;
    topmarged: tdbrealedit;
    bottommarged: tdbrealedit;
-   grid: twidgetgrid;
-   titleed: tstringedit;
-   pagekinded: tdropdownlistedit;
-   pked: tint64edit;
-   pageeditact: taction;
-   docupageeditbu: tstockglyphdatabutton;
    stripe3: tlayouter;
    psfileed: tdbfilenameedit;
    pdffileed: tdbfilenameedit;
    stripe2a: tlayouter;
    commented: tdbmemodialogedit;
-   stripe5: tlayouter;
-   fonted: tdbstringedit;
-   fontheighted: tdbrealedit;
    procedure readonlychangeev(const sender: TObject; const avalue: Boolean);
    procedure datachaev(Sender: TObject; Field: TField);
    procedure editedev(const sender: TObject);
