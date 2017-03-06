@@ -2476,6 +2476,10 @@ begin
   viewerproc.parameter:= afile;
   viewerproc.cancontinue:= cancontinue;
   viewerproc.active:= true;
+  if not application.waitcanceled and (viewerproc.exitcode <> 0) then begin
+   showerror('Global settings Postscript viewer "'+s1+'": error '+
+                             inttostrmse(viewerproc.exitcode));
+  end;
  end;
 end;
 
