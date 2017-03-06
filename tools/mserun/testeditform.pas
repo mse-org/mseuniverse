@@ -42,13 +42,13 @@ type
    val_expectedexitcode: trealedit;
    tspacer2: tspacer;
    val_actualexitcode: tintegeredit;
-   val_runcommand: tstringedit;
+   val_runcommand: tmemodialogedit;
    tbutton3: tbutton;
    val_actualoutput: tstringedit;
    val_actualerror: tstringedit;
    tspacer3: tspacer;
    tlayouter5: tlayouter;
-   val_compilecommand: tstringedit;
+   val_compilecommand: tmemodialogedit;
    tspacer4: tspacer;
    val_compileresult: tintegeredit;
    val_nr: tintegerdisp;
@@ -57,8 +57,8 @@ type
    val_input: tmemodialogedit;
    val_inputerror: tbooleandisp;
    tspacer6: tspacer;
-   val_compiledirectory: tstringedit;
-   val_rundirectory: tstringedit;
+   val_compiledirectory: tmemodialogedit;
+   val_rundirectory: tmemodialogedit;
    tlayouter7: tlayouter;
    tspacer7: tspacer;
    val_expectedoutput: tmemodialogedit;

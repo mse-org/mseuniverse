@@ -17,6 +17,7 @@ inherited testeditfo: ttesteditfo
   onlayout = layoutexe
   moduleclassname = 'teditfo'
   object tlayouter2: tlayouter[0]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 1
     bounds_x = 0
     bounds_y = 8
@@ -29,6 +30,7 @@ inherited testeditfo: ttesteditfo
     place_mindist = 5
     place_maxdist = 5
     object tlayouter1: tlayouter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       optionsskin = [osk_noalignx]
       bounds_x = 0
       bounds_y = 0
@@ -168,6 +170,7 @@ inherited testeditfo: ttesteditfo
       reffontheight = 14
     end
     object tlayouter4: tlayouter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 10
       bounds_x = 0
       bounds_y = 473
@@ -265,12 +268,18 @@ inherited testeditfo: ttesteditfo
         linkright = tbutton3
       end
     end
-    object val_runcommand: tstringedit
+    object val_runcommand: tmemodialogedit
       Tag = 5
       frame.caption = 'Run'#10'Command'
       frame.captionpos = cp_left
       frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
       frame.outerframe = (
         65
         5
@@ -338,6 +347,7 @@ inherited testeditfo: ttesteditfo
       reffontheight = 14
     end
     object tlayouter5: tlayouter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 2
       bounds_x = 0
       bounds_y = 60
@@ -347,12 +357,18 @@ inherited testeditfo: ttesteditfo
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       optionslayout = [lao_aligny]
       align_glue = wam_start
-      object val_compilecommand: tstringedit
+      object val_compilecommand: tmemodialogedit
         Tag = 3
         frame.caption = 'Compile'#10'Command'
         frame.captionpos = cp_left
         frame.localprops = []
         frame.localprops1 = [frl1_captiondist]
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            imagenr = 17
+          end>
+        frame.button.imagenr = 17
         frame.outerframe = (
           65
           5
@@ -406,6 +422,7 @@ inherited testeditfo: ttesteditfo
       end
     end
     object tlayouter6: tlayouter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 7
       bounds_x = 0
       bounds_y = 292
@@ -476,12 +493,18 @@ inherited testeditfo: ttesteditfo
         options = [spao_glueright]
       end
     end
-    object val_compiledirectory: tstringedit
+    object val_compiledirectory: tmemodialogedit
       Tag = 4
       frame.caption = 'Compile'#10'Directory'
       frame.captionpos = cp_left
       frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
       frame.outerframe = (
         59
         5
@@ -498,12 +521,18 @@ inherited testeditfo: ttesteditfo
       empty_textflags = [tf_ycentered]
       reffontheight = 14
     end
-    object val_rundirectory: tstringedit
+    object val_rundirectory: tmemodialogedit
       Tag = 6
       frame.caption = 'Run'#10'Directory'
       frame.captionpos = cp_left
       frame.localprops = []
       frame.localprops1 = [frl1_captiondist]
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
       frame.outerframe = (
         59
         5
@@ -521,6 +550,7 @@ inherited testeditfo: ttesteditfo
       reffontheight = 14
     end
     object tlayouter7: tlayouter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 11
       bounds_x = 0
       bounds_y = 333
@@ -588,6 +618,7 @@ inherited testeditfo: ttesteditfo
       end
     end
     object tlayouter8: tlayouter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 12
       bounds_x = 0
       bounds_y = 403
@@ -656,20 +687,21 @@ inherited testeditfo: ttesteditfo
     end
   end
   object tlayouter3: tlayouter[1]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     bounds_x = 192
     bounds_y = 528
     bounds_cx = 378
     bounds_cy = 20
     anchors = [an_right, an_bottom]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    linktop = tlayouter2
-    dist_top = 10
-    options = [spao_gluebottom]
     optionslayout = [lao_placex, lao_aligny]
     align_glue = wam_start
     place_mindist = 10
     place_maxdist = 10
     place_mode = wam_end
+    linktop = tlayouter2
+    dist_top = 10
+    options = [spao_gluebottom]
     object tbutton2: tbutton
       optionswidget1 = [ow1_autoscale, ow1_autowidth, ow1_autoheight]
       bounds_x = 326
