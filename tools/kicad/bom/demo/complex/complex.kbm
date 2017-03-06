@@ -1,0 +1,31 @@
+[mainmo.projectoptrtti]
+schematics=2
+ /home/mse/packs/standard/git/mseuniverse/tools/kicad/bom/demo/complex/ampli_ht.sch
+ /home/mse/packs/standard/git/mseuniverse/tools/kicad/bom/demo/complex/complex_hierarchy.sch
+compfootprint=
+compfootprintwarn=1
+board=complex_hierarchy.kicad_pcb
+reportencoding=1
+reportseparator=;
+reportquotechar="
+libident=0
+libalias=0
+productionfiles=1
+ 2layer_nosmd
+docusets=1
+ 2la_nosmd_schem3
+projectname=
+projectmacronames=6
+ SCHEMFILE1
+ SCHEMFILE2
+ SCHEMFILE3
+ SCHEMTITLE1
+ SCHEMTITLE2
+ SCHEMTITLE3
+projectmacrovalues=6
+ complex_hierarchy
+ ampli_ht-ampli_ht_horizontal
+ ampli_ht-ampli_ht_vertical
+ Amplifier
+ Horizontal
+ Vertical
