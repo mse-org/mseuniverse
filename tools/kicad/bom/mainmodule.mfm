@@ -1,5 +1,5 @@
 object mainmo: tmainmo
-  bounds_cx = 861
+  bounds_cx = 1105
   bounds_cy = 587
   statfile = mainstat
   left = 478

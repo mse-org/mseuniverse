@@ -22,7 +22,7 @@ inherited docuseteditfo: tdocuseteditfo
   inherited stripe2: tlayouter[1]
     frame.localprops = []
     frame.localprops1 = []
-    bounds_y = 56
+    bounds_y = 62
     place_mindist = 4
     place_maxdist = 4
     place_options = [plo_endmargin]
@@ -44,7 +44,7 @@ inherited docuseteditfo: tdocuseteditfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
+        19
         0
         0
       )
@@ -53,14 +53,14 @@ inherited docuseteditfo: tdocuseteditfo
       bounds_x = 192
       bounds_y = 0
       bounds_cx = 494
-      bounds_cy = 37
+      bounds_cy = 41
       anchors = [an_left, an_top, an_right]
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'DOCUDIR'
       controller.lastdir = '/home/mse/packs/standard/git/mseuniverse/tools/kicad/bom/docu/'
       controller.options = [fdo_directory, fdo_savelastdir]
-      reffontheight = 14
+      reffontheight = 16
     end
   end
   inherited stripe0: tlayouter[2]
@@ -76,32 +76,32 @@ inherited docuseteditfo: tdocuseteditfo
   end
   object ttabwidget1: ttabwidget[3]
     bounds_x = 0
-    bounds_y = 95
+    bounds_y = 105
     bounds_cx = 701
-    bounds_cy = 311
+    bounds_cy = 301
     anchors = [an_top, an_bottom]
     taborder = 3
     activepageindex = 0
     tab_frame.localprops = []
     tab_frame.localprops1 = []
-    tab_size = 19
+    tab_size = 21
     statfile = tstatfile1
     object ttabpage2: ttabpage
       frame.localprops = []
       frame.localprops1 = []
       taborder = 2
       bounds_x = 0
-      bounds_y = 19
+      bounds_y = 21
       bounds_cx = 701
-      bounds_cy = 292
+      bounds_cy = 280
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Settings'
       object stripe5: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         bounds_x = 8
-        bounds_y = 113
+        bounds_y = 121
         bounds_cx = 686
-        bounds_cy = 37
+        bounds_cy = 41
         anchors = [an_left, an_top, an_right]
         optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
         optionslayout = [lao_placex, lao_aligny]
@@ -115,17 +115,17 @@ inherited docuseteditfo: tdocuseteditfo
           frame.localprops1 = []
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
           bounds_x = 0
           bounds_y = 0
           bounds_cx = 204
-          bounds_cy = 37
+          bounds_cy = 41
           datalink.datasource = dataso
           datalink.fieldname = 'FONT'
-          reffontheight = 14
+          reffontheight = 16
         end
         object fontheighted: tdbrealedit
           frame.caption = '&Height(mm)'
@@ -133,31 +133,31 @@ inherited docuseteditfo: tdocuseteditfo
           frame.localprops1 = []
           frame.outerframe = (
             0
-            17
-            15
+            19
+            8
             0
           )
           taborder = 1
           bounds_x = 208
           bounds_y = 0
-          bounds_cx = 75
-          bounds_cy = 37
+          bounds_cx = 68
+          bounds_cy = 41
           datalink.datasource = dataso
           datalink.fieldname = 'FONTHEIGHT'
           min = 0
           max = 10
           valuerange = 1
           valuestart = 0
-          reffontheight = 14
+          reffontheight = 16
         end
       end
       object stripe4: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         taborder = 1
         bounds_x = 8
-        bounds_y = 76
+        bounds_y = 82
         bounds_cx = 686
-        bounds_cy = 37
+        bounds_cy = 41
         anchors = [an_left, an_top, an_right]
         optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
         optionslayout = [lao_placex, lao_aligny]
@@ -175,21 +175,21 @@ inherited docuseteditfo: tdocuseteditfo
             end>
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
           bounds_x = 0
           bounds_y = 0
           bounds_cx = 76
-          bounds_cy = 37
+          bounds_cy = 41
           dropdown.cols.count = 1
           dropdown.cols.items = <          
             item
             end>
           editwidth = widthed
           editheight = heighted
-          reffontheight = 14
+          reffontheight = 16
         end
         object leftmarged: tdbrealedit
           frame.caption = '&Left-'
@@ -197,7 +197,7 @@ inherited docuseteditfo: tdocuseteditfo
           frame.localprops1 = []
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
@@ -205,7 +205,7 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 208
           bounds_y = 0
           bounds_cx = 60
-          bounds_cy = 37
+          bounds_cy = 41
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
           datalink.datasource = dataso
           datalink.navigator = navig
@@ -214,7 +214,7 @@ inherited docuseteditfo: tdocuseteditfo
           max = 1000
           valuerange = 1
           valuestart = 0
-          reffontheight = 14
+          reffontheight = 16
         end
         object widthed: tdbrealedit
           frame.caption = '&Width'
@@ -222,7 +222,7 @@ inherited docuseteditfo: tdocuseteditfo
           frame.localprops1 = []
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
@@ -230,7 +230,7 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 80
           bounds_y = 0
           bounds_cx = 60
-          bounds_cy = 37
+          bounds_cy = 41
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
           datalink.datasource = dataso
           datalink.navigator = navig
@@ -239,7 +239,7 @@ inherited docuseteditfo: tdocuseteditfo
           max = 1000
           valuerange = 1
           valuestart = 0
-          reffontheight = 14
+          reffontheight = 16
         end
         object heighted: tdbrealedit
           frame.caption = '&Height'
@@ -247,7 +247,7 @@ inherited docuseteditfo: tdocuseteditfo
           frame.localprops1 = []
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
@@ -255,7 +255,7 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 144
           bounds_y = 0
           bounds_cx = 60
-          bounds_cy = 37
+          bounds_cy = 41
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
           datalink.datasource = dataso
           datalink.navigator = navig
@@ -264,7 +264,7 @@ inherited docuseteditfo: tdocuseteditfo
           max = 1000
           valuerange = 1
           valuestart = 0
-          reffontheight = 14
+          reffontheight = 16
         end
         object rightmarged: tdbrealedit
           frame.caption = '&Right-'
@@ -272,7 +272,7 @@ inherited docuseteditfo: tdocuseteditfo
           frame.localprops1 = []
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
@@ -280,7 +280,7 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 272
           bounds_y = 0
           bounds_cx = 60
-          bounds_cy = 37
+          bounds_cy = 41
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
           datalink.datasource = dataso
           datalink.navigator = navig
@@ -289,7 +289,7 @@ inherited docuseteditfo: tdocuseteditfo
           max = 1000
           valuerange = 1
           valuestart = 0
-          reffontheight = 14
+          reffontheight = 16
         end
         object topmarged: tdbrealedit
           frame.caption = '&Top-'
@@ -297,7 +297,7 @@ inherited docuseteditfo: tdocuseteditfo
           frame.localprops1 = []
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
@@ -305,7 +305,7 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 336
           bounds_y = 0
           bounds_cx = 60
-          bounds_cy = 37
+          bounds_cy = 41
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
           datalink.datasource = dataso
           datalink.navigator = navig
@@ -314,7 +314,7 @@ inherited docuseteditfo: tdocuseteditfo
           max = 1000
           valuerange = 1
           valuestart = 0
-          reffontheight = 14
+          reffontheight = 16
         end
         object bottommarged: tdbrealedit
           frame.caption = '&Bottom-Margin(mm)'
@@ -322,15 +322,15 @@ inherited docuseteditfo: tdocuseteditfo
           frame.localprops1 = []
           frame.outerframe = (
             0
-            17
-            65
+            19
+            53
             0
           )
           taborder = 6
           bounds_x = 400
           bounds_y = 0
-          bounds_cx = 125
-          bounds_cy = 37
+          bounds_cx = 113
+          bounds_cy = 41
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
           datalink.datasource = dataso
           datalink.navigator = navig
@@ -339,16 +339,16 @@ inherited docuseteditfo: tdocuseteditfo
           max = 1000
           valuerange = 1
           valuestart = 0
-          reffontheight = 14
+          reffontheight = 16
         end
       end
       object stripe3: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         taborder = 2
         bounds_x = 8
-        bounds_y = 39
+        bounds_y = 41
         bounds_cx = 686
-        bounds_cy = 37
+        bounds_cy = 41
         anchors = [an_left, an_top, an_right]
         optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
         optionslayout = [lao_placex, lao_aligny]
@@ -369,7 +369,7 @@ inherited docuseteditfo: tdocuseteditfo
           frame.button.imagenr = 17
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
@@ -377,7 +377,7 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 0
           bounds_y = 0
           bounds_cx = 360
-          bounds_cy = 37
+          bounds_cy = 41
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
           datalink.datasource = dataso
           datalink.fieldname = 'PSFILE'
@@ -390,7 +390,7 @@ inherited docuseteditfo: tdocuseteditfo
           controller.defaultext = 'ps'
           controller.options = [fdo_save, fdo_file, fdo_basedirrelative]
           controller.captionsave = 'Docu Postscript File'
-          reffontheight = 14
+          reffontheight = 16
         end
         object pdffileed: tdbfilenameedit
           frame.caption = 'P&DF File'
@@ -404,7 +404,7 @@ inherited docuseteditfo: tdocuseteditfo
           frame.button.imagenr = 17
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
@@ -413,7 +413,7 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 364
           bounds_y = 0
           bounds_cx = 322
-          bounds_cy = 37
+          bounds_cy = 41
           anchors = [an_left, an_top, an_right]
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
           datalink.datasource = dataso
@@ -427,7 +427,7 @@ inherited docuseteditfo: tdocuseteditfo
           controller.defaultext = 'pdf'
           controller.options = [fdo_save, fdo_file, fdo_basedirrelative]
           controller.captionsave = 'Docu PDF File'
-          reffontheight = 14
+          reffontheight = 16
         end
       end
       object stripe2a: tlayouter
@@ -436,7 +436,7 @@ inherited docuseteditfo: tdocuseteditfo
         bounds_x = 8
         bounds_y = 0
         bounds_cx = 686
-        bounds_cy = 39
+        bounds_cy = 41
         anchors = [an_left, an_top, an_right]
         optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
         optionslayout = [lao_aligny]
@@ -453,19 +453,19 @@ inherited docuseteditfo: tdocuseteditfo
           frame.button.imagenr = 17
           frame.outerframe = (
             0
-            17
+            19
             0
             0
           )
           bounds_x = 0
-          bounds_y = 2
+          bounds_y = 0
           bounds_cx = 686
-          bounds_cy = 37
+          bounds_cy = 41
           anchors = [an_top]
           datalink.datasource = dataso
           datalink.navigator = navig
           datalink.fieldname = 'COMMENT'
-          reffontheight = 14
+          reffontheight = 16
         end
       end
     end
@@ -474,9 +474,9 @@ inherited docuseteditfo: tdocuseteditfo
       frame.localprops1 = []
       taborder = 1
       bounds_x = 0
-      bounds_y = 19
+      bounds_y = 21
       bounds_cx = 701
-      bounds_cy = 292
+      bounds_cy = 280
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Pages'
       object grid: twidgetgrid
@@ -485,7 +485,7 @@ inherited docuseteditfo: tdocuseteditfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 701
-        bounds_cy = 292
+        bounds_cy = 280
         anchors = []
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -498,7 +498,7 @@ inherited docuseteditfo: tdocuseteditfo
         fixrows.count = 1
         fixrows.items = <        
           item
-            height = 16
+            height = 18
             captions.count = 4
             captions.items = <            
               item
@@ -545,11 +545,11 @@ inherited docuseteditfo: tdocuseteditfo
             dataclass = tgridintegerdatalist
           end>
         ifilink = bommo.docupagegrid
-        datarowheight = 16
+        datarowheight = 18
         onrowsmodified = editedev
         onedited = editedev
         oncellevent = cellev
-        reffontheight = 14
+        reffontheight = 16
         object pked: tint64edit
           optionswidget1 = [ow1_fontglyphheight]
           optionsskin = [osk_framebuttononly]
@@ -558,10 +558,10 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 0
           bounds_y = 0
           bounds_cx = 22
-          bounds_cy = 16
+          bounds_cy = 18
           max = 2147483647
           ifilink = bommo.dpg_pk
-          reffontheight = 14
+          reffontheight = 16
         end
         object pagekinded: tdropdownlistedit
           optionswidget1 = [ow1_fontglyphheight]
@@ -580,7 +580,7 @@ inherited docuseteditfo: tdocuseteditfo
           visible = False
           bounds_x = 23
           bounds_y = 0
-          bounds_cy = 16
+          bounds_cy = 18
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
           ifilink = bommo.dpg_kind
@@ -589,7 +589,7 @@ inherited docuseteditfo: tdocuseteditfo
           dropdown.cols.items = <          
             item
             end>
-          reffontheight = 14
+          reffontheight = 16
         end
         object titleed: tstringedit
           optionsskin = [osk_framebuttononly]
@@ -599,10 +599,10 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 124
           bounds_y = 0
           bounds_cx = 111
-          bounds_cy = 16
+          bounds_cy = 18
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           ifilink = bommo.dpg_title
-          reffontheight = 14
+          reffontheight = 16
         end
         object docupageeditbu: tstockglyphdatabutton
           optionswidget1 = []
@@ -611,7 +611,7 @@ inherited docuseteditfo: tdocuseteditfo
           bounds_x = 236
           bounds_y = 0
           bounds_cx = 24
-          bounds_cy = 16
+          bounds_cy = 18
           optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
           state = [as_invisible, as_localinvisible, as_localimagelist, as_localimagenr]
           action = pageeditact

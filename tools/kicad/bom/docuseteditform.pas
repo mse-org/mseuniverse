@@ -24,7 +24,7 @@ uses
  mseificompglob,mseifiglob,msestatfile,msestream,msestrings,sysutils,
  msesplitter,mseprinter,mdb,msedbedit,msegraphedits,msegrids,mselookupbuffer,
  msescrollbar,msewidgetgrid,msedatanodes,mselistbrowser,mseactions,msebitmap,
- msefiledialog,msesys,msedragglob,msetabs;
+ msefiledialog,msesys,msedragglob,msetabs,msedbdispwidgets;
 
 type
  tdocuseteditfo = class(trecordnameeditfo)

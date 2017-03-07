@@ -1,6 +1,6 @@
 object bommo: tbommo
-  bounds_cx = 100
-  bounds_cy = 100
+  bounds_cx = 1150
+  bounds_cy = 700
   left = 100
   top = 100
   moduleclassname = 'tmsedatamodule'
@@ -296,30 +296,30 @@ object bommo: tbommo
       <      
         item
           FieldName = 'TSCREATE'
-          Index = 12
+          Index = 0
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 13
+          Index = 1
           optionsfield = [of_visible, of_nocopyrecord, of_inwhere, of_refreshinsert, of_refreshupdate]
         end      
         item
           DisplayWidth = 500
           FieldName = 'COMMENT'
-          Index = 14
+          Index = 2
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'NAME'
-          Index = 15
+          Index = 3
           Size = 0
         end      
         item
           DisplayWidth = 0
           FieldName = 'DESCRIPTION'
-          Index = 16
+          Index = 4
           Size = 0
         end>
     )
@@ -332,7 +332,7 @@ object bommo: tbommo
     streamingversion = 1
     object ds_pk: tmselargeintfield
       FieldName = 'PK'
-      Index = 0
+      Index = 5
       optionsfield = [of_visible, of_nocopyrecord, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 16
       top = 176
@@ -340,7 +340,7 @@ object bommo: tbommo
     object ds_docudir: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DOCUDIR'
-      Index = 1
+      Index = 6
       Size = 0
       left = 16
       top = 192
@@ -348,7 +348,7 @@ object bommo: tbommo
     object ds_psfile: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PSFILE'
-      Index = 2
+      Index = 7
       Size = 0
       left = 16
       top = 208
@@ -356,14 +356,14 @@ object bommo: tbommo
     object ds_pdffile: tmsestringfield
       DisplayWidth = 20
       FieldName = 'PDFFILE'
-      Index = 3
+      Index = 8
       Size = 0
       left = 16
       top = 224
     end
     object ds_width: tmsefloatfield
       FieldName = 'WIDTH'
-      Index = 4
+      Index = 9
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -371,7 +371,7 @@ object bommo: tbommo
     end
     object ds_height: tmsefloatfield
       FieldName = 'HEIGHT'
-      Index = 5
+      Index = 10
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -379,7 +379,7 @@ object bommo: tbommo
     end
     object ds_margleft: tmsefloatfield
       FieldName = 'MARGLEFT'
-      Index = 6
+      Index = 11
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -387,7 +387,7 @@ object bommo: tbommo
     end
     object ds_margright: tmsefloatfield
       FieldName = 'MARGRIGHT'
-      Index = 7
+      Index = 12
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -395,7 +395,7 @@ object bommo: tbommo
     end
     object ds_margtop: tmsefloatfield
       FieldName = 'MARGTOP'
-      Index = 8
+      Index = 13
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -403,7 +403,7 @@ object bommo: tbommo
     end
     object ds_margbottom: tmsefloatfield
       FieldName = 'MARGBOTTOM'
-      Index = 9
+      Index = 14
       MaxValue = 0
       MinValue = 0
       left = 16
@@ -412,14 +412,14 @@ object bommo: tbommo
     object ds_font: tmsestringfield
       DisplayWidth = 0
       FieldName = 'FONT'
-      Index = 10
+      Index = 15
       Size = 0
       left = 16
       top = 336
     end
     object ds_fontheight: tmsefloatfield
       FieldName = 'FONTHEIGHT'
-      Index = 11
+      Index = 16
       MaxValue = 0
       MinValue = 0
       left = 16
