@@ -3129,9 +3129,11 @@ end;
 
 constructor tglobaloptions.create();
 begin
- fhostname:= 'localhost';
- fdatabasename:= 'stock';
- fpsviewer:= 'kpdf';
+{$ifdef mswindows}
+ fpsviewer:= 'gsview';
+{$else}
+ fpsviewer:= 'okular';
+{$endif}
  fps2pdf:= 'ps2pdf';
 end;
 
