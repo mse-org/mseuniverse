@@ -907,12 +907,12 @@ const
 //ff_none, ff_gerber,ff_postscript,ff_svg,ff_dxf,ff_hpgl,ff_pdf
    '',    'GERBER','POST','SVG','DXF','HPGL','PDF'
  );
-
+{
  docupageenums: array[docupagekindty] of msestring = (
 //dpk_none,dpk_title,dpk_schematic,dpk_layerplot,dpk_drillmap,dpk_partlist,dpk_bom
   '','title','schematic','layerplot','drillmap','partlist','bom'
  );
- 
+}
 function layertoplotname(const layername: msestring): msestring;
 begin
  result:= mselowercase(layername);
@@ -1025,7 +1025,7 @@ procedure tmainmo.createdatabase(const ahostname: msestring;
                const adbname: msestring);
 var
  username1,password1: msestring;
- s1,s2: msestring;
+ s1: msestring;
  stream1: tobjectdatastream;
  stream2: tmsefilestream;
 begin
@@ -1147,7 +1147,6 @@ var
  rowstate1: int32;
  bm1,bm2: bookmarkdataty;
  id1,id2: int64;
- bo1: boolean;
  area1,f1: flo64;
  menuitem1: tmenuitem;
  s1: msestring;
@@ -1827,7 +1826,7 @@ procedure tmainmo.deletecheck(const id: tmselargeintfield;
                       const references: array of tmselargeintfield);
 var
  i1: int32;
- mstr1,mstr2,fna: msestring;
+ mstr1,mstr2: msestring;
  deltest: tsqlresult;
 begin
  if id.dataset = vendormo.distributorqu then begin
@@ -1963,9 +1962,6 @@ end;
 
 procedure tmainmo.stockcompinternalcalcev(const sender: tmsebufdataset;
                const fetching: Boolean);
-var
- bm1: bookmarkdataty;
- bo1: boolean;
 begin
 {
  if sc_footprint.isnull then begin
@@ -2002,9 +1998,8 @@ function tmainmo.gettargetfootprintident(const id1: int64): msestring;
 var
  s1: msestring;
  p1,p2,pe: pmsestring;
- id2: int64;
  i1,i2: int32;
- bm1,bm2: bookmarkdataty;
+ bm1: bookmarkdataty;
 begin
  result:= '';
  if (id1 <> -1) and footprintqu.indexlocal[0].find([id1],[],bm1) then begin
@@ -2534,8 +2529,7 @@ var
  board1,boardname1,plotdir1: filenamety;
  info1: prodplotinfoty;
  ar1,ar2: filenamearty;
- s1,s2,s3: msestring;
- la1,la2: layerty;
+ s1,s2: msestring;
  lainf1: layerinforecty;
  tmpf: filenamety;
  hasdrill,hasdetailfield,hasdistfield: boolean;
@@ -2766,10 +2760,9 @@ var
 var
  info1: docuinfoty;
  rep: tdocure;
- i1,i2: int32;
+ i1: int32;
  error1: boolean;
  boardfile1,s1,s2: filenamety;
- pk1,pk2: layerty;
  b1: boolean;
  pa1: treppageform;
  la1: layoutflagsty;
@@ -3138,8 +3131,6 @@ begin
 end;
 
 destructor tglobaloptions.destroy();
-var
- i1: int32;
 begin
  docudefines:= nil; //free pages
  inherited;
@@ -3212,15 +3203,7 @@ begin
 end;
 
 procedure tglobaloptions.dostatread(const reader: tstatreader);
-var
- count1,count2: int32;
- i1,i2: int32;
- s1: msestring;
- kind1: docupagekindty;
-// page1: tdocupage;
- ar1: docuinfoarty;
 begin
- ar1:= nil; //compiler warning
  inherited;
 end;
 
