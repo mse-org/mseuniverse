@@ -24,13 +24,15 @@ program msekicadbom;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif} 
- loadguitemplates,msegui,mainmodule,vendormodule,bommodule,main,mseclasses;
+ loadguitemplates,msegui,mainmodule,vendormodule,bommodule,main,mseclasses,
+ msewidgets,msesysintf,mseformatstr;
 begin
  msebegingloballoading();
  application.createdatamodule(tmainmo,mainmo);
  application.createdatamodule(tvendormo,vendormo);
  application.createdatamodule(tbommo,bommo);
  application.createform(tmainfo,mainfo);
+//showmessage(inttostrmse(sys_getpid));
  mseendgloballoading();
  application.run;
 end.

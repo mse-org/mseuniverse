@@ -2487,7 +2487,7 @@ begin
  end
  else begin
   viewerproc.filename:= s1;
-  viewerproc.parameter:= afile;
+  viewerproc.parameter:= quotefilename(tosysfilepath(afile));
   viewerproc.cancontinue:= cancontinue;
   viewerproc.active:= true;
   if not application.waitcanceled and (viewerproc.exitcode <> 0) then begin
@@ -2499,19 +2499,29 @@ end;
 
 procedure tmainmo.ps2pdf(const source: msestring; const dest: msestring;
                                           const pagewidth,pageheight: flo64);
+{$ifdef mswindows}
+var
+ s1: msestring;
+{$endif}
 begin
  if globaloptions.ps2pdf = '' then begin
   errormessage('ps2pdf program not defined in global settings.');
  end
  else begin
+ {$ifdef mswindows}
+  sys_getenv('PATH',s1);
+  s1:= s1+';'+tosysfilepath(filepath(filedir(globaloptions.ps2pdf)+'/../bin'));
+  ps2pdfproc.envvars.clear();
+  ps2pdfproc.envvars.add('PATH='+s1);
+ {$endif}
   createdirpath(filedir(filepath(dest)));
   ps2pdfproc.filename:= globaloptions.ps2pdf;
   ps2pdfproc.params.count:= 3;
   ps2pdfproc.params[0]:= '-g'+
                    inttostrmse(round(pagewidth*mmtoprintscale*10))+'x'+
                    inttostrmse(round(pageheight*mmtoprintscale*10));
-  ps2pdfproc.params[1]:= source;
-  ps2pdfproc.params[2]:= dest;
+  ps2pdfproc.params[1]:= tosysfilepath(source);
+  ps2pdfproc.params[2]:= tosysfilepath(dest);
   ps2pdfproc.active:= true;
   ps2pdfproc.waitforprocess();
  end;
