@@ -1900,7 +1900,7 @@ object mainmo: tmainmo
           'zip.close()'
         )
       end>
-    filename = '/usr/bin/python'
+    filename = 'python'
     options = [pro_output, pro_input, pro_errorouttoout, pro_noshell, pro_winpipewritehandles]
     left = 592
     top = 8

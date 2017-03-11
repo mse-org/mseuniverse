@@ -1,16 +1,16 @@
 object globalsettingsfo: tglobalsettingsfo
   visible = False
-  bounds_x = 337
-  bounds_y = 266
+  bounds_x = 141
+  bounds_y = 252
   bounds_cx = 662
-  bounds_cy = 199
+  bounds_cy = 215
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     662
-    199
+    215
   )
   optionswindow = [wo_windowcentermessage]
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -22,17 +22,17 @@ object globalsettingsfo: tglobalsettingsfo
   moduleclassname = 'tmseform'
   object texpandingwidget1: texpandingwidget
     bounds_x = 0
-    bounds_y = 118
+    bounds_y = 147
     bounds_cx = 662
-    bounds_cy = 79
+    bounds_cy = 66
     anchors = [an_top, an_bottom]
     object tsplitter1: tsplitter
       optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       color = -2147483645
-      bounds_x = 539
-      bounds_y = 27
-      bounds_cx = 123
-      bounds_cy = 38
+      bounds_x = 541
+      bounds_y = 15
+      bounds_cx = 121
+      bounds_cy = 37
       anchors = [an_right, an_bottom]
       optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
       grip = stb_none
@@ -40,14 +40,14 @@ object globalsettingsfo: tglobalsettingsfo
         optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
         bounds_x = 58
         bounds_y = 16
-        bounds_cx = 52
-        bounds_cy = 22
+        bounds_cx = 50
+        bounds_cy = 21
         bounds_cxmin = 50
         anchors = [an_top, an_right]
         state = [as_localcaption]
         caption = '&Cancel'
         modalresult = mr_cancel
-        reffontheight = 14
+        reffontheight = 13
       end
       object tbutton1: tbutton
         optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
@@ -55,13 +55,13 @@ object globalsettingsfo: tglobalsettingsfo
         bounds_x = 0
         bounds_y = 16
         bounds_cx = 50
-        bounds_cy = 22
+        bounds_cy = 21
         bounds_cxmin = 50
         anchors = [an_top, an_right]
         state = [as_default, as_localdefault, as_localcaption]
         caption = '&OK'
         modalresult = mr_ok
-        reffontheight = 14
+        reffontheight = 13
       end
       object tspacer2: tspacer
         taborder = 2
@@ -79,9 +79,9 @@ object globalsettingsfo: tglobalsettingsfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 1
     bounds_x = 8
-    bounds_y = 81
+    bounds_y = 77
     bounds_cx = 645
-    bounds_cy = 37
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placex, lao_aligny]
@@ -90,7 +90,6 @@ object globalsettingsfo: tglobalsettingsfo
     place_maxdist = 4
     place_options = [plo_scalesize]
     linktop = tlayouter2
-    linkbottom = texpandingwidget1
     object val_psviewer: tfilenameedit
       frame.caption = 'Postscript Viewer'
       frame.localprops = []
@@ -103,15 +102,15 @@ object globalsettingsfo: tglobalsettingsfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
+        16
         0
         0
       )
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 320
-      bounds_cy = 37
-      reffontheight = 14
+      bounds_cy = 35
+      reffontheight = 13
     end
     object val_ps2pdf: tfilenameedit
       frame.caption = 'ps2pdf'
@@ -125,7 +124,7 @@ object globalsettingsfo: tglobalsettingsfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
+        16
         0
         0
       )
@@ -133,17 +132,17 @@ object globalsettingsfo: tglobalsettingsfo
       bounds_x = 324
       bounds_y = 0
       bounds_cx = 319
-      bounds_cy = 37
-      reffontheight = 14
+      bounds_cy = 35
+      reffontheight = 13
     end
   end
   object tlayouter2: tlayouter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 2
     bounds_x = 8
-    bounds_y = 37
+    bounds_y = 36
     bounds_cx = 645
-    bounds_cy = 44
+    bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placex, lao_aligny]
@@ -165,28 +164,28 @@ object globalsettingsfo: tglobalsettingsfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        17
+        16
         0
         0
       )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 570
-      bounds_cy = 37
+      bounds_cx = 585
+      bounds_cy = 35
       anchors = [an_left, an_top, an_right]
       statfile = tstatfile1
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
       ondataentered = dbdataenteredev
       controller.captionopen = 'Set Database File'
-      reffontheight = 14
+      reffontheight = 13
     end
     object tbutton3: tbutton
       optionswidget1 = [ow1_autowidth, ow1_autoheight]
       taborder = 1
-      bounds_x = 574
-      bounds_y = 10
-      bounds_cx = 71
-      bounds_cy = 34
+      bounds_x = 589
+      bounds_y = 9
+      bounds_cx = 56
+      bounds_cy = 32
       state = [as_localcaption]
       action = createdbact
       caption = 'Create'#10'Database'
@@ -198,19 +197,83 @@ object globalsettingsfo: tglobalsettingsfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      16
       0
       0
     )
     taborder = 3
     hint = 'Empty Hostname -> use embedded database'
     bounds_x = 8
-    bounds_y = 0
+    bounds_y = 1
     bounds_cx = 570
-    bounds_cy = 37
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     ondataentered = dbdataenteredev
-    reffontheight = 14
+    reffontheight = 13
+  end
+  object tlayouter3: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 112
+    bounds_cx = 645
+    bounds_cy = 35
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_scalesize]
+    linktop = tlayouter1
+    linkbottom = texpandingwidget1
+    object val_fbdir: tfilenameedit
+      frame.caption = 'Firebird directory'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        16
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 320
+      bounds_cy = 35
+      ondataentered = dbdataenteredev
+      controller.options = [fdo_directory, fdo_savelastdir]
+      reffontheight = 13
+    end
+    object val_python: tfilenameedit
+      frame.caption = 'Python Interpreter'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        16
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 324
+      bounds_y = 0
+      bounds_cx = 319
+      bounds_cy = 35
+      reffontheight = 13
+    end
   end
   object tstatfile1: tstatfile
     filename = 'globalsettingsfo.sta'

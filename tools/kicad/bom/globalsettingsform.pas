@@ -40,6 +40,9 @@ type
    tbutton2: tbutton;
    tbutton1: tbutton;
    tspacer2: tspacer;
+   tlayouter3: tlayouter;
+   val_fbdir: tfilenameedit;
+   val_python: tfilenameedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure createev(const sender: TObject);

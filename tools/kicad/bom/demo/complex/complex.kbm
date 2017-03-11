@@ -1,7 +1,7 @@
 [mainmo.projectoptrtti]
 schematics=2
- /home/mse/packs/standard/git/mseuniverse/tools/kicad/bom/demo/complex/ampli_ht.sch
- /home/mse/packs/standard/git/mseuniverse/tools/kicad/bom/demo/complex/complex_hierarchy.sch
+ ampli_ht.sch
+ complex_hierarchy.sch
 compfootprint=
 compfootprintwarn=1
 board=complex_hierarchy.kicad_pcb

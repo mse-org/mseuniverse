@@ -249,6 +249,8 @@ type
    fprodplotnames: msestringarty;
    fdocudefines: docuinfoarty;
    fdocunames: msestringarty;
+   ffbdir: msestring;
+   fpython: msestring;
    procedure setprodplotdefines(const avalue: prodplotinfoarty);
    procedure setdocudefines(const avalue: docuinfoarty);
   protected
@@ -280,6 +282,8 @@ type
    property databasename: msestring read fdatabasename write fdatabasename;
    property psviewer: msestring read fpsviewer write fpsviewer;
    property ps2pdf: msestring read fps2pdf write fps2pdf;
+   property fbdir: msestring read ffbdir write ffbdir;
+   property python: msestring read fpython write fpython;
  end;
 
  filekindty = (fk_componentfootprint,fk_board);
@@ -520,6 +524,7 @@ type
    procedure librarydeletecheckev(DataSet: TDataSet);
    procedure afterconnev(const sender: tmdatabase);
   private
+   ffbdirbefore: msestring;
    fdisconnecting: boolean;
    fhasproject: boolean;
    fmodified: boolean;
@@ -670,7 +675,8 @@ uses
  mainmodule_mfm,msewidgets,variants,msestrmacros,msefilemacros,msemacmacros,
  mseenvmacros,msefileutils,mseformatstr,msesysutils,msedate,msereal,
  msearrayutils,docureport,docupsreppage,basereppage,mserepps,main,
- partlistreppage,bomreppage,bommodule,vendormodule,dbdata,titlereppage;
+ partlistreppage,bomreppage,bommodule,vendormodule,dbdata,titlereppage,
+ msesysintf,msefirebird;
 
 { tmainmo }
 
@@ -1755,6 +1761,13 @@ end;
 
 procedure tmainmo.beforeconnectev(const sender: tmdatabase);
 begin
+ if (globaloptions.fbdir <> ffbdirbefore) then begin
+  ffbdirbefore:= globaloptions.fbdir;
+  conn.connected:= false; //to be sure, release fbapi
+  releasefirebird();
+  initializefirebird([]);
+  sys_setenv('FIREBIRD',tosysfilepath(globaloptions.fbdir));
+ end;
  conn.hostname:= globaloptions.hostname;
  conn.databasename:= globaloptions.databasename;
 end;
@@ -1778,6 +1791,12 @@ function tmainmo.execpy(const ascript: msestring;
 var
  i1: int32;
 begin
+ if globaloptions.python = '' then begin
+  showmessage('Python compiler not defined in ''Global options''','ERROR');
+  result:= false;
+  exit;
+ end;
+ python.filename:= globaloptions.python;
  python.params.count:= high(params) + 2;
  python.params[0]:= '-';
  for i1:= 0 to high(params) do begin
@@ -3124,8 +3143,10 @@ constructor tglobaloptions.create();
 begin
 {$ifdef mswindows}
  fpsviewer:= 'gsview';
+ fpython:= 'python.exe';
 {$else}
  fpsviewer:= 'okular';
+ fpython:= 'python';
 {$endif}
  fps2pdf:= 'ps2pdf';
 end;
