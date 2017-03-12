@@ -112,6 +112,8 @@ object globalsettingsfo: tglobalsettingsfo
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+      controller.options = [fdo_link, fdo_savelastdir]
+      controller.group = 1
       reffontheight = 14
     end
     object val_ps2pdf: tfilenameedit
@@ -137,6 +139,8 @@ object globalsettingsfo: tglobalsettingsfo
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+      controller.options = [fdo_link, fdo_savelastdir]
+      controller.group = 1
       reffontheight = 14
     end
   end
@@ -258,7 +262,8 @@ object globalsettingsfo: tglobalsettingsfo
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
       ondataentered = dbdataenteredev
-      controller.options = [fdo_directory, fdo_savelastdir]
+      controller.options = [fdo_directory, fdo_link, fdo_savelastdir]
+      controller.group = 1
       reffontheight = 14
     end
     object val_python: tfilenameedit
@@ -284,6 +289,8 @@ object globalsettingsfo: tglobalsettingsfo
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+      controller.options = [fdo_link, fdo_savelastdir]
+      controller.group = 1
       reffontheight = 14
     end
   end
