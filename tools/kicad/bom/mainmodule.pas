@@ -2228,10 +2228,12 @@ begin
  base1:= filepath(basedir);
  for i1:= 0 to high(afiles) do begin
   ar1[i1*2+1]:= tosysfilepath(filepath(afiles[i1]));
-  s1:= relativepath(afiles[i1],base1);
+  s1:= relativepath(tomsefilepath(afiles[i1]),base1);
   if msestartsstr('..',s1) then begin
    fpythonconsole.writeln(
-     'Zip error: File destination not in archive: "'+s1+'"');
+     '******* Zip error: File destination not in archive: "'+s1+'"');
+   fpythonconsole.writeln('Press Enter');
+   fpythonconsole.show(alast);
    exit;
   end;
   ar1[i1*2+2]:= s1;
@@ -2580,7 +2582,7 @@ begin
  end;
  if not prodplotdefinebyname(projectoptions.productionfiles[aindex],info1)
                                                                     then begin
-  errormessage('Plotstack "'+projectoptions.productionfiles[aindex]+'"'+lineend+
+  errormessage('Production file stack "'+projectoptions.productionfiles[aindex]+'"'+lineend+
                'is invalid');
   exit;
  end;
@@ -2613,10 +2615,10 @@ begin
                                      not createproductionzipfile) then begin   
      for i1:= 0 to high(drillfiles) do begin
       with drillfiles[i1] do begin
-       s1:= filename;
+       s1:= plotdir1+filename;
        s2:= tmpf+'/'+getdrillfilename(board1,layera,layerb,nonplated)+'.drl';
        if findfile(s2) then begin
-        copyfile(s2,plotdir1+'/'+s1);
+        copyfile(s2,s1);
         additem(ar1,s1);
        end;
       end;
@@ -2630,8 +2632,8 @@ begin
         if pos('-NPTH.drl',s1) <> length(s1) - 8 then begin
          s1:= copy(s1,i2,bigint);
          setlength(s1,length(s1)-4); //remove .drl
-         s1:= alldrillpref+s1+alldrillsuff;
-         copyfile(tmpf+'/'+ar2[i1],plotdir1+s1);
+         s1:= plotdir1+alldrillpref+s1+alldrillsuff;
+         copyfile(tmpf+'/'+ar2[i1],s1);
          additem(ar1,s1);
         end;
        end;
@@ -2644,8 +2646,8 @@ begin
        if length(s1) > i2 then begin
         s1:= copy(s1,i2,bigint);
         setlength(s1,length(s1)-9); //remove -NPTH.drl 
-        s1:= alldrillprefnpt+s1+alldrillsuffnpt;
-        copyfile(tmpf+'/'+ar2[i1],plotdir1+'/'+s1);
+        s1:= plotdir1+alldrillprefnpt+s1+alldrillsuffnpt;
+        copyfile(tmpf+'/'+ar2[i1],s1);
         additem(ar1,s1);
        end;
       end;
@@ -2690,8 +2692,8 @@ begin
        end;
       end;
      end;
-     s1:= filename;
-     cvsstream:= ttextdatastream.create(filepath(plotdir1,s1),fm_create);
+     s1:= filepath(plotdir1,filename);
+     cvsstream:= ttextdatastream.create(s1,fm_create);
      recnobefore:= compds.recno;
      compds.disablecontrols();
      stockcompdetailqu.disablecontrols();
@@ -2938,7 +2940,6 @@ begin
       ps.layout:= la1;
      end;
     end;
-//    rep.add(pa1);
    end;
   end;
   if not error1 then begin
