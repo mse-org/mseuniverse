@@ -124,6 +124,7 @@ object mainmo: tmainmo
             options = [ifo_caseinsensitive, ifo_natural]
           end>
         active = True
+        name = 'ref'
       end    
       item
         fields.count = 2

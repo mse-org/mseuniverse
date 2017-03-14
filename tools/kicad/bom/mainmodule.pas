@@ -2573,7 +2573,7 @@ var
  cvsstream: ttextdatastream;
  ar3: msestringarty;
  ar4,ar5: fieldarty;
- recnobefore: int32;
+ recnobefore,indexbefore: int32;
  ds1: tdataset;
  
 begin
@@ -2695,6 +2695,7 @@ begin
      s1:= filepath(plotdir1,filename);
      cvsstream:= ttextdatastream.create(s1,fm_create);
      recnobefore:= compds.recno;
+     indexbefore:= compds.indexlocal.activeindex;
      compds.disablecontrols();
      stockcompdetailqu.disablecontrols();
      compkindqu.disablecontrols();
@@ -2718,6 +2719,7 @@ begin
        end;
       end
       else begin
+       compds.indexlocal.indexbyname('ref').active:= true;
        ds1:= compds;
       end;
       ds1.first();
@@ -2762,6 +2764,7 @@ begin
       bommo.bomds.active:= false;
       bommo.isbomcvs:= false;
       compds.recno:= recnobefore;
+      compds.indexlocal.activeindex:= indexbefore;
       compds.enablecontrols();
       stockcompdetailqu.enablecontrols();
       compkindqu.enablecontrols();
