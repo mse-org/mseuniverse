@@ -1877,7 +1877,6 @@ object mainmo: tmainmo
           ' board = LoadBoard(apcbfilename)'
           ' drlwriter = EXCELLON_WRITER(board)'
           ' if amapformat != '''':'
-          '  print amapformat'
           '  format = formatenums[formatnames.index(amapformat)]'
           '  drlwriter.SetMapFileFormat(format);'
           ' drlwriter.CreateDrillandMapFilesSet(aoutputdir,amakeexcellon == truesymbol,'
