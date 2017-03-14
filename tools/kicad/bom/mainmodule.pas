@@ -2808,6 +2808,7 @@ var
  la1: layoutflagsty;
  lainf1: layerinforecty;
  drillfilesmade: boolean;
+ indexbefore: int32;
 begin
  if not docudefinebyname(projectoptions.docusets[aindex],info1) then begin
   errormessage('Docuset "'+projectoptions.docusets[aindex]+'"'+lineend+
@@ -2829,9 +2830,11 @@ begin
  tmpf:= intermediatefilename(msegettempdir()+'msekicadbom');
  createdirpath(tmpf);
  drillfilesmade:= false;
+ indexbefore:= compds.indexlocal.activeindex;
+ compds.disablecontrols();
  beginpy('Create Docu');
+ rep:= tdocure.create(nil);
  try
-  rep:= tdocure.create(nil);
   rep.clear(); //remove defaultpage
   rep.pagewidth:= psprinter.clientwidth;
   rep.pageheight:= psprinter.clientheight;
@@ -2946,6 +2949,7 @@ begin
    end;
   end;
   if not error1 then begin
+   compds.indexlocal.indexbyname('ref').active:= true;
    inctempfile();
    tmpfile:= tmpfile+'.ps';
    rep.render(psprinter,ttextstream.create(tmpfile,fm_create));
@@ -2968,6 +2972,8 @@ begin
   rep.destroy();
   bommo.bomds.active:= false;
   bommo.compdistribqu.active:= false;
+  compds.indexlocal.activeindex:= indexbefore;
+  compds.enablecontrols;
  end;
 end;
 
