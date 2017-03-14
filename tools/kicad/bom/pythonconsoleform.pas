@@ -57,6 +57,7 @@ end;
 procedure tpythonconsolefo.show(const last: boolean);
 begin
  flast:= last;
+ activate();
  inherited show(ml_application);
 end;
 
