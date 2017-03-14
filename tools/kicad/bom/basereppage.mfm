@@ -3,6 +3,8 @@ object basereppa: tbasereppa
   pageheight = 190
   color = -1610612730
   visible = False
+  font.name = 'stf_report'
+  font.localprops = []
   options = [rpo_reportpagewidth, rpo_reportpageheight]
   grid_size = 2
   ppmm = 3
@@ -10,7 +12,7 @@ object basereppa: tbasereppa
   repdesigninfo = (
     177
     159
-    460
+    850
     369
   )
   object tlayouter1: tlayouter
@@ -24,22 +26,23 @@ object basereppa: tbasereppa
     optionslayout = [lao_placex, lao_aligny]
     align_mode = wam_start
     align_glue = wam_start
-    place_maxdist = 4
+    place_mindist = 8
+    place_maxdist = 8
     place_mode = wam_end
     place_options = [plo_endmargin]
     object treppagenumdisp1: treppagenumdisp
-      bounds_x = 358
+      bounds_x = 452
       bounds_y = 0
-      bounds_cx = 76
+      bounds_cx = 58
       bounds_cy = 14
       anchors = [an_top, an_right]
       format = '"Page " 0 of 1'
     end
     object trepprintdatedisp1: trepprintdatedisp
       taborder = 1
-      bounds_x = 438
+      bounds_x = 388
       bounds_y = 0
-      bounds_cx = 72
+      bounds_cx = 56
       bounds_cy = 14
       anchors = [an_left, an_top, an_right]
       textflags = [tf_xcentered, tf_ycentered]
@@ -49,7 +52,7 @@ object basereppa: tbasereppa
       taborder = 2
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 354
+      bounds_cx = 380
       bounds_cy = 14
       anchors = [an_left, an_top, an_right]
       optionsscale = [osc_expandy, osc_shrinky]

@@ -2406,6 +2406,9 @@ begin
   prodfilestackqu.controller.refresh();
   result:= prodfilestackqu.indexlocal[1].find([aname],[]);
   if result then begin
+   bommo.plotitemdso.active:= true;
+   bommo.drillitemdso.active:= true;
+   bommo.bomitemdso.active:= true;
    productiondir:= expandprojectmacros(pf_outputdir.asmsestring);
    createproductionzipfile:= pf_createzip.asboolean;
    productionzipfilename:= expandprojectmacros(pf_zipfile.asmsestring);
@@ -2450,6 +2453,9 @@ begin
      end;
     end;
    end;
+   bommo.plotitemdso.active:= false;
+   bommo.drillitemdso.active:= false;
+   bommo.bomitemdso.active:= false;
   end;
  end;
 end;
@@ -2625,7 +2631,7 @@ begin
          s1:= copy(s1,i2,bigint);
          setlength(s1,length(s1)-4); //remove .drl
          s1:= alldrillpref+s1+alldrillsuff;
-         copyfile(tmpf+'/'+ar2[i1],plotdir1+'/'+s1);
+         copyfile(tmpf+'/'+ar2[i1],plotdir1+s1);
          additem(ar1,s1);
         end;
        end;

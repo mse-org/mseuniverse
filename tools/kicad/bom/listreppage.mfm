@@ -3,12 +3,13 @@ inherited listreppa: tlistreppa
   font.localprops = [flp_height]
   moduleclassname = 'tbasereppa'
   repdesigninfo = (
-    177
-    159
-    460
+    345
+    624
+    669
     369
   )
   object tbandarea2: tbandarea[0]
+    taborder = 1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 510
@@ -18,7 +19,7 @@ inherited listreppa: tlistreppa
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 510
-      bounds_cy = 24
+      bounds_cy = 25
       font.height = 18
       font.name = 'stf_report'
       font.localprops = [flp_height]
@@ -43,25 +44,24 @@ inherited listreppa: tlistreppa
           distright = 0
         end>
       options = [bo_once]
-      reffontheight = 21
+      reffontheight = 22
     end
   end
   inherited tlayouter1: tlayouter[1]
-    taborder = 1
     bounds_y = 554
     bounds_cy = 16
     inherited treppagenumdisp1: treppagenumdisp
-      bounds_x = 359
+      bounds_x = 433
       bounds_cx = 77
       bounds_cy = 16
     end
     inherited trepprintdatedisp1: trepprintdatedisp
-      bounds_x = 436
+      bounds_x = 351
       bounds_cx = 74
       bounds_cy = 16
     end
     inherited titledi: trepvaluedisp
-      bounds_cx = 359
+      bounds_cx = 343
       bounds_cy = 16
     end
   end
