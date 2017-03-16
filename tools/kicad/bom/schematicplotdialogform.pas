@@ -26,7 +26,7 @@ uses
  docupageeditform,plotpageeditform,msedbdialog;
 type
  tschematicplotdialogfo = class(tplotpageeditfo)
-   tlayouter1: tlayouter;
+   strip2: tlayouter;
    val_psfile: tdbfilenameedit;
   private
   protected

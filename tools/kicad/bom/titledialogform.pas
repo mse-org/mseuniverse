@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  msesplitter,msesimplewidgets,mainmodule,mseact,msedataedits,mseedit,mseificomp,
  mseificompglob,mseifiglob,msestream,msestrings,sysutils,docupageeditform,
- msedbedit;
+ msedbedit,mdb,msegraphedits,msegrids,mselookupbuffer,msescrollbar;
 type
  ttitledialogfo = class(tdocupageeditfo)
    val_text: tdbmemoedit;

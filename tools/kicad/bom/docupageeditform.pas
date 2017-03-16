@@ -35,6 +35,7 @@ type
    f10act: taction;
    tlayouter2: tlayouter;
    val_title: tdbstringedit;
+   filler: tlayouter;
    procedure macrohintev(const sender: TObject; var info: hintinfoty);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);

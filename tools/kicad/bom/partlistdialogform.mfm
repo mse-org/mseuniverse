@@ -16,20 +16,27 @@ inherited partlistdialogfo: tpartlistdialogfo
     end
   end
   inherited tlayouter2: tlayouter
+    anchors = [an_left, an_top, an_right]
+    linkbottom = filler
     inherited val_title: tdbstringedit
     end
     inherited tlayouter1: tlayouter
+      optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       inherited fonted: tdbstringedit
       end
       inherited fontheighted: tdbrealedit
       end
     end
   end
-  inherited dataso: tmsedatasource
+  inherited filler: tlayouter
+    bounds_y = 74
+    bounds_cy = 207
   end
   inherited f10act: taction
   end
   inherited tstatfile1: tstatfile
     filename = 'partlistdialogfo.sta'
+  end
+  inherited dataso: tmsedatasource
   end
 end

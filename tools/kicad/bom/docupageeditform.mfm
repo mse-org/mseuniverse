@@ -25,6 +25,7 @@ object docupageeditfo: tdocupageeditfo
     bounds_cy = 38
     anchors = [an_right, an_bottom]
     optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
+    linktop = filler
     grip = stb_none
     object tbutton2: tbutton
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
@@ -93,6 +94,15 @@ object docupageeditfo: tdocupageeditfo
       datalink.fieldname = 'TITLE'
       reffontheight = 14
     end
+  end
+  object filler: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 2
+    bounds_x = 0
+    bounds_y = 152
+    bounds_cx = 554
+    bounds_cy = 129
+    anchors = [an_top, an_bottom]
   end
   object tstatfile1: tstatfile
     filename = 'docupageeditfo.sta'

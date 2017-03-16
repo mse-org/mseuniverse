@@ -7,7 +7,29 @@ inherited bomdialogfo: tbomdialogfo
   )
   caption = 'Edit BOM Page'
   moduleclassname = 'tdoculistpageeditfo'
-  inherited tsplitter1: tsplitter
+  inherited filler: tlayouter[0]
+    taborder = 3
+    bounds_y = 74
+    bounds_cy = 207
+    object val_showdistributors: tdbbooleanedit[0]
+      frame.caption = 'Show distributors'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        1
+        112
+        2
+      )
+      bounds_x = 8
+      bounds_y = 7
+      bounds_cx = 125
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.fieldname = 'SHOWDIST'
+    end
+  end
+  inherited tsplitter1: tsplitter[1]
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -15,7 +37,7 @@ inherited bomdialogfo: tbomdialogfo
     inherited tspacer2: tspacer
     end
   end
-  object val_showreferences: tdbbooleanedit[1]
+  object val_showreferences: tdbbooleanedit[2]
     frame.caption = 'Show references'
     frame.localprops = []
     frame.localprops1 = []
@@ -33,26 +55,10 @@ inherited bomdialogfo: tbomdialogfo
     datalink.datasource = dataso
     datalink.fieldname = 'SHOWREF'
   end
-  object val_showdistributors: tdbbooleanedit[2]
-    frame.caption = 'Show distributors'
-    frame.localprops = []
-    frame.localprops1 = []
-    frame.outerframe = (
-      0
-      1
-      112
-      2
-    )
-    taborder = 3
-    bounds_x = 8
-    bounds_y = 79
-    bounds_cx = 125
-    bounds_cy = 16
-    datalink.datasource = dataso
-    datalink.fieldname = 'SHOWDIST'
-  end
   inherited tlayouter2: tlayouter[3]
     taborder = 2
+    anchors = [an_left, an_top, an_right]
+    linkbottom = filler
     inherited val_title: tdbstringedit
     end
     inherited tlayouter1: tlayouter
@@ -62,12 +68,12 @@ inherited bomdialogfo: tbomdialogfo
       end
     end
   end
-  inherited dataso: tmsedatasource[4]
+  inherited f10act: taction[4]
   end
-  inherited f10act: taction[5]
-  end
-  inherited tstatfile1: tstatfile[6]
+  inherited tstatfile1: tstatfile[5]
     filename = 'bomdialogfo.sta'
     left = 56
+  end
+  inherited dataso: tmsedatasource[6]
   end
 end

@@ -76,10 +76,12 @@ inherited doculistpageeditfo: tdoculistpageeditfo
       end
     end
   end
-  inherited dataso: tmsedatasource[2]
+  inherited filler: tsimplewidget
   end
   inherited f10act: taction[3]
   end
   inherited tstatfile1: tstatfile[4]
+  end
+  inherited dataso: tmsedatasource[5]
   end
 end

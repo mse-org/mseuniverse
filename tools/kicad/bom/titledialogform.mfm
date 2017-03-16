@@ -9,7 +9,35 @@ inherited titledialogfo: ttitledialogfo
   )
   caption = 'Edit Title Page'
   moduleclassname = 'tdocupageeditfo'
-  inherited tsplitter1: tsplitter
+  inherited filler: tlayouter[0]
+    bounds_y = 42
+    bounds_cy = 239
+    optionsscale = [osc_expandy, osc_expandshrinkx, osc_expandshrinky]
+    object val_text: tdbmemoedit[0]
+      frame.caption = 'Text'
+      frame.localprops = [frl_colorclient]
+      frame.localprops1 = []
+      frame.sbhorz.pagesize = 1
+      frame.sbvert.pagesize = 1
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 8
+      bounds_y = 0
+      bounds_cx = 536
+      bounds_cy = 238
+      anchors = [an_left, an_top, an_right, an_bottom]
+      textflags = [tf_wordbreak, tf_noselect]
+      textflagsactive = [tf_wordbreak]
+      datalink.datasource = dataso
+      datalink.fieldname = 'TEXT'
+      reffontheight = 14
+    end
+  end
+  inherited tsplitter1: tsplitter[1]
     inherited tbutton2: tbutton
     end
     inherited tbutton1: tbutton
@@ -17,40 +45,16 @@ inherited titledialogfo: ttitledialogfo
     inherited tspacer2: tspacer
     end
   end
-  object val_text: tdbmemoedit[1]
-    frame.caption = 'Text'
-    frame.localprops = [frl_colorclient]
-    frame.localprops1 = []
-    frame.sbhorz.pagesize = 1
-    frame.sbvert.pagesize = 1
-    frame.outerframe = (
-      0
-      17
-      0
-      0
-    )
-    taborder = 1
-    bounds_x = 8
-    bounds_y = 47
-    bounds_cx = 536
-    bounds_cy = 217
-    anchors = [an_left, an_top, an_right, an_bottom]
-    textflags = [tf_wordbreak, tf_noselect]
-    textflagsactive = [tf_wordbreak]
-    datalink.datasource = dataso
-    datalink.fieldname = 'TEXT'
-    reffontheight = 14
-  end
   inherited tlayouter2: tlayouter[2]
-    taborder = 2
+    linkbottom = filler
     inherited val_title: tdbstringedit
     end
   end
-  inherited f10act: taction[3]
+  inherited dataso: tmsedatasource[3]
   end
-  inherited dataso: tmsedatasource[4]
-  end
-  inherited tstatfile1: tstatfile[5]
+  inherited tstatfile1: tstatfile[4]
     filename = 'titledialogfo.sta'
+  end
+  inherited f10act: taction
   end
 end

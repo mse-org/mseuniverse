@@ -48,10 +48,13 @@ inherited plotpageeditfo: tplotpageeditfo
     inherited val_title: tdbstringedit
     end
   end
-  inherited f10act: taction[3]
+  inherited filler: tsimplewidget[3]
+    taborder = 3
   end
-  inherited dataso: tmsedatasource[4]
+  inherited dataso: tmsedatasource
   end
   inherited tstatfile1: tstatfile[5]
+  end
+  inherited f10act: taction[6]
   end
 end

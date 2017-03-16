@@ -18,11 +18,11 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     inherited tspacer2: tspacer
     end
   end
-  object tlayouter1: tlayouter[1]
+  object strip2: tlayouter[1]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 3
+    taborder = 4
     bounds_x = 8
-    bounds_y = 37
+    bounds_y = 42
     bounds_cx = 538
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
@@ -31,6 +31,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
+    place_options = [plo_endmargin]
     linkbottom = plotsettingsfo
     object val_psfile: tdbfilenameedit
       frame.caption = 'Schematic Postscript file'
@@ -53,7 +54,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
       bounds_y = 0
       bounds_cx = 538
       bounds_cy = 37
-      anchors = [an_top]
+      anchors = [an_left, an_top, an_right]
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_saveoptions, oe1_checkvalueafterstatread]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
@@ -70,7 +71,8 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     end
   end
   inherited plotsettingsfo: tplotsettingsfo[2]
-    bounds_y = 74
+    bounds_y = 79
+    linkbottom = filler
     inherited val_mirrorx: tdbbooleanedit
       datalink.datasource = dataso
       datalink.fieldname = 'MIRRORHORZ'
@@ -101,14 +103,19 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     end
   end
   inherited tlayouter2: tlayouter[3]
+    linkbottom = strip2
     inherited val_title: tdbstringedit
     end
   end
-  inherited tstatfile1: tstatfile[4]
-    filename = 'schematicplotdialogfo.sta'
+  inherited filler: tlayouter[4]
+    bounds_y = 163
+    bounds_cy = 118
   end
   inherited f10act: taction[5]
   end
   inherited dataso: tmsedatasource[6]
+  end
+  inherited tstatfile1: tstatfile[7]
+    filename = 'schematicplotdialogfo.sta'
   end
 end

@@ -21,7 +21,7 @@ inherited drillmapdialogfo: tdrillmapdialogfo
   end
   object tlayouter1: tlayouter[1]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 3
+    taborder = 4
     bounds_x = 8
     bounds_y = 37
     bounds_cx = 538
@@ -120,6 +120,7 @@ inherited drillmapdialogfo: tdrillmapdialogfo
     bounds_x = 8
     bounds_y = 74
     linktop = tlayouter1
+    linkbottom = filler
     inherited val_mirrorx: tdbbooleanedit
       datalink.datasource = dataso
       datalink.fieldname = 'MIRRORHORZ'
@@ -154,10 +155,15 @@ inherited drillmapdialogfo: tdrillmapdialogfo
     inherited val_title: tdbstringedit
     end
   end
-  inherited dataso: tmsedatasource[4]
+  inherited filler: tsimplewidget[4]
+    taborder = 3
+    bounds_y = 158
+    bounds_cy = 123
   end
-  inherited f10act: taction[5]
+  inherited f10act: taction
   end
   inherited tstatfile1: tstatfile[6]
+  end
+  inherited dataso: tmsedatasource[7]
   end
 end

@@ -12,9 +12,14 @@ inherited layerplotdialogfo: tlayerplotdialogfo
   caption = 'Docu PCB Layer-Plot Page'
   onlayout = layoutev
   moduleclassname = 'tplotpageeditfo'
-  inherited tsplitter1: tsplitter
+  inherited filler: tlayouter[0]
+    visible = False
+    bounds_cx = 618
+  end
+  inherited tsplitter1: tsplitter[1]
     bounds_x = 495
     linkleft = plotoptcont
+    linktop = nil
     dist_left = 4
     inherited tbutton2: tbutton
     end
@@ -23,9 +28,9 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     inherited tspacer2: tspacer
     end
   end
-  object tlayouter1: tlayouter[1]
+  object tlayouter1: tlayouter[2]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 3
+    taborder = 4
     bounds_x = 8
     bounds_y = 41
     bounds_cx = 602
@@ -339,9 +344,9 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       end
     end
   end
-  object tlayouter4: tlayouter[2]
+  object tlayouter4: tlayouter[3]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 4
+    taborder = 5
     bounds_x = 8
     bounds_y = 48
     bounds_cx = 602
@@ -354,7 +359,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     place_mindist = 4
     place_maxdist = 4
   end
-  inherited plotsettingsfo: tplotsettingsfo[3]
+  inherited plotsettingsfo: tplotsettingsfo[4]
     bounds_y = 235
     anchors = [an_left, an_bottom]
     linktop = tlayouter1
@@ -388,9 +393,9 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       datalink.fieldname = 'SHIFTVERT'
     end
   end
-  object plotoptcont: tlayouter[4]
+  object plotoptcont: tlayouter[5]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 5
+    taborder = 6
     bounds_x = 262
     bounds_y = 235
     bounds_cx = 229
@@ -422,16 +427,17 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       reffontheight = 14
     end
   end
-  inherited tlayouter2: tlayouter[5]
+  inherited tlayouter2: tlayouter[6]
     bounds_cx = 618
     inherited val_title: tdbstringedit
+      bounds_cx = 602
     end
-  end
-  inherited tstatfile1: tstatfile[6]
-    filename = 'layerplotpageeditfo.sta'
   end
   inherited f10act: taction[7]
   end
   inherited dataso: tmsedatasource[8]
+  end
+  inherited tstatfile1: tstatfile[9]
+    filename = 'layerplotpageeditfo.sta'
   end
 end

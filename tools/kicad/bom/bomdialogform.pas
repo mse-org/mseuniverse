@@ -5,7 +5,8 @@ uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  docupageeditform,msegraphedits,mseificomp,mseificompglob,mseifiglob,
- msescrollbar,msedbedit,doculistpageeditform;
+ msescrollbar,msedbedit,doculistpageeditform,mdb,mseact,msedataedits,mseedit,
+ msegrids,mselookupbuffer,msestatfile,msestream,msestrings,sysutils;
 
 type
  tbomdialogfo = class(tdoculistpageeditfo)
