@@ -21,6 +21,7 @@ type
    runed: tbooleanedit;
    tstatfile1: tstatfile;
    timer: ttimer;
+   xrendered: tbooleanedit;
    procedure paintev(const sender: twidget; const acanvas: tcanvas);
    procedure createdev(const sender: TObject);
    procedure runsetev(const sender: TObject; var avalue: Boolean;
@@ -53,6 +54,7 @@ var
  i1,i2: int32;
  ca1: card32;
 begin
+ acanvas.smooth:= xrendered.value;
  co1:= cl_white;
  if odd(count) then begin
   co1:= cl_black;

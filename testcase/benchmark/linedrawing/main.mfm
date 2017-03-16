@@ -1,14 +1,14 @@
 object mainfo: tmainfo
   bounds_x = 291
   bounds_y = 247
-  bounds_cx = 365
+  bounds_cx = 503
   bounds_cy = 324
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    365
+    503
     324
   )
   statfile = tstatfile1
@@ -173,6 +173,23 @@ object mainfo: tmainfo
     bounds_cy = 16
     statfile = tstatfile1
     onsetvalue = runsetev
+  end
+  object xrendered: tbooleanedit
+    frame.caption = 'xrender'#10'gdi+'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      8
+      51
+      9
+    )
+    taborder = 9
+    bounds_x = 368
+    bounds_y = 8
+    bounds_cx = 64
+    bounds_cy = 30
+    statfile = tstatfile1
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
