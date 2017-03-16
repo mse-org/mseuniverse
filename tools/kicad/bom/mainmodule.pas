@@ -1760,7 +1760,17 @@ begin
 end;
 
 procedure tmainmo.beforeconnectev(const sender: tmdatabase);
+var
+ s1: msestring;
 begin
+{$ifndef mswindows}
+ if (globaloptions.hostname = '') and 
+                             not sys_getenv('FIREBIRD_LOCK',s1) then begin
+  s1:= sys_gettempdir()+'msekicadbom_lock_'+sys_getusername();
+  createdirpath(s1);
+  sys_setenv('FIREBIRD_LOCK',s1);  
+ end;
+{$endif}
  if (globaloptions.fbdir <> ffbdirbefore) then begin
   ffbdirbefore:= globaloptions.fbdir;
   conn.connected:= false; //to be sure, release fbapi
