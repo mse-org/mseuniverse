@@ -16,12 +16,20 @@ inherited partlistdialogfo: tpartlistdialogfo
     end
   end
   inherited tlayouter2: tlayouter
+    bounds_cy = 78
     anchors = [an_left, an_top, an_right]
+    optionslayout = [lao_placey]
+    align_glue = wam_none
+    place_mindist = 4
+    place_maxdist = 4
     linkbottom = filler
     inherited val_title: tdbstringedit
     end
     inherited tlayouter1: tlayouter
+      bounds_x = 8
+      bounds_y = 41
       optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      linktop = nil
       inherited fonted: tdbstringedit
       end
       inherited fontheighted: tdbrealedit
@@ -29,8 +37,8 @@ inherited partlistdialogfo: tpartlistdialogfo
     end
   end
   inherited filler: tlayouter
-    bounds_y = 74
-    bounds_cy = 207
+    bounds_y = 78
+    bounds_cy = 203
   end
   inherited f10act: taction
   end

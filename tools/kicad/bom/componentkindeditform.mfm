@@ -41,6 +41,8 @@ inherited componentkindeditfo: tcomponentkindeditfo
     place_mindist = 4
     place_maxdist = 4
     place_options = [plo_scalesize]
+    linkbottom = stripe3
+    dist_bottom = 4
     inherited nameed: tdbstringedit
       frame.caption = '&Name'
       bounds_cx = 209
@@ -77,7 +79,6 @@ inherited componentkindeditfo: tcomponentkindeditfo
       empty_options = [eo_showfocused]
       empty_textcolor = -1879048173
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      font.localprops = []
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'MANUFACTURER'
@@ -103,7 +104,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 2
     bounds_x = 8
-    bounds_y = 104
+    bounds_y = 101
     bounds_cx = 636
     bounds_cy = 120
     anchors = [an_left, an_top, an_right]
@@ -113,6 +114,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
     linkbottom = footprintgrid
     dist_bottom = 4
     object descriptioned: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = '&Description'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -139,6 +141,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       reffontheight = 14
     end
     object param1ed: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = 'Parameter &1'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -166,6 +169,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       reffontheight = 14
     end
     object param2ed: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = 'Parameter &2'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -193,6 +197,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       reffontheight = 14
     end
     object commented: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = '&Comment'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -220,6 +225,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       reffontheight = 14
     end
     object param3ed: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = 'Parameter &3'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -247,6 +253,7 @@ inherited componentkindeditfo: tcomponentkindeditfo
       reffontheight = 14
     end
     object param4ed: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = 'Parameter &4'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -279,9 +286,9 @@ inherited componentkindeditfo: tcomponentkindeditfo
     frame.localprops1 = []
     taborder = 4
     bounds_x = 0
-    bounds_y = 228
+    bounds_y = 225
     bounds_cx = 650
-    bounds_cy = 178
+    bounds_cy = 181
     anchors = [an_top, an_bottom]
     optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -355,7 +362,6 @@ inherited componentkindeditfo: tcomponentkindeditfo
       reffontheight = 14
     end
     object footprinted: tenum64editdb
-      optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.levelo = 0
       frame.colorclient = -2147483645

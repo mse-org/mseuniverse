@@ -118,7 +118,6 @@ inherited componenteditfo: tcomponenteditfo
     dist_top = 4
     object compkinded: tdbenum64editdb
       frame.caption = 'Comp.-&Kind'
-      frame.font.localprops = []
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 2
@@ -143,7 +142,6 @@ inherited componenteditfo: tcomponenteditfo
       bounds_cx = 220
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      font.localprops = []
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'COMPONENTKIND'
@@ -159,7 +157,6 @@ inherited componenteditfo: tcomponenteditfo
     end
     object manufacturered: tdbenum64editdb
       frame.caption = '&Manufacturer'
-      frame.font.localprops = []
       frame.localprops = []
       frame.localprops1 = []
       frame.buttons.count = 2
@@ -189,7 +186,6 @@ inherited componenteditfo: tcomponenteditfo
       empty_options = [eo_showfocused]
       empty_textcolor = -1879048173
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      font.localprops = []
       datalink.datasource = dataso
       datalink.navigator = navig
       datalink.fieldname = 'MANUFACTURER'
@@ -228,6 +224,7 @@ inherited componenteditfo: tcomponenteditfo
     dist_top = 4
     dist_bottom = 2
     object descriptioned: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = '&Description'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -248,7 +245,7 @@ inherited componenteditfo: tcomponenteditfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 661
-      anchors = [an_top]
+      anchors = [an_left, an_top, an_right]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
       empty_options = [eo_showfocused]
@@ -259,6 +256,7 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
     object parameter1ed: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = 'Parameter &1'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -280,7 +278,7 @@ inherited componenteditfo: tcomponenteditfo
       bounds_x = 0
       bounds_y = 20
       bounds_cx = 668
-      anchors = [an_top]
+      anchors = [an_left, an_top, an_right]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
       empty_options = [eo_showfocused]
@@ -291,6 +289,7 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
     object parameter2ed: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = 'Parameter &2'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -312,7 +311,7 @@ inherited componenteditfo: tcomponenteditfo
       bounds_x = 0
       bounds_y = 40
       bounds_cx = 668
-      anchors = [an_top]
+      anchors = [an_left, an_top, an_right]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
       empty_options = [eo_showfocused]
@@ -323,6 +322,7 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
     object parameter3ed: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = 'Parameter &3'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -344,7 +344,7 @@ inherited componenteditfo: tcomponenteditfo
       bounds_x = 0
       bounds_y = 60
       bounds_cx = 668
-      anchors = [an_top]
+      anchors = [an_left, an_top, an_right]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
       empty_options = [eo_showfocused]
@@ -355,6 +355,7 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
     object parameter4ed: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = 'Parameter &4'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -376,7 +377,7 @@ inherited componenteditfo: tcomponenteditfo
       bounds_x = 0
       bounds_y = 80
       bounds_cx = 668
-      anchors = [an_top]
+      anchors = [an_left, an_top, an_right]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
       empty_options = [eo_showfocused]
@@ -387,6 +388,7 @@ inherited componenteditfo: tcomponenteditfo
       reffontheight = 14
     end
     object commented: tdbmemodialogedit
+      frame.options = [cfo_fixleft, cfo_fixright]
       frame.caption = '&Comment'
       frame.captionpos = cp_right
       frame.localprops = []
@@ -407,7 +409,7 @@ inherited componenteditfo: tcomponenteditfo
       bounds_x = 0
       bounds_y = 100
       bounds_cx = 649
-      anchors = [an_top]
+      anchors = [an_left, an_top, an_right]
       empty_fontstyle = [fs_italic]
       empty_textflags = [tf_ycentered]
       empty_options = [eo_showfocused]
@@ -507,7 +509,6 @@ inherited componenteditfo: tcomponenteditfo
         empty_options = [eo_showfocused]
         empty_textcolor = -1879048173
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-        font.localprops = []
         datalink.datasource = vendormo.compdistribdso
         datalink.navigator = navig
         datalink.fieldname = 'DISTRIBUTOR'
@@ -659,7 +660,6 @@ inherited componenteditfo: tcomponenteditfo
         reffontheight = 14
       end
       object footprinted: tenum64editdb
-        optionswidget1 = [ow1_fontglyphheight]
         optionsskin = [osk_framebuttononly]
         frame.levelo = 0
         frame.colorclient = -2147483645

@@ -62,7 +62,46 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       reffontheight = 14
     end
   end
-  object stripe3: tlayouter[3]
+  object stripe2a: tlayouter[3]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 5
+    bounds_x = 8
+    bounds_y = 97
+    bounds_cx = 686
+    bounds_cy = 39
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_aligny]
+    linktop = stripe2
+    linkbottom = stripe3
+    object commented: tdbmemodialogedit
+      frame.caption = '&Comment'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 2
+      bounds_cx = 686
+      bounds_cy = 37
+      anchors = [an_top]
+      datalink.datasource = dataso
+      datalink.navigator = navig
+      datalink.fieldname = 'COMMENT'
+      reffontheight = 14
+    end
+  end
+  object stripe3: tlayouter[4]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
@@ -148,11 +187,12 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       reffontheight = 14
     end
   end
-  object ttabwidget1: ttabwidget[4]
+  object ttabwidget1: ttabwidget[5]
     bounds_x = 0
     bounds_y = 177
     bounds_cx = 701
     bounds_cy = 229
+    bounds_cymin = 50
     anchors = [an_top, an_bottom]
     taborder = 4
     activepageindex = 0
@@ -1061,45 +1101,6 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
           glyph = stg_ellipsesmall
         end
       end
-    end
-  end
-  object stripe2a: tlayouter[5]
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 5
-    bounds_x = 8
-    bounds_y = 97
-    bounds_cx = 686
-    bounds_cy = 39
-    anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_aligny]
-    linktop = stripe2
-    linkbottom = stripe3
-    object commented: tdbmemodialogedit
-      frame.caption = '&Comment'
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-          imagenr = 17
-        end>
-      frame.button.imagenr = 17
-      frame.outerframe = (
-        0
-        17
-        0
-        0
-      )
-      bounds_x = 0
-      bounds_y = 2
-      bounds_cx = 686
-      bounds_cy = 37
-      anchors = [an_top]
-      datalink.datasource = dataso
-      datalink.navigator = navig
-      datalink.fieldname = 'COMMENT'
-      reffontheight = 14
     end
   end
   inherited dataso: tmsedatasource[6]

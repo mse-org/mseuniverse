@@ -28,7 +28,64 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     inherited tspacer2: tspacer
     end
   end
-  object tlayouter1: tlayouter[2]
+  object tlayouter4: tlayouter[2]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 5
+    bounds_x = 8
+    bounds_y = 48
+    bounds_cx = 602
+    bounds_cy = 0
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_aligny]
+    align_mode = wam_end
+    align_glue = wam_end
+    place_mindist = 4
+    place_maxdist = 4
+  end
+  object plotoptcont: tlayouter[3]
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 6
+    bounds_x = 262
+    bounds_y = 235
+    bounds_cx = 229
+    bounds_cy = 81
+    anchors = [an_left, an_right, an_bottom]
+    optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    linkleft = plotsettingsfo
+    linktop = tlayouter1
+    object linewidthed: tdbrealedit
+      frame.caption = 'Default line'#10' width (mm)'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        31
+        7
+        0
+      )
+      bounds_x = 7
+      bounds_y = 30
+      bounds_cx = 75
+      bounds_cy = 51
+      datalink.datasource = bommo.pageitemdso
+      datalink.fieldname = 'DEFLINEWIDTH'
+      min = 0
+      max = 1000
+      valuerange = 1
+      valuestart = 0
+      reffontheight = 14
+    end
+  end
+  inherited tlayouter2: tlayouter[4]
+    bounds_cx = 618
+    linkbottom = tlayouter1
+    dist_bottom = 4
+    inherited val_title: tdbstringedit
+      bounds_cx = 602
+    end
+  end
+  object tlayouter1: tlayouter[5]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 4
     bounds_x = 8
@@ -36,9 +93,11 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     bounds_cx = 602
     bounds_cy = 194
     anchors = [an_left, an_top, an_right, an_bottom]
+    optionslayout = [lao_placey]
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
+    place_options = [plo_endmargin]
     dist_top = 4
     object grid: twidgetgrid
       frame.localprops = []
@@ -47,7 +106,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       bounds_y = 0
       bounds_cx = 602
       bounds_cy = 194
-      anchors = []
+      anchors = [an_top, an_bottom]
       optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
       fixcols.count = 1
       fixcols.items = <      
@@ -161,7 +220,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
         reffontheight = 14
       end
       object val_layernames: tdropdownlistedit
-        optionswidget1 = [ow1_fontglyphheight]
         optionsskin = [osk_framebuttononly]
         frame.levelo = 0
         frame.colorclient = -2147483645
@@ -344,22 +402,7 @@ inherited layerplotdialogfo: tlayerplotdialogfo
       end
     end
   end
-  object tlayouter4: tlayouter[3]
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 5
-    bounds_x = 8
-    bounds_y = 48
-    bounds_cx = 602
-    bounds_cy = 0
-    anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_aligny]
-    align_mode = wam_end
-    align_glue = wam_end
-    place_mindist = 4
-    place_maxdist = 4
-  end
-  inherited plotsettingsfo: tplotsettingsfo[4]
+  inherited plotsettingsfo: tplotsettingsfo[6]
     bounds_y = 235
     anchors = [an_left, an_bottom]
     linktop = tlayouter1
@@ -391,46 +434,6 @@ inherited layerplotdialogfo: tlayerplotdialogfo
     inherited val_shiftvert: tdbrealedit
       datalink.datasource = dataso
       datalink.fieldname = 'SHIFTVERT'
-    end
-  end
-  object plotoptcont: tlayouter[5]
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 6
-    bounds_x = 262
-    bounds_y = 235
-    bounds_cx = 229
-    bounds_cy = 81
-    anchors = [an_left, an_right, an_bottom]
-    optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    linkleft = plotsettingsfo
-    linktop = tlayouter1
-    object linewidthed: tdbrealedit
-      frame.caption = 'Default line'#10' width (mm)'
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.outerframe = (
-        0
-        31
-        7
-        0
-      )
-      bounds_x = 7
-      bounds_y = 30
-      bounds_cx = 75
-      bounds_cy = 51
-      datalink.datasource = bommo.pageitemdso
-      datalink.fieldname = 'DEFLINEWIDTH'
-      min = 0
-      max = 1000
-      valuerange = 1
-      valuestart = 0
-      reffontheight = 14
-    end
-  end
-  inherited tlayouter2: tlayouter[6]
-    bounds_cx = 618
-    inherited val_title: tdbstringedit
-      bounds_cx = 602
     end
   end
   inherited f10act: taction[7]

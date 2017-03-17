@@ -32,8 +32,8 @@ inherited drillmapdialogfo: tdrillmapdialogfo
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
+    linkbottom = plotsettings
     object val_layeraname: tdbdropdownlistedit
-      optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.caption = 'Layer A'
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
@@ -65,7 +65,6 @@ inherited drillmapdialogfo: tdrillmapdialogfo
       reffontheight = 14
     end
     object val_layerbname: tdbdropdownlistedit
-      optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       frame.caption = 'Layer B'
       frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
@@ -119,7 +118,6 @@ inherited drillmapdialogfo: tdrillmapdialogfo
   inline plotsettings: tplotsettingsfo[2]
     bounds_x = 8
     bounds_y = 74
-    linktop = tlayouter1
     linkbottom = filler
     inherited val_mirrorx: tdbbooleanedit
       datalink.datasource = dataso
@@ -152,17 +150,18 @@ inherited drillmapdialogfo: tdrillmapdialogfo
   end
   inherited tlayouter2: tlayouter[3]
     taborder = 2
+    linkbottom = tlayouter1
     inherited val_title: tdbstringedit
     end
   end
-  inherited filler: tsimplewidget[4]
+  inherited filler: tlayouter[4]
     taborder = 3
     bounds_y = 158
     bounds_cy = 123
   end
-  inherited f10act: taction
+  inherited tstatfile1: tstatfile[5]
   end
-  inherited tstatfile1: tstatfile[6]
+  inherited f10act: taction[6]
   end
   inherited dataso: tmsedatasource[7]
   end

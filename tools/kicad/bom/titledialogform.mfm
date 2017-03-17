@@ -9,11 +9,27 @@ inherited titledialogfo: ttitledialogfo
   )
   caption = 'Edit Title Page'
   moduleclassname = 'tdocupageeditfo'
-  inherited filler: tlayouter[0]
-    bounds_y = 42
-    bounds_cy = 239
-    optionsscale = [osc_expandy, osc_expandshrinkx, osc_expandshrinky]
+  inherited tsplitter1: tsplitter
+    inherited tbutton2: tbutton
+    end
+    inherited tbutton1: tbutton
+    end
+    inherited tspacer2: tspacer
+    end
+  end
+  inherited tlayouter2: tlayouter
+    linkbottom = filler
+    inherited val_title: tdbstringedit
+    end
+  end
+  inherited filler: tlayouter
+    bounds_y = 37
+    bounds_cy = 244
+    optionslayout = [lao_placey]
+    place_maxdist = 0
+    place_options = [plo_endmargin]
     object val_text: tdbmemoedit[0]
+      frame.options = [cfo_fixtop]
       frame.caption = 'Text'
       frame.localprops = [frl_colorclient]
       frame.localprops1 = []
@@ -27,27 +43,14 @@ inherited titledialogfo: ttitledialogfo
       )
       bounds_x = 8
       bounds_y = 0
-      bounds_cx = 536
-      bounds_cy = 238
+      bounds_cx = 537
+      bounds_cy = 244
       anchors = [an_left, an_top, an_right, an_bottom]
       textflags = [tf_wordbreak, tf_noselect]
       textflagsactive = [tf_wordbreak]
       datalink.datasource = dataso
       datalink.fieldname = 'TEXT'
       reffontheight = 14
-    end
-  end
-  inherited tsplitter1: tsplitter[1]
-    inherited tbutton2: tbutton
-    end
-    inherited tbutton1: tbutton
-    end
-    inherited tspacer2: tspacer
-    end
-  end
-  inherited tlayouter2: tlayouter[2]
-    linkbottom = filler
-    inherited val_title: tdbstringedit
     end
   end
   inherited dataso: tmsedatasource[3]

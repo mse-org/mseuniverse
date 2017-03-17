@@ -48,7 +48,7 @@ inherited plotpageeditfo: tplotpageeditfo
     inherited val_title: tdbstringedit
     end
   end
-  inherited filler: tsimplewidget[3]
+  inherited filler: tlayouter[3]
     taborder = 3
   end
   inherited dataso: tmsedatasource

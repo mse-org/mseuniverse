@@ -16,13 +16,12 @@ inherited doculistpageeditfo: tdoculistpageeditfo
   end
   inherited tlayouter2: tlayouter
     bounds_cy = 74
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     inherited val_title: tdbstringedit
     end
     object tlayouter1: tlayouter[1]
       optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 1
-      bounds_x = 8
+      bounds_x = 4
       bounds_y = 37
       bounds_cx = 538
       bounds_cy = 37
@@ -76,7 +75,7 @@ inherited doculistpageeditfo: tdoculistpageeditfo
       end
     end
   end
-  inherited filler: tsimplewidget
+  inherited filler: tlayouter
   end
   inherited f10act: taction[3]
   end

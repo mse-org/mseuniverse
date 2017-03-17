@@ -8,26 +8,8 @@ inherited bomdialogfo: tbomdialogfo
   caption = 'Edit BOM Page'
   moduleclassname = 'tdoculistpageeditfo'
   inherited filler: tlayouter[0]
-    taborder = 3
-    bounds_y = 74
-    bounds_cy = 207
-    object val_showdistributors: tdbbooleanedit[0]
-      frame.caption = 'Show distributors'
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.outerframe = (
-        0
-        1
-        112
-        2
-      )
-      bounds_x = 8
-      bounds_y = 7
-      bounds_cx = 125
-      bounds_cy = 16
-      datalink.datasource = dataso
-      datalink.fieldname = 'SHOWDIST'
-    end
+    bounds_y = 118
+    bounds_cy = 163
   end
   inherited tsplitter1: tsplitter[1]
     inherited tbutton2: tbutton
@@ -37,43 +19,67 @@ inherited bomdialogfo: tbomdialogfo
     inherited tspacer2: tspacer
     end
   end
-  object val_showreferences: tdbbooleanedit[2]
-    frame.caption = 'Show references'
-    frame.localprops = []
-    frame.localprops1 = []
-    frame.outerframe = (
-      0
-      1
-      108
-      2
-    )
-    taborder = 1
-    bounds_x = 8
-    bounds_y = 55
-    bounds_cx = 121
-    bounds_cy = 16
-    datalink.datasource = dataso
-    datalink.fieldname = 'SHOWREF'
-  end
-  inherited tlayouter2: tlayouter[3]
-    taborder = 2
+  inherited tlayouter2: tlayouter[2]
+    bounds_cy = 118
     anchors = [an_left, an_top, an_right]
+    optionslayout = [lao_placey]
+    place_mindist = 4
+    place_maxdist = 4
     linkbottom = filler
     inherited val_title: tdbstringedit
     end
     inherited tlayouter1: tlayouter
+      bounds_x = 7
+      bounds_y = 41
+      linktop = nil
       inherited fonted: tdbstringedit
       end
       inherited fontheighted: tdbrealedit
       end
     end
+    object val_showreferences: tdbbooleanedit[2]
+      frame.caption = 'Show references'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        1
+        108
+        2
+      )
+      taborder = 2
+      bounds_x = 8
+      bounds_y = 82
+      bounds_cx = 121
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.fieldname = 'SHOWREF'
+    end
+    object val_showdistributors: tdbbooleanedit[3]
+      frame.caption = 'Show distributors'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        1
+        112
+        2
+      )
+      taborder = 3
+      bounds_x = 8
+      bounds_y = 102
+      bounds_cx = 125
+      bounds_cy = 16
+      datalink.datasource = dataso
+      datalink.fieldname = 'SHOWDIST'
+    end
   end
-  inherited f10act: taction[4]
+  inherited f10act: taction
   end
-  inherited tstatfile1: tstatfile[5]
+  inherited tstatfile1: tstatfile
     filename = 'bomdialogfo.sta'
     left = 56
   end
-  inherited dataso: tmsedatasource[6]
+  inherited dataso: tmsedatasource
   end
 end

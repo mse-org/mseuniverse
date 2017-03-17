@@ -71,8 +71,11 @@ object docupageeditfo: tdocupageeditfo
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 554
-    bounds_cy = 42
+    bounds_cy = 37
     anchors = [an_top]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_aligny]
+    align_glue = wam_start
     object val_title: tdbstringedit
       frame.caption = 'Title'
       frame.localprops = []

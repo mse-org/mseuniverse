@@ -22,7 +22,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 4
     bounds_x = 8
-    bounds_y = 42
+    bounds_y = 37
     bounds_cx = 538
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
@@ -71,7 +71,7 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     end
   end
   inherited plotsettingsfo: tplotsettingsfo[2]
-    bounds_y = 79
+    bounds_y = 74
     linkbottom = filler
     inherited val_mirrorx: tdbbooleanedit
       datalink.datasource = dataso
@@ -108,8 +108,8 @@ inherited schematicplotdialogfo: tschematicplotdialogfo
     end
   end
   inherited filler: tlayouter[4]
-    bounds_y = 163
-    bounds_cy = 118
+    bounds_y = 158
+    bounds_cy = 123
   end
   inherited f10act: taction[5]
   end
