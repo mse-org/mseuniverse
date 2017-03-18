@@ -550,6 +550,7 @@ type
 //   ffootprintlink: int64;
   protected
    fcurrentfootprint: int64;
+   procedure checkfirebirdenv();
    procedure statechanged();
    procedure docomp(const sender: tkicadschemaparser; var info: compinfoty);
    procedure dodeletecheck(const asqlres: tsqlresult; 
@@ -1040,6 +1041,7 @@ begin
  s1:= globaloptions.hostname;
  globaloptions.hostname:= ahostname;
  try
+  checkfirebirdenv();
   getcredentialsev(nil,username1,password1); //throws abort in case of cancel
  finally
   globaloptions.hostname:= s1;
@@ -1760,7 +1762,7 @@ begin
  globaloptions.fpassword:= '';
 end;
 
-procedure tmainmo.beforeconnectev(const sender: tmdatabase);
+procedure tmainmo.checkfirebirdenv();
 var
  s1: msestring;
 begin
@@ -1779,6 +1781,11 @@ begin
   initializefirebird([]);
   sys_setenv('FIREBIRD',tosysfilepath(globaloptions.fbdir));
  end;
+end;
+
+procedure tmainmo.beforeconnectev(const sender: tmdatabase);
+begin
+ checkfirebirdenv();
  conn.hostname:= globaloptions.hostname;
  conn.databasename:= globaloptions.databasename;
 end;
@@ -3183,7 +3190,7 @@ constructor tglobaloptions.create();
 begin
 {$ifdef mswindows}
  fpsviewer:= 'gsview';
- fpython:= 'python.exe';
+ fpython:= 'pythonw.exe';
 {$else}
  fpsviewer:= 'okular';
  fpython:= 'python';
