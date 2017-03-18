@@ -98,7 +98,6 @@ inherited docuseteditfo: tdocuseteditfo
       caption = 'Settings'
       object stripe2a: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-        taborder = 3
         bounds_x = 8
         bounds_y = 0
         bounds_cx = 686
@@ -136,7 +135,7 @@ inherited docuseteditfo: tdocuseteditfo
       end
       object stripe3: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-        taborder = 2
+        taborder = 1
         bounds_x = 8
         bounds_y = 39
         bounds_cx = 686
@@ -224,7 +223,7 @@ inherited docuseteditfo: tdocuseteditfo
       end
       object stripe4: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-        taborder = 1
+        taborder = 2
         bounds_x = 8
         bounds_y = 76
         bounds_cx = 686
@@ -272,7 +271,7 @@ inherited docuseteditfo: tdocuseteditfo
             0
             0
           )
-          taborder = 1
+          taborder = 3
           bounds_x = 208
           bounds_y = 0
           bounds_cx = 60
@@ -297,7 +296,7 @@ inherited docuseteditfo: tdocuseteditfo
             0
             0
           )
-          taborder = 2
+          taborder = 1
           bounds_x = 80
           bounds_y = 0
           bounds_cx = 60
@@ -322,7 +321,7 @@ inherited docuseteditfo: tdocuseteditfo
             0
             0
           )
-          taborder = 3
+          taborder = 2
           bounds_x = 144
           bounds_y = 0
           bounds_cx = 60
@@ -415,6 +414,7 @@ inherited docuseteditfo: tdocuseteditfo
       end
       object stripe5: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+        taborder = 3
         bounds_x = 8
         bounds_y = 113
         bounds_cx = 686

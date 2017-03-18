@@ -432,6 +432,7 @@ inherited componenteditfo: tcomponenteditfo
       frame.sbvert.pagesize = 1
       frame.localprops = []
       frame.localprops1 = []
+      taborder = 1
       bounds_x = 0
       bounds_y = 75
       bounds_cx = 683
@@ -565,7 +566,7 @@ inherited componenteditfo: tcomponenteditfo
       end
     end
     object tsplitter1: tsplitter
-      taborder = 1
+      taborder = 2
       bounds_x = 0
       bounds_y = 72
       bounds_cx = 683
@@ -579,14 +580,11 @@ inherited componenteditfo: tcomponenteditfo
     object footprintgrid: twidgetgrid
       frame.localprops = []
       frame.localprops1 = []
-      taborder = 2
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 683
       bounds_cy = 72
       anchors = [an_top, an_bottom]
-      font.name = 'stf_default'
-      font.localprops = []
       optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
       fixcols.count = 1
       fixcols.items = <      
@@ -620,6 +618,7 @@ inherited componenteditfo: tcomponenteditfo
         end>
       datacols.count = 4
       datacols.options = [co_savestate, co_mousescrollrow]
+      datacols.font.name = 'stf_default'
       datacols.font.localprops = []
       datacols.items = <      
         item[pked]

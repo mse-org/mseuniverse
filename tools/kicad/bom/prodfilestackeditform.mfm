@@ -8,6 +8,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
   caption = 'Production File Stack'
   moduleclassname = 'trecordnameeditfo'
   inherited stripe0: tlayouter
+    taborder = 5
     inherited tlayouter2: tlayouter
       inherited tsmodify: tdbdatetimedisp
       end
@@ -29,6 +30,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
     end
   end
   inherited stripe2: tlayouter
+    taborder = 1
     inherited nameed: tdbstringedit
     end
     object outputdired: tdbfilenameedit[1]
@@ -64,14 +66,15 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
   end
   object stripe2a: tlayouter[3]
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 5
+    taborder = 2
     bounds_x = 8
     bounds_y = 97
     bounds_cx = 686
-    bounds_cy = 39
+    bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_aligny]
+    align_glue = wam_start
     linktop = stripe2
     linkbottom = stripe3
     object commented: tdbmemodialogedit
@@ -91,7 +94,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         0
       )
       bounds_x = 0
-      bounds_y = 2
+      bounds_y = 0
       bounds_cx = 686
       bounds_cy = 37
       anchors = [an_top]
@@ -105,7 +108,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 3
     bounds_x = 8
-    bounds_y = 136
+    bounds_y = 134
     bounds_cx = 686
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
@@ -189,9 +192,9 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
   end
   object ttabwidget1: ttabwidget[5]
     bounds_x = 0
-    bounds_y = 177
+    bounds_y = 175
     bounds_cx = 701
-    bounds_cy = 229
+    bounds_cy = 231
     bounds_cymin = 50
     anchors = [an_top, an_bottom]
     taborder = 4
@@ -207,7 +210,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 701
-      bounds_cy = 210
+      bounds_cy = 212
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Plotfiles'
       object plotsgrid: twidgetgrid
@@ -216,7 +219,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 701
-        bounds_cy = 210
+        bounds_cy = 212
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -472,16 +475,17 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 701
-      bounds_cy = 210
+      bounds_cy = 212
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Drillfiles'
       object drillgrid: twidgetgrid
         frame.localprops = []
         frame.localprops1 = []
+        taborder = 1
         bounds_x = 0
         bounds_y = 41
         bounds_cx = 701
-        bounds_cy = 169
+        bounds_cy = 171
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -651,7 +655,6 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       end
       object stripe4: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-        taborder = 1
         bounds_x = 8
         bounds_y = 0
         bounds_cx = 686
@@ -798,7 +801,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 701
-      bounds_cy = 210
+      bounds_cy = 212
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Posfiles'
       object posgrid: twidgetgrid
@@ -807,7 +810,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 701
-        bounds_cy = 210
+        bounds_cy = 212
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1
@@ -973,7 +976,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
       bounds_x = 0
       bounds_y = 19
       bounds_cx = 701
-      bounds_cy = 210
+      bounds_cy = 212
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Partlists'
       object bomgrid: twidgetgrid
@@ -982,7 +985,7 @@ inherited prodfilestackeditfo: tprodfilestackeditfo
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 701
-        bounds_cy = 210
+        bounds_cy = 212
         anchors = [an_top, an_bottom]
         optionsgrid = [og_colsizing, og_rowmoving, og_keyrowmoving, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         fixcols.count = 1

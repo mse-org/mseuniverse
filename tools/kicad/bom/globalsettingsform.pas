@@ -29,10 +29,10 @@ type
    tstatfile1: tstatfile;
    createdbact: taction;
    texpandingwidget1: texpandingwidget;
-   tlayouter1: tlayouter;
+   strip1: tlayouter;
    val_psviewer: tfilenameedit;
    val_ps2pdf: tfilenameedit;
-   tlayouter2: tlayouter;
+   strip0: tlayouter;
    val_databasename: tfilenameedit;
    tbutton3: tbutton;
    val_hostname: tstringedit;
@@ -40,7 +40,7 @@ type
    tbutton2: tbutton;
    tbutton1: tbutton;
    tspacer2: tspacer;
-   tlayouter3: tlayouter;
+   strip2: tlayouter;
    val_fbdir: tfilenameedit;
    val_python: tfilenameedit;
    procedure closequeryev(const sender: tcustommseform;

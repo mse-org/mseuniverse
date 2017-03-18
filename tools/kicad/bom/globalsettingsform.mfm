@@ -2,14 +2,14 @@ object globalsettingsfo: tglobalsettingsfo
   visible = False
   bounds_x = 141
   bounds_y = 252
-  bounds_cx = 662
+  bounds_cx = 666
   bounds_cy = 227
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    662
+    666
     227
   )
   optionswindow = [wo_windowcentermessage]
@@ -20,137 +20,34 @@ object globalsettingsfo: tglobalsettingsfo
   onclosequery = closequeryev
   onasyncevent = asyncev
   moduleclassname = 'tmseform'
-  object texpandingwidget1: texpandingwidget
-    bounds_x = 0
-    bounds_y = 170
-    bounds_cx = 662
-    bounds_cy = 55
-    anchors = [an_top, an_bottom]
-    object tsplitter1: tsplitter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-      color = -2147483645
-      bounds_x = 541
-      bounds_y = 1
-      bounds_cx = 121
-      bounds_cy = 40
-      anchors = [an_right, an_bottom]
-      optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
-      grip = stb_none
-      object tbutton2: tbutton
-        optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-        bounds_x = 58
-        bounds_y = 16
-        bounds_cx = 50
-        bounds_cy = 24
-        bounds_cxmin = 50
-        anchors = [an_top, an_right]
-        state = [as_localcaption]
-        caption = '&Cancel'
-        modalresult = mr_cancel
-        reffontheight = 16
-      end
-      object tbutton1: tbutton
-        optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
-        taborder = 1
-        bounds_x = 0
-        bounds_y = 16
-        bounds_cx = 50
-        bounds_cy = 24
-        bounds_cxmin = 50
-        anchors = [an_top, an_right]
-        state = [as_default, as_localdefault, as_localcaption]
-        caption = '&OK'
-        modalresult = mr_ok
-        reffontheight = 16
-      end
-      object tspacer2: tspacer
-        taborder = 2
-        bounds_x = 50
-        bounds_y = 16
-        bounds_cx = 8
-        bounds_cy = 20
-        linkleft = tbutton1
-        linkright = tbutton2
-        options = [spao_glueright]
-      end
-    end
+  object val_hostname: tstringedit
+    frame.options = [cfo_fixtop]
+    frame.caption = '&Hostname'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    hint = 'Empty Hostname -> use embedded database'
+    bounds_x = 8
+    bounds_y = 0
+    bounds_cx = 578
+    bounds_cy = 37
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+    textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+    ondataentered = dbdataenteredev
+    reffontheight = 14
   end
-  object tlayouter1: tlayouter
+  object strip0: tlayouter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 1
     bounds_x = 8
-    bounds_y = 88
-    bounds_cx = 645
-    bounds_cy = 41
-    anchors = [an_left, an_top, an_right]
-    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    optionslayout = [lao_placex, lao_aligny]
-    align_glue = wam_start
-    place_mindist = 4
-    place_maxdist = 4
-    place_options = [plo_scalesize]
-    linktop = tlayouter2
-    object val_psviewer: tfilenameedit
-      frame.caption = 'Postscript viewer'
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-          imagenr = 17
-        end>
-      frame.button.imagenr = 17
-      frame.outerframe = (
-        0
-        19
-        0
-        0
-      )
-      bounds_x = 0
-      bounds_y = 0
-      bounds_cx = 320
-      bounds_cy = 41
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
-      controller.options = [fdo_sysfilename, fdo_link, fdo_savelastdir]
-      controller.group = 1
-      reffontheight = 16
-    end
-    object val_ps2pdf: tfilenameedit
-      frame.caption = 'ps2pdf'
-      frame.localprops = []
-      frame.localprops1 = []
-      frame.buttons.count = 1
-      frame.buttons.items = <      
-        item
-          imagenr = 17
-        end>
-      frame.button.imagenr = 17
-      frame.outerframe = (
-        0
-        19
-        0
-        0
-      )
-      taborder = 1
-      bounds_x = 324
-      bounds_y = 0
-      bounds_cx = 319
-      bounds_cy = 41
-      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-      textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
-      controller.options = [fdo_sysfilename, fdo_link, fdo_savelastdir]
-      controller.group = 1
-      reffontheight = 16
-    end
-  end
-  object tlayouter2: tlayouter
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 2
-    bounds_x = 8
-    bounds_y = 39
-    bounds_cx = 645
-    bounds_cy = 49
+    bounds_y = 37
+    bounds_cx = 649
+    bounds_cy = 44
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placex, lao_aligny]
@@ -172,14 +69,14 @@ object globalsettingsfo: tglobalsettingsfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        19
+        17
         0
         0
       )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 579
-      bounds_cy = 41
+      bounds_cx = 574
+      bounds_cy = 37
       anchors = [an_left, an_top, an_right]
       statfile = tstatfile1
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
@@ -188,56 +85,105 @@ object globalsettingsfo: tglobalsettingsfo
       ondataentered = dbdataenteredev
       controller.options = [fdo_sysfilename, fdo_savelastdir]
       controller.captionopen = 'Set Database File'
-      reffontheight = 16
+      reffontheight = 14
     end
     object tbutton3: tbutton
       optionswidget1 = [ow1_autowidth, ow1_autoheight]
       taborder = 1
-      bounds_x = 583
-      bounds_y = 11
-      bounds_cx = 62
-      bounds_cy = 38
+      bounds_x = 578
+      bounds_y = 10
+      bounds_cx = 71
+      bounds_cy = 34
       state = [as_localcaption]
       action = createdbact
       caption = 'Create'#10'Database'
     end
   end
-  object val_hostname: tstringedit
-    frame.caption = '&Hostname'
-    frame.localprops = []
-    frame.localprops1 = []
-    frame.outerframe = (
-      0
-      19
-      0
-      0
-    )
-    taborder = 3
-    hint = 'Empty Hostname -> use embedded database'
-    bounds_x = 8
-    bounds_y = -2
-    bounds_cx = 578
-    bounds_cy = 41
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
-    textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
-    ondataentered = dbdataenteredev
-    reffontheight = 16
-  end
-  object tlayouter3: tlayouter
+  object strip1: tlayouter
     optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
-    taborder = 4
+    taborder = 2
     bounds_x = 8
-    bounds_y = 129
-    bounds_cx = 645
-    bounds_cy = 41
+    bounds_y = 81
+    bounds_cx = 649
+    bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
     optionslayout = [lao_placex, lao_aligny]
     align_glue = wam_start
     place_mindist = 4
     place_maxdist = 4
-    place_options = [plo_scalesize]
-    linktop = tlayouter1
+    place_options = [plo_scalesize, plo_endmargin]
+    linktop = strip0
+    object val_psviewer: tfilenameedit
+      frame.caption = 'Postscript viewer'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 321
+      bounds_cy = 37
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+      controller.options = [fdo_sysfilename, fdo_link, fdo_savelastdir]
+      controller.group = 1
+      reffontheight = 14
+    end
+    object val_ps2pdf: tfilenameedit
+      frame.caption = 'ps2pdf'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+          imagenr = 17
+        end>
+      frame.button.imagenr = 17
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 325
+      bounds_y = 0
+      bounds_cx = 324
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+      controller.options = [fdo_sysfilename, fdo_link, fdo_savelastdir]
+      controller.group = 1
+      reffontheight = 14
+    end
+  end
+  object strip2: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 118
+    bounds_cx = 649
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_scalesize, plo_endmargin]
+    linktop = strip1
     linkbottom = texpandingwidget1
     object val_fbdir: tfilenameedit
       frame.caption = 'Firebird directory'
@@ -251,20 +197,20 @@ object globalsettingsfo: tglobalsettingsfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        19
+        17
         0
         0
       )
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 320
-      bounds_cy = 41
+      bounds_cx = 321
+      bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
       ondataentered = dbdataenteredev
       controller.options = [fdo_sysfilename, fdo_directory, fdo_link, fdo_savelastdir]
       controller.group = 1
-      reffontheight = 16
+      reffontheight = 14
     end
     object val_python: tfilenameedit
       frame.caption = 'Python interpreter'
@@ -278,20 +224,77 @@ object globalsettingsfo: tglobalsettingsfo
       frame.button.imagenr = 17
       frame.outerframe = (
         0
-        19
+        17
         0
         0
       )
       taborder = 1
-      bounds_x = 324
+      bounds_x = 325
       bounds_y = 0
-      bounds_cx = 319
-      bounds_cy = 41
+      bounds_cx = 324
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
       textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
       controller.options = [fdo_sysfilename, fdo_link, fdo_savelastdir]
       controller.group = 1
-      reffontheight = 16
+      reffontheight = 14
+    end
+  end
+  object texpandingwidget1: texpandingwidget
+    taborder = 4
+    bounds_x = 0
+    bounds_y = 155
+    bounds_cx = 666
+    bounds_cy = 70
+    anchors = [an_top, an_bottom]
+    object tsplitter1: tsplitter
+      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+      color = -2147483645
+      bounds_x = 543
+      bounds_y = 18
+      bounds_cx = 123
+      bounds_cy = 38
+      anchors = [an_right, an_bottom]
+      optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky]
+      grip = stb_none
+      object tbutton2: tbutton
+        optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+        taborder = 1
+        bounds_x = 58
+        bounds_y = 16
+        bounds_cx = 52
+        bounds_cy = 22
+        bounds_cxmin = 50
+        anchors = [an_top, an_right]
+        state = [as_localcaption]
+        caption = '&Cancel'
+        modalresult = mr_cancel
+        reffontheight = 14
+      end
+      object tbutton1: tbutton
+        optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+        bounds_x = 0
+        bounds_y = 16
+        bounds_cx = 50
+        bounds_cy = 22
+        bounds_cxmin = 50
+        anchors = [an_top, an_right]
+        state = [as_default, as_localdefault, as_localcaption]
+        caption = '&OK'
+        modalresult = mr_ok
+        reffontheight = 14
+      end
+      object tspacer2: tspacer
+        taborder = 2
+        bounds_x = 50
+        bounds_y = 16
+        bounds_cx = 8
+        bounds_cy = 20
+        linkleft = tbutton1
+        linkright = tbutton2
+        options = [spao_glueright]
+      end
     end
   end
   object tstatfile1: tstatfile
