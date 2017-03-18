@@ -1,8 +1,11 @@
-MSEkicadBOM                                     2017-01-11 mse
+MSEkicadBOM Copyright (c) 2017-2017 by Martin Schreiber
 ***********
+Version 0.8
 
 MSEkicadBOM is a component database and document/production files generator
 for KiCad based on MSEide+MSEgui. Database is Firebird 3.0, license is GPL.
+Wiki:
+https://gitlab.com/mseide-msegui/mseuniverse/wikis/msekicadbom/MSEkicadBOM
 
 Predefined macros:
 
