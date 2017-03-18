@@ -33,7 +33,7 @@ uses
  mseifidbcomp;
 
 const
- versiontext = '0.0';
+ versiontext = '0.8';
  defaultseparator = ';';
  defaultquotechar = '"';
  

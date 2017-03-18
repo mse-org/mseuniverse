@@ -10,9 +10,8 @@ reportseparator=;
 reportquotechar="
 libident=0
 libalias=0
-productionfiles=2
+productionfiles=1
  2layer_nosmd
- 2layer_nosmd-copy
 docusets=1
  2la_nosmd_schem3
 projectname=
