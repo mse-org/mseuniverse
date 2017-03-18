@@ -621,6 +621,7 @@ type
                   const builddrill: boolean; const buildmap: boolean;
                   const mapformat: fileformatty; const alast: boolean): boolean;
    function createzipfile(const aarchivename: filenamety;
+          mainzipdir: filenamety;
           const basedir: filenamety; const afiles: array of filenamety;
           const alast : boolean): boolean;
    procedure showpsfile(const afile: filenamety; const cancontinue: boolean);
@@ -2224,6 +2225,7 @@ begin
 end;
 
 function tmainmo.createzipfile(const aarchivename: filenamety;
+          mainzipdir: filenamety;
           const basedir: filenamety; const afiles: array of filenamety;
           const alast : boolean): boolean;
 var
@@ -2232,6 +2234,7 @@ var
  base1,s1: filenamety;
 begin
  result:= false;
+ mainzipdir:= tosysfilepath(filepath(mainzipdir,fk_dir,true));
  ar1:= nil; //compiler warning
  setlength(ar1,1+2*length(afiles));
  ar1[0]:= tosysfilepath(filepath(aarchivename));
@@ -2246,7 +2249,7 @@ begin
    fpythonconsole.show(alast);
    exit;
   end;
-  ar1[i1*2+2]:= s1;
+  ar1[i1*2+2]:= mainzipdir+s1;
  end;
  execpy('createzip',ar1,alast); //zipfile,zipdir,{file}
  result:= true;
@@ -2784,7 +2787,8 @@ begin
    end;
 
    if createproductionzipfile then begin
-    createzipfile(filepath(plotdir1,productionzipfilename),plotdir1,ar1,true);
+    createzipfile(filepath(plotdir1,productionzipfilename),productionzipdir,
+                                                            plotdir1,ar1,true);
    end;
   end;
  finally
