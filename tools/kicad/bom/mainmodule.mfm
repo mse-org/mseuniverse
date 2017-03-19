@@ -504,11 +504,9 @@ object mainmo: tmainmo
     top = 64
   end
   object conn: tfb3connection
-    DatabaseName = '/home/db/firebird_3_0/stock.fdb'
     onbeforeconnect = beforeconnectev
     onafterconnect = afterconnev
     Transaction = trans
-    HostName = 'localhost/3051'
     controller.options = [dbo_utf8]
     Password = 'masterkey'
     UserName = 'SYSDBA'

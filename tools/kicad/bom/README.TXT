@@ -1,4 +1,4 @@
-MSEkicadBOM Copyright (c) 2017-2017 by Martin Schreiber
+MSEkicadBOM Copyright (c) 2016-2017 by Martin Schreiber
 ***********
 Version 0.8
 
