@@ -53,6 +53,7 @@ type
    tspacer1: tspacer;
    tbutton2: tbutton;
    tspacer5: tspacer;
+   autoadd: tbooleanedit;
    procedure repostafnasetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure diffencinitexe(const sender: tenumtypeedit);
@@ -107,7 +108,7 @@ procedure toptionsfo.tablayoutev(const sender: TObject);
 begin
  aligny(wam_center,[dateformat,maxlog,maxdiffcount]);
  aligny(wam_center,[showutc,splitdiffs,maxdiffsize]);
- aligny(wam_center,[difftool,diffcontextn]);
+ aligny(wam_center,[difftool,diffcontextn,autoadd]);
  aligny(wam_center,[mergetool,diffencoding]);
 end;
 

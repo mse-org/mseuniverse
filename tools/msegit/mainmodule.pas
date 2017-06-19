@@ -60,6 +60,7 @@ type
    fdateformat: msestring;
    fmaxdiffcount: integer;
    fmaxdiffsize: integer;
+   fautoadd: boolean;
    procedure setshowignoreditems(const avalue: boolean);
    procedure setshowuntrackeditems(const avalue: boolean);
    function getgitcommand: msestring;
@@ -88,6 +89,7 @@ type
    property diffencoding: integer read fdiffencoding write fdiffencoding;
    property maxdiffcount: integer read fmaxdiffcount write fmaxdiffcount;
    property maxdiffsize: integer read fmaxdiffsize write fmaxdiffsize;
+   property autoadd: boolean read fautoadd write fautoadd;
  end;
 
  tgitdirtreenode = class(tdirtreenode)
