@@ -83,7 +83,7 @@ function tcommitqueryfo.exec(const aroot: tgitdirtreenode;
                        const amessage: msestring): boolean;
 var
  ar1: msegitfileitemarty;
- ar2,ar3: filenamearty;
+ ar2,ar3,ar4: filenamearty;
  int1,int2: integer;
  needsrefresh: boolean;
 begin
@@ -102,7 +102,8 @@ begin
   needsrefresh:= true;
   for int1:= 0 to high(ar1) do begin
    with aitems[int1] do begin
-    if checkcancommit(gitstate) then begin
+    if checkcancommit(gitstate) or 
+         (gist_untracked in gitstate.statex) and mainmo.opt.autoadd then begin
      ar1[int2]:= tmsegitfileitem.createassign(nil,aitems[int1]);
      inc(int2);
     end;
@@ -125,6 +126,20 @@ begin
     ar1:= filelist.checkeditems();
     ar2:= filelist.selectedfiles(aroot);
     setlength(ar3,length(ar2));
+    if mainmo.opt.autoadd then begin
+     setlength(ar4,length(ar3));
+     int2:= 0;
+     for int1:= 0 to high(ar1) do begin
+      if gist_untracked in ar1[int1].gitstate.statex then begin
+       ar4[int2]:= ar2[int1];
+       inc(int2);
+      end;
+     end;
+     if int2 > 0 then begin
+      setlength(ar4,int2);
+      result:= mainmo.commit(ar4,'',ck_stage);
+     end;
+    end;
     try
      for int1:= 0 to high(ar1) do begin
       if (gist_deleted in ar1[int1].gitstate.statex) and 

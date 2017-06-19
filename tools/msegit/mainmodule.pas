@@ -1226,6 +1226,7 @@ function tmainmo.commit(const aitems: gitdirtreenodearty; staged: boolean;
   mask2: gitstatedataty = (statex: [gist_added]; statey : []);
   mask3: gitstatedataty = (statex: [gist_deleted]; statey : []);
   mask4: gitstatedataty = (statex: [gist_modified]; statey : []);
+  mask5: gitstatedataty = (statex: [gist_untracked]; statey : []);
 var
  ar1: msegitfileitemarty;
  n1: tgitdirtreenode;
@@ -1238,7 +1239,12 @@ begin
   ar1:= getfilelist(aitems,[mask2,mask3,mask4],n1);
  end
  else begin
-  ar1:= getfilelist(aitems,[mask1,mask1a,mask2,mask3,mask4],n1);
+  if opt.autoadd then begin
+   ar1:= getfilelist(aitems,[mask1,mask1a,mask2,mask3,mask4,mask5],n1);
+  end
+  else begin
+   ar1:= getfilelist(aitems,[mask1,mask1a,mask2,mask3,mask4],n1);
+  end;
  end;
  try
   result:= commit(n1,ar1,staged,amessage);

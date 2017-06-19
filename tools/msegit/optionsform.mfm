@@ -27,7 +27,6 @@ object optionsfo: toptionsfo
     tab_frame.localprops1 = []
     tab_size = 19
     object ttabpage1: ttabpage
-      frame.levelo = -1
       frame.localprops = [frl_levelo]
       frame.localprops1 = []
       taborder = 1
@@ -55,9 +54,9 @@ object optionsfo: toptionsfo
           0
           0
         )
-        bounds_x = 9
-        bounds_y = 7
-        bounds_cx = 586
+        bounds_x = 8
+        bounds_y = 6
+        bounds_cx = 588
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         statfile = mainmo.mainstat
@@ -79,9 +78,9 @@ object optionsfo: toptionsfo
         )
         taborder = 4
         hint = 'Macros: $BASE $THEIRS $MINE'
-        bounds_x = 9
-        bounds_y = 150
-        bounds_cx = 586
+        bounds_x = 8
+        bounds_y = 149
+        bounds_cx = 588
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         statfile = mainmo.mainstat
@@ -103,9 +102,9 @@ object optionsfo: toptionsfo
           0
         )
         taborder = 5
-        bounds_x = 9
-        bounds_y = 191
-        bounds_cx = 586
+        bounds_x = 8
+        bounds_y = 190
+        bounds_cx = 588
         bounds_cy = 37
         anchors = [an_left, an_top, an_right]
         statfile = mainmo.mainstat
@@ -115,8 +114,8 @@ object optionsfo: toptionsfo
       object texpandingwidget1: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         taborder = 1
-        bounds_x = 9
-        bounds_y = 48
+        bounds_x = 8
+        bounds_y = 47
         bounds_cx = 237
         bounds_cy = 98
         optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -221,8 +220,8 @@ object optionsfo: toptionsfo
       object texpandingwidget2: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         taborder = 2
-        bounds_x = 256
-        bounds_y = 48
+        bounds_x = 255
+        bounds_y = 47
         bounds_cx = 160
         bounds_cy = 100
         optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -309,8 +308,8 @@ object optionsfo: toptionsfo
       end
       object tspacer2: tspacer
         taborder = 6
-        bounds_x = 246
-        bounds_y = 87
+        bounds_x = 245
+        bounds_y = 86
         bounds_cx = 10
         bounds_cy = 50
         linkleft = texpandingwidget1
@@ -319,8 +318,8 @@ object optionsfo: toptionsfo
       object texpandingwidget3: tlayouter
         optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
         taborder = 3
-        bounds_x = 426
-        bounds_y = 48
+        bounds_x = 425
+        bounds_y = 47
         bounds_cx = 147
         bounds_cy = 69
         optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -388,8 +387,8 @@ object optionsfo: toptionsfo
       end
       object tspacer3: tspacer
         taborder = 7
-        bounds_x = 416
-        bounds_y = 87
+        bounds_x = 415
+        bounds_y = 86
         bounds_cx = 10
         bounds_cy = 50
         linkleft = texpandingwidget2
@@ -397,8 +396,8 @@ object optionsfo: toptionsfo
       end
       object tspacer5: tspacer
         taborder = 8
-        bounds_x = 1
-        bounds_y = 187
+        bounds_x = 0
+        bounds_y = 186
         bounds_cx = 50
         bounds_cy = 4
         linktop = patchtool

@@ -40,6 +40,8 @@ type
 
 const
  cancommitstate = [gist_modified,gist_added,gist_deleted,gist_renamed];
+ cancommitstateauto = [gist_modified,gist_added,gist_deleted,gist_renamed,
+                       gist_untracked];
 
 type
  gitstatedataty = record
