@@ -27,34 +27,37 @@ uses
 
 type
  toptionsfo = class(tmseform)
-   tbutton1: tbutton;
-   tbutton2: tbutton;
    ttabwidget1: ttabwidget;
    ttabpage1: ttabpage;
    tstatfile1: tstatfile;
    gitcommand: tfilenameedit;
    patchtool: thistoryedit;
    repostatfilename: tstringedit;
-   tspacer1: tspacer;
-   texpandingwidget1: texpandingwidget;
+   texpandingwidget1: tlayouter;
    mergetool: thistoryedit;
    difftool: thistoryedit;
    showutc: tbooleanedit;
    dateformat: tstringedit;
-   texpandingwidget2: texpandingwidget;
+   texpandingwidget2: tlayouter;
    diffencoding: tenumtypeedit;
    diffcontextn: tintegeredit;
    splitdiffs: tbooleanedit;
    maxlog: tintegeredit;
    tspacer2: tspacer;
-   texpandingwidget3: texpandingwidget;
+   texpandingwidget3: tlayouter;
    maxdiffsize: tintegeredit;
    maxdiffcount: tintegeredit;
    tspacer3: tspacer;
+   tspacer4: tspacer;
+   tbutton1: tbutton;
+   tspacer1: tspacer;
+   tbutton2: tbutton;
+   tspacer5: tspacer;
    procedure repostafnasetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure diffencinitexe(const sender: tenumtypeedit);
    procedure showdatetimehintexe(const sender: TObject; var info: hintinfoty);
+   procedure tablayoutev(const sender: TObject);
  end;
 
 procedure editoptions;
@@ -98,6 +101,14 @@ begin
  else begin
   info.caption:= info.caption + formatdatetimemse(dateformat.text,nowlocal);
  end;
+end;
+
+procedure toptionsfo.tablayoutev(const sender: TObject);
+begin
+ aligny(wam_center,[dateformat,maxlog,maxdiffcount]);
+ aligny(wam_center,[showutc,splitdiffs,maxdiffsize]);
+ aligny(wam_center,[difftool,diffcontextn]);
+ aligny(wam_center,[mergetool,diffencoding]);
 end;
 
 end.
