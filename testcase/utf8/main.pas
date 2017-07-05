@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  msesimplewidgets,msedataedits,mseedit,mseificomp,mseificompglob,mseifiglob,
  msestatfile,msestream,msestrings,sysutils,msedispwidgets,mserichstring,
- msegrids,msewidgetgrid;
+ msegrids,msewidgetgrid,msegraphedits,msescrollbar,mseact;
 
 type
  tmainfo = class(tmainform)
@@ -29,6 +29,10 @@ type
    list: twidgetgrid;
    listed: tintegeredit;
    edtest: tstringedit;
+   storeinvalided: tbooleanedit;
+   storedihex: thexstringedit;
+   storedihex1: thexstringedit;
+   editdihex: thexstringedit;
    procedure exe(const sender: TObject);
    procedure setva(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
@@ -39,7 +43,10 @@ type
    procedure hexset(const sender: TObject; var avalue: AnsiString;
                    var accept: Boolean);
    procedure listdatent(const sender: TObject);
+   procedure storeinvalidsetev(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
   private
+   futfoptions: utfoptionsty;
    procedure dodisp();
  end;
 var
@@ -142,12 +149,14 @@ end;
 procedure tmainfo.storeed(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 var
- str1: string;
+ str1,str2: string;
 begin
  str1:= stringtolatin1(avalue);
  storedi.value:= utf8tostringansi(str1,[uto_storeinvalid]);
- storedi2.value:= latin1tostring(stringtoutf8ansi(storedi.value,
-                                                    [uto_storeinvalid]));
+ str2:= stringtoutf8ansi(storedi.value,[uto_storeinvalid]);
+ storedi2.value:= latin1tostring(str2);
+ storedihex.value:= str1;
+ storedihex1.value:= str2;
 end;
 
 procedure tmainfo.hexset(const sender: TObject; var avalue: AnsiString;
@@ -155,7 +164,7 @@ procedure tmainfo.hexset(const sender: TObject; var avalue: AnsiString;
 var
  ucs4: ucs4string;
 begin
- di.value:= utf8tostringansi(avalue);
+ di.value:= utf8tostringansi(avalue,futfoptions);
  dodisp();
  setlength(ucs4,2);
  ucs4[0]:= hdi3.value;
@@ -172,6 +181,18 @@ begin
   ar1[i1]:= listed[i1];
  end;
  edtest.value:= ucs4stringtounicodestring(ar1);
+ editdihex.value:= stringtoutf8ansi(edtest.value,futfoptions);
+end;
+
+procedure tmainfo.storeinvalidsetev(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ if avalue then begin
+  include(futfoptions,uto_storeinvalid);
+ end
+ else begin
+  exclude(futfoptions,uto_storeinvalid);
+ end;
 end;
 
 end.
