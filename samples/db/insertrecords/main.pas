@@ -39,11 +39,16 @@ begin
  rec1.fields[at_time_on]:= timetoadif(t1);
  dbmo.init();
  t1:= nowutc();
- for i1:= 1 to reccounted.value do begin
-  rec1.fields[at_call]:= inttostrmse(i1);
-  dbmo.writelogrec(rec1);
+ try
+  for i1:= 1 to reccounted.value do begin
+   rec1.fields[at_call]:= inttostrmse(i1);
+   dbmo.writelogrec(rec1);
+  end;
+  dbmo.commit();
+ except
+  dbmo.rollback();
+  raise;
  end;
- dbmo.commit();
  t2:= nowutc();
  runtimedi.value:=  (t2-t1)*24*60*60;
 end;
