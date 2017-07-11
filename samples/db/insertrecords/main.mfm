@@ -1,0 +1,70 @@
+object mainfo: tmainfo
+  bounds_x = 290
+  bounds_y = 234
+  bounds_cx = 335
+  bounds_cy = 133
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    335
+    133
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 224
+    bounds_y = 24
+    bounds_cx = 90
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Run test'
+    onexecute = testexe
+  end
+  object reccounted: tintegeredit
+    frame.caption = 'Insert record count'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      47
+      0
+    )
+    taborder = 1
+    bounds_x = 16
+    bounds_y = 7
+    bounds_cx = 123
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 2500
+    reffontheight = 14
+  end
+  object runtimedi: trealdisp
+    frame.caption = 'Runtime'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 16
+    bounds_y = 47
+    bounds_cy = 35
+    valuerange = 1
+    valuestart = 0
+    format = '0.000s'
+    value = -Inf
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 32
+    top = 80
+  end
+end

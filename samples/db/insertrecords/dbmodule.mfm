@@ -1,0 +1,27 @@
+object dbmo: tdbmo
+  bounds_cx = 440
+  bounds_cy = 311
+  left = 651
+  top = 685
+  moduleclassname = 'tmsedatamodule'
+  object conn: tsqlite3connection
+    DatabaseName = 'adlog.db3'
+    options = [slo_transactions]
+    Transaction = trans
+    left = 8
+    top = 16
+  end
+  object trans: tmsesqltransaction
+    Database = conn
+    left = 72
+    top = 16
+  end
+  object insertstatement: tsqlstatement
+    params = <>
+    database = conn
+    transaction = trans
+    options = [sso_utf8]
+    left = 136
+    top = 16
+  end
+end
