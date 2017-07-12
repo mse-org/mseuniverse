@@ -1,0 +1,28 @@
+object subform2fo: tsubform2fo
+  optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+  color = -1610612714
+  visible = False
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 100
+  bounds_cy = 100
+  anchors = []
+  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_mousetransparent, ow_destroywidgets]
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    100
+    100
+  )
+  moduleclassname = 'tmseform'
+  object tlabel1: tlabel
+    bounds_x = 16
+    bounds_y = 24
+    bounds_cx = 64
+    bounds_cy = 14
+    caption = 'Subform 2'
+    reffontheight = 14
+  end
+end

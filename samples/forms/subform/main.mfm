@@ -1,0 +1,57 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object cont: tgroupbox
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 0
+    bounds_y = 48
+    bounds_cx = 403
+    bounds_cy = 232
+    anchors = [an_top, an_bottom]
+  end
+  object tbutton1: tbutton
+    Tag = 1
+    taborder = 1
+    bounds_x = 40
+    bounds_y = 16
+    bounds_cx = 74
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'subform1'
+    onexecute = selectformexe
+  end
+  object tbutton2: tbutton
+    Tag = 2
+    taborder = 2
+    bounds_x = 128
+    bounds_y = 16
+    bounds_cx = 74
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'subform2'
+    onexecute = selectformexe
+  end
+  object tbutton3: tbutton
+    taborder = 3
+    bounds_x = 216
+    bounds_y = 16
+    bounds_cx = 74
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'none'
+    onexecute = selectformexe
+  end
+end
