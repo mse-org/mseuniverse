@@ -44,17 +44,20 @@ type
    finited: boolean;
   protected
    fparams: array[firstlogfield..lastlogfield] of tmseparam;
+   flasterror: msestring;
   public
    procedure init();
-   procedure writelogrec(const logrec: adlogrecty);
+   function writelogrec(const logrec: adlogrecty): boolean; 
+                                                      //true if ok
    procedure commit();
    procedure rollback();
+   property lasterror: msestring read flasterror;
  end;
 var
  dbmo: tdbmo;
 implementation
 uses
- dbmodule_mfm;
+ dbmodule_mfm,msearrayutils;
 { tdbmo }
 
 procedure tdbmo.init();
@@ -62,6 +65,7 @@ var
  s1: msestring;
  f1: adiftagty;
 begin
+ flasterror:= '';
  conn.connected:= false;
  s1:= 'insert into '+logtablename+lineend+'(';
  for f1:= firstlogfield to lastlogfield do begin
@@ -82,14 +86,25 @@ begin
  end;
 end;
 
-procedure tdbmo.writelogrec(const logrec: adlogrecty);
+function tdbmo.writelogrec(const logrec: adlogrecty): boolean;
 var
  f1: adiftagty;
 begin
+ result:= false;
  for f1:= firstlogfield to lastlogfield do begin
   fparams[f1].asnullmsestring:= logrec.fields[f1];
  end;
- insertstatement.execute();
+ try
+  insertstatement.execute();
+  result:= true;
+ except
+  on e: esqlite3error do begin
+   flasterror:= e.errormessage;
+  end;
+  else begin
+   raise; //not expected error
+  end;
+ end;
 end;
 
 procedure tdbmo.commit();
