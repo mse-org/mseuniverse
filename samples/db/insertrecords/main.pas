@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  msesimplewidgets,mseact,msedataedits,mseedit,mseificomp,mseificompglob,
  mseifiglob,msestatfile,msestream,msestrings,sysutils,msedispwidgets,
- mserichstring;
+ mserichstring,msegraphedits,msescrollbar,msegrids;
 
 type
  tmainfo = class(tmainform)
@@ -14,6 +14,9 @@ type
    reccounted: tintegeredit;
    tstatfile1: tstatfile;
    runtimedi: trealdisp;
+   errored: tintegeredit;
+   errordisp: tstringgrid;
+   importcountdisp: tintegerdisp;
    procedure testexe(const sender: TObject);
  end;
  
@@ -28,7 +31,7 @@ procedure tmainfo.testexe(const sender: TObject);
 var
  rec1: adlogrecty;
  t1,t2: tdatetime;
- i1: int32;
+ i1,i2: int32;
  f1: adiftagty;
 begin
  for f1:= firstlogfield to lastlogfield do begin
@@ -38,14 +41,29 @@ begin
  rec1.fields[at_qso_date]:= datetoadif(t1);
  rec1.fields[at_time_on]:= timetoadif(t1);
  dbmo.init();
- t1:= nowutc();
- for i1:= 1 to reccounted.value do begin
-  rec1.fields[at_call]:= inttostrmse(i1);
-  dbmo.writelogrec(rec1);
+ errordisp.clear();
+ i2:= errored.value;
+ if i2 > 0 then begin
+  i2:= reccounted.value div i2;
  end;
- dbmo.commit();
+ t1:= nowutc();
+ try
+  for i1:= 1 to reccounted.value do begin
+   if (i2 = 0) or (i1 mod i2 <> 0) then begin //else produce an error
+    rec1.fields[at_call]:= inttostrmse(i1); 
+   end;
+   if not dbmo.writelogrec(rec1) then begin
+    errordisp.appenddatarow(dbmo.lasterror);
+   end;
+  end;
+  dbmo.commit();
+ except
+  dbmo.rollback();
+  raise;
+ end;
  t2:= nowutc();
  runtimedi.value:=  (t2-t1)*24*60*60;
+ importcountdisp.value:= reccounted.value-errordisp.rowcount;
 end;
 
 end.
