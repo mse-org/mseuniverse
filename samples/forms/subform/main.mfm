@@ -30,7 +30,7 @@ object mainfo: tmainfo
     bounds_cx = 74
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
-    caption = 'subform1'
+    caption = 'subform &1'
     onexecute = selectformexe
   end
   object tbutton2: tbutton
@@ -41,7 +41,7 @@ object mainfo: tmainfo
     bounds_cx = 74
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
-    caption = 'subform2'
+    caption = 'subform &2'
     onexecute = selectformexe
   end
   object tbutton3: tbutton
