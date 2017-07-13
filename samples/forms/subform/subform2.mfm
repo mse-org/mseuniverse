@@ -3,8 +3,8 @@ object subform2fo: tsubform2fo
   color = -1610612714
   visible = False
   bounds_x = 100
-  bounds_y = 100
-  bounds_cx = 100
+  bounds_y = 228
+  bounds_cx = 139
   bounds_cy = 100
   anchors = []
   container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_mousetransparent, ow_destroywidgets]
@@ -13,9 +13,10 @@ object subform2fo: tsubform2fo
   container.bounds = (
     0
     0
-    100
+    139
     100
   )
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   moduleclassname = 'tmseform'
   object tlabel1: tlabel
     bounds_x = 16
@@ -23,6 +24,14 @@ object subform2fo: tsubform2fo
     bounds_cx = 64
     bounds_cy = 14
     caption = 'Subform 2'
+    reffontheight = 14
+  end
+  object tstringedit1: tstringedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 24
+    bounds_y = 56
     reffontheight = 14
   end
 end

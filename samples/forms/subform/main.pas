@@ -47,21 +47,25 @@ const
 
 procedure tmainfo.setcurrentform(const kind: subformty);
 begin
- if fcurrentform <> kind then begin
+ if (fcurrentform <> kind) or 
+        (subforminfo[fcurrentform].instancevarad <> nil) and 
+                 (subforminfo[fcurrentform].instancevarad^ = nil) then begin
   if fcurrentform <> sf_none then begin
    with subforminfo[fcurrentform] do begin
     if instancevarad^ <> nil then begin
      instancevarad^.release;
-     instancevarad^:= nil;
+     setlinkedvar(nil,tmsecomponent(instancevarad^));
     end;
    end;
   end;
   fcurrentform:= kind;
   if fcurrentform <> sf_none then begin
    with subforminfo[fcurrentform] do begin
-    instancevarad^:= classty.create(self);
+    setlinkedvar(classty.create(self),tmsecomponent(instancevarad^));
+            //instancevarad^ will be automatically niled 
+            //if subform has been destroyed
     instancevarad^.parentwidget:= cont;
-    instancevarad^.show();
+    instancevarad^.activate();
    end;
   end;
  end;
