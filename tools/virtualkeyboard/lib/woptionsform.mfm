@@ -3,11 +3,12 @@ inherited woptionsfo: twoptionsfo
   frame.font.color = -1610612730
   frame.font.height = 13
   frame.font.xscale = 1
-  frame.font.dummy = 0
+  frame.font.localprops = [flp_color, flp_xscale, flp_height]
+  frame.localprops = []
+  frame.localprops1 = []
   frame.template = frmkeyboardfo.framecont
-  frame.dummy = 0
+  face.localprops = []
   face.template = frmkeyboardfo.facecont
-  face.dummy = 0
   bounds_x = 170
   bounds_y = 299
   bounds_cx = 639
@@ -21,23 +22,25 @@ inherited woptionsfo: twoptionsfo
     frame.font.color = -1610612730
     frame.font.height = 13
     frame.font.xscale = 1
-    frame.font.dummy = 0
+    frame.font.localprops = [flp_color, flp_xscale, flp_height]
+    frame.localprops = []
+    frame.localprops1 = []
     frame.template = frmkeyboardfo.framebutton
     frame.outerframe = (
       0
-      18
+      17
       0
       0
     )
     bounds_x = 18
-    bounds_y = 41
+    bounds_y = 42
     bounds_cx = 306
-    bounds_cy = 148
+    bounds_cy = 147
     font.color = -1610612730
     font.height = 13
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_xscale, flp_height]
     datacols.count = 2
     datacols.linecolor = -1610612730
     datacols.linecolorfix = -1610612730
@@ -62,10 +65,10 @@ inherited woptionsfo: twoptionsfo
     fixrows.items = <    
       item
         frame.localprops = [frl_framewidth]
-        frame.dummy = 0
+        frame.localprops1 = []
+        face.localprops = []
         face.template = frmkeyboardfo.facefunct
-        face.dummy = 0
-        height = 18
+        height = 17
         captions.count = 2
         captions.items = <        
           item
@@ -75,9 +78,9 @@ inherited woptionsfo: twoptionsfo
             caption = 'Name'
           end>
       end>
-    datarowheight = 18
+    datarowheight = 17
     oncellevent = wlang_oncellevent
-    reffontheight = 16
+    reffontheight = 15
   end
   object btnclose: tstockglyphbutton[1]
     Tag = -1
@@ -86,15 +89,13 @@ inherited woptionsfo: twoptionsfo
     frame.frameface_offsetmouse = 1
     frame.frameface_offsetclicked = 1
     frame.frameface_offsetactive = 1
-    frame.frameface_offsetactivemouse = 1
-    frame.frameface_offsetactiveclicked = 1
     frame.font.color = -1610612730
     frame.font.height = 13
     frame.font.xscale = 1
-    frame.font.dummy = 0
-    frame.localprops1 = [frl1_framefacelist, frl1_framefaceoffsetmouse, frl1_framefaceoffsetclicked, frl1_framefaceoffsetactive, frl1_framefaceoffsetactivemouse, frl1_framefaceoffsetactiveclicked]
+    frame.font.localprops = [flp_color, flp_xscale, flp_height]
+    frame.localprops = []
+    frame.localprops1 = [frl1_framefacelist, frl1_framefaceoffsetmouse, frl1_framefaceoffsetclicked, frl1_framefaceoffsetactive]
     frame.template = frmkeyboardfo.framebutton
-    frame.dummy = 0
     taborder = 1
     bounds_x = 513
     bounds_y = 146
@@ -107,7 +108,7 @@ inherited woptionsfo: twoptionsfo
     font.style = [fs_bold]
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_style, flp_xscale, flp_height]
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
     onexecute = closeexe
   end
@@ -123,23 +124,22 @@ inherited woptionsfo: twoptionsfo
     frame.font.color = -1610612730
     frame.font.height = 13
     frame.font.xscale = 1
-    frame.font.dummy = 0
+    frame.font.localprops = [flp_color, flp_xscale, flp_height]
     frame.localprops = [frl_colorclient]
     frame.localprops1 = [frl1_captiondist]
-    frame.dummy = 0
     frame.outerframe = (
       0
       2
-      145
-      3
+      162
+      2
     )
+    face.localprops = []
     face.template = frmkeyboardfo.facefunct
-    face.dummy = 0
     taborder = 2
     bounds_x = 18
     bounds_y = 17
-    bounds_cx = 158
-    bounds_cy = 18
+    bounds_cx = 175
+    bounds_cy = 17
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_nocandefocus]
   end
 end

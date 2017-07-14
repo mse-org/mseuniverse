@@ -3,6 +3,8 @@ object utabeditorfo: tutabeditorfo
   bounds_y = 157
   bounds_cx = 563
   bounds_cy = 371
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -14,6 +16,7 @@ object utabeditorfo: tutabeditorfo
   object mygrid: twidgetgrid
     optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autoheight]
     frame.localprops = [frl_frameimagelist]
+    frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 561
@@ -34,7 +37,7 @@ object utabeditorfo: tutabeditorfo
       item[simpletext]
         frame.hiddenedges = [edg_right, edg_top, edg_left, edg_bottom]
         frame.localprops = [frl_hiddenedges]
-        frame.dummy = 0
+        frame.localprops1 = []
         colorselect = -2147483645
         width = 511
         options = [co_focusselect, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
@@ -53,7 +56,7 @@ object utabeditorfo: tutabeditorfo
         options = [co_fixwidth, co_savevalue, co_savestate, co_mousescrollrow]
       end>
     datarowlinewidth = 0
-    reffontheight = 13
+    reffontheight = 14
     object simpletext: tsyntaxedit
       optionsskin = [osk_framebuttononly]
       taborder = 1
@@ -64,12 +67,12 @@ object utabeditorfo: tutabeditorfo
       font.height = 15
       font.name = 'stf_default'
       font.xscale = 1
-      font.dummy = 0
+      font.localprops = [flp_xscale, flp_height]
       caretwidth = 2
-      optionsedit1 = [oe1_keyexecute]
+      optionsedit1 = [oe1_keyexecute, oe1_savevalue]
       textflags = [tf_ycentered, tf_wordbreak]
       textflagsactive = [tf_ycentered, tf_wordbreak]
-      encoding = ce_utf8n
+      encoding = ce_utf8
       ontextmouseevent = on_txt_mouse
       oneditnotifcation = on_editnotif
       reffontheight = 18
@@ -92,7 +95,8 @@ object utabeditorfo: tutabeditorfo
       bounds_cy = 23
       anchors = [an_left, an_top, an_right]
       object dispRC: tstringdisp
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         bounds_x = 0
         bounds_y = 1
         bounds_cx = 104
@@ -101,11 +105,12 @@ object utabeditorfo: tutabeditorfo
         font.height = 12
         font.name = 'stf_roman'
         font.xscale = 1
-        font.dummy = 0
-        reffontheight = 15
+        font.localprops = [flp_xscale, flp_height]
+        reffontheight = 14
       end
       object dispInfo: tstringdisp
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         taborder = 1
         bounds_x = 104
         bounds_y = 1
@@ -115,11 +120,12 @@ object utabeditorfo: tutabeditorfo
         font.height = 12
         font.name = 'stf_roman'
         font.xscale = 1
-        font.dummy = 0
-        reffontheight = 15
+        font.localprops = [flp_xscale, flp_height]
+        reffontheight = 14
       end
       object dispFilePath: tstringdisp
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         taborder = 2
         bounds_x = 197
         bounds_y = 1
@@ -129,9 +135,9 @@ object utabeditorfo: tutabeditorfo
         font.height = 12
         font.name = 'stf_roman'
         font.xscale = 1
-        font.dummy = 0
+        font.localprops = [flp_xscale, flp_height]
         textflags = [tf_ycentered, tf_ellipseleft]
-        reffontheight = 15
+        reffontheight = 14
       end
     end
     object tsimplewidget1: tsimplewidget
@@ -179,7 +185,8 @@ object utabeditorfo: tutabeditorfo
     end
     object dispencode: tstringdisp
       optionswidget1 = [ow1_fontglyphheight]
-      frame.dummy = 0
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 2
       bounds_x = 2
       bounds_y = 1
@@ -190,12 +197,14 @@ object utabeditorfo: tutabeditorfo
       font.style = [fs_bold]
       font.name = 'stf_roman'
       font.xscale = 1
-      font.dummy = 0
+      font.localprops = [flp_style, flp_xscale, flp_height]
       textflags = [tf_xcentered, tf_ycentered]
-      reffontheight = 15
+      reffontheight = 14
     end
   end
   object Flaintoolbar: ttoolbar
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 2
     visible = False
     bounds_x = 23

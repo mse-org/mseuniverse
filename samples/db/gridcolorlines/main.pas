@@ -20,7 +20,7 @@ type
    procedure befdraw(const sender: tcol; const canvas: tcanvas;
                    var cellinfo: cellinfoty; var processed: Boolean);
    procedure afraw(const sender: tcol; const canvas: tcanvas;
-                   const cellinfo: cellinfoty);
+                   var cellinfo: cellinfoty);
  end;
 var
  mainfo: tmainfo;
@@ -40,7 +40,7 @@ begin
 end;
 
 procedure tmainfo.afraw(const sender: tcol; const canvas: tcanvas;
-               const cellinfo: cellinfoty);
+               var cellinfo: cellinfoty);
 begin
  if ds.fieldbyname('str1').isnull then begin
   canvas.drawline(nullpoint,mp(20,20), cl_red);

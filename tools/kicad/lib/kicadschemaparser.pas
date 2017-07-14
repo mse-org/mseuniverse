@@ -18,7 +18,7 @@ unit kicadschemaparser;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseclasses,msestream,msestrings;
+ mseclasses,msestream,msetypes,msestrings;
  
 type
  compfieldinfoty = record
@@ -54,7 +54,7 @@ type
  
 implementation
 uses
- msetypes,sysutils,mseformatstr,msearrayutils;
+ sysutils,mseformatstr,msearrayutils;
  
 { tkicadschemaparser }
 

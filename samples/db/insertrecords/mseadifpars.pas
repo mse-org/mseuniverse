@@ -2,7 +2,7 @@ unit mseadifpars;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msestream,msestrings;
+ msestream,msetypes;
 type
  adiftagty = ( //record fields at the beginning
   at_call,

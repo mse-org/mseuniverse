@@ -11,7 +11,7 @@ unit keybindings;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msestrings,msekeyboard,mseguiglob;
+ msetypes,msestrings,msekeyboard,mseguiglob;
 
 const
  keymax = 99;

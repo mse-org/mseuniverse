@@ -18,7 +18,7 @@ unit guitemplates;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseapplication,mseclasses,msedatamodules,msegui,mseskin,msestrings,
+ msetypes,mseglob,mseapplication,mseclasses,msedatamodules,msegui,mseskin,msestrings,
  msesysenv,msemacros;
 
 type
