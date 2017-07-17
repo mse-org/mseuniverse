@@ -4,22 +4,30 @@ object mainfo: tmainfo
   bounds_y = 224
   bounds_cx = 403
   bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
   statfile = tstatfile1
   moduleclassname = 'tmainform'
   object threadcount: tintegeredit
     frame.caption = 'Threadcount'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
-      72
+      83
       0
       0
       0
     )
-    bounds_x = 40
+    bounds_x = 29
     bounds_y = 8
-    bounds_cx = 116
-    bounds_cy = 20
+    bounds_cx = 127
     statfile = tstatfile1
     value = 10
     reffontheight = 14
@@ -47,22 +55,24 @@ object mainfo: tmainfo
   object threadnum: tintegeredit
     frame.caption = 'Thread Number'
     frame.captionpos = cp_left
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
-      90
+      100
       0
       0
       0
     )
     taborder = 3
-    bounds_x = 22
+    bounds_x = 12
     bounds_y = 32
-    bounds_cx = 134
-    bounds_cy = 20
+    bounds_cx = 144
     statfile = tstatfile1
     reffontheight = 14
   end
   object list: tstringgrid
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 4
     bounds_x = 0
     bounds_y = 60
@@ -73,7 +83,9 @@ object mainfo: tmainfo
     datacols.items = <    
       item
         width = 396
-        options = [co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        valuefalse = '0'
+        valuetrue = '1'
       end>
     rowcountmax = 2000
     datarowheight = 16
