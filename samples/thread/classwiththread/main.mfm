@@ -1,0 +1,54 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 403
+  bounds_cy = 107
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    107
+  )
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object createbu: tbutton
+    bounds_x = 16
+    bounds_y = 8
+    bounds_cx = 106
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'create thread'
+    onexecute = createev
+  end
+  object runbu: tbutton
+    taborder = 1
+    bounds_x = 128
+    bounds_y = 8
+    bounds_cx = 106
+    bounds_cy = 20
+    state = [as_disabled, as_localdisabled, as_localcaption, as_localonexecute]
+    caption = 'run thread'
+    onexecute = runev
+  end
+  object destroybu: tbutton
+    taborder = 2
+    bounds_x = 240
+    bounds_y = 8
+    bounds_cx = 106
+    bounds_cy = 20
+    state = [as_disabled, as_localdisabled, as_localcaption, as_localonexecute]
+    caption = 'destroy thread'
+    onexecute = destroyev
+  end
+  object disp: tintegerdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 3
+    bounds_x = 24
+    bounds_y = 56
+    bounds_cy = 18
+    reffontheight = 14
+  end
+end
