@@ -18,7 +18,7 @@ unit defaultstat;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msestrings;
+ msetypes;
 const
  defaultstatdata = 
 '[mainmo.mainstat]'+lineend+
