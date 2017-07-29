@@ -1,0 +1,56 @@
+[mainfo.tenvelopeedit1]
+[mainfo.tenvelopeedit1.0]
+zoomx=1
+zoomy=1
+scrollx=0
+scrolly=0
+activetrace=0
+value0=5
+ 0.0009009009009009,0.0070921985815603
+ 0.0117117117117117,0.66666666666667
+ 0.02972972972973,0.99290780141844
+ 0.058558558558559,0.90070921985816
+ 0.1,0.56028368794326
+value1=0
+[mainfo.tenvelopeedit1.1]
+x=118
+y=0
+xprop=0.34730538922156
+yprop=1
+[mainfo.tenvelopeedit1.2]
+marker0_0=2.73504273504274
+zoomx=1
+zoomy=1
+scrollx=0
+scrolly=0
+activetrace=0
+value0=3
+ 1.35135135135135,0.40425531914894
+ 3.33333333333333,0.56737588652482
+ 5.4954954954955,0.4
+value1=0
+[mainfo.tenvelopeedit1.3]
+x=240
+y=0
+xprop=0.69461077844311
+yprop=1
+[mainfo.tenvelopeedit1.4]
+zoomx=1
+zoomy=1
+scrollx=0
+scrolly=0
+activetrace=0
+value0=1
+ 0.03030303030303,0
+value1=0
+[mainfo.tsigslider1]
+value=0.5797385620915
+[mainfo]
+stackedunder=
+x=291
+y=247
+cx=369
+cy=336
+wsize=0
+active=1
+visible=1
