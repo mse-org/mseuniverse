@@ -1,0 +1,387 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 360
+  bounds_cy = 331
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    360
+    331
+  )
+  statfile = tstatfile1
+  caption = 'MSEsignal'
+  moduleclassname = 'tmainform'
+  object tsigkeyboard1: tsigkeyboard
+    frame.levelo = 2
+    frame.leveli = -1
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.localprops1 = []
+    bounds_x = 8
+    bounds_y = 256
+    bounds_cx = 344
+    bounds_cy = 60
+    anchors = [an_left, an_bottom]
+    value = 0
+    keywidth = 12
+    controller = tsigcontroller1
+    min = 0.005
+  end
+  object tsigslider1: tsigslider
+    frame.caption = 'Volume'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      0
+      45
+      0
+    )
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 224
+    bounds_cx = 245
+    anchors = [an_left, an_bottom]
+    statfile = tstatfile1
+    value = 0
+    controller = tsigcontroller1
+    min = 0
+    max = 1
+  end
+  object tenvelopeedit1: tenvelopeedit
+    frame.levelo = 1
+    frame.leveli = -1
+    frame.caption = 'Attack-Decay-Release'
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 346
+    bounds_cy = 203
+    anchors = [an_left, an_top, an_right, an_bottom]
+    attack.frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
+    attack.frame.localprops = []
+    attack.frame.localprops1 = []
+    attack.frame.zoomwidthstep = 1.5
+    attack.bounds_x = 2
+    attack.bounds_y = 21
+    attack.bounds_cx = 115
+    attack.bounds_cy = 180
+    attack.traces.count = 2
+    attack.traces.options = [cto_smooth, cto_stockglyphs, cto_xordered]
+    attack.traces.xserstart = 0
+    attack.traces.xstart = 0
+    attack.traces.ystart = 0
+    attack.traces.xrange = 0.1
+    attack.traces.xserrange = 1
+    attack.traces.yrange = 1
+    attack.traces.image_widthmm = 0
+    attack.traces.image_heighthmm = 0
+    attack.traces.legend_x = 0
+    attack.traces.legend_y = 0
+    attack.traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 0.1
+        xstart = 0
+        yrange = 1
+        ystart = 0
+        options = [cto_smooth, cto_stockglyphs, cto_xordered]
+        imagenr = 45
+      end    
+      item
+        color = -1610612729
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 0.1
+        xstart = 0
+        yrange = 1
+        ystart = 0
+        options = [cto_smooth, cto_stockglyphs, cto_xordered]
+        imagenr = 48
+      end>
+    attack.xstart = 0
+    attack.ystart = 0
+    attack.xrange = 0.1
+    attack.yrange = 1
+    attack.xdials.start = 0
+    attack.xdials.range = 0.1
+    attack.ydials.start = 0
+    attack.ydials.range = 1
+    decay.frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
+    decay.frame.localprops = []
+    decay.frame.localprops1 = []
+    decay.frame.zoomwidthstep = 1.5
+    decay.taborder = 1
+    decay.bounds_x = 121
+    decay.bounds_y = 21
+    decay.bounds_cx = 115
+    decay.bounds_cy = 180
+    decay.traces.count = 2
+    decay.traces.options = [cto_smooth, cto_stockglyphs, cto_xordered]
+    decay.traces.xserstart = 0
+    decay.traces.xstart = 0
+    decay.traces.ystart = 0
+    decay.traces.xrange = 10
+    decay.traces.xserrange = 1
+    decay.traces.yrange = 1
+    decay.traces.image_widthmm = 0
+    decay.traces.image_heighthmm = 0
+    decay.traces.legend_x = 0
+    decay.traces.legend_y = 0
+    decay.traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 10
+        xstart = 0
+        yrange = 1
+        ystart = 0
+        options = [cto_smooth, cto_stockglyphs, cto_xordered]
+        imagenr = 45
+      end    
+      item
+        color = -1610612729
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 10
+        xstart = 0
+        yrange = 1
+        ystart = 0
+        options = [cto_smooth, cto_stockglyphs, cto_xordered]
+        imagenr = 48
+      end>
+    decay.xstart = 0
+    decay.ystart = 0
+    decay.xrange = 10
+    decay.yrange = 1
+    decay.xdials.count = 1
+    decay.xdials.start = 0
+    decay.xdials.range = 10
+    decay.xdials.items = <    
+      item
+        widthmm = 0.3
+        start = 0
+        range = 10
+        markers.count = 1
+        markers.items = <        
+          item
+            color = -1610612729
+            widthmm = 0
+            escapement = 0
+            value = 10
+            options = [dmo_savevalue]
+          end>
+      end>
+    decay.ydials.start = 0
+    decay.ydials.range = 1
+    release.frame.optionsscroll = [oscr_drag, oscr_zoomwidth, oscr_zoomheight, oscr_mousewheel]
+    release.frame.localprops = []
+    release.frame.localprops1 = []
+    release.frame.zoomwidthstep = 1.5
+    release.taborder = 2
+    release.bounds_x = 240
+    release.bounds_y = 21
+    release.bounds_cx = 102
+    release.bounds_cy = 180
+    release.traces.count = 2
+    release.traces.options = [cto_smooth, cto_stockglyphs, cto_xordered]
+    release.traces.xserstart = 0
+    release.traces.xstart = 0
+    release.traces.ystart = 0
+    release.traces.xrange = 1
+    release.traces.xserrange = 1
+    release.traces.yrange = 1
+    release.traces.image_widthmm = 0
+    release.traces.image_heighthmm = 0
+    release.traces.legend_x = 0
+    release.traces.legend_y = 0
+    release.traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 1
+        ystart = 0
+        options = [cto_smooth, cto_stockglyphs, cto_xordered]
+        imagenr = 45
+      end    
+      item
+        color = -1610612729
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 1
+        ystart = 0
+        options = [cto_smooth, cto_stockglyphs, cto_xordered]
+        imagenr = 48
+      end>
+    release.xstart = 0
+    release.ystart = 0
+    release.xrange = 1
+    release.yrange = 1
+    release.xdials.start = 0
+    release.xdials.range = 1
+    release.ydials.start = 0
+    release.ydials.range = 1
+    splitter1.taborder = 3
+    splitter1.bounds_x = 117
+    splitter1.bounds_y = 21
+    splitter1.bounds_cx = 4
+    splitter1.bounds_cy = 180
+    splitter2.taborder = 4
+    splitter2.bounds_x = 236
+    splitter2.bounds_y = 21
+    splitter2.bounds_cx = 4
+    splitter2.bounds_cy = 180
+    statfile = tstatfile1
+    envelope.controller = tsigcontroller1
+    envelope.trigger.source = tsigkeyboard1.trigout0
+    envelope.trigger.offset = 0
+    envelope.trigger.gain = 1
+    envelope.trigger.min = -Inf
+    envelope.trigger.max = -Inf
+    envelope.trigger.expstart = -Inf
+    envelope.trigger.expend = -Inf
+    envelope.trigger.value = 0
+    envelope.amplitude.offset = 0
+    envelope.amplitude.gain = 1
+    envelope.amplitude.min = -Inf
+    envelope.amplitude.max = -Inf
+    envelope.amplitude.expstart = -Inf
+    envelope.amplitude.expend = -Inf
+    envelope.amplitude.value = 1
+    envelope.mix.offset = 0
+    envelope.mix.gain = 1
+    envelope.mix.min = 0
+    envelope.mix.max = 1
+    envelope.mix.expstart = -Inf
+    envelope.mix.expend = -Inf
+    envelope.mix.value = 0
+    envelope.timescale = 1
+    envelope.min = 0.001
+    envelope.max = 1
+    envelope.eventthreshold = 0.1
+    envelope.attack_options = [sero_exp]
+    envelope.attack_maxeventtime = 0
+    envelope.decay_maxeventtime = 0
+    envelope.release_maxeventtime = 0
+  end
+  object tsignoise1: tsignoise
+    controller = tsigcontroller1
+    amplitude.source = tenvelopeedit1.envelope.output
+    amplitude.offset = -0.001
+    amplitude.gain = 1
+    amplitude.min = -Inf
+    amplitude.max = -Inf
+    amplitude.expstart = -Inf
+    amplitude.expend = -Inf
+    amplitude.value = 1
+    offset.offset = 0
+    offset.gain = 1
+    offset.min = -Inf
+    offset.max = -Inf
+    offset.expstart = -Inf
+    offset.expend = -Inf
+    offset.value = 0
+    kind = nk_pink
+    cutofffrequ = 0.1
+    left = 16
+    top = 128
+  end
+  object tsigcontroller1: tsigcontroller
+    samplefrequ = 44100
+    left = 16
+    top = 96
+  end
+  object tsigoutaudio1: tsigoutaudio
+    controller = tsigcontroller1
+    inputs.count = 1
+    inputs.items = <    
+      item
+        source = tsigfilter1.output
+        offset = 0
+        gain = 1
+        min = -Inf
+        max = -Inf
+        expstart = -Inf
+        expend = -Inf
+        value = 0
+      end>
+    audio.active = True
+    audio.latency = 0.1
+    left = 200
+    top = 128
+  end
+  object tsigfilter1: tsigfilter
+    controller = tsigcontroller1
+    inputs.count = 1
+    inputs.items = <    
+      item
+        source = tsignoise1.output
+        offset = 0
+        gain = 1
+        min = -Inf
+        max = -Inf
+        expstart = -Inf
+        expend = -Inf
+        value = 0
+      end>
+    frequency.source = tsigkeyboard1.output0
+    frequency.offset = 0
+    frequency.gain = 1
+    frequency.min = -Inf
+    frequency.max = -Inf
+    frequency.expstart = -Inf
+    frequency.expend = -Inf
+    frequency.value = 0.005
+    frequfact.offset = 0
+    frequfact.gain = 1
+    frequfact.min = -Inf
+    frequfact.max = -Inf
+    frequfact.expstart = -Inf
+    frequfact.expend = -Inf
+    frequfact.value = 1
+    qfactor.offset = 0
+    qfactor.gain = 1
+    qfactor.min = -Inf
+    qfactor.max = -Inf
+    qfactor.expstart = -Inf
+    qfactor.expend = -Inf
+    qfactor.value = 500
+    amplitude.source = tsigslider1.output
+    amplitude.offset = 0
+    amplitude.gain = 1
+    amplitude.min = -Inf
+    amplitude.max = -Inf
+    amplitude.expstart = 0.01
+    amplitude.expend = 1
+    amplitude.value = 0.01
+    kind = sfk_bp2bilinear
+    left = 112
+    top = 128
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 264
+    top = 96
+  end
+end
