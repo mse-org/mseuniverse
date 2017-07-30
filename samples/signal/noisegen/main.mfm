@@ -3,334 +3,415 @@ object mainfo: tmainfo
   bounds_x = 127
   bounds_y = 217
   bounds_cx = 535
-  bounds_cy = 267
+  bounds_cy = 270
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
     535
-    267
+    270
   )
   statfile = sta
   caption = 'MSEide+MSEgui Signal-Processing Toolbox'
   onclose = onclosexe
   moduleclassname = 'tmainform'
-  object tsigslider1: tsigslider
-    frame.caption = 'amp'
-    frame.captionpos = cp_top
-    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    frame.dummy = 0
-    frame.outerframe = (
-      3
-      17
-      4
-      0
-    )
-    taborder = 1
-    bounds_x = 12
-    bounds_y = 35
-    bounds_cx = 27
-    bounds_cy = 199
-    anchors = [an_left, an_top, an_bottom]
-    statfile = sta
-    value = 0
-    scrollbar.face.dummy = 0
-    direction = gd_up
-    controller = cont
-    min = 0
-    max = 1
-    options = [sieo_expzero]
-  end
-  object fft: tsigscopefft
-    frame.leveli = -1
-    frame.colorclient = -2147483645
-    frame.localprops = [frl_leveli, frl_firight, frl_colorclient]
-    taborder = 3
-    bounds_x = 276
-    bounds_y = 8
-    bounds_cx = 246
-    bounds_cy = 250
-    anchors = [an_top, an_right, an_bottom]
-    traces.count = 1
-    traces.chartkind = tck_bar
-    traces.options = [cto_logx, cto_logy]
-    traces.xserstart = 0
-    traces.xstart = 0
-    traces.ystart = 0
-    traces.xrange = 1
-    traces.xserrange = 22050
-    traces.yrange = 1
-    traces.image_widthmm = 0
-    traces.image_heighthmm = 0
-    traces.legend_x = 0
-    traces.legend_y = 0
-    traces.items = <    
-      item
-        widthmm = 0.3
-        xserrange = 22050
-        xserstart = 0
-        xrange = 22000
-        xstart = 10
-        yrange = 0.999
-        ystart = 0.001
-        options = [cto_logx, cto_logy]
-      end>
-    facechart.template = defaultskinmo.fadevertkonvex
-    facechart.dummy = 0
-    xstart = 0
-    ystart = 0
-    xrange = 1
-    yrange = 1
-    xdials.count = 1
-    xdials.start = 10
-    xdials.range = 22000
-    xdials.items = <    
-      item
-        options = [do_log]
-        widthmm = 0.3
-        start = 10
-        range = 22000
-        ticks.count = 2
-        ticks.items = <        
-          item
-            widthmm = 0
-            caption = '0g'
-            escapement = 0
-            intervalcount = 1
-            interval = 10
-          end        
-          item
-            widthmm = 0
-            escapement = 0
-            intervalcount = 10
-            interval = 10
-          end>
-      end>
-    ydials.count = 1
-    ydials.start = -60
-    ydials.range = 60
-    ydials.items = <    
-      item
-        options = [do_opposite, do_sideline, do_boxline]
-        widthmm = 0.3
-        start = -60
-        range = 60
-        ticks.count = 1
-        ticks.items = <        
-          item
-            widthmm = 0
-            caption = '0'
-            captionunit = 'dB'
-            escapement = 0
-            interval = 10
-          end>
-      end>
-    fitframe_left = 20
-    fitframe_top = 7
-    fitframe_bottom = 16
-    sampler.controller = cont
-    sampler.inputs.count = 1
-    sampler.inputs.items = <    
-      item
-        source = noise.output
-        offset = 0
-        gain = 4
-        min = -Inf
-        max = -Inf
-        expstart = -Inf
-        expend = -Inf
-        value = 0
-      end>
-    sampler.bufferlength = 65536
-    sampler.trigger.offset = 0
-    sampler.trigger.gain = 1
-    sampler.trigger.min = -Inf
-    sampler.trigger.max = -Inf
-    sampler.trigger.expstart = -Inf
-    sampler.trigger.expend = -Inf
-    sampler.trigger.value = 0
-    sampler.triggerlevel.offset = 0
-    sampler.triggerlevel.gain = 1
-    sampler.triggerlevel.min = -Inf
-    sampler.triggerlevel.max = -Inf
-    sampler.triggerlevel.expstart = -Inf
-    sampler.triggerlevel.expend = -Inf
-    sampler.triggerlevel.value = 0
-    sampler.options = [sso_fulltick, sso_autorun, sso_fftmag]
-    sampler.refreshus = 500000
-    sampler.windowfuncpar0 = 0
-    sampler.windowfuncpar1 = 0
-  end
-  object scope: tsigscope
-    frame.levelo = -1
-    frame.colorclient = -2147483645
-    frame.localprops = [frl_levelo, frl_firight, frl_colorclient]
-    taborder = 4
-    bounds_x = 88
-    bounds_y = 8
-    bounds_cx = 184
-    bounds_cy = 250
-    anchors = [an_left, an_top, an_bottom]
-    traces.count = 1
-    traces.xserstart = 0
-    traces.xstart = 0
-    traces.ystart = 0
-    traces.xrange = 1
-    traces.xserrange = 1
-    traces.yrange = 1
-    traces.image_widthmm = 0
-    traces.image_heighthmm = 0
-    traces.legend_x = 0
-    traces.legend_y = 0
-    traces.items = <    
-      item
-        widthmm = 0.3
-        xserrange = 1
-        xserstart = 0
-        xrange = 1
-        xstart = 0
-        yrange = 4
-        ystart = -2
-      end>
-    facechart.template = defaultskinmo.fadevertkonvex
-    facechart.dummy = 0
-    xstart = 0
-    ystart = 0
-    xrange = 1
-    yrange = 1
-    xdials.count = 1
-    xdials.start = 0
-    xdials.range = 1
-    xdials.items = <    
-      item
-        widthmm = 0.3
-        start = 0
-        range = 0.0928798
-        ticks.count = 1
-        ticks.items = <        
-          item
-            widthmm = 0
-            caption = '0g'
-            escapement = 0
-            interval = 0.02
-          end>
-      end>
-    ydials.count = 1
-    ydials.start = -1
-    ydials.range = 1
-    ydials.items = <    
-      item
-        widthmm = 0.3
-        start = -1
-        range = 2
-        ticks.count = 2
-        ticks.items = <        
-          item
-            widthmm = 0
-            caption = '0.0'
-            escapement = 0
-            interval = 0.2
-            options = [dto_opposite]
-          end        
-          item
-            widthmm = 0
-            dashes = #1#1
-            escapement = 0
-            interval = 0.1
-          end>
-      end>
-    fitframe_left = 23
-    fitframe_top = 7
-    fitframe_bottom = 16
-    sampler.controller = cont
-    sampler.inputs.count = 1
-    sampler.inputs.items = <    
-      item
-        source = noise.output
-        offset = 0
-        gain = 1
-        min = -Inf
-        max = -Inf
-        expstart = -Inf
-        expend = -Inf
-        value = 0
-      end>
-    sampler.trigger.offset = 0
-    sampler.trigger.gain = 1
-    sampler.trigger.min = -Inf
-    sampler.trigger.max = -Inf
-    sampler.trigger.expstart = -Inf
-    sampler.trigger.expend = -Inf
-    sampler.trigger.value = 0
-    sampler.triggerlevel.offset = 0
-    sampler.triggerlevel.gain = 1
-    sampler.triggerlevel.min = -Inf
-    sampler.triggerlevel.max = -Inf
-    sampler.triggerlevel.expstart = -Inf
-    sampler.triggerlevel.expend = -Inf
-    sampler.triggerlevel.value = 0
-    sampler.options = [sso_fulltick, sso_autorun]
-    sampler.refreshus = 500000
-  end
-  object sampcount: tslider
-    frame.caption = 'crest'
-    frame.captionpos = cp_top
-    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
-    frame.dummy = 0
-    frame.outerframe = (
-      4
-      17
-      5
-      0
-    )
-    taborder = 2
-    bounds_x = 47
-    bounds_y = 35
-    bounds_cx = 29
-    bounds_cy = 199
-    anchors = [an_left, an_top, an_bottom]
-    statfile = sta
-    value = 0
-    scrollbar.face.dummy = 0
-    onsetvalue = samcountsetexe
-    direction = gd_up
-  end
-  object sampcountdi: tintegerdisp
-    frame.dummy = 0
-    taborder = 5
+  object tlayouter1: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     bounds_x = 51
-    bounds_y = 240
-    bounds_cx = 20
-    bounds_cy = 18
-    anchors = [an_left, an_bottom]
-    reffontheight = 14
+    bounds_y = 245
+    bounds_cx = 478
+    bounds_cy = 20
+    anchors = [an_left, an_right, an_bottom]
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 4
+    place_maxdist = 4
+    place_options = [plo_endmargin]
+    linktop = tlayouter2
+    dist_top = 1
+    options = [spao_glueright, spao_gluebottom]
+    object average: tbooleanedit
+      frame.caption = 'average'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        2
+        48
+        3
+      )
+      bounds_x = 417
+      bounds_y = 2
+      bounds_cx = 61
+      bounds_cy = 18
+      anchors = [an_top, an_right]
+      statfile = sta
+      onsetvalue = averagesetev
+    end
+    object averagecount: tintegerdisp
+      frame.caption = 'count'
+      frame.captionpos = cp_right
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        0
+        37
+        0
+      )
+      taborder = 1
+      bounds_x = 324
+      bounds_y = 0
+      bounds_cx = 89
+      reffontheight = 16
+    end
+    object sampcountdi: tintegerdisp
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 20
+      anchors = [an_left, an_bottom]
+      reffontheight = 16
+    end
+    object tsimplewidget1: tsimplewidget
+      taborder = 3
+      bounds_x = 24
+      bounds_y = 5
+      bounds_cx = 296
+      bounds_cy = 10
+      anchors = [an_left, an_top, an_right]
+    end
   end
-  object tsplitter1: tsplitter
-    color = -1879048189
-    taborder = 6
-    bounds_x = 272
-    bounds_y = 8
-    bounds_cx = 4
-    bounds_cy = 250
-    anchors = [an_left, an_top, an_bottom]
-    options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
-    linkleft = scope
-    linkright = fft
-    statfile = sta
-  end
-  object kinded: tenumtypeedit
-    bounds_x = 8
-    bounds_y = 8
-    bounds_cx = 76
-    statfile = sta
-    value = 0
-    min = 0
-    onsetvalue = kindsetexe
-    dropdown.cols.count = 1
-    dropdown.cols.items = <    
-      item
-      end>
-    oninit = typinitexe
-    reffontheight = 14
+  object tlayouter2: tlayouter
+    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 0
+    bounds_cx = 530
+    bounds_cy = 244
+    anchors = [an_left, an_top, an_right, an_bottom]
+    object tsplitter1: tsplitter
+      color = -1879048189
+      bounds_x = 272
+      bounds_y = 0
+      bounds_cx = 4
+      bounds_cy = 244
+      anchors = [an_left]
+      options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+      linkleft = scope
+      linkright = fft
+      statfile = sta
+    end
+    object fft: tsigscopefft
+      frame.leveli = -1
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_leveli, frl_firight, frl_colorclient]
+      frame.localprops1 = []
+      taborder = 1
+      bounds_x = 276
+      bounds_y = 0
+      bounds_cx = 254
+      bounds_cy = 244
+      anchors = [an_right]
+      traces.count = 1
+      traces.chartkind = tck_bar
+      traces.options = [cto_logx, cto_logy]
+      traces.xserstart = 0
+      traces.xstart = 0
+      traces.ystart = 0
+      traces.xrange = 1
+      traces.xserrange = 22050
+      traces.yrange = 1
+      traces.image_widthmm = 0
+      traces.image_heighthmm = 0
+      traces.legend_x = 0
+      traces.legend_y = 0
+      traces.items = <      
+        item
+          widthmm = 0.3
+          xserrange = 22050
+          xserstart = 0
+          xrange = 22000
+          xstart = 10
+          yrange = 0.999
+          ystart = 0.001
+          options = [cto_logx, cto_logy]
+        end>
+      facechart.localprops = []
+      facechart.template = defaultskinmo.fadevertkonvex
+      xstart = 0
+      ystart = 0
+      xrange = 1
+      yrange = 1
+      xdials.count = 1
+      xdials.start = 10
+      xdials.range = 22000
+      xdials.items = <      
+        item
+          options = [do_log]
+          widthmm = 0.3
+          start = 10
+          range = 22000
+          ticks.count = 2
+          ticks.items = <          
+            item
+              widthmm = 0
+              caption = '0g'
+              escapement = 0
+              intervalcount = 1
+              interval = 10
+            end          
+            item
+              widthmm = 0
+              escapement = 0
+              intervalcount = 10
+              interval = 10
+            end>
+        end>
+      ydials.count = 1
+      ydials.start = -60
+      ydials.range = 60
+      ydials.items = <      
+        item
+          options = [do_opposite, do_sideline, do_boxline]
+          widthmm = 0.3
+          start = -60
+          range = 60
+          ticks.count = 1
+          ticks.items = <          
+            item
+              widthmm = 0
+              caption = '0'
+              captionunit = 'dB'
+              escapement = 0
+              interval = 10
+            end>
+        end>
+      fitframe_left = 21
+      fitframe_top = 8
+      fitframe_bottom = 18
+      sampler.controller = cont
+      sampler.inputs.count = 1
+      sampler.inputs.items = <      
+        item
+          source = noise.output
+          offset = 0
+          gain = 4
+          min = -Inf
+          max = -Inf
+          expstart = -Inf
+          expend = -Inf
+          value = 0
+        end>
+      sampler.bufferlength = 65536
+      sampler.trigger.offset = 0
+      sampler.trigger.gain = 1
+      sampler.trigger.min = -Inf
+      sampler.trigger.max = -Inf
+      sampler.trigger.expstart = -Inf
+      sampler.trigger.expend = -Inf
+      sampler.trigger.value = 0
+      sampler.triggerlevel.offset = 0
+      sampler.triggerlevel.gain = 1
+      sampler.triggerlevel.min = -Inf
+      sampler.triggerlevel.max = -Inf
+      sampler.triggerlevel.expstart = -Inf
+      sampler.triggerlevel.expend = -Inf
+      sampler.triggerlevel.value = 0
+      sampler.options = [sso_fulltick, sso_autorun, sso_fftmag]
+      sampler.onbufferfull = buffullev
+      sampler.refreshus = 500000
+      sampler.windowfuncpar0 = 0
+      sampler.windowfuncpar1 = 0
+    end
+    object scope: tsigscope
+      frame.levelo = -1
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_firight, frl_colorclient]
+      frame.localprops1 = []
+      taborder = 2
+      bounds_x = 88
+      bounds_y = 0
+      bounds_cx = 184
+      bounds_cy = 244
+      anchors = [an_left]
+      traces.count = 1
+      traces.xserstart = 0
+      traces.xstart = 0
+      traces.ystart = 0
+      traces.xrange = 1
+      traces.xserrange = 1
+      traces.yrange = 1
+      traces.image_widthmm = 0
+      traces.image_heighthmm = 0
+      traces.legend_x = 0
+      traces.legend_y = 0
+      traces.items = <      
+        item
+          widthmm = 0.3
+          xserrange = 1
+          xserstart = 0
+          xrange = 1
+          xstart = 0
+          yrange = 4
+          ystart = -2
+        end>
+      facechart.localprops = []
+      facechart.template = defaultskinmo.fadevertkonvex
+      xstart = 0
+      ystart = 0
+      xrange = 1
+      yrange = 1
+      xdials.count = 1
+      xdials.start = 0
+      xdials.range = 1
+      xdials.items = <      
+        item
+          widthmm = 0.3
+          start = 0
+          range = 0.0928798
+          ticks.count = 1
+          ticks.items = <          
+            item
+              widthmm = 0
+              caption = '0g'
+              escapement = 0
+              interval = 0.02
+            end>
+        end>
+      ydials.count = 1
+      ydials.start = -1
+      ydials.range = 1
+      ydials.items = <      
+        item
+          widthmm = 0.3
+          start = -1
+          range = 2
+          ticks.count = 2
+          ticks.items = <          
+            item
+              widthmm = 0
+              caption = '0.0'
+              escapement = 0
+              interval = 0.2
+              options = [dto_opposite]
+            end          
+            item
+              widthmm = 0
+              dashes = #1#1
+              escapement = 0
+              interval = 0.1
+            end>
+        end>
+      fitframe_left = 24
+      fitframe_top = 8
+      fitframe_bottom = 18
+      sampler.controller = cont
+      sampler.inputs.count = 1
+      sampler.inputs.items = <      
+        item
+          source = noise.output
+          offset = 0
+          gain = 1
+          min = -Inf
+          max = -Inf
+          expstart = -Inf
+          expend = -Inf
+          value = 0
+        end>
+      sampler.trigger.offset = 0
+      sampler.trigger.gain = 1
+      sampler.trigger.min = -Inf
+      sampler.trigger.max = -Inf
+      sampler.trigger.expstart = -Inf
+      sampler.trigger.expend = -Inf
+      sampler.trigger.value = 0
+      sampler.triggerlevel.offset = 0
+      sampler.triggerlevel.gain = 1
+      sampler.triggerlevel.min = -Inf
+      sampler.triggerlevel.max = -Inf
+      sampler.triggerlevel.expstart = -Inf
+      sampler.triggerlevel.expend = -Inf
+      sampler.triggerlevel.value = 0
+      sampler.options = [sso_fulltick, sso_autorun]
+      sampler.refreshus = 500000
+    end
+    object sampcount: tslider
+      frame.caption = 'crest'
+      frame.captionpos = cp_top
+      frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+      frame.localprops1 = []
+      frame.outerframe = (
+        6
+        19
+        7
+        0
+      )
+      taborder = 3
+      bounds_x = 45
+      bounds_y = 25
+      bounds_cx = 33
+      bounds_cy = 219
+      anchors = [an_left, an_top, an_bottom]
+      statfile = sta
+      value = 0
+      scrollbar.face.localprops = []
+      onsetvalue = samcountsetexe
+      direction = gd_up
+    end
+    object tsigslider1: tsigslider
+      frame.caption = 'amp'
+      frame.captionpos = cp_top
+      frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+      frame.localprops1 = []
+      frame.outerframe = (
+        3
+        19
+        4
+        0
+      )
+      taborder = 4
+      bounds_x = 12
+      bounds_y = 25
+      bounds_cx = 27
+      bounds_cy = 219
+      anchors = [an_left, an_top, an_bottom]
+      statfile = sta
+      value = 0
+      scrollbar.face.localprops = []
+      direction = gd_up
+      controller = cont
+      min = 0
+      max = 1
+      options = [sieo_expzero]
+    end
+    object kinded: tenumtypeedit
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      taborder = 5
+      bounds_x = 8
+      bounds_y = 0
+      bounds_cx = 76
+      bounds_cy = 22
+      statfile = sta
+      value = 0
+      min = 0
+      onsetvalue = kindsetexe
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+        end>
+      oninit = typinitexe
+      reffontheight = 16
+    end
   end
   object cont: tsigcontroller
     samplefrequ = 44100
