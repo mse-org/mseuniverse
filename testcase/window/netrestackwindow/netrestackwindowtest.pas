@@ -43,7 +43,7 @@ begin
 {$ifdef mse_debuggdisync}
  checkgdilock;
 {$endif} 
- result:= sendnetcardinalmessage(mserootwindow,messagetype,aid,adata,
+ result:= sendnetcardinalmessage(gui_getrootwindow,messagetype,aid,adata,
                substructurenotifymask or substructureredirectmask);
 end;
 
@@ -53,12 +53,14 @@ const
  ypos1 = 100;
  width1 = 200;
  height1 = 100;
- xpos2 = 150;
- ypos2 = 150;
+ xpos2 = 140;
+ ypos2 = 140;
+ xpos3 = 180;
+ ypos3 = 180;
 
 var
- id1,id2: winidty;
- gc1,gc2: pxgc;
+ id1,id2,id3: winidty;
+ gc1,gc2,gc3: pxgc;
  attributes: txsetwindowattributes;
  sizehints: pxsizehints;
  int1: integer;
@@ -74,13 +76,16 @@ begin
   win_gravity:= staticgravity;
   background_pixel:= 0;
  end;
- id1:= xcreatewindow(msedisplay,mserootwindow,xpos1,ypos1,width1,height1,0,
+ id1:= xcreatewindow(msedisplay,gui_getrootwindow,xpos1,ypos1,width1,height1,0,
             copyfromparent,copyfromparent,pvisual(copyfromparent),
             cwwingravity or cwbackpixel,@attributes);
- id2:= xcreatewindow(msedisplay,mserootwindow,xpos2,ypos2,width1,height1,0,
+ id2:= xcreatewindow(msedisplay,gui_getrootwindow,xpos2,ypos2,width1,height1,0,
             copyfromparent,copyfromparent,pvisual(copyfromparent),
             cwwingravity or cwbackpixel,@attributes);
- if (id1 <> 0) and (id2 <> 0) then begin
+ id3:= xcreatewindow(msedisplay,gui_getrootwindow,xpos3,ypos3,width1,height1,0,
+            copyfromparent,copyfromparent,pvisual(copyfromparent),
+            cwwingravity or cwbackpixel,@attributes);
+ if (id1 <> 0) and (id2 <> 0) and (id3 <> 0) then begin
   sizehints:= xallocsizehints;
   xgetwmnormalhints(msedisplay,id1,sizehints,@int1);
   with sizehints^ do begin
@@ -100,14 +105,22 @@ begin
    y:= ypos2;
   end;
   xsetwmnormalhints(msedisplay,id2,sizehints);
+  with sizehints^ do begin
+   x:= xpos3;
+   y:= ypos3;
+  end;
+  xsetwmnormalhints(msedisplay,id3,sizehints);
   xfree(sizehints);
   xmapwindow(msedisplay,id1);
   xmapwindow(msedisplay,id2);
+  xmapwindow(msedisplay,id3);
   setfilenonblock(sys_stdin(),true);
   gc1:= xcreategc(msedisplay,id1,0,nil);
   gc2:= xcreategc(msedisplay,id2,0,nil);
+  gc3:= xcreategc(msedisplay,id3,0,nil);
   xsetforeground(msedisplay,gc1,$0000ff);
   xsetforeground(msedisplay,gc2,$00ff00);
+  xsetforeground(msedisplay,gc3,$0000ff);
   repeat
    with rect1 do begin
     if xgetgeometry(msedisplay,id1,@int1,@x,@y,@cx,@cy,
@@ -122,21 +135,24 @@ begin
     end;
    end;
    if bo1 then begin
-    sendnetrootcardinalmessage(net_restack_window,id2,[2,id1,above]);
+    sendnetrootcardinalmessage(net_restack_window,id2,[2,id3,above]);
    end
    else begin
-    sendnetrootcardinalmessage(net_restack_window,id1,[2,id2,above]);
+    sendnetrootcardinalmessage(net_restack_window,id2,[2,id3,below]);
    end;
    bo1:= not bo1;
    xsync(msedisplay,false);
    xfillrectangle(msedisplay,id1,gc1,0,0,5000,5000);
    xfillrectangle(msedisplay,id2,gc2,0,0,5000,5000);
+   xfillrectangle(msedisplay,id3,gc3,0,0,5000,5000);
    xflush(msedisplay);
    sleep(1000);
   until sys_read(sys_stdin(),@by1,1) > 0;
   xdestroywindow(msedisplay,id1);
   xdestroywindow(msedisplay,id2);
+  xdestroywindow(msedisplay,id3);
   xfreegc(msedisplay,gc1);
   xfreegc(msedisplay,gc2);
+  xfreegc(msedisplay,gc3);
  end;
 end.
