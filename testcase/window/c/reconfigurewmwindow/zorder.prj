@@ -1,0 +1,24 @@
+[projectoptions]
+mainfile=zorder.c
+targetfile=zorder
+makecommand=gcc
+makedir=
+unitdirs=0
+unitpref=-Fu
+incpref=-Fi
+libpref=-Fl
+objpref=-Fo
+targpref=-o
+befcommand=0
+aftcommand=0
+makeoptions=1
+ -lX11
+reversepathorder=0
+makeoptpurpose=1
+ 
+befcommandon=0
+makeoptionson=1
+ 63
+aftcommandon=0
+unitdirson=0
+uid=0
