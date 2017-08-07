@@ -1,0 +1,265 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 402
+  bounds_cy = 306
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    402
+    306
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 343
+    bounds_y = 282
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_right, an_bottom]
+    state = [as_localcaption, as_localonexecute]
+    caption = '&Run'
+    onexecute = runev
+  end
+  object samplecounted: tintegeredit
+    frame.caption = 'Sample &count'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      4
+      0
+    )
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 7
+    bounds_cx = 88
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 1024
+    min = 1
+    reffontheight = 14
+  end
+  object samplefrequed: trealsumedit
+    frame.caption = 'Sample &frequency'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      22
+      0
+    )
+    taborder = 2
+    bounds_x = 112
+    bounds_y = 7
+    bounds_cx = 114
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 44100
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = 1
+    max = 1E+038
+    reffontheight = 14
+  end
+  object signaled: tenumedit
+    frame.caption = '&Signal'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 55
+    bounds_cx = 84
+    bounds_cy = 37
+    statfile = tstatfile1
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+        data = (
+          'Sine'
+          'Square'
+          'Sawtooth'
+          'Triangle'
+        )
+      end>
+    value = 0
+    min = 0
+    max = 3
+    reffontheight = 14
+  end
+  object sigfrequed: trealsumedit
+    frame.caption = 'Sign&al frequency'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      14
+      0
+    )
+    taborder = 4
+    bounds_x = 112
+    bounds_y = 55
+    bounds_cx = 106
+    bounds_cy = 37
+    statfile = tstatfile1
+    value = 440
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    min = 0
+    max = 1E+038
+    reffontheight = 14
+  end
+  object windowed: tenumedit
+    frame.caption = '&Window function'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 248
+    bounds_y = 7
+    bounds_cx = 116
+    bounds_cy = 37
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+        data = (
+          'Rectangular'
+          'Hann'
+          'Hamming'
+        )
+      end>
+    value = 0
+    min = 0
+    max = 2
+    reffontheight = 14
+  end
+  object timedisp: tchart
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 6
+    bounds_x = 8
+    bounds_y = 104
+    bounds_cx = 200
+    bounds_cy = 173
+    anchors = [an_left, an_top, an_bottom]
+    traces.count = 1
+    traces.xserstart = 0
+    traces.xstart = 0
+    traces.ystart = -1
+    traces.xrange = 1
+    traces.xserrange = 1
+    traces.yrange = 2
+    traces.image_widthmm = 0
+    traces.image_heighthmm = 0
+    traces.legend_x = 0
+    traces.legend_y = 0
+    traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 2
+        ystart = -1
+      end>
+    xstart = 0
+    ystart = 0
+    xrange = 1
+    yrange = 1
+    xdials.start = 0
+    xdials.range = 1
+    ydials.start = 0
+    ydials.range = 1
+  end
+  object frequdisp: tchart
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 7
+    bounds_x = 212
+    bounds_y = 104
+    bounds_cx = 182
+    bounds_cy = 173
+    anchors = [an_left, an_top, an_right, an_bottom]
+    traces.count = 1
+    traces.xserstart = 0
+    traces.xstart = 0
+    traces.ystart = 0.001
+    traces.xrange = 1
+    traces.xserrange = 1
+    traces.yrange = 1
+    traces.image_widthmm = 0
+    traces.image_heighthmm = 0
+    traces.legend_x = 0
+    traces.legend_y = 0
+    traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 1
+        ystart = 0.001
+        options = [cto_logy]
+      end>
+    xstart = 0
+    ystart = 0
+    xrange = 1
+    yrange = 1
+    xdials.start = 0
+    xdials.range = 1
+    ydials.start = 0
+    ydials.range = 1
+  end
+  object tsplitter1: tsplitter
+    taborder = 8
+    bounds_x = 208
+    bounds_y = 104
+    bounds_cx = 4
+    bounds_cy = 173
+    anchors = [an_left, an_top, an_bottom]
+    options = [spo_hmove, spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linkleft = timedisp
+    linkright = frequdisp
+    statfile = tstatfile1
+  end
+  object fftcomp: tfft
+    windowfuncpar0 = 0
+    windowfuncpar1 = 0
+    left = 248
+    top = 48
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 248
+    top = 72
+  end
+end
