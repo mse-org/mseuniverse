@@ -57,6 +57,7 @@ type
   protected
    fstate: runstatety;
    ftestitem: ttestnode;
+   ffailedonly: boolean;
    fcurrenttest: ttestitem;
    ftestok: boolean;
    foutputbuffer: string;
@@ -70,7 +71,8 @@ type
    procedure stop();
   public
 //   constructor create(const atestitem: ttestnode);
-   function runtest(const atestitem: ttestnode): teststatety;
+   function runtest(const atestitem: ttestnode; 
+                             const failedonly: boolean): teststatety;
  end;
 
 procedure seterror(const adisp: twidget; const astate: errorstatety);
@@ -142,10 +144,12 @@ begin
  inherited create(nil);
 end;
 }
-function trunfo.runtest(const atestitem: ttestnode): teststatety;
+function trunfo.runtest(const atestitem: ttestnode;
+                               const failedonly: boolean): teststatety;
 begin
  fstate:= rs_none;
  ftestitem:= atestitem;
+ ffailedonly:= failedonly;
  show(ml_application);
  case fstate of
   rs_canceled: begin
@@ -182,7 +186,7 @@ begin
   fcurrenttest:= ttestitem(ftestitem);
  end
  else begin
-  fcurrenttest:= ftestitem.firsttestitem();
+  fcurrenttest:= ftestitem.firsttestitem(ffailedonly);
  end;
  if fcurrenttest <> nil then begin
   docompile();
@@ -298,7 +302,7 @@ begin
    stop();
   end
   else begin
-   fcurrenttest:= fcurrenttest.nexttestitem(ftestitem);
+   fcurrenttest:= fcurrenttest.nexttestitem(ftestitem,ffailedonly);
    if fcurrenttest = nil then begin
     stop();
    end

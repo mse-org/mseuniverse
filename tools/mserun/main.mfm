@@ -289,7 +289,7 @@ object mainfo: tmainfo
       bounds_cy = 20
       menu.itemframetemplate = menuitemframe
       menu.itemframetemplateactive = menuitemframe
-      menu.menu.submenu.count = 4
+      menu.menu.submenu.count = 5
       menu.menu.submenu.items = <      
         item
           submenu.count = 7
@@ -337,6 +337,17 @@ object mainfo: tmainfo
           sc = (
             1
             312
+          )
+        end      
+        item
+          caption = 'Run &fail'
+          hint = 'Run failed items only (Shift+F9)'
+          state = [as_localcaption, as_localhint, as_localshortcut, as_localonexecute]
+          options = []
+          onexecute = runfailexe
+          sc = (
+            1
+            8504
           )
         end      
         item
@@ -540,8 +551,6 @@ object mainfo: tmainfo
     template.levelo = -1
     template.leveli = 1
     template.frameface_list = menuitemface
-    template.clientsizeextend_cx = 0
-    template.clientsizeextend_cy = 0
     left = 168
     top = 72
   end

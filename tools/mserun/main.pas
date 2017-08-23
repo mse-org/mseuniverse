@@ -102,6 +102,7 @@ type
    procedure updaterowactexe(const sender: tcustomaction);
    procedure resetexe(const sender: TObject);
    procedure aboutexe(const sender: TObject);
+   procedure runfailexe(const sender: TObject);
   protected
    procedure deleterow(const aindex: integer);
    procedure checkenabledstate();
@@ -345,7 +346,7 @@ end;
 procedure tmainfo.runexe(const sender: TObject);
 begin
  initdisp();
- mainmo.runtest(ttestnode(treeed.item));
+ mainmo.runtest(ttestnode(treeed.item),false);
  with ttestnode(treeed.item) do begin
   updateparentteststate();
   treeed.updateitemvalues(grid.row,rowheight);
@@ -378,7 +379,15 @@ procedure tmainfo.runallexe(const sender: TObject);
 var
  testres1: teststatety;
 begin
- testres1:= mainmo.runtest(mainmo.rootnode);
+ testres1:= mainmo.runtest(mainmo.rootnode,false);
+ updatedisp(testres1);
+end;
+
+procedure tmainfo.runfailexe(const sender: TObject);
+var
+ testres1: teststatety;
+begin
+ testres1:= mainmo.runtest(mainmo.rootnode,true);
  updatedisp(testres1);
 end;
 

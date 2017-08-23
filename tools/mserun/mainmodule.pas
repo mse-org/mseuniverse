@@ -56,8 +56,10 @@ type
    procedure number(var alast: integer); virtual;
    procedure dostatread(const reader: tstatreader); override;
    procedure dostatwrite(const writer: tstatwriter); override;
-   function firsttestitem(const startindex: integer = 0): ttestitem;
-   function nexttestitem(const aroot: ttestnode): ttestitem;
+   function firsttestitem(const failedonly: boolean;
+                                  const startindex: integer = 0): ttestitem;
+   function nexttestitem(const aroot: ttestnode; 
+                                      const failedonly: boolean): ttestitem;
    procedure updateteststate();
    procedure updateparentteststate(); virtual;
    property teststate: teststatety read fteststate;
@@ -276,7 +278,8 @@ type
                                const apath: msestring; 
                                   const fieldnumber: fieldnumberty): msestring;
    property macros: tmacrolist read fmacros;
-   function runtest(const aitem: ttestnode): teststatety;
+   function runtest(const aitem: ttestnode;
+                        const failedonly: boolean): teststatety;
    property okcount: integer read fokcount;
    property errorcount: integer read ferrorcount;
    
@@ -445,7 +448,8 @@ begin
  checked:= avalue;
 end;
 
-function ttestnode.firsttestitem(const startindex: integer = 0): ttestitem;
+function ttestnode.firsttestitem(const failedonly: boolean;
+                                   const startindex: integer = 0): ttestitem;
 var
  int1: integer;
  n1: ttestnode;
@@ -455,10 +459,12 @@ begin
   n1:= ttestnode(fitems[int1]);
   if n1.checked then begin
    if n1 is ttestitem then begin
-    result:= ttestitem(n1);
+    if not failedonly or (n1.teststate <> tes_ok) then begin
+     result:= ttestitem(n1);
+    end;
    end
    else begin
-    result:= n1.firsttestitem();
+    result:= n1.firsttestitem(failedonly);
    end;
    if result <> nil then begin
     break;
@@ -467,14 +473,15 @@ begin
  end;
 end;
 
-function ttestnode.nexttestitem(const aroot: ttestnode): ttestitem;
+function ttestnode.nexttestitem(const aroot: ttestnode;
+                                       const failedonly: boolean): ttestitem;
 var
  n1: ttestnode;
 begin
  result:= nil;
  n1:= self;
  while (result = nil) and (n1 <> aroot) do begin
-  result:= ttestnode(n1.parent).firsttestitem(n1.parentindex+1);
+  result:= ttestnode(n1.parent).firsttestitem(failedonly,n1.parentindex+1);
   n1:= ttestnode(n1.parent);
  end;
 end;
@@ -1126,14 +1133,15 @@ begin
  result:= msemacros.expandmacros(mstr1,fmacros.asarray(['FILE'],[apath]));
 end;
 
-function tmainmo.runtest(const aitem: ttestnode): teststatety;
+function tmainmo.runtest(const aitem: ttestnode;
+                           const failedonly: boolean): teststatety;
 begin
  result:= tes_none;
  if frunfo = nil then begin
   setlinkedvar(trunfo.create(nil),tmsecomponent(frunfo));
  end;
  with trunfo(frunfo) do begin
-  result:= runtest(aitem);
+  result:= runtest(aitem,failedonly);
   fokcount:= okdi.value;
   ferrorcount:= errordi.value;
  end;
@@ -1148,7 +1156,7 @@ begin
   n1.assign(fedititem); //backup
   try
    valuestoobject(feditfo,fedititem,'val_');   //get current values
-   runtest(fedititem);
+   runtest(fedititem,false);
    objecttovalues(fedititem,feditfo,'val_');   //store new values
   finally
    fedititem.assign(n1); //restore
