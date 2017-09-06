@@ -84,7 +84,7 @@ object mainfo: tmainfo
         datalist.imagelist = images
         datalist.imagewidth = 16
         datalist.imageheight = 16
-        datalist.options = [no_checkbox]
+        datalist.options = [no_checkbox, no_updatechildnotchecked]
         datalist.onitemnotification = itemnotifyexe
       end    
       item[pathed]

@@ -381,7 +381,7 @@ constructor ttestnode.create(const aowner: tcustomitemlist = nil;
                const aparent: ttreelistitem = nil);
 begin
  inherited;
- fstate:= fstate + [ns_checkbox,ns_checked,ns_showparentnotchecked];
+ fstate:= fstate + [ns_checkbox,ns_checked,ns_showchildnotchecked];
  fimagenr:= baseimagenr();
 end;
 
