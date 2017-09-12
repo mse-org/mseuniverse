@@ -39,6 +39,24 @@ type
                               //true if found
  end;
 
+
+function comparesort(const l,r): int32;
+begin
+ result:= comparestr(s_rec(l).key.keyart,s_rec(r).key.keyart);
+ if result = 0 then begin
+  result:= comparestr(s_rec(l).key.key,s_rec(r).key.key);
+ end;
+end;
+
+function comparefind(const l,r): int32;
+begin
+ result:= comparestr(keyty(l).keyart,s_rec(r).key.keyart);
+ if result = 0 then begin
+  result:= comparestr(keyty(l).key,s_rec(r).key.key);
+ end;
+end;
+
+
 { thashlist }
 
 constructor thashlist.create();
@@ -89,23 +107,6 @@ begin
  with keyty(akey) do begin
   result:= (keyart = ps_rechashty(aitem)^.data.key.keyart) and
                                   (key = ps_rechashty(aitem)^.data.key.key);
- end;
-end;
-
-
-function comparesort(const l,r): int32;
-begin
- result:= comparestr(s_rec(l).key.keyart,s_rec(r).key.keyart);
- if result = 0 then begin
-  result:= comparestr(s_rec(l).key.key,s_rec(r).key.key);
- end;
-end;
-
-function comparefind(const l,r): int32;
-begin
- result:= comparestr(keyty(l).keyart,s_rec(r).key.keyart);
- if result = 0 then begin
-  result:= comparestr(keyty(l).key,s_rec(r).key.key);
  end;
 end;
 
