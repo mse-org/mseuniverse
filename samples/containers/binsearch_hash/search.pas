@@ -111,8 +111,8 @@ begin
 end;
 
 const
- itemcount = 1000;
- loopcount = 100;
+ itemcount = 1000000;
+ loopcount = 1;
  ms = 24*60*60*1000;
 var
  inputdata,binsearchdata: array of s_rec;
@@ -131,7 +131,10 @@ begin
    test:= i1; //for correct item check
   end;
  end;
- binsearchdata:= copy(inputdata); //deep data copy
+ setlength(binsearchdata,length(inputdata));
+ for i1:= 0 to high(binsearchdata) do begin
+  binsearchdata[i1]:= inputdata[i1]; //deep data copy
+ end;
  t1:= nowutc();
  for i1:= 0 to loopcount-1 do begin
   sortarray(binsearchdata,sizeof(s_rec),@comparesort);
@@ -185,5 +188,4 @@ begin
  finally
   hashlist.destroy();
  end;
- 
 end.
