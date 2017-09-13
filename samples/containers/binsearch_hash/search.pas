@@ -112,7 +112,7 @@ end;
 
 const
  itemcount = 1000000;
- loopcount = 1;
+ loopcount = 10;
  ms = 24*60*60*1000;
 var
  inputdata,binsearchdata: array of s_rec;
