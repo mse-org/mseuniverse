@@ -1,0 +1,93 @@
+object mainfo: tmainfo
+  bounds_x = 92
+  bounds_y = 183
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  statfile = tstatfile1
+  moduleclassname = 'tmainform'
+  object tbutton5: tbutton
+    bounds_x = 240
+    bounds_y = 32
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'close'
+    onexecute = closeev
+  end
+  object tbutton4: tbutton
+    taborder = 1
+    bounds_x = 184
+    bounds_y = 32
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'open'
+    onexecute = openev
+  end
+  object tbutton1: tbutton
+    taborder = 2
+    bounds_x = 128
+    bounds_y = 32
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'create'
+    onexecute = createev
+  end
+  object nam: tstringedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 3
+    bounds_x = 16
+    bounds_y = 32
+    statfile = tstatfile1
+    value = '/test123'
+    reffontheight = 14
+  end
+  object disp: tstringgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 64
+    bounds_cx = 386
+    bounds_cy = 210
+    anchors = [an_left, an_top, an_right, an_bottom]
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 344
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 36
+        numstart = 1
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+      end>
+    datarowheight = 16
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 304
+    top = 32
+  end
+end
