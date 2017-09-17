@@ -50,17 +50,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      17
       0
       0
     )
     bounds_x = 8
-    bounds_y = 5
+    bounds_y = 7
     bounds_cx = 116
-    bounds_cy = 41
+    bounds_cy = 37
     statfile = tstatfile1
     value = '/test123'
-    reffontheight = 16
+    reffontheight = 14
   end
   object grid: twidgetgrid
     frame.localprops = []
@@ -84,12 +84,13 @@ object mainfo: tmainfo
     datacols.items = <    
       item[disp]
         width = 346
-        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'disp'
         dataclass = tgridrichstringdatalist
       end>
+    datarowlinewidth = 0
     datarowheight = 16
-    reffontheight = 16
+    reffontheight = 14
     object disp: tterminal
       optionswidget1 = [ow1_fontlineheight]
       optionsskin = [osk_framebuttononly]
@@ -99,7 +100,9 @@ object mainfo: tmainfo
       bounds_y = 0
       bounds_cx = 346
       bounds_cy = 16
-      reffontheight = 16
+      optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly]
+      options = [teo_readonly]
+      reffontheight = 14
     end
   end
   object tstatfile1: tstatfile

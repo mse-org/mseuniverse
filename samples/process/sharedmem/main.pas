@@ -37,7 +37,7 @@ begin
 
  disp.addchars(inttostrmse(fid));
  if fid < 0 then begin
-  disp.addchars(' '+sys_geterrortext(sys_getlasterror));
+  disp.addchars(' '+msestring(sys_geterrortext(sys_getlasterror)));
  end;
  disp.addline('');
 end;
@@ -63,9 +63,8 @@ begin
  i1:= shm_unlink(pchar(string(nam.value)));
 
  if i1 < 0 then begin
-  disp.addchars(' '+msestring(sys_geterrortext(sys_getlasterror)));
+  disp.addline(' '+msestring(sys_geterrortext(sys_getlasterror)));
  end;
- disp.addline('');
 end;
 
 end.
