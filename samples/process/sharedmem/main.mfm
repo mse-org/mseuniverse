@@ -12,20 +12,22 @@ object mainfo: tmainfo
     280
   )
   statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
   moduleclassname = 'tmainform'
   object tbutton5: tbutton
+    taborder = 3
     bounds_x = 240
-    bounds_y = 32
+    bounds_y = 24
     bounds_cx = 50
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
-    caption = 'close'
+    caption = 'unlink'
     onexecute = closeev
   end
   object tbutton4: tbutton
-    taborder = 1
+    taborder = 2
     bounds_x = 184
-    bounds_y = 32
+    bounds_y = 24
     bounds_cx = 50
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
@@ -33,9 +35,9 @@ object mainfo: tmainfo
     onexecute = openev
   end
   object tbutton1: tbutton
-    taborder = 2
+    taborder = 1
     bounds_x = 128
-    bounds_y = 32
+    bounds_y = 24
     bounds_cx = 50
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
@@ -43,51 +45,66 @@ object mainfo: tmainfo
     onexecute = createev
   end
   object nam: tstringedit
+    frame.caption = 'Name'
     frame.localprops = []
     frame.localprops1 = []
-    taborder = 3
-    bounds_x = 16
-    bounds_y = 32
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 5
+    bounds_cx = 116
+    bounds_cy = 41
     statfile = tstatfile1
     value = '/test123'
-    reffontheight = 14
+    reffontheight = 16
   end
-  object disp: tstringgrid
+  object grid: twidgetgrid
     frame.localprops = []
     frame.localprops1 = []
     taborder = 4
     bounds_x = 8
-    bounds_y = 64
+    bounds_y = 56
     bounds_cx = 386
-    bounds_cy = 210
+    bounds_cy = 218
     anchors = [an_left, an_top, an_right, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-    datacols.count = 1
-    datacols.items = <    
-      item
-        width = 344
-        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
-        valuefalse = '0'
-        valuetrue = '1'
-      end>
     fixcols.count = 1
     fixcols.items = <    
       item
-        width = 36
+        width = 34
         numstart = 1
         numstep = 1
       end>
-    fixrows.count = 1
-    fixrows.items = <    
-      item
-        height = 16
+    datacols.count = 1
+    datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item[disp]
+        width = 346
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'disp'
+        dataclass = tgridrichstringdatalist
       end>
     datarowheight = 16
-    reffontheight = 14
+    reffontheight = 16
+    object disp: tterminal
+      optionswidget1 = [ow1_fontlineheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 346
+      bounds_cy = 16
+      reffontheight = 16
+    end
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
     left = 304
-    top = 32
+    top = 24
   end
 end
