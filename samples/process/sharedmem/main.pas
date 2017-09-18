@@ -90,12 +90,15 @@ var
  b1: boolean;
 begin
  fdata:= avalue;
- b1:= (fdata = nil) or (fdata = map_failed);
- mapbu.enabled:= b1;
- unmapbu.enabled:= not b1;
- dataed.enabled:= not b1;
- timer.enabled:= not b1;
- if b1 then begin
+ if fdata = map_failed then begin
+  fdata:= nil;
+ end;
+ b1:= fdata <> nil;
+ mapbu.enabled:= not b1;
+ unmapbu.enabled:= b1;
+ dataed.enabled:= b1;
+ timer.enabled:= b1;
+ if not b1 then begin
   datadi.value:= '';
  end;
 end;
@@ -138,7 +141,7 @@ procedure tmainfo.mapev(const sender: TObject);
 begin
  disp.addline('mmap ------');
  data:= mmap(nil,memsize,prot_read or prot_write,map_shared,fded.value,0);
- if data = map_failed then begin
+ if data = nil then begin
   checkerror(-1);
  end;
  tiev(nil);
@@ -155,14 +158,16 @@ procedure tmainfo.tiev(const sender: TObject);
 var
  s1: string;
 begin
- try
-  setlength(s1,memsize);
-  move(data^,pointer(s1)^,length(s1));
-  datadi.value:= s1;
- except
-  on e: exception do begin
-   datadi.value:= '';
-   datadi.text:= msestring(e.message);
+ if data <> nil then begin
+  try
+   setlength(s1,memsize);
+   move(data^,pointer(s1)^,length(s1));
+   datadi.value:= s1;
+  except
+   on e: exception do begin
+    datadi.value:= '';
+    datadi.text:= msestring(e.message);
+   end;
   end;
  end;
 end;

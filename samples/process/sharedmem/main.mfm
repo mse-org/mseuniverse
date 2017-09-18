@@ -165,6 +165,7 @@ object mainfo: tmainfo
       0
     )
     taborder = 9
+    enabled = False
     bounds_x = 8
     bounds_y = 47
     bounds_cx = 520
