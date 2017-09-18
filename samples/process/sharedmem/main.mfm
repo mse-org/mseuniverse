@@ -1,14 +1,14 @@
 object mainfo: tmainfo
   bounds_x = 92
   bounds_y = 183
-  bounds_cx = 403
+  bounds_cx = 648
   bounds_cy = 280
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    403
+    648
     280
   )
   statfile = tstatfile1
@@ -21,7 +21,7 @@ object mainfo: tmainfo
     bounds_cx = 50
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
-    caption = 'unlink'
+    caption = 'Unlink'
     onexecute = closeev
   end
   object tbutton4: tbutton
@@ -31,7 +31,7 @@ object mainfo: tmainfo
     bounds_cx = 50
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
-    caption = 'open'
+    caption = 'Open'
     onexecute = openev
   end
   object tbutton1: tbutton
@@ -41,7 +41,7 @@ object mainfo: tmainfo
     bounds_cx = 50
     bounds_cy = 20
     state = [as_localcaption, as_localonexecute]
-    caption = 'create'
+    caption = 'Create'
     onexecute = createev
   end
   object nam: tstringedit
@@ -67,9 +67,9 @@ object mainfo: tmainfo
     frame.localprops1 = []
     taborder = 4
     bounds_x = 8
-    bounds_y = 56
-    bounds_cx = 386
-    bounds_cy = 218
+    bounds_y = 112
+    bounds_cx = 632
+    bounds_cy = 162
     anchors = [an_left, an_top, an_right, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
@@ -83,7 +83,7 @@ object mainfo: tmainfo
     datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[disp]
-        width = 346
+        width = 592
         options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         widgetname = 'disp'
         dataclass = tgridrichstringdatalist
@@ -98,16 +98,136 @@ object mainfo: tmainfo
       visible = False
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 346
+      bounds_cx = 592
       bounds_cy = 16
       optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_exitoncursor, oe_nofirstarrownavig, oe_caretonreadonly]
       options = [teo_readonly]
       reffontheight = 14
     end
   end
+  object fded: tintegeredit
+    frame.caption = 'FD'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 296
+    bounds_y = 7
+    bounds_cx = 36
+    bounds_cy = 37
+    value = -1
+    min = -1
+    reffontheight = 14
+  end
+  object tbutton2: tbutton
+    taborder = 6
+    bounds_x = 336
+    bounds_y = 24
+    bounds_cx = 90
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Sharedlock'
+    onexecute = sharedlockev
+  end
+  object tbutton3: tbutton
+    taborder = 7
+    bounds_x = 432
+    bounds_y = 24
+    bounds_cx = 98
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Exclusivelock'
+    onexecute = exclusivelockev
+  end
+  object tbutton6: tbutton
+    taborder = 8
+    bounds_x = 536
+    bounds_y = 24
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Unlock'
+    onexecute = unlockev
+  end
+  object dataed: thexstringedit
+    frame.caption = 'Data'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 9
+    bounds_x = 8
+    bounds_y = 47
+    bounds_cx = 520
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    onsetvalue = datasetev
+    reffontheight = 14
+  end
+  object datadi: thexstringedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    taborder = 10
+    bounds_x = 8
+    bounds_y = 89
+    bounds_cx = 520
+    bounds_cy = 18
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    reffontheight = 14
+  end
+  object setsizebu: tbutton
+    taborder = 11
+    bounds_x = 592
+    bounds_y = 24
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Setsize'
+    onexecute = setsizeev
+  end
+  object unmapbu: tbutton
+    taborder = 12
+    bounds_x = 590
+    bounds_y = 64
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_top, an_right]
+    state = [as_disabled, as_localdisabled, as_localcaption, as_localonexecute]
+    caption = 'Unmap'
+    onexecute = unmapev
+  end
+  object mapbu: tbutton
+    taborder = 13
+    bounds_x = 534
+    bounds_y = 64
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_top, an_right]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Map'
+    onexecute = mapev
+  end
   object tstatfile1: tstatfile
     filename = 'status.sta'
-    left = 304
-    top = 24
+    left = 80
+    top = 168
+  end
+  object timer: ttimer
+    ontimer = tiev
+    left = 192
+    top = 168
   end
 end
