@@ -598,6 +598,7 @@ begin
 end;
 
 procedure tfrmevaldialogfo.clearbrackets;
+
 begin
  if (fbracket1.col >= 0) and (fbracketsetting = 0) then begin
   inc(fbracketsetting);
@@ -612,7 +613,7 @@ begin
     fbracket1:= invalidcell;
     fbracket2:= invalidcell;
     if syntaxpainterhandle >= 0 then begin
-     syntaxpainter.boldchars[syntaxpainterhandle]:= nil;
+     syntaxpainter.boldchars[syntaxpainterhandle]:= emptymarkinfo;
     end;
    end;
   finally
@@ -627,7 +628,8 @@ var
  br1,br2: bracketkindty;
  open,open2: boolean;
  pt1,pt2: gridcoordty;
- ar1: gridcoordarty;
+ ar1: markitemarty;
+ mark1: markinfoty;
 begin
  clearbrackets;
  pt2:= invalidcell;
@@ -668,9 +670,16 @@ begin
    end;
    if syntaxpainterhandle >= 0 then begin
     setlength(ar1,2);
-    ar1[0]:= fbracket1;
-    ar1[1]:= fbracket2;
-    syntaxpainter.boldchars[syntaxpainterhandle]:= ar1;
+    ar1[0].bold:= true;
+    ar1[0].len:= 1;
+    ar1[0].pos:= fbracket1;
+    ar1[0].bold:= true;
+    ar1[0].len:= 1;
+    ar1[0].pos:= fbracket2;
+    mark1.backgroundcolor:= cl_none;
+    mark1.items:= ar1;
+    
+    syntaxpainter.boldchars[syntaxpainterhandle]:= mark1;
     refreshsyntax(fbracket1.row,1);
     refreshsyntax(fbracket2.row,1);
    end;

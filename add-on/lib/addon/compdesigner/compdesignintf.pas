@@ -151,12 +151,12 @@ type
    function getrecordsize: integer; virtual;
   public
    constructor create;
-   procedure change; virtual;
+   procedure change; virtual; reintroduce;
    procedure beginupdate;
    procedure endupdate;
     // idesignerselections
    function Add(const Item: Tcomponent): Integer;
-   function Equals(const List: IDesignerSelections): Boolean;
+   function Equals(const List: IDesignerSelections): Boolean; reintroduce;
    function Get(Index: Integer): Tcomponent;
    function GetCount: Integer;
    function getarray: componentarty;
@@ -172,11 +172,18 @@ type
                  //true if subchild of another selected component
  end;
 
+ componenthashdataty = record
+  header: ptruinthashdataty;
+  data: componentsdataty;
+ end;
+ pcomponenthashdataty = ^componenthashdataty;
+ 
  tcomponents = class(tptruinthashdatalist)
   protected
    //procedure freedata(var data); override;
    function find(const value: tobject): pcomponentinfoty;
    procedure swapcomponent(const old,new: tcomponent);
+   function getrecordsize(): int32 override;
   public
    constructor create;
    destructor destroy; override;
@@ -201,9 +208,9 @@ function getcomponentpos(const component: tcomponent): pointty;
 
 implementation
 uses
- msestream,rtlconsts;
+ msestream,rtlconsts,mseformatstr;
 type
-
+(*
  {$ifdef FPC}
   TFilercracker = class(TObject)
   private
@@ -222,6 +229,7 @@ type
     FLookupRoot: TComponent;
   end;
   {$endif}
+  *)
  twriter1 = class(twriter);  
 
 var
@@ -479,13 +487,14 @@ begin
  filer.setsection('componentpalette');
  if filer.iswriter then begin
   for int1:= 0 to high(fpagecomporders) do begin
-   tstatwriter(filer).writearray('order'+inttostr(int1),fpagecomporders[int1]);
+   tstatwriter(filer).writearray('order'+inttostrmse(int1),fpagecomporders[int1]);
   end;
  end
  else begin
   ar2:= componentcounts;
   for int1:= 0 to high(fpagecomporders) do begin
-   ar1:= tstatreader(filer).readarray('order'+inttostr(int1),integerarty(nil));
+   ar1:= tstatreader(filer).readarray('order'+
+                                 inttostrmse(int1),integerarty(nil));
    if ar1 <> nil then begin
     if length(ar1) <> ar2[int1] then begin
      ar1:= nil; //invalid
@@ -509,8 +518,17 @@ end;
 
 function tcomponentclasslist.compare(const l,r): integer;
 begin
- result:= integer(componentclassinfoty(l).classtyp) -
-              integer(componentclassinfoty(r).classtyp);
+ result:= 0;
+ if componentclassinfoty(l).classtyp <> 
+               componentclassinfoty(r).classtyp then begin
+  if ptruint(componentclassinfoty(l).classtyp) >
+              ptruint(componentclassinfoty(r).classtyp) then begin
+   result:= 1;
+  end
+  else begin
+   result:= -1;
+  end;
+ end;
 end;
 
 function tcomponentclasslist.getcomparefunc: sortcomparemethodty;
@@ -750,13 +768,19 @@ end;
 
 constructor tcomponents.create;
 begin
- inherited create(sizeof(componentinfoty));
+// inherited create(sizeof(componentinfoty));
+ inherited;
  fstate:= fstate + [hls_needsnull,hls_needsfinalize];
 end;
 
 destructor tcomponents.destroy;
 begin
  inherited;
+end;
+
+function tcomponents.getrecordsize(): int32;
+begin
+ result:= sizeof(componenthashdataty);
 end;
 
 {procedure tcomponents.freedata(var data);
@@ -771,7 +795,7 @@ var
  po1: pcomponentinfoty;
 begin
  {$ifdef FPC} {$checkpointer off} {$endif}
- po1:= inherited add(ptruint(comp));
+ po1:= @pcomponenthashdataty(inherited add(ptruint(comp)))^.data;
  {$ifdef FPC} {$checkpointer default} {$endif}
  with po1^ do begin
   instance:= comp;
@@ -781,7 +805,10 @@ end;
 
 function tcomponents.find(const value: tobject): pcomponentinfoty;
 begin
- result:= pcomponentinfoty(inherited find(ptruint(value)));
+ result:= pointer(inherited find(ptruint(value)));
+ if result <> nil then begin
+  result:= @pcomponenthashdataty(result)^.data;
+ end;
 end;
 
 procedure tcomponents.swapcomponent(const old,new: tcomponent);
@@ -806,7 +833,10 @@ end;
 
 function tcomponents.next: pcomponentinfoty;
 begin
- result:= @pcomponentsdataty(inherited next)^.data;
+ result:= pointer(inherited next());
+ if result <> nil then begin
+  result:= @pcomponentsdataty(result)^.data;
+ end;
 end;
 
 function tcomponents.getcomponent(const aname: string): tcomponent;

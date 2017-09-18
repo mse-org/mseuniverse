@@ -7,7 +7,7 @@ unit azvideoplayer;
 
 interface
 uses
- classes,msegui,mseevent,msegraphutils,msegraphics,mseclasses,
+ msetypes,classes,mclasses,msegui,mseevent,msegraphutils,msegraphics,mseclasses,
  msestrings,msewidgets,mseglob,msesimplewidgets,msestatfile,msestat,
  msedrawtext,msetimer,mseguiglob,ctypes{$ifdef windows},windows{$endif},avformat,
  avcodec,avutil,swscale,sysutils,msebitmap,mseimage,msefileutils,msebits;
@@ -57,6 +57,7 @@ type
    procedure updatetextrect;
    procedure processtimer(const sender: TObject);
    //istatfile
+   function getstatpriority: integer;
    procedure dostatread(const reader: tstatreader);
    procedure dostatwrite(const writer: tstatwriter);
    procedure statreading;
@@ -111,7 +112,7 @@ begin
  bytesremaining:= 0;
  fendframe:= false;
  ffirsttime:= true;
- fbmp:= tmaskedbitmap.create(false);
+ fbmp:= tmaskedbitmap.create(bmk_rgb);
  zoomscale:= 1.0;
  ftimer:= tsimpletimer.create(40000,nil,false,[]);
  ftimer.enabled:= false;
@@ -302,6 +303,11 @@ begin
    floading:= false;
   end;
  end;
+end;
+
+function tazvideoplayer.getstatpriority: integer;
+begin
+ result:= 0;
 end;
 
 procedure tazvideoplayer.settextflags(const value: textflagsty);

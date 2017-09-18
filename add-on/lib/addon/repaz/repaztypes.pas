@@ -1,7 +1,8 @@
 unit repaztypes;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
-uses msegraphutils,msegraphics,msestrings,variants,mseformatstr,sysutils;
+uses 
+ msetypes,msegraphutils,msegraphics,msestrings,variants,mseformatstr,sysutils;
 
 type
  linestylety = (ls_Solid,ls_Dash,ls_Dot,ls_Dash_Dot,ls_Dash_Dot_Dot);

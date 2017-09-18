@@ -1,1 +1,1 @@
-regrepaz,regcompdesigner,regvideoplayer,regazskin,
+regrepaz,regcompdesigner,regvideoplayer,{regazskin,}//frmchangeskin missing!

@@ -36,7 +36,8 @@ unit repazevaluatortype;
 interface
 
 uses
- msestrings,sysutils,classes,mclasses,mdb,variants,repazconsts,mseconsts;
+ msetypes,msestrings,sysutils,classes,mclasses,mdb,variants,repazconsts,
+                                                                 mseconsts;
 
 const
  // parser datatypes for constants

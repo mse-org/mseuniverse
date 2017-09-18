@@ -35,7 +35,7 @@ unit repazglob;
 {$ifdef FPC}{$mode objfpc}{$h+}{$GOTO ON}{$interfaces corba}{$endif}
 interface
 uses
- classes,mclasses,msegui,msedrawtext,msegraphutils,msegraphics,
+ msetypes,classes,mclasses,msegui,msedrawtext,msegraphutils,msegraphics,
  variants,repazchart,barcode,
  msestrings,sysutils,msebitmap,universalprinter,universalprintertype,mseformatpngread,mseformatbmpicoread,
  mseformatjpgread,mseformatstr,repaztypes,mseglob,mselookupbuffer,msesysutils;

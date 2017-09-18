@@ -35,7 +35,8 @@ unit pagesetupdlg;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- mseglob,mseguiglob,mseapplication,msestat,msegui,msegraphics,msegraphutils,
+ msetypes,mseglob,mseguiglob,mseapplication,msestat,msegui,msegraphics,
+ msegraphutils,
  mseclasses,mseforms,msesimplewidgets,msedataedits,mseedit,msestrings,
  msedispwidgets,msegraphedits,msetabs,classes,mclasses,
  sysutils,universalprintertype,

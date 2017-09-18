@@ -36,7 +36,7 @@ unit repazevaluator;
 interface
 
 uses
-  sysutils,classes,mclasses,repazevaluatortype,msestrings,
+  msetypes,sysutils,classes,mclasses,repazevaluatortype,msestrings,
   sysconst,repazevaluatorparser,variants,repazdatasources,repazconsts,
   mseconsts;
 

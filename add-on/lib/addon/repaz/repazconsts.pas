@@ -35,7 +35,7 @@ unit repazconsts;
 interface
 
 uses
- msestrings,mseconsts;
+ msestrings,mseconsts,msetypes;
 type
  rcscaptionty = (
   //repaz evaluator

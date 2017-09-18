@@ -3466,7 +3466,8 @@ end;
 constructor tobjectinspector.create(aowner: tcomponent);
 begin
  inherited create(aowner);
- foptionsgrid:=[og_colsizing,og_colmoving,og_focuscellonenter,og_colchangeontabkey,og_noresetselect];
+ foptionsgrid:=[og_colsizing,og_colmoving,og_focuscellonenter,
+ og_colchangeontabkey{,og_noresetselect}];
  foptionswidget:= [ow_mousefocus,ow_tabfocus,ow_arrowfocus,ow_focusbackonesc,ow_mousewheel,ow_destroywidgets];
  fshowmethodproperty:= true;
  fcomponentinfos:= tcomponentinfos.create;

@@ -37,7 +37,7 @@ unit repazpreview;
 
 interface
 uses
- classes,mclasses,msegui,msegraphutils,msegraphics,mseclasses,typinfo,
+ msetypes,classes,mclasses,msegui,msegraphutils,msegraphics,mseclasses,typinfo,
  msestrings,msewidgets,mseglob,msesimplewidgets,
  msedataedits,repazglob,repazchart,mseguiglob,
  mseeditglob;
