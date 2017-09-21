@@ -340,6 +340,7 @@ object mainfo: tmainfo
     onclientmouseevent = clientmouseev
   end
   object panel: tgroupbox
+    color = -1879048187
     frame.localprops = []
     frame.localprops1 = []
     taborder = 5
