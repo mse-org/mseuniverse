@@ -214,8 +214,8 @@ begin
   p.x := w * 3;
   p.y := h;
   _load(timage4);
-  fdsave.controller.filename:= inputname+'_'+
-                                    inttostrmse(w) + 'x' + inttostrmse(h) + '.png';
+  fdsave.controller.setfilenamelastdir(inputname+'_'+
+                            inttostrmse(w) + 'x' + inttostrmse(h) + '.png');
   if fdsave.execute() = mr_ok then begin
    btmp.writetofile(fdsave.controller.filename,'png',[]);
   end;
