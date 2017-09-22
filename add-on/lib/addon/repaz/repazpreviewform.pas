@@ -88,7 +88,7 @@ end;
 
 procedure trepazpreviewfo.tpreview1_onfileopened(const sender: TObject);
 begin
- cpage.max:= tpreview1.pagecount;
+ cpage.valuemax:= tpreview1.pagecount;
  if tpreview1.pagecount>=1 then cpage.value:=1;
 end;
 
@@ -118,29 +118,29 @@ end;
 
 procedure trepazpreviewfo.btnfirst_onexecute(const sender: TObject);
 begin
- if cpage.value<>cpage.min then begin
-  cpage.value:= cpage.min;
+ if cpage.value<>cpage.valuemin then begin
+  cpage.value:= cpage.valuemin;
  end;
 end;
 
 procedure trepazpreviewfo.btnprior_onexecute(const sender: TObject);
 begin
- if (cpage.value-1)>=cpage.min then begin
+ if (cpage.value-1)>=cpage.valuemin then begin
   cpage.value:= cpage.value-1;
  end;
 end;
 
 procedure trepazpreviewfo.btnnext_onexecute(const sender: TObject);
 begin
- if (cpage.value+1)<=cpage.max then begin
+ if (cpage.value+1)<=cpage.valuemax then begin
   cpage.value:= cpage.value+1;
  end;
 end;
 
 procedure trepazpreviewfo.btnlast_onexecute(const sender: TObject);
 begin
- if cpage.value<>cpage.max then begin
-  cpage.value:= cpage.max;
+ if cpage.value<>cpage.valuemax then begin
+  cpage.value:= cpage.valuemax;
  end;
 end;
 
@@ -154,7 +154,8 @@ var
  avalue: integer;
 begin
  avalue:=1;
- if integerenter(avalue,cpage.min,cpage.max,'Goto page : ','Goto Page')=mr_ok then begin
+ if integerenter(avalue,cpage.valuemin,cpage.valuemax,
+                     'Goto page : ','Goto Page')=mr_ok then begin
   if avalue>0 then begin
    cpage.value:= avalue;
   end;
