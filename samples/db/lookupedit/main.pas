@@ -29,10 +29,21 @@ type
    tdbenumeditdb1: tdbenumeditdb;
    tspacer2: tspacer;
    masternavig: tdbnavigator;
+   detail_pk: tmselongintfield;
+   procedure detailbeforedeleteev(DataSet: TDataSet);
  end;
 var
  mainfo: tmainfo;
 implementation
 uses
  main_mfm;
+
+procedure tmainfo.detailbeforedeleteev(DataSet: TDataSet);
+begin
+ if masterqu.indexlocal.indexbyname('value').find([detail_pk]) then begin
+  showerror('Record is in use.');
+  abort();
+ end;
+end;
+
 end.

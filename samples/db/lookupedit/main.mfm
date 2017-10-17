@@ -44,7 +44,6 @@ object mainfo: tmainfo
     bounds_cx = 388
     bounds_cy = 117
     anchors = [an_top]
-    options = [dsgo_autofields]
     optionsgrid = [og_colsizing, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 2
     datacols.items = <    
@@ -123,7 +122,7 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 27
       bounds_cx = 388
-      bounds_cy = 188
+      bounds_cy = 189
       anchors = [an_top, an_bottom]
       optionsgrid = [og_colsizing, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
       fixcols.count = 1
@@ -270,6 +269,7 @@ object mainfo: tmainfo
       end>
     tablename = 'detail'
     database = conn
+    BeforeDelete = detailbeforedeleteev
     Transaction = trans
     FieldDefs = <    
       item
@@ -281,22 +281,16 @@ object mainfo: tmainfo
         DataType = ftString
         Size = 40
       end>
-    controller.fields.count = 2
+    controller.fields.count = 1
     controller.fields.fields = (
       (
-        ft_longint
         ft_string
       )
       <      
         item
-          FieldName = 'pk'
-          Index = 0
-          optionsfield = [of_readonly, of_visible, of_inwhere, of_inkey]
-        end      
-        item
           DisplayWidth = 40
           FieldName = 'name'
-          Index = 1
+          Index = 0
           Size = 40
         end>
     )
@@ -304,8 +298,24 @@ object mainfo: tmainfo
     left = 8
     top = 80
     streamingversion = 1
+    object detail_pk: tmselongintfield
+      FieldName = 'pk'
+      Index = 1
+      optionsfield = [of_visible, of_inwhere, of_inkey]
+      left = 16
+      top = 112
+    end
   end
   object masterqu: tmsesqlquery
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'value'
+          end>
+        name = 'value'
+      end>
     Active = True
     params = <>
     SQL.data = (
@@ -335,13 +345,14 @@ object mainfo: tmainfo
       )
       <      
         item
-          FieldName = 'pk'
+          FieldName = 'value'
           Index = 0
-          optionsfield = [of_readonly, of_visible, of_inwhere, of_inkey]
+          optionsfield = [of_visible, of_inwhere]
         end      
         item
-          FieldName = 'value'
+          FieldName = 'pk'
           Index = 1
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
         end>
     )
     controller.options = [dso_utf8]
