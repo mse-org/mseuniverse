@@ -1,0 +1,376 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 388
+  bounds_cy = 363
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    388
+    363
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object detailnavig: tdbnavigator
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 0
+    bounds_y = 0
+    datasource = detailds
+    colorglyph = -2147483647
+    buttonface.localprops = []
+    buttonface.template = horzconvex
+    dialogbutton.imagenr = 17
+    dialogbutton.hint = 'Dialog'
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+  end
+  object detailgrid: tdbstringgrid
+    frame.sbvert.pagesize = 0.5
+    frame.caption = 'Detail'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 27
+    bounds_cx = 388
+    bounds_cy = 117
+    anchors = [an_top]
+    options = [dsgo_autofields]
+    optionsgrid = [og_colsizing, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 2
+    datacols.items = <    
+      item
+        width = 80
+        datafield = 'pk'
+        textflags = [tf_right, tf_ycentered, tf_noselect]
+      end    
+      item
+        width = 160
+        datafield = 'name'
+      end>
+    datalink.datasource = detailds
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'pk'
+          end        
+          item
+            caption = 'name'
+          end>
+      end>
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+  end
+  object tspacer1: tspacer
+    taborder = 2
+    bounds_x = 264
+    bounds_y = 24
+    bounds_cx = 50
+    bounds_cy = 3
+    linktop = detailnavig
+    linkbottom = detailgrid
+  end
+  object tsplitter1: tsplitter
+    taborder = 3
+    bounds_x = 0
+    bounds_y = 144
+    bounds_cx = 388
+    bounds_cy = 3
+    anchors = [an_top]
+    options = [spo_vmove, spo_vprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
+    linktop = detailgrid
+    linkbottom = tsimplewidget1
+    statfile = tstatfile1
+  end
+  object tsimplewidget1: tsimplewidget
+    taborder = 4
+    visible = True
+    bounds_x = 0
+    bounds_y = 147
+    bounds_cx = 388
+    bounds_cy = 216
+    anchors = [an_top, an_bottom]
+    object mastergrid: tdbwidgetgrid
+      frame.sbvert.pagesize = 0.5
+      frame.caption = 'Master'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      bounds_x = 0
+      bounds_y = 27
+      bounds_cx = 388
+      bounds_cy = 188
+      anchors = [an_top, an_bottom]
+      optionsgrid = [og_colsizing, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+      fixcols.count = 1
+      fixcols.items = <      
+        item
+          width = 15
+        end>
+      fixrows.count = 1
+      fixrows.items = <      
+        item
+          height = 16
+          captions.count = 2
+          captions.items = <          
+            item
+              caption = 'pk'
+            end          
+            item
+              caption = 'value'
+            end>
+        end>
+      datacols.count = 2
+      datacols.items = <      
+        item[tdbintegeredit1]
+          width = 80
+          widgetname = 'tdbintegeredit1'
+        end      
+        item[tdbenumeditdb1]
+          width = 160
+          widgetname = 'tdbenumeditdb1'
+        end>
+      datalink.datasource = masterds
+      datarowheight = 16
+      statfile = tstatfile1
+      reffontheight = 14
+      object tdbintegeredit1: tdbintegeredit
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        taborder = 1
+        visible = False
+        bounds_x = 0
+        bounds_y = 0
+        bounds_cx = 80
+        bounds_cy = 16
+        datalink.datasource = masterds
+        datalink.fieldname = 'pk'
+        reffontheight = 14
+      end
+      object tdbenumeditdb1: tdbenumeditdb
+        optionswidget1 = [ow1_fontglyphheight]
+        optionsskin = [osk_framebuttononly]
+        frame.levelo = 0
+        frame.colorclient = -2147483645
+        frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+        frame.localprops1 = []
+        frame.button.color = -1879048187
+        frame.buttons.count = 1
+        frame.buttons.items = <        
+          item
+            color = -1879048187
+          end>
+        taborder = 2
+        visible = False
+        bounds_x = 81
+        bounds_y = 0
+        bounds_cx = 160
+        bounds_cy = 16
+        datalink.datasource = masterds
+        datalink.fieldname = 'value'
+        dropdown.datasource = detailds
+        dropdown.keyfield = 'pk'
+        dropdown.optionsdb = [odb_directdata]
+        dropdown.cols.count = 1
+        dropdown.cols.items = <        
+          item
+            datafield = 'name'
+          end>
+        reffontheight = 14
+      end
+    end
+    object tspacer2: tspacer
+      taborder = 1
+      bounds_x = 264
+      bounds_y = 24
+      bounds_cx = 50
+      bounds_cy = 3
+      linktop = masternavig
+      linkbottom = mastergrid
+    end
+    object masternavig: tdbnavigator
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 0
+      datasource = masterds
+      colorglyph = -2147483647
+      buttonface.localprops = []
+      buttonface.template = horzconvex
+      dialogbutton.imagenr = 17
+      dialogbutton.hint = 'Dialog'
+      dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+    end
+  end
+  object detailds: tmsedatasource
+    DataSet = detailqu
+    left = 8
+    top = 96
+  end
+  object conn: tsqlite3connection
+    Connected = True
+    DatabaseName = 'lookupedit.db3'
+    Transaction = trans
+    left = 248
+  end
+  object trans: tmsesqltransaction
+    Active = True
+    Database = conn
+    left = 312
+  end
+  object detailqu: tmsesqlquery
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'pk'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'name'
+            options = [ifo_caseinsensitive]
+          end>
+      end>
+    Active = True
+    params = <>
+    SQL.data = (
+      'select * from detail'
+    )
+    IndexDefs = <    
+      item
+        Name = '$PRIMARY_KEY$'
+      end>
+    tablename = 'detail'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'pk'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'name'
+        DataType = ftString
+        Size = 40
+      end>
+    controller.fields.count = 2
+    controller.fields.fields = (
+      (
+        ft_longint
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'pk'
+          Index = 0
+          optionsfield = [of_readonly, of_visible, of_inwhere, of_inkey]
+        end      
+        item
+          DisplayWidth = 40
+          FieldName = 'name'
+          Index = 1
+          Size = 40
+        end>
+    )
+    controller.options = [dso_utf8]
+    left = 8
+    top = 80
+    streamingversion = 1
+  end
+  object masterqu: tmsesqlquery
+    Active = True
+    params = <>
+    SQL.data = (
+      'select * from master'
+    )
+    IndexDefs = <    
+      item
+        Name = '$PRIMARY_KEY$'
+      end>
+    tablename = 'master'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'pk'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'value'
+        DataType = ftInteger
+      end>
+    controller.fields.count = 2
+    controller.fields.fields = (
+      (
+        ft_longint
+        ft_longint
+      )
+      <      
+        item
+          FieldName = 'pk'
+          Index = 0
+          optionsfield = [of_readonly, of_visible, of_inwhere, of_inkey]
+        end      
+        item
+          FieldName = 'value'
+          Index = 1
+        end>
+    )
+    controller.options = [dso_utf8]
+    left = 8
+    top = 272
+    streamingversion = 1
+  end
+  object masterds: tmsedatasource
+    DataSet = masterqu
+    left = 8
+    top = 288
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 192
+    top = 288
+  end
+  object horzconvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612731
+      -1610612733
+    )
+    left = 264
+    top = 88
+  end
+end
