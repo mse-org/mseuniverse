@@ -1632,11 +1632,11 @@ end;
 
 procedure TraTabulatorItem.setbitmap(const Value: tmaskedbitmap);
 var
- aimage: imagebufferinfoty;
+ aimage: maskedimagety;
 begin
  if Value<>fbitmap then begin
-  Value.savetoimagebuffer(aimage);
-  fbitmap.loadfromimagebuffer(aimage);
+  Value.savetomaskedimage(aimage);
+  fbitmap.loadfrommaskedimage(aimage);
  end;
 end;
 
@@ -5994,7 +5994,7 @@ end;
 
 procedure TRepaz.addbitmaptoreport(const arect: rectty; const avalue: tmaskedbitmap);
 begin
- avalue.savetoimagebuffer(fmetapages[fmetapagecount-1].bitmap);
+ avalue.savetomaskedimage(fmetapages[fmetapagecount-1].bitmap);
  fmetapages[fmetapagecount-1].bitmapalignment:= avalue.alignment;
  fmetapages[fmetapagecount-1].bitmaprect:= arect;
 end;
@@ -6008,7 +6008,7 @@ end;
 procedure TRepaz.addbitmap1toreport(const arect: rectty; avalue: tmaskedbitmap);
 begin
  setlength(fmetapages[fmetapagecount-1].bitmap1objects,fmetabitmap1objectcount+1);
- avalue.savetoimagebuffer(fmetapages[fmetapagecount-1].bitmap1objects[fmetabitmap1objectcount].bitmap);
+ avalue.savetomaskedimage(fmetapages[fmetapagecount-1].bitmap1objects[fmetabitmap1objectcount].bitmap);
  fmetapages[fmetapagecount-1].bitmap1objects[fmetabitmap1objectcount].bitmapalignment:= avalue.alignment;
  fmetapages[fmetapagecount-1].bitmap1objects[fmetabitmap1objectcount].rectarea:= arect;
  inc(fmetabitmap1objectcount);
@@ -6017,7 +6017,7 @@ end;
 procedure TRepaz.addbitmap2toreport(const arect: rectty; avalue: tmaskedbitmap);
 begin
  setlength(fmetapages[fmetapagecount-1].bitmap2objects,fmetabitmap2objectcount+1);
- avalue.savetoimagebuffer(fmetapages[fmetapagecount-1].bitmap2objects[fmetabitmap2objectcount].bitmap);
+ avalue.savetomaskedimage(fmetapages[fmetapagecount-1].bitmap2objects[fmetabitmap2objectcount].bitmap);
  fmetapages[fmetapagecount-1].bitmap2objects[fmetabitmap2objectcount].bitmapalignment:= avalue.alignment;
  fmetapages[fmetapagecount-1].bitmap2objects[fmetabitmap2objectcount].rectarea:= arect;
  inc(fmetabitmap2objectcount);

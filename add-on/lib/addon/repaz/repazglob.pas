@@ -103,7 +103,7 @@ type
 
  repbitmapinfoty = record
   rectarea: rectty;
-  bitmap: imagebufferinfoty;
+  bitmap: maskedimagety;
   bitmapalignment: alignmentsty;
  end;
 
@@ -130,7 +130,7 @@ type
  end;
 
  tmetapage = record
-  bitmap: imagebufferinfoty;
+  bitmap: maskedimagety;
   bitmapalignment: alignmentsty;
   bitmaprect: rectty;
   tabobjects: array of reptabinfoty;
@@ -206,7 +206,7 @@ begin
     end;  
    end;
    tmpbmp.clear;
-   tmpbmp.loadfromimagebuffer(ametapages[apage].bitmap);
+   tmpbmp.loadfrommaskedimage(ametapages[apage].bitmap);
    tmpbmp.alignment:= ametapages[apage].bitmapalignment;
    tmpbmp.paint(acanvas,tmprect);
   end;
@@ -256,7 +256,7 @@ begin
        end;  
       end;
       tmpbmp.clear;
-      tmpbmp.loadfromimagebuffer(bitmap);
+      tmpbmp.loadfrommaskedimage(bitmap);
       tmpbmp.alignment:= bitmapalignment;
       tmpbmp.paint(acanvas,tmprect);
      end;
@@ -277,7 +277,7 @@ begin
        end;  
       end;
       tmpbmp.clear;
-      tmpbmp.loadfromimagebuffer(bitmap);
+      tmpbmp.loadfrommaskedimage(bitmap);
       tmpbmp.alignment:= bitmapalignment;
       tmpbmp.paint(acanvas,tmprect);
      end;
