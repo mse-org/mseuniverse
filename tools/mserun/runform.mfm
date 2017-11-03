@@ -12,9 +12,10 @@ object runfo: trunfo
     708
     396
   )
-  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder]
+  options = [fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder]
   statfile = tstatfile1
   caption = 'Test Run'
+  onclosequery = closequeryev
   onshow = showexe
   moduleclassname = 'tmseform'
   object grid: twidgetgrid
@@ -37,8 +38,8 @@ object runfo: trunfo
         dataclass = tgridrichstringdatalist
       end>
     datarowlinewidth = 0
-    datarowheight = 13
-    reffontheight = 13
+    datarowheight = 14
+    reffontheight = 14
     object term: tterminal
       optionsskin = [osk_framebuttononly]
       taborder = 1
@@ -46,14 +47,14 @@ object runfo: trunfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 703
-      bounds_cy = 13
+      bounds_cy = 14
       maxchars = 120
       onprocfinished = procfinishedexe
       onsendtext = sendtextexe
       options = [teo_stripescsequence]
       optionsprocess = [pro_output, pro_input, pro_errorouttoout, pro_inactive, pro_detached, pro_allowsetforegroundwindow, pro_sessionleader, pro_settty, pro_tty, pro_echo, pro_icanon, pro_winpipewritehandles, pro_ctrlc]
       pipewaitus = 1000000
-      reffontheight = 13
+      reffontheight = 14
     end
   end
   object tlayouter2: tlayouter
@@ -64,10 +65,10 @@ object runfo: trunfo
     bounds_cy = 40
     anchors = [an_bottom]
     optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-    linktop = grid
-    options = [spao_gluebottom]
     optionslayout = [lao_aligny]
     align_glue = wam_center
+    linktop = grid
+    options = [spao_gluebottom]
     object tlayouter1: tlayouter
       frame.framei_left = 20
       frame.framei_top = 10
@@ -75,22 +76,22 @@ object runfo: trunfo
       frame.framei_bottom = 10
       frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
       frame.localprops1 = []
-      bounds_x = 488
+      bounds_x = 472
       bounds_y = 0
-      bounds_cx = 220
+      bounds_cx = 236
       bounds_cy = 40
       anchors = [an_top, an_right]
       optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
-      linkleft = tlayouter3
-      options = [spao_glueright]
       optionslayout = [lao_placex, lao_aligny]
       align_glue = wam_start
       place_mindist = 10
       place_maxdist = 10
       place_mode = wam_end
+      linkleft = tlayouter3
+      options = [spao_glueright]
       object okbu: tbutton
         optionswidget1 = [ow1_autoscale, ow1_autowidth]
-        bounds_x = 150
+        bounds_x = 166
         bounds_y = 10
         bounds_cx = 50
         bounds_cy = 20
@@ -103,9 +104,9 @@ object runfo: trunfo
       object cancelbu: tbutton
         optionswidget1 = [ow1_autoscale, ow1_autowidth]
         taborder = 1
-        bounds_x = 90
+        bounds_x = 104
         bounds_y = 10
-        bounds_cx = 50
+        bounds_cx = 52
         bounds_cy = 20
         bounds_cxmin = 50
         anchors = [an_top, an_right]
@@ -118,7 +119,7 @@ object runfo: trunfo
         taborder = 2
         bounds_x = 20
         bounds_y = 10
-        bounds_cx = 60
+        bounds_cx = 74
         bounds_cy = 20
         bounds_cxmin = 50
         anchors = [an_top, an_right]
@@ -138,9 +139,9 @@ object runfo: trunfo
       frame.localprops1 = []
       taborder = 1
       bounds_x = 8
-      bounds_y = 1
-      bounds_cx = 480
-      bounds_cy = 38
+      bounds_y = 0
+      bounds_cx = 464
+      bounds_cy = 40
       anchors = [an_left, an_top, an_right]
       optionsscale = [osc_expandx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       optionslayout = [lao_placex, lao_aligny]
@@ -153,15 +154,15 @@ object runfo: trunfo
         frame.localprops1 = []
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 60
-        bounds_cy = 33
-        reffontheight = 13
+        bounds_cy = 35
+        reffontheight = 14
       end
       object captiondi: tstringdisp
         frame.caption = 'Caption'
@@ -169,7 +170,7 @@ object runfo: trunfo
         frame.localprops1 = []
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
@@ -177,9 +178,9 @@ object runfo: trunfo
         bounds_x = 70
         bounds_y = 0
         bounds_cx = 164
-        bounds_cy = 33
+        bounds_cy = 35
         options = [dwo_hintclippedtext]
-        reffontheight = 13
+        reffontheight = 14
       end
       object okdi: tintegerdisp
         frame.caption = 'OK'
@@ -187,7 +188,7 @@ object runfo: trunfo
         frame.localprops1 = []
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
@@ -195,9 +196,9 @@ object runfo: trunfo
         bounds_x = 244
         bounds_y = 0
         bounds_cx = 60
-        bounds_cy = 33
+        bounds_cy = 35
         onchange = okchaexe
-        reffontheight = 13
+        reffontheight = 14
       end
       object errordi: tintegerdisp
         frame.caption = 'Error'
@@ -205,7 +206,7 @@ object runfo: trunfo
         frame.localprops1 = []
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
@@ -213,9 +214,9 @@ object runfo: trunfo
         bounds_x = 314
         bounds_y = 0
         bounds_cx = 60
-        bounds_cy = 33
+        bounds_cy = 35
         onchange = errorchangeexe
-        reffontheight = 13
+        reffontheight = 14
       end
       object totaldi: tintegerdisp
         frame.caption = 'Total'
@@ -223,7 +224,7 @@ object runfo: trunfo
         frame.localprops1 = []
         frame.outerframe = (
           0
-          16
+          17
           0
           0
         )
@@ -231,8 +232,8 @@ object runfo: trunfo
         bounds_x = 384
         bounds_y = 0
         bounds_cx = 60
-        bounds_cy = 33
-        reffontheight = 13
+        bounds_cy = 35
+        reffontheight = 14
       end
     end
   end

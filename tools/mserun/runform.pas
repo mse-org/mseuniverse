@@ -54,6 +54,8 @@ type
    procedure okchaexe(const sender: TObject);
    procedure sendtextexe(const sender: TObject; var atext: msestring;
                    var donotsend: Boolean);
+   procedure closequeryev(const sender: tcustommseform;
+                   var amodalresult: modalresultty);
   protected
    fstate: runstatety;
    ftestitem: ttestnode;
@@ -434,6 +436,14 @@ begin
  if okbu.enabled then begin
   donotsend:= true;
   window.modalresult:= mr_ok;
+ end;
+end;
+
+procedure trunfo.closequeryev(const sender: tcustommseform;
+               var amodalresult: modalresultty);
+begin
+ if cancelbu.enabled then begin
+  amodalresult:= mr_none;
  end;
 end;
 
