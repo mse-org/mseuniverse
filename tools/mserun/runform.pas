@@ -111,7 +111,8 @@ end;
 procedure seterror(const adisp: twidget; const aerror: boolean;
                                   const startcommand: tdataedit = nil);
 begin
- if (startcommand <> nil) and startcommand.isnull then begin
+ if (startcommand <> nil) and startcommand.isnull and 
+                                   (startcommand.disptext = '') then begin
   seterror(adisp,ers_none);
  end
  else begin
