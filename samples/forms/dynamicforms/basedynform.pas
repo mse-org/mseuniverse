@@ -12,7 +12,6 @@ type
    tlabel2: tlabel;
    tstringedit1: tstringedit;
   public
-   constructor create(aowner: tcomponent); override;
  end;
 var
  basedynfo: tbasedynfo;
@@ -21,11 +20,5 @@ uses
  basedynform_mfm,main;
  
 { tbasedynfo }
-
-constructor tbasedynfo.create(aowner: tcomponent);
-begin
- inherited;
- mainfo.panelcontroller.registerdynamiccomp(self);
-end;
 
 end.
