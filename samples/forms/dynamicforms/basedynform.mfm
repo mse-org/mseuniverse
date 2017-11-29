@@ -1,0 +1,38 @@
+object basedynfo: tbasedynfo
+  frame.localprops = []
+  frame.localprops1 = []
+  frame.grip_size = 10
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_nolockbutton, go_buttonhints]
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 183
+  bounds_cy = 106
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    173
+    106
+  )
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_acceptsdock, od_splitvert, od_splithorz, od_tabed, od_proportional, od_propsize, od_captionhint, od_childicons]
+  options = [fo_freeonclose, fo_savepos, fo_savezorder, fo_savestate]
+  moduleclassname = 'tdockform'
+  object tlabel2: tlabel
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 8
+    bounds_cy = 14
+    caption = 'A'
+    reffontheight = 14
+  end
+  object tstringedit1: tstringedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 56
+    statfile = mainfo.mainsta
+    reffontheight = 14
+  end
+end

@@ -1,0 +1,24 @@
+inherited afo: tafo
+  color = 16764108
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_nolockbutton, go_showsplitcaption]
+  visible = False
+  bounds_x = 4
+  bounds_y = 623
+  bounds_cx = 159
+  bounds_cy = 100
+  container.bounds = (
+    0
+    0
+    149
+    100
+  )
+  dragdock.caption = 'AAA'
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize, od_captionhint]
+  statfile = mainfo.mainsta
+  caption = 'aaa'
+  moduleclassname = 'tbasedynfo'
+  inherited tlabel2: tlabel
+  end
+  inherited tstringedit1: tstringedit
+  end
+end

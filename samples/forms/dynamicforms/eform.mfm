@@ -1,0 +1,25 @@
+inherited efo: tefo
+  color = 13421823
+  frame.grip_options = [go_closebutton, go_fixsizebutton, go_floatbutton, go_topbutton, go_backgroundbutton, go_nolockbutton, go_showsplitcaption]
+  visible = False
+  bounds_x = 683
+  bounds_y = 619
+  bounds_cx = 159
+  bounds_cy = 104
+  container.bounds = (
+    0
+    0
+    149
+    104
+  )
+  dragdock.caption = 'EEE'
+  dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_propsize, od_captionhint]
+  statfile = mainfo.mainsta
+  caption = 'eee'
+  moduleclassname = 'tbasedynfo'
+  inherited tlabel2: tlabel
+    caption = 'E'
+  end
+  inherited tstringedit1: tstringedit
+  end
+end
