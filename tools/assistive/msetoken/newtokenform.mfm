@@ -1,0 +1,34 @@
+object newtokenfo: tnewtokenfo
+  visible = False
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 289
+  bounds_cy = 272
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    289
+    272
+  )
+  options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Neuer Gutschein'
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    bounds_x = 128
+    bounds_y = 240
+    bounds_cx = 154
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'Neuer Gutschein beenden'
+    modalresult = mr_windowclosed
+  end
+  object tstatfile1: tstatfile
+    filename = 'newtoken.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 144
+    top = 48
+  end
+end

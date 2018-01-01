@@ -1,16 +1,16 @@
 object mainfo: tmainfo
   visible = False
-  bounds_x = 291
-  bounds_y = 247
+  bounds_x = 50
+  bounds_y = 147
   bounds_cx = 403
-  bounds_cy = 280
+  bounds_cy = 81
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     403
-    280
+    81
   )
   statfile = tstatfile1
   caption = 'MSEtoken'
@@ -21,6 +21,7 @@ object mainfo: tmainfo
     bounds_cx = 114
     bounds_cy = 22
     state = [as_localcaption]
+    action = mainmo.newtocenact
     caption = 'Neuer Gutschein'
   end
   object tbutton2: tbutton
@@ -45,7 +46,7 @@ object mainfo: tmainfo
   object tstatfile1: tstatfile
     filename = 'main.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    left = 240
-    top = 144
+    left = 256
+    top = 40
   end
 end

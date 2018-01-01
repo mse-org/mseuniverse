@@ -2,8 +2,8 @@ object mainmo: tmainmo
   bounds_cx = 336
   bounds_cy = 266
   statfile = tstatfile1
-  left = 343
-  top = 320
+  left = 95
+  top = 277
   moduleclassname = 'tmsedatamodule'
   object tstatfile1: tstatfile
     filename = '^/.msetools/msetoken.sta'
@@ -13,6 +13,7 @@ object mainmo: tmainmo
     top = 24
   end
   object tassistivehandler1: tassistivehandler
+    active = True
     speaker.voices.count = 2
     speaker.voices.items = <    
       item
@@ -28,5 +29,10 @@ object mainmo: tmainmo
     voicetext = 1
     left = 136
     top = 24
+  end
+  object newtocenact: taction
+    onexecute = newtokenev
+    left = 24
+    top = 56
   end
 end
