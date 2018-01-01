@@ -1,0 +1,51 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  statfile = tstatfile1
+  caption = 'MSEtoken'
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 114
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'Neuer Gutschein'
+  end
+  object tbutton2: tbutton
+    taborder = 1
+    bounds_x = 128
+    bounds_y = 8
+    bounds_cx = 114
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'Gutschein Einl'#246'sen'
+  end
+  object tbutton3: tbutton
+    taborder = 2
+    bounds_x = 248
+    bounds_y = 8
+    bounds_cx = 114
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'MSEtoken beenden'
+    modalresult = mr_windowclosed
+  end
+  object tstatfile1: tstatfile
+    filename = 'main.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 240
+    top = 144
+  end
+end
