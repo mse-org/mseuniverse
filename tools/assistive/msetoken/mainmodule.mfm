@@ -10,7 +10,7 @@ object mainmo: tmainmo
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*.sta'
     left = 24
-    top = 24
+    top = 128
   end
   object tassistivehandler1: tassistivehandler
     active = True
@@ -27,12 +27,158 @@ object mainmo: tmainmo
     speaker.pitch = 1
     speaker.range = 1
     voicetext = 1
-    left = 136
-    top = 24
+    left = 128
+    top = 128
   end
-  object newtocenact: taction
+  object newtokenact: taction
     onexecute = newtokenev
     left = 24
-    top = 56
+    top = 152
+  end
+  object conn: tfb3connection
+    DatabaseName = 'msetoken.fdb'
+    Transaction = trans
+    Password = 'masterkey'
+    UserName = 'sysdba'
+    left = 8
+    top = 8
+  end
+  object trans: tmsesqltransaction
+    Database = conn
+    left = 72
+    top = 8
+  end
+  object objectsqu: tmsesqlquery
+    params = <>
+    SQL.data = (
+      'select * from objects'
+    )
+    IndexDefs = <    
+      item
+        Name = 'PK_OBJECTS_0'
+      end>
+    tablename = 'objects'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 40
+      end    
+      item
+        Name = 'DESCRIPTION'
+        DataType = ftString
+        Size = 80
+      end    
+      item
+        Name = 'PRICE'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'UNIT'
+        DataType = ftString
+        Size = 10
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 1000
+      end>
+    controller.fields.count = 8
+    controller.fields.fields = (
+      (
+        ft_largeint
+        ft_datetime
+        ft_datetime
+        ft_string
+        ft_string
+        ft_float
+        ft_string
+        ft_string
+      )
+      <      
+        item
+          FieldName = 'PK'
+          Index = 0
+        end      
+        item
+          FieldName = 'TSCREATE'
+          Index = 1
+          optionsfield = [of_visible, of_inwhere]
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 2
+          optionsfield = [of_visible, of_inwhere]
+        end      
+        item
+          DisplayWidth = 40
+          FieldName = 'NAME'
+          Index = 3
+          optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+          Size = 40
+        end      
+        item
+          DisplayWidth = 80
+          FieldName = 'DESCRIPTION'
+          Index = 4
+          Size = 80
+        end      
+        item
+          FieldName = 'PRICE'
+          Index = 5
+          MaxValue = 0
+          MinValue = 0
+          Precision = -1
+        end      
+        item
+          DisplayWidth = 10
+          FieldName = 'UNIT'
+          Index = 6
+          Size = 10
+        end      
+        item
+          DisplayWidth = 1000
+          FieldName = 'COMMENT'
+          Index = 7
+          Size = 1000
+        end>
+    )
+    left = 144
+    top = 8
+    streamingversion = 1
+  end
+  object objectsact: taction
+    onexecute = objectsev
+    left = 24
+    top = 168
+  end
+  object newobjectact: taction
+    onexecute = newobjectev
+    left = 24
+    top = 184
+  end
+  object editobjectact: taction
+    onexecute = editobjectev
+    left = 24
+    top = 200
+  end
+  object deleteobjectact: taction
+    onexecute = deleteobjectev
+    left = 24
+    top = 216
   end
 end

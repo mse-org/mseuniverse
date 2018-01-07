@@ -3,14 +3,14 @@ object mainfo: tmainfo
   bounds_x = 50
   bounds_y = 147
   bounds_cx = 403
-  bounds_cy = 81
+  bounds_cy = 97
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     403
-    81
+    97
   )
   statfile = tstatfile1
   caption = 'MSEtoken'
@@ -20,8 +20,8 @@ object mainfo: tmainfo
     bounds_y = 8
     bounds_cx = 114
     bounds_cy = 22
-    state = [as_localcaption]
-    action = mainmo.newtocenact
+    state = [as_localcaption, as_localshortcut]
+    action = mainmo.newtokenact
     caption = 'Neuer Gutschein'
   end
   object tbutton2: tbutton
@@ -33,6 +33,26 @@ object mainfo: tmainfo
     state = [as_localcaption]
     caption = 'Gutschein Einl'#246'sen'
   end
+  object tbutton5: tbutton
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 72
+    bounds_cx = 114
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'MSEtoken beenden'
+    modalresult = mr_windowclosed
+  end
+  object tbutton4: tbutton
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 40
+    bounds_cx = 114
+    bounds_cy = 22
+    state = [as_localcaption]
+    action = mainmo.objectsact
+    caption = 'Leistungskatalog'
+  end
   object tbutton3: tbutton
     taborder = 2
     bounds_x = 248
@@ -40,8 +60,7 @@ object mainfo: tmainfo
     bounds_cx = 114
     bounds_cy = 22
     state = [as_localcaption]
-    caption = 'MSEtoken beenden'
-    modalresult = mr_windowclosed
+    caption = 'Gutschein Liste'
   end
   object tstatfile1: tstatfile
     filename = 'main.sta'

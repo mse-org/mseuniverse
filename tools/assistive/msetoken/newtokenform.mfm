@@ -12,12 +12,12 @@ object newtokenfo: tnewtokenfo
     289
     272
   )
-  options = [fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Neuer Gutschein'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
-    bounds_x = 128
+    bounds_x = 8
     bounds_y = 240
     bounds_cx = 154
     bounds_cy = 22

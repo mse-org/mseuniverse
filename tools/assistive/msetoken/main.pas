@@ -27,6 +27,8 @@ type
    tstatfile1: tstatfile;
    tbutton1: tbutton;
    tbutton2: tbutton;
+   tbutton5: tbutton;
+   tbutton4: tbutton;
    tbutton3: tbutton;
  end;
 var
