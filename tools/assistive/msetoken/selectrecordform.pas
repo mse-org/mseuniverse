@@ -14,19 +14,31 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit newtokenform;
+unit selectrecordform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- msesimplewidgets,msestatfile;
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mdb,msedb,
+ mseifiglob,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,msegraphedits,
+ msegrids,mseificomp,mseificompglob,mselookupbuffer,msescrollbar,msestatfile,
+ msestream,sysutils,msesimplewidgets;
 type
- tnewtokenfo = class(tmseform)
+ tselectrecordfo = class(tmseform)
+   dataso: tmsedatasource;
+   selector: tenum64editdb;
    tbutton1: tbutton;
-   tstatfile1: tstatfile;
+   procedure datentev(const sender: TObject);
  end;
+
 implementation
 uses
- newtokenform_mfm;
+ mainmodule,selectrecordform_mfm;
+ 
+procedure tselectrecordfo.datentev(const sender: TObject);
+begin
+ window.modalresult:= mr_ok;
+ mainmo.assistivehandler.speakstop(true);
+end;
+
 end.

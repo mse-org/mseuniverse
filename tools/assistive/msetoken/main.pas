@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2018 by Martin Schreiber
+{ MSEtoken Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,9 @@ interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
- msesimplewidgets;
+ msesimplewidgets,mdb,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,
+ msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
+ msescrollbar,msestream,sysutils,msedb;
 
 type
  tmainfo = class(tmainform)

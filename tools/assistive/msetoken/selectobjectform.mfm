@@ -1,0 +1,22 @@
+inherited selectobjectfo: tselectobjectfo
+  container.bounds = (
+    0
+    0
+    327
+    105
+  )
+  moduleclassname = 'tselectrecordfo'
+  inherited selector: tenum64editdb
+    frame.buttons.items = <    
+      item
+      end>
+    dropdown.cols.items = <    
+      item
+        datafield = 'NAME'
+      end>
+  end
+  inherited tbutton1: tbutton
+  end
+  inherited dataso: tmsedatasource
+  end
+end

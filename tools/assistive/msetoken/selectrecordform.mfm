@@ -1,0 +1,66 @@
+object selectrecordfo: tselectrecordfo
+  frame.localprops = []
+  frame.localprops1 = []
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 327
+  bounds_cy = 105
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    327
+    105
+  )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  caption = 'Datensatz ausw'#228'hlen'
+  moduleclassname = 'tmseform'
+  object selector: tenum64editdb
+    frame.caption = 'Name'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 5
+    bounds_cx = 308
+    bounds_cy = 41
+    anchors = [an_left, an_top, an_right]
+    ondataentered = datentev
+    dropdown.datasource = dataso
+    dropdown.keyfield = 'pk'
+    dropdown.optionsdb = [odb_directdata]
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    value = -1
+    valuedefault = -1
+    reffontheight = 16
+  end
+  object tbutton1: tbutton
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 64
+    bounds_cx = 308
+    bounds_cy = 22
+    anchors = [an_left, an_top, an_right]
+    state = [as_localcaption]
+    caption = 'Auswahl abbrechen'
+    modalresult = mr_cancel
+  end
+  object dataso: tmsedatasource
+    DataSet = mainmo.objectsqu
+    left = 104
+    top = 8
+  end
+end

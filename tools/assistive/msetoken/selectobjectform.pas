@@ -14,19 +14,23 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit newtokenform;
+unit selectobjectform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- msesimplewidgets,msestatfile;
+ selectrecordform,msedispwidgets,mserichstring,msetimer,mdb,mseact,msedataedits,
+ msedbedit,msedropdownlist,mseedit,msegraphedits,msegrids,mseificomp,
+ mseificompglob,mseifiglob,mselookupbuffer,msescrollbar,msestatfile,msestream,
+ sysutils;
+
 type
- tnewtokenfo = class(tmseform)
-   tbutton1: tbutton;
-   tstatfile1: tstatfile;
+ tselectobjectfo = class(tselectrecordfo)
  end;
+
 implementation
 uses
- newtokenform_mfm;
+ selectobjectform_mfm,mseinplaceedit,mseformatstr;
+ 
 end.

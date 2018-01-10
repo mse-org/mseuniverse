@@ -1,15 +1,34 @@
+{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+   
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+}
 unit mainmodule;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
  mseassistivehandler,mseactions,msedatabase,msefb3connection,msqldb,sysutils,
- mdb,msebufdataset,msedb,mseifiglob,msesqldb;
+ mdb,msebufdataset,msedb,mseifiglob,msesqldb,mserttistat,mclasses;
 
 type
+ topt = class(toptions)
+ end;
+ 
  tmainmo = class(tmsedatamodule)
    tstatfile1: tstatfile;
-   tassistivehandler1: tassistivehandler;
+   assistivehandler: tassistivehandler;
    newtokenact: taction;
    conn: tfb3connection;
    trans: tmsesqltransaction;
@@ -18,18 +37,34 @@ type
    newobjectact: taction;
    editobjectact: taction;
    deleteobjectact: taction;
+   tactivator1: tactivator;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
    procedure editobjectev(const sender: TObject);
    procedure deleteobjectev(const sender: TObject);
+  private
+   fopt: topt;
+  protected
+   function selectobject(): int64;
+  public
+   constructor create(aowner: tcomponent); override;
+   destructor destroy(); override;
+   property opt: topt read fopt;
  end;
+ 
 var
  mainmo: tmainmo;
+ 
 implementation
 uses
- msegui,mainmodule_mfm,newtokenform,objectsform,
- newobjectform,editobjectform,deleteobjectform;
+ msegui,mainmodule_mfm,newtokenform,objectsform,msewidgets,msestrings,
+ newobjectform,selectobjectform,editobjectform,deleteobjectform;
+
+resourcestring
+ deletequestion = 'Wollen sie den Datensatz %0:S löschen?';
+ recorddeleted = 'Datensatz %0:S wurde gelöscht.';
+ recordchanged = 'Datensatz %0:S wurde geändert.';
  
 procedure tmainmo.newtokenev(const sender: TObject);
 begin
@@ -67,19 +102,59 @@ begin
  end;
 end;
 
-procedure tmainmo.editobjectev(const sender: TObject);
+function tmainmo.selectobject(): int64;
 begin
+ result:= -1;
  objectsqu.open();
- try
-  with teditobjectfo.create(nil) do begin
-   try
-    case show(ml_application) of
-     mr_ok: begin
-      objectsqu.post();
-     end;
+ with tselectobjectfo.create(nil) do begin
+  try
+   case show(ml_application) of
+    mr_ok: begin
+     result:= selector.value;
     end;
-   finally
-    destroy();
+   end;
+  finally
+   destroy();
+  end;
+ end;
+end;
+
+constructor tmainmo.create(aowner: tcomponent);
+begin
+ fopt:= topt.create();
+ inherited;
+end;
+
+destructor tmainmo.destroy();
+begin
+ inherited;
+ fopt.free();
+end;
+
+procedure tmainmo.editobjectev(const sender: TObject);
+var
+ i1: int64;
+begin
+ try
+  i1:= selectobject();
+  mainmo.assistivehandler.speakcontinue();
+  if i1 >= 0 then begin
+   objectsqu.indexlocal[0].find([i1],[]);
+   with teditobjectfo.create(nil) do begin
+    try
+     case show(ml_application) of
+      mr_ok: begin
+       objectsqu.post();
+      {
+       with assistivehandler do begin
+        speaktext(format(rs(recordchanged),[nameed.value]),voicecaption,true);
+       end;
+      }
+      end;
+     end;
+    finally
+     destroy();
+    end;
    end;
   end;
  finally
@@ -89,13 +164,36 @@ begin
 end;
 
 procedure tmainmo.deleteobjectev(const sender: TObject);
+var
+ i1: int64;
 begin
- with tdeleteobjectfo.create(nil) do begin
-  try
-   show(ml_application);
-  finally
-   destroy();
+ try
+  i1:= selectobject();
+  mainmo.assistivehandler.speakcontinue();
+  if i1 >= 0 then begin
+   objectsqu.indexlocal[0].find([i1],[]);
+   with tdeleteobjectfo.create(nil) do begin
+    try
+     case show(ml_application) of
+      mr_ok: begin
+       if askyesno(format(rs(deletequestion),[nameed.value])) then begin
+        objectsqu.delete();
+       {
+        with assistivehandler do begin
+         speaktext(format(rs(recorddeleted),[nameed.value]),voicecaption,true);
+        end;
+       }
+       end;
+      end;
+     end;
+    finally
+     destroy();
+    end;
+   end;
   end;
+ finally
+  objectsqu.cancel();
+  objectsqu.close();
  end;
 end;
 

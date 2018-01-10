@@ -14,7 +14,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit newtokenform;
+unit objectsform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
@@ -22,11 +22,16 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  msesimplewidgets,msestatfile;
 type
- tnewtokenfo = class(tmseform)
+ tobjectsfo = class(tmseform)
+   tbutton3: tbutton;
+   tbutton2: tbutton;
+   tbutton5: tbutton;
    tbutton1: tbutton;
    tstatfile1: tstatfile;
  end;
+var
+ objectsfo: tobjectsfo;
 implementation
 uses
- newtokenform_mfm;
+ objectsform_mfm;
 end.

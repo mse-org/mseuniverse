@@ -1,0 +1,36 @@
+inherited editobjectfo: teditobjectfo
+  container.bounds = (
+    0
+    0
+    315
+    282
+  )
+  caption = 'Leistung '#228'ndern'
+  moduleclassname = 'tobjectfo'
+  inherited finibu: tbutton
+    caption = 'Ge'#228'nderte Leistung'#10'eintragen'
+  end
+  inherited nameed: tdbstringedit
+    datalink.options = []
+  end
+  inherited priceed: tdbrealedit
+  end
+  inherited united: tdbstringedit
+  end
+  inherited descriptioned: tdbstringedit
+  end
+  inherited commented: tdbdialogstringedit
+    frame.buttons.items = <    
+      item
+      end>
+    bounds_cx = 298
+  end
+  inherited cancelbu: tbutton
+    caption = 'Leistung '#228'ndern'#10'abbrechen'
+  end
+  inherited objectsdso: tmsedatasource[7]
+  end
+  inherited tstatfile1: tstatfile[8]
+    filename = 'editobject.sta'
+  end
+end

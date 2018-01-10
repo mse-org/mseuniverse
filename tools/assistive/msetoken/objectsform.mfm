@@ -1,0 +1,63 @@
+object objectsfo: tobjectsfo
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 369
+  bounds_cy = 105
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    369
+    105
+  )
+  options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Leistungskatalog'
+  moduleclassname = 'tmseform'
+  object tbutton3: tbutton
+    taborder = 2
+    bounds_x = 248
+    bounds_y = 8
+    bounds_cx = 114
+    bounds_cy = 22
+    state = [as_localcaption]
+    action = mainmo.deleteobjectact
+    caption = 'Leistung L'#246'schen'
+  end
+  object tbutton2: tbutton
+    taborder = 1
+    bounds_x = 128
+    bounds_y = 8
+    bounds_cx = 114
+    bounds_cy = 22
+    state = [as_localcaption]
+    action = mainmo.editobjectact
+    caption = 'Leistung '#228'ndern'
+  end
+  object tbutton5: tbutton
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 40
+    bounds_cx = 114
+    bounds_cy = 46
+    state = [as_localcaption]
+    caption = 'Leistungskatalog'#10'beenden'
+    modalresult = mr_windowclosed
+  end
+  object tbutton1: tbutton
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 114
+    bounds_cy = 22
+    state = [as_localcaption, as_localshortcut]
+    action = mainmo.newobjectact
+    caption = 'Neue Leistung'
+  end
+  object tstatfile1: tstatfile
+    filename = 'objects.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 256
+    top = 40
+  end
+end

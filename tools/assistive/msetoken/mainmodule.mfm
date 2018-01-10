@@ -12,7 +12,7 @@ object mainmo: tmainmo
     left = 24
     top = 128
   end
-  object tassistivehandler1: tassistivehandler
+  object assistivehandler: tassistivehandler
     active = True
     speaker.voices.count = 2
     speaker.voices.items = <    
@@ -38,6 +38,7 @@ object mainmo: tmainmo
   object conn: tfb3connection
     DatabaseName = 'msetoken.fdb'
     Transaction = trans
+    controller.activator = tactivator1
     Password = 'masterkey'
     UserName = 'sysdba'
     left = 8
@@ -49,6 +50,22 @@ object mainmo: tmainmo
     top = 8
   end
   object objectsqu: tmsesqlquery
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NAME'
+            options = [ifo_caseinsensitive]
+          end>
+        active = True
+      end>
     params = <>
     SQL.data = (
       'select * from objects'
@@ -180,5 +197,14 @@ object mainmo: tmainmo
     onexecute = deleteobjectev
     left = 24
     top = 216
+  end
+  object tactivator1: tactivator
+    clients = 1
+    options = [avo_activatedelayed, avo_handleexceptions, avo_quietexceptions]
+    left = 8
+    top = 40
+    clientnames = (
+      'mainmo.conn'
+    )
   end
 end

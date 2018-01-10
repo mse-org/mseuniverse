@@ -1,0 +1,39 @@
+inherited deleteobjectfo: tdeleteobjectfo
+  container.bounds = (
+    0
+    0
+    315
+    282
+  )
+  caption = 'Leistung l'#246'schen'
+  moduleclassname = 'tobjectfo'
+  inherited finibu: tbutton
+    taborder = 3
+    caption = 'Leistung l'#246'schen'
+  end
+  inherited nameed: tdbstringedit
+  end
+  inherited priceed: tdbrealedit
+    taborder = 1
+  end
+  inherited united: tdbstringedit
+    taborder = 2
+  end
+  inherited descriptioned: tdbstringedit
+    taborder = 4
+  end
+  inherited commented: tdbdialogstringedit
+    frame.buttons.items = <    
+      item
+      end>
+    taborder = 5
+  end
+  inherited cancelbu: tbutton
+    caption = 'Abbrechen'
+  end
+  inherited objectsdso: tmsedatasource[7]
+    readonly = True
+  end
+  inherited tstatfile1: tstatfile[8]
+  end
+end
