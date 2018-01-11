@@ -21,7 +21,7 @@ program msetoken;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif} 
- msegui,main,mainmodule,mseconsts,mseconsts_de;
+ msegui,main,mainmodule,mseconsts,mseconsts_de,loadguitemplates;
 begin
  setlangconsts('de');
  application.createdatamodule(tmainmo,mainmo);

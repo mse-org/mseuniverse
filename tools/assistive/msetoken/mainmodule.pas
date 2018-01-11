@@ -24,6 +24,10 @@ uses
 
 type
  topt = class(toptions)
+  private
+   feditobjectpk: int64;
+  published
+   property editobjectpk: int64 read feditobjectpk write feditobjectpk;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -38,15 +42,17 @@ type
    editobjectact: taction;
    deleteobjectact: taction;
    tactivator1: tactivator;
+   trttistat1: trttistat;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
    procedure editobjectev(const sender: TObject);
    procedure deleteobjectev(const sender: TObject);
+   procedure getstatobjev(const sender: TObject; var aobject: TObject);
   private
    fopt: topt;
   protected
-   function selectobject(): int64;
+   function selectobject(const apk: int64): int64;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -65,7 +71,11 @@ resourcestring
  deletequestion = 'Wollen sie den Datensatz %0:S löschen?';
  recorddeleted = 'Datensatz %0:S wurde gelöscht.';
  recordchanged = 'Datensatz %0:S wurde geändert.';
- 
+
+{ topt }
+
+{ tmainmo }
+
 procedure tmainmo.newtokenev(const sender: TObject);
 begin
  with tnewtokenfo.create(nil) do begin
@@ -102,11 +112,12 @@ begin
  end;
 end;
 
-function tmainmo.selectobject(): int64;
+function tmainmo.selectobject(const apk: int64): int64;
 begin
  result:= -1;
  objectsqu.open();
  with tselectobjectfo.create(nil) do begin
+  selector.value:= apk;
   try
    case show(ml_application) of
     mr_ok: begin
@@ -136,9 +147,10 @@ var
  i1: int64;
 begin
  try
-  i1:= selectobject();
+  i1:= selectobject(fopt.editobjectpk);
   mainmo.assistivehandler.speakcontinue();
   if i1 >= 0 then begin
+   fopt.editobjectpk:= i1;
    objectsqu.indexlocal[0].find([i1],[]);
    with teditobjectfo.create(nil) do begin
     try
@@ -168,7 +180,7 @@ var
  i1: int64;
 begin
  try
-  i1:= selectobject();
+  i1:= selectobject(-1);
   mainmo.assistivehandler.speakcontinue();
   if i1 >= 0 then begin
    objectsqu.indexlocal[0].find([i1],[]);
@@ -195,6 +207,11 @@ begin
   objectsqu.cancel();
   objectsqu.close();
  end;
+end;
+
+procedure tmainmo.getstatobjev(const sender: TObject; var aobject: TObject);
+begin
+ aobject:= fopt;
 end;
 
 end.

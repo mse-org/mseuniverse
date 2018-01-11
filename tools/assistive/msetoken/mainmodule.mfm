@@ -14,12 +14,17 @@ object mainmo: tmainmo
   end
   object assistivehandler: tassistivehandler
     active = True
-    speaker.voices.count = 2
+    speaker.voices.count = 3
     speaker.voices.items = <    
       item
+        gender = gen_male
       end    
       item
         gender = gen_female
+      end    
+      item
+        gender = gen_female
+        punctuation = pu_all
       end>
     speaker.language = 'de'
     speaker.volume = 1
@@ -27,8 +32,9 @@ object mainmo: tmainmo
     speaker.pitch = 1
     speaker.range = 1
     voicetext = 1
-    left = 128
-    top = 128
+    voicetextedit = 2
+    left = 16
+    top = 64
   end
   object newtokenact: taction
     onexecute = newtokenev
@@ -206,5 +212,11 @@ object mainmo: tmainmo
     clientnames = (
       'mainmo.conn'
     )
+  end
+  object trttistat1: trttistat
+    statfile = tstatfile1
+    ongetobject = getstatobjev
+    left = 120
+    top = 128
   end
 end

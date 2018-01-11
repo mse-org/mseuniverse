@@ -35,6 +35,7 @@ object selectrecordfo: tselectrecordfo
     bounds_cx = 308
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     ondataentered = datentev
     dropdown.datasource = dataso
     dropdown.keyfield = 'pk'

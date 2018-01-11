@@ -19,6 +19,137 @@ order16=0
 [projectoptions]
 projectdir=/home/mse/packs/standard/git/mseuniverse/tools/assistive/msetoken
 projectfilename=/home/mse/packs/standard/git/mseuniverse/tools/assistive/msetoken/msetoken.prj
+options=130
+ [projectoptionsfo.toolshortcuts]
+ dropdowncolwidths=3
+  70
+  70
+  70
+ [projectoptionsfo.twidgetgrid3]
+ propcolwidthref=723
+ sortdescend0=0
+ sortdescend1=0
+ sortdescend2=0
+ sortdescend3=0
+ width4=97
+ sortdescend4=0
+ width5=78
+ sortdescend5=0
+ width6=50
+ sortdescend6=0
+ width7=50
+ sortdescend7=0
+ width8=99
+ sortdescend8=0
+ width9=295
+ sortdescend9=0
+ [projectoptionsfo.twidgetgrid4]
+ propcolwidthref=480
+ width_newfonames=96
+ sortdescend_newfonames=0
+ sortdescend_newinheritedforms=0
+ width_newfonamebases=73
+ sortdescend_newfonamebases=0
+ width_newfoformsuffix=69
+ sortdescend_newfoformsuffix=0
+ width_newfosources=253
+ sortdescend_newfosources=0
+ width_mewfoforms=216
+ sortdescend_mewfoforms=0
+ sorted=0
+ col=-1073741823
+ row=-1073741823
+ rowheight=18
+ [projectoptionsfo.newfile]
+ firsttab=0
+ index=0
+ [projectoptionsfo.fontaliasgrid]
+ propcolwidthref=386
+ width0=98
+ sortdescend0=0
+ width1=375
+ sortdescend1=0
+ width2=50
+ sortdescend2=0
+ width3=50
+ sortdescend3=0
+ width4=50
+ sortdescend4=0
+ width5=50
+ sortdescend5=0
+ width6=70
+ sortdescend6=0
+ [projectoptionsfo.macrosplitter]
+ x=0
+ y=121
+ xprop=1
+ yprop=0.24171539961014
+ [projectoptionsfo.macrogrid]
+ propcolwidthref=530
+ sortdescend0=0
+ sortdescend1=0
+ sortdescend2=0
+ sortdescend3=0
+ sortdescend4=0
+ sortdescend5=0
+ width6=146
+ sortdescend6=0
+ width7=518
+ sortdescend7=0
+ [projectoptionsfo.makeoptionsgrid]
+ propcolwidthref=619
+ values0=4
+  
+  
+  
+  
+ width0=57
+ sortdescend0=0
+ sortdescend1=0
+ sortdescend2=0
+ sortdescend3=0
+ sortdescend4=0
+ sortdescend5=0
+ sortdescend6=0
+ values7=4
+  -Xg -l -Mobjfpc -Sh -Fcutf8
+  -gl -O-
+  -B
+  -O2 -XX -Xs -CX
+ sortdescend7=0
+ [projectoptionsfo.makegroupbox]
+ firsttab=0
+ index=2
+ [projectoptionsfo.exceptionsgrid]
+ propcolwidthref=707
+ width0=47
+ sortdescend0=0
+ width1=701
+ sortdescend1=0
+ [projectoptionsfo.ttabwidget1]
+ firsttab=0
+ index=0
+ [projectoptionsfo.filefiltergrid]
+ propcolwidthref=615
+ width0=112
+ sortdescend0=0
+ width1=608
+ sortdescend1=0
+ [projectoptionsfo.ttabwidget2]
+ firsttab=0
+ index=0
+ [projectoptionsfo.ttabwidget3]
+ firsttab=0
+ index=0
+ [projectoptionsfo.tabwidget]
+ firsttab=0
+ index=2
+ [projectoptionsfo]
+ stackedunder=
+ x=28
+ y=159
+ cx=756
+ cy=568
 sourcefilemasks=3
  "*.pas" "*.dpr" "*.lpr" "*.pp" "*.inc"
  "*.c" "*.cc" "*.h"
@@ -123,7 +254,8 @@ mainfile=${PROJECTNAME}.pas
 targetfile=${PROJECTNAME}${EXEEXT}
 makecommand=${COMPILER}
 makedir=
-unitdirs=3
+unitdirs=4
+ ../../toolsskin
  ${MSEDIR}lib/addon/*/
  ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}*/
@@ -140,7 +272,11 @@ makeoptions=4
  -B
  -O2 -XX -Xs -CX
 reversepathorder=0
-makeoptpurpose=0
+makeoptpurpose=4
+ 
+ 
+ 
+ 
 befcommandon=0
 makeoptionson=4
  63
@@ -148,7 +284,8 @@ makeoptionson=4
  34
  32
 aftcommandon=0
-unitdirson=3
+unitdirson=4
+ 65599
  196671
  65599
  65599
@@ -286,6 +423,18 @@ newfonamebases=11
  form
  report
  script
+newfoformsuffixes=11
+ fo
+ fo
+ fo
+ fo
+ mo
+ fo
+ fo
+ fo
+ fo
+ re
+ sc
 newfosources=11
  ${TEMPLATEDIR}default/mainform.pas
  ${TEMPLATEDIR}default/simpleform.pas
@@ -530,10 +679,10 @@ windowlayout=548
  ny=0
  ncx=0
  ncy=0
- x=37
- y=270
- cx=349
- cy=276
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -569,7 +718,7 @@ windowlayout=548
  [disassfo]
  splitdir=0
  useroptions=805322859
- stackedunder=componentstorefo
+ stackedunder=breakpointsfo
  parent=
  mdistate=0
  nx=0
@@ -588,7 +737,7 @@ windowlayout=548
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=mainfo.panel1
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
@@ -686,7 +835,7 @@ windowlayout=548
  [breakpointsfo]
  splitdir=0
  useroptions=268451947
- stackedunder=projecttreefo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -949,7 +1098,7 @@ windowlayout=548
  irqoff=0
  splitdir=0
  useroptions=268451947
- stackedunder=disassfo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
