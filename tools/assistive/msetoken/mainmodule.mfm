@@ -1,6 +1,6 @@
 object mainmo: tmainmo
   bounds_cx = 336
-  bounds_cy = 266
+  bounds_cy = 539
   statfile = tstatfile1
   left = 95
   top = 277
@@ -9,21 +9,27 @@ object mainmo: tmainmo
     filename = '^/.msetools/msetoken.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*.sta'
-    left = 24
-    top = 128
+    left = 16
+    top = 408
   end
   object assistivehandler: tassistivehandler
     active = True
-    speaker.voices.count = 3
+    speaker.voices.count = 4
     speaker.voices.items = <    
       item
         gender = gen_male
       end    
       item
         gender = gen_female
+        punctuation = pu_all
       end    
       item
         gender = gen_female
+        punctuation = pu_all
+      end    
+      item
+        gender = gen_female
+        age = 80
         punctuation = pu_all
       end>
     speaker.language = 'de'
@@ -31,20 +37,18 @@ object mainmo: tmainmo
     speaker.rate = 1
     speaker.pitch = 1
     speaker.range = 1
-    voicetext = 1
-    voicetextedit = 2
+    voicetextreadonly = 3
     left = 16
     top = 64
   end
   object newtokenact: taction
     onexecute = newtokenev
-    left = 24
-    top = 152
+    left = 16
+    top = 432
   end
   object conn: tfb3connection
     DatabaseName = 'msetoken.fdb'
     Transaction = trans
-    controller.activator = tactivator1
     Password = 'masterkey'
     UserName = 'sysdba'
     left = 8
@@ -116,11 +120,16 @@ object mainmo: tmainmo
         Size = 10
       end    
       item
+        Name = 'DURATION'
+        DataType = ftFloat
+      end    
+      item
         Name = 'COMMENT'
         DataType = ftString
         Size = 1000
       end>
-    controller.fields.count = 8
+    controller.activator = tactivator1
+    controller.fields.count = 5
     controller.fields.fields = (
       (
         ft_largeint
@@ -128,81 +137,93 @@ object mainmo: tmainmo
         ft_datetime
         ft_string
         ft_string
-        ft_float
-        ft_string
-        ft_string
       )
       <      
         item
           FieldName = 'PK'
-          Index = 0
+          Index = 4
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
         end      
         item
           FieldName = 'TSCREATE'
-          Index = 1
+          Index = 5
           optionsfield = [of_visible, of_inwhere]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 2
+          Index = 6
           optionsfield = [of_visible, of_inwhere]
         end      
         item
           DisplayWidth = 40
           FieldName = 'NAME'
-          Index = 3
+          Index = 7
           optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-          Size = 40
-        end      
-        item
-          DisplayWidth = 80
-          FieldName = 'DESCRIPTION'
-          Index = 4
-          Size = 80
-        end      
-        item
-          FieldName = 'PRICE'
-          Index = 5
-          MaxValue = 0
-          MinValue = 0
-          Precision = -1
-        end      
-        item
-          DisplayWidth = 10
-          FieldName = 'UNIT'
-          Index = 6
-          Size = 10
+          Size = 0
         end      
         item
           DisplayWidth = 1000
           FieldName = 'COMMENT'
-          Index = 7
-          Size = 1000
+          Index = 8
+          Size = 0
         end>
     )
     left = 144
     top = 8
     streamingversion = 1
+    object objectsunit: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'UNIT'
+      Index = 0
+      left = 152
+      top = 40
+    end
+    object objectsprice: tmsefloatfield
+      FieldName = 'PRICE'
+      Index = 1
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      MaxValue = 0
+      MinValue = 0
+      left = 152
+      top = 56
+    end
+    object objectsdescription: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'DESCRIPTION'
+      Index = 2
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      left = 152
+      top = 72
+    end
+    object objectsduration: tmsefloatfield
+      FieldName = 'DURATION'
+      Index = 3
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      MaxValue = 0
+      MinValue = 0
+      left = 152
+      top = 88
+    end
   end
   object objectsact: taction
     onexecute = objectsev
-    left = 24
-    top = 168
+    left = 16
+    top = 448
   end
   object newobjectact: taction
     onexecute = newobjectev
-    left = 24
-    top = 184
+    left = 16
+    top = 464
   end
   object editobjectact: taction
     onexecute = editobjectev
-    left = 24
-    top = 200
+    left = 16
+    top = 480
   end
   object deleteobjectact: taction
     onexecute = deleteobjectev
-    left = 24
-    top = 216
+    left = 16
+    top = 496
   end
   object tactivator1: tactivator
     clients = 1
@@ -210,13 +231,222 @@ object mainmo: tmainmo
     left = 8
     top = 40
     clientnames = (
-      'mainmo.conn'
+      'mainmo.objectsqu'
     )
   end
   object trttistat1: trttistat
     statfile = tstatfile1
     ongetobject = getstatobjev
-    left = 120
-    top = 128
+    left = 112
+    top = 408
+  end
+  object tokenqu: tmsesqlquery
+    params = <>
+    SQL.data = (
+      'select * from tokens'
+    )
+    IndexDefs = <    
+      item
+        Name = 'FK_TOKENS_0'
+      end    
+      item
+        Name = 'IDX_TOKENS1'
+      end    
+      item
+        Name = 'PK_TOKENS_0'
+      end>
+    tablename = 'tokens'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'TSCREATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'TSMODIFY'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'NUMBER'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'ISSUEDATE'
+        DataType = ftDate
+      end    
+      item
+        Name = 'CUSTOMER'
+        DataType = ftString
+        Size = 80
+      end    
+      item
+        Name = 'RECIPIENT'
+        DataType = ftString
+        Size = 80
+      end    
+      item
+        Name = 'OBJECT'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'DESCRIPTION'
+        DataType = ftString
+        Size = 80
+      end    
+      item
+        Name = 'QUANTITY'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'UNIT'
+        DataType = ftString
+        Size = 10
+      end    
+      item
+        Name = 'VALUE'
+        DataType = ftBCD
+      end    
+      item
+        Name = 'DURATION'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'COMMENT'
+        DataType = ftString
+        Size = 1000
+      end>
+    controller.fields.count = 7
+    controller.fields.fields = (
+      (
+        ft_datetime
+        ft_datetime
+        ft_longint
+        ft_string
+        ft_string
+        ft_string
+        ft_largeint
+      )
+      <      
+        item
+          FieldName = 'TSCREATE'
+          Index = 6
+        end      
+        item
+          FieldName = 'TSMODIFY'
+          Index = 7
+        end      
+        item
+          FieldName = 'NUMBER'
+          Index = 8
+        end      
+        item
+          DisplayWidth = 80
+          FieldName = 'CUSTOMER'
+          Index = 9
+          Size = 80
+        end      
+        item
+          DisplayWidth = 80
+          FieldName = 'RECIPIENT'
+          Index = 10
+          Size = 80
+        end      
+        item
+          DisplayWidth = 1000
+          FieldName = 'COMMENT'
+          Index = 11
+          Size = 1000
+        end      
+        item
+          FieldName = 'PK'
+          Index = 12
+        end>
+    )
+    left = 144
+    top = 160
+    streamingversion = 1
+    object tokenobject: tmselargeintfield
+      FieldName = 'OBJECT'
+      Index = 0
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      OnChange = tokenobjectchangev
+      left = 152
+      top = 176
+    end
+    object tokenquantity: tmsefloatfield
+      FieldName = 'QUANTITY'
+      Index = 1
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      OnChange = tokenquantitiychangeev
+      MaxValue = 0
+      MinValue = 0
+      left = 152
+      top = 192
+    end
+    object tokenunit: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'UNIT'
+      Index = 2
+      left = 152
+      top = 208
+    end
+    object tokenvalue: tmsebcdfield
+      DisplayWidth = 15
+      FieldName = 'VALUE'
+      Index = 3
+      MaxValue = 0
+      MinValue = 0
+      left = 152
+      top = 224
+    end
+    object tokenduration: tmsefloatfield
+      FieldName = 'DURATION'
+      Index = 4
+      MaxValue = 0
+      MinValue = 0
+      left = 152
+      top = 240
+    end
+    object tokendescription: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'DESCRIPTION'
+      Index = 5
+      left = 152
+      top = 256
+    end
+    object tokenissuedate: tmsedatefield
+      FieldName = 'ISSUEDATE'
+      Index = 13
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      left = 152
+      top = 272
+    end
+  end
+  object newtokenprintandstoreact: taction
+    left = 144
+    top = 432
+  end
+  object newtokenprintact: taction
+    left = 144
+    top = 448
+  end
+  object newtokenstoreact: taction
+    left = 144
+    top = 464
+  end
+  object nowtokencloseact: taction
+    state = [as_disabled]
+    left = 144
+    top = 480
+  end
+  object objectsdso: tmsedatasource
+    DataSet = objectsqu
+    left = 144
+    top = 24
   end
 end

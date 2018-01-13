@@ -636,7 +636,7 @@ windowlayout=548
  [mainfo]
  splitdir=0
  useroptions=838860923
- stackedunder=
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -650,7 +650,7 @@ windowlayout=548
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -661,10 +661,10 @@ windowlayout=548
  ny=0
  ncx=0
  ncy=0
- x=209
- y=385
- cx=368
- cy=137
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -718,7 +718,7 @@ windowlayout=548
  [disassfo]
  splitdir=0
  useroptions=805322859
- stackedunder=breakpointsfo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -737,7 +737,7 @@ windowlayout=548
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=targetconsolefo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
@@ -835,7 +835,7 @@ windowlayout=548
  [breakpointsfo]
  splitdir=0
  useroptions=268451947
- stackedunder=mainfo.panel1
+ stackedunder=projecttreefo
  parent=
  mdistate=0
  nx=0
@@ -881,7 +881,7 @@ windowlayout=548
  [symbolfo]
  splitdir=0
  useroptions=805322875
- stackedunder=findinfilefo
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -977,7 +977,7 @@ windowlayout=548
  [componentstorefo]
  splitdir=0
  useroptions=805331067
- stackedunder=symbolfo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
@@ -1136,7 +1136,7 @@ windowlayout=548
  [mainfo.panel2]
  splitdir=2
  useroptions=838893035
- stackedunder=mainfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1150,7 +1150,7 @@ windowlayout=548
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
 [targetconsole]
 finddtext=

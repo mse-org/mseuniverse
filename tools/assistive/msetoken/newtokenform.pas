@@ -20,11 +20,28 @@ interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- msesimplewidgets,msestatfile;
+ msesimplewidgets,msestatfile,mdb,msedb,mseifiglob,mseact,msedataedits,
+ msedbedit,msedropdownlist,mseedit,msegraphedits,msegrids,mseificomp,
+ mseificompglob,mselookupbuffer,msescrollbar,msestream,sysutils,msedbdialog;
 type
  tnewtokenfo = class(tmseform)
    tbutton1: tbutton;
    tstatfile1: tstatfile;
+   dataso: tmsedatasource;
+   numberdisp: tdbintegeredit;
+   objected: tdbenum64editdb;
+   quantityed: tdbrealedit;
+   unitdisp: tdbstringedit;
+   valuedisp: tdbrealedit;
+   customered: tdbstringedit;
+   durationdisp: tdbrealedit;
+   recipiented: tdbstringedit;
+   commented: tdbmemodialogedit;
+   tbutton2: tbutton;
+   tbutton3: tbutton;
+   tbutton4: tbutton;
+   tbutton5: tbutton;
+   dateed: tdbdatetimeedit;
  end;
 implementation
 uses

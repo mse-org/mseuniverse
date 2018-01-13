@@ -86,7 +86,7 @@ object objectfo: tobjectfo
     reffontheight = 16
   end
   object descriptioned: tdbstringedit
-    frame.caption = 'Beschreibung'
+    frame.caption = 'Bezeichnung'
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -140,6 +140,29 @@ object objectfo: tobjectfo
     state = [as_localinvisible, as_localcaption]
     caption = 'abbrechen'
     modalresult = mr_cancel
+  end
+  object durationed: tdbrealedit
+    frame.caption = 'G'#252'ltig Jahre'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 216
+    bounds_y = 101
+    bounds_cx = 92
+    bounds_cy = 41
+    datalink.datasource = objectsdso
+    datalink.fieldname = 'DURATION'
+    valuemin = -Inf
+    valuemax = 1E+038
+    valuerange = 1
+    valuestart = 0
+    reffontheight = 16
   end
   object tstatfile1: tstatfile
     filename = 'object.sta'

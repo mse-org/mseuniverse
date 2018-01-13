@@ -27,9 +27,11 @@ inherited newobjectfo: tnewobjectfo
   inherited cancelbu: tbutton
     caption = 'Neue Leistung'#10'abbrechen'
   end
-  inherited objectsdso: tmsedatasource[7]
+  inherited durationed: tdbrealedit
   end
-  inherited tstatfile1: tstatfile[8]
+  inherited tstatfile1: tstatfile
     filename = 'newobject.sta'
+  end
+  inherited objectsdso: tmsedatasource
   end
 end

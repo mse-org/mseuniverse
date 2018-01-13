@@ -43,16 +43,36 @@ type
    deleteobjectact: taction;
    tactivator1: tactivator;
    trttistat1: trttistat;
+   tokenqu: tmsesqlquery;
+   newtokenprintandstoreact: taction;
+   newtokenprintact: taction;
+   newtokenstoreact: taction;
+   nowtokencloseact: taction;
+   objectsdso: tmsedatasource;
+   tokenobject: tmselargeintfield;
+   tokenunit: tmsestringfield;
+   tokenvalue: tmsebcdfield;
+   tokenduration: tmsefloatfield;
+   tokendescription: tmsestringfield;
+   objectsunit: tmsestringfield;
+   tokenquantity: tmsefloatfield;
+   objectsprice: tmsefloatfield;
+   objectsdescription: tmsestringfield;
+   objectsduration: tmsefloatfield;
+   tokenissuedate: tmsedatefield;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
    procedure editobjectev(const sender: TObject);
    procedure deleteobjectev(const sender: TObject);
    procedure getstatobjev(const sender: TObject; var aobject: TObject);
+   procedure tokenobjectchangev(Sender: TField);
+   procedure tokenquantitiychangeev(Sender: TField);
   private
    fopt: topt;
   protected
    function selectobject(const apk: int64): int64;
+   procedure updatetokenvalue();
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -65,7 +85,7 @@ var
 implementation
 uses
  msegui,mainmodule_mfm,newtokenform,objectsform,msewidgets,msestrings,
- newobjectform,selectobjectform,editobjectform,deleteobjectform;
+ newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr;
 
 resourcestring
  deletequestion = 'Wollen sie den Datensatz %0:S löschen?';
@@ -78,8 +98,23 @@ resourcestring
 
 procedure tmainmo.newtokenev(const sender: TObject);
 begin
- with tnewtokenfo.create(nil) do begin
-  show(ml_application);
+ tokenqu.open();
+ try
+  tokenqu.insert();
+  tokenissuedate.asdate:= now();
+  with tnewtokenfo.create(nil) do begin
+   try
+    case show(ml_application) of
+     mr_ok: begin
+//      objectsqu.post();
+     end;
+    end;
+   finally
+    destroy();
+   end;
+  end;
+ finally
+  tokenqu.cancel();
  end;
 end;
 
@@ -108,7 +143,6 @@ begin
   end;
  finally
   objectsqu.cancel();
-  objectsqu.close();
  end;
 end;
 
@@ -171,7 +205,6 @@ begin
   end;
  finally
   objectsqu.cancel();
-  objectsqu.close();
  end;
 end;
 
@@ -188,7 +221,7 @@ begin
     try
      case show(ml_application) of
       mr_ok: begin
-       if askyesno(format(rs(deletequestion),[nameed.value])) then begin
+       if askyesno(formatmse(rs(deletequestion),[nameed.value])) then begin
         objectsqu.delete();
        {
         with assistivehandler do begin
@@ -205,13 +238,44 @@ begin
   end;
  finally
   objectsqu.cancel();
-  objectsqu.close();
  end;
 end;
 
 procedure tmainmo.getstatobjev(const sender: TObject; var aobject: TObject);
 begin
  aobject:= fopt;
+end;
+
+procedure tmainmo.updatetokenvalue();
+var
+ bookmark1: bookmarkdataty;
+begin
+ if not tokenquantity.isnull then begin
+  if objectsqu.indexlocal[0].find([tokenobject],bookmark1) then begin
+   tokenvalue.asfloat:= 
+           objectsqu.currentbmasfloat[objectsprice,bookmark1] * 
+                                                    tokenquantity.asfloat;
+  end;
+ end
+ else begin
+  tokenvalue.clear;
+ end;
+end;
+
+procedure tmainmo.tokenobjectchangev(Sender: TField);
+var
+ bookmark1: bookmarkdataty;
+begin
+ if objectsqu.indexlocal[0].find([tokenobject],bookmark1) then begin
+  tokenunit.asmsestring:= objectsqu.currentbmasmsestring[objectsunit,bookmark1];
+  tokenduration.asfloat:= objectsqu.currentbmasfloat[objectsduration,bookmark1];
+  updatetokenvalue();
+ end;
+end;
+
+procedure tmainmo.tokenquantitiychangeev(Sender: TField);
+begin
+ updatetokenvalue();
 end;
 
 end.

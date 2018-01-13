@@ -34,6 +34,7 @@ type
    commented: tdbdialogstringedit;
    objectsdso: tmsedatasource;
    cancelbu: tbutton;
+   durationed: tdbrealedit;
  end;
 var
  objectfo: tobjectfo;

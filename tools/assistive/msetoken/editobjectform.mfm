@@ -28,9 +28,11 @@ inherited editobjectfo: teditobjectfo
   inherited cancelbu: tbutton
     caption = 'Leistung '#228'ndern'#10'abbrechen'
   end
-  inherited objectsdso: tmsedatasource[7]
+  inherited durationed: tdbrealedit
   end
-  inherited tstatfile1: tstatfile[8]
+  inherited tstatfile1: tstatfile
     filename = 'editobject.sta'
+  end
+  inherited objectsdso: tmsedatasource
   end
 end

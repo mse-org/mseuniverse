@@ -31,9 +31,11 @@ inherited deleteobjectfo: tdeleteobjectfo
   inherited cancelbu: tbutton
     caption = 'Abbrechen'
   end
-  inherited objectsdso: tmsedatasource[7]
-    readonly = True
+  inherited durationed: tdbrealedit
   end
-  inherited tstatfile1: tstatfile[8]
+  inherited tstatfile1: tstatfile
+  end
+  inherited objectsdso: tmsedatasource
+    readonly = True
   end
 end
