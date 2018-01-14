@@ -21,9 +21,10 @@ program msetoken;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif} 
- msegui,main,mainmodule,mseconsts,mseconsts_de,loadguitemplates;
+ msegui,main,mainmodule,mseconsts,mseconsts_de,loadguitemplates,mseformatstr;
 begin
  setlangconsts('de');
+ formatmacros.addmac('dateformat','dd.mm.yyy');
  application.createdatamodule(tmainmo,mainmo);
  application.createform(tmainfo,mainfo);
  application.run;

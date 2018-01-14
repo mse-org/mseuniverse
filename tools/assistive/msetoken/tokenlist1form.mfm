@@ -111,6 +111,8 @@ object tokenlist1fo: ttokenlist1fo
       datalink.fieldname = 'ISSUEDATE'
       valuemin = -Inf
       valuemax = 401768.99999
+      formatedit = '${dateformat}'
+      formatdisp = '${dateformat}'
       reffontheight = 16
     end
     object expirydateed: tdbdatetimeedit
@@ -126,6 +128,8 @@ object tokenlist1fo: ttokenlist1fo
       datalink.fieldname = 'EXPIRYDATE'
       valuemin = -Inf
       valuemax = 401768.99999
+      formatedit = '${dateformat}'
+      formatdisp = '${dateformat}'
       reffontheight = 16
     end
     object numbered: tdbintegeredit

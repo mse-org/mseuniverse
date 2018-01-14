@@ -306,8 +306,8 @@ object newtokenfo: tnewtokenfo
     datalink.fieldname = 'ISSUEDATE'
     valuemin = -Inf
     valuemax = 401768.99999
-    formatedit = 'dd.mm.yyyy'
-    formatdisp = 'dd.mm.yyyy'
+    formatedit = '${dateformat}'
+    formatdisp = '${dateformat}'
     reffontheight = 16
   end
   object tstatfile1: tstatfile
