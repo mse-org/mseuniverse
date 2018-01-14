@@ -42,8 +42,17 @@ type
    tbutton4: tbutton;
    tbutton5: tbutton;
    dateed: tdbdatetimeedit;
+   procedure closequeryev(const sender: tcustommseform;
+                   var amodalresult: modalresultty);
  end;
 implementation
 uses
- newtokenform_mfm;
+ newtokenform_mfm,mainmodule;
+ 
+procedure tnewtokenfo.closequeryev(const sender: tcustommseform;
+               var amodalresult: modalresultty);
+begin
+ mainmo.closequery(dataso,amodalresult);
+end;
+
 end.

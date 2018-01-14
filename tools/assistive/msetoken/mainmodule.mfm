@@ -142,7 +142,7 @@ object mainmo: tmainmo
         item
           FieldName = 'PK'
           Index = 4
-          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
         end      
         item
           FieldName = 'TSCREATE'
@@ -226,12 +226,13 @@ object mainmo: tmainmo
     top = 496
   end
   object tactivator1: tactivator
-    clients = 1
+    clients = 2
     options = [avo_activatedelayed, avo_handleexceptions, avo_quietexceptions]
     left = 8
     top = 40
     clientnames = (
       'mainmo.objectsqu'
+      'mainmo.numbersqu'
     )
   end
   object trttistat1: trttistat
@@ -240,7 +241,7 @@ object mainmo: tmainmo
     left = 112
     top = 408
   end
-  object tokenqu: tmsesqlquery
+  object tokensqu: tmsesqlquery
     params = <>
     SQL.data = (
       'select * from tokens'
@@ -320,111 +321,113 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 1000
       end>
-    controller.fields.count = 7
+    controller.fields.count = 6
     controller.fields.fields = (
       (
-        ft_datetime
-        ft_datetime
-        ft_longint
-        ft_string
-        ft_string
-        ft_string
         ft_largeint
+        ft_datetime
+        ft_datetime
+        ft_string
+        ft_string
+        ft_string
       )
       <      
         item
+          FieldName = 'PK'
+          Index = 0
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
+        end      
+        item
           FieldName = 'TSCREATE'
-          Index = 6
+          Index = 1
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 7
-        end      
-        item
-          FieldName = 'NUMBER'
-          Index = 8
+          Index = 2
         end      
         item
           DisplayWidth = 80
           FieldName = 'CUSTOMER'
-          Index = 9
+          Index = 3
           Size = 80
         end      
         item
           DisplayWidth = 80
           FieldName = 'RECIPIENT'
-          Index = 10
+          Index = 4
           Size = 80
         end      
         item
           DisplayWidth = 1000
           FieldName = 'COMMENT'
-          Index = 11
+          Index = 5
           Size = 1000
-        end      
-        item
-          FieldName = 'PK'
-          Index = 12
         end>
     )
     left = 144
-    top = 160
+    top = 120
     streamingversion = 1
-    object tokenobject: tmselargeintfield
+    object tokensobject: tmselargeintfield
       FieldName = 'OBJECT'
-      Index = 0
+      Index = 6
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = tokenobjectchangev
       left = 152
-      top = 176
+      top = 136
     end
-    object tokenquantity: tmsefloatfield
+    object tokensquantity: tmsefloatfield
       FieldName = 'QUANTITY'
-      Index = 1
+      Index = 7
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = tokenquantitiychangeev
       MaxValue = 0
       MinValue = 0
       left = 152
-      top = 192
+      top = 152
     end
-    object tokenunit: tmsestringfield
+    object tokensunit: tmsestringfield
       DisplayWidth = 20
       FieldName = 'UNIT'
-      Index = 2
+      Index = 8
       left = 152
-      top = 208
+      top = 168
     end
-    object tokenvalue: tmsebcdfield
+    object tokensvalue: tmsebcdfield
       DisplayWidth = 15
       FieldName = 'VALUE'
-      Index = 3
+      Index = 9
       MaxValue = 0
       MinValue = 0
       left = 152
-      top = 224
+      top = 184
     end
-    object tokenduration: tmsefloatfield
+    object tokensduration: tmsefloatfield
       FieldName = 'DURATION'
-      Index = 4
+      Index = 10
       MaxValue = 0
       MinValue = 0
       left = 152
-      top = 240
+      top = 200
     end
-    object tokendescription: tmsestringfield
+    object tokensdescription: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
-      Index = 5
+      Index = 11
       left = 152
-      top = 256
+      top = 216
     end
-    object tokenissuedate: tmsedatefield
+    object tokensissuedate: tmsedatefield
       FieldName = 'ISSUEDATE'
-      Index = 13
+      Index = 12
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       left = 152
-      top = 272
+      top = 232
+    end
+    object tokensnumber: tmselongintfield
+      FieldName = 'NUMBER'
+      Index = 13
+      left = 152
+      top = 248
     end
   end
   object newtokenprintandstoreact: taction
@@ -448,5 +451,60 @@ object mainmo: tmainmo
     DataSet = objectsqu
     left = 144
     top = 24
+  end
+  object numbersqu: tmsesqlquery
+    options = [bdo_cancelupdateonerror, bdo_autoapply, bdo_autoapplyexceptions, bdo_autocommitret]
+    params = <>
+    SQL.data = (
+      'select PK,NUMBER from NUMBERS;'
+    )
+    IndexDefs = <    
+      item
+        Name = 'IDX_NUMBERS1'
+      end    
+      item
+        Name = 'IDX_NUMBERS2'
+      end    
+      item
+        Name = 'PK_NUMBERS_0'
+      end>
+    tablename = 'NUMBERS'
+    database = conn
+    Transaction = trans
+    FieldDefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'NUMBER'
+        DataType = ftInteger
+      end>
+    controller.activator = tactivator1
+    controller.fields.count = 1
+    controller.fields.fields = (
+      (
+        ft_largeint
+      )
+      <      
+        item
+          FieldName = 'PK'
+          Index = 1
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
+        end>
+    )
+    left = 144
+    top = 304
+    streamingversion = 1
+    object numbersnumber: tmselongintfield
+      FieldName = 'NUMBER'
+      Index = 0
+      left = 152
+      top = 336
+    end
+  end
+  object numberdso: tmsedatasource
+    left = 144
+    top = 320
   end
 end

@@ -15,7 +15,7 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
 unit mainmodule;
-{$ifdef FPC}{$mode objfpc}{$h+}{$endif}
+{$ifdef FPC}{$mode objfpc}{$h+}{$goto on}{$endif}
 interface
 uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
@@ -26,8 +26,10 @@ type
  topt = class(toptions)
   private
    feditobjectpk: int64;
+   ftokenobjectpk: int64;
   published
    property editobjectpk: int64 read feditobjectpk write feditobjectpk;
+   property tokenobjectpk: int64 read ftokenobjectpk write ftokenobjectpk;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -43,23 +45,27 @@ type
    deleteobjectact: taction;
    tactivator1: tactivator;
    trttistat1: trttistat;
-   tokenqu: tmsesqlquery;
+   tokensqu: tmsesqlquery;
    newtokenprintandstoreact: taction;
    newtokenprintact: taction;
    newtokenstoreact: taction;
    nowtokencloseact: taction;
    objectsdso: tmsedatasource;
-   tokenobject: tmselargeintfield;
-   tokenunit: tmsestringfield;
-   tokenvalue: tmsebcdfield;
-   tokenduration: tmsefloatfield;
-   tokendescription: tmsestringfield;
+   tokensobject: tmselargeintfield;
+   tokensunit: tmsestringfield;
+   tokensvalue: tmsebcdfield;
+   tokensduration: tmsefloatfield;
+   tokensdescription: tmsestringfield;
    objectsunit: tmsestringfield;
-   tokenquantity: tmsefloatfield;
+   tokensquantity: tmsefloatfield;
    objectsprice: tmsefloatfield;
    objectsdescription: tmsestringfield;
    objectsduration: tmsefloatfield;
-   tokenissuedate: tmsedatefield;
+   tokensissuedate: tmsedatefield;
+   numbersqu: tmsesqlquery;
+   numbersnumber: tmselongintfield;
+   numberdso: tmsedatasource;
+   tokensnumber: tmselongintfield;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -70,6 +76,7 @@ type
    procedure tokenquantitiychangeev(Sender: TField);
   private
    fopt: topt;
+   ftokenused: boolean;
   protected
    function selectobject(const apk: int64): int64;
    procedure updatetokenvalue();
@@ -77,11 +84,13 @@ type
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
    property opt: topt read fopt;
+   procedure closequery(const adataso: tdatasource; 
+                                     var amodalres: modalresultty);
  end;
  
 var
  mainmo: tmainmo;
- 
+
 implementation
 uses
  msegui,mainmodule_mfm,newtokenform,objectsform,msewidgets,msestrings,
@@ -91,17 +100,54 @@ resourcestring
  deletequestion = 'Wollen sie den Datensatz %0:S löschen?';
  recorddeleted = 'Datensatz %0:S wurde gelöscht.';
  recordchanged = 'Datensatz %0:S wurde geändert.';
+ internalerror = 'Interner Fehler';
+ closewindowcancelrecordquestion = 
+                 'Wollen Sie den geänderten Datensatz verwerfen?';
 
 { topt }
 
 { tmainmo }
 
-procedure tmainmo.newtokenev(const sender: TObject);
+procedure showinternalerror();
 begin
- tokenqu.open();
+ showerror(rs(internalerror));
+ application.terminated:= true;
+end;
+
+procedure tmainmo.newtokenev(const sender: TObject);
+var
+ b1: boolean;
+begin
+ tokensqu.open();
  try
-  tokenqu.insert();
-  tokenissuedate.asdate:= now();
+  b1:= false;
+  ftokenused:= false;
+  repeat
+   try
+    numbersqu.insert();
+    numbersnumber.asinteger:= random(999);
+    numbersqu.post();
+    b1:= true;
+   except
+    on e: efberror do begin
+     if e.error <> -803 then begin //unique_key_violation
+      showinternalerror();
+      exit;
+     end;
+    end;
+    else begin
+     showinternalerror();
+     exit;
+    end;
+   end;
+  until b1;
+  tokensqu.insert();
+  tokensissuedate.asdate:= now();
+  tokensnumber.asinteger:= numbersnumber.asinteger;
+  if objectsqu.indexlocal[0].find([fopt.tokenobjectpk],[]) then begin
+   tokensobject.asid:= fopt.tokenobjectpk;
+  end;
+  tokensqu.resetmodified();
   with tnewtokenfo.create(nil) do begin
    try
     case show(ml_application) of
@@ -109,12 +155,16 @@ begin
 //      objectsqu.post();
      end;
     end;
+    if not ftokenused then begin
+     numbersqu.delete();
+    end;
+    fopt.tokenobjectpk:= tokensobject.asid;
    finally
     destroy();
    end;
   end;
  finally
-  tokenqu.cancel();
+  tokensqu.cancel();
  end;
 end;
 
@@ -174,6 +224,16 @@ destructor tmainmo.destroy();
 begin
  inherited;
  fopt.free();
+end;
+
+procedure tmainmo.closequery(const adataso: tdatasource;
+               var amodalres: modalresultty);
+begin
+ if adataso.dataset.modified then begin
+  if not askyesno(rs(closewindowcancelrecordquestion)) then begin
+   amodalres:= mr_none;
+  end;
+ end;
 end;
 
 procedure tmainmo.editobjectev(const sender: TObject);
@@ -250,15 +310,15 @@ procedure tmainmo.updatetokenvalue();
 var
  bookmark1: bookmarkdataty;
 begin
- if not tokenquantity.isnull then begin
-  if objectsqu.indexlocal[0].find([tokenobject],bookmark1) then begin
-   tokenvalue.asfloat:= 
+ if not tokensquantity.isnull then begin
+  if objectsqu.indexlocal[0].find([tokensobject],bookmark1) then begin
+   tokensvalue.asfloat:= 
            objectsqu.currentbmasfloat[objectsprice,bookmark1] * 
-                                                    tokenquantity.asfloat;
+                                                    tokensquantity.asfloat;
   end;
  end
  else begin
-  tokenvalue.clear;
+  tokensvalue.clear;
  end;
 end;
 
@@ -266,9 +326,9 @@ procedure tmainmo.tokenobjectchangev(Sender: TField);
 var
  bookmark1: bookmarkdataty;
 begin
- if objectsqu.indexlocal[0].find([tokenobject],bookmark1) then begin
-  tokenunit.asmsestring:= objectsqu.currentbmasmsestring[objectsunit,bookmark1];
-  tokenduration.asfloat:= objectsqu.currentbmasfloat[objectsduration,bookmark1];
+ if objectsqu.indexlocal[0].find([tokensobject],bookmark1) then begin
+  tokensunit.asmsestring:= objectsqu.currentbmasmsestring[objectsunit,bookmark1];
+  tokensduration.asfloat:= objectsqu.currentbmasfloat[objectsduration,bookmark1];
   updatetokenvalue();
  end;
 end;
@@ -278,4 +338,6 @@ begin
  updatetokenvalue();
 end;
 
+initialization
+ randomize();
 end.
