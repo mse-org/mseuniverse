@@ -20,16 +20,40 @@ interface
 uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
  mseassistivehandler,mseactions,msedatabase,msefb3connection,msqldb,sysutils,
- mdb,msebufdataset,msedb,mseifiglob,msesqldb,mserttistat,mclasses;
+ mdb,msebufdataset,msedb,mseifiglob,msesqldb,mserttistat,mclasses,tokenlistform;
 
 type
  topt = class(toptions)
   private
    feditobjectpk: int64;
    ftokenobjectpk: int64;
+   ftokensortnumber: boolean;
+   ftokensortissuedate: boolean;
+   ftokensortexpirydate: boolean;
+   ftokensortquantity: boolean;
+   ftokensortunit: boolean;
+   ftokensortvalue: boolean;
+   ftokensortdescription: boolean;
+   ftokensortdesc: boolean;
   published
    property editobjectpk: int64 read feditobjectpk write feditobjectpk;
    property tokenobjectpk: int64 read ftokenobjectpk write ftokenobjectpk;
+   property tokensortissuedate: boolean read ftokensortissuedate
+                                                    write ftokensortissuedate;
+   property tokensortexpirydate: boolean read ftokensortexpirydate
+                                                    write ftokensortexpirydate;
+   property tokensortnumber: boolean read ftokensortnumber
+                                                    write ftokensortnumber;
+   property tokensortquantity: boolean read ftokensortquantity
+                                                    write ftokensortquantity;
+   property tokensortunit: boolean read ftokensortunit
+                                                    write ftokensortunit;
+   property tokensortvalue: boolean read ftokensortvalue
+                                                    write ftokensortvalue;
+   property tokensortdescription: boolean read ftokensortdescription
+                                                    write ftokensortdescription;
+   property tokensortdesc: boolean read ftokensortdesc
+                                                    write ftokensortdesc;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -66,6 +90,9 @@ type
    numbersnumber: tmselongintfield;
    numberdso: tmsedatasource;
    tokensnumber: tmselongintfield;
+   tokenlistact: taction;
+   tokenlistshowact: taction;
+   tokensexpirydate: tmsedatefield;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -74,9 +101,15 @@ type
    procedure getstatobjev(const sender: TObject; var aobject: TObject);
    procedure tokenobjectchangev(Sender: TField);
    procedure tokenquantitiychangeev(Sender: TField);
+   procedure tokenstoreev(const sender: TObject);
+   procedure tokenlistshowev(const sender: TObject; var accept: Boolean);
+   procedure tokenlistev(const sender: TObject; var accept: Boolean);
+   procedure updateexpirydateev(Sender: TField);
   private
    fopt: topt;
    ftokenused: boolean;
+   ftokenlistfo: ttokenlistfo;
+
   protected
    function selectobject(const apk: int64): int64;
    procedure updatetokenvalue();
@@ -94,7 +127,8 @@ var
 implementation
 uses
  msegui,mainmodule_mfm,newtokenform,objectsform,msewidgets,msestrings,
- newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr;
+ newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr,
+ tokenlist1form,dateutils,msegraphedits;
 
 resourcestring
  deletequestion = 'Wollen sie den Datensatz %0:S löschen?';
@@ -337,6 +371,62 @@ procedure tmainmo.tokenquantitiychangeev(Sender: TField);
 begin
  updatetokenvalue();
 end;
+
+procedure tmainmo.tokenstoreev(const sender: TObject);
+begin
+ tokensqu.post();
+end;
+
+procedure tmainmo.tokenlistshowev(const sender: TObject; var accept: Boolean);
+var
+ w1: tcustombooleaneditradio;
+begin
+ with ttokenlist1fo.create(nil) do begin
+  try
+   w1:= ftokenlistfo.tokensortissuedate.checkeditem;
+   if w1 <> nil then begin
+    with grid.datacols[w1.tag] do begin
+     sortdescend:= ftokenlistfo.tokensortdesc.value;
+    end;
+    grid.datacols.sortcol:= w1.tag;
+   end;
+   show(ml_application);
+  finally
+   destroy();
+  end;
+ end;
+end;
+
+procedure tmainmo.tokenlistev(const sender: TObject; var accept: Boolean);
+begin
+ ftokenlistfo:= ttokenlistfo.create(nil); 
+ with ftokenlistfo do begin
+  try
+   fopt.loadvalues(ftokenlistfo);
+   show(ml_application);
+   fopt.storevalues(ftokenlistfo);
+  finally
+   destroy();
+  end;
+ end;
+end;
+
+procedure tmainmo.updateexpirydateev(Sender: TField);
+var
+ flo1: flo64;
+begin
+ if not tokensissuedate.isnull and not tokensduration.isnull then begin
+  flo1:= tokensduration.asfloat;
+  if frac(flo1) = 0 then begin
+   tokensexpirydate.asdatetime:= incyear(tokensissuedate.asdate,round(flo1));
+  end
+  else begin
+   tokensexpirydate.asdate:= tokensissuedate.asdate+365*flo1;
+  end;
+ end;
+end;
+
+{ topt }
 
 initialization
  randomize();

@@ -60,6 +60,7 @@ object mainfo: tmainfo
     bounds_cx = 114
     bounds_cy = 22
     state = [as_localcaption]
+    action = mainmo.tokenlistact
     caption = 'Gutschein Liste'
   end
   object tstatfile1: tstatfile

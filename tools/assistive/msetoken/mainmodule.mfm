@@ -10,7 +10,7 @@ object mainmo: tmainmo
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*.sta'
     left = 16
-    top = 408
+    top = 328
   end
   object assistivehandler: tassistivehandler
     active = True
@@ -44,7 +44,7 @@ object mainmo: tmainmo
   object newtokenact: taction
     onexecute = newtokenev
     left = 16
-    top = 432
+    top = 352
   end
   object conn: tfb3connection
     DatabaseName = 'msetoken.fdb'
@@ -141,30 +141,30 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'PK'
-          Index = 4
+          Index = 0
           optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
         end      
         item
           FieldName = 'TSCREATE'
-          Index = 5
+          Index = 1
           optionsfield = [of_visible, of_inwhere]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 6
+          Index = 2
           optionsfield = [of_visible, of_inwhere]
         end      
         item
           DisplayWidth = 40
           FieldName = 'NAME'
-          Index = 7
+          Index = 3
           optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
           Size = 0
         end      
         item
           DisplayWidth = 1000
           FieldName = 'COMMENT'
-          Index = 8
+          Index = 4
           Size = 0
         end>
     )
@@ -174,13 +174,13 @@ object mainmo: tmainmo
     object objectsunit: tmsestringfield
       DisplayWidth = 20
       FieldName = 'UNIT'
-      Index = 0
+      Index = 5
       left = 152
       top = 40
     end
     object objectsprice: tmsefloatfield
       FieldName = 'PRICE'
-      Index = 1
+      Index = 6
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
@@ -190,14 +190,14 @@ object mainmo: tmainmo
     object objectsdescription: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
-      Index = 2
+      Index = 7
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       left = 152
       top = 72
     end
     object objectsduration: tmsefloatfield
       FieldName = 'DURATION'
-      Index = 3
+      Index = 8
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
@@ -208,40 +208,85 @@ object mainmo: tmainmo
   object objectsact: taction
     onexecute = objectsev
     left = 16
-    top = 448
+    top = 368
   end
   object newobjectact: taction
     onexecute = newobjectev
     left = 16
-    top = 464
+    top = 384
   end
   object editobjectact: taction
     onexecute = editobjectev
     left = 16
-    top = 480
+    top = 400
   end
   object deleteobjectact: taction
     onexecute = deleteobjectev
     left = 16
-    top = 496
+    top = 416
   end
   object tactivator1: tactivator
-    clients = 2
+    clients = 3
     options = [avo_activatedelayed, avo_handleexceptions, avo_quietexceptions]
     left = 8
     top = 40
     clientnames = (
-      'mainmo.objectsqu'
       'mainmo.numbersqu'
+      'mainmo.objectsqu'
+      'mainmo.tokensqu'
     )
   end
   object trttistat1: trttistat
     statfile = tstatfile1
     ongetobject = getstatobjev
     left = 112
-    top = 408
+    top = 328
   end
   object tokensqu: tmsesqlquery
+    indexlocal.count = 7
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'ISSUEDATE'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'EXPIRYDATE'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'NUMBER'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'QUANTITY'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'UNIT'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'VALUE'
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'DESCRIPTION'
+          end>
+      end>
     params = <>
     SQL.data = (
       'select * from tokens'
@@ -320,7 +365,12 @@ object mainmo: tmainmo
         Name = 'COMMENT'
         DataType = ftString
         Size = 1000
+      end    
+      item
+        Name = 'EXPIRYDATE'
+        DataType = ftDate
       end>
+    controller.activator = tactivator1
     controller.fields.count = 6
     controller.fields.fields = (
       (
@@ -335,7 +385,7 @@ object mainmo: tmainmo
         item
           FieldName = 'PK'
           Index = 0
-          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
+          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
         end      
         item
           FieldName = 'TSCREATE'
@@ -349,31 +399,31 @@ object mainmo: tmainmo
           DisplayWidth = 80
           FieldName = 'CUSTOMER'
           Index = 3
-          Size = 80
+          Size = 0
         end      
         item
           DisplayWidth = 80
           FieldName = 'RECIPIENT'
           Index = 4
-          Size = 80
+          Size = 0
         end      
         item
           DisplayWidth = 1000
           FieldName = 'COMMENT'
           Index = 5
-          Size = 1000
+          Size = 0
         end>
     )
-    left = 144
-    top = 120
+    left = 16
+    top = 128
     streamingversion = 1
     object tokensobject: tmselargeintfield
       FieldName = 'OBJECT'
       Index = 6
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = tokenobjectchangev
-      left = 152
-      top = 136
+      left = 24
+      top = 144
     end
     object tokensquantity: tmsefloatfield
       FieldName = 'QUANTITY'
@@ -382,15 +432,16 @@ object mainmo: tmainmo
       OnChange = tokenquantitiychangeev
       MaxValue = 0
       MinValue = 0
-      left = 152
-      top = 152
+      left = 24
+      top = 160
     end
     object tokensunit: tmsestringfield
       DisplayWidth = 20
       FieldName = 'UNIT'
       Index = 8
-      left = 152
-      top = 168
+      Size = 0
+      left = 24
+      top = 176
     end
     object tokensvalue: tmsebcdfield
       DisplayWidth = 15
@@ -398,54 +449,64 @@ object mainmo: tmainmo
       Index = 9
       MaxValue = 0
       MinValue = 0
-      left = 152
-      top = 184
+      left = 24
+      top = 192
     end
     object tokensduration: tmsefloatfield
       FieldName = 'DURATION'
       Index = 10
+      OnChange = updateexpirydateev
       MaxValue = 0
       MinValue = 0
-      left = 152
-      top = 200
+      left = 24
+      top = 208
     end
     object tokensdescription: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
       Index = 11
-      left = 152
-      top = 216
+      Size = 0
+      left = 24
+      top = 224
     end
     object tokensissuedate: tmsedatefield
       FieldName = 'ISSUEDATE'
       Index = 12
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      left = 152
-      top = 232
+      OnChange = updateexpirydateev
+      left = 24
+      top = 240
     end
     object tokensnumber: tmselongintfield
       FieldName = 'NUMBER'
       Index = 13
-      left = 152
-      top = 248
+      left = 24
+      top = 272
+    end
+    object tokensexpirydate: tmsedatefield
+      FieldName = 'EXPIRYDATE'
+      Index = 14
+      left = 24
+      top = 256
     end
   end
   object newtokenprintandstoreact: taction
     left = 144
-    top = 432
+    top = 352
   end
   object newtokenprintact: taction
     left = 144
-    top = 448
+    top = 368
   end
   object newtokenstoreact: taction
+    onexecute = tokenstoreev
     left = 144
-    top = 464
+    top = 384
   end
   object nowtokencloseact: taction
     state = [as_disabled]
     left = 144
-    top = 480
+    top = 400
   end
   object objectsdso: tmsedatasource
     DataSet = objectsqu
@@ -489,22 +550,32 @@ object mainmo: tmainmo
       <      
         item
           FieldName = 'PK'
-          Index = 1
+          Index = 0
           optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
         end>
     )
-    left = 144
-    top = 304
+    left = 152
+    top = 128
     streamingversion = 1
     object numbersnumber: tmselongintfield
       FieldName = 'NUMBER'
-      Index = 0
-      left = 152
-      top = 336
+      Index = 1
+      left = 160
+      top = 160
     end
   end
   object numberdso: tmsedatasource
+    left = 152
+    top = 144
+  end
+  object tokenlistact: taction
+    onbeforeexecute = tokenlistev
+    left = 16
+    top = 440
+  end
+  object tokenlistshowact: taction
+    onbeforeexecute = tokenlistshowev
     left = 144
-    top = 320
+    top = 440
   end
 end

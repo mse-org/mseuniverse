@@ -1,0 +1,177 @@
+object tokenlistfo: ttokenlistfo
+  bounds_x = 319
+  bounds_y = 415
+  bounds_cx = 578
+  bounds_cy = 201
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    578
+    201
+  )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Gutscheine'
+  moduleclassname = 'tmseform'
+  object tbutton1: tbutton
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 154
+    bounds_cy = 22
+    state = [as_localcaption]
+    action = mainmo.tokenlistshowact
+    caption = 'Gutscheinliste '#246'ffnen'
+  end
+  object tbutton2: tbutton
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 40
+    bounds_cx = 154
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'Beenden'
+    modalresult = mr_windowclosed
+  end
+  object tokensortnumber: tbooleaneditradio
+    Tag = 2
+    frame.caption = 'Sortieren nach Nummer'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      132
+      3
+    )
+    taborder = 2
+    bounds_x = 176
+    bounds_y = 62
+    bounds_cx = 145
+    bounds_cy = 18
+  end
+  object tokensortissuedate: tbooleaneditradio
+    frame.caption = 'Sortieren nach Ausgabe-Datum'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      172
+      3
+    )
+    taborder = 3
+    bounds_x = 176
+    bounds_y = 14
+    bounds_cx = 185
+    bounds_cy = 18
+  end
+  object tokensortexpirydate: tbooleaneditradio
+    Tag = 1
+    frame.caption = 'Sortieren nach Verfall-Datum'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      159
+      3
+    )
+    taborder = 4
+    bounds_x = 176
+    bounds_y = 38
+    bounds_cx = 172
+    bounds_cy = 18
+  end
+  object tokensortquantity: tbooleaneditradio
+    Tag = 3
+    frame.caption = 'Sortieren nach Menge'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      120
+      3
+    )
+    taborder = 5
+    bounds_x = 176
+    bounds_y = 86
+    bounds_cx = 133
+    bounds_cy = 18
+  end
+  object tokensortunit: tbooleaneditradio
+    Tag = 4
+    frame.caption = 'Sortieren nach Einheit'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      121
+      3
+    )
+    taborder = 6
+    bounds_x = 176
+    bounds_y = 110
+    bounds_cx = 134
+    bounds_cy = 18
+  end
+  object tokensortvalue: tbooleaneditradio
+    Tag = 5
+    frame.caption = 'Sortieren nach Betrag'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      119
+      3
+    )
+    taborder = 7
+    bounds_x = 176
+    bounds_y = 134
+    bounds_cx = 132
+    bounds_cy = 18
+  end
+  object tokensortdescription: tbooleaneditradio
+    Tag = 6
+    frame.caption = 'Sortieren nach Bezeichnung'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      153
+      3
+    )
+    taborder = 8
+    bounds_x = 176
+    bounds_y = 158
+    bounds_cx = 166
+    bounds_cy = 18
+  end
+  object tokensortdesc: tbooleanedit
+    frame.caption = 'Absteigend sortieren'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      114
+      3
+    )
+    taborder = 9
+    bounds_x = 376
+    bounds_y = 14
+    bounds_cx = 127
+    bounds_cy = 18
+  end
+  object tstatfile1: tstatfile
+    filename = 'tokenlist1.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 48
+    top = 72
+  end
+end
