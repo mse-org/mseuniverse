@@ -263,7 +263,7 @@ end;
 procedure tmainmo.closequery(const adataso: tdatasource;
                var amodalres: modalresultty);
 begin
- if adataso.dataset.modified then begin
+ if (amodalres <> mr_ok) and adataso.dataset.modified then begin
   if not askyesno(rs(closewindowcancelrecordquestion)) then begin
    amodalres:= mr_none;
   end;
@@ -390,6 +390,7 @@ begin
     end;
     grid.datacols.sortcol:= w1.tag;
    end;
+   tokensqu.first();
    show(ml_application);
   finally
    destroy();

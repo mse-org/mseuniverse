@@ -21,7 +21,6 @@ object mainmo: tmainmo
       end    
       item
         gender = gen_female
-        punctuation = pu_all
       end    
       item
         gender = gen_female
@@ -37,7 +36,7 @@ object mainmo: tmainmo
     speaker.rate = 1
     speaker.pitch = 1
     speaker.range = 1
-    voicetextreadonly = 3
+    voicetexteditreadonly = 3
     left = 16
     top = 64
   end
@@ -232,8 +231,8 @@ object mainmo: tmainmo
     top = 40
     clientnames = (
       'mainmo.numbersqu'
-      'mainmo.objectsqu'
       'mainmo.tokensqu'
+      'mainmo.objectsqu'
     )
   end
   object trttistat1: trttistat

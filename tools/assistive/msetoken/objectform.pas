@@ -32,13 +32,22 @@ type
    united: tdbstringedit;
    descriptioned: tdbstringedit;
    commented: tdbdialogstringedit;
-   objectsdso: tmsedatasource;
+   dataso: tmsedatasource;
    cancelbu: tbutton;
    durationed: tdbrealedit;
+   procedure closequeryev(const sender: tcustommseform;
+                   var amodalresult: modalresultty);
  end;
 var
  objectfo: tobjectfo;
 implementation
 uses
- objectform_mfm;
+ objectform_mfm,mainmodule;
+ 
+procedure tobjectfo.closequeryev(const sender: tcustommseform;
+               var amodalresult: modalresultty);
+begin
+ mainmo.closequery(dataso,amodalresult);
+end;
+
 end.

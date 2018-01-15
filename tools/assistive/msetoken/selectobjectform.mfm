@@ -1,8 +1,9 @@
 inherited selectobjectfo: tselectobjectfo
+  bounds_x = 337
   container.bounds = (
     0
     0
-    327
+    299
     105
   )
   moduleclassname = 'tselectrecordfo'
@@ -10,12 +11,17 @@ inherited selectobjectfo: tselectobjectfo
     frame.buttons.items = <    
       item
       end>
+    bounds_cx = 271
     dropdown.cols.items = <    
       item
         datafield = 'NAME'
       end>
   end
   inherited tbutton1: tbutton
+    bounds_cx = 127
+  end
+  inherited tbutton2: tbutton
+    bounds_cx = 127
   end
   inherited dataso: tmsedatasource
   end

@@ -32,6 +32,6 @@ inherited newobjectfo: tnewobjectfo
   inherited tstatfile1: tstatfile
     filename = 'newobject.sta'
   end
-  inherited objectsdso: tmsedatasource
+  inherited dataso: tmsedatasource
   end
 end

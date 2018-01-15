@@ -37,11 +37,11 @@ object tokenlist1fo: ttokenlist1fo
         captions.count = 8
         captions.items = <        
           item
-            caption = 'Ausgabedatum'
+            caption = 'Ausgabe-Datum'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
-            caption = 'Verfalldatum'
+            caption = 'Verfall-Datum'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item

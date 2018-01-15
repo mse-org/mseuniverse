@@ -35,7 +35,7 @@ inherited deleteobjectfo: tdeleteobjectfo
   end
   inherited tstatfile1: tstatfile
   end
-  inherited objectsdso: tmsedatasource
+  inherited dataso: tmsedatasource
     readonly = True
   end
 end

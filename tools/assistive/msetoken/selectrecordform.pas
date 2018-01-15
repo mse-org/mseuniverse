@@ -28,6 +28,7 @@ type
    dataso: tmsedatasource;
    selector: tenum64editdb;
    tbutton1: tbutton;
+   tbutton2: tbutton;
    procedure datentev(const sender: TObject);
  end;
 

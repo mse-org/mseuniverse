@@ -13,6 +13,7 @@ object objectfo: tobjectfo
   )
   options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
+  onclosequery = closequeryev
   moduleclassname = 'tmseform'
   object finibu: tbutton
     taborder = 5
@@ -39,8 +40,8 @@ object objectfo: tobjectfo
     bounds_cx = 300
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
-    datalink.datasource = objectsdso
+    optionsedit = [oe_undoonesc, oe_closequery, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
+    datalink.datasource = dataso
     datalink.fieldname = 'NAME'
     datalink.options = [oed_nullcheckifunmodified]
     reffontheight = 16
@@ -59,7 +60,8 @@ object objectfo: tobjectfo
     bounds_x = 8
     bounds_y = 101
     bounds_cy = 41
-    datalink.datasource = objectsdso
+    optionsedit = [oe_undoonesc, oe_closequery, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = dataso
     datalink.fieldname = 'PRICE'
     valuemin = -Inf
     valuemax = 1E+038
@@ -81,7 +83,8 @@ object objectfo: tobjectfo
     bounds_x = 112
     bounds_y = 101
     bounds_cy = 41
-    datalink.datasource = objectsdso
+    optionsedit = [oe_undoonesc, oe_closequery, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = dataso
     datalink.fieldname = 'UNIT'
     reffontheight = 16
   end
@@ -101,7 +104,8 @@ object objectfo: tobjectfo
     bounds_cx = 300
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
-    datalink.datasource = objectsdso
+    optionsedit = [oe_undoonesc, oe_closequery, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = dataso
     datalink.fieldname = 'DESCRIPTION'
     reffontheight = 16
   end
@@ -127,7 +131,8 @@ object objectfo: tobjectfo
     bounds_cx = 300
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
-    datalink.datasource = objectsdso
+    optionsedit = [oe_undoonesc, oe_closequery, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = dataso
     datalink.fieldname = 'COMMENT'
     reffontheight = 16
   end
@@ -156,7 +161,8 @@ object objectfo: tobjectfo
     bounds_y = 101
     bounds_cx = 92
     bounds_cy = 41
-    datalink.datasource = objectsdso
+    optionsedit = [oe_undoonesc, oe_closequery, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = dataso
     datalink.fieldname = 'DURATION'
     valuemin = -Inf
     valuemax = 1E+038
@@ -170,7 +176,7 @@ object objectfo: tobjectfo
     left = 88
     top = 8
   end
-  object objectsdso: tmsedatasource
+  object dataso: tmsedatasource
     DataSet = mainmo.objectsqu
     left = 208
     top = 8
