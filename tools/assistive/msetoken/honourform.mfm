@@ -1,0 +1,366 @@
+object honourfo: thonourfo
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 461
+  bounds_cy = 376
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    461
+    376
+  )
+  ifilink = mainmo.honourform
+  options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Gutschein einl'#246'sen'
+  moduleclassname = 'tmseform'
+  object honourbu: tbutton
+    taborder = 12
+    bounds_x = 8
+    bounds_y = 344
+    bounds_cx = 82
+    bounds_cy = 22
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_noassistivedisabled]
+    state = [as_disabled, as_localcaption]
+    action = mainmo.honourtokenfinishact
+    caption = 'Einl'#246'sen'
+    modalresult = mr_ok
+  end
+  object tbutton2: tbutton
+    taborder = 13
+    bounds_x = 96
+    bounds_y = 344
+    bounds_cx = 82
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'Abbrechen'
+    modalresult = mr_cancel
+  end
+  object checkdisp: tstringedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Kontrolle'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 53
+    bounds_cx = 444
+    bounds_cy = 41
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    ifilink = mainmo.honourcheck
+    reffontheight = 16
+  end
+  object numbered: tenum64editdb
+    frame.caption = 'Nummer'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 5
+    bounds_cx = 132
+    bounds_cy = 41
+    statfile = tstatfile1
+    optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+    ifilink = mainmo.honournumber
+    dropdown.datasource = mainmo.honourdso
+    dropdown.keyfield = 'PK'
+    dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_colsizing, deo_savestate]
+    dropdown.optionsdb = [odb_directdata]
+    dropdown.cols.count = 2
+    dropdown.cols.options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect, co_savestate]
+    dropdown.cols.items = <    
+      item
+        options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect, co_savestate]
+        linewidth = 1
+        caption = 'Nummer'
+        datafield = 'NUMBERTEXT'
+      end    
+      item
+        options = [co_readonly, co_mousemovefocus, co_focusselect, co_rowselect, co_savestate]
+        width = 150
+        linewidth = 1
+        caption = 'Empf'#228'ngerin'
+        datafield = 'RECIPIENT'
+      end>
+    dropdown.width = -1
+    valuedefault = -1
+    reffontheight = 16
+  end
+  object recipientdisp: tdbstringedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Empf'#228'ngerin'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 9
+    bounds_x = 8
+    bounds_y = 197
+    bounds_cx = 444
+    bounds_cy = 41
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = mainmo.honourdispdso
+    datalink.fieldname = 'RECIPIENT'
+    reffontheight = 16
+  end
+  object quantitydisp: tdbrealedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Menge'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 8
+    bounds_y = 149
+    bounds_cx = 76
+    bounds_cy = 41
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = mainmo.honourdispdso
+    datalink.fieldname = 'QUANTITY'
+    valuemin = -Inf
+    valuemax = 1E+038
+    valuerange = 1
+    valuestart = 0
+    reffontheight = 16
+  end
+  object valuedisp: tdbrealedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Betrag'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 8
+    bounds_x = 168
+    bounds_y = 149
+    bounds_cx = 76
+    bounds_cy = 41
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = mainmo.honourdispdso
+    datalink.fieldname = 'VALUE'
+    valuemin = -Inf
+    valuemax = 1E+038
+    formatedit = '0.00'
+    formatdisp = '0.00'
+    valuerange = 1
+    valuestart = 0
+    reffontheight = 16
+  end
+  object expyirydatedisp: tdbdatetimeedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Verfall-Datum'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 248
+    bounds_y = 5
+    bounds_cy = 41
+    datalink.datasource = mainmo.honourdispdso
+    datalink.fieldname = 'EXPIRYDATE'
+    valuemin = 36526
+    valuemax = 401768.99999
+    formatedit = '${dateformat}'
+    formatdisp = '${dateformat}'
+    options = [dteo_showlocal]
+    reffontheight = 16
+  end
+  object isuedatedisp: tdbdatetimeedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Ausgabe-Datum'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 352
+    bounds_y = 5
+    bounds_cy = 41
+    datalink.datasource = mainmo.honourdispdso
+    datalink.fieldname = 'ISSUEDATE'
+    valuemin = 36526
+    valuemax = 401768.99999
+    formatedit = '${dateformat}'
+    formatdisp = '${dateformat}'
+    options = [dteo_showlocal]
+    reffontheight = 16
+  end
+  object honourdateed: tdatetimeedit
+    frame.caption = 'Einl'#246'se-Datum'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 144
+    bounds_y = 5
+    bounds_cy = 41
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
+    value = -Inf
+    valuedefault = -Inf
+    formatedit = '${dateformat}'
+    formatdisp = '${dateformat}'
+    valuemin = -Inf
+    valuemax = 401768.99999
+    options = [dteo_showlocal]
+    ifilink = mainmo.honourdate
+    reffontheight = 16
+  end
+  object descriptiondisp: tdbstringedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Leistung'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 8
+    bounds_y = 101
+    bounds_cx = 444
+    bounds_cy = 41
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = mainmo.honourdispdso
+    datalink.fieldname = 'DESCRIPTION'
+    reffontheight = 16
+  end
+  object customerdisp: tdbstringedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Kundin'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 10
+    bounds_x = 8
+    bounds_y = 245
+    bounds_cx = 444
+    bounds_cy = 41
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = mainmo.honourdispdso
+    datalink.fieldname = 'CUSTOMER'
+    reffontheight = 16
+  end
+  object commentdisp: tdbmemodialogedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Bemerkung'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        imagenr = 17
+        options = [fbo_disabled]
+      end>
+    frame.button.imagenr = 17
+    frame.button.options = [fbo_disabled]
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 11
+    bounds_x = 8
+    bounds_y = 293
+    bounds_cx = 444
+    bounds_cy = 41
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = mainmo.honourdispdso
+    datalink.fieldname = 'COMMENT'
+    reffontheight = 16
+  end
+  object unitydisp: tdbstringedit
+    frame.levelo = -1
+    frame.colorclient = -1879048185
+    frame.caption = 'Einheit'
+    frame.localprops = [frl_levelo, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 88
+    bounds_y = 149
+    bounds_cx = 76
+    bounds_cy = 41
+    optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    datalink.datasource = mainmo.honourdispdso
+    datalink.fieldname = 'UNIT'
+    reffontheight = 16
+  end
+  object tstatfile1: tstatfile
+    filename = 'honourfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 16
+    top = 120
+  end
+end

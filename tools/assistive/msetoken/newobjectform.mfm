@@ -1,0 +1,37 @@
+inherited newobjectfo: tnewobjectfo
+  bounds_y = 581
+  container.bounds = (
+    0
+    0
+    315
+    282
+  )
+  caption = 'Neue Leistung'
+  moduleclassname = 'tobjectfo'
+  inherited finibu: tbutton
+    caption = 'Neue Leistung'#10'eintragen'
+  end
+  inherited nameed: tdbstringedit
+  end
+  inherited priceed: tdbrealedit
+  end
+  inherited united: tdbstringedit
+  end
+  inherited descriptioned: tdbstringedit
+  end
+  inherited commented: tdbdialogstringedit
+    frame.buttons.items = <    
+      item
+      end>
+  end
+  inherited cancelbu: tbutton
+    caption = 'Neue Leistung'#10'abbrechen'
+  end
+  inherited durationed: tdbrealedit
+  end
+  inherited tstatfile1: tstatfile
+    filename = 'newobject.sta'
+  end
+  inherited dataso: tmsedatasource
+  end
+end

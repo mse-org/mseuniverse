@@ -1,0 +1,45 @@
+inherited editobjectfo: teditobjectfo
+  container.bounds = (
+    0
+    0
+    315
+    282
+  )
+  caption = 'Leistung '#228'ndern'
+  moduleclassname = 'tobjectfo'
+  inherited finibu: tbutton
+    taborder = 6
+    caption = 'Ge'#228'nderte Leistung'#10'eintragen'
+  end
+  inherited nameed: tdbstringedit
+    datalink.options = []
+  end
+  inherited priceed: tdbrealedit
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
+  end
+  inherited united: tdbstringedit
+  end
+  inherited descriptioned: tdbstringedit
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
+  end
+  inherited commented: tdbdialogstringedit
+    frame.buttons.items = <    
+      item
+      end>
+    taborder = 5
+    bounds_cx = 298
+  end
+  inherited cancelbu: tbutton
+    taborder = 7
+    caption = 'Leistung '#228'ndern'#10'abbrechen'
+  end
+  inherited durationed: tdbrealedit
+    taborder = 4
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
+  end
+  inherited tstatfile1: tstatfile
+    filename = 'editobject.sta'
+  end
+  inherited dataso: tmsedatasource
+  end
+end

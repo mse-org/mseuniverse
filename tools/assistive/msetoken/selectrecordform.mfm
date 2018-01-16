@@ -1,0 +1,76 @@
+object selectrecordfo: tselectrecordfo
+  frame.localprops = []
+  frame.localprops1 = []
+  bounds_x = 327
+  bounds_y = 266
+  bounds_cx = 299
+  bounds_cy = 105
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    299
+    105
+  )
+  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  caption = 'Datensatz ausw'#228'hlen'
+  moduleclassname = 'tmseform'
+  object selector: tenum64editdb
+    frame.caption = 'Name'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 5
+    bounds_cx = 280
+    bounds_cy = 41
+    anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+    ondataentered = datentev
+    dropdown.datasource = dataso
+    dropdown.keyfield = 'pk'
+    dropdown.optionsdb = [odb_directdata]
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
+    value = -1
+    valuedefault = -1
+    reffontheight = 16
+  end
+  object tbutton1: tbutton
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 64
+    bounds_cx = 136
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'Ausw'#228'hlen'
+    modalresult = mr_ok
+  end
+  object tbutton2: tbutton
+    taborder = 2
+    bounds_x = 152
+    bounds_y = 64
+    bounds_cx = 136
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'Auswahl abbrechen'
+    modalresult = mr_cancel
+  end
+  object dataso: tmsedatasource
+    DataSet = mainmo.objectsqu
+    left = 104
+    top = 8
+  end
+end
