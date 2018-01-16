@@ -20,7 +20,8 @@ interface
 uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
  mseassistivehandler,mseactions,msedatabase,msefb3connection,msqldb,sysutils,
- mdb,msebufdataset,msedb,mseifiglob,msesqldb,mserttistat,mclasses,tokenlistform;
+ mdb,msebufdataset,msedb,mseifiglob,msesqldb,mserttistat,mclasses,tokenlistform,
+ mseificomp,mseificompglob;
 
 type
  topt = class(toptions)
@@ -29,6 +30,7 @@ type
    ftokenobjectpk: int64;
    ftokensortnumber: boolean;
    ftokensortissuedate: boolean;
+   ftokensorthonourdate: boolean;
    ftokensortexpirydate: boolean;
    ftokensortquantity: boolean;
    ftokensortunit: boolean;
@@ -40,6 +42,8 @@ type
    property tokenobjectpk: int64 read ftokenobjectpk write ftokenobjectpk;
    property tokensortissuedate: boolean read ftokensortissuedate
                                                     write ftokensortissuedate;
+   property tokensorthonourdate: boolean read ftokensorthonourdate
+                                                    write ftokensorthonourdate;
    property tokensortexpirydate: boolean read ftokensortexpirydate
                                                     write ftokensortexpirydate;
    property tokensortnumber: boolean read ftokensortnumber
@@ -73,7 +77,7 @@ type
    newtokenprintandstoreact: taction;
    newtokenprintact: taction;
    newtokenstoreact: taction;
-   nowtokencloseact: taction;
+   newtokencloseact: taction;
    objectsdso: tmsedatasource;
    tokensobject: tmselargeintfield;
    tokensunit: tmsestringfield;
@@ -93,6 +97,17 @@ type
    tokenlistact: taction;
    tokenlistshowact: taction;
    tokensexpirydate: tmsedatefield;
+   honourcheck: tifistringlinkcomp;
+   honournumber: tifiint64linkcomp;
+   honourqu: tmsesqlquery;
+   honourdso: tmsedatasource;
+   honourtokenact: taction;
+   honourdate: tifidatetimelinkcomp;
+   honourexpirydate: tmsedatefield;
+   honourdispdso: tmsedatasource;
+   honourhonourdate: tmsedatefield;
+   honourtokenfinishact: taction;
+   honourform: tififormlinkcomp;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -103,13 +118,18 @@ type
    procedure tokenquantitiychangeev(Sender: TField);
    procedure tokenstoreev(const sender: TObject);
    procedure tokenlistshowev(const sender: TObject; var accept: Boolean);
-   procedure tokenlistev(const sender: TObject; var accept: Boolean);
    procedure updateexpirydateev(Sender: TField);
+   procedure honourtokenev(const sender: TObject);
+   procedure tokenlistev(const sender: TObject);
+   procedure honourdataentev(const sender: tcustomificlientcontroller;
+                   const aclient: iificlient; const aindex: Integer);
+   procedure honourmodalresultev(const sender: tcustomificlientcontroller;
+                   const aclient: iificlient;
+                   var amodalresult: modalresultty);
   private
    fopt: topt;
    ftokenused: boolean;
    ftokenlistfo: ttokenlistfo;
-
   protected
    function selectobject(const apk: int64): int64;
    procedure updatetokenvalue();
@@ -128,7 +148,7 @@ implementation
 uses
  msegui,mainmodule_mfm,newtokenform,objectsform,msewidgets,msestrings,
  newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr,
- tokenlist1form,dateutils,msegraphedits;
+ tokenlist1form,honourform,dateutils,msegraphedits,msestockobjects;
 
 resourcestring
  deletequestion = 'Wollen sie den Datensatz %0:S löschen?';
@@ -137,6 +157,10 @@ resourcestring
  internalerror = 'Interner Fehler';
  closewindowcancelrecordquestion = 
                  'Wollen Sie den geänderten Datensatz verwerfen?';
+ honourok = 'Gutschein in Ordnung';
+ honourdateerror = 'Gutschein seit %d Tagen abgelaufen';
+ honourhonourerror = 'Gutschein bereits eingelöst am %s';
+ cancelhonourquery = 'Wollen Sie die Gutscheineinlösung abbrechen?';
 
 { topt }
 
@@ -398,7 +422,7 @@ begin
  end;
 end;
 
-procedure tmainmo.tokenlistev(const sender: TObject; var accept: Boolean);
+procedure tmainmo.tokenlistev(const sender: TObject);
 begin
  ftokenlistfo:= ttokenlistfo.create(nil); 
  with ftokenlistfo do begin
@@ -424,6 +448,78 @@ begin
   else begin
    tokensexpirydate.asdate:= tokensissuedate.asdate+365*flo1;
   end;
+ end;
+end;
+
+procedure tmainmo.honourtokenev(const sender: TObject);
+begin
+ with thonourfo.create(nil) do begin
+  try
+   honourtokenfinishact.enabled:= false;
+   honournumber.c.value:= -1;
+   honourdate.c.value:= trunc(now);
+   honourdispdso.dataset:= nil;
+   honourqu.active:= true;
+   case show(ml_application) of
+    mr_ok: begin
+     honourqu.edit();
+     honourhonourdate.asdate:= honourdate.c.value;
+     honourqu.post();
+     tokensqu.refresh();
+    end;
+   end;
+  finally
+   destroy();
+   honourqu.active:= false;
+  end;
+ end;
+end;
+
+procedure tmainmo.honourdataentev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient; const aindex: Integer);
+var
+ f1: flo64;
+begin
+ honourcheck.c.value:= '';
+ honourtokenfinishact.enabled:= false;
+ if honournumber.c.value < 0 then begin
+  honourdispdso.dataset:= nil;
+ end
+ else begin
+  honourqu.indexlocal[0].find([honournumber.c.value],[]);
+  honourdispdso.dataset:= honourqu;
+  if not honourhonourdate.isnull then begin
+   honourcheck.c.value:= formatmse(rs(honourhonourerror),
+               [datetimetostring(honourhonourdate.asdate,'${dateformat}')]);
+   showerror(honourcheck.c.value,sc(sc_error),0,'',true);
+  end
+  else begin
+   if not honourexpirydate.isnull and 
+                     not (honourdate.c.value = emptydatetime) then begin
+    f1:= honourdate.c.value - honourexpirydate.asdate;
+    if f1 > 0.99999 then begin
+     honourcheck.c.value:= formatmse(rs(honourdateerror),[round(f1)]);
+     showerror(honourcheck.c.value,sc(sc_error),0,'',true);
+    end
+    else begin
+     honourtokenfinishact.enabled:= true;
+     honourcheck.c.value:= rs(honourok);
+     showerror(honourcheck.c.value,'',0,'',true);
+    end;
+   end
+   else begin
+    honourcheck.c.value:= '';
+   end;
+  end;
+ end;
+end;
+
+procedure tmainmo.honourmodalresultev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient; var amodalresult: modalresultty);
+begin
+ if (amodalresult = mr_windowclosed) and honourtokenfinishact.enabled
+         and not askyesno(rs(cancelhonourquery)) then begin
+  amodalresult:= mr_none;
  end;
 end;
 

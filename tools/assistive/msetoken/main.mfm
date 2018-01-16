@@ -31,6 +31,7 @@ object mainfo: tmainfo
     bounds_cx = 114
     bounds_cy = 22
     state = [as_localcaption]
+    action = mainmo.honourtokenact
     caption = 'Gutschein Einl'#246'sen'
   end
   object tbutton5: tbutton

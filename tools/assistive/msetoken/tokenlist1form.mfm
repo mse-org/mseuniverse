@@ -34,10 +34,14 @@ object tokenlist1fo: ttokenlist1fo
     fixrows.items = <    
       item
         height = 18
-        captions.count = 8
+        captions.count = 9
         captions.items = <        
           item
             caption = 'Ausgabe-Datum'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'Einl'#246'se-Datum'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
@@ -61,17 +65,20 @@ object tokenlist1fo: ttokenlist1fo
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
-            caption = 'Bezeichnung'
+            caption = 'Leistung'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
             caption = 'Bemerkung'
           end>
       end>
-    datacols.count = 8
+    datacols.count = 9
     datacols.items = <    
       item[issuedateed]
         widgetname = 'issuedateed'
+      end    
+      item[honourdateed]
+        widgetname = 'honourdateed'
       end    
       item[expirydateed]
         widgetname = 'expirydateed'
@@ -120,7 +127,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
-      bounds_x = 51
+      bounds_x = 102
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -137,7 +144,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 3
       visible = False
-      bounds_x = 102
+      bounds_x = 153
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -150,7 +157,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 4
       visible = False
-      bounds_x = 153
+      bounds_x = 204
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -167,7 +174,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 204
+      bounds_x = 255
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -180,7 +187,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 255
+      bounds_x = 306
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -197,7 +204,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 306
+      bounds_x = 357
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -210,12 +217,29 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 8
       visible = False
-      bounds_x = 357
+      bounds_x = 408
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
       datalink.datasource = dataso
       datalink.fieldname = 'COMMENT'
+      reffontheight = 16
+    end
+    object honourdateed: tdbdatetimeedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 9
+      visible = False
+      bounds_x = 51
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 18
+      datalink.datasource = dataso
+      datalink.fieldname = 'HONOURDATE'
+      valuemin = -Inf
+      valuemax = 401768.99999
+      formatedit = '${dateformat}'
+      formatdisp = '${dateformat}'
       reffontheight = 16
     end
   end

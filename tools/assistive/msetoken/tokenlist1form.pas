@@ -21,6 +21,7 @@ type
    commented: tdbstringedit;
    dataso: tmsedatasource;
    tassistivewidgetitem1: tassistivewidgetitem;
+   honourdateed: tdbdatetimeedit;
  end;
 var
  tokenlist1fo: ttokenlist1fo;
