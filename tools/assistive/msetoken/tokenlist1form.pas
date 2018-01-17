@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mdb,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,msegraphedits,
  msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,msescrollbar,
- msestream,sysutils,msedb,mseassistivehandler;
+ msestream,sysutils,msedb,mseassistivehandler,msedbdialog;
 type
  ttokenlist1fo = class(tmseform)
    tstatfile1: tstatfile;
@@ -18,10 +18,11 @@ type
    quantityed: tdbrealedit;
    united: tdbstringedit;
    valueed: tdbrealedit;
-   commented: tdbstringedit;
+   commented: tdbmemodialogedit;
    dataso: tmsedatasource;
    tassistivewidgetitem1: tassistivewidgetitem;
    honourdateed: tdbdatetimeedit;
+   tdatabutton1: tdatabutton;
  end;
 var
  tokenlist1fo: ttokenlist1fo;

@@ -9,6 +9,7 @@ inherited newobjectfo: tnewobjectfo
   caption = 'Neue Leistung'
   moduleclassname = 'tobjectfo'
   inherited finibu: tbutton
+    taborder = 6
     caption = 'Neue Leistung'#10'eintragen'
   end
   inherited nameed: tdbstringedit
@@ -23,11 +24,14 @@ inherited newobjectfo: tnewobjectfo
     frame.buttons.items = <    
       item
       end>
+    taborder = 5
   end
   inherited cancelbu: tbutton
+    taborder = 7
     caption = 'Neue Leistung'#10'abbrechen'
   end
   inherited durationed: tdbrealedit
+    taborder = 4
   end
   inherited tstatfile1: tstatfile
     filename = 'newobject.sta'

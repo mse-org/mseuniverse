@@ -25,7 +25,7 @@ uses
  mseificompglob,mselookupbuffer,msescrollbar,msestream,sysutils,msedbdialog;
 type
  tnewtokenfo = class(tmseform)
-   tbutton1: tbutton;
+   printtokenbu: tbutton;
    tstatfile1: tstatfile;
    dataso: tmsedatasource;
    numberdisp: tdbintegeredit;
@@ -37,10 +37,9 @@ type
    durationdisp: tdbrealedit;
    recipiented: tdbstringedit;
    commented: tdbmemodialogedit;
-   tbutton2: tbutton;
+   printvoucherbu: tbutton;
    tbutton3: tbutton;
    tbutton4: tbutton;
-   tbutton5: tbutton;
    dateed: tdbdatetimeedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);

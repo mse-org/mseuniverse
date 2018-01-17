@@ -21,7 +21,7 @@ uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
  mseassistivehandler,mseactions,msedatabase,msefb3connection,msqldb,sysutils,
  mdb,msebufdataset,msedb,mseifiglob,msesqldb,mserttistat,mclasses,tokenlistform,
- mseificomp,mseificompglob;
+ newtokenform,mseificomp,mseificompglob;
 
 type
  topt = class(toptions)
@@ -74,8 +74,8 @@ type
    tactivator1: tactivator;
    trttistat1: trttistat;
    tokensqu: tmsesqlquery;
-   newtokenprintandstoreact: taction;
-   newtokenprintact: taction;
+   printtokenact: taction;
+   printvoucheract: taction;
    newtokenstoreact: taction;
    newtokencloseact: taction;
    objectsdso: tmsedatasource;
@@ -99,15 +99,16 @@ type
    tokensexpirydate: tmsedatefield;
    honourcheck: tifistringlinkcomp;
    honournumber: tifiint64linkcomp;
-   honourqu: tmsesqlquery;
-   honourdso: tmsedatasource;
+   tokensdso: tmsedatasource;
    honourtokenact: taction;
    honourdate: tifidatetimelinkcomp;
-   honourexpirydate: tmsedatefield;
-   honourdispdso: tmsedatasource;
-   honourhonourdate: tmsedatefield;
+   tokensdispdso: tmsedatasource;
+   tokenshonourdate: tmsedatefield;
    honourtokenfinishact: taction;
    honourform: tififormlinkcomp;
+   tokensnumbertext: tmsestringfield;
+   printduplicateact: taction;
+   mainform: tififormlinkcomp;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -126,13 +127,26 @@ type
    procedure honourmodalresultev(const sender: tcustomificlientcontroller;
                    const aclient: iificlient;
                    var amodalresult: modalresultty);
+   procedure tokensmodifiedev(DataSet: TDataSet);
+   procedure printtokenev(const sender: TObject);
+   procedure printvoucherev(const sender: TObject);
+   procedure tokennumberchangeev(Sender: TField);
+   procedure printduplicateev(const sender: TObject);
+   procedure mainfomdalresev(const sender: tcustomificlientcontroller;
+                   const aclient: iificlient;
+                   const amodalresult: modalresultty);
   private
    fopt: topt;
    ftokenused: boolean;
+   fvoucherprinted,ftokenprinted: boolean;
    ftokenlistfo: ttokenlistfo;
+   fnewtokenfo: tnewtokenfo;
   protected
    function selectobject(const apk: int64): int64;
    procedure updatetokenvalue();
+   procedure resetprintflags();
+   function checkprintok(): boolean;
+   function checknewtokenok(): boolean;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -146,7 +160,7 @@ var
 
 implementation
 uses
- msegui,mainmodule_mfm,newtokenform,objectsform,msewidgets,msestrings,
+ msegui,mainmodule_mfm,objectsform,msewidgets,msestrings,
  newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr,
  tokenlist1form,honourform,dateutils,msegraphedits,msestockobjects;
 
@@ -157,10 +171,15 @@ resourcestring
  internalerror = 'Interner Fehler';
  closewindowcancelrecordquestion = 
                  'Wollen Sie den geänderten Datensatz verwerfen?';
- honourok = 'Gutschein in Ordnung';
- honourdateerror = 'Gutschein seit %d Tagen abgelaufen';
- honourhonourerror = 'Gutschein bereits eingelöst am %s';
+ honourok = 'Gutschein in Ordnung.';
+ honourdateerror = 'Gutschein seit %d Tagen abgelaufen!';
+ honourhonourerror = 'Gutschein bereits eingelöst am %s!';
  cancelhonourquery = 'Wollen Sie die Gutscheineinlösung abbrechen?';
+ tokenmustbeprinted = 'Gutschein muss ausgedruckt werden!';
+ vouchermustbeprinted = 'Beleg muss ausgedruckt werden!';
+ tokenstored = 'Gutschein Nummer %d wurde eingetragen.';
+ msetokencloses = 'MSEtoken wird beendet.';
+ 
 
 { topt }
 
@@ -172,10 +191,89 @@ begin
  application.terminated:= true;
 end;
 
+procedure tmainmo.resetprintflags();
+begin
+ fvoucherprinted:= false;
+ ftokenprinted:= false;
+end;
+
+function tmainmo.checkprintok(): boolean;
+begin
+ result:= false;
+ if not ftokenprinted then begin
+  fnewtokenfo.printtokenbu.setfocus();
+  showerror(rs(tokenmustbeprinted));
+ end
+ else begin
+  if not fvoucherprinted then begin
+   fnewtokenfo.printvoucherbu.setfocus();
+   showerror(rs(vouchermustbeprinted));
+  end
+  else begin
+   result:= true;
+  end;
+ end;
+end;
+
+function tmainmo.checknewtokenok(): boolean;
+begin
+ tokensqu.modify(false);
+ result:= fnewtokenfo.canparentclose();
+ if result then begin
+  fnewtokenfo.dataso.updaterecord();
+ end;
+end;
+
+procedure tmainmo.updatetokenvalue();
+var
+ bookmark1: bookmarkdataty;
+begin
+ if not tokensquantity.isnull then begin
+  if objectsqu.indexlocal[0].find([tokensobject],bookmark1) then begin
+   tokensvalue.asfloat:= 
+           objectsqu.currentbmasfloat[objectsprice,bookmark1] * 
+                                                    tokensquantity.asfloat;
+  end;
+ end
+ else begin
+  tokensvalue.clear;
+ end;
+end;
+
+procedure tmainmo.tokenobjectchangev(Sender: TField);
+var
+ bookmark1: bookmarkdataty;
+begin
+ if objectsqu.indexlocal[0].find([tokensobject],bookmark1) then begin
+  tokensunit.asmsestring:= objectsqu.currentbmasmsestring[objectsunit,bookmark1];
+  tokensduration.asfloat:= objectsqu.currentbmasfloat[objectsduration,bookmark1];
+  updatetokenvalue();
+ end;
+end;
+
+procedure tmainmo.tokenquantitiychangeev(Sender: TField);
+begin
+ updatetokenvalue();
+end;
+
+procedure tmainmo.tokenstoreev(const sender: TObject);
+begin
+ if checkprintok() then begin
+  if tokensqu.post1() then begin
+   showmessage(formatmse(rs(tokenstored),[tokensnumber.asinteger]));
+   fnewtokenfo.window.modalresult:= mr_ok;
+  end
+  else begin
+   fnewtokenfo.window.modalresult:= mr_cancel;
+  end;
+ end;
+end;
+
 procedure tmainmo.newtokenev(const sender: TObject);
 var
  b1: boolean;
 begin
+ resetprintflags();
  tokensqu.open();
  try
   b1:= false;
@@ -183,7 +281,7 @@ begin
   repeat
    try
     numbersqu.insert();
-    numbersnumber.asinteger:= random(999);
+    numbersnumber.asinteger:= random(9999);
     numbersqu.post();
     b1:= true;
    except
@@ -206,7 +304,8 @@ begin
    tokensobject.asid:= fopt.tokenobjectpk;
   end;
   tokensqu.resetmodified();
-  with tnewtokenfo.create(nil) do begin
+  fnewtokenfo:= tnewtokenfo.create(nil);
+  with fnewtokenfo do begin
    try
     case show(ml_application) of
      mr_ok: begin
@@ -364,43 +463,6 @@ begin
  aobject:= fopt;
 end;
 
-procedure tmainmo.updatetokenvalue();
-var
- bookmark1: bookmarkdataty;
-begin
- if not tokensquantity.isnull then begin
-  if objectsqu.indexlocal[0].find([tokensobject],bookmark1) then begin
-   tokensvalue.asfloat:= 
-           objectsqu.currentbmasfloat[objectsprice,bookmark1] * 
-                                                    tokensquantity.asfloat;
-  end;
- end
- else begin
-  tokensvalue.clear;
- end;
-end;
-
-procedure tmainmo.tokenobjectchangev(Sender: TField);
-var
- bookmark1: bookmarkdataty;
-begin
- if objectsqu.indexlocal[0].find([tokensobject],bookmark1) then begin
-  tokensunit.asmsestring:= objectsqu.currentbmasmsestring[objectsunit,bookmark1];
-  tokensduration.asfloat:= objectsqu.currentbmasfloat[objectsduration,bookmark1];
-  updatetokenvalue();
- end;
-end;
-
-procedure tmainmo.tokenquantitiychangeev(Sender: TField);
-begin
- updatetokenvalue();
-end;
-
-procedure tmainmo.tokenstoreev(const sender: TObject);
-begin
- tokensqu.post();
-end;
-
 procedure tmainmo.tokenlistshowev(const sender: TObject; var accept: Boolean);
 var
  w1: tcustombooleaneditradio;
@@ -451,30 +513,6 @@ begin
  end;
 end;
 
-procedure tmainmo.honourtokenev(const sender: TObject);
-begin
- with thonourfo.create(nil) do begin
-  try
-   honourtokenfinishact.enabled:= false;
-   honournumber.c.value:= -1;
-   honourdate.c.value:= trunc(now);
-   honourdispdso.dataset:= nil;
-   honourqu.active:= true;
-   case show(ml_application) of
-    mr_ok: begin
-     honourqu.edit();
-     honourhonourdate.asdate:= honourdate.c.value;
-     honourqu.post();
-     tokensqu.refresh();
-    end;
-   end;
-  finally
-   destroy();
-   honourqu.active:= false;
-  end;
- end;
-end;
-
 procedure tmainmo.honourdataentev(const sender: tcustomificlientcontroller;
                const aclient: iificlient; const aindex: Integer);
 var
@@ -483,20 +521,20 @@ begin
  honourcheck.c.value:= '';
  honourtokenfinishact.enabled:= false;
  if honournumber.c.value < 0 then begin
-  honourdispdso.dataset:= nil;
+  tokensdispdso.dataset:= nil;
  end
  else begin
-  honourqu.indexlocal[0].find([honournumber.c.value],[]);
-  honourdispdso.dataset:= honourqu;
-  if not honourhonourdate.isnull then begin
+  tokensqu.indexlocal[0].find([honournumber.c.value],[]);
+  tokensdispdso.dataset:= tokensqu;
+  if not tokenshonourdate.isnull then begin
    honourcheck.c.value:= formatmse(rs(honourhonourerror),
-               [datetimetostring(honourhonourdate.asdate,'${dateformat}')]);
+               [datetimetostring(tokenshonourdate.asdate,'${dateformat}')]);
    showerror(honourcheck.c.value,sc(sc_error),0,'',true);
   end
   else begin
-   if not honourexpirydate.isnull and 
+   if not tokensexpirydate.isnull and 
                      not (honourdate.c.value = emptydatetime) then begin
-    f1:= honourdate.c.value - honourexpirydate.asdate;
+    f1:= honourdate.c.value - tokensexpirydate.asdate;
     if f1 > 0.99999 then begin
      honourcheck.c.value:= formatmse(rs(honourdateerror),[round(f1)]);
      showerror(honourcheck.c.value,sc(sc_error),0,'',true);
@@ -514,12 +552,72 @@ begin
  end;
 end;
 
+procedure tmainmo.honourtokenev(const sender: TObject);
+begin
+ with thonourfo.create(nil) do begin
+  try
+   honourtokenfinishact.enabled:= false;
+   honournumber.c.value:= -1;
+   honourdate.c.value:= trunc(now);
+   tokensdispdso.dataset:= nil;
+   case show(ml_application) of
+    mr_ok: begin
+     tokensqu.edit();
+     tokenshonourdate.asdate:= honourdate.c.value;
+     tokensqu.post();
+    end;
+   end;
+  finally
+   destroy();
+   tokensqu.cancel();
+  end;
+ end;
+end;
+
 procedure tmainmo.honourmodalresultev(const sender: tcustomificlientcontroller;
                const aclient: iificlient; var amodalresult: modalresultty);
 begin
  if (amodalresult = mr_windowclosed) and honourtokenfinishact.enabled
          and not askyesno(rs(cancelhonourquery)) then begin
   amodalresult:= mr_none;
+ end;
+end;
+
+procedure tmainmo.tokensmodifiedev(DataSet: TDataSet);
+begin
+ resetprintflags();
+end;
+
+procedure tmainmo.printtokenev(const sender: TObject);
+begin
+ if checknewtokenok() then begin
+  ftokenprinted:= true;
+ end;
+end;
+
+procedure tmainmo.printvoucherev(const sender: TObject);
+begin
+ if checknewtokenok() then begin
+  fvoucherprinted:= true;
+ end;
+end;
+
+procedure tmainmo.tokennumberchangeev(Sender: TField);
+begin
+ tokensnumbertext.asmsestring:= inttostrmse(tokensnumber.asinteger);
+end;
+
+procedure tmainmo.printduplicateev(const sender: TObject);
+begin
+ guibeep();
+end;
+
+procedure tmainmo.mainfomdalresev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient; const amodalresult: modalresultty);
+begin
+ with assistivehandler do begin
+  speaktext(rs(msetokencloses),voicecaption);
+  wait();
  end;
 end;
 

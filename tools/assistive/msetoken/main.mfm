@@ -12,6 +12,7 @@ object mainfo: tmainfo
     403
     97
   )
+  ifilink = mainmo.mainform
   statfile = tstatfile1
   caption = 'MSEtoken'
   moduleclassname = 'tmainform'

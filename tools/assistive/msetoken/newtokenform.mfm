@@ -17,7 +17,7 @@ object newtokenfo: tnewtokenfo
   caption = 'Neuer Gutschein'
   onclosequery = closequeryev
   moduleclassname = 'tmseform'
-  object tbutton1: tbutton
+  object printtokenbu: tbutton
     taborder = 10
     bounds_x = 8
     bounds_y = 296
@@ -25,8 +25,8 @@ object newtokenfo: tnewtokenfo
     bounds_cy = 22
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_noassistivedisabled]
     state = [as_localcaption]
-    action = mainmo.newtokenprintandstoreact
-    caption = 'Drucken und eintragen'
+    action = mainmo.printtokenact
+    caption = 'Gutschein drucken'
   end
   object numberdisp: tdbintegeredit
     frame.levelo = -1
@@ -68,6 +68,7 @@ object newtokenfo: tnewtokenfo
     bounds_cx = 373
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
     datalink.datasource = dataso
     datalink.fieldname = 'OBJECT'
     dropdown.datasource = mainmo.objectsdso
@@ -94,6 +95,7 @@ object newtokenfo: tnewtokenfo
     bounds_x = 8
     bounds_y = 53
     bounds_cy = 41
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
     datalink.datasource = dataso
     datalink.fieldname = 'QUANTITY'
     valuemin = -Inf
@@ -243,50 +245,38 @@ object newtokenfo: tnewtokenfo
     datalink.fieldname = 'COMMENT'
     reffontheight = 16
   end
-  object tbutton2: tbutton
+  object printvoucherbu: tbutton
     taborder = 11
     bounds_x = 152
     bounds_y = 296
-    bounds_cx = 66
+    bounds_cx = 106
     bounds_cy = 22
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_noassistivedisabled]
     state = [as_localcaption]
-    action = mainmo.newtokenprintact
-    caption = 'Drucken'
+    action = mainmo.printvoucheract
+    caption = 'Beleg drucken'
   end
   object tbutton3: tbutton
     taborder = 12
-    bounds_x = 224
-    bounds_y = 296
-    bounds_cx = 66
+    bounds_x = 8
+    bounds_y = 328
+    bounds_cx = 138
     bounds_cy = 22
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_noassistivedisabled]
     state = [as_localcaption]
     action = mainmo.newtokenstoreact
-    caption = 'Eintragen'
+    caption = 'Gutschein eintragen'
   end
   object tbutton4: tbutton
-    taborder = 14
+    taborder = 13
     bounds_x = 152
-    bounds_y = 320
-    bounds_cx = 66
+    bounds_y = 328
+    bounds_cx = 106
     bounds_cy = 22
     options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_noassistivedisabled]
     state = [as_localcaption]
     caption = 'Abbrechen'
     modalresult = mr_cancel
-  end
-  object tbutton5: tbutton
-    taborder = 13
-    bounds_x = 8
-    bounds_y = 320
-    bounds_cx = 138
-    bounds_cy = 22
-    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_noassistivedisabled]
-    state = [as_disabled, as_localcaption]
-    action = mainmo.newtokencloseact
-    caption = 'Beenden'
-    modalresult = mr_ok
   end
   object dateed: tdbdatetimeedit
     frame.caption = 'Datum'
@@ -302,6 +292,7 @@ object newtokenfo: tnewtokenfo
     bounds_x = 8
     bounds_y = 197
     bounds_cy = 41
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
     datalink.datasource = dataso
     datalink.fieldname = 'ISSUEDATE'
     valuemin = -Inf

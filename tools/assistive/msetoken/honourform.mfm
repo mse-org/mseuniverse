@@ -82,7 +82,7 @@ object honourfo: thonourfo
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
     ifilink = mainmo.honournumber
-    dropdown.datasource = mainmo.honourdso
+    dropdown.datasource = mainmo.tokensdso
     dropdown.keyfield = 'PK'
     dropdown.options = [deo_selectonly, deo_autodropdown, deo_keydropdown, deo_colsizing, deo_savestate]
     dropdown.optionsdb = [odb_directdata]
@@ -125,7 +125,7 @@ object honourfo: thonourfo
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = mainmo.honourdispdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'RECIPIENT'
     reffontheight = 16
   end
@@ -147,7 +147,7 @@ object honourfo: thonourfo
     bounds_cx = 76
     bounds_cy = 41
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = mainmo.honourdispdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'QUANTITY'
     valuemin = -Inf
     valuemax = 1E+038
@@ -173,7 +173,7 @@ object honourfo: thonourfo
     bounds_cx = 76
     bounds_cy = 41
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = mainmo.honourdispdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'VALUE'
     valuemin = -Inf
     valuemax = 1E+038
@@ -199,7 +199,7 @@ object honourfo: thonourfo
     bounds_x = 248
     bounds_y = 5
     bounds_cy = 41
-    datalink.datasource = mainmo.honourdispdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'EXPIRYDATE'
     valuemin = 36526
     valuemax = 401768.99999
@@ -224,7 +224,7 @@ object honourfo: thonourfo
     bounds_x = 352
     bounds_y = 5
     bounds_cy = 41
-    datalink.datasource = mainmo.honourdispdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'ISSUEDATE'
     valuemin = 36526
     valuemax = 401768.99999
@@ -277,7 +277,7 @@ object honourfo: thonourfo
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = mainmo.honourdispdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'DESCRIPTION'
     reffontheight = 16
   end
@@ -300,7 +300,7 @@ object honourfo: thonourfo
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = mainmo.honourdispdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'CUSTOMER'
     reffontheight = 16
   end
@@ -314,10 +314,8 @@ object honourfo: thonourfo
     frame.buttons.items = <    
       item
         imagenr = 17
-        options = [fbo_disabled]
       end>
     frame.button.imagenr = 17
-    frame.button.options = [fbo_disabled]
     frame.outerframe = (
       0
       19
@@ -330,8 +328,9 @@ object honourfo: thonourfo
     bounds_cx = 444
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
+    optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_readonlydialog, oe1_savevalue, oe1_savestate, oe1_checkvalueafterstatread]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = mainmo.honourdispdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'COMMENT'
     reffontheight = 16
   end
@@ -353,7 +352,7 @@ object honourfo: thonourfo
     bounds_cx = 76
     bounds_cy = 41
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = mainmo.honourdispdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'UNIT'
     reffontheight = 16
   end

@@ -1,9 +1,9 @@
 object mainmo: tmainmo
-  bounds_cx = 386
+  bounds_cx = 461
   bounds_cy = 539
   statfile = tstatfile1
-  left = 95
-  top = 277
+  left = 802
+  top = 242
   moduleclassname = 'tmsedatamodule'
   object tstatfile1: tstatfile
     filename = '^/.msetools/msetoken.sta'
@@ -14,7 +14,7 @@ object mainmo: tmainmo
   end
   object assistivehandler: tassistivehandler
     active = True
-    speaker.voices.count = 4
+    speaker.voices.count = 5
     speaker.voices.items = <    
       item
         gender = gen_male
@@ -28,14 +28,19 @@ object mainmo: tmainmo
       end    
       item
         gender = gen_female
-        age = 80
+        pitch = 20
         punctuation = pu_all
+      end    
+      item
+        gender = gen_male
+        pitch = 20
       end>
     speaker.language = 'de'
     speaker.volume = 1
     speaker.rate = 1
     speaker.pitch = 1
     speaker.range = 1
+    voicefixed = 4
     voicetexteditreadonly = 3
     left = 16
     top = 64
@@ -242,8 +247,15 @@ object mainmo: tmainmo
     top = 328
   end
   object tokensqu: tmsesqlquery
-    indexlocal.count = 8
+    options = [bdo_cancelupdateonerror, bdo_autoapply, bdo_autocommitret]
+    indexlocal.count = 10
     indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'PK'
+          end>
+      end    
       item
         fields.items = <        
           item
@@ -292,10 +304,18 @@ object mainmo: tmainmo
           item
             fieldname = 'DESCRIPTION'
           end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'numbertext'
+            options = [ifo_caseinsensitive]
+          end>
       end>
     params = <>
     SQL.data = (
-      'select * from tokens'
+      'select TSCREATE,TSMODIFY,PK,NUMBER,ISSUEDATE,CUSTOMER,RECIPIENT,OBJECT,DESCRIPTION,'
+      ' QUANTITY,UNIT,"VALUE",DURATION,COMMENT,EXPIRYDATE,HONOURDATE,cast(NUMBER as varchar(20)) as "numbertext" from tokens'
     )
     IndexDefs = <    
       item
@@ -309,12 +329,9 @@ object mainmo: tmainmo
       end>
     tablename = 'tokens'
     database = conn
+    onmodified = tokensmodifiedev
     Transaction = trans
     FieldDefs = <    
-      item
-        Name = 'PK'
-        DataType = ftLargeint
-      end    
       item
         Name = 'TSCREATE'
         DataType = ftDateTime
@@ -322,6 +339,10 @@ object mainmo: tmainmo
       item
         Name = 'TSMODIFY'
         DataType = ftDateTime
+      end    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
       end    
       item
         Name = 'NUMBER'
@@ -379,9 +400,14 @@ object mainmo: tmainmo
       item
         Name = 'HONOURDATE'
         DataType = ftDate
+      end    
+      item
+        Name = 'numbertext'
+        DataType = ftString
+        Size = 20
       end>
     controller.activator = tactivator1
-    controller.fields.count = 7
+    controller.fields.count = 6
     controller.fields.fields = (
       (
         ft_largeint
@@ -390,21 +416,22 @@ object mainmo: tmainmo
         ft_string
         ft_string
         ft_string
-        ft_date
       )
       <      
         item
           FieldName = 'PK'
           Index = 0
-          optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
+          optionsfield = [of_visible, of_inwhere, of_inkey, of_refreshinsert]
         end      
         item
           FieldName = 'TSCREATE'
           Index = 1
+          optionsfield = [of_visible, of_inwhere]
         end      
         item
           FieldName = 'TSMODIFY'
           Index = 2
+          optionsfield = [of_visible, of_inwhere]
         end      
         item
           DisplayWidth = 80
@@ -423,18 +450,14 @@ object mainmo: tmainmo
           FieldName = 'COMMENT'
           Index = 5
           Size = 0
-        end      
-        item
-          FieldName = 'HONOURDATE'
-          Index = 6
         end>
     )
     left = 16
-    top = 128
+    top = 112
     streamingversion = 1
     object tokensobject: tmselargeintfield
       FieldName = 'OBJECT'
-      Index = 7
+      Index = 6
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = tokenobjectchangev
       left = 24
@@ -442,7 +465,7 @@ object mainmo: tmainmo
     end
     object tokensquantity: tmsefloatfield
       FieldName = 'QUANTITY'
-      Index = 8
+      Index = 7
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = tokenquantitiychangeev
       MaxValue = 0
@@ -453,7 +476,7 @@ object mainmo: tmainmo
     object tokensunit: tmsestringfield
       DisplayWidth = 20
       FieldName = 'UNIT'
-      Index = 9
+      Index = 8
       Size = 0
       left = 24
       top = 176
@@ -461,7 +484,7 @@ object mainmo: tmainmo
     object tokensvalue: tmsebcdfield
       DisplayWidth = 15
       FieldName = 'VALUE'
-      Index = 10
+      Index = 9
       MaxValue = 0
       MinValue = 0
       left = 24
@@ -469,7 +492,7 @@ object mainmo: tmainmo
     end
     object tokensduration: tmsefloatfield
       FieldName = 'DURATION'
-      Index = 11
+      Index = 10
       OnChange = updateexpirydateev
       MaxValue = 0
       MinValue = 0
@@ -479,14 +502,14 @@ object mainmo: tmainmo
     object tokensdescription: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
-      Index = 12
+      Index = 11
       Size = 0
       left = 24
       top = 224
     end
     object tokensissuedate: tmsedatefield
       FieldName = 'ISSUEDATE'
-      Index = 13
+      Index = 12
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = updateexpirydateev
       left = 24
@@ -494,22 +517,39 @@ object mainmo: tmainmo
     end
     object tokensnumber: tmselongintfield
       FieldName = 'NUMBER'
-      Index = 14
+      Index = 13
+      OnChange = tokennumberchangeev
       left = 24
       top = 272
     end
     object tokensexpirydate: tmsedatefield
       FieldName = 'EXPIRYDATE'
-      Index = 15
+      Index = 14
       left = 24
       top = 256
     end
+    object tokenshonourdate: tmsedatefield
+      FieldName = 'HONOURDATE'
+      Index = 15
+      left = 24
+      top = 304
+    end
+    object tokensnumbertext: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'numbertext'
+      Index = 16
+      optionsfield = [of_visible, of_inwhere]
+      left = 24
+      top = 288
+    end
   end
-  object newtokenprintandstoreact: taction
+  object printtokenact: taction
+    onexecute = printtokenev
     left = 144
     top = 352
   end
-  object newtokenprintact: taction
+  object printvoucheract: taction
+    onexecute = printvoucherev
     left = 144
     top = 368
   end
@@ -569,19 +609,19 @@ object mainmo: tmainmo
           optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
         end>
     )
-    left = 152
-    top = 128
+    left = 272
+    top = 8
     streamingversion = 1
     object numbersnumber: tmselongintfield
       FieldName = 'NUMBER'
       Index = 1
-      left = 160
-      top = 160
+      left = 280
+      top = 40
     end
   end
   object numberdso: tmsedatasource
-    left = 152
-    top = 144
+    left = 272
+    top = 24
   end
   object tokenlistact: taction
     onexecute = tokenlistev
@@ -594,212 +634,20 @@ object mainmo: tmainmo
     top = 440
   end
   object honourcheck: tifistringlinkcomp
-    left = 176
-    top = 288
+    left = 168
+    top = 200
   end
   object honournumber: tifiint64linkcomp
     controller.onclientdataentered = honourdataentev
     controller.valuemax = 2147483647
-    left = 176
-    top = 256
+    left = 168
+    top = 168
   end
-  object honourqu: tmsesqlquery
-    indexlocal.count = 2
-    indexlocal.items = <    
-      item
-        fields.items = <        
-          item
-            fieldname = 'PK'
-          end>
-      end    
-      item
-        fields.items = <        
-          item
-            fieldname = 'NUMBERTEXT'
-            options = [ifo_caseinsensitive]
-          end>
-      end>
-    params = <>
-    SQL.data = (
-      'select PK,cast(NUMBER as varchar(20)) as numbertext,RECIPIENT,CUSTOMER,'
-      ' QUANTITY,UNIT,"VALUE",ISSUEDATE,EXPIRYDATE,HONOURDATE,'
-      ' DESCRIPTION,COMMENT from tokens;'
-    )
-    IndexDefs = <    
-      item
-        Name = 'FK_TOKENS_0'
-      end    
-      item
-        Name = 'IDX_TOKENS1'
-      end    
-      item
-        Name = 'PK_TOKENS_0'
-      end>
-    tablename = 'tokens'
-    database = conn
-    Transaction = trans
-    FieldDefs = <    
-      item
-        Name = 'PK'
-        DataType = ftLargeint
-      end    
-      item
-        Name = 'NUMBERTEXT'
-        DataType = ftString
-        Size = 20
-      end    
-      item
-        Name = 'RECIPIENT'
-        DataType = ftString
-        Size = 80
-      end    
-      item
-        Name = 'CUSTOMER'
-        DataType = ftString
-        Size = 80
-      end    
-      item
-        Name = 'QUANTITY'
-        DataType = ftFloat
-      end    
-      item
-        Name = 'UNIT'
-        DataType = ftString
-        Size = 10
-      end    
-      item
-        Name = 'VALUE'
-        DataType = ftBCD
-      end    
-      item
-        Name = 'ISSUEDATE'
-        DataType = ftDate
-      end    
-      item
-        Name = 'EXPIRYDATE'
-        DataType = ftDate
-      end    
-      item
-        Name = 'HONOURDATE'
-        DataType = ftDate
-      end    
-      item
-        Name = 'DESCRIPTION'
-        DataType = ftString
-        Size = 80
-      end    
-      item
-        Name = 'COMMENT'
-        DataType = ftString
-        Size = 1000
-      end>
-    controller.fields.count = 10
-    controller.fields.fields = (
-      (
-        ft_largeint
-        ft_string
-        ft_string
-        ft_string
-        ft_float
-        ft_string
-        ft_bcd
-        ft_date
-        ft_string
-        ft_string
-      )
-      <      
-        item
-          FieldName = 'PK'
-          Index = 0
-          optionsfield = [of_visible, of_ininsert, of_inwhere, of_inkey]
-        end      
-        item
-          DisplayWidth = 20
-          FieldName = 'NUMBERTEXT'
-          Index = 1
-          optionsfield = [of_visible, of_ininsert, of_inwhere]
-          Size = 0
-        end      
-        item
-          DisplayWidth = 80
-          FieldName = 'RECIPIENT'
-          Index = 2
-          optionsfield = [of_visible, of_ininsert, of_inwhere]
-          Size = 0
-        end      
-        item
-          DisplayWidth = 80
-          FieldName = 'CUSTOMER'
-          Index = 3
-          optionsfield = [of_visible, of_ininsert, of_inwhere]
-          Size = 0
-        end      
-        item
-          FieldName = 'QUANTITY'
-          Index = 4
-          optionsfield = [of_visible, of_ininsert, of_inwhere]
-          MaxValue = 0
-          MinValue = 0
-          Precision = -1
-        end      
-        item
-          DisplayWidth = 10
-          FieldName = 'UNIT'
-          Index = 5
-          optionsfield = [of_visible, of_ininsert, of_inwhere]
-          Size = 0
-        end      
-        item
-          DisplayWidth = 10
-          FieldName = 'VALUE'
-          Index = 6
-          optionsfield = [of_visible, of_ininsert, of_inwhere]
-          precision = -1
-          MaxValue = 0
-          MinValue = 0
-          Size = 0
-        end      
-        item
-          FieldName = 'ISSUEDATE'
-          Index = 7
-          optionsfield = [of_visible, of_ininsert, of_inwhere]
-        end      
-        item
-          DisplayWidth = 80
-          FieldName = 'DESCRIPTION'
-          Index = 8
-          optionsfield = [of_visible, of_ininsert, of_inwhere]
-          Size = 0
-        end      
-        item
-          DisplayWidth = 1000
-          FieldName = 'COMMENT'
-          Index = 9
-          optionsfield = [of_visible, of_ininsert, of_inwhere]
-          Size = 0
-        end>
-    )
-    left = 152
-    top = 192
-    streamingversion = 1
-    object honourexpirydate: tmsedatefield
-      FieldName = 'EXPIRYDATE'
-      Index = 10
-      optionsfield = [of_visible, of_ininsert, of_inwhere]
-      left = 160
-      top = 224
-    end
-    object honourhonourdate: tmsedatefield
-      FieldName = 'HONOURDATE'
-      Index = 11
-      left = 160
-      top = 240
-    end
-  end
-  object honourdso: tmsedatasource
-    DataSet = honourqu
-    left = 152
-    top = 208
+  object tokensdso: tmsedatasource
+    AutoEdit = False
+    DataSet = tokensqu
+    left = 16
+    top = 128
   end
   object honourtokenact: taction
     onexecute = honourtokenev
@@ -812,12 +660,13 @@ object mainmo: tmainmo
     controller.valuedefault = -Inf
     controller.valuemin = -Inf
     controller.valuemax = 401768.99999
-    left = 176
-    top = 272
+    left = 168
+    top = 184
   end
-  object honourdispdso: tmsedatasource
-    left = 240
-    top = 208
+  object tokensdispdso: tmsedatasource
+    DataSet = tokensqu
+    left = 128
+    top = 128
   end
   object honourtokenfinishact: taction
     state = [as_disabled]
@@ -826,7 +675,17 @@ object mainmo: tmainmo
   end
   object honourform: tififormlinkcomp
     controller.onclientclosequery = honourmodalresultev
-    left = 176
-    top = 304
+    left = 168
+    top = 216
+  end
+  object printduplicateact: taction
+    onexecute = printduplicateev
+    left = 272
+    top = 352
+  end
+  object mainform: tififormlinkcomp
+    controller.onclientmodalresult = mainfomdalresev
+    left = 288
+    top = 120
   end
 end
