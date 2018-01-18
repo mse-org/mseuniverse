@@ -9,6 +9,8 @@ object mainmo: tmainmo
     filename = '^/.msetools/msetoken.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*.sta'
+    onstatbeforewrite = beforestatwriteev
+    onstatafterread = afterstatreadev
     left = 16
     top = 328
   end

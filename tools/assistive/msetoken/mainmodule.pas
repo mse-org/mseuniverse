@@ -37,6 +37,9 @@ type
    ftokensortvalue: boolean;
    ftokensortdescription: boolean;
    ftokensortdesc: boolean;
+   fassistiverate: flo64;
+  public
+   constructor create();
   published
    property editobjectpk: int64 read feditobjectpk write feditobjectpk;
    property tokenobjectpk: int64 read ftokenobjectpk write ftokenobjectpk;
@@ -58,6 +61,7 @@ type
                                                     write ftokensortdescription;
    property tokensortdesc: boolean read ftokensortdesc
                                                     write ftokensortdesc;
+   property assistiverate: flo64 read fassistiverate write fassistiverate;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -135,6 +139,8 @@ type
    procedure mainfomdalresev(const sender: tcustomificlientcontroller;
                    const aclient: iificlient;
                    const amodalresult: modalresultty);
+   procedure afterstatreadev(const sender: TObject);
+   procedure beforestatwriteev(const sender: TObject);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -182,6 +188,12 @@ resourcestring
  
 
 { topt }
+
+constructor topt.create();
+begin
+ fassistiverate:= 1;
+end;
+
 
 { tmainmo }
 
@@ -616,12 +628,21 @@ procedure tmainmo.mainfomdalresev(const sender: tcustomificlientcontroller;
                const aclient: iificlient; const amodalresult: modalresultty);
 begin
  with assistivehandler do begin
+  cancel();
   speaktext(rs(msetokencloses),voicecaption);
   wait();
  end;
 end;
 
-{ topt }
+procedure tmainmo.afterstatreadev(const sender: TObject);
+begin
+ assistivehandler.speaker.rate:= fopt.assistiverate;
+end;
+
+procedure tmainmo.beforestatwriteev(const sender: TObject);
+begin
+ fopt.assistiverate:= assistivehandler.speaker.rate;
+end;
 
 initialization
  randomize();
