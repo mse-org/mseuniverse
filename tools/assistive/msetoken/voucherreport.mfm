@@ -1,0 +1,780 @@
+object voucherre: tvoucherre
+  ppmm = 3
+  pagewidth = 190
+  pageheight = 270
+  font.height = 14
+  font.name = 'stf_report'
+  font.localprops = [flp_height]
+  grid_size = 2
+  options = [reo_nothread]
+  repdesigninfo = (
+    177
+    159
+    607
+    834
+  )
+  moduleclassname = 'treport'
+  object treportpage1: treportpage
+    pagewidth = 190
+    pageheight = 270
+    options = [rpo_once]
+    object trepvaluedisp1: trepvaluedisp
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 151
+      bounds_cy = 24
+      value = 'Gutschein-Beleg'
+      font.height = 20
+      font.name = 'stf_report'
+      font.localprops = [flp_height]
+    end
+    object trepprintdatedisp1: trepprintdatedisp
+      optionswidget1 = [ow1_autoscale, ow1_autowidth]
+      taborder = 1
+      bounds_x = 419
+      bounds_y = 0
+      bounds_cx = 134
+      bounds_cy = 18
+      anchors = [an_top, an_right]
+      format = '${dateformat}/hh:nn:ss'
+    end
+    object trecordband1: trecordband
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 227
+      bounds_cx = 516
+      bounds_cy = 18
+      anchors = [an_left, an_top, an_right]
+      tabs.count = 8
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Ausgabedatum'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 33.6666666666667
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 57
+          datafield = 'ISSUEDATE'
+          datasource = dataso
+          format = '${dateformat}'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 59.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 87.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 125.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 127.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 169.333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = dataso
+      options = [bo_once]
+    end
+    object trecordband2: trecordband
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 252
+      bounds_cx = 516
+      bounds_cy = 18
+      anchors = [an_left, an_top, an_right]
+      tabs.count = 8
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = trecordband1
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Verfalldatum'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 33.6666666666667
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 57
+          datafield = 'EXPIRYDATE'
+          datasource = dataso
+          format = '${dateformat}'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 59.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 87.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 125.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 127.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 169.333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = dataso
+      options = [bo_once]
+    end
+    object trecordband3: trecordband
+      taborder = 4
+      bounds_x = 0
+      bounds_y = 276
+      bounds_cx = 516
+      bounds_cy = 18
+      anchors = [an_left, an_top, an_right]
+      tabs.count = 8
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = trecordband1
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Kundin'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 33.6666666666667
+          datafield = 'CUSTOMER'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 57
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 59.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 87.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 125.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 127.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 169.333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = dataso
+      options = [bo_once]
+    end
+    object trecordband4: trecordband
+      taborder = 5
+      bounds_x = 0
+      bounds_y = 300
+      bounds_cx = 516
+      bounds_cy = 18
+      anchors = [an_left, an_top, an_right]
+      tabs.count = 8
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = trecordband1
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Empf'#228'ngerin'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 33.6666666666667
+          datafield = 'RECIPIENT'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 57
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 59.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 87.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 125.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 127.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 169.333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = dataso
+      options = [bo_once]
+    end
+    object trecordband5: trecordband
+      taborder = 6
+      bounds_x = 0
+      bounds_y = 324
+      bounds_cx = 516
+      bounds_cy = 18
+      anchors = [an_left, an_top, an_right]
+      tabs.count = 8
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = trecordband1
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Menge'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 33.6666666666667
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 57
+          datafield = 'QUANTITY'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 59.3333333333333
+          datafield = 'UNIT'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 87.3333333333333
+          value = 'Preis'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 125.3333333333333
+          datafield = 'PRICE'
+          datasource = dataso
+          format = '0.00######'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 127.3333333333333
+          value = 'Betrag'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 169.333333333333
+          font.height = 14
+          font.style = [fs_bold]
+          font.name = 'stf_report'
+          font.localprops = [flp_style]
+          datafield = 'VALUE'
+          datasource = dataso
+          format = '0.00'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = dataso
+      options = [bo_once]
+    end
+    object trecordband6: trecordband
+      taborder = 7
+      bounds_x = 0
+      bounds_y = 348
+      bounds_cx = 516
+      bounds_cy = 18
+      anchors = [an_left, an_top, an_right]
+      tabs.count = 8
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = trecordband1
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Bezeichnung'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 33.6666666666667
+          datafield = 'DESCRIPTION'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 57
+          datasource = dataso
+          format = '${dateformat}'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 59.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 87.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 125.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 127.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 169.333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = dataso
+      options = [bo_once]
+    end
+    object tdbbarcode1: tdbbarcode
+      taborder = 8
+      bounds_x = 360
+      bounds_y = 120
+      bounds_cx = 170
+      bounds_cy = 62
+      datalink.datasource = dataso
+      datalink.fieldname = 'BARCODE'
+      options = [bco_calcchecksum]
+      kind = bk_gtin_13
+      fontbar.localprops = [flp_height]
+    end
+    object tdbintegerdisp1: tdbintegerdisp
+      frame.levelo = 0
+      frame.caption = 'Nummer'
+      frame.captionpos = cp_left
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.outerframe = (
+        56
+        0
+        0
+        0
+      )
+      taborder = 9
+      bounds_x = 88
+      bounds_y = 144
+      bounds_cx = 126
+      bounds_cy = 24
+      font.color = -1610612734
+      font.height = 20
+      font.name = 'stf_report'
+      font.localprops = [flp_height]
+      datalink.datasource = mainmo.tokensdso
+      datalink.fieldname = 'NUMBER'
+      reffontheight = 22
+    end
+    object trecordband7: trecordband
+      taborder = 10
+      bounds_x = 0
+      bounds_y = 372
+      bounds_cx = 516
+      bounds_cy = 16
+      anchors = [an_left, an_top, an_right]
+      optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+      tabs.count = 8
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = trecordband1
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Bemerkung'
+          textflags = []
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 33.6666666666667
+          textflags = [tf_ycentered, tf_wordbreak]
+          datafield = 'COMMENT'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 57
+          options = [rto_disabled]
+          datasource = dataso
+          format = '${dateformat}'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 59.3333333333333
+          options = [rto_disabled]
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 87.3333333333333
+          options = [rto_disabled]
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 125.3333333333333
+          options = [rto_disabled]
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 127.3333333333333
+          options = [rto_disabled]
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 169.333333333333
+          options = [rto_disabled]
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = dataso
+      options = [bo_once]
+    end
+  end
+  object dataso: tmsedatasource
+    DataSet = mainmo.tokensqu
+    left = 216
+    top = 30
+  end
+end

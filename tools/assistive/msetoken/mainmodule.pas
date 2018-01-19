@@ -21,7 +21,9 @@ uses
  msetypes,mseglob,mseapplication,mseclasses,msedatamodules,msestat,msestatfile,
  mseassistivehandler,mseactions,msedatabase,msefb3connection,msqldb,sysutils,
  mdb,msebufdataset,msedb,mseifiglob,msesqldb,mserttistat,mclasses,tokenlistform,
- newtokenform,mseificomp,mseificompglob;
+ newtokenform,mseificomp,mseificompglob,mseact,msedataedits,msedropdownlist,
+ mseedit,msegraphics,msegraphutils,msegui,mseguiglob,msemenus,msereport,
+ msepostscriptprinter,mseprinter,msestream,msepipestream,mseprocess;
 
 type
  topt = class(toptions)
@@ -29,6 +31,8 @@ type
    feditobjectpk: int64;
    ftokenobjectpk: int64;
    ftokensortnumber: boolean;
+   ftokensortrecipient: boolean;
+   ftokensortclient: boolean;
    ftokensortissuedate: boolean;
    ftokensorthonourdate: boolean;
    ftokensortexpirydate: boolean;
@@ -51,6 +55,10 @@ type
                                                     write ftokensortexpirydate;
    property tokensortnumber: boolean read ftokensortnumber
                                                     write ftokensortnumber;
+   property tokensortrecipient: boolean read ftokensortrecipient
+                                                    write ftokensortrecipient;
+   property tokensortclient: boolean read ftokensortclient
+                                                    write ftokensortclient;
    property tokensortquantity: boolean read ftokensortquantity
                                                     write ftokensortquantity;
    property tokensortunit: boolean read ftokensortunit
@@ -113,6 +121,13 @@ type
    tokensnumbertext: tmsestringfield;
    printduplicateact: taction;
    mainform: tififormlinkcomp;
+   honourtokenlistact: taction;
+   tokenspk: tmselargeintfield;
+   tokensbarcode: tmselargeintfield;
+   printer: tpostscriptprinter;
+   psviewer: tmseprocess;
+   printvoucherduplicateact: taction;
+   tokensprice: tmsefloatfield;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -141,6 +156,8 @@ type
                    const amodalresult: modalresultty);
    procedure afterstatreadev(const sender: TObject);
    procedure beforestatwriteev(const sender: TObject);
+   procedure honourtokenlistev(const sender: TObject);
+   procedure printvoucherduplicateev(const sender: TObject);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -153,6 +170,11 @@ type
    procedure resetprintflags();
    function checkprintok(): boolean;
    function checknewtokenok(): boolean;
+   procedure checkhonourstate();
+   procedure honourtoken(const anumber: int64);
+   function printreport(const areport: reportclassty): boolean;
+   function printvoucher(): boolean;
+   function printtoken(): boolean;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -166,9 +188,11 @@ var
 
 implementation
 uses
- msegui,mainmodule_mfm,objectsform,msewidgets,msestrings,
+ mainmodule_mfm,objectsform,msewidgets,msestrings,voucherreport,tokenreport,
+ msefileutils,
  newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr,
- tokenlist1form,honourform,dateutils,msegraphedits,msestockobjects;
+ tokenlist1form,honourform,dateutils,msegraphedits,msestockobjects,msesys,
+ msedbdialog;
 
 resourcestring
  deletequestion = 'Wollen sie den Datensatz %0:S löschen?';
@@ -185,7 +209,7 @@ resourcestring
  vouchermustbeprinted = 'Beleg muss ausgedruckt werden!';
  tokenstored = 'Gutschein Nummer %d wurde eingetragen.';
  msetokencloses = 'MSEtoken wird beendet.';
- 
+ servicestored = 'Leistung wurde gespeichert.'; 
 
 { topt }
 
@@ -259,6 +283,7 @@ begin
  if objectsqu.indexlocal[0].find([tokensobject],bookmark1) then begin
   tokensunit.asmsestring:= objectsqu.currentbmasmsestring[objectsunit,bookmark1];
   tokensduration.asfloat:= objectsqu.currentbmasfloat[objectsduration,bookmark1];
+  tokensprice.asfloat:= objectsqu.currentbmasfloat[objectsprice,bookmark1];
   updatetokenvalue();
  end;
 end;
@@ -288,8 +313,8 @@ begin
  resetprintflags();
  tokensqu.open();
  try
-  b1:= false;
   ftokenused:= false;
+  b1:= false;
   repeat
    try
     numbersqu.insert();
@@ -312,6 +337,7 @@ begin
   tokensqu.insert();
   tokensissuedate.asdate:= now();
   tokensnumber.asinteger:= numbersnumber.asinteger;
+  tokensbarcode.asid:= numbersnumber.asinteger;
   if objectsqu.indexlocal[0].find([fopt.tokenobjectpk],[]) then begin
    tokensobject.asid:= fopt.tokenobjectpk;
   end;
@@ -354,6 +380,7 @@ begin
     case show(ml_application) of
      mr_ok: begin
       objectsqu.post();
+//      assistivehandler.speaktext1(rs(servicestored));
      end;
     end;
    finally
@@ -490,6 +517,7 @@ begin
    end;
    tokensqu.first();
    show(ml_application);
+   tokensqu.checkbrowsemode();
   finally
    destroy();
   end;
@@ -525,8 +553,7 @@ begin
  end;
 end;
 
-procedure tmainmo.honourdataentev(const sender: tcustomificlientcontroller;
-               const aclient: iificlient; const aindex: Integer);
+procedure tmainmo.checkhonourstate();
 var
  f1: flo64;
 begin
@@ -564,14 +591,23 @@ begin
  end;
 end;
 
-procedure tmainmo.honourtokenev(const sender: TObject);
+procedure tmainmo.honourdataentev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient; const aindex: Integer);
+begin
+ checkhonourstate();
+end;
+
+procedure tmainmo.honourtoken(const anumber: int64);
 begin
  with thonourfo.create(nil) do begin
   try
    honourtokenfinishact.enabled:= false;
-   honournumber.c.value:= -1;
+   honournumber.c.value:= anumber;
    honourdate.c.value:= trunc(now);
    tokensdispdso.dataset:= nil;
+   if anumber <> -1 then begin
+    checkhonourstate();
+   end;
    case show(ml_application) of
     mr_ok: begin
      tokensqu.edit();
@@ -584,6 +620,16 @@ begin
    tokensqu.cancel();
   end;
  end;
+end;
+
+procedure tmainmo.honourtokenev(const sender: TObject);
+begin
+ honourtoken(-1);
+end;
+
+procedure tmainmo.honourtokenlistev(const sender: TObject);
+begin
+ honourtoken(tokenspk.asid);
 end;
 
 procedure tmainmo.honourmodalresultev(const sender: tcustomificlientcontroller;
@@ -607,10 +653,43 @@ begin
  end;
 end;
 
+function tmainmo.printreport(const areport: reportclassty): boolean;
+var
+ s1: filenamety;
+ stream1: ttextstream;
+begin
+ result:= true;
+ with areport.create(nil) do begin
+  try
+   s1:= msegettempfilename('msetoken');
+   stream1:= ttextstream.create(s1,fm_create);
+   render(printer,stream1);
+   psviewer.parameter:= tosysfilepath(s1);
+   psviewer.active:= true;
+   psviewer.waitforprocess();
+   trydeletefile(s1);
+  finally
+   destroy();
+  end;
+ end;
+end;
+
+function tmainmo.printvoucher(): boolean;
+begin
+ result:= printreport(tvoucherre);
+end;
+
+function tmainmo.printtoken(): boolean;
+begin 
+ result:= printreport(ttokenre);
+end;
+
 procedure tmainmo.printvoucherev(const sender: TObject);
 begin
  if checknewtokenok() then begin
-  fvoucherprinted:= true;
+  if printvoucher() then begin
+   fvoucherprinted:= true;
+  end;
  end;
 end;
 
@@ -621,15 +700,19 @@ end;
 
 procedure tmainmo.printduplicateev(const sender: TObject);
 begin
- guibeep();
+ printtoken();
+end;
+
+procedure tmainmo.printvoucherduplicateev(const sender: TObject);
+begin
+ printvoucher();
 end;
 
 procedure tmainmo.mainfomdalresev(const sender: tcustomificlientcontroller;
                const aclient: iificlient; const amodalresult: modalresultty);
 begin
  with assistivehandler do begin
-  cancel();
-  speaktext(rs(msetokencloses),voicecaption);
+  speaktext1(rs(msetokencloses),voicecaption);
   wait();
  end;
 end;

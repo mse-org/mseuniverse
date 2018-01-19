@@ -10,7 +10,7 @@ inherited newobjectfo: tnewobjectfo
   moduleclassname = 'tobjectfo'
   inherited finibu: tbutton
     taborder = 6
-    caption = 'Neue Leistung'#10'eintragen'
+    caption = 'Neue Leistung'#10'speichern'
   end
   inherited nameed: tdbstringedit
   end

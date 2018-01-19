@@ -1,6 +1,6 @@
 object mainmo: tmainmo
   bounds_cx = 461
-  bounds_cy = 539
+  bounds_cy = 583
   statfile = tstatfile1
   left = 802
   top = 242
@@ -11,8 +11,8 @@ object mainmo: tmainmo
     savedmemoryfiles = '*.sta'
     onstatbeforewrite = beforestatwriteev
     onstatafterread = afterstatreadev
-    left = 16
-    top = 328
+    left = 288
+    top = 72
   end
   object assistivehandler: tassistivehandler
     active = True
@@ -42,6 +42,7 @@ object mainmo: tmainmo
     speaker.rate = 1
     speaker.pitch = 1
     speaker.range = 1
+    speaker.wordgap = 6
     voicefixed = 4
     voicetexteditreadonly = 3
     left = 16
@@ -50,7 +51,7 @@ object mainmo: tmainmo
   object newtokenact: taction
     onexecute = newtokenev
     left = 16
-    top = 352
+    top = 384
   end
   object conn: tfb3connection
     DatabaseName = 'msetoken.fdb'
@@ -214,22 +215,22 @@ object mainmo: tmainmo
   object objectsact: taction
     onexecute = objectsev
     left = 16
-    top = 368
+    top = 400
   end
   object newobjectact: taction
     onexecute = newobjectev
     left = 16
-    top = 384
+    top = 416
   end
   object editobjectact: taction
     onexecute = editobjectev
     left = 16
-    top = 400
+    top = 432
   end
   object deleteobjectact: taction
     onexecute = deleteobjectev
     left = 16
-    top = 416
+    top = 448
   end
   object tactivator1: tactivator
     clients = 3
@@ -245,12 +246,12 @@ object mainmo: tmainmo
   object trttistat1: trttistat
     statfile = tstatfile1
     ongetobject = getstatobjev
-    left = 112
-    top = 328
+    left = 168
+    top = 304
   end
   object tokensqu: tmsesqlquery
     options = [bdo_cancelupdateonerror, bdo_autoapply, bdo_autocommitret]
-    indexlocal.count = 10
+    indexlocal.count = 12
     indexlocal.items = <    
       item
         fields.items = <        
@@ -286,6 +287,20 @@ object mainmo: tmainmo
       item
         fields.items = <        
           item
+            fieldname = 'RECIPIENT'
+            options = [ifo_caseinsensitive]
+          end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'CUSTOMER'
+            options = [ifo_caseinsensitive]
+          end>
+      end    
+      item
+        fields.items = <        
+          item
             fieldname = 'QUANTITY'
           end>
       end    
@@ -293,6 +308,7 @@ object mainmo: tmainmo
         fields.items = <        
           item
             fieldname = 'UNIT'
+            options = [ifo_caseinsensitive]
           end>
       end    
       item
@@ -316,8 +332,8 @@ object mainmo: tmainmo
       end>
     params = <>
     SQL.data = (
-      'select TSCREATE,TSMODIFY,PK,NUMBER,ISSUEDATE,CUSTOMER,RECIPIENT,OBJECT,DESCRIPTION,'
-      ' QUANTITY,UNIT,"VALUE",DURATION,COMMENT,EXPIRYDATE,HONOURDATE,cast(NUMBER as varchar(20)) as "numbertext" from tokens'
+      'select TSCREATE,TSMODIFY,PK,NUMBER,BARCODE,ISSUEDATE,CUSTOMER,RECIPIENT,OBJECT,DESCRIPTION,'
+      ' QUANTITY,UNIT,PRICE,"VALUE",DURATION,COMMENT,EXPIRYDATE,HONOURDATE,cast(NUMBER as varchar(20)) as "numbertext" from tokens'
     )
     IndexDefs = <    
       item
@@ -349,6 +365,10 @@ object mainmo: tmainmo
       item
         Name = 'NUMBER'
         DataType = ftInteger
+      end    
+      item
+        Name = 'BARCODE'
+        DataType = ftLargeint
       end    
       item
         Name = 'ISSUEDATE'
@@ -383,6 +403,10 @@ object mainmo: tmainmo
         Size = 10
       end    
       item
+        Name = 'PRICE'
+        DataType = ftFloat
+      end    
+      item
         Name = 'VALUE'
         DataType = ftBCD
       end    
@@ -409,10 +433,9 @@ object mainmo: tmainmo
         Size = 20
       end>
     controller.activator = tactivator1
-    controller.fields.count = 6
+    controller.fields.count = 5
     controller.fields.fields = (
       (
-        ft_largeint
         ft_datetime
         ft_datetime
         ft_string
@@ -421,45 +444,40 @@ object mainmo: tmainmo
       )
       <      
         item
-          FieldName = 'PK'
-          Index = 0
-          optionsfield = [of_visible, of_inwhere, of_inkey, of_refreshinsert]
-        end      
-        item
           FieldName = 'TSCREATE'
-          Index = 1
+          Index = 0
           optionsfield = [of_visible, of_inwhere]
         end      
         item
           FieldName = 'TSMODIFY'
-          Index = 2
+          Index = 1
           optionsfield = [of_visible, of_inwhere]
         end      
         item
           DisplayWidth = 80
           FieldName = 'CUSTOMER'
-          Index = 3
+          Index = 2
           Size = 0
         end      
         item
           DisplayWidth = 80
           FieldName = 'RECIPIENT'
-          Index = 4
+          Index = 3
           Size = 0
         end      
         item
           DisplayWidth = 1000
           FieldName = 'COMMENT'
-          Index = 5
+          Index = 4
           Size = 0
         end>
     )
     left = 16
-    top = 112
+    top = 96
     streamingversion = 1
     object tokensobject: tmselargeintfield
       FieldName = 'OBJECT'
-      Index = 6
+      Index = 5
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = tokenobjectchangev
       left = 24
@@ -467,7 +485,7 @@ object mainmo: tmainmo
     end
     object tokensquantity: tmsefloatfield
       FieldName = 'QUANTITY'
-      Index = 7
+      Index = 6
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = tokenquantitiychangeev
       MaxValue = 0
@@ -478,7 +496,7 @@ object mainmo: tmainmo
     object tokensunit: tmsestringfield
       DisplayWidth = 20
       FieldName = 'UNIT'
-      Index = 8
+      Index = 7
       Size = 0
       left = 24
       top = 176
@@ -486,84 +504,106 @@ object mainmo: tmainmo
     object tokensvalue: tmsebcdfield
       DisplayWidth = 15
       FieldName = 'VALUE'
-      Index = 9
-      MaxValue = 0
-      MinValue = 0
-      left = 24
-      top = 192
-    end
-    object tokensduration: tmsefloatfield
-      FieldName = 'DURATION'
-      Index = 10
-      OnChange = updateexpirydateev
+      Index = 8
       MaxValue = 0
       MinValue = 0
       left = 24
       top = 208
     end
-    object tokensdescription: tmsestringfield
-      DisplayWidth = 20
-      FieldName = 'DESCRIPTION'
-      Index = 11
-      Size = 0
+    object tokensduration: tmsefloatfield
+      FieldName = 'DURATION'
+      Index = 9
+      OnChange = updateexpirydateev
+      MaxValue = 0
+      MinValue = 0
       left = 24
       top = 224
     end
-    object tokensissuedate: tmsedatefield
-      FieldName = 'ISSUEDATE'
-      Index = 12
-      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      OnChange = updateexpirydateev
+    object tokensdescription: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'DESCRIPTION'
+      Index = 10
+      Size = 0
       left = 24
       top = 240
     end
-    object tokensnumber: tmselongintfield
-      FieldName = 'NUMBER'
-      Index = 13
-      OnChange = tokennumberchangeev
-      left = 24
-      top = 272
-    end
-    object tokensexpirydate: tmsedatefield
-      FieldName = 'EXPIRYDATE'
-      Index = 14
+    object tokensissuedate: tmsedatefield
+      FieldName = 'ISSUEDATE'
+      Index = 11
+      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
+      OnChange = updateexpirydateev
       left = 24
       top = 256
     end
+    object tokensnumber: tmselongintfield
+      FieldName = 'NUMBER'
+      Index = 12
+      OnChange = tokennumberchangeev
+      left = 24
+      top = 288
+    end
+    object tokensexpirydate: tmsedatefield
+      FieldName = 'EXPIRYDATE'
+      Index = 13
+      left = 24
+      top = 272
+    end
     object tokenshonourdate: tmsedatefield
       FieldName = 'HONOURDATE'
-      Index = 15
+      Index = 14
       left = 24
-      top = 304
+      top = 336
     end
     object tokensnumbertext: tmsestringfield
       DisplayWidth = 20
       FieldName = 'numbertext'
-      Index = 16
+      Index = 15
       optionsfield = [of_visible, of_inwhere]
+      Size = 0
       left = 24
-      top = 288
+      top = 304
+    end
+    object tokenspk: tmselargeintfield
+      FieldName = 'PK'
+      Index = 16
+      optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
+      left = 24
+      top = 128
+    end
+    object tokensbarcode: tmselargeintfield
+      FieldName = 'BARCODE'
+      Index = 17
+      left = 24
+      top = 320
+    end
+    object tokensprice: tmsefloatfield
+      FieldName = 'PRICE'
+      Index = 18
+      MaxValue = 0
+      MinValue = 0
+      left = 24
+      top = 192
     end
   end
   object printtokenact: taction
     onexecute = printtokenev
     left = 144
-    top = 352
+    top = 384
   end
   object printvoucheract: taction
     onexecute = printvoucherev
     left = 144
-    top = 368
+    top = 400
   end
   object newtokenstoreact: taction
     onexecute = tokenstoreev
     left = 144
-    top = 384
+    top = 416
   end
   object newtokencloseact: taction
     state = [as_disabled]
     left = 144
-    top = 400
+    top = 432
   end
   object objectsdso: tmsedatasource
     DataSet = objectsqu
@@ -628,12 +668,12 @@ object mainmo: tmainmo
   object tokenlistact: taction
     onexecute = tokenlistev
     left = 16
-    top = 440
+    top = 472
   end
   object tokenlistshowact: taction
     onbeforeexecute = tokenlistshowev
     left = 144
-    top = 440
+    top = 472
   end
   object honourcheck: tifistringlinkcomp
     left = 168
@@ -649,12 +689,12 @@ object mainmo: tmainmo
     AutoEdit = False
     DataSet = tokensqu
     left = 16
-    top = 128
+    top = 112
   end
   object honourtokenact: taction
     onexecute = honourtokenev
     left = 16
-    top = 456
+    top = 488
   end
   object honourdate: tifidatetimelinkcomp
     controller.onclientdataentered = honourdataentev
@@ -673,7 +713,7 @@ object mainmo: tmainmo
   object honourtokenfinishact: taction
     state = [as_disabled]
     left = 24
-    top = 472
+    top = 504
   end
   object honourform: tififormlinkcomp
     controller.onclientclosequery = honourmodalresultev
@@ -683,11 +723,36 @@ object mainmo: tmainmo
   object printduplicateact: taction
     onexecute = printduplicateev
     left = 272
-    top = 352
+    top = 384
   end
   object mainform: tififormlinkcomp
     controller.onclientmodalresult = mainfomdalresev
     left = 288
     top = 120
+  end
+  object honourtokenlistact: taction
+    onexecute = honourtokenlistev
+    left = 16
+    top = 528
+  end
+  object printer: tpostscriptprinter
+    canvas.font.localprops = []
+    canvas.ppmm = 10
+    pa_width = 210
+    pa_height = 297
+    pa_size = sps_a4
+    tabulators.defaultdist = 0
+    left = 168
+    top = 264
+  end
+  object psviewer: tmseprocess
+    filename = 'okular'
+    left = 248
+    top = 264
+  end
+  object printvoucherduplicateact: taction
+    onexecute = printvoucherduplicateev
+    left = 272
+    top = 400
   end
 end

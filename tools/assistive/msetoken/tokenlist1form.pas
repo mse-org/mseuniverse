@@ -23,6 +23,10 @@ type
    tassistivewidgetitem1: tassistivewidgetitem;
    honourdateed: tdbdatetimeedit;
    tdatabutton1: tdatabutton;
+   tdatabutton2: tdatabutton;
+   tdatabutton3: tdatabutton;
+   recipiented: tdbstringedit;
+   customered: tdbstringedit;
  end;
 var
  tokenlist1fo: ttokenlist1fo;

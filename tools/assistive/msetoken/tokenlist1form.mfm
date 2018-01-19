@@ -1,14 +1,14 @@
 object tokenlist1fo: ttokenlist1fo
   bounds_x = 449
   bounds_y = 266
-  bounds_cx = 692
+  bounds_cx = 839
   bounds_cy = 282
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    692
+    839
     282
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
@@ -21,7 +21,7 @@ object tokenlist1fo: ttokenlist1fo
     frame.localprops1 = []
     bounds_x = 0
     bounds_y = 0
-    bounds_cx = 692
+    bounds_cx = 839
     bounds_cy = 282
     anchors = []
     optionsgrid = [og_colsizing, og_focuscellonenter, og_savestate, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
@@ -34,7 +34,7 @@ object tokenlist1fo: ttokenlist1fo
     fixrows.items = <    
       item
         height = 18
-        captions.count = 10
+        captions.count = 14
         captions.items = <        
           item
             caption = 'Ausgabe-Datum'
@@ -50,6 +50,14 @@ object tokenlist1fo: ttokenlist1fo
           end        
           item
             caption = 'Nummer'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'Empf'#228'ngerin'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'Kundin'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
@@ -72,10 +80,16 @@ object tokenlist1fo: ttokenlist1fo
             caption = 'Bemerkung'
           end        
           item
+            caption = 'Gutschein einl'#246'sen'
+          end        
+          item
             caption = 'Duplikat drucken'
+          end        
+          item
+            caption = 'Beleg drucken'
           end>
       end>
-    datacols.count = 10
+    datacols.count = 14
     datacols.items = <    
       item[issuedateed]
         widgetname = 'issuedateed'
@@ -88,6 +102,12 @@ object tokenlist1fo: ttokenlist1fo
       end    
       item[numbered]
         widgetname = 'numbered'
+      end    
+      item[recipiented]
+        widgetname = 'recipiented'
+      end    
+      item[customered]
+        widgetname = 'customered'
       end    
       item[quantityed]
         widgetname = 'quantityed'
@@ -102,12 +122,25 @@ object tokenlist1fo: ttokenlist1fo
         widgetname = 'descriptioned'
       end    
       item[commented]
+        width = 70
         widgetname = 'commented'
+      end    
+      item[tdatabutton2]
+        color = -2147483646
+        width = 57
+        widgetname = 'tdatabutton2'
+        dataclass = tgridintegerdatalist
       end    
       item[tdatabutton1]
         color = -2147483646
         width = 103
         widgetname = 'tdatabutton1'
+        dataclass = tgridintegerdatalist
+      end    
+      item[tdatabutton3]
+        color = -2147483646
+        width = 82
+        widgetname = 'tdatabutton3'
         dataclass = tgridintegerdatalist
       end>
     datalink.datasource = dataso
@@ -182,7 +215,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 204
+      bounds_x = 306
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -199,7 +232,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 255
+      bounds_x = 357
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -212,7 +245,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 306
+      bounds_x = 408
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -229,7 +262,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 8
       visible = False
-      bounds_x = 357
+      bounds_x = 459
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -251,26 +284,77 @@ object tokenlist1fo: ttokenlist1fo
       frame.button.imagenr = 17
       taborder = 9
       visible = False
-      bounds_x = 408
+      bounds_x = 510
       bounds_y = 0
-      bounds_cx = 50
+      bounds_cx = 70
       bounds_cy = 18
       optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_readonlydialog, oe1_savevalue, oe1_savestate, oe1_checkvalueafterstatread]
       datalink.datasource = dataso
       datalink.fieldname = 'COMMENT'
+      datalink.options = [oed_noreadonly]
       reffontheight = 16
+    end
+    object tdatabutton2: tdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 10
+      bounds_x = 581
+      bounds_y = 0
+      bounds_cx = 57
+      bounds_cy = 18
+      state = [as_invisible, as_localinvisible, as_localcaption]
+      action = mainmo.honourtokenlistact
+      caption = 'Einl'#246'sen'
     end
     object tdatabutton1: tdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 10
-      bounds_x = 459
+      taborder = 11
+      bounds_x = 639
       bounds_y = 0
       bounds_cx = 103
       bounds_cy = 18
       state = [as_invisible, as_localinvisible, as_localcaption]
       action = mainmo.printduplicateact
       caption = 'Drucken'
+    end
+    object tdatabutton3: tdatabutton
+      optionswidget1 = []
+      optionsskin = [osk_framebuttononly]
+      taborder = 12
+      bounds_x = 743
+      bounds_y = 0
+      bounds_cx = 82
+      bounds_cy = 18
+      state = [as_invisible, as_localinvisible, as_localcaption]
+      action = mainmo.printvoucherduplicateact
+      caption = 'Drucken'
+    end
+    object recipiented: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 13
+      visible = False
+      bounds_x = 204
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 18
+      datalink.datasource = dataso
+      datalink.fieldname = 'RECIPIENT'
+      reffontheight = 16
+    end
+    object customered: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 14
+      visible = False
+      bounds_x = 255
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 18
+      datalink.datasource = dataso
+      datalink.fieldname = 'CUSTOMER'
+      reffontheight = 16
     end
   end
   object tstatfile1: tstatfile
