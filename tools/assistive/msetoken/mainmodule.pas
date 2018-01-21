@@ -23,7 +23,7 @@ uses
  mdb,msebufdataset,msedb,mseifiglob,msesqldb,mserttistat,mclasses,tokenlistform,
  newtokenform,mseificomp,mseificompglob,mseact,msedataedits,msedropdownlist,
  mseedit,msegraphics,msegraphutils,msegui,mseguiglob,msemenus,msereport,
- msepostscriptprinter,mseprinter,msestream,msepipestream,mseprocess;
+ msepostscriptprinter,mseprinter,msestream,msepipestream,mseprocess,mseforms;
 
 type
  topt = class(toptions)
@@ -31,8 +31,9 @@ type
    feditobjectpk: int64;
    ftokenobjectpk: int64;
    ftokensortnumber: boolean;
-   ftokensortrecipient: boolean;
    ftokensortclient: boolean;
+   ftokensortdonator: boolean;
+   ftokensortrecipient: boolean;
    ftokensortissuedate: boolean;
    ftokensorthonourdate: boolean;
    ftokensortexpirydate: boolean;
@@ -42,6 +43,47 @@ type
    ftokensortdescription: boolean;
    ftokensortdesc: boolean;
    fassistiverate: flo64;
+   fissuedateon: boolean;
+   fissuedatecapt: msestring;
+   fissuedatex: flo64;
+   fissuedatey: flo64;
+   fexpirydateon: boolean;
+   fexpirydatecapt: msestring;
+   fexpirydatex: flo64;
+   fexpirydatey: flo64;
+   fdurationon: boolean;
+   fdurationcapt: msestring;
+   fdurationx: flo64;
+   fdurationy: flo64;
+   fnumberon: boolean;
+   fnumbercapt: msestring;
+   fnumberx: flo64;
+   fnumbery: flo64;
+   fbarcodeon: boolean;
+   fbarcodecapt: msestring;
+   fbarcodex: flo64;
+   fbarcodey: flo64;
+   fquantityon: boolean;
+   fquantitycapt: msestring;
+   fquantityx: flo64;
+   fquantityy: flo64;
+   fdescriptionon: boolean;
+   fdescriptioncapt: msestring;
+   fdescriptionx: flo64;
+   fdescriptiony: flo64;
+   frecipienton: boolean;
+   frecipientcapt: msestring;
+   frecipientx: flo64;
+   frecipienty: flo64;
+   fdonatoron: boolean;
+   fdonatorcapt: msestring;
+   fdonatorx: flo64;
+   fdonatory: flo64;
+   fpdfvariables: boolean;
+   fpsbackground: boolean;
+   ftokenfile: msestring;
+   forigx: flo64;
+   forigy: flo64;
   public
    constructor create();
   published
@@ -55,10 +97,12 @@ type
                                                     write ftokensortexpirydate;
    property tokensortnumber: boolean read ftokensortnumber
                                                     write ftokensortnumber;
-   property tokensortrecipient: boolean read ftokensortrecipient
-                                                    write ftokensortrecipient;
    property tokensortclient: boolean read ftokensortclient
                                                     write ftokensortclient;
+   property tokensortdonator: boolean read ftokensortdonator
+                                                    write ftokensortdonator;
+   property tokensortrecipient: boolean read ftokensortrecipient
+                                                    write ftokensortrecipient;
    property tokensortquantity: boolean read ftokensortquantity
                                                     write ftokensortquantity;
    property tokensortunit: boolean read ftokensortunit
@@ -70,6 +114,49 @@ type
    property tokensortdesc: boolean read ftokensortdesc
                                                     write ftokensortdesc;
    property assistiverate: flo64 read fassistiverate write fassistiverate;
+
+   property pdfvariables: boolean read fpdfvariables write fpdfvariables;
+   property psbackground: boolean read fpsbackground write fpsbackground;
+   property tokenfile: msestring read ftokenfile write ftokenfile;
+   property origx: flo64 read forigx write forigx;
+   property origy: flo64 read forigy write forigy;
+ 
+   property issuedateon: boolean read fissuedateon write fissuedateon;
+   property issuedatecapt: msestring read fissuedatecapt write fissuedatecapt;
+   property issuedatex: flo64 read fissuedatex write fissuedatex;
+   property issuedatey: flo64 read fissuedatey write fissuedatey;
+   property expirydateon: boolean read fexpirydateon write fexpirydateon;
+   property expirydatecapt: msestring read fexpirydatecapt write fexpirydatecapt;
+   property expirydatex: flo64 read fexpirydatex write fexpirydatex;
+   property expirydatey: flo64 read fexpirydatey write fexpirydatey;
+   property durationon: boolean read fdurationon write fdurationon;
+   property durationcapt: msestring read fdurationcapt write fdurationcapt;
+   property durationx: flo64 read fdurationx write fdurationx;
+   property durationy: flo64 read fdurationy write fdurationy;
+   property numberon: boolean read fnumberon write fnumberon;
+   property numbercapt: msestring read fnumbercapt write fnumbercapt;
+   property numberx: flo64 read fnumberx write fnumberx;
+   property numbery: flo64 read fnumbery write fnumbery;
+   property barcodeon: boolean read fbarcodeon write fbarcodeon;
+   property barcodecapt: msestring read fbarcodecapt write fbarcodecapt;
+   property barcodex: flo64 read fbarcodex write fbarcodex;
+   property barcodey: flo64 read fbarcodey write fbarcodey;
+   property quantityon: boolean read fquantityon write fquantityon;
+   property quantitycapt: msestring read fquantitycapt write fquantitycapt;
+   property quantityx: flo64 read fquantityx write fquantityx;
+   property quantityy: flo64 read fquantityy write fquantityy;
+   property descriptionon: boolean read fdescriptionon write fdescriptionon;
+   property descriptioncapt: msestring read fdescriptioncapt write fdescriptioncapt;
+   property descriptionx: flo64 read fdescriptionx write fdescriptionx;
+   property descriptiony: flo64 read fdescriptiony write fdescriptiony;
+   property recipienton: boolean read frecipienton write frecipienton;
+   property recipientcapt: msestring read frecipientcapt write frecipientcapt;
+   property recipientx: flo64 read frecipientx write frecipientx;
+   property recipienty: flo64 read frecipienty write frecipienty;
+   property donatoron: boolean read fdonatoron write fdonatoron;
+   property donatorcapt: msestring read fdonatorcapt write fdonatorcapt;
+   property donatorx: flo64 read fdonatorx write fdonatorx;
+   property donatory: flo64 read fdonatory write fdonatory;
  end;
  
  tmainmo = class(tmsedatamodule)
@@ -128,6 +215,9 @@ type
    psviewer: tmseprocess;
    printvoucherduplicateact: taction;
    tokensprice: tmsefloatfield;
+   settingsact: taction;
+   pdftk: tmseprocess;
+   ps2pdf: tmseprocess;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -158,6 +248,7 @@ type
    procedure beforestatwriteev(const sender: TObject);
    procedure honourtokenlistev(const sender: TObject);
    procedure printvoucherduplicateev(const sender: TObject);
+   procedure settingsev(const sender: TObject);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -172,7 +263,9 @@ type
    function checknewtokenok(): boolean;
    procedure checkhonourstate();
    procedure honourtoken(const anumber: int64);
-   function printreport(const areport: reportclassty): boolean;
+   function printreport(const areport: treport;
+                                const acaption: msestring;
+                                const background: filenamety): boolean;
    function printvoucher(): boolean;
    function printtoken(): boolean;
   public
@@ -180,6 +273,8 @@ type
    destructor destroy(); override;
    property opt: topt read fopt;
    procedure closequery(const adataso: tdatasource; 
+                                     var amodalres: modalresultty);
+   procedure closequery(const asender: tmseform; 
                                      var amodalres: modalresultty);
  end;
  
@@ -189,7 +284,7 @@ var
 implementation
 uses
  mainmodule_mfm,objectsform,msewidgets,msestrings,voucherreport,tokenreport,
- msefileutils,
+ msefileutils,settingsform,
  newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr,
  tokenlist1form,honourform,dateutils,msegraphedits,msestockobjects,msesys,
  msedbdialog;
@@ -209,7 +304,10 @@ resourcestring
  vouchermustbeprinted = 'Beleg muss ausgedruckt werden!';
  tokenstored = 'Gutschein Nummer %d wurde eingetragen.';
  msetokencloses = 'MSEtoken wird beendet.';
- servicestored = 'Leistung wurde gespeichert.'; 
+ servicestored = 'Leistung wurde gespeichert.';
+ voucherprinted = 'Beleg wird gedruckt.';
+ tokenprinted = 'Gutschein wird gedruckt.';
+ valueschangedquery = 'Werte wurden geändert. Wollen Sie speichern?';
 
 { topt }
 
@@ -254,7 +352,8 @@ end;
 function tmainmo.checknewtokenok(): boolean;
 begin
  tokensqu.modify(false);
- result:= fnewtokenfo.canparentclose();
+// result:= fnewtokenfo.canclose(nil);
+ result:= fnewtokenfo.canparentclose(nil);
  if result then begin
   fnewtokenfo.dataso.updaterecord();
  end;
@@ -284,6 +383,8 @@ begin
   tokensunit.asmsestring:= objectsqu.currentbmasmsestring[objectsunit,bookmark1];
   tokensduration.asfloat:= objectsqu.currentbmasfloat[objectsduration,bookmark1];
   tokensprice.asfloat:= objectsqu.currentbmasfloat[objectsprice,bookmark1];
+  tokensdescription.asmsestring:= 
+                 objectsqu.currentbmasmsestring[objectsdescription,bookmark1];
   updatetokenvalue();
  end;
 end;
@@ -425,8 +526,20 @@ end;
 procedure tmainmo.closequery(const adataso: tdatasource;
                var amodalres: modalresultty);
 begin
- if (amodalres <> mr_ok) and adataso.dataset.modified then begin
+ if not (amodalres in [mr_ok,mr_canclose]) and 
+                                        adataso.dataset.modified then begin
   if not askyesno(rs(closewindowcancelrecordquestion)) then begin
+   amodalres:= mr_none;
+  end;
+ end;
+end;
+
+procedure tmainmo.closequery(const asender: tmseform;
+               var amodalres: modalresultty);
+begin
+ if not (amodalres in [mr_cancel,mr_ok]) then begin
+  amodalres:= askyesnocancel(rs(valueschangedquery));
+  if amodalres = mr_cancel then begin
    amodalres:= mr_none;
   end;
  end;
@@ -514,6 +627,7 @@ begin
      sortdescend:= ftokenlistfo.tokensortdesc.value;
     end;
     grid.datacols.sortcol:= w1.tag;
+    grid.sorted:= true;
    end;
    tokensqu.first();
    show(ml_application);
@@ -648,26 +762,53 @@ end;
 
 procedure tmainmo.printtokenev(const sender: TObject);
 begin
- if checknewtokenok() then begin
+ if checknewtokenok() and printtoken() then begin
   ftokenprinted:= true;
  end;
 end;
 
-function tmainmo.printreport(const areport: reportclassty): boolean;
+function tmainmo.printreport(const areport: treport;
+                                        const acaption: msestring;
+                                        const background: filenamety): boolean;
 var
- s1: filenamety;
+ s1,s2,s3,s4: filenamety;
  stream1: ttextstream;
+ s5: string;
 begin
  result:= true;
- with areport.create(nil) do begin
+ with areport do begin
   try
    s1:= msegettempfilename('msetoken');
+   s4:= s1;
    stream1:= ttextstream.create(s1,fm_create);
    render(printer,stream1);
-   psviewer.parameter:= tosysfilepath(s1);
-   psviewer.active:= true;
-   psviewer.waitforprocess();
-   trydeletefile(s1);
+   if background <> '' then begin
+    s2:= msegettempfilename('msetoken1');
+    if getprocessoutput('ps2pdf '+tosysfilepath(quotefilename(s1))+' '+
+                  tosysfilepath(quotefilename(s2)),'',s5) <> 0 then begin
+     showerror(msestring(s5));
+     result:= false;
+    end
+    else begin
+     s3:= msegettempfilename('msetoken2');
+     if getprocessoutput('pdftk '+tosysfilepath(quotefilename(s2))+
+         ' background '+tosysfilepath(quotefilename(background))+
+         ' output '+tosysfilepath(quotefilename(s3)),'',s5) <> 0 then begin
+      showerror(msestring(s5));
+      result:= false;
+     end;
+     trydeletefile(s2);
+     s4:= s3;
+    end;
+    trydeletefile(s1);
+   end;
+   if result then begin
+    showmessage(acaption);
+    psviewer.parameter:= tosysfilepath(s4);
+    psviewer.active:= true;
+    psviewer.waitforprocess();
+   end;
+   trydeletefile(s4);
   finally
    destroy();
   end;
@@ -676,20 +817,62 @@ end;
 
 function tmainmo.printvoucher(): boolean;
 begin
- result:= printreport(tvoucherre);
+ result:= printreport(tvoucherre.create(nil),rs(voucherprinted),'');
 end;
 
 function tmainmo.printtoken(): boolean;
+var
+ rep1: ttokenre;
+
+ function mpr(const x,y: flo64): pointty;
+ begin
+  result.x:= round((x + fopt.origx) * rep1.ppmm);
+  result.y:= round((y + fopt.origy) * rep1.ppmm);
+ end;
+
+var
+ s1,s2: msestring;
+ 
 begin 
- result:= printreport(ttokenre);
+ rep1:= ttokenre.create(nil);
+ with rep1 do begin
+  issuedate.visible:= fopt.issuedateon;
+  issuedate.frame.caption:= fopt.issuedatecapt;
+  issuedate.pos:= mpr(fopt.issuedatex,fopt.issuedatey);
+  expirydate.visible:= fopt.expirydateon;
+  expirydate.frame.caption:= fopt.expirydatecapt;
+  expirydate.pos:= mpr(fopt.expirydatex,fopt.expirydatey);
+  duration.visible:= fopt.durationon;
+  duration.frame.caption:= fopt.durationcapt;
+  duration.pos:= mpr(fopt.durationx,fopt.durationy);
+  number.visible:= fopt.numberon;
+  number.frame.caption:= fopt.numbercapt;
+  number.pos:= mpr(fopt.numberx,fopt.numbery);
+  barcode.visible:= fopt.barcodeon;
+  barcode.frame.caption:= fopt.barcodecapt;
+  barcode.pos:= mpr(fopt.barcodex,fopt.barcodey);
+  quantity.visible:= fopt.quantityon;
+  quantity.frame.caption:= fopt.quantitycapt;
+  quantity.pos:= mpr(fopt.quantityx,fopt.quantityy);
+  unit_.visible:= quantity.visible;
+  unit_.pos:= mp(quantity.left+quantity.width+2,quantity.top);
+  description.visible:= fopt.descriptionon;
+  description.frame.caption:= fopt.descriptioncapt;
+  description.pos:= mpr(fopt.descriptionx,fopt.descriptiony);
+  recipient.visible:= fopt.recipienton;
+  recipient.frame.caption:= fopt.recipientcapt;
+  recipient.pos:= mpr(fopt.recipientx,fopt.recipienty);
+  donator.visible:= fopt.donatoron;
+  donator.frame.caption:= fopt.donatorcapt;
+  donator.pos:= mpr(fopt.donatorx,fopt.donatory);
+ end;
+ result:= printreport(rep1,rs(tokenprinted),fopt.tokenfile);
 end;
 
 procedure tmainmo.printvoucherev(const sender: TObject);
 begin
- if checknewtokenok() then begin
-  if printvoucher() then begin
-   fvoucherprinted:= true;
-  end;
+ if checknewtokenok() and printvoucher() then begin
+  fvoucherprinted:= true;
  end;
 end;
 
@@ -725,6 +908,23 @@ end;
 procedure tmainmo.beforestatwriteev(const sender: TObject);
 begin
  fopt.assistiverate:= assistivehandler.speaker.rate;
+end;
+
+procedure tmainmo.settingsev(const sender: TObject);
+var
+ fo1: tsettingsfo;
+begin
+ fo1:= tsettingsfo.create(nil);
+ with fo1 do begin
+  try
+   fopt.loadvalues(fo1);
+   if show(ml_application) in [mr_ok,mr_yes] then begin
+    fopt.storevalues(fo1);
+   end;
+  finally
+   destroy();
+  end;
+ end;
 end;
 
 initialization

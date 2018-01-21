@@ -16,7 +16,7 @@ object voucherre: tvoucherre
   moduleclassname = 'treport'
   object treportpage1: treportpage
     pagewidth = 190
-    pageheight = 270
+    pageheight = 277
     options = [rpo_once]
     object trepvaluedisp1: trepvaluedisp
       bounds_x = 0
@@ -31,9 +31,9 @@ object voucherre: tvoucherre
     object trepprintdatedisp1: trepprintdatedisp
       optionswidget1 = [ow1_autoscale, ow1_autowidth]
       taborder = 1
-      bounds_x = 419
+      bounds_x = 418
       bounds_y = 0
-      bounds_cx = 134
+      bounds_cx = 135
       bounds_cy = 18
       anchors = [an_top, an_right]
       format = '${dateformat}/hh:nn:ss'
@@ -42,9 +42,8 @@ object voucherre: tvoucherre
       taborder = 2
       bounds_x = 0
       bounds_y = 227
-      bounds_cx = 516
+      bounds_cx = 570
       bounds_cy = 18
-      anchors = [an_left, an_top, an_right]
       tabs.count = 8
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
@@ -138,9 +137,8 @@ object voucherre: tvoucherre
       taborder = 3
       bounds_x = 0
       bounds_y = 252
-      bounds_cx = 516
+      bounds_cx = 570
       bounds_cy = 18
-      anchors = [an_left, an_top, an_right]
       tabs.count = 8
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
@@ -235,9 +233,8 @@ object voucherre: tvoucherre
       taborder = 4
       bounds_x = 0
       bounds_y = 276
-      bounds_cx = 516
+      bounds_cx = 570
       bounds_cy = 18
-      anchors = [an_left, an_top, an_right]
       tabs.count = 8
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
@@ -329,10 +326,9 @@ object voucherre: tvoucherre
     object trecordband4: trecordband
       taborder = 5
       bounds_x = 0
-      bounds_y = 300
-      bounds_cx = 516
+      bounds_y = 324
+      bounds_cx = 570
       bounds_cy = 18
-      anchors = [an_left, an_top, an_right]
       tabs.count = 8
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
@@ -346,7 +342,7 @@ object voucherre: tvoucherre
       tabs.items = <      
         item
           pos = 0
-          value = 'Empf'#228'ngerin'
+          value = 'F'#252'r'
           datasource = dataso
           litop_widthmm = 0
           livert_widthmm = 0
@@ -424,10 +420,9 @@ object voucherre: tvoucherre
     object trecordband5: trecordband
       taborder = 6
       bounds_x = 0
-      bounds_y = 324
-      bounds_cx = 516
+      bounds_y = 348
+      bounds_cx = 570
       bounds_cy = 18
-      anchors = [an_left, an_top, an_right]
       tabs.count = 8
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
@@ -534,10 +529,9 @@ object voucherre: tvoucherre
     object trecordband6: trecordband
       taborder = 7
       bounds_x = 0
-      bounds_y = 348
-      bounds_cx = 516
+      bounds_y = 372
+      bounds_cx = 570
       bounds_cy = 18
-      anchors = [an_left, an_top, an_right]
       tabs.count = 8
       tabs.litop_widthmm = 0
       tabs.lileft_widthmm = 0
@@ -630,8 +624,8 @@ object voucherre: tvoucherre
     end
     object tdbbarcode1: tdbbarcode
       taborder = 8
-      bounds_x = 360
-      bounds_y = 120
+      bounds_x = 340
+      bounds_y = 84
       bounds_cx = 170
       bounds_cy = 62
       datalink.datasource = dataso
@@ -654,7 +648,7 @@ object voucherre: tvoucherre
       )
       taborder = 9
       bounds_x = 88
-      bounds_y = 144
+      bounds_y = 103
       bounds_cx = 126
       bounds_cy = 24
       font.color = -1610612734
@@ -668,10 +662,9 @@ object voucherre: tvoucherre
     object trecordband7: trecordband
       taborder = 10
       bounds_x = 0
-      bounds_y = 372
-      bounds_cx = 516
-      bounds_cy = 16
-      anchors = [an_left, an_top, an_right]
+      bounds_y = 396
+      bounds_cx = 570
+      bounds_cy = 18
       optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
       tabs.count = 8
       tabs.litop_widthmm = 0
@@ -761,6 +754,100 @@ object voucherre: tvoucherre
         item
           pos = 169.333333333333
           options = [rto_disabled]
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      datasource = dataso
+      options = [bo_once]
+    end
+    object trecordband8: trecordband
+      taborder = 11
+      bounds_x = 0
+      bounds_y = 300
+      bounds_cx = 570
+      bounds_cy = 18
+      tabs.count = 8
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = trecordband1
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Von'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 33.6666666666667
+          datafield = 'DONATOR'
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 57
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 59.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 87.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 125.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 127.3333333333333
+          datasource = dataso
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 169.333333333333
           datasource = dataso
           litop_widthmm = 0
           livert_widthmm = 0

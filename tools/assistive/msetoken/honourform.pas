@@ -40,6 +40,7 @@ type
    customerdisp: tdbstringedit;
    commentdisp: tdbmemodialogedit;
    unitydisp: tdbstringedit;
+   donatordisp: tdbstringedit;
  end;
 var
  honourfo: thonourfo;

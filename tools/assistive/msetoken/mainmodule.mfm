@@ -332,7 +332,7 @@ object mainmo: tmainmo
       end>
     params = <>
     SQL.data = (
-      'select TSCREATE,TSMODIFY,PK,NUMBER,BARCODE,ISSUEDATE,CUSTOMER,RECIPIENT,OBJECT,DESCRIPTION,'
+      'select TSCREATE,TSMODIFY,PK,NUMBER,BARCODE,ISSUEDATE,CUSTOMER,DONATOR,RECIPIENT,OBJECT,DESCRIPTION,'
       ' QUANTITY,UNIT,PRICE,"VALUE",DURATION,COMMENT,EXPIRYDATE,HONOURDATE,cast(NUMBER as varchar(20)) as "numbertext" from tokens'
     )
     IndexDefs = <    
@@ -376,6 +376,11 @@ object mainmo: tmainmo
       end    
       item
         Name = 'CUSTOMER'
+        DataType = ftString
+        Size = 80
+      end    
+      item
+        Name = 'DONATOR'
         DataType = ftString
         Size = 80
       end    
@@ -433,11 +438,12 @@ object mainmo: tmainmo
         Size = 20
       end>
     controller.activator = tactivator1
-    controller.fields.count = 5
+    controller.fields.count = 6
     controller.fields.fields = (
       (
         ft_datetime
         ft_datetime
+        ft_string
         ft_string
         ft_string
         ft_string
@@ -470,6 +476,12 @@ object mainmo: tmainmo
           FieldName = 'COMMENT'
           Index = 4
           Size = 0
+        end      
+        item
+          DisplayWidth = 80
+          FieldName = 'DONATOR'
+          Index = 5
+          Size = 0
         end>
     )
     left = 16
@@ -477,7 +489,7 @@ object mainmo: tmainmo
     streamingversion = 1
     object tokensobject: tmselargeintfield
       FieldName = 'OBJECT'
-      Index = 5
+      Index = 6
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = tokenobjectchangev
       left = 24
@@ -485,7 +497,7 @@ object mainmo: tmainmo
     end
     object tokensquantity: tmsefloatfield
       FieldName = 'QUANTITY'
-      Index = 6
+      Index = 7
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = tokenquantitiychangeev
       MaxValue = 0
@@ -496,7 +508,7 @@ object mainmo: tmainmo
     object tokensunit: tmsestringfield
       DisplayWidth = 20
       FieldName = 'UNIT'
-      Index = 7
+      Index = 8
       Size = 0
       left = 24
       top = 176
@@ -504,7 +516,7 @@ object mainmo: tmainmo
     object tokensvalue: tmsebcdfield
       DisplayWidth = 15
       FieldName = 'VALUE'
-      Index = 8
+      Index = 9
       MaxValue = 0
       MinValue = 0
       left = 24
@@ -512,7 +524,7 @@ object mainmo: tmainmo
     end
     object tokensduration: tmsefloatfield
       FieldName = 'DURATION'
-      Index = 9
+      Index = 10
       OnChange = updateexpirydateev
       MaxValue = 0
       MinValue = 0
@@ -522,14 +534,14 @@ object mainmo: tmainmo
     object tokensdescription: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
-      Index = 10
+      Index = 11
       Size = 0
       left = 24
       top = 240
     end
     object tokensissuedate: tmsedatefield
       FieldName = 'ISSUEDATE'
-      Index = 11
+      Index = 12
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       OnChange = updateexpirydateev
       left = 24
@@ -537,27 +549,27 @@ object mainmo: tmainmo
     end
     object tokensnumber: tmselongintfield
       FieldName = 'NUMBER'
-      Index = 12
+      Index = 13
       OnChange = tokennumberchangeev
       left = 24
       top = 288
     end
     object tokensexpirydate: tmsedatefield
       FieldName = 'EXPIRYDATE'
-      Index = 13
+      Index = 14
       left = 24
       top = 272
     end
     object tokenshonourdate: tmsedatefield
       FieldName = 'HONOURDATE'
-      Index = 14
+      Index = 15
       left = 24
       top = 336
     end
     object tokensnumbertext: tmsestringfield
       DisplayWidth = 20
       FieldName = 'numbertext'
-      Index = 15
+      Index = 16
       optionsfield = [of_visible, of_inwhere]
       Size = 0
       left = 24
@@ -565,20 +577,20 @@ object mainmo: tmainmo
     end
     object tokenspk: tmselargeintfield
       FieldName = 'PK'
-      Index = 16
+      Index = 17
       optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
       left = 24
       top = 128
     end
     object tokensbarcode: tmselargeintfield
       FieldName = 'BARCODE'
-      Index = 17
+      Index = 18
       left = 24
       top = 320
     end
     object tokensprice: tmsefloatfield
       FieldName = 'PRICE'
-      Index = 18
+      Index = 19
       MaxValue = 0
       MinValue = 0
       left = 24
@@ -754,5 +766,19 @@ object mainmo: tmainmo
     onexecute = printvoucherduplicateev
     left = 272
     top = 400
+  end
+  object settingsact: taction
+    onexecute = settingsev
+    left = 16
+    top = 552
+  end
+  object pdftk: tmseprocess
+    left = 328
+    top = 264
+  end
+  object ps2pdf: tmseprocess
+    filename = 'ps2pdf'
+    left = 328
+    top = 296
   end
 end

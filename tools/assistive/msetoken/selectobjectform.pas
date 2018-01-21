@@ -27,6 +27,7 @@ uses
 
 type
  tselectobjectfo = class(tselectrecordfo)
+   tstatfile1: tstatfile;
  end;
 
 implementation

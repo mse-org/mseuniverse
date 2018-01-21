@@ -41,6 +41,8 @@ type
    tbutton3: tbutton;
    tbutton4: tbutton;
    dateed: tdbdatetimeedit;
+   donatored: tdbstringedit;
+   descriptioned: tdbstringedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
  end;

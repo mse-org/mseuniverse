@@ -27,6 +27,7 @@ type
    tdatabutton3: tdatabutton;
    recipiented: tdbstringedit;
    customered: tdbstringedit;
+   donatored: tdbstringedit;
  end;
 var
  tokenlist1fo: ttokenlist1fo;

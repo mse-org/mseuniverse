@@ -39,6 +39,7 @@ type
    tbutton3: tbutton;
    tokensortrecipient: tbooleaneditradio;
    tokensortcustomer: tbooleaneditradio;
+   tokensortdonator: tbooleaneditradio;
  end;
 var
  tokenlistfo: ttokenlistfo;

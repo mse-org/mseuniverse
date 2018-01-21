@@ -6,6 +6,7 @@ inherited selectobjectfo: tselectobjectfo
     299
     105
   )
+  statfile = tstatfile1
   moduleclassname = 'tselectrecordfo'
   inherited selector: tenum64editdb
     frame.buttons.items = <    
@@ -24,5 +25,11 @@ inherited selectobjectfo: tselectobjectfo
     bounds_cx = 127
   end
   inherited dataso: tmsedatasource
+  end
+  object tstatfile1: tstatfile[4]
+    filename = 'selectobjfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 192
+    top = 11
   end
 end

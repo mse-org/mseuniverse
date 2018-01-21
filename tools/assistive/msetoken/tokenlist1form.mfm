@@ -13,7 +13,7 @@ object tokenlist1fo: ttokenlist1fo
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'Gutscheinliste'
+  caption = 'Gutschein Liste'
   moduleclassname = 'tmseform'
   object grid: tdbwidgetgrid
     frame.sbvert.pagesize = 1
@@ -34,7 +34,7 @@ object tokenlist1fo: ttokenlist1fo
     fixrows.items = <    
       item
         height = 18
-        captions.count = 14
+        captions.count = 15
         captions.items = <        
           item
             caption = 'Ausgabe-Datum'
@@ -53,11 +53,15 @@ object tokenlist1fo: ttokenlist1fo
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
-            caption = 'Empf'#228'ngerin'
+            caption = 'Kundin'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
-            caption = 'Kundin'
+            caption = 'Von'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'F'#252'r'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
@@ -89,7 +93,7 @@ object tokenlist1fo: ttokenlist1fo
             caption = 'Beleg drucken'
           end>
       end>
-    datacols.count = 14
+    datacols.count = 15
     datacols.items = <    
       item[issuedateed]
         widgetname = 'issuedateed'
@@ -103,11 +107,14 @@ object tokenlist1fo: ttokenlist1fo
       item[numbered]
         widgetname = 'numbered'
       end    
-      item[recipiented]
-        widgetname = 'recipiented'
-      end    
       item[customered]
         widgetname = 'customered'
+      end    
+      item[donatored]
+        widgetname = 'donatored'
+      end    
+      item[recipiented]
+        widgetname = 'recipiented'
       end    
       item[quantityed]
         widgetname = 'quantityed'
@@ -210,12 +217,38 @@ object tokenlist1fo: ttokenlist1fo
       datalink.fieldname = 'NUMBER'
       reffontheight = 16
     end
-    object quantityed: tdbrealedit
+    object recipiented: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
       bounds_x = 306
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 18
+      datalink.datasource = dataso
+      datalink.fieldname = 'RECIPIENT'
+      reffontheight = 16
+    end
+    object customered: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 6
+      visible = False
+      bounds_x = 204
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 18
+      datalink.datasource = dataso
+      datalink.fieldname = 'CUSTOMER'
+      reffontheight = 16
+    end
+    object quantityed: tdbrealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 7
+      visible = False
+      bounds_x = 357
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -230,9 +263,9 @@ object tokenlist1fo: ttokenlist1fo
     object united: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 6
+      taborder = 8
       visible = False
-      bounds_x = 357
+      bounds_x = 408
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -243,9 +276,9 @@ object tokenlist1fo: ttokenlist1fo
     object valueed: tdbrealedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 7
+      taborder = 9
       visible = False
-      bounds_x = 408
+      bounds_x = 459
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -260,9 +293,9 @@ object tokenlist1fo: ttokenlist1fo
     object descriptioned: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 8
+      taborder = 10
       visible = False
-      bounds_x = 459
+      bounds_x = 510
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -282,9 +315,9 @@ object tokenlist1fo: ttokenlist1fo
           imagenr = 17
         end>
       frame.button.imagenr = 17
-      taborder = 9
+      taborder = 11
       visible = False
-      bounds_x = 510
+      bounds_x = 561
       bounds_y = 0
       bounds_cx = 70
       bounds_cy = 18
@@ -297,8 +330,8 @@ object tokenlist1fo: ttokenlist1fo
     object tdatabutton2: tdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 10
-      bounds_x = 581
+      taborder = 12
+      bounds_x = 632
       bounds_y = 0
       bounds_cx = 57
       bounds_cy = 18
@@ -309,8 +342,8 @@ object tokenlist1fo: ttokenlist1fo
     object tdatabutton1: tdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 11
-      bounds_x = 639
+      taborder = 13
+      bounds_x = 690
       bounds_y = 0
       bounds_cx = 103
       bounds_cy = 18
@@ -321,8 +354,8 @@ object tokenlist1fo: ttokenlist1fo
     object tdatabutton3: tdatabutton
       optionswidget1 = []
       optionsskin = [osk_framebuttononly]
-      taborder = 12
-      bounds_x = 743
+      taborder = 14
+      bounds_x = 794
       bounds_y = 0
       bounds_cx = 82
       bounds_cy = 18
@@ -330,30 +363,17 @@ object tokenlist1fo: ttokenlist1fo
       action = mainmo.printvoucherduplicateact
       caption = 'Drucken'
     end
-    object recipiented: tdbstringedit
+    object donatored: tdbstringedit
       optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
-      taborder = 13
-      visible = False
-      bounds_x = 204
-      bounds_y = 0
-      bounds_cx = 50
-      bounds_cy = 18
-      datalink.datasource = dataso
-      datalink.fieldname = 'RECIPIENT'
-      reffontheight = 16
-    end
-    object customered: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
-      optionsskin = [osk_framebuttononly]
-      taborder = 14
+      taborder = 15
       visible = False
       bounds_x = 255
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
       datalink.datasource = dataso
-      datalink.fieldname = 'CUSTOMER'
+      datalink.fieldname = 'DONATOR'
       reffontheight = 16
     end
   end
