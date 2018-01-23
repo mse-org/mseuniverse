@@ -1,10 +1,11 @@
 inherited newobjectfo: tnewobjectfo
   bounds_y = 581
+  bounds_cy = 259
   container.bounds = (
     0
     0
     315
-    282
+    259
   )
   caption = 'Neue Leistung'
   moduleclassname = 'tobjectfo'
@@ -28,7 +29,6 @@ inherited newobjectfo: tnewobjectfo
   end
   inherited cancelbu: tbutton
     taborder = 7
-    caption = 'Neue Leistung'#10'abbrechen'
   end
   inherited durationed: tdbrealedit
     taborder = 4

@@ -23,7 +23,7 @@ uses
  msesimplewidgets,msegraphedits,mseificomp,mseificompglob,mseifiglob,
  msescrollbar,mseact,msedataedits,msedropdownlist,mseedit,msestream,sysutils,
  msebitmap,msedatanodes,msefiledialog,msegrids,mselistbrowser,msesys,
- mseassistivehandler;
+ mseassistivehandler,msesplitter;
 type
  tsettingsfo = class(tmseform)
    tbutton1: tbutton;
@@ -72,6 +72,27 @@ type
    tstatfile1: tstatfile;
    tokenfile: tfilenameedit;
    tassistivewidgetitem1: tassistivewidgetitem;
+   ps2pdf: tfilenameedit;
+   pdftk: tfilenameedit;
+   psviewer: tfilenameedit;
+   issuedatew: trealedit;
+   expirydatew: trealedit;
+   durationw: trealedit;
+   numberw: trealedit;
+   barcodew: trealedit;
+   quantityw: trealedit;
+   descriptionw: trealedit;
+   recipientw: trealedit;
+   donatorw: trealedit;
+   gs: tfilenameedit;
+   preview: tbooleanedit;
+   gsparams: tfilenameedit;
+   tsplitter1: tsplitter;
+   tsplitter2: tsplitter;
+   ps2pdfparams: tfilenameedit;
+   tsplitter3: tsplitter;
+   pdftkparams: tfilenameedit;
+   concatdesc: tbooleanedit;
    procedure datentev(const sender: TObject);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);

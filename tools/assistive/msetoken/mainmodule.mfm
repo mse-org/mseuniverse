@@ -1,11 +1,11 @@
 object mainmo: tmainmo
   bounds_cx = 461
   bounds_cy = 583
-  statfile = tstatfile1
+  statfile = mainstat
   left = 802
   top = 242
   moduleclassname = 'tmsedatamodule'
-  object tstatfile1: tstatfile
+  object mainstat: tstatfile
     filename = '^/.msetools/msetoken.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*.sta'
@@ -244,7 +244,7 @@ object mainmo: tmainmo
     )
   end
   object trttistat1: trttistat
-    statfile = tstatfile1
+    statfile = mainstat
     ongetobject = getstatobjev
     left = 168
     top = 304
@@ -771,14 +771,5 @@ object mainmo: tmainmo
     onexecute = settingsev
     left = 16
     top = 552
-  end
-  object pdftk: tmseprocess
-    left = 328
-    top = 264
-  end
-  object ps2pdf: tmseprocess
-    filename = 'ps2pdf'
-    left = 328
-    top = 296
   end
 end

@@ -2,9 +2,10 @@ object tokenre: ttokenre
   ppmm = 3
   pagewidth = 190
   pageheight = 270
+  font.colorbackground = -2147483645
   font.height = 14
   font.name = 'stf_report'
-  font.localprops = [flp_height]
+  font.localprops = [flp_colorbackground, flp_height]
   grid_size = 2
   options = [reo_prepass, reo_nothread]
   repdesigninfo = (
@@ -17,15 +18,16 @@ object tokenre: ttokenre
   object treportpage1: treportpage
     pagewidth = 190
     pageheight = 277
+    color = -2147483645
     options = [rpo_once]
     object barcode: tdbbarcode
       frame.captionpos = cp_top
       frame.localprops = []
       frame.localprops1 = []
-      bounds_x = 348
-      bounds_y = 72
-      bounds_cx = 170
-      bounds_cy = 62
+      bounds_x = 420
+      bounds_y = 96
+      bounds_cx = 98
+      bounds_cy = 38
       datalink.datasource = dataso
       datalink.fieldname = 'BARCODE'
       options = [bco_calcchecksum]
@@ -121,12 +123,17 @@ object tokenre: ttokenre
       bounds_x = 14
       bounds_y = 162
       bounds_cx = 48
-      bounds_cy = 18
+      bounds_cy = 22
+      font.color = -1610612734
+      font.colorbackground = -2147483645
+      font.height = 18
+      font.name = 'stf_report'
+      font.localprops = [flp_height]
       valuerange = 1
       valuestart = 0
       datalink.datasource = dataso
       datalink.fieldname = 'QUANTITY'
-      reffontheight = 16
+      reffontheight = 20
     end
     object unit_: tdbstringdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
@@ -137,10 +144,15 @@ object tokenre: ttokenre
       bounds_x = 90
       bounds_y = 162
       bounds_cx = 2
-      bounds_cy = 18
+      bounds_cy = 22
+      font.color = -1610612734
+      font.colorbackground = -2147483645
+      font.height = 18
+      font.name = 'stf_report'
+      font.localprops = [flp_height]
       datalink.datasource = dataso
       datalink.fieldname = 'UNIT'
-      reffontheight = 16
+      reffontheight = 20
     end
     object duration: tdbrealdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
@@ -186,10 +198,15 @@ object tokenre: ttokenre
       bounds_x = 161
       bounds_y = 162
       bounds_cx = 93
-      bounds_cy = 18
+      bounds_cy = 22
+      font.color = -1610612734
+      font.colorbackground = -2147483645
+      font.height = 18
+      font.name = 'stf_report'
+      font.localprops = [flp_height]
       datalink.datasource = dataso
       datalink.fieldname = 'DESCRIPTION'
-      reffontheight = 16
+      reffontheight = 20
     end
     object recipient: tdbstringdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]

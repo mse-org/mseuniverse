@@ -3,13 +3,13 @@ inherited editobjectfo: teditobjectfo
     0
     0
     315
-    282
+    256
   )
   caption = 'Leistung '#228'ndern'
   moduleclassname = 'tobjectfo'
   inherited finibu: tbutton
     taborder = 6
-    caption = 'Ge'#228'nderte Leistung'#10'eintragen'
+    caption = 'Ge'#228'nderte Leistung'#10'speichern'
   end
   inherited nameed: tdbstringedit
     datalink.options = []
@@ -31,7 +31,6 @@ inherited editobjectfo: teditobjectfo
   end
   inherited cancelbu: tbutton
     taborder = 7
-    caption = 'Leistung '#228'ndern'#10'abbrechen'
   end
   inherited durationed: tdbrealedit
     taborder = 4

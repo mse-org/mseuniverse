@@ -2,14 +2,14 @@ object objectfo: tobjectfo
   bounds_x = 337
   bounds_y = 266
   bounds_cx = 315
-  bounds_cy = 282
+  bounds_cy = 256
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     315
-    282
+    256
   )
   options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
@@ -27,6 +27,7 @@ object objectfo: tobjectfo
   end
   object nameed: tdbstringedit
     frame.caption = 'Name'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -48,6 +49,7 @@ object objectfo: tobjectfo
   end
   object priceed: tdbrealedit
     frame.caption = 'Preis'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -71,6 +73,7 @@ object objectfo: tobjectfo
   end
   object united: tdbstringedit
     frame.caption = 'Einheit'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -90,6 +93,7 @@ object objectfo: tobjectfo
   end
   object descriptioned: tdbstringedit
     frame.caption = 'Bezeichnung'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -111,6 +115,7 @@ object objectfo: tobjectfo
   end
   object commented: tdbdialogstringedit
     frame.caption = 'Bemerkung'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.buttons.count = 1
@@ -143,11 +148,12 @@ object objectfo: tobjectfo
     bounds_cx = 114
     bounds_cy = 46
     state = [as_localinvisible, as_localcaption]
-    caption = 'abbrechen'
+    caption = 'Abbrechen'
     modalresult = mr_cancel
   end
   object durationed: tdbrealedit
     frame.caption = 'G'#252'ltig Jahre'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
