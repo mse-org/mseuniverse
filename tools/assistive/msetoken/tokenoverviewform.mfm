@@ -1,0 +1,269 @@
+object tokenoverviewfo: ttokenoverviewfo
+  bounds_x = 128
+  bounds_y = 370
+  bounds_cx = 636
+  bounds_cy = 247
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    636
+    247
+  )
+  options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  statfile = tstatfile1
+  caption = 'Gutschein '#220'bersicht'
+  moduleclassname = 'tmseform'
+  object fromed: tdatetimeedit
+    frame.caption = 'Von'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 5
+    bounds_cy = 41
+    statfile = tstatfile1
+    value = -Inf
+    valuedefault = -Inf
+    formatedit = '${dateformat}'
+    formatdisp = '${dateformat}'
+    valuemin = -Inf
+    valuemax = 401768.99999
+    ifilink = mainmo.overviewfrom
+    reffontheight = 16
+  end
+  object toed: tdatetimeedit
+    frame.caption = 'Bis'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 112
+    bounds_y = 5
+    bounds_cy = 41
+    statfile = tstatfile1
+    ondataentered = todatentev
+    value = -Inf
+    valuedefault = -Inf
+    formatedit = '${dateformat}'
+    formatdisp = '${dateformat}'
+    valuemin = -Inf
+    valuemax = 401768.99999
+    ifilink = mainmo.overviewto
+    reffontheight = 16
+  end
+  object issuedcount: tintegerdisp
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+    frame.options = [cfo_forcefocusrect, cfo_focusrect]
+    frame.caption = 'Anzahl'#10'ausgegeben'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      35
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 61
+    bounds_cy = 55
+    ifilink = mainmo.overviewissuedcount
+    reffontheight = 16
+  end
+  object issuedvalue: trealdisp
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+    frame.options = [cfo_forcefocusrect, cfo_focusrect]
+    frame.caption = 'Betrag'#10'ausgegeben'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      35
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 112
+    bounds_y = 61
+    bounds_cy = 55
+    valuerange = 1
+    valuestart = 0
+    format = '0.00'
+    ifilink = mainmo.overviewissuedvalue
+    value = -Inf
+    reffontheight = 16
+  end
+  object honouredvalue: trealdisp
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+    frame.options = [cfo_forcefocusrect, cfo_focusrect]
+    frame.caption = 'Betrag'#10'eingel'#246'st'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      35
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 320
+    bounds_y = 61
+    bounds_cy = 55
+    valuerange = 1
+    valuestart = 0
+    format = '0.00'
+    ifilink = mainmo.overviewhonouredvalue
+    value = -Inf
+    reffontheight = 16
+  end
+  object honouredcount: tintegerdisp
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+    frame.options = [cfo_forcefocusrect, cfo_focusrect]
+    frame.caption = 'Anzahl'#10'eingel'#246'st'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      35
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 216
+    bounds_y = 61
+    bounds_cy = 55
+    ifilink = mainmo.overviewhonouredcount
+    reffontheight = 16
+  end
+  object expiredvalue: trealdisp
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+    frame.options = [cfo_forcefocusrect, cfo_focusrect]
+    frame.caption = 'Betrag'#10'verfallen'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      35
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 528
+    bounds_y = 61
+    bounds_cy = 55
+    valuerange = 1
+    valuestart = 0
+    format = '0.00'
+    ifilink = mainmo.overviewexpiredvalue
+    value = -Inf
+    reffontheight = 16
+  end
+  object expiredcount: tintegerdisp
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+    frame.options = [cfo_forcefocusrect, cfo_focusrect]
+    frame.caption = 'Anzahl'#10'verfallen'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      35
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 424
+    bounds_y = 61
+    bounds_cy = 55
+    ifilink = mainmo.overviewexpiredcount
+    reffontheight = 16
+  end
+  object openvalue: trealdisp
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+    frame.options = [cfo_forcefocusrect, cfo_focusrect]
+    frame.caption = 'Betrag'#10'offen am'#10
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      51
+      0
+      0
+    )
+    taborder = 9
+    bounds_x = 112
+    bounds_y = 125
+    bounds_cy = 71
+    valuerange = 1
+    valuestart = 0
+    ifilink = mainmo.overviewopenvalue
+    value = -Inf
+    reffontheight = 16
+  end
+  object opencount: tintegerdisp
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
+    frame.options = [cfo_forcefocusrect, cfo_focusrect]
+    frame.caption = 'Anzahl'#10'offen am'#10
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      51
+      0
+      0
+    )
+    taborder = 8
+    bounds_x = 8
+    bounds_y = 125
+    bounds_cy = 71
+    ifilink = mainmo.overviewopencount
+    reffontheight = 16
+  end
+  object tbutton1: tbutton
+    taborder = 10
+    bounds_x = 8
+    bounds_y = 216
+    bounds_cx = 98
+    bounds_cy = 22
+    state = [as_localcaption]
+    caption = 'Beenden'
+    modalresult = mr_ok
+  end
+  object tbutton2: tbutton
+    taborder = 11
+    bounds_x = 112
+    bounds_y = 216
+    bounds_cx = 98
+    bounds_cy = 22
+    state = [as_localcaption]
+    action = mainmo.printoverviewact
+    caption = 'Drucken'
+  end
+  object tstatfile1: tstatfile
+    filename = 'tokenoverviewfo.sta'
+    options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
+    left = 280
+    top = 24
+  end
+end

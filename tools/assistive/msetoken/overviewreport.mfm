@@ -1,0 +1,372 @@
+object overviewre: toverviewre
+  ppmm = 3
+  pagewidth = 190
+  pageheight = 270
+  font.height = 14
+  font.name = 'stf_report'
+  font.localprops = [flp_height]
+  grid_size = 2
+  options = [reo_nothread]
+  repdesigninfo = (
+    177
+    159
+    607
+    834
+  )
+  moduleclassname = 'treport'
+  object treportpage1: treportpage
+    pagewidth = 190
+    pageheight = 277
+    options = [rpo_once]
+    object trepvaluedisp1: trepvaluedisp
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 186
+      bounds_cy = 24
+      value = 'Gutschein-'#220'bersicht'
+      font.height = 20
+      font.name = 'stf_report'
+      font.localprops = [flp_height]
+    end
+    object trepprintdatedisp1: trepprintdatedisp
+      optionswidget1 = [ow1_autoscale, ow1_autowidth]
+      taborder = 1
+      bounds_x = 417
+      bounds_y = 0
+      bounds_cx = 136
+      bounds_cy = 18
+      anchors = [an_top, an_right]
+      format = '${dateformat}/hh:nn:ss'
+    end
+    object header: trecordband
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 83
+      bounds_cx = 570
+      bounds_cy = 18
+      tabs.count = 4
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 51.3333333333333
+          value = 'Datum'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 101.3333333333333
+          value = 'Anzahl'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_decimal
+          pos = 139.333333333333
+          value = 'Betrag'
+          format = '${dateformat}'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      options = [bo_once]
+    end
+    object issued: trecordband
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 108
+      bounds_cx = 570
+      bounds_cy = 18
+      tabs.count = 4
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = header
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Ausgegeben'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 51.3333333333333
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 101.3333333333333
+          ifilink = mainmo.overviewissuedcount
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_decimal
+          pos = 139.333333333333
+          ifilink = mainmo.overviewissuedvalue
+          format = '0.00'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      options = [bo_once]
+    end
+    object honoured: trecordband
+      taborder = 4
+      bounds_x = 0
+      bounds_y = 132
+      bounds_cx = 570
+      bounds_cy = 18
+      tabs.count = 4
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = header
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Eingel'#246'st'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 51.3333333333333
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 101.3333333333333
+          ifilink = mainmo.overviewhonouredcount
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_decimal
+          pos = 139.333333333333
+          ifilink = mainmo.overviewhonouredvalue
+          format = '0.00'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      options = [bo_once]
+    end
+    object openstart: trecordband
+      taborder = 5
+      bounds_x = 0
+      bounds_y = 180
+      bounds_cx = 570
+      bounds_cy = 18
+      tabs.count = 4
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = header
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Offen am'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 51.3333333333333
+          ifilink = mainmo.overviewto
+          format = '${dateformat}'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 101.3333333333333
+          ifilink = mainmo.overviewopencount
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_decimal
+          pos = 139.333333333333
+          ifilink = mainmo.overviewopenvalue
+          format = '0.00'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      options = [bo_once]
+    end
+    object expired: trecordband
+      taborder = 6
+      bounds_x = 0
+      bounds_y = 156
+      bounds_cx = 570
+      bounds_cy = 18
+      tabs.count = 4
+      tabs.litop_widthmm = 0
+      tabs.lileft_widthmm = 0
+      tabs.livert_widthmm = 0
+      tabs.liright_widthmm = 0
+      tabs.libottom_widthmm = 0
+      tabs.distleft = 0
+      tabs.distright = 0
+      tabs.linksource = header
+      tabs.defaultdist = 0
+      tabs.items = <      
+        item
+          pos = 0
+          value = 'Verfallen'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          pos = 51.3333333333333
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_right
+          pos = 101.3333333333333
+          ifilink = mainmo.overviewexpiredcount
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end      
+        item
+          kind = tak_decimal
+          pos = 139.333333333333
+          ifilink = mainmo.overviewexpiredvalue
+          format = '0.00'
+          litop_widthmm = 0
+          livert_widthmm = 0
+          libottom_widthmm = 0
+          distleft = 0
+          distright = 0
+        end>
+      options = [bo_once]
+    end
+    object tdatetimedisp1: tdatetimedisp
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      frame.levelo = 0
+      frame.caption = 'von'
+      frame.captiontextflags = [tf_right, tf_ycentered]
+      frame.captionpos = cp_left
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.outerframe = (
+        26
+        0
+        0
+        0
+      )
+      taborder = 7
+      bounds_x = 0
+      bounds_y = 36
+      bounds_cx = 101
+      format = '${dateformat}'
+      value = 43124.219878206
+      reffontheight = 16
+    end
+    object tdatetimedisp2: tdatetimedisp
+      optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
+      frame.levelo = 0
+      frame.caption = 'bis'
+      frame.captiontextflags = [tf_right, tf_ycentered]
+      frame.captionpos = cp_left
+      frame.localprops = [frl_levelo]
+      frame.localprops1 = []
+      frame.outerframe = (
+        22
+        0
+        0
+        0
+      )
+      taborder = 8
+      bounds_x = 124
+      bounds_y = 36
+      bounds_cx = 97
+      format = '${dateformat}'
+      value = 43124.219878206
+      reffontheight = 16
+    end
+  end
+end
