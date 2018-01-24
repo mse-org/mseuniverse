@@ -1,9 +1,9 @@
 object mainmo: tmainmo
-  bounds_cx = 461
-  bounds_cy = 583
+  bounds_cx = 723
+  bounds_cy = 631
   statfile = mainstat
-  left = 802
-  top = 242
+  left = 637
+  top = 209
   moduleclassname = 'tmsedatamodule'
   object mainstat: tstatfile
     filename = '^/.msetools/msetoken.sta'
@@ -724,6 +724,7 @@ object mainmo: tmainmo
   end
   object honourtokenfinishact: taction
     state = [as_disabled]
+    onexecute = honourfinishev
     left = 24
     top = 504
   end
@@ -771,5 +772,260 @@ object mainmo: tmainmo
     onexecute = settingsev
     left = 16
     top = 552
+  end
+  object tokenoverviewact: taction
+    onexecute = tokenoverviewev
+    left = 16
+    top = 576
+  end
+  object overviewfrom: tifidatetimelinkcomp
+    controller.onclientdataentered = overviewrangev
+    controller.value = -Inf
+    controller.valuedefault = -Inf
+    controller.valuemin = -Inf
+    controller.valuemax = 401768.99999
+    left = 288
+    top = 440
+  end
+  object overviewto: tifidatetimelinkcomp
+    controller.onclientdataentered = overviewrangev
+    controller.value = -Inf
+    controller.valuedefault = -Inf
+    controller.valuemin = -Inf
+    controller.valuemax = 401768.99999
+    left = 288
+    top = 456
+  end
+  object overviewissuedcount: tifiintegerlinkcomp
+    left = 288
+    top = 472
+  end
+  object overviewissuedvalue: tifireallinkcomp
+    controller.value = -Inf
+    controller.valuedefault = -Inf
+    controller.valuemin = -Inf
+    controller.valuemax = 1E+038
+    left = 288
+    top = 488
+  end
+  object overviewhonouredvalue: tifireallinkcomp
+    controller.value = -Inf
+    controller.valuedefault = -Inf
+    controller.valuemin = -Inf
+    controller.valuemax = 1E+038
+    left = 288
+    top = 520
+  end
+  object overviewhonouredcount: tifiintegerlinkcomp
+    left = 288
+    top = 504
+  end
+  object overviewexpiredvalue: tifireallinkcomp
+    controller.value = -Inf
+    controller.valuedefault = -Inf
+    controller.valuemin = -Inf
+    controller.valuemax = 1E+038
+    left = 288
+    top = 552
+  end
+  object overviewexpiredcount: tifiintegerlinkcomp
+    left = 288
+    top = 536
+  end
+  object overviewopenvalue: tifireallinkcomp
+    controller.value = -Inf
+    controller.valuedefault = -Inf
+    controller.valuemin = -Inf
+    controller.valuemax = 1E+038
+    left = 288
+    top = 584
+  end
+  object overviewopencount: tifiintegerlinkcomp
+    left = 288
+    top = 568
+  end
+  object printoverviewact: taction
+    onexecute = printoverviewev
+    left = 24
+    top = 592
+  end
+  object issuedres: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'count'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'value'
+        DataType = ftBCD
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'datefrom'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'dateto'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select count(*) as "count", sum("VALUE") as "value" from TOKENS where '
+      ' ((:datefrom is null) or (:datefrom <= ISSUEDATE)) and'
+      ' ((:dateto is null) or (:dateto >= ISSUEDATE));'
+    )
+    database = conn
+    transaction = trans
+    onbeforeexecute = befresexeev
+    left = 448
+    top = 440
+  end
+  object issuedcount: tsqlresultconnector
+    source = issuedres
+    colname = 'count'
+    left = 456
+    top = 456
+  end
+  object issuedvalue: tsqlresultconnector
+    source = issuedres
+    colname = 'value'
+    left = 456
+    top = 472
+  end
+  object honouredvalue: tsqlresultconnector
+    source = honouredres
+    colname = 'value'
+    left = 560
+    top = 472
+  end
+  object honouredcount: tsqlresultconnector
+    source = honouredres
+    colname = 'count'
+    left = 560
+    top = 456
+  end
+  object honouredres: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'count'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'value'
+        DataType = ftBCD
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'datefrom'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'dateto'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select count(*) as "count", sum("VALUE") as "value" from TOKENS where '
+      ' ((:datefrom is null) or (:datefrom <= HONOURDATE)) and'
+      ' ((:dateto is null) or (:dateto >= HONOURDATE)) and'
+      ' (HONOURDATE is not null);'
+    )
+    database = conn
+    transaction = trans
+    onbeforeexecute = befresexeev
+    left = 552
+    top = 440
+  end
+  object expiredvalue: tsqlresultconnector
+    source = expiredres
+    colname = 'value'
+    left = 456
+    top = 528
+  end
+  object expiredcount: tsqlresultconnector
+    source = expiredres
+    colname = 'count'
+    left = 456
+    top = 512
+  end
+  object expiredres: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'count'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'value'
+        DataType = ftBCD
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'datefrom'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'dateto'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select count(*) as "count", sum("VALUE") as "value" from TOKENS where '
+      ' ((:datefrom is null) or (:datefrom <= EXPIRYDATE)) and'
+      ' ((:dateto is null) or (:dateto >= EXPIRYDATE)) and'
+      ' (HONOURDATE is null);'
+    )
+    database = conn
+    transaction = trans
+    onbeforeexecute = befresexeev
+    left = 448
+    top = 496
+  end
+  object openvalue: tsqlresultconnector
+    source = openres
+    colname = 'value'
+    left = 560
+    top = 528
+  end
+  object opencount: tsqlresultconnector
+    source = openres
+    colname = 'count'
+    left = 560
+    top = 512
+  end
+  object openres: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'count'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'value'
+        DataType = ftBCD
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'datefrom'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'dateto'
+        ParamType = ptInput
+      end>
+    sql.data = (
+      'select count(*) as "count", sum("VALUE") as "value" from TOKENS where '
+      ' ((:dateto is null) or (:dateto >= ISSUEDATE)) and '
+      ' (HONOURDATE is null) and '
+      ' ((EXPIRYDATE is null) or (EXPIRYDATE >= :dateto));'
+    )
+    database = conn
+    transaction = trans
+    onbeforeexecute = befresexeev
+    left = 552
+    top = 496
   end
 end

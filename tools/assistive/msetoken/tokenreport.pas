@@ -37,8 +37,7 @@ type
    recipient: tdbstringdisp;
    donator: tdbstringdisp;
  end;
-var
- tokenre: ttokenre;
+
 implementation
 uses
  tokenreport_mfm;

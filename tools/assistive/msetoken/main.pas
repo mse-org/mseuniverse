@@ -33,6 +33,7 @@ type
    tbutton4: tbutton;
    tbutton3: tbutton;
    tbutton6: tbutton;
+   tbutton7: tbutton;
  end;
 var
  mainfo: tmainfo;

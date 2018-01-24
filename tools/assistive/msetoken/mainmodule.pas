@@ -23,7 +23,8 @@ uses
  mdb,msebufdataset,msedb,mseifiglob,msesqldb,mserttistat,mclasses,tokenlistform,
  newtokenform,mseificomp,mseificompglob,mseact,msedataedits,msedropdownlist,
  mseedit,msegraphics,msegraphutils,msegui,mseguiglob,msemenus,msereport,
- msepostscriptprinter,mseprinter,msestream,msepipestream,mseprocess,mseforms;
+ msepostscriptprinter,mseprinter,msestream,msepipestream,mseprocess,mseforms,
+ mselookupbuffer,msesqlresult;
 
 type
  topt = class(toptions)
@@ -254,6 +255,30 @@ type
    printvoucherduplicateact: taction;
    tokensprice: tmsefloatfield;
    settingsact: taction;
+   tokenoverviewact: taction;
+   overviewfrom: tifidatetimelinkcomp;
+   overviewto: tifidatetimelinkcomp;
+   overviewissuedcount: tifiintegerlinkcomp;
+   overviewissuedvalue: tifireallinkcomp;
+   overviewhonouredvalue: tifireallinkcomp;
+   overviewhonouredcount: tifiintegerlinkcomp;
+   overviewexpiredvalue: tifireallinkcomp;
+   overviewexpiredcount: tifiintegerlinkcomp;
+   overviewopenvalue: tifireallinkcomp;
+   overviewopencount: tifiintegerlinkcomp;
+   printoverviewact: taction;
+   issuedres: tsqlresult;
+   issuedcount: tsqlresultconnector;
+   issuedvalue: tsqlresultconnector;
+   honouredvalue: tsqlresultconnector;
+   honouredcount: tsqlresultconnector;
+   honouredres: tsqlresult;
+   expiredvalue: tsqlresultconnector;
+   expiredcount: tsqlresultconnector;
+   expiredres: tsqlresult;
+   openvalue: tsqlresultconnector;
+   opencount: tsqlresultconnector;
+   openres: tsqlresult;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -285,6 +310,14 @@ type
    procedure honourtokenlistev(const sender: TObject);
    procedure printvoucherduplicateev(const sender: TObject);
    procedure settingsev(const sender: TObject);
+   procedure tokenoverviewev(const sender: TObject);
+   procedure overviewrangev(const sender: tcustomificlientcontroller;
+                   const aclient: iificlient; const aindex: Integer);
+   procedure befresexeev(const sender: tcustomsqlstatement;
+                   const adatabase: tcustomsqlconnection;
+                   const atransaction: TSQLTransaction);
+   procedure printoverviewev(const sender: TObject);
+   procedure honourfinishev(const sender: TObject);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -292,6 +325,8 @@ type
    ftokenlistfo: ttokenlistfo;
    fnewtokenfo: tnewtokenfo;
   protected
+   fhonourdateerror: boolean;
+   fexpiredinterval: flo64;
    function selectobject(const apk: int64): int64;
    procedure updatetokenvalue();
    procedure resetprintflags();
@@ -306,6 +341,7 @@ type
                                 const background: filenamety): boolean;
    function printvoucher(): boolean;
    function printtoken(): boolean;
+   procedure calctokenoverview();
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -322,7 +358,7 @@ var
 implementation
 uses
  mainmodule_mfm,objectsform,msewidgets,msestrings,voucherreport,tokenreport,
- msefileutils,settingsform,
+ msefileutils,settingsform,tokenoverviewform,overviewreport,
  newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr,
  tokenlist1form,honourform,dateutils,msegraphedits,msestockobjects,msesys,
  msedbdialog;
@@ -337,7 +373,7 @@ resourcestring
  honourok = 'Gutschein in Ordnung.';
  honourdateerror = 'Gutschein seit %d Tagen abgelaufen!';
  honourhonourerror = 'Gutschein bereits eingelöst am %s!';
- cancelhonourquery = 'Wollen Sie die Gutscheineinlösung abbrechen?';
+ cancelhonourquery = 'Wollen Sie die Gutschein-Einlösung abbrechen?';
  tokenmustbeprinted = 'Gutschein muss ausgedruckt werden!';
  vouchermustbeprinted = 'Beleg muss ausgedruckt werden!';
  tokenstored = 'Betrag %1:s.'+lineend+
@@ -348,6 +384,9 @@ resourcestring
  voucherprinted = 'Beleg wird gedruckt.';
  tokenprinted = 'Gutschein wird gedruckt.';
  valueschangedquery = 'Werte wurden geändert. Wollen Sie speichern?';
+ overviewprinted = 'Gutschein Übersicht wird gedruckt.';
+ honourexpiredok = 'Gutschein seit %d Tagen abgelaufen.'+lineend+
+                   'Wollen Sie trotzdem eintragen?'; 
 
 procedure datasettofdf(const source: tdataset; const dest: ttextstream);
 const
@@ -754,9 +793,25 @@ begin
  end;
 end;
 
+procedure tmainmo.honourfinishev(const sender: TObject);
+begin
+ if fhonourdateerror then begin
+  case askyesnocancel(formatmse(rs(honourexpiredok),[round(fexpiredinterval)]),
+                                                        sc(sc_warningupper)) of
+   mr_yes: begin
+    honourform.c.modalresult:= mr_ok;
+   end;
+   mr_no: begin
+    honourform.c.modalresult:= mr_cancel;
+   end
+   else begin
+    honourform.c.modalresult:= mr_none;
+   end;
+  end;
+ end;
+end;
+
 procedure tmainmo.checkhonourstate();
-var
- f1: flo64;
 begin
  honourcheck.c.value:= '';
  honourtokenfinishact.enabled:= false;
@@ -766,6 +821,7 @@ begin
  else begin
   tokensqu.indexlocal[0].find([honournumber.c.value],[]);
   tokensdispdso.dataset:= tokensqu;
+  fhonourdateerror:= false;
   if not tokenshonourdate.isnull then begin
    honourcheck.c.value:= formatmse(rs(honourhonourerror),
                [datetimetostring(tokenshonourdate.asdate,'${dateformat}')]);
@@ -774,16 +830,18 @@ begin
   else begin
    if not tokensexpirydate.isnull and 
                      not (honourdate.c.value = emptydatetime) then begin
-    f1:= honourdate.c.value - tokensexpirydate.asdate;
-    if f1 > 0.99999 then begin
-     honourcheck.c.value:= formatmse(rs(honourdateerror),[round(f1)]);
+    fexpiredinterval:= honourdate.c.value - tokensexpirydate.asdate;
+    fhonourdateerror:= fexpiredinterval > 0.99999;
+    if fhonourdateerror then begin
+     honourcheck.c.value:= formatmse(rs(honourdateerror),
+                                           [round(fexpiredinterval)]);
      showerror(honourcheck.c.value,sc(sc_error),0,'',true);
     end
     else begin
-     honourtokenfinishact.enabled:= true;
      honourcheck.c.value:= rs(honourok);
      showerror(honourcheck.c.value,'',0,'',true);
     end;
+    honourtokenfinishact.enabled:= true;
    end
    else begin
     honourcheck.c.value:= '';
@@ -928,6 +986,18 @@ begin
  result:= printreport(tvoucherre.create(nil),rs(voucherprinted),'');
 end;
 
+procedure tmainmo.printoverviewev(const sender: TObject);
+var
+ rep1: toverviewre;
+begin
+ rep1:= toverviewre.create(nil);
+ with rep1 do begin
+  
+  printreport(rep1,rs(overviewprinted),'');
+ end;
+end;
+
+
 function tmainmo.printtoken(): boolean;
 var
  rep1: ttokenre;
@@ -1025,6 +1095,30 @@ begin
  end;
 end;
 
+procedure tmainmo.befresexeev(const sender: tcustomsqlstatement;
+               const adatabase: tcustomsqlconnection;
+               const atransaction: TSQLTransaction);
+begin
+ sender.params.parambyname('datefrom').asdatetime:= overviewfrom.c.value;
+ sender.params.parambyname('dateto').asdatetime:= overviewto.c.value;
+end;
+
+procedure tmainmo.calctokenoverview();
+begin
+ issuedres.refresh();
+ overviewissuedcount.c.value:= issuedcount.col.asinteger;
+ overviewissuedvalue.c.value:= issuedvalue.col.asfloat;
+ honouredres.refresh();
+ overviewhonouredcount.c.value:= honouredcount.col.asinteger;
+ overviewhonouredvalue.c.value:= honouredvalue.col.asfloat;
+ expiredres.refresh();
+ overviewexpiredcount.c.value:= expiredcount.col.asinteger;
+ overviewexpiredvalue.c.value:= expiredvalue.col.asfloat;
+ openres.refresh();
+ overviewopencount.c.value:= opencount.col.asinteger;
+ overviewopenvalue.c.value:= openvalue.col.asfloat;
+end;
+
 procedure tmainmo.printvoucherev(const sender: TObject);
 begin
  if checknewtokenok() and printvoucher() then begin
@@ -1082,6 +1176,23 @@ begin
    destroy();
   end;
  end;
+end;
+
+procedure tmainmo.tokenoverviewev(const sender: TObject);
+begin
+ with ttokenoverviewfo.create(nil) do begin
+  try
+   show(ml_application);
+  finally
+   destroy();
+  end;
+ end;
+end;
+
+procedure tmainmo.overviewrangev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient; const aindex: Integer);
+begin
+ calctokenoverview();
 end;
 
 initialization

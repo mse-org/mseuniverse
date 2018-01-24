@@ -2,14 +2,14 @@ object tokenlistfo: ttokenlistfo
   bounds_x = 375
   bounds_y = 581
   bounds_cx = 370
-  bounds_cy = 359
+  bounds_cy = 325
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     370
-    359
+    325
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
@@ -25,9 +25,9 @@ object tokenlistfo: ttokenlistfo
     caption = 'Liste '#246'ffnen'
   end
   object tbutton2: tbutton
-    taborder = 2
+    taborder = 1
     bounds_x = 8
-    bounds_y = 72
+    bounds_y = 296
     bounds_cx = 154
     bounds_cy = 22
     state = [as_localcaption]
@@ -45,7 +45,7 @@ object tokenlistfo: ttokenlistfo
       101
       3
     )
-    taborder = 7
+    taborder = 6
     bounds_x = 176
     bounds_y = 106
     bounds_cx = 114
@@ -61,7 +61,7 @@ object tokenlistfo: ttokenlistfo
       141
       3
     )
-    taborder = 4
+    taborder = 3
     bounds_x = 176
     bounds_y = 34
     bounds_cx = 154
@@ -78,7 +78,7 @@ object tokenlistfo: ttokenlistfo
       128
       3
     )
-    taborder = 6
+    taborder = 5
     bounds_x = 176
     bounds_y = 82
     bounds_cx = 141
@@ -95,7 +95,7 @@ object tokenlistfo: ttokenlistfo
       89
       3
     )
-    taborder = 11
+    taborder = 10
     bounds_x = 176
     bounds_y = 202
     bounds_cx = 102
@@ -112,7 +112,7 @@ object tokenlistfo: ttokenlistfo
       90
       3
     )
-    taborder = 12
+    taborder = 11
     bounds_x = 176
     bounds_y = 226
     bounds_cx = 103
@@ -129,7 +129,7 @@ object tokenlistfo: ttokenlistfo
       88
       3
     )
-    taborder = 13
+    taborder = 12
     bounds_x = 176
     bounds_y = 250
     bounds_cx = 101
@@ -146,7 +146,7 @@ object tokenlistfo: ttokenlistfo
       99
       3
     )
-    taborder = 14
+    taborder = 13
     bounds_x = 176
     bounds_y = 274
     bounds_cx = 112
@@ -162,7 +162,7 @@ object tokenlistfo: ttokenlistfo
       114
       3
     )
-    taborder = 3
+    taborder = 2
     bounds_x = 176
     bounds_y = 10
     bounds_cx = 127
@@ -179,20 +179,11 @@ object tokenlistfo: ttokenlistfo
       132
       3
     )
-    taborder = 5
+    taborder = 4
     bounds_x = 176
     bounds_y = 58
     bounds_cx = 145
     bounds_cy = 18
-  end
-  object tbutton3: tbutton
-    taborder = 1
-    bounds_x = 8
-    bounds_y = 40
-    bounds_cx = 154
-    bounds_cy = 22
-    state = [as_localcaption]
-    caption = #220'bersicht '#246'ffnen'
   end
   object tokensortrecipient: tbooleaneditradio
     Tag = 6
@@ -205,7 +196,7 @@ object tokenlistfo: ttokenlistfo
       71
       3
     )
-    taborder = 10
+    taborder = 9
     bounds_x = 176
     bounds_y = 178
     bounds_cx = 84
@@ -222,7 +213,7 @@ object tokenlistfo: ttokenlistfo
       92
       3
     )
-    taborder = 8
+    taborder = 7
     bounds_x = 176
     bounds_y = 130
     bounds_cx = 105
@@ -239,7 +230,7 @@ object tokenlistfo: ttokenlistfo
       75
       3
     )
-    taborder = 9
+    taborder = 8
     bounds_x = 176
     bounds_y = 154
     bounds_cx = 88

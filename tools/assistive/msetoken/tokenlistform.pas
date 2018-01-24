@@ -36,7 +36,6 @@ type
    tokensortdescription: tbooleaneditradio;
    tokensortdesc: tbooleanedit;
    tokensorthonourdate: tbooleaneditradio;
-   tbutton3: tbutton;
    tokensortrecipient: tbooleaneditradio;
    tokensortcustomer: tbooleaneditradio;
    tokensortdonator: tbooleaneditradio;

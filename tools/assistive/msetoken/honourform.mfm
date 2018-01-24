@@ -26,7 +26,6 @@ object honourfo: thonourfo
     state = [as_disabled, as_localcaption]
     action = mainmo.honourtokenfinishact
     caption = 'Einl'#246'sen'
-    modalresult = mr_ok
   end
   object tbutton2: tbutton
     taborder = 14
@@ -42,6 +41,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Kontrolle'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -62,6 +62,7 @@ object honourfo: thonourfo
   end
   object numbered: tenum64editdb
     frame.caption = 'Nummer'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.buttons.count = 1
@@ -110,6 +111,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'F'#252'r'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -133,6 +135,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Menge'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -159,6 +162,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Betrag'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -187,6 +191,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Verfall-Datum'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -212,6 +217,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Ausgabe-Datum'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -235,6 +241,7 @@ object honourfo: thonourfo
   end
   object honourdateed: tdatetimeedit
     frame.caption = 'Einl'#246'se-Datum'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -262,6 +269,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Bezeichnung'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -285,6 +293,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Kundin'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -308,6 +317,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Bemerkung'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.buttons.count = 1
@@ -338,6 +348,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Einheit'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -360,6 +371,7 @@ object honourfo: thonourfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Von'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (

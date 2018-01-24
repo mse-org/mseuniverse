@@ -39,8 +39,7 @@ type
    trecordband7: trecordband;
    trecordband8: trecordband;
  end;
-var
- voucherre: tvoucherre;
+
 implementation
 uses
  voucherreport_mfm;
