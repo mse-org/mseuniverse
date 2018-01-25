@@ -323,6 +323,8 @@ type
    procedure connecterrorev(const sender: tmdatabase;
                    const aexception: Exception; var handled: Boolean);
    procedure createdbev(const sender: TObject);
+   procedure statmissengev(const sender: tstatfile; const afilename: msestring;
+                   var astream: ttextstream; var aretry: Boolean);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -1256,6 +1258,97 @@ end;
 procedure tmainmo.createdbev(const sender: TObject);
 begin
  createdatabase();
+end;
+
+const
+
+{$ifdef mswindows}
+ defaultstatdata = '';
+{$else}
+ defaultstatdata =
+'[mainmo.trttistat1]'+lineend+
+'editobjectpk=2'+lineend+
+'tokenobjectpk=2'+lineend+
+'tokensortissuedate=1'+lineend+
+'tokensorthonourdate=0'+lineend+
+'tokensortexpirydate=0'+lineend+
+'tokensortnumber=0'+lineend+
+'tokensortclient=0'+lineend+
+'tokensortdonator=0'+lineend+
+'tokensortrecipient=0'+lineend+
+'tokensortquantity=0'+lineend+
+'tokensortunit=0'+lineend+
+'tokensortvalue=0'+lineend+
+'tokensortdescription=0'+lineend+
+'tokensortdesc=1'+lineend+
+'assistiverate=1.21'+lineend+
+'ps2pdf=ps2pdf'+lineend+
+'ps2pdfparams=-sPAPERSIZE=a4'+lineend+
+'pdftk=pdftk'+lineend+
+'pdftkparams='+lineend+
+'gs=gs'+lineend+
+'gsparams=-sOutputFile=%pipe%lpr -sNOPAUSE -sBATCH -sDEVICE=ps2write'+lineend+
+'psviewer=okular'+lineend+
+'preview=1'+lineend+
+'pdfvariables=0'+lineend+
+'psbackground=1'+lineend+
+'tokenfile=gutschein.pdf'+lineend+
+'origx=0'+lineend+
+'origy=0'+lineend+
+'issuedateon=1'+lineend+
+'issuedatecapt='+lineend+
+'issuedatex=40'+lineend+
+'issuedatey=235'+lineend+
+'issuedatew=0'+lineend+
+'expirydateon=0'+lineend+
+'expirydatecapt='+lineend+
+'expirydatex=10'+lineend+
+'expirydatey=20'+lineend+
+'expirydatew=0'+lineend+
+'durationon=0'+lineend+
+'durationcapt='+lineend+
+'durationx=10'+lineend+
+'durationy=30'+lineend+
+'durationw=0'+lineend+
+'numberon=1'+lineend+
+'numbercapt='+lineend+
+'numberx=160'+lineend+
+'numbery=117'+lineend+
+'numberw=0'+lineend+
+'barcodeon=1'+lineend+
+'barcodecapt='+lineend+
+'barcodex=152'+lineend+
+'barcodey=251.5'+lineend+
+'barcodew=0'+lineend+
+'quantityon=1'+lineend+
+'quantitycapt='+lineend+
+'quantityx=40'+lineend+
+'quantityy=208'+lineend+
+'quantityw=0'+lineend+
+'concatdesc=1'+lineend+
+'descriptionon=1'+lineend+
+'descriptioncapt='+lineend+
+'descriptionx=0'+lineend+
+'descriptiony=208'+lineend+
+'descriptionw=0'+lineend+
+'recipienton=1'+lineend+
+'recipientcapt='+lineend+
+'recipientx=40'+lineend+
+'recipienty=156'+lineend+
+'recipientw=0'+lineend+
+'donatoron=1'+lineend+
+'donatorcapt='+lineend+
+'donatorx=40'+lineend+
+'donatory=178'+lineend+
+'donatorw=0'+lineend+
+'';
+{$endif}
+
+procedure tmainmo.statmissengev(const sender: tstatfile;
+               const afilename: msestring; var astream: ttextstream;
+               var aretry: Boolean);
+begin
+ astream:= ttextstringcopystream.create(defaultstatdata);
 end;
 
 initialization

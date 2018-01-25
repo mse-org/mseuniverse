@@ -11,6 +11,7 @@ object mainmo: tmainmo
     savedmemoryfiles = '*.sta'
     onstatbeforewrite = beforestatwriteev
     onstatafterread = afterstatreadev
+    onfilemissing = statmissengev
     left = 400
     top = 72
   end
