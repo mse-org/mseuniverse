@@ -1497,6 +1497,17 @@ object settingsfo: tsettingsfo
     ondataentered = datentev
     reffontheight = 16
   end
+  object tbutton3: tbutton
+    taborder = 17
+    bounds_x = 880
+    bounds_y = 568
+    bounds_cx = 210
+    bounds_cy = 22
+    anchors = [an_top, an_right]
+    state = [as_localcaption]
+    action = mainmo.createdbact
+    caption = 'Leere Datenbank erzeugen'
+  end
   object tstatfile1: tstatfile
     filename = 'settingsfo.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]

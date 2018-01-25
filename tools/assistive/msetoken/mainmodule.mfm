@@ -11,7 +11,7 @@ object mainmo: tmainmo
     savedmemoryfiles = '*.sta'
     onstatbeforewrite = beforestatwriteev
     onstatafterread = afterstatreadev
-    left = 288
+    left = 400
     top = 72
   end
   object assistivehandler: tassistivehandler
@@ -54,7 +54,8 @@ object mainmo: tmainmo
     top = 384
   end
   object conn: tfb3connection
-    DatabaseName = 'msetoken.fdb'
+    DatabaseName = 'msetoken.fdbx'
+    onconnecterror = connecterrorev
     Transaction = trans
     Password = 'masterkey'
     UserName = 'sysdba'
@@ -175,14 +176,14 @@ object mainmo: tmainmo
           Size = 0
         end>
     )
-    left = 144
+    left = 256
     top = 8
     streamingversion = 1
     object objectsunit: tmsestringfield
       DisplayWidth = 20
       FieldName = 'UNIT'
       Index = 5
-      left = 152
+      left = 264
       top = 40
     end
     object objectsprice: tmsefloatfield
@@ -191,15 +192,14 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
-      left = 152
+      left = 264
       top = 56
     end
     object objectsdescription: tmsestringfield
       DisplayWidth = 20
       FieldName = 'DESCRIPTION'
       Index = 7
-      optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
-      left = 152
+      left = 264
       top = 72
     end
     object objectsduration: tmsefloatfield
@@ -208,7 +208,7 @@ object mainmo: tmainmo
       optionsfield = [of_required, of_visible, of_ininsert, of_inupdate, of_inwhere]
       MaxValue = 0
       MinValue = 0
-      left = 152
+      left = 264
       top = 88
     end
   end
@@ -234,9 +234,9 @@ object mainmo: tmainmo
   end
   object tactivator1: tactivator
     clients = 3
-    options = [avo_activatedelayed, avo_handleexceptions, avo_quietexceptions]
-    left = 8
-    top = 40
+    options = [avo_activatedelayed, avo_handleexceptions, avo_abortonexception]
+    left = 152
+    top = 8
     clientnames = (
       'mainmo.numbersqu'
       'mainmo.tokensqu'
@@ -619,7 +619,7 @@ object mainmo: tmainmo
   end
   object objectsdso: tmsedatasource
     DataSet = objectsqu
-    left = 144
+    left = 256
     top = 24
   end
   object numbersqu: tmsesqlquery
@@ -663,18 +663,18 @@ object mainmo: tmainmo
           optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_refreshinsert]
         end>
     )
-    left = 272
+    left = 384
     top = 8
     streamingversion = 1
     object numbersnumber: tmselongintfield
       FieldName = 'NUMBER'
       Index = 1
-      left = 280
+      left = 392
       top = 40
     end
   end
   object numberdso: tmsedatasource
-    left = 272
+    left = 384
     top = 24
   end
   object tokenlistact: taction
@@ -1027,5 +1027,16 @@ object mainmo: tmainmo
     onbeforeexecute = befresexeev
     left = 552
     top = 496
+  end
+  object createdbact: taction
+    state = [as_disabled]
+    onexecute = createdbev
+    left = 480
+    top = 384
+  end
+  object service: tfb3service
+    options = [fbso_utf8, fbso_utf8message]
+    left = 8
+    top = 32
   end
 end

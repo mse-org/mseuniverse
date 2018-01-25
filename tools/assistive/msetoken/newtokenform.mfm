@@ -19,6 +19,7 @@ object newtokenfo: tnewtokenfo
   moduleclassname = 'tmseform'
   object objected: tdbenum64editdb
     frame.caption = 'Leistung'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.buttons.count = 1
@@ -51,6 +52,7 @@ object newtokenfo: tnewtokenfo
   end
   object customered: tdbstringedit
     frame.caption = 'Kundin'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -72,6 +74,7 @@ object newtokenfo: tnewtokenfo
   end
   object quantityed: tdbrealedit
     frame.caption = 'Menge'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -97,6 +100,7 @@ object newtokenfo: tnewtokenfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Einheit'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -119,6 +123,7 @@ object newtokenfo: tnewtokenfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Betrag'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -146,6 +151,7 @@ object newtokenfo: tnewtokenfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'G'#252'ltig Jahre'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -172,6 +178,7 @@ object newtokenfo: tnewtokenfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Bezeichnung'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -186,13 +193,14 @@ object newtokenfo: tnewtokenfo
     bounds_cx = 373
     bounds_cy = 41
     anchors = [an_left, an_top, an_right]
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_directdbnullcheck]
     datalink.datasource = dataso
     datalink.fieldname = 'DESCRIPTION'
     reffontheight = 16
   end
   object recipiented: tdbstringedit
     frame.caption = 'F'#252'r'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -213,6 +221,7 @@ object newtokenfo: tnewtokenfo
   end
   object donatored: tdbstringedit
     frame.caption = 'Von'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -233,6 +242,7 @@ object newtokenfo: tnewtokenfo
   end
   object dateed: tdbdatetimeedit
     frame.caption = 'Datum'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -258,6 +268,7 @@ object newtokenfo: tnewtokenfo
     frame.levelo = -1
     frame.colorclient = -1879048185
     frame.caption = 'Nummer'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo, frl_colorclient]
     frame.localprops1 = []
     frame.outerframe = (
@@ -277,6 +288,7 @@ object newtokenfo: tnewtokenfo
   end
   object commented: tdbmemodialogedit
     frame.caption = 'Bemerkung'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.buttons.count = 1

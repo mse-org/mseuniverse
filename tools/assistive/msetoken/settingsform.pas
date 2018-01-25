@@ -93,6 +93,7 @@ type
    tsplitter3: tsplitter;
    pdftkparams: tfilenameedit;
    concatdesc: tbooleanedit;
+   tbutton3: tbutton;
    procedure datentev(const sender: TObject);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);

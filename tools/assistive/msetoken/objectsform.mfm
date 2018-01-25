@@ -13,7 +13,7 @@ object objectsfo: tobjectsfo
   )
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'Leistungskatalog'
+  caption = 'Leistungs-Katalog'
   moduleclassname = 'tmseform'
   object tbutton3: tbutton
     taborder = 2

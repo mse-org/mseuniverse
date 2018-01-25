@@ -2,14 +2,14 @@ object tokenlistfo: ttokenlistfo
   bounds_x = 375
   bounds_y = 581
   bounds_cx = 370
-  bounds_cy = 325
+  bounds_cy = 305
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     370
-    325
+    305
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
@@ -27,7 +27,7 @@ object tokenlistfo: ttokenlistfo
   object tbutton2: tbutton
     taborder = 1
     bounds_x = 8
-    bounds_y = 296
+    bounds_y = 272
     bounds_cx = 154
     bounds_cy = 22
     state = [as_localcaption]

@@ -24,7 +24,7 @@ uses
  newtokenform,mseificomp,mseificompglob,mseact,msedataedits,msedropdownlist,
  mseedit,msegraphics,msegraphutils,msegui,mseguiglob,msemenus,msereport,
  msepostscriptprinter,mseprinter,msestream,msepipestream,mseprocess,mseforms,
- mselookupbuffer,msesqlresult;
+ mselookupbuffer,msesqlresult,msefb3service;
 
 type
  topt = class(toptions)
@@ -279,6 +279,8 @@ type
    openvalue: tsqlresultconnector;
    opencount: tsqlresultconnector;
    openres: tsqlresult;
+   createdbact: taction;
+   service: tfb3service;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -318,6 +320,9 @@ type
                    const atransaction: TSQLTransaction);
    procedure printoverviewev(const sender: TObject);
    procedure honourfinishev(const sender: TObject);
+   procedure connecterrorev(const sender: tmdatabase;
+                   const aexception: Exception; var handled: Boolean);
+   procedure createdbev(const sender: TObject);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -342,6 +347,7 @@ type
    function printvoucher(): boolean;
    function printtoken(): boolean;
    procedure calctokenoverview();
+   procedure createdatabase();
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -358,10 +364,10 @@ var
 implementation
 uses
  mainmodule_mfm,objectsform,msewidgets,msestrings,voucherreport,tokenreport,
- msefileutils,settingsform,tokenoverviewform,overviewreport,
+ msefileutils,settingsform,tokenoverviewform,overviewreport,firebird,
  newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr,
  tokenlist1form,honourform,dateutils,msegraphedits,msestockobjects,msesys,
- msedbdialog;
+ msedbdialog,dbdata;
 
 resourcestring
  deletequestion = 'Wollen sie den Datensatz %0:S löschen?';
@@ -434,6 +440,12 @@ begin
  result:= tosysfilepath(quotefilename(aname));
 end;
 
+procedure showinternalerror();
+begin
+ showerror(rs(internalerror));
+ application.terminated:= true;
+end;
+
 { topt }
 
 constructor topt.create();
@@ -444,10 +456,40 @@ end;
 
 { tmainmo }
 
-procedure showinternalerror();
+procedure tmainmo.createdatabase();
+var
+ s1: msestring;
+ stream1: tobjectdatastream;
+ stream2: tmsefilestream;
 begin
- showerror(rs(internalerror));
- application.terminated:= true;
+ conn.connected:= false;
+ service.username:= stringtoutf8(conn.username);
+ service.password:= stringtoutf8(conn.password);
+ service.hostname:= stringtoutf8(conn.hostname);
+ service.connected:= true;
+ stream1:= tobjectdatastream.create(@dbdata.data);
+ stream2:= nil;
+ application.beginwait();
+ try
+  s1:= msegettempfilename('msetoken');
+  stream2:= tmsefilestream.create(s1,fm_create);
+  stream2.copyfrom(stream1,stream1.size);
+  freeandnil(stream2);
+  service.restorestart(s1,conn.databasename,[]);
+  while service.busy() do begin
+   application.unlock();
+   sleep(100);
+   application.lock();
+  end;
+ finally
+  application.endwait();
+  service.connected:= false;
+  stream1.free;
+  stream2.free;
+  if s1 <> '' then begin
+   trydeletefile(s1);
+  end;
+ end;
 end;
 
 procedure tmainmo.resetprintflags();
@@ -745,6 +787,7 @@ procedure tmainmo.tokenlistshowev(const sender: TObject; var accept: Boolean);
 var
  w1: tcustombooleaneditradio;
 begin
+ tokensqu.active:= true;
  with ttokenlist1fo.create(nil) do begin
   try
    w1:= ftokenlistfo.tokensortissuedate.checkeditem;
@@ -894,7 +937,7 @@ end;
 procedure tmainmo.honourmodalresultev(const sender: tcustomificlientcontroller;
                const aclient: iificlient; var amodalresult: modalresultty);
 begin
- if (amodalresult = mr_windowclosed) and honourtokenfinishact.enabled
+ if (amodalresult in [mr_windowclosed,mr_escape]) and honourtokenfinishact.enabled
          and not askyesno(rs(cancelhonourquery)) then begin
   amodalresult:= mr_none;
  end;
@@ -1193,6 +1236,26 @@ procedure tmainmo.overviewrangev(const sender: tcustomificlientcontroller;
                const aclient: iificlient; const aindex: Integer);
 begin
  calctokenoverview();
+end;
+
+procedure tmainmo.connecterrorev(const sender: tmdatabase;
+               const aexception: Exception; var handled: Boolean);
+begin
+ if aexception is efberror then begin
+  with efberror(aexception) do begin
+   createdbact.enabled:= (error = -902) and (gdscode = isc_io_error) and 
+                                              not (pos('"lock"',message) > 0)
+  end;
+ end;
+ if not createdbact.enabled then begin
+  application.showexception(aexception);
+  application.terminate();
+ end;
+end;
+
+procedure tmainmo.createdbev(const sender: TObject);
+begin
+ createdatabase();
 end;
 
 initialization
