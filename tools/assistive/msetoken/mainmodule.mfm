@@ -17,7 +17,7 @@ object mainmo: tmainmo
   end
   object assistivehandler: tassistivehandler
     active = True
-    speaker.datapath = 'C:\Program Files\eSpeak NG'
+    speaker.datapath = 'E:\mse\packs\git\espeak-ng\source'
     speaker.voices.count = 5
     speaker.voices.items = <    
       item
@@ -32,7 +32,7 @@ object mainmo: tmainmo
       end    
       item
         gender = gen_female
-        pitch = 20
+        pitch = 30
         punctuation = pu_all
       end    
       item
@@ -40,6 +40,7 @@ object mainmo: tmainmo
         pitch = 20
       end>
     speaker.language = 'de'
+    speaker.voicename = 'mb\mb-de4'
     speaker.volume = 1
     speaker.rate = 1
     speaker.pitch = 1
