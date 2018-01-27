@@ -2,11 +2,11 @@ object mainmo: tmainmo
   bounds_cx = 723
   bounds_cy = 631
   statfile = mainstat
-  left = 637
-  top = 209
+  left = 388
+  top = 137
   moduleclassname = 'tmsedatamodule'
   object mainstat: tstatfile
-    filename = '^/.msetools/msetoken.sta'
+    filename = './msetoken.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*.sta'
     onstatbeforewrite = beforestatwriteev
@@ -17,6 +17,7 @@ object mainmo: tmainmo
   end
   object assistivehandler: tassistivehandler
     active = True
+    speaker.datapath = 'C:\Program Files\eSpeak NG'
     speaker.voices.count = 5
     speaker.voices.items = <    
       item
@@ -58,6 +59,7 @@ object mainmo: tmainmo
     DatabaseName = 'msetoken.fdbx'
     onconnecterror = connecterrorev
     Transaction = trans
+    controller.options = [dbo_utf8]
     Password = 'masterkey'
     UserName = 'sysdba'
     left = 8
@@ -252,7 +254,7 @@ object mainmo: tmainmo
   end
   object tokensqu: tmsesqlquery
     options = [bdo_cancelupdateonerror, bdo_autoapply, bdo_autocommitret]
-    indexlocal.count = 12
+    indexlocal.count = 13
     indexlocal.items = <    
       item
         fields.items = <        
@@ -330,6 +332,13 @@ object mainmo: tmainmo
             fieldname = 'numbertext'
             options = [ifo_caseinsensitive]
           end>
+      end    
+      item
+        fields.items = <        
+          item
+            fieldname = 'OBJECT'
+          end>
+        name = 'object'
       end>
     params = <>
     SQL.data = (
@@ -878,6 +887,7 @@ object mainmo: tmainmo
     )
     database = conn
     transaction = trans
+    options = [sso_utf8]
     onbeforeexecute = befresexeev
     left = 448
     top = 440
@@ -935,6 +945,7 @@ object mainmo: tmainmo
     )
     database = conn
     transaction = trans
+    options = [sso_utf8]
     onbeforeexecute = befresexeev
     left = 552
     top = 440
@@ -975,11 +986,12 @@ object mainmo: tmainmo
     sql.data = (
       'select count(*) as "count", sum("VALUE") as "value" from TOKENS where '
       ' ((:datefrom is null) or (:datefrom <= EXPIRYDATE)) and'
-      ' ((:dateto is null) or (:dateto >= EXPIRYDATE)) and'
+      ' ((:dateto is not null) and (:dateto > EXPIRYDATE)) and'
       ' (HONOURDATE is null);'
     )
     database = conn
     transaction = trans
+    options = [sso_utf8]
     onbeforeexecute = befresexeev
     left = 448
     top = 496
@@ -1025,6 +1037,7 @@ object mainmo: tmainmo
     )
     database = conn
     transaction = trans
+    options = [sso_utf8]
     onbeforeexecute = befresexeev
     left = 552
     top = 496

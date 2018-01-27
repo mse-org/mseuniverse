@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  msesimplewidgets,mdb,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,
  msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
- msescrollbar,msestream,sysutils,msedb;
+ msescrollbar,msestream,sysutils,msedb,msedispwidgets,mserichstring;
 
 type
  tmainfo = class(tmainform)
@@ -39,6 +39,6 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm;
+ main_mfm,mainmodule;
  
 end.

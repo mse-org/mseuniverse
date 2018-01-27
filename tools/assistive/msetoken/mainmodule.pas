@@ -24,7 +24,7 @@ uses
  newtokenform,mseificomp,mseificompglob,mseact,msedataedits,msedropdownlist,
  mseedit,msegraphics,msegraphutils,msegui,mseguiglob,msemenus,msereport,
  msepostscriptprinter,mseprinter,msestream,msepipestream,mseprocess,mseforms,
- mselookupbuffer,msesqlresult,msefb3service;
+ mselookupbuffer,msesqlresult,msefb3service,msetimer;
 
 type
  topt = class(toptions)
@@ -88,6 +88,7 @@ type
    fps2pdf: msestring;
    fpdftk: msestring;
    fpsviewer: msestring;
+   fpsviewerparams: msestring;
    fissuedatew: flo64;
    fexpirydatew: flo64;
    fdurationw: flo64;
@@ -141,6 +142,8 @@ type
    property gs: msestring read fgs write fgs;
    property gsparams: msestring read fgsparams write fgsparams;
    property psviewer: msestring read fpsviewer write fpsviewer;
+   property psviewerparams: msestring read fpsviewerparams 
+                                                   write fpsviewerparams;
    
    property preview: boolean read fpreview write fpreview;
    property pdfvariables: boolean read fpdfvariables write fpdfvariables;
@@ -369,7 +372,7 @@ uses
  msefileutils,settingsform,tokenoverviewform,overviewreport,firebird,
  newobjectform,selectobjectform,editobjectform,deleteobjectform,mseformatstr,
  tokenlist1form,honourform,dateutils,msegraphedits,msestockobjects,msesys,
- msedbdialog,dbdata;
+ msedbdialog,dbdata,msemacros;
 
 resourcestring
  deletequestion = 'Wollen sie den Datensatz %0:S löschen?';
@@ -395,7 +398,10 @@ resourcestring
  overviewprinted = 'Gutschein Übersicht wird gedruckt.';
  honourexpiredok = 'Gutschein seit %d Tagen abgelaufen.'+lineend+
                    'Wollen Sie trotzdem eintragen?'; 
-
+ dbalreadyopen = 'Datenbank ist bereits geöffnet.';
+ cannotdeleteobject = 'Leistung kann nicht gelöscht werden,'+lineend+
+                    'sie wird verwendet.';
+ 
 procedure datasettofdf(const source: tdataset; const dest: ttextstream);
 const
  preamble = 
@@ -446,6 +452,20 @@ procedure showinternalerror();
 begin
  showerror(rs(internalerror));
  application.terminated:= true;
+end;
+
+function execcommand(const acommand,params,input1,input2,
+                                           output: msestring): boolean;
+var
+ s1: string;
+ s2: msestring;
+begin
+ s2:= fna(acommand)+' '+expandmacros1(params,['INPUT1','INPUT2','OUTPUT'],
+                                        [fna(input1),fna(input2),fna(output)]);
+ result:= getprocessoutput(s2,'',s1) = 0;
+ if not result then begin
+  showerror(msestring(s1));
+ end;
 end;
 
 { topt }
@@ -755,6 +775,10 @@ begin
   i1:= selectobject(-1);
   mainmo.assistivehandler.speakcontinue();
   if i1 >= 0 then begin
+   if tokensqu.indexlocal.indexbyname('object').find([i1],[]) then begin
+    showerror(rs(cannotdeleteobject));
+    exit;
+   end;
    objectsqu.indexlocal[0].find([i1],[]);
    with tdeleteobjectfo.create(nil) do begin
     try
@@ -959,25 +983,26 @@ end;
 
 function tmainmo.print(const afile: filenamety;
                          const acaption: msestring): boolean;
-var
- s1: string;
- i1: int32;
 begin
  result:= true;
  showmessage(acaption);
  if fopt.preview then begin
   psviewer.filename:= fopt.psviewer;
-  psviewer.parameter:= fna(afile);
+  psviewer.parameter:= expandmacros1(fopt.psviewerparams,
+                                            ['INPUT1'],[fna(afile)]);
   psviewer.active:= true;
   psviewer.waitforprocess();
  end
  else begin
+  result:= execcommand(fopt.gs,fopt.gsparams,afile,'','');
+  {
   i1:= getprocessoutput(fna(fopt.gs)+' '+fopt.gsparams+' '+
                                     fna(afile),'',s1,2000000);
   if i1 > 0 then begin
    showerror(msestring(s1));
    result:= false;
   end;
+  }
  end;
 end;
 
@@ -987,30 +1012,28 @@ function tmainmo.printreport(const areport: treport;
 var
  s1,s2,s3,s4: filenamety;
  stream1: ttextstream;
- s5: string;
 begin
  result:= true;
  with areport do begin
   try
-   s1:= msegettempfilename('msetoken');
+   s1:= msegettempfilename('msetoken')+'.ps';
    s4:= s1;
    stream1:= ttextstream.create(s1,fm_create);
    render(printer,stream1);
    if background <> '' then begin
-    s2:= msegettempfilename('msetoken1');
-    if getprocessoutput(fna(fopt.ps2pdf)+' '+fopt.ps2pdfparams+' '+fna(s1)+' '+fna(s2),
-                                                     '',s5) <> 0 then begin
-     showerror(msestring(s5));
-     result:= false;
-    end
-    else begin
-     s3:= msegettempfilename('msetoken2');
+    s2:= msegettempfilename('msetoken1')+'.pdf';
+    result:= execcommand(fna(fopt.ps2pdf),fopt.ps2pdfparams,s1,'',s2);
+    if result then begin
+     s3:= msegettempfilename('msetoken2')+'.pdf';
+     result:= execcommand(fna(fopt.pdftk),fopt.pdftkparams,s2,background,s3);
+     {
      if getprocessoutput(fna(fopt.pdftk)+' '+fopt.pdftkparams+' '+fna(s2)+
          ' background '+fna(background)+
          ' output '+fna(s3),'',s5) <> 0 then begin
       showerror(msestring(s5));
       result:= false;
      end;
+     }
      trydeletefile(s2);
      s4:= s3;
     end;
@@ -1246,7 +1269,12 @@ begin
  if aexception is efberror then begin
   with efberror(aexception) do begin
    createdbact.enabled:= (error = -902) and (gdscode = isc_io_error) and 
-                                              not (pos('"lock"',message) > 0)
+                  (pos('open',message) > 0);
+   if (pos('lock',message) > 0) then begin
+    showerror(rs(dbalreadyopen));
+    application.terminate();
+    exit;
+   end;
   end;
  end;
  if not createdbact.enabled then begin
@@ -1261,10 +1289,6 @@ begin
 end;
 
 const
-
-{$ifdef mswindows}
- defaultstatdata = '';
-{$else}
  defaultstatdata =
 '[mainmo.trttistat1]'+lineend+
 'editobjectpk=2'+lineend+
@@ -1281,7 +1305,20 @@ const
 'tokensortvalue=0'+lineend+
 'tokensortdescription=0'+lineend+
 'tokensortdesc=1'+lineend+
-'assistiverate=1.21'+lineend+
+'assistiverate=1'+lineend+
+
+{$ifdef mswindows}
+'ps2pdf=/C:/Program Files/gs/gs9.22/bin/gswin64c.exe'+lineend+
+'ps2pdfparams=-q -P- -dSAFER -dNOPAUSE -dBATCH -sDEVICE#pdfwrite'+
+                                ' -sOutputFile=${output} ${input1}'+lineend+
+'pdftk=/C:/Program Files (x86)/PDFtk/bin/pdftk.exe'+lineend+
+'pdftkparams=${input1} background ${input2} output ${output}'+lineend+
+'gs=/C:/Program Files/gs/gs9.22/bin/gswin64c.exe'+lineend+
+'gsparams=-q -P- -dSAFER -dNOPAUSE -dBATCH -sDEVICE#mswinpr2'+
+                                           ' -sOutputFile= ${input1}'+lineend+
+'psviewer=/C:/Program Files/Artifex Software/gsview6.0/bin/gsview.exe'+lineend+
+'psviewerparams=${input1}'+lineend+
+{$else}
 'ps2pdf=ps2pdf'+lineend+
 'ps2pdfparams=-sPAPERSIZE=a4'+lineend+
 'pdftk=pdftk'+lineend+
@@ -1289,6 +1326,9 @@ const
 'gs=gs'+lineend+
 'gsparams=-sOutputFile=%pipe%lpr -sNOPAUSE -sBATCH -sDEVICE=ps2write'+lineend+
 'psviewer=okular'+lineend+
+'psviewerparams=${input1}'+lineend+
+{$endif}
+
 'preview=1'+lineend+
 'pdfvariables=0'+lineend+
 'psbackground=1'+lineend+
@@ -1342,7 +1382,6 @@ const
 'donatory=178'+lineend+
 'donatorw=0'+lineend+
 '';
-{$endif}
 
 procedure tmainmo.statmissengev(const sender: tstatfile;
                const afilename: msestring; var astream: ttextstream;

@@ -94,6 +94,8 @@ type
    pdftkparams: tfilenameedit;
    concatdesc: tbooleanedit;
    tbutton3: tbutton;
+   tsplitter4: tsplitter;
+   psviewerparams: tfilenameedit;
    procedure datentev(const sender: TObject);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);

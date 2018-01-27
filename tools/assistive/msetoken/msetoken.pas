@@ -17,7 +17,7 @@
 program msetoken;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 {$ifdef FPC}
- {$ifdef mswindows}{$apptype gui}{$endif}
+ {$ifdef mswindows}{$apptype console}{$endif}
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif} 
