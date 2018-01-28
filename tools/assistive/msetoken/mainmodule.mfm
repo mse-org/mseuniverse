@@ -32,7 +32,7 @@ object mainmo: tmainmo
       end    
       item
         gender = gen_female
-        pitch = 30
+        pitch = 20
         punctuation = pu_all
       end    
       item
@@ -40,7 +40,6 @@ object mainmo: tmainmo
         pitch = 20
       end>
     speaker.language = 'de'
-    speaker.voicename = 'mb\mb-de4'
     speaker.volume = 1
     speaker.rate = 1
     speaker.pitch = 1
