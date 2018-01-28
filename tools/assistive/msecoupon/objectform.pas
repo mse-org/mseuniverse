@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,43 +14,37 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit newtokenform;
+unit objectform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- msesimplewidgets,msestatfile,mdb,msedb,mseifiglob,mseact,msedataedits,
- msedbedit,msedropdownlist,mseedit,msegraphedits,msegrids,mseificomp,
- mseificompglob,mselookupbuffer,msescrollbar,msestream,sysutils,msedbdialog;
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
+ msesimplewidgets,mdb,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,
+ msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
+ msescrollbar,msestream,sysutils,msedbdialog,msedb;
 type
- tnewtokenfo = class(tmseform)
-   printtokenbu: tbutton;
+ tobjectfo = class(tmseform)
    tstatfile1: tstatfile;
-   dataso: tmsedatasource;
-   numberdisp: tdbintegeredit;
-   objected: tdbenum64editdb;
-   quantityed: tdbrealedit;
-   unitdisp: tdbstringedit;
-   valuedisp: tdbrealedit;
-   customered: tdbstringedit;
-   durationdisp: tdbrealedit;
-   recipiented: tdbstringedit;
-   commented: tdbmemodialogedit;
-   printvoucherbu: tbutton;
-   tbutton3: tbutton;
-   tbutton4: tbutton;
-   dateed: tdbdatetimeedit;
-   donatored: tdbstringedit;
+   finibu: tbutton;
+   nameed: tdbstringedit;
+   priceed: tdbrealedit;
+   united: tdbstringedit;
    descriptioned: tdbstringedit;
+   commented: tdbdialogstringedit;
+   dataso: tmsedatasource;
+   cancelbu: tbutton;
+   durationed: tdbrealedit;
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
  end;
+var
+ objectfo: tobjectfo;
 implementation
 uses
- newtokenform_mfm,mainmodule;
+ objectform_mfm,mainmodule;
  
-procedure tnewtokenfo.closequeryev(const sender: tcustommseform;
+procedure tobjectfo.closequeryev(const sender: tcustommseform;
                var amodalresult: modalresultty);
 begin
  mainmo.closequery(dataso,amodalresult);

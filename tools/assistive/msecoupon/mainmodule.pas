@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -390,7 +390,7 @@ resourcestring
  tokenstored = 'Betrag %1:s.'+lineend+
                 'Nummer %0:d.'+lineend+
                 'Gutschein wurde eingetragen.';
- msetokencloses = 'MSEtoken wird beendet.';
+ msecouponcloses = 'MSEcoupon wird beendet.';
  servicestored = 'Leistung wurde gespeichert.';
  voucherprinted = 'Beleg wird gedruckt.';
  tokenprinted = 'Gutschein wird gedruckt.';
@@ -460,8 +460,9 @@ var
  s1: string;
  s2: msestring;
 begin
- s2:= fna(acommand)+' '+expandmacros1(params,['INPUT1','INPUT2','OUTPUT'],
-                                        [fna(input1),fna(input2),fna(output)]);
+ s2:= fna(acommand)+' '+expandmacros1(params,
+                          ['INPUT',    'INPUT1',   'INPUT2',   'OUTPUT'],
+                          [fna(input1),fna(input1),fna(input2),fna(output)]);
  result:= getprocessoutput(s2,'',s1) = 0;
  if not result then begin
   showerror(msestring(s1));
@@ -493,7 +494,7 @@ begin
  stream2:= nil;
  application.beginwait();
  try
-  s1:= msegettempfilename('msetoken');
+  s1:= msegettempfilename('msecoupon');
   stream2:= tmsefilestream.create(s1,fm_create);
   stream2.copyfrom(stream1,stream1.size);
   freeandnil(stream2);
@@ -523,17 +524,19 @@ end;
 function tmainmo.checkprintok(): boolean;
 begin
  result:= false;
- if not ftokenprinted then begin
-  fnewtokenfo.printtokenbu.setfocus();
-  showerror(rs(tokenmustbeprinted));
- end
- else begin
-  if not fvoucherprinted then begin
-   fnewtokenfo.printvoucherbu.setfocus();
-   showerror(rs(vouchermustbeprinted));
+ if checknewtokenok() then begin
+  if not ftokenprinted then begin
+   fnewtokenfo.printtokenbu.setfocus();
+   showerror(rs(tokenmustbeprinted));
   end
   else begin
-   result:= true;
+   if not fvoucherprinted then begin
+    fnewtokenfo.printvoucherbu.setfocus();
+    showerror(rs(vouchermustbeprinted));
+   end
+   else begin
+    result:= true;
+   end;
   end;
  end;
 end;
@@ -877,6 +880,9 @@ begin
     honourform.c.modalresult:= mr_none;
    end;
   end;
+ end
+ else begin
+  honourform.c.modalresult:= mr_ok;
  end;
 end;
 
@@ -963,7 +969,7 @@ end;
 procedure tmainmo.honourmodalresultev(const sender: tcustomificlientcontroller;
                const aclient: iificlient; var amodalresult: modalresultty);
 begin
- if (amodalresult in [mr_windowclosed,mr_escape]) and honourtokenfinishact.enabled
+ if (amodalresult in [mr_windowclosed,mr_cancel]) and honourtokenfinishact.enabled
          and not askyesno(rs(cancelhonourquery)) then begin
   amodalresult:= mr_none;
  end;
@@ -986,15 +992,18 @@ function tmainmo.print(const afile: filenamety;
 begin
  result:= true;
  showmessage(acaption);
- if fopt.preview then begin
-  psviewer.filename:= fopt.psviewer;
-  psviewer.parameter:= expandmacros1(fopt.psviewerparams,
-                                            ['INPUT1'],[fna(afile)]);
-  psviewer.active:= true;
-  psviewer.waitforprocess();
- end
- else begin
-  result:= execcommand(fopt.gs,fopt.gsparams,afile,'','');
+ assistivehandler.speakstop(true); //remove window activtion talk
+ try
+  if fopt.preview then begin
+   psviewer.filename:= fopt.psviewer;
+   psviewer.parameter:= expandmacros1(fopt.psviewerparams,
+                                             ['INPUT',   'INPUT1'],
+                                             [fna(afile),fna(afile)]);
+   psviewer.active:= true;
+   psviewer.waitforprocess();
+  end
+  else begin
+   result:= execcommand(fopt.gs,fopt.gsparams,afile,'','');
   {
   i1:= getprocessoutput(fna(fopt.gs)+' '+fopt.gsparams+' '+
                                     fna(afile),'',s1,2000000);
@@ -1003,6 +1012,10 @@ begin
    result:= false;
   end;
   }
+  end;
+ finally
+  assistivehandler.speakcontinue();
+  assistivehandler.speakall(application.activewidget,[spo_path]);
  end;
 end;
 
@@ -1016,15 +1029,15 @@ begin
  result:= true;
  with areport do begin
   try
-   s1:= msegettempfilename('msetoken')+'.ps';
+   s1:= msegettempfilename('msecoupon')+'.ps';
    s4:= s1;
    stream1:= ttextstream.create(s1,fm_create);
    render(printer,stream1);
    if background <> '' then begin
-    s2:= msegettempfilename('msetoken1')+'.pdf';
+    s2:= msegettempfilename('msecoupon1')+'.pdf';
     result:= execcommand(fna(fopt.ps2pdf),fopt.ps2pdfparams,s1,'',s2);
     if result then begin
-     s3:= msegettempfilename('msetoken2')+'.pdf';
+     s3:= msegettempfilename('msecoupon2')+'.pdf';
      result:= execcommand(fna(fopt.pdftk),fopt.pdftkparams,s2,background,s3);
      {
      if getprocessoutput(fna(fopt.pdftk)+' '+fopt.pdftkparams+' '+fna(s2)+
@@ -1091,8 +1104,8 @@ var
  
 begin
  if fopt.pdfvariables then begin
-  s1:= msegettempfilename('msetoken');
-  s2:= msegettempfilename('msetoken1');
+  s1:= msegettempfilename('msecoupon');
+  s2:= msegettempfilename('msecoupon1');
   stream1:= ttextstream.create(s1,fm_create);
   try
    datasettofdf(tokensqu,stream1);
@@ -1213,7 +1226,7 @@ procedure tmainmo.mainfomdalresev(const sender: tcustomificlientcontroller;
                const aclient: iificlient; const amodalresult: modalresultty);
 begin
  with assistivehandler do begin
-  speaktext1(rs(msetokencloses),voicecaption);
+  speaktext1(rs(msecouponcloses),voicecaption);
   wait();
  end;
 end;
@@ -1232,16 +1245,19 @@ procedure tmainmo.settingsev(const sender: TObject);
 var
  fo1: tsettingsfo;
 begin
- fo1:= tsettingsfo.create(nil);
- with fo1 do begin
-  try
-   fopt.loadvalues(fo1);
-   if show(ml_application) in [mr_ok,mr_yes] then begin
-    fopt.storevalues(fo1);
-    mainstat.writestat();
+ if askyesno('Wollen Sie die Programm-Einstellungen bearbeiten?',
+                                            'WARNUNG',mr_no) then begin
+  fo1:= tsettingsfo.create(nil);
+  with fo1 do begin
+   try
+    fopt.loadvalues(fo1);
+    if show(ml_application) in [mr_ok,mr_yes] then begin
+     fopt.storevalues(fo1);
+     mainstat.writestat();
+    end;
+   finally
+    destroy();
    end;
-  finally
-   destroy();
   end;
  end;
 end;
@@ -1315,7 +1331,7 @@ const
 'pdftkparams=${input1} background ${input2} output ${output}'+lineend+
 'gs=/C:/Program Files/gs/gs9.22/bin/gswin64c.exe'+lineend+
 'gsparams=-q -P- -dSAFER -dNOPAUSE -dBATCH -sDEVICE#mswinpr2'+
-                                           ' -sOutputFile= ${input1}'+lineend+
+                   ' "-sOutputFile=%printer%Your Printer" ${input1}'+lineend+
 'psviewer=/C:/Program Files/Artifex Software/gsview6.0/bin/gsview.exe'+lineend+
 'psviewerparams=${input1}'+lineend+
 {$else}

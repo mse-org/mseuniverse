@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,20 +14,24 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit deleteobjectform;
+unit objectsform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,objectform,
- msesimplewidgets;
-
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
+ msesimplewidgets,msestatfile;
 type
- tdeleteobjectfo = class(tobjectfo)
+ tobjectsfo = class(tmseform)
+   tbutton3: tbutton;
+   tbutton2: tbutton;
+   tbutton5: tbutton;
+   tbutton1: tbutton;
+   tstatfile1: tstatfile;
  end;
 var
- deleteobjectfo: tdeleteobjectfo;
+ objectsfo: tobjectsfo;
 implementation
 uses
- deleteobjectform_mfm;
+ objectsform_mfm;
 end.

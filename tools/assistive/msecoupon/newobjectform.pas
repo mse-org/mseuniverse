@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,20 +14,22 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit editobjectform;
+unit newobjectform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,objectform,
- msesimplewidgets;
+ msesimplewidgets,mdb,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,
+ msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
+ msescrollbar,msestatfile,msestream,sysutils;
 
 type
- teditobjectfo = class(tobjectfo)
+ tnewobjectfo = class(tobjectfo)
  end;
 var
- editobjectfo: teditobjectfo;
+ newobjectfo: tnewobjectfo;
 implementation
 uses
- editobjectform_mfm;
+ newobjectform_mfm;
 end.

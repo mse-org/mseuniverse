@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ uses
  msesimplewidgets,msegraphedits,mseificomp,mseificompglob,mseifiglob,
  msescrollbar,mseact,msedataedits,msedropdownlist,mseedit,msestream,sysutils,
  msebitmap,msedatanodes,msefiledialog,msegrids,mselistbrowser,msesys,
- mseassistivehandler,msesplitter;
+ mseassistivehandler,msesplitter,msememodialog;
 type
  tsettingsfo = class(tmseform)
    tbutton1: tbutton;
@@ -86,16 +86,16 @@ type
    donatorw: trealedit;
    gs: tfilenameedit;
    preview: tbooleanedit;
-   gsparams: tfilenameedit;
+   gsparams: tmemodialogedit;
    tsplitter1: tsplitter;
    tsplitter2: tsplitter;
-   ps2pdfparams: tfilenameedit;
+   ps2pdfparams: tmemodialogedit;
    tsplitter3: tsplitter;
-   pdftkparams: tfilenameedit;
+   pdftkparams: tmemodialogedit;
    concatdesc: tbooleanedit;
    tbutton3: tbutton;
    tsplitter4: tsplitter;
-   psviewerparams: tfilenameedit;
+   psviewerparams: tmemodialogedit;
    procedure datentev(const sender: TObject);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
@@ -103,8 +103,7 @@ type
   protected
    fmodified: boolean;
  end;
-var
- settingsfo: tsettingsfo;
+
 implementation
 uses
  settingsform_mfm,mainmodule;

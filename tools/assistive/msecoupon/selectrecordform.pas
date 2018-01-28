@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,31 +14,32 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit main;
+unit selectrecordform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
- msesimplewidgets,mdb,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,
- msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
- msescrollbar,msestream,sysutils,msedb,msedispwidgets,mserichstring;
-
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mdb,msedb,
+ mseifiglob,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,msegraphedits,
+ msegrids,mseificomp,mseificompglob,mselookupbuffer,msescrollbar,msestatfile,
+ msestream,sysutils,msesimplewidgets;
 type
- tmainfo = class(tmainform)
-   tstatfile1: tstatfile;
+ tselectrecordfo = class(tmseform)
+   dataso: tmsedatasource;
+   selector: tenum64editdb;
    tbutton1: tbutton;
    tbutton2: tbutton;
-   tbutton5: tbutton;
-   tbutton4: tbutton;
-   tbutton3: tbutton;
-   tbutton6: tbutton;
-   tbutton7: tbutton;
+   procedure datentev(const sender: TObject);
  end;
-var
- mainfo: tmainfo;
+
 implementation
 uses
- main_mfm,mainmodule;
+ mainmodule,selectrecordform_mfm;
  
+procedure tselectrecordfo.datentev(const sender: TObject);
+begin
+ window.modalresult:= mr_ok;
+ mainmo.assistivehandler.speakstop(true);
+end;
+
 end.

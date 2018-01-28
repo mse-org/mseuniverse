@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,33 +14,31 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit voucherreport;
+unit tokenreport;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
  msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msereport,mdb,mseifiglob,
- mserichstring,msesplitter,msedb,msedbdispwidgets;
+ mserichstring,msesplitter,msedb,msedbdispwidgets,msedispwidgets,mserepps;
 
 type
- tvoucherre = class(treport)
+ ttokenre = class(treport)
    treportpage1: treportpage;
-   trepvaluedisp1: trepvaluedisp;
-   trepprintdatedisp1: trepprintdatedisp;
-   trecordband1: trecordband;
    dataso: tmsedatasource;
-   trecordband2: trecordband;
-   trecordband3: trecordband;
-   trecordband4: trecordband;
-   trecordband5: trecordband;
-   trecordband6: trecordband;
-   tdbbarcode1: tdbbarcode;
-   tdbintegerdisp1: tdbintegerdisp;
-   trecordband7: trecordband;
-   trecordband8: trecordband;
+   barcode: tdbbarcode;
+   number: tdbintegerdisp;
+   issuedate: tdbdatetimedisp;
+   expirydate: tdbdatetimedisp;
+   quantity: tdbrealdisp;
+   unit_: tdbstringdisp;
+   duration: tdbrealdisp;
+   description: tdbstringdisp;
+   recipient: tdbstringdisp;
+   donator: tdbstringdisp;
  end;
 
 implementation
 uses
- voucherreport_mfm;
+ tokenreport_mfm;
 end.

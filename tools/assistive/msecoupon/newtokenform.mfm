@@ -12,7 +12,7 @@ object newtokenfo: tnewtokenfo
     386
     455
   )
-  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Neuer Gutschein'
   onclosequery = closequeryev
@@ -28,14 +28,14 @@ object newtokenfo: tnewtokenfo
       end>
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     bounds_x = 8
-    bounds_y = 5
+    bounds_y = 8
     bounds_cx = 373
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
     datalink.datasource = dataso
@@ -48,7 +48,7 @@ object newtokenfo: tnewtokenfo
       item
         datafield = 'NAME'
       end>
-    reffontheight = 16
+    reffontheight = 13
   end
   object customered: tdbstringedit
     frame.caption = 'Kundin'
@@ -57,20 +57,20 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 1
     bounds_x = 8
-    bounds_y = 53
+    bounds_y = 56
     bounds_cx = 373
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
     datalink.datasource = dataso
     datalink.fieldname = 'CUSTOMER'
-    reffontheight = 16
+    reffontheight = 13
   end
   object quantityed: tdbrealedit
     frame.caption = 'Menge'
@@ -79,14 +79,14 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 2
     bounds_x = 8
-    bounds_y = 101
-    bounds_cy = 41
+    bounds_y = 104
+    bounds_cy = 35
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
     datalink.datasource = dataso
     datalink.fieldname = 'QUANTITY'
@@ -94,7 +94,7 @@ object newtokenfo: tnewtokenfo
     valuemax = 1E+038
     valuerange = 1
     valuestart = 0
-    reffontheight = 16
+    reffontheight = 13
   end
   object unitdisp: tdbstringedit
     frame.levelo = -1
@@ -105,19 +105,19 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 3
     bounds_x = 112
-    bounds_y = 101
+    bounds_y = 104
     bounds_cx = 84
-    bounds_cy = 41
+    bounds_cy = 35
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = dataso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'UNIT'
-    reffontheight = 16
+    reffontheight = 13
   end
   object valuedisp: tdbrealedit
     frame.levelo = -1
@@ -128,16 +128,16 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 4
     bounds_x = 200
-    bounds_y = 101
-    bounds_cy = 41
+    bounds_y = 104
+    bounds_cy = 35
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = dataso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'VALUE'
     valuemin = -Inf
     valuemax = 1E+038
@@ -145,7 +145,7 @@ object newtokenfo: tnewtokenfo
     formatdisp = '0.00'
     valuerange = 1
     valuestart = 0
-    reffontheight = 16
+    reffontheight = 13
   end
   object durationdisp: tdbrealedit
     frame.levelo = -1
@@ -156,23 +156,23 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 5
     bounds_x = 304
-    bounds_y = 101
+    bounds_y = 104
     bounds_cx = 76
-    bounds_cy = 41
+    bounds_cy = 35
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = dataso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'DURATION'
     valuemin = -Inf
     valuemax = 1E+038
     valuerange = 1
     valuestart = 0
-    reffontheight = 16
+    reffontheight = 13
   end
   object descriptioned: tdbstringedit
     frame.levelo = -1
@@ -183,20 +183,20 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 6
     bounds_x = 8
-    bounds_y = 149
+    bounds_y = 152
     bounds_cx = 373
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_directdbnullcheck]
-    datalink.datasource = dataso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'DESCRIPTION'
-    reffontheight = 16
+    reffontheight = 13
   end
   object recipiented: tdbstringedit
     frame.caption = 'F'#252'r'
@@ -205,19 +205,19 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 7
     bounds_x = 8
-    bounds_y = 197
+    bounds_y = 200
     bounds_cx = 373
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     datalink.datasource = dataso
     datalink.fieldname = 'RECIPIENT'
-    reffontheight = 16
+    reffontheight = 13
   end
   object donatored: tdbstringedit
     frame.caption = 'Von'
@@ -226,19 +226,19 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 8
     bounds_x = 8
-    bounds_y = 245
+    bounds_y = 248
     bounds_cx = 373
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     datalink.datasource = dataso
     datalink.fieldname = 'DONATOR'
-    reffontheight = 16
+    reffontheight = 13
   end
   object dateed: tdbdatetimeedit
     frame.caption = 'Datum'
@@ -247,14 +247,14 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 9
     bounds_x = 8
-    bounds_y = 293
-    bounds_cy = 41
+    bounds_y = 296
+    bounds_cy = 35
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull, oe_directdbnullcheck]
     datalink.datasource = dataso
     datalink.fieldname = 'ISSUEDATE'
@@ -262,7 +262,7 @@ object newtokenfo: tnewtokenfo
     valuemax = 401768.99999
     formatedit = '${dateformat}'
     formatdisp = '${dateformat}'
-    reffontheight = 16
+    reffontheight = 13
   end
   object numberdisp: tdbintegeredit
     frame.levelo = -1
@@ -273,18 +273,18 @@ object newtokenfo: tnewtokenfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 10
     bounds_x = 112
-    bounds_y = 293
-    bounds_cy = 41
+    bounds_y = 296
+    bounds_cy = 35
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    datalink.datasource = dataso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'NUMBER'
-    reffontheight = 16
+    reffontheight = 13
   end
   object commented: tdbmemodialogedit
     frame.caption = 'Bemerkung'
@@ -299,19 +299,19 @@ object newtokenfo: tnewtokenfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 11
     bounds_x = 8
-    bounds_y = 341
+    bounds_y = 344
     bounds_cx = 373
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     datalink.datasource = dataso
     datalink.fieldname = 'COMMENT'
-    reffontheight = 16
+    reffontheight = 13
   end
   object printtokenbu: tbutton
     taborder = 12

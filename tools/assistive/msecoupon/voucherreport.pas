@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,32 +14,33 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit selectrecordform;
+unit voucherreport;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mdb,msedb,
- mseifiglob,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,msegraphedits,
- msegrids,mseificomp,mseificompglob,mselookupbuffer,msescrollbar,msestatfile,
- msestream,sysutils,msesimplewidgets;
+ msetypes,mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
+ msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msereport,mdb,mseifiglob,
+ mserichstring,msesplitter,msedb,msedbdispwidgets;
+
 type
- tselectrecordfo = class(tmseform)
+ tvoucherre = class(treport)
+   treportpage1: treportpage;
+   trepvaluedisp1: trepvaluedisp;
+   trepprintdatedisp1: trepprintdatedisp;
+   trecordband1: trecordband;
    dataso: tmsedatasource;
-   selector: tenum64editdb;
-   tbutton1: tbutton;
-   tbutton2: tbutton;
-   procedure datentev(const sender: TObject);
+   trecordband2: trecordband;
+   trecordband3: trecordband;
+   trecordband4: trecordband;
+   trecordband5: trecordband;
+   trecordband6: trecordband;
+   tdbbarcode1: tdbbarcode;
+   tdbintegerdisp1: tdbintegerdisp;
+   trecordband7: trecordband;
+   trecordband8: trecordband;
  end;
 
 implementation
 uses
- mainmodule,selectrecordform_mfm;
- 
-procedure tselectrecordfo.datentev(const sender: TObject);
-begin
- window.modalresult:= mr_ok;
- mainmo.assistivehandler.speakstop(true);
-end;
-
+ voucherreport_mfm;
 end.

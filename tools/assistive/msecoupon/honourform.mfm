@@ -12,7 +12,7 @@ object honourfo: thonourfo
     424
   )
   ifilink = mainmo.honourform
-  options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Gutschein einl'#246'sen'
   moduleclassname = 'tmseform'
@@ -46,19 +46,19 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 4
     bounds_x = 8
-    bounds_y = 53
+    bounds_y = 56
     bounds_cx = 444
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     ifilink = mainmo.honourcheck
-    reffontheight = 16
+    reffontheight = 13
   end
   object numbered: tenum64editdb
     frame.caption = 'Nummer'
@@ -71,14 +71,14 @@ object honourfo: thonourfo
       end>
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     bounds_x = 8
-    bounds_y = 5
+    bounds_y = 8
     bounds_cx = 132
-    bounds_cy = 41
+    bounds_cy = 35
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
@@ -105,7 +105,7 @@ object honourfo: thonourfo
       end>
     dropdown.width = -1
     valuedefault = -1
-    reffontheight = 16
+    reffontheight = 13
   end
   object recipientdisp: tdbstringedit
     frame.levelo = -1
@@ -116,20 +116,20 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 10
     bounds_x = 8
-    bounds_y = 245
+    bounds_y = 248
     bounds_cx = 444
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'RECIPIENT'
-    reffontheight = 16
+    reffontheight = 13
   end
   object quantitydisp: tdbrealedit
     frame.levelo = -1
@@ -140,15 +140,15 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 6
     bounds_x = 8
-    bounds_y = 149
+    bounds_y = 152
     bounds_cx = 76
-    bounds_cy = 41
+    bounds_cy = 35
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'QUANTITY'
@@ -156,7 +156,7 @@ object honourfo: thonourfo
     valuemax = 1E+038
     valuerange = 1
     valuestart = 0
-    reffontheight = 16
+    reffontheight = 13
   end
   object valuedisp: tdbrealedit
     frame.levelo = -1
@@ -167,15 +167,15 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 8
     bounds_x = 168
-    bounds_y = 149
+    bounds_y = 152
     bounds_cx = 76
-    bounds_cy = 41
+    bounds_cy = 35
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'VALUE'
@@ -185,7 +185,7 @@ object honourfo: thonourfo
     formatdisp = '0.00'
     valuerange = 1
     valuestart = 0
-    reffontheight = 16
+    reffontheight = 13
   end
   object expyirydatedisp: tdbdatetimeedit
     frame.levelo = -1
@@ -196,14 +196,14 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 2
     bounds_x = 248
-    bounds_y = 5
-    bounds_cy = 41
+    bounds_y = 8
+    bounds_cy = 35
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'EXPIRYDATE'
     valuemin = 36526
@@ -211,7 +211,7 @@ object honourfo: thonourfo
     formatedit = '${dateformat}'
     formatdisp = '${dateformat}'
     options = [dteo_showlocal]
-    reffontheight = 16
+    reffontheight = 13
   end
   object isuedatedisp: tdbdatetimeedit
     frame.levelo = -1
@@ -222,14 +222,14 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 3
     bounds_x = 352
-    bounds_y = 5
-    bounds_cy = 41
+    bounds_y = 8
+    bounds_cy = 35
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'ISSUEDATE'
     valuemin = 36526
@@ -237,7 +237,7 @@ object honourfo: thonourfo
     formatedit = '${dateformat}'
     formatdisp = '${dateformat}'
     options = [dteo_showlocal]
-    reffontheight = 16
+    reffontheight = 13
   end
   object honourdateed: tdatetimeedit
     frame.caption = 'Einl'#246'se-Datum'
@@ -246,14 +246,14 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 1
     bounds_x = 144
-    bounds_y = 5
-    bounds_cy = 41
+    bounds_y = 8
+    bounds_cy = 35
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_notnull]
     value = -Inf
     valuedefault = -Inf
@@ -263,7 +263,7 @@ object honourfo: thonourfo
     valuemax = 401768.99999
     options = [dteo_showlocal]
     ifilink = mainmo.honourdate
-    reffontheight = 16
+    reffontheight = 13
   end
   object descriptiondisp: tdbstringedit
     frame.levelo = -1
@@ -274,20 +274,20 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 9
     bounds_x = 8
-    bounds_y = 197
+    bounds_y = 200
     bounds_cx = 444
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'DESCRIPTION'
-    reffontheight = 16
+    reffontheight = 13
   end
   object customerdisp: tdbstringedit
     frame.levelo = -1
@@ -298,20 +298,20 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 5
     bounds_x = 8
-    bounds_y = 101
+    bounds_y = 104
     bounds_cx = 444
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'CUSTOMER'
-    reffontheight = 16
+    reffontheight = 13
   end
   object commentdisp: tdbmemodialogedit
     frame.levelo = -1
@@ -328,21 +328,21 @@ object honourfo: thonourfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 12
     bounds_x = 8
-    bounds_y = 341
+    bounds_y = 344
     bounds_cx = 444
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_readonlydialog, oe1_savevalue, oe1_savestate, oe1_checkvalueafterstatread]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'COMMENT'
-    reffontheight = 16
+    reffontheight = 13
   end
   object unitydisp: tdbstringedit
     frame.levelo = -1
@@ -353,19 +353,19 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 7
     bounds_x = 88
-    bounds_y = 149
+    bounds_y = 152
     bounds_cx = 76
-    bounds_cy = 41
+    bounds_cy = 35
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'UNIT'
-    reffontheight = 16
+    reffontheight = 13
   end
   object donatordisp: tdbstringedit
     frame.levelo = -1
@@ -376,20 +376,20 @@ object honourfo: thonourfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      19
+      16
       0
       0
     )
     taborder = 11
     bounds_x = 8
-    bounds_y = 293
+    bounds_y = 296
     bounds_cx = 444
-    bounds_cy = 41
+    bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'DONATOR'
-    reffontheight = 16
+    reffontheight = 13
   end
   object tstatfile1: tstatfile
     filename = 'honourfo.sta'

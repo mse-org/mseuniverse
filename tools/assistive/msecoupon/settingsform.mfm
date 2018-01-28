@@ -1378,7 +1378,7 @@ object settingsfo: tsettingsfo
     bounds_cy = 15
     ondataentered = datentev
   end
-  object gsparams: tfilenameedit
+  object gsparams: tmemodialogedit
     frame.caption = 'gs Parameter'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
@@ -1429,7 +1429,7 @@ object settingsfo: tsettingsfo
     linkleft = ps2pdf
     linkright = ps2pdfparams
   end
-  object ps2pdfparams: tfilenameedit
+  object ps2pdfparams: tmemodialogedit
     frame.caption = 'ps2pdf Parameter'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
@@ -1469,7 +1469,7 @@ object settingsfo: tsettingsfo
     linkleft = pdftk
     linkright = pdftkparams
   end
-  object pdftkparams: tfilenameedit
+  object pdftkparams: tmemodialogedit
     frame.caption = 'pdftk Parameter'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
@@ -1518,9 +1518,9 @@ object settingsfo: tsettingsfo
     bounds_cy = 34
     options = [spo_hprop, spo_dockleft, spo_docktop, spo_dockright, spo_dockbottom]
     linkleft = psviewer
-    linkright = gsparams
+    linkright = psviewerparams
   end
-  object psviewerparams: tfilenameedit
+  object psviewerparams: tmemodialogedit
     frame.caption = 'PostScript-Viewer Parameter'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []

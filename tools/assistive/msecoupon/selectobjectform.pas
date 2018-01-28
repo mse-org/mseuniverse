@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,18 +14,24 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-program msetoken;
+unit selectobjectform;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
-{$ifdef FPC}
- {$ifdef mswindows}{$apptype gui}{$endif}
-{$endif}
+interface
 uses
- {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif} 
- msegui,main,mainmodule,mseconsts,mseconsts_de,loadguitemplates,mseformatstr;
-begin
- setlangconsts('de');
- formatmacros.addmac('dateformat','dd.mm.yyy');
- application.createdatamodule(tmainmo,mainmo);
- application.createform(tmainfo,mainfo);
- application.run;
+ msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
+ selectrecordform,msedispwidgets,mserichstring,msetimer,mdb,mseact,msedataedits,
+ msedbedit,msedropdownlist,mseedit,msegraphedits,msegrids,mseificomp,
+ mseificompglob,mseifiglob,mselookupbuffer,msescrollbar,msestatfile,msestream,
+ sysutils;
+
+type
+ tselectobjectfo = class(tselectrecordfo)
+   tstatfile1: tstatfile;
+ end;
+
+implementation
+uses
+ selectobjectform_mfm,mseinplaceedit,mseformatstr;
+ 
 end.

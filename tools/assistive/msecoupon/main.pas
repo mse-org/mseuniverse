@@ -1,4 +1,4 @@
-{ MSEtoken Copyright (c) 2018 by Martin Schreiber
+{ MSEcoupon Copyright (c) 2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,22 +14,31 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 }
-unit newobjectform;
+unit main;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,objectform,
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  msesimplewidgets,mdb,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,
  msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
- msescrollbar,msestatfile,msestream,sysutils;
+ msescrollbar,msestream,sysutils,msedb,msedispwidgets,mserichstring;
 
 type
- tnewobjectfo = class(tobjectfo)
+ tmainfo = class(tmainform)
+   tstatfile1: tstatfile;
+   tbutton1: tbutton;
+   tbutton2: tbutton;
+   tbutton5: tbutton;
+   tbutton4: tbutton;
+   tbutton3: tbutton;
+   tbutton6: tbutton;
+   tbutton7: tbutton;
  end;
 var
- newobjectfo: tnewobjectfo;
+ mainfo: tmainfo;
 implementation
 uses
- newobjectform_mfm;
+ main_mfm,mainmodule;
+ 
 end.
