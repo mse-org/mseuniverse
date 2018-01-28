@@ -2,8 +2,8 @@ object mainmo: tmainmo
   bounds_cx = 723
   bounds_cy = 631
   statfile = mainstat
-  left = 388
-  top = 137
+  left = 78
+  top = 93
   moduleclassname = 'tmsedatamodule'
   object mainstat: tstatfile
     filename = './msetoken.sta'
@@ -21,25 +21,30 @@ object mainmo: tmainmo
     speaker.voices.count = 5
     speaker.voices.items = <    
       item
+        variant = 'm1'
         gender = gen_male
       end    
       item
+        variant = 'f1'
         gender = gen_female
+        pitch = 20
       end    
       item
+        variant = 'f1'
         gender = gen_female
         punctuation = pu_all
       end    
       item
-        gender = gen_female
+        variant = 'f1'
         pitch = 20
         punctuation = pu_all
       end    
       item
-        gender = gen_male
+        variant = 'm1'
         pitch = 20
       end>
     speaker.language = 'de'
+    speaker.voicename = 'de'
     speaker.volume = 1
     speaker.rate = 1
     speaker.pitch = 1
@@ -729,6 +734,7 @@ object mainmo: tmainmo
   end
   object tokensdispdso: tmsedatasource
     DataSet = tokensqu
+    readonly = True
     left = 128
     top = 128
   end
