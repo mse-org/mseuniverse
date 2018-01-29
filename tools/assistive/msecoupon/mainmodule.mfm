@@ -6,14 +6,14 @@ object mainmo: tmainmo
   top = 119
   moduleclassname = 'tmsedatamodule'
   object mainstat: tstatfile
-    filename = './msetoken.sta'
+    filename = './msecoupon.sta'
     options = [sfo_createpath, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     savedmemoryfiles = '*.sta'
     onstatbeforewrite = beforestatwriteev
     onstatafterread = afterstatreadev
     onfilemissing = statmissengev
-    left = 400
-    top = 72
+    left = 152
+    top = 32
   end
   object assistivehandler: tassistivehandler
     active = True
@@ -32,7 +32,7 @@ object mainmo: tmainmo
       end    
       item
         variant = 'f2'
-        punctuation = pu_all
+        pitch = 30
       end    
       item
         variant = 'm3'
