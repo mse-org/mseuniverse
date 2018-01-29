@@ -1,6 +1,6 @@
 object mainmo: tmainmo
-  bounds_cx = 674
-  bounds_cy = 631
+  bounds_cx = 716
+  bounds_cy = 632
   statfile = mainstat
   left = 526
   top = 119
@@ -29,6 +29,7 @@ object mainmo: tmainmo
       item
         variant = 'f5'
         punctuation = pu_all
+        capitals = 1
       end    
       item
         variant = 'f2'
@@ -44,9 +45,10 @@ object mainmo: tmainmo
     speaker.rate = 1
     speaker.pitch = 1
     speaker.range = 1
-    speaker.wordgap = 6
+    speaker.wordgap = 8
+    speaker.onbeforeconnect = espeakconnectev
     voicefixed = 4
-    voicetextmessage = 1
+    voicetextmessage = 3
     voicetext = 1
     voicetextdisp = 3
     voicetextedit = 2

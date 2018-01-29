@@ -85,7 +85,7 @@ object tokenlistfo: ttokenlistfo
     bounds_cy = 18
   end
   object tokensortquantity: tbooleaneditradio
-    Tag = 7
+    Tag = 4
     frame.caption = 'Menge sortieren'
     frame.localprops = []
     frame.localprops1 = []
@@ -95,14 +95,14 @@ object tokenlistfo: ttokenlistfo
       89
       3
     )
-    taborder = 10
+    taborder = 7
     bounds_x = 176
-    bounds_y = 202
+    bounds_y = 130
     bounds_cx = 102
     bounds_cy = 18
   end
   object tokensortunit: tbooleaneditradio
-    Tag = 8
+    Tag = 5
     frame.caption = 'Einheit sortieren'
     frame.localprops = []
     frame.localprops1 = []
@@ -112,14 +112,14 @@ object tokenlistfo: ttokenlistfo
       90
       3
     )
-    taborder = 11
+    taborder = 8
     bounds_x = 176
-    bounds_y = 226
+    bounds_y = 154
     bounds_cx = 103
     bounds_cy = 18
   end
   object tokensortvalue: tbooleaneditradio
-    Tag = 9
+    Tag = 6
     frame.caption = 'Betrag sortieren'
     frame.localprops = []
     frame.localprops1 = []
@@ -129,14 +129,14 @@ object tokenlistfo: ttokenlistfo
       88
       3
     )
-    taborder = 12
+    taborder = 9
     bounds_x = 176
-    bounds_y = 250
+    bounds_y = 178
     bounds_cx = 101
     bounds_cy = 18
   end
   object tokensortdescription: tbooleaneditradio
-    Tag = 10
+    Tag = 7
     frame.caption = 'Leistung sortieren'
     frame.localprops = []
     frame.localprops1 = []
@@ -146,9 +146,9 @@ object tokenlistfo: ttokenlistfo
       99
       3
     )
-    taborder = 13
+    taborder = 10
     bounds_x = 176
-    bounds_y = 274
+    bounds_y = 202
     bounds_cx = 112
     bounds_cy = 18
   end
@@ -186,7 +186,7 @@ object tokenlistfo: ttokenlistfo
     bounds_cy = 18
   end
   object tokensortrecipient: tbooleaneditradio
-    Tag = 6
+    Tag = 10
     frame.caption = 'F'#252'r sortieren'
     frame.localprops = []
     frame.localprops1 = []
@@ -196,14 +196,14 @@ object tokenlistfo: ttokenlistfo
       71
       3
     )
-    taborder = 9
+    taborder = 13
     bounds_x = 176
-    bounds_y = 178
+    bounds_y = 274
     bounds_cx = 84
     bounds_cy = 18
   end
   object tokensortcustomer: tbooleaneditradio
-    Tag = 4
+    Tag = 8
     frame.caption = 'Kundin sortieren'
     frame.localprops = []
     frame.localprops1 = []
@@ -213,14 +213,14 @@ object tokenlistfo: ttokenlistfo
       92
       3
     )
-    taborder = 7
+    taborder = 11
     bounds_x = 176
-    bounds_y = 130
+    bounds_y = 226
     bounds_cx = 105
     bounds_cy = 18
   end
   object tokensortdonator: tbooleaneditradio
-    Tag = 5
+    Tag = 9
     frame.caption = 'Von sortieren'
     frame.localprops = []
     frame.localprops1 = []
@@ -230,9 +230,9 @@ object tokenlistfo: ttokenlistfo
       75
       3
     )
-    taborder = 8
+    taborder = 12
     bounds_x = 176
-    bounds_y = 154
+    bounds_y = 250
     bounds_cx = 88
     bounds_cy = 18
   end

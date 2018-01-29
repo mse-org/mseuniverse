@@ -53,18 +53,6 @@ object tokenlist1fo: ttokenlist1fo
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
-            caption = 'Kundin'
-            options = [dco_colsort, dco_hintclippedtext]
-          end        
-          item
-            caption = 'Von'
-            options = [dco_colsort, dco_hintclippedtext]
-          end        
-          item
-            caption = 'F'#252'r'
-            options = [dco_colsort, dco_hintclippedtext]
-          end        
-          item
             caption = 'Menge'
             options = [dco_colsort, dco_hintclippedtext]
           end        
@@ -78,6 +66,18 @@ object tokenlist1fo: ttokenlist1fo
           end        
           item
             caption = 'Leistung'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'Kundin'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'Von'
+            options = [dco_colsort, dco_hintclippedtext]
+          end        
+          item
+            caption = 'F'#252'r'
             options = [dco_colsort, dco_hintclippedtext]
           end        
           item
@@ -107,15 +107,6 @@ object tokenlist1fo: ttokenlist1fo
       item[numbered]
         widgetname = 'numbered'
       end    
-      item[customered]
-        widgetname = 'customered'
-      end    
-      item[donatored]
-        widgetname = 'donatored'
-      end    
-      item[recipiented]
-        widgetname = 'recipiented'
-      end    
       item[quantityed]
         widgetname = 'quantityed'
       end    
@@ -127,6 +118,15 @@ object tokenlist1fo: ttokenlist1fo
       end    
       item[descriptioned]
         widgetname = 'descriptioned'
+      end    
+      item[customered]
+        widgetname = 'customered'
+      end    
+      item[donatored]
+        widgetname = 'donatored'
+      end    
+      item[recipiented]
+        widgetname = 'recipiented'
       end    
       item[commented]
         width = 70
@@ -222,7 +222,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 5
       visible = False
-      bounds_x = 204
+      bounds_x = 408
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -235,7 +235,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 6
       visible = False
-      bounds_x = 255
+      bounds_x = 459
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -248,7 +248,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 7
       visible = False
-      bounds_x = 306
+      bounds_x = 510
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -261,7 +261,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 8
       visible = False
-      bounds_x = 357
+      bounds_x = 204
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -278,7 +278,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 9
       visible = False
-      bounds_x = 408
+      bounds_x = 255
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -291,7 +291,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 10
       visible = False
-      bounds_x = 459
+      bounds_x = 306
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18
@@ -310,7 +310,7 @@ object tokenlist1fo: ttokenlist1fo
       optionsskin = [osk_framebuttononly]
       taborder = 11
       visible = False
-      bounds_x = 510
+      bounds_x = 357
       bounds_y = 0
       bounds_cx = 50
       bounds_cy = 18

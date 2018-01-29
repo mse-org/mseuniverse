@@ -24,7 +24,7 @@ uses
  newtokenform,mseificomp,mseificompglob,mseact,msedataedits,msedropdownlist,
  mseedit,msegraphics,msegraphutils,msegui,mseguiglob,msemenus,msereport,
  msepostscriptprinter,mseprinter,msestream,msepipestream,mseprocess,mseforms,
- mselookupbuffer,msesqlresult,msefb3service,msetimer;
+ mselookupbuffer,msesqlresult,msefb3service,msetimer,msespeak;
 
 type
  topt = class(toptions)
@@ -328,6 +328,7 @@ type
    procedure createdbev(const sender: TObject);
    procedure statmissengev(const sender: tstatfile; const afilename: msestring;
                    var astream: ttextstream; var aretry: Boolean);
+   procedure espeakconnectev(const sender: tcustomespeakng);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -390,6 +391,9 @@ resourcestring
  tokenstored = 'Betrag %1:s.'+lineend+
                 'Nummer %0:d.'+lineend+
                 'Gutschein wurde eingetragen.';
+ tokenhonoured = 'Betrag %1:s.'+lineend+
+                'Nummer %0:d.'+lineend+
+                'Gutschein wurde eingelöst.';
  msecouponcloses = 'MSEcoupon wird beendet.';
  servicestored = 'Leistung wurde gespeichert.';
  voucherprinted = 'Beleg wird gedruckt.';
@@ -947,6 +951,8 @@ begin
      tokensqu.edit();
      tokenshonourdate.asdate:= honourdate.c.value;
      tokensqu.post();
+     showmessage(formatmse(rs(tokenhonoured),[tokensnumber.asinteger,
+                   formatfloatmse(tokensvalue.asfloat,'0.00')]));
     end;
    end;
   finally
@@ -1336,11 +1342,12 @@ const
 'psviewerparams=${input1}'+lineend+
 {$else}
 'ps2pdf=ps2pdf'+lineend+
-'ps2pdfparams=-sPAPERSIZE=a4'+lineend+
+'ps2pdfparams=-sPAPERSIZE=a4 ${input} ${output}'+lineend+
 'pdftk=pdftk'+lineend+
-'pdftkparams='+lineend+
+'pdftkparams=${input1} background ${input2} output ${output}'+lineend+
 'gs=gs'+lineend+
-'gsparams=-sOutputFile=%pipe%lpr -sNOPAUSE -sBATCH -sDEVICE=ps2write'+lineend+
+'gsparams=-sOutputFile=%pipe%lpr -sNOPAUSE -sBATCH'+
+                                 ' -sDEVICE=ps2write ${input}'+lineend+
 'psviewer=okular'+lineend+
 'psviewerparams=${input1}'+lineend+
 {$endif}
@@ -1404,6 +1411,14 @@ procedure tmainmo.statmissengev(const sender: tstatfile;
                var aretry: Boolean);
 begin
  astream:= ttextstringcopystream.create(defaultstatdata);
+end;
+
+procedure tmainmo.espeakconnectev(const sender: tcustomespeakng);
+begin
+ if (sender.datapath <> '') and 
+      not finddir(sender.datapath+'/espeak-ng-data') then begin
+  sender.datapath:= '';
+ end;
 end;
 
 initialization

@@ -2,15 +2,15 @@ object mainfo: tmainfo
   visible = False
   bounds_x = 50
   bounds_y = 147
-  bounds_cx = 403
-  bounds_cy = 107
+  bounds_cx = 419
+  bounds_cy = 105
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    403
-    107
+    419
+    105
   )
   ifilink = mainmo.mainform
   statfile = tstatfile1
@@ -19,17 +19,17 @@ object mainfo: tmainfo
   object tbutton1: tbutton
     bounds_x = 8
     bounds_y = 8
-    bounds_cx = 114
+    bounds_cx = 130
     bounds_cy = 22
     state = [as_localcaption, as_localshortcut]
     action = mainmo.newtokenact
     caption = 'Neuer Gutschein'
   end
   object tbutton2: tbutton
-    taborder = 2
-    bounds_x = 8
-    bounds_y = 40
-    bounds_cx = 114
+    taborder = 1
+    bounds_x = 144
+    bounds_y = 8
+    bounds_cx = 130
     bounds_cy = 22
     state = [as_localcaption]
     action = mainmo.honourtokenact
@@ -39,7 +39,7 @@ object mainfo: tmainfo
     taborder = 4
     bounds_x = 8
     bounds_y = 72
-    bounds_cx = 114
+    bounds_cx = 130
     bounds_cy = 22
     state = [as_localcaption]
     caption = 'MSEcoupon beenden'
@@ -47,7 +47,7 @@ object mainfo: tmainfo
   end
   object tbutton4: tbutton
     taborder = 5
-    bounds_x = 128
+    bounds_x = 144
     bounds_y = 72
     bounds_cx = 130
     bounds_cy = 22
@@ -56,9 +56,9 @@ object mainfo: tmainfo
     caption = 'Leistungs-Katalog'
   end
   object tbutton3: tbutton
-    taborder = 1
-    bounds_x = 128
-    bounds_y = 8
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 40
     bounds_cx = 130
     bounds_cy = 22
     state = [as_localcaption]
@@ -67,7 +67,7 @@ object mainfo: tmainfo
   end
   object tbutton6: tbutton
     taborder = 6
-    bounds_x = 264
+    bounds_x = 280
     bounds_y = 72
     bounds_cx = 130
     bounds_cy = 22
@@ -77,7 +77,7 @@ object mainfo: tmainfo
   end
   object tbutton7: tbutton
     taborder = 3
-    bounds_x = 128
+    bounds_x = 144
     bounds_y = 40
     bounds_cx = 130
     bounds_cy = 22
@@ -88,7 +88,7 @@ object mainfo: tmainfo
   object tstatfile1: tstatfile
     filename = 'main.sta'
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
-    left = 96
-    top = 32
+    left = 320
+    top = 8
   end
 end
