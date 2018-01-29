@@ -17,7 +17,7 @@ object mainmo: tmainmo
   end
   object assistivehandler: tassistivehandler
     active = True
-    speaker.datapath = 'E:\mse\packs\git\espeak-ng\source'
+    speaker.datapath = './'
     speaker.voices.count = 5
     speaker.voices.items = <    
       item
