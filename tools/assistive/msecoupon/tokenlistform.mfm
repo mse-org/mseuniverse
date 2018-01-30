@@ -41,15 +41,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      101
-      3
+      1
+      88
+      1
     )
     taborder = 6
     bounds_x = 176
-    bounds_y = 106
-    bounds_cx = 114
-    bounds_cy = 18
+    bounds_y = 107
+    bounds_cx = 101
+    bounds_cy = 15
   end
   object tokensortissuedate: tbooleaneditradio
     frame.caption = 'Ausgabe-Datum sortieren'
@@ -57,15 +57,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      141
-      3
+      1
+      126
+      1
     )
     taborder = 3
     bounds_x = 176
-    bounds_y = 34
-    bounds_cx = 154
-    bounds_cy = 18
+    bounds_y = 35
+    bounds_cx = 139
+    bounds_cy = 15
   end
   object tokensortexpirydate: tbooleaneditradio
     Tag = 2
@@ -74,15 +74,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      128
-      3
+      1
+      114
+      1
     )
     taborder = 5
     bounds_x = 176
-    bounds_y = 82
-    bounds_cx = 141
-    bounds_cy = 18
+    bounds_y = 83
+    bounds_cx = 127
+    bounds_cy = 15
   end
   object tokensortquantity: tbooleaneditradio
     Tag = 4
@@ -91,15 +91,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      89
-      3
+      1
+      81
+      1
     )
     taborder = 7
     bounds_x = 176
-    bounds_y = 130
-    bounds_cx = 102
-    bounds_cy = 18
+    bounds_y = 131
+    bounds_cx = 94
+    bounds_cy = 15
   end
   object tokensortunit: tbooleaneditradio
     Tag = 5
@@ -108,15 +108,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      90
-      3
+      1
+      81
+      1
     )
     taborder = 8
     bounds_x = 176
-    bounds_y = 154
-    bounds_cx = 103
-    bounds_cy = 18
+    bounds_y = 155
+    bounds_cx = 94
+    bounds_cy = 15
   end
   object tokensortvalue: tbooleaneditradio
     Tag = 6
@@ -125,15 +125,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      88
-      3
+      1
+      81
+      1
     )
     taborder = 9
     bounds_x = 176
-    bounds_y = 178
-    bounds_cx = 101
-    bounds_cy = 18
+    bounds_y = 179
+    bounds_cx = 94
+    bounds_cy = 15
   end
   object tokensortdescription: tbooleaneditradio
     Tag = 7
@@ -142,15 +142,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      99
-      3
+      1
+      89
+      1
     )
     taborder = 10
     bounds_x = 176
-    bounds_y = 202
-    bounds_cx = 112
-    bounds_cy = 18
+    bounds_y = 203
+    bounds_cx = 102
+    bounds_cy = 15
   end
   object tokensortdesc: tbooleanedit
     frame.caption = 'Absteigend sortieren'
@@ -158,15 +158,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      114
-      3
+      1
+      103
+      1
     )
     taborder = 2
     bounds_x = 176
-    bounds_y = 10
-    bounds_cx = 127
-    bounds_cy = 18
+    bounds_y = 11
+    bounds_cx = 116
+    bounds_cy = 15
   end
   object tokensorthonourdate: tbooleaneditradio
     Tag = 1
@@ -175,15 +175,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      132
-      3
+      1
+      117
+      1
     )
     taborder = 4
     bounds_x = 176
-    bounds_y = 58
-    bounds_cx = 145
-    bounds_cy = 18
+    bounds_y = 59
+    bounds_cx = 130
+    bounds_cy = 15
   end
   object tokensortrecipient: tbooleaneditradio
     Tag = 10
@@ -192,15 +192,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      71
-      3
+      1
+      65
+      1
     )
     taborder = 13
     bounds_x = 176
-    bounds_y = 274
-    bounds_cx = 84
-    bounds_cy = 18
+    bounds_y = 275
+    bounds_cx = 78
+    bounds_cy = 15
   end
   object tokensortcustomer: tbooleaneditradio
     Tag = 8
@@ -209,15 +209,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      92
-      3
+      1
+      81
+      1
     )
     taborder = 11
     bounds_x = 176
-    bounds_y = 226
-    bounds_cx = 105
-    bounds_cy = 18
+    bounds_y = 227
+    bounds_cx = 94
+    bounds_cy = 15
   end
   object tokensortdonator: tbooleaneditradio
     Tag = 9
@@ -226,15 +226,15 @@ object tokenlistfo: ttokenlistfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      2
-      75
-      3
+      1
+      67
+      1
     )
     taborder = 12
     bounds_x = 176
-    bounds_y = 250
-    bounds_cx = 88
-    bounds_cy = 18
+    bounds_y = 251
+    bounds_cx = 80
+    bounds_cy = 15
   end
   object tstatfile1: tstatfile
     filename = 'tokenlist1.sta'

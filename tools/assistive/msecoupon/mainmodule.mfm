@@ -595,7 +595,7 @@ object mainmo: tmainmo
     object tokenspk: tmselargeintfield
       FieldName = 'PK'
       Index = 17
-      optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
+      optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey, of_refreshinsert]
       left = 24
       top = 128
     end

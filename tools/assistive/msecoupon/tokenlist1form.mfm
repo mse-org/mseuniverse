@@ -394,7 +394,7 @@ object tokenlist1fo: ttokenlist1fo
   object tassistivewidgetitem1: tassistivewidgetitem
     handler = mainmo.assistivehandler
     widget = Owner
-    caption = 'Fenster Gutscheinliste, beenden mit esc Taste'
+    caption = 'Gutscheinliste, beenden mit esc Taste'
     left = 144
     top = 104
   end
