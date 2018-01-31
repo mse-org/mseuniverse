@@ -212,7 +212,7 @@ type
    newobjectact: taction;
    editobjectact: taction;
    deleteobjectact: taction;
-   tactivator1: tactivator;
+   activa: tactivator;
    trttistat1: trttistat;
    tokensqu: tmsesqlquery;
    printtokenact: taction;
@@ -353,7 +353,7 @@ type
    function printvoucher(): boolean;
    function printtoken(): boolean;
    procedure calctokenoverview();
-   procedure createdatabase();
+   function createdatabase(): boolean;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy(); override;
@@ -455,7 +455,8 @@ end;
 procedure showinternalerror();
 begin
  showerror(rs(internalerror));
- application.terminated:= true;
+ application.handleexception();
+// application.terminated:= true;
 end;
 
 function execcommand(const acommand,params,input1,input2,
@@ -483,12 +484,13 @@ end;
 
 { tmainmo }
 
-procedure tmainmo.createdatabase();
+function tmainmo.createdatabase(): boolean;
 var
  s1: msestring;
  stream1: tobjectdatastream;
  stream2: tmsefilestream;
 begin
+ result:= false;
  conn.connected:= false;
  service.username:= stringtoutf8(conn.username);
  service.password:= stringtoutf8(conn.password);
@@ -508,6 +510,7 @@ begin
    sleep(100);
    application.lock();
   end;
+  result:= true;
  finally
   application.endwait();
   service.connected:= false;
@@ -1307,7 +1310,9 @@ end;
 
 procedure tmainmo.createdbev(const sender: TObject);
 begin
- createdatabase();
+ if createdatabase() then begin
+  activa.activateclients;
+ end;
 end;
 
 const

@@ -63,7 +63,7 @@ object mainmo: tmainmo
     top = 384
   end
   object conn: tfb3connection
-    DatabaseName = 'msetoken.fdbx'
+    DatabaseName = 'msecoupon.fdb'
     onconnecterror = connecterrorev
     Transaction = trans
     controller.options = [dbo_utf8]
@@ -146,7 +146,7 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 1000
       end>
-    controller.activator = tactivator1
+    controller.activator = activa
     controller.fields.count = 5
     controller.fields.fields = (
       (
@@ -242,7 +242,7 @@ object mainmo: tmainmo
     left = 16
     top = 448
   end
-  object tactivator1: tactivator
+  object activa: tactivator
     clients = 3
     options = [avo_activatedelayed, avo_handleexceptions, avo_abortonexception]
     left = 152
@@ -454,7 +454,7 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 20
       end>
-    controller.activator = tactivator1
+    controller.activator = activa
     controller.fields.count = 6
     controller.fields.fields = (
       (
@@ -667,7 +667,7 @@ object mainmo: tmainmo
         Name = 'NUMBER'
         DataType = ftInteger
       end>
-    controller.activator = tactivator1
+    controller.activator = activa
     controller.fields.count = 1
     controller.fields.fields = (
       (
