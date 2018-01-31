@@ -43,15 +43,15 @@ object tokenre: ttokenre
       frame.localprops = [frl_levelo]
       frame.localprops1 = []
       frame.outerframe = (
-        56
+        55
         0
         0
         0
       )
       taborder = 1
-      bounds_x = 16
+      bounds_x = 17
       bounds_y = 132
-      bounds_cx = 58
+      bounds_cx = 57
       bounds_cy = 18
       datalink.datasource = mainmo.tokensdso
       datalink.fieldname = 'NUMBER'
@@ -90,15 +90,15 @@ object tokenre: ttokenre
       frame.localprops = [frl_levelo]
       frame.localprops1 = []
       frame.outerframe = (
-        63
+        62
         0
         0
         0
       )
       taborder = 3
-      bounds_x = 15
+      bounds_x = 16
       bounds_y = 109
-      bounds_cx = 65
+      bounds_cx = 64
       bounds_cy = 18
       format = '${dateformat}'
       datalink.datasource = dataso
@@ -189,15 +189,15 @@ object tokenre: ttokenre
       frame.localprops = [frl_levelo]
       frame.localprops1 = []
       frame.outerframe = (
-        91
+        90
         0
         0
         0
       )
       taborder = 7
-      bounds_x = 161
+      bounds_x = 156
       bounds_y = 162
-      bounds_cx = 93
+      bounds_cx = 92
       bounds_cy = 22
       font.color = -1610612734
       font.colorbackground = -2147483645
@@ -217,15 +217,15 @@ object tokenre: ttokenre
       frame.localprops = [frl_levelo]
       frame.localprops1 = []
       frame.outerframe = (
-        24
+        25
         0
         0
         0
       )
       taborder = 8
-      bounds_x = 18
+      bounds_x = 17
       bounds_y = 201
-      bounds_cx = 26
+      bounds_cx = 27
       bounds_cy = 18
       datalink.datasource = dataso
       datalink.fieldname = 'RECIPIENT'
@@ -240,15 +240,15 @@ object tokenre: ttokenre
       frame.localprops = [frl_levelo]
       frame.localprops1 = []
       frame.outerframe = (
-        96
+        95
         0
         0
         0
       )
       taborder = 9
-      bounds_x = 18
+      bounds_x = 19
       bounds_y = 225
-      bounds_cx = 98
+      bounds_cx = 97
       bounds_cy = 18
       datalink.datasource = dataso
       datalink.fieldname = 'DONATOR'

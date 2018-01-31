@@ -1354,7 +1354,7 @@ const
 'gsparams=-sOutputFile=%pipe%lpr -sNOPAUSE -sBATCH'+
                                  ' -sDEVICE=ps2write ${input}'+lineend+
 'psviewer=okular'+lineend+
-'psviewerparams=${input1}'+lineend+
+'psviewerparams=${input}'+lineend+
 {$endif}
 
 'preview=1'+lineend+

@@ -360,6 +360,18 @@ object mainmo: tmainmo
         Name = 'IDX_TOKENS1'
       end    
       item
+        Name = 'IDX_TOKENS2'
+      end    
+      item
+        Name = 'IDX_TOKENS3'
+      end    
+      item
+        Name = 'IDX_TOKENS4'
+      end    
+      item
+        Name = 'IDX_TOKENS5'
+      end    
+      item
         Name = 'PK_TOKENS_0'
       end>
     tablename = 'tokens'
@@ -501,6 +513,7 @@ object mainmo: tmainmo
           Size = 0
         end>
     )
+    controller.options = [dso_utf8]
     left = 16
     top = 96
     streamingversion = 1
