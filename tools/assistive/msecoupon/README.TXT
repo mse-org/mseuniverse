@@ -1,7 +1,10 @@
-2018-01-27 mse
+2018-02-01 mse
 
 MSEcoupon prints and manages coupons. It demonstrates the use of 
-TAssistiveHandler. License is GPL.
+TAssistiveHandler. License is GPL, it needs MSEide+MSEgui git master version
+from 2018-02-01 or newer.
+https://gitlab.com/mseide-msegui/mseide-msegui
+
 Database is placed in MSEcoupon runtime working directory.
 
 Installation
