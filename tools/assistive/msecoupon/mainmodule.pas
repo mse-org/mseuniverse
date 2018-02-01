@@ -403,6 +403,7 @@ resourcestring
  honourexpiredok = 'Gutschein seit %d Tagen abgelaufen.'+lineend+
                    'Wollen Sie trotzdem eintragen?'; 
  dbalreadyopen = 'Datenbank ist bereits geöffnet.';
+ alreadyrunning = 'MSEcoupon wurde möglicherweise bereits gestartet.';
  cannotdeleteobject = 'Leistung kann nicht gelöscht werden,'+lineend+
                     'sie wird verwendet.';
  
@@ -1293,9 +1294,9 @@ procedure tmainmo.connecterrorev(const sender: tmdatabase;
 begin
  if aexception is efberror then begin
   with efberror(aexception) do begin
-   createdbact.enabled:= (error = -902) and (gdscode = isc_io_error) and 
-                  (pos('"open"',message) > 0);
-   if (pos('"lock"',message) > 0) then begin
+   createdbact.enabled:= (error = -902) and (gdscode = isc_io_error){ and 
+                  (pos('"open"',message) > 0)}; //unreliable
+   if (pos('"lock"',message) > 0) then begin //linux only
     showerror(rs(dbalreadyopen));
     application.terminate();
     exit;
@@ -1305,7 +1306,12 @@ begin
  if not createdbact.enabled then begin
   application.showexception(aexception);
   application.terminate();
- end;
+ end
+ else begin
+  showerror(rs(alreadyrunning));
+  application.showexception(aexception);
+  handled:= true;
+ end; 
 end;
 
 procedure tmainmo.createdbev(const sender: TObject);
