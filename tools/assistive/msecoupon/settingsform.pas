@@ -96,10 +96,12 @@ type
    tbutton3: tbutton;
    tsplitter4: tsplitter;
    psviewerparams: tmemodialogedit;
+   tbutton4: tbutton;
    procedure datentev(const sender: TObject);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
    procedure updatewidgets(const sender: TObject);
+   procedure aboutev(const sender: TObject);
   protected
    fmodified: boolean;
  end;
@@ -124,6 +126,14 @@ end;
 procedure tsettingsfo.updatewidgets(const sender: TObject);
 begin
  backgroundsettings.enabled:= psbackground.value;
+end;
+
+procedure tsettingsfo.aboutev(const sender: TObject);
+begin
+ showmessage('MSEcoupon version: '+versiontext+lineend+
+             'MSEgui version: '+mseguiversiontext+lineend+
+             'Host: '+platformtext+lineend+lineend+
+             'Copyright 1999-2018'+lineend+'by Martin Schreiber','About');
 end;
 
 end.

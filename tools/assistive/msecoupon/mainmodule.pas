@@ -26,6 +26,9 @@ uses
  msepostscriptprinter,mseprinter,msestream,msepipestream,mseprocess,mseforms,
  mselookupbuffer,msesqlresult,msefb3service,msetimer,msespeak;
 
+const
+ versiontext = '1.0';
+
 type
  topt = class(toptions)
   private
@@ -329,6 +332,7 @@ type
    procedure statmissengev(const sender: tstatfile; const afilename: msestring;
                    var astream: ttextstream; var aretry: Boolean);
    procedure espeakconnectev(const sender: tcustomespeakng);
+   procedure createev(const sender: TObject);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -1430,6 +1434,12 @@ begin
       not finddir(sender.datapath+'/espeak-ng-data') then begin
   sender.datapath:= '';
  end;
+end;
+
+procedure tmainmo.createev(const sender: TObject);
+begin
+ conn.databasename:= filepath(conn.databasename);
+  //windows needs absolute path
 end;
 
 initialization
