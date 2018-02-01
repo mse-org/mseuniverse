@@ -1294,8 +1294,8 @@ begin
  if aexception is efberror then begin
   with efberror(aexception) do begin
    createdbact.enabled:= (error = -902) and (gdscode = isc_io_error) and 
-                  (pos('open',message) > 0);
-   if (pos('lock',message) > 0) then begin
+                  (pos('"open"',message) > 0);
+   if (pos('"lock"',message) > 0) then begin
     showerror(rs(dbalreadyopen));
     application.terminate();
     exit;

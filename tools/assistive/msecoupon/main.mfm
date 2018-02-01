@@ -2,15 +2,15 @@ object mainfo: tmainfo
   visible = False
   bounds_x = 50
   bounds_y = 147
-  bounds_cx = 419
-  bounds_cy = 105
+  bounds_cx = 448
+  bounds_cy = 108
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    419
-    105
+    448
+    108
   )
   ifilink = mainmo.mainform
   statfile = tstatfile1
@@ -19,7 +19,7 @@ object mainfo: tmainfo
   object tbutton1: tbutton
     bounds_x = 8
     bounds_y = 8
-    bounds_cx = 130
+    bounds_cx = 138
     bounds_cy = 22
     state = [as_localcaption, as_localshortcut]
     action = mainmo.newtokenact
@@ -27,9 +27,9 @@ object mainfo: tmainfo
   end
   object tbutton2: tbutton
     taborder = 1
-    bounds_x = 144
+    bounds_x = 152
     bounds_y = 8
-    bounds_cx = 130
+    bounds_cx = 146
     bounds_cy = 22
     state = [as_localcaption]
     action = mainmo.honourtokenact
@@ -39,7 +39,7 @@ object mainfo: tmainfo
     taborder = 4
     bounds_x = 8
     bounds_y = 72
-    bounds_cx = 130
+    bounds_cx = 138
     bounds_cy = 22
     state = [as_localcaption]
     caption = 'MSEcoupon beenden'
@@ -47,9 +47,9 @@ object mainfo: tmainfo
   end
   object tbutton4: tbutton
     taborder = 5
-    bounds_x = 144
+    bounds_x = 152
     bounds_y = 72
-    bounds_cx = 130
+    bounds_cx = 146
     bounds_cy = 22
     state = [as_localcaption]
     action = mainmo.objectsact
@@ -59,7 +59,7 @@ object mainfo: tmainfo
     taborder = 2
     bounds_x = 8
     bounds_y = 40
-    bounds_cx = 130
+    bounds_cx = 138
     bounds_cy = 22
     state = [as_localcaption]
     action = mainmo.tokenlistact
@@ -67,7 +67,7 @@ object mainfo: tmainfo
   end
   object tbutton6: tbutton
     taborder = 6
-    bounds_x = 280
+    bounds_x = 304
     bounds_y = 72
     bounds_cx = 130
     bounds_cy = 22
@@ -77,9 +77,9 @@ object mainfo: tmainfo
   end
   object tbutton7: tbutton
     taborder = 3
-    bounds_x = 144
+    bounds_x = 152
     bounds_y = 40
-    bounds_cx = 130
+    bounds_cx = 146
     bounds_cy = 22
     state = [as_localcaption]
     action = mainmo.tokenoverviewact

@@ -9,6 +9,7 @@ inherited editobjectfo: teditobjectfo
   moduleclassname = 'tobjectfo'
   inherited finibu: tbutton
     taborder = 6
+    bounds_cx = 138
     caption = 'Ge'#228'nderte Leistung'#10'speichern'
   end
   inherited nameed: tdbstringedit
@@ -30,6 +31,7 @@ inherited editobjectfo: teditobjectfo
   end
   inherited cancelbu: tbutton
     taborder = 7
+    bounds_x = 152
   end
   inherited durationed: tdbrealedit
     taborder = 4

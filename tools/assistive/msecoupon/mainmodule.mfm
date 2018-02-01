@@ -16,7 +16,6 @@ object mainmo: tmainmo
     top = 32
   end
   object assistivehandler: tassistivehandler
-    active = True
     options = [aso_textfirst, aso_nodefaultbutton, aso_tabnavig, aso_widgetnavig, aso_menunavig, aso_gridnavig, aso_noreturnkeymenuexecute, aso_nomenumousemove, aso_nogridmousemove, aso_saverate]
     speaker.datapath = './'
     speaker.voices.count = 5
