@@ -40,23 +40,37 @@ https://www.pdflabs.com/tools/pdftk-server/
 On Windows
 ----------
 Windows 7:
-Download libespeakng-sync7.dll
+- Download libespeakng-sync7.dll
+- If you don't have the XAudioD2_7.dll dowload and install the DirectX SDK:
+https://www.microsoft.com/en-us/download/details.aspx?id=6812
+(572MB!) or get the XAudioD2_7.dll from another source.
+
 Windows 8 or 10:
-Download libespeakng-sync.dll
+- Download libespeakng-sync.dll
+
 Windows 7,8,or 10:
 from
 https://sourceforge.net/projects/mseuniverse/files/eSpeakNG/
-copy it to "C:\Windows\System32" or to the directorey of "msecoupon.exe".
-Install eSpeakNG:
+- copy it to "C:\Windows\System32" or to the directory of "msecoupon.exe".
+- Install eSpeakNG:
 https://github.com/espeak-ng/espeak-ng/releases
-Install Ghostscript:
+- Download espeak-ng-data.zip from
+https://sourceforge.net/projects/mseuniverse/files/eSpeakNG/
+- Extract it to the MSEcoupon working directory.
+- Install Ghostscript:
 https://www.ghostscript.com/download/
-Install GSView:
+- Install GSView:
 http://www.gsview.com/
-Install PDFtk:
+- Install PDFtk:
 https://www.pdflabs.com/tools/pdftk-server/
-Install Firebird 3:
+- Install Firebird 3:
 https://firebirdsql.org/en/firebird-3-0/
+- Check if the environment variable "FIREBIRD" has been set by the installer,
+if not create a system environment variable 
+FIREBIRD
+with the value
+C:\Program Files\Firebird\Firebird_3_0
+
 Restart Windows (IMPORTANT!).
 
 First Steps
@@ -66,6 +80,8 @@ On first start of MSEcoupon there will be an errormessage about
 missing database. 'Einstellungen'-'Leere Datenbank erzeugen' creates an empty
 database. There must be at least one object before it is possible to create
 coupons, please use 'Leistungs-Katalog'-'Neue Leistung'.
+If all went well there should be a female voice for the edit text and a 
+male voice for captions.
 
 Key-bindigs
 -----------
