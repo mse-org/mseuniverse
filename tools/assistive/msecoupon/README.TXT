@@ -40,10 +40,10 @@ https://www.pdflabs.com/tools/pdftk-server/
 On Windows
 ----------
 Windows 7:
-- Download libespeakng-sync7.dll
 - If you don't have the XAudioD2_7.dll dowload and install the DirectX SDK:
 https://www.microsoft.com/en-us/download/details.aspx?id=6812
 (572MB!) or get the XAudioD2_7.dll from another source.
+- Download libespeakng-sync7.dll
 
 Windows 8 or 10:
 - Download libespeakng-sync.dll
