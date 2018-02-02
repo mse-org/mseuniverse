@@ -62,7 +62,7 @@ https://www.ghostscript.com/download/
 - Install GSView:
 http://www.gsview.com/
 - Install PDFtk:
-https://www.pdflabs.com/tools/pdftk-server/
+https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/
 - Install Firebird 3:
 https://firebirdsql.org/en/firebird-3-0/
 - Check if the environment variable "FIREBIRD" has been set by the installer,
@@ -75,7 +75,8 @@ Restart Windows (IMPORTANT!).
 
 First Steps
 -----------
-Check the tool paths in 'Einstellungen'.
+In 'Einstellungen' check the tool paths , replace "Your Printer" in 
+'gs Parameter' with the exact name of your default printer.
 On first start of MSEcoupon there will be an errormessage about
 missing database. 'Einstellungen'-'Leere Datenbank erzeugen' creates an empty
 database. There must be at least one object before it is possible to create
