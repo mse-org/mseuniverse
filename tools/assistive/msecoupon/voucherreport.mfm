@@ -21,8 +21,8 @@ object voucherre: tvoucherre
     object trepvaluedisp1: trepvaluedisp
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 151
-      bounds_cy = 24
+      bounds_cx = 146
+      bounds_cy = 25
       value = 'Gutschein-Beleg'
       font.height = 20
       font.name = 'stf_report'
@@ -31,12 +31,12 @@ object voucherre: tvoucherre
     object trepprintdatedisp1: trepprintdatedisp
       optionswidget1 = [ow1_autoscale, ow1_autowidth]
       taborder = 1
-      bounds_x = 418
+      bounds_x = 420
       bounds_y = 0
-      bounds_cx = 135
+      bounds_cx = 133
       bounds_cy = 18
       anchors = [an_top, an_right]
-      format = '${dateformat}/hh:nn:ss'
+      format = '${dateformat}"/"hh:nn:ss'
     end
     object trecordband1: trecordband
       taborder = 2
@@ -637,27 +637,28 @@ object voucherre: tvoucherre
     object tdbintegerdisp1: tdbintegerdisp
       frame.levelo = 0
       frame.caption = 'Nummer'
+      frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo]
       frame.localprops1 = []
       frame.outerframe = (
-        56
+        55
         0
         0
         0
       )
       taborder = 9
-      bounds_x = 88
+      bounds_x = 89
       bounds_y = 103
-      bounds_cx = 126
-      bounds_cy = 24
+      bounds_cx = 125
+      bounds_cy = 25
       font.color = -1610612734
       font.height = 20
       font.name = 'stf_report'
       font.localprops = [flp_height]
       datalink.datasource = mainmo.tokensdso
       datalink.fieldname = 'NUMBER'
-      reffontheight = 22
+      reffontheight = 23
     end
     object trecordband7: trecordband
       taborder = 10
