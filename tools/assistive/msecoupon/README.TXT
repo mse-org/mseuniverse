@@ -2,7 +2,7 @@
 
 MSEcoupon prints and manages coupons. It demonstrates the use of 
 TAssistiveHandler. License is GPL, it needs MSEide+MSEgui git master version
-from 2018-02-04 or newer.
+from 2018-02-06 or newer.
 https://gitlab.com/mseide-msegui/mseide-msegui
 
 Database is placed in MSEcoupon runtime working directory.
@@ -81,5 +81,8 @@ Ctrl+Space or Ctrl+PadReturn -> repeat current text.
 Shift+Ctrl+Space or Shift+Ctrl+PadReturn -> repeat whole current text.
 Ctrl+PadMinus -> speak slower.
 Ctrl+PadPlus -> speak faster.
+Shift+Ctrl+PadMinus -> volume down.
+Shift+Ctrl+PadPlus -> volume up.
+Ctrl+Y C -> cancel current speech.
 Ctrl+Y F -> focus first field of current form.
 Ctrl+Y L -> focus last field of current form.

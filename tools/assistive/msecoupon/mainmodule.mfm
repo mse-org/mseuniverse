@@ -18,7 +18,7 @@ object mainmo: tmainmo
   end
   object assistivehandler: tassistivehandler
     active = True
-    options = [aso_textfirst, aso_nodefaultbutton, aso_tabnavig, aso_widgetnavig, aso_menunavig, aso_gridnavig, aso_noreturnkeymenuexecute, aso_nomenumousemove, aso_nogridmousemove, aso_saverate]
+    options = [aso_textfirst, aso_nodefaultbutton, aso_tabnavig, aso_widgetnavig, aso_menunavig, aso_gridnavig, aso_noreturnkeymenuexecute, aso_nomenumousemove, aso_nogridmousemove, aso_saverate, aso_savevolume]
     speaker.datapath = './'
     speaker.voices.count = 5
     speaker.voices.items = <    
