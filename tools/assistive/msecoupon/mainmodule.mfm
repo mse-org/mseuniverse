@@ -38,7 +38,7 @@ object mainmo: tmainmo
         pitch = 30
       end    
       item
-        variant = 'm3'
+        variant = 'm1'
         pitch = 20
       end>
     speaker.language = 'de'
