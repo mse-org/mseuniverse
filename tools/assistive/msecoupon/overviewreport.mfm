@@ -21,8 +21,8 @@ object overviewre: toverviewre
     object trepvaluedisp1: trepvaluedisp
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 186
-      bounds_cy = 24
+      bounds_cx = 179
+      bounds_cy = 25
       value = 'Gutschein-'#220'bersicht'
       font.height = 20
       font.name = 'stf_report'
@@ -31,12 +31,12 @@ object overviewre: toverviewre
     object trepprintdatedisp1: trepprintdatedisp
       optionswidget1 = [ow1_autoscale, ow1_autowidth]
       taborder = 1
-      bounds_x = 417
+      bounds_x = 419
       bounds_y = 0
-      bounds_cx = 136
+      bounds_cx = 134
       bounds_cy = 18
       anchors = [an_top, an_right]
-      format = '${dateformat}/hh:nn:ss'
+      format = '${dateformat}"/"hh:nn:ss'
     end
     object header: trecordband
       taborder = 2
@@ -341,7 +341,6 @@ object overviewre: toverviewre
       taborder = 7
       bounds_x = 0
       bounds_y = 36
-      bounds_cx = 101
       format = '${dateformat}'
       value = 43124.219878206
       reffontheight = 16
@@ -355,15 +354,15 @@ object overviewre: toverviewre
       frame.localprops = [frl_levelo]
       frame.localprops1 = []
       frame.outerframe = (
-        22
+        21
         0
         0
         0
       )
       taborder = 8
-      bounds_x = 124
+      bounds_x = 125
       bounds_y = 36
-      bounds_cx = 97
+      bounds_cx = 95
       format = '${dateformat}'
       value = 43124.219878206
       reffontheight = 16
