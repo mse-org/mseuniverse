@@ -287,6 +287,7 @@ type
    openres: tsqlresult;
    createdbact: taction;
    service: tfb3service;
+   numbertext: tifistringlinkcomp;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -333,6 +334,9 @@ type
                    var astream: ttextstream; var aretry: Boolean);
    procedure espeakconnectev(const sender: tcustomespeakng);
    procedure createev(const sender: TObject);
+   procedure honoursetev(const sender: tcustomificlientcontroller;
+                   const aclient: iificlient; var avalue: Int64;
+                   var accept: Boolean; const aindex: Integer);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -410,6 +414,7 @@ resourcestring
  alreadyrunning = 'MSEcoupon wurde möglicherweise bereits gestartet.';
  cannotdeleteobject = 'Leistung kann nicht gelöscht werden,'+lineend+
                     'sie wird verwendet.';
+ numberdoesnotexist = 'Gutschein Nummer %0:s existiert nicht.';
  
 procedure datasettofdf(const source: tdataset; const dest: ttextstream);
 const
@@ -1440,6 +1445,16 @@ procedure tmainmo.createev(const sender: TObject);
 begin
  conn.databasename:= filepath(conn.databasename);
   //windows needs absolute path
+end;
+
+procedure tmainmo.honoursetev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient; var avalue: Int64;
+               var accept: Boolean; const aindex: Integer);
+begin
+ if avalue < 1 then begin
+  accept:= false;
+  showerror(formatmse(rs(numberdoesnotexist),[numbertext.c.value]));
+ end;
 end;
 
 initialization
