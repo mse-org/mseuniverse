@@ -14,7 +14,7 @@ object honourfo: thonourfo
   ifilink = mainmo.honourform
   options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'Gutschein einl'#246'sen'
+  caption = 'Einl'#246'sen Gutschein'
   moduleclassname = 'tmseform'
   object honourbu: tbutton
     taborder = 13
@@ -338,9 +338,9 @@ object honourfo: thonourfo
     bounds_cy = 35
     anchors = [an_left, an_top, an_right]
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_readonlydialog, oe1_savevalue, oe1_savestate, oe1_checkvalueafterstatread]
-    datalink.datasource = mainmo.tokensdso
+    datalink.datasource = mainmo.tokensdispdso
     datalink.fieldname = 'COMMENT'
-    datalink.options = [oed_autoedit]
+    datalink.options = [oed_autoedit, oed_noreadonly]
     reffontheight = 13
   end
   object unitydisp: tdbstringedit

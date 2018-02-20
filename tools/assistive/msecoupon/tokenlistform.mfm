@@ -13,7 +13,7 @@ object tokenlistfo: ttokenlistfo
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'Gutscheine'
+  caption = 'Liste Gutscheine'
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
     bounds_x = 8

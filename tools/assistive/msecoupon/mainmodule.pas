@@ -909,6 +909,7 @@ begin
  honourtokenfinishact.enabled:= false;
  if honournumber.c.value < 0 then begin
   tokensdispdso.dataset:= nil;
+  honourcheck.c.value:= '';
  end
  else begin
   tokensqu.indexlocal[0].find([honournumber.c.value],[]);
@@ -954,11 +955,12 @@ begin
   try
    honourtokenfinishact.enabled:= false;
    honournumber.c.value:= anumber;
+//   honourcheck.c.value:= '';
    honourdate.c.value:= trunc(now);
-   tokensdispdso.dataset:= nil;
-   if anumber <> -1 then begin
+//   tokensdispdso.dataset:= nil;
+//   if anumber <> -1 then begin
     checkhonourstate();
-   end;
+//   end;
    case show(ml_application) of
     mr_ok: begin
      tokensqu.edit();
@@ -1451,7 +1453,9 @@ procedure tmainmo.honoursetev(const sender: tcustomificlientcontroller;
                const aclient: iificlient; var avalue: Int64;
                var accept: Boolean; const aindex: Integer);
 begin
- if avalue < 1 then begin
+ if avalue < 0 then begin
+  tokensdispdso.dataset:= nil;
+  honourcheck.c.value:= '';
   accept:= false;
   showerror(formatmse(rs(numberdoesnotexist),[numbertext.c.value]));
  end;
