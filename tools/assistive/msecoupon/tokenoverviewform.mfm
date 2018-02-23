@@ -13,7 +13,7 @@ object tokenoverviewfo: ttokenoverviewfo
   )
   options = [fo_cancelonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
-  caption = 'Gutschein '#220'bersicht'
+  caption = #220'bersicht Gutscheine'
   moduleclassname = 'tmseform'
   object fromed: tdatetimeedit
     frame.caption = 'Von'

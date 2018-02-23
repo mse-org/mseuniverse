@@ -725,6 +725,7 @@ object mainmo: tmainmo
   object honournumber: tifiint64linkcomp
     controller.onclientdataentered = honourdataentev
     controller.valuemax = 2147483647
+    controller.onclientsetvalue = honoursetev
     left = 168
     top = 168
   end
@@ -1074,5 +1075,9 @@ object mainmo: tmainmo
     options = [fbso_utf8, fbso_utf8message]
     left = 8
     top = 32
+  end
+  object numbertext: tifistringlinkcomp
+    left = 280
+    top = 168
   end
 end

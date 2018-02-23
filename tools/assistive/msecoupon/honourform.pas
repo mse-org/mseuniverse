@@ -22,7 +22,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
  msesimplewidgets,mseact,msedataedits,msedropdownlist,mseedit,mseificomp,
  mseificompglob,mseifiglob,msestatfile,msestream,sysutils,mdb,msedbedit,
- msegraphedits,msegrids,mselookupbuffer,msescrollbar,msedbdialog;
+ msegraphedits,msegrids,mselookupbuffer,msescrollbar,msedbdialog,mseifiendpoint;
 type
  thonourfo = class(tmseform)
    honourbu: tbutton;
@@ -41,10 +41,18 @@ type
    commentdisp: tdbmemodialogedit;
    unitydisp: tdbstringedit;
    donatordisp: tdbstringedit;
+   numbertext: tifistringendpoint;
+   procedure numbereditev(const sender: tcustomedit; var atext: msestring);
  end;
-var
- honourfo: thonourfo;
+
 implementation
 uses
- honourform_mfm;
+ honourform_mfm,mseformatstr;
+
+procedure thonourfo.numbereditev(const sender: tcustomedit;
+               var atext: msestring);
+begin
+ numbertext.value:= atext;
+end;
+
 end.

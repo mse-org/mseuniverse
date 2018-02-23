@@ -287,6 +287,7 @@ type
    openres: tsqlresult;
    createdbact: taction;
    service: tfb3service;
+   numbertext: tifistringlinkcomp;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -333,6 +334,9 @@ type
                    var astream: ttextstream; var aretry: Boolean);
    procedure espeakconnectev(const sender: tcustomespeakng);
    procedure createev(const sender: TObject);
+   procedure honoursetev(const sender: tcustomificlientcontroller;
+                   const aclient: iificlient; var avalue: Int64;
+                   var accept: Boolean; const aindex: Integer);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -410,6 +414,7 @@ resourcestring
  alreadyrunning = 'MSEcoupon wurde möglicherweise bereits gestartet.';
  cannotdeleteobject = 'Leistung kann nicht gelöscht werden,'+lineend+
                     'sie wird verwendet.';
+ numberdoesnotexist = 'Gutschein Nummer %0:s existiert nicht.';
  
 procedure datasettofdf(const source: tdataset; const dest: ttextstream);
 const
@@ -904,6 +909,7 @@ begin
  honourtokenfinishact.enabled:= false;
  if honournumber.c.value < 0 then begin
   tokensdispdso.dataset:= nil;
+  honourcheck.c.value:= '';
  end
  else begin
   tokensqu.indexlocal[0].find([honournumber.c.value],[]);
@@ -949,11 +955,12 @@ begin
   try
    honourtokenfinishact.enabled:= false;
    honournumber.c.value:= anumber;
+//   honourcheck.c.value:= '';
    honourdate.c.value:= trunc(now);
-   tokensdispdso.dataset:= nil;
-   if anumber <> -1 then begin
+//   tokensdispdso.dataset:= nil;
+//   if anumber <> -1 then begin
     checkhonourstate();
-   end;
+//   end;
    case show(ml_application) of
     mr_ok: begin
      tokensqu.edit();
@@ -1440,6 +1447,18 @@ procedure tmainmo.createev(const sender: TObject);
 begin
  conn.databasename:= filepath(conn.databasename);
   //windows needs absolute path
+end;
+
+procedure tmainmo.honoursetev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient; var avalue: Int64;
+               var accept: Boolean; const aindex: Integer);
+begin
+ if avalue < 0 then begin
+  tokensdispdso.dataset:= nil;
+  honourcheck.c.value:= '';
+  accept:= false;
+  showerror(formatmse(rs(numberdoesnotexist),[numbertext.c.value]));
+ end;
 end;
 
 initialization
