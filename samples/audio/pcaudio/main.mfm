@@ -1,0 +1,233 @@
+object mainfo: tmainfo
+  bounds_x = 259
+  bounds_y = 178
+  bounds_cx = 403
+  bounds_cy = 386
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    386
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  moduleclassname = 'tmainform'
+  object libnameed: tfilenameedit
+    frame.caption = 'pcaudio library file'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        imagenr = 17
+      end>
+    frame.button.imagenr = 17
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 16
+    bounds_cx = 388
+    bounds_cy = 35
+    anchors = [an_left, an_top, an_right]
+    statfile = tstatfile1
+    value = 'pcaudio.dll'
+    controller.filename = 'pcaudio.dll'
+    reffontheight = 13
+  end
+  object oned: tbooleanedit
+    frame.caption = 'Sound on'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      1
+      48
+      1
+    )
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 151
+    bounds_cx = 61
+    bounds_cy = 15
+    onsetvalue = onsetev
+  end
+  object sinefrequed: trealedit
+    frame.caption = 'sine frequency'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 104
+    bounds_cy = 35
+    statfile = tstatfile1
+    ondataentered = datentev
+    value = 440
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    valuemin = 1
+    valuemax = 1E+038
+    reffontheight = 13
+  end
+  object samplingfrequed: trealedit
+    frame.caption = 'sampling frequency'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 64
+    bounds_cy = 35
+    statfile = tstatfile1
+    ondataentered = datentev
+    value = 44100
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    valuemin = 1
+    valuemax = 1E+038
+    reffontheight = 13
+  end
+  object chart: tchart
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 4
+    bounds_x = 8
+    bounds_y = 176
+    bounds_cx = 386
+    bounds_cy = 202
+    anchors = [an_left, an_top, an_right, an_bottom]
+    traces.count = 1
+    traces.xserstart = 0
+    traces.xstart = 0
+    traces.ystart = -1
+    traces.xrange = 1
+    traces.xserrange = 1
+    traces.yrange = 2
+    traces.image_widthmm = 0
+    traces.image_heighthmm = 0
+    traces.legend_x = 0
+    traces.legend_y = 0
+    traces.items = <    
+      item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 2
+        ystart = -1
+      end>
+    xstart = 0
+    ystart = 0
+    xrange = 1
+    yrange = 1
+    xdials.start = 0
+    xdials.range = 1
+    ydials.start = 0
+    ydials.range = 1
+  end
+  object samplesed: tintegeredit
+    frame.caption = 'samplecount'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 294
+    bounds_y = 136
+    bounds_cy = 35
+    anchors = [an_top, an_right]
+    statfile = tstatfile1
+    ondataentered = datentev
+    value = 100
+    valuemin = 10
+    valuemax = 1000000
+    reffontheight = 13
+  end
+  object amplitudeed: trealedit
+    frame.caption = 'amplitude'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 112
+    bounds_y = 104
+    bounds_cy = 35
+    statfile = tstatfile1
+    ondataentered = datentev
+    value = 0.5
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    valuemin = 0
+    valuemax = 2
+    reffontheight = 13
+  end
+  object blocklened: trealedit
+    frame.caption = 'block length (s)'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      16
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 112
+    bounds_y = 64
+    bounds_cy = 35
+    statfile = tstatfile1
+    ondataentered = datentev
+    value = 0.06
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    valuemin = 0.001
+    valuemax = 10
+    reffontheight = 13
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 240
+    top = 16
+  end
+  object wavethread: tthreadcomp
+    onexecute = waveexe
+    left = 240
+    top = 48
+  end
+end
