@@ -76,7 +76,7 @@ male voice for captions.
 
 Key-bindigs
 -----------
-Space -> execute buttons ('Schaltfeld').
+Space or Return -> execute buttons ('Schaltfeld').
 Ctrl+Space or Ctrl+PadReturn -> repeat current text.
 Shift+Ctrl+Space or Shift+Ctrl+PadReturn -> repeat whole current text.
 Ctrl+PadMinus -> speak slower.
