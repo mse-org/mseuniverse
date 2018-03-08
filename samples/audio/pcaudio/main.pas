@@ -30,7 +30,7 @@ type
    fblocklen: int32;
    famplitude: flo64;
    faudioobj: paudio_object;
-   procedure initwave(const sinefrequency: double; samplingfrequency: double);
+   procedure initwave(const sinefrequency: flo64; samplingfrequency: flo64);
    procedure updatesound();
  end;
 var
@@ -49,22 +49,22 @@ type
 // >---+---------+---------+
 //
  iir2ty = record
-  z1,z2: double;
-  a1,a2: double;
-  b0,b1,b2: double;
+  z1,z2: flo64;
+  a1,a2: flo64;
+  b0,b1,b2: flo64;
  end;
 
 var
  sinegen: iir2ty;
  
-procedure tmainfo.initwave(const sinefrequency: double;
-                                           samplingfrequency: double);
+procedure tmainfo.initwave(const sinefrequency: flo64;
+                                           samplingfrequency: flo64);
 {      z*sin(wT)
  --------------------           z-transform of sin(wT)
  z^2 - 2z*cos(wT) + 1
 }
 var
- wT: double;
+ wT: flo64;
 begin
  wT:= (sinefrequency*2*pi)/samplingfrequency;
  with sinegen do begin
@@ -78,7 +78,7 @@ begin
  end;
 end;
 
-function iir2step(const inp: double; var filter: iir2ty): double;
+function iir2step(const inp: flo64; var filter: iir2ty): flo64;
 begin
  with filter do begin
   result:= inp*b0 + z2;
@@ -87,7 +87,7 @@ begin
  end;
 end;
 
-function iir2sinstep(var filter: iir2ty): double;
+function iir2sinstep(var filter: iir2ty): flo64;
 begin
  with filter do begin       //todo: amplitude stabilisation
   result:= z2;
@@ -150,7 +150,9 @@ begin
  if avalue <> oned.value then begin
   if avalue then begin
    initializepcaudio([libnameed.sysvalue]);
-   faudioobj:= create_audio_device_object(nil,nil,nil);
+   faudioobj:= create_audio_device_object(nil,pchar(''),pchar(''));
+//   faudioobj:= create_audio_device_object(nil,nil,nil); 
+                                   //does not load pulseaudio
    if faudioobj = nil then begin
     raise exception.create('create_audio_device_object() failed');
    end;
