@@ -167,9 +167,7 @@ begin
   else begin
    wavethread.terminate();
    if faudioobj <> nil then begin
-   {$ifdef mswindows}
-    audio_object_flush(faudioobj); //probably not thread safe on linux
-   {$endif}
+    audio_object_flush(faudioobj);
    end;
    wavethread.active:= false;
    audio_object_close(faudioobj);
