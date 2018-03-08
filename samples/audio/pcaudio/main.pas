@@ -25,6 +25,7 @@ type
                    var accept: Boolean);
    procedure waveexe(const sender: tthreadcomp);
    procedure datentev(const sender: TObject);
+   procedure createev(const sender: TObject);
   protected
    fblocklen: int32;
    famplitude: flo64;
@@ -111,9 +112,11 @@ begin
    p1^:= round(iir2sinstep(sinegen)*f1);
    inc(p1);
   end;
-  i1:= audio_object_write(faudioobj,pointer(ar1),fblocklen*sizeof(ar1[0]));
-  if i1 <> 0 then begin
-   raise exception.create(string(audio_object_strerror(faudioobj,i1)));
+  if not sender.terminated then begin
+   i1:= audio_object_write(faudioobj,pointer(ar1),fblocklen*sizeof(ar1[0]));
+   if (i1 <> 0) and not sender.terminated then begin
+    raise exception.create(string(audio_object_strerror(faudioobj,i1)));
+   end;
   end;
  end;
 end;
@@ -162,7 +165,9 @@ begin
   else begin
    wavethread.terminate();
    if faudioobj <> nil then begin
-    audio_object_flush(faudioobj);
+   {$ifdef mswindows}
+    audio_object_flush(faudioobj); //probably not thread safe on linux
+   {$endif}
    end;
    wavethread.active:= false;
    audio_object_close(faudioobj);
@@ -178,6 +183,13 @@ end;
 procedure tmainfo.datentev(const sender: TObject);
 begin
  updatesound();
+end;
+
+procedure tmainfo.createev(const sender: TObject);
+begin
+{$ifndef mswindows}
+ libnameed.value:= 'libpcaudio.so.0';
+{$endif}
 end;
 
 end.
