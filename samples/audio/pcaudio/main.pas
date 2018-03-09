@@ -121,7 +121,7 @@ var
  
 begin
  f1:= famplitude1;
- f2:= famplitude1;
+ f2:= famplitude2;
  twochannel:= ch1on.value and ch2on.value;
  if twochannel then begin
   setlength(ar1,fblocklen*2);
@@ -129,7 +129,7 @@ begin
  else begin
   setlength(ar1,fblocklen);
  end;
- bytelen:= fblocklen*sizeof(ar1[0]);
+ bytelen:= length(ar1)*sizeof(ar1[0]);
  p1:= pointer(ar1);
  pe:= pointer(p1) + bytelen;
  
