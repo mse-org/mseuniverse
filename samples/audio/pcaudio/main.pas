@@ -134,7 +134,7 @@ begin
  pe:= pointer(p1) + bytelen;
  
  while not sender.terminated do begin
-
+  p1:= pointer(ar1);
   if twochannel then begin
    if ch1on.value then begin
     while p1 < pe do begin
@@ -166,8 +166,8 @@ begin
     raise exception.create(string(audio_object_strerror(faudioobj,i1)));
    end;
   end;
-  
  end;
+ 
 end;
 
 procedure tmainfo.updatesound();
