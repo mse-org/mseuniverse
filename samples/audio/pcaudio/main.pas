@@ -10,37 +10,6 @@ uses
  msepcaudio;
 
 type
- tmainfo = class(tmainform)
-   libnameed: tfilenameedit;
-   tstatfile1: tstatfile;
-   oned: tbooleanedit;
-   wavethread: tthreadcomp;
-   sinefrequed: trealedit;
-   samplingfrequed: trealedit;
-   chart: tchart;
-   samplesed: tintegeredit;
-   amplitudeed: trealedit;
-   blocklened: trealedit;
-   procedure onsetev(const sender: TObject; var avalue: Boolean;
-                   var accept: Boolean);
-   procedure waveexe(const sender: tthreadcomp);
-   procedure datentev(const sender: TObject);
-   procedure createev(const sender: TObject);
-  protected
-   fblocklen: int32;
-   famplitude: flo64;
-   faudioobj: paudio_object;
-   procedure initwave(const sinefrequency: flo64; samplingfrequency: flo64);
-   procedure updatesound();
- end;
-var
- mainfo: tmainfo;
- 
-implementation
-uses
- main_mfm,msectypes;
-
-type
 
 //     +---------+---------+--->
 //     |       -a1       -a2     
@@ -54,10 +23,54 @@ type
   b0,b1,b2: flo64;
  end;
 
+ tmainfo = class(tmainform)
+   libnameed: tfilenameedit;
+   tstatfile1: tstatfile;
+   oned: tbooleanedit;
+   wavethread: tthreadcomp;
+   sinefrequed: trealedit;
+   samplingfrequed: trealedit;
+   chart: tchart;
+   samplesed: tintegeredit;
+   amplitudeed: trealedit;
+   blocklened: trealedit;
+   amplitudeed2: trealedit;
+   sinefrequed2: trealedit;
+   ch1on: tbooleanedit;
+   ch2on: tbooleanedit;
+   procedure onsetev(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure waveexe(const sender: tthreadcomp);
+   procedure datentev(const sender: TObject);
+   procedure createev(const sender: TObject);
+   procedure ch1setev(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure ch2seev(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
+   procedure sampfreqsetev(const sender: TObject; var avalue: realty;
+                   var accept: Boolean);
+  protected
+   fblocklen: int32;
+   famplitude1: flo64;
+   famplitude2: flo64;
+   faudioobj: paudio_object;
+   procedure initwave(var sinegen: iir2ty;
+                       const sinefrequency: flo64; samplingfrequency: flo64);
+   procedure updatesound();
+   procedure soundoff();
+ end;
 var
- sinegen: iir2ty;
+ mainfo: tmainfo;
  
-procedure tmainfo.initwave(const sinefrequency: flo64;
+implementation
+uses
+ main_mfm,msectypes;
+
+var
+ sinegen1: iir2ty;
+ sinegen2: iir2ty;
+ 
+procedure tmainfo.initwave(var sinegen: iir2ty; const sinefrequency: flo64;
                                            samplingfrequency: flo64);
 {      z*sin(wT)
  --------------------           z-transform of sin(wT)
@@ -97,27 +110,63 @@ begin
 end;
 
 procedure tmainfo.waveexe(const sender: tthreadcomp);
+
 var
  ar1: array of int16;
  p1,pe: pint16;
- f1: flo64;
+ f1,f2: flo64;
  i1: int32;
+ twochannel: boolean;
+ bytelen: int32;
+ 
 begin
- setlength(ar1,fblocklen);
- f1:= famplitude;
+ f1:= famplitude1;
+ f2:= famplitude1;
+ twochannel:= ch1on.value and ch2on.value;
+ if twochannel then begin
+  setlength(ar1,fblocklen*2);
+ end
+ else begin
+  setlength(ar1,fblocklen);
+ end;
+ bytelen:= fblocklen*sizeof(ar1[0]);
+ p1:= pointer(ar1);
+ pe:= pointer(p1) + bytelen;
+ 
  while not sender.terminated do begin
-  p1:= pointer(ar1);
-  pe:= p1+fblocklen;
-  while p1 < pe do begin
-   p1^:= round(iir2sinstep(sinegen)*f1);
-   inc(p1);
+
+  if twochannel then begin
+   if ch1on.value then begin
+    while p1 < pe do begin
+     p1^:= round(iir2sinstep(sinegen1)*f1);
+     inc(p1);
+     p1^:= round(iir2sinstep(sinegen2)*f2);
+     inc(p1);
+    end;
+   end
+  end
+  else begin
+   if ch1on.value then begin
+    while p1 < pe do begin
+     p1^:= round(iir2sinstep(sinegen1)*f1);
+     inc(p1);
+    end;
+   end
+   else begin
+    while p1 < pe do begin
+     p1^:= round(iir2sinstep(sinegen2)*f2);
+     inc(p1);
+    end;
+   end;
   end;
+  
   if not sender.terminated then begin
-   i1:= audio_object_write(faudioobj,pointer(ar1),fblocklen*sizeof(ar1[0]));
+   i1:= audio_object_write(faudioobj,pointer(ar1),bytelen);
    if (i1 <> 0) and not sender.terminated then begin
     raise exception.create(string(audio_object_strerror(faudioobj,i1)));
    end;
   end;
+  
  end;
 end;
 
@@ -130,22 +179,57 @@ var
 begin
  b1:= wavethread.active;
  wavethread.active:= false;
- initwave(sinefrequed.value,samplingfrequed.value);
- f1:= amplitudeed.value;
- famplitude:= f1*$7fff;
+ initwave(sinegen1,sinefrequed.value,samplingfrequed.value);
+ initwave(sinegen2,sinefrequed2.value,samplingfrequed.value);
  fblocklen:= round(blocklened.value*samplingfrequed.value);
+ chart.clear;
  setlength(ar1,samplesed.value);
- for i1:= 0 to high(ar1) do begin
-  ar1[i1]:= iir2sinstep(sinegen)*f1;
+ chart.traces[0].visible:= false;
+ chart.traces[1].visible:= false;
+ if ch1on.value then begin
+  chart.traces[0].visible:= true;
+  f1:= amplitudeed.value;
+  famplitude1:= f1*$7fff;
+  for i1:= 0 to high(ar1) do begin
+   ar1[i1]:= iir2sinstep(sinegen1)*f1;
+  end;
+  chart.traces[0].ydata:= copy(ar1);
  end;
- chart.traces[0].ydata:= ar1;
+ if ch2on.value then begin
+  chart.traces[1].visible:= true;
+  f1:= amplitudeed2.value;
+  famplitude2:= f1*$7fff;
+  for i1:= 0 to high(ar1) do begin
+   ar1[i1]:= iir2sinstep(sinegen2)*f1;
+  end;
+  chart.traces[1].ydata:= ar1;
+ end;
  wavethread.active:= b1;
+end;
+
+procedure tmainfo.soundoff();
+begin
+ if oned.value then begin
+  wavethread.terminate();
+  if faudioobj <> nil then begin
+   audio_object_flush(faudioobj);
+  end;
+  wavethread.active:= false;
+  audio_object_close(faudioobj);
+  if faudioobj <> nil then begin
+   audio_object_destroy(faudioobj);
+   faudioobj:= nil;
+  end;
+  releasepcaudio();
+  oned.value:= false;
+ end;
 end;
  
 procedure tmainfo.onsetev(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 var
  i1: cint;
+ channels: int32;
 begin
  if avalue <> oned.value then begin
   if avalue then begin
@@ -156,8 +240,12 @@ begin
    if faudioobj = nil then begin
     raise exception.create('create_audio_device_object() failed');
    end;
+   channels:= 1;
+   if ch1on.value and ch2on.value then begin
+    channels:= 2;
+   end;
    i1:= audio_object_open(faudioobj,AUDIO_OBJECT_FORMAT_S16LE,
-                                              round(samplingfrequed.value),1);
+                                        round(samplingfrequed.value),channels);
    if i1 <> 0 then begin
     audio_object_destroy(faudioobj);
     raise exception.create(string(audio_object_strerror(faudioobj,i1)));
@@ -165,17 +253,7 @@ begin
    wavethread.active:= true;
   end
   else begin
-   wavethread.terminate();
-   if faudioobj <> nil then begin
-    audio_object_flush(faudioobj);
-   end;
-   wavethread.active:= false;
-   audio_object_close(faudioobj);
-   if faudioobj <> nil then begin
-    audio_object_destroy(faudioobj);
-    faudioobj:= nil;
-   end;
-   releasepcaudio();
+   soundoff();
   end;
  end;
 end;
@@ -190,6 +268,30 @@ begin
 {$ifndef mswindows}
  libnameed.value:= 'libpcaudio.so.0';
 {$endif}
+end;
+
+procedure tmainfo.ch1setev(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ soundoff();
+ if not avalue then begin
+  ch2on.value:= true;
+ end;
+end;
+
+procedure tmainfo.ch2seev(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ soundoff();
+ if not avalue then begin
+  ch1on.value:= true;
+ end;
+end;
+
+procedure tmainfo.sampfreqsetev(const sender: TObject; var avalue: realty;
+               var accept: Boolean);
+begin
+ soundoff();
 end;
 
 end.

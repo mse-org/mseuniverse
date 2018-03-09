@@ -2,14 +2,14 @@ object mainfo: tmainfo
   bounds_x = 259
   bounds_y = 178
   bounds_cx = 403
-  bounds_cy = 386
+  bounds_cy = 596
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     403
-    386
+    596
   )
   statfile = tstatfile1
   caption = 'MSEide+MSEgui'
@@ -43,7 +43,7 @@ object mainfo: tmainfo
     reffontheight = 16
   end
   object oned: tbooleanedit
-    frame.caption = 'Sound on'
+    frame.caption = '&Sound on'
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -54,7 +54,7 @@ object mainfo: tmainfo
     )
     taborder = 1
     bounds_x = 8
-    bounds_y = 150
+    bounds_y = 214
     bounds_cx = 68
     bounds_cy = 18
     onsetvalue = onsetev
@@ -102,6 +102,7 @@ object mainfo: tmainfo
     bounds_cy = 41
     statfile = tstatfile1
     ondataentered = datentev
+    onsetvalue = sampfreqsetev
     value = 44100
     valuedefault = -Inf
     valuerange = 1
@@ -115,11 +116,11 @@ object mainfo: tmainfo
     frame.localprops1 = []
     taborder = 4
     bounds_x = 8
-    bounds_y = 176
+    bounds_y = 248
     bounds_cx = 386
-    bounds_cy = 202
+    bounds_cy = 340
     anchors = [an_left, an_top, an_right, an_bottom]
-    traces.count = 1
+    traces.count = 2
     traces.xserstart = 0
     traces.xstart = 0
     traces.ystart = 0
@@ -132,6 +133,16 @@ object mainfo: tmainfo
     traces.legend_y = 0
     traces.items = <    
       item
+        widthmm = 0.3
+        xserrange = 1
+        xserstart = 0
+        xrange = 1
+        xstart = 0
+        yrange = 2
+        ystart = -1
+      end    
+      item
+        color = -1610612729
         widthmm = 0.3
         xserrange = 1
         xserstart = 0
@@ -162,7 +173,7 @@ object mainfo: tmainfo
     )
     taborder = 5
     bounds_x = 294
-    bounds_y = 133
+    bounds_y = 197
     bounds_cy = 41
     anchors = [an_top, an_right]
     statfile = tstatfile1
@@ -184,7 +195,7 @@ object mainfo: tmainfo
       0
     )
     taborder = 6
-    bounds_x = 112
+    bounds_x = 136
     bounds_y = 101
     bounds_cy = 41
     statfile = tstatfile1
@@ -209,7 +220,7 @@ object mainfo: tmainfo
       0
     )
     taborder = 7
-    bounds_x = 112
+    bounds_x = 136
     bounds_y = 61
     bounds_cy = 41
     statfile = tstatfile1
@@ -221,6 +232,95 @@ object mainfo: tmainfo
     valuemin = 0.001
     valuemax = 10
     reffontheight = 16
+  end
+  object amplitudeed2: trealedit
+    frame.caption = 'amplitude'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 8
+    bounds_x = 136
+    bounds_y = 149
+    bounds_cy = 41
+    statfile = tstatfile1
+    ondataentered = datentev
+    value = 0.5
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    valuemin = 0
+    valuemax = 2
+    reffontheight = 16
+  end
+  object sinefrequed2: trealedit
+    frame.caption = 'sine frequency'
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      19
+      0
+      0
+    )
+    taborder = 9
+    bounds_x = 8
+    bounds_y = 149
+    bounds_cy = 41
+    statfile = tstatfile1
+    ondataentered = datentev
+    value = 440
+    valuedefault = -Inf
+    valuerange = 1
+    valuestart = 0
+    valuemin = 1
+    valuemax = 1E+038
+    reffontheight = 16
+  end
+  object ch1on: tbooleanedit
+    frame.caption = 'channel 1'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      56
+      3
+    )
+    taborder = 10
+    bounds_x = 248
+    bounds_y = 122
+    bounds_cx = 69
+    bounds_cy = 18
+    statfile = tstatfile1
+    ondataentered = datentev
+    onsetvalue = ch1setev
+    value = True
+  end
+  object ch2on: tbooleanedit
+    frame.caption = 'channel 2'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      57
+      3
+    )
+    taborder = 11
+    bounds_x = 248
+    bounds_y = 170
+    bounds_cx = 70
+    bounds_cy = 18
+    statfile = tstatfile1
+    ondataentered = datentev
+    onsetvalue = ch2seev
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
