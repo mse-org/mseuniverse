@@ -112,7 +112,9 @@ object mainfo: tmainfo
     reffontheight = 16
   end
   object chart: tchart
-    frame.localprops = []
+    frame.levelo = -1
+    frame.leveli = 1
+    frame.localprops = [frl_levelo, frl_leveli]
     frame.localprops1 = []
     taborder = 4
     bounds_x = 8
