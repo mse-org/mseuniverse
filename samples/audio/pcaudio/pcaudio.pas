@@ -5,7 +5,7 @@ program pcaudio;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif} 
- msegui,main;
+ msegui,main,loadguitemplates;
 begin
  application.createform(tmainfo,mainfo);
  application.run;
