@@ -38,6 +38,7 @@ type
    sinefrequed2: trealedit;
    ch1on: tbooleanedit;
    ch2on: tbooleanedit;
+   alsaed: tbooleanedit;
    procedure onsetev(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure waveexe(const sender: tthreadcomp);
@@ -48,6 +49,8 @@ type
    procedure ch2seev(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
    procedure sampfreqsetev(const sender: TObject; var avalue: realty;
+                   var accept: Boolean);
+   procedure alsasetev(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
   protected
    fblocklen: int32;
@@ -237,9 +240,13 @@ begin
  if avalue <> oned.value then begin
   if avalue then begin
    initializepcaudio([libnameed.sysvalue]);
-   faudioobj:= create_audio_device_object(nil,pchar(''),pchar(''));
-//   faudioobj:= create_audio_device_object(nil,nil,nil); 
+   if alsaed.value then begin
+    faudioobj:= create_audio_device_object(nil,nil,nil); 
                                    //does not load pulseaudio
+   end
+   else begin
+    faudioobj:= create_audio_device_object(nil,pchar(''),pchar(''));
+   end;
    if faudioobj = nil then begin
     raise exception.create('create_audio_device_object() failed');
    end;
@@ -292,6 +299,12 @@ begin
 end;
 
 procedure tmainfo.sampfreqsetev(const sender: TObject; var avalue: realty;
+               var accept: Boolean);
+begin
+ soundoff();
+end;
+
+procedure tmainfo.alsasetev(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
  soundoff();
