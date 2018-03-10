@@ -179,6 +179,9 @@ var
 begin
  b1:= wavethread.active;
  wavethread.active:= false;
+ if faudioobj <> nil then begin
+  audio_object_flush(faudioobj);
+ end;
  initwave(sinegen1,sinefrequed.value,samplingfrequed.value);
  initwave(sinegen2,sinefrequed2.value,samplingfrequed.value);
  fblocklen:= round(blocklened.value*samplingfrequed.value);
