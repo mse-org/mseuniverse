@@ -241,7 +241,8 @@ begin
   if avalue then begin
    initializepcaudio([libnameed.sysvalue]);
    if alsaed.value then begin
-    faudioobj:= create_audio_device_object(nil,nil,nil); 
+    faudioobj:= create_audio_device_object(pchar('sysdefault'),nil,nil); 
+//    faudioobj:= create_audio_device_object(nil,nil,nil); 
                                    //does not load pulseaudio
    end
    else begin
