@@ -114,6 +114,7 @@ int main()
   usleep(700000);
   printf("<<<close\n");
   snd_pcm_close(pcm);
+  printf("<<<open\n");
   if (pcmopen(dev)){
    goto error;
   };
