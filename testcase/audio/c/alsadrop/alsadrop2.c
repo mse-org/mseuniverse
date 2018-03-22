@@ -4,6 +4,7 @@
 
 #include <alsa/asoundlib.h>
 #include <pthread.h>
+#include <sys/time.h>
 #define samplefrequ 44100
 
 int16_t bufa[samplefrequ]; //1 second f1
@@ -84,6 +85,7 @@ int main()
  char* dev;
  snd_pcm_sframes_t frameswritten;
  pthread_t thread;
+ struct timeval t1,t2;
 
  for(i1=0;i1 < samplefrequ;i1++){
   bufa[i1] = 0x4000 * (2*((i1 / 40) % 2)-1);
@@ -108,12 +110,16 @@ int main()
   else{
    buf = bufa;
   }
+  gettimeofday(&t1,NULL);
   pthread_mutex_unlock(&mutex);
   printf("--- %p signal\n",buf);
   pthread_cond_signal(&cond);
   usleep(700000);
-  printf("<<<close\n");
+  printf("<<<close");
   snd_pcm_close(pcm);
+  gettimeofday(&t2,NULL);
+  printf("%ims\n",(t2.tv_sec-t1.tv_sec)*1000+
+                            (t2.tv_usec-t1.tv_usec)/1000);
   printf("<<<open\n");
   if (pcmopen(dev)){
    goto error;
