@@ -1,0 +1,28 @@
+[projectoptions]
+mainfile=alsadrop1.c
+targetfile=alsadrop1
+makecommand=gcc
+makedir=
+unitdirs=2
+ pthread
+ asound
+unitpref=-Fu
+incpref=-Fi
+libpref=-l
+objpref=-Fo
+targpref=-o
+befcommand=0
+aftcommand=0
+makeoptions=1
+ -g
+reversepathorder=0
+makeoptpurpose=1
+ 
+befcommandon=0
+makeoptionson=1
+ 63
+aftcommandon=0
+unitdirson=2
+ 262207
+ 262207
+uid=0
