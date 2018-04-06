@@ -135,7 +135,7 @@ options=122
  index=0
  [projectoptionsfo.tabwidget]
  firsttab=0
- index=3
+ index=1
  [projectoptionsfo]
  stackedunder=
  x=4
@@ -217,7 +217,7 @@ remoteconnection=remote localhost:4242
 uploadcommand=
 gdbprocessor=armm3
 gdbservercommand=st-util
-gdbservercommandattach=st-util
+gdbservercommandattach=st-util -n
 beforeconnect=
 afterconnect=
 beforeload=
@@ -733,7 +733,7 @@ windowlayout=570
  [memoryfo]
  splitdir=0
  useroptions=805322875
- stackedunder=symbolfo
+ stackedunder=cpuarmm3fo
  parent=
  mdistate=0
  nx=0
@@ -779,7 +779,7 @@ windowlayout=570
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=cpuarmm3fo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -923,7 +923,7 @@ windowlayout=570
  [symbolfo]
  splitdir=0
  useroptions=805322875
- stackedunder=findinfilefo
+ stackedunder=watchpointsfo
  parent=
  mdistate=0
  nx=0
@@ -1019,7 +1019,7 @@ windowlayout=570
  [componentstorefo]
  splitdir=0
  useroptions=805331067
- stackedunder=watchpointsfo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
