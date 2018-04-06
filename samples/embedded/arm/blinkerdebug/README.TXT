@@ -6,7 +6,7 @@ https://github.com/texane/stlink
 see
 https://github.com/texane/stlink/blob/master/doc/compiling.md
 
-- Download the ARM toolchain for Linux 64-bit:
+- Download the ARM toolchain:
 https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
  extract it to a directory of your choice (<toolchaindir>).
  
