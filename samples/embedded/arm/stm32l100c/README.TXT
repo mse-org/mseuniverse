@@ -1,5 +1,5 @@
 Free Pascal demo project for STM32L100C-Discovery board    2018-04-07 mse
--------------------------------------------
+-------------------------------------------------------
 
 - clone, build and install the texane ST-Link tools:
 https://github.com/texane/stlink
