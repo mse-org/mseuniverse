@@ -109,11 +109,11 @@ options=124
  sortdescend5=0
  sortdescend6=0
  values7=1
-  -g ${FPCPARAMS}
+  -n -g ${FPCPARAMS}
  sortdescend7=0
  [projectoptionsfo.makegroupbox]
  firsttab=0
- index=2
+ index=1
  [projectoptionsfo.exceptionsgrid]
  propcolwidthref=787
  width0=47
@@ -137,7 +137,7 @@ options=124
  index=0
  [projectoptionsfo.tabwidget]
  firsttab=0
- index=1
+ index=2
  [projectoptionsfo]
  stackedunder=
  x=28
@@ -271,7 +271,7 @@ targpref=-o
 befcommand=0
 aftcommand=0
 makeoptions=1
- -g ${FPCPARAMS}
+ -n -g ${FPCPARAMS}
 reversepathorder=0
 makeoptpurpose=1
  
@@ -682,7 +682,7 @@ windowlayout=584
  [mainfo]
  splitdir=0
  useroptions=838860923
- stackedunder=mainfo.panel1
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -696,7 +696,7 @@ windowlayout=584
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -1159,7 +1159,7 @@ windowlayout=584
  [mainfo.panel1]
  splitdir=2
  useroptions=838893035
- stackedunder=
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -1173,12 +1173,12 @@ windowlayout=584
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [mainfo.panel2]
  splitdir=2
  useroptions=838893035
- stackedunder=mainfo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
