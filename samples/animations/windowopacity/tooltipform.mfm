@@ -1,0 +1,50 @@
+object tooltipfo: ttooltipfo
+  color = -1879048180
+  bounds_x = 337
+  bounds_y = 266
+  bounds_cx = 280
+  bounds_cy = 119
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    280
+    119
+  )
+  optionswindow = [wo_tooltip, wo_noactivate]
+  windowopacity = -Inf
+  onmouseevent = mouseev
+  moduleclassname = 'tmseform'
+  object tlabel1: tlabel
+    bounds_x = 48
+    bounds_y = 32
+    bounds_cx = 109
+    bounds_cy = 24
+    caption = 'Click for hide!'
+    font.height = 18
+    font.name = 'stf_default'
+    font.localprops = [flp_height]
+    reffontheight = 24
+  end
+  object animtimer: tanimtimer
+    left = 136
+    top = 56
+  end
+  object tanimitemcomp1: tanimitemcomp
+    interval = 2
+    enabled = True
+    timer = animtimer
+    ontick = tickev
+    left = 144
+    top = 72
+  end
+  object ttimer1: ttimer
+    interval = 3000000
+    options = [to_single]
+    ontimer = tiev
+    enabled = True
+    left = 32
+    top = 64
+  end
+end
