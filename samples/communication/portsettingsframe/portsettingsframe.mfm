@@ -8,19 +8,26 @@ object portsettingsfra: tportsettingsfra
   frame.localprops1 = []
   bounds_x = 95
   bounds_y = 145
-  bounds_cx = 574
+  bounds_cx = 578
   bounds_cy = 43
-  optionsscale = [osc_expandx, osc_shrinkx, osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+  anchors = [an_left, an_top, an_right]
+  optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
   optionslayout = [lao_placex, lao_aligny]
   align_glue = wam_start
   place_mindist = 8
   place_maxdist = 8
+  place_options = [plo_scalesize]
   onloaded = loadedexe
   moduleclassname = 'tsubform'
   object ported: tcommselector
     frame.caption = 'Port'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
     frame.outerframe = (
       0
       17
@@ -32,14 +39,23 @@ object portsettingsfra: tportsettingsfra
     bounds_cy = 37
     statfile = portstat
     dropdown.options = [deo_autodropdown, deo_keydropdown]
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+      end>
     onsetvalue = portsetexe
     ongetactivecommnr = getactivecommexe
     reffontheight = 14
   end
   object bauded: tenumtypeedit
     frame.caption = 'Baud'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
     frame.outerframe = (
       0
       17
@@ -53,7 +69,7 @@ object portsettingsfra: tportsettingsfra
     bounds_cy = 37
     statfile = portstat
     value = 0
-    min = 0
+    valuemin = 0
     onsetvalue = baudset
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -64,8 +80,13 @@ object portsettingsfra: tportsettingsfra
   end
   object databitsed: tenumtypeedit
     frame.caption = 'Databits'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
     frame.outerframe = (
       0
       17
@@ -79,7 +100,7 @@ object portsettingsfra: tportsettingsfra
     bounds_cy = 37
     statfile = portstat
     value = 0
-    min = 0
+    valuemin = 0
     onsetvalue = databitsset
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -90,8 +111,13 @@ object portsettingsfra: tportsettingsfra
   end
   object parityed: tenumtypeedit
     frame.caption = 'Parity'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
     frame.outerframe = (
       0
       17
@@ -105,7 +131,7 @@ object portsettingsfra: tportsettingsfra
     bounds_cy = 37
     statfile = portstat
     value = 0
-    min = 0
+    valuemin = 0
     onsetvalue = parityset
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -116,8 +142,13 @@ object portsettingsfra: tportsettingsfra
   end
   object stopbited: tenumtypeedit
     frame.caption = 'Stopbits'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
     frame.outerframe = (
       0
       17
@@ -131,7 +162,7 @@ object portsettingsfra: tportsettingsfra
     bounds_cy = 37
     statfile = portstat
     value = 0
-    min = 0
+    valuemin = 0
     onsetvalue = stopbitset
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -142,6 +173,7 @@ object portsettingsfra: tportsettingsfra
   end
   object eor: thexstringedit
     frame.caption = 'EOR-data'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -160,6 +192,7 @@ object portsettingsfra: tportsettingsfra
     reffontheight = 14
   end
   object activeed: tbooleanedit
+    optionsskin = [osk_nopropwidth]
     frame.caption = 'active'
     frame.localprops = []
     frame.localprops1 = []

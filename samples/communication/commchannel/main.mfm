@@ -1,51 +1,108 @@
 object mainfo: tmainfo
   bounds_x = 215
   bounds_y = 236
-  bounds_cx = 586
+  bounds_cx = 595
   bounds_cy = 290
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    586
+    595
     290
   )
   statfile = tstatfile1
   caption = 'MSEide+MSEgui commchannel'
+  windowopacity = -Inf
   moduleclassname = 'tmainform'
-  object senddtexted: thistoryedit
-    frame.caption = 'Tx-Text'
-    frame.localprops = []
-    frame.localprops1 = []
-    frame.buttons.count = 1
-    frame.buttons.items = <    
-      item
-      end>
-    frame.outerframe = (
-      0
-      17
-      0
-      0
-    )
+  object tlayouter1: tlayouter
+    taborder = 1
     bounds_x = 8
-    bounds_y = 63
-    bounds_cx = 570
+    bounds_y = 53
+    bounds_cx = 578
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
-    statfile = tstatfile1
-    optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
-    onsetvalue = sendtextexe
-    dropdown.cols.count = 1
-    dropdown.cols.items = <    
-      item
-      end>
-    reffontheight = 14
+    optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
+    optionslayout = [lao_placex, lao_aligny]
+    align_glue = wam_start
+    place_mindist = 5
+    place_maxdist = 5
+    place_options = [plo_endmargin]
+    linktop = portfra
+    linkbottom = rxdata
+    dist_top = 2
+    dist_bottom = 2
+    object loopon: tbooleanedit
+      frame.caption = 'loop'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        1
+        30
+        2
+      )
+      bounds_x = 535
+      bounds_y = 20
+      bounds_cx = 43
+      bounds_cy = 16
+      onsetvalue = looponset
+    end
+    object senddtexted: thistoryedit
+      frame.caption = 'Tx-Text'
+      frame.captiontextflags = [tf_bottom]
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.buttons.count = 1
+      frame.buttons.items = <      
+        item
+        end>
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 465
+      bounds_cy = 37
+      anchors = [an_left, an_top, an_right]
+      statfile = tstatfile1
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+      onsetvalue = sendtextexe
+      dropdown.cols.count = 1
+      dropdown.cols.items = <      
+        item
+        end>
+      reffontheight = 14
+    end
+    object loopnum: tintegeredit
+      frame.caption = 'Num'
+      frame.captiontextflags = [tf_bottom]
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        17
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 470
+      bounds_y = 0
+      bounds_cx = 60
+      bounds_cy = 37
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      reffontheight = 14
+    end
   end
   object rxdata: tstringgrid
     frame.levelo = -1
     frame.caption = 'Rx-Text'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = [frl_levelo]
     frame.localprops1 = []
     frame.outerframe = (
@@ -54,11 +111,11 @@ object mainfo: tmainfo
       0
       0
     )
-    taborder = 1
+    taborder = 2
     bounds_x = 8
-    bounds_y = 111
-    bounds_cx = 568
-    bounds_cy = 124
+    bounds_y = 92
+    bounds_cx = 577
+    bounds_cy = 143
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
     datacols.width = 1000
@@ -82,7 +139,7 @@ object mainfo: tmainfo
   end
   object clearbu: tbutton
     taborder = 3
-    bounds_x = 526
+    bounds_x = 535
     bounds_y = 262
     bounds_cx = 50
     bounds_cy = 20
@@ -93,6 +150,7 @@ object mainfo: tmainfo
   end
   object statusdisp: tstringdisp
     frame.caption = 'Status'
+    frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (
@@ -102,7 +160,7 @@ object mainfo: tmainfo
       0
     )
     taborder = 4
-    bounds_x = 0
+    bounds_x = 8
     bounds_y = 246
     bounds_cx = 332
     bounds_cy = 35
@@ -110,7 +168,6 @@ object mainfo: tmainfo
     reffontheight = 14
   end
   inline portfra: tportsettingsfra
-    taborder = 2
     bounds_x = 8
     bounds_y = 8
     inherited ported: tcommselector
