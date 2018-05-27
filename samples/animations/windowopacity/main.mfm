@@ -1,0 +1,26 @@
+object mainfo: tmainfo
+  bounds_x = 128
+  bounds_y = 213
+  bounds_cx = 329
+  bounds_cy = 134
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    329
+    134
+  )
+  caption = 'MSEide+MSEgui'
+  windowopacity = -Inf
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 40
+    bounds_y = 40
+    bounds_cx = 250
+    bounds_cy = 46
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Show Tooltip'
+    onexecute = exeev
+  end
+end
