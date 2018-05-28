@@ -30,6 +30,8 @@ type
                    var accept: Boolean);
    procedure looponset(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
+   procedure activeset(const sender: TObject; var avalue: Boolean;
+                   var accept: Boolean);
   protected
    procedure repeatsend();
  end;
@@ -44,14 +46,14 @@ uses
 procedure tmainfo.clearexe(const sender: TObject);
 begin
  rxdata.clear();
- loopnum.value:= 0;
+ loopnum.value:= loopnum.valuemin;
  statusdisp.value:= '';
 end;
 
 procedure tmainfo.sendtextexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
- if conn.connected then begin
+ if portfra.port.active then begin
   conn.transmiteor(ansistring(avalue),length(avalue),-1);
  end;
 end;
@@ -89,6 +91,15 @@ procedure tmainfo.looponset(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
  if avalue then begin
+  repeatsend();
+ end;
+end;
+
+procedure tmainfo.activeset(const sender: TObject; var avalue: Boolean;
+               var accept: Boolean);
+begin
+ portfra.activeset(sender,avalue,accept);
+ if avalue and loopon.value then begin
   repeatsend();
  end;
 end;

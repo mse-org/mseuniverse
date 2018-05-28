@@ -35,6 +35,7 @@ type
                    var accept: Boolean);
    procedure activeset(const sender: TObject; var avalue: Boolean;
                    var accept: Boolean);
+   procedure paramenereev(const sender: TObject);
  end;
 
 implementation
@@ -125,6 +126,12 @@ procedure tportsettingsfra.activeset(const sender: TObject; var avalue: Boolean;
                var accept: Boolean);
 begin
  port.active:= avalue;
+end;
+
+procedure tportsettingsfra.paramenereev(const sender: TObject);
+begin
+ port.active:= false;
+ activeed.value:= false;
 end;
 
 end.

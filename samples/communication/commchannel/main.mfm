@@ -33,7 +33,7 @@ object mainfo: tmainfo
     dist_top = 2
     dist_bottom = 2
     object loopon: tbooleanedit
-      frame.caption = 'loop'
+      frame.caption = '&loop'
       frame.localprops = []
       frame.localprops1 = []
       frame.outerframe = (
@@ -49,7 +49,7 @@ object mainfo: tmainfo
       onsetvalue = looponset
     end
     object senddtexted: thistoryedit
-      frame.caption = 'Tx-Text'
+      frame.caption = '&Tx-Text'
       frame.captiontextflags = [tf_bottom]
       frame.localprops = []
       frame.localprops1 = []
@@ -79,7 +79,7 @@ object mainfo: tmainfo
       reffontheight = 14
     end
     object loopnum: tintegeredit
-      frame.caption = 'Num'
+      frame.caption = '&Num'
       frame.captiontextflags = [tf_bottom]
       frame.localprops = []
       frame.localprops1 = []
@@ -95,6 +95,8 @@ object mainfo: tmainfo
       bounds_cx = 60
       bounds_cy = 37
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+      value = 1
+      valuemin = 1
       reffontheight = 14
     end
   end
@@ -114,7 +116,7 @@ object mainfo: tmainfo
     bounds_x = 8
     bounds_y = 92
     bounds_cx = 592
-    bounds_cy = 128
+    bounds_cy = 152
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
     datacols.width = 1000
@@ -139,7 +141,7 @@ object mainfo: tmainfo
   object clearbu: tbutton
     taborder = 3
     bounds_x = 550
-    bounds_y = 247
+    bounds_y = 263
     bounds_cx = 50
     bounds_cy = 20
     anchors = [an_right, an_bottom]
@@ -160,7 +162,7 @@ object mainfo: tmainfo
     )
     taborder = 4
     bounds_x = 8
-    bounds_y = 231
+    bounds_y = 247
     bounds_cx = 332
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -171,6 +173,7 @@ object mainfo: tmainfo
     bounds_y = 8
     bounds_cx = 593
     inherited ported: tcommselector
+      frame.caption = '&Port'
       frame.buttons.items = <      
         item
         end>
@@ -180,6 +183,7 @@ object mainfo: tmainfo
         end>
     end
     inherited bauded: tenumtypeedit
+      frame.caption = '&Baud'
       frame.buttons.items = <      
         item
         end>
@@ -190,6 +194,7 @@ object mainfo: tmainfo
         end>
     end
     inherited databitsed: tenumtypeedit
+      frame.caption = '&Databits'
       frame.buttons.items = <      
         item
         end>
@@ -200,6 +205,7 @@ object mainfo: tmainfo
         end>
     end
     inherited parityed: tenumtypeedit
+      frame.caption = 'Pa&rity'
       frame.buttons.items = <      
         item
         end>
@@ -210,6 +216,7 @@ object mainfo: tmainfo
         end>
     end
     inherited stopbited: tenumtypeedit
+      frame.caption = '&Stopbits'
       frame.buttons.items = <      
         item
         end>
@@ -220,12 +227,15 @@ object mainfo: tmainfo
         end>
     end
     inherited eor: thexstringedit
+      frame.caption = '&EOR-data'
       bounds_x = 459
       bounds_cx = 61
       onsetvalue = seteorexe
     end
     inherited activeed: tbooleanedit
+      frame.caption = '&active'
       bounds_x = 528
+      onsetvalue = activeset
     end
     inherited port: tsercommcomp
     end

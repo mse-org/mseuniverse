@@ -38,6 +38,7 @@ object portsettingsfra: tportsettingsfra
     bounds_y = 2
     bounds_cy = 37
     statfile = portstat
+    ondataentered = paramenereev
     dropdown.options = [deo_autodropdown, deo_keydropdown]
     dropdown.cols.count = 1
     dropdown.cols.items = <    
@@ -68,6 +69,7 @@ object portsettingsfra: tportsettingsfra
     bounds_cx = 76
     bounds_cy = 37
     statfile = portstat
+    ondataentered = paramenereev
     value = 0
     valuemin = 0
     onsetvalue = baudset
@@ -99,6 +101,7 @@ object portsettingsfra: tportsettingsfra
     bounds_cx = 76
     bounds_cy = 37
     statfile = portstat
+    ondataentered = paramenereev
     value = 0
     valuemin = 0
     onsetvalue = databitsset
@@ -130,6 +133,7 @@ object portsettingsfra: tportsettingsfra
     bounds_cx = 76
     bounds_cy = 37
     statfile = portstat
+    ondataentered = paramenereev
     value = 0
     valuemin = 0
     onsetvalue = parityset
@@ -161,6 +165,7 @@ object portsettingsfra: tportsettingsfra
     bounds_cx = 76
     bounds_cy = 37
     statfile = portstat
+    ondataentered = paramenereev
     value = 0
     valuemin = 0
     onsetvalue = stopbitset
@@ -188,6 +193,7 @@ object portsettingsfra: tportsettingsfra
     bounds_cx = 60
     bounds_cy = 37
     statfile = portstat
+    ondataentered = paramenereev
     value = #10
     reffontheight = 14
   end
