@@ -1,14 +1,14 @@
 object mainfo: tmainfo
   bounds_x = 215
   bounds_y = 236
-  bounds_cx = 595
+  bounds_cx = 610
   bounds_cy = 290
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    595
+    610
     290
   )
   statfile = tstatfile1
@@ -19,7 +19,7 @@ object mainfo: tmainfo
     taborder = 1
     bounds_x = 8
     bounds_y = 53
-    bounds_cx = 582
+    bounds_cx = 593
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -42,7 +42,7 @@ object mainfo: tmainfo
         30
         2
       )
-      bounds_x = 539
+      bounds_x = 550
       bounds_y = 20
       bounds_cx = 43
       bounds_cy = 16
@@ -66,7 +66,7 @@ object mainfo: tmainfo
       taborder = 2
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 469
+      bounds_cx = 480
       bounds_cy = 37
       anchors = [an_left, an_top, an_right]
       statfile = tstatfile1
@@ -90,7 +90,7 @@ object mainfo: tmainfo
         0
       )
       taborder = 1
-      bounds_x = 474
+      bounds_x = 485
       bounds_y = 0
       bounds_cx = 60
       bounds_cy = 37
@@ -113,7 +113,7 @@ object mainfo: tmainfo
     taborder = 2
     bounds_x = 8
     bounds_y = 92
-    bounds_cx = 581
+    bounds_cx = 592
     bounds_cy = 128
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
@@ -138,7 +138,7 @@ object mainfo: tmainfo
   end
   object clearbu: tbutton
     taborder = 3
-    bounds_x = 539
+    bounds_x = 550
     bounds_y = 247
     bounds_cx = 50
     bounds_cy = 20
@@ -169,11 +169,12 @@ object mainfo: tmainfo
   inline portfra: tportsettingsfra
     bounds_x = 8
     bounds_y = 8
-    bounds_cx = 582
+    bounds_cx = 593
     inherited ported: tcommselector
       frame.buttons.items = <      
         item
         end>
+      bounds_cx = 103
       dropdown.cols.items = <      
         item
         end>
@@ -182,6 +183,8 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
+      bounds_x = 201
+      bounds_cx = 78
       dropdown.cols.items = <      
         item
         end>
@@ -190,6 +193,8 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
+      bounds_x = 115
+      bounds_cx = 78
       dropdown.cols.items = <      
         item
         end>
@@ -198,6 +203,8 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
+      bounds_x = 287
+      bounds_cx = 78
       dropdown.cols.items = <      
         item
         end>
@@ -206,14 +213,19 @@ object mainfo: tmainfo
       frame.buttons.items = <      
         item
         end>
+      bounds_x = 373
+      bounds_cx = 78
       dropdown.cols.items = <      
         item
         end>
     end
     inherited eor: thexstringedit
+      bounds_x = 459
+      bounds_cx = 61
       onsetvalue = seteorexe
     end
     inherited activeed: tbooleanedit
+      bounds_x = 528
     end
     inherited port: tsercommcomp
     end

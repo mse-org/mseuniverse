@@ -43,7 +43,9 @@ uses
 
 procedure tmainfo.clearexe(const sender: TObject);
 begin
- rxdata.clear;
+ rxdata.clear();
+ loopnum.value:= 0;
+ statusdisp.value:= '';
 end;
 
 procedure tmainfo.sendtextexe(const sender: TObject; var avalue: msestring;
