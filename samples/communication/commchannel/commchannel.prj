@@ -16,10 +16,9 @@ order13=0
 order14=0
 order15=0
 order16=0
-order17=0
 [projectoptions]
-projectdir=/home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel
-projectfilename=/home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/commchannel.prj
+projectdir=/E:/mse/packs/git/mseuniverse/samples/communication/commchannel
+projectfilename=/E:/mse/packs/git/mseuniverse/samples/communication/commchannel/commchannel.prj
 options=99
  [projectoptionsfo.twidgetgrid3]
  propcolwidthref=788
@@ -134,9 +133,110 @@ settings=13
  wsize=0
  active=1
  visible=1
+sourcefilemasks=3
+ "*.pas" "*.dpr" "*.lpr" "*.pp" "*.inc"
+ "*.c" "*.cc" "*.h"
+ "*.mfm"
+syntaxdeffiles=3
+ ${SYNTAXDEFDIR}pascal.sdef
+ ${SYNTAXDEFDIR}cpp.sdef
+ ${SYNTAXDEFDIR}objecttext.sdef
+filemasknames=3
+ Source
+ Forms
+ All Files
+filemasks=3
+ "*.pp" "*.pas" "*.inc" "*.dpr" "*.lpr"
+ *.mfm
+ *
+codetemplatedirs=1
+ ${TEMPLATEDIR}
+showgrid=1
+snaptogrid=1
+moveonfirstclick=1
+noformdesignerdocking=0
+componenthints=1
+gridsizex=8
+gridsizey=8
+autoindent=1
+blockindent=1
+linenumberson=0
+rightmarginon=1
+rightmarginchars=80
+scrollheight=0
+tabstops=4
+spacetabs=0
+showtabs=0
+tabindent=0
+editfontname=mseide_source
+editfontheight=0
+editfontwidth=0
+editfontextraspace=0
+editfontcolor=-1879048183
+editbkcolor=-1879048186
+statementcolor=14745599
+pairmarkcolor=-2147483642
+pairmaxrowcount=100
+editfontantialiased=1
+editmarkbrackets=1
+editmarkpairwords=0
+backupfilecount=2
+encoding=1
+eolstyle=1
+trimtrailingwhitespace=0
+debugcommand=${DEBUGGER}
+debugoptions=
+debugtarget=
+runcommand=
+xtermcommand=xterm -S${PTSN}/${PTSH}
+remoteconnection=
+uploadcommand=
+gdbprocessor=Auto
+gdbservercommand=
+gdbservercommandattach=
+beforeconnect=
+afterconnect=
+beforeload=
+afterload=
+beforerun=
+sourcebase=
+sourcedirs=5
+ ../portsettingsframe/
+ ${MSEDIR}lib/addon/*/
+ ${MSEDIR}lib/common/kernel/$TARGETOSDIR/
+ ${MSEDIR}lib/common/*/
+ ./
+defines=0
+progparameters=
+progworkingdirectory=
+envvarnames=0
+envvarvalues=0
+defineson=0
+stoponexception=0
+valuehints=1
+activateonbreak=1
+raiseonbreak=1
+showconsole=0
+externalconsole=0
+settty=1
+gdbdownload=0
+downloadalways=0
+startupbkpt=0
+startupbkpton=0
+gdbsimulator=0
+gdbserverstartonce=0
+gdbloadtimeout=
+gdbserverwait=0
+nogdbserverexit=0
+gdbservertty=0
+exceptclassnames=1
+ EconvertError
+exceptignore=1
+ 0
+nodebugbeginend=0
+fpcgdbworkaround=1
 mainfile=${PROJECTNAME}.pas
 targetfile=${PROJECTNAME}${EXEEXT}
-messageoutputfile=
 makecommand=${COMPILER}
 makedir=
 unitdirs=5
@@ -157,94 +257,39 @@ makeoptions=4
  -gl -O-
  -B
  -O2 -XX -Xs -CX
-codetemplatedirs=1
- ${TEMPLATEDIR}
-toolmenus=0
-toolfiles=0
-toolparams=0
+reversepathorder=0
+makeoptpurpose=0
+befcommandon=0
+makeoptionson=4
+ 63
+ 31
+ 34
+ 32
+aftcommandon=0
+unitdirson=5
+ 983103
+ 196671
+ 65599
+ 196671
+ 65599
+uid=0
+macroon=0
+macronames=0
+macrovalues=0
+groupcomments=6
+ 
+ 
+ 
+ 
+ 
+ 
+fontalias=0
 fontnames=0
-scriptbeforecopy=
-scriptaftercopy=
-newprojectfiles=4
- ${TEMPLATEDIR}default/project.pas
- ${TEMPLATEDIR}default/main.pas
- ${TEMPLATEDIR}default/main.mfm
- ${TEMPLATEDIR}default/main_mfm.pas
-newprojectfilesdest=4
- ${%PROJECTNAME%}.pas
- 
- 
- 
-newfinames=3
- Program
- Unit
- Textfile
-newfifilters=3
- "*.pas" "*.pp"
- "*.pas" "*.pp"
- 
-newfiexts=3
- pas
- pas
- 
-newfisources=3
- ${TEMPLATEDIR}default/program.pas
- ${TEMPLATEDIR}default/unit.pas
- 
-newfonames=11
- Mainform
- Simple Form
- Docking Form
- Datamodule
- Subform
- Scrollboxform
- Tabform
- Dockpanel
- Report
- Scriptform
- Inherited Form
-newfonamebases=11
- form
- form
- form
- module
- form
- form
- form
- form
- report
- script
- form
-newfosources=11
- ${TEMPLATEDIR}default/mainform.pas
- ${TEMPLATEDIR}default/simpleform.pas
- ${TEMPLATEDIR}default/dockingform.pas
- ${TEMPLATEDIR}default/datamodule.pas
- ${TEMPLATEDIR}default/subform.pas
- ${TEMPLATEDIR}default/scrollboxform.pas
- ${TEMPLATEDIR}default/tabform.pas
- ${TEMPLATEDIR}default/dockpanelform.pas
- ${TEMPLATEDIR}default/report.pas
- ${TEMPLATEDIR}default/pascform.pas
- ${TEMPLATEDIR}default/inheritedform.pas
-newfoforms=11
- ${TEMPLATEDIR}default/mainform.mfm
- ${TEMPLATEDIR}default/simpleform.mfm
- ${TEMPLATEDIR}default/dockingform.mfm
- ${TEMPLATEDIR}default/datamodule.mfm
- ${TEMPLATEDIR}default/subform.mfm
- ${TEMPLATEDIR}default/scrollboxform.mfm
- ${TEMPLATEDIR}default/tabform.mfm
- ${TEMPLATEDIR}default/dockpanelform.mfm
- ${TEMPLATEDIR}default/report.mfm
- ${TEMPLATEDIR}default/pascform.mfm
- ${TEMPLATEDIR}default/inheritedform.mfm
-copymessages=0
-closemessages=1
-checkmethods=1
-colorerror=-1610612712
-colorwarning=-1610612717
-colornote=-1610612716
+fontancestors=0
+fontoptions=0
+fontheights=0
+fontwidths=0
+fontxscales=0
 usercolors=30
  0
  0
@@ -309,53 +354,94 @@ usercolorcomment=30
  
 formatmacronames=0
 formatmacrovalues=0
-settingsfile=
-settingseditor=0
-settingsdebugger=0
-settingsstorage=0
-settingsprojecttree=0
-settingsautoload=0
-settingsautosave=0
-modulenames=1
- MAINFO
-moduletypes=1
- TMAINFO
-modulefiles=1
- /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/main.mfm
-befcommandon=0
-makeoptionson=4
- 63
- 31
- 34
- 32
-aftcommandon=0
-unitdirson=5
- 983103
- 196671
- 65599
- 196671
- 65599
-macroon=0
-macronames=0
-macrovalues=0
-macrogroup=0
-groupcomments=6
+scriptbeforecopy=
+scriptaftercopy=
+newprojectfiles=4
+ ${TEMPLATEDIR}default/project.pas
+ ${TEMPLATEDIR}default/main.pas
+ ${TEMPLATEDIR}default/main.mfm
+ ${TEMPLATEDIR}default/main_mfm.pas
+newprojectfilesdest=4
+ ${%PROJECTNAME%}.pas
  
  
  
+newfinames=3
+ Program
+ Unit
+ Textfile
+newfifilters=3
+ "*.pas" "*.pp"
+ "*.pas" "*.pp"
  
+newfiexts=3
+ pas
+ pas
  
+newfisources=3
+ ${TEMPLATEDIR}default/program.pas
+ ${TEMPLATEDIR}default/unit.pas
  
-toolsave=0
-toolhide=0
-toolparse=0
-toolmessages=0
-fontalias=0
-fontancestors=0
-fontheights=0
-fontwidths=0
-fontoptions=0
-fontxscales=0
+newfonames=11
+ Mainform
+ Simple Form
+ Docking Form
+ Datamodule
+ Subform
+ Scrollboxform
+ Tabform
+ Dockpanel
+ Report
+ Scriptform
+ Inherited Form
+newfonamebases=11
+ form
+ form
+ form
+ module
+ form
+ form
+ form
+ form
+ report
+ script
+ form
+newfoformsuffixes=11
+ fo
+ fo
+ fo
+ mo
+ fo
+ fo
+ fo
+ fo
+ re
+ sc
+ fo
+newfosources=11
+ ${TEMPLATEDIR}default/mainform.pas
+ ${TEMPLATEDIR}default/simpleform.pas
+ ${TEMPLATEDIR}default/dockingform.pas
+ ${TEMPLATEDIR}default/datamodule.pas
+ ${TEMPLATEDIR}default/subform.pas
+ ${TEMPLATEDIR}default/scrollboxform.pas
+ ${TEMPLATEDIR}default/tabform.pas
+ ${TEMPLATEDIR}default/dockpanelform.pas
+ ${TEMPLATEDIR}default/report.pas
+ ${TEMPLATEDIR}default/pascform.pas
+ ${TEMPLATEDIR}default/inheritedform.pas
+newfoforms=11
+ ${TEMPLATEDIR}default/mainform.mfm
+ ${TEMPLATEDIR}default/simpleform.mfm
+ ${TEMPLATEDIR}default/dockingform.mfm
+ ${TEMPLATEDIR}default/datamodule.mfm
+ ${TEMPLATEDIR}default/subform.mfm
+ ${TEMPLATEDIR}default/scrollboxform.mfm
+ ${TEMPLATEDIR}default/tabform.mfm
+ ${TEMPLATEDIR}default/dockpanelform.mfm
+ ${TEMPLATEDIR}default/report.mfm
+ ${TEMPLATEDIR}default/pascform.mfm
+ ${TEMPLATEDIR}default/inheritedform.mfm
 expandprojectfilemacros=4
  1
  1
@@ -378,97 +464,46 @@ newinheritedforms=11
  0
  0
  -1
-sourcefilemasks=3
- "*.pas" "*.dpr" "*.lpr" "*.pp" "*.inc"
- "*.c" "*.cc" "*.h"
- "*.mfm"
-syntaxdeffiles=3
- ${SYNTAXDEFDIR}pascal.sdef
- ${SYNTAXDEFDIR}cpp.sdef
- ${SYNTAXDEFDIR}objecttext.sdef
-filemasknames=3
- Source
- Forms
- All Files
-filemasks=3
- "*.pp" "*.pas" "*.inc" "*.dpr" "*.lpr"
- *.mfm
- *
-showgrid=1
-snaptogrid=1
-moveonfirstclick=1
-gridsizex=8
-gridsizey=8
-autoindent=1
-blockindent=1
-linenumberson=0
-rightmarginon=1
-rightmarginchars=80
-scrollheight=0
-tabstops=4
-spacetabs=0
-showtabs=0
-tabindent=0
-editfontname=mseide_source
-editfontheight=0
-editfontwidth=0
-editfontextraspace=0
-editfontcolor=-1879048183
-editbkcolor=-1879048186
-statementcolor=14745599
-editfontantialiased=1
-editmarkbrackets=1
-backupfilecount=2
-encoding=1
-codetemplatedirs=1
- ${TEMPLATEDIR}
-debugcommand=${DEBUGGER}
-debugoptions=
-debugtarget=
-runcommand=
-xtermcommand=xterm -S${PTSN}/${PTSH}
-remoteconnection=
-uploadcommand=
-gdbprocessor=Auto
-gdbservercommand=
-gdbservercommandattach=
-beforeconnect=
-afterconnect=
-beforeload=
-afterload=
-beforerun=
-sourcedirs=5
- ../portsettingsframe/
- ${MSEDIR}lib/addon/*/
- ${MSEDIR}lib/common/kernel/$TARGETOSDIR/
- ${MSEDIR}lib/common/*/
- ./
-defines=0
-progparameters=
-progworkingdirectory=
-envvarnames=0
-envvarvalues=0
-defineson=0
-stoponexception=0
-valuehints=1
-activateonbreak=1
-showconsole=0
-externalconsole=0
-settty=1
-gdbdownload=0
-downloadalways=0
-startupbkpt=0
-startupbkpton=0
-gdbsimulator=0
-gdbserverstartonce=0
-gdbserverwait=0
-nogdbserverexit=0
-gdbservertty=0
-exceptclassnames=1
- EconvertError
-exceptignore=1
- 0
-nodebugbeginend=0
+toolmenus=0
+toolfiles=0
+toolparams=0
+toolsave=0
+toolhide=0
+toolparse=0
+toolmessages=0
+toolshortcuts=0
+settingsfile=
+settingsautoload=0
+settingsautosave=0
+settingseditor=0
+settingsdebugger=0
+settingsmake=1
+settingsmacros=0
+settingsfontalias=0
+settingsusercolors=0
+settingsformatmacros=0
+settingstemplates=0
+settingstools=0
+settingsstorage=0
+settingscomponentstore=0
+settingsprojecttree=0
+settingslayout=0
+messageoutputfile=
+modulenames=1
+ MAINFO
+moduletypes=1
+ TMAINFO
+modulefiles=1
+ /E:/mse/packs/git/mseuniverse/samples/communication/commchannel/main.mfm
+macrogroup=0
+forcezorder=0
+stripmessageesc=0
+copymessages=0
+closemessages=1
+checkmethods=1
+colorerror=-1610612712
+colorwarning=-1610612717
+colornote=-1610612716
 sigsettings=27
  1,1,T,F
  3,3,T,F
@@ -498,6 +533,30 @@ sigsettings=27
  29,29,F,F
  30,30,T,F
 defaultmake=1
+units=
+ (
+ a=0,8244,6,Pascal Units
+ c=1
+  (
+  file=../portsettingsframe/portsettingsframe.pas
+  kind=1
+  a=0,8212,2,portsettingsframe.pas
+  c=1
+   (
+   file=../portsettingsframe/portsettingsframe.mfm
+   kind=0
+   a=0,0,0,portsettingsframe
+   )
+  )
+ )
+cmodules=
+ (
+ a=0,8228,6,C Modules
+ )
+files=
+ (
+ a=0,8228,6,Text Files
+ )
 [breakpoints]
 on=0
 path=0
@@ -508,35 +567,8 @@ ignore=0
 condition=0
 panels=1
  panel1
-units=
- (
- a=0,4148,6,Pascal Units
- c=1
-  (
-  file=../portsettingsframe/portsettingsframe.pas
-  kind=1
-  a=0,4116,2,portsettingsframe.pas
-  c=1
-   (
-   file=../portsettingsframe/portsettingsframe.mfm
-   kind=2
-   a=0,5140,4,portsettingsframe
-   classtype=tportsettingsfra
-   formname=portsettingsfra
-   instancevarname=portsettingsfra
-   )
-  )
- )
-cmodules=
- (
- a=0,4132,6,C Modules
- )
-files=
- (
- a=0,4132,6,Text Files
- )
 [componentstore]
-storedir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
+storedir=/E:/mse/packs/git/mseide-msegui/apps/ide/compstore/
 filename=
 [components]
 [selecteditpage]
@@ -547,40 +579,56 @@ cx=0
 cy=0
 [progparams]
 progparamhistory=0
+workdirparamhistory=0
 envvarons=0
+[edit]
+hintwidth=0
+hintheight=0
+finddtext=
+findhistory=0
+findoptions=1
+editpos=1
+ 0,0
+bookmarks0=0
+sourcefiles=1
+ /E:/mse/packs/git/mseuniverse/samples/communication/commchannel/main.pas
+relpaths=1
+ main.pas
+ismoduletexts=1
+ 0
+modules=2
+ /E:/mse/packs/git/mseuniverse/samples/communication/commchannel/main.mfm
+ /E:/mse/packs/git/mseuniverse/samples/communication/portsettingsframe/portsettingsframe.mfm
+moduleoptions=2
+ 0
+ 0
+visiblemodules=2
+ -1
+ 0
+nomenumodules=2
+ 0
+ -1
+[sourcefo.tabwidget]
+tabsize=134
+firsttab=0
+index=0
 [layout]
-windowlayout=559
+windowlayout=583
  [mainfo.openform]
  filenames=1
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/sourceform.mfm
+ filecolwidth=174
+ x=0
+ y=0
+ cx=0
+ cy=0
  filehistory=3
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/sourceform.mfm
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/actionsmodule.mfm
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/main.mfm
  filefilterindex=0
  filefilter=*.mfm
- filecolwidth=174
- x=0
- y=0
- cx=0
- cy=0
  [mainfo.projectfiledia]
- filenames=1
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/rs232.prj
- lastdir=/home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/
- filehistory=10
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/rs232.prj
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/commchannel.prj
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/r232direct/rs232direct.prj
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/r232direct/mse_rs232direct.prj
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/mse_commchannel.prj
-  /home/mse/packs/standard/git/mseide-msegui/apps/ide/mse_mseide.prj
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/mse_rs232.prj
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/portsettingsframe/mse_portsettingsframe.prj
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/mse_rs323.prj
-  /home/mse/proj/test3/test3.prj
- filefilterindex=0
- filefilter=*.prj
  filecolwidth=107
  x=372
  y=135
@@ -588,6 +636,11 @@ windowlayout=559
  cy=307
  [mainfo.openfile]
  filenames=0
+ filecolwidth=174
+ x=0
+ y=0
+ cx=0
+ cy=0
  filehistory=4
   /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/main.pas
   /home/mse/packs/standard/git/mseuniverse/samples/communication/portsettingsframe/portsettingsframe.pas
@@ -595,17 +648,12 @@ windowlayout=559
   /D:/MSE/Livre/DemoMSE/Demo.pas
  filefilterindex=0
  filefilter="*.pp" "*.pas" "*.inc" "*.dpr"
- filecolwidth=174
- x=0
- y=0
- cx=0
- cy=0
  [mainfo.basedock]
  splitdir=2
- useroptions=15488
+ useroptions=268450944
  [mainfo]
  splitdir=0
- useroptions=33554555
+ useroptions=838860923
  stackedunder=
  parent=
  mdistate=0
@@ -613,8 +661,8 @@ windowlayout=559
  ny=0
  ncx=0
  ncy=0
- x=4
- y=24
+ x=8
+ y=30
  cx=286
  cy=74
  rcx=0
@@ -624,7 +672,7 @@ windowlayout=559
  visible=1
  [targetconsolefo]
  splitdir=0
- useroptions=16489
+ useroptions=805322857
  parent=
  mdistate=0
  nx=0
@@ -642,7 +690,7 @@ windowlayout=559
  visible=0
  [threadsfo]
  splitdir=0
- useroptions=16489
+ useroptions=805322857
  parent=
  mdistate=0
  nx=0
@@ -660,8 +708,8 @@ windowlayout=559
  visible=0
  [memoryfo]
  splitdir=0
- useroptions=16507
- stackedunder=cpui386fo
+ useroptions=805322875
+ stackedunder=breakpointsfo
  parent=
  mdistate=0
  nx=0
@@ -687,7 +735,7 @@ windowlayout=559
  value=0
  [disassfo]
  splitdir=0
- useroptions=16491
+ useroptions=805322859
  stackedunder=objectinspectorfo
  parent=
  mdistate=0
@@ -706,7 +754,7 @@ windowlayout=559
  visible=0
  [findinfilefo]
  splitdir=0
- useroptions=16491
+ useroptions=268451947
  stackedunder=disassfo
  parent=
  mdistate=0
@@ -722,8 +770,8 @@ windowlayout=559
  rcy=0
  [projecttreefo]
  splitdir=0
- useroptions=16491
- stackedunder=formdesignerfo
+ useroptions=805322859
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -751,17 +799,17 @@ windowlayout=559
  rowheight=16
  [stackfo]
  splitdir=0
- useroptions=24681
+ useroptions=805331049
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=407
- y=349
- cx=254
- cy=180
+ x=0
+ y=0
+ cx=0
+ cy=0
  rcx=0
  rcy=0
  wsize=0
@@ -769,7 +817,7 @@ windowlayout=559
  visible=0
  [watchpointsfo]
  splitdir=0
- useroptions=16489
+ useroptions=805322857
  parent=
  mdistate=0
  nx=0
@@ -787,7 +835,6 @@ windowlayout=559
  visible=0
  [watchpointsfo.grid]
  propcolwidthref=352
- width0=16
  sortdescend0=0
  values1=1
   0
@@ -811,7 +858,7 @@ windowlayout=559
  sortdescend6=0
  [breakpointsfo]
  splitdir=0
- useroptions=16491
+ useroptions=268451947
  stackedunder=watchpointsfo
  parent=
  mdistate=0
@@ -832,7 +879,7 @@ windowlayout=559
  value=1
  [objectinspectorfo]
  splitdir=0
- useroptions=16491
+ useroptions=805322859
  stackedunder=projecttreefo
  parent=
  mdistate=0
@@ -857,7 +904,7 @@ windowlayout=559
  sortdescend1=0
  [symbolfo]
  splitdir=0
- useroptions=16507
+ useroptions=805322875
  stackedunder=findinfilefo
  parent=
  mdistate=0
@@ -876,7 +923,11 @@ windowlayout=559
  visible=0
  [symbolfo.grid]
  propcolwidthref=222
- values0=14
+ values0=18
+  
+  
+  
+  
   
   
   
@@ -898,7 +949,7 @@ windowlayout=559
  [symbolfo.symbol]
  [watchfo]
  splitdir=0
- useroptions=24681
+ useroptions=805331049
  parent=
  mdistate=0
  nx=0
@@ -918,7 +969,6 @@ windowlayout=559
  propcolwidthref=105
  values0=0
  values0_ci=-1
- width0=13
  sortdescend0=0
  values1=0
  width1=152
@@ -936,7 +986,7 @@ windowlayout=559
  value=1
  [messagefo]
  splitdir=0
- useroptions=49259
+ useroptions=805355627
  parent=mainfo.panel1.container
  visible=0
  mdistate=0
@@ -952,7 +1002,7 @@ windowlayout=559
  rcy=491
  [componentstorefo]
  splitdir=0
- useroptions=24675
+ useroptions=805331067
  stackedunder=symbolfo
  parent=
  mdistate=0
@@ -981,42 +1031,42 @@ windowlayout=559
  [componentstorefo.storefiledialog]
  filenames=1
   /home/mse/test/msegui/apps/ide/compstore/
- lastdir=/home/mse/test/msegui/apps/ide/compstore/
- filehistory=0
- filefilterindex=0
- filefilter=
  filecolwidth=0
  x=0
  y=0
  cx=0
  cy=0
+ lastdir=/home/mse/test/msegui/apps/ide/compstore/
+ filehistory=0
+ filefilterindex=0
+ filefilter=
  [componentstorefo.groupfiledialog]
  filenames=1
   /home/mse/test/msegui/apps/ide/compstore/
- lastdir=/home/mse/test/msegui/apps/ide/compstore/
- filehistory=0
- filefilterindex=0
- filefilter=
  filecolwidth=0
  x=0
  y=0
  cx=0
  cy=0
+ lastdir=/home/mse/test/msegui/apps/ide/compstore/
+ filehistory=0
+ filefilterindex=0
+ filefilter=
  [componentstorefo.compfiledialog]
  filenames=0
+ filecolwidth=0
+ x=0
+ y=0
+ cx=0
+ cy=0
  lastdir=
  filehistory=0
  filefilterindex=0
  filefilter=
- filecolwidth=0
- x=0
- y=0
- cx=0
- cy=0
  [componentpalettefo]
  splitdir=0
- useroptions=24683
- stackedunder=formdesignerfo
+ useroptions=805331051
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -1024,7 +1074,7 @@ windowlayout=559
  ncx=0
  ncy=0
  x=335
- y=24
+ y=30
  cx=440
  cy=129
  rcx=0
@@ -1036,7 +1086,7 @@ windowlayout=559
  activetab=0
  [debuggerfo]
  splitdir=0
- useroptions=24683
+ useroptions=268460139
  parent=mainfo.basedock
  visible=1
  mdistate=0
@@ -1047,12 +1097,12 @@ windowlayout=559
  x=0
  y=0
  cx=276
- cy=38
+ cy=40
  rcx=0
  rcy=0
  [sourcefo]
  splitdir=0
- useroptions=16489
+ useroptions=805322857
  parent=mainfo.panel1.container
  visible=1
  mdistate=0
@@ -1070,10 +1120,10 @@ windowlayout=559
  checked=1
  [actionsmo.bluedotsonact]
  checked=1
- [cpui386fo]
+ [cpuc86_64fo]
  irqoff=0
  splitdir=0
- useroptions=16491
+ useroptions=268451947
  stackedunder=componentstorefo
  parent=
  mdistate=0
@@ -1081,10 +1131,10 @@ windowlayout=559
  ny=0
  ncx=0
  ncy=0
- x=312
- y=341
- cx=283
- cy=210
+ x=183
+ y=113
+ cx=352
+ cy=277
  rcx=0
  rcy=0
  wsize=0
@@ -1092,7 +1142,7 @@ windowlayout=559
  visible=0
  [mainfo.panel1]
  splitdir=2
- useroptions=32235
+ useroptions=805338603
  stackedunder=mainfo
  parent=
  mdistate=0
@@ -1100,7 +1150,7 @@ windowlayout=559
  ny=0
  ncx=0
  ncy=0
- x=4
+ x=8
  y=243
  cx=734
  cy=491
@@ -1109,37 +1159,44 @@ windowlayout=559
  wsize=0
  active=0
  visible=1
-[edit]
-hintwidth=0
-hintheight=0
-finddtext=
-findhistory=0
-findoptions=1
-editpos=1
- 0,0
-bookmarks0=0
-sourcefiles=1
- /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/main.pas
-relpaths=1
- main.pas
-ismoduletexts=1
- 0
-modules=2
- /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/main.mfm
- /home/mse/packs/standard/git/mseuniverse/samples/communication/portsettingsframe/portsettingsframe.mfm
-moduleoptions=2
- 0
- 0
-visiblemodules=2
- -1
- 0
-nomenumodules=2
- 0
- -1
-[sourcefo.tabwidget]
-tabsize=134
-firsttab=0
-index=0
+ [_mse_mainfo_mse_]
+ splitdir=0
+ useroptions=805322875
+ stackedunder=portsettingsfra
+ parent=
+ mdistate=3
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=215
+ y=236
+ cx=620
+ cy=290
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=1
+ [_mse_portsettingsfra_mse_]
+ splitdir=0
+ useroptions=805322875
+ stackedunder=componentpalettefo
+ parent=
+ mdistate=3
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=95
+ y=145
+ cx=588
+ cy=41
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
 [targetconsole]
 finddtext=
 findhistory=0
