@@ -16,9 +16,10 @@ order13=0
 order14=0
 order15=0
 order16=0
+order17=0
 [projectoptions]
-projectdir=/E:/mse/packs/git/mseuniverse/samples/communication/commchannel
-projectfilename=/E:/mse/packs/git/mseuniverse/samples/communication/commchannel/commchannel.prj
+projectdir=/home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel
+projectfilename=/home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/commchannel.prj
 options=130
  [projectoptionsfo.toolshortcuts]
  dropdowncolwidths=3
@@ -59,7 +60,7 @@ options=130
  sorted=0
  col=-1073741823
  row=-1073741823
- rowheight=15
+ rowheight=16
  [projectoptionsfo.newfile]
  firsttab=0
  index=2
@@ -81,7 +82,7 @@ options=130
  sortdescend6=0
  [projectoptionsfo.macrosplitter]
  x=0
- y=176
+ y=175
  xprop=1
  yprop=0.34225621414914
  [projectoptionsfo.macrogrid]
@@ -143,19 +144,20 @@ options=130
  index=0
  [projectoptionsfo.tabwidget]
  firsttab=0
- index=1
+ index=2
  [projectoptionsfo]
- stackedunder=
+ stackedunder=portsettingsfra
  x=151
  y=68
  cx=821
  cy=572
-settings=13
- [settingsfo.tsplitter2]
- x=192
- y=16
- xprop=0.57879656160458
- yprop=1
+settings=14
+ [settingsfo.macrogrid]
+ propcolwidthref=288
+ width0=152
+ sortdescend0=0
+ width1=129
+ sortdescend1=0
  [settingsfo]
  x=100
  y=106
@@ -231,7 +233,8 @@ beforeload=
 afterload=
 beforerun=
 sourcebase=
-sourcedirs=5
+sourcedirs=6
+ ../../skin/
  ../portsettingsframe/
  ${MSEDIR}lib/addon/*/
  ${MSEDIR}lib/common/kernel/$TARGETOSDIR/
@@ -270,7 +273,8 @@ mainfile=${PROJECTNAME}.pas
 targetfile=${PROJECTNAME}${EXEEXT}
 makecommand=${COMPILER}
 makedir=
-unitdirs=5
+unitdirs=6
+ ../../skin
  ../portsettingsframe
  ${MSEDIR}lib/addon/*/
  ${MSELIBDIR}kernel/$TARGETOSDIR/
@@ -289,7 +293,11 @@ makeoptions=4
  -B
  -O2 -XX -Xs -CX
 reversepathorder=0
-makeoptpurpose=0
+makeoptpurpose=4
+ 
+ 
+ 
+ 
 befcommandon=0
 makeoptionson=4
  63
@@ -297,8 +305,9 @@ makeoptionson=4
  34
  32
 aftcommandon=0
-unitdirson=5
- 983103
+unitdirson=6
+ 65599
+ 65599
  196671
  65599
  196671
@@ -520,12 +529,15 @@ settingscomponentstore=0
 settingsprojecttree=0
 settingslayout=0
 messageoutputfile=
-modulenames=1
+modulenames=2
  MAINFO
-moduletypes=1
+ PORTSETTINGSFRA
+moduletypes=2
  TMAINFO
-modulefiles=1
- /E:/mse/packs/git/mseuniverse/samples/communication/commchannel/main.mfm
+ TPORTSETTINGSFRA
+modulefiles=2
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/main.mfm
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/portsettingsframe/portsettingsframe.mfm
 macrogroup=0
 forcezorder=0
 stripmessageesc=0
@@ -566,7 +578,7 @@ sigsettings=27
 defaultmake=1
 units=
  (
- a=0,8244,6,Pascal Units
+ a=0,8245,6,Pascal Units
  c=1
   (
   file=../portsettingsframe/portsettingsframe.pas
@@ -575,8 +587,11 @@ units=
   c=1
    (
    file=../portsettingsframe/portsettingsframe.mfm
-   kind=0
-   a=0,0,0,portsettingsframe
+   kind=2
+   a=0,10260,4,portsettingsframe
+   classtype=tportsettingsfra
+   formname=portsettingsfra
+   instancevarname=portsettingsfra
    )
   )
  )
@@ -599,7 +614,7 @@ condition=0
 panels=1
  panel1
 [componentstore]
-storedir=/E:/mse/packs/git/mseide-msegui/apps/ide/compstore/
+storedir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
 filename=
 [components]
 [selecteditpage]
@@ -618,33 +633,48 @@ hintheight=0
 finddtext=
 findhistory=0
 findoptions=1
-editpos=1
+editpos=4
  25,19
+ 0,0
+ 22,7
+ 0,0
 bookmarks0=0
-sourcefiles=1
- /E:/mse/packs/git/mseuniverse/samples/communication/commchannel/main.pas
-relpaths=1
+bookmarks1=0
+bookmarks2=0
+bookmarks3=0
+sourcefiles=4
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/main.pas
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/portsettingsframe/portsettingsframe.pas
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/commchannel.pas
+ /home/mse/packs/standard/git/mseuniverse/samples/skin/loaddefaultskin.pas
+relpaths=4
  main.pas
-ismoduletexts=1
+ ../portsettingsframe/portsettingsframe.pas
+ commchannel.pas
+ ../../skin/loaddefaultskin.pas
+ismoduletexts=4
+ 0
+ 0
+ 0
  0
 modules=2
- /E:/mse/packs/git/mseuniverse/samples/communication/portsettingsframe/portsettingsframe.mfm
- /E:/mse/packs/git/mseuniverse/samples/communication/commchannel/main.mfm
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/portsettingsframe/portsettingsframe.mfm
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/main.mfm
 moduleoptions=2
  0
  0
 visiblemodules=2
- 0
+ -1
  -1
 nomenumodules=2
- -1
+ 0
  0
 [sourcefo.tabwidget]
 tabsize=134
 firsttab=0
-index=0
+index=2
 [layout]
-windowlayout=583
+windowlayout=584
  [mainfo.openform]
  filenames=1
   /home/mse/packs/standard/git/mseide-msegui/apps/ide/sourceform.mfm
@@ -666,15 +696,16 @@ windowlayout=583
  cx=588
  cy=307
  [mainfo.openfile]
- filenames=0
+ filenames=1
+  /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel
  filecolwidth=174
  x=0
  y=0
  cx=0
  cy=0
  filehistory=4
-  /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/main.pas
   /home/mse/packs/standard/git/mseuniverse/samples/communication/portsettingsframe/portsettingsframe.pas
+  /home/mse/packs/standard/git/mseuniverse/samples/communication/commchannel/main.pas
   /home/mse/proj/msegui/testcase/jean-pierre/Demo/main.pas
   /D:/MSE/Livre/DemoMSE/Demo.pas
  filefilterindex=0
@@ -685,7 +716,7 @@ windowlayout=583
  [mainfo]
  splitdir=0
  useroptions=838860923
- stackedunder=
+ stackedunder=_mse_portsettingsfra_mse_
  parent=
  mdistate=0
  nx=0
@@ -699,7 +730,7 @@ windowlayout=583
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -740,7 +771,7 @@ windowlayout=583
  [memoryfo]
  splitdir=0
  useroptions=805322875
- stackedunder=breakpointsfo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -767,7 +798,7 @@ windowlayout=583
  [disassfo]
  splitdir=0
  useroptions=805322859
- stackedunder=objectinspectorfo
+ stackedunder=stackfo
  parent=
  mdistate=0
  nx=0
@@ -786,7 +817,7 @@ windowlayout=583
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=disassfo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -802,7 +833,7 @@ windowlayout=583
  [projecttreefo]
  splitdir=0
  useroptions=805322859
- stackedunder=_mse_portsettingsfra_mse_
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -817,7 +848,7 @@ windowlayout=583
  rcy=0
  wsize=0
  active=0
- visible=0
+ visible=1
  [projecttreefo.grid]
  propcolwidthref=547
  width0=141
@@ -865,7 +896,7 @@ windowlayout=583
  active=0
  visible=0
  [watchpointsfo.grid]
- propcolwidthref=352
+ propcolwidthref=332
  sortdescend0=0
  values1=1
   0
@@ -874,7 +905,7 @@ windowlayout=583
  sortdescend1=0
  values2=1
   pinteger(0x126c6b4)^
- width2=239
+ width2=225
  sortdescend2=0
  width4=34
  sortdescend4=0
@@ -885,12 +916,12 @@ windowlayout=583
  sortdescend5=0
  values6=1
   
- width6=103
+ width6=96
  sortdescend6=0
  [breakpointsfo]
  splitdir=0
  useroptions=268451947
- stackedunder=watchpointsfo
+ stackedunder=memoryfo
  parent=
  mdistate=0
  nx=0
@@ -911,7 +942,7 @@ windowlayout=583
  [objectinspectorfo]
  splitdir=0
  useroptions=805322859
- stackedunder=memoryfo
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -936,7 +967,7 @@ windowlayout=583
  [symbolfo]
  splitdir=0
  useroptions=805322875
- stackedunder=findinfilefo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -997,7 +1028,7 @@ windowlayout=583
  active=0
  visible=0
  [watchfo.grid]
- propcolwidthref=105
+ propcolwidthref=103
  values0=0
  values0_ci=-1
  sortdescend0=0
@@ -1034,7 +1065,7 @@ windowlayout=583
  [componentstorefo]
  splitdir=0
  useroptions=805331067
- stackedunder=symbolfo
+ stackedunder=watchfo
  parent=
  mdistate=0
  nx=0
@@ -1097,7 +1128,7 @@ windowlayout=583
  [componentpalettefo]
  splitdir=0
  useroptions=805331051
- stackedunder=portsettingsfra
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -1128,7 +1159,7 @@ windowlayout=583
  x=0
  y=0
  cx=276
- cy=40
+ cy=22
  rcx=0
  rcy=0
  [sourcefo]
@@ -1151,21 +1182,21 @@ windowlayout=583
  checked=1
  [actionsmo.bluedotsonact]
  checked=1
- [cpuc86_64fo]
+ [cpui386fo]
  irqoff=0
  splitdir=0
  useroptions=268451947
- stackedunder=componentstorefo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=183
- y=113
- cx=352
- cy=277
+ x=312
+ y=341
+ cx=283
+ cy=210
  rcx=0
  rcy=0
  wsize=0
@@ -1174,7 +1205,7 @@ windowlayout=583
  [mainfo.panel1]
  splitdir=2
  useroptions=805338603
- stackedunder=mainfo
+ stackedunder=portsettingsfra
  parent=
  mdistate=0
  nx=0
@@ -1188,12 +1219,12 @@ windowlayout=583
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [_mse_portsettingsfra_mse_]
  splitdir=0
  useroptions=805322875
- stackedunder=cpuc86_64fo
+ stackedunder=projecttreefo
  parent=
  mdistate=3
  nx=0
@@ -1202,17 +1233,17 @@ windowlayout=583
  ncy=0
  x=95
  y=145
- cx=588
- cy=41
+ cx=592
+ cy=43
  rcx=0
  rcy=0
  wsize=0
  active=0
- visible=0
+ visible=1
  [_mse_mainfo_mse_]
  splitdir=0
  useroptions=805322875
- stackedunder=mainfo.panel1
+ stackedunder=mainfo
  parent=
  mdistate=3
  nx=0

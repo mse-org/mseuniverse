@@ -5,7 +5,7 @@ program commchannel;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef unix}cthreads,{$endif}{$endif}
- msegui,mseforms,main;
+ msegui,mseforms,main,loaddefaultskin;
 begin
  application.createform(tmainfo,mainfo);
  application.run;
