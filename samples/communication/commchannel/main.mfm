@@ -19,7 +19,7 @@ object mainfo: tmainfo
     taborder = 1
     bounds_x = 8
     bounds_y = 53
-    bounds_cx = 578
+    bounds_cx = 582
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     optionsscale = [osc_expandy, osc_shrinky, osc_expandshrinkx, osc_expandshrinky]
@@ -42,7 +42,7 @@ object mainfo: tmainfo
         30
         2
       )
-      bounds_x = 535
+      bounds_x = 539
       bounds_y = 20
       bounds_cx = 43
       bounds_cy = 16
@@ -66,11 +66,10 @@ object mainfo: tmainfo
       taborder = 2
       bounds_x = 0
       bounds_y = 0
-      bounds_cx = 465
+      bounds_cx = 469
       bounds_cy = 37
       anchors = [an_left, an_top, an_right]
       statfile = tstatfile1
-      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
       optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
       onsetvalue = sendtextexe
       dropdown.cols.count = 1
@@ -91,7 +90,7 @@ object mainfo: tmainfo
         0
       )
       taborder = 1
-      bounds_x = 470
+      bounds_x = 474
       bounds_y = 0
       bounds_cx = 60
       bounds_cy = 37
@@ -114,8 +113,8 @@ object mainfo: tmainfo
     taborder = 2
     bounds_x = 8
     bounds_y = 92
-    bounds_cx = 577
-    bounds_cy = 143
+    bounds_cx = 581
+    bounds_cy = 128
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
     datacols.width = 1000
@@ -139,8 +138,8 @@ object mainfo: tmainfo
   end
   object clearbu: tbutton
     taborder = 3
-    bounds_x = 535
-    bounds_y = 262
+    bounds_x = 539
+    bounds_y = 247
     bounds_cx = 50
     bounds_cy = 20
     anchors = [an_right, an_bottom]
@@ -161,7 +160,7 @@ object mainfo: tmainfo
     )
     taborder = 4
     bounds_x = 8
-    bounds_y = 246
+    bounds_y = 231
     bounds_cx = 332
     bounds_cy = 35
     anchors = [an_left, an_bottom]
@@ -170,6 +169,7 @@ object mainfo: tmainfo
   inline portfra: tportsettingsfra
     bounds_x = 8
     bounds_y = 8
+    bounds_cx = 582
     inherited ported: tcommselector
       frame.buttons.items = <      
         item

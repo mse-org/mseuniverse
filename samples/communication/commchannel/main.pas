@@ -49,7 +49,9 @@ end;
 procedure tmainfo.sendtextexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
- conn.transmiteor(ansistring(avalue),length(avalue),-1);
+ if conn.connected then begin
+  conn.transmiteor(ansistring(avalue),length(avalue),-1);
+ end;
 end;
 
 procedure tmainfo.repeatsend();
