@@ -42,6 +42,7 @@ object mainfo: tmainfo
         30
         2
       )
+      taborder = 2
       bounds_x = 550
       bounds_y = 20
       bounds_cx = 43
@@ -63,7 +64,6 @@ object mainfo: tmainfo
         0
         0
       )
-      taborder = 2
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 480
