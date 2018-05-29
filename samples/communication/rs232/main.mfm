@@ -16,7 +16,7 @@ object mainfo: tmainfo
   windowopacity = -Inf
   moduleclassname = 'tmainform'
   object senddtexted: thistoryedit
-    frame.caption = 'Tx-Text'
+    frame.caption = '&Tx-Text'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
@@ -149,6 +149,7 @@ object mainfo: tmainfo
         end>
     end
     inherited eor: thexstringedit
+      visible = False
       bounds_x = 520
       bounds_cx = 63
     end
