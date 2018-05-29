@@ -18,8 +18,8 @@ order15=0
 order16=0
 order17=0
 [projectoptions]
-projectdir=/home/mse/packs/standard/git/mseuniverse_arm/samples/communication/rs232
-projectfilename=/home/mse/packs/standard/git/mseuniverse_arm/samples/communication/rs232/rs232.prj
+projectdir=/home/mse/packs/standard/git/mseuniverse/samples/communication/rs232
+projectfilename=/home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/rs232.prj
 options=130
  [projectoptionsfo.toolshortcuts]
  dropdowncolwidths=3
@@ -519,7 +519,7 @@ modulenames=1
 moduletypes=1
  TMAINFO
 modulefiles=1
- /home/mse/packs/standard/git/mseuniverse_arm/samples/communication/rs232/main.mfm
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/main.mfm
 macrogroup=0
 forcezorder=0
 stripmessageesc=0
@@ -619,14 +619,14 @@ editpos=1
  0,0
 bookmarks0=0
 sourcefiles=1
- /home/mse/packs/standard/git/mseuniverse_arm/samples/communication/rs232/main.pas
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/main.pas
 relpaths=1
  main.pas
 ismoduletexts=1
  0
 modules=2
- /home/mse/packs/standard/git/mseuniverse_arm/samples/communication/rs232/main.mfm
- /home/mse/packs/standard/git/mseuniverse_arm/samples/communication/portsettingsframe/portsettingsframe.mfm
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/rs232/main.mfm
+ /home/mse/packs/standard/git/mseuniverse/samples/communication/portsettingsframe/portsettingsframe.mfm
 moduleoptions=2
  0
  0
@@ -738,7 +738,7 @@ windowlayout=584
  [memoryfo]
  splitdir=0
  useroptions=805322875
- stackedunder=cpui386fo
+ stackedunder=findinfilefo
  parent=
  mdistate=0
  nx=0
@@ -765,7 +765,7 @@ windowlayout=584
  [disassfo]
  splitdir=0
  useroptions=805322859
- stackedunder=_mse_portsettingsfra_mse_
+ stackedunder=watchfo
  parent=
  mdistate=0
  nx=0
@@ -888,7 +888,7 @@ windowlayout=584
  [breakpointsfo]
  splitdir=0
  useroptions=268451947
- stackedunder=memoryfo
+ stackedunder=disassfo
  parent=
  mdistate=0
  nx=0
@@ -909,7 +909,7 @@ windowlayout=584
  [objectinspectorfo]
  splitdir=0
  useroptions=805322859
- stackedunder=watchfo
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -1032,7 +1032,7 @@ windowlayout=584
  [componentstorefo]
  splitdir=0
  useroptions=805331067
- stackedunder=disassfo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -1153,7 +1153,7 @@ windowlayout=584
  irqoff=0
  splitdir=0
  useroptions=268451947
- stackedunder=findinfilefo
+ stackedunder=breakpointsfo
  parent=
  mdistate=0
  nx=0

@@ -149,7 +149,7 @@ object mainfo: tmainfo
         end>
     end
     inherited eor: thexstringedit
-      visible = False
+      enabled = False
       bounds_x = 454
       bounds_cx = 61
     end
