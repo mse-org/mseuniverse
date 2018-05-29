@@ -36,15 +36,17 @@ end;
 procedure tmainfo.sendtextexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
- portfra.port.pipes.tx.write(avalue+portfra.eor.value);
+ if portfra.port.active then begin
+  portfra.port.pipes.tx.write(avalue+msestring(portfra.eor.value));
+ end;
 end;
 
 procedure tmainfo.inputavaileexe(const sender: tcustomcommpipes);
 var
  str1: string;
 begin
- str1:= sender.rx.readdatastring;
- rxdata[0].readpipe(str1);
+ str1:= sender.rx.readdatastring; //can split multi byte characters!
+ rxdata[0].readpipe(str1);            
 // rxdata[0].readpipe(sender.rx); //direct alternative
 
  rxdata.showrow(bigint); //show last row

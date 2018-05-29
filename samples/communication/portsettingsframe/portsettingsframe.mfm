@@ -20,7 +20,7 @@ object portsettingsfra: tportsettingsfra
   onloaded = loadedexe
   moduleclassname = 'tsubform'
   object ported: tcommselector
-    frame.caption = 'Port'
+    frame.caption = '&Port'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
@@ -49,7 +49,7 @@ object portsettingsfra: tportsettingsfra
     reffontheight = 14
   end
   object bauded: tenumtypeedit
-    frame.caption = 'Baud'
+    frame.caption = '&Baud'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
@@ -81,7 +81,7 @@ object portsettingsfra: tportsettingsfra
     reffontheight = 14
   end
   object databitsed: tenumtypeedit
-    frame.caption = 'Databits'
+    frame.caption = '&Databits'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
@@ -113,7 +113,7 @@ object portsettingsfra: tportsettingsfra
     reffontheight = 14
   end
   object parityed: tenumtypeedit
-    frame.caption = 'Parity'
+    frame.caption = 'Pa&rity'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
@@ -145,7 +145,7 @@ object portsettingsfra: tportsettingsfra
     reffontheight = 14
   end
   object stopbited: tenumtypeedit
-    frame.caption = 'Stopbits'
+    frame.caption = '&Stopbits'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
@@ -177,7 +177,7 @@ object portsettingsfra: tportsettingsfra
     reffontheight = 14
   end
   object eor: thexstringedit
-    frame.caption = 'EOR-data'
+    frame.caption = '&EOR-data'
     frame.captiontextflags = [tf_bottom]
     frame.localprops = []
     frame.localprops1 = []
@@ -199,7 +199,7 @@ object portsettingsfra: tportsettingsfra
   end
   object activeed: tbooleanedit
     optionsskin = [osk_nopropwidth]
-    frame.caption = 'active'
+    frame.caption = '&active'
     frame.localprops = []
     frame.localprops1 = []
     frame.outerframe = (

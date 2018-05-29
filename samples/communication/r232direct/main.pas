@@ -32,7 +32,9 @@ uses
 procedure tmainfo.sendtextexe(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
 begin
- portfra.port.port.writestring(avalue+portfra.eor.value);
+ if portfra.port.active then begin
+  portfra.port.port.writestring(ansistring(avalue)+portfra.eor.value);
+ end;
 end;
 
 procedure tmainfo.timerexe(const sender: TObject);
@@ -41,6 +43,7 @@ var
 begin
  if portfra.port.active then begin
   str1:= portfra.port.port.readavailstring(100); //max 100 byte
+                                   //can break multi byte characters!
   if str1 <> '' then begin
    rxdata[0].readpipe(str1);   
    rxdata.showrow(bigint);

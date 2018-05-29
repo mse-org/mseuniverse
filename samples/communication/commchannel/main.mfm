@@ -173,7 +173,6 @@ object mainfo: tmainfo
     bounds_y = 8
     bounds_cx = 593
     inherited ported: tcommselector
-      frame.caption = '&Port'
       frame.buttons.items = <      
         item
         end>
@@ -183,7 +182,6 @@ object mainfo: tmainfo
         end>
     end
     inherited bauded: tenumtypeedit
-      frame.caption = '&Baud'
       frame.buttons.items = <      
         item
         end>
@@ -194,7 +192,6 @@ object mainfo: tmainfo
         end>
     end
     inherited databitsed: tenumtypeedit
-      frame.caption = '&Databits'
       frame.buttons.items = <      
         item
         end>
@@ -205,7 +202,6 @@ object mainfo: tmainfo
         end>
     end
     inherited parityed: tenumtypeedit
-      frame.caption = 'Pa&rity'
       frame.buttons.items = <      
         item
         end>
@@ -216,7 +212,6 @@ object mainfo: tmainfo
         end>
     end
     inherited stopbited: tenumtypeedit
-      frame.caption = '&Stopbits'
       frame.buttons.items = <      
         item
         end>
@@ -227,15 +222,12 @@ object mainfo: tmainfo
         end>
     end
     inherited eor: thexstringedit
-      frame.caption = '&EOR-data'
       bounds_x = 459
       bounds_cx = 61
       onsetvalue = seteorexe
     end
     inherited activeed: tbooleanedit
-      frame.caption = '&active'
       bounds_x = 528
-      onsetvalue = activeset
     end
     inherited port: tsercommcomp
     end
