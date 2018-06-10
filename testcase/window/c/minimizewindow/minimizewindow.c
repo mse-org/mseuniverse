@@ -1,3 +1,6 @@
+//compile with
+//gcc -ominimizewindow minimizewindow.c -lX11
+//
 #include <unistd.h>
 #include <stdio.h>
 #include <X11/Xlib.h>
@@ -14,8 +17,6 @@ char* geteventname(int event)
 {
  switch (event){
   case 2: return "KeyPress";
-
-
   case 3: return "KeyRelease";
   case 4: return "ButtonPress";
   case 5: return "ButtonRelease";
