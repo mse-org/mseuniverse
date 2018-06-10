@@ -1,0 +1,2395 @@
+[componentpalette]
+order0=0
+order1=0
+order2=0
+order3=0
+order4=0
+order5=0
+order6=0
+order7=0
+order8=0
+order9=0
+order10=0
+order11=0
+order12=0
+order13=0
+order14=0
+order15=0
+order16=0
+order17=0
+[projectoptions]
+projectdir=/home/mse/packs/standard/git/mseuniverse/testcase/window/c/minimizewindow
+projectfilename=/home/mse/packs/standard/git/mseuniverse/testcase/window/c/minimizewindow/minimizewindow.prj
+options=124
+ [projectoptionsfo.toolshortcuts]
+ dropdowncolwidths=3
+  70
+  70
+  70
+ [projectoptionsfo.twidgetgrid3]
+ propcolwidthref=799
+ sortdescend0=0
+ sortdescend1=0
+ sortdescend2=0
+ sortdescend3=0
+ width4=107
+ sortdescend4=0
+ width5=86
+ sortdescend5=0
+ width6=55
+ sortdescend6=0
+ width7=55
+ sortdescend7=0
+ width8=116
+ sortdescend8=0
+ width9=326
+ sortdescend9=0
+ [projectoptionsfo.twidgetgrid4]
+ propcolwidthref=556
+ width_newfonames=96
+ sortdescend_newfonames=0
+ sortdescend_newinheritedforms=0
+ width_newfonamebases=73
+ sortdescend_newfonamebases=0
+ width_newfoformsuffix=69
+ sortdescend_newfoformsuffix=0
+ width_newfosources=293
+ sortdescend_newfosources=0
+ width_mewfoforms=252
+ sortdescend_mewfoforms=0
+ sorted=0
+ col=-1073741823
+ row=-1073741823
+ rowheight=16
+ [projectoptionsfo.newfile]
+ firsttab=0
+ index=0
+ [projectoptionsfo.fontaliasgrid]
+ propcolwidthref=462
+ width0=98
+ sortdescend0=0
+ width1=451
+ sortdescend1=0
+ width2=50
+ sortdescend2=0
+ width3=50
+ sortdescend3=0
+ width4=50
+ sortdescend4=0
+ width5=50
+ sortdescend5=0
+ width6=70
+ sortdescend6=0
+ [projectoptionsfo.macrosplitter]
+ x=0
+ y=121
+ xprop=1
+ yprop=0.23396226415094
+ [projectoptionsfo.macrogrid]
+ propcolwidthref=606
+ sortdescend0=0
+ sortdescend1=0
+ sortdescend2=0
+ sortdescend3=0
+ sortdescend4=0
+ sortdescend5=0
+ width6=146
+ sortdescend6=0
+ width7=594
+ sortdescend7=0
+ [projectoptionsfo.makeoptionsgrid]
+ propcolwidthref=752
+ values0=1
+  
+ width0=57
+ sortdescend0=0
+ sortdescend1=0
+ sortdescend2=0
+ sortdescend3=0
+ sortdescend4=0
+ sortdescend5=0
+ sortdescend6=0
+ values7=1
+  -lX11
+ sortdescend7=0
+ [projectoptionsfo.makegroupbox]
+ firsttab=0
+ index=1
+ [projectoptionsfo.exceptionsgrid]
+ propcolwidthref=783
+ width0=47
+ sortdescend0=0
+ width1=777
+ sortdescend1=0
+ [projectoptionsfo.ttabwidget1]
+ firsttab=0
+ index=0
+ [projectoptionsfo.filefiltergrid]
+ propcolwidthref=691
+ width0=112
+ sortdescend0=0
+ width1=684
+ sortdescend1=0
+ [projectoptionsfo.ttabwidget2]
+ firsttab=0
+ index=0
+ [projectoptionsfo.ttabwidget3]
+ firsttab=0
+ index=0
+ [projectoptionsfo.tabwidget]
+ firsttab=0
+ index=2
+ [projectoptionsfo]
+ stackedunder=
+ x=28
+ y=159
+ cx=832
+ cy=581
+sourcefilemasks=3
+ "*.pas" "*.dpr" "*.lpr" "*.pp" "*.inc"
+ "*.c" "*.cc" "*.h"
+ "*.mfm"
+syntaxdeffiles=3
+ ${SYNTAXDEFDIR}pascal.sdef
+ ${SYNTAXDEFDIR}cpp.sdef
+ ${SYNTAXDEFDIR}objecttext.sdef
+filemasknames=3
+ Source
+ Forms
+ All Files
+filemasks=3
+ "*.pp" "*.pas" "*.inc" "*.dpr" "*.lpr"
+ *.mfm
+ *
+codetemplatedirs=1
+ ${TEMPLATEDIR}
+showgrid=1
+snaptogrid=1
+moveonfirstclick=1
+noformdesignerdocking=0
+componenthints=1
+gridsizex=8
+gridsizey=8
+autoindent=1
+blockindent=1
+linenumberson=0
+rightmarginon=1
+rightmarginchars=80
+scrollheight=0
+tabstops=4
+spacetabs=0
+showtabs=0
+tabindent=0
+editfontname=mseide_source
+editfontheight=0
+editfontwidth=0
+editfontextraspace=0
+editfontcolor=-1879048183
+editbkcolor=-1879048186
+statementcolor=14745599
+pairmarkcolor=-2147483642
+pairmaxrowcount=100
+editfontantialiased=1
+editmarkbrackets=1
+editmarkpairwords=0
+backupfilecount=2
+encoding=1
+eolstyle=1
+trimtrailingwhitespace=0
+debugcommand=${DEBUGGER}
+debugoptions=
+debugtarget=
+runcommand=
+xtermcommand=xterm -S${PTSN}/${PTSH}
+remoteconnection=
+uploadcommand=
+gdbprocessor=auto
+gdbservercommand=
+gdbservercommandattach=
+beforeconnect=
+afterconnect=
+beforeload=
+afterload=
+beforerun=
+sourcebase=
+sourcedirs=3
+ ${MSELIBDIR}kernel/$TARGETOSDIR/
+ ${MSELIBDIR}*/
+ ./
+defines=0
+progparameters=
+progworkingdirectory=
+envvarnames=0
+envvarvalues=0
+defineson=0
+stoponexception=0
+valuehints=1
+activateonbreak=1
+raiseonbreak=1
+showconsole=0
+externalconsole=0
+settty=1
+gdbdownload=0
+downloadalways=0
+startupbkpt=0
+startupbkpton=0
+gdbsimulator=0
+gdbserverstartonce=0
+gdbloadtimeout=
+gdbserverwait=0
+nogdbserverexit=0
+gdbservertty=0
+exceptclassnames=1
+ EconvertError
+exceptignore=1
+ 0
+nodebugbeginend=0
+fpcgdbworkaround=1
+mainfile=${projectname}.c
+targetfile=${projectname}
+makecommand=gcc
+makedir=
+unitdirs=0
+unitpref=-Fu
+incpref=-Fi
+libpref=-Fl
+objpref=-Fo
+targpref=-o
+befcommand=0
+aftcommand=0
+makeoptions=1
+ -lX11
+reversepathorder=0
+makeoptpurpose=1
+ 
+befcommandon=0
+makeoptionson=1
+ 63
+aftcommandon=0
+unitdirson=0
+uid=0
+macroon=0
+macronames=0
+macrovalues=0
+groupcomments=6
+ 
+ 
+ 
+ 
+ 
+ 
+fontalias=0
+fontnames=0
+fontancestors=0
+fontoptions=0
+fontheights=0
+fontwidths=0
+fontxscales=0
+usercolors=30
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+usercolorcomment=30
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+formatmacronames=0
+formatmacrovalues=0
+scriptbeforecopy=
+scriptaftercopy=
+newprojectfiles=0
+newprojectfilesdest=0
+newfinames=3
+ Program
+ Unit
+ Textfile
+newfifilters=3
+ "*.pas" "*.pp"
+ "*.pas" "*.pp"
+ 
+newfiexts=3
+ pas
+ pas
+ 
+newfisources=3
+ ${TEMPLATEDIR}default/program.pas
+ ${TEMPLATEDIR}default/unit.pas
+ 
+newfonames=12
+ Mainform
+ Simple Form
+ Docking Form
+ Sizing Form
+ Datamodule
+ Subform
+ Scrollboxform
+ Tabform
+ Dockpanel
+ Report
+ Scriptform
+ Inherited Form
+newfonamebases=12
+ form
+ form
+ form
+ form
+ module
+ form
+ form
+ form
+ form
+ report
+ script
+ form
+newfoformsuffixes=12
+ fo
+ fo
+ fo
+ fo
+ mo
+ fo
+ fo
+ fo
+ fo
+ re
+ sc
+ fo
+newfosources=12
+ ${TEMPLATEDIR}default/mainform.pas
+ ${TEMPLATEDIR}default/simpleform.pas
+ ${TEMPLATEDIR}default/dockingform.pas
+ ${TEMPLATEDIR}default/sizingform.pas
+ ${TEMPLATEDIR}default/datamodule.pas
+ ${TEMPLATEDIR}default/subform.pas
+ ${TEMPLATEDIR}default/scrollboxform.pas
+ ${TEMPLATEDIR}default/tabform.pas
+ ${TEMPLATEDIR}default/dockpanelform.pas
+ ${TEMPLATEDIR}default/report.pas
+ ${TEMPLATEDIR}default/pascform.pas
+ ${TEMPLATEDIR}default/inheritedform.pas
+newfoforms=12
+ ${TEMPLATEDIR}default/mainform.mfm
+ ${TEMPLATEDIR}default/simpleform.mfm
+ ${TEMPLATEDIR}default/dockingform.mfm
+ ${TEMPLATEDIR}default/sizingform.mfm
+ ${TEMPLATEDIR}default/datamodule.mfm
+ ${TEMPLATEDIR}default/subform.mfm
+ ${TEMPLATEDIR}default/scrollboxform.mfm
+ ${TEMPLATEDIR}default/tabform.mfm
+ ${TEMPLATEDIR}default/dockpanelform.mfm
+ ${TEMPLATEDIR}default/report.mfm
+ ${TEMPLATEDIR}default/pascform.mfm
+ ${TEMPLATEDIR}default/inheritedform.mfm
+expandprojectfilemacros=0
+loadprojectfile=0
+newinheritedforms=12
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+toolmenus=0
+toolfiles=0
+toolparams=0
+toolsave=0
+toolhide=0
+toolparse=0
+toolmessages=0
+toolshortcuts=0
+settingsfile=
+settingsautoload=0
+settingsautosave=0
+settingseditor=0
+settingsdebugger=0
+settingsmake=1
+settingsmacros=0
+settingsfontalias=0
+settingsusercolors=0
+settingsformatmacros=0
+settingstemplates=0
+settingstools=0
+settingsstorage=0
+settingscomponentstore=0
+settingsprojecttree=0
+settingslayout=0
+messageoutputfile=
+modulenames=0
+moduletypes=0
+modulefiles=0
+macrogroup=0
+forcezorder=0
+stripmessageesc=0
+copymessages=0
+closemessages=1
+checkmethods=1
+colorerror=-1610612712
+colorwarning=-1610612717
+colornote=-1610612716
+sigsettings=27
+ 1,1,T,F
+ 3,3,T,F
+ 4,4,T,F
+ 6,6,T,F
+ 7,7,T,F
+ 8,8,T,F
+ 9,9,T,F
+ 10,10,T,F
+ 11,11,T,F
+ 12,12,T,F
+ 13,13,T,F
+ 15,15,T,F
+ 16,16,T,F
+ 17,17,F,F
+ 18,18,T,F
+ 19,19,T,F
+ 20,20,T,F
+ 21,21,T,F
+ 22,22,T,F
+ 23,23,T,F
+ 24,24,T,F
+ 25,25,T,F
+ 26,26,T,F
+ 27,27,T,F
+ 28,28,T,F
+ 29,29,T,F
+ 30,30,T,F
+defaultmake=1
+units=
+ (
+ a=0,8229,6,Pascal Units
+ )
+cmodules=
+ (
+ a=0,8228,6,C Modules
+ )
+files=
+ (
+ a=0,8228,6,Text Files
+ )
+[breakpoints]
+on=182
+ 0
+ 0
+ -1
+ -1
+ -1
+ 0
+ 0
+ -1
+ -1
+ 0
+ -1
+ -1
+ 0
+ 0
+ 0
+ -1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+ -1
+ -1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+ -1
+ 0
+ 0
+ 0
+ 0
+ -1
+ 0
+ -1
+ -1
+ -1
+ -1
+ -1
+ -1
+ 0
+ 0
+ 0
+ -1
+ 0
+ 0
+ 0
+ -1
+ 0
+ 0
+ -1
+ 0
+ 0
+ 0
+ 0
+ -1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+ -1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+ 0
+ -1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+ -1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+ -1
+ 0
+ -1
+ -1
+ 0
+ 0
+ 0
+ -1
+ -1
+ -1
+ -1
+ -1
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ -1
+ -1
+ 0
+ 0
+ -1
+ -1
+ -1
+ 0
+ 0
+ -1
+ 0
+ -1
+ -1
+ -1
+ -1
+ -1
+ -1
+ 0
+ -1
+ -1
+ -1
+ -1
+ -1
+ -1
+ -1
+ -1
+path=182
+ /home/mse/packs/standard/git/mselang/mselang/controlhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/main.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/elementcache.pas
+ /home/mse/packs/standard/git/mselang/mselang/elementcache.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/opcode.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/segmentutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/elements.pas
+ /home/mse/packs/standard/git/mselang/mselang/elements.pas
+ /home/mse/packs/standard/git/mselang/mselang/elements.pas
+ /home/mse/packs/standard/git/mselang/mselang/elements.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/elements.pas
+ /home/mse/packs/standard/git/mselang/mselang/elements.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/opcode.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/valuehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/parser.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/exceptionhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/exceptionhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/managedtypes.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/varhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/varhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/valuehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/valuehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/valuehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/valuehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/stackops.pas
+ /home/mse/packs/standard/git/mselang/mselang/rtl/system/rtl_fpccompatibility.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/managedtypes.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/managedtypes.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/valuehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/mserttiutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/compilerunit.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/rttihandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handler.pas
+ /home/mse/packs/standard/git/mselang/mselang/valuehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/unitreader.pas
+ /home/mse/packs/standard/git/mselang/mselang/unitreader.pas
+ /home/mse/packs/standard/git/mselang/mselang/unitreader.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/unitreader.pas
+ /home/mse/packs/standard/git/mselang/mselang/unitreader.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/parser.pas
+ /home/mse/packs/standard/git/mselang/mselang/parser.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/directivehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/syssubhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/syssubhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmbcwriter.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmlists.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/typehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/errorhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/classhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/handlerutils.pas
+ /home/mse/packs/standard/git/mselang/mselang/opcode.pas
+ /home/mse/packs/standard/git/mselang/mselang/opcode.pas
+ /home/mse/packs/standard/git/mselang/mselang/opcode.pas
+ /home/mse/packs/standard/git/mselang/mselang/subhandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmbcwriter.pas
+ /home/mse/packs/standard/git/mselang/mselang/unithandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/unitwriter.pas
+ /home/mse/packs/standard/git/mselang/mselang/llvmops.pas
+ /home/mse/packs/standard/git/mselang/mselang/parser.pas
+ /home/mse/packs/standard/git/mselang/mselang/parser.pas
+ /home/mse/packs/standard/git/mselang/mselang/rtl/stringutils/rtl_format.mla
+ /home/mse/packs/standard/git/mselang/mselang/test.mla
+ /home/mse/packs/standard/git/mselang/mselang/valuehandler.pas
+ /home/mse/packs/standard/git/mselang/mselang/test.mla
+ /home/mse/packs/standard/git/mselang/mselang/test.mla
+ /home/mse/packs/standard/git/mselang/mselang/rtl/stringutils/rtl_format.mla
+ /home/mse/packs/standard/git/mselang/mselang/rtl/stringutils/rtl_format.mla
+ /home/mse/packs/standard/git/mselang/mselang/compiler/__mla__compilerunit.mla
+ /home/mse/packs/standard/git/mselang/mselang/test.mla
+ /home/mse/packs/standard/git/mselang/mselang/test.mla
+line=182
+ 991
+ 3494
+ 343
+ 3905
+ 620
+ 135
+ 169
+ 576
+ 5542
+ 2158
+ 2315
+ 343
+ 985
+ 570
+ 501
+ 478
+ 854
+ 841
+ 976
+ 3680
+ 4050
+ 2132
+ 2091
+ 1988
+ 3423
+ 1455
+ 1147
+ 2047
+ 7543
+ 4821
+ 4082
+ 1200
+ 916
+ 3976
+ 1458
+ 1977
+ 933
+ 1025
+ 1007
+ 536
+ 644
+ 3057
+ 3043
+ 6689
+ 3092
+ 185
+ 219
+ 919
+ 4197
+ 3892
+ 1969
+ 5528
+ 2186
+ 1634
+ 5574
+ 6031
+ 1813
+ 2439
+ 496
+ 2685
+ 2779
+ 983
+ 1818
+ 6291
+ 6065
+ 486
+ 630
+ 922
+ 947
+ 3850
+ 839
+ 1175
+ 1182
+ 1127
+ 171
+ 148
+ 3563
+ 3507
+ 4859
+ 3482
+ 4805
+ 3628
+ 2039
+ 2839
+ 2784
+ 169
+ 1590
+ 1597
+ 1471
+ 189
+ 2346
+ 5531
+ 111
+ 2397
+ 603
+ 925
+ 878
+ 711
+ 990
+ 833
+ 887
+ 843
+ 676
+ 2752
+ 1639
+ 47
+ 1350
+ 228
+ 2229
+ 2187
+ 2236
+ 2183
+ 2179
+ 120
+ 2873
+ 280
+ 2887
+ 1250
+ 106
+ 139
+ 212
+ 301
+ 190
+ 3900
+ 3617
+ 2254
+ 2774
+ 225
+ 3799
+ 372
+ 388
+ 395
+ 2753
+ 2465
+ 2455
+ 1928
+ 562
+ 507
+ 1306
+ 1027
+ 1271
+ 2852
+ 349
+ 269
+ 1442
+ 3641
+ 3720
+ 258
+ 310
+ 739
+ 2354
+ 1960
+ 5520
+ 849
+ 869
+ 5504
+ 501
+ 493
+ 923
+ 866
+ 713
+ 2475
+ 1007
+ 1005
+ 1049
+ 240
+ 1515
+ 907
+ 471
+ 5499
+ 1212
+ 574
+ 120
+ 86
+ 371
+ 151
+ 96
+ 441
+ 245
+ 358
+ 23
+ 11
+address=182
+ 137449385
+ 137110816
+ 134904407
+ 137161594
+ 137177327
+ 137117232
+ 137117548
+ 137176962
+ 137222136
+ 137243299
+ 137243857
+ 137188218
+ 137135038
+ 137352055
+ 137077742
+ 136865207
+ 136868176
+ 136868038
+ 136869057
+ 137111984
+ 137115424
+ 137290467
+ 136882454
+ 136881635
+ 137155864
+ 137183216
+ 137136240
+ 137289676
+ 137230171
+ 137139360
+ 137160393
+ 137237917
+ 137314374
+ 137159229
+ 137090402
+ 137146480
+ 137260910
+ 137261645
+ 137261537
+ 137257853
+ 137271738
+ 137206980
+ 137206855
+ 137228733
+ 137207166
+ 137439573
+ 137439746
+ 137086703
+ 137384359
+ 137381266
+ 137289110
+ 137392511
+ 137290854
+ 137145066
+ 137222265
+ 137224684
+ 137266088
+ 137293220
+ 137189255
+ 137373096
+ 137373960
+ 137284082
+ 137241220
+ 137226294
+ 137224886
+ 137189175
+ 137345691
+ 137193524
+ 137355363
+ 137303967
+ 137085973
+ 137285533
+ 137285554
+ 137285154
+ 137451092
+ 137451053
+ 137250457
+ 137156320
+ 137218115
+ 137156125
+ 137172345
+ 137301796
+ 137327051
+ 137199809
+ 137328721
+ 137173685
+ 137264605
+ 137264668
+ 137239699
+ 137173979
+ 137322785
+ 137222055
+ 0
+ 137292753
+ 137084078
+ 137086783
+ 137086281
+ 137346203
+ 137180033
+ 137178466
+ 137178783
+ 137347342
+ 137282141
+ 137328657
+ 137264865
+ 137230961
+ 137143101
+ 137172807
+ 137102397
+ 137101207
+ 137102397
+ 137101172
+ 137101137
+ 137186488
+ 137106490
+ 137081627
+ 137106563
+ 137181607
+ 137173370
+ 137173549
+ 137232323
+ 137256488
+ 137232234
+ 137253458
+ 137251021
+ 137322077
+ 137298128
+ 137279329
+ 137158138
+ 137397857
+ 137398134
+ 137398207
+ 137105568
+ 137103104
+ 137103037
+ 137288687
+ 137399654
+ 137398998
+ 137286405
+ 137274869
+ 137278041
+ 137106227
+ 137443127
+ 137081597
+ 137143789
+ 137301997
+ 137302732
+ 137332767
+ 137333129
+ 137461203
+ 137102023
+ 137099580
+ 137392432
+ 137178608
+ 137178693
+ 137392315
+ 137351868
+ 137122906
+ 137086778
+ 137086187
+ 137353178
+ 137149659
+ 137135149
+ 137135149
+ 137135408
+ 137279376
+ 137468320
+ 137260723
+ 137395594
+ 137392265
+ 137277068
+ 137271101
+ 134530864
+ 134515344
+ 0
+ 134516081
+ 134517434
+ 134529564
+ 134531738
+ 134517791
+ 134515111
+ 0
+addbkpt=182
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ignore=182
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 15
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 20
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+condition=182
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ info.opcount >= 47
+ 
+ asegment = seg_globconst
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ pc^.par.subbegin.globid = 95
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (result^.par.ssas1 = 47) and (result^.par.ssas2 = 48)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ bcstream.fopnum > 2176
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ aopcode = oc_main
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+panels=0
+[componentstore]
+storedir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
+filename=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/default.stg
+[components]
+[selecteditpage]
+colwidth=130
+x=97
+y=234
+cx=704
+cy=473
+[progparams]
+progparamhistory=0
+workdirparamhistory=0
+envvarons=0
+[edit]
+hintwidth=581
+hintheight=50
+finddtext=
+findhistory=0
+findoptions=1
+editpos=0
+sourcefiles=0
+relpaths=0
+ismoduletexts=0
+modules=0
+moduleoptions=0
+visiblemodules=0
+nomenumodules=0
+[sourcefo.tabwidget]
+tabsize=153
+firsttab=0
+index=-1
+[layout]
+windowlayout=545
+ [mainfo.openform]
+ filenames=1
+  /home/mse/packs/standard/git/mselang/mselang/compiler/compmodule.mfm
+ filecolwidth=174
+ x=0
+ y=0
+ cx=0
+ cy=0
+ filehistory=5
+  /home/mse/packs/standard/git/mselang/mselang/compiler/compmodule.mfm
+  /home/mse/packs/standard/git/mseide-msegui/lib/common/dialogs/msefiledialogres.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/sourceform.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/actionsmodule.mfm
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/main.mfm
+ filefilterindex=0
+ filefilter=*.mfm
+ [mainfo.projectfiledia]
+ filecolwidth=191
+ x=0
+ y=0
+ cx=0
+ cy=0
+ [mainfo.openfile]
+ filenames=0
+ filecolwidth=185
+ x=352
+ y=185
+ cx=833
+ cy=404
+ filehistory=20
+  /home/mse/packs/standard/git/mselang/mselang/compiler/compmodule.pas
+  /home/mse/packs/standard/git/mselang/mselang/test1.mla
+  /home/mse/packs/standard/git/mselang/mselang/test.mla
+  /home/mse/packs/standard/git/mselang/mselang/compiler/__mla__internaltypes.pas
+  /home/mse/packs/standard/git/mselang/mselang/compiler/__mla__personality.pas
+  /home/mse/packs/standard/git/mselang/mselang/rtl/system/system.pas
+  /home/mse/packs/standard/git/mselang/mselang/compiler/__mla__system.mla
+  /home/mse/packs/standard/git/mselang/mselang/segmentutils.pas
+  /home/mse/packs/standard/git/mselang/mselang/handlerglob.pas
+  /home/mse/packs/standard/svn/fp/fixes_3_0/rtl/objpas/classes/classes.inc
+  /home/mse/packs/standard/svn/fp/fixes_3_0/rtl/objpas/classes/classesh.inc
+  /home/mse/packs/standard/svn/fp/fixes_3_0/rtl/objpas/classes/persist.inc
+  /home/mse/packs/standard/git/mseide-msegui/lib/common/sysutils/mseprocutils.pas
+  /home/mse/packs/standard/git/mseide-msegui/lib/common/kernel/msefileutils.pas
+  /home/mse/packs/standard/git/mselang/mselang/identutils.pas
+  /home/mse/packs/standard/git/mselang/mselang/unit1.mla
+  /home/mse/packs/standard/git/pcaudiolib/source/src/alsa.c
+  /home/mse/packs/standard/git/mseide-msegui/lib/common/container/msedatalist.pas
+  /home/mse/packs/standard/git/mselang/mselang/rtl/system/rtl_base.pas
+  /home/mse/packs/standard/git/mselang/mselang/rtl/system/rtl_system.pas
+ filefilterindex=-1
+ filefilter="*.pp" "*.pas" "*.inc" "*.dpr" "*.lpr" "*.mla" "*.h" "*.c"
+ [mainfo.basedock]
+ splitdir=2
+ useroptions=268450944
+ [mainfo]
+ splitdir=0
+ useroptions=838860923
+ stackedunder=
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=738
+ y=20
+ cx=566
+ cy=61
+ rcx=0
+ rcy=0
+ wsize=0
+ active=1
+ visible=1
+ [targetconsolefo]
+ splitdir=0
+ useroptions=805322857
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=0
+ cy=0
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [threadsfo]
+ splitdir=0
+ useroptions=805322857
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=0
+ cy=0
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [memoryfo]
+ splitdir=0
+ useroptions=805322875
+ stackedunder=componentpalettefo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=100
+ y=100
+ cx=453
+ cy=354
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [memoryfo.add]
+ value=-1073746288
+ [memoryfo.memon]
+ value=1
+ [memoryfo.bitwidth]
+ value=2
+ [memoryfo.cnt]
+ value=36
+ [disassfo]
+ splitdir=0
+ useroptions=805322859
+ stackedunder=targetconsolefo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=0
+ cy=0
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [findinfilefo]
+ splitdir=0
+ useroptions=268451947
+ stackedunder=cpui386fo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=929
+ y=128
+ cx=957
+ cy=624
+ rcx=0
+ rcy=0
+ [projecttreefo]
+ splitdir=0
+ useroptions=805322859
+ stackedunder=memoryfo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=321
+ y=101
+ cx=698
+ cy=413
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [projecttreefo.grid]
+ propcolwidthref=497
+ width0=191
+ sortdescend0=0
+ width1=491
+ sortdescend1=0
+ sorted=0
+ col=1
+ row=1
+ rowheight=16
+ [stackfo]
+ splitdir=0
+ useroptions=805331049
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=0
+ cy=0
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [watchpointsfo]
+ splitdir=0
+ useroptions=805322857
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=0
+ cy=0
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [watchpointsfo.grid]
+ propcolwidthref=437
+ sortdescend0=0
+ values1=0
+ values1_ci=-1
+ width1=33
+ sortdescend1=0
+ values2=0
+ width2=268
+ sortdescend2=0
+ width4=41
+ sortdescend4=0
+ values5=0
+ values5_ci=-1
+ width5=48
+ sortdescend5=0
+ values6=0
+ width6=158
+ sortdescend6=0
+ [breakpointsfo]
+ splitdir=0
+ useroptions=268451947
+ stackedunder=objectinspectorfo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=1135
+ y=35
+ cx=738
+ cy=263
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=1
+ [breakpointsfo.bkptson]
+ value=1
+ [objectinspectorfo]
+ splitdir=0
+ useroptions=805322859
+ stackedunder=mainfo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=1120
+ y=177
+ cx=450
+ cy=568
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=1
+ [objectinspectorfo.grid]
+ propcolwidthref=440
+ width0=227
+ sortdescend0=0
+ width1=207
+ sortdescend1=0
+ [symbolfo]
+ splitdir=0
+ useroptions=805322875
+ stackedunder=findinfilefo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=0
+ cy=0
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [symbolfo.grid]
+ propcolwidthref=506
+ values0=18
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ width0=111
+ sortdescend0=0
+ width1=318
+ sortdescend1=0
+ [symbolfo.symbol]
+ [watchfo]
+ splitdir=0
+ useroptions=805331049
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=1311
+ y=404
+ cx=595
+ cy=307
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [watchfo.grid]
+ propcolwidthref=235
+ values0=0
+ values0_ci=-1
+ sortdescend0=0
+ values1=0
+ width1=315
+ sortdescend1=0
+ values3=0
+ values3_ci=-1
+ sortdescend3=0
+ values4=0
+ values4_ci=-1
+ width4=13
+ sortdescend4=0
+ [watchfo.watchon]
+ [watchfo.expression]
+ [watchfo.watcheson]
+ value=1
+ [messagefo]
+ splitdir=0
+ useroptions=805355627
+ stackedunder=breakpointsfo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=0
+ cy=0
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [componentstorefo]
+ splitdir=0
+ useroptions=805331067
+ stackedunder=symbolfo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=432
+ y=112
+ cx=445
+ cy=354
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [componentstorefo.grid]
+ propcolwidthref=435
+ width0=111
+ sortdescend0=0
+ sortdescend1=0
+ width2=103
+ sortdescend2=0
+ width3=185
+ sortdescend3=0
+ [componentstorefo.storefiledialog]
+ filenames=1
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
+ filecolwidth=174
+ x=0
+ y=0
+ cx=0
+ cy=0
+ lastdir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
+ filehistory=0
+ filefilterindex=0
+ filefilter=
+ [componentstorefo.groupfiledialog]
+ filenames=1
+  /home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
+ filecolwidth=174
+ x=0
+ y=0
+ cx=0
+ cy=0
+ lastdir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
+ filehistory=0
+ filefilterindex=0
+ filefilter=
+ [componentstorefo.compfiledialog]
+ filenames=0
+ filecolwidth=0
+ x=0
+ y=0
+ cx=0
+ cy=0
+ lastdir=
+ filehistory=0
+ filefilterindex=0
+ filefilter=
+ [componentpalettefo]
+ splitdir=0
+ useroptions=805331051
+ stackedunder=componentstorefo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=392
+ y=20
+ cx=606
+ cy=119
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [componentpalettefo.componentpages]
+ activetab=0
+ [debuggerfo]
+ splitdir=0
+ useroptions=268460139
+ parent=mainfo.basedock
+ visible=1
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=0
+ y=0
+ cx=556
+ cy=25
+ rcx=0
+ rcy=0
+ [sourcefo]
+ splitdir=0
+ useroptions=805322857
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=58
+ y=109
+ cx=883
+ cy=613
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+ [actionsmo.watchesonact]
+ checked=1
+ [actionsmo.bluedotsonact]
+ checked=1
+ [cpui386fo]
+ irqoff=0
+ splitdir=0
+ useroptions=268451947
+ stackedunder=watchfo
+ parent=
+ mdistate=0
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=1499
+ y=188
+ cx=326
+ cy=488
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
+[targetconsole]
+finddtext=
+findhistory=0
+findoptions=1
