@@ -1,0 +1,23 @@
+Mint Cinnamon 18.2
+   1 21 ReparentNotify
+   2 28 PropertyNotify
+   3 28 PropertyNotify
+   4 28 PropertyNotify
+   5 22 ConfigureNotify
+   6 28 PropertyNotify
+   7 28 PropertyNotify
+   8 28 PropertyNotify
+   9 22 ConfigureNotify
+  10 28 PropertyNotify
+  11 19 MapNotify
+  12 12 Expose
+  13  9 FocusIn
+  14 11 KeymapNotify
+  15 28 PropertyNotify
+  16  3 KeyRelease
+  17 28 PropertyNotify
+  18 28 PropertyNotify
+  19 28 PropertyNotify
+  20 10 FocusOut
+  21 28 PropertyNotify
+
