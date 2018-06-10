@@ -45,3 +45,31 @@ Mint Mate 18.2
   21 28 PropertyNotify
   22 28 PropertyNotify
 
+KDE 5
+   1 28 PropertyNotify
+   2 21 ReparentNotify
+   3 28 PropertyNotify
+   4 19 MapNotify
+   5 12 Expose
+   6 28 PropertyNotify
+   7 28 PropertyNotify
+   8 28 PropertyNotify
+   9 28 PropertyNotify
+  10 28 PropertyNotify
+  11 28 PropertyNotify
+  12 28 PropertyNotify
+  13 28 PropertyNotify
+  14 28 PropertyNotify
+  15 28 PropertyNotify
+  16  9 FocusIn
+  17 11 KeymapNotify
+  18 12 Expose
+  19 12 Expose
+  20 22 ConfigureNotify
+  21 28 PropertyNotify
+  22 28 PropertyNotify
+  23 28 PropertyNotify
+  24 28 PropertyNotify
+  25 10 FocusOut
+  26 18 UnmapNotify
+  27 28 PropertyNotify
