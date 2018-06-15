@@ -773,7 +773,7 @@ object mainmo: tmainmo
   end
   object mainform: tififormlinkcomp
     controller.onclientmodalresult = mainfomdalresev
-    left = 288
+    left = 296
     top = 120
   end
   object honourtokenlistact: taction
@@ -912,31 +912,31 @@ object mainmo: tmainmo
     transaction = trans
     options = [sso_utf8]
     onbeforeexecute = befresexeev
-    left = 448
+    left = 472
     top = 440
   end
   object issuedcount: tsqlresultconnector
     source = issuedres
     colname = 'count'
-    left = 456
+    left = 480
     top = 456
   end
   object issuedvalue: tsqlresultconnector
     source = issuedres
     colname = 'value'
-    left = 456
+    left = 480
     top = 472
   end
   object honouredvalue: tsqlresultconnector
     source = honouredres
     colname = 'value'
-    left = 560
+    left = 584
     top = 472
   end
   object honouredcount: tsqlresultconnector
     source = honouredres
     colname = 'count'
-    left = 560
+    left = 584
     top = 456
   end
   object honouredres: tsqlresult
@@ -970,19 +970,19 @@ object mainmo: tmainmo
     transaction = trans
     options = [sso_utf8]
     onbeforeexecute = befresexeev
-    left = 552
+    left = 576
     top = 440
   end
   object expiredvalue: tsqlresultconnector
     source = expiredres
     colname = 'value'
-    left = 456
+    left = 480
     top = 528
   end
   object expiredcount: tsqlresultconnector
     source = expiredres
     colname = 'count'
-    left = 456
+    left = 480
     top = 512
   end
   object expiredres: tsqlresult
@@ -1016,19 +1016,19 @@ object mainmo: tmainmo
     transaction = trans
     options = [sso_utf8]
     onbeforeexecute = befresexeev
-    left = 448
+    left = 472
     top = 496
   end
   object openvalue: tsqlresultconnector
     source = openres
     colname = 'value'
-    left = 560
+    left = 584
     top = 528
   end
   object opencount: tsqlresultconnector
     source = openres
     colname = 'count'
-    left = 560
+    left = 584
     top = 512
   end
   object openres: tsqlresult
@@ -1062,7 +1062,7 @@ object mainmo: tmainmo
     transaction = trans
     options = [sso_utf8]
     onbeforeexecute = befresexeev
-    left = 552
+    left = 576
     top = 496
   end
   object createdbact: taction
@@ -1077,7 +1077,7 @@ object mainmo: tmainmo
     top = 32
   end
   object numbertext: tifistringlinkcomp
-    left = 280
+    left = 296
     top = 168
   end
 end
