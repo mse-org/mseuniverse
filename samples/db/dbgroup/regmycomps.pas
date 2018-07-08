@@ -9,7 +9,7 @@ uses
  
 procedure register;
 begin
- registercomponents('DbPanel',[tdbgroup]);
+ registercomponents('dbgroup',[tdbgroup]);
 end;
 
 initialization
