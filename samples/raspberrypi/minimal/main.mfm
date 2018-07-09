@@ -1,0 +1,26 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  caption = 'MSEide+MSEgui'
+  windowopacity = -Inf
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 184
+    bounds_y = 120
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'Exit'
+    modalresult = mr_cancel
+  end
+end
