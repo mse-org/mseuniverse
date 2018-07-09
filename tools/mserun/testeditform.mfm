@@ -17,7 +17,6 @@ inherited testeditfo: ttesteditfo
   onlayout = layoutexe
   moduleclassname = 'teditfo'
   object tlayouter2: tlayouter[0]
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     taborder = 1
     bounds_x = 0
     bounds_y = 8
@@ -30,7 +29,6 @@ inherited testeditfo: ttesteditfo
     place_mindist = 5
     place_maxdist = 5
     object tlayouter1: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       optionsskin = [osk_noalignx]
       bounds_x = 0
       bounds_y = 0
@@ -170,7 +168,6 @@ inherited testeditfo: ttesteditfo
       reffontheight = 14
     end
     object tlayouter4: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 10
       bounds_x = 0
       bounds_y = 473
@@ -206,8 +203,8 @@ inherited testeditfo: ttesteditfo
         formatdisp = '0'
         valuerange = 1
         valuestart = 0
-        min = 0
-        max = 255
+        valuemin = 0
+        valuemax = 255
         reffontheight = 14
       end
       object tspacer2: tspacer
@@ -249,10 +246,10 @@ inherited testeditfo: ttesteditfo
         bounds_y = 5
         bounds_cx = 94
         bounds_cy = 20
+        options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_shortcutcaption]
         state = [as_localcaption, as_localshortcut]
         action = mainmo.runtestact
         caption = 'Test &Run'
-        options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_shortcutcaption]
         sc = (
           1
           312
@@ -347,7 +344,6 @@ inherited testeditfo: ttesteditfo
       reffontheight = 14
     end
     object tlayouter5: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 2
       bounds_x = 0
       bounds_y = 60
@@ -422,7 +418,6 @@ inherited testeditfo: ttesteditfo
       end
     end
     object tlayouter6: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 7
       bounds_x = 0
       bounds_y = 292
@@ -550,7 +545,6 @@ inherited testeditfo: ttesteditfo
       reffontheight = 14
     end
     object tlayouter7: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 11
       bounds_x = 0
       bounds_y = 333
@@ -597,6 +591,7 @@ inherited testeditfo: ttesteditfo
         empty_textflags = [tf_ycentered]
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
         onchange = outputputchangeexe
+        onsetvalue = expectedtextsetev
         reffontheight = 14
       end
       object val_anyoutput: tbooleanedit
@@ -618,7 +613,6 @@ inherited testeditfo: ttesteditfo
       end
     end
     object tlayouter8: tlayouter
-      optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
       taborder = 12
       bounds_x = 0
       bounds_y = 403
@@ -665,6 +659,7 @@ inherited testeditfo: ttesteditfo
         empty_textflags = [tf_ycentered]
         optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
         onchange = errorchangeexe
+        onsetvalue = expectedtextsetev
         reffontheight = 14
       end
       object val_anyerror: tbooleanedit
@@ -687,7 +682,6 @@ inherited testeditfo: ttesteditfo
     end
   end
   object tlayouter3: tlayouter[1]
-    optionswidget = [ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
     bounds_x = 192
     bounds_y = 528
     bounds_cx = 378

@@ -75,6 +75,8 @@ type
    procedure exitcodechangeexe(const sender: TObject);
    procedure filemacrohintexe(const sender: TObject; var info: hintinfoty);
    procedure inputerrorchangeexe(const sender: TObject);
+   procedure expectedtextsetev(const sender: TObject; var avalue: msestring;
+                   var accept: Boolean);
   protected
    function filemacro(): msestring;
   public
@@ -173,6 +175,12 @@ begin
  val_expectedoutput.empty_text:= lookuptext(val_expectedoutput);
  val_expectederror.empty_text:= lookuptext(val_expectederror);
  val_expectedexitcode.empty_text:= lookuptext(val_expectedexitcode);
+end;
+
+procedure ttesteditfo.expectedtextsetev(const sender: TObject;
+                                 var avalue: msestring; var accept: Boolean);
+begin
+ avalue:= removelineterminator(avalue);
 end;
 
 end.

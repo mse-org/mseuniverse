@@ -346,6 +346,7 @@ end;
 procedure trunfo.procfinishedexe(const sender: TObject);
 var
  rea1: realty;
+ s1,s2: msestring;
 begin
  case fstate of
   rs_compile: begin
@@ -366,14 +367,18 @@ begin
   rs_test: begin
    with fcurrenttest do begin
     actualexitcode:= proc.exitcode;
-    actualoutput:= removelineterminator(utf8tostring(foutputbuffer));
+    actualoutput:= concatstrings(
+      breaklines(removelineterminator(utf8tostring(foutputbuffer))),lineend);
     foutputbuffer:= '';
-    actualerror:= removelineterminator(utf8tostring(ferrorbuffer));
+    actualerror:= concatstrings(
+       breaklines(removelineterminator(utf8tostring(ferrorbuffer))),lineend);
     ferrorbuffer:= '';
+    s1:= concatstrings(breaklines(expectedoutput),lineend);
+    s2:= concatstrings(breaklines(expectederror),lineend);
     rea1:= lookupexpectedexitcode(fcurrenttest);
     dofinish(((rea1 = emptyreal) or (actualexitcode = rea1)) and 
-       (anyoutput or (actualoutput = expectedoutput)) and
-       (anyerror or (actualerror = expectederror)));
+       (anyoutput or (actualoutput = s1)) and
+       (anyerror or (actualerror = s2)));
    end;
   end;
   else begin

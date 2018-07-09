@@ -345,7 +345,7 @@ begin
       result:= expectederror;
      end;
      fn_expectedexitcode: begin
-      result:= realtytostr(expectedexitcode);
+      result:= realtytostring(expectedexitcode);
      end;
     end;
    end;
