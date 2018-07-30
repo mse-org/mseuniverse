@@ -1,0 +1,116 @@
+object mainmo: tmainmo
+  bounds_cx = 279
+  bounds_cy = 220
+  onloaded = loadedev
+  left = 439
+  top = 169
+  moduleclassname = 'tmsedatamodule'
+  object dso: tmsedatasource
+    DataSet = ds
+    left = 8
+    top = 24
+  end
+  object ds: tlocaldataset
+    options = [bdo_local]
+    logfilename = 'test.db'
+    indexlocal.count = 2
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'id'
+          end>
+        active = True
+      end    
+      item
+        fields.count = 2
+        fields.items = <        
+          item
+            fieldname = 'parentid'
+          end        
+          item
+            fieldname = 'order'
+          end>
+      end>
+    FieldDefs = <    
+      item
+        Name = 'id'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'parentid'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'caption'
+        DataType = ftString
+      end    
+      item
+        Name = 'order'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'intval'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'floatval'
+        DataType = ftFloat
+      end>
+    BeforePost = beforepostev
+    left = 8
+    top = 8
+    streamingversion = 1
+    object id: tmselongintfield
+      FieldName = 'id'
+      Index = 0
+      left = 16
+      top = 40
+    end
+    object caption: tmsestringfield
+      DisplayWidth = 20
+      FieldName = 'caption'
+      Index = 1
+      Size = 0
+      left = 16
+      top = 88
+    end
+    object parentid: tmselongintfield
+      FieldName = 'parentid'
+      Index = 2
+      left = 16
+      top = 56
+    end
+    object order: tmselongintfield
+      FieldName = 'order'
+      Index = 3
+      left = 16
+      top = 72
+    end
+    object floatval: tmsefloatfield
+      FieldName = 'floatval'
+      Index = 4
+      MaxValue = 0
+      MinValue = 0
+      left = 16
+      top = 120
+    end
+    object intval: tmselongintfield
+      FieldName = 'intval'
+      Index = 5
+      left = 16
+      top = 104
+    end
+  end
+  object gridlink: tifigridlinkcomp
+    controller.onrowsinserting = insertingev
+    controller.onrowsdeleting = deletingev
+    left = 96
+    top = 16
+  end
+  object treelink: tifitreeitemlinkcomp
+    controller.onclientdataentered = datentev
+    left = 192
+    top = 16
+  end
+end
