@@ -17,7 +17,7 @@ type
 
  titemnode = class(tidnode)
   protected
-   frootindex: int32;
+   fstoredorder: int32;
   public
    intval: int32;
    floatval: flo64;
@@ -83,7 +83,7 @@ function tmainmo.gettreedata(): ttreelistedititem;
    i1:= bm1.recno;
    repeat
     n1:= titemnode.create();
-    n1.subitems:= true;
+    n1.fstoredorder:= ds.currentasinteger[order,i1];
     n1.fid:= ds.currentasinteger[id,i1];
     n1.caption:= ds.currentasmsestring[caption,i1];
     n1.intval:= ds.currentasinteger[intval,i1];
@@ -100,6 +100,7 @@ begin
  result:= titemnode.create();
  ds.indexlocal[1].active:= true; //order by parentid
  addchildren(titemnode(result));
+ ds.indexlocal.activeindex:= -1;
 end;
 
 procedure tmainmo.beforepostev(DataSet: TDataSet);
@@ -131,16 +132,12 @@ begin
   id.asinteger:= anode.id;
   if anode.parent <> nil then begin
    parentid.asinteger:= titemnode(anode.parent).id;
+   anode.fstoredorder:= anode.fparentindex;
   end
   else begin
    parentid.asinteger:= 0;
   end;
-  if anode.fparentindex < 0 then begin
-   order.asinteger:= anode.frootindex;
-  end
-  else begin
-   order.asinteger:= anode.fparentindex;
-  end;
+  order.asinteger:= anode.fstoredorder;
   caption.asmsestring:= anode.caption;
   intval.asinteger:= anode.intval;
   floatval.asfloat:= anode.floatval;
@@ -179,8 +176,11 @@ begin
        gridrow:= gridrow+1;
       end;
      end;
-     for i1:= n3.parentindex+1 to n2.count-1 do begin
-      nodetodb(titemnode(n2[i1])); //update order
+     for i1:= 0 to n2.count-1 do begin
+      if (i1 <> n3.parentindex) and 
+                  (titemnode(n2[i1]).fstoredorder <> i1) then begin
+       nodetodb(titemnode(n2[i1])); //update order
+      end;
      end;
     end
     else begin
@@ -197,11 +197,13 @@ begin
      while p1 < pe do begin
       if p1^.treelevel = 0 then begin
        if p1 = pa then begin
-        n3.frootindex:= i1;
-       end;
-       if p1 > pa then begin
-        titemnode(p1^).frootindex:= i1;
-        nodetodb(titemnode(p1^));
+        n3.fstoredorder:= i1;
+       end
+       else begin
+        if titemnode(p1).fstoredorder <> i1 then begin
+         titemnode(p1^).fstoredorder:= i1;
+         nodetodb(titemnode(p1^));
+        end;
        end;
        inc(i1);
       end;
@@ -211,8 +213,8 @@ begin
    end;
   end
   else begin
-   n3.frootindex:= bigint;
    treelink.c.itemlist.add(n3);
+   n3.fstoredorder:= treelink.c.itemlist.count;
    treelink.c.itemedit.gridrow:= bigint;
   end;
   ds.insert;
@@ -238,17 +240,12 @@ procedure tmainmo.deletingev(const sender: TObject; var aindex: Integer;
  
 var
  n1: titemnode;
- n2: ttreelistitem;
 begin
  if userinput then begin
   n1:= titemnode(treelink.c.item);
   if (n1 <> nil) then begin
    dodelete(n1);
-   n2:= n1.parent;
    n1.destroy();
-   if n2 <> nil then begin
-    n2.subitems:= true; //restore expanding box
-   end;
   end;
   acount:= 0;
  end;
