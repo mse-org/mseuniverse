@@ -200,7 +200,7 @@ begin
         n3.fstoredorder:= i1;
        end
        else begin
-        if titemnode(p1).fstoredorder <> i1 then begin
+        if titemnode(p1^).fstoredorder <> i1 then begin
          titemnode(p1^).fstoredorder:= i1;
          nodetodb(titemnode(p1^));
         end;
