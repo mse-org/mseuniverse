@@ -16,7 +16,6 @@ order13=0
 order14=0
 order15=0
 order16=0
-order17=0
 [projectoptions]
 projectdir=/home/mse/packs/standard/git/mseuniverse/samples/db/tree2
 projectfilename=/home/mse/packs/standard/git/mseuniverse/samples/db/tree2/tree2.prj
@@ -442,7 +441,7 @@ panels=2
  panel2
 [componentstore]
 storedir=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/
-filename=/home/mse/packs/standard/git/mseide-msegui/apps/ide/compstore/default.stg
+filename=
 [components]
 [selecteditpage]
 colwidth=100
@@ -506,7 +505,7 @@ windowlayout=548
  [mainfo]
  splitdir=0
  useroptions=838860923
- stackedunder=findinfilefo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -514,13 +513,13 @@ windowlayout=548
  ncx=0
  ncy=0
  x=4
- y=25
+ y=29
  cx=323
  cy=64
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -561,7 +560,7 @@ windowlayout=548
  [memoryfo]
  splitdir=0
  useroptions=805322875
- stackedunder=componentstorefo
+ stackedunder=cpuc86_64fo
  parent=
  mdistate=0
  nx=0
@@ -588,7 +587,7 @@ windowlayout=548
  [disassfo]
  splitdir=0
  useroptions=805322859
- stackedunder=mainfo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -607,7 +606,7 @@ windowlayout=548
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=mainfo.panel1
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -648,7 +647,7 @@ windowlayout=548
  sorted=0
  col=-1073741823
  row=-1073741823
- rowheight=16
+ rowheight=18
  [stackfo]
  splitdir=0
  useroptions=805331049
@@ -684,14 +683,14 @@ windowlayout=548
  active=0
  visible=0
  [watchpointsfo.grid]
- propcolwidthref=352
+ propcolwidthref=2
  sortdescend0=0
  values1=0
  values1_ci=-1
  width1=33
  sortdescend1=0
  values2=0
- width2=158
+ width2=1
  sortdescend2=0
  width4=34
  sortdescend4=0
@@ -700,7 +699,7 @@ windowlayout=548
  width5=38
  sortdescend5=0
  values6=0
- width6=184
+ width6=1
  sortdescend6=0
  [breakpointsfo]
  splitdir=0
@@ -751,7 +750,7 @@ windowlayout=548
  [symbolfo]
  splitdir=0
  useroptions=805322875
- stackedunder=cpui386fo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -847,7 +846,7 @@ windowlayout=548
  [componentstorefo]
  splitdir=0
  useroptions=805331067
- stackedunder=symbolfo
+ stackedunder=targetconsolefo
  parent=
  mdistate=0
  nx=0
@@ -918,7 +917,7 @@ windowlayout=548
  ncx=0
  ncy=0
  x=335
- y=25
+ y=29
  cx=685
  cy=103
  rcx=0
@@ -941,7 +940,7 @@ windowlayout=548
  x=0
  y=0
  cx=313
- cy=28
+ cy=24
  rcx=0
  rcy=0
  [sourcefo]
@@ -964,21 +963,21 @@ windowlayout=548
  checked=1
  [actionsmo.bluedotsonact]
  checked=1
- [cpui386fo]
+ [cpuc86_64fo]
  irqoff=0
  splitdir=0
  useroptions=268451947
- stackedunder=breakpointsfo
+ stackedunder=findinfilefo
  parent=
- mdistate=0
+ mdistate=3
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=337
- y=295
- cx=273
- cy=207
+ x=183
+ y=113
+ cx=352
+ cy=277
  rcx=0
  rcy=0
  wsize=0
@@ -1006,7 +1005,7 @@ windowlayout=548
  [mainfo.panel2]
  splitdir=2
  useroptions=838893035
- stackedunder=
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -1020,7 +1019,7 @@ windowlayout=548
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
 [targetconsole]
 finddtext=
