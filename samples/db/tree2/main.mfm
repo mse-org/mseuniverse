@@ -1,0 +1,165 @@
+object mainfo: tmainfo
+  bounds_x = 4
+  bounds_y = 167
+  bounds_cx = 403
+  bounds_cy = 371
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    371
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  windowopacity = -Inf
+  oneventloopstart = eventloopstartev
+  moduleclassname = 'tmainform'
+  object grid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 8
+    bounds_y = 102
+    bounds_cx = 386
+    bounds_cy = 264
+    anchors = [an_left, an_top, an_right, an_bottom]
+    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'tree'
+          end        
+          item
+            caption = 'intval'
+          end        
+          item
+            caption = 'floatval'
+          end>
+      end>
+    datacols.count = 3
+    datacols.options = [co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item[treeed]
+        width = 151
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'treeed'
+        dataclass = ttreeitemeditlist
+        datalist.options = [no_drawemptyexpand]
+      end    
+      item[intvaled]
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'intvaled'
+        dataclass = tgridintegerdatalist
+      end    
+      item[floatvaled]
+        options = [co_savestate, co_mousescrollrow]
+        widgetname = 'floatvaled'
+        dataclass = tgridrealdatalist
+      end>
+    ifilink = mainmo.gridlink
+    datarowheight = 16
+    statfile = tstatfile1
+    reffontheight = 14
+    object treeed: ttreeitemedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.levelo = 0
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+      frame.localprops1 = []
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 151
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_locate]
+      onupdaterowvalues = updatevalueev
+      options = [teo_treecolnavig]
+      ifiitemlink = mainmo.treelink
+      reffontheight = 14
+    end
+    object intvaled: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 152
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      onsetvalue = intvalsetev
+      reffontheight = 14
+    end
+    object floatvaled: trealedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 203
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 16
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_checkvalueafterstatread]
+      onsetvalue = floatvalsetev
+      value = -Inf
+      valuedefault = -Inf
+      valuerange = 1
+      valuestart = 0
+      valuemin = -Inf
+      valuemax = 1E+038
+      reffontheight = 14
+    end
+  end
+  object tlabel1: tlabel
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 286
+    bounds_cy = 84
+    caption = 'Enter -> toggle caption edit mode.'#10'Ctrl+Ins -> insert row.'#10'Shift+Ctrl+Ins -> append row.'#10'Ctrl+Del -> delete row.'#10'Expand an empty node and press Ctrl+Ins'#10' on the node in order to create the first child.'
+    reffontheight = 14
+  end
+  object tspacer1: tspacer
+    taborder = 2
+    bounds_x = 16
+    bounds_y = 92
+    bounds_cx = 50
+    bounds_cy = 10
+    linktop = tlabel1
+    linkbottom = grid
+  end
+  object tbutton1: tbutton
+    taborder = 3
+    bounds_x = 320
+    bounds_y = 72
+    bounds_cx = 74
+    bounds_cy = 20
+    anchors = [an_top, an_right]
+    state = [as_localcaption]
+    caption = 'Refresh'
+  end
+  object tbutton2: tbutton
+    taborder = 4
+    bounds_x = 320
+    bounds_y = 8
+    bounds_cx = 74
+    bounds_cy = 20
+    anchors = [an_top, an_right]
+    state = [as_localcaption]
+    action = mainmo.createdbact
+    caption = 'Create DB'
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 304
+    top = 16
+  end
+end

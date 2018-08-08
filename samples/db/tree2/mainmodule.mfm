@@ -1,0 +1,238 @@
+object mainmo: tmainmo
+  bounds_cx = 477
+  bounds_cy = 326
+  left = 466
+  top = 192
+  moduleclassname = 'tmsedatamodule'
+  object gridlink: tifigridlinkcomp
+    controller.onrowsinserting = insertingev
+    controller.onrowsdeleting = deletingev
+    left = 280
+    top = 8
+  end
+  object treelink: tifitreeitemlinkcomp
+    controller.onclientdataentered = datentev
+    left = 360
+    top = 8
+  end
+  object tree_idmax: tsqlresultconnector
+    source = fetchtree
+    colname = 'IDMAX'
+    left = 144
+    top = 56
+  end
+  object tree_idmin: tsqlresultconnector
+    source = fetchtree
+    colname = 'IDMIN'
+    left = 144
+    top = 40
+  end
+  object tree_caption: tsqlresultconnector
+    source = fetchtree
+    colname = 'CAPTION'
+    left = 144
+    top = 72
+  end
+  object tree_pk: tsqlresultconnector
+    source = fetchtree
+    colname = 'PK'
+    left = 144
+    top = 24
+  end
+  object fetchtree: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'PK'
+        DataType = ftLargeint
+      end    
+      item
+        Name = 'IDMIN'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'IDMAX'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'CAPTION'
+        DataType = ftString
+        Size = 40
+      end    
+      item
+        Name = 'INTVAL'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'FLOATVAL'
+        DataType = ftFloat
+      end>
+    params = <>
+    sql.data = (
+      'select a.PK,a.IDMIN,a.IDMAX,a.CAPTION,a.INTVAL,a.FLOATVAL '
+      ' from treeitems a, treeitems b'
+      ' where (a.IDMIN >= b.IDMIN) and (a.IDMIN <= b.IDMAX) and (b.IDMIN = 0)'
+      ' order by a.IDMIN'
+    )
+    database = conn
+    transaction = trans
+    left = 136
+    top = 8
+  end
+  object trans: tmsesqltransaction
+    options = [tao_catcherror, tao_rollbackonerror]
+    Database = conn
+    left = 72
+    top = 8
+  end
+  object conn: tfb3connection
+    DatabaseName = 'tree.fdb'
+    Transaction = trans
+    controller.options = [dbo_utf8, dbo_utf8message]
+    Password = 'masterkey'
+    UserName = 'SYSDBA'
+    left = 8
+    top = 8
+  end
+  object insertitem: tsqlresult
+    fielddefs = <>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'idmin'
+        ParamType = ptInput
+        connector = idminpar
+      end>
+    sql.data = (
+      'insert into treeitems (IDMIN) values (:idmin) returning PK;'
+    )
+    database = conn
+    transaction = trans
+    left = 16
+    top = 144
+  end
+  object idminpar: tparamconnector
+    left = 24
+    top = 160
+  end
+  object fetchidrange: tsqlresult
+    fielddefs = <    
+      item
+        Name = 'IDMIN'
+        DataType = ftInteger
+      end>
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+        connector = fetchidrange_pk
+      end>
+    sql.data = (
+      'select IDMIN,IDMAX from treeitems where PK = :pk;'
+    )
+    database = conn
+    transaction = trans
+    left = 224
+    top = 144
+  end
+  object fetchidrange_pk: tparamconnector
+    left = 232
+    top = 160
+  end
+  object updateitem: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'caption'
+        ParamType = ptInput
+        connector = updateitem_caption
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+        connector = updateitem_pk
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'intval'
+        ParamType = ptInput
+        connector = updateitem_intval
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'floatval'
+        ParamType = ptInput
+        connector = updateitem_floatval
+      end>
+    sql.data = (
+      'update treeitems set CAPTION = :caption,INTVAL=:intval,FLOATVAL=:floatval '
+      ' where PK = :pk'
+    )
+    database = conn
+    transaction = trans
+    left = 16
+    top = 200
+  end
+  object updateitem_pk: tparamconnector
+    left = 24
+    top = 216
+  end
+  object updateitem_caption: tparamconnector
+    left = 24
+    top = 232
+  end
+  object deleteitem: tsqlstatement
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'pk'
+        ParamType = ptInput
+        connector = deleteitem_pk
+      end>
+    sql.data = (
+      'delete from treeitems where PK = :pk'
+    )
+    database = conn
+    transaction = trans
+    left = 224
+    top = 200
+  end
+  object deleteitem_pk: tparamconnector
+    left = 232
+    top = 216
+  end
+  object updateitem_intval: tparamconnector
+    left = 24
+    top = 248
+  end
+  object updateitem_floatval: tparamconnector
+    left = 24
+    top = 264
+  end
+  object tree_intval: tsqlresultconnector
+    source = fetchtree
+    colname = 'INTVAL'
+    left = 144
+    top = 88
+  end
+  object tree_floatval: tsqlresultconnector
+    source = fetchtree
+    colname = 'FLOATVAL'
+    left = 144
+    top = 104
+  end
+  object service: tfb3service
+    username = 'SYSDBA'
+    password = 'masterkey'
+    options = [fbso_utf8, fbso_utf8message]
+    onasyncendmain = serviceendev
+    left = 8
+    top = 40
+  end
+  object createdbact: taction
+    onexecute = createdbev
+    left = 280
+    top = 40
+  end
+end
