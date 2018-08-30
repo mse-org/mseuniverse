@@ -19,7 +19,7 @@ order16=0
 [projectoptions]
 projectdir=/home/mse/packs/standard/git/mseuniverse/samples/embedded/arm/stm32l100c
 projectfilename=/home/mse/packs/standard/git/mseuniverse/samples/embedded/arm/stm32l100c/stm32l100c.prj
-options=124
+options=125
  [projectoptionsfo.toolshortcuts]
  dropdowncolwidths=3
   70
@@ -97,7 +97,7 @@ options=124
  width7=645
  sortdescend7=0
  [projectoptionsfo.makeoptionsgrid]
- propcolwidthref=756
+ propcolwidthref=743
  values0=1
   
  width0=57
@@ -108,9 +108,10 @@ options=124
  sortdescend4=0
  sortdescend5=0
  sortdescend6=0
- values7=1
-  -n -g ${FPCPARAMS}
  sortdescend7=0
+ values8=1
+  -n -g ${FPCPARAMS}
+ sortdescend8=0
  [projectoptionsfo.makegroupbox]
  firsttab=0
  index=1
@@ -137,7 +138,7 @@ options=124
  index=0
  [projectoptionsfo.tabwidget]
  firsttab=0
- index=2
+ index=1
  [projectoptionsfo]
  stackedunder=
  x=28
@@ -243,6 +244,7 @@ externalconsole=0
 settty=1
 gdbdownload=1
 downloadalways=0
+restartgdbbeforeload=1
 startupbkpt=0
 startupbkpton=0
 gdbsimulator=0
@@ -713,7 +715,7 @@ windowlayout=584
  cx=648
  cy=172
  rcx=648
- rcy=725
+ rcy=574
  [threadsfo]
  splitdir=0
  useroptions=805322857
@@ -735,7 +737,7 @@ windowlayout=584
  [memoryfo]
  splitdir=0
  useroptions=805322875
- stackedunder=componentstorefo
+ stackedunder=symbolfo
  parent=
  mdistate=0
  nx=0
@@ -778,7 +780,7 @@ windowlayout=584
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=symbolfo
+ stackedunder=objectinspectorfo
  parent=
  mdistate=0
  nx=0
@@ -922,7 +924,7 @@ windowlayout=584
  [symbolfo]
  splitdir=0
  useroptions=805322875
- stackedunder=objectinspectorfo
+ stackedunder=componentstorefo
  parent=
  mdistate=0
  nx=0
@@ -1085,7 +1087,7 @@ windowlayout=584
  [componentpalettefo]
  splitdir=0
  useroptions=805331051
- stackedunder=mainfo.panel2
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -1159,7 +1161,7 @@ windowlayout=584
  [mainfo.panel1]
  splitdir=2
  useroptions=838893035
- stackedunder=mainfo
+ stackedunder=mainfo.panel2
  parent=
  mdistate=0
  nx=0
@@ -1178,7 +1180,7 @@ windowlayout=584
  [mainfo.panel2]
  splitdir=2
  useroptions=838893035
- stackedunder=mainfo.panel1
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
