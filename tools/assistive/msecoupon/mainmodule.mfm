@@ -47,7 +47,7 @@ object mainmo: tmainmo
     speaker.rate = 1
     speaker.pitch = 1
     speaker.range = 1
-    speaker.wordgap = 8
+    speaker.wordgap = 12
     speaker.onbeforeconnect = espeakconnectev
     voicefixed = 4
     voicetextmessage = 3

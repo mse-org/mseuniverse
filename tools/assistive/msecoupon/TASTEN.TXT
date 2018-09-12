@@ -1,0 +1,12 @@
+Tastenfunktionen für MSEcoupon
+
+Leerschlag oder Eingabe: Schaltfeld Funktion ausführen.
+Steuerung + Leerzeichen oder Steuerung  + Eingabe auf Nummernblock: Aktuellen Text widerholen.
+Umschalt + Steuerung + Leerzeichen oder Umschalt + Steuerung + Eingabe auf Nummernblock: gesamten Text wiederholen.
+Steuerung + Minus auf Nummernblock: Langsamer sprechen.
+Steuerung + Plus auf Nummernblock: Schneller sprechen.
+Umschalt + Steuerung + Minus auf Nummernblock: Leiser sprechen.
+Umschalt + Steuerung + Plus auf Nummernblock: Lauter sprechen.
+Steuerung + Y C: Aktuelle Ansprache abbrechen.
+Steuerung + Y F: Erstes Feld im Fenster aktivieren.
+Steuerung + Y L: Letztes Feld im Fenster aktivieren.
