@@ -14,6 +14,7 @@ object objectsfo: tobjectsfo
   options = [fo_freeonclose, fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = tstatfile1
   caption = 'Leistungs-Katalog'
+  windowopacity = -Inf
   moduleclassname = 'tmseform'
   object tbutton3: tbutton
     taborder = 2
@@ -42,7 +43,7 @@ object objectsfo: tobjectsfo
     bounds_cx = 114
     bounds_cy = 46
     state = [as_localcaption]
-    caption = 'Leistungskatalog'#10'beenden'
+    caption = 'Leistungs-Katalog'#10'beenden'
     modalresult = mr_windowclosed
   end
   object tbutton1: tbutton
@@ -59,5 +60,19 @@ object objectsfo: tobjectsfo
     options = [sfo_memory, sfo_transaction, sfo_activatorread, sfo_activatorwrite]
     left = 256
     top = 40
+  end
+  object objectsfoass: tassistivewidgetitem
+    handler = mainmo.assistivehandler
+    widget = Owner
+    caption = 'Leistungs Katalog'
+    left = 128
+    top = 40
+  end
+  object button5ass: tassistivewidgetitem
+    handler = mainmo.assistivehandler
+    widget = tbutton5
+    caption = 'Leistungs Katalog beenden'
+    left = 128
+    top = 56
   end
 end

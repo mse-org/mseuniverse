@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  mdb,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,msegraphedits,
  msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,msescrollbar,
- msestream,sysutils,msedb,mseassistivehandler,msedbdialog;
+ msestream,sysutils,msedb,mseassistivehandler,msedbdialog,mseactions;
 type
  ttokenlist1fo = class(tmseform)
    tstatfile1: tstatfile;
@@ -28,10 +28,12 @@ type
    recipiented: tdbstringedit;
    customered: tdbstringedit;
    donatored: tdbstringedit;
+   taction1: taction;
  end;
 var
  tokenlist1fo: ttokenlist1fo;
 implementation
 uses
- tokenlist1form_mfm;
+ tokenlist1form_mfm,mainmodule;
+ 
 end.

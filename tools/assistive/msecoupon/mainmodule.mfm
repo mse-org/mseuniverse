@@ -1080,4 +1080,10 @@ object mainmo: tmainmo
     left = 296
     top = 168
   end
+  object deletetoken: tifiactionlinkcomp
+    controller.onclientexecute = deletetokenev
+    controller.enabled = False
+    left = 144
+    top = 552
+  end
 end

@@ -1,18 +1,19 @@
 object settingsfo: tsettingsfo
   bounds_x = 101
   bounds_y = 153
-  bounds_cx = 1097
-  bounds_cy = 598
+  bounds_cx = 1096
+  bounds_cy = 607
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    1097
-    598
+    1096
+    607
   )
   options = [fo_closeonesc, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   caption = 'Einstellungen'
+  windowopacity = -Inf
   onclosequery = closequeryev
   moduleclassname = 'tmseform'
   object tbutton1: tbutton
@@ -41,15 +42,15 @@ object settingsfo: tsettingsfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      1
-      126
-      1
+      2
+      139
+      3
     )
     taborder = 2
     bounds_x = 328
-    bounds_y = 12
-    bounds_cx = 139
-    bounds_cy = 15
+    bounds_y = 11
+    bounds_cx = 152
+    bounds_cy = 18
     onchange = updatewidgets
     ondataentered = datentev
   end
@@ -59,15 +60,15 @@ object settingsfo: tsettingsfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      1
-      139
-      1
+      2
+      152
+      3
     )
     taborder = 1
     bounds_x = 128
-    bounds_y = 12
-    bounds_cx = 152
-    bounds_cy = 15
+    bounds_y = 11
+    bounds_cx = 165
+    bounds_cy = 18
     onchange = updatewidgets
     ondataentered = datentev
   end
@@ -75,7 +76,7 @@ object settingsfo: tsettingsfo
     taborder = 4
     bounds_x = 0
     bounds_y = 40
-    bounds_cx = 1097
+    bounds_cx = 1096
     bounds_cy = 330
     anchors = [an_left, an_top, an_right]
     object origx: trealedit
@@ -87,13 +88,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        97
+        113
         0
       )
-      bounds_x = 672
+      taborder = 1
+      bounds_x = 671
       bounds_y = 8
-      bounds_cx = 165
-      bounds_cy = 19
+      bounds_cx = 181
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -102,7 +104,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = -400
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object origy: trealedit
       frame.caption = 'Ursprung vertikal'
@@ -113,14 +115,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        85
+        96
         0
       )
-      taborder = 1
-      bounds_x = 867
+      taborder = 2
+      bounds_x = 866
       bounds_y = 8
-      bounds_cx = 153
-      bounds_cy = 19
+      bounds_cx = 164
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -129,7 +131,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = -400
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object donatoron: tbooleanedit
       frame.caption = 'Von'
@@ -137,15 +139,15 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        21
-        1
+        2
+        25
+        3
       )
-      taborder = 43
+      taborder = 44
       bounds_x = 8
-      bounds_y = 299
-      bounds_cx = 34
-      bounds_cy = 15
+      bounds_y = 298
+      bounds_cx = 38
+      bounds_cy = 18
       ondataentered = datentev
     end
     object donatorcapt: tstringedit
@@ -157,17 +159,17 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        63
+        75
         0
       )
-      taborder = 44
+      taborder = 45
       bounds_x = 128
       bounds_y = 296
-      bounds_cx = 523
-      bounds_cy = 19
+      bounds_cx = 534
+      bounds_cy = 22
       anchors = [an_left, an_top, an_right]
       ondataentered = datentev
-      reffontheight = 13
+      reffontheight = 16
     end
     object donatory: trealedit
       frame.caption = 'Vertikal'
@@ -178,14 +180,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        38
+        44
         0
       )
-      taborder = 46
-      bounds_x = 867
+      taborder = 47
+      bounds_x = 866
       bounds_y = 296
-      bounds_cx = 106
-      bounds_cy = 19
+      bounds_cx = 112
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -194,7 +196,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object donatorx: trealedit
       frame.caption = 'Horizontal Millimeter'
@@ -205,14 +207,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        98
+        116
         0
       )
-      taborder = 45
-      bounds_x = 672
+      taborder = 46
+      bounds_x = 671
       bounds_y = 296
-      bounds_cx = 166
-      bounds_cy = 19
+      bounds_cx = 184
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -221,7 +223,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object recipienton: tbooleanedit
       frame.caption = 'F'#252'r'
@@ -229,15 +231,15 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        19
-        1
+        2
+        20
+        3
       )
-      taborder = 38
+      taborder = 39
       bounds_x = 8
-      bounds_y = 267
-      bounds_cx = 32
-      bounds_cy = 15
+      bounds_y = 266
+      bounds_cx = 33
+      bounds_cy = 18
       ondataentered = datentev
     end
     object recipientcapt: tstringedit
@@ -249,17 +251,17 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        63
+        75
         0
       )
-      taborder = 39
+      taborder = 40
       bounds_x = 128
       bounds_y = 264
-      bounds_cx = 523
-      bounds_cy = 19
+      bounds_cx = 534
+      bounds_cy = 22
       anchors = [an_left, an_top, an_right]
       ondataentered = datentev
-      reffontheight = 13
+      reffontheight = 16
     end
     object recipienty: trealedit
       frame.caption = 'Vertikal'
@@ -270,14 +272,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        38
+        44
         0
       )
-      taborder = 41
-      bounds_x = 867
+      taborder = 42
+      bounds_x = 866
       bounds_y = 264
-      bounds_cx = 106
-      bounds_cy = 19
+      bounds_cx = 112
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -286,7 +288,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object recipientx: trealedit
       frame.caption = 'Horizontal Millimeter'
@@ -297,14 +299,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        98
+        116
         0
       )
-      taborder = 40
-      bounds_x = 672
+      taborder = 41
+      bounds_x = 671
       bounds_y = 264
-      bounds_cx = 166
-      bounds_cy = 19
+      bounds_cx = 184
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -313,7 +315,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object descriptionon: tbooleanedit
       frame.caption = 'Bezeichnung'
@@ -321,15 +323,15 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        63
-        1
+        2
+        75
+        3
       )
-      taborder = 33
+      taborder = 34
       bounds_x = 8
-      bounds_y = 238
-      bounds_cx = 76
-      bounds_cy = 15
+      bounds_y = 237
+      bounds_cx = 88
+      bounds_cy = 18
       ondataentered = datentev
     end
     object descriptioncapt: tstringedit
@@ -341,17 +343,17 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        63
+        75
         0
       )
-      taborder = 34
+      taborder = 35
       bounds_x = 128
       bounds_y = 232
-      bounds_cx = 523
-      bounds_cy = 19
+      bounds_cx = 534
+      bounds_cy = 22
       anchors = [an_left, an_top, an_right]
       ondataentered = datentev
-      reffontheight = 13
+      reffontheight = 16
     end
     object descriptiony: trealedit
       frame.caption = 'Vertikal'
@@ -362,14 +364,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        38
+        44
         0
       )
-      taborder = 36
-      bounds_x = 867
+      taborder = 37
+      bounds_x = 866
       bounds_y = 232
-      bounds_cx = 106
-      bounds_cy = 19
+      bounds_cx = 112
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -378,7 +380,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object descriptionx: trealedit
       frame.caption = 'Horizontal Millimeter'
@@ -389,14 +391,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        98
+        116
         0
       )
-      taborder = 35
-      bounds_x = 672
+      taborder = 36
+      bounds_x = 671
       bounds_y = 232
-      bounds_cx = 166
-      bounds_cy = 19
+      bounds_cx = 184
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -405,7 +407,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object quantityon: tbooleanedit
       frame.caption = 'Menge'
@@ -413,15 +415,15 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        35
-        1
+        2
+        39
+        3
       )
-      taborder = 27
+      taborder = 28
       bounds_x = 8
-      bounds_y = 200
-      bounds_cx = 48
-      bounds_cy = 15
+      bounds_y = 199
+      bounds_cx = 52
+      bounds_cy = 18
       ondataentered = datentev
     end
     object quantitycapt: tstringedit
@@ -433,17 +435,17 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        63
+        75
         0
       )
-      taborder = 28
+      taborder = 29
       bounds_x = 128
       bounds_y = 200
-      bounds_cx = 523
-      bounds_cy = 19
+      bounds_cx = 534
+      bounds_cy = 22
       anchors = [an_left, an_top, an_right]
       ondataentered = datentev
-      reffontheight = 13
+      reffontheight = 16
     end
     object quantityy: trealedit
       frame.caption = 'Vertikal'
@@ -454,14 +456,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        38
+        44
         0
       )
-      taborder = 30
-      bounds_x = 867
+      taborder = 31
+      bounds_x = 866
       bounds_y = 200
-      bounds_cx = 106
-      bounds_cy = 19
+      bounds_cx = 112
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -470,7 +472,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object quantityx: trealedit
       frame.caption = 'Horizontal Millimeter'
@@ -481,14 +483,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        98
+        116
         0
       )
-      taborder = 29
-      bounds_x = 672
+      taborder = 30
+      bounds_x = 671
       bounds_y = 200
-      bounds_cx = 166
-      bounds_cy = 19
+      bounds_cx = 184
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -497,7 +499,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object barcodeon: tbooleanedit
       frame.caption = 'Barcode'
@@ -505,15 +507,15 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        42
-        1
+        2
+        49
+        3
       )
-      taborder = 22
+      taborder = 23
       bounds_x = 8
-      bounds_y = 171
-      bounds_cx = 55
-      bounds_cy = 15
+      bounds_y = 170
+      bounds_cx = 62
+      bounds_cy = 18
       ondataentered = datentev
     end
     object barcodecapt: tstringedit
@@ -525,17 +527,17 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        63
+        75
         0
       )
-      taborder = 23
+      taborder = 24
       bounds_x = 128
       bounds_y = 168
-      bounds_cx = 523
-      bounds_cy = 19
+      bounds_cx = 534
+      bounds_cy = 22
       anchors = [an_left, an_top, an_right]
       ondataentered = datentev
-      reffontheight = 13
+      reffontheight = 16
     end
     object barcodey: trealedit
       frame.caption = 'Vertikal'
@@ -546,14 +548,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        38
+        44
         0
       )
-      taborder = 25
-      bounds_x = 867
+      taborder = 26
+      bounds_x = 866
       bounds_y = 168
-      bounds_cx = 106
-      bounds_cy = 19
+      bounds_cx = 112
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -562,7 +564,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object barcodex: trealedit
       frame.caption = 'Horizontal Millimeter'
@@ -573,14 +575,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        98
+        116
         0
       )
-      taborder = 24
-      bounds_x = 672
+      taborder = 25
+      bounds_x = 671
       bounds_y = 168
-      bounds_cx = 166
-      bounds_cy = 19
+      bounds_cx = 184
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -589,7 +591,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object numberon: tbooleanedit
       frame.caption = 'Nummer'
@@ -597,15 +599,15 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        42
-        1
+        2
+        50
+        3
       )
-      taborder = 17
+      taborder = 18
       bounds_x = 8
-      bounds_y = 139
-      bounds_cx = 55
-      bounds_cy = 15
+      bounds_y = 138
+      bounds_cx = 63
+      bounds_cy = 18
       ondataentered = datentev
     end
     object numbercapt: tstringedit
@@ -617,17 +619,17 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        63
+        75
         0
       )
-      taborder = 18
+      taborder = 19
       bounds_x = 128
       bounds_y = 136
-      bounds_cx = 523
-      bounds_cy = 19
+      bounds_cx = 534
+      bounds_cy = 22
       anchors = [an_left, an_top, an_right]
       ondataentered = datentev
-      reffontheight = 13
+      reffontheight = 16
     end
     object numbery: trealedit
       frame.caption = 'Vertikal'
@@ -638,14 +640,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        38
+        44
         0
       )
-      taborder = 20
-      bounds_x = 867
+      taborder = 21
+      bounds_x = 866
       bounds_y = 136
-      bounds_cx = 106
-      bounds_cy = 19
+      bounds_cx = 112
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -654,7 +656,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object numberx: trealedit
       frame.caption = 'Horizontal Millimeter'
@@ -665,14 +667,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        98
+        116
         0
       )
-      taborder = 19
-      bounds_x = 672
+      taborder = 20
+      bounds_x = 671
       bounds_y = 136
-      bounds_cx = 166
-      bounds_cy = 19
+      bounds_cx = 184
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -681,7 +683,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object durationon: tbooleanedit
       frame.caption = 'G'#252'ltigkeit'
@@ -689,15 +691,15 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        47
-        1
+        2
+        54
+        3
       )
-      taborder = 12
+      taborder = 13
       bounds_x = 8
-      bounds_y = 107
-      bounds_cx = 60
-      bounds_cy = 15
+      bounds_y = 106
+      bounds_cx = 67
+      bounds_cy = 18
       ondataentered = datentev
     end
     object durationcapt: tstringedit
@@ -709,17 +711,17 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        63
+        75
         0
       )
-      taborder = 13
+      taborder = 14
       bounds_x = 128
       bounds_y = 104
-      bounds_cx = 523
-      bounds_cy = 19
+      bounds_cx = 534
+      bounds_cy = 22
       anchors = [an_left, an_top, an_right]
       ondataentered = datentev
-      reffontheight = 13
+      reffontheight = 16
     end
     object durationy: trealedit
       frame.caption = 'Vertikal'
@@ -730,14 +732,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        38
+        44
         0
       )
-      taborder = 15
-      bounds_x = 867
+      taborder = 16
+      bounds_x = 866
       bounds_y = 104
-      bounds_cx = 106
-      bounds_cy = 19
+      bounds_cx = 112
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -746,7 +748,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object durationx: trealedit
       frame.caption = 'Horizontal Millimeter'
@@ -757,14 +759,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        98
+        116
         0
       )
-      taborder = 14
-      bounds_x = 672
+      taborder = 15
+      bounds_x = 671
       bounds_y = 104
-      bounds_cx = 166
-      bounds_cy = 19
+      bounds_cx = 184
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -773,7 +775,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object expirydateon: tbooleanedit
       frame.caption = 'Verfall-Datum'
@@ -781,15 +783,15 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        68
-        1
+        2
+        78
+        3
       )
-      taborder = 7
+      taborder = 8
       bounds_x = 8
-      bounds_y = 75
-      bounds_cx = 81
-      bounds_cy = 15
+      bounds_y = 74
+      bounds_cx = 91
+      bounds_cy = 18
       ondataentered = datentev
     end
     object expirydatecapt: tstringedit
@@ -801,17 +803,17 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        63
+        75
         0
       )
-      taborder = 8
+      taborder = 9
       bounds_x = 128
       bounds_y = 72
-      bounds_cx = 523
-      bounds_cy = 19
+      bounds_cx = 534
+      bounds_cy = 22
       anchors = [an_left, an_top, an_right]
       ondataentered = datentev
-      reffontheight = 13
+      reffontheight = 16
     end
     object expirydatey: trealedit
       frame.caption = 'Vertikal'
@@ -822,14 +824,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        38
+        44
         0
       )
-      taborder = 10
-      bounds_x = 867
+      taborder = 11
+      bounds_x = 866
       bounds_y = 72
-      bounds_cx = 106
-      bounds_cy = 19
+      bounds_cx = 112
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -838,7 +840,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object expirydatex: trealedit
       frame.caption = 'Horizontal Millimeter'
@@ -849,14 +851,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        98
+        116
         0
       )
-      taborder = 9
-      bounds_x = 672
+      taborder = 10
+      bounds_x = 671
       bounds_y = 72
-      bounds_cx = 166
-      bounds_cy = 19
+      bounds_cx = 184
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -865,7 +867,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object issuedatecapt: tstringedit
       frame.caption = 'Bezeichnung'
@@ -876,17 +878,17 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        63
+        75
         0
       )
-      taborder = 3
+      taborder = 4
       bounds_x = 128
       bounds_y = 40
-      bounds_cx = 523
-      bounds_cy = 19
+      bounds_cx = 534
+      bounds_cy = 22
       anchors = [an_left, an_top, an_right]
       ondataentered = datentev
-      reffontheight = 13
+      reffontheight = 16
     end
     object issuedatey: trealedit
       frame.caption = 'Vertikal'
@@ -897,14 +899,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        38
+        44
         0
       )
-      taborder = 5
-      bounds_x = 867
+      taborder = 6
+      bounds_x = 866
       bounds_y = 40
-      bounds_cx = 106
-      bounds_cy = 19
+      bounds_cx = 112
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -913,7 +915,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object issuedatex: trealedit
       frame.caption = 'Horizontal Millimeter'
@@ -924,14 +926,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        98
+        116
         0
       )
-      taborder = 4
-      bounds_x = 672
+      taborder = 5
+      bounds_x = 671
       bounds_y = 40
-      bounds_cx = 166
-      bounds_cy = 19
+      bounds_cx = 184
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -940,7 +942,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object issuedateon: tbooleanedit
       frame.caption = 'Ausgabe-Datum'
@@ -948,15 +950,15 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        80
-        1
+        2
+        91
+        3
       )
-      taborder = 2
+      taborder = 3
       bounds_x = 8
-      bounds_y = 43
-      bounds_cx = 93
-      bounds_cy = 15
+      bounds_y = 42
+      bounds_cx = 104
+      bounds_cy = 18
       ondataentered = datentev
     end
     object issuedatew: trealedit
@@ -968,14 +970,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        31
+        34
         0
       )
-      taborder = 6
-      bounds_x = 987
+      taborder = 7
+      bounds_x = 986
       bounds_y = 40
-      bounds_cx = 99
-      bounds_cy = 19
+      bounds_cx = 102
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -984,7 +986,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object expirydatew: trealedit
       frame.caption = 'Breite'
@@ -995,14 +997,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        31
+        34
         0
       )
-      taborder = 11
-      bounds_x = 987
+      taborder = 12
+      bounds_x = 986
       bounds_y = 72
-      bounds_cx = 99
-      bounds_cy = 19
+      bounds_cx = 102
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -1011,7 +1013,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object durationw: trealedit
       frame.caption = 'Breite'
@@ -1022,14 +1024,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        31
+        34
         0
       )
-      taborder = 16
-      bounds_x = 987
+      taborder = 17
+      bounds_x = 986
       bounds_y = 104
-      bounds_cx = 99
-      bounds_cy = 19
+      bounds_cx = 102
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -1038,7 +1040,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object numberw: trealedit
       frame.caption = 'Breite'
@@ -1049,14 +1051,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        31
+        34
         0
       )
-      taborder = 21
-      bounds_x = 987
+      taborder = 22
+      bounds_x = 986
       bounds_y = 136
-      bounds_cx = 99
-      bounds_cy = 19
+      bounds_cx = 102
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -1065,7 +1067,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object barcodew: trealedit
       frame.caption = 'Breite'
@@ -1076,14 +1078,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        31
+        34
         0
       )
-      taborder = 26
-      bounds_x = 987
+      taborder = 27
+      bounds_x = 986
       bounds_y = 168
-      bounds_cx = 99
-      bounds_cy = 19
+      bounds_cx = 102
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -1092,7 +1094,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object quantityw: trealedit
       frame.caption = 'Breite'
@@ -1103,14 +1105,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        31
+        34
         0
       )
-      taborder = 31
-      bounds_x = 987
+      taborder = 32
+      bounds_x = 986
       bounds_y = 200
-      bounds_cx = 99
-      bounds_cy = 19
+      bounds_cx = 102
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -1119,7 +1121,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object descriptionw: trealedit
       frame.caption = 'Breite'
@@ -1130,14 +1132,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        31
+        34
         0
       )
-      taborder = 37
-      bounds_x = 987
+      taborder = 38
+      bounds_x = 986
       bounds_y = 232
-      bounds_cx = 99
-      bounds_cy = 19
+      bounds_cx = 102
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -1146,7 +1148,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object recipientw: trealedit
       frame.caption = 'Breite'
@@ -1157,14 +1159,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        31
+        34
         0
       )
-      taborder = 42
-      bounds_x = 987
+      taborder = 43
+      bounds_x = 986
       bounds_y = 264
-      bounds_cx = 99
-      bounds_cy = 19
+      bounds_cx = 102
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -1173,7 +1175,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object donatorw: trealedit
       frame.caption = 'Breite'
@@ -1184,14 +1186,14 @@ object settingsfo: tsettingsfo
       frame.outerframe = (
         0
         0
-        31
+        34
         0
       )
-      taborder = 47
-      bounds_x = 987
+      taborder = 48
+      bounds_x = 986
       bounds_y = 296
-      bounds_cx = 99
-      bounds_cy = 19
+      bounds_cx = 102
+      bounds_cy = 22
       anchors = [an_top, an_right]
       ondataentered = datentev
       value = -Inf
@@ -1200,7 +1202,7 @@ object settingsfo: tsettingsfo
       valuestart = 0
       valuemin = 0
       valuemax = 400
-      reffontheight = 13
+      reffontheight = 16
     end
     object concatdesc: tbooleanedit
       frame.caption = 'verbinden'
@@ -1208,15 +1210,31 @@ object settingsfo: tsettingsfo
       frame.localprops1 = []
       frame.outerframe = (
         0
-        1
-        51
-        1
+        2
+        55
+        3
       )
-      taborder = 32
+      taborder = 33
       bounds_x = 8
-      bounds_y = 219
-      bounds_cx = 64
-      bounds_cy = 15
+      bounds_y = 218
+      bounds_cx = 68
+      bounds_cy = 18
+      ondataentered = datentev
+    end
+    object enabledelete: tbooleanedit
+      frame.caption = 'L'#246'schen von Gutscheinen erlauben'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        2
+        194
+        3
+      )
+      bounds_x = 8
+      bounds_y = 14
+      bounds_cx = 207
+      bounds_cy = 18
       ondataentered = datentev
     end
   end
@@ -1232,8 +1250,8 @@ object settingsfo: tsettingsfo
     taborder = 3
     bounds_x = 512
     bounds_y = 8
-    bounds_cx = 581
-    bounds_cy = 19
+    bounds_cx = 580
+    bounds_cy = 22
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
@@ -1246,7 +1264,7 @@ object settingsfo: tsettingsfo
       )
     )
     controller.options = [fdo_filtercaseinsensitive, fdo_savelastdir]
-    reffontheight = 13
+    reffontheight = 16
   end
   object ps2pdf: tfilenameedit
     frame.caption = 'ps2pdf Programm'
@@ -1261,20 +1279,20 @@ object settingsfo: tsettingsfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      16
+      19
       0
       0
     )
     taborder = 5
     bounds_x = 8
-    bounds_y = 376
+    bounds_y = 373
     bounds_cx = 568
-    bounds_cy = 35
+    bounds_cy = 41
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     ondataentered = datentev
-    reffontheight = 13
+    reffontheight = 16
   end
   object pdftk: tfilenameedit
     frame.caption = 'pdftk Programm'
@@ -1289,21 +1307,21 @@ object settingsfo: tsettingsfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      16
+      19
       0
       0
     )
     taborder = 7
     bounds_x = 8
-    bounds_y = 424
+    bounds_y = 421
     bounds_cx = 568
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     ondataentered = datentev
-    reffontheight = 13
+    reffontheight = 16
   end
   object psviewer: tfilenameedit
     frame.caption = 'PostScript-Viewer Programm'
@@ -1318,21 +1336,21 @@ object settingsfo: tsettingsfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      16
+      19
       0
       0
     )
     taborder = 11
     bounds_x = 8
-    bounds_y = 520
+    bounds_y = 517
     bounds_cx = 568
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     ondataentered = datentev
-    reffontheight = 13
+    reffontheight = 16
   end
   object gs: tfilenameedit
     frame.caption = 'gs Programm'
@@ -1347,20 +1365,20 @@ object settingsfo: tsettingsfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      16
+      19
       0
       0
     )
     taborder = 9
     bounds_x = 8
-    bounds_y = 472
+    bounds_y = 469
     bounds_cx = 568
-    bounds_cy = 35
+    bounds_cy = 41
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     ondataentered = datentev
-    reffontheight = 13
+    reffontheight = 16
   end
   object preview: tbooleanedit
     frame.caption = 'Druck-Vorschau'
@@ -1368,14 +1386,14 @@ object settingsfo: tsettingsfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      1
-      78
-      1
+      2
+      92
+      3
     )
     bounds_x = 8
-    bounds_y = 12
-    bounds_cx = 91
-    bounds_cy = 15
+    bounds_y = 11
+    bounds_cx = 105
+    bounds_cy = 18
     ondataentered = datentev
   end
   object gsparams: tmemodialogedit
@@ -1391,21 +1409,21 @@ object settingsfo: tsettingsfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      16
+      19
       0
       0
     )
     taborder = 10
     bounds_x = 579
-    bounds_y = 472
-    bounds_cx = 513
-    bounds_cy = 35
+    bounds_y = 469
+    bounds_cx = 512
+    bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     ondataentered = datentev
-    reffontheight = 13
+    reffontheight = 16
   end
   object tsplitter1: tsplitter
     taborder = 17
@@ -1442,21 +1460,21 @@ object settingsfo: tsettingsfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      16
+      19
       0
       0
     )
     taborder = 6
     bounds_x = 579
-    bounds_y = 376
-    bounds_cx = 513
-    bounds_cy = 35
+    bounds_y = 373
+    bounds_cx = 512
+    bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     ondataentered = datentev
-    reffontheight = 13
+    reffontheight = 16
   end
   object tsplitter3: tsplitter
     taborder = 19
@@ -1482,25 +1500,25 @@ object settingsfo: tsettingsfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      16
+      19
       0
       0
     )
     taborder = 8
     bounds_x = 579
-    bounds_y = 424
-    bounds_cx = 513
-    bounds_cy = 35
+    bounds_y = 421
+    bounds_cx = 512
+    bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     ondataentered = datentev
-    reffontheight = 13
+    reffontheight = 16
   end
   object tbutton3: tbutton
     taborder = 16
-    bounds_x = 881
+    bounds_x = 880
     bounds_y = 568
     bounds_cx = 210
     bounds_cy = 22
@@ -1533,21 +1551,21 @@ object settingsfo: tsettingsfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      16
+      19
       0
       0
     )
     taborder = 12
     bounds_x = 579
-    bounds_y = 520
-    bounds_cx = 513
-    bounds_cy = 35
+    bounds_y = 517
+    bounds_cx = 512
+    bounds_cy = 41
     anchors = [an_left, an_top, an_right]
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savestate, oe1_saveoptions, oe1_checkvalueafterstatread]
     textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
     ondataentered = datentev
-    reffontheight = 13
+    reffontheight = 16
   end
   object tbutton4: tbutton
     taborder = 15
@@ -1555,6 +1573,7 @@ object settingsfo: tsettingsfo
     bounds_y = 568
     bounds_cx = 82
     bounds_cy = 22
+    anchors = [an_top, an_right]
     state = [as_localcaption, as_localonexecute]
     caption = 'About'
     modalresult = mr_cancel

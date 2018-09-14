@@ -47,6 +47,7 @@ type
    ftokensortdescription: boolean;
    ftokensortdesc: boolean;
    fassistiverate: flo64;
+   fassistivevolume: flo64;
    fissuedateon: boolean;
    fissuedatecapt: msestring;
    fissuedatex: flo64;
@@ -107,6 +108,11 @@ type
    fps2pdfparams: msestring;
    fpdftkparams: msestring;
    fconcatdesc: boolean;
+   fenabledelete: boolean;
+   procedure setassistiverate(const avalue: flo64);
+   procedure setassistivevolume(const avalue: flo64);
+  protected
+   procedure change() override;
   public
    constructor create();
   published
@@ -136,7 +142,9 @@ type
                                                     write ftokensortdescription;
    property tokensortdesc: boolean read ftokensortdesc
                                                     write ftokensortdesc;
-   property assistiverate: flo64 read fassistiverate write fassistiverate;
+   property assistiverate: flo64 read fassistiverate write setassistiverate;
+   property assistivevolume: flo64 read fassistivevolume 
+                                               write setassistivevolume;
 
    property ps2pdf: msestring read fps2pdf write fps2pdf;
    property ps2pdfparams: msestring read fps2pdfparams write fps2pdfparams;
@@ -152,6 +160,7 @@ type
    property pdfvariables: boolean read fpdfvariables write fpdfvariables;
    property psbackground: boolean read fpsbackground write fpsbackground;
    property tokenfile: msestring read ftokenfile write ftokenfile;
+   property enabledelete: boolean read fenabledelete write fenabledelete;
    property origx: flo64 read forigx write forigx;
    property origy: flo64 read forigy write forigy;
  
@@ -288,6 +297,7 @@ type
    createdbact: taction;
    service: tfb3service;
    numbertext: tifistringlinkcomp;
+   deletetoken: tifiactionlinkcomp;
    procedure newtokenev(const sender: TObject);
    procedure objectsev(const sender: TObject);
    procedure newobjectev(const sender: TObject);
@@ -337,6 +347,8 @@ type
    procedure honoursetev(const sender: tcustomificlientcontroller;
                    const aclient: iificlient; var avalue: Int64;
                    var accept: Boolean; const aindex: Integer);
+   procedure deletetokenev(const sender: tcustomificlientcontroller;
+                   const aclient: iificlient);
   private
    fopt: topt;
    ftokenused: boolean;
@@ -489,8 +501,35 @@ end;
 constructor topt.create();
 begin
  fassistiverate:= 1;
+ fassistivevolume:= 1;
 end;
 
+procedure topt.setassistiverate(const avalue: flo64);
+begin
+ fassistiverate:= avalue;
+ if fassistiverate < ratemin then begin
+  fassistiverate:= ratemin;
+ end;
+ if fassistiverate > ratemax then begin
+  fassistiverate:= ratemax;
+ end;
+end;
+
+procedure topt.setassistivevolume(const avalue: flo64);
+begin
+ fassistivevolume:= avalue;
+ if fassistivevolume < volumemin then begin
+  fassistivevolume:= volumemin;
+ end;
+ if fassistivevolume > volumemax then begin
+  fassistivevolume:= volumemax;
+ end;
+end;
+
+procedure topt.change();
+begin
+ mainmo.deletetoken.c.enabled:= enabledelete;
+end;
 
 { tmainmo }
 
@@ -1255,11 +1294,13 @@ end;
 procedure tmainmo.afterstatreadev(const sender: TObject);
 begin
  assistivehandler.speaker.rate:= fopt.assistiverate;
+ assistivehandler.speaker.volume:= fopt.assistivevolume;
 end;
 
 procedure tmainmo.beforestatwriteev(const sender: TObject);
 begin
  fopt.assistiverate:= assistivehandler.speaker.rate;
+ fopt.assistivevolume:= assistivehandler.speaker.volume;
 end;
 
 procedure tmainmo.settingsev(const sender: TObject);
@@ -1458,6 +1499,15 @@ begin
   honourcheck.c.value:= '';
   accept:= false;
   showerror(formatmse(rs(numberdoesnotexist),[numbertext.c.value]));
+ end;
+end;
+
+procedure tmainmo.deletetokenev(const sender: tcustomificlientcontroller;
+               const aclient: iificlient);
+begin
+ if askyesno('Wollen Sie den ausgewählten Gutschein löschen?',
+                                                   'WARNUNG',mr_no) then begin
+  tokensqu.delete();
  end;
 end;
 

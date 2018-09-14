@@ -22,7 +22,9 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msestatfile,
  msesimplewidgets,mdb,mseact,msedataedits,msedbedit,msedropdownlist,mseedit,
  msegraphedits,msegrids,mseificomp,mseificompglob,mseifiglob,mselookupbuffer,
- msescrollbar,msestream,sysutils,msedb,msedispwidgets,mserichstring;
+ msescrollbar,msestream,sysutils,msedb,msedispwidgets,mserichstring,
+ mseassistiveclient,mseassistivehandler,mseassistiveserver,msemenuwidgets,
+ mseshapes,msespeak;
 
 type
  tmainfo = class(tmainform)
@@ -34,6 +36,7 @@ type
    tbutton3: tbutton;
    tbutton6: tbutton;
    tbutton7: tbutton;
+   button4ass: tassistivewidgetitem;
  end;
 var
  mainfo: tmainfo;

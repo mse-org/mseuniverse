@@ -20,7 +20,8 @@ interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,
- msesimplewidgets,msestatfile;
+ msesimplewidgets,msestatfile,mdb,mseact,mseassistiveclient,mseassistivehandler,
+ mseassistiveserver,msegrids,msemenuwidgets,mseshapes,msespeak;
 type
  tobjectsfo = class(tmseform)
    tbutton3: tbutton;
@@ -28,6 +29,8 @@ type
    tbutton5: tbutton;
    tbutton1: tbutton;
    tstatfile1: tstatfile;
+   objectsfoass: tassistivewidgetitem;
+   button5ass: tassistivewidgetitem;
  end;
 var
  objectsfo: tobjectsfo;

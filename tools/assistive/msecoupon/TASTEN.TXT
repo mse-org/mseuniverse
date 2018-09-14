@@ -8,5 +8,5 @@ Steuerung + Plus auf Nummernblock: Schneller sprechen.
 Umschalt + Steuerung + Minus auf Nummernblock: Leiser sprechen.
 Umschalt + Steuerung + Plus auf Nummernblock: Lauter sprechen.
 Steuerung + Y C: Aktuelle Aussprache abbrechen.
-Steuerung + Y F: Erstes Feld im Fenster aktivieren.
-Steuerung + Y L: Letztes Feld im Fenster aktivieren.
+Steuerung + Y F: Erstes Feld im Bereich aktivieren.
+Steuerung + Y L: Letztes Feld im Bereich aktivieren.

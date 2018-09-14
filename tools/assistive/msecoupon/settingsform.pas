@@ -97,6 +97,7 @@ type
    tsplitter4: tsplitter;
    psviewerparams: tmemodialogedit;
    tbutton4: tbutton;
+   enabledelete: tbooleanedit;
    procedure datentev(const sender: TObject);
    procedure closequeryev(const sender: tcustommseform;
                    var amodalresult: modalresultty);
