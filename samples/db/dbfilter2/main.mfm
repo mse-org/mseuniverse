@@ -2,17 +2,18 @@ object mainfo: tmainfo
   bounds_x = 350
   bounds_y = 109
   bounds_cx = 616
-  bounds_cy = 280
+  bounds_cy = 361
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     616
-    280
+    361
   )
   optionswindow = [wo_groupleader]
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  caption = 'MSEide+MSEgui'
   windowopacity = -Inf
   moduleclassname = 'tmseform'
   object navi: tdbnavigator
@@ -35,7 +36,8 @@ object mainfo: tmainfo
     bounds_x = 8
     bounds_y = 32
     bounds_cx = 602
-    bounds_cy = 242
+    bounds_cy = 322
+    anchors = [an_left, an_top, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autoappend, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
     fixcols.count = 1
     fixcols.items = <    
@@ -96,8 +98,6 @@ object mainfo: tmainfo
           end>
       end>
     datacols.count = 3
-    datacols.sortcol = 0
-    datacols.sortcoldefault = 0
     datacols.options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item[sed]
@@ -299,7 +299,7 @@ object mainfo: tmainfo
         Name = 'TABLE01_PK_1'
       end>
     tablename = 'table01'
-    OnFilterRecord = OnfilterRecord
+    OnFilterRecord = onfilterrecordev
     FieldDefs = <    
       item
         Name = 'LONGINT1'
@@ -314,34 +314,34 @@ object mainfo: tmainfo
         DataType = ftString
         Size = 4
       end>
-    left = 32
-    top = 160
+    left = 256
+    top = 176
     streamingversion = 1
     object sfi: tmsestringfield
       DisplayWidth = 50
       FieldName = 'TEXT1'
       Index = 0
       Size = 4
-      left = 40
-      top = 192
+      left = 264
+      top = 208
     end
     object dfi: tmsedatefield
       FieldName = 'DATE1'
       Index = 1
-      left = 40
-      top = 208
+      left = 264
+      top = 224
     end
     object ifi: tmselongintfield
       FieldName = 'LONGINT1'
       Index = 2
       optionsfield = [of_visible, of_ininsert, of_inupdate, of_inwhere, of_inkey]
-      left = 40
-      top = 224
+      left = 264
+      top = 240
     end
   end
   object dataso: tmsedatasource
     DataSet = query
-    left = 32
-    top = 176
+    left = 256
+    top = 192
   end
 end

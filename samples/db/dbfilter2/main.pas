@@ -7,7 +7,8 @@ uses
  sysutils,msedataedits,msedbedit,msedialog,mseedit,msegrids,msestrings,msetypes,
  msedb,mdb,mseifiglob,mseact,mseificomp,mseificompglob,msestatfile,msestream,
  msewidgetgrid,msegraphedits,mselookupbuffer,msescrollbar,msedatabase,
- mseibconnection,variants,msedispwidgets,mserichstring;
+ mseibconnection,variants,msedispwidgets,mserichstring,msesimplewidgets,
+ msewidgets;
 
 type
  tmainfo = class(tmseform)
@@ -30,13 +31,9 @@ type
    imindi: tintegerdisp;
    iexactdi: tintegerdisp;
    imaxdi: tintegerdisp;
-   procedure onfilterrecord(dataset: tdataset; var accept: boolean);
-   procedure beforeendfilteredit(const sender: tmsebufdataset;
-                   const akind: filtereditkindty);
+   procedure onfilterrecordev(dataset: tdataset; var accept: boolean);
    procedure endfiltereditev(const sender: tmsebufdataset;
                    const akind: filtereditkindty);
-   procedure AfterBeginFilterEdit(const sender: tmsebufdataset;
-               const akind: filtereditkindty);                
    procedure filterchangedev(const sender: tmsebufdataset);
    procedure beginfiltereditev(const sender: tmsebufdataset;
                    const akind: filtereditkindty);
@@ -47,23 +44,14 @@ var
  mainfo: tmainfo;var varvar:variant;i:integer;
 implementation
 uses
- main_mfm,msewidgets;
+ main_mfm;
  
-procedure tmainfo.onfilterrecord(dataset: tdataset; var accept: boolean);
+procedure tmainfo.onfilterrecordev(dataset: tdataset; var accept: boolean);
 //slow! in order to improve performance use
 //local copies of the filter values, don't use variants
 begin                     
  accept:= tmsebufdataset(dataset).checkfiltervalues();
 end;
-
-procedure tmainfo.beforeendfilteredit(const sender: tmsebufdataset;
-               const akind: filtereditkindty);
-begin
-i:=0;
-with sender do begin
-while (i<fields.count) and (fields[i].isnull) do inc(i);
-if i<fields.count then varvar:=fields[i].value;
-end;end;
 
 procedure tmainfo.endfiltereditev(const sender: tmsebufdataset;
                const akind: filtereditkindty);
@@ -83,12 +71,6 @@ begin
    end;
   end;
  end;
-end;
-
-procedure tmainfo.AfterBeginFilterEdit(const sender: tmsebufdataset;
-               const akind: filtereditkindty);
-begin
-//sender.clearfilter();
 end;
 
 procedure tmainfo.filterchangedev(const sender: tmsebufdataset);
