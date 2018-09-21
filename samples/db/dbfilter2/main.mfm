@@ -1,6 +1,6 @@
 object mainfo: tmainfo
-  bounds_x = 350
-  bounds_y = 109
+  bounds_x = 354
+  bounds_y = 163
   bounds_cx = 616
   bounds_cy = 361
   container.frame.localprops = []
@@ -49,7 +49,7 @@ object mainfo: tmainfo
     fixrows.items = <    
       item
         linewidth = 2
-        height = 16
+        height = 18
         captionsfix.count = 1
         captionsfix.items = <        
           item
@@ -58,7 +58,7 @@ object mainfo: tmainfo
           end>
       end    
       item
-        height = 16
+        height = 18
         captionsfix.count = 1
         captionsfix.items = <        
           item
@@ -67,7 +67,7 @@ object mainfo: tmainfo
           end>
       end    
       item
-        height = 16
+        height = 18
         captionsfix.count = 1
         captionsfix.items = <        
           item
@@ -76,7 +76,7 @@ object mainfo: tmainfo
           end>
       end    
       item
-        height = 16
+        height = 18
         captions.count = 3
         captions.items = <        
           item
@@ -132,20 +132,19 @@ object mainfo: tmainfo
         )
       end>
     datalink.datasource = dataso
-    datarowheight = 16
-    reffontheight = 14
+    datarowheight = 18
+    reffontheight = 16
     object sed: tdbstringedit
-      optionswidget1 = [ow1_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 1
       visible = False
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 351
-      bounds_cy = 16
+      bounds_cy = 18
       datalink.datasource = dataso
       datalink.fieldname = 'TEXT1'
-      reffontheight = 14
+      reffontheight = 16
     end
     object ded: tdbdatetimeedit
       optionswidget1 = [ow1_fontglyphheight]
@@ -155,12 +154,12 @@ object mainfo: tmainfo
       bounds_x = 352
       bounds_y = 0
       bounds_cx = 94
-      bounds_cy = 16
+      bounds_cy = 18
       datalink.datasource = dataso
       datalink.fieldname = 'DATE1'
       valuemin = -Inf
       valuemax = 401768.99999
-      reffontheight = 14
+      reffontheight = 16
     end
     object ied: tdbintegeredit
       optionswidget1 = [ow1_fontglyphheight]
@@ -170,93 +169,93 @@ object mainfo: tmainfo
       bounds_x = 447
       bounds_y = 0
       bounds_cx = 78
-      bounds_cy = 16
+      bounds_cy = 18
       datalink.datasource = dataso
       datalink.fieldname = 'LONGINT1'
-      reffontheight = 14
+      reffontheight = 16
     end
     object smaxdi: tstringdisp
       optionswidget1 = [ow1_fontglyphheight]
       bounds_x = 0
-      bounds_y = 51
+      bounds_y = 57
       bounds_cx = 351
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 18
+      reffontheight = 16
     end
     object sexactdi: tstringdisp
       optionswidget1 = [ow1_fontglyphheight]
       taborder = 1
       bounds_x = 0
-      bounds_y = 34
+      bounds_y = 38
       bounds_cx = 351
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 18
+      reffontheight = 16
     end
     object smindi: tstringdisp
       optionswidget1 = [ow1_fontglyphheight]
       taborder = 2
       bounds_x = 0
-      bounds_y = 17
+      bounds_y = 19
       bounds_cx = 351
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 18
+      reffontheight = 16
     end
     object dmaxdi: tdatetimedisp
       optionswidget1 = [ow1_fontglyphheight]
       taborder = 3
       bounds_x = 352
-      bounds_y = 51
+      bounds_y = 57
       bounds_cx = 94
-      bounds_cy = 16
+      bounds_cy = 18
       value = -Inf
-      reffontheight = 14
+      reffontheight = 16
     end
     object dexactdi: tdatetimedisp
       optionswidget1 = [ow1_fontglyphheight]
       taborder = 4
       bounds_x = 352
-      bounds_y = 34
+      bounds_y = 38
       bounds_cx = 94
-      bounds_cy = 16
+      bounds_cy = 18
       value = -Inf
-      reffontheight = 14
+      reffontheight = 16
     end
     object dmindi: tdatetimedisp
       optionswidget1 = [ow1_fontglyphheight]
       taborder = 5
       bounds_x = 352
-      bounds_y = 17
+      bounds_y = 19
       bounds_cx = 94
-      bounds_cy = 16
+      bounds_cy = 18
       value = -Inf
-      reffontheight = 14
+      reffontheight = 16
     end
     object imaxdi: tintegerdisp
       optionswidget1 = [ow1_fontglyphheight]
       taborder = 6
       bounds_x = 447
-      bounds_y = 51
+      bounds_y = 57
       bounds_cx = 78
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 18
+      reffontheight = 16
     end
     object iexactdi: tintegerdisp
       optionswidget1 = [ow1_fontglyphheight]
       taborder = 7
       bounds_x = 447
-      bounds_y = 34
+      bounds_y = 38
       bounds_cx = 78
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 18
+      reffontheight = 16
     end
     object imindi: tintegerdisp
       optionswidget1 = [ow1_fontglyphheight]
       taborder = 8
       bounds_x = 447
-      bounds_y = 17
+      bounds_y = 19
       bounds_cx = 78
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 18
+      reffontheight = 16
     end
   end
   object query: tmsesqlquery
