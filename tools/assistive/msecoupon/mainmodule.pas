@@ -633,8 +633,14 @@ begin
   tokensprice.asfloat:= objectsqu.currentbmasfloat[objectsprice,bookmark1];
   tokensdescription.asmsestring:= 
                  objectsqu.currentbmasmsestring[objectsdescription,bookmark1];
-  updatetokenvalue();
+ end
+ else begin
+  tokensunit.clear();
+  tokensduration.clear();
+  tokensprice.clear();
+  tokensdescription.clear();
  end;
+ updatetokenvalue();
 end;
 
 procedure tmainmo.tokenquantitiychangeev(Sender: TField);
@@ -668,7 +674,7 @@ begin
   repeat
    try
     numbersqu.insert();
-    numbersnumber.asinteger:= random(9999);
+    numbersnumber.asinteger:= random(8999)+1000;
     numbersqu.post();
     b1:= true;
    except

@@ -3,8 +3,8 @@ object mainmo: tmainmo
   bounds_cy = 632
   statfile = mainstat
   oncreate = createev
-  left = 526
-  top = 119
+  left = 660
+  top = 113
   moduleclassname = 'tmsedatamodule'
   object mainstat: tstatfile
     filename = './msecoupon.sta'
