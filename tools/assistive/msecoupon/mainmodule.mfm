@@ -50,6 +50,7 @@ object mainmo: tmainmo
     speaker.wordgap = 12
     speaker.onbeforeconnect = espeakconnectev
     voicefixed = 4
+    maincaption = 'MSEcoupon'
     voicetextmessage = 3
     voicetext = 1
     voicetextdisp = 3
