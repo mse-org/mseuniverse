@@ -35,7 +35,7 @@ type
    feditobjectpk: int64;
    ftokenobjectpk: int64;
    ftokensortnumber: boolean;
-   ftokensortclient: boolean;
+   ftokensortcustomer: boolean;
    ftokensortdonator: boolean;
    ftokensortrecipient: boolean;
    ftokensortissuedate: boolean;
@@ -126,8 +126,8 @@ type
                                                     write ftokensortexpirydate;
    property tokensortnumber: boolean read ftokensortnumber
                                                     write ftokensortnumber;
-   property tokensortclient: boolean read ftokensortclient
-                                                    write ftokensortclient;
+//   property tokensortclient: boolean read ftokensortclient
+//                                                    write ftokensortclient;
    property tokensortdonator: boolean read ftokensortdonator
                                                     write ftokensortdonator;
    property tokensortrecipient: boolean read ftokensortrecipient
@@ -138,6 +138,8 @@ type
                                                     write ftokensortunit;
    property tokensortvalue: boolean read ftokensortvalue
                                                     write ftokensortvalue;
+   property tokensortcustomer: boolean read ftokensortcustomer
+                                                    write ftokensortcustomer;
    property tokensortdescription: boolean read ftokensortdescription
                                                     write ftokensortdescription;
    property tokensortdesc: boolean read ftokensortdesc
