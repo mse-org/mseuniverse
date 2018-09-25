@@ -104,10 +104,11 @@ procedure tmainfo.createwinidexe(const sender: tcustomwindowwidget;
                const aparent: winidty; const awidgetrect: rectty;
                var aid: winidty);
 begin
+{ does not work
  glenable(gl_blend);
  glblendfunc(gl_src_alpha_saturate,gl_one);
  glenable(gl_polygon_smooth);
-
+}
  glmatrixmode(gl_modelview);
  glloadidentity();
  gltranslatef(0,0,-2);
