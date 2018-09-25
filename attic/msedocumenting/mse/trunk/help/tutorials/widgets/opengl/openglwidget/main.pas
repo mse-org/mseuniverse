@@ -23,8 +23,8 @@ type
    procedure showexe(const sender: TObject);
    procedure rotentexe(const sender: TObject);
    procedure createwinidexe(const sender: tcustomwindowwidget;
-                   const aparent: LongWord; const awidgetrect: rectty;
-                   var aid: LongWord);
+                   const aparent: winidty; const awidgetrect: rectty;
+                   var aid: winidty);
    procedure renderexe(const sender: tcustomopenglwidget;
                    const aupdaterect: rectty);
   private
@@ -101,8 +101,8 @@ begin
 end;
 
 procedure tmainfo.createwinidexe(const sender: tcustomwindowwidget;
-               const aparent: longword; const awidgetrect: rectty;
-               var aid: longword);
+               const aparent: winidty; const awidgetrect: rectty;
+               var aid: winidty);
 begin
  glenable(gl_blend);
  glblendfunc(gl_src_alpha_saturate,gl_one);

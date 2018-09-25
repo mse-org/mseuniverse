@@ -15,6 +15,7 @@ object mainfo: tmainfo
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   statfile = tstatfile1
   caption = 'MSEgui OpenGL'
+  windowopacity = -Inf
   onshow = showexe
   moduleclassname = 'tmseform'
   object openglwidget: topenglwidget
@@ -44,13 +45,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      27
+      24
       0
     )
     taborder = 1
     bounds_x = 10
-    bounds_y = 209
-    bounds_cx = 79
+    bounds_y = 207
+    bounds_cx = 76
+    bounds_cy = 22
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
     ondataentered = rotentexe
@@ -58,9 +60,9 @@ object mainfo: tmainfo
     valuedefault = -Inf
     valuerange = 1
     valuestart = 0
-    min = -Inf
-    max = 1E+038
-    reffontheight = 14
+    valuemin = -Inf
+    valuemax = 1E+038
+    reffontheight = 16
   end
   object fps: trealedit
     frame.caption = 'fpsmax'
@@ -70,13 +72,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      47
+      45
       0
     )
     taborder = 3
     bounds_x = 98
-    bounds_y = 185
-    bounds_cx = 99
+    bounds_y = 183
+    bounds_cx = 97
+    bounds_cy = 22
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
     onsetvalue = fpssetvalue
@@ -84,9 +87,9 @@ object mainfo: tmainfo
     valuedefault = -Inf
     valuerange = 1
     valuestart = 0
-    min = -1
-    max = 1E+038
-    reffontheight = 14
+    valuemin = -1
+    valuemax = 1E+038
+    reffontheight = 16
   end
   object rotx: trealedit
     frame.caption = 'rotx'
@@ -96,12 +99,13 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      27
+      24
       0
     )
     bounds_x = 10
-    bounds_y = 185
-    bounds_cx = 79
+    bounds_y = 183
+    bounds_cx = 76
+    bounds_cy = 22
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
     ondataentered = rotentexe
@@ -109,9 +113,9 @@ object mainfo: tmainfo
     valuedefault = -Inf
     valuerange = 1
     valuestart = 0
-    min = -Inf
-    max = 1E+038
-    reffontheight = 14
+    valuemin = -Inf
+    valuemax = 1E+038
+    reffontheight = 16
   end
   object fpsdisp: trealdisp
     frame.caption = 'fps'
@@ -121,20 +125,19 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      22
+      21
       0
     )
     taborder = 5
     bounds_x = 98
-    bounds_y = 209
-    bounds_cx = 74
-    bounds_cy = 18
+    bounds_y = 207
+    bounds_cx = 73
     anchors = [an_left, an_bottom]
     valuerange = 1
     valuestart = 0
     format = '0.00'
     value = -Inf
-    reffontheight = 14
+    reffontheight = 16
   end
   object rotz: trealedit
     frame.caption = 'rotz'
@@ -144,13 +147,14 @@ object mainfo: tmainfo
     frame.outerframe = (
       0
       0
-      26
+      25
       0
     )
     taborder = 2
     bounds_x = 10
-    bounds_y = 233
-    bounds_cx = 78
+    bounds_y = 231
+    bounds_cx = 77
+    bounds_cy = 22
     anchors = [an_left, an_bottom]
     statfile = tstatfile1
     ondataentered = rotentexe
@@ -158,9 +162,9 @@ object mainfo: tmainfo
     valuedefault = -Inf
     valuerange = 1
     valuestart = 0
-    min = -Inf
-    max = 1E+038
-    reffontheight = 14
+    valuemin = -Inf
+    valuemax = 1E+038
+    reffontheight = 16
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
