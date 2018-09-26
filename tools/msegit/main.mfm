@@ -8,46 +8,47 @@ object mainfo: tmainfo
   container.frame.localprops1 = []
   container.bounds = (
     0
-    16
+    18
     415
-    264
+    262
   )
   mainmenu = mainmen
   options = [fo_main, fo_terminateonclose, fo_globalshortcuts, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   statfile = mainfosta
   caption = 'MSEgit'
+  windowopacity = -Inf
   onterminatequery = terminatequeryexe
+  onasyncevent = asyncev
   moduleclassname = 'tmainform'
   object tlayouter1: tlayouter
     taborder = 1
     bounds_x = 0
     bounds_y = 0
     bounds_cx = 415
-    bounds_cy = 18
+    bounds_cy = 20
     anchors = [an_top]
     optionsscale = [osc_expandy, osc_shrinky]
-    linkbottom = dockpanel
     optionslayout = [lao_placex, lao_aligny]
     place_maxdist = 0
     place_options = [plo_endmargin]
+    linkbottom = dockpanel
     object statdisp: trichstringdisp
       frame.localprops = []
       frame.localprops1 = []
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 415
-      bounds_cy = 18
       anchors = [an_left, an_top, an_right]
       font.name = 'stf_default'
       font.xscale = 1
       font.localprops = [flp_xscale]
-      reffontheight = 14
+      reffontheight = 16
     end
     object waiticon: ticon
       optionswidget1 = [ow1_autoscale]
       taborder = 1
       bounds_x = 415
-      bounds_y = 1
+      bounds_y = 2
       bounds_cx = 0
       imagelist = iconimage
       imagenum = 1
@@ -61,9 +62,9 @@ object mainfo: tmainfo
     frame.grip_size = 10
     frame.grip_options = [go_lockbutton]
     bounds_x = 0
-    bounds_y = 18
+    bounds_y = 20
     bounds_cx = 415
-    bounds_cy = 244
+    bounds_cy = 240
     anchors = [an_top, an_bottom]
     dragdock.optionsdock = [od_savezorder, od_acceptsdock, od_dockparent, od_splitvert, od_splithorz, od_tabed, od_proportional]
     statfile = formsta

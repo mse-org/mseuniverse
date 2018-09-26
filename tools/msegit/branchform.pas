@@ -159,10 +159,12 @@ var
  int1,int2,int3: integer;
  mstr1: msestring;
  bo1,bo2: boolean;
+ s1,s2: msestring;
 begin
  showhidden:= mainmo.repostat.showhiddenbranches;
  showhiddenact.checked:= showhidden;
-
+ s1:= localbranch.value;
+ s2:= currentremotebranch;
  localgrid.beginupdate();
  remotegrid.beginupdate();
  try
@@ -249,8 +251,30 @@ begin
    end;
   end;
  finally
+  localgrid.rowdatachanged();
+  remotegrid.rowdatachanged();
   localgrid.endupdate();
   remotegrid.endupdate();
+ end;
+ if (s1 <> '') and (localbranch.value <> s1) then begin
+  for int1:= 0 to localgrid.rowhigh do begin
+   if localbranch[int1] = s1 then begin
+    localgrid.row:= int1;
+    break;
+   end;
+  end;
+ end;
+ if (s2 <> '') and (currentremotebranch <> s2) then begin
+  mstr1:= '';
+  for int1:= 0 to remotegrid.rowhigh do begin
+   if remote[int1] <> '' then begin
+    mstr1:= remote[int1];
+   end;
+   if mstr1 + '/' + remotebranch[int1] = s2 then begin
+    remotegrid.row:= int1;
+    break;
+   end;
+  end;
  end;
 end;
  
@@ -925,20 +949,21 @@ var
 begin
  if askconfirmation('Do you want to push branch '+
                                        pushbranchtext+'?') then begin
-  with mainmo do begin
+//  with mainmo do begin
    bra:= localbranch.value;
    braref:= branchref+bra;
-   if execgitconsole('push '+activeremote+' '+
+   if mainmo.execgitconsole('push '+mainmo.activeremote+' '+
            mainmo.git.encodestringparam(braref+':'+
              braref)) then begin
-    mainmo.setbranchtracking(bra,activeremote,bra);
-    reload;
-    mainmo.linkremotebranch[activeremote,bra]:= true;
+    mainmo.setbranchtracking(bra,mainmo.activeremote,bra);
+    mainmo.reload;
+    mainmo.linkremotebranch[mainmo.activeremote,bra]:= true;
 //    mainmo.activeremotebranch[activeremote]:= activebranch;
-    self.reload;
+//    self.reload;
+    dorefresh();
     mainfo.updatestate;
    end;
-  end;
+//  end;
  end;
 end;
 

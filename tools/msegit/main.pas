@@ -25,7 +25,7 @@ uses
  msetimer,mserichstring,msesimplewidgets,msewidgets,msegrids,mseifigui,
  mseifilink,finddialogform;
 const
- versiontext = '2.8.0';
+ versiontext = '2.8.1';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;
@@ -111,18 +111,20 @@ type
    procedure rebaseactexe(const sender: TObject);
    procedure terminatequeryexe(var terminate: Boolean);
    procedure showcurrentcommitexe(const sender: TObject);
+   procedure asyncev(const sender: TObject; var atag: Integer);
   private
    frefreshing: boolean;
    fbackgroundcount: integer;
   protected
    function fetchedtarget: msestring;
+   procedure doreload;
   public
    hastagdialogstat: boolean;
    findinfo: findinfoty;
    procedure merge(const aref: msestring);
    procedure rebase(const aref: msestring);
    procedure checkout(const aref: msestring; const partial: boolean);
-   procedure reload;
+   procedure reload(const async: boolean = false);
    procedure refreshdiff;
    property refreshing: boolean read frefreshing;
    procedure updatestate(const message: msestring = '');
@@ -142,6 +144,7 @@ uses
  logform,msestringenter,tagsform,editlogfilterform,commitdispform;
 const
  mergecolor = $ffb030;
+ reloadtag = 1;
   
 procedure tmainfo.newpanelexe(const sender: TObject);
 begin
@@ -260,7 +263,7 @@ begin
  mainmo.repo:= '';
 end;
 
-procedure tmainfo.reload;
+procedure tmainfo.doreload;
 begin
  filesfo.savestate;
  gitdirtreefo.savestate;
@@ -280,6 +283,16 @@ begin
   branchfo.refresh;
   stashfo.refresh;
   objchanged(true);
+ end;
+end;
+
+procedure tmainfo.reload(const async: boolean = false);
+begin
+ if async then begin
+  asyncevent(reloadtag);
+ end
+ else begin
+  doreload();
  end;
 end;
 
@@ -773,6 +786,15 @@ end;
 procedure tmainfo.terminatequeryexe(var terminate: Boolean);
 begin
  mainmo.closerepo;
+end;
+
+procedure tmainfo.asyncev(const sender: TObject; var atag: Integer);
+begin
+ case atag of
+  reloadtag: begin
+   doreload();
+  end;
+ end;
 end;
 
 end.

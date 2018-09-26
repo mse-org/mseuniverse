@@ -68,7 +68,12 @@ procedure tremotesfo.refresh;
 var
  ar1: remoteinfoarty;
  int1,int2: integer;
+ s1: msestring;
 begin
+ s1:= '';
+ if grid. row >= 0 then begin
+  s1:= remote.value;
+ end;
  grid.beginupdate;
  ar1:= mainmo.remotesinfo;
  grid.rowcount:= length(ar1); //max
@@ -84,7 +89,16 @@ begin
   end;
  end;
  grid.rowcount:= int2;
+ grid.rowdatachanged();
  grid.endupdate;
+ if (s1 <> '') and (remote.value <> s1) then begin
+  for int1:= 0 to grid.rowhigh do begin
+   if remote[int1] = s1 then begin
+    grid.row:= int1;
+    break;
+   end;
+  end;
+ end;
 end;
 
 procedure tremotesfo.repoloadedexe(const sender: TObject);
@@ -118,14 +132,19 @@ end;
 }
 procedure tremotesfo.remoteset(const sender: TObject; var avalue: msestring;
                var accept: Boolean);
+var
+ b1: boolean;
 begin
+ b1:= false;
  accept:= checkname(avalue);
  if accept then begin
   if validremote then begin
+   b1:= true;
    accept:= mainmo.changeremote(remote.value,avalue,fetch.value,push.value);
   end
   else begin
    if fetch.value <> '' then begin
+    b1:= true;
     accept:= mainmo.createremote(avalue,fetch.value,push.value);
    end;
   end;
@@ -145,8 +164,8 @@ begin
   end;
   }
  end;
- if accept then begin
-  remotechanged;
+ if accept and b1 then begin
+  remotechanged();
  end;
 end;
 
@@ -232,7 +251,7 @@ end;
 
 procedure tremotesfo.remotechanged;
 begin
- mainfo.reload;
+ mainfo.reload(true);
 end;
 
 end.
