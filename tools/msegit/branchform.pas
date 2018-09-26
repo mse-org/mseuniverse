@@ -118,6 +118,10 @@ type
    procedure fetchexe(const sender: TObject);
   private
    fcheckoutcommit: msestring;
+   fcurrentlocalbranch: msestring;
+   fcurrentremotebranch: msestring;
+   fcurrentlocalrow: int32;
+   fcurrentremoterow: int32;
    function getshowhidden: boolean;
    procedure setshowhidden(const avalue: boolean);
   protected
@@ -146,6 +150,18 @@ const
  
 procedure tbranchfo.doclear;
 begin
+ if mainmo.reloading then begin
+  fcurrentlocalbranch:= localbranch.value;
+  fcurrentremotebranch:= currentremotebranch();
+  fcurrentlocalrow:= localgrid.row;
+  fcurrentremoterow:= remotegrid.row;
+ end
+ else begin
+  fcurrentlocalbranch:= '';
+  fcurrentremotebranch:= '';
+  fcurrentlocalrow:= invalidaxis;
+  fcurrentremoterow:= invalidaxis;
+ end;
  with localgrid do begin
   clear;
  end;
@@ -163,8 +179,14 @@ var
 begin
  showhidden:= mainmo.repostat.showhiddenbranches;
  showhiddenact.checked:= showhidden;
- s1:= localbranch.value;
- s2:= currentremotebranch;
+ if mainmo.reloading then begin
+  s1:= fcurrentlocalbranch;
+  s2:= fcurrentremotebranch;
+ end
+ else begin
+  s1:= localbranch.value;
+  s2:= currentremotebranch;
+ end;
  localgrid.beginupdate();
  remotegrid.beginupdate();
  try
@@ -276,6 +298,14 @@ begin
    end;
   end;
  end;
+ if mainmo.reloading then begin
+  if localgrid.row < 0 then begin
+   localgrid.row:= fcurrentlocalrow;
+  end;
+  if remotegrid.row < 0 then begin
+   remotegrid.row:= fcurrentremoterow;
+  end;
+ end;
 end;
  
 procedure tbranchfo.localbranchsetexe(const sender: TObject;
@@ -287,6 +317,7 @@ begin
    accept:= askconfirmation('Do you want to create branch '+avalue+' from '+lineend+
                   mainmo.commithint(localbranchcommit.value)+'?');
    if accept then begin
+    localbranch.value:= avalue;
     accept:= mainmo.createbranch('',avalue,localbranchcommit.value);
     if accept then begin
      mainmo.updatelocalbranchorder;
@@ -564,9 +595,6 @@ end;
 
 procedure tbranchfo.localrowsdeleteexe(const sender: tcustomgrid;
                var aindex: Integer; var acount: Integer);
-               
-//var
-// mstr1,mstr2: msestring;
 begin
  if localbranch.value <> '' then begin
   if not askconfirmation(

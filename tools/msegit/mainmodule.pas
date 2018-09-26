@@ -326,6 +326,7 @@ type
    fstashes: stashinfoarty;
    ftmpfiles: filenamearty;
    fshowlocal: boolean;
+   freloading: boolean;
    procedure setrepo(avalue: filenamety); //no const!
    procedure addfiles(const aitem: pgitfilehashdataty);
    procedure setactiveremote(const avalue: msestring);
@@ -477,6 +478,7 @@ type
    property hasremote: boolean read fhasremote;
    
    function logfilterempty: boolean;
+   property reloading: boolean read freloading;
    function merging: boolean;
    function rebasing: boolean;
    function reverting: boolean;
@@ -1006,7 +1008,12 @@ end;
 
 procedure tmainmo.reload;
 begin
- loadrepo(frepo,false);
+ freloading:= true;
+ try
+  loadrepo(frepo,false);
+ finally
+  freloading:= false;
+ end;
 end;
 
 procedure tmainmo.releasedirtree;

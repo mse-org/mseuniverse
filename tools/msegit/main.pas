@@ -238,7 +238,9 @@ procedure tmainfo.repoclosedexe(const sender: TObject);
 begin
  if not frefreshing then begin
   caption:= 'MSEgit';
-  gitconsolefo.clear;
+  if not mainmo.reloading then begin
+   gitconsolefo.clear;
+  end;
   filesfo.clear;
   statdisp.value:= '';
   statdisp.hint:= '';
