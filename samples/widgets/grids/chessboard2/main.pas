@@ -380,22 +380,6 @@ begin
  initboard();
 end;
 
-procedure tmainfo.dragbeginev(const asender: TObject; const apos: pointty;
-               var adragobject: tdragobject; var processed: Boolean);
-var
- cell1: cellty;
-begin
- if gridcoordtocell(grid.cellatpos(apos),cell1) then begin
-  if cellpiece[cell1] <> pk_none then begin
-   adragobject:= tpiecedragobject.create(fboard,grid,adragobject,apos);
-   fboard.dragpiece:= cells[cell1];
-   fboard.dragpiece.state:= [];
-   fboard.dragpos:= apos;
-   cellstate[cell1]:= cellstate[cell1] + [cs_dragsource];
-  end;
- end;
-end;
-
 procedure tmainfo.checkdrag(const adragobject: tdragobject; const apos: pointty;
                                   var accept: boolean; const amove: boolean);
 var
@@ -417,6 +401,22 @@ begin
   end
   else begin
    cellstate[cell1]:= cellstate[cell1] + [cs_reject];
+  end;
+ end;
+end;
+
+procedure tmainfo.dragbeginev(const asender: TObject; const apos: pointty;
+               var adragobject: tdragobject; var processed: Boolean);
+var
+ cell1: cellty;
+begin
+ if gridcoordtocell(grid.cellatpos(apos),cell1) then begin
+  if cellpiece[cell1] <> pk_none then begin
+   adragobject:= tpiecedragobject.create(fboard,grid,adragobject,apos);
+   fboard.dragpiece:= cells[cell1];
+   fboard.dragpiece.state:= [];
+   fboard.dragpos:= apos;
+   cellstate[cell1]:= cellstate[cell1] + [cs_dragsource];
   end;
  end;
 end;

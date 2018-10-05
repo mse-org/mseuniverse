@@ -315,9 +315,6 @@ begin
   dek_check,dek_drop: begin
    with tpiecedragobject(dragobject) do begin
     accept:= piecemove(self.fboard,cell,cell1,draginfo.eventkind = dek_drop);
-    grid.invalidatecell(cellinfo.cell);
-    grid.invalidatecell(celltogridcoord(cell));
-    grid.invalidaterect(dragrect());
    end;
    cellstate[fboard.dragdest]:= cellstate[fboard.dragdest] - 
                                                  [cs_accept,cs_reject];

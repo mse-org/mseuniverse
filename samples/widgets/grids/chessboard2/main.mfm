@@ -10,9 +10,9 @@ object mainfo: tmainfo
   container.face.template = concave
   container.bounds = (
     0
-    22
+    24
     386
-    382
+    380
   )
   mainmenu = tmainmenu1
   statfile = tstatfile1
@@ -28,7 +28,7 @@ object mainfo: tmainfo
     bounds_x = 8
     bounds_y = 8
     bounds_cx = 366
-    bounds_cy = 366
+    bounds_cy = 370
     datacols.count = 8
     datacols.linewidth = 0
     datacols.width = 40
@@ -115,7 +115,7 @@ object mainfo: tmainfo
       item
         face.localprops = [fal_fadirection]
         face.template = concave
-        height = 20
+        height = 22
         captions.count = 8
         captions.items = <        
           item
@@ -154,7 +154,7 @@ object mainfo: tmainfo
       item
         face.localprops = [fal_fadirection]
         face.template = concave
-        height = 20
+        height = 22
         captions.count = 8
         captions.items = <        
           item
@@ -196,8 +196,8 @@ object mainfo: tmainfo
     drag.onbeforedragbegin = dragbeginev
     drag.onafterdragover = dragoverev
     drag.onafterdragdrop = dragdropev
-    drag.options = [do_nocursorshape]
-    reffontheight = 14
+    drag.options = [do_nocursorshape, do_nearstart, do_mousewidget]
+    reffontheight = 16
   end
   object pieceimages: timagelist
     versioncount = 2
