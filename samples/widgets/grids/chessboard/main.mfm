@@ -1,8 +1,8 @@
 object mainfo: tmainfo
   bounds_x = 26
   bounds_y = 149
-  bounds_cx = 386
-  bounds_cy = 404
+  bounds_cx = 384
+  bounds_cy = 417
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.face.fade_direction = gd_left
@@ -10,9 +10,9 @@ object mainfo: tmainfo
   container.face.template = concave
   container.bounds = (
     0
-    24
-    386
-    380
+    28
+    384
+    389
   )
   mainmenu = tmainmenu1
   statfile = tstatfile1
@@ -894,7 +894,9 @@ object mainfo: tmainfo
   object tmainmenu1: tmainmenu
     frametemplate = mainmenuframe
     facetemplate = concave
+    itemframetemplate = menuitemframe
     itemfacetemplate = concave
+    itemframetemplateactive = menuitemframe
     menu.submenu.count = 2
     menu.submenu.items = <    
       item
@@ -938,5 +940,14 @@ object mainfo: tmainfo
     template.framei_bottom = 1
     left = 136
     top = 72
+  end
+  object menuitemframe: tframecomp
+    template.levelo = -1
+    template.leveli = 1
+    template.framei_left = 1
+    template.framei_right = 1
+    template.extraspace = 1
+    left = 136
+    top = 96
   end
 end
