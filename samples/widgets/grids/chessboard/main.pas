@@ -53,6 +53,7 @@ type
    tmainmenu1: tmainmenu;
    concave: tfacecomp;
    tstatfile1: tstatfile;
+   mainmenuframe: tframecomp;
    procedure createev(const sender: TObject);
    procedure drawcellev(const sender: tcol; const canvas: tcanvas;
                    var cellinfo: cellinfoty);
@@ -61,6 +62,7 @@ type
                                                        var processed: Boolean);
    procedure boardpaintev(const sender: twidget; const acanvas: tcanvas);
    procedure exitev(const sender: TObject);
+   procedure resetev(const sender: TObject);
   private
    fboard: boardty;
    function getcells(const acell: cellty): celldataty;
@@ -394,6 +396,11 @@ end;
 procedure tmainfo.exitev(const sender: TObject);
 begin
  application.terminate();
+end;
+
+procedure tmainfo.resetev(const sender: TObject);
+begin
+ initboard();
 end;
 
 end.
