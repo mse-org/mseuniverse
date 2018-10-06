@@ -18,7 +18,7 @@ object mainfo: tmainfo
   statfile = tstatfile1
   caption = 'MSEide+MSEgui'
   windowopacity = -Inf
-  oncreate = createev
+  onloaded = loadededev
   moduleclassname = 'tmainform'
   object grid: tdrawgrid
     optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]

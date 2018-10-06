@@ -56,7 +56,7 @@ type
    mainmenuframe: tframecomp;
    menuitemframe: tframecomp;
    convex: tfacecomp;
-   procedure createev(const sender: TObject);
+   procedure loadededev(const sender: TObject);
    procedure drawcellev(const sender: tcol; const canvas: tcanvas;
                    var cellinfo: cellinfoty);
    procedure boardpaintev(const sender: twidget; const acanvas: tcanvas);
@@ -236,9 +236,10 @@ end;
  
 { tmainfo }
 
-procedure tmainfo.createev(const sender: TObject);
+procedure tmainfo.loadededev(const sender: TObject);
 begin
  resetev(nil); //init board
+ grid.fixcols.width:= grid.fixrows[-1].height; //adjust to font height
 end;
 
 function tmainfo.getcells(const acell: cellty): celldataty;
