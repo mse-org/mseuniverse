@@ -68,6 +68,9 @@ type
                    var processed: Boolean);
    procedure dragdropev(const asender: TObject; const apos: pointty;
                    var adragobject: tdragobject; var processed: Boolean);
+   procedure dragendev(const asender: TObject; const apos: pointty;
+                   var adragobject: tdragobject; const accepted: Boolean;
+                   var processed: Boolean);
   private
    fboard: boardty;
    function getcells(const acell: cellty): celldataty;
@@ -97,7 +100,6 @@ type
    property cellstate[const acell: cellty]: cellstatesty read getcellstate
                                                              write setcellstate;
   public
-   procedure initboard();
  end;
 
 var
@@ -117,7 +119,6 @@ type
    constructor create(const board: boardty;
                    const agrid: tcustomgrid; var ainstance: tdragobject;
                                                           const apos: pointty);
-   destructor destroy(); override;
    property boardcell: cellty read fboardcell;
  end;
  
@@ -152,7 +153,7 @@ function piecemove(var board: boardty; const source,dest: cellty;
 var
  state1: cellstatesty;
 begin
- //implement chess rules here
+ //check chess rules here
 
  result:= board.cells[dest.col,dest.row].piece = pk_none;
  if result and move then begin
@@ -192,60 +193,107 @@ begin
  inherited create(agrid,ainstance,apos);
 end;
 
-destructor tpiecedragobject.destroy();
-begin
- grid.invalidate();
- enddrag(fboard^);
- inherited;
-end;
-
-
-{ tmainfo }
-
-procedure tmainfo.initboard();
+procedure initboard(var board: boardty);
 var
  c1: colty;
  r1: rowty;
 begin
- fillchar(fboard,sizeof(fboard),0);
+ fillchar(board,sizeof(board),0);
  for c1:= low(colty) to high(colty) do begin
-  with fboard.cells[c1,row_2] do begin
+  with board.cells[c1,row_2] do begin
    piece:= pk_pawn;
    color:= pc_white;
   end;
-  with fboard.cells[c1,row_1] do begin
+  with board.cells[c1,row_1] do begin
    color:= pc_white;
    piece:= pieceorder[c1];
   end;
-  with fboard.cells[c1,row_7] do begin
+  with board.cells[c1,row_7] do begin
    piece:= pk_pawn;
    color:= pc_black;
   end;
-  with fboard.cells[c1,row_8] do begin
+  with board.cells[c1,row_8] do begin
    color:= pc_black;
    piece:= pieceorder[c1];
   end;
   if odd(ord(c1)) then begin
    for r1:= low(r1) to high(r1) do begin
     if odd(ord(r1)) then begin
-     fboard.cells[c1,r1].state:= [cs_black];
+     board.cells[c1,r1].state:= [cs_black];
     end;
    end;
   end
   else begin
    for r1:= low(r1) to high(r1) do begin
     if not odd(ord(r1)) then begin
-     fboard.cells[c1,r1].state:= [cs_black];
+     board.cells[c1,r1].state:= [cs_black];
     end;
    end;
   end;
  end;
- boardchanged();
 end;
  
+{ tmainfo }
+
 procedure tmainfo.createev(const sender: TObject);
 begin
- initboard();
+ resetev(nil); //init board
+end;
+
+function tmainfo.getcells(const acell: cellty): celldataty;
+begin
+ result:= fboard.cells[acell.col,acell.row];
+end;
+
+procedure tmainfo.setcells(const acell: cellty; const avalue: celldataty);
+begin
+ fboard.cells[acell.col,acell.row]:= avalue;
+ grid.invalidatecell(celltogridcoord(acell));
+end;
+
+function tmainfo.getcellpiece(const acell: cellty): piecekindty;
+begin
+ result:= fboard.cells[acell.col,acell.row].piece;
+end;
+
+procedure tmainfo.setcellpiece(const acell: cellty; const avalue: piecekindty);
+begin
+ with fboard.cells[acell.col,acell.row] do begin
+  if piece <> avalue then begin
+   piece:= avalue;
+   invalidateboardcell(acell);
+  end;
+ end;
+end;
+
+function tmainfo.getcellcolor(const acell: cellty): piececolorty;
+begin
+ result:= fboard.cells[acell.col,acell.row].color;
+end;
+
+procedure tmainfo.setcellcolor(const acell: cellty; const avalue: piececolorty);
+begin
+ with fboard.cells[acell.col,acell.row] do begin
+  if color <> avalue then begin
+   color:= avalue;
+   invalidateboardcell(acell);
+  end;
+ end;
+end;
+
+function tmainfo.getcellstate(const acell: cellty): cellstatesty;
+begin
+ result:= fboard.cells[acell.col,acell.row].state;
+end;
+
+procedure tmainfo.setcellstate(const acell: cellty; const avalue: cellstatesty);
+begin
+ with fboard.cells[acell.col,acell.row] do begin
+  if state <> avalue then begin
+   state:= avalue;
+   invalidateboardcell(acell);
+  end;
+ end;
 end;
 
 procedure tmainfo.boardchanged();
@@ -310,75 +358,9 @@ begin
  drawcell(canvas,nullpoint,cellbygridcoord(cellinfo.cell));
 end;
 
-function tmainfo.getcells(const acell: cellty): celldataty;
-begin
- result:= fboard.cells[acell.col,acell.row];
-end;
-
-procedure tmainfo.setcells(const acell: cellty; const avalue: celldataty);
-begin
- fboard.cells[acell.col,acell.row]:= avalue;
- grid.invalidatecell(celltogridcoord(acell));
-end;
-
-function tmainfo.getcellpiece(const acell: cellty): piecekindty;
-begin
- result:= fboard.cells[acell.col,acell.row].piece;
-end;
-
-procedure tmainfo.setcellpiece(const acell: cellty; const avalue: piecekindty);
-begin
- with fboard.cells[acell.col,acell.row] do begin
-  if piece <> avalue then begin
-   piece:= avalue;
-   invalidateboardcell(acell);
-  end;
- end;
-end;
-
-function tmainfo.getcellcolor(const acell: cellty): piececolorty;
-begin
- result:= fboard.cells[acell.col,acell.row].color;
-end;
-
-procedure tmainfo.setcellcolor(const acell: cellty; const avalue: piececolorty);
-begin
- with fboard.cells[acell.col,acell.row] do begin
-  if color <> avalue then begin
-   color:= avalue;
-   invalidateboardcell(acell);
-  end;
- end;
-end;
-
-function tmainfo.getcellstate(const acell: cellty): cellstatesty;
-begin
- result:= fboard.cells[acell.col,acell.row].state;
-end;
-
-procedure tmainfo.setcellstate(const acell: cellty; const avalue: cellstatesty);
-begin
- with fboard.cells[acell.col,acell.row] do begin
-  if state <> avalue then begin
-   state:= avalue;
-   invalidateboardcell(acell);
-  end;
- end;
-end;
-
 procedure tmainfo.boardpaintev(const sender: twidget; const acanvas: tcanvas);
 begin
  drawcell(acanvas,dragrect().pos,fboard.dragpiece); 
-end;
-
-procedure tmainfo.exitev(const sender: TObject);
-begin
- application.terminate();
-end;
-
-procedure tmainfo.resetev(const sender: TObject);
-begin
- initboard();
 end;
 
 procedure tmainfo.checkdrag(const adragobject: tdragobject; const apos: pointty;
@@ -436,6 +418,25 @@ var
 begin
  b1:= true;
  checkdrag(adragobject,apos,b1,true);
+end;
+
+procedure tmainfo.dragendev(const asender: TObject; const apos: pointty;
+               var adragobject: tdragobject; const accepted: Boolean;
+               var processed: Boolean);
+begin
+ grid.invalidate();
+ enddrag(fboard);
+end;
+
+procedure tmainfo.resetev(const sender: TObject);
+begin
+ initboard(fboard);
+ boardchanged();
+end;
+
+procedure tmainfo.exitev(const sender: TObject);
+begin
+ application.terminate();
 end;
 
 end.
