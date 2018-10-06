@@ -1,4 +1,5 @@
 object mainfo: tmainfo
+  visible = False
   bounds_x = 26
   bounds_y = 149
   bounds_cx = 384
@@ -18,7 +19,7 @@ object mainfo: tmainfo
   statfile = tstatfile1
   caption = 'MSEide+MSEgui'
   windowopacity = -Inf
-  onloaded = loadededev
+  onloaded = loadedev
   moduleclassname = 'tmainform'
   object grid: tdrawgrid
     optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
@@ -29,48 +30,58 @@ object mainfo: tmainfo
     bounds_y = 8
     bounds_cx = 366
     bounds_cy = 366
+    optionsgrid = [og_focuscellonenter, og_colchangeontabkey, og_wraprow, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 8
     datacols.linewidth = 0
     datacols.width = 40
+    datacols.options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
         linewidth = 0
         width = 40
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
         linewidth = 0
         width = 40
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
         linewidth = 0
         width = 40
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
         linewidth = 0
         width = 40
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
         linewidth = 0
         width = 40
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
         linewidth = 0
         width = 40
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
         linewidth = 0
         width = 40
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
         linewidth = 0
         width = 40
+        options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end>
     fixcols.count = 2
@@ -193,6 +204,7 @@ object mainfo: tmainfo
     rowcount = 8
     datarowlinewidth = 0
     datarowheight = 40
+    oncellevent = cellev
     drag.onbeforedragbegin = dragbeginev
     drag.onafterdragover = dragoverev
     drag.onafterdragdrop = dragdropev

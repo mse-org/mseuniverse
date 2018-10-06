@@ -8,7 +8,7 @@ interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msegrids,
- msebitmap,msedragglob,msestatfile;
+ msebitmap,msedragglob,msestatfile,msegridsglob,msekeyboard;
 
 const
  cellwidth = 40;
@@ -37,12 +37,16 @@ type
  end;
 
  cellsty = array[colty,rowty] of celldataty;
- 
+ boardstatety = (bs_keymoving);
+ boardstatesty = set of boardstatety;
+  
  boardty = record
   cells: cellsty;
+  state: boardstatesty;
   dragpiece: celldataty;
   dragpos: pointty;
-  dragdest: cellty;
+  movesource: cellty;
+  movedest: cellty;
  end;
  pboardty = ^boardty;
  
@@ -56,7 +60,7 @@ type
    mainmenuframe: tframecomp;
    menuitemframe: tframecomp;
    convex: tfacecomp;
-   procedure loadededev(const sender: TObject);
+   procedure loadedev(const sender: TObject);
    procedure drawcellev(const sender: tcol; const canvas: tcanvas;
                    var cellinfo: cellinfoty);
    procedure boardpaintev(const sender: twidget; const acanvas: tcanvas);
@@ -72,6 +76,7 @@ type
    procedure dragendev(const asender: TObject; const apos: pointty;
                    var adragobject: tdragobject; const accepted: Boolean;
                    var processed: Boolean);
+   procedure cellev(const sender: TObject; var info: celleventinfoty);
   private
    fboard: boardty;
    function getcells(const acell: cellty): celldataty;
@@ -83,10 +88,12 @@ type
    function getcellstate(const acell: cellty): cellstatesty;
    procedure setcellstate(const acell: cellty; const avalue: cellstatesty);
   protected
-   fdragsource: cellty;
-   fdragdest: cellty;
    procedure boardchanged();
    procedure invalidateboardcell(const acell: cellty);
+   function beginmove(const acoord: gridcoordty): boolean;
+   procedure endmove();
+   function setmovedest(const acoord: gridcoordty;
+                                   const amove: boolean): boolean;
    function dragrect(): rectty;
    function cellbygridcoord(const gridcell: gridcoordty): celldataty;
    procedure drawcell(const acanvas: tcanvas; const apos: pointty;
@@ -111,18 +118,6 @@ implementation
 uses
  main_mfm;
 
-type
- tpiecedragobject = class(tcelldragobject)
-  private
-   fboardcell: cellty;
-   fboard: pboardty;
-  public
-   constructor create(const board: boardty;
-                   const agrid: tcustomgrid; var ainstance: tdragobject;
-                                                          const apos: pointty);
-   property boardcell: cellty read fboardcell;
- end;
- 
 const
  pieceorder: array[colty] of piecekindty = 
     (pk_rook,pk_knight,pk_bishop,pk_queen,pk_king,pk_bishop,pk_knight,pk_rook);
@@ -165,7 +160,7 @@ begin
  end;
 end;
 
-procedure enddrag(var board: boardty);
+procedure boardenddrag(var board: boardty);
 var
  c1: colty;
  r1: rowty;
@@ -178,23 +173,11 @@ begin
                        [cs_dragsource,cs_reject,cs_accept]; //remove drag states
    end;
   end;
+  exclude(state,bs_keymoving);
  end;
 end;
 
-{ tpiecedragobject }
-
-constructor tpiecedragobject.create(const board: boardty;
-               const agrid: tcustomgrid; var ainstance: tdragobject;
-               const apos: pointty);
-begin
- fboard:= @board;
- if not gridcoordtocell(agrid.cellatpos(apos),fboardcell) then begin
-  componentexception(agrid,'Invalid cell');
- end;
- inherited create(agrid,ainstance,apos);
-end;
-
-procedure initboard(var board: boardty);
+procedure boardinit(var board: boardty);
 var
  c1: colty;
  r1: rowty;
@@ -236,7 +219,7 @@ end;
  
 { tmainfo }
 
-procedure tmainfo.loadededev(const sender: TObject);
+procedure tmainfo.loadedev(const sender: TObject);
 begin
  resetev(nil); //init board
  grid.fixcols.width:= grid.fixrows[-1].height; //adjust to font height
@@ -308,6 +291,29 @@ begin
  grid.invalidatecell(celltogridcoord(acell));
 end;
 
+function tmainfo.beginmove(const acoord: gridcoordty): boolean;
+var
+ cell1: cellty;
+begin
+ endmove(); //cancel current move
+ result:= gridcoordtocell(acoord,cell1);
+ if result then begin
+  result:= cellpiece[cell1] <> pk_none;
+  if result then begin
+   fboard.movesource:= cell1;
+   fboard.movedest:= cell1;
+   cellstate[cell1]:= cellstate[cell1] + [cs_dragsource];
+  end;
+ end;
+end;
+
+procedure tmainfo.endmove();
+begin
+ boardenddrag(fboard);
+ exclude(fboard.state,bs_keymoving);
+ grid.invalidate();
+end;
+
 function tmainfo.dragrect(): rectty;
 begin
  if fboard.dragpiece.piece <> pk_none then begin
@@ -365,44 +371,47 @@ begin
  drawcell(acanvas,dragrect().pos,fboard.dragpiece); 
 end;
 
-procedure tmainfo.checkdrag(const adragobject: tdragobject; const apos: pointty;
-                                  var accept: boolean; const amove: boolean);
+function tmainfo.setmovedest(const acoord: gridcoordty;
+                                    const amove: boolean): boolean;
 var
  cell1: cellty;
 begin
- grid.invalidaterect(dragrect()); //old pos
- fboard.dragpos:= apos;
- grid.invalidaterect(dragrect()); //new pos
- cellstate[fboard.dragdest]:= cellstate[fboard.dragdest] - 
-                                             [cs_accept,cs_reject];
- accept:= gridcoordtocell(grid.cellatpos(fboard.dragpos),cell1);
- if accept then begin
-  fboard.dragdest:= cell1;
-  with tpiecedragobject(adragobject) do begin
-   accept:= piecemove(self.fboard,boardcell,cell1,amove);
-  end;
-  if accept then begin
-   cellstate[cell1]:= cellstate[cell1] + [cs_accept];
+ result:= gridcoordtocell(acoord,cell1);
+ if result then begin
+  cellstate[fboard.movedest]:= cellstate[fboard.movedest] - 
+                                            [cs_accept,cs_reject];
+                           //reset old cell
+  fboard.movedest:= cell1;
+  result:= piecemove(fboard,fboard.movesource,fboard.movedest,amove);
+  if result then begin
+   cellstate[fboard.movedest]:= cellstate[fboard.movedest] + [cs_accept];
+   if amove then begin
+    grid.focuscell(acoord);
+   end;
   end
   else begin
-   cellstate[cell1]:= cellstate[cell1] + [cs_reject];
+   cellstate[fboard.movedest]:= cellstate[fboard.movedest] + [cs_reject];
   end;
  end;
 end;
 
+procedure tmainfo.checkdrag(const adragobject: tdragobject; const apos: pointty;
+                                  var accept: boolean; const amove: boolean);
+begin
+ grid.invalidaterect(dragrect()); //old pos
+ fboard.dragpos:= apos;
+ grid.invalidaterect(dragrect()); //new pos
+ accept:= setmovedest(grid.cellatpos(fboard.dragpos),amove);
+end;
+
 procedure tmainfo.dragbeginev(const asender: TObject; const apos: pointty;
                var adragobject: tdragobject; var processed: Boolean);
-var
- cell1: cellty;
 begin
- if gridcoordtocell(grid.cellatpos(apos),cell1) then begin
-  if cellpiece[cell1] <> pk_none then begin
-   adragobject:= tpiecedragobject.create(fboard,grid,adragobject,apos);
-   fboard.dragpiece:= cells[cell1];
-   fboard.dragpiece.state:= [];
-   fboard.dragpos:= apos;
-   cellstate[cell1]:= cellstate[cell1] + [cs_dragsource];
-  end;
+ if beginmove(grid.cellatpos(apos)) then begin
+  adragobject:= tcelldragobject.create(grid,adragobject,apos);
+  fboard.dragpiece:= cells[fboard.movesource];
+  fboard.dragpiece.state:= [];
+  fboard.dragpos:= apos;
  end;
 end;
 
@@ -426,19 +435,51 @@ procedure tmainfo.dragendev(const asender: TObject; const apos: pointty;
                var adragobject: tdragobject; const accepted: Boolean;
                var processed: Boolean);
 begin
- grid.invalidate();
- enddrag(fboard);
+ endmove();
 end;
 
 procedure tmainfo.resetev(const sender: TObject);
 begin
- initboard(fboard);
+ boardinit(fboard);
  boardchanged();
 end;
 
 procedure tmainfo.exitev(const sender: TObject);
 begin
  application.terminate();
+end;
+
+procedure tmainfo.cellev(const sender: TObject; var info: celleventinfoty);
+begin
+ case info.eventkind of
+  cek_keydown: begin
+   with info.keyeventinfopo^ do begin
+    if shiftstate * shiftstatesrepeatmask = [] then begin
+     case key of
+      key_escape: begin
+       endmove();
+      end;
+      key_return,key_space: begin
+       if bs_keymoving in fboard.state then begin
+        setmovedest(info.cell,true);
+        endmove();
+       end
+       else begin
+        if beginmove(info.cell) then begin
+         include(fboard.state,bs_keymoving);
+        end;
+       end;
+      end;
+     end;
+    end;
+   end;
+  end;
+  cek_enter: begin
+   if bs_keymoving in fboard.state then begin
+    setmovedest(info.cell,false);
+   end;
+  end;
+ end;
 end;
 
 end.
