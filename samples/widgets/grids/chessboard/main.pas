@@ -55,6 +55,7 @@ type
    tstatfile1: tstatfile;
    mainmenuframe: tframecomp;
    menuitemframe: tframecomp;
+   convex: tfacecomp;
    procedure createev(const sender: TObject);
    procedure drawcellev(const sender: tcol; const canvas: tcanvas;
                    var cellinfo: cellinfoty);

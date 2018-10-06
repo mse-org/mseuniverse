@@ -894,7 +894,7 @@ object mainfo: tmainfo
   end
   object tmainmenu1: tmainmenu
     frametemplate = mainmenuframe
-    facetemplate = concave
+    facetemplate = convex
     itemframetemplate = menuitemframe
     itemfacetemplate = concave
     itemframetemplateactive = menuitemframe
@@ -950,5 +950,20 @@ object mainfo: tmainfo
     template.extraspace = 1
     left = 136
     top = 96
+  end
+  object convex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612732
+      -1610612731
+    )
+    template.fade_direction = gd_up
+    left = 136
+    top = 176
   end
 end
