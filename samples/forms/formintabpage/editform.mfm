@@ -18,6 +18,7 @@ inherited editfo: teditfo
     tab_frame.localprops = []
     tab_frame.localprops1 = []
     tab_size = 19
+    statfile = mainfo.tstatfile1
     object ttabpage1: ttabpage
       frame.localprops = []
       frame.localprops1 = []

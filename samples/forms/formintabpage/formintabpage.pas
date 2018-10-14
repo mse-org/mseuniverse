@@ -9,8 +9,8 @@ uses
 begin
  begingloballoading();
  application.createdatamodule(tmainmo,mainmo);
- application.createform(tmainfo,mainfo);
  application.createform(teditfo,editfo);
+ application.createform(tmainfo,mainfo);
  endgloballoading(); //trigger loading of statfile
  application.run;
 end.
