@@ -1,0 +1,43 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 25
+  bounds_y = 156
+  bounds_cx = 198
+  bounds_cy = 101
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    198
+    101
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  windowopacity = -Inf
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 16
+    bounds_y = 40
+    bounds_cx = 106
+    bounds_cy = 20
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Show Editform'
+    onexecute = showexeev
+  end
+  object tbutton2: tbutton
+    taborder = 1
+    bounds_x = 128
+    bounds_y = 40
+    bounds_cx = 50
+    bounds_cy = 20
+    state = [as_localcaption]
+    caption = 'Exit'
+    modalresult = mr_windowclosed
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 8
+    top = 8
+  end
+end

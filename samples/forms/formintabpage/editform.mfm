@@ -1,0 +1,65 @@
+inherited editfo: teditfo
+  container.bounds = (
+    0
+    0
+    379
+    331
+  )
+  moduleclassname = 'tbaseeditfo'
+  inherited tdbnavigator1: tdbnavigator
+  end
+  object tabs: ttabwidget[1]
+    bounds_x = 0
+    bounds_y = 45
+    bounds_cx = 379
+    bounds_cy = 286
+    anchors = [an_top, an_bottom]
+    taborder = 1
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
+    tab_size = 19
+    object ttabpage1: ttabpage
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 379
+      bounds_cy = 267
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Edit&1'
+      ongetsubform = getsubformev
+      oninitsubform = initsubformev
+    end
+    object ttabpage2: ttabpage
+      Tag = 1
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 379
+      bounds_cy = 267
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Edit&2'
+      ongetsubform = getsubformev
+      oninitsubform = initsubformev
+    end
+    object ttabpage3: ttabpage
+      Tag = 2
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 3
+      bounds_x = 0
+      bounds_y = 19
+      bounds_cx = 379
+      bounds_cy = 267
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = 'Edit&3'
+      ongetsubform = getsubformev
+      oninitsubform = initsubformev
+    end
+  end
+  inherited dataso: tmsedatasource[2]
+  end
+end

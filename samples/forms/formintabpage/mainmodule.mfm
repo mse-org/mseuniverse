@@ -1,0 +1,42 @@
+object mainmo: tmainmo
+  bounds_cx = 228
+  bounds_cy = 124
+  left = 421
+  top = 261
+  moduleclassname = 'tmsedatamodule'
+  object ds1: tlocaldataset
+    options = [bdo_local]
+    logfilename = 'ds1.dat'
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'flo1'
+        DataType = ftFloat
+      end    
+      item
+        Name = 'str1'
+        DataType = ftString
+      end>
+    left = 16
+    top = 8
+    streamingversion = 1
+  end
+  object ds2: tlocaldataset
+    options = [bdo_local]
+    logfilename = 'ds2.dat'
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'int1'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'str1'
+        DataType = ftString
+        Size = 20
+      end>
+    left = 88
+    top = 8
+    streamingversion = 1
+  end
+end

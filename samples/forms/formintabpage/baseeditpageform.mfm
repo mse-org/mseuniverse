@@ -1,0 +1,12 @@
+object baseeditpagefo: tbaseeditpagefo
+  visible = False
+  bounds_x = 100
+  bounds_y = 100
+  bounds_cx = 217
+  bounds_cy = 148
+  moduleclassname = 'tsubform'
+  object dataso: tmsedatasource
+    left = 24
+    top = 16
+  end
+end

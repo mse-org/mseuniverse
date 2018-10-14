@@ -1,0 +1,64 @@
+inherited editpage2fo: teditpage2fo
+  bounds_x = 18
+  bounds_y = 311
+  moduleclassname = 'tbaseeditpagefo'
+  object tdbrealedit1: tdbrealedit[0]
+    frame.caption = 'FLO1'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    bounds_x = 8
+    bounds_y = 31
+    bounds_cy = 37
+    datalink.datasource = dataso
+    datalink.fieldname = 'flo1'
+    valuemin = -Inf
+    valuemax = 1E+038
+    valuerange = 1
+    valuestart = 0
+    reffontheight = 14
+  end
+  object tdbstringedit1: tdbstringedit[1]
+    frame.caption = 'STR1'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 79
+    bounds_cx = 204
+    bounds_cy = 37
+    anchors = [an_left, an_top, an_right]
+    datalink.datasource = dataso
+    datalink.fieldname = 'str1'
+    reffontheight = 14
+  end
+  object tlabel1: tlabel[2]
+    frame.levelo = 1
+    frame.leveli = -1
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.localprops1 = []
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 66
+    bounds_cy = 18
+    caption = 'Dataset 1'
+    reffontheight = 14
+  end
+  inherited dataso: tmsedatasource[3]
+    DataSet = mainmo.ds1
+    left = 80
+    top = 8
+  end
+end
