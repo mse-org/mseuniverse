@@ -2,7 +2,7 @@ inherited editfo: teditfo
   container.bounds = (
     0
     0
-    379
+    506
     331
   )
   moduleclassname = 'tbaseeditfo'
@@ -11,10 +11,10 @@ inherited editfo: teditfo
   object tabs: ttabwidget[1]
     bounds_x = 0
     bounds_y = 45
-    bounds_cx = 379
+    bounds_cx = 506
     bounds_cy = 286
     anchors = [an_top, an_bottom]
-    taborder = 1
+    taborder = 2
     tab_frame.localprops = []
     tab_frame.localprops1 = []
     tab_size = 19
@@ -25,7 +25,7 @@ inherited editfo: teditfo
       taborder = 1
       bounds_x = 0
       bounds_y = 19
-      bounds_cx = 379
+      bounds_cx = 506
       bounds_cy = 267
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Edit&1'
@@ -39,7 +39,7 @@ inherited editfo: teditfo
       taborder = 2
       bounds_x = 0
       bounds_y = 19
-      bounds_cx = 379
+      bounds_cx = 506
       bounds_cy = 267
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Edit&2'
@@ -53,7 +53,7 @@ inherited editfo: teditfo
       taborder = 3
       bounds_x = 0
       bounds_y = 19
-      bounds_cx = 379
+      bounds_cx = 506
       bounds_cy = 267
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Edit&3'
@@ -61,6 +61,17 @@ inherited editfo: teditfo
       oninitsubform = initsubformev
     end
   end
-  inherited dataso: tmsedatasource[2]
+  inherited tsmodify: tdbdatetimedisp[2]
+    frame.font.localprops = []
+    frame.localprops = [frl_colorclient]
+  end
+  inherited tscreate: tdbdatetimedisp[3]
+    frame.font.localprops = []
+    taborder = 3
+  end
+  inherited tspacer1: tspacer[4]
+    taborder = 4
+  end
+  inherited dataso: tmsedatasource[5]
   end
 end

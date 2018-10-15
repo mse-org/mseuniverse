@@ -2,14 +2,14 @@ object baseeditfo: tbaseeditfo
   visible = False
   bounds_x = 253
   bounds_y = 242
-  bounds_cx = 379
+  bounds_cx = 506
   bounds_cy = 331
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    379
+    506
     331
   )
   options = [fo_savepos, fo_savezorder, fo_savestate]
@@ -18,17 +18,88 @@ object baseeditfo: tbaseeditfo
   windowopacity = -Inf
   moduleclassname = 'tmseform'
   object tdbnavigator1: tdbnavigator
+    optionswidget1 = [ow1_autoscale, ow1_autowidth]
     frame.localprops = []
     frame.localprops1 = []
-    bounds_x = 8
-    bounds_y = 8
+    bounds_x = 0
+    bounds_y = 0
     datasource = dataso
+    buttonface.fade_pos.count = 2
+    buttonface.fade_pos.items = (
+      0
+      1
+    )
+    buttonface.fade_color.count = 2
+    buttonface.fade_color.items = (
+      -1610612731
+      -1610612732
+    )
+    buttonface.fade_direction = gd_left
+    buttonface.localprops = [fal_fadirection]
     dialogbutton.imagenr = 17
     dialogbutton.hint = 'Dialog'
     dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
   end
+  object tsmodify: tdbdatetimedisp
+    frame.caption = 'TSMODIFY'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      63
+      0
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 257
+    bounds_y = 18
+    bounds_cx = 243
+    bounds_cy = 18
+    textflags = [tf_xcentered, tf_right, tf_ycentered]
+    options = [dwo_showlocal]
+    format = 'II'
+    kind = dtk_datetime
+    datalink.datasource = dataso
+    datalink.fieldname = 'tsmodify'
+    reffontheight = 14
+  end
+  object tscreate: tdbdatetimedisp
+    frame.caption = 'TSCREATE'
+    frame.captionpos = cp_left
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      65
+      0
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 255
+    bounds_y = 0
+    bounds_cx = 245
+    bounds_cy = 18
+    textflags = [tf_xcentered, tf_right, tf_ycentered]
+    options = [dwo_showlocal]
+    format = 'II'
+    kind = dtk_datetime
+    datalink.datasource = dataso
+    datalink.fieldname = 'tscreate'
+    reffontheight = 14
+  end
+  object tspacer1: tspacer
+    taborder = 3
+    bounds_x = 408
+    bounds_y = 18
+    bounds_cx = 20
+    bounds_cy = 4
+    linktop = tscreate
+    linkbottom = tsmodify
+    dist_bottom = -4
+  end
   object dataso: tmsedatasource
-    left = 256
+    left = 336
     top = 8
   end
 end

@@ -6,9 +6,17 @@ object mainmo: tmainmo
   moduleclassname = 'tmsedatamodule'
   object ds1: tlocaldataset
     options = [bdo_local]
-    logfilename = 'ds1.dat'
+    logfilename = 'ds1a.dat'
     Active = True
     FieldDefs = <    
+      item
+        Name = 'tscreate'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'tsmodify'
+        DataType = ftDateTime
+      end    
       item
         Name = 'flo1'
         DataType = ftFloat
@@ -17,15 +25,24 @@ object mainmo: tmainmo
         Name = 'str1'
         DataType = ftString
       end>
+    BeforePost = beforepostev
     left = 16
     top = 8
     streamingversion = 1
   end
   object ds2: tlocaldataset
     options = [bdo_local]
-    logfilename = 'ds2.dat'
+    logfilename = 'ds2a.dat'
     Active = True
     FieldDefs = <    
+      item
+        Name = 'tscreate'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'tsmodify'
+        DataType = ftDateTime
+      end    
       item
         Name = 'int1'
         DataType = ftInteger
@@ -35,6 +52,7 @@ object mainmo: tmainmo
         DataType = ftString
         Size = 20
       end>
+    BeforePost = beforepostev
     left = 88
     top = 8
     streamingversion = 1

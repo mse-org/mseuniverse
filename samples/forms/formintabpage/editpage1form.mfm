@@ -12,7 +12,6 @@ inherited editpage1fo: teditpage1fo
     bounds_cx = 217
     bounds_cy = 108
     anchors = [an_top, an_bottom]
-    options = [dsgo_autofields]
     datacols.count = 2
     datacols.items = <    
       item
@@ -34,13 +33,16 @@ inherited editpage1fo: teditpage1fo
     fixrows.items = <    
       item
         height = 16
-        captions.count = 2
+        captions.count = 3
         captions.items = <        
           item
             caption = 'flo1'
           end        
           item
             caption = 'str1'
+          end        
+          item
+            caption = 'tscreate'
           end>
       end>
     datarowheight = 16
