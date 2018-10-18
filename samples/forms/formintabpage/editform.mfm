@@ -5,21 +5,11 @@ inherited editfo: teditfo
     506
     331
   )
-  moduleclassname = 'tbaseeditfo'
+  moduleclassname = 'tbasetabsfo'
   inherited tdbnavigator1: tdbnavigator
   end
-  object tabs: ttabwidget[1]
-    bounds_x = 0
-    bounds_y = 45
-    bounds_cx = 506
-    bounds_cy = 286
-    anchors = [an_top, an_bottom]
-    taborder = 2
-    tab_frame.localprops = []
-    tab_frame.localprops1 = []
-    tab_size = 19
-    statfile = mainfo.tstatfile1
-    object ttabpage1: ttabpage
+  inherited tabs: ttabwidget
+    object ttabpage1: ttabpage[0]
       frame.localprops = []
       frame.localprops1 = []
       taborder = 1
@@ -28,11 +18,11 @@ inherited editfo: teditfo
       bounds_cx = 506
       bounds_cy = 267
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Edit&1'
+      caption = 'Edit &1'
       ongetsubform = getsubformev
       oninitsubform = initsubformev
     end
-    object ttabpage2: ttabpage
+    object ttabpage2: ttabpage[1]
       Tag = 1
       frame.localprops = []
       frame.localprops1 = []
@@ -42,11 +32,11 @@ inherited editfo: teditfo
       bounds_cx = 506
       bounds_cy = 267
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Edit&2'
+      caption = 'Edit &2'
       ongetsubform = getsubformev
       oninitsubform = initsubformev
     end
-    object ttabpage3: ttabpage
+    object ttabpage3: ttabpage[2]
       Tag = 2
       frame.localprops = []
       frame.localprops1 = []
@@ -56,22 +46,17 @@ inherited editfo: teditfo
       bounds_cx = 506
       bounds_cy = 267
       anchors = [an_left, an_top, an_right, an_bottom]
-      caption = 'Edit&3'
+      caption = 'Edit &3'
       ongetsubform = getsubformev
       oninitsubform = initsubformev
     end
   end
-  inherited tsmodify: tdbdatetimedisp[2]
-    frame.font.localprops = []
-    frame.localprops = [frl_colorclient]
+  inherited tsmodify: tdbdatetimedisp
   end
-  inherited tscreate: tdbdatetimedisp[3]
-    frame.font.localprops = []
-    taborder = 3
+  inherited tscreate: tdbdatetimedisp
   end
-  inherited tspacer1: tspacer[4]
-    taborder = 4
+  inherited tspacer1: tspacer
   end
-  inherited dataso: tmsedatasource[5]
+  inherited dataso: tmsedatasource
   end
 end
