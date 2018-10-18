@@ -6,7 +6,7 @@ uses
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mdb,msedb,
  mseifiglob;
 type
- tbaseeditpagefo = class(tsubform)
+ tbaseeditpagefo = class(tmseform)
    dataso: tmsedatasource;
  end;
  editpageclassty = class of tbaseeditpagefo;

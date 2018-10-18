@@ -4,7 +4,16 @@ object baseeditpagefo: tbaseeditpagefo
   bounds_y = 100
   bounds_cx = 217
   bounds_cy = 148
-  moduleclassname = 'tsubform'
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    217
+    148
+  )
+  windowopacity = -Inf
+  moduleclassname = 'tmseform'
   object dataso: tmsedatasource
     left = 24
     top = 16
