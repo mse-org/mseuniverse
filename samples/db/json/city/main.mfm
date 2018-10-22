@@ -1,0 +1,198 @@
+object mainfo: tmainfo
+  bounds_x = 291
+  bounds_y = 247
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui'
+  windowopacity = -Inf
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 344
+    bounds_y = 8
+    bounds_cx = 50
+    bounds_cy = 20
+    anchors = [an_top, an_right]
+    state = [as_localcaption, as_localonexecute]
+    caption = 'load'
+    onexecute = exeev
+  end
+  object fna: tfilenameedit
+    frame.caption = 'File'
+    frame.captionpos = cp_right
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        imagenr = 17
+      end>
+    frame.button.imagenr = 17
+    frame.outerframe = (
+      0
+      0
+      24
+      0
+    )
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 324
+    anchors = [an_left, an_top, an_right]
+    statfile = tstatfile1
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly, oe_hintclippedtext]
+    textflags = [tf_ycentered, tf_noselect, tf_ellipseleft]
+    controller.filterlist.data = (
+      (
+        'JSON'
+        '*.json'
+      )
+    )
+    controller.defaultext = 'json'
+    reffontheight = 14
+  end
+  object grid: twidgetgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 2
+    bounds_x = 0
+    bounds_y = 80
+    bounds_cx = 403
+    bounds_cy = 200
+    anchors = [an_left, an_top, an_right, an_bottom]
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        numstart = 1
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 16
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'Name'
+          end        
+          item
+            caption = 'ID'
+          end>
+      end>
+    datacols.count = 2
+    datacols.options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+    datacols.items = <    
+      item[namedisp]
+        width = 245
+        options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'namedisp'
+        dataclass = tgridmsestringdatalist
+      end    
+      item[iddisp]
+        width = 101
+        options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
+        widgetname = 'iddisp'
+        dataclass = tgridintegerdatalist
+      end>
+    datarowheight = 16
+    reffontheight = 14
+    object namedisp: tstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 245
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+      reffontheight = 14
+    end
+    object iddisp: tintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 246
+      bounds_y = 0
+      bounds_cx = 101
+      bounds_cy = 16
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
+      reffontheight = 14
+    end
+  end
+  object loadtime: trealdisp
+    frame.caption = 'mseJSON load'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 8
+    bounds_y = 31
+    bounds_cy = 35
+    valuerange = 1
+    valuestart = 0
+    format = '0.000s'
+    value = -Inf
+    reffontheight = 14
+  end
+  object gridtime: trealdisp
+    frame.caption = 'grid load'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 112
+    bounds_y = 31
+    bounds_cy = 35
+    valuerange = 1
+    valuestart = 0
+    format = '0.000s'
+    value = -Inf
+    reffontheight = 14
+  end
+  object fpjsonloadtime: trealdisp
+    frame.caption = 'fpJSON load'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      17
+      0
+      0
+    )
+    taborder = 5
+    bounds_x = 240
+    bounds_y = 31
+    bounds_cy = 35
+    valuerange = 1
+    valuestart = 0
+    format = '0.000s'
+    value = -Inf
+    reffontheight = 14
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 128
+    top = 160
+  end
+end
