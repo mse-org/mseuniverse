@@ -101,7 +101,7 @@ begin
    co1:= cl_ltred;
   end;
   else begin
-   co1:= cl_transparent;
+   co1:= cl_noedit;
   end;
  end;
  adisp.frame.colorclient:= co1;

@@ -219,7 +219,7 @@ inherited testeditfo: ttesteditfo
       object val_actualexitcode: tintegeredit
         optionswidget = [ow_mousefocus, ow_arrowfocus, ow_destroywidgets]
         frame.levelo = -1
-        frame.colorclient = -2147483645
+        frame.colorclient = -1879048185
         frame.caption = 'Actual'#10'Exitcode'
         frame.captionpos = cp_left
         frame.localprops = [frl_levelo, frl_colorclient]
