@@ -8,7 +8,7 @@ interface
 uses
  msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
  msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,msegrids,
- msebitmap,msedragglob,msestatfile,msegridsglob,msekeyboard;
+ msebitmap,msedragglob,msestatfile,msegridsglob,msekeyboard,mserttistat;
 
 const
  cellwidth = 40;
@@ -49,7 +49,27 @@ type
   movedest: cellty;
  end;
  pboardty = ^boardty;
- 
+
+ Tchessoptions = class(Toptions)
+  private
+   fwhiteboardtexture: filenamety;
+   fblackboardtexture: filenamety;
+   fnohatching: boolean;
+   procedure setwhiteboardtexture(const avalue: filenamety);
+   procedure setblackboardtexture(const avalue: filenamety);
+   procedure setnochatching(const avalue: boolean);
+  published
+   property whiteboardtexture: filenamety read fwhiteboardtexture 
+                                                 write setwhiteboardtexture;
+   property blackboardtexture: filenamety read fblackboardtexture 
+                                                 write setblackboardtexture;
+   property nohatching: boolean read fnohatching write setnochatching;
+ end;
+
+ textureflagty = (tef_valid,tef_haswhiteboardtexture,tef_hasblackboardtexture,
+                  tef_nohatching);
+ textureflagsty = set of textureflagty;
+  
  tmainfo = class(tmainform)
    grid: tdrawgrid;
    pieceimages: timagelist;
@@ -60,6 +80,7 @@ type
    mainmenuframe: tframecomp;
    menuitemframe: tframecomp;
    convex: tfacecomp;
+   trttistat1: trttistat;
    procedure loadedev(const sender: TObject);
    procedure drawcellev(const sender: tcol; const canvas: tcanvas;
                    var cellinfo: cellinfoty);
@@ -77,6 +98,11 @@ type
                    var adragobject: tdragobject; const accepted: Boolean;
                    var processed: Boolean);
    procedure cellev(const sender: TObject; var info: celleventinfoty);
+   procedure textureev(const sender: TObject);
+   procedure getoptionsobjectev(const sender: TObject; var aobject: TObject);
+   procedure createev(const sender: TObject);
+   procedure destroyev(const sender: TObject);
+   procedure boardbeforepaintev(const sender: twidget; const acanvas: tcanvas);
   private
    fboard: boardty;
    function getcells(const acell: cellty): celldataty;
@@ -88,7 +114,10 @@ type
    function getcellstate(const acell: cellty): cellstatesty;
    procedure setcellstate(const acell: cellty; const avalue: cellstatesty);
   protected
+   ftextureflags: textureflagsty;
    procedure boardchanged();
+   procedure texturechanged();
+   procedure checktexture();
    procedure invalidateboardcell(const acell: cellty);
    function beginmove(const acoord: gridcoordty): boolean;
    procedure endmove();
@@ -108,6 +137,7 @@ type
    property cellstate[const acell: cellty]: cellstatesty read getcellstate
                                                              write setcellstate;
   public
+   chessoptions: Tchessoptions;
  end;
 
 var
@@ -116,7 +146,7 @@ var
 implementation
 
 uses
- main_mfm;
+ main_mfm,texturedialog,mseformatpngread,mseformatjpgread,mseeditglob;
 
 const
  pieceorder: array[colty] of piecekindty = 
@@ -286,6 +316,82 @@ begin
  grid.invalidate();
 end;
 
+procedure tmainfo.texturechanged();
+begin
+ exclude(ftextureflags,tef_valid);
+ boardchanged();
+end;
+
+procedure tmainfo.checktexture();
+var
+ bmp1,bmp2: tmaskedbitmap;
+ i1,i2: int32;
+begin
+ if not (tef_valid in ftextureflags) then begin
+  ftextureflags:= [];
+  if chessoptions.nohatching then begin
+   include(ftextureflags,tef_nohatching);
+  end;
+  with grid.face.image do begin
+   pos:= grid.cellrect(makegridcoord(0,0)).pos;
+   clear();
+   if chessoptions.whiteboardtexture <> '' then begin
+    try
+     loadfromfile(chessoptions.whiteboardtexture);
+     include(ftextureflags,tef_haswhiteboardtexture);
+    except
+     //catch exceptions
+    end;
+   end;
+  end;
+  if chessoptions.blackboardtexture <> '' then begin
+   bmp1:= tmaskedbitmap.create(bmk_rgb);
+   bmp2:= tmaskedbitmap.create(bmk_rgb);
+   try
+    bmp1.loadfromfile(chessoptions.blackboardtexture);
+    bmp2.size:= makesize(8*cellwidth,8*cellheight);
+    bmp2.init(cl_white);
+    bmp2.masked:= true;
+    bmp2.mask.init(cl_1); //all opaque
+    for i1:= 0 to 7 do begin
+     for i2:= 0 to 7 do begin
+      if odd(i1) xor odd(i2) then begin
+       bmp2.mask.canvas.fillrect(makerect(i1*cellwidth,i2*cellheight,
+                                                 cellwidth,cellheight),cl_0);
+                                               //transparent fields
+      end;
+     end;
+    end;
+    with grid.face.image do begin
+     if tef_haswhiteboardtexture in ftextureflags then begin
+      paint(bmp2.canvas,makerect(nullpoint,bmp2.size)); 
+                                              //get white background
+     end;
+     size:= bmp2.size;
+     kind:= bmk_rgb;
+     init(cl_white);
+     if tef_haswhiteboardtexture in ftextureflags then begin
+      bmp2.paint(canvas,nullpoint); //paint white fields
+     end;
+     bmp2.init(cl_white);
+     bmp1.paint(bmp2.canvas,makerect(nullpoint,bmp2.size),[al_tiled]); 
+                                             //get black background
+     bmp2.mask.canvas.rasterop:= rop_xor;
+     bmp2.mask.canvas.fillrect(makerect(nullpoint,bmp2.size),cl_1);
+                                   //invert field mask
+     bmp2.paint(canvas,nullpoint); //paint black fields
+    end;
+    include(ftextureflags,tef_hasblackboardtexture);
+   except
+    //catch exceptions
+   end;
+   bmp1.destroy();
+   bmp2.destroy();
+  end;
+  include(ftextureflags,tef_valid);
+ end;
+end;
+
 procedure tmainfo.invalidateboardcell(const acell: cellty);
 begin
  grid.invalidatecell(celltogridcoord(acell));
@@ -349,11 +455,14 @@ begin
     end;
    end;
   end;
-  if cs_black in state then begin
-   cellimages.paint(acanvas,1,apos);
-  end
-  else begin
-   cellimages.paint(acanvas,0,apos);
+  if not (tef_nohatching in ftextureflags) or
+              (state * [cs_dragsource,cs_reject,cs_accept] <> []) then begin
+   if cs_black in state then begin
+    cellimages.paint(acanvas,1,apos);
+   end
+   else begin
+    cellimages.paint(acanvas,0,apos);
+   end;
   end;
   pieceimages.paint(acanvas,ord(piece)-1,apos,
                 cl_default,cl_default,cl_default,ord(color));
@@ -480,6 +589,53 @@ begin
    end;
   end;
  end;
+end;
+
+procedure tmainfo.textureev(const sender: TObject);
+begin
+ ttexturedialogfo.create(nil).show(ml_application);
+end;
+
+procedure tmainfo.getoptionsobjectev(const sender: TObject;
+               var aobject: TObject);
+begin
+ aobject:= chessoptions;
+end;
+
+procedure tmainfo.createev(const sender: TObject);
+begin
+ chessoptions:= tchessoptions.create;
+end;
+
+procedure tmainfo.destroyev(const sender: TObject);
+begin
+ chessoptions.free();
+end;
+
+procedure tmainfo.boardbeforepaintev(const sender: twidget;
+               const acanvas: tcanvas);
+begin
+ checktexture();
+end;
+
+{ Tchessoptions }
+
+procedure Tchessoptions.setwhiteboardtexture(const avalue: filenamety);
+begin
+ fwhiteboardtexture:= avalue;
+ mainfo.texturechanged();
+end;
+
+procedure Tchessoptions.setblackboardtexture(const avalue: filenamety);
+begin
+ fblackboardtexture:= avalue;
+ mainfo.texturechanged();
+end;
+
+procedure Tchessoptions.setnochatching(const avalue: boolean);
+begin
+ fnohatching:= avalue;
+ mainfo.texturechanged();
 end;
 
 end.

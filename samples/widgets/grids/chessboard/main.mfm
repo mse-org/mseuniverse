@@ -19,12 +19,17 @@ object mainfo: tmainfo
   statfile = tstatfile1
   caption = 'MSEide+MSEgui'
   windowopacity = -Inf
+  oncreate = createev
   onloaded = loadedev
+  ondestroy = destroyev
   moduleclassname = 'tmainform'
   object grid: tdrawgrid
     optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
-    frame.localprops = []
+    frame.localprops = [frl_colorclient]
     frame.localprops1 = []
+    face.image.alignment = [al_tiled]
+    face.localprops = [fal_image]
+    onbeforepaint = boardbeforepaintev
     onpaint = boardpaintev
     bounds_x = 8
     bounds_y = 8
@@ -33,52 +38,61 @@ object mainfo: tmainfo
     optionsgrid = [og_focuscellonenter, og_colchangeontabkey, og_wraprow, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 8
     datacols.linewidth = 0
+    datacols.color = -2147483645
     datacols.width = 40
     datacols.options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
       item
+        color = -2147483645
         linewidth = 0
         width = 40
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
+        color = -2147483645
         linewidth = 0
         width = 40
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
+        color = -2147483645
         linewidth = 0
         width = 40
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
+        color = -2147483645
         linewidth = 0
         width = 40
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
+        color = -2147483645
         linewidth = 0
         width = 40
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
+        color = -2147483645
         linewidth = 0
         width = 40
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
+        color = -2147483645
         linewidth = 0
         width = 40
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
         ondrawcell = drawcellev
       end    
       item
+        color = -2147483645
         linewidth = 0
         width = 40
         options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
@@ -910,7 +924,7 @@ object mainfo: tmainfo
     itemframetemplate = menuitemframe
     itemfacetemplate = concave
     itemframetemplateactive = menuitemframe
-    menu.submenu.count = 2
+    menu.submenu.count = 3
     menu.submenu.items = <    
       item
         caption = 'E&xit'
@@ -921,6 +935,11 @@ object mainfo: tmainfo
         caption = '&Reset'
         state = [as_localcaption, as_localonexecute]
         onexecute = resetev
+      end    
+      item
+        caption = '&Texture'
+        state = [as_localcaption, as_localonexecute]
+        onexecute = textureev
       end>
     left = 40
     top = 72
@@ -941,6 +960,7 @@ object mainfo: tmainfo
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
+    savedmemoryfiles = '*.sta'
     left = 40
     top = 40
   end
@@ -977,5 +997,11 @@ object mainfo: tmainfo
     template.fade_direction = gd_up
     left = 136
     top = 176
+  end
+  object trttistat1: trttistat
+    statfile = tstatfile1
+    ongetobject = getoptionsobjectev
+    left = 128
+    top = 40
   end
 end
