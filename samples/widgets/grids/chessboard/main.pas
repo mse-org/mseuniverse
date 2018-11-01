@@ -364,7 +364,7 @@ begin
     end;
     with grid.face.image do begin
      if tef_haswhiteboardtexture in ftextureflags then begin
-      paint(bmp2.canvas,makerect(nullpoint,bmp2.size)); 
+      paint(bmp2.canvas,makerect(nullpoint,bmp2.size),[al_tiled]); 
                                               //get white background
      end;
      size:= bmp2.size;
@@ -376,8 +376,8 @@ begin
      bmp2.init(cl_white);
      bmp1.paint(bmp2.canvas,makerect(nullpoint,bmp2.size),[al_tiled]); 
                                              //get black background
-     bmp2.mask.canvas.rasterop:= rop_xor;
-     bmp2.mask.canvas.fillrect(makerect(nullpoint,bmp2.size),cl_1);
+     bmp2.mask.canvas.rasterop:= rop_not;
+     bmp2.mask.canvas.fillrect(makerect(nullpoint,bmp2.size),0);
                                    //invert field mask
      bmp2.paint(canvas,nullpoint); //paint black fields
     end;
