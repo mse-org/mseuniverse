@@ -36,7 +36,8 @@ object mainfo: tmainfo
     optionsscale = [osc_expandy, osc_shrinky]
     linkbottom = dockfo1
     object statdisp: tstringdisp
-      frame.localprops = []
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_colorclient]
       frame.localprops1 = []
       bounds_x = 0
       bounds_y = 0

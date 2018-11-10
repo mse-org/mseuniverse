@@ -14,6 +14,7 @@ inherited chartfo: tchartfo
   dragdock.optionsdock = [od_savepos, od_savezorder, od_canmove, od_cansize, od_canfloat, od_candock, od_proportional, od_propsize, od_captionhint]
   font.height = 10
   font.name = 'Arial'
+  font.localprops = [flp_height]
   options = [fo_savepos, fo_savezorder, fo_savestate]
   icon.transparentcolor = -2147483642
   icon.image = {
@@ -142,7 +143,8 @@ inherited chartfo: tchartfo
     object titledisp: tstringdisp
       color = -1610612730
       frame.levelo = 0
-      frame.localprops = [frl_levelo]
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       visible = False
       bounds_x = 0
