@@ -203,7 +203,13 @@ end;
 
 procedure tgitconsolefo.addmessage(const message: msestring);
 begin
+ application.lock();
+ termed.prompt:= '(git)!> ';
+ grid.row:= grid.rowhigh;
  termed.addchars(message);
+// termed.addchars(message);
+ refreshprompt();
+ application.unlock();
 end;
 
 procedure tgitconsolefo.clearexe(const sender: TObject);

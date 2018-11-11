@@ -2578,7 +2578,7 @@ end;
 procedure tmainmo.differrorev(const sender: tgitcontroller;
                const message: msestring);
 begin
- gitconsolefo.addmessage(message);
+ gitconsolefo.addmessage('diff '+fgit.diffoptions+lineend+message);
 end;
 
 procedure tmainmo.asynceventexe(const sender: TObject; var atag: Integer);
