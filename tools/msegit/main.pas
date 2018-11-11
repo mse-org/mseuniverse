@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2017 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ uses
  msetimer,mserichstring,msesimplewidgets,msewidgets,msegrids,mseifigui,
  mseifilink,finddialogform;
 const
- versiontext = '2.8.2';
+ versiontext = '2.8.3';
 type
  tmainfo = class(tmainform)
    dockpanel: tdockpanel;

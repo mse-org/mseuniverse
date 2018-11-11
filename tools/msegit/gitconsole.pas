@@ -46,6 +46,7 @@ type
    procedure clear;
    function execgit(const acommand: msestring): boolean;
    function exec(const acommand: msestring): boolean;
+   procedure addmessage(const message: msestring);
  end;
  
 var
@@ -198,6 +199,11 @@ end;
 function tgitconsolefo.exec(const acommand: msestring): boolean;
 begin
  result:= doexec(acommand,false);
+end;
+
+procedure tgitconsolefo.addmessage(const message: msestring);
+begin
+ termed.addchars(message);
 end;
 
 procedure tgitconsolefo.clearexe(const sender: TObject);

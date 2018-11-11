@@ -68,6 +68,8 @@ type
    procedure setshowutc(const avalue: boolean);
    function getshowutc: boolean;
    procedure setdateformat(avalue: msestring);
+   function getdiffoptions: msestring;
+   procedure setdiffoptions(const avalue: msestring);
   public
    constructor create(const aowner: tmainmo);
   published
@@ -87,6 +89,7 @@ type
    property repostatfilename: msestring read frepostatfilename 
                                             write frepostatfilename;
    property diffencoding: integer read fdiffencoding write fdiffencoding;
+   property diffoptions: msestring read getdiffoptions write setdiffoptions;
    property maxdiffcount: integer read fmaxdiffcount write fmaxdiffcount;
    property maxdiffsize: integer read fmaxdiffsize write fmaxdiffsize;
    property autoadd: boolean read fautoadd write fautoadd;
@@ -373,6 +376,8 @@ type
                                const afiles: msegitfileitemarty): msestring;
    function getremote(const aremotetarget: msestring): msestring;
    procedure delayedrefresh;
+   procedure differrorev(const sender: tgitcontroller;
+                                            const message: msestring);
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
@@ -704,6 +709,7 @@ begin
  ftagstree:= tgittagstreerootnode.create;
  frefsinfo:= trefsitemlist.create;
  fgit:= tgitcontroller.create(nil);
+ fgit.ondifferror:= @differrorev;
  inherited;
 end;
 
@@ -2569,6 +2575,12 @@ begin
  end;
 end;
 
+procedure tmainmo.differrorev(const sender: tgitcontroller;
+               const message: msestring);
+begin
+ gitconsolefo.addmessage(message);
+end;
+
 procedure tmainmo.asynceventexe(const sender: TObject; var atag: Integer);
 begin
  frefreshpending:= false;
@@ -2998,6 +3010,16 @@ begin
   clear;
   addmac('dt',avalue);
  end;
+end;
+
+function tmsegitoptions.getdiffoptions: msestring;
+begin
+ result:= fowner.git.diffoptions;
+end;
+
+procedure tmsegitoptions.setdiffoptions(const avalue: msestring);
+begin
+ fowner.git.diffoptions:= avalue;
 end;
 
 { trepostat }

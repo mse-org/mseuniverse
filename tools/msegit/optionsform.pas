@@ -23,7 +23,7 @@ uses
  msewidgets,msescrollbar,msetabs,sysutils,msestatfile,msebitmap,msedataedits,
  msedatanodes,mseedit,msefiledialog,msegrids,mseifiglob,mselistbrowser,
  msestrings,msesys,msetypes,msegraphedits,msesplitter,mseificomp,mseificompglob,
- msestream;
+ msestream,msememodialog;
 
 type
  toptionsfo = class(tmseform)
@@ -54,6 +54,8 @@ type
    tbutton2: tbutton;
    tspacer5: tspacer;
    autoadd: tbooleanedit;
+   tspacer6: tspacer;
+   diffoptions: tmemodialoghistoryedit;
    procedure repostafnasetexe(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
    procedure diffencinitexe(const sender: tenumtypeedit);

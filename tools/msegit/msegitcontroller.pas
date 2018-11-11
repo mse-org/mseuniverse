@@ -1,4 +1,4 @@
-{ MSEgit Copyright (c) 2011-2015 by Martin Schreiber
+{ MSEgit Copyright (c) 2011-2018 by Martin Schreiber
    
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -213,7 +213,10 @@ type
   message: msestring;
  end;
  stashinfoarty = array of stashinfoty;
-     
+
+ tgitcontroller = class;
+ giterroreventty = procedure(const sender: tgitcontroller;
+                                        const message: msestring) of object;
  tgitcontroller = class(tmsecomponent)
   private
    fgitcommand: msestring;
@@ -230,6 +233,8 @@ type
    fhasaskpassvar: boolean;
    fhasdisplayvar: boolean;
    fcommandlinevars: msestring;
+   fdiffoptions: msestring;
+   fondifferror: giterroreventty;
    procedure arraycallback(const astatus: gitstateinfoty);
    procedure cachecallback(const astatus: gitstateinfoty);
    procedure filearraycallback(var ainfo: gitfileinfoty);
@@ -257,6 +262,8 @@ type
    function decodecommit(const atext: msestring;
               const ainfo: prefinfoty; const alist: prefinfoarty): boolean;
                               //false if empty
+   function adddiffoptions(avalue: msestring): msestring;
+   procedure dodifferror();
   public
    
    constructor create(aowner: tcomponent); override;
@@ -350,6 +357,8 @@ type
   published
    property gitcommand: filenamety read fgitcommand write fgitcommand;
                   //'' -> 'git'
+   property diffoptions: msestring read fdiffoptions write fdiffoptions;
+   property ondifferror: giterroreventty read fondifferror write fondifferror;
  end;
  
 function checkgit(const adir: filenamety; out gitroot: filenamety): boolean;
@@ -1399,7 +1408,8 @@ var
  i1: int32;
 begin
  result:= nil;
- i1:= commandresult1('diff --unified='+inttostrmse(acontextn)+' '+
+ i1:= commandresult1(adddiffoptions('diff')+
+                 ' --unified='+inttostrmse(acontextn)+' '+
                        noemptystringparam(a)+noemptystringparam(b)+
                    ' -- '+encodepathparam(afile,true),mstr1,aencoding,
                                                   amaxdatalen);
@@ -1408,6 +1418,9 @@ begin
   if i1 = -2 then begin
    additem(result,trunctag);
   end;
+ end
+ else begin
+  dodifferror();
  end;
 end;
 
@@ -1421,7 +1434,8 @@ var
  i1: int32;
 begin
  result:= nil;
- i1:= commandresult1('diff --unified='+inttostrmse(acontextn)+' '+
+ i1:= commandresult1(adddiffoptions('diff')+
+                   ' --unified='+inttostrmse(acontextn)+' '+
                        '--cached '+noemptystringparam(b)+
                        ' -- '+encodepathparam(afile,true),mstr1,
                        aencoding,amaxdatalen);
@@ -1430,6 +1444,9 @@ begin
   if i1 = -2 then begin
    additem(result,trunctag);
   end;
+ end
+ else begin
+  dodifferror();
  end;
 end;
 
@@ -1444,7 +1461,7 @@ var
 begin
  result:= nil;
  if commits <> nil then begin
-  str1:= 'log -n'+inttostrmse(length(commits))+' --unified='+
+  str1:= adddiffoptions('log')+' -n'+inttostrmse(length(commits))+' --unified='+
            inttostrmse(acontextn)+' --full-index -p --pretty=format:';
   for int1:= 0 to high(commits) do begin
    str1:= str1 + ' '+encodestringparam(commits[int1]);
@@ -1452,6 +1469,9 @@ begin
   str1:= str1 + ' -- '+encodepathparam(afile,true);
   if (commandresult1(str1,mstr1,aencoding) = 0) then begin
    result:= breaklines(mstr1);
+  end
+  else begin
+   dodifferror();
   end;
  end;
 end;
@@ -1660,6 +1680,21 @@ begin
   if alist <> nil then begin
    setlength(alist^,int1);
   end;
+ end;
+end;
+
+function tgitcontroller.adddiffoptions(avalue: msestring): msestring;
+begin
+ result:= avalue;
+ if fdiffoptions <> '' then begin
+  result:= result + ' ' + fdiffoptions;
+ end;
+end;
+
+procedure tgitcontroller.dodifferror();
+begin
+ if assigned(fondifferror) then begin
+  fondifferror(self,utf8tostring(ferrormessage));
  end;
 end;
 
