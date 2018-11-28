@@ -635,11 +635,13 @@ object voucherre: tvoucherre
       fontbar.localprops = [flp_height]
     end
     object tdbintegerdisp1: tdbintegerdisp
+      color = -2147483645
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'Nummer'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         55

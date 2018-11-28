@@ -36,11 +36,13 @@ object tokenre: ttokenre
     end
     object number: tdbintegerdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      color = -2147483645
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'Nummer'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         55
@@ -59,11 +61,13 @@ object tokenre: ttokenre
     end
     object issuedate: tdbdatetimedisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      color = -2147483645
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'Datum'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         44
@@ -83,11 +87,13 @@ object tokenre: ttokenre
     end
     object expirydate: tdbdatetimedisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      color = -2147483645
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'G'#252'ltig bis'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         62
@@ -107,11 +113,13 @@ object tokenre: ttokenre
     end
     object quantity: tdbrealdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      color = -2147483645
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'Menge'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         46
@@ -123,7 +131,7 @@ object tokenre: ttokenre
       bounds_x = 14
       bounds_y = 162
       bounds_cx = 48
-      bounds_cy = 22
+      bounds_cy = 23
       font.color = -1610612734
       font.colorbackground = -2147483645
       font.height = 18
@@ -133,18 +141,20 @@ object tokenre: ttokenre
       valuestart = 0
       datalink.datasource = dataso
       datalink.fieldname = 'QUANTITY'
-      reffontheight = 20
+      reffontheight = 21
     end
     object unit_: tdbstringdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      color = -2147483645
       frame.levelo = 0
-      frame.localprops = [frl_levelo]
+      frame.colorclient = -2147483645
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       taborder = 5
       bounds_x = 90
       bounds_y = 162
       bounds_cx = 2
-      bounds_cy = 22
+      bounds_cy = 23
       font.color = -1610612734
       font.colorbackground = -2147483645
       font.height = 18
@@ -152,15 +162,17 @@ object tokenre: ttokenre
       font.localprops = [flp_height]
       datalink.datasource = dataso
       datalink.fieldname = 'UNIT'
-      reffontheight = 20
+      reffontheight = 21
     end
     object duration: tdbrealdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      color = -2147483645
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'g'#252'ltig'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         37
@@ -182,11 +194,13 @@ object tokenre: ttokenre
     end
     object description: tdbstringdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      color = -2147483645
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'Beschreibung'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         90
@@ -198,7 +212,7 @@ object tokenre: ttokenre
       bounds_x = 156
       bounds_y = 162
       bounds_cx = 92
-      bounds_cy = 22
+      bounds_cy = 23
       font.color = -1610612734
       font.colorbackground = -2147483645
       font.height = 18
@@ -206,15 +220,17 @@ object tokenre: ttokenre
       font.localprops = [flp_height]
       datalink.datasource = dataso
       datalink.fieldname = 'DESCRIPTION'
-      reffontheight = 20
+      reffontheight = 21
     end
     object recipient: tdbstringdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      color = -2147483645
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'F'#252'r'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         25
@@ -233,22 +249,24 @@ object tokenre: ttokenre
     end
     object donator: tdbstringdisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth, ow1_autoheight]
+      color = -2147483645
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = #220'berreicht von'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
-        95
+        96
         0
         0
         0
       )
       taborder = 9
-      bounds_x = 19
+      bounds_x = 18
       bounds_y = 225
-      bounds_cx = 97
+      bounds_cx = 98
       bounds_cy = 18
       datalink.datasource = dataso
       datalink.fieldname = 'DONATOR'

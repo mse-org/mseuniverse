@@ -31,9 +31,9 @@ object overviewre: toverviewre
     object trepprintdatedisp1: trepprintdatedisp
       optionswidget1 = [ow1_autoscale, ow1_autowidth]
       taborder = 1
-      bounds_x = 419
+      bounds_x = 420
       bounds_y = 0
-      bounds_cx = 134
+      bounds_cx = 133
       bounds_cy = 18
       anchors = [an_top, an_right]
       format = '${dateformat}"/"hh:nn:ss'
@@ -327,10 +327,11 @@ object overviewre: toverviewre
     object tdatetimedisp1: tdatetimedisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'von'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         26
@@ -348,10 +349,11 @@ object overviewre: toverviewre
     object tdatetimedisp2: tdatetimedisp
       optionswidget1 = [ow1_fontglyphheight, ow1_autoscale, ow1_autowidth]
       frame.levelo = 0
+      frame.colorclient = -2147483645
       frame.caption = 'bis'
       frame.captiontextflags = [tf_right, tf_ycentered]
       frame.captionpos = cp_left
-      frame.localprops = [frl_levelo]
+      frame.localprops = [frl_levelo, frl_colorclient]
       frame.localprops1 = []
       frame.outerframe = (
         21
