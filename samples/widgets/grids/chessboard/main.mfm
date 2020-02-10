@@ -1,7 +1,7 @@
 object mainfo: tmainfo
   visible = False
-  bounds_x = 26
-  bounds_y = 149
+  bounds_x = 414
+  bounds_y = 184
   bounds_cx = 384
   bounds_cy = 417
   container.frame.localprops = []
@@ -11,9 +11,9 @@ object mainfo: tmainfo
   container.face.template = concave
   container.bounds = (
     0
-    25
+    27
     384
-    392
+    390
   )
   mainmenu = tmainmenu1
   statfile = tstatfile1
@@ -34,11 +34,10 @@ object mainfo: tmainfo
     bounds_x = 8
     bounds_y = 8
     bounds_cx = 366
-    bounds_cy = 364
+    bounds_cy = 372
     optionsgrid = [og_focuscellonenter, og_colchangeontabkey, og_wraprow, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 8
     datacols.linewidth = 0
-    datacols.color = -2147483645
     datacols.width = 40
     datacols.options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
@@ -140,7 +139,7 @@ object mainfo: tmainfo
       item
         face.localprops = [fal_fadirection]
         face.template = concave
-        height = 19
+        height = 21
         captions.count = 8
         captions.items = <        
           item
@@ -179,7 +178,7 @@ object mainfo: tmainfo
       item
         face.localprops = [fal_fadirection]
         face.template = concave
-        height = 19
+        height = 21
         captions.count = 8
         captions.items = <        
           item
@@ -224,7 +223,7 @@ object mainfo: tmainfo
     drag.onafterdragdrop = dragdropev
     drag.onafterdragend = dragendev
     drag.options = [do_nocursorshape, do_nearstart, do_mousewidget]
-    reffontheight = 13
+    reffontheight = 15
   end
   object pieceimages: timagelist
     versioncount = 2
