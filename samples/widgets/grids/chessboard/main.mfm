@@ -34,10 +34,11 @@ object mainfo: tmainfo
     bounds_x = 8
     bounds_y = 8
     bounds_cx = 366
-    bounds_cy = 372
+    bounds_cy = 368
     optionsgrid = [og_focuscellonenter, og_colchangeontabkey, og_wraprow, og_wrapcol, og_autopopup, og_mousescrollcol]
     datacols.count = 8
     datacols.linewidth = 0
+    datacols.color = -2147483645
     datacols.width = 40
     datacols.options = [co_drawfocus, co_savevalue, co_savestate, co_mousescrollrow]
     datacols.items = <    
