@@ -1,0 +1,545 @@
+object mainfo: tmainfo
+  bounds_x = 477
+  bounds_y = 170
+  bounds_cx = 403
+  bounds_cy = 388
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    403
+    388
+  )
+  font.name = 'stf_default'
+  font.localprops = []
+  fontempty.name = 'stf_empty'
+  fontempty.localprops = []
+  statfile = tstatfile1
+  caption = 'MSEFileDialogX Demo'
+  icon.options = [bmo_masked, bmo_graymask]
+  icon.origformat = 'png'
+  windowopacity = -Inf
+  moduleclassname = 'tmainform'
+  object tstringdisp1: tstringdisp
+    color = -2147483645
+    frame.colorclient = 15592941
+    frame.caption = 'Result'
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 0
+    bounds_y = 286
+    bounds_cx = 403
+    bounds_cy = 45
+    anchors = [an_top]
+    text = 'The File Name'
+    textflags = [tf_xcentered, tf_ycentered]
+    reffontheight = 15
+  end
+  object tgroupbox1: tgroupbox
+    frame.caption = 'Kind'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      8
+      0
+      0
+    )
+    taborder = 2
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 386
+    bounds_cy = 50
+    object b_fdk_open: tbooleaneditradio
+      frame.caption = 'fdk_open'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        2
+        58
+        2
+      )
+      bounds_x = 8
+      bounds_y = 22
+      bounds_cx = 71
+      bounds_cy = 17
+      statfile = tstatfile1
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+      value = True
+    end
+    object b_fdk_save: tbooleaneditradio
+      frame.caption = 'fdk_save'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        2
+        55
+        2
+      )
+      taborder = 1
+      bounds_x = 88
+      bounds_y = 22
+      bounds_cx = 68
+      bounds_cy = 17
+      statfile = tstatfile1
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+    end
+    object b_fdk_dir: tbooleaneditradio
+      frame.caption = 'fdk_dir'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        2
+        44
+        2
+      )
+      taborder = 2
+      bounds_x = 240
+      bounds_y = 22
+      bounds_cx = 57
+      bounds_cy = 17
+      statfile = tstatfile1
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+    end
+    object b_fdk_none: tbooleaneditradio
+      frame.caption = 'fdk_none'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        2
+        58
+        2
+      )
+      taborder = 3
+      bounds_x = 304
+      bounds_y = 22
+      bounds_cx = 71
+      bounds_cy = 17
+      statfile = tstatfile1
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+    end
+    object b_fdk_new: tbooleaneditradio
+      frame.caption = 'fdk_new'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        2
+        53
+        2
+      )
+      taborder = 4
+      bounds_x = 168
+      bounds_y = 22
+      bounds_cx = 66
+      bounds_cy = 17
+      statfile = tstatfile1
+      options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
+    end
+  end
+  object thefilter: tstringedit
+    frame.levelo = 0
+    frame.caption = 'Filter'
+    frame.localprops = [frl_levelo]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 3
+    bounds_x = 32
+    bounds_y = 70
+    bounds_cx = 132
+    bounds_cy = 39
+    statfile = tstatfile1
+    value = '"*.pas" "*.mfm"'
+    reffontheight = 15
+  end
+  object thetitle: tstringedit
+    frame.levelo = 0
+    frame.caption = 'Title'
+    frame.localprops = [frl_levelo]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 4
+    bounds_x = 192
+    bounds_y = 70
+    bounds_cx = 172
+    bounds_cy = 39
+    statfile = tstatfile1
+    value = 'My title'
+    reffontheight = 15
+  end
+  object custtitle: tbooleanedit
+    frame.caption = 'Custom Title'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      78
+      2
+    )
+    taborder = 5
+    bounds_x = 240
+    bounds_y = 68
+    bounds_cx = 91
+    bounds_cy = 17
+    statfile = tstatfile1
+  end
+  object thebasedir: tstringedit
+    frame.levelo = 0
+    frame.caption = 'Base Directory (Empty = current)'
+    frame.localprops = [frl_levelo]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 6
+    bounds_x = 32
+    bounds_y = 120
+    bounds_cx = 332
+    bounds_cy = 39
+    statfile = tstatfile1
+    reffontheight = 15
+  end
+  object tbutton1: tbutton
+    bounds_x = 64
+    bounds_y = 264
+    bounds_cx = 300
+    bounds_cy = 29
+    state = [as_localcaption, as_localonexecute]
+    caption = 'MSEFileDialogX'
+    onexecute = onex
+  end
+  object fontname: tdropdownlistedit
+    frame.levelo = 0
+    frame.hiddenedges = [edg_right, edg_top, edg_left, edg_bottom]
+    frame.caption = 'Font name '
+    frame.localprops = [frl_levelo, frl_hiddenedges, frl_frameimagelist, frl_colorclient]
+    frame.localprops1 = [frl1_captiondist]
+    frame.button.width = 16
+    frame.button.face.fade_direction = gd_down
+    frame.button.face.localprops = [fal_fadirection]
+    frame.button.frame.localprops = []
+    frame.button.frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        width = 16
+        face.fade_direction = gd_down
+        face.localprops = [fal_fadirection]
+        frame.localprops = []
+        frame.localprops1 = []
+      end>
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 7
+    bounds_x = 24
+    bounds_y = 168
+    bounds_cx = 103
+    bounds_cy = 39
+    statfile = tstatfile1
+    optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_readonlydialog, oe1_savevalue, oe1_savestate, oe1_checkvalueafterstatread]
+    value = 'stf_default'
+    dropdown.dropdownrowcount = 5
+    dropdown.cols.count = 1
+    dropdown.cols.items = <    
+      item
+        data = (
+          'stf_default'
+          'stf_courier'
+          'stf_helvetica'
+          'stf_roman'
+          'stf_proportional'
+        )
+      end>
+    reffontheight = 15
+  end
+  object fontheight: tintegeredit
+    frame.levelo = 0
+    frame.caption = 'Font height '
+    frame.captiontextflags = [tf_bottom]
+    frame.localprops = [frl_levelo, frl_frameimageleft, frl_frameimagetop, frl_frameimageright, frl_frameimagebottom, frl_frameimageoffset, frl_frameimageoffsetmouse, frl_frameimageoffsetclicked, frl_frameimageoffsetactive]
+    frame.localprops1 = [frl1_framefaceoffset, frl1_framefaceoffsetdisabled, frl1_framefaceoffsetmouse, frl1_framefaceoffsetclicked, frl1_framefaceoffsetactive]
+    frame.outerframe = (
+      0
+      18
+      24
+      0
+    )
+    taborder = 8
+    hint = 'Font height for all ideU text'
+    bounds_x = 133
+    bounds_y = 168
+    bounds_cx = 76
+    bounds_cy = 39
+    statfile = tstatfile1
+    optionsedit1 = [oe1_autopopupmenu, oe1_savevalue, oe1_savestate]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+    valuemax = 20
+    reffontheight = 15
+  end
+  object tbutton2: tbutton
+    taborder = 9
+    bounds_x = 316
+    bounds_y = 344
+    bounds_cx = 82
+    bounds_cy = 29
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Close'
+    onexecute = onclose
+  end
+  object tbackcolor: tcoloredit
+    frame.caption = 'Background color'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 2
+    frame.buttons.items = <    
+      item
+      end    
+      item
+        imagenr = 17
+      end>
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 10
+    bounds_x = 64
+    bounds_y = 214
+    bounds_cx = 292
+    bounds_cy = 39
+    statfile = tstatfile1
+    value = -2147483647
+    valuedefault = -2147483647
+    reffontheight = 15
+  end
+  object tfontcolor: tcoloredit
+    frame.caption = 'Font color'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 2
+    frame.buttons.items = <    
+      item
+      end    
+      item
+        imagenr = 17
+      end>
+    frame.buttonellipse.imagenr = 17
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 11
+    bounds_x = 216
+    bounds_y = 168
+    bounds_cx = 172
+    bounds_cy = 39
+    statfile = tstatfile1
+    value = -1610612734
+    valuedefault = -1610612734
+    reffontheight = 15
+  end
+  object tfilenameeditx1: tfilenameeditx
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        imagenr = 17
+      end>
+    frame.button.imagenr = 17
+    taborder = 12
+    bounds_x = 16
+    bounds_y = 344
+    bounds_cx = 284
+    bounds_cy = 29
+    statfile = tstatfile1
+    controller.fontheight = 0
+    controller.fontname = 'stf_default'
+    controller.fontcolor = -1610612734
+    controller.backcolor = -2147483647
+    controller.nopanel = False
+    controller.icon.options = [bmo_masked, bmo_graymask]
+    controller.icon.origformat = 'png'
+    controller.icon.image = {
+      00000000120000002000000020000000F4040000000000000000000000000000
+      00000000000000000000000000000000000000000000002FC5C2C001AAA5A301
+      C0CFBA01968E8C010000001BC2CFBB018CC27B0161B938015AD20F0166B54401
+      9EC89001C5C2C101000000197E9E6D015BDB01015BDC000362C93401B0BFA801
+      00000018C4BFBD0171AD59015BDC000586987801000000119CA6BD01838FA901
+      B4BCCD0100000004C4BFBE0175B95C015BDC00058189750100000010ABB1C001
+      3A83CA010486D8017098CD01D0D0D30100000003E1DEDD017BA8680159D70101
+      5BDC000354B71B0187827B0100000002B6B2B101A39C9A010000000CA9B0C101
+      3082CB010088DC010D82D20158668701847976010000000377696801689F4D01
+      5CD812015BDA080161CF2E0192AD8701D0CDCC010000000193949D014883C401
+      347CC10174788C010000000BB2AEAD01697798011D7ECA010088DC011281D101
+      6E87AF01B4B0B1010000000397B988018D938201676C510198A48D019E969501
+      00000001AEA9A7016687B7010088DC027E9CCA010000000D7B8BAA011386D801
+      0088DC011586D70185A3D001918E9601D7D4D401C0BEBD0187858E0193A4C401
+      9395A301B6B3B20100000001969EB0017792BE010E83D3010088DC013382CA01
+      A1A9BC010000000DD3D0D001749BD1010D87DA010088DC010388DB014A83C401
+      6282B1017891B901197DC9010387DA012D84D0017387AC01687CA0014B86C701
+      0188DC010088DC011184D501818CA5010000000FA8A19F015B7299010A84D501
+      0088DC070983D4010187DB010088DC020287DA015E83B601988F8C0100000010
+      7B6D6B01859BC101597AAB01407BBB010088DC060685D701317CC2015782BA01
+      7D93B801B3BBCB0100000013CECBCA01A09DA001628BC1010088DC030F86D801
+      5184C2017690B9019E9B9E01BFBAB801000000168F8683014F76AB010088DC03
+      5184C001AAA4A201000000198C817F014D78AF010088DC035488C601ADA6A501
+      00000019BFBAB9016789BA010088DC031F80CC018990A3010000001A6980A801
+      0088DC04608AC00197979E01000000197687A8011A86D6010088DC046180AE01
+      ABB6CB01000000189C9593014E7DB5010088DC054C86C7017369690100000017
+      695C59013080CA010088DC063776B70198ADCF01000000169DB3D7010887DA01
+      0088DC02578DCD01438ED8010088DC032D85D2016C6D7E0100000015B3BCCF01
+      0088DC034776AF01ACB2BF01476FA3010287DA010088DC02217DC70182818C01
+      00000013CBC7C7019BA3B6010088DC020486D901707A9601000000018A807E01
+      4A89CD010088DC020784D5016B67720100000011B5B0AF0196949B017289B001
+      3385D0010088DC02107DCA0196908F0100000001B0ABAB013C80C5010088DC02
+      3480C8017D97C00100000010AEB1BC016E7FA0014380C1010287DB010088DC03
+      2E7BC101B2B4BD01000000018094B6010386D9010088DC010587DA017483A201
+      0000000FA9A09E018996B1014C86C7010684D6010088DC030F84D5014F87C601
+      79829801E7E5E501B4AFAD013E81C5010088DC024485C901AAA5A3010000000F
+      9B9EAC011882D1010088DC030785D6013F82C7017A839B01ACA6A50100000002
+      9F9A99011E7FCB010088DC010785D7017988A601000000108B8484010D81D101
+      0088DC010585D6014686CA018895B001B8B6B801000000049F9894014A75AB01
+      0F7DCB013C74B1018D84840100000010BBB7B901738FBA016294D201728CB601
+      AEB2C00100000007B1B8C801968F9001A9AFBE0100000012CFCECD01BFBBBA01
+      D6D2D20100000035000400000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000425551100
+      000000000000000000000000000000000000000000000000000018BBFFFFF077
+      02000000000000000000000000000000000000000000000000009AFFFFFFFFFF
+      5700000000000000000000000000000000000000000000000017F7FFFFFFFFFF
+      A80000000000000000000000000000000000557E18000000001BFFFFFFFFFFFF
+      AC0000000000000000000000000000000041FCFFDB2000000002B4FFFFFFFFFF
+      4D0000364300000000000000000000000049FEFFFFAB0600000012C3FEFFFB99
+      060044FBFD6B00000000000000000000000184FDFFFFA8060000000349552701
+      000CE0FFFFBD00000000000000000000000000A6FFFFFFAB17060A63A5480200
+      1798FFFFF63D000000000000000000000000000EC2FFFFFFFFD2DDFFFFFF97BC
+      FBFFFFFF9B0000000000000000000000000000000DC0FFFFFFFFFFFFFFFFFFFF
+      FFFFFFE00B000000000000000000000000000000000DACE1FFFFFFFFFFFFFFFF
+      FFE0942E000000000000000000000000000000000000000B31FFFFFFFFFFDC8E
+      3B0B0000000000000000000000000000000000000000000015FFFFFFFFFF2200
+      00000000000000000000000000000000000000000000000015FFFFFFFFFF1B00
+      00000000000000000000000000000000000000000000000014FBFFFFFFFF5400
+      00000000000000000000000000000000000000000000000000B7FFFFFFFFEC16
+      0000000000000000000000000000000000000000000000000048FFFFFFFFFFDB
+      360000000000000000000000000000000000000000000000001BFFFFFFFFFFFF
+      EE3800000000000000000000000000000000000000000000001BFFFFFFFFFFFF
+      FFF17D0000000000000000000000000000000000000000000031FFFFFFC4F9FF
+      FFFFFD8100000000000000000000000000000000000000000069FFFFFF714DDE
+      FFFFFFFD6C000000000000000000000000000000000000000187FFFFFF6F0020
+      E1FFFFFF910000000000000000000000000000000000012DACFDFFFFFF6F0038
+      F8FFFFF729000000000000000000000000000000002E9AFDFFFFFFFFFD4F00BA
+      FFFFFFAA000000000000000000000000000000079AFBFFFFFFFFFFF06B0332FA
+      FFFFF82A00000000000000000000000000000084FFFFFFFFFFEF8D19000063FF
+      FFFFA2000000000000000000000000000000008CFFFFFFFCAD2A000000001EE5
+      FFEB27000000000000000000000000000000001FCCFEA836000000000000002A
+      6D2F000000000000000000000000000000000000071701000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000
+    }
+    controller.compact = False
+    controller.showhidden = False
+    reffontheight = 15
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 16
+    top = 264
+  end
+  object tfiledialogx1: tfiledialogx
+    statfile = tstatfile1
+    controller.fontheight = 0
+    controller.fontname = 'stf_default'
+    controller.fontcolor = -1610612734
+    controller.backcolor = -2147483647
+    controller.nopanel = False
+    controller.icon.options = [bmo_masked, bmo_graymask]
+    controller.icon.origformat = 'png'
+    controller.icon.image = {
+      000000001200000018000000180000005C030000000000000000000000000000
+      00000000000000000000000000000000000000000000001FA4D5FF018CCCFF01
+      E6F5FF0100000004CEE9FF018FC9FF0196CDFF01E9F6FF010000000B84C5FF01
+      59B2FF0115A5FF0107A4FF0151B0FF0190C9FF010000000289C7FF0149AFFF01
+      01A4FF0104A4FF015BB3FF0199CFFF0100000009CCE8FF014CB0FF0100A4FF04
+      41ACFF0194CEFF0195D0FF0140ACFF0100A4FF0457B3FF01000000099ED2FF01
+      01A4FF0100A4FF055FB6FF0162B7FF0100A4FF050FA5FF019ED4FF0100000008
+      9FD3FF0100A4FF0612A5FF0115A5FF0100A4FF0503A4FF0187CBFF0100000008
+      C5E5FF0141ADFF0100A4FF0C3FACFF01CFE9FF01000000096AB9FF0100A4FF0C
+      66B7FF01000000079ED2FF017BC1FF0170BCFF0176BFFF0120A6FF0100A4FF02
+      00ABFF0100C7FF0100D4FF0200C8FF0100ACFF0100A4FF021AA6FF0180C2FF01
+      82C4FF01B4DDFF010000000473BCFF0129A7FF0100A4FF0500ABFF0100D5FF01
+      00D9FF0400D5FF0100ABFF0100A4FF0431A9FF0151B1FF01AFD9FF0100000001
+      BBE0FF0125A7FF0100A4FF0600C7FF0100D9FF0600C7FF0100A4FF0659B3FF01
+      0000000150BAFF0101A4FF0100A4FF0600D4FF0100D9FF0600D4FF0100A4FF06
+      01A3FF0189CAFF01BBE1FF011EA6FF0100A4FF0600D4FF0100D9FF0600D4FF01
+      00A4FF0600A3FF017FC5FF010000000158B2FF0100A4FF0600C6FF0100D9FF06
+      00C7FF0100A4FF0649AEFF010000000278C6FF0148AFFF0103A4FF0100A4FF04
+      00AAFF0100D4FF0100D9FF0400D4FF0100AAFF0100A4FF0433A9FF014DB0FF01
+      9FD2FF0100000003E5F4FF0189C8FF0179BEFF0182C2FF0124A7FF0100A4FF02
+      00AAFF0100C6FF0100D3FF0200C6FF0100AAFF0100A4FF021CA6FF0171BEFF01
+      8AC8FF01BEE2FF01000000086BB9FF0100A4FF0C5BB4FF0100000009DAEEFF01
+      45AEFF0100A4FF0C39ABFF01B6DEFF010000000898D3FF0109A4FF0100A4FF05
+      00A4FC0100A4FD0100A4FF0696CDFF0100000008B1DCFF011CA6FF0100A4FF05
+      24A8ED0102A4EF0100A4FF0694CDFF010000000961B6FF0100A4FF043CABFF01
+      9CD2F60130ACC30145ADFE0100A4FF044BAFFF01C2E4FF0100000009B8DCFF01
+      5CB3FF010DA5FF0102A4FF0150B0FF018FC9FF01000000029ACFFF0153B1FF01
+      0EA5FF011CA6FF0164B6FF0193CCFF010000000C9ED1FF0192CBFF01D4ECFF01
+      00000005AFDBFF01BAE0FF010000001F40020000000000000000000000000000
+      00000000000000000000000000000000000000273301000000000A5147030000
+      00000000000000000021C9FFFFE137000034E7FFFFD720000000000000000000
+      0DE3FFFFFFFFF22421EFFFFFFFFFD500000000000000000051FFFFFFFFFFFFC0
+      BFFFFFFFFFFFFF33000000000000000053FFFFFFFFFFFFFFFFFFFFFFFFFFFF35
+      000000000000000014FBFFFFFFFFFFFFFFFFFFFFFFFFF80F0000000000000000
+      009DFFFFFFFFFFFFFFFFFFFFFFFFA000000000000000267599AAFFFFFFFFFFFF
+      FFFFFFFFFFFF90591B0000000074FCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFA619001BFAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCC0033FFFFFF
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2A1BFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFF3300C0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFD200001AD2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA5190000000350
+      85A4FFFFFFFFFFFFFFFFFFFFFFFF82501800000000000000009BFFFFFFFFFFFF
+      FFFFFFFFFFFFA50000000000000000000DF7FFFFFFFFFFFFFFFFFFFFFFFFFF1D
+      000000000000000033FFFFFFFFFFFFFFFEFFFFFFFFFFFF5D0000000000000000
+      2CFFFFFFFFFFFFB7AEFFFFFFFFFFFF57000000000000000000C9FFFFFFFFEB25
+      26F1FFFFFFFFE40D0000000000000000001DC1FFFFE535000033D6FFFFCC2400
+      000000000000000000000037470A00000000002F240000000000000000000000
+      0000000000000000000000000000000000000000
+    }
+    controller.compact = False
+    controller.showhidden = False
+    left = 232
+    top = 208
+  end
+end
