@@ -1,9 +1,11 @@
 object mainfo: tmainfo
   visible = False
-  bounds_x = 18
-  bounds_y = 181
+  bounds_x = 356
+  bounds_y = 231
   bounds_cx = 562
   bounds_cy = 372
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -12,6 +14,7 @@ object mainfo: tmainfo
   )
   statfile = tstatfile1
   caption = 'MSEide+MSEgui tchart'
+  windowopacity = -Inf
   moduleclassname = 'tmainform'
   object chart: tchart
     frame.levelo = -1
@@ -23,173 +26,157 @@ object mainfo: tmainfo
     frame.framei_right = 30
     frame.framei_bottom = 24
     frame.localprops = [frl_levelo, frl_leveli, frl_framewidth, frl_colorframe, frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.localprops1 = []
     bounds_x = 4
     bounds_y = 5
     bounds_cx = 385
     bounds_cy = 363
     anchors = [an_left, an_top, an_right, an_bottom]
     traces.count = 3
-    traces.xstart =  0.0000000000000000E+0000
-    traces.ystart =  0.0000000000000000E+0000
-    traces.xrange =  1.0000000000000000E+0000
-    traces.yrange =  1.0000000000000000E+0000
+    traces.xrange = 1
+    traces.xserrange = 1
+    traces.yrange = 1
     traces.image_list = imagelist
-    traces.image_widthmm =  4.0000000000000000E+0000
-    traces.image_heighthmm =  4.0000000000000000E+0000
+    traces.image_widthmm = 4
+    traces.image_heighthmm = 4
     traces.items = <    
       item
         color = -1610612723
-        widthmm =  5.9999999999999998E-0001
-        xrange =  1.0000000000000000E+0000
-        xstart =  0.0000000000000000E+0000
-        yrange =  2.0000000000000000E+0000
-        ystart = -1.0000000000000000E+0000
+        widthmm = 0.6
+        xserrange = 1
+        xrange = 1
+        yrange = 2
+        ystart = -1
         kind = trk_xy
         name = 'xysinus'
       end    
       item
         color = -1610612722
-        widthmm =  5.9999999999999998E-0001
-        xrange =  1.0000000000000000E+0000
-        xstart =  0.0000000000000000E+0000
-        yrange =  1.0000000000000000E+0000
-        ystart =  0.0000000000000000E+0000
+        widthmm = 0.6
+        xserrange = 1
+        xrange = 1
+        yrange = 1
         name = 'xseries'
       end    
       item
         colorimage = -1610612727
-        widthmm =  2.9999999999999999E-0001
+        widthmm = 0.3
         dashes = #5#10#1#10
-        xrange =  1.0000000000000000E+0000
-        xstart =  0.0000000000000000E+0000
-        yrange =  8.0000000000000004E-0001
-        ystart = -3.4999999999999998E-0001
+        xserrange = 1
+        xrange = 1
+        yrange = 0.8
+        ystart = -0.35
         kind = trk_xy
         imagenr = 0
         name = 'xyscatter'
       end>
-    xstart =  0.0000000000000000E+0000
-    ystart =  0.0000000000000000E+0000
-    xrange =  1.0000000000000000E+0000
-    yrange =  1.0000000000000000E+0000
+    xrange = 1
+    yrange = 1
     xdials.count = 1
-    xdials.start =  0.0000000000000000E+0000
-    xdials.range =  1.0000000000000000E+0000
+    xdials.range = 1
     xdials.items = <    
       item
+        options = [do_sideline, do_boxline]
         color = -1610612734
-        widthmm =  2.9999999999999999E-0001
-        start =  0.0000000000000000E+0000
-        range =  1.0000000000000000E+0000
+        widthmm = 0.3
+        range = 1
         ticks.count = 3
         ticks.items = <        
           item
             color = -1610612733
-            widthmm =  0.0000000000000000E+0000
             dashes = #1#1
             caption = '0.0'
             captiondist = 4
-            escapement =  0.0000000000000000E+0000
-            intervalcount =  1.0000000000000000E+0001
+            intervalcount = 10
           end        
           item
-            widthmm =  0.0000000000000000E+0000
             length = 8
-            escapement =  0.0000000000000000E+0000
-            interval =  5.0000000000000003E-0002
+            interval = 0.05
           end        
           item
-            widthmm =  0.0000000000000000E+0000
             length = 4
-            escapement =  0.0000000000000000E+0000
-            intervalcount =  1.0000000000000000E+0002
+            intervalcount = 100
           end>
-        options = [do_sideline, do_boxline]
       end>
     ydials.count = 2
-    ydials.start =  0.0000000000000000E+0000
-    ydials.range =  1.0000000000000000E+0000
+    ydials.range = 1
     ydials.items = <    
       item
+        options = [do_sideline]
         color = -1610612734
-        widthmm =  2.9999999999999999E-0001
-        start = -3.4999999999999998E-0001
-        range =  8.0000000000000004E-0001
+        widthmm = 0.3
+        start = -0.35
+        range = 0.8
         markers.count = 1
         markers.items = <        
           item
             color = -1610612729
-            widthmm =  0.0000000000000000E+0000
             dashes = #1#1
             caption = '0.00'
             captiondist = -35
             captionoffset = -6
-            escapement =  0.0000000000000000E+0000
-            val = -2.2000000000000000E-0001
+            value = -0.22
           end>
         ticks.count = 2
         ticks.items = <        
           item
-            widthmm =  2.9999999999999999E-0001
+            widthmm = 0.3
             length = 5
             caption = '0.0'
-            escapement =  0.0000000000000000E+0000
-            intervalcount =  8.0000000000000000E+0000
+            intervalcount = 8
           end        
           item
-            widthmm =  0.0000000000000000E+0000
             length = 3
-            escapement =  0.0000000000000000E+0000
-            interval =  5.0000000000000003E-0002
+            interval = 0.05
           end>
-        options = [do_sideline]
       end    
       item
+        options = [do_opposite, do_sideline]
         color = -1610612734
-        widthmm =  2.9999999999999999E-0001
-        start = -1.0000000000000000E+0000
-        range =  2.0000000000000000E+0000
+        widthmm = 0.3
+        start = -1
+        range = 2
         markers.count = 1
         markers.items = <        
           item
             color = -1610612727
-            widthmm =  0.0000000000000000E+0000
             dashes = #2#1
-            escapement =  0.0000000000000000E+0000
           end>
         ticks.count = 1
         ticks.items = <        
           item
             color = -1610612733
-            widthmm =  0.0000000000000000E+0000
             dashes = #1#2
             caption = '0.0'
-            escapement =  0.0000000000000000E+0000
-            intervalcount =  2.0000000000000000E+0001
+            intervalcount = 20
           end>
-        options = [do_opposite, do_sideline]
       end>
+    fitframe_left = 26
+    fitframe_top = 7
+    fitframe_right = 26
+    fitframe_bottom = 19
   end
   object twidgetgrid1: twidgetgrid
     frame.caption = 'X/Y Scatter'
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      18
       0
       0
     )
     taborder = 1
     bounds_x = 394
-    bounds_y = 47
+    bounds_y = 45
     bounds_cx = 162
-    bounds_cy = 294
+    bounds_cy = 296
     anchors = [an_top, an_right, an_bottom]
     optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
-    rowstatelist.data = (    )
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 15
+        height = 17
         captions.count = 2
         captions.items = <        
           item
@@ -202,53 +189,53 @@ object mainfo: tmainfo
     rowcount = 11
     datacols.count = 2
     datacols.items = <    
-      item
+      item[xval]
         width = 78
-        options = [co_proportional, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        options = [co_proportional, co_savevalue, co_savestate, co_mousescrollrow]
         onchange = xvalchange
         widgetname = 'xval'
         dataclass = tgridrealdatalist
         data = (
           (
-             2.9999999999999999E-0002
-             9.0999999999999998E-0002
-             2.0499999999999999E-0001
-             3.1000000000000000E-0001
-             3.5999999999999999E-0001
-             4.9800000000000000E-0001
-             6.0499999999999998E-0001
-             7.1999999999999997E-0001
-             7.8000000000000003E-0001
-             9.0000000000000002E-0001
-             9.7999999999999998E-0001
+            0.03
+            0.091
+            0.205
+            0.31
+            0.36
+            0.498
+            0.605
+            0.72
+            0.78
+            0.9
+            0.98
           )
         )
       end    
-      item
+      item[yval]
         width = 78
-        options = [co_fill, co_savevalue, co_savestate, co_rowfont, co_rowcolor, co_zebracolor, co_mousescrollrow]
+        options = [co_fill, co_savevalue, co_savestate, co_mousescrollrow]
         onchange = yvalchange
         widgetname = 'yval'
         dataclass = tgridrealdatalist
         data = (
           (
-             1.2000000000000000E-0001
-            -2.9999999999999999E-0001
-             1.4999999999999999E-0001
-             2.0999999999999999E-0001
-             1.7999999999999999E-0001
-             2.7000000000000002E-0001
-             2.7500000000000002E-0001
-             2.6000000000000001E-0001
-            -2.2000000000000000E-0001
-             3.1000000000000000E-0001
-             2.8999999999999998E-0001
+            0.12
+            -0.3
+            0.15
+            0.21
+            0.18
+            0.27
+            0.275
+            0.26
+            -0.22
+            0.31
+            0.29
           )
         )
       end>
-    datarowheight = 15
+    datarowheight = 19
     statfile = tstatfile1
-    reffontheight = 13
+    reffontheight = 15
     object xval: trealedit
       optionsskin = [osk_framebuttononly]
       taborder = 1
@@ -256,101 +243,107 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 78
-      bounds_cy = 15
-      valuerange =  1.0000000000000000E+0000
-      reffontheight = 13
-      mi = -2.0000000000000000E+0000
-      ma =  2.0000000000000000E+0000
-      def =  0.0000000000000000E+0000
+      bounds_cy = 19
+      value = -Inf
+      valuedefault = -Inf
+      valuerange = 1
+      valuemin = -2
+      valuemax = 2
+      reffontheight = 15
     end
     object yval: trealedit
-      optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets, ow_fontglyphheight]
       optionsskin = [osk_framebuttononly]
       taborder = 2
       visible = False
       bounds_x = 79
       bounds_y = 0
       bounds_cx = 78
-      bounds_cy = 15
-      valuerange =  1.0000000000000000E+0000
-      reffontheight = 13
-      mi = -2.0000000000000000E+0000
-      ma =  2.0000000000000000E+0000
-      def =  0.0000000000000000E+0000
+      bounds_cy = 19
+      value = -Inf
+      valuedefault = -Inf
+      valuerange = 1
+      valuemin = -2
+      valuemax = 2
+      reffontheight = 15
     end
   end
   object frequ: trealedit
     frame.caption = 'Sig. Freq.'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      18
       0
       0
     )
     taborder = 2
     bounds_x = 394
-    bounds_y = 3
+    bounds_y = 1
     bounds_cx = 77
-    bounds_cy = 35
+    bounds_cy = 39
     anchors = [an_top, an_right]
     statfile = tstatfile1
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
     ondataentered = sigdataentered
-    valuerange =  1.0000000000000000E+0000
-    reffontheight = 13
-    val =  1.0000000000000000E+0000
-    mi =  1.0000000000000000E-0002
-    ma =  1.0000000000000000E+0002
+    value = 1
+    valuedefault = -Inf
+    valuerange = 1
+    valuemin = 0.01
+    valuemax = 100
+    reffontheight = 15
   end
   object amp: trealedit
     frame.caption = 'Sig. Amp.'
     frame.localprops = [frl_fibottom]
-    frame.dummy = 0
+    frame.localprops1 = []
     frame.outerframe = (
       0
-      16
+      18
       0
       0
     )
     taborder = 3
     bounds_x = 478
-    bounds_y = 3
+    bounds_y = 1
     bounds_cx = 77
-    bounds_cy = 35
+    bounds_cy = 39
     anchors = [an_top, an_right]
     statfile = tstatfile1
     ondataentered = sigdataentered
-    valuerange =  1.0000000000000000E+0000
-    reffontheight = 13
-    val =  9.0000000000000002E-0001
-    mi =  1.0000000000000001E-0001
-    ma =  1.0000000000000000E+0001
+    value = 0.9
+    valuedefault = -Inf
+    valuerange = 1
+    valuemin = 0.1
+    valuemax = 10
+    reffontheight = 15
   end
   object xymarker: trealedit
     frame.caption = 'Marker'
     frame.captionpos = cp_right
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
       0
-      36
+      44
       0
     )
     taborder = 4
     bounds_x = 394
-    bounds_y = 348
-    bounds_cx = 104
-    bounds_cy = 19
+    bounds_y = 346
+    bounds_cx = 112
+    bounds_cy = 21
     anchors = [an_right, an_bottom]
     statfile = tstatfile1
-    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+    optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
     onsetvalue = xymarkersetval
-    valuerange =  1.0000000000000000E+0000
-    reffontheight = 13
-    val = -2.2000000000000000E-0001
-    mi = -1.0000000000000000E+0000
-    ma =  1.0000000000000000E+0000
+    value = -0.22
+    valuedefault = -Inf
+    valuerange = 1
+    valuemin = -1
+    valuemax = 1
+    reffontheight = 15
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
@@ -358,32 +351,32 @@ object mainfo: tmainfo
     top = 136
   end
   object imagelist: timagelist
-    monochrome = True
     width = 33
     height = 33
+    options = [bmo_monochrome, bmo_masked]
     count = 1
     left = 112
     top = 104
     image = {
       0000000003000000210000002100000008010000000000000000000000000000
-      000000000000000000000000000000000000000000000000FEFFFFFF00000000
-      FEFFFFFF00C00700FEFFFFFF00F83F00FEFFFFFF00FEFF00FEFFFFFF80FFFF03
-      FEFFFFFFC0FFFF07FEFFFFFFE0FFFF0FFEFFFFFFE0FFFF0FFEFFFFFFF03FF81F
-      FEFFFFFFF00FE01FFEFFFFFFF807C03FFEFFFFFFF803803FFEFFFFFFF803803F
-      FEFFFFFFFC01007FFEFFFFFFFC01007FFEFFFFFFFC01007FFEFFFFFFFC01007F
-      FEFFFFFFFC01007FFEFFFFFFF803803FFEFFFFFFF803803FFEFFFFFFF807C03F
-      FEFFFFFFF00FE01FFEFFFFFFF03FF81FFEFFFFFFE0FFFF0FFEFFFFFFE0FFFF0F
-      FEFFFFFFC0FFFF07FEFFFFFF80FFFF03FEFFFFFF00FEFF00FEFFFFFF00F83F00
-      FEFFFFFF00C00700FEFFFFFF00000000FEFFFFFF00000000FEFFFFFF00000000
-      FEFFFFFF00000000FEFFFFFF00C00700FEFFFFFF00F83F00FEFFFFFF00FEFF00
-      FEFFFFFF80FFFF03FEFFFFFFC0FFFF07FEFFFFFFE0FFFF0FFEFFFFFFE0FFFF0F
-      FEFFFFFFF03FF81FFEFFFFFFF00FE01FFEFFFFFFF807C03FFEFFFFFFF803803F
-      FEFFFFFFF803803FFEFFFFFFFC01007FFEFFFFFFFC01007FFEFFFFFFFC01007F
-      FEFFFFFFFC01007FFEFFFFFFFC01007FFEFFFFFFF803803FFEFFFFFFF803803F
-      FEFFFFFFF807C03FFEFFFFFFF00FE01FFEFFFFFFF03FF81FFEFFFFFFE0FFFF0F
-      FEFFFFFFE0FFFF0FFEFFFFFFC0FFFF07FEFFFFFF80FFFF03FEFFFFFF00FEFF00
-      FEFFFFFF00F83F00FEFFFFFF00C00700FEFFFFFF00000000FEFFFFFF00000000
-      FEFFFFFF
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000C007000000000000F83F000000000000FEFF000000000080FFFF03
+      00000000C0FFFF0700000000E0FFFF0F00000000E0FFFF0F00000000F03FF81F
+      00000000F00FE01F00000000F807C03F00000000F803803F00000000F803803F
+      00000000FC01007F00000000FC01007F00000000FC01007F00000000FC01007F
+      00000000FC01007F00000000F803803F00000000F803803F00000000F807C03F
+      00000000F00FE01F00000000F03FF81F00000000E0FFFF0F00000000E0FFFF0F
+      00000000C0FFFF070000000080FFFF030000000000FEFF000000000000F83F00
+      0000000000C00700000000000000000000000000000000000000000000000000
+      00000000000000000000000000C007000000000000F83F000000000000FEFF00
+      0000000080FFFF0300000000C0FFFF0700000000E0FFFF0F00000000E0FFFF0F
+      00000000F03FF81F00000000F00FE01F00000000F807C03F00000000F803803F
+      00000000F803803F00000000FC01007F00000000FC01007F00000000FC01007F
+      00000000FC01007F00000000FC01007F00000000F803803F00000000F803803F
+      00000000F807C03F00000000F00FE01F00000000F03FF81F00000000E0FFFF0F
+      00000000E0FFFF0F00000000C0FFFF070000000080FFFF030000000000FEFF00
+      0000000000F83F000000000000C0070000000000000000000000000000000000
+      00000000
     }
   end
 end
