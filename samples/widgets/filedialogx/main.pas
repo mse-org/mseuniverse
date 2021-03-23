@@ -4,45 +4,13 @@ unit main;
 interface
 
 uses
-  msetypes,
-  mseglob,
-  mseguiglob,
-  mseguiintf,
-  mseapplication,
-  msestat,
-  msemenus,
-  msegui,
-  msegraphics,
-  msegraphutils,
-  mseevent,
-  mseclasses,
-  msewidgets,
-  mseforms,
-  mseact,
-  msebitmap,
-  msedataedits,
-  msedatanodes,
-  msedragglob,
-  msedropdownlist,
-  mseedit,
-  msegrids,
-  msegridsglob,
-  mseificomp,
-  mseificompglob,
-  mseifiglob,
-  mselistbrowser,
-  msestatfile,
-  msestream,
-  msesys,
-  SysUtils,
-  msesimplewidgets,
-  msedispwidgets,
-  mserichstring,
-  msegraphedits,
-  msescrollbar,
-  msefiledialogx,
-  msesplitter,
-  msecolordialog;
+ msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
+ msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mseact,
+ msebitmap,msedataedits,msedatanodes,msedragglob,msedropdownlist,mseedit,
+ msegrids,msegridsglob,mseificomp,mseificompglob,mseifiglob,mselistbrowser,
+ msestatfile,msestream,msesys,SysUtils,msesimplewidgets,msedispwidgets,
+ mserichstring,msegraphedits,msescrollbar,msefiledialogx,msesplitter,
+ msecolordialog;
 
 type
   tmainfo = class(tmainform)
@@ -63,9 +31,14 @@ type
     tbutton2: TButton;
     tbackcolor: tcoloredit;
     tfontcolor: tcoloredit;
-    tstatfile1: tstatfile;
     tfiledialogx1: tfiledialogx;
     tfilenameeditx1: tfilenameeditx;
+   bshowoptions: tbooleanedit;
+   tstatfile1: tstatfile;
+   bhidehistory: tbooleanedit;
+   bshowhidden: tbooleanedit;
+   bhideicons: tbooleanedit;
+   bcompact: tbooleanedit;
     procedure onex(const Sender: TObject);
     procedure onclose(const Sender: TObject);
   end;
@@ -98,7 +71,30 @@ begin
   tfiledialogx1.controller.captionopen := 'Open File';
   tfiledialogx1.controller.captionsave := 'Save File as';
   tfiledialogx1.controller.captiondir  := 'Open Directory';
-
+  
+  if dialogkind = fdk_dir then tfiledialogx1.controller.options := [fdo_directory]
+  else tfiledialogx1.controller.options := [];
+  
+  if bhidehistory.value then
+   tfiledialogx1.controller.hidehistory  := true else
+  tfiledialogx1.controller.hidehistory  := false;
+  
+  if bshowoptions.value then
+  tfiledialogx1.controller.showoptions  := true else
+  tfiledialogx1.controller.showoptions  := false;
+  
+  if bshowhidden.value then
+  tfiledialogx1.controller.showhidden  := true else
+  tfiledialogx1.controller.showhidden  := false;
+  
+  if bhideicons.value then
+  tfiledialogx1.controller.hideicons  := true else
+  tfiledialogx1.controller.hideicons  := false;
+  
+  if bcompact.value then
+  tfiledialogx1.controller.compact  := true else
+  tfiledialogx1.controller.compact  := false;
+  
   setlength(ara, 5);
   setlength(arb, 5);
 

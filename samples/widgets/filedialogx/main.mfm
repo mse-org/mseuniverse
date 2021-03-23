@@ -1,15 +1,15 @@
 object mainfo: tmainfo
-  bounds_x = 477
-  bounds_y = 170
+  bounds_x = 497
+  bounds_y = 198
   bounds_cx = 403
-  bounds_cy = 388
+  bounds_cy = 421
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     403
-    388
+    421
   )
   font.name = 'stf_default'
   font.localprops = []
@@ -35,7 +35,7 @@ object mainfo: tmainfo
     )
     taborder = 1
     bounds_x = 0
-    bounds_y = 286
+    bounds_y = 318
     bounds_cx = 403
     bounds_cy = 45
     anchors = [an_top]
@@ -55,7 +55,7 @@ object mainfo: tmainfo
     )
     taborder = 2
     bounds_x = 8
-    bounds_y = 8
+    bounds_y = 0
     bounds_cx = 386
     bounds_cy = 50
     object b_fdk_open: tbooleaneditradio
@@ -72,7 +72,6 @@ object mainfo: tmainfo
       bounds_y = 22
       bounds_cx = 71
       bounds_cy = 17
-      statfile = tstatfile1
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
       value = True
     end
@@ -91,7 +90,6 @@ object mainfo: tmainfo
       bounds_y = 22
       bounds_cx = 68
       bounds_cy = 17
-      statfile = tstatfile1
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
     end
     object b_fdk_dir: tbooleaneditradio
@@ -109,7 +107,6 @@ object mainfo: tmainfo
       bounds_y = 22
       bounds_cx = 57
       bounds_cy = 17
-      statfile = tstatfile1
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
     end
     object b_fdk_none: tbooleaneditradio
@@ -127,7 +124,6 @@ object mainfo: tmainfo
       bounds_y = 22
       bounds_cx = 71
       bounds_cy = 17
-      statfile = tstatfile1
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
     end
     object b_fdk_new: tbooleaneditradio
@@ -145,7 +141,6 @@ object mainfo: tmainfo
       bounds_y = 22
       bounds_cx = 66
       bounds_cy = 17
-      statfile = tstatfile1
       options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_radioitem]
     end
   end
@@ -162,10 +157,9 @@ object mainfo: tmainfo
     )
     taborder = 3
     bounds_x = 32
-    bounds_y = 70
+    bounds_y = 110
     bounds_cx = 132
     bounds_cy = 39
-    statfile = tstatfile1
     value = '"*.pas" "*.mfm"'
     reffontheight = 15
   end
@@ -182,10 +176,9 @@ object mainfo: tmainfo
     )
     taborder = 4
     bounds_x = 192
-    bounds_y = 70
+    bounds_y = 110
     bounds_cx = 172
     bounds_cy = 39
-    statfile = tstatfile1
     value = 'My title'
     reffontheight = 15
   end
@@ -201,10 +194,9 @@ object mainfo: tmainfo
     )
     taborder = 5
     bounds_x = 240
-    bounds_y = 68
+    bounds_y = 108
     bounds_cx = 91
     bounds_cy = 17
-    statfile = tstatfile1
   end
   object thebasedir: tstringedit
     frame.levelo = 0
@@ -219,15 +211,14 @@ object mainfo: tmainfo
     )
     taborder = 6
     bounds_x = 32
-    bounds_y = 120
+    bounds_y = 156
     bounds_cx = 332
     bounds_cy = 39
-    statfile = tstatfile1
     reffontheight = 15
   end
   object tbutton1: tbutton
     bounds_x = 64
-    bounds_y = 264
+    bounds_y = 296
     bounds_cx = 300
     bounds_cy = 29
     state = [as_localcaption, as_localonexecute]
@@ -262,10 +253,9 @@ object mainfo: tmainfo
     )
     taborder = 7
     bounds_x = 24
-    bounds_y = 168
+    bounds_y = 200
     bounds_cx = 103
     bounds_cy = 39
-    statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_readonlydialog, oe1_savevalue, oe1_savestate, oe1_checkvalueafterstatread]
     value = 'stf_default'
     dropdown.dropdownrowcount = 5
@@ -297,10 +287,9 @@ object mainfo: tmainfo
     taborder = 8
     hint = 'Font height for all ideU text'
     bounds_x = 133
-    bounds_y = 168
+    bounds_y = 200
     bounds_cx = 76
     bounds_cy = 39
-    statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_savevalue, oe1_savestate]
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
     valuemax = 20
@@ -309,7 +298,7 @@ object mainfo: tmainfo
   object tbutton2: tbutton
     taborder = 9
     bounds_x = 316
-    bounds_y = 344
+    bounds_y = 376
     bounds_cx = 82
     bounds_cy = 29
     state = [as_localcaption, as_localonexecute]
@@ -336,10 +325,9 @@ object mainfo: tmainfo
     )
     taborder = 10
     bounds_x = 64
-    bounds_y = 214
+    bounds_y = 246
     bounds_cx = 292
     bounds_cy = 39
-    statfile = tstatfile1
     value = -2147483647
     valuedefault = -2147483647
     reffontheight = 15
@@ -364,10 +352,9 @@ object mainfo: tmainfo
     )
     taborder = 11
     bounds_x = 216
-    bounds_y = 168
+    bounds_y = 200
     bounds_cx = 172
     bounds_cy = 39
-    statfile = tstatfile1
     value = -1610612734
     valuedefault = -1610612734
     reffontheight = 15
@@ -383,7 +370,7 @@ object mainfo: tmainfo
     frame.button.imagenr = 17
     taborder = 12
     bounds_x = 16
-    bounds_y = 344
+    bounds_y = 376
     bounds_cx = 284
     bounds_cy = 29
     statfile = tstatfile1
@@ -471,16 +458,93 @@ object mainfo: tmainfo
       000000000000000000000000
     }
     controller.compact = False
+    controller.showoptions = False
+    controller.hidehistory = False
+    controller.hideicons = False
     controller.showhidden = False
     reffontheight = 15
   end
-  object tstatfile1: tstatfile
-    filename = 'status.sta'
-    left = 16
-    top = 264
+  object bshowoptions: tbooleanedit
+    frame.caption = 'Show Panels options'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      126
+      2
+    )
+    taborder = 13
+    bounds_x = 16
+    bounds_y = 54
+    bounds_cx = 139
+    bounds_cy = 17
+  end
+  object bhidehistory: tbooleanedit
+    frame.caption = 'Hide history'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      75
+      2
+    )
+    taborder = 14
+    bounds_x = 272
+    bounds_y = 54
+    bounds_cx = 88
+    bounds_cy = 17
+  end
+  object bshowhidden: tbooleanedit
+    frame.caption = 'Show hidden files'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      109
+      2
+    )
+    taborder = 15
+    bounds_x = 224
+    bounds_y = 78
+    bounds_cx = 122
+    bounds_cy = 17
+  end
+  object bhideicons: tbooleanedit
+    frame.caption = 'Hide Icons'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      66
+      2
+    )
+    taborder = 16
+    bounds_x = 176
+    bounds_y = 54
+    bounds_cx = 79
+    bounds_cy = 17
+  end
+  object bcompact: tbooleanedit
+    frame.caption = 'Compact List'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      82
+      2
+    )
+    taborder = 17
+    bounds_x = 32
+    bounds_y = 78
+    bounds_cx = 95
+    bounds_cy = 17
   end
   object tfiledialogx1: tfiledialogx
-    statfile = tstatfile1
     controller.fontheight = 0
     controller.fontname = 'stf_default'
     controller.fontcolor = -1610612734
@@ -538,8 +602,16 @@ object mainfo: tmainfo
       0000000000000000000000000000000000000000
     }
     controller.compact = False
+    controller.showoptions = False
+    controller.hidehistory = False
+    controller.hideicons = False
     controller.showhidden = False
     left = 232
     top = 208
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 24
+    top = 256
   end
 end
