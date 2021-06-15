@@ -4,13 +4,15 @@ unit main;
 interface
 
 uses
- msetypes,mseglob,mseguiglob,mseguiintf,mseapplication,msestat,msemenus,msegui,
- msegraphics,msegraphutils,mseevent,mseclasses,msewidgets,mseforms,mseact,
- msebitmap,msedataedits,msedatanodes,msedragglob,msedropdownlist,mseedit,
- msegrids,msegridsglob,mseificomp,mseificompglob,mseifiglob,mselistbrowser,
- msestatfile,msestream,msesys,SysUtils,msesimplewidgets,msedispwidgets,
- mserichstring,msegraphedits,msescrollbar,msefiledialogx,msesplitter,
- msecolordialog;
+ msetypes, mseglob, mseguiglob, mseguiintf, mseapplication, msestat, msemenus,
+ msegui, msegraphics, msegraphutils, mseevent, mseclasses, msewidgets, mseforms,
+ mseimage, msebitmap, mseformatbmpicoread, mseformatjpgread, mseformatpngread,
+ mseformatpnmread, mseformattgaread, mseformatxpmread, msekeyboard, mseact,
+ msedataedits, msedatanodes, msedragglob, msedropdownlist, mseedit,msegrids,
+  msegridsglob, mseificomp, mseificompglob, mseifiglob,mselistbrowser,
+ msestatfile, msestream, msesys, msesimplewidgets,sysutils,classes, math,
+  msefiledialogx,msedispwidgets, mserichstring, msegraphedits,
+ msescrollbar, msecolordialog;
 
 type
   tmainfo = class(tmainform)
@@ -39,9 +41,10 @@ type
    bshowhidden: tbooleanedit;
    bhideicons: tbooleanedit;
    bcompact: tbooleanedit;
+   
     procedure onex(const Sender: TObject);
-    procedure onclose(const Sender: TObject);
-  end;
+   procedure onclose(const sender: TObject);
+    end;
 
 var
   mainfo: tmainfo;
@@ -56,24 +59,28 @@ var
   dialogkind: filedialogkindty;
   ara, arb: msestringarty;
 begin
+
+  tfiledialogx1.controller.options := [];
+ 
   if b_fdk_open.Value then
     dialogkind := fdk_open
   else if b_fdk_save.Value then
     dialogkind := fdk_save
   else if b_fdk_dir.Value then
-    dialogkind := fdk_dir
-  else if b_fdk_none.Value then
+  begin
+   tfiledialogx1.controller.options := [fdo_directory];
+   end
+  else if b_fdk_none.Value then 
     dialogkind := fdk_none
   else if b_fdk_new.Value then
     dialogkind := fdk_new;
+    
+    
 
   tfiledialogx1.controller.captionnew  := 'New File';
   tfiledialogx1.controller.captionopen := 'Open File';
   tfiledialogx1.controller.captionsave := 'Save File as';
   tfiledialogx1.controller.captiondir  := 'Open Directory';
-  
-  if dialogkind = fdk_dir then tfiledialogx1.controller.options := [fdo_directory]
-  else tfiledialogx1.controller.options := [];
   
   if bhidehistory.value then
    tfiledialogx1.controller.hidehistory  := true else
@@ -98,18 +105,18 @@ begin
   setlength(ara, 5);
   setlength(arb, 5);
 
-  ara[0] := 'Pascal';
-  ara[1] := 'C';
-  ara[2] := 'Java';
-  ara[3] := 'Python';
-  ara[4] := 'All';
-
-  arb[0] := '"*.pp" "*.pas" "*.inc" "*.dpr" "*.lpr"';
-  arb[1] := '"*.c" "*.cpp" "*.h"';
-  arb[2] := '"*.java"';
-  arb[3] := '"*.py"';
-  arb[4] := '"*.*"';
-
+  ara[0] := 'All';
+  ara[1] := 'Pascal';
+  ara[2] := 'C';
+  ara[3] := 'Java';
+  ara[4] := 'Python';
+  
+  arb[0] := '"*.*"';
+  arb[1] := '"*.pp" "*.pas" "*.inc" "*.dpr" "*.lpr"';
+  arb[2] := '"*.c" "*.cpp" "*.h"';
+  arb[3] := '"*.java"';
+  arb[4] := '"*.py"';
+ 
   tfiledialogx1.controller.filterlist.asarraya := ara;
   tfiledialogx1.controller.filterlist.asarrayb := arb;
 
@@ -136,9 +143,9 @@ begin
 
 end;
 
-procedure tmainfo.onclose(const Sender: TObject);
+procedure tmainfo.onclose(const sender: TObject);
 begin
-  Close;
+close;
 end;
 
 end.

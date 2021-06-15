@@ -20,7 +20,7 @@ order17=0
 [projectoptions]
 projectdir=/home/fred/msefiledialogx/src
 projectfilename=/home/fred/msefiledialogx/src/demo_msefiledialogx.prj
-findinfiledialog=79
+findinfiledialog=68
  [findinfileadialogfo.subdirs]
  value=1
  [findinfileadialogfo.incurrentfile]
@@ -30,9 +30,9 @@ findinfiledialog=79
  [findinfileadialogfo.wholeword]
  value=0
  [findinfileadialogfo.indirectories]
- value=0
- [findinfileadialogfo.inprojectdir]
  value=1
+ [findinfileadialogfo.inprojectdir]
+ value=0
  [findinfileadialogfo.casesensitive]
  value=0
  [findinfileadialogfo.mask]
@@ -44,7 +44,6 @@ findinfiledialog=79
   "*.pas" "*.pp" "*.inc" "*.*" 
   "*.pas" "*.pp" "*.inc"
  [findinfileadialogfo.dir]
- filenamescust=0
  filenames=1
   /home/fred/mseide-msegui/
  filecolwidth=150
@@ -52,16 +51,6 @@ findinfiledialog=79
  y=181
  cx=608
  cy=467
- panel=0
- noicon=0
- compact=0
- showhidden=0
- colnamewidth=220
- colsizewidth=81
- colextwidth=45
- coldatewidth=126
- splitterplaces=253
- splitterlateral=110
  filehistory=6
   /home/fred/mseide-msegui/
   /home/fred/strumpract/
@@ -72,8 +61,14 @@ findinfiledialog=79
  filefilterindex=0
  filefilter="*.pas" "*.pp" "*.inc" "*.mfm"
  [findinfileadialogfo.findtext]
- value=tdirdropdowneditX
+ value=mseformatpngread
  history=20
+  mseformatpngread
+  tfpreaderpng
+  tmsefpreaderpng
+  tmsefpreadergif
+  msefpreadpng
+  timagelist
   tdirdropdowneditX
   selectcell
   select
@@ -88,12 +83,6 @@ findinfiledialog=79
   cek_buttonrelease
   tsplitter
   tstepbox
-  filterlist.asarraya
-  msestringarty
-  "*.mfm
-  tdoublemsestringdatalist
-  "*.pas"
-  captionsave
  [findinfileadialogfo]
  stackedunder=
  x=707
@@ -105,10 +94,28 @@ finddialog=8
  value=0
  [finddialogfo]
  stackedunder=
- x=927
- y=280
+ x=960
+ y=262
  cx=234
  cy=269
+replacedialog=17
+ [replacedialogfo.promptonreplace]
+ value=1
+ [replacedialogfo.selectedonly]
+ value=0
+ [replacedialogfo.replacetext]
+ value=filedialogoptionsty
+ history=4
+  filedialogoptionsty
+  filedialogoptionty
+  fdk_
+  
+ [replacedialogfo]
+ stackedunder=finddialogfo
+ x=288
+ y=84
+ cx=254
+ cy=200
 options=114
  [projectoptionsfo.toolshortcuts]
  dropdowncolwidths=3
@@ -224,21 +231,32 @@ options=114
  y=68
  cx=874
  cy=572
-imagelisteditor=47
+settings=8
+ [settings_form]
+ x=457
+ y=123
+ cx=446
+ cy=578
+ wsize=0
+ active=1
+ visible=1
+imagelisteditor=49
  [imagelisteditorfo.statfile1]
  currentversion=0
  [imagelisteditorfo.filedialog]
- filenamescust=0
  filenames=1
   /home/fred/Pictures/bookmark.png
+ filenamescust=0
  filecolwidth=150
  x=659
  y=227
  cx=496
  cy=308
- panel=0
- noicon=0
+ nopanel=0
  compact=0
+ showoptions=0
+ hidehistory=0
+ hideicons=0
  showhidden=0
  colnamewidth=203
  colsizewidth=81
@@ -558,20 +576,17 @@ settingsstorage=0
 settingsprojecttree=0
 settingsautoload=0
 settingsautosave=0
-modulenames=2
- MAINFO
- FILEDIALOGFO
-moduletypes=2
- TMAINFO
- TFILEDIALOGFO
-modulefiles=2
- /home/fred/msefiledialogx/src/main.mfm
+modulenames=1
+ FILEDIALOGXFO
+moduletypes=1
+ TFILEDIALOGXFO
+modulefiles=1
  /home/fred/msefiledialogx/src/msefiledialogx.mfm
 befcommandon=0
 makeoptionson=7
  4095
  31
- 162
+ 166
  228
  4095
  4095
@@ -901,60 +916,65 @@ envvarons=0
 [edit]
 hintwidth=314
 hintheight=214
-finddtext=fnoicon
+finddtext=filedialogx(
 findhistory=20
- fnoicon
- fnoicons
- hidehistory
- showoptions
- bnoicon
- fshowoptions
- showhidden
- list_log.top
- filename.top
- tsplitter1.t
- compact
- oncellev
- filename.tag
- filename.tag:=
- filename.tag :=
- tdirdropdowneditX
- tdirdropdownedit
- procedure getfileicon(
- getfileicon
- theimagelist
+ filedialogx(
+ filedialog(
+ filedialogx1(
+ filedialog1x(
+ filedialog
+ dialog := tfiledialogxfo.Create
+ png
+ gif
+ string
+ Tfiledialogxfo
+ LoadImage
+ .gif
+ LoadFromFile
+ .jpg
+ .png
+ loadim
+ filedialogxoptionsty
+ iledialogoptionty
+ iledialogoptionsty
+ optionsty
 findoptions=1
-editpos=2
- 26,89
- 0,-1073741823
+editpos=3
+ 0,11
+ 0,0
+ 0,0
 bookmarks0=0
 bookmarks1=0
-sourcefiles=2
- ${PROJECTDIR}/main.pas
+bookmarks2=0
+sourcefiles=3
  ${PROJECTDIR}/msefiledialogx.pas
-relpaths=2
- main.pas
+ ${PROJECTDIR}/main.pas
+ ${PROJECTDIR}/demo_msefiledialogx.pas
+relpaths=3
  msefiledialogx.pas
-ismoduletexts=2
+ main.pas
+ demo_msefiledialogx.pas
+ismoduletexts=3
  0
  0
-modules=2
+ 0
+modules=1
  /home/fred/msefiledialogx/src/msefiledialogx.mfm
- /home/fred/msefiledialogx/src/main.mfm
-moduleoptions=2
+moduleoptions=1
  0
+visiblemodules=1
  0
-visiblemodules=2
- -1
- -1
-nomenumodules=2
- 0
+nomenumodules=1
  0
 [sourcefo.files_tab]
+order=3
+ 0
+ 2
+ 1
 firsttab=0
-index=0
+index=1
 [layout]
-windowlayout=607
+windowlayout=567
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -968,15 +988,23 @@ windowlayout=607
  ny=0
  ncx=0
  ncy=0
- x=63
- y=98
- cx=1224
- cy=621
+ x=3
+ y=55
+ cx=1362
+ cy=710
  rcx=0
  rcy=0
  wsize=0
  active=1
  visible=1
+ [findmessagefo.findtext]
+ value=warning
+ history=1
+  warning
+ [findmessagefo.casesensitive]
+ value=0
+ [findmessagefo.copytoclip]
+ value=0
  [targetconsolefo]
  splitdir=0
  useroptions=268451945
@@ -986,15 +1014,15 @@ windowlayout=607
  ny=0
  ncx=0
  ncy=0
- x=493
- y=171
- cx=533
+ x=607
+ y=173
+ cx=497
  cy=314
  rcx=0
  rcy=0
  wsize=0
  active=0
- visible=0
+ visible=1
  [threadsfo]
  splitdir=0
  useroptions=268451945
@@ -1069,9 +1097,9 @@ windowlayout=607
  ny=0
  ncx=0
  ncy=0
- x=239
- y=115
- cx=926
+ x=233
+ y=235
+ cx=1016
  cy=414
  rcx=0
  rcy=0
@@ -1088,7 +1116,7 @@ windowlayout=607
  x=0
  y=0
  cx=205
- cy=451
+ cy=478
  rcx=0
  rcy=0
  [projecttreefo.grid]
@@ -1098,8 +1126,8 @@ windowlayout=607
  width1=82
  sortdescend1=0
  sorted=0
- col=1
- row=6
+ col=0
+ row=1
  rowheight=16
  [stackfo]
  splitdir=0
@@ -1182,10 +1210,10 @@ windowlayout=607
  [breakpointsfo.bkptson]
  value=1
  [objectinspectorfo.grid]
- propcolwidthref=472
- width0=210
+ propcolwidthref=448
+ width0=199
  sortdescend0=0
- width1=256
+ width1=243
  sortdescend1=0
  [symbolfo]
  splitdir=0
@@ -1278,9 +1306,9 @@ windowlayout=607
  ncx=0
  ncy=0
  x=0
- y=507
- cx=1212
- cy=93
+ y=534
+ cx=1350
+ cy=155
  rcx=0
  rcy=0
  [componentstorefo]
@@ -1312,7 +1340,6 @@ windowlayout=607
  width3=185
  sortdescend3=0
  [componentstorefo.storefiledialog]
- filenamescust=0
  filenames=1
   /home/mse/test/msegui/apps/ide/compstore/
  filecolwidth=0
@@ -1320,22 +1347,11 @@ windowlayout=607
  y=0
  cx=0
  cy=0
- panel=0
- noicon=0
- compact=0
- showhidden=0
- colnamewidth=0
- colsizewidth=0
- colextwidth=0
- coldatewidth=0
- splitterplaces=0
- splitterlateral=0
  lastdir=/home/mse/test/msegui/apps/ide/compstore/
  filehistory=0
  filefilterindex=0
  filefilter=
  [componentstorefo.groupfiledialog]
- filenamescust=0
  filenames=1
   /home/mse/test/msegui/apps/ide/compstore/
  filecolwidth=0
@@ -1343,38 +1359,17 @@ windowlayout=607
  y=0
  cx=0
  cy=0
- panel=0
- noicon=0
- compact=0
- showhidden=0
- colnamewidth=0
- colsizewidth=0
- colextwidth=0
- coldatewidth=0
- splitterplaces=0
- splitterlateral=0
  lastdir=/home/mse/test/msegui/apps/ide/compstore/
  filehistory=0
  filefilterindex=0
  filefilter=
  [componentstorefo.compfiledialog]
- filenamescust=0
  filenames=0
  filecolwidth=0
  x=0
  y=0
  cx=0
  cy=0
- panel=0
- noicon=0
- compact=0
- showhidden=0
- colnamewidth=0
- colsizewidth=0
- colextwidth=0
- coldatewidth=0
- splitterplaces=0
- splitterlateral=0
  lastdir=
  filehistory=0
  filefilterindex=0
@@ -1399,7 +1394,7 @@ windowlayout=607
  active=0
  visible=0
  [componentpalettefo.componentpages]
- activetab=5
+ activetab=2
  [debuggerfo]
  splitdir=0
  useroptions=24683
@@ -1412,7 +1407,7 @@ windowlayout=607
  ncy=0
  x=0
  y=0
- cx=1212
+ cx=1350
  cy=50
  rcx=0
  rcy=0
@@ -1424,12 +1419,12 @@ windowlayout=607
  mdistate=0
  nx=0
  ny=0
- ncx=1197
- ncy=38
+ ncx=1335
+ ncy=0
  x=0
  y=0
- cx=1212
- cy=36
+ cx=1350
+ cy=-2
  rcx=0
  rcy=0
  [debuggerfo.edit_options]
@@ -1439,28 +1434,28 @@ windowlayout=607
  [debuggerfo.edit_compiler]
  value=Pascal
  [debuggerfo.file_history]
- value=/home/fred/msefiledialogx/src/main.pas
+ value=/home/fred/msefiledialogx/src/demo_msefiledialogx.pas
  history=20
-  /home/fred/msefiledialogx/src/main.pas
   /home/fred/msefiledialogx/src/msefiledialogx.pas
-  /home/fred/msefiledialogx/src/msefiledialogx.mfm
-  /home/fred/msefiledialogx.pas
-  /home/fred/filedialogx/msefiledialogx.pas
-  /home/fred/strumpract/src/msegui.pas
-  /home/fred/strumpract/src/win_mixer.pas
-  /home/fred/ideu/src/msegui.pas
-  /home/fred/ideu/src/msegraphics.pas
-  /home/fred/ideu/src/plugmanager.pas
-  /home/fred/win_mixer/src/win_mixer_test.pas
-  /home/fred/win_mixer/src/win_mixer.pas
-  /home/fred/strumpract/src/win_mixer_test.pas
-  /home/fred/win_mixer/src/alsa_mixer.pas
-  /home/fred/sound_win/AudioEndpoint.pas
-  /home/fred/sound_win/win_mixer.pas
-  /home/fred/alsa_mixer/src/alsa_mixer.pas
-  /home/fred/strumpract/src/alsa_mixer.pas
-  /home/fred/strumpract/src/alsa_mixer_test.pas
-  /home/fred/strumpract/src/uos_portaudio.pas
+  /home/fred/mseide-msegui/lib/common/fpccompatibility/msefpimage.pas
+  /home/fred/mseide-msegui/lib/common/dialogx/msefiledialogx.pas
+  /home/fred/mseide-msegui/lib/common/image/mseformatgifread.pas
+  /home/fred/mseide-msegui/lib/common/fpccompatibility/msefpreadgif.pas
+  /home/fred/Pictures/415x380.png
+  /home/fred/ideu/src/msefiledialogx.pas
+  /home/fred/ideu/src/confcompiler.pas
+  /home/fred/ideu/src/ideusettings.pas
+  /home/fred/ideu/src/dialogfiles.pas
+  /home/fred/ideu/src/finddialogform.pas
+  /home/fred/ideu/src/panelform.pas
+  /home/fred/ideu/src/findmessage.pas
+  /home/fred/ideu/src/findinfilepage.pas
+  /home/fred/ideu/src/findinfileform.pas
+  /home/fred/ideu/src/confmsegui.pas
+  /home/fred/ideu/src/confideu.pas
+  /home/fred/ideu/src/conffpgui.pas
+  /home/fred/ideu/src/confdebugger.pas
+  /home/fred/ideu/src/commandorform.pas
  [debuggerfo.project_options]
  value=1
  [debuggerfo.hints]
@@ -1477,13 +1472,17 @@ windowlayout=607
  ncy=0
  x=208
  y=0
- cx=1004
- cy=451
+ cx=1142
+ cy=478
  rcx=0
  rcy=0
  [sourcefo.files_tab]
+ order=3
+  0
+  2
+  1
  firsttab=0
- index=0
+ index=1
  [confideufo.fontname]
  value=stf_default
  [confideufo.usedefaulteditoroptions]
@@ -1492,7 +1491,7 @@ windowlayout=607
  irqoff=0
  splitdir=0
  useroptions=268451947
- stackedunder=confdebuggerfo
+ stackedunder=_mse_filedialogxfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -1520,48 +1519,29 @@ windowlayout=607
  ncy=0
  x=0
  y=53
- cx=1212
- cy=451
+ cx=1350
+ cy=478
  rcx=0
  rcy=0
- [_mse_filedialogfo_mse_]
+ [_mse_filedialogxfo_mse_]
  splitdir=0
  useroptions=268451963
- stackedunder=_mse_mainfo_mse_
+ stackedunder=confdebuggerfo
  parent=
  mdistate=3
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=323
- y=164
+ x=656
+ y=61
  cx=618
  cy=484
  rcx=0
  rcy=0
  wsize=0
  active=0
- visible=1
- [_mse_mainfo_mse_]
- splitdir=0
- useroptions=268451963
- stackedunder=objectinspectorfo
- parent=
- mdistate=3
- nx=0
- ny=0
- ncx=0
- ncy=0
- x=497
- y=198
- cx=413
- cy=421
- rcx=0
- rcy=0
- wsize=0
- active=0
- visible=1
+ visible=0
 [targetconsole]
 finddtext=
 findhistory=0
