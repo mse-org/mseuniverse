@@ -1,0 +1,176 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 598
+  bounds_y = 427
+  bounds_cx = 403
+  bounds_cy = 280
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.face.fade_direction = gd_up
+  container.face.localprops = [fal_fadirection]
+  container.face.template = tfacecomp1
+  container.bounds = (
+    0
+    0
+    403
+    280
+  )
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  statfile = tstatfile1
+  caption = 'MSEide+MSEgui+Zeos'
+  windowopacity = -Inf
+  moduleclassname = 'tmseform'
+  object tdbnavigator1: tdbnavigator
+    frame.levelo = 1
+    frame.localprops = [frl_levelo]
+    frame.localprops1 = []
+    face.fade_direction = gd_up
+    face.localprops = [fal_fadirection]
+    face.template = tfacecomp1
+    bounds_x = 154
+    bounds_y = 8
+    anchors = [an_top, an_right]
+    datasource = tmsedatasource1
+    dialogbutton.imagenr = 17
+    dialogbutton.hint = 'Dialog'
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+  end
+  object tdbstringgrid1: tdbstringgrid
+    frame.sbvert.facebutton.localprops = []
+    frame.sbvert.facebutton.template = tfacecomp1
+    frame.sbvert.faceendbutton.localprops = []
+    frame.sbvert.faceendbutton.template = tfacecomp1
+    frame.sbvert.pagesize = 0.22222222222222
+    frame.sbhorz.facebutton.fade_direction = gd_down
+    frame.sbhorz.facebutton.localprops = [fal_fadirection]
+    frame.sbhorz.facebutton.template = tfacecomp1
+    frame.sbhorz.faceendbutton.fade_direction = gd_down
+    frame.sbhorz.faceendbutton.localprops = [fal_fadirection]
+    frame.sbhorz.faceendbutton.template = tfacecomp1
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 8
+    bounds_y = 40
+    bounds_cx = 386
+    bounds_cy = 234
+    anchors = [an_left, an_top, an_right, an_bottom]
+    optionsgrid = [og_colsizing, og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_autopopup, og_mousescrollcol]
+    datacols.count = 3
+    datacols.items = <    
+      item
+        width = 70
+        datafield = 'pk'
+        textflags = [tf_right, tf_ycentered, tf_noselect]
+      end    
+      item
+        width = 70
+        datafield = 'int1'
+        textflags = [tf_right, tf_ycentered, tf_noselect]
+      end    
+      item
+        width = 140
+        datafield = 'text1'
+      end>
+    datalink.options = [gdo_propscrollbar, gdo_thumbtrack, gdo_checkbrowsemodeonexit]
+    datalink.datasource = tmsedatasource1
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        face.fade_pos.count = 2
+        face.fade_pos.items = (
+          0
+          1
+        )
+        face.fade_color.count = 2
+        face.fade_color.items = (
+          10794687
+          13951156
+        )
+        face.fade_direction = gd_up
+        face.localprops = [fal_fadirection]
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        face.fade_pos.count = 2
+        face.fade_pos.items = (
+          0
+          1
+        )
+        face.fade_color.count = 2
+        face.fade_color.items = (
+          10794687
+          13951156
+        )
+        face.fade_direction = gd_up
+        face.localprops = [fal_fadirection]
+        height = 17
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'pk'
+          end        
+          item
+            caption = 'int1'
+          end        
+          item
+            caption = 'text1'
+          end>
+      end>
+    datarowheight = 17
+    statfile = tstatfile1
+    reffontheight = 15
+  end
+  object TZConnection1: TZConnection
+    ControlsCodePage = cCP_UTF8
+    AutoEncodeStrings = True
+    Properties.Strings = (
+      'AutoEncodeStrings=True'
+      'controls_cp=CP_UTF8'
+    )
+    Connected = True
+    Port = 0
+    Database = 'test.db'
+    Protocol = 'sqlite-3'
+    left = 8
+    top = 8
+  end
+  object tmsezquery1: tmsezquery
+    Connection = TZConnection1
+    AutocalcFields = True
+    Active = True
+    SQL.Strings = (
+      'select * from table1;'
+    )
+    Params = <>
+    left = 256
+    top = 136
+  end
+  object tmsedatasource1: tmsedatasource
+    DataSet = tmsezquery1
+    left = 256
+    top = 104
+  end
+  object tstatfile1: tstatfile
+    filename = 'status.sta'
+    left = 256
+    top = 176
+  end
+  object tfacecomp1: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      10794687
+      13951156
+    )
+    left = 256
+    top = 64
+  end
+end
