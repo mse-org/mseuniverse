@@ -19,8 +19,8 @@ order16=0
 order17=0
 order18=0
 [projectoptions]
-projectdir=/home/fred/demo_mse/zeos
-projectfilename=/home/fred/demo_mse/zeos/sqlitezeos.prj
+projectdir=/home/fred/mseuniverse/samples/db/zeos
+projectfilename=/home/fred/mseuniverse/samples/db/zeos/sqlitezeos.prj
 findinfiledialog=41
  [findinfileadialogfo.subdirs]
  value=1
@@ -150,7 +150,7 @@ options=114
  value=
  [projectoptionsfo.makegroupbox]
  firsttab=0
- index=2
+ index=1
  [projectoptionsfo.exceptionsgrid]
  propcolwidthref=761
  width0=47
@@ -171,7 +171,7 @@ options=114
  index=1
  [projectoptionsfo.setting_tab]
  firsttab=0
- index=2
+ index=0
  [projectoptionsfo]
  stackedunder=
  x=151
@@ -219,13 +219,15 @@ objpref=-Fo
 targpref=-o
 befcommand=0
 aftcommand=0
-makeoptions=5
- -Xg -Fcutf8 -dmse_with_zeoslib -dMSEgui
+makeoptions=6
+ -Xg -Fcutf8
  -gl
+ -dmse_with_zeoslib -dMSEgui
  -B
  -OG2p3 -XX -Xs
  -FUunits
-makeoptpurpose=5
+makeoptpurpose=6
+ 
  
  
  
@@ -452,11 +454,12 @@ modulenames=1
 moduletypes=1
  TMAINFO
 modulefiles=1
- /home/fred/demo_mse/zeos/main.mfm
+ /home/fred/mseuniverse/samples/db/zeos/main.mfm
 befcommandon=0
-makeoptionson=5
+makeoptionson=6
  63
  31
+ 0
  38
  32
  4095
@@ -534,8 +537,8 @@ project_date=01:38:15 26/07/2021
 project_comment=
 aftcommandon=0
 unitdirson=5
- 983103
- 983103
+ 196608
+ 196608
  65599
  196671
  65599
@@ -616,7 +619,7 @@ gridsizex=8
 gridsizey=8
 autoindent=1
 blockindent=1
-linenumberson=0
+linenumberson=1
 rightmarginon=1
 rightmarginchars=80
 scrollheight=0
@@ -625,7 +628,7 @@ spacetabs=0
 showtabs=0
 tabindent=0
 editfontname=mseide_source
-editfontheight=14
+editfontheight=0
 editfontwidth=0
 editfontextraspace=0
 editfontcolor=-1879048183
@@ -634,9 +637,9 @@ statementcolor=14745599
 pairmarkcolor=-2147483642
 editfontantialiased=1
 editmarkbrackets=1
-editmarkpairwords=0
+editmarkpairwords=1
 fpgdesigner=1
-backupfilecount=2
+backupfilecount=0
 encoding=0
 eolstyle=1
 trimtrailingwhitespace=0
@@ -991,7 +994,7 @@ findhistory=0
 findoptions=1
 editpos=2
  0,-1073741823
- 0,3
+ 0,8
 bookmarks0=0
 bookmarks1=0
 sourcefiles=2
@@ -1004,7 +1007,7 @@ ismoduletexts=2
  0
  0
 modules=1
- /home/fred/demo_mse/zeos/main.mfm
+ /home/fred/mseuniverse/samples/db/zeos/main.mfm
 moduleoptions=1
  0
 visiblemodules=1
@@ -1015,7 +1018,7 @@ nomenumodules=1
 firsttab=0
 index=1
 [layout]
-windowlayout=544
+windowlayout=545
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -1062,7 +1065,7 @@ windowlayout=544
  rcy=0
  wsize=0
  active=0
- visible=0
+ visible=1
  [threadsfo]
  splitdir=0
  useroptions=268451945
@@ -1460,7 +1463,7 @@ windowlayout=544
  nx=0
  ny=0
  ncx=1224
- ncy=70
+ ncy=76
  x=0
  y=0
  cx=1224
@@ -1474,8 +1477,9 @@ windowlayout=544
  [debuggerfo.edit_compiler]
  value=Pascal
  [debuggerfo.file_history]
- value=/home/fred/demo_mse/zeos/main.pas
- history=2
+ value=/home/fred/mseuniverse/samples/db/zeos/main.pas
+ history=3
+  /home/fred/mseuniverse/samples/db/zeos/main.pas
   /home/fred/demo_mse/zeos/main.pas
   ${PROJECTDIR}/main.pas
  [debuggerfo.project_options]
@@ -1544,7 +1548,7 @@ windowlayout=544
  [_mse_mainfo_mse_]
  splitdir=0
  useroptions=268451963
- stackedunder=mainfo
+ stackedunder=targetconsolefo
  parent=
  mdistate=3
  nx=0
