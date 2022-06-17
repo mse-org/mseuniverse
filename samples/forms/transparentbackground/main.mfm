@@ -1,0 +1,122 @@
+object mainfo: tmainfo
+  color = -2147483645
+  bounds_x = 299
+  bounds_y = 283
+  bounds_cx = 288
+  bounds_cy = 233
+  container.color = -2147483645
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    288
+    233
+  )
+  optionswindow = [wo_groupleader, wo_taskbar, wo_alwaysontop]
+  options = [fo_main, fo_terminateonclose, fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  windowopacity = 1
+  oncreate = oncreate
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    bounds_x = 16
+    bounds_y = 40
+    bounds_cx = 74
+    bounds_cy = 53
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Close'
+    onexecute = onexec
+  end
+  object tbutton2: tbutton
+    taborder = 1
+    bounds_x = 104
+    bounds_y = 40
+    bounds_cx = 74
+    bounds_cy = 53
+    state = [as_localcaption]
+    caption = 'Button 2'
+  end
+  object tbutton3: tbutton
+    taborder = 2
+    bounds_x = 192
+    bounds_y = 40
+    bounds_cx = 74
+    bounds_cy = 53
+    state = [as_localcaption]
+    caption = 'Button 3'
+  end
+  object tstringdisp1: tstringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 3
+    bounds_x = 24
+    bounds_y = 8
+    bounds_cy = 27
+    value = 'tstringdisp1'
+    reffontheight = 15
+  end
+  object tedit1: tedit
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 4
+    bounds_x = 152
+    bounds_y = 8
+    bounds_cx = 108
+    bounds_cy = 21
+    text = 'tedit1'
+    reffontheight = 15
+  end
+  object tstringgrid1: tstringgrid
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 5
+    bounds_x = 16
+    bounds_y = 104
+    bounds_cx = 258
+    bounds_cy = 82
+    optionsgrid = [og_rowinserting, og_rowdeleting, og_focuscellonenter, og_autofirstrow, og_autoappend, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
+    datacols.count = 1
+    datacols.items = <    
+      item
+        width = 237
+        datalist.data = (
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 17
+      end>
+    rowcount = 10
+    datarowheight = 16
+    reffontheight = 15
+  end
+  object tbooleanedit1: tbooleanedit
+    frame.caption = 'Booleanedit'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      2
+      73
+      2
+    )
+    taborder = 6
+    bounds_x = 96
+    bounds_y = 198
+    bounds_cx = 86
+    bounds_cy = 17
+  end
+end
