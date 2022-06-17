@@ -21,7 +21,7 @@ order18=0
 [projectoptions]
 projectdir=/home/fred/demo_mse/testtransp
 projectfilename=/home/fred/demo_mse/testtransp/testtransp.prj
-findinfiledialog=58
+findinfiledialog=63
  [findinfileadialogfo.subdirs]
  value=1
  [findinfileadialogfo.incurrentfile]
@@ -42,23 +42,28 @@ findinfiledialog=58
   "*.pas" "*.pp" "*.inc"
  [findinfileadialogfo.dir]
  filenames=1
-  /home/fred/strumpract/src/
+  /home/fred/mseide-msegui/
  filecolwidth=174
  x=0
  y=0
  cx=0
  cy=0
  filehistory=5
-  /home/fred/strumpract/src/
   /home/fred/mseide-msegui/
+  /home/fred/strumpract/src/
   /home/fred/fpc-ootb_322/
   /home/fred/strumpract/
   /home/fred/mseuniverse/
  filefilterindex=0
  filefilter="*.pas" "*.pp" "*.inc"
  [findinfileadialogfo.findtext]
- value=oripoint
- history=15
+ value=nocaret
+ history=20
+  nocaret
+  caret
+  caretcolor
+  tcaret
+  blinkingcaret
   oripoint
   mse_radiuscorner
   GetSystemMetrics
@@ -85,8 +90,8 @@ finddialog=8
  value=0
  [finddialogfo]
  stackedunder=
- x=702
- y=494
+ x=584
+ y=271
  cx=298
  cy=269
 options=114
@@ -787,12 +792,13 @@ envvarons=0
 [edit]
 hintwidth=314
 hintheight=214
-finddtext=mse_formchild
-findhistory=11
+finddtext=restart
+findhistory=12
+ blink
  mse_formchild
+ uses
  wo_transparentbackgroun
  ellipse
- uses
  mse_f
  getchildren
  getchil
@@ -802,8 +808,8 @@ findhistory=11
  var
 findoptions=1
 editpos=2
- 0,45
- 0,0
+ 0,9
+ 0,-1073741823
 bookmarks0=0
 bookmarks1=0
 sourcefiles=2
@@ -827,7 +833,7 @@ nomenumodules=1
 firsttab=0
 index=0
 [layout]
-windowlayout=547
+windowlayout=549
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -841,8 +847,8 @@ windowlayout=547
  ny=0
  ncx=0
  ncy=0
- x=49
- y=73
+ x=95
+ y=94
  cx=1205
  cy=619
  rcx=0
@@ -874,7 +880,7 @@ windowlayout=547
  rcy=0
  wsize=0
  active=0
- visible=0
+ visible=1
  [threadsfo]
  splitdir=0
  useroptions=268451945
@@ -949,8 +955,8 @@ windowlayout=547
  ny=0
  ncx=0
  ncy=0
- x=239
- y=115
+ x=191
+ y=217
  cx=1081
  cy=414
  rcx=0
@@ -1289,12 +1295,14 @@ windowlayout=547
  [debuggerfo.edit_compiler]
  value=Pascal
  [debuggerfo.file_history]
- value=/home/fred/mseide-msegui/lib/common/kernel/windows/mseguiintf.pas
- history=4
-  /home/fred/mseide-msegui/lib/common/kernel/windows/mseguiintf.pas
+ value=/home/fred/demo_mse/testtransp/main.pas
+ history=6
   /home/fred/demo_mse/testtransp/main.pas
+  /home/fred/mseide-msegui/lib/common/kernel/linux/mseguiintf.pas
+  /home/fred/demo_mse/testtransp/mseguiintf.pas
   /home/fred/demo_mse/testtransp/testtransp.pas
-  ${PROJECTDIR}/main.pas
+  /home/fred/uos/examples/uos_mpg123.pas
+  /home/fred/uos/examples/uos_libsndfile.pas
  [debuggerfo.project_options]
  value=1
  [debuggerfo.hints]
@@ -1359,17 +1367,17 @@ windowlayout=547
  [_mse_mainfo_mse_]
  splitdir=0
  useroptions=268451963
- stackedunder=mainfo
+ stackedunder=targetconsolefo
  parent=
  mdistate=3
  nx=0
  ny=0
  ncx=0
  ncy=0
- x=305
- y=297
- cx=301
- cy=279
+ x=333
+ y=275
+ cx=563
+ cy=276
  rcx=0
  rcy=0
  wsize=0

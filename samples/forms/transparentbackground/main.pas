@@ -2,13 +2,12 @@ unit main;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- 
- sysutils, classes, MClasses,msetypes, mseglob, mseguiglob, mseguiintf,msepointer,
- mseapplication, msestat, msemenus,msegui,msegraphics, msegraphutils, mseevent,
- mseclasses, msewidgets, mseforms,msesimplewidgets, msedispwidgets,
+ sysutils, classes, MClasses,msetypes, mseglob, mseguiglob, mseguiintf,
+ msepointer,mseapplication, msestat, msemenus,msegui,msegraphics, msegraphutils,
+ mseevent,mseclasses, msewidgets, mseforms,msesimplewidgets, msedispwidgets,
  mserichstring, mseedit, msestatfile, msestream, msedragglob, msegrids,
  msegridsglob, mseimage, msegraphedits, mseificomp, mseificompglob, mseifiglob,
- msescrollbar;
+ msescrollbar, mseact, msedataedits, msedropdownlist;
  
  
 type
@@ -21,6 +20,8 @@ type
    tstringgrid1: tstringgrid;
    tbooleanedit1: tbooleanedit;
    tpaintbox2: tpaintbox;
+   tstringdisp2: tstringdisp;
+   tmemoedit1: tmemoedit;
    procedure onexec(const sender: TObject);
    procedure oncreate(const sender: TObject);
    procedure onmousepaintbox(const sender: twidget;

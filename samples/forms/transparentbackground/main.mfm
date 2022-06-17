@@ -1,20 +1,18 @@
 object mainfo: tmainfo
-  color = -2147483645
-  bounds_x = 305
-  bounds_y = 297
-  bounds_cx = 291
-  bounds_cy = 279
-  container.color = -2147483645
+  bounds_x = 333
+  bounds_y = 275
+  bounds_cx = 553
+  bounds_cy = 276
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    291
-    279
+    553
+    276
   )
   optionswindow = [wo_groupleader, wo_taskbar, wo_alwaysontop]
-  options = [fo_main, fo_terminateonclose, fo_freeonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  options = [fo_main, fo_terminateonclose, fo_freeonclose, fo_minimized, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
   windowopacity = 1
   oncreate = oncreate
   moduleclassname = 'tmainform'
@@ -59,6 +57,7 @@ object mainfo: tmainfo
     reffontheight = 15
     object tpaintbox2: tpaintbox
       optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
+      color = -2147483645
       frame.localprops = []
       frame.localprops1 = []
       bounds_x = 1
@@ -132,5 +131,28 @@ object mainfo: tmainfo
     bounds_y = 198
     bounds_cx = 86
     bounds_cy = 17
+  end
+  object tstringdisp2: tstringdisp
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 7
+    bounds_x = 300
+    bounds_y = 10
+    bounds_cx = 240
+    bounds_cy = 248
+    reffontheight = 15
+    object tmemoedit1: tmemoedit
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.sbhorz.pagesize = 1
+      frame.sbvert.pagesize = 0.76190476190476
+      bounds_x = 1
+      bounds_y = 1
+      bounds_cx = 238
+      bounds_cy = 246
+      anchors = []
+      value = 'type'#10' tmainfo = class(tmainform)'#10'   tbutton1: tbutton;'#10'   tbutton2: tbutton;'#10'   tbutton3: tbutton;'#10'   tstringdisp1: tstringdisp;'#10'   tedit1: tedit;'#10'   tstringgrid1: tstringgrid;'#10'   tbooleanedit1: tbooleanedit;'#10'   tpaintbox2: tpaintbox;'#10'   tmemoedit1: tmemoedit;'#10'   procedure onexec(const sender: TObject);'#10'   procedure oncreate(const sender: TObject);'#10'   procedure onmousepaintbox(const sender: twidget;'#10'                   var ainfo: mouseeventinfoty);'#10' end;'
+      reffontheight = 15
+    end
   end
 end
